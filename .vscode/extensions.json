@@ -1,0 +1,12 @@
+{
+  "recommendations": [
+    "dbaeumer.vscode-eslint",
+    "mikestead.dotenv",
+    "esbenp.prettier-vscode",
+    "wix.vscode-import-cost",
+    "formulahendry.auto-close-tag",
+    "bradlc.vscode-tailwindcss",
+    "pkief.material-icon-theme",
+    "heybourn.headwind"
+  ]
+}
