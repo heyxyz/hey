@@ -194,6 +194,7 @@ const Picture: React.FC<Props> = ({ profile }) => {
         </div>
         {network.chain?.unsupported ? (
           <Button
+            className="ml-auto"
             variant="danger"
             icon={<SwitchHorizontalIcon className="w-4 h-4" />}
             // @ts-ignore
@@ -203,6 +204,7 @@ const Picture: React.FC<Props> = ({ profile }) => {
           </Button>
         ) : (
           <Button
+            className="ml-auto"
             type="submit"
             disabled={typedDataLoading || signLoading || writeLoading}
             onClick={() => editProfile(avatar)}
