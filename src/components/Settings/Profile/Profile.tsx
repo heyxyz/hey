@@ -64,8 +64,8 @@ const Profile: React.FC<Props> = ({ profile }) => {
       onCompleted() {
         toast.success('Profile updated successfully!')
       },
-      onError() {
-        toast.error(ERROR_MESSAGE)
+      onError(error) {
+        toast.error(error.message ?? ERROR_MESSAGE)
       }
     }
   )

@@ -66,8 +66,8 @@ const Unfollow: React.FC<Props> = ({
           }
         })
       },
-      onError() {
-        toast.error(ERROR_MESSAGE)
+      onError(error) {
+        toast.error(error.message ?? ERROR_MESSAGE)
       }
     }
   )
