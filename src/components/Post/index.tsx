@@ -50,14 +50,13 @@ export const POST_QUERY = gql`
 `
 
 const ViewPost: NextPage = () => {
-  const {
-    query: { id }
-  } = useRouter()
+  const router = useRouter()
   const { currentUser } = useContext(AppContext)
+  const id = router.query.id || []
 
   const { data, loading } = useQuery(POST_QUERY, {
-    variables: { request: { publicationId: id } },
-    skip: !id
+    variables: { request: { publicationId: id[0] } },
+    skip: !id[0]
   })
 
   if (loading || !data) return <PageLoading message="Loading post" />
