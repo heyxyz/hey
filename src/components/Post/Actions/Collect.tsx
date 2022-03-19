@@ -4,6 +4,8 @@ import { Spinner } from '@components/UI/Spinner'
 import { LensterPost } from '@generated/lenstertypes'
 import { CollectionIcon } from '@heroicons/react/outline'
 import { humanize } from '@lib/humanize'
+import { omit } from '@lib/omit'
+import { splitSignature } from '@lib/splitSignature'
 import { motion } from 'framer-motion'
 import toast from 'react-hot-toast'
 import {
@@ -12,14 +14,34 @@ import {
   LENSHUB_PROXY,
   WRONG_NETWORK
 } from 'src/constants'
-import { useAccount, useContractWrite, useNetwork } from 'wagmi'
+import {
+  useAccount,
+  useContractWrite,
+  useNetwork,
+  useSignTypedData
+} from 'wagmi'
 
 const CREATE_COLLECT_TYPED_DATA_MUTATION = gql`
   mutation CreateCollectTypedData($request: CreateCollectRequest!) {
     createCollectTypedData(request: $request) {
       id
+      expiresAt
       typedData {
+        types {
+          CollectWithSig {
+            name
+            type
+          }
+        }
+        domain {
+          name
+          chainId
+          version
+          verifyingContract
+        }
         value {
+          nonce
+          deadline
           profileId
           pubId
           data
@@ -36,34 +58,53 @@ interface Props {
 const Collect: React.FC<Props> = ({ post }) => {
   const [{ data: network }] = useNetwork()
   const [{ data: account }] = useAccount()
+  const [{ loading: signLoading }, signTypedData] = useSignTypedData()
 
   const [{ loading }, write] = useContractWrite(
     {
       addressOrName: LENSHUB_PROXY,
       contractInterface: LensHubProxy
     },
-    'collect'
+    'collectWithSig'
   )
 
   const [createCollectTypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_COLLECT_TYPED_DATA_MUTATION,
     {
-      onCompleted(data: any) {
-        const {
-          profileId,
-          pubId,
-          data: collectData
-        } = data?.createCollectTypedData?.typedData?.value
-        const inputArray = [profileId, pubId, collectData]
+      onCompleted({ createCollectTypedData }: any) {
+        const { typedData } = createCollectTypedData
 
-        console.log(inputArray)
+        signTypedData({
+          domain: omit(typedData?.domain, '__typename'),
+          types: omit(typedData?.types, '__typename'),
+          value: omit(typedData?.value, '__typename')
+        }).then((res) => {
+          if (!res.error) {
+            const { profileId, pubId, data: collectData } = typedData?.value
+            const { v, r, s } = splitSignature(res.data)
+            const inputStruct = {
+              collector: account?.address,
+              profileId,
+              pubId,
+              data: collectData,
+              sig: {
+                v,
+                r,
+                s,
+                deadline: typedData.value.deadline
+              }
+            }
 
-        write({ args: inputArray }).then(({ error }) => {
-          if (!error) {
-            toast.success('Post has been collected!')
+            write({ args: inputStruct }).then(({ error }) => {
+              if (!error) {
+                toast.success('Post has been collected!')
+              } else {
+                // @ts-ignore
+                toast.error(error?.data?.message)
+              }
+            })
           } else {
-            // @ts-ignore
-            toast.error(error?.data?.message)
+            toast.error(res.error?.message)
           }
         })
       },
@@ -93,11 +134,11 @@ const Collect: React.FC<Props> = ({ post }) => {
     <motion.button
       whileTap={{ scale: 0.9 }}
       onClick={createCollect}
-      disabled={typedDataLoading || loading}
+      disabled={typedDataLoading || signLoading || loading}
     >
       <div className="flex items-center space-x-1 text-red-500 hover:red-brand-400">
         <div className="hover:bg-red-300 hover:bg-opacity-20 p-1.5 rounded-full">
-          {typedDataLoading || loading ? (
+          {typedDataLoading || signLoading || loading ? (
             <Spinner variant="danger" size="xs" />
           ) : (
             <CollectionIcon className="w-[18px]" />
