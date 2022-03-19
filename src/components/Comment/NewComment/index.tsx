@@ -165,8 +165,8 @@ const NewComment: React.FC<Props> = ({ post }) => {
           }
         })
       },
-      onError() {
-        toast.error(ERROR_MESSAGE)
+      onError(error) {
+        toast.error(error.message ?? ERROR_MESSAGE)
       }
     }
   )
