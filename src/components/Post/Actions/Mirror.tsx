@@ -64,8 +64,7 @@ const Mirror: React.FC<Props> = ({ post }) => {
   const [{ data: network }] = useNetwork()
   const [{ data: account }] = useAccount()
   const [{ loading: signLoading }, signTypedData] = useSignTypedData()
-
-  const [{ loading }, write] = useContractWrite(
+  const [{ loading: writeLoading }, write] = useContractWrite(
     {
       addressOrName: LENSHUB_PROXY,
       contractInterface: LensHubProxy
@@ -149,11 +148,11 @@ const Mirror: React.FC<Props> = ({ post }) => {
     <motion.button
       whileTap={{ scale: 0.9 }}
       onClick={createMirror}
-      disabled={typedDataLoading || loading}
+      disabled={typedDataLoading || writeLoading}
     >
       <div className="flex items-center space-x-1 text-brand-500 hover:text-brand-400">
         <div className="hover:bg-brand-300 hover:bg-opacity-20 p-1.5 rounded-full">
-          {typedDataLoading || signLoading || loading ? (
+          {typedDataLoading || signLoading || writeLoading ? (
             <Spinner size="xs" />
           ) : (
             <DuplicateIcon className="w-[18px]" />

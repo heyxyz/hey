@@ -64,8 +64,7 @@ const Follow: React.FC<Props> = ({
   const [{ data: network }] = useNetwork()
   const [{ data: account }] = useAccount()
   const [{ loading: signLoading }, signTypedData] = useSignTypedData()
-
-  const [{ loading }, write] = useContractWrite(
+  const [{ loading: writeLoading }, write] = useContractWrite(
     {
       addressOrName: LENSHUB_PROXY,
       contractInterface: LensHubProxy
@@ -136,10 +135,10 @@ const Follow: React.FC<Props> = ({
       className="text-sm !px-3 !py-1.5"
       outline
       onClick={createFollow}
-      disabled={typedDataLoading || signLoading || loading}
+      disabled={typedDataLoading || signLoading || writeLoading}
       variant="success"
       icon={
-        typedDataLoading || signLoading || loading ? (
+        typedDataLoading || signLoading || writeLoading ? (
           <Spinner variant="success" size="xs" />
         ) : (
           <UserAddIcon className="w-4 h-4" />

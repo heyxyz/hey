@@ -63,8 +63,7 @@ const Unfollow: React.FC<Props> = ({
   const [{ data: network }] = useNetwork()
   const [{ data: account }] = useAccount()
   const [{ loading: signLoading }, signTypedData] = useSignTypedData()
-
-  const [{ loading }, write] = useContractWrite(
+  const [{ loading: writeLoading }, write] = useContractWrite(
     {
       addressOrName: FOLLOWNFT,
       contractInterface: FollowNFT
@@ -135,10 +134,10 @@ const Unfollow: React.FC<Props> = ({
       className="text-sm !px-3 !py-1.5"
       outline
       onClick={createUnfollow}
-      disabled={typedDataLoading || signLoading || loading}
+      disabled={typedDataLoading || signLoading || writeLoading}
       variant="danger"
       icon={
-        typedDataLoading || signLoading || loading ? (
+        typedDataLoading || signLoading || writeLoading ? (
           <Spinner variant="danger" size="xs" />
         ) : (
           <UserRemoveIcon className="w-4 h-4" />
