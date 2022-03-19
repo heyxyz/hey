@@ -54,8 +54,10 @@ const Module: React.FC<Props> = ({ module }) => {
         request: { from: data.from, to: data.to, data: data.data }
       }).then(({ error }) => {
         if (!error) {
-          setAllowed(false)
-          toast.success('Module enabled successfully!')
+          setAllowed(value === '0' ? true : false)
+          toast.success(
+            `Module ${value === '0' ? 'disabled' : 'enabled'} successfully!`
+          )
         } else {
           toast.error(error.message)
         }
@@ -103,7 +105,7 @@ const Module: React.FC<Props> = ({ module }) => {
             variant="warning"
             icon={
               queryLoading || transactionLoading ? (
-                <Spinner variant="success" size="xs" />
+                <Spinner variant="warning" size="xs" />
               ) : (
                 <MinusIcon className="w-4 h-4" />
               )
