@@ -1,5 +1,6 @@
 import { Button } from '@components/UI/Button'
 import { TrashIcon } from '@heroicons/react/outline'
+import { getIPFSLink } from '@lib/getIPFSLink'
 import React from 'react'
 
 const getGridRows = (attachments: number) => {
@@ -37,7 +38,9 @@ const Attachments: React.FC<Props> = ({
           {attachments?.map((attachment: any) => (
             <div
               className="aspect-w-16 aspect-h-12"
-              key={isNew ? attachment.item : attachment.original.url}
+              key={
+                isNew ? attachment.item : getIPFSLink(attachment.original.url)
+              }
             >
               {(isNew ? attachment.type : attachment.original.mimeType) ===
               'video/mp4' ? (
@@ -46,15 +49,27 @@ const Attachments: React.FC<Props> = ({
                   className="object-cover bg-gray-100 border rounded-lg dark:bg-gray-800 dark:border-gray-800"
                 >
                   <source
-                    src={isNew ? attachment.item : attachment.original.url}
+                    src={
+                      isNew
+                        ? attachment.item
+                        : getIPFSLink(attachment.original.url)
+                    }
                     type="video/mp4"
                   />
                 </video>
               ) : (
                 <img
                   className="object-cover bg-gray-100 border rounded-lg dark:bg-gray-800 dark:border-gray-800"
-                  src={isNew ? attachment.item : attachment.original.url}
-                  alt={isNew ? attachment.item : attachment.original.url}
+                  src={
+                    isNew
+                      ? attachment.item
+                      : getIPFSLink(attachment.original.url)
+                  }
+                  alt={
+                    isNew
+                      ? attachment.item
+                      : getIPFSLink(attachment.original.url)
+                  }
                 />
               )}
               {isNew && (
