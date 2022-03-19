@@ -4,6 +4,7 @@ import { Card, CardBody } from '@components/UI/Card'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { Spinner } from '@components/UI/Spinner'
 import GetModuleIcon from '@components/utils/GetModuleIcon'
+import { ApprovedAllowanceAmount } from '@generated/types'
 import { MinusIcon, PlusIcon } from '@heroicons/react/outline'
 import { getModule } from '@lib/getModule'
 import React, { useState } from 'react'
@@ -24,7 +25,7 @@ const GENERATE_ALLOWANCE_QUERY = gql`
 `
 
 interface Props {
-  module: any
+  module: ApprovedAllowanceAmount
 }
 
 const Module: React.FC<Props> = ({ module }) => {
@@ -37,14 +38,14 @@ const Module: React.FC<Props> = ({ module }) => {
   const handleAllowance = (
     currencies: string,
     value: string,
-    module: string
+    selectedModule: string
   ) => {
     generateAllowanceQuery({
       variables: {
         request: {
           currency: currencies,
           value: value,
-          collectModule: module
+          [getModule(module.module).type]: selectedModule
         }
       }
     }).then((res) => {
