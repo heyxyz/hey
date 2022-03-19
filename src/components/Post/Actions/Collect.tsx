@@ -3,6 +3,7 @@ import { gql, useMutation } from '@apollo/client'
 import { Spinner } from '@components/UI/Spinner'
 import { LensterPost } from '@generated/lenstertypes'
 import { CollectionIcon } from '@heroicons/react/outline'
+import { getModule } from '@lib/getModule'
 import { humanize } from '@lib/humanize'
 import { omit } from '@lib/omit'
 import { splitSignature } from '@lib/splitSignature'
@@ -98,8 +99,20 @@ const Collect: React.FC<Props> = ({ post }) => {
               if (!error) {
                 toast.success('Post has been collected!')
               } else {
-                // @ts-ignore
-                toast.error(error?.data?.message)
+                if (
+                  // @ts-ignore
+                  error?.data?.message ===
+                  'execution reverted: SafeERC20: low-level call failed'
+                ) {
+                  toast.error(
+                    `Please allow ${
+                      getModule(post.collectModule.type).name
+                    } module in allowance settings`
+                  )
+                } else {
+                  // @ts-ignore
+                  toast.error(error?.data?.message)
+                }
               }
             })
           } else {
