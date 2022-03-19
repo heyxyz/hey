@@ -22,7 +22,7 @@ const CollectModule: React.FC<Props> = ({ module }) => {
         <div>Collect Module</div>
       </div>
       <Card>
-        <CardBody>
+        <CardBody className="space-y-1">
           <div className="space-x-1.5">
             <span>Module:</span>
             <span className="font-bold text-gray-600">
@@ -58,6 +58,7 @@ const CollectModule: React.FC<Props> = ({ module }) => {
             <span>Fee:</span>
             <span className="flex items-center space-x-1.5 font-bold text-gray-600">
               <span>{module.amount.value}</span>
+              <span>{module.amount.asset.symbol}</span>
               <Tooltip content={module.amount.asset.symbol}>
                 <img
                   className="w-5 h-5"
