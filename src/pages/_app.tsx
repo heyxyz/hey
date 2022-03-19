@@ -31,7 +31,7 @@ const connectors = ({ chainId }: ConnectorsConfig) => {
       options: { shimDisconnect: true }
     }),
     new WalletConnectConnector({
-      options: { infuraId: INFURA_ID }
+      options: { infuraId: INFURA_ID, chainId: chain.polygonTestnetMumbai.id }
     }),
     new WalletLinkConnector({
       options: {
