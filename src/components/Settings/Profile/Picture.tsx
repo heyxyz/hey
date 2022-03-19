@@ -43,7 +43,7 @@ const Picture: React.FC<Props> = ({ profile }) => {
     }
   }
 
-  const [{ error, loading }, write] = useContractWrite(
+  const [{ error, loading: writeLoading }, write] = useContractWrite(
     {
       addressOrName: LENSHUB_PROXY,
       contractInterface: LensHubProxy
@@ -115,10 +115,10 @@ const Picture: React.FC<Props> = ({ profile }) => {
         ) : (
           <Button
             type="submit"
-            disabled={loading}
+            disabled={writeLoading}
             onClick={() => editProfile(avatar)}
             icon={
-              loading ? (
+              writeLoading ? (
                 <Spinner size="xs" />
               ) : (
                 <PencilIcon className="w-4 h-4" />

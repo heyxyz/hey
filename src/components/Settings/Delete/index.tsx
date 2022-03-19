@@ -16,7 +16,7 @@ import Sidebar from '../Sidebar'
 const DeleteSettings: React.FC = () => {
   const { currentUser } = useContext(AppContext)
 
-  const [{ loading }, write] = useContractWrite(
+  const [{ loading: writeLoading }, write] = useContractWrite(
     {
       addressOrName: LENSHUB_PROXY,
       contractInterface: LensHubProxy
@@ -58,7 +58,7 @@ const DeleteSettings: React.FC = () => {
             <Button
               variant="danger"
               icon={
-                loading ? (
+                writeLoading ? (
                   <Spinner variant="danger" size="xs" />
                 ) : (
                   <TrashIcon className="w-5 h-5" />
@@ -66,7 +66,7 @@ const DeleteSettings: React.FC = () => {
               }
               onClick={handleDelete}
             >
-              {loading ? 'Deleting...' : 'Delete your account'}
+              {writeLoading ? 'Deleting...' : 'Delete your account'}
             </Button>
           </CardBody>
         </Card>

@@ -101,8 +101,7 @@ const NewComment: React.FC<Props> = ({ post }) => {
   const [{ data: network }, switchNetwork] = useNetwork()
   const [{ data: account }] = useAccount()
   const [{ loading: signLoading }, signTypedData] = useSignTypedData()
-
-  const [{ data, error, loading }, write] = useContractWrite(
+  const [{ data, error, loading: writeLoading }, write] = useContractWrite(
     {
       addressOrName: LENSHUB_PROXY,
       contractInterface: LensHubProxy
@@ -261,13 +260,16 @@ const NewComment: React.FC<Props> = ({ post }) => {
               ) : (
                 <Button
                   disabled={
-                    isUploading || typedDataLoading || signLoading || loading
+                    isUploading ||
+                    typedDataLoading ||
+                    signLoading ||
+                    writeLoading
                   }
                   icon={
                     isUploading ||
                     typedDataLoading ||
                     signLoading ||
-                    loading ? (
+                    writeLoading ? (
                       <Spinner size="xs" />
                     ) : (
                       <ChatAlt2Icon className="w-4 h-4" />
@@ -280,7 +282,7 @@ const NewComment: React.FC<Props> = ({ post }) => {
                     ? 'Generating Comment'
                     : signLoading
                     ? 'Sign'
-                    : loading
+                    : writeLoading
                     ? 'Send'
                     : 'Comment'}
                 </Button>

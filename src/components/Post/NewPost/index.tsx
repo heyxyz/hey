@@ -95,8 +95,7 @@ const NewPost: React.FC = () => {
   const [{ data: network }, switchNetwork] = useNetwork()
   const [{ data: account }] = useAccount()
   const [{ loading: signLoading }, signTypedData] = useSignTypedData()
-
-  const [{ data, error, loading }, write] = useContractWrite(
+  const [{ data, error, loading: writeLoading }, write] = useContractWrite(
     {
       addressOrName: LENSHUB_PROXY,
       contractInterface: LensHubProxy
@@ -250,13 +249,16 @@ const NewPost: React.FC = () => {
               ) : (
                 <Button
                   disabled={
-                    isUploading || typedDataLoading || signLoading || loading
+                    isUploading ||
+                    typedDataLoading ||
+                    signLoading ||
+                    writeLoading
                   }
                   icon={
                     isUploading ||
                     typedDataLoading ||
                     signLoading ||
-                    loading ? (
+                    writeLoading ? (
                       <Spinner size="xs" />
                     ) : (
                       <PencilAltIcon className="w-4 h-4" />
@@ -269,7 +271,7 @@ const NewPost: React.FC = () => {
                     ? 'Generating Post'
                     : signLoading
                     ? 'Sign'
-                    : loading
+                    : writeLoading
                     ? 'Send'
                     : 'Post'}
                 </Button>
