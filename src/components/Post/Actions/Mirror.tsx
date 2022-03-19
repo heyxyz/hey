@@ -63,7 +63,7 @@ const Mirror: React.FC<Props> = ({ post }) => {
   const { currentUser } = useContext(AppContext)
   const [{ data: network }] = useNetwork()
   const [{ data: account }] = useAccount()
-  const [{}, signTypedData] = useSignTypedData()
+  const [{ loading: signLoading }, signTypedData] = useSignTypedData()
 
   const [{ loading }, write] = useContractWrite(
     {
@@ -91,29 +91,32 @@ const Mirror: React.FC<Props> = ({ post }) => {
           types: omit(typedData?.types, '__typename'),
           value: omit(typedData?.value, '__typename')
         }).then((res) => {
-          const { v, r, s } = splitSignature(res.data)
-          const inputStruct = {
-            profileId,
-            profileIdPointed,
-            pubIdPointed,
-            referenceModule,
-            referenceModuleData,
-            sig: {
-              v,
-              r,
-              s,
-              deadline: typedData.value.deadline
+          if (!res.error) {
+            const { v, r, s } = splitSignature(res.data)
+            const inputStruct = {
+              profileId,
+              profileIdPointed,
+              pubIdPointed,
+              referenceModule,
+              referenceModuleData,
+              sig: {
+                v,
+                r,
+                s,
+                deadline: typedData.value.deadline
+              }
             }
-          }
 
-          write({ args: inputStruct }).then(({ error }) => {
-            if (!error) {
-              toast.success('Post has been mirrored!')
-            } else {
-              // @ts-ignore
-              toast.error(error?.data?.message)
-            }
-          })
+            write({ args: inputStruct }).then(({ error }) => {
+              if (!error) {
+                toast.success('Post has been mirrored!')
+              } else {
+                toast.error(error?.message)
+              }
+            })
+          } else {
+            toast.error(res.error?.message)
+          }
         })
       },
       onError() {
@@ -150,7 +153,7 @@ const Mirror: React.FC<Props> = ({ post }) => {
     >
       <div className="flex items-center space-x-1 text-brand-500 hover:text-brand-400">
         <div className="hover:bg-brand-300 hover:bg-opacity-20 p-1.5 rounded-full">
-          {typedDataLoading || loading ? (
+          {typedDataLoading || signLoading || loading ? (
             <Spinner size="xs" />
           ) : (
             <DuplicateIcon className="w-[18px]" />
