@@ -6,6 +6,7 @@ import {
 } from '@generated/types'
 import { CollectionIcon } from '@heroicons/react/outline'
 import { formatUsername } from '@lib/formatUsername'
+import { getModule } from '@lib/getModule'
 import { getTokenImage } from '@lib/getTokenImage'
 import React from 'react'
 
@@ -24,7 +25,9 @@ const CollectModule: React.FC<Props> = ({ module }) => {
         <CardBody>
           <div className="space-x-1.5">
             <span>Module:</span>
-            <span className="font-bold text-gray-600">{module.type}</span>
+            <span className="font-bold text-gray-600">
+              {getModule(module.type).name}
+            </span>
           </div>
           <div className="space-x-1.5">
             <span>Recipient:</span>
