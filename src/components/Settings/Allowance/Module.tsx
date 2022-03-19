@@ -1,12 +1,14 @@
 import { gql, useLazyQuery } from '@apollo/client'
 import { Button } from '@components/UI/Button'
 import { Card, CardBody } from '@components/UI/Card'
+import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { Spinner } from '@components/UI/Spinner'
 import GetModuleIcon from '@components/utils/GetModuleIcon'
 import { MinusIcon, PlusIcon } from '@heroicons/react/outline'
 import { getModule } from '@lib/getModule'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
+import { ERROR_MESSAGE } from 'src/constants'
 import { useTransaction } from 'wagmi'
 
 const GENERATE_ALLOWANCE_QUERY = gql`
@@ -27,9 +29,8 @@ interface Props {
 
 const Module: React.FC<Props> = ({ module }) => {
   const [allowed, setAllowed] = useState<boolean>(module.allowance === '0x00')
-  const [generateAllowanceQuery, { loading: queryLoading }] = useLazyQuery(
-    GENERATE_ALLOWANCE_QUERY
-  )
+  const [generateAllowanceQuery, { loading: queryLoading, error }] =
+    useLazyQuery(GENERATE_ALLOWANCE_QUERY)
 
   const [{ loading: transactionLoading }, sendTransaction] = useTransaction()
 
@@ -63,6 +64,13 @@ const Module: React.FC<Props> = ({ module }) => {
 
   return (
     <Card key={module.module}>
+      {error && (
+        <ErrorMessage
+          className="mx-5 mt-5"
+          title={ERROR_MESSAGE}
+          error={error}
+        />
+      )}
       <CardBody className="flex items-center justify-between">
         <div>
           <div className="flex items-center space-x-3">
