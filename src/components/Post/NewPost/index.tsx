@@ -17,6 +17,8 @@ import {
   FEE_DATA_TYPE,
   getModule
 } from '@lib/getModule'
+import { omit } from '@lib/omit'
+import { splitSignature } from '@lib/splitSignature'
 import { uploadToIPFS } from '@lib/uploadToIPFS'
 import { useContext, useState } from 'react'
 import toast from 'react-hot-toast'
@@ -27,7 +29,12 @@ import {
   WRONG_NETWORK
 } from 'src/constants'
 import { v4 as uuidv4 } from 'uuid'
-import { useAccount, useContractWrite, useNetwork } from 'wagmi'
+import {
+  useAccount,
+  useContractWrite,
+  useNetwork,
+  useSignTypedData
+} from 'wagmi'
 import { object, string } from 'zod'
 
 import SelectCollectModule from '../../Shared/SelectCollectModule'
@@ -37,8 +44,23 @@ const CREATE_POST_TYPED_DATA_MUTATION = gql`
   mutation CreatePostTypedData($request: CreatePublicPostRequest!) {
     createPostTypedData(request: $request) {
       id
+      expiresAt
       typedData {
+        types {
+          PostWithSig {
+            name
+            type
+          }
+        }
+        domain {
+          name
+          chainId
+          version
+          verifyingContract
+        }
         value {
+          nonce
+          deadline
           profileId
           contentURI
           collectModule
@@ -72,19 +94,21 @@ const NewPost: React.FC = () => {
   const { currentUser } = useContext(AppContext)
   const [{ data: network }, switchNetwork] = useNetwork()
   const [{ data: account }] = useAccount()
+  const [{ loading: signLoading }, signTypedData] = useSignTypedData()
 
   const [{ data, error, loading }, write] = useContractWrite(
     {
       addressOrName: LENSHUB_PROXY,
       contractInterface: LensHubProxy
     },
-    'post'
+    'postWithSig'
   )
 
   const [createPostTypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_POST_TYPED_DATA_MUTATION,
     {
-      onCompleted(data: any) {
+      onCompleted({ createPostTypedData }: any) {
+        const { typedData } = createPostTypedData
         const {
           profileId,
           contentURI,
@@ -92,26 +116,42 @@ const NewPost: React.FC = () => {
           collectModuleData,
           referenceModule,
           referenceModuleData
-        } = data?.createPostTypedData?.typedData?.value
+        } = typedData?.value
 
-        const inputStruct = {
-          profileId,
-          contentURI,
-          collectModule,
-          collectModuleData,
-          referenceModule,
-          referenceModuleData
-        }
+        signTypedData({
+          domain: omit(typedData?.domain, '__typename'),
+          types: omit(typedData?.types, '__typename'),
+          value: omit(typedData?.value, '__typename')
+        }).then((res) => {
+          if (!res.error) {
+            const { v, r, s } = splitSignature(res.data)
+            const inputStruct = {
+              profileId,
+              contentURI,
+              collectModule,
+              collectModuleData,
+              referenceModule,
+              referenceModuleData,
+              sig: {
+                v,
+                r,
+                s,
+                deadline: typedData.value.deadline
+              }
+            }
 
-        write({ args: inputStruct }).then(({ error }) => {
-          if (!error) {
-            form.reset()
-            setAttachments([])
-            setSelectedModule(defaultModuleData)
-            setFeeData(defaultFeeData)
+            write({ args: inputStruct }).then(({ error }) => {
+              if (!error) {
+                form.reset()
+                setAttachments([])
+                setSelectedModule(defaultModuleData)
+                setFeeData(defaultFeeData)
+              } else {
+                toast.error(error?.message)
+              }
+            })
           } else {
-            // @ts-ignore
-            toast.error(error?.data?.message)
+            toast.error(res.error?.message)
           }
         })
       },
@@ -209,9 +249,14 @@ const NewPost: React.FC = () => {
                 </Button>
               ) : (
                 <Button
-                  disabled={isUploading || typedDataLoading || loading}
+                  disabled={
+                    isUploading || typedDataLoading || signLoading || loading
+                  }
                   icon={
-                    isUploading || typedDataLoading || loading ? (
+                    isUploading ||
+                    typedDataLoading ||
+                    signLoading ||
+                    loading ? (
                       <Spinner size="xs" />
                     ) : (
                       <PencilAltIcon className="w-4 h-4" />
@@ -222,8 +267,10 @@ const NewPost: React.FC = () => {
                     ? 'Uploading to IPFS'
                     : typedDataLoading
                     ? 'Generating Post'
-                    : loading
+                    : signLoading
                     ? 'Sign'
+                    : loading
+                    ? 'Send'
                     : 'Post'}
                 </Button>
               )}
