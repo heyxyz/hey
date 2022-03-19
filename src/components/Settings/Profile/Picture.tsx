@@ -1,4 +1,5 @@
 import LensHubProxy from '@abis/LensHubProxy.json'
+import { useMutation } from '@apollo/client'
 import ChooseFile from '@components/Shared/ChooseFile'
 import { Button } from '@components/UI/Button'
 import { Card, CardBody } from '@components/UI/Card'
@@ -7,11 +8,55 @@ import { Spinner } from '@components/UI/Spinner'
 import AppContext from '@components/utils/AppContext'
 import { Profile } from '@generated/types'
 import { PencilIcon, SwitchHorizontalIcon } from '@heroicons/react/outline'
+import { omit } from '@lib/omit'
+import { splitSignature } from '@lib/splitSignature'
 import { uploadAssetsToIPFS } from '@lib/uploadAssetsToIPFS'
+import gql from 'graphql-tag'
 import React, { useContext, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
-import { CONNECT_WALLET, LENSHUB_PROXY, WRONG_NETWORK } from 'src/constants'
-import { useAccount, useContractWrite, useNetwork } from 'wagmi'
+import {
+  CONNECT_WALLET,
+  ERROR_MESSAGE,
+  LENSHUB_PROXY,
+  WRONG_NETWORK
+} from 'src/constants'
+import {
+  useAccount,
+  useContractWrite,
+  useNetwork,
+  useSignTypedData
+} from 'wagmi'
+
+const CREATE_SET_PROFILE_IMAGE_URI_TYPED_DATA_MUTATION = gql`
+  mutation CreateSetProfileImageUriTypedData(
+    $request: UpdateProfileImageRequest!
+  ) {
+    createSetProfileImageURITypedData(request: $request) {
+      id
+      expiresAt
+      typedData {
+        domain {
+          name
+          chainId
+          version
+          verifyingContract
+        }
+        types {
+          SetProfileImageURIWithSig {
+            name
+            type
+          }
+        }
+        value {
+          nonce
+          deadline
+          imageURI
+          profileId
+        }
+      }
+    }
+  }
+`
 
 interface Props {
   profile: Profile
@@ -23,6 +68,14 @@ const Picture: React.FC<Props> = ({ profile }) => {
   const { currentUser } = useContext(AppContext)
   const [{ data: network }, switchNetwork] = useNetwork()
   const [{ data: account }] = useAccount()
+  const [{ loading: signLoading }, signTypedData] = useSignTypedData()
+  const [{ error, loading: writeLoading }, write] = useContractWrite(
+    {
+      addressOrName: LENSHUB_PROXY,
+      contractInterface: LensHubProxy
+    },
+    'setProfileImageURIWithSig'
+  )
 
   useEffect(() => {
     // @ts-ignore
@@ -30,6 +83,47 @@ const Picture: React.FC<Props> = ({ profile }) => {
       // @ts-ignore
       setAvatar(profile?.picture?.original?.url)
   }, [profile])
+
+  const [createSetProfileImageURITypedData, { loading: typedDataLoading }] =
+    useMutation(CREATE_SET_PROFILE_IMAGE_URI_TYPED_DATA_MUTATION, {
+      onCompleted({ createSetProfileImageURITypedData }: any) {
+        const { typedData } = createSetProfileImageURITypedData
+
+        signTypedData({
+          domain: omit(typedData?.domain, '__typename'),
+          types: omit(typedData?.types, '__typename'),
+          value: omit(typedData?.value, '__typename')
+        }).then((res) => {
+          if (!res.error) {
+            const { profileId, imageURI } = typedData?.value
+            const { v, r, s } = splitSignature(res.data)
+            const inputStruct = {
+              profileId,
+              imageURI,
+              sig: {
+                v,
+                r,
+                s,
+                deadline: typedData.value.deadline
+              }
+            }
+
+            write({ args: inputStruct }).then(({ error }) => {
+              if (!error) {
+                toast.success('Avatar updated successfully!')
+              } else {
+                toast.error(error?.message)
+              }
+            })
+          } else {
+            toast.error(res.error?.message)
+          }
+        })
+      },
+      onError(error) {
+        toast.error(error.message ?? ERROR_MESSAGE)
+      }
+    })
 
   const handleUpload = async (evt: React.ChangeEvent<HTMLInputElement>) => {
     evt.preventDefault()
@@ -43,14 +137,6 @@ const Picture: React.FC<Props> = ({ profile }) => {
     }
   }
 
-  const [{ error, loading: writeLoading }, write] = useContractWrite(
-    {
-      addressOrName: LENSHUB_PROXY,
-      contractInterface: LensHubProxy
-    },
-    'setProfileImageURI'
-  )
-
   const editProfile = async (avatar: string | undefined) => {
     if (!avatar) {
       toast.error("Avatar can't be empty!")
@@ -59,9 +145,12 @@ const Picture: React.FC<Props> = ({ profile }) => {
     } else if (network.chain?.id !== 80001) {
       toast.error(WRONG_NETWORK)
     } else {
-      write({ args: [currentUser?.id, avatar] }).then((res) => {
-        if (!res.error) {
-          toast.success('Avatar updated successfully!')
+      createSetProfileImageURITypedData({
+        variables: {
+          request: {
+            profileId: currentUser?.id,
+            url: avatar
+          }
         }
       })
     }
@@ -115,10 +204,10 @@ const Picture: React.FC<Props> = ({ profile }) => {
         ) : (
           <Button
             type="submit"
-            disabled={writeLoading}
+            disabled={typedDataLoading || signLoading || writeLoading}
             onClick={() => editProfile(avatar)}
             icon={
-              writeLoading ? (
+              typedDataLoading || signLoading || writeLoading ? (
                 <Spinner size="xs" />
               ) : (
                 <PencilIcon className="w-4 h-4" />
