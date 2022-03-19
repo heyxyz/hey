@@ -19,14 +19,14 @@ export const getModule = (
       }
     case 'LimitedFeeCollectModule':
       return {
-        name: 'Limted Fee Collect',
+        name: 'Limited Fee Collect',
         hasParam: true,
         config: 'limitedFeeCollectModule',
         type: 'collectModule'
       }
     case 'LimitedTimedFeeCollectModule':
       return {
-        name: 'Limted Time Fee Collect',
+        name: 'Limited Time Fee Collect',
         hasParam: true,
         config: 'limitedTimedFeeCollectModule',
         type: 'collectModule'
