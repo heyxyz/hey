@@ -6,6 +6,7 @@ export const getModule = (
   name: string
   hasParam?: boolean
   config?: any
+  type: string
 } => {
   switch (name) {
     // Collect Modules
@@ -13,25 +14,29 @@ export const getModule = (
       return {
         name: 'Fee Collect',
         hasParam: true,
-        config: 'feeCollectModule'
+        config: 'feeCollectModule',
+        type: 'collectModule'
       }
     case 'LimitedFeeCollectModule':
       return {
         name: 'Limted Fee Collect',
         hasParam: true,
-        config: 'limitedFeeCollectModule'
+        config: 'limitedFeeCollectModule',
+        type: 'collectModule'
       }
     case 'LimitedTimedFeeCollectModule':
       return {
         name: 'Limted Time Fee Collect',
         hasParam: true,
-        config: 'limitedTimedFeeCollectModule'
+        config: 'limitedTimedFeeCollectModule',
+        type: 'collectModule'
       }
     case 'TimedFeeCollectModule':
       return {
         name: 'Timed Fee Collect',
         hasParam: true,
-        config: 'timedFeeCollectModule'
+        config: 'timedFeeCollectModule',
+        type: 'collectModule'
       }
     case 'RevertCollectModule':
       return {
@@ -39,7 +44,8 @@ export const getModule = (
         hasParam: false,
         config: {
           revertCollectModule: true
-        }
+        },
+        type: 'collectModule'
       }
     case 'EmptyCollectModule':
       return {
@@ -47,22 +53,25 @@ export const getModule = (
         hasParam: false,
         config: {
           emptyCollectModule: true
-        }
+        },
+        type: 'collectModule'
       }
 
     // Follow modules
     case 'FeeFollowModule':
       return {
-        name: 'Fee Follow'
+        name: 'Fee Follow',
+        type: 'followModule'
       }
 
     // Reference modules
     case 'FollowerOnlyReferenceModule':
       return {
-        name: 'Follower Only Reference'
+        name: 'Follower Only Reference',
+        type: 'referenceModule'
       }
     default:
-      return { name: name }
+      return { name: name, type: 'collectModule' }
   }
 }
 
