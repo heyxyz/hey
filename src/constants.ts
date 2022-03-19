@@ -10,6 +10,7 @@ export const WRONG_NETWORK = 'Please change network to Polygon Mumbai Testnet.'
 
 // URLs
 export const STATIC_ASSETS = 'https://assets.lenster.xyz/images'
+export const API_URL = 'https://api-mumbai.lens.dev'
 
 // Web3
 export const INFURA_ID = '3d19324a72854976a7160e0e2ebc9c2b'
