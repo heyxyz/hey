@@ -11,7 +11,7 @@ import toast from 'react-hot-toast'
 import {
   CONNECT_WALLET,
   ERROR_MESSAGE,
-  FOLLOWNFT,
+  FOLLOW_NFT,
   WRONG_NETWORK
 } from 'src/constants'
 import {
@@ -65,7 +65,7 @@ const Unfollow: React.FC<Props> = ({
   const [{ loading: signLoading }, signTypedData] = useSignTypedData()
   const [{ loading: writeLoading }, write] = useContractWrite(
     {
-      addressOrName: FOLLOWNFT,
+      addressOrName: FOLLOW_NFT,
       contractInterface: FollowNFT
     },
     'burnWithSig'
