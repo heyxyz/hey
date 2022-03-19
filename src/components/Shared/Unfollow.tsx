@@ -4,6 +4,8 @@ import { Button } from '@components/UI/Button'
 import { Spinner } from '@components/UI/Spinner'
 import { Profile } from '@generated/types'
 import { UserRemoveIcon } from '@heroicons/react/outline'
+import { omit } from '@lib/omit'
+import { splitSignature } from '@lib/splitSignature'
 import { Dispatch } from 'react'
 import toast from 'react-hot-toast'
 import {
@@ -12,14 +14,34 @@ import {
   FOLLOWNFT,
   WRONG_NETWORK
 } from 'src/constants'
-import { useAccount, useContractWrite, useNetwork } from 'wagmi'
+import {
+  useAccount,
+  useContractWrite,
+  useNetwork,
+  useSignTypedData
+} from 'wagmi'
 
 const CREATE_UNFOLLOW_TYPED_DATA_MUTATION = gql`
   mutation CreateUnfollowTypedData($request: UnfollowRequest!) {
     createUnfollowTypedData(request: $request) {
       id
+      expiresAt
       typedData {
+        domain {
+          name
+          chainId
+          version
+          verifyingContract
+        }
+        types {
+          BurnWithSig {
+            name
+            type
+          }
+        }
         value {
+          nonce
+          deadline
           tokenId
         }
       }
@@ -40,29 +62,51 @@ const Unfollow: React.FC<Props> = ({
 }) => {
   const [{ data: network }] = useNetwork()
   const [{ data: account }] = useAccount()
+  const [{ loading: signLoading }, signTypedData] = useSignTypedData()
 
   const [{ loading }, write] = useContractWrite(
     {
       addressOrName: FOLLOWNFT,
       contractInterface: FollowNFT
     },
-    'burn'
+    'burnWithSig'
   )
 
   const [createUnfollowTypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_UNFOLLOW_TYPED_DATA_MUTATION,
     {
-      onCompleted(data: any) {
-        const { tokenId } = data?.createUnfollowTypedData?.typedData?.value
-        const inputArray = [tokenId]
+      onCompleted({ createUnfollowTypedData }: any) {
+        const { typedData } = createUnfollowTypedData
 
-        write({ args: inputArray }).then(({ error }) => {
-          if (!error) {
-            setFollowing(false)
-            toast.success('Unfollowed successfully!')
+        signTypedData({
+          domain: omit(typedData?.domain, '__typename'),
+          types: omit(typedData?.types, '__typename'),
+          value: omit(typedData?.value, '__typename')
+        }).then((res) => {
+          if (!res.error) {
+            const { tokenId } = typedData?.value
+            const { v, r, s } = splitSignature(res.data)
+            const inputArray = [
+              tokenId,
+              {
+                v,
+                r,
+                s,
+                deadline: typedData.value.deadline
+              }
+            ]
+
+            write({ args: inputArray }).then(({ error }) => {
+              if (!error) {
+                setFollowing(false)
+                toast.success('Unfollowed successfully!')
+              } else {
+                // @ts-ignore
+                toast.error(error?.data?.message)
+              }
+            })
           } else {
-            // @ts-ignore
-            toast.error(error?.data?.message)
+            toast.error(res.error?.message)
           }
         })
       },
@@ -91,10 +135,10 @@ const Unfollow: React.FC<Props> = ({
       className="text-sm !px-3 !py-1.5"
       outline
       onClick={createUnfollow}
-      disabled={typedDataLoading || loading}
+      disabled={typedDataLoading || signLoading || loading}
       variant="danger"
       icon={
-        typedDataLoading || loading ? (
+        typedDataLoading || signLoading || loading ? (
           <Spinner variant="danger" size="xs" />
         ) : (
           <UserRemoveIcon className="w-4 h-4" />
