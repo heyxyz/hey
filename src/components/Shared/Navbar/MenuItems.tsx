@@ -75,7 +75,7 @@ const MenuItems: React.FC<Props> = ({ indexerData }) => {
                     }
                   >
                     <div>Logged in as</div>
-                    <div>
+                    <div className="truncate">
                       <Slug
                         className="font-bold"
                         slug={currentUser.handle}
@@ -163,7 +163,7 @@ const MenuItems: React.FC<Props> = ({ indexerData }) => {
                                 src={getAvatar(profile)}
                                 alt={profile.handle}
                               />
-                              <div>{profile.handle}</div>
+                              <div className="truncate">{profile.handle}</div>
                             </button>
                           </div>
                         ))}
