@@ -38,7 +38,7 @@ const Signup: React.FC = () => {
   const [avatar, setAvatar] = useState<string>()
   const [uploading, setUploading] = useState<boolean>(false)
   const [{ data: network }, switchNetwork] = useNetwork()
-  const [createProfile, { data, loading, error }] = useMutation(
+  const [createProfile, { data, loading }] = useMutation(
     CREATE_PROFILE_MUTATION
   )
 
