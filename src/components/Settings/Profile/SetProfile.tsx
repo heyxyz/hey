@@ -70,16 +70,21 @@ const SetProfile: React.FC = () => {
     <Card>
       <CardBody className="space-y-4">
         {error && <ErrorMessage title="Transaction failed!" error={error} />}
-        <select
-          className="w-full bg-white border border-gray-300 outline-none rounded-xl dark:bg-gray-800 dark:border-gray-700 focus:border-brand-500 focus:ring-brand-400 disabled:opacity-60 disabled:bg-gray-500 disabled:bg-opacity-20"
-          onChange={(e) => setSelectedUser(e.target.value)}
-        >
-          {data?.profiles?.items?.map((profile: Profile) => (
-            <option key={profile.id} value={profile.id}>
-              @{profile.handle}
-            </option>
-          ))}
-        </select>
+        <div>
+          <div className="mb-1 font-medium text-gray-800 dark:text-gray-200">
+            Select default profile
+          </div>
+          <select
+            className="w-full bg-white border border-gray-300 outline-none rounded-xl dark:bg-gray-800 dark:border-gray-700 focus:border-brand-500 focus:ring-brand-400 disabled:opacity-60 disabled:bg-gray-500 disabled:bg-opacity-20"
+            onChange={(e) => setSelectedUser(e.target.value)}
+          >
+            {data?.profiles?.items?.map((profile: Profile) => (
+              <option key={profile.id} value={profile.id}>
+                @{profile.handle}
+              </option>
+            ))}
+          </select>
+        </div>
         {network.chain?.unsupported ? (
           <Button
             className="ml-auto"
