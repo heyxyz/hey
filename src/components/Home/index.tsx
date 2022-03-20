@@ -1,6 +1,5 @@
 import ExploreFeed from '@components/Explore/Feed'
 import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout'
-import Landing from '@components/Landing'
 import NewPost from '@components/Post/NewPost'
 import Footer from '@components/Shared/Footer'
 import AppContext from '@components/utils/AppContext'
@@ -13,8 +12,6 @@ import Streak from './Streak'
 
 const Home: NextPage = () => {
   const { currentUser } = useContext(AppContext)
-
-  if (!currentUser) return <Landing />
 
   return (
     <GridLayout>

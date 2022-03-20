@@ -16,8 +16,8 @@ export default function Offline() {
         <div className="mb-4">
           Please check your internet connection and reload.
         </div>
-        <Link href="/home" passHref>
-          <a href="/home">
+        <Link href="/" passHref>
+          <a href="/">
             <Button
               className="flex mx-auto item-center"
               size="lg"
