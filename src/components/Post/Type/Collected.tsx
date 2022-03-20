@@ -1,11 +1,11 @@
 import Slug from '@components/Shared/Slug'
-import { LensterPost } from '@generated/lenstertypes'
+import { LensHubPost } from '@generated/lenshubtypes'
 import { CollectionIcon } from '@heroicons/react/outline'
 import Link from 'next/link'
 import React from 'react'
 
 interface Props {
-  post: LensterPost
+  post: LensHubPost
 }
 
 const Collected: React.FC<Props> = ({ post }) => {

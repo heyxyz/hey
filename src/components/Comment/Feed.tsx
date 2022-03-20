@@ -4,7 +4,7 @@ import PostsShimmer from '@components/Shared/Shimmer/PostsShimmer'
 import { EmptyState } from '@components/UI/EmptyState'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { Spinner } from '@components/UI/Spinner'
-import { LensterPost } from '@generated/lenstertypes'
+import { LensHubPost } from '@generated/lenshubtypes'
 import { CommentFragment } from '@gql/CommentFragment'
 import { CollectionIcon } from '@heroicons/react/outline'
 import React from 'react'
@@ -28,7 +28,7 @@ const PROFILE_FEED_QUERY = gql`
 `
 
 interface Props {
-  post: LensterPost
+  post: LensHubPost
 }
 
 const Feed: React.FC<Props> = ({ post }) => {
@@ -71,7 +71,7 @@ const Feed: React.FC<Props> = ({ post }) => {
         <ErrorMessage title="Failed to load comment feed" error={error} />
       )}
       <div className="space-y-3">
-        {data?.publications?.items?.map((post: LensterPost, index: number) => (
+        {data?.publications?.items?.map((post: LensHubPost, index: number) => (
           <SinglePost key={`${post.pubId}_${index}`} post={post} />
         ))}
       </div>

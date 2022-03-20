@@ -4,7 +4,7 @@ import PostsShimmer from '@components/Shared/Shimmer/PostsShimmer'
 import { EmptyState } from '@components/UI/EmptyState'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { Spinner } from '@components/UI/Spinner'
-import { LensterPost } from '@generated/lenstertypes'
+import { LensHubPost } from '@generated/lenshubtypes'
 import { CommentFragment } from '@gql/CommentFragment'
 import { MirrorFragment } from '@gql/MirrorFragment'
 import { PostFragment } from '@gql/PostFragment'
@@ -80,7 +80,7 @@ const Feed: React.FC = () => {
       )}
       <div className="space-y-3">
         {data?.explorePublications?.items?.map(
-          (post: LensterPost, index: number) => (
+          (post: LensHubPost, index: number) => (
             <SinglePost key={`${post.pubId}_${index}`} post={post} />
           )
         )}

@@ -5,7 +5,7 @@ import { EmptyState } from '@components/UI/EmptyState'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { Spinner } from '@components/UI/Spinner'
 import AppContext from '@components/utils/AppContext'
-import { LensterPost } from '@generated/lenstertypes'
+import { LensHubPost } from '@generated/lenshubtypes'
 import { CommentFragment } from '@gql/CommentFragment'
 import { MirrorFragment } from '@gql/MirrorFragment'
 import { PostFragment } from '@gql/PostFragment'
@@ -85,7 +85,7 @@ const Feed: React.FC = () => {
     <>
       {error && <ErrorMessage title="Failed to load home feed" error={error} />}
       <div className="space-y-3">
-        {data?.timeline?.items?.map((post: LensterPost, index: number) => (
+        {data?.timeline?.items?.map((post: LensHubPost, index: number) => (
           <SinglePost key={`${post.pubId}_${index}`} post={post} />
         ))}
       </div>
