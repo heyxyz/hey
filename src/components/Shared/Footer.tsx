@@ -4,7 +4,7 @@ const Footer: React.FC = () => {
   return (
     <footer className="sticky flex flex-wrap px-3 mt-4 text-sm leading-7 lg:px-0 top-20">
       <span className="pr-3 font-bold text-gray-500 dark:text-gray-300">
-        © Lenster
+        © LensHub
       </span>
       <span className="pr-3">
         <Link href="/about" passHref>
@@ -23,7 +23,7 @@ const Footer: React.FC = () => {
       </span>
       <a
         className="pr-3"
-        href="https://gitlab.com/lenster/lenster"
+        href="https://gitlab.com/lenshub/lenshub"
         target="_blank"
         rel="noreferrer"
       >
@@ -36,7 +36,7 @@ const Footer: React.FC = () => {
       </span>
       <a
         className="pr-3"
-        href="https://gitlab.com/lenster/lenster"
+        href="https://gitlab.com/lenshub/lenshub"
         target="_blank"
         rel="noreferrer"
       >
@@ -44,7 +44,7 @@ const Footer: React.FC = () => {
       </a>
       <a
         className="pr-3 hover:font-bold"
-        href="https://vercel.com/?utm_source=Lenster&utm_campaign=oss"
+        href="https://vercel.com/?utm_source=LensHub&utm_campaign=oss"
         target="_blank"
         rel="noreferrer"
       >

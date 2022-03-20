@@ -1,6 +1,7 @@
 import { Card, CardBody } from '@components/UI/Card'
 import { Nft } from '@generated/types'
 import React from 'react'
+import { STATIC_ASSETS } from 'src/constants'
 
 interface Props {
   nft: Nft
@@ -15,7 +16,7 @@ const SingleNFT: React.FC<Props> = ({ nft }) => {
           backgroundImage: `url(${
             nft.originalContent.uri
               ? nft.originalContent.uri
-              : 'https://assets.lenster.xyz/images/placeholder.webp'
+              : `${STATIC_ASSETS}/placeholder.webp`
           })`,
           backgroundSize: 'cover',
           backgroundPosition: 'center center',
