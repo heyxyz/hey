@@ -7,6 +7,7 @@ import { NextPage } from 'next'
 import React, { useContext } from 'react'
 
 import HomeFeed from './Feed'
+import Hero from './Hero'
 import RecommendedProfiles from './RecommendedProfiles'
 import Streak from './Streak'
 
@@ -14,17 +15,20 @@ const Home: NextPage = () => {
   const { currentUser } = useContext(AppContext)
 
   return (
-    <GridLayout>
-      <GridItemEight className="space-y-5">
-        {currentUser && <NewPost />}
-        {currentUser ? <HomeFeed /> : <ExploreFeed />}
-      </GridItemEight>
-      <GridItemFour>
-        {currentUser && <Streak />}
-        <RecommendedProfiles />
-        <Footer />
-      </GridItemFour>
-    </GridLayout>
+    <>
+      {!currentUser && <Hero />}
+      <GridLayout>
+        <GridItemEight className="space-y-5">
+          {currentUser && <NewPost />}
+          {currentUser ? <HomeFeed /> : <ExploreFeed />}
+        </GridItemEight>
+        <GridItemFour>
+          {currentUser && <Streak />}
+          <RecommendedProfiles />
+          <Footer />
+        </GridItemFour>
+      </GridLayout>
+    </>
   )
 }
 
