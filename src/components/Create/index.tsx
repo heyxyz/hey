@@ -1,5 +1,5 @@
 import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout'
-import Signup from '@components/Landing/Signup'
+import Signup from '@components/Shared/Navbar/Login/Create'
 import SettingsHelper from '@components/Shared/SettingsHelper'
 import AppContext from '@components/utils/AppContext'
 import React, { useContext } from 'react'

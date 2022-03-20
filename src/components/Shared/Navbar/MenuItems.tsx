@@ -1,4 +1,5 @@
 import { Button } from '@components/UI/Button'
+import { Modal } from '@components/UI/Modal'
 import AppContext from '@components/utils/AppContext'
 import { Profile } from '@generated/types'
 import { Menu, Transition } from '@headlessui/react'
@@ -12,10 +13,11 @@ import { getAvatar } from '@lib/getAvatar'
 import clsx from 'clsx'
 import Link from 'next/link'
 import { useTheme } from 'next-themes'
-import { Fragment, useContext } from 'react'
+import { Fragment, useContext, useState } from 'react'
 import { useAccount, useNetwork } from 'wagmi'
 
 import Slug from '../Slug'
+import Login from './Login'
 
 const NextLink = ({ href, children, ...rest }: Record<string, any>) => (
   <Link href={href} passHref>
@@ -30,6 +32,7 @@ interface Props {
 }
 
 const MenuItems: React.FC<Props> = ({ indexerData }) => {
+  const [showLoginModal, setShowLoginModal] = useState<boolean>(false)
   const { theme, setTheme } = useTheme()
   const [{ data: network }, switchNetwork] = useNetwork()
   const [{}, disconnect] = useAccount()
@@ -224,9 +227,18 @@ const MenuItems: React.FC<Props> = ({ indexerData }) => {
           Switch Network
         </Button>
       ) : (
-        <Link href="/" passHref>
-          <Button>Login</Button>
-        </Link>
+        <>
+          <Modal
+            title="Login"
+            show={showLoginModal}
+            onClose={() => setShowLoginModal(!showLoginModal)}
+          >
+            <Login />
+          </Modal>
+          <Button onClick={() => setShowLoginModal(!showLoginModal)}>
+            Login
+          </Button>
+        </>
       )}
     </>
   )
