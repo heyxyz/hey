@@ -1,0 +1,15 @@
+version: 2
+updates:
+  - package-ecosystem: 'npm'
+    directory: '/'
+    schedule:
+      interval: 'daily'
+    commit-message:
+      prefix: '⬆️ deps:'
+      prefix-development: '⬆️ deps(dev):'
+    assignees:
+      - yo
+    reviewers:
+      - yo
+    open-pull-requests-limit: 69
+    rebase-strategy: auto
