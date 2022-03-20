@@ -16,20 +16,18 @@ const IFramely: React.FC<Props> = ({ url }) => {
         `https://iframe.ly/api/iframely?api_key=258c8580bd477c9b886b49&url=${url}`
       )
         .then((res) => res.json())
-        .then(
-          (res) => {
-            setIsLoaded(true)
-            if (res) {
-              setData(res)
-            } else if (res.error) {
-              setError(true)
-            }
-          },
-          () => {
-            setIsLoaded(true)
+        .then((res) => {
+          setIsLoaded(true)
+          if (!res.error) {
+            setData(res)
+          } else {
             setError(true)
           }
-        )
+        })
+        .catch(() => {
+          setIsLoaded(true)
+          setError(true)
+        })
     } else {
       setError(true)
     }
@@ -39,6 +37,8 @@ const IFramely: React.FC<Props> = ({ url }) => {
     // @ts-ignore
     window.iframely && window.iframely.load()
   })
+
+  console.log(error)
 
   if (error || !isLoaded) {
     return null
