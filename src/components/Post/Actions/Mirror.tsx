@@ -17,6 +17,7 @@ import {
   WRONG_NETWORK
 } from 'src/constants'
 import {
+  chain,
   useAccount,
   useContractWrite,
   useNetwork,
@@ -127,7 +128,7 @@ const Mirror: React.FC<Props> = ({ post }) => {
   const createMirror = async () => {
     if (!account?.address) {
       toast.error(CONNECT_WALLET)
-    } else if (network.chain?.id !== 80001) {
+    } else if (network.chain?.id !== chain.polygonTestnetMumbai.id) {
       toast.error(WRONG_NETWORK)
     } else {
       createMirrorTypedData({

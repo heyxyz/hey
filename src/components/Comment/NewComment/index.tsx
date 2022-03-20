@@ -34,6 +34,7 @@ import {
 } from 'src/constants'
 import { v4 as uuidv4 } from 'uuid'
 import {
+  chain,
   useAccount,
   useContractWrite,
   useNetwork,
@@ -174,7 +175,7 @@ const NewComment: React.FC<Props> = ({ post }) => {
   const createComment = async (comment: string) => {
     if (!account?.address) {
       toast.error(CONNECT_WALLET)
-    } else if (network.chain?.id !== 80001) {
+    } else if (network.chain?.id !== chain.polygonTestnetMumbai.id) {
       toast.error(WRONG_NETWORK)
     } else {
       setIsUploading(true)

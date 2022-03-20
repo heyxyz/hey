@@ -8,6 +8,7 @@ import { Nft, Profile } from '@generated/types'
 import { CollectionIcon } from '@heroicons/react/outline'
 import React from 'react'
 import useInView from 'react-cool-inview'
+import { chain } from 'wagmi'
 
 const PROFILE_NFT_FEED_QUERY = gql`
   query ProfileNFTFeed($request: NFTsRequest!) {
@@ -37,7 +38,7 @@ const NFTFeed: React.FC<Props> = ({ profile }) => {
   const { data, loading, error, fetchMore } = useQuery(PROFILE_NFT_FEED_QUERY, {
     variables: {
       request: {
-        chainIds: [80001, 42],
+        chainIds: [chain.polygonTestnetMumbai.id, chain.rinkeby.id],
         ownerAddress: profile?.ownedBy,
         limit: 10
       }
@@ -52,7 +53,7 @@ const NFTFeed: React.FC<Props> = ({ profile }) => {
       fetchMore({
         variables: {
           request: {
-            chainIds: [80001, 42],
+            chainIds: [chain.polygonTestnetMumbai.id, chain.rinkeby.id],
             ownerAddress: profile?.ownedBy,
             cursor: pageInfo?.next,
             limit: 10
