@@ -38,7 +38,7 @@ const NFTFeed: React.FC<Props> = ({ profile }) => {
   const { data, loading, error, fetchMore } = useQuery(PROFILE_NFT_FEED_QUERY, {
     variables: {
       request: {
-        chainIds: [chain.polygonTestnetMumbai.id, chain.rinkeby.id],
+        chainIds: [chain.polygonTestnetMumbai.id, chain.kovan.id],
         ownerAddress: profile?.ownedBy,
         limit: 10
       }
@@ -53,7 +53,7 @@ const NFTFeed: React.FC<Props> = ({ profile }) => {
       fetchMore({
         variables: {
           request: {
-            chainIds: [chain.polygonTestnetMumbai.id, chain.rinkeby.id],
+            chainIds: [chain.polygonTestnetMumbai.id, chain.kovan.id],
             ownerAddress: profile?.ownedBy,
             cursor: pageInfo?.next,
             limit: 10
