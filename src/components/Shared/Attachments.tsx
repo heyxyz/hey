@@ -1,13 +1,16 @@
 import { Button } from '@components/UI/Button'
 import { TrashIcon } from '@heroicons/react/outline'
 import { getIPFSLink } from '@lib/getIPFSLink'
+import clsx from 'clsx'
 import React from 'react'
 
 const getGridRows = (attachments: number) => {
-  if (attachments > 2) {
-    return 'grid grid-flow-col grid-cols-2 grid-rows-2 gap-2 pt-3'
-  } else {
-    return 'grid grid-flow-col grid-cols-2 grid-rows1 gap-2 pt-3'
+  if (attachments === 1) {
+    return 'grid-cols-1 grid-rows-1'
+  } else if (attachments === 2) {
+    return 'grid-cols-2 grid-rows-1'
+  } else if (attachments > 2) {
+    return 'grid-cols-2 grid-rows-2'
   }
 }
 
@@ -34,7 +37,12 @@ const Attachments: React.FC<Props> = ({
   return (
     <>
       {attachments?.length !== 0 && (
-        <div className={getGridRows(attachments?.length)}>
+        <div
+          className={clsx(
+            getGridRows(attachments?.length),
+            'grid grid-flow-col gap-2 pt-3'
+          )}
+        >
           {attachments?.map((attachment: any) => (
             <div
               className="aspect-w-16 aspect-h-12"
