@@ -6,10 +6,13 @@ import { Menu, Transition } from '@headlessui/react'
 import {
   CogIcon,
   LogoutIcon,
+  ShieldCheckIcon,
+  ShieldExclamationIcon,
   SwitchHorizontalIcon,
   UserIcon
 } from '@heroicons/react/outline'
 import { getAvatar } from '@lib/getAvatar'
+import { isStaff } from '@lib/isStaff'
 import clsx from 'clsx'
 import Link from 'next/link'
 import { useTheme } from 'next-themes'
@@ -37,8 +40,19 @@ const MenuItems: React.FC<Props> = ({ indexerData }) => {
   const { theme, setTheme } = useTheme()
   const [{ data: network }, switchNetwork] = useNetwork()
   const [{}, disconnect] = useAccount()
-  const { profiles, currentUser, currentUserLoading, setSelectedProfile } =
-    useContext(AppContext)
+  const {
+    staffMode,
+    setStaffMode,
+    profiles,
+    currentUser,
+    currentUserLoading,
+    setSelectedProfile
+  } = useContext(AppContext)
+
+  const toggleStaffMode = () => {
+    localStorage.setItem('staffMode', String(!staffMode))
+    setStaffMode(!staffMode)
+  }
 
   return (
     <>
@@ -195,6 +209,33 @@ const MenuItems: React.FC<Props> = ({ indexerData }) => {
                       💻
                     </button>
                   </div>
+                  {isStaff(currentUser.handle) && (
+                    <>
+                      <div className="border-b dark:border-gray-800" />
+                      <Menu.Item
+                        as="div"
+                        onClick={toggleStaffMode}
+                        className={({ active }: { active: boolean }) =>
+                          clsx(
+                            { 'bg-yellow-100 dark:bg-yellow-800': active },
+                            'block px-4 py-1.5 text-sm text-gray-700 dark:text-gray-200 m-2 rounded-lg cursor-pointer'
+                          )
+                        }
+                      >
+                        {staffMode ? (
+                          <div className="flex items-center space-x-1.5">
+                            <div>Disable staff mode</div>
+                            <ShieldExclamationIcon className="w-4 h-4 text-green-600" />
+                          </div>
+                        ) : (
+                          <div className="flex items-center space-x-1.5">
+                            <div>Enable staff mode</div>
+                            <ShieldCheckIcon className="w-4 h-4 text-red-500" />
+                          </div>
+                        )}
+                      </Menu.Item>
+                    </>
+                  )}
                   {indexerData && (
                     <>
                       <div className="border-b dark:border-gray-800" />
