@@ -1,7 +1,7 @@
 import 'linkify-plugin-mention'
 
 import Attachments from '@components/Shared/Attachments'
-import IFramely from '@components/Shared/Iframely'
+import IFramely from '@components/Shared/IFramely'
 import UserProfile from '@components/Shared/UserProfile'
 import { Card, CardBody } from '@components/UI/Card'
 import { LensHubPost } from '@generated/lenshubtypes'
