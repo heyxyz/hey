@@ -76,7 +76,7 @@ const Search = () => {
                     <UserProfile profile={profile} />
                   </div>
                 ))}
-                {searchUsersData?.length === 0 && (
+                {searchUsersData?.search?.items?.length === 0 && (
                   <div className="px-4 py-2">No matching users</div>
                 )}
               </div>
