@@ -31,7 +31,7 @@ const IFramely: React.FC<Props> = ({ url }) => {
     } else {
       setError(true)
     }
-  }, [])
+  }, [url])
 
   useEffect(() => {
     // @ts-ignore
