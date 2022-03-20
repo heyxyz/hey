@@ -2,6 +2,7 @@ import LensHubProxy from '@abis/LensHubProxy.json'
 import { gql, useMutation } from '@apollo/client'
 import Attachments from '@components/Shared/Attachments'
 import IndexStatus from '@components/Shared/IndexStatus'
+import SwitchNetwork from '@components/Shared/SwitchNetwork'
 import { Button } from '@components/UI/Button'
 import { Card, CardBody } from '@components/UI/Card'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
@@ -10,7 +11,7 @@ import { Spinner } from '@components/UI/Spinner'
 import { TextArea } from '@components/UI/TextArea'
 import AppContext from '@components/utils/AppContext'
 import { EnabledModule } from '@generated/types'
-import { PencilAltIcon, SwitchHorizontalIcon } from '@heroicons/react/outline'
+import { PencilAltIcon } from '@heroicons/react/outline'
 import {
   defaultFeeData,
   defaultModuleData,
@@ -237,15 +238,7 @@ const NewPost: React.FC = () => {
             <div className="flex items-center ml-auto space-x-2">
               {data?.hash && <IndexStatus txHash={data?.hash} />}
               {network.chain?.unsupported ? (
-                <Button
-                  type="button"
-                  variant="danger"
-                  icon={<SwitchHorizontalIcon className="w-4 h-4" />}
-                  // @ts-ignore
-                  onClick={() => switchNetwork(80001)}
-                >
-                  Switch Network
-                </Button>
+                <SwitchNetwork />
               ) : (
                 <Button
                   disabled={

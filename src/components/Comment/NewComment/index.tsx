@@ -4,6 +4,7 @@ import Attachment from '@components/Post/NewPost/Attachment'
 import Attachments from '@components/Shared/Attachments'
 import IndexStatus from '@components/Shared/IndexStatus'
 import SelectCollectModule from '@components/Shared/SelectCollectModule'
+import SwitchNetwork from '@components/Shared/SwitchNetwork'
 import { Button } from '@components/UI/Button'
 import { Card, CardBody } from '@components/UI/Card'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
@@ -13,7 +14,7 @@ import { TextArea } from '@components/UI/TextArea'
 import AppContext from '@components/utils/AppContext'
 import { LensHubPost } from '@generated/lenshubtypes'
 import { EnabledModule } from '@generated/types'
-import { ChatAlt2Icon, SwitchHorizontalIcon } from '@heroicons/react/outline'
+import { ChatAlt2Icon } from '@heroicons/react/outline'
 import {
   defaultFeeData,
   defaultModuleData,
@@ -248,15 +249,7 @@ const NewComment: React.FC<Props> = ({ post }) => {
             <div className="flex items-center ml-auto space-x-2">
               {data?.hash && <IndexStatus txHash={data?.hash} />}
               {network.chain?.unsupported ? (
-                <Button
-                  type="button"
-                  variant="danger"
-                  icon={<SwitchHorizontalIcon className="w-4 h-4" />}
-                  // @ts-ignore
-                  onClick={() => switchNetwork(80001)}
-                >
-                  Switch Network
-                </Button>
+                <SwitchNetwork />
               ) : (
                 <Button
                   disabled={

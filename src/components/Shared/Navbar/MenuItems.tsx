@@ -17,6 +17,7 @@ import { Fragment, useContext, useState } from 'react'
 import { useAccount, useNetwork } from 'wagmi'
 
 import Slug from '../Slug'
+import SwitchNetwork from '../SwitchNetwork'
 import Login from './Login'
 
 const NextLink = ({ href, children, ...rest }: Record<string, any>) => (
@@ -219,13 +220,7 @@ const MenuItems: React.FC<Props> = ({ indexerData }) => {
           )}
         </Menu>
       ) : network.chain?.unsupported && switchNetwork ? (
-        <Button
-          variant="danger"
-          icon={<SwitchHorizontalIcon className="w-4 h-4" />}
-          onClick={() => switchNetwork(80001)}
-        >
-          Switch Network
-        </Button>
+        <SwitchNetwork />
       ) : (
         <>
           <Modal

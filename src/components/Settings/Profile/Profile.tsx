@@ -1,5 +1,6 @@
 import { gql, useMutation } from '@apollo/client'
 import ChooseFile from '@components/Shared/ChooseFile'
+import SwitchNetwork from '@components/Shared/SwitchNetwork'
 import { Button } from '@components/UI/Button'
 import { Card, CardBody } from '@components/UI/Card'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
@@ -9,7 +10,7 @@ import { Spinner } from '@components/UI/Spinner'
 import { TextArea } from '@components/UI/TextArea'
 import AppContext from '@components/utils/AppContext'
 import { Profile } from '@generated/types'
-import { PencilIcon, SwitchHorizontalIcon } from '@heroicons/react/outline'
+import { PencilIcon } from '@heroicons/react/outline'
 import { uploadAssetsToIPFS } from '@lib/uploadAssetsToIPFS'
 import React, { useContext, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
@@ -196,14 +197,7 @@ const Profile: React.FC<Props> = ({ profile }) => {
           </div>
           <div className="ml-auto">
             {network.chain?.unsupported ? (
-              <Button
-                variant="danger"
-                icon={<SwitchHorizontalIcon className="w-4 h-4" />}
-                // @ts-ignore
-                onClick={() => switchNetwork(80001)}
-              >
-                Switch Network
-              </Button>
+              <SwitchNetwork />
             ) : (
               <Button
                 type="submit"
