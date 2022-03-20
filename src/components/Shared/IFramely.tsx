@@ -38,8 +38,6 @@ const IFramely: React.FC<Props> = ({ url }) => {
     window.iframely && window.iframely.load()
   })
 
-  console.log(error)
-
   if (error || !isLoaded) {
     return null
   } else {
