@@ -1,1 +1,1 @@
-export const verified = ['yoginth', 'filip', 'peter', 'hellolens']
+export const verified = ['yoginth', 'devjoshstevens']

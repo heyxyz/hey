@@ -104,7 +104,7 @@ const Profile: React.FC<Props> = ({ profile }) => {
   })
 
   return (
-    <Card className="space-y-5">
+    <Card>
       <CardBody className="space-y-4">
         <Form
           form={form}
