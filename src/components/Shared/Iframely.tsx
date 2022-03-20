@@ -59,7 +59,7 @@ const IFramely: React.FC<Props> = ({ url }) => {
           <Card>
             {!isSquare && thumbnail && (
               <img
-                className="w-full rounded-t-xl"
+                className="w-full border-b rounded-t-xl"
                 src={thumbnail}
                 alt="Thumbnail"
               />
@@ -67,7 +67,7 @@ const IFramely: React.FC<Props> = ({ url }) => {
             <div className="flex items-center">
               {isSquare && thumbnail && (
                 <img
-                  className="h-32 rounded-l-xl"
+                  className="h-32 border-r rounded-l-xl"
                   src={thumbnail}
                   alt="Thumbnail"
                 />
