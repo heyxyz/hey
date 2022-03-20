@@ -11,6 +11,7 @@ import { HashtagIcon, LocationMarkerIcon } from '@heroicons/react/outline'
 import { BadgeCheckIcon } from '@heroicons/react/solid'
 import { formatUsername } from '@lib/formatUsername'
 import { getAvatar } from '@lib/getAvatar'
+import { isStaff } from '@lib/isStaff'
 import { isVerified } from '@lib/isVerified'
 import { linkifyOptions } from '@lib/linkifyOptions'
 import dayjs from 'dayjs'
@@ -23,6 +24,7 @@ import { useEnsLookup } from 'wagmi'
 
 import DoesFollow from './DoesFollow'
 import Followerings from './Followerings'
+import ProfileMod from './Mod'
 
 dayjs.extend(relativeTime)
 
@@ -40,7 +42,7 @@ interface Props {
 
 const Details: React.FC<Props> = ({ profile }) => {
   const [following, setFollowing] = useState<boolean>(false)
-  const { currentUser } = useContext(AppContext)
+  const { currentUser, staffMode } = useContext(AppContext)
   const [{ data: ensName }] = useEnsLookup({ address: profile?.ownedBy })
   const { resolvedTheme } = useTheme()
   const { data: followData, loading: followLoading } = useQuery(
@@ -138,6 +140,11 @@ const Details: React.FC<Props> = ({ profile }) => {
               </MetaDetails>
             )}
           </div>
+          {isStaff(profile.handle) && (
+            <div className="px-2 rounded-lg shadow-sm py-0.5 text-sm text-white bg-brand-500 w-fit">
+              Staff
+            </div>
+          )}
           <div className="space-y-2.5">
             {profile?.website && (
               <MetaDetails
@@ -192,6 +199,9 @@ const Details: React.FC<Props> = ({ profile }) => {
             )}
           </div>
         </div>
+        {isStaff(currentUser?.handle) && staffMode && (
+          <ProfileMod profile={profile} />
+        )}
       </div>
     </div>
   )
