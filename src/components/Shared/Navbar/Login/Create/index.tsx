@@ -1,11 +1,12 @@
 import { gql, useMutation } from '@apollo/client'
 import ChooseFile from '@components/Shared/ChooseFile'
+import SwitchNetwork from '@components/Shared/SwitchNetwork'
 import { Button } from '@components/UI/Button'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { Form, useZodForm } from '@components/UI/Form'
 import { Input } from '@components/UI/Input'
 import { Spinner } from '@components/UI/Spinner'
-import { PlusIcon, SwitchHorizontalIcon } from '@heroicons/react/outline'
+import { PlusIcon } from '@heroicons/react/outline'
 import { uploadAssetsToIPFS } from '@lib/uploadAssetsToIPFS'
 import React, { useState } from 'react'
 import { useNetwork } from 'wagmi'
@@ -124,14 +125,7 @@ const Create: React.FC = () => {
           </div>
           <div className="ml-auto">
             {network.chain?.unsupported ? (
-              <Button
-                variant="danger"
-                icon={<SwitchHorizontalIcon className="w-4 h-4" />}
-                // @ts-ignore
-                onClick={() => switchNetwork(80001)}
-              >
-                Switch Network
-              </Button>
+              <SwitchNetwork />
             ) : (
               <Button
                 type="submit"

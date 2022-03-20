@@ -1,12 +1,13 @@
 import LensHubProxy from '@abis/LensHubProxy.json'
 import { gql, useQuery } from '@apollo/client'
+import SwitchNetwork from '@components/Shared/SwitchNetwork'
 import { Button } from '@components/UI/Button'
 import { Card, CardBody } from '@components/UI/Card'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { Spinner } from '@components/UI/Spinner'
 import AppContext from '@components/utils/AppContext'
 import { Profile } from '@generated/types'
-import { PencilIcon, SwitchHorizontalIcon } from '@heroicons/react/outline'
+import { PencilIcon } from '@heroicons/react/outline'
 import React, { useContext, useState } from 'react'
 import toast from 'react-hot-toast'
 import { CONNECT_WALLET, LENSHUB_PROXY, WRONG_NETWORK } from 'src/constants'
@@ -86,15 +87,7 @@ const SetProfile: React.FC = () => {
           </select>
         </div>
         {network.chain?.unsupported ? (
-          <Button
-            className="ml-auto"
-            variant="danger"
-            icon={<SwitchHorizontalIcon className="w-4 h-4" />}
-            // @ts-ignore
-            onClick={() => switchNetwork(80001)}
-          >
-            Switch Network
-          </Button>
+          <SwitchNetwork className="ml-auto" />
         ) : (
           <Button
             className="ml-auto"
