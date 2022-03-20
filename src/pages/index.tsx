@@ -1,3 +1,3 @@
-import Landing from '@components/Landing'
+import Home from '@components/Home'
 
-export default Landing
+export default Home

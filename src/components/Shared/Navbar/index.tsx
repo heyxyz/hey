@@ -50,7 +50,7 @@ const Navbar: React.FC = () => {
 
     return (
       <>
-        <NavItem url="/home" name="Home" current={router.pathname == '/home'} />
+        <NavItem url="/" name="Home" current={router.pathname == '/'} />
         <NavItem
           url="/explore"
           name="Explore"
@@ -66,8 +66,8 @@ const Navbar: React.FC = () => {
         <div className="relative flex items-center justify-between h-14 sm:h-16">
           <div className="flex items-center justify-start flex-1">
             <div className="flex items-center flex-shrink-0 space-x-3">
-              <Link href="/home">
-                <a href="/home">
+              <Link href="/">
+                <a href="/">
                   <div className="text-3xl font-black">
                     <img className="w-8 h-8" src="/logo.svg" alt="Logo" />
                   </div>

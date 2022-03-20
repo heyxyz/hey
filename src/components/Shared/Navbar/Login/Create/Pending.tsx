@@ -19,7 +19,7 @@ const Pending: React.FC<Props> = ({ handle, txHash }) => {
   })
 
   return (
-    <div className="px-5 py-2 font-bold text-center">
+    <div className="p-5 font-bold text-center">
       {loading || !data?.hasTxHashBeenIndexed?.indexed ? (
         <div className="space-y-3">
           <Spinner className="mx-auto" />
