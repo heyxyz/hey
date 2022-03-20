@@ -14,6 +14,7 @@ const RECOMMENDED_PROFILES_QUERY = gql`
   query RecommendedProfiles {
     recommendedProfiles {
       id
+      name
       handle
       ownedBy
     }
