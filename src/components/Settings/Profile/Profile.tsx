@@ -58,7 +58,7 @@ const Profile: React.FC<Props> = ({ profile }) => {
   const [cover, setCover] = useState<string>()
   const [uploading, setUploading] = useState<boolean>(false)
   const { currentUser } = useContext(AppContext)
-  const [{ data: network }, switchNetwork] = useNetwork()
+  const [{ data: network }] = useNetwork()
   const [updateProfile, { loading, error }] = useMutation(
     UPDATE_PROFILE_MUTATION,
     {

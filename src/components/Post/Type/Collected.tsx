@@ -14,10 +14,8 @@ const Collected: React.FC<Props> = ({ post }) => {
       <CollectionIcon className="w-4 h-4" />
       <div className="flex items-center space-x-1">
         <div>Collected by</div>
-        {/* @ts-ignore */}
         <Link href={`/u/${post?.collectedBy?.defaultProfile?.handle}`}>
           <a>
-            {/* @ts-ignore */}
             <Slug slug={post?.collectedBy?.defaultProfile?.handle} prefix="@" />
           </a>
         </Link>

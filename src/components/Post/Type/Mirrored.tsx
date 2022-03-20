@@ -14,15 +14,12 @@ const Mirrored: React.FC<Props> = ({ post }) => {
       <DuplicateIcon className="w-4 h-4" />
       <div className="flex items-center space-x-1">
         <div>Mirror of</div>
-        {/* @ts-ignore */}
         <Link href={`/post/${post?.mirrorOf?.id}`}>
           <a className="font-bold">post</a>
         </Link>
         <div>by</div>
-        {/* @ts-ignore */}
         <Link href={`/u/${post?.mirrorOf?.profile?.handle}`}>
           <a>
-            {/* @ts-ignore */}
             <Slug slug={post?.mirrorOf?.profile?.handle} prefix="@" />
           </a>
         </Link>
