@@ -30,10 +30,14 @@ export const AUTHENTICATE_MUTATION = gql`
 `
 
 interface Props {
+  setHasConnected: Dispatch<boolean>
   setHasProfile: Dispatch<boolean>
 }
 
-const WalletSelector: React.FC<Props> = ({ setHasProfile }) => {
+const WalletSelector: React.FC<Props> = ({
+  setHasConnected,
+  setHasProfile
+}) => {
   const [mounted, setMounted] = useState(false)
   const [loadingSign, setLoadingSign] = useState<boolean>(false)
   const [{}, signMessage] = useSignMessage()
@@ -59,7 +63,11 @@ const WalletSelector: React.FC<Props> = ({ setHasProfile }) => {
   const { setSelectedProfile } = useContext(AppContext)
 
   const onConnect = async (x: Connector) => {
-    await connect(x)
+    await connect(x).then(({ error }) => {
+      if (!error) {
+        setHasConnected(true)
+      }
+    })
   }
 
   const handleSign = () => {
