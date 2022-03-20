@@ -65,7 +65,7 @@ const IFramely: React.FC<Props> = ({ url }) => {
             <div className="flex items-center">
               {isSquare && thumbnail && (
                 <img
-                  className="h-32 border-r rounded-l-xl"
+                  className="border-r h-36 rounded-l-xl"
                   src={thumbnail}
                   alt="Thumbnail"
                 />
