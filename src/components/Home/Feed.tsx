@@ -73,22 +73,20 @@ const Feed: React.FC = () => {
 
   if (loading) return <PostsShimmer />
 
-  if (data?.timeline?.items?.length === 0)
-    return (
-      <EmptyState
-        message={
-          <div>
-            <span>No posts yet!</span>
-          </div>
-        }
-        icon={<CollectionIcon className="w-8 h-8 text-brand-500" />}
-      />
-    )
-
   return (
     <>
       {currentUser && <NewPost refetch={refetch} />}
       {error && <ErrorMessage title="Failed to load home feed" error={error} />}
+      {data?.timeline?.items?.length === 0 && (
+        <EmptyState
+          message={
+            <div>
+              <span>No posts yet!</span>
+            </div>
+          }
+          icon={<CollectionIcon className="w-8 h-8 text-brand-500" />}
+        />
+      )}
       <div className="space-y-3">
         {data?.timeline?.items?.map((post: LensHubPost, index: number) => (
           <SinglePost key={`${post.pubId}_${index}`} post={post} />

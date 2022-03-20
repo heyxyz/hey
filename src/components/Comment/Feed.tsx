@@ -64,19 +64,17 @@ const Feed: React.FC<Props> = ({ post }) => {
 
   if (loading) return <PostsShimmer />
 
-  if (data?.publications?.items?.length === 0)
-    return (
-      <EmptyState
-        message={<span>Be the first one to comment!</span>}
-        icon={<CollectionIcon className="w-8 h-8 text-brand-500" />}
-      />
-    )
-
   return (
     <>
       {currentUser && <NewComment refetch={refetch} post={post} />}
       {error && (
         <ErrorMessage title="Failed to load comment feed" error={error} />
+      )}
+      {data?.publications?.items?.length === 0 && (
+        <EmptyState
+          message={<span>Be the first one to comment!</span>}
+          icon={<CollectionIcon className="w-8 h-8 text-brand-500" />}
+        />
       )}
       <div className="space-y-3">
         {data?.publications?.items?.map((post: LensHubPost, index: number) => (
