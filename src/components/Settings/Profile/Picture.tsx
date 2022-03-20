@@ -67,7 +67,7 @@ const Picture: React.FC<Props> = ({ profile }) => {
   const [avatar, setAvatar] = useState<string>()
   const [uploading, setUploading] = useState<boolean>(false)
   const { currentUser } = useContext(AppContext)
-  const [{ data: network }, switchNetwork] = useNetwork()
+  const [{ data: network }] = useNetwork()
   const [{ data: account }] = useAccount()
   const [{ loading: signLoading }, signTypedData] = useSignTypedData()
   const [{ error, loading: writeLoading }, write] = useContractWrite(
