@@ -84,10 +84,11 @@ const newCommentSchema = object({
 })
 
 interface Props {
+  refetch: any
   post: LensHubPost
 }
 
-const NewComment: React.FC<Props> = ({ post }) => {
+const NewComment: React.FC<Props> = ({ refetch, post }) => {
   const form = useZodForm({
     schema: newCommentSchema
   })
@@ -248,7 +249,13 @@ const NewComment: React.FC<Props> = ({ post }) => {
               />
             </div>
             <div className="flex items-center ml-auto space-x-2">
-              {data?.hash && <IndexStatus type="Comment" txHash={data?.hash} />}
+              {data?.hash && (
+                <IndexStatus
+                  refetch={refetch}
+                  type="Comment"
+                  txHash={data?.hash}
+                />
+              )}
               {network.chain?.unsupported ? (
                 <SwitchNetwork />
               ) : (

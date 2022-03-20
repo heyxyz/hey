@@ -14,11 +14,12 @@ export const TX_STATUS_QUERY = gql`
 `
 
 interface Props {
+  refetch?: any
   type: string
   txHash: string
 }
 
-const IndexStatus: React.FC<Props> = ({ type, txHash }) => {
+const IndexStatus: React.FC<Props> = ({ refetch, type, txHash }) => {
   const [pollInterval, setPollInterval] = useState<number>(500)
   const { data, loading } = useQuery(TX_STATUS_QUERY, {
     variables: {
@@ -28,6 +29,7 @@ const IndexStatus: React.FC<Props> = ({ type, txHash }) => {
     onCompleted(data) {
       if (data.hasTxHashBeenIndexed.indexed) {
         setPollInterval(0)
+        refetch()
       }
     }
   })

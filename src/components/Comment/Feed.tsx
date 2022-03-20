@@ -4,11 +4,14 @@ import PostsShimmer from '@components/Shared/Shimmer/PostsShimmer'
 import { EmptyState } from '@components/UI/EmptyState'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { Spinner } from '@components/UI/Spinner'
+import AppContext from '@components/utils/AppContext'
 import { LensHubPost } from '@generated/lenshubtypes'
 import { CommentFragment } from '@gql/CommentFragment'
 import { CollectionIcon } from '@heroicons/react/outline'
-import React from 'react'
+import React, { useContext } from 'react'
 import useInView from 'react-cool-inview'
+
+import NewComment from './NewComment'
 
 const COMMENT_FEED_QUERY = gql`
   query CommentFeed($request: PublicationsQueryRequest!) {
@@ -32,12 +35,16 @@ interface Props {
 }
 
 const Feed: React.FC<Props> = ({ post }) => {
-  const { data, loading, error, fetchMore } = useQuery(COMMENT_FEED_QUERY, {
-    variables: {
-      request: { commentsOf: post.pubId, limit: 10 }
-    },
-    skip: !post.pubId
-  })
+  const { currentUser } = useContext(AppContext)
+  const { data, loading, error, fetchMore, refetch } = useQuery(
+    COMMENT_FEED_QUERY,
+    {
+      variables: {
+        request: { commentsOf: post.pubId, limit: 10 }
+      },
+      skip: !post.pubId
+    }
+  )
 
   const pageInfo = data?.publications?.pageInfo
   const { observe } = useInView({
@@ -67,6 +74,7 @@ const Feed: React.FC<Props> = ({ post }) => {
 
   return (
     <>
+      {currentUser && <NewComment refetch={refetch} post={post} />}
       {error && (
         <ErrorMessage title="Failed to load comment feed" error={error} />
       )}
