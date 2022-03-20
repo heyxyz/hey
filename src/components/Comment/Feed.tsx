@@ -10,8 +10,8 @@ import { CollectionIcon } from '@heroicons/react/outline'
 import React from 'react'
 import useInView from 'react-cool-inview'
 
-const PROFILE_FEED_QUERY = gql`
-  query ProfileFeed($request: PublicationsQueryRequest!) {
+const COMMENT_FEED_QUERY = gql`
+  query CommentFeed($request: PublicationsQueryRequest!) {
     publications(request: $request) {
       items {
         __typename
@@ -32,7 +32,7 @@ interface Props {
 }
 
 const Feed: React.FC<Props> = ({ post }) => {
-  const { data, loading, error, fetchMore } = useQuery(PROFILE_FEED_QUERY, {
+  const { data, loading, error, fetchMore } = useQuery(COMMENT_FEED_QUERY, {
     variables: {
       request: { commentsOf: post.pubId, limit: 10 }
     },
