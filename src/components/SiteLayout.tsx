@@ -34,6 +34,7 @@ interface Props {
 
 const SiteLayout: React.FC<Props> = ({ children }) => {
   const { resolvedTheme } = useTheme()
+  const [staffMode, setStaffMode] = useState<boolean>()
   const [refreshToken, setRefreshToken] = useState<number>(0)
   const [selectedProfile, setSelectedProfile] = useState<number>(0)
   const [{ data: accountData }] = useAccount()
@@ -45,6 +46,7 @@ const SiteLayout: React.FC<Props> = ({ children }) => {
   useEffect(() => {
     setSelectedProfile(localStorage.selectedProfile)
     setRefreshToken(localStorage.refreshToken)
+    setStaffMode(localStorage.staffMode === 'true')
 
     accountData?.connector?.on('change', () => {
       localStorage.removeItem('selectedProfile')
@@ -57,6 +59,8 @@ const SiteLayout: React.FC<Props> = ({ children }) => {
   const injectedGlobalContext = {
     selectedProfile,
     setSelectedProfile,
+    staffMode,
+    setStaffMode,
     profiles: data?.profiles?.items,
     currentUser: data?.profiles?.items[selectedProfile],
     currentUserLoading: loading,
