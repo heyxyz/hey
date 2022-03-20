@@ -1,0 +1,50 @@
+image: node:14
+
+cache:
+  paths:
+    - node_modules/
+    - .next/cache/
+
+stages:
+  - test
+  - deploy
+  - clean
+
+before_script:
+  - node -v
+  - yarn -v
+  - yarn install --frozen-lockfile --silent
+
+lint:
+  stage: test
+  script:
+    - yarn lint
+
+prettier:
+  stage: test
+  script:
+    - yarn prettier:check
+
+codegen:
+  stage: test
+  script:
+    - yarn codegen
+
+typecheck:
+  stage: test
+  script:
+    - yarn codegen
+    - yarn typecheck
+
+build:
+  stage: test
+  script:
+    - yarn build
+
+housekeeping:
+  stage: clean
+  before_script: []
+  script:
+    - curl --request POST --header "PRIVATE-TOKEN:$ACCESS_TOKEN" https://gitlab.com/api/v4/projects/$CI_PROJECT_ID/housekeeping
+  only:
+    - main
