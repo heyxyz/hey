@@ -5,7 +5,6 @@ import Footer from '@components/Shared/Footer'
 import UserProfile from '@components/Shared/UserProfile'
 import { Card, CardBody } from '@components/UI/Card'
 import { PageLoading } from '@components/UI/PageLoading'
-import AppContext from '@components/utils/AppContext'
 import {
   CommentCollectionFragment,
   PostCollectionFragment
@@ -15,10 +14,9 @@ import { MirrorFragment } from '@gql/MirrorFragment'
 import { PostFragment } from '@gql/PostFragment'
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
-import React, { useContext } from 'react'
+import React from 'react'
 import Custom404 from 'src/pages/404'
 
-import NewComment from '../Comment/NewComment'
 import CollectModule from './CollectModule'
 import IPFSHash from './IPFSHash'
 import SinglePost from './SinglePost'
@@ -53,7 +51,6 @@ const ViewPost: NextPage = () => {
   const {
     query: { id }
   } = useRouter()
-  const { currentUser } = useContext(AppContext)
 
   const { data, loading } = useQuery(POST_QUERY, {
     variables: { request: { publicationId: id } },
@@ -69,7 +66,6 @@ const ViewPost: NextPage = () => {
     <GridLayout>
       <GridItemEight className="space-y-5">
         <SinglePost post={post} />
-        {currentUser && <NewComment post={post} />}
         <Feed post={post} />
       </GridItemEight>
       <GridItemFour className="space-y-5">

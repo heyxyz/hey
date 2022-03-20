@@ -81,7 +81,11 @@ const newPostSchema = object({
     .max(500, { message: 'Post should not exceed 500 characters' })
 })
 
-const NewPost: React.FC = () => {
+interface Props {
+  refetch: any
+}
+
+const NewPost: React.FC<Props> = ({ refetch }) => {
   const form = useZodForm({
     schema: newPostSchema
   })
@@ -237,7 +241,13 @@ const NewPost: React.FC = () => {
               />
             </div>
             <div className="flex items-center ml-auto space-x-2">
-              {data?.hash && <IndexStatus type="Post" txHash={data?.hash} />}
+              {data?.hash && (
+                <IndexStatus
+                  refetch={refetch}
+                  type="Post"
+                  txHash={data?.hash}
+                />
+              )}
               {network.chain?.unsupported ? (
                 <SwitchNetwork />
               ) : (

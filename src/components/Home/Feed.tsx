@@ -1,4 +1,5 @@
 import { gql, useQuery } from '@apollo/client'
+import NewPost from '@components/Post/NewPost'
 import SinglePost from '@components/Post/SinglePost'
 import PostsShimmer from '@components/Shared/Shimmer/PostsShimmer'
 import { EmptyState } from '@components/UI/EmptyState'
@@ -44,12 +45,15 @@ const HOME_FEED_QUERY = gql`
 
 const Feed: React.FC = () => {
   const { currentUser } = useContext(AppContext)
-  const { data, loading, error, fetchMore } = useQuery(HOME_FEED_QUERY, {
-    variables: {
-      request: { profileId: currentUser?.id, limit: 10 }
-    },
-    skip: !currentUser?.id
-  })
+  const { data, loading, error, fetchMore, refetch } = useQuery(
+    HOME_FEED_QUERY,
+    {
+      variables: {
+        request: { profileId: currentUser?.id, limit: 10 }
+      },
+      skip: !currentUser?.id
+    }
+  )
 
   const pageInfo = data?.timeline?.pageInfo
   const { observe } = useInView({
@@ -83,6 +87,7 @@ const Feed: React.FC = () => {
 
   return (
     <>
+      {currentUser && <NewPost refetch={refetch} />}
       {error && <ErrorMessage title="Failed to load home feed" error={error} />}
       <div className="space-y-3">
         {data?.timeline?.items?.map((post: LensHubPost, index: number) => (

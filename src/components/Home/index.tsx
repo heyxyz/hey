@@ -1,6 +1,5 @@
 import ExploreFeed from '@components/Explore/Feed'
 import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout'
-import NewPost from '@components/Post/NewPost'
 import Footer from '@components/Shared/Footer'
 import AppContext from '@components/utils/AppContext'
 import { NextPage } from 'next'
@@ -19,7 +18,6 @@ const Home: NextPage = () => {
       {!currentUser && <Hero />}
       <GridLayout>
         <GridItemEight className="space-y-5">
-          {currentUser && <NewPost />}
           {currentUser ? <HomeFeed /> : <ExploreFeed />}
         </GridItemEight>
         <GridItemFour>
