@@ -14,10 +14,11 @@ export const TX_STATUS_QUERY = gql`
 `
 
 interface Props {
+  type: string
   txHash: string
 }
 
-const IndexStatus: React.FC<Props> = ({ txHash }) => {
+const IndexStatus: React.FC<Props> = ({ type, txHash }) => {
   const [pollInterval, setPollInterval] = useState<number>(500)
   const { data, loading } = useQuery(TX_STATUS_QUERY, {
     variables: {
@@ -41,7 +42,7 @@ const IndexStatus: React.FC<Props> = ({ txHash }) => {
       {loading || !data?.hasTxHashBeenIndexed?.indexed ? (
         <div className="flex items-center space-x-1.5">
           <Spinner size="xs" />
-          <div>Post Indexeing</div>
+          <div>{type} Indexeing</div>
         </div>
       ) : (
         <div className="flex items-center space-x-1">

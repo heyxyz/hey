@@ -237,7 +237,7 @@ const NewPost: React.FC = () => {
               />
             </div>
             <div className="flex items-center ml-auto space-x-2">
-              {data?.hash && <IndexStatus txHash={data?.hash} />}
+              {data?.hash && <IndexStatus type="Post" txHash={data?.hash} />}
               {network.chain?.unsupported ? (
                 <SwitchNetwork />
               ) : (
