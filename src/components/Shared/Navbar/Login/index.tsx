@@ -1,8 +1,9 @@
-import Create from '@components/Create'
 import WalletSelector from '@components/Shared/Navbar/Login/WalletSelector'
 import SwitchNetwork from '@components/Shared/SwitchNetwork'
 import { useState } from 'react'
 import { useNetwork } from 'wagmi'
+
+import Create from './Create'
 
 const Login: React.FC = () => {
   const [hasConnected, setHasConnected] = useState<boolean>(false)
