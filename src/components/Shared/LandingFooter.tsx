@@ -5,7 +5,7 @@ const LandingFooter: React.FC = () => {
     <>
       <footer className="flex-wrap hidden mt-5 leading-7 md:flex">
         <span className="pr-3 font-bold text-gray-500 dark:text-gray-300">
-          © Lenster
+          © LensHub
         </span>
         <span className="pr-3">
           <Link href="/about" passHref>
@@ -23,7 +23,7 @@ const LandingFooter: React.FC = () => {
           </Link>
         </span>
         <a
-          href="https://gitlab.com/lenster/lenster"
+          href="https://gitlab.com/lenshub/lenshub"
           target="_blank"
           rel="noreferrer"
         >
@@ -32,7 +32,7 @@ const LandingFooter: React.FC = () => {
       </footer>
       <a
         className="hidden mt-2 hover:font-bold md:block"
-        href="https://vercel.com/?utm_source=Lenster&utm_campaign=oss"
+        href="https://vercel.com/?utm_source=LensHub&utm_campaign=oss"
         target="_blank"
         rel="noreferrer"
       >

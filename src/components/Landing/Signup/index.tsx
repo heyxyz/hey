@@ -97,7 +97,7 @@ const Signup: React.FC = () => {
               label="Handle"
               type="text"
               placeholder="justinbieber"
-              prefix="https://lenster.xyz/u/"
+              prefix="https://lenshub.io/u/"
               {...form.register('handle')}
             />
             <div className="space-y-1.5">

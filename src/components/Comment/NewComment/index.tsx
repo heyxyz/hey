@@ -188,7 +188,7 @@ const NewComment: React.FC<Props> = ({ post }) => {
         name: `Comment by @${currentUser?.handle}`,
         attributes: [],
         media: attachments,
-        appId: 'Lenster'
+        appId: 'LensHub'
       }).finally(() => setIsUploading(false))
 
       createCommentTypedData({
