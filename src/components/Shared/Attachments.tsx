@@ -6,7 +6,7 @@ import React from 'react'
 
 const getGridRows = (attachments: number) => {
   if (attachments === 1) {
-    return 'grid-cols-1 grid-rows-1'
+    return 'grid-cols-1 grid-rows-1 w-2/3'
   } else if (attachments === 2) {
     return 'grid-cols-2 grid-rows-1'
   } else if (attachments > 2) {
@@ -34,16 +34,18 @@ const Attachments: React.FC<Props> = ({
     )
   }
 
+  const slicedAttachments = attachments?.slice(0, 4)
+
   return (
     <>
-      {attachments?.length !== 0 && (
+      {slicedAttachments?.length !== 0 && (
         <div
           className={clsx(
-            getGridRows(attachments?.length),
+            getGridRows(slicedAttachments?.length),
             'grid grid-flow-col gap-2 pt-3'
           )}
         >
-          {attachments?.map((attachment: any) => (
+          {slicedAttachments?.map((attachment: any) => (
             <div
               className="aspect-w-16 aspect-h-12"
               key={
