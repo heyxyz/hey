@@ -30,3 +30,9 @@ body {
   @apply px-3 py-2 mr-2 border-0 cursor-pointer rounded-l-xl;
   @apply bg-gray-200 dark:bg-gray-900;
 }
+
+.bg-hero {
+  background: linear-gradient(90deg, #fff, #fff 50%, hsla(0, 0%, 100%, 0)),
+    url(https://assets.lenshub.io/images/patterns/hero.png);
+  background-size: cover;
+}
