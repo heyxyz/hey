@@ -95,12 +95,11 @@ const Collect: React.FC<Props> = ({ post }) => {
               }
             }
 
-            write({ args: inputStruct }).then(({ error }) => {
+            write({ args: inputStruct }).then(({ error }: { error: any }) => {
               if (!error) {
                 toast.success('Post has been collected!')
               } else {
                 if (
-                  // @ts-ignore
                   error?.data?.message ===
                   'execution reverted: SafeERC20: low-level call failed'
                 ) {
@@ -110,7 +109,6 @@ const Collect: React.FC<Props> = ({ post }) => {
                     } module in allowance settings`
                   )
                 } else {
-                  // @ts-ignore
                   toast.error(error?.data?.message)
                 }
               }
