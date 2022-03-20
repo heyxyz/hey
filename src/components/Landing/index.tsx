@@ -46,7 +46,7 @@ const Landing: NextPage = () => {
                 {hasProfile ? "What's poppin'?" : 'Create your lens account'}
               </div>
               <div className="text-2xl font-bold text-gray-700 dark:text-gray-400">
-                Join Lenster today.
+                Join LensHub today.
               </div>
             </div>
             {network.chain?.unsupported && switchNetwork ? (

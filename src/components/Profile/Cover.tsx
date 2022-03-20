@@ -1,4 +1,5 @@
 import React from 'react'
+import { STATIC_ASSETS } from 'src/constants'
 
 interface Props {
   cover: string
@@ -10,7 +11,7 @@ const Cover: React.FC<Props> = ({ cover }) => {
       className="h-52 sm:h-80"
       style={{
         backgroundImage: `url(${
-          cover ? cover : 'https://assets.lenster.xyz/images/patterns/2.svg'
+          cover ? cover : `${STATIC_ASSETS}/patterns/2.svg`
         })`,
         backgroundColor: '#8b5cf6',
         backgroundSize: cover ? 'cover' : '30%',

@@ -178,7 +178,7 @@ const NewPost: React.FC = () => {
         name: `Post by @${currentUser?.handle}`,
         attributes: [],
         media: attachments,
-        appId: 'Lenster'
+        appId: 'LensHub'
       }).finally(() => setIsUploading(false))
 
       createPostTypedData({
