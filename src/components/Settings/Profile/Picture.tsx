@@ -22,6 +22,7 @@ import {
   WRONG_NETWORK
 } from 'src/constants'
 import {
+  chain,
   useAccount,
   useContractWrite,
   useNetwork,
@@ -143,7 +144,7 @@ const Picture: React.FC<Props> = ({ profile }) => {
       toast.error("Avatar can't be empty!")
     } else if (!account?.address) {
       toast.error(CONNECT_WALLET)
-    } else if (network.chain?.id !== 80001) {
+    } else if (network.chain?.id !== chain.polygonTestnetMumbai.id) {
       toast.error(WRONG_NETWORK)
     } else {
       createSetProfileImageURITypedData({
