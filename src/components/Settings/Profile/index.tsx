@@ -9,6 +9,7 @@ import Custom404 from 'src/pages/404'
 import Sidebar from '../Sidebar'
 import Picture from './Picture'
 import Profile from './Profile'
+import SetProfile from './SetProfile'
 
 const PROFILE_SETTINGS_QUERY = gql`
   query ProfileSettings($request: ProfileQueryRequest!) {
@@ -57,6 +58,7 @@ const ProfileSettings: NextPage = () => {
       <GridItemEight className="space-y-5">
         <Profile profile={data?.profiles?.items[0]} />
         <Picture profile={data?.profiles?.items[0]} />
+        <SetProfile />
       </GridItemEight>
     </GridLayout>
   )

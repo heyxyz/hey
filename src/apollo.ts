@@ -7,6 +7,8 @@ import {
 import { lensStylePagination } from '@lib/lensStylePagination'
 import jwtDecode from 'jwt-decode'
 
+import { API_URL } from './constants'
+
 const REFRESH_AUTHENTICATION_MUTATION = `
   mutation Refresh($request: RefreshRequest!) {
     refresh(request: $request) {
@@ -17,7 +19,7 @@ const REFRESH_AUTHENTICATION_MUTATION = `
 `
 
 const httpLink = new HttpLink({
-  uri: 'https://api-mumbai.lens.dev',
+  uri: API_URL,
   fetch
 })
 
@@ -34,7 +36,7 @@ const authLink = new ApolloLink((operation, forward) => {
   const { exp }: { exp: any } = token ? jwtDecode(token) : ''
 
   if (Date.now() >= exp * 1000) {
-    fetch('https://api-mumbai.lens.dev', {
+    fetch(API_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
