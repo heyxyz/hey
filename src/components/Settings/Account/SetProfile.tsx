@@ -39,7 +39,10 @@ const SetProfile: React.FC = () => {
 
   const { data, loading } = useQuery(PROFILES_QUERY, {
     variables: { request: { ownedBy: currentUser?.ownedBy } },
-    skip: !currentUser?.id
+    skip: !currentUser?.id,
+    onCompleted(data) {
+      setSelectedUser(data?.profiles?.items[0]?.id)
+    }
   })
 
   const setDefaultProfile = async () => {
