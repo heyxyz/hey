@@ -37,7 +37,7 @@ const newUserSchema = object({
 const Create: React.FC = () => {
   const [avatar, setAvatar] = useState<string>()
   const [uploading, setUploading] = useState<boolean>(false)
-  const [{ data: network }, switchNetwork] = useNetwork()
+  const [{ data: network }] = useNetwork()
   const [createProfile, { data, loading }] = useMutation(
     CREATE_PROFILE_MUTATION
   )

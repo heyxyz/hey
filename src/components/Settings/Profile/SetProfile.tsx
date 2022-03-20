@@ -27,7 +27,7 @@ const PROFILES_QUERY = gql`
 const SetProfile: React.FC = () => {
   const { currentUser } = useContext(AppContext)
   const [selectedUser, setSelectedUser] = useState<string>()
-  const [{ data: network }, switchNetwork] = useNetwork()
+  const [{ data: network }] = useNetwork()
   const [{ data: account }] = useAccount()
   const [{ error, loading: writeLoading }, write] = useContractWrite(
     {

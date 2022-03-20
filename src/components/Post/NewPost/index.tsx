@@ -93,7 +93,7 @@ const NewPost: React.FC = () => {
     [{ item: string; type: string }] | []
   >([])
   const { currentUser } = useContext(AppContext)
-  const [{ data: network }, switchNetwork] = useNetwork()
+  const [{ data: network }] = useNetwork()
   const [{ data: account }] = useAccount()
   const [{ loading: signLoading }, signTypedData] = useSignTypedData()
   const [{ data, error, loading: writeLoading }, write] = useContractWrite(
