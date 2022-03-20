@@ -13,14 +13,11 @@ const Commented: React.FC<Props> = ({ post }) => {
     <div className="flex items-center pb-4 space-x-1 text-sm text-gray-500">
       <ChatAlt2Icon className="w-4 h-4" />
       <div className="flex items-center space-x-1">
-        {/* @ts-ignore */}
         <Link href={`/post/${post?.commentOn?.id}`}>
           <a>Commenting to</a>
         </Link>
-        {/* @ts-ignore */}
         <Link href={`/u/${post?.commentOn?.profile?.handle}`}>
           <a>
-            {/* @ts-ignore */}
             <Slug slug={post?.commentOn?.profile?.handle} prefix="@" />
           </a>
         </Link>

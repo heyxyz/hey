@@ -32,13 +32,10 @@ const SinglePost: React.FC<Props> = ({ post }) => {
   return (
     <Card>
       <CardBody>
-        {/* @ts-ignore */}
         {post?.__typename === 'Mirror' && <Mirrored post={post} />}
-        {/* @ts-ignore */}
         {post?.__typename === 'Comment' && pathname !== '/post/[id]' && (
           <Commented post={post} />
         )}
-        {/* @ts-ignore */}
         {post?.collectedBy && <Collected post={post} />}
         <div className="flex justify-between pb-4">
           <UserProfile profile={post.profile} />
