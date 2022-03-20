@@ -73,7 +73,7 @@ const IFramely: React.FC<Props> = ({ url }) => {
                 />
               )}
               <div className="p-5">
-                <div className="space-y-2">
+                <div className="space-y-1.5">
                   {title && (
                     <div className="font-bold line-clamp-1">{title}</div>
                   )}
@@ -83,7 +83,7 @@ const IFramely: React.FC<Props> = ({ url }) => {
                     </div>
                   )}
                   {site && (
-                    <div className="flex items-center pt-1 space-x-1">
+                    <div className="flex items-center pt-1.5 space-x-1">
                       {favicon && (
                         <img
                           className="w-4 h-4 rounded-full"
