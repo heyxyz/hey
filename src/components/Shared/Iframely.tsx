@@ -6,9 +6,7 @@ interface Props {
 }
 
 const IFramely: React.FC<Props> = ({ url }) => {
-  const [error, setError] = useState<{ code: number; message: string } | null>(
-    null
-  )
+  const [error, setError] = useState<boolean>(false)
   const [isLoaded, setIsLoaded] = useState(false)
   const [data, setData] = useState<any>()
 
@@ -24,16 +22,16 @@ const IFramely: React.FC<Props> = ({ url }) => {
             if (res) {
               setData(res)
             } else if (res.error) {
-              setError({ code: res.error, message: res.message })
+              setError(true)
             }
           },
-          (error) => {
+          () => {
             setIsLoaded(true)
-            setError(error)
+            setError(true)
           }
         )
     } else {
-      setError({ code: 400, message: 'Provide url attribute for the element' })
+      setError(true)
     }
   }, [])
 
@@ -42,34 +40,65 @@ const IFramely: React.FC<Props> = ({ url }) => {
     window.iframely && window.iframely.load()
   })
 
-  if (error) {
-    return (
-      <div>
-        Error: {error.code} - {error.message}
-      </div>
-    )
-  } else if (!isLoaded) {
-    return <div>Loading...</div>
+  if (error || !isLoaded) {
+    return null
   } else {
     const title = data?.meta?.title
     const description = data?.meta?.description
+    const site = data?.meta?.site
+    const url = data?.url
     const favicon = data?.links?.icon[0]?.href
+    const thumbnail = data?.links?.thumbnail[0]?.href
+    const isSquare =
+      data?.links?.thumbnail[0]?.media?.width ===
+      data?.links?.thumbnail[0]?.media?.height
 
     return (
-      <div className="mt-5 text-sm">
-        <Card>
-          <div className="p-5">
-            <div className="space-y-1">
-              {title && (
-                <div>
-                  {/* {favicon} */}
-                  <div className="font-bold">{title}</div>
-                </div>
+      <div className="w-2/3 mt-4 text-sm">
+        <a href={url} target="_blank" rel="noreferrer">
+          <Card>
+            {!isSquare && thumbnail && (
+              <img
+                className="w-full rounded-t-xl"
+                src={thumbnail}
+                alt="Thumbnail"
+              />
+            )}
+            <div className="flex items-center">
+              {isSquare && thumbnail && (
+                <img
+                  className="h-32 rounded-l-xl"
+                  src={thumbnail}
+                  alt="Thumbnail"
+                />
               )}
-              {description && <div>{description}</div>}
+              <div className="p-5">
+                <div className="space-y-2">
+                  {title && (
+                    <div className="font-bold line-clamp-1">{title}</div>
+                  )}
+                  {description && (
+                    <div className="text-gray-500 line-clamp-2">
+                      {description}
+                    </div>
+                  )}
+                  {site && (
+                    <div className="flex items-center pt-1 space-x-1">
+                      {favicon && (
+                        <img
+                          className="w-4 h-4 rounded-full"
+                          src={favicon}
+                          alt="Favicon"
+                        />
+                      )}
+                      <div className="text-xs text-gray-500">{site}</div>
+                    </div>
+                  )}
+                </div>
+              </div>
             </div>
-          </div>
-        </Card>
+          </Card>
+        </a>
       </div>
     )
   }
