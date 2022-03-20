@@ -32,9 +32,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
-      - name: Setup environment variables
-        run: cp .env.example .env
-
       - name: Install Yarn Dependencies
         run: yarn install --frozen-lockfile --silent
 
@@ -50,5 +47,5 @@ jobs:
       - name: Typescript typecheck
         run: yarn typecheck
 
-      - name: Build Lenster
+      - name: Build Lenshub
         run: yarn build
