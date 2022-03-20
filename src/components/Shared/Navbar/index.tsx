@@ -1,12 +1,16 @@
 import { gql, useQuery } from '@apollo/client'
 import AppContext from '@components/utils/AppContext'
+import { isStaff } from '@lib/isStaff'
 import clsx from 'clsx'
+import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useContext } from 'react'
 
 import MenuItems from './MenuItems'
 import Search from './Search'
+
+const StaffBar = dynamic(() => import('./StaffBar'))
 
 const PING_QUERY = gql`
   query Ping {
@@ -15,7 +19,7 @@ const PING_QUERY = gql`
 `
 
 const Navbar: React.FC = () => {
-  const { currentUser } = useContext(AppContext)
+  const { currentUser, staffMode } = useContext(AppContext)
   const { data: indexerData } = useQuery(PING_QUERY, {
     pollInterval: 5000,
     skip: !currentUser
@@ -62,6 +66,7 @@ const Navbar: React.FC = () => {
 
   return (
     <nav className="sticky top-0 z-10 w-full bg-white border-b dark:bg-gray-800 dark:border-b-gray-700">
+      {isStaff(currentUser?.handle) && staffMode && <StaffBar />}
       <div className="container max-w-screen-xl px-5 mx-auto">
         <div className="relative flex items-center justify-between h-14 sm:h-16">
           <div className="flex items-center justify-start flex-1">
