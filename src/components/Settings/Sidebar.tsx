@@ -1,4 +1,9 @@
-import { ExclamationIcon, ShareIcon, UserIcon } from '@heroicons/react/outline'
+import {
+  ChipIcon,
+  ExclamationIcon,
+  ShareIcon,
+  UserIcon
+} from '@heroicons/react/outline'
 import clsx from 'clsx'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -32,6 +37,13 @@ const Sidebar: React.FC = () => {
       <Menu current={router.pathname == '/settings'} url="/settings">
         <UserIcon className="w-4 h-4" />
         <div>Profile</div>
+      </Menu>
+      <Menu
+        current={router.pathname == '/settings/account'}
+        url="/settings/account"
+      >
+        <ChipIcon className="w-4 h-4" />
+        <div>Account</div>
       </Menu>
       <Menu
         current={router.pathname == '/settings/allowance'}
