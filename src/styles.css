@@ -36,3 +36,7 @@ body {
     url(https://assets.lenshub.io/images/patterns/hero.png);
   background-size: cover;
 }
+
+.iframely-responsive {
+  @apply border;
+}

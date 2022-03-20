@@ -1,9 +1,11 @@
 import 'linkify-plugin-mention'
 
 import Attachments from '@components/Shared/Attachments'
+import IFramely from '@components/Shared/Iframely'
 import UserProfile from '@components/Shared/UserProfile'
 import { Card, CardBody } from '@components/UI/Card'
 import { LensHubPost } from '@generated/lenshubtypes'
+import { getURLs } from '@lib/getURLs'
 import { linkifyOptions } from '@lib/linkifyOptions'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
@@ -50,8 +52,13 @@ const SinglePost: React.FC<Props> = ({ post }) => {
             {post?.metadata?.content}
           </Linkify>
         </div>
-        {post?.metadata?.media?.length > 0 && (
+        {post?.metadata?.media?.length > 0 ? (
           <Attachments attachments={post?.metadata?.media} />
+        ) : (
+          post?.metadata?.content &&
+          getURLs(post?.metadata?.content)?.length > 0 && (
+            <IFramely url={getURLs(post?.metadata?.content)[0]} />
+          )
         )}
       </CardBody>
       <div className="flex items-center px-3 py-1.5 text-gray-500 border-t dark:border-gray-800 gap-6">
