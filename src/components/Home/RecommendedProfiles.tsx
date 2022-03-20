@@ -4,10 +4,11 @@ import UserProfile from '@components/Shared/UserProfile'
 import { Card, CardBody } from '@components/UI/Card'
 import { EmptyState } from '@components/UI/EmptyState'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
+import AppContext from '@components/utils/AppContext'
 import { Profile } from '@generated/types'
 import { UsersIcon } from '@heroicons/react/outline'
-import { SparklesIcon } from '@heroicons/react/solid'
-import React from 'react'
+import { LightningBoltIcon, SparklesIcon } from '@heroicons/react/solid'
+import React, { useContext } from 'react'
 
 const RECOMMENDED_PROFILES_QUERY = gql`
   query RecommendedProfiles {
@@ -19,12 +20,25 @@ const RECOMMENDED_PROFILES_QUERY = gql`
   }
 `
 
-const Title = () => (
-  <div className="flex items-center gap-2 mb-2">
-    <SparklesIcon className="w-4 h-4 text-yellow-500" />
-    <div>Who to follow</div>
-  </div>
-)
+const Title = () => {
+  const { currentUser } = useContext(AppContext)
+
+  return (
+    <div className="flex items-center gap-2 mb-2">
+      {currentUser ? (
+        <>
+          <SparklesIcon className="w-4 h-4 text-yellow-500" />
+          <div>Who to follow</div>
+        </>
+      ) : (
+        <>
+          <LightningBoltIcon className="w-4 h-4 text-yellow-500" />
+          <div>Recommended users</div>
+        </>
+      )}
+    </div>
+  )
+}
 
 const RecommendedProfiles: React.FC = () => {
   const { data, loading, error } = useQuery(RECOMMENDED_PROFILES_QUERY)

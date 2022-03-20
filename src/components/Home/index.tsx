@@ -20,7 +20,7 @@ const Home: NextPage = () => {
         {currentUser ? <HomeFeed /> : <ExploreFeed />}
       </GridItemEight>
       <GridItemFour>
-        <Streak />
+        {currentUser && <Streak />}
         <RecommendedProfiles />
         <Footer />
       </GridItemFour>
