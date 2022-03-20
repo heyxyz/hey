@@ -1,5 +1,5 @@
 import AppContext from '@components/utils/AppContext'
-import { LensterPost } from '@generated/lenstertypes'
+import { LensHubPost } from '@generated/lenshubtypes'
 import { Menu, Transition } from '@headlessui/react'
 import {
   DotsHorizontalIcon,
@@ -11,7 +11,7 @@ import { Fragment, useContext } from 'react'
 import Delete from './Delete'
 
 interface Props {
-  post: LensterPost
+  post: LensHubPost
 }
 
 const PostMenu: React.FC<Props> = ({ post }) => {

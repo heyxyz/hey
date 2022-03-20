@@ -1,11 +1,11 @@
-import { LensterPost } from '@generated/lenstertypes'
+import { LensHubPost } from '@generated/lenshubtypes'
 import { ChatAlt2Icon } from '@heroicons/react/outline'
 import { humanize } from '@lib/humanize'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 
 interface Props {
-  post: LensterPost
+  post: LensHubPost
 }
 
 const Comment: React.FC<Props> = ({ post }) => {

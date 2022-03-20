@@ -38,7 +38,7 @@ const connectors = ({ chainId }: ConnectorsConfig) => {
     }),
     new WalletLinkConnector({
       options: {
-        appName: 'Lenster',
+        appName: 'LensHub',
         jsonRpcUrl: `${rpcUrl}/${INFURA_ID}`
       }
     })
@@ -53,14 +53,14 @@ const App = ({ Component, pageProps }: AppProps) => {
   return (
     <Provider
       autoConnect
-      connectorStorageKey="lenster.wallet"
+      connectorStorageKey="lenshub.wallet"
       connectors={connectors}
       provider={provider}
     >
       <ApolloProvider client={client}>
         <ThemeProvider defaultTheme="light" attribute="class">
           <Head>
-            <title>Lenster</title>
+            <title>LensHub</title>
             <meta
               name="viewport"
               content="width=device-width, initial-scale=1.0, viewport-fit=cover"
