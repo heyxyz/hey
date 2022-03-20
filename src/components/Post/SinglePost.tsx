@@ -11,7 +11,6 @@ import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import Linkify from 'linkify-react'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
 import React from 'react'
 
 import Collect from './Actions/Collect'
@@ -26,16 +25,15 @@ dayjs.extend(relativeTime)
 
 interface Props {
   post: LensHubPost
+  type?: string
 }
 
-const SinglePost: React.FC<Props> = ({ post }) => {
-  const { pathname } = useRouter()
-
+const SinglePost: React.FC<Props> = ({ post, type }) => {
   return (
     <Card>
       <CardBody>
         {post?.__typename === 'Mirror' && <Mirrored post={post} />}
-        {post?.__typename === 'Comment' && pathname !== '/post/[id]' && (
+        {post?.__typename === 'Comment' && type !== 'COMMENT' && (
           <Commented post={post} />
         )}
         {post?.collectedBy && <Collected post={post} />}

@@ -78,7 +78,11 @@ const Feed: React.FC<Props> = ({ post }) => {
       )}
       <div className="space-y-3">
         {data?.publications?.items?.map((post: LensHubPost, index: number) => (
-          <SinglePost key={`${post.pubId}_${index}`} post={post} />
+          <SinglePost
+            key={`${post.pubId}_${index}`}
+            post={post}
+            type="COMMENT"
+          />
         ))}
       </div>
       {pageInfo?.next && (
