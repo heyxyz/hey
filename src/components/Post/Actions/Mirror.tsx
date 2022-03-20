@@ -2,7 +2,7 @@ import LensHubProxy from '@abis/LensHubProxy.json'
 import { gql, useMutation } from '@apollo/client'
 import { Spinner } from '@components/UI/Spinner'
 import AppContext from '@components/utils/AppContext'
-import { LensterPost } from '@generated/lenstertypes'
+import { LensHubPost } from '@generated/lenshubtypes'
 import { DuplicateIcon } from '@heroicons/react/outline'
 import { humanize } from '@lib/humanize'
 import { omit } from '@lib/omit'
@@ -56,7 +56,7 @@ const CREATE_MIRROR_TYPED_DATA_QUERY = gql`
 `
 
 interface Props {
-  post: LensterPost
+  post: LensHubPost
 }
 
 const Mirror: React.FC<Props> = ({ post }) => {

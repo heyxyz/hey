@@ -3,7 +3,7 @@ import 'linkify-plugin-mention'
 import Attachments from '@components/Shared/Attachments'
 import UserProfile from '@components/Shared/UserProfile'
 import { Card, CardBody } from '@components/UI/Card'
-import { LensterPost } from '@generated/lenstertypes'
+import { LensHubPost } from '@generated/lenshubtypes'
 import { linkifyOptions } from '@lib/linkifyOptions'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
@@ -23,7 +23,7 @@ import Mirrored from './Type/Mirrored'
 dayjs.extend(relativeTime)
 
 interface Props {
-  post: LensterPost
+  post: LensHubPost
 }
 
 const SinglePost: React.FC<Props> = ({ post }) => {

@@ -11,7 +11,7 @@ import { Form, useZodForm } from '@components/UI/Form'
 import { Spinner } from '@components/UI/Spinner'
 import { TextArea } from '@components/UI/TextArea'
 import AppContext from '@components/utils/AppContext'
-import { LensterPost } from '@generated/lenstertypes'
+import { LensHubPost } from '@generated/lenshubtypes'
 import { EnabledModule } from '@generated/types'
 import { ChatAlt2Icon, SwitchHorizontalIcon } from '@heroicons/react/outline'
 import {
@@ -82,7 +82,7 @@ const newCommentSchema = object({
 })
 
 interface Props {
-  post: LensterPost
+  post: LensHubPost
 }
 
 const NewComment: React.FC<Props> = ({ post }) => {
