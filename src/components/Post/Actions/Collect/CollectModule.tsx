@@ -1,14 +1,19 @@
 import LensHubProxy from '@abis/LensHubProxy.json'
 import { gql, useMutation } from '@apollo/client'
-import { Spinner } from '@components/UI/Spinner'
-import { LensterPost } from '@generated/lenstertypes'
-import { CreateCollectBroadcastItemResult } from '@generated/types'
+import { Button } from '@components/UI/Button'
+import { Tooltip } from '@components/UI/Tooltip'
+import { LensterCollectModule, LensterPost } from '@generated/lenstertypes'
+import {
+  CollectModule,
+  CreateCollectBroadcastItemResult
+} from '@generated/types'
 import { CollectionIcon } from '@heroicons/react/outline'
+import { formatUsername } from '@lib/formatUsername'
 import { getModule } from '@lib/getModule'
-import { humanize } from '@lib/humanize'
+import { getTokenImage } from '@lib/getTokenImage'
 import { omit } from '@lib/omit'
 import { splitSignature } from '@lib/splitSignature'
-import { motion } from 'framer-motion'
+import React from 'react'
 import toast from 'react-hot-toast'
 import {
   CONNECT_WALLET,
@@ -58,7 +63,14 @@ interface Props {
   post: LensterPost
 }
 
-const Collect: React.FC<Props> = ({ post }) => {
+const CollectModule: React.FC<Props> = ({ post }) => {
+  // @ts-ignore
+  const collectModule: LensterCollectModule = post?.collectModule
+  const percentageCollected =
+    (post?.stats?.totalAmountOfCollects /
+      parseInt(collectModule?.collectLimit)) *
+    100
+
   const [{ data: network }] = useNetwork()
   const [{ data: account }] = useAccount()
   const [{ loading: signLoading }, signTypedData] = useSignTypedData()
@@ -153,27 +165,87 @@ const Collect: React.FC<Props> = ({ post }) => {
   }
 
   return (
-    <motion.button
-      whileTap={{ scale: 0.9 }}
-      onClick={createCollect}
-      disabled={typedDataLoading || signLoading || writeLoading}
-    >
-      <div className="flex items-center space-x-1 text-red-500 hover:red-brand-400">
-        <div className="hover:bg-red-300 hover:bg-opacity-20 p-1.5 rounded-full">
-          {typedDataLoading || signLoading || writeLoading ? (
-            <Spinner variant="danger" size="xs" />
-          ) : (
-            <CollectionIcon className="w-[18px]" />
-          )}
+    <div>
+      {collectModule.type === 'LimitedFeeCollectModule' ||
+        (collectModule.type === 'LimitedTimedFeeCollectModule' && (
+          <div className="w-full bg-gray-200 h-2.5 dark:bg-gray-700">
+            <div
+              className="bg-brand-500 h-2.5"
+              style={{ width: `${percentageCollected}%` }}
+            />
+          </div>
+        ))}
+      <div className="p-5 space-y-1">
+        <div className="space-x-1.5">
+          <span>Module:</span>
+          <span className="font-bold text-gray-600">
+            {getModule(collectModule.type).name}
+          </span>
         </div>
-        {post?.stats?.totalAmountOfCollects > 0 && (
-          <div className="text-xs">
-            {humanize(post?.stats?.totalAmountOfCollects)}
+        <div className="space-x-1.5">
+          <span>Recipient:</span>
+          <a
+            href={`https://mumbai.polygonscan.com/address/${collectModule.recipient}`}
+            target="_blank"
+            className="font-bold text-gray-600"
+            rel="noreferrer"
+          >
+            {formatUsername(collectModule.recipient)}
+          </a>
+        </div>
+        <div className="space-x-1.5">
+          <span>Referral Fee:</span>
+          <span className="font-bold text-gray-600">
+            {collectModule.referralFee}%
+          </span>
+        </div>
+        {collectModule.collectLimit && (
+          <div className="space-x-1.5">
+            <span>Collect limit:</span>
+            <span className="font-bold text-gray-600">
+              {collectModule.collectLimit}
+            </span>
           </div>
         )}
+        <div className="space-x-1.5 flex items-center">
+          <span>Fee:</span>
+          <span className="flex items-center space-x-1.5 font-bold text-gray-600">
+            <span>{collectModule.amount.value}</span>
+            <span>{collectModule.amount.asset.symbol}</span>
+            <Tooltip content={collectModule.amount.asset.symbol}>
+              <img
+                className="w-5 h-5"
+                src={getTokenImage(collectModule.amount.asset.symbol)}
+                alt={collectModule.amount.asset.symbol}
+              />
+            </Tooltip>
+          </span>
+        </div>
+        {collectModule.endTimestamp && (
+          <div className="space-x-1.5">
+            <span>Ends in:</span>
+            <span className="font-bold text-gray-600">
+              {(
+                Math.abs(
+                  new Date().getTime() -
+                    new Date(collectModule.endTimestamp).getTime()
+                ) / 36e5
+              ).toFixed(1)}
+            </span>
+          </div>
+        )}
+        <div className="pt-3">
+          <Button
+            onClick={createCollect}
+            disabled={typedDataLoading || signLoading || writeLoading}
+            icon={<CollectionIcon className="w-4 h-4" />}
+          >
+            Collect now
+          </Button>
+        </div>
       </div>
-    </motion.button>
+    </div>
   )
 }
 
-export default Collect
+export default CollectModule
