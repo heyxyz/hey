@@ -165,7 +165,7 @@ const CollectModule: React.FC<Props> = ({ post }) => {
   }
 
   return (
-    <div>
+    <>
       {collectModule.type === 'LimitedFeeCollectModule' ||
         (collectModule.type === 'LimitedTimedFeeCollectModule' && (
           <div className="w-full bg-gray-200 h-2.5 dark:bg-gray-700">
@@ -179,27 +179,33 @@ const CollectModule: React.FC<Props> = ({ post }) => {
         <div className="space-x-1.5">
           <span>Module:</span>
           <span className="font-bold text-gray-600">
-            {getModule(collectModule.type).name}
+            {collectModule.__typename === 'EmptyCollectModuleSettings'
+              ? 'Empty Collect'
+              : getModule(collectModule.type).name}
           </span>
         </div>
-        <div className="space-x-1.5">
-          <span>Recipient:</span>
-          <a
-            href={`https://mumbai.polygonscan.com/address/${collectModule.recipient}`}
-            target="_blank"
-            className="font-bold text-gray-600"
-            rel="noreferrer"
-          >
-            {formatUsername(collectModule.recipient)}
-          </a>
-        </div>
-        <div className="space-x-1.5">
-          <span>Referral Fee:</span>
-          <span className="font-bold text-gray-600">
-            {collectModule.referralFee}%
-          </span>
-        </div>
-        {collectModule.collectLimit && (
+        {collectModule?.recipient && (
+          <div className="space-x-1.5">
+            <span>Recipient:</span>
+            <a
+              href={`https://mumbai.polygonscan.com/address/${collectModule.recipient}`}
+              target="_blank"
+              className="font-bold text-gray-600"
+              rel="noreferrer"
+            >
+              {formatUsername(collectModule.recipient)}
+            </a>
+          </div>
+        )}
+        {collectModule?.referralFee && (
+          <div className="space-x-1.5">
+            <span>Referral Fee:</span>
+            <span className="font-bold text-gray-600">
+              {collectModule.referralFee}%
+            </span>
+          </div>
+        )}
+        {collectModule?.collectLimit && (
           <div className="space-x-1.5">
             <span>Collect limit:</span>
             <span className="font-bold text-gray-600">
@@ -207,21 +213,23 @@ const CollectModule: React.FC<Props> = ({ post }) => {
             </span>
           </div>
         )}
-        <div className="space-x-1.5 flex items-center">
-          <span>Fee:</span>
-          <span className="flex items-center space-x-1.5 font-bold text-gray-600">
-            <span>{collectModule.amount.value}</span>
-            <span>{collectModule.amount.asset.symbol}</span>
-            <Tooltip content={collectModule.amount.asset.symbol}>
-              <img
-                className="w-5 h-5"
-                src={getTokenImage(collectModule.amount.asset.symbol)}
-                alt={collectModule.amount.asset.symbol}
-              />
-            </Tooltip>
-          </span>
-        </div>
-        {collectModule.endTimestamp && (
+        {collectModule?.amount && (
+          <div className="space-x-1.5 flex items-center">
+            <span>Fee:</span>
+            <span className="flex items-center space-x-1.5 font-bold text-gray-600">
+              <span>{collectModule.amount.value}</span>
+              <span>{collectModule.amount.asset.symbol}</span>
+              <Tooltip content={collectModule.amount.asset.symbol}>
+                <img
+                  className="w-5 h-5"
+                  src={getTokenImage(collectModule.amount.asset.symbol)}
+                  alt={collectModule.amount.asset.symbol}
+                />
+              </Tooltip>
+            </span>
+          </div>
+        )}
+        {collectModule?.endTimestamp && (
           <div className="space-x-1.5">
             <span>Ends in:</span>
             <span className="font-bold text-gray-600">
@@ -244,7 +252,7 @@ const CollectModule: React.FC<Props> = ({ post }) => {
           </Button>
         </div>
       </div>
-    </div>
+    </>
   )
 }
 
