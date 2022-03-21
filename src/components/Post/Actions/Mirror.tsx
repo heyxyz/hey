@@ -2,7 +2,8 @@ import LensHubProxy from '@abis/LensHubProxy.json'
 import { gql, useMutation } from '@apollo/client'
 import { Spinner } from '@components/UI/Spinner'
 import AppContext from '@components/utils/AppContext'
-import { LensHubPost } from '@generated/lenshubtypes'
+import { LensterPost } from '@generated/lenstertypes'
+import { CreateMirrorBroadcastItemResult } from '@generated/types'
 import { DuplicateIcon } from '@heroicons/react/outline'
 import { humanize } from '@lib/humanize'
 import { omit } from '@lib/omit'
@@ -24,7 +25,7 @@ import {
   useSignTypedData
 } from 'wagmi'
 
-const CREATE_MIRROR_TYPED_DATA_QUERY = gql`
+const CREATE_MIRROR_TYPED_DATA_MUTATION = gql`
   mutation CreateMirrorTypedData($request: CreateMirrorRequest!) {
     createMirrorTypedData(request: $request) {
       id
@@ -57,7 +58,7 @@ const CREATE_MIRROR_TYPED_DATA_QUERY = gql`
 `
 
 interface Props {
-  post: LensHubPost
+  post: LensterPost
 }
 
 const Mirror: React.FC<Props> = ({ post }) => {
@@ -74,9 +75,13 @@ const Mirror: React.FC<Props> = ({ post }) => {
   )
 
   const [createMirrorTypedData, { loading: typedDataLoading }] = useMutation(
-    CREATE_MIRROR_TYPED_DATA_QUERY,
+    CREATE_MIRROR_TYPED_DATA_MUTATION,
     {
-      onCompleted({ createMirrorTypedData }: any) {
+      onCompleted({
+        createMirrorTypedData
+      }: {
+        createMirrorTypedData: CreateMirrorBroadcastItemResult
+      }) {
         const { typedData } = createMirrorTypedData
         const {
           profileId,

@@ -7,7 +7,10 @@ import { Card, CardBody } from '@components/UI/Card'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { Spinner } from '@components/UI/Spinner'
 import AppContext from '@components/utils/AppContext'
-import { Profile } from '@generated/types'
+import {
+  CreateSetProfileImageUriBroadcastItemResult,
+  Profile
+} from '@generated/types'
 import { PencilIcon } from '@heroicons/react/outline'
 import { omit } from '@lib/omit'
 import { splitSignature } from '@lib/splitSignature'
@@ -88,7 +91,11 @@ const Picture: React.FC<Props> = ({ profile }) => {
 
   const [createSetProfileImageURITypedData, { loading: typedDataLoading }] =
     useMutation(CREATE_SET_PROFILE_IMAGE_URI_TYPED_DATA_MUTATION, {
-      onCompleted({ createSetProfileImageURITypedData }: any) {
+      onCompleted({
+        createSetProfileImageURITypedData
+      }: {
+        createSetProfileImageURITypedData: CreateSetProfileImageUriBroadcastItemResult
+      }) {
         const { typedData } = createSetProfileImageURITypedData
 
         signTypedData({

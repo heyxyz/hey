@@ -1,11 +1,11 @@
 import Slug from '@components/Shared/Slug'
-import { LensHubPost } from '@generated/lenshubtypes'
+import { LensterPost } from '@generated/lenstertypes'
 import { DuplicateIcon } from '@heroicons/react/outline'
 import Link from 'next/link'
 import React from 'react'
 
 interface Props {
-  post: LensHubPost
+  post: LensterPost
 }
 
 const Mirrored: React.FC<Props> = ({ post }) => {

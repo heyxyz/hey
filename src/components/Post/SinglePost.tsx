@@ -4,7 +4,7 @@ import Attachments from '@components/Shared/Attachments'
 import IFramely from '@components/Shared/IFramely'
 import UserProfile from '@components/Shared/UserProfile'
 import { Card, CardBody } from '@components/UI/Card'
-import { LensHubPost } from '@generated/lenshubtypes'
+import { LensterPost } from '@generated/lenstertypes'
 import { getURLs } from '@lib/getURLs'
 import { linkifyOptions } from '@lib/linkifyOptions'
 import dayjs from 'dayjs'
@@ -24,7 +24,7 @@ import Mirrored from './Type/Mirrored'
 dayjs.extend(relativeTime)
 
 interface Props {
-  post: LensHubPost
+  post: LensterPost
   type?: string
 }
 
@@ -62,9 +62,8 @@ const SinglePost: React.FC<Props> = ({ post, type }) => {
       <div className="flex items-center px-3 py-1.5 text-gray-500 border-t dark:border-gray-800 gap-6">
         <Comment post={post} />
         <Mirror post={post} />
-        {post?.collectModule?.__typename !== 'RevertCollectModuleSettings' && (
-          <Collect post={post} />
-        )}
+        {post?.collectModule?.__typename !== 'RevertCollectModuleSettings' &&
+          post.__typename !== 'Mirror' && <Collect post={post} />}
         <PostMenu post={post} />
       </div>
     </Card>

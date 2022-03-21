@@ -5,7 +5,7 @@ import { EmptyState } from '@components/UI/EmptyState'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { Spinner } from '@components/UI/Spinner'
 import AppContext from '@components/utils/AppContext'
-import { LensHubPost } from '@generated/lenshubtypes'
+import { LensterPost } from '@generated/lenstertypes'
 import { CommentFragment } from '@gql/CommentFragment'
 import { CollectionIcon } from '@heroicons/react/outline'
 import React, { useContext } from 'react'
@@ -31,7 +31,7 @@ const COMMENT_FEED_QUERY = gql`
 `
 
 interface Props {
-  post: LensHubPost
+  post: LensterPost
 }
 
 const Feed: React.FC<Props> = ({ post }) => {
@@ -77,7 +77,7 @@ const Feed: React.FC<Props> = ({ post }) => {
         />
       )}
       <div className="space-y-3">
-        {data?.publications?.items?.map((post: LensHubPost, index: number) => (
+        {data?.publications?.items?.map((post: LensterPost, index: number) => (
           <SinglePost
             key={`${post.pubId}_${index}`}
             post={post}

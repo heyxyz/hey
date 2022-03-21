@@ -12,8 +12,11 @@ import { Form, useZodForm } from '@components/UI/Form'
 import { Spinner } from '@components/UI/Spinner'
 import { TextArea } from '@components/UI/TextArea'
 import AppContext from '@components/utils/AppContext'
-import { LensHubPost } from '@generated/lenshubtypes'
-import { EnabledModule } from '@generated/types'
+import { LensterPost } from '@generated/lenstertypes'
+import {
+  CreateCommentBroadcastItemResult,
+  EnabledModule
+} from '@generated/types'
 import { ChatAlt2Icon } from '@heroicons/react/outline'
 import {
   defaultFeeData,
@@ -85,7 +88,7 @@ const newCommentSchema = object({
 
 interface Props {
   refetch: any
-  post: LensHubPost
+  post: LensterPost
 }
 
 const NewComment: React.FC<Props> = ({ refetch, post }) => {
@@ -115,7 +118,11 @@ const NewComment: React.FC<Props> = ({ refetch, post }) => {
   const [createCommentTypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_COMMENT_TYPED_DATA_MUTATION,
     {
-      onCompleted({ createCommentTypedData }: any) {
+      onCompleted({
+        createCommentTypedData
+      }: {
+        createCommentTypedData: CreateCommentBroadcastItemResult
+      }) {
         const { typedData } = createCommentTypedData
         const {
           profileId,
@@ -191,7 +198,7 @@ const NewComment: React.FC<Props> = ({ refetch, post }) => {
         name: `Comment by @${currentUser?.handle}`,
         attributes: [],
         media: attachments,
-        appId: 'LensHub'
+        appId: 'Lenster'
       }).finally(() => setIsUploading(false))
 
       createCommentTypedData({

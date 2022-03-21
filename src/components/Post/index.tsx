@@ -17,7 +17,6 @@ import { useRouter } from 'next/router'
 import React from 'react'
 import Custom404 from 'src/pages/404'
 
-import CollectModule from './CollectModule'
 import IPFSHash from './IPFSHash'
 import SinglePost from './SinglePost'
 
@@ -75,9 +74,6 @@ const ViewPost: NextPage = () => {
           </CardBody>
         </Card>
         <IPFSHash ipfsHash={post.onChainContentURI} />
-        {post?.collectModule?.type && (
-          <CollectModule module={post.collectModule} />
-        )}
         <Footer />
       </GridItemFour>
     </GridLayout>
