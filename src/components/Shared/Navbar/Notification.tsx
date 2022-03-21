@@ -27,7 +27,6 @@ const Notification: React.FC = () => {
     if (currentUser && data) {
       const localCount = localStorage.getItem('notificationCount') ?? '0'
       const currentCount = data?.notifications?.pageInfo?.totalCount.toString()
-      console.log(localCount, currentCount)
       setShowBadge(localCount !== currentCount)
     }
   }, [currentUser, data])
