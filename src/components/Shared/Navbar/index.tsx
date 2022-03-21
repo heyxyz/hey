@@ -90,9 +90,11 @@ const Navbar: React.FC = () => {
             </div>
           </div>
           <div className="absolute inset-y-0 right-0 flex items-center gap-8 sm:static sm:inset-auto">
-            <div className="hidden md:block">
-              <Notification />
-            </div>
+            {currentUser && (
+              <div className="hidden md:block">
+                <Notification />
+              </div>
+            )}
             <div className="flex items-center gap-5">
               <MenuItems indexerData={indexerData} />
             </div>
