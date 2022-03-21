@@ -81,7 +81,8 @@ const client = new ApolloClient({
           ]),
           followers: lensStylePagination(['request', ['profileId']]),
           following: lensStylePagination(['request', ['address']]),
-          nfts: lensStylePagination(['request', ['ownerAddress', 'chainIds']])
+          nfts: lensStylePagination(['request', ['ownerAddress', 'chainIds']]),
+          notifications: lensStylePagination(['request', ['profileId']])
         }
       }
     }
