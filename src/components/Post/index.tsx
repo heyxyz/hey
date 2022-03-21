@@ -75,9 +75,7 @@ const ViewPost: NextPage = () => {
           </CardBody>
         </Card>
         <IPFSHash ipfsHash={post.onChainContentURI} />
-        {post?.collectModule?.type && (
-          <CollectModule module={post.collectModule} />
-        )}
+        {post?.collectModule?.type && <CollectModule post={post} />}
         <Footer />
       </GridItemFour>
     </GridLayout>
