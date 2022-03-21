@@ -21,6 +21,7 @@ import Custom404 from 'src/pages/404'
 
 import NewCollectNotification from './Type/NewCollectNotification'
 import NewCommentNotification from './Type/NewCommentNotification'
+import NewFollowerNotification from './Type/NewFollowerNotification'
 import NewMirrorNotification from './Type/NewMirrorNotification'
 
 const NOTIFICATIONS_QUERY = gql`
@@ -166,7 +167,7 @@ const Notification: NextPage = () => {
           {notifications?.map((notification: Notification, index: number) => (
             <div key={index}>
               {notification.__typename === 'NewFollowerNotification' && (
-                <div className="p-5">Follower TBD</div>
+                <NewFollowerNotification notification={notification} />
               )}
               {notification.__typename === 'NewCommentNotification' && (
                 <NewCommentNotification
