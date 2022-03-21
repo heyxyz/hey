@@ -153,7 +153,7 @@ const MenuItems: React.FC<Props> = ({ indexerData }) => {
                       <div>Logout</div>
                     </div>
                   </Menu.Item>
-                  {profiles.length > 0 && (
+                  {profiles.length > 1 && (
                     <>
                       <div className="border-b dark:border-gray-800" />
                       <div className="m-2">
