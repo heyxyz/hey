@@ -52,6 +52,7 @@ const SiteLayout: React.FC<Props> = ({ children }) => {
       localStorage.removeItem('selectedProfile')
       localStorage.removeItem('accessToken')
       localStorage.removeItem('refreshToken')
+      localStorage.removeItem('notificationCount')
       location.href = '/'
     })
   }, [accountData])
