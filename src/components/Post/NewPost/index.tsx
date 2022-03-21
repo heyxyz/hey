@@ -186,7 +186,12 @@ const NewPost: React.FC<Props> = ({ refetch }) => {
         image: attachments.length > 0 ? attachments[0]?.item : null,
         imageMimeType: attachments.length > 0 ? attachments[0]?.type : null,
         name: `Post by @${currentUser?.handle}`,
-        attributes: [],
+        attributes: [
+          {
+            traitType: 'type',
+            value: 'post'
+          }
+        ],
         media: attachments,
         appId: 'Lenster'
       }).finally(() => setIsUploading(false))
