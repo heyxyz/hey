@@ -8,6 +8,7 @@ import { useRouter } from 'next/router'
 import { useContext } from 'react'
 
 import MenuItems from './MenuItems'
+import Notification from './Notification'
 import Search from './Search'
 
 const StaffBar = dynamic(() => import('./StaffBar'))
@@ -88,7 +89,10 @@ const Navbar: React.FC = () => {
               </div>
             </div>
           </div>
-          <div className="absolute inset-y-0 right-0 flex items-center gap-5 pr-2 sm:static sm:inset-auto sm:pr-0 sm:ml-6">
+          <div className="absolute inset-y-0 right-0 flex items-center gap-8 sm:static sm:inset-auto">
+            <div className="hidden md:block">
+              <Notification />
+            </div>
             <div className="flex items-center gap-5">
               <MenuItems indexerData={indexerData} />
             </div>
