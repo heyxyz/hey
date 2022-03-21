@@ -137,10 +137,10 @@ const Collect: React.FC<Props> = ({ post }) => {
       toast.error(WRONG_NETWORK)
     } else if (
       // @ts-ignore
-      parseInt(post?.collectModule?.collectLimit) >=
+      parseInt(post?.collectModule?.collectLimit) <=
       post?.stats?.totalAmountOfCollects
     ) {
-      toast.error('Collect limit reached for this publication')
+      toast.error('Collect limit reached for this publication!')
     } else {
       createCollectTypedData({
         variables: {
