@@ -4,7 +4,7 @@ import Attachments from '@components/Shared/Attachments'
 import IFramely from '@components/Shared/IFramely'
 import UserProfile from '@components/Shared/UserProfile'
 import { Card, CardBody } from '@components/UI/Card'
-import { LensHubPost } from '@generated/lenshubtypes'
+import { LensterPost } from '@generated/lenstertypes'
 import { getURLs } from '@lib/getURLs'
 import { linkifyOptions } from '@lib/linkifyOptions'
 import dayjs from 'dayjs'
@@ -24,7 +24,7 @@ import Mirrored from './Type/Mirrored'
 dayjs.extend(relativeTime)
 
 interface Props {
-  post: LensHubPost
+  post: LensterPost
   type?: string
 }
 

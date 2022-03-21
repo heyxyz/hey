@@ -96,7 +96,7 @@ const Create: React.FC = () => {
             label="Handle"
             type="text"
             placeholder="justinbieber"
-            prefix="https://lenshub.io/u/"
+            prefix="https://lenster.xyz/u/"
             {...form.register('handle')}
           />
           <div className="space-y-1.5">
