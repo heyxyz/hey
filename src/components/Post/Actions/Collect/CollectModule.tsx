@@ -242,7 +242,7 @@ const CollectModule: React.FC<Props> = ({ post }) => {
             </span>
           </div>
         )}
-        <div className="pt-3">
+        <div className="pt-2">
           <Button
             onClick={createCollect}
             disabled={typedDataLoading || signLoading || writeLoading}
