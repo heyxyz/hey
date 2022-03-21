@@ -2,18 +2,25 @@ import LensHubProxy from '@abis/LensHubProxy.json'
 import { gql, useMutation } from '@apollo/client'
 import { Button } from '@components/UI/Button'
 import { Tooltip } from '@components/UI/Tooltip'
+import AppContext from '@components/utils/AppContext'
 import { LensterCollectModule, LensterPost } from '@generated/lenstertypes'
 import {
   CollectModule,
   CreateCollectBroadcastItemResult
 } from '@generated/types'
-import { CollectionIcon } from '@heroicons/react/outline'
+import {
+  ClockIcon,
+  CollectionIcon,
+  PhotographIcon,
+  UsersIcon
+} from '@heroicons/react/outline'
 import { formatUsername } from '@lib/formatUsername'
 import { getModule } from '@lib/getModule'
 import { getTokenImage } from '@lib/getTokenImage'
 import { omit } from '@lib/omit'
 import { splitSignature } from '@lib/splitSignature'
-import React from 'react'
+import dayjs from 'dayjs'
+import React, { useContext } from 'react'
 import toast from 'react-hot-toast'
 import {
   CONNECT_WALLET,
@@ -64,6 +71,7 @@ interface Props {
 }
 
 const CollectModule: React.FC<Props> = ({ post }) => {
+  const { currentUser } = useContext(AppContext)
   // @ts-ignore
   const collectModule: LensterCollectModule = post?.collectModule
   const percentageCollected =
@@ -177,7 +185,49 @@ const CollectModule: React.FC<Props> = ({ post }) => {
             </div>
           </Tooltip>
         ))}
-      <div className="p-5 space-y-1">
+      <div className="p-5 space-y-4">
+        <div className="space-y-1">
+          {post?.metadata?.name && (
+            <div className="text-xl font-bold">{post?.metadata?.name}</div>
+          )}
+          {post?.metadata?.description && (
+            <div className="text-gray-500 line-clamp-2">
+              {post?.metadata?.description}
+            </div>
+          )}
+        </div>
+        <div className="block space-y-1 sm:space-x-5 item-center sm:flex">
+          <div className="flex items-center space-x-2">
+            <UsersIcon className="w-4 h-4 text-gray-500" />
+            <div className="font-bold">
+              {post?.stats?.totalAmountOfCollects} collectors
+            </div>
+          </div>
+          {collectModule?.collectLimit && (
+            <div className="flex items-center space-x-2">
+              <PhotographIcon className="w-4 h-4 text-gray-500" />
+              <div className="font-bold">
+                {parseInt(collectModule?.collectLimit) -
+                  post?.stats?.totalAmountOfCollects}{' '}
+                available
+              </div>
+            </div>
+          )}
+        </div>
+        <div>
+          {collectModule?.endTimestamp && (
+            <div className="flex items-center space-x-2">
+              <ClockIcon className="w-4 h-4 text-gray-500" />
+              <div className="space-x-1.5">
+                <span>Sale Ends</span>
+                <span className="font-bold text-gray-600">
+                  {dayjs(collectModule.endTimestamp).format('MMMM DD, YYYY')} at{' '}
+                  {dayjs(collectModule.endTimestamp).format('hh:mm a')}
+                </span>
+              </div>
+            </div>
+          )}
+        </div>
         {collectModule?.recipient && (
           <div className="space-x-1.5">
             <span>Recipient:</span>
@@ -223,28 +273,17 @@ const CollectModule: React.FC<Props> = ({ post }) => {
             </span>
           </div>
         )}
-        {collectModule?.endTimestamp && (
-          <div className="space-x-1.5">
-            <span>Ends in:</span>
-            <span className="font-bold text-gray-600">
-              {(
-                Math.abs(
-                  new Date().getTime() -
-                    new Date(collectModule.endTimestamp).getTime()
-                ) / 36e5
-              ).toFixed(1)}
-            </span>
+        {currentUser && (
+          <div className="pt-2">
+            <Button
+              onClick={createCollect}
+              disabled={typedDataLoading || signLoading || writeLoading}
+              icon={<CollectionIcon className="w-4 h-4" />}
+            >
+              Collect now
+            </Button>
           </div>
         )}
-        <div className="pt-2">
-          <Button
-            onClick={createCollect}
-            disabled={typedDataLoading || signLoading || writeLoading}
-            icon={<CollectionIcon className="w-4 h-4" />}
-          >
-            Collect now
-          </Button>
-        </div>
       </div>
     </>
   )
