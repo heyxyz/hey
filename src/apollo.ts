@@ -73,7 +73,7 @@ const client = new ApolloClient({
           timeline: lensStylePagination(['request', ['profileId']]),
           publications: lensStylePagination([
             'request',
-            ['profileId', 'commentsOf', 'publicationTypes']
+            ['profileId', 'commentsOf', 'publicationTypes', 'limit']
           ]),
           explorePublications: lensStylePagination([
             'request',
