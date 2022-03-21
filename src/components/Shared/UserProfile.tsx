@@ -32,7 +32,7 @@ const UserProfile: React.FC<Props> = ({
           <div className="flex items-center space-x-3">
             <img
               src={getAvatar(profile)}
-              className="w-10 h-10 bg-gray-200 border rounded-full"
+              className="w-10 h-10 bg-gray-200 border rounded-full dark:border-gray-700"
               alt={profile?.handle}
             />
             <div>

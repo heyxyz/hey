@@ -1,5 +1,6 @@
 import { gql } from '@apollo/client'
 
+import { CommentCollectionFragment } from './CollectionFragment'
 import { PublicationProfileFragment } from './PublicationProfileFragment'
 
 export const CommentFragment = gql`
@@ -14,15 +15,15 @@ export const CommentFragment = gql`
         handle
       }
     }
-    collectModule {
-      __typename
-    }
+    ...CommentCollectionFragment
     stats {
       totalAmountOfComments
       totalAmountOfMirrors
       totalAmountOfCollects
     }
     metadata {
+      name
+      description
       content
       description
       media {
@@ -55,4 +56,5 @@ export const CommentFragment = gql`
     createdAt
   }
   ${PublicationProfileFragment}
+  ${CommentCollectionFragment}
 `

@@ -1,3 +1,3 @@
-# LensHub
+# Lenster
 
 WIP

@@ -2,7 +2,7 @@ import FollowNFT from '@abis/FollowNFT.json'
 import { gql, useMutation } from '@apollo/client'
 import { Button } from '@components/UI/Button'
 import { Spinner } from '@components/UI/Spinner'
-import { Profile } from '@generated/types'
+import { CreateUnfollowBroadcastItemResult, Profile } from '@generated/types'
 import { UserRemoveIcon } from '@heroicons/react/outline'
 import { omit } from '@lib/omit'
 import { splitSignature } from '@lib/splitSignature'
@@ -75,7 +75,11 @@ const Unfollow: React.FC<Props> = ({
   const [createUnfollowTypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_UNFOLLOW_TYPED_DATA_MUTATION,
     {
-      onCompleted({ createUnfollowTypedData }: any) {
+      onCompleted({
+        createUnfollowTypedData
+      }: {
+        createUnfollowTypedData: CreateUnfollowBroadcastItemResult
+      }) {
         const { typedData } = createUnfollowTypedData
 
         signTypedData({
@@ -96,12 +100,12 @@ const Unfollow: React.FC<Props> = ({
               }
             ]
 
-            write({ args: inputArray }).then(({ error }: { error: any }) => {
+            write({ args: inputArray }).then(({ error }) => {
               if (!error) {
                 setFollowing(false)
                 toast.success('Unfollowed successfully!')
               } else {
-                toast.error(error?.data?.message)
+                toast.error(error?.message)
               }
             })
           } else {

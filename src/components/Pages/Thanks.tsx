@@ -54,7 +54,7 @@ const Thanks: React.FC = () => {
               <Brand
                 name="Vercel"
                 logo="vercel"
-                url="https://vercel.com/?utm_source=LensHub&utm_campaign=oss"
+                url="https://vercel.com/?utm_source=Lenster&utm_campaign=oss"
                 size={40}
               >
                 Vercel combines the best developer experience with an obsessive
