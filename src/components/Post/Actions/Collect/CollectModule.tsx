@@ -168,22 +168,16 @@ const CollectModule: React.FC<Props> = ({ post }) => {
     <>
       {collectModule.type === 'LimitedFeeCollectModule' ||
         (collectModule.type === 'LimitedTimedFeeCollectModule' && (
-          <div className="w-full bg-gray-200 h-2.5 dark:bg-gray-700">
-            <div
-              className="bg-brand-500 h-2.5"
-              style={{ width: `${percentageCollected}%` }}
-            />
-          </div>
+          <Tooltip content="Collect Limit">
+            <div className="w-full bg-gray-200 h-2.5 dark:bg-gray-700">
+              <div
+                className="bg-brand-500 h-2.5"
+                style={{ width: `${percentageCollected}%` }}
+              />
+            </div>
+          </Tooltip>
         ))}
       <div className="p-5 space-y-1">
-        <div className="space-x-1.5">
-          <span>Module:</span>
-          <span className="font-bold text-gray-600">
-            {collectModule.__typename === 'EmptyCollectModuleSettings'
-              ? 'Empty Collect'
-              : getModule(collectModule.type).name}
-          </span>
-        </div>
         {collectModule?.recipient && (
           <div className="space-x-1.5">
             <span>Recipient:</span>
