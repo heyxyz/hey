@@ -3,11 +3,13 @@ import { Card, CardBody } from '@components/UI/Card'
 import { EmptyState } from '@components/UI/EmptyState'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { PageLoading } from '@components/UI/PageLoading'
+import { Spinner } from '@components/UI/Spinner'
 import AppContext from '@components/utils/AppContext'
 import { Notification } from '@generated/types'
 import { BellIcon } from '@heroicons/react/outline'
 import { NextPage } from 'next'
 import React, { useContext } from 'react'
+import useInView from 'react-cool-inview'
 import Custom404 from 'src/pages/404'
 
 const NOTIFICATIONS_QUERY = gql`
@@ -40,9 +42,25 @@ const NotificationWrapper = ({ children }: { children: React.ReactChild }) => (
 
 const Notification: NextPage = () => {
   const { currentUser } = useContext(AppContext)
-  const { data, loading, error } = useQuery(NOTIFICATIONS_QUERY, {
+  const { data, loading, error, fetchMore } = useQuery(NOTIFICATIONS_QUERY, {
     variables: {
       request: { profileId: currentUser?.id, limit: 10 }
+    }
+  })
+
+  const pageInfo = data?.notifications?.pageInfo
+  const { observe } = useInView({
+    threshold: 1,
+    onEnter: () => {
+      fetchMore({
+        variables: {
+          request: {
+            profileId: currentUser?.id,
+            cursor: pageInfo?.next,
+            limit: 10
+          }
+        }
+      })
     }
   })
 
@@ -76,6 +94,11 @@ const Notification: NextPage = () => {
               {JSON.stringify(notification)}
             </div>
           ))}
+          {pageInfo?.next && (
+            <span ref={observe} className="flex justify-center p-5">
+              <Spinner size="sm" />
+            </span>
+          )}
         </CardBody>
       </Card>
     </NotificationWrapper>
