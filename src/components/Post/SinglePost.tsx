@@ -7,6 +7,7 @@ import { Card, CardBody } from '@components/UI/Card'
 import { LensterPost } from '@generated/lenstertypes'
 import { getURLs } from '@lib/getURLs'
 import { linkifyOptions } from '@lib/linkifyOptions'
+import clsx from 'clsx'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import Linkify from 'linkify-react'
@@ -26,17 +27,18 @@ dayjs.extend(relativeTime)
 interface Props {
   post: LensterPost
   type?: string
+  showCard?: boolean
 }
 
-const SinglePost: React.FC<Props> = ({ post, type }) => {
+const SinglePost: React.FC<Props> = ({ post, type, showCard = true }) => {
   return (
-    <Card>
+    <Card className={clsx({ 'border-0': !showCard })}>
       <CardBody>
         {post?.__typename === 'Mirror' && <Mirrored post={post} />}
         {post?.__typename === 'Comment' && type !== 'COMMENT' && (
           <Commented post={post} />
         )}
-        {post?.collectedBy && <Collected post={post} />}
+        {post?.collectedBy && type !== 'COLLECT' && <Collected post={post} />}
         <div className="flex justify-between pb-4">
           <UserProfile profile={post.profile} />
           <Link href={`/post/${post.pubId}`}>
