@@ -9,9 +9,11 @@ import {
   CreateCollectBroadcastItemResult
 } from '@generated/types'
 import {
+  CashIcon,
   ClockIcon,
   CollectionIcon,
   PhotographIcon,
+  UserIcon,
   UsersIcon
 } from '@heroicons/react/outline'
 import { formatUsername } from '@lib/formatUsername'
@@ -185,94 +187,96 @@ const CollectModule: React.FC<Props> = ({ post }) => {
             </div>
           </Tooltip>
         ))}
-      <div className="p-5 space-y-4">
-        <div className="space-y-1">
-          {post?.metadata?.name && (
-            <div className="text-xl font-bold">{post?.metadata?.name}</div>
-          )}
-          {post?.metadata?.description && (
-            <div className="text-gray-500 line-clamp-2">
-              {post?.metadata?.description}
-            </div>
-          )}
-        </div>
-        <div className="block space-y-1 sm:space-x-5 item-center sm:flex">
-          <div className="flex items-center space-x-2">
-            <UsersIcon className="w-4 h-4 text-gray-500" />
-            <div className="font-bold">
-              {post?.stats?.totalAmountOfCollects} collectors
-            </div>
-          </div>
-          {collectModule?.collectLimit && (
-            <div className="flex items-center space-x-2">
-              <PhotographIcon className="w-4 h-4 text-gray-500" />
-              <div className="font-bold">
-                {parseInt(collectModule?.collectLimit) -
-                  post?.stats?.totalAmountOfCollects}{' '}
-                available
+      <div className="p-5 space-y-3">
+        <div className="space-y-1.5">
+          <div className="space-y-1.5">
+            {post?.metadata?.name && (
+              <div className="text-xl font-bold">{post?.metadata?.name}</div>
+            )}
+            {post?.metadata?.description && (
+              <div className="text-gray-500 line-clamp-2">
+                {post?.metadata?.description}
               </div>
-            </div>
-          )}
-        </div>
-        <div>
-          {collectModule?.endTimestamp && (
-            <div className="flex items-center space-x-2">
-              <ClockIcon className="w-4 h-4 text-gray-500" />
-              <div className="space-x-1.5">
-                <span>Sale Ends</span>
-                <span className="font-bold text-gray-600">
-                  {dayjs(collectModule.endTimestamp).format('MMMM DD, YYYY')} at{' '}
-                  {dayjs(collectModule.endTimestamp).format('hh:mm a')}
+            )}
+          </div>
+          {collectModule?.amount && (
+            <div className="space-x-1.5 flex items-center py-2">
+              <span className="flex items-center space-x-1.5">
+                <Tooltip content={collectModule.amount.asset.symbol}>
+                  <img
+                    className="w-7 h-7"
+                    src={getTokenImage(collectModule.amount.asset.symbol)}
+                    alt={collectModule.amount.asset.symbol}
+                  />
+                </Tooltip>
+                <span className="space-x-1">
+                  <span className="text-2xl font-bold">
+                    {collectModule.amount.value}
+                  </span>
+                  <span className="text-xs">
+                    {collectModule.amount.asset.symbol}
+                  </span>
                 </span>
+              </span>
+            </div>
+          )}
+          <div className="block space-y-1 sm:space-x-5 item-center sm:flex">
+            <div className="flex items-center space-x-2">
+              <UsersIcon className="w-4 h-4 text-gray-500" />
+              <div className="font-bold">
+                {post?.stats?.totalAmountOfCollects} collectors
+              </div>
+            </div>
+            {collectModule?.collectLimit && (
+              <div className="flex items-center space-x-2">
+                <PhotographIcon className="w-4 h-4 text-gray-500" />
+                <div className="font-bold">
+                  {parseInt(collectModule?.collectLimit) -
+                    post?.stats?.totalAmountOfCollects}{' '}
+                  available
+                </div>
+              </div>
+            )}
+            {collectModule?.referralFee && (
+              <div className="flex items-center space-x-2">
+                <CashIcon className="w-4 h-4 text-gray-500" />
+                <div className="font-bold">
+                  {collectModule.referralFee}% Referral Fee
+                </div>
+              </div>
+            )}
+          </div>
+          <div>
+            {collectModule?.endTimestamp && (
+              <div className="flex items-center space-x-2">
+                <ClockIcon className="w-4 h-4 text-gray-500" />
+                <div className="space-x-1.5">
+                  <span>Sale Ends</span>
+                  <span className="font-bold text-gray-600">
+                    {dayjs(collectModule.endTimestamp).format('MMMM DD, YYYY')}{' '}
+                    at {dayjs(collectModule.endTimestamp).format('hh:mm a')}
+                  </span>
+                </div>
+              </div>
+            )}
+          </div>
+          {collectModule?.recipient && (
+            <div className="flex items-center space-x-2">
+              <UserIcon className="w-4 h-4 text-gray-500" />
+              <div className="space-x-1.5">
+                <span>Recipient:</span>
+                <a
+                  href={`https://mumbai.polygonscan.com/address/${collectModule.recipient}`}
+                  target="_blank"
+                  className="font-bold text-gray-600"
+                  rel="noreferrer"
+                >
+                  {formatUsername(collectModule.recipient)}
+                </a>
               </div>
             </div>
           )}
         </div>
-        {collectModule?.recipient && (
-          <div className="space-x-1.5">
-            <span>Recipient:</span>
-            <a
-              href={`https://mumbai.polygonscan.com/address/${collectModule.recipient}`}
-              target="_blank"
-              className="font-bold text-gray-600"
-              rel="noreferrer"
-            >
-              {formatUsername(collectModule.recipient)}
-            </a>
-          </div>
-        )}
-        {collectModule?.referralFee && (
-          <div className="space-x-1.5">
-            <span>Referral Fee:</span>
-            <span className="font-bold text-gray-600">
-              {collectModule.referralFee}%
-            </span>
-          </div>
-        )}
-        {collectModule?.collectLimit && (
-          <div className="space-x-1.5">
-            <span>Collect limit:</span>
-            <span className="font-bold text-gray-600">
-              {collectModule.collectLimit}
-            </span>
-          </div>
-        )}
-        {collectModule?.amount && (
-          <div className="space-x-1.5 flex items-center">
-            <span>Fee:</span>
-            <span className="flex items-center space-x-1.5 font-bold text-gray-600">
-              <span>{collectModule.amount.value}</span>
-              <span>{collectModule.amount.asset.symbol}</span>
-              <Tooltip content={collectModule.amount.asset.symbol}>
-                <img
-                  className="w-5 h-5"
-                  src={getTokenImage(collectModule.amount.asset.symbol)}
-                  alt={collectModule.amount.asset.symbol}
-                />
-              </Tooltip>
-            </span>
-          </div>
-        )}
         {currentUser && (
           <div className="pt-2">
             <Button
