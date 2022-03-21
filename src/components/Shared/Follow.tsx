@@ -2,7 +2,7 @@ import LensHubProxy from '@abis/LensHubProxy.json'
 import { gql, useMutation } from '@apollo/client'
 import { Button } from '@components/UI/Button'
 import { Spinner } from '@components/UI/Spinner'
-import { Profile } from '@generated/types'
+import { CreateFollowBroadcastItemResult, Profile } from '@generated/types'
 import { UserAddIcon } from '@heroicons/react/outline'
 import { omit } from '@lib/omit'
 import { splitSignature } from '@lib/splitSignature'
@@ -76,7 +76,11 @@ const Follow: React.FC<Props> = ({
   const [createFollowTypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_FOLLOW_TYPED_DATA_MUTATION,
     {
-      onCompleted({ createFollowTypedData }: any) {
+      onCompleted({
+        createFollowTypedData
+      }: {
+        createFollowTypedData: CreateFollowBroadcastItemResult
+      }) {
         const { typedData } = createFollowTypedData
         signTypedData({
           domain: omit(typedData?.domain, '__typename'),

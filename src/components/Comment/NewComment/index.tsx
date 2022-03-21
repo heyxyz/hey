@@ -13,7 +13,10 @@ import { Spinner } from '@components/UI/Spinner'
 import { TextArea } from '@components/UI/TextArea'
 import AppContext from '@components/utils/AppContext'
 import { LensterPost } from '@generated/lenstertypes'
-import { EnabledModule } from '@generated/types'
+import {
+  CreateCommentBroadcastItemResult,
+  EnabledModule
+} from '@generated/types'
 import { ChatAlt2Icon } from '@heroicons/react/outline'
 import {
   defaultFeeData,
@@ -115,7 +118,11 @@ const NewComment: React.FC<Props> = ({ refetch, post }) => {
   const [createCommentTypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_COMMENT_TYPED_DATA_MUTATION,
     {
-      onCompleted({ createCommentTypedData }: any) {
+      onCompleted({
+        createCommentTypedData
+      }: {
+        createCommentTypedData: CreateCommentBroadcastItemResult
+      }) {
         const { typedData } = createCommentTypedData
         const {
           profileId,

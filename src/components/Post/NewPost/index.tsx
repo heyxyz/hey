@@ -10,7 +10,7 @@ import { Form, useZodForm } from '@components/UI/Form'
 import { Spinner } from '@components/UI/Spinner'
 import { TextArea } from '@components/UI/TextArea'
 import AppContext from '@components/utils/AppContext'
-import { EnabledModule } from '@generated/types'
+import { CreatePostBroadcastItemResult, EnabledModule } from '@generated/types'
 import { PencilAltIcon } from '@heroicons/react/outline'
 import {
   defaultFeeData,
@@ -112,7 +112,11 @@ const NewPost: React.FC<Props> = ({ refetch }) => {
   const [createPostTypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_POST_TYPED_DATA_MUTATION,
     {
-      onCompleted({ createPostTypedData }: any) {
+      onCompleted({
+        createPostTypedData
+      }: {
+        createPostTypedData: CreatePostBroadcastItemResult
+      }) {
         const { typedData } = createPostTypedData
         const {
           profileId,

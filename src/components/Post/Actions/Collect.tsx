@@ -2,6 +2,7 @@ import LensHubProxy from '@abis/LensHubProxy.json'
 import { gql, useMutation } from '@apollo/client'
 import { Spinner } from '@components/UI/Spinner'
 import { LensterPost } from '@generated/lenstertypes'
+import { CreateCollectBroadcastItemResult } from '@generated/types'
 import { CollectionIcon } from '@heroicons/react/outline'
 import { getModule } from '@lib/getModule'
 import { humanize } from '@lib/humanize'
@@ -72,7 +73,11 @@ const Collect: React.FC<Props> = ({ post }) => {
   const [createCollectTypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_COLLECT_TYPED_DATA_MUTATION,
     {
-      onCompleted({ createCollectTypedData }: any) {
+      onCompleted({
+        createCollectTypedData
+      }: {
+        createCollectTypedData: CreateCollectBroadcastItemResult
+      }) {
         const { typedData } = createCollectTypedData
 
         signTypedData({
