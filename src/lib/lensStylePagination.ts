@@ -9,7 +9,7 @@ export function lensStylePagination(keyArgs: any) {
       const incomingItems = incoming.items
 
       return {
-        items: existingItems.concat(incomingItems),
+        items: existingItems?.concat(incomingItems),
         pageInfo: incoming.pageInfo
       }
     }
