@@ -18,7 +18,7 @@ export const CONNECT_WALLET = 'Please connect your wallet.'
 export const WRONG_NETWORK = 'Please change network to Polygon Mumbai Testnet.'
 
 // URLs
-export const STATIC_ASSETS = 'https://assets.lenshub.io/images'
+export const STATIC_ASSETS = 'https://assets.lenster.xyz/images'
 export const API_URL = 'https://api-mumbai.lens.dev'
 
 // Web3

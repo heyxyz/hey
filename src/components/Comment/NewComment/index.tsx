@@ -12,7 +12,7 @@ import { Form, useZodForm } from '@components/UI/Form'
 import { Spinner } from '@components/UI/Spinner'
 import { TextArea } from '@components/UI/TextArea'
 import AppContext from '@components/utils/AppContext'
-import { LensHubPost } from '@generated/lenshubtypes'
+import { LensterPost } from '@generated/lenstertypes'
 import { EnabledModule } from '@generated/types'
 import { ChatAlt2Icon } from '@heroicons/react/outline'
 import {
@@ -85,7 +85,7 @@ const newCommentSchema = object({
 
 interface Props {
   refetch: any
-  post: LensHubPost
+  post: LensterPost
 }
 
 const NewComment: React.FC<Props> = ({ refetch, post }) => {
@@ -191,7 +191,7 @@ const NewComment: React.FC<Props> = ({ refetch, post }) => {
         name: `Comment by @${currentUser?.handle}`,
         attributes: [],
         media: attachments,
-        appId: 'LensHub'
+        appId: 'Lenster'
       }).finally(() => setIsUploading(false))
 
       createCommentTypedData({

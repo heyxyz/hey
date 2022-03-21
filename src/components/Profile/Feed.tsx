@@ -4,7 +4,7 @@ import PostsShimmer from '@components/Shared/Shimmer/PostsShimmer'
 import { EmptyState } from '@components/UI/EmptyState'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { Spinner } from '@components/UI/Spinner'
-import { LensHubPost } from '@generated/lenshubtypes'
+import { LensterPost } from '@generated/lenstertypes'
 import { Profile } from '@generated/types'
 import { CommentFragment } from '@gql/CommentFragment'
 import { MirrorFragment } from '@gql/MirrorFragment'
@@ -89,7 +89,7 @@ const Feed: React.FC<Props> = ({ profile, type }) => {
         <ErrorMessage title="Failed to load profile feed" error={error} />
       )}
       <div className="space-y-3">
-        {data?.publications?.items?.map((post: LensHubPost, index: number) => (
+        {data?.publications?.items?.map((post: LensterPost, index: number) => (
           <SinglePost key={`${post.pubId}_${index}`} post={post} />
         ))}
       </div>

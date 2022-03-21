@@ -4,7 +4,7 @@
 
 html,
 body {
-  font-family: 'LensHub', Helvetica, Arial, sans-serif;
+  font-family: 'Lenster', Helvetica, Arial, sans-serif;
 
   @apply bg-gray-50;
   @apply dark:bg-black;
@@ -33,6 +33,6 @@ body {
 
 .bg-hero {
   background: linear-gradient(90deg, #fff, #fff 50%, hsla(0, 0%, 100%, 0)),
-    url(https://assets.lenshub.io/images/patterns/hero.png);
+    url(https://assets.lenster.xyz/images/patterns/hero.png);
   background-size: cover;
 }

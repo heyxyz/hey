@@ -184,7 +184,7 @@ const NewPost: React.FC<Props> = ({ refetch }) => {
         name: `Post by @${currentUser?.handle}`,
         attributes: [],
         media: attachments,
-        appId: 'LensHub'
+        appId: 'Lenster'
       }).finally(() => setIsUploading(false))
 
       createPostTypedData({

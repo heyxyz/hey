@@ -1,7 +1,7 @@
 import LensHubProxy from '@abis/LensHubProxy.json'
 import { gql, useMutation } from '@apollo/client'
 import { Spinner } from '@components/UI/Spinner'
-import { LensHubPost } from '@generated/lenshubtypes'
+import { LensterPost } from '@generated/lenstertypes'
 import { CollectionIcon } from '@heroicons/react/outline'
 import { getModule } from '@lib/getModule'
 import { humanize } from '@lib/humanize'
@@ -54,7 +54,7 @@ const CREATE_COLLECT_TYPED_DATA_MUTATION = gql`
 `
 
 interface Props {
-  post: LensHubPost
+  post: LensterPost
 }
 
 const Collect: React.FC<Props> = ({ post }) => {
