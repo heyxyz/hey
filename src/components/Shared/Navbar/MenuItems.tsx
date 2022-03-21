@@ -157,7 +157,7 @@ const MenuItems: React.FC<Props> = ({ indexerData }) => {
                     <>
                       <div className="border-b dark:border-gray-800" />
                       <div className="m-2">
-                        <div className="flex items-center px-4 pt-1 pb-2 space-x-1.5 text-sm font-bold text-gray-600">
+                        <div className="flex items-center px-4 pt-1 pb-2 space-x-1.5 text-sm font-bold text-gray-500">
                           <SwitchHorizontalIcon className="w-4 h-4" />
                           <div>Switch to</div>
                         </div>

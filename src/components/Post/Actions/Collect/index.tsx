@@ -37,7 +37,6 @@ const Collect: React.FC<Props> = ({ post }) => {
             ? 'Empty Collect'
             : getModule(post.collectModule.type).name
         }
-        size="md"
         show={showCollectModal}
         onClose={() => setShowCollectModal(!showCollectModal)}
       >
