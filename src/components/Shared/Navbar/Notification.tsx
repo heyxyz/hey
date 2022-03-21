@@ -24,10 +24,11 @@ const Notification: React.FC = () => {
   })
 
   useEffect(() => {
-    if (currentUser) {
-      const localCount = localStorage.getItem('notificationCount') ?? 0
+    if (currentUser && data) {
+      const localCount = localStorage.getItem('notificationCount') ?? '0'
       const currentCount = data?.notifications?.pageInfo?.totalCount.toString()
-      setShowBadge(localCount < currentCount)
+      console.log(localCount, currentCount)
+      setShowBadge(localCount !== currentCount)
     }
   }, [currentUser, data])
 
