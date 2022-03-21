@@ -1,6 +1,7 @@
 import { Modal } from '@components/UI/Modal'
 import { LensterPost } from '@generated/lenstertypes'
 import { CollectionIcon } from '@heroicons/react/outline'
+import { getModule } from '@lib/getModule'
 import { humanize } from '@lib/humanize'
 import { motion } from 'framer-motion'
 import dynamic from 'next/dynamic'
@@ -31,7 +32,11 @@ const Collect: React.FC<Props> = ({ post }) => {
         )}
       </div>
       <Modal
-        title="Collect"
+        title={
+          post.collectModule.__typename === 'EmptyCollectModuleSettings'
+            ? 'Empty Collect'
+            : getModule(post.collectModule.type).name
+        }
         size="md"
         show={showCollectModal}
         onClose={() => setShowCollectModal(!showCollectModal)}
