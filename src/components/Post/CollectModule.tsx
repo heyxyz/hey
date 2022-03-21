@@ -28,15 +28,18 @@ const CollectModule: React.FC<Props> = ({ post }) => {
         <div>Collect Module</div>
       </div>
       <Card>
-        <div className="w-full bg-gray-200 rounded-t-xl h-2.5 dark:bg-gray-700">
-          <div
-            className={clsx(
-              { 'rounded-tr-xl': percentageCollected === 100 },
-              'bg-brand-500 h-2.5 rounded-tl-xl'
-            )}
-            style={{ width: `${percentageCollected}%` }}
-          />
-        </div>
+        {collectModule.type === 'LimitedFeeCollectModule' ||
+          (collectModule.type === 'LimitedTimedFeeCollectModule' && (
+            <div className="w-full bg-gray-200 rounded-t-xl h-2.5 dark:bg-gray-700">
+              <div
+                className={clsx(
+                  { 'rounded-tr-xl': percentageCollected === 100 },
+                  'bg-brand-500 h-2.5 rounded-tl-xl'
+                )}
+                style={{ width: `${percentageCollected}%` }}
+              />
+            </div>
+          ))}
         <CardBody className="space-y-1">
           <div className="space-x-1.5">
             <span>Module:</span>
