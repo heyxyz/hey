@@ -96,12 +96,12 @@ const Unfollow: React.FC<Props> = ({
               }
             ]
 
-            write({ args: inputArray }).then(({ error }: { error: any }) => {
+            write({ args: inputArray }).then(({ error }) => {
               if (!error) {
                 setFollowing(false)
                 toast.success('Unfollowed successfully!')
               } else {
-                toast.error(error?.data?.message)
+                toast.error(error?.message)
               }
             })
           } else {
