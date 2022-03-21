@@ -30,7 +30,10 @@ const CollectModule: React.FC<Props> = ({ post }) => {
       <Card>
         <div className="w-full bg-gray-200 rounded-t-xl h-2.5 dark:bg-gray-700">
           <div
-            className={clsx('bg-brand-500 h-2.5 rounded-tl-xl')}
+            className={clsx(
+              { 'rounded-tr-xl': percentageCollected === 100 },
+              'bg-brand-500 h-2.5 rounded-tl-xl'
+            )}
             style={{ width: `${percentageCollected}%` }}
           />
         </div>
