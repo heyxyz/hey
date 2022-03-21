@@ -21,6 +21,8 @@ export const PostFragment = gql`
       totalAmountOfCollects
     }
     metadata {
+      name
+      description
       content
       description
       media {

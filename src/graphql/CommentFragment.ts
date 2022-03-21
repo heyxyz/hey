@@ -22,6 +22,8 @@ export const CommentFragment = gql`
       totalAmountOfCollects
     }
     metadata {
+      name
+      description
       content
       description
       media {
