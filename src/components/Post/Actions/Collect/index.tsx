@@ -1,4 +1,5 @@
 import { Modal } from '@components/UI/Modal'
+import GetModuleIcon from '@components/utils/GetModuleIcon'
 import { LensterPost } from '@generated/lenstertypes'
 import { CollectionIcon } from '@heroicons/react/outline'
 import { getModule } from '@lib/getModule'
@@ -33,9 +34,23 @@ const Collect: React.FC<Props> = ({ post }) => {
       </div>
       <Modal
         title={
-          post.collectModule.__typename === 'EmptyCollectModuleSettings'
-            ? 'Empty Collect'
-            : getModule(post.collectModule.type).name
+          <div className="flex items-center space-x-2">
+            <div className="text-brand-500">
+              <GetModuleIcon
+                module={
+                  post.collectModule.__typename === 'EmptyCollectModuleSettings'
+                    ? 'EmptyCollectModule'
+                    : post.collectModule.type
+                }
+                size={5}
+              />
+            </div>
+            <div>
+              {post.collectModule.__typename === 'EmptyCollectModuleSettings'
+                ? 'Empty Collect'
+                : getModule(post.collectModule.type).name}
+            </div>
+          </div>
         }
         show={showCollectModal}
         onClose={() => setShowCollectModal(!showCollectModal)}
