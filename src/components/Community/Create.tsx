@@ -37,6 +37,8 @@ import {
 } from 'wagmi'
 import { object, string } from 'zod'
 
+import Pending from './Pending'
+
 const newCommunitySchema = object({
   name: string()
     .min(2, { message: 'Name should be atleast 2 characters' })
@@ -55,7 +57,7 @@ const Create: React.FC = () => {
   const [{ data: network }] = useNetwork()
   const [{ data: account }] = useAccount()
   const [{ loading: signLoading }, signTypedData] = useSignTypedData()
-  const [{ loading: writeLoading }, write] = useContractWrite(
+  const [{ data, loading: writeLoading }, write] = useContractWrite(
     {
       addressOrName: LENSHUB_PROXY,
       contractInterface: LensHubProxy
@@ -194,76 +196,80 @@ const Create: React.FC = () => {
       <GridItemEight>
         <Card>
           <CardBody>
-            <Form
-              form={form}
-              className="space-y-4"
-              onSubmit={({ name, description }) => {
-                createCommunity(name, description)
-              }}
-            >
-              <Input
-                label="Name"
-                type="text"
-                placeholder="minecraft"
-                {...form.register('name')}
-              />
-              <TextArea
-                label="Description"
-                placeholder="Tell us something about the community!"
-                {...form.register('description')}
-              />
-              <div className="space-y-1.5">
-                <label>Avatar</label>
-                <div className="space-y-3">
-                  {avatar && (
+            {data?.hash ? (
+              <Pending txHash={data?.hash} />
+            ) : (
+              <Form
+                form={form}
+                className="space-y-4"
+                onSubmit={({ name, description }) => {
+                  createCommunity(name, description)
+                }}
+              >
+                <Input
+                  label="Name"
+                  type="text"
+                  placeholder="minecraft"
+                  {...form.register('name')}
+                />
+                <TextArea
+                  label="Description"
+                  placeholder="Tell us something about the community!"
+                  {...form.register('description')}
+                />
+                <div className="space-y-1.5">
+                  <label>Avatar</label>
+                  <div className="space-y-3">
+                    {avatar && (
+                      <div>
+                        <img
+                          className="rounded-lg h-60 w-60"
+                          src={avatar}
+                          alt={avatar}
+                        />
+                      </div>
+                    )}
                     <div>
-                      <img
-                        className="rounded-lg h-60 w-60"
-                        src={avatar}
-                        alt={avatar}
-                      />
-                    </div>
-                  )}
-                  <div>
-                    <div className="flex items-center space-x-3">
-                      <ChooseFile
-                        onChange={(evt: React.ChangeEvent<HTMLInputElement>) =>
-                          handleUpload(evt)
-                        }
-                      />
-                      {uploading && <Spinner size="sm" />}
+                      <div className="flex items-center space-x-3">
+                        <ChooseFile
+                          onChange={(
+                            evt: React.ChangeEvent<HTMLInputElement>
+                          ) => handleUpload(evt)}
+                        />
+                        {uploading && <Spinner size="sm" />}
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div className="ml-auto">
-                {network.chain?.unsupported ? (
-                  <SwitchNetwork />
-                ) : (
-                  <Button
-                    type="submit"
-                    disabled={
-                      typedDataLoading ||
-                      isUploading ||
-                      signLoading ||
-                      writeLoading
-                    }
-                    icon={
-                      typedDataLoading ||
-                      isUploading ||
-                      signLoading ||
-                      writeLoading ? (
-                        <Spinner size="xs" />
-                      ) : (
-                        <PlusIcon className="w-4 h-4" />
-                      )
-                    }
-                  >
-                    Create
-                  </Button>
-                )}
-              </div>
-            </Form>
+                <div className="ml-auto">
+                  {network.chain?.unsupported ? (
+                    <SwitchNetwork />
+                  ) : (
+                    <Button
+                      type="submit"
+                      disabled={
+                        typedDataLoading ||
+                        isUploading ||
+                        signLoading ||
+                        writeLoading
+                      }
+                      icon={
+                        typedDataLoading ||
+                        isUploading ||
+                        signLoading ||
+                        writeLoading ? (
+                          <Spinner size="xs" />
+                        ) : (
+                          <PlusIcon className="w-4 h-4" />
+                        )
+                      }
+                    >
+                      Create
+                    </Button>
+                  )}
+                </div>
+              </Form>
+            )}
           </CardBody>
         </Card>
       </GridItemEight>
