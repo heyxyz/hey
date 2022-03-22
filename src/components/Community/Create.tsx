@@ -40,8 +40,7 @@ import { object, string } from 'zod'
 const newCommunitySchema = object({
   name: string()
     .min(2, { message: 'Name should be atleast 2 characters' })
-    .max(31, { message: 'Name should be less than 32 characters' })
-    .regex(/^[a-z0-9_\.]+$/, { message: 'Invalid name' }),
+    .max(31, { message: 'Name should be less than 32 characters' }),
   description: string()
     .max(260, { message: 'Description should not exceed 260 characters' })
     .nullable()
