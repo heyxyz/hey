@@ -28,6 +28,7 @@ export const COMMUNITY_QUERY = gql`
             }
           }
         }
+        createdAt
       }
     }
   }
