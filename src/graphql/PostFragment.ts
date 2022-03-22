@@ -31,6 +31,9 @@ export const PostFragment = gql`
           mimeType
         }
       }
+      attributes {
+        value
+      }
     }
     createdAt
     appId
