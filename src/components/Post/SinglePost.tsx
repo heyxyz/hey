@@ -13,6 +13,7 @@ import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import Linkify from 'linkify-react'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import React from 'react'
 
 import Collect from './Actions/Collect'
@@ -21,6 +22,7 @@ import PostMenu from './Actions/Menu'
 import Mirror from './Actions/Mirror'
 import Collected from './Type/Collected'
 import Commented from './Type/Commented'
+import CommunityPost from './Type/CommunityPost'
 import Mirrored from './Type/Mirrored'
 
 dayjs.extend(relativeTime)
@@ -32,14 +34,18 @@ interface Props {
 }
 
 const SinglePost: React.FC<Props> = ({ post, type, showCard = true }) => {
+  const { pathname } = useRouter()
   const postType = post.metadata?.attributes[0]?.value
 
   return (
     <Card className={clsx({ 'border-0': !showCard })}>
       <CardBody>
         {post?.__typename === 'Mirror' && <Mirrored post={post} />}
-        {post?.__typename === 'Comment' && type !== 'COMMENT' && (
-          <Commented post={post} />
+        {post?.__typename === 'Comment' &&
+          type !== 'COMMENT' &&
+          postType !== 'community_post' && <Commented post={post} />}
+        {postType === 'community_post' && pathname !== '/communities/[id]' && (
+          <CommunityPost post={post} />
         )}
         {post?.collectedBy && type !== 'COLLECT' && <Collected post={post} />}
         <div className="flex justify-between pb-4">
