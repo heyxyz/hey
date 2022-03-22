@@ -18,7 +18,7 @@ const Notification: React.FC = () => {
   const [showBadge, setShowBadge] = useState<boolean>(false)
   const { currentUser } = useContext(AppContext)
   const { data } = useQuery(NOTIFICATION_COUNT_QUERY, {
-    pollInterval: 5000,
+    // pollInterval: 5000,
     variables: { request: { profileId: currentUser?.id } },
     skip: !currentUser?.id
   })
