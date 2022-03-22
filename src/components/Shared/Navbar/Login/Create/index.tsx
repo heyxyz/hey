@@ -42,6 +42,10 @@ const Create: React.FC = () => {
     CREATE_PROFILE_MUTATION
   )
 
+  const form = useZodForm({
+    schema: newUserSchema
+  })
+
   const handleUpload = async (evt: React.ChangeEvent<HTMLInputElement>) => {
     evt.preventDefault()
     setUploading(true)
@@ -53,10 +57,6 @@ const Create: React.FC = () => {
       setUploading(false)
     }
   }
-
-  const form = useZodForm({
-    schema: newUserSchema
-  })
 
   return (
     <>
