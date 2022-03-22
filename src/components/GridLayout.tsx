@@ -6,7 +6,7 @@ interface Props {
 export const GridLayout: React.FC<Props> = ({ children, className = '' }) => {
   return (
     <div
-      className={`container mx-auto max-w-screen-xl flex-grow py-8 px-5 ${className}`}
+      className={`container mx-auto max-w-screen-xl flex-grow py-8 px-0 sm:px-5 ${className}`}
     >
       <div className="grid grid-cols-12 lg:gap-8">{children}</div>
     </div>
