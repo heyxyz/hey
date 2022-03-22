@@ -1,7 +1,7 @@
 import 'linkify-plugin-mention'
 
 import { LensterPost } from '@generated/lenstertypes'
-import { HashtagIcon } from '@heroicons/react/outline'
+import { ClockIcon, HashtagIcon } from '@heroicons/react/outline'
 import { linkifyOptions } from '@lib/linkifyOptions'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
@@ -54,6 +54,9 @@ const Details: React.FC<Props> = ({ community }) => {
           <div className="space-y-2">
             <MetaDetails icon={<HashtagIcon className="w-4 h-4" />}>
               {community?.pubId}
+            </MetaDetails>
+            <MetaDetails icon={<ClockIcon className="w-4 h-4" />}>
+              {dayjs(new Date(community?.createdAt)).fromNow()}
             </MetaDetails>
           </div>
         </div>
