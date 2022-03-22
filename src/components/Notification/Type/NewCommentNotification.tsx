@@ -27,7 +27,7 @@ const NewCommentNotification: React.FC<Props> = ({ notification }) => {
           <div>commented on your</div>
           <Link href={`/post/${notification?.comment.pubId}`}>
             <a className="font-bold">
-              {notification?.comment.__typename?.toLowerCase()}
+              {notification?.comment?.commentOn?.__typename?.toLowerCase()}
             </a>
           </Link>
         </div>
