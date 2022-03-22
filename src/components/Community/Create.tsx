@@ -161,7 +161,7 @@ const Create: React.FC = () => {
           }
         ],
         media: [],
-        appId: 'Lenster'
+        appId: 'Lenster Community'
       }).finally(() => setIsUploading(false))
 
       createPostTypedData({
