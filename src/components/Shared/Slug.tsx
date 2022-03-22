@@ -1,7 +1,7 @@
 import React from 'react'
 
 interface Props {
-  slug: string | undefined
+  slug: string | undefined | null
   prefix?: string
   className?: string
 }

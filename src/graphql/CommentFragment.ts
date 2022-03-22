@@ -32,12 +32,18 @@ export const CommentFragment = gql`
           mimeType
         }
       }
+      attributes {
+        value
+      }
     }
     commentOn {
       ... on Post {
         id
         profile {
           handle
+        }
+        metadata {
+          name
         }
       }
       ... on Comment {
