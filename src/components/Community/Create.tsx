@@ -2,6 +2,7 @@ import LensHubProxy from '@abis/LensHubProxy.json'
 import { useMutation } from '@apollo/client'
 import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout'
 import { CREATE_POST_TYPED_DATA_MUTATION } from '@components/Post/NewPost'
+import ChooseFile from '@components/Shared/ChooseFile'
 import SettingsHelper from '@components/Shared/SettingsHelper'
 import SwitchNetwork from '@components/Shared/SwitchNetwork'
 import { Button } from '@components/UI/Button'
@@ -15,6 +16,7 @@ import { CreatePostBroadcastItemResult } from '@generated/types'
 import { PlusIcon } from '@heroicons/react/outline'
 import { omit } from '@lib/omit'
 import { splitSignature } from '@lib/splitSignature'
+import { uploadAssetsToIPFS } from '@lib/uploadAssetsToIPFS'
 import { uploadToIPFS } from '@lib/uploadToIPFS'
 import React, { useContext, useState } from 'react'
 import toast from 'react-hot-toast'
@@ -46,12 +48,15 @@ const newCommunitySchema = object({
 })
 
 const Create: React.FC = () => {
+  const [avatar, setAvatar] = useState<string>()
+  const [avatarType, setAvatarType] = useState<string>()
   const [isUploading, setIsUploading] = useState<boolean>(false)
+  const [uploading, setUploading] = useState<boolean>(false)
   const { currentUser } = useContext(AppContext)
   const [{ data: network }] = useNetwork()
   const [{ data: account }] = useAccount()
   const [{ loading: signLoading }, signTypedData] = useSignTypedData()
-  const [{ data, error, loading: writeLoading }, write] = useContractWrite(
+  const [{ loading: writeLoading }, write] = useContractWrite(
     {
       addressOrName: LENSHUB_PROXY,
       contractInterface: LensHubProxy
@@ -62,6 +67,19 @@ const Create: React.FC = () => {
   const form = useZodForm({
     schema: newCommunitySchema
   })
+
+  const handleUpload = async (evt: React.ChangeEvent<HTMLInputElement>) => {
+    evt.preventDefault()
+    setUploading(true)
+    try {
+      // @ts-ignore
+      const attachment = await uploadAssetsToIPFS(evt.target.files[0])
+      setAvatar(attachment.item)
+      setAvatarType(attachment.type)
+    } finally {
+      setUploading(false)
+    }
+  }
 
   const [createPostTypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_POST_TYPED_DATA_MUTATION,
@@ -134,8 +152,8 @@ const Create: React.FC = () => {
         description: description,
         content: description,
         external_url: null,
-        image: null,
-        imageMimeType: null,
+        image: avatar,
+        imageMimeType: avatarType,
         name: name,
         attributes: [
           {
@@ -156,7 +174,7 @@ const Create: React.FC = () => {
               emptyCollectModule: true
             },
             referenceModule: {
-              followerOnlyReferenceModule: true
+              followerOnlyReferenceModule: false
             }
           }
         }
@@ -195,6 +213,30 @@ const Create: React.FC = () => {
                 placeholder="Tell us something about the community!"
                 {...form.register('description')}
               />
+              <div className="space-y-1.5">
+                <label>Avatar</label>
+                <div className="space-y-3">
+                  {avatar && (
+                    <div>
+                      <img
+                        className="rounded-lg h-60 w-60"
+                        src={avatar}
+                        alt={avatar}
+                      />
+                    </div>
+                  )}
+                  <div>
+                    <div className="flex items-center space-x-3">
+                      <ChooseFile
+                        onChange={(evt: React.ChangeEvent<HTMLInputElement>) =>
+                          handleUpload(evt)
+                        }
+                      />
+                      {uploading && <Spinner size="sm" />}
+                    </div>
+                  </div>
+                </div>
+              </div>
               <div className="ml-auto">
                 {network.chain?.unsupported ? (
                   <SwitchNetwork />
