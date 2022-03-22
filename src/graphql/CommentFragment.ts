@@ -54,6 +54,7 @@ export const CommentFragment = gql`
       }
     }
     createdAt
+    appId
   }
   ${PublicationProfileFragment}
   ${CommentCollectionFragment}
