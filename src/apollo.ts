@@ -77,7 +77,7 @@ const client = new ApolloClient({
           ]),
           explorePublications: lensStylePagination([
             'request',
-            ['sortCriteria']
+            ['sortCriteria', 'sources']
           ]),
           followers: lensStylePagination(['request', ['profileId']]),
           following: lensStylePagination(['request', ['address']]),
