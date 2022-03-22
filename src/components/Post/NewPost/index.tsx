@@ -42,7 +42,7 @@ import { object, string } from 'zod'
 import SelectCollectModule from '../../Shared/SelectCollectModule'
 import Attachment from './Attachment'
 
-const CREATE_POST_TYPED_DATA_MUTATION = gql`
+export const CREATE_POST_TYPED_DATA_MUTATION = gql`
   mutation CreatePostTypedData($request: CreatePublicPostRequest!) {
     createPostTypedData(request: $request) {
       id
