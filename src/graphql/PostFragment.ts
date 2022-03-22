@@ -33,6 +33,7 @@ export const PostFragment = gql`
       }
     }
     createdAt
+    appId
   }
   ${PublicationProfileFragment}
   ${PostCollectionFragment}

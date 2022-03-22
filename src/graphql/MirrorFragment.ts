@@ -38,6 +38,7 @@ export const MirrorFragment = gql`
       }
     }
     createdAt
+    appId
   }
   ${PublicationProfileFragment}
 `

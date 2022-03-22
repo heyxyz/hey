@@ -19,6 +19,7 @@ import Custom404 from 'src/pages/404'
 
 import IPFSHash from './IPFSHash'
 import SinglePost from './SinglePost'
+import ViaLenster from './ViaLenster'
 
 export const POST_QUERY = gql`
   query Post($request: PublicationQueryRequest!) {
@@ -72,6 +73,7 @@ const ViewPost: NextPage = () => {
           <CardBody>
             <UserProfile profile={post.profile} />
           </CardBody>
+          {post?.appId === 'Lenster' && <ViaLenster />}
         </Card>
         <IPFSHash ipfsHash={post.onChainContentURI} />
         <Footer />
