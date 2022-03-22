@@ -33,7 +33,7 @@ const Details: React.FC<Props> = ({ community }) => {
       <div className="space-y-5">
         <div className="relative w-32 h-32 sm:h-72 sm:w-72">
           <img
-            src="https://gitlab.com/uploads/-/system/project/avatar/34611356/lens.jpeg"
+            src={community?.metadata?.cover?.original?.url}
             className="w-32 h-32 bg-gray-200 rounded-xl ring-8 sm:h-72 sm:w-72 dark:bg-gray-700 ring-gray-50 dark:ring-black"
             alt="Avatar"
           />
