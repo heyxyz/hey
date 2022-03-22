@@ -2,6 +2,7 @@ import { gql, useQuery } from '@apollo/client'
 import AppContext from '@components/utils/AppContext'
 import { LightningBoltIcon } from '@heroicons/react/outline'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { useContext, useEffect, useState } from 'react'
 
 const NOTIFICATION_COUNT_QUERY = gql`
@@ -15,10 +16,11 @@ const NOTIFICATION_COUNT_QUERY = gql`
 `
 
 const Notification: React.FC = () => {
+  const { pathname } = useRouter()
   const [showBadge, setShowBadge] = useState<boolean>(false)
   const { currentUser } = useContext(AppContext)
   const { data } = useQuery(NOTIFICATION_COUNT_QUERY, {
-    // pollInterval: 5000,
+    pollInterval: pathname === '/notifications' ? 0 : 5000,
     variables: { request: { profileId: currentUser?.id } },
     skip: !currentUser?.id
   })
@@ -33,7 +35,16 @@ const Notification: React.FC = () => {
 
   return (
     <Link href="/notifications">
-      <a className="flex items-start">
+      <a
+        className="flex items-start"
+        onClick={() => {
+          localStorage.setItem(
+            'notificationCount',
+            data?.notifications?.pageInfo?.totalCount.toString()
+          )
+          setShowBadge(false)
+        }}
+      >
         <LightningBoltIcon className="w-6 h-6" />
         {showBadge && <div className="w-2 h-2 bg-red-500 rounded-full" />}
       </a>

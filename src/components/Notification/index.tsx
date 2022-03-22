@@ -117,12 +117,6 @@ const Notification: NextPage = () => {
   const { data, loading, error, fetchMore } = useQuery(NOTIFICATIONS_QUERY, {
     variables: {
       request: { profileId: currentUser?.id, limit: 10 }
-    },
-    onCompleted(data) {
-      localStorage.setItem(
-        'notificationCount',
-        data?.notifications?.pageInfo?.totalCount.toString()
-      )
     }
   })
 
