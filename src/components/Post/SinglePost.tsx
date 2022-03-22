@@ -5,6 +5,7 @@ import IFramely from '@components/Shared/IFramely'
 import UserProfile from '@components/Shared/UserProfile'
 import { Card, CardBody } from '@components/UI/Card'
 import { LensterPost } from '@generated/lenstertypes'
+import { UsersIcon } from '@heroicons/react/outline'
 import { getURLs } from '@lib/getURLs'
 import { linkifyOptions } from '@lib/linkifyOptions'
 import clsx from 'clsx'
@@ -31,6 +32,8 @@ interface Props {
 }
 
 const SinglePost: React.FC<Props> = ({ post, type, showCard = true }) => {
+  const postType = post.metadata?.attributes[0]?.value
+
   return (
     <Card className={clsx({ 'border-0': !showCard })}>
       <CardBody>
@@ -49,7 +52,17 @@ const SinglePost: React.FC<Props> = ({ post, type, showCard = true }) => {
         </div>
         <div className="flex items-start justify-between linkify">
           <Linkify tagName="div" options={linkifyOptions}>
-            {post?.metadata?.content}
+            {postType === 'community' ? (
+              <div className="flex items-center space-x-1.5">
+                <UsersIcon className="w-4 h-4 text-brand-500" />
+                <span>Launched new a community</span>
+                <a className="font-bold" href={`/communities/${post.pubId}`}>
+                  {post?.metadata?.name}
+                </a>
+              </div>
+            ) : (
+              post?.metadata?.content
+            )}
           </Linkify>
         </div>
         {post?.metadata?.media?.length > 0 ? (
@@ -61,13 +74,15 @@ const SinglePost: React.FC<Props> = ({ post, type, showCard = true }) => {
           )
         )}
       </CardBody>
-      <div className="flex items-center px-3 py-1.5 text-gray-500 border-t dark:border-gray-800 gap-6">
-        <Comment post={post} />
-        <Mirror post={post} />
-        {post?.collectModule?.__typename !== 'RevertCollectModuleSettings' &&
-          post.__typename !== 'Mirror' && <Collect post={post} />}
-        <PostMenu post={post} />
-      </div>
+      {postType !== 'community' && (
+        <div className="flex items-center px-3 py-1.5 text-gray-500 border-t dark:border-gray-800 gap-6">
+          <Comment post={post} />
+          <Mirror post={post} />
+          {post?.collectModule?.__typename !== 'RevertCollectModuleSettings' &&
+            post.__typename !== 'Mirror' && <Collect post={post} />}
+          <PostMenu post={post} />
+        </div>
+      )}
     </Card>
   )
 }

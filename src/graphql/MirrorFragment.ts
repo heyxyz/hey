@@ -22,6 +22,9 @@ export const MirrorFragment = gql`
           mimeType
         }
       }
+      attributes {
+        value
+      }
     }
     mirrorOf {
       ... on Post {

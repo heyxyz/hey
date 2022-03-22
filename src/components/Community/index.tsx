@@ -19,7 +19,6 @@ export const COMMUNITY_QUERY = gql`
           description
           content
           attributes {
-            traitType
             value
           }
           cover {
