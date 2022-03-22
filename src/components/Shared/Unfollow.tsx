@@ -6,19 +6,15 @@ import { CreateUnfollowBroadcastItemResult, Profile } from '@generated/types'
 import { UserRemoveIcon } from '@heroicons/react/outline'
 import { omit } from '@lib/omit'
 import { splitSignature } from '@lib/splitSignature'
-import { Dispatch } from 'react'
+import { Contract } from 'ethers'
+import { Dispatch, useState } from 'react'
 import toast from 'react-hot-toast'
-import {
-  CONNECT_WALLET,
-  ERROR_MESSAGE,
-  FOLLOW_NFT,
-  WRONG_NETWORK
-} from 'src/constants'
+import { CONNECT_WALLET, ERROR_MESSAGE, WRONG_NETWORK } from 'src/constants'
 import {
   chain,
   useAccount,
-  useContractWrite,
   useNetwork,
+  useSigner,
   useSignTypedData
 } from 'wagmi'
 
@@ -61,16 +57,11 @@ const Unfollow: React.FC<Props> = ({
   showText = false,
   setFollowing
 }) => {
+  const [writeLoading, setWriteLoading] = useState<boolean>(false)
   const [{ data: network }] = useNetwork()
   const [{ data: account }] = useAccount()
   const [{ loading: signLoading }, signTypedData] = useSignTypedData()
-  const [{ loading: writeLoading }, write] = useContractWrite(
-    {
-      addressOrName: FOLLOW_NFT,
-      contractInterface: FollowNFT
-    },
-    'burnWithSig'
-  )
+  const [{ data: signer }] = useSigner()
 
   const [createUnfollowTypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_UNFOLLOW_TYPED_DATA_MUTATION,
@@ -86,28 +77,33 @@ const Unfollow: React.FC<Props> = ({
           domain: omit(typedData?.domain, '__typename'),
           types: omit(typedData?.types, '__typename'),
           value: omit(typedData?.value, '__typename')
-        }).then((res) => {
+        }).then(async (res) => {
           if (!res.error) {
             const { tokenId } = typedData?.value
             const { v, r, s } = splitSignature(res.data)
-            const inputArray = [
-              tokenId,
-              {
-                v,
-                r,
-                s,
-                deadline: typedData.value.deadline
-              }
-            ]
-
-            write({ args: inputArray }).then(({ error }) => {
-              if (!error) {
+            const sig = {
+              v,
+              r,
+              s,
+              deadline: typedData.value.deadline
+            }
+            setWriteLoading(true)
+            const followNftContract = new Contract(
+              typedData.domain.verifyingContract,
+              FollowNFT,
+              signer
+            )
+            try {
+              const tx = await followNftContract.burnWithSig(tokenId, sig)
+              if (tx) {
                 setFollowing(false)
-                toast.success('Unfollowed successfully!')
-              } else {
-                toast.error(error?.message)
               }
-            })
+              toast.success('Unfollowed successfully!')
+            } catch {
+              toast.error('User rejected request')
+            } finally {
+              setWriteLoading(false)
+            }
           } else {
             toast.error(res.error?.message)
           }
