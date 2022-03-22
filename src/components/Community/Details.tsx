@@ -35,7 +35,7 @@ const Details: React.FC<Props> = ({ community }) => {
           <img
             src={community?.metadata?.cover?.original?.url}
             className="w-32 h-32 bg-gray-200 rounded-xl ring-8 sm:h-72 sm:w-72 dark:bg-gray-700 ring-gray-50 dark:ring-black"
-            alt="Avatar"
+            alt={community?.pubId}
           />
         </div>
         <div className="pt-3 space-y-1">
