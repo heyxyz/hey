@@ -89,9 +89,10 @@ const newCommentSchema = object({
 interface Props {
   refetch: any
   post: LensterPost
+  type: 'comment' | 'community_post'
 }
 
-const NewComment: React.FC<Props> = ({ refetch, post }) => {
+const NewComment: React.FC<Props> = ({ refetch, post, type }) => {
   const form = useZodForm({
     schema: newCommentSchema
   })
@@ -196,7 +197,12 @@ const NewComment: React.FC<Props> = ({ refetch, post }) => {
         image: attachments.length > 0 ? attachments[0]?.item : null,
         imageMimeType: attachments.length > 0 ? attachments[0]?.type : null,
         name: `Comment by @${currentUser?.handle}`,
-        attributes: [],
+        attributes: [
+          {
+            traitType: 'type',
+            value: type
+          }
+        ],
         media: attachments,
         appId: 'Lenster'
       }).finally(() => setIsUploading(false))

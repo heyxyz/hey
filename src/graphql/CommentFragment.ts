@@ -42,6 +42,9 @@ export const CommentFragment = gql`
         profile {
           handle
         }
+        metadata {
+          name
+        }
       }
       ... on Comment {
         id
