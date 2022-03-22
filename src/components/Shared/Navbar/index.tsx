@@ -61,6 +61,11 @@ const Navbar: React.FC = () => {
           name="Explore"
           current={router.pathname == '/explore'}
         />
+        <NavItem
+          url="/communities"
+          name="Communities"
+          current={router.pathname == '/communities'}
+        />
       </>
     )
   }
