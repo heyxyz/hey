@@ -85,7 +85,7 @@ const Details: React.FC<Props> = ({ profile }) => {
   )
 
   return (
-    <div className="mb-4">
+    <div className="px-5 mb-4 sm:px-0">
       <div className="space-y-5">
         <div className="relative w-32 h-32 -mt-24 sm:-mt-36 sm:h-52 sm:w-52">
           <img

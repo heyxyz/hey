@@ -109,7 +109,7 @@ const NOTIFICATIONS_QUERY = gql`
 const NotificationWrapper = ({ children }: { children: React.ReactChild }) => (
   <div className="flex justify-center flex-grow px-0 py-8 sm:px-6 lg:px-8">
     <div className="w-full max-w-4xl space-y-3">
-      <div className="flex items-center space-x-1.5 text-xl font-bold">
+      <div className="flex items-center space-x-1.5 text-xl font-bold px-5 sm:px-0 pb-3">
         <BellIcon className="w-6 h-6 text-brand-500" />
         <div>Notifications</div>
       </div>
