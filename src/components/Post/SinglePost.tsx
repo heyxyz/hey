@@ -61,7 +61,7 @@ const SinglePost: React.FC<Props> = ({ post, type, showCard = true }) => {
             {postType === 'community' ? (
               <div className="flex items-center space-x-1.5">
                 <UsersIcon className="w-4 h-4 text-brand-500" />
-                <span>Launched new a community</span>
+                <span>Launched a new community</span>
                 <a className="font-bold" href={`/communities/${post.pubId}`}>
                   {post?.metadata?.name}
                 </a>
