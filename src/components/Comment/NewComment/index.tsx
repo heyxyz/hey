@@ -17,7 +17,7 @@ import {
   CreateCommentBroadcastItemResult,
   EnabledModule
 } from '@generated/types'
-import { ChatAlt2Icon } from '@heroicons/react/outline'
+import { ChatAlt2Icon, PencilAltIcon } from '@heroicons/react/outline'
 import {
   defaultFeeData,
   defaultModuleData,
@@ -285,6 +285,8 @@ const NewComment: React.FC<Props> = ({ refetch, post, type }) => {
                     signLoading ||
                     writeLoading ? (
                       <Spinner size="xs" />
+                    ) : type === 'community_post' ? (
+                      <PencilAltIcon className="w-4 h-4" />
                     ) : (
                       <ChatAlt2Icon className="w-4 h-4" />
                     )
@@ -298,6 +300,8 @@ const NewComment: React.FC<Props> = ({ refetch, post, type }) => {
                     ? 'Sign'
                     : writeLoading
                     ? 'Send'
+                    : type === 'community_post'
+                    ? 'Post'
                     : 'Comment'}
                 </Button>
               )}
