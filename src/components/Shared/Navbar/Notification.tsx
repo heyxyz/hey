@@ -45,7 +45,7 @@ const Notification: React.FC = () => {
           setShowBadge(false)
         }}
       >
-        <LightningBoltIcon className="w-6 h-6" />
+        <LightningBoltIcon className="w-5 h-5 sm:h-6 sm:w-6" />
         {showBadge && <div className="w-2 h-2 bg-red-500 rounded-full" />}
       </a>
     </Link>
