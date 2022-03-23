@@ -1,5 +1,5 @@
 import { gql, useQuery } from '@apollo/client'
-import { GridLayout } from '@components/GridLayout'
+import { GridItemSix, GridLayout } from '@components/GridLayout'
 import { PageLoading } from '@components/UI/PageLoading'
 import { NextPage } from 'next'
 import React from 'react'
@@ -48,7 +48,12 @@ const Communities: NextPage = () => {
 
   if (loading || !data) return <PageLoading message="Loading community" />
 
-  return <GridLayout className="pt-6">WIP</GridLayout>
+  return (
+    <GridLayout className="pt-6">
+      <GridItemSix>WIP</GridItemSix>
+      <GridItemSix>WIP</GridItemSix>
+    </GridLayout>
+  )
 }
 
 export default Communities
