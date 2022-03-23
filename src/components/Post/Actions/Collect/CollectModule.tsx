@@ -1,6 +1,7 @@
 import LensHubProxy from '@abis/LensHubProxy.json'
 import { gql, useMutation } from '@apollo/client'
 import { Button } from '@components/UI/Button'
+import { Spinner } from '@components/UI/Spinner'
 import { Tooltip } from '@components/UI/Tooltip'
 import AppContext from '@components/utils/AppContext'
 import { LensterCollectModule, LensterPost } from '@generated/lenstertypes'
@@ -282,7 +283,13 @@ const CollectModule: React.FC<Props> = ({ post }) => {
             <Button
               onClick={createCollect}
               disabled={typedDataLoading || signLoading || writeLoading}
-              icon={<CollectionIcon className="w-4 h-4" />}
+              icon={
+                typedDataLoading || signLoading || writeLoading ? (
+                  <Spinner size="xs" />
+                ) : (
+                  <CollectionIcon className="w-4 h-4" />
+                )
+              }
             >
               Collect now
             </Button>
