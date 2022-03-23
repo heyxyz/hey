@@ -82,8 +82,8 @@ const CREATE_COMMENT_TYPED_DATA_MUTATION = gql`
 
 const newCommentSchema = object({
   comment: string()
-    .min(2, { message: 'Handle should be atleast 2 characters' })
-    .max(500, { message: 'Handle should not exceed 500 characters' })
+    .min(2, { message: 'Post should be atleast 2 characters' })
+    .max(500, { message: 'Post should not exceed 500 characters' })
 })
 
 interface Props {
