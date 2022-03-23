@@ -237,7 +237,7 @@ const NewPost: React.FC<Props> = ({ refetch }) => {
             {...form.register('post')}
           />
           <div className="flex items-center">
-            <div className="flex space-x-1">
+            <div className="flex items-center space-x-4">
               <Attachment
                 attachments={attachments}
                 setAttachments={setAttachments}

@@ -27,7 +27,7 @@ const Attachment: React.FC<Props> = ({ attachments, setAttachments }) => {
   }
 
   return (
-    <div className="flex items-center gap-2 text-sm">
+    <div>
       <motion.button
         whileTap={{ scale: 0.9 }}
         type="button"
