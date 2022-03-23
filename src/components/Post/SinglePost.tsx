@@ -5,13 +5,10 @@ import IFramely from '@components/Shared/IFramely'
 import UserProfile from '@components/Shared/UserProfile'
 import { Card, CardBody } from '@components/UI/Card'
 import { LensterPost } from '@generated/lenstertypes'
-import { UsersIcon } from '@heroicons/react/outline'
 import { getURLs } from '@lib/getURLs'
-import { linkifyOptions } from '@lib/linkifyOptions'
 import clsx from 'clsx'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
-import Linkify from 'linkify-react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React from 'react'
@@ -20,6 +17,7 @@ import Collect from './Actions/Collect'
 import Comment from './Actions/Comment'
 import PostMenu from './Actions/Menu'
 import Mirror from './Actions/Mirror'
+import PostBody from './PostBody'
 import Collected from './Type/Collected'
 import Commented from './Type/Commented'
 import CommunityPost from './Type/CommunityPost'
@@ -47,7 +45,9 @@ const SinglePost: React.FC<Props> = ({ post, type, showCard = true }) => {
         {postType === 'community_post' && pathname !== '/communities/[id]' && (
           <CommunityPost post={post} />
         )}
-        {post?.collectedBy && type !== 'COLLECT' && <Collected post={post} />}
+        {post?.collectedBy &&
+          type !== 'COLLECT' &&
+          postType !== 'community' && <Collected post={post} />}
         <div className="flex justify-between pb-4">
           <UserProfile profile={post.profile} />
           <Link href={`/post/${post.pubId}`}>
@@ -56,21 +56,7 @@ const SinglePost: React.FC<Props> = ({ post, type, showCard = true }) => {
             </a>
           </Link>
         </div>
-        <div className="flex items-start justify-between linkify">
-          <Linkify tagName="div" options={linkifyOptions}>
-            {postType === 'community' ? (
-              <div className="flex items-center space-x-1.5">
-                <UsersIcon className="w-4 h-4 text-brand-500" />
-                <span>Launched a new community</span>
-                <a className="font-bold" href={`/communities/${post.pubId}`}>
-                  {post?.metadata?.name}
-                </a>
-              </div>
-            ) : (
-              post?.metadata?.content
-            )}
-          </Linkify>
-        </div>
+        <PostBody post={post} />
         {post?.metadata?.media?.length > 0 ? (
           <Attachments attachments={post?.metadata?.media} />
         ) : (
