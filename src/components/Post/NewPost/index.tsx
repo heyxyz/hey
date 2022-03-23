@@ -2,6 +2,7 @@ import LensHubProxy from '@abis/LensHubProxy.json'
 import { gql, useMutation } from '@apollo/client'
 import Attachments from '@components/Shared/Attachments'
 import IndexStatus from '@components/Shared/IndexStatus'
+import SelectReferenceModule from '@components/Shared/SelectReferenceModule'
 import SwitchNetwork from '@components/Shared/SwitchNetwork'
 import { Button } from '@components/UI/Button'
 import { Card, CardBody } from '@components/UI/Card'
@@ -92,6 +93,7 @@ const NewPost: React.FC<Props> = ({ refetch }) => {
 
   const [selectedModule, setSelectedModule] =
     useState<EnabledModule>(defaultModuleData)
+  const [onlyFollowers, setOnlyFollowers] = useState<boolean>(false)
   const [feeData, setFeeData] = useState<FEE_DATA_TYPE>(defaultFeeData)
   const [isUploading, setIsUploading] = useState<boolean>(false)
   const [attachments, setAttachments] = useState<
@@ -247,6 +249,10 @@ const NewPost: React.FC<Props> = ({ refetch }) => {
                 setFeeData={setFeeData}
                 selectedModule={selectedModule}
                 setSelectedModule={setSelectedModule}
+              />
+              <SelectReferenceModule
+                onlyFollowers={onlyFollowers}
+                setOnlyFollowers={setOnlyFollowers}
               />
             </div>
             <div className="flex items-center ml-auto space-x-2">
