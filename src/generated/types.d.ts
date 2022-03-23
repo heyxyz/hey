@@ -908,6 +908,27 @@ export type GenerateModuleCurrencyApprovalDataRequest = {
   value: Scalars['String']
 }
 
+export type GlobalProtocolStats = {
+  __typename?: 'GlobalProtocolStats'
+  totalBurntProfiles: Scalars['Int']
+  totalCollects: Scalars['Int']
+  totalComments: Scalars['Int']
+  totalFollows: Scalars['Int']
+  totalMirrors: Scalars['Int']
+  totalPosts: Scalars['Int']
+  totalProfiles: Scalars['Int']
+  totalRevenue: Array<Erc20Amount>
+}
+
+export type GlobalProtocolStatsRequest = {
+  /** Unix time from timestamp - if not supplied it will go from 0 timestamp */
+  fromTimestamp?: InputMaybe<Scalars['UnixTimestamp']>
+  /** The App Id */
+  sources?: InputMaybe<Array<Scalars['Sources']>>
+  /** Unix time to timestamp - if not supplied it go to the present timestamp */
+  toTimestamp?: InputMaybe<Scalars['UnixTimestamp']>
+}
+
 export type HasCollectedItem = {
   __typename?: 'HasCollectedItem'
   collected: Scalars['Boolean']
@@ -1095,6 +1116,8 @@ export type MetadataOutput = {
   cover?: Maybe<MediaSet>
   /** This is the metadata description */
   description?: Maybe<Scalars['Markdown']>
+  /** This is the image attached to the metadata and the property used to show the NFT! */
+  image?: Maybe<Scalars['Url']>
   /** The images/audios/videos for the publication */
   media: Array<MediaSet>
   /** The metadata name */
@@ -1533,6 +1556,22 @@ export type ProfileQueryRequest = {
   whoMirroredPublicationId?: InputMaybe<Scalars['InternalPublicationId']>
 }
 
+export type ProfileRevenueQueryRequest = {
+  cursor?: InputMaybe<Scalars['Cursor']>
+  limit?: InputMaybe<Scalars['LimitScalar']>
+  /** The profile id */
+  profileId: Scalars['ProfileId']
+  /** The App Id */
+  sources?: InputMaybe<Array<Scalars['Sources']>>
+}
+
+/** The paginated revenue result */
+export type ProfileRevenueResult = {
+  __typename?: 'ProfileRevenueResult'
+  items: Array<PublicationRevenue>
+  pageInfo: PaginatedResultInfo
+}
+
 /** Profile search results */
 export type ProfileSearchResult = {
   __typename?: 'ProfileSearchResult'
@@ -1608,6 +1647,20 @@ export enum PublicationReportingSensitiveSubreason {
   Offensive = 'OFFENSIVE'
 }
 
+/** The social comment */
+export type PublicationRevenue = {
+  __typename?: 'PublicationRevenue'
+  earnings?: Maybe<Erc20Amount>
+  /** Protocol treasury fee % */
+  protocolFee?: Maybe<Scalars['Float']>
+  publication: Publication
+}
+
+export type PublicationRevenueQueryRequest = {
+  /** The publication id */
+  publicationId: Scalars['InternalPublicationId']
+}
+
 /** Publication search results */
 export type PublicationSearchResult = {
   __typename?: 'PublicationSearchResult'
@@ -1645,12 +1698,14 @@ export enum PublicationTypes {
 export type PublicationsQueryRequest = {
   /** The ethereum address */
   collectedBy?: InputMaybe<Scalars['EthereumAddress']>
-  /** The publication id */
+  /** The publication id you wish to get comments for */
   commentsOf?: InputMaybe<Scalars['InternalPublicationId']>
   cursor?: InputMaybe<Scalars['Cursor']>
   limit?: InputMaybe<Scalars['LimitScalar']>
   /** Profile id */
   profileId?: InputMaybe<Scalars['ProfileId']>
+  /** The publication id */
+  publicationIds?: InputMaybe<Array<Scalars['InternalPublicationId']>>
   /** The publication types you want to query */
   publicationTypes?: InputMaybe<Array<PublicationTypes>>
   /** The App Id */
@@ -1671,6 +1726,7 @@ export type Query = {
   followers: PaginatedFollowersResult
   following: PaginatedFollowingResult
   generateModuleCurrencyApprovalData: GenerateModuleCurrencyApproval
+  globalProtocolStats: GlobalProtocolStats
   hasCollected: Array<HasCollectedResult>
   hasMirrored: Array<HasMirroredResult>
   hasTxHashBeenIndexed: TransactionResult
@@ -1679,11 +1735,12 @@ export type Query = {
   notifications: PaginatedNotificationResult
   pendingApprovalFollows: PendingApproveFollowsResult
   ping: Scalars['String']
+  profileRevenue: ProfileRevenueResult
   profiles: PaginatedProfileResult
   publication?: Maybe<Publication>
+  publicationRevenue: PublicationRevenue
   publications: PaginatedPublicationResult
   recommendedProfiles: Array<Profile>
-  revenue: RevenueResult
   search: SearchResult
   timeline: PaginatedTimelineResult
   verify: Scalars['Boolean']
@@ -1721,6 +1778,10 @@ export type QueryGenerateModuleCurrencyApprovalDataArgs = {
   request: GenerateModuleCurrencyApprovalDataRequest
 }
 
+export type QueryGlobalProtocolStatsArgs = {
+  request?: InputMaybe<GlobalProtocolStatsRequest>
+}
+
 export type QueryHasCollectedArgs = {
   request: HasCollectedRequest
 }
@@ -1749,6 +1810,10 @@ export type QueryPendingApprovalFollowsArgs = {
   request: PendingApprovalFollowsRequest
 }
 
+export type QueryProfileRevenueArgs = {
+  request: ProfileRevenueQueryRequest
+}
+
 export type QueryProfilesArgs = {
   request: ProfileQueryRequest
 }
@@ -1757,12 +1822,12 @@ export type QueryPublicationArgs = {
   request: PublicationQueryRequest
 }
 
-export type QueryPublicationsArgs = {
-  request: PublicationsQueryRequest
+export type QueryPublicationRevenueArgs = {
+  request: PublicationRevenueQueryRequest
 }
 
-export type QueryRevenueArgs = {
-  request: RevenueQueryRequest
+export type QueryPublicationsArgs = {
+  request: PublicationsQueryRequest
 }
 
 export type QuerySearchArgs = {
@@ -1827,31 +1892,6 @@ export type ReportingReasonInputParams = {
   fraudReason?: InputMaybe<FraudReasonInputParams>
   illegalReason?: InputMaybe<IllegalReasonInputParams>
   sensitiveReason?: InputMaybe<SensitiveReasonInputParams>
-}
-
-/** The social comment */
-export type Revenue = {
-  __typename?: 'Revenue'
-  earnings: Erc20Amount
-  /** Protocol treasury fee % */
-  protocolFee: Scalars['Float']
-  publication: Publication
-}
-
-export type RevenueQueryRequest = {
-  cursor?: InputMaybe<Scalars['Cursor']>
-  limit?: InputMaybe<Scalars['LimitScalar']>
-  /** The profile id */
-  profileId: Scalars['ProfileId']
-  /** The App Id */
-  sources?: InputMaybe<Array<Scalars['Sources']>>
-}
-
-/** The paginated revenue result */
-export type RevenueResult = {
-  __typename?: 'RevenueResult'
-  items: Array<Revenue>
-  pageInfo: PaginatedResultInfo
 }
 
 export type RevertCollectModuleSettings = {
