@@ -1,12 +1,15 @@
 import 'linkify-plugin-mention'
 
 import { LensterPost } from '@generated/lenstertypes'
-import { ClockIcon, HashtagIcon } from '@heroicons/react/outline'
+import { ClockIcon, HashtagIcon, UsersIcon } from '@heroicons/react/outline'
+import { humanize } from '@lib/humanize'
 import { linkifyOptions } from '@lib/linkifyOptions'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import Linkify from 'linkify-react'
 import React from 'react'
+
+import Join from './Join'
 
 dayjs.extend(relativeTime)
 
@@ -55,9 +58,24 @@ const Details: React.FC<Props> = ({ community }) => {
               </Linkify>
             </div>
           )}
+          <Join community={community} />
           <div className="space-y-2">
             <MetaDetails icon={<HashtagIcon className="w-4 h-4" />}>
               {community?.pubId}
+            </MetaDetails>
+            <MetaDetails icon={<UsersIcon className="w-4 h-4" />}>
+              <div>
+                {humanize(community?.stats?.totalAmountOfCollects)}{' '}
+                {community?.stats?.totalAmountOfCollects > 1
+                  ? 'members'
+                  : 'member'}
+              </div>
+            </MetaDetails>
+            <MetaDetails icon={<UsersIcon className="w-4 h-4" />}>
+              <div>
+                {humanize(community?.stats?.totalAmountOfComments)}{' '}
+                {community?.stats?.totalAmountOfComments > 1 ? 'posts' : 'post'}
+              </div>
             </MetaDetails>
             <MetaDetails icon={<ClockIcon className="w-4 h-4" />}>
               {dayjs(new Date(community?.createdAt)).fromNow()}

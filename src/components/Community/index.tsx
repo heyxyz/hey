@@ -27,6 +27,10 @@ export const COMMUNITY_QUERY = gql`
             }
           }
         }
+        stats {
+          totalAmountOfCollects
+          totalAmountOfComments
+        }
         createdAt
       }
     }
