@@ -1,3 +1,3 @@
-import Communities from '@components/Community/Communitiess'
+import Communities from '@components/Community/Communities'
 
 export default Communities
