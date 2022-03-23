@@ -1,6 +1,7 @@
 import LensHubProxy from '@abis/LensHubProxy.json'
 import { gql, useMutation } from '@apollo/client'
 import { Button } from '@components/UI/Button'
+import { Spinner } from '@components/UI/Spinner'
 import { LensterPost } from '@generated/lenstertypes'
 import { CreateCollectBroadcastItemResult } from '@generated/types'
 import { PlusIcon } from '@heroicons/react/outline'
@@ -148,7 +149,13 @@ const Join: React.FC<Props> = ({ community, setJoined }) => {
     <Button
       onClick={createCollect}
       disabled={typedDataLoading || signLoading || writeLoading}
-      icon={<PlusIcon className="w-4 h-4" />}
+      icon={
+        typedDataLoading || signLoading || writeLoading ? (
+          <Spinner variant="success" size="xs" />
+        ) : (
+          <PlusIcon className="w-4 h-4" />
+        )
+      }
       variant="success"
       outline
     >
