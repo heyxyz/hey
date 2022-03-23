@@ -46,10 +46,11 @@ const IFramely: React.FC<Props> = ({ url }) => {
     const site = data?.meta?.site
     const url = data?.url
     const favicon = data?.links?.icon[0]?.href
-    const thumbnail = data?.links?.thumbnail[0]?.href
+    const thumbnail = data?.links?.thumbnail && data?.links?.thumbnail[0]?.href
     const isSquare =
+      data?.links?.thumbnail &&
       data?.links?.thumbnail[0]?.media?.width ===
-      data?.links?.thumbnail[0]?.media?.height
+        data?.links?.thumbnail[0]?.media?.height
 
     return (
       <div className="mt-4 text-sm sm:w-2/3">
