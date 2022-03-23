@@ -22,7 +22,6 @@
     "@tailwindcss/aspect-ratio": "^0.4.0",
     "clsx": "^1.1.1",
     "dayjs": "^1.11.0",
-    "dotenv": "^16.0.0",
     "ethers": "^5.6.0",
     "framer-motion": "^6.2.8",
     "graphql": "^16.3.0",
