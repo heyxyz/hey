@@ -153,7 +153,7 @@ const Create: React.FC = () => {
         description: description,
         content: description,
         external_url: null,
-        image: avatar,
+        image: avatar ? avatar : `https://avatar.tobi.sh/${uuidv4()}.svg`,
         imageMimeType: avatarType,
         name: name,
         attributes: [
