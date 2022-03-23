@@ -249,7 +249,7 @@ const NewComment: React.FC<Props> = ({ refetch, post, type }) => {
             {...form.register('comment')}
           />
           <div className="flex items-center">
-            <div className="flex space-x-1">
+            <div className="flex items-center space-x-4">
               <Attachment
                 attachments={attachments}
                 setAttachments={setAttachments}

@@ -1,8 +1,9 @@
-import { Button } from '@components/UI/Button'
 import { Modal } from '@components/UI/Modal'
+import { Tooltip } from '@components/UI/Tooltip'
 import GetModuleIcon from '@components/utils/GetModuleIcon'
 import { EnabledModule } from '@generated/types'
 import { FEE_DATA_TYPE, getModule } from '@lib/getModule'
+import { motion } from 'framer-motion'
 import { useState } from 'react'
 
 import Modules from './Modules'
@@ -23,21 +24,19 @@ const SelectCollectModule: React.FC<Props> = ({
   const [showModal, setShowModal] = useState<boolean>(false)
 
   return (
-    <div className="px-2">
-      <Button
-        type="button"
-        className="text-xs"
-        size="sm"
-        outline
-        icon={
+    <div>
+      <Tooltip content={getModule(selectedModule.moduleName).name}>
+        <motion.button
+          whileTap={{ scale: 0.9 }}
+          type="button"
+          className="tab-focus-ring"
+          onClick={() => setShowModal(!showModal)}
+        >
           <div className="text-brand-500">
-            <GetModuleIcon module={selectedModule.moduleName} size={4} />
+            <GetModuleIcon module={selectedModule.moduleName} size={5} />
           </div>
-        }
-        onClick={() => setShowModal(!showModal)}
-      >
-        {getModule(selectedModule.moduleName).name}
-      </Button>
+        </motion.button>
+      </Tooltip>
       <Modal
         onClose={() => setShowModal(!showModal)}
         title="Select module"
