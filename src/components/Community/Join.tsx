@@ -6,7 +6,7 @@ import { CreateCollectBroadcastItemResult } from '@generated/types'
 import { PlusIcon } from '@heroicons/react/outline'
 import { omit } from '@lib/omit'
 import { splitSignature } from '@lib/splitSignature'
-import React from 'react'
+import React, { Dispatch } from 'react'
 import toast from 'react-hot-toast'
 import {
   CONNECT_WALLET,
@@ -54,9 +54,10 @@ const CREATE_COLLECT_TYPED_DATA_MUTATION = gql`
 
 interface Props {
   community: LensterPost
+  setJoined: Dispatch<boolean>
 }
 
-const Join: React.FC<Props> = ({ community }) => {
+const Join: React.FC<Props> = ({ community, setJoined }) => {
   const [{ data: network }] = useNetwork()
   const [{ data: account }] = useAccount()
   const [{ loading: signLoading }, signTypedData] = useSignTypedData()
@@ -101,6 +102,7 @@ const Join: React.FC<Props> = ({ community }) => {
 
             write({ args: inputStruct }).then(({ error }: { error: any }) => {
               if (!error) {
+                setJoined(true)
                 toast.success('Joined successfully!')
               } else {
                 if (
