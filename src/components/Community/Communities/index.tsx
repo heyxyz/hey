@@ -4,6 +4,8 @@ import { PageLoading } from '@components/UI/PageLoading'
 import { NextPage } from 'next'
 import React from 'react'
 
+import List from './List'
+
 export const COMMUNITY_QUERY = gql`
   query (
     $topCommented: ExplorePublicationRequest!
@@ -50,8 +52,12 @@ const Communities: NextPage = () => {
 
   return (
     <GridLayout className="pt-6">
-      <GridItemSix>WIP</GridItemSix>
-      <GridItemSix>WIP</GridItemSix>
+      <GridItemSix>
+        <List communities={data?.topCommented.items} />
+      </GridItemSix>
+      <GridItemSix>
+        <List communities={data?.topCollected.items} />
+      </GridItemSix>
     </GridLayout>
   )
 }
