@@ -2,6 +2,7 @@ import { gql, useQuery } from '@apollo/client'
 import Feed from '@components/Comment/Feed'
 import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout'
 import { PageLoading } from '@components/UI/PageLoading'
+import { CommunityFragment } from '@gql/CommunityFragment'
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import React from 'react'
@@ -9,32 +10,15 @@ import Custom404 from 'src/pages/404'
 
 import Details from './Details'
 
-export const COMMUNITY_QUERY = gql`
+const COMMUNITY_QUERY = gql`
   query Post($request: PublicationQueryRequest!) {
     publication(request: $request) {
       ... on Post {
-        pubId: id
-        metadata {
-          name
-          description
-          content
-          attributes {
-            value
-          }
-          cover {
-            original {
-              url
-            }
-          }
-        }
-        stats {
-          totalAmountOfCollects
-          totalAmountOfComments
-        }
-        createdAt
+        ...CommunityFragment
       }
     }
   }
+  ${CommunityFragment}
 `
 
 const ViewCommunity: NextPage = () => {
