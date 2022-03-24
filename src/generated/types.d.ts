@@ -176,6 +176,8 @@ export type Comment = {
   appId?: Maybe<Scalars['Sources']>
   /** The collect module */
   collectModule: CollectModule
+  /** The contract address for the collect nft.. if its null it means nobody collected yet as it lazy deployed */
+  collectNftAddress?: Maybe<Scalars['ContractAddress']>
   /** Who collected it, this is used for timeline results and like this for better caching for the client */
   collectedBy?: Maybe<Wallet>
   /** Which comment this points to if its null the pointer too deep so do another query to find it out */
@@ -745,6 +747,10 @@ export type Erc20Amount = {
 export type ExplorePublicationRequest = {
   cursor?: InputMaybe<Scalars['Cursor']>
   limit?: InputMaybe<Scalars['LimitScalar']>
+  /** If you want the randomizer off (default on) */
+  noRandomize?: InputMaybe<Scalars['Boolean']>
+  /** The publication types you want to query */
+  publicationTypes?: InputMaybe<Array<PublicationTypes>>
   sortCriteria: PublicationSortCriteria
   /** The App Id */
   sources?: InputMaybe<Array<Scalars['Sources']>>
@@ -1117,6 +1123,8 @@ export type Mirror = {
   appId?: Maybe<Scalars['Sources']>
   /** The collect module */
   collectModule: CollectModule
+  /** The contract address for the collect nft.. if its null it means nobody collected yet as it lazy deployed */
+  collectNftAddress?: Maybe<Scalars['ContractAddress']>
   /** The date the post was created on */
   createdAt: Scalars['DateTime']
   /** The internal publication id */
@@ -1480,6 +1488,8 @@ export type Post = {
   appId?: Maybe<Scalars['Sources']>
   /** The collect module */
   collectModule: CollectModule
+  /** The contract address for the collect nft.. if its null it means nobody collected yet as it lazy deployed */
+  collectNftAddress?: Maybe<Scalars['ContractAddress']>
   /** Who collected it, this is used for timeline results and like this for better caching for the client */
   collectedBy?: Maybe<Wallet>
   /** The date the post was created on */
@@ -1661,6 +1671,7 @@ export type PublicationSearchResultItem = Comment | Post
 
 /** Publication sort criteria */
 export enum PublicationSortCriteria {
+  Latest = 'LATEST',
   TopCollected = 'TOP_COLLECTED',
   TopCommented = 'TOP_COMMENTED'
 }
