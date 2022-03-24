@@ -1,13 +1,15 @@
 import { gql, useQuery } from '@apollo/client'
 import SinglePost from '@components/Post/SinglePost'
 import PostsShimmer from '@components/Shared/Shimmer/PostsShimmer'
+import Slug from '@components/Shared/Slug'
+import { Card, CardBody } from '@components/UI/Card'
 import { EmptyState } from '@components/UI/EmptyState'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { Spinner } from '@components/UI/Spinner'
 import AppContext from '@components/utils/AppContext'
 import { LensterPost } from '@generated/lenstertypes'
 import { CommentFragment } from '@gql/CommentFragment'
-import { CollectionIcon } from '@heroicons/react/outline'
+import { CollectionIcon, UsersIcon } from '@heroicons/react/outline'
 import React, { useContext } from 'react'
 import useInView from 'react-cool-inview'
 
@@ -34,12 +36,14 @@ interface Props {
   post: LensterPost
   type?: 'comment' | 'community_post'
   onlyFollowers?: boolean
+  isFollowing?: boolean
 }
 
 const Feed: React.FC<Props> = ({
   post,
   type = 'comment',
-  onlyFollowers = false
+  onlyFollowers = false,
+  isFollowing = true
 }) => {
   const { currentUser } = useContext(AppContext)
   const { data, loading, error, fetchMore, refetch } = useQuery(
@@ -72,14 +76,21 @@ const Feed: React.FC<Props> = ({
 
   return (
     <>
-      {currentUser && (
-        <NewComment
-          refetch={refetch}
-          post={post}
-          type={type}
-          onlyFollowers={onlyFollowers}
-        />
-      )}
+      {currentUser &&
+        (isFollowing || !onlyFollowers ? (
+          <NewComment refetch={refetch} post={post} type={type} />
+        ) : (
+          <Card>
+            <CardBody className="flex items-center space-x-1 text-sm font-bold text-gray-500">
+              <UsersIcon className="w-4 h-4 text-brand-500" />
+              <div>
+                <span>Only </span>
+                <Slug slug={`${post.profile.handle}'s`} prefix="@" />
+                <span> followers can comment</span>
+              </div>
+            </CardBody>
+          </Card>
+        ))}
       {error && (
         <ErrorMessage title="Failed to load comment feed" error={error} />
       )}

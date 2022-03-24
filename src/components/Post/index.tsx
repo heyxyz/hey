@@ -5,6 +5,7 @@ import Footer from '@components/Shared/Footer'
 import UserProfile from '@components/Shared/UserProfile'
 import { Card, CardBody } from '@components/UI/Card'
 import { PageLoading } from '@components/UI/PageLoading'
+import AppContext from '@components/utils/AppContext'
 import { LensterPost } from '@generated/lenstertypes'
 import {
   CommentCollectionFragment,
@@ -15,7 +16,8 @@ import { MirrorFragment } from '@gql/MirrorFragment'
 import { PostFragment } from '@gql/PostFragment'
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
-import React from 'react'
+import React, { useContext } from 'react'
+import { ZERO_ADDRESS } from 'src/constants'
 import Custom404 from 'src/pages/404'
 
 import IPFSHash from './IPFSHash'
@@ -23,7 +25,10 @@ import SinglePost from './SinglePost'
 import ViaLenster from './ViaLenster'
 
 export const POST_QUERY = gql`
-  query Post($request: PublicationQueryRequest!) {
+  query Post(
+    $request: PublicationQueryRequest!
+    $followRequest: DoesFollowRequest!
+  ) {
     publication(request: $request) {
       ... on Post {
         ...PostFragment
@@ -49,6 +54,9 @@ export const POST_QUERY = gql`
         }
       }
     }
+    doesFollow(request: $followRequest) {
+      follows
+    }
   }
   ${PostFragment}
   ${CommentFragment}
@@ -62,8 +70,19 @@ const ViewPost: NextPage = () => {
     query: { id }
   } = useRouter()
 
+  const { currentUser } = useContext(AppContext)
   const { data, loading } = useQuery(POST_QUERY, {
-    variables: { request: { publicationId: id } },
+    variables: {
+      request: { publicationId: id },
+      followRequest: {
+        followInfos: {
+          followerAddress: currentUser?.ownedBy
+            ? currentUser?.ownedBy
+            : ZERO_ADDRESS,
+          profileId: id?.toString().split('-')[0]
+        }
+      }
+    },
     skip: !id
   })
 
@@ -82,6 +101,7 @@ const ViewPost: NextPage = () => {
             post.referenceModule?.__typename ===
             'FollowOnlyReferenceModuleSettings'
           }
+          isFollowing={data?.doesFollow[0]?.follows}
         />
       </GridItemEight>
       <GridItemFour className="space-y-5">
