@@ -94,20 +94,6 @@ export type ApprovedModuleAllowanceAmountRequest = {
   referenceModules: Array<ReferenceModules>
 }
 
-export type AttachRequest = {
-  /** mimetype of the file to push */
-  mimeType: Scalars['MimeType']
-}
-
-/** The response to upload the attached file */
-export type AttachResults = {
-  __typename?: 'AttachResults'
-  /** Name of the file once is uploaded */
-  key: Scalars['String']
-  /** Signed url to push the file */
-  signedUrl: Scalars['String']
-}
-
 /** The auth challenge result */
 export type AuthChallengeResult = {
   __typename?: 'AuthChallengeResult'
@@ -1174,7 +1160,6 @@ export type ModuleInfo = {
 
 export type Mutation = {
   __typename?: 'Mutation'
-  attachFile: AttachResults
   authenticate: AuthenticationResult
   claim: RelayResult
   createCollectTypedData: CreateCollectBroadcastItemResult
@@ -1192,10 +1177,6 @@ export type Mutation = {
   refresh: AuthenticationResult
   reportPublication?: Maybe<Scalars['Void']>
   updateProfile: Profile
-}
-
-export type MutationAttachFileArgs = {
-  request: AttachRequest
 }
 
 export type MutationAuthenticateArgs = {
@@ -1473,6 +1454,13 @@ export type PaginatedTimelineResult = {
   pageInfo: PaginatedResultInfo
 }
 
+/** The paginated wallet result */
+export type PaginatedWhoCollectedResult = {
+  __typename?: 'PaginatedWhoCollectedResult'
+  items: Array<Wallet>
+  pageInfo: PaginatedResultInfo
+}
+
 export type PendingApprovalFollowsRequest = {
   cursor?: InputMaybe<Scalars['Cursor']>
   limit?: InputMaybe<Scalars['LimitScalar']>
@@ -1744,6 +1732,7 @@ export type Query = {
   search: SearchResult
   timeline: PaginatedTimelineResult
   verify: Scalars['Boolean']
+  whoCollectedPublication: PaginatedWhoCollectedResult
 }
 
 export type QueryApprovedModuleAllowanceAmountArgs = {
@@ -1840,6 +1829,10 @@ export type QueryTimelineArgs = {
 
 export type QueryVerifyArgs = {
   request: VerifyRequest
+}
+
+export type QueryWhoCollectedPublicationArgs = {
+  request: WhoCollectedPublicationRequest
 }
 
 export type ReferenceModule = FollowOnlyReferenceModuleSettings
@@ -2055,4 +2048,11 @@ export type Wallet = {
   address: Scalars['EthereumAddress']
   /** The default profile for the wallet for now it is just their first profile, this will be the default profile they picked soon enough */
   defaultProfile?: Maybe<Profile>
+}
+
+export type WhoCollectedPublicationRequest = {
+  cursor?: InputMaybe<Scalars['Cursor']>
+  limit?: InputMaybe<Scalars['LimitScalar']>
+  /** Internal publication id */
+  publicationId: Scalars['InternalPublicationId']
 }
