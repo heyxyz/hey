@@ -209,7 +209,7 @@ const NewPost: React.FC<Props> = ({ refetch }) => {
                 }
               : getModule(selectedModule.moduleName).config,
             referenceModule: {
-              followerOnlyReferenceModule: false
+              followerOnlyReferenceModule: onlyFollowers ? true : false
             }
           }
         }
