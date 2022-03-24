@@ -1,12 +1,13 @@
 import { gql, useQuery } from '@apollo/client'
 import { GridItemSix, GridLayout } from '@components/GridLayout'
 import { PageLoading } from '@components/UI/PageLoading'
+import { CommunityFragment } from '@gql/CommunityFragment'
 import { NextPage } from 'next'
 import React from 'react'
 
 import List from './List'
 
-export const COMMUNITY_QUERY = gql`
+const COMMUNITY_QUERY = gql`
   query (
     $topCommented: ExplorePublicationRequest!
     $topCollected: ExplorePublicationRequest!
@@ -14,24 +15,19 @@ export const COMMUNITY_QUERY = gql`
     topCommented: explorePublications(request: $topCommented) {
       items {
         ... on Post {
-          id
-          metadata {
-            name
-          }
+          ...CommunityFragment
         }
       }
     }
     topCollected: explorePublications(request: $topCollected) {
       items {
         ... on Post {
-          id
-          metadata {
-            name
-          }
+          ...CommunityFragment
         }
       }
     }
   }
+  ${CommunityFragment}
 `
 
 const Communities: NextPage = () => {
