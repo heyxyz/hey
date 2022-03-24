@@ -64,7 +64,7 @@ const Modules: React.FC<Props> = ({
     )
 
   return (
-    <div className="divide-y dark:divide-gray-700">
+    <div className="dark:divide-gray-700">
       <div className="space-y-3 px-5 py-3.5">
         {error && (
           <ErrorMessage title="Failed to fetch modules!" error={error} />
