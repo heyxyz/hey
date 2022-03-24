@@ -13,7 +13,7 @@ const List: React.FC<Props> = ({ communities }) => {
       <CardBody className="space-y-5">
         {communities.map((community: Community, index: number) => (
           <div key={index}>
-            <CommunityProfile community={community} />
+            <CommunityProfile showJoin={false} community={community} />
           </div>
         ))}
       </CardBody>

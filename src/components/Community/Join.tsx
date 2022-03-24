@@ -56,9 +56,10 @@ const CREATE_COLLECT_TYPED_DATA_MUTATION = gql`
 interface Props {
   community: Community
   setJoined: Dispatch<boolean>
+  showJoin?: boolean
 }
 
-const Join: React.FC<Props> = ({ community, setJoined }) => {
+const Join: React.FC<Props> = ({ community, setJoined, showJoin = true }) => {
   const [{ data: network }] = useNetwork()
   const [{ data: account }] = useAccount()
   const [{ loading: signLoading }, signTypedData] = useSignTypedData()
@@ -159,7 +160,7 @@ const Join: React.FC<Props> = ({ community, setJoined }) => {
       variant="success"
       outline
     >
-      Join
+      {showJoin && 'Join'}
     </Button>
   )
 }
