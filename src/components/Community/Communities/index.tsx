@@ -2,6 +2,7 @@ import { gql, useQuery } from '@apollo/client'
 import { GridItemSix, GridLayout } from '@components/GridLayout'
 import { PageLoading } from '@components/UI/PageLoading'
 import { CommunityFragment } from '@gql/CommunityFragment'
+import { ChartBarIcon, FireIcon } from '@heroicons/react/outline'
 import { NextPage } from 'next'
 import React from 'react'
 
@@ -49,9 +50,17 @@ const Communities: NextPage = () => {
   return (
     <GridLayout className="pt-6">
       <GridItemSix>
+        <div className="flex items-center mb-2 space-x-1.5 font-bold text-gray-500">
+          <FireIcon className="w-5 h-5 text-yellow-500" />
+          <div>Most Active</div>
+        </div>
         <List communities={data?.topCommented.items} />
       </GridItemSix>
       <GridItemSix>
+        <div className="flex items-center mb-2 space-x-1.5 font-bold text-gray-500">
+          <ChartBarIcon className="w-5 h-5 text-green-500" />
+          <div>Fastest Growing</div>
+        </div>
         <List communities={data?.topCollected.items} />
       </GridItemSix>
     </GridLayout>
