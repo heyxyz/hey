@@ -37,11 +37,13 @@ const Communities: NextPage = () => {
       topCommented: {
         sources: 'Lenster Community',
         sortCriteria: 'TOP_COMMENTED',
+        publicationTypes: ['POST'],
         limit: 10
       },
       topCollected: {
         sources: 'Lenster Community',
         sortCriteria: 'TOP_COLLECTED',
+        publicationTypes: ['POST'],
         limit: 10
       }
     }
