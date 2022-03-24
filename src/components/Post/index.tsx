@@ -5,6 +5,7 @@ import Footer from '@components/Shared/Footer'
 import UserProfile from '@components/Shared/UserProfile'
 import { Card, CardBody } from '@components/UI/Card'
 import { PageLoading } from '@components/UI/PageLoading'
+import { LensterPost } from '@generated/lenstertypes'
 import {
   CommentCollectionFragment,
   PostCollectionFragment
@@ -28,15 +29,24 @@ export const POST_QUERY = gql`
         ...PostFragment
         ...PostCollectionFragment
         onChainContentURI
+        referenceModule {
+          __typename
+        }
       }
       ... on Comment {
         ...CommentFragment
         ...CommentCollectionFragment
         onChainContentURI
+        referenceModule {
+          __typename
+        }
       }
       ... on Mirror {
         ...MirrorFragment
         onChainContentURI
+        referenceModule {
+          __typename
+        }
       }
     }
   }
@@ -60,13 +70,19 @@ const ViewPost: NextPage = () => {
   if (loading || !data) return <PageLoading message="Loading post" />
   if (!data.publication) return <Custom404 />
 
-  const post = data.publication
+  const post: LensterPost = data.publication
 
   return (
     <GridLayout>
       <GridItemEight className="space-y-5">
         <SinglePost post={post} />
-        <Feed post={post} />
+        <Feed
+          post={post}
+          onlyFollowers={
+            post.referenceModule?.__typename ===
+            'FollowOnlyReferenceModuleSettings'
+          }
+        />
       </GridItemEight>
       <GridItemFour className="space-y-5">
         <Card>
