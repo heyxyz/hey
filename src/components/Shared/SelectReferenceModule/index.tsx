@@ -21,7 +21,7 @@ const SelectReferenceModule: React.FC<Props> = ({
     <div>
       <Tooltip
         content={
-          onlyFollowers ? 'Only followers can reply' : 'Everyone can reply'
+          onlyFollowers ? 'Only followers can comment' : 'Everyone can comment'
         }
       >
         <motion.button
@@ -41,7 +41,7 @@ const SelectReferenceModule: React.FC<Props> = ({
       </Tooltip>
       <Modal
         onClose={() => setShowModal(!showModal)}
-        title="Select who to reply"
+        title="Select who to comment"
         show={showModal}
       >
         <div className="dark:divide-gray-700">
@@ -59,7 +59,7 @@ const SelectReferenceModule: React.FC<Props> = ({
             >
               <div className="flex items-center space-x-3">
                 <GlobeAltIcon className="w-5 h-5 text-brand-500" />
-                <div>Everyone can reply</div>
+                <div>Everyone can comment</div>
               </div>
               {!onlyFollowers && (
                 <CheckCircleIcon className="text-green-500 h-7 w-7" />
@@ -78,7 +78,7 @@ const SelectReferenceModule: React.FC<Props> = ({
             >
               <div className="flex items-center space-x-3">
                 <UsersIcon className="w-5 h-5 text-brand-500" />
-                <div>Only followers can reply</div>
+                <div>Only followers can comment</div>
               </div>
               {onlyFollowers && (
                 <CheckCircleIcon className="text-green-500 h-7 w-7" />
