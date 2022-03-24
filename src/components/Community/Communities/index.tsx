@@ -36,11 +36,13 @@ const Communities: NextPage = () => {
     variables: {
       topCommented: {
         sources: 'Lenster Community',
-        sortCriteria: 'TOP_COMMENTED'
+        sortCriteria: 'TOP_COMMENTED',
+        limit: 10
       },
       topCollected: {
         sources: 'Lenster Community',
-        sortCriteria: 'TOP_COLLECTED'
+        sortCriteria: 'TOP_COLLECTED',
+        limit: 10
       }
     }
   })
