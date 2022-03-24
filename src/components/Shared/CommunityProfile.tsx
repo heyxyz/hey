@@ -38,7 +38,9 @@ const CommunityProfile: React.FC<Props> = ({
           </div>
         </a>
       </Link>
-      {!joined && <Join community={community} setJoined={setJoined} />}
+      {!joined && (
+        <Join community={community} setJoined={setJoined} showJoin={false} />
+      )}
     </div>
   )
 }
