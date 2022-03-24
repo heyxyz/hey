@@ -10,10 +10,10 @@ interface Props {
 const List: React.FC<Props> = ({ communities }) => {
   return (
     <Card>
-      <CardBody className="space-y-5">
+      <CardBody className="space-y-6">
         {communities.map((community: Community, index: number) => (
           <div key={index}>
-            <CommunityProfile showJoin={false} community={community} />
+            <CommunityProfile community={community} />
           </div>
         ))}
       </CardBody>
