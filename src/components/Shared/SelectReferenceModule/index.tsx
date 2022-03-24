@@ -19,7 +19,11 @@ const SelectReferenceModule: React.FC<Props> = ({
 
   return (
     <div>
-      <Tooltip content="Everyone can reply">
+      <Tooltip
+        content={
+          onlyFollowers ? 'Only followers can reply' : 'Everyone can reply'
+        }
+      >
         <motion.button
           whileTap={{ scale: 0.9 }}
           type="button"
