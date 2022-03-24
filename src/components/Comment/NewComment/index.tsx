@@ -4,6 +4,7 @@ import Attachment from '@components/Post/NewPost/Attachment'
 import Attachments from '@components/Shared/Attachments'
 import IndexStatus from '@components/Shared/IndexStatus'
 import SelectCollectModule from '@components/Shared/SelectCollectModule'
+import Slug from '@components/Shared/Slug'
 import SwitchNetwork from '@components/Shared/SwitchNetwork'
 import { Button } from '@components/UI/Button'
 import { Card, CardBody } from '@components/UI/Card'
@@ -17,7 +18,11 @@ import {
   CreateCommentBroadcastItemResult,
   EnabledModule
 } from '@generated/types'
-import { ChatAlt2Icon, PencilAltIcon } from '@heroicons/react/outline'
+import {
+  ChatAlt2Icon,
+  PencilAltIcon,
+  UsersIcon
+} from '@heroicons/react/outline'
 import {
   defaultFeeData,
   defaultModuleData,
@@ -90,9 +95,15 @@ interface Props {
   refetch: any
   post: LensterPost
   type: 'comment' | 'community_post'
+  onlyFollowers?: boolean
 }
 
-const NewComment: React.FC<Props> = ({ refetch, post, type }) => {
+const NewComment: React.FC<Props> = ({
+  refetch,
+  post,
+  type,
+  onlyFollowers = false
+}) => {
   const form = useZodForm({
     schema: newCommentSchema
   })
@@ -229,6 +240,16 @@ const NewComment: React.FC<Props> = ({ refetch, post, type }) => {
 
   return (
     <Card>
+      {onlyFollowers && (
+        <div className="flex items-center px-5 pt-5 space-x-1 text-sm font-bold text-gray-500">
+          <UsersIcon className="w-4 h-4 text-brand-500" />
+          <div>
+            <span>Only </span>
+            <Slug slug={`${post.profile.handle}'s`} prefix="@" />
+            <span> followers can comment</span>
+          </div>
+        </div>
+      )}
       <CardBody>
         <Form
           form={form}

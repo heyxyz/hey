@@ -33,9 +33,14 @@ const COMMENT_FEED_QUERY = gql`
 interface Props {
   post: LensterPost
   type?: 'comment' | 'community_post'
+  onlyFollowers?: boolean
 }
 
-const Feed: React.FC<Props> = ({ post, type = 'comment' }) => {
+const Feed: React.FC<Props> = ({
+  post,
+  type = 'comment',
+  onlyFollowers = false
+}) => {
   const { currentUser } = useContext(AppContext)
   const { data, loading, error, fetchMore, refetch } = useQuery(
     COMMENT_FEED_QUERY,
@@ -67,7 +72,14 @@ const Feed: React.FC<Props> = ({ post, type = 'comment' }) => {
 
   return (
     <>
-      {currentUser && <NewComment refetch={refetch} post={post} type={type} />}
+      {currentUser && (
+        <NewComment
+          refetch={refetch}
+          post={post}
+          type={type}
+          onlyFollowers={onlyFollowers}
+        />
+      )}
       {error && (
         <ErrorMessage title="Failed to load comment feed" error={error} />
       )}
