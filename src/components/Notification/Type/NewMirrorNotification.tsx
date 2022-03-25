@@ -25,7 +25,7 @@ const NewMirrorNotification: React.FC<Props> = ({ notification }) => {
             </a>
           </Link>
           <div>mirrored your</div>
-          <Link href={`/post/${notification?.publication.pubId}`}>
+          <Link href={`/posts/${notification?.publication.pubId}`}>
             <a className="font-bold">
               {notification?.publication.__typename?.toLowerCase()}
             </a>

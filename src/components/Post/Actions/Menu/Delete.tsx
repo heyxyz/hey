@@ -20,7 +20,7 @@ const Delete: React.FC<Props> = ({ post }) => {
   const { pathname } = useRouter()
   const [hidePost] = useMutation(HIDE_POST_MUTATION, {
     onCompleted() {
-      pathname === '/post/[id]' ? (location.href = '/') : location.reload()
+      pathname === '/posts/[id]' ? (location.href = '/') : location.reload()
     }
   })
 

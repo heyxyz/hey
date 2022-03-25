@@ -89,7 +89,7 @@ const newCommentSchema = object({
 interface Props {
   refetch: any
   post: LensterPost
-  type: 'comment' | 'community_post'
+  type: 'comment' | 'community post'
 }
 
 const NewComment: React.FC<Props> = ({ refetch, post, type }) => {
@@ -285,7 +285,7 @@ const NewComment: React.FC<Props> = ({ refetch, post, type }) => {
                     signLoading ||
                     writeLoading ? (
                       <Spinner size="xs" />
-                    ) : type === 'community_post' ? (
+                    ) : type === 'community post' ? (
                       <PencilAltIcon className="w-4 h-4" />
                     ) : (
                       <ChatAlt2Icon className="w-4 h-4" />
@@ -300,7 +300,7 @@ const NewComment: React.FC<Props> = ({ refetch, post, type }) => {
                     ? 'Sign'
                     : writeLoading
                     ? 'Send'
-                    : type === 'community_post'
+                    : type === 'community post'
                     ? 'Post'
                     : 'Comment'}
                 </Button>

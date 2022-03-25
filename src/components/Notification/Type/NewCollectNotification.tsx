@@ -4,7 +4,7 @@ import {
   LensterNewCollectNotification,
   LensterPost
 } from '@generated/lenstertypes'
-import { CollectionIcon } from '@heroicons/react/outline'
+import { CashIcon, CollectionIcon } from '@heroicons/react/outline'
 import { formatUsername } from '@lib/formatUsername'
 import Link from 'next/link'
 import React from 'react'
@@ -14,10 +14,17 @@ interface Props {
 }
 
 const NewCollectNotification: React.FC<Props> = ({ notification }) => {
+  const postType =
+    notification.collectedPublication.metadata.attributes[0].value
+
   return (
     <div>
       <div className="flex items-center px-5 pt-5 space-x-1 text-sm text-gray-500">
-        <CollectionIcon className="w-4 h-4" />
+        {postType === 'crowdfund' ? (
+          <CashIcon className="w-4 h-4" />
+        ) : (
+          <CollectionIcon className="w-4 h-4" />
+        )}
         <div className="flex items-center space-x-1">
           {notification?.wallet?.defaultProfile ? (
             <Link href={`/u/${notification?.wallet?.defaultProfile?.handle}`}>
@@ -38,11 +45,13 @@ const NewCollectNotification: React.FC<Props> = ({ notification }) => {
               <Slug slug={formatUsername(notification?.wallet?.address)} />
             </a>
           )}
-          <div>collected your</div>
-          <Link href={`/post/${notification?.collectedPublication.pubId}`}>
-            <a className="font-bold">
-              {notification?.collectedPublication.__typename?.toLowerCase()}
-            </a>
+          {postType === 'crowdfund' ? (
+            <div>funded your</div>
+          ) : (
+            <div>collected your</div>
+          )}
+          <Link href={`/posts/${notification?.collectedPublication.pubId}`}>
+            <a className="font-bold">{postType?.toLowerCase()}</a>
           </Link>
         </div>
       </div>
