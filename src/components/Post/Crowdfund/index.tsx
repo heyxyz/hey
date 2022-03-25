@@ -63,8 +63,8 @@ const Crowdfund: React.FC<Props> = ({ fund }) => {
       <CardBody className="linkify">
         <Linkify tagName="div" options={linkifyOptions}>
           <div>
-            <div className="flex items-center justify-between">
-              <div className="space-y-1">
+            <div className="items-center justify-between block sm:flex">
+              <div className="mr-0 space-y-1 sm:mr-16">
                 <div className="text-xl font-bold">{fund?.metadata?.name}</div>
                 <div>{fund?.metadata?.description}</div>
               </div>
