@@ -8,6 +8,7 @@ import { Input } from '@components/UI/Input'
 import { Spinner } from '@components/UI/Spinner'
 import { PlusIcon } from '@heroicons/react/outline'
 import { uploadAssetsToIPFS } from '@lib/uploadAssetsToIPFS'
+import { uploadToIPFS } from '@lib/uploadToIPFS'
 import React, { useState } from 'react'
 import { useNetwork } from 'wagmi'
 import { object, string } from 'zod'
@@ -36,6 +37,7 @@ const newUserSchema = object({
 
 const Create: React.FC = () => {
   const [avatar, setAvatar] = useState<string>()
+  const [isUploading, setIsUploading] = useState<boolean>(false)
   const [uploading, setUploading] = useState<boolean>(false)
   const [{ data: network }] = useNetwork()
   const [createProfile, { data, loading }] = useMutation(
@@ -69,14 +71,24 @@ const Create: React.FC = () => {
         <Form
           form={form}
           className="space-y-4"
-          onSubmit={({ handle }) => {
+          onSubmit={async ({ handle }) => {
+            setIsUploading(true)
+            const username = handle.toLowerCase()
+            const { path } = await uploadToIPFS({
+              name: `${username}'s follower NFT`,
+              description: `${username}'s last publication will show within this NFT`,
+              animation_url: `https://nft.lenster.xyz/follow?handle=${username}&isTestNet=1`,
+              image: 'QmUXU4mCE3sxmfuFFFzSrs5VH5yNKjvVewkLtd6hBhcHCn'
+            }).finally(() => setIsUploading(false))
+
             createProfile({
               variables: {
                 request: {
-                  handle,
+                  handle: username,
                   profilePictureUri: avatar
                     ? avatar
-                    : `https://avatar.tobi.sh/${handle}.svg`
+                    : `https://avatar.tobi.sh/${username}.svg`,
+                  followNFTURI: `ipfs://${path}`
                 }
               }
             })
@@ -129,9 +141,9 @@ const Create: React.FC = () => {
             ) : (
               <Button
                 type="submit"
-                disabled={loading}
+                disabled={isUploading || loading}
                 icon={
-                  loading ? (
+                  isUploading || loading ? (
                     <Spinner size="xs" />
                   ) : (
                     <PlusIcon className="w-4 h-4" />
