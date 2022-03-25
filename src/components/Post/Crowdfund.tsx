@@ -28,6 +28,12 @@ const Crowdfund: React.FC<Props> = ({ fund }) => {
             <div className="text-xl font-bold">{fund?.metadata?.name}</div>
             <div>{fund?.metadata?.description}</div>
           </div>
+          <div className="w-full h-3 mt-5 bg-gray-200 rounded-full dark:bg-gray-700">
+            <div
+              className="h-3 rounded-full bg-brand-500"
+              style={{ width: `50%` }}
+            />
+          </div>
           <GridLayout className="!p-0 mt-5">
             <GridItemSix className="space-y-1">
               <div className="text-sm font-bold text-gray-500">
