@@ -39,7 +39,7 @@ const Pending: React.FC<Props> = ({ txHash }) => {
           <div className="text-[40px]">🌿</div>
           <div>Crowdfund created successfully</div>
           <div className="pt-3">
-            <Link href={`/crowdfunds/${data?.publication?.id}`}>
+            <Link href={`/posts/${data?.publication?.id}`}>
               <a>
                 <Button
                   className="mx-auto"
