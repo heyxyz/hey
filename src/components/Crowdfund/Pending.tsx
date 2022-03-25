@@ -5,8 +5,8 @@ import { ArrowRightIcon } from '@heroicons/react/outline'
 import Link from 'next/link'
 import React from 'react'
 
-const COMMUNITY_INDEXED_QUERY = gql`
-  query HasCommunityCreated($request: PublicationQueryRequest!) {
+const CROWDFUND_INDEXED_QUERY = gql`
+  query HasCrowdfundCreated($request: PublicationQueryRequest!) {
     publication(request: $request) {
       ... on Post {
         id
@@ -20,7 +20,7 @@ interface Props {
 }
 
 const Pending: React.FC<Props> = ({ txHash }) => {
-  const { data, loading } = useQuery(COMMUNITY_INDEXED_QUERY, {
+  const { data, loading } = useQuery(CROWDFUND_INDEXED_QUERY, {
     variables: {
       request: { txHash }
     },
@@ -32,20 +32,20 @@ const Pending: React.FC<Props> = ({ txHash }) => {
       {loading || !data?.publication?.id ? (
         <div className="space-y-3">
           <Spinner className="mx-auto" />
-          <div>Community creation in progress, please wait!</div>
+          <div>Crowdfund creation in progress, please wait!</div>
         </div>
       ) : (
         <div className="space-y-3">
           <div className="text-[40px]">🌿</div>
-          <div>Community created successfully</div>
+          <div>Crowdfund created successfully</div>
           <div className="pt-3">
-            <Link href={`/communities/${data?.publication?.id}`}>
+            <Link href={`/crowdfunds/${data?.publication?.id}`}>
               <a>
                 <Button
                   className="mx-auto"
                   icon={<ArrowRightIcon className="w-4 h-4 mr-1" />}
                 >
-                  Go to community
+                  Go to crowdfund
                 </Button>
               </a>
             </Link>
