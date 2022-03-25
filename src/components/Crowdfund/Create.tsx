@@ -55,14 +55,14 @@ export const MODULES_CURRENCY_QUERY = gql`
 const newCrowdfundSchema = object({
   title: string()
     .min(2, { message: 'Title should be atleast 2 characters' })
-    .max(31, { message: 'Title should be less than 32 characters' }),
-  amount: string().min(2, { message: 'Invalid amount' }),
-  goal: string().min(2, { message: 'Invalid goal' }),
+    .max(255, { message: 'Title should not exceed 255 characters' }),
+  amount: string().min(1, { message: 'Invalid amount' }),
+  goal: string().min(1, { message: 'Invalid goal' }),
   recipient: string()
     .max(42, { message: 'Ethereum address should be within 42 characters' })
     .regex(/^0x[a-fA-F0-9]{40}$/, { message: 'Invalid Ethereum address' }),
   description: string()
-    .max(260, { message: 'Description should not exceed 260 characters' })
+    .max(1000, { message: 'Description should not exceed 1000 characters' })
     .nullable()
 })
 
