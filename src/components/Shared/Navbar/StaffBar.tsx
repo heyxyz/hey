@@ -1,12 +1,8 @@
-import {
-  ChipIcon,
-  HashtagIcon,
-  ShieldCheckIcon,
-  TerminalIcon
-} from '@heroicons/react/outline'
-import Link from 'next/link'
+import { ChipIcon, HashtagIcon, TerminalIcon } from '@heroicons/react/outline'
 import React from 'react'
 import { GIT_COMMIT_REF, GIT_COMMIT_SHA, REACT_VERSION } from 'src/constants'
+
+import Stats from './Stats'
 
 interface Props {
   children: React.ReactNode
@@ -41,13 +37,7 @@ const StaffBar: React.FC = () => {
           </span>
         </div>
       </div>
-      <div className="flex items-center gap-4">
-        <Link href="/stafftools" passHref>
-          <a title="Staff panel">
-            <ShieldCheckIcon className="w-4 h-4" />
-          </a>
-        </Link>
-      </div>
+      <Stats />
     </div>
   )
 }
