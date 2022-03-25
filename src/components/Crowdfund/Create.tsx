@@ -236,11 +236,6 @@ const Create: React.FC = () => {
                   placeholder="Lenster DAO"
                   {...form.register('name')}
                 />
-                <TextArea
-                  label="Description"
-                  placeholder="Tell us something about the fundraise!"
-                  {...form.register('description')}
-                />
                 <div>
                   <div className="mb-1 font-medium text-gray-800 dark:text-gray-200">
                     Select Currency
@@ -266,6 +261,19 @@ const Create: React.FC = () => {
                   </select>
                 </div>
                 <Input
+                  label="Contribution amount"
+                  type="number"
+                  prefix={
+                    <img
+                      className="w-6 h-6"
+                      src={getTokenImage(selectedCurrencySymobol)}
+                      alt={selectedCurrencySymobol}
+                    />
+                  }
+                  placeholder="5"
+                  {...form.register('name')}
+                />
+                <Input
                   label="Funding Goal"
                   type="number"
                   prefix={
@@ -277,6 +285,11 @@ const Create: React.FC = () => {
                   }
                   placeholder="420"
                   {...form.register('name')}
+                />
+                <TextArea
+                  label="Description"
+                  placeholder="Tell us something about the fundraise!"
+                  {...form.register('description')}
                 />
                 <div className="space-y-1.5">
                   <label>Cover Image</label>
