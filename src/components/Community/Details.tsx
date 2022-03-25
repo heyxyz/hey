@@ -68,7 +68,7 @@ const Details: React.FC<Props> = ({ community }) => {
             src={
               community?.metadata?.cover?.original?.url
                 ? community?.metadata?.cover?.original?.url
-                : `https://avatar.tobi.sh/${community?.pubId}.png`
+                : `https://avatar.tobi.sh/${community?.pubId}.svg`
             }
             className="w-32 h-32 bg-gray-200 rounded-xl ring-8 sm:h-72 sm:w-72 dark:bg-gray-700 ring-gray-50 dark:ring-black"
             alt={community?.pubId}
