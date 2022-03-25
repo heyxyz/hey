@@ -25,8 +25,6 @@ interface Props {
 }
 
 const SinglePost: React.FC<Props> = ({ post, type, showCard = true }) => {
-  const postType = post.metadata?.attributes[0]?.value
-
   return (
     <Card className={clsx({ 'border-0': !showCard })}>
       <CardBody>
