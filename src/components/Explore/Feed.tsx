@@ -36,10 +36,14 @@ const EXPLORE_FEED_QUERY = gql`
   ${MirrorFragment}
 `
 
-const Feed: React.FC = () => {
+interface Props {
+  feedType: string
+}
+
+const Feed: React.FC<Props> = ({ feedType }) => {
   const { data, loading, error, fetchMore } = useQuery(EXPLORE_FEED_QUERY, {
     variables: {
-      request: { sortCriteria: 'TOP_COMMENTED', limit: 10 }
+      request: { sortCriteria: feedType, limit: 10 }
     }
   })
 
@@ -50,7 +54,7 @@ const Feed: React.FC = () => {
       fetchMore({
         variables: {
           request: {
-            sortCriteria: 'TOP_COMMENTED',
+            sortCriteria: feedType,
             cursor: pageInfo?.next,
             limit: 10
           }
