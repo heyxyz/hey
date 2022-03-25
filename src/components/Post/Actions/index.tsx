@@ -21,7 +21,7 @@ const PostActions: React.FC<Props> = ({ post }) => {
 
   return (
     <>
-      {postType !== 'community' && postType !== 'crowdfund' && (
+      {postType !== 'community' && (
         <div className="flex items-center px-3 py-1.5 text-gray-500 border-t dark:border-gray-800 gap-6">
           <Comment post={post} />
           <Mirror post={post} />
