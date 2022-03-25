@@ -52,18 +52,23 @@ export const MODULES_CURRENCY_QUERY = gql`
   }
 `
 
-const newCommunitySchema = object({
-  name: string()
-    .min(2, { message: 'Name should be atleast 2 characters' })
-    .max(31, { message: 'Name should be less than 32 characters' }),
+const newCrowdfundSchema = object({
+  title: string()
+    .min(2, { message: 'Title should be atleast 2 characters' })
+    .max(31, { message: 'Title should be less than 32 characters' }),
+  amount: string().min(2, { message: 'Invalid amount' }),
+  goal: string().min(2, { message: 'Invalid goal' }),
+  recipient: string()
+    .max(42, { message: 'Ethereum address should be within 42 characters' })
+    .regex(/^0x[a-fA-F0-9]{40}$/, { message: 'Invalid Ethereum address' }),
   description: string()
     .max(260, { message: 'Description should not exceed 260 characters' })
     .nullable()
 })
 
 const Create: React.FC = () => {
-  const [avatar, setAvatar] = useState<string>()
-  const [avatarType, setAvatarType] = useState<string>()
+  const [cover, setCover] = useState<string>()
+  const [coverType, setCoverType] = useState<string>()
   const [isUploading, setIsUploading] = useState<boolean>(false)
   const [uploading, setUploading] = useState<boolean>(false)
   const [selectedCurrency, setSelectedCurrency] = useState<string>(
@@ -89,7 +94,10 @@ const Create: React.FC = () => {
   )
 
   const form = useZodForm({
-    schema: newCommunitySchema
+    schema: newCrowdfundSchema,
+    defaultValues: {
+      recipient: currentUser?.ownedBy
+    }
   })
 
   const handleUpload = async (evt: React.ChangeEvent<HTMLInputElement>) => {
@@ -98,8 +106,8 @@ const Create: React.FC = () => {
     try {
       // @ts-ignore
       const attachment = await uploadAssetsToIPFS(evt.target.files[0])
-      setAvatar(attachment.item)
-      setAvatarType(attachment.type)
+      setCover(attachment.item)
+      setCoverType(attachment.type)
     } finally {
       setUploading(false)
     }
@@ -163,7 +171,13 @@ const Create: React.FC = () => {
     }
   )
 
-  const createCommunity = async (name: string, description: string | null) => {
+  const createCrowdfund = async (
+    title: string,
+    amount: string,
+    goal: string,
+    recipient: string,
+    description: string | null
+  ) => {
     if (!account?.address) {
       toast.error(CONNECT_WALLET)
     } else if (network.chain?.id !== chain.polygonTestnetMumbai.id) {
@@ -176,13 +190,13 @@ const Create: React.FC = () => {
         description: description,
         content: description,
         external_url: null,
-        image: avatar ? avatar : `https://avatar.tobi.sh/${uuidv4()}.svg`,
-        imageMimeType: avatarType,
-        name: name,
+        image: cover ? cover : `https://avatar.tobi.sh/${uuidv4()}.svg`,
+        imageMimeType: coverType,
+        name: title,
         attributes: [
           {
             traitType: 'type',
-            value: 'community'
+            value: 'crowdfund'
           }
         ],
         media: [],
@@ -226,15 +240,15 @@ const Create: React.FC = () => {
               <Form
                 form={form}
                 className="space-y-4"
-                onSubmit={({ name, description }) => {
-                  createCommunity(name, description)
+                onSubmit={({ title, amount, goal, recipient, description }) => {
+                  createCrowdfund(title, amount, goal, recipient, description)
                 }}
               >
                 <Input
                   label="Title"
                   type="text"
                   placeholder="Lenster DAO"
-                  {...form.register('name')}
+                  {...form.register('title')}
                 />
                 <div>
                   <div className="mb-1 font-medium text-gray-800 dark:text-gray-200">
@@ -271,7 +285,7 @@ const Create: React.FC = () => {
                     />
                   }
                   placeholder="5"
-                  {...form.register('name')}
+                  {...form.register('amount')}
                 />
                 <Input
                   label="Funding Goal"
@@ -284,7 +298,13 @@ const Create: React.FC = () => {
                     />
                   }
                   placeholder="420"
-                  {...form.register('name')}
+                  {...form.register('goal')}
+                />
+                <Input
+                  label="Funds recipient"
+                  type="text"
+                  placeholder="0x3A5bd...5e3"
+                  {...form.register('recipient')}
                 />
                 <TextArea
                   label="Description"
@@ -294,12 +314,12 @@ const Create: React.FC = () => {
                 <div className="space-y-1.5">
                   <label>Cover Image</label>
                   <div className="space-y-3">
-                    {avatar && (
+                    {cover && (
                       <div>
                         <img
                           className="rounded-lg h-60 w-60"
-                          src={avatar}
-                          alt={avatar}
+                          src={cover}
+                          alt={cover}
                         />
                       </div>
                     )}
