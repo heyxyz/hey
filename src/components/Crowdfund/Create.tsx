@@ -197,6 +197,10 @@ const Create: React.FC = () => {
           {
             traitType: 'type',
             value: 'crowdfund'
+          },
+          {
+            traitType: 'goal',
+            value: goal
           }
         ],
         media: [],
@@ -209,7 +213,14 @@ const Create: React.FC = () => {
             profileId: currentUser?.id,
             contentURI: `ipfs://${path}`,
             collectModule: {
-              emptyCollectModule: true
+              feeCollectModule: {
+                amount: {
+                  currency: selectedCurrency,
+                  value: amount
+                },
+                recipient,
+                referralFee: 0
+              }
             },
             referenceModule: {
               followerOnlyReferenceModule: false
