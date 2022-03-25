@@ -271,7 +271,16 @@ const MenuItems: React.FC<Props> = ({ indexerData }) => {
           >
             <Login />
           </Modal>
-          <Button onClick={() => setShowLoginModal(!showLoginModal)}>
+          <Button
+            icon={
+              <img
+                className="h-4 mr-0.5"
+                src="/eth-white.svg"
+                alt="Ethereum Logo"
+              />
+            }
+            onClick={() => setShowLoginModal(!showLoginModal)}
+          >
             Login
           </Button>
         </>

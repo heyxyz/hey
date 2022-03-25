@@ -9,6 +9,7 @@ import React from 'react'
 import Collected from './Collected'
 import Commented from './Commented'
 import CommunityPost from './CommunityPost'
+import Funded from './Funded'
 import Mirrored from './Mirrored'
 
 dayjs.extend(relativeTime)
@@ -27,13 +28,17 @@ const PostType: React.FC<Props> = ({ post, type }) => {
       {post?.__typename === 'Mirror' && <Mirrored post={post} />}
       {post?.__typename === 'Comment' &&
         type !== 'COMMENT' &&
-        postType !== 'community_post' && <Commented post={post} />}
-      {postType === 'community_post' && pathname !== '/communities/[id]' && (
+        postType !== 'community post' && <Commented post={post} />}
+      {post?.collectedBy &&
+        postType === 'crowdfund' &&
+        pathname !== '/notifications' && <Funded fund={post} />}
+      {postType === 'community post' && pathname !== '/communities/[id]' && (
         <CommunityPost post={post} />
       )}
-      {post?.collectedBy && type !== 'COLLECT' && postType !== 'community' && (
-        <Collected post={post} />
-      )}
+      {post?.collectedBy &&
+        type !== 'COLLECT' &&
+        postType !== 'community' &&
+        postType !== 'crowdfund' && <Collected post={post} />}
     </>
   )
 }

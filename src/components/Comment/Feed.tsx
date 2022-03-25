@@ -34,7 +34,7 @@ const COMMENT_FEED_QUERY = gql`
 
 interface Props {
   post: LensterPost
-  type?: 'comment' | 'community_post'
+  type?: 'comment' | 'community post'
   onlyFollowers?: boolean
   isFollowing?: boolean
 }

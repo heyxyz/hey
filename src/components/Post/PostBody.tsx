@@ -8,6 +8,8 @@ import relativeTime from 'dayjs/plugin/relativeTime'
 import Linkify from 'linkify-react'
 import React from 'react'
 
+import Crowdfund from './Crowdfund'
+
 dayjs.extend(relativeTime)
 
 interface Props {
@@ -18,7 +20,7 @@ const PostBody: React.FC<Props> = ({ post }) => {
   const postType = post.metadata?.attributes[0]?.value
 
   return (
-    <div className="flex items-start justify-between linkify">
+    <div className="linkify">
       <Linkify tagName="div" options={linkifyOptions}>
         {postType === 'community' ? (
           <div className="flex items-center space-x-1.5">
@@ -36,6 +38,8 @@ const PostBody: React.FC<Props> = ({ post }) => {
               {post?.metadata?.name}
             </a>
           </div>
+        ) : postType === 'crowdfund' ? (
+          <Crowdfund fund={post} />
         ) : (
           post?.metadata?.content
         )}

@@ -2,12 +2,13 @@ import LensHubProxy from '@abis/LensHubProxy.json'
 import { gql, useMutation } from '@apollo/client'
 import { Button } from '@components/UI/Button'
 import { Spinner } from '@components/UI/Spinner'
-import { Community } from '@generated/lenstertypes'
+import AppContext from '@components/utils/AppContext'
+import { LensterPost } from '@generated/lenstertypes'
 import { CreateCollectBroadcastItemResult } from '@generated/types'
-import { PlusIcon } from '@heroicons/react/outline'
+import { CashIcon } from '@heroicons/react/outline'
 import { omit } from '@lib/omit'
 import { splitSignature } from '@lib/splitSignature'
-import React, { Dispatch } from 'react'
+import React, { useContext } from 'react'
 import toast from 'react-hot-toast'
 import {
   CONNECT_WALLET,
@@ -54,12 +55,13 @@ const CREATE_COLLECT_TYPED_DATA_MUTATION = gql`
 `
 
 interface Props {
-  community: Community
-  setJoined: Dispatch<boolean>
-  showJoin?: boolean
+  fund: LensterPost
 }
 
-const Join: React.FC<Props> = ({ community, setJoined, showJoin = true }) => {
+const Fund: React.FC<Props> = ({ fund }) => {
+  // @ts-ignore
+  const collectModule: LensterCollectModule = fund?.collectModule
+  const { currentUser } = useContext(AppContext)
   const [{ data: network }] = useNetwork()
   const [{ data: account }] = useAccount()
   const [{ loading: signLoading }, signTypedData] = useSignTypedData()
@@ -104,15 +106,14 @@ const Join: React.FC<Props> = ({ community, setJoined, showJoin = true }) => {
 
             write({ args: inputStruct }).then(({ error }: { error: any }) => {
               if (!error) {
-                setJoined(true)
-                toast.success('Joined successfully!')
+                toast.success('Successfully funded!')
               } else {
                 if (
                   error?.data?.message ===
                   'execution reverted: SafeERC20: low-level call failed'
                 ) {
                   toast.error(
-                    `Please allow Empty Collect module in allowance settings`
+                    `Please allow Fee Collect module in allowance settings`
                   )
                 } else {
                   toast.error(error?.data?.message)
@@ -137,28 +138,38 @@ const Join: React.FC<Props> = ({ community, setJoined, showJoin = true }) => {
       toast.error(WRONG_NETWORK)
     } else {
       createCollectTypedData({
-        variables: { request: { publicationId: community.pubId } }
+        variables: { request: { publicationId: fund.pubId } }
       })
     }
   }
 
   return (
-    <Button
-      onClick={createCollect}
-      disabled={typedDataLoading || signLoading || writeLoading}
-      icon={
-        typedDataLoading || signLoading || writeLoading ? (
-          <Spinner variant="success" size="xs" />
-        ) : (
-          <PlusIcon className="w-4 h-4" />
-        )
-      }
-      variant="success"
-      outline
-    >
-      {showJoin && 'Join'}
-    </Button>
+    <>
+      {currentUser && (
+        <div>
+          <Button
+            className="ml-auto"
+            onClick={createCollect}
+            disabled={typedDataLoading || signLoading || writeLoading}
+            variant="success"
+            icon={
+              typedDataLoading || signLoading || writeLoading ? (
+                <Spinner variant="success" size="xs" />
+              ) : (
+                <CashIcon className="w-4 h-4" />
+              )
+            }
+          >
+            Fund
+          </Button>
+          <div className="mt-1.5 text-xs font-bold">
+            Fund {collectModule?.amount?.value}{' '}
+            {collectModule?.amount?.asset?.symbol}
+          </div>
+        </div>
+      )}
+    </>
   )
 }
 
-export default Join
+export default Fund
