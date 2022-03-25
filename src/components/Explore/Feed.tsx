@@ -37,10 +37,10 @@ const EXPLORE_FEED_QUERY = gql`
 `
 
 interface Props {
-  feedType: string
+  feedType?: string
 }
 
-const Feed: React.FC<Props> = ({ feedType }) => {
+const Feed: React.FC<Props> = ({ feedType = 'TOP_COMMENTED' }) => {
   const { data, loading, error, fetchMore } = useQuery(EXPLORE_FEED_QUERY, {
     variables: {
       request: { sortCriteria: feedType, limit: 10 }
