@@ -92,7 +92,7 @@ const Crowdfund: React.FC<Props> = ({ fund }) => {
               </Tooltip>
             )}
             <GridLayout className="!p-0 mt-5">
-              <GridItemSix className="mb-3 space-y-1 sm:mb-0">
+              <GridItemSix className="!mb-4 space-y-1 sm:mb-0">
                 <div className="text-sm font-bold text-gray-500">
                   Funds Raised
                 </div>
