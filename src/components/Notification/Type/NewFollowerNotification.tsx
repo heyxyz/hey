@@ -35,9 +35,9 @@ const NewFollowerNotification: React.FC<Props> = ({ notification }) => {
             <div className="flex items-center space-x-3">
               <img
                 src={
-                  wallet?.defaultProfile
+                  wallet?.defaultProfile?.picture
                     ? getAvatar(wallet?.defaultProfile)
-                    : `https://avatar.tobi.sh/${wallet?.address}.png`
+                    : `https://avatar.tobi.sh/${wallet?.address}.svg`
                 }
                 className="w-10 h-10 bg-gray-200 border rounded-full dark:border-gray-700"
                 alt={

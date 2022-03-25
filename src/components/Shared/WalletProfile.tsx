@@ -19,7 +19,7 @@ const WalletProfile: React.FC<Props> = ({ wallet }) => {
         rel="noreferrer"
       >
         <img
-          src={`https://avatar.tobi.sh/${wallet?.address}.png`}
+          src={`https://avatar.tobi.sh/${wallet?.address}.svg`}
           className="w-10 h-10 bg-gray-200 border rounded-full"
           alt={wallet?.address}
         />

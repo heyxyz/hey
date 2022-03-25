@@ -5,5 +5,5 @@ export const getAvatar = (profile: Profile) => {
   return profile?.picture?.original?.url
     ? // @ts-ignore
       profile?.picture?.original?.url
-    : `https://avatar.tobi.sh/${profile?.ownedBy}.png`
+    : `https://avatar.tobi.sh/${profile?.ownedBy}.svg`
 }
