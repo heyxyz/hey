@@ -31,6 +31,11 @@ export const PostFragment = gql`
           mimeType
         }
       }
+      cover {
+        original {
+          url
+        }
+      }
       attributes {
         value
       }

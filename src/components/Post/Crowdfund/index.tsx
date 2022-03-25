@@ -12,6 +12,7 @@ import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import Linkify from 'linkify-react'
 import React from 'react'
+import { STATIC_ASSETS } from 'src/constants'
 
 import Fund from './Fund'
 
@@ -43,9 +44,22 @@ const Crowdfund: React.FC<Props> = ({ fund }) => {
   const percentageReached = revenue
     ? (revenue?.value / parseInt(fund?.metadata?.attributes[1]?.value)) * 100
     : 0
+  const cover = fund?.metadata?.cover?.original?.url
 
   return (
     <Card>
+      <div
+        className="h-40 border-b sm:h-52 rounded-t-xl"
+        style={{
+          backgroundImage: `url(${
+            cover ? cover : `${STATIC_ASSETS}/patterns/2.svg`
+          })`,
+          backgroundColor: '#8b5cf6',
+          backgroundSize: cover ? 'cover' : '30%',
+          backgroundPosition: 'center center',
+          backgroundRepeat: cover ? 'no-repeat' : 'repeat'
+        }}
+      />
       <CardBody className="linkify">
         <Linkify tagName="div" options={linkifyOptions}>
           <div>
@@ -78,7 +92,7 @@ const Crowdfund: React.FC<Props> = ({ fund }) => {
               </Tooltip>
             )}
             <GridLayout className="!p-0 mt-5">
-              <GridItemSix className="space-y-1">
+              <GridItemSix className="mb-3 space-y-1 sm:mb-0">
                 <div className="text-sm font-bold text-gray-500">
                   Funds Raised
                 </div>
