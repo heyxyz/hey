@@ -14,7 +14,7 @@ const Mirrored: React.FC<Props> = ({ post }) => {
       <DuplicateIcon className="w-4 h-4" />
       <div className="flex items-center space-x-1">
         <div>Mirror of</div>
-        <Link href={`/post/${post?.mirrorOf?.id}`}>
+        <Link href={`/posts/${post?.mirrorOf?.id}`}>
           <a className="font-bold">
             {/* @ts-ignore */}
             {post?.mirrorOf?.__typename.toLowerCase()}

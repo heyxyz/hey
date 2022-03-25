@@ -39,7 +39,7 @@ const NewCollectNotification: React.FC<Props> = ({ notification }) => {
             </a>
           )}
           <div>collected your</div>
-          <Link href={`/post/${notification?.collectedPublication.pubId}`}>
+          <Link href={`/posts/${notification?.collectedPublication.pubId}`}>
             <a className="font-bold">
               {notification?.collectedPublication.__typename?.toLowerCase()}
             </a>

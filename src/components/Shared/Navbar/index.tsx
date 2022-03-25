@@ -8,6 +8,7 @@ import { useRouter } from 'next/router'
 import { useContext } from 'react'
 
 import MenuItems from './MenuItems'
+import MoreNavItems from './MoreNavItems'
 import Notification from './Notification'
 import Search from './Search'
 
@@ -66,6 +67,7 @@ const Navbar: React.FC = () => {
           name="Communities"
           current={router.pathname == '/communities'}
         />
+        <MoreNavItems />
       </>
     )
   }
