@@ -36,3 +36,12 @@ body {
     url(https://assets.lenster.xyz/images/patterns/hero.png);
   background-size: cover;
 }
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
