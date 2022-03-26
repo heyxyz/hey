@@ -80,7 +80,7 @@ const Collectors: React.FC<Props> = ({ pubId }) => {
     )
 
   return (
-    <div className="max-h-[80vh] overflow-y-auto">
+    <div className="overflow-y-auto max-h-[80vh]">
       <ErrorMessage
         className="m-5"
         title="Failed to load collectors"

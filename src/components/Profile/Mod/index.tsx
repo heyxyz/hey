@@ -26,7 +26,7 @@ const ProfileMod: React.FC<Props> = ({ profile }) => {
         toast.success('Copied to clipboard!')
       }}
     >
-      <div className="flex items-center gap-2 font-bold cursor-pointer">
+      <div className="flex gap-2 items-center font-bold cursor-pointer">
         {icon}
         <div>{children}</div>
       </div>

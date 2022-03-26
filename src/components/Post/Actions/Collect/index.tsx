@@ -23,7 +23,7 @@ const Collect: React.FC<Props> = ({ post }) => {
       onClick={() => setShowCollectModal(true)}
     >
       <div className="flex items-center space-x-1 text-red-500 hover:red-brand-400">
-        <div className="hover:bg-red-300 hover:bg-opacity-20 p-1.5 rounded-full">
+        <div className="p-1.5 rounded-full hover:bg-red-300 hover:bg-opacity-20">
           <CollectionIcon className="w-[18px]" />
         </div>
         {post?.stats?.totalAmountOfCollects > 0 && (

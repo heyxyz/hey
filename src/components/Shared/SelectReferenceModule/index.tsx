@@ -45,7 +45,7 @@ const SelectReferenceModule: React.FC<Props> = ({
         show={showModal}
       >
         <div className="dark:divide-gray-700">
-          <div className="space-y-3 px-5 py-3.5">
+          <div className="py-3.5 px-5 space-y-3">
             <button
               type="button"
               className={clsx(
@@ -62,7 +62,7 @@ const SelectReferenceModule: React.FC<Props> = ({
                 <div>Everyone can comment</div>
               </div>
               {!onlyFollowers && (
-                <CheckCircleIcon className="text-green-500 h-7 w-7" />
+                <CheckCircleIcon className="w-7 h-7 text-green-500" />
               )}
             </button>
             <button
@@ -81,7 +81,7 @@ const SelectReferenceModule: React.FC<Props> = ({
                 <div>Only followers can comment</div>
               </div>
               {onlyFollowers && (
-                <CheckCircleIcon className="text-green-500 h-7 w-7" />
+                <CheckCircleIcon className="w-7 h-7 text-green-500" />
               )}
             </button>
           </div>

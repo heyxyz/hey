@@ -41,7 +41,7 @@ interface Props {
 const MenuItem: React.FC<Props> = ({ icon, title }) => (
   <Menu.Item
     as="div"
-    className="px-4 py-1 m-2 text-sm text-gray-700 dark:text-gray-200"
+    className="py-1 px-4 m-2 text-sm text-gray-700 dark:text-gray-200"
   >
     <div className="flex items-center space-x-2">
       {icon}
@@ -60,7 +60,7 @@ const Stats: React.FC = () => {
     pollInterval: 1000
   })
 
-  if (loading) return <div className="h-4 m-3 rounded-lg shimmer" />
+  if (loading) return <div className="m-3 h-4 rounded-lg shimmer" />
   if (error)
     return <div className="m-3 font-bold text-red-500">{ERROR_MESSAGE}</div>
 

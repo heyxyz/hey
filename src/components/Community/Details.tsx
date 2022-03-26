@@ -57,7 +57,7 @@ const Details: React.FC<Props> = ({ community }) => {
     children: React.ReactChild
     icon: React.ReactChild
   }) => (
-    <div className="flex items-center gap-2">
+    <div className="flex gap-2 items-center">
       {icon}
       <div>{children}</div>
     </div>
@@ -66,19 +66,19 @@ const Details: React.FC<Props> = ({ community }) => {
   return (
     <div className="px-5 mb-4 sm:px-0">
       <div className="space-y-5">
-        <div className="relative w-32 h-32 sm:h-72 sm:w-72">
+        <div className="relative w-32 h-32 sm:w-72 sm:h-72">
           <img
             src={
               community?.metadata?.cover?.original?.url
                 ? community?.metadata?.cover?.original?.url
                 : `https://avatar.tobi.sh/${community?.pubId}.svg`
             }
-            className="w-32 h-32 bg-gray-200 rounded-xl ring-8 sm:h-72 sm:w-72 dark:bg-gray-700 ring-gray-50 dark:ring-black"
+            className="w-32 h-32 bg-gray-200 rounded-xl ring-8 ring-gray-50 sm:w-72 sm:h-72 dark:bg-gray-700 dark:ring-black"
             alt={community?.pubId}
           />
         </div>
         <div className="pt-3 space-y-1">
-          <div className="flex items-center gap-1.5 text-2xl font-bold truncate">
+          <div className="flex gap-1.5 items-center text-2xl font-bold truncate">
             <div className="truncate">{community?.metadata.name}</div>
           </div>
         </div>
@@ -91,9 +91,9 @@ const Details: React.FC<Props> = ({ community }) => {
             </div>
           )}
           {joinLoading ? (
-            <div className="h-[34px] rounded-lg w-28 shimmer" />
+            <div className="w-28 rounded-lg h-[34px] shimmer" />
           ) : joined ? (
-            <div className="px-2 rounded-lg shadow-sm py-0.5 text-sm text-white bg-brand-500 w-fit">
+            <div className="py-0.5 px-2 text-sm text-white rounded-lg shadow-sm bg-brand-500 w-fit">
               Member
             </div>
           ) : (

@@ -21,7 +21,7 @@ const PostMenu: React.FC<Props> = ({ post }) => {
     <Menu as="div">
       {({ open }) => (
         <>
-          <Menu.Button className="hover:bg-gray-300 hover:bg-opacity-20 p-1.5 rounded-full">
+          <Menu.Button className="p-1.5 rounded-full hover:bg-gray-300 hover:bg-opacity-20">
             <DotsHorizontalIcon className="w-5 h-5 text-gray-500 dark:text-gray-300" />
           </Menu.Button>
           <Transition
@@ -36,7 +36,7 @@ const PostMenu: React.FC<Props> = ({ post }) => {
           >
             <Menu.Items
               static
-              className="absolute w-max rounded-lg shadow-sm py-1 bg-white dark:bg-gray-900 border dark:border-gray-800 z-[5]"
+              className="absolute py-1 w-max bg-white rounded-lg border shadow-sm dark:bg-gray-900 dark:border-gray-800 z-[5]"
             >
               {currentUser?.id === post?.profile?.id ? (
                 <Delete post={post} />

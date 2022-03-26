@@ -175,7 +175,7 @@ const Profile: React.FC<Props> = ({ profile }) => {
               {cover && (
                 <div>
                   <img
-                    className="object-cover w-full rounded-lg h-60"
+                    className="object-cover w-full h-60 rounded-lg"
                     style={{
                       // @ts-ignore
                       backgroundColor: `#${profile?.coverPicture?.original?.url}`
