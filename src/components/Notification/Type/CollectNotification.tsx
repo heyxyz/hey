@@ -15,7 +15,8 @@ interface Props {
 
 const CollectNotification: React.FC<Props> = ({ notification }) => {
   const postType =
-    notification.collectedPublication.metadata.attributes[0].value
+    notification?.collectedPublication?.metadata?.attributes[0]?.value ??
+    notification?.collectedPublication?.__typename?.toLowerCase()
 
   return (
     <div>
