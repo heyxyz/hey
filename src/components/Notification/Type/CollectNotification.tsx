@@ -13,7 +13,7 @@ interface Props {
   notification: LensterNewCollectNotification
 }
 
-const NewCollectNotification: React.FC<Props> = ({ notification }) => {
+const CollectNotification: React.FC<Props> = ({ notification }) => {
   const postType =
     notification.collectedPublication.metadata.attributes[0].value
 
@@ -64,4 +64,4 @@ const NewCollectNotification: React.FC<Props> = ({ notification }) => {
   )
 }
 
-export default NewCollectNotification
+export default CollectNotification

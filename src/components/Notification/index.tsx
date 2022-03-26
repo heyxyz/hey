@@ -19,10 +19,10 @@ import React, { useContext } from 'react'
 import useInView from 'react-cool-inview'
 import Custom404 from 'src/pages/404'
 
-import NewCollectNotification from './Type/NewCollectNotification'
-import NewCommentNotification from './Type/NewCommentNotification'
-import NewFollowerNotification from './Type/NewFollowerNotification'
-import NewMirrorNotification from './Type/NewMirrorNotification'
+import CollectNotification from './Type/CollectNotification'
+import CommentNotification from './Type/CommentNotification'
+import FollowerNotification from './Type/FollowerNotification'
+import MirrorNotification from './Type/MirrorNotification'
 
 const NOTIFICATIONS_QUERY = gql`
   query Notifications($request: NotificationRequest!) {
@@ -174,20 +174,20 @@ const Notification: NextPage = () => {
           {notifications?.map((notification: Notification, index: number) => (
             <div key={index}>
               {notification.__typename === 'NewFollowerNotification' && (
-                <NewFollowerNotification notification={notification} />
+                <FollowerNotification notification={notification} />
               )}
               {notification.__typename === 'NewCommentNotification' && (
-                <NewCommentNotification
+                <CommentNotification
                   notification={notification as LensterNewCommentNotification}
                 />
               )}
               {notification.__typename === 'NewMirrorNotification' && (
-                <NewMirrorNotification
+                <MirrorNotification
                   notification={notification as LensterNewMirrorNotification}
                 />
               )}
               {notification.__typename === 'NewCollectNotification' && (
-                <NewCollectNotification
+                <CollectNotification
                   notification={notification as LensterNewCollectNotification}
                 />
               )}
