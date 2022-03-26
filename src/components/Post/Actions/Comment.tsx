@@ -16,7 +16,7 @@ const Comment: React.FC<Props> = ({ post }) => {
           href={`/posts/${post?.pubId}`}
           className="flex items-center space-x-1 text-blue-500 hover:text-blue-400"
         >
-          <div className="hover:bg-blue-300 hover:bg-opacity-20 p-1.5 rounded-full">
+          <div className="p-1.5 rounded-full hover:bg-blue-300 hover:bg-opacity-20">
             <ChatAlt2Icon className="w-[18px]" />
           </div>
           {post?.stats?.totalAmountOfComments > 0 && (

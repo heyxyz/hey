@@ -223,7 +223,7 @@ const Create: React.FC = () => {
                     {avatar && (
                       <div>
                         <img
-                          className="rounded-lg h-60 w-60"
+                          className="w-60 h-60 rounded-lg"
                           src={avatar}
                           alt={avatar}
                         />

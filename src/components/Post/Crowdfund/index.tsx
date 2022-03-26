@@ -55,7 +55,7 @@ const Crowdfund: React.FC<Props> = ({ fund }) => {
   return (
     <Card>
       <div
-        className="h-40 border-b sm:h-52 rounded-t-xl"
+        className="h-40 rounded-t-xl border-b sm:h-52"
         style={{
           backgroundImage: `url(${
             cover ? cover : `${STATIC_ASSETS}/patterns/2.svg`
@@ -69,7 +69,7 @@ const Crowdfund: React.FC<Props> = ({ fund }) => {
       <CardBody className="linkify">
         <Linkify tagName="div" options={linkifyOptions}>
           <div>
-            <div className="items-center justify-between block sm:flex">
+            <div className="block justify-between items-center sm:flex">
               <div className="mr-0 space-y-1 sm:mr-16">
                 <div className="text-xl font-bold">{fund?.metadata?.name}</div>
                 <div>{fund?.metadata?.description}</div>
@@ -112,7 +112,7 @@ const Crowdfund: React.FC<Props> = ({ fund }) => {
                     : `${percentageReached}% Goal reached`
                 }
               >
-                <div className="w-full h-[13px] mt-5 bg-gray-200 rounded-full dark:bg-gray-700">
+                <div className="mt-5 w-full bg-gray-200 rounded-full dark:bg-gray-700 h-[13px]">
                   <div
                     className={clsx(
                       { 'bg-green-500': percentageReached >= 100 },

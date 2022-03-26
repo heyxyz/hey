@@ -78,7 +78,7 @@ const Details: React.FC<Props> = ({ profile }) => {
     children: React.ReactChild
     icon: React.ReactChild
   }) => (
-    <div className="flex items-center gap-2">
+    <div className="flex gap-2 items-center">
       {icon}
       <div>{children}</div>
     </div>
@@ -87,15 +87,15 @@ const Details: React.FC<Props> = ({ profile }) => {
   return (
     <div className="px-5 mb-4 sm:px-0">
       <div className="space-y-5">
-        <div className="relative w-32 h-32 -mt-24 sm:-mt-36 sm:h-52 sm:w-52">
+        <div className="relative -mt-24 w-32 h-32 sm:-mt-36 sm:w-52 sm:h-52">
           <img
             src={getAvatar(profile)}
-            className="w-32 h-32 bg-gray-200 rounded-xl ring-8 sm:h-52 sm:w-52 dark:bg-gray-700 ring-gray-50 dark:ring-black"
+            className="w-32 h-32 bg-gray-200 rounded-xl ring-8 ring-gray-50 sm:w-52 sm:h-52 dark:bg-gray-700 dark:ring-black"
             alt={profile?.handle}
           />
         </div>
         <div className="py-3 space-y-1">
-          <div className="flex items-center gap-1.5 text-2xl font-bold truncate">
+          <div className="flex gap-1.5 items-center text-2xl font-bold truncate">
             <div className="truncate">{profile?.name ?? profile?.handle}</div>
             {isVerified(profile?.handle) && (
               <Tooltip content="Verified">
@@ -117,7 +117,7 @@ const Details: React.FC<Props> = ({ profile }) => {
         <div className="space-y-5">
           <Followerings profile={profile} />
           {followLoading ? (
-            <div className="h-[34px] rounded-lg w-28 shimmer" />
+            <div className="w-28 rounded-lg h-[34px] shimmer" />
           ) : following ? (
             <Unfollow profile={profile} setFollowing={setFollowing} showText />
           ) : (
@@ -141,7 +141,7 @@ const Details: React.FC<Props> = ({ profile }) => {
             )}
           </div>
           {isStaff(profile.handle) && (
-            <div className="px-2 rounded-lg shadow-sm py-0.5 text-sm text-white bg-brand-500 w-fit">
+            <div className="py-0.5 px-2 text-sm text-white rounded-lg shadow-sm bg-brand-500 w-fit">
               Staff
             </div>
           )}

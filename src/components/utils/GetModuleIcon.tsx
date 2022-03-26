@@ -20,14 +20,14 @@ const GetModuleIcon: React.FC<Props> = ({ module, size }) => {
       return <CashIcon className={`h-${size}`} />
     case 'LimitedFeeCollectModule':
       return (
-        <div className="flex items-center gap-1">
+        <div className="flex gap-1 items-center">
           <StopIcon className={`h-${size}`} />
           <CashIcon className={`h-${size}`} />
         </div>
       )
     case 'LimitedTimedFeeCollectModule':
       return (
-        <div className="flex items-center gap-1">
+        <div className="flex gap-1 items-center">
           <StopIcon className={`h-${size}`} />
           <ClockIcon className={`h-${size}`} />
           <CashIcon className={`h-${size}`} />
@@ -35,7 +35,7 @@ const GetModuleIcon: React.FC<Props> = ({ module, size }) => {
       )
     case 'TimedFeeCollectModule':
       return (
-        <div className="flex items-center gap-1">
+        <div className="flex gap-1 items-center">
           <ClockIcon className={`h-${size}`} />
           <CashIcon className={`h-${size}`} />
         </div>
@@ -46,14 +46,14 @@ const GetModuleIcon: React.FC<Props> = ({ module, size }) => {
       return <DocumentAddIcon className={`h-${size}`} />
     case 'FeeFollowModule':
       return (
-        <div className="flex items-center gap-1">
+        <div className="flex gap-1 items-center">
           <CashIcon className={`h-${size}`} />
           <PlusCircleIcon className={`h-${size}`} />
         </div>
       )
     case 'FollowerOnlyReferenceModule':
       return (
-        <div className="flex items-center gap-1">
+        <div className="flex gap-1 items-center">
           <PlusCircleIcon className={`h-${size}`} />
           <ShareIcon className={`h-${size}`} />
         </div>

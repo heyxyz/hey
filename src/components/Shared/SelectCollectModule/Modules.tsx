@@ -57,7 +57,7 @@ const Modules: React.FC<Props> = ({
 
   if (loading)
     return (
-      <div className="px-5 py-3.5 font-bold text-center space-y-2">
+      <div className="py-3.5 px-5 space-y-2 font-bold text-center">
         <Spinner size="md" className="mx-auto" />
         <div>Loading your modules</div>
       </div>
@@ -65,7 +65,7 @@ const Modules: React.FC<Props> = ({
 
   return (
     <div className="dark:divide-gray-700">
-      <div className="space-y-3 px-5 py-3.5">
+      <div className="py-3.5 px-5 space-y-3">
         {error && (
           <ErrorMessage title="Failed to fetch modules!" error={error} />
         )}
@@ -108,7 +108,7 @@ const Modules: React.FC<Props> = ({
                       </div>
                     </div>
                     {module?.moduleName === selectedModule.moduleName && (
-                      <CheckCircleIcon className="text-green-500 h-7 w-7" />
+                      <CheckCircleIcon className="w-7 h-7 text-green-500" />
                     )}
                   </button>
                 </div>

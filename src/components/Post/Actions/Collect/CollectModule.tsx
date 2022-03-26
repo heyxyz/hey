@@ -173,9 +173,9 @@ const CollectModule: React.FC<Props> = ({ post }) => {
       {collectModule.type === 'LimitedFeeCollectModule' ||
         (collectModule.type === 'LimitedTimedFeeCollectModule' && (
           <Tooltip content="Collect Limit">
-            <div className="w-full bg-gray-200 h-2.5 dark:bg-gray-700">
+            <div className="w-full h-2.5 bg-gray-200 dark:bg-gray-700">
               <div
-                className="bg-brand-500 h-2.5"
+                className="h-2.5 bg-brand-500"
                 style={{ width: `${percentageCollected}%` }}
               />
             </div>
@@ -194,7 +194,7 @@ const CollectModule: React.FC<Props> = ({ post }) => {
             )}
           </div>
           {collectModule?.amount && (
-            <div className="space-x-1.5 flex items-center py-2">
+            <div className="flex items-center py-2 space-x-1.5">
               <span className="flex items-center space-x-1.5">
                 <Tooltip content={collectModule.amount.asset.symbol}>
                   <img
@@ -214,7 +214,7 @@ const CollectModule: React.FC<Props> = ({ post }) => {
               </span>
             </div>
           )}
-          <div className="block space-y-1 sm:space-x-5 item-center sm:flex">
+          <div className="block space-y-1 sm:flex sm:space-x-5 item-center">
             <div className="flex items-center space-x-2">
               <UsersIcon className="w-4 h-4 text-gray-500" />
               <div className="font-bold">
