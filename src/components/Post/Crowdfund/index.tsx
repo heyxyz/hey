@@ -2,16 +2,19 @@ import 'linkify-plugin-mention'
 
 import { gql, useQuery } from '@apollo/client'
 import { GridItemSix, GridLayout } from '@components/GridLayout'
+import Collectors from '@components/Shared/Collectors'
 import { Card, CardBody } from '@components/UI/Card'
+import { Modal } from '@components/UI/Modal'
 import { Tooltip } from '@components/UI/Tooltip'
 import { LensterCollectModule, LensterPost } from '@generated/lenstertypes'
+import { CashIcon, UsersIcon } from '@heroicons/react/outline'
 import { getTokenImage } from '@lib/getTokenImage'
 import { linkifyOptions } from '@lib/linkifyOptions'
 import clsx from 'clsx'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import Linkify from 'linkify-react'
-import React from 'react'
+import React, { useState } from 'react'
 import { STATIC_ASSETS } from 'src/constants'
 
 import Fund from './Fund'
@@ -35,6 +38,7 @@ interface Props {
 const Crowdfund: React.FC<Props> = ({ fund }) => {
   // @ts-ignore
   const collectModule: LensterCollectModule = fund?.collectModule
+  const [showFundersModal, setShowFundersModal] = useState<boolean>(false)
   const { data, loading } = useQuery(CROWDFUND_REVENUE_QUERY, {
     variables: { request: { publicationId: fund.pubId } },
     skip: !fund.pubId
@@ -67,6 +71,32 @@ const Crowdfund: React.FC<Props> = ({ fund }) => {
               <div className="mr-0 space-y-1 sm:mr-16">
                 <div className="text-xl font-bold">{fund?.metadata?.name}</div>
                 <div>{fund?.metadata?.description}</div>
+                {fund?.stats?.totalAmountOfCollects > 0 && (
+                  <>
+                    <div className="flex items-center space-x-1.5 !mt-2 text-gray-500">
+                      <UsersIcon className="w-4 h-4" />
+                      <button
+                        className="text-sm"
+                        onClick={() => setShowFundersModal(!showFundersModal)}
+                      >
+                        {fund?.stats?.totalAmountOfCollects} funds received
+                      </button>
+                    </div>
+                    <Modal
+                      title={
+                        <div className="flex items-center space-x-2">
+                          <CashIcon className="w-5 h-5 text-brand-500" />
+                          <div>Funders</div>
+                        </div>
+                      }
+                      size="md"
+                      show={showFundersModal}
+                      onClose={() => setShowFundersModal(!showFundersModal)}
+                    >
+                      <Collectors pubId={fund.pubId} />
+                    </Modal>
+                  </>
+                )}
               </div>
               <Fund fund={fund} />
             </div>
