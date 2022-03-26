@@ -1,6 +1,8 @@
 import 'linkify-plugin-mention'
 
 import { gql, useQuery } from '@apollo/client'
+import Collectors from '@components/Shared/Collectors'
+import { Modal } from '@components/UI/Modal'
 import AppContext from '@components/utils/AppContext'
 import { LensterPost } from '@generated/lenstertypes'
 import { ClockIcon, HashtagIcon, UsersIcon } from '@heroicons/react/outline'
@@ -31,6 +33,7 @@ interface Props {
 
 const Details: React.FC<Props> = ({ community }) => {
   const { currentUser } = useContext(AppContext)
+  const [showMembersModal, setShowMembersModal] = useState<boolean>(false)
   const [joined, setJoined] = useState<boolean>(false)
   const { loading: joinLoading } = useQuery(HAS_JOINED_QUERY, {
     variables: {
@@ -101,12 +104,27 @@ const Details: React.FC<Props> = ({ community }) => {
               {community?.pubId}
             </MetaDetails>
             <MetaDetails icon={<UsersIcon className="w-4 h-4" />}>
-              <div>
-                {humanize(community?.stats?.totalAmountOfCollects)}{' '}
-                {community?.stats?.totalAmountOfCollects > 1
-                  ? 'members'
-                  : 'member'}
-              </div>
+              <>
+                <button onClick={() => setShowMembersModal(!showMembersModal)}>
+                  {humanize(community?.stats?.totalAmountOfCollects)}{' '}
+                  {community?.stats?.totalAmountOfCollects > 1
+                    ? 'members'
+                    : 'member'}
+                </button>
+                <Modal
+                  title={
+                    <div className="flex items-center space-x-2">
+                      <UsersIcon className="w-5 h-5 text-brand-500" />
+                      <div>Members</div>
+                    </div>
+                  }
+                  size="md"
+                  show={showMembersModal}
+                  onClose={() => setShowMembersModal(!showMembersModal)}
+                >
+                  <Collectors pubId={community.pubId} />
+                </Modal>
+              </>
             </MetaDetails>
             <MetaDetails icon={<UsersIcon className="w-4 h-4" />}>
               <div>
