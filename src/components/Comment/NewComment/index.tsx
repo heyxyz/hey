@@ -4,6 +4,7 @@ import Attachment from '@components/Post/NewPost/Attachment'
 import Attachments from '@components/Shared/Attachments'
 import IndexStatus from '@components/Shared/IndexStatus'
 import SelectCollectModule from '@components/Shared/SelectCollectModule'
+import SelectReferenceModule from '@components/Shared/SelectReferenceModule'
 import SwitchNetwork from '@components/Shared/SwitchNetwork'
 import { Button } from '@components/UI/Button'
 import { Card, CardBody } from '@components/UI/Card'
@@ -100,6 +101,7 @@ const NewComment: React.FC<Props> = ({ refetch, post, type }) => {
   const { currentUser } = useContext(AppContext)
   const [selectedModule, setSelectedModule] =
     useState<EnabledModule>(defaultModuleData)
+  const [onlyFollowers, setOnlyFollowers] = useState<boolean>(false)
   const [feeData, setFeeData] = useState<FEE_DATA_TYPE>(defaultFeeData)
   const [isUploading, setIsUploading] = useState<boolean>(false)
   const [attachments, setAttachments] = useState<
@@ -219,7 +221,7 @@ const NewComment: React.FC<Props> = ({ refetch, post, type }) => {
                 }
               : getModule(selectedModule.moduleName).config,
             referenceModule: {
-              followerOnlyReferenceModule: false
+              followerOnlyReferenceModule: onlyFollowers ? true : false
             }
           }
         }
@@ -259,6 +261,10 @@ const NewComment: React.FC<Props> = ({ refetch, post, type }) => {
                 setFeeData={setFeeData}
                 selectedModule={selectedModule}
                 setSelectedModule={setSelectedModule}
+              />
+              <SelectReferenceModule
+                onlyFollowers={onlyFollowers}
+                setOnlyFollowers={setOnlyFollowers}
               />
             </div>
             <div className="flex items-center ml-auto space-x-2">
