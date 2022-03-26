@@ -5,6 +5,7 @@ import { GridItemSix, GridLayout } from '@components/GridLayout'
 import { Card, CardBody } from '@components/UI/Card'
 import { Tooltip } from '@components/UI/Tooltip'
 import { LensterCollectModule, LensterPost } from '@generated/lenstertypes'
+import { UsersIcon } from '@heroicons/react/outline'
 import { getTokenImage } from '@lib/getTokenImage'
 import { linkifyOptions } from '@lib/linkifyOptions'
 import clsx from 'clsx'
@@ -67,6 +68,14 @@ const Crowdfund: React.FC<Props> = ({ fund }) => {
               <div className="mr-0 space-y-1 sm:mr-16">
                 <div className="text-xl font-bold">{fund?.metadata?.name}</div>
                 <div>{fund?.metadata?.description}</div>
+                {fund?.stats?.totalAmountOfCollects > 0 && (
+                  <div className="flex items-center space-x-1.5 !mt-2 text-gray-500">
+                    <UsersIcon className="w-4 h-4" />
+                    <div className="text-sm">
+                      {fund?.stats?.totalAmountOfCollects} funds received
+                    </div>
+                  </div>
+                )}
               </div>
               <Fund fund={fund} />
             </div>
