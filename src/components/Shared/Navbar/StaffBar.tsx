@@ -1,12 +1,11 @@
 import { Menu, Transition } from '@headlessui/react'
 import {
   ChartPieIcon,
-  ChipIcon,
   HashtagIcon,
   TerminalIcon
 } from '@heroicons/react/outline'
 import React, { Fragment } from 'react'
-import { GIT_COMMIT_REF, GIT_COMMIT_SHA, REACT_VERSION } from 'src/constants'
+import { GIT_COMMIT_REF, GIT_COMMIT_SHA } from 'src/constants'
 
 import Stats from './Stats'
 
@@ -36,12 +35,6 @@ const StaffBar: React.FC = () => {
             <Badge>{GIT_COMMIT_SHA}</Badge>
           </div>
         )}
-        <div className="flex items-center space-x-1" title="React.js Version">
-          <ChipIcon className="w-4 h-4" />
-          <span>
-            React.js <Badge>v{REACT_VERSION}</Badge>
-          </span>
-        </div>
       </div>
       <Menu>
         {({ open }) => (
