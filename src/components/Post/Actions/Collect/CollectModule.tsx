@@ -231,14 +231,14 @@ const CollectModule: React.FC<Props> = ({ post }) => {
                 </div>
               </div>
             )}
-            {collectModule?.referralFee && (
+            {collectModule?.referralFee ? (
               <div className="flex items-center space-x-2">
                 <CashIcon className="w-4 h-4 text-gray-500" />
                 <div className="font-bold">
                   {collectModule.referralFee}% Referral Fee
                 </div>
               </div>
-            )}
+            ) : null}
           </div>
           <div>
             {collectModule?.endTimestamp && (
