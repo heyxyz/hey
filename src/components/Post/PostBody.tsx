@@ -1,14 +1,18 @@
 import 'linkify-plugin-mention'
 
+import CrowdfundShimmer from '@components/Shared/Shimmer/CrowdfundShimmer'
 import { LensterPost } from '@generated/lenstertypes'
 import { UserAddIcon, UsersIcon } from '@heroicons/react/outline'
 import { linkifyOptions } from '@lib/linkifyOptions'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import Linkify from 'linkify-react'
+import dynamic from 'next/dynamic'
 import React from 'react'
 
-import Crowdfund from './Crowdfund'
+const Crowdfund = dynamic(() => import('./Crowdfund'), {
+  loading: () => <CrowdfundShimmer />
+})
 
 dayjs.extend(relativeTime)
 
