@@ -15,7 +15,7 @@ interface Props {
   notification: NewFollowerNotification
 }
 
-const NewFollowerNotification: React.FC<Props> = ({ notification }) => {
+const FollowerNotification: React.FC<Props> = ({ notification }) => {
   const [following, setFollowing] = useState<boolean>(
     notification.isFollowedByMe
   )
@@ -85,4 +85,4 @@ const NewFollowerNotification: React.FC<Props> = ({ notification }) => {
   )
 }
 
-export default NewFollowerNotification
+export default FollowerNotification
