@@ -5,10 +5,7 @@ import { Spinner } from '@components/UI/Spinner'
 import { Tooltip } from '@components/UI/Tooltip'
 import AppContext from '@components/utils/AppContext'
 import { LensterCollectModule, LensterPost } from '@generated/lenstertypes'
-import {
-  CollectModule,
-  CreateCollectBroadcastItemResult
-} from '@generated/types'
+import { CreateCollectBroadcastItemResult } from '@generated/types'
 import {
   CashIcon,
   ClockIcon,
