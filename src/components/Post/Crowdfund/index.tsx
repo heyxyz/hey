@@ -46,7 +46,9 @@ const Crowdfund: React.FC<Props> = ({ fund }) => {
 
   const revenue = data?.publicationRevenue?.earnings
   const percentageReached = revenue
-    ? (revenue?.value / parseInt(fund?.metadata?.attributes[1]?.value)) * 100
+    ? (revenue?.value /
+        parseInt(fund?.metadata?.attributes[1]?.value as string)) *
+      100
     : 0
   const cover = fund?.metadata?.cover?.original?.url
 
