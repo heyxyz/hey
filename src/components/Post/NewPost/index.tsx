@@ -42,6 +42,7 @@ import { object, string } from 'zod'
 
 import SelectCollectModule from '../../Shared/SelectCollectModule'
 import Attachment from './Attachment'
+import Giphy from './Giphy'
 
 export const CREATE_POST_TYPED_DATA_MUTATION = gql`
   mutation CreatePostTypedData($request: CreatePublicPostRequest!) {
@@ -240,6 +241,7 @@ const NewPost: React.FC<Props> = ({ refetch }) => {
           />
           <div className="flex items-center">
             <div className="flex items-center space-x-4">
+              <Giphy />
               <Attachment
                 attachments={attachments}
                 setAttachments={setAttachments}
