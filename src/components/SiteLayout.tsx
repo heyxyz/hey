@@ -1,4 +1,5 @@
 import { gql, useQuery } from '@apollo/client'
+import { Profile } from '@generated/types'
 import Head from 'next/head'
 import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
@@ -42,6 +43,9 @@ const SiteLayout: React.FC<Props> = ({ children }) => {
     variables: { ownedBy: accountData?.address },
     skip: !selectedProfile || !refreshToken
   })
+  const profiles: Profile[] = data?.profiles?.items
+    ?.slice()
+    ?.sort((a: Profile, b: Profile) => Number(a.id) - Number(b.id))
 
   useEffect(() => {
     setSelectedProfile(localStorage.selectedProfile)
@@ -61,8 +65,8 @@ const SiteLayout: React.FC<Props> = ({ children }) => {
     setSelectedProfile,
     staffMode,
     setStaffMode,
-    profiles: data?.profiles?.items,
-    currentUser: data?.profiles?.items[selectedProfile],
+    profiles: profiles,
+    currentUser: profiles && profiles[selectedProfile],
     currentUserLoading: loading,
     currentUserError: error
   }
