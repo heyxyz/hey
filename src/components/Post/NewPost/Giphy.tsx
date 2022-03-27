@@ -88,7 +88,7 @@ const Giphy: React.FC<Props> = ({ setGifAttachment }) => {
           value={debouncedGifInput}
           onChange={handleSearch}
         />
-        <div className="flex mb-1 overflow-x-hidden overflow-y-auto h-96">
+        <div className="flex overflow-y-auto overflow-x-hidden mb-1 h-96">
           {debouncedGifInput ? (
             <Grid
               className="mx-1.5"
@@ -98,7 +98,7 @@ const Giphy: React.FC<Props> = ({ setGifAttachment }) => {
               hideAttribution
               columns={3}
               noResultsMessage={
-                <div className="grid h-full place-items-center">
+                <div className="grid place-items-center h-full">
                   No GIFs found.
                 </div>
               }
@@ -106,20 +106,20 @@ const Giphy: React.FC<Props> = ({ setGifAttachment }) => {
               key={searchText}
             />
           ) : (
-            <div className="grid w-full grid-cols-2 gap-1 mx-1.5">
+            <div className="grid grid-cols-2 gap-1 mx-1.5 w-full">
               {categories.map((category, idx) => (
                 <button
                   key={idx}
-                  className="relative flex outline-none"
+                  className="flex relative outline-none"
                   onClick={() => setDebouncedGifInput(category.name)}
                 >
                   <img
-                    className="object-cover w-full h-32 cursor-pointer rounded-xl"
+                    className="object-cover w-full h-32 rounded-xl cursor-pointer"
                     src={category.gif?.images?.original_still.url}
                     alt=""
                     draggable={false}
                   />
-                  <div className="absolute bottom-0 right-0 w-full px-2 py-1 text-lg font-bold text-right text-white rounded-b-xl from-transparent via-gray-800 to-gray-900 bg-gradient-to-b">
+                  <div className="absolute right-0 bottom-0 py-1 px-2 w-full text-lg font-bold text-right text-white bg-gradient-to-b from-transparent via-gray-800 to-gray-900 rounded-b-xl">
                     <span>{category.name}</span>
                   </div>
                 </button>
