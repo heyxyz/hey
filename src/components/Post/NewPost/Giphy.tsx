@@ -1,11 +1,12 @@
 import { Input } from '@components/UI/Input'
 import { Modal } from '@components/UI/Modal'
 import { Tooltip } from '@components/UI/Tooltip'
+import { useDebounce } from '@components/utils/hooks/useDebounce'
 import { GiphyFetch, ICategory } from '@giphy/js-fetch-api'
 import { IGif } from '@giphy/js-types'
 import { Grid } from '@giphy/react-components'
 import { motion } from 'framer-motion'
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 interface Props {
   // eslint-disable-next-line no-unused-vars
@@ -18,6 +19,7 @@ const Giphy: React.FC<Props> = ({ setGifAttachment }) => {
   const [showModal, setShowModal] = useState(false)
   const [categories, setCategories] = useState<Array<ICategory>>([])
   const [searchText, setSearchText] = useState('')
+  const [debouncedGifInput, setDebouncedGifInput] = useState<string>('')
 
   const fetchGiphyCategories = async () => {
     const { data } = await giphyFetch.categories()
@@ -29,25 +31,32 @@ const Giphy: React.FC<Props> = ({ setGifAttachment }) => {
     fetchGiphyCategories()
   }, [])
 
-  const fetchGifs = useCallback(
-    (offset: number) => {
-      return giphyFetch.search(searchText, { offset, limit: 10 })
+  useDebounce(
+    () => {
+      setSearchText(debouncedGifInput)
     },
-    [searchText]
+    1000,
+    [debouncedGifInput]
   )
+
+  const fetchGifs = async (offset: number) => {
+    return giphyFetch.search(searchText, { offset, limit: 10 })
+  }
 
   const handleSearch = async (evt: any) => {
     let keyword = evt.target.value
-    setSearchText(keyword)
+    setDebouncedGifInput(keyword)
   }
 
   const onCloseModal = () => {
     setShowModal(!showModal)
     setSearchText('')
+    setDebouncedGifInput('')
   }
 
   const onSelectGif = (item: IGif) => {
     setGifAttachment(item)
+    setDebouncedGifInput('')
     setSearchText('')
     setShowModal(false)
   }
@@ -76,11 +85,11 @@ const Giphy: React.FC<Props> = ({ setGifAttachment }) => {
           className="m-2"
           type="text"
           placeholder="Search for GIFs"
-          value={searchText}
+          value={debouncedGifInput}
           onChange={handleSearch}
         />
-        <div className="flex overflow-x-hidden overflow-y-auto h-96">
-          {searchText ? (
+        <div className="flex mb-1 overflow-x-hidden overflow-y-auto h-96">
+          {debouncedGifInput ? (
             <Grid
               className="mx-1.5"
               onGifClick={(item) => onSelectGif(item)}
@@ -88,7 +97,13 @@ const Giphy: React.FC<Props> = ({ setGifAttachment }) => {
               width={490}
               hideAttribution
               columns={3}
+              noResultsMessage={
+                <div className="grid h-full place-items-center">
+                  No GIFs found.
+                </div>
+              }
               noLink
+              key={searchText}
             />
           ) : (
             <div className="grid w-full grid-cols-2 gap-1 mx-1.5">
@@ -96,7 +111,7 @@ const Giphy: React.FC<Props> = ({ setGifAttachment }) => {
                 <button
                   key={idx}
                   className="relative flex outline-none"
-                  onClick={() => setSearchText(category.name)}
+                  onClick={() => setDebouncedGifInput(category.name)}
                 >
                   <img
                     className="object-cover w-full h-32 cursor-pointer rounded-xl"
