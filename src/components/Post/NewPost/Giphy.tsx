@@ -2,13 +2,19 @@ import { Input } from '@components/UI/Input'
 import { Modal } from '@components/UI/Modal'
 import { Tooltip } from '@components/UI/Tooltip'
 import { GiphyFetch, ICategory } from '@giphy/js-fetch-api'
+import { IGif } from '@giphy/js-types'
 import { Grid } from '@giphy/react-components'
 import { motion } from 'framer-motion'
 import { useCallback, useEffect, useState } from 'react'
 
+interface Props {
+  // eslint-disable-next-line no-unused-vars
+  setGifAttachment: (gif: IGif) => void
+}
+
 const giphyFetch = new GiphyFetch('sXpGFDGZs0Dv1mmNFvYaGUvYwKX0PWIh')
 
-const Giphy: React.FC = () => {
+const Giphy: React.FC<Props> = ({ setGifAttachment }) => {
   const [showModal, setShowModal] = useState(false)
   const [categories, setCategories] = useState<Array<ICategory>>([])
   const [searchText, setSearchText] = useState('')
@@ -38,6 +44,12 @@ const Giphy: React.FC = () => {
   const onCloseModal = () => {
     setShowModal(!showModal)
     setSearchText('')
+  }
+
+  const onSelectGif = (item: IGif) => {
+    setGifAttachment(item)
+    setSearchText('')
+    setShowModal(false)
   }
 
   return (
@@ -71,26 +83,31 @@ const Giphy: React.FC = () => {
           {searchText ? (
             <Grid
               className="mx-1.5"
-              onGifClick={() => {}}
+              onGifClick={(item) => onSelectGif(item)}
               fetchGifs={fetchGifs}
               width={490}
               hideAttribution
               columns={3}
+              noLink
             />
           ) : (
             <div className="grid w-full grid-cols-2 gap-1 mx-1.5">
               {categories.map((category, idx) => (
-                <div key={idx} className="relative flex">
+                <button
+                  key={idx}
+                  className="relative flex outline-none"
+                  onClick={() => setSearchText(category.name)}
+                >
                   <img
                     className="object-cover w-full h-32 cursor-pointer rounded-xl"
                     src={category.gif?.images?.original_still.url}
                     alt=""
                     draggable={false}
                   />
-                  <div className="absolute bottom-0 right-0 w-full px-2 py-1 text-lg font-bold text-white from-transparent via-gray-800 to-gray-900 bg-gradient-to-b">
+                  <div className="absolute bottom-0 right-0 w-full px-2 py-1 text-lg font-bold text-right text-white rounded-b-xl from-transparent via-gray-800 to-gray-900 bg-gradient-to-b">
                     <span>{category.name}</span>
                   </div>
-                </div>
+                </button>
               ))}
             </div>
           )}
