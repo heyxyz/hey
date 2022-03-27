@@ -1,43 +1,43 @@
 import SinglePost from '@components/Post/SinglePost'
 import Slug from '@components/Shared/Slug'
 import {
-  LensterNewMirrorNotification,
+  LensterNewCommentNotification,
   LensterPost
 } from '@generated/lenstertypes'
-import { NewMirrorNotification } from '@generated/types'
-import { DuplicateIcon } from '@heroicons/react/outline'
+import { ChatAlt2Icon } from '@heroicons/react/outline'
 import Link from 'next/link'
 import React from 'react'
 
 interface Props {
-  notification: LensterNewMirrorNotification
+  notification: LensterNewCommentNotification
 }
 
-const NewMirrorNotification: React.FC<Props> = ({ notification }) => {
+const CommentNotification: React.FC<Props> = ({ notification }) => {
   return (
     <div>
       <div className="flex items-center px-5 pt-5 space-x-1 text-sm text-gray-500">
-        <DuplicateIcon className="w-4 h-4" />
+        <ChatAlt2Icon className="w-4 h-4" />
         <div className="flex items-center space-x-1">
           <Link href={`/u/${notification?.profile.handle}`}>
             <a>
               <Slug slug={notification?.profile.handle} prefix="@" />
             </a>
           </Link>
-          <div>mirrored your</div>
-          <Link href={`/posts/${notification?.publication.pubId}`}>
+          <div>commented on your</div>
+          <Link href={`/posts/${notification?.comment.pubId}`}>
             <a className="font-bold">
-              {notification?.publication.__typename?.toLowerCase()}
+              {notification?.comment?.commentOn?.__typename?.toLowerCase()}
             </a>
           </Link>
         </div>
       </div>
       <SinglePost
-        post={notification.publication as LensterPost}
+        post={notification.comment as LensterPost}
         showCard={false}
+        type="COMMENT"
       />
     </div>
   )
 }
 
-export default NewMirrorNotification
+export default CommentNotification

@@ -33,7 +33,7 @@ const Sidebar: React.FC = () => {
   const router = useRouter()
 
   return (
-    <div className="space-y-1.5 mb-4 px-3 sm:px-0">
+    <div className="px-3 mb-4 space-y-1.5 sm:px-0">
       <Menu current={router.pathname == '/settings'} url="/settings">
         <UserIcon className="w-4 h-4" />
         <div>Profile</div>

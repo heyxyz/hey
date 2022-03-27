@@ -65,7 +65,7 @@ const SetProfile: React.FC = () => {
     return (
       <Card>
         <CardBody>
-          <div className="w-full h-10 shimmer rounded-xl" />
+          <div className="w-full h-10 rounded-xl shimmer" />
         </CardBody>
       </Card>
     )
@@ -79,7 +79,7 @@ const SetProfile: React.FC = () => {
             Select default profile
           </div>
           <select
-            className="w-full bg-white border border-gray-300 outline-none rounded-xl dark:bg-gray-800 dark:border-gray-700 focus:border-brand-500 focus:ring-brand-400 disabled:opacity-60 disabled:bg-gray-500 disabled:bg-opacity-20"
+            className="w-full bg-white rounded-xl border border-gray-300 outline-none dark:bg-gray-800 dark:border-gray-700 disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 focus:border-brand-500 focus:ring-brand-400"
             onChange={(e) => setSelectedUser(e.target.value)}
           >
             {data?.profiles?.items?.map((profile: Profile) => (

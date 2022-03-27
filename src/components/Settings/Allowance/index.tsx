@@ -72,7 +72,7 @@ const AllowanceSettings: NextPage = () => {
               Select Currency
             </div>
             <select
-              className="w-full bg-white border border-gray-300 outline-none rounded-xl dark:bg-gray-800 dark:border-gray-700 focus:border-brand-500 focus:ring-brand-400 disabled:opacity-60 disabled:bg-gray-500 disabled:bg-opacity-20"
+              className="w-full bg-white rounded-xl border border-gray-300 outline-none dark:bg-gray-800 dark:border-gray-700 disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 focus:border-brand-500 focus:ring-brand-400"
               onChange={(e) => {
                 setCurrencyLoading(true)
                 refetch({

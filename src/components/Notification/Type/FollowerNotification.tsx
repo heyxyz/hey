@@ -15,7 +15,7 @@ interface Props {
   notification: NewFollowerNotification
 }
 
-const NewFollowerNotification: React.FC<Props> = ({ notification }) => {
+const FollowerNotification: React.FC<Props> = ({ notification }) => {
   const [following, setFollowing] = useState<boolean>(
     notification.isFollowedByMe
   )
@@ -23,7 +23,7 @@ const NewFollowerNotification: React.FC<Props> = ({ notification }) => {
 
   return (
     <div className="p-5">
-      <div className="flex items-center justify-between">
+      <div className="flex justify-between items-center">
         <Link
           href={
             wallet?.defaultProfile
@@ -39,7 +39,7 @@ const NewFollowerNotification: React.FC<Props> = ({ notification }) => {
                     ? getAvatar(wallet?.defaultProfile)
                     : `https://avatar.tobi.sh/${wallet?.address}.svg`
                 }
-                className="w-10 h-10 bg-gray-200 border rounded-full dark:border-gray-700"
+                className="w-10 h-10 bg-gray-200 rounded-full border dark:border-gray-700"
                 alt={
                   wallet?.defaultProfile
                     ? wallet?.defaultProfile?.handle
@@ -47,7 +47,7 @@ const NewFollowerNotification: React.FC<Props> = ({ notification }) => {
                 }
               />
               <div>
-                <div className="flex items-center gap-1">
+                <div className="flex gap-1 items-center">
                   <div className="font-bold">
                     {wallet?.defaultProfile?.name ??
                       wallet?.defaultProfile?.handle ??
@@ -85,4 +85,4 @@ const NewFollowerNotification: React.FC<Props> = ({ notification }) => {
   )
 }
 
-export default NewFollowerNotification
+export default FollowerNotification

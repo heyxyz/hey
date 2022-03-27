@@ -23,7 +23,7 @@ const Streak = () => {
 
   return (
     <Card className="mb-4">
-      <CardBody className="flex items-center justify-between space-y-2">
+      <CardBody className="flex justify-between items-center space-y-2">
         <div>
           <div>You're on a</div>
           <div className="text-xl">

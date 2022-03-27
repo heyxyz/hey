@@ -148,7 +148,7 @@ const Fund: React.FC<Props> = ({ fund }) => {
       {currentUser && (
         <div>
           <Button
-            className="mt-5 sm:ml-auto sm:mt-0"
+            className="mt-5 sm:mt-0 sm:ml-auto"
             onClick={createCollect}
             disabled={typedDataLoading || signLoading || writeLoading}
             variant="success"

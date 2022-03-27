@@ -1,17 +1,19 @@
 import { gql, useQuery } from '@apollo/client'
 import UserProfile from '@components/Shared/UserProfile'
+import WalletProfile from '@components/Shared/WalletProfile'
 import { EmptyState } from '@components/UI/EmptyState'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { Spinner } from '@components/UI/Spinner'
-import { Following, Profile } from '@generated/types'
-import { UsersIcon } from '@heroicons/react/outline'
+import { Profile, Wallet } from '@generated/types'
+import { CollectionIcon } from '@heroicons/react/outline'
 import useInView from 'react-cool-inview'
 
-const FOLLOWING_QUERY = gql`
-  query Following($request: FollowingRequest!) {
-    following(request: $request) {
+const COLLECTORS_QUERY = gql`
+  query Collectors($request: WhoCollectedPublicationRequest!) {
+    whoCollectedPublication(request: $request) {
       items {
-        profile {
+        address
+        defaultProfile {
           id
           name
           handle
@@ -33,23 +35,23 @@ const FOLLOWING_QUERY = gql`
 `
 
 interface Props {
-  profile: Profile
+  pubId: string
 }
 
-const Following: React.FC<Props> = ({ profile }) => {
-  const { data, loading, error, fetchMore } = useQuery(FOLLOWING_QUERY, {
-    variables: { request: { address: profile?.ownedBy, limit: 10 } },
-    skip: !profile?.id
+const Collectors: React.FC<Props> = ({ pubId }) => {
+  const { data, loading, error, fetchMore } = useQuery(COLLECTORS_QUERY, {
+    variables: { request: { publicationId: pubId, limit: 10 } },
+    skip: !pubId
   })
 
-  const pageInfo = data?.following?.pageInfo
+  const pageInfo = data?.whoCollectedPublication?.pageInfo
   const { observe } = useInView({
     threshold: 1,
     onEnter: () => {
       fetchMore({
         variables: {
           request: {
-            address: profile?.ownedBy,
+            publicationId: pubId,
             cursor: pageInfo?.next,
             limit: 10
           }
@@ -62,21 +64,16 @@ const Following: React.FC<Props> = ({ profile }) => {
     return (
       <div className="p-5 space-y-2 font-bold text-center">
         <Spinner size="md" className="mx-auto" />
-        <div>Loading following</div>
+        <div>Loading collectors</div>
       </div>
     )
 
-  if (data?.following?.items?.length === 0)
+  if (data?.whoCollectedPublication?.items?.length === 0)
     return (
       <div className="p-5">
         <EmptyState
-          message={
-            <div>
-              <span className="mr-1 font-bold">@{profile.handle}</span>
-              <span>doesn’t follow anyone.</span>
-            </div>
-          }
-          icon={<UsersIcon className="w-8 h-8 text-brand-500" />}
+          message={<span>No collectors.</span>}
+          icon={<CollectionIcon className="w-8 h-8 text-brand-500" />}
           hideCard
         />
       </div>
@@ -86,14 +83,18 @@ const Following: React.FC<Props> = ({ profile }) => {
     <div className="overflow-y-auto max-h-[80vh]">
       <ErrorMessage
         className="m-5"
-        title="Failed to load following"
+        title="Failed to load collectors"
         error={error}
       />
       <div className="space-y-3">
         <div className="divide-y">
-          {data?.following?.items?.map((following: Following) => (
-            <div className="p-5" key={following?.profile.id}>
-              <UserProfile profile={following?.profile} />
+          {data?.whoCollectedPublication?.items?.map((wallet: Wallet) => (
+            <div className="p-5" key={wallet?.defaultProfile?.id}>
+              {wallet?.defaultProfile ? (
+                <UserProfile profile={wallet?.defaultProfile as Profile} />
+              ) : (
+                <WalletProfile wallet={wallet} />
+              )}
             </div>
           ))}
         </div>
@@ -107,4 +108,4 @@ const Following: React.FC<Props> = ({ profile }) => {
   )
 }
 
-export default Following
+export default Collectors

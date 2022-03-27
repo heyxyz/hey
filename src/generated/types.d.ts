@@ -94,6 +94,20 @@ export type ApprovedModuleAllowanceAmountRequest = {
   referenceModules: Array<ReferenceModules>
 }
 
+export type AttachRequest = {
+  /** mimetype of the file to push */
+  mimeType: Scalars['MimeType']
+}
+
+/** The response to upload the attached file */
+export type AttachResults = {
+  __typename?: 'AttachResults'
+  /** Name of the file once is uploaded */
+  key: Scalars['String']
+  /** Signed url to push the file */
+  signedUrl: Scalars['String']
+}
+
 /** The auth challenge result */
 export type AuthChallengeResult = {
   __typename?: 'AuthChallengeResult'
@@ -1085,9 +1099,9 @@ export type MetadataAttributeOutput = {
   /** The display type */
   displayType?: Maybe<MetadataDisplayType>
   /** The trait type - can be anything its the name it will render so include spaces */
-  traitType: Scalars['String']
+  traitType?: Maybe<Scalars['String']>
   /** The value */
-  value: Scalars['String']
+  value?: Maybe<Scalars['String']>
 }
 
 /** The metadata display types */
@@ -1168,6 +1182,7 @@ export type ModuleInfo = {
 
 export type Mutation = {
   __typename?: 'Mutation'
+  attachFile: AttachResults
   authenticate: AuthenticationResult
   claim: RelayResult
   createCollectTypedData: CreateCollectBroadcastItemResult
@@ -1187,6 +1202,10 @@ export type Mutation = {
   updateProfile: Profile
 }
 
+export type MutationAttachFileArgs = {
+  request: AttachRequest
+}
+
 export type MutationAuthenticateArgs = {
   request: SignedAuthChallenge
 }
@@ -1196,22 +1215,27 @@ export type MutationClaimArgs = {
 }
 
 export type MutationCreateCollectTypedDataArgs = {
+  options?: InputMaybe<TypedDataOptions>
   request: CreateCollectRequest
 }
 
 export type MutationCreateCommentTypedDataArgs = {
+  options?: InputMaybe<TypedDataOptions>
   request: CreatePublicCommentRequest
 }
 
 export type MutationCreateFollowTypedDataArgs = {
+  options?: InputMaybe<TypedDataOptions>
   request: FollowRequest
 }
 
 export type MutationCreateMirrorTypedDataArgs = {
+  options?: InputMaybe<TypedDataOptions>
   request: CreateMirrorRequest
 }
 
 export type MutationCreatePostTypedDataArgs = {
+  options?: InputMaybe<TypedDataOptions>
   request: CreatePublicPostRequest
 }
 
@@ -1220,18 +1244,22 @@ export type MutationCreateProfileArgs = {
 }
 
 export type MutationCreateSetDispatcherTypedDataArgs = {
+  options?: InputMaybe<TypedDataOptions>
   request: SetDispatcherRequest
 }
 
 export type MutationCreateSetFollowModuleTypedDataArgs = {
+  options?: InputMaybe<TypedDataOptions>
   request: CreateSetFollowModuleRequest
 }
 
 export type MutationCreateSetFollowNftUriTypedDataArgs = {
+  options?: InputMaybe<TypedDataOptions>
   request: CreateSetFollowNftUriRequest
 }
 
 export type MutationCreateSetProfileImageUriTypedDataArgs = {
+  options?: InputMaybe<TypedDataOptions>
   request: UpdateProfileImageRequest
 }
 
@@ -1742,6 +1770,7 @@ export type Query = {
   recommendedProfiles: Array<Profile>
   search: SearchResult
   timeline: PaginatedTimelineResult
+  userSigNonces: UserSigNonces
   verify: Scalars['Boolean']
   whoCollectedPublication: PaginatedWhoCollectedResult
 }
@@ -2020,6 +2049,11 @@ export type TransactionReceipt = {
 
 export type TransactionResult = TransactionError | TransactionIndexedResult
 
+export type TypedDataOptions = {
+  /** If you wish to override the nonce for the sig if you want to do some clever stuff in the client */
+  overrideSigNonce: Scalars['Nonce']
+}
+
 export type UnfollowRequest = {
   profile: Scalars['ProfileId']
 }
@@ -2046,6 +2080,11 @@ export type UpdateProfileRequest = {
   twitterUrl?: InputMaybe<Scalars['Url']>
   /** The profile website */
   website?: InputMaybe<Scalars['Url']>
+}
+
+export type UserSigNonces = {
+  __typename?: 'UserSigNonces'
+  lensHubOnChainSigNonce: Scalars['Nonce']
 }
 
 /** The access request */
