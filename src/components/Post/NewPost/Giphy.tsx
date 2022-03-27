@@ -16,9 +16,9 @@ interface Props {
 const giphyFetch = new GiphyFetch('sXpGFDGZs0Dv1mmNFvYaGUvYwKX0PWIh')
 
 const Giphy: React.FC<Props> = ({ setGifAttachment }) => {
-  const [showModal, setShowModal] = useState(false)
+  const [showModal, setShowModal] = useState<boolean>(false)
   const [categories, setCategories] = useState<Array<ICategory>>([])
-  const [searchText, setSearchText] = useState('')
+  const [searchText, setSearchText] = useState<string>('')
   const [debouncedGifInput, setDebouncedGifInput] = useState<string>('')
 
   const fetchGiphyCategories = async () => {
@@ -70,7 +70,7 @@ const Giphy: React.FC<Props> = ({ setGifAttachment }) => {
           className="tab-focus-ring"
           onClick={() => setShowModal(!showModal)}
         >
-          <div className="w-full text-brand-500">
+          <div className="w-full fill-brand-500">
             <svg viewBox="0 0 24 24" className="w-5 h-5">
               <g>
                 <path d="M19 10.5V8.8h-4.4v6.4h1.7v-2h2v-1.7h-2v-1H19zm-7.3-1.7h1.7v6.4h-1.7V8.8zm-3.6 1.6c.4 0 .9.2 1.2.5l1.2-1C9.9 9.2 9 8.8 8.1 8.8c-1.8 0-3.2 1.4-3.2 3.2s1.4 3.2 3.2 3.2c1 0 1.8-.4 2.4-1.1v-2.5H7.7v1.2h1.2v.6c-.2.1-.5.2-.8.2-.9 0-1.6-.7-1.6-1.6 0-.8.7-1.6 1.6-1.6z"></path>
@@ -88,7 +88,7 @@ const Giphy: React.FC<Props> = ({ setGifAttachment }) => {
           value={debouncedGifInput}
           onChange={handleSearch}
         />
-        <div className="flex overflow-y-auto overflow-x-hidden mb-1 h-96">
+        <div className="flex mb-1 overflow-x-hidden overflow-y-auto h-96">
           {debouncedGifInput ? (
             <Grid
               className="mx-1.5"
@@ -98,7 +98,7 @@ const Giphy: React.FC<Props> = ({ setGifAttachment }) => {
               hideAttribution
               columns={3}
               noResultsMessage={
-                <div className="grid place-items-center h-full">
+                <div className="grid h-full place-items-center">
                   No GIFs found.
                 </div>
               }
@@ -110,16 +110,16 @@ const Giphy: React.FC<Props> = ({ setGifAttachment }) => {
               {categories.map((category, idx) => (
                 <button
                   key={idx}
-                  className="flex relative outline-none"
+                  className="relative flex outline-none"
                   onClick={() => setDebouncedGifInput(category.name)}
                 >
                   <img
-                    className="object-cover w-full h-32 rounded-xl cursor-pointer"
+                    className="object-cover w-full h-32 cursor-pointer rounded-xl"
                     src={category.gif?.images?.original_still.url}
                     alt=""
                     draggable={false}
                   />
-                  <div className="absolute right-0 bottom-0 py-1 px-2 w-full text-lg font-bold text-right text-white bg-gradient-to-b from-transparent via-gray-800 to-gray-900 rounded-b-xl">
+                  <div className="absolute bottom-0 right-0 w-full px-2 py-1 text-lg font-bold text-right text-white bg-gradient-to-b from-transparent via-gray-800 to-gray-900 rounded-b-xl">
                     <span>{category.name}</span>
                   </div>
                 </button>
