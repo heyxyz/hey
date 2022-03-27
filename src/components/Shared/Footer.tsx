@@ -9,7 +9,7 @@ const Footer: React.FC = () => {
   return (
     <footer
       className={clsx(
-        { 'top-[110px]': staffMode },
+        { 'top-24': staffMode },
         'sticky flex flex-wrap px-3 mt-4 text-sm leading-7 lg:px-0 top-20'
       )}
     >
