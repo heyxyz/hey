@@ -19,10 +19,10 @@ import React, { useContext } from 'react'
 import useInView from 'react-cool-inview'
 import Custom404 from 'src/pages/404'
 
-import NewCollectNotification from './Type/NewCollectNotification'
-import NewCommentNotification from './Type/NewCommentNotification'
-import NewFollowerNotification from './Type/NewFollowerNotification'
-import NewMirrorNotification from './Type/NewMirrorNotification'
+import CollectNotification from './Type/CollectNotification'
+import CommentNotification from './Type/CommentNotification'
+import FollowerNotification from './Type/FollowerNotification'
+import MirrorNotification from './Type/MirrorNotification'
 
 const NOTIFICATIONS_QUERY = gql`
   query Notifications($request: NotificationRequest!) {
@@ -107,9 +107,9 @@ const NOTIFICATIONS_QUERY = gql`
 `
 
 const NotificationWrapper = ({ children }: { children: React.ReactChild }) => (
-  <div className="flex justify-center flex-grow px-0 py-8 sm:px-6 lg:px-8">
-    <div className="w-full max-w-4xl space-y-3">
-      <div className="flex items-center space-x-1.5 text-xl font-bold px-5 sm:px-0 pb-3">
+  <div className="flex flex-grow justify-center py-8 px-0 sm:px-6 lg:px-8">
+    <div className="space-y-3 w-full max-w-4xl">
+      <div className="flex items-center px-5 pb-3 space-x-1.5 text-xl font-bold sm:px-0">
         <BellIcon className="w-6 h-6 text-brand-500" />
         <div>Notifications</div>
       </div>
@@ -174,20 +174,20 @@ const Notification: NextPage = () => {
           {notifications?.map((notification: Notification, index: number) => (
             <div key={index}>
               {notification.__typename === 'NewFollowerNotification' && (
-                <NewFollowerNotification notification={notification} />
+                <FollowerNotification notification={notification} />
               )}
               {notification.__typename === 'NewCommentNotification' && (
-                <NewCommentNotification
+                <CommentNotification
                   notification={notification as LensterNewCommentNotification}
                 />
               )}
               {notification.__typename === 'NewMirrorNotification' && (
-                <NewMirrorNotification
+                <MirrorNotification
                   notification={notification as LensterNewMirrorNotification}
                 />
               )}
               {notification.__typename === 'NewCollectNotification' && (
-                <NewCollectNotification
+                <CollectNotification
                   notification={notification as LensterNewCollectNotification}
                 />
               )}

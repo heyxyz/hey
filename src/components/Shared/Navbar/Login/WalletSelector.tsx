@@ -121,7 +121,7 @@ const WalletSelector: React.FC<Props> = ({
                 <Spinner className="mr-0.5" size="xs" />
               ) : (
                 <img
-                  className="h-5 mr-1"
+                  className="mr-1 h-5"
                   src="/eth-white.svg"
                   alt="Ethereum Logo"
                 />
@@ -141,7 +141,7 @@ const WalletSelector: React.FC<Props> = ({
             ))}
         </div>
       ) : (
-        <div className="inline-block w-full space-y-3 overflow-hidden text-left align-middle transition-all transform">
+        <div className="inline-block overflow-hidden space-y-3 w-full text-left align-middle transition-all transform">
           {connectors.map((x, i) => {
             return (
               <button
@@ -163,7 +163,7 @@ const WalletSelector: React.FC<Props> = ({
                   className="w-6 h-6"
                   alt={x.name}
                 />
-                <span className="flex items-center justify-between w-full">
+                <span className="flex justify-between items-center w-full">
                   {mounted ? x.name : x.id === 'injected' ? x.id : x.name}
                   {mounted ? !x.ready && ' (unsupported)' : ''}
                   {loading && x.name === connector?.name && (

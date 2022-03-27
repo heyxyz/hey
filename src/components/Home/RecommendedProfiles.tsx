@@ -25,7 +25,7 @@ const Title = () => {
   const { currentUser } = useContext(AppContext)
 
   return (
-    <div className="flex items-center gap-2 mb-2">
+    <div className="flex gap-2 items-center mb-2">
       {currentUser ? (
         <>
           <SparklesIcon className="w-4 h-4 text-yellow-500" />

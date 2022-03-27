@@ -14,7 +14,7 @@ const IPFSHash: React.FC<Props> = ({ ipfsHash }) => {
     <Card>
       <CardBody className="text-sm text-gray-500">
         <a
-          className="flex items-center justify-between"
+          className="flex justify-between items-center"
           href={`https://ipfs.infura.io/ipfs/${formattedHash}`}
           target="_blank"
           rel="noreferrer"

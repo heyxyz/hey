@@ -10,7 +10,7 @@ interface Props {
 
 const CommunityProfile: React.FC<Props> = ({ community }) => {
   return (
-    <div className="flex items-center justify-between">
+    <div className="flex justify-between items-center">
       <Link href={`/communities/${community?.pubId}`}>
         <a>
           <div className="flex items-center space-x-3">
@@ -20,7 +20,7 @@ const CommunityProfile: React.FC<Props> = ({ community }) => {
                   ? community?.metadata?.cover?.original?.url
                   : `https://avatar.tobi.sh/${community?.pubId}.png`
               }
-              className="w-16 h-16 bg-gray-200 border rounded-xl dark:border-gray-700"
+              className="w-16 h-16 bg-gray-200 rounded-xl border dark:border-gray-700"
               alt={community?.pubId}
             />
             <div className="space-y-1">

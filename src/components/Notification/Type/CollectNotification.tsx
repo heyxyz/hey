@@ -4,7 +4,7 @@ import {
   LensterNewCollectNotification,
   LensterPost
 } from '@generated/lenstertypes'
-import { CashIcon, CollectionIcon } from '@heroicons/react/outline'
+import { CashIcon, CollectionIcon, UsersIcon } from '@heroicons/react/outline'
 import { formatUsername } from '@lib/formatUsername'
 import Link from 'next/link'
 import React from 'react'
@@ -13,15 +13,18 @@ interface Props {
   notification: LensterNewCollectNotification
 }
 
-const NewCollectNotification: React.FC<Props> = ({ notification }) => {
+const CollectNotification: React.FC<Props> = ({ notification }) => {
   const postType =
-    notification.collectedPublication.metadata.attributes[0].value
+    notification?.collectedPublication?.metadata?.attributes[0]?.value ??
+    notification?.collectedPublication?.__typename?.toLowerCase()
 
   return (
     <div>
       <div className="flex items-center px-5 pt-5 space-x-1 text-sm text-gray-500">
         {postType === 'crowdfund' ? (
           <CashIcon className="w-4 h-4" />
+        ) : postType === 'community' ? (
+          <UsersIcon className="w-4 h-4" />
         ) : (
           <CollectionIcon className="w-4 h-4" />
         )}
@@ -47,6 +50,8 @@ const NewCollectNotification: React.FC<Props> = ({ notification }) => {
           )}
           {postType === 'crowdfund' ? (
             <div>funded your</div>
+          ) : postType === 'community' ? (
+            <div>joined your</div>
           ) : (
             <div>collected your</div>
           )}
@@ -64,4 +69,4 @@ const NewCollectNotification: React.FC<Props> = ({ notification }) => {
   )
 }
 
-export default NewCollectNotification
+export default CollectNotification
