@@ -1,65 +1,19 @@
-import { Input } from '@components/UI/Input'
 import { Modal } from '@components/UI/Modal'
 import { Tooltip } from '@components/UI/Tooltip'
-import { useDebounce } from '@components/utils/hooks/useDebounce'
-import { GiphyFetch, ICategory } from '@giphy/js-fetch-api'
 import { IGif } from '@giphy/js-types'
-import { Grid } from '@giphy/react-components'
 import { motion } from 'framer-motion'
-import { useEffect, useState } from 'react'
+import dynamic from 'next/dynamic'
+import { useState } from 'react'
+
+const GifSelector = dynamic(() => import('./GifSelector'))
 
 interface Props {
   // eslint-disable-next-line no-unused-vars
   setGifAttachment: (gif: IGif) => void
 }
 
-const giphyFetch = new GiphyFetch('sXpGFDGZs0Dv1mmNFvYaGUvYwKX0PWIh')
-
 const Giphy: React.FC<Props> = ({ setGifAttachment }) => {
   const [showModal, setShowModal] = useState<boolean>(false)
-  const [categories, setCategories] = useState<Array<ICategory>>([])
-  const [searchText, setSearchText] = useState<string>('')
-  const [debouncedGifInput, setDebouncedGifInput] = useState<string>('')
-
-  const fetchGiphyCategories = async () => {
-    const { data } = await giphyFetch.categories()
-    // TODO: we can persist this categories
-    setCategories(data)
-  }
-
-  useEffect(() => {
-    fetchGiphyCategories()
-  }, [])
-
-  useDebounce(
-    () => {
-      setSearchText(debouncedGifInput)
-    },
-    1000,
-    [debouncedGifInput]
-  )
-
-  const fetchGifs = async (offset: number) => {
-    return giphyFetch.search(searchText, { offset, limit: 10 })
-  }
-
-  const handleSearch = async (evt: any) => {
-    let keyword = evt.target.value
-    setDebouncedGifInput(keyword)
-  }
-
-  const onCloseModal = () => {
-    setShowModal(!showModal)
-    setSearchText('')
-    setDebouncedGifInput('')
-  }
-
-  const onSelectGif = (item: IGif) => {
-    setGifAttachment(item)
-    setDebouncedGifInput('')
-    setSearchText('')
-    setShowModal(false)
-  }
 
   return (
     <>
@@ -80,52 +34,15 @@ const Giphy: React.FC<Props> = ({ setGifAttachment }) => {
           </div>
         </motion.button>
       </Tooltip>
-      <Modal onClose={() => onCloseModal()} title="Select GIF" show={showModal}>
-        <Input
-          className="m-3"
-          type="text"
-          placeholder="Search for GIFs"
-          value={debouncedGifInput}
-          onChange={handleSearch}
+      <Modal
+        onClose={() => setShowModal(false)}
+        title="Select GIF"
+        show={showModal}
+      >
+        <GifSelector
+          setShowModal={setShowModal}
+          setGifAttachment={setGifAttachment}
         />
-        <div className="flex mb-1 overflow-x-hidden overflow-y-auto h-96">
-          {debouncedGifInput ? (
-            <Grid
-              onGifClick={(item) => onSelectGif(item)}
-              fetchGifs={fetchGifs}
-              width={498}
-              hideAttribution
-              columns={3}
-              noResultsMessage={
-                <div className="grid h-full place-items-center">
-                  No GIFs found.
-                </div>
-              }
-              noLink
-              key={searchText}
-            />
-          ) : (
-            <div className="grid w-full grid-cols-2 gap-1">
-              {categories.map((category, idx) => (
-                <button
-                  key={idx}
-                  className="relative flex outline-none"
-                  onClick={() => setDebouncedGifInput(category.name)}
-                >
-                  <img
-                    className="object-cover w-full h-32 cursor-pointer"
-                    src={category.gif?.images?.original_still.url}
-                    alt=""
-                    draggable={false}
-                  />
-                  <div className="absolute bottom-0 right-0 w-full px-2 py-1 text-lg font-bold text-right text-white bg-gradient-to-b from-transparent to-gray-800">
-                    <span className="capitalize">{category.name}</span>
-                  </div>
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
       </Modal>
     </>
   )
