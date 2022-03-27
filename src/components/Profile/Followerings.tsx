@@ -1,5 +1,6 @@
 import { Modal } from '@components/UI/Modal'
 import { Profile } from '@generated/types'
+import { UsersIcon } from '@heroicons/react/outline'
 import { humanize } from '@lib/humanize'
 import React, { useState } from 'react'
 
@@ -35,7 +36,12 @@ const Followerings: React.FC<Props> = ({ profile }) => {
         <div className="text-gray-500">Followers</div>
       </div>
       <Modal
-        title="Following"
+        title={
+          <div className="flex items-center space-x-2">
+            <UsersIcon className="w-5 h-5 text-brand-500" />
+            <div>Following</div>
+          </div>
+        }
         size="md"
         show={showFollowingModal}
         onClose={() => setShowFollowingModal(!showFollowingModal)}
@@ -43,7 +49,12 @@ const Followerings: React.FC<Props> = ({ profile }) => {
         <Following profile={profile} />
       </Modal>
       <Modal
-        title="Followers"
+        title={
+          <div className="flex items-center space-x-2">
+            <UsersIcon className="w-5 h-5 text-brand-500" />
+            <div>Followers</div>
+          </div>
+        }
         size="md"
         show={showFollowersModal}
         onClose={() => setShowFollowersModal(!showFollowersModal)}
