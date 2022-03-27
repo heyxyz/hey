@@ -82,7 +82,7 @@ const Giphy: React.FC<Props> = ({ setGifAttachment }) => {
       </Tooltip>
       <Modal onClose={() => onCloseModal()} title="Select GIF" show={showModal}>
         <Input
-          className="m-2"
+          className="m-3"
           type="text"
           placeholder="Search for GIFs"
           value={debouncedGifInput}
@@ -91,10 +91,9 @@ const Giphy: React.FC<Props> = ({ setGifAttachment }) => {
         <div className="flex mb-1 overflow-x-hidden overflow-y-auto h-96">
           {debouncedGifInput ? (
             <Grid
-              className="mx-1.5"
               onGifClick={(item) => onSelectGif(item)}
               fetchGifs={fetchGifs}
-              width={490}
+              width={498}
               hideAttribution
               columns={3}
               noResultsMessage={
@@ -106,7 +105,7 @@ const Giphy: React.FC<Props> = ({ setGifAttachment }) => {
               key={searchText}
             />
           ) : (
-            <div className="grid grid-cols-2 gap-1 mx-1.5 w-full">
+            <div className="grid w-full grid-cols-2 gap-1">
               {categories.map((category, idx) => (
                 <button
                   key={idx}
@@ -114,13 +113,13 @@ const Giphy: React.FC<Props> = ({ setGifAttachment }) => {
                   onClick={() => setDebouncedGifInput(category.name)}
                 >
                   <img
-                    className="object-cover w-full h-32 cursor-pointer rounded-xl"
+                    className="object-cover w-full h-32 cursor-pointer"
                     src={category.gif?.images?.original_still.url}
                     alt=""
                     draggable={false}
                   />
-                  <div className="absolute bottom-0 right-0 w-full px-2 py-1 text-lg font-bold text-right text-white bg-gradient-to-b from-transparent via-gray-800 to-gray-900 rounded-b-xl">
-                    <span>{category.name}</span>
+                  <div className="absolute bottom-0 right-0 w-full px-2 py-1 text-lg font-bold text-right text-white bg-gradient-to-b from-transparent to-gray-800">
+                    <span className="capitalize">{category.name}</span>
                   </div>
                 </button>
               ))}
