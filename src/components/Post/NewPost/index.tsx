@@ -1,6 +1,7 @@
 import LensHubProxy from '@abis/LensHubProxy.json'
 import { gql, useMutation } from '@apollo/client'
 import Attachments from '@components/Shared/Attachments'
+import Giphy from '@components/Shared/Giphy'
 import IndexStatus from '@components/Shared/IndexStatus'
 import SelectReferenceModule from '@components/Shared/SelectReferenceModule'
 import SwitchNetwork from '@components/Shared/SwitchNetwork'
@@ -41,9 +42,8 @@ import {
 } from 'wagmi'
 import { object, string } from 'zod'
 
+import Attachment from '../../Shared/Attachment'
 import SelectCollectModule from '../../Shared/SelectCollectModule'
-import Attachment from './Attachment'
-import Giphy from './Giphy'
 
 export const CREATE_POST_TYPED_DATA_MUTATION = gql`
   mutation CreatePostTypedData($request: CreatePublicPostRequest!) {

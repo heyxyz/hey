@@ -1,6 +1,6 @@
 import LensHubProxy from '@abis/LensHubProxy.json'
 import { gql, useMutation } from '@apollo/client'
-import Attachment from '@components/Post/NewPost/Attachment'
+import Attachment from '@components/Shared/Attachment'
 import Attachments from '@components/Shared/Attachments'
 import IndexStatus from '@components/Shared/IndexStatus'
 import SelectCollectModule from '@components/Shared/SelectCollectModule'
