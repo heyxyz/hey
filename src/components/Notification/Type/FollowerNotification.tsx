@@ -23,7 +23,7 @@ const FollowerNotification: React.FC<Props> = ({ notification }) => {
 
   return (
     <div className="p-5">
-      <div className="flex justify-between items-center">
+      <div className="flex items-center justify-between">
         <Link
           href={
             wallet?.defaultProfile
@@ -39,7 +39,7 @@ const FollowerNotification: React.FC<Props> = ({ notification }) => {
                     ? getAvatar(wallet?.defaultProfile)
                     : `https://avatar.tobi.sh/${wallet?.address}.svg`
                 }
-                className="w-10 h-10 bg-gray-200 rounded-full border dark:border-gray-700"
+                className="w-10 h-10 bg-gray-200 border rounded-full dark:border-gray-700"
                 alt={
                   wallet?.defaultProfile
                     ? wallet?.defaultProfile?.handle
@@ -47,14 +47,14 @@ const FollowerNotification: React.FC<Props> = ({ notification }) => {
                 }
               />
               <div>
-                <div className="flex gap-1 items-center">
+                <div className="flex items-center gap-1">
                   <div className="font-bold">
                     {wallet?.defaultProfile?.name ??
                       wallet?.defaultProfile?.handle ??
                       wallet.address}
                   </div>
                   {wallet?.defaultProfile &&
-                    isVerified(wallet?.defaultProfile?.handle) && (
+                    isVerified(wallet?.defaultProfile?.id) && (
                       <BadgeCheckIcon className="w-4 h-4 text-brand-500" />
                     )}
                   <div className="pl-0.5 text-gray-600">followed you</div>
