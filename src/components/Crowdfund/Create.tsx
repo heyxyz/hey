@@ -266,7 +266,7 @@ const Create: React.FC = () => {
                     Select Currency
                   </div>
                   <select
-                    className="w-full bg-white rounded-xl border border-gray-300 outline-none dark:bg-gray-800 dark:border-gray-700 disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 focus:border-brand-500 focus:ring-brand-400"
+                    className="w-full bg-white border border-gray-300 outline-none rounded-xl dark:bg-gray-800 dark:border-gray-700 disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 focus:border-brand-500 focus:ring-brand-400"
                     onChange={(e) => {
                       const currency = e.target.value.split('-')
                       setSelectedCurrency(currency[0])
@@ -328,7 +328,7 @@ const Create: React.FC = () => {
                     {cover && (
                       <div>
                         <img
-                          className="w-60 h-60 rounded-lg"
+                          className="object-cover w-full rounded-lg h-60"
                           src={cover}
                           alt={cover}
                         />
