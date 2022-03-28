@@ -760,6 +760,8 @@ export type Erc20Amount = {
 
 export type ExplorePublicationRequest = {
   cursor?: InputMaybe<Scalars['Cursor']>
+  /** If you wish to exclude any results for profile ids */
+  excludeProfileIds?: InputMaybe<Array<Scalars['ProfileId']>>
   limit?: InputMaybe<Scalars['LimitScalar']>
   /** If you want the randomizer off (default on) */
   noRandomize?: InputMaybe<Scalars['Boolean']>
