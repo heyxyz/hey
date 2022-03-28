@@ -1,25 +1,34 @@
+import { ProfileStats } from '@generated/types'
 import {
   ChatAlt2Icon,
   DuplicateIcon,
   PencilAltIcon,
   PhotographIcon
 } from '@heroicons/react/outline'
+import { humanize } from '@lib/humanize'
 import clsx from 'clsx'
 import React, { Dispatch } from 'react'
 
 interface Props {
+  stats: ProfileStats
   setFeedType: Dispatch<React.SetStateAction<string>>
   feedType: string
 }
 
-const FeedType: React.FC<Props> = ({ setFeedType, feedType }) => {
+const FeedType: React.FC<Props> = ({ stats, setFeedType, feedType }) => {
   interface FeedLinkProps {
     name: string
     icon: React.ReactChild
     type: string
+    count?: number
   }
 
-  const FeedLink: React.FC<FeedLinkProps> = ({ name, icon, type }) => (
+  const FeedLink: React.FC<FeedLinkProps> = ({
+    name,
+    icon,
+    type,
+    count = 0
+  }) => (
     <button
       onClick={() => setFeedType(type)}
       className={clsx(
@@ -32,6 +41,11 @@ const FeedType: React.FC<Props> = ({ setFeedType, feedType }) => {
     >
       {icon}
       <div className="hidden sm:block">{name}</div>
+      {count ? (
+        <div className="px-2 text-xs font-medium rounded-full bg-brand-200">
+          {humanize(count)}
+        </div>
+      ) : null}
     </button>
   )
 
@@ -41,16 +55,19 @@ const FeedType: React.FC<Props> = ({ setFeedType, feedType }) => {
         name="Posts"
         icon={<PencilAltIcon className="w-4 h-4" />}
         type="POST"
+        count={stats?.totalPosts}
       />
       <FeedLink
         name="Comments"
         icon={<ChatAlt2Icon className="w-4 h-4" />}
         type="COMMENT"
+        count={stats?.totalComments}
       />
       <FeedLink
         name="Mirrors"
         icon={<DuplicateIcon className="w-4 h-4" />}
         type="MIRROR"
+        count={stats?.totalMirrors}
       />
       <FeedLink
         name="NFTs"
