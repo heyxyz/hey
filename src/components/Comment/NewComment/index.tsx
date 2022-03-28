@@ -2,6 +2,7 @@ import LensHubProxy from '@abis/LensHubProxy.json'
 import { gql, useMutation } from '@apollo/client'
 import Attachment from '@components/Shared/Attachment'
 import Attachments from '@components/Shared/Attachments'
+import Giphy from '@components/Shared/Giphy'
 import IndexStatus from '@components/Shared/IndexStatus'
 import SelectCollectModule from '@components/Shared/SelectCollectModule'
 import SelectReferenceModule from '@components/Shared/SelectReferenceModule'
@@ -18,6 +19,7 @@ import {
   CreateCommentBroadcastItemResult,
   EnabledModule
 } from '@generated/types'
+import { IGif } from '@giphy/js-types'
 import { ChatAlt2Icon, PencilAltIcon } from '@heroicons/react/outline'
 import {
   defaultFeeData,
@@ -229,6 +231,15 @@ const NewComment: React.FC<Props> = ({ refetch, post, type }) => {
     }
   }
 
+  const setGifAttachment = (gif: IGif) => {
+    const attachment = {
+      item: gif.images.original.url,
+      type: 'image/gif'
+    }
+    // @ts-ignore
+    setAttachments([...attachments, attachment])
+  }
+
   return (
     <Card>
       <CardBody>
@@ -252,6 +263,7 @@ const NewComment: React.FC<Props> = ({ refetch, post, type }) => {
           />
           <div className="flex items-center">
             <div className="flex items-center space-x-4">
+              <Giphy setGifAttachment={(gif: IGif) => setGifAttachment(gif)} />
               <Attachment
                 attachments={attachments}
                 setAttachments={setAttachments}
