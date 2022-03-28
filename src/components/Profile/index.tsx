@@ -27,6 +27,9 @@ export const PROFILE_QUERY = gql`
         stats {
           totalFollowers
           totalFollowing
+          totalPosts
+          totalComments
+          totalMirrors
         }
         picture {
           ... on MediaSet {
@@ -70,7 +73,11 @@ const ViewProfile: NextPage = () => {
           <Details profile={profile} />
         </GridItemFour>
         <GridItemEight className="space-y-5">
-          <FeedType setFeedType={setFeedType} feedType={feedType} />
+          <FeedType
+            stats={profile?.stats}
+            setFeedType={setFeedType}
+            feedType={feedType}
+          />
           {(feedType === 'POST' ||
             feedType === 'COMMENT' ||
             feedType === 'MIRROR') && (
