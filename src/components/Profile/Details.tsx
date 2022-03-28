@@ -78,7 +78,7 @@ const Details: React.FC<Props> = ({ profile }) => {
     children: React.ReactChild
     icon: React.ReactChild
   }) => (
-    <div className="flex gap-2 items-center">
+    <div className="flex items-center gap-2">
       {icon}
       <div>{children}</div>
     </div>
@@ -87,7 +87,7 @@ const Details: React.FC<Props> = ({ profile }) => {
   return (
     <div className="px-5 mb-4 sm:px-0">
       <div className="space-y-5">
-        <div className="relative -mt-24 w-32 h-32 sm:-mt-36 sm:w-52 sm:h-52">
+        <div className="relative w-32 h-32 -mt-24 sm:-mt-36 sm:w-52 sm:h-52">
           <img
             src={getAvatar(profile)}
             className="w-32 h-32 bg-gray-200 rounded-xl ring-8 ring-gray-50 sm:w-52 sm:h-52 dark:bg-gray-700 dark:ring-black"
@@ -97,7 +97,7 @@ const Details: React.FC<Props> = ({ profile }) => {
         <div className="py-3 space-y-1">
           <div className="flex gap-1.5 items-center text-2xl font-bold truncate">
             <div className="truncate">{profile?.name ?? profile?.handle}</div>
-            {isVerified(profile?.handle) && (
+            {isVerified(profile?.id) && (
               <Tooltip content="Verified">
                 <BadgeCheckIcon className="w-6 h-6 text-brand-500" />
               </Tooltip>
