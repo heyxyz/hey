@@ -5,9 +5,5 @@ hooks:
     - prettier --write
 generates:
   src/generated/types.d.ts:
-    config:
-      scalars:
-        DateTime: string
-        BigInt: string
     plugins:
       - typescript
