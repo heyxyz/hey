@@ -7,6 +7,7 @@ import AppContext from '@components/utils/AppContext'
 import { Erc20 } from '@generated/types'
 import { NextPage } from 'next'
 import React, { useContext, useState } from 'react'
+import { WMATIC_TOKEN } from 'src/constants'
 import Custom404 from 'src/pages/404'
 
 import Sidebar from '../Sidebar'
@@ -52,7 +53,7 @@ const AllowanceSettings: NextPage = () => {
   const [currencyLoading, setCurrencyLoading] = useState<boolean>(false)
   const { data, loading, refetch } = useQuery(ALLOWANCE_SETTINGS_QUERY, {
     variables: {
-      request: getAllowancePayload('0x9c3C9283D3e44854697Cd22D3Faa240Cfb032889')
+      request: getAllowancePayload(WMATIC_TOKEN)
     },
     skip: !currentUser?.id
   })
@@ -72,7 +73,7 @@ const AllowanceSettings: NextPage = () => {
               Select Currency
             </div>
             <select
-              className="w-full bg-white rounded-xl border border-gray-300 outline-none dark:bg-gray-800 dark:border-gray-700 disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 focus:border-brand-500 focus:ring-brand-400"
+              className="w-full bg-white border border-gray-300 outline-none rounded-xl dark:bg-gray-800 dark:border-gray-700 disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 focus:border-brand-500 focus:ring-brand-400"
               onChange={(e) => {
                 setCurrencyLoading(true)
                 refetch({

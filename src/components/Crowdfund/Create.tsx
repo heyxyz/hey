@@ -26,6 +26,7 @@ import {
   CONNECT_WALLET,
   ERROR_MESSAGE,
   LENSHUB_PROXY,
+  WMATIC_TOKEN,
   WRONG_NETWORK
 } from 'src/constants'
 import Custom404 from 'src/pages/404'
@@ -71,9 +72,7 @@ const Create: React.FC = () => {
   const [coverType, setCoverType] = useState<string>()
   const [isUploading, setIsUploading] = useState<boolean>(false)
   const [uploading, setUploading] = useState<boolean>(false)
-  const [selectedCurrency, setSelectedCurrency] = useState<string>(
-    '0x9c3C9283D3e44854697Cd22D3Faa240Cfb032889'
-  )
+  const [selectedCurrency, setSelectedCurrency] = useState<string>(WMATIC_TOKEN)
   const [selectedCurrencySymobol, setSelectedCurrencySymobol] =
     useState<string>('WMATIC')
   const { currentUser } = useContext(AppContext)

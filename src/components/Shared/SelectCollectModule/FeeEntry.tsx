@@ -6,6 +6,7 @@ import { EnabledModule, Erc20 } from '@generated/types'
 import { ArrowLeftIcon } from '@heroicons/react/outline'
 import { FEE_DATA_TYPE } from '@lib/getModule'
 import { Dispatch, useContext, useState } from 'react'
+import { WMATIC_TOKEN } from 'src/constants'
 import { object, string } from 'zod'
 
 const feeDataSchema = object({
@@ -39,9 +40,7 @@ const FeeEntry: React.FC<Props> = ({
   setFeeData
 }) => {
   const { currentUser } = useContext(AppContext)
-  const [selectedCurrency, setSelectedCurrency] = useState<string>(
-    '0x9c3C9283D3e44854697Cd22D3Faa240Cfb032889'
-  )
+  const [selectedCurrency, setSelectedCurrency] = useState<string>(WMATIC_TOKEN)
   const form = useZodForm({
     schema: feeDataSchema,
     defaultValues: {
@@ -65,7 +64,7 @@ const FeeEntry: React.FC<Props> = ({
             Select Currency
           </div>
           <select
-            className="w-full bg-white rounded-xl border border-gray-300 outline-none dark:bg-gray-800 dark:border-gray-700 disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 focus:border-brand-500 focus:ring-brand-400"
+            className="w-full bg-white border border-gray-300 outline-none rounded-xl dark:bg-gray-800 dark:border-gray-700 disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 focus:border-brand-500 focus:ring-brand-400"
             onChange={(e) => setSelectedCurrency(e.target.value)}
           >
             {enabledModuleCurrencies.map((currency: Erc20) => (
