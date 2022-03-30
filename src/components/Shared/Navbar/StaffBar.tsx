@@ -1,11 +1,12 @@
 import { Menu, Transition } from '@headlessui/react'
 import {
   ChartPieIcon,
+  GlobeAltIcon,
   HashtagIcon,
   TerminalIcon
 } from '@heroicons/react/outline'
 import React, { Fragment } from 'react'
-import { GIT_COMMIT_REF, GIT_COMMIT_SHA } from 'src/constants'
+import { GIT_COMMIT_REF, GIT_COMMIT_SHA, IS_PRODUCTION } from 'src/constants'
 
 import Stats from './Stats'
 
@@ -23,6 +24,17 @@ const StaffBar: React.FC = () => {
   return (
     <div className="flex justify-between px-3 py-1 text-sm bg-gray-200 dark:bg-black">
       <div className="flex items-center space-x-2">
+        {IS_PRODUCTION ? (
+          <div className="flex items-center space-x-1" title="Git commit ref">
+            <GlobeAltIcon className="w-4 h-4 text-green-500" />
+            <Badge>Prod</Badge>
+          </div>
+        ) : (
+          <div className="flex items-center space-x-1" title="Git commit ref">
+            <GlobeAltIcon className="w-4 h-4 text-yellow-500" />
+            <Badge>Dev</Badge>
+          </div>
+        )}
         {GIT_COMMIT_REF && (
           <div className="flex items-center space-x-1" title="Git commit ref">
             <TerminalIcon className="w-4 h-4" />
