@@ -131,23 +131,14 @@ export type ChallengeRequest = {
 }
 
 export type ClaimHandleRequest = {
-  id: Scalars['HandleClaimIdScalar']
+  freeTextHandle?: InputMaybe<Scalars['Handle']>
+  id?: InputMaybe<Scalars['HandleClaimIdScalar']>
 }
 
-export type ClaimableHandle = {
-  __typename?: 'ClaimableHandle'
-  expiry: Scalars['DateTime']
-  handle: Scalars['Handle']
-  id: Scalars['HandleClaimIdScalar']
-  source: Scalars['String']
-}
-
-export type ClaimedHandle = {
-  __typename?: 'ClaimedHandle'
-  claimedAt: Scalars['DateTime']
-  handle: Scalars['Handle']
-  id: Scalars['HandleClaimIdScalar']
-  source: Scalars['String']
+export type ClaimableHandles = {
+  __typename?: 'ClaimableHandles'
+  canClaimFreeTextHandle: Scalars['Boolean']
+  reservedHandles: Array<ReservedClaimableHandle>
 }
 
 export type CollectModule =
@@ -657,6 +648,10 @@ export type CreateUnfollowBroadcastItemResult = {
   id: Scalars['BroadcastId']
   /** The typed data */
   typedData: CreateBurnEip712TypedData
+}
+
+export type DefaultProfileRequest = {
+  ethereumAddress: Scalars['EthereumAddress']
 }
 
 /** The dispatcher */
@@ -1193,6 +1188,7 @@ export type Mutation = {
   createMirrorTypedData: CreateMirrorBroadcastItemResult
   createPostTypedData: CreatePostBroadcastItemResult
   createProfile: RelayResult
+  createSetDefaultProfileTypedData: SetDefaultProfileBroadcastItemResult
   createSetDispatcherTypedData: CreateSetDispatcherBroadcastItemResult
   createSetFollowModuleTypedData: CreateSetFollowModuleBroadcastItemResult
   createSetFollowNFTUriTypedData: CreateSetFollowNftUriBroadcastItemResult
@@ -1243,6 +1239,11 @@ export type MutationCreatePostTypedDataArgs = {
 
 export type MutationCreateProfileArgs = {
   request: CreateProfileRequest
+}
+
+export type MutationCreateSetDefaultProfileTypedDataArgs = {
+  options?: InputMaybe<TypedDataOptions>
+  request: SetDefaultProfileRequest
 }
 
 export type MutationCreateSetDispatcherTypedDataArgs = {
@@ -1553,6 +1554,8 @@ export type Profile = {
   handle: Scalars['Handle']
   /** The profile id */
   id: Scalars['ProfileId']
+  /** Is the profile default */
+  isDefault: Scalars['Boolean']
   /** Location set on profile */
   location?: Maybe<Scalars['String']>
   /** Name of the profile */
@@ -1745,8 +1748,8 @@ export type Query = {
   __typename?: 'Query'
   approvedModuleAllowanceAmount: Array<ApprovedAllowanceAmount>
   challenge: AuthChallengeResult
-  claimableHandles: Array<ClaimableHandle>
-  claimedHandles: Array<ClaimedHandle>
+  claimableHandles: ClaimableHandles
+  defaultProfile?: Maybe<Profile>
   doesFollow: Array<DoesFollowResponse>
   enabledModuleCurrencies: Array<Erc20>
   enabledModules: EnabledModules
@@ -1783,6 +1786,10 @@ export type QueryApprovedModuleAllowanceAmountArgs = {
 
 export type QueryChallengeArgs = {
   request: ChallengeRequest
+}
+
+export type QueryDefaultProfileArgs = {
+  request: DefaultProfileRequest
 }
 
 export type QueryDoesFollowArgs = {
@@ -1929,6 +1936,14 @@ export type ReportingReasonInputParams = {
   sensitiveReason?: InputMaybe<SensitiveReasonInputParams>
 }
 
+export type ReservedClaimableHandle = {
+  __typename?: 'ReservedClaimableHandle'
+  expiry: Scalars['DateTime']
+  handle: Scalars['Handle']
+  id: Scalars['HandleClaimIdScalar']
+  source: Scalars['String']
+}
+
 export type RevertCollectModuleSettings = {
   __typename?: 'RevertCollectModuleSettings'
   contractAddress: Scalars['ContractAddress']
@@ -1957,6 +1972,48 @@ export type SearchResult = ProfileSearchResult | PublicationSearchResult
 export type SensitiveReasonInputParams = {
   reason: PublicationReportingReason
   subreason: PublicationReportingSensitiveSubreason
+}
+
+/** The broadcast item */
+export type SetDefaultProfileBroadcastItemResult = {
+  __typename?: 'SetDefaultProfileBroadcastItemResult'
+  /** The date the broadcast item expiries */
+  expiresAt: Scalars['DateTime']
+  /** This broadcast item ID */
+  id: Scalars['BroadcastId']
+  /** The typed data */
+  typedData: SetDefaultProfileEip712TypedData
+}
+
+/** The default profile eip 712 typed data */
+export type SetDefaultProfileEip712TypedData = {
+  __typename?: 'SetDefaultProfileEIP712TypedData'
+  /** The typed data domain */
+  domain: Eip712TypedDataDomain
+  /** The types */
+  types: SetDefaultProfileEip712TypedDataTypes
+  /** The values */
+  value: SetDefaultProfileEip712TypedDataValue
+}
+
+/** The default profile eip 712 typed data types */
+export type SetDefaultProfileEip712TypedDataTypes = {
+  __typename?: 'SetDefaultProfileEIP712TypedDataTypes'
+  SetDefaultProfileWithSig: Array<Eip712TypedDataField>
+}
+
+/** The default profile eip 712 typed data value */
+export type SetDefaultProfileEip712TypedDataValue = {
+  __typename?: 'SetDefaultProfileEIP712TypedDataValue'
+  deadline: Scalars['UnixTimestamp']
+  nonce: Scalars['Nonce']
+  profileId: Scalars['ProfileId']
+  wallet: Scalars['EthereumAddress']
+}
+
+export type SetDefaultProfileRequest = {
+  /** Profile id */
+  profileId: Scalars['ProfileId']
 }
 
 export type SetDispatcherRequest = {
