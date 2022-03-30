@@ -2,6 +2,7 @@ import Follow from '@components/Shared/Follow'
 import Unfollow from '@components/Shared/Unfollow'
 import { NewFollowerNotification } from '@generated/types'
 import { BadgeCheckIcon } from '@heroicons/react/outline'
+import { formatUsername } from '@lib/formatUsername'
 import { getAvatar } from '@lib/getAvatar'
 import { isVerified } from '@lib/isVerified'
 import dayjs from 'dayjs'
@@ -51,7 +52,7 @@ const FollowerNotification: React.FC<Props> = ({ notification }) => {
                   <div className="font-bold">
                     {wallet?.defaultProfile?.name ??
                       wallet?.defaultProfile?.handle ??
-                      wallet.address}
+                      formatUsername(wallet.address)}
                   </div>
                   {wallet?.defaultProfile &&
                     isVerified(wallet?.defaultProfile?.id) && (
