@@ -27,12 +27,12 @@ const StaffBar: React.FC = () => {
         {IS_PRODUCTION ? (
           <div className="flex items-center space-x-1" title="Git commit ref">
             <GlobeAltIcon className="w-4 h-4 text-green-500" />
-            <Badge>Prod</Badge>
+            <Badge>prod</Badge>
           </div>
         ) : (
           <div className="flex items-center space-x-1" title="Git commit ref">
             <GlobeAltIcon className="w-4 h-4 text-yellow-500" />
-            <Badge>Dev</Badge>
+            <Badge>dev</Badge>
           </div>
         )}
         {GIT_COMMIT_REF && (
