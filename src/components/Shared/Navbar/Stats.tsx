@@ -2,6 +2,7 @@ import { gql, useQuery } from '@apollo/client'
 import { GlobalProtocolStats } from '@generated/types'
 import { Menu } from '@headlessui/react'
 import {
+  CashIcon,
   ChatAlt2Icon,
   CollectionIcon,
   DuplicateIcon,
@@ -14,8 +15,8 @@ import { humanize } from '@lib/humanize'
 import { ERROR_MESSAGE } from 'src/constants'
 
 const LENSTER_STATS_QUERY = gql`
-  query LensterStats($request: GlobalProtocolStatsRequest) {
-    globalProtocolStats(request: $request) {
+  query LensterStats {
+    globalProtocolStats(request: { sources: "Lenster" }) {
       totalProfiles
       totalPosts
       totalBurntProfiles
@@ -29,6 +30,16 @@ const LENSTER_STATS_QUERY = gql`
         }
         value
       }
+    }
+    communityStats: globalProtocolStats(
+      request: { sources: "Lenster Community" }
+    ) {
+      totalPosts
+    }
+    crowdfundStats: globalProtocolStats(
+      request: { sources: "Lenster Crowdfund" }
+    ) {
+      totalPosts
     }
   }
 `
@@ -58,19 +69,16 @@ const MenuItem: React.FC<Props> = ({ icon, title, isLenster = false }) => (
 
 const Stats: React.FC = () => {
   const { data, loading, error } = useQuery(LENSTER_STATS_QUERY, {
-    variables: {
-      request: {
-        sources: ['Lenster', 'Lenster Community', 'Lenster Crowdfund']
-      }
-    },
     pollInterval: 1000
   })
 
-  if (loading) return <div className="h-4 m-3 rounded-lg shimmer" />
+  if (loading) return <div className="h-4 m-3 rounded-lg w-52 shimmer" />
   if (error)
     return <div className="m-3 font-bold text-red-500">{ERROR_MESSAGE}</div>
 
   const stats: GlobalProtocolStats = data?.globalProtocolStats
+  const communityStats: GlobalProtocolStats = data?.communityStats
+  const crowdfundStats: GlobalProtocolStats = data?.crowdfundStats
 
   return (
     <>
@@ -113,6 +121,24 @@ const Stats: React.FC = () => {
         title={
           <span>
             <b>{humanize(stats?.totalComments)}</b> total comments
+          </span>
+        }
+        isLenster
+      />
+      <MenuItem
+        icon={<UsersIcon className="w-4 h-4" />}
+        title={
+          <span>
+            <b>{humanize(communityStats?.totalPosts)}</b> total communities
+          </span>
+        }
+        isLenster
+      />
+      <MenuItem
+        icon={<CashIcon className="w-4 h-4" />}
+        title={
+          <span>
+            <b>{humanize(crowdfundStats?.totalPosts)}</b> total crowdfunds
           </span>
         }
         isLenster
