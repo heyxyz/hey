@@ -26,42 +26,51 @@ const httpLink = new HttpLink({
 const authLink = new ApolloLink((operation, forward) => {
   const token = localStorage.getItem('accessToken')
 
-  operation.setContext({
-    headers: {
-      'x-access-token': token ? `Bearer ${token}` : ''
-    }
-  })
+  if (token === 'undefined') {
+    localStorage.removeItem('accessToken')
+    localStorage.removeItem('refreshToken')
+    localStorage.removeItem('selectedProfile')
+    location.href = '/'
 
-  // @ts-ignore
-  const { exp }: { exp: any } = token ? jwtDecode(token) : ''
-
-  if (Date.now() >= exp * 1000) {
-    fetch(API_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        operationName: 'Refresh',
-        query: REFRESH_AUTHENTICATION_MUTATION,
-        variables: {
-          request: { refreshToken: localStorage.getItem('refreshToken') }
-        }
-      })
+    return forward(operation)
+  } else {
+    operation.setContext({
+      headers: {
+        'x-access-token': token ? `Bearer ${token}` : ''
+      }
     })
-      .then((res) => res.json())
-      .then((res) => {
-        operation.setContext({
-          headers: {
-            'x-access-token': token
-              ? `Bearer ${res?.data?.refresh?.accessToken}`
-              : ''
+
+    // @ts-ignore
+    const { exp }: { exp: any } = token ? jwtDecode(token) : ''
+
+    if (Date.now() >= exp * 1000) {
+      fetch(API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          operationName: 'Refresh',
+          query: REFRESH_AUTHENTICATION_MUTATION,
+          variables: {
+            request: { refreshToken: localStorage.getItem('refreshToken') }
           }
         })
-        localStorage.setItem('accessToken', res?.data?.refresh?.accessToken)
-        localStorage.setItem('refreshToken', res?.data?.refresh?.refreshToken)
       })
-  }
+        .then((res) => res.json())
+        .then((res) => {
+          operation.setContext({
+            headers: {
+              'x-access-token': token
+                ? `Bearer ${res?.data?.refresh?.accessToken}`
+                : ''
+            }
+          })
+          localStorage.setItem('accessToken', res?.data?.refresh?.accessToken)
+          localStorage.setItem('refreshToken', res?.data?.refresh?.refreshToken)
+        })
+    }
 
-  return forward(operation)
+    return forward(operation)
+  }
 })
 
 const client = new ApolloClient({
