@@ -6,7 +6,6 @@ import { providers } from 'ethers'
 import { AppProps } from 'next/app'
 import Head from 'next/head'
 import { ThemeProvider } from 'next-themes'
-import NextNprogress from 'nextjs-progressbar'
 import { INFURA_ID } from 'src/constants'
 import { chain, Connector, Provider } from 'wagmi'
 import { InjectedConnector } from 'wagmi/connectors/injected'
@@ -67,12 +66,6 @@ const App = ({ Component, pageProps }: AppProps) => {
             />
           </Head>
           <SiteLayout>
-            <NextNprogress
-              color="#8b5cf6"
-              height={2}
-              options={{ showSpinner: false }}
-              showOnShallow
-            />
             <Component {...pageProps} />
           </SiteLayout>
         </ThemeProvider>
