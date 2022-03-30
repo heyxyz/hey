@@ -124,6 +124,10 @@ export type AuthenticationResult = {
   refreshToken: Scalars['Jwt']
 }
 
+export type BurnProfileRequest = {
+  profileId: Scalars['ProfileId']
+}
+
 /** The challenge request */
 export type ChallengeRequest = {
   /** The ethereum address you want to login with */
@@ -230,6 +234,17 @@ export type CreateBurnEip712TypedDataValue = {
   deadline: Scalars['UnixTimestamp']
   nonce: Scalars['Nonce']
   tokenId: Scalars['String']
+}
+
+/** The broadcast item */
+export type CreateBurnProfileBroadcastItemResult = {
+  __typename?: 'CreateBurnProfileBroadcastItemResult'
+  /** The date the broadcast item expiries */
+  expiresAt: Scalars['DateTime']
+  /** This broadcast item ID */
+  id: Scalars['BroadcastId']
+  /** The typed data */
+  typedData: CreateBurnEip712TypedData
 }
 
 /** The broadcast item */
@@ -1182,6 +1197,7 @@ export type Mutation = {
   attachFile: AttachResults
   authenticate: AuthenticationResult
   claim: RelayResult
+  createBurnProfileTypedData: CreateBurnProfileBroadcastItemResult
   createCollectTypedData: CreateCollectBroadcastItemResult
   createCommentTypedData: CreateCommentBroadcastItemResult
   createFollowTypedData: CreateFollowBroadcastItemResult
@@ -1210,6 +1226,11 @@ export type MutationAuthenticateArgs = {
 
 export type MutationClaimArgs = {
   request: ClaimHandleRequest
+}
+
+export type MutationCreateBurnProfileTypedDataArgs = {
+  options?: InputMaybe<TypedDataOptions>
+  request: BurnProfileRequest
 }
 
 export type MutationCreateCollectTypedDataArgs = {
