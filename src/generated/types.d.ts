@@ -29,7 +29,7 @@ export type Scalars = {
   /** Cursor custom scalar type */
   Cursor: any
   /** The javascript `Date` as string. Type represents date and time as the ISO Date string. */
-  DateTime: string
+  DateTime: any
   /** Ethereum address custom scalar type */
   EthereumAddress: any
   /** follow module data scalar type */

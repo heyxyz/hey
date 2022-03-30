@@ -36,7 +36,6 @@
     "next-themes": "^0.1.1",
     "nextjs-progressbar": "^0.0.14",
     "omit-deep": "^0.3.0",
-    "preact": "^10.6.6",
     "react": "^18.0.0",
     "react-cool-inview": "^2.0.9",
     "react-copy-to-clipboard": "^5.0.4",
