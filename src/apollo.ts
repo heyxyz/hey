@@ -33,7 +33,7 @@ const authLink = new ApolloLink((operation, forward) => {
   })
 
   // @ts-ignore
-  const { exp }: { exp: any } = token ? jwtDecode(token) : ''
+  const { exp }: { exp: any } = token !== 'undefined' ? jwtDecode(token) : ''
 
   if (Date.now() >= exp * 1000) {
     fetch(API_URL, {
