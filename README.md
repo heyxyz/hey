@@ -18,3 +18,13 @@
         <img src="https://img.shields.io/twitter/follow/lensterxyz?label=lensterxyz&style=flat&logo=twitter&color=1DA1F2" alt="Lenster Twitter">
     </a>
 </div>
+<div align="center">
+    <br>
+    <a href="https://lenster.xyz"><b>lenster.xyz »</b></a>
+    <br><br>
+    <a href="https://discord.gg/B8eKhSSUwX"><b>Discord</b></a>
+    •
+    <a href="https://lenster.xyz"><b>Website</b></a>
+    •
+    <a href="https://gitlab.com/lenster/lenster/-/issues/new"><b>Issues</b></a>
+</div>
