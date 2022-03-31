@@ -41,6 +41,17 @@ We encourage you to contribute to Lenster! Please check out the [Contributing gu
 
 ## ⚙️ Setup
 
+### Using Local Environment
+
+```sh
+yarn
+yarn dev
+```
+
+and visit http://localhost:3000
+
+### Using Gitpod
+
 [<img src="https://gitpod.io/button/open-in-gitpod.svg" height="40">](https://gitpod.io/#https://gitlab.com/lenster/lenster)
 
 ## ⚖️ License
