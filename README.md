@@ -54,6 +54,12 @@ and visit http://localhost:3000
 
 [<img src="https://gitpod.io/button/open-in-gitpod.svg" height="40">](https://gitpod.io/#https://gitlab.com/lenster/lenster)
 
+## 🤝 Supporting Repos
+
+- [Lenster Assets](https://gitlab.com/lenster/assets) - Static assets hosted in Vercel edge CDN
+- [Design](https://gitlab.com/yo/design) - Design library used in this project
+- [Lenster NFT](https://gitlab.com/lenster/nft) - Used to generate follow NFT
+
 ## ⚖️ License
 
 Lenster is open-sourced software licensed under the © [MIT license](LICENSE).
