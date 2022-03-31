@@ -1185,13 +1185,13 @@
     tslib "~2.3.0"
     unixify "^1.0.0"
 
-"@graphql-tools/delegate@8.7.0":
-  version "8.7.0"
-  resolved "https://registry.yarnpkg.com/@graphql-tools/delegate/-/delegate-8.7.0.tgz#14148e10405d5f0b3b0a5d76cce248f9c3def863"
-  integrity sha512-tsmNFV8nVvPY2nApCj69ck32/Jdj44rYbUZx+cpyUWOzfbUT1iu0d1mUwn5UeHuGnB+Bzgn3fuTypg97mDEyEw==
+"@graphql-tools/delegate@8.7.1":
+  version "8.7.1"
+  resolved "https://registry.yarnpkg.com/@graphql-tools/delegate/-/delegate-8.7.1.tgz#f30b9d035a76dc7a8e9292f31bb073fb4d6d9d83"
+  integrity sha512-e98/NRaOH5wQy624bRd5i5qUKz5tCs8u4xBmxW89d7t6V6CveXj7pvAgmnR9DbwOkO6IA3P799p/aa/YG/pWTA==
   dependencies:
     "@graphql-tools/batch-execute" "8.4.1"
-    "@graphql-tools/schema" "8.3.5"
+    "@graphql-tools/schema" "8.3.6"
     "@graphql-tools/utils" "8.6.5"
     dataloader "2.0.0"
     graphql-executor "0.0.22"
@@ -1263,11 +1263,11 @@
     unixify "^1.0.0"
 
 "@graphql-tools/load@^7.3.0", "@graphql-tools/load@^7.5.5":
-  version "7.5.5"
-  resolved "https://registry.yarnpkg.com/@graphql-tools/load/-/load-7.5.5.tgz#d61e5bdee59b6c8aa9631f74f0b2a70d512e5b31"
-  integrity sha512-qPasit140nwTbMQbFCfZcgaS7q/0+xMQGdkMGU11rtHt6/jMgJIKDUU8/fJGKltNY3EeHlEdVtZmggZD7Rr6bA==
+  version "7.5.6"
+  resolved "https://registry.yarnpkg.com/@graphql-tools/load/-/load-7.5.6.tgz#d0ee8149ba4cbc799dbeae30e4843144773f8296"
+  integrity sha512-IocEP4METGdbDzV44VaeiXO387NOYSW4cTuBP8qybHZX0XlIp8bEv7c8GKS3m8DeRop/9SnOL7HyiAfNMA4Chg==
   dependencies:
-    "@graphql-tools/schema" "8.3.5"
+    "@graphql-tools/schema" "8.3.6"
     "@graphql-tools/utils" "8.6.5"
     p-limit "3.1.0"
     tslib "~2.3.0"
@@ -1288,11 +1288,11 @@
     tslib "~2.3.0"
 
 "@graphql-tools/prisma-loader@^7.0.6":
-  version "7.1.6"
-  resolved "https://registry.yarnpkg.com/@graphql-tools/prisma-loader/-/prisma-loader-7.1.6.tgz#7e0bc7f67ccf040076e8679998be023b3f1526f6"
-  integrity sha512-RR/V3kgkgdch6uENxNfYwlMDXBkVQFqpfHpfKuyBX8jmXy59m5f+9Ie4N97kQ0PAcoaw5r0gWLiIk5twn+FcjA==
+  version "7.1.7"
+  resolved "https://registry.yarnpkg.com/@graphql-tools/prisma-loader/-/prisma-loader-7.1.7.tgz#597b71c31628f316b1e161cdb7f2521e3f35f7d6"
+  integrity sha512-EsJsTuvrvfaFVxIZfQ3C3TB/hElS/lxxeM02BOSrQr9PxBczKQSdfVnnvGPpS6IBEErnN/Y8zyXrj2/iCXWT8Q==
   dependencies:
-    "@graphql-tools/url-loader" "7.9.7"
+    "@graphql-tools/url-loader" "7.9.8"
     "@graphql-tools/utils" "8.6.5"
     "@types/js-yaml" "^4.0.0"
     "@types/json-stable-stringify" "^1.0.32"
@@ -1322,24 +1322,24 @@
     relay-compiler "12.0.0"
     tslib "~2.3.0"
 
-"@graphql-tools/schema@8.3.5", "@graphql-tools/schema@^8.1.2":
-  version "8.3.5"
-  resolved "https://registry.yarnpkg.com/@graphql-tools/schema/-/schema-8.3.5.tgz#ebec0c0c7f53e591d34375d6f81d0660852fcaca"
-  integrity sha512-3mJ/K7TdL+fnEUtCUqF4qkh1fcNMzaxgwKgO9fSYSTS7zyT16hbi5XSulSTshygHgaD2u+MO588iR4ZJcbZcIg==
+"@graphql-tools/schema@8.3.6", "@graphql-tools/schema@^8.1.2":
+  version "8.3.6"
+  resolved "https://registry.yarnpkg.com/@graphql-tools/schema/-/schema-8.3.6.tgz#80cfe3eba53eb6390a60a30078d7efbdaa5cc0b7"
+  integrity sha512-7tWYRQ8hB/rv2zAtv2LtnQl4UybyJPtRz/VLKRmgi7+F5t8iYBahmmsxMDAYMWMmWMqEDiKk54TvAes+J069rQ==
   dependencies:
     "@graphql-tools/merge" "8.2.6"
     "@graphql-tools/utils" "8.6.5"
     tslib "~2.3.0"
     value-or-promise "1.0.11"
 
-"@graphql-tools/url-loader@7.9.7", "@graphql-tools/url-loader@^7.0.11", "@graphql-tools/url-loader@^7.9.7":
-  version "7.9.7"
-  resolved "https://registry.yarnpkg.com/@graphql-tools/url-loader/-/url-loader-7.9.7.tgz#14d406927dd971660591a2463f740f84cf74aa13"
-  integrity sha512-cJoZcv6oJrhArRPmSnw8wcqnz7F8p+HzwvjoJyHbs0ne2jTXazD+LOHaXMAa1L7lKK2YmH2Txy8pOI76JnvUiQ==
+"@graphql-tools/url-loader@7.9.8", "@graphql-tools/url-loader@^7.0.11", "@graphql-tools/url-loader@^7.9.7":
+  version "7.9.8"
+  resolved "https://registry.yarnpkg.com/@graphql-tools/url-loader/-/url-loader-7.9.8.tgz#8e50ca05fb670bf91b98abdcb5d8d9cb116003f3"
+  integrity sha512-nRMXwwoIDLt7ohBWvKKjEEH61YS1nnWs6BVgGStePfmRGrhxECpLWmfAmKLNXPqDJN7Nu6ykFJYjt65j5l6qsw==
   dependencies:
-    "@graphql-tools/delegate" "8.7.0"
+    "@graphql-tools/delegate" "8.7.1"
     "@graphql-tools/utils" "8.6.5"
-    "@graphql-tools/wrap" "8.4.9"
+    "@graphql-tools/wrap" "8.4.10"
     "@n1ru4l/graphql-live-query" "^0.9.0"
     "@types/websocket" "^1.0.4"
     "@types/ws" "^8.0.0"
@@ -1363,13 +1363,13 @@
   dependencies:
     tslib "~2.3.0"
 
-"@graphql-tools/wrap@8.4.9":
-  version "8.4.9"
-  resolved "https://registry.yarnpkg.com/@graphql-tools/wrap/-/wrap-8.4.9.tgz#6b99f78214b7913803a013fdacd4687669cb95dd"
-  integrity sha512-YFb34itVWyE3sMifvPRqvYjXYpjJle2hkq9nIELQOumc1yqxT7jf/+YnNZalS1DoOdWn4GbDmqO/uljf6AuuDA==
+"@graphql-tools/wrap@8.4.10":
+  version "8.4.10"
+  resolved "https://registry.yarnpkg.com/@graphql-tools/wrap/-/wrap-8.4.10.tgz#010be7d4bafa5d79cd1917c65d09f2682bcb9d54"
+  integrity sha512-1/pcKRDTGIUspUl6uhlfQ0u1l4j15TVGkOkijI+gX25Q9sfAJclT0bovKBksP39G6v4hZnolpOU2txJ47MxxEg==
   dependencies:
-    "@graphql-tools/delegate" "8.7.0"
-    "@graphql-tools/schema" "8.3.5"
+    "@graphql-tools/delegate" "8.7.1"
+    "@graphql-tools/schema" "8.3.6"
     "@graphql-tools/utils" "8.6.5"
     tslib "~2.3.0"
     value-or-promise "1.0.11"
@@ -3450,9 +3450,9 @@ electron-fetch@^1.7.2:
     encoding "^0.1.13"
 
 electron-to-chromium@^1.4.84:
-  version "1.4.101"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.101.tgz#71f3a10065146d7445ba5d4c06ba2cc063b0817a"
-  integrity sha512-XJH+XmJjACx1S7ASl/b//KePcda5ocPnFH2jErztXcIS8LpP0SE6rX8ZxiY5/RaDPnaF1rj0fPaHfppzb0e2Aw==
+  version "1.4.103"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.103.tgz#abfe376a4d70fa1e1b4b353b95df5d6dfd05da3a"
+  integrity sha512-c/uKWR1Z/W30Wy/sx3dkZoj4BijbXX85QKWu9jJfjho3LBAXNEGAEW3oWiGb+dotA6C6BzCTxL2/aLes7jlUeg==
 
 elegant-spinner@^1.0.1:
   version "1.0.1"
@@ -6363,9 +6363,9 @@ postcss-nested@5.0.6:
     postcss-selector-parser "^6.0.6"
 
 postcss-selector-parser@^6.0.6, postcss-selector-parser@^6.0.9:
-  version "6.0.9"
-  resolved "https://registry.yarnpkg.com/postcss-selector-parser/-/postcss-selector-parser-6.0.9.tgz#ee71c3b9ff63d9cd130838876c13a2ec1a992b2f"
-  integrity sha512-UO3SgnZOVTwu4kyLR22UQ1xZh086RyNZppb7lLAKBFK8a32ttG5i87Y/P3+2bRSjZNyJ1B7hfFNo273tKe9YxQ==
+  version "6.0.10"
+  resolved "https://registry.yarnpkg.com/postcss-selector-parser/-/postcss-selector-parser-6.0.10.tgz#79b61e2c0d1bfc2602d549e11d0876256f8df88d"
+  integrity sha512-IQ7TZdoaqbT+LCpShg46jnZVlhWD2w6iQYAcYXfHARZ7X1t/UGhhceQDs5X0cGqKvYlHNOuv7Oa1xmb0oQuA3w==
   dependencies:
     cssesc "^3.0.0"
     util-deprecate "^1.0.2"
