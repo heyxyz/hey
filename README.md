@@ -24,7 +24,5 @@
     <br><br>
     <a href="https://discord.gg/B8eKhSSUwX"><b>Discord</b></a>
     •
-    <a href="https://lenster.xyz"><b>Website</b></a>
-    •
     <a href="https://gitlab.com/lenster/lenster/-/issues/new"><b>Issues</b></a>
 </div>
