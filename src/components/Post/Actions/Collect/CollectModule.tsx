@@ -235,7 +235,7 @@ const CollectModule: React.FC<Props> = ({ post }) => {
               <div className="flex items-center space-x-2">
                 <CashIcon className="w-4 h-4 text-gray-500" />
                 <div className="font-bold">
-                  {collectModule.referralFee}% Referral Fee
+                  {collectModule.referralFee}% referral fee
                 </div>
               </div>
             ) : null}
