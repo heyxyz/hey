@@ -86,7 +86,7 @@ const ViewPost: NextPage = () => {
     skip: !id
   })
 
-  if (!loading || !data) return <PostPageShimmer />
+  if (loading || !data) return <PostPageShimmer />
   if (!data.publication) return <Custom404 />
 
   const post: LensterPost = data.publication
