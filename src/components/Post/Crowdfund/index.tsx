@@ -9,6 +9,7 @@ import { Tooltip } from '@components/UI/Tooltip'
 import { LensterCollectModule, LensterPost } from '@generated/lenstertypes'
 import { CashIcon, UsersIcon } from '@heroicons/react/outline'
 import { getTokenImage } from '@lib/getTokenImage'
+import { imagekitURL } from '@lib/imagekitURL'
 import { linkifyOptions } from '@lib/linkifyOptions'
 import clsx from 'clsx'
 import dayjs from 'dayjs'
@@ -58,7 +59,7 @@ const Crowdfund: React.FC<Props> = ({ fund }) => {
         className="h-40 rounded-t-xl border-b sm:h-52"
         style={{
           backgroundImage: `url(${
-            cover ? cover : `${STATIC_ASSETS}/patterns/2.svg`
+            cover ? imagekitURL(cover) : `${STATIC_ASSETS}/patterns/2.svg`
           })`,
           backgroundColor: '#8b5cf6',
           backgroundSize: cover ? 'cover' : '30%',
