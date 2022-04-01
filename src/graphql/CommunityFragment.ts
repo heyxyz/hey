@@ -2,7 +2,7 @@ import { gql } from '@apollo/client'
 
 export const CommunityFragment = gql`
   fragment CommunityFragment on Post {
-    pubId: id
+    id
     metadata {
       name
       description

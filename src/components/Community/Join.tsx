@@ -137,7 +137,7 @@ const Join: React.FC<Props> = ({ community, setJoined, showJoin = true }) => {
       toast.error(WRONG_NETWORK)
     } else {
       createCollectTypedData({
-        variables: { request: { publicationId: community.pubId } }
+        variables: { request: { publicationId: community.id } }
       })
     }
   }

@@ -40,7 +40,7 @@ const Details: React.FC<Props> = ({ community }) => {
     variables: {
       request: {
         collectRequests: {
-          publicationIds: community.pubId,
+          publicationIds: community.id,
           walletAddress: currentUser?.ownedBy
         }
       }
@@ -72,12 +72,12 @@ const Details: React.FC<Props> = ({ community }) => {
             src={imagekitURL(
               community?.metadata?.cover?.original?.url
                 ? community?.metadata?.cover?.original?.url
-                : `https://avatar.tobi.sh/${community?.pubId}.svg`,
+                : `https://avatar.tobi.sh/${community?.id}.svg`,
               500,
               500
             )}
             className="w-32 h-32 bg-gray-200 rounded-xl ring-8 ring-gray-50 sm:w-72 sm:h-72 dark:bg-gray-700 dark:ring-black"
-            alt={community?.pubId}
+            alt={community?.id}
           />
         </div>
         <div className="pt-3 space-y-1">
@@ -104,7 +104,7 @@ const Details: React.FC<Props> = ({ community }) => {
           )}
           <div className="space-y-2">
             <MetaDetails icon={<HashtagIcon className="w-4 h-4" />}>
-              {community?.pubId}
+              {community?.id}
             </MetaDetails>
             <MetaDetails icon={<UsersIcon className="w-4 h-4" />}>
               <>
@@ -125,7 +125,7 @@ const Details: React.FC<Props> = ({ community }) => {
                   show={showMembersModal}
                   onClose={() => setShowMembersModal(!showMembersModal)}
                 >
-                  <Collectors pubId={community.pubId} />
+                  <Collectors pubId={community.id} />
                 </Modal>
               </>
             </MetaDetails>

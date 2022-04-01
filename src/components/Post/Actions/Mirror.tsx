@@ -140,7 +140,7 @@ const Mirror: React.FC<Props> = ({ post }) => {
         variables: {
           request: {
             profileId: currentUser?.id,
-            publicationId: post.pubId,
+            publicationId: post.id,
             referenceModule: {
               followerOnlyReferenceModule: false
             }

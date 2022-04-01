@@ -5,7 +5,7 @@ import { PublicationProfileFragment } from './PublicationProfileFragment'
 
 export const PostFragment = gql`
   fragment PostFragment on Post {
-    pubId: id
+    id
     profile {
       ...PublicationProfileFragment
     }
