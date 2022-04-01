@@ -1,6 +1,5 @@
 import UserProfileShimmer from '@components/Shared/Shimmer/UserProfileShimmer'
 import { Card, CardBody } from '@components/UI/Card'
-import { NextPage } from 'next'
 import React from 'react'
 
 import { NotificationWrapper } from '.'
@@ -31,7 +30,7 @@ const NotificationShimmer: React.FC = () => {
   )
 }
 
-const NotificationPageShimmer: NextPage = () => {
+const NotificationPageShimmer: React.FC = () => {
   return (
     <NotificationWrapper>
       <Card className="mx-auto">
