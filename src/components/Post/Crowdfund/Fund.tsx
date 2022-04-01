@@ -138,7 +138,7 @@ const Fund: React.FC<Props> = ({ fund }) => {
       toast.error(WRONG_NETWORK)
     } else {
       createCollectTypedData({
-        variables: { request: { publicationId: fund.pubId } }
+        variables: { request: { publicationId: fund.id } }
       })
     }
   }

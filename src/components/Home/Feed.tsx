@@ -89,7 +89,7 @@ const Feed: React.FC = () => {
       )}
       <div className="space-y-3">
         {data?.timeline?.items?.map((post: LensterPost, index: number) => (
-          <SinglePost key={`${post.pubId}_${index}`} post={post} />
+          <SinglePost key={`${post.id}_${index}`} post={post} />
         ))}
       </div>
       {pageInfo?.next && (

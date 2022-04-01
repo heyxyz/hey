@@ -31,8 +31,8 @@ const SinglePost: React.FC<Props> = ({ post, type, showCard = true }) => {
         <PostType post={post} type={type} />
         <div className="flex justify-between pb-4">
           <UserProfile profile={post.profile} />
-          <Link href={`/posts/${post.pubId}`}>
-            <a className="text-sm text-gray-500" href={`/posts/${post.pubId}`}>
+          <Link href={`/posts/${post.id}`}>
+            <a className="text-sm text-gray-500" href={`/posts/${post.id}`}>
               {dayjs(new Date(post.createdAt)).fromNow()}
             </a>
           </Link>

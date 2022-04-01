@@ -11,9 +11,9 @@ interface Props {
 const Comment: React.FC<Props> = ({ post }) => {
   return (
     <motion.button whileTap={{ scale: 0.9 }}>
-      <Link href={`/posts/${post?.pubId}`} passHref>
+      <Link href={`/posts/${post?.id}`} passHref>
         <a
-          href={`/posts/${post?.pubId}`}
+          href={`/posts/${post?.id}`}
           className="flex items-center space-x-1 text-blue-500 hover:text-blue-400"
         >
           <div className="p-1.5 rounded-full hover:bg-blue-300 hover:bg-opacity-20">
