@@ -1,16 +1,14 @@
 import SinglePost from '@components/Post/SinglePost'
 import Slug from '@components/Shared/Slug'
-import {
-  LensterNewCollectNotification,
-  LensterPost
-} from '@generated/lenstertypes'
+import { LensterPost } from '@generated/lenstertypes'
+import { NewCollectNotification } from '@generated/types'
 import { CashIcon, CollectionIcon, UsersIcon } from '@heroicons/react/outline'
 import { formatUsername } from '@lib/formatUsername'
 import Link from 'next/link'
 import React from 'react'
 
 interface Props {
-  notification: LensterNewCollectNotification
+  notification: NewCollectNotification
 }
 
 const CollectNotification: React.FC<Props> = ({ notification }) => {

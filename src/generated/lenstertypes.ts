@@ -5,9 +5,6 @@ import {
   LimitedFeeCollectModuleSettings,
   LimitedTimedFeeCollectModuleSettings,
   Mirror,
-  NewCollectNotification,
-  NewCommentNotification,
-  NewMirrorNotification,
   Post,
   RevertCollectModuleSettings,
   TimedFeeCollectModuleSettings
@@ -21,12 +18,3 @@ export type LensterCollectModule = EmptyCollectModuleSettings &
   LimitedTimedFeeCollectModuleSettings &
   RevertCollectModuleSettings &
   TimedFeeCollectModuleSettings
-export type LensterNewMirrorNotification = NewMirrorNotification & {
-  publication: { pubId: string }
-}
-export type LensterNewCommentNotification = NewCommentNotification & {
-  comment: { pubId: string }
-}
-export type LensterNewCollectNotification = NewCollectNotification & {
-  collectedPublication: { pubId: string }
-}

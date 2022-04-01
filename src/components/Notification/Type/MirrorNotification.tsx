@@ -1,15 +1,13 @@
 import SinglePost from '@components/Post/SinglePost'
 import Slug from '@components/Shared/Slug'
-import {
-  LensterNewMirrorNotification,
-  LensterPost
-} from '@generated/lenstertypes'
+import { LensterPost } from '@generated/lenstertypes'
+import { NewMirrorNotification } from '@generated/types'
 import { DuplicateIcon } from '@heroicons/react/outline'
 import Link from 'next/link'
 import React from 'react'
 
 interface Props {
-  notification: LensterNewMirrorNotification
+  notification: NewMirrorNotification
 }
 
 const MirrorNotification: React.FC<Props> = ({ notification }) => {
