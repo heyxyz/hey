@@ -17,6 +17,13 @@ const RECOMMENDED_PROFILES_QUERY = gql`
       name
       handle
       ownedBy
+      picture {
+        ... on MediaSet {
+          original {
+            url
+          }
+        }
+      }
     }
   }
 `
