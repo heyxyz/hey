@@ -1,3 +1,5 @@
+import { IMAGEKIT_URL } from 'src/constants'
+
 /**
  * Creates Imagekit CDN URL
  * @param url - URL which need to be CDNified
@@ -10,8 +12,7 @@ export function imagekitURL(
   height: string | number = '',
   width: string | number = ''
 ): string {
-  const cdn = 'https://ik.imagekit.io/lenster'
   return height || width
-    ? `${cdn}/tr:w-${height},h-${width}/${url}`
-    : `${cdn}/${url}`
+    ? `${IMAGEKIT_URL}/tr:w-${height},h-${width}/${url}`
+    : `${IMAGEKIT_URL}/${url}`
 }
