@@ -10,7 +10,7 @@ import Details from './Details'
 import Feed from './Feed'
 import FeedType from './FeedType'
 import NFTFeed from './NFTFeed'
-import ProfilePageShimmer from './ProfilePageShimmer'
+import ProfilePageShimmer from './Shimmer'
 
 export const PROFILE_QUERY = gql`
   query Profile($request: ProfileQueryRequest!) {
