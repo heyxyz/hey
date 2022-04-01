@@ -4,11 +4,6 @@ import { EmptyState } from '@components/UI/EmptyState'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { Spinner } from '@components/UI/Spinner'
 import AppContext from '@components/utils/AppContext'
-import {
-  LensterNewCollectNotification,
-  LensterNewCommentNotification,
-  LensterNewMirrorNotification
-} from '@generated/lenstertypes'
 import { Notification } from '@generated/types'
 import { CommentFragment } from '@gql/CommentFragment'
 import { PostFragment } from '@gql/PostFragment'
@@ -182,19 +177,13 @@ const Notification: NextPage = () => {
                 <FollowerNotification notification={notification} />
               )}
               {notification.__typename === 'NewCommentNotification' && (
-                <CommentNotification
-                  notification={notification as LensterNewCommentNotification}
-                />
+                <CommentNotification notification={notification} />
               )}
               {notification.__typename === 'NewMirrorNotification' && (
-                <MirrorNotification
-                  notification={notification as LensterNewMirrorNotification}
-                />
+                <MirrorNotification notification={notification} />
               )}
               {notification.__typename === 'NewCollectNotification' && (
-                <CollectNotification
-                  notification={notification as LensterNewCollectNotification}
-                />
+                <CollectNotification notification={notification} />
               )}
             </div>
           ))}

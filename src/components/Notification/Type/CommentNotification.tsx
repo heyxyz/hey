@@ -1,15 +1,13 @@
 import SinglePost from '@components/Post/SinglePost'
 import Slug from '@components/Shared/Slug'
-import {
-  LensterNewCommentNotification,
-  LensterPost
-} from '@generated/lenstertypes'
+import { LensterPost } from '@generated/lenstertypes'
+import { NewCommentNotification } from '@generated/types'
 import { ChatAlt2Icon } from '@heroicons/react/outline'
 import Link from 'next/link'
 import React from 'react'
 
 interface Props {
-  notification: LensterNewCommentNotification
+  notification: NewCommentNotification
 }
 
 const CommentNotification: React.FC<Props> = ({ notification }) => {
