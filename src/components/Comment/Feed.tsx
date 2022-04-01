@@ -50,9 +50,9 @@ const Feed: React.FC<Props> = ({
     COMMENT_FEED_QUERY,
     {
       variables: {
-        request: { commentsOf: post.pubId, limit: 10 }
+        request: { commentsOf: post.id, limit: 10 }
       },
-      skip: !post.pubId
+      skip: !post.id
     }
   )
 
@@ -63,7 +63,7 @@ const Feed: React.FC<Props> = ({
       fetchMore({
         variables: {
           request: {
-            commentsOf: post.pubId,
+            commentsOf: post.id,
             cursor: pageInfo?.next,
             limit: 10
           }
@@ -102,11 +102,7 @@ const Feed: React.FC<Props> = ({
       )}
       <div className="space-y-3">
         {data?.publications?.items?.map((post: LensterPost, index: number) => (
-          <SinglePost
-            key={`${post.pubId}_${index}`}
-            post={post}
-            type="COMMENT"
-          />
+          <SinglePost key={`${post.id}_${index}`} post={post} type="COMMENT" />
         ))}
       </div>
       {pageInfo?.next && (

@@ -44,7 +44,7 @@ const PostBody: React.FC<Props> = ({ post }) => {
             ) : (
               <span>Launched a new community</span>
             )}
-            <a className="font-bold" href={`/communities/${post.pubId}`}>
+            <a className="font-bold" href={`/communities/${post.id}`}>
               {post?.metadata?.name}
             </a>
           </div>
