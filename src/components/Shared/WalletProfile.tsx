@@ -1,6 +1,7 @@
 import { Wallet } from '@generated/types'
 import { ExternalLinkIcon } from '@heroicons/react/outline'
 import { formatUsername } from '@lib/formatUsername'
+import { imagekitURL } from '@lib/imagekitURL'
 import React from 'react'
 
 import Slug from './Slug'
@@ -19,7 +20,11 @@ const WalletProfile: React.FC<Props> = ({ wallet }) => {
         rel="noreferrer"
       >
         <img
-          src={`https://avatar.tobi.sh/${wallet?.address}.svg`}
+          src={imagekitURL(
+            `https://avatar.tobi.sh/${wallet?.address}.svg`,
+            500,
+            500
+          )}
           className="w-10 h-10 bg-gray-200 rounded-full border"
           alt={wallet?.address}
         />
