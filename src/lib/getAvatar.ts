@@ -1,5 +1,6 @@
 import { Profile } from '@generated/types'
 
+import { getIPFSLink } from './getIPFSLink'
 import { imagekitURL } from './imagekitURL'
 
 export const getAvatar = (profile: Profile) => {
@@ -7,7 +8,7 @@ export const getAvatar = (profile: Profile) => {
     // @ts-ignore
     profile?.picture?.original?.url
       ? // @ts-ignore
-        profile?.picture?.original?.url
+        getIPFSLink(profile?.picture?.original?.url)
       : `https://avatar.tobi.sh/${profile?.ownedBy}.svg`,
     500,
     500
