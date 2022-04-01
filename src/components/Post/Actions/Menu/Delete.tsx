@@ -34,7 +34,7 @@ const Delete: React.FC<Props> = ({ post }) => {
         )
       }
       onClick={() =>
-        hidePost({ variables: { request: { publicationId: post?.pubId } } })
+        hidePost({ variables: { request: { publicationId: post?.id } } })
       }
     >
       <div className="flex items-center space-x-2">

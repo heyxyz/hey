@@ -4,7 +4,7 @@ import { PublicationProfileFragment } from './PublicationProfileFragment'
 
 export const MirrorFragment = gql`
   fragment MirrorFragment on Mirror {
-    pubId: id
+    id
     profile {
       ...PublicationProfileFragment
     }

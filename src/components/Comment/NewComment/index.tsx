@@ -215,7 +215,7 @@ const NewComment: React.FC<Props> = ({ refetch, post, type }) => {
         variables: {
           request: {
             profileId: currentUser?.id,
-            publicationId: post.pubId,
+            publicationId: post.id,
             contentURI: `ipfs://${path}`,
             collectModule: feeData.recipient
               ? {

@@ -41,8 +41,8 @@ const Crowdfund: React.FC<Props> = ({ fund }) => {
   const collectModule: LensterCollectModule = fund?.collectModule
   const [showFundersModal, setShowFundersModal] = useState<boolean>(false)
   const { data, loading } = useQuery(CROWDFUND_REVENUE_QUERY, {
-    variables: { request: { publicationId: fund.pubId } },
-    skip: !fund.pubId
+    variables: { request: { publicationId: fund.id } },
+    skip: !fund.id
   })
 
   const revenue = data?.publicationRevenue?.earnings
@@ -96,7 +96,7 @@ const Crowdfund: React.FC<Props> = ({ fund }) => {
                       show={showFundersModal}
                       onClose={() => setShowFundersModal(!showFundersModal)}
                     >
-                      <Collectors pubId={fund.pubId} />
+                      <Collectors pubId={fund.id} />
                     </Modal>
                   </>
                 )}
