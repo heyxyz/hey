@@ -1,7 +1,6 @@
 import { gql, useQuery } from '@apollo/client'
 import Feed from '@components/Comment/Feed'
 import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout'
-import { PageLoading } from '@components/UI/PageLoading'
 import { CommunityFragment } from '@gql/CommunityFragment'
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
@@ -9,6 +8,7 @@ import React from 'react'
 import Custom404 from 'src/pages/404'
 
 import Details from './Details'
+import CommunityPageShimmer from './Shimmer'
 
 const COMMUNITY_QUERY = gql`
   query Post($request: PublicationQueryRequest!) {
@@ -30,7 +30,7 @@ const ViewCommunity: NextPage = () => {
     skip: !id
   })
 
-  if (loading || !data) return <PageLoading message="Loading community" />
+  if (loading || !data) return <CommunityPageShimmer />
   if (
     !data.publication ||
     data.publication?.metadata?.attributes[0]?.value !== 'community'
