@@ -1,3 +1,4 @@
+import { imagekitURL } from '@lib/imagekitURL'
 import React from 'react'
 import { STATIC_ASSETS } from 'src/constants'
 
@@ -11,7 +12,7 @@ const Cover: React.FC<Props> = ({ cover }) => {
       className="h-52 sm:h-80"
       style={{
         backgroundImage: `url(${
-          cover ? cover : `${STATIC_ASSETS}/patterns/2.svg`
+          cover ? imagekitURL(cover) : `${STATIC_ASSETS}/patterns/2.svg`
         })`,
         backgroundColor: '#8b5cf6',
         backgroundSize: cover ? 'cover' : '30%',

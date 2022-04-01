@@ -7,6 +7,7 @@ import AppContext from '@components/utils/AppContext'
 import { LensterPost } from '@generated/lenstertypes'
 import { ClockIcon, HashtagIcon, UsersIcon } from '@heroicons/react/outline'
 import { humanize } from '@lib/humanize'
+import { imagekitURL } from '@lib/imagekitURL'
 import { linkifyOptions } from '@lib/linkifyOptions'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
@@ -68,11 +69,13 @@ const Details: React.FC<Props> = ({ community }) => {
       <div className="space-y-5">
         <div className="relative w-32 h-32 sm:w-72 sm:h-72">
           <img
-            src={
+            src={imagekitURL(
               community?.metadata?.cover?.original?.url
                 ? community?.metadata?.cover?.original?.url
-                : `https://avatar.tobi.sh/${community?.pubId}.svg`
-            }
+                : `https://avatar.tobi.sh/${community?.pubId}.svg`,
+              500,
+              500
+            )}
             className="w-32 h-32 bg-gray-200 rounded-xl ring-8 ring-gray-50 sm:w-72 sm:h-72 dark:bg-gray-700 dark:ring-black"
             alt={community?.pubId}
           />

@@ -184,10 +184,6 @@ const Picture: React.FC<Props> = ({ profile }) => {
               <div>
                 <img
                   className="w-60 h-60 rounded-lg"
-                  style={{
-                    // @ts-ignore
-                    backgroundColor: `#${profile?.picture?.original?.url}`
-                  }}
                   src={avatar}
                   alt={avatar}
                 />

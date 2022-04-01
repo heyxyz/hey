@@ -1,4 +1,5 @@
 import { Card } from '@components/UI/Card'
+import { imagekitURL } from '@lib/imagekitURL'
 import React, { useEffect, useState } from 'react'
 
 interface Props {
@@ -45,8 +46,9 @@ const IFramely: React.FC<Props> = ({ url }) => {
     const description = data?.meta?.description
     const site = data?.meta?.site
     const url = data?.url
-    const favicon = data?.links?.icon[0]?.href
-    const thumbnail = data?.links?.thumbnail && data?.links?.thumbnail[0]?.href
+    const favicon = imagekitURL(data?.links?.icon[0]?.href)
+    const thumbnail =
+      data?.links?.thumbnail && imagekitURL(data?.links?.thumbnail[0]?.href)
     const isSquare =
       data?.links?.thumbnail &&
       data?.links?.thumbnail[0]?.media?.width ===
