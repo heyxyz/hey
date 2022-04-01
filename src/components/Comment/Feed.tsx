@@ -10,6 +10,7 @@ import AppContext from '@components/utils/AppContext'
 import { LensterPost } from '@generated/lenstertypes'
 import { CommentFragment } from '@gql/CommentFragment'
 import { CollectionIcon, UsersIcon } from '@heroicons/react/outline'
+import { useRouter } from 'next/router'
 import React, { useContext } from 'react'
 import useInView from 'react-cool-inview'
 
@@ -45,14 +46,17 @@ const Feed: React.FC<Props> = ({
   onlyFollowers = false,
   isFollowing = true
 }) => {
+  const {
+    query: { id }
+  } = useRouter()
   const { currentUser } = useContext(AppContext)
   const { data, loading, error, fetchMore, refetch } = useQuery(
     COMMENT_FEED_QUERY,
     {
       variables: {
-        request: { commentsOf: post.id, limit: 10 }
+        request: { commentsOf: id, limit: 10 }
       },
-      skip: !post.id
+      skip: !id
     }
   )
 

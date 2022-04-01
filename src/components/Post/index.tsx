@@ -4,7 +4,6 @@ import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout'
 import Footer from '@components/Shared/Footer'
 import UserProfile from '@components/Shared/UserProfile'
 import { Card, CardBody } from '@components/UI/Card'
-import { PageLoading } from '@components/UI/PageLoading'
 import AppContext from '@components/utils/AppContext'
 import { LensterPost } from '@generated/lenstertypes'
 import {
@@ -21,6 +20,7 @@ import { ZERO_ADDRESS } from 'src/constants'
 import Custom404 from 'src/pages/404'
 
 import IPFSHash from './IPFSHash'
+import PostPageShimmer from './Shimmer'
 import SinglePost from './SinglePost'
 import ViaLenster from './ViaLenster'
 
@@ -86,7 +86,7 @@ const ViewPost: NextPage = () => {
     skip: !id
   })
 
-  if (loading || !data) return <PageLoading message="Loading post" />
+  if (loading || !data) return <PostPageShimmer />
   if (!data.publication) return <Custom404 />
 
   const post: LensterPost = data.publication
