@@ -16,7 +16,7 @@ export const STATIC_ASSETS = 'https://assets.lenster.xyz/images'
 export const API_URL = 'https://api-mumbai.lens.dev'
 
 // Web3
-export const INFURA_ID = '3d19324a72854976a7160e0e2ebc9c2b'
+export const INFURA_ID = '1423f014ff0243e3b7ab20fbb3f8656f'
 
 // Addresses
 export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000'
