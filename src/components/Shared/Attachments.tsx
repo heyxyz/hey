@@ -63,7 +63,7 @@ const Attachments: React.FC<Props> = ({
                     src={
                       isNew
                         ? attachment.item
-                        : getIPFSLink(attachment.original.url)
+                        : imagekitURL(getIPFSLink(attachment.original.url))
                     }
                     type="video/mp4"
                   />
