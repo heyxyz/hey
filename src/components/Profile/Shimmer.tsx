@@ -18,7 +18,7 @@ const ProfilePageShimmer: React.FC = () => {
                 <div className="w-1/4 h-3 rounded-lg shimmer" />
               </div>
               <div className="space-y-5">
-                <div className="flex gap-5">
+                <div className="flex gap-5 pb-1">
                   <div className="space-y-2">
                     <div className="rounded-lg h-7 w-7 shimmer" />
                     <div className="w-20 h-3 rounded-lg shimmer" />
@@ -32,6 +32,16 @@ const ProfilePageShimmer: React.FC = () => {
                 <div className="space-y-2">
                   <div className="w-7/12 h-3 rounded-lg shimmer" />
                   <div className="w-1/3 h-3 rounded-lg shimmer" />
+                </div>
+                <div className="space-y-2">
+                  <div className="flex items-center space-x-2">
+                    <div className="shimmer h-4 w-4 rounded-lg" />
+                    <div className="shimmer h-3 w-20 rounded-lg" />
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <div className="shimmer h-4 w-4 rounded-lg" />
+                    <div className="shimmer h-3 w-20 rounded-lg" />
+                  </div>
                 </div>
               </div>
             </div>
