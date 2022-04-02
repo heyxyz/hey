@@ -39,6 +39,14 @@ const Footer: React.FC = () => {
       >
         Status
       </a>
+      <a
+        className="pr-3"
+        href="https://analytics.lenster.xyz/share/CQtv56rX/Lenster"
+        target="_blank"
+        rel="noreferrer"
+      >
+        Open
+      </a>
       <span className="pr-3">
         <Link href="/thanks" passHref>
           Thanks
