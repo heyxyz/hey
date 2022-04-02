@@ -34,22 +34,20 @@ const Collect: React.FC<Props> = ({ post }) => {
       </div>
       <Modal
         title={
-          <div className="flex items-center space-x-2">
-            <div className="text-brand-500">
-              <GetModuleIcon
-                module={
-                  post.collectModule.__typename === 'EmptyCollectModuleSettings'
-                    ? 'EmptyCollectModule'
-                    : post.collectModule.type
-                }
-                size={5}
-              />
-            </div>
-            <div>
-              {post.collectModule.__typename === 'EmptyCollectModuleSettings'
-                ? 'Empty Collect'
-                : getModule(post.collectModule.type).name}
-            </div>
+          post.collectModule.__typename === 'EmptyCollectModuleSettings'
+            ? 'Empty Collect'
+            : getModule(post.collectModule.type).name
+        }
+        icon={
+          <div className="text-brand-500">
+            <GetModuleIcon
+              module={
+                post.collectModule.__typename === 'EmptyCollectModuleSettings'
+                  ? 'EmptyCollectModule'
+                  : post.collectModule.type
+              }
+              size={5}
+            />
           </div>
         }
         show={showCollectModal}
