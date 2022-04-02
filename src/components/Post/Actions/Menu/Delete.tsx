@@ -30,7 +30,8 @@ const Delete: React.FC<Props> = ({ post }) => {
       className={({ active }: { active: boolean }) =>
         clsx(
           { 'bg-gray-100 dark:bg-gray-800': active },
-          'block px-4 py-1.5 text-sm text-red-500 m-2 rounded-lg cursor-pointer'
+          'block px-4 py-1.5 text-sm text-red-500 m-2 rounded-lg cursor-pointer',
+          'umami--click--post-delete-action'
         )
       }
       onClick={() =>
