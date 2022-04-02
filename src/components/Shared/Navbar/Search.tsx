@@ -51,19 +51,19 @@ const Search = () => {
     <>
       <Input
         type="text"
-        className="px-3 py-2 text-sm"
+        className="py-2 px-3 text-sm"
         placeholder="Search..."
         value={searchText}
         onChange={handleSearch}
       />
       {searchText.length > 0 && (
         <div
-          className="absolute flex flex-col w-full mt-2 sm:max-w-md"
+          className="flex absolute flex-col mt-2 w-full sm:max-w-md"
           ref={dropdownRef}
         >
           <Card className="overflow-y-auto py-2 max-h-[80vh]">
             {searchUsersLoading ? (
-              <div className="px-4 py-2 space-y-2 text-sm font-bold text-center">
+              <div className="py-2 px-4 space-y-2 text-sm font-bold text-center">
                 <Spinner size="sm" className="mx-auto" />
                 <div>Searching users</div>
               </div>
@@ -72,14 +72,14 @@ const Search = () => {
                 {searchUsersData?.search?.items?.map((profile: Profile) => (
                   <div
                     key={profile.handle}
-                    className="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
+                    className="py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-800"
                     onClick={() => setSearchText('')}
                   >
                     <UserProfile profile={profile} />
                   </div>
                 ))}
                 {searchUsersData?.search?.items?.length === 0 && (
-                  <div className="px-4 py-2">No matching users</div>
+                  <div className="py-2 px-4">No matching users</div>
                 )}
               </div>
             )}

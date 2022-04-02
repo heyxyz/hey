@@ -16,7 +16,7 @@ const CommunityPageShimmer: React.FC = () => {
                 <div className="w-1/3 h-5 rounded-lg shimmer" />
               </div>
             </div>
-            <div className="space-y-5 pt-2">
+            <div className="pt-2 space-y-5">
               <div className="space-y-2">
                 <div className="w-7/12 h-3 rounded-lg shimmer" />
                 <div className="w-1/3 h-3 rounded-lg shimmer" />
@@ -24,12 +24,12 @@ const CommunityPageShimmer: React.FC = () => {
               <div className="w-28 rounded-lg h-[34px] shimmer" />
               <div className="space-y-2">
                 <div className="flex items-center space-x-2">
-                  <div className="shimmer h-4 w-4 rounded-lg" />
-                  <div className="shimmer h-3 w-20 rounded-lg" />
+                  <div className="w-4 h-4 rounded-lg shimmer" />
+                  <div className="w-20 h-3 rounded-lg shimmer" />
                 </div>
                 <div className="flex items-center space-x-2">
-                  <div className="shimmer h-4 w-4 rounded-lg" />
-                  <div className="shimmer h-3 w-20 rounded-lg" />
+                  <div className="w-4 h-4 rounded-lg shimmer" />
+                  <div className="w-20 h-3 rounded-lg shimmer" />
                 </div>
               </div>
             </div>

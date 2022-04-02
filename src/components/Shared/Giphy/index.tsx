@@ -37,7 +37,7 @@ const Giphy: React.FC<Props> = ({ setGifAttachment }) => {
       </Tooltip>
       <Modal
         title="Select GIF"
-        icon={<PhotographIcon className="h-5 w-5 text-brand-500" />}
+        icon={<PhotographIcon className="w-5 h-5 text-brand-500" />}
         show={showModal}
         onClose={() => setShowModal(false)}
       >

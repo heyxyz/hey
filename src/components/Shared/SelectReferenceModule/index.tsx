@@ -41,7 +41,7 @@ const SelectReferenceModule: React.FC<Props> = ({
       </Tooltip>
       <Modal
         title="Select who to comment"
-        icon={<ChatAlt2Icon className="h-5 w-5 text-brand-500" />}
+        icon={<ChatAlt2Icon className="w-5 h-5 text-brand-500" />}
         show={showModal}
         onClose={() => setShowModal(!showModal)}
       >

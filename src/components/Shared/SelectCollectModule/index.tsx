@@ -40,7 +40,7 @@ const SelectCollectModule: React.FC<Props> = ({
       </Tooltip>
       <Modal
         title="Select collect module"
-        icon={<CashIcon className="h-5 w-5 text-brand-500" />}
+        icon={<CashIcon className="w-5 h-5 text-brand-500" />}
         show={showModal}
         onClose={() => setShowModal(!showModal)}
       >

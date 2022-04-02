@@ -5,12 +5,12 @@ import React from 'react'
 const ProfilePageShimmer: React.FC = () => {
   return (
     <>
-      <div className="shimmer h-52 sm:h-80" />
+      <div className="h-52 sm:h-80 shimmer" />
       <GridLayout className="pt-6">
         <GridItemFour>
           <div className="px-5 mb-4 sm:px-0">
             <div className="space-y-10">
-              <div className="relative w-32 h-32 -mt-24 sm:-mt-32 sm:w-52 sm:h-52">
+              <div className="relative -mt-24 w-32 h-32 sm:-mt-32 sm:w-52 sm:h-52">
                 <div className="w-32 h-32 bg-gray-200 rounded-xl ring-8 ring-gray-50 sm:w-52 sm:h-52 dark:bg-gray-700 dark:ring-black shimmer" />
               </div>
               <div className="space-y-3">
@@ -20,11 +20,11 @@ const ProfilePageShimmer: React.FC = () => {
               <div className="space-y-5">
                 <div className="flex gap-5 pb-1">
                   <div className="space-y-2">
-                    <div className="rounded-lg h-7 w-7 shimmer" />
+                    <div className="w-7 h-7 rounded-lg shimmer" />
                     <div className="w-20 h-3 rounded-lg shimmer" />
                   </div>
                   <div className="space-y-2">
-                    <div className="rounded-lg h-7 w-7 shimmer" />
+                    <div className="w-7 h-7 rounded-lg shimmer" />
                     <div className="w-20 h-3 rounded-lg shimmer" />
                   </div>
                 </div>
@@ -35,12 +35,12 @@ const ProfilePageShimmer: React.FC = () => {
                 </div>
                 <div className="space-y-2">
                   <div className="flex items-center space-x-2">
-                    <div className="shimmer h-4 w-4 rounded-lg" />
-                    <div className="shimmer h-3 w-20 rounded-lg" />
+                    <div className="w-4 h-4 rounded-lg shimmer" />
+                    <div className="w-20 h-3 rounded-lg shimmer" />
                   </div>
                   <div className="flex items-center space-x-2">
-                    <div className="shimmer h-4 w-4 rounded-lg" />
-                    <div className="shimmer h-3 w-20 rounded-lg" />
+                    <div className="w-4 h-4 rounded-lg shimmer" />
+                    <div className="w-20 h-3 rounded-lg shimmer" />
                   </div>
                 </div>
               </div>
@@ -49,10 +49,10 @@ const ProfilePageShimmer: React.FC = () => {
         </GridItemFour>
         <GridItemEight className="space-y-5">
           <div className="flex gap-3 px-5 mt-3 sm:px-0 sm:mt-0">
-            <div className="h-8 rounded-lg w-14 sm:w-28 shimmer" />
-            <div className="h-8 rounded-lg w-14 sm:w-28 shimmer" />
-            <div className="h-8 rounded-lg w-14 sm:w-28 shimmer" />
-            <div className="h-8 rounded-lg w-14 sm:w-28 shimmer" />
+            <div className="w-14 h-8 rounded-lg sm:w-28 shimmer" />
+            <div className="w-14 h-8 rounded-lg sm:w-28 shimmer" />
+            <div className="w-14 h-8 rounded-lg sm:w-28 shimmer" />
+            <div className="w-14 h-8 rounded-lg sm:w-28 shimmer" />
           </div>
           <PostsShimmer />
         </GridItemEight>

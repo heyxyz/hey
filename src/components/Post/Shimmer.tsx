@@ -21,8 +21,8 @@ const PostPageShimmer: React.FC = () => {
         </Card>
         <Card>
           <CardBody className="flex justify-between">
-            <div className="h-3 rounded-lg w-1/2 shimmer" />
-            <div className="h-3 rounded-lg w-1/4 shimmer" />
+            <div className="w-1/2 h-3 rounded-lg shimmer" />
+            <div className="w-1/4 h-3 rounded-lg shimmer" />
           </CardBody>
         </Card>
         <Footer />
