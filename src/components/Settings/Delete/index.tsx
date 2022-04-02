@@ -1,5 +1,6 @@
 import LensHubProxy from '@abis/LensHubProxy.json'
 import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout'
+import UserProfile from '@components/Shared/UserProfile'
 import { Button } from '@components/UI/Button'
 import { Card, CardBody } from '@components/UI/Card'
 import { Spinner } from '@components/UI/Spinner'
@@ -48,13 +49,29 @@ const DeleteSettings: React.FC = () => {
       <GridItemEight>
         <Card>
           <CardBody className="space-y-5 linkify">
+            <UserProfile profile={currentUser} />
             <div className="text-lg font-bold text-red-500">
-              Delete your account
+              This will deactivate your account
             </div>
             <p>
               Deleting your account is permanent. All your data will be wiped
               out immediately and you won't be able to get it back.
             </p>
+            <div className="font-bold text-lg">What else you should know</div>
+            <div className="divide-y text-gray-500 text-sm">
+              <p className="pb-3">
+                You cannot restore your Lenster account if it was accidentally
+                or wrongfully deleted.
+              </p>
+              <p className="py-3">
+                Some account information may still be available in search
+                engines, such as Google or Bing.
+              </p>
+              <p className="py-3">
+                Your @handle will be released immediately after deleting the
+                account
+              </p>
+            </div>
             <Button
               variant="danger"
               icon={
