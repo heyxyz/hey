@@ -4,11 +4,9 @@ import { CheckCircleIcon } from '@heroicons/react/solid'
 import React, { useState } from 'react'
 
 export const TX_STATUS_QUERY = gql`
-  query HasTxHashBeenIndexed($request: HasTxHashBeenIndexedRequest!) {
-    hasTxHashBeenIndexed(request: $request) {
-      ... on TransactionIndexedResult {
-        indexed
-      }
+  query HasPublicationIndexed($request: PublicationQueryRequest!) {
+    publication(request: $request) {
+      __typename
     }
   }
 `
@@ -27,7 +25,7 @@ const IndexStatus: React.FC<Props> = ({ refetch, type, txHash }) => {
     },
     pollInterval,
     onCompleted(data) {
-      if (data.hasTxHashBeenIndexed.indexed) {
+      if (data?.publication) {
         setPollInterval(0)
         refetch()
       }
@@ -41,7 +39,7 @@ const IndexStatus: React.FC<Props> = ({ refetch, type, txHash }) => {
       target="_blank"
       rel="noreferrer"
     >
-      {loading || !data?.hasTxHashBeenIndexed?.indexed ? (
+      {loading || !data?.publication ? (
         <div className="flex items-center space-x-1.5">
           <Spinner size="xs" />
           <div>{type} Indexeing</div>
