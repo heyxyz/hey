@@ -268,7 +268,7 @@ const MenuItems: React.FC<Props> = ({ indexerData }) => {
         <>
           <Modal
             title="Login"
-            icon={<ArrowCircleRightIcon className="h-5 w-5 text-brand-500" />}
+            icon={<ArrowCircleRightIcon className="w-5 h-5 text-brand-500" />}
             show={showLoginModal}
             onClose={() => setShowLoginModal(!showLoginModal)}
           >

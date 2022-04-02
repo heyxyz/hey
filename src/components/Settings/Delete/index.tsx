@@ -57,8 +57,8 @@ const DeleteSettings: React.FC = () => {
               Deleting your account is permanent. All your data will be wiped
               out immediately and you won't be able to get it back.
             </p>
-            <div className="font-bold text-lg">What else you should know</div>
-            <div className="divide-y text-gray-500 text-sm">
+            <div className="text-lg font-bold">What else you should know</div>
+            <div className="text-sm text-gray-500 divide-y">
               <p className="pb-3">
                 You cannot restore your Lenster account if it was accidentally
                 or wrongfully deleted.
