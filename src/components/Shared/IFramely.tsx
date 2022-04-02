@@ -60,7 +60,7 @@ const IFramely: React.FC<Props> = ({ url }) => {
           <Card forceRounded>
             {!isSquare && thumbnail && (
               <img
-                className="w-full rounded-t-xl border-b"
+                className="w-full rounded-t-xl"
                 src={thumbnail}
                 alt="Thumbnail"
               />
@@ -68,7 +68,7 @@ const IFramely: React.FC<Props> = ({ url }) => {
             <div className="flex items-center">
               {isSquare && thumbnail && (
                 <img
-                  className="h-36 rounded-l-xl border-r"
+                  className="h-36 rounded-l-xl"
                   src={thumbnail}
                   alt="Thumbnail"
                 />
