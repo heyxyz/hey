@@ -9,7 +9,7 @@ interface Props {
 }
 
 const IPFSHash: React.FC<Props> = ({ ipfsHash }) => {
-  const formattedHash = getIPFSHash(ipfsHash).replace('.json', '')
+  const formattedHash = getIPFSHash(ipfsHash)
 
   if (!formattedHash) return null
 
