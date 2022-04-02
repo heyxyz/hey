@@ -107,8 +107,8 @@ export const NotificationWrapper = ({
 }: {
   children: React.ReactChild
 }) => (
-  <div className="flex justify-center flex-grow px-0 py-8 sm:px-6 lg:px-8">
-    <div className="w-full max-w-4xl space-y-3">
+  <div className="flex flex-grow justify-center py-8 px-0 sm:px-6 lg:px-8">
+    <div className="space-y-3 w-full max-w-4xl">
       <div className="flex items-center px-5 pb-3 space-x-1.5 text-xl font-bold sm:px-0">
         <BellIcon className="w-6 h-6 text-brand-500" />
         <div>Notifications</div>
