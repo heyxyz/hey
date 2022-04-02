@@ -6,6 +6,7 @@ import { CreateUnfollowBroadcastItemResult, Profile } from '@generated/types'
 import { UserRemoveIcon } from '@heroicons/react/outline'
 import { omit } from '@lib/omit'
 import { splitSignature } from '@lib/splitSignature'
+import { trackEvent } from '@lib/trackEvent'
 import { Contract } from 'ethers'
 import { Dispatch, useState } from 'react'
 import toast from 'react-hot-toast'
@@ -121,6 +122,7 @@ const Unfollow: React.FC<Props> = ({
     } else if (network.chain?.id !== chain.polygonTestnetMumbai.id) {
       toast.error(WRONG_NETWORK)
     } else {
+      trackEvent('unfollow')
       createUnfollowTypedData({
         variables: {
           request: { profile: profile.id }
@@ -131,7 +133,7 @@ const Unfollow: React.FC<Props> = ({
 
   return (
     <Button
-      className="text-sm !px-3 !py-1.5 umami--click--unfollow"
+      className="text-sm !px-3 !py-1.5"
       outline
       onClick={createUnfollow}
       disabled={typedDataLoading || signLoading || writeLoading}

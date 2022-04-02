@@ -4,6 +4,7 @@ import GetModuleIcon from '@components/utils/GetModuleIcon'
 import { EnabledModule } from '@generated/types'
 import { CashIcon } from '@heroicons/react/outline'
 import { FEE_DATA_TYPE, getModule } from '@lib/getModule'
+import { trackEvent } from '@lib/trackEvent'
 import { motion } from 'framer-motion'
 import { useState } from 'react'
 
@@ -30,8 +31,10 @@ const SelectCollectModule: React.FC<Props> = ({
         <motion.button
           whileTap={{ scale: 0.9 }}
           type="button"
-          className="umami--click--collect-module-select"
-          onClick={() => setShowModal(!showModal)}
+          onClick={() => {
+            trackEvent('collect module select')
+            setShowModal(!showModal)
+          }}
         >
           <div className="text-brand-500">
             <GetModuleIcon module={selectedModule.moduleName} size={5} />
