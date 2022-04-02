@@ -5,6 +5,7 @@ import GetModuleIcon from '@components/utils/GetModuleIcon'
 import { EnabledModule } from '@generated/types'
 import { CheckCircleIcon } from '@heroicons/react/solid'
 import { FEE_DATA_TYPE, getModule } from '@lib/getModule'
+import { trackEvent } from '@lib/trackEvent'
 import clsx from 'clsx'
 import { useState } from 'react'
 
@@ -47,6 +48,7 @@ const Modules: React.FC<Props> = ({
 
   const handleSelectModule = (module: EnabledModule) => {
     setSelectedModule(module)
+    trackEvent(`${module.moduleName} collect module`, 'select')
 
     if (getModule(module?.moduleName).hasParam) {
       setShowFeeEntry(true)

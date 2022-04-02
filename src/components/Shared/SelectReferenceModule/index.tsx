@@ -57,6 +57,7 @@ const SelectReferenceModule: React.FC<Props> = ({
                 'w-full p-3 space-y-1 text-left border rounded-xl flex justify-between items-center'
               )}
               onClick={() => {
+                trackEvent('public reference module', 'select')
                 setOnlyFollowers(false)
                 setShowModal(false)
               }}
@@ -76,6 +77,7 @@ const SelectReferenceModule: React.FC<Props> = ({
                 'w-full p-3 space-y-1 text-left border rounded-xl flex justify-between items-center'
               )}
               onClick={() => {
+                trackEvent('only followers reference module', 'select')
                 setOnlyFollowers(true)
                 setShowModal(false)
               }}
