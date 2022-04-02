@@ -15,6 +15,7 @@ export const CURRENT_USER_QUERY = gql`
     profiles(request: { ownedBy: $ownedBy }) {
       items {
         id
+        name
         handle
         ownedBy
         picture {
