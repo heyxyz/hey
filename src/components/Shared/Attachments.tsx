@@ -1,6 +1,7 @@
 import { Button } from '@components/UI/Button'
 import { TrashIcon } from '@heroicons/react/outline'
 import { getIPFSLink } from '@lib/getIPFSLink'
+import { imagekitURL } from '@lib/imagekitURL'
 import clsx from 'clsx'
 import React from 'react'
 
@@ -62,7 +63,7 @@ const Attachments: React.FC<Props> = ({
                     src={
                       isNew
                         ? attachment.item
-                        : getIPFSLink(attachment.original.url)
+                        : imagekitURL(getIPFSLink(attachment.original.url))
                     }
                     type="video/mp4"
                   />
@@ -73,12 +74,12 @@ const Attachments: React.FC<Props> = ({
                   src={
                     isNew
                       ? attachment.item
-                      : getIPFSLink(attachment.original.url)
+                      : imagekitURL(getIPFSLink(attachment.original.url))
                   }
                   alt={
                     isNew
                       ? attachment.item
-                      : getIPFSLink(attachment.original.url)
+                      : imagekitURL(getIPFSLink(attachment.original.url))
                   }
                 />
               )}

@@ -2,6 +2,7 @@ import { Modal } from '@components/UI/Modal'
 import { Tooltip } from '@components/UI/Tooltip'
 import GetModuleIcon from '@components/utils/GetModuleIcon'
 import { EnabledModule } from '@generated/types'
+import { CashIcon } from '@heroicons/react/outline'
 import { FEE_DATA_TYPE, getModule } from '@lib/getModule'
 import { motion } from 'framer-motion'
 import { useState } from 'react'
@@ -29,7 +30,7 @@ const SelectCollectModule: React.FC<Props> = ({
         <motion.button
           whileTap={{ scale: 0.9 }}
           type="button"
-          className="tab-focus-ring"
+          className="umami--click--collect-module-select"
           onClick={() => setShowModal(!showModal)}
         >
           <div className="text-brand-500">
@@ -38,9 +39,10 @@ const SelectCollectModule: React.FC<Props> = ({
         </motion.button>
       </Tooltip>
       <Modal
-        onClose={() => setShowModal(!showModal)}
-        title="Select module"
+        title="Select collect module"
+        icon={<CashIcon className="h-5 w-5 text-brand-500" />}
         show={showModal}
+        onClose={() => setShowModal(!showModal)}
       >
         <Modules
           feeData={feeData}

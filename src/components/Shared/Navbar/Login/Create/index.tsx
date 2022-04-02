@@ -32,7 +32,9 @@ const newUserSchema = object({
   handle: string()
     .min(2, { message: 'Handle should be atleast 2 characters' })
     .max(31, { message: 'Handle should be less than 32 characters' })
-    .regex(/^[a-z0-9_\.]+$/, { message: 'Invalid handle' })
+    .regex(/^[a-z0-9]+$/, {
+      message: 'Handle should only contain alphanumeric characters'
+    })
 })
 
 const Create: React.FC = () => {
@@ -87,8 +89,8 @@ const Create: React.FC = () => {
                   handle: username,
                   profilePictureUri: avatar
                     ? avatar
-                    : `https://avatar.tobi.sh/${username}.svg`,
-                  followNFTURI: `ipfs://${path}`
+                    : `https://avatar.tobi.sh/${username}.svg`
+                  // followNFTURI: `https://ipfs.infura.io/ipfs/${path}`
                 }
               }
             })

@@ -9,6 +9,7 @@ import { Tooltip } from '@components/UI/Tooltip'
 import { LensterCollectModule, LensterPost } from '@generated/lenstertypes'
 import { CashIcon, UsersIcon } from '@heroicons/react/outline'
 import { getTokenImage } from '@lib/getTokenImage'
+import { imagekitURL } from '@lib/imagekitURL'
 import { linkifyOptions } from '@lib/linkifyOptions'
 import clsx from 'clsx'
 import dayjs from 'dayjs'
@@ -40,8 +41,8 @@ const Crowdfund: React.FC<Props> = ({ fund }) => {
   const collectModule: LensterCollectModule = fund?.collectModule
   const [showFundersModal, setShowFundersModal] = useState<boolean>(false)
   const { data, loading } = useQuery(CROWDFUND_REVENUE_QUERY, {
-    variables: { request: { publicationId: fund.pubId } },
-    skip: !fund.pubId
+    variables: { request: { publicationId: fund.id } },
+    skip: !fund.id
   })
 
   const revenue = data?.publicationRevenue?.earnings
@@ -58,7 +59,7 @@ const Crowdfund: React.FC<Props> = ({ fund }) => {
         className="h-40 rounded-t-xl border-b sm:h-52"
         style={{
           backgroundImage: `url(${
-            cover ? cover : `${STATIC_ASSETS}/patterns/2.svg`
+            cover ? imagekitURL(cover) : `${STATIC_ASSETS}/patterns/2.svg`
           })`,
           backgroundColor: '#8b5cf6',
           backgroundSize: cover ? 'cover' : '30%',
@@ -85,17 +86,13 @@ const Crowdfund: React.FC<Props> = ({ fund }) => {
                       </button>
                     </div>
                     <Modal
-                      title={
-                        <div className="flex items-center space-x-2">
-                          <CashIcon className="w-5 h-5 text-brand-500" />
-                          <div>Funders</div>
-                        </div>
-                      }
+                      title="Funders"
+                      icon={<CashIcon className="w-5 h-5 text-brand-500" />}
                       size="md"
                       show={showFundersModal}
                       onClose={() => setShowFundersModal(!showFundersModal)}
                     >
-                      <Collectors pubId={fund.pubId} />
+                      <Collectors pubId={fund.id} />
                     </Modal>
                   </>
                 )}

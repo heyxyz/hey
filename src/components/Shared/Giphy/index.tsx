@@ -1,6 +1,7 @@
 import { Modal } from '@components/UI/Modal'
 import { Tooltip } from '@components/UI/Tooltip'
 import { IGif } from '@giphy/js-types'
+import { PhotographIcon } from '@heroicons/react/outline'
 import { motion } from 'framer-motion'
 import dynamic from 'next/dynamic'
 import { useState } from 'react'
@@ -21,7 +22,7 @@ const Giphy: React.FC<Props> = ({ setGifAttachment }) => {
         <motion.button
           whileTap={{ scale: 0.9 }}
           type="button"
-          className="tab-focus-ring"
+          className="umami--click--gif-select"
           onClick={() => setShowModal(!showModal)}
         >
           <div className="w-full fill-brand-500">
@@ -35,9 +36,10 @@ const Giphy: React.FC<Props> = ({ setGifAttachment }) => {
         </motion.button>
       </Tooltip>
       <Modal
-        onClose={() => setShowModal(false)}
         title="Select GIF"
+        icon={<PhotographIcon className="h-5 w-5 text-brand-500" />}
         show={showModal}
+        onClose={() => setShowModal(false)}
       >
         <GifSelector
           setShowModal={setShowModal}

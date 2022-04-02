@@ -140,7 +140,7 @@ const Mirror: React.FC<Props> = ({ post }) => {
         variables: {
           request: {
             profileId: currentUser?.id,
-            publicationId: post.pubId,
+            publicationId: post.id,
             referenceModule: {
               followerOnlyReferenceModule: false
             }
@@ -152,6 +152,7 @@ const Mirror: React.FC<Props> = ({ post }) => {
 
   return (
     <motion.button
+      className="umami--click--mirror-action"
       whileTap={{ scale: 0.9 }}
       onClick={createMirror}
       disabled={typedDataLoading || writeLoading}

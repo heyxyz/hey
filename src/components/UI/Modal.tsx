@@ -4,6 +4,7 @@ import clsx from 'clsx'
 import React, { Fragment } from 'react'
 
 interface Props {
+  icon?: React.ReactNode
   title: React.ReactNode
   size?: 'sm' | 'md' | 'lg'
   show: boolean
@@ -12,6 +13,7 @@ interface Props {
 }
 
 export const Modal: React.FC<Props> = ({
+  icon,
   title,
   size = 'sm',
   show,
@@ -25,7 +27,7 @@ export const Modal: React.FC<Props> = ({
         className="overflow-y-auto fixed inset-0 z-10"
         onClose={onClose}
       >
-        <div className="flex justify-center items-end min-h-screen text-center sm:block sm:p-0">
+        <div className="flex items-center justify-center min-h-screen p-4 text-center sm:block sm:p-0">
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-100"
@@ -37,7 +39,6 @@ export const Modal: React.FC<Props> = ({
           >
             <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
           </Transition.Child>
-
           <span
             className="hidden sm:inline-block sm:h-screen sm:align-middle"
             aria-hidden="true"
@@ -60,9 +61,12 @@ export const Modal: React.FC<Props> = ({
               )}
             >
               <div className="flex justify-between items-center py-3.5 px-5 border-b dark:border-gray-700">
-                <div className="font-bold">{title}</div>
+                <div className="font-bold flex items-center space-x-2">
+                  {icon}
+                  <div>{title}</div>
+                </div>
                 <button
-                  className="p-1 text-gray-800 rounded-xl dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-gray-700"
+                  className="p-1 text-gray-800 rounded-full dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-gray-700"
                   onClick={onClose}
                 >
                   <XIcon className="w-5 h-5" />

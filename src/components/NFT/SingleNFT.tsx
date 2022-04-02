@@ -1,5 +1,6 @@
 import { Card, CardBody } from '@components/UI/Card'
 import { Nft } from '@generated/types'
+import { imagekitURL } from '@lib/imagekitURL'
 import React from 'react'
 import { STATIC_ASSETS } from 'src/constants'
 import { chain } from 'wagmi'
@@ -14,11 +15,11 @@ const SingleNFT: React.FC<Props> = ({ nft }) => {
       <div
         className="h-52 border-b sm:h-80 rounded-t-[10px]"
         style={{
-          backgroundImage: `url(${
+          backgroundImage: `url(${imagekitURL(
             nft.originalContent.uri
               ? nft.originalContent.uri
               : `${STATIC_ASSETS}/placeholder.webp`
-          })`,
+          )})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center center',
           backgroundRepeat: 'no-repeat'

@@ -10,6 +10,7 @@ import AppContext from '@components/utils/AppContext'
 import { LensterPost } from '@generated/lenstertypes'
 import { CommentFragment } from '@gql/CommentFragment'
 import { CollectionIcon, UsersIcon } from '@heroicons/react/outline'
+import { useRouter } from 'next/router'
 import React, { useContext } from 'react'
 import useInView from 'react-cool-inview'
 
@@ -45,14 +46,17 @@ const Feed: React.FC<Props> = ({
   onlyFollowers = false,
   isFollowing = true
 }) => {
+  const {
+    query: { id }
+  } = useRouter()
   const { currentUser } = useContext(AppContext)
   const { data, loading, error, fetchMore, refetch } = useQuery(
     COMMENT_FEED_QUERY,
     {
       variables: {
-        request: { commentsOf: post.pubId, limit: 10 }
+        request: { commentsOf: id, limit: 10 }
       },
-      skip: !post.pubId
+      skip: !id
     }
   )
 
@@ -63,7 +67,7 @@ const Feed: React.FC<Props> = ({
       fetchMore({
         variables: {
           request: {
-            commentsOf: post.pubId,
+            commentsOf: post.id,
             cursor: pageInfo?.next,
             limit: 10
           }
@@ -102,11 +106,7 @@ const Feed: React.FC<Props> = ({
       )}
       <div className="space-y-3">
         {data?.publications?.items?.map((post: LensterPost, index: number) => (
-          <SinglePost
-            key={`${post.pubId}_${index}`}
-            post={post}
-            type="COMMENT"
-          />
+          <SinglePost key={`${post.id}_${index}`} post={post} type="COMMENT" />
         ))}
       </div>
       {pageInfo?.next && (

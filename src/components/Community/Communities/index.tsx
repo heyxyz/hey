@@ -38,13 +38,13 @@ const Communities: NextPage = () => {
         sources: 'Lenster Community',
         sortCriteria: 'TOP_COMMENTED',
         publicationTypes: ['POST'],
-        limit: 10
+        limit: 8
       },
       topCollected: {
         sources: 'Lenster Community',
         sortCriteria: 'TOP_COLLECTED',
         publicationTypes: ['POST'],
-        limit: 10
+        limit: 8
       }
     }
   })
