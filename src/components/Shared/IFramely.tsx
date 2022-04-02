@@ -57,7 +57,7 @@ const IFramely: React.FC<Props> = ({ url }) => {
     return (
       <div className="mt-4 text-sm sm:w-2/3">
         <a href={url} target="_blank" rel="noreferrer">
-          <Card>
+          <Card forceRounded>
             {!isSquare && thumbnail && (
               <img
                 className="w-full rounded-t-xl border-b"
