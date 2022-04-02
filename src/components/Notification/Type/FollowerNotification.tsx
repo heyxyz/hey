@@ -1,7 +1,7 @@
 import Follow from '@components/Shared/Follow'
 import Unfollow from '@components/Shared/Unfollow'
 import { NewFollowerNotification } from '@generated/types'
-import { BadgeCheckIcon } from '@heroicons/react/outline'
+import { BadgeCheckIcon } from '@heroicons/react/solid'
 import { formatUsername } from '@lib/formatUsername'
 import { getAvatar } from '@lib/getAvatar'
 import { imagekitURL } from '@lib/imagekitURL'
