@@ -100,6 +100,7 @@ const Unfollow: React.FC<Props> = ({
                 setFollowing(false)
               }
               toast.success('Unfollowed successfully!')
+              trackEvent('unfollow user')
             } catch {
               toast.error('User rejected request')
             } finally {
@@ -122,7 +123,6 @@ const Unfollow: React.FC<Props> = ({
     } else if (network.chain?.id !== chain.polygonTestnetMumbai.id) {
       toast.error(WRONG_NETWORK)
     } else {
-      trackEvent('unfollow')
       createUnfollowTypedData({
         variables: {
           request: { profile: profile.id }

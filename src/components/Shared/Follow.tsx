@@ -107,6 +107,7 @@ const Follow: React.FC<Props> = ({
               if (!error) {
                 setFollowing(true)
                 toast.success('Followed successfully!')
+                trackEvent('follow user')
               } else {
                 toast.error(error?.message)
               }
@@ -128,7 +129,6 @@ const Follow: React.FC<Props> = ({
     } else if (network.chain?.id !== chain.polygonTestnetMumbai.id) {
       toast.error(WRONG_NETWORK)
     } else {
-      trackEvent('follow')
       createFollowTypedData({
         variables: {
           request: { follow: { profile: profile.id } }
