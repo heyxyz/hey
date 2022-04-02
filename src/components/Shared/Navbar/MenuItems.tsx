@@ -14,6 +14,7 @@ import {
 } from '@heroicons/react/outline'
 import { getAvatar } from '@lib/getAvatar'
 import { isStaff } from '@lib/isStaff'
+import { trackEvent } from '@lib/trackEvent'
 import clsx from 'clsx'
 import Link from 'next/link'
 import { useTheme } from 'next-themes'
@@ -275,7 +276,6 @@ const MenuItems: React.FC<Props> = ({ indexerData }) => {
             <Login />
           </Modal>
           <Button
-            className="umami--click--login"
             icon={
               <img
                 className="mr-0.5 h-4"
@@ -283,7 +283,10 @@ const MenuItems: React.FC<Props> = ({ indexerData }) => {
                 alt="Ethereum Logo"
               />
             }
-            onClick={() => setShowLoginModal(!showLoginModal)}
+            onClick={() => {
+              trackEvent('login')
+              setShowLoginModal(!showLoginModal)
+            }}
           >
             Login
           </Button>
