@@ -11,6 +11,8 @@ interface Props {
 const IPFSHash: React.FC<Props> = ({ ipfsHash }) => {
   const formattedHash = getIPFSHash(ipfsHash).replace('.json', '')
 
+  if (!formattedHash) return null
+
   return (
     <Card>
       <CardBody className="text-sm text-gray-500">
