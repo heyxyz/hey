@@ -42,7 +42,7 @@ const SinglePost: React.FC<Props> = ({ post, type, showCard = true }) => {
           <Attachments attachments={post?.metadata?.media} />
         ) : (
           post?.metadata?.content &&
-          post?.metadata?.attributes[0].value !== 'crowdfund' &&
+          post?.metadata?.attributes[0]?.value !== 'crowdfund' &&
           getURLs(post?.metadata?.content)?.length > 0 && (
             <IFramely url={getURLs(post?.metadata?.content)[0]} />
           )
