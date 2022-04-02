@@ -29,7 +29,7 @@ const SelectCollectModule: React.FC<Props> = ({
         <motion.button
           whileTap={{ scale: 0.9 }}
           type="button"
-          className="tab-focus-ring"
+          className="umami--click--collect-module-select"
           onClick={() => setShowModal(!showModal)}
         >
           <div className="text-brand-500">
