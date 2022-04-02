@@ -19,6 +19,7 @@ import { getModule } from '@lib/getModule'
 import { getTokenImage } from '@lib/getTokenImage'
 import { omit } from '@lib/omit'
 import { splitSignature } from '@lib/splitSignature'
+import { trackEvent } from '@lib/trackEvent'
 import dayjs from 'dayjs'
 import React, { useContext } from 'react'
 import toast from 'react-hot-toast'
@@ -124,6 +125,7 @@ const CollectModule: React.FC<Props> = ({ post }) => {
             write({ args: inputStruct }).then(({ error }: { error: any }) => {
               if (!error) {
                 toast.success('Post has been collected!')
+                trackEvent('post collect action')
               } else {
                 if (
                   error?.data?.message ===
