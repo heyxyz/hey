@@ -32,7 +32,7 @@ const Attachment: React.FC<Props> = ({ attachments, setAttachments }) => {
       <motion.button
         whileTap={{ scale: 0.9 }}
         type="button"
-        onClick={() => trackEvent('attachment select')}
+        onClick={() => trackEvent('choose attachment')}
       >
         <label className="flex gap-1 items-center cursor-pointer">
           {loading ? (

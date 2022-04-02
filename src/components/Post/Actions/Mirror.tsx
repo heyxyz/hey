@@ -116,7 +116,7 @@ const Mirror: React.FC<Props> = ({ post }) => {
             write({ args: inputStruct }).then(({ error }) => {
               if (!error) {
                 toast.success('Post has been mirrored!')
-                trackEvent('mirror action')
+                trackEvent('mirror')
               } else {
                 toast.error(error?.message)
               }

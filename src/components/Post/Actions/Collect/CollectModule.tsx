@@ -125,7 +125,7 @@ const CollectModule: React.FC<Props> = ({ post }) => {
             write({ args: inputStruct }).then(({ error }: { error: any }) => {
               if (!error) {
                 toast.success('Post has been collected!')
-                trackEvent('post collect action')
+                trackEvent('publication collect')
               } else {
                 if (
                   error?.data?.message ===
