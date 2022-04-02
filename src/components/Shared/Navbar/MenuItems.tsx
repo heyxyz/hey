@@ -272,6 +272,7 @@ const MenuItems: React.FC<Props> = ({ indexerData }) => {
             <Login />
           </Modal>
           <Button
+            className="umami--click--login-button"
             icon={
               <img
                 className="mr-0.5 h-4"
