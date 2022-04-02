@@ -6,6 +6,7 @@ import { Card, CardBody } from '@components/UI/Card'
 import { Spinner } from '@components/UI/Spinner'
 import AppContext from '@components/utils/AppContext'
 import { TrashIcon } from '@heroicons/react/outline'
+import { trackEvent } from '@lib/trackEvent'
 import React, { useContext } from 'react'
 import toast from 'react-hot-toast'
 import { LENSHUB_PROXY } from 'src/constants'
@@ -30,6 +31,7 @@ const DeleteSettings: React.FC = () => {
     if (confirm === 'delete') {
       write({ args: [currentUser?.id] }).then(({ error }) => {
         if (!error) {
+          trackEvent('delete profile')
           localStorage.setItem('selectedProfile', '0')
           location.href = '/'
         }
