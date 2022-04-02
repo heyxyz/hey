@@ -72,17 +72,11 @@ const App = ({ Component, pageProps }: AppProps) => {
         </ThemeProvider>
       </ApolloProvider>
       <Script
-        src="https://www.googletagmanager.com/gtag/js?id=G-18NFK33KC6"
-        strategy="afterInteractive"
+        data-website-id="44ac57be-a743-4440-85bd-6592567935c9"
+        src="https://analytics.lenster.xyz/umami.js"
+        async
+        defer
       />
-      <Script id="google-analytics" strategy="afterInteractive">
-        {`
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){window.dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'G-18NFK33KC6');
-            `}
-      </Script>
     </Provider>
   )
 }
