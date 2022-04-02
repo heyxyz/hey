@@ -1,9 +1,9 @@
 tasks:
   - name: Setup
-    init: yarn install
-    command: |
+    init: |
+      yarn install
       yarn codegen
-      yarn dev
+    command: yarn dev
 
   - command: |
       clear
