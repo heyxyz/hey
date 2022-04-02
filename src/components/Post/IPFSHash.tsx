@@ -1,6 +1,7 @@
 import { Card, CardBody } from '@components/UI/Card'
 import { ExternalLinkIcon } from '@heroicons/react/outline'
 import { formatIPFSHash } from '@lib/formatIPFSHash'
+import { getIPFSHash } from '@lib/getIPFSHash'
 import React from 'react'
 
 interface Props {
@@ -8,7 +9,7 @@ interface Props {
 }
 
 const IPFSHash: React.FC<Props> = ({ ipfsHash }) => {
-  const formattedHash = ipfsHash.replace('ipfs://', '').replace('.json', '')
+  const formattedHash = getIPFSHash(ipfsHash).replace('.json', '')
 
   return (
     <Card>
