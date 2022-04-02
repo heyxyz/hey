@@ -216,7 +216,7 @@ const NewComment: React.FC<Props> = ({ refetch, post, type }) => {
           request: {
             profileId: currentUser?.id,
             publicationId: post.id,
-            contentURI: `ipfs://${path}`,
+            contentURI: `https://ipfs.infura.io/ipfs/${path}`,
             collectModule: feeData.recipient
               ? {
                   [getModule(selectedModule.moduleName).config]: feeData

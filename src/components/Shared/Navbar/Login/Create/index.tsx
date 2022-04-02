@@ -91,7 +91,7 @@ const Create: React.FC = () => {
                   profilePictureUri: avatar
                     ? avatar
                     : `https://avatar.tobi.sh/${username}.svg`,
-                  followNFTURI: `ipfs://${path}`
+                  followNFTURI: `https://ipfs.infura.io/ipfs/${path}`
                 }
               }
             })
