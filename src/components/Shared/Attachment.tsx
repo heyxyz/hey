@@ -31,7 +31,7 @@ const Attachment: React.FC<Props> = ({ attachments, setAttachments }) => {
       <motion.button
         whileTap={{ scale: 0.9 }}
         type="button"
-        className="tab-focus-ring"
+        className="umami--click--attachment-select"
       >
         <label className="flex items-center gap-1 cursor-pointer">
           {loading ? (
