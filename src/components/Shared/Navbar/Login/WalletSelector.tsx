@@ -6,6 +6,7 @@ import AppContext from '@components/utils/AppContext'
 import { CheckCircleIcon } from '@heroicons/react/outline'
 import { XCircleIcon } from '@heroicons/react/solid'
 import { getWalletLogo } from '@lib/getWalletLogo'
+import { trackEvent } from '@lib/trackEvent'
 import clsx from 'clsx'
 import React, { Dispatch, useContext, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
@@ -63,6 +64,7 @@ const WalletSelector: React.FC<Props> = ({
   const { setSelectedProfile } = useContext(AppContext)
 
   const onConnect = async (x: Connector) => {
+    trackEvent(`connect with ${x.name.toLowerCase()}`)
     await connect(x).then(({ error }) => {
       if (!error) {
         setHasConnected(true)
@@ -71,6 +73,7 @@ const WalletSelector: React.FC<Props> = ({
   }
 
   const handleSign = () => {
+    trackEvent('sign in with ethereum')
     setLoadingSign(true)
     loadChallenge({
       variables: { request: { address: accountData?.address } }
@@ -115,7 +118,6 @@ const WalletSelector: React.FC<Props> = ({
       {accountData?.connector?.id ? (
         <div className="space-y-3">
           <Button
-            className="umami--click--signin-with-ethereum"
             size="lg"
             icon={
               loadingSign ? (
@@ -149,8 +151,7 @@ const WalletSelector: React.FC<Props> = ({
                 key={i}
                 className={clsx(
                   { 'hover:bg-gray-100': x.id !== accountData?.connector?.id },
-                  'w-full flex items-center space-x-2.5 justify-center px-4 py-3 overflow-hidden rounded-xl border outline-none border-gray-200',
-                  `umami--click--connect-with-${x.name.toLowerCase()}`
+                  'w-full flex items-center space-x-2.5 justify-center px-4 py-3 overflow-hidden rounded-xl border outline-none border-gray-200'
                 )}
                 onClick={() => onConnect(x)}
                 disabled={
