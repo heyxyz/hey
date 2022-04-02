@@ -137,7 +137,7 @@ const Follow: React.FC<Props> = ({
 
   return (
     <Button
-      className="text-sm !px-3 !py-1.5"
+      className="text-sm !px-3 !py-1.5 umami--click--follow"
       outline
       onClick={createFollow}
       disabled={typedDataLoading || signLoading || writeLoading}
