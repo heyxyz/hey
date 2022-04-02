@@ -263,11 +263,11 @@ const NewComment: React.FC<Props> = ({ refetch, post, type }) => {
           />
           <div className="flex items-center">
             <div className="flex items-center space-x-4">
-              <Giphy setGifAttachment={(gif: IGif) => setGifAttachment(gif)} />
               <Attachment
                 attachments={attachments}
                 setAttachments={setAttachments}
               />
+              <Giphy setGifAttachment={(gif: IGif) => setGifAttachment(gif)} />
               <SelectCollectModule
                 feeData={feeData}
                 setFeeData={setFeeData}
