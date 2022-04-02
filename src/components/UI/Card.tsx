@@ -1,12 +1,23 @@
+import clsx from 'clsx'
+
 interface CardProps {
   children: React.ReactNode
   className?: string
+  forceRounded?: boolean
 }
 
-export const Card: React.FC<CardProps> = ({ children, className = '' }) => {
+export const Card: React.FC<CardProps> = ({
+  children,
+  className = '',
+  forceRounded = false
+}) => {
   return (
     <div
-      className={`border dark:border-gray-800 bg-white dark:bg-gray-900 rounded-none sm:rounded-xl ${className}`}
+      className={clsx(
+        forceRounded ? 'rounded-xl' : 'rounded-none sm:rounded-xl',
+        'border dark:border-gray-800 bg-white dark:bg-gray-900',
+        className
+      )}
     >
       {children}
     </div>

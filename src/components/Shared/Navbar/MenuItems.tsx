@@ -4,6 +4,7 @@ import AppContext from '@components/utils/AppContext'
 import { Profile } from '@generated/types'
 import { Menu, Transition } from '@headlessui/react'
 import {
+  ArrowCircleRightIcon,
   CogIcon,
   LogoutIcon,
   ShieldCheckIcon,
@@ -144,7 +145,8 @@ const MenuItems: React.FC<Props> = ({ indexerData }) => {
                     className={({ active }: { active: boolean }) =>
                       clsx(
                         { 'bg-gray-100 dark:bg-gray-800': active },
-                        'block px-4 py-1.5 text-sm text-gray-700 dark:text-gray-200 m-2 cursor-pointer rounded-lg'
+                        'block px-4 py-1.5 text-sm text-gray-700 dark:text-gray-200 m-2 cursor-pointer rounded-lg',
+                        'umami--click--logout'
                       )
                     }
                   >
@@ -266,12 +268,14 @@ const MenuItems: React.FC<Props> = ({ indexerData }) => {
         <>
           <Modal
             title="Login"
+            icon={<ArrowCircleRightIcon className="h-5 w-5 text-brand-500" />}
             show={showLoginModal}
             onClose={() => setShowLoginModal(!showLoginModal)}
           >
             <Login />
           </Modal>
           <Button
+            className="umami--click--login"
             icon={
               <img
                 className="mr-0.5 h-4"

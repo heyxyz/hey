@@ -1,9 +1,10 @@
 import Follow from '@components/Shared/Follow'
 import Unfollow from '@components/Shared/Unfollow'
 import { NewFollowerNotification } from '@generated/types'
-import { BadgeCheckIcon } from '@heroicons/react/outline'
+import { BadgeCheckIcon } from '@heroicons/react/solid'
 import { formatUsername } from '@lib/formatUsername'
 import { getAvatar } from '@lib/getAvatar'
+import { imagekitURL } from '@lib/imagekitURL'
 import { isVerified } from '@lib/isVerified'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
@@ -38,7 +39,11 @@ const FollowerNotification: React.FC<Props> = ({ notification }) => {
                 src={
                   wallet?.defaultProfile?.picture
                     ? getAvatar(wallet?.defaultProfile)
-                    : `https://avatar.tobi.sh/${wallet?.address}.svg`
+                    : imagekitURL(
+                        `https://avatar.tobi.sh/${wallet?.address}.svg`,
+                        500,
+                        500
+                      )
                 }
                 className="w-10 h-10 bg-gray-200 border rounded-full dark:border-gray-700"
                 alt={

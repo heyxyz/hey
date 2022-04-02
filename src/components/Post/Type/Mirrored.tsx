@@ -1,11 +1,11 @@
 import Slug from '@components/Shared/Slug'
-import { LensterPost } from '@generated/lenstertypes'
+import { Mirror } from '@generated/types'
 import { DuplicateIcon } from '@heroicons/react/outline'
 import Link from 'next/link'
 import React from 'react'
 
 interface Props {
-  post: LensterPost
+  post: Mirror
 }
 
 const Mirrored: React.FC<Props> = ({ post }) => {
@@ -15,10 +15,7 @@ const Mirrored: React.FC<Props> = ({ post }) => {
       <div className="flex items-center space-x-1">
         <div>Mirror of</div>
         <Link href={`/posts/${post?.mirrorOf?.id}`}>
-          <a className="font-bold">
-            {/* @ts-ignore */}
-            {post?.mirrorOf?.__typename.toLowerCase()}
-          </a>
+          <a className="font-bold">{post.mirrorOf.__typename?.toLowerCase()}</a>
         </Link>
         <div>by</div>
         <Link href={`/u/${post?.mirrorOf?.profile?.handle}`}>

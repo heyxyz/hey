@@ -204,7 +204,7 @@ const NewPost: React.FC<Props> = ({ refetch }) => {
         variables: {
           request: {
             profileId: currentUser?.id,
-            contentURI: `ipfs://${path}`,
+            contentURI: `https://ipfs.infura.io/ipfs/${path}`,
             collectModule: feeData.recipient
               ? {
                   [getModule(selectedModule.moduleName).config]: feeData

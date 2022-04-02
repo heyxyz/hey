@@ -2,14 +2,8 @@ import { gql, useQuery } from '@apollo/client'
 import { Card } from '@components/UI/Card'
 import { EmptyState } from '@components/UI/EmptyState'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
-import { PageLoading } from '@components/UI/PageLoading'
 import { Spinner } from '@components/UI/Spinner'
 import AppContext from '@components/utils/AppContext'
-import {
-  LensterNewCollectNotification,
-  LensterNewCommentNotification,
-  LensterNewMirrorNotification
-} from '@generated/lenstertypes'
 import { Notification } from '@generated/types'
 import { CommentFragment } from '@gql/CommentFragment'
 import { PostFragment } from '@gql/PostFragment'
@@ -19,6 +13,7 @@ import React, { useContext } from 'react'
 import useInView from 'react-cool-inview'
 import Custom404 from 'src/pages/404'
 
+import NotificationPageShimmer from './Shimmer'
 import CollectNotification from './Type/CollectNotification'
 import CommentNotification from './Type/CommentNotification'
 import FollowerNotification from './Type/FollowerNotification'
@@ -107,7 +102,11 @@ const NOTIFICATIONS_QUERY = gql`
   ${CommentFragment}
 `
 
-const NotificationWrapper = ({ children }: { children: React.ReactChild }) => (
+export const NotificationWrapper = ({
+  children
+}: {
+  children: React.ReactChild
+}) => (
   <div className="flex justify-center flex-grow px-0 py-8 sm:px-6 lg:px-8">
     <div className="w-full max-w-4xl space-y-3">
       <div className="flex items-center px-5 pb-3 space-x-1.5 text-xl font-bold sm:px-0">
@@ -144,7 +143,7 @@ const Notification: NextPage = () => {
   })
 
   if (!currentUser) return <Custom404 />
-  if (loading) return <PageLoading message="Loading notifications" />
+  if (loading) return <NotificationPageShimmer />
   if (data?.notifications?.items?.length === 0)
     return (
       <NotificationWrapper>
@@ -178,19 +177,13 @@ const Notification: NextPage = () => {
                 <FollowerNotification notification={notification} />
               )}
               {notification.__typename === 'NewCommentNotification' && (
-                <CommentNotification
-                  notification={notification as LensterNewCommentNotification}
-                />
+                <CommentNotification notification={notification} />
               )}
               {notification.__typename === 'NewMirrorNotification' && (
-                <MirrorNotification
-                  notification={notification as LensterNewMirrorNotification}
-                />
+                <MirrorNotification notification={notification} />
               )}
               {notification.__typename === 'NewCollectNotification' && (
-                <CollectNotification
-                  notification={notification as LensterNewCollectNotification}
-                />
+                <CollectNotification notification={notification} />
               )}
             </div>
           ))}

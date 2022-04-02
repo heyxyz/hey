@@ -170,7 +170,7 @@ const Create: React.FC = () => {
         variables: {
           request: {
             profileId: currentUser?.id,
-            contentURI: `ipfs://${path}`,
+            contentURI: `https://ipfs.infura.io/ipfs/${path}`,
             collectModule: {
               emptyCollectModule: true
             },

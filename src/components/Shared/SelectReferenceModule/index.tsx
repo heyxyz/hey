@@ -1,6 +1,6 @@
 import { Modal } from '@components/UI/Modal'
 import { Tooltip } from '@components/UI/Tooltip'
-import { GlobeAltIcon, UsersIcon } from '@heroicons/react/outline'
+import { ChatAlt2Icon, GlobeAltIcon, UsersIcon } from '@heroicons/react/outline'
 import { CheckCircleIcon } from '@heroicons/react/solid'
 import clsx from 'clsx'
 import { motion } from 'framer-motion'
@@ -27,7 +27,7 @@ const SelectReferenceModule: React.FC<Props> = ({
         <motion.button
           whileTap={{ scale: 0.9 }}
           type="button"
-          className="tab-focus-ring"
+          className="umami--click--reference-module-select"
           onClick={() => setShowModal(!showModal)}
         >
           <div className="text-brand-500">
@@ -40,9 +40,10 @@ const SelectReferenceModule: React.FC<Props> = ({
         </motion.button>
       </Tooltip>
       <Modal
-        onClose={() => setShowModal(!showModal)}
         title="Select who to comment"
+        icon={<ChatAlt2Icon className="h-5 w-5 text-brand-500" />}
         show={showModal}
+        onClose={() => setShowModal(!showModal)}
       >
         <div className="dark:divide-gray-700">
           <div className="py-3.5 px-5 space-y-3">
