@@ -5,5 +5,5 @@ export const trackEvent = (event: string, type: string | null = 'click') => {
   if (!IS_PRODUCTION) return
 
   // @ts-ignore
-  return window.umami.trackEvent(event, type)
+  return window?.umami?.trackEvent(event, type)
 }
