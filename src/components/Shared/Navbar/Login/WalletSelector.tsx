@@ -115,7 +115,7 @@ const WalletSelector: React.FC<Props> = ({
       {accountData?.connector?.id ? (
         <div className="space-y-3">
           <Button
-            className="umami--click--signin-with-ethereum-button"
+            className="umami--click--signin-with-ethereum"
             size="lg"
             icon={
               loadingSign ? (
@@ -150,7 +150,7 @@ const WalletSelector: React.FC<Props> = ({
                 className={clsx(
                   { 'hover:bg-gray-100': x.id !== accountData?.connector?.id },
                   'w-full flex items-center space-x-2.5 justify-center px-4 py-3 overflow-hidden rounded-xl border outline-none border-gray-200',
-                  `umami--click--connect-with-${x.name.toLowerCase()}-button`
+                  `umami--click--connect-with-${x.name.toLowerCase()}`
                 )}
                 onClick={() => onConnect(x)}
                 disabled={

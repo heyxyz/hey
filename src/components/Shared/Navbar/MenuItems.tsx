@@ -144,7 +144,8 @@ const MenuItems: React.FC<Props> = ({ indexerData }) => {
                     className={({ active }: { active: boolean }) =>
                       clsx(
                         { 'bg-gray-100 dark:bg-gray-800': active },
-                        'block px-4 py-1.5 text-sm text-gray-700 dark:text-gray-200 m-2 cursor-pointer rounded-lg'
+                        'block px-4 py-1.5 text-sm text-gray-700 dark:text-gray-200 m-2 cursor-pointer rounded-lg',
+                        'umami--click--logout'
                       )
                     }
                   >
@@ -272,7 +273,7 @@ const MenuItems: React.FC<Props> = ({ indexerData }) => {
             <Login />
           </Modal>
           <Button
-            className="umami--click--login-button"
+            className="umami--click--login"
             icon={
               <img
                 className="mr-0.5 h-4"
