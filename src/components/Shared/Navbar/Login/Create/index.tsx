@@ -7,6 +7,7 @@ import { Form, useZodForm } from '@components/UI/Form'
 import { Input } from '@components/UI/Input'
 import { Spinner } from '@components/UI/Spinner'
 import { PlusIcon } from '@heroicons/react/outline'
+import { trackEvent } from '@lib/trackEvent'
 import { uploadAssetsToIPFS } from '@lib/uploadAssetsToIPFS'
 import { uploadToIPFS } from '@lib/uploadToIPFS'
 import React, { useState } from 'react'
@@ -83,6 +84,7 @@ const Create: React.FC = () => {
               image: 'QmUXU4mCE3sxmfuFFFzSrs5VH5yNKjvVewkLtd6hBhcHCn'
             }).finally(() => setIsUploading(false))
 
+            trackEvent('signup')
             createProfile({
               variables: {
                 request: {
