@@ -7,6 +7,7 @@ import { CreateCollectBroadcastItemResult } from '@generated/types'
 import { PlusIcon } from '@heroicons/react/outline'
 import { omit } from '@lib/omit'
 import { splitSignature } from '@lib/splitSignature'
+import { trackEvent } from '@lib/trackEvent'
 import React, { Dispatch } from 'react'
 import toast from 'react-hot-toast'
 import {
@@ -106,6 +107,7 @@ const Join: React.FC<Props> = ({ community, setJoined, showJoin = true }) => {
               if (!error) {
                 setJoined(true)
                 toast.success('Joined successfully!')
+                trackEvent('join community')
               } else {
                 if (
                   error?.data?.message ===

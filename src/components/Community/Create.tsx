@@ -16,6 +16,7 @@ import { CreatePostBroadcastItemResult } from '@generated/types'
 import { PlusIcon } from '@heroicons/react/outline'
 import { omit } from '@lib/omit'
 import { splitSignature } from '@lib/splitSignature'
+import { trackEvent } from '@lib/trackEvent'
 import { uploadAssetsToIPFS } from '@lib/uploadAssetsToIPFS'
 import { uploadToIPFS } from '@lib/uploadToIPFS'
 import React, { useContext, useState } from 'react'
@@ -125,6 +126,7 @@ const Create: React.FC = () => {
             write({ args: inputStruct }).then(({ error }) => {
               if (!error) {
                 form.reset()
+                trackEvent('new community')
               } else {
                 toast.error(error?.message)
               }

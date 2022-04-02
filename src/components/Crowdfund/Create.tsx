@@ -18,6 +18,7 @@ import { PlusIcon } from '@heroicons/react/outline'
 import { getTokenImage } from '@lib/getTokenImage'
 import { omit } from '@lib/omit'
 import { splitSignature } from '@lib/splitSignature'
+import { trackEvent } from '@lib/trackEvent'
 import { uploadAssetsToIPFS } from '@lib/uploadAssetsToIPFS'
 import { uploadToIPFS } from '@lib/uploadToIPFS'
 import React, { useContext, useState } from 'react'
@@ -155,6 +156,7 @@ const Create: React.FC = () => {
             write({ args: inputStruct }).then(({ error }) => {
               if (!error) {
                 form.reset()
+                trackEvent('new crowdfund')
               } else {
                 toast.error(error?.message)
               }
