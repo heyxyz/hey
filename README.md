@@ -5,11 +5,17 @@
 </div>
 <br>
 <div align="center">
-    <a href="https://gitlab.com/lenster/lenster/-/commits/main">
-        <img src="https://gitlab.com/lenster/lenster/badges/main/pipeline.svg" alt="CI">
+    <a href="https://vercel.com/lenster?utm_source=Lenster&utm_campaign=oss">
+        <img src="https://therealsujitk-vercel-badge.vercel.app/?app=lenster" alt="Vercel">
     </a>
-    <a href="https://gitpod.io/#https://gitlab.com/lenster/lenster/-/tree/main/">
+    <a href="https://gitpod.io/#https://gitlab.com/lenster/lenster/-/tree/main">
         <img src="https://img.shields.io/badge/setup-automated-blue?logo=gitpod" alt="Gitpod">
+    </a>
+    <a href="https://gitlab.com/lenster/lenster/-/commits/main">
+        <img src="https://badgen.net/gitlab/last-commit/lenster/lenster" alt="Last Commit">
+    </a>
+    <a href="https://gitlab.com/lenster/lenster/-/blob/main/LICENSE">
+        <img src="https://badgen.net/gitlab/license/lenster/lenster" alt="Licence">
     </a>
     <a href="https://discord.gg/B8eKhSSUwX">
         <img src="https://img.shields.io/discord/953679040722665512.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2" alt="Discord">

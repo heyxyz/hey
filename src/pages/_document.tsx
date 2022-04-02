@@ -12,6 +12,11 @@ class LensterDocument extends Document {
             href="https://assets.lenster.xyz/css/font.css"
             rel="stylesheet"
           />
+          <script
+            defer
+            src="https://static.cloudflareinsights.com/beacon.min.js"
+            data-cf-beacon='{"token": "70834b17203045ecaaec6a90c4615ba9"}'
+          />
         </Head>
         <body>
           <Main />
