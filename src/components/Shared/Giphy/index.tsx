@@ -2,6 +2,7 @@ import { Modal } from '@components/UI/Modal'
 import { Tooltip } from '@components/UI/Tooltip'
 import { IGif } from '@giphy/js-types'
 import { PhotographIcon } from '@heroicons/react/outline'
+import { trackEvent } from '@lib/trackEvent'
 import { motion } from 'framer-motion'
 import dynamic from 'next/dynamic'
 import { useState } from 'react'
@@ -22,8 +23,10 @@ const Giphy: React.FC<Props> = ({ setGifAttachment }) => {
         <motion.button
           whileTap={{ scale: 0.9 }}
           type="button"
-          className="umami--click--gif-select"
-          onClick={() => setShowModal(!showModal)}
+          onClick={() => {
+            trackEvent('gif select')
+            setShowModal(!showModal)
+          }}
         >
           <div className="w-full fill-brand-500">
             <svg viewBox="0 0 24 24" className="w-5 h-5">

@@ -1,8 +1,8 @@
-export const trackEvent = (event: string | null | undefined) => {
+export const trackEvent = (event: string, type: string | null = 'click') => {
   if (!event) return ''
 
   if (typeof window !== 'undefined') {
     // @ts-ignore
-    return window.umami(event)
+    return window.umami.trackEvent(event, type)
   }
 }

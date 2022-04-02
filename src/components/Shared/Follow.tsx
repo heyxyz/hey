@@ -6,6 +6,7 @@ import { CreateFollowBroadcastItemResult, Profile } from '@generated/types'
 import { UserAddIcon } from '@heroicons/react/outline'
 import { omit } from '@lib/omit'
 import { splitSignature } from '@lib/splitSignature'
+import { trackEvent } from '@lib/trackEvent'
 import { Dispatch } from 'react'
 import toast from 'react-hot-toast'
 import {
@@ -127,6 +128,7 @@ const Follow: React.FC<Props> = ({
     } else if (network.chain?.id !== chain.polygonTestnetMumbai.id) {
       toast.error(WRONG_NETWORK)
     } else {
+      trackEvent('follow')
       createFollowTypedData({
         variables: {
           request: { follow: { profile: profile.id } }
@@ -137,7 +139,7 @@ const Follow: React.FC<Props> = ({
 
   return (
     <Button
-      className="text-sm !px-3 !py-1.5 umami--click--follow"
+      className="text-sm !px-3 !py-1.5"
       outline
       onClick={createFollow}
       disabled={typedDataLoading || signLoading || writeLoading}

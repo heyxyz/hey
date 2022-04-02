@@ -2,6 +2,7 @@ import { Modal } from '@components/UI/Modal'
 import { Tooltip } from '@components/UI/Tooltip'
 import { ChatAlt2Icon, GlobeAltIcon, UsersIcon } from '@heroicons/react/outline'
 import { CheckCircleIcon } from '@heroicons/react/solid'
+import { trackEvent } from '@lib/trackEvent'
 import clsx from 'clsx'
 import { motion } from 'framer-motion'
 import { useState } from 'react'
@@ -27,8 +28,10 @@ const SelectReferenceModule: React.FC<Props> = ({
         <motion.button
           whileTap={{ scale: 0.9 }}
           type="button"
-          className="umami--click--reference-module-select"
-          onClick={() => setShowModal(!showModal)}
+          onClick={() => {
+            trackEvent('reference module select')
+            setShowModal(!showModal)
+          }}
         >
           <div className="text-brand-500">
             {onlyFollowers ? (

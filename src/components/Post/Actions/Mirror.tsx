@@ -8,6 +8,7 @@ import { DuplicateIcon } from '@heroicons/react/outline'
 import { humanize } from '@lib/humanize'
 import { omit } from '@lib/omit'
 import { splitSignature } from '@lib/splitSignature'
+import { trackEvent } from '@lib/trackEvent'
 import { motion } from 'framer-motion'
 import { useContext } from 'react'
 import toast from 'react-hot-toast'
@@ -136,6 +137,7 @@ const Mirror: React.FC<Props> = ({ post }) => {
     } else if (network.chain?.id !== chain.polygonTestnetMumbai.id) {
       toast.error(WRONG_NETWORK)
     } else {
+      trackEvent('mirror action')
       createMirrorTypedData({
         variables: {
           request: {
@@ -152,7 +154,6 @@ const Mirror: React.FC<Props> = ({ post }) => {
 
   return (
     <motion.button
-      className="umami--click--mirror-action"
       whileTap={{ scale: 0.9 }}
       onClick={createMirror}
       disabled={typedDataLoading || writeLoading}
