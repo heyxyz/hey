@@ -116,6 +116,7 @@ const Mirror: React.FC<Props> = ({ post }) => {
             write({ args: inputStruct }).then(({ error }) => {
               if (!error) {
                 toast.success('Post has been mirrored!')
+                trackEvent('mirror action')
               } else {
                 toast.error(error?.message)
               }
@@ -137,7 +138,6 @@ const Mirror: React.FC<Props> = ({ post }) => {
     } else if (network.chain?.id !== chain.polygonTestnetMumbai.id) {
       toast.error(WRONG_NETWORK)
     } else {
-      trackEvent('mirror action')
       createMirrorTypedData({
         variables: {
           request: {

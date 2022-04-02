@@ -21,6 +21,7 @@ const Delete: React.FC<Props> = ({ post }) => {
   const { pathname } = useRouter()
   const [hidePost] = useMutation(HIDE_POST_MUTATION, {
     onCompleted() {
+      trackEvent('delete post action')
       pathname === '/posts/[id]' ? (location.href = '/') : location.reload()
     }
   })
@@ -34,10 +35,9 @@ const Delete: React.FC<Props> = ({ post }) => {
           'block px-4 py-1.5 text-sm text-red-500 m-2 rounded-lg cursor-pointer'
         )
       }
-      onClick={() => {
-        trackEvent('delete post action')
+      onClick={() =>
         hidePost({ variables: { request: { publicationId: post?.id } } })
-      }}
+      }
     >
       <div className="flex items-center space-x-2">
         <TrashIcon className="w-4 h-4" />
