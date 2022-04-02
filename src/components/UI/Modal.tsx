@@ -4,6 +4,7 @@ import clsx from 'clsx'
 import React, { Fragment } from 'react'
 
 interface Props {
+  icon?: React.ReactNode
   title: React.ReactNode
   size?: 'sm' | 'md' | 'lg'
   show: boolean
@@ -12,6 +13,7 @@ interface Props {
 }
 
 export const Modal: React.FC<Props> = ({
+  icon,
   title,
   size = 'sm',
   show,
@@ -59,7 +61,10 @@ export const Modal: React.FC<Props> = ({
               )}
             >
               <div className="flex justify-between items-center py-3.5 px-5 border-b dark:border-gray-700">
-                <div className="font-bold">{title}</div>
+                <div className="font-bold flex items-center space-x-2">
+                  {icon}
+                  <div>{title}</div>
+                </div>
                 <button
                   className="p-1 text-gray-800 rounded-xl dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-gray-700"
                   onClick={onClose}
