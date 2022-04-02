@@ -29,7 +29,7 @@ const SelectReferenceModule: React.FC<Props> = ({
           whileTap={{ scale: 0.9 }}
           type="button"
           onClick={() => {
-            trackEvent('reference module select')
+            trackEvent('choose reference module')
             setShowModal(!showModal)
           }}
         >

@@ -32,7 +32,7 @@ const SelectCollectModule: React.FC<Props> = ({
           whileTap={{ scale: 0.9 }}
           type="button"
           onClick={() => {
-            trackEvent('collect module select')
+            trackEvent('choose collect module')
             setShowModal(!showModal)
           }}
         >
