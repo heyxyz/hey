@@ -14,6 +14,9 @@
     <a href="https://gitlab.com/lenster/lenster/-/commits/main">
         <img src="https://badgen.net/gitlab/last-commit/lenster/lenster" alt="Last Commit">
     </a>
+    <a href="https://gitlab.com/lenster/lenster/-/blob/main/LICENSE">
+        <img src="https://badgen.net/gitlab/license/lenster/lenster" alt="Licence">
+    </a>
     <a href="https://discord.gg/B8eKhSSUwX">
         <img src="https://img.shields.io/discord/953679040722665512.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2" alt="Discord">
     </a>
