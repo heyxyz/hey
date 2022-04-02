@@ -29,6 +29,7 @@ import {
 } from '@lib/getModule'
 import { omit } from '@lib/omit'
 import { splitSignature } from '@lib/splitSignature'
+import { trackEvent } from '@lib/trackEvent'
 import { uploadToIPFS } from '@lib/uploadToIPFS'
 import { useContext, useState } from 'react'
 import toast from 'react-hot-toast'
@@ -170,6 +171,7 @@ const NewComment: React.FC<Props> = ({ refetch, post, type }) => {
                 setAttachments([])
                 setSelectedModule(defaultModuleData)
                 setFeeData(defaultFeeData)
+                trackEvent('new comment')
               } else {
                 toast.error(error?.message)
               }
