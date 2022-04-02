@@ -8,6 +8,7 @@ import { CreateCollectBroadcastItemResult } from '@generated/types'
 import { CashIcon } from '@heroicons/react/outline'
 import { omit } from '@lib/omit'
 import { splitSignature } from '@lib/splitSignature'
+import { trackEvent } from '@lib/trackEvent'
 import React, { useContext } from 'react'
 import toast from 'react-hot-toast'
 import {
@@ -107,6 +108,7 @@ const Fund: React.FC<Props> = ({ fund }) => {
             write({ args: inputStruct }).then(({ error }: { error: any }) => {
               if (!error) {
                 toast.success('Successfully funded!')
+                trackEvent('fund a crowdfund')
               } else {
                 if (
                   error?.data?.message ===
