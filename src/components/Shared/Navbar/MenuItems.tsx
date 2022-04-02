@@ -4,6 +4,7 @@ import AppContext from '@components/utils/AppContext'
 import { Profile } from '@generated/types'
 import { Menu, Transition } from '@headlessui/react'
 import {
+  ArrowCircleRightIcon,
   CogIcon,
   LogoutIcon,
   ShieldCheckIcon,
@@ -267,6 +268,7 @@ const MenuItems: React.FC<Props> = ({ indexerData }) => {
         <>
           <Modal
             title="Login"
+            icon={<ArrowCircleRightIcon className="h-5 w-5 text-brand-500" />}
             show={showLoginModal}
             onClose={() => setShowLoginModal(!showLoginModal)}
           >
