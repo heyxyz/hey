@@ -115,6 +115,7 @@ const WalletSelector: React.FC<Props> = ({
       {accountData?.connector?.id ? (
         <div className="space-y-3">
           <Button
+            className="umami--click--signin-with-ethereum-button"
             size="lg"
             icon={
               loadingSign ? (
