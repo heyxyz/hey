@@ -5,6 +5,7 @@ import SiteLayout from '@components/SiteLayout'
 import { providers } from 'ethers'
 import { AppProps } from 'next/app'
 import Head from 'next/head'
+import Script from 'next/script'
 import { ThemeProvider } from 'next-themes'
 import { INFURA_ID } from 'src/constants'
 import { chain, Connector, Provider } from 'wagmi'
@@ -70,6 +71,18 @@ const App = ({ Component, pageProps }: AppProps) => {
           </SiteLayout>
         </ThemeProvider>
       </ApolloProvider>
+      <Script
+        src="https://www.googletagmanager.com/gtag/js?id=G-18NFK33KC6"
+        strategy="afterInteractive"
+      />
+      <Script id="google-analytics" strategy="afterInteractive">
+        {`
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){window.dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-18NFK33KC6');
+            `}
+      </Script>
     </Provider>
   )
 }
