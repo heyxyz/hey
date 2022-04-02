@@ -21,7 +21,7 @@ const Giphy: React.FC<Props> = ({ setGifAttachment }) => {
         <motion.button
           whileTap={{ scale: 0.9 }}
           type="button"
-          className="tab-focus-ring"
+          className="umami--click--gif-select"
           onClick={() => setShowModal(!showModal)}
         >
           <div className="w-full fill-brand-500">
