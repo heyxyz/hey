@@ -12,6 +12,7 @@ import {
   SwitchHorizontalIcon,
   UserIcon
 } from '@heroicons/react/outline'
+import { CheckCircleIcon } from '@heroicons/react/solid'
 import { getAvatar } from '@lib/getAvatar'
 import { isStaff } from '@lib/isStaff'
 import { trackEvent } from '@lib/trackEvent'
@@ -180,6 +181,9 @@ const MenuItems: React.FC<Props> = ({ indexerData }) => {
                                 trackEvent('switch profile')
                               }}
                             >
+                              {currentUser.id === profile.id && (
+                                <CheckCircleIcon className="h-4 w-4 text-green-500" />
+                              )}
                               <img
                                 className="w-5 h-5 rounded-full border dark:border-gray-700"
                                 src={getAvatar(profile)}
