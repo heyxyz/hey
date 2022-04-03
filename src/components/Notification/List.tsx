@@ -112,11 +112,17 @@ const NOTIFICATIONS_QUERY = gql`
               id
               metadata {
                 content
+                attributes {
+                  value
+                }
               }
             }
             ... on Comment {
               metadata {
                 content
+                attributes {
+                  value
+                }
               }
             }
           }
