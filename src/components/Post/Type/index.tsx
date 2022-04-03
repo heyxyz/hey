@@ -29,16 +29,13 @@ const PostType: React.FC<Props> = ({ post, type }) => {
       {post?.__typename === 'Comment' &&
         type !== 'COMMENT' &&
         postType !== 'community post' && <Commented post={post} />}
-      {post?.collectedBy &&
-        postType === 'crowdfund' &&
-        pathname !== '/notifications' && <Funded fund={post} />}
       {postType === 'community post' && pathname !== '/communities/[id]' && (
         <CommunityPost post={post} />
       )}
       {post?.collectedBy &&
-        type !== 'COLLECT' &&
         postType !== 'community' &&
         postType !== 'crowdfund' && <Collected post={post} />}
+      {post?.collectedBy && postType === 'crowdfund' && <Funded fund={post} />}
     </>
   )
 }
