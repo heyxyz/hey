@@ -41,7 +41,7 @@ const Footer: React.FC = () => {
       </a>
       <a
         className="pr-3"
-        href="https://analytics.lenster.xyz/share/CQtv56rX/Lenster"
+        href="https://analytics.lenster.xyz/share/DUGyxaF6/Lenster"
         target="_blank"
         rel="noreferrer"
       >
