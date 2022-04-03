@@ -263,7 +263,7 @@ const NewComment: React.FC<Props> = ({ refetch, post, type }) => {
             placeholder="Tell something cool!"
             {...form.register('comment')}
           />
-          <div className="flex items-center">
+          <div className="block sm:flex items-center">
             <div className="flex items-center space-x-4">
               <Attachment
                 attachments={attachments}
@@ -281,7 +281,7 @@ const NewComment: React.FC<Props> = ({ refetch, post, type }) => {
                 setOnlyFollowers={setOnlyFollowers}
               />
             </div>
-            <div className="flex items-center ml-auto space-x-2">
+            <div className="flex items-center ml-auto space-x-2 pt-2 sm:pt-0">
               {data?.hash && (
                 <IndexStatus
                   refetch={refetch}
@@ -290,9 +290,10 @@ const NewComment: React.FC<Props> = ({ refetch, post, type }) => {
                 />
               )}
               {network.chain?.unsupported ? (
-                <SwitchNetwork />
+                <SwitchNetwork className="ml-auto" />
               ) : (
                 <Button
+                  className="ml-auto"
                   disabled={
                     isUploading ||
                     typedDataLoading ||
