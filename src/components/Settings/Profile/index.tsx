@@ -2,6 +2,7 @@ import { gql, useQuery } from '@apollo/client'
 import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout'
 import { PageLoading } from '@components/UI/PageLoading'
 import AppContext from '@components/utils/AppContext'
+import SEO from '@components/utils/SEO'
 import { NextPage } from 'next'
 import React, { useContext } from 'react'
 import Custom404 from 'src/pages/404'
@@ -51,6 +52,7 @@ const ProfileSettings: NextPage = () => {
 
   return (
     <GridLayout>
+      <SEO title="Profile settings • Lenster" />
       <GridItemFour>
         <Sidebar />
       </GridItemFour>

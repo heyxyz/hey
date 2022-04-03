@@ -1,5 +1,6 @@
 import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout'
 import AppContext from '@components/utils/AppContext'
+import SEO from '@components/utils/SEO'
 import { NextPage } from 'next'
 import React, { useContext } from 'react'
 import Custom404 from 'src/pages/404'
@@ -14,6 +15,7 @@ const AccountSettings: NextPage = () => {
 
   return (
     <GridLayout>
+      <SEO title="Account settings • Lenster" />
       <GridItemFour>
         <Sidebar />
       </GridItemFour>

@@ -1,4 +1,5 @@
 import Footer from '@components/Shared/Footer'
+import SEO from '@components/utils/SEO'
 import { HeartIcon } from '@heroicons/react/outline'
 import { useTheme } from 'next-themes'
 import React, { Fragment } from 'react'
@@ -17,6 +18,7 @@ const Brand: React.FC<Props> = ({ name, logo, url, size, children }) => {
 
   return (
     <div className="pt-10 space-y-5">
+      <SEO title="Thanks • Lenster" />
       <img
         className="mx-auto"
         style={{ height: size }}
