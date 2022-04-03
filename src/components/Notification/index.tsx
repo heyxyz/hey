@@ -11,7 +11,11 @@ const Notification: React.FC = () => {
       {({ open }) => (
         <>
           <Menu.Button>
-            <button onClick={() => trackEvent('notifications')}>
+            <button
+              onClick={() =>
+                trackEvent(`notifications ${open ? 'open' : 'close'}`)
+              }
+            >
               <LightningBoltIcon className="h-5 w-5 sm:h-6 sm:w-6" />
             </button>
           </Menu.Button>
