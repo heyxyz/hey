@@ -22,7 +22,7 @@ const Notification: React.FC = () => {
             leaveFrom="transform opacity-100 scale-100"
             leaveTo="transform opacity-0 scale-95"
           >
-            <Menu.Items className="overflow-y-auto max-h-[50vh] absolute py-1 right-0 mt-1 w-full md:min-w-[25rem] bg-white rounded-xl border shadow-sm dark:bg-gray-900 dark:border-gray-800">
+            <Menu.Items className="overflow-y-auto max-h-[80vh] sm:max-h-[60vh] absolute right-0 mt-1 min-w-full sm:min-w-[30rem] bg-white rounded-xl border shadow-sm dark:bg-gray-900 dark:border-gray-800">
               <List />
             </Menu.Items>
           </Transition>
