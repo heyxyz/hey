@@ -3,6 +3,7 @@ import {
   ClockIcon,
   CollectionIcon
 } from '@heroicons/react/outline'
+import { trackEvent } from '@lib/trackEvent'
 import clsx from 'clsx'
 import React, { Dispatch } from 'react'
 
@@ -20,7 +21,10 @@ const FeedType: React.FC<Props> = ({ setFeedType, feedType }) => {
 
   const FeedLink: React.FC<FeedLinkProps> = ({ name, icon, type }) => (
     <button
-      onClick={() => setFeedType(type)}
+      onClick={() => {
+        trackEvent(`explore ${name.toLowerCase()}`)
+        setFeedType(type)
+      }}
       className={clsx(
         {
           'text-brand-500 bg-brand-100 dark:bg-opacity-20 bg-opacity-100 font-bold':
