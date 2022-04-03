@@ -12,7 +12,7 @@ const Notification: React.FC = () => {
         <>
           <Menu.Button>
             <button onClick={() => trackEvent('notifications')}>
-              <LightningBoltIcon className="h-6 w-6" />
+              <LightningBoltIcon className="h-5 w-5 sm:h-6 sm:w-6" />
             </button>
           </Menu.Button>
           <Transition
