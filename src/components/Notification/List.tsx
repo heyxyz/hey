@@ -126,16 +126,16 @@ const List: React.FC = () => {
   const notifications = data?.notifications?.items
 
   return (
-    <div className="px-1 py-1">
+    <div className="divide-y">
       {notifications?.map((notification: Notification, index: number) => (
         <div key={index}>
           {notification.__typename === 'NewFollowerNotification' && (
-            <Menu.Item as="div" className="p-3">
+            <Menu.Item as="div" className="p-4">
               <FollowerNotification notification={notification} />
             </Menu.Item>
           )}
           {notification.__typename === 'NewCommentNotification' && (
-            <Menu.Item as="div" className="p-3">
+            <Menu.Item as="div" className="p-4">
               <CommentNotification notification={notification} />
             </Menu.Item>
           )}
