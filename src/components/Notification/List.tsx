@@ -130,7 +130,6 @@ const NOTIFICATIONS_QUERY = gql`
         }
       }
       pageInfo {
-        totalCount
         next
       }
     }
