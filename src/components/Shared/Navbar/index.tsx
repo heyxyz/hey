@@ -1,4 +1,5 @@
 import { gql, useQuery } from '@apollo/client'
+import Notification from '@components/Notification'
 import AppContext from '@components/utils/AppContext'
 import { isStaff } from '@lib/isStaff'
 import clsx from 'clsx'
@@ -9,7 +10,6 @@ import { useContext } from 'react'
 
 import MenuItems from './MenuItems'
 import MoreNavItems from './MoreNavItems'
-import Notification from './Notification'
 import Search from './Search'
 
 const StaffBar = dynamic(() => import('./StaffBar'))
@@ -98,9 +98,7 @@ const Navbar: React.FC = () => {
           </div>
           <div className="flex absolute inset-y-0 right-0 gap-8 items-center sm:static sm:inset-auto">
             {currentUser && <Notification />}
-            <div className="flex gap-5 items-center">
-              <MenuItems indexerData={indexerData} />
-            </div>
+            <MenuItems indexerData={indexerData} />
           </div>
         </div>
       </div>
