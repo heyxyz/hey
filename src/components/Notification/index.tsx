@@ -1,22 +1,56 @@
+import { gql, useQuery } from '@apollo/client'
+import AppContext from '@components/utils/AppContext'
 import { Menu, Transition } from '@headlessui/react'
 import { LightningBoltIcon } from '@heroicons/react/outline'
 import { trackEvent } from '@lib/trackEvent'
-import { Fragment } from 'react'
+import { Fragment, useContext, useEffect, useState } from 'react'
 
 import List from './List'
 
+const NOTIFICATION_COUNT_QUERY = gql`
+  query NotificationCount($request: NotificationRequest!) {
+    notifications(request: $request) {
+      pageInfo {
+        totalCount
+      }
+    }
+  }
+`
+
 const Notification: React.FC = () => {
+  const { currentUser } = useContext(AppContext)
+  const [showBadge, setShowBadge] = useState<boolean>(false)
+  const { data } = useQuery(NOTIFICATION_COUNT_QUERY, {
+    variables: { request: { profileId: currentUser?.id } },
+    skip: !currentUser?.id
+  })
+
+  useEffect(() => {
+    if (currentUser && data) {
+      const localCount = localStorage.getItem('notificationCount') ?? '0'
+      const currentCount = data?.notifications?.pageInfo?.totalCount.toString()
+      setShowBadge(localCount !== currentCount)
+    }
+  }, [currentUser, data])
+
   return (
     <Menu as="span" className="sm:relative mt-1.5">
       {({ open }) => (
         <>
           <Menu.Button>
             <button
-              onClick={() =>
+              className="flex items-start"
+              onClick={() => {
                 trackEvent(`notifications ${open ? 'open' : 'close'}`)
-              }
+                localStorage.setItem(
+                  'notificationCount',
+                  data?.notifications?.pageInfo?.totalCount.toString()
+                )
+                setShowBadge(false)
+              }}
             >
               <LightningBoltIcon className="h-5 w-5 sm:h-6 sm:w-6" />
+              {showBadge && <div className="w-2 h-2 bg-red-500 rounded-full" />}
             </button>
           </Menu.Button>
           <Transition
