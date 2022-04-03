@@ -1,5 +1,5 @@
 import { NewCollectNotification } from '@generated/types'
-import { CollectionIcon } from '@heroicons/react/outline'
+import { CashIcon, CollectionIcon, UsersIcon } from '@heroicons/react/outline'
 import { formatUsername } from '@lib/formatUsername'
 import { getAvatar } from '@lib/getAvatar'
 import { imagekitURL } from '@lib/imagekitURL'
@@ -16,6 +16,9 @@ interface Props {
 
 const CollectNotification: React.FC<Props> = ({ notification }) => {
   const { wallet } = notification
+  const postType =
+    notification?.collectedPublication?.metadata?.attributes[0]?.value ??
+    notification?.collectedPublication?.__typename?.toLowerCase()
 
   return (
     <>
@@ -49,14 +52,16 @@ const CollectNotification: React.FC<Props> = ({ notification }) => {
                         formatUsername(wallet.address)}{' '}
                     </span>
                     <span className="pl-0.5 text-gray-600">
-                      collected your{' '}
+                      {postType === 'community'
+                        ? 'joined your'
+                        : postType === 'crowdfund'
+                        ? 'funded your'
+                        : 'collected your'}{' '}
                     </span>
                     <Link
                       href={`/posts/${notification?.collectedPublication.id}`}
                     >
-                      <a className="font-bold">
-                        {notification?.collectedPublication?.__typename?.toLowerCase()}
-                      </a>
+                      <a className="font-bold">{postType}</a>
                     </Link>
                   </div>
                 </div>
@@ -64,7 +69,13 @@ const CollectNotification: React.FC<Props> = ({ notification }) => {
                   {notification?.collectedPublication?.metadata?.content}
                 </div>
                 <div className="text-sm text-gray-400 flex items-center space-x-1">
-                  <CollectionIcon className="h-[15px] text-pink-500" />
+                  {postType === 'community' ? (
+                    <UsersIcon className="h-[15px] text-pink-500" />
+                  ) : postType === 'crowdfund' ? (
+                    <CashIcon className="h-[15px] text-pink-500" />
+                  ) : (
+                    <CollectionIcon className="h-[15px] text-pink-500" />
+                  )}
                   <div>{dayjs(new Date(notification.createdAt)).fromNow()}</div>
                 </div>
               </div>
