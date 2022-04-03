@@ -73,7 +73,7 @@ const App = ({ Component, pageProps }: AppProps) => {
       </ApolloProvider>
       {IS_PRODUCTION && (
         <Script
-          data-website-id="44ac57be-a743-4440-85bd-6592567935c9"
+          data-website-id="680b8704-0981-4cfd-8577-e5bdf5f77df8"
           src="https://analytics.lenster.xyz/umami.js"
           async
           defer
