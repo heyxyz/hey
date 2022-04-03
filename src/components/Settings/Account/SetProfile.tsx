@@ -8,6 +8,7 @@ import { Spinner } from '@components/UI/Spinner'
 import AppContext from '@components/utils/AppContext'
 import { Profile } from '@generated/types'
 import { PencilIcon } from '@heroicons/react/outline'
+import { trackEvent } from '@lib/trackEvent'
 import React, { useContext, useState } from 'react'
 import toast from 'react-hot-toast'
 import { CONNECT_WALLET, LENSHUB_PROXY, WRONG_NETWORK } from 'src/constants'
@@ -54,6 +55,7 @@ const SetProfile: React.FC = () => {
       write({ args: [selectedUser] }).then(({ error }) => {
         if (!error) {
           toast.success('Default profile updated successfully!')
+          trackEvent('update default profile')
         } else {
           toast.error(error?.message)
         }
