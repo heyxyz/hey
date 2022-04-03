@@ -68,9 +68,7 @@ const Modules: React.FC<Props> = ({
   return (
     <div className="dark:divide-gray-700">
       <div className="py-3.5 px-5 space-y-3">
-        {error && (
-          <ErrorMessage title="Failed to fetch modules!" error={error} />
-        )}
+        {error && <ErrorMessage title="Failed to load modules" error={error} />}
         {showFeeEntry ? (
           <FeeEntry
             selectedModule={selectedModule}
