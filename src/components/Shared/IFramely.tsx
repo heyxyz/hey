@@ -1,5 +1,6 @@
 import { Card } from '@components/UI/Card'
 import { imagekitURL } from '@lib/imagekitURL'
+import { trackEvent } from '@lib/trackEvent'
 import React, { useEffect, useState } from 'react'
 
 interface Props {
@@ -56,7 +57,12 @@ const IFramely: React.FC<Props> = ({ url }) => {
 
     return (
       <div className="mt-4 text-sm sm:w-2/3">
-        <a href={url} target="_blank" rel="noreferrer">
+        <a
+          href={url}
+          target="_blank"
+          rel="noreferrer"
+          onClick={() => trackEvent('oembed')}
+        >
           <Card forceRounded>
             {!isSquare && thumbnail && (
               <img
