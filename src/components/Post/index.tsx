@@ -5,6 +5,7 @@ import Footer from '@components/Shared/Footer'
 import UserProfile from '@components/Shared/UserProfile'
 import { Card, CardBody } from '@components/UI/Card'
 import AppContext from '@components/utils/AppContext'
+import SEO from '@components/utils/SEO'
 import { LensterPost } from '@generated/lenstertypes'
 import {
   CommentCollectionFragment,
@@ -93,6 +94,9 @@ const ViewPost: NextPage = () => {
 
   return (
     <GridLayout>
+      <SEO
+        title={`${post?.__typename} by @${post?.profile?.handle} • Lenster`}
+      />
       <GridItemEight className="space-y-5">
         <SinglePost post={post} />
         <Feed
