@@ -171,7 +171,7 @@ const NewComment: React.FC<Props> = ({ refetch, post, type }) => {
                 setAttachments([])
                 setSelectedModule(defaultModuleData)
                 setFeeData(defaultFeeData)
-                trackEvent('new comment')
+                trackEvent('new comment', 'create')
               } else {
                 toast.error(error?.message)
               }
