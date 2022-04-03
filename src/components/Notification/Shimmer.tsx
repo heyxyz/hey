@@ -6,7 +6,7 @@ const NotificationShimmer: React.FC = () => {
         <div className="w-5/6 space-y-2">
           <div className="h-3 w-2/3 rounded-lg shimmer" />
           <div className="h-2 w-5/6 rounded-lg shimmer" />
-          <div className="flex items-center space-x-1">
+          <div className="flex items-center space-x-1 pt-1">
             <div className="h-3 w-3 rounded-lg shimmer" />
             <div className="h-2 w-20 rounded-lg shimmer" />
           </div>
