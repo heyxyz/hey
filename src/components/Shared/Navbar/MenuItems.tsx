@@ -177,6 +177,7 @@ const MenuItems: React.FC<Props> = ({ indexerData }) => {
                                   index.toString()
                                 )
                                 setSelectedProfile(index)
+                                trackEvent('switch profile')
                               }}
                             >
                               <img
@@ -194,19 +195,28 @@ const MenuItems: React.FC<Props> = ({ indexerData }) => {
                   <div className="border-b dark:border-gray-800" />
                   <div className="flex items-center py-3 px-5 space-x-4">
                     <button
-                      onClick={() => setTheme('light')}
+                      onClick={() => {
+                        trackEvent('light mode')
+                        setTheme('light')
+                      }}
                       className={theme === 'light' ? 'text-xl' : ''}
                     >
                       🌞
                     </button>
                     <button
-                      onClick={() => setTheme('dark')}
+                      onClick={() => {
+                        trackEvent('dark mode')
+                        setTheme('dark')
+                      }}
                       className={theme === 'dark' ? 'text-xl' : ''}
                     >
                       🌚
                     </button>
                     <button
-                      onClick={() => setTheme('system')}
+                      onClick={() => {
+                        trackEvent('system theme mode')
+                        setTheme('system')
+                      }}
                       className={theme === 'system' ? 'text-xl' : ''}
                     >
                       💻
