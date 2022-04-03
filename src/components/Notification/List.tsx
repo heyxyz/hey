@@ -11,6 +11,7 @@ import useInView from 'react-cool-inview'
 
 import CommentNotification from './Type/CommentNotification'
 import FollowerNotification from './Type/FollowerNotification'
+import MirrorNotification from './Type/MirrorNotification'
 
 const NOTIFICATIONS_QUERY = gql`
   query Notifications($request: NotificationRequest!) {
@@ -23,6 +24,7 @@ const NOTIFICATIONS_QUERY = gql`
               id
               name
               handle
+              ownedBy
               picture {
                 ... on MediaSet {
                   original {
@@ -36,6 +38,8 @@ const NOTIFICATIONS_QUERY = gql`
         }
         ... on NewCommentNotification {
           profile {
+            id
+            name
             handle
             ownedBy
             picture {
@@ -59,16 +63,33 @@ const NOTIFICATIONS_QUERY = gql`
         }
         ... on NewMirrorNotification {
           profile {
+            id
+            name
             handle
+            ownedBy
+            picture {
+              ... on MediaSet {
+                original {
+                  url
+                }
+              }
+            }
           }
           publication {
             ... on Post {
-              ...PostFragment
+              id
+              metadata {
+                content
+              }
             }
             ... on Comment {
-              ...CommentFragment
+              id
+              metadata {
+                content
+              }
             }
           }
+          createdAt
         }
         ... on NewCollectNotification {
           wallet {
@@ -145,6 +166,11 @@ const List: React.FC = () => {
           {notification.__typename === 'NewCommentNotification' && (
             <Menu.Item as="div" className="p-4">
               <CommentNotification notification={notification} />
+            </Menu.Item>
+          )}
+          {notification.__typename === 'NewMirrorNotification' && (
+            <Menu.Item as="div" className="p-4">
+              <MirrorNotification notification={notification} />
             </Menu.Item>
           )}
         </div>
