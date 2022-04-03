@@ -1,9 +1,7 @@
 import { NewCommentNotification } from '@generated/types'
 import { ChatAlt2Icon } from '@heroicons/react/outline'
-import { BadgeCheckIcon } from '@heroicons/react/solid'
 import { getAvatar } from '@lib/getAvatar'
 import { imagekitURL } from '@lib/imagekitURL'
-import { isVerified } from '@lib/isVerified'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import Link from 'next/link'
@@ -36,27 +34,28 @@ const CommentNotification: React.FC<Props> = ({ notification }) => {
                 alt={notification?.profile?.handle}
               />
               <div>
-                <div className="flex gap-1 items-center">
-                  <ChatAlt2Icon className="h-4 w-4 text-blue-500 mr-1" />
-                  <div className="font-bold">
-                    {notification?.profile?.name ??
-                      notification?.profile?.handle}
+                <div className="flex space-x-2 items-center">
+                  <div>
+                    <span className="font-bold">
+                      {notification?.profile?.name ??
+                        notification?.profile?.handle}{' '}
+                    </span>
+                    <span className="pl-0.5 text-gray-600">
+                      commented on your{' '}
+                    </span>
+                    <Link href={`/posts/${notification?.comment.id}`}>
+                      <a className="font-bold">
+                        {notification?.comment?.commentOn?.__typename?.toLowerCase()}
+                      </a>
+                    </Link>
                   </div>
-                  {isVerified(notification?.profile?.id) && (
-                    <BadgeCheckIcon className="w-4 h-4 text-brand-500" />
-                  )}
-                  <div className="pl-0.5 text-gray-600">commented on your</div>
-                  <Link href={`/posts/${notification?.comment.id}`}>
-                    <a className="font-bold">
-                      {notification?.comment?.commentOn?.__typename?.toLowerCase()}
-                    </a>
-                  </Link>
                 </div>
                 <div className="text-sm line-clamp-1 text-gray-500">
                   {notification?.comment?.metadata?.content}
                 </div>
-                <div className="text-sm text-gray-400">
-                  {dayjs(new Date(notification.createdAt)).fromNow()}
+                <div className="text-sm text-gray-400 flex items-center space-x-1">
+                  <ChatAlt2Icon className="h-[15px] text-blue-500" />
+                  <div>{dayjs(new Date(notification.createdAt)).fromNow()}</div>
                 </div>
               </div>
             </div>

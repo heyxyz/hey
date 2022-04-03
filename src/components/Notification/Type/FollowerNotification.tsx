@@ -1,10 +1,8 @@
 import { NewFollowerNotification } from '@generated/types'
 import { UserAddIcon } from '@heroicons/react/outline'
-import { BadgeCheckIcon } from '@heroicons/react/solid'
 import { formatUsername } from '@lib/formatUsername'
 import { getAvatar } from '@lib/getAvatar'
 import { imagekitURL } from '@lib/imagekitURL'
-import { isVerified } from '@lib/isVerified'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import Link from 'next/link'
@@ -49,21 +47,17 @@ const FollowerNotification: React.FC<Props> = ({ notification }) => {
                 }
               />
               <div>
-                <div className="flex gap-1 items-center">
-                  <UserAddIcon className="h-4 w-4 text-green-500 mr-1" />
-                  <div className="font-bold">
+                <div>
+                  <span className="font-bold">
                     {wallet?.defaultProfile?.name ??
                       wallet?.defaultProfile?.handle ??
-                      formatUsername(wallet.address)}
-                  </div>
-                  {wallet?.defaultProfile &&
-                    isVerified(wallet?.defaultProfile?.id) && (
-                      <BadgeCheckIcon className="w-4 h-4 text-brand-500" />
-                    )}
-                  <div className="pl-0.5 text-gray-600">followed you</div>
+                      formatUsername(wallet.address)}{' '}
+                  </span>
+                  <span className="pl-0.5 text-gray-600">followed you</span>
                 </div>
-                <div className="text-sm text-gray-400">
-                  {dayjs(new Date(notification.createdAt)).fromNow()}
+                <div className="text-sm text-gray-400 flex items-center space-x-1">
+                  <UserAddIcon className="h-[15px] text-green-500" />
+                  <div>{dayjs(new Date(notification.createdAt)).fromNow()}</div>
                 </div>
               </div>
             </div>
