@@ -55,6 +55,8 @@ const IFramely: React.FC<Props> = ({ url }) => {
       data?.links?.thumbnail[0]?.media?.width ===
         data?.links?.thumbnail[0]?.media?.height
 
+    if (!title) return null
+
     return (
       <div className="mt-4 text-sm sm:w-2/3">
         <a
