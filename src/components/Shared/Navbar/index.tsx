@@ -1,4 +1,5 @@
 import { gql, useQuery } from '@apollo/client'
+import Notification from '@components/Notification'
 import AppContext from '@components/utils/AppContext'
 import { isStaff } from '@lib/isStaff'
 import clsx from 'clsx'
@@ -12,9 +13,6 @@ import MoreNavItems from './MoreNavItems'
 import Search from './Search'
 
 const StaffBar = dynamic(() => import('./StaffBar'))
-const Notification = dynamic(() => import('../../Notification'), {
-  loading: () => <div className="shimmer h-6 w-6 rounded-lg" />
-})
 
 const PING_QUERY = gql`
   query Ping {
