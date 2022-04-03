@@ -6,6 +6,7 @@ import { Notification } from '@generated/types'
 import { useContext } from 'react'
 import useInView from 'react-cool-inview'
 
+import NotificationShimmer from './Shimmer'
 import CollectNotification from './Type/CollectNotification'
 import CommentNotification from './Type/CommentNotification'
 import FollowerNotification from './Type/FollowerNotification'
@@ -160,7 +161,16 @@ const List: React.FC = () => {
     }
   })
 
-  if (loading) return <div className="h-5 rounded-lg shimmer m-3" />
+  if (loading)
+    return (
+      <div className="divide-y">
+        <NotificationShimmer />
+        <NotificationShimmer />
+        <NotificationShimmer />
+        <NotificationShimmer />
+      </div>
+    )
+
   if (error)
     return (
       <ErrorMessage
