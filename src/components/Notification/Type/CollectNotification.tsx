@@ -68,7 +68,7 @@ const CollectNotification: React.FC<Props> = ({ notification }) => {
                 <div className="text-sm line-clamp-1 text-gray-500">
                   {notification?.collectedPublication?.metadata?.content}
                 </div>
-                <div className="text-[13px] pt-1 text-gray-400 flex items-center space-x-1">
+                <div className="text-[12px] pt-1 text-gray-400 flex items-center space-x-1">
                   {postType === 'community' ? (
                     <UsersIcon className="h-[15px] text-pink-500" />
                   ) : postType === 'crowdfund' ? (

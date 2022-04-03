@@ -51,7 +51,7 @@ const MirrorNotification: React.FC<Props> = ({ notification }) => {
                 <div className="text-sm line-clamp-1 text-gray-500">
                   {notification?.publication?.metadata?.content}
                 </div>
-                <div className="text-[13px] pt-1 text-gray-400 flex items-center space-x-1">
+                <div className="text-[12px] pt-1 text-gray-400 flex items-center space-x-1">
                   <DuplicateIcon className="h-[15px] text-brand-500" />
                   <div>{dayjs(new Date(notification.createdAt)).fromNow()}</div>
                 </div>
