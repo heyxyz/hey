@@ -2,9 +2,9 @@ import '../styles.css'
 
 import { ApolloProvider } from '@apollo/client'
 import SiteLayout from '@components/SiteLayout'
+import SEO from '@components/utils/SEO'
 import { providers } from 'ethers'
 import { AppProps } from 'next/app'
-import Head from 'next/head'
 import Script from 'next/script'
 import { ThemeProvider } from 'next-themes'
 import { INFURA_ID, IS_PRODUCTION } from 'src/constants'
@@ -59,13 +59,7 @@ const App = ({ Component, pageProps }: AppProps) => {
     >
       <ApolloProvider client={client}>
         <ThemeProvider defaultTheme="light" attribute="class">
-          <Head>
-            <title>Lenster</title>
-            <meta
-              name="viewport"
-              content="width=device-width, initial-scale=1.0, viewport-fit=cover"
-            />
-          </Head>
+          <SEO />
           <SiteLayout>
             <Component {...pageProps} />
           </SiteLayout>
