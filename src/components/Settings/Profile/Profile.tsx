@@ -11,6 +11,7 @@ import { TextArea } from '@components/UI/TextArea'
 import AppContext from '@components/utils/AppContext'
 import { Profile } from '@generated/types'
 import { PencilIcon } from '@heroicons/react/outline'
+import { trackEvent } from '@lib/trackEvent'
 import { uploadAssetsToIPFS } from '@lib/uploadAssetsToIPFS'
 import React, { useContext, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
@@ -64,6 +65,7 @@ const Profile: React.FC<Props> = ({ profile }) => {
     {
       onCompleted() {
         toast.success('Profile updated successfully!')
+        trackEvent('update profile')
       },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)

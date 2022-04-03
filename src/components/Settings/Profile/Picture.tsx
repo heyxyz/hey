@@ -14,6 +14,7 @@ import {
 import { PencilIcon } from '@heroicons/react/outline'
 import { omit } from '@lib/omit'
 import { splitSignature } from '@lib/splitSignature'
+import { trackEvent } from '@lib/trackEvent'
 import { uploadAssetsToIPFS } from '@lib/uploadAssetsToIPFS'
 import gql from 'graphql-tag'
 import React, { useContext, useEffect, useState } from 'react'
@@ -120,6 +121,7 @@ const Picture: React.FC<Props> = ({ profile }) => {
             write({ args: inputStruct }).then(({ error }) => {
               if (!error) {
                 toast.success('Avatar updated successfully!')
+                trackEvent('update avatar')
               } else {
                 toast.error(error?.message)
               }

@@ -7,6 +7,7 @@ import GetModuleIcon from '@components/utils/GetModuleIcon'
 import { ApprovedAllowanceAmount } from '@generated/types'
 import { MinusIcon, PlusIcon } from '@heroicons/react/outline'
 import { getModule } from '@lib/getModule'
+import { trackEvent } from '@lib/trackEvent'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import { ERROR_MESSAGE } from 'src/constants'
@@ -57,6 +58,9 @@ const Module: React.FC<Props> = ({ module }) => {
           setAllowed(value === '0' ? true : false)
           toast.success(
             `Module ${value === '0' ? 'disabled' : 'enabled'} successfully!`
+          )
+          trackEvent(
+            `${value === '0' ? 'disabled' : 'enabled'} module allowance`
           )
         } else {
           toast.error(error.message)
