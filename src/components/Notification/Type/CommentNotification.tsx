@@ -34,7 +34,7 @@ const CommentNotification: React.FC<Props> = ({ notification }) => {
                 alt={notification?.profile?.handle}
               />
               <div>
-                <div className="flex space-x-2 items-center">
+                <div className="flex items-center space-x-2">
                   <div>
                     <span className="font-bold">
                       {notification?.profile?.name ??
@@ -50,11 +50,11 @@ const CommentNotification: React.FC<Props> = ({ notification }) => {
                     </Link>
                   </div>
                 </div>
-                <div className="text-sm line-clamp-1 text-gray-500">
+                <div className="text-sm text-gray-500 line-clamp-1">
                   {notification?.comment?.metadata?.content}
                 </div>
-                <div className="text-[12px] pt-1 text-gray-400 flex items-center space-x-1">
-                  <ChatAlt2Icon className="h-[15px] text-blue-500" />
+                <div className="flex items-center pt-1 space-x-1 text-gray-400 text-[12px]">
+                  <ChatAlt2Icon className="text-blue-500 h-[15px]" />
                   <div>{dayjs(new Date(notification.createdAt)).fromNow()}</div>
                 </div>
               </div>

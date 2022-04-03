@@ -263,7 +263,7 @@ const NewComment: React.FC<Props> = ({ refetch, post, type }) => {
             placeholder="Tell something cool!"
             {...form.register('comment')}
           />
-          <div className="block sm:flex items-center">
+          <div className="block items-center sm:flex">
             <div className="flex items-center space-x-4">
               <Attachment
                 attachments={attachments}
@@ -281,7 +281,7 @@ const NewComment: React.FC<Props> = ({ refetch, post, type }) => {
                 setOnlyFollowers={setOnlyFollowers}
               />
             </div>
-            <div className="flex items-center ml-auto space-x-2 pt-2 sm:pt-0">
+            <div className="flex items-center pt-2 ml-auto space-x-2 sm:pt-0">
               {data?.hash && (
                 <IndexStatus
                   refetch={refetch}

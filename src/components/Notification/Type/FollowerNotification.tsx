@@ -53,8 +53,8 @@ const FollowerNotification: React.FC<Props> = ({ notification }) => {
                     formatUsername(wallet.address)}{' '}
                 </span>
                 <span className="pl-0.5 text-gray-600">followed you</span>
-                <div className="text-[12px] pt-1 text-gray-400 flex items-center space-x-1">
-                  <UserAddIcon className="h-[15px] text-green-500" />
+                <div className="flex items-center pt-1 space-x-1 text-gray-400 text-[12px]">
+                  <UserAddIcon className="text-green-500 h-[15px]" />
                   <div>{dayjs(new Date(notification.createdAt)).fromNow()}</div>
                 </div>
               </div>
