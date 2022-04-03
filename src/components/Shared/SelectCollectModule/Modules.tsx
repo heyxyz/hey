@@ -48,7 +48,7 @@ const Modules: React.FC<Props> = ({
 
   const handleSelectModule = (module: EnabledModule) => {
     setSelectedModule(module)
-    trackEvent(`${module.moduleName}`, 'select')
+    trackEvent(`${getModule(module.moduleName).name.toLowerCase()}`, 'select')
 
     if (getModule(module?.moduleName).hasParam) {
       setShowFeeEntry(true)
