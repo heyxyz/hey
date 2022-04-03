@@ -1,5 +1,6 @@
 import { gql, useQuery } from '@apollo/client'
 import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout'
+import SEO from '@components/utils/SEO'
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
@@ -67,6 +68,11 @@ const ViewProfile: NextPage = () => {
 
   return (
     <>
+      {profile?.name ? (
+        <SEO title={`${profile?.name} (@${profile?.handle}) • Lenster`} />
+      ) : (
+        <SEO title={`@${profile?.handle} • Lenster`} />
+      )}
       <Cover cover={profile?.coverPicture?.original?.url} />
       <GridLayout className="pt-6">
         <GridItemFour>
