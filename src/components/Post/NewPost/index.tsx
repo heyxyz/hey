@@ -251,7 +251,7 @@ const NewPost: React.FC<Props> = ({ refetch }) => {
             placeholder="What's happening?"
             {...form.register('post')}
           />
-          <div className="block sm:flex items-center">
+          <div className="block items-center sm:flex">
             <div className="flex items-center space-x-4">
               <Attachment
                 attachments={attachments}
@@ -269,7 +269,7 @@ const NewPost: React.FC<Props> = ({ refetch }) => {
                 setOnlyFollowers={setOnlyFollowers}
               />
             </div>
-            <div className="flex items-center ml-auto space-x-2 pt-2 sm:pt-0">
+            <div className="flex items-center pt-2 ml-auto space-x-2 sm:pt-0">
               {data?.hash && (
                 <IndexStatus
                   refetch={refetch}

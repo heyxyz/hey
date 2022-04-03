@@ -9,7 +9,7 @@ const Announcement: React.FC = () => {
           <BeakerIcon className="w-5 h-5 text-yellow-600" />
           <p>Beta warning!</p>
         </div>
-        <p className="text-yellow-600 text-sm leading-[22px]">
+        <p className="text-sm text-yellow-600 leading-[22px]">
           Lenster is still in the beta phase and all contents are stored in
           Mumbai testnet.
         </p>

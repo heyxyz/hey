@@ -44,7 +44,7 @@ const CollectNotification: React.FC<Props> = ({ notification }) => {
                 }
               />
               <div>
-                <div className="flex space-x-2 items-center">
+                <div className="flex items-center space-x-2">
                   <div>
                     <span className="font-bold">
                       {wallet?.defaultProfile?.name ??
@@ -65,16 +65,16 @@ const CollectNotification: React.FC<Props> = ({ notification }) => {
                     </Link>
                   </div>
                 </div>
-                <div className="text-sm line-clamp-1 text-gray-500">
+                <div className="text-sm text-gray-500 line-clamp-1">
                   {notification?.collectedPublication?.metadata?.content}
                 </div>
-                <div className="text-[12px] pt-1 text-gray-400 flex items-center space-x-1">
+                <div className="flex items-center pt-1 space-x-1 text-gray-400 text-[12px]">
                   {postType === 'community' ? (
-                    <UsersIcon className="h-[15px] text-pink-500" />
+                    <UsersIcon className="text-pink-500 h-[15px]" />
                   ) : postType === 'crowdfund' ? (
-                    <CashIcon className="h-[15px] text-pink-500" />
+                    <CashIcon className="text-pink-500 h-[15px]" />
                   ) : (
-                    <CollectionIcon className="h-[15px] text-pink-500" />
+                    <CollectionIcon className="text-pink-500 h-[15px]" />
                   )}
                   <div>{dayjs(new Date(notification.createdAt)).fromNow()}</div>
                 </div>

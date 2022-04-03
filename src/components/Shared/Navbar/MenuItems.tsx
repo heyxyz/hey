@@ -182,7 +182,7 @@ const MenuItems: React.FC<Props> = ({ indexerData }) => {
                               }}
                             >
                               {currentUser.id === profile.id && (
-                                <CheckCircleIcon className="h-4 w-4 text-green-500" />
+                                <CheckCircleIcon className="w-4 h-4 text-green-500" />
                               )}
                               <img
                                 className="w-5 h-5 rounded-full border dark:border-gray-700"

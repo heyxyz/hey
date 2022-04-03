@@ -34,7 +34,7 @@ const IndexStatus: React.FC<Props> = ({ refetch, type, txHash }) => {
 
   return (
     <a
-      className="text-sm ml-auto"
+      className="ml-auto text-sm"
       href={`https://mumbai.polygonscan.com/tx/${txHash}`}
       target="_blank"
       rel="noreferrer"
