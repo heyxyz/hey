@@ -1,0 +1,130 @@
+import { gql, useQuery } from '@apollo/client'
+import { ErrorMessage } from '@components/UI/ErrorMessage'
+import AppContext from '@components/utils/AppContext'
+import { Notification } from '@generated/types'
+import { CommentFragment } from '@gql/CommentFragment'
+import { PostFragment } from '@gql/PostFragment'
+import { Menu } from '@headlessui/react'
+import { useContext } from 'react'
+
+import CommentNotification from './Type/CommentNotification'
+import FollowerNotification from './Type/FollowerNotification'
+
+const NOTIFICATIONS_QUERY = gql`
+  query Notifications($request: NotificationRequest!) {
+    notifications(request: $request) {
+      items {
+        ... on NewFollowerNotification {
+          wallet {
+            address
+            defaultProfile {
+              id
+              name
+              handle
+              picture {
+                ... on MediaSet {
+                  original {
+                    url
+                  }
+                }
+              }
+            }
+          }
+          createdAt
+        }
+        ... on NewCommentNotification {
+          profile {
+            handle
+          }
+          comment {
+            id
+            metadata {
+              content
+            }
+            commentOn {
+              __typename
+            }
+          }
+          createdAt
+        }
+        ... on NewMirrorNotification {
+          profile {
+            handle
+          }
+          publication {
+            ... on Post {
+              ...PostFragment
+            }
+            ... on Comment {
+              ...CommentFragment
+            }
+          }
+        }
+        ... on NewCollectNotification {
+          wallet {
+            address
+            defaultProfile {
+              handle
+            }
+          }
+          collectedPublication {
+            ... on Post {
+              ...PostFragment
+            }
+            ... on Comment {
+              ...CommentFragment
+            }
+          }
+        }
+      }
+      pageInfo {
+        totalCount
+        next
+      }
+    }
+  }
+  ${PostFragment}
+  ${CommentFragment}
+`
+
+const List: React.FC = () => {
+  const { currentUser } = useContext(AppContext)
+  const { data, loading, error, fetchMore } = useQuery(NOTIFICATIONS_QUERY, {
+    variables: {
+      request: { profileId: currentUser?.id, limit: 50 }
+    }
+  })
+
+  if (loading) return <div className="h-5 rounded-lg shimmer m-3" />
+  if (error)
+    return (
+      <ErrorMessage
+        className="m-3"
+        title="Failed to load notifications"
+        error={error}
+      />
+    )
+
+  const notifications = data?.notifications?.items
+
+  return (
+    <div className="px-1 py-1">
+      {notifications?.map((notification: Notification, index: number) => (
+        <div key={index}>
+          {notification.__typename === 'NewFollowerNotification' && (
+            <Menu.Item as="div" className="p-3">
+              <FollowerNotification notification={notification} />
+            </Menu.Item>
+          )}
+          {notification.__typename === 'NewCommentNotification' && (
+            <Menu.Item as="div" className="p-3">
+              <CommentNotification notification={notification} />
+            </Menu.Item>
+          )}
+        </div>
+      ))}
+    </div>
+  )
+}
+
+export default List
