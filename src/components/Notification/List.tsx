@@ -3,12 +3,11 @@ import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { Spinner } from '@components/UI/Spinner'
 import AppContext from '@components/utils/AppContext'
 import { Notification } from '@generated/types'
-import { CommentFragment } from '@gql/CommentFragment'
-import { PostFragment } from '@gql/PostFragment'
 import { Menu } from '@headlessui/react'
 import { useContext } from 'react'
 import useInView from 'react-cool-inview'
 
+import CollectNotification from './Type/CollectNotification'
 import CommentNotification from './Type/CommentNotification'
 import FollowerNotification from './Type/FollowerNotification'
 import MirrorNotification from './Type/MirrorNotification'
@@ -95,17 +94,33 @@ const NOTIFICATIONS_QUERY = gql`
           wallet {
             address
             defaultProfile {
+              id
+              name
               handle
+              ownedBy
+              picture {
+                ... on MediaSet {
+                  original {
+                    url
+                  }
+                }
+              }
             }
           }
           collectedPublication {
             ... on Post {
-              ...PostFragment
+              id
+              metadata {
+                content
+              }
             }
             ... on Comment {
-              ...CommentFragment
+              metadata {
+                content
+              }
             }
           }
+          createdAt
         }
       }
       pageInfo {
@@ -114,8 +129,6 @@ const NOTIFICATIONS_QUERY = gql`
       }
     }
   }
-  ${PostFragment}
-  ${CommentFragment}
 `
 
 const List: React.FC = () => {
@@ -171,6 +184,11 @@ const List: React.FC = () => {
           {notification.__typename === 'NewMirrorNotification' && (
             <Menu.Item as="div" className="p-4">
               <MirrorNotification notification={notification} />
+            </Menu.Item>
+          )}
+          {notification.__typename === 'NewCollectNotification' && (
+            <Menu.Item as="div" className="p-4">
+              <CollectNotification notification={notification} />
             </Menu.Item>
           )}
         </div>
