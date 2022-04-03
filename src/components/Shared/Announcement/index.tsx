@@ -10,8 +10,8 @@ const Announcement: React.FC = () => {
           <p>Beta warning!</p>
         </div>
         <p className="text-yellow-500 text-sm leading-[22px]">
-          Lenster is still in beta phase and all contents are stored in Mumbai
-          testnet.
+          Lenster is still in the beta phase and all contents are stored in
+          Mumbai testnet.
         </p>
       </CardBody>
     </Card>
