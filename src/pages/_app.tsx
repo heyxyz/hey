@@ -2,12 +2,11 @@ import '../styles.css'
 
 import { ApolloProvider } from '@apollo/client'
 import SiteLayout from '@components/SiteLayout'
-import { providers } from 'ethers'
 import { AppProps } from 'next/app'
 import Script from 'next/script'
 import { ThemeProvider } from 'next-themes'
 import { INFURA_ID, IS_PRODUCTION } from 'src/constants'
-import { chain, Connector, Provider } from 'wagmi'
+import { chain, Provider } from 'wagmi'
 import { InjectedConnector } from 'wagmi/connectors/injected'
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect'
 import { WalletLinkConnector } from 'wagmi/connectors/walletLink'
@@ -44,17 +43,12 @@ const connectors = ({ chainId }: ConnectorsConfig) => {
   ]
 }
 
-type ProviderConfig = { chainId?: number; connector?: Connector }
-const provider = ({ chainId }: ProviderConfig) =>
-  new providers.InfuraProvider(chainId, INFURA_ID)
-
 const App = ({ Component, pageProps }: AppProps) => {
   return (
     <Provider
       autoConnect
       connectorStorageKey="lenster.wallet"
       connectors={connectors}
-      provider={provider}
     >
       <ApolloProvider client={client}>
         <ThemeProvider defaultTheme="light" attribute="class">
