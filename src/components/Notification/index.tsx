@@ -1,200 +1,37 @@
-import { gql, useQuery } from '@apollo/client'
-import { Card } from '@components/UI/Card'
-import { EmptyState } from '@components/UI/EmptyState'
-import { ErrorMessage } from '@components/UI/ErrorMessage'
-import { Spinner } from '@components/UI/Spinner'
-import AppContext from '@components/utils/AppContext'
-import { Notification } from '@generated/types'
-import { CommentFragment } from '@gql/CommentFragment'
-import { PostFragment } from '@gql/PostFragment'
-import { BellIcon } from '@heroicons/react/outline'
-import { NextPage } from 'next'
-import React, { useContext } from 'react'
-import useInView from 'react-cool-inview'
-import Custom404 from 'src/pages/404'
+import { Menu, Transition } from '@headlessui/react'
+import { LightningBoltIcon } from '@heroicons/react/outline'
+import { trackEvent } from '@lib/trackEvent'
+import { Fragment } from 'react'
 
-import NotificationPageShimmer from './Shimmer'
-import CollectNotification from './Type/CollectNotification'
-import CommentNotification from './Type/CommentNotification'
-import FollowerNotification from './Type/FollowerNotification'
-import MirrorNotification from './Type/MirrorNotification'
+import List from './List'
 
-const NOTIFICATIONS_QUERY = gql`
-  query Notifications($request: NotificationRequest!) {
-    notifications(request: $request) {
-      items {
-        ... on NewFollowerNotification {
-          wallet {
-            address
-            defaultProfile {
-              id
-              name
-              handle
-              picture {
-                ... on MediaSet {
-                  original {
-                    url
-                  }
-                }
-              }
-            }
-          }
-          isFollowedByMe
-          createdAt
-        }
-        ... on NewCommentNotification {
-          profile {
-            handle
-          }
-          comment {
-            ...CommentFragment
-            commentOn {
-              ... on Post {
-                id
-              }
-              ... on Comment {
-                id
-              }
-              ... on Mirror {
-                id
-              }
-              __typename
-            }
-          }
-        }
-        ... on NewMirrorNotification {
-          profile {
-            handle
-          }
-          publication {
-            ... on Post {
-              ...PostFragment
-            }
-            ... on Comment {
-              ...CommentFragment
-            }
-          }
-        }
-        ... on NewCollectNotification {
-          wallet {
-            address
-            defaultProfile {
-              handle
-            }
-          }
-          collectedPublication {
-            ... on Post {
-              ...PostFragment
-            }
-            ... on Comment {
-              ...CommentFragment
-            }
-          }
-        }
-      }
-      pageInfo {
-        totalCount
-        next
-      }
-    }
-  }
-  ${PostFragment}
-  ${CommentFragment}
-`
-
-export const NotificationWrapper = ({
-  children
-}: {
-  children: React.ReactChild
-}) => (
-  <div className="flex flex-grow justify-center py-8 px-0 sm:px-6 lg:px-8">
-    <div className="space-y-3 w-full max-w-4xl">
-      <div className="flex items-center px-5 pb-3 space-x-1.5 text-xl font-bold sm:px-0">
-        <BellIcon className="w-6 h-6 text-brand-500" />
-        <div>Notifications</div>
-      </div>
-      <div>{children}</div>
-    </div>
-  </div>
-)
-
-const Notification: NextPage = () => {
-  const { currentUser } = useContext(AppContext)
-  const { data, loading, error, fetchMore } = useQuery(NOTIFICATIONS_QUERY, {
-    variables: {
-      request: { profileId: currentUser?.id, limit: 10 }
-    }
-  })
-
-  const pageInfo = data?.notifications?.pageInfo
-  const { observe } = useInView({
-    threshold: 1,
-    onEnter: () => {
-      fetchMore({
-        variables: {
-          request: {
-            profileId: currentUser?.id,
-            cursor: pageInfo?.next,
-            limit: 10
-          }
-        }
-      })
-    }
-  })
-
-  if (!currentUser) return <Custom404 />
-  if (loading) return <NotificationPageShimmer />
-  if (data?.notifications?.items?.length === 0)
-    return (
-      <NotificationWrapper>
-        <EmptyState
-          message={
-            <div>
-              <span>Inbox zero!</span>
-            </div>
-          }
-          icon={<BellIcon className="w-8 h-8 text-brand-500" />}
-        />
-      </NotificationWrapper>
-    )
-
-  const notifications = data?.notifications?.items
-
+const Notification: React.FC = () => {
   return (
-    <NotificationWrapper>
-      <Card className="mx-auto">
-        {error && (
-          <ErrorMessage
-            className="m-5"
-            title="Failed to load notification"
-            error={error}
-          />
-        )}
-        <div className="divide-y">
-          {notifications?.map((notification: Notification, index: number) => (
-            <div key={index}>
-              {notification.__typename === 'NewFollowerNotification' && (
-                <FollowerNotification notification={notification} />
-              )}
-              {notification.__typename === 'NewCommentNotification' && (
-                <CommentNotification notification={notification} />
-              )}
-              {notification.__typename === 'NewMirrorNotification' && (
-                <MirrorNotification notification={notification} />
-              )}
-              {notification.__typename === 'NewCollectNotification' && (
-                <CollectNotification notification={notification} />
-              )}
-            </div>
-          ))}
-        </div>
-        {pageInfo?.next && (
-          <span ref={observe} className="flex justify-center p-5">
-            <Spinner size="sm" />
-          </span>
-        )}
-      </Card>
-    </NotificationWrapper>
+    <Menu as="span" className="relative mt-1.5">
+      {({ open }) => (
+        <>
+          <Menu.Button>
+            <button onClick={() => trackEvent('notifications')}>
+              <LightningBoltIcon className="h-6 w-6" />
+            </button>
+          </Menu.Button>
+          <Transition
+            show={open}
+            as={Fragment}
+            enter="transition ease-out duration-100"
+            enterFrom="transform opacity-0 scale-95"
+            enterTo="transform opacity-100 scale-100"
+            leave="transition ease-in duration-75"
+            leaveFrom="transform opacity-100 scale-100"
+            leaveTo="transform opacity-0 scale-95"
+          >
+            <Menu.Items className="overflow-y-auto max-h-[80vh] sm:max-h-[60vh] absolute right-0 mt-1 min-w-full sm:min-w-[28rem] bg-white rounded-xl border shadow-sm dark:bg-gray-900 dark:border-gray-800">
+              <List />
+            </Menu.Items>
+          </Transition>
+        </>
+      )}
+    </Menu>
   )
 }
 
