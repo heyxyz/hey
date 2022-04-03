@@ -1,5 +1,6 @@
 import ExploreFeed from '@components/Explore/Feed'
 import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout'
+import Announcement from '@components/Shared/Announcement'
 import Footer from '@components/Shared/Footer'
 import AppContext from '@components/utils/AppContext'
 import { NextPage } from 'next'
@@ -21,6 +22,7 @@ const Home: NextPage = () => {
           {currentUser ? <HomeFeed /> : <ExploreFeed />}
         </GridItemEight>
         <GridItemFour>
+          <Announcement />
           {currentUser && <Streak />}
           <RecommendedProfiles />
           <Footer />
