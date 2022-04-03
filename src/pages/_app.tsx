@@ -2,7 +2,6 @@ import '../styles.css'
 
 import { ApolloProvider } from '@apollo/client'
 import SiteLayout from '@components/SiteLayout'
-import SEO from '@components/utils/SEO'
 import { providers } from 'ethers'
 import { AppProps } from 'next/app'
 import Script from 'next/script'
@@ -59,7 +58,6 @@ const App = ({ Component, pageProps }: AppProps) => {
     >
       <ApolloProvider client={client}>
         <ThemeProvider defaultTheme="light" attribute="class">
-          <SEO />
           <SiteLayout>
             <Component {...pageProps} />
           </SiteLayout>

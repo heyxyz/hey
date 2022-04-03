@@ -1,10 +1,15 @@
 import Head from 'next/head'
 import React from 'react'
 
-const SEO: React.FC = () => {
-  const title = 'Lenster'
-  const description =
-    'Lenster is a composable, decentralized, and permissionless social media web app built with Lens Protocol 🌿'
+interface Props {
+  title?: string
+  description?: string
+}
+
+const SEO: React.FC<Props> = ({
+  title = 'Lenster',
+  description = 'Lenster is a composable, decentralized, and permissionless social media web app built with Lens Protocol 🌿'
+}) => {
   const image = 'https://assets.lenster.xyz/images/og/logo.jpeg'
 
   return (
