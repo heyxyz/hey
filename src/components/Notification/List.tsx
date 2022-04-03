@@ -37,6 +37,14 @@ const NOTIFICATIONS_QUERY = gql`
         ... on NewCommentNotification {
           profile {
             handle
+            ownedBy
+            picture {
+              ... on MediaSet {
+                original {
+                  url
+                }
+              }
+            }
           }
           comment {
             id
