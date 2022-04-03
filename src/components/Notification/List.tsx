@@ -3,7 +3,6 @@ import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { Spinner } from '@components/UI/Spinner'
 import AppContext from '@components/utils/AppContext'
 import { Notification } from '@generated/types'
-import { Menu } from '@headlessui/react'
 import { useContext } from 'react'
 import useInView from 'react-cool-inview'
 
@@ -178,24 +177,24 @@ const List: React.FC = () => {
       {notifications?.map((notification: Notification, index: number) => (
         <div key={index}>
           {notification.__typename === 'NewFollowerNotification' && (
-            <Menu.Item as="div" className="p-4">
+            <div className="p-4">
               <FollowerNotification notification={notification} />
-            </Menu.Item>
+            </div>
           )}
           {notification.__typename === 'NewCommentNotification' && (
-            <Menu.Item as="div" className="p-4">
+            <div className="p-4">
               <CommentNotification notification={notification} />
-            </Menu.Item>
+            </div>
           )}
           {notification.__typename === 'NewMirrorNotification' && (
-            <Menu.Item as="div" className="p-4">
+            <div className="p-4">
               <MirrorNotification notification={notification} />
-            </Menu.Item>
+            </div>
           )}
           {notification.__typename === 'NewCollectNotification' && (
-            <Menu.Item as="div" className="p-4">
+            <div className="p-4">
               <CollectNotification notification={notification} />
-            </Menu.Item>
+            </div>
           )}
         </div>
       ))}

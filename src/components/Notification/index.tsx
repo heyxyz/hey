@@ -1,5 +1,6 @@
 import { Menu, Transition } from '@headlessui/react'
 import { LightningBoltIcon } from '@heroicons/react/outline'
+import { trackEvent } from '@lib/trackEvent'
 import { Fragment } from 'react'
 
 import List from './List'
@@ -10,7 +11,9 @@ const Notification: React.FC = () => {
       {({ open }) => (
         <>
           <Menu.Button>
-            <LightningBoltIcon className="h-6 w-6" />
+            <button onClick={() => trackEvent('notifications')}>
+              <LightningBoltIcon className="h-6 w-6" />
+            </button>
           </Menu.Button>
           <Transition
             show={open}
