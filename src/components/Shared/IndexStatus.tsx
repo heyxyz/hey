@@ -34,7 +34,7 @@ const IndexStatus: React.FC<Props> = ({ refetch, type, txHash }) => {
 
   return (
     <a
-      className="text-sm"
+      className="text-sm ml-auto"
       href={`https://mumbai.polygonscan.com/tx/${txHash}`}
       target="_blank"
       rel="noreferrer"
@@ -42,12 +42,12 @@ const IndexStatus: React.FC<Props> = ({ refetch, type, txHash }) => {
       {loading || !data?.publication ? (
         <div className="flex items-center space-x-1.5">
           <Spinner size="xs" />
-          <div>{type} Indexeing</div>
+          <div className="hidden sm:block">{type} Indexeing</div>
         </div>
       ) : (
         <div className="flex items-center space-x-1">
           <CheckCircleIcon className="w-5 h-5 text-green-500" />
-          <div>Index Successful</div>
+          <div className="hidden sm:block">Index Successful</div>
         </div>
       )}
     </a>

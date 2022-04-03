@@ -251,7 +251,7 @@ const NewPost: React.FC<Props> = ({ refetch }) => {
             placeholder="What's happening?"
             {...form.register('post')}
           />
-          <div className="flex items-center">
+          <div className="block sm:flex items-center">
             <div className="flex items-center space-x-4">
               <Attachment
                 attachments={attachments}
@@ -269,7 +269,7 @@ const NewPost: React.FC<Props> = ({ refetch }) => {
                 setOnlyFollowers={setOnlyFollowers}
               />
             </div>
-            <div className="flex items-center ml-auto space-x-2">
+            <div className="flex items-center ml-auto space-x-2 pt-2 sm:pt-0">
               {data?.hash && (
                 <IndexStatus
                   refetch={refetch}
@@ -278,9 +278,10 @@ const NewPost: React.FC<Props> = ({ refetch }) => {
                 />
               )}
               {network.chain?.unsupported ? (
-                <SwitchNetwork />
+                <SwitchNetwork className="ml-auto" />
               ) : (
                 <Button
+                  className="ml-auto"
                   disabled={
                     isUploading ||
                     typedDataLoading ||
