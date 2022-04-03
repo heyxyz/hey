@@ -13,6 +13,7 @@ import { PageLoading } from '@components/UI/PageLoading'
 import { Spinner } from '@components/UI/Spinner'
 import { TextArea } from '@components/UI/TextArea'
 import AppContext from '@components/utils/AppContext'
+import SEO from '@components/utils/SEO'
 import { CreatePostBroadcastItemResult, Erc20 } from '@generated/types'
 import { PlusIcon } from '@heroicons/react/outline'
 import { getTokenImage } from '@lib/getTokenImage'
@@ -237,6 +238,7 @@ const Create: React.FC = () => {
 
   return (
     <GridLayout>
+      <SEO title="Create Crowdfund • Lenster" />
       <GridItemFour>
         <SettingsHelper
           heading="Create crowdfund"

@@ -3,6 +3,7 @@ import Signup from '@components/Shared/Navbar/Login/Create'
 import SettingsHelper from '@components/Shared/SettingsHelper'
 import { Card, CardBody } from '@components/UI/Card'
 import AppContext from '@components/utils/AppContext'
+import SEO from '@components/utils/SEO'
 import React, { useContext } from 'react'
 import Custom404 from 'src/pages/404'
 
@@ -13,6 +14,7 @@ const Create: React.FC = () => {
 
   return (
     <GridLayout>
+      <SEO title="Create Community • Lenster" />
       <GridItemFour>
         <SettingsHelper
           heading="Create profile"
