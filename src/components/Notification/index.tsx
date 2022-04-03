@@ -7,7 +7,7 @@ import List from './List'
 
 const Notification: React.FC = () => {
   return (
-    <Menu as="span" className="relative mt-1.5">
+    <Menu as="span" className="sm:relative mt-1.5">
       {({ open }) => (
         <>
           <Menu.Button>
