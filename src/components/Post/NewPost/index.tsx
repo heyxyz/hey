@@ -160,7 +160,7 @@ const NewPost: React.FC<Props> = ({ refetch }) => {
                 setAttachments([])
                 setSelectedModule(defaultModuleData)
                 setFeeData(defaultFeeData)
-                trackEvent('new post')
+                trackEvent('new post', 'create')
               } else {
                 toast.error(error?.message)
               }

@@ -126,7 +126,7 @@ const Create: React.FC = () => {
             write({ args: inputStruct }).then(({ error }) => {
               if (!error) {
                 form.reset()
-                trackEvent('new community')
+                trackEvent('new community', 'create')
               } else {
                 toast.error(error?.message)
               }

@@ -156,7 +156,7 @@ const Create: React.FC = () => {
             write({ args: inputStruct }).then(({ error }) => {
               if (!error) {
                 form.reset()
-                trackEvent('new crowdfund')
+                trackEvent('new crowdfund', 'create')
               } else {
                 toast.error(error?.message)
               }
