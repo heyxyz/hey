@@ -96,7 +96,7 @@ const Navbar: React.FC = () => {
               </div>
             </div>
           </div>
-          <div className="flex absolute inset-y-0 right-0 gap-8 items-center sm:static sm:inset-auto">
+          <div className="flex gap-8 items-center">
             {currentUser && <Notification />}
             <MenuItems indexerData={indexerData} />
           </div>
