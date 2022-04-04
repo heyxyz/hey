@@ -8,7 +8,6 @@ import {
 import { humanize } from '@lib/humanize'
 import { trackEvent } from '@lib/trackEvent'
 import clsx from 'clsx'
-import { useRouter } from 'next/router'
 import React, { Dispatch } from 'react'
 
 interface Props {
@@ -18,8 +17,6 @@ interface Props {
 }
 
 const FeedType: React.FC<Props> = ({ stats, setFeedType, feedType }) => {
-  const router = useRouter()
-
   interface FeedLinkProps {
     name: string
     icon: React.ReactChild
@@ -37,8 +34,6 @@ const FeedType: React.FC<Props> = ({ stats, setFeedType, feedType }) => {
       onClick={() => {
         trackEvent(`user ${name.toLowerCase()}`)
         setFeedType(type)
-        router.query.type = type.toLowerCase()
-        router.push(router)
       }}
       className={clsx(
         {

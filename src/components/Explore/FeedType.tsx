@@ -5,7 +5,6 @@ import {
 } from '@heroicons/react/outline'
 import { trackEvent } from '@lib/trackEvent'
 import clsx from 'clsx'
-import { useRouter } from 'next/router'
 import React, { Dispatch } from 'react'
 
 interface Props {
@@ -14,8 +13,6 @@ interface Props {
 }
 
 const FeedType: React.FC<Props> = ({ setFeedType, feedType }) => {
-  const router = useRouter()
-
   interface FeedLinkProps {
     name: string
     icon: React.ReactChild
@@ -27,8 +24,6 @@ const FeedType: React.FC<Props> = ({ setFeedType, feedType }) => {
       onClick={() => {
         trackEvent(`explore ${name.toLowerCase()}`)
         setFeedType(type)
-        router.query.type = type.toLowerCase()
-        router.push(router)
       }}
       className={clsx(
         {
