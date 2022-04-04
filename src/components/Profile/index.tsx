@@ -56,7 +56,9 @@ const ViewProfile: NextPage = () => {
     query: { username, type }
   } = useRouter()
   const [feedType, setFeedType] = useState<string>(
-    type ? type?.toString().toUpperCase() : 'POST'
+    type && ['post', 'comment', 'mirror', 'nft'].includes(type as string)
+      ? type?.toString().toUpperCase()
+      : 'POST'
   )
   const { data, loading } = useQuery(PROFILE_QUERY, {
     variables: { request: { handles: username } },
