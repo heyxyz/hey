@@ -34,7 +34,7 @@ const Notification: React.FC = () => {
   }, [currentUser, data])
 
   return (
-    <Menu as="span" className="mt-1.5 sm:relative">
+    <Menu as="div" className="mt-1.5 sm:relative">
       {({ open }) => (
         <>
           <Menu.Button>
