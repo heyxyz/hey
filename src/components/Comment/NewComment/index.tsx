@@ -34,6 +34,7 @@ import { uploadToIPFS } from '@lib/uploadToIPFS'
 import { useContext, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
+  CHAIN_ID,
   CONNECT_WALLET,
   ERROR_MESSAGE,
   LENSHUB_PROXY,
@@ -41,7 +42,6 @@ import {
 } from 'src/constants'
 import { v4 as uuidv4 } from 'uuid'
 import {
-  chain,
   useAccount,
   useContractWrite,
   useNetwork,
@@ -190,7 +190,7 @@ const NewComment: React.FC<Props> = ({ refetch, post, type }) => {
   const createComment = async (comment: string) => {
     if (!account?.address) {
       toast.error(CONNECT_WALLET)
-    } else if (network.chain?.id !== chain.polygonTestnetMumbai.id) {
+    } else if (network.chain?.id !== CHAIN_ID) {
       toast.error(WRONG_NETWORK)
     } else {
       setIsUploading(true)

@@ -2,8 +2,7 @@ import { Card, CardBody } from '@components/UI/Card'
 import { Nft } from '@generated/types'
 import { imagekitURL } from '@lib/imagekitURL'
 import React from 'react'
-import { STATIC_ASSETS } from 'src/constants'
-import { chain } from 'wagmi'
+import { CHAIN_ID, STATIC_ASSETS } from 'src/constants'
 
 interface Props {
   nft: Nft
@@ -42,7 +41,7 @@ const SingleNFT: React.FC<Props> = ({ nft }) => {
           <a
             className="font-bold truncate"
             href={`https://testnets.opensea.io/assets/${
-              nft.chainId === chain.polygonTestnetMumbai.id ? 'matic/' : ''
+              nft.chainId === CHAIN_ID ? 'matic/' : ''
             }${nft.contractAddress}/${nft.tokenId}`}
             target="_blank"
             rel="noreferrer"

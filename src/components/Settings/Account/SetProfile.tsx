@@ -11,8 +11,13 @@ import { PencilIcon } from '@heroicons/react/outline'
 import { trackEvent } from '@lib/trackEvent'
 import React, { useContext, useState } from 'react'
 import toast from 'react-hot-toast'
-import { CONNECT_WALLET, LENSHUB_PROXY, WRONG_NETWORK } from 'src/constants'
-import { chain, useAccount, useContractWrite, useNetwork } from 'wagmi'
+import {
+  CHAIN_ID,
+  CONNECT_WALLET,
+  LENSHUB_PROXY,
+  WRONG_NETWORK
+} from 'src/constants'
+import { useAccount, useContractWrite, useNetwork } from 'wagmi'
 
 const PROFILES_QUERY = gql`
   query Profiles($request: ProfileQueryRequest!) {
@@ -49,7 +54,7 @@ const SetProfile: React.FC = () => {
   const setDefaultProfile = async () => {
     if (!account?.address) {
       toast.error(CONNECT_WALLET)
-    } else if (network.chain?.id !== chain.polygonTestnetMumbai.id) {
+    } else if (network.chain?.id !== CHAIN_ID) {
       toast.error(WRONG_NETWORK)
     } else {
       write({ args: [selectedUser] }).then(({ error }) => {

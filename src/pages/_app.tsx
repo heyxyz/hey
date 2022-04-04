@@ -5,7 +5,7 @@ import SiteLayout from '@components/SiteLayout'
 import { AppProps } from 'next/app'
 import Script from 'next/script'
 import { ThemeProvider } from 'next-themes'
-import { INFURA_ID, IS_PRODUCTION } from 'src/constants'
+import { CHAIN_ID, INFURA_ID, IS_PRODUCTION } from 'src/constants'
 import { chain, Provider } from 'wagmi'
 import { InjectedConnector } from 'wagmi/connectors/injected'
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect'
@@ -31,7 +31,7 @@ const connectors = ({ chainId }: ConnectorsConfig) => {
     new WalletConnectConnector({
       options: {
         infuraId: INFURA_ID,
-        chainId: chain.polygonTestnetMumbai.id
+        chainId: CHAIN_ID
       }
     }),
     new WalletLinkConnector({

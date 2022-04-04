@@ -1,3 +1,5 @@
+import { chain } from 'wagmi'
+
 // Environments
 export const IS_PRODUCTION = process.env.NODE_ENV === 'production'
 export const IS_DEVELOPMENT = process.env.NODE_ENV === 'development'
@@ -23,6 +25,9 @@ export const IMAGEKIT_URL = 'https://ik.imagekit.io/lensterimg'
 
 // Web3
 export const INFURA_ID = '1423f014ff0243e3b7ab20fbb3f8656f'
+export const CHAIN_ID = IS_MAINNET
+  ? chain.polygonMainnet.id
+  : chain.polygonTestnetMumbai.id
 
 // Addresses
 export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000'
