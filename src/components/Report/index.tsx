@@ -110,51 +110,61 @@ const Report: React.FC = () => {
               {error && (
                 <ErrorMessage title="Failed to load post" error={error} />
               )}
-              {loading && !error ? (
+              {loading ? (
                 <PostShimmer />
+              ) : !data?.publication ? (
+                <ErrorMessage
+                  title="Failed to load post"
+                  error={{ name: '', message: 'No such publication' }}
+                />
               ) : (
                 <SinglePost post={data?.publication} />
               )}
-              <Form
-                form={form}
-                className="pt-5 space-y-4"
-                onSubmit={({ additionalComments }) => {
-                  reportPublication(additionalComments)
-                }}
-              >
-                {submitError && (
-                  <ErrorMessage title="Failed to report" error={submitError} />
-                )}
-                <Reason
-                  setType={setType}
-                  setSubReason={setSubReason}
-                  type={type}
-                />
-                {subReason && (
-                  <>
-                    <TextArea
-                      label="Description"
-                      placeholder="Tell us something about the community!"
-                      {...form.register('additionalComments')}
+              {data?.publication && (
+                <Form
+                  form={form}
+                  className="pt-5 space-y-4"
+                  onSubmit={({ additionalComments }) => {
+                    reportPublication(additionalComments)
+                  }}
+                >
+                  {submitError && (
+                    <ErrorMessage
+                      title="Failed to report"
+                      error={submitError}
                     />
-                    <div className="ml-auto">
-                      <Button
-                        type="submit"
-                        disabled={submitLoading}
-                        icon={
-                          submitLoading ? (
-                            <Spinner size="xs" />
-                          ) : (
-                            <PencilAltIcon className="w-4 h-4" />
-                          )
-                        }
-                      >
-                        Report
-                      </Button>
-                    </div>
-                  </>
-                )}
-              </Form>
+                  )}
+                  <Reason
+                    setType={setType}
+                    setSubReason={setSubReason}
+                    type={type}
+                  />
+                  {subReason && (
+                    <>
+                      <TextArea
+                        label="Description"
+                        placeholder="Tell us something about the community!"
+                        {...form.register('additionalComments')}
+                      />
+                      <div className="ml-auto">
+                        <Button
+                          type="submit"
+                          disabled={submitLoading}
+                          icon={
+                            submitLoading ? (
+                              <Spinner size="xs" />
+                            ) : (
+                              <PencilAltIcon className="w-4 h-4" />
+                            )
+                          }
+                        >
+                          Report
+                        </Button>
+                      </div>
+                    </>
+                  )}
+                </Form>
+              )}
             </CardBody>
           )}
         </Card>
