@@ -53,9 +53,11 @@ export const PROFILE_QUERY = gql`
 
 const ViewProfile: NextPage = () => {
   const {
-    query: { username }
+    query: { username, type }
   } = useRouter()
-  const [feedType, setFeedType] = useState<string>('POST')
+  const [feedType, setFeedType] = useState<string>(
+    type ? type?.toString().toUpperCase() : 'POST'
+  )
   const { data, loading } = useQuery(PROFILE_QUERY, {
     variables: { request: { handles: username } },
     skip: !username
