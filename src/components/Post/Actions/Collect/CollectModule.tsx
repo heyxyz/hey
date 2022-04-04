@@ -28,6 +28,7 @@ import {
   CONNECT_WALLET,
   ERROR_MESSAGE,
   LENSHUB_PROXY,
+  POLYGONSCAN_URL,
   WRONG_NETWORK
 } from 'src/constants'
 import {
@@ -262,7 +263,7 @@ const CollectModule: React.FC<Props> = ({ post }) => {
               <div className="space-x-1.5">
                 <span>Recipient:</span>
                 <a
-                  href={`https://mumbai.polygonscan.com/address/${collectModule.recipient}`}
+                  href={`${POLYGONSCAN_URL}/address/${collectModule.recipient}`}
                   target="_blank"
                   className="font-bold text-gray-600"
                   rel="noreferrer"

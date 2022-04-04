@@ -22,6 +22,9 @@ export const STATIC_ASSETS = 'https://assets.lenster.xyz/images'
 export const API_URL = IS_MAINNET
   ? 'https://api-mumbai.lens.dev'
   : 'https://api-mumbai.lens.dev'
+export const POLYGONSCAN_URL = IS_MAINNET
+  ? 'https://polygonscan.com'
+  : 'https://mumbai.polygonscan.com'
 export const IMAGEKIT_URL = 'https://ik.imagekit.io/lensterimg'
 
 // Web3
