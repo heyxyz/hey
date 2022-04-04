@@ -106,7 +106,7 @@ const Feed: React.FC<Props> = ({
       )}
       <div className="space-y-3">
         {data?.publications?.items?.map((post: LensterPost, index: number) => (
-          <SinglePost key={`${post.id}_${index}`} post={post} type="COMMENT" />
+          <SinglePost key={`${post.id}_${index}`} post={post} hideType />
         ))}
       </div>
       {pageInfo?.next && (
