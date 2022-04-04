@@ -43,7 +43,9 @@ const CommentNotification: React.FC<Props> = ({ notification }) => {
                     <span className="pl-0.5 text-gray-600">
                       commented on your{' '}
                     </span>
-                    <Link href={`/posts/${notification?.comment.id}`}>
+                    <Link
+                      href={`/posts/${notification?.comment?.commentOn?.id}`}
+                    >
                       <a className="font-bold">
                         {notification?.comment?.commentOn?.__typename?.toLowerCase()}
                       </a>
