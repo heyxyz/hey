@@ -3,11 +3,12 @@ import { chain } from 'wagmi'
 // Environments
 export const IS_PRODUCTION = process.env.NODE_ENV === 'production'
 export const IS_DEVELOPMENT = process.env.NODE_ENV === 'development'
-export const IS_MAINNET = process.env.IS_MAINNET
+export const IS_MAINNET = process.env.NEXT_PUBLIC_IS_MAINNET === 'true'
 
 // Git
-export const GIT_COMMIT_SHA = process.env.GIT_COMMIT_SHA?.slice(0, 7)
-export const GIT_COMMIT_REF = process.env.GIT_COMMIT_REF
+export const GIT_COMMIT_SHA =
+  process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA?.slice(0, 7)
+export const GIT_COMMIT_REF = process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_REF
 
 // Messages
 export const ERROR_MESSAGE = 'Something went wrong!'
