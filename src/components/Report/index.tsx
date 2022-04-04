@@ -6,6 +6,7 @@ import SettingsHelper from '@components/Shared/SettingsHelper'
 import PostShimmer from '@components/Shared/Shimmer/PostShimmer'
 import { Button } from '@components/UI/Button'
 import { Card, CardBody } from '@components/UI/Card'
+import { EmptyState } from '@components/UI/EmptyState'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { Form, useZodForm } from '@components/UI/Form'
 import { Spinner } from '@components/UI/Spinner'
@@ -13,6 +14,7 @@ import { TextArea } from '@components/UI/TextArea'
 import AppContext from '@components/utils/AppContext'
 import SEO from '@components/utils/SEO'
 import { PencilAltIcon } from '@heroicons/react/outline'
+import { CheckCircleIcon } from '@heroicons/react/solid'
 import { useRouter } from 'next/router'
 import React, { useContext, useState } from 'react'
 import { ZERO_ADDRESS } from 'src/constants'
@@ -39,8 +41,8 @@ const Report: React.FC = () => {
   const {
     query: { id }
   } = useRouter()
-  const [reason, setReason] = useState<string>()
-  const [subReason, setSubReason] = useState<string>()
+  const [type, setType] = useState<string>('')
+  const [subReason, setSubReason] = useState<string>('')
   const { currentUser } = useContext(AppContext)
   const { data, loading, error } = useQuery(POST_QUERY, {
     variables: {
@@ -56,8 +58,10 @@ const Report: React.FC = () => {
     },
     skip: !id
   })
-  const [createReport, { loading: submitLoading, error: submitError }] =
-    useMutation(CREATE_REPORT_PUBLICATION_MUTATION)
+  const [
+    createReport,
+    { data: submitData, loading: submitLoading, error: submitError }
+  ] = useMutation(CREATE_REPORT_PUBLICATION_MUTATION)
 
   const form = useZodForm({
     schema: newReportSchema
@@ -67,11 +71,11 @@ const Report: React.FC = () => {
     createReport({
       variables: {
         request: {
-          publicationId: '0x9b-0x0f',
+          publicationId: data?.publication?.id,
           reason: {
-            sensitiveReason: {
-              reason: 'SENSITIVE',
-              subreason: 'OFFENSIVE'
+            [type]: {
+              reason: type.replace('Reason', '').toUpperCase(),
+              subreason: subReason
             }
           },
           additionalComments
@@ -93,48 +97,64 @@ const Report: React.FC = () => {
       </GridItemFour>
       <GridItemEight>
         <Card>
-          <CardBody>
-            {error && (
-              <ErrorMessage title="Failed to load post" error={error} />
-            )}
-            {loading && !error ? (
-              <PostShimmer />
-            ) : (
-              <SinglePost post={data?.publication} />
-            )}
-            <Form
-              form={form}
-              className="pt-5 space-y-4"
-              onSubmit={({ additionalComments }) => {
-                reportPublication(additionalComments)
-              }}
-            >
-              {submitError && (
-                <ErrorMessage title="Failed to report" error={submitError} />
+          {submitData?.reportPublication === null ? (
+            <EmptyState
+              message={<span>Publication reported successfully!</span>}
+              icon={<CheckCircleIcon className="text-green-500 w-14 h-14" />}
+              hideCard
+            />
+          ) : (
+            <CardBody>
+              {error && (
+                <ErrorMessage title="Failed to load post" error={error} />
               )}
-              <Reason setReason={setReason} setSubReason={setSubReason} />
-              <TextArea
-                label="Description"
-                placeholder="Tell us something about the community!"
-                {...form.register('additionalComments')}
-              />
-              <div className="ml-auto">
-                <Button
-                  type="submit"
-                  disabled={submitLoading}
-                  icon={
-                    submitLoading ? (
-                      <Spinner size="xs" />
-                    ) : (
-                      <PencilAltIcon className="w-4 h-4" />
-                    )
-                  }
-                >
-                  Report
-                </Button>
-              </div>
-            </Form>
-          </CardBody>
+              {loading && !error ? (
+                <PostShimmer />
+              ) : (
+                <SinglePost post={data?.publication} />
+              )}
+              <Form
+                form={form}
+                className="pt-5 space-y-4"
+                onSubmit={({ additionalComments }) => {
+                  reportPublication(additionalComments)
+                }}
+              >
+                {submitError && (
+                  <ErrorMessage title="Failed to report" error={submitError} />
+                )}
+                <Reason
+                  setType={setType}
+                  setSubReason={setSubReason}
+                  type={type}
+                />
+                {subReason && (
+                  <>
+                    <TextArea
+                      label="Description"
+                      placeholder="Tell us something about the community!"
+                      {...form.register('additionalComments')}
+                    />
+                    <div className="ml-auto">
+                      <Button
+                        type="submit"
+                        disabled={submitLoading}
+                        icon={
+                          submitLoading ? (
+                            <Spinner size="xs" />
+                          ) : (
+                            <PencilAltIcon className="w-4 h-4" />
+                          )
+                        }
+                      >
+                        Report
+                      </Button>
+                    </div>
+                  </>
+                )}
+              </Form>
+            </CardBody>
+          )}
         </Card>
       </GridItemEight>
     </GridLayout>
