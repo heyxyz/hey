@@ -33,7 +33,7 @@ const Footer: React.FC = () => {
       </span>
       <a
         className="pr-3"
-        href="https://gitlab.com/lenster/lenster"
+        href="https://status.lenster.xyz"
         target="_blank"
         rel="noreferrer"
       >
