@@ -3,6 +3,7 @@ tasks:
     init: |
       yarn install
       yarn codegen
+      cp .env.example .env
     command: yarn dev
 
   - command: |
