@@ -19,6 +19,7 @@ interface Props {
 
 const FeedType: React.FC<Props> = ({ stats, setFeedType, feedType }) => {
   const router = useRouter()
+
   interface FeedLinkProps {
     name: string
     icon: React.ReactChild
