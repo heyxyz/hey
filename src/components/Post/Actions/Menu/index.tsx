@@ -6,6 +6,7 @@ import {
   DotsHorizontalIcon,
   ShieldExclamationIcon
 } from '@heroicons/react/outline'
+import { trackEvent } from '@lib/trackEvent'
 import clsx from 'clsx'
 import { Fragment, useContext } from 'react'
 
@@ -45,6 +46,7 @@ const PostMenu: React.FC<Props> = ({ post }) => {
                 <Menu.Item
                   as={NextLink}
                   href={`/report/${post?.id}`}
+                  onClick={() => trackEvent('report menu')}
                   className={({ active }: { active: boolean }) =>
                     clsx(
                       { 'bg-gray-100 dark:bg-gray-800': active },
