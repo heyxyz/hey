@@ -59,7 +59,11 @@ const CollectNotification: React.FC<Props> = ({ notification }) => {
                         : 'collected your'}{' '}
                     </span>
                     <Link
-                      href={`/posts/${notification?.collectedPublication.id}`}
+                      href={
+                        postType === 'community'
+                          ? `/communities/${notification?.collectedPublication.id}`
+                          : `/posts/${notification?.collectedPublication.id}`
+                      }
                     >
                       <a className="font-bold">{postType}</a>
                     </Link>

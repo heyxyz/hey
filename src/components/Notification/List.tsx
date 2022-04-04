@@ -55,6 +55,15 @@ const NOTIFICATIONS_QUERY = gql`
               content
             }
             commentOn {
+              ... on Post {
+                id
+              }
+              ... on Comment {
+                id
+              }
+              ... on Mirror {
+                id
+              }
               __typename
             }
           }
