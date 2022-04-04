@@ -33,6 +33,14 @@ const Footer: React.FC = () => {
       </span>
       <a
         className="pr-3"
+        href="https://discord.com/invite/B8eKhSSUwX"
+        target="_blank"
+        rel="noreferrer"
+      >
+        Discord
+      </a>
+      <a
+        className="pr-3"
         href="https://status.lenster.xyz"
         target="_blank"
         rel="noreferrer"
