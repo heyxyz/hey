@@ -25,7 +25,7 @@ const Reason: React.FC<Props> = ({ setType, setSubReason, type }) => {
             <option disabled selected>
               Select type
             </option>
-            <option value="illegalReason">Illegeal</option>
+            <option value="illegalReason">Illegal</option>
             <option value="fraudReason">Fraud</option>
             <option value="sensitiveReason">Sensitive</option>
           </select>
