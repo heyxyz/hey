@@ -115,7 +115,11 @@ const Crowdfund: React.FC<Props> = ({ fund }) => {
                       { 'bg-green-500': percentageReached >= 100 },
                       'h-[13px] rounded-full bg-brand-500'
                     )}
-                    style={{ width: `${percentageReached}%` }}
+                    style={{
+                      width: `${
+                        percentageReached >= 100 ? 100 : percentageReached
+                      }%`
+                    }}
                   />
                 </div>
               </Tooltip>
