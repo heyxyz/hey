@@ -657,6 +657,48 @@ export type CreateSetProfileImageUriEip712TypedDataValue = {
 }
 
 /** The broadcast item */
+export type CreateToggleFollowBroadcastItemResult = {
+  __typename?: 'CreateToggleFollowBroadcastItemResult'
+  /** The date the broadcast item expiries */
+  expiresAt: Scalars['DateTime']
+  /** This broadcast item ID */
+  id: Scalars['BroadcastId']
+  /** The typed data */
+  typedData: CreateToggleFollowEip712TypedData
+}
+
+/** The create toggle follows eip 712 typed data */
+export type CreateToggleFollowEip712TypedData = {
+  __typename?: 'CreateToggleFollowEIP712TypedData'
+  /** The typed data domain */
+  domain: Eip712TypedDataDomain
+  /** The types */
+  types: CreateToggleFollowEip712TypedDataTypes
+  /** The values */
+  value: CreateToggleFollowEip712TypedDataValue
+}
+
+/** The create toggle follows eip 712 typed data types */
+export type CreateToggleFollowEip712TypedDataTypes = {
+  __typename?: 'CreateToggleFollowEIP712TypedDataTypes'
+  ToggleFollowWithSig: Array<Eip712TypedDataField>
+}
+
+/** The create toggle follow eip 712 typed data value */
+export type CreateToggleFollowEip712TypedDataValue = {
+  __typename?: 'CreateToggleFollowEIP712TypedDataValue'
+  deadline: Scalars['UnixTimestamp']
+  enables: Array<Scalars['Boolean']>
+  nonce: Scalars['Nonce']
+  profileIds: Array<Scalars['ProfileId']>
+}
+
+export type CreateToggleFollowRequest = {
+  enables: Array<Scalars['Boolean']>
+  profileIds: Array<Scalars['ProfileId']>
+}
+
+/** The broadcast item */
 export type CreateUnfollowBroadcastItemResult = {
   __typename?: 'CreateUnfollowBroadcastItemResult'
   /** The date the broadcast item expiries */
@@ -1211,6 +1253,7 @@ export type Mutation = {
   createSetFollowModuleTypedData: CreateSetFollowModuleBroadcastItemResult
   createSetFollowNFTUriTypedData: CreateSetFollowNftUriBroadcastItemResult
   createSetProfileImageURITypedData: CreateSetProfileImageUriBroadcastItemResult
+  createToggleFollowTypedData: CreateToggleFollowBroadcastItemResult
   createUnfollowTypedData: CreateUnfollowBroadcastItemResult
   hidePublication?: Maybe<Scalars['Void']>
   refresh: AuthenticationResult
@@ -1287,6 +1330,10 @@ export type MutationCreateSetFollowNftUriTypedDataArgs = {
 export type MutationCreateSetProfileImageUriTypedDataArgs = {
   options?: InputMaybe<TypedDataOptions>
   request: UpdateProfileImageRequest
+}
+
+export type MutationCreateToggleFollowTypedDataArgs = {
+  request: CreateToggleFollowRequest
 }
 
 export type MutationCreateUnfollowTypedDataArgs = {
