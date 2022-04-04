@@ -16,10 +16,10 @@ dayjs.extend(relativeTime)
 
 interface Props {
   post: LensterPost
-  type?: string
+  hideType?: boolean
 }
 
-const PostType: React.FC<Props> = ({ post, type }) => {
+const PostType: React.FC<Props> = ({ post, hideType }) => {
   const { pathname } = useRouter()
   const postType = post.metadata?.attributes[0]?.value
 
@@ -27,7 +27,7 @@ const PostType: React.FC<Props> = ({ post, type }) => {
     <>
       {post?.__typename === 'Mirror' && <Mirrored post={post} />}
       {post?.__typename === 'Comment' &&
-        type !== 'COMMENT' &&
+        !hideType &&
         postType !== 'community post' && <Commented post={post} />}
       {postType === 'community post' && pathname !== '/communities/[id]' && (
         <CommunityPost post={post} />

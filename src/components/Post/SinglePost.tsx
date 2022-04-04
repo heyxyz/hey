@@ -19,14 +19,14 @@ dayjs.extend(relativeTime)
 
 interface Props {
   post: LensterPost
-  type?: string
+  hideType?: boolean
 }
 
-const SinglePost: React.FC<Props> = ({ post, type }) => {
+const SinglePost: React.FC<Props> = ({ post, hideType = false }) => {
   return (
     <Card>
       <CardBody>
-        <PostType post={post} type={type} />
+        <PostType post={post} hideType={hideType} />
         <div className="flex justify-between pb-4">
           <UserProfile profile={post.profile} />
           <Link href={`/posts/${post.id}`}>
