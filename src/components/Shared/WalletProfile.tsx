@@ -3,6 +3,7 @@ import { ExternalLinkIcon } from '@heroicons/react/outline'
 import { formatUsername } from '@lib/formatUsername'
 import { imagekitURL } from '@lib/imagekitURL'
 import React from 'react'
+import { POLYGONSCAN_URL } from 'src/constants'
 
 import Slug from './Slug'
 
@@ -15,7 +16,7 @@ const WalletProfile: React.FC<Props> = ({ wallet }) => {
     <div className="flex justify-between items-center">
       <a
         className="flex items-center space-x-3"
-        href={`https://mumbai.polygonscan.com/address/${wallet?.address}`}
+        href={`${POLYGONSCAN_URL}/address/${wallet?.address}`}
         target="_blank"
         rel="noreferrer"
       >

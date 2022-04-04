@@ -2,6 +2,7 @@ import { gql, useQuery } from '@apollo/client'
 import { Spinner } from '@components/UI/Spinner'
 import { CheckCircleIcon } from '@heroicons/react/solid'
 import React, { useState } from 'react'
+import { POLYGONSCAN_URL } from 'src/constants'
 
 export const TX_STATUS_QUERY = gql`
   query HasPublicationIndexed($request: PublicationQueryRequest!) {
@@ -35,7 +36,7 @@ const IndexStatus: React.FC<Props> = ({ refetch, type, txHash }) => {
   return (
     <a
       className="ml-auto text-sm"
-      href={`https://mumbai.polygonscan.com/tx/${txHash}`}
+      href={`${POLYGONSCAN_URL}/tx/${txHash}`}
       target="_blank"
       rel="noreferrer"
     >

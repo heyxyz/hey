@@ -7,6 +7,7 @@ import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import Link from 'next/link'
 import React from 'react'
+import { POLYGONSCAN_URL } from 'src/constants'
 
 dayjs.extend(relativeTime)
 
@@ -24,7 +25,7 @@ const FollowerNotification: React.FC<Props> = ({ notification }) => {
           href={
             wallet?.defaultProfile
               ? `/u/${wallet?.defaultProfile?.handle}`
-              : `https://mumbai.polygonscan.com/address/${wallet?.address}`
+              : `${POLYGONSCAN_URL}/address/${wallet?.address}`
           }
         >
           <a>
