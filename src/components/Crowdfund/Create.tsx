@@ -26,9 +26,9 @@ import React, { useContext, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
   CONNECT_WALLET,
+  DEFAULT_COLLECT_TOKEN,
   ERROR_MESSAGE,
   LENSHUB_PROXY,
-  WMATIC_TOKEN,
   WRONG_NETWORK
 } from 'src/constants'
 import Custom404 from 'src/pages/404'
@@ -74,7 +74,9 @@ const Create: React.FC = () => {
   const [coverType, setCoverType] = useState<string>()
   const [isUploading, setIsUploading] = useState<boolean>(false)
   const [uploading, setUploading] = useState<boolean>(false)
-  const [selectedCurrency, setSelectedCurrency] = useState<string>(WMATIC_TOKEN)
+  const [selectedCurrency, setSelectedCurrency] = useState<string>(
+    DEFAULT_COLLECT_TOKEN
+  )
   const [selectedCurrencySymobol, setSelectedCurrencySymobol] =
     useState<string>('WMATIC')
   const { currentUser } = useContext(AppContext)
