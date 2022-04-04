@@ -31,14 +31,3 @@ tsconfig.tsbuildinfo
 .env.development.local
 .env.test.local
 .env.production.local
-
-*.rdb
-prisma/giraphql-types.ts
-
-# Next PWA
-public/workbox*
-public/sw*
-
-# Hardhat files
-cache
-artifacts
