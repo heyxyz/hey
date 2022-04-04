@@ -8,7 +8,7 @@ import SEO from '@components/utils/SEO'
 import { Erc20 } from '@generated/types'
 import { NextPage } from 'next'
 import React, { useContext, useState } from 'react'
-import { WMATIC_TOKEN } from 'src/constants'
+import { DEFAULT_COLLECT_TOKEN } from 'src/constants'
 import Custom404 from 'src/pages/404'
 
 import Sidebar from '../Sidebar'
@@ -54,7 +54,7 @@ const AllowanceSettings: NextPage = () => {
   const [currencyLoading, setCurrencyLoading] = useState<boolean>(false)
   const { data, loading, refetch } = useQuery(ALLOWANCE_SETTINGS_QUERY, {
     variables: {
-      request: getAllowancePayload(WMATIC_TOKEN)
+      request: getAllowancePayload(DEFAULT_COLLECT_TOKEN)
     },
     skip: !currentUser?.id
   })

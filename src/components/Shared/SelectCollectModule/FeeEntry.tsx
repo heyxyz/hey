@@ -6,7 +6,7 @@ import { EnabledModule, Erc20 } from '@generated/types'
 import { ArrowLeftIcon } from '@heroicons/react/outline'
 import { FEE_DATA_TYPE } from '@lib/getModule'
 import { Dispatch, useContext, useState } from 'react'
-import { WMATIC_TOKEN } from 'src/constants'
+import { DEFAULT_COLLECT_TOKEN } from 'src/constants'
 import { object, string } from 'zod'
 
 const feeDataSchema = object({
@@ -40,7 +40,9 @@ const FeeEntry: React.FC<Props> = ({
   setFeeData
 }) => {
   const { currentUser } = useContext(AppContext)
-  const [selectedCurrency, setSelectedCurrency] = useState<string>(WMATIC_TOKEN)
+  const [selectedCurrency, setSelectedCurrency] = useState<string>(
+    DEFAULT_COLLECT_TOKEN
+  )
   const form = useZodForm({
     schema: feeDataSchema,
     defaultValues: {
