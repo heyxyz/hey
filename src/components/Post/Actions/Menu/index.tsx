@@ -1,3 +1,4 @@
+import { NextLink } from '@components/Shared/Navbar/MenuItems'
 import AppContext from '@components/utils/AppContext'
 import { LensterPost } from '@generated/lenstertypes'
 import { Menu, Transition } from '@headlessui/react'
@@ -42,7 +43,8 @@ const PostMenu: React.FC<Props> = ({ post }) => {
                 <Delete post={post} />
               ) : (
                 <Menu.Item
-                  as="div"
+                  as={NextLink}
+                  href={`/report/${post?.id}`}
                   className={({ active }: { active: boolean }) =>
                     clsx(
                       { 'bg-gray-100 dark:bg-gray-800': active },
