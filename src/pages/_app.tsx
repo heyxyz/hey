@@ -57,6 +57,7 @@ const App = ({ Component, pageProps }: AppProps) => {
       <ApolloProvider client={client}>
         <ThemeProvider defaultTheme="light" attribute="class">
           <SiteLayout>
+            {process.env.NEXT_PUBLIC_IS_MAINNET}
             <Component {...pageProps} />
           </SiteLayout>
         </ThemeProvider>
