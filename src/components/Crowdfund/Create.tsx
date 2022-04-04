@@ -83,11 +83,7 @@ const Create: React.FC = () => {
   const [{ data: network }] = useNetwork()
   const [{ data: account }] = useAccount()
   const [{ loading: signLoading }, signTypedData] = useSignTypedData()
-  const {
-    error,
-    data: currencyData,
-    loading
-  } = useQuery(MODULES_CURRENCY_QUERY)
+  const { data: currencyData, loading } = useQuery(MODULES_CURRENCY_QUERY)
   const [{ data, loading: writeLoading }, write] = useContractWrite(
     {
       addressOrName: LENSHUB_PROXY,
