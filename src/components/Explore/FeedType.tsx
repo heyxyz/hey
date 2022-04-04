@@ -3,6 +3,7 @@ import {
   ClockIcon,
   CollectionIcon
 } from '@heroicons/react/outline'
+import { trackEvent } from '@lib/trackEvent'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
 import React, { Dispatch } from 'react'
@@ -24,6 +25,7 @@ const FeedType: React.FC<Props> = ({ setFeedType, feedType }) => {
   const FeedLink: React.FC<FeedLinkProps> = ({ name, icon, type }) => (
     <button
       onClick={() => {
+        trackEvent(`explore ${name.toLowerCase()}`)
         setFeedType(type)
         router.query.type = type.toLowerCase()
         router.push(router)
