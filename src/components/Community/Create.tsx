@@ -22,6 +22,7 @@ import { uploadToIPFS } from '@lib/uploadToIPFS'
 import React, { useContext, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
+  CHAIN_ID,
   CONNECT_WALLET,
   ERROR_MESSAGE,
   LENSHUB_PROXY,
@@ -30,7 +31,6 @@ import {
 import Custom404 from 'src/pages/404'
 import { v4 as uuidv4 } from 'uuid'
 import {
-  chain,
   useAccount,
   useContractWrite,
   useNetwork,
@@ -145,7 +145,7 @@ const Create: React.FC = () => {
   const createCommunity = async (name: string, description: string | null) => {
     if (!account?.address) {
       toast.error(CONNECT_WALLET)
-    } else if (network.chain?.id !== chain.polygonTestnetMumbai.id) {
+    } else if (network.chain?.id !== CHAIN_ID) {
       toast.error(WRONG_NETWORK)
     } else {
       setIsUploading(true)

@@ -10,13 +10,13 @@ import { trackEvent } from '@lib/trackEvent'
 import { Dispatch } from 'react'
 import toast from 'react-hot-toast'
 import {
+  CHAIN_ID,
   CONNECT_WALLET,
   ERROR_MESSAGE,
   LENSHUB_PROXY,
   WRONG_NETWORK
 } from 'src/constants'
 import {
-  chain,
   useAccount,
   useContractWrite,
   useNetwork,
@@ -126,7 +126,7 @@ const Follow: React.FC<Props> = ({
   const createFollow = async () => {
     if (!account?.address) {
       toast.error(CONNECT_WALLET)
-    } else if (network.chain?.id !== chain.polygonTestnetMumbai.id) {
+    } else if (network.chain?.id !== CHAIN_ID) {
       toast.error(WRONG_NETWORK)
     } else {
       createFollowTypedData({
