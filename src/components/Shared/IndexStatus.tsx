@@ -43,7 +43,7 @@ const IndexStatus: React.FC<Props> = ({ refetch, type, txHash }) => {
       {loading || !data?.publication ? (
         <div className="flex items-center space-x-1.5">
           <Spinner size="xs" />
-          <div className="hidden sm:block">{type} Indexeing</div>
+          <div className="hidden sm:block">{type} Indexing</div>
         </div>
       ) : (
         <div className="flex items-center space-x-1">

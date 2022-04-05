@@ -1,8 +1,10 @@
 import { gql, useQuery } from '@apollo/client'
+import { EmptyState } from '@components/UI/EmptyState'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { Spinner } from '@components/UI/Spinner'
 import AppContext from '@components/utils/AppContext'
 import { Notification } from '@generated/types'
+import { MailIcon } from '@heroicons/react/outline'
 import { useContext } from 'react'
 import useInView from 'react-cool-inview'
 
@@ -185,6 +187,19 @@ const List: React.FC = () => {
         className="m-3"
         title="Failed to load notifications"
         error={error}
+      />
+    )
+
+  if (data?.notifications?.items?.length === 0)
+    return (
+      <EmptyState
+        message={
+          <div>
+            <span>Inbox zero!</span>
+          </div>
+        }
+        icon={<MailIcon className="w-8 h-8 text-brand-500" />}
+        hideCard
       />
     )
 
