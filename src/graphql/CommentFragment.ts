@@ -52,6 +52,7 @@ export const CommentFragment = gql`
           }
         }
         metadata {
+          name
           content
         }
       }
@@ -70,6 +71,7 @@ export const CommentFragment = gql`
           }
         }
         metadata {
+          name
           content
         }
       }
@@ -88,6 +90,7 @@ export const CommentFragment = gql`
           }
         }
         metadata {
+          name
           content
         }
       }
