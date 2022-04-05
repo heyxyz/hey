@@ -25,7 +25,6 @@ const defaultChain = IS_MAINNET ? POLYGON_MUMBAI : POLYGON_MUMBAI
 type ConnectorsConfig = { chainId?: number }
 
 const connectors = ({ chainId }: ConnectorsConfig) => {
-  console.log(POLYGON_MUMBAI)
   const rpcUrl =
     supportedChains.find((x) => x.id === chainId)?.rpcUrls?.[0] ??
     defaultChain.rpcUrls[0]
