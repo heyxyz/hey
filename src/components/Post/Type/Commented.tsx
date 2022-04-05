@@ -23,11 +23,11 @@ const Commented: React.FC<Props> = ({ post }) => {
         className="mr-2 mb-0.5 ml-5 w-4"
         alt="Comment"
       />
-      <div className="flex items-center text-sm space-x-1 text-gray-500 pb-3">
+      <div className="flex items-center pb-3 space-x-1 text-sm text-gray-500">
         <Link href={`/u/${post?.commentOn?.profile?.handle}`}>
-          <a className="font-bold flex items-center space-x-2">
+          <a className="flex items-center space-x-2 font-bold">
             <img
-              className="h-6 w-6 rounded-full"
+              className="w-6 h-6 rounded-full"
               src={getAvatar(post?.commentOn?.profile as Profile)}
               alt={post?.commentOn?.profile?.handle}
             />
@@ -35,7 +35,7 @@ const Commented: React.FC<Props> = ({ post }) => {
           </a>
         </Link>
         <Link href={`/posts/${post?.commentOn?.id}`}>
-          <a className="line-clamp-1 w-2/4">
+          <a className="md:w-2/4 line-clamp-1">
             {post?.commentOn?.metadata?.content}
           </a>
         </Link>
