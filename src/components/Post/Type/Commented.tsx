@@ -23,7 +23,7 @@ const Commented: React.FC<Props> = ({ post }) => {
         className="mr-2 mb-0.5 ml-5 w-4"
         alt="Comment"
       />
-      <div className="flex items-center space-x-1 text-sm text-gray-500 pb-3">
+      <div className="flex items-center text-sm space-x-1 text-gray-500 pb-3">
         <Link href={`/u/${post?.commentOn?.profile?.handle}`}>
           <a className="font-bold flex items-center space-x-2">
             <img
@@ -34,13 +34,11 @@ const Commented: React.FC<Props> = ({ post }) => {
             <Slug slug={post?.commentOn?.profile?.handle} prefix="@" />:
           </a>
         </Link>
-        <div>
-          <Link href={`/posts/${post?.commentOn?.id}`}>
-            <a className="line-clamp-1 w-2/3">
-              {post?.commentOn?.metadata?.content}
-            </a>
-          </Link>
-        </div>
+        <Link href={`/posts/${post?.commentOn?.id}`}>
+          <a className="line-clamp-1 w-2/4">
+            {post?.commentOn?.metadata?.content}
+          </a>
+        </Link>
       </div>
     </div>
   )
