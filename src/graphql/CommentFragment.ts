@@ -40,22 +40,52 @@ export const CommentFragment = gql`
       ... on Post {
         id
         profile {
+          name
           handle
+          picture {
+            ... on MediaSet {
+              original {
+                url
+              }
+            }
+          }
         }
         metadata {
-          name
+          content
         }
       }
       ... on Comment {
         id
         profile {
+          name
           handle
+          picture {
+            ... on MediaSet {
+              original {
+                url
+              }
+            }
+          }
+        }
+        metadata {
+          content
         }
       }
       ... on Mirror {
         id
         profile {
+          name
           handle
+          picture {
+            ... on MediaSet {
+              original {
+                url
+              }
+            }
+          }
+        }
+        metadata {
+          content
         }
       }
     }
