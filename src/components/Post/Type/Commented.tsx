@@ -34,9 +34,11 @@ const Commented: React.FC<Props> = ({ post }) => {
             <Slug slug={post?.commentOn?.profile?.handle} prefix="@" />:
           </a>
         </Link>
-        <div className="">
+        <div>
           <Link href={`/posts/${post?.commentOn?.id}`}>
-            <a className="truncate">{post?.commentOn?.metadata?.content}</a>
+            <a className="line-clamp-1 w-2/3">
+              {post?.commentOn?.metadata?.content}
+            </a>
           </Link>
         </div>
       </div>
