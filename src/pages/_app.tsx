@@ -23,13 +23,23 @@ const defaultChain = IS_MAINNET
 type ConnectorsConfig = { chainId?: number }
 
 const connectors = ({ chainId }: ConnectorsConfig) => {
+  const updatedChains = [
+    {
+      ...supportedChains[0],
+      rpcUrls: [
+        IS_MAINNET
+          ? 'https://polygon-rpc.com'
+          : 'https://rpc-mumbai.maticvigil.com'
+      ]
+    }
+  ]
   const rpcUrl =
-    supportedChains.find((x) => x.id === chainId)?.rpcUrls?.[0] ??
+    updatedChains.find((x) => x.id === chainId)?.rpcUrls?.[0] ??
     defaultChain.rpcUrls[0]
 
   return [
     new InjectedConnector({
-      chains: supportedChains,
+      chains: updatedChains,
       options: { shimDisconnect: true }
     }),
     new WalletConnectConnector({
