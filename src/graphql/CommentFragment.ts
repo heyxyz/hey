@@ -42,6 +42,7 @@ export const CommentFragment = gql`
         profile {
           name
           handle
+          ownedBy
           picture {
             ... on MediaSet {
               original {
@@ -59,6 +60,7 @@ export const CommentFragment = gql`
         profile {
           name
           handle
+          ownedBy
           picture {
             ... on MediaSet {
               original {
@@ -76,6 +78,7 @@ export const CommentFragment = gql`
         profile {
           name
           handle
+          ownedBy
           picture {
             ... on MediaSet {
               original {
