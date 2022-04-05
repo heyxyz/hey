@@ -29,9 +29,18 @@ export const IMAGEKIT_URL = 'https://ik.imagekit.io/lensterimg'
 
 // Web3
 export const INFURA_ID = '1423f014ff0243e3b7ab20fbb3f8656f'
-export const CHAIN_ID = IS_MAINNET
-  ? chain.polygonMainnet.id
-  : chain.polygonTestnetMumbai.id
+export const POLYGON_MAINNET = {
+  ...chain.polygonMainnet,
+  name: 'Polygon Mainnet',
+  rpcUrls: ['https://polygon-rpc.com']
+}
+
+export const POLYGON_MUMBAI = {
+  ...chain.polygonTestnetMumbai,
+  name: 'Polygon Mumbai',
+  rpcUrls: ['https://rpc-mumbai.maticvigil.com']
+}
+export const CHAIN_ID = IS_MAINNET ? POLYGON_MAINNET.id : POLYGON_MUMBAI.id
 
 // Addresses
 export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000'

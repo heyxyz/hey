@@ -5,41 +5,34 @@ import SiteLayout from '@components/SiteLayout'
 import { AppProps } from 'next/app'
 import Script from 'next/script'
 import { ThemeProvider } from 'next-themes'
-import { CHAIN_ID, INFURA_ID, IS_MAINNET, IS_PRODUCTION } from 'src/constants'
-import { chain, Provider } from 'wagmi'
+import {
+  CHAIN_ID,
+  INFURA_ID,
+  IS_MAINNET,
+  IS_PRODUCTION,
+  POLYGON_MUMBAI
+} from 'src/constants'
+import { Provider } from 'wagmi'
 import { InjectedConnector } from 'wagmi/connectors/injected'
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect'
 import { WalletLinkConnector } from 'wagmi/connectors/walletLink'
 
 import client from '../apollo'
 
-const supportedChains = IS_MAINNET
-  ? [chain.polygonMainnet]
-  : [chain.polygonTestnetMumbai]
-const defaultChain = IS_MAINNET
-  ? chain.polygonMainnet
-  : chain.polygonTestnetMumbai
+const supportedChains = IS_MAINNET ? [POLYGON_MUMBAI] : [POLYGON_MUMBAI]
+const defaultChain = IS_MAINNET ? POLYGON_MUMBAI : POLYGON_MUMBAI
 
 type ConnectorsConfig = { chainId?: number }
 
 const connectors = ({ chainId }: ConnectorsConfig) => {
-  const updatedChains = [
-    {
-      ...supportedChains[0],
-      rpcUrls: [
-        IS_MAINNET
-          ? 'https://polygon-rpc.com'
-          : 'https://rpc-mumbai.maticvigil.com'
-      ]
-    }
-  ]
+  console.log(POLYGON_MUMBAI)
   const rpcUrl =
-    updatedChains.find((x) => x.id === chainId)?.rpcUrls?.[0] ??
+    supportedChains.find((x) => x.id === chainId)?.rpcUrls?.[0] ??
     defaultChain.rpcUrls[0]
 
   return [
     new InjectedConnector({
-      chains: updatedChains,
+      chains: supportedChains,
       options: { shimDisconnect: true }
     }),
     new WalletConnectConnector({
