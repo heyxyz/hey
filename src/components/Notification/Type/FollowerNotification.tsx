@@ -20,7 +20,7 @@ const FollowerNotification: React.FC<Props> = ({ notification }) => {
 
   return (
     <>
-      <div className="flex justify-between items-center">
+      <div className="flex items-center justify-between">
         <Link
           href={
             wallet?.defaultProfile
@@ -28,7 +28,10 @@ const FollowerNotification: React.FC<Props> = ({ notification }) => {
               : `${POLYGONSCAN_URL}/address/${wallet?.address}`
           }
         >
-          <a>
+          <a
+            target={wallet.defaultProfile ? '_self' : '_blank'}
+            rel="noreferrer"
+          >
             <div className="flex items-center space-x-3">
               <img
                 src={
@@ -40,7 +43,7 @@ const FollowerNotification: React.FC<Props> = ({ notification }) => {
                         500
                       )
                 }
-                className="w-10 h-10 bg-gray-200 rounded-full border dark:border-gray-700"
+                className="w-10 h-10 bg-gray-200 border rounded-full dark:border-gray-700"
                 alt={
                   wallet?.defaultProfile
                     ? wallet?.defaultProfile?.handle
