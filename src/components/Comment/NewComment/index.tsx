@@ -285,7 +285,7 @@ const NewComment: React.FC<Props> = ({ refetch, post, type }) => {
               {data?.hash && (
                 <IndexStatus
                   refetch={refetch}
-                  type="Comment"
+                  type={type === 'comment' ? 'Comment' : 'Post'}
                   txHash={data?.hash}
                 />
               )}
@@ -316,14 +316,14 @@ const NewComment: React.FC<Props> = ({ refetch, post, type }) => {
                   {isUploading
                     ? 'Uploading to IPFS'
                     : typedDataLoading
-                    ? 'Generating Comment'
+                    ? `Generating ${type === 'comment' ? 'Comment' : 'Post'}`
                     : signLoading
                     ? 'Sign'
                     : writeLoading
                     ? 'Send'
-                    : type === 'community post'
-                    ? 'Post'
-                    : 'Comment'}
+                    : type === 'comment'
+                    ? 'Comment'
+                    : 'Post'}
                 </Button>
               )}
             </div>
