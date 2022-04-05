@@ -31,14 +31,9 @@ const Footer: React.FC = () => {
           Privacy
         </Link>
       </span>
-      <a
-        className="pr-3"
-        href="https://discord.com/invite/B8eKhSSUwX"
-        target="_blank"
-        rel="noreferrer"
-      >
-        Discord
-      </a>
+      <span className="pr-3">
+        <Link href="/discord">Discord</Link>
+      </span>
       <a
         className="pr-3"
         href="https://status.lenster.xyz"
