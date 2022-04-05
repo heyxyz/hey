@@ -12,7 +12,7 @@ const SingleNFT: React.FC<Props> = ({ nft }) => {
   return (
     <Card>
       <div
-        className="h-52 border-b sm:h-80 rounded-t-[10px]"
+        className="h-52 border-b sm:h-80 md:rounded-t-[10px]"
         style={{
           backgroundImage: `url(${imagekitURL(
             nft.originalContent.uri
