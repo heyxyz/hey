@@ -1,7 +1,8 @@
 import { gql, useQuery } from '@apollo/client'
-import NewPost from '@components/Post/NewPost'
 import SinglePost from '@components/Post/SinglePost'
+import NewPostShimmer from '@components/Shared/Shimmer/NewPostShimmer'
 import PostsShimmer from '@components/Shared/Shimmer/PostsShimmer'
+import { Card } from '@components/UI/Card'
 import { EmptyState } from '@components/UI/EmptyState'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { Spinner } from '@components/UI/Spinner'
@@ -11,8 +12,17 @@ import { CommentFragment } from '@gql/CommentFragment'
 import { MirrorFragment } from '@gql/MirrorFragment'
 import { PostFragment } from '@gql/PostFragment'
 import { CollectionIcon } from '@heroicons/react/outline'
+import dynamic from 'next/dynamic'
 import React, { useContext } from 'react'
 import useInView from 'react-cool-inview'
+
+const NewPost = dynamic(() => import('../Post/NewPost'), {
+  loading: () => (
+    <Card>
+      <NewPostShimmer />
+    </Card>
+  )
+})
 
 const HOME_FEED_QUERY = gql`
   query HomeFeed($request: TimelineRequest!) {

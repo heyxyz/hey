@@ -1,5 +1,6 @@
 import { gql, useQuery } from '@apollo/client'
 import SinglePost from '@components/Post/SinglePost'
+import NewPostShimmer from '@components/Shared/Shimmer/NewPostShimmer'
 import PostsShimmer from '@components/Shared/Shimmer/PostsShimmer'
 import Slug from '@components/Shared/Slug'
 import { Card, CardBody } from '@components/UI/Card'
@@ -10,11 +11,18 @@ import AppContext from '@components/utils/AppContext'
 import { LensterPost } from '@generated/lenstertypes'
 import { CommentFragment } from '@gql/CommentFragment'
 import { CollectionIcon, UsersIcon } from '@heroicons/react/outline'
+import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import React, { useContext } from 'react'
 import useInView from 'react-cool-inview'
 
-import NewComment from './NewComment'
+const NewComment = dynamic(() => import('./NewComment'), {
+  loading: () => (
+    <Card>
+      <NewPostShimmer />
+    </Card>
+  )
+})
 
 const COMMENT_FEED_QUERY = gql`
   query CommentFeed($request: PublicationsQueryRequest!) {
