@@ -21,7 +21,6 @@ const SelectReferenceModule: React.FC<Props> = ({
   return (
     <div>
       <Tooltip
-        placement="top"
         content={
           onlyFollowers ? 'Only followers can comment' : 'Everyone can comment'
         }
