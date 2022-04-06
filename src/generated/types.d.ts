@@ -161,7 +161,7 @@ export type CollectModuleParams = {
   /** The collect fee collect module */
   feeCollectModule?: InputMaybe<FeeCollectModuleParams>
   /** The collect empty collect module */
-  freeCollectModule: FreeCollectModuleParams
+  freeCollectModule?: InputMaybe<FreeCollectModuleParams>
   /** The collect limited fee collect module */
   limitedFeeCollectModule?: InputMaybe<LimitedFeeCollectModuleParams>
   /** The collect limited timed fee collect module */
