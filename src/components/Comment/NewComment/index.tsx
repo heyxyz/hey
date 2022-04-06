@@ -8,7 +8,7 @@ import SelectCollectModule from '@components/Shared/SelectCollectModule'
 import SelectReferenceModule from '@components/Shared/SelectReferenceModule'
 import SwitchNetwork from '@components/Shared/SwitchNetwork'
 import { Button } from '@components/UI/Button'
-import { Card, CardBody } from '@components/UI/Card'
+import { Card } from '@components/UI/Card'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { Form, useZodForm } from '@components/UI/Form'
 import { Spinner } from '@components/UI/Spinner'
@@ -244,7 +244,7 @@ const NewComment: React.FC<Props> = ({ refetch, post, type }) => {
 
   return (
     <Card>
-      <CardBody>
+      <div className="px-5 pt-5 pb-3">
         <Form
           form={form}
           className="space-y-1"
@@ -334,7 +334,7 @@ const NewComment: React.FC<Props> = ({ refetch, post, type }) => {
             isNew
           />
         </Form>
-      </CardBody>
+      </div>
     </Card>
   )
 }
