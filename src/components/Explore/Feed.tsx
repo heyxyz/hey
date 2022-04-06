@@ -82,7 +82,7 @@ const Feed: React.FC<Props> = ({ feedType = 'TOP_COMMENTED' }) => {
       {error && (
         <ErrorMessage title="Failed to load explore feed" error={error} />
       )}
-      <div className="space-y-3">
+      <div className="space-y-3" data-cy="explore-feed">
         {data?.explorePublications?.items?.map(
           (post: LensterPost, index: number) => (
             <SinglePost key={`${post.id}_${index}`} post={post} />
