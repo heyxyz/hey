@@ -86,10 +86,11 @@ const newPostSchema = object({
 })
 
 interface Props {
-  refetch: any
+  refetch?: any
+  hideCard?: boolean
 }
 
-const NewPost: React.FC<Props> = ({ refetch }) => {
+const NewPost: React.FC<Props> = ({ refetch, hideCard = false }) => {
   const form = useZodForm({
     schema: newPostSchema
   })
@@ -231,7 +232,7 @@ const NewPost: React.FC<Props> = ({ refetch }) => {
   }
 
   return (
-    <Card>
+    <Card className={hideCard ? 'border-0 !shadow-none !bg-transparent' : ''}>
       <div className="px-5 pt-5 pb-3">
         <Form
           form={form}
