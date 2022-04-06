@@ -1,30 +1,29 @@
-import React, { useState } from 'react'
+import Tippy from '@tippyjs/react'
+import React from 'react'
+import { Placement } from 'tippy.js'
 
 interface Props {
   children: React.ReactNode
+  placement?: Placement
   content: string
 }
 
-export const Tooltip: React.FC<Props> = ({ children, content }) => {
-  const [expanded, setExpanded] = useState<boolean>(false)
-
+export const Tooltip: React.FC<Props> = ({
+  children,
+  placement = 'right',
+  content
+}) => {
   return (
-    <div
-      onMouseLeave={() => setExpanded(false)}
-      onMouseEnter={() => setExpanded(true)}
-      className="relative"
+    <Tippy
+      placement={placement}
+      duration={0}
+      content={
+        <span className="text-xs text-white py-1 px-2 rounded-lg bg-gray-700">
+          {content}
+        </span>
+      }
     >
       <div>{children}</div>
-      {expanded ? (
-        <div
-          style={{
-            transform: 'translate(-50%, -100%)'
-          }}
-          className="flex absolute -top-3 left-1/2 z-50 flex-col py-0.5 px-2 mt-2 text-xs font-bold text-gray-100 whitespace-nowrap bg-gray-900 rounded-lg border border-gray-800 truncated"
-        >
-          {content}
-        </div>
-      ) : null}
-    </div>
+    </Tippy>
   )
 }

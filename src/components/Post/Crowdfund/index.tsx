@@ -103,6 +103,7 @@ const Crowdfund: React.FC<Props> = ({ fund }) => {
               <div className="w-full h-[13px] !mt-5 rounded-full shimmer" />
             ) : (
               <Tooltip
+                placement="top"
                 content={
                   percentageReached >= 100
                     ? 'Goal reached 🎉'
