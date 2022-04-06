@@ -29,9 +29,9 @@ const PostType: React.FC<Props> = ({ post, hideType }) => {
       {post?.__typename === 'Comment' &&
         !hideType &&
         postType !== 'community post' && <Commented post={post} />}
-      {postType === 'community post' && pathname !== '/communities/[id]' && (
-        <CommunityPost post={post} />
-      )}
+      {postType === 'community post' &&
+        pathname !== '/communities/[id]' &&
+        post?.__typename !== 'Mirror' && <CommunityPost post={post} />}
       {post?.collectedBy &&
         postType !== 'community' &&
         postType !== 'crowdfund' && <Collected post={post} />}
