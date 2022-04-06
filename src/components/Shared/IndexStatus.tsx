@@ -11,6 +11,9 @@ export const TX_STATUS_QUERY = gql`
       ... on Post {
         id
       }
+      ... on Comment {
+        id
+      }
     }
   }
 `
