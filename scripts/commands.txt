@@ -1,8 +1,8 @@
-Command : pnpm lint
+Command : npm run lint
 Description : # Check for linting errors
-Command : pnpm typecheck
+Command : npm run typecheck
 Description : # Check for type errors
-Command : pnpm prettier
+Command : npm run prettier
 Description : # Check for prettier errors
-Command : pnpm codegen
+Command : npm run codegen
 Description : # Generate types from GraphQL
