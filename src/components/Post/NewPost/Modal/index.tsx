@@ -1,12 +1,8 @@
-import NewPostShimmer from '@components/Shared/Shimmer/NewPostShimmer'
 import { Modal } from '@components/UI/Modal'
 import { PencilAltIcon } from '@heroicons/react/outline'
-import dynamic from 'next/dynamic'
 import { useState } from 'react'
 
-const NewPost = dynamic(() => import('..'), {
-  loading: () => <NewPostShimmer />
-})
+import NewPost from '..'
 
 const NewPostModal: React.FC = () => {
   const [showModal, setShowModal] = useState<boolean>(false)
@@ -26,7 +22,7 @@ const NewPostModal: React.FC = () => {
         show={showModal}
         onClose={() => setShowModal(!showModal)}
       >
-        <NewPost hideCard />
+        <NewPost setShowModal={setShowModal} hideCard />
       </Modal>
     </>
   )
