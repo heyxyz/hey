@@ -36,6 +36,8 @@ export type Scalars = {
   EthereumAddress: any
   /** follow module data scalar type */
   FollowModuleData: any
+  /** follow only option */
+  FollowerOnly: any
   /** handle custom scalar type */
   Handle: any
   /** handle claim id custom scalar type */
@@ -148,18 +150,18 @@ export type ClaimableHandles = {
 }
 
 export type CollectModule =
-  | EmptyCollectModuleSettings
   | FeeCollectModuleSettings
+  | FreeCollectModuleSettings
   | LimitedFeeCollectModuleSettings
   | LimitedTimedFeeCollectModuleSettings
   | RevertCollectModuleSettings
   | TimedFeeCollectModuleSettings
 
 export type CollectModuleParams = {
-  /** The collect empty collect module */
-  emptyCollectModule?: InputMaybe<Scalars['Boolean']>
   /** The collect fee collect module */
   feeCollectModule?: InputMaybe<FeeCollectModuleParams>
+  /** The collect empty collect module */
+  freeCollectModule: FreeCollectModuleParams
   /** The collect limited fee collect module */
   limitedFeeCollectModule?: InputMaybe<LimitedFeeCollectModuleParams>
   /** The collect limited timed fee collect module */
@@ -172,8 +174,8 @@ export type CollectModuleParams = {
 
 /** The collect module types */
 export enum CollectModules {
-  EmptyCollectModule = 'EmptyCollectModule',
   FeeCollectModule = 'FeeCollectModule',
+  FreeCollectModule = 'FreeCollectModule',
   LimitedFeeCollectModule = 'LimitedFeeCollectModule',
   LimitedTimedFeeCollectModule = 'LimitedTimedFeeCollectModule',
   RevertCollectModule = 'RevertCollectModule',
@@ -767,13 +769,6 @@ export type Eip712TypedDataField = {
   type: Scalars['String']
 }
 
-export type EmptyCollectModuleSettings = {
-  __typename?: 'EmptyCollectModuleSettings'
-  contractAddress: Scalars['ContractAddress']
-  /** The collect modules enum */
-  type: CollectModules
-}
-
 export type EnabledModule = {
   __typename?: 'EnabledModule'
   contractAddress: Scalars['ContractAddress']
@@ -837,6 +832,8 @@ export type ExplorePublicationResult = {
 export type FeeCollectModuleParams = {
   /** The collect module amount info */
   amount: ModuleFeeAmountParams
+  /** Follower only */
+  followerOnly: Scalars['FollowerOnly']
   /** The collect module recipient address */
   recipient: Scalars['EthereumAddress']
   /** The collect module referral fee */
@@ -848,6 +845,8 @@ export type FeeCollectModuleSettings = {
   /** The collect module amount info */
   amount: ModuleFeeAmount
   contractAddress: Scalars['ContractAddress']
+  /** Follower only */
+  followerOnly: Scalars['FollowerOnly']
   /** The collect module recipient address */
   recipient: Scalars['EthereumAddress']
   /** The collect module referral fee */
@@ -952,6 +951,20 @@ export type FollowingRequest = {
 export type FraudReasonInputParams = {
   reason: PublicationReportingReason
   subreason: PublicationReportingFraudSubreason
+}
+
+export type FreeCollectModuleParams = {
+  /** Follower only */
+  followerOnly: Scalars['FollowerOnly']
+}
+
+export type FreeCollectModuleSettings = {
+  __typename?: 'FreeCollectModuleSettings'
+  contractAddress: Scalars['ContractAddress']
+  /** Follower only */
+  followerOnly: Scalars['FollowerOnly']
+  /** The collect modules enum */
+  type: CollectModules
 }
 
 export type GenerateModuleCurrencyApproval = {
@@ -1059,6 +1072,8 @@ export type LimitedFeeCollectModuleParams = {
   amount: ModuleFeeAmountParams
   /** The collect module limit */
   collectLimit: Scalars['String']
+  /** Follower only */
+  followerOnly: Scalars['FollowerOnly']
   /** The collect module recipient address */
   recipient: Scalars['EthereumAddress']
   /** The collect module referral fee */
@@ -1072,6 +1087,8 @@ export type LimitedFeeCollectModuleSettings = {
   /** The collect module limit */
   collectLimit: Scalars['String']
   contractAddress: Scalars['ContractAddress']
+  /** Follower only */
+  followerOnly: Scalars['FollowerOnly']
   /** The collect module recipient address */
   recipient: Scalars['EthereumAddress']
   /** The collect module referral fee */
@@ -1085,6 +1102,8 @@ export type LimitedTimedFeeCollectModuleParams = {
   amount: ModuleFeeAmountParams
   /** The collect module limit */
   collectLimit: Scalars['String']
+  /** Follower only */
+  followerOnly: Scalars['FollowerOnly']
   /** The collect module recipient address */
   recipient: Scalars['EthereumAddress']
   /** The collect module referral fee */
@@ -1100,6 +1119,8 @@ export type LimitedTimedFeeCollectModuleSettings = {
   contractAddress: Scalars['ContractAddress']
   /** The collect module end timestamp */
   endTimestamp: Scalars['DateTime']
+  /** Follower only */
+  followerOnly: Scalars['FollowerOnly']
   /** The collect module recipient address */
   recipient: Scalars['EthereumAddress']
   /** The collect module referral fee */
@@ -2017,6 +2038,8 @@ export type ReservedClaimableHandle = {
 export type RevertCollectModuleSettings = {
   __typename?: 'RevertCollectModuleSettings'
   contractAddress: Scalars['ContractAddress']
+  /** Follower only */
+  followerOnly: Scalars['FollowerOnly']
   /** The collect modules enum */
   type: CollectModules
 }
@@ -2106,6 +2129,8 @@ export type SignedAuthChallenge = {
 export type TimedFeeCollectModuleParams = {
   /** The collect module amount info */
   amount: ModuleFeeAmountParams
+  /** Follower only */
+  followerOnly: Scalars['FollowerOnly']
   /** The collect module recipient address */
   recipient: Scalars['EthereumAddress']
   /** The collect module referral fee */
@@ -2119,6 +2144,8 @@ export type TimedFeeCollectModuleSettings = {
   contractAddress: Scalars['ContractAddress']
   /** The collect module end timestamp */
   endTimestamp: Scalars['DateTime']
+  /** Follower only */
+  followerOnly: Scalars['FollowerOnly']
   /** The collect module recipient address */
   recipient: Scalars['EthereumAddress']
   /** The collect module referral fee */

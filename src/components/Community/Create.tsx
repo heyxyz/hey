@@ -174,7 +174,7 @@ const Create: React.FC = () => {
             profileId: currentUser?.id,
             contentURI: `https://ipfs.infura.io/ipfs/${path}`,
             collectModule: {
-              emptyCollectModule: true
+              freeCollectModule: true
             },
             referenceModule: {
               followerOnlyReferenceModule: false

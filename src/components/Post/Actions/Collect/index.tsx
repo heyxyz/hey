@@ -34,7 +34,7 @@ const Collect: React.FC<Props> = ({ post }) => {
       </div>
       <Modal
         title={
-          post.collectModule.__typename === 'EmptyCollectModuleSettings'
+          post.collectModule.__typename === 'FreeCollectModuleSettings'
             ? 'Empty Collect'
             : getModule(post.collectModule.type).name
         }
@@ -42,8 +42,8 @@ const Collect: React.FC<Props> = ({ post }) => {
           <div className="text-brand-500">
             <GetModuleIcon
               module={
-                post.collectModule.__typename === 'EmptyCollectModuleSettings'
-                  ? 'EmptyCollectModule'
+                post.collectModule.__typename === 'FreeCollectModuleSettings'
+                  ? 'FreeCollectModule'
                   : post.collectModule.type
               }
               size={5}
