@@ -4,7 +4,6 @@ import {
   HttpLink,
   InMemoryCache
 } from '@apollo/client'
-import { lensStylePagination } from '@lib/lensStylePagination'
 import jwtDecode from 'jwt-decode'
 
 import { API_URL } from './constants'
@@ -75,18 +74,7 @@ const authLink = new ApolloLink((operation, forward) => {
 
 const client = new ApolloClient({
   link: authLink.concat(httpLink),
-  cache: new InMemoryCache({
-    typePolicies: {
-      Query: {
-        fields: {
-          whoCollectedPublication: lensStylePagination([
-            'request',
-            ['publicationId']
-          ])
-        }
-      }
-    }
-  })
+  cache: new InMemoryCache({})
 })
 
 export default client
