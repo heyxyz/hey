@@ -27,7 +27,10 @@ const SelectCollectModule: React.FC<Props> = ({
 
   return (
     <div>
-      <Tooltip content={getModule(selectedModule.moduleName).name}>
+      <Tooltip
+        placement="top"
+        content={getModule(selectedModule.moduleName).name}
+      >
         <motion.button
           whileTap={{ scale: 0.9 }}
           type="button"

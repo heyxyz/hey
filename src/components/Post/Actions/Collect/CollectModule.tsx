@@ -175,7 +175,7 @@ const CollectModule: React.FC<Props> = ({ post }) => {
     <>
       {collectModule.type === 'LimitedFeeCollectModule' ||
         (collectModule.type === 'LimitedTimedFeeCollectModule' && (
-          <Tooltip content="Collect Limit">
+          <Tooltip placement="top" content="Collect Limit">
             <div className="w-full h-2.5 bg-gray-200 dark:bg-gray-700">
               <div
                 className="h-2.5 bg-brand-500"
