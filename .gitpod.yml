@@ -1,10 +1,10 @@
 tasks:
   - name: Setup
     init: |
-      yarn install
-      yarn codegen
+      pnpm install
+      pnpm codegen
       cp .env.example .env
-    command: yarn dev
+    command: pnpm dev
 
   - command: |
       clear

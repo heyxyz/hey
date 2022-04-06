@@ -1,8 +1,8 @@
-Command : yarn lint
+Command : pnpm lint
 Description : # Check for linting errors
-Command : yarn typecheck
+Command : pnpm typecheck
 Description : # Check for type errors
-Command : yarn prettier
+Command : pnpm prettier
 Description : # Check for prettier errors
-Command : yarn codegen
+Command : pnpm codegen
 Description : # Generate types from GraphQL
