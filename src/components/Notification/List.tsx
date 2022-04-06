@@ -4,7 +4,7 @@ import { EmptyState } from '@components/UI/EmptyState'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { Spinner } from '@components/UI/Spinner'
 import AppContext from '@components/utils/AppContext'
-import { Notification } from '@generated/types'
+import { Notification, PaginatedResultInfo } from '@generated/types'
 import { MailIcon } from '@heroicons/react/outline'
 import { useContext, useEffect, useState } from 'react'
 
@@ -149,12 +149,18 @@ const NOTIFICATIONS_QUERY = gql`
 
 const List: React.FC = () => {
   const { currentUser } = useContext(AppContext)
+  const [notifications, setNotifications] = useState<Notification[]>([])
+  const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
   const [isLoadingMore, setIsLoadingMore] = useState<boolean>(false)
   const { data, loading, error, fetchMore, refetch } = useQuery(
     NOTIFICATIONS_QUERY,
     {
       variables: {
         request: { profileId: currentUser?.id, limit: 10 }
+      },
+      onCompleted(data) {
+        setPageInfo(data?.notifications?.pageInfo)
+        setNotifications(data?.notifications?.items)
       }
     }
   )
@@ -162,8 +168,6 @@ const List: React.FC = () => {
   useEffect(() => {
     refetch()
   }, [refetch])
-
-  const pageInfo = data?.notifications?.pageInfo
 
   if (loading)
     return (
@@ -196,8 +200,6 @@ const List: React.FC = () => {
         hideCard
       />
     )
-
-  const notifications = data?.notifications?.items
 
   return (
     <div className="divide-y">
@@ -242,7 +244,15 @@ const List: React.FC = () => {
                     limit: 10
                   }
                 }
-              }).finally(() => setIsLoadingMore(false))
+              })
+                .then(({ data }: any) => {
+                  setPageInfo(data?.notifications?.pageInfo)
+                  setNotifications([
+                    ...notifications,
+                    ...data?.notifications?.items
+                  ])
+                })
+                .finally(() => setIsLoadingMore(false))
             }}
           >
             {isLoadingMore ? 'Loading...' : 'Show more'}

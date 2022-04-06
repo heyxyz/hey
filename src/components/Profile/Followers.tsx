@@ -4,8 +4,9 @@ import WalletProfile from '@components/Shared/WalletProfile'
 import { EmptyState } from '@components/UI/EmptyState'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { Spinner } from '@components/UI/Spinner'
-import { Follower, Profile } from '@generated/types'
+import { Follower, PaginatedResultInfo, Profile } from '@generated/types'
 import { UsersIcon } from '@heroicons/react/outline'
+import { useState } from 'react'
 import useInView from 'react-cool-inview'
 
 const FOLLOWERS_QUERY = gql`
@@ -32,6 +33,7 @@ const FOLLOWERS_QUERY = gql`
       }
       pageInfo {
         next
+        totalCount
       }
     }
   }
@@ -42,12 +44,17 @@ interface Props {
 }
 
 const Followers: React.FC<Props> = ({ profile }) => {
+  const [followers, setFollowers] = useState<Follower[]>([])
+  const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
   const { data, loading, error, fetchMore } = useQuery(FOLLOWERS_QUERY, {
     variables: { request: { profileId: profile?.id, limit: 10 } },
-    skip: !profile?.id
+    skip: !profile?.id,
+    onCompleted(data) {
+      setPageInfo(data?.followers?.pageInfo)
+      setFollowers(data?.followers?.items)
+    }
   })
 
-  const pageInfo = data?.followers?.pageInfo
   const { observe } = useInView({
     threshold: 1,
     onEnter: () => {
@@ -59,6 +66,9 @@ const Followers: React.FC<Props> = ({ profile }) => {
             limit: 10
           }
         }
+      }).then(({ data }: any) => {
+        setPageInfo(data?.followers?.pageInfo)
+        setFollowers([...followers, ...data?.followers?.items])
       })
     }
   })
@@ -96,7 +106,7 @@ const Followers: React.FC<Props> = ({ profile }) => {
       />
       <div className="space-y-3">
         <div className="divide-y">
-          {data?.followers?.items?.map((follower: Follower) => (
+          {followers?.map((follower: Follower) => (
             <div className="p-5" key={follower?.wallet?.defaultProfile?.id}>
               {follower?.wallet?.defaultProfile ? (
                 <UserProfile
@@ -108,7 +118,7 @@ const Followers: React.FC<Props> = ({ profile }) => {
             </div>
           ))}
         </div>
-        {pageInfo?.next && (
+        {pageInfo?.next && followers.length !== pageInfo?.totalCount && (
           <span ref={observe} className="flex justify-center p-5">
             <Spinner size="md" />
           </span>

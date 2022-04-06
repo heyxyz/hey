@@ -5,11 +5,12 @@ import { EmptyState } from '@components/UI/EmptyState'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { Spinner } from '@components/UI/Spinner'
 import { LensterPost } from '@generated/lenstertypes'
+import { PaginatedResultInfo } from '@generated/types'
 import { CommentFragment } from '@gql/CommentFragment'
 import { MirrorFragment } from '@gql/MirrorFragment'
 import { PostFragment } from '@gql/PostFragment'
 import { CollectionIcon } from '@heroicons/react/outline'
-import React from 'react'
+import React, { useState } from 'react'
 import useInView from 'react-cool-inview'
 
 const EXPLORE_FEED_QUERY = gql`
@@ -41,13 +42,18 @@ interface Props {
 }
 
 const Feed: React.FC<Props> = ({ feedType = 'TOP_COMMENTED' }) => {
+  const [publications, setPublications] = useState<LensterPost[]>([])
+  const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
   const { data, loading, error, fetchMore } = useQuery(EXPLORE_FEED_QUERY, {
     variables: {
       request: { sortCriteria: feedType, limit: 10 }
+    },
+    onCompleted(data) {
+      setPageInfo(data?.explorePublications?.pageInfo)
+      setPublications(data?.explorePublications?.items)
     }
   })
 
-  const pageInfo = data?.explorePublications?.pageInfo
   const { observe } = useInView({
     threshold: 1,
     onEnter: () => {
@@ -59,6 +65,9 @@ const Feed: React.FC<Props> = ({ feedType = 'TOP_COMMENTED' }) => {
             limit: 10
           }
         }
+      }).then(({ data }: any) => {
+        setPageInfo(data?.explorePublications?.pageInfo)
+        setPublications([...publications, ...data?.explorePublications?.items])
       })
     }
   })
@@ -83,11 +92,9 @@ const Feed: React.FC<Props> = ({ feedType = 'TOP_COMMENTED' }) => {
         <ErrorMessage title="Failed to load explore feed" error={error} />
       )}
       <div className="space-y-3">
-        {data?.explorePublications?.items?.map(
-          (post: LensterPost, index: number) => (
-            <SinglePost key={`${post.id}_${index}`} post={post} />
-          )
-        )}
+        {publications?.map((post: LensterPost, index: number) => (
+          <SinglePost key={`${post.id}_${index}`} post={post} />
+        ))}
       </div>
       {pageInfo?.next && (
         <span ref={observe} className="flex justify-center p-5">
