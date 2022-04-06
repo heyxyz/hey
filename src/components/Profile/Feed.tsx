@@ -5,12 +5,12 @@ import { EmptyState } from '@components/UI/EmptyState'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { Spinner } from '@components/UI/Spinner'
 import { LensterPost } from '@generated/lenstertypes'
-import { Profile } from '@generated/types'
+import { PaginatedResultInfo, Profile } from '@generated/types'
 import { CommentFragment } from '@gql/CommentFragment'
 import { MirrorFragment } from '@gql/MirrorFragment'
 import { PostFragment } from '@gql/PostFragment'
 import { CollectionIcon } from '@heroicons/react/outline'
-import React from 'react'
+import React, { useState } from 'react'
 import useInView from 'react-cool-inview'
 
 const PROFILE_FEED_QUERY = gql`
@@ -44,14 +44,19 @@ interface Props {
 }
 
 const Feed: React.FC<Props> = ({ profile, type }) => {
+  const [publications, setPublications] = useState<LensterPost[]>([])
+  const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
   const { data, loading, error, fetchMore } = useQuery(PROFILE_FEED_QUERY, {
     variables: {
       request: { publicationTypes: type, profileId: profile.id, limit: 10 }
     },
-    skip: !profile.id
+    skip: !profile.id,
+    onCompleted(data) {
+      setPageInfo(data?.publications?.pageInfo)
+      setPublications(data?.publications?.items)
+    }
   })
 
-  const pageInfo = data?.publications?.pageInfo
   const { observe } = useInView({
     threshold: 1,
     onEnter: () => {
@@ -64,6 +69,9 @@ const Feed: React.FC<Props> = ({ profile, type }) => {
             limit: 10
           }
         }
+      }).then(({ data }: any) => {
+        setPageInfo(data?.publications?.pageInfo)
+        setPublications([...publications, ...data?.publications?.items])
       })
     }
   })
@@ -89,7 +97,7 @@ const Feed: React.FC<Props> = ({ profile, type }) => {
         <ErrorMessage title="Failed to load profile feed" error={error} />
       )}
       <div className="space-y-3">
-        {data?.publications?.items?.map((post: LensterPost, index: number) => (
+        {publications?.map((post: LensterPost, index: number) => (
           <SinglePost key={`${post.id}_${index}`} post={post} />
         ))}
       </div>

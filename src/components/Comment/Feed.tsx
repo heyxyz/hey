@@ -8,10 +8,11 @@ import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { Spinner } from '@components/UI/Spinner'
 import AppContext from '@components/utils/AppContext'
 import { LensterPost } from '@generated/lenstertypes'
+import { PaginatedResultInfo } from '@generated/types'
 import { CommentFragment } from '@gql/CommentFragment'
 import { CollectionIcon, UsersIcon } from '@heroicons/react/outline'
 import { useRouter } from 'next/router'
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import useInView from 'react-cool-inview'
 
 import NewComment from './NewComment'
@@ -50,17 +51,22 @@ const Feed: React.FC<Props> = ({
     query: { id }
   } = useRouter()
   const { currentUser } = useContext(AppContext)
+  const [publications, setPublications] = useState<LensterPost[]>([])
+  const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
   const { data, loading, error, fetchMore, refetch } = useQuery(
     COMMENT_FEED_QUERY,
     {
       variables: {
         request: { commentsOf: id, limit: 10 }
       },
-      skip: !id
+      skip: !id,
+      onCompleted(data) {
+        setPageInfo(data?.publications?.pageInfo)
+        setPublications(data?.publications?.items)
+      }
     }
   )
 
-  const pageInfo = data?.publications?.pageInfo
   const { observe } = useInView({
     threshold: 1,
     onEnter: () => {
@@ -72,6 +78,9 @@ const Feed: React.FC<Props> = ({
             limit: 10
           }
         }
+      }).then(({ data }: any) => {
+        setPageInfo(data?.publications?.pageInfo)
+        setPublications([...publications, ...data?.publications?.items])
       })
     }
   })
@@ -105,7 +114,7 @@ const Feed: React.FC<Props> = ({
         />
       )}
       <div className="space-y-3">
-        {data?.publications?.items?.map((post: LensterPost, index: number) => (
+        {publications?.map((post: LensterPost, index: number) => (
           <SinglePost key={`${post.id}_${index}`} post={post} hideType />
         ))}
       </div>
