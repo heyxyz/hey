@@ -82,8 +82,7 @@ const client = new ApolloClient({
           whoCollectedPublication: lensStylePagination([
             'request',
             ['publicationId']
-          ]),
-          notifications: lensStylePagination(['request', ['profileId']])
+          ])
         }
       }
     }
