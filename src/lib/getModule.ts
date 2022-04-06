@@ -49,10 +49,10 @@ export const getModule = (
       }
     case 'FreeCollectModule':
       return {
-        name: 'Empty Collect',
+        name: 'Free Collect',
         hasParam: false,
         config: {
-          freeCollectModule: true
+          freeCollectModule: { followerOnly: true }
         },
         type: 'collectModule'
       }

@@ -114,7 +114,7 @@ const Join: React.FC<Props> = ({ community, setJoined, showJoin = true }) => {
                   'execution reverted: SafeERC20: low-level call failed'
                 ) {
                   toast.error(
-                    `Please allow Empty Collect module in allowance settings`
+                    `Please allow Free Collect module in allowance settings`
                   )
                 } else {
                   toast.error(error?.data?.message)

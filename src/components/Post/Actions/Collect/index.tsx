@@ -35,7 +35,7 @@ const Collect: React.FC<Props> = ({ post }) => {
       <Modal
         title={
           post.collectModule.__typename === 'FreeCollectModuleSettings'
-            ? 'Empty Collect'
+            ? 'Free Collect'
             : getModule(post.collectModule.type).name
         }
         icon={
