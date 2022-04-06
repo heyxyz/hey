@@ -25,7 +25,7 @@ import { omit } from '@lib/omit'
 import { splitSignature } from '@lib/splitSignature'
 import { trackEvent } from '@lib/trackEvent'
 import { uploadToIPFS } from '@lib/uploadToIPFS'
-import { useContext, useState } from 'react'
+import { Dispatch, useContext, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
   CHAIN_ID,
@@ -86,10 +86,16 @@ const newPostSchema = object({
 })
 
 interface Props {
-  refetch: any
+  refetch?: any
+  setShowModal?: Dispatch<boolean>
+  hideCard?: boolean
 }
 
-const NewPost: React.FC<Props> = ({ refetch }) => {
+const NewPost: React.FC<Props> = ({
+  refetch,
+  setShowModal,
+  hideCard = false
+}) => {
   const form = useZodForm({
     schema: newPostSchema
   })
@@ -231,7 +237,7 @@ const NewPost: React.FC<Props> = ({ refetch }) => {
   }
 
   return (
-    <Card>
+    <Card className={hideCard ? 'border-0 !shadow-none !bg-transparent' : ''}>
       <div className="px-5 pt-5 pb-3">
         <Form
           form={form}
@@ -272,6 +278,7 @@ const NewPost: React.FC<Props> = ({ refetch }) => {
             <div className="flex items-center pt-2 ml-auto space-x-2 sm:pt-0">
               {data?.hash && (
                 <IndexStatus
+                  setShowModal={setShowModal}
                   refetch={refetch}
                   type="Post"
                   txHash={data?.hash}
