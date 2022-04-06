@@ -79,8 +79,6 @@ const client = new ApolloClient({
     typePolicies: {
       Query: {
         fields: {
-          followers: lensStylePagination(['request', ['profileId']]),
-          following: lensStylePagination(['request', ['address']]),
           whoCollectedPublication: lensStylePagination([
             'request',
             ['publicationId']
