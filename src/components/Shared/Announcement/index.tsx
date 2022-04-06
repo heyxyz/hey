@@ -14,7 +14,7 @@ const Announcement: React.FC = () => {
           Mumbai testnet.
         </p>
         <div className="flex items-center space-x-1.5 text-sm font-bold">
-          <CurrencyDollarIcon className="h-4 w-4" />
+          <CurrencyDollarIcon className="w-4 h-4" />
           <a
             href="https://faucet.polygon.technology/"
             target="_blank"

@@ -54,7 +54,7 @@ const FeedType: React.FC<Props> = ({ stats, setFeedType, feedType }) => {
   )
 
   return (
-    <div className="flex gap-3 px-5 pb-2 mt-3 overflow-x-auto md:pb-0 sm:px-0 sm:mt-0">
+    <div className="flex overflow-x-auto gap-3 px-5 pb-2 mt-3 sm:px-0 sm:mt-0 md:pb-0">
       <FeedLink
         name="Posts"
         icon={<PencilAltIcon className="w-4 h-4" />}
