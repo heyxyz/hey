@@ -85,7 +85,7 @@ const Attachments: React.FC<Props> = ({
               {isNew && (
                 <div className="m-3">
                   <button
-                    className="rounded-full bg-gray-900 p-1.5 opacity-75"
+                    className="p-1.5 bg-gray-900 rounded-full opacity-75"
                     onClick={() => removeAttachment(attachment)}
                   >
                     <XIcon className="w-4 h-4 text-white" />

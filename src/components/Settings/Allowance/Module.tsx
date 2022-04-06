@@ -78,7 +78,7 @@ const Module: React.FC<Props> = ({ module }) => {
           error={error}
         />
       )}
-      <CardBody className="flex items-center justify-between">
+      <CardBody className="flex justify-between items-center">
         <div className="overflow-hidden mr-1.5">
           <div className="flex items-center space-x-3">
             <div className="text-brand-500">

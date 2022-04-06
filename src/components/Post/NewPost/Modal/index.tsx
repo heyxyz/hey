@@ -17,7 +17,7 @@ const NewPostModal: React.FC = () => {
       </button>
       <Modal
         title="New Post"
-        icon={<PencilAltIcon className="h-5 w-5 text-brand-500" />}
+        icon={<PencilAltIcon className="w-5 h-5 text-brand-500" />}
         size="md"
         show={showModal}
         onClose={() => setShowModal(!showModal)}

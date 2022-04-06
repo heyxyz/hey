@@ -16,7 +16,7 @@ interface Props {
 const CommentNotification: React.FC<Props> = ({ notification }) => {
   return (
     <>
-      <div className="flex items-center justify-between">
+      <div className="flex justify-between items-center">
         <Link href={`/posts/${notification?.comment.id}`}>
           <a>
             <div className="flex items-center space-x-3">
@@ -30,7 +30,7 @@ const CommentNotification: React.FC<Props> = ({ notification }) => {
                         500
                       )
                 }
-                className="w-10 h-10 bg-gray-200 border rounded-full dark:border-gray-700"
+                className="w-10 h-10 bg-gray-200 rounded-full border dark:border-gray-700"
                 alt={notification?.profile?.handle}
               />
               <div>
@@ -52,7 +52,7 @@ const CommentNotification: React.FC<Props> = ({ notification }) => {
                     </Link>
                   </div>
                 </div>
-                <div className="text-sm text-gray-500 w-72 line-clamp-1">
+                <div className="w-72 text-sm text-gray-500 line-clamp-1">
                   {notification?.comment?.metadata?.content}
                 </div>
                 <div className="flex items-center pt-1 space-x-1 text-gray-400 text-[12px]">
