@@ -3,8 +3,9 @@ import UserProfile from '@components/Shared/UserProfile'
 import { EmptyState } from '@components/UI/EmptyState'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { Spinner } from '@components/UI/Spinner'
-import { Following, Profile } from '@generated/types'
+import { Following, PaginatedResultInfo, Profile } from '@generated/types'
 import { UsersIcon } from '@heroicons/react/outline'
+import { useState } from 'react'
 import useInView from 'react-cool-inview'
 
 const FOLLOWING_QUERY = gql`
@@ -27,6 +28,7 @@ const FOLLOWING_QUERY = gql`
       }
       pageInfo {
         next
+        totalCount
       }
     }
   }
@@ -37,12 +39,17 @@ interface Props {
 }
 
 const Following: React.FC<Props> = ({ profile }) => {
+  const [following, setFollowing] = useState<Following[]>([])
+  const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
   const { data, loading, error, fetchMore } = useQuery(FOLLOWING_QUERY, {
     variables: { request: { address: profile?.ownedBy, limit: 10 } },
-    skip: !profile?.id
+    skip: !profile?.id,
+    onCompleted(data) {
+      setPageInfo(data?.following?.pageInfo)
+      setFollowing(data?.following?.items)
+    }
   })
 
-  const pageInfo = data?.following?.pageInfo
   const { observe } = useInView({
     threshold: 1,
     onEnter: () => {
@@ -54,6 +61,9 @@ const Following: React.FC<Props> = ({ profile }) => {
             limit: 10
           }
         }
+      }).then(({ data }: any) => {
+        setPageInfo(data?.following?.pageInfo)
+        setFollowing([...following, ...data?.following?.items])
       })
     }
   })
@@ -91,13 +101,13 @@ const Following: React.FC<Props> = ({ profile }) => {
       />
       <div className="space-y-3">
         <div className="divide-y">
-          {data?.following?.items?.map((following: Following) => (
+          {following?.map((following: Following) => (
             <div className="p-5" key={following?.profile.id}>
               <UserProfile profile={following?.profile} />
             </div>
           ))}
         </div>
-        {pageInfo?.next && (
+        {pageInfo?.next && following.length !== pageInfo?.totalCount && (
           <span ref={observe} className="flex justify-center p-5">
             <Spinner size="md" />
           </span>
