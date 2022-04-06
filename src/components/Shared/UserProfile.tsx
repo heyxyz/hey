@@ -33,14 +33,14 @@ const UserProfile: React.FC<Props> = ({
       <Link href={`/u/${profile?.handle}`}>
         <a>
           <div className="flex items-center space-x-3">
-            <UserPopover profileId={profile?.id}>
+            <UserPopover handle={profile?.handle}>
               <img
                 src={getAvatar(profile)}
                 className="w-10 h-10 bg-gray-200 rounded-full border dark:border-gray-700"
                 alt={profile?.handle}
               />
             </UserPopover>
-            <UserPopover profileId={profile?.id}>
+            <UserPopover handle={profile?.handle}>
               <div>
                 <div className="flex gap-1 items-center">
                   <div>{profile?.name ?? profile?.handle}</div>
