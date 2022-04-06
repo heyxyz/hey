@@ -41,7 +41,7 @@ const getAllowancePayload = (currency: string) => {
       'FeeCollectModule',
       'LimitedTimedFeeCollectModule',
       'TimedFeeCollectModule',
-      'EmptyCollectModule',
+      'FreeCollectModule',
       'RevertCollectModule'
     ],
     followModules: ['FeeFollowModule'],

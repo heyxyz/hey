@@ -10,6 +10,7 @@
   { "inputs": [], "name": "CallerNotCollectNFT", "type": "error" },
   { "inputs": [], "name": "CallerNotFollowNFT", "type": "error" },
   { "inputs": [], "name": "CannotInitImplementation", "type": "error" },
+  { "inputs": [], "name": "InitParamsInvalid", "type": "error" },
   { "inputs": [], "name": "Initialized", "type": "error" },
   { "inputs": [], "name": "NotGovernance", "type": "error" },
   { "inputs": [], "name": "NotGovernanceOrEmergencyAdmin", "type": "error" },
@@ -154,7 +155,7 @@
       { "internalType": "bytes", "name": "data", "type": "bytes" }
     ],
     "name": "collect",
-    "outputs": [],
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "stateMutability": "nonpayable",
     "type": "function"
   },
@@ -188,7 +189,7 @@
       }
     ],
     "name": "collectWithSig",
-    "outputs": [],
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "stateMutability": "nonpayable",
     "type": "function"
   },
@@ -235,7 +236,7 @@
       }
     ],
     "name": "comment",
-    "outputs": [],
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "stateMutability": "nonpayable",
     "type": "function"
   },
@@ -297,7 +298,7 @@
       }
     ],
     "name": "commentWithSig",
-    "outputs": [],
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "stateMutability": "nonpayable",
     "type": "function"
   },
@@ -326,7 +327,7 @@
       }
     ],
     "name": "createProfile",
-    "outputs": [],
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "stateMutability": "nonpayable",
     "type": "function"
   },
@@ -383,7 +384,9 @@
       { "internalType": "bytes[]", "name": "datas", "type": "bytes[]" }
     ],
     "name": "follow",
-    "outputs": [],
+    "outputs": [
+      { "internalType": "uint256[]", "name": "", "type": "uint256[]" }
+    ],
     "stateMutability": "nonpayable",
     "type": "function"
   },
@@ -420,7 +423,9 @@
       }
     ],
     "name": "followWithSig",
-    "outputs": [],
+    "outputs": [
+      { "internalType": "uint256[]", "name": "", "type": "uint256[]" }
+    ],
     "stateMutability": "nonpayable",
     "type": "function"
   },
@@ -757,7 +762,7 @@
       }
     ],
     "name": "mirror",
-    "outputs": [],
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "stateMutability": "nonpayable",
     "type": "function"
   },
@@ -808,7 +813,7 @@
       }
     ],
     "name": "mirrorWithSig",
-    "outputs": [],
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "stateMutability": "nonpayable",
     "type": "function"
   },
@@ -904,7 +909,7 @@
       }
     ],
     "name": "post",
-    "outputs": [],
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "stateMutability": "nonpayable",
     "type": "function"
   },
@@ -956,7 +961,7 @@
       }
     ],
     "name": "postWithSig",
-    "outputs": [],
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "stateMutability": "nonpayable",
     "type": "function"
   },
