@@ -7,11 +7,12 @@ import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { Spinner } from '@components/UI/Spinner'
 import AppContext from '@components/utils/AppContext'
 import { LensterPost } from '@generated/lenstertypes'
+import { PaginatedResultInfo } from '@generated/types'
 import { CommentFragment } from '@gql/CommentFragment'
 import { MirrorFragment } from '@gql/MirrorFragment'
 import { PostFragment } from '@gql/PostFragment'
 import { CollectionIcon } from '@heroicons/react/outline'
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import useInView from 'react-cool-inview'
 
 const HOME_FEED_QUERY = gql`
@@ -45,17 +46,22 @@ const HOME_FEED_QUERY = gql`
 
 const Feed: React.FC = () => {
   const { currentUser } = useContext(AppContext)
+  const [publications, setPublications] = useState<LensterPost[]>([])
+  const [page, setPage] = useState<PaginatedResultInfo>()
   const { data, loading, error, fetchMore, refetch } = useQuery(
     HOME_FEED_QUERY,
     {
       variables: {
         request: { profileId: currentUser?.id, limit: 10 }
       },
-      skip: !currentUser?.id
+      skip: !currentUser?.id,
+      onCompleted(data) {
+        setPage(data?.timeline?.pageInfo)
+        setPublications(data?.timeline?.items)
+      }
     }
   )
 
-  const pageInfo = data?.timeline?.pageInfo
   const { observe } = useInView({
     threshold: 1,
     onEnter: () => {
@@ -63,10 +69,13 @@ const Feed: React.FC = () => {
         variables: {
           request: {
             profileId: currentUser?.id,
-            cursor: pageInfo?.next,
+            cursor: page?.next,
             limit: 10
           }
         }
+      }).then(({ data }: any) => {
+        setPage(data?.timeline?.pageInfo)
+        setPublications([...publications, ...data?.timeline?.items])
       })
     }
   })
@@ -88,11 +97,11 @@ const Feed: React.FC = () => {
         />
       )}
       <div className="space-y-3">
-        {data?.timeline?.items?.map((post: LensterPost, index: number) => (
+        {publications?.map((post: LensterPost, index: number) => (
           <SinglePost key={`${post.id}_${index}`} post={post} />
         ))}
       </div>
-      {pageInfo?.next && (
+      {page?.next && (
         <span ref={observe} className="flex justify-center p-5">
           <Spinner size="sm" />
         </span>

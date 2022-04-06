@@ -79,7 +79,7 @@ const client = new ApolloClient({
     typePolicies: {
       Query: {
         fields: {
-          timeline: lensStylePagination(['request', ['profileId']]),
+          // timeline: lensStylePagination(['request', ['profileId']]),
           publications: lensStylePagination([
             'request',
             ['profileId', 'commentsOf', 'publicationTypes', 'limit']
@@ -95,10 +95,7 @@ const client = new ApolloClient({
             ['publicationId']
           ]),
           nfts: lensStylePagination(['request', ['ownerAddress', 'chainIds']]),
-          notifications: lensStylePagination([
-            'request',
-            ['profileId', 'limit']
-          ])
+          notifications: lensStylePagination(['request', ['profileId']])
         }
       }
     }
