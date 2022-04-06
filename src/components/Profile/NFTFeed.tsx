@@ -4,9 +4,9 @@ import NFTSShimmer from '@components/Shared/Shimmer/NFTSShimmer'
 import { EmptyState } from '@components/UI/EmptyState'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { Spinner } from '@components/UI/Spinner'
-import { Nft, Profile } from '@generated/types'
+import { Nft, PaginatedResultInfo, Profile } from '@generated/types'
 import { CollectionIcon } from '@heroicons/react/outline'
-import React from 'react'
+import React, { useState } from 'react'
 import useInView from 'react-cool-inview'
 import { CHAIN_ID, IS_MAINNET } from 'src/constants'
 import { chain } from 'wagmi'
@@ -36,6 +36,8 @@ interface Props {
 }
 
 const NFTFeed: React.FC<Props> = ({ profile }) => {
+  const [nfts, setNfts] = useState<Nft[]>([])
+  const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
   const { data, loading, error, fetchMore } = useQuery(PROFILE_NFT_FEED_QUERY, {
     variables: {
       request: {
@@ -44,10 +46,13 @@ const NFTFeed: React.FC<Props> = ({ profile }) => {
         limit: 10
       }
     },
-    skip: !profile.ownedBy
+    skip: !profile.ownedBy,
+    onCompleted(data) {
+      setPageInfo(data?.nfts?.pageInfo)
+      setNfts(data?.nfts?.items)
+    }
   })
 
-  const pageInfo = data?.nfts?.pageInfo
   const { observe } = useInView({
     threshold: 1,
     onEnter: () => {
@@ -60,6 +65,9 @@ const NFTFeed: React.FC<Props> = ({ profile }) => {
             limit: 10
           }
         }
+      }).then(({ data }: any) => {
+        setPageInfo(data?.nfts?.pageInfo)
+        setNfts([...nfts, ...data?.nfts?.items])
       })
     }
   })
@@ -83,7 +91,7 @@ const NFTFeed: React.FC<Props> = ({ profile }) => {
     <>
       {error && <ErrorMessage title="Failed to load nft feed" error={error} />}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-        {data?.nfts?.items?.map((nft: Nft, index: number) => (
+        {nfts?.map((nft: Nft, index: number) => (
           <SingleNFT key={`${nft.tokenId}_${index}`} nft={nft} />
         ))}
       </div>

@@ -4,7 +4,6 @@ import {
   HttpLink,
   InMemoryCache
 } from '@apollo/client'
-import { lensStylePagination } from '@lib/lensStylePagination'
 import jwtDecode from 'jwt-decode'
 
 import { API_URL } from './constants'
@@ -75,31 +74,7 @@ const authLink = new ApolloLink((operation, forward) => {
 
 const client = new ApolloClient({
   link: authLink.concat(httpLink),
-  cache: new InMemoryCache({
-    typePolicies: {
-      Query: {
-        fields: {
-          // timeline: lensStylePagination(['request', ['profileId']]),
-          publications: lensStylePagination([
-            'request',
-            ['profileId', 'commentsOf', 'publicationTypes', 'limit']
-          ]),
-          explorePublications: lensStylePagination([
-            'request',
-            ['sortCriteria', 'sources']
-          ]),
-          followers: lensStylePagination(['request', ['profileId']]),
-          following: lensStylePagination(['request', ['address']]),
-          whoCollectedPublication: lensStylePagination([
-            'request',
-            ['publicationId']
-          ]),
-          nfts: lensStylePagination(['request', ['ownerAddress', 'chainIds']]),
-          notifications: lensStylePagination(['request', ['profileId']])
-        }
-      }
-    }
-  })
+  cache: new InMemoryCache({})
 })
 
 export default client
