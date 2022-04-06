@@ -50,8 +50,9 @@ We encourage you to contribute to Lenster! Please check out the [Contributing gu
 ### Using Local Environment
 
 ```sh
-npm install
-npm run dev
+cp .env.example .env
+yarn
+yarn dev
 ```
 
 and visit http://localhost:3000
