@@ -28,7 +28,7 @@ const IndexStatus: React.FC<Props> = ({ refetch, type, txHash }) => {
     onCompleted(data) {
       if (data?.publication) {
         setPollInterval(0)
-        refetch()
+        refetch && refetch()
       }
     }
   })

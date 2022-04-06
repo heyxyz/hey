@@ -1,5 +1,6 @@
 import { gql, useQuery } from '@apollo/client'
 import Notification from '@components/Notification'
+import NewPublication from '@components/Post/Modal/NewPublication'
 import AppContext from '@components/utils/AppContext'
 import { isStaff } from '@lib/isStaff'
 import clsx from 'clsx'
@@ -97,6 +98,7 @@ const Navbar: React.FC = () => {
             </div>
           </div>
           <div className="flex gap-8 items-center">
+            {currentUser && <NewPublication />}
             {currentUser && <Notification />}
             <MenuItems indexerData={indexerData} />
           </div>
