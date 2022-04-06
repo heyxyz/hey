@@ -17,17 +17,17 @@ import { STATIC_ASSETS } from 'src/constants'
 import Slug from '../Slug'
 
 interface Props {
-  profileId: string
+  handle: string
   children: any
 }
 
-const UserPopover: React.FC<Props> = ({ profileId, children }) => {
+const UserPopover: React.FC<Props> = ({ handle, children }) => {
   const { data } = useQuery(PROFILE_QUERY, {
-    variables: { request: { profileIds: profileId } },
-    skip: !profileId
+    variables: { request: { handles: handle } },
+    skip: !handle
   })
 
-  if (!profileId) return null
+  if (!handle) return children
 
   const profile = data?.profiles?.items[0]
 
