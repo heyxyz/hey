@@ -1,12 +1,12 @@
 import { gql, useQuery } from '@apollo/client'
+import { Button } from '@components/UI/Button'
 import { EmptyState } from '@components/UI/EmptyState'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { Spinner } from '@components/UI/Spinner'
 import AppContext from '@components/utils/AppContext'
 import { Notification } from '@generated/types'
 import { MailIcon } from '@heroicons/react/outline'
-import { useContext } from 'react'
-import useInView from 'react-cool-inview'
+import { useContext, useEffect, useState } from 'react'
 
 import NotificationShimmer from './Shimmer'
 import CollectNotification from './Type/CollectNotification'
@@ -149,27 +149,21 @@ const NOTIFICATIONS_QUERY = gql`
 
 const List: React.FC = () => {
   const { currentUser } = useContext(AppContext)
-  const { data, loading, error, fetchMore } = useQuery(NOTIFICATIONS_QUERY, {
-    variables: {
-      request: { profileId: currentUser?.id, limit: 10 }
+  const [isLoadingMore, setIsLoadingMore] = useState<boolean>(false)
+  const { data, loading, error, fetchMore, refetch } = useQuery(
+    NOTIFICATIONS_QUERY,
+    {
+      variables: {
+        request: { profileId: currentUser?.id, limit: 10 }
+      }
     }
-  })
+  )
+
+  useEffect(() => {
+    refetch()
+  }, [refetch])
 
   const pageInfo = data?.notifications?.pageInfo
-  const { observe } = useInView({
-    threshold: 1,
-    onEnter: () => {
-      fetchMore({
-        variables: {
-          request: {
-            profileId: currentUser?.id,
-            cursor: pageInfo?.next,
-            limit: 10
-          }
-        }
-      })
-    }
-  })
 
   if (loading)
     return (
@@ -232,8 +226,27 @@ const List: React.FC = () => {
         </div>
       ))}
       {pageInfo?.next && (
-        <span ref={observe} className="flex justify-center p-5">
-          <Spinner size="sm" />
+        <span className="flex justify-center p-5 text-sm">
+          <Button
+            variant="secondary"
+            outline
+            disabled={isLoadingMore}
+            icon={isLoadingMore && <Spinner size="xs" variant="secondary" />}
+            onClick={() => {
+              setIsLoadingMore(true)
+              fetchMore({
+                variables: {
+                  request: {
+                    profileId: currentUser?.id,
+                    cursor: pageInfo?.next,
+                    limit: 10
+                  }
+                }
+              }).finally(() => setIsLoadingMore(false))
+            }}
+          >
+            {isLoadingMore ? 'Loading...' : 'Show more'}
+          </Button>
         </span>
       )}
     </div>
