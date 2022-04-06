@@ -1,5 +1,5 @@
 import { Button } from '@components/UI/Button'
-import { TrashIcon } from '@heroicons/react/outline'
+import { XIcon } from '@heroicons/react/outline'
 import { getIPFSLink } from '@lib/getIPFSLink'
 import { imagekitURL } from '@lib/imagekitURL'
 import clsx from 'clsx'
@@ -87,7 +87,7 @@ const Attachments: React.FC<Props> = ({
                 <div className="m-3">
                   <Button
                     variant="danger"
-                    icon={<TrashIcon className="w-4 h-4" />}
+                    icon={<XIcon className="w-4 h-4" />}
                     onClick={() => removeAttachment(attachment)}
                   />
                 </div>
