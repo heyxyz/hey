@@ -1,6 +1,4 @@
 import { gql, useQuery } from '@apollo/client'
-import Notification from '@components/Notification'
-import NewPostModal from '@components/Post/NewPost/Modal'
 import AppContext from '@components/utils/AppContext'
 import { isStaff } from '@lib/isStaff'
 import clsx from 'clsx'
@@ -14,6 +12,8 @@ import MoreNavItems from './MoreNavItems'
 import Search from './Search'
 
 const StaffBar = dynamic(() => import('./StaffBar'))
+const NewPostModal = dynamic(() => import('../../Post/NewPost/Modal'))
+const Notification = dynamic(() => import('../../Notification'))
 
 const PING_QUERY = gql`
   query Ping {
