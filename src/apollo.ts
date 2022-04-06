@@ -79,15 +79,6 @@ const client = new ApolloClient({
     typePolicies: {
       Query: {
         fields: {
-          // timeline: lensStylePagination(['request', ['profileId']]),
-          publications: lensStylePagination([
-            'request',
-            ['profileId', 'commentsOf', 'publicationTypes', 'limit']
-          ]),
-          explorePublications: lensStylePagination([
-            'request',
-            ['sortCriteria', 'sources']
-          ]),
           followers: lensStylePagination(['request', ['profileId']]),
           following: lensStylePagination(['request', ['address']]),
           whoCollectedPublication: lensStylePagination([

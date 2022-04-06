@@ -47,7 +47,7 @@ const HOME_FEED_QUERY = gql`
 const Feed: React.FC = () => {
   const { currentUser } = useContext(AppContext)
   const [publications, setPublications] = useState<LensterPost[]>([])
-  const [page, setPage] = useState<PaginatedResultInfo>()
+  const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
   const { data, loading, error, fetchMore, refetch } = useQuery(
     HOME_FEED_QUERY,
     {
@@ -56,7 +56,7 @@ const Feed: React.FC = () => {
       },
       skip: !currentUser?.id,
       onCompleted(data) {
-        setPage(data?.timeline?.pageInfo)
+        setPageInfo(data?.timeline?.pageInfo)
         setPublications(data?.timeline?.items)
       }
     }
@@ -69,12 +69,12 @@ const Feed: React.FC = () => {
         variables: {
           request: {
             profileId: currentUser?.id,
-            cursor: page?.next,
+            cursor: pageInfo?.next,
             limit: 10
           }
         }
       }).then(({ data }: any) => {
-        setPage(data?.timeline?.pageInfo)
+        setPageInfo(data?.timeline?.pageInfo)
         setPublications([...publications, ...data?.timeline?.items])
       })
     }
@@ -101,7 +101,7 @@ const Feed: React.FC = () => {
           <SinglePost key={`${post.id}_${index}`} post={post} />
         ))}
       </div>
-      {page?.next && (
+      {pageInfo?.next && (
         <span ref={observe} className="flex justify-center p-5">
           <Spinner size="sm" />
         </span>
