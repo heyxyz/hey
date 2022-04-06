@@ -50,8 +50,8 @@ We encourage you to contribute to Lenster! Please check out the [Contributing gu
 ### Using Local Environment
 
 ```sh
-pnpm install
-pnpm dev
+npm install
+npm run dev
 ```
 
 and visit http://localhost:3000
