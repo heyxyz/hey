@@ -1,13 +1,13 @@
 import { gql } from '@apollo/client'
 
-import { CollectModuleFragment } from './CollectModuleFragment'
-import { PublicationProfileFragment } from './PublicationProfileFragment'
+import { CollectModuleFields } from './CollectModuleFields'
+import { PublicationProfileFields } from './PublicationProfileFields'
 
-export const PostFragment = gql`
-  fragment PostFragment on Post {
+export const PostFields = gql`
+  fragment PostFields on Post {
     id
     profile {
-      ...PublicationProfileFragment
+      ...PublicationProfileFields
     }
     collectedBy {
       defaultProfile {
@@ -15,7 +15,7 @@ export const PostFragment = gql`
       }
     }
     collectModule {
-      ...CollectModuleFragment
+      ...CollectModuleFields
     }
     stats {
       totalAmountOfComments
@@ -45,6 +45,6 @@ export const PostFragment = gql`
     createdAt
     appId
   }
-  ${PublicationProfileFragment}
-  ${CollectModuleFragment}
+  ${PublicationProfileFields}
+  ${CollectModuleFields}
 `

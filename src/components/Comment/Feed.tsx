@@ -9,7 +9,7 @@ import { Spinner } from '@components/UI/Spinner'
 import AppContext from '@components/utils/AppContext'
 import { LensterPost } from '@generated/lenstertypes'
 import { PaginatedResultInfo } from '@generated/types'
-import { CommentFragment } from '@gql/CommentFragment'
+import { CommentFields } from '@gql/CommentFields'
 import { CollectionIcon, UsersIcon } from '@heroicons/react/outline'
 import { useRouter } from 'next/router'
 import React, { useContext, useState } from 'react'
@@ -23,7 +23,7 @@ const COMMENT_FEED_QUERY = gql`
       items {
         __typename
         ... on Comment {
-          ...CommentFragment
+          ...CommentFields
         }
       }
       pageInfo {
@@ -31,7 +31,7 @@ const COMMENT_FEED_QUERY = gql`
       }
     }
   }
-  ${CommentFragment}
+  ${CommentFields}
 `
 
 interface Props {

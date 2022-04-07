@@ -6,9 +6,9 @@ import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { Spinner } from '@components/UI/Spinner'
 import { LensterPost } from '@generated/lenstertypes'
 import { PaginatedResultInfo } from '@generated/types'
-import { CommentFragment } from '@gql/CommentFragment'
-import { MirrorFragment } from '@gql/MirrorFragment'
-import { PostFragment } from '@gql/PostFragment'
+import { CommentFields } from '@gql/CommentFields'
+import { MirrorFields } from '@gql/MirrorFields'
+import { PostFields } from '@gql/PostFields'
 import { CollectionIcon } from '@heroicons/react/outline'
 import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'
@@ -18,13 +18,13 @@ const EXPLORE_FEED_QUERY = gql`
     explorePublications(request: $request) {
       items {
         ... on Post {
-          ...PostFragment
+          ...PostFields
         }
         ... on Comment {
-          ...CommentFragment
+          ...CommentFields
         }
         ... on Mirror {
-          ...MirrorFragment
+          ...MirrorFields
         }
       }
       pageInfo {
@@ -32,9 +32,9 @@ const EXPLORE_FEED_QUERY = gql`
       }
     }
   }
-  ${PostFragment}
-  ${CommentFragment}
-  ${MirrorFragment}
+  ${PostFields}
+  ${CommentFields}
+  ${MirrorFields}
 `
 
 interface Props {

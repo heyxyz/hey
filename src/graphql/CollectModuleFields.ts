@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client'
 
-export const CollectModuleFragment = gql`
-  fragment CollectModuleFragment on CollectModule {
+export const CollectModuleFields = gql`
+  fragment CollectModuleFields on CollectModule {
     ... on FeeCollectModuleSettings {
       type
       recipient
