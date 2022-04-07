@@ -90,7 +90,7 @@ const Modules: React.FC<Props> = ({
                         'border-green-500':
                           module?.moduleName === selectedModule.moduleName
                       },
-                      'w-full p-3 space-y-1 text-left border rounded-xl flex justify-between'
+                      'w-full p-3 text-left border rounded-xl flex items-center justify-between'
                     )}
                     onClick={() => handleSelectModule(module)}
                   >

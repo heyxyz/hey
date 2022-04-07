@@ -52,7 +52,7 @@ const SelectReferenceModule: React.FC<Props> = ({
               type="button"
               className={clsx(
                 { 'border-green-500': !onlyFollowers },
-                'w-full p-3 space-y-1 text-left border rounded-xl flex justify-between items-center'
+                'w-full p-3 border rounded-xl flex justify-between items-center'
               )}
               onClick={() => {
                 trackEvent('everyone reference module', 'select')
@@ -65,14 +65,14 @@ const SelectReferenceModule: React.FC<Props> = ({
                 <div>{EVERYONE}</div>
               </div>
               {!onlyFollowers && (
-                <CheckCircleIcon className="w-7 h-7 text-green-500" />
+                <CheckCircleIcon className="w-7 text-green-500" />
               )}
             </button>
             <button
               type="button"
               className={clsx(
                 { 'border-green-500': onlyFollowers },
-                'w-full p-3 space-y-1 text-left border rounded-xl flex justify-between items-center'
+                'w-full p-3 border rounded-xl flex justify-between items-center'
               )}
               onClick={() => {
                 trackEvent('only followers reference module', 'select')
