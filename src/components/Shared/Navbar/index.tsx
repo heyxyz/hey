@@ -75,7 +75,7 @@ const Navbar: React.FC = () => {
 
   return (
     <nav className="sticky top-0 z-10 w-full bg-white border-b dark:bg-gray-800 dark:border-b-gray-700">
-      {isStaff(currentUser?.handle) && staffMode && <StaffBar />}
+      {isStaff(currentUser?.id) && staffMode && <StaffBar />}
       <div className="container px-5 mx-auto max-w-screen-xl">
         <div className="flex relative justify-between items-center h-14 sm:h-16">
           <div className="flex flex-1 justify-start items-center">

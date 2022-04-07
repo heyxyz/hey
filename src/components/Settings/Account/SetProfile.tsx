@@ -1,5 +1,4 @@
 import LensHubProxy from '@abis/LensHubProxy.json'
-import { gql, useQuery } from '@apollo/client'
 import SwitchNetwork from '@components/Shared/SwitchNetwork'
 import { Button } from '@components/UI/Button'
 import { Card, CardBody } from '@components/UI/Card'
@@ -19,19 +18,8 @@ import {
 } from 'src/constants'
 import { useAccount, useContractWrite, useNetwork } from 'wagmi'
 
-const PROFILES_QUERY = gql`
-  query Profiles($request: ProfileQueryRequest!) {
-    profiles(request: $request) {
-      items {
-        id
-        handle
-      }
-    }
-  }
-`
-
 const SetProfile: React.FC = () => {
-  const { currentUser } = useContext(AppContext)
+  const { currentUser, profiles } = useContext(AppContext)
   const [selectedUser, setSelectedUser] = useState<string>()
   const [{ data: network }] = useNetwork()
   const [{ data: account }] = useAccount()
@@ -42,14 +30,6 @@ const SetProfile: React.FC = () => {
     },
     'setDefaultProfile'
   )
-
-  const { data, loading } = useQuery(PROFILES_QUERY, {
-    variables: { request: { ownedBy: currentUser?.ownedBy } },
-    skip: !currentUser?.id,
-    onCompleted(data) {
-      setSelectedUser(data?.profiles?.items[0]?.id)
-    }
-  })
 
   const setDefaultProfile = async () => {
     if (!account?.address) {
@@ -68,14 +48,9 @@ const SetProfile: React.FC = () => {
     }
   }
 
-  if (loading)
-    return (
-      <Card>
-        <CardBody>
-          <div className="w-full h-10 rounded-xl shimmer" />
-        </CardBody>
-      </Card>
-    )
+  const sortedProfiles = profiles?.sort((a, b) =>
+    !(a.isDefault !== b.isDefault) ? 0 : a.isDefault ? -1 : 1
+  )
 
   return (
     <Card>
@@ -89,7 +64,7 @@ const SetProfile: React.FC = () => {
             className="w-full bg-white rounded-xl border border-gray-300 outline-none dark:bg-gray-800 dark:border-gray-700 disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 focus:border-brand-500 focus:ring-brand-400"
             onChange={(e) => setSelectedUser(e.target.value)}
           >
-            {data?.profiles?.items?.map((profile: Profile) => (
+            {sortedProfiles?.map((profile: Profile) => (
               <option key={profile.id} value={profile.id}>
                 @{profile.handle}
               </option>

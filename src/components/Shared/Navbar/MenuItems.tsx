@@ -226,7 +226,7 @@ const MenuItems: React.FC<Props> = ({ indexerData }) => {
                       💻
                     </button>
                   </div>
-                  {isStaff(currentUser.handle) && (
+                  {isStaff(currentUser.id) && (
                     <>
                       <div className="border-b dark:border-gray-800" />
                       <Menu.Item
