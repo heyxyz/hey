@@ -73,7 +73,11 @@ const Crowdfund: React.FC<Props> = ({ fund }) => {
             <div className="block justify-between items-center sm:flex">
               <div className="mr-0 space-y-1 sm:mr-16">
                 <div className="text-xl font-bold">{fund?.metadata?.name}</div>
-                <div>{fund?.metadata?.description}</div>
+                <div className="whitespace-pre-wrap break-words">
+                  {fund?.metadata?.description
+                    ?.replace(/\n\s*\n/g, '\n\n')
+                    .trim()}
+                </div>
                 {fund?.stats?.totalAmountOfCollects > 0 && (
                   <>
                     <div className="flex items-center space-x-1.5 !mt-2 text-gray-500">
