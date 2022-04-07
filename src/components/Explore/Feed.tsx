@@ -46,7 +46,11 @@ const Feed: React.FC<Props> = ({ feedType = 'TOP_COMMENTED' }) => {
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
   const { data, loading, error, fetchMore } = useQuery(EXPLORE_FEED_QUERY, {
     variables: {
-      request: { sortCriteria: feedType, limit: 10 }
+      request: {
+        sortCriteria: feedType,
+        limit: 10,
+        noRandomize: feedType === 'LATEST'
+      }
     },
     onCompleted(data) {
       setPageInfo(data?.explorePublications?.pageInfo)
@@ -62,7 +66,8 @@ const Feed: React.FC<Props> = ({ feedType = 'TOP_COMMENTED' }) => {
           request: {
             sortCriteria: feedType,
             cursor: pageInfo?.next,
-            limit: 10
+            limit: 10,
+            noRandomize: feedType === 'LATEST'
           }
         }
       }).then(({ data }: any) => {
