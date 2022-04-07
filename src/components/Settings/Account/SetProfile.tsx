@@ -149,9 +149,11 @@ const SetProfile: React.FC = () => {
     <Card>
       <CardBody className="space-y-5">
         {error && <ErrorMessage title="Transaction failed!" error={error} />}
-        <div className="text-lg font-bold">Your default profile</div>
         {hasDefaultProfile ? (
-          <UserProfile profile={sortedProfiles[0]} />
+          <>
+            <div className="text-lg font-bold">Your default profile</div>
+            <UserProfile profile={sortedProfiles[0]} />
+          </>
         ) : (
           <div className="text-yellow-500 font-bold flex items-center space-x-1.5">
             <ExclamationIcon className="h-5 w-5" />
