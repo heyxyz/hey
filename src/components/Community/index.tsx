@@ -6,6 +6,7 @@ import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import React from 'react'
 import Custom404 from 'src/pages/404'
+import Custom500 from 'src/pages/500'
 
 import Details from './Details'
 import CommunityPageShimmer from './Shimmer'
@@ -25,11 +26,12 @@ const ViewCommunity: NextPage = () => {
   const {
     query: { id }
   } = useRouter()
-  const { data, loading } = useQuery(COMMUNITY_QUERY, {
+  const { data, loading, error } = useQuery(COMMUNITY_QUERY, {
     variables: { request: { publicationId: id } },
     skip: !id
   })
 
+  if (error) return <Custom500 />
   if (loading || !data) return <CommunityPageShimmer />
   if (
     !data.publication ||
