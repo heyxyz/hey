@@ -138,7 +138,7 @@ const DeleteSettings: React.FC = () => {
       </GridItemFour>
       <GridItemEight>
         <Card>
-          <CardBody className="space-y-5 linkify">
+          <CardBody className="space-y-5">
             <UserProfile profile={currentUser} />
             <div className="text-lg font-bold text-red-500">
               This will deactivate your account
@@ -159,7 +159,7 @@ const DeleteSettings: React.FC = () => {
               </p>
               <p className="py-3">
                 Your @handle will be released immediately after deleting the
-                account
+                account.
               </p>
             </div>
             <Button
