@@ -140,7 +140,7 @@ const Details: React.FC<Props> = ({ profile }) => {
               </MetaDetails>
             )}
           </div>
-          {isStaff(profile.handle) && (
+          {isStaff(profile.id) && (
             <div className="py-0.5 px-2 text-sm text-white rounded-lg shadow-sm bg-brand-500 w-fit">
               Staff
             </div>
@@ -199,7 +199,7 @@ const Details: React.FC<Props> = ({ profile }) => {
             )}
           </div>
         </div>
-        {isStaff(currentUser?.handle) && staffMode && (
+        {isStaff(currentUser?.id) && staffMode && (
           <ProfileMod profile={profile} />
         )}
       </div>
