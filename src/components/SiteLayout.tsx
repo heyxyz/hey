@@ -18,6 +18,7 @@ export const CURRENT_USER_QUERY = gql`
         name
         handle
         ownedBy
+        isDefault
         picture {
           ... on MediaSet {
             original {
