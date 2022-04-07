@@ -8,7 +8,7 @@ import AppContext from '@components/utils/AppContext'
 import { Profile } from '@generated/types'
 import { PencilIcon } from '@heroicons/react/outline'
 import { trackEvent } from '@lib/trackEvent'
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
   CHAIN_ID,
@@ -40,7 +40,7 @@ const SetProfile: React.FC = () => {
       write({ args: [selectedUser] }).then(({ error }) => {
         if (!error) {
           toast.success('Default profile updated successfully!')
-          trackEvent('update default profile')
+          trackEvent('set default profile')
         } else {
           toast.error(error?.message)
         }
@@ -48,9 +48,13 @@ const SetProfile: React.FC = () => {
     }
   }
 
-  const sortedProfiles = profiles?.sort((a, b) =>
+  const sortedProfiles: Profile[] = profiles?.sort((a, b) =>
     !(a.isDefault !== b.isDefault) ? 0 : a.isDefault ? -1 : 1
   )
+
+  useEffect(() => {
+    setSelectedUser(sortedProfiles[0]?.id)
+  }, [sortedProfiles])
 
   return (
     <Card>
