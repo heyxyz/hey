@@ -52,7 +52,7 @@ export const getModule = (
         name: 'Free Collect',
         hasParam: false,
         config: {
-          freeCollectModule: { followerOnly: true }
+          freeCollectModule: { followerOnly: false }
         },
         type: 'collectModule'
       }
