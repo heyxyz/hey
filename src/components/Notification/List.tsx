@@ -1,5 +1,4 @@
 import { gql, useQuery } from '@apollo/client'
-import { Button } from '@components/UI/Button'
 import { EmptyState } from '@components/UI/EmptyState'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { Spinner } from '@components/UI/Spinner'
@@ -7,6 +6,7 @@ import AppContext from '@components/utils/AppContext'
 import { Notification, PaginatedResultInfo } from '@generated/types'
 import { MailIcon } from '@heroicons/react/outline'
 import { useContext, useEffect, useState } from 'react'
+import useInView from 'react-cool-inview'
 
 import NotificationShimmer from './Shimmer'
 import CollectNotification from './Type/CollectNotification'
@@ -169,6 +169,24 @@ const List: React.FC = () => {
     refetch()
   }, [refetch])
 
+  const { observe } = useInView({
+    threshold: 1,
+    onEnter: () => {
+      fetchMore({
+        variables: {
+          request: {
+            profileId: currentUser?.id,
+            cursor: pageInfo?.next,
+            limit: 10
+          }
+        }
+      }).then(({ data }: any) => {
+        setPageInfo(data?.notifications?.pageInfo)
+        setNotifications([...notifications, ...data?.notifications?.items])
+      })
+    }
+  })
+
   if (loading)
     return (
       <div className="divide-y">
@@ -228,35 +246,8 @@ const List: React.FC = () => {
         </div>
       ))}
       {pageInfo?.next && (
-        <span className="flex justify-center p-5 text-sm">
-          <Button
-            variant="secondary"
-            outline
-            disabled={isLoadingMore}
-            icon={isLoadingMore && <Spinner size="xs" variant="secondary" />}
-            onClick={() => {
-              setIsLoadingMore(true)
-              fetchMore({
-                variables: {
-                  request: {
-                    profileId: currentUser?.id,
-                    cursor: pageInfo?.next,
-                    limit: 10
-                  }
-                }
-              })
-                .then(({ data }: any) => {
-                  setPageInfo(data?.notifications?.pageInfo)
-                  setNotifications([
-                    ...notifications,
-                    ...data?.notifications?.items
-                  ])
-                })
-                .finally(() => setIsLoadingMore(false))
-            }}
-          >
-            {isLoadingMore ? 'Loading...' : 'Show more'}
-          </Button>
+        <span ref={observe} className="flex justify-center p-5">
+          <Spinner size="sm" />
         </span>
       )}
     </div>
