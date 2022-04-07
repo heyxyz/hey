@@ -37,7 +37,7 @@
     "next-themes": "^0.1.1",
     "omit-deep": "^0.3.0",
     "react": "^18.0.0",
-    "react-cool-inview": "^2.0.9",
+    "react-cool-inview": "^3.0.0",
     "react-copy-to-clipboard": "^5.0.4",
     "react-dom": "^17.0.2",
     "react-hook-form": "7.29.0",

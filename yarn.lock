@@ -6523,10 +6523,10 @@ rc@^1.2.8:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-cool-inview@^2.0.9:
-  version "2.0.9"
-  resolved "https://registry.yarnpkg.com/react-cool-inview/-/react-cool-inview-2.0.9.tgz#f2e034bf0f57540a324c7da0c111aec95bb696e2"
-  integrity sha512-r1FM52/xElWEDxOv61QSLS23NuzcuhaIkfNL/K4FQFZ+NN/O5vEx/HTdmR1r6SPqXSBhPy5lyD7+Ot3t8F9ttQ==
+react-cool-inview@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/react-cool-inview/-/react-cool-inview-3.0.0.tgz#6b187654c6ca8fd5a2458a2dbf5aee77aaf1aa1d"
+  integrity sha512-bDmBbShU+eAlCAuebkmmG42N8ukK/zRojS0eTlJUTiZcXlQS5u8vt+jCTJDqsgbLxM4kNhKZNXP926rEGp6ncA==
 
 react-copy-to-clipboard@^5.0.4:
   version "5.0.4"
