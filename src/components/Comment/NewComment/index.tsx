@@ -1,11 +1,7 @@
 import LensHubProxy from '@abis/LensHubProxy.json'
 import { gql, useMutation } from '@apollo/client'
-import Attachment from '@components/Shared/Attachment'
 import Attachments from '@components/Shared/Attachments'
-import Giphy from '@components/Shared/Giphy'
 import IndexStatus from '@components/Shared/IndexStatus'
-import SelectCollectModule from '@components/Shared/SelectCollectModule'
-import SelectReferenceModule from '@components/Shared/SelectReferenceModule'
 import SwitchNetwork from '@components/Shared/SwitchNetwork'
 import { Button } from '@components/UI/Button'
 import { Card } from '@components/UI/Card'
@@ -31,6 +27,7 @@ import { omit } from '@lib/omit'
 import { splitSignature } from '@lib/splitSignature'
 import { trackEvent } from '@lib/trackEvent'
 import { uploadToIPFS } from '@lib/uploadToIPFS'
+import dynamic from 'next/dynamic'
 import { useContext, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
@@ -48,6 +45,25 @@ import {
   useSignTypedData
 } from 'wagmi'
 import { object, string } from 'zod'
+
+const Attachment = dynamic(() => import('../../Shared/Attachment'), {
+  loading: () => <div className="shimmer h-5 w-5 rounded-lg mb-1" />
+})
+const Giphy = dynamic(() => import('../../Shared/Giphy'), {
+  loading: () => <div className="shimmer h-5 w-5 rounded-lg mb-1" />
+})
+const SelectCollectModule = dynamic(
+  () => import('../../Shared/SelectCollectModule'),
+  {
+    loading: () => <div className="shimmer h-5 w-5 rounded-lg mb-1" />
+  }
+)
+const SelectReferenceModule = dynamic(
+  () => import('../../Shared/SelectReferenceModule'),
+  {
+    loading: () => <div className="shimmer h-5 w-5 rounded-lg mb-1" />
+  }
+)
 
 const CREATE_COMMENT_TYPED_DATA_MUTATION = gql`
   mutation CreateCommentTypedData($request: CreatePublicCommentRequest!) {
