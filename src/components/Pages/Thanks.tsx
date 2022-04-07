@@ -27,7 +27,7 @@ const Brand: React.FC<Props> = ({ name, logo, url, size, children }) => {
         }.svg`}
         alt={`${name}'s Logo`}
       />
-      <div className="pt-2">{children}</div>
+      <div className="pt-2 sm:w-2/3 mx-auto">{children}</div>
       <div>
         <a className="font-bold" href={url} target="_blank" rel="noreferrer">
           ➜ Go to {name}
@@ -74,13 +74,14 @@ const Thanks: React.FC = () => {
                 by VS Code.
               </Brand>
               <Brand
-                name="Netlify"
-                logo="netlify"
-                url="https://netlify.com"
+                name="Imagekit"
+                logo="imagekit"
+                url="https://imagekit.io"
                 size={50}
               >
-                An intuitive Git-based workflow and powerful serverless platform
-                to build, deploy, and collaborate on web apps
+                Image CDN with automatic optimization, real-time transformation,
+                and storage that you can integrate with existing setup in
+                minutes.
               </Brand>
             </div>
           </div>
