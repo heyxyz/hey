@@ -40,61 +40,13 @@ export const CommentFragment = gql`
     }
     commentOn {
       ... on Post {
-        id
-        profile {
-          name
-          handle
-          ownedBy
-          picture {
-            ... on MediaSet {
-              original {
-                url
-              }
-            }
-          }
-        }
-        metadata {
-          name
-          content
-        }
+        ...CommentOnPublicationFragment
       }
       ... on Comment {
-        id
-        profile {
-          name
-          handle
-          ownedBy
-          picture {
-            ... on MediaSet {
-              original {
-                url
-              }
-            }
-          }
-        }
-        metadata {
-          name
-          content
-        }
+        ...CommentOnPublicationFragment
       }
       ... on Mirror {
-        id
-        profile {
-          name
-          handle
-          ownedBy
-          picture {
-            ... on MediaSet {
-              original {
-                url
-              }
-            }
-          }
-        }
-        metadata {
-          name
-          content
-        }
+        ...CommentOnPublicationFragment
       }
     }
     createdAt
@@ -102,4 +54,24 @@ export const CommentFragment = gql`
   }
   ${PublicationProfileFragment}
   ${CollectModuleFragment}
+
+  fragment CommentOnPublicationFragment on Publication {
+    id
+    profile {
+      name
+      handle
+      ownedBy
+      picture {
+        ... on MediaSet {
+          original {
+            url
+          }
+        }
+      }
+    }
+    metadata {
+      name
+      content
+    }
+  }
 `
