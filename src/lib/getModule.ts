@@ -80,6 +80,7 @@ export type FEE_DATA_TYPE = {
   collectLimit: string | null
   recipient: string
   referralFee: number
+  followerOnly: boolean
 }
 
 export const defaultModuleData = {
@@ -94,5 +95,6 @@ export const defaultFeeData = {
   amount: { currency: '', value: '' },
   collectLimit: '',
   recipient: '',
-  referralFee: 0
+  referralFee: 0,
+  followerOnly: false
 }

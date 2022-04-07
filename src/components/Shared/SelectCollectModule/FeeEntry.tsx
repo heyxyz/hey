@@ -40,6 +40,7 @@ const FeeEntry: React.FC<Props> = ({
   setFeeData
 }) => {
   const { currentUser } = useContext(AppContext)
+  const [followerOnly, setFollowerOnly] = useState<boolean>(false)
   const [selectedCurrency, setSelectedCurrency] = useState<string>(
     DEFAULT_COLLECT_TOKEN
   )
@@ -97,6 +98,18 @@ const FeeEntry: React.FC<Props> = ({
           placeholder="5%"
           {...form.register('referralFee')}
         />
+        <div>
+          <div className="mb-1 font-medium text-gray-800 dark:text-gray-200">
+            Permission
+          </div>
+          <select
+            className="w-full bg-white rounded-xl border border-gray-300 outline-none dark:bg-gray-800 dark:border-gray-700 disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 focus:border-brand-500 focus:ring-brand-400"
+            onChange={(e) => setFollowerOnly(e.target.value === 'true')}
+          >
+            <option value="false">Everyone can collect</option>
+            <option value="true">Only followers can collect</option>
+          </select>
+        </div>
         <Button
           type="button"
           onClick={() => {
@@ -107,7 +120,8 @@ const FeeEntry: React.FC<Props> = ({
               },
               collectLimit: form.getValues('collectLimit'),
               recipient: currentUser?.ownedBy,
-              referralFee: parseFloat(form.getValues('referralFee'))
+              referralFee: parseFloat(form.getValues('referralFee')),
+              followerOnly: followerOnly
             })
             setShowModal(false)
           }}
