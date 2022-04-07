@@ -4,6 +4,7 @@ hooks:
     - eslint --fix
     - prettier --write
 generates:
-  src/generated/types.d.ts:
+  src/generated/types.ts:
     plugins:
       - typescript
+      - fragment-matcher

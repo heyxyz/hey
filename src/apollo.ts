@@ -4,6 +4,7 @@ import {
   HttpLink,
   InMemoryCache
 } from '@apollo/client'
+import result from '@generated/types'
 import jwtDecode from 'jwt-decode'
 
 import { API_URL } from './constants'
@@ -74,7 +75,7 @@ const authLink = new ApolloLink((operation, forward) => {
 
 const client = new ApolloClient({
   link: authLink.concat(httpLink),
-  cache: new InMemoryCache({})
+  cache: new InMemoryCache({ possibleTypes: result.possibleTypes })
 })
 
 export default client
