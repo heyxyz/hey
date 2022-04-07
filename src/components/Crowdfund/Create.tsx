@@ -219,7 +219,8 @@ const Create: React.FC = () => {
                   value: amount
                 },
                 recipient,
-                referralFee: 0
+                referralFee: 0,
+                followerOnly: false
               }
             },
             referenceModule: {
