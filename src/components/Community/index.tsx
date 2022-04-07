@@ -1,6 +1,7 @@
 import { gql, useQuery } from '@apollo/client'
 import Feed from '@components/Comment/Feed'
 import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout'
+import SEO from '@components/utils/SEO'
 import { CommunityFields } from '@gql/CommunityFields'
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
@@ -41,6 +42,7 @@ const ViewCommunity: NextPage = () => {
 
   return (
     <GridLayout className="pt-6">
+      <SEO title={`${data?.publication?.metadata?.name} • Lenster`} />
       <GridItemFour>
         <Details community={data.publication} />
       </GridItemFour>
