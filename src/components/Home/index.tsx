@@ -1,6 +1,6 @@
 import ExploreFeed from '@components/Explore/Feed'
 import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout'
-import Announcement from '@components/Shared/Announcement'
+import Announcement from '@components/Home/Announcement'
 import Footer from '@components/Shared/Footer'
 import AppContext from '@components/utils/AppContext'
 import SEO from '@components/utils/SEO'
@@ -10,6 +10,7 @@ import React, { useContext } from 'react'
 import HomeFeed from './Feed'
 import Hero from './Hero'
 import RecommendedProfiles from './RecommendedProfiles'
+import SetDefaultProfile from './SetDefaultProfile'
 import Streak from './Streak'
 
 const Home: NextPage = () => {
@@ -25,6 +26,7 @@ const Home: NextPage = () => {
         </GridItemEight>
         <GridItemFour>
           <Announcement />
+          {currentUser && <SetDefaultProfile />}
           {currentUser && <Streak />}
           <RecommendedProfiles />
           <Footer />
