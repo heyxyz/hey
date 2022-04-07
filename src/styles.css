@@ -47,3 +47,7 @@ body {
 .giphy-gif {
   @apply !rounded-none;
 }
+
+.page-center {
+  @apply flex justify-center items-center h-[calc(100vh-65px)];
+}

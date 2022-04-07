@@ -5,6 +5,7 @@ import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import Custom404 from 'src/pages/404'
+import Custom500 from 'src/pages/500'
 
 import Cover from './Cover'
 import Details from './Details'
@@ -60,11 +61,12 @@ const ViewProfile: NextPage = () => {
       ? type?.toString().toUpperCase()
       : 'POST'
   )
-  const { data, loading } = useQuery(PROFILE_QUERY, {
+  const { data, loading, error } = useQuery(PROFILE_QUERY, {
     variables: { request: { handles: username } },
     skip: !username
   })
 
+  if (error) return <Custom500 />
   if (loading || !data) return <ProfilePageShimmer />
   if (data?.profiles?.items?.length === 0) return <Custom404 />
 
