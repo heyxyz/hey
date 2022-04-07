@@ -25,7 +25,9 @@ export const API_URL = IS_MAINNET
 export const POLYGONSCAN_URL = IS_MAINNET
   ? 'https://polygonscan.com'
   : 'https://mumbai.polygonscan.com'
-export const IMAGEKIT_URL = 'https://ik.imagekit.io/lensterimg'
+export const IMAGEKIT_URL = IS_PRODUCTION
+  ? 'https://ik.imagekit.io/lensterimg'
+  : 'https://ik.imagekit.io/lensterdev'
 
 // Web3
 export const INFURA_ID = '1423f014ff0243e3b7ab20fbb3f8656f'
