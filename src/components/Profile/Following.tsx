@@ -6,7 +6,7 @@ import { Spinner } from '@components/UI/Spinner'
 import { Following, PaginatedResultInfo, Profile } from '@generated/types'
 import { UsersIcon } from '@heroicons/react/outline'
 import { useState } from 'react'
-import useInView from 'react-cool-inview'
+import { useInView } from 'react-cool-inview'
 
 const FOLLOWING_QUERY = gql`
   query Following($request: FollowingRequest!) {

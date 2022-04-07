@@ -11,7 +11,7 @@ import { MirrorFragment } from '@gql/MirrorFragment'
 import { PostFragment } from '@gql/PostFragment'
 import { CollectionIcon } from '@heroicons/react/outline'
 import React, { useState } from 'react'
-import useInView from 'react-cool-inview'
+import { useInView } from 'react-cool-inview'
 
 const PROFILE_FEED_QUERY = gql`
   query ProfileFeed($request: PublicationsQueryRequest!) {

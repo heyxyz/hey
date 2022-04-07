@@ -6,7 +6,7 @@ import AppContext from '@components/utils/AppContext'
 import { Notification, PaginatedResultInfo } from '@generated/types'
 import { MailIcon } from '@heroicons/react/outline'
 import { useContext, useEffect, useState } from 'react'
-import useInView from 'react-cool-inview'
+import { useInView } from 'react-cool-inview'
 
 import NotificationShimmer from './Shimmer'
 import CollectNotification from './Type/CollectNotification'
