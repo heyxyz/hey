@@ -151,7 +151,6 @@ const List: React.FC = () => {
   const { currentUser } = useContext(AppContext)
   const [notifications, setNotifications] = useState<Notification[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
-  const [isLoadingMore, setIsLoadingMore] = useState<boolean>(false)
   const { data, loading, error, fetchMore, refetch } = useQuery(
     NOTIFICATIONS_QUERY,
     {

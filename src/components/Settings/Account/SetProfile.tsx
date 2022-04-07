@@ -19,7 +19,7 @@ import {
 import { useAccount, useContractWrite, useNetwork } from 'wagmi'
 
 const SetProfile: React.FC = () => {
-  const { currentUser, profiles } = useContext(AppContext)
+  const { profiles } = useContext(AppContext)
   const [selectedUser, setSelectedUser] = useState<string>()
   const [{ data: network }] = useNetwork()
   const [{ data: account }] = useAccount()
