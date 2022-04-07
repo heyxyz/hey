@@ -7,7 +7,7 @@ import { Spinner } from '@components/UI/Spinner'
 import { Nft, PaginatedResultInfo, Profile } from '@generated/types'
 import { CollectionIcon } from '@heroicons/react/outline'
 import React, { useState } from 'react'
-import useInView from 'react-cool-inview'
+import { useInView } from 'react-cool-inview'
 import { CHAIN_ID, IS_MAINNET } from 'src/constants'
 import { chain } from 'wagmi'
 

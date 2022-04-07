@@ -7,7 +7,7 @@ import { Spinner } from '@components/UI/Spinner'
 import { PaginatedResultInfo, Profile, Wallet } from '@generated/types'
 import { CollectionIcon } from '@heroicons/react/outline'
 import { useState } from 'react'
-import useInView from 'react-cool-inview'
+import { useInView } from 'react-cool-inview'
 
 const COLLECTORS_QUERY = gql`
   query Collectors($request: WhoCollectedPublicationRequest!) {

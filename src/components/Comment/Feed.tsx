@@ -13,7 +13,7 @@ import { CommentFragment } from '@gql/CommentFragment'
 import { CollectionIcon, UsersIcon } from '@heroicons/react/outline'
 import { useRouter } from 'next/router'
 import React, { useContext, useState } from 'react'
-import useInView from 'react-cool-inview'
+import { useInView } from 'react-cool-inview'
 
 import NewComment from './NewComment'
 
