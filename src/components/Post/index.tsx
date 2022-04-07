@@ -7,9 +7,9 @@ import { Card, CardBody } from '@components/UI/Card'
 import AppContext from '@components/utils/AppContext'
 import SEO from '@components/utils/SEO'
 import { LensterPost } from '@generated/lenstertypes'
-import { CommentFragment } from '@gql/CommentFragment'
-import { MirrorFragment } from '@gql/MirrorFragment'
-import { PostFragment } from '@gql/PostFragment'
+import { CommentFields } from '@gql/CommentFields'
+import { MirrorFields } from '@gql/MirrorFields'
+import { PostFields } from '@gql/PostFields'
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import React, { useContext } from 'react'
@@ -29,21 +29,21 @@ export const POST_QUERY = gql`
   ) {
     publication(request: $request) {
       ... on Post {
-        ...PostFragment
+        ...PostFields
         onChainContentURI
         referenceModule {
           __typename
         }
       }
       ... on Comment {
-        ...CommentFragment
+        ...CommentFields
         onChainContentURI
         referenceModule {
           __typename
         }
       }
       ... on Mirror {
-        ...MirrorFragment
+        ...MirrorFields
         onChainContentURI
         referenceModule {
           __typename
@@ -54,9 +54,9 @@ export const POST_QUERY = gql`
       follows
     }
   }
-  ${PostFragment}
-  ${CommentFragment}
-  ${MirrorFragment}
+  ${PostFields}
+  ${CommentFields}
+  ${MirrorFields}
 `
 
 const ViewPost: NextPage = () => {

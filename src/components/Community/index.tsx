@@ -1,7 +1,7 @@
 import { gql, useQuery } from '@apollo/client'
 import Feed from '@components/Comment/Feed'
 import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout'
-import { CommunityFragment } from '@gql/CommunityFragment'
+import { CommunityFields } from '@gql/CommunityFields'
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import React from 'react'
@@ -15,11 +15,11 @@ const COMMUNITY_QUERY = gql`
   query Post($request: PublicationQueryRequest!) {
     publication(request: $request) {
       ... on Post {
-        ...CommunityFragment
+        ...CommunityFields
       }
     }
   }
-  ${CommunityFragment}
+  ${CommunityFields}
 `
 
 const ViewCommunity: NextPage = () => {

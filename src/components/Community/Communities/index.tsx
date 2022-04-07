@@ -2,7 +2,7 @@ import { gql, useQuery } from '@apollo/client'
 import { GridItemSix, GridLayout } from '@components/GridLayout'
 import { PageLoading } from '@components/UI/PageLoading'
 import SEO from '@components/utils/SEO'
-import { CommunityFragment } from '@gql/CommunityFragment'
+import { CommunityFields } from '@gql/CommunityFields'
 import { ChartBarIcon, FireIcon } from '@heroicons/react/outline'
 import { NextPage } from 'next'
 import React from 'react'
@@ -18,19 +18,19 @@ const COMMUNITY_QUERY = gql`
     topCommented: explorePublications(request: $topCommented) {
       items {
         ... on Post {
-          ...CommunityFragment
+          ...CommunityFields
         }
       }
     }
     topCollected: explorePublications(request: $topCollected) {
       items {
         ... on Post {
-          ...CommunityFragment
+          ...CommunityFields
         }
       }
     }
   }
-  ${CommunityFragment}
+  ${CommunityFields}
 `
 
 const Communities: NextPage = () => {
