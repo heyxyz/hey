@@ -190,7 +190,7 @@ const Create: React.FC = () => {
         description: description,
         content: description,
         external_url: null,
-        image: cover ? cover : `https://avatar.tobi.sh/${uuidv4()}.svg`,
+        image: cover ? cover : `https://avatar.tobi.sh/${uuidv4()}.png`,
         imageMimeType: coverType,
         name: title,
         attributes: [

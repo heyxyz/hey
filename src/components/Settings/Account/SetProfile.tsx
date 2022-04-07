@@ -1,13 +1,14 @@
 import LensHubProxy from '@abis/LensHubProxy.json'
 import { gql, useMutation } from '@apollo/client'
 import SwitchNetwork from '@components/Shared/SwitchNetwork'
+import UserProfile from '@components/Shared/UserProfile'
 import { Button } from '@components/UI/Button'
 import { Card, CardBody } from '@components/UI/Card'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { Spinner } from '@components/UI/Spinner'
 import AppContext from '@components/utils/AppContext'
 import { Profile, SetDefaultProfileBroadcastItemResult } from '@generated/types'
-import { PencilIcon } from '@heroicons/react/outline'
+import { ExclamationIcon, PencilIcon } from '@heroicons/react/outline'
 import { omit } from '@lib/omit'
 import { splitSignature } from '@lib/splitSignature'
 import { trackEvent } from '@lib/trackEvent'
@@ -20,6 +21,7 @@ import {
   LENSHUB_PROXY,
   WRONG_NETWORK
 } from 'src/constants'
+import Custom404 from 'src/pages/404'
 import {
   useAccount,
   useContractWrite,
@@ -59,7 +61,7 @@ const CREATE_SET_DEFAULT_PROFILE_DATA_MUTATION = gql`
 `
 
 const SetProfile: React.FC = () => {
-  const { profiles } = useContext(AppContext)
+  const { currentUser, profiles } = useContext(AppContext)
   const [selectedUser, setSelectedUser] = useState<string>()
   const [{ data: network }] = useNetwork()
   const [{ data: account }] = useAccount()
@@ -72,6 +74,7 @@ const SetProfile: React.FC = () => {
     'setDefaultProfileWithSig'
   )
 
+  const hasDefaultProfile = !!profiles.find((o) => o.isDefault)
   const sortedProfiles: Profile[] = profiles?.sort((a, b) =>
     !(a.isDefault !== b.isDefault) ? 0 : a.isDefault ? -1 : 1
   )
@@ -140,13 +143,39 @@ const SetProfile: React.FC = () => {
     }
   }
 
+  if (!currentUser) return <Custom404 />
+
   return (
     <Card>
-      <CardBody className="space-y-4">
+      <CardBody className="space-y-5">
         {error && <ErrorMessage title="Transaction failed!" error={error} />}
+        {hasDefaultProfile ? (
+          <>
+            <div className="text-lg font-bold">Your default profile</div>
+            <UserProfile profile={sortedProfiles[0]} />
+          </>
+        ) : (
+          <div className="text-yellow-500 font-bold flex items-center space-x-1.5">
+            <ExclamationIcon className="h-5 w-5" />
+            <div>You don't have any default profile set!</div>
+          </div>
+        )}
+        <div className="text-lg font-bold">Select default profile</div>
+        <p>
+          Selecting your default account helps to display the selected profile
+          across Lenster, you can change your default profile anytime.
+        </p>
+        <div className="text-lg font-bold">What else you should know</div>
+        <div className="text-sm text-gray-500 divide-y">
+          <p className="pb-3">
+            Only the default profile will be visible across the Lenster, example
+            notifications, follow etc.
+          </p>
+          <p className="py-3">You can change default profile anytime here.</p>
+        </div>
         <div>
           <div className="mb-1 font-medium text-gray-800 dark:text-gray-200">
-            Select default profile
+            Select profile
           </div>
           <select
             className="w-full bg-white rounded-xl border border-gray-300 outline-none dark:bg-gray-800 dark:border-gray-700 disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 focus:border-brand-500 focus:ring-brand-400"
