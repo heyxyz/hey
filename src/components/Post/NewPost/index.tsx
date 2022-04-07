@@ -43,21 +43,21 @@ import {
 import { object, string } from 'zod'
 
 const Attachment = dynamic(() => import('../../Shared/Attachment'), {
-  loading: () => <div className="shimmer h-5 w-5 rounded-lg mb-1" />
+  loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
 })
 const Giphy = dynamic(() => import('../../Shared/Giphy'), {
-  loading: () => <div className="shimmer h-5 w-5 rounded-lg mb-1" />
+  loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
 })
 const SelectCollectModule = dynamic(
   () => import('../../Shared/SelectCollectModule'),
   {
-    loading: () => <div className="shimmer h-5 w-5 rounded-lg mb-1" />
+    loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
   }
 )
 const SelectReferenceModule = dynamic(
   () => import('../../Shared/SelectReferenceModule'),
   {
-    loading: () => <div className="shimmer h-5 w-5 rounded-lg mb-1" />
+    loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
   }
 )
 
