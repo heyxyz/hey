@@ -19,6 +19,7 @@ import { useRouter } from 'next/router'
 import React, { useContext } from 'react'
 import { ZERO_ADDRESS } from 'src/constants'
 import Custom404 from 'src/pages/404'
+import Custom500 from 'src/pages/500'
 
 import IPFSHash from './IPFSHash'
 import PostPageShimmer from './Shimmer'
@@ -72,7 +73,7 @@ const ViewPost: NextPage = () => {
   } = useRouter()
 
   const { currentUser } = useContext(AppContext)
-  const { data, loading } = useQuery(POST_QUERY, {
+  const { data, loading, error } = useQuery(POST_QUERY, {
     variables: {
       request: { publicationId: id },
       followRequest: {
@@ -87,6 +88,7 @@ const ViewPost: NextPage = () => {
     skip: !id
   })
 
+  if (error) return <Custom500 />
   if (loading || !data) return <PostPageShimmer />
   if (!data.publication) return <Custom404 />
 

@@ -6,6 +6,7 @@ import AppContext from '@components/utils/AppContext'
 import SEO from '@components/utils/SEO'
 import { NextPage } from 'next'
 import React, { useContext } from 'react'
+import Custom500 from 'src/pages/500'
 
 import HomeFeed from './Feed'
 import Hero from './Hero'
@@ -14,7 +15,9 @@ import SetDefaultProfile from './SetDefaultProfile'
 import Streak from './Streak'
 
 const Home: NextPage = () => {
-  const { currentUser } = useContext(AppContext)
+  const { currentUser, currentUserError } = useContext(AppContext)
+
+  if (currentUserError) return <Custom500 />
 
   return (
     <>

@@ -6,6 +6,7 @@ import { CommunityFragment } from '@gql/CommunityFragment'
 import { ChartBarIcon, FireIcon } from '@heroicons/react/outline'
 import { NextPage } from 'next'
 import React from 'react'
+import Custom500 from 'src/pages/500'
 
 import List from './List'
 
@@ -33,7 +34,7 @@ const COMMUNITY_QUERY = gql`
 `
 
 const Communities: NextPage = () => {
-  const { data, loading } = useQuery(COMMUNITY_QUERY, {
+  const { data, loading, error } = useQuery(COMMUNITY_QUERY, {
     variables: {
       topCommented: {
         sources: 'Lenster Community',
@@ -50,6 +51,7 @@ const Communities: NextPage = () => {
     }
   })
 
+  if (error) return <Custom500 />
   if (loading || !data) return <PageLoading message="Loading community" />
 
   return (
