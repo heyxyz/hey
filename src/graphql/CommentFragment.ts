@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client'
 
-import { CommentCollectionFragment } from './CollectionFragment'
+import { CollectModuleFragment } from './CollectModuleFragment'
 import { PublicationProfileFragment } from './PublicationProfileFragment'
 
 export const CommentFragment = gql`
@@ -15,7 +15,9 @@ export const CommentFragment = gql`
         handle
       }
     }
-    ...CommentCollectionFragment
+    collectModule {
+      ...CollectModuleFragment
+    }
     stats {
       totalAmountOfComments
       totalAmountOfMirrors
@@ -99,5 +101,5 @@ export const CommentFragment = gql`
     appId
   }
   ${PublicationProfileFragment}
-  ${CommentCollectionFragment}
+  ${CollectModuleFragment}
 `

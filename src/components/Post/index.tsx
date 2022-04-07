@@ -7,10 +7,6 @@ import { Card, CardBody } from '@components/UI/Card'
 import AppContext from '@components/utils/AppContext'
 import SEO from '@components/utils/SEO'
 import { LensterPost } from '@generated/lenstertypes'
-import {
-  CommentCollectionFragment,
-  PostCollectionFragment
-} from '@gql/CollectionFragment'
 import { CommentFragment } from '@gql/CommentFragment'
 import { MirrorFragment } from '@gql/MirrorFragment'
 import { PostFragment } from '@gql/PostFragment'
@@ -34,7 +30,6 @@ export const POST_QUERY = gql`
     publication(request: $request) {
       ... on Post {
         ...PostFragment
-        ...PostCollectionFragment
         onChainContentURI
         referenceModule {
           __typename
@@ -42,7 +37,6 @@ export const POST_QUERY = gql`
       }
       ... on Comment {
         ...CommentFragment
-        ...CommentCollectionFragment
         onChainContentURI
         referenceModule {
           __typename
@@ -63,8 +57,6 @@ export const POST_QUERY = gql`
   ${PostFragment}
   ${CommentFragment}
   ${MirrorFragment}
-  ${PostCollectionFragment}
-  ${CommentCollectionFragment}
 `
 
 const ViewPost: NextPage = () => {

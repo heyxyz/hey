@@ -2262,3 +2262,38 @@ export type WhoCollectedPublicationRequest = {
   /** Internal publication id */
   publicationId: Scalars['InternalPublicationId']
 }
+
+export interface PossibleTypesResultData {
+  possibleTypes: {
+    [key: string]: string[]
+  }
+}
+const result: PossibleTypesResultData = {
+  possibleTypes: {
+    CollectModule: [
+      'FeeCollectModuleSettings',
+      'FreeCollectModuleSettings',
+      'LimitedFeeCollectModuleSettings',
+      'LimitedTimedFeeCollectModuleSettings',
+      'RevertCollectModuleSettings',
+      'TimedFeeCollectModuleSettings'
+    ],
+    FollowModule: ['FeeFollowModuleSettings'],
+    MainPostReference: ['Mirror', 'Post'],
+    MirrorablePublication: ['Comment', 'Post'],
+    Notification: [
+      'NewCollectNotification',
+      'NewCommentNotification',
+      'NewFollowerNotification',
+      'NewMirrorNotification'
+    ],
+    ProfileMedia: ['MediaSet', 'NftImage'],
+    Publication: ['Comment', 'Mirror', 'Post'],
+    PublicationSearchResultItem: ['Comment', 'Post'],
+    ReferenceModule: ['FollowOnlyReferenceModuleSettings'],
+    RelayResult: ['RelayError', 'RelayerResult'],
+    SearchResult: ['ProfileSearchResult', 'PublicationSearchResult'],
+    TransactionResult: ['TransactionError', 'TransactionIndexedResult']
+  }
+}
+export default result
