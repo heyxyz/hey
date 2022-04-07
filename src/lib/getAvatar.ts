@@ -9,7 +9,7 @@ export const getAvatar = (profile: Profile) => {
     profile?.picture?.original?.url
       ? // @ts-ignore
         getIPFSLink(profile?.picture?.original?.url)
-      : `https://avatar.tobi.sh/${profile?.ownedBy}.svg`,
+      : `https://avatar.tobi.sh/${profile?.ownedBy}.png`,
     500,
     500
   )

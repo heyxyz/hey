@@ -84,7 +84,7 @@ const Create: React.FC = () => {
                   handle: username,
                   profilePictureUri: avatar
                     ? avatar
-                    : `https://avatar.tobi.sh/${username}.svg`
+                    : `https://avatar.tobi.sh/${username}.png`
                 }
               }
             })

@@ -72,7 +72,7 @@ const Details: React.FC<Props> = ({ community }) => {
             src={imagekitURL(
               community?.metadata?.cover?.original?.url
                 ? community?.metadata?.cover?.original?.url
-                : `https://avatar.tobi.sh/${community?.id}.svg`,
+                : `https://avatar.tobi.sh/${community?.id}.png`,
               500,
               500
             )}
