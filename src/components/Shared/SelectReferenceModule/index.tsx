@@ -17,14 +17,12 @@ const SelectReferenceModule: React.FC<Props> = ({
   onlyFollowers
 }) => {
   const [showModal, setShowModal] = useState<boolean>(false)
+  const ONLY_FOLLOWERS = 'Only followers can comment or mirror'
+  const EVERYONE = 'Everyone can comment or mirror'
 
   return (
     <div>
-      <Tooltip
-        content={
-          onlyFollowers ? 'Only followers can comment' : 'Everyone can comment'
-        }
-      >
+      <Tooltip content={onlyFollowers ? ONLY_FOLLOWERS : EVERYONE}>
         <motion.button
           whileTap={{ scale: 0.9 }}
           type="button"
@@ -43,7 +41,7 @@ const SelectReferenceModule: React.FC<Props> = ({
         </motion.button>
       </Tooltip>
       <Modal
-        title="Select who to comment"
+        title="Select who to comment or mirror"
         icon={<ChatAlt2Icon className="w-5 h-5 text-brand-500" />}
         show={showModal}
         onClose={() => setShowModal(!showModal)}
@@ -64,7 +62,7 @@ const SelectReferenceModule: React.FC<Props> = ({
             >
               <div className="flex items-center space-x-3">
                 <GlobeAltIcon className="w-5 h-5 text-brand-500" />
-                <div>Everyone can comment</div>
+                <div>{EVERYONE}</div>
               </div>
               {!onlyFollowers && (
                 <CheckCircleIcon className="w-7 h-7 text-green-500" />
@@ -84,7 +82,7 @@ const SelectReferenceModule: React.FC<Props> = ({
             >
               <div className="flex items-center space-x-3">
                 <UsersIcon className="w-5 h-5 text-brand-500" />
-                <div>Only followers can comment</div>
+                <div>{ONLY_FOLLOWERS}</div>
               </div>
               {onlyFollowers && (
                 <CheckCircleIcon className="w-7 h-7 text-green-500" />
