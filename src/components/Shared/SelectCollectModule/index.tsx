@@ -26,11 +26,8 @@ const SelectCollectModule: React.FC<Props> = ({
   const [showModal, setShowModal] = useState<boolean>(false)
 
   return (
-    <>
-      <Tooltip
-        placement="top"
-        content={getModule(selectedModule.moduleName).name}
-      >
+    <div>
+      <Tooltip content={getModule(selectedModule.moduleName).name}>
         <motion.button
           whileTap={{ scale: 0.9 }}
           type="button"
@@ -58,7 +55,7 @@ const SelectCollectModule: React.FC<Props> = ({
           setShowModal={setShowModal}
         />
       </Modal>
-    </>
+    </div>
   )
 }
 
