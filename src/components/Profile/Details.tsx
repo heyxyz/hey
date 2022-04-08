@@ -4,10 +4,15 @@ import { gql, useQuery } from '@apollo/client'
 import Follow from '@components/Shared/Follow'
 import Slug from '@components/Shared/Slug'
 import Unfollow from '@components/Shared/Unfollow'
+import { Button } from '@components/UI/Button'
 import { Tooltip } from '@components/UI/Tooltip'
 import AppContext from '@components/utils/AppContext'
 import { Profile } from '@generated/types'
-import { HashtagIcon, LocationMarkerIcon } from '@heroicons/react/outline'
+import {
+  HashtagIcon,
+  LocationMarkerIcon,
+  PencilAltIcon
+} from '@heroicons/react/outline'
 import { BadgeCheckIcon } from '@heroicons/react/solid'
 import { formatUsername } from '@lib/formatUsername'
 import { getAvatar } from '@lib/getAvatar'
@@ -17,6 +22,7 @@ import { linkifyOptions } from '@lib/linkifyOptions'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import Linkify from 'linkify-react'
+import Link from 'next/link'
 import { useTheme } from 'next-themes'
 import React, { useContext, useState } from 'react'
 import { STATIC_ASSETS } from 'src/constants'
@@ -116,13 +122,30 @@ const Details: React.FC<Props> = ({ profile }) => {
         </div>
         <div className="space-y-5">
           <Followerings profile={profile} />
-          {followLoading ? (
-            <div className="w-28 rounded-lg h-[34px] shimmer" />
-          ) : following ? (
-            <Unfollow profile={profile} setFollowing={setFollowing} showText />
-          ) : (
-            <Follow profile={profile} setFollowing={setFollowing} showText />
-          )}
+          <div className="flex items-center space-x-2">
+            {followLoading ? (
+              <div className="w-28 rounded-lg h-[34px] shimmer" />
+            ) : following ? (
+              <Unfollow
+                profile={profile}
+                setFollowing={setFollowing}
+                showText
+              />
+            ) : (
+              <Follow profile={profile} setFollowing={setFollowing} showText />
+            )}
+            {currentUser?.id === profile?.id && (
+              <Link href="/settings">
+                <a>
+                  <Button
+                    variant="success"
+                    className="!py-1.5"
+                    icon={<PencilAltIcon className="h-5 w-5" />}
+                  />
+                </a>
+              </Link>
+            )}
+          </div>
           {profile?.bio && (
             <div className="mr-0 leading-7 sm:mr-10 linkify">
               <Linkify tagName="div" options={linkifyOptions}>
