@@ -38,7 +38,7 @@ const Attachment: React.FC<Props> = ({ attachments, setAttachments }) => {
           {loading ? (
             <Spinner size="sm" />
           ) : (
-            <Tooltip placement="top" content="Media">
+            <Tooltip content="Media">
               <PhotographIcon className="w-5 h-5 text-brand-500" />
             </Tooltip>
           )}
