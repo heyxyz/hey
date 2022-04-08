@@ -26,7 +26,7 @@ const CommentNotification: React.FC<Props> = ({ notification }) => {
           </a>
         </Link>
         <Link href={`/posts/${notification?.comment.id}`}>
-          <a className="w-72 text-sm text-gray-500 line-clamp-1">
+          <a className="text-sm text-gray-500 line-clamp-1">
             {notification?.comment?.metadata?.content}
           </a>
         </Link>
