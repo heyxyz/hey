@@ -5,6 +5,7 @@ import { EmptyState } from '@components/UI/EmptyState'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { Spinner } from '@components/UI/Spinner'
 import { Follower, PaginatedResultInfo, Profile } from '@generated/types'
+import { MinimalProfileFields } from '@gql/MinimalProfileFields'
 import { UsersIcon } from '@heroicons/react/outline'
 import { useState } from 'react'
 import { useInView } from 'react-cool-inview'
@@ -16,18 +17,7 @@ const FOLLOWERS_QUERY = gql`
         wallet {
           address
           defaultProfile {
-            id
-            name
-            handle
-            bio
-            ownedBy
-            picture {
-              ... on MediaSet {
-                original {
-                  url
-                }
-              }
-            }
+            ...MinimalProfileFields
           }
         }
         totalAmountOfTimesFollowed
@@ -38,6 +28,7 @@ const FOLLOWERS_QUERY = gql`
       }
     }
   }
+  ${MinimalProfileFields}
 `
 
 interface Props {
