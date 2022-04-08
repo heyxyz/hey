@@ -85,7 +85,7 @@ const Feed: React.FC = () => {
   return (
     <>
       {currentUser && <NewPost refetch={refetch} />}
-      {error && <ErrorMessage title="Failed to load home feed" error={error} />}
+      <ErrorMessage title="Failed to load home feed" error={error} />
       {data?.timeline?.items?.length === 0 && (
         <EmptyState
           message={<div>No posts yet!</div>}

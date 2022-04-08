@@ -68,7 +68,7 @@ const Modules: React.FC<Props> = ({
   return (
     <div className="dark:divide-gray-700">
       <div className="py-3.5 px-5 space-y-3">
-        {error && <ErrorMessage title="Failed to load modules" error={error} />}
+        <ErrorMessage title="Failed to load modules" error={error} />
         {showFeeEntry ? (
           <FeeEntry
             selectedModule={selectedModule}
@@ -108,7 +108,7 @@ const Modules: React.FC<Props> = ({
                       </div>
                     </div>
                     {module?.moduleName === selectedModule.moduleName && (
-                      <CheckCircleIcon className="w-7 h-7 text-green-500" />
+                      <CheckCircleIcon className="text-green-500 w-7 h-7" />
                     )}
                   </button>
                 </div>

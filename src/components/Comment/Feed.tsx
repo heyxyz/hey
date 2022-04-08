@@ -94,7 +94,7 @@ const Feed: React.FC<Props> = ({
           <NewComment refetch={refetch} post={post} type={type} />
         ) : (
           <Card>
-            <CardBody className="flex items-center space-x-1 text-sm font-bold text-gray-500">
+            <CardBody className="flex items-center space-x-1.5 text-sm font-bold text-gray-500">
               <UsersIcon className="w-4 h-4 text-brand-500" />
               <div>
                 <span>Only </span>
@@ -104,9 +104,7 @@ const Feed: React.FC<Props> = ({
             </CardBody>
           </Card>
         ))}
-      {error && (
-        <ErrorMessage title="Failed to load comment feed" error={error} />
-      )}
+      <ErrorMessage title="Failed to load comment feed" error={error} />
       {data?.publications?.items?.length === 0 && (
         <EmptyState
           message={<span>Be the first one to comment!</span>}
