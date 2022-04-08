@@ -25,7 +25,7 @@ const MirrorNotification: React.FC<Props> = ({ notification }) => {
                   notification?.profile?.picture
                     ? getAvatar(notification?.profile)
                     : imagekitURL(
-                        `https://avatar.tobi.sh/${notification?.profile?.ownedBy}.svg`,
+                        `https://avatar.tobi.sh/${notification?.profile?.ownedBy}.png`,
                         500,
                         500
                       )

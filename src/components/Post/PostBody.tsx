@@ -3,6 +3,7 @@ import 'linkify-plugin-mention'
 import CrowdfundShimmer from '@components/Shared/Shimmer/CrowdfundShimmer'
 import { LensterPost } from '@generated/lenstertypes'
 import { UserAddIcon, UsersIcon } from '@heroicons/react/outline'
+import { imagekitURL } from '@lib/imagekitURL'
 import { linkifyOptions } from '@lib/linkifyOptions'
 import clsx from 'clsx'
 import dayjs from 'dayjs'
@@ -45,7 +46,20 @@ const PostBody: React.FC<Props> = ({ post }) => {
             <span>Launched a new community</span>
           )}
           <Link href={`/communities/${post.id}`}>
-            <a className="font-bold">{post?.metadata?.name}</a>
+            <a className="font-bold flex items-center space-x-1.5">
+              <img
+                src={imagekitURL(
+                  post?.metadata?.cover?.original?.url
+                    ? post?.metadata?.cover?.original?.url
+                    : `https://avatar.tobi.sh/${post?.id}.png`,
+                  500,
+                  500
+                )}
+                className="w-[19px] h-[19px] bg-gray-200 rounded ring-2 ring-gray-50 dark:bg-gray-700 dark:ring-black"
+                alt={post?.id}
+              />
+              <div>{post?.metadata?.name}</div>
+            </a>
           </Link>
         </div>
       ) : postType === 'crowdfund' ? (

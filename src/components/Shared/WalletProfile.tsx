@@ -22,7 +22,7 @@ const WalletProfile: React.FC<Props> = ({ wallet }) => {
       >
         <img
           src={imagekitURL(
-            `https://avatar.tobi.sh/${wallet?.address}.svg`,
+            `https://avatar.tobi.sh/${wallet?.address}.png`,
             500,
             500
           )}
