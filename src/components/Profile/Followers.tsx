@@ -19,6 +19,7 @@ const FOLLOWERS_QUERY = gql`
             id
             name
             handle
+            bio
             ownedBy
             picture {
               ... on MediaSet {
@@ -111,6 +112,7 @@ const Followers: React.FC<Props> = ({ profile }) => {
               {follower?.wallet?.defaultProfile ? (
                 <UserProfile
                   profile={follower?.wallet?.defaultProfile as Profile}
+                  showBio
                 />
               ) : (
                 <WalletProfile wallet={follower?.wallet} />

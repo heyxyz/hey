@@ -18,6 +18,7 @@ const COLLECTORS_QUERY = gql`
           id
           name
           handle
+          bio
           ownedBy
           picture {
             ... on MediaSet {
@@ -101,7 +102,10 @@ const Collectors: React.FC<Props> = ({ pubId }) => {
           {collectors?.map((wallet: Wallet) => (
             <div className="p-5" key={wallet?.defaultProfile?.id}>
               {wallet?.defaultProfile ? (
-                <UserProfile profile={wallet?.defaultProfile as Profile} />
+                <UserProfile
+                  profile={wallet?.defaultProfile as Profile}
+                  showBio
+                />
               ) : (
                 <WalletProfile wallet={wallet} />
               )}
