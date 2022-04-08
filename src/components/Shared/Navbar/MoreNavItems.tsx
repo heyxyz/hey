@@ -92,8 +92,9 @@ const MoreNavItems: React.FC = () => {
                 </>
               )}
               <Menu.Item
-                as={NextLink}
-                href="/contact"
+                as="a"
+                href="https://tally.so/r/nPYB1m"
+                target="_blank"
                 className={({ active }: { active: boolean }) =>
                   clsx(
                     { 'bg-gray-100 dark:bg-gray-800': active },
