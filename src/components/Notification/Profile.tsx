@@ -8,7 +8,9 @@ import { getAvatar } from '@lib/getAvatar'
 import { imagekitURL } from '@lib/imagekitURL'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
+import Link from 'next/link'
 import React from 'react'
+import { POLYGONSCAN_URL } from 'src/constants'
 
 dayjs.extend(relativeTime)
 
@@ -36,18 +38,37 @@ const NotificationProfile: React.FC<Props> = ({ notification }) => {
         500,
         500
       )
-  const alt = wallet
+
+  const config = wallet
     ? wallet?.defaultProfile
-      ? wallet?.defaultProfile?.handle
-      : wallet?.address
-    : // @ts-ignore
-      notification?.profile?.handle
+      ? {
+          url: `/u/${wallet?.defaultProfile?.handle}`,
+          target: '_self',
+          alt: wallet?.defaultProfile?.handle
+        }
+      : {
+          url: `${POLYGONSCAN_URL}/address/${wallet?.address}`,
+          target: '_blank',
+          alt: wallet?.address
+        }
+    : {
+        // @ts-ignore
+        url: `/u/${notification?.profile?.handle}`,
+        target: '_self',
+        // @ts-ignore
+        alt: notification?.profile?.handle
+      }
+
   return (
-    <img
-      src={picture}
-      className="w-10 h-10 bg-gray-200 rounded-full border dark:border-gray-700"
-      alt={alt}
-    />
+    <Link href={config.url}>
+      <a target={config.target}>
+        <img
+          src={picture}
+          className="w-10 h-10 bg-gray-200 rounded-full border dark:border-gray-700"
+          alt={config.alt}
+        />
+      </a>
+    </Link>
   )
 }
 

@@ -83,7 +83,13 @@ const NOTIFICATIONS_QUERY = gql`
             ... on Post {
               id
               metadata {
+                name
                 content
+                cover {
+                  original {
+                    url
+                  }
+                }
                 attributes {
                   value
                 }
@@ -95,6 +101,7 @@ const NOTIFICATIONS_QUERY = gql`
             ... on Comment {
               id
               metadata {
+                name
                 content
                 attributes {
                   value
