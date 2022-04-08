@@ -36,7 +36,6 @@ const UserProfile: React.FC<Props> = ({
             <UserPopover handle={profile?.handle} showPopover={showPopover}>
               <img
                 onMouseEnter={() => setShowPopover(true)}
-                onMouseLeave={() => setShowPopover(false)}
                 src={getAvatar(profile)}
                 className="w-10 h-10 bg-gray-200 rounded-full border dark:border-gray-700"
                 alt={profile?.handle}
@@ -44,10 +43,7 @@ const UserProfile: React.FC<Props> = ({
             </UserPopover>
             <div>
               <UserPopover handle={profile?.handle} showPopover={showPopover}>
-                <div
-                  onMouseEnter={() => setShowPopover(true)}
-                  onMouseLeave={() => setShowPopover(false)}
-                >
+                <div onMouseEnter={() => setShowPopover(true)}>
                   <div className="flex gap-1 items-center">
                     <div>{profile?.name ?? profile?.handle}</div>
                     {isVerified(profile?.id) && (
