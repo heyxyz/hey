@@ -19,7 +19,6 @@ interface Props {
 }
 
 const CollectNotification: React.FC<Props> = ({ notification }) => {
-  const { wallet } = notification
   const postType =
     notification?.collectedPublication?.metadata?.attributes[0]?.value ??
     notification?.collectedPublication?.__typename?.toLowerCase()
@@ -29,7 +28,7 @@ const CollectNotification: React.FC<Props> = ({ notification }) => {
       <NotificationProfileAvatar notification={notification} />
       <div className="w-4/5">
         <NotificationProfileName notification={notification} />{' '}
-        <span className="pl-0.5 text-gray-600">
+        <span className="text-gray-600">
           {postType === 'community'
             ? 'joined your'
             : postType === 'crowdfund'
