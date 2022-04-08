@@ -108,7 +108,7 @@ const Modules: React.FC<Props> = ({
                       </div>
                     </div>
                     {module?.moduleName === selectedModule.moduleName && (
-                      <CheckCircleIcon className="text-green-500 w-7 h-7" />
+                      <CheckCircleIcon className="w-7 h-7 text-green-500" />
                     )}
                   </button>
                 </div>

@@ -47,21 +47,21 @@ import {
 import { object, string } from 'zod'
 
 const Attachment = dynamic(() => import('../../Shared/Attachment'), {
-  loading: () => <div className="w-5 h-5 mb-1 rounded-lg shimmer" />
+  loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
 })
 const Giphy = dynamic(() => import('../../Shared/Giphy'), {
-  loading: () => <div className="w-5 h-5 mb-1 rounded-lg shimmer" />
+  loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
 })
 const SelectCollectModule = dynamic(
   () => import('../../Shared/SelectCollectModule'),
   {
-    loading: () => <div className="w-5 h-5 mb-1 rounded-lg shimmer" />
+    loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
   }
 )
 const SelectReferenceModule = dynamic(
   () => import('../../Shared/SelectReferenceModule'),
   {
-    loading: () => <div className="w-5 h-5 mb-1 rounded-lg shimmer" />
+    loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
   }
 )
 
@@ -277,7 +277,7 @@ const NewComment: React.FC<Props> = ({ refetch, post, type }) => {
             placeholder="Tell something cool!"
             {...form.register('comment')}
           />
-          <div className="items-center block sm:flex">
+          <div className="block items-center sm:flex">
             <div className="flex items-center space-x-4">
               <Attachment
                 attachments={attachments}

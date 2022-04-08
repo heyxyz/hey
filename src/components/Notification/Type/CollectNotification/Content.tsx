@@ -20,7 +20,7 @@ const CollectedContent: React.FC<Props> = ({ notification }) => {
     <div className="text-sm text-gray-500 line-clamp-1">
       {postType === 'community' ? (
         <Link href={`/communities/${notification?.collectedPublication?.id}`}>
-          <a className="font-bold flex items-center space-x-1.5">
+          <a className="flex items-center space-x-1.5 font-bold">
             <img
               src={imagekitURL(
                 notification?.collectedPublication?.metadata?.cover?.original

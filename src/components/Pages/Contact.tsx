@@ -1,7 +1,7 @@
 import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout'
 import SettingsHelper from '@components/Shared/SettingsHelper'
 import { Button } from '@components/UI/Button'
-import { Card, CardBody } from '@components/UI/Card'
+import { Card } from '@components/UI/Card'
 import { EmptyState } from '@components/UI/EmptyState'
 import { Form, useZodForm } from '@components/UI/Form'
 import { Input } from '@components/UI/Input'
@@ -44,42 +44,40 @@ const Contact: React.FC = () => {
           {false ? (
             <EmptyState
               message={<span>Publication reported successfully!</span>}
-              icon={<CheckCircleIcon className="text-green-500 w-14 h-14" />}
+              icon={<CheckCircleIcon className="w-14 h-14 text-green-500" />}
               hideCard
             />
           ) : (
-            <CardBody>
-              <Form
-                form={form}
-                className="space-y-4"
-                onSubmit={({ subject, message }) => {
-                  location.href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(
-                    subject
-                  )}&body=${encodeURIComponent(message)}`
-                  trackEvent('contact')
-                  push('/')
-                }}
-              >
-                <Input
-                  label="Subject"
-                  placeholder="What happened?"
-                  {...form.register('subject')}
-                />
-                <TextArea
-                  label="Message"
-                  placeholder="How can we help?"
-                  {...form.register('message')}
-                />
-                <div className="ml-auto">
-                  <Button
-                    type="submit"
-                    icon={<PencilAltIcon className="w-4 h-4" />}
-                  >
-                    Submit
-                  </Button>
-                </div>
-              </Form>
-            </CardBody>
+            <Form
+              form={form}
+              className="p-5 space-y-4"
+              onSubmit={({ subject, message }) => {
+                location.href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(
+                  subject
+                )}&body=${encodeURIComponent(message)}`
+                trackEvent('contact')
+                push('/')
+              }}
+            >
+              <Input
+                label="Subject"
+                placeholder="What happened?"
+                {...form.register('subject')}
+              />
+              <TextArea
+                label="Message"
+                placeholder="How can we help?"
+                {...form.register('message')}
+              />
+              <div className="ml-auto">
+                <Button
+                  type="submit"
+                  icon={<PencilAltIcon className="w-4 h-4" />}
+                >
+                  Submit
+                </Button>
+              </div>
+            </Form>
           )}
         </Card>
       </GridItemEight>

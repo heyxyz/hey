@@ -140,7 +140,7 @@ const Details: React.FC<Props> = ({ profile }) => {
                   <Button
                     variant="secondary"
                     className="!py-1.5"
-                    icon={<PencilAltIcon className="h-5 w-5" />}
+                    icon={<PencilAltIcon className="w-5 h-5" />}
                   />
                 </a>
               </Link>

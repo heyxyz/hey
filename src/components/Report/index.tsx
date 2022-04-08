@@ -102,7 +102,7 @@ const Report: React.FC = () => {
           {submitData?.reportPublication === null ? (
             <EmptyState
               message={<span>Publication reported successfully!</span>}
-              icon={<CheckCircleIcon className="text-green-500 w-14 h-14" />}
+              icon={<CheckCircleIcon className="w-14 h-14 text-green-500" />}
               hideCard
             />
           ) : (

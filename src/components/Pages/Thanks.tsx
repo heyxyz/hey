@@ -27,7 +27,7 @@ const Brand: React.FC<Props> = ({ name, logo, url, size, children }) => {
         }.svg`}
         alt={`${name}'s Logo`}
       />
-      <div className="pt-2 sm:w-2/3 mx-auto">{children}</div>
+      <div className="pt-2 mx-auto sm:w-2/3">{children}</div>
       <div>
         <a className="font-bold" href={url} target="_blank" rel="noreferrer">
           ➜ Go to {name}

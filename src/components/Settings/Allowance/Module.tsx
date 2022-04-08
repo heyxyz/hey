@@ -72,7 +72,7 @@ const Module: React.FC<Props> = ({ module }) => {
   return (
     <Card key={module.module}>
       <ErrorMessage className="mx-5 mt-5" title={ERROR_MESSAGE} error={error} />
-      <CardBody className="flex items-center justify-between">
+      <CardBody className="flex justify-between items-center">
         <div className="overflow-hidden mr-1.5">
           <div className="flex items-center space-x-3">
             <div className="text-brand-500">
