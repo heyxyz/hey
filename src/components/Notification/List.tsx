@@ -23,17 +23,7 @@ const NOTIFICATIONS_QUERY = gql`
           wallet {
             address
             defaultProfile {
-              id
-              name
-              handle
-              ownedBy
-              picture {
-                ... on MediaSet {
-                  original {
-                    url
-                  }
-                }
-              }
+              ...MinimalProfileFields
             }
           }
           createdAt

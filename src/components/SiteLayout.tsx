@@ -1,5 +1,6 @@
 import { gql, useQuery } from '@apollo/client'
 import { Profile } from '@generated/types'
+import { MinimalProfileFields } from '@gql/MinimalProfileFields'
 import Head from 'next/head'
 import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
@@ -14,21 +15,12 @@ export const CURRENT_USER_QUERY = gql`
   query CurrentUser($ownedBy: [EthereumAddress!]) {
     profiles(request: { ownedBy: $ownedBy }) {
       items {
-        id
-        name
-        handle
-        ownedBy
+        ...MinimalProfileFields
         isDefault
-        picture {
-          ... on MediaSet {
-            original {
-              url
-            }
-          }
-        }
       }
     }
   }
+  ${MinimalProfileFields}
 `
 
 interface Props {

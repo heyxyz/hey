@@ -4,6 +4,7 @@ import { Input } from '@components/UI/Input'
 import { Spinner } from '@components/UI/Spinner'
 import useOnClickOutside from '@components/utils/hooks/useOnClickOutside'
 import { Profile } from '@generated/types'
+import { MinimalProfileFields } from '@gql/MinimalProfileFields'
 import { trackEvent } from '@lib/trackEvent'
 import { useRef, useState } from 'react'
 
@@ -14,21 +15,12 @@ const SEARCH_USERS_QUERY = gql`
     search(request: $request) {
       ... on ProfileSearchResult {
         items {
-          id
-          handle
-          name
-          ownedBy
-          picture {
-            ... on MediaSet {
-              original {
-                url
-              }
-            }
-          }
+          ...MinimalProfileFields
         }
       }
     }
   }
+  ${MinimalProfileFields}
 `
 
 const Search = () => {
