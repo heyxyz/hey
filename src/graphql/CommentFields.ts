@@ -40,7 +40,7 @@ export const CommentFields = gql`
     }
     commentOn {
       ... on Post {
-        id
+        pubId: id
         profile {
           ...MinimalProfileFields
         }
