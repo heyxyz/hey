@@ -1,6 +1,8 @@
 import LensHubProxy from '@abis/LensHubProxy.json'
 import { gql, useMutation } from '@apollo/client'
+import Slug from '@components/Shared/Slug'
 import { Button } from '@components/UI/Button'
+import { Card, CardBody } from '@components/UI/Card'
 import { Spinner } from '@components/UI/Spinner'
 import { Tooltip } from '@components/UI/Tooltip'
 import AppContext from '@components/utils/AppContext'
@@ -185,6 +187,18 @@ const CollectModule: React.FC<Props> = ({ post }) => {
           </Tooltip>
         ))}
       <div className="p-5 space-y-3">
+        {collectModule?.followerOnly && (
+          <Card>
+            <CardBody className="flex items-center space-x-1 text-sm font-bold text-gray-500">
+              <UsersIcon className="w-4 h-4 text-brand-500" />
+              <div>
+                <span>Only </span>
+                <Slug slug={`${post.profile.handle}'s`} prefix="@" />
+                <span> followers can collect</span>
+              </div>
+            </CardBody>
+          </Card>
+        )}
         <div className="space-y-1.5">
           <div className="space-y-1.5">
             {post?.metadata?.name && (
