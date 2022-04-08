@@ -138,7 +138,7 @@ const Details: React.FC<Props> = ({ profile }) => {
               <Link href="/settings">
                 <a>
                   <Button
-                    variant="success"
+                    variant="secondary"
                     className="!py-1.5"
                     icon={<PencilAltIcon className="h-5 w-5" />}
                   />
