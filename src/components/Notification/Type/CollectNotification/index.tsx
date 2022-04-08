@@ -1,8 +1,7 @@
+import NotificationProfile from '@components/Notification/Profile'
 import { NewCollectNotification } from '@generated/types'
 import { CashIcon, CollectionIcon, UsersIcon } from '@heroicons/react/outline'
 import { formatUsername } from '@lib/formatUsername'
-import { getAvatar } from '@lib/getAvatar'
-import { imagekitURL } from '@lib/imagekitURL'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import Link from 'next/link'
@@ -28,23 +27,7 @@ const CollectNotification: React.FC<Props> = ({ notification }) => {
         <Link href={`/posts/${notification?.collectedPublication?.id}`}>
           <a>
             <div className="flex items-center space-x-3">
-              <img
-                src={
-                  wallet?.defaultProfile?.picture
-                    ? getAvatar(wallet?.defaultProfile)
-                    : imagekitURL(
-                        `https://avatar.tobi.sh/${wallet?.address}.png`,
-                        500,
-                        500
-                      )
-                }
-                className="w-10 h-10 bg-gray-200 rounded-full border dark:border-gray-700"
-                alt={
-                  wallet?.defaultProfile
-                    ? wallet?.defaultProfile?.handle
-                    : wallet?.address
-                }
-              />
+              <NotificationProfile notification={notification} />
               <div>
                 <div className="flex items-center space-x-2">
                   <div>
