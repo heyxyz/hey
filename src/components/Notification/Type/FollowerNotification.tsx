@@ -38,7 +38,7 @@ const FollowerNotification: React.FC<Props> = ({ notification }) => {
                   wallet?.defaultProfile?.picture
                     ? getAvatar(wallet?.defaultProfile)
                     : imagekitURL(
-                        `https://avatar.tobi.sh/${wallet?.address}.svg`,
+                        `https://avatar.tobi.sh/${wallet?.address}.png`,
                         500,
                         500
                       )
