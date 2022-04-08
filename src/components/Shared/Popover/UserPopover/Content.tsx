@@ -1,17 +1,15 @@
 import { useQuery } from '@apollo/client'
 import { PROFILE_QUERY } from '@components/Profile'
-import { Card } from '@components/UI/Card'
-import { Tooltip } from '@components/UI/Tooltip'
+import { Card, CardBody } from '@components/UI/Card'
 import { BadgeCheckIcon } from '@heroicons/react/solid'
 import { formatUsername } from '@lib/formatUsername'
 import { getAvatar } from '@lib/getAvatar'
 import { humanize } from '@lib/humanize'
-import { imagekitURL } from '@lib/imagekitURL'
+import { isStaff } from '@lib/isStaff'
 import { isVerified } from '@lib/isVerified'
 import { linkifyOptions } from '@lib/linkifyOptions'
 import Linkify from 'linkify-react'
 import React from 'react'
-import { STATIC_ASSETS } from 'src/constants'
 
 import Slug from '../../Slug'
 
@@ -29,23 +27,13 @@ const Content: React.FC<Props> = ({ handle, showPopover }) => {
   if (!data) return null
 
   const profile = data?.profiles?.items[0]
-  const cover = profile?.coverPicture?.original?.url
 
   return (
-    <Card className="dark:!bg-gray-800 dark:border-gray-600">
-      <div
-        className="h-28 rounded-t-xl"
-        style={{
-          backgroundImage: `url(${
-            cover ? imagekitURL(cover) : `${STATIC_ASSETS}/patterns/2.svg`
-          })`,
-          backgroundColor: '#8b5cf6',
-          backgroundSize: cover ? 'cover' : '30%',
-          backgroundPosition: 'center center',
-          backgroundRepeat: cover ? 'no-repeat' : 'repeat'
-        }}
-      />
-      <div className="w-80 p-5 -mt-14">
+    <Card
+      className="dark:!bg-gray-800 dark:border-gray-600 shadow-sm"
+      forceRounded
+    >
+      <CardBody className="w-72">
         <div className="space-y-1">
           <img
             src={getAvatar(profile)}
@@ -56,18 +44,19 @@ const Content: React.FC<Props> = ({ handle, showPopover }) => {
             <div className="flex gap-1.5 items-center font-bold truncate">
               <div className="truncate">{profile?.name ?? profile?.handle}</div>
               {isVerified(profile?.id) && (
-                <Tooltip content="Verified">
-                  <BadgeCheckIcon className="w-5 h-5 text-brand-500" />
-                </Tooltip>
+                <BadgeCheckIcon className="w-5 h-5 text-brand-500" />
+              )}
+              {isStaff(profile.id) && (
+                <div className="py-0.5 px-2 text-xs text-white rounded-lg shadow-sm bg-brand-500 w-fit">
+                  Staff
+                </div>
               )}
             </div>
-            <div className="text-sm">
-              {profile?.name ? (
-                <Slug slug={formatUsername(profile?.handle)} prefix="@" />
-              ) : (
-                <Slug slug={formatUsername(profile?.ownedBy)} />
-              )}
-            </div>
+            <Slug
+              className="text-sm"
+              slug={formatUsername(profile?.handle)}
+              prefix="@"
+            />
           </div>
           {profile?.bio && (
             <div className="leading-6 text-sm pt-2 w-fit linkify">
@@ -91,7 +80,7 @@ const Content: React.FC<Props> = ({ handle, showPopover }) => {
             </div>
           </div>
         </div>
-      </div>
+      </CardBody>
     </Card>
   )
 }
