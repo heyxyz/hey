@@ -83,16 +83,7 @@ const NOTIFICATIONS_QUERY = gql`
             ... on Post {
               id
               metadata {
-                name
-                content
-                cover {
-                  original {
-                    url
-                  }
-                }
-                attributes {
-                  value
-                }
+                ...NotificationCollectMetadataFields
               }
               collectModule {
                 ...NotificationCollectModuleFields
@@ -101,11 +92,7 @@ const NOTIFICATIONS_QUERY = gql`
             ... on Comment {
               id
               metadata {
-                name
-                content
-                attributes {
-                  value
-                }
+                ...NotificationCollectMetadataFields
               }
               collectModule {
                 ...NotificationCollectModuleFields
@@ -153,6 +140,18 @@ const NOTIFICATIONS_QUERY = gql`
         }
         value
       }
+    }
+  }
+  fragment NotificationCollectMetadataFields on MetadataOutput {
+    name
+    content
+    cover {
+      original {
+        url
+      }
+    }
+    attributes {
+      value
     }
   }
 `

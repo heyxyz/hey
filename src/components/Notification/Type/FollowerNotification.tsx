@@ -13,8 +13,6 @@ interface Props {
 }
 
 const FollowerNotification: React.FC<Props> = ({ notification }) => {
-  const { wallet } = notification
-
   return (
     <div className="flex items-center space-x-3">
       <NotificationProfileAvatar notification={notification} />
