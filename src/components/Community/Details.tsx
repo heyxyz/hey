@@ -117,7 +117,6 @@ const Details: React.FC<Props> = ({ community }) => {
                 <Modal
                   title="Members"
                   icon={<UsersIcon className="w-5 h-5 text-brand-500" />}
-                  size="md"
                   show={showMembersModal}
                   onClose={() => setShowMembersModal(!showMembersModal)}
                 >
