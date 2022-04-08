@@ -6,7 +6,6 @@ import Link from 'next/link'
 import React, { useState } from 'react'
 
 import Follow from './Follow'
-import UserPopover from './Popover/UserPopover'
 import Slug from './Slug'
 import Unfollow from './Unfollow'
 
@@ -25,7 +24,6 @@ const UserProfile: React.FC<Props> = ({
   followStatusLoading = false,
   isFollowing = false
 }) => {
-  const [showPopover, setShowPopover] = useState<boolean>(false)
   const [following, setFollowing] = useState<boolean>(isFollowing)
 
   return (
@@ -33,26 +31,19 @@ const UserProfile: React.FC<Props> = ({
       <Link href={`/u/${profile?.handle}`}>
         <a>
           <div className="flex items-center space-x-3">
-            <UserPopover handle={profile?.handle} showPopover={showPopover}>
-              <img
-                onMouseEnter={() => setShowPopover(true)}
-                src={getAvatar(profile)}
-                className="w-10 h-10 bg-gray-200 rounded-full border dark:border-gray-700"
-                alt={profile?.handle}
-              />
-            </UserPopover>
+            <img
+              src={getAvatar(profile)}
+              className="w-10 h-10 bg-gray-200 rounded-full border dark:border-gray-700"
+              alt={profile?.handle}
+            />
             <div>
-              <UserPopover handle={profile?.handle} showPopover={showPopover}>
-                <div onMouseEnter={() => setShowPopover(true)}>
-                  <div className="flex gap-1 items-center">
-                    <div>{profile?.name ?? profile?.handle}</div>
-                    {isVerified(profile?.id) && (
-                      <BadgeCheckIcon className="w-4 h-4 text-brand-500" />
-                    )}
-                  </div>
-                  <Slug className="text-sm" slug={profile?.handle} prefix="@" />
-                </div>
-              </UserPopover>
+              <div className="flex gap-1 items-center">
+                <div>{profile?.name ?? profile?.handle}</div>
+                {isVerified(profile?.id) && (
+                  <BadgeCheckIcon className="w-4 h-4 text-brand-500" />
+                )}
+              </div>
+              <Slug className="text-sm" slug={profile?.handle} prefix="@" />
               {showBio && profile?.bio && (
                 <div className="text-sm mt-2">{profile?.bio}</div>
               )}
