@@ -11,6 +11,7 @@ interface Props {
 
 const Commented: React.FC<Props> = ({ post }) => {
   const { resolvedTheme } = useTheme()
+  const commentOn: LensterPost | any = post?.commentOn
 
   return (
     <div className="flex items-end w-3/5">
@@ -22,16 +23,16 @@ const Commented: React.FC<Props> = ({ post }) => {
         alt="Comment"
       />
       <div className="flex items-center pb-3.5 space-x-1 text-sm text-gray-500">
-        <Link href={`/u/${post?.commentOn?.profile?.handle}`}>
+        <Link href={`/u/${commentOn?.profile?.handle}`}>
           <a>
-            <Slug slug={post?.commentOn?.profile?.handle} prefix="@" />:
+            <Slug slug={commentOn?.profile?.handle} prefix="@" />:
           </a>
         </Link>
-        <Link href={`/posts/${post?.commentOn?.id}`}>
+        <Link href={`/posts/${commentOn?.id ?? commentOn?.pubId}`}>
           <a className="line-clamp-1">
-            {post?.commentOn?.metadata?.content.trim()
-              ? post?.commentOn?.metadata?.content
-              : post?.commentOn?.metadata?.name}
+            {commentOn?.metadata?.content.trim()
+              ? commentOn?.metadata?.content
+              : commentOn?.metadata?.name}
           </a>
         </Link>
       </div>
