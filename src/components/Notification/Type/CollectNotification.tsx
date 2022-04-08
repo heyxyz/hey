@@ -1,7 +1,15 @@
 import { NewCollectNotification } from '@generated/types'
-import { CashIcon, CollectionIcon, UsersIcon } from '@heroicons/react/outline'
+import {
+  CashIcon,
+  CollectionIcon,
+  CurrencyDollarIcon,
+  HandIcon,
+  UsersIcon
+} from '@heroicons/react/outline'
 import { formatUsername } from '@lib/formatUsername'
 import { getAvatar } from '@lib/getAvatar'
+import { getTokenImage } from '@lib/getTokenImage'
+import { humanize } from '@lib/humanize'
 import { imagekitURL } from '@lib/imagekitURL'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
@@ -19,6 +27,9 @@ const CollectNotification: React.FC<Props> = ({ notification }) => {
   const postType =
     notification?.collectedPublication?.metadata?.attributes[0]?.value ??
     notification?.collectedPublication?.__typename?.toLowerCase()
+  // @ts-ignore
+  const collectModule: LensterCollectModule =
+    notification?.collectedPublication?.collectModule
 
   return (
     <>
@@ -72,6 +83,36 @@ const CollectNotification: React.FC<Props> = ({ notification }) => {
                 <div className="text-sm text-gray-500 line-clamp-1">
                   {notification?.collectedPublication?.metadata?.content}
                 </div>
+                {postType !== 'community' && (
+                  <div className="mt-2 flex items-center space-x-1">
+                    {postType === 'crowdfund' ? (
+                      <HandIcon className="text-green-500 h-[15px]" />
+                    ) : (
+                      <CurrencyDollarIcon className="text-green-500 h-[15px]" />
+                    )}
+                    {collectModule?.__typename ===
+                    'FreeCollectModuleSettings' ? (
+                      <div className="text-[12px]">Collected for free</div>
+                    ) : (
+                      <>
+                        <div className="text-[12px]">
+                          {postType === 'crowdfund'
+                            ? 'Funded'
+                            : 'Collected for'}{' '}
+                          {humanize(collectModule?.amount?.value)}{' '}
+                          {collectModule?.amount?.asset?.symbol}
+                        </div>
+                        <img
+                          className="w-5 h-5"
+                          src={getTokenImage(
+                            collectModule?.amount?.asset?.symbol
+                          )}
+                          alt={collectModule?.amount?.asset?.symbol}
+                        />
+                      </>
+                    )}
+                  </div>
+                )}
                 <div className="flex items-center pt-1 space-x-1 text-gray-400 text-[12px]">
                   {postType === 'community' ? (
                     <UsersIcon className="text-pink-500 h-[15px]" />

@@ -88,13 +88,20 @@ const NOTIFICATIONS_QUERY = gql`
                   value
                 }
               }
+              collectModule {
+                ...NotificationCollectModuleFields
+              }
             }
             ... on Comment {
+              id
               metadata {
                 content
                 attributes {
                   value
                 }
+              }
+              collectModule {
+                ...NotificationCollectModuleFields
               }
             }
           }
@@ -107,6 +114,40 @@ const NOTIFICATIONS_QUERY = gql`
     }
   }
   ${MinimalProfileFields}
+  fragment NotificationCollectModuleFields on CollectModule {
+    ... on FeeCollectModuleSettings {
+      amount {
+        asset {
+          symbol
+        }
+        value
+      }
+    }
+    ... on LimitedFeeCollectModuleSettings {
+      amount {
+        asset {
+          symbol
+        }
+        value
+      }
+    }
+    ... on LimitedTimedFeeCollectModuleSettings {
+      amount {
+        asset {
+          symbol
+        }
+        value
+      }
+    }
+    ... on TimedFeeCollectModuleSettings {
+      amount {
+        asset {
+          symbol
+        }
+        value
+      }
+    }
+  }
 `
 
 const List: React.FC = () => {
