@@ -92,7 +92,6 @@ const Crowdfund: React.FC<Props> = ({ fund }) => {
                     <Modal
                       title="Funders"
                       icon={<CashIcon className="w-5 h-5 text-brand-500" />}
-                      size="md"
                       show={showFundersModal}
                       onClose={() => setShowFundersModal(!showFundersModal)}
                     >
