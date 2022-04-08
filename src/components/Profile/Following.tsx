@@ -16,6 +16,7 @@ const FOLLOWING_QUERY = gql`
           id
           name
           handle
+          bio
           ownedBy
           picture {
             ... on MediaSet {
@@ -103,7 +104,7 @@ const Following: React.FC<Props> = ({ profile }) => {
         <div className="divide-y">
           {following?.map((following: Following) => (
             <div className="p-5" key={following?.profile.id}>
-              <UserProfile profile={following?.profile} />
+              <UserProfile profile={following?.profile} showBio />
             </div>
           ))}
         </div>

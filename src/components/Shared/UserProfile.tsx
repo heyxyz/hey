@@ -12,6 +12,7 @@ import Unfollow from './Unfollow'
 
 interface Props {
   profile: Profile
+  showBio?: boolean
   showFollow?: boolean
   followStatusLoading?: boolean
   isFollowing?: boolean
@@ -19,6 +20,7 @@ interface Props {
 
 const UserProfile: React.FC<Props> = ({
   profile,
+  showBio = false,
   showFollow = false,
   followStatusLoading = false,
   isFollowing = false
@@ -49,6 +51,9 @@ const UserProfile: React.FC<Props> = ({
                   className="text-sm"
                   slug={formatUsername(profile?.ownedBy)}
                 />
+              )}
+              {showBio && profile?.bio && (
+                <div className="text-sm mt-1.5">{profile?.bio}</div>
               )}
             </div>
           </div>
