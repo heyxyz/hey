@@ -82,11 +82,7 @@ const Feed: React.FC<Props> = ({ feedType = 'TOP_COMMENTED' }) => {
   if (data?.explorePublications?.items?.length === 0)
     return (
       <EmptyState
-        message={
-          <div>
-            <span>No posts yet!</span>
-          </div>
-        }
+        message={<div>No posts yet!</div>}
         icon={<CollectionIcon className="w-8 h-8 text-brand-500" />}
       />
     )

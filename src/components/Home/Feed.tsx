@@ -88,11 +88,7 @@ const Feed: React.FC = () => {
       {error && <ErrorMessage title="Failed to load home feed" error={error} />}
       {data?.timeline?.items?.length === 0 && (
         <EmptyState
-          message={
-            <div>
-              <span>No posts yet!</span>
-            </div>
-          }
+          message={<div>No posts yet!</div>}
           icon={<CollectionIcon className="w-8 h-8 text-brand-500" />}
         />
       )}
