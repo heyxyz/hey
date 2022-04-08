@@ -93,7 +93,7 @@ const MoreNavItems: React.FC = () => {
               )}
               <Menu.Item
                 as="a"
-                href="https://tally.so/r/nPYB1m"
+                href="https://discord.gg/n8VXKgevbw"
                 target="_blank"
                 className={({ active }: { active: boolean }) =>
                   clsx(
