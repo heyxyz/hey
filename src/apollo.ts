@@ -7,7 +7,7 @@ import {
 import result from '@generated/types'
 import jwtDecode from 'jwt-decode'
 
-import { API_URL } from './constants'
+import { API_URL, ERROR_MESSAGE } from './constants'
 
 const REFRESH_AUTHENTICATION_MUTATION = `
   mutation Refresh($request: RefreshRequest!) {
@@ -67,6 +67,7 @@ const authLink = new ApolloLink((operation, forward) => {
           localStorage.setItem('accessToken', res?.data?.refresh?.accessToken)
           localStorage.setItem('refreshToken', res?.data?.refresh?.refreshToken)
         })
+        .catch(() => console.log(ERROR_MESSAGE))
     }
 
     return forward(operation)
