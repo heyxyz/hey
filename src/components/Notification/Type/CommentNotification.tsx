@@ -15,41 +15,27 @@ interface Props {
 
 const CommentNotification: React.FC<Props> = ({ notification }) => {
   return (
-    <>
-      <div className="flex justify-between items-center">
-        <Link href={`/posts/${notification?.comment.id}`}>
-          <a>
-            <div className="flex items-center space-x-3">
-              <NotificationProfileAvatar notification={notification} />
-              <div>
-                <div className="flex items-center space-x-2">
-                  <div>
-                    <NotificationProfileName notification={notification} />{' '}
-                    <span className="pl-0.5 text-gray-600">
-                      commented on your{' '}
-                    </span>
-                    <Link
-                      href={`/posts/${notification?.comment?.commentOn?.id}`}
-                    >
-                      <a className="font-bold">
-                        {notification?.comment?.commentOn?.__typename?.toLowerCase()}
-                      </a>
-                    </Link>
-                  </div>
-                </div>
-                <div className="w-72 text-sm text-gray-500 line-clamp-1">
-                  {notification?.comment?.metadata?.content}
-                </div>
-                <div className="flex items-center pt-1 space-x-1 text-gray-400 text-[12px]">
-                  <ChatAlt2Icon className="text-blue-500 h-[15px]" />
-                  <div>{dayjs(new Date(notification.createdAt)).fromNow()}</div>
-                </div>
-              </div>
-            </div>
+    <div className="flex items-center space-x-3">
+      <NotificationProfileAvatar notification={notification} />
+      <div className="w-4/5">
+        <NotificationProfileName notification={notification} />{' '}
+        <span className="text-gray-600">commented on your </span>
+        <Link href={`/posts/${notification?.comment?.commentOn?.id}`}>
+          <a className="font-bold">
+            {notification?.comment?.commentOn?.__typename?.toLowerCase()}
           </a>
         </Link>
+        <Link href={`/posts/${notification?.comment.id}`}>
+          <a className="w-72 text-sm text-gray-500 line-clamp-1">
+            {notification?.comment?.metadata?.content}
+          </a>
+        </Link>
+        <div className="flex items-center pt-1 space-x-1 text-gray-400 text-[12px]">
+          <ChatAlt2Icon className="text-blue-500 h-[15px]" />
+          <div>{dayjs(new Date(notification.createdAt)).fromNow()}</div>
+        </div>
       </div>
-    </>
+    </div>
   )
 }
 

@@ -91,7 +91,7 @@ export const NotificationProfileName: React.FC<Props> = ({ notification }) => {
         }
     : {
         // @ts-ignore
-        name: notification?.profile?.name,
+        name: notification?.profile?.name ?? notification?.profile?.handle,
         // @ts-ignore
         url: `/u/${notification?.profile?.handle}`,
         target: '_self'
