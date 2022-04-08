@@ -29,6 +29,7 @@ const Content: React.FC<Props> = ({ handle, showPopover }) => {
   if (!data) return null
 
   const profile = data?.profiles?.items[0]
+  const cover = profile?.coverPicture?.original?.url
 
   return (
     <Card className="dark:!bg-gray-800 dark:border-gray-600">
@@ -36,18 +37,12 @@ const Content: React.FC<Props> = ({ handle, showPopover }) => {
         className="h-28 rounded-t-xl"
         style={{
           backgroundImage: `url(${
-            profile?.coverPicture?.original?.url
-              ? imagekitURL(profile?.coverPicture?.original?.url)
-              : `${STATIC_ASSETS}/patterns/2.svg`
+            cover ? imagekitURL(cover) : `${STATIC_ASSETS}/patterns/2.svg`
           })`,
           backgroundColor: '#8b5cf6',
-          backgroundSize: profile?.coverPicture?.original?.url
-            ? 'cover'
-            : '30%',
+          backgroundSize: cover ? 'cover' : '30%',
           backgroundPosition: 'center center',
-          backgroundRepeat: profile?.coverPicture?.original?.url
-            ? 'no-repeat'
-            : 'repeat'
+          backgroundRepeat: cover ? 'no-repeat' : 'repeat'
         }}
       />
       <div className="w-80 p-5 -mt-14">
