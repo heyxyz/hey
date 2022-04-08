@@ -53,7 +53,7 @@ const UserProfile: React.FC<Props> = ({
                 />
               )}
               {showBio && profile?.bio && (
-                <div className="text-sm mt-1.5">{profile?.bio}</div>
+                <div className="text-sm mt-2">{profile?.bio}</div>
               )}
             </div>
           </div>

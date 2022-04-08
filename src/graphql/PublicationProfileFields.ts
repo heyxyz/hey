@@ -5,6 +5,7 @@ export const PublicationProfileFields = gql`
     id
     name
     handle
+    bio
     ownedBy
     picture {
       ... on MediaSet {
