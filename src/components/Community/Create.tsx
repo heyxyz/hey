@@ -6,7 +6,7 @@ import ChooseFile from '@components/Shared/ChooseFile'
 import SettingsHelper from '@components/Shared/SettingsHelper'
 import SwitchNetwork from '@components/Shared/SwitchNetwork'
 import { Button } from '@components/UI/Button'
-import { Card, CardBody } from '@components/UI/Card'
+import { Card } from '@components/UI/Card'
 import { Form, useZodForm } from '@components/UI/Form'
 import { Input } from '@components/UI/Input'
 import { Spinner } from '@components/UI/Spinner'
@@ -199,82 +199,80 @@ const Create: React.FC = () => {
       </GridItemFour>
       <GridItemEight>
         <Card>
-          <CardBody>
-            {data?.hash ? (
-              <Pending txHash={data?.hash} />
-            ) : (
-              <Form
-                form={form}
-                className="space-y-4"
-                onSubmit={({ name, description }) => {
-                  createCommunity(name, description)
-                }}
-              >
-                <Input
-                  label="Name"
-                  type="text"
-                  placeholder="minecraft"
-                  {...form.register('name')}
-                />
-                <TextArea
-                  label="Description"
-                  placeholder="Tell us something about the community!"
-                  {...form.register('description')}
-                />
-                <div className="space-y-1.5">
-                  <label>Avatar</label>
-                  <div className="space-y-3">
-                    {avatar && (
-                      <div>
-                        <img
-                          className="w-60 h-60 rounded-lg"
-                          src={avatar}
-                          alt={avatar}
-                        />
-                      </div>
-                    )}
+          {data?.hash ? (
+            <Pending txHash={data?.hash} />
+          ) : (
+            <Form
+              form={form}
+              className="p-5 space-y-4"
+              onSubmit={({ name, description }) => {
+                createCommunity(name, description)
+              }}
+            >
+              <Input
+                label="Name"
+                type="text"
+                placeholder="minecraft"
+                {...form.register('name')}
+              />
+              <TextArea
+                label="Description"
+                placeholder="Tell us something about the community!"
+                {...form.register('description')}
+              />
+              <div className="space-y-1.5">
+                <label>Avatar</label>
+                <div className="space-y-3">
+                  {avatar && (
                     <div>
-                      <div className="flex items-center space-x-3">
-                        <ChooseFile
-                          onChange={(
-                            evt: React.ChangeEvent<HTMLInputElement>
-                          ) => handleUpload(evt)}
-                        />
-                        {uploading && <Spinner size="sm" />}
-                      </div>
+                      <img
+                        className="rounded-lg w-60 h-60"
+                        src={avatar}
+                        alt={avatar}
+                      />
+                    </div>
+                  )}
+                  <div>
+                    <div className="flex items-center space-x-3">
+                      <ChooseFile
+                        onChange={(evt: React.ChangeEvent<HTMLInputElement>) =>
+                          handleUpload(evt)
+                        }
+                      />
+                      {uploading && <Spinner size="sm" />}
                     </div>
                   </div>
                 </div>
-                <div className="ml-auto">
-                  {network.chain?.unsupported ? (
-                    <SwitchNetwork />
-                  ) : (
-                    <Button
-                      type="submit"
-                      disabled={
-                        typedDataLoading ||
-                        isUploading ||
-                        signLoading ||
-                        writeLoading
-                      }
-                      icon={
-                        typedDataLoading ||
-                        isUploading ||
-                        signLoading ||
-                        writeLoading ? (
-                          <Spinner size="xs" />
-                        ) : (
-                          <PlusIcon className="w-4 h-4" />
-                        )
-                      }
-                    >
-                      Create
-                    </Button>
-                  )}
-                </div>
-              </Form>
-            )}
-          </CardBody>
+              </div>
+              <div className="ml-auto">
+                {network.chain?.unsupported ? (
+                  <SwitchNetwork />
+                ) : (
+                  <Button
+                    type="submit"
+                    disabled={
+                      typedDataLoading ||
+                      isUploading ||
+                      signLoading ||
+                      writeLoading
+                    }
+                    icon={
+                      typedDataLoading ||
+                      isUploading ||
+                      signLoading ||
+                      writeLoading ? (
+                        <Spinner size="xs" />
+                      ) : (
+                        <PlusIcon className="w-4 h-4" />
+                      )
+                    }
+                  >
+                    Create
+                  </Button>
+                )}
+              </div>
+            </Form>
+          )}
         </Card>
       </GridItemEight>
     </GridLayout>
