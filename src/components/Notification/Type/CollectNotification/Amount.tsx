@@ -21,7 +21,7 @@ const CollectedAmount: React.FC<Props> = ({ notification }) => {
     notification?.collectedPublication?.collectModule
 
   return (
-    <div className="mt-2 flex items-center space-x-1">
+    <div className="flex items-center mt-2 space-x-1">
       {postType === 'crowdfund' ? (
         <HandIcon className="text-green-500 h-[15px]" />
       ) : (

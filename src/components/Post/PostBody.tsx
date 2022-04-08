@@ -46,7 +46,7 @@ const PostBody: React.FC<Props> = ({ post }) => {
             <span>Launched a new community</span>
           )}
           <Link href={`/communities/${post.id}`}>
-            <a className="font-bold flex items-center space-x-1.5">
+            <a className="flex items-center space-x-1.5 font-bold">
               <img
                 src={imagekitURL(
                   post?.metadata?.cover?.original?.url
@@ -55,7 +55,7 @@ const PostBody: React.FC<Props> = ({ post }) => {
                   500,
                   500
                 )}
-                className="w-[19px] h-[19px] bg-gray-200 rounded ring-2 ring-gray-50 dark:bg-gray-700 dark:ring-black"
+                className="bg-gray-200 rounded ring-2 ring-gray-50 dark:bg-gray-700 dark:ring-black w-[19px] h-[19px]"
                 alt={post?.id}
               />
               <div>{post?.metadata?.name}</div>

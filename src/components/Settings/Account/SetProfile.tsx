@@ -155,7 +155,7 @@ const SetProfile: React.FC = () => {
             <UserProfile profile={sortedProfiles[0]} />
           </>
         ) : (
-          <div className="text-yellow-500 font-bold flex items-center space-x-1.5">
+          <div className="flex items-center space-x-1.5 font-bold text-yellow-500">
             <ExclamationIcon className="w-5 h-5" />
             <div>You don't have any default profile set!</div>
           </div>
@@ -178,7 +178,7 @@ const SetProfile: React.FC = () => {
             Select profile
           </div>
           <select
-            className="w-full bg-white border border-gray-300 outline-none rounded-xl dark:bg-gray-800 dark:border-gray-700 disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 focus:border-brand-500 focus:ring-brand-400"
+            className="w-full bg-white rounded-xl border border-gray-300 outline-none dark:bg-gray-800 dark:border-gray-700 disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 focus:border-brand-500 focus:ring-brand-400"
             onChange={(e) => setSelectedUser(e.target.value)}
           >
             {sortedProfiles?.map((profile: Profile) => (

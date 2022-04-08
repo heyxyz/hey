@@ -45,7 +45,7 @@ const UserProfile: React.FC<Props> = ({
               </div>
               <Slug className="text-sm" slug={profile?.handle} prefix="@" />
               {showBio && profile?.bio && (
-                <div className="text-sm mt-2">{profile?.bio}</div>
+                <div className="mt-2 text-sm">{profile?.bio}</div>
               )}
             </div>
           </div>
