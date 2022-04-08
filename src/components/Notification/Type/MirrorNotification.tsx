@@ -5,7 +5,7 @@ import relativeTime from 'dayjs/plugin/relativeTime'
 import Link from 'next/link'
 import React from 'react'
 
-import NotificationProfile from '../Profile'
+import { NotificationProfileAvatar, NotificationProfileName } from '../Profile'
 
 dayjs.extend(relativeTime)
 
@@ -20,14 +20,11 @@ const MirrorNotification: React.FC<Props> = ({ notification }) => {
         <Link href={`/posts/${notification?.publication?.id}`}>
           <a>
             <div className="flex items-center space-x-3">
-              <NotificationProfile notification={notification} />
+              <NotificationProfileAvatar notification={notification} />
               <div>
                 <div className="flex items-center space-x-2">
                   <div>
-                    <span className="font-bold">
-                      {notification?.profile?.name ??
-                        notification?.profile?.handle}{' '}
-                    </span>
+                    <NotificationProfileName notification={notification} />{' '}
                     <span className="pl-0.5 text-gray-600">mirrored your </span>
                     <Link href={`/posts/${notification?.publication.id}`}>
                       <a className="font-bold">
