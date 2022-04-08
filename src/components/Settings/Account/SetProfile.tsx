@@ -148,7 +148,7 @@ const SetProfile: React.FC = () => {
   return (
     <Card>
       <CardBody className="space-y-5">
-        {error && <ErrorMessage title="Transaction failed!" error={error} />}
+        <ErrorMessage title="Transaction failed!" error={error} />
         {hasDefaultProfile ? (
           <>
             <div className="text-lg font-bold">Your default profile</div>
@@ -156,7 +156,7 @@ const SetProfile: React.FC = () => {
           </>
         ) : (
           <div className="text-yellow-500 font-bold flex items-center space-x-1.5">
-            <ExclamationIcon className="h-5 w-5" />
+            <ExclamationIcon className="w-5 h-5" />
             <div>You don't have any default profile set!</div>
           </div>
         )}
@@ -178,7 +178,7 @@ const SetProfile: React.FC = () => {
             Select profile
           </div>
           <select
-            className="w-full bg-white rounded-xl border border-gray-300 outline-none dark:bg-gray-800 dark:border-gray-700 disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 focus:border-brand-500 focus:ring-brand-400"
+            className="w-full bg-white border border-gray-300 outline-none rounded-xl dark:bg-gray-800 dark:border-gray-700 disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 focus:border-brand-500 focus:ring-brand-400"
             onChange={(e) => setSelectedUser(e.target.value)}
           >
             {sortedProfiles?.map((profile: Profile) => (

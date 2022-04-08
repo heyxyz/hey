@@ -89,7 +89,7 @@ const NFTFeed: React.FC<Props> = ({ profile }) => {
 
   return (
     <>
-      {error && <ErrorMessage title="Failed to load nft feed" error={error} />}
+      <ErrorMessage title="Failed to load nft feed" error={error} />
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         {nfts?.map((nft: Nft, index: number) => (
           <SingleNFT key={`${nft.tokenId}_${index}`} nft={nft} />

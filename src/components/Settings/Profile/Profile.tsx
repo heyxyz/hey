@@ -128,13 +128,11 @@ const Profile: React.FC<Props> = ({ profile }) => {
             })
           }}
         >
-          {error && (
-            <ErrorMessage
-              className="mb-3"
-              title="Transaction failed!"
-              error={error}
-            />
-          )}
+          <ErrorMessage
+            className="mb-3"
+            title="Transaction failed!"
+            error={error}
+          />
           <Input
             label="Profile Id"
             type="text"
@@ -177,7 +175,7 @@ const Profile: React.FC<Props> = ({ profile }) => {
               {cover && (
                 <div>
                   <img
-                    className="object-cover w-full h-60 rounded-lg"
+                    className="object-cover w-full rounded-lg h-60"
                     src={cover}
                     alt={cover}
                   />

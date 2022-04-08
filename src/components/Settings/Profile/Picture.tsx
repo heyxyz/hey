@@ -170,13 +170,11 @@ const Picture: React.FC<Props> = ({ profile }) => {
   return (
     <Card className="space-y-5">
       <CardBody className="space-y-4">
-        {error && (
-          <ErrorMessage
-            className="mb-3"
-            title="Transaction failed!"
-            error={error}
-          />
-        )}
+        <ErrorMessage
+          className="mb-3"
+          title="Transaction failed!"
+          error={error}
+        />
         <div className="space-y-1.5">
           <label className="mb-1 font-medium text-gray-800 dark:text-gray-200">
             Avatar
@@ -185,7 +183,7 @@ const Picture: React.FC<Props> = ({ profile }) => {
             {avatar && (
               <div>
                 <img
-                  className="w-60 h-60 rounded-lg"
+                  className="rounded-lg w-60 h-60"
                   src={avatar}
                   alt={avatar}
                 />
