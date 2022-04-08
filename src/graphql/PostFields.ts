@@ -1,13 +1,13 @@
 import { gql } from '@apollo/client'
 
 import { CollectModuleFields } from './CollectModuleFields'
-import { PublicationProfileFields } from './PublicationProfileFields'
+import { MinimalProfileFields } from './MinimalProfileFields'
 
 export const PostFields = gql`
   fragment PostFields on Post {
     id
     profile {
-      ...PublicationProfileFields
+      ...MinimalProfileFields
     }
     collectedBy {
       defaultProfile {
@@ -45,6 +45,6 @@ export const PostFields = gql`
     createdAt
     appId
   }
-  ${PublicationProfileFields}
+  ${MinimalProfileFields}
   ${CollectModuleFields}
 `

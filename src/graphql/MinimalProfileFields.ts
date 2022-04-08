@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client'
 
-export const PublicationProfileFields = gql`
-  fragment PublicationProfileFields on Profile {
+export const MinimalProfileFields = gql`
+  fragment MinimalProfileFields on Profile {
     id
     name
     handle
