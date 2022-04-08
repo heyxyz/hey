@@ -17,7 +17,6 @@ const UserPopover: React.FC<Props> = ({ handle, showPopover, children }) => {
     <Tippy
       delay={[600, 0]}
       placement="top"
-      followCursor={false}
       interactive
       render={() => <Content handle={handle} showPopover={showPopover} />}
     >

@@ -26,6 +26,8 @@ const Content: React.FC<Props> = ({ handle, showPopover }) => {
     skip: !handle || !showPopover
   })
 
+  if (!data) return null
+
   const profile = data?.profiles?.items[0]
 
   return (

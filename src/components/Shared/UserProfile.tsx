@@ -43,13 +43,20 @@ const UserProfile: React.FC<Props> = ({
               />
             </UserPopover>
             <div>
-              <div className="flex gap-1 items-center">
-                <div>{profile?.name ?? profile?.handle}</div>
-                {isVerified(profile?.id) && (
-                  <BadgeCheckIcon className="w-4 h-4 text-brand-500" />
-                )}
-              </div>
-              <Slug className="text-sm" slug={profile?.handle} prefix="@" />
+              <UserPopover handle={profile?.handle} showPopover={showPopover}>
+                <div
+                  onMouseEnter={() => setShowPopover(true)}
+                  onMouseLeave={() => setShowPopover(false)}
+                >
+                  <div className="flex gap-1 items-center">
+                    <div>{profile?.name ?? profile?.handle}</div>
+                    {isVerified(profile?.id) && (
+                      <BadgeCheckIcon className="w-4 h-4 text-brand-500" />
+                    )}
+                  </div>
+                  <Slug className="text-sm" slug={profile?.handle} prefix="@" />
+                </div>
+              </UserPopover>
               {showBio && profile?.bio && (
                 <div className="text-sm mt-2">{profile?.bio}</div>
               )}
