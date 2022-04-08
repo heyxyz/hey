@@ -16,7 +16,6 @@ const RECOMMENDED_PROFILES_QUERY = gql`
       id
       name
       handle
-      ownedBy
       picture {
         ... on MediaSet {
           original {

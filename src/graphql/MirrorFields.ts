@@ -1,12 +1,12 @@
 import { gql } from '@apollo/client'
 
-import { PublicationProfileFields } from './PublicationProfileFields'
+import { MinimalProfileFields } from './MinimalProfileFields'
 
 export const MirrorFields = gql`
   fragment MirrorFields on Mirror {
     id
     profile {
-      ...PublicationProfileFields
+      ...MinimalProfileFields
     }
     stats {
       totalAmountOfComments
@@ -43,5 +43,5 @@ export const MirrorFields = gql`
     createdAt
     appId
   }
-  ${PublicationProfileFields}
+  ${MinimalProfileFields}
 `

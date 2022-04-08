@@ -1,6 +1,5 @@
 import { Profile } from '@generated/types'
 import { BadgeCheckIcon } from '@heroicons/react/solid'
-import { formatUsername } from '@lib/formatUsername'
 import { getAvatar } from '@lib/getAvatar'
 import { isVerified } from '@lib/isVerified'
 import Link from 'next/link'
@@ -44,14 +43,7 @@ const UserProfile: React.FC<Props> = ({
                   <BadgeCheckIcon className="w-4 h-4 text-brand-500" />
                 )}
               </div>
-              {profile?.name ? (
-                <Slug className="text-sm" slug={profile?.handle} prefix="@" />
-              ) : (
-                <Slug
-                  className="text-sm"
-                  slug={formatUsername(profile?.ownedBy)}
-                />
-              )}
+              <Slug className="text-sm" slug={profile?.handle} prefix="@" />
               {showBio && profile?.bio && (
                 <div className="text-sm mt-2">{profile?.bio}</div>
               )}

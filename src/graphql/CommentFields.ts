@@ -1,13 +1,13 @@
 import { gql } from '@apollo/client'
 
 import { CollectModuleFields } from './CollectModuleFields'
-import { PublicationProfileFields } from './PublicationProfileFields'
+import { MinimalProfileFields } from './MinimalProfileFields'
 
 export const CommentFields = gql`
   fragment CommentFields on Comment {
     id
     profile {
-      ...PublicationProfileFields
+      ...MinimalProfileFields
     }
     collectedBy {
       address
@@ -42,7 +42,7 @@ export const CommentFields = gql`
       ... on Post {
         id
         profile {
-          ...PublicationProfileFields
+          ...MinimalProfileFields
         }
         metadata {
           name
@@ -52,7 +52,7 @@ export const CommentFields = gql`
       ... on Comment {
         id
         profile {
-          ...PublicationProfileFields
+          ...MinimalProfileFields
         }
         metadata {
           name
@@ -62,7 +62,7 @@ export const CommentFields = gql`
       ... on Mirror {
         id
         profile {
-          ...PublicationProfileFields
+          ...MinimalProfileFields
         }
         metadata {
           name
@@ -73,6 +73,6 @@ export const CommentFields = gql`
     createdAt
     appId
   }
-  ${PublicationProfileFields}
+  ${MinimalProfileFields}
   ${CollectModuleFields}
 `
