@@ -1,9 +1,4 @@
-import {
-  NewCollectNotification,
-  NewCommentNotification,
-  NewFollowerNotification,
-  NewMirrorNotification
-} from '@generated/types'
+import { Notification } from '@generated/types'
 import { formatUsername } from '@lib/formatUsername'
 import { getAvatar } from '@lib/getAvatar'
 import { imagekitURL } from '@lib/imagekitURL'
@@ -16,11 +11,7 @@ import { POLYGONSCAN_URL } from 'src/constants'
 dayjs.extend(relativeTime)
 
 interface Props {
-  notification:
-    | NewCollectNotification
-    | NewCommentNotification
-    | NewFollowerNotification
-    | NewMirrorNotification
+  notification: Notification
 }
 
 export const NotificationProfileAvatar: React.FC<Props> = ({
