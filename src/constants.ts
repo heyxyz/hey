@@ -10,6 +10,10 @@ export const GIT_COMMIT_SHA =
   process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA?.slice(0, 7)
 export const GIT_COMMIT_REF = process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_REF
 
+// Misc
+export const CONTACT_EMAIL =
+  'contact-project+lenster-support-35208896-issue-@incoming.gitlab.com'
+
 // Messages
 export const ERROR_MESSAGE = 'Something went wrong!'
 export const CONNECT_WALLET = 'Please connect your wallet.'

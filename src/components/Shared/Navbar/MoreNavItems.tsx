@@ -39,7 +39,7 @@ const MoreNavItems: React.FC = () => {
           >
             <Menu.Items
               static
-              className="absolute py-1 mt-2 w-52 bg-white rounded-lg border shadow-sm dark:bg-gray-900 dark:border-gray-800"
+              className="absolute py-1 mt-2 bg-white border rounded-lg shadow-sm w-52 dark:bg-gray-900 dark:border-gray-800"
             >
               {currentUser && (
                 <>
@@ -92,9 +92,8 @@ const MoreNavItems: React.FC = () => {
                 </>
               )}
               <Menu.Item
-                as="a"
-                href="https://discord.gg/n8VXKgevbw"
-                target="_blank"
+                as={NextLink}
+                href="/contact"
                 className={({ active }: { active: boolean }) =>
                   clsx(
                     { 'bg-gray-100 dark:bg-gray-800': active },
