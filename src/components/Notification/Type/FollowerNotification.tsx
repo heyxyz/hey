@@ -1,13 +1,12 @@
 import { NewFollowerNotification } from '@generated/types'
 import { UserAddIcon } from '@heroicons/react/outline'
-import { formatUsername } from '@lib/formatUsername'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import Link from 'next/link'
 import React from 'react'
 import { POLYGONSCAN_URL } from 'src/constants'
 
-import NotificationProfile from '../Profile'
+import { NotificationProfileAvatar, NotificationProfileName } from '../Profile'
 
 dayjs.extend(relativeTime)
 
@@ -33,13 +32,9 @@ const FollowerNotification: React.FC<Props> = ({ notification }) => {
             rel="noreferrer"
           >
             <div className="flex items-center space-x-3">
-              <NotificationProfile notification={notification} />
+              <NotificationProfileAvatar notification={notification} />
               <div>
-                <span className="font-bold">
-                  {wallet?.defaultProfile?.name ??
-                    wallet?.defaultProfile?.handle ??
-                    formatUsername(wallet.address)}{' '}
-                </span>
+                <NotificationProfileName notification={notification} />{' '}
                 <span className="pl-0.5 text-gray-600">followed you</span>
                 <div className="flex items-center pt-1 space-x-1 text-gray-400 text-[12px]">
                   <UserAddIcon className="text-green-500 h-[15px]" />

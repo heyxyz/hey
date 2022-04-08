@@ -4,6 +4,7 @@ import {
   NewFollowerNotification,
   NewMirrorNotification
 } from '@generated/types'
+import { formatUsername } from '@lib/formatUsername'
 import { getAvatar } from '@lib/getAvatar'
 import { imagekitURL } from '@lib/imagekitURL'
 import dayjs from 'dayjs'
@@ -22,7 +23,9 @@ interface Props {
     | NewMirrorNotification
 }
 
-const NotificationProfile: React.FC<Props> = ({ notification }) => {
+export const NotificationProfileAvatar: React.FC<Props> = ({
+  notification
+}) => {
   const { wallet }: any = notification
   const picture = wallet
     ? wallet?.defaultProfile?.picture
@@ -72,4 +75,33 @@ const NotificationProfile: React.FC<Props> = ({ notification }) => {
   )
 }
 
-export default NotificationProfile
+export const NotificationProfileName: React.FC<Props> = ({ notification }) => {
+  const { wallet }: any = notification
+  const config = wallet
+    ? wallet?.defaultProfile
+      ? {
+          name: wallet?.defaultProfile?.name ?? wallet?.defaultProfile?.handle,
+          url: `/u/${wallet?.defaultProfile?.handle}`,
+          target: '_self'
+        }
+      : {
+          name: formatUsername(wallet?.address),
+          url: `${POLYGONSCAN_URL}/address/${wallet?.address}`,
+          target: '_blank'
+        }
+    : {
+        // @ts-ignore
+        name: notification?.profile?.name,
+        // @ts-ignore
+        url: `/u/${notification?.profile?.handle}`,
+        target: '_self'
+      }
+
+  return (
+    <Link href={config.url}>
+      <a className="font-bold" target={config.target}>
+        {config.name}
+      </a>
+    </Link>
+  )
+}

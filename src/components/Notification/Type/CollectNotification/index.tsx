@@ -1,7 +1,9 @@
-import NotificationProfile from '@components/Notification/Profile'
+import {
+  NotificationProfileAvatar,
+  NotificationProfileName
+} from '@components/Notification/Profile'
 import { NewCollectNotification } from '@generated/types'
 import { CashIcon, CollectionIcon, UsersIcon } from '@heroicons/react/outline'
-import { formatUsername } from '@lib/formatUsername'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import Link from 'next/link'
@@ -24,13 +26,9 @@ const CollectNotification: React.FC<Props> = ({ notification }) => {
 
   return (
     <div className="flex items-center gap-x-3">
-      <NotificationProfile notification={notification} />
+      <NotificationProfileAvatar notification={notification} />
       <div className="w-4/5">
-        <span className="font-bold">
-          {wallet?.defaultProfile?.name ??
-            wallet?.defaultProfile?.handle ??
-            formatUsername(wallet.address)}{' '}
-        </span>
+        <NotificationProfileName notification={notification} />{' '}
         <span className="pl-0.5 text-gray-600">
           {postType === 'community'
             ? 'joined your'
