@@ -21,8 +21,11 @@ const SelectReferenceModule: React.FC<Props> = ({
   const EVERYONE = 'Everyone can comment or mirror'
 
   return (
-    <div>
-      <Tooltip content={onlyFollowers ? ONLY_FOLLOWERS : EVERYONE}>
+    <>
+      <Tooltip
+        placement="top"
+        content={onlyFollowers ? ONLY_FOLLOWERS : EVERYONE}
+      >
         <motion.button
           whileTap={{ scale: 0.9 }}
           type="button"
@@ -91,7 +94,7 @@ const SelectReferenceModule: React.FC<Props> = ({
           </div>
         </div>
       </Modal>
-    </div>
+    </>
   )
 }
 
