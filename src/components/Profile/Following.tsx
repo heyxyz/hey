@@ -4,6 +4,7 @@ import { EmptyState } from '@components/UI/EmptyState'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { Spinner } from '@components/UI/Spinner'
 import { Following, PaginatedResultInfo, Profile } from '@generated/types'
+import { MinimalProfileFields } from '@gql/MinimalProfileFields'
 import { UsersIcon } from '@heroicons/react/outline'
 import { useState } from 'react'
 import { useInView } from 'react-cool-inview'
@@ -13,18 +14,7 @@ const FOLLOWING_QUERY = gql`
     following(request: $request) {
       items {
         profile {
-          id
-          name
-          handle
-          bio
-          ownedBy
-          picture {
-            ... on MediaSet {
-              original {
-                url
-              }
-            }
-          }
+          ...MinimalProfileFields
         }
       }
       pageInfo {
@@ -33,6 +23,7 @@ const FOLLOWING_QUERY = gql`
       }
     }
   }
+  ${MinimalProfileFields}
 `
 
 interface Props {

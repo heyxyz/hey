@@ -5,6 +5,7 @@ import { EmptyState } from '@components/UI/EmptyState'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { Spinner } from '@components/UI/Spinner'
 import { PaginatedResultInfo, Profile, Wallet } from '@generated/types'
+import { MinimalProfileFields } from '@gql/MinimalProfileFields'
 import { CollectionIcon } from '@heroicons/react/outline'
 import { useState } from 'react'
 import { useInView } from 'react-cool-inview'
@@ -15,18 +16,7 @@ const COLLECTORS_QUERY = gql`
       items {
         address
         defaultProfile {
-          id
-          name
-          handle
-          bio
-          ownedBy
-          picture {
-            ... on MediaSet {
-              original {
-                url
-              }
-            }
-          }
+          ...MinimalProfileFields
         }
       }
       pageInfo {
@@ -35,6 +25,7 @@ const COLLECTORS_QUERY = gql`
       }
     }
   }
+  ${MinimalProfileFields}
 `
 
 interface Props {

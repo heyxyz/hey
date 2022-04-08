@@ -4,6 +4,7 @@ import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { Spinner } from '@components/UI/Spinner'
 import AppContext from '@components/utils/AppContext'
 import { Notification, PaginatedResultInfo } from '@generated/types'
+import { MinimalProfileFields } from '@gql/MinimalProfileFields'
 import { MailIcon } from '@heroicons/react/outline'
 import { useContext, useEffect, useState } from 'react'
 import { useInView } from 'react-cool-inview'
@@ -39,17 +40,7 @@ const NOTIFICATIONS_QUERY = gql`
         }
         ... on NewCommentNotification {
           profile {
-            id
-            name
-            handle
-            ownedBy
-            picture {
-              ... on MediaSet {
-                original {
-                  url
-                }
-              }
-            }
+            ...MinimalProfileFields
           }
           comment {
             id
@@ -73,17 +64,7 @@ const NOTIFICATIONS_QUERY = gql`
         }
         ... on NewMirrorNotification {
           profile {
-            id
-            name
-            handle
-            ownedBy
-            picture {
-              ... on MediaSet {
-                original {
-                  url
-                }
-              }
-            }
+            ...MinimalProfileFields
           }
           publication {
             ... on Post {
@@ -105,17 +86,7 @@ const NOTIFICATIONS_QUERY = gql`
           wallet {
             address
             defaultProfile {
-              id
-              name
-              handle
-              ownedBy
-              picture {
-                ... on MediaSet {
-                  original {
-                    url
-                  }
-                }
-              }
+              ...MinimalProfileFields
             }
           }
           collectedPublication {
@@ -145,6 +116,7 @@ const NOTIFICATIONS_QUERY = gql`
       }
     }
   }
+  ${MinimalProfileFields}
 `
 
 const List: React.FC = () => {
