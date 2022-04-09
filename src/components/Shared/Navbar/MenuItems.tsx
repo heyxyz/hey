@@ -69,7 +69,7 @@ const MenuItems: React.FC<Props> = ({ indexerData }) => {
               <Menu.Button
                 as="img"
                 src={getAvatar(currentUser)}
-                className="w-8 h-8 border rounded-full cursor-pointer dark:border-gray-700"
+                className="w-8 h-8 rounded-full border cursor-pointer dark:border-gray-700"
                 alt={currentUser.handle}
               />
               <Transition
@@ -84,7 +84,7 @@ const MenuItems: React.FC<Props> = ({ indexerData }) => {
               >
                 <Menu.Items
                   static
-                  className="absolute right-0 w-48 py-1 mt-2 origin-top-right bg-white border shadow-sm rounded-xl dark:bg-gray-900 dark:border-gray-800 focus:outline-none"
+                  className="absolute right-0 py-1 mt-2 w-48 bg-white rounded-xl border shadow-sm origin-top-right dark:bg-gray-900 dark:border-gray-800 focus:outline-none"
                 >
                   <Menu.Item
                     as={NextLink}
@@ -160,7 +160,7 @@ const MenuItems: React.FC<Props> = ({ indexerData }) => {
                   {profiles.length > 1 && (
                     <>
                       <div className="border-b dark:border-gray-800" />
-                      <div className="m-2 overflow-auto max-h-36 no-scrollbar">
+                      <div className="overflow-auto m-2 max-h-36 no-scrollbar">
                         <div className="flex items-center px-4 pt-1 pb-2 space-x-1.5 text-sm font-bold text-gray-500">
                           <SwitchHorizontalIcon className="w-4 h-4" />
                           <div>Switch to</div>
@@ -185,7 +185,7 @@ const MenuItems: React.FC<Props> = ({ indexerData }) => {
                                 <CheckCircleIcon className="w-4 h-4 text-green-500" />
                               )}
                               <img
-                                className="w-5 h-5 border rounded-full dark:border-gray-700"
+                                className="w-5 h-5 rounded-full border dark:border-gray-700"
                                 src={getAvatar(profile)}
                                 alt={profile.handle}
                               />
@@ -197,7 +197,7 @@ const MenuItems: React.FC<Props> = ({ indexerData }) => {
                     </>
                   )}
                   <div className="border-b dark:border-gray-800" />
-                  <div className="flex items-center px-5 py-3 space-x-4">
+                  <div className="flex items-center py-3 px-5 space-x-4">
                     <button
                       onClick={() => {
                         trackEvent('light mode')
@@ -290,7 +290,6 @@ const MenuItems: React.FC<Props> = ({ indexerData }) => {
             <Login />
           </Modal>
           <Button
-            data-cy="login"
             icon={
               <img
                 className="mr-0.5 h-4"
