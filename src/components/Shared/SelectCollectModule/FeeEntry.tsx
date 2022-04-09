@@ -5,7 +5,7 @@ import AppContext from '@components/utils/AppContext'
 import { EnabledModule, Erc20 } from '@generated/types'
 import { ArrowLeftIcon } from '@heroicons/react/outline'
 import { FEE_DATA_TYPE } from '@lib/getModule'
-import { Dispatch, useContext, useState } from 'react'
+import { Dispatch, FC, useContext, useState } from 'react'
 import { DEFAULT_COLLECT_TOKEN } from 'src/constants'
 import { object, string } from 'zod'
 
@@ -25,13 +25,13 @@ const feeDataSchema = object({
 interface Props {
   enabledModuleCurrencies: Erc20[]
   selectedModule: EnabledModule
-  setShowFeeEntry: Dispatch<React.SetStateAction<boolean>>
-  setShowModal: Dispatch<React.SetStateAction<boolean>>
+  setShowFeeEntry: Dispatch<boolean>
+  setShowModal: Dispatch<boolean>
   feeData: FEE_DATA_TYPE
-  setFeeData: Dispatch<React.SetStateAction<FEE_DATA_TYPE>>
+  setFeeData: Dispatch<FEE_DATA_TYPE>
 }
 
-const FeeEntry: React.FC<Props> = ({
+const FeeEntry: FC<Props> = ({
   enabledModuleCurrencies,
   selectedModule,
   setShowFeeEntry,
@@ -67,7 +67,7 @@ const FeeEntry: React.FC<Props> = ({
             Select Currency
           </div>
           <select
-            className="w-full bg-white rounded-xl border border-gray-300 outline-none dark:bg-gray-800 dark:border-gray-700 disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 focus:border-brand-500 focus:ring-brand-400"
+            className="w-full bg-white border border-gray-300 outline-none rounded-xl dark:bg-gray-800 dark:border-gray-700 disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 focus:border-brand-500 focus:ring-brand-400"
             onChange={(e) => setSelectedCurrency(e.target.value)}
           >
             {enabledModuleCurrencies.map((currency: Erc20) => (
@@ -103,7 +103,7 @@ const FeeEntry: React.FC<Props> = ({
             Permission
           </div>
           <select
-            className="w-full bg-white rounded-xl border border-gray-300 outline-none dark:bg-gray-800 dark:border-gray-700 disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 focus:border-brand-500 focus:ring-brand-400"
+            className="w-full bg-white border border-gray-300 outline-none rounded-xl dark:bg-gray-800 dark:border-gray-700 disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 focus:border-brand-500 focus:ring-brand-400"
             onChange={(e) => setFollowerOnly(e.target.value === 'true')}
           >
             <option value="false">Everyone can collect</option>
