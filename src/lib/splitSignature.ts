@@ -1,5 +1,7 @@
 import { utils } from 'ethers'
 
-export const splitSignature = (signature: any) => {
+const splitSignature = (signature: any) => {
   return utils.splitSignature(signature)
 }
+
+export default splitSignature

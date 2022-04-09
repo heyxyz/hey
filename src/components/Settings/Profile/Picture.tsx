@@ -12,8 +12,8 @@ import {
   Profile
 } from '@generated/types'
 import { PencilIcon } from '@heroicons/react/outline'
-import { omit } from '@lib/omit'
-import { splitSignature } from '@lib/splitSignature'
+import omit from '@lib/omit'
+import splitSignature from '@lib/splitSignature'
 import { trackEvent } from '@lib/trackEvent'
 import { uploadAssetsToIPFS } from '@lib/uploadAssetsToIPFS'
 import gql from 'graphql-tag'
