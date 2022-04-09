@@ -12,6 +12,7 @@ import {
   UsersIcon
 } from '@heroicons/react/outline'
 import humanize from '@lib/humanize'
+import { FC, ReactChild } from 'react'
 import { ERROR_MESSAGE } from 'src/constants'
 
 const LENSTER_STATS_QUERY = gql`
@@ -45,15 +46,15 @@ const LENSTER_STATS_QUERY = gql`
 `
 
 interface Props {
-  icon: React.ReactChild
-  title: React.ReactChild
+  icon: ReactChild
+  title: ReactChild
   isLenster?: boolean
 }
 
-const MenuItem: React.FC<Props> = ({ icon, title, isLenster = false }) => (
+const MenuItem: FC<Props> = ({ icon, title, isLenster = false }) => (
   <Menu.Item
     as="div"
-    className="py-1 px-4 m-2 text-sm text-gray-700 dark:text-gray-200"
+    className="px-4 py-1 m-2 text-sm text-gray-700 dark:text-gray-200"
   >
     <div className="flex items-center space-x-2">
       <div className="flex items-center space-x-1">
@@ -67,12 +68,12 @@ const MenuItem: React.FC<Props> = ({ icon, title, isLenster = false }) => (
   </Menu.Item>
 )
 
-const Stats: React.FC = () => {
+const Stats: FC = () => {
   const { data, loading, error } = useQuery(LENSTER_STATS_QUERY, {
     pollInterval: 1000
   })
 
-  if (loading) return <div className="m-3 w-52 h-4 rounded-lg shimmer" />
+  if (loading) return <div className="h-4 m-3 rounded-lg w-52 shimmer" />
   if (error)
     return <div className="m-3 font-bold text-red-500">{ERROR_MESSAGE}</div>
 

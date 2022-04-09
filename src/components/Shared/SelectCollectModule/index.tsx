@@ -6,18 +6,18 @@ import { CashIcon } from '@heroicons/react/outline'
 import { FEE_DATA_TYPE, getModule } from '@lib/getModule'
 import trackEvent from '@lib/trackEvent'
 import { motion } from 'framer-motion'
-import { Dispatch, useState } from 'react'
+import { Dispatch, FC, useState } from 'react'
 
 import Modules from './Modules'
 
 interface Props {
   feeData: FEE_DATA_TYPE
-  setFeeData: Dispatch<React.SetStateAction<FEE_DATA_TYPE>>
-  setSelectedModule: Dispatch<React.SetStateAction<any>>
+  setFeeData: Dispatch<FEE_DATA_TYPE>
+  setSelectedModule: Dispatch<any>
   selectedModule: EnabledModule
 }
 
-const SelectCollectModule: React.FC<Props> = ({
+const SelectCollectModule: FC<Props> = ({
   feeData,
   setFeeData,
   setSelectedModule,

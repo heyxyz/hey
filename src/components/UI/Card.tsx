@@ -1,12 +1,13 @@
 import clsx from 'clsx'
+import { FC, ReactNode } from 'react'
 
 interface CardProps {
-  children: React.ReactNode
+  children: ReactNode
   className?: string
   forceRounded?: boolean
 }
 
-export const Card: React.FC<CardProps> = ({
+export const Card: FC<CardProps> = ({
   children,
   className = '',
   forceRounded = false
@@ -25,11 +26,11 @@ export const Card: React.FC<CardProps> = ({
 }
 
 interface CardHeaderProps {
-  children: React.ReactNode
+  children: ReactNode
   className?: string
 }
 
-export const CardHeader: React.FC<CardHeaderProps> = ({
+export const CardHeader: FC<CardHeaderProps> = ({
   children,
   className = ''
 }) => {
@@ -37,12 +38,9 @@ export const CardHeader: React.FC<CardHeaderProps> = ({
 }
 
 interface CardBodyProps {
-  children?: React.ReactNode
+  children?: ReactNode
   className?: string
 }
-export const CardBody: React.FC<CardBodyProps> = ({
-  children,
-  className = ''
-}) => {
+export const CardBody: FC<CardBodyProps> = ({ children, className = '' }) => {
   return <div className={`p-5 ${className}`}>{children}</div>
 }

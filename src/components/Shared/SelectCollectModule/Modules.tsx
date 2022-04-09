@@ -8,7 +8,7 @@ import consoleLog from '@lib/consoleLog'
 import { FEE_DATA_TYPE, getModule } from '@lib/getModule'
 import trackEvent from '@lib/trackEvent'
 import clsx from 'clsx'
-import { Dispatch, useState } from 'react'
+import { Dispatch, FC, useState } from 'react'
 
 import FeeEntry from './FeeEntry'
 
@@ -31,13 +31,13 @@ export const MODULES_QUERY = gql`
 
 interface Props {
   feeData: FEE_DATA_TYPE
-  setSelectedModule: Dispatch<React.SetStateAction<any>>
+  setSelectedModule: Dispatch<any>
   selectedModule: EnabledModule
-  setShowModal: Dispatch<React.SetStateAction<boolean>>
-  setFeeData: Dispatch<React.SetStateAction<FEE_DATA_TYPE>>
+  setShowModal: Dispatch<boolean>
+  setFeeData: Dispatch<FEE_DATA_TYPE>
 }
 
-const Modules: React.FC<Props> = ({
+const Modules: FC<Props> = ({
   feeData,
   setSelectedModule,
   selectedModule,
@@ -113,7 +113,7 @@ const Modules: React.FC<Props> = ({
                       </div>
                     </div>
                     {module?.moduleName === selectedModule.moduleName && (
-                      <CheckCircleIcon className="w-7 h-7 text-green-500" />
+                      <CheckCircleIcon className="text-green-500 w-7 h-7" />
                     )}
                   </button>
                 </div>

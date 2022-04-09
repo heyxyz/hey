@@ -5,14 +5,14 @@ import { CheckCircleIcon } from '@heroicons/react/solid'
 import trackEvent from '@lib/trackEvent'
 import clsx from 'clsx'
 import { motion } from 'framer-motion'
-import { Dispatch, useState } from 'react'
+import { Dispatch, FC, useState } from 'react'
 
 interface Props {
-  setOnlyFollowers: Dispatch<React.SetStateAction<any>>
+  setOnlyFollowers: Dispatch<any>
   onlyFollowers: boolean
 }
 
-const SelectReferenceModule: React.FC<Props> = ({
+const SelectReferenceModule: FC<Props> = ({
   setOnlyFollowers,
   onlyFollowers
 }) => {
@@ -65,7 +65,7 @@ const SelectReferenceModule: React.FC<Props> = ({
                 <div>{EVERYONE}</div>
               </div>
               {!onlyFollowers && (
-                <CheckCircleIcon className="w-7 text-green-500" />
+                <CheckCircleIcon className="text-green-500 w-7" />
               )}
             </button>
             <button
@@ -85,7 +85,7 @@ const SelectReferenceModule: React.FC<Props> = ({
                 <div>{ONLY_FOLLOWERS}</div>
               </div>
               {onlyFollowers && (
-                <CheckCircleIcon className="w-7 h-7 text-green-500" />
+                <CheckCircleIcon className="text-green-500 w-7 h-7" />
               )}
             </button>
           </div>

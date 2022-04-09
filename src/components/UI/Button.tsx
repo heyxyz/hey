@@ -2,7 +2,8 @@ import clsx from 'clsx'
 import React, {
   ButtonHTMLAttributes,
   DetailedHTMLProps,
-  forwardRef
+  forwardRef,
+  ReactNode
 } from 'react'
 
 interface Props
@@ -15,8 +16,8 @@ interface Props
   outline?: boolean
   light?: boolean
   loading?: boolean
-  icon?: React.ReactNode
-  children?: React.ReactNode
+  icon?: ReactNode
+  children?: ReactNode
   className?: string
 }
 
