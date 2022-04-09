@@ -15,6 +15,7 @@ import AppContext from '@components/utils/AppContext'
 import SEO from '@components/utils/SEO'
 import { PencilAltIcon } from '@heroicons/react/outline'
 import { CheckCircleIcon } from '@heroicons/react/solid'
+import consoleLog from '@lib/consoleLog'
 import trackEvent from '@lib/trackEvent'
 import { useRouter } from 'next/router'
 import React, { useContext, useState } from 'react'
@@ -57,7 +58,14 @@ const Report: React.FC = () => {
         }
       }
     },
-    skip: !id
+    skip: !id,
+    onCompleted() {
+      consoleLog(
+        'Fetch',
+        '#8b5cf6',
+        `Fetched a publication to report Publication:${id}`
+      )
+    }
   })
   const [
     createReport,
