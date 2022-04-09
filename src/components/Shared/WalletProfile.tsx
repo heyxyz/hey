@@ -1,7 +1,7 @@
 import { Wallet } from '@generated/types'
 import { ExternalLinkIcon } from '@heroicons/react/outline'
 import formatAddress from '@lib/formatAddress'
-import { imagekitURL } from '@lib/imagekitURL'
+import imagekitURL from '@lib/imagekitURL'
 import React from 'react'
 import { POLYGONSCAN_URL } from 'src/constants'
 
