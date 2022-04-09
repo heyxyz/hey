@@ -1,11 +1,11 @@
 import { DoesFollowResponse } from '@generated/types'
-import React from 'react'
+import React, { FC } from 'react'
 
 interface Props {
   followData: DoesFollowResponse
 }
 
-const DoesFollow: React.FC<Props> = ({ followData }) => {
+const DoesFollow: FC<Props> = ({ followData }) => {
   if (!followData?.follows) return null
 
   return (

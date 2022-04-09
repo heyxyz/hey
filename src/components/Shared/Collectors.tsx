@@ -8,7 +8,7 @@ import { PaginatedResultInfo, Profile, Wallet } from '@generated/types'
 import { MinimalProfileFields } from '@gql/MinimalProfileFields'
 import { CollectionIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
-import { useState } from 'react'
+import { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 
 const COLLECTORS_QUERY = gql`
@@ -33,7 +33,7 @@ interface Props {
   pubId: string
 }
 
-const Collectors: React.FC<Props> = ({ pubId }) => {
+const Collectors: FC<Props> = ({ pubId }) => {
   const [collectors, setCollectors] = useState<Wallet[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
   const { data, loading, error, fetchMore } = useQuery(COLLECTORS_QUERY, {

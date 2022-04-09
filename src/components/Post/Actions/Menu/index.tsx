@@ -8,7 +8,7 @@ import {
 } from '@heroicons/react/outline'
 import trackEvent from '@lib/trackEvent'
 import clsx from 'clsx'
-import { Fragment, useContext } from 'react'
+import { FC, Fragment, useContext } from 'react'
 
 import Delete from './Delete'
 
@@ -16,7 +16,7 @@ interface Props {
   post: LensterPost
 }
 
-const PostMenu: React.FC<Props> = ({ post }) => {
+const PostMenu: FC<Props> = ({ post }) => {
   const { currentUser } = useContext(AppContext)
 
   return (

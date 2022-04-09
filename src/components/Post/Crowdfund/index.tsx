@@ -14,7 +14,7 @@ import imagekitURL from '@lib/imagekitURL'
 import linkifyOptions from '@lib/linkifyOptions'
 import clsx from 'clsx'
 import Linkify from 'linkify-react'
-import React, { useEffect, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { STATIC_ASSETS } from 'src/constants'
 
 import Fund from './Fund'
@@ -33,7 +33,7 @@ interface Props {
   fund: LensterPost
 }
 
-const Crowdfund: React.FC<Props> = ({ fund }) => {
+const Crowdfund: FC<Props> = ({ fund }) => {
   // @ts-ignore
   const collectModule: LensterCollectModule = fund?.collectModule
   const [showFundersModal, setShowFundersModal] = useState<boolean>(false)

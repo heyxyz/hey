@@ -10,15 +10,15 @@ import {
 import clsx from 'clsx'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React, { useContext } from 'react'
+import React, { FC, ReactNode, useContext } from 'react'
 
 interface MenuProps {
-  children: React.ReactNode
+  children: ReactNode
   current: boolean
   url: string
 }
 
-const Menu: React.FC<MenuProps> = ({ children, current, url }) => (
+const Menu: FC<MenuProps> = ({ children, current, url }) => (
   <Link href={url} passHref>
     <a
       href={url}
@@ -32,7 +32,7 @@ const Menu: React.FC<MenuProps> = ({ children, current, url }) => (
   </Link>
 )
 
-const Sidebar: React.FC = () => {
+const Sidebar: FC = () => {
   const router = useRouter()
   const { currentUser } = useContext(AppContext)
 

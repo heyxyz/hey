@@ -1,4 +1,4 @@
-import React, { Dispatch } from 'react'
+import React, { Dispatch, FC, ReactChild } from 'react'
 
 interface Props {
   setType: Dispatch<string>
@@ -6,8 +6,8 @@ interface Props {
   type: string
 }
 
-const Reason: React.FC<Props> = ({ setType, setSubReason, type }) => {
-  const Label = ({ children }: { children: React.ReactChild }) => (
+const Reason: FC<Props> = ({ setType, setSubReason, type }) => {
+  const Label = ({ children }: { children: ReactChild }) => (
     <div className="mb-1 font-medium text-gray-800 dark:text-gray-200">
       {children}
     </div>
@@ -19,7 +19,7 @@ const Reason: React.FC<Props> = ({ setType, setSubReason, type }) => {
         <Label>Type</Label>
         <div>
           <select
-            className="w-full bg-white rounded-xl border border-gray-300 outline-none dark:bg-gray-800 dark:border-gray-700 disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 focus:border-brand-500 focus:ring-brand-400"
+            className="w-full bg-white border border-gray-300 outline-none rounded-xl dark:bg-gray-800 dark:border-gray-700 disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 focus:border-brand-500 focus:ring-brand-400"
             onChange={(e) => setType(e.target.value)}
           >
             <option disabled selected>
@@ -36,7 +36,7 @@ const Reason: React.FC<Props> = ({ setType, setSubReason, type }) => {
           <Label>Reason</Label>
           <div>
             <select
-              className="w-full bg-white rounded-xl border border-gray-300 outline-none dark:bg-gray-800 dark:border-gray-700 disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 focus:border-brand-500 focus:ring-brand-400"
+              className="w-full bg-white border border-gray-300 outline-none rounded-xl dark:bg-gray-800 dark:border-gray-700 disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 focus:border-brand-500 focus:ring-brand-400"
               onChange={(e) => setSubReason(e.target.value)}
             >
               <option disabled selected>

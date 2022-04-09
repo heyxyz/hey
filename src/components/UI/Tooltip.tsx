@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
+import React, { FC, ReactNode, useState } from 'react'
 
 interface Props {
-  children: React.ReactNode
+  children: ReactNode
   content: string
 }
 
-export const Tooltip: React.FC<Props> = ({ children, content }) => {
+export const Tooltip: FC<Props> = ({ children, content }) => {
   const [expanded, setExpanded] = useState<boolean>(false)
 
   return (

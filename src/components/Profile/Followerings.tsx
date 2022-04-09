@@ -2,7 +2,7 @@ import { Modal } from '@components/UI/Modal'
 import { Profile } from '@generated/types'
 import { UsersIcon } from '@heroicons/react/outline'
 import humanize from '@lib/humanize'
-import React, { useState } from 'react'
+import React, { FC, useState } from 'react'
 
 import Followers from './Followers'
 import Following from './Following'
@@ -11,7 +11,7 @@ interface Props {
   profile: Profile
 }
 
-const Followerings: React.FC<Props> = ({ profile }) => {
+const Followerings: FC<Props> = ({ profile }) => {
   const [showFollowingModal, setShowFollowingModal] = useState<boolean>(false)
   const [showFollowersModal, setShowFollowersModal] = useState<boolean>(false)
 

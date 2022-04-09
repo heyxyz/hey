@@ -9,7 +9,7 @@ import getWalletLogo from '@lib/getWalletLogo'
 import trackEvent from '@lib/trackEvent'
 import clsx from 'clsx'
 import Cookies from 'js-cookie'
-import React, { Dispatch, useContext, useEffect, useState } from 'react'
+import React, { Dispatch, FC, useContext, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { COOKIE_CONFIG } from 'src/apollo'
 import { ERROR_MESSAGE } from 'src/constants'
@@ -37,10 +37,7 @@ interface Props {
   setHasProfile: Dispatch<boolean>
 }
 
-const WalletSelector: React.FC<Props> = ({
-  setHasConnected,
-  setHasProfile
-}) => {
+const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
   const [mounted, setMounted] = useState(false)
   const [loadingSign, setLoadingSign] = useState<boolean>(false)
   const [{}, signMessage] = useSignMessage()
@@ -128,7 +125,7 @@ const WalletSelector: React.FC<Props> = ({
                 <Spinner className="mr-0.5" size="xs" />
               ) : (
                 <img
-                  className="mr-1 h-5"
+                  className="h-5 mr-1"
                   src="/eth-white.svg"
                   alt="Ethereum Logo"
                 />
@@ -146,7 +143,7 @@ const WalletSelector: React.FC<Props> = ({
           )}
         </div>
       ) : (
-        <div className="inline-block overflow-hidden space-y-3 w-full text-left align-middle transition-all transform">
+        <div className="inline-block w-full space-y-3 overflow-hidden text-left align-middle transition-all transform">
           {connectors.map((x, i) => {
             return (
               <button
@@ -168,7 +165,7 @@ const WalletSelector: React.FC<Props> = ({
                   className="w-6 h-6"
                   alt={x.name}
                 />
-                <span className="flex justify-between items-center w-full">
+                <span className="flex items-center justify-between w-full">
                   {mounted ? x.name : x.id === 'injected' ? x.id : x.name}
                   {mounted ? !x.ready && ' (unsupported)' : ''}
                   {loading && x.name === connector?.name && (

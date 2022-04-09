@@ -1,11 +1,11 @@
 import { Modal } from '@components/UI/Modal'
 import { PencilAltIcon } from '@heroicons/react/outline'
 import trackEvent from '@lib/trackEvent'
-import { useState } from 'react'
+import { FC, useState } from 'react'
 
 import NewPost from '..'
 
-const NewPostModal: React.FC = () => {
+const NewPostModal: FC = () => {
   const [showModal, setShowModal] = useState<boolean>(false)
 
   return (

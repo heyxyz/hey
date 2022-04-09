@@ -24,7 +24,7 @@ import splitSignature from '@lib/splitSignature'
 import trackEvent from '@lib/trackEvent'
 import uploadToIPFS from '@lib/uploadToIPFS'
 import dynamic from 'next/dynamic'
-import { Dispatch, useContext, useState } from 'react'
+import { Dispatch, FC, useContext, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
   CHAIN_ID,
@@ -106,11 +106,7 @@ interface Props {
   hideCard?: boolean
 }
 
-const NewPost: React.FC<Props> = ({
-  refetch,
-  setShowModal,
-  hideCard = false
-}) => {
+const NewPost: FC<Props> = ({ refetch, setShowModal, hideCard = false }) => {
   const form = useZodForm({
     schema: newPostSchema
   })

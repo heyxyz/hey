@@ -2,7 +2,7 @@ import { gql, useQuery } from '@apollo/client'
 import { Button } from '@components/UI/Button'
 import { Spinner } from '@components/UI/Spinner'
 import { ArrowRightIcon } from '@heroicons/react/outline'
-import React from 'react'
+import React, { FC } from 'react'
 
 const TX_STATUS_QUERY = gql`
   query HasTxHashBeenIndexed($request: HasTxHashBeenIndexedRequest!) {
@@ -19,7 +19,7 @@ interface Props {
   txHash: string
 }
 
-const Pending: React.FC<Props> = ({ handle, txHash }) => {
+const Pending: FC<Props> = ({ handle, txHash }) => {
   const { data, loading } = useQuery(TX_STATUS_QUERY, {
     variables: {
       request: { txHash }
@@ -42,7 +42,7 @@ const Pending: React.FC<Props> = ({ handle, txHash }) => {
             <a href={`/u/${handle}`}>
               <Button
                 className="mx-auto"
-                icon={<ArrowRightIcon className="mr-1 w-4 h-4" />}
+                icon={<ArrowRightIcon className="w-4 h-4 mr-1" />}
               >
                 Go to profile
               </Button>

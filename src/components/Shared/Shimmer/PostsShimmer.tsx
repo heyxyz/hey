@@ -1,6 +1,8 @@
+import { FC } from 'react'
+
 import PostShimmer from './PostShimmer'
 
-const PostsShimmer: React.FC = () => {
+const PostsShimmer: FC = () => {
   return (
     <div className="space-y-3">
       <PostShimmer />

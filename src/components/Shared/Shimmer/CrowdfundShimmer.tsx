@@ -1,7 +1,8 @@
 import { GridItemSix, GridLayout } from '@components/GridLayout'
 import { Card, CardBody } from '@components/UI/Card'
+import { FC } from 'react'
 
-const CrowdfundShimmer: React.FC = () => {
+const CrowdfundShimmer: FC = () => {
   return (
     <Card>
       <CardBody className="space-y-4">

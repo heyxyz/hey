@@ -8,28 +8,23 @@ import {
 import humanize from '@lib/humanize'
 import trackEvent from '@lib/trackEvent'
 import clsx from 'clsx'
-import React, { Dispatch } from 'react'
+import React, { Dispatch, FC, ReactChild } from 'react'
 
 interface Props {
   stats: ProfileStats
-  setFeedType: Dispatch<React.SetStateAction<string>>
+  setFeedType: Dispatch<string>
   feedType: string
 }
 
-const FeedType: React.FC<Props> = ({ stats, setFeedType, feedType }) => {
+const FeedType: FC<Props> = ({ stats, setFeedType, feedType }) => {
   interface FeedLinkProps {
     name: string
-    icon: React.ReactChild
+    icon: ReactChild
     type: string
     count?: number
   }
 
-  const FeedLink: React.FC<FeedLinkProps> = ({
-    name,
-    icon,
-    type,
-    count = 0
-  }) => (
+  const FeedLink: FC<FeedLinkProps> = ({ name, icon, type, count = 0 }) => (
     <button
       onClick={() => {
         trackEvent(`user ${name.toLowerCase()}`)
@@ -54,7 +49,7 @@ const FeedType: React.FC<Props> = ({ stats, setFeedType, feedType }) => {
   )
 
   return (
-    <div className="flex overflow-x-auto gap-3 px-5 pb-2 mt-3 sm:px-0 sm:mt-0 md:pb-0">
+    <div className="flex gap-3 px-5 pb-2 mt-3 overflow-x-auto sm:px-0 sm:mt-0 md:pb-0">
       <FeedLink
         name="Posts"
         icon={<PencilAltIcon className="w-4 h-4" />}

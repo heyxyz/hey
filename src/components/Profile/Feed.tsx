@@ -11,7 +11,7 @@ import { MirrorFields } from '@gql/MirrorFields'
 import { PostFields } from '@gql/PostFields'
 import { CollectionIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
-import React, { useState } from 'react'
+import React, { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 
 const PROFILE_FEED_QUERY = gql`
@@ -43,7 +43,7 @@ interface Props {
   type: 'POST' | 'COMMENT' | 'MIRROR'
 }
 
-const Feed: React.FC<Props> = ({ profile, type }) => {
+const Feed: FC<Props> = ({ profile, type }) => {
   const [publications, setPublications] = useState<LensterPost[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
   const { data, loading, error, fetchMore } = useQuery(PROFILE_FEED_QUERY, {

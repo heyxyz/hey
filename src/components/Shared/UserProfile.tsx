@@ -3,7 +3,7 @@ import { BadgeCheckIcon } from '@heroicons/react/solid'
 import getAvatar from '@lib/getAvatar'
 import isVerified from '@lib/isVerified'
 import Link from 'next/link'
-import React, { useState } from 'react'
+import React, { FC, useState } from 'react'
 
 import Follow from './Follow'
 import Slug from './Slug'
@@ -17,7 +17,7 @@ interface Props {
   isFollowing?: boolean
 }
 
-const UserProfile: React.FC<Props> = ({
+const UserProfile: FC<Props> = ({
   profile,
   showBio = false,
   showFollow = false,
@@ -27,17 +27,17 @@ const UserProfile: React.FC<Props> = ({
   const [following, setFollowing] = useState<boolean>(isFollowing)
 
   return (
-    <div className="flex justify-between items-center">
+    <div className="flex items-center justify-between">
       <Link href={`/u/${profile?.handle}`}>
         <a>
           <div className="flex items-center space-x-3">
             <img
               src={getAvatar(profile)}
-              className="w-10 h-10 bg-gray-200 rounded-full border dark:border-gray-700"
+              className="w-10 h-10 bg-gray-200 border rounded-full dark:border-gray-700"
               alt={profile?.handle}
             />
             <div>
-              <div className="flex gap-1 items-center">
+              <div className="flex items-center gap-1">
                 <div>{profile?.name ?? profile?.handle}</div>
                 {isVerified(profile?.id) && (
                   <BadgeCheckIcon className="w-4 h-4 text-brand-500" />
