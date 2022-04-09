@@ -289,6 +289,7 @@ const Create: React.FC = () => {
               <Input
                 label="Contribution amount"
                 type="number"
+                step="0.0001"
                 prefix={
                   <img
                     className="w-6 h-6"
@@ -302,6 +303,7 @@ const Create: React.FC = () => {
               <Input
                 label="Funding Goal"
                 type="number"
+                step="0.0001"
                 prefix={
                   <img
                     className="w-6 h-6"
