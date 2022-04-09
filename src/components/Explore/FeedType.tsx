@@ -3,7 +3,7 @@ import {
   ClockIcon,
   CollectionIcon
 } from '@heroicons/react/outline'
-import { trackEvent } from '@lib/trackEvent'
+import trackEvent from '@lib/trackEvent'
 import clsx from 'clsx'
 import React, { Dispatch } from 'react'
 

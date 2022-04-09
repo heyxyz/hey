@@ -2,7 +2,7 @@ import { IS_PRODUCTION } from 'src/constants'
 
 import consoleLog from './consoleLog'
 
-export const trackEvent = (event: string, type: string | null = 'click') => {
+const trackEvent = (event: string, type: string | null = 'click') => {
   if (!event) return
   if (!IS_PRODUCTION) return
 
@@ -10,3 +10,5 @@ export const trackEvent = (event: string, type: string | null = 'click') => {
   // @ts-ignore
   return window?.umami?.trackEvent(event, type)
 }
+
+export default trackEvent

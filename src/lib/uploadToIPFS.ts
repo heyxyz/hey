@@ -1,4 +1,4 @@
-export async function uploadToIPFS(data: any) {
+const uploadToIPFS = async (data: any) => {
   const formData = new FormData()
   formData.append('file', JSON.stringify(data))
   try {
@@ -13,3 +13,5 @@ export async function uploadToIPFS(data: any) {
     console.log('IPFS Upload error: ', e)
   }
 }
+
+export default uploadToIPFS

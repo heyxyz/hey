@@ -6,7 +6,7 @@ import {
   PhotographIcon
 } from '@heroicons/react/outline'
 import humanize from '@lib/humanize'
-import { trackEvent } from '@lib/trackEvent'
+import trackEvent from '@lib/trackEvent'
 import clsx from 'clsx'
 import React, { Dispatch } from 'react'
 
