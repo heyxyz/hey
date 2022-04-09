@@ -15,7 +15,7 @@ import {
 } from '@heroicons/react/outline'
 import { BadgeCheckIcon } from '@heroicons/react/solid'
 import formatAddress from '@lib/formatAddress'
-import { getAvatar } from '@lib/getAvatar'
+import getAvatar from '@lib/getAvatar'
 import { isStaff } from '@lib/isStaff'
 import { isVerified } from '@lib/isVerified'
 import { linkifyOptions } from '@lib/linkifyOptions'
