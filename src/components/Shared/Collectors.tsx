@@ -101,8 +101,8 @@ const Collectors: React.FC<Props> = ({ pubId }) => {
       />
       <div className="space-y-3">
         <div className="divide-y">
-          {collectors?.map((wallet: Wallet) => (
-            <div className="p-5" key={wallet?.defaultProfile?.id}>
+          {collectors?.map((wallet: Wallet, index: number) => (
+            <div className="p-5" key={index}>
               {wallet?.defaultProfile ? (
                 <UserProfile
                   profile={wallet?.defaultProfile as Profile}
