@@ -65,7 +65,7 @@ const Details: React.FC<Props> = ({ community }) => {
   )
 
   return (
-    <div className="px-5 mb-4 space-y-5 sm:px-0">
+    <div className="px-5 mb-4 sm:px-0 space-y-5">
       <div className="relative w-32 h-32 sm:w-72 sm:h-72">
         <img
           src={imagekitURL(
@@ -79,10 +79,8 @@ const Details: React.FC<Props> = ({ community }) => {
           alt={community?.id}
         />
       </div>
-      <div className="pt-3 space-y-1">
-        <div className="flex gap-1.5 items-center text-2xl font-bold truncate">
-          <div className="truncate">{community?.metadata.name}</div>
-        </div>
+      <div className="text-2xl font-bold pt-1">
+        <div className="truncate">{community?.metadata.name}</div>
       </div>
       <div className="space-y-5">
         {community?.metadata.description && (
