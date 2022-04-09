@@ -17,6 +17,7 @@ import { getAvatar } from '@lib/getAvatar'
 import { isStaff } from '@lib/isStaff'
 import { trackEvent } from '@lib/trackEvent'
 import clsx from 'clsx'
+import Cookies from 'js-cookie'
 import Link from 'next/link'
 import { useTheme } from 'next-themes'
 import { Fragment, useContext, useState } from 'react'
@@ -140,10 +141,9 @@ const MenuItems: React.FC<Props> = ({ indexerData }) => {
                     onClick={() => {
                       trackEvent('logout')
                       localStorage.removeItem('selectedProfile')
-                      localStorage.removeItem('accessToken')
-                      localStorage.removeItem('refreshToken')
+                      Cookies.remove('accessToken')
+                      Cookies.remove('refreshToken')
                       disconnect()
-                      location.href = '/'
                     }}
                     className={({ active }: { active: boolean }) =>
                       clsx(

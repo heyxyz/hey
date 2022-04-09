@@ -1,6 +1,7 @@
 import { gql, useQuery } from '@apollo/client'
 import { Profile } from '@generated/types'
 import { MinimalProfileFields } from '@gql/MinimalProfileFields'
+import Cookies from 'js-cookie'
 import Head from 'next/head'
 import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
@@ -31,7 +32,7 @@ const SiteLayout: React.FC<Props> = ({ children }) => {
   const { resolvedTheme } = useTheme()
   const [pageLoading, setPageLoading] = useState<boolean>(true)
   const [staffMode, setStaffMode] = useState<boolean>()
-  const [refreshToken, setRefreshToken] = useState<string>('')
+  const [refreshToken, setRefreshToken] = useState<string>()
   const [selectedProfile, setSelectedProfile] = useState<number>(0)
   const [{ data: accountData }] = useAccount()
   const { data, loading, error } = useQuery(CURRENT_USER_QUERY, {
@@ -48,13 +49,13 @@ const SiteLayout: React.FC<Props> = ({ children }) => {
     }, 500)
 
     setSelectedProfile(localStorage.selectedProfile)
-    setRefreshToken(localStorage.refreshToken)
+    setRefreshToken(Cookies.get('refreshToken'))
     setStaffMode(localStorage.staffMode === 'true')
 
     accountData?.connector?.on('change', () => {
       localStorage.removeItem('selectedProfile')
-      localStorage.removeItem('accessToken')
-      localStorage.removeItem('refreshToken')
+      Cookies.remove('accessToken')
+      Cookies.remove('refreshToken')
       location.href = '/'
     })
   }, [accountData])
