@@ -8,8 +8,10 @@ import { XCircleIcon } from '@heroicons/react/solid'
 import { getWalletLogo } from '@lib/getWalletLogo'
 import { trackEvent } from '@lib/trackEvent'
 import clsx from 'clsx'
+import Cookies from 'js-cookie'
 import React, { Dispatch, useContext, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
+import { COOKIE_CONFIG } from 'src/apollo'
 import { ERROR_MESSAGE } from 'src/constants'
 import { Connector, useAccount, useConnect, useSignMessage } from 'wagmi'
 
@@ -86,13 +88,15 @@ const WalletSelector: React.FC<Props> = ({
                 request: { address: accountData?.address, signature: res.data }
               }
             }).then((res) => {
-              localStorage.setItem(
+              Cookies.set(
                 'accessToken',
-                res.data.authenticate.accessToken
+                res.data.authenticate.accessToken,
+                COOKIE_CONFIG
               )
-              localStorage.setItem(
+              Cookies.set(
                 'refreshToken',
-                res.data.authenticate.refreshToken
+                res.data.authenticate.refreshToken,
+                COOKIE_CONFIG
               )
               getProfiles({
                 variables: { ownedBy: accountData?.address }
