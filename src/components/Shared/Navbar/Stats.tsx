@@ -11,7 +11,7 @@ import {
   UserAddIcon,
   UsersIcon
 } from '@heroicons/react/outline'
-import { humanize } from '@lib/humanize'
+import humanize from '@lib/humanize'
 import { ERROR_MESSAGE } from 'src/constants'
 
 const LENSTER_STATS_QUERY = gql`
