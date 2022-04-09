@@ -204,7 +204,7 @@ const NewPost: React.FC<Props> = ({
       toast.error(WRONG_NETWORK)
     } else {
       setIsUploading(true)
-      const { path } = await uploadToIPFS({
+      const path = await uploadToIPFS({
         version: '1.0.0',
         metadata_id: uuidv4(),
         description: post,
@@ -227,7 +227,7 @@ const NewPost: React.FC<Props> = ({
         variables: {
           request: {
             profileId: currentUser?.id,
-            contentURI: `https://ipfs.infura.io/ipfs/${path}`,
+            contentURI: path,
             collectModule: feeData.recipient
               ? {
                   [getModule(selectedModule.moduleName).config]: feeData

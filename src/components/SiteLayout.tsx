@@ -29,8 +29,9 @@ interface Props {
 
 const SiteLayout: React.FC<Props> = ({ children }) => {
   const { resolvedTheme } = useTheme()
+  const [pageLoading, setPageLoading] = useState<boolean>(true)
   const [staffMode, setStaffMode] = useState<boolean>()
-  const [refreshToken, setRefreshToken] = useState<number>(0)
+  const [refreshToken, setRefreshToken] = useState<string>('')
   const [selectedProfile, setSelectedProfile] = useState<number>(0)
   const [{ data: accountData }] = useAccount()
   const { data, loading, error } = useQuery(CURRENT_USER_QUERY, {
@@ -42,6 +43,10 @@ const SiteLayout: React.FC<Props> = ({ children }) => {
     ?.sort((a: Profile, b: Profile) => Number(a.id) - Number(b.id))
 
   useEffect(() => {
+    setTimeout(() => {
+      setPageLoading(false)
+    }, 500)
+
     setSelectedProfile(localStorage.selectedProfile)
     setRefreshToken(localStorage.refreshToken)
     setStaffMode(localStorage.staffMode === 'true')
@@ -87,7 +92,7 @@ const SiteLayout: React.FC<Props> = ({ children }) => {
     loading: { className: 'border border-gray-300' }
   }
 
-  if (loading) return <Loading />
+  if (loading || pageLoading) return <Loading />
 
   return (
     <AppContext.Provider value={injectedGlobalContext}>

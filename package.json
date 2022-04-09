@@ -29,7 +29,6 @@
     "ethers": "^5.6.2",
     "framer-motion": "^6.2.9",
     "graphql": "^16.3.0",
-    "ipfs-http-client": "54.0.2",
     "jwt-decode": "^3.1.2",
     "linkify-plugin-mention": "^3.0.4",
     "linkify-react": "^3.0.4",
