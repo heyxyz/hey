@@ -10,7 +10,7 @@ import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import trackEvent from '@lib/trackEvent'
 import { motion } from 'framer-motion'
-import { useContext } from 'react'
+import { FC, useContext } from 'react'
 import toast from 'react-hot-toast'
 import {
   CHAIN_ID,
@@ -62,7 +62,7 @@ interface Props {
   post: LensterPost
 }
 
-const Mirror: React.FC<Props> = ({ post }) => {
+const Mirror: FC<Props> = ({ post }) => {
   const { currentUser } = useContext(AppContext)
   const [{ data: network }] = useNetwork()
   const [{ data: account }] = useAccount()

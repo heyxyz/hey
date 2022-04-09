@@ -11,7 +11,7 @@ import { PencilAltIcon } from '@heroicons/react/outline'
 import { CheckCircleIcon } from '@heroicons/react/solid'
 import trackEvent from '@lib/trackEvent'
 import { useRouter } from 'next/router'
-import React from 'react'
+import React, { FC } from 'react'
 import { CONTACT_EMAIL } from 'src/constants'
 import { object, string } from 'zod'
 
@@ -28,7 +28,7 @@ const newContactSchema = object({
     .nonempty()
 })
 
-const Contact: React.FC = () => {
+const Contact: FC = () => {
   const { push } = useRouter()
   const form = useZodForm({
     schema: newContactSchema
@@ -48,7 +48,7 @@ const Contact: React.FC = () => {
           {false ? (
             <EmptyState
               message={<span>Publication reported successfully!</span>}
-              icon={<CheckCircleIcon className="w-14 h-14 text-green-500" />}
+              icon={<CheckCircleIcon className="text-green-500 w-14 h-14" />}
               hideCard
             />
           ) : (

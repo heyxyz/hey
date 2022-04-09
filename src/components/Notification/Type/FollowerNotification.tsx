@@ -2,7 +2,7 @@ import { NewFollowerNotification } from '@generated/types'
 import { UserAddIcon } from '@heroicons/react/outline'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
-import React from 'react'
+import React, { FC } from 'react'
 
 import { NotificationProfileAvatar, NotificationProfileName } from '../Profile'
 
@@ -12,7 +12,7 @@ interface Props {
   notification: NewFollowerNotification
 }
 
-const FollowerNotification: React.FC<Props> = ({ notification }) => {
+const FollowerNotification: FC<Props> = ({ notification }) => {
   return (
     <div className="flex items-center space-x-3">
       <NotificationProfileAvatar notification={notification} />

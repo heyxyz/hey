@@ -5,7 +5,7 @@ import { TrashIcon } from '@heroicons/react/outline'
 import trackEvent from '@lib/trackEvent'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
-import React from 'react'
+import React, { FC } from 'react'
 
 const HIDE_POST_MUTATION = gql`
   mutation HidePublication($request: HidePublicationRequest!) {
@@ -17,7 +17,7 @@ interface Props {
   post: LensterPost
 }
 
-const Delete: React.FC<Props> = ({ post }) => {
+const Delete: FC<Props> = ({ post }) => {
   const { pathname } = useRouter()
   const [hidePost] = useMutation(HIDE_POST_MUTATION, {
     onCompleted() {

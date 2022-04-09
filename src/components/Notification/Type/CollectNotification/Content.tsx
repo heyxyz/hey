@@ -1,13 +1,13 @@
 import { NewCollectNotification } from '@generated/types'
 import imagekitURL from '@lib/imagekitURL'
 import Link from 'next/link'
-import React from 'react'
+import React, { FC } from 'react'
 
 interface Props {
   notification: NewCollectNotification
 }
 
-const CollectedContent: React.FC<Props> = ({ notification }) => {
+const CollectedContent: FC<Props> = ({ notification }) => {
   const postType =
     notification?.collectedPublication?.metadata?.attributes[0]?.value ??
     notification?.collectedPublication?.__typename?.toLowerCase()

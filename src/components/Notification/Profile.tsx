@@ -3,16 +3,14 @@ import formatAddress from '@lib/formatAddress'
 import getAvatar from '@lib/getAvatar'
 import imagekitURL from '@lib/imagekitURL'
 import Link from 'next/link'
-import React from 'react'
+import React, { FC } from 'react'
 import { POLYGONSCAN_URL } from 'src/constants'
 
 interface Props {
   notification: Notification
 }
 
-export const NotificationProfileAvatar: React.FC<Props> = ({
-  notification
-}) => {
+export const NotificationProfileAvatar: FC<Props> = ({ notification }) => {
   const { wallet }: any = notification
   const picture = wallet
     ? wallet?.defaultProfile?.picture
@@ -54,7 +52,7 @@ export const NotificationProfileAvatar: React.FC<Props> = ({
       <a target={profile.target}>
         <img
           src={picture}
-          className="w-10 h-10 bg-gray-200 rounded-full border dark:border-gray-700"
+          className="w-10 h-10 bg-gray-200 border rounded-full dark:border-gray-700"
           alt={profile.alt}
         />
       </a>
@@ -62,7 +60,7 @@ export const NotificationProfileAvatar: React.FC<Props> = ({
   )
 }
 
-export const NotificationProfileName: React.FC<Props> = ({ notification }) => {
+export const NotificationProfileName: FC<Props> = ({ notification }) => {
   const { wallet }: any = notification
   const profile = wallet
     ? wallet?.defaultProfile

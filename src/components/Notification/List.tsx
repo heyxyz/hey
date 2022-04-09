@@ -7,7 +7,7 @@ import { Notification, PaginatedResultInfo } from '@generated/types'
 import { MinimalProfileFields } from '@gql/MinimalProfileFields'
 import { MailIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
-import { useContext, useEffect, useState } from 'react'
+import { FC, useContext, useEffect, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 
 import NotificationShimmer from './Shimmer'
@@ -156,7 +156,7 @@ const NOTIFICATIONS_QUERY = gql`
   }
 `
 
-const List: React.FC = () => {
+const List: FC = () => {
   const { currentUser } = useContext(AppContext)
   const [notifications, setNotifications] = useState<Notification[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
