@@ -10,6 +10,7 @@ import { CommentFields } from '@gql/CommentFields'
 import { MirrorFields } from '@gql/MirrorFields'
 import { PostFields } from '@gql/PostFields'
 import { CollectionIcon } from '@heroicons/react/outline'
+import consoleLog from '@lib/consoleLog'
 import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'
 
@@ -53,6 +54,11 @@ const Feed: React.FC<Props> = ({ profile, type }) => {
     onCompleted(data) {
       setPageInfo(data?.publications?.pageInfo)
       setPublications(data?.publications?.items)
+      consoleLog(
+        'Fetch',
+        '#8b5cf6',
+        `Fetched first 10 profile publications Profile:${profile?.id}`
+      )
     }
   })
 
@@ -71,6 +77,11 @@ const Feed: React.FC<Props> = ({ profile, type }) => {
       }).then(({ data }: any) => {
         setPageInfo(data?.publications?.pageInfo)
         setPublications([...publications, ...data?.publications?.items])
+        consoleLog(
+          'Fetch',
+          '#8b5cf6',
+          `Fetched next 10 profile publications Profile:${profile?.id} Next:${pageInfo?.next}`
+        )
       })
     }
   })
