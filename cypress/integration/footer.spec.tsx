@@ -1,10 +1,3 @@
-import {
-  GITLAB_URL,
-  OPEN_ANAYTICS_PAGE_URL,
-  STATUS_PAGE_URL,
-  VERCEL_REF_URL
-} from 'src/constants'
-
 context('Home Page Footer', () => {
   beforeEach(() => {
     cy.visit('/')
@@ -38,20 +31,28 @@ context('Home Page Footer', () => {
     cy.visit('/')
     cy.get('footer')
       .contains('Status')
-      .should('have.attr', 'href', STATUS_PAGE_URL)
+      .should('have.attr', 'href', 'https://status.lenster.xyz')
     cy.visit('/')
     cy.get('footer')
       .contains('Open')
-      .should('have.attr', 'href', OPEN_ANAYTICS_PAGE_URL)
+      .should(
+        'have.attr',
+        'href',
+        'https://analytics.lenster.xyz/share/DUGyxaF6/Lenster'
+      )
     cy.get('footer')
       .contains(/Gitlab/i)
-      .should('have.attr', 'href', GITLAB_URL)
+      .should('have.attr', 'href', 'https://gitlab.com/lenster/lenster')
     cy.get('footer').contains('Thanks').click()
     cy.location('pathname').should('include', 'thanks')
     cy.visit('/')
     cy.get('footer')
       .contains(/Powered by Vercel/)
-      .should('have.attr', 'href', VERCEL_REF_URL)
+      .should(
+        'have.attr',
+        'href',
+        'https://vercel.com/?utm_source=Lenster&utm_campaign=oss'
+      )
   })
 })
 export {}

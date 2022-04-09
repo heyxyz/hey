@@ -1,5 +1,3 @@
-import { MUMBAI_FAUCET_URL } from 'src/constants'
-
 context('Home Page', () => {
   beforeEach(() => {
     cy.visit('/')
@@ -21,7 +19,7 @@ context('Home Page', () => {
     cy.get('[data-cy=beta-announcement]').contains('Get testnet tokens')
     cy.get('[data-cy=beta-announcement]')
       .find('a')
-      .should('have.attr', 'href', MUMBAI_FAUCET_URL)
+      .should('have.attr', 'href', 'https://faucet.polygon.technology/')
 
     cy.get('div').contains('Recommended users')
     cy.get('[data-cy=user-recommendations]>div')
