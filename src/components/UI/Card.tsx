@@ -11,7 +11,7 @@ export const Card: React.FC<CardProps> = ({
   children,
   className = '',
   forceRounded = false,
-  dataCy
+  dataCy = ''
 }) => {
   return (
     <div

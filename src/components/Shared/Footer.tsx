@@ -1,12 +1,6 @@
 import AppContext from '@components/utils/AppContext'
 import Link from 'next/link'
 import { useContext } from 'react'
-import {
-  GITLAB_URL,
-  OPEN_ANAYTICS_PAGE_URL,
-  STATUS_PAGE_URL,
-  VERCEL_REF_URL
-} from 'src/constants'
 
 const Footer: React.FC = () => {
   const { staffMode } = useContext(AppContext)
@@ -40,7 +34,7 @@ const Footer: React.FC = () => {
       </span>
       <a
         className="pr-3"
-        href={STATUS_PAGE_URL}
+        href="https://status.lenster.xyz"
         target="_blank"
         rel="noreferrer"
       >
@@ -48,7 +42,7 @@ const Footer: React.FC = () => {
       </a>
       <a
         className="pr-3"
-        href={OPEN_ANAYTICS_PAGE_URL}
+        href="https://analytics.lenster.xyz/share/DUGyxaF6/Lenster"
         target="_blank"
         rel="noreferrer"
       >
@@ -59,12 +53,17 @@ const Footer: React.FC = () => {
           Thanks
         </Link>
       </span>
-      <a className="pr-3" href={GITLAB_URL} target="_blank" rel="noreferrer">
+      <a
+        className="pr-3"
+        href="https://gitlab.com/lenster/lenster"
+        target="_blank"
+        rel="noreferrer"
+      >
         GitLab
       </a>
       <a
         className="pr-3 hover:font-bold"
-        href={VERCEL_REF_URL}
+        href="https://vercel.com/?utm_source=Lenster&utm_campaign=oss"
         target="_blank"
         rel="noreferrer"
       >

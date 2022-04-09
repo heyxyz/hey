@@ -53,6 +53,7 @@ const Search = () => {
       </div>
       {searchText.length > 0 && (
         <div
+          data-cy="search"
           className="flex absolute flex-col mt-2 w-full sm:max-w-md"
           ref={dropdownRef}
         >
