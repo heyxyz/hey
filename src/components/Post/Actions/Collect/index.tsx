@@ -8,7 +8,9 @@ import { motion } from 'framer-motion'
 import dynamic from 'next/dynamic'
 import { useState } from 'react'
 
-const CollectModule = dynamic(() => import('./CollectModule'))
+const CollectModule = dynamic(() => import('./CollectModule'), {
+  loading: () => <div className="shimmer h-5 rounded-lg m-5" />
+})
 
 interface Props {
   post: LensterPost

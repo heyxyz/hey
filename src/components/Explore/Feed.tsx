@@ -77,30 +77,29 @@ const Feed: React.FC<Props> = ({ feedType = 'TOP_COMMENTED' }) => {
     }
   })
 
-  if (loading) return <PostsShimmer />
-
-  if (data?.explorePublications?.items?.length === 0)
-    return (
-      <EmptyState
-        message={<div>No posts yet!</div>}
-        icon={<CollectionIcon className="w-8 h-8 text-brand-500" />}
-      />
-    )
-
   return (
     <>
-      {error && (
-        <ErrorMessage title="Failed to load explore feed" error={error} />
+      {loading && <PostsShimmer />}
+      {data?.explorePublications?.items?.length === 0 && (
+        <EmptyState
+          message={<div>No posts yet!</div>}
+          icon={<CollectionIcon className="w-8 h-8 text-brand-500" />}
+        />
       )}
-      <div className="space-y-3">
-        {publications?.map((post: LensterPost, index: number) => (
-          <SinglePost key={`${post.id}_${index}`} post={post} />
-        ))}
-      </div>
-      {pageInfo?.next && (
-        <span ref={observe} className="flex justify-center p-5">
-          <Spinner size="sm" />
-        </span>
+      <ErrorMessage title="Failed to load explore feed" error={error} />
+      {!error && (
+        <>
+          <div className="space-y-3">
+            {publications?.map((post: LensterPost, index: number) => (
+              <SinglePost key={`${post.id}_${index}`} post={post} />
+            ))}
+          </div>
+          {pageInfo?.next && (
+            <span ref={observe} className="flex justify-center p-5">
+              <Spinner size="sm" />
+            </span>
+          )}
+        </>
       )}
     </>
   )

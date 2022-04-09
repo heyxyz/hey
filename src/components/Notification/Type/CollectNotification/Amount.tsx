@@ -2,11 +2,7 @@ import { NewCollectNotification } from '@generated/types'
 import { CurrencyDollarIcon, HandIcon } from '@heroicons/react/outline'
 import { getTokenImage } from '@lib/getTokenImage'
 import { humanize } from '@lib/humanize'
-import dayjs from 'dayjs'
-import relativeTime from 'dayjs/plugin/relativeTime'
 import React from 'react'
-
-dayjs.extend(relativeTime)
 
 interface Props {
   notification: NewCollectNotification
@@ -21,7 +17,7 @@ const CollectedAmount: React.FC<Props> = ({ notification }) => {
     notification?.collectedPublication?.collectModule
 
   return (
-    <div className="mt-2 flex items-center space-x-1">
+    <div className="flex items-center mt-2 space-x-1">
       {postType === 'crowdfund' ? (
         <HandIcon className="text-green-500 h-[15px]" />
       ) : (

@@ -28,6 +28,9 @@ export const API_URL = IS_MAINNET
 export const POLYGONSCAN_URL = IS_MAINNET
   ? 'https://polygonscan.com'
   : 'https://mumbai.polygonscan.com'
+export const OPENSEA_URL = IS_MAINNET
+  ? 'https://opensea.io'
+  : 'https://testnets.opensea.io'
 export const IMAGEKIT_URL = IS_PRODUCTION
   ? 'https://ik.imagekit.io/lensterimg'
   : 'https://ik.imagekit.io/lensterdev'

@@ -107,9 +107,7 @@ const Report: React.FC = () => {
             />
           ) : (
             <CardBody>
-              {error && (
-                <ErrorMessage title="Failed to load post" error={error} />
-              )}
+              <ErrorMessage title="Failed to load post" error={error} />
               {loading ? (
                 <PostShimmer />
               ) : !data?.publication ? (

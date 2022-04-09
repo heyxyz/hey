@@ -72,33 +72,34 @@ const NFTFeed: React.FC<Props> = ({ profile }) => {
     }
   })
 
-  if (loading) return <NFTSShimmer />
-
-  if (data?.nfts?.items?.length === 0)
-    return (
-      <EmptyState
-        message={
-          <div>
-            <span className="mr-1 font-bold">@{profile.handle}</span>
-            <span>seems like have no nfts!</span>
-          </div>
-        }
-        icon={<CollectionIcon className="w-8 h-8 text-brand-500" />}
-      />
-    )
-
   return (
     <>
-      {error && <ErrorMessage title="Failed to load nft feed" error={error} />}
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-        {nfts?.map((nft: Nft, index: number) => (
-          <SingleNFT key={`${nft.tokenId}_${index}`} nft={nft} />
-        ))}
-      </div>
-      {pageInfo?.next && (
-        <span ref={observe} className="flex justify-center p-5">
-          <Spinner size="sm" />
-        </span>
+      {loading && <NFTSShimmer />}
+      {data?.nfts?.items?.length === 0 && (
+        <EmptyState
+          message={
+            <div>
+              <span className="mr-1 font-bold">@{profile.handle}</span>
+              <span>seems like have no nfts!</span>
+            </div>
+          }
+          icon={<CollectionIcon className="w-8 h-8 text-brand-500" />}
+        />
+      )}
+      <ErrorMessage title="Failed to load nft feed" error={error} />
+      {!error && (
+        <>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            {nfts?.map((nft: Nft, index: number) => (
+              <SingleNFT key={`${nft.tokenId}_${index}`} nft={nft} />
+            ))}
+          </div>
+          {pageInfo?.next && (
+            <span ref={observe} className="flex justify-center p-5">
+              <Spinner size="sm" />
+            </span>
+          )}
+        </>
       )}
     </>
   )

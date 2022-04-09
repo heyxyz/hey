@@ -261,13 +261,11 @@ const NewPost: React.FC<Props> = ({
             createPost(post)
           }}
         >
-          {error && (
-            <ErrorMessage
-              className="mb-3"
-              title="Transaction failed!"
-              error={error}
-            />
-          )}
+          <ErrorMessage
+            className="mb-3"
+            title="Transaction failed!"
+            error={error}
+          />
           <TextArea
             placeholder="What's happening?"
             {...form.register('post')}

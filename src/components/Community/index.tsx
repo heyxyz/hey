@@ -41,7 +41,7 @@ const ViewCommunity: NextPage = () => {
     return <Custom404 />
 
   return (
-    <GridLayout className="pt-6">
+    <GridLayout>
       <SEO title={`${data?.publication?.metadata?.name} • Lenster`} />
       <GridItemFour>
         <Details community={data.publication} />

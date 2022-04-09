@@ -3,7 +3,7 @@ import 'linkify-plugin-mention'
 import { gql, useQuery } from '@apollo/client'
 import { GridItemSix, GridLayout } from '@components/GridLayout'
 import Collectors from '@components/Shared/Collectors'
-import { Card, CardBody } from '@components/UI/Card'
+import { Card } from '@components/UI/Card'
 import { Modal } from '@components/UI/Modal'
 import { Tooltip } from '@components/UI/Tooltip'
 import { LensterCollectModule, LensterPost } from '@generated/lenstertypes'
@@ -12,15 +12,11 @@ import { getTokenImage } from '@lib/getTokenImage'
 import { imagekitURL } from '@lib/imagekitURL'
 import { linkifyOptions } from '@lib/linkifyOptions'
 import clsx from 'clsx'
-import dayjs from 'dayjs'
-import relativeTime from 'dayjs/plugin/relativeTime'
 import Linkify from 'linkify-react'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { STATIC_ASSETS } from 'src/constants'
 
 import Fund from './Fund'
-
-dayjs.extend(relativeTime)
 
 export const CROWDFUND_REVENUE_QUERY = gql`
   query CrowdfundRevenue($request: PublicationRevenueQueryRequest!) {
@@ -40,23 +36,26 @@ const Crowdfund: React.FC<Props> = ({ fund }) => {
   // @ts-ignore
   const collectModule: LensterCollectModule = fund?.collectModule
   const [showFundersModal, setShowFundersModal] = useState<boolean>(false)
+  const [revenue, setRevenue] = useState<number>(0)
   const { data, loading } = useQuery(CROWDFUND_REVENUE_QUERY, {
     variables: { request: { publicationId: fund.id } },
     skip: !fund.id
   })
 
-  const revenue = data?.publicationRevenue?.earnings
+  useEffect(() => {
+    setRevenue(parseFloat(data?.publicationRevenue?.earnings?.value ?? 0))
+  }, [data])
+
+  const goalAmount = fund?.metadata?.attributes[1]?.value
   const percentageReached = revenue
-    ? (revenue?.value /
-        parseInt(fund?.metadata?.attributes[1]?.value as string)) *
-      100
+    ? (revenue / parseInt(goalAmount as string)) * 100
     : 0
   const cover = fund?.metadata?.cover?.original?.url
 
   return (
     <Card>
       <div
-        className="h-40 rounded-t-xl border-b sm:h-52"
+        className="h-40 border-b rounded-t-xl sm:h-52"
         style={{
           backgroundImage: `url(${
             cover ? imagekitURL(cover) : `${STATIC_ASSETS}/patterns/2.svg`
@@ -67,49 +66,49 @@ const Crowdfund: React.FC<Props> = ({ fund }) => {
           backgroundRepeat: cover ? 'no-repeat' : 'repeat'
         }}
       />
-      <CardBody className="linkify">
-        <Linkify tagName="div" options={linkifyOptions}>
-          <div>
-            <div className="block justify-between items-center sm:flex">
-              <div className="mr-0 space-y-1 sm:mr-16">
-                <div className="text-xl font-bold">{fund?.metadata?.name}</div>
-                <div className="whitespace-pre-wrap break-words">
-                  {fund?.metadata?.description
-                    ?.replace(/\n\s*\n/g, '\n\n')
-                    .trim()}
-                </div>
-                {fund?.stats?.totalAmountOfCollects > 0 && (
-                  <>
-                    <div className="flex items-center space-x-1.5 !mt-2 text-gray-500">
-                      <UsersIcon className="w-4 h-4" />
-                      <button
-                        className="text-sm"
-                        onClick={() => setShowFundersModal(!showFundersModal)}
-                      >
-                        {fund?.stats?.totalAmountOfCollects} funds received
-                      </button>
-                    </div>
-                    <Modal
-                      title="Funders"
-                      icon={<CashIcon className="w-5 h-5 text-brand-500" />}
-                      show={showFundersModal}
-                      onClose={() => setShowFundersModal(!showFundersModal)}
-                    >
-                      <Collectors pubId={fund.id} />
-                    </Modal>
-                  </>
-                )}
+      <Linkify tagName="div" options={linkifyOptions}>
+        <div className="p-5">
+          <div className="items-center justify-between block sm:flex">
+            <div className="mr-0 space-y-1 sm:mr-16">
+              <div className="text-xl font-bold">{fund?.metadata?.name}</div>
+              <div className="break-words whitespace-pre-wrap">
+                {fund?.metadata?.description
+                  ?.replace(/\n\s*\n/g, '\n\n')
+                  .trim()}
               </div>
-              <Fund fund={fund} />
+              {fund?.stats?.totalAmountOfCollects > 0 && (
+                <>
+                  <div className="flex items-center space-x-1.5 !mt-2 text-gray-500">
+                    <UsersIcon className="w-4 h-4" />
+                    <button
+                      className="text-sm"
+                      onClick={() => setShowFundersModal(!showFundersModal)}
+                    >
+                      {fund?.stats?.totalAmountOfCollects} funds received
+                    </button>
+                  </div>
+                  <Modal
+                    title="Funders"
+                    icon={<CashIcon className="w-5 h-5 text-brand-500" />}
+                    show={showFundersModal}
+                    onClose={() => setShowFundersModal(!showFundersModal)}
+                  >
+                    <Collectors pubId={fund.id} />
+                  </Modal>
+                </>
+              )}
             </div>
-            {loading ? (
-              <div className="w-full h-[13px] !mt-5 rounded-full shimmer" />
-            ) : (
+            <Fund fund={fund} revenue={revenue} setRevenue={setRevenue} />
+          </div>
+          {loading ? (
+            <div className="w-full h-[13px] !mt-5 rounded-full shimmer" />
+          ) : (
+            goalAmount && (
               <Tooltip
                 content={
                   percentageReached >= 100
                     ? 'Goal reached 🎉'
-                    : `${percentageReached}% Goal reached`
+                    : `${percentageReached.toFixed(0)}% Goal reached`
                 }
               >
                 <div className="mt-5 w-full bg-gray-200 rounded-full dark:bg-gray-700 h-[13px]">
@@ -126,34 +125,34 @@ const Crowdfund: React.FC<Props> = ({ fund }) => {
                   />
                 </div>
               </Tooltip>
-            )}
-            <GridLayout className="!p-0 mt-5">
-              <GridItemSix className="!mb-4 space-y-1 sm:mb-0">
-                <div className="text-sm font-bold text-gray-500">
-                  Funds Raised
-                </div>
-                {loading ? (
-                  <div className="w-16 h-5 !mt-2 rounded-md shimmer" />
-                ) : (
-                  <span className="flex items-center space-x-1.5">
-                    <Tooltip content={collectModule?.amount?.asset?.symbol}>
-                      <img
-                        className="w-7 h-7"
-                        src={getTokenImage(collectModule.amount.asset.symbol)}
-                        alt={collectModule?.amount?.asset?.symbol}
-                      />
-                    </Tooltip>
-                    <span className="space-x-1">
-                      <span className="text-2xl font-bold">
-                        {revenue ? revenue?.value : 0}
-                      </span>
-                      <span className="text-xs">
-                        {collectModule?.amount?.asset?.symbol}
-                      </span>
+            )
+          )}
+          <GridLayout className="!p-0 mt-5">
+            <GridItemSix className="!mb-4 space-y-1 sm:mb-0">
+              <div className="text-sm font-bold text-gray-500">
+                Funds Raised
+              </div>
+              {loading ? (
+                <div className="w-16 h-5 !mt-2 rounded-md shimmer" />
+              ) : (
+                <span className="flex items-center space-x-1.5">
+                  <Tooltip content={collectModule?.amount?.asset?.symbol}>
+                    <img
+                      className="w-7 h-7"
+                      src={getTokenImage(collectModule.amount.asset.symbol)}
+                      alt={collectModule?.amount?.asset?.symbol}
+                    />
+                  </Tooltip>
+                  <span className="space-x-1">
+                    <span className="text-2xl font-bold">{revenue}</span>
+                    <span className="text-xs">
+                      {collectModule?.amount?.asset?.symbol}
                     </span>
                   </span>
-                )}
-              </GridItemSix>
+                </span>
+              )}
+            </GridItemSix>
+            {goalAmount && (
               <GridItemSix className="space-y-1">
                 <div className="text-sm font-bold text-gray-500">
                   Funds Goal
@@ -167,19 +166,17 @@ const Crowdfund: React.FC<Props> = ({ fund }) => {
                     />
                   </Tooltip>
                   <span className="space-x-1">
-                    <span className="text-2xl font-bold">
-                      {fund?.metadata?.attributes[1]?.value}
-                    </span>
+                    <span className="text-2xl font-bold">{goalAmount}</span>
                     <span className="text-xs">
                       {collectModule?.amount?.asset?.symbol}
                     </span>
                   </span>
                 </span>
               </GridItemSix>
-            </GridLayout>
-          </div>
-        </Linkify>
-      </CardBody>
+            )}
+          </GridLayout>
+        </div>
+      </Linkify>
     </Card>
   )
 }
