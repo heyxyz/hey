@@ -14,6 +14,7 @@ context('Home Page', () => {
   })
 
   it('should render logo and login button', () => {
+    cy.visit('/')
     cy.get('[data-cy=navbar]')
       .find('img')
       .should('have.attr', 'src')
@@ -27,16 +28,24 @@ context('Home Page', () => {
     cy.get('[data-cy=navbar]').get('[data-cy=login]').contains('Login')
   })
 
-  it('search bar', () => {
+  it('search bar test', () => {
+    cy.visit('/')
+    cy.get('[data-cy=navbar]')
+      .get('input')
+      .invoke('attr', 'placeholder')
+      .should('contain', 'Search...')
+
     cy.get('[data-cy=navbar]').get('input').type('sasi')
-    cy.get('[data-cy=search]>div').children()
+    cy.get('[data-cy=search-results]')
   })
 
   it('should navigate to right pages', () => {
     cy.get('[data-cy=navbar]').contains('Explore').click()
     cy.location('pathname').should('include', 'explore')
+    cy.visit('/')
     cy.get('[data-cy=navbar]').contains('Explore').click()
     cy.location('pathname').should('include', 'explore')
+    cy.visit('/')
     cy.get('[data-cy=navbar]').contains('Communities').click()
     cy.location('pathname').should('include', 'communities')
   })
