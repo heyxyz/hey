@@ -82,7 +82,7 @@ const Details: React.FC<Props> = ({ profile }) => {
   }) => (
     <div className="flex gap-2 items-center">
       {icon}
-      <div>{children}</div>
+      {children}
     </div>
   )
 

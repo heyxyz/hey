@@ -60,7 +60,7 @@ const Details: React.FC<Props> = ({ community }) => {
   }) => (
     <div className="flex items-center gap-2">
       {icon}
-      <div>{children}</div>
+      {children}
     </div>
   )
 
@@ -122,10 +122,10 @@ const Details: React.FC<Props> = ({ community }) => {
             </>
           </MetaDetails>
           <MetaDetails icon={<UsersIcon className="w-4 h-4" />}>
-            <div>
+            <>
               {humanize(community?.stats?.totalAmountOfComments)}{' '}
               {community?.stats?.totalAmountOfComments > 1 ? 'posts' : 'post'}
-            </div>
+            </>
           </MetaDetails>
           <MetaDetails icon={<ClockIcon className="w-4 h-4" />}>
             {dayjs(new Date(community?.createdAt)).fromNow()}
