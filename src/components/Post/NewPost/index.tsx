@@ -43,21 +43,21 @@ import {
 import { object, string } from 'zod'
 
 const Attachment = dynamic(() => import('../../Shared/Attachment'), {
-  loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
+  loading: () => <div className="w-5 h-5 mb-1 rounded-lg shimmer" />
 })
 const Giphy = dynamic(() => import('../../Shared/Giphy'), {
-  loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
+  loading: () => <div className="w-5 h-5 mb-1 rounded-lg shimmer" />
 })
 const SelectCollectModule = dynamic(
   () => import('../../Shared/SelectCollectModule'),
   {
-    loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
+    loading: () => <div className="w-5 h-5 mb-1 rounded-lg shimmer" />
   }
 )
 const SelectReferenceModule = dynamic(
   () => import('../../Shared/SelectReferenceModule'),
   {
-    loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
+    loading: () => <div className="w-5 h-5 mb-1 rounded-lg shimmer" />
   }
 )
 
@@ -204,7 +204,7 @@ const NewPost: React.FC<Props> = ({
       toast.error(WRONG_NETWORK)
     } else {
       setIsUploading(true)
-      const path = await uploadToIPFS({
+      const { path } = await uploadToIPFS({
         version: '1.0.0',
         metadata_id: uuidv4(),
         description: post,
@@ -270,7 +270,7 @@ const NewPost: React.FC<Props> = ({
             placeholder="What's happening?"
             {...form.register('post')}
           />
-          <div className="block items-center sm:flex">
+          <div className="items-center block sm:flex">
             <div className="flex items-center space-x-4">
               <Attachment
                 attachments={attachments}

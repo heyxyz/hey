@@ -150,7 +150,7 @@ const Create: React.FC = () => {
       toast.error(WRONG_NETWORK)
     } else {
       setIsUploading(true)
-      const path = await uploadToIPFS({
+      const { path } = await uploadToIPFS({
         version: '1.0.0',
         metadata_id: uuidv4(),
         description: description,
@@ -227,7 +227,7 @@ const Create: React.FC = () => {
                 <div className="space-y-3">
                   {avatar && (
                     <img
-                      className="w-60 h-60 rounded-lg"
+                      className="rounded-lg w-60 h-60"
                       src={avatar}
                       alt={avatar}
                     />
