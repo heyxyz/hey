@@ -1,3 +1,5 @@
+import { MUMBAI_FAUCET_URL } from 'src/constants'
+
 context('Home Page', () => {
   beforeEach(() => {
     cy.visit('/')
@@ -17,6 +19,9 @@ context('Home Page', () => {
       'Lenster is still in the beta phase and all contents are stored in Mumbai testnet.'
     )
     cy.get('[data-cy=beta-announcement]').contains('Get testnet tokens')
+    cy.get('[data-cy=beta-announcement]')
+      .find('a')
+      .should('have.attr', 'href', MUMBAI_FAUCET_URL)
 
     cy.get('div').contains('Recommended users')
     cy.get('[data-cy=user-recommendations]>div')
