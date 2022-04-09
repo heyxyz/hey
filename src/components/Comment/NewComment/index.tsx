@@ -28,7 +28,7 @@ import splitSignature from '@lib/splitSignature'
 import trackEvent from '@lib/trackEvent'
 import uploadToIPFS from '@lib/uploadToIPFS'
 import dynamic from 'next/dynamic'
-import { useContext, useState } from 'react'
+import { FC, useContext, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
   CHAIN_ID,
@@ -112,7 +112,7 @@ interface Props {
   type: 'comment' | 'community post'
 }
 
-const NewComment: React.FC<Props> = ({ refetch, post, type }) => {
+const NewComment: FC<Props> = ({ refetch, post, type }) => {
   const form = useZodForm({
     schema: newCommentSchema
   })

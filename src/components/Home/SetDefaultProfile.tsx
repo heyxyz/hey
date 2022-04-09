@@ -2,9 +2,9 @@ import { Card, CardBody } from '@components/UI/Card'
 import AppContext from '@components/utils/AppContext'
 import { CurrencyDollarIcon, UserCircleIcon } from '@heroicons/react/outline'
 import Link from 'next/link'
-import { useContext } from 'react'
+import { FC, useContext } from 'react'
 
-const SetDefaultProfile: React.FC = () => {
+const SetDefaultProfile: FC = () => {
   const { profiles } = useContext(AppContext)
   const hasDefaultProfile = !!profiles.find((o) => o.isDefault)
   const count = profiles.length

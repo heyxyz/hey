@@ -1,14 +1,14 @@
 import { Card, CardBody } from '@components/UI/Card'
 import { Nft } from '@generated/types'
 import imagekitURL from '@lib/imagekitURL'
-import React from 'react'
+import React, { FC } from 'react'
 import { CHAIN_ID, OPENSEA_URL, STATIC_ASSETS } from 'src/constants'
 
 interface Props {
   nft: Nft
 }
 
-const SingleNFT: React.FC<Props> = ({ nft }) => {
+const SingleNFT: FC<Props> = ({ nft }) => {
   return (
     <Card>
       <div

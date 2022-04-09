@@ -13,7 +13,7 @@ import { MirrorFields } from '@gql/MirrorFields'
 import { PostFields } from '@gql/PostFields'
 import { CollectionIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
-import React, { useContext, useState } from 'react'
+import React, { FC, useContext, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 
 const HOME_FEED_QUERY = gql`
@@ -45,7 +45,7 @@ const HOME_FEED_QUERY = gql`
   ${CommentFields}
 `
 
-const Feed: React.FC = () => {
+const Feed: FC = () => {
   const { currentUser } = useContext(AppContext)
   const [publications, setPublications] = useState<LensterPost[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()

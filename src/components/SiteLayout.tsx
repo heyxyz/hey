@@ -5,7 +5,7 @@ import consoleLog from '@lib/consoleLog'
 import Cookies from 'js-cookie'
 import Head from 'next/head'
 import { useTheme } from 'next-themes'
-import { useEffect, useState } from 'react'
+import { FC, ReactNode, useEffect, useState } from 'react'
 import { Toaster } from 'react-hot-toast'
 import { useAccount } from 'wagmi'
 
@@ -26,10 +26,10 @@ export const CURRENT_USER_QUERY = gql`
 `
 
 interface Props {
-  children: React.ReactNode
+  children: ReactNode
 }
 
-const SiteLayout: React.FC<Props> = ({ children }) => {
+const SiteLayout: FC<Props> = ({ children }) => {
   const { resolvedTheme } = useTheme()
   const [pageLoading, setPageLoading] = useState<boolean>(true)
   const [staffMode, setStaffMode] = useState<boolean>()

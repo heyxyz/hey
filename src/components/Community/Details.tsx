@@ -13,7 +13,7 @@ import linkifyOptions from '@lib/linkifyOptions'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import Linkify from 'linkify-react'
-import React, { useContext, useState } from 'react'
+import React, { FC, ReactChild, useContext, useState } from 'react'
 
 import Join from './Join'
 
@@ -33,7 +33,7 @@ interface Props {
   community: LensterPost
 }
 
-const Details: React.FC<Props> = ({ community }) => {
+const Details: FC<Props> = ({ community }) => {
   const { currentUser } = useContext(AppContext)
   const [showMembersModal, setShowMembersModal] = useState<boolean>(false)
   const [joined, setJoined] = useState<boolean>(false)
@@ -61,8 +61,8 @@ const Details: React.FC<Props> = ({ community }) => {
     children,
     icon
   }: {
-    children: React.ReactChild
-    icon: React.ReactChild
+    children: ReactChild
+    icon: ReactChild
   }) => (
     <div className="flex items-center gap-2">
       {icon}
@@ -71,7 +71,7 @@ const Details: React.FC<Props> = ({ community }) => {
   )
 
   return (
-    <div className="px-5 mb-4 sm:px-0 space-y-5">
+    <div className="px-5 mb-4 space-y-5 sm:px-0">
       <div className="relative w-32 h-32 sm:w-72 sm:h-72">
         <img
           src={imagekitURL(
@@ -85,7 +85,7 @@ const Details: React.FC<Props> = ({ community }) => {
           alt={community?.id}
         />
       </div>
-      <div className="text-2xl font-bold pt-1">
+      <div className="pt-1 text-2xl font-bold">
         <div className="truncate">{community?.metadata.name}</div>
       </div>
       <div className="space-y-5">

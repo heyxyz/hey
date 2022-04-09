@@ -1,7 +1,8 @@
 import { Card, CardBody } from '@components/UI/Card'
 import { BeakerIcon, CurrencyDollarIcon } from '@heroicons/react/outline'
+import { FC } from 'react'
 
-const Announcement: React.FC = () => {
+const Announcement: FC = () => {
   return (
     <Card className="mb-4 bg-yellow-50 dark:bg-yellow-900 !border-yellow-600">
       <CardBody className="space-y-2.5 text-yellow-600">

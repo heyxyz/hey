@@ -10,7 +10,7 @@ import { MinimalProfileFields } from '@gql/MinimalProfileFields'
 import { UsersIcon } from '@heroicons/react/outline'
 import { LightningBoltIcon, SparklesIcon } from '@heroicons/react/solid'
 import consoleLog from '@lib/consoleLog'
-import React, { useContext } from 'react'
+import React, { FC, useContext } from 'react'
 
 const RECOMMENDED_PROFILES_QUERY = gql`
   query RecommendedProfiles {
@@ -25,7 +25,7 @@ const Title = () => {
   const { currentUser } = useContext(AppContext)
 
   return (
-    <div className="flex gap-2 items-center px-5 mb-2 sm:px-0">
+    <div className="flex items-center gap-2 px-5 mb-2 sm:px-0">
       {currentUser ? (
         <>
           <SparklesIcon className="w-4 h-4 text-yellow-500" />
@@ -41,7 +41,7 @@ const Title = () => {
   )
 }
 
-const RecommendedProfiles: React.FC = () => {
+const RecommendedProfiles: FC = () => {
   const { data, loading, error } = useQuery(RECOMMENDED_PROFILES_QUERY, {
     onCompleted(data) {
       consoleLog(

@@ -5,21 +5,21 @@ import {
 } from '@heroicons/react/outline'
 import trackEvent from '@lib/trackEvent'
 import clsx from 'clsx'
-import React, { Dispatch } from 'react'
+import React, { Dispatch, FC, ReactChild } from 'react'
 
 interface Props {
-  setFeedType: Dispatch<React.SetStateAction<string>>
+  setFeedType: Dispatch<string>
   feedType: string
 }
 
-const FeedType: React.FC<Props> = ({ setFeedType, feedType }) => {
+const FeedType: FC<Props> = ({ setFeedType, feedType }) => {
   interface FeedLinkProps {
     name: string
-    icon: React.ReactChild
+    icon: ReactChild
     type: string
   }
 
-  const FeedLink: React.FC<FeedLinkProps> = ({ name, icon, type }) => (
+  const FeedLink: FC<FeedLinkProps> = ({ name, icon, type }) => (
     <button
       onClick={() => {
         trackEvent(`explore ${name.toLowerCase()}`)

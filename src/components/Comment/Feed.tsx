@@ -13,7 +13,7 @@ import { CommentFields } from '@gql/CommentFields'
 import { CollectionIcon, UsersIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
 import { useRouter } from 'next/router'
-import React, { useContext, useState } from 'react'
+import React, { FC, useContext, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 
 import NewComment from './NewComment'
@@ -41,7 +41,7 @@ interface Props {
   isFollowing?: boolean
 }
 
-const Feed: React.FC<Props> = ({
+const Feed: FC<Props> = ({
   post,
   type = 'comment',
   onlyFollowers = false,
