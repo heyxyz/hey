@@ -93,11 +93,11 @@ const Feed: React.FC<Props> = ({
           <Card>
             <CardBody className="flex items-center space-x-1.5 text-sm font-bold text-gray-500">
               <UsersIcon className="w-4 h-4 text-brand-500" />
-              <div>
+              <>
                 <span>Only </span>
                 <Slug slug={`${post.profile.handle}'s`} prefix="@" />
                 <span> followers can comment</span>
-              </div>
+              </>
             </CardBody>
           </Card>
         ))}
