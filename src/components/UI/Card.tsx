@@ -4,15 +4,18 @@ interface CardProps {
   children: React.ReactNode
   className?: string
   forceRounded?: boolean
+  dataCy?: string
 }
 
 export const Card: React.FC<CardProps> = ({
   children,
   className = '',
-  forceRounded = false
+  forceRounded = false,
+  dataCy = ''
 }) => {
   return (
     <div
+      data-cy={dataCy}
       className={clsx(
         forceRounded ? 'rounded-xl' : 'rounded-none sm:rounded-xl',
         'border dark:border-gray-800 bg-white dark:bg-gray-900',
