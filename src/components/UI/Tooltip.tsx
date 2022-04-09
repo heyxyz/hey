@@ -14,7 +14,7 @@ export const Tooltip: React.FC<Props> = ({ children, content }) => {
       onMouseEnter={() => setExpanded(true)}
       className="relative"
     >
-      <div>{children}</div>
+      <>{children}</>
       {expanded ? (
         <div
           style={{
