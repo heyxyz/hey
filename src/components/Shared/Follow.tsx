@@ -6,7 +6,7 @@ import { CreateFollowBroadcastItemResult, Profile } from '@generated/types'
 import { UserAddIcon } from '@heroicons/react/outline'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
-import { trackEvent } from '@lib/trackEvent'
+import trackEvent from '@lib/trackEvent'
 import { Dispatch } from 'react'
 import toast from 'react-hot-toast'
 import {

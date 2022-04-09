@@ -2,7 +2,7 @@ import { gql, useQuery } from '@apollo/client'
 import AppContext from '@components/utils/AppContext'
 import { Menu, Transition } from '@headlessui/react'
 import { LightningBoltIcon } from '@heroicons/react/outline'
-import { trackEvent } from '@lib/trackEvent'
+import trackEvent from '@lib/trackEvent'
 import { Fragment, useContext, useEffect, useState } from 'react'
 
 import List from './List'

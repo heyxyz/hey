@@ -5,7 +5,7 @@ import GetModuleIcon from '@components/utils/GetModuleIcon'
 import { EnabledModule } from '@generated/types'
 import { CheckCircleIcon } from '@heroicons/react/solid'
 import { FEE_DATA_TYPE, getModule } from '@lib/getModule'
-import { trackEvent } from '@lib/trackEvent'
+import trackEvent from '@lib/trackEvent'
 import clsx from 'clsx'
 import { Dispatch, useState } from 'react'
 

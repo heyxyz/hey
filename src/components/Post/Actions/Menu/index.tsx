@@ -6,7 +6,7 @@ import {
   DotsHorizontalIcon,
   ShieldExclamationIcon
 } from '@heroicons/react/outline'
-import { trackEvent } from '@lib/trackEvent'
+import trackEvent from '@lib/trackEvent'
 import clsx from 'clsx'
 import { Fragment, useContext } from 'react'
 

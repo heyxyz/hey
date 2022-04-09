@@ -8,7 +8,7 @@ import { CreateCollectBroadcastItemResult } from '@generated/types'
 import { CashIcon } from '@heroicons/react/outline'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
-import { trackEvent } from '@lib/trackEvent'
+import trackEvent from '@lib/trackEvent'
 import React, { Dispatch, useContext } from 'react'
 import toast from 'react-hot-toast'
 import {
