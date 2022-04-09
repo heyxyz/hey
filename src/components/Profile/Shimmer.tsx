@@ -45,8 +45,8 @@ const ProfilePageShimmer: React.FC = () => {
             </div>
           </div>
         </GridItemFour>
-        <GridItemEight className="space-y-5">
-          <div className="flex gap-3 px-5 mt-3 sm:px-0 sm:mt-0">
+        <GridItemEight>
+          <div className="flex gap-3 px-5 mb-5 mt-3 sm:px-0 sm:mt-0">
             <div className="w-14 h-8 rounded-lg sm:w-28 shimmer" />
             <div className="w-14 h-8 rounded-lg sm:w-28 shimmer" />
             <div className="w-14 h-8 rounded-lg sm:w-28 shimmer" />
