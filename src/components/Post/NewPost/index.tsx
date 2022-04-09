@@ -19,8 +19,8 @@ import {
   FEE_DATA_TYPE,
   getModule
 } from '@lib/getModule'
-import { omit } from '@lib/omit'
-import { splitSignature } from '@lib/splitSignature'
+import omit from '@lib/omit'
+import splitSignature from '@lib/splitSignature'
 import { trackEvent } from '@lib/trackEvent'
 import { uploadToIPFS } from '@lib/uploadToIPFS'
 import dynamic from 'next/dynamic'
