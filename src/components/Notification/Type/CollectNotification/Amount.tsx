@@ -1,6 +1,6 @@
 import { NewCollectNotification } from '@generated/types'
 import { CurrencyDollarIcon, HandIcon } from '@heroicons/react/outline'
-import { getTokenImage } from '@lib/getTokenImage'
+import getTokenImage from '@lib/getTokenImage'
 import { humanize } from '@lib/humanize'
 import React from 'react'
 
