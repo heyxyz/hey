@@ -146,7 +146,10 @@ const WalletSelector: React.FC<Props> = ({
           )}
         </div>
       ) : (
-        <div className="inline-block overflow-hidden space-y-3 w-full text-left align-middle transition-all transform">
+        <div
+          data-cy="wallet-options"
+          className="inline-block overflow-hidden space-y-3 w-full text-left align-middle transition-all transform"
+        >
           {connectors.map((x, i) => {
             return (
               <button

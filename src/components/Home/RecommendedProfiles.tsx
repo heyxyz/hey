@@ -25,7 +25,7 @@ const Title = () => {
   const { currentUser } = useContext(AppContext)
 
   return (
-    <div className="flex gap-2 items-center px-5 mb-2 sm:px-0">
+    <div className="flex items-center gap-2 px-5 mb-2 sm:px-0">
       {currentUser ? (
         <>
           <SparklesIcon className="w-4 h-4 text-yellow-500" />
@@ -86,7 +86,7 @@ const RecommendedProfiles: React.FC = () => {
   return (
     <>
       <Title />
-      <Card>
+      <Card dataCy="user-recommendations">
         <CardBody className="space-y-4">
           <ErrorMessage title="Failed to recommendations" error={error} />
           {data?.recommendedProfiles?.slice(0, 5)?.map((profile: Profile) => (
