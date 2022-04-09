@@ -85,8 +85,6 @@ const Feed: React.FC<Props> = ({
     }
   })
 
-  if (loading) return <PostsShimmer />
-
   return (
     <>
       {currentUser &&
@@ -104,22 +102,27 @@ const Feed: React.FC<Props> = ({
             </CardBody>
           </Card>
         ))}
-      <ErrorMessage title="Failed to load comment feed" error={error} />
+      {loading && <PostsShimmer />}
       {data?.publications?.items?.length === 0 && (
         <EmptyState
           message={<span>Be the first one to comment!</span>}
           icon={<CollectionIcon className="w-8 h-8 text-brand-500" />}
         />
       )}
-      <div className="space-y-3">
-        {publications?.map((post: LensterPost, index: number) => (
-          <SinglePost key={`${post.id}_${index}`} post={post} hideType />
-        ))}
-      </div>
-      {pageInfo?.next && (
-        <span ref={observe} className="flex justify-center p-5">
-          <Spinner size="sm" />
-        </span>
+      <ErrorMessage title="Failed to load comment feed" error={error} />
+      {!error && (
+        <>
+          <div className="space-y-3">
+            {publications?.map((post: LensterPost, index: number) => (
+              <SinglePost key={`${post.id}_${index}`} post={post} hideType />
+            ))}
+          </div>
+          {pageInfo?.next && (
+            <span ref={observe} className="flex justify-center p-5">
+              <Spinner size="sm" />
+            </span>
+          )}
+        </>
       )}
     </>
   )

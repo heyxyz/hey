@@ -76,33 +76,34 @@ const Feed: React.FC<Props> = ({ profile, type }) => {
     }
   })
 
-  if (loading) return <PostsShimmer />
-
-  if (data?.publications?.items?.length === 0)
-    return (
-      <EmptyState
-        message={
-          <div>
-            <span className="mr-1 font-bold">@{profile.handle}</span>
-            <span>seems like not {type.toLowerCase()}ed yet!</span>
-          </div>
-        }
-        icon={<CollectionIcon className="w-8 h-8 text-brand-500" />}
-      />
-    )
-
   return (
     <>
+      {loading && <PostsShimmer />}
+      {data?.publications?.items?.length === 0 && (
+        <EmptyState
+          message={
+            <div>
+              <span className="mr-1 font-bold">@{profile.handle}</span>
+              <span>seems like not {type.toLowerCase()}ed yet!</span>
+            </div>
+          }
+          icon={<CollectionIcon className="w-8 h-8 text-brand-500" />}
+        />
+      )}
       <ErrorMessage title="Failed to load profile feed" error={error} />
-      <div className="space-y-3">
-        {publications?.map((post: LensterPost, index: number) => (
-          <SinglePost key={`${post.id}_${index}`} post={post} />
-        ))}
-      </div>
-      {pageInfo?.next && (
-        <span ref={observe} className="flex justify-center p-5">
-          <Spinner size="sm" />
-        </span>
+      {!error && (
+        <>
+          <div className="space-y-3">
+            {publications?.map((post: LensterPost, index: number) => (
+              <SinglePost key={`${post.id}_${index}`} post={post} />
+            ))}
+          </div>
+          {pageInfo?.next && (
+            <span ref={observe} className="flex justify-center p-5">
+              <Spinner size="sm" />
+            </span>
+          )}
+        </>
       )}
     </>
   )
