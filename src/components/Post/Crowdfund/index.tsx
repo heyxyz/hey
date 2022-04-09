@@ -142,7 +142,7 @@ const Crowdfund: React.FC<Props> = ({ fund }) => {
                 <Tooltip content={collectModule?.amount?.asset?.symbol}>
                   <img
                     className="w-7 h-7"
-                    src={getTokenImage(collectModule.amount.asset.symbol)}
+                    src={getTokenImage(collectModule?.amount?.asset?.symbol)}
                     alt={collectModule?.amount?.asset?.symbol}
                   />
                 </Tooltip>
