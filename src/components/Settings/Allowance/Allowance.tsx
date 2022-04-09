@@ -1,6 +1,6 @@
 import { CardBody } from '@components/UI/Card'
 import { ApprovedAllowanceAmount } from '@generated/types'
-import React from 'react'
+import React, { FC } from 'react'
 
 import Module from './Module'
 
@@ -8,7 +8,7 @@ interface Props {
   allowance: any
 }
 
-const Allowance: React.FC<Props> = ({ allowance }) => {
+const Allowance: FC<Props> = ({ allowance }) => {
   return (
     <CardBody className="space-y-4">
       {allowance?.approvedModuleAllowanceAmount?.map(

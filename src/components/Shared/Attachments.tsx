@@ -2,7 +2,7 @@ import { XIcon } from '@heroicons/react/outline'
 import getIPFSLink from '@lib/getIPFSLink'
 import imagekitURL from '@lib/imagekitURL'
 import clsx from 'clsx'
-import React from 'react'
+import React, { FC } from 'react'
 
 const getGridRows = (attachments: number) => {
   if (attachments === 1) {
@@ -20,7 +20,7 @@ interface Props {
   isNew?: boolean
 }
 
-const Attachments: React.FC<Props> = ({
+const Attachments: FC<Props> = ({
   attachments,
   setAttachments,
   isNew = false
@@ -56,7 +56,7 @@ const Attachments: React.FC<Props> = ({
               'video/mp4' ? (
                 <video
                   controls
-                  className="object-cover bg-gray-100 rounded-lg border dark:bg-gray-800 dark:border-gray-800"
+                  className="object-cover bg-gray-100 border rounded-lg dark:bg-gray-800 dark:border-gray-800"
                 >
                   <source
                     src={
@@ -69,7 +69,7 @@ const Attachments: React.FC<Props> = ({
                 </video>
               ) : (
                 <img
-                  className="object-cover bg-gray-100 rounded-lg border dark:bg-gray-800 dark:border-gray-800"
+                  className="object-cover bg-gray-100 border rounded-lg dark:bg-gray-800 dark:border-gray-800"
                   src={
                     isNew
                       ? attachment.item

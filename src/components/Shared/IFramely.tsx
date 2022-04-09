@@ -1,13 +1,13 @@
 import { Card } from '@components/UI/Card'
 import imagekitURL from '@lib/imagekitURL'
 import trackEvent from '@lib/trackEvent'
-import React, { useEffect, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 
 interface Props {
   url: string
 }
 
-const IFramely: React.FC<Props> = ({ url }) => {
+const IFramely: FC<Props> = ({ url }) => {
   const [error, setError] = useState<boolean>(false)
   const [isLoaded, setIsLoaded] = useState(false)
   const [data, setData] = useState<any>()

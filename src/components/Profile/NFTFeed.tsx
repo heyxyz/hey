@@ -7,7 +7,7 @@ import { Spinner } from '@components/UI/Spinner'
 import { Nft, PaginatedResultInfo, Profile } from '@generated/types'
 import { CollectionIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
-import React, { useState } from 'react'
+import React, { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import { CHAIN_ID, IS_MAINNET } from 'src/constants'
 import { chain } from 'wagmi'
@@ -36,7 +36,7 @@ interface Props {
   profile: Profile
 }
 
-const NFTFeed: React.FC<Props> = ({ profile }) => {
+const NFTFeed: FC<Props> = ({ profile }) => {
   const [nfts, setNfts] = useState<Nft[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
   const { data, loading, error, fetchMore } = useQuery(PROFILE_NFT_FEED_QUERY, {

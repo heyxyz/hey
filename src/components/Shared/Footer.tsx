@@ -1,8 +1,8 @@
 import AppContext from '@components/utils/AppContext'
 import Link from 'next/link'
-import { useContext } from 'react'
+import { FC, useContext } from 'react'
 
-const Footer: React.FC = () => {
+const Footer: FC = () => {
   const { staffMode } = useContext(AppContext)
 
   return (

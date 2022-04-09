@@ -1,4 +1,5 @@
 import clsx from 'clsx'
+import { FC } from 'react'
 
 interface Props {
   className?: string
@@ -6,7 +7,7 @@ interface Props {
   size?: 'xs' | 'sm' | 'md' | 'lg'
 }
 
-export const Spinner: React.FC<Props> = ({
+export const Spinner: FC<Props> = ({
   className = '',
   variant = 'primary',
   size = 'md'
