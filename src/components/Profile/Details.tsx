@@ -14,6 +14,7 @@ import {
   PencilAltIcon
 } from '@heroicons/react/outline'
 import { BadgeCheckIcon } from '@heroicons/react/solid'
+import consoleLog from '@lib/consoleLog'
 import formatAddress from '@lib/formatAddress'
 import getAvatar from '@lib/getAvatar'
 import isStaff from '@lib/isStaff'
@@ -69,6 +70,11 @@ const Details: React.FC<Props> = ({ profile }) => {
       skip: !profile || !currentUser,
       onCompleted(data) {
         setFollowing(data?.doesFollow[1]?.follows)
+        consoleLog(
+          'Fetch',
+          '#8b5cf6',
+          `Fetched has followed check Profile:${profile?.id} Following:${following}`
+        )
       }
     }
   )
