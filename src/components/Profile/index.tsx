@@ -1,6 +1,7 @@
 import { gql, useQuery } from '@apollo/client'
 import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout'
 import SEO from '@components/utils/SEO'
+import consoleLog from '@lib/consoleLog'
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
@@ -63,7 +64,14 @@ const ViewProfile: NextPage = () => {
   )
   const { data, loading, error } = useQuery(PROFILE_QUERY, {
     variables: { request: { handles: username } },
-    skip: !username
+    skip: !username,
+    onCompleted(data) {
+      consoleLog(
+        'Fetch',
+        '#8b5cf6',
+        `Fetched a profile Profile:${data?.profiles?.items[0]?.id}`
+      )
+    }
   })
 
   if (error) return <Custom500 />
