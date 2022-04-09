@@ -1,6 +1,6 @@
 import { Wallet } from '@generated/types'
 import { ExternalLinkIcon } from '@heroicons/react/outline'
-import { formatUsername } from '@lib/formatUsername'
+import { formatAddress } from '@lib/formatAddress'
 import { imagekitURL } from '@lib/imagekitURL'
 import React from 'react'
 import { POLYGONSCAN_URL } from 'src/constants'
@@ -31,10 +31,10 @@ const WalletProfile: React.FC<Props> = ({ wallet }) => {
         />
         <div>
           <div className="flex gap-1.5 items-center">
-            <div>{formatUsername(wallet?.address)}</div>
+            <div>{formatAddress(wallet?.address)}</div>
             <ExternalLinkIcon className="w-4 h-4" />
           </div>
-          <Slug className="text-sm" slug={formatUsername(wallet?.address)} />
+          <Slug className="text-sm" slug={formatAddress(wallet?.address)} />
         </div>
       </a>
     </div>

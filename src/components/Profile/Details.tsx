@@ -14,7 +14,7 @@ import {
   PencilAltIcon
 } from '@heroicons/react/outline'
 import { BadgeCheckIcon } from '@heroicons/react/solid'
-import { formatUsername } from '@lib/formatUsername'
+import { formatAddress } from '@lib/formatAddress'
 import { getAvatar } from '@lib/getAvatar'
 import { isStaff } from '@lib/isStaff'
 import { isVerified } from '@lib/isVerified'
@@ -106,9 +106,9 @@ const Details: React.FC<Props> = ({ profile }) => {
         </div>
         <div className="flex items-center space-x-3">
           {profile?.name ? (
-            <Slug slug={formatUsername(profile?.handle)} prefix="@" />
+            <Slug slug={profile?.handle} prefix="@" />
           ) : (
-            <Slug slug={formatUsername(profile?.ownedBy)} />
+            <Slug slug={formatAddress(profile?.ownedBy)} />
           )}
           {currentUser && currentUser.id !== profile.id && (
             <DoesFollow followData={followData?.doesFollow[0]} />

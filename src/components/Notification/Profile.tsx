@@ -1,5 +1,5 @@
 import { Notification } from '@generated/types'
-import { formatUsername } from '@lib/formatUsername'
+import { formatAddress } from '@lib/formatAddress'
 import { getAvatar } from '@lib/getAvatar'
 import { imagekitURL } from '@lib/imagekitURL'
 import Link from 'next/link'
@@ -72,7 +72,7 @@ export const NotificationProfileName: React.FC<Props> = ({ notification }) => {
           target: '_self'
         }
       : {
-          name: formatUsername(wallet?.address),
+          name: formatAddress(wallet?.address),
           url: `${POLYGONSCAN_URL}/address/${wallet?.address}`,
           target: '_blank'
         }
