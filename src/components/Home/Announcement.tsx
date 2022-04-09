@@ -3,10 +3,7 @@ import { BeakerIcon, CurrencyDollarIcon } from '@heroicons/react/outline'
 
 const Announcement: React.FC = () => {
   return (
-    <Card
-      dataCy="beta-announcement"
-      className="mb-4 bg-yellow-50 dark:bg-yellow-900 !border-yellow-600"
-    >
+    <Card className="mb-4 bg-yellow-50 dark:bg-yellow-900 !border-yellow-600">
       <CardBody className="space-y-2.5 text-yellow-600">
         <div className="flex items-center space-x-2 font-bold">
           <BeakerIcon className="w-5 h-5" />
