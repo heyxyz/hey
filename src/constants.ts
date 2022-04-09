@@ -62,6 +62,7 @@ export const DEFAULT_COLLECT_TOKEN = IS_MAINNET
   ? '0x9c3C9283D3e44854697Cd22D3Faa240Cfb032889'
   : '0x9c3C9283D3e44854697Cd22D3Faa240Cfb032889'
 
+export const MUMBAI_FAUCET_URL = 'https://faucet.polygon.technology'
 export const STATUS_PAGE_URL = 'https://status.lenster.xyz'
 export const GITLAB_URL = 'https://gitlab.com/lenster/lenster'
 export const VERCEL_REF_URL =
