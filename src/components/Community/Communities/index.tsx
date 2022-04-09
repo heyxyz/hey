@@ -4,6 +4,7 @@ import { PageLoading } from '@components/UI/PageLoading'
 import SEO from '@components/utils/SEO'
 import { CommunityFields } from '@gql/CommunityFields'
 import { ChartBarIcon, FireIcon } from '@heroicons/react/outline'
+import consoleLog from '@lib/consoleLog'
 import { NextPage } from 'next'
 import React from 'react'
 import Custom500 from 'src/pages/500'
@@ -48,6 +49,13 @@ const Communities: NextPage = () => {
         publicationTypes: ['POST'],
         limit: 8
       }
+    },
+    onCompleted() {
+      consoleLog(
+        'Fetch',
+        '#8b5cf6',
+        `Fetched 10 TOP_COMMENTED and TOP_COLLECTED communities`
+      )
     }
   })
 
