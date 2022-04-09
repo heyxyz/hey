@@ -150,7 +150,7 @@ const Create: React.FC = () => {
       toast.error(WRONG_NETWORK)
     } else {
       setIsUploading(true)
-      const { path } = await uploadToIPFS({
+      const path = await uploadToIPFS({
         version: '1.0.0',
         metadata_id: uuidv4(),
         description: description,
