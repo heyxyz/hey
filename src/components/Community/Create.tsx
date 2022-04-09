@@ -12,6 +12,7 @@ import { Input } from '@components/UI/Input'
 import { Spinner } from '@components/UI/Spinner'
 import { TextArea } from '@components/UI/TextArea'
 import AppContext from '@components/utils/AppContext'
+import SEO from '@components/utils/SEO'
 import { CreatePostBroadcastItemResult } from '@generated/types'
 import { PlusIcon } from '@heroicons/react/outline'
 import { omit } from '@lib/omit'
@@ -191,6 +192,7 @@ const Create: React.FC = () => {
 
   return (
     <GridLayout>
+      <SEO title="Create Community • Lenster" />
       <GridItemFour>
         <SettingsHelper
           heading="Create community"
