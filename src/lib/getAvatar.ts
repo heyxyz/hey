@@ -1,6 +1,6 @@
 import { Profile } from '@generated/types'
 
-import { getIPFSLink } from './getIPFSLink'
+import getIPFSLink from './getIPFSLink'
 import { imagekitURL } from './imagekitURL'
 
 const getAvatar = (profile: Profile) => {
