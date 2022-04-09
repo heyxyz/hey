@@ -1,6 +1,7 @@
 import { gql, useQuery } from '@apollo/client'
 import { Profile } from '@generated/types'
 import { MinimalProfileFields } from '@gql/MinimalProfileFields'
+import consoleLog from '@lib/consoleLog'
 import Cookies from 'js-cookie'
 import Head from 'next/head'
 import { useTheme } from 'next-themes'
@@ -37,7 +38,14 @@ const SiteLayout: React.FC<Props> = ({ children }) => {
   const [{ data: accountData }] = useAccount()
   const { data, loading, error } = useQuery(CURRENT_USER_QUERY, {
     variables: { ownedBy: accountData?.address },
-    skip: !selectedProfile || !refreshToken
+    skip: !selectedProfile || !refreshToken,
+    onCompleted(data) {
+      consoleLog(
+        'Fetch',
+        '#8b5cf6',
+        `Fetched ${data?.profiles?.items?.length} owned profiles`
+      )
+    }
   })
   const profiles: Profile[] = data?.profiles?.items
     ?.slice()

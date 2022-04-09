@@ -12,6 +12,7 @@ import { CommentFields } from '@gql/CommentFields'
 import { MirrorFields } from '@gql/MirrorFields'
 import { PostFields } from '@gql/PostFields'
 import { CollectionIcon } from '@heroicons/react/outline'
+import consoleLog from '@lib/consoleLog'
 import React, { useContext, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 
@@ -58,6 +59,7 @@ const Feed: React.FC = () => {
       onCompleted(data) {
         setPageInfo(data?.timeline?.pageInfo)
         setPublications(data?.timeline?.items)
+        consoleLog('Fetch', '#8b5cf6', `Fetched first 10 timeline publications`)
       }
     }
   )
@@ -76,6 +78,11 @@ const Feed: React.FC = () => {
       }).then(({ data }: any) => {
         setPageInfo(data?.timeline?.pageInfo)
         setPublications([...publications, ...data?.timeline?.items])
+        consoleLog(
+          'Fetch',
+          '#8b5cf6',
+          `Fetched next 10 timeline publications Next:${pageInfo?.next}`
+        )
       })
     }
   })
