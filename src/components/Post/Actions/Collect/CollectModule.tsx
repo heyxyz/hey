@@ -16,7 +16,7 @@ import {
   UserIcon,
   UsersIcon
 } from '@heroicons/react/outline'
-import { formatUsername } from '@lib/formatUsername'
+import { formatAddress } from '@lib/formatAddress'
 import { getModule } from '@lib/getModule'
 import { getTokenImage } from '@lib/getTokenImage'
 import { omit } from '@lib/omit'
@@ -282,7 +282,7 @@ const CollectModule: React.FC<Props> = ({ post }) => {
                   className="font-bold text-gray-600"
                   rel="noreferrer"
                 >
-                  {formatUsername(collectModule.recipient)}
+                  {formatAddress(collectModule.recipient)}
                 </a>
               </div>
             </div>

@@ -1,7 +1,7 @@
 import { Card, CardBody } from '@components/UI/Card'
 import { Profile } from '@generated/types'
 import { AtSymbolIcon, CashIcon, HashtagIcon } from '@heroicons/react/outline'
-import { formatUsername } from '@lib/formatUsername'
+import { formatAddress } from '@lib/formatAddress'
 import React from 'react'
 import CopyToClipboard from 'react-copy-to-clipboard'
 import toast from 'react-hot-toast'
@@ -48,7 +48,7 @@ const ProfileMod: React.FC<Props> = ({ profile }) => {
             icon={<CashIcon className="w-4 h-4 text-gray-500" />}
             value={profile?.ownedBy}
           >
-            {formatUsername(profile?.ownedBy)}
+            {formatAddress(profile?.ownedBy)}
           </MetaDetails>
           <MetaDetails
             icon={<AtSymbolIcon className="w-4 h-4 text-gray-500" />}
