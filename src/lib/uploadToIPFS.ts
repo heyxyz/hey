@@ -1,11 +1,15 @@
-import { create } from 'ipfs-http-client'
-
-const client = create({
-  host: 'ipfs.infura.io',
-  port: 5001,
-  protocol: 'https'
-})
-
 export async function uploadToIPFS(data: any) {
-  return await client.add(JSON.stringify(data))
+  const formData = new FormData()
+  formData.append('file', data)
+  try {
+    const upload = await fetch('https://ipfs.infura.io:5001/api/v0/add', {
+      method: 'POST',
+      body: formData
+    })
+    const { Hash }: { Hash: string } = await upload.json()
+
+    return `https://ipfs.infura.io/ipfs/${Hash}`
+  } catch (e) {
+    console.log('IPFS Upload error: ', e)
+  }
 }
