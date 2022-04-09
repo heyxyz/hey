@@ -1,6 +1,8 @@
 import LensHubProxy from '@abis/LensHubProxy.json'
 import { gql, useMutation } from '@apollo/client'
+import Slug from '@components/Shared/Slug'
 import { Button } from '@components/UI/Button'
+import { Card, CardBody } from '@components/UI/Card'
 import { Spinner } from '@components/UI/Spinner'
 import { Tooltip } from '@components/UI/Tooltip'
 import AppContext from '@components/utils/AppContext'
@@ -14,7 +16,7 @@ import {
   UserIcon,
   UsersIcon
 } from '@heroicons/react/outline'
-import { formatUsername } from '@lib/formatUsername'
+import { formatAddress } from '@lib/formatAddress'
 import { getModule } from '@lib/getModule'
 import { getTokenImage } from '@lib/getTokenImage'
 import { omit } from '@lib/omit'
@@ -24,13 +26,14 @@ import dayjs from 'dayjs'
 import React, { useContext } from 'react'
 import toast from 'react-hot-toast'
 import {
+  CHAIN_ID,
   CONNECT_WALLET,
   ERROR_MESSAGE,
   LENSHUB_PROXY,
+  POLYGONSCAN_URL,
   WRONG_NETWORK
 } from 'src/constants'
 import {
-  chain,
   useAccount,
   useContractWrite,
   useNetwork,
@@ -155,7 +158,7 @@ const CollectModule: React.FC<Props> = ({ post }) => {
   const createCollect = async () => {
     if (!account?.address) {
       toast.error(CONNECT_WALLET)
-    } else if (network.chain?.id !== chain.polygonTestnetMumbai.id) {
+    } else if (network.chain?.id !== CHAIN_ID) {
       toast.error(WRONG_NETWORK)
     } else if (
       // @ts-ignore
@@ -184,6 +187,18 @@ const CollectModule: React.FC<Props> = ({ post }) => {
           </Tooltip>
         ))}
       <div className="p-5 space-y-3">
+        {collectModule?.followerOnly && (
+          <Card>
+            <CardBody className="flex items-center space-x-1 text-sm font-bold text-gray-500">
+              <UsersIcon className="w-4 h-4 text-brand-500" />
+              <div>
+                <span>Only </span>
+                <Slug slug={`${post.profile.handle}'s`} prefix="@" />
+                <span> followers can collect</span>
+              </div>
+            </CardBody>
+          </Card>
+        )}
         <div className="space-y-1.5">
           <div className="space-y-1.5">
             {post?.metadata?.name && (
@@ -262,12 +277,12 @@ const CollectModule: React.FC<Props> = ({ post }) => {
               <div className="space-x-1.5">
                 <span>Recipient:</span>
                 <a
-                  href={`https://mumbai.polygonscan.com/address/${collectModule.recipient}`}
+                  href={`${POLYGONSCAN_URL}/address/${collectModule.recipient}`}
                   target="_blank"
                   className="font-bold text-gray-600"
                   rel="noreferrer"
                 >
-                  {formatUsername(collectModule.recipient)}
+                  {formatAddress(collectModule.recipient)}
                 </a>
               </div>
             </div>

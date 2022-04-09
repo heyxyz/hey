@@ -9,16 +9,16 @@ import { CashIcon } from '@heroicons/react/outline'
 import { omit } from '@lib/omit'
 import { splitSignature } from '@lib/splitSignature'
 import { trackEvent } from '@lib/trackEvent'
-import React, { useContext } from 'react'
+import React, { Dispatch, useContext } from 'react'
 import toast from 'react-hot-toast'
 import {
+  CHAIN_ID,
   CONNECT_WALLET,
   ERROR_MESSAGE,
   LENSHUB_PROXY,
   WRONG_NETWORK
 } from 'src/constants'
 import {
-  chain,
   useAccount,
   useContractWrite,
   useNetwork,
@@ -57,9 +57,11 @@ const CREATE_COLLECT_TYPED_DATA_MUTATION = gql`
 
 interface Props {
   fund: LensterPost
+  setRevenue: Dispatch<number>
+  revenue: number
 }
 
-const Fund: React.FC<Props> = ({ fund }) => {
+const Fund: React.FC<Props> = ({ fund, setRevenue, revenue }) => {
   // @ts-ignore
   const collectModule: LensterCollectModule = fund?.collectModule
   const { currentUser } = useContext(AppContext)
@@ -107,6 +109,7 @@ const Fund: React.FC<Props> = ({ fund }) => {
 
             write({ args: inputStruct }).then(({ error }: { error: any }) => {
               if (!error) {
+                setRevenue(revenue + parseFloat(collectModule?.amount?.value))
                 toast.success('Successfully funded!')
                 trackEvent('fund a crowdfund')
               } else {
@@ -136,7 +139,7 @@ const Fund: React.FC<Props> = ({ fund }) => {
   const createCollect = async () => {
     if (!account?.address) {
       toast.error(CONNECT_WALLET)
-    } else if (network.chain?.id !== chain.polygonTestnetMumbai.id) {
+    } else if (network.chain?.id !== CHAIN_ID) {
       toast.error(WRONG_NETWORK)
     } else {
       createCollectTypedData({

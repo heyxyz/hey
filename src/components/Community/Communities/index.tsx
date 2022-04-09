@@ -2,10 +2,11 @@ import { gql, useQuery } from '@apollo/client'
 import { GridItemSix, GridLayout } from '@components/GridLayout'
 import { PageLoading } from '@components/UI/PageLoading'
 import SEO from '@components/utils/SEO'
-import { CommunityFragment } from '@gql/CommunityFragment'
+import { CommunityFields } from '@gql/CommunityFields'
 import { ChartBarIcon, FireIcon } from '@heroicons/react/outline'
 import { NextPage } from 'next'
 import React from 'react'
+import Custom500 from 'src/pages/500'
 
 import List from './List'
 
@@ -17,23 +18,23 @@ const COMMUNITY_QUERY = gql`
     topCommented: explorePublications(request: $topCommented) {
       items {
         ... on Post {
-          ...CommunityFragment
+          ...CommunityFields
         }
       }
     }
     topCollected: explorePublications(request: $topCollected) {
       items {
         ... on Post {
-          ...CommunityFragment
+          ...CommunityFields
         }
       }
     }
   }
-  ${CommunityFragment}
+  ${CommunityFields}
 `
 
 const Communities: NextPage = () => {
-  const { data, loading } = useQuery(COMMUNITY_QUERY, {
+  const { data, loading, error } = useQuery(COMMUNITY_QUERY, {
     variables: {
       topCommented: {
         sources: 'Lenster Community',
@@ -50,10 +51,11 @@ const Communities: NextPage = () => {
     }
   })
 
+  if (error) return <Custom500 />
   if (loading || !data) return <PageLoading message="Loading community" />
 
   return (
-    <GridLayout className="pt-6">
+    <GridLayout>
       <SEO title="Communities • Lenster" />
       <GridItemSix>
         <div className="flex items-center mb-2 space-x-1.5 font-bold text-gray-500">

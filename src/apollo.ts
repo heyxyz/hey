@@ -4,10 +4,10 @@ import {
   HttpLink,
   InMemoryCache
 } from '@apollo/client'
-import { lensStylePagination } from '@lib/lensStylePagination'
+import result from '@generated/types'
 import jwtDecode from 'jwt-decode'
 
-import { API_URL } from './constants'
+import { API_URL, ERROR_MESSAGE } from './constants'
 
 const REFRESH_AUTHENTICATION_MUTATION = `
   mutation Refresh($request: RefreshRequest!) {
@@ -67,6 +67,7 @@ const authLink = new ApolloLink((operation, forward) => {
           localStorage.setItem('accessToken', res?.data?.refresh?.accessToken)
           localStorage.setItem('refreshToken', res?.data?.refresh?.refreshToken)
         })
+        .catch(() => console.log(ERROR_MESSAGE))
     }
 
     return forward(operation)
@@ -75,34 +76,7 @@ const authLink = new ApolloLink((operation, forward) => {
 
 const client = new ApolloClient({
   link: authLink.concat(httpLink),
-  cache: new InMemoryCache({
-    typePolicies: {
-      Query: {
-        fields: {
-          timeline: lensStylePagination(['request', ['profileId']]),
-          publications: lensStylePagination([
-            'request',
-            ['profileId', 'commentsOf', 'publicationTypes', 'limit']
-          ]),
-          explorePublications: lensStylePagination([
-            'request',
-            ['sortCriteria', 'sources']
-          ]),
-          followers: lensStylePagination(['request', ['profileId']]),
-          following: lensStylePagination(['request', ['address']]),
-          whoCollectedPublication: lensStylePagination([
-            'request',
-            ['publicationId']
-          ]),
-          nfts: lensStylePagination(['request', ['ownerAddress', 'chainIds']]),
-          notifications: lensStylePagination([
-            'request',
-            ['profileId', 'limit']
-          ])
-        }
-      }
-    }
-  })
+  cache: new InMemoryCache({ possibleTypes: result.possibleTypes })
 })
 
 export default client

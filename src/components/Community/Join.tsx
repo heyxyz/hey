@@ -11,13 +11,13 @@ import { trackEvent } from '@lib/trackEvent'
 import React, { Dispatch } from 'react'
 import toast from 'react-hot-toast'
 import {
+  CHAIN_ID,
   CONNECT_WALLET,
   ERROR_MESSAGE,
   LENSHUB_PROXY,
   WRONG_NETWORK
 } from 'src/constants'
 import {
-  chain,
   useAccount,
   useContractWrite,
   useNetwork,
@@ -114,7 +114,7 @@ const Join: React.FC<Props> = ({ community, setJoined, showJoin = true }) => {
                   'execution reverted: SafeERC20: low-level call failed'
                 ) {
                   toast.error(
-                    `Please allow Empty Collect module in allowance settings`
+                    `Please allow Free Collect module in allowance settings`
                   )
                 } else {
                   toast.error(error?.data?.message)
@@ -135,7 +135,7 @@ const Join: React.FC<Props> = ({ community, setJoined, showJoin = true }) => {
   const createCollect = async () => {
     if (!account?.address) {
       toast.error(CONNECT_WALLET)
-    } else if (network.chain?.id !== chain.polygonTestnetMumbai.id) {
+    } else if (network.chain?.id !== CHAIN_ID) {
       toast.error(WRONG_NETWORK)
     } else {
       createCollectTypedData({

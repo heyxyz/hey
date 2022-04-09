@@ -26,7 +26,7 @@ import Slug from '../Slug'
 import SwitchNetwork from '../SwitchNetwork'
 import Login from './Login'
 
-const NextLink = ({ href, children, ...rest }: Record<string, any>) => (
+export const NextLink = ({ href, children, ...rest }: Record<string, any>) => (
   <Link href={href} passHref>
     <a {...rest}>{children}</a>
   </Link>
@@ -226,7 +226,7 @@ const MenuItems: React.FC<Props> = ({ indexerData }) => {
                       💻
                     </button>
                   </div>
-                  {isStaff(currentUser.handle) && (
+                  {isStaff(currentUser.id) && (
                     <>
                       <div className="border-b dark:border-gray-800" />
                       <Menu.Item

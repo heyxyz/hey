@@ -9,7 +9,6 @@ import { Spinner } from '@components/UI/Spinner'
 import { PlusIcon } from '@heroicons/react/outline'
 import { trackEvent } from '@lib/trackEvent'
 import { uploadAssetsToIPFS } from '@lib/uploadAssetsToIPFS'
-import { uploadToIPFS } from '@lib/uploadToIPFS'
 import React, { useState } from 'react'
 import { useNetwork } from 'wagmi'
 import { object, string } from 'zod'
@@ -77,12 +76,6 @@ const Create: React.FC = () => {
           onSubmit={async ({ handle }) => {
             setIsUploading(true)
             const username = handle.toLowerCase()
-            const { path } = await uploadToIPFS({
-              name: `${username}'s follower NFT`,
-              description: `${username}'s last publication will show within this NFT`,
-              animation_url: `https://nft.lenster.xyz/follow?handle=${username}&isTestNet=1`,
-              image: 'QmUXU4mCE3sxmfuFFFzSrs5VH5yNKjvVewkLtd6hBhcHCn'
-            }).finally(() => setIsUploading(false))
 
             trackEvent('signup')
             createProfile({
@@ -91,8 +84,7 @@ const Create: React.FC = () => {
                   handle: username,
                   profilePictureUri: avatar
                     ? avatar
-                    : `https://avatar.tobi.sh/${username}.svg`
-                  // followNFTURI: `https://ipfs.infura.io/ipfs/${path}`
+                    : `https://avatar.tobi.sh/${username}.png`
                 }
               }
             })

@@ -50,6 +50,7 @@ We encourage you to contribute to Lenster! Please check out the [Contributing gu
 ### Using Local Environment
 
 ```sh
+cp .env.example .env
 yarn
 yarn dev
 ```

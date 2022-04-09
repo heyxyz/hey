@@ -1,9 +1,7 @@
 import LensHubProxy from '@abis/LensHubProxy.json'
 import { gql, useMutation } from '@apollo/client'
 import Attachments from '@components/Shared/Attachments'
-import Giphy from '@components/Shared/Giphy'
 import IndexStatus from '@components/Shared/IndexStatus'
-import SelectReferenceModule from '@components/Shared/SelectReferenceModule'
 import SwitchNetwork from '@components/Shared/SwitchNetwork'
 import { Button } from '@components/UI/Button'
 import { Card } from '@components/UI/Card'
@@ -25,9 +23,11 @@ import { omit } from '@lib/omit'
 import { splitSignature } from '@lib/splitSignature'
 import { trackEvent } from '@lib/trackEvent'
 import { uploadToIPFS } from '@lib/uploadToIPFS'
-import { useContext, useState } from 'react'
+import dynamic from 'next/dynamic'
+import { Dispatch, useContext, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
+  CHAIN_ID,
   CONNECT_WALLET,
   ERROR_MESSAGE,
   LENSHUB_PROXY,
@@ -35,7 +35,6 @@ import {
 } from 'src/constants'
 import { v4 as uuidv4 } from 'uuid'
 import {
-  chain,
   useAccount,
   useContractWrite,
   useNetwork,
@@ -43,8 +42,24 @@ import {
 } from 'wagmi'
 import { object, string } from 'zod'
 
-import Attachment from '../../Shared/Attachment'
-import SelectCollectModule from '../../Shared/SelectCollectModule'
+const Attachment = dynamic(() => import('../../Shared/Attachment'), {
+  loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
+})
+const Giphy = dynamic(() => import('../../Shared/Giphy'), {
+  loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
+})
+const SelectCollectModule = dynamic(
+  () => import('../../Shared/SelectCollectModule'),
+  {
+    loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
+  }
+)
+const SelectReferenceModule = dynamic(
+  () => import('../../Shared/SelectReferenceModule'),
+  {
+    loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
+  }
+)
 
 export const CREATE_POST_TYPED_DATA_MUTATION = gql`
   mutation CreatePostTypedData($request: CreatePublicPostRequest!) {
@@ -86,10 +101,16 @@ const newPostSchema = object({
 })
 
 interface Props {
-  refetch: any
+  refetch?: any
+  setShowModal?: Dispatch<boolean>
+  hideCard?: boolean
 }
 
-const NewPost: React.FC<Props> = ({ refetch }) => {
+const NewPost: React.FC<Props> = ({
+  refetch,
+  setShowModal,
+  hideCard = false
+}) => {
   const form = useZodForm({
     schema: newPostSchema
   })
@@ -179,7 +200,7 @@ const NewPost: React.FC<Props> = ({ refetch }) => {
   const createPost = async (post: string) => {
     if (!account?.address) {
       toast.error(CONNECT_WALLET)
-    } else if (network.chain?.id !== chain.polygonTestnetMumbai.id) {
+    } else if (network.chain?.id !== CHAIN_ID) {
       toast.error(WRONG_NETWORK)
     } else {
       setIsUploading(true)
@@ -231,7 +252,7 @@ const NewPost: React.FC<Props> = ({ refetch }) => {
   }
 
   return (
-    <Card>
+    <Card className={hideCard ? 'border-0 !shadow-none !bg-transparent' : ''}>
       <div className="px-5 pt-5 pb-3">
         <Form
           form={form}
@@ -240,18 +261,16 @@ const NewPost: React.FC<Props> = ({ refetch }) => {
             createPost(post)
           }}
         >
-          {error && (
-            <ErrorMessage
-              className="mb-3"
-              title="Transaction failed!"
-              error={error}
-            />
-          )}
+          <ErrorMessage
+            className="mb-3"
+            title="Transaction failed!"
+            error={error}
+          />
           <TextArea
             placeholder="What's happening?"
             {...form.register('post')}
           />
-          <div className="block sm:flex items-center">
+          <div className="block items-center sm:flex">
             <div className="flex items-center space-x-4">
               <Attachment
                 attachments={attachments}
@@ -269,9 +288,10 @@ const NewPost: React.FC<Props> = ({ refetch }) => {
                 setOnlyFollowers={setOnlyFollowers}
               />
             </div>
-            <div className="flex items-center ml-auto space-x-2 pt-2 sm:pt-0">
+            <div className="flex items-center pt-2 ml-auto space-x-2 sm:pt-0">
               {data?.hash && (
                 <IndexStatus
+                  setShowModal={setShowModal}
                   refetch={refetch}
                   type="Post"
                   txHash={data?.hash}

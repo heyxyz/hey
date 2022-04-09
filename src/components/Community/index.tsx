@@ -1,11 +1,13 @@
 import { gql, useQuery } from '@apollo/client'
 import Feed from '@components/Comment/Feed'
 import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout'
-import { CommunityFragment } from '@gql/CommunityFragment'
+import SEO from '@components/utils/SEO'
+import { CommunityFields } from '@gql/CommunityFields'
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import React from 'react'
 import Custom404 from 'src/pages/404'
+import Custom500 from 'src/pages/500'
 
 import Details from './Details'
 import CommunityPageShimmer from './Shimmer'
@@ -14,22 +16,23 @@ const COMMUNITY_QUERY = gql`
   query Post($request: PublicationQueryRequest!) {
     publication(request: $request) {
       ... on Post {
-        ...CommunityFragment
+        ...CommunityFields
       }
     }
   }
-  ${CommunityFragment}
+  ${CommunityFields}
 `
 
 const ViewCommunity: NextPage = () => {
   const {
     query: { id }
   } = useRouter()
-  const { data, loading } = useQuery(COMMUNITY_QUERY, {
+  const { data, loading, error } = useQuery(COMMUNITY_QUERY, {
     variables: { request: { publicationId: id } },
     skip: !id
   })
 
+  if (error) return <Custom500 />
   if (loading || !data) return <CommunityPageShimmer />
   if (
     !data.publication ||
@@ -38,7 +41,8 @@ const ViewCommunity: NextPage = () => {
     return <Custom404 />
 
   return (
-    <GridLayout className="pt-6">
+    <GridLayout>
+      <SEO title={`${data?.publication?.metadata?.name} • Lenster`} />
       <GridItemFour>
         <Details community={data.publication} />
       </GridItemFour>

@@ -71,26 +71,25 @@ const Module: React.FC<Props> = ({ module }) => {
 
   return (
     <Card key={module.module}>
-      {error && (
-        <ErrorMessage
-          className="mx-5 mt-5"
-          title={ERROR_MESSAGE}
-          error={error}
-        />
-      )}
+      <ErrorMessage className="mx-5 mt-5" title={ERROR_MESSAGE} error={error} />
       <CardBody className="flex justify-between items-center">
-        <div>
+        <div className="overflow-hidden mr-1.5">
           <div className="flex items-center space-x-3">
             <div className="text-brand-500">
               <GetModuleIcon module={module.module} size={4} />
             </div>
-            <div className="font-bold">{getModule(module.module).name}</div>
+            <div className="font-bold whitespace-nowrap">
+              {getModule(module.module).name}
+            </div>
           </div>
-          <div className="text-sm text-gray-500">{module.contractAddress}</div>
+          <div className="text-sm text-gray-500 truncate">
+            {module.contractAddress}
+          </div>
         </div>
         {allowed ? (
           <Button
             variant="success"
+            className="!space-x-0"
             icon={
               queryLoading || transactionLoading ? (
                 <Spinner variant="success" size="xs" />
@@ -102,11 +101,12 @@ const Module: React.FC<Props> = ({ module }) => {
               handleAllowance(module.currency, '10000000000', module.module)
             }
           >
-            Allow
+            <span className="hidden ml-1.5 md:inline-block">Allow</span>
           </Button>
         ) : (
           <Button
             variant="warning"
+            className="!space-x-0"
             icon={
               queryLoading || transactionLoading ? (
                 <Spinner variant="warning" size="xs" />
@@ -116,7 +116,7 @@ const Module: React.FC<Props> = ({ module }) => {
             }
             onClick={() => handleAllowance(module.currency, '0', module.module)}
           >
-            Revoke
+            <span className="hidden ml-1.5 md:inline-block">Revoke</span>
           </Button>
         )}
       </CardBody>

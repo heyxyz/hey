@@ -7,12 +7,13 @@ import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { Spinner } from '@components/UI/Spinner'
 import AppContext from '@components/utils/AppContext'
 import { LensterPost } from '@generated/lenstertypes'
-import { CommentFragment } from '@gql/CommentFragment'
-import { MirrorFragment } from '@gql/MirrorFragment'
-import { PostFragment } from '@gql/PostFragment'
+import { PaginatedResultInfo } from '@generated/types'
+import { CommentFields } from '@gql/CommentFields'
+import { MirrorFields } from '@gql/MirrorFields'
+import { PostFields } from '@gql/PostFields'
 import { CollectionIcon } from '@heroicons/react/outline'
-import React, { useContext } from 'react'
-import useInView from 'react-cool-inview'
+import React, { useContext, useState } from 'react'
+import { useInView } from 'react-cool-inview'
 
 const HOME_FEED_QUERY = gql`
   query HomeFeed($request: TimelineRequest!) {
@@ -24,13 +25,13 @@ const HOME_FEED_QUERY = gql`
               handle
             }
           }
-          ...PostFragment
+          ...PostFields
         }
         ... on Comment {
-          ...CommentFragment
+          ...CommentFields
         }
         ... on Mirror {
-          ...MirrorFragment
+          ...MirrorFields
         }
       }
       pageInfo {
@@ -38,24 +39,29 @@ const HOME_FEED_QUERY = gql`
       }
     }
   }
-  ${PostFragment}
-  ${MirrorFragment}
-  ${CommentFragment}
+  ${PostFields}
+  ${MirrorFields}
+  ${CommentFields}
 `
 
 const Feed: React.FC = () => {
   const { currentUser } = useContext(AppContext)
+  const [publications, setPublications] = useState<LensterPost[]>([])
+  const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
   const { data, loading, error, fetchMore, refetch } = useQuery(
     HOME_FEED_QUERY,
     {
       variables: {
         request: { profileId: currentUser?.id, limit: 10 }
       },
-      skip: !currentUser?.id
+      skip: !currentUser?.id,
+      onCompleted(data) {
+        setPageInfo(data?.timeline?.pageInfo)
+        setPublications(data?.timeline?.items)
+      }
     }
   )
 
-  const pageInfo = data?.timeline?.pageInfo
   const { observe } = useInView({
     threshold: 1,
     onEnter: () => {
@@ -67,35 +73,37 @@ const Feed: React.FC = () => {
             limit: 10
           }
         }
+      }).then(({ data }: any) => {
+        setPageInfo(data?.timeline?.pageInfo)
+        setPublications([...publications, ...data?.timeline?.items])
       })
     }
   })
 
-  if (loading) return <PostsShimmer />
-
   return (
     <>
       {currentUser && <NewPost refetch={refetch} />}
-      {error && <ErrorMessage title="Failed to load home feed" error={error} />}
+      {loading && <PostsShimmer />}
       {data?.timeline?.items?.length === 0 && (
         <EmptyState
-          message={
-            <div>
-              <span>No posts yet!</span>
-            </div>
-          }
+          message={<div>No posts yet!</div>}
           icon={<CollectionIcon className="w-8 h-8 text-brand-500" />}
         />
       )}
-      <div className="space-y-3">
-        {data?.timeline?.items?.map((post: LensterPost, index: number) => (
-          <SinglePost key={`${post.id}_${index}`} post={post} />
-        ))}
-      </div>
-      {pageInfo?.next && (
-        <span ref={observe} className="flex justify-center p-5">
-          <Spinner size="sm" />
-        </span>
+      <ErrorMessage title="Failed to load home feed" error={error} />
+      {!error && (
+        <>
+          <div className="space-y-3">
+            {publications?.map((post: LensterPost, index: number) => (
+              <SinglePost key={`${post.id}_${index}`} post={post} />
+            ))}
+          </div>
+          {pageInfo?.next && (
+            <span ref={observe} className="flex justify-center p-5">
+              <Spinner size="sm" />
+            </span>
+          )}
+        </>
       )}
     </>
   )

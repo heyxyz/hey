@@ -3,12 +3,12 @@ import { useDebounce } from '@components/utils/hooks/useDebounce'
 import { GiphyFetch, ICategory } from '@giphy/js-fetch-api'
 import { IGif } from '@giphy/js-types'
 import { Grid } from '@giphy/react-components'
-import { useEffect, useState } from 'react'
+import { Dispatch, useEffect, useState } from 'react'
 
 interface Props {
   // eslint-disable-next-line no-unused-vars
   setGifAttachment: (gif: IGif) => void
-  setShowModal: React.Dispatch<boolean>
+  setShowModal: Dispatch<boolean>
 }
 
 const giphyFetch = new GiphyFetch('sXpGFDGZs0Dv1mmNFvYaGUvYwKX0PWIh')
@@ -61,7 +61,7 @@ const GifSelector: React.FC<Props> = ({ setShowModal, setGifAttachment }) => {
         value={debouncedGifInput}
         onChange={handleSearch}
       />
-      <div className="flex overflow-y-auto overflow-x-hidden mb-1 h-96">
+      <div className="flex overflow-y-auto overflow-x-hidden h-[45vh]">
         {debouncedGifInput ? (
           <Grid
             onGifClick={(item) => onSelectGif(item)}

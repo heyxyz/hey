@@ -7,14 +7,9 @@ import {
   UsersIcon
 } from '@heroicons/react/outline'
 import clsx from 'clsx'
-import Link from 'next/link'
 import { Fragment, useContext } from 'react'
 
-const NextLink = ({ href, children, ...rest }: Record<string, any>) => (
-  <Link href={href} passHref>
-    <a {...rest}>{children}</a>
-  </Link>
-)
+import { NextLink } from './MenuItems'
 
 const MoreNavItems: React.FC = () => {
   const { currentUser } = useContext(AppContext)

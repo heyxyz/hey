@@ -6,7 +6,6 @@ import UserProfile from '@components/Shared/UserProfile'
 import { Card, CardBody } from '@components/UI/Card'
 import { LensterPost } from '@generated/lenstertypes'
 import { getURLs } from '@lib/getURLs'
-import clsx from 'clsx'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import Link from 'next/link'
@@ -20,15 +19,14 @@ dayjs.extend(relativeTime)
 
 interface Props {
   post: LensterPost
-  type?: string
-  showCard?: boolean
+  hideType?: boolean
 }
 
-const SinglePost: React.FC<Props> = ({ post, type, showCard = true }) => {
+const SinglePost: React.FC<Props> = ({ post, hideType = false }) => {
   return (
-    <Card className={clsx({ 'border-0': !showCard })}>
+    <Card>
       <CardBody>
-        <PostType post={post} type={type} />
+        <PostType post={post} hideType={hideType} />
         <div className="flex justify-between pb-4">
           <UserProfile profile={post.profile} />
           <Link href={`/posts/${post.id}`}>

@@ -1,14 +1,10 @@
 import LensHubProxy from '@abis/LensHubProxy.json'
 import { gql, useMutation } from '@apollo/client'
-import Attachment from '@components/Shared/Attachment'
 import Attachments from '@components/Shared/Attachments'
-import Giphy from '@components/Shared/Giphy'
 import IndexStatus from '@components/Shared/IndexStatus'
-import SelectCollectModule from '@components/Shared/SelectCollectModule'
-import SelectReferenceModule from '@components/Shared/SelectReferenceModule'
 import SwitchNetwork from '@components/Shared/SwitchNetwork'
 import { Button } from '@components/UI/Button'
-import { Card, CardBody } from '@components/UI/Card'
+import { Card } from '@components/UI/Card'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { Form, useZodForm } from '@components/UI/Form'
 import { Spinner } from '@components/UI/Spinner'
@@ -31,9 +27,11 @@ import { omit } from '@lib/omit'
 import { splitSignature } from '@lib/splitSignature'
 import { trackEvent } from '@lib/trackEvent'
 import { uploadToIPFS } from '@lib/uploadToIPFS'
+import dynamic from 'next/dynamic'
 import { useContext, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
+  CHAIN_ID,
   CONNECT_WALLET,
   ERROR_MESSAGE,
   LENSHUB_PROXY,
@@ -41,13 +39,31 @@ import {
 } from 'src/constants'
 import { v4 as uuidv4 } from 'uuid'
 import {
-  chain,
   useAccount,
   useContractWrite,
   useNetwork,
   useSignTypedData
 } from 'wagmi'
 import { object, string } from 'zod'
+
+const Attachment = dynamic(() => import('../../Shared/Attachment'), {
+  loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
+})
+const Giphy = dynamic(() => import('../../Shared/Giphy'), {
+  loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
+})
+const SelectCollectModule = dynamic(
+  () => import('../../Shared/SelectCollectModule'),
+  {
+    loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
+  }
+)
+const SelectReferenceModule = dynamic(
+  () => import('../../Shared/SelectReferenceModule'),
+  {
+    loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
+  }
+)
 
 const CREATE_COMMENT_TYPED_DATA_MUTATION = gql`
   mutation CreateCommentTypedData($request: CreatePublicCommentRequest!) {
@@ -190,7 +206,7 @@ const NewComment: React.FC<Props> = ({ refetch, post, type }) => {
   const createComment = async (comment: string) => {
     if (!account?.address) {
       toast.error(CONNECT_WALLET)
-    } else if (network.chain?.id !== chain.polygonTestnetMumbai.id) {
+    } else if (network.chain?.id !== CHAIN_ID) {
       toast.error(WRONG_NETWORK)
     } else {
       setIsUploading(true)
@@ -244,7 +260,7 @@ const NewComment: React.FC<Props> = ({ refetch, post, type }) => {
 
   return (
     <Card>
-      <CardBody>
+      <div className="px-5 pt-5 pb-3">
         <Form
           form={form}
           className="space-y-1"
@@ -252,18 +268,16 @@ const NewComment: React.FC<Props> = ({ refetch, post, type }) => {
             createComment(comment)
           }}
         >
-          {error && (
-            <ErrorMessage
-              className="mb-3"
-              title="Transaction failed!"
-              error={error}
-            />
-          )}
+          <ErrorMessage
+            className="mb-3"
+            title="Transaction failed!"
+            error={error}
+          />
           <TextArea
             placeholder="Tell something cool!"
             {...form.register('comment')}
           />
-          <div className="block sm:flex items-center">
+          <div className="block items-center sm:flex">
             <div className="flex items-center space-x-4">
               <Attachment
                 attachments={attachments}
@@ -281,11 +295,11 @@ const NewComment: React.FC<Props> = ({ refetch, post, type }) => {
                 setOnlyFollowers={setOnlyFollowers}
               />
             </div>
-            <div className="flex items-center ml-auto space-x-2 pt-2 sm:pt-0">
+            <div className="flex items-center pt-2 ml-auto space-x-2 sm:pt-0">
               {data?.hash && (
                 <IndexStatus
                   refetch={refetch}
-                  type="Comment"
+                  type={type === 'comment' ? 'Comment' : 'Post'}
                   txHash={data?.hash}
                 />
               )}
@@ -316,14 +330,14 @@ const NewComment: React.FC<Props> = ({ refetch, post, type }) => {
                   {isUploading
                     ? 'Uploading to IPFS'
                     : typedDataLoading
-                    ? 'Generating Comment'
+                    ? `Generating ${type === 'comment' ? 'Comment' : 'Post'}`
                     : signLoading
                     ? 'Sign'
                     : writeLoading
                     ? 'Send'
-                    : type === 'community post'
-                    ? 'Post'
-                    : 'Comment'}
+                    : type === 'comment'
+                    ? 'Comment'
+                    : 'Post'}
                 </Button>
               )}
             </div>
@@ -334,7 +348,7 @@ const NewComment: React.FC<Props> = ({ refetch, post, type }) => {
             isNew
           />
         </Form>
-      </CardBody>
+      </div>
     </Card>
   )
 }

@@ -1,8 +1,9 @@
 import { Wallet } from '@generated/types'
 import { ExternalLinkIcon } from '@heroicons/react/outline'
-import { formatUsername } from '@lib/formatUsername'
+import { formatAddress } from '@lib/formatAddress'
 import { imagekitURL } from '@lib/imagekitURL'
 import React from 'react'
+import { POLYGONSCAN_URL } from 'src/constants'
 
 import Slug from './Slug'
 
@@ -15,13 +16,13 @@ const WalletProfile: React.FC<Props> = ({ wallet }) => {
     <div className="flex justify-between items-center">
       <a
         className="flex items-center space-x-3"
-        href={`https://mumbai.polygonscan.com/address/${wallet?.address}`}
+        href={`${POLYGONSCAN_URL}/address/${wallet?.address}`}
         target="_blank"
         rel="noreferrer"
       >
         <img
           src={imagekitURL(
-            `https://avatar.tobi.sh/${wallet?.address}.svg`,
+            `https://avatar.tobi.sh/${wallet?.address}.png`,
             500,
             500
           )}
@@ -30,10 +31,10 @@ const WalletProfile: React.FC<Props> = ({ wallet }) => {
         />
         <div>
           <div className="flex gap-1.5 items-center">
-            <div>{formatUsername(wallet?.address)}</div>
+            <div>{formatAddress(wallet?.address)}</div>
             <ExternalLinkIcon className="w-4 h-4" />
           </div>
-          <Slug className="text-sm" slug={formatUsername(wallet?.address)} />
+          <Slug className="text-sm" slug={formatAddress(wallet?.address)} />
         </div>
       </a>
     </div>

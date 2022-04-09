@@ -1,7 +1,7 @@
 import {
   Comment,
-  EmptyCollectModuleSettings,
   FeeCollectModuleSettings,
+  FreeCollectModuleSettings,
   LimitedFeeCollectModuleSettings,
   LimitedTimedFeeCollectModuleSettings,
   Mirror,
@@ -12,7 +12,7 @@ import {
 
 export type LensterPost = Post & Mirror & Comment & { pubId: string }
 export type Community = Post
-export type LensterCollectModule = EmptyCollectModuleSettings &
+export type LensterCollectModule = FreeCollectModuleSettings &
   FeeCollectModuleSettings &
   LimitedFeeCollectModuleSettings &
   LimitedTimedFeeCollectModuleSettings &

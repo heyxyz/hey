@@ -1,6 +1,8 @@
 import { Button } from '@components/UI/Button'
 import { SwitchHorizontalIcon } from '@heroicons/react/outline'
-import { chain, useNetwork } from 'wagmi'
+import { trackEvent } from '@lib/trackEvent'
+import { CHAIN_ID } from 'src/constants'
+import { useNetwork } from 'wagmi'
 
 interface Props {
   className?: string
@@ -15,8 +17,11 @@ const SwitchNetwork: React.FC<Props> = ({ className = '' }) => {
       type="button"
       variant="danger"
       icon={<SwitchHorizontalIcon className="w-4 h-4" />}
-      // @ts-ignore
-      onClick={() => switchNetwork(chain.polygonTestnetMumbai.id)}
+      onClick={() => {
+        trackEvent('switch network')
+        // @ts-ignore
+        switchNetwork(CHAIN_ID)
+      }}
     >
       Switch Network
     </Button>

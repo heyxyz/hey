@@ -1,13 +1,13 @@
 import { gql } from '@apollo/client'
 
-import { CommentCollectionFragment } from './CollectionFragment'
-import { PublicationProfileFragment } from './PublicationProfileFragment'
+import { CollectModuleFields } from './CollectModuleFields'
+import { MinimalProfileFields } from './MinimalProfileFields'
 
-export const CommentFragment = gql`
-  fragment CommentFragment on Comment {
+export const CommentFields = gql`
+  fragment CommentFields on Comment {
     id
     profile {
-      ...PublicationProfileFragment
+      ...MinimalProfileFields
     }
     collectedBy {
       address
@@ -15,7 +15,9 @@ export const CommentFragment = gql`
         handle
       }
     }
-    ...CommentCollectionFragment
+    collectModule {
+      ...CollectModuleFields
+    }
     stats {
       totalAmountOfComments
       totalAmountOfMirrors
@@ -38,30 +40,39 @@ export const CommentFragment = gql`
     }
     commentOn {
       ... on Post {
-        id
+        pubId: id
         profile {
-          handle
+          ...MinimalProfileFields
         }
         metadata {
           name
+          content
         }
       }
       ... on Comment {
         id
         profile {
-          handle
+          ...MinimalProfileFields
+        }
+        metadata {
+          name
+          content
         }
       }
       ... on Mirror {
         id
         profile {
-          handle
+          ...MinimalProfileFields
+        }
+        metadata {
+          name
+          content
         }
       }
     }
     createdAt
     appId
   }
-  ${PublicationProfileFragment}
-  ${CommentCollectionFragment}
+  ${MinimalProfileFields}
+  ${CollectModuleFields}
 `

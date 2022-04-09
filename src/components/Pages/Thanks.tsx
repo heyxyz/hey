@@ -18,7 +18,6 @@ const Brand: React.FC<Props> = ({ name, logo, url, size, children }) => {
 
   return (
     <div className="pt-10 space-y-5">
-      <SEO title="Thanks • Lenster" />
       <img
         className="mx-auto"
         style={{ height: size }}
@@ -27,7 +26,7 @@ const Brand: React.FC<Props> = ({ name, logo, url, size, children }) => {
         }.svg`}
         alt={`${name}'s Logo`}
       />
-      <div className="pt-2">{children}</div>
+      <div className="pt-2 mx-auto sm:w-2/3">{children}</div>
       <div>
         <a className="font-bold" href={url} target="_blank" rel="noreferrer">
           ➜ Go to {name}
@@ -40,7 +39,8 @@ const Brand: React.FC<Props> = ({ name, logo, url, size, children }) => {
 const Thanks: React.FC = () => {
   return (
     <>
-      <div className="flex justify-center items-center w-full h-44 bg-brand-400">
+      <SEO title="Thanks • Lenster" />
+      <div className="flex justify-center items-center w-full h-48 bg-brand-400">
         <div className="relative text-center">
           <div className="flex items-center space-x-2 text-3xl font-semibold text-white md:text-4xl">
             <div>Thank you!</div>
@@ -74,13 +74,14 @@ const Thanks: React.FC = () => {
                 by VS Code.
               </Brand>
               <Brand
-                name="Netlify"
-                logo="netlify"
-                url="https://netlify.com"
+                name="Imagekit"
+                logo="imagekit"
+                url="https://imagekit.io"
                 size={50}
               >
-                An intuitive Git-based workflow and powerful serverless platform
-                to build, deploy, and collaborate on web apps
+                Image CDN with automatic optimization, real-time transformation,
+                and storage that you can integrate with existing setup in
+                minutes.
               </Brand>
             </div>
           </div>

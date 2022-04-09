@@ -8,11 +8,12 @@ import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { Spinner } from '@components/UI/Spinner'
 import AppContext from '@components/utils/AppContext'
 import { LensterPost } from '@generated/lenstertypes'
-import { CommentFragment } from '@gql/CommentFragment'
+import { PaginatedResultInfo } from '@generated/types'
+import { CommentFields } from '@gql/CommentFields'
 import { CollectionIcon, UsersIcon } from '@heroicons/react/outline'
 import { useRouter } from 'next/router'
-import React, { useContext } from 'react'
-import useInView from 'react-cool-inview'
+import React, { useContext, useState } from 'react'
+import { useInView } from 'react-cool-inview'
 
 import NewComment from './NewComment'
 
@@ -20,9 +21,8 @@ const COMMENT_FEED_QUERY = gql`
   query CommentFeed($request: PublicationsQueryRequest!) {
     publications(request: $request) {
       items {
-        __typename
         ... on Comment {
-          ...CommentFragment
+          ...CommentFields
         }
       }
       pageInfo {
@@ -30,7 +30,7 @@ const COMMENT_FEED_QUERY = gql`
       }
     }
   }
-  ${CommentFragment}
+  ${CommentFields}
 `
 
 interface Props {
@@ -50,17 +50,22 @@ const Feed: React.FC<Props> = ({
     query: { id }
   } = useRouter()
   const { currentUser } = useContext(AppContext)
+  const [publications, setPublications] = useState<LensterPost[]>([])
+  const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
   const { data, loading, error, fetchMore, refetch } = useQuery(
     COMMENT_FEED_QUERY,
     {
       variables: {
         request: { commentsOf: id, limit: 10 }
       },
-      skip: !id
+      skip: !id,
+      onCompleted(data) {
+        setPageInfo(data?.publications?.pageInfo)
+        setPublications(data?.publications?.items)
+      }
     }
   )
 
-  const pageInfo = data?.publications?.pageInfo
   const { observe } = useInView({
     threshold: 1,
     onEnter: () => {
@@ -72,11 +77,12 @@ const Feed: React.FC<Props> = ({
             limit: 10
           }
         }
+      }).then(({ data }: any) => {
+        setPageInfo(data?.publications?.pageInfo)
+        setPublications([...publications, ...data?.publications?.items])
       })
     }
   })
-
-  if (loading) return <PostsShimmer />
 
   return (
     <>
@@ -85,7 +91,7 @@ const Feed: React.FC<Props> = ({
           <NewComment refetch={refetch} post={post} type={type} />
         ) : (
           <Card>
-            <CardBody className="flex items-center space-x-1 text-sm font-bold text-gray-500">
+            <CardBody className="flex items-center space-x-1.5 text-sm font-bold text-gray-500">
               <UsersIcon className="w-4 h-4 text-brand-500" />
               <div>
                 <span>Only </span>
@@ -95,24 +101,27 @@ const Feed: React.FC<Props> = ({
             </CardBody>
           </Card>
         ))}
-      {error && (
-        <ErrorMessage title="Failed to load comment feed" error={error} />
-      )}
+      {loading && <PostsShimmer />}
       {data?.publications?.items?.length === 0 && (
         <EmptyState
           message={<span>Be the first one to comment!</span>}
           icon={<CollectionIcon className="w-8 h-8 text-brand-500" />}
         />
       )}
-      <div className="space-y-3">
-        {data?.publications?.items?.map((post: LensterPost, index: number) => (
-          <SinglePost key={`${post.id}_${index}`} post={post} type="COMMENT" />
-        ))}
-      </div>
-      {pageInfo?.next && (
-        <span ref={observe} className="flex justify-center p-5">
-          <Spinner size="sm" />
-        </span>
+      <ErrorMessage title="Failed to load comment feed" error={error} />
+      {!error && (
+        <>
+          <div className="space-y-3">
+            {publications?.map((post: LensterPost, index: number) => (
+              <SinglePost key={`${post.id}_${index}`} post={post} hideType />
+            ))}
+          </div>
+          {pageInfo?.next && (
+            <span ref={observe} className="flex justify-center p-5">
+              <Spinner size="sm" />
+            </span>
+          )}
+        </>
       )}
     </>
   )
