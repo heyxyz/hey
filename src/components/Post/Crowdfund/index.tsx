@@ -46,10 +46,9 @@ const Crowdfund: React.FC<Props> = ({ fund }) => {
   })
 
   const revenue = data?.publicationRevenue?.earnings
+  const goalAmount = fund?.metadata?.attributes[1]?.value
   const percentageReached = revenue
-    ? (revenue?.value /
-        parseInt(fund?.metadata?.attributes[1]?.value as string)) *
-      100
+    ? (revenue?.value / parseInt(goalAmount as string)) * 100
     : 0
   const cover = fund?.metadata?.cover?.original?.url
 
@@ -104,27 +103,29 @@ const Crowdfund: React.FC<Props> = ({ fund }) => {
           {loading ? (
             <div className="w-full h-[13px] !mt-5 rounded-full shimmer" />
           ) : (
-            <Tooltip
-              content={
-                percentageReached >= 100
-                  ? 'Goal reached 🎉'
-                  : `${percentageReached}% Goal reached`
-              }
-            >
-              <div className="mt-5 w-full bg-gray-200 rounded-full dark:bg-gray-700 h-[13px]">
-                <div
-                  className={clsx(
-                    { 'bg-green-500': percentageReached >= 100 },
-                    'h-[13px] rounded-full bg-brand-500'
-                  )}
-                  style={{
-                    width: `${
-                      percentageReached >= 100 ? 100 : percentageReached
-                    }%`
-                  }}
-                />
-              </div>
-            </Tooltip>
+            goalAmount && (
+              <Tooltip
+                content={
+                  percentageReached >= 100
+                    ? 'Goal reached 🎉'
+                    : `${percentageReached.toFixed(0)}% Goal reached`
+                }
+              >
+                <div className="mt-5 w-full bg-gray-200 rounded-full dark:bg-gray-700 h-[13px]">
+                  <div
+                    className={clsx(
+                      { 'bg-green-500': percentageReached >= 100 },
+                      'h-[13px] rounded-full bg-brand-500'
+                    )}
+                    style={{
+                      width: `${
+                        percentageReached >= 100 ? 100 : percentageReached
+                      }%`
+                    }}
+                  />
+                </div>
+              </Tooltip>
+            )
           )}
           <GridLayout className="!p-0 mt-5">
             <GridItemSix className="!mb-4 space-y-1 sm:mb-0">
@@ -153,26 +154,28 @@ const Crowdfund: React.FC<Props> = ({ fund }) => {
                 </span>
               )}
             </GridItemSix>
-            <GridItemSix className="space-y-1">
-              <div className="text-sm font-bold text-gray-500">Funds Goal</div>
-              <span className="flex items-center space-x-1.5">
-                <Tooltip content={collectModule?.amount?.asset?.symbol}>
-                  <img
-                    className="w-7 h-7"
-                    src={getTokenImage(collectModule?.amount?.asset?.symbol)}
-                    alt={collectModule?.amount?.asset?.symbol}
-                  />
-                </Tooltip>
-                <span className="space-x-1">
-                  <span className="text-2xl font-bold">
-                    {fund?.metadata?.attributes[1]?.value}
-                  </span>
-                  <span className="text-xs">
-                    {collectModule?.amount?.asset?.symbol}
+            {goalAmount && (
+              <GridItemSix className="space-y-1">
+                <div className="text-sm font-bold text-gray-500">
+                  Funds Goal
+                </div>
+                <span className="flex items-center space-x-1.5">
+                  <Tooltip content={collectModule?.amount?.asset?.symbol}>
+                    <img
+                      className="w-7 h-7"
+                      src={getTokenImage(collectModule?.amount?.asset?.symbol)}
+                      alt={collectModule?.amount?.asset?.symbol}
+                    />
+                  </Tooltip>
+                  <span className="space-x-1">
+                    <span className="text-2xl font-bold">{goalAmount}</span>
+                    <span className="text-xs">
+                      {collectModule?.amount?.asset?.symbol}
+                    </span>
                   </span>
                 </span>
-              </span>
-            </GridItemSix>
+              </GridItemSix>
+            )}
           </GridLayout>
         </div>
       </Linkify>
