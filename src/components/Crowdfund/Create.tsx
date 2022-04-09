@@ -329,23 +329,19 @@ const Create: React.FC = () => {
                 <label>Cover Image</label>
                 <div className="space-y-3">
                   {cover && (
-                    <div>
-                      <img
-                        className="object-cover w-full h-60 rounded-lg"
-                        src={cover}
-                        alt={cover}
-                      />
-                    </div>
+                    <img
+                      className="object-cover w-full h-60 rounded-lg"
+                      src={cover}
+                      alt={cover}
+                    />
                   )}
-                  <div>
-                    <div className="flex items-center space-x-3">
-                      <ChooseFile
-                        onChange={(evt: React.ChangeEvent<HTMLInputElement>) =>
-                          handleUpload(evt)
-                        }
-                      />
-                      {uploading && <Spinner size="sm" />}
-                    </div>
+                  <div className="flex items-center space-x-3">
+                    <ChooseFile
+                      onChange={(evt: React.ChangeEvent<HTMLInputElement>) =>
+                        handleUpload(evt)
+                      }
+                    />
+                    {uploading && <Spinner size="sm" />}
                   </div>
                 </div>
               </div>
