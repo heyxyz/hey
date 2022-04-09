@@ -22,6 +22,11 @@ context('Home Page', () => {
     cy.get('[data-cy=user-recommendations]>div')
       .children()
       .should('have.length', 5)
+
+    cy.get('[data-cy=user-recommendations]>div')
+      .children()
+      .closest('div')
+      .get('button')
   })
 })
 export {}

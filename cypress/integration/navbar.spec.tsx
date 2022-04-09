@@ -13,11 +13,13 @@ context('Home Page', () => {
     cy.get('a').contains('Contact')
   })
 
-  it('page navigations', () => {
+  it('should navigate to right pages', () => {
     cy.get('[data-cy=navbar]').contains('Explore').click()
     cy.location('pathname').should('include', 'explore')
     cy.get('[data-cy=navbar]').contains('Explore').click()
     cy.location('pathname').should('include', 'explore')
+    cy.get('[data-cy=navbar]').contains('Communities').click()
+    cy.location('pathname').should('include', 'communities')
   })
 })
 export {}
