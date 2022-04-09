@@ -66,7 +66,6 @@ export const Modal: React.FC<Props> = ({
                   <div>{title}</div>
                 </div>
                 <button
-                  data-cy="close-login"
                   className="p-1 text-gray-800 rounded-full dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-gray-700"
                   onClick={onClose}
                 >
