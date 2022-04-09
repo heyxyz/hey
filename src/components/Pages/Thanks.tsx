@@ -18,7 +18,6 @@ const Brand: React.FC<Props> = ({ name, logo, url, size, children }) => {
 
   return (
     <div className="pt-10 space-y-5">
-      <SEO title="Thanks • Lenster" />
       <img
         className="mx-auto"
         style={{ height: size }}
@@ -40,7 +39,8 @@ const Brand: React.FC<Props> = ({ name, logo, url, size, children }) => {
 const Thanks: React.FC = () => {
   return (
     <>
-      <div className="flex justify-center items-center w-full h-44 bg-brand-400">
+      <SEO title="Thanks • Lenster" />
+      <div className="flex justify-center items-center w-full h-48 bg-brand-400">
         <div className="relative text-center">
           <div className="flex items-center space-x-2 text-3xl font-semibold text-white md:text-4xl">
             <div>Thank you!</div>

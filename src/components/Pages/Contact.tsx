@@ -16,12 +16,16 @@ import { CONTACT_EMAIL } from 'src/constants'
 import { object, string } from 'zod'
 
 const newContactSchema = object({
-  subject: string().max(260, {
-    message: 'Subject should not exceed 260 characters'
-  }),
-  message: string().max(1000, {
-    message: 'Message should not exceed 1000 characters'
-  })
+  subject: string()
+    .max(260, {
+      message: 'Subject should not exceed 260 characters'
+    })
+    .nonempty(),
+  message: string()
+    .max(1000, {
+      message: 'Message should not exceed 1000 characters'
+    })
+    .nonempty()
 })
 
 const Contact: React.FC = () => {
