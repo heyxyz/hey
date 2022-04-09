@@ -63,7 +63,7 @@ const Search = () => {
                 <div>Searching users</div>
               </div>
             ) : (
-              <div>
+              <>
                 {searchUsersData?.search?.items?.map((profile: Profile) => (
                   <div
                     key={profile.handle}
@@ -76,7 +76,7 @@ const Search = () => {
                 {searchUsersData?.search?.items?.length === 0 && (
                   <div className="py-2 px-4">No matching users</div>
                 )}
-              </div>
+              </>
             )}
           </Card>
         </div>
