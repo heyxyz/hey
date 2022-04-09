@@ -3,7 +3,7 @@ import { Profile } from '@generated/types'
 import { getIPFSLink } from './getIPFSLink'
 import { imagekitURL } from './imagekitURL'
 
-export const getAvatar = (profile: Profile) => {
+const getAvatar = (profile: Profile) => {
   return imagekitURL(
     // @ts-ignore
     profile?.picture?.original?.url
@@ -14,3 +14,5 @@ export const getAvatar = (profile: Profile) => {
     500
   )
 }
+
+export default getAvatar

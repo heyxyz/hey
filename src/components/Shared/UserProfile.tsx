@@ -1,6 +1,6 @@
 import { Profile } from '@generated/types'
 import { BadgeCheckIcon } from '@heroicons/react/solid'
-import { getAvatar } from '@lib/getAvatar'
+import getAvatar from '@lib/getAvatar'
 import { isVerified } from '@lib/isVerified'
 import Link from 'next/link'
 import React, { useState } from 'react'
