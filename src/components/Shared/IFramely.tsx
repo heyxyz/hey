@@ -1,5 +1,5 @@
 import { Card } from '@components/UI/Card'
-import { imagekitURL } from '@lib/imagekitURL'
+import imagekitURL from '@lib/imagekitURL'
 import { trackEvent } from '@lib/trackEvent'
 import React, { useEffect, useState } from 'react'
 

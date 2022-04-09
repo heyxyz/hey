@@ -1,7 +1,7 @@
 import { Notification } from '@generated/types'
 import formatAddress from '@lib/formatAddress'
 import getAvatar from '@lib/getAvatar'
-import { imagekitURL } from '@lib/imagekitURL'
+import imagekitURL from '@lib/imagekitURL'
 import Link from 'next/link'
 import React from 'react'
 import { POLYGONSCAN_URL } from 'src/constants'

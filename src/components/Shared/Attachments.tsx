@@ -1,6 +1,6 @@
 import { XIcon } from '@heroicons/react/outline'
 import getIPFSLink from '@lib/getIPFSLink'
-import { imagekitURL } from '@lib/imagekitURL'
+import imagekitURL from '@lib/imagekitURL'
 import clsx from 'clsx'
 import React from 'react'
 
