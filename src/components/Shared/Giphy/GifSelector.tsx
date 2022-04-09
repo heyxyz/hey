@@ -61,7 +61,7 @@ const GifSelector: React.FC<Props> = ({ setShowModal, setGifAttachment }) => {
         value={debouncedGifInput}
         onChange={handleSearch}
       />
-      <div className="flex overflow-y-auto overflow-x-hidden mb-1 h-96">
+      <div className="flex overflow-y-auto overflow-x-hidden h-[45vh]">
         {debouncedGifInput ? (
           <Grid
             onGifClick={(item) => onSelectGif(item)}
