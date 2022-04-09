@@ -3,6 +3,7 @@ import Feed from '@components/Comment/Feed'
 import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout'
 import SEO from '@components/utils/SEO'
 import { CommunityFields } from '@gql/CommunityFields'
+import consoleLog from '@lib/consoleLog'
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import React from 'react'
@@ -29,7 +30,10 @@ const ViewCommunity: NextPage = () => {
   } = useRouter()
   const { data, loading, error } = useQuery(COMMUNITY_QUERY, {
     variables: { request: { publicationId: id } },
-    skip: !id
+    skip: !id,
+    onCompleted() {
+      consoleLog('Fetch', '#8b5cf6', `Fetched a community Community:${id}`)
+    }
   })
 
   if (error) return <Custom500 />
