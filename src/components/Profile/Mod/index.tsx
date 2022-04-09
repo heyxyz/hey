@@ -1,7 +1,7 @@
 import { Card, CardBody } from '@components/UI/Card'
 import { Profile } from '@generated/types'
 import { AtSymbolIcon, CashIcon, HashtagIcon } from '@heroicons/react/outline'
-import { formatAddress } from '@lib/formatAddress'
+import formatAddress from '@lib/formatAddress'
 import React from 'react'
 import CopyToClipboard from 'react-copy-to-clipboard'
 import toast from 'react-hot-toast'

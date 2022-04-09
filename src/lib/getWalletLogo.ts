@@ -1,6 +1,6 @@
 import { STATIC_ASSETS } from 'src/constants'
 
-export const getWalletLogo = (name: string) => {
+const getWalletLogo = (name: string) => {
   switch (name) {
     case 'MetaMask':
       return `${STATIC_ASSETS}/wallets/metamask.svg`
@@ -12,3 +12,5 @@ export const getWalletLogo = (name: string) => {
       return `${STATIC_ASSETS}/wallets/metamask.svg`
   }
 }
+
+export default getWalletLogo

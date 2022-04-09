@@ -2,7 +2,7 @@ import { gql, useQuery } from '@apollo/client'
 import AppContext from '@components/utils/AppContext'
 import { Menu, Transition } from '@headlessui/react'
 import { LightningBoltIcon } from '@heroicons/react/outline'
-import { trackEvent } from '@lib/trackEvent'
+import trackEvent from '@lib/trackEvent'
 import { Fragment, useContext, useEffect, useState } from 'react'
 
 import List from './List'
@@ -35,10 +35,10 @@ const Notification: React.FC = () => {
   }, [currentUser, data])
 
   return (
-    <Menu as="div" className="mt-1.5 sm:relative">
+    <Menu as="div" className="sm:relative">
       {({ open }) => (
         <>
-          <Menu.Button>
+          <Menu.Button as="div">
             <button
               className="flex items-start"
               onClick={() => {
@@ -64,7 +64,7 @@ const Notification: React.FC = () => {
             leaveFrom="transform opacity-100 scale-100"
             leaveTo="transform opacity-0 scale-95"
           >
-            <Menu.Items className="overflow-y-auto absolute right-0 mt-1 min-w-full bg-white rounded-xl border shadow-sm dark:bg-gray-900 dark:border-gray-800 max-h-[80vh] sm:max-h-[60vh] sm:min-w-[28rem]">
+            <Menu.Items className="overflow-y-auto absolute right-0 mt-2 min-w-full bg-white rounded-xl border shadow-sm dark:bg-gray-900 dark:border-gray-800 max-h-[80vh] sm:max-h-[60vh] sm:min-w-[28rem]">
               <List />
             </Menu.Items>
           </Transition>

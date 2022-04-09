@@ -13,9 +13,9 @@ import {
   UserIcon
 } from '@heroicons/react/outline'
 import { CheckCircleIcon } from '@heroicons/react/solid'
-import { getAvatar } from '@lib/getAvatar'
-import { isStaff } from '@lib/isStaff'
-import { trackEvent } from '@lib/trackEvent'
+import getAvatar from '@lib/getAvatar'
+import isStaff from '@lib/isStaff'
+import trackEvent from '@lib/trackEvent'
 import clsx from 'clsx'
 import Cookies from 'js-cookie'
 import Link from 'next/link'

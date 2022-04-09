@@ -1,6 +1,6 @@
 import { Button } from '@components/UI/Button'
 import { SwitchHorizontalIcon } from '@heroicons/react/outline'
-import { trackEvent } from '@lib/trackEvent'
+import trackEvent from '@lib/trackEvent'
 import { CHAIN_ID } from 'src/constants'
 import { useNetwork } from 'wagmi'
 

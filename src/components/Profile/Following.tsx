@@ -6,6 +6,7 @@ import { Spinner } from '@components/UI/Spinner'
 import { Following, PaginatedResultInfo, Profile } from '@generated/types'
 import { MinimalProfileFields } from '@gql/MinimalProfileFields'
 import { UsersIcon } from '@heroicons/react/outline'
+import consoleLog from '@lib/consoleLog'
 import { useState } from 'react'
 import { useInView } from 'react-cool-inview'
 
@@ -39,6 +40,11 @@ const Following: React.FC<Props> = ({ profile }) => {
     onCompleted(data) {
       setPageInfo(data?.following?.pageInfo)
       setFollowing(data?.following?.items)
+      consoleLog(
+        'Fetch',
+        '#8b5cf6',
+        `Fetched first 10 following Profile:${profile?.id}`
+      )
     }
   })
 
@@ -56,6 +62,11 @@ const Following: React.FC<Props> = ({ profile }) => {
       }).then(({ data }: any) => {
         setPageInfo(data?.following?.pageInfo)
         setFollowing([...following, ...data?.following?.items])
+        consoleLog(
+          'Fetch',
+          '#8b5cf6',
+          `Fetched next 10 following Profile:${profile?.id} Next:${pageInfo?.next}`
+        )
       })
     }
   })

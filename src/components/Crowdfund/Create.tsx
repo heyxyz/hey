@@ -16,12 +16,13 @@ import AppContext from '@components/utils/AppContext'
 import SEO from '@components/utils/SEO'
 import { CreatePostBroadcastItemResult, Erc20 } from '@generated/types'
 import { PlusIcon } from '@heroicons/react/outline'
-import { getTokenImage } from '@lib/getTokenImage'
-import { omit } from '@lib/omit'
-import { splitSignature } from '@lib/splitSignature'
-import { trackEvent } from '@lib/trackEvent'
-import { uploadAssetsToIPFS } from '@lib/uploadAssetsToIPFS'
-import { uploadToIPFS } from '@lib/uploadToIPFS'
+import consoleLog from '@lib/consoleLog'
+import getTokenImage from '@lib/getTokenImage'
+import omit from '@lib/omit'
+import splitSignature from '@lib/splitSignature'
+import trackEvent from '@lib/trackEvent'
+import uploadAssetsToIPFS from '@lib/uploadAssetsToIPFS'
+import uploadToIPFS from '@lib/uploadToIPFS'
 import React, { useContext, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
@@ -83,7 +84,11 @@ const Create: React.FC = () => {
   const [{ data: network }] = useNetwork()
   const [{ data: account }] = useAccount()
   const [{ loading: signLoading }, signTypedData] = useSignTypedData()
-  const { data: currencyData, loading } = useQuery(MODULES_CURRENCY_QUERY)
+  const { data: currencyData, loading } = useQuery(MODULES_CURRENCY_QUERY, {
+    onCompleted() {
+      consoleLog('Fetch', '#8b5cf6', `Fetched enabled module currencies`)
+    }
+  })
   const [{ data, loading: writeLoading }, write] = useContractWrite(
     {
       addressOrName: LENSHUB_PROXY,
