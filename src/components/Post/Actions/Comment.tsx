@@ -1,6 +1,6 @@
 import { LensterPost } from '@generated/lenstertypes'
 import { ChatAlt2Icon } from '@heroicons/react/outline'
-import { humanize } from '@lib/humanize'
+import humanize from '@lib/humanize'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 
