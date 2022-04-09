@@ -60,7 +60,7 @@ const newCrowdfundSchema = object({
     .min(2, { message: 'Title should be atleast 2 characters' })
     .max(255, { message: 'Title should not exceed 255 characters' }),
   amount: string().min(1, { message: 'Invalid amount' }),
-  goal: string().min(1, { message: 'Invalid goal' }),
+  goal: string(),
   recipient: string()
     .max(42, { message: 'Ethereum address should be within 42 characters' })
     .regex(/^0x[a-fA-F0-9]{40}$/, { message: 'Invalid Ethereum address' }),
