@@ -29,7 +29,7 @@ const UserProfile: React.FC<Props> = ({
   return (
     <div className="flex justify-between items-center">
       <Link href={`/u/${profile?.handle}`}>
-        <a>
+        <a classname="w-full">
           <div className="flex items-center space-x-3">
             <img
               src={getAvatar(profile)}
