@@ -227,7 +227,7 @@ const NewPost: React.FC<Props> = ({
         variables: {
           request: {
             profileId: currentUser?.id,
-            contentURI: path,
+            contentURI: `https://ipfs.infura.io/ipfs/${path}`,
             collectModule: feeData.recipient
               ? {
                   [getModule(selectedModule.moduleName).config]: feeData
