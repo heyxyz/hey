@@ -9,7 +9,10 @@ const Hero: React.FC = () => {
             <h1 className="text-2xl font-extrabold text-black sm:text-4xl">
               Welcome to Lenster 👋
             </h1>
-            <div className="leading-7 text-gray-700">
+            <div
+              data-cy="product-description"
+              className="leading-7 text-gray-700"
+            >
               Lenster is a composable, decentralized, and permissionless social
               media web app built with Lens Protocol 🌿
             </div>
