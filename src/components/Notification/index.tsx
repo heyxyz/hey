@@ -3,7 +3,7 @@ import AppContext from '@components/utils/AppContext'
 import { Menu, Transition } from '@headlessui/react'
 import { LightningBoltIcon } from '@heroicons/react/outline'
 import trackEvent from '@lib/trackEvent'
-import { Fragment, useContext, useEffect, useState } from 'react'
+import { FC, Fragment, useContext, useEffect, useState } from 'react'
 
 import List from './List'
 
@@ -17,7 +17,7 @@ const NOTIFICATION_COUNT_QUERY = gql`
   }
 `
 
-const Notification: React.FC = () => {
+const Notification: FC = () => {
   const { currentUser } = useContext(AppContext)
   const [showBadge, setShowBadge] = useState<boolean>(false)
   const { data } = useQuery(NOTIFICATION_COUNT_QUERY, {

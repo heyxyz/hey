@@ -1,7 +1,7 @@
 import 'linkify-plugin-mention'
 
 import { LensterPost } from '@generated/lenstertypes'
-import React from 'react'
+import React, { FC } from 'react'
 
 import Collect from './Collect'
 import Comment from './Comment'
@@ -12,7 +12,7 @@ interface Props {
   post: LensterPost
 }
 
-const PostActions: React.FC<Props> = ({ post }) => {
+const PostActions: FC<Props> = ({ post }) => {
   const postType = post.metadata?.attributes[0]?.value
 
   return (

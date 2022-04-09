@@ -6,17 +6,17 @@ import { getModule } from '@lib/getModule'
 import humanize from '@lib/humanize'
 import { motion } from 'framer-motion'
 import dynamic from 'next/dynamic'
-import { useState } from 'react'
+import { FC, useState } from 'react'
 
 const CollectModule = dynamic(() => import('./CollectModule'), {
-  loading: () => <div className="shimmer h-5 rounded-lg m-5" />
+  loading: () => <div className="h-5 m-5 rounded-lg shimmer" />
 })
 
 interface Props {
   post: LensterPost
 }
 
-const Collect: React.FC<Props> = ({ post }) => {
+const Collect: FC<Props> = ({ post }) => {
   const [showCollectModal, setShowCollectModal] = useState<boolean>(false)
 
   return (

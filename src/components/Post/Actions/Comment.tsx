@@ -3,12 +3,13 @@ import { ChatAlt2Icon } from '@heroicons/react/outline'
 import humanize from '@lib/humanize'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
+import { FC } from 'react'
 
 interface Props {
   post: LensterPost
 }
 
-const Comment: React.FC<Props> = ({ post }) => {
+const Comment: FC<Props> = ({ post }) => {
   return (
     <motion.button whileTap={{ scale: 0.9 }}>
       <Link href={`/posts/${post?.id}`} passHref>

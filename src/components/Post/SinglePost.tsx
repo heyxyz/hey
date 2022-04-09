@@ -9,7 +9,7 @@ import getURLs from '@lib/getURLs'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import Link from 'next/link'
-import React from 'react'
+import React, { FC } from 'react'
 
 import PostActions from './Actions'
 import PostBody from './PostBody'
@@ -22,7 +22,7 @@ interface Props {
   hideType?: boolean
 }
 
-const SinglePost: React.FC<Props> = ({ post, hideType = false }) => {
+const SinglePost: FC<Props> = ({ post, hideType = false }) => {
   return (
     <Card>
       <CardBody>

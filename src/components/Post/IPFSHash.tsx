@@ -2,13 +2,13 @@ import { Card, CardBody } from '@components/UI/Card'
 import { ExternalLinkIcon } from '@heroicons/react/outline'
 import formatIPFSHash from '@lib/formatIPFSHash'
 import getIPFSHash from '@lib/getIPFSHash'
-import React from 'react'
+import React, { FC } from 'react'
 
 interface Props {
   ipfsHash: string
 }
 
-const IPFSHash: React.FC<Props> = ({ ipfsHash }) => {
+const IPFSHash: FC<Props> = ({ ipfsHash }) => {
   const formattedHash = getIPFSHash(ipfsHash)
 
   if (!formattedHash) return null
@@ -17,7 +17,7 @@ const IPFSHash: React.FC<Props> = ({ ipfsHash }) => {
     <Card>
       <CardBody className="text-sm text-gray-500">
         <a
-          className="flex justify-between items-center"
+          className="flex items-center justify-between"
           href={`https://ipfs.infura.io/ipfs/${formattedHash}`}
           target="_blank"
           rel="noreferrer"

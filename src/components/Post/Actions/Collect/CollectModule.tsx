@@ -23,7 +23,7 @@ import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import trackEvent from '@lib/trackEvent'
 import dayjs from 'dayjs'
-import React, { useContext } from 'react'
+import React, { FC, useContext } from 'react'
 import toast from 'react-hot-toast'
 import {
   CHAIN_ID,
@@ -74,7 +74,7 @@ interface Props {
   post: LensterPost
 }
 
-const CollectModule: React.FC<Props> = ({ post }) => {
+const CollectModule: FC<Props> = ({ post }) => {
   const { currentUser } = useContext(AppContext)
   // @ts-ignore
   const collectModule: LensterCollectModule = post?.collectModule

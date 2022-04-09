@@ -10,7 +10,7 @@ import Linkify from 'linkify-react'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React, { useState } from 'react'
+import React, { FC, useState } from 'react'
 
 const Crowdfund = dynamic(() => import('./Crowdfund'), {
   loading: () => <CrowdfundShimmer />
@@ -20,7 +20,7 @@ interface Props {
   post: LensterPost
 }
 
-const PostBody: React.FC<Props> = ({ post }) => {
+const PostBody: FC<Props> = ({ post }) => {
   const { pathname } = useRouter()
   const postType = post.metadata?.attributes[0]?.value
   const [showMore, setShowMore] = useState<boolean>(

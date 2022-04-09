@@ -2,13 +2,13 @@ import { NewCollectNotification } from '@generated/types'
 import { CurrencyDollarIcon, HandIcon } from '@heroicons/react/outline'
 import getTokenImage from '@lib/getTokenImage'
 import humanize from '@lib/humanize'
-import React from 'react'
+import React, { FC } from 'react'
 
 interface Props {
   notification: NewCollectNotification
 }
 
-const CollectedAmount: React.FC<Props> = ({ notification }) => {
+const CollectedAmount: FC<Props> = ({ notification }) => {
   const postType =
     notification?.collectedPublication?.metadata?.attributes[0]?.value ??
     notification?.collectedPublication?.__typename?.toLowerCase()
