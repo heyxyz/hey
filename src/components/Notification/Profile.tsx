@@ -33,7 +33,7 @@ export const NotificationProfileAvatar: React.FC<Props> = ({
         500
       )
 
-  const config = wallet
+  const profile = wallet
     ? wallet?.defaultProfile
       ? {
           url: `/u/${wallet?.defaultProfile?.handle}`,
@@ -54,12 +54,12 @@ export const NotificationProfileAvatar: React.FC<Props> = ({
       }
 
   return (
-    <Link href={config.url}>
-      <a target={config.target}>
+    <Link href={profile.url}>
+      <a target={profile.target}>
         <img
           src={picture}
           className="w-10 h-10 bg-gray-200 rounded-full border dark:border-gray-700"
-          alt={config.alt}
+          alt={profile.alt}
         />
       </a>
     </Link>
@@ -68,7 +68,7 @@ export const NotificationProfileAvatar: React.FC<Props> = ({
 
 export const NotificationProfileName: React.FC<Props> = ({ notification }) => {
   const { wallet }: any = notification
-  const config = wallet
+  const profile = wallet
     ? wallet?.defaultProfile
       ? {
           name: wallet?.defaultProfile?.name ?? wallet?.defaultProfile?.handle,
@@ -89,9 +89,9 @@ export const NotificationProfileName: React.FC<Props> = ({ notification }) => {
       }
 
   return (
-    <Link href={config.url}>
-      <a className="font-bold" target={config.target}>
-        {config.name}
+    <Link href={profile.url}>
+      <a className="font-bold" target={profile.target}>
+        {profile.name}
       </a>
     </Link>
   )
