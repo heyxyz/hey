@@ -20,7 +20,7 @@ import splitSignature from '@lib/splitSignature'
 import trackEvent from '@lib/trackEvent'
 import uploadAssetsToIPFS from '@lib/uploadAssetsToIPFS'
 import uploadToIPFS from '@lib/uploadToIPFS'
-import React, { useContext, useState } from 'react'
+import React, { ChangeEvent, FC, useContext, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
   CHAIN_ID,
@@ -50,7 +50,7 @@ const newCommunitySchema = object({
     .nullable()
 })
 
-const Create: React.FC = () => {
+const Create: FC = () => {
   const [avatar, setAvatar] = useState<string>()
   const [avatarType, setAvatarType] = useState<string>()
   const [isUploading, setIsUploading] = useState<boolean>(false)
@@ -71,7 +71,7 @@ const Create: React.FC = () => {
     schema: newCommunitySchema
   })
 
-  const handleUpload = async (evt: React.ChangeEvent<HTMLInputElement>) => {
+  const handleUpload = async (evt: ChangeEvent<HTMLInputElement>) => {
     evt.preventDefault()
     setUploading(true)
     try {
@@ -234,7 +234,7 @@ const Create: React.FC = () => {
                   )}
                   <div className="flex items-center space-x-3">
                     <ChooseFile
-                      onChange={(evt: React.ChangeEvent<HTMLInputElement>) =>
+                      onChange={(evt: ChangeEvent<HTMLInputElement>) =>
                         handleUpload(evt)
                       }
                     />

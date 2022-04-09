@@ -1,12 +1,12 @@
 import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout'
 import PostShimmer from '@components/Shared/Shimmer/PostShimmer'
-import React from 'react'
+import React, { FC } from 'react'
 
-const CommunityPageShimmer: React.FC = () => {
+const CommunityPageShimmer: FC = () => {
   return (
     <GridLayout>
       <GridItemFour>
-        <div className="px-5 mb-4 sm:px-0 space-y-5">
+        <div className="px-5 mb-4 space-y-5 sm:px-0">
           <div className="relative w-32 h-32 sm:w-72 sm:h-72">
             <div className="w-32 h-32 bg-gray-200 rounded-xl ring-8 ring-gray-50 sm:w-72 sm:h-72 dark:bg-gray-700 dark:ring-black shimmer" />
           </div>

@@ -8,7 +8,7 @@ import { PlusIcon } from '@heroicons/react/outline'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import trackEvent from '@lib/trackEvent'
-import React, { Dispatch } from 'react'
+import React, { Dispatch, FC } from 'react'
 import toast from 'react-hot-toast'
 import {
   CHAIN_ID,
@@ -60,7 +60,7 @@ interface Props {
   showJoin?: boolean
 }
 
-const Join: React.FC<Props> = ({ community, setJoined, showJoin = true }) => {
+const Join: FC<Props> = ({ community, setJoined, showJoin = true }) => {
   const [{ data: network }] = useNetwork()
   const [{ data: account }] = useAccount()
   const [{ loading: signLoading }, signTypedData] = useSignTypedData()

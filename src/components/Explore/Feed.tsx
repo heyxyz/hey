@@ -11,7 +11,7 @@ import { MirrorFields } from '@gql/MirrorFields'
 import { PostFields } from '@gql/PostFields'
 import { CollectionIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
-import React, { useState } from 'react'
+import React, { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 
 const EXPLORE_FEED_QUERY = gql`
@@ -42,7 +42,7 @@ interface Props {
   feedType?: string
 }
 
-const Feed: React.FC<Props> = ({ feedType = 'TOP_COMMENTED' }) => {
+const Feed: FC<Props> = ({ feedType = 'TOP_COMMENTED' }) => {
   const [publications, setPublications] = useState<LensterPost[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
   const { data, loading, error, fetchMore } = useQuery(EXPLORE_FEED_QUERY, {
