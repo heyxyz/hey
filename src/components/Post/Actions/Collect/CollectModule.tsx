@@ -16,7 +16,7 @@ import {
   UserIcon,
   UsersIcon
 } from '@heroicons/react/outline'
-import { formatAddress } from '@lib/formatAddress'
+import formatAddress from '@lib/formatAddress'
 import { getModule } from '@lib/getModule'
 import { getTokenImage } from '@lib/getTokenImage'
 import { omit } from '@lib/omit'
