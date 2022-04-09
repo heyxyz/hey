@@ -6,7 +6,7 @@ import ChooseFile from '@components/Shared/ChooseFile'
 import SettingsHelper from '@components/Shared/SettingsHelper'
 import SwitchNetwork from '@components/Shared/SwitchNetwork'
 import { Button } from '@components/UI/Button'
-import { Card, CardBody } from '@components/UI/Card'
+import { Card } from '@components/UI/Card'
 import { Form, useZodForm } from '@components/UI/Form'
 import { Input } from '@components/UI/Input'
 import { PageLoading } from '@components/UI/PageLoading'
@@ -60,7 +60,7 @@ const newCrowdfundSchema = object({
     .min(2, { message: 'Title should be atleast 2 characters' })
     .max(255, { message: 'Title should not exceed 255 characters' }),
   amount: string().min(1, { message: 'Invalid amount' }),
-  goal: string().min(1, { message: 'Invalid goal' }),
+  goal: string(),
   recipient: string()
     .max(42, { message: 'Ethereum address should be within 42 characters' })
     .regex(/^0x[a-fA-F0-9]{40}$/, { message: 'Invalid Ethereum address' }),
@@ -246,138 +246,138 @@ const Create: React.FC = () => {
       </GridItemFour>
       <GridItemEight>
         <Card>
-          <CardBody>
-            {data?.hash ? (
-              <Pending txHash={data?.hash} />
-            ) : (
-              <Form
-                form={form}
-                className="space-y-4"
-                onSubmit={({ title, amount, goal, recipient, description }) => {
-                  createCrowdfund(title, amount, goal, recipient, description)
-                }}
-              >
-                <Input
-                  label="Title"
-                  type="text"
-                  placeholder="Lenster DAO"
-                  {...form.register('title')}
-                />
-                <div>
-                  <div className="mb-1 font-medium text-gray-800 dark:text-gray-200">
-                    Select Currency
-                  </div>
-                  <select
-                    className="w-full bg-white rounded-xl border border-gray-300 outline-none dark:bg-gray-800 dark:border-gray-700 disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 focus:border-brand-500 focus:ring-brand-400"
-                    onChange={(e) => {
-                      const currency = e.target.value.split('-')
-                      setSelectedCurrency(currency[0])
-                      setSelectedCurrencySymobol(currency[1])
-                    }}
-                  >
-                    {currencyData?.enabledModuleCurrencies?.map(
-                      (currency: Erc20) => (
-                        <option
-                          key={currency.symbol}
-                          value={`${currency.address}-${currency.symbol}`}
-                        >
-                          {currency.name}
-                        </option>
-                      )
-                    )}
-                  </select>
+          {data?.hash ? (
+            <Pending txHash={data?.hash} />
+          ) : (
+            <Form
+              form={form}
+              className="p-5 space-y-4"
+              onSubmit={({ title, amount, goal, recipient, description }) => {
+                createCrowdfund(title, amount, goal, recipient, description)
+              }}
+            >
+              <Input
+                label="Title"
+                type="text"
+                placeholder="Lenster DAO"
+                {...form.register('title')}
+              />
+              <div>
+                <div className="mb-1 font-medium text-gray-800 dark:text-gray-200">
+                  Select Currency
                 </div>
-                <Input
-                  label="Contribution amount"
-                  type="number"
-                  prefix={
-                    <img
-                      className="w-6 h-6"
-                      src={getTokenImage(selectedCurrencySymobol)}
-                      alt={selectedCurrencySymobol}
-                    />
-                  }
-                  placeholder="5"
-                  {...form.register('amount')}
-                />
-                <Input
-                  label="Funding Goal"
-                  type="number"
-                  prefix={
-                    <img
-                      className="w-6 h-6"
-                      src={getTokenImage(selectedCurrencySymobol)}
-                      alt={selectedCurrencySymobol}
-                    />
-                  }
-                  placeholder="420"
-                  {...form.register('goal')}
-                />
-                <Input
-                  label="Funds recipient"
-                  type="text"
-                  placeholder="0x3A5bd...5e3"
-                  {...form.register('recipient')}
-                />
-                <TextArea
-                  label="Description"
-                  placeholder="Tell us something about the fundraise!"
-                  {...form.register('description')}
-                />
-                <div className="space-y-1.5">
-                  <label>Cover Image</label>
-                  <div className="space-y-3">
-                    {cover && (
-                      <div>
-                        <img
-                          className="object-cover w-full h-60 rounded-lg"
-                          src={cover}
-                          alt={cover}
-                        />
-                      </div>
-                    )}
+                <select
+                  className="w-full bg-white rounded-xl border border-gray-300 outline-none dark:bg-gray-800 dark:border-gray-700 disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 focus:border-brand-500 focus:ring-brand-400"
+                  onChange={(e) => {
+                    const currency = e.target.value.split('-')
+                    setSelectedCurrency(currency[0])
+                    setSelectedCurrencySymobol(currency[1])
+                  }}
+                >
+                  {currencyData?.enabledModuleCurrencies?.map(
+                    (currency: Erc20) => (
+                      <option
+                        key={currency.symbol}
+                        value={`${currency.address}-${currency.symbol}`}
+                      >
+                        {currency.name}
+                      </option>
+                    )
+                  )}
+                </select>
+              </div>
+              <Input
+                label="Contribution amount"
+                type="number"
+                step="0.0001"
+                prefix={
+                  <img
+                    className="w-6 h-6"
+                    src={getTokenImage(selectedCurrencySymobol)}
+                    alt={selectedCurrencySymobol}
+                  />
+                }
+                placeholder="5"
+                {...form.register('amount')}
+              />
+              <Input
+                label="Funding Goal"
+                type="number"
+                step="0.0001"
+                prefix={
+                  <img
+                    className="w-6 h-6"
+                    src={getTokenImage(selectedCurrencySymobol)}
+                    alt={selectedCurrencySymobol}
+                  />
+                }
+                placeholder="420"
+                {...form.register('goal')}
+              />
+              <Input
+                label="Funds recipient"
+                type="text"
+                placeholder="0x3A5bd...5e3"
+                {...form.register('recipient')}
+              />
+              <TextArea
+                label="Description"
+                placeholder="Tell us something about the fundraise!"
+                {...form.register('description')}
+              />
+              <div className="space-y-1.5">
+                <label>Cover Image</label>
+                <div className="space-y-3">
+                  {cover && (
                     <div>
-                      <div className="flex items-center space-x-3">
-                        <ChooseFile
-                          onChange={(
-                            evt: React.ChangeEvent<HTMLInputElement>
-                          ) => handleUpload(evt)}
-                        />
-                        {uploading && <Spinner size="sm" />}
-                      </div>
+                      <img
+                        className="object-cover w-full h-60 rounded-lg"
+                        src={cover}
+                        alt={cover}
+                      />
+                    </div>
+                  )}
+                  <div>
+                    <div className="flex items-center space-x-3">
+                      <ChooseFile
+                        onChange={(evt: React.ChangeEvent<HTMLInputElement>) =>
+                          handleUpload(evt)
+                        }
+                      />
+                      {uploading && <Spinner size="sm" />}
                     </div>
                   </div>
                 </div>
-                <div className="ml-auto">
-                  {network.chain?.unsupported ? (
-                    <SwitchNetwork />
-                  ) : (
-                    <Button
-                      type="submit"
-                      disabled={
-                        typedDataLoading ||
-                        isUploading ||
-                        signLoading ||
-                        writeLoading
-                      }
-                      icon={
-                        typedDataLoading ||
-                        isUploading ||
-                        signLoading ||
-                        writeLoading ? (
-                          <Spinner size="xs" />
-                        ) : (
-                          <PlusIcon className="w-4 h-4" />
-                        )
-                      }
-                    >
-                      Create
-                    </Button>
-                  )}
-                </div>
-              </Form>
-            )}
-          </CardBody>
+              </div>
+              <div className="ml-auto">
+                {network.chain?.unsupported ? (
+                  <SwitchNetwork />
+                ) : (
+                  <Button
+                    type="submit"
+                    disabled={
+                      typedDataLoading ||
+                      isUploading ||
+                      signLoading ||
+                      writeLoading
+                    }
+                    icon={
+                      typedDataLoading ||
+                      isUploading ||
+                      signLoading ||
+                      writeLoading ? (
+                        <Spinner size="xs" />
+                      ) : (
+                        <PlusIcon className="w-4 h-4" />
+                      )
+                    }
+                  >
+                    Create
+                  </Button>
+                )}
+              </div>
+            </Form>
+          )}
         </Card>
       </GridItemEight>
     </GridLayout>

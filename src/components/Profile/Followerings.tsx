@@ -16,25 +16,25 @@ const Followerings: React.FC<Props> = ({ profile }) => {
   const [showFollowersModal, setShowFollowersModal] = useState<boolean>(false)
 
   return (
-    <div className="flex gap-5">
-      <div
-        className="cursor-pointer"
+    <div className="flex gap-8">
+      <button
+        className="text-left"
         onClick={() => setShowFollowingModal(!showFollowingModal)}
       >
         <div className="text-xl">
           {humanize(profile?.stats?.totalFollowing)}
         </div>
         <div className="text-gray-500">Following</div>
-      </div>
-      <div
-        className="cursor-pointer"
+      </button>
+      <button
+        className="text-left"
         onClick={() => setShowFollowersModal(!showFollowersModal)}
       >
         <div className="text-xl">
           {humanize(profile?.stats?.totalFollowers)}
         </div>
         <div className="text-gray-500">Followers</div>
-      </div>
+      </button>
       <Modal
         title="Following"
         icon={<UsersIcon className="w-5 h-5 text-brand-500" />}

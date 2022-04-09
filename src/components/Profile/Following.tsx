@@ -70,18 +70,16 @@ const Following: React.FC<Props> = ({ profile }) => {
 
   if (data?.following?.items?.length === 0)
     return (
-      <div className="p-5">
-        <EmptyState
-          message={
-            <div>
-              <span className="mr-1 font-bold">@{profile.handle}</span>
-              <span>doesn’t follow anyone.</span>
-            </div>
-          }
-          icon={<UsersIcon className="w-8 h-8 text-brand-500" />}
-          hideCard
-        />
-      </div>
+      <EmptyState
+        message={
+          <div>
+            <span className="mr-1 font-bold">@{profile.handle}</span>
+            <span>doesn’t follow anyone.</span>
+          </div>
+        }
+        icon={<UsersIcon className="w-8 h-8 text-brand-500" />}
+        hideCard
+      />
     )
 
   return (

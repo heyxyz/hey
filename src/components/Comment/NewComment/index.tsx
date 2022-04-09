@@ -268,13 +268,11 @@ const NewComment: React.FC<Props> = ({ refetch, post, type }) => {
             createComment(comment)
           }}
         >
-          {error && (
-            <ErrorMessage
-              className="mb-3"
-              title="Transaction failed!"
-              error={error}
-            />
-          )}
+          <ErrorMessage
+            className="mb-3"
+            title="Transaction failed!"
+            error={error}
+          />
           <TextArea
             placeholder="Tell something cool!"
             {...form.register('comment')}

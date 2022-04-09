@@ -6,8 +6,6 @@ import { UserAddIcon, UsersIcon } from '@heroicons/react/outline'
 import { imagekitURL } from '@lib/imagekitURL'
 import { linkifyOptions } from '@lib/linkifyOptions'
 import clsx from 'clsx'
-import dayjs from 'dayjs'
-import relativeTime from 'dayjs/plugin/relativeTime'
 import Linkify from 'linkify-react'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
@@ -17,8 +15,6 @@ import React, { useState } from 'react'
 const Crowdfund = dynamic(() => import('./Crowdfund'), {
   loading: () => <CrowdfundShimmer />
 })
-
-dayjs.extend(relativeTime)
 
 interface Props {
   post: LensterPost
@@ -46,7 +42,7 @@ const PostBody: React.FC<Props> = ({ post }) => {
             <span>Launched a new community</span>
           )}
           <Link href={`/communities/${post.id}`}>
-            <a className="font-bold flex items-center space-x-1.5">
+            <a className="flex items-center space-x-1.5 font-bold">
               <img
                 src={imagekitURL(
                   post?.metadata?.cover?.original?.url
@@ -55,7 +51,7 @@ const PostBody: React.FC<Props> = ({ post }) => {
                   500,
                   500
                 )}
-                className="w-[19px] h-[19px] bg-gray-200 rounded ring-2 ring-gray-50 dark:bg-gray-700 dark:ring-black"
+                className="bg-gray-200 rounded ring-2 ring-gray-50 dark:bg-gray-700 dark:ring-black w-[19px] h-[19px]"
                 alt={post?.id}
               />
               <div>{post?.metadata?.name}</div>
@@ -72,7 +68,7 @@ const PostBody: React.FC<Props> = ({ post }) => {
                 showMore && pathname !== '/posts/[id]'
             })}
           >
-            <div className="whitespace-pre-wrap break-words">
+            <div className="break-words whitespace-pre-wrap">
               {post?.metadata?.content?.replace(/\n\s*\n/g, '\n\n').trim()}
             </div>
           </div>

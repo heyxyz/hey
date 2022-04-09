@@ -28,7 +28,7 @@ interface Props {
   setShowFeeEntry: Dispatch<React.SetStateAction<boolean>>
   setShowModal: Dispatch<React.SetStateAction<boolean>>
   feeData: FEE_DATA_TYPE
-  setFeeData: React.Dispatch<React.SetStateAction<FEE_DATA_TYPE>>
+  setFeeData: Dispatch<React.SetStateAction<FEE_DATA_TYPE>>
 }
 
 const FeeEntry: React.FC<Props> = ({

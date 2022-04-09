@@ -24,7 +24,7 @@ const CollectNotification: React.FC<Props> = ({ notification }) => {
     notification?.collectedPublication?.__typename?.toLowerCase()
 
   return (
-    <div className="flex items-center gap-x-3">
+    <div className="flex gap-x-3 items-center">
       <NotificationProfileAvatar notification={notification} />
       <div className="w-4/5">
         <NotificationProfileName notification={notification} />{' '}

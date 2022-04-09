@@ -79,9 +79,7 @@ const RecommendedProfiles: React.FC = () => {
       <Title />
       <Card>
         <CardBody className="space-y-4">
-          {error && (
-            <ErrorMessage title="Failed to recommendations" error={error} />
-          )}
+          <ErrorMessage title="Failed to recommendations" error={error} />
           {data?.recommendedProfiles?.slice(0, 5)?.map((profile: Profile) => (
             <UserProfile key={profile?.id} profile={profile} showFollow />
           ))}

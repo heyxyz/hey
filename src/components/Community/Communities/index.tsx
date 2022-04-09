@@ -55,7 +55,7 @@ const Communities: NextPage = () => {
   if (loading || !data) return <PageLoading message="Loading community" />
 
   return (
-    <GridLayout className="pt-6">
+    <GridLayout>
       <SEO title="Communities • Lenster" />
       <GridItemSix>
         <div className="flex items-center mb-2 space-x-1.5 font-bold text-gray-500">

@@ -80,27 +80,30 @@ const Feed: React.FC = () => {
     }
   })
 
-  if (loading) return <PostsShimmer />
-
   return (
     <>
       {currentUser && <NewPost refetch={refetch} />}
-      {error && <ErrorMessage title="Failed to load home feed" error={error} />}
+      {loading && <PostsShimmer />}
       {data?.timeline?.items?.length === 0 && (
         <EmptyState
           message={<div>No posts yet!</div>}
           icon={<CollectionIcon className="w-8 h-8 text-brand-500" />}
         />
       )}
-      <div className="space-y-3">
-        {publications?.map((post: LensterPost, index: number) => (
-          <SinglePost key={`${post.id}_${index}`} post={post} />
-        ))}
-      </div>
-      {pageInfo?.next && (
-        <span ref={observe} className="flex justify-center p-5">
-          <Spinner size="sm" />
-        </span>
+      <ErrorMessage title="Failed to load home feed" error={error} />
+      {!error && (
+        <>
+          <div className="space-y-3">
+            {publications?.map((post: LensterPost, index: number) => (
+              <SinglePost key={`${post.id}_${index}`} post={post} />
+            ))}
+          </div>
+          {pageInfo?.next && (
+            <span ref={observe} className="flex justify-center p-5">
+              <Spinner size="sm" />
+            </span>
+          )}
+        </>
       )}
     </>
   )

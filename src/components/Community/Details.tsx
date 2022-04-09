@@ -58,82 +58,78 @@ const Details: React.FC<Props> = ({ community }) => {
     children: React.ReactChild
     icon: React.ReactChild
   }) => (
-    <div className="flex gap-2 items-center">
+    <div className="flex items-center gap-2">
       {icon}
       <div>{children}</div>
     </div>
   )
 
   return (
-    <div className="px-5 mb-4 sm:px-0">
+    <div className="px-5 mb-4 sm:px-0 space-y-5">
+      <div className="relative w-32 h-32 sm:w-72 sm:h-72">
+        <img
+          src={imagekitURL(
+            community?.metadata?.cover?.original?.url
+              ? community?.metadata?.cover?.original?.url
+              : `https://avatar.tobi.sh/${community?.id}.png`,
+            500,
+            500
+          )}
+          className="w-32 h-32 bg-gray-200 rounded-xl ring-8 ring-gray-50 sm:w-72 sm:h-72 dark:bg-gray-700 dark:ring-black"
+          alt={community?.id}
+        />
+      </div>
+      <div className="text-2xl font-bold pt-1">
+        <div className="truncate">{community?.metadata.name}</div>
+      </div>
       <div className="space-y-5">
-        <div className="relative w-32 h-32 sm:w-72 sm:h-72">
-          <img
-            src={imagekitURL(
-              community?.metadata?.cover?.original?.url
-                ? community?.metadata?.cover?.original?.url
-                : `https://avatar.tobi.sh/${community?.id}.png`,
-              500,
-              500
-            )}
-            className="w-32 h-32 bg-gray-200 rounded-xl ring-8 ring-gray-50 sm:w-72 sm:h-72 dark:bg-gray-700 dark:ring-black"
-            alt={community?.id}
-          />
-        </div>
-        <div className="pt-3 space-y-1">
-          <div className="flex gap-1.5 items-center text-2xl font-bold truncate">
-            <div className="truncate">{community?.metadata.name}</div>
+        {community?.metadata.description && (
+          <div className="mr-0 leading-7 sm:mr-10 linkify">
+            <Linkify tagName="div" options={linkifyOptions}>
+              {community?.metadata.description}
+            </Linkify>
           </div>
-        </div>
-        <div className="space-y-5">
-          {community?.metadata.description && (
-            <div className="mr-0 leading-7 sm:mr-10 linkify">
-              <Linkify tagName="div" options={linkifyOptions}>
-                {community?.metadata.description}
-              </Linkify>
-            </div>
-          )}
-          {joinLoading ? (
-            <div className="w-28 rounded-lg h-[34px] shimmer" />
-          ) : joined ? (
-            <div className="py-0.5 px-2 text-sm text-white rounded-lg shadow-sm bg-brand-500 w-fit">
-              Member
-            </div>
-          ) : (
-            <Join community={community} setJoined={setJoined} />
-          )}
-          <div className="space-y-2">
-            <MetaDetails icon={<HashtagIcon className="w-4 h-4" />}>
-              {community?.id}
-            </MetaDetails>
-            <MetaDetails icon={<UsersIcon className="w-4 h-4" />}>
-              <>
-                <button onClick={() => setShowMembersModal(!showMembersModal)}>
-                  {humanize(community?.stats?.totalAmountOfCollects)}{' '}
-                  {community?.stats?.totalAmountOfCollects > 1
-                    ? 'members'
-                    : 'member'}
-                </button>
-                <Modal
-                  title="Members"
-                  icon={<UsersIcon className="w-5 h-5 text-brand-500" />}
-                  show={showMembersModal}
-                  onClose={() => setShowMembersModal(!showMembersModal)}
-                >
-                  <Collectors pubId={community.id} />
-                </Modal>
-              </>
-            </MetaDetails>
-            <MetaDetails icon={<UsersIcon className="w-4 h-4" />}>
-              <div>
-                {humanize(community?.stats?.totalAmountOfComments)}{' '}
-                {community?.stats?.totalAmountOfComments > 1 ? 'posts' : 'post'}
-              </div>
-            </MetaDetails>
-            <MetaDetails icon={<ClockIcon className="w-4 h-4" />}>
-              {dayjs(new Date(community?.createdAt)).fromNow()}
-            </MetaDetails>
+        )}
+        {joinLoading ? (
+          <div className="w-28 rounded-lg h-[34px] shimmer" />
+        ) : joined ? (
+          <div className="py-0.5 px-2 text-sm text-white rounded-lg shadow-sm bg-brand-500 w-fit">
+            Member
           </div>
+        ) : (
+          <Join community={community} setJoined={setJoined} />
+        )}
+        <div className="space-y-2">
+          <MetaDetails icon={<HashtagIcon className="w-4 h-4" />}>
+            {community?.id}
+          </MetaDetails>
+          <MetaDetails icon={<UsersIcon className="w-4 h-4" />}>
+            <>
+              <button onClick={() => setShowMembersModal(!showMembersModal)}>
+                {humanize(community?.stats?.totalAmountOfCollects)}{' '}
+                {community?.stats?.totalAmountOfCollects > 1
+                  ? 'members'
+                  : 'member'}
+              </button>
+              <Modal
+                title="Members"
+                icon={<UsersIcon className="w-5 h-5 text-brand-500" />}
+                show={showMembersModal}
+                onClose={() => setShowMembersModal(!showMembersModal)}
+              >
+                <Collectors pubId={community.id} />
+              </Modal>
+            </>
+          </MetaDetails>
+          <MetaDetails icon={<UsersIcon className="w-4 h-4" />}>
+            <div>
+              {humanize(community?.stats?.totalAmountOfComments)}{' '}
+              {community?.stats?.totalAmountOfComments > 1 ? 'posts' : 'post'}
+            </div>
+          </MetaDetails>
+          <MetaDetails icon={<ClockIcon className="w-4 h-4" />}>
+            {dayjs(new Date(community?.createdAt)).fromNow()}
+          </MetaDetails>
         </div>
       </div>
     </div>
