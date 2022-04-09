@@ -6,6 +6,7 @@ import AppContext from '@components/utils/AppContext'
 import { Notification, PaginatedResultInfo } from '@generated/types'
 import { MinimalProfileFields } from '@gql/MinimalProfileFields'
 import { MailIcon } from '@heroicons/react/outline'
+import consoleLog from '@lib/consoleLog'
 import { useContext, useEffect, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 
@@ -168,6 +169,7 @@ const List: React.FC = () => {
       onCompleted(data) {
         setPageInfo(data?.notifications?.pageInfo)
         setNotifications(data?.notifications?.items)
+        consoleLog('Fetch', '#8b5cf6', `Fetched first 10 notifications`)
       }
     }
   )
@@ -190,6 +192,11 @@ const List: React.FC = () => {
       }).then(({ data }: any) => {
         setPageInfo(data?.notifications?.pageInfo)
         setNotifications([...notifications, ...data?.notifications?.items])
+        consoleLog(
+          'Fetch',
+          '#8b5cf6',
+          `Fetched next 10 notifications Next:${pageInfo?.next}`
+        )
       })
     }
   })
