@@ -1,12 +1,12 @@
 import Head from 'next/head'
-import React from 'react'
+import React, { FC } from 'react'
 
 interface Props {
   title?: string
   description?: string
 }
 
-const SEO: React.FC<Props> = ({
+const SEO: FC<Props> = ({
   title = 'Lenster',
   description = 'Lenster is a composable, decentralized, and permissionless social media web app built with Lens Protocol 🌿'
 }) => {

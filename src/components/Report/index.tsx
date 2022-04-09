@@ -18,7 +18,7 @@ import { CheckCircleIcon } from '@heroicons/react/solid'
 import consoleLog from '@lib/consoleLog'
 import trackEvent from '@lib/trackEvent'
 import { useRouter } from 'next/router'
-import React, { useContext, useState } from 'react'
+import React, { FC, useContext, useState } from 'react'
 import { ZERO_ADDRESS } from 'src/constants'
 import Custom404 from 'src/pages/404'
 import { object, string } from 'zod'
@@ -39,7 +39,7 @@ const newReportSchema = object({
     .nullable()
 })
 
-const Report: React.FC = () => {
+const Report: FC = () => {
   const {
     query: { id }
   } = useRouter()
@@ -110,7 +110,7 @@ const Report: React.FC = () => {
           {submitData?.reportPublication === null ? (
             <EmptyState
               message={<span>Publication reported successfully!</span>}
-              icon={<CheckCircleIcon className="w-14 h-14 text-green-500" />}
+              icon={<CheckCircleIcon className="text-green-500 w-14 h-14" />}
               hideCard
             />
           ) : (

@@ -7,7 +7,7 @@ import { UserAddIcon } from '@heroicons/react/outline'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import trackEvent from '@lib/trackEvent'
-import { Dispatch } from 'react'
+import { Dispatch, FC } from 'react'
 import toast from 'react-hot-toast'
 import {
   CHAIN_ID,
@@ -58,11 +58,7 @@ interface Props {
   setFollowing: Dispatch<boolean>
 }
 
-const Follow: React.FC<Props> = ({
-  profile,
-  showText = false,
-  setFollowing
-}) => {
+const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
   const [{ data: network }] = useNetwork()
   const [{ data: account }] = useAccount()
   const [{ loading: signLoading }, signTypedData] = useSignTypedData()

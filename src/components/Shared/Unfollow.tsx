@@ -8,7 +8,7 @@ import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import trackEvent from '@lib/trackEvent'
 import { Contract } from 'ethers'
-import { Dispatch, useState } from 'react'
+import { Dispatch, FC, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
   CHAIN_ID,
@@ -52,11 +52,7 @@ interface Props {
   setFollowing: Dispatch<boolean>
 }
 
-const Unfollow: React.FC<Props> = ({
-  profile,
-  showText = false,
-  setFollowing
-}) => {
+const Unfollow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
   const [writeLoading, setWriteLoading] = useState<boolean>(false)
   const [{ data: network }] = useNetwork()
   const [{ data: account }] = useAccount()

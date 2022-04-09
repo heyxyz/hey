@@ -12,7 +12,7 @@ import { TrashIcon } from '@heroicons/react/outline'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import trackEvent from '@lib/trackEvent'
-import React, { useContext } from 'react'
+import React, { FC, useContext } from 'react'
 import toast from 'react-hot-toast'
 import {
   CHAIN_ID,
@@ -59,7 +59,7 @@ const CREATE_BURN_PROFILE_TYPED_DATA_MUTATION = gql`
   }
 `
 
-const DeleteSettings: React.FC = () => {
+const DeleteSettings: FC = () => {
   const { currentUser } = useContext(AppContext)
   const [{ data: network }] = useNetwork()
   const [{ data: account }] = useAccount()

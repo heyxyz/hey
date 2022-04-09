@@ -8,7 +8,7 @@ import { ApprovedAllowanceAmount } from '@generated/types'
 import { MinusIcon, PlusIcon } from '@heroicons/react/outline'
 import { getModule } from '@lib/getModule'
 import trackEvent from '@lib/trackEvent'
-import React, { useState } from 'react'
+import React, { FC, useState } from 'react'
 import toast from 'react-hot-toast'
 import { ERROR_MESSAGE } from 'src/constants'
 import { useTransaction } from 'wagmi'
@@ -29,7 +29,7 @@ interface Props {
   module: ApprovedAllowanceAmount
 }
 
-const Module: React.FC<Props> = ({ module }) => {
+const Module: FC<Props> = ({ module }) => {
   const [allowed, setAllowed] = useState<boolean>(module.allowance === '0x00')
   const [generateAllowanceQuery, { loading: queryLoading, error }] =
     useLazyQuery(GENERATE_ALLOWANCE_QUERY)
@@ -72,7 +72,7 @@ const Module: React.FC<Props> = ({ module }) => {
   return (
     <Card key={module.module}>
       <ErrorMessage className="mx-5 mt-5" title={ERROR_MESSAGE} error={error} />
-      <CardBody className="flex justify-between items-center">
+      <CardBody className="flex items-center justify-between">
         <div className="overflow-hidden mr-1.5">
           <div className="flex items-center space-x-3">
             <div className="text-brand-500">

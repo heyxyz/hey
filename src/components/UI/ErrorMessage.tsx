@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { FC } from 'react'
 
 interface Props {
   title?: string
@@ -6,11 +6,7 @@ interface Props {
   className?: string
 }
 
-export const ErrorMessage: React.FC<Props> = ({
-  title,
-  error,
-  className = ''
-}) => {
+export const ErrorMessage: FC<Props> = ({ title, error, className = '' }) => {
   if (!error) return null
 
   return (
