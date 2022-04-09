@@ -213,11 +213,11 @@ const CollectModule: React.FC<Props> = ({ post }) => {
           {collectModule?.amount && (
             <div className="flex items-center py-2 space-x-1.5">
               <span className="flex items-center space-x-1.5">
-                <Tooltip content={collectModule.amount.asset.symbol}>
+                <Tooltip content={collectModule?.amount?.asset?.symbol}>
                   <img
                     className="w-7 h-7"
-                    src={getTokenImage(collectModule.amount.asset.symbol)}
-                    alt={collectModule.amount.asset.symbol}
+                    src={getTokenImage(collectModule?.amount?.asset?.symbol)}
+                    alt={collectModule?.amount?.asset?.symbol}
                   />
                 </Tooltip>
                 <span className="space-x-1">
@@ -225,7 +225,7 @@ const CollectModule: React.FC<Props> = ({ post }) => {
                     {collectModule.amount.value}
                   </span>
                   <span className="text-xs">
-                    {collectModule.amount.asset.symbol}
+                    {collectModule?.amount?.asset?.symbol}
                   </span>
                 </span>
               </span>
