@@ -1,6 +1,6 @@
 import { gql, useQuery } from '@apollo/client'
 import AppContext from '@components/utils/AppContext'
-import { isStaff } from '@lib/isStaff'
+import isStaff from '@lib/isStaff'
 import clsx from 'clsx'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
