@@ -2,14 +2,14 @@ import Slug from '@components/Shared/Slug'
 import { LensterPost } from '@generated/lenstertypes'
 import Link from 'next/link'
 import { useTheme } from 'next-themes'
-import React from 'react'
+import React, { FC } from 'react'
 import { STATIC_ASSETS } from 'src/constants'
 
 interface Props {
   post: LensterPost
 }
 
-const Commented: React.FC<Props> = ({ post }) => {
+const Commented: FC<Props> = ({ post }) => {
   const { resolvedTheme } = useTheme()
   const commentOn: LensterPost | any = post?.commentOn
 

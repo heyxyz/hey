@@ -3,15 +3,15 @@ import { UsersIcon } from '@heroicons/react/outline'
 import humanize from '@lib/humanize'
 import imagekitURL from '@lib/imagekitURL'
 import Link from 'next/link'
-import React from 'react'
+import React, { FC } from 'react'
 
 interface Props {
   community: Community
 }
 
-const CommunityProfile: React.FC<Props> = ({ community }) => {
+const CommunityProfile: FC<Props> = ({ community }) => {
   return (
-    <div className="flex justify-between items-center">
+    <div className="flex items-center justify-between">
       <Link href={`/communities/${community?.id}`}>
         <a>
           <div className="flex items-center space-x-3">
@@ -23,7 +23,7 @@ const CommunityProfile: React.FC<Props> = ({ community }) => {
                 500,
                 500
               )}
-              className="w-16 h-16 bg-gray-200 rounded-xl border dark:border-gray-700"
+              className="w-16 h-16 bg-gray-200 border rounded-xl dark:border-gray-700"
               alt={community?.id}
             />
             <div className="space-y-1">

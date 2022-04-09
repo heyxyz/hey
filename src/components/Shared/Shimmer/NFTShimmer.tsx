@@ -1,6 +1,7 @@
 import { Card, CardBody } from '@components/UI/Card'
+import { FC } from 'react'
 
-const NFTShimmer: React.FC = () => {
+const NFTShimmer: FC = () => {
   return (
     <Card>
       <CardBody className="space-y-4 h-52 sm:h-80 shimmer md:rounded-t-[10px]" />

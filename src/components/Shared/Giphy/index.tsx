@@ -5,10 +5,10 @@ import { PhotographIcon } from '@heroicons/react/outline'
 import trackEvent from '@lib/trackEvent'
 import { motion } from 'framer-motion'
 import dynamic from 'next/dynamic'
-import { useState } from 'react'
+import { FC, useState } from 'react'
 
 const GifSelector = dynamic(() => import('./GifSelector'), {
-  loading: () => <div className="shimmer h-5 rounded-lg m-5" />
+  loading: () => <div className="h-5 m-5 rounded-lg shimmer" />
 })
 
 interface Props {
@@ -16,7 +16,7 @@ interface Props {
   setGifAttachment: (gif: IGif) => void
 }
 
-const Giphy: React.FC<Props> = ({ setGifAttachment }) => {
+const Giphy: FC<Props> = ({ setGifAttachment }) => {
   const [showModal, setShowModal] = useState<boolean>(false)
 
   return (

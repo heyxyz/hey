@@ -3,7 +3,7 @@ import { useDebounce } from '@components/utils/hooks/useDebounce'
 import { GiphyFetch, ICategory } from '@giphy/js-fetch-api'
 import { IGif } from '@giphy/js-types'
 import { Grid } from '@giphy/react-components'
-import { Dispatch, useEffect, useState } from 'react'
+import { Dispatch, FC, useEffect, useState } from 'react'
 
 interface Props {
   // eslint-disable-next-line no-unused-vars
@@ -13,7 +13,7 @@ interface Props {
 
 const giphyFetch = new GiphyFetch('sXpGFDGZs0Dv1mmNFvYaGUvYwKX0PWIh')
 
-const GifSelector: React.FC<Props> = ({ setShowModal, setGifAttachment }) => {
+const GifSelector: FC<Props> = ({ setShowModal, setGifAttachment }) => {
   const [categories, setCategories] = useState<Array<ICategory>>([])
   const [debouncedGifInput, setDebouncedGifInput] = useState<string>('')
   const [searchText, setSearchText] = useState<string>('')
@@ -70,7 +70,7 @@ const GifSelector: React.FC<Props> = ({ setShowModal, setGifAttachment }) => {
             hideAttribution
             columns={3}
             noResultsMessage={
-              <div className="grid place-items-center h-full">
+              <div className="grid h-full place-items-center">
                 No GIFs found.
               </div>
             }
@@ -78,11 +78,11 @@ const GifSelector: React.FC<Props> = ({ setShowModal, setGifAttachment }) => {
             key={searchText}
           />
         ) : (
-          <div className="grid grid-cols-2 gap-1 w-full">
+          <div className="grid w-full grid-cols-2 gap-1">
             {categories.map((category, idx) => (
               <button
                 key={idx}
-                className="flex relative outline-none"
+                className="relative flex outline-none"
                 onClick={() => setDebouncedGifInput(category.name)}
               >
                 <img
@@ -91,7 +91,7 @@ const GifSelector: React.FC<Props> = ({ setShowModal, setGifAttachment }) => {
                   alt=""
                   draggable={false}
                 />
-                <div className="absolute right-0 bottom-0 py-1 px-2 w-full text-lg font-bold text-right text-white bg-gradient-to-b from-transparent to-gray-800">
+                <div className="absolute bottom-0 right-0 w-full px-2 py-1 text-lg font-bold text-right text-white bg-gradient-to-b from-transparent to-gray-800">
                   <span className="capitalize">{category.name}</span>
                 </div>
               </button>

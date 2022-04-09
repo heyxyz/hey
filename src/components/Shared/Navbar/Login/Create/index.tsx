@@ -9,7 +9,7 @@ import { Spinner } from '@components/UI/Spinner'
 import { PlusIcon } from '@heroicons/react/outline'
 import trackEvent from '@lib/trackEvent'
 import uploadAssetsToIPFS from '@lib/uploadAssetsToIPFS'
-import React, { useState } from 'react'
+import React, { ChangeEvent, FC, useState } from 'react'
 import { useNetwork } from 'wagmi'
 import { object, string } from 'zod'
 
@@ -37,7 +37,7 @@ const newUserSchema = object({
     })
 })
 
-const Create: React.FC = () => {
+const Create: FC = () => {
   const [avatar, setAvatar] = useState<string>()
   const [isUploading, setIsUploading] = useState<boolean>(false)
   const [uploading, setUploading] = useState<boolean>(false)
@@ -50,7 +50,7 @@ const Create: React.FC = () => {
     schema: newUserSchema
   })
 
-  const handleUpload = async (evt: React.ChangeEvent<HTMLInputElement>) => {
+  const handleUpload = async (evt: ChangeEvent<HTMLInputElement>) => {
     evt.preventDefault()
     setUploading(true)
     try {
@@ -113,7 +113,7 @@ const Create: React.FC = () => {
               {avatar && (
                 <div>
                   <img
-                    className="w-60 h-60 rounded-lg"
+                    className="rounded-lg w-60 h-60"
                     src={avatar}
                     alt={avatar}
                   />
@@ -122,7 +122,7 @@ const Create: React.FC = () => {
               <div>
                 <div className="flex items-center space-x-3">
                   <ChooseFile
-                    onChange={(evt: React.ChangeEvent<HTMLInputElement>) =>
+                    onChange={(evt: ChangeEvent<HTMLInputElement>) =>
                       handleUpload(evt)
                     }
                   />

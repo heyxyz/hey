@@ -2,7 +2,7 @@ import { Wallet } from '@generated/types'
 import { ExternalLinkIcon } from '@heroicons/react/outline'
 import formatAddress from '@lib/formatAddress'
 import imagekitURL from '@lib/imagekitURL'
-import React from 'react'
+import React, { FC } from 'react'
 import { POLYGONSCAN_URL } from 'src/constants'
 
 import Slug from './Slug'
@@ -11,9 +11,9 @@ interface Props {
   wallet: Wallet
 }
 
-const WalletProfile: React.FC<Props> = ({ wallet }) => {
+const WalletProfile: FC<Props> = ({ wallet }) => {
   return (
-    <div className="flex justify-between items-center">
+    <div className="flex items-center justify-between">
       <a
         className="flex items-center space-x-3"
         href={`${POLYGONSCAN_URL}/address/${wallet?.address}`}
@@ -26,7 +26,7 @@ const WalletProfile: React.FC<Props> = ({ wallet }) => {
             500,
             500
           )}
-          className="w-10 h-10 bg-gray-200 rounded-full border"
+          className="w-10 h-10 bg-gray-200 border rounded-full"
           alt={wallet?.address}
         />
         <div>

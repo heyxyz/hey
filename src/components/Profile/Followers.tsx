@@ -8,7 +8,7 @@ import { Follower, PaginatedResultInfo, Profile } from '@generated/types'
 import { MinimalProfileFields } from '@gql/MinimalProfileFields'
 import { UsersIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
-import { useState } from 'react'
+import { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 
 const FOLLOWERS_QUERY = gql`
@@ -36,7 +36,7 @@ interface Props {
   profile: Profile
 }
 
-const Followers: React.FC<Props> = ({ profile }) => {
+const Followers: FC<Props> = ({ profile }) => {
   const [followers, setFollowers] = useState<Follower[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
   const { data, loading, error, fetchMore } = useQuery(FOLLOWERS_QUERY, {

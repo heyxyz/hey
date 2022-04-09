@@ -2,7 +2,7 @@ import 'linkify-plugin-mention'
 
 import { LensterPost } from '@generated/lenstertypes'
 import { useRouter } from 'next/router'
-import React from 'react'
+import React, { FC } from 'react'
 
 import Collected from './Collected'
 import Commented from './Commented'
@@ -15,7 +15,7 @@ interface Props {
   hideType?: boolean
 }
 
-const PostType: React.FC<Props> = ({ post, hideType }) => {
+const PostType: FC<Props> = ({ post, hideType }) => {
   const { pathname } = useRouter()
   const postType = post.metadata?.attributes[0]?.value
 

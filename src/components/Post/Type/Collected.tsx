@@ -2,13 +2,13 @@ import Slug from '@components/Shared/Slug'
 import { LensterPost } from '@generated/lenstertypes'
 import { CollectionIcon } from '@heroicons/react/outline'
 import Link from 'next/link'
-import React from 'react'
+import React, { FC } from 'react'
 
 interface Props {
   post: LensterPost
 }
 
-const Collected: React.FC<Props> = ({ post }) => {
+const Collected: FC<Props> = ({ post }) => {
   return (
     <div className="flex items-center pb-4 space-x-1 text-sm text-gray-500">
       <CollectionIcon className="w-4 h-4" />

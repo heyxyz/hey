@@ -2,7 +2,7 @@ import { Card, CardBody } from '@components/UI/Card'
 import { Profile } from '@generated/types'
 import { AtSymbolIcon, CashIcon, HashtagIcon } from '@heroicons/react/outline'
 import formatAddress from '@lib/formatAddress'
-import React from 'react'
+import React, { FC, ReactChild } from 'react'
 import CopyToClipboard from 'react-copy-to-clipboard'
 import toast from 'react-hot-toast'
 
@@ -10,15 +10,15 @@ interface Props {
   profile: Profile
 }
 
-const ProfileMod: React.FC<Props> = ({ profile }) => {
+const ProfileMod: FC<Props> = ({ profile }) => {
   const MetaDetails = ({
     children,
     value,
     icon
   }: {
-    children: React.ReactChild
+    children: ReactChild
     value: string
-    icon: React.ReactChild
+    icon: ReactChild
   }) => (
     <CopyToClipboard
       text={value}
@@ -26,7 +26,7 @@ const ProfileMod: React.FC<Props> = ({ profile }) => {
         toast.success('Copied to clipboard!')
       }}
     >
-      <div className="flex gap-2 items-center font-bold cursor-pointer">
+      <div className="flex items-center gap-2 font-bold cursor-pointer">
         {icon}
         <div>{children}</div>
       </div>

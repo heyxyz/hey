@@ -4,17 +4,17 @@ import { PhotographIcon } from '@heroicons/react/outline'
 import trackEvent from '@lib/trackEvent'
 import uploadAssetsToIPFS from '@lib/uploadAssetsToIPFS'
 import { motion } from 'framer-motion'
-import { Dispatch, useState } from 'react'
+import { ChangeEvent, Dispatch, FC, useState } from 'react'
 
 interface Props {
   attachments: any
   setAttachments: Dispatch<any>
 }
 
-const Attachment: React.FC<Props> = ({ attachments, setAttachments }) => {
+const Attachment: FC<Props> = ({ attachments, setAttachments }) => {
   const [loading, setLoading] = useState<boolean>(false)
 
-  const handleAttachment = async (evt: React.ChangeEvent<HTMLInputElement>) => {
+  const handleAttachment = async (evt: ChangeEvent<HTMLInputElement>) => {
     evt.preventDefault()
     setLoading(true)
 
@@ -34,7 +34,7 @@ const Attachment: React.FC<Props> = ({ attachments, setAttachments }) => {
         type="button"
         onClick={() => trackEvent('choose attachment')}
       >
-        <label className="flex gap-1 items-center cursor-pointer">
+        <label className="flex items-center gap-1 cursor-pointer">
           {loading ? (
             <Spinner size="sm" />
           ) : (

@@ -13,7 +13,7 @@ import { Profile } from '@generated/types'
 import { PencilIcon } from '@heroicons/react/outline'
 import trackEvent from '@lib/trackEvent'
 import uploadAssetsToIPFS from '@lib/uploadAssetsToIPFS'
-import React, { useContext, useEffect, useState } from 'react'
+import React, { ChangeEvent, FC, useContext, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { ERROR_MESSAGE } from 'src/constants'
 import { useNetwork } from 'wagmi'
@@ -55,7 +55,7 @@ interface Props {
   profile: Profile
 }
 
-const Profile: React.FC<Props> = ({ profile }) => {
+const Profile: FC<Props> = ({ profile }) => {
   const [cover, setCover] = useState<string>()
   const [uploading, setUploading] = useState<boolean>(false)
   const { currentUser } = useContext(AppContext)
@@ -80,7 +80,7 @@ const Profile: React.FC<Props> = ({ profile }) => {
       setCover(profile?.coverPicture?.original?.url)
   }, [profile])
 
-  const handleUpload = async (evt: React.ChangeEvent<HTMLInputElement>) => {
+  const handleUpload = async (evt: ChangeEvent<HTMLInputElement>) => {
     evt.preventDefault()
     setUploading(true)
     try {
@@ -175,7 +175,7 @@ const Profile: React.FC<Props> = ({ profile }) => {
               {cover && (
                 <div>
                   <img
-                    className="object-cover w-full h-60 rounded-lg"
+                    className="object-cover w-full rounded-lg h-60"
                     src={cover}
                     alt={cover}
                   />
@@ -183,7 +183,7 @@ const Profile: React.FC<Props> = ({ profile }) => {
               )}
               <div className="flex items-center space-x-3">
                 <ChooseFile
-                  onChange={(evt: React.ChangeEvent<HTMLInputElement>) =>
+                  onChange={(evt: ChangeEvent<HTMLInputElement>) =>
                     handleUpload(evt)
                   }
                 />

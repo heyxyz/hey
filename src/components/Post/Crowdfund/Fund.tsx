@@ -9,7 +9,7 @@ import { CashIcon } from '@heroicons/react/outline'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import trackEvent from '@lib/trackEvent'
-import React, { Dispatch, useContext } from 'react'
+import React, { Dispatch, FC, useContext } from 'react'
 import toast from 'react-hot-toast'
 import {
   CHAIN_ID,
@@ -61,7 +61,7 @@ interface Props {
   revenue: number
 }
 
-const Fund: React.FC<Props> = ({ fund, setRevenue, revenue }) => {
+const Fund: FC<Props> = ({ fund, setRevenue, revenue }) => {
   // @ts-ignore
   const collectModule: LensterCollectModule = fund?.collectModule
   const { currentUser } = useContext(AppContext)

@@ -1,12 +1,12 @@
 import imagekitURL from '@lib/imagekitURL'
-import React from 'react'
+import React, { FC } from 'react'
 import { STATIC_ASSETS } from 'src/constants'
 
 interface Props {
   cover: string
 }
 
-const Cover: React.FC<Props> = ({ cover }) => {
+const Cover: FC<Props> = ({ cover }) => {
   return (
     <div
       className="h-52 sm:h-80"
