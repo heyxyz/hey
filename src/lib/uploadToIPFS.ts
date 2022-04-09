@@ -1,6 +1,6 @@
 export async function uploadToIPFS(data: any) {
   const formData = new FormData()
-  formData.append('file', data)
+  formData.append('file', JSON.stringify(data))
   try {
     const upload = await fetch('https://ipfs.infura.io:5001/api/v0/add', {
       method: 'POST',
