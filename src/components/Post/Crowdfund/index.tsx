@@ -12,15 +12,11 @@ import { getTokenImage } from '@lib/getTokenImage'
 import { imagekitURL } from '@lib/imagekitURL'
 import { linkifyOptions } from '@lib/linkifyOptions'
 import clsx from 'clsx'
-import dayjs from 'dayjs'
-import relativeTime from 'dayjs/plugin/relativeTime'
 import Linkify from 'linkify-react'
 import React, { useEffect, useState } from 'react'
 import { STATIC_ASSETS } from 'src/constants'
 
 import Fund from './Fund'
-
-dayjs.extend(relativeTime)
 
 export const CROWDFUND_REVENUE_QUERY = gql`
   query CrowdfundRevenue($request: PublicationRevenueQueryRequest!) {

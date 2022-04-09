@@ -6,8 +6,6 @@ import { UserAddIcon, UsersIcon } from '@heroicons/react/outline'
 import { imagekitURL } from '@lib/imagekitURL'
 import { linkifyOptions } from '@lib/linkifyOptions'
 import clsx from 'clsx'
-import dayjs from 'dayjs'
-import relativeTime from 'dayjs/plugin/relativeTime'
 import Linkify from 'linkify-react'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
@@ -17,8 +15,6 @@ import React, { useState } from 'react'
 const Crowdfund = dynamic(() => import('./Crowdfund'), {
   loading: () => <CrowdfundShimmer />
 })
-
-dayjs.extend(relativeTime)
 
 interface Props {
   post: LensterPost

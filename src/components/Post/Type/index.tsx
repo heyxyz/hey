@@ -1,8 +1,6 @@
 import 'linkify-plugin-mention'
 
 import { LensterPost } from '@generated/lenstertypes'
-import dayjs from 'dayjs'
-import relativeTime from 'dayjs/plugin/relativeTime'
 import { useRouter } from 'next/router'
 import React from 'react'
 
@@ -11,8 +9,6 @@ import Commented from './Commented'
 import CommunityPost from './CommunityPost'
 import Funded from './Funded'
 import Mirrored from './Mirrored'
-
-dayjs.extend(relativeTime)
 
 interface Props {
   post: LensterPost

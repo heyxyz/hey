@@ -47,7 +47,6 @@ const NOTIFICATIONS_QUERY = gql`
               ... on Mirror {
                 id
               }
-              __typename
             }
           }
           createdAt

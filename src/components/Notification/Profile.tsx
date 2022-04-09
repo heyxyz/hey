@@ -2,13 +2,9 @@ import { Notification } from '@generated/types'
 import { formatUsername } from '@lib/formatUsername'
 import { getAvatar } from '@lib/getAvatar'
 import { imagekitURL } from '@lib/imagekitURL'
-import dayjs from 'dayjs'
-import relativeTime from 'dayjs/plugin/relativeTime'
 import Link from 'next/link'
 import React from 'react'
 import { POLYGONSCAN_URL } from 'src/constants'
-
-dayjs.extend(relativeTime)
 
 interface Props {
   notification: Notification

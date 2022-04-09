@@ -1,11 +1,7 @@
 import { NewCollectNotification } from '@generated/types'
 import { imagekitURL } from '@lib/imagekitURL'
-import dayjs from 'dayjs'
-import relativeTime from 'dayjs/plugin/relativeTime'
 import Link from 'next/link'
 import React from 'react'
-
-dayjs.extend(relativeTime)
 
 interface Props {
   notification: NewCollectNotification

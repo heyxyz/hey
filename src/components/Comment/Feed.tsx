@@ -21,7 +21,6 @@ const COMMENT_FEED_QUERY = gql`
   query CommentFeed($request: PublicationsQueryRequest!) {
     publications(request: $request) {
       items {
-        __typename
         ... on Comment {
           ...CommentFields
         }
