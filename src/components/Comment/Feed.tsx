@@ -11,6 +11,7 @@ import { LensterPost } from '@generated/lenstertypes'
 import { PaginatedResultInfo } from '@generated/types'
 import { CommentFields } from '@gql/CommentFields'
 import { CollectionIcon, UsersIcon } from '@heroicons/react/outline'
+import consoleLog from '@lib/consoleLog'
 import { useRouter } from 'next/router'
 import React, { useContext, useState } from 'react'
 import { useInView } from 'react-cool-inview'
@@ -62,6 +63,11 @@ const Feed: React.FC<Props> = ({
       onCompleted(data) {
         setPageInfo(data?.publications?.pageInfo)
         setPublications(data?.publications?.items)
+        consoleLog(
+          'Fetch',
+          '#8b5cf6',
+          `Fetched first 10 comments of Publication:${id}`
+        )
       }
     }
   )
@@ -80,6 +86,11 @@ const Feed: React.FC<Props> = ({
       }).then(({ data }: any) => {
         setPageInfo(data?.publications?.pageInfo)
         setPublications([...publications, ...data?.publications?.items])
+        consoleLog(
+          'Fetch',
+          '#8b5cf6',
+          `Fetched next 10 comments of Publication:${id} Next:${pageInfo?.next}`
+        )
       })
     }
   })
