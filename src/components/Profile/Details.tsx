@@ -19,8 +19,6 @@ import { getAvatar } from '@lib/getAvatar'
 import { isStaff } from '@lib/isStaff'
 import { isVerified } from '@lib/isVerified'
 import { linkifyOptions } from '@lib/linkifyOptions'
-import dayjs from 'dayjs'
-import relativeTime from 'dayjs/plugin/relativeTime'
 import Linkify from 'linkify-react'
 import Link from 'next/link'
 import { useTheme } from 'next-themes'
@@ -31,8 +29,6 @@ import { useEnsLookup } from 'wagmi'
 import DoesFollow from './DoesFollow'
 import Followerings from './Followerings'
 import ProfileMod from './Mod'
-
-dayjs.extend(relativeTime)
 
 export const DOES_FOLLOW_QUERY = gql`
   query DoesFollow($request: DoesFollowRequest!) {

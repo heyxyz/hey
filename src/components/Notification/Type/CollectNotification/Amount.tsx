@@ -2,11 +2,7 @@ import { NewCollectNotification } from '@generated/types'
 import { CurrencyDollarIcon, HandIcon } from '@heroicons/react/outline'
 import { getTokenImage } from '@lib/getTokenImage'
 import { humanize } from '@lib/humanize'
-import dayjs from 'dayjs'
-import relativeTime from 'dayjs/plugin/relativeTime'
 import React from 'react'
-
-dayjs.extend(relativeTime)
 
 interface Props {
   notification: NewCollectNotification

@@ -17,7 +17,6 @@ const PROFILE_FEED_QUERY = gql`
   query ProfileFeed($request: PublicationsQueryRequest!) {
     publications(request: $request) {
       items {
-        __typename
         ... on Post {
           ...PostFields
         }
