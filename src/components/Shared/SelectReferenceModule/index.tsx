@@ -5,10 +5,10 @@ import { CheckCircleIcon } from '@heroicons/react/solid'
 import { trackEvent } from '@lib/trackEvent'
 import clsx from 'clsx'
 import { motion } from 'framer-motion'
-import { useState } from 'react'
+import { Dispatch, useState } from 'react'
 
 interface Props {
-  setOnlyFollowers: React.Dispatch<React.SetStateAction<any>>
+  setOnlyFollowers: Dispatch<React.SetStateAction<any>>
   onlyFollowers: boolean
 }
 

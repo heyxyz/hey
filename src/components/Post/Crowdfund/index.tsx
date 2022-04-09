@@ -15,7 +15,7 @@ import clsx from 'clsx'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import Linkify from 'linkify-react'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { STATIC_ASSETS } from 'src/constants'
 
 import Fund from './Fund'
@@ -40,15 +40,19 @@ const Crowdfund: React.FC<Props> = ({ fund }) => {
   // @ts-ignore
   const collectModule: LensterCollectModule = fund?.collectModule
   const [showFundersModal, setShowFundersModal] = useState<boolean>(false)
+  const [revenue, setRevenue] = useState<number>(0)
   const { data, loading } = useQuery(CROWDFUND_REVENUE_QUERY, {
     variables: { request: { publicationId: fund.id } },
     skip: !fund.id
   })
 
-  const revenue = data?.publicationRevenue?.earnings
+  useEffect(() => {
+    setRevenue(parseInt(data?.publicationRevenue?.earnings?.value ?? 0))
+  }, [data])
+
   const goalAmount = fund?.metadata?.attributes[1]?.value
   const percentageReached = revenue
-    ? (revenue?.value / parseInt(goalAmount as string)) * 100
+    ? (revenue / parseInt(goalAmount as string)) * 100
     : 0
   const cover = fund?.metadata?.cover?.original?.url
 
@@ -98,7 +102,7 @@ const Crowdfund: React.FC<Props> = ({ fund }) => {
                 </>
               )}
             </div>
-            <Fund fund={fund} />
+            <Fund fund={fund} revenue={revenue} setRevenue={setRevenue} />
           </div>
           {loading ? (
             <div className="w-full h-[13px] !mt-5 rounded-full shimmer" />
@@ -144,9 +148,7 @@ const Crowdfund: React.FC<Props> = ({ fund }) => {
                     />
                   </Tooltip>
                   <span className="space-x-1">
-                    <span className="text-2xl font-bold">
-                      {revenue ? revenue?.value : 0}
-                    </span>
+                    <span className="text-2xl font-bold">{revenue}</span>
                     <span className="text-xs">
                       {collectModule?.amount?.asset?.symbol}
                     </span>

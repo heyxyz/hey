@@ -4,11 +4,11 @@ import { PhotographIcon } from '@heroicons/react/outline'
 import { trackEvent } from '@lib/trackEvent'
 import { uploadAssetsToIPFS } from '@lib/uploadAssetsToIPFS'
 import { motion } from 'framer-motion'
-import { useState } from 'react'
+import { Dispatch, useState } from 'react'
 
 interface Props {
   attachments: any
-  setAttachments: React.Dispatch<any>
+  setAttachments: Dispatch<any>
 }
 
 const Attachment: React.FC<Props> = ({ attachments, setAttachments }) => {
