@@ -6,6 +6,7 @@ import { EmptyState } from '@components/UI/EmptyState'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
 import AppContext from '@components/utils/AppContext'
 import { Profile } from '@generated/types'
+import { MinimalProfileFields } from '@gql/MinimalProfileFields'
 import { UsersIcon } from '@heroicons/react/outline'
 import { LightningBoltIcon, SparklesIcon } from '@heroicons/react/solid'
 import React, { useContext } from 'react'
@@ -13,19 +14,10 @@ import React, { useContext } from 'react'
 const RECOMMENDED_PROFILES_QUERY = gql`
   query RecommendedProfiles {
     recommendedProfiles {
-      id
-      name
-      handle
-      ownedBy
-      picture {
-        ... on MediaSet {
-          original {
-            url
-          }
-        }
-      }
+      ...MinimalProfileFields
     }
   }
+  ${MinimalProfileFields}
 `
 
 const Title = () => {
@@ -87,9 +79,7 @@ const RecommendedProfiles: React.FC = () => {
       <Title />
       <Card>
         <CardBody className="space-y-4">
-          {error && (
-            <ErrorMessage title="Failed to recommendations" error={error} />
-          )}
+          <ErrorMessage title="Failed to recommendations" error={error} />
           {data?.recommendedProfiles?.slice(0, 5)?.map((profile: Profile) => (
             <UserProfile key={profile?.id} profile={profile} showFollow />
           ))}

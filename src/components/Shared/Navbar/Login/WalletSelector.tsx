@@ -134,14 +134,12 @@ const WalletSelector: React.FC<Props> = ({
           >
             Sign-In with Ethereum
           </Button>
-          {errorChallenege ||
-            errorAuthenticate ||
-            (errorProfiles && (
-              <div className="flex items-center space-x-1 font-bold text-red-500">
-                <XCircleIcon className="w-5 h-5" />
-                <div>{ERROR_MESSAGE}</div>
-              </div>
-            ))}
+          {(errorChallenege || errorAuthenticate || errorProfiles) && (
+            <div className="flex items-center space-x-1 font-bold text-red-500">
+              <XCircleIcon className="w-5 h-5" />
+              <div>{ERROR_MESSAGE}</div>
+            </div>
+          )}
         </div>
       ) : (
         <div className="inline-block overflow-hidden space-y-3 w-full text-left align-middle transition-all transform">

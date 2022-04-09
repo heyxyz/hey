@@ -5,25 +5,26 @@ import { EmptyState } from '@components/UI/EmptyState'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { Spinner } from '@components/UI/Spinner'
 import { LensterPost } from '@generated/lenstertypes'
-import { CommentFragment } from '@gql/CommentFragment'
-import { MirrorFragment } from '@gql/MirrorFragment'
-import { PostFragment } from '@gql/PostFragment'
+import { PaginatedResultInfo } from '@generated/types'
+import { CommentFields } from '@gql/CommentFields'
+import { MirrorFields } from '@gql/MirrorFields'
+import { PostFields } from '@gql/PostFields'
 import { CollectionIcon } from '@heroicons/react/outline'
-import React from 'react'
-import useInView from 'react-cool-inview'
+import React, { useState } from 'react'
+import { useInView } from 'react-cool-inview'
 
 const EXPLORE_FEED_QUERY = gql`
   query ExploreFeed($request: ExplorePublicationRequest!) {
     explorePublications(request: $request) {
       items {
         ... on Post {
-          ...PostFragment
+          ...PostFields
         }
         ... on Comment {
-          ...CommentFragment
+          ...CommentFields
         }
         ... on Mirror {
-          ...MirrorFragment
+          ...MirrorFields
         }
       }
       pageInfo {
@@ -31,9 +32,9 @@ const EXPLORE_FEED_QUERY = gql`
       }
     }
   }
-  ${PostFragment}
-  ${CommentFragment}
-  ${MirrorFragment}
+  ${PostFields}
+  ${CommentFields}
+  ${MirrorFields}
 `
 
 interface Props {
@@ -41,13 +42,22 @@ interface Props {
 }
 
 const Feed: React.FC<Props> = ({ feedType = 'TOP_COMMENTED' }) => {
+  const [publications, setPublications] = useState<LensterPost[]>([])
+  const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
   const { data, loading, error, fetchMore } = useQuery(EXPLORE_FEED_QUERY, {
     variables: {
-      request: { sortCriteria: feedType, limit: 10 }
+      request: {
+        sortCriteria: feedType,
+        limit: 10,
+        noRandomize: feedType === 'LATEST'
+      }
+    },
+    onCompleted(data) {
+      setPageInfo(data?.explorePublications?.pageInfo)
+      setPublications(data?.explorePublications?.items)
     }
   })
 
-  const pageInfo = data?.explorePublications?.pageInfo
   const { observe } = useInView({
     threshold: 1,
     onEnter: () => {
@@ -56,43 +66,40 @@ const Feed: React.FC<Props> = ({ feedType = 'TOP_COMMENTED' }) => {
           request: {
             sortCriteria: feedType,
             cursor: pageInfo?.next,
-            limit: 10
+            limit: 10,
+            noRandomize: feedType === 'LATEST'
           }
         }
+      }).then(({ data }: any) => {
+        setPageInfo(data?.explorePublications?.pageInfo)
+        setPublications([...publications, ...data?.explorePublications?.items])
       })
     }
   })
 
-  if (loading) return <PostsShimmer />
-
-  if (data?.explorePublications?.items?.length === 0)
-    return (
-      <EmptyState
-        message={
-          <div>
-            <span>No posts yet!</span>
-          </div>
-        }
-        icon={<CollectionIcon className="w-8 h-8 text-brand-500" />}
-      />
-    )
-
   return (
     <>
-      {error && (
-        <ErrorMessage title="Failed to load explore feed" error={error} />
+      {loading && <PostsShimmer />}
+      {data?.explorePublications?.items?.length === 0 && (
+        <EmptyState
+          message={<div>No posts yet!</div>}
+          icon={<CollectionIcon className="w-8 h-8 text-brand-500" />}
+        />
       )}
-      <div className="space-y-3" data-cy="explore-feed">
-        {data?.explorePublications?.items?.map(
-          (post: LensterPost, index: number) => (
-            <SinglePost key={`${post.id}_${index}`} post={post} />
-          )
-        )}
-      </div>
-      {pageInfo?.next && (
-        <span ref={observe} className="flex justify-center p-5">
-          <Spinner size="sm" />
-        </span>
+      <ErrorMessage title="Failed to load explore feed" error={error} />
+      {!error && (
+        <>
+          <div className="space-y-3">
+            {publications?.map((post: LensterPost, index: number) => (
+              <SinglePost key={`${post.id}_${index}`} post={post} />
+            ))}
+          </div>
+          {pageInfo?.next && (
+            <span ref={observe} className="flex justify-center p-5">
+              <Spinner size="sm" />
+            </span>
+          )}
+        </>
       )}
     </>
   )

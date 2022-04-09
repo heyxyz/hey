@@ -8,8 +8,9 @@ import SEO from '@components/utils/SEO'
 import { Erc20 } from '@generated/types'
 import { NextPage } from 'next'
 import React, { useContext, useState } from 'react'
-import { WMATIC_TOKEN } from 'src/constants'
+import { DEFAULT_COLLECT_TOKEN } from 'src/constants'
 import Custom404 from 'src/pages/404'
+import Custom500 from 'src/pages/500'
 
 import Sidebar from '../Sidebar'
 import Allowance from './Allowance'
@@ -41,7 +42,7 @@ const getAllowancePayload = (currency: string) => {
       'FeeCollectModule',
       'LimitedTimedFeeCollectModule',
       'TimedFeeCollectModule',
-      'EmptyCollectModule',
+      'FreeCollectModule',
       'RevertCollectModule'
     ],
     followModules: ['FeeFollowModule'],
@@ -52,13 +53,14 @@ const getAllowancePayload = (currency: string) => {
 const AllowanceSettings: NextPage = () => {
   const { currentUser } = useContext(AppContext)
   const [currencyLoading, setCurrencyLoading] = useState<boolean>(false)
-  const { data, loading, refetch } = useQuery(ALLOWANCE_SETTINGS_QUERY, {
+  const { data, loading, error, refetch } = useQuery(ALLOWANCE_SETTINGS_QUERY, {
     variables: {
-      request: getAllowancePayload(WMATIC_TOKEN)
+      request: getAllowancePayload(DEFAULT_COLLECT_TOKEN)
     },
     skip: !currentUser?.id
   })
 
+  if (error) return <Custom500 />
   if (loading) return <PageLoading message="Loading settings" />
   if (!currentUser) return <Custom404 />
 

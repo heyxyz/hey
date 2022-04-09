@@ -1,9 +1,18 @@
-import { useQuery } from '@apollo/client'
-import { TX_STATUS_QUERY } from '@components/Shared/IndexStatus'
+import { gql, useQuery } from '@apollo/client'
 import { Button } from '@components/UI/Button'
 import { Spinner } from '@components/UI/Spinner'
 import { ArrowRightIcon } from '@heroicons/react/outline'
 import React from 'react'
+
+const TX_STATUS_QUERY = gql`
+  query HasTxHashBeenIndexed($request: HasTxHashBeenIndexedRequest!) {
+    hasTxHashBeenIndexed(request: $request) {
+      ... on TransactionIndexedResult {
+        indexed
+      }
+    }
+  }
+`
 
 interface Props {
   handle: string

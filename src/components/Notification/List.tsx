@@ -1,10 +1,13 @@
 import { gql, useQuery } from '@apollo/client'
+import { EmptyState } from '@components/UI/EmptyState'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { Spinner } from '@components/UI/Spinner'
 import AppContext from '@components/utils/AppContext'
-import { Notification } from '@generated/types'
-import { useContext } from 'react'
-import useInView from 'react-cool-inview'
+import { Notification, PaginatedResultInfo } from '@generated/types'
+import { MinimalProfileFields } from '@gql/MinimalProfileFields'
+import { MailIcon } from '@heroicons/react/outline'
+import { useContext, useEffect, useState } from 'react'
+import { useInView } from 'react-cool-inview'
 
 import NotificationShimmer from './Shimmer'
 import CollectNotification from './Type/CollectNotification'
@@ -20,34 +23,14 @@ const NOTIFICATIONS_QUERY = gql`
           wallet {
             address
             defaultProfile {
-              id
-              name
-              handle
-              ownedBy
-              picture {
-                ... on MediaSet {
-                  original {
-                    url
-                  }
-                }
-              }
+              ...MinimalProfileFields
             }
           }
           createdAt
         }
         ... on NewCommentNotification {
           profile {
-            id
-            name
-            handle
-            ownedBy
-            picture {
-              ... on MediaSet {
-                original {
-                  url
-                }
-              }
-            }
+            ...MinimalProfileFields
           }
           comment {
             id
@@ -55,24 +38,22 @@ const NOTIFICATIONS_QUERY = gql`
               content
             }
             commentOn {
-              __typename
+              ... on Post {
+                id
+              }
+              ... on Comment {
+                id
+              }
+              ... on Mirror {
+                id
+              }
             }
           }
           createdAt
         }
         ... on NewMirrorNotification {
           profile {
-            id
-            name
-            handle
-            ownedBy
-            picture {
-              ... on MediaSet {
-                original {
-                  url
-                }
-              }
-            }
+            ...MinimalProfileFields
           }
           publication {
             ... on Post {
@@ -94,35 +75,26 @@ const NOTIFICATIONS_QUERY = gql`
           wallet {
             address
             defaultProfile {
-              id
-              name
-              handle
-              ownedBy
-              picture {
-                ... on MediaSet {
-                  original {
-                    url
-                  }
-                }
-              }
+              ...MinimalProfileFields
             }
           }
           collectedPublication {
             ... on Post {
               id
               metadata {
-                content
-                attributes {
-                  value
-                }
+                ...NotificationCollectMetadataFields
+              }
+              collectModule {
+                ...NotificationCollectModuleFields
               }
             }
             ... on Comment {
+              id
               metadata {
-                content
-                attributes {
-                  value
-                }
+                ...NotificationCollectMetadataFields
+              }
+              collectModule {
+                ...NotificationCollectModuleFields
               }
             }
           }
@@ -134,17 +106,76 @@ const NOTIFICATIONS_QUERY = gql`
       }
     }
   }
+  ${MinimalProfileFields}
+  fragment NotificationCollectModuleFields on CollectModule {
+    ... on FeeCollectModuleSettings {
+      amount {
+        asset {
+          symbol
+        }
+        value
+      }
+    }
+    ... on LimitedFeeCollectModuleSettings {
+      amount {
+        asset {
+          symbol
+        }
+        value
+      }
+    }
+    ... on LimitedTimedFeeCollectModuleSettings {
+      amount {
+        asset {
+          symbol
+        }
+        value
+      }
+    }
+    ... on TimedFeeCollectModuleSettings {
+      amount {
+        asset {
+          symbol
+        }
+        value
+      }
+    }
+  }
+  fragment NotificationCollectMetadataFields on MetadataOutput {
+    name
+    content
+    cover {
+      original {
+        url
+      }
+    }
+    attributes {
+      value
+    }
+  }
 `
 
 const List: React.FC = () => {
   const { currentUser } = useContext(AppContext)
-  const { data, loading, error, fetchMore } = useQuery(NOTIFICATIONS_QUERY, {
-    variables: {
-      request: { profileId: currentUser?.id, limit: 10 }
+  const [notifications, setNotifications] = useState<Notification[]>([])
+  const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
+  const { data, loading, error, fetchMore, refetch } = useQuery(
+    NOTIFICATIONS_QUERY,
+    {
+      variables: {
+        request: { profileId: currentUser?.id, limit: 10 }
+      },
+      onCompleted(data) {
+        setPageInfo(data?.notifications?.pageInfo)
+        setNotifications(data?.notifications?.items)
+      }
     }
-  })
+  )
 
-  const pageInfo = data?.notifications?.pageInfo
+  useEffect(() => {
+    refetch()
+  }, [refetch])
+
   const { observe } = useInView({
     threshold: 1,
     onEnter: () => {
@@ -156,6 +187,9 @@ const List: React.FC = () => {
             limit: 10
           }
         }
+      }).then(({ data }: any) => {
+        setPageInfo(data?.notifications?.pageInfo)
+        setNotifications([...notifications, ...data?.notifications?.items])
       })
     }
   })
@@ -179,7 +213,18 @@ const List: React.FC = () => {
       />
     )
 
-  const notifications = data?.notifications?.items
+  if (data?.notifications?.items?.length === 0)
+    return (
+      <EmptyState
+        message={
+          <div>
+            <span>Inbox zero!</span>
+          </div>
+        }
+        icon={<MailIcon className="w-8 h-8 text-brand-500" />}
+        hideCard
+      />
+    )
 
   return (
     <div className="divide-y">

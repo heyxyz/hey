@@ -47,12 +47,12 @@ export const getModule = (
         },
         type: 'collectModule'
       }
-    case 'EmptyCollectModule':
+    case 'FreeCollectModule':
       return {
-        name: 'Empty Collect',
+        name: 'Free Collect',
         hasParam: false,
         config: {
-          emptyCollectModule: true
+          freeCollectModule: { followerOnly: false }
         },
         type: 'collectModule'
       }
@@ -80,6 +80,7 @@ export type FEE_DATA_TYPE = {
   collectLimit: string | null
   recipient: string
   referralFee: number
+  followerOnly: boolean
 }
 
 export const defaultModuleData = {
@@ -94,5 +95,6 @@ export const defaultFeeData = {
   amount: { currency: '', value: '' },
   collectLimit: '',
   recipient: '',
-  referralFee: 0
+  referralFee: 0,
+  followerOnly: false
 }

@@ -5,16 +5,22 @@ import SiteLayout from '@components/SiteLayout'
 import { AppProps } from 'next/app'
 import Script from 'next/script'
 import { ThemeProvider } from 'next-themes'
-import { INFURA_ID, IS_PRODUCTION } from 'src/constants'
-import { chain, Provider } from 'wagmi'
+import {
+  CHAIN_ID,
+  INFURA_ID,
+  IS_MAINNET,
+  IS_PRODUCTION,
+  POLYGON_MUMBAI
+} from 'src/constants'
+import { Provider } from 'wagmi'
 import { InjectedConnector } from 'wagmi/connectors/injected'
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect'
 import { WalletLinkConnector } from 'wagmi/connectors/walletLink'
 
 import client from '../apollo'
 
-const supportedChains = [chain.polygonTestnetMumbai]
-const defaultChain = chain.polygonTestnetMumbai
+const supportedChains = IS_MAINNET ? [POLYGON_MUMBAI] : [POLYGON_MUMBAI]
+const defaultChain = IS_MAINNET ? POLYGON_MUMBAI : POLYGON_MUMBAI
 
 type ConnectorsConfig = { chainId?: number }
 
@@ -31,7 +37,7 @@ const connectors = ({ chainId }: ConnectorsConfig) => {
     new WalletConnectConnector({
       options: {
         infuraId: INFURA_ID,
-        chainId: chain.polygonTestnetMumbai.id
+        chainId: CHAIN_ID
       }
     }),
     new WalletLinkConnector({

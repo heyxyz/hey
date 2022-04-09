@@ -28,7 +28,7 @@ const Pending: React.FC<Props> = ({ txHash }) => {
   })
 
   return (
-    <div className="p-5 font-bold text-center">
+    <div className="p-5 py-10 font-bold text-center">
       {loading || !data?.publication?.id ? (
         <div className="space-y-3">
           <Spinner className="mx-auto" />

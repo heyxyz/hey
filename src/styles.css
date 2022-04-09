@@ -2,10 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-html,
 body {
   font-family: 'Lenster', Helvetica, Arial, sans-serif;
-
   @apply bg-gray-50;
   @apply dark:bg-black;
 }
@@ -48,4 +46,8 @@ body {
 
 .giphy-gif {
   @apply !rounded-none;
+}
+
+.page-center {
+  @apply flex justify-center items-center h-[calc(100vh-65px)];
 }

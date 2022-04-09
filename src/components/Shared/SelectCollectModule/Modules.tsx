@@ -7,7 +7,7 @@ import { CheckCircleIcon } from '@heroicons/react/solid'
 import { FEE_DATA_TYPE, getModule } from '@lib/getModule'
 import { trackEvent } from '@lib/trackEvent'
 import clsx from 'clsx'
-import { useState } from 'react'
+import { Dispatch, useState } from 'react'
 
 import FeeEntry from './FeeEntry'
 
@@ -30,10 +30,10 @@ export const MODULES_QUERY = gql`
 
 interface Props {
   feeData: FEE_DATA_TYPE
-  setSelectedModule: React.Dispatch<React.SetStateAction<any>>
+  setSelectedModule: Dispatch<React.SetStateAction<any>>
   selectedModule: EnabledModule
-  setShowModal: React.Dispatch<React.SetStateAction<boolean>>
-  setFeeData: React.Dispatch<React.SetStateAction<FEE_DATA_TYPE>>
+  setShowModal: Dispatch<React.SetStateAction<boolean>>
+  setFeeData: Dispatch<React.SetStateAction<FEE_DATA_TYPE>>
 }
 
 const Modules: React.FC<Props> = ({
@@ -68,7 +68,7 @@ const Modules: React.FC<Props> = ({
   return (
     <div className="dark:divide-gray-700">
       <div className="py-3.5 px-5 space-y-3">
-        {error && <ErrorMessage title="Failed to load modules" error={error} />}
+        <ErrorMessage title="Failed to load modules" error={error} />
         {showFeeEntry ? (
           <FeeEntry
             selectedModule={selectedModule}
@@ -90,7 +90,7 @@ const Modules: React.FC<Props> = ({
                         'border-green-500':
                           module?.moduleName === selectedModule.moduleName
                       },
-                      'w-full p-3 space-y-1 text-left border rounded-xl flex justify-between'
+                      'w-full p-3 text-left border rounded-xl flex items-center justify-between'
                     )}
                     onClick={() => handleSelectModule(module)}
                   >

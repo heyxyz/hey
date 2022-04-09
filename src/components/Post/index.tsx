@@ -7,18 +7,15 @@ import { Card, CardBody } from '@components/UI/Card'
 import AppContext from '@components/utils/AppContext'
 import SEO from '@components/utils/SEO'
 import { LensterPost } from '@generated/lenstertypes'
-import {
-  CommentCollectionFragment,
-  PostCollectionFragment
-} from '@gql/CollectionFragment'
-import { CommentFragment } from '@gql/CommentFragment'
-import { MirrorFragment } from '@gql/MirrorFragment'
-import { PostFragment } from '@gql/PostFragment'
+import { CommentFields } from '@gql/CommentFields'
+import { MirrorFields } from '@gql/MirrorFields'
+import { PostFields } from '@gql/PostFields'
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import React, { useContext } from 'react'
 import { ZERO_ADDRESS } from 'src/constants'
 import Custom404 from 'src/pages/404'
+import Custom500 from 'src/pages/500'
 
 import IPFSHash from './IPFSHash'
 import PostPageShimmer from './Shimmer'
@@ -32,23 +29,21 @@ export const POST_QUERY = gql`
   ) {
     publication(request: $request) {
       ... on Post {
-        ...PostFragment
-        ...PostCollectionFragment
+        ...PostFields
         onChainContentURI
         referenceModule {
           __typename
         }
       }
       ... on Comment {
-        ...CommentFragment
-        ...CommentCollectionFragment
+        ...CommentFields
         onChainContentURI
         referenceModule {
           __typename
         }
       }
       ... on Mirror {
-        ...MirrorFragment
+        ...MirrorFields
         onChainContentURI
         referenceModule {
           __typename
@@ -59,11 +54,9 @@ export const POST_QUERY = gql`
       follows
     }
   }
-  ${PostFragment}
-  ${CommentFragment}
-  ${MirrorFragment}
-  ${PostCollectionFragment}
-  ${CommentCollectionFragment}
+  ${PostFields}
+  ${CommentFields}
+  ${MirrorFields}
 `
 
 const ViewPost: NextPage = () => {
@@ -72,7 +65,7 @@ const ViewPost: NextPage = () => {
   } = useRouter()
 
   const { currentUser } = useContext(AppContext)
-  const { data, loading } = useQuery(POST_QUERY, {
+  const { data, loading, error } = useQuery(POST_QUERY, {
     variables: {
       request: { publicationId: id },
       followRequest: {
@@ -87,6 +80,7 @@ const ViewPost: NextPage = () => {
     skip: !id
   })
 
+  if (error) return <Custom500 />
   if (loading || !data) return <PostPageShimmer />
   if (!data.publication) return <Custom404 />
 
@@ -111,7 +105,7 @@ const ViewPost: NextPage = () => {
       <GridItemFour className="space-y-5">
         <Card>
           <CardBody>
-            <UserProfile profile={post.profile} />
+            <UserProfile profile={post.profile} showBio />
           </CardBody>
           {post?.appId === 'Lenster' && <ViaLenster />}
         </Card>

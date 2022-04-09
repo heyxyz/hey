@@ -1,4 +1,5 @@
 import LensHubProxy from '@abis/LensHubProxy.json'
+import { gql, useMutation } from '@apollo/client'
 import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout'
 import UserProfile from '@components/Shared/UserProfile'
 import { Button } from '@components/UI/Button'
@@ -6,39 +7,124 @@ import { Card, CardBody } from '@components/UI/Card'
 import { Spinner } from '@components/UI/Spinner'
 import AppContext from '@components/utils/AppContext'
 import SEO from '@components/utils/SEO'
+import { CreateBurnProfileBroadcastItemResult } from '@generated/types'
 import { TrashIcon } from '@heroicons/react/outline'
+import { omit } from '@lib/omit'
+import { splitSignature } from '@lib/splitSignature'
 import { trackEvent } from '@lib/trackEvent'
 import React, { useContext } from 'react'
 import toast from 'react-hot-toast'
-import { LENSHUB_PROXY } from 'src/constants'
+import {
+  CHAIN_ID,
+  CONNECT_WALLET,
+  ERROR_MESSAGE,
+  LENSHUB_PROXY,
+  WRONG_NETWORK
+} from 'src/constants'
 import Custom404 from 'src/pages/404'
-import { useContractWrite } from 'wagmi'
+import {
+  useAccount,
+  useContractWrite,
+  useNetwork,
+  useSignTypedData
+} from 'wagmi'
 
 import Sidebar from '../Sidebar'
 
+const CREATE_BURN_PROFILE_TYPED_DATA_MUTATION = gql`
+  mutation CreateBurnProfileTypedData($request: BurnProfileRequest!) {
+    createBurnProfileTypedData(request: $request) {
+      id
+      expiresAt
+      typedData {
+        domain {
+          name
+          chainId
+          version
+          verifyingContract
+        }
+        types {
+          BurnWithSig {
+            name
+            type
+          }
+        }
+        value {
+          nonce
+          deadline
+          tokenId
+        }
+      }
+    }
+  }
+`
+
 const DeleteSettings: React.FC = () => {
   const { currentUser } = useContext(AppContext)
+  const [{ data: network }] = useNetwork()
+  const [{ data: account }] = useAccount()
+  const [{ loading: signLoading }, signTypedData] = useSignTypedData()
 
   const [{ loading: writeLoading }, write] = useContractWrite(
     {
       addressOrName: LENSHUB_PROXY,
       contractInterface: LensHubProxy
     },
-    'burn'
+    'burnWithSig'
   )
 
+  const [createBurnProfileTypedData, { loading: typedDataLoading }] =
+    useMutation(CREATE_BURN_PROFILE_TYPED_DATA_MUTATION, {
+      onCompleted({
+        createBurnProfileTypedData
+      }: {
+        createBurnProfileTypedData: CreateBurnProfileBroadcastItemResult
+      }) {
+        const { typedData } = createBurnProfileTypedData
+
+        signTypedData({
+          domain: omit(typedData?.domain, '__typename'),
+          types: omit(typedData?.types, '__typename'),
+          value: omit(typedData?.value, '__typename')
+        }).then((res) => {
+          if (!res.error) {
+            const { tokenId } = typedData?.value
+            const { v, r, s } = splitSignature(res.data)
+            const sig = {
+              v,
+              r,
+              s,
+              deadline: typedData.value.deadline
+            }
+
+            write({ args: [tokenId, sig] }).then(({ error }) => {
+              if (!error) {
+                trackEvent('delete profile')
+                localStorage.setItem('selectedProfile', '0')
+                location.href = '/'
+              } else {
+                toast.error(error?.message)
+              }
+            })
+          } else {
+            toast.error(res.error?.message)
+          }
+        })
+      },
+      onError(error) {
+        toast.error(error.message ?? ERROR_MESSAGE)
+      }
+    })
+
   const handleDelete = () => {
-    var confirm = prompt('Type (delete) to confirm')
-    if (confirm === 'delete') {
-      write({ args: [currentUser?.id] }).then(({ error }) => {
-        if (!error) {
-          trackEvent('delete profile')
-          localStorage.setItem('selectedProfile', '0')
-          location.href = '/'
-        }
-      })
+    if (!account?.address) {
+      toast.error(CONNECT_WALLET)
+    } else if (network.chain?.id !== CHAIN_ID) {
+      toast.error(WRONG_NETWORK)
     } else {
-      toast.success('You cancelled the operation!')
+      createBurnProfileTypedData({
+        variables: { request: { profileId: currentUser?.id } }
+      })
     }
   }
 
@@ -52,7 +138,7 @@ const DeleteSettings: React.FC = () => {
       </GridItemFour>
       <GridItemEight>
         <Card>
-          <CardBody className="space-y-5 linkify">
+          <CardBody className="space-y-5">
             <UserProfile profile={currentUser} />
             <div className="text-lg font-bold text-red-500">
               This will deactivate your account
@@ -73,13 +159,13 @@ const DeleteSettings: React.FC = () => {
               </p>
               <p className="py-3">
                 Your @handle will be released immediately after deleting the
-                account
+                account.
               </p>
             </div>
             <Button
               variant="danger"
               icon={
-                writeLoading ? (
+                typedDataLoading || signLoading || writeLoading ? (
                   <Spinner variant="danger" size="xs" />
                 ) : (
                   <TrashIcon className="w-5 h-5" />
@@ -87,7 +173,9 @@ const DeleteSettings: React.FC = () => {
               }
               onClick={handleDelete}
             >
-              {writeLoading ? 'Deleting...' : 'Delete your account'}
+              {typedDataLoading || signLoading || writeLoading
+                ? 'Deleting...'
+                : 'Delete your account'}
             </Button>
           </CardBody>
         </Card>

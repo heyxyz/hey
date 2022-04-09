@@ -1,10 +1,11 @@
 import { gql } from '@apollo/client'
 
-export const PublicationProfileFragment = gql`
-  fragment PublicationProfileFragment on Profile {
+export const MinimalProfileFields = gql`
+  fragment MinimalProfileFields on Profile {
     id
     name
     handle
+    bio
     ownedBy
     picture {
       ... on MediaSet {

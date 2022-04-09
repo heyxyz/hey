@@ -1,20 +1,22 @@
 import { gql } from '@apollo/client'
 
-import { PostCollectionFragment } from './CollectionFragment'
-import { PublicationProfileFragment } from './PublicationProfileFragment'
+import { CollectModuleFields } from './CollectModuleFields'
+import { MinimalProfileFields } from './MinimalProfileFields'
 
-export const PostFragment = gql`
-  fragment PostFragment on Post {
+export const PostFields = gql`
+  fragment PostFields on Post {
     id
     profile {
-      ...PublicationProfileFragment
+      ...MinimalProfileFields
     }
     collectedBy {
       defaultProfile {
         handle
       }
     }
-    ...PostCollectionFragment
+    collectModule {
+      ...CollectModuleFields
+    }
     stats {
       totalAmountOfComments
       totalAmountOfMirrors
@@ -43,6 +45,6 @@ export const PostFragment = gql`
     createdAt
     appId
   }
-  ${PublicationProfileFragment}
-  ${PostCollectionFragment}
+  ${MinimalProfileFields}
+  ${CollectModuleFields}
 `

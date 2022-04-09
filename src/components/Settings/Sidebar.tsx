@@ -1,3 +1,6 @@
+import UserProfile from '@components/Shared/UserProfile'
+import AppContext from '@components/utils/AppContext'
+import { Profile } from '@generated/types'
 import {
   ChipIcon,
   ExclamationIcon,
@@ -7,7 +10,7 @@ import {
 import clsx from 'clsx'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React from 'react'
+import React, { useContext } from 'react'
 
 interface MenuProps {
   children: React.ReactNode
@@ -31,9 +34,13 @@ const Menu: React.FC<MenuProps> = ({ children, current, url }) => (
 
 const Sidebar: React.FC = () => {
   const router = useRouter()
+  const { currentUser } = useContext(AppContext)
 
   return (
     <div className="px-3 mb-4 space-y-1.5 sm:px-0">
+      <div className="pb-3">
+        <UserProfile profile={currentUser as Profile} />
+      </div>
       <Menu current={router.pathname == '/settings'} url="/settings">
         <UserIcon className="w-4 h-4" />
         <div>Profile</div>

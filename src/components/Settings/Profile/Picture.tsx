@@ -20,13 +20,13 @@ import gql from 'graphql-tag'
 import React, { useContext, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
+  CHAIN_ID,
   CONNECT_WALLET,
   ERROR_MESSAGE,
   LENSHUB_PROXY,
   WRONG_NETWORK
 } from 'src/constants'
 import {
-  chain,
   useAccount,
   useContractWrite,
   useNetwork,
@@ -153,7 +153,7 @@ const Picture: React.FC<Props> = ({ profile }) => {
       toast.error("Avatar can't be empty!")
     } else if (!account?.address) {
       toast.error(CONNECT_WALLET)
-    } else if (network.chain?.id !== chain.polygonTestnetMumbai.id) {
+    } else if (network.chain?.id !== CHAIN_ID) {
       toast.error(WRONG_NETWORK)
     } else {
       createSetProfileImageURITypedData({
@@ -170,13 +170,11 @@ const Picture: React.FC<Props> = ({ profile }) => {
   return (
     <Card className="space-y-5">
       <CardBody className="space-y-4">
-        {error && (
-          <ErrorMessage
-            className="mb-3"
-            title="Transaction failed!"
-            error={error}
-          />
-        )}
+        <ErrorMessage
+          className="mb-3"
+          title="Transaction failed!"
+          error={error}
+        />
         <div className="space-y-1.5">
           <label className="mb-1 font-medium text-gray-800 dark:text-gray-200">
             Avatar

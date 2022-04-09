@@ -4,9 +4,11 @@ import WalletProfile from '@components/Shared/WalletProfile'
 import { EmptyState } from '@components/UI/EmptyState'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { Spinner } from '@components/UI/Spinner'
-import { Profile, Wallet } from '@generated/types'
+import { PaginatedResultInfo, Profile, Wallet } from '@generated/types'
+import { MinimalProfileFields } from '@gql/MinimalProfileFields'
 import { CollectionIcon } from '@heroicons/react/outline'
-import useInView from 'react-cool-inview'
+import { useState } from 'react'
+import { useInView } from 'react-cool-inview'
 
 const COLLECTORS_QUERY = gql`
   query Collectors($request: WhoCollectedPublicationRequest!) {
@@ -14,24 +16,16 @@ const COLLECTORS_QUERY = gql`
       items {
         address
         defaultProfile {
-          id
-          name
-          handle
-          ownedBy
-          picture {
-            ... on MediaSet {
-              original {
-                url
-              }
-            }
-          }
+          ...MinimalProfileFields
         }
       }
       pageInfo {
         next
+        totalCount
       }
     }
   }
+  ${MinimalProfileFields}
 `
 
 interface Props {
@@ -39,12 +33,17 @@ interface Props {
 }
 
 const Collectors: React.FC<Props> = ({ pubId }) => {
+  const [collectors, setCollectors] = useState<Wallet[]>([])
+  const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
   const { data, loading, error, fetchMore } = useQuery(COLLECTORS_QUERY, {
     variables: { request: { publicationId: pubId, limit: 10 } },
-    skip: !pubId
+    skip: !pubId,
+    onCompleted(data) {
+      setPageInfo(data?.whoCollectedPublication?.pageInfo)
+      setCollectors(data?.whoCollectedPublication?.items)
+    }
   })
 
-  const pageInfo = data?.whoCollectedPublication?.pageInfo
   const { observe } = useInView({
     threshold: 1,
     onEnter: () => {
@@ -56,6 +55,9 @@ const Collectors: React.FC<Props> = ({ pubId }) => {
             limit: 10
           }
         }
+      }).then(({ data }: any) => {
+        setPageInfo(data?.whoCollectedPublication?.pageInfo)
+        setCollectors([...collectors, ...data?.whoCollectedPublication?.items])
       })
     }
   })
@@ -88,17 +90,20 @@ const Collectors: React.FC<Props> = ({ pubId }) => {
       />
       <div className="space-y-3">
         <div className="divide-y">
-          {data?.whoCollectedPublication?.items?.map((wallet: Wallet) => (
+          {collectors?.map((wallet: Wallet) => (
             <div className="p-5" key={wallet?.defaultProfile?.id}>
               {wallet?.defaultProfile ? (
-                <UserProfile profile={wallet?.defaultProfile as Profile} />
+                <UserProfile
+                  profile={wallet?.defaultProfile as Profile}
+                  showBio
+                />
               ) : (
                 <WalletProfile wallet={wallet} />
               )}
             </div>
           ))}
         </div>
-        {pageInfo?.next && (
+        {pageInfo?.next && collectors.length !== pageInfo?.totalCount && (
           <span ref={observe} className="flex justify-center p-5">
             <Spinner size="md" />
           </span>

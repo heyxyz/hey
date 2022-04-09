@@ -17,8 +17,8 @@
     "react/no-unescaped-entities": "off",
     "no-unused-vars": "warn",
     "unused-imports/no-unused-imports": "error",
-    "@next/next/no-html-link-for-pages": ["off", "/api/"],
-    "@typescript-eslint/ban-ts-comment": "warn",
+    "@next/next/no-html-link-for-pages": ["off"],
+    "@typescript-eslint/ban-ts-comment": "off", // turn off
     "@typescript-eslint/explicit-module-boundary-types": "off",
     "@next/next/no-img-element": "off",
     "simple-import-sort/imports": "error",

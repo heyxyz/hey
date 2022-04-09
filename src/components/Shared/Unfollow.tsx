@@ -10,14 +10,13 @@ import { trackEvent } from '@lib/trackEvent'
 import { Contract } from 'ethers'
 import { Dispatch, useState } from 'react'
 import toast from 'react-hot-toast'
-import { CONNECT_WALLET, ERROR_MESSAGE, WRONG_NETWORK } from 'src/constants'
 import {
-  chain,
-  useAccount,
-  useNetwork,
-  useSigner,
-  useSignTypedData
-} from 'wagmi'
+  CHAIN_ID,
+  CONNECT_WALLET,
+  ERROR_MESSAGE,
+  WRONG_NETWORK
+} from 'src/constants'
+import { useAccount, useNetwork, useSigner, useSignTypedData } from 'wagmi'
 
 const CREATE_UNFOLLOW_TYPED_DATA_MUTATION = gql`
   mutation CreateUnfollowTypedData($request: UnfollowRequest!) {
@@ -120,7 +119,7 @@ const Unfollow: React.FC<Props> = ({
   const createUnfollow = async () => {
     if (!account?.address) {
       toast.error(CONNECT_WALLET)
-    } else if (network.chain?.id !== chain.polygonTestnetMumbai.id) {
+    } else if (network.chain?.id !== CHAIN_ID) {
       toast.error(WRONG_NETWORK)
     } else {
       createUnfollowTypedData({

@@ -22,6 +22,7 @@ const Notification: React.FC = () => {
   const [showBadge, setShowBadge] = useState<boolean>(false)
   const { data } = useQuery(NOTIFICATION_COUNT_QUERY, {
     variables: { request: { profileId: currentUser?.id } },
+    pollInterval: 5000,
     skip: !currentUser?.id
   })
 
@@ -34,7 +35,7 @@ const Notification: React.FC = () => {
   }, [currentUser, data])
 
   return (
-    <Menu as="span" className="sm:relative mt-1.5">
+    <Menu as="div" className="mt-1.5 sm:relative">
       {({ open }) => (
         <>
           <Menu.Button>
@@ -49,7 +50,7 @@ const Notification: React.FC = () => {
                 setShowBadge(false)
               }}
             >
-              <LightningBoltIcon className="h-5 w-5 sm:h-6 sm:w-6" />
+              <LightningBoltIcon className="w-5 h-5 sm:w-6 sm:h-6" />
               {showBadge && <div className="w-2 h-2 bg-red-500 rounded-full" />}
             </button>
           </Menu.Button>
@@ -63,7 +64,7 @@ const Notification: React.FC = () => {
             leaveFrom="transform opacity-100 scale-100"
             leaveTo="transform opacity-0 scale-95"
           >
-            <Menu.Items className="overflow-y-auto max-h-[80vh] sm:max-h-[60vh] absolute right-0 mt-1 min-w-full sm:min-w-[28rem] bg-white rounded-xl border shadow-sm dark:bg-gray-900 dark:border-gray-800">
+            <Menu.Items className="overflow-y-auto absolute right-0 mt-1 min-w-full bg-white rounded-xl border shadow-sm dark:bg-gray-900 dark:border-gray-800 max-h-[80vh] sm:max-h-[60vh] sm:min-w-[28rem]">
               <List />
             </Menu.Items>
           </Transition>

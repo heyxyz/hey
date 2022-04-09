@@ -1,6 +1,5 @@
 import { Profile } from '@generated/types'
 import { BadgeCheckIcon } from '@heroicons/react/solid'
-import { formatUsername } from '@lib/formatUsername'
 import { getAvatar } from '@lib/getAvatar'
 import { isVerified } from '@lib/isVerified'
 import Link from 'next/link'
@@ -12,6 +11,7 @@ import Unfollow from './Unfollow'
 
 interface Props {
   profile: Profile
+  showBio?: boolean
   showFollow?: boolean
   followStatusLoading?: boolean
   isFollowing?: boolean
@@ -19,6 +19,7 @@ interface Props {
 
 const UserProfile: React.FC<Props> = ({
   profile,
+  showBio = false,
   showFollow = false,
   followStatusLoading = false,
   isFollowing = false
@@ -42,13 +43,9 @@ const UserProfile: React.FC<Props> = ({
                   <BadgeCheckIcon className="w-4 h-4 text-brand-500" />
                 )}
               </div>
-              {profile?.name ? (
-                <Slug className="text-sm" slug={profile?.handle} prefix="@" />
-              ) : (
-                <Slug
-                  className="text-sm"
-                  slug={formatUsername(profile?.ownedBy)}
-                />
+              <Slug className="text-sm" slug={profile?.handle} prefix="@" />
+              {showBio && profile?.bio && (
+                <div className="mt-2 text-sm">{profile?.bio}</div>
               )}
             </div>
           </div>

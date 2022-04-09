@@ -7,7 +7,9 @@ import { motion } from 'framer-motion'
 import dynamic from 'next/dynamic'
 import { useState } from 'react'
 
-const GifSelector = dynamic(() => import('./GifSelector'))
+const GifSelector = dynamic(() => import('./GifSelector'), {
+  loading: () => <div className="shimmer h-5 rounded-lg m-5" />
+})
 
 interface Props {
   // eslint-disable-next-line no-unused-vars

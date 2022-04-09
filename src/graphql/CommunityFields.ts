@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client'
 
-export const CommunityFragment = gql`
-  fragment CommunityFragment on Post {
+export const CommunityFields = gql`
+  fragment CommunityFields on Post {
     id
     metadata {
       name

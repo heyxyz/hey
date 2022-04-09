@@ -6,6 +6,7 @@ import SEO from '@components/utils/SEO'
 import { NextPage } from 'next'
 import React, { useContext } from 'react'
 import Custom404 from 'src/pages/404'
+import Custom500 from 'src/pages/500'
 
 import Sidebar from '../Sidebar'
 import Picture from './Picture'
@@ -42,11 +43,12 @@ const PROFILE_SETTINGS_QUERY = gql`
 
 const ProfileSettings: NextPage = () => {
   const { currentUser } = useContext(AppContext)
-  const { data, loading } = useQuery(PROFILE_SETTINGS_QUERY, {
+  const { data, loading, error } = useQuery(PROFILE_SETTINGS_QUERY, {
     variables: { request: { profileIds: currentUser?.id } },
     skip: !currentUser?.id
   })
 
+  if (error) return <Custom500 />
   if (loading) return <PageLoading message="Loading settings" />
   if (!currentUser) return <Custom404 />
 
