@@ -47,7 +47,7 @@ const Crowdfund: React.FC<Props> = ({ fund }) => {
   })
 
   useEffect(() => {
-    setRevenue(parseInt(data?.publicationRevenue?.earnings?.value ?? 0))
+    setRevenue(parseFloat(data?.publicationRevenue?.earnings?.value ?? 0))
   }, [data])
 
   const goalAmount = fund?.metadata?.attributes[1]?.value

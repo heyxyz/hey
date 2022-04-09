@@ -109,7 +109,7 @@ const Fund: React.FC<Props> = ({ fund, setRevenue, revenue }) => {
 
             write({ args: inputStruct }).then(({ error }: { error: any }) => {
               if (!error) {
-                setRevenue(revenue + parseInt(collectModule?.amount?.value))
+                setRevenue(revenue + parseFloat(collectModule?.amount?.value))
                 toast.success('Successfully funded!')
                 trackEvent('fund a crowdfund')
               } else {
