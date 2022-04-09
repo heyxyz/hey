@@ -6,6 +6,7 @@ import { Spinner } from '@components/UI/Spinner'
 import AppContext from '@components/utils/AppContext'
 import SEO from '@components/utils/SEO'
 import { Erc20 } from '@generated/types'
+import consoleLog from '@lib/consoleLog'
 import { NextPage } from 'next'
 import React, { useContext, useState } from 'react'
 import { DEFAULT_COLLECT_TOKEN } from 'src/constants'
@@ -57,7 +58,10 @@ const AllowanceSettings: NextPage = () => {
     variables: {
       request: getAllowancePayload(DEFAULT_COLLECT_TOKEN)
     },
-    skip: !currentUser?.id
+    skip: !currentUser?.id,
+    onCompleted() {
+      consoleLog('Fetch', '#8b5cf6', `Fetched allowance settings`)
+    }
   })
 
   if (error) return <Custom500 />

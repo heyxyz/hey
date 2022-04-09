@@ -3,6 +3,7 @@ import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout'
 import { PageLoading } from '@components/UI/PageLoading'
 import AppContext from '@components/utils/AppContext'
 import SEO from '@components/utils/SEO'
+import consoleLog from '@lib/consoleLog'
 import { NextPage } from 'next'
 import React, { useContext } from 'react'
 import Custom404 from 'src/pages/404'
@@ -45,7 +46,10 @@ const ProfileSettings: NextPage = () => {
   const { currentUser } = useContext(AppContext)
   const { data, loading, error } = useQuery(PROFILE_SETTINGS_QUERY, {
     variables: { request: { profileIds: currentUser?.id } },
-    skip: !currentUser?.id
+    skip: !currentUser?.id,
+    onCompleted() {
+      consoleLog('Fetch', '#8b5cf6', `Fetched profile settings`)
+    }
   })
 
   if (error) return <Custom500 />
