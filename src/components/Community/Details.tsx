@@ -6,9 +6,10 @@ import { Modal } from '@components/UI/Modal'
 import AppContext from '@components/utils/AppContext'
 import { LensterPost } from '@generated/lenstertypes'
 import { ClockIcon, HashtagIcon, UsersIcon } from '@heroicons/react/outline'
-import { humanize } from '@lib/humanize'
-import { imagekitURL } from '@lib/imagekitURL'
-import { linkifyOptions } from '@lib/linkifyOptions'
+import consoleLog from '@lib/consoleLog'
+import humanize from '@lib/humanize'
+import imagekitURL from '@lib/imagekitURL'
+import linkifyOptions from '@lib/linkifyOptions'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import Linkify from 'linkify-react'
@@ -19,7 +20,7 @@ import Join from './Join'
 dayjs.extend(relativeTime)
 
 export const HAS_JOINED_QUERY = gql`
-  query DoesFollow($request: HasCollectedRequest!) {
+  query HasJoined($request: HasCollectedRequest!) {
     hasCollected(request: $request) {
       results {
         collected
@@ -48,6 +49,11 @@ const Details: React.FC<Props> = ({ community }) => {
     skip: !currentUser || !community,
     onCompleted(data) {
       setJoined(data?.hasCollected[0]?.results[0]?.collected)
+      consoleLog(
+        'Fetch',
+        '#8b5cf6',
+        `Fetched has joined check Community:${community?.id} Joined:${joined}`
+      )
     }
   })
 

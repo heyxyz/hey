@@ -23,10 +23,10 @@ import {
   FEE_DATA_TYPE,
   getModule
 } from '@lib/getModule'
-import { omit } from '@lib/omit'
-import { splitSignature } from '@lib/splitSignature'
-import { trackEvent } from '@lib/trackEvent'
-import { uploadToIPFS } from '@lib/uploadToIPFS'
+import omit from '@lib/omit'
+import splitSignature from '@lib/splitSignature'
+import trackEvent from '@lib/trackEvent'
+import uploadToIPFS from '@lib/uploadToIPFS'
 import dynamic from 'next/dynamic'
 import { useContext, useState } from 'react'
 import toast from 'react-hot-toast'

@@ -1,4 +1,4 @@
-export const linkifyOptions = {
+const linkifyOptions = {
   format: function (value: string, type: 'url') {
     if (type === 'url' && value.length > 36) {
       value = value.slice(0, 36) + '…'
@@ -15,3 +15,5 @@ export const linkifyOptions = {
   target: '_blank',
   rel: 'noreferrer'
 }
+
+export default linkifyOptions

@@ -1,4 +1,4 @@
-export const formatAddress = (address: string | null | undefined) => {
+const formatAddress = (address: string | null | undefined) => {
   if (!address) return ''
 
   let regex = /^0x[a-fA-F0-9]{40}$/g
@@ -11,3 +11,5 @@ export const formatAddress = (address: string | null | undefined) => {
     return address
   }
 }
+
+export default formatAddress

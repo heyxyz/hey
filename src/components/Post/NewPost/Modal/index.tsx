@@ -1,6 +1,6 @@
 import { Modal } from '@components/UI/Modal'
 import { PencilAltIcon } from '@heroicons/react/outline'
-import { trackEvent } from '@lib/trackEvent'
+import trackEvent from '@lib/trackEvent'
 import { useState } from 'react'
 
 import NewPost from '..'

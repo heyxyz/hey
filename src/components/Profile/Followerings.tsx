@@ -1,7 +1,7 @@
 import { Modal } from '@components/UI/Modal'
 import { Profile } from '@generated/types'
 import { UsersIcon } from '@heroicons/react/outline'
-import { humanize } from '@lib/humanize'
+import humanize from '@lib/humanize'
 import React, { useState } from 'react'
 
 import Followers from './Followers'

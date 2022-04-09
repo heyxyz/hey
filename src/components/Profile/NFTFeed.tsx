@@ -6,6 +6,7 @@ import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { Spinner } from '@components/UI/Spinner'
 import { Nft, PaginatedResultInfo, Profile } from '@generated/types'
 import { CollectionIcon } from '@heroicons/react/outline'
+import consoleLog from '@lib/consoleLog'
 import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import { CHAIN_ID, IS_MAINNET } from 'src/constants'
@@ -50,6 +51,11 @@ const NFTFeed: React.FC<Props> = ({ profile }) => {
     onCompleted(data) {
       setPageInfo(data?.nfts?.pageInfo)
       setNfts(data?.nfts?.items)
+      consoleLog(
+        'Fetch',
+        '#8b5cf6',
+        `Fetched first 10 nfts Profile:${profile?.id}`
+      )
     }
   })
 
@@ -68,6 +74,11 @@ const NFTFeed: React.FC<Props> = ({ profile }) => {
       }).then(({ data }: any) => {
         setPageInfo(data?.nfts?.pageInfo)
         setNfts([...nfts, ...data?.nfts?.items])
+        consoleLog(
+          'Fetch',
+          '#8b5cf6',
+          `Fetched next 10 nfts Profile:${profile?.id} Next:${pageInfo?.next}`
+        )
       })
     }
   })

@@ -10,6 +10,7 @@ import { LensterPost } from '@generated/lenstertypes'
 import { CommentFields } from '@gql/CommentFields'
 import { MirrorFields } from '@gql/MirrorFields'
 import { PostFields } from '@gql/PostFields'
+import consoleLog from '@lib/consoleLog'
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import React, { useContext } from 'react'
@@ -77,7 +78,10 @@ const ViewPost: NextPage = () => {
         }
       }
     },
-    skip: !id
+    skip: !id,
+    onCompleted() {
+      consoleLog('Fetch', '#8b5cf6', `Fetched a publication Publication:${id}`)
+    }
   })
 
   if (error) return <Custom500 />

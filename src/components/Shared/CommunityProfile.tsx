@@ -1,7 +1,7 @@
 import { Community } from '@generated/lenstertypes'
 import { UsersIcon } from '@heroicons/react/outline'
-import { humanize } from '@lib/humanize'
-import { imagekitURL } from '@lib/imagekitURL'
+import humanize from '@lib/humanize'
+import imagekitURL from '@lib/imagekitURL'
 import Link from 'next/link'
 import React from 'react'
 

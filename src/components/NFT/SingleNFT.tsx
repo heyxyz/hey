@@ -1,6 +1,6 @@
 import { Card, CardBody } from '@components/UI/Card'
 import { Nft } from '@generated/types'
-import { imagekitURL } from '@lib/imagekitURL'
+import imagekitURL from '@lib/imagekitURL'
 import React from 'react'
 import { CHAIN_ID, OPENSEA_URL, STATIC_ASSETS } from 'src/constants'
 

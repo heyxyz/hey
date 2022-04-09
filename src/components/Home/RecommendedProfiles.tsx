@@ -9,6 +9,7 @@ import { Profile } from '@generated/types'
 import { MinimalProfileFields } from '@gql/MinimalProfileFields'
 import { UsersIcon } from '@heroicons/react/outline'
 import { LightningBoltIcon, SparklesIcon } from '@heroicons/react/solid'
+import consoleLog from '@lib/consoleLog'
 import React, { useContext } from 'react'
 
 const RECOMMENDED_PROFILES_QUERY = gql`
@@ -41,7 +42,15 @@ const Title = () => {
 }
 
 const RecommendedProfiles: React.FC = () => {
-  const { data, loading, error } = useQuery(RECOMMENDED_PROFILES_QUERY)
+  const { data, loading, error } = useQuery(RECOMMENDED_PROFILES_QUERY, {
+    onCompleted(data) {
+      consoleLog(
+        'Fetch',
+        '#8b5cf6',
+        `Fetched ${data?.recommendedProfiles?.length} recommended profiles`
+      )
+    }
+  })
 
   if (loading)
     return (

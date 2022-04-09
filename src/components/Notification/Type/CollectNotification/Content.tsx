@@ -1,5 +1,5 @@
 import { NewCollectNotification } from '@generated/types'
-import { imagekitURL } from '@lib/imagekitURL'
+import imagekitURL from '@lib/imagekitURL'
 import Link from 'next/link'
 import React from 'react'
 

@@ -1,4 +1,4 @@
-export async function uploadAssetsToIPFS(data: File) {
+const uploadAssetsToIPFS = async (data: File) => {
   const formData = new FormData()
   formData.append('file', data, 'img')
   const upload = await fetch('https://ipfs.infura.io:5001/api/v0/add', {
@@ -12,3 +12,5 @@ export async function uploadAssetsToIPFS(data: File) {
     type: data.type
   }
 }
+
+export default uploadAssetsToIPFS

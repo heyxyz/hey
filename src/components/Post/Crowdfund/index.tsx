@@ -8,9 +8,10 @@ import { Modal } from '@components/UI/Modal'
 import { Tooltip } from '@components/UI/Tooltip'
 import { LensterCollectModule, LensterPost } from '@generated/lenstertypes'
 import { CashIcon, UsersIcon } from '@heroicons/react/outline'
-import { getTokenImage } from '@lib/getTokenImage'
-import { imagekitURL } from '@lib/imagekitURL'
-import { linkifyOptions } from '@lib/linkifyOptions'
+import consoleLog from '@lib/consoleLog'
+import getTokenImage from '@lib/getTokenImage'
+import imagekitURL from '@lib/imagekitURL'
+import linkifyOptions from '@lib/linkifyOptions'
 import clsx from 'clsx'
 import Linkify from 'linkify-react'
 import React, { useEffect, useState } from 'react'
@@ -39,7 +40,10 @@ const Crowdfund: React.FC<Props> = ({ fund }) => {
   const [revenue, setRevenue] = useState<number>(0)
   const { data, loading } = useQuery(CROWDFUND_REVENUE_QUERY, {
     variables: { request: { publicationId: fund.id } },
-    skip: !fund.id
+    skip: !fund.id,
+    onCompleted() {
+      consoleLog('Fetch', '#8b5cf6', `Fetched a crowdfund Crowdfund:${fund.id}`)
+    }
   })
 
   useEffect(() => {

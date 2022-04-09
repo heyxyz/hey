@@ -1,3 +1,5 @@
 import { verified } from 'data/verified'
 
-export const isVerified = (id: string) => verified.includes(id)
+const isVerified = (id: string) => verified.includes(id)
+
+export default isVerified
