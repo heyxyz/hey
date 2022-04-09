@@ -8,40 +8,38 @@ const ProfilePageShimmer: React.FC = () => {
       <div className="h-52 sm:h-80 shimmer" />
       <GridLayout className="pt-6">
         <GridItemFour>
-          <div className="px-5 mb-4 sm:px-0">
-            <div className="space-y-10">
-              <div className="relative -mt-24 w-32 h-32 sm:-mt-32 sm:w-52 sm:h-52">
-                <div className="w-32 h-32 bg-gray-200 rounded-xl ring-8 ring-gray-50 sm:w-52 sm:h-52 dark:bg-gray-700 dark:ring-black shimmer" />
-              </div>
-              <div className="space-y-3">
-                <div className="w-1/3 h-5 rounded-lg shimmer" />
-                <div className="w-1/4 h-3 rounded-lg shimmer" />
-              </div>
-              <div className="space-y-5">
-                <div className="flex gap-5 pb-1">
-                  <div className="space-y-2">
-                    <div className="w-7 h-7 rounded-lg shimmer" />
-                    <div className="w-20 h-3 rounded-lg shimmer" />
-                  </div>
-                  <div className="space-y-2">
-                    <div className="w-7 h-7 rounded-lg shimmer" />
-                    <div className="w-20 h-3 rounded-lg shimmer" />
-                  </div>
-                </div>
-                <div className="w-28 rounded-lg h-[34px] shimmer" />
+          <div className="px-5 mb-4 sm:px-0 space-y-9">
+            <div className="relative -mt-24 w-32 h-32 sm:-mt-32 sm:w-52 sm:h-52">
+              <div className="w-32 h-32 bg-gray-200 rounded-xl ring-8 ring-gray-50 sm:w-52 sm:h-52 dark:bg-gray-700 dark:ring-black shimmer" />
+            </div>
+            <div className="space-y-3">
+              <div className="w-1/3 h-5 rounded-lg shimmer" />
+              <div className="w-1/4 h-3 rounded-lg shimmer" />
+            </div>
+            <div className="space-y-5">
+              <div className="flex gap-5 pb-1">
                 <div className="space-y-2">
-                  <div className="w-7/12 h-3 rounded-lg shimmer" />
-                  <div className="w-1/3 h-3 rounded-lg shimmer" />
+                  <div className="w-7 h-7 rounded-lg shimmer" />
+                  <div className="w-20 h-3 rounded-lg shimmer" />
                 </div>
                 <div className="space-y-2">
-                  <div className="flex items-center space-x-2">
-                    <div className="w-4 h-4 rounded-lg shimmer" />
-                    <div className="w-20 h-3 rounded-lg shimmer" />
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <div className="w-4 h-4 rounded-lg shimmer" />
-                    <div className="w-20 h-3 rounded-lg shimmer" />
-                  </div>
+                  <div className="w-7 h-7 rounded-lg shimmer" />
+                  <div className="w-20 h-3 rounded-lg shimmer" />
+                </div>
+              </div>
+              <div className="w-28 rounded-lg h-[34px] shimmer" />
+              <div className="space-y-2">
+                <div className="w-7/12 h-3 rounded-lg shimmer" />
+                <div className="w-1/3 h-3 rounded-lg shimmer" />
+              </div>
+              <div className="space-y-2">
+                <div className="flex items-center space-x-2">
+                  <div className="w-4 h-4 rounded-lg shimmer" />
+                  <div className="w-20 h-3 rounded-lg shimmer" />
+                </div>
+                <div className="flex items-center space-x-2">
+                  <div className="w-4 h-4 rounded-lg shimmer" />
+                  <div className="w-20 h-3 rounded-lg shimmer" />
                 </div>
               </div>
             </div>
