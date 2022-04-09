@@ -226,23 +226,19 @@ const Create: React.FC = () => {
                 <label>Avatar</label>
                 <div className="space-y-3">
                   {avatar && (
-                    <div>
-                      <img
-                        className="w-60 h-60 rounded-lg"
-                        src={avatar}
-                        alt={avatar}
-                      />
-                    </div>
+                    <img
+                      className="w-60 h-60 rounded-lg"
+                      src={avatar}
+                      alt={avatar}
+                    />
                   )}
-                  <div>
-                    <div className="flex items-center space-x-3">
-                      <ChooseFile
-                        onChange={(evt: React.ChangeEvent<HTMLInputElement>) =>
-                          handleUpload(evt)
-                        }
-                      />
-                      {uploading && <Spinner size="sm" />}
-                    </div>
+                  <div className="flex items-center space-x-3">
+                    <ChooseFile
+                      onChange={(evt: React.ChangeEvent<HTMLInputElement>) =>
+                        handleUpload(evt)
+                      }
+                    />
+                    {uploading && <Spinner size="sm" />}
                   </div>
                 </div>
               </div>
