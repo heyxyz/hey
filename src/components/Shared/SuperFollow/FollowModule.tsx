@@ -23,6 +23,8 @@ import {
   useSignTypedData
 } from 'wagmi'
 
+import Slug from '../Slug'
+
 const CREATE_FOLLOW_TYPED_DATA_MUTATION = gql`
   mutation CreateFollowTypedData($request: FollowRequest!) {
     createFollowTypedData(request: $request) {
@@ -54,14 +56,14 @@ const CREATE_FOLLOW_TYPED_DATA_MUTATION = gql`
 
 interface Props {
   profile: Profile
-  showText?: boolean
   setFollowing: Dispatch<boolean>
+  setShowFollowModal: Dispatch<boolean>
 }
 
-const SuperFollow: FC<Props> = ({
+const FollowModule: FC<Props> = ({
   profile,
-  showText = false,
-  setFollowing
+  setFollowing,
+  setShowFollowModal
 }) => {
   const [{ data: network }] = useNetwork()
   const [{ data: account }] = useAccount()
@@ -106,8 +108,9 @@ const SuperFollow: FC<Props> = ({
             write({ args: inputStruct }).then(({ error }) => {
               if (!error) {
                 setFollowing(true)
+                setShowFollowModal(false)
                 toast.success('Followed successfully!')
-                trackEvent('follow user')
+                trackEvent('super follow user')
               } else {
                 toast.error(error?.message)
               }
@@ -150,23 +153,28 @@ const SuperFollow: FC<Props> = ({
   }
 
   return (
-    <Button
-      className="text-sm !px-3 !py-1.5"
-      outline
-      onClick={createFollow}
-      disabled={typedDataLoading || signLoading || writeLoading}
-      variant="success"
-      icon={
-        typedDataLoading || signLoading || writeLoading ? (
-          <Spinner variant="success" size="xs" />
-        ) : (
-          <StarIcon className="w-4 h-4" />
-        )
-      }
-    >
-      {showText && 'Super Follow'}
-    </Button>
+    <div className="p-5 space-y-3">
+      <div className="text-lg font-bold">
+        Super Follow <Slug slug={profile?.handle} prefix="@" />
+      </div>
+      <Button
+        className="text-sm !px-3 !py-1.5 border-pink-500 hover:bg-pink-100 focus:ring-pink-400 !text-pink-500"
+        outline
+        onClick={createFollow}
+        disabled={typedDataLoading || signLoading || writeLoading}
+        variant="success"
+        icon={
+          typedDataLoading || signLoading || writeLoading ? (
+            <Spinner variant="super" size="xs" />
+          ) : (
+            <StarIcon className="w-4 h-4" />
+          )
+        }
+      >
+        Super Follow
+      </Button>
+    </div>
   )
 }
 
-export default SuperFollow
+export default FollowModule
