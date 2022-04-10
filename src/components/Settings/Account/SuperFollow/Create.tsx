@@ -5,7 +5,6 @@ import { Button } from '@components/UI/Button'
 import { Card } from '@components/UI/Card'
 import { Form, useZodForm } from '@components/UI/Form'
 import { Input } from '@components/UI/Input'
-import { PageLoading } from '@components/UI/PageLoading'
 import { Spinner } from '@components/UI/Spinner'
 import AppContext from '@components/utils/AppContext'
 import {
@@ -28,7 +27,6 @@ import {
   LENSHUB_PROXY,
   WRONG_NETWORK
 } from 'src/constants'
-import Custom404 from 'src/pages/404'
 import {
   useAccount,
   useContractWrite,
@@ -205,8 +203,15 @@ const SuperFollow: FC = () => {
     }
   }
 
-  if (loading) return <PageLoading message="Loading set super follow" />
-  if (!currentUser) return <Custom404 />
+  if (loading)
+    return (
+      <Card>
+        <div className="p-5 py-10 space-y-2 text-center">
+          <Spinner size="md" className="mx-auto" />
+          <div>Loading super follow settings</div>
+        </div>
+      </Card>
+    )
 
   return (
     <Card>
@@ -283,13 +288,7 @@ const SuperFollow: FC = () => {
                       setSuperFollow(null, null)
                     }}
                     disabled={typedDataLoading || signLoading || writeLoading}
-                    icon={
-                      typedDataLoading || signLoading || writeLoading ? (
-                        <Spinner variant="danger" size="xs" />
-                      ) : (
-                        <XIcon className="w-4 h-4" />
-                      )
-                    }
+                    icon={<XIcon className="w-4 h-4" />}
                   >
                     Disable Super follow
                   </Button>
@@ -297,13 +296,7 @@ const SuperFollow: FC = () => {
                 <Button
                   type="submit"
                   disabled={typedDataLoading || signLoading || writeLoading}
-                  icon={
-                    typedDataLoading || signLoading || writeLoading ? (
-                      <Spinner size="xs" />
-                    ) : (
-                      <StarIcon className="w-4 h-4" />
-                    )
-                  }
+                  icon={<StarIcon className="w-4 h-4" />}
                 >
                   Set Super follow
                 </Button>
