@@ -56,3 +56,20 @@ export const CollectModuleFields = gql`
     }
   }
 `
+
+export const MinimalCollectModuleFields = gql`
+  fragment MinimalCollectModuleFields on CollectModule {
+    ... on FeeCollectModuleSettings {
+      type
+    }
+    ... on LimitedFeeCollectModuleSettings {
+      type
+    }
+    ... on LimitedTimedFeeCollectModuleSettings {
+      type
+    }
+    ... on TimedFeeCollectModuleSettings {
+      type
+    }
+  }
+`

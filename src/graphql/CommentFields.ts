@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client'
 
-import { CollectModuleFields } from './CollectModuleFields'
+import { MinimalCollectModuleFields } from './CollectModuleFields'
 import { MinimalProfileFields } from './MinimalProfileFields'
 
 export const CommentFields = gql`
@@ -16,7 +16,7 @@ export const CommentFields = gql`
       }
     }
     collectModule {
-      ...CollectModuleFields
+      ...MinimalCollectModuleFields
     }
     stats {
       totalAmountOfComments
@@ -74,5 +74,5 @@ export const CommentFields = gql`
     appId
   }
   ${MinimalProfileFields}
-  ${CollectModuleFields}
+  ${MinimalCollectModuleFields}
 `

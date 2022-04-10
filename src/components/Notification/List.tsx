@@ -4,6 +4,7 @@ import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { Spinner } from '@components/UI/Spinner'
 import AppContext from '@components/utils/AppContext'
 import { Notification, PaginatedResultInfo } from '@generated/types'
+import { CollectModuleFields } from '@gql/CollectModuleFields'
 import { MinimalProfileFields } from '@gql/MinimalProfileFields'
 import { MailIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
@@ -86,7 +87,7 @@ const NOTIFICATIONS_QUERY = gql`
                 ...NotificationCollectMetadataFields
               }
               collectModule {
-                ...NotificationCollectModuleFields
+                ...CollectModuleFields
               }
             }
             ... on Comment {
@@ -95,7 +96,7 @@ const NOTIFICATIONS_QUERY = gql`
                 ...NotificationCollectMetadataFields
               }
               collectModule {
-                ...NotificationCollectModuleFields
+                ...CollectModuleFields
               }
             }
           }
@@ -108,40 +109,7 @@ const NOTIFICATIONS_QUERY = gql`
     }
   }
   ${MinimalProfileFields}
-  fragment NotificationCollectModuleFields on CollectModule {
-    ... on FeeCollectModuleSettings {
-      amount {
-        asset {
-          symbol
-        }
-        value
-      }
-    }
-    ... on LimitedFeeCollectModuleSettings {
-      amount {
-        asset {
-          symbol
-        }
-        value
-      }
-    }
-    ... on LimitedTimedFeeCollectModuleSettings {
-      amount {
-        asset {
-          symbol
-        }
-        value
-      }
-    }
-    ... on TimedFeeCollectModuleSettings {
-      amount {
-        asset {
-          symbol
-        }
-        value
-      }
-    }
-  }
+  ${CollectModuleFields}
   fragment NotificationCollectMetadataFields on MetadataOutput {
     name
     content
