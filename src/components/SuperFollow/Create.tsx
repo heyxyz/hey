@@ -1,6 +1,5 @@
 import LensHubProxy from '@abis/LensHubProxy.json'
 import { gql, useMutation, useQuery } from '@apollo/client'
-import { MODULES_CURRENCY_QUERY } from '@components/Crowdfund/Create'
 import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout'
 import SettingsHelper from '@components/Shared/SettingsHelper'
 import SwitchNetwork from '@components/Shared/SwitchNetwork'
@@ -16,7 +15,7 @@ import {
   CreateSetFollowModuleBroadcastItemResult,
   Erc20
 } from '@generated/types'
-import { StarIcon } from '@heroicons/react/outline'
+import { StarIcon, XIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
 import getTokenImage from '@lib/getTokenImage'
 import omit from '@lib/omit'
@@ -49,6 +48,24 @@ const newCrowdfundSchema = object({
     .max(42, { message: 'Ethereum address should be within 42 characters' })
     .regex(/^0x[a-fA-F0-9]{40}$/, { message: 'Invalid Ethereum address' })
 })
+
+const MODULES_CURRENCY_QUERY = gql`
+  query EnabledCurrencyModules($request: ProfileQueryRequest!) {
+    enabledModuleCurrencies {
+      name
+      symbol
+      decimals
+      address
+    }
+    profiles(request: $request) {
+      items {
+        followModule {
+          __typename
+        }
+      }
+    }
+  }
+`
 
 export const CREATE_SET_FOLLOW_MODULE_TYPED_DATA_MUTATION = gql`
   mutation CreateSetFollowModuleTypedData(
@@ -93,6 +110,8 @@ const SuperFollow: FC = () => {
   const [{ data: account }] = useAccount()
   const [{ loading: signLoading }, signTypedData] = useSignTypedData()
   const { data: currencyData, loading } = useQuery(MODULES_CURRENCY_QUERY, {
+    variables: { request: { profileIds: currentUser?.id } },
+    skip: !currentUser?.id,
     onCompleted() {
       consoleLog('Fetch', '#8b5cf6', `Fetched enabled module currencies`)
     }
@@ -184,16 +203,16 @@ const SuperFollow: FC = () => {
     }
   }
 
-  if (loading) return <PageLoading message="Loading create crowdfund" />
+  if (loading) return <PageLoading message="Loading set super follow" />
   if (!currentUser) return <Custom404 />
 
   return (
     <GridLayout>
-      <SEO title="Create Crowdfund • Lenster" />
+      <SEO title="Super follow • Lenster" />
       <GridItemFour>
         <SettingsHelper
-          heading="Create crowdfund"
-          description="Create new decentralized crowdfund"
+          heading="Super follow"
+          description="Set super follow for your profile"
         />
       </GridItemFour>
       <GridItemEight>
@@ -256,19 +275,40 @@ const SuperFollow: FC = () => {
                 {network.chain?.unsupported ? (
                   <SwitchNetwork />
                 ) : (
-                  <Button
-                    type="submit"
-                    disabled={typedDataLoading || signLoading || writeLoading}
-                    icon={
-                      typedDataLoading || signLoading || writeLoading ? (
-                        <Spinner size="xs" />
-                      ) : (
-                        <StarIcon className="w-4 h-4" />
-                      )
-                    }
-                  >
-                    Set Super Follow
-                  </Button>
+                  <div className="block sm:flex space-y-2 sm:space-y-0 space-x-0 sm:space-x-2">
+                    {currencyData?.profiles?.items[0]?.followModule && (
+                      <Button
+                        type="button"
+                        variant="danger"
+                        outline
+                        disabled={
+                          typedDataLoading || signLoading || writeLoading
+                        }
+                        icon={
+                          typedDataLoading || signLoading || writeLoading ? (
+                            <Spinner size="xs" />
+                          ) : (
+                            <XIcon className="w-4 h-4" />
+                          )
+                        }
+                      >
+                        Disable Super follow
+                      </Button>
+                    )}
+                    <Button
+                      type="submit"
+                      disabled={typedDataLoading || signLoading || writeLoading}
+                      icon={
+                        typedDataLoading || signLoading || writeLoading ? (
+                          <Spinner size="xs" />
+                        ) : (
+                          <StarIcon className="w-4 h-4" />
+                        )
+                      }
+                    >
+                      Set Super follow
+                    </Button>
+                  </div>
                 )}
               </div>
             </Form>
