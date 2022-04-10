@@ -226,13 +226,13 @@ const FollowModule: FC<Props> = ({
 
   return (
     <div className="p-5">
-      <div className="space-y-1.5">
+      <div className="space-y-1.5 pb-2">
         <div className="text-lg font-bold">
           Super follow <Slug slug={profile?.handle} prefix="@" />
         </div>
         <div className="text-gray-500">Follow and get some awesome perks!</div>
       </div>
-      <div className="flex items-center pt-3 py-2 space-x-1.5">
+      <div className="flex items-center py-2 space-x-1.5">
         <img
           className="w-7 h-7"
           src={getTokenImage(followModule?.amount?.asset?.symbol)}

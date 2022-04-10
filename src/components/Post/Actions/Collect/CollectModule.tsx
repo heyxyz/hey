@@ -252,7 +252,7 @@ const CollectModule: FC<Props> = ({ post }) => {
             />
           </div>
         )}
-        <div className="space-y-1.5">
+        <div className="space-y-1.5 pb-2">
           {post?.metadata?.name && (
             <div className="text-xl font-bold">{post?.metadata?.name}</div>
           )}
@@ -263,21 +263,19 @@ const CollectModule: FC<Props> = ({ post }) => {
           )}
         </div>
         {collectModule?.amount && (
-          <div className="flex items-center pt-3 py-2 space-x-1.5">
-            <span className="flex items-center space-x-1.5">
-              <img
-                className="w-7 h-7"
-                src={getTokenImage(collectModule?.amount?.asset?.symbol)}
-                alt={collectModule?.amount?.asset?.symbol}
-                title={collectModule?.amount?.asset?.symbol}
-              />
-              <span className="space-x-1">
-                <span className="text-2xl font-bold">
-                  {collectModule.amount.value}
-                </span>
-                <span className="text-xs">
-                  {collectModule?.amount?.asset?.symbol}
-                </span>
+          <div className="flex items-center py-2 space-x-1.5">
+            <img
+              className="w-7 h-7"
+              src={getTokenImage(collectModule?.amount?.asset?.symbol)}
+              alt={collectModule?.amount?.asset?.symbol}
+              title={collectModule?.amount?.asset?.symbol}
+            />
+            <span className="space-x-1">
+              <span className="text-2xl font-bold">
+                {collectModule.amount.value}
+              </span>
+              <span className="text-xs">
+                {collectModule?.amount?.asset?.symbol}
               </span>
             </span>
           </div>
