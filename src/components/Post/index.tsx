@@ -80,7 +80,11 @@ const ViewPost: NextPage = () => {
     },
     skip: !id,
     onCompleted() {
-      consoleLog('Fetch', '#8b5cf6', `Fetched a publication Publication:${id}`)
+      consoleLog(
+        'Fetch',
+        '#8b5cf6',
+        `Fetched publication details Publication:${id}`
+      )
     }
   })
 

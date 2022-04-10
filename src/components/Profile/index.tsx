@@ -72,7 +72,7 @@ const ViewProfile: NextPage = () => {
       consoleLog(
         'Fetch',
         '#8b5cf6',
-        `Fetched a profile Profile:${data?.profiles?.items[0]?.id}`
+        `Fetched profile details Profile:${data?.profiles?.items[0]?.id}`
       )
     }
   })

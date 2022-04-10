@@ -32,7 +32,11 @@ const ViewCommunity: NextPage = () => {
     variables: { request: { publicationId: id } },
     skip: !id,
     onCompleted() {
-      consoleLog('Fetch', '#8b5cf6', `Fetched a community Community:${id}`)
+      consoleLog(
+        'Fetch',
+        '#8b5cf6',
+        `Fetched community details Community:${id}`
+      )
     }
   })
 

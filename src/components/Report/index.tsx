@@ -63,7 +63,7 @@ const Report: FC = () => {
       consoleLog(
         'Fetch',
         '#8b5cf6',
-        `Fetched a publication to report Publication:${id}`
+        `Fetched publication details to report Publication:${id}`
       )
     }
   })
