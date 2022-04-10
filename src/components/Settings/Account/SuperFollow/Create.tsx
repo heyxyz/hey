@@ -1,7 +1,5 @@
 import LensHubProxy from '@abis/LensHubProxy.json'
 import { gql, useMutation, useQuery } from '@apollo/client'
-import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout'
-import SettingsHelper from '@components/Shared/SettingsHelper'
 import SwitchNetwork from '@components/Shared/SwitchNetwork'
 import { Button } from '@components/UI/Button'
 import { Card } from '@components/UI/Card'
@@ -10,7 +8,6 @@ import { Input } from '@components/UI/Input'
 import { PageLoading } from '@components/UI/PageLoading'
 import { Spinner } from '@components/UI/Spinner'
 import AppContext from '@components/utils/AppContext'
-import SEO from '@components/utils/SEO'
 import {
   CreateSetFollowModuleBroadcastItemResult,
   Erc20
@@ -212,119 +209,105 @@ const SuperFollow: FC = () => {
   if (!currentUser) return <Custom404 />
 
   return (
-    <GridLayout>
-      <SEO title="Super follow • Lenster" />
-      <GridItemFour>
-        <SettingsHelper
-          heading="Super follow"
-          description="Set super follow for your profile"
-        />
-      </GridItemFour>
-      <GridItemEight>
-        <Card>
-          {data?.hash ? (
-            <Pending txHash={data?.hash} isDisable={isDisable} />
-          ) : (
-            <Form
-              form={form}
-              className="p-5 space-y-4"
-              onSubmit={({ amount, recipient }) => {
-                setSuperFollow(amount, recipient)
+    <Card>
+      {data?.hash ? (
+        <Pending txHash={data?.hash} isDisable={isDisable} />
+      ) : (
+        <Form
+          form={form}
+          className="p-5 space-y-4"
+          onSubmit={({ amount, recipient }) => {
+            setSuperFollow(amount, recipient)
+          }}
+        >
+          <div className="text-lg font-bold">Set super follow</div>
+          <div>
+            <div className="mb-1 font-medium text-gray-800 dark:text-gray-200">
+              Select Currency
+            </div>
+            <select
+              className="w-full bg-white border border-gray-300 outline-none rounded-xl dark:bg-gray-800 dark:border-gray-700 disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 focus:border-brand-500 focus:ring-brand-400"
+              onChange={(e) => {
+                const currency = e.target.value.split('-')
+                setSelectedCurrency(currency[0])
+                setSelectedCurrencySymobol(currency[1])
               }}
             >
-              <div>
-                <div className="mb-1 font-medium text-gray-800 dark:text-gray-200">
-                  Select Currency
-                </div>
-                <select
-                  className="w-full bg-white border border-gray-300 outline-none rounded-xl dark:bg-gray-800 dark:border-gray-700 disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 focus:border-brand-500 focus:ring-brand-400"
-                  onChange={(e) => {
-                    const currency = e.target.value.split('-')
-                    setSelectedCurrency(currency[0])
-                    setSelectedCurrencySymobol(currency[1])
-                  }}
+              {currencyData?.enabledModuleCurrencies?.map((currency: Erc20) => (
+                <option
+                  key={currency.symbol}
+                  value={`${currency.address}-${currency.symbol}`}
                 >
-                  {currencyData?.enabledModuleCurrencies?.map(
-                    (currency: Erc20) => (
-                      <option
-                        key={currency.symbol}
-                        value={`${currency.address}-${currency.symbol}`}
-                      >
-                        {currency.name}
-                      </option>
-                    )
-                  )}
-                </select>
-              </div>
-              <Input
-                label="Follow amount"
-                type="number"
-                step="0.0001"
-                prefix={
-                  <img
-                    className="w-6 h-6"
-                    src={getTokenImage(selectedCurrencySymobol)}
-                    alt={selectedCurrencySymobol}
-                  />
-                }
-                placeholder="5"
-                {...form.register('amount')}
+                  {currency.name}
+                </option>
+              ))}
+            </select>
+          </div>
+          <Input
+            label="Follow amount"
+            type="number"
+            step="0.0001"
+            prefix={
+              <img
+                className="w-6 h-6"
+                src={getTokenImage(selectedCurrencySymobol)}
+                alt={selectedCurrencySymobol}
               />
-              <Input
-                label="Funds recipient"
-                type="text"
-                placeholder="0x3A5bd...5e3"
-                {...form.register('recipient')}
-              />
-              <div className="ml-auto">
-                {network.chain?.unsupported ? (
-                  <SwitchNetwork />
-                ) : (
-                  <div className="block sm:flex space-y-2 sm:space-y-0 space-x-0 sm:space-x-2">
-                    {currencyData?.profiles?.items[0]?.followModule && (
-                      <Button
-                        type="button"
-                        variant="danger"
-                        outline
-                        onClick={() => {
-                          setIsDiable(true)
-                          setSuperFollow(null, null)
-                        }}
-                        disabled={
-                          typedDataLoading || signLoading || writeLoading
-                        }
-                        icon={
-                          typedDataLoading || signLoading || writeLoading ? (
-                            <Spinner variant="danger" size="xs" />
-                          ) : (
-                            <XIcon className="w-4 h-4" />
-                          )
-                        }
-                      >
-                        Disable Super follow
-                      </Button>
-                    )}
-                    <Button
-                      type="submit"
-                      disabled={typedDataLoading || signLoading || writeLoading}
-                      icon={
-                        typedDataLoading || signLoading || writeLoading ? (
-                          <Spinner size="xs" />
-                        ) : (
-                          <StarIcon className="w-4 h-4" />
-                        )
-                      }
-                    >
-                      Set Super follow
-                    </Button>
-                  </div>
+            }
+            placeholder="5"
+            {...form.register('amount')}
+          />
+          <Input
+            label="Funds recipient"
+            type="text"
+            placeholder="0x3A5bd...5e3"
+            {...form.register('recipient')}
+          />
+          <div className="ml-auto">
+            {network.chain?.unsupported ? (
+              <SwitchNetwork />
+            ) : (
+              <div className="block sm:flex space-y-2 sm:space-y-0 space-x-0 sm:space-x-2">
+                {currencyData?.profiles?.items[0]?.followModule && (
+                  <Button
+                    type="button"
+                    variant="danger"
+                    outline
+                    onClick={() => {
+                      setIsDiable(true)
+                      setSuperFollow(null, null)
+                    }}
+                    disabled={typedDataLoading || signLoading || writeLoading}
+                    icon={
+                      typedDataLoading || signLoading || writeLoading ? (
+                        <Spinner variant="danger" size="xs" />
+                      ) : (
+                        <XIcon className="w-4 h-4" />
+                      )
+                    }
+                  >
+                    Disable Super follow
+                  </Button>
                 )}
+                <Button
+                  type="submit"
+                  disabled={typedDataLoading || signLoading || writeLoading}
+                  icon={
+                    typedDataLoading || signLoading || writeLoading ? (
+                      <Spinner size="xs" />
+                    ) : (
+                      <StarIcon className="w-4 h-4" />
+                    )
+                  }
+                >
+                  Set Super follow
+                </Button>
               </div>
-            </Form>
-          )}
-        </Card>
-      </GridItemEight>
-    </GridLayout>
+            )}
+          </div>
+        </Form>
+      )}
+    </Card>
   )
 }
 
