@@ -129,7 +129,12 @@ const Crowdfund: FC<Props> = ({ fund }) => {
               </>
             )}
           </div>
-          <Fund fund={fund} revenue={revenue} setRevenue={setRevenue} />
+          <Fund
+            fund={fund}
+            collectModule={collectModule}
+            revenue={revenue}
+            setRevenue={setRevenue}
+          />
         </div>
         {revenueLoading ? (
           <div className="w-full h-[13px] !mt-5 rounded-full shimmer" />
