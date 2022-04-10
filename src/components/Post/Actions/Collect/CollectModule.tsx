@@ -43,7 +43,7 @@ import {
   useSignTypedData
 } from 'wagmi'
 
-const COLLECT_QUERY = gql`
+export const COLLECT_QUERY = gql`
   query CollectModule($request: PublicationQueryRequest!) {
     publication(request: $request) {
       ... on Post {

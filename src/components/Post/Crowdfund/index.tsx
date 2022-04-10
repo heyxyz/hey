@@ -3,6 +3,7 @@ import 'linkify-plugin-mention'
 import { gql, useQuery } from '@apollo/client'
 import { GridItemSix, GridLayout } from '@components/GridLayout'
 import Collectors from '@components/Shared/Collectors'
+import CrowdfundShimmer from '@components/Shared/Shimmer/CrowdfundShimmer'
 import { Card } from '@components/UI/Card'
 import { Modal } from '@components/UI/Modal'
 import { Tooltip } from '@components/UI/Tooltip'
@@ -17,6 +18,7 @@ import Linkify from 'linkify-react'
 import React, { FC, useEffect, useState } from 'react'
 import { STATIC_ASSETS } from 'src/constants'
 
+import { COLLECT_QUERY } from '../Actions/Collect/CollectModule'
 import Fund from './Fund'
 
 export const CROWDFUND_REVENUE_QUERY = gql`
@@ -34,27 +36,51 @@ interface Props {
 }
 
 const Crowdfund: FC<Props> = ({ fund }) => {
-  // @ts-ignore
-  const collectModule: LensterCollectModule = fund?.collectModule
   const [showFundersModal, setShowFundersModal] = useState<boolean>(false)
   const [revenue, setRevenue] = useState<number>(0)
-  const { data, loading } = useQuery(CROWDFUND_REVENUE_QUERY, {
-    variables: { request: { publicationId: fund.id } },
-    skip: !fund.id,
+  const { data, loading } = useQuery(COLLECT_QUERY, {
+    variables: { request: { publicationId: fund?.id } },
+    skip: !fund?.id,
     onCompleted() {
-      consoleLog('Fetch', '#8b5cf6', `Fetched a crowdfund Crowdfund:${fund.id}`)
+      consoleLog(
+        'Fetch',
+        '#8b5cf6',
+        `Fetched collect module details Crowdfund:${fund?.id}`
+      )
     }
   })
 
+  // @ts-ignore
+  const collectModule: LensterCollectModule = data?.publication?.collectModule
+
+  const { data: revenueData, loading: revenueLoading } = useQuery(
+    CROWDFUND_REVENUE_QUERY,
+    {
+      variables: { request: { publicationId: fund?.id } },
+      skip: !fund?.id,
+      onCompleted() {
+        consoleLog(
+          'Fetch',
+          '#8b5cf6',
+          `Fetched crowdfund revenue details Crowdfund:${fund?.id}`
+        )
+      }
+    }
+  )
+
   useEffect(() => {
-    setRevenue(parseFloat(data?.publicationRevenue?.earnings?.value ?? 0))
-  }, [data])
+    setRevenue(
+      parseFloat(revenueData?.publicationRevenue?.earnings?.value ?? 0)
+    )
+  }, [revenueData])
 
   const goalAmount = fund?.metadata?.attributes[1]?.value
   const percentageReached = revenue
     ? (revenue / parseInt(goalAmount as string)) * 100
     : 0
   const cover = fund?.metadata?.cover?.original?.url
+
+  if (loading) return <CrowdfundShimmer />
 
   return (
     <Card>
@@ -98,14 +124,14 @@ const Crowdfund: FC<Props> = ({ fund }) => {
                   show={showFundersModal}
                   onClose={() => setShowFundersModal(!showFundersModal)}
                 >
-                  <Collectors pubId={fund.id} />
+                  <Collectors pubId={fund?.id} />
                 </Modal>
               </>
             )}
           </div>
           <Fund fund={fund} revenue={revenue} setRevenue={setRevenue} />
         </div>
-        {loading ? (
+        {revenueLoading ? (
           <div className="w-full h-[13px] !mt-5 rounded-full shimmer" />
         ) : (
           goalAmount && (
@@ -135,7 +161,7 @@ const Crowdfund: FC<Props> = ({ fund }) => {
         <GridLayout className="!p-0 mt-5">
           <GridItemSix className="!mb-4 space-y-1 sm:mb-0">
             <div className="text-sm font-bold text-gray-500">Funds Raised</div>
-            {loading ? (
+            {revenueLoading ? (
               <div className="w-16 h-5 !mt-2 rounded-md shimmer" />
             ) : (
               <span className="flex items-center space-x-1.5">
