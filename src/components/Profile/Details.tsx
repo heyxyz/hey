@@ -3,6 +3,7 @@ import 'linkify-plugin-mention'
 import { gql, useQuery } from '@apollo/client'
 import Follow from '@components/Shared/Follow'
 import Slug from '@components/Shared/Slug'
+import SuperFollow from '@components/Shared/SuperFollow'
 import Unfollow from '@components/Shared/Unfollow'
 import { Button } from '@components/UI/Button'
 import { Tooltip } from '@components/UI/Tooltip'
@@ -128,6 +129,12 @@ const Details: FC<Props> = ({ profile }) => {
             <div className="w-28 rounded-lg h-[34px] shimmer" />
           ) : following ? (
             <Unfollow profile={profile} setFollowing={setFollowing} showText />
+          ) : profile?.followModule ? (
+            <SuperFollow
+              profile={profile}
+              setFollowing={setFollowing}
+              showText
+            />
           ) : (
             <Follow profile={profile} setFollowing={setFollowing} showText />
           )}

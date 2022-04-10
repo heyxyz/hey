@@ -14,5 +14,8 @@ export const MinimalProfileFields = gql`
         }
       }
     }
+    followModule {
+      __typename
+    }
   }
 `
