@@ -293,6 +293,7 @@ const FollowModule: FC<Props> = ({
         <div className="w-28 rounded-lg h-[34px] shimmer" />
       ) : allowed ? (
         <AllowanceButton
+          title="Allow module"
           module={allowanceData?.approvedModuleAllowanceAmount[0]}
           allowed={allowed}
           setAllowed={setAllowed}
