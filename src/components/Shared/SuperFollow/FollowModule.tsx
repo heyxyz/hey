@@ -1,9 +1,14 @@
 import LensHubProxy from '@abis/LensHubProxy.json'
-import { gql, useMutation } from '@apollo/client'
+import { gql, useMutation, useQuery } from '@apollo/client'
 import { Button } from '@components/UI/Button'
 import { Spinner } from '@components/UI/Spinner'
-import { CreateFollowBroadcastItemResult, Profile } from '@generated/types'
+import {
+  CreateFollowBroadcastItemResult,
+  FeeFollowModuleSettings,
+  Profile
+} from '@generated/types'
 import { StarIcon } from '@heroicons/react/outline'
+import consoleLog from '@lib/consoleLog'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import trackEvent from '@lib/trackEvent'
@@ -24,6 +29,28 @@ import {
 } from 'wagmi'
 
 import Slug from '../Slug'
+
+const SUPER_FOLLOW_QUERY = gql`
+  query SuperFollow($request: ProfileQueryRequest!) {
+    profiles(request: $request) {
+      items {
+        id
+        followModule {
+          ... on FeeFollowModuleSettings {
+            amount {
+              asset {
+                symbol
+                address
+              }
+              value
+            }
+            recipient
+          }
+        }
+      }
+    }
+  }
+`
 
 const CREATE_FOLLOW_TYPED_DATA_MUTATION = gql`
   mutation CreateFollowTypedData($request: FollowRequest!) {
@@ -75,6 +102,21 @@ const FollowModule: FC<Props> = ({
     },
     'followWithSig'
   )
+
+  const { data, loading } = useQuery(SUPER_FOLLOW_QUERY, {
+    variables: { request: { profileIds: profile?.id } },
+    skip: !profile?.id,
+    onCompleted() {
+      consoleLog(
+        'Fetch',
+        '#8b5cf6',
+        `Fetched super follow details Profile:${profile?.id}`
+      )
+    }
+  })
+
+  const followModule: FeeFollowModuleSettings =
+    data?.profiles?.items[0]?.followModule
 
   const [createFollowTypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_FOLLOW_TYPED_DATA_MUTATION,
@@ -140,8 +182,8 @@ const FollowModule: FC<Props> = ({
               followModule: {
                 feeFollowModule: {
                   amount: {
-                    currency: profile?.followModule?.amount?.asset?.address,
-                    value: profile?.followModule?.amount?.value
+                    currency: followModule?.amount?.asset?.address,
+                    value: followModule?.amount?.value
                   }
                 }
               }
@@ -151,6 +193,8 @@ const FollowModule: FC<Props> = ({
       })
     }
   }
+
+  if (loading) return <div className="h-5 m-5 rounded-lg shimmer" />
 
   return (
     <div className="p-5 space-y-3">

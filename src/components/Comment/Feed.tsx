@@ -1,8 +1,6 @@
 import { gql, useQuery } from '@apollo/client'
 import SinglePost from '@components/Post/SinglePost'
 import PostsShimmer from '@components/Shared/Shimmer/PostsShimmer'
-import Slug from '@components/Shared/Slug'
-import { Card, CardBody } from '@components/UI/Card'
 import { EmptyState } from '@components/UI/EmptyState'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { Spinner } from '@components/UI/Spinner'
@@ -10,13 +8,14 @@ import AppContext from '@components/utils/AppContext'
 import { LensterPost } from '@generated/lenstertypes'
 import { PaginatedResultInfo } from '@generated/types'
 import { CommentFields } from '@gql/CommentFields'
-import { CollectionIcon, UsersIcon } from '@heroicons/react/outline'
+import { CollectionIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
 import { useRouter } from 'next/router'
 import React, { FC, useContext, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 
 import NewComment from './NewComment'
+import ReferenceAlert from './ReferenceAlert'
 
 const COMMENT_FEED_QUERY = gql`
   query CommentFeed($request: PublicationsQueryRequest!) {
@@ -101,16 +100,11 @@ const Feed: FC<Props> = ({
         (isFollowing || !onlyFollowers ? (
           <NewComment refetch={refetch} post={post} type={type} />
         ) : (
-          <Card>
-            <CardBody className="flex items-center space-x-1.5 text-sm font-bold text-gray-500">
-              <UsersIcon className="w-4 h-4 text-brand-500" />
-              <>
-                <span>Only </span>
-                <Slug slug={`${post.profile.handle}'s`} prefix="@" />
-                <span> followers can comment</span>
-              </>
-            </CardBody>
-          </Card>
+          <ReferenceAlert
+            handle={post?.profile?.handle}
+            isSuperFollow={post?.profile?.followModule ? true : false}
+            action="comment"
+          />
         ))}
       {loading && <PostsShimmer />}
       {data?.publications?.items?.length === 0 && (
