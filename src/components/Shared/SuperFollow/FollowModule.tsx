@@ -1,6 +1,5 @@
 import LensHubProxy from '@abis/LensHubProxy.json'
 import { gql, useMutation, useQuery } from '@apollo/client'
-import ReferenceAlert from '@components/Comment/ReferenceAlert'
 import { Button } from '@components/UI/Button'
 import { Spinner } from '@components/UI/Spinner'
 import {
@@ -243,30 +242,31 @@ const FollowModule: FC<Props> = ({
           </a>
         </div>
       </div>
-      <div className="py-5 space-y-5">
-        <div className="space-y-2">
-          <div className="font-bold">You can comment on posts</div>
-          <div className="shadow-lg rounded-xl">
-            <ReferenceAlert
-              handle={profile?.handle}
-              action="comment"
-              isSuperFollow
-            />
-          </div>
-        </div>
-        <div className="space-y-2">
-          <div className="font-bold">You can collect publications</div>
-          <div className="shadow-lg rounded-xl">
-            <ReferenceAlert
-              handle={profile?.handle}
-              action="collect"
-              isSuperFollow
-            />
-          </div>
-        </div>
+      <div className="py-5 space-y-2">
+        <div className="text-lg font-bold">Perks you get</div>
+        <ul className="text-gray-500 text-sm space-y-1">
+          <li className="space-x-2 flex leading-6 tracking-normal">
+            <div>•</div>
+            <div>You can comment on @{profile?.handle}'s publications</div>
+          </li>
+          <li className="space-x-2 flex leading-6 tracking-normal">
+            <div>•</div>
+            <div>You can collect @{profile?.handle}'s publications</div>
+          </li>
+          <li className="space-x-2 flex leading-6 tracking-normal">
+            <div>•</div>
+            <div>
+              You will get super follow badge in @{profile?.handle}'s profile
+            </div>
+          </li>
+          <li className="space-x-2 flex leading-6 tracking-normal">
+            <div>•</div>
+            <div>More coming soon™</div>
+          </li>
+        </ul>
       </div>
       <Button
-        className="text-sm !px-3 !py-1.5 border-pink-500 ml-auto hover:bg-pink-100 focus:ring-pink-400 !text-pink-500"
+        className="text-sm !px-3 !py-1.5 border-pink-500 hover:bg-pink-100 focus:ring-pink-400 !text-pink-500"
         outline
         onClick={createFollow}
         disabled={typedDataLoading || signLoading || writeLoading}
