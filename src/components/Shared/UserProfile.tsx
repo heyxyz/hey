@@ -7,6 +7,7 @@ import React, { FC, useState } from 'react'
 
 import Follow from './Follow'
 import Slug from './Slug'
+import SuperFollow from './SuperFollow'
 import Unfollow from './Unfollow'
 
 interface Props {
@@ -56,6 +57,8 @@ const UserProfile: FC<Props> = ({
           <div className="w-10 h-8 rounded-lg shimmer" />
         ) : following ? (
           <Unfollow profile={profile} setFollowing={setFollowing} />
+        ) : profile?.followModule ? (
+          <SuperFollow profile={profile} setFollowing={setFollowing} />
         ) : (
           <Follow profile={profile} setFollowing={setFollowing} />
         ))}
