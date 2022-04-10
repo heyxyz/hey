@@ -230,26 +230,20 @@ const FollowModule: FC<Props> = ({
         <div className="text-lg font-bold">
           Super follow <Slug slug={profile?.handle} prefix="@" />
         </div>
-        <div className="text-gray-500 line-clamp-2">
-          Follow and get some awesome perks!
-        </div>
+        <div className="text-gray-500">Follow and get some awesome perks!</div>
       </div>
-      <div className="flex items-center py-2 space-x-1.5">
-        <span className="flex items-center space-x-1.5">
-          <img
-            className="w-7 h-7"
-            src={getTokenImage(followModule?.amount?.asset?.symbol)}
-            alt={followModule?.amount?.asset?.symbol}
-            title={followModule?.amount?.asset?.name}
-          />
-          <span className="space-x-1">
-            <span className="text-2xl font-bold">
-              {followModule.amount.value}
-            </span>
-            <span className="text-xs">
-              {followModule?.amount?.asset?.symbol}
-            </span>
+      <div className="flex items-center pt-3 py-2 space-x-1.5">
+        <img
+          className="w-7 h-7"
+          src={getTokenImage(followModule?.amount?.asset?.symbol)}
+          alt={followModule?.amount?.asset?.symbol}
+          title={followModule?.amount?.asset?.name}
+        />
+        <span className="space-x-1">
+          <span className="text-2xl font-bold">
+            {followModule.amount.value}
           </span>
+          <span className="text-xs">{followModule?.amount?.asset?.symbol}</span>
         </span>
       </div>
       <div className="flex items-center space-x-2">
