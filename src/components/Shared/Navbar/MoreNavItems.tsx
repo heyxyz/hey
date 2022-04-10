@@ -2,6 +2,7 @@ import AppContext from '@components/utils/AppContext'
 import { Menu, Transition } from '@headlessui/react'
 import {
   CashIcon,
+  StarIcon,
   SupportIcon,
   UserIcon,
   UsersIcon
@@ -71,6 +72,21 @@ const MoreNavItems: FC = () => {
                     <div className="flex items-center space-x-1.5">
                       <CashIcon className="w-4 h-4" />
                       <div>Create Crowdfund</div>
+                    </div>
+                  </Menu.Item>
+                  <Menu.Item
+                    as={NextLink}
+                    href="/superfollow/create"
+                    className={({ active }: { active: boolean }) =>
+                      clsx(
+                        { 'bg-gray-100 dark:bg-gray-800': active },
+                        'block px-4 py-1.5 text-sm text-gray-700 dark:text-gray-200 m-2 rounded-lg cursor-pointer'
+                      )
+                    }
+                  >
+                    <div className="flex items-center space-x-1.5">
+                      <StarIcon className="w-4 h-4" />
+                      <div>Super follow</div>
                     </div>
                   </Menu.Item>
                   <Menu.Item
