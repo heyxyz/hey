@@ -7,7 +7,8 @@ import { getModule } from '@lib/getModule'
 import trackEvent from '@lib/trackEvent'
 import React, { Dispatch, FC } from 'react'
 import toast from 'react-hot-toast'
-import { useTransaction } from 'wagmi'
+import { ERROR_MESSAGE } from 'src/constants'
+import { useTransaction, useWaitForTransaction } from 'wagmi'
 
 const GENERATE_ALLOWANCE_QUERY = gql`
   query GenerateModuleCurrencyApprovalData(
@@ -38,7 +39,11 @@ const AllowanceButton: FC<Props> = ({
     GENERATE_ALLOWANCE_QUERY
   )
 
-  const [{ loading: transactionLoading }, sendTransaction] = useTransaction()
+  const [{ data: txData, loading: transactionLoading }, sendTransaction] =
+    useTransaction()
+  const [{ loading: waitLoading }] = useWaitForTransaction({
+    wait: txData?.wait
+  })
 
   const handleAllowance = (
     currencies: string,
@@ -57,15 +62,21 @@ const AllowanceButton: FC<Props> = ({
       const data = res?.data?.generateModuleCurrencyApprovalData
       sendTransaction({
         request: { from: data.from, to: data.to, data: data.data }
-      }).then(({ error }) => {
+      }).then(({ data, error }) => {
         if (!error) {
-          setAllowed(value === '0' ? true : false)
-          toast.success(
-            `Module ${value === '0' ? 'disabled' : 'enabled'} successfully!`
-          )
-          trackEvent(
-            `${value === '0' ? 'disabled' : 'enabled'} module allowance`
-          )
+          data?.wait().then(({ status }) => {
+            if (status !== 0) {
+              setAllowed(value === '0' ? true : false)
+              toast.success(
+                `Module ${value === '0' ? 'disabled' : 'enabled'} successfully!`
+              )
+              trackEvent(
+                `${value === '0' ? 'disabled' : 'enabled'} module allowance`
+              )
+            } else {
+              toast.error(ERROR_MESSAGE)
+            }
+          })
         } else {
           toast.error(error.message)
         }
@@ -80,7 +91,7 @@ const AllowanceButton: FC<Props> = ({
           variant="success"
           className="!space-x-0"
           icon={
-            queryLoading || transactionLoading ? (
+            queryLoading || transactionLoading || waitLoading ? (
               <Spinner variant="success" size="xs" />
             ) : (
               <PlusIcon className="w-4 h-4" />
@@ -97,7 +108,7 @@ const AllowanceButton: FC<Props> = ({
           variant="warning"
           className="!space-x-0"
           icon={
-            queryLoading || transactionLoading ? (
+            queryLoading || transactionLoading || waitLoading ? (
               <Spinner variant="warning" size="xs" />
             ) : (
               <MinusIcon className="w-4 h-4" />
