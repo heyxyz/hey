@@ -33,12 +33,12 @@ const SuperFollow: FC<Props> = ({
         variant="success"
         icon={<StarIcon className="w-4 h-4" />}
       >
-        {showText && 'Super Follow'}
+        {showText && 'Super follow'}
       </Button>
       <Modal
         title={
           <span>
-            Super Follow <Slug slug={profile?.handle} prefix="@" />
+            Super follow <Slug slug={profile?.handle} prefix="@" />
           </span>
         }
         icon={<StarIcon className="h-5 w-5 text-pink-500" />}
