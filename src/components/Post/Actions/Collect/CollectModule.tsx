@@ -207,13 +207,12 @@ const CollectModule: FC<Props> = ({ post }) => {
           {collectModule?.amount && (
             <div className="flex items-center py-2 space-x-1.5">
               <span className="flex items-center space-x-1.5">
-                <Tooltip content={collectModule?.amount?.asset?.symbol}>
-                  <img
-                    className="w-7 h-7"
-                    src={getTokenImage(collectModule?.amount?.asset?.symbol)}
-                    alt={collectModule?.amount?.asset?.symbol}
-                  />
-                </Tooltip>
+                <img
+                  className="w-7 h-7"
+                  src={getTokenImage(collectModule?.amount?.asset?.symbol)}
+                  alt={collectModule?.amount?.asset?.symbol}
+                  title={collectModule?.amount?.asset?.symbol}
+                />
                 <span className="space-x-1">
                   <span className="text-2xl font-bold">
                     {collectModule.amount.value}

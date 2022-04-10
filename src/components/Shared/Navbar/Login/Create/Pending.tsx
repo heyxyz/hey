@@ -4,7 +4,7 @@ import { Spinner } from '@components/UI/Spinner'
 import { ArrowRightIcon } from '@heroicons/react/outline'
 import React, { FC } from 'react'
 
-const TX_STATUS_QUERY = gql`
+export const TX_STATUS_QUERY = gql`
   query HasTxHashBeenIndexed($request: HasTxHashBeenIndexedRequest!) {
     hasTxHashBeenIndexed(request: $request) {
       ... on TransactionIndexedResult {

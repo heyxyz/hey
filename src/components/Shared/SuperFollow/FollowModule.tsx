@@ -1,5 +1,6 @@
 import LensHubProxy from '@abis/LensHubProxy.json'
 import { gql, useMutation, useQuery } from '@apollo/client'
+import ReferenceAlert from '@components/Comment/ReferenceAlert'
 import { Button } from '@components/UI/Button'
 import { Spinner } from '@components/UI/Spinner'
 import {
@@ -7,8 +8,10 @@ import {
   FeeFollowModuleSettings,
   Profile
 } from '@generated/types'
-import { StarIcon } from '@heroicons/react/outline'
+import { StarIcon, UserIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
+import formatAddress from '@lib/formatAddress'
+import getTokenImage from '@lib/getTokenImage'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import trackEvent from '@lib/trackEvent'
@@ -19,6 +22,7 @@ import {
   CONNECT_WALLET,
   ERROR_MESSAGE,
   LENSHUB_PROXY,
+  POLYGONSCAN_URL,
   WRONG_NETWORK
 } from 'src/constants'
 import {
@@ -39,6 +43,7 @@ const SUPER_FOLLOW_QUERY = gql`
           ... on FeeFollowModuleSettings {
             amount {
               asset {
+                name
                 symbol
                 address
               }
@@ -197,12 +202,71 @@ const FollowModule: FC<Props> = ({
   if (loading) return <div className="h-5 m-5 rounded-lg shimmer" />
 
   return (
-    <div className="p-5 space-y-3">
-      <div className="text-lg font-bold">
-        Super Follow <Slug slug={profile?.handle} prefix="@" />
+    <div className="p-5">
+      <div className="space-y-1.5">
+        <div className="text-lg font-bold">
+          Super follow <Slug slug={profile?.handle} prefix="@" />
+        </div>
+        <div className="text-gray-500 line-clamp-2">
+          Follow and get some awesome perks!
+        </div>
+      </div>
+      <div className="flex items-center py-2 space-x-1.5">
+        <span className="flex items-center space-x-1.5">
+          <img
+            className="w-7 h-7"
+            src={getTokenImage(followModule?.amount?.asset?.symbol)}
+            alt={followModule?.amount?.asset?.symbol}
+            title={followModule?.amount?.asset?.name}
+          />
+          <span className="space-x-1">
+            <span className="text-2xl font-bold">
+              {followModule.amount.value}
+            </span>
+            <span className="text-xs">
+              {followModule?.amount?.asset?.symbol}
+            </span>
+          </span>
+        </span>
+      </div>
+      <div className="flex items-center space-x-2">
+        <UserIcon className="w-4 h-4 text-gray-500" />
+        <div className="space-x-1.5">
+          <span>Recipient:</span>
+          <a
+            href={`${POLYGONSCAN_URL}/address/${followModule.recipient}`}
+            target="_blank"
+            className="font-bold text-gray-600"
+            rel="noreferrer"
+          >
+            {formatAddress(followModule.recipient)}
+          </a>
+        </div>
+      </div>
+      <div className="py-5 space-y-5">
+        <div className="space-y-2">
+          <div className="font-bold">You can comment on posts</div>
+          <div className="shadow-lg rounded-xl">
+            <ReferenceAlert
+              handle={profile?.handle}
+              action="comment"
+              isSuperFollow
+            />
+          </div>
+        </div>
+        <div className="space-y-2">
+          <div className="font-bold">You can collect publications</div>
+          <div className="shadow-lg rounded-xl">
+            <ReferenceAlert
+              handle={profile?.handle}
+              action="collect"
+              isSuperFollow
+            />
+          </div>
+        </div>
       </div>
       <Button
-        className="text-sm !px-3 !py-1.5 border-pink-500 hover:bg-pink-100 focus:ring-pink-400 !text-pink-500"
+        className="text-sm !px-3 !py-1.5 border-pink-500 ml-auto hover:bg-pink-100 focus:ring-pink-400 !text-pink-500"
         outline
         onClick={createFollow}
         disabled={typedDataLoading || signLoading || writeLoading}
@@ -215,7 +279,7 @@ const FollowModule: FC<Props> = ({
           )
         }
       >
-        Super Follow
+        Super follow now
       </Button>
     </div>
   )
