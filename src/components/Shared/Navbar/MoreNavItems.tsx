@@ -76,7 +76,7 @@ const MoreNavItems: FC = () => {
                   </Menu.Item>
                   <Menu.Item
                     as={NextLink}
-                    href="/superfollow/create"
+                    href="/superfollow"
                     className={({ active }: { active: boolean }) =>
                       clsx(
                         { 'bg-gray-100 dark:bg-gray-800': active },

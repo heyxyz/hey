@@ -48,6 +48,18 @@ export const PROFILE_QUERY = gql`
             }
           }
         }
+        followModule {
+          ... on FeeFollowModuleSettings {
+            amount {
+              asset {
+                symbol
+                address
+              }
+              value
+            }
+            recipient
+          }
+        }
       }
     }
   }
