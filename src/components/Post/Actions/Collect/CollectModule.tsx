@@ -244,13 +244,15 @@ const CollectModule: FC<Props> = ({ post }) => {
         ))}
       <div className="p-5">
         {collectModule?.followerOnly && (
-          <ReferenceAlert
-            handle={post?.profile?.handle}
-            isSuperFollow={post?.profile?.followModule ? true : false}
-            action="collect"
-          />
+          <div className="pb-5">
+            <ReferenceAlert
+              handle={post?.profile?.handle}
+              isSuperFollow={post?.profile?.followModule ? true : false}
+              action="collect"
+            />
+          </div>
         )}
-        <div className="space-y-1.5 pt-5">
+        <div className="space-y-1.5">
           {post?.metadata?.name && (
             <div className="text-xl font-bold">{post?.metadata?.name}</div>
           )}
