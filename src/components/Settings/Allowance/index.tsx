@@ -16,7 +16,7 @@ import Custom500 from 'src/pages/500'
 import Sidebar from '../Sidebar'
 import Allowance from './Allowance'
 
-const ALLOWANCE_SETTINGS_QUERY = gql`
+export const ALLOWANCE_SETTINGS_QUERY = gql`
   query ApprovedModuleAllowanceAmount(
     $request: ApprovedModuleAllowanceAmountRequest!
   ) {
