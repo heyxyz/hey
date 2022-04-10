@@ -3,7 +3,7 @@ import { gql, useMutation } from '@apollo/client'
 import { Button } from '@components/UI/Button'
 import { Spinner } from '@components/UI/Spinner'
 import AppContext from '@components/utils/AppContext'
-import { LensterPost } from '@generated/lenstertypes'
+import { LensterCollectModule, LensterPost } from '@generated/lenstertypes'
 import { CreateCollectBroadcastItemResult } from '@generated/types'
 import { CashIcon } from '@heroicons/react/outline'
 import omit from '@lib/omit'
@@ -57,13 +57,12 @@ const CREATE_COLLECT_TYPED_DATA_MUTATION = gql`
 
 interface Props {
   fund: LensterPost
+  collectModule: LensterCollectModule
   setRevenue: Dispatch<number>
   revenue: number
 }
 
-const Fund: FC<Props> = ({ fund, setRevenue, revenue }) => {
-  // @ts-ignore
-  const collectModule: LensterCollectModule = fund?.collectModule
+const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
   const { currentUser } = useContext(AppContext)
   const [{ data: network }] = useNetwork()
   const [{ data: account }] = useAccount()
