@@ -11,6 +11,7 @@ import { TextArea } from '@components/UI/TextArea'
 import AppContext from '@components/utils/AppContext'
 import { Profile } from '@generated/types'
 import { PencilIcon } from '@heroicons/react/outline'
+import imagekitURL from '@lib/imagekitURL'
 import trackEvent from '@lib/trackEvent'
 import uploadAssetsToIPFS from '@lib/uploadAssetsToIPFS'
 import React, { ChangeEvent, FC, useContext, useEffect, useState } from 'react'
@@ -77,7 +78,7 @@ const Profile: FC<Props> = ({ profile }) => {
     // @ts-ignore
     if (profile?.coverPicture?.original?.url)
       // @ts-ignore
-      setCover(profile?.coverPicture?.original?.url)
+      setCover(imagekitURL(profile?.coverPicture?.original?.url))
   }, [profile])
 
   const handleUpload = async (evt: ChangeEvent<HTMLInputElement>) => {

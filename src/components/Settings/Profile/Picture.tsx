@@ -12,6 +12,7 @@ import {
   Profile
 } from '@generated/types'
 import { PencilIcon } from '@heroicons/react/outline'
+import imagekitURL from '@lib/imagekitURL'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import trackEvent from '@lib/trackEvent'
@@ -87,7 +88,7 @@ const Picture: FC<Props> = ({ profile }) => {
     // @ts-ignore
     if (profile?.picture?.original?.url)
       // @ts-ignore
-      setAvatar(profile?.picture?.original?.url)
+      setAvatar(imagekitURL(profile?.picture?.original?.url))
   }, [profile])
 
   const [createSetProfileImageURITypedData, { loading: typedDataLoading }] =
