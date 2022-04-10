@@ -103,6 +103,7 @@ const SuperFollow: FC = () => {
   const [selectedCurrency, setSelectedCurrency] = useState<string>(
     DEFAULT_COLLECT_TOKEN
   )
+  const [isDisable, setIsDiable] = useState<boolean>(false)
   const [selectedCurrencySymobol, setSelectedCurrencySymobol] =
     useState<string>('WMATIC')
   const { currentUser } = useContext(AppContext)
@@ -178,7 +179,7 @@ const SuperFollow: FC = () => {
       }
     })
 
-  const setSuperFollow = (amount: string, recipient: string) => {
+  const setSuperFollow = (amount: string | null, recipient: string | null) => {
     if (!account?.address) {
       toast.error(CONNECT_WALLET)
     } else if (network.chain?.id !== CHAIN_ID) {
@@ -188,15 +189,19 @@ const SuperFollow: FC = () => {
         variables: {
           request: {
             profileId: currentUser?.id,
-            followModule: {
-              feeFollowModule: {
-                amount: {
-                  currency: selectedCurrency,
-                  value: amount
-                },
-                recipient
-              }
-            }
+            followModule: amount
+              ? {
+                  feeFollowModule: {
+                    amount: {
+                      currency: selectedCurrency,
+                      value: amount
+                    },
+                    recipient
+                  }
+                }
+              : {
+                  emptyFollowModule: true
+                }
           }
         }
       })
@@ -218,7 +223,7 @@ const SuperFollow: FC = () => {
       <GridItemEight>
         <Card>
           {data?.hash ? (
-            <Pending txHash={data?.hash} />
+            <Pending txHash={data?.hash} isDisable={isDisable} />
           ) : (
             <Form
               form={form}
@@ -281,12 +286,16 @@ const SuperFollow: FC = () => {
                         type="button"
                         variant="danger"
                         outline
+                        onClick={() => {
+                          setIsDiable(true)
+                          setSuperFollow(null, null)
+                        }}
                         disabled={
                           typedDataLoading || signLoading || writeLoading
                         }
                         icon={
                           typedDataLoading || signLoading || writeLoading ? (
-                            <Spinner size="xs" />
+                            <Spinner variant="danger" size="xs" />
                           ) : (
                             <XIcon className="w-4 h-4" />
                           )

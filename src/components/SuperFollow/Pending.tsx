@@ -8,10 +8,11 @@ import Link from 'next/link'
 import React, { FC, useContext } from 'react'
 
 interface Props {
+  isDisable: boolean
   txHash: string
 }
 
-const Pending: FC<Props> = ({ txHash }) => {
+const Pending: FC<Props> = ({ txHash, isDisable }) => {
   const { currentUser } = useContext(AppContext)
   const { data, loading } = useQuery(TX_STATUS_QUERY, {
     variables: {
@@ -25,12 +26,15 @@ const Pending: FC<Props> = ({ txHash }) => {
       {loading || !data?.hasTxHashBeenIndexed?.indexed ? (
         <div className="space-y-3">
           <Spinner className="mx-auto" />
-          <div>Super follow setup in progress, please wait!</div>
+          <div>
+            Super follow {isDisable ? 'disable' : 'setup'} in progress, please
+            wait!
+          </div>
         </div>
       ) : (
         <div className="space-y-3">
           <div className="text-[40px]">🌿</div>
-          <div>Super follow set successfully</div>
+          <div>Super follow {isDisable ? 'disabled' : 'set'} successfully</div>
           <div className="pt-3">
             <Link href={`/u/${currentUser?.handle}`}>
               <a>
