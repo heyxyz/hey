@@ -1,7 +1,10 @@
 import LensHubProxy from '@abis/LensHubProxy.json'
 import { gql, useMutation, useQuery } from '@apollo/client'
+import { ALLOWANCE_SETTINGS_QUERY } from '@components/Settings/Allowance'
+import AllowanceButton from '@components/Settings/Allowance/Button'
 import { Button } from '@components/UI/Button'
 import { Spinner } from '@components/UI/Spinner'
+import AppContext from '@components/utils/AppContext'
 import {
   CreateFollowBroadcastItemResult,
   FeeFollowModuleSettings,
@@ -14,7 +17,7 @@ import getTokenImage from '@lib/getTokenImage'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import trackEvent from '@lib/trackEvent'
-import { Dispatch, FC } from 'react'
+import { Dispatch, FC, useContext, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
   CHAIN_ID,
@@ -96,6 +99,8 @@ const FollowModule: FC<Props> = ({
   setFollowing,
   setShowFollowModal
 }) => {
+  const { currentUser } = useContext(AppContext)
+  const [allowed, setAllowed] = useState<boolean>(true)
   const [{ data: network }] = useNetwork()
   const [{ data: account }] = useAccount()
   const [{ loading: signLoading }, signTypedData] = useSignTypedData()
@@ -121,6 +126,25 @@ const FollowModule: FC<Props> = ({
 
   const followModule: FeeFollowModuleSettings =
     data?.profiles?.items[0]?.followModule
+
+  const { data: allowanceData, loading: allowanceLoading } = useQuery(
+    ALLOWANCE_SETTINGS_QUERY,
+    {
+      variables: {
+        request: {
+          currencies: followModule?.amount?.asset?.address,
+          followModules: 'FeeFollowModule',
+          collectModules: [],
+          referenceModules: []
+        }
+      },
+      skip: !followModule?.amount?.asset?.address || !currentUser,
+      onCompleted(data) {
+        setAllowed(data?.approvedModuleAllowanceAmount[0]?.allowance)
+        consoleLog('Fetch', '#8b5cf6', `Fetched allowance data`)
+      }
+    }
+  )
 
   const [createFollowTypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_FOLLOW_TYPED_DATA_MUTATION,
@@ -265,22 +289,32 @@ const FollowModule: FC<Props> = ({
           </li>
         </ul>
       </div>
-      <Button
-        className="text-sm !px-3 !py-1.5 border-pink-500 hover:bg-pink-100 focus:ring-pink-400 !text-pink-500"
-        outline
-        onClick={createFollow}
-        disabled={typedDataLoading || signLoading || writeLoading}
-        variant="success"
-        icon={
-          typedDataLoading || signLoading || writeLoading ? (
-            <Spinner variant="super" size="xs" />
-          ) : (
-            <StarIcon className="w-4 h-4" />
-          )
-        }
-      >
-        Super follow now
-      </Button>
+      {allowanceLoading ? (
+        <div className="w-28 rounded-lg h-[34px] shimmer" />
+      ) : allowed ? (
+        <AllowanceButton
+          module={allowanceData?.approvedModuleAllowanceAmount[0]}
+          allowed={allowed}
+          setAllowed={setAllowed}
+        />
+      ) : (
+        <Button
+          className="text-sm !px-3 !py-1.5 border-pink-500 hover:bg-pink-100 focus:ring-pink-400 !text-pink-500"
+          outline
+          onClick={createFollow}
+          disabled={typedDataLoading || signLoading || writeLoading}
+          variant="success"
+          icon={
+            typedDataLoading || signLoading || writeLoading ? (
+              <Spinner variant="super" size="xs" />
+            ) : (
+              <StarIcon className="w-4 h-4" />
+            )
+          }
+        >
+          Super follow now
+        </Button>
+      )}
     </div>
   )
 }
