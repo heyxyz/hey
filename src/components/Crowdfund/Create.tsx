@@ -45,7 +45,7 @@ import { object, string } from 'zod'
 
 import Pending from './Pending'
 
-export const MODULES_CURRENCY_QUERY = gql`
+const MODULES_CURRENCY_QUERY = gql`
   query EnabledCurrencyModules {
     enabledModuleCurrencies {
       name
