@@ -266,7 +266,7 @@ const FollowModule: FC<Props> = ({
           </a>
         </div>
       </div>
-      <div className="py-5 space-y-2">
+      <div className="pt-5 space-y-2">
         <div className="text-lg font-bold">Perks you get</div>
         <ul className="text-gray-500 text-sm space-y-1">
           <li className="space-x-2 flex leading-6 tracking-normal">
@@ -289,33 +289,37 @@ const FollowModule: FC<Props> = ({
           </li>
         </ul>
       </div>
-      {allowanceLoading ? (
-        <div className="w-28 rounded-lg h-[34px] shimmer" />
-      ) : allowed ? (
-        <AllowanceButton
-          title="Allow module"
-          module={allowanceData?.approvedModuleAllowanceAmount[0]}
-          allowed={allowed}
-          setAllowed={setAllowed}
-        />
-      ) : (
-        <Button
-          className="text-sm !px-3 !py-1.5 border-pink-500 hover:bg-pink-100 focus:ring-pink-400 !text-pink-500"
-          outline
-          onClick={createFollow}
-          disabled={typedDataLoading || signLoading || writeLoading}
-          variant="success"
-          icon={
-            typedDataLoading || signLoading || writeLoading ? (
-              <Spinner variant="super" size="xs" />
-            ) : (
-              <StarIcon className="w-4 h-4" />
-            )
-          }
-        >
-          Super follow now
-        </Button>
-      )}
+      {currentUser ? (
+        allowanceLoading ? (
+          <div className="w-28 mt-5 rounded-lg h-[34px] shimmer" />
+        ) : allowed ? (
+          <div className="mt-5">
+            <AllowanceButton
+              title="Allow module"
+              module={allowanceData?.approvedModuleAllowanceAmount[0]}
+              allowed={allowed}
+              setAllowed={setAllowed}
+            />
+          </div>
+        ) : (
+          <Button
+            className="text-sm !px-3 !py-1.5 mt-5 border-pink-500 hover:bg-pink-100 focus:ring-pink-400 !text-pink-500"
+            outline
+            onClick={createFollow}
+            disabled={typedDataLoading || signLoading || writeLoading}
+            variant="success"
+            icon={
+              typedDataLoading || signLoading || writeLoading ? (
+                <Spinner variant="super" size="xs" />
+              ) : (
+                <StarIcon className="w-4 h-4" />
+              )
+            }
+          >
+            Super follow now
+          </Button>
+        )
+      ) : null}
     </div>
   )
 }
