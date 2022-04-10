@@ -48,6 +48,9 @@ export const PROFILE_QUERY = gql`
             }
           }
         }
+        followModule {
+          __typename
+        }
       }
     }
   }

@@ -68,7 +68,7 @@ const RecommendedProfiles: FC = () => {
       </>
     )
 
-  if (data?.recommendedProfiles.length === 0)
+  if (data?.recommendedProfiles?.length === 0)
     return (
       <>
         <Title />
