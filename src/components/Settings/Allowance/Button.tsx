@@ -22,12 +22,18 @@ const GENERATE_ALLOWANCE_QUERY = gql`
 `
 
 interface Props {
+  title?: string
   module: ApprovedAllowanceAmount
   allowed: boolean
   setAllowed: Dispatch<boolean>
 }
 
-const AllowanceButton: FC<Props> = ({ module, allowed, setAllowed }) => {
+const AllowanceButton: FC<Props> = ({
+  title = 'Allow',
+  module,
+  allowed,
+  setAllowed
+}) => {
   const [generateAllowanceQuery, { loading: queryLoading }] = useLazyQuery(
     GENERATE_ALLOWANCE_QUERY
   )
@@ -84,7 +90,7 @@ const AllowanceButton: FC<Props> = ({ module, allowed, setAllowed }) => {
             handleAllowance(module.currency, '10000000000', module.module)
           }
         >
-          <span className="hidden ml-1.5 md:inline-block">Allow</span>
+          <span className="hidden ml-1.5 md:inline-block">{title}</span>
         </Button>
       ) : (
         <Button
