@@ -1,4 +1,5 @@
 import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout'
+import SuperFollow from '@components/Settings/Account/SuperFollow/Create'
 import AppContext from '@components/utils/AppContext'
 import SEO from '@components/utils/SEO'
 import { NextPage } from 'next'
@@ -21,6 +22,7 @@ const AccountSettings: NextPage = () => {
       </GridItemFour>
       <GridItemEight className="space-y-5">
         <SetProfile />
+        <SuperFollow />
       </GridItemEight>
     </GridLayout>
   )
