@@ -34,7 +34,7 @@ const Search = () => {
     useLazyQuery(SEARCH_USERS_QUERY, {
       onCompleted(data) {
         consoleLog(
-          'Fetch',
+          'Lazy Query',
           '#8b5cf6',
           `Fetched ${data?.search?.items?.length} search result for ${searchText}`
         )

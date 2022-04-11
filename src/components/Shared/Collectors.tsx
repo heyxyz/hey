@@ -43,7 +43,7 @@ const Collectors: FC<Props> = ({ pubId }) => {
       setPageInfo(data?.whoCollectedPublication?.pageInfo)
       setCollectors(data?.whoCollectedPublication?.items)
       consoleLog(
-        'Fetch',
+        'Query',
         '#8b5cf6',
         `Fetched first 10 collectors Publication:${pubId}`
       )
@@ -65,7 +65,7 @@ const Collectors: FC<Props> = ({ pubId }) => {
         setPageInfo(data?.whoCollectedPublication?.pageInfo)
         setCollectors([...collectors, ...data?.whoCollectedPublication?.items])
         consoleLog(
-          'Fetch',
+          'Query',
           '#8b5cf6',
           `Fetched next 10 collectors Publication:${pubId} Next:${pageInfo?.next}`
         )

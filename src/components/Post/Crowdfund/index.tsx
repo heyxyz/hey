@@ -43,7 +43,7 @@ const Crowdfund: FC<Props> = ({ fund }) => {
     skip: !fund?.id,
     onCompleted() {
       consoleLog(
-        'Fetch',
+        'Query',
         '#8b5cf6',
         `Fetched collect module details Crowdfund:${fund?.id}`
       )
@@ -60,7 +60,7 @@ const Crowdfund: FC<Props> = ({ fund }) => {
       skip: !fund?.id,
       onCompleted() {
         consoleLog(
-          'Fetch',
+          'Query',
           '#8b5cf6',
           `Fetched crowdfund revenue details Crowdfund:${fund?.id}`
         )

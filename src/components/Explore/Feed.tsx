@@ -57,7 +57,7 @@ const Feed: FC<Props> = ({ feedType = 'TOP_COMMENTED' }) => {
       setPageInfo(data?.explorePublications?.pageInfo)
       setPublications(data?.explorePublications?.items)
       consoleLog(
-        'Fetch',
+        'Query',
         '#8b5cf6',
         `Fetched first 10 explore publications FeedType:${feedType}`
       )
@@ -80,7 +80,7 @@ const Feed: FC<Props> = ({ feedType = 'TOP_COMMENTED' }) => {
         setPageInfo(data?.explorePublications?.pageInfo)
         setPublications([...publications, ...data?.explorePublications?.items])
         consoleLog(
-          'Fetch',
+          'Query',
           '#8b5cf6',
           `Fetched next 10 explore publications FeedType:${feedType} Next:${pageInfo?.next}`
         )

@@ -55,7 +55,7 @@ const Feed: FC<Props> = ({ profile, type }) => {
       setPageInfo(data?.publications?.pageInfo)
       setPublications(data?.publications?.items)
       consoleLog(
-        'Fetch',
+        'Query',
         '#8b5cf6',
         `Fetched first 10 profile publications Profile:${profile?.id}`
       )
@@ -78,7 +78,7 @@ const Feed: FC<Props> = ({ profile, type }) => {
         setPageInfo(data?.publications?.pageInfo)
         setPublications([...publications, ...data?.publications?.items])
         consoleLog(
-          'Fetch',
+          'Query',
           '#8b5cf6',
           `Fetched next 10 profile publications Profile:${profile?.id} Next:${pageInfo?.next}`
         )

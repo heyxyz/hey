@@ -47,7 +47,7 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
     {
       onCompleted(data) {
         consoleLog(
-          'Fetch',
+          'Lazy Query',
           '#8b5cf6',
           `Fetched auth challenege - ${data?.challenge?.text}`
         )
@@ -62,7 +62,7 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
     {
       onCompleted(data) {
         consoleLog(
-          'Fetch',
+          'Lazy Query',
           '#8b5cf6',
           `Fetched ${data?.profiles?.items?.length} user profiles for auth`
         )

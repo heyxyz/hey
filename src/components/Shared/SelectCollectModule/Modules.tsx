@@ -46,7 +46,7 @@ const Modules: FC<Props> = ({
 }) => {
   const { error, data, loading } = useQuery(MODULES_QUERY, {
     onCompleted() {
-      consoleLog('Fetch', '#8b5cf6', `Fetched enabled modules`)
+      consoleLog('Query', '#8b5cf6', `Fetched enabled modules`)
     }
   })
   const [showFeeEntry, setShowFeeEntry] = useState<boolean>(false)

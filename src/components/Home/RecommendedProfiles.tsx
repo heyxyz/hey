@@ -45,7 +45,7 @@ const RecommendedProfiles: FC = () => {
   const { data, loading, error } = useQuery(RECOMMENDED_PROFILES_QUERY, {
     onCompleted(data) {
       consoleLog(
-        'Fetch',
+        'Query',
         '#8b5cf6',
         `Fetched ${data?.recommendedProfiles?.length} recommended profiles`
       )

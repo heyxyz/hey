@@ -117,7 +117,7 @@ const FollowModule: FC<Props> = ({
     skip: !profile?.id,
     onCompleted() {
       consoleLog(
-        'Fetch',
+        'Query',
         '#8b5cf6',
         `Fetched super follow details Profile:${profile?.id}`
       )
@@ -141,7 +141,7 @@ const FollowModule: FC<Props> = ({
       skip: !followModule?.amount?.asset?.address || !currentUser,
       onCompleted(data) {
         setAllowed(data?.approvedModuleAllowanceAmount[0]?.allowance === '0x00')
-        consoleLog('Fetch', '#8b5cf6', `Fetched allowance data`)
+        consoleLog('Query', '#8b5cf6', `Fetched allowance data`)
       }
     }
   )

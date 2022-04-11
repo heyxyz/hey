@@ -86,7 +86,7 @@ const Create: FC = () => {
   const [{ loading: signLoading }, signTypedData] = useSignTypedData()
   const { data: currencyData, loading } = useQuery(MODULES_CURRENCY_QUERY, {
     onCompleted() {
-      consoleLog('Fetch', '#8b5cf6', `Fetched enabled module currencies`)
+      consoleLog('Query', '#8b5cf6', `Fetched enabled module currencies`)
     }
   })
   const [{ data, loading: writeLoading }, write] = useContractWrite(
