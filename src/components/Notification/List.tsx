@@ -171,7 +171,7 @@ const List: FC = () => {
 
   if (loading)
     return (
-      <div className="divide-y">
+      <div className="divide-y dark:divide-gray-700">
         <NotificationShimmer />
         <NotificationShimmer />
         <NotificationShimmer />
@@ -202,7 +202,7 @@ const List: FC = () => {
     )
 
   return (
-    <div className="divide-y">
+    <div className="divide-y dark:divide-gray-700">
       {notifications?.map((notification: Notification, index: number) => (
         <div key={index}>
           {notification.__typename === 'NewFollowerNotification' && (
