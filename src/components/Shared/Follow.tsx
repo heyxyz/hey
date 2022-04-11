@@ -67,7 +67,7 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
       toast.error(error?.message)
     }
   })
-  const { isLoading: writeLoading, writeAsync } = useContractWrite(
+  const { isLoading: writeLoading, write } = useContractWrite(
     {
       addressOrName: LENSHUB_PROXY,
       contractInterface: LensHubProxy
@@ -76,6 +76,11 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
     {
       onError(error) {
         toast.error(error?.message)
+      },
+      onSuccess() {
+        setFollowing(true)
+        toast.success('Followed successfully!')
+        trackEvent('follow user')
       }
     }
   )
@@ -108,12 +113,7 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
               deadline: typedData.value.deadline
             }
           }
-
-          writeAsync({ args: inputStruct }).then(() => {
-            setFollowing(true)
-            toast.success('Followed successfully!')
-            trackEvent('follow user')
-          })
+          write({ args: inputStruct })
         })
       },
       onError(error) {

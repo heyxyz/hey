@@ -69,7 +69,7 @@ const DeleteSettings: FC = () => {
       toast.error(error?.message)
     }
   })
-  const { isLoading: writeLoading, writeAsync } = useContractWrite(
+  const { isLoading: writeLoading, write } = useContractWrite(
     {
       addressOrName: LENSHUB_PROXY,
       contractInterface: LensHubProxy
@@ -78,6 +78,11 @@ const DeleteSettings: FC = () => {
     {
       onError(error) {
         toast.error(error?.message)
+      },
+      onSuccess() {
+        trackEvent('delete profile')
+        localStorage.setItem('selectedProfile', '0')
+        location.href = '/'
       }
     }
   )
@@ -108,12 +113,7 @@ const DeleteSettings: FC = () => {
             s,
             deadline: typedData.value.deadline
           }
-
-          writeAsync({ args: [tokenId, sig] }).then(() => {
-            trackEvent('delete profile')
-            localStorage.setItem('selectedProfile', '0')
-            location.href = '/'
-          })
+          write({ args: [tokenId, sig] })
         })
       },
       onError(error) {

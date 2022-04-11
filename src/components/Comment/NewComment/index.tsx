@@ -138,7 +138,7 @@ const NewComment: FC<Props> = ({ refetch, post, type }) => {
     data,
     error,
     isLoading: writeLoading,
-    writeAsync
+    write
   } = useContractWrite(
     {
       addressOrName: LENSHUB_PROXY,
@@ -148,6 +148,13 @@ const NewComment: FC<Props> = ({ refetch, post, type }) => {
     {
       onError(error) {
         toast.error(error?.message)
+      },
+      onSuccess() {
+        form.reset()
+        setAttachments([])
+        setSelectedModule(defaultModuleData)
+        setFeeData(defaultFeeData)
+        trackEvent('new comment', 'create')
       }
     }
   )
@@ -195,14 +202,7 @@ const NewComment: FC<Props> = ({ refetch, post, type }) => {
               deadline: typedData.value.deadline
             }
           }
-
-          writeAsync({ args: inputStruct }).then(() => {
-            form.reset()
-            setAttachments([])
-            setSelectedModule(defaultModuleData)
-            setFeeData(defaultFeeData)
-            trackEvent('new comment', 'create')
-          })
+          write({ args: inputStruct })
         })
       },
       onError(error) {

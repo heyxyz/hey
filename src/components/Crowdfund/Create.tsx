@@ -96,7 +96,7 @@ const Create: FC = () => {
   const {
     data,
     isLoading: writeLoading,
-    writeAsync
+    write
   } = useContractWrite(
     {
       addressOrName: LENSHUB_PROXY,
@@ -106,6 +106,10 @@ const Create: FC = () => {
     {
       onError(error) {
         toast.error(error?.message)
+      },
+      onSuccess() {
+        form.reset()
+        trackEvent('new crowdfund', 'create')
       }
     }
   )
@@ -169,11 +173,7 @@ const Create: FC = () => {
               deadline: typedData.value.deadline
             }
           }
-
-          writeAsync({ args: inputStruct }).then(() => {
-            form.reset()
-            trackEvent('new crowdfund', 'create')
-          })
+          write({ args: inputStruct })
         })
       },
       onError(error) {

@@ -74,7 +74,7 @@ const SetProfile: FC = () => {
   const {
     error,
     isLoading: writeLoading,
-    writeAsync
+    write
   } = useContractWrite(
     {
       addressOrName: LENSHUB_PROXY,
@@ -84,6 +84,10 @@ const SetProfile: FC = () => {
     {
       onError(error) {
         toast.error(error?.message)
+      },
+      onSuccess() {
+        toast.success('Default profile updated successfully!')
+        trackEvent('set default profile')
       }
     }
   )
@@ -128,11 +132,7 @@ const SetProfile: FC = () => {
               deadline: typedData.value.deadline
             }
           }
-
-          writeAsync({ args: inputStruct }).then(() => {
-            toast.success('Default profile updated successfully!')
-            trackEvent('set default profile')
-          })
+          write({ args: inputStruct })
         })
       },
       onError(error) {

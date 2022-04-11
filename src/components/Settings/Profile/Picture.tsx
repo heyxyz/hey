@@ -84,7 +84,7 @@ const Picture: FC<Props> = ({ profile }) => {
   const {
     error,
     isLoading: writeLoading,
-    writeAsync
+    write
   } = useContractWrite(
     {
       addressOrName: LENSHUB_PROXY,
@@ -94,6 +94,10 @@ const Picture: FC<Props> = ({ profile }) => {
     {
       onError(error) {
         toast.error(error?.message)
+      },
+      onSuccess() {
+        toast.success('Avatar updated successfully!')
+        trackEvent('update avatar')
       }
     }
   )
@@ -107,7 +111,7 @@ const Picture: FC<Props> = ({ profile }) => {
 
   const [createSetProfileImageURITypedData, { loading: typedDataLoading }] =
     useMutation(CREATE_SET_PROFILE_IMAGE_URI_TYPED_DATA_MUTATION, {
-      onCompleted({
+      async onCompleted({
         createSetProfileImageURITypedData
       }: {
         createSetProfileImageURITypedData: CreateSetProfileImageUriBroadcastItemResult
@@ -135,11 +139,7 @@ const Picture: FC<Props> = ({ profile }) => {
               deadline: typedData.value.deadline
             }
           }
-
-          writeAsync({ args: inputStruct }).then(() => {
-            toast.success('Avatar updated successfully!')
-            trackEvent('update avatar')
-          })
+          write({ args: inputStruct })
         })
       },
       onError(error) {
