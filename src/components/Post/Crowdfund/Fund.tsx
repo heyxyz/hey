@@ -72,7 +72,7 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
       toast.error(error?.message)
     }
   })
-  const { isLoading: writeLoading, writeAsync } = useContractWrite(
+  const { isLoading: writeLoading, write } = useContractWrite(
     {
       addressOrName: LENSHUB_PROXY,
       contractInterface: LensHubProxy
@@ -81,6 +81,11 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
     {
       onError(error) {
         toast.error(error?.message)
+      },
+      onSuccess() {
+        setRevenue(revenue + parseFloat(collectModule?.amount?.value))
+        toast.success('Successfully funded!')
+        trackEvent('fund a crowdfund')
       }
     }
   )
@@ -114,12 +119,7 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
               deadline: typedData.value.deadline
             }
           }
-
-          writeAsync({ args: inputStruct }).then(() => {
-            setRevenue(revenue + parseFloat(collectModule?.amount?.value))
-            toast.success('Successfully funded!')
-            trackEvent('fund a crowdfund')
-          })
+          write({ args: inputStruct })
         })
       },
       onError(error) {

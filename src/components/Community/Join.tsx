@@ -69,7 +69,7 @@ const Join: FC<Props> = ({ community, setJoined, showJoin = true }) => {
       toast.error(error?.message)
     }
   })
-  const { isLoading: writeLoading, writeAsync } = useContractWrite(
+  const { isLoading: writeLoading, write } = useContractWrite(
     {
       addressOrName: LENSHUB_PROXY,
       contractInterface: LensHubProxy
@@ -78,6 +78,11 @@ const Join: FC<Props> = ({ community, setJoined, showJoin = true }) => {
     {
       onError(error) {
         toast.error(error?.message)
+      },
+      onSuccess() {
+        setJoined(true)
+        toast.success('Joined successfully!')
+        trackEvent('join community')
       }
     }
   )
@@ -111,12 +116,7 @@ const Join: FC<Props> = ({ community, setJoined, showJoin = true }) => {
               deadline: typedData.value.deadline
             }
           }
-
-          writeAsync({ args: inputStruct }).then(() => {
-            setJoined(true)
-            toast.success('Joined successfully!')
-            trackEvent('join community')
-          })
+          write({ args: inputStruct })
         })
       },
       onError(error) {

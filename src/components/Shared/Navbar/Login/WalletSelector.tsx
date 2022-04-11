@@ -11,7 +11,6 @@ import trackEvent from '@lib/trackEvent'
 import clsx from 'clsx'
 import Cookies from 'js-cookie'
 import React, { Dispatch, FC, useContext, useEffect, useState } from 'react'
-import toast from 'react-hot-toast'
 import { COOKIE_CONFIG } from 'src/apollo'
 import { ERROR_MESSAGE } from 'src/constants'
 import { Connector, useAccount, useConnect, useSignMessage } from 'wagmi'
@@ -41,7 +40,7 @@ interface Props {
 const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
   const [mounted, setMounted] = useState(false)
   const [loadingSign, setLoadingSign] = useState<boolean>(false)
-  const [{}, signMessage] = useSignMessage()
+  const { signMessageAsync } = useSignMessage()
   const [loadChallenge, { error: errorChallenege }] = useLazyQuery(
     CHALLENGE_QUERY,
     {
@@ -72,19 +71,15 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
 
   useEffect(() => setMounted(true), [])
 
-  const {
-    data: { connector, connectors },
-    loading,
-    error,
-    connect
-  } = useConnect()
+  const { isConnecting, activeConnector, connectors, error, connectAsync } =
+    useConnect()
   const { data: accountData } = useAccount()
   const { setSelectedProfile } = useContext(AppContext)
 
   const onConnect = async (x: Connector) => {
     trackEvent(`connect with ${x.name.toLowerCase()}`)
-    await connect(x).then(({ error }) => {
-      if (!error) {
+    await connectAsync(x).then(({ account }) => {
+      if (account) {
         setHasConnected(true)
       }
     })
@@ -97,37 +92,34 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
       variables: { request: { address: accountData?.address } }
     })
       .then((res) => {
-        signMessage({ message: res.data.challenge.text }).then((res) => {
-          if (!res.error) {
-            authenticate({
-              variables: {
-                request: { address: accountData?.address, signature: res.data }
-              }
+        signMessageAsync({ message: res.data.challenge.text }).then((res) => {
+          authenticate({
+            variables: {
+              request: { address: accountData?.address, signature: res }
+            }
+          }).then((res) => {
+            Cookies.set(
+              'accessToken',
+              res.data.authenticate.accessToken,
+              COOKIE_CONFIG
+            )
+            Cookies.set(
+              'refreshToken',
+              res.data.authenticate.refreshToken,
+              COOKIE_CONFIG
+            )
+            getProfiles({
+              variables: { ownedBy: accountData?.address }
             }).then((res) => {
-              Cookies.set(
-                'accessToken',
-                res.data.authenticate.accessToken,
-                COOKIE_CONFIG
-              )
-              Cookies.set(
-                'refreshToken',
-                res.data.authenticate.refreshToken,
-                COOKIE_CONFIG
-              )
-              getProfiles({
-                variables: { ownedBy: accountData?.address }
-              }).then((res) => {
-                localStorage.setItem('selectedProfile', '0')
-                if (res.data.profiles.items.length === 0) {
-                  setHasProfile(false)
-                } else {
-                  setSelectedProfile(0)
-                }
-              })
+              console.log(res)
+              localStorage.setItem('selectedProfile', '0')
+              if (res.data.profiles.items.length === 0) {
+                setHasProfile(false)
+              } else {
+                setSelectedProfile(0)
+              }
             })
-          } else {
-            toast.error('User denied message signature.')
-          }
+          })
         })
       })
       .finally(() => setLoadingSign(false))
@@ -187,10 +179,10 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
                 <span className="flex items-center justify-between w-full">
                   {mounted ? x.name : x.id === 'injected' ? x.id : x.name}
                   {mounted ? !x.ready && ' (unsupported)' : ''}
-                  {loading && x.name === connector?.name && (
+                  {isConnecting && x.name === activeConnector?.name && (
                     <Spinner size="sm" />
                   )}
-                  {!loading && x.id === accountData?.connector?.id && (
+                  {!isConnecting && x.id === accountData?.connector?.id && (
                     <CheckCircleIcon className="w-5 h-5 text-brand-500" />
                   )}
                 </span>

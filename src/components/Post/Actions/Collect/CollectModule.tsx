@@ -105,7 +105,7 @@ const CollectModule: FC<Props> = ({ post }) => {
       toast.error(error?.message)
     }
   })
-  const { isLoading: writeLoading, writeAsync } = useContractWrite(
+  const { isLoading: writeLoading, write } = useContractWrite(
     {
       addressOrName: LENSHUB_PROXY,
       contractInterface: LensHubProxy
@@ -114,6 +114,10 @@ const CollectModule: FC<Props> = ({ post }) => {
     {
       onError(error) {
         toast.error(error?.message)
+      },
+      onSuccess() {
+        toast.success('Post has been collected!')
+        trackEvent('collect publication')
       }
     }
   )
@@ -186,11 +190,7 @@ const CollectModule: FC<Props> = ({ post }) => {
               deadline: typedData.value.deadline
             }
           }
-
-          writeAsync({ args: inputStruct }).then(() => {
-            toast.success('Post has been collected!')
-            trackEvent('collect publication')
-          })
+          write({ args: inputStruct })
         })
       },
       onError(error) {

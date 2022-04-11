@@ -119,7 +119,7 @@ const SuperFollow: FC = () => {
   const {
     data,
     isLoading: writeLoading,
-    writeAsync
+    write
   } = useContractWrite(
     {
       addressOrName: LENSHUB_PROXY,
@@ -129,6 +129,10 @@ const SuperFollow: FC = () => {
     {
       onError(error) {
         toast.error(error?.message)
+      },
+      onSuccess() {
+        form.reset()
+        trackEvent('set superfollow', 'create')
       }
     }
   )
@@ -172,11 +176,7 @@ const SuperFollow: FC = () => {
               deadline: typedData.value.deadline
             }
           }
-
-          writeAsync({ args: inputStruct }).then(() => {
-            form.reset()
-            trackEvent('set superfollow', 'create')
-          })
+          write({ args: inputStruct })
         })
       },
       onError(error) {

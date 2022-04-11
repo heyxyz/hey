@@ -26,7 +26,7 @@ import Link from 'next/link'
 import { useTheme } from 'next-themes'
 import React, { FC, ReactChild, useContext, useState } from 'react'
 import { STATIC_ASSETS } from 'src/constants'
-import { useEnsLookup } from 'wagmi'
+import { useEnsName } from 'wagmi'
 
 import DoesFollow from './DoesFollow'
 import Followerings from './Followerings'
@@ -47,7 +47,7 @@ interface Props {
 const Details: FC<Props> = ({ profile }) => {
   const [following, setFollowing] = useState<boolean>(false)
   const { currentUser, staffMode } = useContext(AppContext)
-  const [{ data: ensName }] = useEnsLookup({ address: profile?.ownedBy })
+  const { data: ensName } = useEnsName({ address: profile?.ownedBy })
   const { resolvedTheme } = useTheme()
   const { data: followData, loading: followLoading } = useQuery(
     DOES_FOLLOW_QUERY,

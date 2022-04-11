@@ -57,7 +57,11 @@ const Unfollow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
   const [writeLoading, setWriteLoading] = useState<boolean>(false)
   const { activeChain } = useNetwork()
   const { data: account } = useAccount()
-  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData()
+  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
+    onError(error) {
+      toast.error(error?.message)
+    }
+  })
   const { data: signer } = useSigner()
 
   const [createUnfollowTypedData, { loading: typedDataLoading }] = useMutation(
@@ -75,35 +79,31 @@ const Unfollow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
           types: omit(typedData?.types, '__typename'),
           value: omit(typedData?.value, '__typename')
         }).then(async (res) => {
-          if (!res) {
-            const { tokenId } = typedData?.value
-            const { v, r, s } = splitSignature(res)
-            const sig = {
-              v,
-              r,
-              s,
-              deadline: typedData.value.deadline
+          const { tokenId } = typedData?.value
+          const { v, r, s } = splitSignature(res)
+          const sig = {
+            v,
+            r,
+            s,
+            deadline: typedData.value.deadline
+          }
+          setWriteLoading(true)
+          const followNftContract = new Contract(
+            typedData.domain.verifyingContract,
+            FollowNFT,
+            signer
+          )
+          try {
+            const tx = await followNftContract.burnWithSig(tokenId, sig)
+            if (tx) {
+              setFollowing(false)
             }
-            setWriteLoading(true)
-            const followNftContract = new Contract(
-              typedData.domain.verifyingContract,
-              FollowNFT,
-              signer
-            )
-            try {
-              const tx = await followNftContract.burnWithSig(tokenId, sig)
-              if (tx) {
-                setFollowing(false)
-              }
-              toast.success('Unfollowed successfully!')
-              trackEvent('unfollow user')
-            } catch {
-              toast.error('User rejected request')
-            } finally {
-              setWriteLoading(false)
-            }
-          } else {
-            toast.error(res.error?.message)
+            toast.success('Unfollowed successfully!')
+            trackEvent('unfollow user')
+          } catch {
+            toast.error('User rejected request')
+          } finally {
+            setWriteLoading(false)
           }
         })
       },

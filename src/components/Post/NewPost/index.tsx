@@ -132,7 +132,7 @@ const NewPost: FC<Props> = ({ refetch, setShowModal, hideCard = false }) => {
     data,
     error,
     isLoading: writeLoading,
-    writeAsync
+    write
   } = useContractWrite(
     {
       addressOrName: LENSHUB_PROXY,
@@ -142,6 +142,13 @@ const NewPost: FC<Props> = ({ refetch, setShowModal, hideCard = false }) => {
     {
       onError(error) {
         toast.error(error?.message)
+      },
+      onSuccess() {
+        form.reset()
+        setAttachments([])
+        setSelectedModule(defaultModuleData)
+        setFeeData(defaultFeeData)
+        trackEvent('new post', 'create')
       }
     }
   )
@@ -185,14 +192,7 @@ const NewPost: FC<Props> = ({ refetch, setShowModal, hideCard = false }) => {
               deadline: typedData.value.deadline
             }
           }
-
-          writeAsync({ args: inputStruct }).then(() => {
-            form.reset()
-            setAttachments([])
-            setSelectedModule(defaultModuleData)
-            setFeeData(defaultFeeData)
-            trackEvent('new post', 'create')
-          })
+          write({ args: inputStruct })
         })
       },
       onError(error) {
