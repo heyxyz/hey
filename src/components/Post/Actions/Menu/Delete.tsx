@@ -35,9 +35,11 @@ const Delete: FC<Props> = ({ post }) => {
           'block px-4 py-1.5 text-sm text-red-500 m-2 rounded-lg cursor-pointer'
         )
       }
-      onClick={() =>
-        hidePost({ variables: { request: { publicationId: post?.id } } })
-      }
+      onClick={() => {
+        if (confirm('Are you sure you want to delete?')) {
+          hidePost({ variables: { request: { publicationId: post?.id } } })
+        }
+      }}
     >
       <div className="flex items-center space-x-2">
         <TrashIcon className="w-4 h-4" />
