@@ -74,10 +74,14 @@ const Picture: FC<Props> = ({ profile }) => {
   const [avatar, setAvatar] = useState<string>()
   const [uploading, setUploading] = useState<boolean>(false)
   const { currentUser } = useContext(AppContext)
-  const [{ data: network }] = useNetwork()
-  const [{ data: account }] = useAccount()
-  const [{ loading: signLoading }, signTypedData] = useSignTypedData()
-  const [{ error, loading: writeLoading }, write] = useContractWrite(
+  const { data: network } = useNetwork()
+  const { data: account } = useAccount()
+  const { isLoading: signLoading, signTypedData } = useSignTypedData()
+  const {
+    error,
+    isLoading: writeLoading,
+    write
+  } = useContractWrite(
     {
       addressOrName: LENSHUB_PROXY,
       contractInterface: LensHubProxy

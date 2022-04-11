@@ -101,10 +101,10 @@ const FollowModule: FC<Props> = ({
 }) => {
   const { currentUser } = useContext(AppContext)
   const [allowed, setAllowed] = useState<boolean>(true)
-  const [{ data: network }] = useNetwork()
-  const [{ data: account }] = useAccount()
-  const [{ loading: signLoading }, signTypedData] = useSignTypedData()
-  const [{ loading: writeLoading }, write] = useContractWrite(
+  const { data: network } = useNetwork()
+  const { data: account } = useAccount()
+  const { isLoading: signLoading, signTypedData } = useSignTypedData()
+  const { isLoading: writeLoading, write } = useContractWrite(
     {
       addressOrName: LENSHUB_PROXY,
       contractInterface: LensHubProxy
