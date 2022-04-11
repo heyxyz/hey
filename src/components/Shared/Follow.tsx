@@ -4,6 +4,7 @@ import { Button } from '@components/UI/Button'
 import { Spinner } from '@components/UI/Spinner'
 import { CreateFollowBroadcastItemResult, Profile } from '@generated/types'
 import { UserAddIcon } from '@heroicons/react/outline'
+import consoleLog from '@lib/consoleLog'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import trackEvent from '@lib/trackEvent'
@@ -78,6 +79,7 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
       }: {
         createFollowTypedData: CreateFollowBroadcastItemResult
       }) {
+        consoleLog('Mutation', '#8b5cf6', 'Generated createFollowTypedData')
         const { typedData } = createFollowTypedData
         signTypedData({
           domain: omit(typedData?.domain, '__typename'),

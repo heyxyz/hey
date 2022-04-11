@@ -154,6 +154,7 @@ const FollowModule: FC<Props> = ({
       }: {
         createFollowTypedData: CreateFollowBroadcastItemResult
       }) {
+        consoleLog('Mutation', '#8b5cf6', 'Generated createFollowTypedData')
         const { typedData } = createFollowTypedData
         signTypedData({
           domain: omit(typedData?.domain, '__typename'),
