@@ -5,6 +5,7 @@ import { Spinner } from '@components/UI/Spinner'
 import AppContext from '@components/utils/AppContext'
 import { CheckCircleIcon } from '@heroicons/react/outline'
 import { XCircleIcon } from '@heroicons/react/solid'
+import consoleLog from '@lib/consoleLog'
 import getWalletLogo from '@lib/getWalletLogo'
 import trackEvent from '@lib/trackEvent'
 import clsx from 'clsx'
@@ -41,13 +42,33 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
   const [mounted, setMounted] = useState(false)
   const [loadingSign, setLoadingSign] = useState<boolean>(false)
   const [{}, signMessage] = useSignMessage()
-  const [loadChallenge, { error: errorChallenege }] =
-    useLazyQuery(CHALLENGE_QUERY)
+  const [loadChallenge, { error: errorChallenege }] = useLazyQuery(
+    CHALLENGE_QUERY,
+    {
+      onCompleted(data) {
+        consoleLog(
+          'Fetch',
+          '#8b5cf6',
+          `Fetched auth challenege - ${data?.challenge?.text}`
+        )
+      }
+    }
+  )
   const [authenticate, { error: errorAuthenticate }] = useMutation(
     AUTHENTICATE_MUTATION
   )
-  const [getProfiles, { error: errorProfiles }] =
-    useLazyQuery(CURRENT_USER_QUERY)
+  const [getProfiles, { error: errorProfiles }] = useLazyQuery(
+    CURRENT_USER_QUERY,
+    {
+      onCompleted(data) {
+        consoleLog(
+          'Fetch',
+          '#8b5cf6',
+          `Fetched ${data?.profiles?.items?.length} user profiles for auth`
+        )
+      }
+    }
+  )
 
   useEffect(() => setMounted(true), [])
 
