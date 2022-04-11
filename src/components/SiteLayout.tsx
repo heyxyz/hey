@@ -7,7 +7,7 @@ import Head from 'next/head'
 import { useTheme } from 'next-themes'
 import { FC, ReactNode, useEffect, useState } from 'react'
 import { Toaster } from 'react-hot-toast'
-import { useAccount } from 'wagmi'
+import { useAccount, useConnect } from 'wagmi'
 
 import Loading from './Loading'
 import Navbar from './Shared/Navbar'
@@ -36,6 +36,7 @@ const SiteLayout: FC<Props> = ({ children }) => {
   const [refreshToken, setRefreshToken] = useState<string>()
   const [selectedProfile, setSelectedProfile] = useState<number>(0)
   const { data: accountData } = useAccount()
+  const { activeConnector } = useConnect()
   const { data, loading, error } = useQuery(CURRENT_USER_QUERY, {
     variables: { ownedBy: accountData?.address },
     skip: !selectedProfile || !refreshToken,
@@ -60,13 +61,13 @@ const SiteLayout: FC<Props> = ({ children }) => {
     setRefreshToken(Cookies.get('refreshToken'))
     setStaffMode(localStorage.staffMode === 'true')
 
-    // accountData?.connector?.on('change', () => {
-    //   localStorage.removeItem('selectedProfile')
-    //   Cookies.remove('accessToken')
-    //   Cookies.remove('refreshToken')
-    //   location.href = '/'
-    // })
-  }, [accountData])
+    activeConnector?.on('change', () => {
+      localStorage.removeItem('selectedProfile')
+      Cookies.remove('accessToken')
+      Cookies.remove('refreshToken')
+      location.href = '/'
+    })
+  }, [activeConnector])
 
   const injectedGlobalContext = {
     selectedProfile,
