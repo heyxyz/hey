@@ -41,16 +41,22 @@ const AllowanceButton: FC<Props> = ({
   const {
     data: txData,
     isLoading: transactionLoading,
-    sendTransactionAsync
+    sendTransaction
   } = useSendTransaction({
     onError(error) {
       toast.error(error?.message)
     }
   })
-  const { isLoading: waitLoading } = useWaitForTransaction({
-    wait: txData?.wait,
+  const { data, isLoading: waitLoading } = useWaitForTransaction({
+    hash: txData?.hash,
     onError(error) {
       toast.error(error?.message)
+    },
+    onSuccess(data) {
+      console.log(data)
+      toast.success(`Module ${allowed ? 'enabled' : 'disabled'} successfully!`)
+      setAllowed(!allowed)
+      trackEvent(`${allowed ? 'disabled' : 'enabled'} module allowance`)
     }
   })
 
@@ -69,19 +75,15 @@ const AllowanceButton: FC<Props> = ({
       }
     }).then((res) => {
       const data = res?.data?.generateModuleCurrencyApprovalData
-      sendTransactionAsync({
+      sendTransaction({
         request: { from: data.from, to: data.to, data: data.data }
-      }).then(() => {
-        toast.success(
-          `Module ${value === '0' ? 'disabled' : 'enabled'} successfully!`
-        )
-        trackEvent(`${value === '0' ? 'disabled' : 'enabled'} module allowance`)
       })
     })
   }
 
   return (
     <>
+      {JSON.stringify(data)}
       {allowed ? (
         <Button
           variant="success"
