@@ -55,7 +55,7 @@ const Collect: FC<Props> = ({ post }) => {
         show={showCollectModal}
         onClose={() => setShowCollectModal(!showCollectModal)}
       >
-        <CollectModule post={post} />
+        <CollectModule post={post} setShowCollectModal={setShowCollectModal} />
       </Modal>
     </motion.button>
   )

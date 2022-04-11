@@ -10,6 +10,7 @@ export const CollectModuleFields = gql`
       amount {
         asset {
           symbol
+          address
         }
         value
       }
@@ -23,6 +24,7 @@ export const CollectModuleFields = gql`
       amount {
         asset {
           symbol
+          address
         }
         value
       }
@@ -37,6 +39,7 @@ export const CollectModuleFields = gql`
       amount {
         asset {
           symbol
+          address
         }
         value
       }
@@ -50,6 +53,7 @@ export const CollectModuleFields = gql`
       amount {
         asset {
           symbol
+          address
         }
         value
       }

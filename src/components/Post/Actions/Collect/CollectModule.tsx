@@ -25,7 +25,7 @@ import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import trackEvent from '@lib/trackEvent'
 import dayjs from 'dayjs'
-import React, { FC, useContext, useState } from 'react'
+import React, { Dispatch, FC, useContext, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
   CHAIN_ID,
@@ -92,9 +92,10 @@ const CREATE_COLLECT_TYPED_DATA_MUTATION = gql`
 
 interface Props {
   post: LensterPost
+  setShowCollectModal: Dispatch<boolean>
 }
 
-const CollectModule: FC<Props> = ({ post }) => {
+const CollectModule: FC<Props> = ({ post, setShowCollectModal }) => {
   const { currentUser } = useContext(AppContext)
   const [allowed, setAllowed] = useState<boolean>(true)
 
@@ -116,6 +117,7 @@ const CollectModule: FC<Props> = ({ post }) => {
         toast.error(error?.message)
       },
       onSuccess() {
+        setShowCollectModal(false)
         toast.success('Post has been collected!')
         trackEvent('collect publication')
       }
@@ -221,17 +223,17 @@ const CollectModule: FC<Props> = ({ post }) => {
 
   return (
     <>
-      {collectModule.type === 'LimitedFeeCollectModule' ||
-        (collectModule.type === 'LimitedTimedFeeCollectModule' && (
-          <Tooltip content="Collect Limit">
-            <div className="w-full h-2.5 bg-gray-200 dark:bg-gray-700">
-              <div
-                className="h-2.5 bg-brand-500"
-                style={{ width: `${percentageCollected}%` }}
-              />
-            </div>
-          </Tooltip>
-        ))}
+      {(collectModule.type === 'LimitedFeeCollectModule' ||
+        collectModule.type === 'LimitedTimedFeeCollectModule') && (
+        <Tooltip content={`${percentageCollected.toFixed(0)}% Collected`}>
+          <div className="w-full h-2.5 bg-gray-200 dark:bg-gray-700">
+            <div
+              className="h-2.5 bg-brand-500"
+              style={{ width: `${percentageCollected}%` }}
+            />
+          </div>
+        </Tooltip>
+      )}
       <div className="p-5">
         {collectModule?.followerOnly && (
           <div className="pb-5">
@@ -342,6 +344,7 @@ const CollectModule: FC<Props> = ({ post }) => {
             </div>
           ) : (
             <Button
+              className="mt-5"
               onClick={createCollect}
               disabled={typedDataLoading || signLoading || writeLoading}
               icon={
