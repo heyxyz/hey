@@ -65,7 +65,7 @@ const Join: FC<Props> = ({ community, setJoined, showJoin = true }) => {
   const { data: network } = useNetwork()
   const { data: account } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData()
-  const { isLoading: writeLoading, write } = useContractWrite(
+  const { isLoading: writeLoading, writeAsync } = useContractWrite(
     {
       addressOrName: LENSHUB_PROXY,
       contractInterface: LensHubProxy
@@ -104,24 +104,26 @@ const Join: FC<Props> = ({ community, setJoined, showJoin = true }) => {
               }
             }
 
-            write({ args: inputStruct }).then(({ error }: { error: any }) => {
-              if (!error) {
-                setJoined(true)
-                toast.success('Joined successfully!')
-                trackEvent('join community')
-              } else {
-                if (
-                  error?.data?.message ===
-                  'execution reverted: SafeERC20: low-level call failed'
-                ) {
-                  toast.error(
-                    `Please allow Free Collect module in allowance settings`
-                  )
+            writeAsync({ args: inputStruct }).then(
+              ({ error }: { error: any }) => {
+                if (!error) {
+                  setJoined(true)
+                  toast.success('Joined successfully!')
+                  trackEvent('join community')
                 } else {
-                  toast.error(error?.data?.message)
+                  if (
+                    error?.data?.message ===
+                    'execution reverted: SafeERC20: low-level call failed'
+                  ) {
+                    toast.error(
+                      `Please allow Free Collect module in allowance settings`
+                    )
+                  } else {
+                    toast.error(error?.data?.message)
+                  }
                 }
               }
-            })
+            )
           } else {
             toast.error(res.error?.message)
           }

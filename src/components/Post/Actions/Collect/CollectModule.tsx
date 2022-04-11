@@ -102,7 +102,7 @@ const CollectModule: FC<Props> = ({ post }) => {
   const { data: network } = useNetwork()
   const { data: account } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData()
-  const { isLoading: writeLoading, write } = useContractWrite(
+  const { isLoading: writeLoading, writeAsync } = useContractWrite(
     {
       addressOrName: LENSHUB_PROXY,
       contractInterface: LensHubProxy
@@ -180,25 +180,27 @@ const CollectModule: FC<Props> = ({ post }) => {
               }
             }
 
-            write({ args: inputStruct }).then(({ error }: { error: any }) => {
-              if (!error) {
-                toast.success('Post has been collected!')
-                trackEvent('collect publication')
-              } else {
-                if (
-                  error?.data?.message ===
-                  'execution reverted: SafeERC20: low-level call failed'
-                ) {
-                  toast.error(
-                    `Please allow ${
-                      getModule(collectModule.type).name
-                    } module in allowance settings`
-                  )
+            writeAsync({ args: inputStruct }).then(
+              ({ error }: { error: any }) => {
+                if (!error) {
+                  toast.success('Post has been collected!')
+                  trackEvent('collect publication')
                 } else {
-                  toast.error(error?.data?.message)
+                  if (
+                    error?.data?.message ===
+                    'execution reverted: SafeERC20: low-level call failed'
+                  ) {
+                    toast.error(
+                      `Please allow ${
+                        getModule(collectModule.type).name
+                      } module in allowance settings`
+                    )
+                  } else {
+                    toast.error(error?.data?.message)
+                  }
                 }
               }
-            })
+            )
           } else {
             toast.error(res.error?.message)
           }

@@ -65,7 +65,7 @@ const DeleteSettings: FC = () => {
   const { data: network } = useNetwork()
   const { data: account } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData()
-  const { isLoading: writeLoading, write } = useContractWrite(
+  const { isLoading: writeLoading, writeAsync } = useContractWrite(
     {
       addressOrName: LENSHUB_PROXY,
       contractInterface: LensHubProxy
@@ -101,7 +101,7 @@ const DeleteSettings: FC = () => {
               deadline: typedData.value.deadline
             }
 
-            write({ args: [tokenId, sig] }).then(({ error }) => {
+            writeAsync({ args: [tokenId, sig] }).then(({ error }) => {
               if (!error) {
                 trackEvent('delete profile')
                 localStorage.setItem('selectedProfile', '0')
