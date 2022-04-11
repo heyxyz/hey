@@ -52,8 +52,7 @@ const AllowanceButton: FC<Props> = ({
     onError(error) {
       toast.error(error?.message)
     },
-    onSuccess(data) {
-      console.log(data)
+    onSuccess() {
       toast.success(`Module ${allowed ? 'enabled' : 'disabled'} successfully!`)
       setAllowed(!allowed)
       trackEvent(`${allowed ? 'disabled' : 'enabled'} module allowance`)
