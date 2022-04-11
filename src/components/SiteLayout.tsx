@@ -35,7 +35,7 @@ const SiteLayout: FC<Props> = ({ children }) => {
   const [staffMode, setStaffMode] = useState<boolean>()
   const [refreshToken, setRefreshToken] = useState<string>()
   const [selectedProfile, setSelectedProfile] = useState<number>(0)
-  const [{ data: accountData }] = useAccount()
+  const { data: accountData } = useAccount()
   const { data, loading, error } = useQuery(CURRENT_USER_QUERY, {
     variables: { ownedBy: accountData?.address },
     skip: !selectedProfile || !refreshToken,

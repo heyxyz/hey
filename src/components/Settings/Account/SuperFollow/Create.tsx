@@ -102,9 +102,9 @@ const SuperFollow: FC = () => {
   const [selectedCurrencySymobol, setSelectedCurrencySymobol] =
     useState<string>('WMATIC')
   const { currentUser } = useContext(AppContext)
-  const [{ data: network }] = useNetwork()
-  const [{ data: account }] = useAccount()
-  const [{ loading: signLoading }, signTypedData] = useSignTypedData()
+  const { data: network } = useNetwork()
+  const { data: account } = useAccount()
+  const { isLoading: signLoading, signTypedData } = useSignTypedData()
   const { data: currencyData, loading } = useQuery(MODULES_CURRENCY_QUERY, {
     variables: { request: { profileIds: currentUser?.id } },
     skip: !currentUser?.id,
@@ -112,7 +112,11 @@ const SuperFollow: FC = () => {
       consoleLog('Query', '#8b5cf6', `Fetched enabled module currencies`)
     }
   })
-  const [{ data, loading: writeLoading }, write] = useContractWrite(
+  const {
+    data,
+    isLoading: writeLoading,
+    write
+  } = useContractWrite(
     {
       addressOrName: LENSHUB_PROXY,
       contractInterface: LensHubProxy

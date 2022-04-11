@@ -12,10 +12,10 @@ import {
   IS_PRODUCTION,
   POLYGON_MUMBAI
 } from 'src/constants'
-import { Provider } from 'wagmi'
+import { createClient, Provider } from 'wagmi'
+import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet'
 import { InjectedConnector } from 'wagmi/connectors/injected'
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect'
-import { WalletLinkConnector } from 'wagmi/connectors/walletLink'
 
 import client from '../apollo'
 
@@ -40,7 +40,7 @@ const connectors = ({ chainId }: ConnectorsConfig) => {
         chainId: CHAIN_ID
       }
     }),
-    new WalletLinkConnector({
+    new CoinbaseWalletConnector({
       options: {
         appName: 'Lenster',
         jsonRpcUrl: `${rpcUrl}/${INFURA_ID}`
@@ -49,13 +49,14 @@ const connectors = ({ chainId }: ConnectorsConfig) => {
   ]
 }
 
+const wagmiClient = createClient({
+  autoConnect: true,
+  connectors: connectors
+})
+
 const App = ({ Component, pageProps }: AppProps) => {
   return (
-    <Provider
-      autoConnect
-      connectorStorageKey="lenster.wallet"
-      connectors={connectors}
-    >
+    <Provider client={wagmiClient}>
       <ApolloProvider client={client}>
         <ThemeProvider defaultTheme="light" attribute="class">
           <SiteLayout>

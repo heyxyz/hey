@@ -127,10 +127,15 @@ const NewComment: FC<Props> = ({ refetch, post, type }) => {
   const [attachments, setAttachments] = useState<
     [{ item: string; type: string }] | []
   >([])
-  const [{ data: network }] = useNetwork()
-  const [{ data: account }] = useAccount()
-  const [{ loading: signLoading }, signTypedData] = useSignTypedData()
-  const [{ data, error, loading: writeLoading }, write] = useContractWrite(
+  const { data: network } = useNetwork()
+  const { data: account } = useAccount()
+  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData()
+  const {
+    data,
+    error,
+    isLoading: writeLoading,
+    writeAsync
+  } = useContractWrite(
     {
       addressOrName: LENSHUB_PROXY,
       contractInterface: LensHubProxy
@@ -159,7 +164,7 @@ const NewComment: FC<Props> = ({ refetch, post, type }) => {
           referenceModuleData
         } = typedData?.value
 
-        signTypedData({
+        signTypedDataAsync({
           domain: omit(typedData?.domain, '__typename'),
           types: omit(typedData?.types, '__typename'),
           value: omit(typedData?.value, '__typename')
@@ -183,7 +188,7 @@ const NewComment: FC<Props> = ({ refetch, post, type }) => {
               }
             }
 
-            write({ args: inputStruct }).then(({ error }) => {
+            writeAsync({ args: inputStruct }).then(({ error }) => {
               if (!error) {
                 form.reset()
                 setAttachments([])
