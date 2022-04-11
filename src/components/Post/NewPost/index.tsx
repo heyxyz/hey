@@ -140,7 +140,7 @@ const NewPost: FC<Props> = ({ refetch, setShowModal, hideCard = false }) => {
       }: {
         createPostTypedData: CreatePostBroadcastItemResult
       }) {
-        consoleLog('Mutation', '#8b5cf6', 'Generated createPostTypedData')
+        consoleLog('Mutation', '#4ade80', 'Generated createPostTypedData')
         const { typedData } = createPostTypedData
         const {
           profileId,

@@ -136,7 +136,7 @@ const SuperFollow: FC = () => {
       }) {
         consoleLog(
           'Mutation',
-          '#8b5cf6',
+          '#4ade80',
           'Generated createSetFollowModuleTypedData'
         )
         const { typedData } = createSetFollowModuleTypedData

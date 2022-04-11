@@ -146,7 +146,7 @@ const NewComment: FC<Props> = ({ refetch, post, type }) => {
       }: {
         createCommentTypedData: CreateCommentBroadcastItemResult
       }) {
-        consoleLog('Mutation', '#8b5cf6', 'Generated createCommentTypedData')
+        consoleLog('Mutation', '#4ade80', 'Generated createCommentTypedData')
         const { typedData } = createCommentTypedData
         const {
           profileId,

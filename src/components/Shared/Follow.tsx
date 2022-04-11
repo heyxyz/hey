@@ -79,7 +79,7 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
       }: {
         createFollowTypedData: CreateFollowBroadcastItemResult
       }) {
-        consoleLog('Mutation', '#8b5cf6', 'Generated createFollowTypedData')
+        consoleLog('Mutation', '#4ade80', 'Generated createFollowTypedData')
         const { typedData } = createFollowTypedData
         signTypedData({
           domain: omit(typedData?.domain, '__typename'),

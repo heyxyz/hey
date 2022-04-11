@@ -84,7 +84,7 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
       }: {
         createCollectTypedData: CreateCollectBroadcastItemResult
       }) {
-        consoleLog('Mutation', '#8b5cf6', 'Generated createCollectTypedData')
+        consoleLog('Mutation', '#4ade80', 'Generated createCollectTypedData')
         const { typedData } = createCollectTypedData
         signTypedData({
           domain: omit(typedData?.domain, '__typename'),
