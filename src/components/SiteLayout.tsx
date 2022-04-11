@@ -7,7 +7,7 @@ import Head from 'next/head'
 import { useTheme } from 'next-themes'
 import { FC, ReactNode, useEffect, useState } from 'react'
 import { Toaster } from 'react-hot-toast'
-import { useAccount, useConnect } from 'wagmi'
+import { useAccount, useConnect, useDisconnect } from 'wagmi'
 
 import Loading from './Loading'
 import Navbar from './Shared/Navbar'
@@ -37,6 +37,7 @@ const SiteLayout: FC<Props> = ({ children }) => {
   const [selectedProfile, setSelectedProfile] = useState<number>(0)
   const { data: accountData } = useAccount()
   const { activeConnector } = useConnect()
+  const { disconnect } = useDisconnect()
   const { data, loading, error } = useQuery(CURRENT_USER_QUERY, {
     variables: { ownedBy: accountData?.address },
     skip: !selectedProfile || !refreshToken,
@@ -65,9 +66,9 @@ const SiteLayout: FC<Props> = ({ children }) => {
       localStorage.removeItem('selectedProfile')
       Cookies.remove('accessToken')
       Cookies.remove('refreshToken')
-      location.href = '/'
+      disconnect()
     })
-  }, [selectedProfile, activeConnector])
+  }, [selectedProfile, activeConnector, disconnect])
 
   const injectedGlobalContext = {
     selectedProfile,
