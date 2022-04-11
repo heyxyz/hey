@@ -111,7 +111,6 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
             getProfiles({
               variables: { ownedBy: accountData?.address }
             }).then((res) => {
-              console.log(res)
               localStorage.setItem('selectedProfile', '0')
               if (res.data.profiles.items.length === 0) {
                 setHasProfile(false)
