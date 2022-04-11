@@ -52,7 +52,7 @@ const Communities: NextPage = () => {
     },
     onCompleted() {
       consoleLog(
-        'Fetch',
+        'Query',
         '#8b5cf6',
         `Fetched 10 TOP_COMMENTED and TOP_COLLECTED communities`
       )

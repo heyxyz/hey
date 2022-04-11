@@ -48,7 +48,7 @@ const ProfileSettings: NextPage = () => {
     variables: { request: { profileIds: currentUser?.id } },
     skip: !currentUser?.id,
     onCompleted() {
-      consoleLog('Fetch', '#8b5cf6', `Fetched profile settings`)
+      consoleLog('Query', '#8b5cf6', `Fetched profile settings`)
     }
   })
 

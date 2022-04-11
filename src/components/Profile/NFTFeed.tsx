@@ -52,7 +52,7 @@ const NFTFeed: FC<Props> = ({ profile }) => {
       setPageInfo(data?.nfts?.pageInfo)
       setNfts(data?.nfts?.items)
       consoleLog(
-        'Fetch',
+        'Query',
         '#8b5cf6',
         `Fetched first 10 nfts Profile:${profile?.id}`
       )
@@ -75,7 +75,7 @@ const NFTFeed: FC<Props> = ({ profile }) => {
         setPageInfo(data?.nfts?.pageInfo)
         setNfts([...nfts, ...data?.nfts?.items])
         consoleLog(
-          'Fetch',
+          'Query',
           '#8b5cf6',
           `Fetched next 10 nfts Profile:${profile?.id} Next:${pageInfo?.next}`
         )

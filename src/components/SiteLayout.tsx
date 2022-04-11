@@ -41,7 +41,7 @@ const SiteLayout: FC<Props> = ({ children }) => {
     skip: !selectedProfile || !refreshToken,
     onCompleted(data) {
       consoleLog(
-        'Fetch',
+        'Query',
         '#8b5cf6',
         `Fetched ${data?.profiles?.items?.length} owned profiles`
       )

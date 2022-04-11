@@ -72,7 +72,7 @@ const Details: FC<Props> = ({ profile }) => {
       onCompleted(data) {
         setFollowing(data?.doesFollow[1]?.follows)
         consoleLog(
-          'Fetch',
+          'Query',
           '#8b5cf6',
           `Fetched has followed check Profile:${profile?.id} Following:${following}`
         )

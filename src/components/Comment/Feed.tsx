@@ -63,7 +63,7 @@ const Feed: FC<Props> = ({
         setPageInfo(data?.publications?.pageInfo)
         setPublications(data?.publications?.items)
         consoleLog(
-          'Fetch',
+          'Query',
           '#8b5cf6',
           `Fetched first 10 comments of Publication:${id}`
         )
@@ -86,7 +86,7 @@ const Feed: FC<Props> = ({
         setPageInfo(data?.publications?.pageInfo)
         setPublications([...publications, ...data?.publications?.items])
         consoleLog(
-          'Fetch',
+          'Query',
           '#8b5cf6',
           `Fetched next 10 comments of Publication:${id} Next:${pageInfo?.next}`
         )

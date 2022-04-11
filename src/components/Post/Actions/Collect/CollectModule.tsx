@@ -115,7 +115,7 @@ const CollectModule: FC<Props> = ({ post }) => {
     skip: !post?.id,
     onCompleted() {
       consoleLog(
-        'Fetch',
+        'Query',
         '#8b5cf6',
         `Fetched collect module details Publication:${post?.id}`
       )
@@ -143,7 +143,7 @@ const CollectModule: FC<Props> = ({ post }) => {
       skip: !collectModule?.amount?.asset?.address || !currentUser,
       onCompleted(data) {
         setAllowed(data?.approvedModuleAllowanceAmount[0]?.allowance === '0x00')
-        consoleLog('Fetch', '#8b5cf6', `Fetched allowance data`)
+        consoleLog('Query', '#8b5cf6', `Fetched allowance data`)
       }
     }
   )

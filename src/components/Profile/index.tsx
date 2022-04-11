@@ -70,7 +70,7 @@ const ViewProfile: NextPage = () => {
     skip: !username,
     onCompleted(data) {
       consoleLog(
-        'Fetch',
+        'Query',
         '#8b5cf6',
         `Fetched profile details Profile:${data?.profiles?.items[0]?.id}`
       )

@@ -59,7 +59,7 @@ const Feed: FC = () => {
       onCompleted(data) {
         setPageInfo(data?.timeline?.pageInfo)
         setPublications(data?.timeline?.items)
-        consoleLog('Fetch', '#8b5cf6', `Fetched first 10 timeline publications`)
+        consoleLog('Query', '#8b5cf6', `Fetched first 10 timeline publications`)
       }
     }
   )
@@ -79,7 +79,7 @@ const Feed: FC = () => {
         setPageInfo(data?.timeline?.pageInfo)
         setPublications([...publications, ...data?.timeline?.items])
         consoleLog(
-          'Fetch',
+          'Query',
           '#8b5cf6',
           `Fetched next 10 timeline publications Next:${pageInfo?.next}`
         )

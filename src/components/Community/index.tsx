@@ -33,7 +33,7 @@ const ViewCommunity: NextPage = () => {
     skip: !id,
     onCompleted() {
       consoleLog(
-        'Fetch',
+        'Query',
         '#8b5cf6',
         `Fetched community details Community:${id}`
       )

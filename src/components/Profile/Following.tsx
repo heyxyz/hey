@@ -41,7 +41,7 @@ const Following: FC<Props> = ({ profile }) => {
       setPageInfo(data?.following?.pageInfo)
       setFollowing(data?.following?.items)
       consoleLog(
-        'Fetch',
+        'Query',
         '#8b5cf6',
         `Fetched first 10 following Profile:${profile?.id}`
       )
@@ -63,7 +63,7 @@ const Following: FC<Props> = ({ profile }) => {
         setPageInfo(data?.following?.pageInfo)
         setFollowing([...following, ...data?.following?.items])
         consoleLog(
-          'Fetch',
+          'Query',
           '#8b5cf6',
           `Fetched next 10 following Profile:${profile?.id} Next:${pageInfo?.next}`
         )

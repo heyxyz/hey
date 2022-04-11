@@ -109,7 +109,7 @@ const SuperFollow: FC = () => {
     variables: { request: { profileIds: currentUser?.id } },
     skip: !currentUser?.id,
     onCompleted() {
-      consoleLog('Fetch', '#8b5cf6', `Fetched enabled module currencies`)
+      consoleLog('Query', '#8b5cf6', `Fetched enabled module currencies`)
     }
   })
   const [{ data, loading: writeLoading }, write] = useContractWrite(
