@@ -19,6 +19,7 @@ export const CONNECT_WALLET = 'Please connect your wallet.'
 export const WRONG_NETWORK = IS_MAINNET
   ? 'Please change network to Polygon mainnet.'
   : 'Please change network to Polygon Mumbai testnet.'
+export const SIGN_ERROR = 'Failed to sign data'
 
 // URLs
 export const STATIC_ASSETS = 'https://assets.lenster.xyz/images'
@@ -38,15 +39,14 @@ export const IMAGEKIT_URL = IS_PRODUCTION
 // Web3
 export const INFURA_ID = '1423f014ff0243e3b7ab20fbb3f8656f'
 export const POLYGON_MAINNET = {
-  ...chain.polygonMainnet,
+  ...chain.polygon,
   name: 'Polygon Mainnet',
-  rpcUrls: ['https://polygon-rpc.com']
+  rpcUrls: { default: ['https://polygon-rpc.com'] }
 }
-
 export const POLYGON_MUMBAI = {
-  ...chain.polygonTestnetMumbai,
+  ...chain.polygonMumbai,
   name: 'Polygon Mumbai',
-  rpcUrls: ['https://rpc-mumbai.maticvigil.com']
+  rpcUrls: { default: ['https://rpc-mumbai.maticvigil.com'] }
 }
 export const CHAIN_ID = IS_MAINNET ? POLYGON_MAINNET.id : POLYGON_MUMBAI.id
 

@@ -20,13 +20,12 @@ import {
 } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
 import formatAddress from '@lib/formatAddress'
-import { getModule } from '@lib/getModule'
 import getTokenImage from '@lib/getTokenImage'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import trackEvent from '@lib/trackEvent'
 import dayjs from 'dayjs'
-import React, { FC, useContext, useState } from 'react'
+import React, { Dispatch, FC, useContext, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
   CHAIN_ID,
@@ -93,21 +92,36 @@ const CREATE_COLLECT_TYPED_DATA_MUTATION = gql`
 
 interface Props {
   post: LensterPost
+  setShowCollectModal: Dispatch<boolean>
 }
 
-const CollectModule: FC<Props> = ({ post }) => {
+const CollectModule: FC<Props> = ({ post, setShowCollectModal }) => {
   const { currentUser } = useContext(AppContext)
   const [allowed, setAllowed] = useState<boolean>(true)
 
-  const [{ data: network }] = useNetwork()
-  const [{ data: account }] = useAccount()
-  const [{ loading: signLoading }, signTypedData] = useSignTypedData()
-  const [{ loading: writeLoading }, write] = useContractWrite(
+  const { activeChain } = useNetwork()
+  const { data: account } = useAccount()
+  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
+    onError(error) {
+      toast.error(error?.message)
+    }
+  })
+  const { isLoading: writeLoading, write } = useContractWrite(
     {
       addressOrName: LENSHUB_PROXY,
       contractInterface: LensHubProxy
     },
-    'collectWithSig'
+    'collectWithSig',
+    {
+      onSuccess() {
+        setShowCollectModal(false)
+        toast.success('Post has been collected!')
+        trackEvent('collect publication')
+      },
+      onError(error) {
+        toast.error(error?.message)
+      }
+    }
   )
 
   const { data, loading } = useQuery(COLLECT_QUERY, {
@@ -159,49 +173,26 @@ const CollectModule: FC<Props> = ({ post }) => {
         consoleLog('Mutation', '#4ade80', 'Generated createCollectTypedData')
         const { typedData } = createCollectTypedData
 
-        signTypedData({
+        signTypedDataAsync({
           domain: omit(typedData?.domain, '__typename'),
           types: omit(typedData?.types, '__typename'),
           value: omit(typedData?.value, '__typename')
-        }).then((res) => {
-          if (!res.error) {
-            const { profileId, pubId, data: collectData } = typedData?.value
-            const { v, r, s } = splitSignature(res.data)
-            const inputStruct = {
-              collector: account?.address,
-              profileId,
-              pubId,
-              data: collectData,
-              sig: {
-                v,
-                r,
-                s,
-                deadline: typedData.value.deadline
-              }
+        }).then((signature) => {
+          const { profileId, pubId, data: collectData } = typedData?.value
+          const { v, r, s } = splitSignature(signature)
+          const inputStruct = {
+            collector: account?.address,
+            profileId,
+            pubId,
+            data: collectData,
+            sig: {
+              v,
+              r,
+              s,
+              deadline: typedData.value.deadline
             }
-
-            write({ args: inputStruct }).then(({ error }: { error: any }) => {
-              if (!error) {
-                toast.success('Post has been collected!')
-                trackEvent('collect publication')
-              } else {
-                if (
-                  error?.data?.message ===
-                  'execution reverted: SafeERC20: low-level call failed'
-                ) {
-                  toast.error(
-                    `Please allow ${
-                      getModule(collectModule.type).name
-                    } module in allowance settings`
-                  )
-                } else {
-                  toast.error(error?.data?.message)
-                }
-              }
-            })
-          } else {
-            toast.error(res.error?.message)
           }
+          write({ args: inputStruct })
         })
       },
       onError(error) {
@@ -213,7 +204,7 @@ const CollectModule: FC<Props> = ({ post }) => {
   const createCollect = async () => {
     if (!account?.address) {
       toast.error(CONNECT_WALLET)
-    } else if (network.chain?.id !== CHAIN_ID) {
+    } else if (activeChain?.id !== CHAIN_ID) {
       toast.error(WRONG_NETWORK)
     } else if (
       // @ts-ignore
@@ -232,17 +223,17 @@ const CollectModule: FC<Props> = ({ post }) => {
 
   return (
     <>
-      {collectModule.type === 'LimitedFeeCollectModule' ||
-        (collectModule.type === 'LimitedTimedFeeCollectModule' && (
-          <Tooltip content="Collect Limit">
-            <div className="w-full h-2.5 bg-gray-200 dark:bg-gray-700">
-              <div
-                className="h-2.5 bg-brand-500"
-                style={{ width: `${percentageCollected}%` }}
-              />
-            </div>
-          </Tooltip>
-        ))}
+      {(collectModule.type === 'LimitedFeeCollectModule' ||
+        collectModule.type === 'LimitedTimedFeeCollectModule') && (
+        <Tooltip content={`${percentageCollected.toFixed(0)}% Collected`}>
+          <div className="w-full h-2.5 bg-gray-200 dark:bg-gray-700">
+            <div
+              className="h-2.5 bg-brand-500"
+              style={{ width: `${percentageCollected}%` }}
+            />
+          </div>
+        </Tooltip>
+      )}
       <div className="p-5">
         {collectModule?.followerOnly && (
           <div className="pb-5">
@@ -345,7 +336,7 @@ const CollectModule: FC<Props> = ({ post }) => {
           ) : allowed ? (
             <div className="mt-5">
               <AllowanceButton
-                title="Allow module"
+                title="Allow collect module"
                 module={allowanceData?.approvedModuleAllowanceAmount[0]}
                 allowed={allowed}
                 setAllowed={setAllowed}
@@ -353,6 +344,7 @@ const CollectModule: FC<Props> = ({ post }) => {
             </div>
           ) : (
             <Button
+              className="mt-5"
               onClick={createCollect}
               disabled={typedDataLoading || signLoading || writeLoading}
               icon={

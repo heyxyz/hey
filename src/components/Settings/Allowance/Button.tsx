@@ -7,8 +7,7 @@ import { getModule } from '@lib/getModule'
 import trackEvent from '@lib/trackEvent'
 import React, { Dispatch, FC } from 'react'
 import toast from 'react-hot-toast'
-import { ERROR_MESSAGE } from 'src/constants'
-import { useTransaction, useWaitForTransaction } from 'wagmi'
+import { useSendTransaction, useWaitForTransaction } from 'wagmi'
 
 const GENERATE_ALLOWANCE_QUERY = gql`
   query GenerateModuleCurrencyApprovalData(
@@ -39,10 +38,25 @@ const AllowanceButton: FC<Props> = ({
     GENERATE_ALLOWANCE_QUERY
   )
 
-  const [{ data: txData, loading: transactionLoading }, sendTransaction] =
-    useTransaction()
-  const [{ loading: waitLoading }] = useWaitForTransaction({
-    wait: txData?.wait
+  const {
+    data: txData,
+    isLoading: transactionLoading,
+    sendTransaction
+  } = useSendTransaction({
+    onError(error) {
+      toast.error(error?.message)
+    }
+  })
+  const { isLoading: waitLoading } = useWaitForTransaction({
+    hash: txData?.hash,
+    onSuccess() {
+      toast.success(`Module ${allowed ? 'enabled' : 'disabled'} successfully!`)
+      setAllowed(!allowed)
+      trackEvent(`${allowed ? 'disabled' : 'enabled'} module allowance`)
+    },
+    onError(error) {
+      toast.error(error?.message)
+    }
   })
 
   const handleAllowance = (
@@ -62,24 +76,6 @@ const AllowanceButton: FC<Props> = ({
       const data = res?.data?.generateModuleCurrencyApprovalData
       sendTransaction({
         request: { from: data.from, to: data.to, data: data.data }
-      }).then(({ data, error }) => {
-        if (!error) {
-          data?.wait().then(({ status }) => {
-            if (status !== 0) {
-              setAllowed(value === '0' ? true : false)
-              toast.success(
-                `Module ${value === '0' ? 'disabled' : 'enabled'} successfully!`
-              )
-              trackEvent(
-                `${value === '0' ? 'disabled' : 'enabled'} module allowance`
-              )
-            } else {
-              toast.error(ERROR_MESSAGE)
-            }
-          })
-        } else {
-          toast.error(error.message)
-        }
       })
     })
   }

@@ -2,6 +2,7 @@ import '../styles.css'
 
 import { ApolloProvider } from '@apollo/client'
 import SiteLayout from '@components/SiteLayout'
+import { providers } from 'ethers'
 import { AppProps } from 'next/app'
 import Script from 'next/script'
 import { ThemeProvider } from 'next-themes'
@@ -12,10 +13,10 @@ import {
   IS_PRODUCTION,
   POLYGON_MUMBAI
 } from 'src/constants'
-import { Provider } from 'wagmi'
+import { createClient, Provider } from 'wagmi'
+import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet'
 import { InjectedConnector } from 'wagmi/connectors/injected'
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect'
-import { WalletLinkConnector } from 'wagmi/connectors/walletLink'
 
 import client from '../apollo'
 
@@ -26,8 +27,8 @@ type ConnectorsConfig = { chainId?: number }
 
 const connectors = ({ chainId }: ConnectorsConfig) => {
   const rpcUrl =
-    supportedChains.find((x) => x.id === chainId)?.rpcUrls?.[0] ??
-    defaultChain.rpcUrls[0]
+    supportedChains.find((x) => x.id === chainId)?.rpcUrls?.default?.[0] ??
+    defaultChain.rpcUrls.default[0]
 
   return [
     new InjectedConnector({
@@ -40,7 +41,7 @@ const connectors = ({ chainId }: ConnectorsConfig) => {
         chainId: CHAIN_ID
       }
     }),
-    new WalletLinkConnector({
+    new CoinbaseWalletConnector({
       options: {
         appName: 'Lenster',
         jsonRpcUrl: `${rpcUrl}/${INFURA_ID}`
@@ -49,13 +50,17 @@ const connectors = ({ chainId }: ConnectorsConfig) => {
   ]
 }
 
+const wagmiClient = createClient({
+  autoConnect: true,
+  provider(config) {
+    return new providers.InfuraProvider(config.chainId, INFURA_ID)
+  },
+  connectors
+})
+
 const App = ({ Component, pageProps }: AppProps) => {
   return (
-    <Provider
-      autoConnect
-      connectorStorageKey="lenster.wallet"
-      connectors={connectors}
-    >
+    <Provider client={wagmiClient}>
       <ApolloProvider client={client}>
         <ThemeProvider defaultTheme="light" attribute="class">
           <SiteLayout>

@@ -10,7 +10,7 @@ interface Props {
 }
 
 const SwitchNetwork: FC<Props> = ({ className = '' }) => {
-  const [{}, switchNetwork] = useNetwork()
+  const { switchNetwork } = useNetwork()
 
   return (
     <Button

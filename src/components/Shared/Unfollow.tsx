@@ -55,10 +55,14 @@ interface Props {
 
 const Unfollow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
   const [writeLoading, setWriteLoading] = useState<boolean>(false)
-  const [{ data: network }] = useNetwork()
-  const [{ data: account }] = useAccount()
-  const [{ loading: signLoading }, signTypedData] = useSignTypedData()
-  const [{ data: signer }] = useSigner()
+  const { activeChain } = useNetwork()
+  const { data: account } = useAccount()
+  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
+    onError(error) {
+      toast.error(error?.message)
+    }
+  })
+  const { data: signer, refetch } = useSigner()
 
   const [createUnfollowTypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_UNFOLLOW_TYPED_DATA_MUTATION,
@@ -70,40 +74,39 @@ const Unfollow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
       }) {
         consoleLog('Mutation', '#4ade80', 'Generated createUnfollowTypedData')
         const { typedData } = createUnfollowTypedData
-        signTypedData({
+        signTypedDataAsync({
           domain: omit(typedData?.domain, '__typename'),
           types: omit(typedData?.types, '__typename'),
           value: omit(typedData?.value, '__typename')
         }).then(async (res) => {
-          if (!res.error) {
-            const { tokenId } = typedData?.value
-            const { v, r, s } = splitSignature(res.data)
-            const sig = {
-              v,
-              r,
-              s,
-              deadline: typedData.value.deadline
-            }
-            setWriteLoading(true)
-            const followNftContract = new Contract(
-              typedData.domain.verifyingContract,
-              FollowNFT,
-              signer
-            )
-            try {
+          const { tokenId } = typedData?.value
+          const { v, r, s } = splitSignature(res)
+          const sig = {
+            v,
+            r,
+            s,
+            deadline: typedData.value.deadline
+          }
+          setWriteLoading(true)
+          try {
+            refetch().then(async (res) => {
+              const followNftContract = new Contract(
+                typedData.domain.verifyingContract,
+                FollowNFT,
+                res.data
+              )
+
               const tx = await followNftContract.burnWithSig(tokenId, sig)
               if (tx) {
                 setFollowing(false)
               }
               toast.success('Unfollowed successfully!')
               trackEvent('unfollow user')
-            } catch {
-              toast.error('User rejected request')
-            } finally {
-              setWriteLoading(false)
-            }
-          } else {
-            toast.error(res.error?.message)
+            })
+          } catch {
+            toast.error('User rejected request')
+          } finally {
+            setWriteLoading(false)
           }
         })
       },
@@ -116,7 +119,7 @@ const Unfollow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
   const createUnfollow = async () => {
     if (!account?.address) {
       toast.error(CONNECT_WALLET)
-    } else if (network.chain?.id !== CHAIN_ID) {
+    } else if (activeChain?.id !== CHAIN_ID) {
       toast.error(WRONG_NETWORK)
     } else {
       createUnfollowTypedData({
