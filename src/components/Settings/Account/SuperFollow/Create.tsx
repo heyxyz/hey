@@ -104,7 +104,7 @@ const SuperFollow: FC = () => {
   const { currentUser } = useContext(AppContext)
   const { data: network } = useNetwork()
   const { data: account } = useAccount()
-  const { isLoading: signLoading, signTypedData } = useSignTypedData()
+  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData()
   const { data: currencyData, loading } = useQuery(MODULES_CURRENCY_QUERY, {
     variables: { request: { profileIds: currentUser?.id } },
     skip: !currentUser?.id,
@@ -146,7 +146,7 @@ const SuperFollow: FC = () => {
         const { typedData } = createSetFollowModuleTypedData
         const { profileId, followModule, followModuleData } = typedData?.value
 
-        signTypedData({
+        signTypedDataAsync({
           domain: omit(typedData?.domain, '__typename'),
           types: omit(typedData?.types, '__typename'),
           value: omit(typedData?.value, '__typename')
@@ -186,7 +186,7 @@ const SuperFollow: FC = () => {
   const setSuperFollow = (amount: string | null, recipient: string | null) => {
     if (!account?.address) {
       toast.error(CONNECT_WALLET)
-    } else if (network.chain?.id !== CHAIN_ID) {
+    } else if (network?.id !== CHAIN_ID) {
       toast.error(WRONG_NETWORK)
     } else {
       createSetFollowModuleTypedData({
