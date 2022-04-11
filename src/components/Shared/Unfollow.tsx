@@ -62,7 +62,7 @@ const Unfollow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
       toast.error(error?.message)
     }
   })
-  const { data: signer } = useSigner()
+  const { data: signer, refetch } = useSigner()
 
   const [createUnfollowTypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_UNFOLLOW_TYPED_DATA_MUTATION,
@@ -88,18 +88,21 @@ const Unfollow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
             deadline: typedData.value.deadline
           }
           setWriteLoading(true)
-          const followNftContract = new Contract(
-            typedData.domain.verifyingContract,
-            FollowNFT,
-            signer
-          )
           try {
-            const tx = await followNftContract.burnWithSig(tokenId, sig)
-            if (tx) {
-              setFollowing(false)
-            }
-            toast.success('Unfollowed successfully!')
-            trackEvent('unfollow user')
+            refetch().then(async (res) => {
+              const followNftContract = new Contract(
+                typedData.domain.verifyingContract,
+                FollowNFT,
+                res.data
+              )
+
+              const tx = await followNftContract.burnWithSig(tokenId, sig)
+              if (tx) {
+                setFollowing(false)
+              }
+              toast.success('Unfollowed successfully!')
+              trackEvent('unfollow user')
+            })
           } catch {
             toast.error('User rejected request')
           } finally {
