@@ -101,7 +101,7 @@ const Picture: FC<Props> = ({ profile }) => {
       }) {
         consoleLog(
           'Mutation',
-          '#8b5cf6',
+          '#4ade80',
           'Generated createSetProfileImageURITypedData'
         )
         const { typedData } = createSetProfileImageURITypedData

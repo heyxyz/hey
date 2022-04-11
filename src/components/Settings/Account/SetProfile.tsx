@@ -93,7 +93,7 @@ const SetProfile: FC = () => {
       }) {
         consoleLog(
           'Mutation',
-          '#8b5cf6',
+          '#4ade80',
           'Generated createSetDefaultProfileTypedData'
         )
         const { typedData } = createSetDefaultProfileTypedData

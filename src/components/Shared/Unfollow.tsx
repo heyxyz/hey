@@ -68,7 +68,7 @@ const Unfollow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
       }: {
         createUnfollowTypedData: CreateUnfollowBroadcastItemResult
       }) {
-        consoleLog('Mutation', '#8b5cf6', 'Generated createUnfollowTypedData')
+        consoleLog('Mutation', '#4ade80', 'Generated createUnfollowTypedData')
         const { typedData } = createUnfollowTypedData
         signTypedData({
           domain: omit(typedData?.domain, '__typename'),
