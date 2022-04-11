@@ -1,9 +1,9 @@
 import { ProfileStats } from '@generated/types'
 import {
   ChatAlt2Icon,
-  DuplicateIcon,
   PencilAltIcon,
-  PhotographIcon
+  PhotographIcon,
+  SwitchHorizontalIcon
 } from '@heroicons/react/outline'
 import humanize from '@lib/humanize'
 import trackEvent from '@lib/trackEvent'
@@ -64,7 +64,7 @@ const FeedType: FC<Props> = ({ stats, setFeedType, feedType }) => {
       />
       <FeedLink
         name="Mirrors"
-        icon={<DuplicateIcon className="w-4 h-4" />}
+        icon={<SwitchHorizontalIcon className="w-4 h-4" />}
         type="MIRROR"
         count={stats?.totalMirrors}
       />

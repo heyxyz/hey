@@ -4,7 +4,7 @@ import { Spinner } from '@components/UI/Spinner'
 import AppContext from '@components/utils/AppContext'
 import { LensterPost } from '@generated/lenstertypes'
 import { CreateMirrorBroadcastItemResult } from '@generated/types'
-import { DuplicateIcon } from '@heroicons/react/outline'
+import { SwitchHorizontalIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
 import humanize from '@lib/humanize'
 import omit from '@lib/omit'
@@ -166,7 +166,7 @@ const Mirror: FC<Props> = ({ post }) => {
           {typedDataLoading || signLoading || writeLoading ? (
             <Spinner size="xs" />
           ) : (
-            <DuplicateIcon className="w-[18px]" />
+            <SwitchHorizontalIcon className="w-[18px]" />
           )}
         </div>
         {post?.stats?.totalAmountOfMirrors > 0 && (

@@ -1,5 +1,5 @@
 import { NewMirrorNotification } from '@generated/types'
-import { DuplicateIcon } from '@heroicons/react/outline'
+import { SwitchHorizontalIcon } from '@heroicons/react/outline'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import Link from 'next/link'
@@ -31,7 +31,7 @@ const MirrorNotification: FC<Props> = ({ notification }) => {
           </a>
         </Link>
         <div className="flex items-center pt-1 space-x-1 text-gray-400 text-[12px]">
-          <DuplicateIcon className="h-[15px] text-brand-500" />
+          <SwitchHorizontalIcon className="h-[15px] text-brand-500" />
           <div>{dayjs(new Date(notification.createdAt)).fromNow()}</div>
         </div>
       </div>
