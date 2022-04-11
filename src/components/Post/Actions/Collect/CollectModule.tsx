@@ -156,6 +156,7 @@ const CollectModule: FC<Props> = ({ post }) => {
       }: {
         createCollectTypedData: CreateCollectBroadcastItemResult
       }) {
+        consoleLog('Mutation', '#8b5cf6', 'Generated createCollectTypedData')
         const { typedData } = createCollectTypedData
 
         signTypedData({
