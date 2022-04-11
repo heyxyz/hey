@@ -74,7 +74,7 @@ const Navbar: FC = () => {
   }
 
   return (
-    <nav className="sticky top-0 z-10 w-full bg-white border-b dark:bg-gray-900 dark:border-b-gray-800">
+    <nav className="sticky top-0 z-10 w-full bg-white border-b dark:bg-gray-900 dark:border-b-gray-700/80">
       {isStaff(currentUser?.id) && staffMode && <StaffBar />}
       <div className="container max-w-screen-xl px-5 mx-auto">
         <div className="relative flex items-center justify-between h-14 sm:h-16">
