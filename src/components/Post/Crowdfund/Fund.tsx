@@ -17,6 +17,7 @@ import {
   CONNECT_WALLET,
   ERROR_MESSAGE,
   LENSHUB_PROXY,
+  SIGN_ERROR,
   WRONG_NETWORK
 } from 'src/constants'
 import {
@@ -75,8 +76,8 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
     },
     'collectWithSig',
     {
-      onError(error: any) {
-        toast.error(error)
+      onError(error) {
+        toast.error(error?.message)
       }
     }
   )
@@ -96,9 +97,9 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
           types: omit(typedData?.types, '__typename'),
           value: omit(typedData?.value, '__typename')
         }).then((res) => {
-          if (!res.error) {
+          if (!res) {
             const { profileId, pubId, data: collectData } = typedData?.value
-            const { v, r, s } = splitSignature(res.data)
+            const { v, r, s } = splitSignature(res)
             const inputStruct = {
               collector: account?.address,
               profileId,
@@ -112,28 +113,13 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
               }
             }
 
-            writeAsync({ args: inputStruct }).then(
-              ({ error }: { error: any }) => {
-                if (!error) {
-                  setRevenue(revenue + parseFloat(collectModule?.amount?.value))
-                  toast.success('Successfully funded!')
-                  trackEvent('fund a crowdfund')
-                } else {
-                  if (
-                    error?.data?.message ===
-                    'execution reverted: SafeERC20: low-level call failed'
-                  ) {
-                    toast.error(
-                      `Please allow Fee Collect module in allowance settings`
-                    )
-                  } else {
-                    toast.error(error?.data?.message)
-                  }
-                }
-              }
-            )
+            writeAsync({ args: inputStruct }).then(() => {
+              setRevenue(revenue + parseFloat(collectModule?.amount?.value))
+              toast.success('Successfully funded!')
+              trackEvent('fund a crowdfund')
+            })
           } else {
-            toast.error(res.error?.message)
+            toast.error(SIGN_ERROR)
           }
         })
       },

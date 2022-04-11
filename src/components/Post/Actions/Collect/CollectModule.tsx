@@ -20,7 +20,6 @@ import {
 } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
 import formatAddress from '@lib/formatAddress'
-import { getModule } from '@lib/getModule'
 import getTokenImage from '@lib/getTokenImage'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
@@ -34,6 +33,7 @@ import {
   ERROR_MESSAGE,
   LENSHUB_PROXY,
   POLYGONSCAN_URL,
+  SIGN_ERROR,
   WRONG_NETWORK
 } from 'src/constants'
 import {
@@ -109,8 +109,8 @@ const CollectModule: FC<Props> = ({ post }) => {
     },
     'collectWithSig',
     {
-      onError(error: any) {
-        toast.error(error)
+      onError(error) {
+        toast.error(error?.message)
       }
     }
   )
@@ -169,9 +169,9 @@ const CollectModule: FC<Props> = ({ post }) => {
           types: omit(typedData?.types, '__typename'),
           value: omit(typedData?.value, '__typename')
         }).then((res) => {
-          if (!res.error) {
+          if (!res) {
             const { profileId, pubId, data: collectData } = typedData?.value
-            const { v, r, s } = splitSignature(res.data)
+            const { v, r, s } = splitSignature(res)
             const inputStruct = {
               collector: account?.address,
               profileId,
@@ -185,29 +185,12 @@ const CollectModule: FC<Props> = ({ post }) => {
               }
             }
 
-            writeAsync({ args: inputStruct }).then(
-              ({ error }: { error: any }) => {
-                if (!error) {
-                  toast.success('Post has been collected!')
-                  trackEvent('collect publication')
-                } else {
-                  if (
-                    error?.data?.message ===
-                    'execution reverted: SafeERC20: low-level call failed'
-                  ) {
-                    toast.error(
-                      `Please allow ${
-                        getModule(collectModule.type).name
-                      } module in allowance settings`
-                    )
-                  } else {
-                    toast.error(error?.data?.message)
-                  }
-                }
-              }
-            )
+            writeAsync({ args: inputStruct }).then(() => {
+              toast.success('Post has been collected!')
+              trackEvent('collect publication')
+            })
           } else {
-            toast.error(res.error?.message)
+            toast.error(SIGN_ERROR)
           }
         })
       },
