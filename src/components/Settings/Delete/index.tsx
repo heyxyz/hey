@@ -62,7 +62,7 @@ const CREATE_BURN_PROFILE_TYPED_DATA_MUTATION = gql`
 
 const DeleteSettings: FC = () => {
   const { currentUser } = useContext(AppContext)
-  const { data: network } = useNetwork()
+  const { activeChain } = useNetwork()
   const { data: account } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData()
   const { isLoading: writeLoading, writeAsync } = useContractWrite(
@@ -123,7 +123,7 @@ const DeleteSettings: FC = () => {
   const handleDelete = () => {
     if (!account?.address) {
       toast.error(CONNECT_WALLET)
-    } else if (network?.id !== CHAIN_ID) {
+    } else if (activeChain?.id !== CHAIN_ID) {
       toast.error(WRONG_NETWORK)
     } else {
       createBurnProfileTypedData({

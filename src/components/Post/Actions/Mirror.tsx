@@ -65,7 +65,7 @@ interface Props {
 
 const Mirror: FC<Props> = ({ post }) => {
   const { currentUser } = useContext(AppContext)
-  const { data: network } = useNetwork()
+  const { activeChain } = useNetwork()
   const { data: account } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData()
   const { isLoading: writeLoading, writeAsync } = useContractWrite(
@@ -137,7 +137,7 @@ const Mirror: FC<Props> = ({ post }) => {
   const createMirror = async () => {
     if (!account?.address) {
       toast.error(CONNECT_WALLET)
-    } else if (network?.id !== CHAIN_ID) {
+    } else if (activeChain?.id !== CHAIN_ID) {
       toast.error(WRONG_NETWORK)
     } else {
       createMirrorTypedData({
