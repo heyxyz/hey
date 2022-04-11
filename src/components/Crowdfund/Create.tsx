@@ -81,7 +81,7 @@ const Create: FC = () => {
   const [selectedCurrencySymobol, setSelectedCurrencySymobol] =
     useState<string>('WMATIC')
   const { currentUser } = useContext(AppContext)
-  const { data: network } = useNetwork()
+  const { activeChain } = useNetwork()
   const { data: account } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData()
   const { data: currencyData, loading } = useQuery(MODULES_CURRENCY_QUERY, {
@@ -190,7 +190,7 @@ const Create: FC = () => {
   ) => {
     if (!account?.address) {
       toast.error(CONNECT_WALLET)
-    } else if (network?.id !== CHAIN_ID) {
+    } else if (activeChain?.id !== CHAIN_ID) {
       toast.error(WRONG_NETWORK)
     } else {
       setIsUploading(true)
@@ -356,7 +356,7 @@ const Create: FC = () => {
                 </div>
               </div>
               <div className="ml-auto">
-                {network.chain?.unsupported ? (
+                {activeChain?.unsupported ? (
                   <SwitchNetwork />
                 ) : (
                   <Button

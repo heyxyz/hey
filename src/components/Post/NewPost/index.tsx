@@ -121,7 +121,7 @@ const NewPost: FC<Props> = ({ refetch, setShowModal, hideCard = false }) => {
     [{ item: string; type: string }] | []
   >([])
   const { currentUser } = useContext(AppContext)
-  const { data: network } = useNetwork()
+  const { activeChain } = useNetwork()
   const { data: account } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData()
   const {
@@ -203,7 +203,7 @@ const NewPost: FC<Props> = ({ refetch, setShowModal, hideCard = false }) => {
   const createPost = async (post: string) => {
     if (!account?.address) {
       toast.error(CONNECT_WALLET)
-    } else if (network?.id !== CHAIN_ID) {
+    } else if (activeChain?.id !== CHAIN_ID) {
       toast.error(WRONG_NETWORK)
     } else {
       setIsUploading(true)
@@ -300,7 +300,7 @@ const NewPost: FC<Props> = ({ refetch, setShowModal, hideCard = false }) => {
                   txHash={data?.hash}
                 />
               )}
-              {network.chain?.unsupported ? (
+              {activeChain?.unsupported ? (
                 <SwitchNetwork className="ml-auto" />
               ) : (
                 <Button

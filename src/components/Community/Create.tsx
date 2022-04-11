@@ -57,7 +57,7 @@ const Create: FC = () => {
   const [isUploading, setIsUploading] = useState<boolean>(false)
   const [uploading, setUploading] = useState<boolean>(false)
   const { currentUser } = useContext(AppContext)
-  const { data: network } = useNetwork()
+  const { data: network, activeChain } = useNetwork()
   const { data: account } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData()
   const {
@@ -249,7 +249,7 @@ const Create: FC = () => {
                 </div>
               </div>
               <div className="ml-auto">
-                {network.chain?.unsupported ? (
+                {activeChain?.unsupported ? (
                   <SwitchNetwork />
                 ) : (
                   <Button
