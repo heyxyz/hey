@@ -76,7 +76,7 @@ const Picture: FC<Props> = ({ profile }) => {
   const { currentUser } = useContext(AppContext)
   const { data: network } = useNetwork()
   const { data: account } = useAccount()
-  const { isLoading: signLoading, signTypedData } = useSignTypedData()
+  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData()
   const {
     error,
     isLoading: writeLoading,
@@ -109,7 +109,7 @@ const Picture: FC<Props> = ({ profile }) => {
           'Generated createSetProfileImageURITypedData'
         )
         const { typedData } = createSetProfileImageURITypedData
-        signTypedData({
+        signTypedDataAsync({
           domain: omit(typedData?.domain, '__typename'),
           types: omit(typedData?.types, '__typename'),
           value: omit(typedData?.value, '__typename')
@@ -163,7 +163,7 @@ const Picture: FC<Props> = ({ profile }) => {
       toast.error("Avatar can't be empty!")
     } else if (!account?.address) {
       toast.error(CONNECT_WALLET)
-    } else if (network.chain?.id !== CHAIN_ID) {
+    } else if (network?.id !== CHAIN_ID) {
       toast.error(WRONG_NETWORK)
     } else {
       createSetProfileImageURITypedData({

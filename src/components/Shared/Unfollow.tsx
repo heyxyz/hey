@@ -57,7 +57,7 @@ const Unfollow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
   const [writeLoading, setWriteLoading] = useState<boolean>(false)
   const { data: network } = useNetwork()
   const { data: account } = useAccount()
-  const { isLoading: signLoading, signTypedData } = useSignTypedData()
+  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData()
   const { data: signer } = useSigner()
 
   const [createUnfollowTypedData, { loading: typedDataLoading }] = useMutation(
@@ -70,7 +70,7 @@ const Unfollow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
       }) {
         consoleLog('Mutation', '#4ade80', 'Generated createUnfollowTypedData')
         const { typedData } = createUnfollowTypedData
-        signTypedData({
+        signTypedDataAsync({
           domain: omit(typedData?.domain, '__typename'),
           types: omit(typedData?.types, '__typename'),
           value: omit(typedData?.value, '__typename')
@@ -116,7 +116,7 @@ const Unfollow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
   const createUnfollow = async () => {
     if (!account?.address) {
       toast.error(CONNECT_WALLET)
-    } else if (network.chain?.id !== CHAIN_ID) {
+    } else if (network?.id !== CHAIN_ID) {
       toast.error(WRONG_NETWORK)
     } else {
       createUnfollowTypedData({

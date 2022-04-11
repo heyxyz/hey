@@ -103,7 +103,7 @@ const FollowModule: FC<Props> = ({
   const [allowed, setAllowed] = useState<boolean>(true)
   const { data: network } = useNetwork()
   const { data: account } = useAccount()
-  const { isLoading: signLoading, signTypedData } = useSignTypedData()
+  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData()
   const { isLoading: writeLoading, write } = useContractWrite(
     {
       addressOrName: LENSHUB_PROXY,
@@ -156,7 +156,7 @@ const FollowModule: FC<Props> = ({
       }) {
         consoleLog('Mutation', '#4ade80', 'Generated createFollowTypedData')
         const { typedData } = createFollowTypedData
-        signTypedData({
+        signTypedDataAsync({
           domain: omit(typedData?.domain, '__typename'),
           types: omit(typedData?.types, '__typename'),
           value: omit(typedData?.value, '__typename')
@@ -200,7 +200,7 @@ const FollowModule: FC<Props> = ({
   const createFollow = async () => {
     if (!account?.address) {
       toast.error(CONNECT_WALLET)
-    } else if (network.chain?.id !== CHAIN_ID) {
+    } else if (network?.id !== CHAIN_ID) {
       toast.error(WRONG_NETWORK)
     } else {
       createFollowTypedData({

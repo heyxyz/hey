@@ -213,7 +213,7 @@ const NewComment: FC<Props> = ({ refetch, post, type }) => {
   const createComment = async (comment: string) => {
     if (!account?.address) {
       toast.error(CONNECT_WALLET)
-    } else if (network.chain?.id !== CHAIN_ID) {
+    } else if (network?.id !== CHAIN_ID) {
       toast.error(WRONG_NETWORK)
     } else {
       setIsUploading(true)

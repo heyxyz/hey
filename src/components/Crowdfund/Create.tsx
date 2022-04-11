@@ -83,7 +83,7 @@ const Create: FC = () => {
   const { currentUser } = useContext(AppContext)
   const { data: network } = useNetwork()
   const { data: account } = useAccount()
-  const { isLoading: signLoading, signTypedData } = useSignTypedData()
+  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData()
   const { data: currencyData, loading } = useQuery(MODULES_CURRENCY_QUERY, {
     onCompleted() {
       consoleLog('Query', '#8b5cf6', `Fetched enabled module currencies`)
@@ -140,7 +140,7 @@ const Create: FC = () => {
           referenceModuleData
         } = typedData?.value
 
-        signTypedData({
+        signTypedDataAsync({
           domain: omit(typedData?.domain, '__typename'),
           types: omit(typedData?.types, '__typename'),
           value: omit(typedData?.value, '__typename')
@@ -190,7 +190,7 @@ const Create: FC = () => {
   ) => {
     if (!account?.address) {
       toast.error(CONNECT_WALLET)
-    } else if (network.chain?.id !== CHAIN_ID) {
+    } else if (network?.id !== CHAIN_ID) {
       toast.error(WRONG_NETWORK)
     } else {
       setIsUploading(true)
