@@ -51,7 +51,7 @@ const SelectReferenceModule: FC<Props> = ({
             type="button"
             className={clsx(
               { 'border-green-500': !onlyFollowers },
-              'w-full p-3 border rounded-xl dark:border-gray-700 flex justify-between items-center'
+              'w-full p-3 border rounded-xl dark:border-gray-800 flex justify-between items-center'
             )}
             onClick={() => {
               trackEvent('everyone reference module', 'select')
@@ -71,7 +71,7 @@ const SelectReferenceModule: FC<Props> = ({
             type="button"
             className={clsx(
               { 'border-green-500': onlyFollowers },
-              'w-full p-3 border rounded-xl dark:border-gray-700 flex justify-between items-center'
+              'w-full p-3 border rounded-xl dark:border-gray-800 flex justify-between items-center'
             )}
             onClick={() => {
               trackEvent('only followers reference module', 'select')

@@ -38,7 +38,7 @@ const PostMenu: FC<Props> = ({ post }) => {
           >
             <Menu.Items
               static
-              className="absolute py-1 w-max bg-white rounded-lg border shadow-sm dark:bg-gray-900 dark:border-gray-700 z-[5]"
+              className="absolute py-1 w-max bg-white rounded-lg border shadow-sm dark:bg-gray-900 dark:border-gray-800 z-[5]"
             >
               {currentUser?.id === post?.profile?.id ? (
                 <Delete post={post} />
