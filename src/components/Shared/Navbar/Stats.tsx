@@ -5,9 +5,9 @@ import {
   CashIcon,
   ChatAlt2Icon,
   CollectionIcon,
-  DuplicateIcon,
   FireIcon,
   PencilAltIcon,
+  SwitchHorizontalIcon,
   UserAddIcon,
   UsersIcon
 } from '@heroicons/react/outline'
@@ -109,7 +109,7 @@ const Stats: FC = () => {
         isLenster
       />
       <MenuItem
-        icon={<DuplicateIcon className="w-4 h-4" />}
+        icon={<SwitchHorizontalIcon className="w-4 h-4" />}
         title={
           <span>
             <b>{humanize(stats?.totalMirrors)}</b> total mirrors

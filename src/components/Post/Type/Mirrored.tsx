@@ -1,6 +1,6 @@
 import Slug from '@components/Shared/Slug'
 import { Mirror } from '@generated/types'
-import { DuplicateIcon } from '@heroicons/react/outline'
+import { SwitchHorizontalIcon } from '@heroicons/react/outline'
 import Link from 'next/link'
 import React, { FC } from 'react'
 
@@ -11,7 +11,7 @@ interface Props {
 const Mirrored: FC<Props> = ({ post }) => {
   return (
     <div className="flex items-center pb-4 space-x-1 text-sm text-gray-500">
-      <DuplicateIcon className="w-4 h-4" />
+      <SwitchHorizontalIcon className="w-4 h-4" />
       <div className="flex items-center space-x-1">
         <Link href={`/u/${post?.profile?.handle}`}>
           <a>
