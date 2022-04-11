@@ -28,7 +28,13 @@ const SinglePost: FC<Props> = ({ post, hideType = false }) => {
       <CardBody>
         <PostType post={post} hideType={hideType} />
         <div className="flex justify-between pb-4">
-          <UserProfile profile={post.profile} />
+          <UserProfile
+            profile={
+              post?.__typename === 'Mirror'
+                ? post?.mirrorOf?.profile
+                : post?.profile
+            }
+          />
           <Link href={`/posts/${post.id}`}>
             <a className="text-sm text-gray-500" href={`/posts/${post.id}`}>
               {dayjs(new Date(post.createdAt)).fromNow()}

@@ -23,7 +23,7 @@ const CommunityProfile: FC<Props> = ({ community }) => {
                 500,
                 500
               )}
-              className="w-16 h-16 bg-gray-200 border rounded-xl dark:border-gray-700"
+              className="w-16 h-16 bg-gray-200 border rounded-xl dark:border-gray-700/80"
               alt={community?.id}
             />
             <div className="space-y-1">

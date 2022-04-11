@@ -46,49 +46,47 @@ const SelectReferenceModule: FC<Props> = ({
         show={showModal}
         onClose={() => setShowModal(!showModal)}
       >
-        <div className="dark:divide-gray-700">
-          <div className="py-3.5 px-5 space-y-3">
-            <button
-              type="button"
-              className={clsx(
-                { 'border-green-500': !onlyFollowers },
-                'w-full p-3 border rounded-xl flex justify-between items-center'
-              )}
-              onClick={() => {
-                trackEvent('everyone reference module', 'select')
-                setOnlyFollowers(false)
-                setShowModal(false)
-              }}
-            >
-              <div className="flex items-center space-x-3">
-                <GlobeAltIcon className="w-5 h-5 text-brand-500" />
-                <div>{EVERYONE}</div>
-              </div>
-              {!onlyFollowers && (
-                <CheckCircleIcon className="text-green-500 w-7" />
-              )}
-            </button>
-            <button
-              type="button"
-              className={clsx(
-                { 'border-green-500': onlyFollowers },
-                'w-full p-3 border rounded-xl flex justify-between items-center'
-              )}
-              onClick={() => {
-                trackEvent('only followers reference module', 'select')
-                setOnlyFollowers(true)
-                setShowModal(false)
-              }}
-            >
-              <div className="flex items-center space-x-3">
-                <UsersIcon className="w-5 h-5 text-brand-500" />
-                <div>{ONLY_FOLLOWERS}</div>
-              </div>
-              {onlyFollowers && (
-                <CheckCircleIcon className="text-green-500 w-7 h-7" />
-              )}
-            </button>
-          </div>
+        <div className="py-3.5 px-5 space-y-3">
+          <button
+            type="button"
+            className={clsx(
+              { 'border-green-500': !onlyFollowers },
+              'w-full p-3 border rounded-xl dark:border-gray-700/80 flex justify-between items-center'
+            )}
+            onClick={() => {
+              trackEvent('everyone reference module', 'select')
+              setOnlyFollowers(false)
+              setShowModal(false)
+            }}
+          >
+            <div className="flex items-center space-x-3">
+              <GlobeAltIcon className="w-5 h-5 text-brand-500" />
+              <div>{EVERYONE}</div>
+            </div>
+            {!onlyFollowers && (
+              <CheckCircleIcon className="text-green-500 w-7" />
+            )}
+          </button>
+          <button
+            type="button"
+            className={clsx(
+              { 'border-green-500': onlyFollowers },
+              'w-full p-3 border rounded-xl dark:border-gray-700/80 flex justify-between items-center'
+            )}
+            onClick={() => {
+              trackEvent('only followers reference module', 'select')
+              setOnlyFollowers(true)
+              setShowModal(false)
+            }}
+          >
+            <div className="flex items-center space-x-3">
+              <UsersIcon className="w-5 h-5 text-brand-500" />
+              <div>{ONLY_FOLLOWERS}</div>
+            </div>
+            {onlyFollowers && (
+              <CheckCircleIcon className="text-green-500 w-7 h-7" />
+            )}
+          </button>
         </div>
       </Modal>
     </>
