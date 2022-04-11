@@ -102,9 +102,13 @@ const SuperFollow: FC = () => {
   const [selectedCurrencySymobol, setSelectedCurrencySymobol] =
     useState<string>('WMATIC')
   const { currentUser } = useContext(AppContext)
-  const [{ data: network }] = useNetwork()
-  const [{ data: account }] = useAccount()
-  const [{ loading: signLoading }, signTypedData] = useSignTypedData()
+  const { activeChain } = useNetwork()
+  const { data: account } = useAccount()
+  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
+    onError(error) {
+      toast.error(error?.message)
+    }
+  })
   const { data: currencyData, loading } = useQuery(MODULES_CURRENCY_QUERY, {
     variables: { request: { profileIds: currentUser?.id } },
     skip: !currentUser?.id,
@@ -112,12 +116,25 @@ const SuperFollow: FC = () => {
       consoleLog('Query', '#8b5cf6', `Fetched enabled module currencies`)
     }
   })
-  const [{ data, loading: writeLoading }, write] = useContractWrite(
+  const {
+    data,
+    isLoading: writeLoading,
+    write
+  } = useContractWrite(
     {
       addressOrName: LENSHUB_PROXY,
       contractInterface: LensHubProxy
     },
-    'setFollowModuleWithSig'
+    'setFollowModuleWithSig',
+    {
+      onSuccess() {
+        form.reset()
+        trackEvent('set superfollow', 'create')
+      },
+      onError(error) {
+        toast.error(error?.message)
+      }
+    }
   )
 
   const form = useZodForm({
@@ -142,36 +159,24 @@ const SuperFollow: FC = () => {
         const { typedData } = createSetFollowModuleTypedData
         const { profileId, followModule, followModuleData } = typedData?.value
 
-        signTypedData({
+        signTypedDataAsync({
           domain: omit(typedData?.domain, '__typename'),
           types: omit(typedData?.types, '__typename'),
           value: omit(typedData?.value, '__typename')
-        }).then((res) => {
-          if (!res.error) {
-            const { v, r, s } = splitSignature(res.data)
-            const inputStruct = {
-              profileId,
-              followModule,
-              followModuleData,
-              sig: {
-                v,
-                r,
-                s,
-                deadline: typedData.value.deadline
-              }
+        }).then((signature) => {
+          const { v, r, s } = splitSignature(signature)
+          const inputStruct = {
+            profileId,
+            followModule,
+            followModuleData,
+            sig: {
+              v,
+              r,
+              s,
+              deadline: typedData.value.deadline
             }
-
-            write({ args: inputStruct }).then(({ error }) => {
-              if (!error) {
-                form.reset()
-                trackEvent('set superfollow', 'create')
-              } else {
-                toast.error(error?.message)
-              }
-            })
-          } else {
-            toast.error(res.error?.message)
           }
+          write({ args: inputStruct })
         })
       },
       onError(error) {
@@ -182,7 +187,7 @@ const SuperFollow: FC = () => {
   const setSuperFollow = (amount: string | null, recipient: string | null) => {
     if (!account?.address) {
       toast.error(CONNECT_WALLET)
-    } else if (network.chain?.id !== CHAIN_ID) {
+    } else if (activeChain?.id !== CHAIN_ID) {
       toast.error(WRONG_NETWORK)
     } else {
       createSetFollowModuleTypedData({
@@ -279,7 +284,7 @@ const SuperFollow: FC = () => {
             {...form.register('recipient')}
           />
           <div className="ml-auto">
-            {network.chain?.unsupported ? (
+            {activeChain?.unsupported ? (
               <SwitchNetwork />
             ) : (
               <div className="block sm:flex space-y-2 sm:space-y-0 space-x-0 sm:space-x-2">

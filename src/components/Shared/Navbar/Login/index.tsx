@@ -8,11 +8,11 @@ import Create from './Create'
 const Login: FC = () => {
   const [hasConnected, setHasConnected] = useState<boolean>(false)
   const [hasProfile, setHasProfile] = useState<boolean>(true)
-  const [{ data: network }, switchNetwork] = useNetwork()
+  const { switchNetwork, activeChain } = useNetwork()
 
   return (
     <div className="p-5">
-      {network.chain?.unsupported && switchNetwork ? (
+      {activeChain?.unsupported && switchNetwork ? (
         <SwitchNetwork />
       ) : hasProfile ? (
         <div className="space-y-5">

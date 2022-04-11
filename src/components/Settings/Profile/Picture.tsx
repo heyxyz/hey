@@ -74,15 +74,32 @@ const Picture: FC<Props> = ({ profile }) => {
   const [avatar, setAvatar] = useState<string>()
   const [uploading, setUploading] = useState<boolean>(false)
   const { currentUser } = useContext(AppContext)
-  const [{ data: network }] = useNetwork()
-  const [{ data: account }] = useAccount()
-  const [{ loading: signLoading }, signTypedData] = useSignTypedData()
-  const [{ error, loading: writeLoading }, write] = useContractWrite(
+  const { activeChain } = useNetwork()
+  const { data: account } = useAccount()
+  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
+    onError(error) {
+      toast.error(error?.message)
+    }
+  })
+  const {
+    error,
+    isLoading: writeLoading,
+    write
+  } = useContractWrite(
     {
       addressOrName: LENSHUB_PROXY,
       contractInterface: LensHubProxy
     },
-    'setProfileImageURIWithSig'
+    'setProfileImageURIWithSig',
+    {
+      onSuccess() {
+        toast.success('Avatar updated successfully!')
+        trackEvent('update avatar')
+      },
+      onError(error) {
+        toast.error(error?.message)
+      }
+    }
   )
 
   useEffect(() => {
@@ -94,7 +111,7 @@ const Picture: FC<Props> = ({ profile }) => {
 
   const [createSetProfileImageURITypedData, { loading: typedDataLoading }] =
     useMutation(CREATE_SET_PROFILE_IMAGE_URI_TYPED_DATA_MUTATION, {
-      onCompleted({
+      async onCompleted({
         createSetProfileImageURITypedData
       }: {
         createSetProfileImageURITypedData: CreateSetProfileImageUriBroadcastItemResult
@@ -105,36 +122,24 @@ const Picture: FC<Props> = ({ profile }) => {
           'Generated createSetProfileImageURITypedData'
         )
         const { typedData } = createSetProfileImageURITypedData
-        signTypedData({
+        signTypedDataAsync({
           domain: omit(typedData?.domain, '__typename'),
           types: omit(typedData?.types, '__typename'),
           value: omit(typedData?.value, '__typename')
-        }).then((res) => {
-          if (!res.error) {
-            const { profileId, imageURI } = typedData?.value
-            const { v, r, s } = splitSignature(res.data)
-            const inputStruct = {
-              profileId,
-              imageURI,
-              sig: {
-                v,
-                r,
-                s,
-                deadline: typedData.value.deadline
-              }
+        }).then((signature) => {
+          const { profileId, imageURI } = typedData?.value
+          const { v, r, s } = splitSignature(signature)
+          const inputStruct = {
+            profileId,
+            imageURI,
+            sig: {
+              v,
+              r,
+              s,
+              deadline: typedData.value.deadline
             }
-
-            write({ args: inputStruct }).then(({ error }) => {
-              if (!error) {
-                toast.success('Avatar updated successfully!')
-                trackEvent('update avatar')
-              } else {
-                toast.error(error?.message)
-              }
-            })
-          } else {
-            toast.error(res.error?.message)
           }
+          write({ args: inputStruct })
         })
       },
       onError(error) {
@@ -159,7 +164,7 @@ const Picture: FC<Props> = ({ profile }) => {
       toast.error("Avatar can't be empty!")
     } else if (!account?.address) {
       toast.error(CONNECT_WALLET)
-    } else if (network.chain?.id !== CHAIN_ID) {
+    } else if (activeChain?.id !== CHAIN_ID) {
       toast.error(WRONG_NETWORK)
     } else {
       createSetProfileImageURITypedData({
@@ -176,11 +181,13 @@ const Picture: FC<Props> = ({ profile }) => {
   return (
     <Card className="space-y-5">
       <CardBody className="space-y-4">
-        <ErrorMessage
-          className="mb-3"
-          title="Transaction failed!"
-          error={error}
-        />
+        {error && (
+          <ErrorMessage
+            className="mb-3"
+            title="Transaction failed!"
+            error={error}
+          />
+        )}
         <div className="space-y-1.5">
           <label className="mb-1 font-medium text-gray-800 dark:text-gray-200">
             Avatar
@@ -205,7 +212,7 @@ const Picture: FC<Props> = ({ profile }) => {
             </div>
           </div>
         </div>
-        {network.chain?.unsupported ? (
+        {activeChain?.unsupported ? (
           <SwitchNetwork className="ml-auto" />
         ) : (
           <Button
