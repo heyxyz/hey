@@ -47,7 +47,7 @@ const AllowanceButton: FC<Props> = ({
       toast.error(error?.message)
     }
   })
-  const { data, isLoading: waitLoading } = useWaitForTransaction({
+  const { isLoading: waitLoading } = useWaitForTransaction({
     hash: txData?.hash,
     onError(error) {
       toast.error(error?.message)
@@ -83,7 +83,6 @@ const AllowanceButton: FC<Props> = ({
 
   return (
     <>
-      {JSON.stringify(data)}
       {allowed ? (
         <Button
           variant="success"
