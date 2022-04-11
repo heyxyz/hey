@@ -3,7 +3,6 @@ import { CURRENT_USER_QUERY } from '@components/SiteLayout'
 import { Button } from '@components/UI/Button'
 import { Spinner } from '@components/UI/Spinner'
 import AppContext from '@components/utils/AppContext'
-import { CheckCircleIcon } from '@heroicons/react/outline'
 import { XCircleIcon } from '@heroicons/react/solid'
 import consoleLog from '@lib/consoleLog'
 import getWalletLogo from '@lib/getWalletLogo'
@@ -71,8 +70,7 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
 
   useEffect(() => setMounted(true), [])
 
-  const { isConnecting, activeConnector, connectors, error, connectAsync } =
-    useConnect()
+  const { connectors, error, connectAsync } = useConnect()
   const { data: accountData } = useAccount()
   const { setSelectedProfile } = useContext(AppContext)
 
@@ -178,12 +176,6 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
                 <span className="flex items-center justify-between w-full">
                   {mounted ? x.name : x.id === 'injected' ? x.id : x.name}
                   {mounted ? !x.ready && ' (unsupported)' : ''}
-                  {isConnecting && x.name === activeConnector?.name && (
-                    <Spinner size="sm" />
-                  )}
-                  {!isConnecting && x.id === accountData?.connector?.id && (
-                    <CheckCircleIcon className="w-5 h-5 text-brand-500" />
-                  )}
                 </span>
               </button>
             )
