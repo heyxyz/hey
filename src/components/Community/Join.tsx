@@ -5,6 +5,7 @@ import { Spinner } from '@components/UI/Spinner'
 import { Community } from '@generated/lenstertypes'
 import { CreateCollectBroadcastItemResult } from '@generated/types'
 import { PlusIcon } from '@heroicons/react/outline'
+import consoleLog from '@lib/consoleLog'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import trackEvent from '@lib/trackEvent'
@@ -80,8 +81,8 @@ const Join: FC<Props> = ({ community, setJoined, showJoin = true }) => {
       }: {
         createCollectTypedData: CreateCollectBroadcastItemResult
       }) {
+        consoleLog('Mutation', '#8b5cf6', 'Generated createCollectTypedData')
         const { typedData } = createCollectTypedData
-
         signTypedData({
           domain: omit(typedData?.domain, '__typename'),
           types: omit(typedData?.types, '__typename'),

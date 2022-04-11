@@ -17,6 +17,7 @@ import {
 } from '@generated/types'
 import { IGif } from '@giphy/js-types'
 import { ChatAlt2Icon, PencilAltIcon } from '@heroicons/react/outline'
+import consoleLog from '@lib/consoleLog'
 import {
   defaultFeeData,
   defaultModuleData,
@@ -145,6 +146,7 @@ const NewComment: FC<Props> = ({ refetch, post, type }) => {
       }: {
         createCommentTypedData: CreateCommentBroadcastItemResult
       }) {
+        consoleLog('Mutation', '#8b5cf6', 'Generated createCommentTypedData')
         const { typedData } = createCommentTypedData
         const {
           profileId,
