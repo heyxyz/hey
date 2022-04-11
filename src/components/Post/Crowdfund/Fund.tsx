@@ -65,7 +65,7 @@ interface Props {
 
 const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
   const { currentUser } = useContext(AppContext)
-  const { data: network } = useNetwork()
+  const { activeChain } = useNetwork()
   const { data: account } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData()
   const { isLoading: writeLoading, writeAsync } = useContractWrite(
@@ -141,7 +141,7 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
   const createCollect = async () => {
     if (!account?.address) {
       toast.error(CONNECT_WALLET)
-    } else if (network?.id !== CHAIN_ID) {
+    } else if (activeChain?.id !== CHAIN_ID) {
       toast.error(WRONG_NETWORK)
     } else {
       createCollectTypedData({

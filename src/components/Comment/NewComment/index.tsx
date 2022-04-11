@@ -127,7 +127,7 @@ const NewComment: FC<Props> = ({ refetch, post, type }) => {
   const [attachments, setAttachments] = useState<
     [{ item: string; type: string }] | []
   >([])
-  const { data: network, activeChain } = useNetwork()
+  const { activeChain } = useNetwork()
   const { data: account } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData()
   const {
@@ -213,7 +213,7 @@ const NewComment: FC<Props> = ({ refetch, post, type }) => {
   const createComment = async (comment: string) => {
     if (!account?.address) {
       toast.error(CONNECT_WALLET)
-    } else if (network?.id !== CHAIN_ID) {
+    } else if (activeChain?.id !== CHAIN_ID) {
       toast.error(WRONG_NETWORK)
     } else {
       setIsUploading(true)

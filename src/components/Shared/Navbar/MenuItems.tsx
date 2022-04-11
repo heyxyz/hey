@@ -42,7 +42,7 @@ interface Props {
 const MenuItems: FC<Props> = ({ indexerData }) => {
   const [showLoginModal, setShowLoginModal] = useState<boolean>(false)
   const { theme, setTheme } = useTheme()
-  const { data: network, switchNetwork, activeChain } = useNetwork()
+  const { switchNetwork, activeChain } = useNetwork()
   const { disconnect } = useDisconnect()
 
   const {
@@ -278,7 +278,7 @@ const MenuItems: FC<Props> = ({ indexerData }) => {
             </>
           )}
         </Menu>
-      ) : network.chain?.unsupported && switchNetwork ? (
+      ) : activeChain?.unsupported && switchNetwork ? (
         <SwitchNetwork />
       ) : (
         <>

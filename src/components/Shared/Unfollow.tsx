@@ -55,7 +55,7 @@ interface Props {
 
 const Unfollow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
   const [writeLoading, setWriteLoading] = useState<boolean>(false)
-  const { data: network } = useNetwork()
+  const { activeChain } = useNetwork()
   const { data: account } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData()
   const { data: signer } = useSigner()
@@ -116,7 +116,7 @@ const Unfollow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
   const createUnfollow = async () => {
     if (!account?.address) {
       toast.error(CONNECT_WALLET)
-    } else if (network?.id !== CHAIN_ID) {
+    } else if (activeChain?.id !== CHAIN_ID) {
       toast.error(WRONG_NETWORK)
     } else {
       createUnfollowTypedData({
