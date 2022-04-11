@@ -4,6 +4,7 @@ import { Button } from '@components/UI/Button'
 import { Spinner } from '@components/UI/Spinner'
 import { CreateUnfollowBroadcastItemResult, Profile } from '@generated/types'
 import { UserRemoveIcon } from '@heroicons/react/outline'
+import consoleLog from '@lib/consoleLog'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import trackEvent from '@lib/trackEvent'
@@ -67,8 +68,8 @@ const Unfollow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
       }: {
         createUnfollowTypedData: CreateUnfollowBroadcastItemResult
       }) {
+        consoleLog('Mutation', '#8b5cf6', 'Generated createUnfollowTypedData')
         const { typedData } = createUnfollowTypedData
-
         signTypedData({
           domain: omit(typedData?.domain, '__typename'),
           types: omit(typedData?.types, '__typename'),
