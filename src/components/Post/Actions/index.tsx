@@ -18,7 +18,7 @@ const PostActions: FC<Props> = ({ post }) => {
   return (
     <>
       {postType !== 'community' && postType !== 'crowdfund' && (
-        <div className="flex gap-6 items-center py-1.5 px-3 text-gray-500 border-t dark:border-gray-800">
+        <div className="flex gap-6 items-center py-1.5 px-3 text-gray-500 border-t dark:border-gray-700">
           <Comment post={post} />
           <Mirror post={post} />
           {post?.collectModule?.__typename !== 'RevertCollectModuleSettings' &&
