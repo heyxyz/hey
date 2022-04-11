@@ -6,19 +6,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        gray: {
-          DEFAULT: '#979BA5',
-          50: '#EDEEF0',
-          100: '#E4E4E7',
-          200: '#D1D2D7',
-          300: '#BEBFC6',
-          400: '#AAADB5',
-          500: '#979BA5',
-          600: '#777C88',
-          700: '#5A5E68',
-          800: '#3E4147',
-          900: '#212326'
-        },
+        gray: colors.zinc,
         green: colors.emerald,
         purple: colors.violet,
         yellow: colors.yellow,

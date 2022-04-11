@@ -81,7 +81,7 @@ const StaffBar: FC = () => {
             >
               <Menu.Items
                 static
-                className="absolute z-10 py-1 mt-6 origin-top-right bg-white border shadow-sm right-2 rounded-xl dark:bg-gray-900 dark:border-gray-800 focus:outline-none"
+                className="absolute z-10 py-1 mt-6 origin-top-right bg-white border shadow-sm right-2 rounded-xl dark:bg-gray-900 dark:border-gray-700/80 focus:outline-none"
               >
                 <Stats />
               </Menu.Items>

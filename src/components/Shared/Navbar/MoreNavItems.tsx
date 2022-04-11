@@ -39,7 +39,7 @@ const MoreNavItems: FC = () => {
           >
             <Menu.Items
               static
-              className="absolute py-1 mt-2 bg-white border rounded-lg shadow-sm w-52 dark:bg-gray-900 dark:border-gray-800"
+              className="absolute py-1 mt-2 bg-white border rounded-lg shadow-sm w-52 dark:bg-gray-900 dark:border-gray-700/80"
             >
               {currentUser && (
                 <>
@@ -88,7 +88,7 @@ const MoreNavItems: FC = () => {
                       <div>Create Profile</div>
                     </div>
                   </Menu.Item>
-                  <div className="border-b dark:border-gray-800" />
+                  <div className="border-b dark:border-gray-700/80" />
                 </>
               )}
               <Menu.Item
