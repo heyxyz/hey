@@ -43,7 +43,6 @@ export const POLYGON_MAINNET = {
   name: 'Polygon Mainnet',
   rpcUrls: { default: ['https://polygon-rpc.com'] }
 }
-
 export const POLYGON_MUMBAI = {
   ...chain.polygonMumbai,
   name: 'Polygon Mumbai',
