@@ -42,7 +42,7 @@ interface Props {
 const MenuItems: FC<Props> = ({ indexerData }) => {
   const [showLoginModal, setShowLoginModal] = useState<boolean>(false)
   const { theme, setTheme } = useTheme()
-  const { data: network, switchNetwork } = useNetwork()
+  const { data: network, switchNetwork, activeChain } = useNetwork()
   const { disconnect } = useDisconnect()
 
   const {
@@ -63,7 +63,7 @@ const MenuItems: FC<Props> = ({ indexerData }) => {
     <>
       {currentUserLoading ? (
         <div className="w-8 h-8 rounded-full shimmer" />
-      ) : currentUser && !network.chain?.unsupported ? (
+      ) : currentUser && !activeChain?.unsupported ? (
         <Menu as="div">
           {({ open }) => (
             <>

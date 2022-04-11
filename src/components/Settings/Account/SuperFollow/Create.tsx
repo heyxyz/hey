@@ -102,7 +102,7 @@ const SuperFollow: FC = () => {
   const [selectedCurrencySymobol, setSelectedCurrencySymobol] =
     useState<string>('WMATIC')
   const { currentUser } = useContext(AppContext)
-  const { data: network } = useNetwork()
+  const { activeChain } = useNetwork()
   const { data: account } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData()
   const { data: currencyData, loading } = useQuery(MODULES_CURRENCY_QUERY, {
@@ -186,7 +186,7 @@ const SuperFollow: FC = () => {
   const setSuperFollow = (amount: string | null, recipient: string | null) => {
     if (!account?.address) {
       toast.error(CONNECT_WALLET)
-    } else if (network?.id !== CHAIN_ID) {
+    } else if (activeChain?.id !== CHAIN_ID) {
       toast.error(WRONG_NETWORK)
     } else {
       createSetFollowModuleTypedData({
@@ -283,7 +283,7 @@ const SuperFollow: FC = () => {
             {...form.register('recipient')}
           />
           <div className="ml-auto">
-            {network.chain?.unsupported ? (
+            {activeChain?.unsupported ? (
               <SwitchNetwork />
             ) : (
               <div className="block sm:flex space-y-2 sm:space-y-0 space-x-0 sm:space-x-2">

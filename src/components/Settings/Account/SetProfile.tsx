@@ -64,7 +64,7 @@ const CREATE_SET_DEFAULT_PROFILE_DATA_MUTATION = gql`
 const SetProfile: FC = () => {
   const { currentUser, profiles } = useContext(AppContext)
   const [selectedUser, setSelectedUser] = useState<string>()
-  const { data: network } = useNetwork()
+  const { activeChain } = useNetwork()
   const { data: account } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData()
   const {
@@ -142,7 +142,7 @@ const SetProfile: FC = () => {
   const setDefaultProfile = async () => {
     if (!account?.address) {
       toast.error(CONNECT_WALLET)
-    } else if (network?.id !== CHAIN_ID) {
+    } else if (activeChain?.id !== CHAIN_ID) {
       toast.error(WRONG_NETWORK)
     } else {
       createSetDefaultProfileTypedData({
@@ -198,7 +198,7 @@ const SetProfile: FC = () => {
             ))}
           </select>
         </div>
-        {network.chain?.unsupported ? (
+        {activeChain?.unsupported ? (
           <SwitchNetwork className="ml-auto" />
         ) : (
           <Button

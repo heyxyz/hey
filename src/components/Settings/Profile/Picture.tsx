@@ -74,7 +74,7 @@ const Picture: FC<Props> = ({ profile }) => {
   const [avatar, setAvatar] = useState<string>()
   const [uploading, setUploading] = useState<boolean>(false)
   const { currentUser } = useContext(AppContext)
-  const { data: network } = useNetwork()
+  const { activeChain } = useNetwork()
   const { data: account } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData()
   const {
@@ -163,7 +163,7 @@ const Picture: FC<Props> = ({ profile }) => {
       toast.error("Avatar can't be empty!")
     } else if (!account?.address) {
       toast.error(CONNECT_WALLET)
-    } else if (network?.id !== CHAIN_ID) {
+    } else if (activeChain?.id !== CHAIN_ID) {
       toast.error(WRONG_NETWORK)
     } else {
       createSetProfileImageURITypedData({
@@ -209,7 +209,7 @@ const Picture: FC<Props> = ({ profile }) => {
             </div>
           </div>
         </div>
-        {network.chain?.unsupported ? (
+        {activeChain?.unsupported ? (
           <SwitchNetwork className="ml-auto" />
         ) : (
           <Button
