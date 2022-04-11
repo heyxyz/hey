@@ -71,56 +71,54 @@ const Modules: FC<Props> = ({
     )
 
   return (
-    <div className="dark:divide-gray-700">
-      <div className="py-3.5 px-5 space-y-3">
-        <ErrorMessage title="Failed to load modules" error={error} />
-        {showFeeEntry ? (
-          <FeeEntry
-            selectedModule={selectedModule}
-            enabledModuleCurrencies={data?.enabledModuleCurrencies}
-            setShowFeeEntry={setShowFeeEntry}
-            setShowModal={setShowModal}
-            feeData={feeData}
-            setFeeData={setFeeData}
-          />
-        ) : (
-          data?.enabledModules?.collectModules?.map(
-            (module: EnabledModule) =>
-              getModule(module?.moduleName).name !== 'none' && (
-                <div key={module?.moduleName}>
-                  <button
-                    type="button"
-                    className={clsx(
-                      {
-                        'border-green-500':
-                          module?.moduleName === selectedModule.moduleName
-                      },
-                      'w-full p-3 text-left border rounded-xl flex items-center justify-between'
-                    )}
-                    onClick={() => handleSelectModule(module)}
-                  >
-                    <div>
-                      <div className="flex items-center space-x-3">
-                        <div className="text-brand-500">
-                          <GetModuleIcon module={module.moduleName} size={4} />
-                        </div>
-                        <div className="space-x-1.5 font-bold">
-                          {getModule(module?.moduleName).name}
-                        </div>
+    <div className="py-3.5 px-5 space-y-3">
+      <ErrorMessage title="Failed to load modules" error={error} />
+      {showFeeEntry ? (
+        <FeeEntry
+          selectedModule={selectedModule}
+          enabledModuleCurrencies={data?.enabledModuleCurrencies}
+          setShowFeeEntry={setShowFeeEntry}
+          setShowModal={setShowModal}
+          feeData={feeData}
+          setFeeData={setFeeData}
+        />
+      ) : (
+        data?.enabledModules?.collectModules?.map(
+          (module: EnabledModule) =>
+            getModule(module?.moduleName).name !== 'none' && (
+              <div key={module?.moduleName}>
+                <button
+                  type="button"
+                  className={clsx(
+                    {
+                      'border-green-500':
+                        module?.moduleName === selectedModule.moduleName
+                    },
+                    'w-full p-3 text-left border dark:border-gray-700/80 rounded-xl flex items-center justify-between'
+                  )}
+                  onClick={() => handleSelectModule(module)}
+                >
+                  <div>
+                    <div className="flex items-center space-x-3">
+                      <div className="text-brand-500">
+                        <GetModuleIcon module={module.moduleName} size={4} />
                       </div>
-                      <div className="text-xs text-gray-500">
-                        {module?.contractAddress}
+                      <div className="space-x-1.5 font-bold">
+                        {getModule(module?.moduleName).name}
                       </div>
                     </div>
-                    {module?.moduleName === selectedModule.moduleName && (
-                      <CheckCircleIcon className="text-green-500 w-7 h-7" />
-                    )}
-                  </button>
-                </div>
-              )
-          )
-        )}
-      </div>
+                    <div className="text-xs text-gray-500">
+                      {module?.contractAddress}
+                    </div>
+                  </div>
+                  {module?.moduleName === selectedModule.moduleName && (
+                    <CheckCircleIcon className="text-green-500 w-7 h-7" />
+                  )}
+                </button>
+              </div>
+            )
+        )
+      )}
     </div>
   )
 }

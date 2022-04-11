@@ -60,7 +60,7 @@ export const Modal: FC<Props> = ({
                 'inline-block align-bottom bg-white dark:bg-gray-800 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle w-full rounded-xl'
               )}
             >
-              <div className="flex justify-between items-center py-3.5 px-5 border-b dark:border-gray-700">
+              <div className="flex justify-between items-center py-3.5 px-5 border-b dark:border-gray-700/80">
                 <div className="flex items-center space-x-2 font-bold">
                   {icon}
                   <div>{title}</div>

@@ -70,7 +70,7 @@ const MenuItems: FC<Props> = ({ indexerData }) => {
               <Menu.Button
                 as="img"
                 src={getAvatar(currentUser)}
-                className="w-8 h-8 border rounded-full cursor-pointer dark:border-gray-700"
+                className="w-8 h-8 border rounded-full cursor-pointer dark:border-gray-700/80"
                 alt={currentUser.handle}
               />
               <Transition
@@ -85,7 +85,7 @@ const MenuItems: FC<Props> = ({ indexerData }) => {
               >
                 <Menu.Items
                   static
-                  className="absolute right-0 w-48 py-1 mt-2 origin-top-right bg-white border shadow-sm rounded-xl dark:bg-gray-900 dark:border-gray-800 focus:outline-none"
+                  className="absolute right-0 w-48 py-1 mt-2 origin-top-right bg-white border shadow-sm rounded-xl dark:bg-gray-900 dark:border-gray-700/80 focus:outline-none"
                 >
                   <Menu.Item
                     as={NextLink}
@@ -106,7 +106,7 @@ const MenuItems: FC<Props> = ({ indexerData }) => {
                       />
                     </div>
                   </Menu.Item>
-                  <div className="border-b dark:border-gray-800" />
+                  <div className="border-b dark:border-gray-700/80" />
                   <Menu.Item
                     as={NextLink}
                     href={`/u/${currentUser.handle}`}
@@ -160,7 +160,7 @@ const MenuItems: FC<Props> = ({ indexerData }) => {
                   </Menu.Item>
                   {profiles.length > 1 && (
                     <>
-                      <div className="border-b dark:border-gray-800" />
+                      <div className="border-b dark:border-gray-700/80" />
                       <div className="m-2 overflow-auto max-h-36 no-scrollbar">
                         <div className="flex items-center px-4 pt-1 pb-2 space-x-1.5 text-sm font-bold text-gray-500">
                           <SwitchHorizontalIcon className="w-4 h-4" />
@@ -186,7 +186,7 @@ const MenuItems: FC<Props> = ({ indexerData }) => {
                                 <CheckCircleIcon className="w-4 h-4 text-green-500" />
                               )}
                               <img
-                                className="w-5 h-5 border rounded-full dark:border-gray-700"
+                                className="w-5 h-5 border rounded-full dark:border-gray-700/80"
                                 src={getAvatar(profile)}
                                 alt={profile.handle}
                               />
@@ -197,7 +197,7 @@ const MenuItems: FC<Props> = ({ indexerData }) => {
                       </div>
                     </>
                   )}
-                  <div className="border-b dark:border-gray-800" />
+                  <div className="border-b dark:border-gray-700/80" />
                   <div className="flex items-center px-5 py-3 space-x-4">
                     <button
                       onClick={() => {
@@ -229,7 +229,7 @@ const MenuItems: FC<Props> = ({ indexerData }) => {
                   </div>
                   {isStaff(currentUser.id) && (
                     <>
-                      <div className="border-b dark:border-gray-800" />
+                      <div className="border-b dark:border-gray-700/80" />
                       <Menu.Item
                         as="div"
                         onClick={toggleStaffMode}
@@ -256,7 +256,7 @@ const MenuItems: FC<Props> = ({ indexerData }) => {
                   )}
                   {indexerData && (
                     <>
-                      <div className="border-b dark:border-gray-800" />
+                      <div className="border-b dark:border-gray-700/80" />
                       <div className="flex items-center py-3 px-6 space-x-2.5 text-sm">
                         <div
                           className={clsx(
