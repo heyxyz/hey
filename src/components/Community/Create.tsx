@@ -57,10 +57,14 @@ const Create: FC = () => {
   const [isUploading, setIsUploading] = useState<boolean>(false)
   const [uploading, setUploading] = useState<boolean>(false)
   const { currentUser } = useContext(AppContext)
-  const [{ data: network }] = useNetwork()
-  const [{ data: account }] = useAccount()
-  const [{ loading: signLoading }, signTypedData] = useSignTypedData()
-  const [{ data, loading: writeLoading }, write] = useContractWrite(
+  const { data: network } = useNetwork()
+  const { data: account } = useAccount()
+  const { isLoading: signLoading, signTypedData } = useSignTypedData()
+  const {
+    data,
+    isLoading: writeLoading,
+    write
+  } = useContractWrite(
     {
       addressOrName: LENSHUB_PROXY,
       contractInterface: LensHubProxy

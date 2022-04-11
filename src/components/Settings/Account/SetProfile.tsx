@@ -64,10 +64,14 @@ const CREATE_SET_DEFAULT_PROFILE_DATA_MUTATION = gql`
 const SetProfile: FC = () => {
   const { currentUser, profiles } = useContext(AppContext)
   const [selectedUser, setSelectedUser] = useState<string>()
-  const [{ data: network }] = useNetwork()
-  const [{ data: account }] = useAccount()
-  const [{ loading: signLoading }, signTypedData] = useSignTypedData()
-  const [{ error, loading: writeLoading }, write] = useContractWrite(
+  const { data: network } = useNetwork()
+  const { data: account } = useAccount()
+  const { isLoading: signLoading, signTypedData } = useSignTypedData()
+  const {
+    error,
+    isLoading: writeLoading,
+    write
+  } = useContractWrite(
     {
       addressOrName: LENSHUB_PROXY,
       contractInterface: LensHubProxy

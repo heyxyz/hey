@@ -121,10 +121,15 @@ const NewPost: FC<Props> = ({ refetch, setShowModal, hideCard = false }) => {
     [{ item: string; type: string }] | []
   >([])
   const { currentUser } = useContext(AppContext)
-  const [{ data: network }] = useNetwork()
-  const [{ data: account }] = useAccount()
-  const [{ loading: signLoading }, signTypedData] = useSignTypedData()
-  const [{ data, error, loading: writeLoading }, write] = useContractWrite(
+  const { data: network } = useNetwork()
+  const { data: account } = useAccount()
+  const { isLoading: signLoading, signTypedData } = useSignTypedData()
+  const {
+    data,
+    error,
+    isLoading: writeLoading,
+    write
+  } = useContractWrite(
     {
       addressOrName: LENSHUB_PROXY,
       contractInterface: LensHubProxy
