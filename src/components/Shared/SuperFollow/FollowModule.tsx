@@ -109,7 +109,12 @@ const FollowModule: FC<Props> = ({
       addressOrName: LENSHUB_PROXY,
       contractInterface: LensHubProxy
     },
-    'followWithSig'
+    'followWithSig',
+    {
+      onError(error: any) {
+        toast.error(error)
+      }
+    }
   )
 
   const { data, loading } = useQuery(SUPER_FOLLOW_QUERY, {

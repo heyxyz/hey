@@ -107,7 +107,12 @@ const CollectModule: FC<Props> = ({ post }) => {
       addressOrName: LENSHUB_PROXY,
       contractInterface: LensHubProxy
     },
-    'collectWithSig'
+    'collectWithSig',
+    {
+      onError(error: any) {
+        toast.error(error)
+      }
+    }
   )
 
   const { data, loading } = useQuery(COLLECT_QUERY, {

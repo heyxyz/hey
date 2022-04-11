@@ -73,7 +73,12 @@ const Mirror: FC<Props> = ({ post }) => {
       addressOrName: LENSHUB_PROXY,
       contractInterface: LensHubProxy
     },
-    'mirrorWithSig'
+    'mirrorWithSig',
+    {
+      onError(error: any) {
+        toast.error(error)
+      }
+    }
   )
 
   const [createMirrorTypedData, { loading: typedDataLoading }] = useMutation(

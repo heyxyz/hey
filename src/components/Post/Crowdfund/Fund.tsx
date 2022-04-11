@@ -73,7 +73,12 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
       addressOrName: LENSHUB_PROXY,
       contractInterface: LensHubProxy
     },
-    'collectWithSig'
+    'collectWithSig',
+    {
+      onError(error: any) {
+        toast.error(error)
+      }
+    }
   )
 
   const [createCollectTypedData, { loading: typedDataLoading }] = useMutation(
