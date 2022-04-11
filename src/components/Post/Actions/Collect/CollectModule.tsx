@@ -113,13 +113,13 @@ const CollectModule: FC<Props> = ({ post, setShowCollectModal }) => {
     },
     'collectWithSig',
     {
-      onError(error) {
-        toast.error(error?.message)
-      },
       onSuccess() {
         setShowCollectModal(false)
         toast.success('Post has been collected!')
         trackEvent('collect publication')
+      },
+      onError(error) {
+        toast.error(error?.message)
       }
     }
   )

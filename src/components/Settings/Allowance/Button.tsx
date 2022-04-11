@@ -49,13 +49,13 @@ const AllowanceButton: FC<Props> = ({
   })
   const { isLoading: waitLoading } = useWaitForTransaction({
     hash: txData?.hash,
-    onError(error) {
-      toast.error(error?.message)
-    },
     onSuccess() {
       toast.success(`Module ${allowed ? 'enabled' : 'disabled'} successfully!`)
       setAllowed(!allowed)
       trackEvent(`${allowed ? 'disabled' : 'enabled'} module allowance`)
+    },
+    onError(error) {
+      toast.error(error?.message)
     }
   })
 

@@ -82,12 +82,12 @@ const SetProfile: FC = () => {
     },
     'setDefaultProfileWithSig',
     {
-      onError(error) {
-        toast.error(error?.message)
-      },
       onSuccess() {
         toast.success('Default profile updated successfully!')
         trackEvent('set default profile')
+      },
+      onError(error) {
+        toast.error(error?.message)
       }
     }
   )

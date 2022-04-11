@@ -140,15 +140,15 @@ const NewPost: FC<Props> = ({ refetch, setShowModal, hideCard = false }) => {
     },
     'postWithSig',
     {
-      onError(error) {
-        toast.error(error?.message)
-      },
       onSuccess() {
         form.reset()
         setAttachments([])
         setSelectedModule(defaultModuleData)
         setFeeData(defaultFeeData)
         trackEvent('new post', 'create')
+      },
+      onError(error) {
+        toast.error(error?.message)
       }
     }
   )

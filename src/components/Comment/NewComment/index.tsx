@@ -146,15 +146,15 @@ const NewComment: FC<Props> = ({ refetch, post, type }) => {
     },
     'commentWithSig',
     {
-      onError(error) {
-        toast.error(error?.message)
-      },
       onSuccess() {
         form.reset()
         setAttachments([])
         setSelectedModule(defaultModuleData)
         setFeeData(defaultFeeData)
         trackEvent('new comment', 'create')
+      },
+      onError(error) {
+        toast.error(error?.message)
       }
     }
   )
