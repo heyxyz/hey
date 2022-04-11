@@ -9,6 +9,7 @@ import { Spinner } from '@components/UI/Spinner'
 import AppContext from '@components/utils/AppContext'
 import { Profile, SetDefaultProfileBroadcastItemResult } from '@generated/types'
 import { ExclamationIcon, PencilIcon } from '@heroicons/react/outline'
+import consoleLog from '@lib/consoleLog'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import trackEvent from '@lib/trackEvent'
@@ -90,6 +91,11 @@ const SetProfile: FC = () => {
       }: {
         createSetDefaultProfileTypedData: SetDefaultProfileBroadcastItemResult
       }) {
+        consoleLog(
+          'Mutation',
+          '#8b5cf6',
+          'Generated createSetDefaultProfileTypedData'
+        )
         const { typedData } = createSetDefaultProfileTypedData
         signTypedData({
           domain: omit(typedData?.domain, '__typename'),
