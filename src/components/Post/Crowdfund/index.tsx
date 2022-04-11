@@ -85,7 +85,7 @@ const Crowdfund: FC<Props> = ({ fund }) => {
   return (
     <Card>
       <div
-        className="h-40 border-b rounded-t-xl sm:h-52"
+        className="h-40 border-b dark:border-b-gray-700 rounded-t-xl sm:h-52"
         style={{
           backgroundImage: `url(${
             cover ? imagekitURL(cover) : `${STATIC_ASSETS}/patterns/2.svg`
