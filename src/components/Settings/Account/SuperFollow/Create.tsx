@@ -134,6 +134,11 @@ const SuperFollow: FC = () => {
       }: {
         createSetFollowModuleTypedData: CreateSetFollowModuleBroadcastItemResult
       }) {
+        consoleLog(
+          'Mutation',
+          '#8b5cf6',
+          'Generated createSetFollowModuleTypedData'
+        )
         const { typedData } = createSetFollowModuleTypedData
         const { profileId, followModule, followModuleData } = typedData?.value
 

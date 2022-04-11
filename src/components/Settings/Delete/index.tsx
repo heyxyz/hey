@@ -9,6 +9,7 @@ import AppContext from '@components/utils/AppContext'
 import SEO from '@components/utils/SEO'
 import { CreateBurnProfileBroadcastItemResult } from '@generated/types'
 import { TrashIcon } from '@heroicons/react/outline'
+import consoleLog from '@lib/consoleLog'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import trackEvent from '@lib/trackEvent'
@@ -80,8 +81,12 @@ const DeleteSettings: FC = () => {
       }: {
         createBurnProfileTypedData: CreateBurnProfileBroadcastItemResult
       }) {
+        consoleLog(
+          'Mutation',
+          '#8b5cf6',
+          'Generated createBurnProfileTypedData'
+        )
         const { typedData } = createBurnProfileTypedData
-
         signTypedData({
           domain: omit(typedData?.domain, '__typename'),
           types: omit(typedData?.types, '__typename'),

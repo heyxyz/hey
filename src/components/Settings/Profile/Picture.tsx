@@ -12,6 +12,7 @@ import {
   Profile
 } from '@generated/types'
 import { PencilIcon } from '@heroicons/react/outline'
+import consoleLog from '@lib/consoleLog'
 import imagekitURL from '@lib/imagekitURL'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
@@ -98,8 +99,12 @@ const Picture: FC<Props> = ({ profile }) => {
       }: {
         createSetProfileImageURITypedData: CreateSetProfileImageUriBroadcastItemResult
       }) {
+        consoleLog(
+          'Mutation',
+          '#8b5cf6',
+          'Generated createSetProfileImageURITypedData'
+        )
         const { typedData } = createSetProfileImageURITypedData
-
         signTypedData({
           domain: omit(typedData?.domain, '__typename'),
           types: omit(typedData?.types, '__typename'),
