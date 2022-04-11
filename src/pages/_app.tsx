@@ -12,7 +12,7 @@ import {
   IS_PRODUCTION,
   POLYGON_MUMBAI
 } from 'src/constants'
-import { chain, createClient, Provider } from 'wagmi'
+import { createClient, Provider } from 'wagmi'
 import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet'
 import { InjectedConnector } from 'wagmi/connectors/injected'
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect'
@@ -26,12 +26,12 @@ type ConnectorsConfig = { chainId?: number }
 
 const connectors = ({ chainId }: ConnectorsConfig) => {
   const rpcUrl =
-    supportedChains.find((x) => x.id === chainId)?.rpcUrls?.[0] ??
-    defaultChain.rpcUrls[0]
+    supportedChains.find((x) => x.id === chainId)?.rpcUrls?.default?.[0] ??
+    defaultChain.rpcUrls.default[0]
 
   return [
     new InjectedConnector({
-      chains: [chain.polygonMumbai],
+      chains: supportedChains,
       options: { shimDisconnect: true }
     }),
     new WalletConnectConnector({
