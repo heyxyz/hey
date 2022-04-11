@@ -125,6 +125,7 @@ const Create: FC = () => {
       }: {
         createPostTypedData: CreatePostBroadcastItemResult
       }) {
+        consoleLog('Mutation', '#8b5cf6', 'Generated createPostTypedData')
         const { typedData } = createPostTypedData
         const {
           profileId,

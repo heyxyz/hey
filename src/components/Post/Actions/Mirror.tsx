@@ -5,6 +5,7 @@ import AppContext from '@components/utils/AppContext'
 import { LensterPost } from '@generated/lenstertypes'
 import { CreateMirrorBroadcastItemResult } from '@generated/types'
 import { DuplicateIcon } from '@heroicons/react/outline'
+import consoleLog from '@lib/consoleLog'
 import humanize from '@lib/humanize'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
@@ -83,6 +84,7 @@ const Mirror: FC<Props> = ({ post }) => {
       }: {
         createMirrorTypedData: CreateMirrorBroadcastItemResult
       }) {
+        consoleLog('Mutation', '#8b5cf6', 'Generated createMirrorTypedData')
         const { typedData } = createMirrorTypedData
         const {
           profileId,
