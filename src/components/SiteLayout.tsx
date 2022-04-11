@@ -60,12 +60,12 @@ const SiteLayout: FC<Props> = ({ children }) => {
     setRefreshToken(Cookies.get('refreshToken'))
     setStaffMode(localStorage.staffMode === 'true')
 
-    accountData?.connector?.on('change', () => {
-      localStorage.removeItem('selectedProfile')
-      Cookies.remove('accessToken')
-      Cookies.remove('refreshToken')
-      location.href = '/'
-    })
+    // accountData?.connector?.on('change', () => {
+    //   localStorage.removeItem('selectedProfile')
+    //   Cookies.remove('accessToken')
+    //   Cookies.remove('refreshToken')
+    //   location.href = '/'
+    // })
   }, [accountData])
 
   const injectedGlobalContext = {
