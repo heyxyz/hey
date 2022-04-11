@@ -2,6 +2,7 @@ import '../styles.css'
 
 import { ApolloProvider } from '@apollo/client'
 import SiteLayout from '@components/SiteLayout'
+import { providers } from 'ethers'
 import { AppProps } from 'next/app'
 import Script from 'next/script'
 import { ThemeProvider } from 'next-themes'
@@ -51,7 +52,10 @@ const connectors = ({ chainId }: ConnectorsConfig) => {
 
 const wagmiClient = createClient({
   autoConnect: true,
-  connectors: connectors
+  provider(config) {
+    return new providers.InfuraProvider(config.chainId, INFURA_ID)
+  },
+  connectors
 })
 
 const App = ({ Component, pageProps }: AppProps) => {

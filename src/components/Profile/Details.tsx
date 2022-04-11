@@ -26,7 +26,6 @@ import Link from 'next/link'
 import { useTheme } from 'next-themes'
 import React, { FC, ReactChild, useContext, useState } from 'react'
 import { STATIC_ASSETS } from 'src/constants'
-import { useEnsName } from 'wagmi'
 
 import DoesFollow from './DoesFollow'
 import Followerings from './Followerings'
@@ -47,7 +46,6 @@ interface Props {
 const Details: FC<Props> = ({ profile }) => {
   const [following, setFollowing] = useState<boolean>(false)
   const { currentUser, staffMode } = useContext(AppContext)
-  const { data: ensName } = useEnsName({ address: profile?.ownedBy })
   const { resolvedTheme } = useTheme()
   const { data: followData, loading: followLoading } = useQuery(
     DOES_FOLLOW_QUERY,
@@ -208,19 +206,6 @@ const Details: FC<Props> = ({ profile }) => {
             >
               <a href={profile?.twitterUrl} target="_blank" rel="noreferrer">
                 {profile?.twitterUrl?.replace('https://twitter.com/', '')}
-              </a>
-            </MetaDetails>
-          )}
-          {ensName && (
-            <MetaDetails
-              icon={<img src="/ens.svg" className="w-5 h-5" alt="ENS Logo" />}
-            >
-              <a
-                href={`https://app.ens.domains/name/${ensName}/details`}
-                target="_blank"
-                rel="noreferrer"
-              >
-                {ensName}
               </a>
             </MetaDetails>
           )}
