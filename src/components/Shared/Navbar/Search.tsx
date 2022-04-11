@@ -5,6 +5,7 @@ import { Spinner } from '@components/UI/Spinner'
 import useOnClickOutside from '@components/utils/hooks/useOnClickOutside'
 import { Profile } from '@generated/types'
 import { MinimalProfileFields } from '@gql/MinimalProfileFields'
+import consoleLog from '@lib/consoleLog'
 import trackEvent from '@lib/trackEvent'
 import { useRef, useState } from 'react'
 
@@ -30,7 +31,15 @@ const Search = () => {
   useOnClickOutside(dropdownRef, () => setSearchText(''))
 
   const [searchUsers, { data: searchUsersData, loading: searchUsersLoading }] =
-    useLazyQuery(SEARCH_USERS_QUERY)
+    useLazyQuery(SEARCH_USERS_QUERY, {
+      onCompleted(data) {
+        consoleLog(
+          'Fetch',
+          '#8b5cf6',
+          `Fetched ${data?.search?.items?.length} search result for ${searchText}`
+        )
+      }
+    })
 
   const handleSearch = async (evt: any) => {
     let keyword = evt.target.value
