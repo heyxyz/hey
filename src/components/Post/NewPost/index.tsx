@@ -13,6 +13,7 @@ import AppContext from '@components/utils/AppContext'
 import { CreatePostBroadcastItemResult, EnabledModule } from '@generated/types'
 import { IGif } from '@giphy/js-types'
 import { PencilAltIcon } from '@heroicons/react/outline'
+import consoleLog from '@lib/consoleLog'
 import {
   defaultFeeData,
   defaultModuleData,
@@ -139,6 +140,7 @@ const NewPost: FC<Props> = ({ refetch, setShowModal, hideCard = false }) => {
       }: {
         createPostTypedData: CreatePostBroadcastItemResult
       }) {
+        consoleLog('Mutation', '#8b5cf6', 'Generated createPostTypedData')
         const { typedData } = createPostTypedData
         const {
           profileId,
