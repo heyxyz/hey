@@ -67,7 +67,7 @@ const SiteLayout: FC<Props> = ({ children }) => {
       Cookies.remove('refreshToken')
       location.href = '/'
     })
-  }, [activeConnector])
+  }, [selectedProfile, activeConnector])
 
   const injectedGlobalContext = {
     selectedProfile,
