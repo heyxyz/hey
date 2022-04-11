@@ -20,7 +20,6 @@ import {
   CONNECT_WALLET,
   ERROR_MESSAGE,
   LENSHUB_PROXY,
-  SIGN_ERROR,
   WRONG_NETWORK
 } from 'src/constants'
 import Custom404 from 'src/pages/404'
@@ -65,7 +64,11 @@ const DeleteSettings: FC = () => {
   const { currentUser } = useContext(AppContext)
   const { activeChain } = useNetwork()
   const { data: account } = useAccount()
-  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData()
+  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
+    onError(error) {
+      toast.error(error?.message)
+    }
+  })
   const { isLoading: writeLoading, writeAsync } = useContractWrite(
     {
       addressOrName: LENSHUB_PROXY,
@@ -97,24 +100,20 @@ const DeleteSettings: FC = () => {
           types: omit(typedData?.types, '__typename'),
           value: omit(typedData?.value, '__typename')
         }).then((res) => {
-          if (!res) {
-            const { tokenId } = typedData?.value
-            const { v, r, s } = splitSignature(res)
-            const sig = {
-              v,
-              r,
-              s,
-              deadline: typedData.value.deadline
-            }
-
-            writeAsync({ args: [tokenId, sig] }).then(() => {
-              trackEvent('delete profile')
-              localStorage.setItem('selectedProfile', '0')
-              location.href = '/'
-            })
-          } else {
-            toast.error(SIGN_ERROR)
+          const { tokenId } = typedData?.value
+          const { v, r, s } = splitSignature(res)
+          const sig = {
+            v,
+            r,
+            s,
+            deadline: typedData.value.deadline
           }
+
+          writeAsync({ args: [tokenId, sig] }).then(() => {
+            trackEvent('delete profile')
+            localStorage.setItem('selectedProfile', '0')
+            location.href = '/'
+          })
         })
       },
       onError(error) {

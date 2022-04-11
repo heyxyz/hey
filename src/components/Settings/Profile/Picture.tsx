@@ -76,17 +76,26 @@ const Picture: FC<Props> = ({ profile }) => {
   const { currentUser } = useContext(AppContext)
   const { activeChain } = useNetwork()
   const { data: account } = useAccount()
-  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData()
+  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
+    onError(error) {
+      toast.error(error?.message)
+    }
+  })
   const {
     error,
     isLoading: writeLoading,
-    write
+    writeAsync
   } = useContractWrite(
     {
       addressOrName: LENSHUB_PROXY,
       contractInterface: LensHubProxy
     },
-    'setProfileImageURIWithSig'
+    'setProfileImageURIWithSig',
+    {
+      onError(error) {
+        toast.error(error?.message)
+      }
+    }
   )
 
   useEffect(() => {
@@ -114,31 +123,23 @@ const Picture: FC<Props> = ({ profile }) => {
           types: omit(typedData?.types, '__typename'),
           value: omit(typedData?.value, '__typename')
         }).then((res) => {
-          if (!res.error) {
-            const { profileId, imageURI } = typedData?.value
-            const { v, r, s } = splitSignature(res.data)
-            const inputStruct = {
-              profileId,
-              imageURI,
-              sig: {
-                v,
-                r,
-                s,
-                deadline: typedData.value.deadline
-              }
+          const { profileId, imageURI } = typedData?.value
+          const { v, r, s } = splitSignature(res)
+          const inputStruct = {
+            profileId,
+            imageURI,
+            sig: {
+              v,
+              r,
+              s,
+              deadline: typedData.value.deadline
             }
-
-            write({ args: inputStruct }).then(({ error }) => {
-              if (!error) {
-                toast.success('Avatar updated successfully!')
-                trackEvent('update avatar')
-              } else {
-                toast.error(error?.message)
-              }
-            })
-          } else {
-            toast.error(res.error?.message)
           }
+
+          writeAsync({ args: inputStruct }).then(() => {
+            toast.success('Avatar updated successfully!')
+            trackEvent('update avatar')
+          })
         })
       },
       onError(error) {
@@ -180,11 +181,13 @@ const Picture: FC<Props> = ({ profile }) => {
   return (
     <Card className="space-y-5">
       <CardBody className="space-y-4">
-        <ErrorMessage
-          className="mb-3"
-          title="Transaction failed!"
-          error={error}
-        />
+        {error && (
+          <ErrorMessage
+            className="mb-3"
+            title="Transaction failed!"
+            error={error}
+          />
+        )}
         <div className="space-y-1.5">
           <label className="mb-1 font-medium text-gray-800 dark:text-gray-200">
             Avatar

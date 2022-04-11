@@ -18,7 +18,6 @@ import {
   CONNECT_WALLET,
   ERROR_MESSAGE,
   LENSHUB_PROXY,
-  SIGN_ERROR,
   WRONG_NETWORK
 } from 'src/constants'
 import {
@@ -68,7 +67,11 @@ const Mirror: FC<Props> = ({ post }) => {
   const { currentUser } = useContext(AppContext)
   const { activeChain } = useNetwork()
   const { data: account } = useAccount()
-  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData()
+  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
+    onError(error) {
+      toast.error(error?.message)
+    }
+  })
   const { isLoading: writeLoading, writeAsync } = useContractWrite(
     {
       addressOrName: LENSHUB_PROXY,
@@ -105,29 +108,25 @@ const Mirror: FC<Props> = ({ post }) => {
           types: omit(typedData?.types, '__typename'),
           value: omit(typedData?.value, '__typename')
         }).then((res) => {
-          if (!res) {
-            const { v, r, s } = splitSignature(res)
-            const inputStruct = {
-              profileId,
-              profileIdPointed,
-              pubIdPointed,
-              referenceModule,
-              referenceModuleData,
-              sig: {
-                v,
-                r,
-                s,
-                deadline: typedData.value.deadline
-              }
+          const { v, r, s } = splitSignature(res)
+          const inputStruct = {
+            profileId,
+            profileIdPointed,
+            pubIdPointed,
+            referenceModule,
+            referenceModuleData,
+            sig: {
+              v,
+              r,
+              s,
+              deadline: typedData.value.deadline
             }
-
-            writeAsync({ args: inputStruct }).then(() => {
-              toast.success('Post has been mirrored!')
-              trackEvent('mirror')
-            })
-          } else {
-            toast.error(SIGN_ERROR)
           }
+
+          writeAsync({ args: inputStruct }).then(() => {
+            toast.success('Post has been mirrored!')
+            trackEvent('mirror')
+          })
         })
       },
       onError(error) {

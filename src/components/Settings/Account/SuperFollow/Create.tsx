@@ -104,7 +104,11 @@ const SuperFollow: FC = () => {
   const { currentUser } = useContext(AppContext)
   const { activeChain } = useNetwork()
   const { data: account } = useAccount()
-  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData()
+  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
+    onError(error) {
+      toast.error(error?.message)
+    }
+  })
   const { data: currencyData, loading } = useQuery(MODULES_CURRENCY_QUERY, {
     variables: { request: { profileIds: currentUser?.id } },
     skip: !currentUser?.id,
@@ -115,13 +119,18 @@ const SuperFollow: FC = () => {
   const {
     data,
     isLoading: writeLoading,
-    write
+    writeAsync
   } = useContractWrite(
     {
       addressOrName: LENSHUB_PROXY,
       contractInterface: LensHubProxy
     },
-    'setFollowModuleWithSig'
+    'setFollowModuleWithSig',
+    {
+      onError(error) {
+        toast.error(error?.message)
+      }
+    }
   )
 
   const form = useZodForm({
@@ -151,31 +160,23 @@ const SuperFollow: FC = () => {
           types: omit(typedData?.types, '__typename'),
           value: omit(typedData?.value, '__typename')
         }).then((res) => {
-          if (!res.error) {
-            const { v, r, s } = splitSignature(res.data)
-            const inputStruct = {
-              profileId,
-              followModule,
-              followModuleData,
-              sig: {
-                v,
-                r,
-                s,
-                deadline: typedData.value.deadline
-              }
+          const { v, r, s } = splitSignature(res)
+          const inputStruct = {
+            profileId,
+            followModule,
+            followModuleData,
+            sig: {
+              v,
+              r,
+              s,
+              deadline: typedData.value.deadline
             }
-
-            write({ args: inputStruct }).then(({ error }) => {
-              if (!error) {
-                form.reset()
-                trackEvent('set superfollow', 'create')
-              } else {
-                toast.error(error?.message)
-              }
-            })
-          } else {
-            toast.error(res.error?.message)
           }
+
+          writeAsync({ args: inputStruct }).then(() => {
+            form.reset()
+            trackEvent('set superfollow', 'create')
+          })
         })
       },
       onError(error) {

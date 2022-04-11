@@ -66,17 +66,26 @@ const SetProfile: FC = () => {
   const [selectedUser, setSelectedUser] = useState<string>()
   const { activeChain } = useNetwork()
   const { data: account } = useAccount()
-  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData()
+  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
+    onError(error) {
+      toast.error(error?.message)
+    }
+  })
   const {
     error,
     isLoading: writeLoading,
-    write
+    writeAsync
   } = useContractWrite(
     {
       addressOrName: LENSHUB_PROXY,
       contractInterface: LensHubProxy
     },
-    'setDefaultProfileWithSig'
+    'setDefaultProfileWithSig',
+    {
+      onError(error) {
+        toast.error(error?.message)
+      }
+    }
   )
 
   const hasDefaultProfile = !!profiles.find((o) => o.isDefault)
@@ -106,32 +115,24 @@ const SetProfile: FC = () => {
           types: omit(typedData?.types, '__typename'),
           value: omit(typedData?.value, '__typename')
         }).then((res) => {
-          if (!res.error) {
-            const { wallet, profileId } = typedData?.value
-            const { v, r, s } = splitSignature(res.data)
-            const inputStruct = {
-              follower: account?.address,
-              wallet,
-              profileId,
-              sig: {
-                v,
-                r,
-                s,
-                deadline: typedData.value.deadline
-              }
+          const { wallet, profileId } = typedData?.value
+          const { v, r, s } = splitSignature(res)
+          const inputStruct = {
+            follower: account?.address,
+            wallet,
+            profileId,
+            sig: {
+              v,
+              r,
+              s,
+              deadline: typedData.value.deadline
             }
-
-            write({ args: inputStruct }).then(({ error }) => {
-              if (!error) {
-                toast.success('Default profile updated successfully!')
-                trackEvent('set default profile')
-              } else {
-                toast.error(error?.message)
-              }
-            })
-          } else {
-            toast.error(res.error?.message)
           }
+
+          writeAsync({ args: inputStruct }).then(() => {
+            toast.success('Default profile updated successfully!')
+            trackEvent('set default profile')
+          })
         })
       },
       onError(error) {
@@ -158,7 +159,7 @@ const SetProfile: FC = () => {
   return (
     <Card>
       <CardBody className="space-y-5">
-        <ErrorMessage title="Transaction failed!" error={error} />
+        {error && <ErrorMessage title="Transaction failed!" error={error} />}
         {hasDefaultProfile ? (
           <>
             <div className="text-lg font-bold">Your default profile</div>

@@ -16,7 +16,6 @@ import {
   CONNECT_WALLET,
   ERROR_MESSAGE,
   LENSHUB_PROXY,
-  SIGN_ERROR,
   WRONG_NETWORK
 } from 'src/constants'
 import {
@@ -65,7 +64,11 @@ interface Props {
 const Join: FC<Props> = ({ community, setJoined, showJoin = true }) => {
   const { activeChain } = useNetwork()
   const { data: account } = useAccount()
-  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData()
+  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
+    onError(error) {
+      toast.error(error?.message)
+    }
+  })
   const { isLoading: writeLoading, writeAsync } = useContractWrite(
     {
       addressOrName: LENSHUB_PROXY,
@@ -94,30 +97,26 @@ const Join: FC<Props> = ({ community, setJoined, showJoin = true }) => {
           types: omit(typedData?.types, '__typename'),
           value: omit(typedData?.value, '__typename')
         }).then((res) => {
-          if (!res) {
-            const { profileId, pubId, data: collectData } = typedData?.value
-            const { v, r, s } = splitSignature(res)
-            const inputStruct = {
-              collector: account?.address,
-              profileId,
-              pubId,
-              data: collectData,
-              sig: {
-                v,
-                r,
-                s,
-                deadline: typedData.value.deadline
-              }
+          const { profileId, pubId, data: collectData } = typedData?.value
+          const { v, r, s } = splitSignature(res)
+          const inputStruct = {
+            collector: account?.address,
+            profileId,
+            pubId,
+            data: collectData,
+            sig: {
+              v,
+              r,
+              s,
+              deadline: typedData.value.deadline
             }
-
-            writeAsync({ args: inputStruct }).then(() => {
-              setJoined(true)
-              toast.success('Joined successfully!')
-              trackEvent('join community')
-            })
-          } else {
-            toast.error(SIGN_ERROR)
           }
+
+          writeAsync({ args: inputStruct }).then(() => {
+            setJoined(true)
+            toast.success('Joined successfully!')
+            trackEvent('join community')
+          })
         })
       },
       onError(error) {

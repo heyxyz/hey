@@ -15,7 +15,6 @@ import {
   CONNECT_WALLET,
   ERROR_MESSAGE,
   LENSHUB_PROXY,
-  SIGN_ERROR,
   WRONG_NETWORK
 } from 'src/constants'
 import {
@@ -63,7 +62,11 @@ interface Props {
 const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
   const { activeChain } = useNetwork()
   const { data: account } = useAccount()
-  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData()
+  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
+    onError(error) {
+      toast.error(error?.message)
+    }
+  })
   const { isLoading: writeLoading, writeAsync } = useContractWrite(
     {
       addressOrName: LENSHUB_PROXY,
@@ -92,29 +95,25 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
           types: omit(typedData?.types, '__typename'),
           value: omit(typedData?.value, '__typename')
         }).then((res) => {
-          if (!res) {
-            const { profileIds, datas: followData } = typedData?.value
-            const { v, r, s } = splitSignature(res)
-            const inputStruct = {
-              follower: account?.address,
-              profileIds,
-              datas: followData,
-              sig: {
-                v,
-                r,
-                s,
-                deadline: typedData.value.deadline
-              }
+          const { profileIds, datas: followData } = typedData?.value
+          const { v, r, s } = splitSignature(res)
+          const inputStruct = {
+            follower: account?.address,
+            profileIds,
+            datas: followData,
+            sig: {
+              v,
+              r,
+              s,
+              deadline: typedData.value.deadline
             }
-
-            writeAsync({ args: inputStruct }).then(() => {
-              setFollowing(true)
-              toast.success('Followed successfully!')
-              trackEvent('follow user')
-            })
-          } else {
-            toast.error(SIGN_ERROR)
           }
+
+          writeAsync({ args: inputStruct }).then(() => {
+            setFollowing(true)
+            toast.success('Followed successfully!')
+            trackEvent('follow user')
+          })
         })
       },
       onError(error) {
