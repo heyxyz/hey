@@ -101,7 +101,7 @@ const Feed: FC<Props> = ({ profile, type }) => {
         />
       )}
       <ErrorMessage title="Failed to load profile feed" error={error} />
-      {!error && (
+      {!error && !loading && (
         <>
           <div className="space-y-3">
             {publications?.map((post: LensterPost, index: number) => (

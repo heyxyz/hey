@@ -114,7 +114,7 @@ const Feed: FC<Props> = ({
         />
       )}
       <ErrorMessage title="Failed to load comment feed" error={error} />
-      {!error && (
+      {!error && !loading && (
         <>
           <div className="space-y-3">
             {publications?.map((post: LensterPost, index: number) => (
