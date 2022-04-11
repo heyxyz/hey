@@ -19,6 +19,7 @@ export const CONNECT_WALLET = 'Please connect your wallet.'
 export const WRONG_NETWORK = IS_MAINNET
   ? 'Please change network to Polygon mainnet.'
   : 'Please change network to Polygon Mumbai testnet.'
+export const SIGN_ERROR = 'Failed to sign data'
 
 // URLs
 export const STATIC_ASSETS = 'https://assets.lenster.xyz/images'

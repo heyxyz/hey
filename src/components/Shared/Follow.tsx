@@ -15,6 +15,7 @@ import {
   CONNECT_WALLET,
   ERROR_MESSAGE,
   LENSHUB_PROXY,
+  SIGN_ERROR,
   WRONG_NETWORK
 } from 'src/constants'
 import {
@@ -68,7 +69,12 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
       addressOrName: LENSHUB_PROXY,
       contractInterface: LensHubProxy
     },
-    'followWithSig'
+    'followWithSig',
+    {
+      onError(error: any) {
+        toast.error(error)
+      }
+    }
   )
 
   const [createFollowTypedData, { loading: typedDataLoading }] = useMutation(
@@ -86,9 +92,9 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
           types: omit(typedData?.types, '__typename'),
           value: omit(typedData?.value, '__typename')
         }).then((res) => {
-          if (!res.error) {
+          if (!res) {
             const { profileIds, datas: followData } = typedData?.value
-            const { v, r, s } = splitSignature(res.data)
+            const { v, r, s } = splitSignature(res)
             const inputStruct = {
               follower: account?.address,
               profileIds,
@@ -101,17 +107,13 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
               }
             }
 
-            writeAsync({ args: inputStruct }).then(({ error }) => {
-              if (!error) {
-                setFollowing(true)
-                toast.success('Followed successfully!')
-                trackEvent('follow user')
-              } else {
-                toast.error(error?.message)
-              }
+            writeAsync({ args: inputStruct }).then(() => {
+              setFollowing(true)
+              toast.success('Followed successfully!')
+              trackEvent('follow user')
             })
           } else {
-            toast.error(res.error?.message)
+            toast.error(SIGN_ERROR)
           }
         })
       },

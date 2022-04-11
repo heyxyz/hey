@@ -140,7 +140,12 @@ const NewComment: FC<Props> = ({ refetch, post, type }) => {
       addressOrName: LENSHUB_PROXY,
       contractInterface: LensHubProxy
     },
-    'commentWithSig'
+    'commentWithSig',
+    {
+      onError(error: any) {
+        toast.error(error)
+      }
+    }
   )
 
   const [createCommentTypedData, { loading: typedDataLoading }] = useMutation(

@@ -70,7 +70,12 @@ const DeleteSettings: FC = () => {
       addressOrName: LENSHUB_PROXY,
       contractInterface: LensHubProxy
     },
-    'burnWithSig'
+    'burnWithSig',
+    {
+      onError(error: any) {
+        toast.error(error)
+      }
+    }
   )
 
   const [createBurnProfileTypedData, { loading: typedDataLoading }] =

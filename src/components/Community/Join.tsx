@@ -70,7 +70,12 @@ const Join: FC<Props> = ({ community, setJoined, showJoin = true }) => {
       addressOrName: LENSHUB_PROXY,
       contractInterface: LensHubProxy
     },
-    'collectWithSig'
+    'collectWithSig',
+    {
+      onError(error: any) {
+        toast.error(error)
+      }
+    }
   )
 
   const [createCollectTypedData, { loading: typedDataLoading }] = useMutation(
