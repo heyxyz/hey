@@ -98,7 +98,7 @@ const Feed: FC<Props> = ({ feedType = 'TOP_COMMENTED' }) => {
         />
       )}
       <ErrorMessage title="Failed to load explore feed" error={error} />
-      {!error && (
+      {!error && !loading && (
         <>
           <div className="space-y-3">
             {publications?.map((post: LensterPost, index: number) => (
