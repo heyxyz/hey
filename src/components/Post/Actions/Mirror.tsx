@@ -111,8 +111,8 @@ const Mirror: FC<Props> = ({ post }) => {
           domain: omit(typedData?.domain, '__typename'),
           types: omit(typedData?.types, '__typename'),
           value: omit(typedData?.value, '__typename')
-        }).then((res) => {
-          const { v, r, s } = splitSignature(res)
+        }).then((signature) => {
+          const { v, r, s } = splitSignature(signature)
           const inputStruct = {
             profileId,
             profileIdPointed,
