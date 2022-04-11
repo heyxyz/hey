@@ -36,6 +36,7 @@ import {
   CONNECT_WALLET,
   ERROR_MESSAGE,
   LENSHUB_PROXY,
+  SIGN_ERROR,
   WRONG_NETWORK
 } from 'src/constants'
 import { v4 as uuidv4 } from 'uuid'
@@ -142,8 +143,8 @@ const NewComment: FC<Props> = ({ refetch, post, type }) => {
     },
     'commentWithSig',
     {
-      onError(error: any) {
-        toast.error(error)
+      onError(error) {
+        toast.error(error?.message)
       }
     }
   )
@@ -174,8 +175,8 @@ const NewComment: FC<Props> = ({ refetch, post, type }) => {
           types: omit(typedData?.types, '__typename'),
           value: omit(typedData?.value, '__typename')
         }).then((res) => {
-          if (!res.error) {
-            const { v, r, s } = splitSignature(res.data)
+          if (!res) {
+            const { v, r, s } = splitSignature(res)
             const inputStruct = {
               profileId,
               profileIdPointed,
@@ -193,19 +194,15 @@ const NewComment: FC<Props> = ({ refetch, post, type }) => {
               }
             }
 
-            writeAsync({ args: inputStruct }).then(({ error }) => {
-              if (!error) {
-                form.reset()
-                setAttachments([])
-                setSelectedModule(defaultModuleData)
-                setFeeData(defaultFeeData)
-                trackEvent('new comment', 'create')
-              } else {
-                toast.error(error?.message)
-              }
+            writeAsync({ args: inputStruct }).then(() => {
+              form.reset()
+              setAttachments([])
+              setSelectedModule(defaultModuleData)
+              setFeeData(defaultFeeData)
+              trackEvent('new comment', 'create')
             })
           } else {
-            toast.error(res.error?.message)
+            toast.error(SIGN_ERROR)
           }
         })
       },
@@ -280,11 +277,13 @@ const NewComment: FC<Props> = ({ refetch, post, type }) => {
             createComment(comment)
           }}
         >
-          <ErrorMessage
-            className="mb-3"
-            title="Transaction failed!"
-            error={error}
-          />
+          {error && (
+            <ErrorMessage
+              className="mb-3"
+              title="Transaction failed!"
+              error={error}
+            />
+          )}
           <TextArea
             placeholder="Tell something cool!"
             {...form.register('comment')}

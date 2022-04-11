@@ -18,6 +18,7 @@ import {
   CONNECT_WALLET,
   ERROR_MESSAGE,
   LENSHUB_PROXY,
+  SIGN_ERROR,
   WRONG_NETWORK
 } from 'src/constants'
 import {
@@ -75,8 +76,8 @@ const Mirror: FC<Props> = ({ post }) => {
     },
     'mirrorWithSig',
     {
-      onError(error: any) {
-        toast.error(error)
+      onError(error) {
+        toast.error(error?.message)
       }
     }
   )
@@ -104,8 +105,8 @@ const Mirror: FC<Props> = ({ post }) => {
           types: omit(typedData?.types, '__typename'),
           value: omit(typedData?.value, '__typename')
         }).then((res) => {
-          if (!res.error) {
-            const { v, r, s } = splitSignature(res.data)
+          if (!res) {
+            const { v, r, s } = splitSignature(res)
             const inputStruct = {
               profileId,
               profileIdPointed,
@@ -120,16 +121,12 @@ const Mirror: FC<Props> = ({ post }) => {
               }
             }
 
-            writeAsync({ args: inputStruct }).then(({ error }) => {
-              if (!error) {
-                toast.success('Post has been mirrored!')
-                trackEvent('mirror')
-              } else {
-                toast.error(error?.message)
-              }
+            writeAsync({ args: inputStruct }).then(() => {
+              toast.success('Post has been mirrored!')
+              trackEvent('mirror')
             })
           } else {
-            toast.error(res.error?.message)
+            toast.error(SIGN_ERROR)
           }
         })
       },

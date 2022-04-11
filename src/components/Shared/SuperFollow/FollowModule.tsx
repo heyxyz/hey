@@ -25,6 +25,7 @@ import {
   ERROR_MESSAGE,
   LENSHUB_PROXY,
   POLYGONSCAN_URL,
+  SIGN_ERROR,
   WRONG_NETWORK
 } from 'src/constants'
 import {
@@ -111,8 +112,8 @@ const FollowModule: FC<Props> = ({
     },
     'followWithSig',
     {
-      onError(error: any) {
-        toast.error(error)
+      onError(error) {
+        toast.error(error?.message)
       }
     }
   )
@@ -166,9 +167,9 @@ const FollowModule: FC<Props> = ({
           types: omit(typedData?.types, '__typename'),
           value: omit(typedData?.value, '__typename')
         }).then((res) => {
-          if (!res.error) {
+          if (!res) {
             const { profileIds, datas: followData } = typedData?.value
-            const { v, r, s } = splitSignature(res.data)
+            const { v, r, s } = splitSignature(res)
             const inputStruct = {
               follower: account?.address,
               profileIds,
@@ -181,18 +182,14 @@ const FollowModule: FC<Props> = ({
               }
             }
 
-            writeAsync({ args: inputStruct }).then(({ error }) => {
-              if (!error) {
-                setFollowing(true)
-                setShowFollowModal(false)
-                toast.success('Followed successfully!')
-                trackEvent('super follow user')
-              } else {
-                toast.error(error?.message)
-              }
+            writeAsync({ args: inputStruct }).then(() => {
+              setFollowing(true)
+              setShowFollowModal(false)
+              toast.success('Followed successfully!')
+              trackEvent('super follow user')
             })
           } else {
-            toast.error(res.error?.message)
+            toast.error(SIGN_ERROR)
           }
         })
       },
