@@ -59,17 +59,26 @@ const Create: FC = () => {
   const { currentUser } = useContext(AppContext)
   const { activeChain } = useNetwork()
   const { data: account } = useAccount()
-  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData()
+  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
+    onError(error) {
+      toast.error(error?.message)
+    }
+  })
   const {
     data,
     isLoading: writeLoading,
-    write
+    writeAsync
   } = useContractWrite(
     {
       addressOrName: LENSHUB_PROXY,
       contractInterface: LensHubProxy
     },
-    'postWithSig'
+    'postWithSig',
+    {
+      onError(error) {
+        toast.error(error?.message)
+      }
+    }
   )
 
   const form = useZodForm({
@@ -113,34 +122,26 @@ const Create: FC = () => {
           types: omit(typedData?.types, '__typename'),
           value: omit(typedData?.value, '__typename')
         }).then((res) => {
-          if (!res.error) {
-            const { v, r, s } = splitSignature(res.data)
-            const inputStruct = {
-              profileId,
-              contentURI,
-              collectModule,
-              collectModuleData,
-              referenceModule,
-              referenceModuleData,
-              sig: {
-                v,
-                r,
-                s,
-                deadline: typedData.value.deadline
-              }
+          const { v, r, s } = splitSignature(res)
+          const inputStruct = {
+            profileId,
+            contentURI,
+            collectModule,
+            collectModuleData,
+            referenceModule,
+            referenceModuleData,
+            sig: {
+              v,
+              r,
+              s,
+              deadline: typedData.value.deadline
             }
-
-            write({ args: inputStruct }).then(({ error }) => {
-              if (!error) {
-                form.reset()
-                trackEvent('new community', 'create')
-              } else {
-                toast.error(error?.message)
-              }
-            })
-          } else {
-            toast.error(res.error?.message)
           }
+
+          writeAsync({ args: inputStruct }).then(() => {
+            form.reset()
+            trackEvent('new community', 'create')
+          })
         })
       },
       onError(error) {

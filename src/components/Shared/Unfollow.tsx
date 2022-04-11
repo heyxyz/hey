@@ -75,9 +75,9 @@ const Unfollow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
           types: omit(typedData?.types, '__typename'),
           value: omit(typedData?.value, '__typename')
         }).then(async (res) => {
-          if (!res.error) {
+          if (!res) {
             const { tokenId } = typedData?.value
-            const { v, r, s } = splitSignature(res.data)
+            const { v, r, s } = splitSignature(res)
             const sig = {
               v,
               r,

@@ -123,18 +123,27 @@ const NewPost: FC<Props> = ({ refetch, setShowModal, hideCard = false }) => {
   const { currentUser } = useContext(AppContext)
   const { activeChain } = useNetwork()
   const { data: account } = useAccount()
-  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData()
+  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
+    onError(error) {
+      toast.error(error?.message)
+    }
+  })
   const {
     data,
     error,
     isLoading: writeLoading,
-    write
+    writeAsync
   } = useContractWrite(
     {
       addressOrName: LENSHUB_PROXY,
       contractInterface: LensHubProxy
     },
-    'postWithSig'
+    'postWithSig',
+    {
+      onError(error) {
+        toast.error(error?.message)
+      }
+    }
   )
 
   const [createPostTypedData, { loading: typedDataLoading }] = useMutation(
@@ -161,37 +170,29 @@ const NewPost: FC<Props> = ({ refetch, setShowModal, hideCard = false }) => {
           types: omit(typedData?.types, '__typename'),
           value: omit(typedData?.value, '__typename')
         }).then((res) => {
-          if (!res.error) {
-            const { v, r, s } = splitSignature(res.data)
-            const inputStruct = {
-              profileId,
-              contentURI,
-              collectModule,
-              collectModuleData,
-              referenceModule,
-              referenceModuleData,
-              sig: {
-                v,
-                r,
-                s,
-                deadline: typedData.value.deadline
-              }
+          const { v, r, s } = splitSignature(res)
+          const inputStruct = {
+            profileId,
+            contentURI,
+            collectModule,
+            collectModuleData,
+            referenceModule,
+            referenceModuleData,
+            sig: {
+              v,
+              r,
+              s,
+              deadline: typedData.value.deadline
             }
-
-            write({ args: inputStruct }).then(({ error }) => {
-              if (!error) {
-                form.reset()
-                setAttachments([])
-                setSelectedModule(defaultModuleData)
-                setFeeData(defaultFeeData)
-                trackEvent('new post', 'create')
-              } else {
-                toast.error(error?.message)
-              }
-            })
-          } else {
-            toast.error(res.error?.message)
           }
+
+          writeAsync({ args: inputStruct }).then(() => {
+            form.reset()
+            setAttachments([])
+            setSelectedModule(defaultModuleData)
+            setFeeData(defaultFeeData)
+            trackEvent('new post', 'create')
+          })
         })
       },
       onError(error) {
@@ -264,11 +265,13 @@ const NewPost: FC<Props> = ({ refetch, setShowModal, hideCard = false }) => {
             createPost(post)
           }}
         >
-          <ErrorMessage
-            className="mb-3"
-            title="Transaction failed!"
-            error={error}
-          />
+          {error && (
+            <ErrorMessage
+              className="mb-3"
+              title="Transaction failed!"
+              error={error}
+            />
+          )}
           <TextArea
             placeholder="What's happening?"
             {...form.register('post')}

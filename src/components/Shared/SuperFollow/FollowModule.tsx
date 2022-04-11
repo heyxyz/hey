@@ -25,7 +25,6 @@ import {
   ERROR_MESSAGE,
   LENSHUB_PROXY,
   POLYGONSCAN_URL,
-  SIGN_ERROR,
   WRONG_NETWORK
 } from 'src/constants'
 import {
@@ -104,7 +103,11 @@ const FollowModule: FC<Props> = ({
   const [allowed, setAllowed] = useState<boolean>(true)
   const { activeChain } = useNetwork()
   const { data: account } = useAccount()
-  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData()
+  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
+    onError(error) {
+      toast.error(error?.message)
+    }
+  })
   const { isLoading: writeLoading, writeAsync } = useContractWrite(
     {
       addressOrName: LENSHUB_PROXY,
@@ -167,30 +170,26 @@ const FollowModule: FC<Props> = ({
           types: omit(typedData?.types, '__typename'),
           value: omit(typedData?.value, '__typename')
         }).then((res) => {
-          if (!res) {
-            const { profileIds, datas: followData } = typedData?.value
-            const { v, r, s } = splitSignature(res)
-            const inputStruct = {
-              follower: account?.address,
-              profileIds,
-              datas: followData,
-              sig: {
-                v,
-                r,
-                s,
-                deadline: typedData.value.deadline
-              }
+          const { profileIds, datas: followData } = typedData?.value
+          const { v, r, s } = splitSignature(res)
+          const inputStruct = {
+            follower: account?.address,
+            profileIds,
+            datas: followData,
+            sig: {
+              v,
+              r,
+              s,
+              deadline: typedData.value.deadline
             }
-
-            writeAsync({ args: inputStruct }).then(() => {
-              setFollowing(true)
-              setShowFollowModal(false)
-              toast.success('Followed successfully!')
-              trackEvent('super follow user')
-            })
-          } else {
-            toast.error(SIGN_ERROR)
           }
+
+          writeAsync({ args: inputStruct }).then(() => {
+            setFollowing(true)
+            setShowFollowModal(false)
+            toast.success('Followed successfully!')
+            trackEvent('super follow user')
+          })
         })
       },
       onError(error) {

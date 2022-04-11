@@ -36,7 +36,6 @@ import {
   CONNECT_WALLET,
   ERROR_MESSAGE,
   LENSHUB_PROXY,
-  SIGN_ERROR,
   WRONG_NETWORK
 } from 'src/constants'
 import { v4 as uuidv4 } from 'uuid'
@@ -130,7 +129,11 @@ const NewComment: FC<Props> = ({ refetch, post, type }) => {
   >([])
   const { activeChain } = useNetwork()
   const { data: account } = useAccount()
-  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData()
+  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
+    onError(error) {
+      toast.error(error?.message)
+    }
+  })
   const {
     data,
     error,
@@ -175,35 +178,31 @@ const NewComment: FC<Props> = ({ refetch, post, type }) => {
           types: omit(typedData?.types, '__typename'),
           value: omit(typedData?.value, '__typename')
         }).then((res) => {
-          if (!res) {
-            const { v, r, s } = splitSignature(res)
-            const inputStruct = {
-              profileId,
-              profileIdPointed,
-              pubIdPointed,
-              contentURI,
-              collectModule,
-              collectModuleData,
-              referenceModule,
-              referenceModuleData,
-              sig: {
-                v,
-                r,
-                s,
-                deadline: typedData.value.deadline
-              }
+          const { v, r, s } = splitSignature(res)
+          const inputStruct = {
+            profileId,
+            profileIdPointed,
+            pubIdPointed,
+            contentURI,
+            collectModule,
+            collectModuleData,
+            referenceModule,
+            referenceModuleData,
+            sig: {
+              v,
+              r,
+              s,
+              deadline: typedData.value.deadline
             }
-
-            writeAsync({ args: inputStruct }).then(() => {
-              form.reset()
-              setAttachments([])
-              setSelectedModule(defaultModuleData)
-              setFeeData(defaultFeeData)
-              trackEvent('new comment', 'create')
-            })
-          } else {
-            toast.error(SIGN_ERROR)
           }
+
+          writeAsync({ args: inputStruct }).then(() => {
+            form.reset()
+            setAttachments([])
+            setSelectedModule(defaultModuleData)
+            setFeeData(defaultFeeData)
+            trackEvent('new comment', 'create')
+          })
         })
       },
       onError(error) {

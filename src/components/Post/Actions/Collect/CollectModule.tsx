@@ -33,7 +33,6 @@ import {
   ERROR_MESSAGE,
   LENSHUB_PROXY,
   POLYGONSCAN_URL,
-  SIGN_ERROR,
   WRONG_NETWORK
 } from 'src/constants'
 import {
@@ -101,7 +100,11 @@ const CollectModule: FC<Props> = ({ post }) => {
 
   const { activeChain } = useNetwork()
   const { data: account } = useAccount()
-  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData()
+  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
+    onError(error) {
+      toast.error(error?.message)
+    }
+  })
   const { isLoading: writeLoading, writeAsync } = useContractWrite(
     {
       addressOrName: LENSHUB_PROXY,
@@ -169,29 +172,25 @@ const CollectModule: FC<Props> = ({ post }) => {
           types: omit(typedData?.types, '__typename'),
           value: omit(typedData?.value, '__typename')
         }).then((res) => {
-          if (!res) {
-            const { profileId, pubId, data: collectData } = typedData?.value
-            const { v, r, s } = splitSignature(res)
-            const inputStruct = {
-              collector: account?.address,
-              profileId,
-              pubId,
-              data: collectData,
-              sig: {
-                v,
-                r,
-                s,
-                deadline: typedData.value.deadline
-              }
+          const { profileId, pubId, data: collectData } = typedData?.value
+          const { v, r, s } = splitSignature(res)
+          const inputStruct = {
+            collector: account?.address,
+            profileId,
+            pubId,
+            data: collectData,
+            sig: {
+              v,
+              r,
+              s,
+              deadline: typedData.value.deadline
             }
-
-            writeAsync({ args: inputStruct }).then(() => {
-              toast.success('Post has been collected!')
-              trackEvent('collect publication')
-            })
-          } else {
-            toast.error(SIGN_ERROR)
           }
+
+          writeAsync({ args: inputStruct }).then(() => {
+            toast.success('Post has been collected!')
+            trackEvent('collect publication')
+          })
         })
       },
       onError(error) {

@@ -17,7 +17,6 @@ import {
   CONNECT_WALLET,
   ERROR_MESSAGE,
   LENSHUB_PROXY,
-  SIGN_ERROR,
   WRONG_NETWORK
 } from 'src/constants'
 import {
@@ -68,7 +67,11 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
   const { currentUser } = useContext(AppContext)
   const { activeChain } = useNetwork()
   const { data: account } = useAccount()
-  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData()
+  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
+    onError(error) {
+      toast.error(error?.message)
+    }
+  })
   const { isLoading: writeLoading, writeAsync } = useContractWrite(
     {
       addressOrName: LENSHUB_PROXY,
@@ -97,30 +100,26 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
           types: omit(typedData?.types, '__typename'),
           value: omit(typedData?.value, '__typename')
         }).then((res) => {
-          if (!res) {
-            const { profileId, pubId, data: collectData } = typedData?.value
-            const { v, r, s } = splitSignature(res)
-            const inputStruct = {
-              collector: account?.address,
-              profileId,
-              pubId,
-              data: collectData,
-              sig: {
-                v,
-                r,
-                s,
-                deadline: typedData.value.deadline
-              }
+          const { profileId, pubId, data: collectData } = typedData?.value
+          const { v, r, s } = splitSignature(res)
+          const inputStruct = {
+            collector: account?.address,
+            profileId,
+            pubId,
+            data: collectData,
+            sig: {
+              v,
+              r,
+              s,
+              deadline: typedData.value.deadline
             }
-
-            writeAsync({ args: inputStruct }).then(() => {
-              setRevenue(revenue + parseFloat(collectModule?.amount?.value))
-              toast.success('Successfully funded!')
-              trackEvent('fund a crowdfund')
-            })
-          } else {
-            toast.error(SIGN_ERROR)
           }
+
+          writeAsync({ args: inputStruct }).then(() => {
+            setRevenue(revenue + parseFloat(collectModule?.amount?.value))
+            toast.success('Successfully funded!')
+            trackEvent('fund a crowdfund')
+          })
         })
       },
       onError(error) {
