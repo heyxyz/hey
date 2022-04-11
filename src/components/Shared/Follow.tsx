@@ -74,13 +74,13 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
     },
     'followWithSig',
     {
-      onError(error) {
-        toast.error(error?.message)
-      },
       onSuccess() {
         setFollowing(true)
         toast.success('Followed successfully!')
         trackEvent('follow user')
+      },
+      onError(error) {
+        toast.error(error?.message)
       }
     }
   )

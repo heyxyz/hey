@@ -76,13 +76,13 @@ const DeleteSettings: FC = () => {
     },
     'burnWithSig',
     {
-      onError(error) {
-        toast.error(error?.message)
-      },
       onSuccess() {
         trackEvent('delete profile')
         localStorage.setItem('selectedProfile', '0')
         location.href = '/'
+      },
+      onError(error) {
+        toast.error(error?.message)
       }
     }
   )

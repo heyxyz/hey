@@ -92,12 +92,12 @@ const Picture: FC<Props> = ({ profile }) => {
     },
     'setProfileImageURIWithSig',
     {
-      onError(error) {
-        toast.error(error?.message)
-      },
       onSuccess() {
         toast.success('Avatar updated successfully!')
         trackEvent('update avatar')
+      },
+      onError(error) {
+        toast.error(error?.message)
       }
     }
   )

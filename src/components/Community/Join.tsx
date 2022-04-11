@@ -76,13 +76,13 @@ const Join: FC<Props> = ({ community, setJoined, showJoin = true }) => {
     },
     'collectWithSig',
     {
-      onError(error) {
-        toast.error(error?.message)
-      },
       onSuccess() {
         setJoined(true)
         toast.success('Joined successfully!')
         trackEvent('join community')
+      },
+      onError(error) {
+        toast.error(error?.message)
       }
     }
   )

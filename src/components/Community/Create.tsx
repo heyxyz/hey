@@ -75,12 +75,12 @@ const Create: FC = () => {
     },
     'postWithSig',
     {
-      onError(error) {
-        toast.error(error?.message)
-      },
       onSuccess() {
         form.reset()
         trackEvent('new community', 'create')
+      },
+      onError(error) {
+        toast.error(error?.message)
       }
     }
   )

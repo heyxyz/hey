@@ -79,13 +79,13 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
     },
     'collectWithSig',
     {
-      onError(error) {
-        toast.error(error?.message)
-      },
       onSuccess() {
         setRevenue(revenue + parseFloat(collectModule?.amount?.value))
         toast.success('Successfully funded!')
         trackEvent('fund a crowdfund')
+      },
+      onError(error) {
+        toast.error(error?.message)
       }
     }
   )

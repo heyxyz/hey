@@ -115,14 +115,14 @@ const FollowModule: FC<Props> = ({
     },
     'followWithSig',
     {
-      onError(error) {
-        toast.error(error?.message)
-      },
       onSuccess() {
         setFollowing(true)
         setShowFollowModal(false)
         toast.success('Followed successfully!')
         trackEvent('super follow user')
+      },
+      onError(error) {
+        toast.error(error?.message)
       }
     }
   )

@@ -127,12 +127,12 @@ const SuperFollow: FC = () => {
     },
     'setFollowModuleWithSig',
     {
-      onError(error) {
-        toast.error(error?.message)
-      },
       onSuccess() {
         form.reset()
         trackEvent('set superfollow', 'create')
+      },
+      onError(error) {
+        toast.error(error?.message)
       }
     }
   )
