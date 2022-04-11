@@ -63,7 +63,7 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
   const { data: network } = useNetwork()
   const { data: account } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData()
-  const { isLoading: writeLoading, write } = useContractWrite(
+  const { isLoading: writeLoading, writeAsync } = useContractWrite(
     {
       addressOrName: LENSHUB_PROXY,
       contractInterface: LensHubProxy
@@ -101,7 +101,7 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
               }
             }
 
-            write({ args: inputStruct }).then(({ error }) => {
+            writeAsync({ args: inputStruct }).then(({ error }) => {
               if (!error) {
                 setFollowing(true)
                 toast.success('Followed successfully!')

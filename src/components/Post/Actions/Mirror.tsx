@@ -68,7 +68,7 @@ const Mirror: FC<Props> = ({ post }) => {
   const { data: network } = useNetwork()
   const { data: account } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData()
-  const { isLoading: writeLoading, write } = useContractWrite(
+  const { isLoading: writeLoading, writeAsync } = useContractWrite(
     {
       addressOrName: LENSHUB_PROXY,
       contractInterface: LensHubProxy
@@ -115,7 +115,7 @@ const Mirror: FC<Props> = ({ post }) => {
               }
             }
 
-            write({ args: inputStruct }).then(({ error }) => {
+            writeAsync({ args: inputStruct }).then(({ error }) => {
               if (!error) {
                 toast.success('Post has been mirrored!')
                 trackEvent('mirror')

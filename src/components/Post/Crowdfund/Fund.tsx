@@ -68,7 +68,7 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
   const { data: network } = useNetwork()
   const { data: account } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData()
-  const { isLoading: writeLoading, write } = useContractWrite(
+  const { isLoading: writeLoading, writeAsync } = useContractWrite(
     {
       addressOrName: LENSHUB_PROXY,
       contractInterface: LensHubProxy
@@ -107,24 +107,26 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
               }
             }
 
-            write({ args: inputStruct }).then(({ error }: { error: any }) => {
-              if (!error) {
-                setRevenue(revenue + parseFloat(collectModule?.amount?.value))
-                toast.success('Successfully funded!')
-                trackEvent('fund a crowdfund')
-              } else {
-                if (
-                  error?.data?.message ===
-                  'execution reverted: SafeERC20: low-level call failed'
-                ) {
-                  toast.error(
-                    `Please allow Fee Collect module in allowance settings`
-                  )
+            writeAsync({ args: inputStruct }).then(
+              ({ error }: { error: any }) => {
+                if (!error) {
+                  setRevenue(revenue + parseFloat(collectModule?.amount?.value))
+                  toast.success('Successfully funded!')
+                  trackEvent('fund a crowdfund')
                 } else {
-                  toast.error(error?.data?.message)
+                  if (
+                    error?.data?.message ===
+                    'execution reverted: SafeERC20: low-level call failed'
+                  ) {
+                    toast.error(
+                      `Please allow Fee Collect module in allowance settings`
+                    )
+                  } else {
+                    toast.error(error?.data?.message)
+                  }
                 }
               }
-            })
+            )
           } else {
             toast.error(res.error?.message)
           }
