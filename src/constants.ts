@@ -38,13 +38,13 @@ export const IMAGEKIT_URL = IS_PRODUCTION
 // Web3
 export const INFURA_ID = '1423f014ff0243e3b7ab20fbb3f8656f'
 export const POLYGON_MAINNET = {
-  ...chain.polygonMainnet,
+  ...chain.polygon,
   name: 'Polygon Mainnet',
   rpcUrls: ['https://polygon-rpc.com']
 }
 
 export const POLYGON_MUMBAI = {
-  ...chain.polygonTestnetMumbai,
+  ...chain.polygonMumbai,
   name: 'Polygon Mumbai',
   rpcUrls: ['https://rpc-mumbai.maticvigil.com']
 }
