@@ -84,34 +84,36 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
     loadChallenge({
       variables: { request: { address: accountData?.address } }
     }).then((res) => {
-      signMessageAsync({ message: res.data.challenge.text }).then((res) => {
-        authenticate({
-          variables: {
-            request: { address: accountData?.address, signature: res }
-          }
-        }).then((res) => {
-          Cookies.set(
-            'accessToken',
-            res.data.authenticate.accessToken,
-            COOKIE_CONFIG
-          )
-          Cookies.set(
-            'refreshToken',
-            res.data.authenticate.refreshToken,
-            COOKIE_CONFIG
-          )
-          getProfiles({
-            variables: { ownedBy: accountData?.address }
-          }).then((res) => {
-            localStorage.setItem('selectedProfile', '0')
-            if (res.data.profiles.items.length === 0) {
-              setHasProfile(false)
-            } else {
-              setSelectedProfile(0)
+      signMessageAsync({ message: res.data.challenge.text }).then(
+        (signature) => {
+          authenticate({
+            variables: {
+              request: { address: accountData?.address, signature }
             }
+          }).then((res) => {
+            Cookies.set(
+              'accessToken',
+              res.data.authenticate.accessToken,
+              COOKIE_CONFIG
+            )
+            Cookies.set(
+              'refreshToken',
+              res.data.authenticate.refreshToken,
+              COOKIE_CONFIG
+            )
+            getProfiles({
+              variables: { ownedBy: accountData?.address }
+            }).then((res) => {
+              localStorage.setItem('selectedProfile', '0')
+              if (res.data.profiles.items.length === 0) {
+                setHasProfile(false)
+              } else {
+                setSelectedProfile(0)
+              }
+            })
           })
-        })
-      })
+        }
+      )
     })
   }
 

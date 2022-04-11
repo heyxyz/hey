@@ -177,9 +177,9 @@ const CollectModule: FC<Props> = ({ post, setShowCollectModal }) => {
           domain: omit(typedData?.domain, '__typename'),
           types: omit(typedData?.types, '__typename'),
           value: omit(typedData?.value, '__typename')
-        }).then((res) => {
+        }).then((signature) => {
           const { profileId, pubId, data: collectData } = typedData?.value
-          const { v, r, s } = splitSignature(res)
+          const { v, r, s } = splitSignature(signature)
           const inputStruct = {
             collector: account?.address,
             profileId,

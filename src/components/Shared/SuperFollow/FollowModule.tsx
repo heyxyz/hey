@@ -175,9 +175,9 @@ const FollowModule: FC<Props> = ({
           domain: omit(typedData?.domain, '__typename'),
           types: omit(typedData?.types, '__typename'),
           value: omit(typedData?.value, '__typename')
-        }).then((res) => {
+        }).then((signature) => {
           const { profileIds, datas: followData } = typedData?.value
-          const { v, r, s } = splitSignature(res)
+          const { v, r, s } = splitSignature(signature)
           const inputStruct = {
             follower: account?.address,
             profileIds,
