@@ -72,15 +72,13 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
 
   useEffect(() => setMounted(true), [])
 
-  const [
-    {
-      data: { connector, connectors },
-      loading,
-      error
-    },
+  const {
+    data: { connector, connectors },
+    loading,
+    error,
     connect
-  ] = useConnect()
-  const [{ data: accountData }] = useAccount()
+  } = useConnect()
+  const { data: accountData } = useAccount()
   const { setSelectedProfile } = useContext(AppContext)
 
   const onConnect = async (x: Connector) => {
