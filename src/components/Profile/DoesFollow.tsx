@@ -9,7 +9,7 @@ const DoesFollow: FC<Props> = ({ followData }) => {
   if (!followData?.follows) return null
 
   return (
-    <div className="py-0.5 px-2 text-xs bg-gray-200 rounded-full">
+    <div className="py-0.5 px-2 text-xs bg-gray-200 dark:bg-gray-700 rounded-full">
       Follows you
     </div>
   )

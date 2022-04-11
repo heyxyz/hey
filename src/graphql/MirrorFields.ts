@@ -6,7 +6,8 @@ export const MirrorFields = gql`
   fragment MirrorFields on Mirror {
     id
     profile {
-      ...MinimalProfileFields
+      name
+      handle
     }
     stats {
       totalAmountOfComments
@@ -30,13 +31,13 @@ export const MirrorFields = gql`
       ... on Post {
         id
         profile {
-          handle
+          ...MinimalProfileFields
         }
       }
       ... on Comment {
         id
         profile {
-          handle
+          ...MinimalProfileFields
         }
       }
     }

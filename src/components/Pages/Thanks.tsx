@@ -52,7 +52,7 @@ const Thanks: FC = () => {
       <div className="relative">
         <div className="flex justify-center">
           <div className="relative mx-auto rounded-lg lg:w-2/4 max-w-3/4">
-            <div className="px-5 pb-10 space-y-10 text-center text-gray-900 divide-y max-w-none dark:text-gray-200 dark:divide-gray-800">
+            <div className="px-5 pb-10 space-y-10 text-center text-gray-900 divide-y max-w-none dark:text-gray-200 dark:divide-gray-700">
               <Brand
                 name="Vercel"
                 logo="vercel"
