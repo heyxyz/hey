@@ -336,7 +336,7 @@ const CollectModule: FC<Props> = ({ post, setShowCollectModal }) => {
           ) : allowed ? (
             <div className="mt-5">
               <AllowanceButton
-                title="Allow module"
+                title="Allow collect module"
                 module={allowanceData?.approvedModuleAllowanceAmount[0]}
                 allowed={allowed}
                 setAllowed={setAllowed}

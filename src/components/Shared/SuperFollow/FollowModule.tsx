@@ -291,7 +291,7 @@ const FollowModule: FC<Props> = ({
         ) : allowed ? (
           <div className="mt-5">
             <AllowanceButton
-              title="Allow module"
+              title="Allow follow module"
               module={allowanceData?.approvedModuleAllowanceAmount[0]}
               allowed={allowed}
               setAllowed={setAllowed}
