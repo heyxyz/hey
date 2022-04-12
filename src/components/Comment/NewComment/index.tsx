@@ -241,7 +241,7 @@ const NewComment: FC<Props> = ({ refetch, post, type }) => {
         variables: {
           request: {
             profileId: currentUser?.id,
-            publicationId: post.id,
+            publicationId: post?.id,
             contentURI: `https://ipfs.infura.io/ipfs/${path}`,
             collectModule: feeData.recipient
               ? {

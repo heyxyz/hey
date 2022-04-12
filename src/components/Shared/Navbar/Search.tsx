@@ -75,7 +75,7 @@ const Search = () => {
               <>
                 {searchUsersData?.search?.items?.map((profile: Profile) => (
                   <div
-                    key={profile.handle}
+                    key={profile?.handle}
                     className="py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-800"
                     onClick={() => setSearchText('')}
                   >

@@ -89,7 +89,7 @@ const Followers: FC<Props> = ({ profile }) => {
       <EmptyState
         message={
           <div>
-            <span className="mr-1 font-bold">@{profile.handle}</span>
+            <span className="mr-1 font-bold">@{profile?.handle}</span>
             <span>doesn’t have any followers yet.</span>
           </div>
         }

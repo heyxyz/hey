@@ -220,7 +220,7 @@ const CollectModule: FC<Props> = ({ post, setShowCollectModal }) => {
       toast.error('Collect limit reached for this publication!')
     } else {
       createCollectTypedData({
-        variables: { request: { publicationId: post.id } }
+        variables: { request: { publicationId: post?.id } }
       })
     }
   }

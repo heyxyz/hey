@@ -47,7 +47,7 @@ const NFTFeed: FC<Props> = ({ profile }) => {
         limit: 10
       }
     },
-    skip: !profile.ownedBy,
+    skip: !profile?.ownedBy,
     onCompleted(data) {
       setPageInfo(data?.nfts?.pageInfo)
       setNfts(data?.nfts?.items)
@@ -90,7 +90,7 @@ const NFTFeed: FC<Props> = ({ profile }) => {
         <EmptyState
           message={
             <div>
-              <span className="mr-1 font-bold">@{profile.handle}</span>
+              <span className="mr-1 font-bold">@{profile?.handle}</span>
               <span>seems like have no nfts!</span>
             </div>
           }

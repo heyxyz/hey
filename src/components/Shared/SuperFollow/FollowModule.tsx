@@ -208,7 +208,7 @@ const FollowModule: FC<Props> = ({
         variables: {
           request: {
             follow: {
-              profile: profile.id,
+              profile: profile?.id,
               followModule: {
                 feeFollowModule: {
                   amount: {

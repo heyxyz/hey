@@ -35,9 +35,9 @@ const SinglePost: FC<Props> = ({ post, hideType = false }) => {
                 : post?.profile
             }
           />
-          <Link href={`/posts/${post.id}`}>
-            <a className="text-sm text-gray-500" href={`/posts/${post.id}`}>
-              {dayjs(new Date(post.createdAt)).fromNow()}
+          <Link href={`/posts/${post?.id}`}>
+            <a className="text-sm text-gray-500" href={`/posts/${post?.id}`}>
+              {dayjs(new Date(post?.createdAt)).fromNow()}
             </a>
           </Link>
         </div>

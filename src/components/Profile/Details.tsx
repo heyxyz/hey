@@ -55,13 +55,13 @@ const Details: FC<Props> = ({ profile }) => {
           followInfos: [
             {
               // Am I following them
-              followerAddress: profile.ownedBy,
+              followerAddress: profile?.ownedBy,
               profileId: currentUser?.id
             },
             {
               // Do they follow me
               followerAddress: currentUser?.ownedBy,
-              profileId: profile.id
+              profileId: profile?.id
             }
           ]
         }
@@ -115,7 +115,7 @@ const Details: FC<Props> = ({ profile }) => {
           ) : (
             <Slug slug={formatAddress(profile?.ownedBy)} />
           )}
-          {currentUser && currentUser.id !== profile.id && (
+          {currentUser && currentUser?.id !== profile?.id && (
             <DoesFollow followData={followData?.doesFollow[0]} />
           )}
         </div>
@@ -165,7 +165,7 @@ const Details: FC<Props> = ({ profile }) => {
             </MetaDetails>
           )}
         </div>
-        {isStaff(profile.id) && (
+        {isStaff(profile?.id) && (
           <div className="py-0.5 px-2 text-sm text-white rounded-lg shadow-sm bg-brand-500 w-fit">
             Staff
           </div>

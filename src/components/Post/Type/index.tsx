@@ -16,7 +16,7 @@ interface Props {
 
 const PostType: FC<Props> = ({ post, hideType }) => {
   const { pathname } = useRouter()
-  const postType = post.metadata?.attributes[0]?.value
+  const postType = post?.metadata?.attributes[0]?.value
 
   return (
     <>

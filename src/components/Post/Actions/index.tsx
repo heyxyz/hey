@@ -13,7 +13,7 @@ interface Props {
 }
 
 const PostActions: FC<Props> = ({ post }) => {
-  const postType = post.metadata?.attributes[0]?.value
+  const postType = post?.metadata?.attributes[0]?.value
 
   return (
     <>
