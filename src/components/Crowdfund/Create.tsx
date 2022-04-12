@@ -3,6 +3,7 @@ import { gql, useMutation, useQuery } from '@apollo/client'
 import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout'
 import { CREATE_POST_TYPED_DATA_MUTATION } from '@components/Post/NewPost'
 import ChooseFile from '@components/Shared/ChooseFile'
+import Pending from '@components/Shared/Pending'
 import SettingsHelper from '@components/Shared/SettingsHelper'
 import SwitchNetwork from '@components/Shared/SwitchNetwork'
 import { Button } from '@components/UI/Button'
@@ -42,8 +43,6 @@ import {
   useSignTypedData
 } from 'wagmi'
 import { object, string } from 'zod'
-
-import Pending from './Pending'
 
 const MODULES_CURRENCY_QUERY = gql`
   query EnabledCurrencyModules {
@@ -262,7 +261,13 @@ const Create: FC = () => {
       <GridItemEight>
         <Card>
           {data?.hash ? (
-            <Pending txHash={data?.hash} />
+            <Pending
+              txHash={data?.hash}
+              indexing="Crowdfund creation in progress, please wait!"
+              indexed="Crowdfund created successfully"
+              type="crowdfund"
+              urlPrefix="posts"
+            />
           ) : (
             <Form
               form={form}
@@ -296,7 +301,7 @@ const Create: FC = () => {
                   Select Currency
                 </div>
                 <select
-                  className="w-full bg-white border border-gray-300 outline-none rounded-xl dark:bg-gray-800 dark:border-gray-700/80 disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 focus:border-brand-500 focus:ring-brand-400"
+                  className="w-full bg-white rounded-xl border border-gray-300 outline-none dark:bg-gray-800 disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 dark:border-gray-700/80 focus:border-brand-500 focus:ring-brand-400"
                   onChange={(e) => {
                     const currency = e.target.value.split('-')
                     setSelectedCurrency(currency[0])
@@ -371,7 +376,7 @@ const Create: FC = () => {
                 <div className="space-y-3">
                   {cover && (
                     <img
-                      className="object-cover w-full rounded-lg h-60"
+                      className="object-cover w-full h-60 rounded-lg"
                       src={cover}
                       alt={cover}
                     />

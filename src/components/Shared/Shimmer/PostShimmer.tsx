@@ -16,7 +16,7 @@ const PostShimmer: FC = () => {
           <div className="w-1/3 h-3 rounded-lg shimmer" />
         </div>
       </CardBody>
-      <div className="flex px-5 py-3 border-t gap-7 dark:border-gray-700/80">
+      <div className="flex gap-7 py-3 px-5 border-t dark:border-gray-700/80">
         <div className="w-5 h-5 rounded-lg shimmer" />
         <div className="w-5 h-5 rounded-lg shimmer" />
         <div className="w-5 h-5 rounded-lg shimmer" />

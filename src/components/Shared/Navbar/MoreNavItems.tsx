@@ -39,13 +39,13 @@ const MoreNavItems: FC = () => {
           >
             <Menu.Items
               static
-              className="absolute py-1 mt-2 bg-white border rounded-lg shadow-sm w-52 dark:bg-gray-900 dark:border-gray-700/80"
+              className="absolute py-1 mt-2 w-52 bg-white rounded-lg border shadow-sm dark:bg-gray-900 dark:border-gray-700/80"
             >
               {currentUser && (
                 <>
                   <Menu.Item
                     as={NextLink}
-                    href="/communities/create"
+                    href="/create/community"
                     className={({ active }: { active: boolean }) =>
                       clsx(
                         { 'bg-gray-100 dark:bg-gray-800': active },
@@ -60,7 +60,7 @@ const MoreNavItems: FC = () => {
                   </Menu.Item>
                   <Menu.Item
                     as={NextLink}
-                    href="/crowdfunds/create"
+                    href="/create/crowdfund"
                     className={({ active }: { active: boolean }) =>
                       clsx(
                         { 'bg-gray-100 dark:bg-gray-800': active },
@@ -75,7 +75,7 @@ const MoreNavItems: FC = () => {
                   </Menu.Item>
                   <Menu.Item
                     as={NextLink}
-                    href="/create"
+                    href="/create/profile"
                     className={({ active }: { active: boolean }) =>
                       clsx(
                         { 'bg-gray-100 dark:bg-gray-800': active },

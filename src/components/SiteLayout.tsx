@@ -2,7 +2,6 @@ import { gql, useQuery } from '@apollo/client'
 import { Profile } from '@generated/types'
 import { MinimalProfileFields } from '@gql/MinimalProfileFields'
 import consoleLog from '@lib/consoleLog'
-import Cookies from 'js-cookie'
 import Head from 'next/head'
 import { useTheme } from 'next-themes'
 import { FC, ReactNode, useEffect, useState } from 'react'
@@ -59,13 +58,13 @@ const SiteLayout: FC<Props> = ({ children }) => {
     }, 500)
 
     setSelectedProfile(localStorage.selectedProfile)
-    setRefreshToken(Cookies.get('refreshToken'))
+    setRefreshToken(localStorage.refreshToken)
     setStaffMode(localStorage.staffMode === 'true')
 
     activeConnector?.on('change', () => {
       localStorage.removeItem('selectedProfile')
-      Cookies.remove('accessToken')
-      Cookies.remove('refreshToken')
+      localStorage.removeItem('accessToken')
+      localStorage.removeItem('refreshToken')
       disconnect()
     })
   }, [selectedProfile, activeConnector, disconnect])

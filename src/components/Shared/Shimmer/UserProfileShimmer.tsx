@@ -6,11 +6,11 @@ interface Props {
 
 const UserProfileShimmer: FC<Props> = ({ showFollow = false }) => {
   return (
-    <div className="flex items-center justify-between">
+    <div className="flex justify-between items-center">
       <div className="flex items-center space-x-3">
-        <div className="rounded-full w-11 h-11 shimmer" />
+        <div className="w-11 h-11 rounded-full shimmer" />
         <div className="space-y-3">
-          <div className="h-3 rounded-lg w-28 shimmer" />
+          <div className="w-28 h-3 rounded-lg shimmer" />
           <div className="w-20 h-3 rounded-lg shimmer" />
         </div>
       </div>

@@ -23,7 +23,7 @@ export const Input = forwardRef<HTMLInputElement, Props>(function Input(
       )}
       <div className="flex">
         {prefix && (
-          <span className="inline-flex items-center px-3 text-gray-500 bg-gray-100 border border-r-0 border-gray-300 rounded-l-xl dark:bg-gray-900 dark:border-gray-700/80 roun xl">
+          <span className="inline-flex items-center px-3 text-gray-500 bg-gray-100 rounded-l-xl border border-r-0 border-gray-300 dark:bg-gray-900 roun xl dark:border-gray-700/80">
             {prefix}
           </span>
         )}

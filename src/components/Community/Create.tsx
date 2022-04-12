@@ -3,6 +3,7 @@ import { useMutation } from '@apollo/client'
 import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout'
 import { CREATE_POST_TYPED_DATA_MUTATION } from '@components/Post/NewPost'
 import ChooseFile from '@components/Shared/ChooseFile'
+import Pending from '@components/Shared/Pending'
 import SettingsHelper from '@components/Shared/SettingsHelper'
 import SwitchNetwork from '@components/Shared/SwitchNetwork'
 import { Button } from '@components/UI/Button'
@@ -39,8 +40,6 @@ import {
   useSignTypedData
 } from 'wagmi'
 import { object, string } from 'zod'
-
-import Pending from './Pending'
 
 const newCommunitySchema = object({
   name: string()
@@ -209,7 +208,13 @@ const Create: FC = () => {
       <GridItemEight>
         <Card>
           {data?.hash ? (
-            <Pending txHash={data?.hash} />
+            <Pending
+              txHash={data?.hash}
+              indexing="Community creation in progress, please wait!"
+              indexed="Community created successfully"
+              type="community"
+              urlPrefix="communities"
+            />
           ) : (
             <Form
               form={form}
@@ -234,7 +239,7 @@ const Create: FC = () => {
                 <div className="space-y-3">
                   {avatar && (
                     <img
-                      className="rounded-lg w-60 h-60"
+                      className="w-60 h-60 rounded-lg"
                       src={avatar}
                       alt={avatar}
                     />
