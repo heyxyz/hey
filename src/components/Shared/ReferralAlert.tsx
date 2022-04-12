@@ -13,7 +13,7 @@ const ReferralAlert: FC<Props> = ({ mirror, referralFee = 0 }) => {
   if (referralFee === 0) return null
 
   return (
-    <Card className="!bg-green-100/80 border-green-300">
+    <Card className="!bg-green-100/80 border-green-300 mb-5">
       <CardBody className="flex items-center space-x-1.5 text-sm font-bold text-gray-500">
         <HeartIcon className="w-4 h-4 text-green-500" />
         <Slug slug={mirror?.profile?.handle} prefix="@" />
