@@ -3,6 +3,7 @@ import { gql, useMutation, useQuery } from '@apollo/client'
 import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout'
 import { CREATE_POST_TYPED_DATA_MUTATION } from '@components/Post/NewPost'
 import ChooseFile from '@components/Shared/ChooseFile'
+import Pending from '@components/Shared/Pending'
 import SettingsHelper from '@components/Shared/SettingsHelper'
 import SwitchNetwork from '@components/Shared/SwitchNetwork'
 import { Button } from '@components/UI/Button'
@@ -42,8 +43,6 @@ import {
   useSignTypedData
 } from 'wagmi'
 import { object, string } from 'zod'
-
-import Pending from './Pending'
 
 const MODULES_CURRENCY_QUERY = gql`
   query EnabledCurrencyModules {
@@ -245,7 +244,13 @@ const Create: FC = () => {
       <GridItemEight>
         <Card>
           {data?.hash ? (
-            <Pending txHash={data?.hash} />
+            <Pending
+              txHash={data?.hash}
+              indexing="NFT creation in progress, please wait!"
+              indexed="NFT created successfully"
+              type="NFT"
+              urlPrefix="posts"
+            />
           ) : (
             <Form
               form={form}
@@ -259,7 +264,7 @@ const Create: FC = () => {
                 <div className="space-y-3">
                   {nft && (
                     <img
-                      className="object-cover w-full rounded-lg h-60"
+                      className="object-cover rounded-lg h-60"
                       src={nft}
                       alt={nft}
                     />
