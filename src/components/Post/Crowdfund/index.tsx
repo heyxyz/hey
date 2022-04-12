@@ -129,7 +129,7 @@ const Crowdfund: FC<Props> = ({ fund }) => {
                   .trim()}
               </div>
             </Linkify>
-            <div className="flex items-center !my-2 space-x-3">
+            <div className="block sm:flex items-center !my-2 space-y-2 sm:space-y-0 sm:space-x-3">
               {fund?.stats?.totalAmountOfCollects > 0 && (
                 <>
                   <button
@@ -171,12 +171,14 @@ const Crowdfund: FC<Props> = ({ fund }) => {
               referralFee={collectModule?.referralFee}
             />
           </div>
-          <Fund
-            fund={fund}
-            collectModule={collectModule}
-            revenue={revenue}
-            setRevenue={setRevenue}
-          />
+          <div className="pt-3 sm:pt-0">
+            <Fund
+              fund={fund}
+              collectModule={collectModule}
+              revenue={revenue}
+              setRevenue={setRevenue}
+            />
+          </div>
         </div>
         {revenueLoading ? (
           <div className="w-full h-[13px] !mt-5 rounded-full shimmer" />

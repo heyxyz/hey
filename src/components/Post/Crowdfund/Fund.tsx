@@ -186,7 +186,7 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
           </Button>
         ) : (
           <AllowanceButton
-            title="Allow fund module"
+            title="Allow"
             module={allowanceData?.approvedModuleAllowanceAmount[0]}
             allowed={allowed}
             setAllowed={setAllowed}
