@@ -14,6 +14,8 @@ interface Props {
 }
 
 const MirrorNotification: FC<Props> = ({ notification }) => {
+  const postType = notification?.publication?.metadata?.attributes[0]?.value
+
   return (
     <div className="flex items-center space-x-3">
       <NotificationProfileAvatar notification={notification} />
@@ -22,12 +24,18 @@ const MirrorNotification: FC<Props> = ({ notification }) => {
         <span className="pl-0.5 text-gray-600">mirrored your </span>
         <Link href={`/posts/${notification?.publication.id}`}>
           <a className="font-bold">
-            {notification?.publication?.__typename?.toLowerCase()}
+            {notification?.publication.__typename === 'Post'
+              ? postType === 'crowdfund'
+                ? 'crowdfund'
+                : notification?.publication.__typename?.toLowerCase()
+              : notification?.publication.__typename?.toLowerCase()}
           </a>
         </Link>
         <Link href={`/posts/${notification?.publication?.id}`}>
           <a className="text-sm text-gray-500 line-clamp-1">
-            {notification?.publication?.metadata?.content}
+            {postType === 'crowdfund'
+              ? notification?.publication?.metadata?.name
+              : notification?.publication?.metadata?.content}
           </a>
         </Link>
         <div className="flex items-center pt-1 space-x-1 text-gray-400 text-[12px]">
