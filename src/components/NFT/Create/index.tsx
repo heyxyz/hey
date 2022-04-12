@@ -66,6 +66,7 @@ const newNFTSchema = object({
 })
 
 const Create: FC = () => {
+  const [isNFTEmpty, setIsNFTEmpty] = useState<boolean>(false)
   const [nft, setNFT] = useState<string>()
   const [nftType, setNFTType] = useState<string>()
   const [isUploading, setIsUploading] = useState<boolean>(false)
@@ -123,6 +124,7 @@ const Create: FC = () => {
       setNFTType(attachment.type)
     } finally {
       setUploading(false)
+      setIsNFTEmpty(false)
     }
   }
 
@@ -256,15 +258,18 @@ const Create: FC = () => {
               form={form}
               className="p-5 space-y-4"
               onSubmit={({ name, amount, description }) => {
+                if (!nft) {
+                  return setIsNFTEmpty(true)
+                }
                 createNFT(name, amount, description)
               }}
             >
               <div className="space-y-1.5">
                 <label>Image</label>
-                <div className="space-y-3">
+                <div>
                   {nft && (
                     <img
-                      className="object-cover rounded-lg h-60"
+                      className="object-cover mb-3 rounded-lg h-60"
                       src={nft}
                       alt={nft}
                     />
@@ -277,6 +282,11 @@ const Create: FC = () => {
                     />
                     {uploading && <Spinner size="sm" />}
                   </div>
+                  {isNFTEmpty && (
+                    <div className="mt-1 text-sm font-bold text-red-500">
+                      Image should not be empty
+                    </div>
+                  )}
                 </div>
               </div>
               <Input
