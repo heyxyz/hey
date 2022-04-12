@@ -1,5 +1,6 @@
 import { gql } from '@apollo/client'
 
+import { MinimalCollectModuleFields } from './CollectModuleFields'
 import { MinimalProfileFields } from './MinimalProfileFields'
 
 export const MirrorFields = gql`
@@ -18,12 +19,19 @@ export const MirrorFields = gql`
       totalAmountOfCollects
     }
     metadata {
+      name
+      description
       content
       description
       media {
         original {
           url
           mimeType
+        }
+      }
+      cover {
+        original {
+          url
         }
       }
       attributes {
@@ -48,4 +56,5 @@ export const MirrorFields = gql`
     appId
   }
   ${MinimalProfileFields}
+  ${MinimalCollectModuleFields}
 `

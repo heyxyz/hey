@@ -56,7 +56,12 @@ const Crowdfund: FC<Props> = ({ fund }) => {
   const { data: revenueData, loading: revenueLoading } = useQuery(
     CROWDFUND_REVENUE_QUERY,
     {
-      variables: { request: { publicationId: fund?.id } },
+      variables: {
+        request: {
+          publicationId:
+            fund?.__typename === 'Mirror' ? fund?.mirrorOf?.id : fund?.id
+        }
+      },
       skip: !fund?.id,
       onCompleted() {
         consoleLog(
