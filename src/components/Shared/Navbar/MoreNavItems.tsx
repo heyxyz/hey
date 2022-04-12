@@ -2,6 +2,7 @@ import AppContext from '@components/utils/AppContext'
 import { Menu, Transition } from '@headlessui/react'
 import {
   CashIcon,
+  PhotographIcon,
   SupportIcon,
   UserIcon,
   UsersIcon
@@ -45,7 +46,7 @@ const MoreNavItems: FC = () => {
                 <>
                   <Menu.Item
                     as={NextLink}
-                    href="/communities/create"
+                    href="/create/community"
                     className={({ active }: { active: boolean }) =>
                       clsx(
                         { 'bg-gray-100 dark:bg-gray-800': active },
@@ -60,7 +61,7 @@ const MoreNavItems: FC = () => {
                   </Menu.Item>
                   <Menu.Item
                     as={NextLink}
-                    href="/crowdfunds/create"
+                    href="/create/crowdfund"
                     className={({ active }: { active: boolean }) =>
                       clsx(
                         { 'bg-gray-100 dark:bg-gray-800': active },
@@ -75,7 +76,22 @@ const MoreNavItems: FC = () => {
                   </Menu.Item>
                   <Menu.Item
                     as={NextLink}
-                    href="/create"
+                    href="/create/nft"
+                    className={({ active }: { active: boolean }) =>
+                      clsx(
+                        { 'bg-gray-100 dark:bg-gray-800': active },
+                        'block px-4 py-1.5 text-sm text-gray-700 dark:text-gray-200 m-2 rounded-lg cursor-pointer'
+                      )
+                    }
+                  >
+                    <div className="flex items-center space-x-1.5">
+                      <PhotographIcon className="w-4 h-4" />
+                      <div>Create NFT</div>
+                    </div>
+                  </Menu.Item>
+                  <Menu.Item
+                    as={NextLink}
+                    href="/create/profile"
                     className={({ active }: { active: boolean }) =>
                       clsx(
                         { 'bg-gray-100 dark:bg-gray-800': active },
