@@ -225,7 +225,7 @@ const CollectModule: FC<Props> = ({ post, setShowCollectModal }) => {
     }
   }
 
-  if (loading) return <div className="h-5 m-5 rounded-lg shimmer" />
+  if (loading) return <div className="m-5 h-5 rounded-lg shimmer" />
 
   return (
     <>
@@ -250,7 +250,7 @@ const CollectModule: FC<Props> = ({ post, setShowCollectModal }) => {
             />
           </div>
         )}
-        <div className="space-y-1.5 pb-2">
+        <div className="pb-2 space-y-1.5">
           {post?.metadata?.name && (
             <div className="text-xl font-bold">{post?.metadata?.name}</div>
           )}
@@ -342,7 +342,7 @@ const CollectModule: FC<Props> = ({ post, setShowCollectModal }) => {
         </div>
         {currentUser ? (
           allowanceLoading ? (
-            <div className="w-28 mt-5 rounded-lg h-[34px] shimmer" />
+            <div className="mt-5 w-28 rounded-lg h-[34px] shimmer" />
           ) : allowed || collectModule.type === 'FreeCollectModule' ? (
             <Button
               className="mt-5"

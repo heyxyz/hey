@@ -68,7 +68,7 @@ const PostBody: FC<Props> = ({ post }) => {
                 showMore && pathname !== '/posts/[id]'
             })}
           >
-            <div className="leading-7 break-words whitespace-pre-wrap">
+            <div className="leading-7 whitespace-pre-wrap break-words">
               {post?.metadata?.content?.replace(/\n\s*\n/g, '\n\n').trim()}
             </div>
           </div>

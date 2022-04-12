@@ -224,11 +224,11 @@ const FollowModule: FC<Props> = ({
     }
   }
 
-  if (loading) return <div className="h-5 m-5 rounded-lg shimmer" />
+  if (loading) return <div className="m-5 h-5 rounded-lg shimmer" />
 
   return (
     <div className="p-5">
-      <div className="space-y-1.5 pb-2">
+      <div className="pb-2 space-y-1.5">
         <div className="text-lg font-bold">
           Super follow <Slug slug={profile?.handle} prefix="@" />
         </div>
@@ -264,22 +264,22 @@ const FollowModule: FC<Props> = ({
       </div>
       <div className="pt-5 space-y-2">
         <div className="text-lg font-bold">Perks you get</div>
-        <ul className="text-gray-500 text-sm space-y-1">
-          <li className="space-x-2 flex leading-6 tracking-normal">
+        <ul className="space-y-1 text-sm text-gray-500">
+          <li className="flex space-x-2 tracking-normal leading-6">
             <div>•</div>
             <div>You can comment on @{profile?.handle}'s publications</div>
           </li>
-          <li className="space-x-2 flex leading-6 tracking-normal">
+          <li className="flex space-x-2 tracking-normal leading-6">
             <div>•</div>
             <div>You can collect @{profile?.handle}'s publications</div>
           </li>
-          <li className="space-x-2 flex leading-6 tracking-normal">
+          <li className="flex space-x-2 tracking-normal leading-6">
             <div>•</div>
             <div>
               You will get super follow badge in @{profile?.handle}'s profile
             </div>
           </li>
-          <li className="space-x-2 flex leading-6 tracking-normal">
+          <li className="flex space-x-2 tracking-normal leading-6">
             <div>•</div>
             <div>More coming soon™</div>
           </li>
@@ -287,7 +287,7 @@ const FollowModule: FC<Props> = ({
       </div>
       {currentUser ? (
         allowanceLoading ? (
-          <div className="w-28 mt-5 rounded-lg h-[34px] shimmer" />
+          <div className="mt-5 w-28 rounded-lg h-[34px] shimmer" />
         ) : allowed ? (
           <Button
             className="text-sm !px-3 !py-1.5 mt-5 border-pink-500 hover:bg-pink-100 focus:ring-pink-400 !text-pink-500"

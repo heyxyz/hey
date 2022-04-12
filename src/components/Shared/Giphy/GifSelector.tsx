@@ -70,7 +70,7 @@ const GifSelector: FC<Props> = ({ setShowModal, setGifAttachment }) => {
             hideAttribution
             columns={3}
             noResultsMessage={
-              <div className="grid h-full place-items-center">
+              <div className="grid place-items-center h-full">
                 No GIFs found.
               </div>
             }
@@ -78,11 +78,11 @@ const GifSelector: FC<Props> = ({ setShowModal, setGifAttachment }) => {
             key={searchText}
           />
         ) : (
-          <div className="grid w-full grid-cols-2 gap-1">
+          <div className="grid grid-cols-2 gap-1 w-full">
             {categories.map((category, idx) => (
               <button
                 key={idx}
-                className="relative flex outline-none"
+                className="flex relative outline-none"
                 onClick={() => setDebouncedGifInput(category.name)}
               >
                 <img
@@ -91,7 +91,7 @@ const GifSelector: FC<Props> = ({ setShowModal, setGifAttachment }) => {
                   alt=""
                   draggable={false}
                 />
-                <div className="absolute bottom-0 right-0 w-full px-2 py-1 text-lg font-bold text-right text-white bg-gradient-to-b from-transparent to-gray-800">
+                <div className="absolute right-0 bottom-0 py-1 px-2 w-full text-lg font-bold text-right text-white bg-gradient-to-b from-transparent to-gray-800">
                   <span className="capitalize">{category.name}</span>
                 </div>
               </button>

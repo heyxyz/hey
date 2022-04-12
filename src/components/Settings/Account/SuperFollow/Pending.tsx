@@ -40,7 +40,7 @@ const Pending: FC<Props> = ({ txHash, isDisable }) => {
               <a>
                 <Button
                   className="mx-auto"
-                  icon={<ArrowRightIcon className="w-4 h-4 mr-1" />}
+                  icon={<ArrowRightIcon className="mr-1 w-4 h-4" />}
                 >
                   Go to profile
                 </Button>

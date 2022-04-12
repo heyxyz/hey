@@ -27,7 +27,7 @@ const Badge: FC<Props> = ({ children }) => (
 
 const StaffBar: FC = () => {
   return (
-    <div className="flex justify-between px-3 py-1 text-sm bg-gray-200 dark:bg-black">
+    <div className="flex justify-between py-1 px-3 text-sm bg-gray-200 dark:bg-black">
       <div className="flex items-center space-x-2">
         {IS_PRODUCTION ? (
           <div className="flex items-center space-x-1" title="Git commit ref">
@@ -93,7 +93,7 @@ const StaffBar: FC = () => {
             >
               <Menu.Items
                 static
-                className="absolute z-10 py-1 mt-6 origin-top-right bg-white border shadow-sm right-2 rounded-xl dark:bg-gray-900 dark:border-gray-700/80 focus:outline-none"
+                className="absolute right-2 z-10 py-1 mt-6 bg-white rounded-xl border shadow-sm origin-top-right dark:bg-gray-900 focus:outline-none dark:border-gray-700/80"
               >
                 <Stats />
               </Menu.Items>
