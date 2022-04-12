@@ -68,17 +68,40 @@ export const CollectModuleFields = gql`
 
 export const MinimalCollectModuleFields = gql`
   fragment MinimalCollectModuleFields on CollectModule {
+    ... on FreeCollectModuleSettings {
+      type
+    }
     ... on FeeCollectModuleSettings {
       type
+      amount {
+        asset {
+          address
+        }
+      }
     }
     ... on LimitedFeeCollectModuleSettings {
       type
+      amount {
+        asset {
+          address
+        }
+      }
     }
     ... on LimitedTimedFeeCollectModuleSettings {
       type
+      amount {
+        asset {
+          address
+        }
+      }
     }
     ... on TimedFeeCollectModuleSettings {
       type
+      amount {
+        asset {
+          address
+        }
+      }
     }
   }
 `

@@ -1,5 +1,7 @@
 import LensHubProxy from '@abis/LensHubProxy.json'
-import { gql, useMutation } from '@apollo/client'
+import { gql, useMutation, useQuery } from '@apollo/client'
+import { ALLOWANCE_SETTINGS_QUERY } from '@components/Settings/Allowance'
+import AllowanceButton from '@components/Settings/Allowance/Button'
 import { Button } from '@components/UI/Button'
 import { Spinner } from '@components/UI/Spinner'
 import AppContext from '@components/utils/AppContext'
@@ -10,7 +12,7 @@ import consoleLog from '@lib/consoleLog'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import trackEvent from '@lib/trackEvent'
-import React, { Dispatch, FC, useContext } from 'react'
+import React, { Dispatch, FC, useContext, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
   CHAIN_ID,
@@ -65,6 +67,7 @@ interface Props {
 
 const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
   const { currentUser } = useContext(AppContext)
+  const [allowed, setAllowed] = useState<boolean>(true)
   const { activeChain } = useNetwork()
   const { data: account } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
@@ -72,6 +75,29 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
       toast.error(error?.message)
     }
   })
+
+  const { data: allowanceData, loading: allowanceLoading } = useQuery(
+    ALLOWANCE_SETTINGS_QUERY,
+    {
+      variables: {
+        request: {
+          currencies: collectModule?.amount?.asset?.address,
+          followModules: [],
+          collectModules: collectModule?.type,
+          referenceModules: []
+        }
+      },
+      skip: !collectModule?.amount?.asset?.address || !currentUser,
+      onCompleted(data) {
+        console.log(
+          data?.approvedModuleAllowanceAmount[0]?.allowance !== '0x00'
+        )
+        setAllowed(data?.approvedModuleAllowanceAmount[0]?.allowance !== '0x00')
+        consoleLog('Query', '#8b5cf6', `Fetched allowance data`)
+      }
+    }
+  )
+
   const { isLoading: writeLoading, write } = useContractWrite(
     {
       addressOrName: LENSHUB_PROXY,
@@ -142,29 +168,43 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
 
   return (
     <>
-      {currentUser && (
-        <div>
-          <Button
-            className="mt-5 sm:mt-0 sm:ml-auto"
-            onClick={createCollect}
-            disabled={typedDataLoading || signLoading || writeLoading}
-            variant="success"
-            icon={
-              typedDataLoading || signLoading || writeLoading ? (
-                <Spinner variant="success" size="xs" />
-              ) : (
-                <CashIcon className="w-4 h-4" />
-              )
-            }
-          >
-            Fund
-          </Button>
-          <div className="mt-1.5 text-xs font-bold">
-            Fund {collectModule?.amount?.value}{' '}
-            {collectModule?.amount?.asset?.symbol}
+      {currentUser ? (
+        allowanceLoading ? (
+          <div>
+            <div className="w-24 rounded-lg h-[34px] shimmer" />
+            <div className="shimmer h-3 w-20 mt-1.5 rounded-lg" />
           </div>
-        </div>
-      )}
+        ) : allowed ? (
+          <div>
+            <Button
+              className="mt-5 sm:mt-0 sm:ml-auto"
+              onClick={createCollect}
+              disabled={typedDataLoading || signLoading || writeLoading}
+              variant="success"
+              icon={
+                typedDataLoading || signLoading || writeLoading ? (
+                  <Spinner variant="success" size="xs" />
+                ) : (
+                  <CashIcon className="w-4 h-4" />
+                )
+              }
+            >
+              Fund
+            </Button>
+            <div className="mt-1.5 text-xs font-bold">
+              Fund {collectModule?.amount?.value}{' '}
+              {collectModule?.amount?.asset?.symbol}
+            </div>
+          </div>
+        ) : (
+          <AllowanceButton
+            title="Allow fund module"
+            module={allowanceData?.approvedModuleAllowanceAmount[0]}
+            allowed={allowed}
+            setAllowed={setAllowed}
+          />
+        )
+      ) : null}
     </>
   )
 }
