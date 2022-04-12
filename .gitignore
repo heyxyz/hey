@@ -31,3 +31,7 @@ tsconfig.tsbuildinfo
 .env.development.local
 .env.test.local
 .env.production.local
+
+# PWA
+public/sw.js
+public/workbox-*
