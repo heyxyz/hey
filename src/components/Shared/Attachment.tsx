@@ -34,11 +34,11 @@ const Attachment: FC<Props> = ({ attachments, setAttachments }) => {
         type="button"
         onClick={() => trackEvent('choose attachment')}
       >
-        <label className="flex gap-1 items-center cursor-pointer">
+        <label className="flex items-center gap-1 cursor-pointer">
           {loading ? (
             <Spinner size="sm" />
           ) : (
-            <Tooltip content="Media">
+            <Tooltip placement="top" content="Media">
               <PhotographIcon className="w-5 h-5 text-brand-500" />
             </Tooltip>
           )}

@@ -22,7 +22,10 @@ const SelectReferenceModule: FC<Props> = ({
 
   return (
     <>
-      <Tooltip content={onlyFollowers ? ONLY_FOLLOWERS : EVERYONE}>
+      <Tooltip
+        placement="top"
+        content={onlyFollowers ? ONLY_FOLLOWERS : EVERYONE}
+      >
         <motion.button
           whileTap={{ scale: 0.9 }}
           type="button"
@@ -64,7 +67,7 @@ const SelectReferenceModule: FC<Props> = ({
               <div>{EVERYONE}</div>
             </div>
             {!onlyFollowers && (
-              <CheckCircleIcon className="w-7 text-green-500" />
+              <CheckCircleIcon className="text-green-500 w-7" />
             )}
           </button>
           <button
@@ -84,7 +87,7 @@ const SelectReferenceModule: FC<Props> = ({
               <div>{ONLY_FOLLOWERS}</div>
             </div>
             {onlyFollowers && (
-              <CheckCircleIcon className="w-7 h-7 text-green-500" />
+              <CheckCircleIcon className="text-green-500 w-7 h-7" />
             )}
           </button>
         </div>

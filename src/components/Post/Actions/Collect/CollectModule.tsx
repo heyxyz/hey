@@ -225,13 +225,16 @@ const CollectModule: FC<Props> = ({ post, setShowCollectModal }) => {
     }
   }
 
-  if (loading) return <div className="m-5 h-5 rounded-lg shimmer" />
+  if (loading) return <div className="h-5 m-5 rounded-lg shimmer" />
 
   return (
     <>
       {(collectModule.type === 'LimitedFeeCollectModule' ||
         collectModule.type === 'LimitedTimedFeeCollectModule') && (
-        <Tooltip content={`${percentageCollected.toFixed(0)}% Collected`}>
+        <Tooltip
+          placement="top"
+          content={`${percentageCollected.toFixed(0)}% Collected`}
+        >
           <div className="w-full h-2.5 bg-gray-200 dark:bg-gray-700">
             <div
               className="h-2.5 bg-brand-500"
