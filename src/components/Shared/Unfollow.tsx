@@ -62,7 +62,7 @@ const Unfollow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
       toast.error(error?.message)
     }
   })
-  const { data: signer, refetch } = useSigner()
+  const { refetch } = useSigner()
 
   const [createUnfollowTypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_UNFOLLOW_TYPED_DATA_MUTATION,
