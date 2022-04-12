@@ -208,12 +208,12 @@ const CollectModule: FC<Props> = ({ post, setShowCollectModal }) => {
   )
 
   const createCollect = async () => {
+    // TODO: Add time check
     if (!account?.address) {
       toast.error(CONNECT_WALLET)
     } else if (activeChain?.id !== CHAIN_ID) {
       toast.error(WRONG_NETWORK)
     } else if (
-      // @ts-ignore
       parseInt(collectModule?.collectLimit) <=
       post?.stats?.totalAmountOfCollects
     ) {
