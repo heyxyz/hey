@@ -9,14 +9,18 @@ import { Card } from '@components/UI/Card'
 import { Modal } from '@components/UI/Modal'
 import { Tooltip } from '@components/UI/Tooltip'
 import { LensterCollectModule, LensterPost } from '@generated/lenstertypes'
-import { CashIcon, UsersIcon } from '@heroicons/react/outline'
+import {
+  CashIcon,
+  CurrencyDollarIcon,
+  UsersIcon
+} from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
 import getTokenImage from '@lib/getTokenImage'
 import imagekitURL from '@lib/imagekitURL'
 import linkifyOptions from '@lib/linkifyOptions'
 import clsx from 'clsx'
 import Linkify from 'linkify-react'
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC, ReactNode, useEffect, useState } from 'react'
 import { STATIC_ASSETS } from 'src/constants'
 
 import { COLLECT_QUERY } from '../Actions/Collect/CollectModule'
@@ -31,6 +35,18 @@ export const CROWDFUND_REVENUE_QUERY = gql`
     }
   }
 `
+
+interface BadgeProps {
+  title: ReactNode
+  value: ReactNode
+}
+
+const Badge: FC<BadgeProps> = ({ title, value }) => (
+  <div className="flex text-[12px] bg-gray-200 border border-gray-300 rounded-full w-fit">
+    <div className="px-3 py-[0.3px] bg-gray-300 rounded-full">{title}</div>
+    <div className="py-[0.3px] pl-2 pr-3 font-bold">{value}</div>
+  </div>
+)
 
 interface Props {
   fund: LensterPost
@@ -91,7 +107,7 @@ const Crowdfund: FC<Props> = ({ fund }) => {
   return (
     <Card>
       <div
-        className="h-40 rounded-t-xl border-b sm:h-52 dark:border-b-gray-700/80"
+        className="h-40 border-b rounded-t-xl sm:h-52 dark:border-b-gray-700/80"
         style={{
           backgroundImage: `url(${
             cover ? imagekitURL(cover) : `${STATIC_ASSETS}/patterns/2.svg`
@@ -103,37 +119,53 @@ const Crowdfund: FC<Props> = ({ fund }) => {
         }}
       />
       <div className="p-5">
-        <div className="block justify-between items-center sm:flex">
+        <div className="items-center justify-between block sm:flex">
           <div className="mr-0 space-y-1 sm:mr-16">
             <div className="text-xl font-bold">{fund?.metadata?.name}</div>
             <Linkify tagName="div" options={linkifyOptions}>
-              <div className="leading-7 whitespace-pre-wrap break-words">
+              <div className="leading-7 break-words whitespace-pre-wrap">
                 {fund?.metadata?.description
                   ?.replace(/\n\s*\n/g, '\n\n')
                   .trim()}
               </div>
             </Linkify>
-            {fund?.stats?.totalAmountOfCollects > 0 && (
-              <>
-                <div className="flex items-center space-x-1.5 !mt-2 text-gray-500">
-                  <UsersIcon className="w-4 h-4" />
+            <div className="flex items-center !my-2 space-x-3">
+              {fund?.stats?.totalAmountOfCollects > 0 && (
+                <>
                   <button
                     className="text-sm"
                     onClick={() => setShowFundersModal(!showFundersModal)}
                   >
-                    {fund?.stats?.totalAmountOfCollects} funds received
+                    <Badge
+                      title={
+                        <div className="flex items-center space-x-1">
+                          <UsersIcon className="w-3 h-3" />
+                          <div>Collects</div>
+                        </div>
+                      }
+                      value={fund?.stats?.totalAmountOfCollects}
+                    />
                   </button>
-                </div>
-                <Modal
-                  title="Funders"
-                  icon={<CashIcon className="w-5 h-5 text-brand-500" />}
-                  show={showFundersModal}
-                  onClose={() => setShowFundersModal(!showFundersModal)}
-                >
-                  <Collectors pubId={fund?.id} />
-                </Modal>
-              </>
-            )}
+                  <Modal
+                    title="Funders"
+                    icon={<CashIcon className="w-5 h-5 text-brand-500" />}
+                    show={showFundersModal}
+                    onClose={() => setShowFundersModal(!showFundersModal)}
+                  >
+                    <Collectors pubId={fund?.id} />
+                  </Modal>
+                </>
+              )}
+              <Badge
+                title={
+                  <div className="flex items-center space-x-1">
+                    <CurrencyDollarIcon className="w-3 h-3" />
+                    <div>Price</div>
+                  </div>
+                }
+                value={`${collectModule?.amount?.value} ${collectModule?.amount?.asset?.symbol}`}
+              />
+            </div>
             <ReferralAlert
               mirror={fund}
               referralFee={collectModule?.referralFee}
