@@ -251,12 +251,10 @@ const CollectModule: FC<Props> = ({ post, setShowCollectModal }) => {
           </div>
         )}
         {post?.__typename === 'Mirror' && (
-          <div className="pb-5">
-            <ReferralAlert
-              mirror={post}
-              referralFee={collectModule.referralFee}
-            />
-          </div>
+          <ReferralAlert
+            mirror={post}
+            referralFee={collectModule.referralFee}
+          />
         )}
         <div className="space-y-1.5 pb-2">
           {post?.metadata?.name && (
