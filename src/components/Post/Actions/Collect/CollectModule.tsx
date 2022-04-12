@@ -156,7 +156,8 @@ const CollectModule: FC<Props> = ({ post, setShowCollectModal }) => {
       },
       skip: !collectModule?.amount?.asset?.address || !currentUser,
       onCompleted(data) {
-        setAllowed(data?.approvedModuleAllowanceAmount[0]?.allowance === '0x00')
+        console.log(data)
+        setAllowed(data?.approvedModuleAllowanceAmount[0]?.allowance !== '0x00')
         consoleLog('Query', '#8b5cf6', `Fetched allowance data`)
       }
     }
@@ -333,16 +334,7 @@ const CollectModule: FC<Props> = ({ post, setShowCollectModal }) => {
         {currentUser ? (
           allowanceLoading ? (
             <div className="w-28 mt-5 rounded-lg h-[34px] shimmer" />
-          ) : allowed ? (
-            <div className="mt-5">
-              <AllowanceButton
-                title="Allow collect module"
-                module={allowanceData?.approvedModuleAllowanceAmount[0]}
-                allowed={allowed}
-                setAllowed={setAllowed}
-              />
-            </div>
-          ) : (
+          ) : allowed && collectModule.type === 'FreeCollectModule' ? (
             <Button
               className="mt-5"
               onClick={createCollect}
@@ -357,6 +349,15 @@ const CollectModule: FC<Props> = ({ post, setShowCollectModal }) => {
             >
               Collect now
             </Button>
+          ) : (
+            <div className="mt-5">
+              <AllowanceButton
+                title="Allow collect module"
+                module={allowanceData?.approvedModuleAllowanceAmount[0]}
+                allowed={allowed}
+                setAllowed={setAllowed}
+              />
+            </div>
           )
         ) : null}
       </div>

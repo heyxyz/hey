@@ -308,7 +308,9 @@ const SuperFollow: FC = () => {
                   disabled={typedDataLoading || signLoading || writeLoading}
                   icon={<StarIcon className="w-4 h-4" />}
                 >
-                  Set Super follow
+                  {currencyData?.profiles?.items[0]?.followModule
+                    ? 'Update Super follow'
+                    : 'Set Super follow'}
                 </Button>
               </div>
             )}
