@@ -32,7 +32,7 @@ const CommentNotification: FC<Props> = ({ notification }) => {
         </Link>
         <div className="flex items-center pt-1 space-x-1 text-gray-400 text-[12px]">
           <ChatAlt2Icon className="text-blue-500 h-[15px]" />
-          <div>{dayjs(new Date(notification.createdAt)).fromNow()}</div>
+          <div>{dayjs(new Date(notification?.createdAt)).fromNow()}</div>
         </div>
       </div>
     </div>

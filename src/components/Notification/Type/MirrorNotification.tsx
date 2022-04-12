@@ -40,7 +40,7 @@ const MirrorNotification: FC<Props> = ({ notification }) => {
         </Link>
         <div className="flex items-center pt-1 space-x-1 text-gray-400 text-[12px]">
           <SwitchHorizontalIcon className="h-[15px] text-brand-500" />
-          <div>{dayjs(new Date(notification.createdAt)).fromNow()}</div>
+          <div>{dayjs(new Date(notification?.createdAt)).fromNow()}</div>
         </div>
       </div>
     </div>
