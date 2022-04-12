@@ -8,7 +8,7 @@ import dynamic from 'next/dynamic'
 import { FC, useState } from 'react'
 
 const GifSelector = dynamic(() => import('./GifSelector'), {
-  loading: () => <div className="m-5 h-5 rounded-lg shimmer" />
+  loading: () => <div className="h-5 m-5 rounded-lg shimmer" />
 })
 
 interface Props {
@@ -21,7 +21,7 @@ const Giphy: FC<Props> = ({ setGifAttachment }) => {
 
   return (
     <>
-      <Tooltip content="GIF">
+      <Tooltip placement="top" content="GIF">
         <motion.button
           whileTap={{ scale: 0.9 }}
           type="button"
