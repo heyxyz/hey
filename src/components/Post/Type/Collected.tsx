@@ -6,14 +6,15 @@ import React, { FC } from 'react'
 
 interface Props {
   post: LensterPost
+  type: string
 }
 
-const Collected: FC<Props> = ({ post }) => {
+const Collected: FC<Props> = ({ post, type }) => {
   return (
     <div className="flex items-center pb-4 space-x-1 text-sm text-gray-500">
       <CollectionIcon className="w-4 h-4" />
       <div className="flex items-center space-x-1">
-        <div>Collected by</div>
+        <div>{type} by</div>
         <Link href={`/u/${post?.collectedBy?.defaultProfile?.handle}`}>
           <a>
             <Slug slug={post?.collectedBy?.defaultProfile?.handle} prefix="@" />

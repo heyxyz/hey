@@ -7,7 +7,6 @@ import React, { FC } from 'react'
 import Collected from './Collected'
 import Commented from './Commented'
 import CommunityPost from './CommunityPost'
-import Funded from './Funded'
 import Mirrored from './Mirrored'
 
 interface Props {
@@ -30,8 +29,10 @@ const PostType: FC<Props> = ({ post, hideType }) => {
         post?.__typename !== 'Mirror' && <CommunityPost post={post} />}
       {post?.collectedBy &&
         postType !== 'community' &&
-        postType !== 'crowdfund' && <Collected post={post} />}
-      {post?.collectedBy && postType === 'crowdfund' && <Funded fund={post} />}
+        postType !== 'crowdfund' && <Collected post={post} type="Collected" />}
+      {post?.collectedBy && postType === 'crowdfund' && (
+        <Collected post={post} type="Funded" />
+      )}
     </>
   )
 }
