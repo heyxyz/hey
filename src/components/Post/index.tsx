@@ -113,7 +113,14 @@ const ViewPost: NextPage = () => {
       <GridItemFour className="space-y-5">
         <Card>
           <CardBody>
-            <UserProfile profile={post?.profile} showBio />
+            <UserProfile
+              profile={
+                post?.__typename === 'Mirror'
+                  ? post?.mirrorOf?.profile
+                  : post?.profile
+              }
+              showBio
+            />
           </CardBody>
           {post?.appId === 'Lenster' && <ViaLenster />}
         </Card>
