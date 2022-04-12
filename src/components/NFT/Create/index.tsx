@@ -61,9 +61,6 @@ const newNFTSchema = object({
     .min(2, { message: 'Name should be atleast 2 characters' })
     .max(255, { message: 'Name should not exceed 255 characters' }),
   amount: string().min(1, { message: 'Invalid amount' }),
-  referralFee: string()
-    .min(1, { message: 'Invalid Referral fee' })
-    .max(20, { message: 'Invalid Referral fee' }),
   description: string()
     .max(1000, { message: 'Description should not exceed 1000 characters' })
     .nullable()
@@ -181,7 +178,6 @@ const Create: FC = () => {
   const createNFT = async (
     name: string,
     amount: string,
-    referralFee: string,
     description: string | null
   ) => {
     if (!account?.address) {
@@ -221,7 +217,7 @@ const Create: FC = () => {
                   value: amount
                 },
                 recipient: currentUser?.ownedBy,
-                referralFee: parseInt(referralFee),
+                referralFee: 0,
                 followerOnly: false
               }
             },
@@ -254,8 +250,8 @@ const Create: FC = () => {
             <Form
               form={form}
               className="p-5 space-y-4"
-              onSubmit={({ name, amount, referralFee, description }) => {
-                createNFT(name, amount, referralFee, description)
+              onSubmit={({ name, amount, description }) => {
+                createNFT(name, amount, description)
               }}
             >
               <div className="space-y-1.5">
@@ -328,14 +324,6 @@ const Create: FC = () => {
                 }
                 placeholder="5"
                 {...form.register('amount')}
-              />
-              <Input
-                label="Referral Fee"
-                type="number"
-                placeholder="5%"
-                min="0"
-                max="100"
-                {...form.register('referralFee')}
               />
               <div className="ml-auto">
                 {activeChain?.unsupported ? (
