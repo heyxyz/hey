@@ -98,7 +98,7 @@ const CREATE_COLLECT_TYPED_DATA_MUTATION = gql`
 
 interface Props {
   post: LensterPost
-  setShowCollectModal: Dispatch<boolean>
+  setShowCollectModal?: Dispatch<boolean>
 }
 
 const CollectModule: FC<Props> = ({ post, setShowCollectModal }) => {
@@ -120,7 +120,7 @@ const CollectModule: FC<Props> = ({ post, setShowCollectModal }) => {
     'collectWithSig',
     {
       onSuccess() {
-        setShowCollectModal(false)
+        setShowCollectModal && setShowCollectModal(false)
         toast.success('Post has been collected!')
         trackEvent('collect publication')
       },
