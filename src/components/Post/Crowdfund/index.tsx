@@ -107,7 +107,7 @@ const Crowdfund: FC<Props> = ({ fund }) => {
           <div className="mr-0 space-y-1 sm:mr-16">
             <div className="text-xl font-bold">{fund?.metadata?.name}</div>
             <Linkify tagName="div" options={linkifyOptions}>
-              <div className="break-words leading-7 whitespace-pre-wrap">
+              <div className="leading-7 break-words whitespace-pre-wrap">
                 {fund?.metadata?.description
                   ?.replace(/\n\s*\n/g, '\n\n')
                   .trim()}

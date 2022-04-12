@@ -12,6 +12,8 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { FC, useState } from 'react'
 
+import NFT from './NFT'
+
 const Crowdfund = dynamic(() => import('./Crowdfund'), {
   loading: () => <CrowdfundShimmer />
 })
@@ -60,6 +62,8 @@ const PostBody: FC<Props> = ({ post }) => {
         </div>
       ) : postType === 'crowdfund' ? (
         <Crowdfund fund={post} />
+      ) : postType === 'nft' ? (
+        <NFT nft={post} />
       ) : (
         <Linkify tagName="div" options={linkifyOptions}>
           <div
@@ -68,7 +72,7 @@ const PostBody: FC<Props> = ({ post }) => {
                 showMore && pathname !== '/posts/[id]'
             })}
           >
-            <div className="break-words leading-7 whitespace-pre-wrap">
+            <div className="leading-7 break-words whitespace-pre-wrap">
               {post?.metadata?.content?.replace(/\n\s*\n/g, '\n\n').trim()}
             </div>
           </div>
