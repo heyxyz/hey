@@ -319,6 +319,8 @@ const Create: FC = () => {
                 label="Contribution amount"
                 type="number"
                 step="0.0001"
+                min="0"
+                max="100000"
                 prefix={
                   <img
                     className="w-6 h-6"
@@ -333,6 +335,8 @@ const Create: FC = () => {
                 label="Funding Goal"
                 type="number"
                 step="0.0001"
+                min="0"
+                max="100000"
                 prefix={
                   <img
                     className="w-6 h-6"
@@ -353,6 +357,8 @@ const Create: FC = () => {
                 label="Referral Fee"
                 type="number"
                 placeholder="5%"
+                min="0"
+                max="100"
                 {...form.register('referralFee')}
               />
               <TextArea

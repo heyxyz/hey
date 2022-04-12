@@ -267,6 +267,8 @@ const SuperFollow: FC = () => {
             label="Follow amount"
             type="number"
             step="0.0001"
+            min="0"
+            max="100000"
             prefix={
               <img
                 className="w-6 h-6"

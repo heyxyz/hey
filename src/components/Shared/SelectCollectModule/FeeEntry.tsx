@@ -83,6 +83,8 @@ const FeeEntry: FC<Props> = ({
             label="Collect Limit"
             type="number"
             placeholder="5"
+            min="0"
+            max="100000"
             {...form.register('collectLimit')}
           />
         )}
@@ -90,12 +92,16 @@ const FeeEntry: FC<Props> = ({
           label="Amount"
           type="number"
           placeholder="0.5"
+          min="0"
+          max="100000"
           {...form.register('value')}
         />
         <Input
           label="Referral Fee"
           type="number"
           placeholder="5%"
+          min="0"
+          max="100"
           {...form.register('referralFee')}
         />
         <div>
