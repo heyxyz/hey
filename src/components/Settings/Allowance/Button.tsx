@@ -90,12 +90,12 @@ const AllowanceButton: FC<Props> = ({
             queryLoading || transactionLoading || waitLoading ? (
               <Spinner variant="warning" size="xs" />
             ) : (
-              <MinusIcon className="w-4 h-4" />
+              <MinusIcon className="w-4 h-4 mr-1" />
             )
           }
           onClick={() => handleAllowance(module.currency, '0', module.module)}
         >
-          <span className="hidden ml-1.5 md:inline-block">Revoke</span>
+          Revoke
         </Button>
       ) : (
         <Button
@@ -105,14 +105,14 @@ const AllowanceButton: FC<Props> = ({
             queryLoading || transactionLoading || waitLoading ? (
               <Spinner variant="success" size="xs" />
             ) : (
-              <PlusIcon className="w-4 h-4" />
+              <PlusIcon className="w-4 h-4 mr-1" />
             )
           }
           onClick={() =>
             handleAllowance(module.currency, '10000000000', module.module)
           }
         >
-          <span className="hidden ml-1.5 md:inline-block">{title}</span>
+          {title}
         </Button>
       )}
     </>
