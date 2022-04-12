@@ -47,7 +47,7 @@ const IFramely: FC<Props> = ({ url }) => {
     const description = data?.meta?.description
     const site = data?.meta?.site
     const url = data?.url
-    const favicon = imagekitURL(data?.links?.icon[0]?.href)
+    const favicon = `https://www.google.com/s2/favicons?domain=${url}`
     const thumbnail =
       data?.links?.thumbnail && imagekitURL(data?.links?.thumbnail[0]?.href)
     const isSquare =

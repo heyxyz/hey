@@ -155,7 +155,7 @@ const FollowModule: FC<Props> = ({
       },
       skip: !followModule?.amount?.asset?.address || !currentUser,
       onCompleted(data) {
-        setAllowed(data?.approvedModuleAllowanceAmount[0]?.allowance === '0x00')
+        setAllowed(data?.approvedModuleAllowanceAmount[0]?.allowance !== '0x00')
         consoleLog('Query', '#8b5cf6', `Fetched allowance data`)
       }
     }
@@ -289,15 +289,6 @@ const FollowModule: FC<Props> = ({
         allowanceLoading ? (
           <div className="w-28 mt-5 rounded-lg h-[34px] shimmer" />
         ) : allowed ? (
-          <div className="mt-5">
-            <AllowanceButton
-              title="Allow follow module"
-              module={allowanceData?.approvedModuleAllowanceAmount[0]}
-              allowed={allowed}
-              setAllowed={setAllowed}
-            />
-          </div>
-        ) : (
           <Button
             className="text-sm !px-3 !py-1.5 mt-5 border-pink-500 hover:bg-pink-100 focus:ring-pink-400 !text-pink-500"
             outline
@@ -314,6 +305,15 @@ const FollowModule: FC<Props> = ({
           >
             Super follow now
           </Button>
+        ) : (
+          <div className="mt-5">
+            <AllowanceButton
+              title="Allow follow module"
+              module={allowanceData?.approvedModuleAllowanceAmount[0]}
+              allowed={allowed}
+              setAllowed={setAllowed}
+            />
+          </div>
         )
       ) : null}
     </div>

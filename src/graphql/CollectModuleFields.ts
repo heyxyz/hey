@@ -2,6 +2,11 @@ import { gql } from '@apollo/client'
 
 export const CollectModuleFields = gql`
   fragment CollectModuleFields on CollectModule {
+    ... on FreeCollectModuleSettings {
+      type
+      contractAddress
+      followerOnly
+    }
     ... on FeeCollectModuleSettings {
       type
       recipient
