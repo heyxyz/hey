@@ -213,22 +213,22 @@ const List: FC = () => {
     <div className="divide-y dark:divide-gray-700">
       {notifications?.map((notification: Notification, index: number) => (
         <div key={index}>
-          {notification.__typename === 'NewFollowerNotification' && (
+          {notification?.__typename === 'NewFollowerNotification' && (
             <div className="p-4">
               <FollowerNotification notification={notification} />
             </div>
           )}
-          {notification.__typename === 'NewCommentNotification' && (
+          {notification?.__typename === 'NewCommentNotification' && (
             <div className="p-4">
               <CommentNotification notification={notification} />
             </div>
           )}
-          {notification.__typename === 'NewMirrorNotification' && (
+          {notification?.__typename === 'NewMirrorNotification' && (
             <div className="p-4">
               <MirrorNotification notification={notification} />
             </div>
           )}
-          {notification.__typename === 'NewCollectNotification' && (
+          {notification?.__typename === 'NewCollectNotification' && (
             <div className="p-4">
               <CollectNotification notification={notification} />
             </div>
