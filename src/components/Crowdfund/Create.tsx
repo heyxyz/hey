@@ -65,6 +65,9 @@ const newCrowdfundSchema = object({
   recipient: string()
     .max(42, { message: 'Ethereum address should be within 42 characters' })
     .regex(/^0x[a-fA-F0-9]{40}$/, { message: 'Invalid Ethereum address' }),
+  referralFee: string()
+    .min(1, { message: 'Invalid Referral fee' })
+    .max(20, { message: 'Invalid Referral fee' }),
   description: string()
     .max(1000, { message: 'Description should not exceed 1000 characters' })
     .nullable()
@@ -187,6 +190,7 @@ const Create: FC = () => {
     amount: string,
     goal: string,
     recipient: string,
+    referralFee: string,
     description: string | null
   ) => {
     if (!account?.address) {
@@ -230,7 +234,7 @@ const Create: FC = () => {
                   value: amount
                 },
                 recipient,
-                referralFee: 0,
+                referralFee: parseInt(referralFee),
                 followerOnly: false
               }
             },
@@ -263,8 +267,22 @@ const Create: FC = () => {
             <Form
               form={form}
               className="p-5 space-y-4"
-              onSubmit={({ title, amount, goal, recipient, description }) => {
-                createCrowdfund(title, amount, goal, recipient, description)
+              onSubmit={({
+                title,
+                amount,
+                goal,
+                recipient,
+                referralFee,
+                description
+              }) => {
+                createCrowdfund(
+                  title,
+                  amount,
+                  goal,
+                  recipient,
+                  referralFee,
+                  description
+                )
               }}
             >
               <Input
@@ -330,6 +348,12 @@ const Create: FC = () => {
                 type="text"
                 placeholder="0x3A5bd...5e3"
                 {...form.register('recipient')}
+              />
+              <Input
+                label="Referral Fee"
+                type="number"
+                placeholder="5%"
+                {...form.register('referralFee')}
               />
               <TextArea
                 label="Description"

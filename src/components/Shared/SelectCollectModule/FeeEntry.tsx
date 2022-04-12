@@ -18,8 +18,8 @@ const feeDataSchema = object({
     .min(1, { message: 'Invalid value' })
     .max(20, { message: 'Invalid value' }),
   referralFee: string()
-    .min(1, { message: 'Invalid referralFee' })
-    .max(20, { message: 'Invalid referralFee' })
+    .min(1, { message: 'Invalid Referral fee' })
+    .max(20, { message: 'Invalid Referral fee' })
 })
 
 interface Props {
