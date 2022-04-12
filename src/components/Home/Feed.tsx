@@ -21,11 +21,6 @@ const HOME_FEED_QUERY = gql`
     timeline(request: $request) {
       items {
         ... on Post {
-          collectedBy {
-            defaultProfile {
-              handle
-            }
-          }
           ...PostFields
         }
         ... on Comment {
