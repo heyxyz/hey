@@ -3,6 +3,7 @@ import 'linkify-plugin-mention'
 import { gql, useQuery } from '@apollo/client'
 import { GridItemSix, GridLayout } from '@components/GridLayout'
 import Collectors from '@components/Shared/Collectors'
+import ReferralAlert from '@components/Shared/ReferralAlert'
 import CrowdfundShimmer from '@components/Shared/Shimmer/CrowdfundShimmer'
 import { Card } from '@components/UI/Card'
 import { Modal } from '@components/UI/Modal'
@@ -133,6 +134,10 @@ const Crowdfund: FC<Props> = ({ fund }) => {
                 </Modal>
               </>
             )}
+            <ReferralAlert
+              mirror={fund}
+              referralFee={collectModule?.referralFee}
+            />
           </div>
           <Fund
             fund={fund}
