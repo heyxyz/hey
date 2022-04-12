@@ -9,6 +9,9 @@ export const MirrorFields = gql`
       name
       handle
     }
+    collectModule {
+      ...MinimalCollectModuleFields
+    }
     stats {
       totalAmountOfComments
       totalAmountOfMirrors

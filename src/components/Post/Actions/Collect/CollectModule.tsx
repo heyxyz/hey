@@ -1,8 +1,9 @@
 import LensHubProxy from '@abis/LensHubProxy.json'
 import { gql, useMutation, useQuery } from '@apollo/client'
-import ReferenceAlert from '@components/Comment/ReferenceAlert'
 import { ALLOWANCE_SETTINGS_QUERY } from '@components/Settings/Allowance'
 import AllowanceButton from '@components/Settings/Allowance/Button'
+import ReferenceAlert from '@components/Shared/ReferenceAlert'
+import ReferralAlert from '@components/Shared/ReferralAlert'
 import { Button } from '@components/UI/Button'
 import { Spinner } from '@components/UI/Spinner'
 import { Tooltip } from '@components/UI/Tooltip'
@@ -51,6 +52,11 @@ export const COLLECT_QUERY = gql`
         }
       }
       ... on Comment {
+        collectModule {
+          ...CollectModuleFields
+        }
+      }
+      ... on Mirror {
         collectModule {
           ...CollectModuleFields
         }
@@ -244,6 +250,14 @@ const CollectModule: FC<Props> = ({ post, setShowCollectModal }) => {
             />
           </div>
         )}
+        {post?.__typename === 'Mirror' && (
+          <div className="pb-5">
+            <ReferralAlert
+              mirror={post}
+              referralFee={collectModule.referralFee}
+            />
+          </div>
+        )}
         <div className="space-y-1.5 pb-2">
           {post?.metadata?.name && (
             <div className="text-xl font-bold">{post?.metadata?.name}</div>
@@ -333,7 +347,7 @@ const CollectModule: FC<Props> = ({ post, setShowCollectModal }) => {
         {currentUser ? (
           allowanceLoading ? (
             <div className="w-28 mt-5 rounded-lg h-[34px] shimmer" />
-          ) : allowed && collectModule.type === 'FreeCollectModule' ? (
+          ) : allowed || collectModule.type === 'FreeCollectModule' ? (
             <Button
               className="mt-5"
               onClick={createCollect}
