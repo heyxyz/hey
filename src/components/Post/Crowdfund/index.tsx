@@ -129,7 +129,7 @@ const Crowdfund: FC<Props> = ({ fund }) => {
                   .trim()}
               </div>
             </Linkify>
-            <div className="block sm:flex items-center !my-2 space-y-2 sm:space-y-0 sm:space-x-3">
+            <div className="block sm:flex items-center !my-3 space-y-2 sm:space-y-0 sm:space-x-3">
               {fund?.stats?.totalAmountOfCollects > 0 && (
                 <>
                   <button
