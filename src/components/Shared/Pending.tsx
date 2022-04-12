@@ -5,8 +5,8 @@ import { ArrowRightIcon } from '@heroicons/react/outline'
 import Link from 'next/link'
 import React, { FC } from 'react'
 
-const CROWDFUND_INDEXED_QUERY = gql`
-  query HasCrowdfundCreated($request: PublicationQueryRequest!) {
+const HAS_PUBLICATION_INDEXED_QUERY = gql`
+  query HasPubicationIndexed($request: PublicationQueryRequest!) {
     publication(request: $request) {
       ... on Post {
         id
@@ -17,10 +17,14 @@ const CROWDFUND_INDEXED_QUERY = gql`
 
 interface Props {
   txHash: string
+  indexing: string
+  indexed: string
+  type: string
+  urlPrefix: string
 }
 
-const Pending: FC<Props> = ({ txHash }) => {
-  const { data, loading } = useQuery(CROWDFUND_INDEXED_QUERY, {
+const Pending: FC<Props> = ({ txHash, indexing, indexed, type, urlPrefix }) => {
+  const { data, loading } = useQuery(HAS_PUBLICATION_INDEXED_QUERY, {
     variables: {
       request: { txHash }
     },
@@ -32,20 +36,20 @@ const Pending: FC<Props> = ({ txHash }) => {
       {loading || !data?.publication?.id ? (
         <div className="space-y-3">
           <Spinner className="mx-auto" />
-          <div>Crowdfund creation in progress, please wait!</div>
+          <div>{indexing}</div>
         </div>
       ) : (
         <div className="space-y-3">
           <div className="text-[40px]">🌿</div>
-          <div>Crowdfund created successfully</div>
+          <div>{indexed}</div>
           <div className="pt-3">
-            <Link href={`/posts/${data?.publication?.id}`}>
+            <Link href={`/${urlPrefix}/${data?.publication?.id}`}>
               <a>
                 <Button
                   className="mx-auto"
-                  icon={<ArrowRightIcon className="w-4 h-4 mr-1" />}
+                  icon={<ArrowRightIcon className="mr-1 w-4 h-4" />}
                 >
-                  Go to crowdfund
+                  Go to {type}
                 </Button>
               </a>
             </Link>

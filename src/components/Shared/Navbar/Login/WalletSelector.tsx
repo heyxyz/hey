@@ -8,9 +8,7 @@ import consoleLog from '@lib/consoleLog'
 import getWalletLogo from '@lib/getWalletLogo'
 import trackEvent from '@lib/trackEvent'
 import clsx from 'clsx'
-import Cookies from 'js-cookie'
 import React, { Dispatch, FC, useContext, useEffect, useState } from 'react'
-import { COOKIE_CONFIG } from 'src/apollo'
 import { ERROR_MESSAGE } from 'src/constants'
 import { Connector, useAccount, useConnect, useSignMessage } from 'wagmi'
 
@@ -91,15 +89,13 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
               request: { address: accountData?.address, signature }
             }
           }).then((res) => {
-            Cookies.set(
+            localStorage.setItem(
               'accessToken',
-              res.data.authenticate.accessToken,
-              COOKIE_CONFIG
+              res.data.authenticate.accessToken
             )
-            Cookies.set(
+            localStorage.setItem(
               'refreshToken',
-              res.data.authenticate.refreshToken,
-              COOKIE_CONFIG
+              res.data.authenticate.refreshToken
             )
             getProfiles({
               variables: { ownedBy: accountData?.address }
@@ -134,7 +130,7 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
                 <Spinner className="mr-0.5" size="xs" />
               ) : (
                 <img
-                  className="h-5 mr-1"
+                  className="mr-1 h-5"
                   src="/eth-white.svg"
                   alt="Ethereum Logo"
                 />
@@ -152,7 +148,7 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
           )}
         </div>
       ) : (
-        <div className="inline-block w-full space-y-3 overflow-hidden text-left align-middle transition-all transform">
+        <div className="inline-block overflow-hidden space-y-3 w-full text-left align-middle transition-all transform">
           {connectors.map((x, i) => {
             return (
               <button
@@ -174,7 +170,7 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
                   className="w-6 h-6"
                   alt={x.name}
                 />
-                <span className="flex items-center justify-between w-full">
+                <span className="flex justify-between items-center w-full">
                   {mounted ? x.name : x.id === 'injected' ? x.id : x.name}
                   {mounted ? !x.ready && ' (unsupported)' : ''}
                 </span>

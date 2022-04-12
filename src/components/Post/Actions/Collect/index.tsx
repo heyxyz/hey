@@ -9,7 +9,7 @@ import dynamic from 'next/dynamic'
 import { FC, useState } from 'react'
 
 const CollectModule = dynamic(() => import('./CollectModule'), {
-  loading: () => <div className="h-5 m-5 rounded-lg shimmer" />
+  loading: () => <div className="m-5 h-5 rounded-lg shimmer" />
 })
 
 interface Props {

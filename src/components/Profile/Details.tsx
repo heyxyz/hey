@@ -85,7 +85,7 @@ const Details: FC<Props> = ({ profile }) => {
     children: ReactChild
     icon: ReactChild
   }) => (
-    <div className="flex items-center gap-2">
+    <div className="flex gap-2 items-center">
       {icon}
       {children}
     </div>
@@ -93,7 +93,7 @@ const Details: FC<Props> = ({ profile }) => {
 
   return (
     <div className="px-5 mb-4 space-y-5 sm:px-0">
-      <div className="relative w-32 h-32 -mt-24 sm:-mt-32 sm:w-52 sm:h-52">
+      <div className="relative -mt-24 w-32 h-32 sm:-mt-32 sm:w-52 sm:h-52">
         <img
           src={getAvatar(profile)}
           className="w-32 h-32 bg-gray-200 rounded-xl ring-8 ring-gray-50 sm:w-52 sm:h-52 dark:bg-gray-700 dark:ring-black"

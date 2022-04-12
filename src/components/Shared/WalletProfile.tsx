@@ -13,7 +13,7 @@ interface Props {
 
 const WalletProfile: FC<Props> = ({ wallet }) => {
   return (
-    <div className="flex items-center justify-between">
+    <div className="flex justify-between items-center">
       <a
         className="flex items-center space-x-3"
         href={`${POLYGONSCAN_URL}/address/${wallet?.address}`}
@@ -26,7 +26,7 @@ const WalletProfile: FC<Props> = ({ wallet }) => {
             500,
             500
           )}
-          className="w-10 h-10 bg-gray-200 border rounded-full"
+          className="w-10 h-10 bg-gray-200 rounded-full border"
           alt={wallet?.address}
         />
         <div>
