@@ -8,9 +8,7 @@ import consoleLog from '@lib/consoleLog'
 import getWalletLogo from '@lib/getWalletLogo'
 import trackEvent from '@lib/trackEvent'
 import clsx from 'clsx'
-import Cookies from 'js-cookie'
 import React, { Dispatch, FC, useContext, useEffect, useState } from 'react'
-import { COOKIE_CONFIG } from 'src/apollo'
 import { ERROR_MESSAGE } from 'src/constants'
 import { Connector, useAccount, useConnect, useSignMessage } from 'wagmi'
 
@@ -91,15 +89,13 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
               request: { address: accountData?.address, signature }
             }
           }).then((res) => {
-            Cookies.set(
+            localStorage.setItem(
               'accessToken',
-              res.data.authenticate.accessToken,
-              COOKIE_CONFIG
+              res.data.authenticate.accessToken
             )
-            Cookies.set(
+            localStorage.setItem(
               'refreshToken',
-              res.data.authenticate.refreshToken,
-              COOKIE_CONFIG
+              res.data.authenticate.refreshToken
             )
             getProfiles({
               variables: { ownedBy: accountData?.address }

@@ -5,7 +5,6 @@ import {
   InMemoryCache
 } from '@apollo/client'
 import result from '@generated/types'
-import Cookies, { CookieAttributes } from 'js-cookie'
 import jwtDecode from 'jwt-decode'
 
 import { API_URL, ERROR_MESSAGE } from './constants'
@@ -19,22 +18,17 @@ const REFRESH_AUTHENTICATION_MUTATION = `
   }
 `
 
-export const COOKIE_CONFIG: CookieAttributes = {
-  sameSite: 'None',
-  secure: true
-}
-
 const httpLink = new HttpLink({
   uri: API_URL,
   fetch
 })
 
 const authLink = new ApolloLink((operation, forward) => {
-  const token = Cookies.get('accessToken')
+  const token = localStorage.accessToken
 
-  if (typeof token === 'undefined') {
-    Cookies.remove('accessToken')
-    Cookies.remove('refreshToken')
+  if (token === 'undefined') {
+    localStorage.removeItem('accessToken')
+    localStorage.removeItem('refreshToken')
     localStorage.removeItem('selectedProfile')
 
     return forward(operation)
@@ -56,7 +50,7 @@ const authLink = new ApolloLink((operation, forward) => {
           operationName: 'Refresh',
           query: REFRESH_AUTHENTICATION_MUTATION,
           variables: {
-            request: { refreshToken: Cookies.get('refreshToken') }
+            request: { refreshToken: localStorage.refreshToken }
           }
         })
       })
@@ -69,16 +63,8 @@ const authLink = new ApolloLink((operation, forward) => {
                 : ''
             }
           })
-          Cookies.set(
-            'accessToken',
-            res?.data?.refresh?.accessToken,
-            COOKIE_CONFIG
-          )
-          Cookies.set(
-            'refreshToken',
-            res?.data?.refresh?.refreshToken,
-            COOKIE_CONFIG
-          )
+          localStorage.setItem('accessToken', res?.data?.refresh?.accessToken)
+          localStorage.setItem('refreshToken', res?.data?.refresh?.refreshToken)
         })
         .catch(() => console.log(ERROR_MESSAGE))
     }
