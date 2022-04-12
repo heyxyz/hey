@@ -9,6 +9,8 @@ interface Props {
 }
 
 const Mirrored: FC<Props> = ({ post }) => {
+  const postType = post?.metadata?.attributes[0]?.value
+
   return (
     <div className="flex items-center pb-4 space-x-1 text-sm text-gray-500">
       <SwitchHorizontalIcon className="w-4 h-4" />
@@ -27,7 +29,7 @@ const Mirrored: FC<Props> = ({ post }) => {
             <span>mirrored the </span>
             <b>
               {post.mirrorOf.__typename === 'Post'
-                ? post?.metadata?.attributes[0]?.value === 'crowdfund'
+                ? postType === 'crowdfund'
                   ? 'crowdfund'
                   : post.mirrorOf.__typename?.toLowerCase()
                 : post.mirrorOf.__typename?.toLowerCase()}
