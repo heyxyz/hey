@@ -169,7 +169,7 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
         allowanceLoading ? (
           <div>
             <div className="w-24 rounded-lg h-[34px] shimmer" />
-            <div className="shimmer h-3 w-20 mt-1.5 rounded-lg" />
+            <div className="mt-1.5 w-20 h-3 rounded-lg shimmer" />
           </div>
         ) : allowed ? (
           <div>

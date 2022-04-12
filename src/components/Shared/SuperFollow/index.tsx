@@ -8,7 +8,7 @@ import { Dispatch, FC, useState } from 'react'
 import Slug from '../Slug'
 
 const FollowModule = dynamic(() => import('./FollowModule'), {
-  loading: () => <div className="h-5 m-5 rounded-lg shimmer" />
+  loading: () => <div className="m-5 h-5 rounded-lg shimmer" />
 })
 
 interface Props {
@@ -41,7 +41,7 @@ const SuperFollow: FC<Props> = ({
             Super follow <Slug slug={profile?.handle} prefix="@" />
           </span>
         }
-        icon={<StarIcon className="h-5 w-5 text-pink-500" />}
+        icon={<StarIcon className="w-5 h-5 text-pink-500" />}
         show={showFollowModal}
         onClose={() => setShowFollowModal(!showFollowModal)}
       >

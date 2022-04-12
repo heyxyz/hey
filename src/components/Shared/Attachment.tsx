@@ -34,7 +34,7 @@ const Attachment: FC<Props> = ({ attachments, setAttachments }) => {
         type="button"
         onClick={() => trackEvent('choose attachment')}
       >
-        <label className="flex items-center gap-1 cursor-pointer">
+        <label className="flex gap-1 items-center cursor-pointer">
           {loading ? (
             <Spinner size="sm" />
           ) : (
