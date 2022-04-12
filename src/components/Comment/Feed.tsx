@@ -14,8 +14,8 @@ import { useRouter } from 'next/router'
 import React, { FC, useContext, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 
+import ReferenceAlert from '../Shared/ReferenceAlert'
 import NewComment from './NewComment'
-import ReferenceAlert from './ReferenceAlert'
 
 const COMMENT_FEED_QUERY = gql`
   query CommentFeed($request: PublicationsQueryRequest!) {
