@@ -7,7 +7,7 @@
   "display": "standalone",
   "scope": "/",
   "start_url": "/?utm_source=homescreen&utm_medium=shortcut",
-  "iconPath": "https://assets.lenster.xyz/images/icons/512x512-default.png",
+  "iconPath": "/logo.svg",
   "icons": [
     {
       "src": "https://assets.lenster.xyz/images/icons/192x192-default.png",
