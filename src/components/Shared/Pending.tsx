@@ -1,10 +1,19 @@
-import { useQuery } from '@apollo/client'
+import { gql, useQuery } from '@apollo/client'
 import { Button } from '@components/UI/Button'
 import { Spinner } from '@components/UI/Spinner'
-import { HAS_PUBLICATION_INDEXED_QUERY } from '@gql/HasPublicationIndexedQuery'
 import { ArrowRightIcon } from '@heroicons/react/outline'
 import Link from 'next/link'
 import React, { FC } from 'react'
+
+const HAS_PUBLICATION_INDEXED_QUERY = gql`
+  query HasPubicationIndexed($request: PublicationQueryRequest!) {
+    publication(request: $request) {
+      ... on Post {
+        id
+      }
+    }
+  }
+`
 
 interface Props {
   txHash: string

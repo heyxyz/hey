@@ -1,24 +1,16 @@
-import clsx from 'clsx'
 import { FC, ReactNode } from 'react'
 
 interface Props {
   children: ReactNode
   className?: string
-  zeroGap?: boolean
 }
 
-export const GridLayout: FC<Props> = ({
-  children,
-  className = '',
-  zeroGap = false
-}) => {
+export const GridLayout: FC<Props> = ({ children, className = '' }) => {
   return (
     <div
       className={`container mx-auto max-w-screen-xl flex-grow py-8 px-0 sm:px-5 ${className}`}
     >
-      <div className={clsx('grid grid-cols-12', { 'lg:gap-8': !zeroGap })}>
-        {children}
-      </div>
+      <div className="grid grid-cols-12 lg:gap-8">{children}</div>
     </div>
   )
 }
