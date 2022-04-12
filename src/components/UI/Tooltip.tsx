@@ -17,8 +17,9 @@ export const Tooltip: FC<Props> = ({
     <Tippy
       placement={placement}
       duration={0}
+      className="hidden sm:block"
       content={
-        <span className="hidden sm:block px-2 py-1 text-[11px] text-white bg-gray-700 border border-gray-900 rounded-lg">
+        <span className="font-bold tracking-[0.2px] px-2 py-1 text-[11px] text-white bg-gray-700 border border-gray-900 rounded-lg">
           {content}
         </span>
       }
