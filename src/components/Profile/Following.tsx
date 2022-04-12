@@ -84,7 +84,7 @@ const Following: FC<Props> = ({ profile }) => {
       <EmptyState
         message={
           <div>
-            <span className="mr-1 font-bold">@{profile.handle}</span>
+            <span className="mr-1 font-bold">@{profile?.handle}</span>
             <span>doesn’t follow anyone.</span>
           </div>
         }
@@ -103,7 +103,7 @@ const Following: FC<Props> = ({ profile }) => {
       <div className="space-y-3">
         <div className="divide-y">
           {following?.map((following: Following) => (
-            <div className="p-5" key={following?.profile.id}>
+            <div className="p-5" key={following?.profile?.id}>
               <UserProfile profile={following?.profile} showBio />
             </div>
           ))}

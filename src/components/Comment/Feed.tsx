@@ -77,7 +77,7 @@ const Feed: FC<Props> = ({
       fetchMore({
         variables: {
           request: {
-            commentsOf: post.id,
+            commentsOf: post?.id,
             cursor: pageInfo?.next,
             limit: 10
           }
@@ -118,7 +118,7 @@ const Feed: FC<Props> = ({
         <>
           <div className="space-y-3">
             {publications?.map((post: LensterPost, index: number) => (
-              <SinglePost key={`${post.id}_${index}`} post={post} hideType />
+              <SinglePost key={`${post?.id}_${index}`} post={post} hideType />
             ))}
           </div>
           {pageInfo?.next && (

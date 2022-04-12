@@ -71,7 +71,7 @@ const MenuItems: FC<Props> = ({ indexerData }) => {
                 as="img"
                 src={getAvatar(currentUser)}
                 className="w-8 h-8 border rounded-full cursor-pointer dark:border-gray-700/80"
-                alt={currentUser.handle}
+                alt={currentUser?.handle}
               />
               <Transition
                 show={open}
@@ -89,7 +89,7 @@ const MenuItems: FC<Props> = ({ indexerData }) => {
                 >
                   <Menu.Item
                     as={NextLink}
-                    href={`/u/${currentUser.handle}`}
+                    href={`/u/${currentUser?.handle}`}
                     className={({ active }: { active: boolean }) =>
                       clsx(
                         { 'bg-gray-100 dark:bg-gray-800': active },
@@ -101,7 +101,7 @@ const MenuItems: FC<Props> = ({ indexerData }) => {
                     <div className="truncate">
                       <Slug
                         className="font-bold"
-                        slug={currentUser.handle}
+                        slug={currentUser?.handle}
                         prefix="@"
                       />
                     </div>
@@ -109,7 +109,7 @@ const MenuItems: FC<Props> = ({ indexerData }) => {
                   <div className="border-b dark:border-gray-700/80" />
                   <Menu.Item
                     as={NextLink}
-                    href={`/u/${currentUser.handle}`}
+                    href={`/u/${currentUser?.handle}`}
                     className={({ active }: { active: boolean }) =>
                       clsx(
                         { 'bg-gray-100 dark:bg-gray-800': active },
@@ -168,7 +168,7 @@ const MenuItems: FC<Props> = ({ indexerData }) => {
                         </div>
                         {profiles.map((profile: Profile, index: number) => (
                           <div
-                            key={profile.id}
+                            key={profile?.id}
                             className="block text-sm text-gray-700 rounded-lg cursor-pointer dark:text-gray-200"
                           >
                             <button
@@ -182,15 +182,15 @@ const MenuItems: FC<Props> = ({ indexerData }) => {
                                 trackEvent('switch profile')
                               }}
                             >
-                              {currentUser.id === profile.id && (
+                              {currentUser?.id === profile?.id && (
                                 <CheckCircleIcon className="w-4 h-4 text-green-500" />
                               )}
                               <img
                                 className="w-5 h-5 border rounded-full dark:border-gray-700/80"
                                 src={getAvatar(profile)}
-                                alt={profile.handle}
+                                alt={profile?.handle}
                               />
-                              <div className="truncate">{profile.handle}</div>
+                              <div className="truncate">{profile?.handle}</div>
                             </button>
                           </div>
                         ))}
@@ -227,7 +227,7 @@ const MenuItems: FC<Props> = ({ indexerData }) => {
                       💻
                     </button>
                   </div>
-                  {isStaff(currentUser.id) && (
+                  {isStaff(currentUser?.id) && (
                     <>
                       <div className="border-b dark:border-gray-700/80" />
                       <Menu.Item

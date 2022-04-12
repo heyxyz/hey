@@ -124,7 +124,7 @@ const Unfollow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
     } else {
       createUnfollowTypedData({
         variables: {
-          request: { profile: profile.id }
+          request: { profile: profile?.id }
         }
       })
     }

@@ -22,7 +22,7 @@ interface Props {
 
 const PostBody: FC<Props> = ({ post }) => {
   const { pathname } = useRouter()
-  const postType = post.metadata?.attributes[0]?.value
+  const postType = post?.metadata?.attributes[0]?.value
   const [showMore, setShowMore] = useState<boolean>(
     post?.metadata?.content?.length > 450
   )
@@ -41,7 +41,7 @@ const PostBody: FC<Props> = ({ post }) => {
           ) : (
             <span>Launched a new community</span>
           )}
-          <Link href={`/communities/${post.id}`}>
+          <Link href={`/communities/${post?.id}`}>
             <a className="flex items-center space-x-1.5 font-bold">
               <img
                 src={imagekitURL(

@@ -97,7 +97,7 @@ const Feed: FC = () => {
         <>
           <div className="space-y-3">
             {publications?.map((post: LensterPost, index: number) => (
-              <SinglePost key={`${post.id}_${index}`} post={post} />
+              <SinglePost key={`${post?.id}_${index}`} post={post} />
             ))}
           </div>
           {pageInfo?.next && (

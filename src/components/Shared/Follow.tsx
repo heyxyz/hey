@@ -130,7 +130,7 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
     } else {
       createFollowTypedData({
         variables: {
-          request: { follow: { profile: profile.id } }
+          request: { follow: { profile: profile?.id } }
         }
       })
     }

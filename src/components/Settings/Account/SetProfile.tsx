@@ -193,8 +193,8 @@ const SetProfile: FC = () => {
             onChange={(e) => setSelectedUser(e.target.value)}
           >
             {sortedProfiles?.map((profile: Profile) => (
-              <option key={profile.id} value={profile.id}>
-                @{profile.handle}
+              <option key={profile?.id} value={profile?.id}>
+                @{profile?.handle}
               </option>
             ))}
           </select>

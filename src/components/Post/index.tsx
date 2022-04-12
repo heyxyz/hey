@@ -104,7 +104,7 @@ const ViewPost: NextPage = () => {
         <Feed
           post={post}
           onlyFollowers={
-            post.referenceModule?.__typename ===
+            post?.referenceModule?.__typename ===
             'FollowOnlyReferenceModuleSettings'
           }
           isFollowing={data?.doesFollow[0]?.follows}
@@ -113,11 +113,11 @@ const ViewPost: NextPage = () => {
       <GridItemFour className="space-y-5">
         <Card>
           <CardBody>
-            <UserProfile profile={post.profile} showBio />
+            <UserProfile profile={post?.profile} showBio />
           </CardBody>
           {post?.appId === 'Lenster' && <ViaLenster />}
         </Card>
-        <IPFSHash ipfsHash={post.onChainContentURI} />
+        <IPFSHash ipfsHash={post?.onChainContentURI} />
         <Footer />
       </GridItemFour>
     </GridLayout>
