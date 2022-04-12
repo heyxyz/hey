@@ -35,6 +35,7 @@
     "linkify-react": "^3.0.4",
     "linkifyjs": "^3.0.5",
     "next": "^12.1.4",
+    "next-pwa": "^5.5.0",
     "next-themes": "^0.1.1",
     "omit-deep": "^0.3.0",
     "react": "^18.0.0",
