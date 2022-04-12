@@ -167,32 +167,23 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
     <>
       {currentUser ? (
         allowanceLoading ? (
-          <div>
-            <div className="w-24 rounded-lg h-[34px] shimmer" />
-            <div className="mt-1.5 w-20 h-3 rounded-lg shimmer" />
-          </div>
+          <div className="w-24 rounded-lg h-[34px] shimmer" />
         ) : allowed ? (
-          <div>
-            <Button
-              className="mt-5 sm:mt-0 sm:ml-auto"
-              onClick={createCollect}
-              disabled={typedDataLoading || signLoading || writeLoading}
-              variant="success"
-              icon={
-                typedDataLoading || signLoading || writeLoading ? (
-                  <Spinner variant="success" size="xs" />
-                ) : (
-                  <CashIcon className="w-4 h-4" />
-                )
-              }
-            >
-              Fund
-            </Button>
-            <div className="mt-1.5 text-xs font-bold">
-              Fund {collectModule?.amount?.value}{' '}
-              {collectModule?.amount?.asset?.symbol}
-            </div>
-          </div>
+          <Button
+            className="mt-5 sm:mt-0 sm:ml-auto"
+            onClick={createCollect}
+            disabled={typedDataLoading || signLoading || writeLoading}
+            variant="success"
+            icon={
+              typedDataLoading || signLoading || writeLoading ? (
+                <Spinner variant="success" size="xs" />
+              ) : (
+                <CashIcon className="w-4 h-4" />
+              )
+            }
+          >
+            Fund
+          </Button>
         ) : (
           <AllowanceButton
             title="Allow fund module"
