@@ -89,9 +89,6 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
       },
       skip: !collectModule?.amount?.asset?.address || !currentUser,
       onCompleted(data) {
-        console.log(
-          data?.approvedModuleAllowanceAmount[0]?.allowance !== '0x00'
-        )
         setAllowed(data?.approvedModuleAllowanceAmount[0]?.allowance !== '0x00')
         consoleLog('Query', '#8b5cf6', `Fetched allowance data`)
       }
