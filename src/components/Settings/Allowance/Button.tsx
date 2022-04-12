@@ -50,7 +50,7 @@ const AllowanceButton: FC<Props> = ({
   const { isLoading: waitLoading } = useWaitForTransaction({
     hash: txData?.hash,
     onSuccess() {
-      toast.success(`Module ${allowed ? 'enabled' : 'disabled'} successfully!`)
+      toast.success(`Module ${allowed ? 'disabled' : 'enabled'} successfully!`)
       setAllowed(!allowed)
       trackEvent(`${allowed ? 'disabled' : 'enabled'} module allowance`)
     },
@@ -84,6 +84,21 @@ const AllowanceButton: FC<Props> = ({
     <>
       {allowed ? (
         <Button
+          variant="warning"
+          className="!space-x-0"
+          icon={
+            queryLoading || transactionLoading || waitLoading ? (
+              <Spinner variant="warning" size="xs" />
+            ) : (
+              <MinusIcon className="w-4 h-4" />
+            )
+          }
+          onClick={() => handleAllowance(module.currency, '0', module.module)}
+        >
+          <span className="hidden ml-1.5 md:inline-block">Revoke</span>
+        </Button>
+      ) : (
+        <Button
           variant="success"
           className="!space-x-0"
           icon={
@@ -98,21 +113,6 @@ const AllowanceButton: FC<Props> = ({
           }
         >
           <span className="hidden ml-1.5 md:inline-block">{title}</span>
-        </Button>
-      ) : (
-        <Button
-          variant="warning"
-          className="!space-x-0"
-          icon={
-            queryLoading || transactionLoading || waitLoading ? (
-              <Spinner variant="warning" size="xs" />
-            ) : (
-              <MinusIcon className="w-4 h-4" />
-            )
-          }
-          onClick={() => handleAllowance(module.currency, '0', module.module)}
-        >
-          <span className="hidden ml-1.5 md:inline-block">Revoke</span>
         </Button>
       )}
     </>
