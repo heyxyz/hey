@@ -38,8 +38,8 @@ const CollectNotification: FC<Props> = ({ notification }) => {
         <Link
           href={
             postType === 'community'
-              ? `/communities/${notification?.collectedPublication.id}`
-              : `/posts/${notification?.collectedPublication.id}`
+              ? `/communities/${notification?.collectedPublication?.id}`
+              : `/posts/${notification?.collectedPublication?.id}`
           }
         >
           <a className="font-bold">{postType}</a>
