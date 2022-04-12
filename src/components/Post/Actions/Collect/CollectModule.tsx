@@ -156,7 +156,6 @@ const CollectModule: FC<Props> = ({ post, setShowCollectModal }) => {
       },
       skip: !collectModule?.amount?.asset?.address || !currentUser,
       onCompleted(data) {
-        console.log(data)
         setAllowed(data?.approvedModuleAllowanceAmount[0]?.allowance !== '0x00')
         consoleLog('Query', '#8b5cf6', `Fetched allowance data`)
       }
