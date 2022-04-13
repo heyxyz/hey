@@ -37,7 +37,11 @@ const newUserSchema = object({
     })
 })
 
-const Create: FC = () => {
+interface Props {
+  isModal?: boolean
+}
+
+const Create: FC<Props> = ({ isModal = false }) => {
   const [avatar, setAvatar] = useState<string>()
   const [isUploading, setIsUploading] = useState<boolean>(false)
   const [uploading, setUploading] = useState<boolean>(false)
@@ -100,11 +104,16 @@ const Create: FC = () => {
               }}
             />
           )}
+          {isModal && (
+            <div className="space-y-4 mb-2">
+              <img className="h-10 w-10" src="/logo.svg" alt="Logo" />
+              <div className="text-xl font-bold">Signup to Lenster</div>
+            </div>
+          )}
           <Input
             label="Handle"
             type="text"
             placeholder="justinbieber"
-            prefix="https://lenster.xyz/u/"
             {...form.register('handle')}
           />
           <div className="space-y-1.5">
