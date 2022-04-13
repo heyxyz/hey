@@ -51,3 +51,7 @@ body {
 .page-center {
   @apply flex justify-center items-center h-[calc(100vh-65px)];
 }
+
+.tippy-content {
+  @apply !px-2.5 !py-0.5;
+}
