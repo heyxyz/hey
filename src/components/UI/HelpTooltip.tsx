@@ -15,7 +15,7 @@ export const HelpTooltip: FC<Props> = ({ content }) => {
     <Tippy
       placement="top"
       duration={0}
-      className="p-2 tracking-wide !rounded-xl !leading-6 !bg-gray-800"
+      className="p-2 tracking-wide !rounded-xl !leading-5 !bg-gray-800"
       content={<span>{content}</span>}
     >
       <QuestionMarkCircleIcon className="h-[17px] w-[17px] text-gray-500" />
