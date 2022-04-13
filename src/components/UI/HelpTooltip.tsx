@@ -8,7 +8,7 @@ interface Props {
   content: ReactNode
 }
 
-export const HelpTooltip: FC<Props> = ({ content }) => {
+const HelpTooltip: FC<Props> = ({ content }) => {
   if (!content) return null
 
   return (
@@ -22,3 +22,5 @@ export const HelpTooltip: FC<Props> = ({ content }) => {
     </Tippy>
   )
 }
+
+export default HelpTooltip
