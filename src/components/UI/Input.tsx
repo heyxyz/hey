@@ -2,23 +2,28 @@ import clsx from 'clsx'
 import { ComponentProps, forwardRef, ReactNode } from 'react'
 
 import { FieldError } from './Form'
+import { HelpTooltip } from './HelpTooltip'
 
 interface Props extends Omit<ComponentProps<'input'>, 'prefix'> {
   label?: string
   prefix?: string | ReactNode
   className?: string
+  helper?: ReactNode
   error?: boolean
 }
 
 export const Input = forwardRef<HTMLInputElement, Props>(function Input(
-  { label, prefix, type = 'text', error, className = '', ...props },
+  { label, prefix, type = 'text', error, className = '', helper, ...props },
   ref
 ) {
   return (
     <label className="w-full">
       {label && (
-        <div className="mb-1 font-medium text-gray-800 dark:text-gray-200">
-          {label}
+        <div className="flex items-center space-x-1.5 mb-1">
+          <div className="font-medium text-gray-800 dark:text-gray-200">
+            {label}
+          </div>
+          <HelpTooltip content={helper} />
         </div>
       )}
       <div className="flex">
