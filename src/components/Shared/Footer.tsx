@@ -20,11 +20,6 @@ const Footer: FC = () => {
         </Link>
       </span>
       <span className="pr-3">
-        <Link href="/terms" passHref>
-          Terms
-        </Link>
-      </span>
-      <span className="pr-3">
         <Link href="/privacy" passHref>
           Privacy
         </Link>
