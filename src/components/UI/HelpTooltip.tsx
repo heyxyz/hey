@@ -1,6 +1,6 @@
 import 'tippy.js/dist/tippy.css'
 
-import { QuestionMarkCircleIcon } from '@heroicons/react/solid'
+import { InformationCircleIcon } from '@heroicons/react/outline'
 import Tippy from '@tippyjs/react'
 import React, { FC, ReactNode } from 'react'
 
@@ -15,10 +15,10 @@ export const HelpTooltip: FC<Props> = ({ content }) => {
     <Tippy
       placement="top"
       duration={0}
-      className="p-2 tracking-wide !rounded-xl !leading-5 !bg-gray-800"
+      className="p-2.5 tracking-wide !rounded-xl !leading-5 shadow-lg"
       content={<span>{content}</span>}
     >
-      <QuestionMarkCircleIcon className="h-[17px] w-[17px] text-gray-500" />
+      <InformationCircleIcon className="h-[17px] w-[17px] text-gray-500" />
     </Tippy>
   )
 }
