@@ -1,3 +1,4 @@
+import { Tooltip } from '@components/UI/Tooltip'
 import { LensterPost } from '@generated/lenstertypes'
 import { ChatAlt2Icon } from '@heroicons/react/outline'
 import humanize from '@lib/humanize'
@@ -18,7 +19,14 @@ const Comment: FC<Props> = ({ post }) => {
           className="flex items-center space-x-1 text-blue-500 hover:text-blue-400"
         >
           <div className="p-1.5 rounded-full hover:bg-blue-300 hover:bg-opacity-20">
-            <ChatAlt2Icon className="w-[18px]" />
+            <Tooltip
+              className="text-[10px] !px-1.5 !py-0.5 !rounded-md"
+              placement="top"
+              content="Comment"
+              withDelay
+            >
+              <ChatAlt2Icon className="w-[18px]" />
+            </Tooltip>
           </div>
           {post?.stats?.totalAmountOfComments > 0 && (
             <div className="text-xs">
