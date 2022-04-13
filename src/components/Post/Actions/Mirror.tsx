@@ -1,6 +1,7 @@
 import LensHubProxy from '@abis/LensHubProxy.json'
 import { gql, useMutation } from '@apollo/client'
 import { Spinner } from '@components/UI/Spinner'
+import { Tooltip } from '@components/UI/Tooltip'
 import AppContext from '@components/utils/AppContext'
 import { LensterPost } from '@generated/lenstertypes'
 import { CreateMirrorBroadcastItemResult } from '@generated/types'
@@ -166,7 +167,14 @@ const Mirror: FC<Props> = ({ post }) => {
           {typedDataLoading || signLoading || writeLoading ? (
             <Spinner size="xs" />
           ) : (
-            <SwitchHorizontalIcon className="w-[18px]" />
+            <Tooltip
+              className="text-[10px] !px-1.5 !py-0.5 !rounded-md"
+              placement="top"
+              content="Mirror"
+              withDelay
+            >
+              <SwitchHorizontalIcon className="w-[18px]" />
+            </Tooltip>
           )}
         </div>
         {post?.stats?.totalAmountOfMirrors > 0 && (
