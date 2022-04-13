@@ -39,7 +39,7 @@ const Login: FC = () => {
           />
         </div>
       ) : (
-        <Create />
+        <Create isModal />
       )}
     </div>
   )

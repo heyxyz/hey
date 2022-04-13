@@ -41,7 +41,7 @@ interface Props {
   isModal?: boolean
 }
 
-const Create: FC<Props> = ({ isModal = true }) => {
+const Create: FC<Props> = ({ isModal = false }) => {
   const [avatar, setAvatar] = useState<string>()
   const [isUploading, setIsUploading] = useState<boolean>(false)
   const [uploading, setUploading] = useState<boolean>(false)
