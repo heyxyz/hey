@@ -69,4 +69,4 @@ and visit http://localhost:3000
 
 ## ⚖️ License
 
-Lenster is open-sourced software licensed under the © [MIT license](LICENSE).
+Lenster is open-sourced software licensed under the © [Mozilla Public License 2.0](LICENSE).
