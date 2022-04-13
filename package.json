@@ -57,7 +57,7 @@
     "@tailwindcss/line-clamp": "^0.3.1",
     "@types/linkifyjs": "^2.1.4",
     "@types/node": "^17.0.23",
-    "@types/react": "^18.0.3",
+    "@types/react": "^18.0.4",
     "@types/react-copy-to-clipboard": "^5.0.2",
     "@types/react-dom": "^17.0.14",
     "@types/uuid": "^8.3.4",
