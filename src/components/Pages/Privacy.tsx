@@ -47,9 +47,17 @@ const Privacy: FC = () => {
                   research activities, report a problem with Service, receive
                   customer support or otherwise correspond with us;
                 </li>
-                <li>
-                  Usage information, such as information about how you use the
-                  Service and interact with us and it is anonymous;
+                <li className="linkify">
+                  Usage information, such as information about how you interact
+                  with us, and it is anonymous and{' '}
+                  <a
+                    href="https://analytics.lenster.xyz/share/DUGyxaF6/Lenster"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    public
+                  </a>
+                  ;
                 </li>
               </ul>
               <div className="text-black dark:text-white text-xl mt-8 mb-5 font-bold">
