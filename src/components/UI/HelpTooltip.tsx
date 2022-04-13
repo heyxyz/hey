@@ -18,7 +18,7 @@ export const HelpTooltip: FC<Props> = ({ content }) => {
       className="p-2.5 tracking-wide !rounded-xl !leading-5 shadow-lg"
       content={<span>{content}</span>}
     >
-      <InformationCircleIcon className="h-[17px] w-[17px] text-gray-500" />
+      <InformationCircleIcon className="h-[15px] w-[15px] text-gray-500" />
     </Tippy>
   )
 }
