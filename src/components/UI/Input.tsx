@@ -1,8 +1,10 @@
 import clsx from 'clsx'
+import dynamic from 'next/dynamic'
 import { ComponentProps, forwardRef, ReactNode } from 'react'
 
 import { FieldError } from './Form'
-import { HelpTooltip } from './HelpTooltip'
+
+const HelpTooltip = dynamic(() => import('./HelpTooltip'))
 
 interface Props extends Omit<ComponentProps<'input'>, 'prefix'> {
   label?: string
