@@ -362,9 +362,8 @@ const Create: FC = () => {
                 label="Referral Fee"
                 helper={
                   <span>
-                    {`When someone mirror this crowdfund they will get some reward
-                    for referring it When someone mirror this crowdfund they
-                    will get some reward for referring it`}
+                    When someone mirror the crowdfund they will get some reward
+                    in percentage for referring it.
                   </span>
                 }
                 type="number"
