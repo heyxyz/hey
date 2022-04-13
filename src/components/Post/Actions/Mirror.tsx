@@ -167,12 +167,7 @@ const Mirror: FC<Props> = ({ post }) => {
           {typedDataLoading || signLoading || writeLoading ? (
             <Spinner size="xs" />
           ) : (
-            <Tooltip
-              className="text-[10px] !px-1.5 !py-0.5 !rounded-md"
-              placement="top"
-              content="Mirror"
-              withDelay
-            >
+            <Tooltip placement="top" content="Mirror" withDelay>
               <SwitchHorizontalIcon className="w-[18px]" />
             </Tooltip>
           )}

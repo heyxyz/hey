@@ -19,12 +19,7 @@ const Comment: FC<Props> = ({ post }) => {
           className="flex items-center space-x-1 text-blue-500 hover:text-blue-400"
         >
           <div className="p-1.5 rounded-full hover:bg-blue-300 hover:bg-opacity-20">
-            <Tooltip
-              className="text-[10px] !px-1.5 !py-0.5 !rounded-md"
-              placement="top"
-              content="Comment"
-              withDelay
-            >
+            <Tooltip placement="top" content="Comment" withDelay>
               <ChatAlt2Icon className="w-[18px]" />
             </Tooltip>
           </div>
