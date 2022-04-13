@@ -98,6 +98,12 @@ const FeeEntry: FC<Props> = ({
         />
         <Input
           label="Referral Fee"
+          helper={
+            <span>
+              When someone mirror the publication they will get some reward in
+              percentage for referring it.
+            </span>
+          }
           type="number"
           placeholder="5%"
           min="0"
