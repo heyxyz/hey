@@ -7,6 +7,7 @@ import { Profile } from '@generated/types'
 import { MinimalProfileFields } from '@gql/MinimalProfileFields'
 import consoleLog from '@lib/consoleLog'
 import trackEvent from '@lib/trackEvent'
+import Link from 'next/link'
 import { useRef, useState } from 'react'
 
 import UserProfile from '../UserProfile'
@@ -77,9 +78,12 @@ const Search = () => {
                   <div
                     key={profile?.handle}
                     className="py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-800"
-                    onClick={() => setSearchText('')}
                   >
-                    <UserProfile profile={profile} />
+                    <Link href={`/u/${profile?.handle}`}>
+                      <a onClick={() => setSearchText('')}>
+                        <UserProfile profile={profile} />
+                      </a>
+                    </Link>
                   </div>
                 ))}
                 {searchUsersData?.search?.items?.length === 0 && (
