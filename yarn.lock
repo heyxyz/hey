@@ -2349,7 +2349,7 @@
   dependencies:
     "@types/react" "^17"
 
-"@types/react@*", "@types/react@^18.0.1":
+"@types/react@*", "@types/react@^18.0.3":
   version "18.0.3"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-18.0.3.tgz#baefa397561372015b9f8ba5bc83bc3f84ae8fcb"
   integrity sha512-P8QUaMW4k+kH9aKNPl9b3XWcKMSSALYprLL8xpAMJOLUn3Pl6B+6nKC4F7dsk9oJPwkiRx+qlwhG/Zc1LxFVuQ==
