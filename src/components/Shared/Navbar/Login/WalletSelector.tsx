@@ -164,16 +164,20 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
                     : false
                 }
               >
+                <span className="flex justify-between items-center w-full">
+                  {mounted
+                    ? x.id === 'injected'
+                      ? 'Browser Wallet'
+                      : x.name
+                    : x.name}
+                  {mounted ? !x.ready && ' (unsupported)' : ''}
+                </span>
                 <img
                   src={getWalletLogo(x.name)}
                   draggable={false}
                   className="w-6 h-6"
                   alt={x.name}
                 />
-                <span className="flex justify-between items-center w-full">
-                  {mounted ? x.name : x.id === 'injected' ? x.id : x.name}
-                  {mounted ? !x.ready && ' (unsupported)' : ''}
-                </span>
               </button>
             )
           })}
