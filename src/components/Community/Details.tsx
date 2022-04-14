@@ -2,10 +2,17 @@ import 'linkify-plugin-mention'
 
 import { gql, useQuery } from '@apollo/client'
 import Collectors from '@components/Shared/Collectors'
+import { Button } from '@components/UI/Button'
 import { Modal } from '@components/UI/Modal'
 import AppContext from '@components/utils/AppContext'
 import { LensterPost } from '@generated/lenstertypes'
-import { ClockIcon, HashtagIcon, UsersIcon } from '@heroicons/react/outline'
+import {
+  ClockIcon,
+  CogIcon,
+  HashtagIcon,
+  PencilAltIcon,
+  UsersIcon
+} from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
 import humanize from '@lib/humanize'
 import imagekitURL from '@lib/imagekitURL'
@@ -13,9 +20,14 @@ import linkifyOptions from '@lib/linkifyOptions'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import Linkify from 'linkify-react'
+import dynamic from 'next/dynamic'
 import React, { FC, ReactChild, useContext, useState } from 'react'
 
 import Join from './Join'
+
+const Settings = dynamic(() => import('./Settings'), {
+  loading: () => <div className="h-5 m-5 rounded-lg shimmer" />
+})
 
 dayjs.extend(relativeTime)
 
@@ -36,6 +48,7 @@ interface Props {
 const Details: FC<Props> = ({ community }) => {
   const { currentUser } = useContext(AppContext)
   const [showMembersModal, setShowMembersModal] = useState<boolean>(false)
+  const [showSettingsModal, setShowSettingsModal] = useState<boolean>(false)
   const [joined, setJoined] = useState<boolean>(false)
   const { loading: joinLoading } = useQuery(HAS_JOINED_QUERY, {
     variables: {
@@ -96,15 +109,35 @@ const Details: FC<Props> = ({ community }) => {
             </Linkify>
           </div>
         )}
-        {joinLoading ? (
-          <div className="w-28 rounded-lg h-[34px] shimmer" />
-        ) : joined ? (
-          <div className="py-0.5 px-2 text-sm text-white rounded-lg shadow-sm bg-brand-500 w-fit">
-            Member
-          </div>
-        ) : (
-          <Join community={community} setJoined={setJoined} />
-        )}
+        <div className="flex items-center space-x-2">
+          {joinLoading ? (
+            <div className="w-28 rounded-lg h-[34px] shimmer" />
+          ) : joined ? (
+            <div className="py-0.5 px-2 text-sm text-white rounded-lg shadow-sm bg-brand-500 w-fit">
+              Member
+            </div>
+          ) : (
+            <Join community={community} setJoined={setJoined} />
+          )}
+          {currentUser?.id === community?.profile?.id && (
+            <>
+              <Button
+                variant="secondary"
+                className="!py-1.5"
+                icon={<PencilAltIcon className="w-5 h-5" />}
+                onClick={() => setShowSettingsModal(!showSettingsModal)}
+              />
+              <Modal
+                title="Settings"
+                icon={<CogIcon className="w-5 h-5 text-brand-500" />}
+                show={showSettingsModal}
+                onClose={() => setShowSettingsModal(!showSettingsModal)}
+              >
+                <Settings community={community} />
+              </Modal>
+            </>
+          )}
+        </div>
         <div className="space-y-2">
           <MetaDetails icon={<HashtagIcon className="w-4 h-4" />}>
             {community?.id}

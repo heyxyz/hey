@@ -7,7 +7,7 @@ import clsx from 'clsx'
 import { useRouter } from 'next/router'
 import React, { FC } from 'react'
 
-const HIDE_POST_MUTATION = gql`
+export const HIDE_POST_MUTATION = gql`
   mutation HidePublication($request: HidePublicationRequest!) {
     hidePublication(request: $request)
   }
@@ -18,11 +18,11 @@ interface Props {
 }
 
 const Delete: FC<Props> = ({ post }) => {
-  const { pathname } = useRouter()
+  const { pathname, push } = useRouter()
   const [hidePost] = useMutation(HIDE_POST_MUTATION, {
     onCompleted() {
       trackEvent('delete post')
-      pathname === '/posts/[id]' ? (location.href = '/') : location.reload()
+      pathname === '/posts/[id]' ? push('/') : location.reload()
     }
   })
 
