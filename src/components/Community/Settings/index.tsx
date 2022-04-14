@@ -5,6 +5,7 @@ import { WarningMessage } from '@components/UI/WarningMessage'
 import { Community } from '@generated/lenstertypes'
 import { TrashIcon } from '@heroicons/react/outline'
 import trackEvent from '@lib/trackEvent'
+import { useRouter } from 'next/router'
 import React, { FC } from 'react'
 
 interface Props {
@@ -12,9 +13,11 @@ interface Props {
 }
 
 const Settings: FC<Props> = ({ community }) => {
+  const { push } = useRouter()
   const [hidePost] = useMutation(HIDE_POST_MUTATION, {
     onCompleted() {
       trackEvent('delete community')
+      push('/')
     }
   })
 
