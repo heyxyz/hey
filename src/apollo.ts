@@ -5,6 +5,7 @@ import {
   InMemoryCache
 } from '@apollo/client'
 import result from '@generated/types'
+import consoleLog from '@lib/consoleLog'
 import jwtDecode from 'jwt-decode'
 
 import { API_URL, ERROR_MESSAGE } from './constants'
@@ -43,6 +44,7 @@ const authLink = new ApolloLink((operation, forward) => {
     const { exp }: { exp: any } = token ? jwtDecode(token) : ''
 
     if (Date.now() >= exp * 1000) {
+      consoleLog('Auth', '#eab308', 'Generate new access token')
       fetch(API_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
