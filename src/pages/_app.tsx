@@ -68,7 +68,7 @@ const App = ({ Component, pageProps }: AppProps) => {
           </SiteLayout>
         </ThemeProvider>
       </ApolloProvider>
-      {!IS_PRODUCTION && (
+      {IS_PRODUCTION && (
         <>
           <Script
             src="https://www.googletagmanager.com/gtag/js?id=G-18NFK33KC6"
