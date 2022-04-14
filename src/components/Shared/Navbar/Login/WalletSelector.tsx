@@ -176,7 +176,7 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
                   src={getWalletLogo(x.name)}
                   draggable={false}
                   className="w-6 h-6"
-                  alt={x.name}
+                  alt={x.id}
                 />
               </button>
             )
