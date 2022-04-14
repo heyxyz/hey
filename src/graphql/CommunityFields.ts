@@ -3,6 +3,9 @@ import { gql } from '@apollo/client'
 export const CommunityFields = gql`
   fragment CommunityFields on Post {
     id
+    profile {
+      id
+    }
     metadata {
       name
       description
