@@ -6,6 +6,7 @@ import AppContext from '@components/utils/AppContext'
 import { Notification, PaginatedResultInfo } from '@generated/types'
 import { CollectModuleFields } from '@gql/CollectModuleFields'
 import { MinimalProfileFields } from '@gql/MinimalProfileFields'
+import { Menu } from '@headlessui/react'
 import { MailIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
 import { FC, useContext, useEffect, useState } from 'react'
@@ -210,7 +211,7 @@ const List: FC = () => {
     )
 
   return (
-    <div className="divide-y dark:divide-gray-700">
+    <Menu.Item as="div" className="divide-y dark:divide-gray-700">
       {notifications?.map((notification: Notification, index: number) => (
         <div key={index}>
           {notification?.__typename === 'NewFollowerNotification' && (
@@ -240,7 +241,7 @@ const List: FC = () => {
           <Spinner size="sm" />
         </span>
       )}
-    </div>
+    </Menu.Item>
   )
 }
 
