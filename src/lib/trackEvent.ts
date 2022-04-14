@@ -8,7 +8,8 @@ const trackEvent = (event: string, type: string | null = 'click') => {
 
   consoleLog('TrackEvent', '#22c55e', event)
   // @ts-ignore
-  return window?.umami?.trackEvent(event, type)
+  // return window?.umami?.trackEvent(event, type)
+  return true
 }
 
 export default trackEvent

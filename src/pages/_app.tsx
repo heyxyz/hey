@@ -4,7 +4,6 @@ import { ApolloProvider } from '@apollo/client'
 import SiteLayout from '@components/SiteLayout'
 import { providers } from 'ethers'
 import { AppProps } from 'next/app'
-import Script from 'next/script'
 import { ThemeProvider } from 'next-themes'
 import {
   CHAIN_ID,
@@ -68,14 +67,7 @@ const App = ({ Component, pageProps }: AppProps) => {
           </SiteLayout>
         </ThemeProvider>
       </ApolloProvider>
-      {IS_PRODUCTION && (
-        <Script
-          data-website-id="680b8704-0981-4cfd-8577-e5bdf5f77df8"
-          src="https://analytics.lenster.xyz/umami.js"
-          async
-          defer
-        />
-      )}
+      {IS_PRODUCTION && <span></span>}
     </Provider>
   )
 }
