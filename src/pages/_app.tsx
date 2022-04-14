@@ -4,6 +4,7 @@ import { ApolloProvider } from '@apollo/client'
 import SiteLayout from '@components/SiteLayout'
 import { providers } from 'ethers'
 import { AppProps } from 'next/app'
+import Script from 'next/script'
 import { ThemeProvider } from 'next-themes'
 import {
   CHAIN_ID,
@@ -67,7 +68,22 @@ const App = ({ Component, pageProps }: AppProps) => {
           </SiteLayout>
         </ThemeProvider>
       </ApolloProvider>
-      {IS_PRODUCTION && <span></span>}
+      {IS_PRODUCTION && (
+        <>
+          <Script
+            src="https://www.googletagmanager.com/gtag/js?id=G-18NFK33KC6"
+            strategy="afterInteractive"
+          />
+          <Script id="google-analytics" strategy="afterInteractive">
+            {`
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){window.dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-18NFK33KC6');
+            `}
+          </Script>
+        </>
+      )}
     </Provider>
   )
 }
