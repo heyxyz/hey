@@ -18,11 +18,11 @@ interface Props {
 }
 
 const Delete: FC<Props> = ({ post }) => {
-  const { pathname } = useRouter()
+  const { pathname, push } = useRouter()
   const [hidePost] = useMutation(HIDE_POST_MUTATION, {
     onCompleted() {
       trackEvent('delete post')
-      pathname === '/posts/[id]' ? (location.href = '/') : location.reload()
+      pathname === '/posts/[id]' ? push('/') : location.reload()
     }
   })
 
