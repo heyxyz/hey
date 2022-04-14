@@ -7,7 +7,7 @@ import clsx from 'clsx'
 import { useRouter } from 'next/router'
 import React, { FC } from 'react'
 
-const HIDE_POST_MUTATION = gql`
+export const HIDE_POST_MUTATION = gql`
   mutation HidePublication($request: HidePublicationRequest!) {
     hidePublication(request: $request)
   }
