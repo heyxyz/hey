@@ -6,9 +6,9 @@ const Privacy: FC = () => {
   return (
     <>
       <SEO title="Privacy • Lenster" />
-      <div className="flex items-center justify-center bg-brand-400 h-48 w-full">
+      <div className="flex items-center justify-center w-full h-48 bg-brand-400">
         <div className="relative text-center">
-          <h1 className="text-3xl md:text-4xl font-semibold text-white">
+          <h1 className="text-3xl font-semibold text-white md:text-4xl">
             Privacy Policy
           </h1>
           <div className="flex justify-center mt-4">
@@ -28,7 +28,7 @@ const Privacy: FC = () => {
                 use your Personal Information, generated from your use of
                 Lenster, in accordance with this Privacy Policy ("Policy").
               </p>
-              <div className="text-black dark:text-white text-xl mt-8 mb-5 font-bold">
+              <div className="mt-8 mb-5 text-xl font-bold text-black dark:text-white">
                 What information do we collect
               </div>
               <p className="mb-5">
@@ -38,7 +38,7 @@ const Privacy: FC = () => {
                 Information you give us. Information we collect from you
                 includes:
               </p>
-              <ul className="list-disc list-inside mb-3 space-y-2">
+              <ul className="mb-3 space-y-2 list-disc list-inside">
                 <li>Network information regarding transactions;</li>
                 <li>Contact information, like username and email;</li>
                 <li>
@@ -49,18 +49,10 @@ const Privacy: FC = () => {
                 </li>
                 <li className="linkify">
                   Usage information, such as information about how you interact
-                  with us, and it is anonymous and{' '}
-                  <a
-                    href="https://analytics.lenster.xyz/share/DUGyxaF6/Lenster"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    public
-                  </a>
-                  ;
+                  with us, and it is anonymous;
                 </li>
               </ul>
-              <div className="text-black dark:text-white text-xl mt-8 mb-5 font-bold">
+              <div className="mt-8 mb-5 text-xl font-bold text-black dark:text-white">
                 How we use the information we collect
               </div>
               <p className="mb-5">
@@ -68,11 +60,11 @@ const Privacy: FC = () => {
                 operate, provide, improve, customize, support, and market our
                 Services.
               </p>
-              <ul className="list-disc list-inside mb-3 space-y-2">
+              <ul className="mb-3 space-y-2 list-disc list-inside">
                 <li>Provide the Services and customer support you request;</li>
                 <li>Resolve disputes and troubleshoot problems;</li>
               </ul>
-              <div className="text-black dark:text-white text-xl mt-8 mb-5 font-bold">
+              <div className="mt-8 mb-5 text-xl font-bold text-black dark:text-white">
                 How we update our policy
               </div>
               <p className="mb-5">
@@ -95,7 +87,7 @@ const Privacy: FC = () => {
                 recommend that you visit this page frequently to check for
                 changes.
               </p>
-              <div className="text-black dark:text-white text-xl mt-8 mb-5 font-bold">
+              <div className="mt-8 mb-5 text-xl font-bold text-black dark:text-white">
                 Contact Us
               </div>
               <p className="mb-3 linkify">
