@@ -27,7 +27,7 @@
     "dayjs": "^1.11.0",
     "dotenv": "^16.0.0",
     "ethers": "^5.6.4",
-    "framer-motion": "^6.2.10",
+    "framer-motion": "^6.3.0",
     "graphql": "^16.3.0",
     "ipfs-http-client": "54.0.2",
     "jwt-decode": "^3.1.2",
