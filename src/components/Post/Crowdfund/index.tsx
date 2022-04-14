@@ -200,7 +200,11 @@ const Crowdfund: FC<Props> = ({ fund }) => {
                   )}
                   style={{
                     width: `${
-                      percentageReached >= 100 ? 100 : percentageReached
+                      percentageReached >= 100
+                        ? 100
+                        : percentageReached <= 2
+                        ? 2
+                        : percentageReached
                     }%`
                   }}
                 />
