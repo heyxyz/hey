@@ -8,9 +8,10 @@ const trackEvent = (event: string, type: string | null = 'click') => {
 
   consoleLog('TrackEvent', '#22c55e', event)
   // @ts-ignore
-  return window?.gtag('event', type, {
-    event_label: event
-  })
+  return true
+  // return window?.gtag('event', type, {
+  //   event_label: event
+  // })
 }
 
 export default trackEvent
