@@ -44,7 +44,7 @@ const GetModuleIcon: FC<Props> = ({ module, size }) => {
       )
     case 'RevertCollectModule':
       return <ReceiptRefundIcon className={`h-${stringifiedSize}`} />
-    case 'RevertCollectModule':
+    case 'FreeCollectModule':
       return <DocumentAddIcon className={`h-${stringifiedSize}`} />
     case 'FeeFollowModule':
       return (
