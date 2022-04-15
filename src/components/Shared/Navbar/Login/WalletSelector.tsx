@@ -147,6 +147,7 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
       {connectors.map((x) => {
         return (
           <button
+            type="button"
             key={x.id}
             className={clsx(
               { 'hover:bg-gray-100': x.id !== accountData?.connector?.id },

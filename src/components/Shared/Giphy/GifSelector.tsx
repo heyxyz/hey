@@ -81,6 +81,7 @@ const GifSelector: FC<Props> = ({ setShowModal, setGifAttachment }) => {
           <div className="grid grid-cols-2 gap-1 w-full">
             {categories.map((category) => (
               <button
+                type="button"
                 key={category.name_encoded}
                 className="flex relative outline-none"
                 onClick={() => setDebouncedGifInput(category.name)}

@@ -40,6 +40,7 @@ const Notification: FC = () => {
         <>
           <Menu.Button as="div">
             <button
+              type="button"
               className="flex items-start"
               onClick={() => {
                 trackEvent(`notifications ${open ? 'open' : 'close'}`)
