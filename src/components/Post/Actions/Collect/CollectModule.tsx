@@ -247,7 +247,7 @@ const CollectModule: FC<Props> = ({ post, setShowCollectModal }) => {
         {collectModule?.followerOnly && (
           <div className="pb-5">
             <ReferenceAlert
-              handle={post?.profile?.handle}
+              handle={post?.profile?.handle?.toString()}
               isSuperFollow={post?.profile?.followModule ? true : false}
               action="collect"
             />
