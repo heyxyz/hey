@@ -42,7 +42,7 @@ const Search = () => {
       }
     })
 
-  const handleSearch = async (evt: any) => {
+  const handleSearch = (evt: any) => {
     let keyword = evt.target.value
     setSearchText(keyword)
     searchUsers({

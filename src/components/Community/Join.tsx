@@ -125,7 +125,7 @@ const Join: FC<Props> = ({ community, setJoined, showJoin = true }) => {
     }
   )
 
-  const createCollect = async () => {
+  const createCollect = () => {
     if (!account?.address) {
       toast.error(CONNECT_WALLET)
     } else if (activeChain?.id !== CHAIN_ID) {

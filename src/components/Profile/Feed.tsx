@@ -104,8 +104,8 @@ const Feed: FC<Props> = ({ profile, type }) => {
       {!error && !loading && (
         <>
           <div className="space-y-3">
-            {publications?.map((post: LensterPost) => (
-              <SinglePost key={post?.id} post={post} />
+            {publications?.map((post: LensterPost, index: number) => (
+              <SinglePost key={`${post?.id}_${index}`} post={post} />
             ))}
           </div>
           {pageInfo?.next && (
