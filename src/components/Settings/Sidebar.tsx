@@ -33,7 +33,7 @@ const Menu: FC<MenuProps> = ({ children, current, url }) => (
 )
 
 const Sidebar: FC = () => {
-  const router = useRouter()
+  const { pathname } = useRouter()
   const { currentUser } = useContext(AppContext)
 
   return (
@@ -41,28 +41,22 @@ const Sidebar: FC = () => {
       <div className="pb-3">
         <UserProfile profile={currentUser as Profile} />
       </div>
-      <Menu current={router.pathname == '/settings'} url="/settings">
+      <Menu current={pathname == '/settings'} url="/settings">
         <UserIcon className="w-4 h-4" />
         <div>Profile</div>
       </Menu>
-      <Menu
-        current={router.pathname == '/settings/account'}
-        url="/settings/account"
-      >
+      <Menu current={pathname == '/settings/account'} url="/settings/account">
         <ChipIcon className="w-4 h-4" />
         <div>Account</div>
       </Menu>
       <Menu
-        current={router.pathname == '/settings/allowance'}
+        current={pathname == '/settings/allowance'}
         url="/settings/allowance"
       >
         <ShareIcon className="w-4 h-4" />
         <div>Allowance</div>
       </Menu>
-      <Menu
-        current={router.pathname == '/settings/delete'}
-        url="/settings/delete"
-      >
+      <Menu current={pathname == '/settings/delete'} url="/settings/delete">
         <ExclamationIcon className="w-4 h-4 text-red-500" />
         <div className="text-red-500">Danger Zone</div>
       </Menu>

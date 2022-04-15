@@ -1,5 +1,9 @@
 const getIPFSLink = (hash: string): string => {
-  return hash.replace('ipfs://', 'https://ipfs.infura.io/ipfs/')
+  const infuraIPFS = 'https://ipfs.infura.io/ipfs/'
+
+  return hash
+    .replace('https://ipfs.io/ipfs/', infuraIPFS)
+    .replace('ipfs://', infuraIPFS)
 }
 
 export default getIPFSLink

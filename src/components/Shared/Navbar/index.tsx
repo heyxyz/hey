@@ -53,20 +53,20 @@ const Navbar: FC = () => {
   }
 
   const NavItems = () => {
-    const router = useRouter()
+    const { pathname } = useRouter()
 
     return (
       <>
-        <NavItem url="/" name="Home" current={router.pathname == '/'} />
+        <NavItem url="/" name="Home" current={pathname == '/'} />
         <NavItem
           url="/explore"
           name="Explore"
-          current={router.pathname == '/explore'}
+          current={pathname == '/explore'}
         />
         <NavItem
           url="/communities"
           name="Communities"
-          current={router.pathname == '/communities'}
+          current={pathname == '/communities'}
         />
         <MoreNavItems />
       </>
