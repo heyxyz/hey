@@ -1,3 +1,5 @@
+import trackEvent from './trackEvent'
+
 const linkifyOptions = {
   format: function (value: string, type: 'url'): string {
     if (type === 'url' && value.length > 36) {
@@ -19,6 +21,14 @@ const linkifyOptions = {
       return '_blank'
     }
     return '_self'
+  },
+  attributes: function (href: string, type: string) {
+    return {
+      title: href,
+      onClick: () => {
+        trackEvent(`${type}_click`, 'click')
+      }
+    }
   }
 }
 
