@@ -1,5 +1,6 @@
 import { gql, useQuery } from '@apollo/client'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
+import HelpTooltip from '@components/UI/HelpTooltip'
 import { Spinner } from '@components/UI/Spinner'
 import GetModuleIcon from '@components/utils/GetModuleIcon'
 import { EnabledModule } from '@generated/types'
@@ -99,20 +100,23 @@ const Modules: FC<Props> = ({
                   onClick={() => handleSelectModule(module)}
                 >
                   <div>
-                    <div className="flex items-center space-x-3">
+                    <div className="flex items-center space-x-2">
                       <div className="text-brand-500">
                         <GetModuleIcon module={module.moduleName} size={4} />
                       </div>
                       <div className="space-x-1.5 font-bold">
                         {getModule(module?.moduleName).name}
                       </div>
+                      <HelpTooltip
+                        content={getModule(module.moduleName).helper}
+                      />
                     </div>
                     <div className="text-xs text-gray-500">
                       {module?.contractAddress}
                     </div>
                   </div>
                   {module?.moduleName === selectedModule.moduleName && (
-                    <CheckCircleIcon className="w-7 h-7 text-green-500" />
+                    <CheckCircleIcon className="text-green-500 w-7 h-7" />
                   )}
                 </button>
               </div>
