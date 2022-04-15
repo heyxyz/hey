@@ -19,6 +19,7 @@ import { CreatePostBroadcastItemResult, Erc20 } from '@generated/types'
 import { PlusIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
 import getTokenImage from '@lib/getTokenImage'
+import imagekitURL from '@lib/imagekitURL'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import trackEvent from '@lib/trackEvent'
@@ -382,7 +383,7 @@ const Create: FC = () => {
                   {cover && (
                     <img
                       className="object-cover w-full h-60 rounded-lg"
-                      src={cover}
+                      src={`${imagekitURL(cover)}/tr:h-400`}
                       alt={cover}
                     />
                   )}

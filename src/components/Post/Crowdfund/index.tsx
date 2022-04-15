@@ -110,7 +110,9 @@ const Crowdfund: FC<Props> = ({ fund }) => {
         className="h-40 border-b rounded-t-xl sm:h-52 dark:border-b-gray-700/80"
         style={{
           backgroundImage: `url(${
-            cover ? imagekitURL(cover) : `${STATIC_ASSETS}/patterns/2.svg`
+            cover
+              ? `${imagekitURL(cover)}/tr:h-400`
+              : `${STATIC_ASSETS}/patterns/2.svg`
           })`,
           backgroundColor: '#8b5cf6',
           backgroundSize: cover ? 'cover' : '30%',
