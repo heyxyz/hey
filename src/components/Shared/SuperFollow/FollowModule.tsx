@@ -134,7 +134,7 @@ const FollowModule: FC<Props> = ({
       consoleLog(
         'Query',
         '#8b5cf6',
-        `Fetched super follow details Profile:${profile?.id?.toString()}`
+        `Fetched super follow details Profile:${profile?.id}`
       )
     }
   })
@@ -253,12 +253,12 @@ const FollowModule: FC<Props> = ({
         <div className="space-x-1.5">
           <span>Recipient:</span>
           <a
-            href={`${POLYGONSCAN_URL}/address/${followModule.recipient?.toString()}`}
+            href={`${POLYGONSCAN_URL}/address/${followModule.recipient}`}
             target="_blank"
             className="font-bold text-gray-600"
             rel="noreferrer"
           >
-            {formatAddress(followModule.recipient?.toString())}
+            {formatAddress(followModule.recipient)}
           </a>
         </div>
       </div>

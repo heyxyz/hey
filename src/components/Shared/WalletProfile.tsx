@@ -12,26 +12,29 @@ interface Props {
 }
 
 const WalletProfile: FC<Props> = ({ wallet }) => {
-  const address = wallet?.address?.toString()
   return (
     <div className="flex justify-between items-center">
       <a
         className="flex items-center space-x-3"
-        href={`${POLYGONSCAN_URL}/address/${address}`}
+        href={`${POLYGONSCAN_URL}/address/${wallet?.address}`}
         target="_blank"
         rel="noreferrer"
       >
         <img
-          src={imagekitURL(`https://avatar.tobi.sh/${address}.png`, 500, 500)}
+          src={imagekitURL(
+            `https://avatar.tobi.sh/${wallet?.address}.png`,
+            500,
+            500
+          )}
           className="w-10 h-10 bg-gray-200 rounded-full border"
-          alt={address}
+          alt={wallet?.address}
         />
         <div>
           <div className="flex gap-1.5 items-center">
-            <div>{formatAddress(address)}</div>
+            <div>{formatAddress(wallet?.address)}</div>
             <ExternalLinkIcon className="w-4 h-4" />
           </div>
-          <Slug className="text-sm" slug={formatAddress(address)} />
+          <Slug className="text-sm" slug={formatAddress(wallet?.address)} />
         </div>
       </a>
     </div>
