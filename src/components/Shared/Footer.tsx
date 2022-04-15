@@ -31,6 +31,14 @@ const Footer: FC = () => {
       </span>
       <a
         className="pr-3"
+        href="https://analytics.lenster.xyz/share/DUGyxaF6/Lenster"
+        target="_blank"
+        rel="noreferrer"
+      >
+        Open
+      </a>
+      <a
+        className="pr-3"
         href="https://status.lenster.xyz"
         target="_blank"
         rel="noreferrer"
