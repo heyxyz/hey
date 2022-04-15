@@ -1,4 +1,5 @@
 import 'linkify-plugin-mention'
+import 'linkify-plugin-hashtag'
 
 import { gql, useQuery } from '@apollo/client'
 import Collectors from '@components/Shared/Collectors'

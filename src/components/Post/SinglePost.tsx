@@ -1,5 +1,3 @@
-import 'linkify-plugin-mention'
-
 import Attachments from '@components/Shared/Attachments'
 import IFramely from '@components/Shared/IFramely'
 import UserProfile from '@components/Shared/UserProfile'
