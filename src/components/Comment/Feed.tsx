@@ -101,7 +101,7 @@ const Feed: FC<Props> = ({
           <NewComment refetch={refetch} post={post} type={type} />
         ) : (
           <ReferenceAlert
-            handle={post?.profile?.handle?.toString()}
+            handle={post?.profile?.handle}
             isSuperFollow={post?.profile?.followModule ? true : false}
             action="comment"
           />
