@@ -26,25 +26,26 @@ const UserProfile: FC<Props> = ({
   isFollowing = false
 }) => {
   const [following, setFollowing] = useState<boolean>(isFollowing)
+  const handle = profile?.handle?.toString()
 
   return (
     <div className="flex justify-between items-center">
-      <Link href={`/u/${profile?.handle}`}>
+      <Link href={`/u/${handle}`}>
         <a>
           <div className="flex items-center space-x-3">
             <img
               src={getAvatar(profile)}
               className="w-10 h-10 bg-gray-200 rounded-full border dark:border-gray-700/80"
-              alt={profile?.handle}
+              alt={handle}
             />
             <div>
               <div className="flex gap-1 items-center">
-                <div>{profile?.name ?? profile?.handle}</div>
+                <div>{profile?.name ?? handle}</div>
                 {isVerified(profile?.id) && (
                   <BadgeCheckIcon className="w-4 h-4 text-brand-500" />
                 )}
               </div>
-              <Slug className="text-sm" slug={profile?.handle} prefix="@" />
+              <Slug className="text-sm" slug={handle} prefix="@" />
               {showBio && profile?.bio && (
                 <div className="mt-2 text-sm">{profile?.bio}</div>
               )}
