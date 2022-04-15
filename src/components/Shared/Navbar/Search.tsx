@@ -59,7 +59,7 @@ const Search = () => {
     if (pathname === '/search') {
       push(`/search?q=${searchText}&type=${query.type}`)
     } else {
-      push(`/search?q=${searchText}&type=pubs`)
+      push(`/search?q=${searchText}&type=profiles`)
     }
     setSearchText('')
   }

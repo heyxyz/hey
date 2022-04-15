@@ -87,7 +87,7 @@ const Profiles: FC<Props> = ({ query }) => {
           icon={<UsersIcon className="w-8 h-8 text-brand-500" />}
         />
       )}
-      <ErrorMessage title="Failed to load explore feed" error={error} />
+      <ErrorMessage title="Failed to load profiles list" error={error} />
       {!error && !loading && (
         <>
           <div className="space-y-3">

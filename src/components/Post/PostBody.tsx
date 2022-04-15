@@ -1,4 +1,5 @@
 import 'linkify-plugin-mention'
+import 'linkify-plugin-hashtag'
 
 import CrowdfundShimmer from '@components/Shared/Shimmer/CrowdfundShimmer'
 import { LensterPost } from '@generated/lenstertypes'
