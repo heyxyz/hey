@@ -136,7 +136,7 @@ const Mirror: FC<Props> = ({ post }) => {
     }
   )
 
-  const createMirror = async () => {
+  const createMirror = () => {
     if (!account?.address) {
       toast.error(CONNECT_WALLET)
     } else if (activeChain?.id !== CHAIN_ID) {

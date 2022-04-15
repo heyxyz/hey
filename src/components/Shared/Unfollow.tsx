@@ -78,7 +78,7 @@ const Unfollow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
           domain: omit(typedData?.domain, '__typename'),
           types: omit(typedData?.types, '__typename'),
           value: omit(typedData?.value, '__typename')
-        }).then(async (res) => {
+        }).then((res) => {
           const { tokenId } = typedData?.value
           const { v, r, s } = splitSignature(res)
           const sig = {
@@ -116,7 +116,7 @@ const Unfollow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
     }
   )
 
-  const createUnfollow = async () => {
+  const createUnfollow = () => {
     if (!account?.address) {
       toast.error(CONNECT_WALLET)
     } else if (activeChain?.id !== CHAIN_ID) {

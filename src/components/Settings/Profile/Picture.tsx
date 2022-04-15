@@ -111,7 +111,7 @@ const Picture: FC<Props> = ({ profile }) => {
 
   const [createSetProfileImageURITypedData, { loading: typedDataLoading }] =
     useMutation(CREATE_SET_PROFILE_IMAGE_URI_TYPED_DATA_MUTATION, {
-      async onCompleted({
+      onCompleted({
         createSetProfileImageURITypedData
       }: {
         createSetProfileImageURITypedData: CreateSetProfileImageUriBroadcastItemResult
@@ -159,7 +159,7 @@ const Picture: FC<Props> = ({ profile }) => {
     }
   }
 
-  const editProfile = async (avatar: string | undefined) => {
+  const editProfile = (avatar: string | undefined) => {
     if (!avatar) {
       toast.error("Avatar can't be empty!")
     } else if (!account?.address) {
