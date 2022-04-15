@@ -75,7 +75,6 @@ const Create: FC = () => {
     'postWithSig',
     {
       onSuccess() {
-        form.reset()
         trackEvent('new community', 'create')
       },
       onError(error) {

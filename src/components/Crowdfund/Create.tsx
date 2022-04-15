@@ -107,7 +107,6 @@ const Create: FC = () => {
     'postWithSig',
     {
       onSuccess() {
-        form.reset()
         trackEvent('new crowdfund', 'create')
       },
       onError(error) {
