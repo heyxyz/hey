@@ -163,38 +163,34 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
     }
   }
 
-  return (
-    <>
-      {currentUser ? (
-        allowanceLoading ? (
-          <div className="w-24 rounded-lg h-[34px] shimmer" />
-        ) : allowed ? (
-          <Button
-            className="mt-5 sm:mt-0 sm:ml-auto"
-            onClick={createCollect}
-            disabled={typedDataLoading || signLoading || writeLoading}
-            variant="success"
-            icon={
-              typedDataLoading || signLoading || writeLoading ? (
-                <Spinner variant="success" size="xs" />
-              ) : (
-                <CashIcon className="w-4 h-4" />
-              )
-            }
-          >
-            Fund
-          </Button>
-        ) : (
-          <AllowanceButton
-            title="Allow"
-            module={allowanceData?.approvedModuleAllowanceAmount[0]}
-            allowed={allowed}
-            setAllowed={setAllowed}
-          />
-        )
-      ) : null}
-    </>
-  )
+  return currentUser ? (
+    allowanceLoading ? (
+      <div className="w-24 rounded-lg h-[34px] shimmer" />
+    ) : allowed ? (
+      <Button
+        className="mt-5 sm:mt-0 sm:ml-auto"
+        onClick={createCollect}
+        disabled={typedDataLoading || signLoading || writeLoading}
+        variant="success"
+        icon={
+          typedDataLoading || signLoading || writeLoading ? (
+            <Spinner variant="success" size="xs" />
+          ) : (
+            <CashIcon className="w-4 h-4" />
+          )
+        }
+      >
+        Fund
+      </Button>
+    ) : (
+      <AllowanceButton
+        title="Allow"
+        module={allowanceData?.approvedModuleAllowanceAmount[0]}
+        allowed={allowed}
+        setAllowed={setAllowed}
+      />
+    )
+  ) : null
 }
 
 export default Fund

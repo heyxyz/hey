@@ -66,102 +66,94 @@ const Create: FC<Props> = ({ isModal = false }) => {
     }
   }
 
-  return (
-    <>
-      {data?.createProfile?.txHash ? (
-        <Pending
-          handle={form.getValues('handle')}
-          txHash={data?.createProfile?.txHash}
-        />
-      ) : (
-        <Form
-          form={form}
-          className="space-y-4"
-          onSubmit={async ({ handle }) => {
-            setIsUploading(true)
-            const username = handle.toLowerCase()
+  return data?.createProfile?.txHash ? (
+    <Pending
+      handle={form.getValues('handle')}
+      txHash={data?.createProfile?.txHash}
+    />
+  ) : (
+    <Form
+      form={form}
+      className="space-y-4"
+      onSubmit={async ({ handle }) => {
+        setIsUploading(true)
+        const username = handle.toLowerCase()
 
-            trackEvent('signup')
-            createProfile({
-              variables: {
-                request: {
-                  handle: username,
-                  profilePictureUri: avatar
-                    ? avatar
-                    : `https://avatar.tobi.sh/${username}.png`
-                }
-              }
-            })
+        trackEvent('signup')
+        createProfile({
+          variables: {
+            request: {
+              handle: username,
+              profilePictureUri: avatar
+                ? avatar
+                : `https://avatar.tobi.sh/${username}.png`
+            }
+          }
+        })
+      }}
+    >
+      {data?.createProfile?.reason && (
+        <ErrorMessage
+          className="mb-3"
+          title="Create profile failed!"
+          error={{
+            name: 'Create profile failed!',
+            message: data?.createProfile?.reason
           }}
-        >
-          {data?.createProfile?.reason && (
-            <ErrorMessage
-              className="mb-3"
-              title="Create profile failed!"
-              error={{
-                name: 'Create profile failed!',
-                message: data?.createProfile?.reason
-              }}
-            />
-          )}
-          {isModal && (
-            <div className="space-y-4 mb-2">
-              <img className="h-10 w-10" src="/logo.svg" alt="Logo" />
-              <div className="text-xl font-bold">Signup to Lenster</div>
-            </div>
-          )}
-          <Input
-            label="Handle"
-            type="text"
-            placeholder="justinbieber"
-            {...form.register('handle')}
-          />
-          <div className="space-y-1.5">
-            <label>Avatar</label>
-            <div className="space-y-3">
-              {avatar && (
-                <div>
-                  <img
-                    className="w-60 h-60 rounded-lg"
-                    src={avatar}
-                    alt={avatar}
-                  />
-                </div>
-              )}
-              <div>
-                <div className="flex items-center space-x-3">
-                  <ChooseFile
-                    onChange={(evt: ChangeEvent<HTMLInputElement>) =>
-                      handleUpload(evt)
-                    }
-                  />
-                  {uploading && <Spinner size="sm" />}
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="ml-auto">
-            {activeChain?.unsupported ? (
-              <SwitchNetwork />
-            ) : (
-              <Button
-                type="submit"
-                disabled={isUploading || loading}
-                icon={
-                  isUploading || loading ? (
-                    <Spinner size="xs" />
-                  ) : (
-                    <PlusIcon className="w-4 h-4" />
-                  )
-                }
-              >
-                Signup
-              </Button>
-            )}
-          </div>
-        </Form>
+        />
       )}
-    </>
+      {isModal && (
+        <div className="space-y-4 mb-2">
+          <img className="h-10 w-10" src="/logo.svg" alt="Logo" />
+          <div className="text-xl font-bold">Signup to Lenster</div>
+        </div>
+      )}
+      <Input
+        label="Handle"
+        type="text"
+        placeholder="justinbieber"
+        {...form.register('handle')}
+      />
+      <div className="space-y-1.5">
+        <label>Avatar</label>
+        <div className="space-y-3">
+          {avatar && (
+            <div>
+              <img className="w-60 h-60 rounded-lg" src={avatar} alt={avatar} />
+            </div>
+          )}
+          <div>
+            <div className="flex items-center space-x-3">
+              <ChooseFile
+                onChange={(evt: ChangeEvent<HTMLInputElement>) =>
+                  handleUpload(evt)
+                }
+              />
+              {uploading && <Spinner size="sm" />}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="ml-auto">
+        {activeChain?.unsupported ? (
+          <SwitchNetwork />
+        ) : (
+          <Button
+            type="submit"
+            disabled={isUploading || loading}
+            icon={
+              isUploading || loading ? (
+                <Spinner size="xs" />
+              ) : (
+                <PlusIcon className="w-4 h-4" />
+              )
+            }
+          >
+            Signup
+          </Button>
+        )}
+      </div>
+    </Form>
   )
 }
 
