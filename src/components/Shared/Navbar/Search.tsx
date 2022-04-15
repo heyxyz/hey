@@ -60,8 +60,8 @@ const Search = () => {
       push(`/search?q=${searchText}&type=${query.type}`)
     } else {
       push(`/search?q=${searchText}&type=pubs`)
-      setSearchText('')
     }
+    setSearchText('')
   }
 
   return (
