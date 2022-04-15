@@ -144,7 +144,10 @@ const Details: FC<Props> = ({ community }) => {
           </MetaDetails>
           <MetaDetails icon={<UsersIcon className="w-4 h-4" />}>
             <>
-              <button onClick={() => setShowMembersModal(!showMembersModal)}>
+              <button
+                type="button"
+                onClick={() => setShowMembersModal(!showMembersModal)}
+              >
                 {humanize(community?.stats?.totalAmountOfCollects)}{' '}
                 {community?.stats?.totalAmountOfCollects > 1
                   ? 'members'

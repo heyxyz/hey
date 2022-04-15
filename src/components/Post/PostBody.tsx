@@ -74,6 +74,7 @@ const PostBody: FC<Props> = ({ post }) => {
           </div>
           {showMore && pathname !== '/posts/[id]' && (
             <button
+              type="button"
               className="mt-2 text-sm font-bold"
               onClick={() => setShowMore(!showMore)}
             >
