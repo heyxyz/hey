@@ -11,6 +11,7 @@ const NewPostModal: FC = () => {
   return (
     <>
       <button
+        type="button"
         className="flex items-start"
         onClick={() => {
           trackEvent('new post modal')

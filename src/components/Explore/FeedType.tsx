@@ -21,6 +21,7 @@ const FeedType: FC<Props> = ({ setFeedType, feedType }) => {
 
   const FeedLink: FC<FeedLinkProps> = ({ name, icon, type }) => (
     <button
+      type="button"
       onClick={() => {
         trackEvent(`explore ${name.toLowerCase()}`)
         setFeedType(type)

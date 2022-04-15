@@ -55,6 +55,7 @@ const FeeEntry: FC<Props> = ({
   return (
     <div className="space-y-5">
       <button
+        type="button"
         className="flex items-center space-x-1.5 font-bold text-gray-500"
         onClick={() => setShowFeeEntry(false)}
       >

@@ -169,6 +169,7 @@ const MenuItems: FC<Props> = ({ indexerData }) => {
                         className="block text-sm text-gray-700 rounded-lg cursor-pointer dark:text-gray-200"
                       >
                         <button
+                          type="button"
                           className="flex items-center py-1.5 px-4 space-x-2 w-full rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
                           onClick={() => {
                             localStorage.setItem(
@@ -197,6 +198,7 @@ const MenuItems: FC<Props> = ({ indexerData }) => {
               <div className="border-b dark:border-gray-700/80" />
               <div className="flex items-center py-3 px-5 space-x-4">
                 <button
+                  type="button"
                   onClick={() => {
                     trackEvent('light mode')
                     setTheme('light')
@@ -206,6 +208,7 @@ const MenuItems: FC<Props> = ({ indexerData }) => {
                   🌞
                 </button>
                 <button
+                  type="button"
                   onClick={() => {
                     trackEvent('dark mode')
                     setTheme('dark')
@@ -215,6 +218,7 @@ const MenuItems: FC<Props> = ({ indexerData }) => {
                   🌚
                 </button>
                 <button
+                  type="button"
                   onClick={() => {
                     trackEvent('system theme mode')
                     setTheme('system')

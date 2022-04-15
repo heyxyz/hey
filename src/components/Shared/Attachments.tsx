@@ -79,6 +79,7 @@ const Attachments: FC<Props> = ({
           {isNew && (
             <div className="m-3">
               <button
+                type="button"
                 className="p-1.5 bg-gray-900 rounded-full opacity-75"
                 onClick={() => removeAttachment(attachment)}
               >
