@@ -1,32 +1,38 @@
+import Router from 'next/router'
+
 import trackEvent from './trackEvent'
 
 const linkifyOptions = {
-  format: function (value: string, type: 'url'): string {
+  format: (value: string, type: string): string => {
     if (type === 'url' && value.length > 36) {
       value = value.slice(0, 36) + '…'
     }
     return value
   },
-  formatHref: function (href: string, type: 'mention' | 'hashtag'): string {
-    if (type === 'hashtag') {
-      href = `/search?q=${href.slice(1)}&type=pubs&src=link_click`
+  formatHref: (href: string, type: string) => {
+    if (type === 'url') {
+      return href
     }
-    if (type === 'mention') {
-      href = '/u/' + href.slice(1)
-    }
-    return href
   },
-  target: function (href: string, type: 'url'): string {
+  target: (href: string, type: string): string => {
     if (type === 'url') {
       return '_blank'
     }
     return '_self'
   },
-  attributes: function (href: string, type: string) {
+  attributes: (href: string, type: string) => {
     return {
       title: href,
+      class: 'cursor-pointer',
       onClick: () => {
-        trackEvent(`${type}_click`, 'click')
+        if (type === 'mention') {
+          trackEvent('mention_click', 'click')
+          Router.push(`/u/${href.slice(1)}`)
+        }
+        if (type === 'hashtag') {
+          trackEvent('hashtag_click', 'click')
+          Router.push(`/search?q=${href.slice(1)}&type=pubs&src=link_click`)
+        }
       }
     }
   }
