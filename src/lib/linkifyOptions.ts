@@ -14,6 +14,13 @@ const linkifyOptions = {
       href = '/u/' + href.slice(1)
     }
     return href
+  },
+
+  target: function (href: string, type: 'url'): string {
+    if (type === 'url') {
+      return '_blank'
+    }
+    return '_self'
   }
 }
 
