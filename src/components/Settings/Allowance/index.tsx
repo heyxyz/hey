@@ -75,13 +75,20 @@ const AllowanceSettings: NextPage = () => {
         <Sidebar />
       </GridItemFour>
       <GridItemEight>
-        <Card className="space-y-5">
-          <div className="m-5">
-            <div className="mb-1 font-medium text-gray-800 dark:text-gray-200">
+        <Card>
+          <div className="mx-5 mt-5">
+            <div className="space-y-5">
+              <div className="text-lg font-bold">Allow / Revoke modules</div>
+              <p>
+                In order to use collect feature you need to allow the module you
+                use, you can allow and revoke the module anytime.
+              </p>
+            </div>
+            <div className="mt-6 mb-1 font-medium text-gray-800 dark:text-gray-200">
               Select Currency
             </div>
             <select
-              className="w-full bg-white rounded-xl border border-gray-300 outline-none dark:bg-gray-800 disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 dark:border-gray-700/80 focus:border-brand-500 focus:ring-brand-400"
+              className="w-full bg-white border border-gray-300 outline-none rounded-xl dark:bg-gray-800 disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 dark:border-gray-700/80 focus:border-brand-500 focus:ring-brand-400"
               onChange={(e) => {
                 setCurrencyLoading(true)
                 refetch({
