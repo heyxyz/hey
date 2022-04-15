@@ -151,7 +151,7 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
     }
   )
 
-  const createCollect = async () => {
+  const createCollect = () => {
     if (!account?.address) {
       toast.error(CONNECT_WALLET)
     } else if (activeChain?.id !== CHAIN_ID) {

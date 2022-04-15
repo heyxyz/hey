@@ -75,7 +75,7 @@ const Create: FC<Props> = ({ isModal = false }) => {
     <Form
       form={form}
       className="space-y-4"
-      onSubmit={async ({ handle }) => {
+      onSubmit={({ handle }) => {
         setIsUploading(true)
         const username = handle.toLowerCase()
 

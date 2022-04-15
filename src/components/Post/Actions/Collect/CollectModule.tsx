@@ -207,7 +207,7 @@ const CollectModule: FC<Props> = ({ post, setShowCollectModal }) => {
     }
   )
 
-  const createCollect = async () => {
+  const createCollect = () => {
     // TODO: Add time check
     if (!account?.address) {
       toast.error(CONNECT_WALLET)
