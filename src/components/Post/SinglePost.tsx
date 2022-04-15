@@ -5,7 +5,7 @@ import IFramely from '@components/Shared/IFramely'
 import UserProfile from '@components/Shared/UserProfile'
 import { Card, CardBody } from '@components/UI/Card'
 import { LensterPost } from '@generated/lenstertypes'
-import getURLs from '@lib/getURLs'
+import getURLFromPublication from '@lib/getURLFromPublication'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import Link from 'next/link'
@@ -47,8 +47,8 @@ const SinglePost: FC<Props> = ({ post, hideType = false }) => {
         ) : (
           post?.metadata?.content &&
           post?.metadata?.attributes[0]?.value !== 'crowdfund' &&
-          getURLs(post?.metadata?.content)?.length > 0 && (
-            <IFramely url={getURLs(post?.metadata?.content)[0]} />
+          !!getURLFromPublication(post?.metadata?.content) && (
+            <IFramely url={getURLFromPublication(post?.metadata?.content)} />
           )
         )}
       </CardBody>

@@ -24,7 +24,7 @@ const Search: NextPage = () => {
         </GridItemFour>
         <GridItemEight className="space-y-5">
           {query.type === 'profiles' && <Profiles query={query.q} />}
-          {query.type === 'pubs' && <Publications />}
+          {query.type === 'pubs' && <Publications query={query.q} />}
         </GridItemEight>
       </GridLayout>
     </>
