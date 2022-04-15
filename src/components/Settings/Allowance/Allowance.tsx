@@ -12,8 +12,8 @@ const Allowance: FC<Props> = ({ allowance }) => {
   return (
     <CardBody className="space-y-4">
       {allowance?.approvedModuleAllowanceAmount?.map(
-        (item: ApprovedAllowanceAmount, index: number) => (
-          <Module key={index} module={item} />
+        (item: ApprovedAllowanceAmount) => (
+          <Module key={item?.contractAddress} module={item} />
         )
       )}
     </CardBody>
