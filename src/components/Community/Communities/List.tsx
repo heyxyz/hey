@@ -11,8 +11,8 @@ const List: FC<Props> = ({ communities }) => {
   return (
     <Card>
       <CardBody className="space-y-6">
-        {communities.map((community: Community, index: number) => (
-          <div key={index}>
+        {communities.map((community: Community) => (
+          <div key={community?.id}>
             <CommunityProfile community={community} />
           </div>
         ))}
