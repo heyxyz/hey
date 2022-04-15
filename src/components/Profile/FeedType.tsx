@@ -26,6 +26,7 @@ const FeedType: FC<Props> = ({ stats, setFeedType, feedType }) => {
 
   const FeedLink: FC<FeedLinkProps> = ({ name, icon, type, count = 0 }) => (
     <button
+      type="button"
       onClick={() => {
         trackEvent(`user ${name.toLowerCase()}`)
         setFeedType(type)

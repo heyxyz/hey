@@ -18,6 +18,7 @@ const Followerings: FC<Props> = ({ profile }) => {
   return (
     <div className="flex gap-8">
       <button
+        type="button"
         className="text-left"
         onClick={() => setShowFollowingModal(!showFollowingModal)}
       >
@@ -27,6 +28,7 @@ const Followerings: FC<Props> = ({ profile }) => {
         <div className="text-gray-500">Following</div>
       </button>
       <button
+        type="button"
         className="text-left"
         onClick={() => setShowFollowersModal(!showFollowersModal)}
       >

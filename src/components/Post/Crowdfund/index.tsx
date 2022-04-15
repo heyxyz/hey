@@ -133,6 +133,7 @@ const Crowdfund: FC<Props> = ({ fund }) => {
               {fund?.stats?.totalAmountOfCollects > 0 && (
                 <>
                   <button
+                    type="button"
                     className="text-sm"
                     onClick={() => setShowFundersModal(!showFundersModal)}
                   >
