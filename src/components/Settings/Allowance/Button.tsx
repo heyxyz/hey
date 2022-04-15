@@ -80,40 +80,36 @@ const AllowanceButton: FC<Props> = ({
     })
   }
 
-  return (
-    <>
-      {allowed ? (
-        <Button
-          variant="warning"
-          icon={
-            queryLoading || transactionLoading || waitLoading ? (
-              <Spinner variant="warning" size="xs" />
-            ) : (
-              <MinusIcon className="w-4 h-4" />
-            )
-          }
-          onClick={() => handleAllowance(module.currency, '0', module.module)}
-        >
-          Revoke
-        </Button>
-      ) : (
-        <Button
-          variant="success"
-          icon={
-            queryLoading || transactionLoading || waitLoading ? (
-              <Spinner variant="success" size="xs" />
-            ) : (
-              <PlusIcon className="w-4 h-4" />
-            )
-          }
-          onClick={() =>
-            handleAllowance(module.currency, '10000000000', module.module)
-          }
-        >
-          {title}
-        </Button>
-      )}
-    </>
+  return allowed ? (
+    <Button
+      variant="warning"
+      icon={
+        queryLoading || transactionLoading || waitLoading ? (
+          <Spinner variant="warning" size="xs" />
+        ) : (
+          <MinusIcon className="w-4 h-4" />
+        )
+      }
+      onClick={() => handleAllowance(module.currency, '0', module.module)}
+    >
+      Revoke
+    </Button>
+  ) : (
+    <Button
+      variant="success"
+      icon={
+        queryLoading || transactionLoading || waitLoading ? (
+          <Spinner variant="success" size="xs" />
+        ) : (
+          <PlusIcon className="w-4 h-4" />
+        )
+      }
+      onClick={() =>
+        handleAllowance(module.currency, '10000000000', module.module)
+      }
+    >
+      {title}
+    </Button>
   )
 }
 

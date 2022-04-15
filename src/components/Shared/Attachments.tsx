@@ -36,68 +36,60 @@ const Attachments: FC<Props> = ({
 
   const slicedAttachments = attachments?.slice(0, 4)
 
-  return (
-    <>
-      {slicedAttachments?.length !== 0 && (
-        <div
-          className={clsx(
-            getGridRows(slicedAttachments?.length),
-            'grid grid-flow-col gap-2 pt-3'
-          )}
-        >
-          {slicedAttachments?.map((attachment: any) => (
-            <div
-              className="aspect-w-16 aspect-h-12"
-              key={
-                isNew ? attachment.item : getIPFSLink(attachment.original.url)
-              }
-            >
-              {(isNew ? attachment.type : attachment.original.mimeType) ===
-              'video/mp4' ? (
-                <video
-                  controls
-                  className="object-cover bg-gray-100 rounded-lg border dark:bg-gray-800 dark:border-gray-700/80"
-                >
-                  <source
-                    src={
-                      isNew
-                        ? attachment.item
-                        : getIPFSLink(attachment.original.url)
-                    }
-                    type="video/mp4"
-                  />
-                </video>
-              ) : (
-                <img
-                  className="object-cover bg-gray-100 rounded-lg border dark:bg-gray-800 dark:border-gray-700/80"
-                  src={
-                    isNew
-                      ? attachment.item
-                      : imagekitURL(getIPFSLink(attachment.original.url))
-                  }
-                  alt={
-                    isNew
-                      ? attachment.item
-                      : imagekitURL(getIPFSLink(attachment.original.url))
-                  }
-                />
-              )}
-              {isNew && (
-                <div className="m-3">
-                  <button
-                    className="p-1.5 bg-gray-900 rounded-full opacity-75"
-                    onClick={() => removeAttachment(attachment)}
-                  >
-                    <XIcon className="w-4 h-4 text-white" />
-                  </button>
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
+  return slicedAttachments?.length !== 0 ? (
+    <div
+      className={clsx(
+        getGridRows(slicedAttachments?.length),
+        'grid grid-flow-col gap-2 pt-3'
       )}
-    </>
-  )
+    >
+      {slicedAttachments?.map((attachment: any) => (
+        <div
+          className="aspect-w-16 aspect-h-12"
+          key={isNew ? attachment.item : getIPFSLink(attachment.original.url)}
+        >
+          {(isNew ? attachment.type : attachment.original.mimeType) ===
+          'video/mp4' ? (
+            <video
+              controls
+              className="object-cover bg-gray-100 rounded-lg border dark:bg-gray-800 dark:border-gray-700/80"
+            >
+              <source
+                src={
+                  isNew ? attachment.item : getIPFSLink(attachment.original.url)
+                }
+                type="video/mp4"
+              />
+            </video>
+          ) : (
+            <img
+              className="object-cover bg-gray-100 rounded-lg border dark:bg-gray-800 dark:border-gray-700/80"
+              src={
+                isNew
+                  ? attachment.item
+                  : imagekitURL(getIPFSLink(attachment.original.url))
+              }
+              alt={
+                isNew
+                  ? attachment.item
+                  : imagekitURL(getIPFSLink(attachment.original.url))
+              }
+            />
+          )}
+          {isNew && (
+            <div className="m-3">
+              <button
+                className="p-1.5 bg-gray-900 rounded-full opacity-75"
+                onClick={() => removeAttachment(attachment)}
+              >
+                <XIcon className="w-4 h-4 text-white" />
+              </button>
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+  ) : null
 }
 
 export default Attachments

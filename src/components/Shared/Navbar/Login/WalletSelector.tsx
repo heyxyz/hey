@@ -113,83 +113,74 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
     })
   }
 
-  return (
-    <>
-      {accountData?.connector?.id ? (
-        <div className="space-y-3">
-          <Button
-            size="lg"
-            disabled={
-              signLoading || challenegeLoading || authLoading || profilesLoading
-            }
-            icon={
-              signLoading ||
-              challenegeLoading ||
-              authLoading ||
-              profilesLoading ? (
-                <Spinner className="mr-0.5" size="xs" />
-              ) : (
-                <img
-                  className="mr-1 h-5"
-                  src="/eth-white.svg"
-                  alt="Ethereum Logo"
-                />
-              )
-            }
-            onClick={handleSign}
-          >
-            Sign-In with Ethereum
-          </Button>
-          {(errorChallenege || errorAuthenticate || errorProfiles) && (
-            <div className="flex items-center space-x-1 font-bold text-red-500">
-              <XCircleIcon className="w-5 h-5" />
-              <div>{ERROR_MESSAGE}</div>
-            </div>
-          )}
-        </div>
-      ) : (
-        <div className="inline-block overflow-hidden space-y-3 w-full text-left align-middle transition-all transform">
-          {connectors.map((x, i) => {
-            return (
-              <button
-                key={i}
-                className={clsx(
-                  { 'hover:bg-gray-100': x.id !== accountData?.connector?.id },
-                  'w-full flex items-center space-x-2.5 justify-center px-4 py-3 overflow-hidden rounded-xl border outline-none border-gray-200'
-                )}
-                onClick={() => onConnect(x)}
-                disabled={
-                  mounted
-                    ? !x.ready || x.id === accountData?.connector?.id
-                    : false
-                }
-              >
-                <span className="flex justify-between items-center w-full">
-                  {mounted
-                    ? x.id === 'injected'
-                      ? 'Browser Wallet'
-                      : x.name
-                    : x.name}
-                  {mounted ? !x.ready && ' (unsupported)' : ''}
-                </span>
-                <img
-                  src={getWalletLogo(x.name)}
-                  draggable={false}
-                  className="w-6 h-6"
-                  alt={x.id}
-                />
-              </button>
-            )
-          })}
-          {error?.message ? (
-            <div className="flex items-center space-x-1 text-red-500">
-              <XCircleIcon className="w-5 h-5" />
-              <div>{error?.message ?? 'Failed to connect'}</div>
-            </div>
-          ) : null}
+  return accountData?.connector?.id ? (
+    <div className="space-y-3">
+      <Button
+        size="lg"
+        disabled={
+          signLoading || challenegeLoading || authLoading || profilesLoading
+        }
+        icon={
+          signLoading || challenegeLoading || authLoading || profilesLoading ? (
+            <Spinner className="mr-0.5" size="xs" />
+          ) : (
+            <img
+              className="mr-1 h-5"
+              src="/eth-white.svg"
+              alt="Ethereum Logo"
+            />
+          )
+        }
+        onClick={handleSign}
+      >
+        Sign-In with Ethereum
+      </Button>
+      {(errorChallenege || errorAuthenticate || errorProfiles) && (
+        <div className="flex items-center space-x-1 font-bold text-red-500">
+          <XCircleIcon className="w-5 h-5" />
+          <div>{ERROR_MESSAGE}</div>
         </div>
       )}
-    </>
+    </div>
+  ) : (
+    <div className="inline-block overflow-hidden space-y-3 w-full text-left align-middle transition-all transform">
+      {connectors.map((x, i) => {
+        return (
+          <button
+            key={i}
+            className={clsx(
+              { 'hover:bg-gray-100': x.id !== accountData?.connector?.id },
+              'w-full flex items-center space-x-2.5 justify-center px-4 py-3 overflow-hidden rounded-xl border outline-none border-gray-200'
+            )}
+            onClick={() => onConnect(x)}
+            disabled={
+              mounted ? !x.ready || x.id === accountData?.connector?.id : false
+            }
+          >
+            <span className="flex justify-between items-center w-full">
+              {mounted
+                ? x.id === 'injected'
+                  ? 'Browser Wallet'
+                  : x.name
+                : x.name}
+              {mounted ? !x.ready && ' (unsupported)' : ''}
+            </span>
+            <img
+              src={getWalletLogo(x.name)}
+              draggable={false}
+              className="w-6 h-6"
+              alt={x.id}
+            />
+          </button>
+        )
+      })}
+      {error?.message ? (
+        <div className="flex items-center space-x-1 text-red-500">
+          <XCircleIcon className="w-5 h-5" />
+          <div>{error?.message ?? 'Failed to connect'}</div>
+        </div>
+      ) : null}
+    </div>
   )
 }
 
