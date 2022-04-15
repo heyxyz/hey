@@ -198,7 +198,7 @@ const FollowModule: FC<Props> = ({
     }
   )
 
-  const createFollow = async () => {
+  const createFollow = () => {
     if (!account?.address) {
       toast.error(CONNECT_WALLET)
     } else if (activeChain?.id !== CHAIN_ID) {
