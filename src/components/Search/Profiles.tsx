@@ -1,5 +1,5 @@
 import { gql, useQuery } from '@apollo/client'
-import PostsShimmer from '@components/Shared/Shimmer/PostsShimmer'
+import UserProfilesShimmer from '@components/Shared/Shimmer/UserProfilesShimmer'
 import UserProfile from '@components/Shared/UserProfile'
 import { Card, CardBody } from '@components/UI/Card'
 import { EmptyState } from '@components/UI/EmptyState'
@@ -70,7 +70,7 @@ const Profiles: FC<Props> = ({ query }) => {
 
   return (
     <>
-      {loading && <PostsShimmer />}
+      {loading && <UserProfilesShimmer isBig />}
       {data?.search?.items?.length === 0 && (
         <EmptyState
           message={<div>No profiles found!</div>}
