@@ -105,7 +105,7 @@ const Crowdfund: FC<Props> = ({ fund }) => {
   if (loading) return <CrowdfundShimmer />
 
   return (
-    <Card>
+    <Card forceRounded>
       <div
         className="h-40 border-b rounded-t-xl sm:h-52 dark:border-b-gray-700/80"
         style={{
