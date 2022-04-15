@@ -47,9 +47,11 @@ const Search = () => {
   const handleSearch = (evt: any) => {
     let keyword = evt.target.value
     setSearchText(keyword)
-    searchUsers({
-      variables: { request: { type: 'PROFILE', query: keyword, limit: 8 } }
-    })
+    if (pathname !== '/search') {
+      searchUsers({
+        variables: { request: { type: 'PROFILE', query: keyword, limit: 8 } }
+      })
+    }
   }
 
   const handleKeyDown = (evt: any) => {
@@ -58,8 +60,8 @@ const Search = () => {
       push(`/search?q=${searchText}&type=${query.type}`)
     } else {
       push(`/search?q=${searchText}&type=pubs`)
+      setSearchText('')
     }
-    setSearchText('')
   }
 
   return (
