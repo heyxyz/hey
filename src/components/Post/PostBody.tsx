@@ -51,8 +51,8 @@ const PostBody: FC<Props> = ({ post }) => {
                   post?.metadata?.cover?.original?.url
                     ? post?.metadata?.cover?.original?.url
                     : `https://avatar.tobi.sh/${post?.id}.png`,
-                  500,
-                  500
+                  250,
+                  250
                 )}
                 className="bg-gray-200 rounded ring-2 ring-gray-50 dark:bg-gray-700 dark:ring-black w-[19px] h-[19px]"
                 alt={post?.id}

@@ -106,7 +106,7 @@ const Picture: FC<Props> = ({ profile }) => {
     // @ts-ignore
     if (profile?.picture?.original?.url)
       // @ts-ignore
-      setAvatar(imagekitURL(profile?.picture?.original?.url))
+      setAvatar(profile?.picture?.original?.url)
   }, [profile])
 
   const [createSetProfileImageURITypedData, { loading: typedDataLoading }] =
@@ -197,7 +197,7 @@ const Picture: FC<Props> = ({ profile }) => {
               <div>
                 <img
                   className="w-60 h-60 rounded-lg"
-                  src={avatar}
+                  src={imagekitURL(avatar, 250, 250)}
                   alt={avatar}
                 />
               </div>

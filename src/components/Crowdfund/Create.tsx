@@ -383,7 +383,7 @@ const Create: FC = () => {
                   {cover && (
                     <img
                       className="object-cover w-full h-60 rounded-lg"
-                      src={`${imagekitURL(cover)}/tr:h-400`}
+                      src={`${imagekitURL(cover)}/tr:h-500`}
                       alt={cover}
                     />
                   )}

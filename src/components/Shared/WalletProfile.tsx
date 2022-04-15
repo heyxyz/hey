@@ -23,8 +23,8 @@ const WalletProfile: FC<Props> = ({ wallet }) => {
         <img
           src={imagekitURL(
             `https://avatar.tobi.sh/${wallet?.address}.png`,
-            500,
-            500
+            250,
+            250
           )}
           className="w-10 h-10 bg-gray-200 rounded-full border"
           alt={wallet?.address}

@@ -111,7 +111,7 @@ const Crowdfund: FC<Props> = ({ fund }) => {
         style={{
           backgroundImage: `url(${
             cover
-              ? `${imagekitURL(cover)}/tr:h-400`
+              ? `${imagekitURL(cover)}/tr:h-500`
               : `${STATIC_ASSETS}/patterns/2.svg`
           })`,
           backgroundColor: '#8b5cf6',
