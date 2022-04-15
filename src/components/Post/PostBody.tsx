@@ -42,7 +42,10 @@ const PostBody: FC<Props> = ({ post }) => {
             <span>Launched a new community</span>
           )}
           <Link href={`/communities/${post?.id}`}>
-            <a className="flex items-center space-x-1.5 font-bold">
+            <a
+              href={`/communities/${post?.id}`}
+              className="flex items-center space-x-1.5 font-bold"
+            >
               <img
                 src={imagekitURL(
                   post?.metadata?.cover?.original?.url

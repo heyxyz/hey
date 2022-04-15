@@ -16,7 +16,7 @@ const Mirrored: FC<Props> = ({ post }) => {
       <SwitchHorizontalIcon className="w-4 h-4" />
       <div className="flex items-center space-x-1">
         <Link href={`/u/${post?.profile?.handle}`}>
-          <a>
+          <a href={`/u/${post?.profile?.handle}`}>
             {post?.profile?.name ? (
               <b>{post?.profile?.name}</b>
             ) : (
@@ -25,7 +25,7 @@ const Mirrored: FC<Props> = ({ post }) => {
           </a>
         </Link>
         <Link href={`/posts/${post?.mirrorOf?.id}`}>
-          <a>
+          <a href={`/posts/${post?.mirrorOf?.id}`}>
             <span>mirrored the </span>
             <b>
               {post?.mirrorOf.__typename === 'Post'

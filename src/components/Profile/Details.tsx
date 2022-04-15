@@ -138,7 +138,7 @@ const Details: FC<Props> = ({ profile }) => {
           )}
           {currentUser?.id === profile?.id && (
             <Link href="/settings">
-              <a>
+              <a href="/settings">
                 <Button
                   variant="secondary"
                   className="!py-1.5"

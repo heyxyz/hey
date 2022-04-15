@@ -49,7 +49,7 @@ export const NotificationProfileAvatar: FC<Props> = ({ notification }) => {
 
   return (
     <Link href={profile.url}>
-      <a target={profile.target}>
+      <a href={profile.url} target={profile.target}>
         <img
           src={picture}
           className="w-10 h-10 bg-gray-200 rounded-full border dark:border-gray-700/80"
@@ -84,7 +84,7 @@ export const NotificationProfileName: FC<Props> = ({ notification }) => {
 
   return (
     <Link href={profile.url}>
-      <a className="font-bold" target={profile.target}>
+      <a href={profile.url} className="font-bold" target={profile.target}>
         {profile.name}
       </a>
     </Link>
