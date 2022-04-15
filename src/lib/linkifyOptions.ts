@@ -1,5 +1,5 @@
 const linkifyOptions = {
-  format: function (value: string, type: 'url') {
+  format: function (value: string, type: 'url'): string {
     if (type === 'url' && value.length > 36) {
       value = value.slice(0, 36) + '…'
     }
