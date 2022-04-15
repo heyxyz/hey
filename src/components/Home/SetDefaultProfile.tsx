@@ -25,7 +25,7 @@ const SetDefaultProfile: FC = () => {
         <div className="flex items-center space-x-1.5 text-sm font-bold">
           <CurrencyDollarIcon className="w-4 h-4" />
           <Link href="/settings/account">
-            <a>Set default profile here</a>
+            <a href="/settings/account">Set default profile here</a>
           </Link>
         </div>
       </CardBody>

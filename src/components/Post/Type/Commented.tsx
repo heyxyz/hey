@@ -24,12 +24,15 @@ const Commented: FC<Props> = ({ post }) => {
       />
       <div className="flex items-center pb-3.5 space-x-1 text-sm text-gray-500">
         <Link href={`/u/${commentOn?.profile?.handle}`}>
-          <a>
+          <a href={`/u/${commentOn?.profile?.handle}`}>
             <Slug slug={commentOn?.profile?.handle} prefix="@" />:
           </a>
         </Link>
         <Link href={`/posts/${commentOn?.id ?? commentOn?.pubId}`}>
-          <a className="line-clamp-1">
+          <a
+            href={`/posts/${commentOn?.id ?? commentOn?.pubId}`}
+            className="line-clamp-1"
+          >
             {commentOn?.metadata?.content?.trim()
               ? commentOn?.metadata?.content
               : commentOn?.metadata?.name}

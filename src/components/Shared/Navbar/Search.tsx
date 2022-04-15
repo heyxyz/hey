@@ -80,7 +80,10 @@ const Search = () => {
                     className="py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-800"
                   >
                     <Link href={`/u/${profile?.handle}`}>
-                      <a onClick={() => setSearchText('')}>
+                      <a
+                        href={`/u/${profile?.handle}`}
+                        onClick={() => setSearchText('')}
+                      >
                         <UserProfile profile={profile} />
                       </a>
                     </Link>

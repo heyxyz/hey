@@ -42,7 +42,16 @@ const CollectNotification: FC<Props> = ({ notification }) => {
               : `/posts/${notification?.collectedPublication?.id}`
           }
         >
-          <a className="font-bold">{postType}</a>
+          <a
+            href={
+              postType === 'community'
+                ? `/communities/${notification?.collectedPublication?.id}`
+                : `/posts/${notification?.collectedPublication?.id}`
+            }
+            className="font-bold"
+          >
+            {postType}
+          </a>
         </Link>
         <CollectedContent notification={notification} />
         {postType !== 'community' && (
