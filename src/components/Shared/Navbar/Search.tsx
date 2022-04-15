@@ -8,6 +8,7 @@ import { MinimalProfileFields } from '@gql/MinimalProfileFields'
 import consoleLog from '@lib/consoleLog'
 import trackEvent from '@lib/trackEvent'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { useRef, useState } from 'react'
 
 import UserProfile from '../UserProfile'
@@ -26,6 +27,7 @@ const SEARCH_USERS_QUERY = gql`
 `
 
 const Search = () => {
+  const { push } = useRouter()
   const [searchText, setSearchText] = useState<string>('')
   const dropdownRef = useRef(null)
 
@@ -50,16 +52,24 @@ const Search = () => {
     })
   }
 
+  const handleKeyDown = (evt: any) => {
+    evt.preventDefault()
+    push(`/search?q=${searchText}&type=pubs`)
+    setSearchText('')
+  }
+
   return (
     <>
       <div onClick={() => trackEvent('search')}>
-        <Input
-          type="text"
-          className="py-2 px-3 text-sm"
-          placeholder="Search..."
-          value={searchText}
-          onChange={handleSearch}
-        />
+        <form onSubmit={handleKeyDown}>
+          <Input
+            type="text"
+            className="py-2 px-3 text-sm"
+            placeholder="Search..."
+            value={searchText}
+            onChange={handleSearch}
+          />
+        </form>
       </div>
       {searchText.length > 0 && (
         <div
