@@ -90,7 +90,7 @@ const AllowanceSettings: NextPage = () => {
               }}
             >
               {data?.enabledModuleCurrencies.map((currency: Erc20) => (
-                <option key={currency.symbol} value={currency.address}>
+                <option key={currency.address} value={currency.address}>
                   {currency.name}
                 </option>
               ))}

@@ -101,8 +101,11 @@ const NFTFeed: FC<Props> = ({ profile }) => {
       {!error && (
         <>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            {nfts?.map((nft: Nft, index: number) => (
-              <SingleNFT key={`${nft.tokenId}_${index}`} nft={nft} />
+            {nfts?.map((nft: Nft) => (
+              <SingleNFT
+                key={`${nft?.chainId}_${nft?.contractAddress}_${nft?.tokenId}`}
+                nft={nft}
+              />
             ))}
           </div>
           {pageInfo?.next && (
