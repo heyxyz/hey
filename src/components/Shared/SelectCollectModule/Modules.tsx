@@ -86,7 +86,7 @@ const Modules: FC<Props> = ({
         data?.enabledModules?.collectModules?.map(
           (module: EnabledModule) =>
             getModule(module?.moduleName).name !== 'none' && (
-              <div key={module?.moduleName}>
+              <div key={module?.contractAddress}>
                 <button
                   type="button"
                   className={clsx(

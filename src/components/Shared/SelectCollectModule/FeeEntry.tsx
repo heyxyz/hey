@@ -71,7 +71,7 @@ const FeeEntry: FC<Props> = ({
             onChange={(e) => setSelectedCurrency(e.target.value)}
           >
             {enabledModuleCurrencies.map((currency: Erc20) => (
-              <option key={currency.symbol} value={currency.address}>
+              <option key={currency.address} value={currency.address}>
                 {currency.name}
               </option>
             ))}
