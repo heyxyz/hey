@@ -1,5 +1,3 @@
-import 'linkify-plugin-mention'
-
 import { LensterPost } from '@generated/lenstertypes'
 import React, { FC } from 'react'
 
