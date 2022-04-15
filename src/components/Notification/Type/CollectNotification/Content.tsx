@@ -16,7 +16,10 @@ const CollectedContent: FC<Props> = ({ notification }) => {
     <div className="text-sm text-gray-500 line-clamp-1">
       {postType === 'community' ? (
         <Link href={`/communities/${notification?.collectedPublication?.id}`}>
-          <a className="flex items-center space-x-1.5 font-bold">
+          <a
+            href={`/communities/${notification?.collectedPublication?.id}`}
+            className="flex items-center space-x-1.5 font-bold"
+          >
             <img
               src={imagekitURL(
                 notification?.collectedPublication?.metadata?.cover?.original
@@ -35,11 +38,15 @@ const CollectedContent: FC<Props> = ({ notification }) => {
         </Link>
       ) : postType === 'crowdfund' ? (
         <Link href={`/posts/${notification?.collectedPublication?.id}`}>
-          <a>{notification?.collectedPublication?.metadata?.name}</a>
+          <a href={`/posts/${notification?.collectedPublication?.id}`}>
+            {notification?.collectedPublication?.metadata?.name}
+          </a>
         </Link>
       ) : (
         <Link href={`/posts/${notification?.collectedPublication?.id}`}>
-          <a>{notification?.collectedPublication?.metadata?.content}</a>
+          <a href={`/posts/${notification?.collectedPublication?.id}`}>
+            {notification?.collectedPublication?.metadata?.content}
+          </a>
         </Link>
       )}
     </div>

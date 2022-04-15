@@ -27,7 +27,7 @@ import SwitchNetwork from '../SwitchNetwork'
 import Login from './Login'
 
 export const NextLink = ({ href, children, ...rest }: Record<string, any>) => (
-  <Link href={href} passHref>
+  <Link href={href}>
     <a {...rest}>{children}</a>
   </Link>
 )
