@@ -5,7 +5,6 @@ const linkifyOptions = {
     }
     return value
   },
-
   formatHref: function (href: string, type: 'mention' | 'hashtag'): string {
     if (type === 'hashtag') {
       href = `/search?q=${href.slice(1)}&type=pubs&src=link_click`
@@ -15,7 +14,6 @@ const linkifyOptions = {
     }
     return href
   },
-
   target: function (href: string, type: 'url'): string {
     if (type === 'url') {
       return '_blank'
