@@ -310,7 +310,7 @@ const Create: FC = () => {
                   {currencyData?.enabledModuleCurrencies?.map(
                     (currency: Erc20) => (
                       <option
-                        key={currency.symbol}
+                        key={currency.address}
                         value={`${currency.address}-${currency.symbol}`}
                       >
                         {currency.name}
