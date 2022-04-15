@@ -21,6 +21,7 @@ const SEARCH_PROFILES_QUERY = gql`
         }
         pageInfo {
           next
+          totalCount
         }
       }
     }
@@ -36,7 +37,7 @@ const Profiles: FC<Props> = ({ query }) => {
   const [profiles, setProfiles] = useState<Profile[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
   const { data, loading, error, fetchMore } = useQuery(SEARCH_PROFILES_QUERY, {
-    variables: { request: { query, type: 'PROFILE' } },
+    variables: { request: { query, type: 'PROFILE', limit: 10 } },
     skip: !query,
     onCompleted(data) {
       setPageInfo(data?.search?.pageInfo)
@@ -54,7 +55,12 @@ const Profiles: FC<Props> = ({ query }) => {
     onEnter: () => {
       fetchMore({
         variables: {
-          request: { query, type: 'PROFILE' }
+          request: {
+            query,
+            type: 'PROFILE',
+            cursor: pageInfo?.next,
+            limit: 10
+          }
         }
       }).then(({ data }: any) => {
         setPageInfo(data?.search?.pageInfo)
@@ -89,7 +95,7 @@ const Profiles: FC<Props> = ({ query }) => {
               </Card>
             ))}
           </div>
-          {pageInfo?.next && (
+          {pageInfo?.next && profiles.length !== pageInfo?.totalCount && (
             <span ref={observe} className="flex justify-center p-5">
               <Spinner size="sm" />
             </span>
