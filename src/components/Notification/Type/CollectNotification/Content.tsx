@@ -27,8 +27,7 @@ const CollectedContent: FC<Props> = ({ notification }) => {
                   ? notification?.collectedPublication?.metadata?.cover
                       ?.original?.url
                   : `https://avatar.tobi.sh/${notification?.collectedPublication?.id}.png`,
-                250,
-                250
+                'avatar'
               )}
               className="w-4 h-4 bg-gray-200 rounded ring-2 ring-gray-50 dark:bg-gray-700 dark:ring-black"
               alt={notification?.collectedPublication?.id}

@@ -13,7 +13,7 @@ const Cover: FC<Props> = ({ cover }) => {
       style={{
         backgroundImage: `url(${
           cover
-            ? `${imagekitURL(cover)}/tr:h-800`
+            ? imagekitURL(cover, 'cover')
             : `${STATIC_ASSETS}/patterns/2.svg`
         })`,
         backgroundColor: '#8b5cf6',

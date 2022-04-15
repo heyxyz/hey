@@ -52,8 +52,7 @@ const PostBody: FC<Props> = ({ post }) => {
                   post?.metadata?.cover?.original?.url
                     ? post?.metadata?.cover?.original?.url
                     : `https://avatar.tobi.sh/${post?.id}.png`,
-                  250,
-                  250
+                  'avatar'
                 )}
                 className="bg-gray-200 rounded ring-2 ring-gray-50 dark:bg-gray-700 dark:ring-black w-[19px] h-[19px]"
                 alt={post?.id}
@@ -72,7 +71,7 @@ const PostBody: FC<Props> = ({ post }) => {
                 showMore && pathname !== '/posts/[id]'
             })}
           >
-            <div className="leading-7 whitespace-pre-wrap break-words">
+            <div className="leading-7 break-words whitespace-pre-wrap">
               {post?.metadata?.content?.replace(/\n\s*\n/g, '\n\n').trim()}
             </div>
           </div>
