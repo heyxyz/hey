@@ -2,6 +2,7 @@ import { Profile } from '@generated/types'
 import { BadgeCheckIcon } from '@heroicons/react/solid'
 import getAvatar from '@lib/getAvatar'
 import isVerified from '@lib/isVerified'
+import clsx from 'clsx'
 import Link from 'next/link'
 import React, { FC, useState } from 'react'
 
@@ -16,6 +17,7 @@ interface Props {
   showFollow?: boolean
   followStatusLoading?: boolean
   isFollowing?: boolean
+  isBig?: boolean
 }
 
 const UserProfile: FC<Props> = ({
@@ -23,7 +25,8 @@ const UserProfile: FC<Props> = ({
   showBio = false,
   showFollow = false,
   followStatusLoading = false,
-  isFollowing = false
+  isFollowing = false,
+  isBig = false
 }) => {
   const [following, setFollowing] = useState<boolean>(isFollowing)
 
@@ -34,19 +37,26 @@ const UserProfile: FC<Props> = ({
           <div className="flex items-center space-x-3">
             <img
               src={getAvatar(profile)}
-              className="w-10 h-10 bg-gray-200 rounded-full border dark:border-gray-700/80"
+              className={clsx(
+                isBig ? 'w-14 h-14' : 'w-10 h-10',
+                'bg-gray-200 rounded-full border dark:border-gray-700/80'
+              )}
               alt={profile?.handle}
             />
             <div>
               <div className="flex gap-1 items-center">
-                <div>{profile?.name ?? profile?.handle}</div>
+                <div className={clsx(isBig ? 'font-bold' : 'text-md')}>
+                  {profile?.name ?? profile?.handle}
+                </div>
                 {isVerified(profile?.id) && (
                   <BadgeCheckIcon className="w-4 h-4 text-brand-500" />
                 )}
               </div>
               <Slug className="text-sm" slug={profile?.handle} prefix="@" />
               {showBio && profile?.bio && (
-                <div className="mt-2 text-sm">{profile?.bio}</div>
+                <div className={clsx(isBig ? 'text-md' : 'text-sm', 'mt-2')}>
+                  {profile?.bio}
+                </div>
               )}
             </div>
           </div>

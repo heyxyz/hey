@@ -84,7 +84,7 @@ const Profiles: FC<Props> = ({ query }) => {
             {profiles?.map((profile: Profile) => (
               <Card key={profile?.id}>
                 <CardBody>
-                  <UserProfile profile={profile} showBio />
+                  <UserProfile profile={profile} showBio isBig />
                 </CardBody>
               </Card>
             ))}
