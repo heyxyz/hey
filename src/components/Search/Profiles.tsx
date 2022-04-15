@@ -7,7 +7,7 @@ import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { Spinner } from '@components/UI/Spinner'
 import { PaginatedResultInfo, Profile } from '@generated/types'
 import { MinimalProfileFields } from '@gql/MinimalProfileFields'
-import { CollectionIcon } from '@heroicons/react/outline'
+import { UsersIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
 import React, { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
@@ -79,8 +79,12 @@ const Profiles: FC<Props> = ({ query }) => {
       {loading && <UserProfilesShimmer isBig />}
       {data?.search?.items?.length === 0 && (
         <EmptyState
-          message={<div>No profiles found!</div>}
-          icon={<CollectionIcon className="w-8 h-8 text-brand-500" />}
+          message={
+            <div>
+              No profiles for <b>"{query}"</b>
+            </div>
+          }
+          icon={<UsersIcon className="w-8 h-8 text-brand-500" />}
         />
       )}
       <ErrorMessage title="Failed to load explore feed" error={error} />
