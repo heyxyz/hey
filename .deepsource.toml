@@ -6,6 +6,7 @@ exclude_patterns = [
   ".gitlab",
   ".husky",
   ".vscode",
+  "src/generated/types.ts",
   "yarn.lock"
 ]
 
