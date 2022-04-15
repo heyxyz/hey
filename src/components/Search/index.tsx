@@ -23,8 +23,8 @@ const Search: NextPage = () => {
           <Sidebar />
         </GridItemFour>
         <GridItemEight className="space-y-5">
-          {query.type === 'pubs' && <Profiles />}
-          {query.type === 'profiles' && <Publications />}
+          {query.type === 'profiles' && <Profiles query={query.q} />}
+          {query.type === 'pubs' && <Publications />}
         </GridItemEight>
       </GridLayout>
     </>
