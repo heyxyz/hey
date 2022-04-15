@@ -44,7 +44,7 @@ const SiteLayout: FC<Props> = ({ children }) => {
       consoleLog(
         'Query',
         '#8b5cf6',
-        `Fetched ${data?.profiles?.items?.length} owned profiles`
+        `Fetched ${data?.profiles?.items?.length.toString()} owned profiles`
       )
     }
   })
