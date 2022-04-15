@@ -37,11 +37,11 @@ const Sidebar: FC = () => {
         <div>Publications</div>
       </Menu>
       <Menu
-        current={query.type == 'users'}
-        url={`/search?q=${query.q}&type=users`}
+        current={query.type == 'profiles'}
+        url={`/search?q=${query.q}&type=profiles`}
       >
         <UsersIcon className="w-4 h-4" />
-        <div>Users</div>
+        <div>Profiles</div>
       </Menu>
     </div>
   )

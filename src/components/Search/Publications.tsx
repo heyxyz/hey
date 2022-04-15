@@ -38,7 +38,7 @@ const EXPLORE_FEED_QUERY = gql`
   ${MirrorFields}
 `
 
-const Feed: FC = () => {
+const Publications: FC = () => {
   const [publications, setPublications] = useState<LensterPost[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
   const { data, loading, error, fetchMore } = useQuery(EXPLORE_FEED_QUERY, {
@@ -112,4 +112,4 @@ const Feed: FC = () => {
   )
 }
 
-export default Feed
+export default Publications

@@ -27,7 +27,7 @@ const SEARCH_USERS_QUERY = gql`
 `
 
 const Search = () => {
-  const { push } = useRouter()
+  const { push, pathname, query } = useRouter()
   const [searchText, setSearchText] = useState<string>('')
   const dropdownRef = useRef(null)
 
@@ -47,14 +47,20 @@ const Search = () => {
   const handleSearch = (evt: any) => {
     let keyword = evt.target.value
     setSearchText(keyword)
-    searchUsers({
-      variables: { request: { type: 'PROFILE', query: keyword, limit: 8 } }
-    })
+    if (pathname !== '/search') {
+      searchUsers({
+        variables: { request: { type: 'PROFILE', query: keyword, limit: 8 } }
+      })
+    }
   }
 
   const handleKeyDown = (evt: any) => {
     evt.preventDefault()
-    push(`/search?q=${searchText}&type=pubs`)
+    if (pathname === '/search') {
+      push(`/search?q=${searchText}&type=${query.type}`)
+    } else {
+      push(`/search?q=${searchText}&type=pubs`)
+    }
     setSearchText('')
   }
 
@@ -71,7 +77,7 @@ const Search = () => {
           />
         </form>
       </div>
-      {searchText.length > 0 && (
+      {pathname !== '/search' && searchText.length > 0 && (
         <div
           className="flex absolute flex-col mt-2 w-full sm:max-w-md"
           ref={dropdownRef}
