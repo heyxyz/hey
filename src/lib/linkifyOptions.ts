@@ -26,11 +26,11 @@ const linkifyOptions = {
       class: 'cursor-pointer',
       onClick: () => {
         if (type === 'mention') {
-          trackEvent('mention_click', 'click')
+          trackEvent('mention', 'click')
           Router.push(`/u/${href.slice(1)}`)
         }
         if (type === 'hashtag') {
-          trackEvent('hashtag_click', 'click')
+          trackEvent('hashtag', 'click')
           Router.push(`/search?q=${href.slice(1)}&type=pubs&src=link_click`)
         }
       }
