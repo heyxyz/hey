@@ -5,13 +5,14 @@ import { useRouter } from 'next/router'
 import React from 'react'
 import Custom404 from 'src/pages/404'
 
-import Feed from './Feed'
+import Profiles from './Profiles'
+import Publications from './Publications'
 import Sidebar from './Sidebar'
 
 const Search: NextPage = () => {
   const { query } = useRouter()
 
-  if (!query.q || !['pubs', 'users'].includes(query.type as any))
+  if (!query.q || !['pubs', 'profiles'].includes(query.type as any))
     return <Custom404 />
 
   return (
@@ -22,7 +23,8 @@ const Search: NextPage = () => {
           <Sidebar />
         </GridItemFour>
         <GridItemEight className="space-y-5">
-          {query.type === 'pubs' && <Feed />}
+          {query.type === 'pubs' && <Profiles />}
+          {query.type === 'profiles' && <Publications />}
         </GridItemEight>
       </GridLayout>
     </>
