@@ -78,7 +78,7 @@ const Profile: FC<Props> = ({ profile }) => {
     // @ts-ignore
     if (profile?.coverPicture?.original?.url)
       // @ts-ignore
-      setCover(imagekitURL(profile?.coverPicture?.original?.url))
+      setCover(profile?.coverPicture?.original?.url)
   }, [profile])
 
   const handleUpload = async (evt: ChangeEvent<HTMLInputElement>) => {
@@ -177,7 +177,7 @@ const Profile: FC<Props> = ({ profile }) => {
                 <div>
                   <img
                     className="object-cover w-full h-60 rounded-lg"
-                    src={cover}
+                    src={`${imagekitURL(cover)}/tr:h-800`}
                     alt={cover}
                   />
                 </div>

@@ -12,7 +12,9 @@ const Cover: FC<Props> = ({ cover }) => {
       className="h-52 sm:h-80"
       style={{
         backgroundImage: `url(${
-          cover ? imagekitURL(cover) : `${STATIC_ASSETS}/patterns/2.svg`
+          cover
+            ? `${imagekitURL(cover)}/tr:h-800`
+            : `${STATIC_ASSETS}/patterns/2.svg`
         })`,
         backgroundColor: '#8b5cf6',
         backgroundSize: cover ? 'cover' : '30%',

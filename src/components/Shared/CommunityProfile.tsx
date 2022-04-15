@@ -20,8 +20,8 @@ const CommunityProfile: FC<Props> = ({ community }) => {
                 community?.metadata?.cover?.original?.url
                   ? community?.metadata?.cover?.original?.url
                   : `https://avatar.tobi.sh/${community?.id}.png`,
-                500,
-                500
+                250,
+                250
               )}
               className="w-16 h-16 bg-gray-200 rounded-xl border dark:border-gray-700/80"
               alt={community?.id}
