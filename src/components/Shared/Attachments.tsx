@@ -67,12 +67,16 @@ const Attachments: FC<Props> = ({
               src={
                 isNew
                   ? attachment.item
-                  : imagekitURL(getIPFSLink(attachment.original.url))
+                  : `${imagekitURL(
+                      getIPFSLink(attachment.original.url)
+                    )}/tr:h-400`
               }
               alt={
                 isNew
                   ? attachment.item
-                  : imagekitURL(getIPFSLink(attachment.original.url))
+                  : `${imagekitURL(
+                      getIPFSLink(attachment.original.url)
+                    )}/tr:h-400`
               }
             />
           )}
