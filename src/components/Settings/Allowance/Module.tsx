@@ -1,4 +1,5 @@
 import { Card, CardBody } from '@components/UI/Card'
+import HelpTooltip from '@components/UI/HelpTooltip'
 import GetModuleIcon from '@components/utils/GetModuleIcon'
 import { ApprovedAllowanceAmount } from '@generated/types'
 import { getModule } from '@lib/getModule'
@@ -15,15 +16,16 @@ const Module: FC<Props> = ({ module }) => {
 
   return (
     <Card key={module.module}>
-      <CardBody className="block justify-between items-center sm:flex">
+      <CardBody className="items-center justify-between block sm:flex">
         <div className="overflow-hidden mr-1.5 mb-3 sm:mb-0">
-          <div className="flex items-center space-x-3">
+          <div className="flex items-center space-x-2">
             <div className="text-brand-500">
               <GetModuleIcon module={module.module} size={4} />
             </div>
             <div className="font-bold whitespace-nowrap">
               {getModule(module.module).name}
             </div>
+            <HelpTooltip content={getModule(module.module).helper} />
           </div>
           <div className="text-sm text-gray-500 truncate">
             {module.contractAddress}
