@@ -128,7 +128,6 @@ const SuperFollow: FC = () => {
     'setFollowModuleWithSig',
     {
       onSuccess() {
-        form.reset()
         trackEvent('set superfollow', 'create')
       },
       onError(error) {
