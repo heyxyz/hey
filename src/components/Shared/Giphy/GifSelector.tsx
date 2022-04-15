@@ -43,11 +43,11 @@ const GifSelector: FC<Props> = ({ setShowModal, setGifAttachment }) => {
     fetchGiphyCategories()
   }, [])
 
-  const fetchGifs = async (offset: number) => {
+  const fetchGifs = (offset: number) => {
     return giphyFetch.search(searchText, { offset, limit: 10 })
   }
 
-  const handleSearch = async (evt: any) => {
+  const handleSearch = (evt: any) => {
     let keyword = evt.target.value
     setDebouncedGifInput(keyword)
   }
