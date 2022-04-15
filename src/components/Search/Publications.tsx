@@ -7,57 +7,57 @@ import { Spinner } from '@components/UI/Spinner'
 import { LensterPost } from '@generated/lenstertypes'
 import { PaginatedResultInfo } from '@generated/types'
 import { CommentFields } from '@gql/CommentFields'
-import { MirrorFields } from '@gql/MirrorFields'
 import { PostFields } from '@gql/PostFields'
 import { CollectionIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
 import React, { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 
-const EXPLORE_FEED_QUERY = gql`
-  query ExploreFeed($request: ExplorePublicationRequest!) {
-    explorePublications(request: $request) {
-      items {
-        ... on Post {
-          ...PostFields
+const SEARCH_PUBLICATIONS_QUERY = gql`
+  query SearchPublications($request: SearchQueryRequest!) {
+    search(request: $request) {
+      ... on PublicationSearchResult {
+        items {
+          ... on Post {
+            ...PostFields
+          }
+          ... on Comment {
+            ...CommentFields
+          }
         }
-        ... on Comment {
-          ...CommentFields
+        pageInfo {
+          next
+          totalCount
         }
-        ... on Mirror {
-          ...MirrorFields
-        }
-      }
-      pageInfo {
-        next
       }
     }
   }
   ${PostFields}
   ${CommentFields}
-  ${MirrorFields}
 `
 
-const Publications: FC = () => {
+interface Props {
+  query: any
+}
+
+const Publications: FC<Props> = ({ query }) => {
   const [publications, setPublications] = useState<LensterPost[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
-  const { data, loading, error, fetchMore } = useQuery(EXPLORE_FEED_QUERY, {
-    variables: {
-      request: {
-        sortCriteria: 'LATEST',
-        limit: 10
+  const { data, loading, error, fetchMore } = useQuery(
+    SEARCH_PUBLICATIONS_QUERY,
+    {
+      variables: { request: { query, type: 'PUBLICATION', limit: 10 } },
+      onCompleted(data) {
+        setPageInfo(data?.search?.pageInfo)
+        setPublications(data?.search?.items)
+        consoleLog(
+          'Query',
+          '#8b5cf6',
+          `Fetched first 10 publication for search Keyword:${query}`
+        )
       }
-    },
-    onCompleted(data) {
-      setPageInfo(data?.explorePublications?.pageInfo)
-      setPublications(data?.explorePublications?.items)
-      consoleLog(
-        'Query',
-        '#8b5cf6',
-        `Fetched first 10 publication for search Keyword:${'WIP'}`
-      )
     }
-  })
+  )
 
   const { observe } = useInView({
     threshold: 1,
@@ -65,20 +65,19 @@ const Publications: FC = () => {
       fetchMore({
         variables: {
           request: {
-            sortCriteria: 'LATEST',
+            query,
+            type: 'PUBLICATION',
             cursor: pageInfo?.next,
             limit: 10
           }
         }
       }).then(({ data }: any) => {
-        setPageInfo(data?.explorePublications?.pageInfo)
-        setPublications([...publications, ...data?.explorePublications?.items])
+        setPageInfo(data?.search?.pageInfo)
+        setPublications([...publications, ...data?.search?.items])
         consoleLog(
           'Query',
           '#8b5cf6',
-          `Fetched next 10 publications for search Keyword:${'WIP'} Next:${
-            pageInfo?.next
-          }`
+          `Fetched next 10 publications for search Keyword:${query} Next:${pageInfo?.next}`
         )
       })
     }
@@ -87,13 +86,17 @@ const Publications: FC = () => {
   return (
     <>
       {loading && <PostsShimmer />}
-      {data?.explorePublications?.items?.length === 0 && (
+      {data?.search?.items?.length === 0 && (
         <EmptyState
-          message={<div>No publications found!</div>}
+          message={
+            <div>
+              No publications for <b>"{query}"</b>
+            </div>
+          }
           icon={<CollectionIcon className="w-8 h-8 text-brand-500" />}
         />
       )}
-      <ErrorMessage title="Failed to load explore feed" error={error} />
+      <ErrorMessage title="Failed to load publications list" error={error} />
       {!error && !loading && (
         <>
           <div className="space-y-3">
@@ -101,7 +104,7 @@ const Publications: FC = () => {
               <SinglePost key={`${post?.id}_${index}`} post={post} />
             ))}
           </div>
-          {pageInfo?.next && (
+          {pageInfo?.next && publications.length !== pageInfo?.totalCount && (
             <span ref={observe} className="flex justify-center p-5">
               <Spinner size="sm" />
             </span>
