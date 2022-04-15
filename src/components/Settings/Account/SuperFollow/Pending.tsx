@@ -37,7 +37,7 @@ const Pending: FC<Props> = ({ txHash, isDisable }) => {
           <div>Super follow {isDisable ? 'disabled' : 'set'} successfully</div>
           <div className="pt-3">
             <Link href={`/u/${currentUser?.handle}`}>
-              <a>
+              <a href={`/u/${currentUser?.handle}`}>
                 <Button
                   className="mx-auto"
                   icon={<ArrowRightIcon className="mr-1 w-4 h-4" />}

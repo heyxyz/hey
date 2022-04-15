@@ -15,17 +15,19 @@ const Footer: FC = () => {
         © Lenster
       </span>
       <span className="pr-3">
-        <Link href="/about" passHref>
-          About
+        <Link href="/about">
+          <a href="/about">About</a>
         </Link>
       </span>
       <span className="pr-3">
-        <Link href="/privacy" passHref>
-          Privacy
+        <Link href="/privacy">
+          <a href="/privacy">Privacy</a>
         </Link>
       </span>
       <span className="pr-3">
-        <Link href="/discord">Discord</Link>
+        <Link href="/discord">
+          <a href="/discord">Discord</a>
+        </Link>
       </span>
       <a
         className="pr-3"
@@ -36,8 +38,8 @@ const Footer: FC = () => {
         Status
       </a>
       <span className="pr-3">
-        <Link href="/thanks" passHref>
-          Thanks
+        <Link href="/thanks">
+          <a href="/thanks">Thanks</a>
         </Link>
       </span>
       <a

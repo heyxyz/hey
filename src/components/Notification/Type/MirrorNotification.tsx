@@ -23,7 +23,10 @@ const MirrorNotification: FC<Props> = ({ notification }) => {
         <NotificationProfileName notification={notification} />{' '}
         <span className="pl-0.5 text-gray-600">mirrored your </span>
         <Link href={`/posts/${notification?.publication?.id}`}>
-          <a className="font-bold">
+          <a
+            href={`/posts/${notification?.publication?.id}`}
+            className="font-bold"
+          >
             {notification?.publication?.__typename === 'Post'
               ? postType === 'crowdfund'
                 ? 'crowdfund'
@@ -32,7 +35,10 @@ const MirrorNotification: FC<Props> = ({ notification }) => {
           </a>
         </Link>
         <Link href={`/posts/${notification?.publication?.id}`}>
-          <a className="text-sm text-gray-500 line-clamp-1">
+          <a
+            href={`/posts/${notification?.publication?.id}`}
+            className="text-sm text-gray-500 line-clamp-1"
+          >
             {postType === 'crowdfund'
               ? notification?.publication?.metadata?.name
               : notification?.publication?.metadata?.content}

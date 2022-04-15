@@ -15,8 +15,8 @@ const WalletProfile: FC<Props> = ({ wallet }) => {
   return (
     <div className="flex justify-between items-center">
       <a
-        className="flex items-center space-x-3"
         href={`${POLYGONSCAN_URL}/address/${wallet?.address}`}
+        className="flex items-center space-x-3"
         target="_blank"
         rel="noreferrer"
       >

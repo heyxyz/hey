@@ -36,7 +36,7 @@ const SinglePost: FC<Props> = ({ post, hideType = false }) => {
             }
           />
           <Link href={`/posts/${post?.id}`}>
-            <a className="text-sm text-gray-500" href={`/posts/${post?.id}`}>
+            <a href={`/posts/${post?.id}`} className="text-sm text-gray-500">
               {dayjs(new Date(post?.createdAt)).fromNow()}
             </a>
           </Link>

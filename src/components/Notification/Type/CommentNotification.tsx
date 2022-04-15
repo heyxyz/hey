@@ -21,12 +21,18 @@ const CommentNotification: FC<Props> = ({ notification }) => {
         <NotificationProfileName notification={notification} />{' '}
         <span className="text-gray-600">commented on your </span>
         <Link href={`/posts/${notification?.comment?.commentOn?.id}`}>
-          <a className="font-bold">
+          <a
+            href={`/posts/${notification?.comment?.commentOn?.id}`}
+            className="font-bold"
+          >
             {notification?.comment?.commentOn?.__typename?.toLowerCase()}
           </a>
         </Link>
         <Link href={`/posts/${notification?.comment.id}`}>
-          <a className="text-sm text-gray-500 line-clamp-1">
+          <a
+            href={`/posts/${notification?.comment.id}`}
+            className="text-sm text-gray-500 line-clamp-1"
+          >
             {notification?.comment?.metadata?.content}
           </a>
         </Link>
