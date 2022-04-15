@@ -54,7 +54,7 @@ const Search = () => {
 
   const handleKeyDown = (evt: any) => {
     evt.preventDefault()
-    push(`/u/${searchText}`)
+    push(`/search?q=${searchText}&type=pubs`)
     setSearchText('')
   }
 
