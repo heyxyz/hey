@@ -10,8 +10,7 @@ const getAvatar = (profile: Profile): string => {
       ? // @ts-ignore
         getIPFSLink(profile?.picture?.original?.url)
       : `https://avatar.tobi.sh/${profile?.ownedBy}.png`,
-    250,
-    250
+    'avatar'
   )
 }
 

@@ -1,9 +1,7 @@
 import { IMAGEKIT_URL } from 'src/constants'
 
-const imagekitURL = (url: string, height?: number, width?: number): string => {
-  return height || width
-    ? `${IMAGEKIT_URL}/tr:w-${height},h-${width}/${url}`
-    : `${IMAGEKIT_URL}/${url}`
+const imagekitURL = (url: string, name?: string): string => {
+  return name ? `${IMAGEKIT_URL}/tr:n-${name}/${url}` : `${IMAGEKIT_URL}/${url}`
 }
 
 export default imagekitURL
