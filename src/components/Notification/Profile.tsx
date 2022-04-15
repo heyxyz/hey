@@ -15,7 +15,7 @@ export const NotificationProfileAvatar: FC<Props> = ({ notification }) => {
   const picture = wallet
     ? wallet?.defaultProfile?.picture
       ? getAvatar(wallet?.defaultProfile)
-      : imagekitURL(`https://avatar.tobi.sh/${wallet?.address}.png`, 500, 500)
+      : imagekitURL(`https://avatar.tobi.sh/${wallet?.address}.png`, 250, 250)
     : // @ts-ignore
     notification?.profile?.picture
     ? // @ts-ignore
@@ -23,8 +23,8 @@ export const NotificationProfileAvatar: FC<Props> = ({ notification }) => {
     : imagekitURL(
         // @ts-ignore
         `https://avatar.tobi.sh/${notification?.profile?.ownedBy}.png`,
-        500,
-        500
+        250,
+        250
       )
 
   const profile = wallet
