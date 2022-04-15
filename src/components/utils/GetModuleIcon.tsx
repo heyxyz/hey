@@ -15,51 +15,53 @@ interface Props {
 }
 
 const GetModuleIcon: FC<Props> = ({ module, size }) => {
+  const stringifiedSize = size.toString()
+
   switch (module) {
     case 'FeeCollectModule':
-      return <CashIcon className={`h-${size}`} />
+      return <CashIcon className={`h-${stringifiedSize}`} />
     case 'LimitedFeeCollectModule':
       return (
         <div className="flex gap-1 items-center">
-          <StopIcon className={`h-${size}`} />
-          <CashIcon className={`h-${size}`} />
+          <StopIcon className={`h-${stringifiedSize}`} />
+          <CashIcon className={`h-${stringifiedSize}`} />
         </div>
       )
     case 'LimitedTimedFeeCollectModule':
       return (
         <div className="flex gap-1 items-center">
-          <StopIcon className={`h-${size}`} />
-          <ClockIcon className={`h-${size}`} />
-          <CashIcon className={`h-${size}`} />
+          <StopIcon className={`h-${stringifiedSize}`} />
+          <ClockIcon className={`h-${stringifiedSize}`} />
+          <CashIcon className={`h-${stringifiedSize}`} />
         </div>
       )
     case 'TimedFeeCollectModule':
       return (
         <div className="flex gap-1 items-center">
-          <ClockIcon className={`h-${size}`} />
-          <CashIcon className={`h-${size}`} />
+          <ClockIcon className={`h-${stringifiedSize}`} />
+          <CashIcon className={`h-${stringifiedSize}`} />
         </div>
       )
     case 'RevertCollectModule':
-      return <ReceiptRefundIcon className={`h-${size}`} />
+      return <ReceiptRefundIcon className={`h-${stringifiedSize}`} />
     case 'RevertCollectModule':
-      return <DocumentAddIcon className={`h-${size}`} />
+      return <DocumentAddIcon className={`h-${stringifiedSize}`} />
     case 'FeeFollowModule':
       return (
         <div className="flex gap-1 items-center">
-          <CashIcon className={`h-${size}`} />
-          <PlusCircleIcon className={`h-${size}`} />
+          <CashIcon className={`h-${stringifiedSize}`} />
+          <PlusCircleIcon className={`h-${stringifiedSize}`} />
         </div>
       )
     case 'FollowerOnlyReferenceModule':
       return (
         <div className="flex gap-1 items-center">
-          <PlusCircleIcon className={`h-${size}`} />
-          <ShareIcon className={`h-${size}`} />
+          <PlusCircleIcon className={`h-${stringifiedSize}`} />
+          <ShareIcon className={`h-${stringifiedSize}`} />
         </div>
       )
     default:
-      return <CashIcon className={`h-${size}`} />
+      return <CashIcon className={`h-${stringifiedSize}`} />
   }
 }
 
