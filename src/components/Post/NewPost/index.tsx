@@ -219,7 +219,8 @@ const NewPost: FC<Props> = ({ refetch, setShowModal, hideCard = false }) => {
         name: `Post by @${currentUser?.handle}`,
         attributes: [
           {
-            traitType: 'type',
+            traitType: 'string',
+            key: 'type',
             value: 'post'
           }
         ],
