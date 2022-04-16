@@ -214,13 +214,13 @@ const Profile: FC<Props> = ({ profile }) => {
         social: [
           {
             traitType: 'string',
-            value: website,
-            key: 'website'
+            key: 'website',
+            value: website
           },
           {
             traitType: 'string',
-            value: twitter,
-            key: 'twitter'
+            key: 'twitter',
+            value: twitter
           }
         ],
         bio,
