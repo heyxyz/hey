@@ -90,7 +90,7 @@ const Navbar: FC = () => {
           <div className="container px-5 mx-auto max-w-screen-xl">
             <div className="flex relative justify-between items-center h-14 sm:h-16">
               <div className="flex justify-start items-center">
-                <Disclosure.Button className="inline-flex sm:hidden mr-4 items-center justify-center rounded-md focus:outline-none">
+                <Disclosure.Button className="inline-flex sm:hidden mr-4 items-center justify-center rounded-md focus:outline-none text-gray-500">
                   <span className="sr-only">Open main menu</span>
                   {open ? (
                     <XIcon className="block h-6 w-6" aria-hidden="true" />
