@@ -90,12 +90,12 @@ const Navbar: FC = () => {
           <div className="container px-5 mx-auto max-w-screen-xl">
             <div className="flex relative justify-between items-center h-14 sm:h-16">
               <div className="flex justify-start items-center">
-                <Disclosure.Button className="inline-flex sm:hidden mr-4 items-center justify-center rounded-md focus:outline-none text-gray-500">
+                <Disclosure.Button className="inline-flex justify-center items-center mr-4 text-gray-500 rounded-md sm:hidden focus:outline-none">
                   <span className="sr-only">Open main menu</span>
                   {open ? (
-                    <XIcon className="block h-6 w-6" aria-hidden="true" />
+                    <XIcon className="block w-6 h-6" aria-hidden="true" />
                   ) : (
-                    <MenuIcon className="block h-6 w-6" aria-hidden="true" />
+                    <MenuIcon className="block w-6 h-6" aria-hidden="true" />
                   )}
                 </Disclosure.Button>
                 <div className="flex flex-shrink-0 items-center space-x-3">
@@ -125,7 +125,7 @@ const Navbar: FC = () => {
           </div>
 
           <Disclosure.Panel className="sm:hidden">
-            <div className="p-3 space-y-2 flex flex-col">
+            <div className="flex flex-col p-3 space-y-2">
               <div className="mb-2">
                 <Search hideDrodown />
               </div>

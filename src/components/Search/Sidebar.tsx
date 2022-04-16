@@ -28,7 +28,7 @@ const Sidebar: FC = () => {
   const { query } = useRouter()
 
   return (
-    <div className="px-3 mb-4 space-y-1.5 sm:px-0 sticky top-[128px]">
+    <div className="sticky px-3 mb-4 space-y-1.5 sm:px-0 top-[128px]">
       <Menu
         current={query.type == 'pubs'}
         url={`/search?q=${query.q}&type=pubs`}
