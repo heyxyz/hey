@@ -166,7 +166,8 @@ const Create: FC = () => {
         name: name,
         attributes: [
           {
-            traitType: 'type',
+            traitType: 'string',
+            key: 'type',
             value: 'community'
           }
         ],
