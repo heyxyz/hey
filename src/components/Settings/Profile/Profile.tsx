@@ -230,7 +230,7 @@ const Profile: FC<Props> = ({ profile }) => {
           {
             traitType: 'boolean',
             key: 'isBeta',
-            value: false
+            value: true
           },
           {
             traitType: 'string',
