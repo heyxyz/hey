@@ -159,7 +159,7 @@ const Picture: FC<Props> = ({ profile }) => {
     }
   }
 
-  const editProfile = (avatar: string | undefined) => {
+  const editPicture = (avatar: string | undefined) => {
     if (!avatar) {
       toast.error("Avatar can't be empty!")
     } else if (!account?.address) {
@@ -219,7 +219,7 @@ const Picture: FC<Props> = ({ profile }) => {
             className="ml-auto"
             type="submit"
             disabled={typedDataLoading || signLoading || writeLoading}
-            onClick={() => editProfile(avatar)}
+            onClick={() => editPicture(avatar)}
             icon={
               typedDataLoading || signLoading || writeLoading ? (
                 <Spinner size="xs" />
