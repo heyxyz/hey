@@ -226,7 +226,18 @@ const Profile: FC<Props> = ({ profile }) => {
         bio,
         cover_picture: cover,
         location,
-        attributes: [],
+        attributes: [
+          {
+            traitType: 'boolean',
+            key: 'isBeta',
+            value: false
+          },
+          {
+            traitType: 'string',
+            key: 'app',
+            value: 'Lenster'
+          }
+        ],
         version: '1.0.0',
         metadata_id: uuidv4(),
         appId: 'Lenster'
