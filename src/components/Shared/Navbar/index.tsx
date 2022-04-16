@@ -1,5 +1,7 @@
 import { gql, useQuery } from '@apollo/client'
 import AppContext from '@components/utils/AppContext'
+import { Disclosure } from '@headlessui/react'
+import { MenuIcon, XIcon } from '@heroicons/react/outline'
 import isStaff from '@lib/isStaff'
 import clsx from 'clsx'
 import dynamic from 'next/dynamic'
@@ -37,16 +39,20 @@ const Navbar: FC = () => {
   const NavItem = ({ url, name, current }: NavItemProps) => {
     return (
       <Link href={url}>
-        <a
-          href={url}
-          className={clsx('px-3 py-1 rounded-md font-black cursor-pointer', {
-            'text-black dark:text-white bg-gray-200 dark:bg-gray-800': current,
-            'text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white hover:bg-gray-200 dark:hover:bg-gray-800':
-              !current
-          })}
-          aria-current={current ? 'page' : undefined}
-        >
-          {name}
+        <a href={url} aria-current={current ? 'page' : undefined}>
+          <Disclosure.Button
+            className={clsx(
+              'w-full text-left px-3 py-1 rounded-md font-black cursor-pointer',
+              {
+                'text-black dark:text-white bg-gray-200 dark:bg-gray-800':
+                  current,
+                'text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white hover:bg-gray-200 dark:hover:bg-gray-800':
+                  !current
+              }
+            )}
+          >
+            {name}
+          </Disclosure.Button>
         </a>
       </Link>
     )
@@ -74,37 +80,58 @@ const Navbar: FC = () => {
   }
 
   return (
-    <nav className="sticky top-0 z-10 w-full bg-white border-b dark:bg-gray-900 dark:border-b-gray-700/80">
-      {isStaff(currentUser?.id) && staffMode && <StaffBar />}
-      <div className="container px-5 mx-auto max-w-screen-xl">
-        <div className="flex relative justify-between items-center h-14 sm:h-16">
-          <div className="flex flex-1 justify-start items-center">
-            <div className="flex flex-shrink-0 items-center space-x-3">
-              <Link href="/">
-                <a href="/">
-                  <div className="text-3xl font-black">
-                    <img className="w-8 h-8" src="/logo.svg" alt="Logo" />
-                  </div>
-                </a>
-              </Link>
-            </div>
-            <div className="hidden sm:block sm:ml-6">
-              <div className="flex items-center space-x-4">
-                <div className="hidden md:block">
-                  <Search />
+    <Disclosure
+      as="nav"
+      className="sticky top-0 z-10 w-full bg-white border-b dark:bg-gray-900 dark:border-b-gray-700/80"
+    >
+      {({ open }) => (
+        <>
+          {isStaff(currentUser?.id) && staffMode && <StaffBar />}
+          <div className="container px-5 mx-auto max-w-screen-xl">
+            <div className="flex relative justify-between items-center h-14 sm:h-16">
+              <div className="flex justify-start items-center">
+                <Disclosure.Button className="inline-flex sm:hidden mr-4 items-center justify-center rounded-md focus:outline-none">
+                  <span className="sr-only">Open main menu</span>
+                  {open ? (
+                    <XIcon className="block h-6 w-6" aria-hidden="true" />
+                  ) : (
+                    <MenuIcon className="block h-6 w-6" aria-hidden="true" />
+                  )}
+                </Disclosure.Button>
+                <div className="flex flex-shrink-0 items-center space-x-3">
+                  <Link href="/">
+                    <a href="/">
+                      <div className="text-3xl font-black">
+                        <img className="w-8 h-8" src="/logo.svg" alt="Logo" />
+                      </div>
+                    </a>
+                  </Link>
                 </div>
-                <NavItems />
+                <div className="hidden sm:block sm:ml-6">
+                  <div className="flex items-center space-x-4">
+                    <div className="hidden md:block">
+                      <Search />
+                    </div>
+                    <NavItems />
+                  </div>
+                </div>
+              </div>
+              <div className="flex gap-8 items-center">
+                {currentUser && <NewPostModal />}
+                {currentUser && <Notification />}
+                <MenuItems indexerData={indexerData} />
               </div>
             </div>
           </div>
-          <div className="flex gap-8 items-center">
-            {currentUser && <NewPostModal />}
-            {currentUser && <Notification />}
-            <MenuItems indexerData={indexerData} />
-          </div>
-        </div>
-      </div>
-    </nav>
+
+          <Disclosure.Panel className="sm:hidden">
+            <div className="p-3 space-y-2 flex flex-col">
+              <NavItems />
+            </div>
+          </Disclosure.Panel>
+        </>
+      )}
+    </Disclosure>
   )
 }
 
