@@ -27,7 +27,7 @@ import React, { FC, ReactChild, useContext, useState } from 'react'
 import Join from './Join'
 
 const Settings = dynamic(() => import('./Settings'), {
-  loading: () => <div className="h-5 m-5 rounded-lg shimmer" />
+  loading: () => <div className="m-5 h-5 rounded-lg shimmer" />
 })
 
 dayjs.extend(relativeTime)
@@ -78,7 +78,7 @@ const Details: FC<Props> = ({ community }) => {
     children: ReactChild
     icon: ReactChild
   }) => (
-    <div className="flex items-center gap-2">
+    <div className="flex gap-2 items-center">
       {icon}
       {children}
     </div>
