@@ -9,7 +9,7 @@ import consoleLog from '@lib/consoleLog'
 import trackEvent from '@lib/trackEvent'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useRef, useState } from 'react'
+import { FC, useRef, useState } from 'react'
 
 import UserProfile from '../UserProfile'
 
@@ -26,7 +26,11 @@ const SEARCH_USERS_QUERY = gql`
   ${MinimalProfileFields}
 `
 
-const Search = () => {
+interface Props {
+  hideDrodown?: boolean
+}
+
+const Search: FC<Props> = ({ hideDrodown = false }) => {
   const { push, pathname, query } = useRouter()
   const [searchText, setSearchText] = useState<string>('')
   const dropdownRef = useRef(null)
@@ -47,7 +51,7 @@ const Search = () => {
   const handleSearch = (evt: any) => {
     let keyword = evt.target.value
     setSearchText(keyword)
-    if (pathname !== '/search') {
+    if (pathname !== '/search' && !hideDrodown) {
       searchUsers({
         variables: { request: { type: 'PROFILE', query: keyword, limit: 8 } }
       })
@@ -77,7 +81,7 @@ const Search = () => {
           />
         </form>
       </div>
-      {pathname !== '/search' && searchText.length > 0 && (
+      {pathname !== '/search' && !hideDrodown && searchText.length > 0 && (
         <div
           className="flex absolute flex-col mt-2 w-full sm:max-w-md"
           ref={dropdownRef}
