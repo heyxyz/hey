@@ -1,5 +1,6 @@
 import LensHubProxy from '@abis/LensHubProxy.json'
 import { gql, useMutation } from '@apollo/client'
+import IndexStatus from '@components/Shared/IndexStatus'
 import SwitchNetwork from '@components/Shared/SwitchNetwork'
 import UserProfile from '@components/Shared/UserProfile'
 import { Button } from '@components/UI/Button'
@@ -72,8 +73,9 @@ const SetProfile: FC = () => {
     }
   })
   const {
-    error,
+    data: writeData,
     isLoading: writeLoading,
+    error,
     write
   } = useContractWrite(
     {
@@ -202,21 +204,24 @@ const SetProfile: FC = () => {
         {activeChain?.unsupported ? (
           <SwitchNetwork className="ml-auto" />
         ) : (
-          <Button
-            className="ml-auto"
-            type="submit"
-            disabled={typedDataLoading || signLoading || writeLoading}
-            onClick={setDefaultProfile}
-            icon={
-              typedDataLoading || signLoading || writeLoading ? (
-                <Spinner size="xs" />
-              ) : (
-                <PencilIcon className="w-4 h-4" />
-              )
-            }
-          >
-            Save
-          </Button>
+          <div className="flex flex-col space-y-2">
+            <Button
+              className="ml-auto"
+              type="submit"
+              disabled={typedDataLoading || signLoading || writeLoading}
+              onClick={setDefaultProfile}
+              icon={
+                typedDataLoading || signLoading || writeLoading ? (
+                  <Spinner size="xs" />
+                ) : (
+                  <PencilIcon className="w-4 h-4" />
+                )
+              }
+            >
+              Save
+            </Button>
+            {writeData?.hash && <IndexStatus txHash={writeData?.hash} />}
+          </div>
         )}
       </CardBody>
     </Card>

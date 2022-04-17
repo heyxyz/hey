@@ -26,7 +26,7 @@ import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import trackEvent from '@lib/trackEvent'
 import dayjs from 'dayjs'
-import React, { Dispatch, FC, useContext, useState } from 'react'
+import React, { FC, useContext, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
   CHAIN_ID,
@@ -42,6 +42,8 @@ import {
   useNetwork,
   useSignTypedData
 } from 'wagmi'
+
+import IndexStatus from '../../../Shared/IndexStatus'
 
 export const COLLECT_QUERY = gql`
   query CollectModule($request: PublicationQueryRequest!) {
@@ -98,10 +100,9 @@ const CREATE_COLLECT_TYPED_DATA_MUTATION = gql`
 
 interface Props {
   post: LensterPost
-  setShowCollectModal?: Dispatch<boolean>
 }
 
-const CollectModule: FC<Props> = ({ post, setShowCollectModal }) => {
+const CollectModule: FC<Props> = ({ post }) => {
   const { currentUser } = useContext(AppContext)
   const [allowed, setAllowed] = useState<boolean>(true)
 
@@ -112,7 +113,11 @@ const CollectModule: FC<Props> = ({ post, setShowCollectModal }) => {
       toast.error(error?.message)
     }
   })
-  const { isLoading: writeLoading, write } = useContractWrite(
+  const {
+    data: writeData,
+    isLoading: writeLoading,
+    write
+  } = useContractWrite(
     {
       addressOrName: LENSHUB_PROXY,
       contractInterface: LensHubProxy
@@ -120,7 +125,7 @@ const CollectModule: FC<Props> = ({ post, setShowCollectModal }) => {
     'collectWithSig',
     {
       onSuccess() {
-        setShowCollectModal && setShowCollectModal(false)
+        // setShowCollectModal && setShowCollectModal(false)
         toast.success('Post has been collected!')
         trackEvent('collect publication')
       },
@@ -343,6 +348,11 @@ const CollectModule: FC<Props> = ({ post, setShowCollectModal }) => {
             </div>
           )}
         </div>
+        {writeData?.hash && (
+          <div className="mt-5">
+            <IndexStatus txHash={writeData?.hash} />
+          </div>
+        )}
         {currentUser ? (
           allowanceLoading ? (
             <div className="mt-5 w-28 rounded-lg h-[34px] shimmer" />
