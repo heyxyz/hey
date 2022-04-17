@@ -29,9 +29,9 @@ const PostBody: FC<Props> = ({ post }) => {
   )
 
   return (
-    <div className="break-words linkify">
+    <div className="break-words">
       {postType === 'community' ? (
-        <div className="flex items-center space-x-1.5">
+        <div className="flex items-center space-x-1.5 linkify">
           {post?.collectedBy ? (
             <UserAddIcon className="w-4 h-4 text-brand-500" />
           ) : (
@@ -71,7 +71,7 @@ const PostBody: FC<Props> = ({ post }) => {
                 showMore && pathname !== '/posts/[id]'
             })}
           >
-            <div className="leading-7 whitespace-pre-wrap break-words">
+            <div className="leading-7 whitespace-pre-wrap break-words linkify">
               {post?.metadata?.content?.replace(/\n\s*\n/g, '\n\n').trim()}
             </div>
           </div>
