@@ -45,6 +45,7 @@ const SinglePost: FC<Props> = ({ post, hideType = false }) => {
         ) : (
           post?.metadata?.content &&
           post?.metadata?.attributes[0]?.value !== 'crowdfund' &&
+          post?.metadata?.attributes[0]?.value !== 'community' &&
           !!getURLFromPublication(post?.metadata?.content) && (
             <IFramely url={getURLFromPublication(post?.metadata?.content)} />
           )
