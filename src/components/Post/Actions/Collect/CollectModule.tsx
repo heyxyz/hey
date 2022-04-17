@@ -43,7 +43,7 @@ import {
   useSignTypedData
 } from 'wagmi'
 
-import IndexStatus from './IndexStatus'
+import IndexStatus from '../../../Shared/IndexStatus'
 
 export const COLLECT_QUERY = gql`
   query CollectModule($request: PublicationQueryRequest!) {

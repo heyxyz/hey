@@ -28,7 +28,7 @@ import {
   useSignTypedData
 } from 'wagmi'
 
-import IndexStatus from '../Actions/Collect/IndexStatus'
+import IndexStatus from '../../Shared/IndexStatus'
 
 const CREATE_COLLECT_TYPED_DATA_MUTATION = gql`
   mutation CreateCollectTypedData($request: CreateCollectRequest!) {
