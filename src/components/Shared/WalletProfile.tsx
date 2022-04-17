@@ -18,7 +18,7 @@ const WalletProfile: FC<Props> = ({ wallet }) => {
         href={`${POLYGONSCAN_URL}/address/${wallet?.address}`}
         className="flex items-center space-x-3"
         target="_blank"
-        rel="noreferrer"
+        rel="noreferrer noopener"
       >
         <img
           src={imagekitURL(
