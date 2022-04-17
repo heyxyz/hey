@@ -117,7 +117,7 @@ const SuperFollow: FC = () => {
     }
   })
   const {
-    data,
+    data: writeData,
     isLoading: writeLoading,
     write
   } = useContractWrite(
@@ -224,8 +224,8 @@ const SuperFollow: FC = () => {
 
   return (
     <Card>
-      {data?.hash ? (
-        <Pending txHash={data?.hash} isDisable={isDisable} />
+      {writeData?.hash ? (
+        <Pending txHash={writeData?.hash} isDisable={isDisable} />
       ) : (
         <Form
           form={form}
