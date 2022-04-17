@@ -173,7 +173,7 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
     allowanceLoading ? (
       <div className="w-24 rounded-lg h-[34px] shimmer" />
     ) : allowed ? (
-      <div className="flex sm:block items-center space-x-3 space-y-0 sm:space-y-2 mt-3 sm:mt-0">
+      <div className="flex items-center mt-3 space-y-0 space-x-3 sm:block sm:mt-0 sm:space-y-2">
         <Button
           className="sm:mt-0 sm:ml-auto"
           onClick={createCollect}
