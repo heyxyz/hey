@@ -34,7 +34,7 @@ const Settings: FC<Props> = ({ community }) => {
         </p>
         <Button
           className="!mt-5"
-          icon={<TrashIcon className="h-5 w-5" />}
+          icon={<TrashIcon className="w-5 h-5" />}
           variant="danger"
           onClick={() => {
             if (confirm('Are you sure you want to delete?')) {

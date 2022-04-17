@@ -9,8 +9,8 @@ const ProfilePageShimmer: FC = () => {
       <GridLayout className="pt-6">
         <GridItemFour>
           <div className="px-5 mb-4 space-y-9 sm:px-0">
-            <div className="relative -mt-24 w-32 h-32 sm:-mt-32 sm:w-52 sm:h-52">
-              <div className="w-32 h-32 bg-gray-200 rounded-xl ring-8 ring-gray-50 sm:w-52 sm:h-52 dark:bg-gray-700 dark:ring-black shimmer" />
+            <div className="relative -mt-24 w-32 h-32 bg-gray-100 sm:-mt-32 sm:w-52 sm:h-52">
+              <div className="w-32 h-32 rounded-xl ring-8 ring-gray-50 sm:w-52 sm:h-52 dark:bg-gray-700 dark:ring-black shimmer" />
             </div>
             <div className="space-y-3">
               <div className="w-1/3 h-5 rounded-lg shimmer" />
