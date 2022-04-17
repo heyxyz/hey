@@ -2,15 +2,17 @@ import { useQuery } from '@apollo/client'
 import { Spinner } from '@components/UI/Spinner'
 import { TX_STATUS_QUERY } from '@gql/HasTxHashBeenIndexed'
 import { CheckCircleIcon } from '@heroicons/react/solid'
+import clsx from 'clsx'
 import React, { FC, useState } from 'react'
 import { POLYGONSCAN_URL } from 'src/constants'
 
 interface Props {
-  type: string
+  type?: string
   txHash: string
 }
 
-const IndexStatus: FC<Props> = ({ type, txHash }) => {
+const IndexStatus: FC<Props> = ({ type = 'Transaction', txHash }) => {
+  const [hide, setHide] = useState<boolean>(false)
   const [pollInterval, setPollInterval] = useState<number>(500)
   const { data, loading } = useQuery(TX_STATUS_QUERY, {
     variables: {
@@ -20,13 +22,16 @@ const IndexStatus: FC<Props> = ({ type, txHash }) => {
     onCompleted(data) {
       if (data?.hasTxHashBeenIndexed?.indexed) {
         setPollInterval(0)
+        setTimeout(() => {
+          setHide(true)
+        }, 5000)
       }
     }
   })
 
   return (
     <a
-      className="ml-auto text-sm"
+      className={clsx({ hidden: hide }, 'ml-auto text-sm font-medium')}
       href={`${POLYGONSCAN_URL}/tx/${txHash}`}
       target="_blank"
       rel="noreferrer"

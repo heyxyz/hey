@@ -350,7 +350,7 @@ const CollectModule: FC<Props> = ({ post }) => {
         </div>
         {writeData?.hash && (
           <div className="mt-5">
-            <IndexStatus txHash={writeData?.hash} type="Transaction" />
+            <IndexStatus txHash={writeData?.hash} />
           </div>
         )}
         {currentUser ? (

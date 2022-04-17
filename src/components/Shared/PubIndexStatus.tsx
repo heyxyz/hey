@@ -48,7 +48,7 @@ const PubIndexStatus: FC<Props> = ({ setShowModal, refetch, type, txHash }) => {
 
   return (
     <a
-      className="ml-auto text-sm"
+      className="ml-auto text-sm font-medium"
       href={`${POLYGONSCAN_URL}/tx/${txHash}`}
       target="_blank"
       rel="noreferrer"
