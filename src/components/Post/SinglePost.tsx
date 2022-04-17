@@ -21,6 +21,8 @@ interface Props {
 }
 
 const SinglePost: FC<Props> = ({ post, hideType = false }) => {
+  const postType = post?.metadata?.attributes[0]?.value
+
   return (
     <Card>
       <CardBody>
@@ -44,8 +46,8 @@ const SinglePost: FC<Props> = ({ post, hideType = false }) => {
           <Attachments attachments={post?.metadata?.media} />
         ) : (
           post?.metadata?.content &&
-          post?.metadata?.attributes[0]?.value !== 'crowdfund' &&
-          post?.metadata?.attributes[0]?.value !== 'community' &&
+          postType !== 'crowdfund' &&
+          postType !== 'community' &&
           !!getURLFromPublication(post?.metadata?.content) && (
             <IFramely url={getURLFromPublication(post?.metadata?.content)} />
           )
