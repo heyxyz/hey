@@ -1,6 +1,21 @@
+include:
+  - template: Security/Dependency-Scanning.gitlab-ci.yml
+  - template: Security/License-Scanning.gitlab-ci.yml
+  - template: Security/SAST.gitlab-ci.yml
+
+stages:
+  - test
+  - clean
+
 housekeeping:
+  stage: clean
   before_script: []
   script:
     - curl --request POST --header "PRIVATE-TOKEN:$ACCESS_TOKEN" https://gitlab.com/api/v4/projects/$CI_PROJECT_ID/housekeeping
   only:
     - main
+
+sast:
+  stage: test
+  variables:
+    SAST_EXCLUDED_PATHS: node_modules
