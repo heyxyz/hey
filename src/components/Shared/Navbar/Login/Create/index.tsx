@@ -116,7 +116,7 @@ const Create: FC<Props> = ({ isModal = false }) => {
         <div className="space-y-3">
           {avatar && (
             <div>
-              <img className="rounded-lg w-60 h-60" src={avatar} alt={avatar} />
+              <img className="w-60 h-60 rounded-lg" src={avatar} alt={avatar} />
             </div>
           )}
           <div>
