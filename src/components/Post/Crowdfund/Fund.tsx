@@ -191,7 +191,7 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
         </Button>
         {writeData?.hash && (
           <div className="mt-2">
-            <IndexStatus txHash={writeData?.hash} type="Transaction" />
+            <IndexStatus txHash={writeData?.hash} />
           </div>
         )}
       </div>
