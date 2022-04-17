@@ -20,7 +20,7 @@ const IPFSHash: FC<Props> = ({ ipfsHash }) => {
           className="flex justify-between items-center"
           href={`https://ipfs.infura.io/ipfs/${formattedHash}`}
           target="_blank"
-          rel="noreferrer"
+          rel="noreferrer noopener"
         >
           <div className="flex items-center space-x-1">
             <div>IPFS METADATA</div>

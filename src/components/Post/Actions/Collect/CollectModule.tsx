@@ -340,7 +340,7 @@ const CollectModule: FC<Props> = ({ post }) => {
                   href={`${POLYGONSCAN_URL}/address/${collectModule.recipient}`}
                   target="_blank"
                   className="font-bold text-gray-600"
-                  rel="noreferrer"
+                  rel="noreferrer noopener"
                 >
                   {formatAddress(collectModule.recipient)}
                 </a>

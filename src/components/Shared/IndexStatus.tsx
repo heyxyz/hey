@@ -34,7 +34,7 @@ const IndexStatus: FC<Props> = ({ type = 'Transaction', txHash }) => {
       className={clsx({ hidden: hide }, 'ml-auto text-sm font-medium')}
       href={`${POLYGONSCAN_URL}/tx/${txHash}`}
       target="_blank"
-      rel="noreferrer"
+      rel="noreferrer noopener"
     >
       {loading || !data?.hasTxHashBeenIndexed?.indexed ? (
         <div className="flex items-center space-x-1.5">

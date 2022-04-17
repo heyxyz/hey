@@ -256,7 +256,7 @@ const FollowModule: FC<Props> = ({
             href={`${POLYGONSCAN_URL}/address/${followModule.recipient}`}
             target="_blank"
             className="font-bold text-gray-600"
-            rel="noreferrer"
+            rel="noreferrer noopener"
           >
             {formatAddress(followModule.recipient)}
           </a>

@@ -56,7 +56,7 @@ const StaffBar: FC = () => {
             className="flex items-center space-x-1"
             title="Git commit ref"
             target="_blank"
-            rel="noreferrer"
+            rel="noreferrer noopener"
           >
             <TerminalIcon className="w-4 h-4" />
             <Badge>{GIT_COMMIT_REF}</Badge>
@@ -68,7 +68,7 @@ const StaffBar: FC = () => {
             className="flex items-center space-x-1"
             title="Git commit SHA"
             target="_blank"
-            rel="noreferrer"
+            rel="noreferrer noopener"
           >
             <HashtagIcon className="w-4 h-4" />
             <Badge>{GIT_COMMIT_SHA}</Badge>
