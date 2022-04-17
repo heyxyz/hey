@@ -61,6 +61,10 @@ const SiteLayout: FC<Props> = ({ children }) => {
     setRefreshToken(localStorage.refreshToken)
     setStaffMode(localStorage.staffMode === 'true')
 
+    if (!activeConnector) {
+      disconnect()
+    }
+
     activeConnector?.on('change', () => {
       localStorage.removeItem('selectedProfile')
       localStorage.removeItem('accessToken')
