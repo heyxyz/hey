@@ -1,3 +1,6 @@
+include:
+  - template: Security/Dependency-Scanning.gitlab-ci.yml
+
 housekeeping:
   before_script: []
   script:
