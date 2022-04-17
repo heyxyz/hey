@@ -1,5 +1,9 @@
 include:
   - template: Security/Dependency-Scanning.gitlab-ci.yml
+  - template: Security/License-Scanning.gitlab-ci.yml
+
+variables:
+  DS_EXCLUDED_PATHS: "node_modules, yarn.lock"
 
 housekeeping:
   before_script: []
