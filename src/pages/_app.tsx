@@ -2,6 +2,8 @@ import '../styles.css'
 
 import { ApolloProvider } from '@apollo/client'
 import SiteLayout from '@components/SiteLayout'
+import Honeybadger from '@honeybadger-io/js'
+import { HoneybadgerErrorBoundary } from '@honeybadger-io/react'
 import { providers } from 'ethers'
 import { AppProps } from 'next/app'
 import Script from 'next/script'
@@ -58,25 +60,32 @@ const wagmiClient = createClient({
   connectors
 })
 
+Honeybadger.configure({
+  apiKey: process.env.NEXT_PUBLIC_HONEYBADGER_KEY,
+  environment: IS_PRODUCTION ? 'production' : 'production'
+})
+
 const App = ({ Component, pageProps }: AppProps) => {
   return (
-    <Provider client={wagmiClient}>
-      <ApolloProvider client={client}>
-        <ThemeProvider defaultTheme="light" attribute="class">
-          <SiteLayout>
-            <Component {...pageProps} />
-          </SiteLayout>
-        </ThemeProvider>
-      </ApolloProvider>
-      {IS_PRODUCTION && (
-        <Script
-          data-website-id="680b8704-0981-4cfd-8577-e5bdf5f77df8"
-          src="https://analytics.lenster.xyz/umami.js"
-          async
-          defer
-        />
-      )}
-    </Provider>
+    <HoneybadgerErrorBoundary honeybadger={Honeybadger}>
+      <Provider client={wagmiClient}>
+        <ApolloProvider client={client}>
+          <ThemeProvider defaultTheme="light" attribute="class">
+            <SiteLayout>
+              <Component {...pageProps} />
+            </SiteLayout>
+          </ThemeProvider>
+        </ApolloProvider>
+        {IS_PRODUCTION && (
+          <Script
+            data-website-id="680b8704-0981-4cfd-8577-e5bdf5f77df8"
+            src="https://analytics.lenster.xyz/umami.js"
+            async
+            defer
+          />
+        )}
+      </Provider>
+    </HoneybadgerErrorBoundary>
   )
 }
 
