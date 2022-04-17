@@ -25,7 +25,7 @@ interface Props {
   txHash: string
 }
 
-const IndexStatus: FC<Props> = ({ setShowModal, refetch, type, txHash }) => {
+const PubIndexStatus: FC<Props> = ({ setShowModal, refetch, type, txHash }) => {
   const { push } = useRouter()
   const [pollInterval, setPollInterval] = useState<number>(500)
   const { data, loading } = useQuery(TX_STATUS_QUERY, {
@@ -68,4 +68,4 @@ const IndexStatus: FC<Props> = ({ setShowModal, refetch, type, txHash }) => {
   )
 }
 
-export default IndexStatus
+export default PubIndexStatus
