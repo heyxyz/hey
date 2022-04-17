@@ -1,7 +1,7 @@
 import LensHubProxy from '@abis/LensHubProxy.json'
 import { gql, useMutation } from '@apollo/client'
 import Attachments from '@components/Shared/Attachments'
-import IndexStatus from '@components/Shared/IndexStatus'
+import PubIndexStatus from '@components/Shared/PubIndexStatus'
 import SwitchNetwork from '@components/Shared/SwitchNetwork'
 import { Button } from '@components/UI/Button'
 import { Card } from '@components/UI/Card'
@@ -296,7 +296,7 @@ const NewPost: FC<Props> = ({ refetch, setShowModal, hideCard = false }) => {
             </div>
             <div className="flex items-center pt-2 ml-auto space-x-2 sm:pt-0">
               {data?.hash && (
-                <IndexStatus
+                <PubIndexStatus
                   setShowModal={setShowModal}
                   refetch={refetch}
                   type="Post"
