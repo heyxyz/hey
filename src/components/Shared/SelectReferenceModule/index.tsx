@@ -67,7 +67,7 @@ const SelectReferenceModule: FC<Props> = ({
               <div>{EVERYONE}</div>
             </div>
             {!onlyFollowers && (
-              <CheckCircleIcon className="text-green-500 w-7" />
+              <CheckCircleIcon className="w-7 text-green-500" />
             )}
           </button>
           <button
@@ -87,7 +87,7 @@ const SelectReferenceModule: FC<Props> = ({
               <div>{ONLY_FOLLOWERS}</div>
             </div>
             {onlyFollowers && (
-              <CheckCircleIcon className="text-green-500 w-7 h-7" />
+              <CheckCircleIcon className="w-7 h-7 text-green-500" />
             )}
           </button>
         </div>

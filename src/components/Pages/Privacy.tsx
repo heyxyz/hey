@@ -6,13 +6,13 @@ const Privacy: FC = () => {
   return (
     <>
       <SEO title="Privacy • Lenster" />
-      <div className="flex items-center justify-center w-full h-48 bg-brand-400">
+      <div className="flex justify-center items-center w-full h-48 bg-brand-400">
         <div className="relative text-center">
           <h1 className="text-3xl font-semibold text-white md:text-4xl">
             Privacy Policy
           </h1>
           <div className="flex justify-center mt-4">
-            <div className="text-xs rounded-md px-2 py-0.5 text-white bg-gray-800">
+            <div className="py-0.5 px-2 text-xs text-white bg-gray-800 rounded-md">
               Updated April 13, 2022
             </div>
           </div>
@@ -20,7 +20,7 @@ const Privacy: FC = () => {
       </div>
       <div className="relative">
         <div className="flex justify-center">
-          <div className="relative mx-auto rounded-lg max-w-3/4 sm:w-2/4">
+          <div className="relative mx-auto rounded-lg sm:w-2/4 max-w-3/4">
             <div className="!p-8 prose dark:prose-dark max-w-none text-gray-600 dark:text-gray-200">
               <p>
                 Lenster.xyz. ("Lenster" or "we") respects and protects the

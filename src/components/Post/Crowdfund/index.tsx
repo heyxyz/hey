@@ -108,7 +108,7 @@ const Crowdfund: FC<Props> = ({ fund }) => {
   return (
     <Card forceRounded>
       <div
-        className="h-40 border-b rounded-t-xl sm:h-52 dark:border-b-gray-700/80"
+        className="h-40 rounded-t-xl border-b sm:h-52 dark:border-b-gray-700/80"
         style={{
           backgroundImage: `url(${
             cover
@@ -122,11 +122,11 @@ const Crowdfund: FC<Props> = ({ fund }) => {
         }}
       />
       <div className="p-5">
-        <div className="items-center justify-between block sm:flex">
+        <div className="block justify-between items-center sm:flex">
           <div className="mr-0 space-y-1 sm:mr-16">
             <div className="text-xl font-bold">{fund?.metadata?.name}</div>
             <Linkify tagName="div" options={linkifyOptions}>
-              <div className="text-sm leading-7 break-words whitespace-pre-wrap">
+              <div className="text-sm leading-7 whitespace-pre-wrap break-words">
                 {fund?.metadata?.description
                   ?.replace(/\n\s*\n/g, '\n\n')
                   .trim()}

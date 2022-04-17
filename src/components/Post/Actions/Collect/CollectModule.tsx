@@ -225,7 +225,7 @@ const CollectModule: FC<Props> = ({ post, setShowCollectModal }) => {
     }
   }
 
-  if (loading) return <div className="h-5 m-5 rounded-lg shimmer" />
+  if (loading) return <div className="m-5 h-5 rounded-lg shimmer" />
 
   return (
     <>

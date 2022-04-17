@@ -21,7 +21,7 @@ export const Input = forwardRef<HTMLInputElement, Props>(function Input(
   return (
     <label className="w-full">
       {label && (
-        <div className="flex items-center space-x-1.5 mb-1">
+        <div className="flex items-center mb-1 space-x-1.5">
           <div className="font-medium text-gray-800 dark:text-gray-200">
             {label}
           </div>
