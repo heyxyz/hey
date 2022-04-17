@@ -53,7 +53,7 @@ export const NotificationProfileAvatar: FC<Props> = ({ notification }) => {
       <a href={profile.url} target={profile.target}>
         <img
           src={picture}
-          className="w-10 h-10 bg-gray-200 border rounded-full dark:border-gray-700/80"
+          className="w-10 h-10 bg-gray-200 rounded-full border dark:border-gray-700/80"
           alt={profile.alt}
         />
       </a>
