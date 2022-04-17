@@ -1,7 +1,9 @@
 import { Notification } from '@generated/types'
+import { BadgeCheckIcon } from '@heroicons/react/solid'
 import formatAddress from '@lib/formatAddress'
 import getAvatar from '@lib/getAvatar'
 import imagekitURL from '@lib/imagekitURL'
+import isVerified from '@lib/isVerified'
 import Link from 'next/link'
 import React, { FC } from 'react'
 import { POLYGONSCAN_URL } from 'src/constants'
@@ -51,7 +53,7 @@ export const NotificationProfileAvatar: FC<Props> = ({ notification }) => {
       <a href={profile.url} target={profile.target}>
         <img
           src={picture}
-          className="w-10 h-10 bg-gray-200 rounded-full border dark:border-gray-700/80"
+          className="w-10 h-10 bg-gray-200 border rounded-full dark:border-gray-700/80"
           alt={profile.alt}
         />
       </a>
@@ -83,8 +85,15 @@ export const NotificationProfileName: FC<Props> = ({ notification }) => {
 
   return (
     <Link href={profile.url}>
-      <a href={profile.url} className="font-bold" target={profile.target}>
-        {profile.name}
+      <a
+        href={profile.url}
+        className="inline-flex items-center space-x-1 font-bold"
+        target={profile.target}
+      >
+        <div>{profile.name}</div>
+        {isVerified(wallet?.defaultProfile?.id) && (
+          <BadgeCheckIcon className="w-4 h-4 text-brand-500" />
+        )}
       </a>
     </Link>
   )
