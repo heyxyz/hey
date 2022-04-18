@@ -18,7 +18,7 @@ const FollowerNotification: FC<Props> = ({ notification }) => {
       <NotificationProfileAvatar notification={notification} />
       <div className="w-4/5">
         <NotificationProfileName notification={notification} />{' '}
-        <span className="text-gray-600">followed you</span>
+        <span className="text-gray-600 dark:text-gray-400">followed you</span>
         <div className="flex items-center pt-1 space-x-1 text-gray-400 text-[12px]">
           <UserAddIcon className="text-green-500 h-[15px]" />
           <div>{dayjs(new Date(notification?.createdAt)).fromNow()}</div>

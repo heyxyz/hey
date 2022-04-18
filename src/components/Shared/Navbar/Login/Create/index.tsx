@@ -43,7 +43,6 @@ interface Props {
 
 const Create: FC<Props> = ({ isModal = false }) => {
   const [avatar, setAvatar] = useState<string>()
-  const [isUploading, setIsUploading] = useState<boolean>(false)
   const [uploading, setUploading] = useState<boolean>(false)
   const { activeChain } = useNetwork()
   const [createProfile, { data, loading }] = useMutation(
@@ -76,9 +75,7 @@ const Create: FC<Props> = ({ isModal = false }) => {
       form={form}
       className="space-y-4"
       onSubmit={({ handle }) => {
-        setIsUploading(true)
         const username = handle.toLowerCase()
-
         trackEvent('signup')
         createProfile({
           variables: {
@@ -103,8 +100,8 @@ const Create: FC<Props> = ({ isModal = false }) => {
         />
       )}
       {isModal && (
-        <div className="space-y-4 mb-2">
-          <img className="h-10 w-10" src="/logo.svg" alt="Logo" />
+        <div className="mb-2 space-y-4">
+          <img className="w-10 h-10" src="/logo.svg" alt="Logo" />
           <div className="text-xl font-bold">Signup to Lenster</div>
         </div>
       )}
@@ -140,13 +137,9 @@ const Create: FC<Props> = ({ isModal = false }) => {
         ) : (
           <Button
             type="submit"
-            disabled={isUploading || loading}
+            disabled={loading}
             icon={
-              isUploading || loading ? (
-                <Spinner size="xs" />
-              ) : (
-                <PlusIcon className="w-4 h-4" />
-              )
+              loading ? <Spinner size="xs" /> : <PlusIcon className="w-4 h-4" />
             }
           >
             Signup

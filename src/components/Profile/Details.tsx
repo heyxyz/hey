@@ -182,7 +182,11 @@ const Details: FC<Props> = ({ profile }) => {
                 />
               }
             >
-              <a href={profile?.website} target="_blank" rel="noreferrer">
+              <a
+                href={profile?.website}
+                target="_blank"
+                rel="noreferrer noopener"
+              >
                 {profile?.website}
               </a>
             </MetaDetails>
@@ -205,7 +209,11 @@ const Details: FC<Props> = ({ profile }) => {
                 )
               }
             >
-              <a href={profile?.twitterUrl} target="_blank" rel="noreferrer">
+              <a
+                href={profile?.twitterUrl}
+                target="_blank"
+                rel="noreferrer noopener"
+              >
                 {profile?.twitterUrl?.replace('https://twitter.com/', '')}
               </a>
             </MetaDetails>

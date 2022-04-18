@@ -28,7 +28,12 @@ const Brand: FC<Props> = ({ name, logo, url, size, children }) => {
       />
       <div className="pt-2 mx-auto sm:w-2/3">{children}</div>
       <div>
-        <a className="font-bold" href={url} target="_blank" rel="noreferrer">
+        <a
+          className="font-bold"
+          href={url}
+          target="_blank"
+          rel="noreferrer noopener"
+        >
           ➜ Go to {name}
         </a>
       </div>

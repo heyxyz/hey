@@ -28,6 +28,8 @@ import {
   useSignTypedData
 } from 'wagmi'
 
+import IndexStatus from '../../Shared/IndexStatus'
+
 const CREATE_COLLECT_TYPED_DATA_MUTATION = gql`
   mutation CreateCollectTypedData($request: CreateCollectRequest!) {
     createCollectTypedData(request: $request) {
@@ -95,7 +97,11 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
     }
   )
 
-  const { isLoading: writeLoading, write } = useContractWrite(
+  const {
+    data: writeData,
+    isLoading: writeLoading,
+    write
+  } = useContractWrite(
     {
       addressOrName: LENSHUB_PROXY,
       contractInterface: LensHubProxy
@@ -167,21 +173,28 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
     allowanceLoading ? (
       <div className="w-24 rounded-lg h-[34px] shimmer" />
     ) : allowed ? (
-      <Button
-        className="mt-5 sm:mt-0 sm:ml-auto"
-        onClick={createCollect}
-        disabled={typedDataLoading || signLoading || writeLoading}
-        variant="success"
-        icon={
-          typedDataLoading || signLoading || writeLoading ? (
-            <Spinner variant="success" size="xs" />
-          ) : (
-            <CashIcon className="w-4 h-4" />
-          )
-        }
-      >
-        Fund
-      </Button>
+      <div className="flex items-center mt-3 space-y-0 space-x-3 sm:block sm:mt-0 sm:space-y-2">
+        <Button
+          className="sm:mt-0 sm:ml-auto"
+          onClick={createCollect}
+          disabled={typedDataLoading || signLoading || writeLoading}
+          variant="success"
+          icon={
+            typedDataLoading || signLoading || writeLoading ? (
+              <Spinner variant="success" size="xs" />
+            ) : (
+              <CashIcon className="w-4 h-4" />
+            )
+          }
+        >
+          Fund
+        </Button>
+        {writeData?.hash && (
+          <div className="mt-2">
+            <IndexStatus txHash={writeData?.hash} />
+          </div>
+        )}
+      </div>
     ) : (
       <AllowanceButton
         title="Allow"

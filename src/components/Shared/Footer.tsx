@@ -33,7 +33,7 @@ const Footer: FC = () => {
         className="pr-3"
         href="https://analytics.lenster.xyz/share/DUGyxaF6/Lenster"
         target="_blank"
-        rel="noreferrer"
+        rel="noreferrer noopener"
       >
         Open
       </a>
@@ -41,7 +41,7 @@ const Footer: FC = () => {
         className="pr-3"
         href="https://status.lenster.xyz"
         target="_blank"
-        rel="noreferrer"
+        rel="noreferrer noopener"
       >
         Status
       </a>
@@ -54,7 +54,7 @@ const Footer: FC = () => {
         className="pr-3"
         href="https://gitlab.com/lenster/lenster"
         target="_blank"
-        rel="noreferrer"
+        rel="noreferrer noopener"
       >
         GitLab
       </a>
@@ -62,7 +62,7 @@ const Footer: FC = () => {
         className="pr-3 hover:font-bold"
         href="https://vercel.com/?utm_source=Lenster&utm_campaign=oss"
         target="_blank"
-        rel="noreferrer"
+        rel="noreferrer noopener"
       >
         ▲ Powered by Vercel
       </a>

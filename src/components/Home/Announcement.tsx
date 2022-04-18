@@ -19,7 +19,7 @@ const Announcement: FC = () => {
           <a
             href="https://faucet.polygon.technology/"
             target="_blank"
-            rel="noreferrer"
+            rel="noreferrer noopener"
           >
             Get testnet tokens
           </a>
