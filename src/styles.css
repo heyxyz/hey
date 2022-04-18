@@ -55,3 +55,7 @@ body {
 .tippy-content {
   @apply !px-2.5 !py-0.5;
 }
+
+.label {
+  @apply mb-1 font-medium text-gray-800 dark:text-gray-200;
+}

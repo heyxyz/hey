@@ -31,7 +31,7 @@ const PostBody: FC<Props> = ({ post }) => {
   return (
     <div className="break-words">
       {postType === 'community' ? (
-        <div className="block sm:flex items-center space-x-0 sm:space-x-2 space-y-2 sm:space-y-0 linkify">
+        <div className="block items-center space-y-2 space-x-0 sm:flex sm:space-y-0 sm:space-x-2 linkify">
           <span className="flex items-center space-x-1.5">
             {post?.collectedBy ? (
               <UserAddIcon className="w-4 h-4 text-brand-500" />

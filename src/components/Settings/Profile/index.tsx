@@ -23,6 +23,10 @@ const PROFILE_SETTINGS_QUERY = gql`
         website
         twitter
         bio
+        attributes {
+          key
+          value
+        }
         coverPicture {
           ... on MediaSet {
             original {

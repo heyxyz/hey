@@ -235,7 +235,7 @@ const Create: FC = () => {
                 {...form.register('description')}
               />
               <div className="space-y-1.5">
-                <label>Avatar</label>
+                <label className="label">Avatar</label>
                 <div className="space-y-3">
                   {avatar && (
                     <img

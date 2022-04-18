@@ -299,9 +299,7 @@ const Create: FC = () => {
                 {...form.register('title')}
               />
               <div>
-                <div className="mb-1 font-medium text-gray-800 dark:text-gray-200">
-                  Select Currency
-                </div>
+                <div className="label">Select Currency</div>
                 <select
                   className="w-full bg-white rounded-xl border border-gray-300 outline-none dark:bg-gray-800 disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 dark:border-gray-700/80 focus:border-brand-500 focus:ring-brand-400"
                   onChange={(e) => {
@@ -380,7 +378,7 @@ const Create: FC = () => {
                 {...form.register('description')}
               />
               <div className="space-y-1.5">
-                <label>Cover Image</label>
+                <label className="label">Cover Image</label>
                 <div className="space-y-3">
                   {cover && (
                     <img

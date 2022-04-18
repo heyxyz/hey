@@ -112,7 +112,7 @@ const Create: FC<Props> = ({ isModal = false }) => {
         {...form.register('handle')}
       />
       <div className="space-y-1.5">
-        <label>Avatar</label>
+        <label className="label">Avatar</label>
         <div className="space-y-3">
           {avatar && (
             <div>
