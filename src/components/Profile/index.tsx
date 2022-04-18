@@ -26,6 +26,10 @@ export const PROFILE_QUERY = gql`
         location
         website
         twitter
+        attributes {
+          key
+          value
+        }
         bio
         stats {
           totalFollowers
