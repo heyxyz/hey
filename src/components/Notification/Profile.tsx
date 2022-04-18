@@ -1,4 +1,4 @@
-import { Notification, Profile } from '@generated/types'
+import { LensterNotification } from '@generated/lenstertypes'
 import { BadgeCheckIcon } from '@heroicons/react/solid'
 import formatAddress from '@lib/formatAddress'
 import getAvatar from '@lib/getAvatar'
@@ -9,7 +9,7 @@ import React, { FC } from 'react'
 import { POLYGONSCAN_URL } from 'src/constants'
 
 interface Props {
-  notification: Notification & { profile: Profile }
+  notification: LensterNotification
 }
 
 export const NotificationProfileAvatar: FC<Props> = ({ notification }) => {
