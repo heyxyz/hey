@@ -31,17 +31,19 @@ const PostBody: FC<Props> = ({ post }) => {
   return (
     <div className="break-words">
       {postType === 'community' ? (
-        <div className="flex items-center space-x-1.5 linkify">
-          {post?.collectedBy ? (
-            <UserAddIcon className="w-4 h-4 text-brand-500" />
-          ) : (
-            <UsersIcon className="w-4 h-4 text-brand-500" />
-          )}
-          {post?.collectedBy ? (
-            <span>Joined</span>
-          ) : (
-            <span>Launched a new community</span>
-          )}
+        <div className="block sm:flex items-center space-x-0 sm:space-x-2 space-y-2 sm:space-y-0 linkify">
+          <span className="flex items-center space-x-1.5">
+            {post?.collectedBy ? (
+              <UserAddIcon className="w-4 h-4 text-brand-500" />
+            ) : (
+              <UsersIcon className="w-4 h-4 text-brand-500" />
+            )}
+            {post?.collectedBy ? (
+              <span>Joined</span>
+            ) : (
+              <span>Launched a new community</span>
+            )}
+          </span>
           <Link href={`/communities/${post?.id}`}>
             <a
               href={`/communities/${post?.id}`}
