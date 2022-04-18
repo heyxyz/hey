@@ -10,7 +10,10 @@ import { Input } from '@components/UI/Input'
 import { Spinner } from '@components/UI/Spinner'
 import { TextArea } from '@components/UI/TextArea'
 import AppContext from '@components/utils/AppContext'
-import { Profile } from '@generated/types'
+import {
+  CreateSetProfileMetadataUriBroadcastItemResult,
+  Profile
+} from '@generated/types'
 import { PencilIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
 import imagekitURL from '@lib/imagekitURL'
@@ -129,7 +132,7 @@ const Profile: FC<Props> = ({ profile }) => {
       onCompleted({
         createSetProfileMetadataTypedData
       }: {
-        createSetProfileMetadataTypedData: CreateSetProfileImageUriBroadcastItemResult
+        createSetProfileMetadataTypedData: CreateSetProfileMetadataUriBroadcastItemResult
       }) {
         consoleLog(
           'Mutation',
@@ -188,10 +191,7 @@ const Profile: FC<Props> = ({ profile }) => {
       name: profile?.name as string,
       location: profile?.location as string,
       website: profile?.website as string,
-      twitter: profile?.twitterUrl?.replace(
-        'https://twitter.com/',
-        ''
-      ) as string,
+      twitter: 'yoginth',
       bio: profile?.bio as string
     }
   })
@@ -240,14 +240,14 @@ const Profile: FC<Props> = ({ profile }) => {
 
       console.log(path)
 
-      // createSetProfileMetadataTypedData({
-      //   variables: {
-      //     request: {
-      //       profileId: currentUser?.id,
-      //       metadata: `https://ipfs.infura.io/ipfs/${path}`
-      //     }
-      //   }
-      // })
+      createSetProfileMetadataTypedData({
+        variables: {
+          request: {
+            profileId: currentUser?.id,
+            metadata: `https://ipfs.infura.io/ipfs/${path}`
+          }
+        }
+      })
     }
   }
 
