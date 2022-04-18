@@ -3,11 +3,10 @@ import 'tippy.js/dist/tippy.css'
 import Tippy from '@tippyjs/react'
 import clsx from 'clsx'
 import React, { FC, ReactNode } from 'react'
-import { Placement } from 'tippy.js'
 interface Props {
   children: ReactNode
   content: string
-  placement?: Placement
+  placement?: 'top' | 'right'
   className?: string
   withDelay?: boolean
 }
