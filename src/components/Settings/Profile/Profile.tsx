@@ -10,6 +10,7 @@ import { Form, useZodForm } from '@components/UI/Form'
 import { Input } from '@components/UI/Input'
 import { Spinner } from '@components/UI/Spinner'
 import { TextArea } from '@components/UI/TextArea'
+import { Toggle } from '@components/UI/Toggle'
 import AppContext from '@components/utils/AppContext'
 import {
   CreateSetProfileMetadataUriBroadcastItemResult,
@@ -96,7 +97,7 @@ interface Props {
 }
 
 const Profile: FC<Props> = ({ profile }) => {
-  const [isBeta, setIsBeta] = useState<boolean>()
+  const [isBeta, setIsBeta] = useState<boolean>(false)
   const [cover, setCover] = useState<string>()
   const [isUploading, setIsUploading] = useState<boolean>(false)
   const [uploading, setUploading] = useState<boolean>(false)
@@ -313,7 +314,7 @@ const Profile: FC<Props> = ({ profile }) => {
             {...form.register('bio')}
           />
           <div className="space-y-1.5">
-            <label>Cover</label>
+            <label className="label">Cover</label>
             <div className="space-y-3">
               {cover && (
                 <div>
@@ -334,9 +335,12 @@ const Profile: FC<Props> = ({ profile }) => {
               </div>
             </div>
           </div>
-          <div className="space-y-1.5">
-            <label>Beta</label>
-            <div className="space-y-3">Enroll to Lenster Beta</div>
+          <div className="space-y-2">
+            <label className="label">Beta</label>
+            <div className="flex items-center space-x-2">
+              <Toggle on={isBeta} setOn={setIsBeta} />
+              <div>Enroll to Lenster Beta</div>
+            </div>
           </div>
           {activeChain?.unsupported ? (
             <SwitchNetwork className="ml-auto" />

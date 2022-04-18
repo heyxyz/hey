@@ -378,7 +378,7 @@ const Create: FC = () => {
                 {...form.register('description')}
               />
               <div className="space-y-1.5">
-                <label>Cover Image</label>
+                <label className="label">Cover Image</label>
                 <div className="space-y-3">
                   {cover && (
                     <img
