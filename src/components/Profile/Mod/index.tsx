@@ -47,7 +47,7 @@ const ProfileMod: FC<Props> = ({ profile }) => {
         <div className="mt-3 space-y-1.5">
           {getAttribute(profile?.attributes, 'app') === 'Lenster' && (
             <MetaDetails
-              icon={<img className="h-4 w-4" src="/logo.svg" alt="Logo" />}
+              icon={<img className="w-4 h-4" src="/logo.svg" alt="Logo" />}
               value={profile?.handle}
             >
               Lenster account
