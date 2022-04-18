@@ -63,7 +63,7 @@ const IFramely: FC<Props> = ({ url }) => {
         <a
           href={url}
           target="_blank"
-          rel="noreferrer"
+          rel="noreferrer noopener"
           onClick={() => trackEvent('oembed')}
         >
           <Card forceRounded>

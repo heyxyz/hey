@@ -1,7 +1,7 @@
 import LensHubProxy from '@abis/LensHubProxy.json'
 import { gql, useMutation } from '@apollo/client'
 import Attachments from '@components/Shared/Attachments'
-import IndexStatus from '@components/Shared/IndexStatus'
+import PubIndexStatus from '@components/Shared/PubIndexStatus'
 import SwitchNetwork from '@components/Shared/SwitchNetwork'
 import { Button } from '@components/UI/Button'
 import { Card } from '@components/UI/Card'
@@ -308,7 +308,7 @@ const NewComment: FC<Props> = ({ refetch, post, type }) => {
             </div>
             <div className="flex items-center pt-2 ml-auto space-x-2 sm:pt-0">
               {data?.hash && (
-                <IndexStatus
+                <PubIndexStatus
                   refetch={refetch}
                   type={type === 'comment' ? 'Comment' : 'Post'}
                   txHash={data?.hash}

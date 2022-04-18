@@ -19,11 +19,14 @@ const MoreNavItems: FC = () => {
       {({ open }) => (
         <>
           <Menu.Button
-            className={clsx('px-3 py-1 rounded-md font-black cursor-pointer', {
-              'text-black dark:text-white bg-gray-200 dark:bg-gray-800': open,
-              'text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white hover:bg-gray-200 dark:hover:bg-gray-800':
-                !open
-            })}
+            className={clsx(
+              'w-full text-left px-3 py-1 rounded-md font-black cursor-pointer',
+              {
+                'text-black dark:text-white bg-gray-200 dark:bg-gray-800': open,
+                'text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white hover:bg-gray-200 dark:hover:bg-gray-800':
+                  !open
+              }
+            )}
           >
             More
           </Menu.Button>

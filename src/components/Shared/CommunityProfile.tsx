@@ -11,7 +11,7 @@ interface Props {
 
 const CommunityProfile: FC<Props> = ({ community }) => {
   return (
-    <div className="flex items-center justify-between">
+    <div className="flex justify-between items-center">
       <Link href={`/communities/${community?.id}`}>
         <a href={`/communities/${community?.id}`}>
           <div className="flex items-center space-x-3">
@@ -22,7 +22,7 @@ const CommunityProfile: FC<Props> = ({ community }) => {
                   : `https://avatar.tobi.sh/${community?.id}.png`,
                 'avatar'
               )}
-              className="w-16 h-16 bg-gray-200 border rounded-xl dark:border-gray-700/80"
+              className="w-16 h-16 bg-gray-200 rounded-xl border dark:border-gray-700/80"
               alt={community?.id}
             />
             <div className="space-y-1">

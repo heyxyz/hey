@@ -21,7 +21,9 @@ const MirrorNotification: FC<Props> = ({ notification }) => {
       <NotificationProfileAvatar notification={notification} />
       <div className="w-4/5">
         <NotificationProfileName notification={notification} />{' '}
-        <span className="pl-0.5 text-gray-600">mirrored your </span>
+        <span className="pl-0.5 text-gray-600 dark:text-gray-400">
+          mirrored your{' '}
+        </span>
         <Link href={`/posts/${notification?.publication?.id}`}>
           <a
             href={`/posts/${notification?.publication?.id}`}

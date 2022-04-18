@@ -31,7 +31,7 @@ const SingleNFT: FC<Props> = ({ nft }) => {
             className="text-sm text-gray-500 truncate"
             href={`${OPENSEA_URL}/collection/${nft.collectionName}`}
             target="_blank"
-            rel="noreferrer"
+            rel="noreferrer noopener"
           >
             {nft.collectionName}
           </a>
@@ -43,7 +43,7 @@ const SingleNFT: FC<Props> = ({ nft }) => {
               nft.chainId === CHAIN_ID ? 'matic/' : ''
             }${nft.contractAddress}/${nft.tokenId}`}
             target="_blank"
-            rel="noreferrer"
+            rel="noreferrer noopener"
           >
             {nft.name ? nft.name : `#${nft.tokenId}`}
           </a>

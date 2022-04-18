@@ -28,7 +28,7 @@ const CollectNotification: FC<Props> = ({ notification }) => {
       <NotificationProfileAvatar notification={notification} />
       <div className="w-4/5">
         <NotificationProfileName notification={notification} />{' '}
-        <span className="text-gray-600">
+        <span className="text-gray-600 dark:text-gray-400">
           {postType === 'community'
             ? 'joined your'
             : postType === 'crowdfund'

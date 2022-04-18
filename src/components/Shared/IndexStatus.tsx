@@ -1,32 +1,18 @@
-import { gql, useQuery } from '@apollo/client'
+import { useQuery } from '@apollo/client'
 import { Spinner } from '@components/UI/Spinner'
+import { TX_STATUS_QUERY } from '@gql/HasTxHashBeenIndexed'
 import { CheckCircleIcon } from '@heroicons/react/solid'
-import { useRouter } from 'next/router'
-import React, { Dispatch, FC, useState } from 'react'
+import clsx from 'clsx'
+import React, { FC, useState } from 'react'
 import { POLYGONSCAN_URL } from 'src/constants'
 
-export const TX_STATUS_QUERY = gql`
-  query HasPublicationIndexed($request: PublicationQueryRequest!) {
-    publication(request: $request) {
-      ... on Post {
-        id
-      }
-      ... on Comment {
-        id
-      }
-    }
-  }
-`
-
 interface Props {
-  setShowModal?: Dispatch<boolean>
-  refetch?: any
-  type: string
+  type?: string
   txHash: string
 }
 
-const IndexStatus: FC<Props> = ({ setShowModal, refetch, type, txHash }) => {
-  const { push } = useRouter()
+const IndexStatus: FC<Props> = ({ type = 'Transaction', txHash }) => {
+  const [hide, setHide] = useState<boolean>(false)
   const [pollInterval, setPollInterval] = useState<number>(500)
   const { data, loading } = useQuery(TX_STATUS_QUERY, {
     variables: {
@@ -34,34 +20,31 @@ const IndexStatus: FC<Props> = ({ setShowModal, refetch, type, txHash }) => {
     },
     pollInterval,
     onCompleted(data) {
-      if (data?.publication) {
+      if (data?.hasTxHashBeenIndexed?.indexed) {
         setPollInterval(0)
-        if (setShowModal) {
-          setShowModal(false)
-          push(`/posts/${data?.publication?.id}`)
-        } else {
-          refetch && refetch()
-        }
+        setTimeout(() => {
+          setHide(true)
+        }, 5000)
       }
     }
   })
 
   return (
     <a
-      className="ml-auto text-sm"
+      className={clsx({ hidden: hide }, 'ml-auto text-sm font-medium')}
       href={`${POLYGONSCAN_URL}/tx/${txHash}`}
       target="_blank"
-      rel="noreferrer"
+      rel="noreferrer noopener"
     >
-      {loading || !data?.publication ? (
+      {loading || !data?.hasTxHashBeenIndexed?.indexed ? (
         <div className="flex items-center space-x-1.5">
           <Spinner size="xs" />
-          <div className="hidden sm:block">{type} Indexing</div>
+          <div>{type} Indexing</div>
         </div>
       ) : (
         <div className="flex items-center space-x-1">
           <CheckCircleIcon className="w-5 h-5 text-green-500" />
-          <div className="hidden sm:block">Index Successful</div>
+          <div className="text-black">Index Successful</div>
         </div>
       )}
     </a>
