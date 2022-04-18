@@ -228,11 +228,6 @@ const Profile: FC<Props> = ({ profile }) => {
         location,
         attributes: [
           {
-            traitType: 'boolean',
-            key: 'isBeta',
-            value: true
-          },
-          {
             traitType: 'string',
             key: 'app',
             value: 'Lenster'
