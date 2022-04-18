@@ -8,7 +8,7 @@ import { motion } from 'framer-motion'
 import { Dispatch, FC, useState } from 'react'
 
 interface Props {
-  setOnlyFollowers: Dispatch<any>
+  setOnlyFollowers: Dispatch<boolean>
   onlyFollowers: boolean
 }
 

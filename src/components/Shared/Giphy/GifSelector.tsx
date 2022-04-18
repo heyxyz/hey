@@ -3,7 +3,7 @@ import { useDebounce } from '@components/utils/hooks/useDebounce'
 import { GiphyFetch, ICategory } from '@giphy/js-fetch-api'
 import { IGif } from '@giphy/js-types'
 import { Grid } from '@giphy/react-components'
-import { Dispatch, FC, useEffect, useState } from 'react'
+import { ChangeEvent, Dispatch, FC, useEffect, useState } from 'react'
 
 interface Props {
   // eslint-disable-next-line no-unused-vars
@@ -47,7 +47,7 @@ const GifSelector: FC<Props> = ({ setShowModal, setGifAttachment }) => {
     return giphyFetch.search(searchText, { offset, limit: 10 })
   }
 
-  const handleSearch = (evt: any) => {
+  const handleSearch = (evt: ChangeEvent<HTMLInputElement>) => {
     let keyword = evt.target.value
     setDebouncedGifInput(keyword)
   }
