@@ -224,7 +224,7 @@ const Profile: FC<Props> = ({ profile }) => {
           }
         ],
         bio,
-        cover_picture: cover,
+        cover_picture: cover ? cover : null,
         location,
         attributes: [
           {
