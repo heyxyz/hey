@@ -1,4 +1,4 @@
-import LensHubProxy from '@abis/LensHubProxy.json'
+import LensPeriphery from '@abis/LensPeriphery.json'
 import { gql, useMutation } from '@apollo/client'
 import ChooseFile from '@components/Shared/ChooseFile'
 import SwitchNetwork from '@components/Shared/SwitchNetwork'
@@ -28,7 +28,7 @@ import {
   CHAIN_ID,
   CONNECT_WALLET,
   ERROR_MESSAGE,
-  LENSHUB_PROXY,
+  LENS_PERIPHERY,
   WRONG_NETWORK
 } from 'src/constants'
 import { v4 as uuidv4 } from 'uuid'
@@ -112,8 +112,8 @@ const Profile: FC<Props> = ({ profile }) => {
     write
   } = useContractWrite(
     {
-      addressOrName: LENSHUB_PROXY,
-      contractInterface: LensHubProxy
+      addressOrName: LENS_PERIPHERY,
+      contractInterface: LensPeriphery
     },
     'setProfileMetadataURIWithSig',
     {
