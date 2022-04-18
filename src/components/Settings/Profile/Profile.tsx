@@ -193,7 +193,7 @@ const Profile: FC<Props> = ({ profile }) => {
       name: profile?.name as string,
       location: profile?.location as string,
       website: profile?.website as string,
-      twitter: 'yoginth',
+      twitter: profile?.twitter?.replace('https://twitter.com/', '') as string,
       bio: profile?.bio as string
     }
   })
@@ -312,7 +312,7 @@ const Profile: FC<Props> = ({ profile }) => {
               {cover && (
                 <div>
                   <img
-                    className="object-cover w-full h-60 rounded-lg"
+                    className="object-cover w-full rounded-lg h-60"
                     src={imagekitURL(cover, 'cover')}
                     alt={cover}
                   />
