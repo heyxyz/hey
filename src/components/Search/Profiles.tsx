@@ -30,7 +30,7 @@ const SEARCH_PROFILES_QUERY = gql`
 `
 
 interface Props {
-  query: any
+  query: string | string[]
 }
 
 const Profiles: FC<Props> = ({ query }) => {

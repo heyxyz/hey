@@ -37,7 +37,7 @@ const SEARCH_PUBLICATIONS_QUERY = gql`
 `
 
 interface Props {
-  query: any
+  query: string | string[]
 }
 
 const Publications: FC<Props> = ({ query }) => {

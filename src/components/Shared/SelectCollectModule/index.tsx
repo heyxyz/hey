@@ -13,7 +13,7 @@ import Modules from './Modules'
 interface Props {
   feeData: FEE_DATA_TYPE
   setFeeData: Dispatch<FEE_DATA_TYPE>
-  setSelectedModule: Dispatch<any>
+  setSelectedModule: Dispatch<EnabledModule>
   selectedModule: EnabledModule
 }
 

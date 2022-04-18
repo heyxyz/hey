@@ -216,7 +216,7 @@ const List: FC = () => {
         <div key={index}>
           {notification?.__typename === 'NewFollowerNotification' && (
             <div className="p-4">
-              <FollowerNotification notification={notification} />
+              <FollowerNotification notification={notification as any} />
             </div>
           )}
           {notification?.__typename === 'NewCommentNotification' && (
@@ -231,7 +231,7 @@ const List: FC = () => {
           )}
           {notification?.__typename === 'NewCollectNotification' && (
             <div className="p-4">
-              <CollectNotification notification={notification} />
+              <CollectNotification notification={notification as any} />
             </div>
           )}
         </div>

@@ -2,6 +2,7 @@ import {
   NotificationProfileAvatar,
   NotificationProfileName
 } from '@components/Notification/Profile'
+import { LensterNotification } from '@generated/lenstertypes'
 import { NewCollectNotification } from '@generated/types'
 import { CashIcon, CollectionIcon, UsersIcon } from '@heroicons/react/outline'
 import dayjs from 'dayjs'
@@ -15,7 +16,7 @@ import CollectedContent from './Content'
 dayjs.extend(relativeTime)
 
 interface Props {
-  notification: NewCollectNotification
+  notification: NewCollectNotification & LensterNotification
 }
 
 const CollectNotification: FC<Props> = ({ notification }) => {
