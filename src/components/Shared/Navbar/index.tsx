@@ -31,7 +31,7 @@ const Navbar: FC = () => {
         <a href={url} aria-current={current ? 'page' : undefined}>
           <Disclosure.Button
             className={clsx(
-              'w-full text-left px-2 md:px-3 py-1 rounded-md font-black cursor-pointer text-sm',
+              'w-full text-left px-2 md:px-3 py-1 rounded-md font-black cursor-pointer text-sm tracking-wide',
               {
                 'text-black dark:text-white bg-gray-200 dark:bg-gray-800':
                   current,
