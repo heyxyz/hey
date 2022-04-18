@@ -320,7 +320,7 @@ const Profile: FC<Props> = ({ profile }) => {
               {cover && (
                 <div>
                   <img
-                    className="object-cover w-full rounded-lg h-60"
+                    className="object-cover w-full h-60 rounded-lg"
                     src={imagekitURL(cover, 'cover')}
                     alt={cover}
                   />

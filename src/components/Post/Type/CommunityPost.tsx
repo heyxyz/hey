@@ -12,7 +12,7 @@ const CommunityPost: FC<Props> = ({ post }) => {
   const commentOn: any = post?.commentOn
 
   return (
-    <div className="flex items-center pb-4 space-x-1 text-[13px] text-gray-500">
+    <div className="flex items-center pb-4 space-x-1 text-gray-500 text-[13px]">
       <UsersIcon className="w-4 h-4" />
       <div className="flex items-center space-x-1">
         <Link href={`/communities/${commentOn?.pubId}`}>
