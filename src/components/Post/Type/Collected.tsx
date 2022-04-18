@@ -11,7 +11,7 @@ interface Props {
 
 const Collected: FC<Props> = ({ post, type }) => {
   return (
-    <div className="flex items-center pb-4 space-x-1 text-sm text-gray-500">
+    <div className="flex items-center pb-4 space-x-1 text-[13px] text-gray-500">
       <CollectionIcon className="w-4 h-4" />
       <div className="flex items-center space-x-1">
         <div>{type} by</div>

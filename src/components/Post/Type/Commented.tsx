@@ -22,7 +22,7 @@ const Commented: FC<Props> = ({ post }) => {
         className="mr-1.5 ml-5 w-4"
         alt="Comment"
       />
-      <div className="flex items-center pb-3.5 space-x-1 text-sm text-gray-500">
+      <div className="flex items-center pb-3.5 space-x-1 text-[13px] text-gray-500">
         <Link href={`/u/${commentOn?.profile?.handle}`}>
           <a href={`/u/${commentOn?.profile?.handle}`}>
             <Slug slug={commentOn?.profile?.handle} prefix="@" />:
