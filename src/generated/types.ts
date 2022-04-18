@@ -1329,6 +1329,7 @@ export type Mutation = {
   hidePublication?: Maybe<Scalars['Void']>
   refresh: AuthenticationResult
   reportPublication?: Maybe<Scalars['Void']>
+  /** @deprecated Use createSetProfileMetadataTypedData instead  */
   updateProfile: Profile
 }
 
