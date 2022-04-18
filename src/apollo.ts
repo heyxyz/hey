@@ -27,7 +27,7 @@ const httpLink = new HttpLink({
 const authLink = new ApolloLink((operation, forward) => {
   const token = localStorage.accessToken
 
-  if (token === 'undefined') {
+  if (token === 'undefined' || !token) {
     localStorage.removeItem('accessToken')
     localStorage.removeItem('refreshToken')
     localStorage.removeItem('selectedProfile')
@@ -40,8 +40,7 @@ const authLink = new ApolloLink((operation, forward) => {
       }
     })
 
-    // @ts-ignore
-    const { exp }: { exp: any } = token ? jwtDecode(token) : ''
+    const { exp }: { exp: number } = jwtDecode(token)
 
     if (Date.now() >= exp * 1000) {
       consoleLog('Auth', '#eab308', 'Generate new access token')
