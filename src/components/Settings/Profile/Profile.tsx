@@ -1,6 +1,7 @@
 import LensPeriphery from '@abis/LensPeriphery.json'
 import { gql, useMutation } from '@apollo/client'
 import ChooseFile from '@components/Shared/ChooseFile'
+import IndexStatus from '@components/Shared/IndexStatus'
 import SwitchNetwork from '@components/Shared/SwitchNetwork'
 import { Button } from '@components/UI/Button'
 import { Card, CardBody } from '@components/UI/Card'
@@ -107,8 +108,9 @@ const Profile: FC<Props> = ({ profile }) => {
     }
   })
   const {
-    error,
+    data: writeData,
     isLoading: writeLoading,
+    error,
     write
   } = useContractWrite(
     {
@@ -118,7 +120,7 @@ const Profile: FC<Props> = ({ profile }) => {
     'setProfileMetadataURIWithSig',
     {
       onSuccess() {
-        toast.success('Avatar updated successfully!')
+        toast.success('Profile updated successfully!')
         trackEvent('update profile')
       },
       onError(error) {
@@ -326,11 +328,12 @@ const Profile: FC<Props> = ({ profile }) => {
               </div>
             </div>
           </div>
-          <div className="ml-auto">
-            {activeChain?.unsupported ? (
-              <SwitchNetwork />
-            ) : (
+          {activeChain?.unsupported ? (
+            <SwitchNetwork className="ml-auto" />
+          ) : (
+            <div className="flex flex-col space-y-2">
               <Button
+                className="ml-auto"
                 type="submit"
                 disabled={
                   isUploading || typedDataLoading || signLoading || writeLoading
@@ -348,8 +351,9 @@ const Profile: FC<Props> = ({ profile }) => {
               >
                 Save
               </Button>
-            )}
-          </div>
+              {writeData?.hash && <IndexStatus txHash={writeData?.hash} />}
+            </div>
+          )}
         </Form>
       </CardBody>
     </Card>
