@@ -10,6 +10,7 @@ import { Form, useZodForm } from '@components/UI/Form'
 import { Input } from '@components/UI/Input'
 import { Spinner } from '@components/UI/Spinner'
 import { TextArea } from '@components/UI/TextArea'
+import { Toggle } from '@components/UI/Toggle'
 import AppContext from '@components/utils/AppContext'
 import {
   CreateSetProfileMetadataUriBroadcastItemResult,
@@ -18,6 +19,7 @@ import {
 import { PencilIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
 import imagekitURL from '@lib/imagekitURL'
+import isBeta from '@lib/isBeta'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import trackEvent from '@lib/trackEvent'
@@ -96,6 +98,7 @@ interface Props {
 }
 
 const Profile: FC<Props> = ({ profile }) => {
+  const [beta, setBeta] = useState<boolean>(isBeta(profile))
   const [cover, setCover] = useState<string>()
   const [isUploading, setIsUploading] = useState<boolean>(false)
   const [uploading, setUploading] = useState<boolean>(false)
@@ -232,7 +235,7 @@ const Profile: FC<Props> = ({ profile }) => {
           {
             traitType: 'boolean',
             key: 'isBeta',
-            value: true
+            value: beta
           },
           {
             traitType: 'string',
@@ -312,12 +315,12 @@ const Profile: FC<Props> = ({ profile }) => {
             {...form.register('bio')}
           />
           <div className="space-y-1.5">
-            <label>Cover</label>
+            <label className="label">Cover</label>
             <div className="space-y-3">
               {cover && (
                 <div>
                   <img
-                    className="object-cover w-full rounded-lg h-60"
+                    className="object-cover w-full h-60 rounded-lg"
                     src={imagekitURL(cover, 'cover')}
                     alt={cover}
                   />
@@ -331,6 +334,13 @@ const Profile: FC<Props> = ({ profile }) => {
                 />
                 {uploading && <Spinner size="sm" />}
               </div>
+            </div>
+          </div>
+          <div className="space-y-2">
+            <label className="label">Beta</label>
+            <div className="flex items-center space-x-2">
+              <Toggle on={beta} setOn={setBeta} />
+              <div>Enroll to Lenster Beta</div>
             </div>
           </div>
           {activeChain?.unsupported ? (

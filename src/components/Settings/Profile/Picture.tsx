@@ -190,9 +190,7 @@ const Picture: FC<Props> = ({ profile }) => {
           />
         )}
         <div className="space-y-1.5">
-          <label className="mb-1 font-medium text-gray-800 dark:text-gray-200">
-            Avatar
-          </label>
+          <label className="label">Avatar</label>
           <div className="space-y-3">
             {avatar && (
               <div>

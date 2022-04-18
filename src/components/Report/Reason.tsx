@@ -8,9 +8,7 @@ interface Props {
 
 const Reason: FC<Props> = ({ setType, setSubReason, type }) => {
   const Label = ({ children }: { children: ReactChild }) => (
-    <div className="mb-1 font-medium text-gray-800 dark:text-gray-200">
-      {children}
-    </div>
+    <div className="label">{children}</div>
   )
 
   return (

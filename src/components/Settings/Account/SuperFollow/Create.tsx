@@ -241,9 +241,7 @@ const SuperFollow: FC = () => {
             or disable/enable it anytime.
           </p>
           <div className="pt-2">
-            <div className="mb-1 font-medium text-gray-800 dark:text-gray-200">
-              Select Currency
-            </div>
+            <div className="label">Select Currency</div>
             <select
               className="w-full bg-white rounded-xl border border-gray-300 outline-none dark:bg-gray-800 disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 dark:border-gray-700/80 focus:border-brand-500 focus:ring-brand-400"
               onChange={(e) => {
