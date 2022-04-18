@@ -497,6 +497,18 @@ export type CreatePublicPostRequest = {
   referenceModule?: InputMaybe<ReferenceModuleParams>
 }
 
+export type CreatePublicSetProfileMetadataUriRequest = {
+  /** The metadata uploaded somewhere passing in the url to reach it */
+  metadata: Scalars['Url']
+  /** Profile id */
+  profileId: Scalars['ProfileId']
+}
+
+export type CreateSetDefaultProfileRequest = {
+  /** Profile id */
+  profileId: Scalars['ProfileId']
+}
+
 /** The broadcast item */
 export type CreateSetDispatcherBroadcastItemResult = {
   __typename?: 'CreateSetDispatcherBroadcastItemResult'
@@ -654,6 +666,43 @@ export type CreateSetProfileImageUriEip712TypedDataValue = {
   __typename?: 'CreateSetProfileImageUriEIP712TypedDataValue'
   deadline: Scalars['UnixTimestamp']
   imageURI: Scalars['Url']
+  nonce: Scalars['Nonce']
+  profileId: Scalars['ProfileId']
+}
+
+/** The broadcast item */
+export type CreateSetProfileMetadataUriBroadcastItemResult = {
+  __typename?: 'CreateSetProfileMetadataURIBroadcastItemResult'
+  /** The date the broadcast item expiries */
+  expiresAt: Scalars['DateTime']
+  /** This broadcast item ID */
+  id: Scalars['BroadcastId']
+  /** The typed data */
+  typedData: CreateSetProfileMetadataUrieip712TypedData
+}
+
+/** The set follow nft uri eip 712 typed data */
+export type CreateSetProfileMetadataUrieip712TypedData = {
+  __typename?: 'CreateSetProfileMetadataURIEIP712TypedData'
+  /** The typed data domain */
+  domain: Eip712TypedDataDomain
+  /** The types */
+  types: CreateSetProfileMetadataUrieip712TypedDataTypes
+  /** The values */
+  value: CreateSetProfileMetadataUrieip712TypedDataValue
+}
+
+/** The set follow nft uri eip 712 typed data types */
+export type CreateSetProfileMetadataUrieip712TypedDataTypes = {
+  __typename?: 'CreateSetProfileMetadataURIEIP712TypedDataTypes'
+  SetProfileMetadataURIWithSig: Array<Eip712TypedDataField>
+}
+
+/** The set follow nft uri eip 712 typed data value */
+export type CreateSetProfileMetadataUrieip712TypedDataValue = {
+  __typename?: 'CreateSetProfileMetadataURIEIP712TypedDataValue'
+  deadline: Scalars['UnixTimestamp']
+  metadata: Scalars['Url']
   nonce: Scalars['Nonce']
   profileId: Scalars['ProfileId']
 }
@@ -1274,11 +1323,13 @@ export type Mutation = {
   createSetFollowModuleTypedData: CreateSetFollowModuleBroadcastItemResult
   createSetFollowNFTUriTypedData: CreateSetFollowNftUriBroadcastItemResult
   createSetProfileImageURITypedData: CreateSetProfileImageUriBroadcastItemResult
+  createSetProfileMetadataTypedData: CreateSetProfileMetadataUriBroadcastItemResult
   createToggleFollowTypedData: CreateToggleFollowBroadcastItemResult
   createUnfollowTypedData: CreateUnfollowBroadcastItemResult
   hidePublication?: Maybe<Scalars['Void']>
   refresh: AuthenticationResult
   reportPublication?: Maybe<Scalars['Void']>
+  /** @deprecated Use createSetProfileMetadataTypedData instead  */
   updateProfile: Profile
 }
 
@@ -1330,7 +1381,7 @@ export type MutationCreateProfileArgs = {
 
 export type MutationCreateSetDefaultProfileTypedDataArgs = {
   options?: InputMaybe<TypedDataOptions>
-  request: SetDefaultProfileRequest
+  request: CreateSetDefaultProfileRequest
 }
 
 export type MutationCreateSetDispatcherTypedDataArgs = {
@@ -1351,6 +1402,10 @@ export type MutationCreateSetFollowNftUriTypedDataArgs = {
 export type MutationCreateSetProfileImageUriTypedDataArgs = {
   options?: InputMaybe<TypedDataOptions>
   request: UpdateProfileImageRequest
+}
+
+export type MutationCreateSetProfileMetadataTypedDataArgs = {
+  request: CreatePublicSetProfileMetadataUriRequest
 }
 
 export type MutationCreateToggleFollowTypedDataArgs = {
@@ -1473,6 +1528,8 @@ export type NewMirrorNotification = {
 /** The NFT image */
 export type NftImage = {
   __typename?: 'NftImage'
+  /** The token image nft */
+  chainId: Scalars['Int']
   /** The contract address */
   contractAddress: Scalars['ContractAddress']
   /** The token id of the nft */
@@ -1649,6 +1706,8 @@ export type Profile = {
   isDefault: Scalars['Boolean']
   /** Location set on profile */
   location?: Maybe<Scalars['String']>
+  /** Metadata url */
+  metadata?: Maybe<Scalars['Url']>
   /** Name of the profile */
   name?: Maybe<Scalars['String']>
   /** Who owns the profile */
@@ -1658,9 +1717,9 @@ export type Profile = {
   /** Profile stats */
   stats: ProfileStats
   /** Twitter url set on profile */
-  twitterUrl?: Maybe<Scalars['Url']>
+  twitter?: Maybe<Scalars['String']>
   /** Website set on profile */
-  website?: Maybe<Scalars['String']>
+  website?: Maybe<Scalars['Url']>
 }
 
 export type ProfileMedia = MediaSet | NftImage
@@ -2102,11 +2161,6 @@ export type SetDefaultProfileEip712TypedDataValue = {
   nonce: Scalars['Nonce']
   profileId: Scalars['ProfileId']
   wallet: Scalars['EthereumAddress']
-}
-
-export type SetDefaultProfileRequest = {
-  /** Profile id */
-  profileId: Scalars['ProfileId']
 }
 
 export type SetDispatcherRequest = {

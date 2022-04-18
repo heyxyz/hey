@@ -229,7 +229,8 @@ const NewComment: FC<Props> = ({ refetch, post, type }) => {
         name: `Comment by @${currentUser?.handle}`,
         attributes: [
           {
-            traitType: 'type',
+            traitType: 'string',
+            key: 'type',
             value: type
           }
         ],
