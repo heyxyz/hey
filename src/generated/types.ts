@@ -112,6 +112,19 @@ export type AttachResults = {
   signedUrl: Scalars['String']
 }
 
+/** The Profile */
+export type Attribute = {
+  __typename?: 'Attribute'
+  /** The display type */
+  displayType?: Maybe<MetadataDisplayType>
+  /** identifier of this attribute, we will update by this id  */
+  key: Scalars['String']
+  /** The trait type - can be anything its the name it will render so include spaces */
+  traitType: Scalars['String']
+  /** Value attribute */
+  value: Scalars['String']
+}
+
 /** The auth challenge result */
 export type AuthChallengeResult = {
   __typename?: 'AuthChallengeResult'
@@ -1690,6 +1703,8 @@ export type Post = {
 /** The Profile */
 export type Profile = {
   __typename?: 'Profile'
+  /** Optionals param to add extra attributes on the metadata */
+  attributes?: Maybe<Array<Attribute>>
   /** Bio of the profile */
   bio?: Maybe<Scalars['String']>
   /** The cover picture for the profile */
