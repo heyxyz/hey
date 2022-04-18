@@ -1,4 +1,4 @@
-import { Notification } from '@generated/types'
+import { Notification, Profile } from '@generated/types'
 import { BadgeCheckIcon } from '@heroicons/react/solid'
 import formatAddress from '@lib/formatAddress'
 import getAvatar from '@lib/getAvatar'
@@ -9,7 +9,7 @@ import React, { FC } from 'react'
 import { POLYGONSCAN_URL } from 'src/constants'
 
 interface Props {
-  notification: Notification
+  notification: Notification & { profile: Profile }
 }
 
 export const NotificationProfileAvatar: FC<Props> = ({ notification }) => {
@@ -18,12 +18,9 @@ export const NotificationProfileAvatar: FC<Props> = ({ notification }) => {
     ? wallet?.defaultProfile?.picture
       ? getAvatar(wallet?.defaultProfile)
       : imagekitURL(`https://avatar.tobi.sh/${wallet?.address}.png`, 'avatar')
-    : // @ts-ignore
-    notification?.profile?.picture
-    ? // @ts-ignore
-      getAvatar(notification?.profile)
+    : notification?.profile?.picture
+    ? getAvatar(notification?.profile)
     : imagekitURL(
-        // @ts-ignore
         `https://avatar.tobi.sh/${notification?.profile?.ownedBy}.png`,
         'avatar'
       )
@@ -41,10 +38,8 @@ export const NotificationProfileAvatar: FC<Props> = ({ notification }) => {
           alt: wallet?.address
         }
     : {
-        // @ts-ignore
         url: `/u/${notification?.profile?.handle}`,
         target: '_self',
-        // @ts-ignore
         alt: notification?.profile?.handle
       }
 
@@ -76,9 +71,7 @@ export const NotificationProfileName: FC<Props> = ({ notification }) => {
           target: '_blank'
         }
     : {
-        // @ts-ignore
         name: notification?.profile?.name ?? notification?.profile?.handle,
-        // @ts-ignore
         url: `/u/${notification?.profile?.handle}`,
         target: '_self'
       }
