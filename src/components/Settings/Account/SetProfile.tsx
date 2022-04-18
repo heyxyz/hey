@@ -187,11 +187,9 @@ const SetProfile: FC = () => {
           <p className="py-3">You can change default profile anytime here.</p>
         </div>
         <div>
-          <div className="mb-1 font-medium text-gray-800 dark:text-gray-200">
-            Select profile
-          </div>
+          <div className="label">Select profile</div>
           <select
-            className="w-full bg-white rounded-xl border border-gray-300 outline-none dark:bg-gray-800 disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 dark:border-gray-700/80 focus:border-brand-500 focus:ring-brand-400"
+            className="w-full bg-white border border-gray-300 outline-none rounded-xl dark:bg-gray-800 disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 dark:border-gray-700/80 focus:border-brand-500 focus:ring-brand-400"
             onChange={(e) => setSelectedUser(e.target.value)}
           >
             {sortedProfiles?.map((profile: Profile) => (
