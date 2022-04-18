@@ -1,5 +1,5 @@
 import LensHubProxy from '@abis/LensHubProxy.json'
-import { useMutation } from '@apollo/client'
+import { gql, useMutation } from '@apollo/client'
 import ChooseFile from '@components/Shared/ChooseFile'
 import IndexStatus from '@components/Shared/IndexStatus'
 import SwitchNetwork from '@components/Shared/SwitchNetwork'
@@ -19,7 +19,6 @@ import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import trackEvent from '@lib/trackEvent'
 import uploadAssetsToIPFS from '@lib/uploadAssetsToIPFS'
-import gql from 'graphql-tag'
 import React, { ChangeEvent, FC, useContext, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
@@ -161,7 +160,7 @@ const Picture: FC<Props> = ({ profile }) => {
     }
   }
 
-  const editProfile = (avatar: string | undefined) => {
+  const editPicture = (avatar: string | undefined) => {
     if (!avatar) {
       toast.error("Avatar can't be empty!")
     } else if (!account?.address) {
@@ -222,7 +221,7 @@ const Picture: FC<Props> = ({ profile }) => {
               className="ml-auto"
               type="submit"
               disabled={typedDataLoading || signLoading || writeLoading}
-              onClick={() => editProfile(avatar)}
+              onClick={() => editPicture(avatar)}
               icon={
                 typedDataLoading || signLoading || writeLoading ? (
                   <Spinner size="xs" />

@@ -209,11 +209,13 @@ const Create: FC = () => {
         name: title,
         attributes: [
           {
-            traitType: 'type',
+            traitType: 'string',
+            key: 'type',
             value: 'crowdfund'
           },
           {
-            traitType: 'goal',
+            traitType: 'string',
+            key: 'goal',
             value: goal
           }
         ],

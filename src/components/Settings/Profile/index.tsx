@@ -21,7 +21,6 @@ const PROFILE_SETTINGS_QUERY = gql`
         name
         location
         website
-        twitterUrl
         bio
         coverPicture {
           ... on MediaSet {

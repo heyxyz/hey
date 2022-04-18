@@ -191,7 +191,7 @@ const Details: FC<Props> = ({ profile }) => {
               </a>
             </MetaDetails>
           )}
-          {profile?.twitterUrl && (
+          {profile?.twitter && (
             <MetaDetails
               icon={
                 resolvedTheme === 'dark' ? (
@@ -210,11 +210,11 @@ const Details: FC<Props> = ({ profile }) => {
               }
             >
               <a
-                href={profile?.twitterUrl}
+                href={profile?.twitter}
                 target="_blank"
                 rel="noreferrer noopener"
               >
-                {profile?.twitterUrl?.replace('https://twitter.com/', '')}
+                {profile?.twitter?.replace('https://twitter.com/', '')}
               </a>
             </MetaDetails>
           )}
