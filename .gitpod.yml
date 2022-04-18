@@ -14,6 +14,7 @@ tasks:
 
 ports:
   - port: 3000 # Web app
+    visibility: public
     onOpen: notify
 
 vscode:
