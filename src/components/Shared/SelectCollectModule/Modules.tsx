@@ -32,7 +32,7 @@ export const MODULES_QUERY = gql`
 
 interface Props {
   feeData: FEE_DATA_TYPE
-  setSelectedModule: Dispatch<any>
+  setSelectedModule: Dispatch<EnabledModule>
   selectedModule: EnabledModule
   setShowModal: Dispatch<boolean>
   setFeeData: Dispatch<FEE_DATA_TYPE>

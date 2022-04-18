@@ -10,6 +10,7 @@ export const PostFields = gql`
       ...MinimalProfileFields
     }
     collectedBy {
+      address
       defaultProfile {
         handle
       }

@@ -9,7 +9,7 @@ import consoleLog from '@lib/consoleLog'
 import trackEvent from '@lib/trackEvent'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { FC, useRef, useState } from 'react'
+import { ChangeEvent, FC, useRef, useState } from 'react'
 
 import UserProfile from '../UserProfile'
 
@@ -48,7 +48,7 @@ const Search: FC<Props> = ({ hideDrodown = false }) => {
       }
     })
 
-  const handleSearch = (evt: any) => {
+  const handleSearch = (evt: ChangeEvent<HTMLInputElement>) => {
     let keyword = evt.target.value
     setSearchText(keyword)
     if (pathname !== '/search' && !hideDrodown) {
@@ -58,7 +58,7 @@ const Search: FC<Props> = ({ hideDrodown = false }) => {
     }
   }
 
-  const handleKeyDown = (evt: any) => {
+  const handleKeyDown = (evt: ChangeEvent<HTMLFormElement>) => {
     evt.preventDefault()
     if (pathname === '/search') {
       push(`/search?q=${searchText}&type=${query.type}`)
