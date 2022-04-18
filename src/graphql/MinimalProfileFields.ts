@@ -7,6 +7,10 @@ export const MinimalProfileFields = gql`
     handle
     bio
     ownedBy
+    attributes {
+      key
+      value
+    }
     picture {
       ... on MediaSet {
         original {
