@@ -19,7 +19,9 @@ const CommentNotification: FC<Props> = ({ notification }) => {
       <NotificationProfileAvatar notification={notification} />
       <div className="w-4/5">
         <NotificationProfileName notification={notification} />{' '}
-        <span className="text-gray-600">commented on your </span>
+        <span className="text-gray-600 dark:text-gray-400">
+          commented on your{' '}
+        </span>
         <Link href={`/posts/${notification?.comment?.commentOn?.id}`}>
           <a
             href={`/posts/${notification?.comment?.commentOn?.id}`}
