@@ -64,11 +64,9 @@ const FeeEntry: FC<Props> = ({
       </button>
       <Form form={form} className="space-y-4" onSubmit={({}) => {}}>
         <div>
-          <div className="mb-1 font-medium text-gray-800 dark:text-gray-200">
-            Select Currency
-          </div>
+          <div className="label">Select Currency</div>
           <select
-            className="w-full bg-white rounded-xl border border-gray-300 outline-none dark:bg-gray-800 disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 dark:border-gray-700/80 focus:border-brand-500 focus:ring-brand-400"
+            className="w-full bg-white border border-gray-300 outline-none rounded-xl dark:bg-gray-800 disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 dark:border-gray-700/80 focus:border-brand-500 focus:ring-brand-400"
             onChange={(e) => setSelectedCurrency(e.target.value)}
           >
             {enabledModuleCurrencies.map((currency: Erc20) => (
@@ -112,11 +110,9 @@ const FeeEntry: FC<Props> = ({
           {...form.register('referralFee')}
         />
         <div>
-          <div className="mb-1 font-medium text-gray-800 dark:text-gray-200">
-            Permission
-          </div>
+          <div className="label">Permission</div>
           <select
-            className="w-full bg-white rounded-xl border border-gray-300 outline-none dark:bg-gray-800 disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 dark:border-gray-700/80 focus:border-brand-500 focus:ring-brand-400"
+            className="w-full bg-white border border-gray-300 outline-none rounded-xl dark:bg-gray-800 disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 dark:border-gray-700/80 focus:border-brand-500 focus:ring-brand-400"
             onChange={(e) => setFollowerOnly(e.target.value === 'true')}
           >
             <option value="false">Everyone can collect</option>

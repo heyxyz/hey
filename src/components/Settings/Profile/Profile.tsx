@@ -96,6 +96,7 @@ interface Props {
 }
 
 const Profile: FC<Props> = ({ profile }) => {
+  const [isBeta, setIsBeta] = useState<boolean>()
   const [cover, setCover] = useState<string>()
   const [isUploading, setIsUploading] = useState<boolean>(false)
   const [uploading, setUploading] = useState<boolean>(false)
@@ -332,6 +333,10 @@ const Profile: FC<Props> = ({ profile }) => {
                 {uploading && <Spinner size="sm" />}
               </div>
             </div>
+          </div>
+          <div className="space-y-1.5">
+            <label>Beta</label>
+            <div className="space-y-3">Enroll to Lenster Beta</div>
           </div>
           {activeChain?.unsupported ? (
             <SwitchNetwork className="ml-auto" />
