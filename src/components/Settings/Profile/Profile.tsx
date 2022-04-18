@@ -19,6 +19,7 @@ import {
 import { PencilIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
 import imagekitURL from '@lib/imagekitURL'
+import isBeta from '@lib/isBeta'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import trackEvent from '@lib/trackEvent'
@@ -97,7 +98,7 @@ interface Props {
 }
 
 const Profile: FC<Props> = ({ profile }) => {
-  const [isBeta, setIsBeta] = useState<boolean>(false)
+  const [beta, setBeta] = useState<boolean>(isBeta(profile))
   const [cover, setCover] = useState<string>()
   const [isUploading, setIsUploading] = useState<boolean>(false)
   const [uploading, setUploading] = useState<boolean>(false)
@@ -234,7 +235,7 @@ const Profile: FC<Props> = ({ profile }) => {
           {
             traitType: 'boolean',
             key: 'isBeta',
-            value: true
+            value: beta
           },
           {
             traitType: 'string',
@@ -338,7 +339,7 @@ const Profile: FC<Props> = ({ profile }) => {
           <div className="space-y-2">
             <label className="label">Beta</label>
             <div className="flex items-center space-x-2">
-              <Toggle on={isBeta} setOn={setIsBeta} />
+              <Toggle on={beta} setOn={setBeta} />
               <div>Enroll to Lenster Beta</div>
             </div>
           </div>
