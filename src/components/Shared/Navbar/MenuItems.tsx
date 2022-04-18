@@ -14,12 +14,14 @@ import {
 } from '@heroicons/react/outline'
 import { CheckCircleIcon } from '@heroicons/react/solid'
 import getAvatar from '@lib/getAvatar'
+import isBeta from '@lib/isBeta'
 import isStaff from '@lib/isStaff'
 import trackEvent from '@lib/trackEvent'
 import clsx from 'clsx'
 import Link from 'next/link'
 import { useTheme } from 'next-themes'
 import { FC, Fragment, useContext, useState } from 'react'
+import { GIT_COMMIT_SHA } from 'src/constants'
 import { useDisconnect, useNetwork } from 'wagmi'
 
 import Slug from '../Slug'
@@ -32,13 +34,7 @@ export const NextLink = ({ href, children, ...rest }: Record<string, any>) => (
   </Link>
 )
 
-interface Props {
-  indexerData: {
-    ping: string
-  }
-}
-
-const MenuItems: FC<Props> = ({ indexerData }) => {
+const MenuItems: FC = () => {
   const [showLoginModal, setShowLoginModal] = useState<boolean>(false)
   const { theme, setTheme } = useTheme()
   const { switchNetwork, activeChain } = useNetwork()
@@ -228,6 +224,22 @@ const MenuItems: FC<Props> = ({ indexerData }) => {
                   💻
                 </button>
               </div>
+              {currentUser && isBeta(currentUser) && GIT_COMMIT_SHA && (
+                <>
+                  <div className="border-b dark:border-gray-700/80" />
+                  <div className="py-3 px-6 text-xs">
+                    <a
+                      href={`https://gitlab.com/lenster/lenster/-/commit/${GIT_COMMIT_SHA}`}
+                      className="font-mono"
+                      title="Git commit SHA"
+                      target="_blank"
+                      rel="noreferrer noopener"
+                    >
+                      fc4a59ea (beta)
+                    </a>
+                  </div>
+                </>
+              )}
               {isStaff(currentUser?.id) && (
                 <>
                   <div className="border-b dark:border-gray-700/80" />
@@ -253,25 +265,6 @@ const MenuItems: FC<Props> = ({ indexerData }) => {
                       </div>
                     )}
                   </Menu.Item>
-                </>
-              )}
-              {indexerData && (
-                <>
-                  <div className="border-b dark:border-gray-700/80" />
-                  <div className="flex items-center py-3 px-6 space-x-2.5 text-sm">
-                    <div
-                      className={clsx(
-                        { 'bg-green-500': indexerData?.ping === 'pong' },
-                        { 'bg-red-500': indexerData?.ping !== 'pong' },
-                        'p-[4.5px] rounded-full animate-pulse'
-                      )}
-                    />
-                    <div>
-                      {indexerData?.ping === 'pong'
-                        ? 'Indexer active'
-                        : 'Indexer inactive'}
-                    </div>
-                  </div>
                 </>
               )}
             </Menu.Items>

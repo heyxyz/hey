@@ -1,4 +1,3 @@
-import { gql, useQuery } from '@apollo/client'
 import AppContext from '@components/utils/AppContext'
 import { Disclosure } from '@headlessui/react'
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
@@ -17,18 +16,8 @@ const StaffBar = dynamic(() => import('./StaffBar'))
 const NewPostModal = dynamic(() => import('../../Post/NewPost/Modal'))
 const Notification = dynamic(() => import('../../Notification'))
 
-const PING_QUERY = gql`
-  query Ping {
-    ping
-  }
-`
-
 const Navbar: FC = () => {
   const { currentUser, staffMode } = useContext(AppContext)
-  const { data: indexerData } = useQuery(PING_QUERY, {
-    pollInterval: 5000,
-    skip: !currentUser
-  })
 
   interface NavItemProps {
     url: string
@@ -42,7 +31,7 @@ const Navbar: FC = () => {
         <a href={url} aria-current={current ? 'page' : undefined}>
           <Disclosure.Button
             className={clsx(
-              'w-full text-left px-3 py-1 rounded-md font-black cursor-pointer',
+              'w-full text-left px-2 md:px-3 py-1 rounded-md font-black cursor-pointer text-sm',
               {
                 'text-black dark:text-white bg-gray-200 dark:bg-gray-800':
                   current,
@@ -87,10 +76,10 @@ const Navbar: FC = () => {
       {({ open }) => (
         <>
           {isStaff(currentUser?.id) && staffMode && <StaffBar />}
-          <div className="container px-5 mx-auto max-w-screen-xl">
-            <div className="flex relative justify-between items-center h-14 sm:h-16">
-              <div className="flex justify-start items-center">
-                <Disclosure.Button className="inline-flex justify-center items-center mr-4 text-gray-500 rounded-md sm:hidden focus:outline-none">
+          <div className="container max-w-screen-xl px-5 mx-auto">
+            <div className="relative flex items-center justify-between h-14 sm:h-16">
+              <div className="flex items-center justify-start">
+                <Disclosure.Button className="inline-flex items-center justify-center mr-4 text-gray-500 rounded-md sm:hidden focus:outline-none">
                   <span className="sr-only">Open main menu</span>
                   {open ? (
                     <XIcon className="block w-6 h-6" aria-hidden="true" />
@@ -98,28 +87,26 @@ const Navbar: FC = () => {
                     <MenuIcon className="block w-6 h-6" aria-hidden="true" />
                   )}
                 </Disclosure.Button>
-                <div className="flex flex-shrink-0 items-center space-x-3">
-                  <Link href="/">
-                    <a href="/">
-                      <div className="text-3xl font-black">
-                        <img className="w-8 h-8" src="/logo.svg" alt="Logo" />
-                      </div>
-                    </a>
-                  </Link>
-                </div>
+                <Link href="/">
+                  <a href="/">
+                    <div className="text-3xl font-black">
+                      <img className="w-8 h-8" src="/logo.svg" alt="Logo" />
+                    </div>
+                  </a>
+                </Link>
                 <div className="hidden sm:block sm:ml-6">
                   <div className="flex items-center space-x-4">
-                    <div className="hidden md:block">
+                    <div className="hidden lg:block">
                       <Search />
                     </div>
                     <NavItems />
                   </div>
                 </div>
               </div>
-              <div className="flex gap-8 items-center">
+              <div className="flex items-center gap-8">
                 {currentUser && <NewPostModal />}
                 {currentUser && <Notification />}
-                <MenuItems indexerData={indexerData} />
+                <MenuItems />
               </div>
             </div>
           </div>
