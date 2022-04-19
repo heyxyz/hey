@@ -304,7 +304,7 @@ const NewPost: FC<Props> = ({ refetch, setShowModal, hideCard = false }) => {
                   txHash={data?.hash}
                 />
               )}
-              {activeChain?.unsupported && switchNetwork ? (
+              {activeChain?.id !== CHAIN_ID ? (
                 <SwitchNetwork className="ml-auto" />
               ) : (
                 <Button

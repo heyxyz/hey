@@ -21,7 +21,7 @@ import clsx from 'clsx'
 import Link from 'next/link'
 import { useTheme } from 'next-themes'
 import { FC, Fragment, useContext, useState } from 'react'
-import { GIT_COMMIT_SHA } from 'src/constants'
+import { CHAIN_ID, GIT_COMMIT_SHA } from 'src/constants'
 import { useDisconnect, useNetwork } from 'wagmi'
 
 import Slug from '../Slug'
@@ -56,7 +56,7 @@ const MenuItems: FC = () => {
 
   return currentUserLoading ? (
     <div className="w-8 h-8 rounded-full shimmer" />
-  ) : currentUser && !activeChain?.unsupported ? (
+  ) : currentUser && activeChain?.id === CHAIN_ID ? (
     <Menu as="div">
       {({ open }) => (
         <>
@@ -272,7 +272,7 @@ const MenuItems: FC = () => {
         </>
       )}
     </Menu>
-  ) : activeChain?.unsupported && switchNetwork ? (
+  ) : activeChain?.id !== CHAIN_ID ? (
     <SwitchNetwork />
   ) : (
     <>
