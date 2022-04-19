@@ -9,7 +9,7 @@ import CrowdfundShimmer from '@components/Shared/Shimmer/CrowdfundShimmer'
 import { Card } from '@components/UI/Card'
 import { Modal } from '@components/UI/Modal'
 import { Tooltip } from '@components/UI/Tooltip'
-import { LensterCollectModule, LensterPost } from '@generated/lenstertypes'
+import { LensterPost } from '@generated/lenstertypes'
 import {
   CashIcon,
   CurrencyDollarIcon,
@@ -68,8 +68,7 @@ const Crowdfund: FC<Props> = ({ fund }) => {
     }
   })
 
-  // @ts-ignore
-  const collectModule: LensterCollectModule = data?.publication?.collectModule
+  const collectModule: any = data?.publication?.collectModule
 
   const { data: revenueData, loading: revenueLoading } = useQuery(
     CROWDFUND_REVENUE_QUERY,
