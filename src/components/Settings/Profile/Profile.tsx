@@ -248,8 +248,6 @@ const Profile: FC<Props> = ({ profile }) => {
         appId: 'Lenster'
       }).finally(() => setIsUploading(false))
 
-      
-
       createSetProfileMetadataTypedData({
         variables: {
           request: {
