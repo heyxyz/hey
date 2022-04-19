@@ -11,6 +11,9 @@
     <a href="https://github.com/lensterxyz/lenster/actions/workflows/ci.yml">
         <img src="https://github.com/lensterxyz/lenster/actions/workflows/ci.yml/badge.svg" alt="GitHub actions">
     </a>
+    <a href="https://deepsource.io/gl/lenster/lenster">
+        <img src="https://deepsource.io/gl/lenster/lenster.svg/?label=active+issues&show_trend=true" alt="GitHub actions">
+    </a>
     <a href="https://gitpod.io/#https://gitlab.com/lenster/lenster/-/tree/main">
         <img src="https://img.shields.io/badge/setup-automated-blue?logo=gitpod" alt="Gitpod">
     </a>
