@@ -70,7 +70,7 @@ const Search: FC<Props> = ({ hideDrodown = false }) => {
 
   return (
     <>
-      <div onClick={() => trackEvent('search')}>
+      <div onClick={() => trackEvent('search')} aria-hidden="true">
         <form onSubmit={handleKeyDown}>
           <Input
             type="text"
