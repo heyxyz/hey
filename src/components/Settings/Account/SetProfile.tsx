@@ -65,7 +65,7 @@ const CREATE_SET_DEFAULT_PROFILE_DATA_MUTATION = gql`
 const SetProfile: FC = () => {
   const { currentUser, profiles } = useContext(AppContext)
   const [selectedUser, setSelectedUser] = useState<string>()
-  const { activeChain } = useNetwork()
+  const { activeChain, switchNetwork } = useNetwork()
   const { data: account } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
@@ -199,7 +199,7 @@ const SetProfile: FC = () => {
             ))}
           </select>
         </div>
-        {activeChain?.unsupported ? (
+        {activeChain?.unsupported && switchNetwork ? (
           <SwitchNetwork className="ml-auto" />
         ) : (
           <div className="flex flex-col space-y-2">

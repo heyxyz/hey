@@ -44,7 +44,7 @@ interface Props {
 const Create: FC<Props> = ({ isModal = false }) => {
   const [avatar, setAvatar] = useState<string>()
   const [uploading, setUploading] = useState<boolean>(false)
-  const { activeChain } = useNetwork()
+  const { activeChain, switchNetwork } = useNetwork()
   const [createProfile, { data, loading }] = useMutation(
     CREATE_PROFILE_MUTATION
   )
@@ -132,7 +132,7 @@ const Create: FC<Props> = ({ isModal = false }) => {
         </div>
       </div>
       <div className="ml-auto">
-        {activeChain?.unsupported ? (
+        {activeChain?.unsupported && switchNetwork ? (
           <SwitchNetwork />
         ) : (
           <Button

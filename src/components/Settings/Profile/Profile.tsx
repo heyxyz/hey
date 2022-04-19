@@ -103,7 +103,7 @@ const Profile: FC<Props> = ({ profile }) => {
   const [isUploading, setIsUploading] = useState<boolean>(false)
   const [uploading, setUploading] = useState<boolean>(false)
   const { currentUser } = useContext(AppContext)
-  const { activeChain } = useNetwork()
+  const { activeChain, switchNetwork } = useNetwork()
   const { data: account } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
@@ -343,7 +343,7 @@ const Profile: FC<Props> = ({ profile }) => {
               <div>Enroll to Lenster Beta</div>
             </div>
           </div>
-          {activeChain?.unsupported ? (
+          {activeChain?.unsupported && switchNetwork ? (
             <SwitchNetwork className="ml-auto" />
           ) : (
             <div className="flex flex-col space-y-2">
