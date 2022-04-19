@@ -17,5 +17,5 @@ module.exports = withPWA({
     disable: process.env.NODE_ENV === 'development',
     runtimeCaching
   },
-  reactStrictMode: process.env.NODE_ENV === 'production'
+  reactStrictMode: true
 })
