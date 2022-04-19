@@ -314,7 +314,7 @@ const NewComment: FC<Props> = ({ refetch, post, type }) => {
                   txHash={data?.hash}
                 />
               )}
-              {activeChain?.unsupported ? (
+              {activeChain?.id !== CHAIN_ID ? (
                 <SwitchNetwork className="ml-auto" />
               ) : (
                 <Button

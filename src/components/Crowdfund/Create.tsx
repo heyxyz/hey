@@ -398,7 +398,7 @@ const Create: FC = () => {
                 </div>
               </div>
               <div className="ml-auto">
-                {activeChain?.unsupported ? (
+                {activeChain?.id !== CHAIN_ID ? (
                   <SwitchNetwork />
                 ) : (
                   <Button

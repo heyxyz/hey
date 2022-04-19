@@ -21,11 +21,10 @@ import clsx from 'clsx'
 import Link from 'next/link'
 import { useTheme } from 'next-themes'
 import { FC, Fragment, useContext, useState } from 'react'
-import { GIT_COMMIT_SHA } from 'src/constants'
+import { CHAIN_ID, GIT_COMMIT_SHA } from 'src/constants'
 import { useDisconnect, useNetwork } from 'wagmi'
 
 import Slug from '../Slug'
-import SwitchNetwork from '../SwitchNetwork'
 import Login from './Login'
 
 export const NextLink = ({ href, children, ...rest }: Record<string, any>) => (
@@ -37,7 +36,7 @@ export const NextLink = ({ href, children, ...rest }: Record<string, any>) => (
 const MenuItems: FC = () => {
   const [showLoginModal, setShowLoginModal] = useState<boolean>(false)
   const { theme, setTheme } = useTheme()
-  const { switchNetwork, activeChain } = useNetwork()
+  const { activeChain } = useNetwork()
   const { disconnect } = useDisconnect()
 
   const {
@@ -56,7 +55,7 @@ const MenuItems: FC = () => {
 
   return currentUserLoading ? (
     <div className="w-8 h-8 rounded-full shimmer" />
-  ) : currentUser && !activeChain?.unsupported ? (
+  ) : currentUser && activeChain?.id === CHAIN_ID ? (
     <Menu as="div">
       {({ open }) => (
         <>
@@ -272,8 +271,6 @@ const MenuItems: FC = () => {
         </>
       )}
     </Menu>
-  ) : activeChain?.unsupported && switchNetwork ? (
-    <SwitchNetwork />
   ) : (
     <>
       <Modal
