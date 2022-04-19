@@ -162,7 +162,7 @@ const Mirror: FC<Props> = ({ post }) => {
       onClick={createMirror}
       disabled={typedDataLoading || writeLoading}
     >
-      <div className="flex items-center space-x-1 text-brand-500 hover:text-brand-400">
+      <div className="flex items-center space-x-1 text-brand">
         <div className="p-1.5 rounded-full hover:bg-opacity-20 hover:bg-brand-300">
           {typedDataLoading || signLoading || writeLoading ? (
             <Spinner size="xs" />

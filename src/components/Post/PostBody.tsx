@@ -34,9 +34,9 @@ const PostBody: FC<Props> = ({ post }) => {
         <div className="block items-center space-y-2 space-x-0 sm:flex sm:space-y-0 sm:space-x-2 linkify">
           <span className="flex items-center space-x-1.5">
             {post?.collectedBy ? (
-              <UserAddIcon className="w-4 h-4 text-brand-500" />
+              <UserAddIcon className="w-4 h-4 text-brand" />
             ) : (
-              <UsersIcon className="w-4 h-4 text-brand-500" />
+              <UsersIcon className="w-4 h-4 text-brand" />
             )}
             {post?.collectedBy ? (
               <span>Joined</span>

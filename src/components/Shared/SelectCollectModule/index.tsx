@@ -39,14 +39,14 @@ const SelectCollectModule: FC<Props> = ({
             setShowModal(!showModal)
           }}
         >
-          <div className="text-brand-500">
+          <div className="text-brand">
             <GetModuleIcon module={selectedModule.moduleName} size={5} />
           </div>
         </motion.button>
       </Tooltip>
       <Modal
         title="Select collect module"
-        icon={<CashIcon className="w-5 h-5 text-brand-500" />}
+        icon={<CashIcon className="w-5 h-5 text-brand" />}
         show={showModal}
         onClose={() => setShowModal(!showModal)}
       >

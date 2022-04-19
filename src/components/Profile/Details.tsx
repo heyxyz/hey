@@ -106,7 +106,7 @@ const Details: FC<Props> = ({ profile }) => {
           <div className="truncate">{profile?.name ?? profile?.handle}</div>
           {isVerified(profile?.id) && (
             <Tooltip content="Verified">
-              <BadgeCheckIcon className="w-6 h-6 text-brand-500" />
+              <BadgeCheckIcon className="w-6 h-6 text-brand" />
             </Tooltip>
           )}
         </div>

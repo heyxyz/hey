@@ -89,7 +89,7 @@ const Feed: FC = () => {
       {data?.timeline?.items?.length === 0 && (
         <EmptyState
           message={<div>No posts yet!</div>}
-          icon={<CollectionIcon className="w-8 h-8 text-brand-500" />}
+          icon={<CollectionIcon className="w-8 h-8 text-brand" />}
         />
       )}
       <ErrorMessage title="Failed to load home feed" error={error} />

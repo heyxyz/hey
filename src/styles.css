@@ -14,8 +14,12 @@ body {
   @apply dark:bg-gray-600;
 }
 
+.text-brand {
+  @apply text-brand-500 dark:text-brand-400/80;
+}
+
 .linkify a {
-  @apply text-brand-500 dark:text-brand-400;
+  @apply text-brand;
   @apply hover:text-brand-600 dark:hover:text-brand-500;
 }
 

@@ -93,7 +93,7 @@ const Publications: FC<Props> = ({ query }) => {
               No publications for <b>&ldquo;{query}&rdquo;</b>
             </div>
           }
-          icon={<CollectionIcon className="w-8 h-8 text-brand-500" />}
+          icon={<CollectionIcon className="w-8 h-8 text-brand" />}
         />
       )}
       <ErrorMessage title="Failed to load publications list" error={error} />

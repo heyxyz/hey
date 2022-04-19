@@ -22,7 +22,7 @@ const NewPostModal: FC = () => {
       </button>
       <Modal
         title="New Post"
-        icon={<PencilAltIcon className="w-5 h-5 text-brand-500" />}
+        icon={<PencilAltIcon className="w-5 h-5 text-brand" />}
         size="md"
         show={showModal}
         onClose={() => setShowModal(!showModal)}

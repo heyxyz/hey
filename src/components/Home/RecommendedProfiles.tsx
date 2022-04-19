@@ -78,7 +78,7 @@ const RecommendedProfiles: FC = () => {
               <span>No recommendations!</span>
             </div>
           }
-          icon={<UsersIcon className="w-8 h-8 text-brand-500" />}
+          icon={<UsersIcon className="w-8 h-8 text-brand" />}
         />
       </>
     )

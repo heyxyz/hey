@@ -93,7 +93,7 @@ const Followers: FC<Props> = ({ profile }) => {
             <span>doesn’t have any followers yet.</span>
           </div>
         }
-        icon={<UsersIcon className="w-8 h-8 text-brand-500" />}
+        icon={<UsersIcon className="w-8 h-8 text-brand" />}
         hideCard
       />
     )

@@ -101,7 +101,7 @@ const Modules: FC<Props> = ({
                 >
                   <div>
                     <div className="flex items-center space-x-2">
-                      <div className="text-brand-500">
+                      <div className="text-brand">
                         <GetModuleIcon module={module.moduleName} size={4} />
                       </div>
                       <div className="space-x-1.5 font-bold">

@@ -110,7 +110,7 @@ const Feed: FC<Props> = ({
       {data?.publications?.items?.length === 0 && (
         <EmptyState
           message={<span>Be the first one to comment!</span>}
-          icon={<CollectionIcon className="w-8 h-8 text-brand-500" />}
+          icon={<CollectionIcon className="w-8 h-8 text-brand" />}
         />
       )}
       <ErrorMessage title="Failed to load comment feed" error={error} />

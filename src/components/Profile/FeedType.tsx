@@ -33,10 +33,10 @@ const FeedType: FC<Props> = ({ stats, setFeedType, feedType }) => {
       }}
       className={clsx(
         {
-          'text-brand-500 bg-brand-100 dark:bg-opacity-20 bg-opacity-100 font-bold':
+          'text-brand bg-brand-100 dark:bg-opacity-20 bg-opacity-100 font-bold':
             feedType === type
         },
-        'flex items-center space-x-2 rounded-lg px-4 sm:px-3 py-2 sm:py-1 text-brand-500 hover:bg-brand-100 hover:text-brand-500 dark:hover:bg-opacity-20 hover:bg-opacity-100'
+        'flex items-center space-x-2 rounded-lg px-4 sm:px-3 py-2 sm:py-1 text-brand hover:bg-brand-100 dark:hover:bg-opacity-20 hover:bg-opacity-100'
       )}
     >
       {icon}

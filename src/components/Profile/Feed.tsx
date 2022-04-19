@@ -97,7 +97,7 @@ const Feed: FC<Props> = ({ profile, type }) => {
               <span>seems like not {type.toLowerCase()}ed yet!</span>
             </div>
           }
-          icon={<CollectionIcon className="w-8 h-8 text-brand-500" />}
+          icon={<CollectionIcon className="w-8 h-8 text-brand" />}
         />
       )}
       <ErrorMessage title="Failed to load profile feed" error={error} />
