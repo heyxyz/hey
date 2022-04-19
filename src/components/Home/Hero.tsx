@@ -14,7 +14,7 @@ const Hero: FC = () => {
               media web app built with Lens Protocol 🌿
             </div>
           </div>
-          <div className="hidden flex-1 flex-shrink-0 w-full sm:block"></div>
+          <div className="hidden flex-1 flex-shrink-0 w-full sm:block" />
         </div>
       </div>
     </div>
