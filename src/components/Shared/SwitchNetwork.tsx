@@ -20,8 +20,7 @@ const SwitchNetwork: FC<Props> = ({ className = '' }) => {
       icon={<SwitchHorizontalIcon className="w-4 h-4" />}
       onClick={() => {
         trackEvent('switch network')
-        // @ts-ignore
-        switchNetwork(CHAIN_ID)
+        switchNetwork?.(CHAIN_ID)
       }}
     >
       Switch Network

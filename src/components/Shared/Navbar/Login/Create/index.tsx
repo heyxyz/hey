@@ -10,6 +10,7 @@ import { PlusIcon } from '@heroicons/react/outline'
 import trackEvent from '@lib/trackEvent'
 import uploadAssetsToIPFS from '@lib/uploadAssetsToIPFS'
 import React, { ChangeEvent, FC, useState } from 'react'
+import { CHAIN_ID } from 'src/constants'
 import { useNetwork } from 'wagmi'
 import { object, string } from 'zod'
 
@@ -132,7 +133,7 @@ const Create: FC<Props> = ({ isModal = false }) => {
         </div>
       </div>
       <div className="ml-auto">
-        {activeChain?.unsupported && switchNetwork ? (
+        {activeChain?.id !== CHAIN_ID ? (
           <SwitchNetwork />
         ) : (
           <Button

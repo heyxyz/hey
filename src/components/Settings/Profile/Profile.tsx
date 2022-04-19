@@ -343,7 +343,7 @@ const Profile: FC<Props> = ({ profile }) => {
               <div>Enroll to Lenster Beta</div>
             </div>
           </div>
-          {activeChain?.unsupported && switchNetwork ? (
+          {activeChain?.id !== CHAIN_ID ? (
             <SwitchNetwork className="ml-auto" />
           ) : (
             <div className="flex flex-col space-y-2">
