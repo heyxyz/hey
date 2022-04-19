@@ -1,13 +1,11 @@
 import WalletSelector from '@components/Shared/Navbar/Login/WalletSelector'
 import { FC, useState } from 'react'
-import { useNetwork } from 'wagmi'
 
 import Create from './Create'
 
 const Login: FC = () => {
   const [hasConnected, setHasConnected] = useState<boolean>(false)
   const [hasProfile, setHasProfile] = useState<boolean>(true)
-  const { activeChain } = useNetwork()
 
   return (
     <div className="p-5">
