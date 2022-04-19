@@ -1,7 +1,5 @@
 import WalletSelector from '@components/Shared/Navbar/Login/WalletSelector'
-import SwitchNetwork from '@components/Shared/SwitchNetwork'
 import { FC, useState } from 'react'
-import { CHAIN_ID } from 'src/constants'
 import { useNetwork } from 'wagmi'
 
 import Create from './Create'
@@ -13,9 +11,7 @@ const Login: FC = () => {
 
   return (
     <div className="p-5">
-      {activeChain?.id !== CHAIN_ID ? (
-        <SwitchNetwork />
-      ) : hasProfile ? (
+      {hasProfile ? (
         <div className="space-y-5">
           {hasConnected ? (
             <div className="space-y-1">
