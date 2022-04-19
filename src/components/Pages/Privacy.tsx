@@ -23,10 +23,11 @@ const Privacy: FC = () => {
           <div className="relative mx-auto rounded-lg sm:w-2/4 max-w-3/4">
             <div className="!p-8 prose dark:prose-dark max-w-none text-gray-600 dark:text-gray-200">
               <p>
-                Lenster.xyz. ("Lenster" or "we") respects and protects the
-                privacy of Users ("you" or "users"). Lenster will collect and
-                use your Personal Information, generated from your use of
-                Lenster, in accordance with this Privacy Policy ("Policy").
+                Lenster.xyz. (&ldquo;Lenster&rdquo; or &ldquo;we&rdquo;)
+                respects and protects the privacy of Users (&ldquo;you&rdquo; or
+                &ldquo;users&rdquo;). Lenster will collect and use your Personal
+                Information, generated from your use of Lenster, in accordance
+                with this Privacy Policy (&ldquo;Policy&rdquo;).
               </p>
               <div className="mt-8 mb-5 text-xl font-bold text-black dark:text-white">
                 What information do we collect
