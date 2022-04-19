@@ -36,8 +36,7 @@ const IFramely: FC<Props> = ({ url }) => {
   }, [url])
 
   useEffect(() => {
-    // @ts-ignore
-    window.iframely && window.iframely.load()
+    ;(window as any).iframely && (window as any).iframely.load()
   })
 
   if (error || !isLoaded) {
