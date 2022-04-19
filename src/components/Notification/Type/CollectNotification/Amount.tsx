@@ -12,9 +12,7 @@ const CollectedAmount: FC<Props> = ({ notification }) => {
   const postType =
     notification?.collectedPublication?.metadata?.attributes[0]?.value ??
     notification?.collectedPublication?.__typename?.toLowerCase()
-  // @ts-ignore
-  const collectModule: LensterCollectModule =
-    notification?.collectedPublication?.collectModule
+  const collectModule: any = notification?.collectedPublication?.collectModule
 
   return (
     <div className="flex items-center mt-2 space-x-1">

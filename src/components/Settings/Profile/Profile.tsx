@@ -14,6 +14,7 @@ import { Toggle } from '@components/UI/Toggle'
 import AppContext from '@components/utils/AppContext'
 import {
   CreateSetProfileMetadataUriBroadcastItemResult,
+  MediaSet,
   Profile
 } from '@generated/types'
 import { PencilIcon } from '@heroicons/react/outline'
@@ -94,7 +95,7 @@ const editProfileSchema = object({
 })
 
 interface Props {
-  profile: Profile
+  profile: Profile & { coverPicture: MediaSet }
 }
 
 const Profile: FC<Props> = ({ profile }) => {
@@ -172,9 +173,7 @@ const Profile: FC<Props> = ({ profile }) => {
     })
 
   useEffect(() => {
-    // @ts-ignore
     if (profile?.coverPicture?.original?.url)
-      // @ts-ignore
       setCover(profile?.coverPicture?.original?.url)
   }, [profile])
 
@@ -182,8 +181,7 @@ const Profile: FC<Props> = ({ profile }) => {
     evt.preventDefault()
     setUploading(true)
     try {
-      // @ts-ignore
-      const attachment = await uploadAssetsToIPFS(evt.target.files[0])
+      const attachment = await uploadAssetsToIPFS(evt.target.files![0])
       setCover(attachment.item)
     } finally {
       setUploading(false)

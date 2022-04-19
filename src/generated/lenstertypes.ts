@@ -21,3 +21,4 @@ export type LensterCollectModule = FreeCollectModuleSettings &
   LimitedTimedFeeCollectModuleSettings &
   RevertCollectModuleSettings &
   TimedFeeCollectModuleSettings
+export type Attachment = { item: string; type: string }
