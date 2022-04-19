@@ -42,7 +42,7 @@ const FeedType: FC<Props> = ({ stats, setFeedType, feedType }) => {
       {icon}
       <div className="hidden sm:block">{name}</div>
       {count ? (
-        <div className="px-2 text-xs font-medium rounded-full bg-brand-200">
+        <div className="px-2 text-xs font-medium rounded-full bg-brand-200 dark:bg-brand-800">
           {humanize(count)}
         </div>
       ) : null}
