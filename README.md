@@ -1,7 +1,7 @@
 <div align="center">
     <img src="public/logo.svg" height="70" alt="Lenster Logo">
     <h1>Lenster</h1>
-    <strong>Decentralized, and permissionless social media web app 🌿</strong>
+    <strong>Decentralized, and permissionless social media app 🌿</strong>
 </div>
 <br>
 <div align="center">
@@ -41,7 +41,7 @@
 
 ## 🌿 About Lenster
 
-Lenster is a composable, decentralized, and permissionless social media web app built with [Lens Protocol](http://lens.dev/) 🌿
+Lenster is a decentralized, and permissionless social media app built with [Lens Protocol](http://lens.dev/) 🌿
 
 ## ✅ Community
 
