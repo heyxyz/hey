@@ -10,6 +10,7 @@ import { Spinner } from '@components/UI/Spinner'
 import AppContext from '@components/utils/AppContext'
 import {
   CreateSetProfileImageUriBroadcastItemResult,
+  MediaSet,
   Profile
 } from '@generated/types'
 import { PencilIcon } from '@heroicons/react/outline'
@@ -67,7 +68,7 @@ const CREATE_SET_PROFILE_IMAGE_URI_TYPED_DATA_MUTATION = gql`
 `
 
 interface Props {
-  profile: Profile
+  profile: Profile & { picture: MediaSet }
 }
 
 const Picture: FC<Props> = ({ profile }) => {
@@ -104,9 +105,7 @@ const Picture: FC<Props> = ({ profile }) => {
   )
 
   useEffect(() => {
-    // @ts-ignore
     if (profile?.picture?.original?.url)
-      // @ts-ignore
       setAvatar(profile?.picture?.original?.url)
   }, [profile])
 
