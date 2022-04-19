@@ -25,7 +25,6 @@ import { CHAIN_ID, GIT_COMMIT_SHA } from 'src/constants'
 import { useDisconnect, useNetwork } from 'wagmi'
 
 import Slug from '../Slug'
-import SwitchNetwork from '../SwitchNetwork'
 import Login from './Login'
 
 export const NextLink = ({ href, children, ...rest }: Record<string, any>) => (
@@ -272,8 +271,6 @@ const MenuItems: FC = () => {
         </>
       )}
     </Menu>
-  ) : activeChain?.id !== CHAIN_ID ? (
-    <SwitchNetwork />
   ) : (
     <>
       <Modal
