@@ -150,7 +150,7 @@ const DeleteSettings: FC = () => {
             </div>
             <p>
               Deleting your account is permanent. All your data will be wiped
-              out immediately and you won't be able to get it back.
+              out immediately and you won&rsquo;t be able to get it back.
             </p>
             <div className="text-lg font-bold">What else you should know</div>
             <div className="text-sm text-gray-500 divide-y">

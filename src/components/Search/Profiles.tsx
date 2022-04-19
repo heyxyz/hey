@@ -81,7 +81,7 @@ const Profiles: FC<Props> = ({ query }) => {
         <EmptyState
           message={
             <div>
-              No profiles for <b>"{query}"</b>
+              No profiles for <b>&ldquo;{query}&rdquo;</b>
             </div>
           }
           icon={<UsersIcon className="w-8 h-8 text-brand-500" />}
