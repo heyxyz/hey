@@ -10,6 +10,7 @@ import { Form, useZodForm } from '@components/UI/Form'
 import { Spinner } from '@components/UI/Spinner'
 import { TextArea } from '@components/UI/TextArea'
 import AppContext from '@components/utils/AppContext'
+import { Attachment } from '@generated/lenstertypes'
 import { CreatePostBroadcastItemResult, EnabledModule } from '@generated/types'
 import { IGif } from '@giphy/js-types'
 import { PencilAltIcon } from '@heroicons/react/outline'
@@ -117,9 +118,7 @@ const NewPost: FC<Props> = ({ refetch, setShowModal, hideCard = false }) => {
   const [onlyFollowers, setOnlyFollowers] = useState<boolean>(false)
   const [feeData, setFeeData] = useState<FEE_DATA_TYPE>(defaultFeeData)
   const [isUploading, setIsUploading] = useState<boolean>(false)
-  const [attachments, setAttachments] = useState<
-    [{ item: string; type: string }] | []
-  >([])
+  const [attachments, setAttachments] = useState<Attachment[]>([])
   const { currentUser } = useContext(AppContext)
   const { activeChain } = useNetwork()
   const { data: account } = useAccount()
@@ -252,7 +251,6 @@ const NewPost: FC<Props> = ({ refetch, setShowModal, hideCard = false }) => {
       item: gif.images.original.url,
       type: 'image/gif'
     }
-    // @ts-ignore
     setAttachments([...attachments, attachment])
   }
 
