@@ -8,7 +8,7 @@ import consoleLog from '@lib/consoleLog'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import trackEvent from '@lib/trackEvent'
-import { Contract } from 'ethers'
+import { Contract, Signer } from 'ethers'
 import { Dispatch, FC, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
@@ -62,7 +62,7 @@ const Unfollow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
       toast.error(error?.message)
     }
   })
-  const { refetch } = useSigner()
+  const { data: signer } = useSigner()
 
   const [createUnfollowTypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_UNFOLLOW_TYPED_DATA_MUTATION,
@@ -78,7 +78,7 @@ const Unfollow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
           domain: omit(typedData?.domain, '__typename'),
           types: omit(typedData?.types, '__typename'),
           value: omit(typedData?.value, '__typename')
-        }).then((res) => {
+        }).then(async (res) => {
           const { tokenId } = typedData?.value
           const { v, r, s } = splitSignature(res)
           const sig = {
@@ -89,20 +89,18 @@ const Unfollow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
           }
           setWriteLoading(true)
           try {
-            refetch().then(async (res) => {
-              const followNftContract = new Contract(
-                typedData.domain.verifyingContract,
-                FollowNFT,
-                res.data
-              )
+            const followNftContract = new Contract(
+              typedData.domain.verifyingContract,
+              FollowNFT,
+              signer as Signer
+            )
 
-              const tx = await followNftContract.burnWithSig(tokenId, sig)
-              if (tx) {
-                setFollowing(false)
-              }
-              toast.success('Unfollowed successfully!')
-              trackEvent('unfollow user')
-            })
+            const tx = await followNftContract.burnWithSig(tokenId, sig)
+            if (tx) {
+              setFollowing(false)
+            }
+            toast.success('Unfollowed successfully!')
+            trackEvent('unfollow user')
           } catch {
             toast.error('User rejected request')
           } finally {
