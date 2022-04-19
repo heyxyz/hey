@@ -170,7 +170,7 @@ const SetProfile: FC = () => {
         ) : (
           <div className="flex items-center space-x-1.5 font-bold text-yellow-500">
             <ExclamationIcon className="w-5 h-5" />
-            <div>You don't have any default profile set!</div>
+            <div>You don&rsquo;t have any default profile set!</div>
           </div>
         )}
         <div className="text-lg font-bold">Select default profile</div>
