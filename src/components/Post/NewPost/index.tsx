@@ -121,7 +121,7 @@ const NewPost: FC<Props> = ({ refetch, setShowModal, hideCard = false }) => {
     [{ item: string; type: string }] | []
   >([])
   const { currentUser } = useContext(AppContext)
-  const { activeChain, switchNetwork } = useNetwork()
+  const { activeChain } = useNetwork()
   const { data: account } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {

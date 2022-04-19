@@ -37,7 +37,7 @@ export const NextLink = ({ href, children, ...rest }: Record<string, any>) => (
 const MenuItems: FC = () => {
   const [showLoginModal, setShowLoginModal] = useState<boolean>(false)
   const { theme, setTheme } = useTheme()
-  const { activeChain, switchNetwork } = useNetwork()
+  const { activeChain } = useNetwork()
   const { disconnect } = useDisconnect()
 
   const {

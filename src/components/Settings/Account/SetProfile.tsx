@@ -65,7 +65,7 @@ const CREATE_SET_DEFAULT_PROFILE_DATA_MUTATION = gql`
 const SetProfile: FC = () => {
   const { currentUser, profiles } = useContext(AppContext)
   const [selectedUser, setSelectedUser] = useState<string>()
-  const { activeChain, switchNetwork } = useNetwork()
+  const { activeChain } = useNetwork()
   const { data: account } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {

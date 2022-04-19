@@ -45,7 +45,7 @@ interface Props {
 const Create: FC<Props> = ({ isModal = false }) => {
   const [avatar, setAvatar] = useState<string>()
   const [uploading, setUploading] = useState<boolean>(false)
-  const { activeChain, switchNetwork } = useNetwork()
+  const { activeChain } = useNetwork()
   const [createProfile, { data, loading }] = useMutation(
     CREATE_PROFILE_MUTATION
   )
