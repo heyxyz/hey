@@ -147,8 +147,7 @@ const CollectModule: FC<Props> = ({ post }) => {
     }
   })
 
-  // @ts-ignore
-  const collectModule: LensterCollectModule = data?.publication?.collectModule
+  const collectModule: any = data?.publication?.collectModule
   const percentageCollected =
     (post?.stats?.totalAmountOfCollects /
       parseInt(collectModule?.collectLimit)) *
