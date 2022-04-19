@@ -1,6 +1,6 @@
 import clsx from 'clsx'
 import dynamic from 'next/dynamic'
-import { ComponentProps, forwardRef, ReactNode, useId } from 'react'
+import { ComponentProps, forwardRef, ReactNode } from 'react'
 
 import { FieldError } from './Form'
 
@@ -18,10 +18,8 @@ export const Input = forwardRef<HTMLInputElement, Props>(function Input(
   { label, prefix, type = 'text', error, className = '', helper, ...props },
   ref
 ) {
-  const id = useId()
-
   return (
-    <label className="w-full" htmlFor={id}>
+    <label className="w-full">
       {label && (
         <div className="flex items-center mb-1 space-x-1.5">
           <div className="font-medium text-gray-800 dark:text-gray-200">
@@ -37,7 +35,6 @@ export const Input = forwardRef<HTMLInputElement, Props>(function Input(
           </span>
         )}
         <input
-          id={id}
           className={clsx(
             { '!border-red-500 placeholder-red-500': error },
             { 'rounded-r-xl': prefix },
