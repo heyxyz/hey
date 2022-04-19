@@ -127,7 +127,7 @@ const NewComment: FC<Props> = ({ refetch, post, type }) => {
   const [attachments, setAttachments] = useState<
     [{ item: string; type: string }] | []
   >([])
-  const { activeChain, switchNetwork } = useNetwork()
+  const { activeChain } = useNetwork()
   const { data: account } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
