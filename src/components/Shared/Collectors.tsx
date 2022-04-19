@@ -100,7 +100,7 @@ const Collectors: FC<Props> = ({ pubId }) => {
         error={error}
       />
       <div className="space-y-3">
-        <div className="divide-y">
+        <div className="divide-y dark:divide-gray-700">
           {collectors?.map((wallet: Wallet) => (
             <div className="p-5" key={wallet?.address}>
               {wallet?.defaultProfile ? (

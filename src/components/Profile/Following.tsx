@@ -101,7 +101,7 @@ const Following: FC<Props> = ({ profile }) => {
         error={error}
       />
       <div className="space-y-3">
-        <div className="divide-y">
+        <div className="divide-y dark:divide-gray-700">
           {following?.map((following: Following) => (
             <div className="p-5" key={following?.profile?.id}>
               <UserProfile profile={following?.profile} showBio />
