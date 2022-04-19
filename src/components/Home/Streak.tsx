@@ -25,7 +25,7 @@ const Streak = () => {
     <Card className="mb-4">
       <CardBody className="flex justify-between items-center space-y-2">
         <div>
-          <div>You're on a</div>
+          <div>You&rsquo;re on a</div>
           <div className="text-xl">
             {streak && streak.currentCount} day streak 🌿
           </div>
