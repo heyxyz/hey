@@ -1933,10 +1933,10 @@
     "@repeaterjs/repeater" "^3.0.4"
     tslib "^2.3.1"
 
-"@headlessui/react@^1.5.0":
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/@headlessui/react/-/react-1.5.0.tgz#483b44ba2c8b8d4391e1d2c863898d7dd0cc0296"
-  integrity sha512-aaRnYxBb3MU2FNJf3Ut9RMTUqqU3as0aI1lQhgo2n9Fa67wRu14iOGqx93xB+uMNVfNwZ5B3y/Ndm7qZGuFeMQ==
+"@headlessui/react@^0.0.0-insiders.591b328":
+  version "0.0.0-insiders.591b328"
+  resolved "https://registry.yarnpkg.com/@headlessui/react/-/react-0.0.0-insiders.591b328.tgz#9187923c42b5c2b05d5b2b0337698b572bd09de1"
+  integrity sha512-YOdY3GWYq2l/5gE5NRwjpFCHii8Rni9ozDWg2/8rnSEWuniLxoeiz27+Nwmjbl9iXnIHtBw+ADE2IsDTJ4LLSA==
 
 "@heroicons/react@^1.0.6":
   version "1.0.6"
