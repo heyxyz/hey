@@ -7,8 +7,10 @@ import {
   ArrowCircleRightIcon,
   CogIcon,
   LogoutIcon,
+  MoonIcon,
   ShieldCheckIcon,
   ShieldExclamationIcon,
+  SunIcon,
   SwitchHorizontalIcon,
   UserIcon
 } from '@heroicons/react/outline'
@@ -179,38 +181,30 @@ const MenuItems: FC = () => {
                 </>
               )}
               <div className="border-b dark:border-gray-700/80" />
-              <div className="flex items-center py-3 px-5 space-x-4">
-                <button
-                  type="button"
-                  onClick={() => {
-                    trackEvent('light mode')
-                    setTheme('light')
-                  }}
-                  className={theme === 'light' ? 'text-xl' : ''}
-                >
-                  🌞
-                </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    trackEvent('dark mode')
-                    setTheme('dark')
-                  }}
-                  className={theme === 'dark' ? 'text-xl' : ''}
-                >
-                  🌚
-                </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    trackEvent('system theme mode')
-                    setTheme('system')
-                  }}
-                  className={theme === 'system' ? 'text-xl' : ''}
-                >
-                  💻
-                </button>
-              </div>
+              <Menu.Item
+                as="a"
+                onClick={() => {
+                  trackEvent(`${theme === 'light' ? 'dark' : 'light'} mode`)
+                  setTheme(theme === 'light' ? 'dark' : 'light')
+                }}
+                className={({ active }: { active: boolean }) =>
+                  clsx({ 'bg-gray-100 dark:bg-gray-800': active }, 'menu-item')
+                }
+              >
+                <div className="flex items-center space-x-1.5">
+                  {theme === 'light' ? (
+                    <>
+                      <MoonIcon className="w-4 h-4" />
+                      <div>Dark mode</div>
+                    </>
+                  ) : (
+                    <>
+                      <SunIcon className="w-4 h-4" />
+                      <div>Light mode</div>
+                    </>
+                  )}
+                </div>
+              </Menu.Item>
               {currentUser && isBeta(currentUser) && GIT_COMMIT_SHA && (
                 <>
                   <div className="border-b dark:border-gray-700/80" />
