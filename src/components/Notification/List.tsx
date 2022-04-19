@@ -205,7 +205,7 @@ const List: FC = () => {
             <span>Inbox zero!</span>
           </div>
         }
-        icon={<MailIcon className="w-8 h-8 text-brand-500" />}
+        icon={<MailIcon className="w-8 h-8 text-brand" />}
         hideCard
       />
     )

@@ -20,7 +20,7 @@ const Module: FC<Props> = ({ module }) => {
       <CardBody className="block justify-between items-center sm:flex">
         <div className="overflow-hidden mr-1.5 mb-3 sm:mb-0">
           <div className="flex items-center space-x-2">
-            <div className="text-brand-500">
+            <div className="text-brand">
               <GetModuleIcon module={module?.module} size={4} />
             </div>
             <div className="font-bold whitespace-nowrap">

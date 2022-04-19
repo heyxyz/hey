@@ -129,7 +129,7 @@ const Details: FC<Props> = ({ community }) => {
               />
               <Modal
                 title="Settings"
-                icon={<CogIcon className="w-5 h-5 text-brand-500" />}
+                icon={<CogIcon className="w-5 h-5 text-brand" />}
                 show={showSettingsModal}
                 onClose={() => setShowSettingsModal(!showSettingsModal)}
               >
@@ -155,7 +155,7 @@ const Details: FC<Props> = ({ community }) => {
               </button>
               <Modal
                 title="Members"
-                icon={<UsersIcon className="w-5 h-5 text-brand-500" />}
+                icon={<UsersIcon className="w-5 h-5 text-brand" />}
                 show={showMembersModal}
                 onClose={() => setShowMembersModal(!showMembersModal)}
               >

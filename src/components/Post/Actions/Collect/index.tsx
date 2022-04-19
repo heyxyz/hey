@@ -43,7 +43,7 @@ const Collect: FC<Props> = ({ post }) => {
             : getModule(post?.collectModule?.type).name
         }
         icon={
-          <div className="text-brand-500">
+          <div className="text-brand">
             <GetModuleIcon
               module={
                 isFreeCollect ? 'FreeCollectModule' : post?.collectModule?.type

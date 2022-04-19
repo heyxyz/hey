@@ -85,7 +85,7 @@ export const NotificationProfileName: FC<Props> = ({ notification }) => {
       >
         <div>{profile.name}</div>
         {isVerified(wallet?.defaultProfile?.id) && (
-          <BadgeCheckIcon className="w-4 h-4 text-brand-500" />
+          <BadgeCheckIcon className="w-4 h-4 text-brand" />
         )}
       </a>
     </Link>

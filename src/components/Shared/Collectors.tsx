@@ -86,7 +86,7 @@ const Collectors: FC<Props> = ({ pubId }) => {
       <div className="p-5">
         <EmptyState
           message={<span>No collectors.</span>}
-          icon={<CollectionIcon className="w-8 h-8 text-brand-500" />}
+          icon={<CollectionIcon className="w-8 h-8 text-brand" />}
           hideCard
         />
       </div>

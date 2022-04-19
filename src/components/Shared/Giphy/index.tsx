@@ -30,7 +30,7 @@ const Giphy: FC<Props> = ({ setGifAttachment }) => {
             setShowModal(!showModal)
           }}
         >
-          <div className="w-full fill-brand-500">
+          <div className="w-full fill-brand-500 dark:fill-brand-400">
             <svg viewBox="0 0 24 24" className="w-5 h-5">
               <g>
                 <path d="M19 10.5V8.8h-4.4v6.4h1.7v-2h2v-1.7h-2v-1H19zm-7.3-1.7h1.7v6.4h-1.7V8.8zm-3.6 1.6c.4 0 .9.2 1.2.5l1.2-1C9.9 9.2 9 8.8 8.1 8.8c-1.8 0-3.2 1.4-3.2 3.2s1.4 3.2 3.2 3.2c1 0 1.8-.4 2.4-1.1v-2.5H7.7v1.2h1.2v.6c-.2.1-.5.2-.8.2-.9 0-1.6-.7-1.6-1.6 0-.8.7-1.6 1.6-1.6z" />
@@ -42,7 +42,7 @@ const Giphy: FC<Props> = ({ setGifAttachment }) => {
       </Tooltip>
       <Modal
         title="Select GIF"
-        icon={<PhotographIcon className="w-5 h-5 text-brand-500" />}
+        icon={<PhotographIcon className="w-5 h-5 text-brand" />}
         show={showModal}
         onClose={() => setShowModal(false)}
       >

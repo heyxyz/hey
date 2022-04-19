@@ -84,7 +84,7 @@ const Profiles: FC<Props> = ({ query }) => {
               No profiles for <b>&ldquo;{query}&rdquo;</b>
             </div>
           }
-          icon={<UsersIcon className="w-8 h-8 text-brand-500" />}
+          icon={<UsersIcon className="w-8 h-8 text-brand" />}
         />
       )}
       <ErrorMessage title="Failed to load profiles list" error={error} />

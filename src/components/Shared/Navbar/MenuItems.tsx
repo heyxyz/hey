@@ -275,7 +275,7 @@ const MenuItems: FC = () => {
     <>
       <Modal
         title="Login"
-        icon={<ArrowCircleRightIcon className="w-5 h-5 text-brand-500" />}
+        icon={<ArrowCircleRightIcon className="w-5 h-5 text-brand" />}
         show={showLoginModal}
         onClose={() => setShowLoginModal(!showLoginModal)}
       >

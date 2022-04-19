@@ -49,7 +49,7 @@ const UserProfile: FC<Props> = ({
                   {profile?.name ?? profile?.handle}
                 </div>
                 {isVerified(profile?.id) && (
-                  <BadgeCheckIcon className="w-4 h-4 text-brand-500" />
+                  <BadgeCheckIcon className="w-4 h-4 text-brand" />
                 )}
               </div>
               <Slug className="text-sm" slug={profile?.handle} prefix="@" />

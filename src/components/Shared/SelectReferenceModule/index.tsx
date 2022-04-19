@@ -34,7 +34,7 @@ const SelectReferenceModule: FC<Props> = ({
             setShowModal(!showModal)
           }}
         >
-          <div className="text-brand-500">
+          <div className="text-brand">
             {onlyFollowers ? (
               <UsersIcon className="w-5 h-5" />
             ) : (
@@ -45,7 +45,7 @@ const SelectReferenceModule: FC<Props> = ({
       </Tooltip>
       <Modal
         title="Select who to comment or mirror"
-        icon={<ChatAlt2Icon className="w-5 h-5 text-brand-500" />}
+        icon={<ChatAlt2Icon className="w-5 h-5 text-brand" />}
         show={showModal}
         onClose={() => setShowModal(!showModal)}
       >
@@ -63,7 +63,7 @@ const SelectReferenceModule: FC<Props> = ({
             }}
           >
             <div className="flex items-center space-x-3">
-              <GlobeAltIcon className="w-5 h-5 text-brand-500" />
+              <GlobeAltIcon className="w-5 h-5 text-brand" />
               <div>{EVERYONE}</div>
             </div>
             {!onlyFollowers && (
@@ -83,7 +83,7 @@ const SelectReferenceModule: FC<Props> = ({
             }}
           >
             <div className="flex items-center space-x-3">
-              <UsersIcon className="w-5 h-5 text-brand-500" />
+              <UsersIcon className="w-5 h-5 text-brand" />
               <div>{ONLY_FOLLOWERS}</div>
             </div>
             {onlyFollowers && (

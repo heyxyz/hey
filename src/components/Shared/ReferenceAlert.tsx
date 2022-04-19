@@ -28,7 +28,7 @@ const ReferenceAlert: FC<Props> = ({
           </>
         ) : (
           <>
-            <UsersIcon className="w-4 h-4 text-brand-500" />
+            <UsersIcon className="w-4 h-4 text-brand" />
             <span>Only </span>
             <Slug slug={`${handle}'s`} prefix="@" />
             <span> followers can comment</span>

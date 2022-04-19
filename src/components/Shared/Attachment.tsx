@@ -38,7 +38,7 @@ const Attachment: FC<Props> = ({ attachments, setAttachments }) => {
             <Spinner size="sm" />
           ) : (
             <Tooltip placement="top" content="Media">
-              <PhotographIcon className="w-5 h-5 text-brand-500" />
+              <PhotographIcon className="w-5 h-5 text-brand" />
             </Tooltip>
           )}
           <input
