@@ -267,16 +267,19 @@ const FollowModule: FC<Props> = ({
         <ul className="space-y-1 text-sm text-gray-500">
           <li className="flex space-x-2 tracking-normal leading-6">
             <div>•</div>
-            <div>You can comment on @{profile?.handle}'s publications</div>
+            <div>
+              You can comment on @{profile?.handle}&rsquo;s publications
+            </div>
           </li>
           <li className="flex space-x-2 tracking-normal leading-6">
             <div>•</div>
-            <div>You can collect @{profile?.handle}'s publications</div>
+            <div>You can collect @{profile?.handle}&rsquo;s publications</div>
           </li>
           <li className="flex space-x-2 tracking-normal leading-6">
             <div>•</div>
             <div>
-              You will get super follow badge in @{profile?.handle}'s profile
+              You will get super follow badge in @{profile?.handle}&rsquo;s
+              profile
             </div>
           </li>
           <li className="flex space-x-2 tracking-normal leading-6">
