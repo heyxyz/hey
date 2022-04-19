@@ -14,6 +14,10 @@ body {
   @apply dark:bg-gray-600;
 }
 
+.menu-item {
+  @apply block px-4 py-1.5 text-sm text-gray-700 dark:text-gray-200 m-2 rounded-lg cursor-pointer;
+}
+
 .text-brand {
   @apply text-brand-500 dark:text-brand-400/80;
 }
