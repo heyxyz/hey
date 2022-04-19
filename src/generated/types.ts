@@ -36,8 +36,6 @@ export type Scalars = {
   EthereumAddress: any
   /** follow module data scalar type */
   FollowModuleData: any
-  /** follow only option */
-  FollowerOnly: any
   /** handle custom scalar type */
   Handle: any
   /** handle claim id custom scalar type */
@@ -895,7 +893,7 @@ export type FeeCollectModuleParams = {
   /** The collect module amount info */
   amount: ModuleFeeAmountParams
   /** Follower only */
-  followerOnly: Scalars['FollowerOnly']
+  followerOnly: Scalars['Boolean']
   /** The collect module recipient address */
   recipient: Scalars['EthereumAddress']
   /** The collect module referral fee */
@@ -908,7 +906,7 @@ export type FeeCollectModuleSettings = {
   amount: ModuleFeeAmount
   contractAddress: Scalars['ContractAddress']
   /** Follower only */
-  followerOnly: Scalars['FollowerOnly']
+  followerOnly: Scalars['Boolean']
   /** The collect module recipient address */
   recipient: Scalars['EthereumAddress']
   /** The collect module referral fee */
@@ -1017,14 +1015,14 @@ export type FraudReasonInputParams = {
 
 export type FreeCollectModuleParams = {
   /** Follower only */
-  followerOnly: Scalars['FollowerOnly']
+  followerOnly: Scalars['Boolean']
 }
 
 export type FreeCollectModuleSettings = {
   __typename?: 'FreeCollectModuleSettings'
   contractAddress: Scalars['ContractAddress']
   /** Follower only */
-  followerOnly: Scalars['FollowerOnly']
+  followerOnly: Scalars['Boolean']
   /** The collect modules enum */
   type: CollectModules
 }
@@ -1135,7 +1133,7 @@ export type LimitedFeeCollectModuleParams = {
   /** The collect module limit */
   collectLimit: Scalars['String']
   /** Follower only */
-  followerOnly: Scalars['FollowerOnly']
+  followerOnly: Scalars['Boolean']
   /** The collect module recipient address */
   recipient: Scalars['EthereumAddress']
   /** The collect module referral fee */
@@ -1150,7 +1148,7 @@ export type LimitedFeeCollectModuleSettings = {
   collectLimit: Scalars['String']
   contractAddress: Scalars['ContractAddress']
   /** Follower only */
-  followerOnly: Scalars['FollowerOnly']
+  followerOnly: Scalars['Boolean']
   /** The collect module recipient address */
   recipient: Scalars['EthereumAddress']
   /** The collect module referral fee */
@@ -1165,7 +1163,7 @@ export type LimitedTimedFeeCollectModuleParams = {
   /** The collect module limit */
   collectLimit: Scalars['String']
   /** Follower only */
-  followerOnly: Scalars['FollowerOnly']
+  followerOnly: Scalars['Boolean']
   /** The collect module recipient address */
   recipient: Scalars['EthereumAddress']
   /** The collect module referral fee */
@@ -1182,7 +1180,7 @@ export type LimitedTimedFeeCollectModuleSettings = {
   /** The collect module end timestamp */
   endTimestamp: Scalars['DateTime']
   /** Follower only */
-  followerOnly: Scalars['FollowerOnly']
+  followerOnly: Scalars['Boolean']
   /** The collect module recipient address */
   recipient: Scalars['EthereumAddress']
   /** The collect module referral fee */
@@ -2113,7 +2111,7 @@ export type RevertCollectModuleSettings = {
   __typename?: 'RevertCollectModuleSettings'
   contractAddress: Scalars['ContractAddress']
   /** Follower only */
-  followerOnly: Scalars['FollowerOnly']
+  followerOnly: Scalars['Boolean']
   /** The collect modules enum */
   type: CollectModules
 }
@@ -2199,7 +2197,7 @@ export type TimedFeeCollectModuleParams = {
   /** The collect module amount info */
   amount: ModuleFeeAmountParams
   /** Follower only */
-  followerOnly: Scalars['FollowerOnly']
+  followerOnly: Scalars['Boolean']
   /** The collect module recipient address */
   recipient: Scalars['EthereumAddress']
   /** The collect module referral fee */
@@ -2214,7 +2212,7 @@ export type TimedFeeCollectModuleSettings = {
   /** The collect module end timestamp */
   endTimestamp: Scalars['DateTime']
   /** Follower only */
-  followerOnly: Scalars['FollowerOnly']
+  followerOnly: Scalars['Boolean']
   /** The collect module recipient address */
   recipient: Scalars['EthereumAddress']
   /** The collect module referral fee */
