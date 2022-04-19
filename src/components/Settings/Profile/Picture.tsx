@@ -211,7 +211,7 @@ const Picture: FC<Props> = ({ profile }) => {
             </div>
           </div>
         </div>
-        {activeChain?.unsupported ? (
+        {activeChain?.id !== CHAIN_ID ? (
           <SwitchNetwork className="ml-auto" />
         ) : (
           <div className="flex flex-col space-y-2">

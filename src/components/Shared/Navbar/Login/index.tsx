@@ -1,5 +1,4 @@
 import WalletSelector from '@components/Shared/Navbar/Login/WalletSelector'
-import SwitchNetwork from '@components/Shared/SwitchNetwork'
 import { FC, useState } from 'react'
 import { useNetwork } from 'wagmi'
 
@@ -8,13 +7,11 @@ import Create from './Create'
 const Login: FC = () => {
   const [hasConnected, setHasConnected] = useState<boolean>(false)
   const [hasProfile, setHasProfile] = useState<boolean>(true)
-  const { switchNetwork, activeChain } = useNetwork()
+  const { activeChain } = useNetwork()
 
   return (
     <div className="p-5">
-      {activeChain?.unsupported && switchNetwork ? (
-        <SwitchNetwork />
-      ) : hasProfile ? (
+      {hasProfile ? (
         <div className="space-y-5">
           {hasConnected ? (
             <div className="space-y-1">

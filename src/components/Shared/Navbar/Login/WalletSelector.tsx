@@ -1,4 +1,5 @@
 import { gql, useLazyQuery, useMutation } from '@apollo/client'
+import SwitchNetwork from '@components/Shared/SwitchNetwork'
 import { CURRENT_USER_QUERY } from '@components/SiteLayout'
 import { Button } from '@components/UI/Button'
 import { Spinner } from '@components/UI/Spinner'
@@ -9,8 +10,14 @@ import getWalletLogo from '@lib/getWalletLogo'
 import trackEvent from '@lib/trackEvent'
 import clsx from 'clsx'
 import React, { Dispatch, FC, useContext, useEffect, useState } from 'react'
-import { ERROR_MESSAGE } from 'src/constants'
-import { Connector, useAccount, useConnect, useSignMessage } from 'wagmi'
+import { CHAIN_ID, ERROR_MESSAGE } from 'src/constants'
+import {
+  Connector,
+  useAccount,
+  useConnect,
+  useNetwork,
+  useSignMessage
+} from 'wagmi'
 
 const CHALLENGE_QUERY = gql`
   query Challenge($request: ChallengeRequest!) {
@@ -36,6 +43,7 @@ interface Props {
 
 const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
   const [mounted, setMounted] = useState(false)
+  const { activeChain } = useNetwork()
   const { signMessageAsync, isLoading: signLoading } = useSignMessage()
   const [
     loadChallenge,
@@ -115,26 +123,33 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
 
   return accountData?.connector?.id ? (
     <div className="space-y-3">
-      <Button
-        size="lg"
-        disabled={
-          signLoading || challenegeLoading || authLoading || profilesLoading
-        }
-        icon={
-          signLoading || challenegeLoading || authLoading || profilesLoading ? (
-            <Spinner className="mr-0.5" size="xs" />
-          ) : (
-            <img
-              className="mr-1 h-5"
-              src="/eth-white.svg"
-              alt="Ethereum Logo"
-            />
-          )
-        }
-        onClick={handleSign}
-      >
-        Sign-In with Ethereum
-      </Button>
+      {activeChain?.id === CHAIN_ID ? (
+        <Button
+          size="lg"
+          disabled={
+            signLoading || challenegeLoading || authLoading || profilesLoading
+          }
+          icon={
+            signLoading ||
+            challenegeLoading ||
+            authLoading ||
+            profilesLoading ? (
+              <Spinner className="mr-0.5" size="xs" />
+            ) : (
+              <img
+                className="mr-1 h-5"
+                src="/eth-white.svg"
+                alt="Ethereum Logo"
+              />
+            )
+          }
+          onClick={handleSign}
+        >
+          Sign-In with Ethereum
+        </Button>
+      ) : (
+        <SwitchNetwork />
+      )}
       {(errorChallenege || errorAuthenticate || errorProfiles) && (
         <div className="flex items-center space-x-1 font-bold text-red-500">
           <XCircleIcon className="w-5 h-5" />
