@@ -106,7 +106,7 @@ const Followers: FC<Props> = ({ profile }) => {
         error={error}
       />
       <div className="space-y-3">
-        <div className="divide-y">
+        <div className="divide-y dark:divide-gray-700">
           {followers?.map((follower: Follower) => (
             <div className="p-5" key={follower?.wallet?.defaultProfile?.id}>
               {follower?.wallet?.defaultProfile ? (
