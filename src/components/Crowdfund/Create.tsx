@@ -84,7 +84,7 @@ const Create: FC = () => {
   const [selectedCurrencySymobol, setSelectedCurrencySymobol] =
     useState<string>('WMATIC')
   const { currentUser } = useContext(AppContext)
-  const { activeChain } = useNetwork()
+  const { activeChain, switchNetwork } = useNetwork()
   const { data: account } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
@@ -398,7 +398,7 @@ const Create: FC = () => {
                 </div>
               </div>
               <div className="ml-auto">
-                {activeChain?.unsupported ? (
+                {activeChain?.unsupported && switchNetwork ? (
                   <SwitchNetwork />
                 ) : (
                   <Button

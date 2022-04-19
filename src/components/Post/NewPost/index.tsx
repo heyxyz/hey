@@ -121,7 +121,7 @@ const NewPost: FC<Props> = ({ refetch, setShowModal, hideCard = false }) => {
     [{ item: string; type: string }] | []
   >([])
   const { currentUser } = useContext(AppContext)
-  const { activeChain } = useNetwork()
+  const { activeChain, switchNetwork } = useNetwork()
   const { data: account } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
@@ -304,7 +304,7 @@ const NewPost: FC<Props> = ({ refetch, setShowModal, hideCard = false }) => {
                   txHash={data?.hash}
                 />
               )}
-              {activeChain?.unsupported ? (
+              {activeChain?.unsupported && switchNetwork ? (
                 <SwitchNetwork className="ml-auto" />
               ) : (
                 <Button

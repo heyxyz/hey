@@ -102,7 +102,7 @@ const SuperFollow: FC = () => {
   const [selectedCurrencySymobol, setSelectedCurrencySymobol] =
     useState<string>('WMATIC')
   const { currentUser } = useContext(AppContext)
-  const { activeChain } = useNetwork()
+  const { activeChain, switchNetwork } = useNetwork()
   const { data: account } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
@@ -283,7 +283,7 @@ const SuperFollow: FC = () => {
             {...form.register('recipient')}
           />
           <div className="ml-auto">
-            {activeChain?.unsupported ? (
+            {activeChain?.unsupported && switchNetwork ? (
               <SwitchNetwork />
             ) : (
               <div className="block space-y-2 space-x-0 sm:flex sm:space-y-0 sm:space-x-2">

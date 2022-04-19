@@ -74,7 +74,7 @@ const Picture: FC<Props> = ({ profile }) => {
   const [avatar, setAvatar] = useState<string>()
   const [uploading, setUploading] = useState<boolean>(false)
   const { currentUser } = useContext(AppContext)
-  const { activeChain } = useNetwork()
+  const { activeChain, switchNetwork } = useNetwork()
   const { data: account } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
@@ -211,7 +211,7 @@ const Picture: FC<Props> = ({ profile }) => {
             </div>
           </div>
         </div>
-        {activeChain?.unsupported ? (
+        {activeChain?.unsupported && switchNetwork ? (
           <SwitchNetwork className="ml-auto" />
         ) : (
           <div className="flex flex-col space-y-2">

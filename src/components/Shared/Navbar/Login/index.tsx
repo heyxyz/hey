@@ -8,7 +8,7 @@ import Create from './Create'
 const Login: FC = () => {
   const [hasConnected, setHasConnected] = useState<boolean>(false)
   const [hasProfile, setHasProfile] = useState<boolean>(true)
-  const { switchNetwork, activeChain } = useNetwork()
+  const { activeChain, switchNetwork } = useNetwork()
 
   return (
     <div className="p-5">

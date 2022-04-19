@@ -127,7 +127,7 @@ const NewComment: FC<Props> = ({ refetch, post, type }) => {
   const [attachments, setAttachments] = useState<
     [{ item: string; type: string }] | []
   >([])
-  const { activeChain } = useNetwork()
+  const { activeChain, switchNetwork } = useNetwork()
   const { data: account } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
@@ -314,7 +314,7 @@ const NewComment: FC<Props> = ({ refetch, post, type }) => {
                   txHash={data?.hash}
                 />
               )}
-              {activeChain?.unsupported ? (
+              {activeChain?.unsupported && switchNetwork ? (
                 <SwitchNetwork className="ml-auto" />
               ) : (
                 <Button
