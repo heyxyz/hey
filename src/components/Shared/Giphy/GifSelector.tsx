@@ -48,7 +48,7 @@ const GifSelector: FC<Props> = ({ setShowModal, setGifAttachment }) => {
   }
 
   const handleSearch = (evt: ChangeEvent<HTMLInputElement>) => {
-    let keyword = evt.target.value
+    const keyword = evt.target.value
     setDebouncedGifInput(keyword)
   }
 

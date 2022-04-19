@@ -49,7 +49,7 @@ const Search: FC<Props> = ({ hideDrodown = false }) => {
     })
 
   const handleSearch = (evt: ChangeEvent<HTMLInputElement>) => {
-    let keyword = evt.target.value
+    const keyword = evt.target.value
     setSearchText(keyword)
     if (pathname !== '/search' && !hideDrodown) {
       searchUsers({
