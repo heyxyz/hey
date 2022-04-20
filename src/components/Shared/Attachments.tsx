@@ -1,3 +1,5 @@
+import { LensterAttachment } from '@generated/lenstertypes'
+import { MediaSet } from '@generated/types'
 import { XIcon } from '@heroicons/react/outline'
 import getIPFSLink from '@lib/getIPFSLink'
 import imagekitURL from '@lib/imagekitURL'
@@ -43,7 +45,7 @@ const Attachments: FC<Props> = ({
         'grid grid-flow-col gap-2 pt-3'
       )}
     >
-      {slicedAttachments?.map((attachment: any) => (
+      {slicedAttachments?.map((attachment: LensterAttachment & MediaSet) => (
         <div
           className="aspect-w-16 aspect-h-12"
           key={isNew ? attachment.item : getIPFSLink(attachment.original.url)}
