@@ -1,5 +1,6 @@
 import WalletSelector from '@components/Shared/Navbar/Login/WalletSelector'
 import { FC, useState } from 'react'
+import { IS_MAINNET, STATIC_ASSETS } from 'src/constants'
 
 import Create from './Create'
 
@@ -32,6 +33,29 @@ const Login: FC = () => {
             setHasConnected={setHasConnected}
             setHasProfile={setHasProfile}
           />
+        </div>
+      ) : IS_MAINNET ? (
+        <div>
+          <div className="mb-2 space-y-4">
+            <img
+              className="w-16 h-16 rounded-full"
+              src={`${STATIC_ASSETS}/brands/lens.png`}
+              alt="Logo"
+            />
+            <div className="text-xl font-bold">Claim your Lens profile 🌿</div>
+            <div className="space-y-1">
+              <div className="linkify">
+                Visit{' '}
+                <a className="font-bold" href="/" target="_blank">
+                  claiming site
+                </a>{' '}
+                to claim your profile now 🏃‍♂️
+              </div>
+              <div className="text-gray-500 text-sm">
+                Make sure to check back here when done!
+              </div>
+            </div>
+          </div>
         </div>
       ) : (
         <Create isModal />
