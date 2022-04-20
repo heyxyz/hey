@@ -1,4 +1,6 @@
+import { hashflags } from 'data/hashflags'
 import Router from 'next/router'
+import { STATIC_ASSETS } from 'src/constants'
 
 import trackEvent from './trackEvent'
 
@@ -6,6 +8,24 @@ const linkifyOptions = {
   format: (value: string, type: string): string => {
     if (type === 'url' && value.length > 36) {
       value = value.slice(0, 36) + '…'
+    }
+    if (type === 'hashtag') {
+      const hashflag = value.slice(1).toLowerCase()
+      const hasHashflag = hashflags.includes(hashflag)
+
+      // @ts-ignore
+      value = hasHashflag ? (
+        <span className="inline-flex items-center space-x-1">
+          <span>{value}</span>
+          <img
+            className="h-4 w-4 !mr-1.5"
+            src={`${STATIC_ASSETS}/hashflags/${hashflag}.png`}
+            alt={value}
+          />
+        </span>
+      ) : (
+        value
+      )
     }
     return value
   },
