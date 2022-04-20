@@ -42,7 +42,7 @@ const MoreNavItems: FC = () => {
           >
             <Menu.Items
               static
-              className="absolute py-1 mt-2 w-52 bg-white rounded-lg border shadow-sm dark:bg-gray-900 dark:border-gray-700/80"
+              className="absolute py-1 mt-2 w-52 bg-white rounded-xl border shadow-sm dark:bg-gray-900 focus:outline-none dark:border-gray-700/80"
             >
               {currentUser && (
                 <>
