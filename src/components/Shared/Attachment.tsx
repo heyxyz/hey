@@ -1,5 +1,6 @@
 import { Spinner } from '@components/UI/Spinner'
 import { Tooltip } from '@components/UI/Tooltip'
+import { LensterAttachment } from '@generated/lenstertypes'
 import { PhotographIcon } from '@heroicons/react/outline'
 import trackEvent from '@lib/trackEvent'
 import uploadAssetsToIPFS from '@lib/uploadAssetsToIPFS'
@@ -7,8 +8,8 @@ import { motion } from 'framer-motion'
 import { ChangeEvent, Dispatch, FC, useId, useState } from 'react'
 
 interface Props {
-  attachments: any
-  setAttachments: Dispatch<any>
+  attachments: LensterAttachment[]
+  setAttachments: Dispatch<LensterAttachment[]>
 }
 
 const Attachment: FC<Props> = ({ attachments, setAttachments }) => {
