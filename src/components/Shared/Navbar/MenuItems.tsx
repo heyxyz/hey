@@ -79,7 +79,7 @@ const MenuItems: FC = () => {
           >
             <Menu.Items
               static
-              className="absolute right-0 py-1 mt-2 w-48 bg-white rounded-xl border shadow-sm origin-top-right dark:bg-gray-900 focus:outline-none dark:border-gray-700/80"
+              className="absolute right-0 py-1 mt-2 w-48 bg-white rounded-xl border shadow-sm dark:bg-gray-900 focus:outline-none dark:border-gray-700/80"
             >
               <Menu.Item
                 as={NextLink}
