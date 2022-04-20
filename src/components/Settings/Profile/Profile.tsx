@@ -311,7 +311,7 @@ const Profile: FC<Props> = ({ profile }) => {
             {...form.register('bio')}
           />
           <div className="space-y-1.5">
-            <label className="label">Cover</label>
+            <div className="label">Cover</div>
             <div className="space-y-3">
               {cover && (
                 <div>
@@ -333,7 +333,7 @@ const Profile: FC<Props> = ({ profile }) => {
             </div>
           </div>
           <div className="space-y-2">
-            <label className="label">Beta</label>
+            <div className="label">Beta</div>
             <div className="flex items-center space-x-2">
               <Toggle on={beta} setOn={setBeta} />
               <div>Enroll to Lenster Beta</div>

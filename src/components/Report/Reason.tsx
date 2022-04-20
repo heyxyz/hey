@@ -1,4 +1,4 @@
-import React, { Dispatch, FC, ReactChild } from 'react'
+import React, { Dispatch, FC } from 'react'
 
 interface Props {
   setType: Dispatch<string>
@@ -7,14 +7,10 @@ interface Props {
 }
 
 const Reason: FC<Props> = ({ setType, setSubReason, type }) => {
-  const Label = ({ children }: { children: ReactChild }) => (
-    <div className="label">{children}</div>
-  )
-
   return (
     <div className="space-y-3">
       <div>
-        <Label>Type</Label>
+        <div className="label">Type</div>
         <div>
           <select
             className="w-full bg-white rounded-xl border border-gray-300 outline-none dark:bg-gray-800 disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 dark:border-gray-700/80 focus:border-brand-500 focus:ring-brand-400"
@@ -31,7 +27,7 @@ const Reason: FC<Props> = ({ setType, setSubReason, type }) => {
       </div>
       {type && (
         <div>
-          <Label>Reason</Label>
+          <div className="label">Reason</div>
           <div>
             <select
               className="w-full bg-white rounded-xl border border-gray-300 outline-none dark:bg-gray-800 disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 dark:border-gray-700/80 focus:border-brand-500 focus:ring-brand-400"

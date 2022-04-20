@@ -4,7 +4,7 @@ import { PhotographIcon } from '@heroicons/react/outline'
 import trackEvent from '@lib/trackEvent'
 import uploadAssetsToIPFS from '@lib/uploadAssetsToIPFS'
 import { motion } from 'framer-motion'
-import { ChangeEvent, Dispatch, FC, useState } from 'react'
+import { ChangeEvent, Dispatch, FC, useId, useState } from 'react'
 
 interface Props {
   attachments: any
@@ -13,6 +13,7 @@ interface Props {
 
 const Attachment: FC<Props> = ({ attachments, setAttachments }) => {
   const [loading, setLoading] = useState<boolean>(false)
+  const id = useId()
 
   const handleAttachment = async (evt: ChangeEvent<HTMLInputElement>) => {
     evt.preventDefault()
@@ -33,7 +34,7 @@ const Attachment: FC<Props> = ({ attachments, setAttachments }) => {
         type="button"
         onClick={() => trackEvent('choose attachment')}
       >
-        <label className="flex gap-1 items-center cursor-pointer">
+        <label className="flex gap-1 items-center cursor-pointer" htmlFor={id}>
           {loading ? (
             <Spinner size="sm" />
           ) : (
@@ -42,6 +43,7 @@ const Attachment: FC<Props> = ({ attachments, setAttachments }) => {
             </Tooltip>
           )}
           <input
+            id={id}
             type="file"
             accept="image/*, video/mp4"
             className="hidden"
