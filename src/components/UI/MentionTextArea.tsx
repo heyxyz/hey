@@ -97,7 +97,9 @@ export const MentionTextArea: FC<Props> = ({
       >
         <Mention
           trigger="@"
-          displayTransform={(login) => `@${login} `}
+          displayTransform={(login) => `@${login}`}
+          markup="@__id__ "
+          appendSpaceOnAdd
           // @ts-ignore
           renderSuggestion={(
             suggestion: UserSuggestion,
