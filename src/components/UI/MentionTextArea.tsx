@@ -16,18 +16,15 @@ export const MentionTextArea: FC<Props> = ({
   setValue,
   placeholder = ''
 }) => {
-  const [searchUsers, { data: searchUsersData }] = useLazyQuery(
-    SEARCH_USERS_QUERY,
-    {
-      onCompleted(data) {
-        consoleLog(
-          'Lazy Query',
-          '#8b5cf6',
-          `Fetched ${data?.search?.items?.length} user mention result for ${value}`
-        )
-      }
+  const [searchUsers] = useLazyQuery(SEARCH_USERS_QUERY, {
+    onCompleted(data) {
+      consoleLog(
+        'Lazy Query',
+        '#8b5cf6',
+        `Fetched ${data?.search?.items?.length} user mention result for ${value}`
+      )
     }
-  )
+  })
 
   const fetchUsers = (query: string, callback: any) => {
     if (!query) return
