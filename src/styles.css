@@ -73,9 +73,9 @@ body {
 }
 
 .mention-input__suggestions {
-  @apply !bg-white !mt-8 border rounded-xl shadow-sm w-52;
+  @apply !bg-white dark:!bg-gray-900 !mt-8 border dark:border-gray-700/80 rounded-xl shadow-sm w-52;
 }
 
 .mention-input__suggestions__list {
-  @apply divide-y;
+  @apply divide-y dark:divide-gray-700/80;
 }
