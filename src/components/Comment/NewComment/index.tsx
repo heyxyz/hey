@@ -6,9 +6,8 @@ import SwitchNetwork from '@components/Shared/SwitchNetwork'
 import { Button } from '@components/UI/Button'
 import { Card } from '@components/UI/Card'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
-import { Form, useZodForm } from '@components/UI/Form'
+import { MentionTextArea } from '@components/UI/MentionTextArea'
 import { Spinner } from '@components/UI/Spinner'
-import { TextArea } from '@components/UI/TextArea'
 import AppContext from '@components/utils/AppContext'
 import { LensterAttachment, LensterPost } from '@generated/lenstertypes'
 import {
@@ -45,7 +44,6 @@ import {
   useNetwork,
   useSignTypedData
 } from 'wagmi'
-import { object, string } from 'zod'
 
 const Attachment = dynamic(() => import('../../Shared/Attachment'), {
   loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
@@ -101,12 +99,6 @@ const CREATE_COMMENT_TYPED_DATA_MUTATION = gql`
   }
 `
 
-const newCommentSchema = object({
-  comment: string()
-    .min(2, { message: 'Post should be atleast 2 characters' })
-    .max(500, { message: 'Post should not exceed 500 characters' })
-})
-
 interface Props {
   refetch: any
   post: LensterPost
@@ -114,10 +106,8 @@ interface Props {
 }
 
 const NewComment: FC<Props> = ({ refetch, post, type }) => {
-  const form = useZodForm({
-    schema: newCommentSchema
-  })
-
+  const [commentContent, setCommentContent] = useState<string>('')
+  const [commentContentError, setCommentContentError] = useState<string>('')
   const { currentUser } = useContext(AppContext)
   const [selectedModule, setSelectedModule] =
     useState<EnabledModule>(defaultModuleData)
@@ -145,7 +135,7 @@ const NewComment: FC<Props> = ({ refetch, post, type }) => {
     'commentWithSig',
     {
       onSuccess() {
-        form.reset()
+        setCommentContent('')
         setAttachments([])
         setSelectedModule(defaultModuleData)
         setFeeData(defaultFeeData)
@@ -209,18 +199,21 @@ const NewComment: FC<Props> = ({ refetch, post, type }) => {
     }
   )
 
-  const createComment = async (comment: string) => {
+  const createComment = async () => {
     if (!account?.address) {
       toast.error(CONNECT_WALLET)
     } else if (activeChain?.id !== CHAIN_ID) {
       toast.error(WRONG_NETWORK)
+    } else if (commentContent.length === 0 && attachments.length === 0) {
+      setCommentContentError('Comment should not be empty!')
     } else {
+      setCommentContentError('')
       setIsUploading(true)
       const { path } = await uploadToIPFS({
         version: '1.0.0',
         metadata_id: uuidv4(),
-        description: comment,
-        content: comment,
+        description: commentContent,
+        content: commentContent,
         external_url: null,
         image: attachments.length > 0 ? attachments[0]?.item : null,
         imageMimeType: attachments.length > 0 ? attachments[0]?.type : null,
@@ -267,13 +260,7 @@ const NewComment: FC<Props> = ({ refetch, post, type }) => {
   return (
     <Card>
       <div className="px-5 pt-5 pb-3">
-        <Form
-          form={form}
-          className="space-y-1"
-          onSubmit={({ comment }) => {
-            createComment(comment)
-          }}
-        >
+        <div className="space-y-1">
           {error && (
             <ErrorMessage
               className="mb-3"
@@ -281,9 +268,12 @@ const NewComment: FC<Props> = ({ refetch, post, type }) => {
               error={error}
             />
           )}
-          <TextArea
+          <MentionTextArea
+            value={commentContent}
+            setValue={setCommentContent}
+            error={commentContentError}
+            setError={setCommentContentError}
             placeholder="Tell something cool!"
-            {...form.register('comment')}
           />
           <div className="block items-center sm:flex">
             <div className="flex items-center space-x-4">
@@ -334,6 +324,7 @@ const NewComment: FC<Props> = ({ refetch, post, type }) => {
                       <ChatAlt2Icon className="w-4 h-4" />
                     )
                   }
+                  onClick={createComment}
                 >
                   {isUploading
                     ? 'Uploading to IPFS'
@@ -355,7 +346,7 @@ const NewComment: FC<Props> = ({ refetch, post, type }) => {
             setAttachments={setAttachments}
             isNew
           />
-        </Form>
+        </div>
       </div>
     </Card>
   )

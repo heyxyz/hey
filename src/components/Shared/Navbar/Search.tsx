@@ -13,7 +13,7 @@ import { ChangeEvent, FC, useRef, useState } from 'react'
 
 import UserProfile from '../UserProfile'
 
-const SEARCH_USERS_QUERY = gql`
+export const SEARCH_USERS_QUERY = gql`
   query SearchUsers($request: SearchQueryRequest!) {
     search(request: $request) {
       ... on ProfileSearchResult {
