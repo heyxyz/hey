@@ -22,3 +22,10 @@ export type LensterCollectModule = FreeCollectModuleSettings &
   RevertCollectModuleSettings &
   TimedFeeCollectModuleSettings
 export type LensterAttachment = { item: string; type: string }
+export type UserSuggestion = {
+  uid: string
+  id: string
+  display: string
+  name: string
+  picture: string
+}

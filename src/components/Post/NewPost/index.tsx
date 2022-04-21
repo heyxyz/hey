@@ -195,9 +195,10 @@ const NewPost: FC<Props> = ({ refetch, setShowModal, hideCard = false }) => {
       toast.error(CONNECT_WALLET)
     } else if (activeChain?.id !== CHAIN_ID) {
       toast.error(WRONG_NETWORK)
-    } else if (postContent.length === 0) {
+    } else if (postContent.length === 0 && attachments.length === 0) {
       setPostContentError('Post should not be empty!')
     } else {
+      setPostContentError('')
       setIsUploading(true)
       const { path } = await uploadToIPFS({
         version: '1.0.0',
