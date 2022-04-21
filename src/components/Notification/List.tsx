@@ -16,6 +16,7 @@ import NotificationShimmer from './Shimmer'
 import CollectNotification from './Type/CollectNotification'
 import CommentNotification from './Type/CommentNotification'
 import FollowerNotification from './Type/FollowerNotification'
+import MentionNotification from './Type/MentionNotification'
 import MirrorNotification from './Type/MirrorNotification'
 
 const NOTIFICATIONS_QUERY = gql`
@@ -27,6 +28,29 @@ const NOTIFICATIONS_QUERY = gql`
             address
             defaultProfile {
               ...MinimalProfileFields
+            }
+          }
+          createdAt
+        }
+        ... on NewMentionNotification {
+          mentionPublication {
+            ... on Post {
+              id
+              profile {
+                ...MinimalProfileFields
+              }
+              metadata {
+                content
+              }
+            }
+            ... on Comment {
+              id
+              profile {
+                ...MinimalProfileFields
+              }
+              metadata {
+                content
+              }
             }
           }
           createdAt
@@ -217,6 +241,11 @@ const List: FC = () => {
           {notification?.__typename === 'NewFollowerNotification' && (
             <div className="p-4">
               <FollowerNotification notification={notification as any} />
+            </div>
+          )}
+          {notification?.__typename === 'NewMentionNotification' && (
+            <div className="p-4">
+              <MentionNotification notification={notification as any} />
             </div>
           )}
           {notification?.__typename === 'NewCommentNotification' && (

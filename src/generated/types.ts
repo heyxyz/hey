@@ -118,7 +118,7 @@ export type Attribute = {
   /** identifier of this attribute, we will update by this id  */
   key: Scalars['String']
   /** The trait type - can be anything its the name it will render so include spaces */
-  traitType: Scalars['String']
+  traitType?: Maybe<Scalars['String']>
   /** Value attribute */
   value: Scalars['String']
 }
@@ -1230,6 +1230,8 @@ export type MediaSet = {
   small?: Maybe<Media>
 }
 
+export type MentionPublication = Comment | Post
+
 /** The metadata attribute output */
 export type MetadataAttributeOutput = {
   __typename?: 'MetadataAttributeOutput'
@@ -1528,6 +1530,12 @@ export type NewFollowerNotification = {
   wallet: Wallet
 }
 
+export type NewMentionNotification = {
+  __typename?: 'NewMentionNotification'
+  createdAt: Scalars['DateTime']
+  mentionPublication: MentionPublication
+}
+
 export type NewMirrorNotification = {
   __typename?: 'NewMirrorNotification'
   createdAt: Scalars['DateTime']
@@ -1580,6 +1588,7 @@ export type Notification =
   | NewCollectNotification
   | NewCommentNotification
   | NewFollowerNotification
+  | NewMentionNotification
   | NewMirrorNotification
 
 export type NotificationRequest = {
@@ -2347,11 +2356,13 @@ const result: PossibleTypesResultData = {
     ],
     FollowModule: ['FeeFollowModuleSettings'],
     MainPostReference: ['Mirror', 'Post'],
+    MentionPublication: ['Comment', 'Post'],
     MirrorablePublication: ['Comment', 'Post'],
     Notification: [
       'NewCollectNotification',
       'NewCommentNotification',
       'NewFollowerNotification',
+      'NewMentionNotification',
       'NewMirrorNotification'
     ],
     ProfileMedia: ['MediaSet', 'NftImage'],
