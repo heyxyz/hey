@@ -32,9 +32,9 @@ export const POLYGONSCAN_URL = IS_MAINNET
 export const OPENSEA_URL = IS_MAINNET
   ? 'https://opensea.io'
   : 'https://testnets.opensea.io'
-export const IMAGEKIT_URL = IS_PRODUCTION
-  ? 'https://ik.imagekit.io/lensterimg'
-  : 'https://ik.imagekit.io/lensterdev'
+export const IMAGEKIT_URL_PROD = 'https://ik.imagekit.io/lensterimg'
+export const IMAGEKIT_URL_DEV = 'https://ik.imagekit.io/lensterdev'
+export const IMAGEKIT_URL = IS_PRODUCTION ? IMAGEKIT_URL_PROD : IMAGEKIT_URL_DEV
 
 // Web3
 export const INFURA_ID = '1423f014ff0243e3b7ab20fbb3f8656f'

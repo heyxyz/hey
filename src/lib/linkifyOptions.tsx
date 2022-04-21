@@ -18,7 +18,7 @@ const linkifyOptions = {
         <span className="inline-flex items-center space-x-1">
           <span>{value}</span>
           <img
-            className="h-4 w-4 !mr-1.5"
+            className="h-4 !mr-1.5"
             src={`${STATIC_ASSETS}/hashflags/${hashflag}.png`}
             alt={value}
           />
