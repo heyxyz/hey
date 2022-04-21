@@ -12,12 +12,16 @@ import { Mention, MentionsInput } from 'react-mentions'
 interface Props {
   value: string
   setValue: Dispatch<string>
+  error: string
+  setError: Dispatch<string>
   placeholder?: string
 }
 
 export const MentionTextArea: FC<Props> = ({
   value,
   setValue,
+  error,
+  setError,
   placeholder = ''
 }) => {
   const [searchUsers] = useLazyQuery(SEARCH_USERS_QUERY, {
@@ -51,55 +55,61 @@ export const MentionTextArea: FC<Props> = ({
   }
 
   return (
-    <MentionsInput
-      className="mention-input h-16 mb-2"
-      value={value}
-      placeholder={placeholder}
-      onChange={(e) => {
-        setValue(e.target.value)
-      }}
-    >
-      <Mention
-        trigger="@"
-        displayTransform={(login) => `@${login} `}
-        // @ts-ignore
-        renderSuggestion={(
-          suggestion: {
-            uid: string
-            id: string
-            display: string
-            name: string
-            picture: string
-          },
-          search,
-          highlightedDisplay,
-          index,
-          focused
-        ) => (
-          <div
-            className={clsx(
-              { 'bg-gray-100': focused },
-              'flex items-center space-x-2 m-1.5 px-3 py-1.5 rounded-xl'
-            )}
-          >
-            <img
-              className="h-8 w-8 rounded-full"
-              src={suggestion.picture}
-              alt={suggestion.id}
-            />
-            <div className="truncate flex flex-col">
-              <div className="flex gap-1 items-center">
-                <div className="truncate text-sm">{suggestion.name}</div>
-                {isVerified(suggestion.uid) && (
-                  <BadgeCheckIcon className="w-3 h-3 text-brand" />
-                )}
+    <div className="mb-2">
+      <MentionsInput
+        className="mention-input h-16"
+        value={value}
+        placeholder={placeholder}
+        onChange={(e) => {
+          setValue(e.target.value)
+          setError('')
+        }}
+      >
+        <Mention
+          trigger="@"
+          displayTransform={(login) => `@${login} `}
+          // @ts-ignore
+          renderSuggestion={(
+            suggestion: {
+              uid: string
+              id: string
+              display: string
+              name: string
+              picture: string
+            },
+            search,
+            highlightedDisplay,
+            index,
+            focused
+          ) => (
+            <div
+              className={clsx(
+                { 'bg-gray-100': focused },
+                'flex items-center space-x-2 m-1.5 px-3 py-1.5 rounded-xl'
+              )}
+            >
+              <img
+                className="h-8 w-8 rounded-full"
+                src={suggestion.picture}
+                alt={suggestion.id}
+              />
+              <div className="truncate flex flex-col">
+                <div className="flex gap-1 items-center">
+                  <div className="truncate text-sm">{suggestion.name}</div>
+                  {isVerified(suggestion.uid) && (
+                    <BadgeCheckIcon className="w-3 h-3 text-brand" />
+                  )}
+                </div>
+                <Slug className="text-xs" slug={suggestion.id} prefix="@" />
               </div>
-              <Slug className="text-xs" slug={suggestion.id} prefix="@" />
             </div>
-          </div>
-        )}
-        data={fetchUsers}
-      />
-    </MentionsInput>
+          )}
+          data={fetchUsers}
+        />
+      </MentionsInput>
+      {error && (
+        <div className="mt-1 text-sm font-bold text-red-500">{error}</div>
+      )}
+    </div>
   )
 }

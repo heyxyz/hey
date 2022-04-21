@@ -102,6 +102,7 @@ interface Props {
 
 const NewPost: FC<Props> = ({ refetch, setShowModal, hideCard = false }) => {
   const [postContent, setPostContent] = useState<string>('')
+  const [postContentError, setPostContentError] = useState<string>('')
   const [selectedModule, setSelectedModule] =
     useState<EnabledModule>(defaultModuleData)
   const [onlyFollowers, setOnlyFollowers] = useState<boolean>(false)
@@ -194,6 +195,8 @@ const NewPost: FC<Props> = ({ refetch, setShowModal, hideCard = false }) => {
       toast.error(CONNECT_WALLET)
     } else if (activeChain?.id !== CHAIN_ID) {
       toast.error(WRONG_NETWORK)
+    } else if (postContent.length === 0) {
+      setPostContentError('Post should not be empty!')
     } else {
       setIsUploading(true)
       const { path } = await uploadToIPFS({
@@ -257,6 +260,8 @@ const NewPost: FC<Props> = ({ refetch, setShowModal, hideCard = false }) => {
           <MentionTextArea
             value={postContent}
             setValue={setPostContent}
+            error={postContentError}
+            setError={setPostContentError}
             placeholder="What's happening?"
           />
           <div className="block items-center sm:flex">
