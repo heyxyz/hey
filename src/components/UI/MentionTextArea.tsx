@@ -87,6 +87,7 @@ export const MentionTextArea: FC<Props> = ({
 
   return (
     <div className="mb-2">
+      {value}
       <MentionsInput
         className="mention-input h-16"
         value={value}
@@ -98,9 +99,8 @@ export const MentionTextArea: FC<Props> = ({
       >
         <Mention
           trigger="@"
-          displayTransform={(login) => `@${login}`}
+          displayTransform={(login) => `@${login} `}
           markup="@__id__ "
-          appendSpaceOnAdd
           // @ts-ignore
           renderSuggestion={(
             suggestion: UserSuggestion,
