@@ -87,7 +87,6 @@ export const MentionTextArea: FC<Props> = ({
 
   return (
     <div className="mb-2">
-      {value}
       <MentionsInput
         className="mention-input h-16"
         value={value}
