@@ -44,7 +44,6 @@ import {
   useNetwork,
   useSignTypedData
 } from 'wagmi'
-import { object, string } from 'zod'
 
 const Attachment = dynamic(() => import('../../Shared/Attachment'), {
   loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
@@ -99,12 +98,6 @@ const CREATE_COMMENT_TYPED_DATA_MUTATION = gql`
     }
   }
 `
-
-const newCommentSchema = object({
-  comment: string()
-    .min(2, { message: 'Post should be atleast 2 characters' })
-    .max(500, { message: 'Post should not exceed 500 characters' })
-})
 
 interface Props {
   refetch: any
