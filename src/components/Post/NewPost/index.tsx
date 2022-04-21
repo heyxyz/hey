@@ -6,9 +6,8 @@ import SwitchNetwork from '@components/Shared/SwitchNetwork'
 import { Button } from '@components/UI/Button'
 import { Card } from '@components/UI/Card'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
-import { Form, useZodForm } from '@components/UI/Form'
+import { MentionTextArea } from '@components/UI/MentionTextArea'
 import { Spinner } from '@components/UI/Spinner'
-import { TextArea } from '@components/UI/TextArea'
 import AppContext from '@components/utils/AppContext'
 import { LensterAttachment } from '@generated/lenstertypes'
 import { CreatePostBroadcastItemResult, EnabledModule } from '@generated/types'
@@ -42,7 +41,6 @@ import {
   useNetwork,
   useSignTypedData
 } from 'wagmi'
-import { object, string } from 'zod'
 
 const Attachment = dynamic(() => import('../../Shared/Attachment'), {
   loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
@@ -96,12 +94,6 @@ export const CREATE_POST_TYPED_DATA_MUTATION = gql`
   }
 `
 
-const newPostSchema = object({
-  post: string()
-    .min(2, { message: 'Post should be atleast 2 characters' })
-    .max(500, { message: 'Post should not exceed 500 characters' })
-})
-
 interface Props {
   refetch?: any
   setShowModal?: Dispatch<boolean>
@@ -109,10 +101,7 @@ interface Props {
 }
 
 const NewPost: FC<Props> = ({ refetch, setShowModal, hideCard = false }) => {
-  const form = useZodForm({
-    schema: newPostSchema
-  })
-
+  const [postContent, setPostContent] = useState<string>('')
   const [selectedModule, setSelectedModule] =
     useState<EnabledModule>(defaultModuleData)
   const [onlyFollowers, setOnlyFollowers] = useState<boolean>(false)
@@ -140,7 +129,7 @@ const NewPost: FC<Props> = ({ refetch, setShowModal, hideCard = false }) => {
     'postWithSig',
     {
       onSuccess() {
-        form.reset()
+        setPostContent('')
         setAttachments([])
         setSelectedModule(defaultModuleData)
         setFeeData(defaultFeeData)
@@ -200,7 +189,7 @@ const NewPost: FC<Props> = ({ refetch, setShowModal, hideCard = false }) => {
     }
   )
 
-  const createPost = async (post: string) => {
+  const createPost = async () => {
     if (!account?.address) {
       toast.error(CONNECT_WALLET)
     } else if (activeChain?.id !== CHAIN_ID) {
@@ -210,8 +199,8 @@ const NewPost: FC<Props> = ({ refetch, setShowModal, hideCard = false }) => {
       const { path } = await uploadToIPFS({
         version: '1.0.0',
         metadata_id: uuidv4(),
-        description: post,
-        content: post,
+        description: postContent,
+        content: postContent,
         external_url: null,
         image: attachments.length > 0 ? attachments[0]?.item : null,
         imageMimeType: attachments.length > 0 ? attachments[0]?.type : null,
@@ -257,13 +246,7 @@ const NewPost: FC<Props> = ({ refetch, setShowModal, hideCard = false }) => {
   return (
     <Card className={hideCard ? 'border-0 !shadow-none !bg-transparent' : ''}>
       <div className="px-5 pt-5 pb-3">
-        <Form
-          form={form}
-          className="space-y-1"
-          onSubmit={({ post }) => {
-            createPost(post)
-          }}
-        >
+        <div className="space-y-1">
           {error && (
             <ErrorMessage
               className="mb-3"
@@ -271,9 +254,10 @@ const NewPost: FC<Props> = ({ refetch, setShowModal, hideCard = false }) => {
               error={error}
             />
           )}
-          <TextArea
+          <MentionTextArea
+            value={postContent}
+            setValue={setPostContent}
             placeholder="What's happening?"
-            {...form.register('post')}
           />
           <div className="block items-center sm:flex">
             <div className="flex items-center space-x-4">
@@ -323,6 +307,7 @@ const NewPost: FC<Props> = ({ refetch, setShowModal, hideCard = false }) => {
                       <PencilAltIcon className="w-4 h-4" />
                     )
                   }
+                  onClick={createPost}
                 >
                   {isUploading
                     ? 'Uploading to IPFS'
@@ -342,7 +327,7 @@ const NewPost: FC<Props> = ({ refetch, setShowModal, hideCard = false }) => {
             setAttachments={setAttachments}
             isNew
           />
-        </Form>
+        </div>
       </div>
     </Card>
   )
