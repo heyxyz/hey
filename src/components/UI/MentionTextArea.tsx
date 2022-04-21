@@ -1,7 +1,11 @@
 import { useLazyQuery } from '@apollo/client'
 import { SEARCH_USERS_QUERY } from '@components/Shared/Navbar/Search'
-import { Profile } from '@generated/types'
+import Slug from '@components/Shared/Slug'
+import { MediaSet, Profile } from '@generated/types'
+import { BadgeCheckIcon } from '@heroicons/react/solid'
 import consoleLog from '@lib/consoleLog'
+import isVerified from '@lib/isVerified'
+import clsx from 'clsx'
 import { Dispatch, FC } from 'react'
 import { Mention, MentionsInput } from 'react-mentions'
 
@@ -30,12 +34,17 @@ export const MentionTextArea: FC<Props> = ({
     if (!query) return
 
     searchUsers({
-      variables: { request: { type: 'PROFILE', query, limit: 8 } }
+      variables: { request: { type: 'PROFILE', query, limit: 5 } }
     })
       .then(({ data }) =>
-        data?.search?.items?.map((user: Profile) => ({
+        data?.search?.items?.map((user: Profile & { picture: MediaSet }) => ({
+          uid: user.id,
           id: user.handle,
-          display: user.handle
+          display: user.handle,
+          name: user?.name ?? user?.handle,
+          picture:
+            user?.picture?.original?.url ??
+            `https://avatar.tobi.sh/${user?.handle}.png`
         }))
       )
       .then(callback)
@@ -53,6 +62,42 @@ export const MentionTextArea: FC<Props> = ({
       <Mention
         trigger="@"
         displayTransform={(login) => `@${login}`}
+        // @ts-ignore
+        renderSuggestion={(
+          suggestion: {
+            uid: string
+            id: string
+            display: string
+            name: string
+            picture: string
+          },
+          search,
+          highlightedDisplay,
+          index,
+          focused
+        ) => (
+          <div
+            className={clsx(
+              { 'bg-gray-100': focused },
+              'flex items-center space-x-2 m-1.5 px-3 py-1.5 rounded-xl'
+            )}
+          >
+            <img
+              className="h-8 w-8 rounded-full"
+              src={suggestion.picture}
+              alt={suggestion.id}
+            />
+            <div className="truncate flex flex-col">
+              <div className="flex gap-1 items-center">
+                <div className="truncate text-sm">{suggestion.name}</div>
+                {isVerified(suggestion.uid) && (
+                  <BadgeCheckIcon className="w-3 h-3 text-brand" />
+                )}
+              </div>
+              <Slug className="text-xs" slug={suggestion.id} prefix="@" />
+            </div>
+          </div>
+        )}
         data={fetchUsers}
       />
     </MentionsInput>
