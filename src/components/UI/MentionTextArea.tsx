@@ -5,6 +5,7 @@ import { UserSuggestion } from '@generated/lenstertypes'
 import { MediaSet, Profile } from '@generated/types'
 import { BadgeCheckIcon } from '@heroicons/react/solid'
 import consoleLog from '@lib/consoleLog'
+import imagekitURL from '@lib/imagekitURL'
 import isVerified from '@lib/isVerified'
 import clsx from 'clsx'
 import { Dispatch, FC } from 'react'
@@ -24,7 +25,7 @@ const User: FC<UserProps> = ({ suggestion, focused }) => (
   >
     <img
       className="h-8 w-8 rounded-full"
-      src={suggestion.picture}
+      src={imagekitURL(suggestion.picture, 'avatar')}
       alt={suggestion.id}
     />
     <div className="truncate flex flex-col">
