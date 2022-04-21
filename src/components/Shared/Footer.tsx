@@ -50,6 +50,13 @@ const Footer: FC = () => {
       >
         Status
       </a>
+      <a
+        href="https://vote.lenster.xyz"
+        target="_blank"
+        rel="noreferrer noopener"
+      >
+        Vote
+      </a>
       <span>
         <Link href="/thanks">
           <a href="/thanks">Thanks</a>
