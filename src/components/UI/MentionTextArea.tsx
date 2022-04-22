@@ -88,7 +88,7 @@ export const MentionTextArea: FC<Props> = ({
   return (
     <div className="mb-2">
       <MentionsInput
-        className="h-16 mention-input"
+        className="mention-input h-16"
         value={value}
         placeholder={placeholder}
         onChange={(e) => {
