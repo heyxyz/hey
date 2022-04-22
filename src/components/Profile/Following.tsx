@@ -10,6 +10,8 @@ import consoleLog from '@lib/consoleLog'
 import { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 
+import SuperFollowering from './SuperFollowering'
+
 const FOLLOWING_QUERY = gql`
   query Following($request: FollowingRequest!) {
     following(request: $request) {
@@ -17,6 +19,7 @@ const FOLLOWING_QUERY = gql`
         profile {
           ...MinimalProfileFields
         }
+        totalAmountOfTimesFollowing
       }
       pageInfo {
         next
@@ -103,7 +106,13 @@ const Following: FC<Props> = ({ profile }) => {
       <div className="space-y-3">
         <div className="divide-y dark:divide-gray-700">
           {following?.map((following: Following) => (
-            <div className="p-5" key={following?.profile?.id}>
+            <div className="p-5 space-y-3" key={following?.profile?.id}>
+              {following?.profile?.followModule && (
+                <SuperFollowering
+                  times={following?.totalAmountOfTimesFollowing}
+                  following
+                />
+              )}
               <UserProfile profile={following?.profile} showBio />
             </div>
           ))}
