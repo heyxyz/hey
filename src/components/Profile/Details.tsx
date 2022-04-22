@@ -127,7 +127,20 @@ const Details: FC<Props> = ({ profile }) => {
           {followLoading ? (
             <div className="w-28 rounded-lg h-[34px] shimmer" />
           ) : following ? (
-            <Unfollow profile={profile} setFollowing={setFollowing} showText />
+            <div className="flex space-x-2">
+              <Unfollow
+                profile={profile}
+                setFollowing={setFollowing}
+                showText
+              />
+              {profile?.followModule && (
+                <SuperFollow
+                  profile={profile}
+                  setFollowing={setFollowing}
+                  again
+                />
+              )}
+            </div>
           ) : profile?.followModule ? (
             <SuperFollow
               profile={profile}

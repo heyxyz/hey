@@ -92,12 +92,14 @@ interface Props {
   profile: Profile
   setFollowing: Dispatch<boolean>
   setShowFollowModal: Dispatch<boolean>
+  again: boolean
 }
 
 const FollowModule: FC<Props> = ({
   profile,
   setFollowing,
-  setShowFollowModal
+  setShowFollowModal,
+  again
 }) => {
   const { currentUser } = useContext(AppContext)
   const [allowed, setAllowed] = useState<boolean>(true)
@@ -230,9 +232,12 @@ const FollowModule: FC<Props> = ({
     <div className="p-5">
       <div className="pb-2 space-y-1.5">
         <div className="text-lg font-bold">
-          Super follow <Slug slug={profile?.handle} prefix="@" />
+          Super follow <Slug slug={profile?.handle} prefix="@" />{' '}
+          {again ? 'again' : ''}
         </div>
-        <div className="text-gray-500">Follow and get some awesome perks!</div>
+        <div className="text-gray-500">
+          Follow {again ? 'again' : ''} and get some awesome perks!
+        </div>
       </div>
       <div className="flex items-center py-2 space-x-1.5">
         <img
@@ -284,6 +289,12 @@ const FollowModule: FC<Props> = ({
           </li>
           <li className="flex space-x-2 tracking-normal leading-6">
             <div>•</div>
+            <div>
+              You will have high voting power if you followed multiple times
+            </div>
+          </li>
+          <li className="flex space-x-2 tracking-normal leading-6">
+            <div>•</div>
             <div>More coming soon™</div>
           </li>
         </ul>
@@ -293,11 +304,11 @@ const FollowModule: FC<Props> = ({
           <div className="mt-5 w-28 rounded-lg h-[34px] shimmer" />
         ) : allowed ? (
           <Button
-            className="text-sm !px-3 !py-1.5 mt-5 border-pink-500 hover:bg-pink-100 focus:ring-pink-400 !text-pink-500"
+            className="text-sm !px-3 !py-1.5 mt-5"
+            variant="super"
             outline
             onClick={createFollow}
             disabled={typedDataLoading || signLoading || writeLoading}
-            variant="success"
             icon={
               typedDataLoading || signLoading || writeLoading ? (
                 <Spinner variant="super" size="xs" />
@@ -306,7 +317,7 @@ const FollowModule: FC<Props> = ({
               )
             }
           >
-            Super follow now
+            Super follow {again ? 'again' : 'now'}
           </Button>
         ) : (
           <div className="mt-5">
