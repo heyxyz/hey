@@ -4,7 +4,7 @@ import { MinimalProfileFields } from '@gql/MinimalProfileFields'
 import consoleLog from '@lib/consoleLog'
 import Head from 'next/head'
 import { useTheme } from 'next-themes'
-import { FC, ReactNode, useEffect, useState } from 'react'
+import { FC, ReactNode, useLayoutEffect, useState } from 'react'
 import { Toaster } from 'react-hot-toast'
 import { useAccount, useConnect, useDisconnect } from 'wagmi'
 
@@ -52,14 +52,11 @@ const SiteLayout: FC<Props> = ({ children }) => {
     ?.slice()
     ?.sort((a: Profile, b: Profile) => Number(a.id) - Number(b.id))
 
-  useEffect(() => {
-    setTimeout(() => {
-      setPageLoading(false)
-    }, 500)
-
+  useLayoutEffect(() => {
     setSelectedProfile(localStorage.selectedProfile)
     setRefreshToken(localStorage.refreshToken)
     setStaffMode(localStorage.staffMode === 'true')
+    setPageLoading(false)
 
     if (!activeConnector) {
       disconnect()
