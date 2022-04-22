@@ -33,7 +33,7 @@ import {
 
 const CREATE_SET_DEFAULT_PROFILE_DATA_MUTATION = gql`
   mutation CreateSetDefaultProfileTypedData(
-    $request: SetDefaultProfileRequest!
+    $request: CreateSetDefaultProfileRequest!
   ) {
     createSetDefaultProfileTypedData(request: $request) {
       id
