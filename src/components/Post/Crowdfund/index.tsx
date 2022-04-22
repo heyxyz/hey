@@ -43,8 +43,8 @@ interface BadgeProps {
 }
 
 const Badge: FC<BadgeProps> = ({ title, value }) => (
-  <div className="flex bg-gray-200 dark:bg-gray-800 rounded-full border border-gray-300 dark:border-gray-700 text-[12px] w-fit">
-    <div className="px-3 bg-gray-300 dark:bg-gray-700 rounded-full py-[0.3px]">
+  <div className="flex bg-gray-200 rounded-full border border-gray-300 dark:bg-gray-800 dark:border-gray-700 text-[12px] w-fit">
+    <div className="px-3 bg-gray-300 rounded-full dark:bg-gray-700 py-[0.3px]">
       {title}
     </div>
     <div className="pr-3 pl-2 font-bold py-[0.3px]">{value}</div>

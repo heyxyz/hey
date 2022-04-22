@@ -24,13 +24,13 @@ const User: FC<UserProps> = ({ suggestion, focused }) => (
     )}
   >
     <img
-      className="h-8 w-8 rounded-full"
+      className="w-8 h-8 rounded-full"
       src={imagekitURL(suggestion.picture, 'avatar')}
       alt={suggestion.id}
     />
-    <div className="truncate flex flex-col">
+    <div className="flex flex-col truncate">
       <div className="flex gap-1 items-center">
-        <div className="truncate text-sm">{suggestion.name}</div>
+        <div className="text-sm truncate">{suggestion.name}</div>
         {isVerified(suggestion.uid) && (
           <BadgeCheckIcon className="w-3 h-3 text-brand" />
         )}
@@ -88,7 +88,7 @@ export const MentionTextArea: FC<Props> = ({
   return (
     <div className="mb-2">
       <MentionsInput
-        className="mention-input h-16"
+        className="h-16 mention-input"
         value={value}
         placeholder={placeholder}
         onChange={(e) => {
