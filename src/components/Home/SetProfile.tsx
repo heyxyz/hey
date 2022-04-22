@@ -18,9 +18,9 @@ interface StatusProps {
 const Status: FC<StatusProps> = ({ finished, title }) => (
   <div className="flex items-center space-x-1.5">
     {finished ? (
-      <CheckCircleIcon className="h-5 w-5 text-green-500" />
+      <CheckCircleIcon className="w-5 h-5 text-green-500" />
     ) : (
-      <MinusCircleIcon className="h-5 w-5 text-yellow-500" />
+      <MinusCircleIcon className="w-5 h-5 text-yellow-500" />
     )}
     <div className={clsx(finished ? 'text-green-500' : 'text-yellow-500')}>
       {title}
@@ -43,7 +43,7 @@ const SetProfile: FC = () => {
           <PhotographIcon className="w-5 h-5" />
           <p>Setup your Lenster profile</p>
         </div>
-        <div className="text-sm leading-[22px] space-y-1">
+        <div className="space-y-1 text-sm leading-[22px]">
           <Status finished={!!currentUser?.name} title="Set profile name" />
           <Status finished={!!currentUser?.bio} title="Set profile bio" />
           <Status finished={!!currentUser?.picture} title="Set your avatar" />

@@ -51,7 +51,7 @@ const Login: FC = () => {
                 </a>{' '}
                 to claim your profile now 🏃‍♂️
               </div>
-              <div className="text-gray-500 text-sm">
+              <div className="text-sm text-gray-500">
                 Make sure to check back here when done!
               </div>
             </div>
