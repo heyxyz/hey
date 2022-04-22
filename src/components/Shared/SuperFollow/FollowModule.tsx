@@ -286,6 +286,12 @@ const FollowModule: FC<Props> = ({
           </li>
           <li className="flex space-x-2 tracking-normal leading-6">
             <div>•</div>
+            <div>
+              You will have high voting power if you followed multiple times
+            </div>
+          </li>
+          <li className="flex space-x-2 tracking-normal leading-6">
+            <div>•</div>
             <div>More coming soon™</div>
           </li>
         </ul>
