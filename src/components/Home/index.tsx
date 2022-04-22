@@ -11,6 +11,7 @@ import HomeFeed from './Feed'
 import Hero from './Hero'
 import RecommendedProfiles from './RecommendedProfiles'
 import SetDefaultProfile from './SetDefaultProfile'
+import SetProfile from './SetProfile'
 import Streak from './Streak'
 
 const Home: NextPage = () => {
@@ -26,8 +27,13 @@ const Home: NextPage = () => {
         </GridItemEight>
         <GridItemFour>
           <Announcement />
-          {currentUser && <SetDefaultProfile />}
-          {currentUser && <Streak />}
+          {currentUser && (
+            <>
+              <SetDefaultProfile />
+              <SetProfile />
+              <Streak />
+            </>
+          )}
           <RecommendedProfiles />
           <Footer />
         </GridItemFour>
