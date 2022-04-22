@@ -56,7 +56,9 @@ const SiteLayout: FC<Props> = ({ children }) => {
     setSelectedProfile(localStorage.selectedProfile)
     setRefreshToken(localStorage.refreshToken)
     setStaffMode(localStorage.staffMode === 'true')
-    setPageLoading(false)
+    setTimeout(() => {
+      setPageLoading(false)
+    }, 100)
 
     if (!activeConnector) {
       disconnect()
