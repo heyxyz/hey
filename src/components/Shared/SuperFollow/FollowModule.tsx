@@ -293,11 +293,11 @@ const FollowModule: FC<Props> = ({
           <div className="mt-5 w-28 rounded-lg h-[34px] shimmer" />
         ) : allowed ? (
           <Button
-            className="text-sm !px-3 !py-1.5 mt-5 border-pink-500 hover:bg-pink-100 focus:ring-pink-400 !text-pink-500"
+            className="text-sm !px-3 !py-1.5 mt-5"
+            variant="super"
             outline
             onClick={createFollow}
             disabled={typedDataLoading || signLoading || writeLoading}
-            variant="success"
             icon={
               typedDataLoading || signLoading || writeLoading ? (
                 <Spinner variant="super" size="xs" />

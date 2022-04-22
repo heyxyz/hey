@@ -13,27 +13,29 @@ const FollowModule = dynamic(() => import('./FollowModule'), {
 
 interface Props {
   profile: Profile
-  showText?: boolean
   setFollowing: Dispatch<boolean>
+  showText?: boolean
+  again?: boolean
 }
 
 const SuperFollow: FC<Props> = ({
   profile,
+  setFollowing,
   showText = false,
-  setFollowing
+  again = false
 }) => {
   const [showFollowModal, setShowFollowModal] = useState<boolean>(false)
 
   return (
     <>
       <Button
-        className="text-sm !px-3 !py-1.5 border-pink-500 hover:bg-pink-100 focus:ring-pink-400 !text-pink-500"
+        className="text-sm !px-3 !py-1.5"
+        variant="super"
         outline
         onClick={() => setShowFollowModal(!showFollowModal)}
-        variant="success"
         icon={<StarIcon className="w-4 h-4" />}
       >
-        {showText && 'Super follow'}
+        {showText && `Super follow ${again ? 'again' : ''}`}
       </Button>
       <Modal
         title={
