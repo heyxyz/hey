@@ -12,7 +12,7 @@ interface Props
     HTMLButtonElement
   > {
   size?: 'sm' | 'md' | 'lg'
-  variant?: 'primary' | 'secondary' | 'success' | 'warning' | 'danger'
+  variant?: 'primary' | 'secondary' | 'success' | 'warning' | 'super' | 'danger'
   outline?: boolean
   light?: boolean
   loading?: boolean
@@ -48,6 +48,8 @@ export const Button = forwardRef<HTMLButtonElement, Props>(function Button(
             !outline && !light && variant === 'success',
           'bg-yellow-500 hover:bg-yellow-400 border border-yellow-600 text-white focus:ring-yellow-400':
             !outline && !light && variant === 'warning',
+          'bg-pink-500 hover:bg-pink-400 border border-pink-600 text-white focus:ring-pink-400':
+            !outline && !light && variant === 'super',
           'bg-red-500 hover:bg-red-400 border border-red-600 text-white focus:ring-red-400':
             !outline && !light && variant === 'danger',
           'border border-brand-500 text-brand hover:bg-brand-100 focus:ring-brand-400':
@@ -58,6 +60,8 @@ export const Button = forwardRef<HTMLButtonElement, Props>(function Button(
             outline && !light && variant === 'success',
           'border border-yellow-500 text-yellow-500 hover:bg-yellow-100 focus:ring-yellow-400':
             outline && !light && variant === 'warning',
+          'border border-pink-500 text-pink-500 hover:bg-pink-100 focus:ring-pink-400':
+            outline && !light && variant === 'super',
           'border border-red-500 text-red-500 hover:bg-red-100 focus:ring-red-400':
             outline && !light && variant === 'danger',
           'border-none !shadow-none text-gray-500': light,
