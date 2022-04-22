@@ -1,18 +1,17 @@
-import { DoesFollowResponse } from '@generated/types'
 import { HeartIcon } from '@heroicons/react/solid'
 import React, { FC } from 'react'
 
 interface Props {
-  followData: DoesFollowResponse
+  times: number
 }
 
-const SuperFollowed: FC<Props> = ({ followData }) => {
-  if (!followData?.follows) return null
-
+const SuperFollowed: FC<Props> = ({ times }) => {
   return (
-    <div className="flex items-center gap-1.5 text-pink-500 font-bold text-sm">
+    <div className="flex items-center gap-1.5 text-pink-500 text-[13px]">
       <HeartIcon className="h-4 w-4" />
-      <div>Super followed</div>
+      <div>
+        Super followed {times ? `${times} ${times > 1 ? 'times' : 'time'}` : ''}
+      </div>
     </div>
   )
 }
