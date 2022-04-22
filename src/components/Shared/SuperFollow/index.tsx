@@ -51,6 +51,7 @@ const SuperFollow: FC<Props> = ({
           profile={profile}
           setFollowing={setFollowing}
           setShowFollowModal={setShowFollowModal}
+          again={again}
         />
       </Modal>
     </>

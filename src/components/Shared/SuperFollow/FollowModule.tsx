@@ -92,12 +92,14 @@ interface Props {
   profile: Profile
   setFollowing: Dispatch<boolean>
   setShowFollowModal: Dispatch<boolean>
+  again: boolean
 }
 
 const FollowModule: FC<Props> = ({
   profile,
   setFollowing,
-  setShowFollowModal
+  setShowFollowModal,
+  again
 }) => {
   const { currentUser } = useContext(AppContext)
   const [allowed, setAllowed] = useState<boolean>(true)
@@ -306,7 +308,7 @@ const FollowModule: FC<Props> = ({
               )
             }
           >
-            Super follow now
+            Super follow {again ? 'again' : 'now'}
           </Button>
         ) : (
           <div className="mt-5">
