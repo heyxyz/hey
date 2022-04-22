@@ -232,9 +232,12 @@ const FollowModule: FC<Props> = ({
     <div className="p-5">
       <div className="pb-2 space-y-1.5">
         <div className="text-lg font-bold">
-          Super follow <Slug slug={profile?.handle} prefix="@" />
+          Super follow <Slug slug={profile?.handle} prefix="@" />{' '}
+          {again ? 'again' : ''}
         </div>
-        <div className="text-gray-500">Follow and get some awesome perks!</div>
+        <div className="text-gray-500">
+          Follow {again ? 'again' : ''} and get some awesome perks!
+        </div>
       </div>
       <div className="flex items-center py-2 space-x-1.5">
         <img
