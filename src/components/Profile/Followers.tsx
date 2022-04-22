@@ -11,7 +11,7 @@ import consoleLog from '@lib/consoleLog'
 import { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 
-import SuperFollowed from './SuperFollowed'
+import SuperFollowering from './SuperFollowering'
 
 const FOLLOWERS_QUERY = gql`
   query Followers($request: FollowersRequest!) {
@@ -115,7 +115,9 @@ const Followers: FC<Props> = ({ profile }) => {
               key={follower?.wallet?.defaultProfile?.id}
             >
               {follower?.wallet?.defaultProfile?.followModule && (
-                <SuperFollowed times={follower?.totalAmountOfTimesFollowed} />
+                <SuperFollowering
+                  times={follower?.totalAmountOfTimesFollowed}
+                />
               )}
               {follower?.wallet?.defaultProfile ? (
                 <UserProfile

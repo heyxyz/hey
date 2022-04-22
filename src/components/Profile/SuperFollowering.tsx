@@ -6,7 +6,7 @@ interface Props {
   following?: boolean
 }
 
-const SuperFollowed: FC<Props> = ({ times, following = false }) => {
+const SuperFollowering: FC<Props> = ({ times, following = false }) => {
   return (
     <div className="flex items-center gap-1.5 text-pink-500 text-[13px]">
       <HeartIcon className="h-4 w-4" />
@@ -18,4 +18,4 @@ const SuperFollowed: FC<Props> = ({ times, following = false }) => {
   )
 }
 
-export default SuperFollowed
+export default SuperFollowering
