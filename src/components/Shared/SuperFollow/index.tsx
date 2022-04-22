@@ -35,7 +35,7 @@ const SuperFollow: FC<Props> = ({
         onClick={() => setShowFollowModal(!showFollowModal)}
         icon={<StarIcon className="w-4 h-4" />}
       >
-        {showText && `Super follow ${again ? 'again' : ''}`}
+        {showText && `Super follow`}
       </Button>
       <Modal
         title={
