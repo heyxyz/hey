@@ -51,7 +51,7 @@ const Hero: FC = () => {
       <div className="container px-5 mx-auto max-w-screen-xl">
         <div className="flex items-stretch py-8 w-full text-center sm:py-12 sm:text-left">
           <div className="flex-1 flex-shrink-0 space-y-3">
-            <div className="text-2xl font-extrabold text-white sm:text-4xl">
+            <div className="text-2xl font-extrabold text-white sm:text-4xl banner-text">
               Discover new places and activities in the metaverse. Powered by
               your social circle.{' '}
             </div>

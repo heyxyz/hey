@@ -11,7 +11,7 @@ export const GIT_COMMIT_SHA =
 export const GIT_COMMIT_REF = process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_REF
 
 // Misc
-export const CONTACT_EMAIL = 'support@lenster.xyz'
+export const CONTACT_EMAIL = 'support@recobee.xyz'
 
 // Messages
 export const ERROR_MESSAGE = 'Something went wrong!'

@@ -1,7 +1,7 @@
 {
-  "name": "Lenster",
-  "short_name": "Lenster",
-  "description": "Decentralized, and permissionless social media app",
+  "name": "metadvisor",
+  "short_name": "metadvisor",
+  "description": "Social recommendation engine powered by lens",
   "theme_color": "#ffffff",
   "background_color": "#ffffff",
   "display": "standalone",

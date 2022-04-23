@@ -41,6 +41,18 @@ body {
   background: linear-gradient(0deg, #5723eb, hsla(0, 0%, 100%, 0)),
     url('/bg-hero.png');
   background-size: cover;
+  height: 500px;
+
+}
+
+.banner-text {
+  padding-top:40px;
+  padding-bottom:40px;
+}
+
+.bg-logos {
+  background: url('/partner_banner.png');
+  background-size: contain;
 }
 
 .no-scrollbar::-webkit-scrollbar {

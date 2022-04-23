@@ -13,6 +13,7 @@ import Custom404 from 'src/pages/404'
 import Custom500 from 'src/pages/500'
 
 import Hero from './Hero'
+import Logos from './Logos'
 
 export const PROFILE_QUERY = gql`
   query Profile($request: ProfileQueryRequest!) {
@@ -85,7 +86,12 @@ const Home: NextPage = () => {
   return (
     <>
       <SEO />
-      {!currentUser && <Hero />}
+      {!currentUser && (
+        <div>
+          <Hero />
+          <Logos />
+        </div>
+      )}
       {currentUser && (
         <div className="flex justify-between space-x-8">
           <Card>

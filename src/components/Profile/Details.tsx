@@ -97,7 +97,7 @@ const Details: FC<Props> = ({ profile }) => {
       <div className="">
         <img
           src={getAvatar(profile)}
-          className="w-32 h-32 bg-gray-200 rounded-xl ring-8 ring-gray-50 sm:w-52 sm:h-52 dark:bg-gray-700 dark:ring-black"
+          className="w-24 h-24 bg-gray-200 rounded-xl ring-8 ring-gray-50 sm:w-24 sm:h-24 dark:bg-gray-700 dark:ring-black"
           alt={profile?.handle}
         />
       </div>
