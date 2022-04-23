@@ -3,7 +3,6 @@ import { useLazyQuery, useMutation } from '@apollo/client'
 import IndexStatus from '@components/Shared/IndexStatus'
 import SwitchNetwork from '@components/Shared/SwitchNetwork'
 import { Button } from '@components/UI/Button'
-import { Card, CardBody } from '@components/UI/Card'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { Form, useZodForm } from '@components/UI/Form'
 import { Input } from '@components/UI/Input'
@@ -201,67 +200,62 @@ const NFTPicture: FC<Props> = ({ profile }) => {
   }
 
   return (
-    <Card className="space-y-5">
-      <CardBody className="space-y-5">
-        <div className="text-lg font-bold">Set NFT avatar</div>
-        <Form
-          form={form}
-          className="space-y-4"
-          onSubmit={({ contractAddress, tokenId }) => {
-            setAvatar(contractAddress, tokenId)
-          }}
-        >
-          {error && (
-            <ErrorMessage
-              className="mb-3"
-              title="Transaction failed!"
-              error={error}
-            />
-          )}
-          <Input
-            label="Contract Address"
-            type="text"
-            placeholder="0x277f5959e22f94d5bd4c2cc0a77c4c71f31da3ac"
-            {...form.register('contractAddress')}
-          />
-          <Input
-            label="Token Id"
-            type="text"
-            placeholder="1"
-            {...form.register('tokenId')}
-          />
-          {activeChain?.id !== CHAIN_ID ? (
-            <SwitchNetwork className="ml-auto" />
-          ) : (
-            <div className="flex flex-col space-y-2">
-              <Button
-                className="ml-auto"
-                type="submit"
-                disabled={
-                  challengeLoading ||
-                  typedDataLoading ||
-                  signLoading ||
-                  writeLoading
-                }
-                icon={
-                  challengeLoading ||
-                  typedDataLoading ||
-                  signLoading ||
-                  writeLoading ? (
-                    <Spinner size="xs" />
-                  ) : (
-                    <PencilIcon className="w-4 h-4" />
-                  )
-                }
-              >
-                Save
-              </Button>
-              {writeData?.hash && <IndexStatus txHash={writeData?.hash} />}
-            </div>
-          )}
-        </Form>
-      </CardBody>
-    </Card>
+    <Form
+      form={form}
+      className="space-y-4"
+      onSubmit={({ contractAddress, tokenId }) => {
+        setAvatar(contractAddress, tokenId)
+      }}
+    >
+      {error && (
+        <ErrorMessage
+          className="mb-3"
+          title="Transaction failed!"
+          error={error}
+        />
+      )}
+      <Input
+        label="Contract Address"
+        type="text"
+        placeholder="0x277f5959e22f94d5bd4c2cc0a77c4c71f31da3ac"
+        {...form.register('contractAddress')}
+      />
+      <Input
+        label="Token Id"
+        type="text"
+        placeholder="1"
+        {...form.register('tokenId')}
+      />
+      {activeChain?.id !== CHAIN_ID ? (
+        <SwitchNetwork className="ml-auto" />
+      ) : (
+        <div className="flex flex-col space-y-2">
+          <Button
+            className="ml-auto"
+            type="submit"
+            disabled={
+              challengeLoading ||
+              typedDataLoading ||
+              signLoading ||
+              writeLoading
+            }
+            icon={
+              challengeLoading ||
+              typedDataLoading ||
+              signLoading ||
+              writeLoading ? (
+                <Spinner size="xs" />
+              ) : (
+                <PencilIcon className="w-4 h-4" />
+              )
+            }
+          >
+            Save
+          </Button>
+          {writeData?.hash && <IndexStatus txHash={writeData?.hash} />}
+        </div>
+      )}
+    </Form>
   )
 }
 
