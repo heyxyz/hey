@@ -10,6 +10,7 @@ import Custom404 from 'src/pages/404'
 import Custom500 from 'src/pages/500'
 
 import Sidebar from '../Sidebar'
+import NFTPicture from './NFTPicture'
 import Picture from './Picture'
 import Profile from './Profile'
 
@@ -42,6 +43,7 @@ const PROFILE_SETTINGS_QUERY = gql`
           }
           ... on NftImage {
             uri
+            tokenId
           }
         }
       }
@@ -72,6 +74,7 @@ const ProfileSettings: NextPage = () => {
       <GridItemEight className="space-y-5">
         <Profile profile={data?.profiles?.items[0]} />
         <Picture profile={data?.profiles?.items[0]} />
+        <NFTPicture profile={data?.profiles?.items[0]} />
       </GridItemEight>
     </GridLayout>
   )
