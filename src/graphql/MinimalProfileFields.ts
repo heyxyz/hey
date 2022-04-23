@@ -17,6 +17,9 @@ export const MinimalProfileFields = gql`
           url
         }
       }
+      ... on NftImage {
+        uri
+      }
     }
     followModule {
       __typename
