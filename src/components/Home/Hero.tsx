@@ -6,7 +6,6 @@ import trackEvent from '@lib/trackEvent'
 import Link from 'next/link'
 import React from 'react'
 import { FC, Fragment, useState } from 'react'
-import { useDisconnect, useNetwork } from 'wagmi'
 
 export const NextLink = ({ href, children, ...rest }: Record<string, any>) => (
   <Link href={href}>
@@ -16,8 +15,6 @@ export const NextLink = ({ href, children, ...rest }: Record<string, any>) => (
 
 const LoginModal: FC = () => {
   const [showLoginModal, setShowLoginModal] = useState<boolean>(false)
-  const { activeChain } = useNetwork()
-  const { disconnect } = useDisconnect()
   return (
     <>
       <Modal
