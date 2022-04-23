@@ -14,7 +14,7 @@ const Create: FC = () => {
 
   return (
     <GridLayout>
-      <SEO title="Create Profile • Lenster" />
+      <SEO title="Create Profile • metadvisor" />
       <GridItemFour>
         <SettingsHelper
           heading="Create profile"

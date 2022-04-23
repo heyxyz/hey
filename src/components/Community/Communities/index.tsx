@@ -64,7 +64,7 @@ const Communities: NextPage = () => {
 
   return (
     <GridLayout>
-      <SEO title="Communities • Lenster" />
+      <SEO title="Communities • metadvisor" />
       <GridItemSix>
         <div className="flex items-center mb-2 space-x-1.5 font-bold text-gray-500">
           <FireIcon className="w-5 h-5 text-yellow-500" />
