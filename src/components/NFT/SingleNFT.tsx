@@ -36,9 +36,9 @@ const SingleNFT: FC<Props> = ({ nft }) => {
             {nft.collectionName}
           </a>
         )}
-        <div>
+        <div className="truncate">
           <a
-            className="font-bold truncate"
+            className="font-bold"
             href={`${OPENSEA_URL}/assets/${
               nft.chainId === CHAIN_ID ? 'matic/' : ''
             }${nft.contractAddress}/${nft.tokenId}`}
