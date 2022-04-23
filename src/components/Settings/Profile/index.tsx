@@ -65,6 +65,8 @@ const ProfileSettings: NextPage = () => {
   if (loading) return <PageLoading message="Loading settings" />
   if (!currentUser) return <Custom404 />
 
+  const profile = data?.profiles?.items[0]
+
   return (
     <GridLayout>
       <SEO title="Profile settings • Lenster" />
@@ -72,9 +74,9 @@ const ProfileSettings: NextPage = () => {
         <Sidebar />
       </GridItemFour>
       <GridItemEight className="space-y-5">
-        <Profile profile={data?.profiles?.items[0]} />
-        <Picture profile={data?.profiles?.items[0]} />
-        <NFTPicture profile={data?.profiles?.items[0]} />
+        <Profile profile={profile} />
+        <Picture profile={profile} />
+        <NFTPicture profile={profile} />
       </GridItemEight>
     </GridLayout>
   )
