@@ -24,17 +24,11 @@ const SingleNFT: FC<Props> = ({ nft }) => {
           backgroundRepeat: 'no-repeat'
         }}
       />
-      <CardBody>
+      <CardBody className="space-y-1">
         {nft.collectionName && (
-          // TODO: fix collection url
-          <a
-            className="text-sm text-gray-500 truncate"
-            href={`${OPENSEA_URL}/collection/${nft.collectionName}`}
-            target="_blank"
-            rel="noreferrer noopener"
-          >
+          <div className="text-sm text-gray-500 truncate">
             {nft.collectionName}
-          </a>
+          </div>
         )}
         <div className="truncate">
           <a
