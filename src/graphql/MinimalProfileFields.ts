@@ -19,6 +19,7 @@ export const MinimalProfileFields = gql`
       }
       ... on NftImage {
         uri
+        chainId
       }
     }
     followModule {

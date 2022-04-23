@@ -46,6 +46,7 @@ export const PROFILE_QUERY = gql`
           }
           ... on NftImage {
             uri
+            chainId
           }
         }
         coverPicture {
