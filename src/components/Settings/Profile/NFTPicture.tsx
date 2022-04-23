@@ -1,16 +1,25 @@
 import LensHubProxy from '@abis/LensHubProxy.json'
 import { useLazyQuery, useMutation } from '@apollo/client'
+import IndexStatus from '@components/Shared/IndexStatus'
+import SwitchNetwork from '@components/Shared/SwitchNetwork'
 import { Button } from '@components/UI/Button'
+import { Card, CardBody } from '@components/UI/Card'
+import { ErrorMessage } from '@components/UI/ErrorMessage'
+import { Form, useZodForm } from '@components/UI/Form'
+import { Input } from '@components/UI/Input'
+import { Spinner } from '@components/UI/Spinner'
 import AppContext from '@components/utils/AppContext'
 import {
   CreateSetProfileImageUriBroadcastItemResult,
+  NftImage,
   Profile
 } from '@generated/types'
+import { PencilIcon } from '@heroicons/react/outline'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import trackEvent from '@lib/trackEvent'
 import gql from 'graphql-tag'
-import React, { FC, useContext, useState } from 'react'
+import React, { FC, useContext } from 'react'
 import toast from 'react-hot-toast'
 import {
   CHAIN_ID,
@@ -26,6 +35,14 @@ import {
   useSignMessage,
   useSignTypedData
 } from 'wagmi'
+import { object, string } from 'zod'
+
+const editNftPictureSchema = object({
+  contractAddress: string()
+    .max(42, { message: 'Contract address should be within 42 characters' })
+    .regex(/^0x[a-fA-F0-9]{40}$/, { message: 'Invalid Contract address' }),
+  tokenId: string()
+})
 
 const CREATE_SET_PROFILE_IMAGE_URI_TYPED_DATA_MUTATION = gql`
   mutation CreateSetProfileImageUriTypedData(
@@ -68,13 +85,20 @@ const CHALLENGE_QUERY = gql`
 `
 
 interface Props {
-  profile: Profile
+  profile: Profile & { picture: NftImage }
 }
 
 const NFTPicture: FC<Props> = ({ profile }) => {
+  const form = useZodForm({
+    schema: editNftPictureSchema,
+    defaultValues: {
+      contractAddress: '0x277f5959e22f94d5bd4c2cc0a77c4c71f31da3ac',
+      tokenId: profile?.picture?.tokenId
+    }
+  })
+
   const { currentUser } = useContext(AppContext)
-  const [challengeId, setChallengeId] = useState<string>('')
-  const { data: network, activeChain } = useNetwork()
+  const { activeChain } = useNetwork()
   const { data: account } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
@@ -83,8 +107,9 @@ const NFTPicture: FC<Props> = ({ profile }) => {
   })
   const { signMessageAsync } = useSignMessage()
   const {
-    error,
+    data: writeData,
     isLoading: writeLoading,
+    error,
     write
   } = useContractWrite(
     {
@@ -102,7 +127,7 @@ const NFTPicture: FC<Props> = ({ profile }) => {
       }
     }
   )
-  const [loadChallenge, { error: errorChallenege }] =
+  const [loadChallenge, { loading: challengeLoading }] =
     useLazyQuery(CHALLENGE_QUERY)
 
   const [createSetProfileImageURITypedData, { loading: typedDataLoading }] =
@@ -139,7 +164,7 @@ const NFTPicture: FC<Props> = ({ profile }) => {
       }
     })
 
-  const setAvatar = async () => {
+  const setAvatar = async (contractAddress: string, tokenId: string) => {
     if (!account?.address) {
       toast.error(CONNECT_WALLET)
     } else if (activeChain?.id !== CHAIN_ID) {
@@ -148,10 +173,10 @@ const NFTPicture: FC<Props> = ({ profile }) => {
       const challengeRes = await loadChallenge({
         variables: {
           request: {
-            ethereumAddress: '0x3A5bd1E37b099aE3386D13947b6a90d97675e5e3',
+            ethereumAddress: currentUser?.ownedBy,
             nfts: {
-              contractAddress: '0x277f5959e22f94d5bd4c2cc0a77c4c71f31da3ac',
-              tokenId: '1',
+              contractAddress,
+              tokenId,
               chainId: 80001
             }
           }
@@ -176,9 +201,66 @@ const NFTPicture: FC<Props> = ({ profile }) => {
   }
 
   return (
-    <div className="space-y-1.5">
-      <Button onClick={setAvatar}>Set NFT Avatar</Button>
-    </div>
+    <Card className="space-y-5">
+      <CardBody>
+        <Form
+          form={form}
+          className="space-y-4"
+          onSubmit={({ contractAddress, tokenId }) => {
+            setAvatar(contractAddress, tokenId)
+          }}
+        >
+          {error && (
+            <ErrorMessage
+              className="mb-3"
+              title="Transaction failed!"
+              error={error}
+            />
+          )}
+          <Input
+            label="Contract Address"
+            type="text"
+            placeholder="0x277f5959e22f94d5bd4c2cc0a77c4c71f31da3ac"
+            {...form.register('contractAddress')}
+          />
+          <Input
+            label="Token Id"
+            type="text"
+            placeholder="1"
+            {...form.register('tokenId')}
+          />
+          {activeChain?.id !== CHAIN_ID ? (
+            <SwitchNetwork className="ml-auto" />
+          ) : (
+            <div className="flex flex-col space-y-2">
+              <Button
+                className="ml-auto"
+                type="submit"
+                disabled={
+                  challengeLoading ||
+                  typedDataLoading ||
+                  signLoading ||
+                  writeLoading
+                }
+                icon={
+                  challengeLoading ||
+                  typedDataLoading ||
+                  signLoading ||
+                  writeLoading ? (
+                    <Spinner size="xs" />
+                  ) : (
+                    <PencilIcon className="w-4 h-4" />
+                  )
+                }
+              >
+                Save
+              </Button>
+              {writeData?.hash && <IndexStatus txHash={writeData?.hash} />}
+            </div>
+          )}
+        </Form>
+      </CardBody>
+    </Card>
   )
 }
 
