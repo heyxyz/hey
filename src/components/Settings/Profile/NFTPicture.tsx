@@ -1,26 +1,24 @@
 import LensHubProxy from '@abis/LensHubProxy.json'
-import { gql, useMutation } from '@apollo/client'
-import ChooseFile from '@components/Shared/ChooseFile'
+import { useLazyQuery, useMutation } from '@apollo/client'
 import IndexStatus from '@components/Shared/IndexStatus'
 import SwitchNetwork from '@components/Shared/SwitchNetwork'
 import { Button } from '@components/UI/Button'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
+import { Form, useZodForm } from '@components/UI/Form'
+import { Input } from '@components/UI/Input'
 import { Spinner } from '@components/UI/Spinner'
 import AppContext from '@components/utils/AppContext'
 import {
   CreateSetProfileImageUriBroadcastItemResult,
-  MediaSet,
   NftImage,
   Profile
 } from '@generated/types'
 import { PencilIcon } from '@heroicons/react/outline'
-import consoleLog from '@lib/consoleLog'
-import imagekitURL from '@lib/imagekitURL'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import trackEvent from '@lib/trackEvent'
-import uploadAssetsToIPFS from '@lib/uploadAssetsToIPFS'
-import React, { ChangeEvent, FC, useContext, useEffect, useState } from 'react'
+import gql from 'graphql-tag'
+import React, { FC, useContext } from 'react'
 import toast from 'react-hot-toast'
 import {
   CHAIN_ID,
@@ -33,8 +31,17 @@ import {
   useAccount,
   useContractWrite,
   useNetwork,
+  useSignMessage,
   useSignTypedData
 } from 'wagmi'
+import { object, string } from 'zod'
+
+const editNftPictureSchema = object({
+  contractAddress: string()
+    .max(42, { message: 'Contract address should be within 42 characters' })
+    .regex(/^0x[a-fA-F0-9]{40}$/, { message: 'Invalid Contract address' }),
+  tokenId: string()
+})
 
 const CREATE_SET_PROFILE_IMAGE_URI_TYPED_DATA_MUTATION = gql`
   mutation CreateSetProfileImageUriTypedData(
@@ -67,13 +74,28 @@ const CREATE_SET_PROFILE_IMAGE_URI_TYPED_DATA_MUTATION = gql`
   }
 `
 
+const CHALLENGE_QUERY = gql`
+  query Challenge($request: NftOwnershipChallengeRequest!) {
+    nftOwnershipChallenge(request: $request) {
+      id
+      text
+    }
+  }
+`
+
 interface Props {
-  profile: Profile & { picture: MediaSet & NftImage }
+  profile: Profile & { picture: NftImage }
 }
 
-const Picture: FC<Props> = ({ profile }) => {
-  const [avatar, setAvatar] = useState<string>()
-  const [uploading, setUploading] = useState<boolean>(false)
+const NFTPicture: FC<Props> = ({ profile }) => {
+  const form = useZodForm({
+    schema: editNftPictureSchema,
+    defaultValues: {
+      contractAddress: '0x277f5959e22f94d5bd4c2cc0a77c4c71f31da3ac',
+      tokenId: profile?.picture?.tokenId
+    }
+  })
+
   const { currentUser } = useContext(AppContext)
   const { activeChain } = useNetwork()
   const { data: account } = useAccount()
@@ -82,6 +104,7 @@ const Picture: FC<Props> = ({ profile }) => {
       toast.error(error?.message)
     }
   })
+  const { signMessageAsync } = useSignMessage()
   const {
     data: writeData,
     isLoading: writeLoading,
@@ -103,11 +126,8 @@ const Picture: FC<Props> = ({ profile }) => {
       }
     }
   )
-
-  useEffect(() => {
-    if (profile?.picture?.original?.url || profile?.picture?.uri)
-      setAvatar(profile?.picture?.original?.url ?? profile?.picture?.uri)
-  }, [profile])
+  const [loadChallenge, { loading: challengeLoading }] =
+    useLazyQuery(CHALLENGE_QUERY)
 
   const [createSetProfileImageURITypedData, { loading: typedDataLoading }] =
     useMutation(CREATE_SET_PROFILE_IMAGE_URI_TYPED_DATA_MUTATION, {
@@ -116,12 +136,8 @@ const Picture: FC<Props> = ({ profile }) => {
       }: {
         createSetProfileImageURITypedData: CreateSetProfileImageUriBroadcastItemResult
       }) {
-        consoleLog(
-          'Mutation',
-          '#4ade80',
-          'Generated createSetProfileImageURITypedData'
-        )
         const { typedData } = createSetProfileImageURITypedData
+
         signTypedDataAsync({
           domain: omit(typedData?.domain, '__typename'),
           types: omit(typedData?.types, '__typename'),
@@ -147,66 +163,69 @@ const Picture: FC<Props> = ({ profile }) => {
       }
     })
 
-  const handleUpload = async (evt: ChangeEvent<HTMLInputElement>) => {
-    evt.preventDefault()
-    setUploading(true)
-    try {
-      const attachment = await uploadAssetsToIPFS(evt.target.files![0])
-      setAvatar(attachment.item)
-    } finally {
-      setUploading(false)
-    }
-  }
-
-  const editPicture = (avatar: string | undefined) => {
-    if (!avatar) {
-      toast.error("Avatar can't be empty!")
-    } else if (!account?.address) {
+  const setAvatar = async (contractAddress: string, tokenId: string) => {
+    if (!account?.address) {
       toast.error(CONNECT_WALLET)
     } else if (activeChain?.id !== CHAIN_ID) {
       toast.error(WRONG_NETWORK)
     } else {
-      createSetProfileImageURITypedData({
+      const challengeRes = await loadChallenge({
         variables: {
           request: {
-            profileId: currentUser?.id,
-            url: avatar
+            ethereumAddress: currentUser?.ownedBy,
+            nfts: {
+              contractAddress,
+              tokenId,
+              chainId: 80001
+            }
           }
         }
+      })
+      signMessageAsync({
+        message: challengeRes?.data?.nftOwnershipChallenge?.text
+      }).then((signature) => {
+        createSetProfileImageURITypedData({
+          variables: {
+            request: {
+              profileId: currentUser?.id,
+              nftData: {
+                id: challengeRes?.data?.nftOwnershipChallenge?.id,
+                signature
+              }
+            }
+          }
+        })
       })
     }
   }
 
   return (
-    <>
-      <div className="space-y-1.5">
-        {error && (
-          <ErrorMessage
-            className="mb-3"
-            title="Transaction failed!"
-            error={error}
-          />
-        )}
-        <div className="space-y-3">
-          {avatar && (
-            <div>
-              <img
-                className="w-60 h-60 rounded-lg"
-                src={imagekitURL(avatar, 'avatar')}
-                alt={avatar}
-              />
-            </div>
-          )}
-          <div className="flex items-center space-x-3">
-            <ChooseFile
-              onChange={(evt: ChangeEvent<HTMLInputElement>) =>
-                handleUpload(evt)
-              }
-            />
-            {uploading && <Spinner size="sm" />}
-          </div>
-        </div>
-      </div>
+    <Form
+      form={form}
+      className="space-y-4"
+      onSubmit={({ contractAddress, tokenId }) => {
+        setAvatar(contractAddress, tokenId)
+      }}
+    >
+      {error && (
+        <ErrorMessage
+          className="mb-3"
+          title="Transaction failed!"
+          error={error}
+        />
+      )}
+      <Input
+        label="Contract Address"
+        type="text"
+        placeholder="0x277f5959e22f94d5bd4c2cc0a77c4c71f31da3ac"
+        {...form.register('contractAddress')}
+      />
+      <Input
+        label="Token Id"
+        type="text"
+        placeholder="1"
+        {...form.register('tokenId')}
+      />
       {activeChain?.id !== CHAIN_ID ? (
         <SwitchNetwork className="ml-auto" />
       ) : (
@@ -214,10 +233,17 @@ const Picture: FC<Props> = ({ profile }) => {
           <Button
             className="ml-auto"
             type="submit"
-            disabled={typedDataLoading || signLoading || writeLoading}
-            onClick={() => editPicture(avatar)}
+            disabled={
+              challengeLoading ||
+              typedDataLoading ||
+              signLoading ||
+              writeLoading
+            }
             icon={
-              typedDataLoading || signLoading || writeLoading ? (
+              challengeLoading ||
+              typedDataLoading ||
+              signLoading ||
+              writeLoading ? (
                 <Spinner size="xs" />
               ) : (
                 <PencilIcon className="w-4 h-4" />
@@ -229,8 +255,8 @@ const Picture: FC<Props> = ({ profile }) => {
           {writeData?.hash && <IndexStatus txHash={writeData?.hash} />}
         </div>
       )}
-    </>
+    </Form>
   )
 }
 
-export default Picture
+export default NFTPicture

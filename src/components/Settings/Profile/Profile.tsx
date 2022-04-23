@@ -259,7 +259,7 @@ const Profile: FC<Props> = ({ profile }) => {
 
   return (
     <Card>
-      <CardBody className="space-y-4">
+      <CardBody>
         <Form
           form={form}
           className="space-y-4"
