@@ -5,13 +5,13 @@ import { IGif } from '@giphy/js-types'
 import { Grid } from '@giphy/react-components'
 import { ChangeEvent, Dispatch, FC, useEffect, useState } from 'react'
 
+const giphyFetch = new GiphyFetch('sXpGFDGZs0Dv1mmNFvYaGUvYwKX0PWIh')
+
 interface Props {
   // eslint-disable-next-line no-unused-vars
   setGifAttachment: (gif: IGif) => void
   setShowModal: Dispatch<boolean>
 }
-
-const giphyFetch = new GiphyFetch('sXpGFDGZs0Dv1mmNFvYaGUvYwKX0PWIh')
 
 const GifSelector: FC<Props> = ({ setShowModal, setGifAttachment }) => {
   const [categories, setCategories] = useState<Array<ICategory>>([])

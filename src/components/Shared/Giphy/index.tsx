@@ -7,8 +7,10 @@ import { motion } from 'framer-motion'
 import dynamic from 'next/dynamic'
 import { FC, useState } from 'react'
 
+import Loader from '../Loader'
+
 const GifSelector = dynamic(() => import('./GifSelector'), {
-  loading: () => <div className="m-5 h-5 rounded-lg shimmer" />
+  loading: () => <Loader message="Loading GIFs" />
 })
 
 interface Props {
