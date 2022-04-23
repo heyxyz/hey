@@ -11,6 +11,8 @@ import consoleLog from '@lib/consoleLog'
 import { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 
+import Loader from './Loader'
+
 const COLLECTORS_QUERY = gql`
   query Collectors($request: WhoCollectedPublicationRequest!) {
     whoCollectedPublication(request: $request) {
@@ -73,13 +75,7 @@ const Collectors: FC<Props> = ({ pubId }) => {
     }
   })
 
-  if (loading)
-    return (
-      <div className="p-5 space-y-2 font-bold text-center">
-        <Spinner size="md" className="mx-auto" />
-        <div>Loading collectors</div>
-      </div>
-    )
+  if (loading) return <Loader message="Loading collectors" />
 
   if (data?.whoCollectedPublication?.items?.length === 0)
     return (

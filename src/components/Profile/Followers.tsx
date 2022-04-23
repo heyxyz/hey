@@ -1,4 +1,5 @@
 import { gql, useQuery } from '@apollo/client'
+import Loader from '@components/Shared/Loader'
 import UserProfile from '@components/Shared/UserProfile'
 import WalletProfile from '@components/Shared/WalletProfile'
 import { EmptyState } from '@components/UI/EmptyState'
@@ -76,13 +77,7 @@ const Followers: FC<Props> = ({ profile }) => {
     }
   })
 
-  if (loading)
-    return (
-      <div className="p-5 space-y-2 font-bold text-center">
-        <Spinner size="md" className="mx-auto" />
-        <div>Loading followers</div>
-      </div>
-    )
+  if (loading) return <Loader message="Loading followers" />
 
   if (data?.followers?.items?.length === 0)
     return (
