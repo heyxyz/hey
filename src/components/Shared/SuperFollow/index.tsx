@@ -6,9 +6,10 @@ import dynamic from 'next/dynamic'
 import { Dispatch, FC, useState } from 'react'
 
 import Slug from '../Slug'
+import FollowModuleLoader from './Loader'
 
 const FollowModule = dynamic(() => import('./FollowModule'), {
-  loading: () => <div className="m-5 h-5 rounded-lg shimmer" />
+  loading: () => <FollowModuleLoader />
 })
 
 interface Props {

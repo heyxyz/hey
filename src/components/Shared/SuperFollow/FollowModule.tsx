@@ -35,6 +35,7 @@ import {
 } from 'wagmi'
 
 import Slug from '../Slug'
+import FollowModuleLoader from './Loader'
 
 const SUPER_FOLLOW_QUERY = gql`
   query SuperFollow($request: ProfileQueryRequest!) {
@@ -226,7 +227,7 @@ const FollowModule: FC<Props> = ({
     }
   }
 
-  if (loading) return <div className="m-5 h-5 rounded-lg shimmer" />
+  if (loading) return <FollowModuleLoader />
 
   return (
     <div className="p-5">
@@ -248,7 +249,7 @@ const FollowModule: FC<Props> = ({
         />
         <span className="space-x-1">
           <span className="text-2xl font-bold">
-            {followModule.amount.value}
+            {followModule?.amount?.value}
           </span>
           <span className="text-xs">{followModule?.amount?.asset?.symbol}</span>
         </span>
@@ -258,12 +259,12 @@ const FollowModule: FC<Props> = ({
         <div className="space-x-1.5">
           <span>Recipient:</span>
           <a
-            href={`${POLYGONSCAN_URL}/address/${followModule.recipient}`}
+            href={`${POLYGONSCAN_URL}/address/${followModule?.recipient}`}
             target="_blank"
             className="font-bold text-gray-600"
             rel="noreferrer noopener"
           >
-            {formatAddress(followModule.recipient)}
+            {formatAddress(followModule?.recipient)}
           </a>
         </div>
       </div>
