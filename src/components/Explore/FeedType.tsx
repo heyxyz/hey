@@ -1,7 +1,8 @@
 import {
   ChatAlt2Icon,
   ClockIcon,
-  CollectionIcon
+  CollectionIcon,
+  UserGroupIcon
 } from '@heroicons/react/outline'
 import trackEvent from '@lib/trackEvent'
 import clsx from 'clsx'
@@ -55,6 +56,11 @@ const FeedType: FC<Props> = ({ setFeedType, feedType }) => {
         name="Latest"
         icon={<ClockIcon className="w-4 h-4" />}
         type="LATEST"
+      />
+      <FeedLink
+        name="Top Users"
+        icon={<UserGroupIcon className="w-4 h-4" />}
+        type="TOP_USERS"
       />
     </div>
   )
