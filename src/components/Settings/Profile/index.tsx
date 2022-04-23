@@ -1,11 +1,12 @@
 import { gql, useQuery } from '@apollo/client'
 import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout'
+import { Card, CardBody } from '@components/UI/Card'
 import { PageLoading } from '@components/UI/PageLoading'
 import AppContext from '@components/utils/AppContext'
 import SEO from '@components/utils/SEO'
 import consoleLog from '@lib/consoleLog'
 import { NextPage } from 'next'
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import Custom404 from 'src/pages/404'
 import Custom500 from 'src/pages/500'
 
@@ -53,11 +54,13 @@ const PROFILE_SETTINGS_QUERY = gql`
 
 const ProfileSettings: NextPage = () => {
   const { currentUser } = useContext(AppContext)
+  const [nftSettings, setNftSettings] = useState<boolean>(false)
   const { data, loading, error } = useQuery(PROFILE_SETTINGS_QUERY, {
     variables: { request: { profileIds: currentUser?.id } },
     skip: !currentUser?.id,
-    onCompleted() {
+    onCompleted(data) {
       consoleLog('Query', '#8b5cf6', `Fetched profile settings`)
+      setNftSettings(!!data?.profiles?.items[0]?.picture?.uri)
     }
   })
 
@@ -75,8 +78,15 @@ const ProfileSettings: NextPage = () => {
       </GridItemFour>
       <GridItemEight className="space-y-5">
         <Profile profile={profile} />
-        <Picture profile={profile} />
-        <NFTPicture profile={profile} />
+        <Card>
+          <CardBody>
+            {nftSettings ? (
+              <NFTPicture profile={profile} />
+            ) : (
+              <Picture profile={profile} />
+            )}
+          </CardBody>
+        </Card>
       </GridItemEight>
     </GridLayout>
   )

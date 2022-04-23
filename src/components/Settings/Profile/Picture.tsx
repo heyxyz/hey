@@ -4,7 +4,6 @@ import ChooseFile from '@components/Shared/ChooseFile'
 import IndexStatus from '@components/Shared/IndexStatus'
 import SwitchNetwork from '@components/Shared/SwitchNetwork'
 import { Button } from '@components/UI/Button'
-import { Card, CardBody } from '@components/UI/Card'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { Spinner } from '@components/UI/Spinner'
 import AppContext from '@components/utils/AppContext'
@@ -179,61 +178,59 @@ const Picture: FC<Props> = ({ profile }) => {
   }
 
   return (
-    <Card className="space-y-5">
-      <CardBody className="space-y-4">
-        {error && (
-          <ErrorMessage
-            className="mb-3"
-            title="Transaction failed!"
-            error={error}
-          />
-        )}
-        <div className="space-y-1.5">
-          <div className="label">Avatar</div>
-          <div className="space-y-3">
-            {avatar && (
-              <div>
-                <img
-                  className="w-60 h-60 rounded-lg"
-                  src={imagekitURL(avatar, 'avatar')}
-                  alt={avatar}
-                />
-              </div>
-            )}
-            <div className="flex items-center space-x-3">
-              <ChooseFile
-                onChange={(evt: ChangeEvent<HTMLInputElement>) =>
-                  handleUpload(evt)
-                }
+    <>
+      {error && (
+        <ErrorMessage
+          className="mb-3"
+          title="Transaction failed!"
+          error={error}
+        />
+      )}
+      <div className="space-y-1.5">
+        <div className="label">Avatar</div>
+        <div className="space-y-3">
+          {avatar && (
+            <div>
+              <img
+                className="w-60 h-60 rounded-lg"
+                src={imagekitURL(avatar, 'avatar')}
+                alt={avatar}
               />
-              {uploading && <Spinner size="sm" />}
             </div>
+          )}
+          <div className="flex items-center space-x-3">
+            <ChooseFile
+              onChange={(evt: ChangeEvent<HTMLInputElement>) =>
+                handleUpload(evt)
+              }
+            />
+            {uploading && <Spinner size="sm" />}
           </div>
         </div>
-        {activeChain?.id !== CHAIN_ID ? (
-          <SwitchNetwork className="ml-auto" />
-        ) : (
-          <div className="flex flex-col space-y-2">
-            <Button
-              className="ml-auto"
-              type="submit"
-              disabled={typedDataLoading || signLoading || writeLoading}
-              onClick={() => editPicture(avatar)}
-              icon={
-                typedDataLoading || signLoading || writeLoading ? (
-                  <Spinner size="xs" />
-                ) : (
-                  <PencilIcon className="w-4 h-4" />
-                )
-              }
-            >
-              Save
-            </Button>
-            {writeData?.hash && <IndexStatus txHash={writeData?.hash} />}
-          </div>
-        )}
-      </CardBody>
-    </Card>
+      </div>
+      {activeChain?.id !== CHAIN_ID ? (
+        <SwitchNetwork className="ml-auto" />
+      ) : (
+        <div className="flex flex-col space-y-2">
+          <Button
+            className="ml-auto"
+            type="submit"
+            disabled={typedDataLoading || signLoading || writeLoading}
+            onClick={() => editPicture(avatar)}
+            icon={
+              typedDataLoading || signLoading || writeLoading ? (
+                <Spinner size="xs" />
+              ) : (
+                <PencilIcon className="w-4 h-4" />
+              )
+            }
+          >
+            Save
+          </Button>
+          {writeData?.hash && <IndexStatus txHash={writeData?.hash} />}
+        </div>
+      )}
+    </>
   )
 }
 
