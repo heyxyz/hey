@@ -2,6 +2,8 @@ import LensHubProxy from '@abis/LensHubProxy.json'
 import { gql, useMutation, useQuery } from '@apollo/client'
 import { ALLOWANCE_SETTINGS_QUERY } from '@components/Settings/Allowance'
 import AllowanceButton from '@components/Settings/Allowance/Button'
+import IndexStatus from '@components/Shared/IndexStatus'
+import Loader from '@components/Shared/Loader'
 import ReferenceAlert from '@components/Shared/ReferenceAlert'
 import ReferralAlert from '@components/Shared/ReferralAlert'
 import { Button } from '@components/UI/Button'
@@ -42,8 +44,6 @@ import {
   useNetwork,
   useSignTypedData
 } from 'wagmi'
-
-import IndexStatus from '../../../Shared/IndexStatus'
 
 export const COLLECT_QUERY = gql`
   query CollectModule($request: PublicationQueryRequest!) {
@@ -229,7 +229,7 @@ const CollectModule: FC<Props> = ({ post }) => {
     }
   }
 
-  if (loading) return <div className="m-5 h-5 rounded-lg shimmer" />
+  if (loading) return <Loader message="Loading collect" />
 
   return (
     <>
