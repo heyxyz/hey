@@ -202,7 +202,8 @@ const NFTPicture: FC<Props> = ({ profile }) => {
 
   return (
     <Card className="space-y-5">
-      <CardBody>
+      <CardBody className="space-y-5">
+        <div className="text-lg font-bold">Set NFT avatar</div>
         <Form
           form={form}
           className="space-y-4"
