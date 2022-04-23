@@ -42,7 +42,6 @@ const PROFILE_SETTINGS_QUERY = gql`
           }
           ... on NftImage {
             uri
-            chainId
           }
         }
       }
