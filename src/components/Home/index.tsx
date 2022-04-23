@@ -6,6 +6,7 @@ import { NextPage } from 'next'
 import React, { useContext } from 'react'
 
 import Hero from './Hero'
+import Logos from './Logos'
 
 const Home: NextPage = () => {
   const { currentUser } = useContext(AppContext)
@@ -14,6 +15,7 @@ const Home: NextPage = () => {
     <>
       <SEO />
       {!currentUser && <Hero />}
+      <Logos />
       <GridLayout>
         <Sponsors></Sponsors>
       </GridLayout>
