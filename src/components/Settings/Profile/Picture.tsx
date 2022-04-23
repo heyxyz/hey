@@ -179,14 +179,14 @@ const Picture: FC<Props> = ({ profile }) => {
 
   return (
     <>
-      {error && (
-        <ErrorMessage
-          className="mb-3"
-          title="Transaction failed!"
-          error={error}
-        />
-      )}
       <div className="space-y-1.5">
+        {error && (
+          <ErrorMessage
+            className="mb-3"
+            title="Transaction failed!"
+            error={error}
+          />
+        )}
         <div className="space-y-3">
           {avatar && (
             <div>
