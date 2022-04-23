@@ -34,8 +34,8 @@ import {
   useSignTypedData
 } from 'wagmi'
 
+import Loader from '../Loader'
 import Slug from '../Slug'
-import FollowModuleLoader from './Loader'
 
 const SUPER_FOLLOW_QUERY = gql`
   query SuperFollow($request: ProfileQueryRequest!) {
@@ -227,7 +227,7 @@ const FollowModule: FC<Props> = ({
     }
   }
 
-  if (loading) return <FollowModuleLoader />
+  if (loading) return <Loader message="Loading super follow" />
 
   return (
     <div className="p-5">

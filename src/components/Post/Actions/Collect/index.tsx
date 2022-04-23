@@ -1,3 +1,4 @@
+import Loader from '@components/Shared/Loader'
 import { Modal } from '@components/UI/Modal'
 import { Tooltip } from '@components/UI/Tooltip'
 import GetModuleIcon from '@components/utils/GetModuleIcon'
@@ -10,7 +11,7 @@ import dynamic from 'next/dynamic'
 import { FC, useState } from 'react'
 
 const CollectModule = dynamic(() => import('./CollectModule'), {
-  loading: () => <div className="m-5 h-5 rounded-lg shimmer" />
+  loading: () => <Loader message="Loading collect" />
 })
 
 interface Props {

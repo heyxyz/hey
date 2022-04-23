@@ -5,11 +5,11 @@ import { StarIcon } from '@heroicons/react/outline'
 import dynamic from 'next/dynamic'
 import { Dispatch, FC, useState } from 'react'
 
+import Loader from '../Loader'
 import Slug from '../Slug'
-import FollowModuleLoader from './Loader'
 
 const FollowModule = dynamic(() => import('./FollowModule'), {
-  loading: () => <FollowModuleLoader />
+  loading: () => <Loader message="Loading super follow" />
 })
 
 interface Props {
