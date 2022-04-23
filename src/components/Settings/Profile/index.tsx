@@ -40,6 +40,9 @@ const PROFILE_SETTINGS_QUERY = gql`
               url
             }
           }
+          ... on NftImage {
+            uri
+          }
         }
       }
     }

@@ -44,6 +44,9 @@ export const PROFILE_QUERY = gql`
               url
             }
           }
+          ... on NftImage {
+            uri
+          }
         }
         coverPicture {
           ... on MediaSet {

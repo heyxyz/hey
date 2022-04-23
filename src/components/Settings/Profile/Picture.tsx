@@ -36,6 +36,8 @@ import {
   useSignTypedData
 } from 'wagmi'
 
+import NFTPicture from './NFTPicture'
+
 const CREATE_SET_PROFILE_IMAGE_URI_TYPED_DATA_MUTATION = gql`
   mutation CreateSetProfileImageUriTypedData(
     $request: UpdateProfileImageRequest!
@@ -189,6 +191,7 @@ const Picture: FC<Props> = ({ profile }) => {
         )}
         <div className="space-y-1.5">
           <div className="label">Avatar</div>
+          <NFTPicture profile={profile} />
           <div className="space-y-3">
             {avatar && (
               <div>
