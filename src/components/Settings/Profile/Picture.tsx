@@ -11,6 +11,7 @@ import AppContext from '@components/utils/AppContext'
 import {
   CreateSetProfileImageUriBroadcastItemResult,
   MediaSet,
+  NftImage,
   Profile
 } from '@generated/types'
 import { PencilIcon } from '@heroicons/react/outline'
@@ -70,7 +71,7 @@ const CREATE_SET_PROFILE_IMAGE_URI_TYPED_DATA_MUTATION = gql`
 `
 
 interface Props {
-  profile: Profile & { picture: MediaSet }
+  profile: Profile & { picture: MediaSet & NftImage }
 }
 
 const Picture: FC<Props> = ({ profile }) => {
@@ -107,8 +108,8 @@ const Picture: FC<Props> = ({ profile }) => {
   )
 
   useEffect(() => {
-    if (profile?.picture?.original?.url)
-      setAvatar(profile?.picture?.original?.url)
+    if (profile?.picture?.original?.url || profile?.picture?.uri)
+      setAvatar(profile?.picture?.original?.url ?? profile?.picture?.uri)
   }, [profile])
 
   const [createSetProfileImageURITypedData, { loading: typedDataLoading }] =

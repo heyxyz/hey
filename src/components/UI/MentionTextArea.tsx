@@ -2,7 +2,7 @@ import { useLazyQuery } from '@apollo/client'
 import { SEARCH_USERS_QUERY } from '@components/Shared/Navbar/Search'
 import Slug from '@components/Shared/Slug'
 import { UserSuggestion } from '@generated/lenstertypes'
-import { MediaSet, Profile } from '@generated/types'
+import { MediaSet, NftImage, Profile } from '@generated/types'
 import { BadgeCheckIcon } from '@heroicons/react/solid'
 import consoleLog from '@lib/consoleLog'
 import imagekitURL from '@lib/imagekitURL'
@@ -72,15 +72,18 @@ export const MentionTextArea: FC<Props> = ({
       variables: { request: { type: 'PROFILE', query, limit: 5 } }
     })
       .then(({ data }) =>
-        data?.search?.items?.map((user: Profile & { picture: MediaSet }) => ({
-          uid: user.id,
-          id: user.handle,
-          display: user.handle,
-          name: user?.name ?? user?.handle,
-          picture:
-            user?.picture?.original?.url ??
-            `https://avatar.tobi.sh/${user?.handle}.png`
-        }))
+        data?.search?.items?.map(
+          (user: Profile & { picture: MediaSet & NftImage }) => ({
+            uid: user.id,
+            id: user.handle,
+            display: user.handle,
+            name: user?.name ?? user?.handle,
+            picture:
+              user?.picture?.original?.url ??
+              user?.picture?.uri ??
+              `https://avatar.tobi.sh/${user?.handle}.png`
+          })
+        )
       )
       .then(callback)
   }
