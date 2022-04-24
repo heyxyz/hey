@@ -13,17 +13,7 @@ import React, { FC, useEffect, useState } from 'react'
 }
 */
 const APIURL = 'https://api.thegraph.com/subgraphs/name/anudit/lens-protocol'
-const EXPLORE_POSTS_QUERY = gql`
-  query {
-    posts(first: 10, orderBy: timestamp, orderDirection: desc) {
-      id
-      profileId {
-        id
-        creator
-      }
-    }
-  }
-`
+
 const EXPLORE_PROFILES_QUERY = gql`
   query {
     profiles(first: 10, orderBy: pubCount) {
@@ -50,19 +40,9 @@ const Dashboard: FC<Props> = ({ feedType = 'TOP_USERS' }) => {
   useEffect(() => {
     const fetchData = async () => {
       const data = await client.query({
-        query:
-          'EXPLORE_PROFILES_QUERY' === query
-            ? EXPLORE_PROFILES_QUERY
-            : EXPLORE_POSTS_QUERY
+        query: EXPLORE_PROFILES_QUERY
       })
-      switch (query) {
-        case 'EXPLORE_PROFILES_QUERY':
-          setData(data.data.profiles)
-          break
-        default:
-          setData(data.data.posts)
-          break
-      }
+      setData(data.data.profiles)
     }
 
     fetchData()

@@ -63,6 +63,11 @@ const Navbar: FC = () => {
           name="Communities"
           current={pathname == '/communities'}
         />
+        <NavItem
+          url="/pushnotifications"
+          name="Push Notifications"
+          current={pathname == '/pushnotifications'}
+        />
         <MoreNavItems />
       </>
     )
