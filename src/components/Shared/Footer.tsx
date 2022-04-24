@@ -12,7 +12,8 @@ const Footer: FC = () => {
       }`}
     >
       <span className="font-bold text-gray-500 dark:text-gray-300">
-        © Lenster
+        Lensterdam fun project for ETHAmsterdam
+        <br />© Lenster
       </span>
       <span>
         <Link href="/about">

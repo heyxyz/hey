@@ -1,9 +1,4 @@
-import {
-  GridItemEight,
-  GridItemFour,
-  GridLayout,
-  GridItemTwo
-} from '@components/GridLayout'
+import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout'
 import RecommendedProfiles from '@components/Home/RecommendedProfiles'
 import Footer from '@components/Shared/Footer'
 import SEO from '@components/utils/SEO'
@@ -40,9 +35,9 @@ const Explore: NextPage = () => {
           <Feed feedType={feedType} />
         </GridItemEight>
       ) : (
-        <Dashboard feedType={feedType} />
-        // <GridItemTwo className="space-y-5">
-        // </GridItemTwo>
+        <GridItemEight className="space-y-5">
+          <Dashboard feedType={feedType} />
+        </GridItemEight>
       )}
       <GridItemFour>
         <RecommendedProfiles />

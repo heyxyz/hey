@@ -13,6 +13,7 @@ import Details from './Details'
 import Feed from './Feed'
 import FeedType from './FeedType'
 import NFTFeed from './NFTFeed'
+import POAPFeed from './POAPFeed'
 import ProfilePageShimmer from './Shimmer'
 
 export const PROFILE_QUERY = gql`
@@ -114,6 +115,7 @@ const ViewProfile: NextPage = () => {
             <Feed profile={profile} type={feedType} />
           )}
           {feedType === 'NFT' && <NFTFeed profile={profile} />}
+          {feedType === 'POAP' && <POAPFeed profile={profile} />}
         </GridItemEight>
       </GridLayout>
     </>

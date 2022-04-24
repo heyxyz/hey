@@ -1,5 +1,5 @@
 {
-  "name": "lenster",
+  "name": "lensterdam",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -29,6 +29,7 @@
     "@web3-react/core": "^6.1.9",
     "@web3-react/injected-connector": "^6.0.7",
     "clsx": "^1.1.1",
+    "cross-fetch": "^3.1.5",
     "dayjs": "^1.11.1",
     "dotenv": "^16.0.0",
     "ethers": "^5.6.4",
