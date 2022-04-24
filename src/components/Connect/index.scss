@@ -1,0 +1,45 @@
+.metamask__window {
+  button[disabled] {
+    cursor: auto;
+  }
+
+  /* wallet button styles */
+  #walletButton {
+    text-align: right;
+    margin-bottom: 50px;
+    line-height: 16px;
+    display: flex;
+    max-height: unset;
+    padding: 7px 50px;
+    color: #014c37;
+    box-shadow: none;
+    margin-bottom: 0;
+    border-radius: 10px;
+    background-color: #f3efe2;
+    transition: ease-in 200ms;
+    align-items: center;
+    border: 2px solid rgb(226, 8, 128);
+    background: none;
+    color: black;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  #walletButton.--active {
+    background-color: rgb(226, 8, 128);
+    color: white;
+  }
+
+  #walletButton:hover {
+    background-color: rgb(226, 8, 128);
+    color: white;
+  }
+
+  #walletButton img {
+    height: 35px;
+    margin-right: 8px;
+    transition: ease-in 200ms;
+  }
+  /* wallet button styles */
+}

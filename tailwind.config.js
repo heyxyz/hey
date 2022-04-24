@@ -7,10 +7,10 @@ module.exports = {
     extend: {
       colors: {
         gray: colors.zinc,
-        green: colors.emerald,
+        green: colors.green,
         purple: colors.violet,
         yellow: colors.yellow,
-        brand: colors.violet
+        brand: colors.green
       },
       typography(theme) {
         return {

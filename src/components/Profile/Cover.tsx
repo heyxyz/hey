@@ -16,7 +16,7 @@ const Cover: FC<Props> = ({ cover }) => {
             ? imagekitURL(cover, 'cover')
             : `${STATIC_ASSETS}/patterns/2.svg`
         })`,
-        backgroundColor: '#8b5cf6',
+        backgroundColor: '#abfd2c',
         backgroundSize: cover ? 'cover' : '30%',
         backgroundPosition: 'center center',
         backgroundRepeat: cover ? 'no-repeat' : 'repeat'
