@@ -1,6 +1,7 @@
 <div align="center">
     <img src="public/logo.svg" height="70" alt="Lenster Logo">
-    <h1>Lenster</h1>
+    <h1>LensterDAM</h1>
+    <strong>Making the web3 social media more decentralized with EPNS and The Grpah</strong>
     <strong>Decentralized, and permissionless social media app 🌿</strong>
 </div>
 <br>
