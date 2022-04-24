@@ -2,7 +2,7 @@ import { gql, useQuery } from '@apollo/client'
 import Feed from '@components/Explore/Feed'
 import MinimalFeed from '@components/Explore/MinimalFeed'
 import { GridLayout } from '@components/GridLayout'
-import { GridItemTwelve } from '@components/GridLayout'
+import { GridItemFour, GridItemTwelve } from '@components/GridLayout'
 import Details from '@components/Profile/Details'
 import Sponsors from '@components/Shared/Sponsors'
 import { Card, CardBody } from '@components/UI/Card'
@@ -96,7 +96,7 @@ const Home: NextPage = () => {
       )}
       {currentUser && (
         <div
-          className="flex justify-between space-x-8 p-10"
+          className="flex justify-between space-x-3 p-10"
           style={{ maxHeight: '600px' }}
         >
           {/* PROFILE CARD */}
@@ -128,7 +128,7 @@ const Home: NextPage = () => {
               <GridLayout className="pt-6">
                 <GridItemTwelve className="space-y-5">
                   <h1>YOUR FRIENDS RECENT ACTIVITIES</h1>
-                  <MinimalFeed feedType="LATEST" />
+                  <Feed feedType="LATEST" />
                 </GridItemTwelve>
               </GridLayout>
             </CardBody>
@@ -139,10 +139,10 @@ const Home: NextPage = () => {
       <div className="p-5">
         <Card>
           <CardBody className="space-y-6">
-            <GridItemTwelve className="space-y-5">
+            <GridItemFour className="space-y-5">
               <h1>Filters</h1>
-              <Feed feedType="LATEST" />
-            </GridItemTwelve>
+              <MinimalFeed feedType="LATEST" />
+            </GridItemFour>
           </CardBody>
         </Card>
       </div>

@@ -1,9 +1,8 @@
 import { gql, useQuery } from '@apollo/client'
-import SinglePost from '@components/Post/SinglePost'
+import MinimalSinglePost from '@components/Post/MinimalSinglePost'
 import PostsShimmer from '@components/Shared/Shimmer/PostsShimmer'
 import { EmptyState } from '@components/UI/EmptyState'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
-import { Spinner } from '@components/UI/Spinner'
 import { LensterPost } from '@generated/lenstertypes'
 import { PaginatedResultInfo } from '@generated/types'
 import { CommentFields } from '@gql/CommentFields'
@@ -49,7 +48,7 @@ const Feed: FC<Props> = ({ feedType = 'TOP_COMMENTED' }) => {
     variables: {
       request: {
         sortCriteria: feedType,
-        limit: 10,
+        limit: 5,
         noRandomize: feedType === 'LATEST'
       }
     },
@@ -59,7 +58,7 @@ const Feed: FC<Props> = ({ feedType = 'TOP_COMMENTED' }) => {
       consoleLog(
         'Query',
         '#8b5cf6',
-        `Fetched first 10 explore publications FeedType:${feedType}`
+        `Fetched first 5 explore publications FeedType:${feedType}`
       )
     }
   })
@@ -72,7 +71,7 @@ const Feed: FC<Props> = ({ feedType = 'TOP_COMMENTED' }) => {
           request: {
             sortCriteria: feedType,
             cursor: pageInfo?.next,
-            limit: 10,
+            limit: 5,
             noRandomize: feedType === 'LATEST'
           }
         }
@@ -102,14 +101,9 @@ const Feed: FC<Props> = ({ feedType = 'TOP_COMMENTED' }) => {
         <>
           <div className="space-y-3">
             {publications?.map((post: LensterPost, index: number) => (
-              <SinglePost key={`${post?.id}_${index}`} post={post} />
+              <MinimalSinglePost key={`${post?.id}_${index}`} post={post} />
             ))}
           </div>
-          {pageInfo?.next && (
-            <span ref={observe} className="flex justify-center p-5">
-              <Spinner size="sm" />
-            </span>
-          )}
         </>
       )}
     </>

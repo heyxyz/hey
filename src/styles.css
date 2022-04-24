@@ -94,3 +94,10 @@ body {
 .mention-input__suggestions__list {
   @apply divide-y dark:divide-gray-700/80;
 }
+
+.venueBackgroundImage {
+  width: 100%;
+  display: block;
+  background-image: cointains;
+  background-size: cover;
+}

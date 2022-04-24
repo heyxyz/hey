@@ -1,5 +1,5 @@
 import { gql, useQuery } from '@apollo/client'
-import MinimalSinglePost from '@components/Post/MinimalSinglePost'
+import MinimalRecommendedPost from '@components/Post/MinimalRecommendedPost'
 import PostsShimmer from '@components/Shared/Shimmer/PostsShimmer'
 import { EmptyState } from '@components/UI/EmptyState'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
@@ -48,7 +48,7 @@ const Feed: FC<Props> = ({ feedType = 'TOP_COMMENTED' }) => {
     variables: {
       request: {
         sortCriteria: feedType,
-        limit: 5,
+        limit: 3,
         noRandomize: feedType === 'LATEST'
       }
     },
@@ -71,7 +71,7 @@ const Feed: FC<Props> = ({ feedType = 'TOP_COMMENTED' }) => {
           request: {
             sortCriteria: feedType,
             cursor: pageInfo?.next,
-            limit: 5,
+            limit: 3,
             noRandomize: feedType === 'LATEST'
           }
         }
@@ -99,9 +99,12 @@ const Feed: FC<Props> = ({ feedType = 'TOP_COMMENTED' }) => {
       <ErrorMessage title="Failed to load explore feed" error={error} />
       {!error && !loading && (
         <>
-          <div className="space-y-3">
+          <div className="flex space-y-3 gap-3 justify-between">
             {publications?.map((post: LensterPost, index: number) => (
-              <MinimalSinglePost key={`${post?.id}_${index}`} post={post} />
+              <MinimalRecommendedPost
+                key={`${post?.id}_${index}`}
+                post={post}
+              />
             ))}
           </div>
         </>
