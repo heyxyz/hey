@@ -223,7 +223,7 @@ const Details: FC<Props> = ({ profile }) => {
               }
             >
               <a
-                href={profile?.twitter}
+                href={`https://twitter.com/${profile?.twitter}`}
                 target="_blank"
                 rel="noreferrer noopener"
               >
