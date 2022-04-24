@@ -27,6 +27,10 @@ body {
   @apply hover:text-brand-600 dark:hover:text-brand-500;
 }
 
+#__next {
+  overflow: hidden;
+}
+
 .identicon {
   width: 100% !important;
   height: 100% !important;
@@ -42,12 +46,11 @@ body {
     url('/bg-hero.png');
   background-size: cover;
   height: 500px;
-
 }
 
 .banner-text {
-  padding-top:40px;
-  padding-bottom:40px;
+  padding-top: 40px;
+  padding-bottom: 40px;
 }
 
 .bg-logos {
