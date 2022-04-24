@@ -1,5 +1,5 @@
 {
-  "name": "lenster",
+  "name": "lensterdam",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -25,6 +25,7 @@
     "@tippyjs/react": "^4.2.6",
     "@types/react-mentions": "^4.1.6",
     "clsx": "^1.1.1",
+    "cross-fetch": "^3.1.5",
     "dayjs": "^1.11.1",
     "dotenv": "^16.0.0",
     "ethers": "^5.6.4",
