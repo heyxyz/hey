@@ -59,7 +59,7 @@
     "@tailwindcss/forms": "^0.5.0",
     "@tailwindcss/line-clamp": "^0.3.1",
     "@types/linkifyjs": "^2.1.4",
-    "@types/node": "^17.0.25",
+    "@types/node": "^17.0.26",
     "@types/react": "^18.0.6",
     "@types/react-copy-to-clipboard": "^5.0.2",
     "@types/react-dom": "^18.0.2",
