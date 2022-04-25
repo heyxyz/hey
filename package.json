@@ -29,7 +29,7 @@
     "dotenv": "^16.0.0",
     "ethers": "^5.6.4",
     "framer-motion": "^6.3.1",
-    "graphql": "^16.3.0",
+    "graphql": "^16.4.0",
     "ipfs-http-client": "54.0.2",
     "jwt-decode": "^3.1.2",
     "linkify-plugin-hashtag": "^3.0.4",
