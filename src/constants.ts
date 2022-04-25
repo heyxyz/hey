@@ -41,12 +41,12 @@ export const INFURA_ID = '1423f014ff0243e3b7ab20fbb3f8656f'
 export const POLYGON_MAINNET = {
   ...chain.polygon,
   name: 'Polygon Mainnet',
-  rpcUrls: { default: ['https://polygon-rpc.com'] }
+  rpcUrls: { default: 'https://polygon-rpc.com' }
 }
 export const POLYGON_MUMBAI = {
   ...chain.polygonMumbai,
   name: 'Polygon Mumbai',
-  rpcUrls: { default: ['https://rpc-mumbai.maticvigil.com'] }
+  rpcUrls: { default: 'https://rpc-mumbai.maticvigil.com' }
 }
 export const CHAIN_ID = IS_MAINNET ? POLYGON_MAINNET.id : POLYGON_MUMBAI.id
 
