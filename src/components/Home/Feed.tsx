@@ -84,7 +84,7 @@ const Feed: FC = () => {
 
   return (
     <>
-      {currentUser && <NewPost refetch={refetch} />}
+      {currentUser && <NewPost />}
       {loading && <PostsShimmer />}
       {data?.timeline?.items?.length === 0 && (
         <EmptyState

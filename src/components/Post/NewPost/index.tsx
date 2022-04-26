@@ -95,12 +95,11 @@ export const CREATE_POST_TYPED_DATA_MUTATION = gql`
 `
 
 interface Props {
-  refetch?: any
   setShowModal?: Dispatch<boolean>
   hideCard?: boolean
 }
 
-const NewPost: FC<Props> = ({ refetch, setShowModal, hideCard = false }) => {
+const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
   const [postContent, setPostContent] = useState<string>('')
   const [postContentError, setPostContentError] = useState<string>('')
   const [selectedModule, setSelectedModule] =
@@ -287,7 +286,6 @@ const NewPost: FC<Props> = ({ refetch, setShowModal, hideCard = false }) => {
               {data?.hash && (
                 <PubIndexStatus
                   setShowModal={setShowModal}
-                  refetch={refetch}
                   type="Post"
                   txHash={data?.hash}
                 />

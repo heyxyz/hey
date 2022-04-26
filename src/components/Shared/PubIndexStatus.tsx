@@ -20,12 +20,11 @@ export const TX_STATUS_QUERY = gql`
 
 interface Props {
   setShowModal?: Dispatch<boolean>
-  refetch?: any
   type: string
   txHash: string
 }
 
-const PubIndexStatus: FC<Props> = ({ setShowModal, refetch, type, txHash }) => {
+const PubIndexStatus: FC<Props> = ({ setShowModal, type, txHash }) => {
   const { push } = useRouter()
   const [pollInterval, setPollInterval] = useState<number>(500)
   const { data, loading } = useQuery(TX_STATUS_QUERY, {
@@ -38,10 +37,8 @@ const PubIndexStatus: FC<Props> = ({ setShowModal, refetch, type, txHash }) => {
         setPollInterval(0)
         if (setShowModal) {
           setShowModal(false)
-          push(`/posts/${data?.publication?.id}`)
-        } else {
-          refetch && refetch()
         }
+        push(`/posts/${data?.publication?.id}`)
       }
     }
   })

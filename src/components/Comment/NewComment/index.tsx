@@ -100,12 +100,11 @@ const CREATE_COMMENT_TYPED_DATA_MUTATION = gql`
 `
 
 interface Props {
-  refetch: any
   post: LensterPost
   type: 'comment' | 'community post'
 }
 
-const NewComment: FC<Props> = ({ refetch, post, type }) => {
+const NewComment: FC<Props> = ({ post, type }) => {
   const [commentContent, setCommentContent] = useState<string>('')
   const [commentContentError, setCommentContentError] = useState<string>('')
   const { currentUser } = useContext(AppContext)
@@ -296,7 +295,6 @@ const NewComment: FC<Props> = ({ refetch, post, type }) => {
             <div className="flex items-center pt-2 ml-auto space-x-2 sm:pt-0">
               {data?.hash && (
                 <PubIndexStatus
-                  refetch={refetch}
                   type={type === 'comment' ? 'Comment' : 'Post'}
                   txHash={data?.hash}
                 />
