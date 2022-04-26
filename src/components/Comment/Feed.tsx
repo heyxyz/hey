@@ -52,24 +52,21 @@ const Feed: FC<Props> = ({
   const { currentUser } = useContext(AppContext)
   const [publications, setPublications] = useState<LensterPost[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
-  const { data, loading, error, fetchMore, refetch } = useQuery(
-    COMMENT_FEED_QUERY,
-    {
-      variables: {
-        request: { commentsOf: id, limit: 10 }
-      },
-      skip: !id,
-      onCompleted(data) {
-        setPageInfo(data?.publications?.pageInfo)
-        setPublications(data?.publications?.items)
-        consoleLog(
-          'Query',
-          '#8b5cf6',
-          `Fetched first 10 comments of Publication:${id}`
-        )
-      }
+  const { data, loading, error, fetchMore } = useQuery(COMMENT_FEED_QUERY, {
+    variables: {
+      request: { commentsOf: id, limit: 10 }
+    },
+    skip: !id,
+    onCompleted(data) {
+      setPageInfo(data?.publications?.pageInfo)
+      setPublications(data?.publications?.items)
+      consoleLog(
+        'Query',
+        '#8b5cf6',
+        `Fetched first 10 comments of Publication:${id}`
+      )
     }
-  )
+  })
 
   const { observe } = useInView({
     threshold: 1,
@@ -98,7 +95,7 @@ const Feed: FC<Props> = ({
     <>
       {currentUser &&
         (isFollowing || !onlyFollowers ? (
-          <NewComment refetch={refetch} post={post} type={type} />
+          <NewComment post={post} type={type} />
         ) : (
           <ReferenceAlert
             handle={post?.profile?.handle}
