@@ -31,7 +31,7 @@ const Commented: FC<Props> = ({ post }) => {
         <Link href={`/posts/${commentOn?.id ?? commentOn?.pubId}`}>
           <a
             href={`/posts/${commentOn?.id ?? commentOn?.pubId}`}
-            className="line-clamp-1"
+            className="line-clamp-1 break-all"
           >
             {commentOn?.metadata?.content?.trim()
               ? commentOn?.metadata?.content
