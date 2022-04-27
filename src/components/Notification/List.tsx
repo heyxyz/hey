@@ -9,7 +9,7 @@ import { MinimalProfileFields } from '@gql/MinimalProfileFields'
 import { Menu } from '@headlessui/react'
 import { MailIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
-import { FC, useContext, useEffect, useState } from 'react'
+import { FC, useContext, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 
 import NotificationShimmer from './Shimmer'
@@ -161,23 +161,17 @@ const List: FC = () => {
   const { currentUser } = useContext(AppContext)
   const [notifications, setNotifications] = useState<Notification[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
-  const { data, loading, error, fetchMore, refetch } = useQuery(
-    NOTIFICATIONS_QUERY,
-    {
-      variables: {
-        request: { profileId: currentUser?.id, limit: 10 }
-      },
-      onCompleted(data) {
-        setPageInfo(data?.notifications?.pageInfo)
-        setNotifications(data?.notifications?.items)
-        consoleLog('Query', '#8b5cf6', `Fetched first 10 notifications`)
-      }
+  const { data, loading, error, fetchMore } = useQuery(NOTIFICATIONS_QUERY, {
+    variables: {
+      request: { profileId: currentUser?.id, limit: 10 }
+    },
+    fetchPolicy: 'no-cache',
+    onCompleted(data) {
+      setPageInfo(data?.notifications?.pageInfo)
+      setNotifications(data?.notifications?.items)
+      consoleLog('Query', '#8b5cf6', `Fetched first 10 notifications`)
     }
-  )
-
-  useEffect(() => {
-    refetch()
-  }, [refetch])
+  })
 
   const { observe } = useInView({
     threshold: 1,
