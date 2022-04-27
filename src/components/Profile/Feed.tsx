@@ -51,6 +51,7 @@ const Feed: FC<Props> = ({ profile, type }) => {
       request: { publicationTypes: type, profileId: profile?.id, limit: 10 }
     },
     skip: !profile?.id,
+    fetchPolicy: 'no-cache',
     onCompleted(data) {
       setPageInfo(data?.publications?.pageInfo)
       setPublications(data?.publications?.items)

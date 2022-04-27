@@ -48,6 +48,7 @@ const Feed: FC = () => {
     variables: {
       request: { profileId: currentUser?.id, limit: 10 }
     },
+    fetchPolicy: 'no-cache',
     onCompleted(data) {
       setPageInfo(data?.timeline?.pageInfo)
       setPublications(data?.timeline?.items)
