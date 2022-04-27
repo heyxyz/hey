@@ -30,7 +30,7 @@
     "ethers": "^5.6.4",
     "framer-motion": "^6.3.2",
     "graphql": "^16.4.0",
-    "ipfs-http-client": "54.0.2",
+    "ipfs-http-client": "^56.0.3",
     "jwt-decode": "^3.1.2",
     "linkify-plugin-hashtag": "^3.0.4",
     "linkify-plugin-mention": "^3.0.4",
