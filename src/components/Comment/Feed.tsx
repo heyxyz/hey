@@ -57,6 +57,7 @@ const Feed: FC<Props> = ({
       request: { commentsOf: id, limit: 10 }
     },
     skip: !id,
+    fetchPolicy: 'no-cache',
     onCompleted(data) {
       setPageInfo(data?.publications?.pageInfo)
       setPublications(data?.publications?.items)

@@ -53,6 +53,7 @@ const Feed: FC<Props> = ({ feedType = 'TOP_COMMENTED' }) => {
         noRandomize: feedType === 'LATEST'
       }
     },
+    fetchPolicy: 'no-cache',
     onCompleted(data) {
       setPageInfo(data?.explorePublications?.pageInfo)
       setPublications(data?.explorePublications?.items)
