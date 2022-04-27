@@ -44,20 +44,16 @@ const Feed: FC = () => {
   const { currentUser } = useContext(AppContext)
   const [publications, setPublications] = useState<LensterPost[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
-  const { data, loading, error, fetchMore, refetch } = useQuery(
-    HOME_FEED_QUERY,
-    {
-      variables: {
-        request: { profileId: currentUser?.id, limit: 10 }
-      },
-      skip: !currentUser?.id,
-      onCompleted(data) {
-        setPageInfo(data?.timeline?.pageInfo)
-        setPublications(data?.timeline?.items)
-        consoleLog('Query', '#8b5cf6', `Fetched first 10 timeline publications`)
-      }
+  const { data, loading, error, fetchMore } = useQuery(HOME_FEED_QUERY, {
+    variables: {
+      request: { profileId: currentUser?.id, limit: 10 }
+    },
+    onCompleted(data) {
+      setPageInfo(data?.timeline?.pageInfo)
+      setPublications(data?.timeline?.items)
+      consoleLog('Query', '#8b5cf6', `Fetched first 10 timeline publications`)
     }
-  )
+  })
 
   const { observe } = useInView({
     threshold: 1,
