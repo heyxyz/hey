@@ -57,7 +57,7 @@
     "@graphql-codegen/fragment-matcher": "^3.2.1",
     "@graphql-codegen/typescript": "^2.4.7",
     "@tailwindcss/forms": "^0.5.0",
-    "@tailwindcss/line-clamp": "^0.3.1",
+    "@tailwindcss/line-clamp": "^0.4.0",
     "@types/linkifyjs": "^2.1.4",
     "@types/node": "^17.0.29",
     "@types/react": "^18.0.7",
