@@ -21,7 +21,7 @@ export const NotificationProfileAvatar: FC<Props> = ({ notification }) => {
     : notification?.profile?.picture
     ? getAvatar(notification?.profile)
     : imagekitURL(
-        `https://avatar.tobi.sh/${notification?.profile?.ownedBy}.png`,
+        `https://avatar.tobi.sh/${notification?.profile?.ownedBy}_${notification?.profile?.handle}.png`,
         'avatar'
       )
 

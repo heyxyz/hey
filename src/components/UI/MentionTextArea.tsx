@@ -81,7 +81,7 @@ export const MentionTextArea: FC<Props> = ({
             picture:
               user?.picture?.original?.url ??
               user?.picture?.uri ??
-              `https://avatar.tobi.sh/${user?.handle}.png`
+              `https://avatar.tobi.sh/${user?.id}_${user?.handle}.png`
           })
         )
       )

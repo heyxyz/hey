@@ -11,7 +11,7 @@ import trackEvent from '@lib/trackEvent'
 import uploadAssetsToIPFS from '@lib/uploadAssetsToIPFS'
 import React, { ChangeEvent, FC, useState } from 'react'
 import { CHAIN_ID } from 'src/constants'
-import { useNetwork } from 'wagmi'
+import { useAccount, useNetwork } from 'wagmi'
 import { object, string } from 'zod'
 
 import Pending from './Pending'
@@ -46,6 +46,7 @@ const Create: FC<Props> = ({ isModal = false }) => {
   const [avatar, setAvatar] = useState<string>()
   const [uploading, setUploading] = useState<boolean>(false)
   const { activeChain } = useNetwork()
+  const { data: account } = useAccount()
   const [createProfile, { data, loading }] = useMutation(
     CREATE_PROFILE_MUTATION
   )
@@ -83,7 +84,7 @@ const Create: FC<Props> = ({ isModal = false }) => {
               handle: username,
               profilePictureUri: avatar
                 ? avatar
-                : `https://avatar.tobi.sh/${username}.png`
+                : `https://avatar.tobi.sh/${account?.address}_${username}.png`
             }
           }
         })
