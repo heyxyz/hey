@@ -4,10 +4,11 @@ import SettingsHelper from '@components/Shared/SettingsHelper'
 import { Card, CardBody } from '@components/UI/Card'
 import AppContext from '@components/utils/AppContext'
 import SEO from '@components/utils/SEO'
-import React, { FC, useContext } from 'react'
+import { NextPage } from 'next'
+import React, { useContext } from 'react'
 import Custom404 from 'src/pages/404'
 
-const Create: FC = () => {
+const Create: NextPage = () => {
   const { currentUser } = useContext(AppContext)
 
   if (!currentUser) return <Custom404 />

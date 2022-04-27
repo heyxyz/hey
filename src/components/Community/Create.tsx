@@ -22,7 +22,8 @@ import splitSignature from '@lib/splitSignature'
 import trackEvent from '@lib/trackEvent'
 import uploadAssetsToIPFS from '@lib/uploadAssetsToIPFS'
 import uploadToIPFS from '@lib/uploadToIPFS'
-import React, { ChangeEvent, FC, useContext, useState } from 'react'
+import { NextPage } from 'next'
+import React, { ChangeEvent, useContext, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
   CHAIN_ID,
@@ -50,7 +51,7 @@ const newCommunitySchema = object({
     .nullable()
 })
 
-const Create: FC = () => {
+const Create: NextPage = () => {
   const [avatar, setAvatar] = useState<string>()
   const [avatarType, setAvatarType] = useState<string>()
   const [isUploading, setIsUploading] = useState<boolean>(false)
