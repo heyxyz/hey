@@ -10,7 +10,7 @@ const getAvatar = (profile: Profile): string => {
       profile?.picture?.original?.url ??
         // @ts-ignore
         profile?.picture?.uri ??
-        `https://avatar.tobi.sh/${profile?.ownedBy}.png`
+        `https://avatar.tobi.sh/${profile?.ownedBy}_${profile?.handle}.png`
     ),
     'avatar'
   )
