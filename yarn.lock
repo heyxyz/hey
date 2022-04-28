@@ -2555,10 +2555,10 @@
     "@typescript-eslint/types" "5.21.0"
     eslint-visitor-keys "^3.0.0"
 
-"@wagmi/core@0.2.0":
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/@wagmi/core/-/core-0.2.0.tgz#4c4aa118d48e901028b673ed84b691d69dd8add3"
-  integrity sha512-CbMeNR533K/SZunHEysExtwmJvpXXgE8B2aFec/ULJhwKcXEZfQExh87h7OXi2tSPwP5sYL/RM2o9zjJkSQCyA==
+"@wagmi/core@0.2.1":
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/@wagmi/core/-/core-0.2.1.tgz#f7a79cb566fed8d6622b4da128ac9b6a3cb9b096"
+  integrity sha512-Lz99IxifloJ9zLZMSuhpFXruMrdxPM4YUzip7gHwC6dh0gapiZqtuPIS6t11Ph0I82HkyYcZsIddzqQjEIzs/w==
   dependencies:
     eventemitter3 "^4.0.7"
     zustand "^4.0.0-rc.0"
@@ -7614,7 +7614,7 @@ react-native-fetch-api@^2.0.0:
   dependencies:
     p-defer "^3.0.0"
 
-react-query@^4.0.0-beta.5:
+react-query@^4.0.0-beta.7:
   version "4.0.0-beta.7"
   resolved "https://registry.yarnpkg.com/react-query/-/react-query-4.0.0-beta.7.tgz#6baa776c828263a79f82b76726cf56684e17b92f"
   integrity sha512-hovLEuiOfEPnQAJ3yfIK9qoW1fFdf7BQ9Wn7ALPueIO1McBhCMqtwEWHxL6DSKk8bgeDjMFBzDnZmQPXCiq7VA==
@@ -8978,15 +8978,15 @@ varint@^6.0.0:
   resolved "https://registry.yarnpkg.com/varint/-/varint-6.0.0.tgz#9881eb0ce8feaea6512439d19ddf84bf551661d0"
   integrity sha512-cXEIW6cfr15lFv563k4GuVuW/fiwjknytD37jIOLSdSWuOI6WnO/oKwmP2FQTU2l01LP8/M5TSAJpzUaGe3uWg==
 
-wagmi@0.3.0:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/wagmi/-/wagmi-0.3.0.tgz#498ac4d4578508df5cdb67bb7983ec9da05e9e2d"
-  integrity sha512-C2ea8wNYCQ273wFT7aRrS7YPZqEsajLb88OeZNTDitScFdBcba8Cd8WYJANft2y/9T5+YDS3jlt1dtRzqx5xxw==
+wagmi@0.3.1:
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/wagmi/-/wagmi-0.3.1.tgz#0359f8100ed89bf2d6d2e40e17f08eb12443ca43"
+  integrity sha512-BCX5sXCYves95+bB2qekjo2T0VIOZRxp3BWYnK+OBT/YvFvAZhxT48rHZ49PxB2BjZ/SEp688uk/P6uJsYP9Ig==
   dependencies:
     "@coinbase/wallet-sdk" "^3.0.8"
-    "@wagmi/core" "0.2.0"
+    "@wagmi/core" "0.2.1"
     "@walletconnect/ethereum-provider" "1.7.5"
-    react-query "^4.0.0-beta.5"
+    react-query "^4.0.0-beta.7"
     use-sync-external-store "^1.0.0"
 
 wcwidth@^1.0.1:
