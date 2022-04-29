@@ -4,6 +4,7 @@ import { XIcon } from '@heroicons/react/outline'
 import getIPFSLink from '@lib/getIPFSLink'
 import imagekitURL from '@lib/imagekitURL'
 import clsx from 'clsx'
+import Image from 'next/image'
 import React, { FC } from 'react'
 
 const getGridRows = (attachments: number) => {
@@ -64,25 +65,29 @@ const Attachments: FC<Props> = ({
               />
             </video>
           ) : (
-            <img
-              className="object-cover bg-gray-100 rounded-lg border dark:bg-gray-800 dark:border-gray-700/80"
-              src={
-                isNew
-                  ? attachment.item
-                  : imagekitURL(
-                      getIPFSLink(attachment.original.url),
-                      'attachment'
-                    )
-              }
-              alt={
-                isNew
-                  ? attachment.item
-                  : imagekitURL(
-                      getIPFSLink(attachment.original.url),
-                      'attachment'
-                    )
-              }
-            />
+            <div className="bg-gray-100 rounded-lg border dark:bg-gray-800 dark:border-gray-700/80">
+              <Image
+                className="object-cover rounded-lg"
+                layout="fill"
+                loading="lazy"
+                src={
+                  isNew
+                    ? attachment.item
+                    : imagekitURL(
+                        getIPFSLink(attachment.original.url),
+                        'attachment'
+                      )
+                }
+                alt={
+                  isNew
+                    ? attachment.item
+                    : imagekitURL(
+                        getIPFSLink(attachment.original.url),
+                        'attachment'
+                      )
+                }
+              />
+            </div>
           )}
           {isNew && (
             <div className="m-3">
