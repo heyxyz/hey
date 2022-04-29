@@ -62,7 +62,7 @@
     "@types/node": "^17.0.30",
     "@types/react": "^18.0.7",
     "@types/react-copy-to-clipboard": "^5.0.2",
-    "@types/react-dom": "^18.0.2",
+    "@types/react-dom": "^18.0.3",
     "@types/uuid": "^8.3.4",
     "@typescript-eslint/eslint-plugin": "^5.21.0",
     "autoprefixer": "^10.4.5",
