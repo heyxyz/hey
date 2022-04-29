@@ -8,7 +8,7 @@ module.exports = withPWA({
     runtimeCaching
   },
   images: {
-    domains: ['ik.imagekit.io']
+    domains: ['ik.imagekit.io', 'ipfs.infura.io']
   },
   reactStrictMode: process.env.NODE_ENV === 'production'
 })
