@@ -22,6 +22,13 @@ const SEO: FC<Props> = ({
         content="width=device-width, initial-scale=1, maximum-scale=1"
       />
 
+      <link rel="preconnect" href="//ik.imagekit.io" />
+      <link rel="dns-prefetch" href="//ik.imagekit.io" />
+      <link rel="preconnect" href="//assets.lenster.xyz" />
+      <link rel="dns-prefetch" href="//assets.lenster.xyz" />
+      <link rel="preconnect" href="//ipfs.infura.io" />
+      <link rel="dns-prefetch" href="//ipfs.infura.io" />
+
       <link
         rel="apple-touch-icon"
         sizes="192x192"
@@ -44,6 +51,13 @@ const SEO: FC<Props> = ({
       <meta property="twitter:image:width" content="400" />
       <meta property="twitter:image:height" content="400" />
       <meta property="twitter:creator" content="lensterxyz" />
+
+      <link
+        rel="search"
+        type="application/opensearchdescription+xml"
+        href="/opensearch.xml"
+        title="Lenster"
+      />
     </Head>
   )
 }
