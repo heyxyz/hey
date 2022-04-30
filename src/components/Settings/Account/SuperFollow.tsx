@@ -97,7 +97,6 @@ const SuperFollow: FC = () => {
   const [selectedCurrency, setSelectedCurrency] = useState<string>(
     DEFAULT_COLLECT_TOKEN
   )
-  const [isDisable, setIsDiable] = useState<boolean>(false)
   const [selectedCurrencySymobol, setSelectedCurrencySymobol] =
     useState<string>('WMATIC')
   const { currentUser } = useContext(AppContext)
@@ -290,7 +289,6 @@ const SuperFollow: FC = () => {
                     variant="danger"
                     outline
                     onClick={() => {
-                      setIsDiable(true)
                       setSuperFollow(null, null)
                     }}
                     disabled={typedDataLoading || signLoading || writeLoading}
