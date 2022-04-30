@@ -119,7 +119,7 @@ const NFTPicture: FC<Props> = ({ profile }) => {
     {
       onSuccess() {
         toast.success('Avatar updated successfully!')
-        trackEvent('update avatar')
+        trackEvent('update nft avatar')
       },
       onError(error: any) {
         toast.error(error?.data?.message ?? error?.message)
