@@ -127,8 +127,8 @@ const Profile: FC<Props> = ({ profile }) => {
         toast.success('Profile updated successfully!')
         trackEvent('update profile')
       },
-      onError(error) {
-        toast.error(error?.message)
+      onError(error: any) {
+        toast.error(error?.data?.message ?? error?.message)
       }
     }
   )

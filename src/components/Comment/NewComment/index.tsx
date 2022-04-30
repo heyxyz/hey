@@ -140,8 +140,8 @@ const NewComment: FC<Props> = ({ post, type }) => {
         setFeeData(defaultFeeData)
         trackEvent('new comment', 'create')
       },
-      onError(error) {
-        toast.error(error?.message)
+      onError(error: any) {
+        toast.error(error?.data?.message ?? error?.message)
       }
     }
   )

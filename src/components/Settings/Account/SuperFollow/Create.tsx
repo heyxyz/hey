@@ -130,8 +130,8 @@ const SuperFollow: FC = () => {
       onSuccess() {
         trackEvent('set superfollow', 'create')
       },
-      onError(error) {
-        toast.error(error?.message)
+      onError(error: any) {
+        toast.error(error?.data?.message ?? error?.message)
       }
     }
   )

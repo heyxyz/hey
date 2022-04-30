@@ -79,8 +79,8 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
         toast.success('Followed successfully!')
         trackEvent('follow user')
       },
-      onError(error) {
-        toast.error(error?.message)
+      onError(error: any) {
+        toast.error(error?.data?.message ?? error?.message)
       }
     }
   )
