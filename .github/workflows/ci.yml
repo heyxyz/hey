@@ -36,7 +36,7 @@ jobs:
         run: cp .env.example .env
 
       - name: Install Yarn Dependencies
-        run: yarn install --frozen-lockfile --silent
+        run: yarn install --ignore-engines --frozen-lockfile --silent
 
       - name: GraphQL Codegen
         run: yarn codegen
