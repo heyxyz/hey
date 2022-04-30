@@ -78,8 +78,8 @@ const Create: NextPage = () => {
       onSuccess() {
         trackEvent('new community', 'create')
       },
-      onError(error) {
-        toast.error(error?.message)
+      onError(error: any) {
+        toast.error(error?.data?.message ?? error?.message)
       }
     }
   )

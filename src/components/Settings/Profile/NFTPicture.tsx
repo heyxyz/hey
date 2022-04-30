@@ -121,8 +121,8 @@ const NFTPicture: FC<Props> = ({ profile }) => {
         toast.success('Avatar updated successfully!')
         trackEvent('update avatar')
       },
-      onError(error) {
-        toast.error(error?.message)
+      onError(error: any) {
+        toast.error(error?.data?.message ?? error?.message)
       }
     }
   )
