@@ -113,8 +113,8 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
         toast.success('Successfully funded!')
         trackEvent('fund a crowdfund')
       },
-      onError(error) {
-        toast.error(error?.message)
+      onError(error: any) {
+        toast.error(error?.data?.message ?? error?.message)
       }
     }
   )

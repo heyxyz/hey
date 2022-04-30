@@ -129,8 +129,8 @@ const CollectModule: FC<Props> = ({ post }) => {
         toast.success('Post has been collected!')
         trackEvent('collect publication')
       },
-      onError(error) {
-        toast.error(error?.message)
+      onError(error: any) {
+        toast.error(error?.data?.message ?? error?.message)
       }
     }
   )

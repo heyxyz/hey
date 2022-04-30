@@ -81,8 +81,8 @@ const Join: FC<Props> = ({ community, setJoined, showJoin = true }) => {
         toast.success('Joined successfully!')
         trackEvent('join community')
       },
-      onError(error) {
-        toast.error(error?.message)
+      onError(error: any) {
+        toast.error(error?.data?.message ?? error?.message)
       }
     }
   )

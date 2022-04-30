@@ -124,8 +124,8 @@ const FollowModule: FC<Props> = ({
         toast.success('Followed successfully!')
         trackEvent('super follow user')
       },
-      onError(error) {
-        toast.error(error?.message)
+      onError(error: any) {
+        toast.error(error?.data?.message ?? error?.message)
       }
     }
   )

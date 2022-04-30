@@ -84,8 +84,8 @@ const Mirror: FC<Props> = ({ post }) => {
         toast.success('Post has been mirrored!')
         trackEvent('mirror')
       },
-      onError(error) {
-        toast.error(error?.message)
+      onError(error: any) {
+        toast.error(error?.data?.message ?? error?.message)
       }
     }
   )

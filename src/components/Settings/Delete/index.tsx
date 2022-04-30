@@ -81,8 +81,8 @@ const DeleteSettings: FC = () => {
         localStorage.setItem('selectedProfile', '0')
         location.href = '/'
       },
-      onError(error) {
-        toast.error(error?.message)
+      onError(error: any) {
+        toast.error(error?.data?.message ?? error?.message)
       }
     }
   )

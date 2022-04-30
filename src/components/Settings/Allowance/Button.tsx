@@ -43,8 +43,8 @@ const AllowanceButton: FC<Props> = ({
     isLoading: transactionLoading,
     sendTransaction
   } = useSendTransaction({
-    onError(error) {
-      toast.error(error?.message)
+    onError(error: any) {
+      toast.error(error?.data?.message ?? error?.message)
     }
   })
   const { isLoading: waitLoading } = useWaitForTransaction({
@@ -54,8 +54,8 @@ const AllowanceButton: FC<Props> = ({
       setAllowed(!allowed)
       trackEvent(`${allowed ? 'disabled' : 'enabled'} module allowance`)
     },
-    onError(error) {
-      toast.error(error?.message)
+    onError(error: any) {
+      toast.error(error?.data?.message ?? error?.message)
     }
   })
 
