@@ -1,5 +1,6 @@
 import LensHubProxy from '@abis/LensHubProxy.json'
 import { gql, useMutation, useQuery } from '@apollo/client'
+import IndexStatus from '@components/Shared/IndexStatus'
 import SwitchNetwork from '@components/Shared/SwitchNetwork'
 import { Button } from '@components/UI/Button'
 import { Card } from '@components/UI/Card'
@@ -34,8 +35,6 @@ import {
   useSignTypedData
 } from 'wagmi'
 import { object, string } from 'zod'
-
-import Pending from './Pending'
 
 const newCrowdfundSchema = object({
   amount: string().min(1, { message: 'Invalid amount' }),
@@ -224,68 +223,66 @@ const SuperFollow: FC = () => {
 
   return (
     <Card>
-      {writeData?.hash ? (
-        <Pending txHash={writeData?.hash} isDisable={isDisable} />
-      ) : (
-        <Form
-          form={form}
-          className="p-5 space-y-4"
-          onSubmit={({ amount, recipient }) => {
-            setSuperFollow(amount, recipient)
-          }}
-        >
-          <div className="text-lg font-bold">Set super follow</div>
-          <p>
-            Setting super follow makes users spend crypto to follow you, and
-            it&rsquo;s the good way to earn it, you can change the amount and
-            currency or disable/enable it anytime.
-          </p>
-          <div className="pt-2">
-            <div className="label">Select Currency</div>
-            <select
-              className="w-full bg-white rounded-xl border border-gray-300 outline-none dark:bg-gray-800 disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 dark:border-gray-700/80 focus:border-brand-500 focus:ring-brand-400"
-              onChange={(e) => {
-                const currency = e.target.value.split('-')
-                setSelectedCurrency(currency[0])
-                setSelectedCurrencySymobol(currency[1])
-              }}
-            >
-              {currencyData?.enabledModuleCurrencies?.map((currency: Erc20) => (
-                <option
-                  key={currency.address}
-                  value={`${currency.address}-${currency.symbol}`}
-                >
-                  {currency.name}
-                </option>
-              ))}
-            </select>
-          </div>
-          <Input
-            label="Follow amount"
-            type="number"
-            step="0.0001"
-            min="0"
-            max="100000"
-            prefix={
-              <img
-                className="w-6 h-6"
-                src={getTokenImage(selectedCurrencySymobol)}
-                alt={selectedCurrencySymobol}
-              />
-            }
-            placeholder="5"
-            {...form.register('amount')}
-          />
-          <Input
-            label="Funds recipient"
-            type="text"
-            placeholder="0x3A5bd...5e3"
-            {...form.register('recipient')}
-          />
-          <div className="ml-auto">
-            {activeChain?.id !== CHAIN_ID ? (
-              <SwitchNetwork />
-            ) : (
+      <Form
+        form={form}
+        className="p-5 space-y-4"
+        onSubmit={({ amount, recipient }) => {
+          setSuperFollow(amount, recipient)
+        }}
+      >
+        <div className="text-lg font-bold">Set super follow</div>
+        <p>
+          Setting super follow makes users spend crypto to follow you, and
+          it&rsquo;s the good way to earn it, you can change the amount and
+          currency or disable/enable it anytime.
+        </p>
+        <div className="pt-2">
+          <div className="label">Select Currency</div>
+          <select
+            className="w-full bg-white rounded-xl border border-gray-300 outline-none dark:bg-gray-800 disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 dark:border-gray-700/80 focus:border-brand-500 focus:ring-brand-400"
+            onChange={(e) => {
+              const currency = e.target.value.split('-')
+              setSelectedCurrency(currency[0])
+              setSelectedCurrencySymobol(currency[1])
+            }}
+          >
+            {currencyData?.enabledModuleCurrencies?.map((currency: Erc20) => (
+              <option
+                key={currency.address}
+                value={`${currency.address}-${currency.symbol}`}
+              >
+                {currency.name}
+              </option>
+            ))}
+          </select>
+        </div>
+        <Input
+          label="Follow amount"
+          type="number"
+          step="0.0001"
+          min="0"
+          max="100000"
+          prefix={
+            <img
+              className="w-6 h-6"
+              src={getTokenImage(selectedCurrencySymobol)}
+              alt={selectedCurrencySymobol}
+            />
+          }
+          placeholder="5"
+          {...form.register('amount')}
+        />
+        <Input
+          label="Funds recipient"
+          type="text"
+          placeholder="0x3A5bd...5e3"
+          {...form.register('recipient')}
+        />
+        <div className="ml-auto">
+          {activeChain?.id !== CHAIN_ID ? (
+            <SwitchNetwork />
+          ) : (
+            <div className="flex flex-col space-y-2">
               <div className="block space-y-2 space-x-0 sm:flex sm:space-y-0 sm:space-x-2">
                 {currencyData?.profiles?.items[0]?.followModule && (
                   <Button
@@ -312,10 +309,11 @@ const SuperFollow: FC = () => {
                     : 'Set Super follow'}
                 </Button>
               </div>
-            )}
-          </div>
-        </Form>
-      )}
+              {writeData?.hash && <IndexStatus txHash={writeData?.hash} />}
+            </div>
+          )}
+        </div>
+      </Form>
     </Card>
   )
 }

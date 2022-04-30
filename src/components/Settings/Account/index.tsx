@@ -1,5 +1,5 @@
 import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout'
-import SuperFollow from '@components/Settings/Account/SuperFollow/Create'
+import SuperFollow from '@components/Settings/Account/SuperFollow'
 import AppContext from '@components/utils/AppContext'
 import SEO from '@components/utils/SEO'
 import { NextPage } from 'next'
