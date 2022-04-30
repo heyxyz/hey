@@ -135,8 +135,8 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
         setFeeData(defaultFeeData)
         trackEvent('new post', 'create')
       },
-      onError(error) {
-        toast.error(error?.message)
+      onError(error: any) {
+        toast.error(error?.data?.message ?? error?.message)
       }
     }
   )
