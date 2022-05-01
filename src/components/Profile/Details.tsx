@@ -15,7 +15,7 @@ import {
   LocationMarkerIcon,
   PencilAltIcon
 } from '@heroicons/react/outline'
-import { BadgeCheckIcon } from '@heroicons/react/solid'
+import { BadgeCheckIcon, ShieldCheckIcon } from '@heroicons/react/solid'
 import consoleLog from '@lib/consoleLog'
 import formatAddress from '@lib/formatAddress'
 import getAvatar from '@lib/getAvatar'
@@ -109,6 +109,11 @@ const Details: FC<Props> = ({ profile }) => {
               <BadgeCheckIcon className="w-6 h-6 text-brand" />
             </Tooltip>
           )}
+          {isStaff(profile?.id) && (
+            <Tooltip content="Staff">
+              <ShieldCheckIcon className="w-6 h-6 text-green-500" />
+            </Tooltip>
+          )}
         </div>
         <div className="flex items-center space-x-3">
           {profile?.name ? (
@@ -169,6 +174,7 @@ const Details: FC<Props> = ({ profile }) => {
             </Linkify>
           </div>
         )}
+        <div className="border-b dark:border-gray-700/80 w-full" />
         <div className="space-y-2">
           <MetaDetails icon={<HashtagIcon className="w-4 h-4" />}>
             {profile?.id}
@@ -179,11 +185,7 @@ const Details: FC<Props> = ({ profile }) => {
             </MetaDetails>
           )}
         </div>
-        {isStaff(profile?.id) && (
-          <div className="py-0.5 px-2 text-sm text-white rounded-lg shadow-sm bg-brand-500 w-fit">
-            Staff
-          </div>
-        )}
+        <div className="border-b dark:border-gray-700/80 w-full" />
         <div className="space-y-2.5">
           {profile?.website && (
             <MetaDetails
