@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 html {
-  @apply overflow-scroll;
+  @apply overflow-y-scroll;
 }
 
 body {
