@@ -165,8 +165,11 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
             type="button"
             key={x.id}
             className={clsx(
-              { 'hover:bg-gray-100': x.id !== accountData?.connector?.id },
-              'w-full flex items-center space-x-2.5 justify-center px-4 py-3 overflow-hidden rounded-xl border outline-none border-gray-200'
+              {
+                'hover:bg-gray-100 dark:hover:bg-gray-700':
+                  x.id !== accountData?.connector?.id
+              },
+              'w-full flex items-center space-x-2.5 justify-center px-4 py-3 overflow-hidden rounded-xl border dark:border-gray-700/80 outline-none'
             )}
             onClick={() => onConnect(x)}
             disabled={
