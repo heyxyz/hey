@@ -184,15 +184,12 @@ const Details: FC<Props> = ({ profile }) => {
               {profile?.location}
             </MetaDetails>
           )}
-        </div>
-        <div className="border-b dark:border-gray-700/80 w-full" />
-        <div className="space-y-2.5">
           {profile?.website && (
             <MetaDetails
               icon={
                 <img
                   src={`https://www.google.com/s2/favicons?domain=${profile?.website}`}
-                  className="w-5 h-5 rounded-full"
+                  className="w-4 h-4 rounded-full"
                   alt="Website"
                 />
               }
@@ -212,13 +209,13 @@ const Details: FC<Props> = ({ profile }) => {
                 resolvedTheme === 'dark' ? (
                   <img
                     src={`${STATIC_ASSETS}/brands/twitter-light.svg`}
-                    className="w-5"
+                    className="w-4"
                     alt="Twitter Logo"
                   />
                 ) : (
                   <img
                     src={`${STATIC_ASSETS}/brands/twitter-dark.svg`}
-                    className="w-5"
+                    className="w-4"
                     alt="Twitter Logo"
                   />
                 )
