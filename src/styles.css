@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  @apply overflow-scroll;
+}
+
 body {
   font-family: 'Lenster', Helvetica, Arial, sans-serif;
   @apply bg-gray-50;
