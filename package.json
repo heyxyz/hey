@@ -27,7 +27,7 @@
     "clsx": "^1.1.1",
     "dayjs": "^1.11.1",
     "dotenv": "^16.0.0",
-    "ethers": "^5.6.4",
+    "ethers": "^5.6.5",
     "framer-motion": "^6.3.3",
     "graphql": "^16.4.0",
     "ipfs-http-client": "^56.0.3",
