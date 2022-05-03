@@ -17,7 +17,7 @@
   "dependencies": {
     "@apollo/client": "3.6.2",
     "@giphy/js-fetch-api": "^4.1.2",
-    "@giphy/react-components": "^5.6.1",
+    "@giphy/react-components": "^5.7.0",
     "@headlessui/react": "^1.6.0",
     "@heroicons/react": "^1.0.6",
     "@hookform/resolvers": "^2.8.8",
