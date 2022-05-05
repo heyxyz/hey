@@ -2,11 +2,13 @@ import LensHubProxy from '@abis/LensHubProxy.json'
 import { gql, useMutation, useQuery } from '@apollo/client'
 import { ALLOWANCE_SETTINGS_QUERY } from '@components/Settings/Allowance'
 import AllowanceButton from '@components/Settings/Allowance/Button'
+import Collectors from '@components/Shared/Collectors'
 import IndexStatus from '@components/Shared/IndexStatus'
 import Loader from '@components/Shared/Loader'
 import ReferenceAlert from '@components/Shared/ReferenceAlert'
 import ReferralAlert from '@components/Shared/ReferralAlert'
 import { Button } from '@components/UI/Button'
+import { Modal } from '@components/UI/Modal'
 import { Spinner } from '@components/UI/Spinner'
 import { Tooltip } from '@components/UI/Tooltip'
 import AppContext from '@components/utils/AppContext'
@@ -104,6 +106,7 @@ interface Props {
 
 const CollectModule: FC<Props> = ({ post }) => {
   const { currentUser } = useContext(AppContext)
+  const [showCollectorsModal, setShowCollectorsModal] = useState<boolean>(false)
   const [allowed, setAllowed] = useState<boolean>(true)
 
   const { activeChain } = useNetwork()
@@ -293,9 +296,21 @@ const CollectModule: FC<Props> = ({ post }) => {
           <div className="block space-y-1 sm:flex sm:space-x-5 item-center">
             <div className="flex items-center space-x-2">
               <UsersIcon className="w-4 h-4 text-gray-500" />
-              <div className="font-bold">
+              <button
+                className="font-bold"
+                type="button"
+                onClick={() => setShowCollectorsModal(!showCollectorsModal)}
+              >
                 {post?.stats?.totalAmountOfCollects} collectors
-              </div>
+              </button>
+              <Modal
+                title="Collectors"
+                icon={<CollectionIcon className="w-5 h-5 text-brand" />}
+                show={showCollectorsModal}
+                onClose={() => setShowCollectorsModal(!showCollectorsModal)}
+              >
+                <Collectors pubId={post?.id} />
+              </Modal>
             </div>
             {collectModule?.collectLimit && (
               <div className="flex items-center space-x-2">
