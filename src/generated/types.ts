@@ -150,6 +150,8 @@ export type ChallengeRequest = {
 }
 
 export type ClaimHandleRequest = {
+  /** The follow module */
+  followModule?: InputMaybe<FollowModuleParams>
   freeTextHandle?: InputMaybe<Scalars['CreateHandle']>
   id?: InputMaybe<Scalars['HandleClaimIdScalar']>
 }
@@ -1766,6 +1768,8 @@ export type ProfileRevenueQueryRequest = {
   profileId: Scalars['ProfileId']
   /** The App Id */
   sources?: InputMaybe<Array<Scalars['Sources']>>
+  /** The revenue types */
+  types?: InputMaybe<Array<ProfileRevenueTypes>>
 }
 
 /** The paginated revenue result */
@@ -1773,6 +1777,13 @@ export type ProfileRevenueResult = {
   __typename?: 'ProfileRevenueResult'
   items: Array<PublicationRevenue>
   pageInfo: PaginatedResultInfo
+}
+
+/** profile revenue request types */
+export enum ProfileRevenueTypes {
+  Comment = 'COMMENT',
+  Mirror = 'MIRROR',
+  Post = 'POST'
 }
 
 /** Profile search results */
