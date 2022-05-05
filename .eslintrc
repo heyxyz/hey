@@ -26,5 +26,5 @@
     "simple-import-sort/exports": "error",
     "jsx-a11y/role-supports-aria-props": "off"
   },
-  "ignorePatterns": ["/src/generated/types.d.ts"]
+  "ignorePatterns": ["/src/generated/types.ts"]
 }
