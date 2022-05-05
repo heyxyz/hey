@@ -38,7 +38,7 @@
     "linkifyjs": "^3.0.5",
     "next": "^12.1.6",
     "next-pwa": "^5.5.2",
-    "next-themes": "^0.1.1",
+    "next-themes": "^0.2.0",
     "omit-deep": "^0.3.0",
     "react": "^18.1.0",
     "react-cool-inview": "^3.0.0",
