@@ -8,9 +8,10 @@
     "@typescript-eslint",
     "unused-imports",
     "simple-import-sort",
-    "prettier"
+    "prettier",
+    "github"
   ],
-  "extends": ["next", "next/core-web-vitals"],
+  "extends": ["next", "next/core-web-vitals", "plugin:github/recommended"],
   "rules": {
     "prettier/prettier": ["error"],
     "react/prop-types": "off",

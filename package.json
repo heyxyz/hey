@@ -68,6 +68,7 @@
     "autoprefixer": "^10.4.5",
     "eslint": "8.14.0",
     "eslint-config-next": "^12.1.5",
+    "eslint-plugin-github": "^4.3.6",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "eslint-plugin-unused-imports": "^2.0.0",
