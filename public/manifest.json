@@ -8,6 +8,7 @@
   "scope": "/",
   "start_url": "/?utm_source=homescreen&utm_medium=shortcut",
   "iconPath": "/favicon.svg",
+  "categories": ["social", "news", "magazines"],
   "icons": [
     {
       "src": "https://assets.lenster.xyz/images/icons/192x192-default.png",
