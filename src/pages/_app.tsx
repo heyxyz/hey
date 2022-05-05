@@ -11,6 +11,7 @@ import {
   INFURA_ID,
   IS_MAINNET,
   IS_PRODUCTION,
+  POLYGON_MAINNET,
   POLYGON_MUMBAI
 } from 'src/constants'
 import { createClient, Provider } from 'wagmi'
@@ -20,8 +21,8 @@ import { WalletConnectConnector } from 'wagmi/connectors/walletConnect'
 
 import client from '../apollo'
 
-const supportedChains = IS_MAINNET ? [POLYGON_MUMBAI] : [POLYGON_MUMBAI]
-const defaultChain = IS_MAINNET ? POLYGON_MUMBAI : POLYGON_MUMBAI
+const supportedChains = IS_MAINNET ? [POLYGON_MAINNET] : [POLYGON_MUMBAI]
+const defaultChain = IS_MAINNET ? POLYGON_MAINNET : POLYGON_MUMBAI
 
 type ConnectorsConfig = { chainId?: number }
 
