@@ -2522,10 +2522,10 @@
     "@typescript-eslint/types" "5.22.0"
     eslint-visitor-keys "^3.0.0"
 
-"@wagmi/core@^0.2.2":
-  version "0.2.2"
-  resolved "https://registry.yarnpkg.com/@wagmi/core/-/core-0.2.2.tgz#87d94dcc7f6517feaeb5c1e61e1d9c5712dc3ac5"
-  integrity sha512-bPfjALwf7XWesYGMVqQ2B9BXZKSull6iszDWWfNmY5SYraN8BAzI9VfzPqDyh9WawrlcTSUh4QmVwNxmeplluA==
+"@wagmi/core@^0.2.3":
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/@wagmi/core/-/core-0.2.3.tgz#680576fe98ab037bade63506ff79e386ac729570"
+  integrity sha512-CA+DwDmy2ETXtpXAttflqk8xVFP8KmaywgWaLQk5AKeRjoh75GkPaRbPQES+eNZ4RUeNkH+vyQFky1hgOWUgJQ==
   dependencies:
     eventemitter3 "^4.0.7"
     zustand "^4.0.0-rc.1"
@@ -8956,13 +8956,13 @@ varint@^6.0.0:
   resolved "https://registry.yarnpkg.com/varint/-/varint-6.0.0.tgz#9881eb0ce8feaea6512439d19ddf84bf551661d0"
   integrity sha512-cXEIW6cfr15lFv563k4GuVuW/fiwjknytD37jIOLSdSWuOI6WnO/oKwmP2FQTU2l01LP8/M5TSAJpzUaGe3uWg==
 
-wagmi@0.3.2:
-  version "0.3.2"
-  resolved "https://registry.yarnpkg.com/wagmi/-/wagmi-0.3.2.tgz#b9f861156f7960a0e0ba662c6a9cc7afdcdc21be"
-  integrity sha512-O5NJZj+HR9RHxyw6yqyPF2Uj96DnGX4iGrG77rwq2TSFp4BUDTP/4EI6+j9kwdrcVhaM9ka1+a6AHbuWtYF3EA==
+wagmi@0.3.3:
+  version "0.3.3"
+  resolved "https://registry.yarnpkg.com/wagmi/-/wagmi-0.3.3.tgz#3b21cf7f97a4f3ee01e8d0caa57f7a36b7d302fc"
+  integrity sha512-WQ+f+v4AOjr/2dAN9diM4K81OXBsO7sFEat5h68T9wZCaMogU57BLt9Gcg3ndjzEXgdunO7Z1EAhmphQyQpJ4w==
   dependencies:
     "@coinbase/wallet-sdk" "^3.0.11"
-    "@wagmi/core" "^0.2.2"
+    "@wagmi/core" "^0.2.3"
     "@walletconnect/ethereum-provider" "^1.7.5"
     react-query "^4.0.0-beta.7"
     use-sync-external-store "^1.1.0"
