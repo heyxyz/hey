@@ -22,12 +22,12 @@ const SEO: FC<Props> = ({
         content="width=device-width, initial-scale=1, maximum-scale=1"
       />
 
-      <link rel="preconnect" href="//ik.imagekit.io" />
-      <link rel="dns-prefetch" href="//ik.imagekit.io" />
-      <link rel="preconnect" href="//assets.lenster.xyz" />
-      <link rel="dns-prefetch" href="//assets.lenster.xyz" />
-      <link rel="preconnect" href="//ipfs.infura.io" />
-      <link rel="dns-prefetch" href="//ipfs.infura.io" />
+      <link rel="preconnect" href="https://ik.imagekit.io" />
+      <link rel="dns-prefetch" href="https://ik.imagekit.io" />
+      <link rel="preconnect" href="https://assets.lenster.xyz" />
+      <link rel="dns-prefetch" href="https://assets.lenster.xyz" />
+      <link rel="preconnect" href="https://ipfs.infura.io" />
+      <link rel="dns-prefetch" href="https://ipfs.infura.io" />
 
       <link
         rel="apple-touch-icon"
