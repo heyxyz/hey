@@ -1,12 +1,6 @@
+import Markup from '@components/Shared/Markup'
 import Slug from '@components/Shared/Slug'
-import { HashtagMatcher } from '@components/utils/matchers/HashtagMatcher'
-import { MDBoldMatcher } from '@components/utils/matchers/markdown/MDBoldMatcher'
-import { MDCodeMatcher } from '@components/utils/matchers/markdown/MDCodeMatcher'
-import { MDItalicMatcher } from '@components/utils/matchers/markdown/MDItalicMatcher'
-import { MentionMatcher } from '@components/utils/matchers/MentionMatcher'
 import { LensterPost } from '@generated/lenstertypes'
-import { Interweave } from 'interweave'
-import { UrlMatcher } from 'interweave-autolink'
 import Link from 'next/link'
 import { useTheme } from 'next-themes'
 import React, { FC } from 'react'
@@ -43,17 +37,7 @@ const Commented: FC<Props> = ({ post }) => {
           >
             {commentOn?.metadata?.content?.trim() ? (
               <div className="linkify">
-                <Interweave
-                  content={commentOn?.metadata?.content}
-                  matchers={[
-                    new UrlMatcher('url'),
-                    new HashtagMatcher('hashtag'),
-                    new MentionMatcher('mention'),
-                    new MDBoldMatcher('mdBold'),
-                    new MDItalicMatcher('mdItalic'),
-                    new MDCodeMatcher('mdCode')
-                  ]}
-                />
+                <Markup>{commentOn?.metadata?.content}</Markup>
               </div>
             ) : (
               commentOn?.metadata?.name

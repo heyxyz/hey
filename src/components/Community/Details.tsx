@@ -1,13 +1,9 @@
 import { gql, useQuery } from '@apollo/client'
 import Collectors from '@components/Shared/Collectors'
+import Markup from '@components/Shared/Markup'
 import { Button } from '@components/UI/Button'
 import { Modal } from '@components/UI/Modal'
 import AppContext from '@components/utils/AppContext'
-import { HashtagMatcher } from '@components/utils/matchers/HashtagMatcher'
-import { MDBoldMatcher } from '@components/utils/matchers/markdown/MDBoldMatcher'
-import { MDCodeMatcher } from '@components/utils/matchers/markdown/MDCodeMatcher'
-import { MDItalicMatcher } from '@components/utils/matchers/markdown/MDItalicMatcher'
-import { MentionMatcher } from '@components/utils/matchers/MentionMatcher'
 import { LensterPost } from '@generated/lenstertypes'
 import {
   ClockIcon,
@@ -21,8 +17,6 @@ import humanize from '@lib/humanize'
 import imagekitURL from '@lib/imagekitURL'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
-import { Interweave } from 'interweave'
-import { UrlMatcher } from 'interweave-autolink'
 import dynamic from 'next/dynamic'
 import React, { FC, ReactChild, useContext, useState } from 'react'
 
@@ -106,17 +100,7 @@ const Details: FC<Props> = ({ community }) => {
       <div className="space-y-5">
         {community?.metadata?.description && (
           <div className="mr-0 leading-7 sm:mr-10 linkify">
-            <Interweave
-              content={community?.metadata?.description}
-              matchers={[
-                new UrlMatcher('url'),
-                new HashtagMatcher('hashtag'),
-                new MentionMatcher('mention'),
-                new MDBoldMatcher('mdBold'),
-                new MDItalicMatcher('mdItalic'),
-                new MDCodeMatcher('mdCode')
-              ]}
-            />
+            <Markup>{community?.metadata?.description}</Markup>
           </div>
         )}
         <div className="flex items-center space-x-2">

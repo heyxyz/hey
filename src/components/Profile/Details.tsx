@@ -1,16 +1,12 @@
 import { gql, useQuery } from '@apollo/client'
 import Follow from '@components/Shared/Follow'
+import Markup from '@components/Shared/Markup'
 import Slug from '@components/Shared/Slug'
 import SuperFollow from '@components/Shared/SuperFollow'
 import Unfollow from '@components/Shared/Unfollow'
 import { Button } from '@components/UI/Button'
 import { Tooltip } from '@components/UI/Tooltip'
 import AppContext from '@components/utils/AppContext'
-import { HashtagMatcher } from '@components/utils/matchers/HashtagMatcher'
-import { MDBoldMatcher } from '@components/utils/matchers/markdown/MDBoldMatcher'
-import { MDCodeMatcher } from '@components/utils/matchers/markdown/MDCodeMatcher'
-import { MDItalicMatcher } from '@components/utils/matchers/markdown/MDItalicMatcher'
-import { MentionMatcher } from '@components/utils/matchers/MentionMatcher'
 import { Profile } from '@generated/types'
 import {
   HashtagIcon,
@@ -23,8 +19,6 @@ import formatAddress from '@lib/formatAddress'
 import getAvatar from '@lib/getAvatar'
 import isStaff from '@lib/isStaff'
 import isVerified from '@lib/isVerified'
-import { Interweave } from 'interweave'
-import { UrlMatcher } from 'interweave-autolink'
 import Link from 'next/link'
 import { useTheme } from 'next-themes'
 import React, { FC, ReactChild, useContext, useState } from 'react'
@@ -171,17 +165,7 @@ const Details: FC<Props> = ({ profile }) => {
         </div>
         {profile?.bio && (
           <div className="mr-0 leading-7 sm:mr-10 linkify">
-            <Interweave
-              content={profile?.bio}
-              matchers={[
-                new UrlMatcher('url'),
-                new HashtagMatcher('hashtag'),
-                new MentionMatcher('mention'),
-                new MDBoldMatcher('mdBold'),
-                new MDItalicMatcher('mdItalic'),
-                new MDCodeMatcher('mdCode')
-              ]}
-            />
+            <Markup>{profile?.bio}</Markup>
           </div>
         )}
         <div className="border-b dark:border-gray-700/80 w-full" />

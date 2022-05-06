@@ -1,15 +1,9 @@
+import Markup from '@components/Shared/Markup'
 import CrowdfundShimmer from '@components/Shared/Shimmer/CrowdfundShimmer'
-import { HashtagMatcher } from '@components/utils/matchers/HashtagMatcher'
-import { MDBoldMatcher } from '@components/utils/matchers/markdown/MDBoldMatcher'
-import { MDCodeMatcher } from '@components/utils/matchers/markdown/MDCodeMatcher'
-import { MDItalicMatcher } from '@components/utils/matchers/markdown/MDItalicMatcher'
-import { MentionMatcher } from '@components/utils/matchers/MentionMatcher'
 import { LensterPost } from '@generated/lenstertypes'
 import { UserAddIcon, UsersIcon } from '@heroicons/react/outline'
 import imagekitURL from '@lib/imagekitURL'
 import clsx from 'clsx'
-import { Interweave } from 'interweave'
-import { UrlMatcher } from 'interweave-autolink'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -76,19 +70,9 @@ const PostBody: FC<Props> = ({ post }) => {
             })}
           >
             <div className="leading-7 whitespace-pre-wrap break-words linkify">
-              <Interweave
-                content={post?.metadata?.content
-                  ?.replace(/\n\s*\n/g, '\n\n')
-                  .trim()}
-                matchers={[
-                  new UrlMatcher('url'),
-                  new HashtagMatcher('hashtag'),
-                  new MentionMatcher('mention'),
-                  new MDBoldMatcher('mdBold'),
-                  new MDItalicMatcher('mdItalic'),
-                  new MDCodeMatcher('mdCode')
-                ]}
-              />
+              <Markup>
+                {post?.metadata?.content?.replace(/\n\s*\n/g, '\n\n').trim()}
+              </Markup>
             </div>
           </div>
           {showMore && pathname !== '/posts/[id]' && (
