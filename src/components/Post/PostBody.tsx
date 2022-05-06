@@ -3,6 +3,8 @@ import 'linkify-plugin-hashtag'
 
 import CrowdfundShimmer from '@components/Shared/Shimmer/CrowdfundShimmer'
 import { HashtagMatcher } from '@components/utils/HashtagMatcher'
+import { MDBoldMatcher } from '@components/utils/MDBoldMatcher'
+import { MDItalicMatcher } from '@components/utils/MDItalicMatcher'
 import { MentionMatcher } from '@components/utils/MentionMatcher'
 import { LensterPost } from '@generated/lenstertypes'
 import { UserAddIcon, UsersIcon } from '@heroicons/react/outline'
@@ -83,7 +85,9 @@ const PostBody: FC<Props> = ({ post }) => {
                 matchers={[
                   new UrlMatcher('url'),
                   new HashtagMatcher('hashtag'),
-                  new MentionMatcher('mention')
+                  new MentionMatcher('mention'),
+                  new MDBoldMatcher('mdBold'),
+                  new MDItalicMatcher('mdItalic')
                 ]}
               />
             </div>
