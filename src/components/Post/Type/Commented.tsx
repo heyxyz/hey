@@ -16,6 +16,7 @@ const Commented: FC<Props> = ({ post }) => {
   return (
     <div className="flex items-end w-3/5">
       <img
+        draggable={false}
         src={`${STATIC_ASSETS}/icons/${
           resolvedTheme === 'dark' ? 'comment-dark' : 'comment-light'
         }.svg`}
