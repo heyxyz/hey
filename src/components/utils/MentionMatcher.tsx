@@ -1,8 +1,6 @@
-import { Matcher, MatchResponse } from 'interweave'
+import { Matcher } from 'interweave'
 import Link from 'next/link'
 import React from 'react'
-
-export const MENTION_PATTERN = /\B@(\w+)/
 
 export function Mention({ handle, ...props }: any) {
   return (
@@ -19,10 +17,8 @@ export class MentionMatcher extends Matcher {
     return 'a'
   }
 
-  match(string: string): MatchResponse<{
-    display: string
-  }> | null {
-    return this.doMatch(string, MENTION_PATTERN, (matches) => {
+  match(value: string) {
+    return this.doMatch(value, /\B@(\w+)/, (matches) => {
       return {
         display: matches[0]
       }

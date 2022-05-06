@@ -1,8 +1,6 @@
-import { Matcher, MatchResponse } from 'interweave'
+import { Matcher } from 'interweave'
 import Link from 'next/link'
 import React from 'react'
-
-export const HASHTAG_PATTERN = /\B#(\w+)/
 
 export function Hashtag({ handle, ...props }: any) {
   return (
@@ -26,10 +24,8 @@ export class HashtagMatcher extends Matcher {
     return 'a'
   }
 
-  match(string: string): MatchResponse<{
-    display: string
-  }> | null {
-    return this.doMatch(string, HASHTAG_PATTERN, (matches) => {
+  match(value: string) {
+    return this.doMatch(value, /\B#(\w+)/, (matches) => {
       return {
         display: matches[0]
       }
