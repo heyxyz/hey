@@ -8,6 +8,7 @@ import { Modal } from '@components/UI/Modal'
 import { Tooltip } from '@components/UI/Tooltip'
 import { HashtagMatcher } from '@components/utils/matchers/HashtagMatcher'
 import { MDBoldMatcher } from '@components/utils/matchers/markdown/MDBoldMatcher'
+import { MDCodeMatcher } from '@components/utils/matchers/markdown/MDCodeMatcher'
 import { MDItalicMatcher } from '@components/utils/matchers/markdown/MDItalicMatcher'
 import { MentionMatcher } from '@components/utils/matchers/MentionMatcher'
 import { LensterPost } from '@generated/lenstertypes'
@@ -137,7 +138,8 @@ const Crowdfund: FC<Props> = ({ fund }) => {
                   new HashtagMatcher('hashtag'),
                   new MentionMatcher('mention'),
                   new MDBoldMatcher('mdBold'),
-                  new MDItalicMatcher('mdItalic')
+                  new MDItalicMatcher('mdItalic'),
+                  new MDCodeMatcher('mdCode')
                 ]}
               />
             </div>
