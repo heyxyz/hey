@@ -50,7 +50,7 @@
     "use-streak": "^1.0.4",
     "uuid": "^8.3.2",
     "wagmi": "0.3.3",
-    "zod": "^3.14.4"
+    "zod": "^3.15.1"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^2.6.2",
