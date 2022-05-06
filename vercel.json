@@ -5,6 +5,14 @@
     {
       "source": "/discord",
       "destination": "https://discord.com/invite/B8eKhSSUwX"
+    },
+    {
+      "source": "/open",
+      "destination": "https://analytics.lenster.xyz/share/DUGyxaF6/Lenster"
+    },
+    {
+      "source": "/donate",
+      "destination": "https://gitcoin.co/grants/5007/lenster"
     }
   ]
 }
