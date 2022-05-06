@@ -4,7 +4,7 @@ import { MDCodeMatcher } from '@components/utils/matchers/markdown/MDCodeMatcher
 import { MDItalicMatcher } from '@components/utils/matchers/markdown/MDItalicMatcher'
 import { MentionMatcher } from '@components/utils/matchers/MentionMatcher'
 import { Interweave } from 'interweave'
-import { UrlMatcher } from 'interweave-autolink'
+import { EmailMatcher, UrlMatcher } from 'interweave-autolink'
 import React, { FC } from 'react'
 
 interface Props {
@@ -17,6 +17,7 @@ const Markup: FC<Props> = ({ children }) => {
       content={children}
       matchers={[
         new UrlMatcher('url'),
+        new EmailMatcher('email'),
         new HashtagMatcher('hashtag'),
         new MentionMatcher('mention'),
         new MDBoldMatcher('mdBold'),
