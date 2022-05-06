@@ -2,10 +2,8 @@ import { Matcher } from 'interweave'
 import Link from 'next/link'
 import React from 'react'
 
-export function Mention({ handle, ...props }: any) {
-  return (
-    <Link href={`/u/${props.display.replace('@', '')}`}>{props.display}</Link>
-  )
+export function Mention({ ...props }: any) {
+  return <Link href={`/u/${props.display.slice(1)}`}>{props.display}</Link>
 }
 
 export class MentionMatcher extends Matcher {

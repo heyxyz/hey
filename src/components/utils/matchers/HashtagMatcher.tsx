@@ -1,17 +1,30 @@
+import { hashflags } from 'data/hashflags'
 import { Matcher } from 'interweave'
 import Link from 'next/link'
 import React from 'react'
+import { STATIC_ASSETS } from 'src/constants'
 
-export function Hashtag({ handle, ...props }: any) {
+export function Hashtag({ ...props }: any) {
+  const hashflag = props.display.slice(1).toLowerCase()
+  const hasHashflag = hashflags.includes(hashflag)
+
   return (
-    <Link
-      href={`/search?q=${props.display.replace(
-        '#',
-        ''
-      )}&type=pubs&src=link_click`}
-    >
-      {props.display}
-    </Link>
+    <span className="inline-flex items-center space-x-1">
+      <span>
+        <Link
+          href={`/search?q=${props.display.slice(1)}&type=pubs&src=link_click`}
+        >
+          {props.display}
+        </Link>
+      </span>
+      {hasHashflag && (
+        <img
+          className="h-4 !mr-1.5"
+          src={`${STATIC_ASSETS}/hashflags/${hashflag}.png`}
+          alt={hashflag}
+        />
+      )}
+    </span>
   )
 }
 
