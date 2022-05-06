@@ -1,3 +1,4 @@
+import Markup from '@components/Shared/Markup'
 import Slug from '@components/Shared/Slug'
 import { LensterPost } from '@generated/lenstertypes'
 import Link from 'next/link'
@@ -34,9 +35,13 @@ const Commented: FC<Props> = ({ post }) => {
             href={`/posts/${commentOn?.id ?? commentOn?.pubId}`}
             className="line-clamp-1 break-all"
           >
-            {commentOn?.metadata?.content?.trim()
-              ? commentOn?.metadata?.content
-              : commentOn?.metadata?.name}
+            {commentOn?.metadata?.content?.trim() ? (
+              <div className="linkify">
+                <Markup>{commentOn?.metadata?.content}</Markup>
+              </div>
+            ) : (
+              commentOn?.metadata?.name
+            )}
           </a>
         </Link>
       </div>

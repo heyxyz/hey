@@ -1,9 +1,7 @@
-import 'linkify-plugin-mention'
-import 'linkify-plugin-hashtag'
-
 import { gql, useQuery } from '@apollo/client'
 import { GridItemSix, GridLayout } from '@components/GridLayout'
 import Collectors from '@components/Shared/Collectors'
+import Markup from '@components/Shared/Markup'
 import ReferralAlert from '@components/Shared/ReferralAlert'
 import CrowdfundShimmer from '@components/Shared/Shimmer/CrowdfundShimmer'
 import { Card } from '@components/UI/Card'
@@ -18,9 +16,7 @@ import {
 import consoleLog from '@lib/consoleLog'
 import getTokenImage from '@lib/getTokenImage'
 import imagekitURL from '@lib/imagekitURL'
-import linkifyOptions from '@lib/linkifyOptions'
 import clsx from 'clsx'
-import Linkify from 'linkify-react'
 import React, { FC, ReactNode, useEffect, useState } from 'react'
 import { STATIC_ASSETS } from 'src/constants'
 
@@ -126,13 +122,13 @@ const Crowdfund: FC<Props> = ({ fund }) => {
         <div className="block justify-between items-center sm:flex">
           <div className="mr-0 space-y-1 sm:mr-16">
             <div className="text-xl font-bold">{fund?.metadata?.name}</div>
-            <Linkify tagName="div" options={linkifyOptions}>
-              <div className="text-sm leading-7 whitespace-pre-wrap break-words">
+            <div className="text-sm leading-7 whitespace-pre-wrap break-words">
+              <Markup>
                 {fund?.metadata?.description
                   ?.replace(/\n\s*\n/g, '\n\n')
                   .trim()}
-              </div>
-            </Linkify>
+              </Markup>
+            </div>
             <div className="block sm:flex items-center !my-3 space-y-2 sm:space-y-0 sm:space-x-3">
               {fund?.stats?.totalAmountOfCollects > 0 && (
                 <>
