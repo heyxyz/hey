@@ -1,13 +1,9 @@
-import 'linkify-plugin-mention'
-import 'linkify-plugin-hashtag'
-
+import Markup from '@components/Shared/Markup'
 import CrowdfundShimmer from '@components/Shared/Shimmer/CrowdfundShimmer'
 import { LensterPost } from '@generated/lenstertypes'
 import { UserAddIcon, UsersIcon } from '@heroicons/react/outline'
 import imagekitURL from '@lib/imagekitURL'
-import linkifyOptions from '@lib/linkifyOptions'
 import clsx from 'clsx'
-import Linkify from 'linkify-react'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -66,7 +62,7 @@ const PostBody: FC<Props> = ({ post }) => {
       ) : postType === 'crowdfund' ? (
         <Crowdfund fund={post} />
       ) : (
-        <Linkify tagName="div" options={linkifyOptions}>
+        <>
           <div
             className={clsx({
               'line-clamp-5 text-transparent bg-clip-text bg-gradient-to-b from-black dark:from-white to-gray-400 dark:to-gray-900':
@@ -74,7 +70,9 @@ const PostBody: FC<Props> = ({ post }) => {
             })}
           >
             <div className="leading-7 whitespace-pre-wrap break-words linkify">
-              {post?.metadata?.content?.replace(/\n\s*\n/g, '\n\n').trim()}
+              <Markup>
+                {post?.metadata?.content?.replace(/\n\s*\n/g, '\n\n').trim()}
+              </Markup>
             </div>
           </div>
           {showMore && pathname !== '/posts/[id]' && (
@@ -86,7 +84,7 @@ const PostBody: FC<Props> = ({ post }) => {
               Show more
             </button>
           )}
-        </Linkify>
+        </>
       )}
     </div>
   )

@@ -7,6 +7,7 @@ import Link from 'next/link'
 import React, { FC, useState } from 'react'
 
 import Follow from './Follow'
+import Markup from './Markup'
 import Slug from './Slug'
 import SuperFollow from './SuperFollow'
 import Unfollow from './Unfollow'
@@ -54,8 +55,14 @@ const UserProfile: FC<Props> = ({
               </div>
               <Slug className="text-sm" slug={profile?.handle} prefix="@" />
               {showBio && profile?.bio && (
-                <div className={clsx(isBig ? 'text-md' : 'text-sm', 'mt-2')}>
-                  {profile?.bio}
+                <div
+                  className={clsx(
+                    isBig ? 'text-md' : 'text-sm',
+                    'mt-2',
+                    'linkify leading-6'
+                  )}
+                >
+                  <Markup>{profile?.bio}</Markup>
                 </div>
               )}
             </div>
