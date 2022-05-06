@@ -14,30 +14,28 @@ const Footer: FC = () => {
       <span className="font-bold text-gray-500 dark:text-gray-300">
         © Lenster
       </span>
-      <span>
-        <Link href="/about">
-          <a href="/about">About</a>
-        </Link>
-      </span>
-      <span>
-        <Link href="/privacy">
-          <a href="/privacy">Privacy</a>
-        </Link>
-      </span>
-      <span>
-        <Link href="/discord">
-          <a href="/discord">Discord</a>
-        </Link>
-      </span>
+      <Link href="/about">
+        <a href="/about">About</a>
+      </Link>
+      <Link href="/privacy">
+        <a href="/privacy">Privacy</a>
+      </Link>
       <a
-        href="https://analytics.lenster.xyz/share/DUGyxaF6/Lenster"
+        href="https://lenster.xyz/discord"
+        target="_blank"
+        rel="noreferrer noopener"
+      >
+        Discord
+      </a>
+      <a
+        href="https://lenster.xyz/open"
         target="_blank"
         rel="noreferrer noopener"
       >
         Open
       </a>
       <a
-        href="https://gitcoin.co/grants/5007/lenster"
+        href="https://lenster.xyz/donate"
         target="_blank"
         rel="noreferrer noopener"
       >
@@ -57,11 +55,9 @@ const Footer: FC = () => {
       >
         Vote
       </a>
-      <span>
-        <Link href="/thanks">
-          <a href="/thanks">Thanks</a>
-        </Link>
-      </span>
+      <Link href="/thanks">
+        <a href="/thanks">Thanks</a>
+      </Link>
       <a
         href="https://gitlab.com/lenster/lenster"
         target="_blank"
