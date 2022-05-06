@@ -1,6 +1,3 @@
-import 'linkify-plugin-mention'
-import 'linkify-plugin-hashtag'
-
 import CrowdfundShimmer from '@components/Shared/Shimmer/CrowdfundShimmer'
 import { HashtagMatcher } from '@components/utils/matchers/HashtagMatcher'
 import { MDBoldMatcher } from '@components/utils/matchers/markdown/MDBoldMatcher'
