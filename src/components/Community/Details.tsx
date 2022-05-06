@@ -1,11 +1,12 @@
-import 'linkify-plugin-mention'
-import 'linkify-plugin-hashtag'
-
 import { gql, useQuery } from '@apollo/client'
 import Collectors from '@components/Shared/Collectors'
 import { Button } from '@components/UI/Button'
 import { Modal } from '@components/UI/Modal'
 import AppContext from '@components/utils/AppContext'
+import { HashtagMatcher } from '@components/utils/matchers/HashtagMatcher'
+import { MDBoldMatcher } from '@components/utils/matchers/markdown/MDBoldMatcher'
+import { MDItalicMatcher } from '@components/utils/matchers/markdown/MDItalicMatcher'
+import { MentionMatcher } from '@components/utils/matchers/MentionMatcher'
 import { LensterPost } from '@generated/lenstertypes'
 import {
   ClockIcon,
@@ -17,10 +18,10 @@ import {
 import consoleLog from '@lib/consoleLog'
 import humanize from '@lib/humanize'
 import imagekitURL from '@lib/imagekitURL'
-import linkifyOptions from '@lib/linkifyOptions'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
-import Linkify from 'linkify-react'
+import { Interweave } from 'interweave'
+import { UrlMatcher } from 'interweave-autolink'
 import dynamic from 'next/dynamic'
 import React, { FC, ReactChild, useContext, useState } from 'react'
 
@@ -104,9 +105,16 @@ const Details: FC<Props> = ({ community }) => {
       <div className="space-y-5">
         {community?.metadata?.description && (
           <div className="mr-0 leading-7 sm:mr-10 linkify">
-            <Linkify tagName="div" options={linkifyOptions}>
-              {community?.metadata?.description}
-            </Linkify>
+            <Interweave
+              content={community?.metadata?.description}
+              matchers={[
+                new UrlMatcher('url'),
+                new HashtagMatcher('hashtag'),
+                new MentionMatcher('mention'),
+                new MDBoldMatcher('mdBold'),
+                new MDItalicMatcher('mdItalic')
+              ]}
+            />
           </div>
         )}
         <div className="flex items-center space-x-2">
