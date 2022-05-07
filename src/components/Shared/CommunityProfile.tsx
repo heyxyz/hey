@@ -23,6 +23,8 @@ const CommunityProfile: FC<Props> = ({ community }) => {
                 'avatar'
               )}
               className="w-16 h-16 bg-gray-200 rounded-xl border dark:border-gray-700/80"
+              height={64}
+              width={64}
               alt={community?.id}
             />
             <div className="space-y-1">

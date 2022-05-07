@@ -264,6 +264,8 @@ const SuperFollow: FC = () => {
           prefix={
             <img
               className="w-6 h-6"
+              height={24}
+              width={24}
               src={getTokenImage(selectedCurrencySymobol)}
               alt={selectedCurrencySymobol}
             />
