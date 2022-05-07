@@ -94,6 +94,8 @@ const Details: FC<Props> = ({ profile }) => {
         <img
           src={getAvatar(profile)}
           className="w-32 h-32 bg-gray-200 rounded-xl ring-8 ring-gray-50 sm:w-52 sm:h-52 dark:bg-gray-700 dark:ring-black"
+          height={128}
+          width={128}
           alt={profile?.handle}
         />
       </div>
