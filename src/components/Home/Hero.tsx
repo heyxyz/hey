@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 
 const Hero: FC = () => {
   return (
-    <div className="py-12 mb-4 border-b dark:border-b-gray-700/80 bg-hero">
+    <div className="py-12 mb-4 border-b bg-hero dark:border-b-gray-700/80">
       <div className="container px-5 mx-auto max-w-screen-xl">
         <div className="flex items-stretch py-8 w-full text-center sm:py-12 sm:text-left">
           <div className="flex-1 flex-shrink-0 space-y-3">

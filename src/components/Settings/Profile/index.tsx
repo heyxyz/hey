@@ -109,12 +109,12 @@ const ProfileSettings: NextPage = () => {
           <CardBody className="space-y-5">
             <div className="flex items-center space-x-2">
               <TypeButton
-                icon={<PhotographIcon className="h-5 w-5" />}
+                icon={<PhotographIcon className="w-5 h-5" />}
                 type="AVATAR"
                 name="Upload avatar"
               />
               <TypeButton
-                icon={<PhotographIcon className="h-5 w-5" />}
+                icon={<PhotographIcon className="w-5 h-5" />}
                 type="NFT"
                 name="NFT Avatar"
               />
