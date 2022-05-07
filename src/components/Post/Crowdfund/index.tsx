@@ -223,6 +223,8 @@ const Crowdfund: FC<Props> = ({ fund }) => {
                 <Tooltip content={collectModule?.amount?.asset?.symbol}>
                   <img
                     className="w-7 h-7"
+                    height={28}
+                    width={28}
                     src={getTokenImage(collectModule?.amount?.asset?.symbol)}
                     alt={collectModule?.amount?.asset?.symbol}
                   />
@@ -243,6 +245,8 @@ const Crowdfund: FC<Props> = ({ fund }) => {
                 <Tooltip content={collectModule?.amount?.asset?.symbol}>
                   <img
                     className="w-7 h-7"
+                    height={28}
+                    width={28}
                     src={getTokenImage(collectModule?.amount?.asset?.symbol)}
                     alt={collectModule?.amount?.asset?.symbol}
                   />

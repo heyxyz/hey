@@ -32,6 +32,8 @@ const CollectedAmount: FC<Props> = ({ notification }) => {
           </div>
           <img
             className="w-5 h-5"
+            height={20}
+            width={20}
             src={getTokenImage(collectModule?.amount?.asset?.symbol)}
             alt={collectModule?.amount?.asset?.symbol}
           />

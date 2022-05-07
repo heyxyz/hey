@@ -278,6 +278,8 @@ const CollectModule: FC<Props> = ({ post }) => {
           <div className="flex items-center py-2 space-x-1.5">
             <img
               className="w-7 h-7"
+              height={28}
+              width={28}
               src={getTokenImage(collectModule?.amount?.asset?.symbol)}
               alt={collectModule?.amount?.asset?.symbol}
               title={collectModule?.amount?.asset?.symbol}

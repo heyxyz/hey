@@ -31,6 +31,8 @@ const CollectedContent: FC<Props> = ({ notification }) => {
                 'avatar'
               )}
               className="w-4 h-4 bg-gray-200 rounded ring-2 ring-gray-50 dark:bg-gray-700 dark:ring-black"
+              height={16}
+              width={16}
               alt={notification?.collectedPublication?.id}
             />
             <div>{notification?.collectedPublication?.metadata?.name}</div>
