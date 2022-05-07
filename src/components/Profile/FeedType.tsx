@@ -38,6 +38,7 @@ const FeedType: FC<Props> = ({ stats, setFeedType, feedType }) => {
         },
         'flex items-center space-x-2 rounded-lg px-4 sm:px-3 py-2 sm:py-1 text-brand hover:bg-brand-100 dark:hover:bg-opacity-20 hover:bg-opacity-100'
       )}
+      aria-label={name}
     >
       {icon}
       <div className="hidden sm:block">{name}</div>
