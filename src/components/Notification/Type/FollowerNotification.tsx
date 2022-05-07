@@ -8,6 +8,10 @@ import relativeTime from 'dayjs/plugin/relativeTime'
 import React, { FC, useContext } from 'react'
 
 import { NotificationProfileAvatar, NotificationProfileName } from '../Profile'
+import {
+  NotificationWalletProfileAvatar,
+  NotificationWalletProfileName
+} from '../WalletProfile'
 
 dayjs.extend(relativeTime)
 
@@ -20,9 +24,17 @@ const FollowerNotification: FC<Props> = ({ notification }) => {
 
   return (
     <div className="flex items-center space-x-3">
-      <NotificationProfileAvatar notification={notification} />
+      {notification?.profile ? (
+        <NotificationProfileAvatar profile={notification?.profile} />
+      ) : (
+        <NotificationWalletProfileAvatar wallet={notification?.wallet} />
+      )}
       <div className="w-4/5">
-        <NotificationProfileName notification={notification} />{' '}
+        {notification?.profile ? (
+          <NotificationProfileName profile={notification?.profile} />
+        ) : (
+          <NotificationWalletProfileName wallet={notification?.wallet} />
+        )}{' '}
         <span className="text-gray-600 dark:text-gray-400">
           {currentUser?.followModule ? 'super' : ''} followed you
         </span>
