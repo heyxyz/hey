@@ -53,12 +53,10 @@ const SiteLayout: FC<Props> = ({ children }) => {
     ?.sort((a: Profile, b: Profile) => Number(a.id) - Number(b.id))
 
   useEffect(() => {
-    setTimeout(() => {
-      setPageLoading(false)
-    }, 500)
     setSelectedProfile(localStorage.selectedProfile)
     setRefreshToken(localStorage.refreshToken)
     setStaffMode(localStorage.staffMode === 'true')
+    setPageLoading(false)
 
     if (!activeConnector) {
       disconnect()
