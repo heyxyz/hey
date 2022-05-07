@@ -12,6 +12,7 @@ export default function Custom404() {
         src={`${STATIC_ASSETS}/gifs/nyan-cat.gif`}
         alt="Nyan Cat"
         className="h-60"
+        height={240}
       />
       <div className="py-10 text-center">
         <h1 className="mb-4 text-3xl font-bold">Oops, Lost‽</h1>

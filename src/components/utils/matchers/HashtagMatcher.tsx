@@ -20,6 +20,7 @@ export function Hashtag({ ...props }: any) {
       {hasHashflag && (
         <img
           className="h-4 !mr-1.5"
+          height={16}
           src={`${STATIC_ASSETS}/hashflags/${hashflag}.png`}
           alt={hashflag}
         />

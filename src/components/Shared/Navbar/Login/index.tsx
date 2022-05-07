@@ -39,6 +39,8 @@ const Login: FC = () => {
           <div className="mb-2 space-y-4">
             <img
               className="w-16 h-16 rounded-full"
+              height={64}
+              width={64}
               src={`${STATIC_ASSETS}/brands/lens.png`}
               alt="Logo"
             />

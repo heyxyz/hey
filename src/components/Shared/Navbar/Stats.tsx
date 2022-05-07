@@ -60,7 +60,13 @@ const MenuItem: FC<Props> = ({ icon, title, isLenster = false }) => (
       <div className="flex items-center space-x-1">
         {icon}
         {isLenster && (
-          <img src="/logo.svg" className="w-3 h-3" alt="Lenster's Data" />
+          <img
+            src="/logo.svg"
+            className="w-3 h-3"
+            height={12}
+            width={12}
+            alt="Lenster's Data"
+          />
         )}
       </div>
       <div>{title}</div>

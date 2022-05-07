@@ -25,6 +25,8 @@ const User: FC<UserProps> = ({ suggestion, focused }) => (
   >
     <img
       className="w-8 h-8 rounded-full"
+      height={32}
+      width={32}
       src={imagekitURL(suggestion.picture, 'avatar')}
       alt={suggestion.id}
     />

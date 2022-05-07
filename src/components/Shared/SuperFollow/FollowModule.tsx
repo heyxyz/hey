@@ -243,6 +243,8 @@ const FollowModule: FC<Props> = ({
       <div className="flex items-center py-2 space-x-1.5">
         <img
           className="w-7 h-7"
+          height={28}
+          width={28}
           src={getTokenImage(followModule?.amount?.asset?.symbol)}
           alt={followModule?.amount?.asset?.symbol}
           title={followModule?.amount?.asset?.name}
