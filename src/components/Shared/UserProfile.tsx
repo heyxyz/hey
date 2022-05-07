@@ -38,6 +38,7 @@ const UserProfile: FC<Props> = ({
           <div className="flex items-center space-x-3">
             <img
               src={getAvatar(profile)}
+              loading="lazy"
               className={clsx(
                 isBig ? 'w-14 h-14' : 'w-10 h-10',
                 'bg-gray-200 rounded-full border dark:border-gray-700/80'
