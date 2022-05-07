@@ -16,9 +16,9 @@ interface Props {
 const CommentNotification: FC<Props> = ({ notification }) => {
   return (
     <div className="flex items-center space-x-3">
-      <NotificationProfileAvatar notification={notification} />
+      <NotificationProfileAvatar profile={notification?.profile} />
       <div className="w-4/5">
-        <NotificationProfileName notification={notification} />{' '}
+        <NotificationProfileName profile={notification?.profile} />{' '}
         <span className="text-gray-600 dark:text-gray-400">
           commented on your{' '}
         </span>

@@ -2,6 +2,10 @@ import {
   NotificationProfileAvatar,
   NotificationProfileName
 } from '@components/Notification/Profile'
+import {
+  NotificationWalletProfileAvatar,
+  NotificationWalletProfileName
+} from '@components/Notification/WalletProfile'
 import { LensterNotification } from '@generated/lenstertypes'
 import { NewCollectNotification } from '@generated/types'
 import { CashIcon, CollectionIcon, UsersIcon } from '@heroicons/react/outline'
@@ -26,9 +30,17 @@ const CollectNotification: FC<Props> = ({ notification }) => {
 
   return (
     <div className="flex gap-x-3 items-center">
-      <NotificationProfileAvatar notification={notification} />
+      {notification?.profile ? (
+        <NotificationProfileAvatar profile={notification?.profile} />
+      ) : (
+        <NotificationWalletProfileAvatar wallet={notification?.wallet} />
+      )}
       <div className="w-4/5">
-        <NotificationProfileName notification={notification} />{' '}
+        {notification?.profile ? (
+          <NotificationProfileName profile={notification?.profile} />
+        ) : (
+          <NotificationWalletProfileName wallet={notification?.wallet} />
+        )}{' '}
         <span className="text-gray-600 dark:text-gray-400">
           {postType === 'community'
             ? 'joined your'
