@@ -240,6 +240,8 @@ const Create: NextPage = () => {
                   {avatar && (
                     <img
                       className="w-60 h-60 rounded-lg"
+                      height={240}
+                      width={240}
                       src={avatar}
                       alt={avatar}
                     />
