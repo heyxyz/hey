@@ -92,9 +92,9 @@ const Create: NextPage = () => {
     evt.preventDefault()
     setUploading(true)
     try {
-      const attachment = await uploadAssetsToIPFS(evt.target.files![0])
-      setAvatar(attachment.item)
-      setAvatarType(attachment.type)
+      const attachment = await uploadAssetsToIPFS(evt.target.files)
+      setAvatar(attachment[0].item)
+      setAvatarType(attachment[0].type)
     } finally {
       setUploading(false)
     }
