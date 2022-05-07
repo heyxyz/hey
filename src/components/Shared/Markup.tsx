@@ -3,6 +3,7 @@ import { MDBoldMatcher } from '@components/utils/matchers/markdown/MDBoldMatcher
 import { MDCodeMatcher } from '@components/utils/matchers/markdown/MDCodeMatcher'
 import { MDItalicMatcher } from '@components/utils/matchers/markdown/MDItalicMatcher'
 import { MentionMatcher } from '@components/utils/matchers/MentionMatcher'
+import { SpoilerMatcher } from '@components/utils/matchers/SpoilerMatcher'
 import { Interweave } from 'interweave'
 import { EmailMatcher, UrlMatcher } from 'interweave-autolink'
 import React, { FC } from 'react'
@@ -22,7 +23,8 @@ const Markup: FC<Props> = ({ children }) => {
         new MentionMatcher('mention'),
         new MDBoldMatcher('mdBold'),
         new MDItalicMatcher('mdItalic'),
-        new MDCodeMatcher('mdCode')
+        new MDCodeMatcher('mdCode'),
+        new SpoilerMatcher('spoiler')
       ]}
     />
   )

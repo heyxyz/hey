@@ -33,7 +33,7 @@ const Commented: FC<Props> = ({ post }) => {
         <Link href={`/posts/${commentOn?.id ?? commentOn?.pubId}`}>
           <a
             href={`/posts/${commentOn?.id ?? commentOn?.pubId}`}
-            className="line-clamp-1 break-all"
+            className="break-all line-clamp-1"
           >
             {commentOn?.metadata?.content?.trim() ? (
               <div className="linkify">
