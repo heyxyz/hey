@@ -5,7 +5,7 @@ export class MDCodeMatcher extends Matcher {
   replaceWith(children: ChildrenNode, props: object) {
     return (
       <code
-        className="bg-gray-300 text-sm px-[5px] py-[2px] rounded-lg"
+        className="text-sm bg-gray-300 rounded-lg px-[5px] py-[2px]"
         {...props}
       >
         {children}
