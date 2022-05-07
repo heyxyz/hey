@@ -1,12 +1,11 @@
 import { NewMentionNotification } from '@generated/types'
 import { ChatAlt2Icon } from '@heroicons/react/outline'
-import { BadgeCheckIcon } from '@heroicons/react/solid'
-import getAvatar from '@lib/getAvatar'
-import isVerified from '@lib/isVerified'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import Link from 'next/link'
 import React, { FC } from 'react'
+
+import { NotificationProfileAvatar, NotificationProfileName } from '../Profile'
 
 dayjs.extend(relativeTime)
 
@@ -19,27 +18,9 @@ const MentionNotification: FC<Props> = ({ notification }) => {
 
   return (
     <div className="flex items-center space-x-3">
-      <Link href={`/u/${profile?.handle}`}>
-        <a href={`/u/${profile?.handle}`}>
-          <img
-            src={getAvatar(profile)}
-            className="w-10 h-10 bg-gray-200 rounded-full border dark:border-gray-700/80"
-            alt={profile.handle}
-          />
-        </a>
-      </Link>
+      <NotificationProfileAvatar profile={profile} />
       <div className="w-4/5">
-        <Link href={`/u/${profile?.handle}`}>
-          <a
-            href={`/u/${profile?.handle}`}
-            className="inline-flex items-center space-x-1 font-bold"
-          >
-            <div>{profile.name ?? profile?.handle}</div>
-            {isVerified(profile?.id) && (
-              <BadgeCheckIcon className="w-4 h-4 text-brand" />
-            )}
-          </a>
-        </Link>{' '}
+        <NotificationProfileName profile={profile} />{' '}
         <span className="text-gray-600 dark:text-gray-400">
           mentioned you in a{' '}
         </span>
