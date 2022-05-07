@@ -1,3 +1,4 @@
+import Markup from '@components/Shared/Markup'
 import { NewMentionNotification } from '@generated/types'
 import { ChatAlt2Icon } from '@heroicons/react/outline'
 import dayjs from 'dayjs'
@@ -35,9 +36,11 @@ const MentionNotification: FC<Props> = ({ notification }) => {
         <Link href={`/posts/${notification?.mentionPublication.id}`}>
           <a
             href={`/posts/${notification?.mentionPublication.id}`}
-            className="text-sm text-gray-500 line-clamp-1"
+            className="text-sm text-gray-500 line-clamp-1 linkify"
           >
-            {notification?.mentionPublication?.metadata?.content}
+            <Markup>
+              {notification?.mentionPublication?.metadata?.content}
+            </Markup>
           </a>
         </Link>
         <div className="flex items-center pt-1 space-x-1 text-gray-400 text-[12px]">

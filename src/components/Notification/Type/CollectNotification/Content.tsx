@@ -1,3 +1,4 @@
+import Markup from '@components/Shared/Markup'
 import { NewCollectNotification } from '@generated/types'
 import imagekitURL from '@lib/imagekitURL'
 import Link from 'next/link'
@@ -43,8 +44,13 @@ const CollectedContent: FC<Props> = ({ notification }) => {
         </Link>
       ) : (
         <Link href={`/posts/${notification?.collectedPublication?.id}`}>
-          <a href={`/posts/${notification?.collectedPublication?.id}`}>
-            {notification?.collectedPublication?.metadata?.content}
+          <a
+            className="linkify"
+            href={`/posts/${notification?.collectedPublication?.id}`}
+          >
+            <Markup>
+              {notification?.collectedPublication?.metadata?.content}
+            </Markup>
           </a>
         </Link>
       )}
