@@ -3,7 +3,6 @@
   "short_name": "Lenster",
   "description": "Decentralized, and permissionless social media app",
   "theme_color": "#ffffff",
-  "background_color": "#ffffff",
   "display": "standalone",
   "scope": "/",
   "start_url": "/?utm_source=homescreen&utm_medium=shortcut",
@@ -32,6 +31,5 @@
       "sizes": "512x512",
       "type": "image/png"
     }
-  ],
-  "splash_pages": null
+  ]
 }
