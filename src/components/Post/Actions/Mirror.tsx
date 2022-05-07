@@ -161,6 +161,7 @@ const Mirror: FC<Props> = ({ post }) => {
       whileTap={{ scale: 0.9 }}
       onClick={createMirror}
       disabled={typedDataLoading || writeLoading}
+      aria-label="Mirror"
     >
       <div className="flex items-center space-x-1 text-brand">
         <div className="p-1.5 rounded-full hover:bg-opacity-20 hover:bg-brand-300">

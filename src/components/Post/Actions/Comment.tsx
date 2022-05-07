@@ -12,7 +12,7 @@ interface Props {
 
 const Comment: FC<Props> = ({ post }) => {
   return (
-    <motion.button whileTap={{ scale: 0.9 }}>
+    <motion.button whileTap={{ scale: 0.9 }} aria-label="Comment">
       <Link href={`/posts/${post?.id}`}>
         <a
           href={`/posts/${post?.id}`}
