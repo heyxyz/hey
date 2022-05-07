@@ -2,12 +2,9 @@ import { ChildrenNode, Matcher } from 'interweave'
 import React from 'react'
 
 export class MDCodeMatcher extends Matcher {
-  replaceWith(children: ChildrenNode, props: object) {
+  replaceWith(children: ChildrenNode) {
     return (
-      <code
-        className="text-sm bg-gray-300 rounded-lg px-[5px] py-[2px]"
-        {...props}
-      >
+      <code className="text-sm bg-gray-300 rounded-lg px-[5px] py-[2px]">
         {children}
       </code>
     )
