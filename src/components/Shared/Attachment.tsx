@@ -6,6 +6,7 @@ import trackEvent from '@lib/trackEvent'
 import uploadAssetsToIPFS from '@lib/uploadAssetsToIPFS'
 import { motion } from 'framer-motion'
 import { ChangeEvent, Dispatch, FC, useId, useState } from 'react'
+import toast from 'react-hot-toast'
 
 interface Props {
   attachments: LensterAttachment[]
@@ -21,8 +22,12 @@ const Attachment: FC<Props> = ({ attachments, setAttachments }) => {
     setLoading(true)
 
     try {
-      const attachment = await uploadAssetsToIPFS(evt.target.files)
-      setAttachments(attachment)
+      if (evt.target.files!.length > 4) {
+        toast.error('Only 4 attachments are allowed!')
+      } else {
+        const attachment = await uploadAssetsToIPFS(evt.target.files)
+        setAttachments(attachment)
+      }
     } finally {
       setLoading(false)
     }
