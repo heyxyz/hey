@@ -16,7 +16,7 @@ const Module: FC<Props> = ({ module }) => {
   const [allowed, setAllowed] = useState<boolean>(module?.allowance !== '0x00')
 
   return (
-    <Card key={module?.module}>
+    <Card key={module?.module} forceRounded>
       <CardBody className="block justify-between items-center sm:flex">
         <div className="overflow-hidden mr-1.5 mb-3 sm:mb-0">
           <div className="flex items-center space-x-2">
