@@ -19,6 +19,18 @@
       "src": "https://assets.lenster.xyz/images/icons/512x512-maskable.png",
       "sizes": "512x512",
       "type": "image/png"
+    },
+    {
+      "purpose": "maskable",
+      "src": "https://assets.lenster.xyz/images/icons/192x192-maskable.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "purpose": "maskable",
+      "src": "https://assets.lenster.xyz/images/icons/512x512-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png"
     }
   ]
 }
