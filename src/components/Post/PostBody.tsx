@@ -53,6 +53,8 @@ const PostBody: FC<Props> = ({ post }) => {
                   'avatar'
                 )}
                 className="bg-gray-200 rounded ring-2 ring-gray-50 dark:bg-gray-700 dark:ring-black w-[19px] h-[19px]"
+                height={19}
+                width={19}
                 alt={post?.id}
               />
               <div>{post?.metadata?.name}</div>

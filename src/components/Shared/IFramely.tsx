@@ -77,6 +77,7 @@ const IFramely: FC<Props> = ({ url }) => {
               {isSquare && thumbnail && (
                 <img
                   className="h-36 rounded-l-xl"
+                  height={144}
                   src={thumbnail}
                   alt="Thumbnail"
                 />

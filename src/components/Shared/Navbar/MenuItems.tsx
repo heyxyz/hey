@@ -268,7 +268,9 @@ const MenuItems: FC = () => {
       <Button
         icon={
           <img
-            className="mr-0.5 h-4"
+            className="mr-0.5 h-4 w-4"
+            height={16}
+            width={16}
             src="/eth-white.svg"
             alt="Ethereum Logo"
           />

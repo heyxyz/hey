@@ -22,6 +22,7 @@ const Commented: FC<Props> = ({ post }) => {
           resolvedTheme === 'dark' ? 'comment-dark' : 'comment-light'
         }.svg`}
         className="mr-1.5 ml-5 w-4"
+        width={16}
         alt="Comment"
       />
       <div className="flex items-center pb-3.5 space-x-1 text-gray-500 text-[13px]">

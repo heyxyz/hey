@@ -88,6 +88,7 @@ const GifSelector: FC<Props> = ({ setShowModal, setGifAttachment }) => {
               >
                 <img
                   className="object-cover w-full h-32 cursor-pointer"
+                  height={128}
                   src={category.gif?.images?.original_still.url}
                   alt=""
                   draggable={false}
