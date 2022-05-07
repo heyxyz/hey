@@ -1,3 +1,4 @@
+import Markup from '@components/Shared/Markup'
 import { NewMirrorNotification } from '@generated/types'
 import { SwitchHorizontalIcon } from '@heroicons/react/outline'
 import dayjs from 'dayjs'
@@ -18,9 +19,9 @@ const MirrorNotification: FC<Props> = ({ notification }) => {
 
   return (
     <div className="flex items-center space-x-3">
-      <NotificationProfileAvatar notification={notification} />
+      <NotificationProfileAvatar profile={notification?.profile} />
       <div className="w-4/5">
-        <NotificationProfileName notification={notification} />{' '}
+        <NotificationProfileName profile={notification?.profile} />{' '}
         <span className="pl-0.5 text-gray-600 dark:text-gray-400">
           mirrored your{' '}
         </span>
@@ -41,9 +42,13 @@ const MirrorNotification: FC<Props> = ({ notification }) => {
             href={`/posts/${notification?.publication?.id}`}
             className="text-sm text-gray-500 line-clamp-1"
           >
-            {postType === 'crowdfund'
-              ? notification?.publication?.metadata?.name
-              : notification?.publication?.metadata?.content}
+            {postType === 'crowdfund' ? (
+              notification?.publication?.metadata?.name
+            ) : (
+              <div className="linkify">
+                <Markup>{notification?.publication?.metadata?.content}</Markup>
+              </div>
+            )}
           </a>
         </Link>
         <div className="flex items-center pt-1 space-x-1 text-gray-400 text-[12px]">

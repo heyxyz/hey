@@ -1,3 +1,4 @@
+import Markup from '@components/Shared/Markup'
 import { NewCommentNotification } from '@generated/types'
 import { ChatAlt2Icon } from '@heroicons/react/outline'
 import dayjs from 'dayjs'
@@ -16,9 +17,9 @@ interface Props {
 const CommentNotification: FC<Props> = ({ notification }) => {
   return (
     <div className="flex items-center space-x-3">
-      <NotificationProfileAvatar notification={notification} />
+      <NotificationProfileAvatar profile={notification?.profile} />
       <div className="w-4/5">
-        <NotificationProfileName notification={notification} />{' '}
+        <NotificationProfileName profile={notification?.profile} />{' '}
         <span className="text-gray-600 dark:text-gray-400">
           commented on your{' '}
         </span>
@@ -33,9 +34,9 @@ const CommentNotification: FC<Props> = ({ notification }) => {
         <Link href={`/posts/${notification?.comment.id}`}>
           <a
             href={`/posts/${notification?.comment.id}`}
-            className="text-sm text-gray-500 line-clamp-1"
+            className="text-sm text-gray-500 line-clamp-1 linkify"
           >
-            {notification?.comment?.metadata?.content}
+            <Markup>{notification?.comment?.metadata?.content}</Markup>
           </a>
         </Link>
         <div className="flex items-center pt-1 space-x-1 text-gray-400 text-[12px]">
