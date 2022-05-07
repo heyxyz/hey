@@ -96,6 +96,8 @@ const IFramely: FC<Props> = ({ url }) => {
                       {favicon && (
                         <img
                           className="w-4 h-4 rounded-full"
+                          height={16}
+                          width={16}
                           src={favicon}
                           alt="Favicon"
                         />

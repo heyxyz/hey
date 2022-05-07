@@ -192,6 +192,8 @@ const Picture: FC<Props> = ({ profile }) => {
             <div>
               <img
                 className="w-60 h-60 rounded-lg"
+                height={240}
+                width={240}
                 src={imagekitURL(avatar, 'avatar')}
                 alt={avatar}
               />

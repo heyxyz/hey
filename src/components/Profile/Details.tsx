@@ -186,6 +186,8 @@ const Details: FC<Props> = ({ profile }) => {
                 <img
                   src={`https://www.google.com/s2/favicons?domain=${profile?.website}`}
                   className="w-4 h-4 rounded-full"
+                  height={16}
+                  width={16}
                   alt="Website"
                 />
               }
@@ -205,13 +207,17 @@ const Details: FC<Props> = ({ profile }) => {
                 resolvedTheme === 'dark' ? (
                   <img
                     src={`${STATIC_ASSETS}/brands/twitter-light.svg`}
-                    className="w-4"
+                    className="w-4 h-4"
+                    height={16}
+                    width={16}
                     alt="Twitter Logo"
                   />
                 ) : (
                   <img
                     src={`${STATIC_ASSETS}/brands/twitter-dark.svg`}
-                    className="w-4"
+                    className="w-4 h-4"
+                    height={16}
+                    width={16}
                     alt="Twitter Logo"
                   />
                 )

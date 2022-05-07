@@ -43,6 +43,8 @@ const UserProfile: FC<Props> = ({
                 isBig ? 'w-14 h-14' : 'w-10 h-10',
                 'bg-gray-200 rounded-full border dark:border-gray-700/80'
               )}
+              height={isBig ? 56 : 40}
+              width={isBig ? 56 : 40}
               alt={profile?.handle}
             />
             <div>
