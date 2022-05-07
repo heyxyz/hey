@@ -135,6 +135,7 @@ const Unfollow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
       onClick={createUnfollow}
       disabled={typedDataLoading || signLoading || writeLoading}
       variant="danger"
+      aria-label="Unfollow"
       icon={
         typedDataLoading || signLoading || writeLoading ? (
           <Spinner variant="danger" size="xs" />

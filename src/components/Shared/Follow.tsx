@@ -143,6 +143,7 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
       onClick={createFollow}
       disabled={typedDataLoading || signLoading || writeLoading}
       variant="success"
+      aria-label="Follow"
       icon={
         typedDataLoading || signLoading || writeLoading ? (
           <Spinner variant="success" size="xs" />
