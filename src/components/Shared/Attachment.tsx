@@ -21,8 +21,8 @@ const Attachment: FC<Props> = ({ attachments, setAttachments }) => {
     setLoading(true)
 
     try {
-      const attachment = await uploadAssetsToIPFS(evt.target.files![0])
-      setAttachments([...attachments, attachment])
+      const attachment = await uploadAssetsToIPFS(evt.target.files)
+      setAttachments(attachment)
     } finally {
       setLoading(false)
     }
@@ -46,7 +46,8 @@ const Attachment: FC<Props> = ({ attachments, setAttachments }) => {
           <input
             id={id}
             type="file"
-            accept="image/*, video/mp4"
+            multiple
+            accept="image/*, video/*"
             className="hidden"
             onChange={handleAttachment}
             disabled={attachments.length >= 4}
