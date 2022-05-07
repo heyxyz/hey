@@ -1,17 +1,17 @@
 import { ChildrenNode, Matcher } from 'interweave'
 import React from 'react'
 
-export class MDItalicMatcher extends Matcher {
+export class MDStrikeMatcher extends Matcher {
   replaceWith(children: ChildrenNode) {
-    return <i>{children}</i>
+    return <s>{children}</s>
   }
 
   asTag(): string {
-    return 'i'
+    return 's'
   }
 
   match(value: string) {
-    return this.doMatch(value, /_([^_]+)_/u, (matches) => ({
+    return this.doMatch(value, /~~([^*]+)~~/u, (matches) => ({
       match: matches[1]
     }))
   }

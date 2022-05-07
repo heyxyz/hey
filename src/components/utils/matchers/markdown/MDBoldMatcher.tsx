@@ -2,8 +2,8 @@ import { ChildrenNode, Matcher } from 'interweave'
 import React from 'react'
 
 export class MDBoldMatcher extends Matcher {
-  replaceWith(children: ChildrenNode, props: object) {
-    return <b {...props}>{children}</b>
+  replaceWith(children: ChildrenNode) {
+    return <b>{children}</b>
   }
 
   asTag(): string {
