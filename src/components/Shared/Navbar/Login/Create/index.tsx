@@ -59,8 +59,8 @@ const Create: FC<Props> = ({ isModal = false }) => {
     evt.preventDefault()
     setUploading(true)
     try {
-      const attachment = await uploadAssetsToIPFS(evt.target.files![0])
-      setAvatar(attachment.item)
+      const attachment = await uploadAssetsToIPFS(evt.target.files)
+      setAvatar(attachment[0].item)
     } finally {
       setUploading(false)
     }
