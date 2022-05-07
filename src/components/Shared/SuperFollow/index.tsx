@@ -34,6 +34,7 @@ const SuperFollow: FC<Props> = ({
         variant="super"
         outline
         onClick={() => setShowFollowModal(!showFollowModal)}
+        aria-label="Super Follow"
         icon={<StarIcon className="w-4 h-4" />}
       >
         {showText && `Super follow`}
