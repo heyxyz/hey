@@ -137,7 +137,9 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
               <Spinner className="mr-0.5" size="xs" />
             ) : (
               <img
-                className="mr-1 h-5"
+                className="mr-1 h-5 w-5"
+                height={20}
+                width={20}
                 src="/eth-white.svg"
                 alt="Ethereum Logo"
               />
@@ -188,6 +190,8 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
               src={getWalletLogo(x.name)}
               draggable={false}
               className="w-6 h-6"
+              height={24}
+              width={24}
               alt={x.id}
             />
           </button>

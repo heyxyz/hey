@@ -90,7 +90,13 @@ const Navbar: FC = () => {
                 <Link href="/">
                   <a href="/">
                     <div className="text-3xl font-black">
-                      <img className="w-8 h-8" src="/logo.svg" alt="Logo" />
+                      <img
+                        className="w-8 h-8"
+                        height={32}
+                        width={32}
+                        src="/logo.svg"
+                        alt="Logo"
+                      />
                     </div>
                   </a>
                 </Link>

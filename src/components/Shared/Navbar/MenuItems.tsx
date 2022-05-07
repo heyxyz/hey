@@ -170,6 +170,8 @@ const MenuItems: FC = () => {
                           )}
                           <img
                             className="w-5 h-5 rounded-full border dark:border-gray-700/80"
+                            height={20}
+                            width={20}
                             src={getAvatar(profile)}
                             alt={profile?.handle}
                           />

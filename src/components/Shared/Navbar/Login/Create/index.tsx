@@ -102,7 +102,13 @@ const Create: FC<Props> = ({ isModal = false }) => {
       )}
       {isModal && (
         <div className="mb-2 space-y-4">
-          <img className="w-10 h-10" src="/logo.svg" alt="Logo" />
+          <img
+            className="w-10 h-10"
+            height={40}
+            width={40}
+            src="/logo.svg"
+            alt="Logo"
+          />
           <div className="text-xl font-bold">Signup to Lenster</div>
         </div>
       )}
@@ -117,7 +123,13 @@ const Create: FC<Props> = ({ isModal = false }) => {
         <div className="space-y-3">
           {avatar && (
             <div>
-              <img className="w-60 h-60 rounded-lg" src={avatar} alt={avatar} />
+              <img
+                className="w-60 h-60 rounded-lg"
+                height={240}
+                width={240}
+                src={avatar}
+                alt={avatar}
+              />
             </div>
           )}
           <div>
