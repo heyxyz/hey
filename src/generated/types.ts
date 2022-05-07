@@ -1864,9 +1864,9 @@ export enum PublicationReportingSensitiveSubreason {
 /** The social comment */
 export type PublicationRevenue = {
   __typename?: 'PublicationRevenue'
-  earnings?: Maybe<Erc20Amount>
+  earnings: Erc20Amount
   /** Protocol treasury fee % */
-  protocolFee?: Maybe<Scalars['Float']>
+  protocolFee: Scalars['Float']
   publication: Publication
 }
 

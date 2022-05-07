@@ -31,6 +31,7 @@ const Giphy: FC<Props> = ({ setGifAttachment }) => {
             trackEvent('choose gif')
             setShowModal(!showModal)
           }}
+          aria-label="Choose GIFs"
         >
           <div className="w-full fill-brand-500 dark:fill-brand-400">
             <svg viewBox="0 0 24 24" className="w-5 h-5">

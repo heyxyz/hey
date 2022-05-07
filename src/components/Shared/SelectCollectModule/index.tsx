@@ -38,6 +38,7 @@ const SelectCollectModule: FC<Props> = ({
             trackEvent('choose collect module')
             setShowModal(!showModal)
           }}
+          aria-label="Choose Collect Module"
         >
           <div className="text-brand">
             <GetModuleIcon module={selectedModule.moduleName} size={5} />
