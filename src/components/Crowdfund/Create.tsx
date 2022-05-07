@@ -387,6 +387,7 @@ const Create: NextPage = () => {
                   {cover && (
                     <img
                       className="object-cover w-full h-60 rounded-lg"
+                      height={240}
                       src={imagekitURL(cover, 'attachment')}
                       alt={cover}
                     />
