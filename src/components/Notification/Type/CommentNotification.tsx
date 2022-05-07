@@ -1,3 +1,4 @@
+import Markup from '@components/Shared/Markup'
 import { NewCommentNotification } from '@generated/types'
 import { ChatAlt2Icon } from '@heroicons/react/outline'
 import dayjs from 'dayjs'
@@ -33,9 +34,9 @@ const CommentNotification: FC<Props> = ({ notification }) => {
         <Link href={`/posts/${notification?.comment.id}`}>
           <a
             href={`/posts/${notification?.comment.id}`}
-            className="text-sm text-gray-500 line-clamp-1"
+            className="text-sm text-gray-500 line-clamp-1 linkify"
           >
-            {notification?.comment?.metadata?.content}
+            <Markup>{notification?.comment?.metadata?.content}</Markup>
           </a>
         </Link>
         <div className="flex items-center pt-1 space-x-1 text-gray-400 text-[12px]">
