@@ -33,6 +33,7 @@ const SelectReferenceModule: FC<Props> = ({
             trackEvent('choose reference module')
             setShowModal(!showModal)
           }}
+          aria-label="Choose Reference Module"
         >
           <div className="text-brand">
             {onlyFollowers ? (

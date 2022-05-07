@@ -39,6 +39,7 @@ const Attachment: FC<Props> = ({ attachments, setAttachments }) => {
         whileTap={{ scale: 0.9 }}
         type="button"
         onClick={() => trackEvent('choose attachment')}
+        aria-label="Choose Attachment"
       >
         <label className="flex gap-1 items-center cursor-pointer" htmlFor={id}>
           {loading ? (
