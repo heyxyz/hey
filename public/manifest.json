@@ -11,24 +11,24 @@
   "categories": ["social", "news", "magazines"],
   "icons": [
     {
-      "src": "https://assets.lenster.xyz/images/icons/192x192-maskable.png",
+      "src": "https://assets.lenster.xyz/images/icons/192x192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "https://assets.lenster.xyz/images/icons/512x512-maskable.png",
+      "src": "https://assets.lenster.xyz/images/icons/512x512.png",
       "sizes": "512x512",
       "type": "image/png"
     },
     {
       "purpose": "maskable",
-      "src": "https://assets.lenster.xyz/images/icons/192x192-maskable.png",
+      "src": "https://assets.lenster.xyz/images/icons/192x192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
       "purpose": "maskable",
-      "src": "https://assets.lenster.xyz/images/icons/512x512-maskable.png",
+      "src": "https://assets.lenster.xyz/images/icons/512x512.png",
       "sizes": "512x512",
       "type": "image/png"
     }
