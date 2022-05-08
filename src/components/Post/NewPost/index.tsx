@@ -1,6 +1,7 @@
 import LensHubProxy from '@abis/LensHubProxy.json'
 import { gql, useMutation } from '@apollo/client'
 import Attachments from '@components/Shared/Attachments'
+import Markup from '@components/Shared/Markup'
 import PubIndexStatus from '@components/Shared/PubIndexStatus'
 import SwitchNetwork from '@components/Shared/SwitchNetwork'
 import { Button } from '@components/UI/Button'
@@ -60,6 +61,9 @@ const SelectReferenceModule = dynamic(
     loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
   }
 )
+const Preview = dynamic(() => import('../../Shared/Preview'), {
+  loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
+})
 
 export const CREATE_POST_TYPED_DATA_MUTATION = gql`
   mutation CreatePostTypedData($request: CreatePublicPostRequest!) {
@@ -100,6 +104,7 @@ interface Props {
 }
 
 const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
+  const [preview, setPreview] = useState<boolean>(false)
   const [postContent, setPostContent] = useState<string>('')
   const [postContentError, setPostContentError] = useState<string>('')
   const [selectedModule, setSelectedModule] =
@@ -257,13 +262,19 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
               error={error}
             />
           )}
-          <MentionTextArea
-            value={postContent}
-            setValue={setPostContent}
-            error={postContentError}
-            setError={setPostContentError}
-            placeholder="What's happening?"
-          />
+          {preview ? (
+            <div className="pb-3 border-b dark:border-b-gray-700/80 mb-2">
+              <Markup>{postContent}</Markup>
+            </div>
+          ) : (
+            <MentionTextArea
+              value={postContent}
+              setValue={setPostContent}
+              error={postContentError}
+              setError={setPostContentError}
+              placeholder="What's happening?"
+            />
+          )}
           <div className="block items-center sm:flex">
             <div className="flex items-center space-x-4">
               <Attachment
@@ -281,6 +292,9 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
                 onlyFollowers={onlyFollowers}
                 setOnlyFollowers={setOnlyFollowers}
               />
+              {postContent && (
+                <Preview preview={preview} setPreview={setPreview} />
+              )}
             </div>
             <div className="flex items-center pt-2 ml-auto space-x-2 sm:pt-0">
               {data?.hash && (
