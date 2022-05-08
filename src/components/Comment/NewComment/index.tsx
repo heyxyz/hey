@@ -28,6 +28,7 @@ import {
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import trackEvent from '@lib/trackEvent'
+import trimify from '@lib/trimify'
 import uploadToIPFS from '@lib/uploadToIPFS'
 import dynamic from 'next/dynamic'
 import { FC, useContext, useState } from 'react'
@@ -214,8 +215,8 @@ const NewComment: FC<Props> = ({ post, type }) => {
       const { path } = await uploadToIPFS({
         version: '1.0.0',
         metadata_id: uuidv4(),
-        description: commentContent,
-        content: commentContent,
+        description: trimify(commentContent),
+        content: trimify(commentContent),
         external_url: null,
         image: attachments.length > 0 ? attachments[0]?.item : null,
         imageMimeType: attachments.length > 0 ? attachments[0]?.type : null,
