@@ -9,9 +9,14 @@ import { POLYGONSCAN_URL } from 'src/constants'
 interface Props {
   type?: string
   txHash: string
+  reload?: boolean
 }
 
-const IndexStatus: FC<Props> = ({ type = 'Transaction', txHash }) => {
+const IndexStatus: FC<Props> = ({
+  type = 'Transaction',
+  txHash,
+  reload = false
+}) => {
   const [hide, setHide] = useState<boolean>(false)
   const [pollInterval, setPollInterval] = useState<number>(500)
   const { data, loading } = useQuery(TX_STATUS_QUERY, {
@@ -22,6 +27,9 @@ const IndexStatus: FC<Props> = ({ type = 'Transaction', txHash }) => {
     onCompleted(data) {
       if (data?.hasTxHashBeenIndexed?.indexed) {
         setPollInterval(0)
+        if (reload) {
+          location.reload()
+        }
         setTimeout(() => {
           setHide(true)
         }, 5000)
