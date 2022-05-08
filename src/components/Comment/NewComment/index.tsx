@@ -1,6 +1,8 @@
 import LensHubProxy from '@abis/LensHubProxy.json'
 import { gql, useMutation } from '@apollo/client'
 import Attachments from '@components/Shared/Attachments'
+import Markup from '@components/Shared/Markup'
+import Preview from '@components/Shared/Preview'
 import PubIndexStatus from '@components/Shared/PubIndexStatus'
 import SwitchNetwork from '@components/Shared/SwitchNetwork'
 import { Button } from '@components/UI/Button'
@@ -105,6 +107,7 @@ interface Props {
 }
 
 const NewComment: FC<Props> = ({ post, type }) => {
+  const [preview, setPreview] = useState<boolean>(false)
   const [commentContent, setCommentContent] = useState<string>('')
   const [commentContentError, setCommentContentError] = useState<string>('')
   const { currentUser } = useContext(AppContext)
@@ -267,13 +270,19 @@ const NewComment: FC<Props> = ({ post, type }) => {
               error={error}
             />
           )}
-          <MentionTextArea
-            value={commentContent}
-            setValue={setCommentContent}
-            error={commentContentError}
-            setError={setCommentContentError}
-            placeholder="Tell something cool!"
-          />
+          {preview ? (
+            <div className="pb-3 border-b dark:border-b-gray-700/80 mb-2">
+              <Markup>{commentContent}</Markup>
+            </div>
+          ) : (
+            <MentionTextArea
+              value={commentContent}
+              setValue={setCommentContent}
+              error={commentContentError}
+              setError={setCommentContentError}
+              placeholder="Tell something cool!"
+            />
+          )}
           <div className="block items-center sm:flex">
             <div className="flex items-center space-x-4">
               <Attachment
@@ -291,6 +300,9 @@ const NewComment: FC<Props> = ({ post, type }) => {
                 onlyFollowers={onlyFollowers}
                 setOnlyFollowers={setOnlyFollowers}
               />
+              {commentContent && (
+                <Preview preview={preview} setPreview={setPreview} />
+              )}
             </div>
             <div className="flex items-center pt-2 ml-auto space-x-2 sm:pt-0">
               {data?.hash && (
