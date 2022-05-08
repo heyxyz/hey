@@ -218,7 +218,7 @@ const SetProfile: FC = () => {
             >
               Save
             </Button>
-            {writeData?.hash && <IndexStatus txHash={writeData?.hash} />}
+            {writeData?.hash && <IndexStatus txHash={writeData?.hash} reload />}
           </div>
         )}
       </CardBody>
