@@ -72,9 +72,7 @@ const PostBody: FC<Props> = ({ post }) => {
             })}
           >
             <div className="leading-7 whitespace-pre-wrap break-words linkify">
-              <Markup>
-                {post?.metadata?.content?.replace(/\n\s*\n/g, '\n\n').trim()}
-              </Markup>
+              <Markup>{post?.metadata?.content}</Markup>
             </div>
           </div>
           {showMore && pathname !== '/posts/[id]' && (
