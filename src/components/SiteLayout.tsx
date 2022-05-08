@@ -51,6 +51,9 @@ const SiteLayout: FC<Props> = ({ children }) => {
   const profiles: Profile[] = data?.profiles?.items
     ?.slice()
     ?.sort((a: Profile, b: Profile) => Number(a.id) - Number(b.id))
+    ?.sort((a: Profile, b: Profile) =>
+      !(a.isDefault !== b.isDefault) ? 0 : a.isDefault ? -1 : 1
+    )
 
   useEffect(() => {
     setSelectedProfile(localStorage.selectedProfile)
