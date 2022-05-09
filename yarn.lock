@@ -1785,11 +1785,11 @@
     tslib "~2.3.0"
 
 "@graphql-tools/prisma-loader@^7.0.6":
-  version "7.1.18"
-  resolved "https://registry.yarnpkg.com/@graphql-tools/prisma-loader/-/prisma-loader-7.1.18.tgz#54edaef365ee235402deb660efb7f0166171094e"
-  integrity sha512-3nyuuckf2dUNBsvyfF4qmQoKLJtan7Y9Kk2d3GGl5VLz3u3TW0eWjHtAsF6oKzhyFSr4hodvmKceFTFpxRPc/w==
+  version "7.1.19"
+  resolved "https://registry.yarnpkg.com/@graphql-tools/prisma-loader/-/prisma-loader-7.1.19.tgz#0e8905aa7b4e6849330eaef5ae211455239af4c9"
+  integrity sha512-CkjRLQaHt+NqL+9Z8yYsrTuglSwE150pj2f8qKhFNiLNZj8m0FdDGNs64bclV9pADRROccuSCpo7kmfH6GnbVQ==
   dependencies:
-    "@graphql-tools/url-loader" "7.9.19"
+    "@graphql-tools/url-loader" "7.9.20"
     "@graphql-tools/utils" "8.6.9"
     "@types/js-yaml" "^4.0.0"
     "@types/json-stable-stringify" "^1.0.32"
@@ -1829,17 +1829,17 @@
     tslib "~2.3.0"
     value-or-promise "1.0.11"
 
-"@graphql-tools/url-loader@7.9.19", "@graphql-tools/url-loader@^7.0.11", "@graphql-tools/url-loader@^7.9.7":
-  version "7.9.19"
-  resolved "https://registry.yarnpkg.com/@graphql-tools/url-loader/-/url-loader-7.9.19.tgz#6f848b71c72d0371582aac11272a759d95c0ef8b"
-  integrity sha512-2jLr3gx2VvUjZGnHqfeDk8tp4mJ5/df9pMHj7NTRMh8Hp9WpIpTdxWSYg8SyJZIMbY8IlpPn5EFwZAz5okkrEw==
+"@graphql-tools/url-loader@7.9.20", "@graphql-tools/url-loader@^7.0.11", "@graphql-tools/url-loader@^7.9.7":
+  version "7.9.20"
+  resolved "https://registry.yarnpkg.com/@graphql-tools/url-loader/-/url-loader-7.9.20.tgz#3cbee69dac284fe238a853201031e072322a0368"
+  integrity sha512-APsYjsCuEAEK3mNZ7wYO0oOzDLdGzmAc9Mma9Ys8Eraxk7Y3NuS+A8r/naIM8oUq8207IRyek96fbhMqHCBGmg==
   dependencies:
     "@graphql-tools/delegate" "8.7.7"
     "@graphql-tools/utils" "8.6.9"
     "@graphql-tools/wrap" "8.4.16"
     "@n1ru4l/graphql-live-query" "^0.9.0"
     "@types/ws" "^8.0.0"
-    cross-undici-fetch "^0.3.5"
+    cross-undici-fetch "^0.4.0"
     dset "^3.1.0"
     extract-files "^11.0.0"
     graphql-ws "^5.4.1"
@@ -3864,6 +3864,19 @@ cross-undici-fetch@^0.3.5:
     undici "^5.1.0"
     web-streams-polyfill "^3.2.0"
 
+cross-undici-fetch@^0.4.0:
+  version "0.4.3"
+  resolved "https://registry.yarnpkg.com/cross-undici-fetch/-/cross-undici-fetch-0.4.3.tgz#465d13d4d7d7a1dae75f8ad85aa0ecfa2752e99f"
+  integrity sha512-mv1jusEQsFnBHEBkpFaYROKAzAWyuW8ZyN48NcyqkjLGRrscMKuFRmUigUrkE/pdprQZjNTQQ/aWJKe6F4tzTA==
+  dependencies:
+    abort-controller "^3.0.0"
+    busboy "^1.6.0"
+    form-data-encoder "^1.7.1"
+    formdata-node "^4.3.1"
+    node-fetch "^2.6.7"
+    undici "^5.1.0"
+    web-streams-polyfill "^3.2.0"
+
 crypto-random-string@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/crypto-random-string/-/crypto-random-string-2.0.0.tgz#ef2a7a966ec11083388369baa02ebead229b30d5"
@@ -4170,9 +4183,9 @@ electron-fetch@^1.7.2:
     encoding "^0.1.13"
 
 electron-to-chromium@^1.4.118:
-  version "1.4.136"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.136.tgz#b6a3595a9c29d6d8f60e092d40ac24f997e4e7ef"
-  integrity sha512-GnITX8rHnUrIVnTxU9UlsTnSemHUA2iF+6QrRqxFbp/mf0vfuSc/goEyyQhUX3TUUCE3mv/4BNuXOtaJ4ur0eA==
+  version "1.4.137"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.137.tgz#186180a45617283f1c012284458510cd99d6787f"
+  integrity sha512-0Rcpald12O11BUogJagX3HsCN3FE83DSqWjgXoHo5a72KUKMSfI39XBgJpgNNxS9fuGzytaFjE06kZkiVFy2qA==
 
 elegant-spinner@^1.0.1:
   version "1.0.1"
@@ -5187,9 +5200,9 @@ globals@^11.1.0:
   integrity sha512-WOBp/EEGUiIsJSp7wcv/y6MO+lV9UoncWqxuFfm8eBwzWNgyfBd6Gz+IeKQ9jCmyhoH99g15M3T+QaVHFjizVA==
 
 globals@^13.6.0, globals@^13.9.0:
-  version "13.13.0"
-  resolved "https://registry.yarnpkg.com/globals/-/globals-13.13.0.tgz#ac32261060d8070e2719dd6998406e27d2b5727b"
-  integrity sha512-EQ7Q18AJlPwp3vUDL4mKA0KXrXyNIQyWon6T6XQiBQF0XHvRsiCSrWmmeATpUzdJN2HhWZU6Pdl0a9zdep5p6A==
+  version "13.14.0"
+  resolved "https://registry.yarnpkg.com/globals/-/globals-13.14.0.tgz#daf3ff9b4336527cf56e98330b6f64bea9aff9df"
+  integrity sha512-ERO68sOYwm5UuLvSJTY7w7NP2c8S4UcXs3X1GBX8cwOr+ShOcDBbCY5mH4zxz0jsYCdJ8ve8Mv9n2YGJMB1aeg==
   dependencies:
     type-fest "^0.20.2"
 
@@ -7585,9 +7598,9 @@ react-native-fetch-api@^2.0.0:
     p-defer "^3.0.0"
 
 react-query@^4.0.0-beta.7:
-  version "4.0.0-beta.7"
-  resolved "https://registry.yarnpkg.com/react-query/-/react-query-4.0.0-beta.7.tgz#6baa776c828263a79f82b76726cf56684e17b92f"
-  integrity sha512-hovLEuiOfEPnQAJ3yfIK9qoW1fFdf7BQ9Wn7ALPueIO1McBhCMqtwEWHxL6DSKk8bgeDjMFBzDnZmQPXCiq7VA==
+  version "4.0.0-beta.9"
+  resolved "https://registry.yarnpkg.com/react-query/-/react-query-4.0.0-beta.9.tgz#1de58a717287f7e5e03abbe2ea155c1d7e9a9cae"
+  integrity sha512-RRred9TzbWcsaJBwuHmsuCLYhcytObPmM5mFktLEm3I0s6PJjE3vh8WA7ZYklpfR1My3ffZyLn6gCMWpvEgSag==
   dependencies:
     "@babel/runtime" "^7.17.9"
     "@types/use-sync-external-store" "^0.0.3"
@@ -7908,9 +7921,9 @@ rollup-plugin-terser@^7.0.0:
     terser "^5.0.0"
 
 rollup@^2.43.1:
-  version "2.72.0"
-  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.72.0.tgz#f94280b003bcf9f2f1f2594059a9db5abced371e"
-  integrity sha512-KqtR2YcO35/KKijg4nx4STO3569aqCUeGRkKWnJ6r+AvBBrVY9L4pmf4NHVrQr4mTOq6msbohflxr2kpihhaOA==
+  version "2.72.1"
+  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.72.1.tgz#861c94790537b10008f0ca0fbc60e631aabdd045"
+  integrity sha512-NTc5UGy/NWFGpSqF1lFY8z9Adri6uhyMLI6LvPAXdBKoPRFhIIiBUpt+Qg2awixqO3xvzSijjhnb4+QEZwJmxA==
   optionalDependencies:
     fsevents "~2.3.2"
 
