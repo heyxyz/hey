@@ -29,7 +29,7 @@
     "dotenv": "^16.0.0",
     "ethers": "^5.6.5",
     "framer-motion": "^6.3.3",
-    "graphql": "^16.4.0",
+    "graphql": "^16.5.0",
     "interweave": "^13.0.0",
     "interweave-autolink": "^5.0.0",
     "ipfs-http-client": "^56.0.3",
