@@ -31,7 +31,7 @@ const authLink = new ApolloLink((operation, forward) => {
   if (token === 'undefined' || !token) {
     Cookies.remove('accessToken')
     Cookies.remove('refreshToken')
-    Cookies.remove('selectedProfile')
+    localStorage.removeItem('selectedProfile')
 
     return forward(operation)
   } else {
