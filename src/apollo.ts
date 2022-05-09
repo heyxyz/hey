@@ -6,10 +6,15 @@ import {
 } from '@apollo/client'
 import result from '@generated/types'
 import consoleLog from '@lib/consoleLog'
-import Cookies from 'js-cookie'
+import Cookies, { CookieAttributes } from 'js-cookie'
 import jwtDecode from 'jwt-decode'
 
 import { API_URL, ERROR_MESSAGE } from './constants'
+
+export const COOKIE_CONFIG: CookieAttributes = {
+  sameSite: 'None',
+  secure: true
+}
 
 const REFRESH_AUTHENTICATION_MUTATION = `
   mutation Refresh($request: RefreshRequest!) {
@@ -65,8 +70,16 @@ const authLink = new ApolloLink((operation, forward) => {
                 : ''
             }
           })
-          Cookies.set('accessToken', res?.data?.refresh?.accessToken)
-          Cookies.set('refreshToken', res?.data?.refresh?.refreshToken)
+          Cookies.set(
+            'accessToken',
+            res?.data?.refresh?.accessToken,
+            COOKIE_CONFIG
+          )
+          Cookies.set(
+            'refreshToken',
+            res?.data?.refresh?.refreshToken,
+            COOKIE_CONFIG
+          )
         })
         .catch(() => console.log(ERROR_MESSAGE))
     }
