@@ -6,6 +6,7 @@ import {
 } from '@apollo/client'
 import result from '@generated/types'
 import consoleLog from '@lib/consoleLog'
+import Cookies from 'js-cookie'
 import jwtDecode from 'jwt-decode'
 
 import { API_URL, ERROR_MESSAGE } from './constants'
@@ -25,12 +26,12 @@ const httpLink = new HttpLink({
 })
 
 const authLink = new ApolloLink((operation, forward) => {
-  const token = localStorage.accessToken
+  const token = Cookies.get('accessToken')
 
   if (token === 'undefined' || !token) {
-    localStorage.removeItem('accessToken')
-    localStorage.removeItem('refreshToken')
-    localStorage.removeItem('selectedProfile')
+    Cookies.remove('accessToken')
+    Cookies.remove('refreshToken')
+    Cookies.remove('selectedProfile')
 
     return forward(operation)
   } else {
@@ -51,7 +52,7 @@ const authLink = new ApolloLink((operation, forward) => {
           operationName: 'Refresh',
           query: REFRESH_AUTHENTICATION_MUTATION,
           variables: {
-            request: { refreshToken: localStorage.refreshToken }
+            request: { refreshToken: Cookies.get('refreshToken') }
           }
         })
       })
@@ -64,8 +65,8 @@ const authLink = new ApolloLink((operation, forward) => {
                 : ''
             }
           })
-          localStorage.setItem('accessToken', res?.data?.refresh?.accessToken)
-          localStorage.setItem('refreshToken', res?.data?.refresh?.refreshToken)
+          Cookies.set('accessToken', res?.data?.refresh?.accessToken)
+          Cookies.set('refreshToken', res?.data?.refresh?.refreshToken)
         })
         .catch(() => console.log(ERROR_MESSAGE))
     }
