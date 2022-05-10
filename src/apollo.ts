@@ -31,9 +31,9 @@ const httpLink = new HttpLink({
 })
 
 const authLink = new ApolloLink((operation, forward) => {
-  const token = Cookies.get('accessToken')
+  const accessToken = Cookies.get('accessToken')
 
-  if (token === 'undefined' || !token) {
+  if (accessToken === 'undefined' || !accessToken) {
     Cookies.remove('accessToken')
     Cookies.remove('refreshToken')
     localStorage.removeItem('selectedProfile')
@@ -42,11 +42,11 @@ const authLink = new ApolloLink((operation, forward) => {
   } else {
     operation.setContext({
       headers: {
-        'x-access-token': token ? `Bearer ${token}` : ''
+        'x-access-token': accessToken ? `Bearer ${accessToken}` : ''
       }
     })
 
-    const { exp }: { exp: number } = jwtDecode(token)
+    const { exp }: { exp: number } = jwtDecode(accessToken)
 
     if (Date.now() >= exp * 1000) {
       consoleLog('Auth', '#eab308', 'Generate new access token')
@@ -65,7 +65,7 @@ const authLink = new ApolloLink((operation, forward) => {
         .then((res) => {
           operation.setContext({
             headers: {
-              'x-access-token': token
+              'x-access-token': accessToken
                 ? `Bearer ${res?.data?.refresh?.accessToken}`
                 : ''
             }
