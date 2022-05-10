@@ -33,6 +33,7 @@
     "interweave": "^13.0.0",
     "interweave-autolink": "^5.0.0",
     "ipfs-http-client": "^56.0.3",
+    "js-cookie": "^3.0.1",
     "jwt-decode": "^3.1.2",
     "next": "^12.1.6",
     "next-pwa": "^5.5.2",
