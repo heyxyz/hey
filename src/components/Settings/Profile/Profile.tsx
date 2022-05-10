@@ -214,7 +214,14 @@ const Profile: FC<Props> = ({ profile }) => {
       setIsUploading(true)
       const { path } = await uploadToIPFS({
         name,
-        social: [
+        bio,
+        cover_picture: cover ? cover : null,
+        attributes: [
+          {
+            traitType: 'string',
+            key: 'location',
+            value: location
+          },
           {
             traitType: 'string',
             key: 'website',
@@ -224,12 +231,7 @@ const Profile: FC<Props> = ({ profile }) => {
             traitType: 'string',
             key: 'twitter',
             value: twitter
-          }
-        ],
-        bio,
-        cover_picture: cover ? cover : null,
-        location,
-        attributes: [
+          },
           {
             traitType: 'boolean',
             key: 'isBeta',
