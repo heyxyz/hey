@@ -86,7 +86,7 @@ export const CREATE_SET_FOLLOW_MODULE_TYPED_DATA_MUTATION = gql`
           deadline
           profileId
           followModule
-          followModuleData
+          followModuleInitData
         }
       }
     }
@@ -154,7 +154,8 @@ const SuperFollow: FC = () => {
           'Generated createSetFollowModuleTypedData'
         )
         const { typedData } = createSetFollowModuleTypedData
-        const { profileId, followModule, followModuleData } = typedData?.value
+        const { profileId, followModule, followModuleInitData } =
+          typedData?.value
 
         signTypedDataAsync({
           domain: omit(typedData?.domain, '__typename'),
@@ -165,7 +166,7 @@ const SuperFollow: FC = () => {
           const inputStruct = {
             profileId,
             followModule,
-            followModuleData,
+            followModuleInitData,
             sig: {
               v,
               r,
