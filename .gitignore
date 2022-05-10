@@ -35,3 +35,6 @@ tsconfig.tsbuildinfo
 # PWA
 public/sw.js
 public/workbox-*
+
+# Sentry
+.sentryclirc
