@@ -9,7 +9,9 @@ import consoleLog from '@lib/consoleLog'
 import getWalletLogo from '@lib/getWalletLogo'
 import trackEvent from '@lib/trackEvent'
 import clsx from 'clsx'
+import Cookies from 'js-cookie'
 import React, { Dispatch, FC, useContext, useEffect, useState } from 'react'
+import { COOKIE_CONFIG } from 'src/apollo'
 import { CHAIN_ID, ERROR_MESSAGE } from 'src/constants'
 import {
   Connector,
@@ -97,13 +99,15 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
               request: { address: accountData?.address, signature }
             }
           }).then((res) => {
-            localStorage.setItem(
+            Cookies.set(
               'accessToken',
-              res.data.authenticate.accessToken
+              res.data.authenticate.accessToken,
+              COOKIE_CONFIG
             )
-            localStorage.setItem(
+            Cookies.set(
               'refreshToken',
-              res.data.authenticate.refreshToken
+              res.data.authenticate.refreshToken,
+              COOKIE_CONFIG
             )
             getProfiles({
               variables: { ownedBy: accountData?.address }
