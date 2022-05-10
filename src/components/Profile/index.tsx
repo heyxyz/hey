@@ -23,9 +23,6 @@ export const PROFILE_QUERY = gql`
         handle
         ownedBy
         name
-        location
-        website
-        twitter
         attributes {
           key
           value
