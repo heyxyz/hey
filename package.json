@@ -47,7 +47,7 @@
     "react-mentions": "^4.3.2",
     "use-streak": "^1.0.4",
     "uuid": "^8.3.2",
-    "wagmi": "0.3.4",
+    "wagmi": "0.3.5",
     "zod": "^3.15.1"
   },
   "devDependencies": {
