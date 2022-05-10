@@ -96,20 +96,6 @@ export type ApprovedModuleAllowanceAmountRequest = {
   referenceModules: Array<ReferenceModules>
 }
 
-export type AttachRequest = {
-  /** mimetype of the file to push */
-  mimeType: Scalars['MimeType']
-}
-
-/** The response to upload the attached file */
-export type AttachResults = {
-  __typename?: 'AttachResults'
-  /** Name of the file once is uploaded */
-  key: Scalars['String']
-  /** Signed url to push the file */
-  signedUrl: Scalars['String']
-}
-
 /** The Profile */
 export type Attribute = {
   __typename?: 'Attribute'
@@ -137,6 +123,11 @@ export type AuthenticationResult = {
   accessToken: Scalars['Jwt']
   /** The refresh token */
   refreshToken: Scalars['Jwt']
+}
+
+export type BroadcastRequest = {
+  id: Scalars['BroadcastId']
+  signature: Scalars['Signature']
 }
 
 export type BurnProfileRequest = {
@@ -1323,8 +1314,8 @@ export type ModuleInfo = {
 
 export type Mutation = {
   __typename?: 'Mutation'
-  attachFile: AttachResults
   authenticate: AuthenticationResult
+  broadcast: RelayResult
   claim: RelayResult
   createBurnProfileTypedData: CreateBurnProfileBroadcastItemResult
   createCollectTypedData: CreateCollectBroadcastItemResult
@@ -1348,12 +1339,12 @@ export type Mutation = {
   updateProfile: Profile
 }
 
-export type MutationAttachFileArgs = {
-  request: AttachRequest
-}
-
 export type MutationAuthenticateArgs = {
   request: SignedAuthChallenge
+}
+
+export type MutationBroadcastArgs = {
+  request: BroadcastRequest
 }
 
 export type MutationClaimArgs = {
@@ -2094,6 +2085,7 @@ export type RelayError = {
 export enum RelayErrorReasons {
   Expired = 'EXPIRED',
   HandleTaken = 'HANDLE_TAKEN',
+  NotAllowed = 'NOT_ALLOWED',
   Rejected = 'REJECTED',
   WrongWalletSigned = 'WRONG_WALLET_SIGNED'
 }
