@@ -116,7 +116,7 @@ const Create: NextPage = () => {
           collectModule,
           collectModuleData,
           referenceModule,
-          referenceModuleData
+          referenceModuleInitData
         } = typedData?.value
 
         signTypedDataAsync({
@@ -131,7 +131,7 @@ const Create: NextPage = () => {
             collectModule,
             collectModuleData,
             referenceModule,
-            referenceModuleData,
+            referenceModuleInitData,
             sig: {
               v,
               r,
