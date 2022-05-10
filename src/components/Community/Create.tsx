@@ -114,7 +114,7 @@ const Create: NextPage = () => {
           profileId,
           contentURI,
           collectModule,
-          collectModuleData,
+          collectModuleInitData,
           referenceModule,
           referenceModuleInitData
         } = typedData?.value
@@ -129,7 +129,7 @@ const Create: NextPage = () => {
             profileId,
             contentURI,
             collectModule,
-            collectModuleData,
+            collectModuleInitData,
             referenceModule,
             referenceModuleInitData,
             sig: {
