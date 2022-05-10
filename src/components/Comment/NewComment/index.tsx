@@ -93,7 +93,7 @@ const CREATE_COMMENT_TYPED_DATA_MUTATION = gql`
           pubIdPointed
           contentURI
           collectModule
-          collectModuleData
+          collectModuleInitData
           referenceModule
           referenceModuleInitData
         }
@@ -166,7 +166,7 @@ const NewComment: FC<Props> = ({ post, type }) => {
           pubIdPointed,
           contentURI,
           collectModule,
-          collectModuleData,
+          collectModuleInitData,
           referenceModule,
           referenceModuleInitData
         } = typedData?.value
@@ -183,7 +183,7 @@ const NewComment: FC<Props> = ({ post, type }) => {
             pubIdPointed,
             contentURI,
             collectModule,
-            collectModuleData,
+            collectModuleInitData,
             referenceModule,
             referenceModuleInitData,
             sig: {
