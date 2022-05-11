@@ -9,6 +9,7 @@ import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { Spinner } from '@components/UI/Spinner'
 import AppContext from '@components/utils/AppContext'
 import { Profile, SetDefaultProfileBroadcastItemResult } from '@generated/types'
+import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { ExclamationIcon, PencilIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
 import omit from '@lib/omit'
@@ -104,6 +105,14 @@ const SetProfile: FC = () => {
     setSelectedUser(sortedProfiles[0]?.id)
   }, [sortedProfiles])
 
+  const [broadcast, { loading: broadcastLoading }] = useMutation(
+    BROADCAST_MUTATION,
+    {
+      onError(error) {
+        toast.error(error.message ?? ERROR_MESSAGE)
+      }
+    }
+  )
   const [createSetDefaultProfileTypedData, { loading: typedDataLoading }] =
     useMutation(CREATE_SET_DEFAULT_PROFILE_DATA_MUTATION, {
       onCompleted({
@@ -116,7 +125,7 @@ const SetProfile: FC = () => {
           '#4ade80',
           'Generated createSetDefaultProfileTypedData'
         )
-        const { typedData } = createSetDefaultProfileTypedData
+        const { id, typedData } = createSetDefaultProfileTypedData
         signTypedDataAsync({
           domain: omit(typedData?.domain, '__typename'),
           types: omit(typedData?.types, '__typename'),
@@ -132,7 +141,7 @@ const SetProfile: FC = () => {
             sig
           }
           if (RELAY_ON) {
-            toast.success('Relay WIP')
+            broadcast({ variables: { request: { id, signature } } })
           } else {
             write({ args: inputStruct })
           }
@@ -207,10 +216,18 @@ const SetProfile: FC = () => {
             <Button
               className="ml-auto"
               type="submit"
-              disabled={typedDataLoading || signLoading || writeLoading}
+              disabled={
+                typedDataLoading ||
+                signLoading ||
+                writeLoading ||
+                broadcastLoading
+              }
               onClick={setDefaultProfile}
               icon={
-                typedDataLoading || signLoading || writeLoading ? (
+                typedDataLoading ||
+                signLoading ||
+                writeLoading ||
+                broadcastLoading ? (
                   <Spinner size="xs" />
                 ) : (
                   <PencilIcon className="w-4 h-4" />
