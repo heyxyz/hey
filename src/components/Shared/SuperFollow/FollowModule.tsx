@@ -25,6 +25,7 @@ import {
   ERROR_MESSAGE,
   LENSHUB_PROXY,
   POLYGONSCAN_URL,
+  RELAY_ON,
   WRONG_NETWORK
 } from 'src/constants'
 import {
@@ -192,7 +193,11 @@ const FollowModule: FC<Props> = ({
               deadline: typedData.value.deadline
             }
           }
-          write({ args: inputStruct })
+          if (RELAY_ON) {
+            toast.success('Relay WIP')
+          } else {
+            write({ args: inputStruct })
+          }
         })
       },
       onError(error) {

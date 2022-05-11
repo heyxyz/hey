@@ -34,6 +34,7 @@ import {
   CONNECT_WALLET,
   ERROR_MESSAGE,
   LENS_PERIPHERY,
+  RELAY_ON,
   WRONG_NETWORK
 } from 'src/constants'
 import { v4 as uuidv4 } from 'uuid'
@@ -165,7 +166,11 @@ const Profile: FC<Props> = ({ profile }) => {
               deadline: typedData.value.deadline
             }
           }
-          write({ args: inputStruct })
+          if (RELAY_ON) {
+            toast.success('Relay WIP')
+          } else {
+            write({ args: inputStruct })
+          }
         })
       },
       onError(error) {
