@@ -126,6 +126,7 @@ const Create: NextPage = () => {
           value: omit(typedData?.value, '__typename')
         }).then((signature) => {
           const { v, r, s } = splitSignature(signature)
+          const sig = { v, r, s, deadline: typedData.value.deadline }
           const inputStruct = {
             profileId,
             contentURI,
@@ -133,12 +134,7 @@ const Create: NextPage = () => {
             collectModuleInitData,
             referenceModule,
             referenceModuleInitData,
-            sig: {
-              v,
-              r,
-              s,
-              deadline: typedData.value.deadline
-            }
+            sig
           }
           if (RELAY_ON) {
             toast.success('Relay WIP')

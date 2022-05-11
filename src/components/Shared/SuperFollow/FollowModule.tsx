@@ -182,16 +182,12 @@ const FollowModule: FC<Props> = ({
         }).then((signature) => {
           const { profileIds, datas: followData } = typedData?.value
           const { v, r, s } = splitSignature(signature)
+          const sig = { v, r, s, deadline: typedData.value.deadline }
           const inputStruct = {
             follower: account?.address,
             profileIds,
             datas: followData,
-            sig: {
-              v,
-              r,
-              s,
-              deadline: typedData.value.deadline
-            }
+            sig
           }
           if (RELAY_ON) {
             toast.success('Relay WIP')

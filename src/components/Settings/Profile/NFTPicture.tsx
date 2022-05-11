@@ -146,15 +146,11 @@ const NFTPicture: FC<Props> = ({ profile }) => {
         }).then((signature) => {
           const { profileId, imageURI } = typedData?.value
           const { v, r, s } = splitSignature(signature)
+          const sig = { v, r, s, deadline: typedData.value.deadline }
           const inputStruct = {
             profileId,
             imageURI,
-            sig: {
-              v,
-              r,
-              s,
-              deadline: typedData.value.deadline
-            }
+            sig
           }
           if (RELAY_ON) {
             toast.success('Relay WIP')
