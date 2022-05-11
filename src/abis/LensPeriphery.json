@@ -8,7 +8,7 @@
   },
   { "inputs": [], "name": "ArrayMismatch", "type": "error" },
   { "inputs": [], "name": "FollowInvalid", "type": "error" },
-  { "inputs": [], "name": "NotDispatcher", "type": "error" },
+  { "inputs": [], "name": "NotProfileOwnerOrDispatcher", "type": "error" },
   { "inputs": [], "name": "SignatureExpired", "type": "error" },
   { "inputs": [], "name": "SignatureInvalid", "type": "error" },
   { "inputs": [], "name": "TokenDoesNotExist", "type": "error" },
@@ -30,29 +30,9 @@
   },
   {
     "inputs": [
-      { "internalType": "uint256", "name": "profileId", "type": "uint256" },
-      { "internalType": "string", "name": "metadata", "type": "string" }
-    ],
-    "name": "dispatcherSetProfileMetadataURI",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
       { "internalType": "uint256", "name": "profileId", "type": "uint256" }
     ],
     "name": "getProfileMetadataURI",
-    "outputs": [{ "internalType": "string", "name": "", "type": "string" }],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      { "internalType": "address", "name": "user", "type": "address" },
-      { "internalType": "uint256", "name": "profileId", "type": "uint256" }
-    ],
-    "name": "getProfileMetadataURIByOwner",
     "outputs": [{ "internalType": "string", "name": "", "type": "string" }],
     "stateMutability": "view",
     "type": "function"
@@ -71,7 +51,6 @@
     "inputs": [
       {
         "components": [
-          { "internalType": "address", "name": "user", "type": "address" },
           { "internalType": "uint256", "name": "profileId", "type": "uint256" },
           { "internalType": "string", "name": "metadata", "type": "string" },
           {

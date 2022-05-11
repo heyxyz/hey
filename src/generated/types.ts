@@ -96,20 +96,6 @@ export type ApprovedModuleAllowanceAmountRequest = {
   referenceModules: Array<ReferenceModules>
 }
 
-export type AttachRequest = {
-  /** mimetype of the file to push */
-  mimeType: Scalars['MimeType']
-}
-
-/** The response to upload the attached file */
-export type AttachResults = {
-  __typename?: 'AttachResults'
-  /** Name of the file once is uploaded */
-  key: Scalars['String']
-  /** Signed url to push the file */
-  signedUrl: Scalars['String']
-}
-
 /** The Profile */
 export type Attribute = {
   __typename?: 'Attribute'
@@ -137,6 +123,11 @@ export type AuthenticationResult = {
   accessToken: Scalars['Jwt']
   /** The refresh token */
   refreshToken: Scalars['Jwt']
+}
+
+export type BroadcastRequest = {
+  id: Scalars['BroadcastId']
+  signature: Scalars['Signature']
 }
 
 export type BurnProfileRequest = {
@@ -338,7 +329,7 @@ export type CreateCommentEip712TypedDataTypes = {
 export type CreateCommentEip712TypedDataValue = {
   __typename?: 'CreateCommentEIP712TypedDataValue'
   collectModule: Scalars['ContractAddress']
-  collectModuleData: Scalars['CollectModuleData']
+  collectModuleInitData: Scalars['CollectModuleData']
   contentURI: Scalars['PublicationUrl']
   deadline: Scalars['UnixTimestamp']
   nonce: Scalars['Nonce']
@@ -347,6 +338,7 @@ export type CreateCommentEip712TypedDataValue = {
   pubIdPointed: Scalars['PublicationId']
   referenceModule: Scalars['ContractAddress']
   referenceModuleData: Scalars['ReferenceModuleData']
+  referenceModuleInitData: Scalars['ReferenceModuleData']
 }
 
 /** The broadcast item */
@@ -424,6 +416,7 @@ export type CreateMirrorEip712TypedDataValue = {
   pubIdPointed: Scalars['PublicationId']
   referenceModule: Scalars['ContractAddress']
   referenceModuleData: Scalars['ReferenceModuleData']
+  referenceModuleInitData: Scalars['ReferenceModuleData']
 }
 
 export type CreateMirrorRequest = {
@@ -467,13 +460,13 @@ export type CreatePostEip712TypedDataTypes = {
 export type CreatePostEip712TypedDataValue = {
   __typename?: 'CreatePostEIP712TypedDataValue'
   collectModule: Scalars['ContractAddress']
-  collectModuleData: Scalars['CollectModuleData']
+  collectModuleInitData: Scalars['CollectModuleData']
   contentURI: Scalars['PublicationUrl']
   deadline: Scalars['UnixTimestamp']
   nonce: Scalars['Nonce']
   profileId: Scalars['ProfileId']
   referenceModule: Scalars['ContractAddress']
-  referenceModuleData: Scalars['ReferenceModuleData']
+  referenceModuleInitData: Scalars['ReferenceModuleData']
 }
 
 export type CreateProfileRequest = {
@@ -592,7 +585,7 @@ export type CreateSetFollowModuleEip712TypedDataValue = {
   __typename?: 'CreateSetFollowModuleEIP712TypedDataValue'
   deadline: Scalars['UnixTimestamp']
   followModule: Scalars['ContractAddress']
-  followModuleData: Scalars['FollowModuleData']
+  followModuleInitData: Scalars['FollowModuleData']
   nonce: Scalars['Nonce']
   profileId: Scalars['ProfileId']
 }
@@ -945,23 +938,34 @@ export type Follow = {
   profile: Scalars['ProfileId']
 }
 
-export type FollowModule = FeeFollowModuleSettings
+export type FollowModule =
+  | FeeFollowModuleSettings
+  | ProfileFollowModuleSettings
+  | RevertFollowModuleSettings
 
 export type FollowModuleParams = {
-  /** The empty follow module */
-  emptyFollowModule?: InputMaybe<Scalars['Boolean']>
   /** The follower fee follower module */
   feeFollowModule?: InputMaybe<FeeFollowModuleParams>
+  /** The empty follow module */
+  freeFollowModule?: InputMaybe<Scalars['Boolean']>
+  /** The profile follow module */
+  profileFollowModule?: InputMaybe<Scalars['Boolean']>
+  /** The revert follow module */
+  revertFollowModule?: InputMaybe<Scalars['Boolean']>
 }
 
 export type FollowModuleRedeemParams = {
   /** The follower fee follower module */
   feeFollowModule?: InputMaybe<FeeFollowModuleRedeemParams>
+  /** The profile follower module */
+  profileFollowModule?: InputMaybe<ProfileFollowModuleRedeemParams>
 }
 
 /** The follow module types */
 export enum FollowModules {
-  FeeFollowModule = 'FeeFollowModule'
+  FeeFollowModule = 'FeeFollowModule',
+  ProfileFollowModule = 'ProfileFollowModule',
+  RevertFollowModule = 'RevertFollowModule'
 }
 
 export type FollowOnlyReferenceModuleSettings = {
@@ -1323,8 +1327,8 @@ export type ModuleInfo = {
 
 export type Mutation = {
   __typename?: 'Mutation'
-  attachFile: AttachResults
   authenticate: AuthenticationResult
+  broadcast: RelayResult
   claim: RelayResult
   createBurnProfileTypedData: CreateBurnProfileBroadcastItemResult
   createCollectTypedData: CreateCollectBroadcastItemResult
@@ -1344,16 +1348,14 @@ export type Mutation = {
   hidePublication?: Maybe<Scalars['Void']>
   refresh: AuthenticationResult
   reportPublication?: Maybe<Scalars['Void']>
-  /** @deprecated Use createSetProfileMetadataTypedData instead  */
-  updateProfile: Profile
-}
-
-export type MutationAttachFileArgs = {
-  request: AttachRequest
 }
 
 export type MutationAuthenticateArgs = {
   request: SignedAuthChallenge
+}
+
+export type MutationBroadcastArgs = {
+  request: BroadcastRequest
 }
 
 export type MutationClaimArgs = {
@@ -1441,10 +1443,6 @@ export type MutationRefreshArgs = {
 
 export type MutationReportPublicationArgs = {
   request: ReportPublicationRequest
-}
-
-export type MutationUpdateProfileArgs = {
-  request: UpdateProfileRequest
 }
 
 /** The nft type */
@@ -1719,7 +1717,7 @@ export type Profile = {
   /** The cover picture for the profile */
   coverPicture?: Maybe<ProfileMedia>
   /** The dispatcher */
-  depatcher?: Maybe<Dispatcher>
+  dispatcher?: Maybe<Dispatcher>
   /** The follow module */
   followModule?: Maybe<FollowModule>
   /** The profile handle */
@@ -1728,8 +1726,6 @@ export type Profile = {
   id: Scalars['ProfileId']
   /** Is the profile default */
   isDefault: Scalars['Boolean']
-  /** Location set on profile */
-  location?: Maybe<Scalars['String']>
   /** Metadata url */
   metadata?: Maybe<Scalars['Url']>
   /** Name of the profile */
@@ -1740,10 +1736,18 @@ export type Profile = {
   picture?: Maybe<ProfileMedia>
   /** Profile stats */
   stats: ProfileStats
-  /** Twitter url set on profile */
-  twitter?: Maybe<Scalars['String']>
-  /** Website set on profile */
-  website?: Maybe<Scalars['Url']>
+}
+
+export type ProfileFollowModuleRedeemParams = {
+  /** The profile id to use to follow this profile */
+  profileId: Scalars['ProfileId']
+}
+
+export type ProfileFollowModuleSettings = {
+  __typename?: 'ProfileFollowModuleSettings'
+  contractAddress: Scalars['ContractAddress']
+  /** The follow module enum */
+  type: FollowModules
 }
 
 export type ProfileMedia = MediaSet | NftImage
@@ -2094,6 +2098,7 @@ export type RelayError = {
 export enum RelayErrorReasons {
   Expired = 'EXPIRED',
   HandleTaken = 'HANDLE_TAKEN',
+  NotAllowed = 'NOT_ALLOWED',
   Rejected = 'REJECTED',
   WrongWalletSigned = 'WRONG_WALLET_SIGNED'
 }
@@ -2130,10 +2135,15 @@ export type ReservedClaimableHandle = {
 export type RevertCollectModuleSettings = {
   __typename?: 'RevertCollectModuleSettings'
   contractAddress: Scalars['ContractAddress']
-  /** Follower only */
-  followerOnly: Scalars['Boolean']
   /** The collect modules enum */
   type: CollectModules
+}
+
+export type RevertFollowModuleSettings = {
+  __typename?: 'RevertFollowModuleSettings'
+  contractAddress: Scalars['ContractAddress']
+  /** The follow module enum */
+  type: FollowModules
 }
 
 export type SearchQueryRequest = {
@@ -2309,22 +2319,6 @@ export type UpdateProfileImageRequest = {
   url?: InputMaybe<Scalars['Url']>
 }
 
-export type UpdateProfileRequest = {
-  /** The profile bio */
-  bio?: InputMaybe<Scalars['String']>
-  /** The cover picture for the profile */
-  coverPicture?: InputMaybe<Scalars['Url']>
-  /** The profile location */
-  location?: InputMaybe<Scalars['String']>
-  /** The profile name */
-  name: Scalars['String']
-  profileId: Scalars['ProfileId']
-  /** The profile twitter url */
-  twitterUrl?: InputMaybe<Scalars['Url']>
-  /** The profile website */
-  website?: InputMaybe<Scalars['Url']>
-}
-
 export type UserSigNonces = {
   __typename?: 'UserSigNonces'
   lensHubOnChainSigNonce: Scalars['Nonce']
@@ -2365,7 +2359,11 @@ const result: PossibleTypesResultData = {
       'RevertCollectModuleSettings',
       'TimedFeeCollectModuleSettings'
     ],
-    FollowModule: ['FeeFollowModuleSettings'],
+    FollowModule: [
+      'FeeFollowModuleSettings',
+      'ProfileFollowModuleSettings',
+      'RevertFollowModuleSettings'
+    ],
     MainPostReference: ['Mirror', 'Post'],
     MentionPublication: ['Comment', 'Post'],
     MirrorablePublication: ['Comment', 'Post'],
