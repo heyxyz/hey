@@ -17,6 +17,7 @@ import {
   EnabledModule
 } from '@generated/types'
 import { IGif } from '@giphy/js-types'
+import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { ChatAlt2Icon, PencilAltIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
 import {
@@ -152,6 +153,14 @@ const NewComment: FC<Props> = ({ post, type }) => {
     }
   )
 
+  const [broadcast, { loading: broadcastLoading }] = useMutation(
+    BROADCAST_MUTATION,
+    {
+      onError(error) {
+        toast.error(error.message ?? ERROR_MESSAGE)
+      }
+    }
+  )
   const [createCommentTypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_COMMENT_TYPED_DATA_MUTATION,
     {
@@ -161,7 +170,7 @@ const NewComment: FC<Props> = ({ post, type }) => {
         createCommentTypedData: CreateCommentBroadcastItemResult
       }) {
         consoleLog('Mutation', '#4ade80', 'Generated createCommentTypedData')
-        const { typedData } = createCommentTypedData
+        const { id, typedData } = createCommentTypedData
         const {
           profileId,
           profileIdPointed,
@@ -194,7 +203,7 @@ const NewComment: FC<Props> = ({ post, type }) => {
             sig
           }
           if (RELAY_ON) {
-            toast.success('Relay WIP')
+            broadcast({ variables: { request: { id, signature } } })
           } else {
             write({ args: inputStruct })
           }
@@ -325,13 +334,15 @@ const NewComment: FC<Props> = ({ post, type }) => {
                     isUploading ||
                     typedDataLoading ||
                     signLoading ||
-                    writeLoading
+                    writeLoading ||
+                    broadcastLoading
                   }
                   icon={
                     isUploading ||
                     typedDataLoading ||
                     signLoading ||
-                    writeLoading ? (
+                    writeLoading ||
+                    broadcastLoading ? (
                       <Spinner size="xs" />
                     ) : type === 'community post' ? (
                       <PencilAltIcon className="w-4 h-4" />
