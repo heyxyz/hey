@@ -178,7 +178,10 @@ const Mirror: FC<Props> = ({ post }) => {
     >
       <div className="flex items-center space-x-1 text-brand">
         <div className="p-1.5 rounded-full hover:bg-opacity-20 hover:bg-brand-300">
-          {typedDataLoading || signLoading || writeLoading ? (
+          {typedDataLoading ||
+          signLoading ||
+          writeLoading ||
+          broadcastLoading ? (
             <Spinner size="xs" />
           ) : (
             <Tooltip placement="top" content="Mirror" withDelay>
