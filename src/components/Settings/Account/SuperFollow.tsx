@@ -12,6 +12,7 @@ import {
   CreateSetFollowModuleBroadcastItemResult,
   Erc20
 } from '@generated/types'
+import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { StarIcon, XIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
 import getTokenImage from '@lib/getTokenImage'
@@ -142,6 +143,14 @@ const SuperFollow: FC = () => {
     }
   })
 
+  const [broadcast, { loading: broadcastLoading }] = useMutation(
+    BROADCAST_MUTATION,
+    {
+      onError(error) {
+        toast.error(error.message ?? ERROR_MESSAGE)
+      }
+    }
+  )
   const [createSetFollowModuleTypedData, { loading: typedDataLoading }] =
     useMutation(CREATE_SET_FOLLOW_MODULE_TYPED_DATA_MUTATION, {
       onCompleted({
@@ -154,7 +163,7 @@ const SuperFollow: FC = () => {
           '#4ade80',
           'Generated createSetFollowModuleTypedData'
         )
-        const { typedData } = createSetFollowModuleTypedData
+        const { id, typedData } = createSetFollowModuleTypedData
         const { profileId, followModule, followModuleInitData } =
           typedData?.value
 
@@ -172,7 +181,7 @@ const SuperFollow: FC = () => {
             sig
           }
           if (RELAY_ON) {
-            toast.success('Relay WIP')
+            broadcast({ variables: { request: { id, signature } } })
           } else {
             write({ args: inputStruct })
           }
@@ -295,7 +304,12 @@ const SuperFollow: FC = () => {
                     onClick={() => {
                       setSuperFollow(null, null)
                     }}
-                    disabled={typedDataLoading || signLoading || writeLoading}
+                    disabled={
+                      typedDataLoading ||
+                      signLoading ||
+                      writeLoading ||
+                      broadcastLoading
+                    }
                     icon={<XIcon className="w-4 h-4" />}
                   >
                     Disable Super follow
@@ -303,7 +317,12 @@ const SuperFollow: FC = () => {
                 )}
                 <Button
                   type="submit"
-                  disabled={typedDataLoading || signLoading || writeLoading}
+                  disabled={
+                    typedDataLoading ||
+                    signLoading ||
+                    writeLoading ||
+                    broadcastLoading
+                  }
                   icon={<StarIcon className="w-4 h-4" />}
                 >
                   {currencyData?.profiles?.items[0]?.followModule
