@@ -93,7 +93,7 @@ export const MentionTextArea: FC<Props> = ({
   return (
     <div className="mb-2">
       <MentionsInput
-        className="mention-input pt-3 min-h-[4rem]"
+        className="pt-3 mention-input min-h-[4rem]"
         value={value}
         placeholder={placeholder}
         onChange={(e) => {

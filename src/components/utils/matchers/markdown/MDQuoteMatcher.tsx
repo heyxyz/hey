@@ -4,7 +4,7 @@ import React from 'react'
 export class MDQuoteMatcher extends Matcher {
   replaceWith(children: ChildrenNode) {
     return (
-      <span className="border-l-4 pl-2 py-1.5 text-gray-700">{children}</span>
+      <span className="py-1.5 pl-2 text-gray-700 border-l-4">{children}</span>
     )
   }
 

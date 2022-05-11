@@ -4,7 +4,7 @@ import React from 'react'
 export class MDCodeMatcher extends Matcher {
   replaceWith(children: ChildrenNode) {
     return (
-      <code className="text-sm bg-gray-300 dark:bg-gray-700 rounded-lg px-[5px] py-[2px]">
+      <code className="text-sm bg-gray-300 rounded-lg dark:bg-gray-700 px-[5px] py-[2px]">
         {children}
       </code>
     )

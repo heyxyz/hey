@@ -264,7 +264,7 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
             />
           )}
           {preview ? (
-            <div className="pb-3 border-b dark:border-b-gray-700/80 mb-2">
+            <div className="pb-3 mb-2 border-b dark:border-b-gray-700/80">
               <Markup>{postContent}</Markup>
             </div>
           ) : (
