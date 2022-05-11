@@ -7,6 +7,7 @@ import { Spinner } from '@components/UI/Spinner'
 import AppContext from '@components/utils/AppContext'
 import { LensterCollectModule, LensterPost } from '@generated/lenstertypes'
 import { CreateCollectBroadcastItemResult } from '@generated/types'
+import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { CashIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
 import omit from '@lib/omit'
@@ -120,6 +121,14 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
     }
   )
 
+  const [broadcast, { loading: broadcastLoading }] = useMutation(
+    BROADCAST_MUTATION,
+    {
+      onError(error) {
+        toast.error(error.message ?? ERROR_MESSAGE)
+      }
+    }
+  )
   const [createCollectTypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_COLLECT_TYPED_DATA_MUTATION,
     {
@@ -129,7 +138,7 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
         createCollectTypedData: CreateCollectBroadcastItemResult
       }) {
         consoleLog('Mutation', '#4ade80', 'Generated createCollectTypedData')
-        const { typedData } = createCollectTypedData
+        const { id, typedData } = createCollectTypedData
         signTypedDataAsync({
           domain: omit(typedData?.domain, '__typename'),
           types: omit(typedData?.types, '__typename'),
@@ -146,7 +155,7 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
             sig
           }
           if (RELAY_ON) {
-            toast.success('Relay WIP')
+            broadcast({ variables: { request: { id, signature } } })
           } else {
             write({ args: inputStruct })
           }
@@ -178,10 +187,15 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
         <Button
           className="sm:mt-0 sm:ml-auto"
           onClick={createCollect}
-          disabled={typedDataLoading || signLoading || writeLoading}
+          disabled={
+            typedDataLoading || signLoading || writeLoading || broadcastLoading
+          }
           variant="success"
           icon={
-            typedDataLoading || signLoading || writeLoading ? (
+            typedDataLoading ||
+            signLoading ||
+            writeLoading ||
+            broadcastLoading ? (
               <Spinner variant="success" size="xs" />
             ) : (
               <CashIcon className="w-4 h-4" />
