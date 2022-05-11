@@ -358,7 +358,7 @@ const NewComment: FC<Props> = ({ post, type }) => {
                     ? `Generating ${type === 'comment' ? 'Comment' : 'Post'}`
                     : signLoading
                     ? 'Sign'
-                    : writeLoading
+                    : writeLoading || broadcastLoading
                     ? 'Send'
                     : type === 'comment'
                     ? 'Comment'
