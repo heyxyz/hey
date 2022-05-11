@@ -14,6 +14,7 @@ import { Tooltip } from '@components/UI/Tooltip'
 import AppContext from '@components/utils/AppContext'
 import { LensterPost } from '@generated/lenstertypes'
 import { CreateCollectBroadcastItemResult } from '@generated/types'
+import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { CollectModuleFields } from '@gql/CollectModuleFields'
 import {
   CashIcon,
@@ -176,6 +177,14 @@ const CollectModule: FC<Props> = ({ post }) => {
     }
   )
 
+  const [broadcast, { loading: broadcastLoading }] = useMutation(
+    BROADCAST_MUTATION,
+    {
+      onError(error) {
+        toast.error(error.message ?? ERROR_MESSAGE)
+      }
+    }
+  )
   const [createCollectTypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_COLLECT_TYPED_DATA_MUTATION,
     {
@@ -185,7 +194,7 @@ const CollectModule: FC<Props> = ({ post }) => {
         createCollectTypedData: CreateCollectBroadcastItemResult
       }) {
         consoleLog('Mutation', '#4ade80', 'Generated createCollectTypedData')
-        const { typedData } = createCollectTypedData
+        const { id, typedData } = createCollectTypedData
 
         signTypedDataAsync({
           domain: omit(typedData?.domain, '__typename'),
@@ -203,7 +212,7 @@ const CollectModule: FC<Props> = ({ post }) => {
             sig
           }
           if (RELAY_ON) {
-            toast.success('Relay WIP')
+            broadcast({ variables: { request: { id, signature } } })
           } else {
             write({ args: inputStruct })
           }
@@ -377,9 +386,17 @@ const CollectModule: FC<Props> = ({ post }) => {
             <Button
               className="mt-5"
               onClick={createCollect}
-              disabled={typedDataLoading || signLoading || writeLoading}
+              disabled={
+                typedDataLoading ||
+                signLoading ||
+                writeLoading ||
+                broadcastLoading
+              }
               icon={
-                typedDataLoading || signLoading || writeLoading ? (
+                typedDataLoading ||
+                signLoading ||
+                writeLoading ||
+                broadcastLoading ? (
                   <Spinner size="xs" />
                 ) : (
                   <CollectionIcon className="w-4 h-4" />
