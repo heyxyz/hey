@@ -19,6 +19,7 @@ import {
   CONNECT_WALLET,
   ERROR_MESSAGE,
   LENSHUB_PROXY,
+  RELAY_ON,
   WRONG_NETWORK
 } from 'src/constants'
 import {
@@ -130,7 +131,11 @@ const Mirror: FC<Props> = ({ post }) => {
               deadline: typedData.value.deadline
             }
           }
-          write({ args: inputStruct })
+          if (RELAY_ON) {
+            toast.success('Relay WIP')
+          } else {
+            write({ args: inputStruct })
+          }
         })
       },
       onError(error) {

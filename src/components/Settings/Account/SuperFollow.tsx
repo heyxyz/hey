@@ -26,6 +26,7 @@ import {
   DEFAULT_COLLECT_TOKEN,
   ERROR_MESSAGE,
   LENSHUB_PROXY,
+  RELAY_ON,
   WRONG_NETWORK
 } from 'src/constants'
 import {
@@ -174,7 +175,11 @@ const SuperFollow: FC = () => {
               deadline: typedData.value.deadline
             }
           }
-          write({ args: inputStruct })
+          if (RELAY_ON) {
+            toast.success('Relay WIP')
+          } else {
+            write({ args: inputStruct })
+          }
         })
       },
       onError(error) {

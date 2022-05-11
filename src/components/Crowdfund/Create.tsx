@@ -34,6 +34,7 @@ import {
   DEFAULT_COLLECT_TOKEN,
   ERROR_MESSAGE,
   LENSHUB_PROXY,
+  RELAY_ON,
   WRONG_NETWORK
 } from 'src/constants'
 import Custom404 from 'src/pages/404'
@@ -175,7 +176,11 @@ const Create: NextPage = () => {
               deadline: typedData.value.deadline
             }
           }
-          write({ args: inputStruct })
+          if (RELAY_ON) {
+            toast.success('Relay WIP')
+          } else {
+            write({ args: inputStruct })
+          }
         })
       },
       onError(error) {
