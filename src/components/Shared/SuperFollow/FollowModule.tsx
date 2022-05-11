@@ -10,6 +10,7 @@ import {
   FeeFollowModuleSettings,
   Profile
 } from '@generated/types'
+import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { StarIcon, UserIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
 import formatAddress from '@lib/formatAddress'
@@ -165,6 +166,14 @@ const FollowModule: FC<Props> = ({
     }
   )
 
+  const [broadcast, { loading: broadcastLoading }] = useMutation(
+    BROADCAST_MUTATION,
+    {
+      onError(error) {
+        toast.error(error.message ?? ERROR_MESSAGE)
+      }
+    }
+  )
   const [createFollowTypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_FOLLOW_TYPED_DATA_MUTATION,
     {
@@ -174,7 +183,7 @@ const FollowModule: FC<Props> = ({
         createFollowTypedData: CreateFollowBroadcastItemResult
       }) {
         consoleLog('Mutation', '#4ade80', 'Generated createFollowTypedData')
-        const { typedData } = createFollowTypedData
+        const { id, typedData } = createFollowTypedData
         signTypedDataAsync({
           domain: omit(typedData?.domain, '__typename'),
           types: omit(typedData?.types, '__typename'),
@@ -190,7 +199,7 @@ const FollowModule: FC<Props> = ({
             sig
           }
           if (RELAY_ON) {
-            toast.success('Relay WIP')
+            broadcast({ variables: { request: { id, signature } } })
           } else {
             write({ args: inputStruct })
           }
@@ -312,9 +321,17 @@ const FollowModule: FC<Props> = ({
             variant="super"
             outline
             onClick={createFollow}
-            disabled={typedDataLoading || signLoading || writeLoading}
+            disabled={
+              typedDataLoading ||
+              signLoading ||
+              writeLoading ||
+              broadcastLoading
+            }
             icon={
-              typedDataLoading || signLoading || writeLoading ? (
+              typedDataLoading ||
+              signLoading ||
+              writeLoading ||
+              broadcastLoading ? (
                 <Spinner variant="super" size="xs" />
               ) : (
                 <StarIcon className="w-4 h-4" />
