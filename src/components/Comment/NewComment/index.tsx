@@ -95,6 +95,7 @@ const CREATE_COMMENT_TYPED_DATA_MUTATION = gql`
           collectModule
           collectModuleInitData
           referenceModule
+          referenceModuleData
           referenceModuleInitData
         }
       }
@@ -168,6 +169,7 @@ const NewComment: FC<Props> = ({ post, type }) => {
           collectModule,
           collectModuleInitData,
           referenceModule,
+          referenceModuleData,
           referenceModuleInitData
         } = typedData?.value
 
@@ -185,6 +187,7 @@ const NewComment: FC<Props> = ({ post, type }) => {
             collectModule,
             collectModuleInitData,
             referenceModule,
+            referenceModuleData,
             referenceModuleInitData,
             sig: {
               v,
