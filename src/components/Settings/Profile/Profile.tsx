@@ -155,16 +155,12 @@ const Profile: FC<Props> = ({ profile }) => {
         }).then((signature) => {
           const { profileId, metadata } = typedData?.value
           const { v, r, s } = splitSignature(signature)
+          const sig = { v, r, s, deadline: typedData.value.deadline }
           const inputStruct = {
             user: currentUser?.ownedBy,
             profileId,
             metadata,
-            sig: {
-              v,
-              r,
-              s,
-              deadline: typedData.value.deadline
-            }
+            sig
           }
           if (RELAY_ON) {
             toast.success('Relay WIP')
