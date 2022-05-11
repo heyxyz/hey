@@ -8,7 +8,7 @@ import { MentionMatcher } from '@components/utils/matchers/MentionMatcher'
 import { SpoilerMatcher } from '@components/utils/matchers/SpoilerMatcher'
 import trimify from '@lib/trimify'
 import { Interweave } from 'interweave'
-import { EmailMatcher, UrlMatcher } from 'interweave-autolink'
+import { UrlMatcher } from 'interweave-autolink'
 import React, { FC } from 'react'
 
 interface Props {
@@ -20,8 +20,6 @@ const Markup: FC<Props> = ({ children }) => {
     <Interweave
       content={trimify(children)}
       matchers={[
-        new UrlMatcher('url'),
-        new EmailMatcher('email'),
         new HashtagMatcher('hashtag'),
         new MentionMatcher('mention'),
         new MDBoldMatcher('mdBold'),
@@ -29,7 +27,8 @@ const Markup: FC<Props> = ({ children }) => {
         new MDStrikeMatcher('mdStrike'),
         new MDQuoteMatcher('mdQuote'),
         new MDCodeMatcher('mdCode'),
-        new SpoilerMatcher('spoiler')
+        new SpoilerMatcher('spoiler'),
+        new UrlMatcher('url')
       ]}
     />
   )
