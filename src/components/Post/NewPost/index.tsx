@@ -13,6 +13,7 @@ import AppContext from '@components/utils/AppContext'
 import { LensterAttachment } from '@generated/lenstertypes'
 import { CreatePostBroadcastItemResult, EnabledModule } from '@generated/types'
 import { IGif } from '@giphy/js-types'
+import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { PencilAltIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
 import {
@@ -148,6 +149,14 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
     }
   )
 
+  const [broadcast, { loading: broadcastLoading }] = useMutation(
+    BROADCAST_MUTATION,
+    {
+      onError(error) {
+        toast.error(error.message ?? ERROR_MESSAGE)
+      }
+    }
+  )
   const [createPostTypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_POST_TYPED_DATA_MUTATION,
     {
@@ -157,7 +166,7 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
         createPostTypedData: CreatePostBroadcastItemResult
       }) {
         consoleLog('Mutation', '#4ade80', 'Generated createPostTypedData')
-        const { typedData } = createPostTypedData
+        const { id, typedData } = createPostTypedData
         const {
           profileId,
           contentURI,
@@ -184,7 +193,7 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
             sig
           }
           if (RELAY_ON) {
-            toast.success('Relay WIP')
+            broadcast({ variables: { request: { id, signature } } })
           } else {
             write({ args: inputStruct })
           }
@@ -315,13 +324,15 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
                     isUploading ||
                     typedDataLoading ||
                     signLoading ||
-                    writeLoading
+                    writeLoading ||
+                    broadcastLoading
                   }
                   icon={
                     isUploading ||
                     typedDataLoading ||
                     signLoading ||
-                    writeLoading ? (
+                    writeLoading ||
+                    broadcastLoading ? (
                       <Spinner size="xs" />
                     ) : (
                       <PencilAltIcon className="w-4 h-4" />
@@ -335,7 +346,7 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
                     ? 'Generating Post'
                     : signLoading
                     ? 'Sign'
-                    : writeLoading
+                    : writeLoading || broadcastLoading
                     ? 'Send'
                     : 'Post'}
                 </Button>
