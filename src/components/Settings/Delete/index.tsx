@@ -8,6 +8,7 @@ import { Spinner } from '@components/UI/Spinner'
 import AppContext from '@components/utils/AppContext'
 import SEO from '@components/utils/SEO'
 import { CreateBurnProfileBroadcastItemResult } from '@generated/types'
+import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { TrashIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
 import omit from '@lib/omit'
@@ -88,6 +89,14 @@ const DeleteSettings: FC = () => {
     }
   )
 
+  const [broadcast, { loading: broadcastLoading }] = useMutation(
+    BROADCAST_MUTATION,
+    {
+      onError(error) {
+        toast.error(error.message ?? ERROR_MESSAGE)
+      }
+    }
+  )
   const [createBurnProfileTypedData, { loading: typedDataLoading }] =
     useMutation(CREATE_BURN_PROFILE_TYPED_DATA_MUTATION, {
       onCompleted({
@@ -100,7 +109,7 @@ const DeleteSettings: FC = () => {
           '#4ade80',
           'Generated createBurnProfileTypedData'
         )
-        const { typedData } = createBurnProfileTypedData
+        const { id, typedData } = createBurnProfileTypedData
         signTypedDataAsync({
           domain: omit(typedData?.domain, '__typename'),
           types: omit(typedData?.types, '__typename'),
@@ -115,7 +124,7 @@ const DeleteSettings: FC = () => {
             deadline: typedData.value.deadline
           }
           if (RELAY_ON) {
-            toast.success('Relay WIP')
+            broadcast({ variables: { request: { id, signature } } })
           } else {
             write({ args: [tokenId, sig] })
           }
@@ -175,7 +184,10 @@ const DeleteSettings: FC = () => {
             <Button
               variant="danger"
               icon={
-                typedDataLoading || signLoading || writeLoading ? (
+                typedDataLoading ||
+                signLoading ||
+                writeLoading ||
+                broadcastLoading ? (
                   <Spinner variant="danger" size="xs" />
                 ) : (
                   <TrashIcon className="w-5 h-5" />
@@ -183,7 +195,10 @@ const DeleteSettings: FC = () => {
               }
               onClick={handleDelete}
             >
-              {typedDataLoading || signLoading || writeLoading
+              {typedDataLoading ||
+              signLoading ||
+              writeLoading ||
+              broadcastLoading
                 ? 'Deleting...'
                 : 'Delete your account'}
             </Button>
