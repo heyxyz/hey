@@ -137,17 +137,13 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
         }).then((signature) => {
           const { profileId, pubId, data: collectData } = typedData?.value
           const { v, r, s } = splitSignature(signature)
+          const sig = { v, r, s, deadline: typedData.value.deadline }
           const inputStruct = {
             collector: account?.address,
             profileId,
             pubId,
             data: collectData,
-            sig: {
-              v,
-              r,
-              s,
-              deadline: typedData.value.deadline
-            }
+            sig
           }
           if (RELAY_ON) {
             toast.success('Relay WIP')

@@ -124,16 +124,12 @@ const SetProfile: FC = () => {
         }).then((signature) => {
           const { wallet, profileId } = typedData?.value
           const { v, r, s } = splitSignature(signature)
+          const sig = { v, r, s, deadline: typedData.value.deadline }
           const inputStruct = {
             follower: account?.address,
             wallet,
             profileId,
-            sig: {
-              v,
-              r,
-              s,
-              deadline: typedData.value.deadline
-            }
+            sig
           }
           if (RELAY_ON) {
             toast.success('Relay WIP')
