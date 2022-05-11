@@ -38,6 +38,7 @@ import {
   CONNECT_WALLET,
   ERROR_MESSAGE,
   LENSHUB_PROXY,
+  RELAY_ON,
   WRONG_NETWORK
 } from 'src/constants'
 import { v4 as uuidv4 } from 'uuid'
@@ -196,7 +197,11 @@ const NewComment: FC<Props> = ({ post, type }) => {
               deadline: typedData.value.deadline
             }
           }
-          write({ args: inputStruct })
+          if (RELAY_ON) {
+            toast.success('Relay WIP')
+          } else {
+            write({ args: inputStruct })
+          }
         })
       },
       onError(error) {

@@ -16,6 +16,7 @@ import {
   CONNECT_WALLET,
   ERROR_MESSAGE,
   LENSHUB_PROXY,
+  RELAY_ON,
   WRONG_NETWORK
 } from 'src/constants'
 import {
@@ -116,7 +117,11 @@ const Join: FC<Props> = ({ community, setJoined, showJoin = true }) => {
               deadline: typedData.value.deadline
             }
           }
-          write({ args: inputStruct })
+          if (RELAY_ON) {
+            toast.success('Relay WIP')
+          } else {
+            write({ args: inputStruct })
+          }
         })
       },
       onError(error) {
