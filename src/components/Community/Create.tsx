@@ -15,6 +15,7 @@ import { TextArea } from '@components/UI/TextArea'
 import AppContext from '@components/utils/AppContext'
 import SEO from '@components/utils/SEO'
 import { CreatePostBroadcastItemResult } from '@generated/types'
+import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { PlusIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
 import omit from '@lib/omit'
@@ -101,6 +102,14 @@ const Create: NextPage = () => {
     }
   }
 
+  const [broadcast, { loading: broadcastLoading }] = useMutation(
+    BROADCAST_MUTATION,
+    {
+      onError(error) {
+        toast.error(error.message ?? ERROR_MESSAGE)
+      }
+    }
+  )
   const [createPostTypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_POST_TYPED_DATA_MUTATION,
     {
@@ -110,7 +119,7 @@ const Create: NextPage = () => {
         createPostTypedData: CreatePostBroadcastItemResult
       }) {
         consoleLog('Mutation', '#4ade80', 'Generated createPostTypedData')
-        const { typedData } = createPostTypedData
+        const { id, typedData } = createPostTypedData
         const {
           profileId,
           contentURI,
@@ -137,7 +146,7 @@ const Create: NextPage = () => {
             sig
           }
           if (RELAY_ON) {
-            toast.success('Relay WIP')
+            broadcast({ variables: { request: { id, signature } } })
           } else {
             write({ args: inputStruct })
           }
@@ -267,13 +276,15 @@ const Create: NextPage = () => {
                       typedDataLoading ||
                       isUploading ||
                       signLoading ||
-                      writeLoading
+                      writeLoading ||
+                      broadcastLoading
                     }
                     icon={
                       typedDataLoading ||
                       isUploading ||
                       signLoading ||
-                      writeLoading ? (
+                      writeLoading ||
+                      broadcastLoading ? (
                         <Spinner size="xs" />
                       ) : (
                         <PlusIcon className="w-4 h-4" />
