@@ -5,6 +5,7 @@ import { Tooltip } from '@components/UI/Tooltip'
 import AppContext from '@components/utils/AppContext'
 import { LensterPost } from '@generated/lenstertypes'
 import { CreateMirrorBroadcastItemResult } from '@generated/types'
+import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { SwitchHorizontalIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
 import humanize from '@lib/humanize'
@@ -92,6 +93,14 @@ const Mirror: FC<Props> = ({ post }) => {
     }
   )
 
+  const [broadcast, { loading: broadcastLoading }] = useMutation(
+    BROADCAST_MUTATION,
+    {
+      onError(error) {
+        toast.error(error.message ?? ERROR_MESSAGE)
+      }
+    }
+  )
   const [createMirrorTypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_MIRROR_TYPED_DATA_MUTATION,
     {
@@ -101,7 +110,7 @@ const Mirror: FC<Props> = ({ post }) => {
         createMirrorTypedData: CreateMirrorBroadcastItemResult
       }) {
         consoleLog('Mutation', '#4ade80', 'Generated createMirrorTypedData')
-        const { typedData } = createMirrorTypedData
+        const { id, typedData } = createMirrorTypedData
         const {
           profileId,
           profileIdPointed,
@@ -128,7 +137,7 @@ const Mirror: FC<Props> = ({ post }) => {
             sig
           }
           if (RELAY_ON) {
-            toast.success('Relay WIP')
+            broadcast({ variables: { request: { id, signature } } })
           } else {
             write({ args: inputStruct })
           }
