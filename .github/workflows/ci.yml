@@ -8,7 +8,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [14.x]
+        node-version: [16.x]
 
     steps:
       - name: Use Node.js ${{ matrix.node-version }}
@@ -36,7 +36,7 @@ jobs:
         run: cp .env.example .env
 
       - name: Install Yarn Dependencies
-        run: yarn install --ignore-engines --frozen-lockfile --silent
+        run: yarn install --frozen-lockfile --silent
 
       - name: GraphQL Codegen
         run: yarn codegen
