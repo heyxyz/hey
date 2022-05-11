@@ -19,6 +19,7 @@ import {
 } from '@generated/types'
 import { PencilIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
+import getAttribute from '@lib/getAttribute'
 import imagekitURL from '@lib/imagekitURL'
 import isBeta from '@lib/isBeta'
 import omit from '@lib/omit'
@@ -192,9 +193,12 @@ const Profile: FC<Props> = ({ profile }) => {
     schema: editProfileSchema,
     defaultValues: {
       name: profile?.name as string,
-      location: profile?.location as string,
-      website: profile?.website as string,
-      twitter: profile?.twitter?.replace('https://twitter.com/', '') as string,
+      location: getAttribute(profile?.attributes, 'location') as string,
+      website: getAttribute(profile?.attributes, 'website') as string,
+      twitter: getAttribute(profile?.attributes, 'twitter')?.replace(
+        'https://twitter.com/',
+        ''
+      ) as string,
       bio: profile?.bio as string
     }
   })
