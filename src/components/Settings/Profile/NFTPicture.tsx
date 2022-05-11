@@ -246,13 +246,15 @@ const NFTPicture: FC<Props> = ({ profile }) => {
               challengeLoading ||
               typedDataLoading ||
               signLoading ||
-              writeLoading
+              writeLoading ||
+              broadcastLoading
             }
             icon={
               challengeLoading ||
               typedDataLoading ||
               signLoading ||
-              writeLoading ? (
+              writeLoading ||
+              broadcastLoading ? (
                 <Spinner size="xs" />
               ) : (
                 <PencilIcon className="w-4 h-4" />
