@@ -5,9 +5,11 @@ type Attribute = {
   value: string
 }
 
+type Query = 'isBeta' | 'app' | 'twitter' | 'location' | 'website'
+
 const getAttribute = (
   attributes: Maybe<Attribute[]> | undefined,
-  query: string
+  query: Query
 ): string | undefined => {
   return attributes?.find((o) => o.key === query)?.value
 }
