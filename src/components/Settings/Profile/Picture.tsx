@@ -79,14 +79,6 @@ const Picture: FC<Props> = ({ profile }) => {
   const { currentUser } = useContext(AppContext)
   const { activeChain } = useNetwork()
   const { data: account } = useAccount()
-  const [broadcast, { loading: broadcastLoading }] = useMutation(
-    BROADCAST_MUTATION,
-    {
-      onError(error) {
-        toast.error(error.message ?? ERROR_MESSAGE)
-      }
-    }
-  )
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
       toast.error(error?.message)
@@ -119,6 +111,14 @@ const Picture: FC<Props> = ({ profile }) => {
       setAvatar(profile?.picture?.original?.url ?? profile?.picture?.uri)
   }, [profile])
 
+  const [broadcast, { loading: broadcastLoading }] = useMutation(
+    BROADCAST_MUTATION,
+    {
+      onError(error) {
+        toast.error(error.message ?? ERROR_MESSAGE)
+      }
+    }
+  )
   const [createSetProfileImageURITypedData, { loading: typedDataLoading }] =
     useMutation(CREATE_SET_PROFILE_IMAGE_URI_TYPED_DATA_MUTATION, {
       onCompleted({
