@@ -3,6 +3,7 @@ import { gql, useMutation } from '@apollo/client'
 import { Button } from '@components/UI/Button'
 import { Spinner } from '@components/UI/Spinner'
 import { CreateFollowBroadcastItemResult, Profile } from '@generated/types'
+import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { UserAddIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
 import omit from '@lib/omit'
@@ -86,6 +87,14 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
     }
   )
 
+  const [broadcast, { loading: broadcastLoading }] = useMutation(
+    BROADCAST_MUTATION,
+    {
+      onError(error) {
+        toast.error(error.message ?? ERROR_MESSAGE)
+      }
+    }
+  )
   const [createFollowTypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_FOLLOW_TYPED_DATA_MUTATION,
     {
@@ -95,7 +104,7 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
         createFollowTypedData: CreateFollowBroadcastItemResult
       }) {
         consoleLog('Mutation', '#4ade80', 'Generated createFollowTypedData')
-        const { typedData } = createFollowTypedData
+        const { id, typedData } = createFollowTypedData
         signTypedDataAsync({
           domain: omit(typedData?.domain, '__typename'),
           types: omit(typedData?.types, '__typename'),
@@ -111,7 +120,7 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
             sig
           }
           if (RELAY_ON) {
-            toast.success('Relay WIP')
+            broadcast({ variables: { request: { id, signature } } })
           } else {
             write({ args: inputStruct })
           }
@@ -142,11 +151,13 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
       className="text-sm !px-3 !py-1.5"
       outline
       onClick={createFollow}
-      disabled={typedDataLoading || signLoading || writeLoading}
+      disabled={
+        typedDataLoading || signLoading || writeLoading || broadcastLoading
+      }
       variant="success"
       aria-label="Follow"
       icon={
-        typedDataLoading || signLoading || writeLoading ? (
+        typedDataLoading || signLoading || writeLoading || broadcastLoading ? (
           <Spinner variant="success" size="xs" />
         ) : (
           <UserAddIcon className="w-4 h-4" />
