@@ -17,6 +17,7 @@ import {
   MediaSet,
   Profile
 } from '@generated/types'
+import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { PencilIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
 import getAttribute from '@lib/getAttribute'
@@ -135,6 +136,14 @@ const Profile: FC<Props> = ({ profile }) => {
     }
   )
 
+  const [broadcast, { loading: broadcastLoading }] = useMutation(
+    BROADCAST_MUTATION,
+    {
+      onError(error) {
+        toast.error(error.message ?? ERROR_MESSAGE)
+      }
+    }
+  )
   const [createSetProfileMetadataTypedData, { loading: typedDataLoading }] =
     useMutation(CREATE_SET_PROFILE_METADATA_TYPED_DATA_MUTATION, {
       onCompleted({
@@ -147,7 +156,7 @@ const Profile: FC<Props> = ({ profile }) => {
           '#4ade80',
           'Generated createSetProfileImageURITypedData'
         )
-        const { typedData } = createSetProfileMetadataTypedData
+        const { id, typedData } = createSetProfileMetadataTypedData
         signTypedDataAsync({
           domain: omit(typedData?.domain, '__typename'),
           types: omit(typedData?.types, '__typename'),
@@ -163,7 +172,7 @@ const Profile: FC<Props> = ({ profile }) => {
             sig
           }
           if (RELAY_ON) {
-            toast.success('Relay WIP')
+            broadcast({ variables: { request: { id, signature } } })
           } else {
             write({ args: inputStruct })
           }
@@ -354,13 +363,18 @@ const Profile: FC<Props> = ({ profile }) => {
                 className="ml-auto"
                 type="submit"
                 disabled={
-                  isUploading || typedDataLoading || signLoading || writeLoading
+                  isUploading ||
+                  typedDataLoading ||
+                  signLoading ||
+                  writeLoading ||
+                  broadcastLoading
                 }
                 icon={
                   isUploading ||
                   typedDataLoading ||
                   signLoading ||
-                  writeLoading ? (
+                  writeLoading ||
+                  broadcastLoading ? (
                     <Spinner size="xs" />
                   ) : (
                     <PencilIcon className="w-4 h-4" />
