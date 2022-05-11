@@ -23,9 +23,6 @@ const PROFILE_SETTINGS_QUERY = gql`
       items {
         id
         name
-        location
-        website
-        twitter
         bio
         attributes {
           key

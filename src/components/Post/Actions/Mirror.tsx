@@ -53,7 +53,7 @@ const CREATE_MIRROR_TYPED_DATA_MUTATION = gql`
           profileIdPointed
           pubIdPointed
           referenceModule
-          referenceModuleData
+          referenceModuleInitData
         }
       }
     }
@@ -105,7 +105,7 @@ const Mirror: FC<Props> = ({ post }) => {
           profileIdPointed,
           pubIdPointed,
           referenceModule,
-          referenceModuleData
+          referenceModuleInitData
         } = typedData?.value
 
         signTypedDataAsync({
@@ -119,7 +119,7 @@ const Mirror: FC<Props> = ({ post }) => {
             profileIdPointed,
             pubIdPointed,
             referenceModule,
-            referenceModuleData,
+            referenceModuleInitData,
             sig: {
               v,
               r,

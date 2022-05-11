@@ -90,9 +90,9 @@ export const CREATE_POST_TYPED_DATA_MUTATION = gql`
           profileId
           contentURI
           collectModule
-          collectModuleData
+          collectModuleInitData
           referenceModule
-          referenceModuleData
+          referenceModuleInitData
         }
       }
     }
@@ -161,9 +161,9 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
           profileId,
           contentURI,
           collectModule,
-          collectModuleData,
+          collectModuleInitData,
           referenceModule,
-          referenceModuleData
+          referenceModuleInitData
         } = typedData?.value
 
         signTypedDataAsync({
@@ -176,9 +176,9 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
             profileId,
             contentURI,
             collectModule,
-            collectModuleData,
+            collectModuleInitData,
             referenceModule,
-            referenceModuleData,
+            referenceModuleInitData,
             sig: {
               v,
               r,
