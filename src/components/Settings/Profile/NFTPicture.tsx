@@ -13,6 +13,7 @@ import {
   NftImage,
   Profile
 } from '@generated/types'
+import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { PencilIcon } from '@heroicons/react/outline'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
@@ -129,7 +130,14 @@ const NFTPicture: FC<Props> = ({ profile }) => {
   )
   const [loadChallenge, { loading: challengeLoading }] =
     useLazyQuery(CHALLENGE_QUERY)
-
+  const [broadcast, { loading: broadcastLoading }] = useMutation(
+    BROADCAST_MUTATION,
+    {
+      onError(error) {
+        toast.error(error.message ?? ERROR_MESSAGE)
+      }
+    }
+  )
   const [createSetProfileImageURITypedData, { loading: typedDataLoading }] =
     useMutation(CREATE_SET_PROFILE_IMAGE_URI_TYPED_DATA_MUTATION, {
       onCompleted({
@@ -137,7 +145,7 @@ const NFTPicture: FC<Props> = ({ profile }) => {
       }: {
         createSetProfileImageURITypedData: CreateSetProfileImageUriBroadcastItemResult
       }) {
-        const { typedData } = createSetProfileImageURITypedData
+        const { id, typedData } = createSetProfileImageURITypedData
 
         signTypedDataAsync({
           domain: omit(typedData?.domain, '__typename'),
@@ -153,7 +161,7 @@ const NFTPicture: FC<Props> = ({ profile }) => {
             sig
           }
           if (RELAY_ON) {
-            toast.success('Relay WIP')
+            broadcast({ variables: { request: { id, signature } } })
           } else {
             write({ args: inputStruct })
           }
