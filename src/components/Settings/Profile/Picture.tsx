@@ -13,6 +13,7 @@ import {
   NftImage,
   Profile
 } from '@generated/types'
+import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { PencilIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
 import imagekitURL from '@lib/imagekitURL'
@@ -78,6 +79,14 @@ const Picture: FC<Props> = ({ profile }) => {
   const { currentUser } = useContext(AppContext)
   const { activeChain } = useNetwork()
   const { data: account } = useAccount()
+  const [broadcast, { loading: broadcastLoading }] = useMutation(
+    BROADCAST_MUTATION,
+    {
+      onError(error) {
+        toast.error(error.message ?? ERROR_MESSAGE)
+      }
+    }
+  )
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
       toast.error(error?.message)
@@ -122,7 +131,7 @@ const Picture: FC<Props> = ({ profile }) => {
           '#4ade80',
           'Generated createSetProfileImageURITypedData'
         )
-        const { typedData } = createSetProfileImageURITypedData
+        const { id, typedData } = createSetProfileImageURITypedData
         signTypedDataAsync({
           domain: omit(typedData?.domain, '__typename'),
           types: omit(typedData?.types, '__typename'),
@@ -137,7 +146,7 @@ const Picture: FC<Props> = ({ profile }) => {
             sig
           }
           if (RELAY_ON) {
-            toast.success('Relay WIP')
+            broadcast({ variables: { request: { id, signature } } })
           } else {
             write({ args: inputStruct })
           }
@@ -217,10 +226,18 @@ const Picture: FC<Props> = ({ profile }) => {
           <Button
             className="ml-auto"
             type="submit"
-            disabled={typedDataLoading || signLoading || writeLoading}
+            disabled={
+              typedDataLoading ||
+              signLoading ||
+              writeLoading ||
+              broadcastLoading
+            }
             onClick={() => editPicture(avatar)}
             icon={
-              typedDataLoading || signLoading || writeLoading ? (
+              typedDataLoading ||
+              signLoading ||
+              writeLoading ||
+              broadcastLoading ? (
                 <Spinner size="xs" />
               ) : (
                 <PencilIcon className="w-4 h-4" />
