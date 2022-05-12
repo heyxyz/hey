@@ -205,7 +205,7 @@ const Profile: FC<Props> = ({ profile }) => {
   const editProfile = async (
     name: string,
     location: string | null,
-    website: string | null,
+    website: string | null | undefined,
     twitter: string | null,
     bio: string | null
   ) => {
