@@ -74,6 +74,12 @@ const SetProfile: FC = () => {
       toast.error(error?.message)
     }
   })
+
+  const onCompleted = () => {
+    toast.success('Default profile updated successfully!')
+    trackEvent('set default profile')
+  }
+
   const {
     data: writeData,
     isLoading: writeLoading,
@@ -87,8 +93,7 @@ const SetProfile: FC = () => {
     'setDefaultProfileWithSig',
     {
       onSuccess() {
-        toast.success('Default profile updated successfully!')
-        trackEvent('set default profile')
+        onCompleted()
       },
       onError(error: any) {
         toast.error(error?.data?.message ?? error?.message)
@@ -107,6 +112,9 @@ const SetProfile: FC = () => {
 
   const [broadcast, { data: broadcastData, loading: broadcastLoading }] =
     useMutation(BROADCAST_MUTATION, {
+      onCompleted() {
+        onCompleted()
+      },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
       }

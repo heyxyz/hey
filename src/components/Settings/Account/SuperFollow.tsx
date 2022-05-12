@@ -116,6 +116,11 @@ const SuperFollow: FC = () => {
       consoleLog('Query', '#8b5cf6', `Fetched enabled module currencies`)
     }
   })
+
+  const onCompleted = () => {
+    trackEvent('set superfollow', 'create')
+  }
+
   const {
     data: writeData,
     isLoading: writeLoading,
@@ -128,7 +133,7 @@ const SuperFollow: FC = () => {
     'setFollowModuleWithSig',
     {
       onSuccess() {
-        trackEvent('set superfollow', 'create')
+        onCompleted()
       },
       onError(error: any) {
         toast.error(error?.data?.message ?? error?.message)
@@ -145,6 +150,9 @@ const SuperFollow: FC = () => {
 
   const [broadcast, { data: broadcastData, loading: broadcastLoading }] =
     useMutation(BROADCAST_MUTATION, {
+      onCompleted() {
+        onCompleted()
+      },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
       }
