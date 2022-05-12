@@ -215,6 +215,7 @@ const NewComment: FC<Props> = ({ post, type }) => {
     } else {
       setCommentContentError('')
       setIsUploading(true)
+      // TODO: Add animated_url support
       const { path } = await uploadToIPFS({
         version: '1.0.0',
         metadata_id: uuidv4(),
