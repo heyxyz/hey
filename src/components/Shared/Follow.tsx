@@ -69,6 +69,13 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
       toast.error(error?.message)
     }
   })
+
+  const onCompleted = () => {
+    setFollowing(true)
+    toast.success('Followed successfully!')
+    trackEvent('follow user')
+  }
+
   const { isLoading: writeLoading, write } = useContractWrite(
     {
       addressOrName: LENSHUB_PROXY,
@@ -77,9 +84,7 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
     'followWithSig',
     {
       onSuccess() {
-        setFollowing(true)
-        toast.success('Followed successfully!')
-        trackEvent('follow user')
+        onCompleted()
       },
       onError(error: any) {
         toast.error(error?.data?.message ?? error?.message)
@@ -91,9 +96,7 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
     BROADCAST_MUTATION,
     {
       onCompleted() {
-        setFollowing(true)
-        toast.success('Followed successfully!')
-        trackEvent('follow user')
+        onCompleted()
       },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
