@@ -12,7 +12,7 @@
   ],
   "extends": ["next", "next/core-web-vitals"],
   "rules": {
-    "prettier/prettier": ["error"],
+    "prettier/prettier": "error",
     "react/prop-types": "off",
     "react/no-unescaped-entities": "off",
     "no-unused-vars": "warn",
