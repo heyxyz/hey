@@ -105,14 +105,12 @@ const SetProfile: FC = () => {
     setSelectedUser(sortedProfiles[0]?.id)
   }, [sortedProfiles])
 
-  const [broadcast, { loading: broadcastLoading }] = useMutation(
-    BROADCAST_MUTATION,
-    {
+  const [broadcast, { data: broadcastData, loading: broadcastLoading }] =
+    useMutation(BROADCAST_MUTATION, {
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
       }
-    }
-  )
+    })
   const [createSetDefaultProfileTypedData, { loading: typedDataLoading }] =
     useMutation(CREATE_SET_DEFAULT_PROFILE_DATA_MUTATION, {
       onCompleted({

@@ -135,14 +135,12 @@ const Profile: FC<Props> = ({ profile }) => {
     }
   )
 
-  const [broadcast, { loading: broadcastLoading }] = useMutation(
-    BROADCAST_MUTATION,
-    {
+  const [broadcast, { data: broadcastData, loading: broadcastLoading }] =
+    useMutation(BROADCAST_MUTATION, {
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
       }
-    }
-  )
+    })
   const [createSetProfileMetadataTypedData, { loading: typedDataLoading }] =
     useMutation(CREATE_SET_PROFILE_METADATA_TYPED_DATA_MUTATION, {
       onCompleted({
