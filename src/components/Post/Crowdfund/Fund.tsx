@@ -99,6 +99,12 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
     }
   )
 
+  const onCompleted = () => {
+    setRevenue(revenue + parseFloat(collectModule?.amount?.value))
+    toast.success('Successfully funded!')
+    trackEvent('fund a crowdfund')
+  }
+
   const {
     data: writeData,
     isLoading: writeLoading,
@@ -111,9 +117,7 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
     'collectWithSig',
     {
       onSuccess() {
-        setRevenue(revenue + parseFloat(collectModule?.amount?.value))
-        toast.success('Successfully funded!')
-        trackEvent('fund a crowdfund')
+        onCompleted()
       },
       onError(error: any) {
         toast.error(error?.data?.message ?? error?.message)
@@ -123,6 +127,9 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
 
   const [broadcast, { data: broadcastData, loading: broadcastLoading }] =
     useMutation(BROADCAST_MUTATION, {
+      onCompleted() {
+        onCompleted()
+      },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
       }
