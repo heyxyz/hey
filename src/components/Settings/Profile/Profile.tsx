@@ -289,7 +289,7 @@ const Profile: FC<Props> = ({ profile }) => {
           <Input
             label="Name"
             type="text"
-            placeholder="John Doe"
+            placeholder="Gavin"
             {...form.register('name')}
           />
           <Input
@@ -301,14 +301,14 @@ const Profile: FC<Props> = ({ profile }) => {
           <Input
             label="Website"
             type="text"
-            placeholder="https://lens.codes"
+            placeholder="https://hooli.com"
             {...form.register('website')}
           />
           <Input
             label="Twitter"
             type="text"
             prefix="https://twitter.com"
-            placeholder="johndoe"
+            placeholder="gavin"
             {...form.register('twitter')}
           />
           <TextArea
