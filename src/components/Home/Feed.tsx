@@ -15,7 +15,6 @@ import { CollectionIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
 import React, { FC, useContext, useState } from 'react'
 import { useInView } from 'react-cool-inview'
-import { RELAY_ON } from 'src/constants'
 
 const HOME_FEED_QUERY = gql`
   query HomeFeed($request: TimelineRequest!) {
@@ -82,7 +81,6 @@ const Feed: FC = () => {
 
   return (
     <>
-      {JSON.stringify(RELAY_ON)}
       {currentUser && <NewPost />}
       {loading && <PostsShimmer />}
       {data?.timeline?.items?.length === 0 && (
