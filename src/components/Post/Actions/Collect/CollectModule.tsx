@@ -118,6 +118,13 @@ const CollectModule: FC<Props> = ({ post }) => {
       toast.error(error?.message)
     }
   })
+
+  const onCompleted = () => {
+    // setShowCollectModal && setShowCollectModal(false)
+    toast.success('Post has been collected!')
+    trackEvent('collect publication')
+  }
+
   const {
     data: writeData,
     isLoading: writeLoading,
@@ -130,9 +137,7 @@ const CollectModule: FC<Props> = ({ post }) => {
     'collectWithSig',
     {
       onSuccess() {
-        // setShowCollectModal && setShowCollectModal(false)
-        toast.success('Post has been collected!')
-        trackEvent('collect publication')
+        onCompleted()
       },
       onError(error: any) {
         toast.error(error?.data?.message ?? error?.message)
@@ -179,6 +184,9 @@ const CollectModule: FC<Props> = ({ post }) => {
 
   const [broadcast, { data: broadcastData, loading: broadcastLoading }] =
     useMutation(BROADCAST_MUTATION, {
+      onCompleted() {
+        onCompleted()
+      },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
       }
