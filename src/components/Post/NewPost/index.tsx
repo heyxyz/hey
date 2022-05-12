@@ -124,6 +124,14 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
       toast.error(error?.message)
     }
   })
+
+  const onCompleted = () => {
+    setPostContent('')
+    setAttachments([])
+    setSelectedModule(defaultModuleData)
+    setFeeData(defaultFeeData)
+    trackEvent('new post', 'create')
+  }
   const {
     data,
     error,
@@ -137,11 +145,7 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
     'postWithSig',
     {
       onSuccess() {
-        setPostContent('')
-        setAttachments([])
-        setSelectedModule(defaultModuleData)
-        setFeeData(defaultFeeData)
-        trackEvent('new post', 'create')
+        onCompleted()
       },
       onError(error: any) {
         toast.error(error?.data?.message ?? error?.message)
@@ -151,6 +155,9 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
 
   const [broadcast, { data: broadcastData, loading: broadcastLoading }] =
     useMutation(BROADCAST_MUTATION, {
+      onCompleted() {
+        onCompleted()
+      },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
       }
