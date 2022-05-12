@@ -13,6 +13,7 @@ import {
   NftImage,
   Profile
 } from '@generated/types'
+import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { PencilIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
 import imagekitURL from '@lib/imagekitURL'
@@ -27,6 +28,7 @@ import {
   CONNECT_WALLET,
   ERROR_MESSAGE,
   LENSHUB_PROXY,
+  RELAY_ON,
   WRONG_NETWORK
 } from 'src/constants'
 import {
@@ -82,6 +84,12 @@ const Picture: FC<Props> = ({ profile }) => {
       toast.error(error?.message)
     }
   })
+
+  const onCompleted = () => {
+    toast.success('Avatar updated successfully!')
+    trackEvent('update avatar')
+  }
+
   const {
     data: writeData,
     isLoading: writeLoading,
@@ -95,8 +103,7 @@ const Picture: FC<Props> = ({ profile }) => {
     'setProfileImageURIWithSig',
     {
       onSuccess() {
-        toast.success('Avatar updated successfully!')
-        trackEvent('update avatar')
+        onCompleted()
       },
       onError(error: any) {
         toast.error(error?.data?.message ?? error?.message)
@@ -109,6 +116,15 @@ const Picture: FC<Props> = ({ profile }) => {
       setAvatar(profile?.picture?.original?.url ?? profile?.picture?.uri)
   }, [profile])
 
+  const [broadcast, { data: broadcastData, loading: broadcastLoading }] =
+    useMutation(BROADCAST_MUTATION, {
+      onCompleted() {
+        onCompleted()
+      },
+      onError(error) {
+        toast.error(error.message ?? ERROR_MESSAGE)
+      }
+    })
   const [createSetProfileImageURITypedData, { loading: typedDataLoading }] =
     useMutation(CREATE_SET_PROFILE_IMAGE_URI_TYPED_DATA_MUTATION, {
       onCompleted({
@@ -121,7 +137,7 @@ const Picture: FC<Props> = ({ profile }) => {
           '#4ade80',
           'Generated createSetProfileImageURITypedData'
         )
-        const { typedData } = createSetProfileImageURITypedData
+        const { id, typedData } = createSetProfileImageURITypedData
         signTypedDataAsync({
           domain: omit(typedData?.domain, '__typename'),
           types: omit(typedData?.types, '__typename'),
@@ -129,17 +145,17 @@ const Picture: FC<Props> = ({ profile }) => {
         }).then((signature) => {
           const { profileId, imageURI } = typedData?.value
           const { v, r, s } = splitSignature(signature)
+          const sig = { v, r, s, deadline: typedData.value.deadline }
           const inputStruct = {
             profileId,
             imageURI,
-            sig: {
-              v,
-              r,
-              s,
-              deadline: typedData.value.deadline
-            }
+            sig
           }
-          write({ args: inputStruct })
+          if (RELAY_ON) {
+            broadcast({ variables: { request: { id, signature } } })
+          } else {
+            write({ args: inputStruct })
+          }
         })
       },
       onError(error) {
@@ -216,10 +232,18 @@ const Picture: FC<Props> = ({ profile }) => {
           <Button
             className="ml-auto"
             type="submit"
-            disabled={typedDataLoading || signLoading || writeLoading}
+            disabled={
+              typedDataLoading ||
+              signLoading ||
+              writeLoading ||
+              broadcastLoading
+            }
             onClick={() => editPicture(avatar)}
             icon={
-              typedDataLoading || signLoading || writeLoading ? (
+              typedDataLoading ||
+              signLoading ||
+              writeLoading ||
+              broadcastLoading ? (
                 <Spinner size="xs" />
               ) : (
                 <PencilIcon className="w-4 h-4" />
@@ -228,7 +252,15 @@ const Picture: FC<Props> = ({ profile }) => {
           >
             Save
           </Button>
-          {writeData?.hash && <IndexStatus txHash={writeData?.hash} />}
+          {writeData?.hash ?? broadcastData?.broadcast?.txHash ? (
+            <IndexStatus
+              txHash={
+                writeData?.hash
+                  ? writeData?.hash
+                  : broadcastData?.broadcast?.txHash
+              }
+            />
+          ) : null}
         </div>
       )}
     </>

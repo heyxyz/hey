@@ -12,6 +12,7 @@ import {
   CreateSetFollowModuleBroadcastItemResult,
   Erc20
 } from '@generated/types'
+import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { StarIcon, XIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
 import getTokenImage from '@lib/getTokenImage'
@@ -26,6 +27,7 @@ import {
   DEFAULT_COLLECT_TOKEN,
   ERROR_MESSAGE,
   LENSHUB_PROXY,
+  RELAY_ON,
   WRONG_NETWORK
 } from 'src/constants'
 import {
@@ -114,6 +116,11 @@ const SuperFollow: FC = () => {
       consoleLog('Query', '#8b5cf6', `Fetched enabled module currencies`)
     }
   })
+
+  const onCompleted = () => {
+    trackEvent('set superfollow', 'create')
+  }
+
   const {
     data: writeData,
     isLoading: writeLoading,
@@ -126,7 +133,7 @@ const SuperFollow: FC = () => {
     'setFollowModuleWithSig',
     {
       onSuccess() {
-        trackEvent('set superfollow', 'create')
+        onCompleted()
       },
       onError(error: any) {
         toast.error(error?.data?.message ?? error?.message)
@@ -141,6 +148,15 @@ const SuperFollow: FC = () => {
     }
   })
 
+  const [broadcast, { data: broadcastData, loading: broadcastLoading }] =
+    useMutation(BROADCAST_MUTATION, {
+      onCompleted() {
+        onCompleted()
+      },
+      onError(error) {
+        toast.error(error.message ?? ERROR_MESSAGE)
+      }
+    })
   const [createSetFollowModuleTypedData, { loading: typedDataLoading }] =
     useMutation(CREATE_SET_FOLLOW_MODULE_TYPED_DATA_MUTATION, {
       onCompleted({
@@ -153,7 +169,7 @@ const SuperFollow: FC = () => {
           '#4ade80',
           'Generated createSetFollowModuleTypedData'
         )
-        const { typedData } = createSetFollowModuleTypedData
+        const { id, typedData } = createSetFollowModuleTypedData
         const { profileId, followModule, followModuleInitData } =
           typedData?.value
 
@@ -163,18 +179,18 @@ const SuperFollow: FC = () => {
           value: omit(typedData?.value, '__typename')
         }).then((signature) => {
           const { v, r, s } = splitSignature(signature)
+          const sig = { v, r, s, deadline: typedData.value.deadline }
           const inputStruct = {
             profileId,
             followModule,
             followModuleInitData,
-            sig: {
-              v,
-              r,
-              s,
-              deadline: typedData.value.deadline
-            }
+            sig
           }
-          write({ args: inputStruct })
+          if (RELAY_ON) {
+            broadcast({ variables: { request: { id, signature } } })
+          } else {
+            write({ args: inputStruct })
+          }
         })
       },
       onError(error) {
@@ -294,7 +310,12 @@ const SuperFollow: FC = () => {
                     onClick={() => {
                       setSuperFollow(null, null)
                     }}
-                    disabled={typedDataLoading || signLoading || writeLoading}
+                    disabled={
+                      typedDataLoading ||
+                      signLoading ||
+                      writeLoading ||
+                      broadcastLoading
+                    }
                     icon={<XIcon className="w-4 h-4" />}
                   >
                     Disable Super follow
@@ -302,7 +323,12 @@ const SuperFollow: FC = () => {
                 )}
                 <Button
                   type="submit"
-                  disabled={typedDataLoading || signLoading || writeLoading}
+                  disabled={
+                    typedDataLoading ||
+                    signLoading ||
+                    writeLoading ||
+                    broadcastLoading
+                  }
                   icon={<StarIcon className="w-4 h-4" />}
                 >
                   {currencyData?.profiles?.items[0]?.followModule
@@ -310,7 +336,15 @@ const SuperFollow: FC = () => {
                     : 'Set Super follow'}
                 </Button>
               </div>
-              {writeData?.hash && <IndexStatus txHash={writeData?.hash} />}
+              {writeData?.hash ?? broadcastData?.broadcast?.txHash ? (
+                <IndexStatus
+                  txHash={
+                    writeData?.hash
+                      ? writeData?.hash
+                      : broadcastData?.broadcast?.txHash
+                  }
+                />
+              ) : null}
             </div>
           )}
         </div>

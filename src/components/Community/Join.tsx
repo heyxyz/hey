@@ -4,6 +4,7 @@ import { Button } from '@components/UI/Button'
 import { Spinner } from '@components/UI/Spinner'
 import { Community } from '@generated/lenstertypes'
 import { CreateCollectBroadcastItemResult } from '@generated/types'
+import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { PlusIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
 import omit from '@lib/omit'
@@ -16,6 +17,7 @@ import {
   CONNECT_WALLET,
   ERROR_MESSAGE,
   LENSHUB_PROXY,
+  RELAY_ON,
   WRONG_NETWORK
 } from 'src/constants'
 import {
@@ -69,6 +71,13 @@ const Join: FC<Props> = ({ community, setJoined, showJoin = true }) => {
       toast.error(error?.message)
     }
   })
+
+  const onCompleted = () => {
+    setJoined(true)
+    toast.success('Joined successfully!')
+    trackEvent('join community')
+  }
+
   const { isLoading: writeLoading, write } = useContractWrite(
     {
       addressOrName: LENSHUB_PROXY,
@@ -77,9 +86,7 @@ const Join: FC<Props> = ({ community, setJoined, showJoin = true }) => {
     'collectWithSig',
     {
       onSuccess() {
-        setJoined(true)
-        toast.success('Joined successfully!')
-        trackEvent('join community')
+        onCompleted()
       },
       onError(error: any) {
         toast.error(error?.data?.message ?? error?.message)
@@ -87,6 +94,17 @@ const Join: FC<Props> = ({ community, setJoined, showJoin = true }) => {
     }
   )
 
+  const [broadcast, { loading: broadcastLoading }] = useMutation(
+    BROADCAST_MUTATION,
+    {
+      onCompleted() {
+        onCompleted()
+      },
+      onError(error) {
+        toast.error(error.message ?? ERROR_MESSAGE)
+      }
+    }
+  )
   const [createCollectTypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_COLLECT_TYPED_DATA_MUTATION,
     {
@@ -96,7 +114,7 @@ const Join: FC<Props> = ({ community, setJoined, showJoin = true }) => {
         createCollectTypedData: CreateCollectBroadcastItemResult
       }) {
         consoleLog('Mutation', '#4ade80', 'Generated createCollectTypedData')
-        const { typedData } = createCollectTypedData
+        const { id, typedData } = createCollectTypedData
         signTypedDataAsync({
           domain: omit(typedData?.domain, '__typename'),
           types: omit(typedData?.types, '__typename'),
@@ -104,19 +122,19 @@ const Join: FC<Props> = ({ community, setJoined, showJoin = true }) => {
         }).then((signature) => {
           const { profileId, pubId, data: collectData } = typedData?.value
           const { v, r, s } = splitSignature(signature)
+          const sig = { v, r, s, deadline: typedData.value.deadline }
           const inputStruct = {
             collector: account?.address,
             profileId,
             pubId,
             data: collectData,
-            sig: {
-              v,
-              r,
-              s,
-              deadline: typedData.value.deadline
-            }
+            sig
           }
-          write({ args: inputStruct })
+          if (RELAY_ON) {
+            broadcast({ variables: { request: { id, signature } } })
+          } else {
+            write({ args: inputStruct })
+          }
         })
       },
       onError(error) {
@@ -140,9 +158,11 @@ const Join: FC<Props> = ({ community, setJoined, showJoin = true }) => {
   return (
     <Button
       onClick={createCollect}
-      disabled={typedDataLoading || signLoading || writeLoading}
+      disabled={
+        typedDataLoading || signLoading || writeLoading || broadcastLoading
+      }
       icon={
-        typedDataLoading || signLoading || writeLoading ? (
+        typedDataLoading || signLoading || writeLoading || broadcastLoading ? (
           <Spinner variant="success" size="xs" />
         ) : (
           <PlusIcon className="w-4 h-4" />

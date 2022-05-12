@@ -16,6 +16,7 @@ import { TextArea } from '@components/UI/TextArea'
 import AppContext from '@components/utils/AppContext'
 import SEO from '@components/utils/SEO'
 import { CreatePostBroadcastItemResult, Erc20 } from '@generated/types'
+import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { PlusIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
 import getTokenImage from '@lib/getTokenImage'
@@ -34,6 +35,7 @@ import {
   DEFAULT_COLLECT_TOKEN,
   ERROR_MESSAGE,
   LENSHUB_PROXY,
+  RELAY_ON,
   WRONG_NETWORK
 } from 'src/constants'
 import Custom404 from 'src/pages/404'
@@ -97,6 +99,11 @@ const Create: NextPage = () => {
       consoleLog('Query', '#8b5cf6', `Fetched enabled module currencies`)
     }
   })
+
+  const onCompleted = () => {
+    trackEvent('new crowdfund', 'create')
+  }
+
   const {
     data,
     isLoading: writeLoading,
@@ -109,7 +116,7 @@ const Create: NextPage = () => {
     'postWithSig',
     {
       onSuccess() {
-        trackEvent('new crowdfund', 'create')
+        onCompleted()
       },
       onError(error: any) {
         toast.error(error?.data?.message ?? error?.message)
@@ -136,6 +143,15 @@ const Create: NextPage = () => {
     }
   }
 
+  const [broadcast, { data: broadcastData, loading: broadcastLoading }] =
+    useMutation(BROADCAST_MUTATION, {
+      onCompleted() {
+        onCompleted()
+      },
+      onError(error) {
+        toast.error(error.message ?? ERROR_MESSAGE)
+      }
+    })
   const [createPostTypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_POST_TYPED_DATA_MUTATION,
     {
@@ -145,7 +161,7 @@ const Create: NextPage = () => {
         createPostTypedData: CreatePostBroadcastItemResult
       }) {
         consoleLog('Mutation', '#4ade80', 'Generated createPostTypedData')
-        const { typedData } = createPostTypedData
+        const { id, typedData } = createPostTypedData
         const {
           profileId,
           contentURI,
@@ -161,6 +177,7 @@ const Create: NextPage = () => {
           value: omit(typedData?.value, '__typename')
         }).then((signature) => {
           const { v, r, s } = splitSignature(signature)
+          const sig = { v, r, s, deadline: typedData.value.deadline }
           const inputStruct = {
             profileId,
             contentURI,
@@ -168,14 +185,13 @@ const Create: NextPage = () => {
             collectModuleInitData,
             referenceModule,
             referenceModuleInitData,
-            sig: {
-              v,
-              r,
-              s,
-              deadline: typedData.value.deadline
-            }
+            sig
           }
-          write({ args: inputStruct })
+          if (RELAY_ON) {
+            broadcast({ variables: { request: { id, signature } } })
+          } else {
+            write({ args: inputStruct })
+          }
         })
       },
       onError(error) {
@@ -262,9 +278,11 @@ const Create: NextPage = () => {
       </GridItemFour>
       <GridItemEight>
         <Card>
-          {data?.hash ? (
+          {data?.hash ?? broadcastData?.broadcast?.txHash ? (
             <Pending
-              txHash={data?.hash}
+              txHash={
+                data?.hash ? data?.hash : broadcastData?.broadcast?.txHash
+              }
               indexing="Crowdfund creation in progress, please wait!"
               indexed="Crowdfund created successfully"
               type="crowdfund"
@@ -412,13 +430,15 @@ const Create: NextPage = () => {
                       typedDataLoading ||
                       isUploading ||
                       signLoading ||
-                      writeLoading
+                      writeLoading ||
+                      broadcastLoading
                     }
                     icon={
                       typedDataLoading ||
                       isUploading ||
                       signLoading ||
-                      writeLoading ? (
+                      writeLoading ||
+                      broadcastLoading ? (
                         <Spinner size="xs" />
                       ) : (
                         <PlusIcon className="w-4 h-4" />
