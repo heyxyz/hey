@@ -93,12 +93,18 @@ const Mirror: FC<Props> = ({ post }) => {
     }
   )
 
-  const [broadcast, { data: broadcastData, loading: broadcastLoading }] =
-    useMutation(BROADCAST_MUTATION, {
+  const [broadcast, { loading: broadcastLoading }] = useMutation(
+    BROADCAST_MUTATION,
+    {
+      onCompleted() {
+        toast.success('Post has been mirrored!')
+        trackEvent('mirror')
+      },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
       }
-    })
+    }
+  )
   const [createMirrorTypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_MIRROR_TYPED_DATA_MUTATION,
     {
