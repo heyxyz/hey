@@ -97,6 +97,7 @@ const CREATE_COMMENT_TYPED_DATA_MUTATION = gql`
           collectModule
           collectModuleInitData
           referenceModule
+          referenceModuleData
           referenceModuleInitData
         }
       }
@@ -178,6 +179,7 @@ const NewComment: FC<Props> = ({ post, type }) => {
           collectModule,
           collectModuleInitData,
           referenceModule,
+          referenceModuleData,
           referenceModuleInitData
         } = typedData?.value
 
@@ -196,6 +198,7 @@ const NewComment: FC<Props> = ({ post, type }) => {
             collectModule,
             collectModuleInitData,
             referenceModule,
+            referenceModuleData,
             referenceModuleInitData,
             sig
           }
@@ -222,6 +225,7 @@ const NewComment: FC<Props> = ({ post, type }) => {
     } else {
       setCommentContentError('')
       setIsUploading(true)
+      // TODO: Add animated_url support
       const { path } = await uploadToIPFS({
         version: '1.0.0',
         metadata_id: uuidv4(),
@@ -282,7 +286,7 @@ const NewComment: FC<Props> = ({ post, type }) => {
             />
           )}
           {preview ? (
-            <div className="pb-3 border-b dark:border-b-gray-700/80 mb-2">
+            <div className="pb-3 mb-2 border-b dark:border-b-gray-700/80">
               <Markup>{commentContent}</Markup>
             </div>
           ) : (

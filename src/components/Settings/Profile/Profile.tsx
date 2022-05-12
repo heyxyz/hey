@@ -45,7 +45,7 @@ import {
   useNetwork,
   useSignTypedData
 } from 'wagmi'
-import { object, string } from 'zod'
+import { object, optional, string } from 'zod'
 
 const CREATE_SET_PROFILE_METADATA_TYPED_DATA_MUTATION = gql`
   mutation CreateSetProfileMetadataTypedData(
@@ -85,10 +85,9 @@ const editProfileSchema = object({
   location: string()
     .max(100, { message: 'Location should not exceed 100 characters' })
     .nullable(),
-  website: string()
-    .url({ message: 'Invalid URL' })
-    .max(100, { message: 'Website should not exceed 100 characters' })
-    .nullable(),
+  website: optional(
+    string().max(100, { message: 'Website should not exceed 100 characters' })
+  ),
   twitter: string()
     .max(100, { message: 'Twitter should not exceed 100 characters' })
     .nullable(),
@@ -216,7 +215,7 @@ const Profile: FC<Props> = ({ profile }) => {
   const editProfile = async (
     name: string,
     location: string | null,
-    website: string | null,
+    website: string | null | undefined,
     twitter: string | null,
     bio: string | null
   ) => {
@@ -299,7 +298,7 @@ const Profile: FC<Props> = ({ profile }) => {
           <Input
             label="Name"
             type="text"
-            placeholder="John Doe"
+            placeholder="Gavin"
             {...form.register('name')}
           />
           <Input
@@ -311,14 +310,14 @@ const Profile: FC<Props> = ({ profile }) => {
           <Input
             label="Website"
             type="text"
-            placeholder="https://lens.codes"
+            placeholder="https://hooli.com"
             {...form.register('website')}
           />
           <Input
             label="Twitter"
             type="text"
             prefix="https://twitter.com"
-            placeholder="johndoe"
+            placeholder="gavin"
             {...form.register('twitter')}
           />
           <TextArea
