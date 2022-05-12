@@ -17,6 +17,7 @@
     "react/no-unescaped-entities": "off",
     "no-unused-vars": "warn",
     "unused-imports/no-unused-imports": "error",
+    "@next/next/no-html-link-for-pages": "off",
     "@typescript-eslint/ban-ts-comment": "off", // turn warn
     "@typescript-eslint/explicit-module-boundary-types": "off",
     "@next/next/no-img-element": "off",
