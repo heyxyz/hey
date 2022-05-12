@@ -153,14 +153,12 @@ const NewComment: FC<Props> = ({ post, type }) => {
     }
   )
 
-  const [broadcast, { loading: broadcastLoading }] = useMutation(
-    BROADCAST_MUTATION,
-    {
+  const [broadcast, { data: broadcastData, loading: broadcastLoading }] =
+    useMutation(BROADCAST_MUTATION, {
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
       }
-    }
-  )
+    })
   const [createCommentTypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_COMMENT_TYPED_DATA_MUTATION,
     {
@@ -320,12 +318,14 @@ const NewComment: FC<Props> = ({ post, type }) => {
               )}
             </div>
             <div className="flex items-center pt-2 ml-auto space-x-2 sm:pt-0">
-              {data?.hash && (
+              {data?.hash ?? broadcastData?.broadcast?.txHash ? (
                 <PubIndexStatus
                   type={type === 'comment' ? 'Comment' : 'Post'}
-                  txHash={data?.hash}
+                  txHash={
+                    data?.hash ? data?.hash : broadcastData?.broadcast?.txHash
+                  }
                 />
-              )}
+              ) : null}
               {activeChain?.id !== CHAIN_ID ? (
                 <SwitchNetwork className="ml-auto" />
               ) : (
