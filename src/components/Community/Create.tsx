@@ -215,9 +215,11 @@ const Create: NextPage = () => {
       </GridItemFour>
       <GridItemEight>
         <Card>
-          {data?.hash ? (
+          {data?.hash ?? broadcastData?.broadcast?.txHash ? (
             <Pending
-              txHash={data?.hash}
+              txHash={
+                data?.hash ? data?.hash : broadcastData?.broadcast?.txHash
+              }
               indexing="Community creation in progress, please wait!"
               indexed="Community created successfully"
               type="community"
