@@ -8,7 +8,7 @@ CYAN='\033[0;36m'
 NC='\033[0m'
 BOLD=$(tput bold)
 NORMAL=$(tput sgr0)
-URL=$(eval gp url 3000)
+URL=$(eval gp url 4783)
 
 clear
 curl -s "$URL/" > /dev/null
