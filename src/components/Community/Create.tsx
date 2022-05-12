@@ -66,6 +66,11 @@ const Create: NextPage = () => {
       toast.error(error?.message)
     }
   })
+
+  const onCompleted = () => {
+    trackEvent('new community', 'create')
+  }
+
   const {
     data,
     isLoading: writeLoading,
@@ -78,7 +83,7 @@ const Create: NextPage = () => {
     'postWithSig',
     {
       onSuccess() {
-        trackEvent('new community', 'create')
+        onCompleted()
       },
       onError(error: any) {
         toast.error(error?.data?.message ?? error?.message)
@@ -104,6 +109,9 @@ const Create: NextPage = () => {
 
   const [broadcast, { data: broadcastData, loading: broadcastLoading }] =
     useMutation(BROADCAST_MUTATION, {
+      onCompleted() {
+        onCompleted()
+      },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
       }

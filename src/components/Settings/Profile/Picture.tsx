@@ -84,6 +84,12 @@ const Picture: FC<Props> = ({ profile }) => {
       toast.error(error?.message)
     }
   })
+
+  const onCompleted = () => {
+    toast.success('Avatar updated successfully!')
+    trackEvent('update avatar')
+  }
+
   const {
     data: writeData,
     isLoading: writeLoading,
@@ -97,8 +103,7 @@ const Picture: FC<Props> = ({ profile }) => {
     'setProfileImageURIWithSig',
     {
       onSuccess() {
-        toast.success('Avatar updated successfully!')
-        trackEvent('update avatar')
+        onCompleted()
       },
       onError(error: any) {
         toast.error(error?.data?.message ?? error?.message)
@@ -113,6 +118,9 @@ const Picture: FC<Props> = ({ profile }) => {
 
   const [broadcast, { data: broadcastData, loading: broadcastLoading }] =
     useMutation(BROADCAST_MUTATION, {
+      onCompleted() {
+        onCompleted()
+      },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
       }

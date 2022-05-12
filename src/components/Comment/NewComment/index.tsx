@@ -128,6 +128,13 @@ const NewComment: FC<Props> = ({ post, type }) => {
       toast.error(error?.message)
     }
   })
+  const onCompleted = () => {
+    setCommentContent('')
+    setAttachments([])
+    setSelectedModule(defaultModuleData)
+    setFeeData(defaultFeeData)
+    trackEvent('new comment', 'create')
+  }
   const {
     data,
     error,
@@ -141,11 +148,7 @@ const NewComment: FC<Props> = ({ post, type }) => {
     'commentWithSig',
     {
       onSuccess() {
-        setCommentContent('')
-        setAttachments([])
-        setSelectedModule(defaultModuleData)
-        setFeeData(defaultFeeData)
-        trackEvent('new comment', 'create')
+        onCompleted()
       },
       onError(error: any) {
         toast.error(error?.data?.message ?? error?.message)
@@ -155,6 +158,9 @@ const NewComment: FC<Props> = ({ post, type }) => {
 
   const [broadcast, { data: broadcastData, loading: broadcastLoading }] =
     useMutation(BROADCAST_MUTATION, {
+      onCompleted() {
+        onCompleted()
+      },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
       }
