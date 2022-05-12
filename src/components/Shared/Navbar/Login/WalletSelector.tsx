@@ -51,6 +51,7 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
     loadChallenge,
     { error: errorChallenege, loading: challenegeLoading }
   ] = useLazyQuery(CHALLENGE_QUERY, {
+    fetchPolicy: 'no-cache',
     onCompleted(data) {
       consoleLog(
         'Lazy Query',
