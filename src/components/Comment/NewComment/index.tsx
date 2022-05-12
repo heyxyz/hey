@@ -25,7 +25,6 @@ import {
   FEE_DATA_TYPE,
   getModule
 } from '@lib/getModule'
-import imagekitURL from '@lib/imagekitURL'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import trackEvent from '@lib/trackEvent'
@@ -258,7 +257,7 @@ const NewComment: FC<Props> = ({ post, type }) => {
 
   const setGifAttachment = (gif: IGif) => {
     const attachment = {
-      item: imagekitURL(gif.images.original.url),
+      item: gif.images.original.url,
       type: 'image/gif'
     }
     setAttachments([...attachments, attachment])
