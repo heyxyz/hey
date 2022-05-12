@@ -8,9 +8,6 @@ const moduleExports = withPWA({
     disable: process.env.NODE_ENV === 'development',
     runtimeCaching
   },
-  images: {
-    domains: ['ik.imagekit.io', 'ipfs.infura.io']
-  },
   reactStrictMode: process.env.NODE_ENV === 'production'
 })
 
