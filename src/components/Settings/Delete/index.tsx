@@ -89,12 +89,19 @@ const DeleteSettings: FC = () => {
     }
   )
 
-  const [broadcast, { data: broadcastData, loading: broadcastLoading }] =
-    useMutation(BROADCAST_MUTATION, {
+  const [broadcast, { loading: broadcastLoading }] = useMutation(
+    BROADCAST_MUTATION,
+    {
+      onCompleted() {
+        trackEvent('delete profile')
+        localStorage.setItem('selectedProfile', '0')
+        location.href = '/'
+      },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
       }
-    })
+    }
+  )
   const [createBurnProfileTypedData, { loading: typedDataLoading }] =
     useMutation(CREATE_BURN_PROFILE_TYPED_DATA_MUTATION, {
       onCompleted({
