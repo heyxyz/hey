@@ -71,6 +71,13 @@ const DeleteSettings: FC = () => {
       toast.error(error?.message)
     }
   })
+
+  const onCompleted = () => {
+    trackEvent('delete profile')
+    localStorage.setItem('selectedProfile', '0')
+    location.href = '/'
+  }
+
   const { isLoading: writeLoading, write } = useContractWrite(
     {
       addressOrName: LENSHUB_PROXY,
@@ -79,9 +86,7 @@ const DeleteSettings: FC = () => {
     'burnWithSig',
     {
       onSuccess() {
-        trackEvent('delete profile')
-        localStorage.setItem('selectedProfile', '0')
-        location.href = '/'
+        onCompleted()
       },
       onError(error: any) {
         toast.error(error?.data?.message ?? error?.message)
@@ -93,9 +98,7 @@ const DeleteSettings: FC = () => {
     BROADCAST_MUTATION,
     {
       onCompleted() {
-        trackEvent('delete profile')
-        localStorage.setItem('selectedProfile', '0')
-        location.href = '/'
+        onCompleted()
       },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
