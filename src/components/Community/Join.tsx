@@ -71,6 +71,13 @@ const Join: FC<Props> = ({ community, setJoined, showJoin = true }) => {
       toast.error(error?.message)
     }
   })
+
+  const onCompleted = () => {
+    setJoined(true)
+    toast.success('Joined successfully!')
+    trackEvent('join community')
+  }
+
   const { isLoading: writeLoading, write } = useContractWrite(
     {
       addressOrName: LENSHUB_PROXY,
@@ -79,9 +86,7 @@ const Join: FC<Props> = ({ community, setJoined, showJoin = true }) => {
     'collectWithSig',
     {
       onSuccess() {
-        setJoined(true)
-        toast.success('Joined successfully!')
-        trackEvent('join community')
+        onCompleted()
       },
       onError(error: any) {
         toast.error(error?.data?.message ?? error?.message)
@@ -93,9 +98,7 @@ const Join: FC<Props> = ({ community, setJoined, showJoin = true }) => {
     BROADCAST_MUTATION,
     {
       onCompleted() {
-        setJoined(true)
-        toast.success('Joined successfully!')
-        trackEvent('join community')
+        onCompleted()
       },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)

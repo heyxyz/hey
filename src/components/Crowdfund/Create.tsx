@@ -99,6 +99,11 @@ const Create: NextPage = () => {
       consoleLog('Query', '#8b5cf6', `Fetched enabled module currencies`)
     }
   })
+
+  const onCompleted = () => {
+    trackEvent('new crowdfund', 'create')
+  }
+
   const {
     data,
     isLoading: writeLoading,
@@ -111,7 +116,7 @@ const Create: NextPage = () => {
     'postWithSig',
     {
       onSuccess() {
-        trackEvent('new crowdfund', 'create')
+        onCompleted()
       },
       onError(error: any) {
         toast.error(error?.data?.message ?? error?.message)
@@ -140,6 +145,9 @@ const Create: NextPage = () => {
 
   const [broadcast, { data: broadcastData, loading: broadcastLoading }] =
     useMutation(BROADCAST_MUTATION, {
+      onCompleted() {
+        onCompleted()
+      },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
       }
