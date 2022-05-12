@@ -113,6 +113,14 @@ const FollowModule: FC<Props> = ({
       toast.error(error?.message)
     }
   })
+
+  const onCompleted = () => {
+    setFollowing(true)
+    setShowFollowModal(false)
+    toast.success('Followed successfully!')
+    trackEvent('super follow user')
+  }
+
   const { isLoading: writeLoading, write } = useContractWrite(
     {
       addressOrName: LENSHUB_PROXY,
@@ -121,10 +129,7 @@ const FollowModule: FC<Props> = ({
     'followWithSig',
     {
       onSuccess() {
-        setFollowing(true)
-        setShowFollowModal(false)
-        toast.success('Followed successfully!')
-        trackEvent('super follow user')
+        onCompleted()
       },
       onError(error: any) {
         toast.error(error?.data?.message ?? error?.message)
@@ -170,10 +175,7 @@ const FollowModule: FC<Props> = ({
     BROADCAST_MUTATION,
     {
       onCompleted() {
-        setFollowing(true)
-        setShowFollowModal(false)
-        toast.success('Followed successfully!')
-        trackEvent('super follow user')
+        onCompleted()
       },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
