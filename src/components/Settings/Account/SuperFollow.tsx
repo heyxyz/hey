@@ -328,7 +328,15 @@ const SuperFollow: FC = () => {
                     : 'Set Super follow'}
                 </Button>
               </div>
-              {writeData?.hash && <IndexStatus txHash={writeData?.hash} />}
+              {writeData?.hash ?? broadcastData?.broadcast?.txHash ? (
+                <IndexStatus
+                  txHash={
+                    writeData?.hash
+                      ? writeData?.hash
+                      : broadcastData?.broadcast?.txHash
+                  }
+                />
+              ) : null}
             </div>
           )}
         </div>
