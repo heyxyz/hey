@@ -111,14 +111,12 @@ const Picture: FC<Props> = ({ profile }) => {
       setAvatar(profile?.picture?.original?.url ?? profile?.picture?.uri)
   }, [profile])
 
-  const [broadcast, { loading: broadcastLoading }] = useMutation(
-    BROADCAST_MUTATION,
-    {
+  const [broadcast, { data: broadcastData, loading: broadcastLoading }] =
+    useMutation(BROADCAST_MUTATION, {
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
       }
-    }
-  )
+    })
   const [createSetProfileImageURITypedData, { loading: typedDataLoading }] =
     useMutation(CREATE_SET_PROFILE_IMAGE_URI_TYPED_DATA_MUTATION, {
       onCompleted({
@@ -246,7 +244,15 @@ const Picture: FC<Props> = ({ profile }) => {
           >
             Save
           </Button>
-          {writeData?.hash && <IndexStatus txHash={writeData?.hash} />}
+          {writeData?.hash ?? broadcastData?.broadcast?.txHash ? (
+            <IndexStatus
+              txHash={
+                writeData?.hash
+                  ? writeData?.hash
+                  : broadcastData?.broadcast?.txHash
+              }
+            />
+          ) : null}
         </div>
       )}
     </>
