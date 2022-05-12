@@ -43,7 +43,7 @@ import {
   useNetwork,
   useSignTypedData
 } from 'wagmi'
-import { object, string } from 'zod'
+import { object, optional, string } from 'zod'
 
 const CREATE_SET_PROFILE_METADATA_TYPED_DATA_MUTATION = gql`
   mutation CreateSetProfileMetadataTypedData(
@@ -83,10 +83,9 @@ const editProfileSchema = object({
   location: string()
     .max(100, { message: 'Location should not exceed 100 characters' })
     .nullable(),
-  website: string()
-    .url({ message: 'Invalid URL' })
-    .max(100, { message: 'Website should not exceed 100 characters' })
-    .nullable(),
+  website: optional(
+    string().max(100, { message: 'Website should not exceed 100 characters' })
+  ),
   twitter: string()
     .max(100, { message: 'Twitter should not exceed 100 characters' })
     .nullable(),
