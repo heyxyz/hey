@@ -1,4 +1,4 @@
-import { REVERT_COLLECT_MODULE } from 'src/constants'
+import { FREE_COLLECT_MODULE } from 'src/constants'
 
 export const getModule = (
   name: string
@@ -101,8 +101,8 @@ export type FEE_DATA_TYPE = {
 }
 
 export const defaultModuleData = {
-  moduleName: 'RevertCollectModule',
-  contractAddress: REVERT_COLLECT_MODULE,
+  moduleName: 'FreeCollectModule',
+  contractAddress: FREE_COLLECT_MODULE,
   inputParams: [],
   redeemParams: [],
   returnDataParms: []

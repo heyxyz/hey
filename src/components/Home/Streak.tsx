@@ -6,7 +6,7 @@ import { useStreak } from 'use-streak'
 const Day = ({ day }: { day: number }) => (
   <motion.button whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
     <img
-      className="h-10 w-10"
+      className="w-10 h-10"
       height={40}
       width={40}
       src={`${STATIC_ASSETS}/streak/${day}.png`}
