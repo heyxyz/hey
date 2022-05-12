@@ -92,6 +92,11 @@ const Join: FC<Props> = ({ community, setJoined, showJoin = true }) => {
   const [broadcast, { loading: broadcastLoading }] = useMutation(
     BROADCAST_MUTATION,
     {
+      onCompleted() {
+        setJoined(true)
+        toast.success('Joined successfully!')
+        trackEvent('join community')
+      },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
       }
