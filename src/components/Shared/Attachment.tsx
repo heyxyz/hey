@@ -26,7 +26,9 @@ const Attachment: FC<Props> = ({ attachments, setAttachments }) => {
         toast.error('Only 4 attachments are allowed!')
       } else {
         const attachment = await uploadAssetsToIPFS(evt.target.files)
-        setAttachments(attachment)
+        if (attachment) {
+          setAttachments(attachment)
+        }
       }
     } finally {
       setLoading(false)
