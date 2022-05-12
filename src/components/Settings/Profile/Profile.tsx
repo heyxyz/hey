@@ -380,7 +380,15 @@ const Profile: FC<Props> = ({ profile }) => {
               >
                 Save
               </Button>
-              {writeData?.hash && <IndexStatus txHash={writeData?.hash} />}
+              {writeData?.hash ?? broadcastData?.broadcast?.txHash ? (
+                <IndexStatus
+                  txHash={
+                    writeData?.hash
+                      ? writeData?.hash
+                      : broadcastData?.broadcast?.txHash
+                  }
+                />
+              ) : null}
             </div>
           )}
         </Form>
