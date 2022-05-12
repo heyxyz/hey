@@ -270,9 +270,11 @@ const Create: NextPage = () => {
       </GridItemFour>
       <GridItemEight>
         <Card>
-          {data?.hash ? (
+          {data?.hash ?? broadcastData?.broadcast?.txHash ? (
             <Pending
-              txHash={data?.hash}
+              txHash={
+                data?.hash ? data?.hash : broadcastData?.broadcast?.txHash
+              }
               indexing="Crowdfund creation in progress, please wait!"
               indexed="Crowdfund created successfully"
               type="crowdfund"
