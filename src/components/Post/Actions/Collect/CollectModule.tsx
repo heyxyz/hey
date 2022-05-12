@@ -14,6 +14,7 @@ import { Tooltip } from '@components/UI/Tooltip'
 import AppContext from '@components/utils/AppContext'
 import { LensterPost } from '@generated/lenstertypes'
 import { CreateCollectBroadcastItemResult } from '@generated/types'
+import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { CollectModuleFields } from '@gql/CollectModuleFields'
 import {
   CashIcon,
@@ -38,6 +39,7 @@ import {
   ERROR_MESSAGE,
   LENSHUB_PROXY,
   POLYGONSCAN_URL,
+  RELAY_ON,
   WRONG_NETWORK
 } from 'src/constants'
 import {
@@ -116,6 +118,13 @@ const CollectModule: FC<Props> = ({ post }) => {
       toast.error(error?.message)
     }
   })
+
+  const onCompleted = () => {
+    // setShowCollectModal && setShowCollectModal(false)
+    toast.success('Post has been collected!')
+    trackEvent('collect publication')
+  }
+
   const {
     data: writeData,
     isLoading: writeLoading,
@@ -128,9 +137,7 @@ const CollectModule: FC<Props> = ({ post }) => {
     'collectWithSig',
     {
       onSuccess() {
-        // setShowCollectModal && setShowCollectModal(false)
-        toast.success('Post has been collected!')
-        trackEvent('collect publication')
+        onCompleted()
       },
       onError(error: any) {
         toast.error(error?.data?.message ?? error?.message)
@@ -175,6 +182,15 @@ const CollectModule: FC<Props> = ({ post }) => {
     }
   )
 
+  const [broadcast, { data: broadcastData, loading: broadcastLoading }] =
+    useMutation(BROADCAST_MUTATION, {
+      onCompleted() {
+        onCompleted()
+      },
+      onError(error) {
+        toast.error(error.message ?? ERROR_MESSAGE)
+      }
+    })
   const [createCollectTypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_COLLECT_TYPED_DATA_MUTATION,
     {
@@ -184,7 +200,7 @@ const CollectModule: FC<Props> = ({ post }) => {
         createCollectTypedData: CreateCollectBroadcastItemResult
       }) {
         consoleLog('Mutation', '#4ade80', 'Generated createCollectTypedData')
-        const { typedData } = createCollectTypedData
+        const { id, typedData } = createCollectTypedData
 
         signTypedDataAsync({
           domain: omit(typedData?.domain, '__typename'),
@@ -193,19 +209,19 @@ const CollectModule: FC<Props> = ({ post }) => {
         }).then((signature) => {
           const { profileId, pubId, data: collectData } = typedData?.value
           const { v, r, s } = splitSignature(signature)
+          const sig = { v, r, s, deadline: typedData.value.deadline }
           const inputStruct = {
             collector: account?.address,
             profileId,
             pubId,
             data: collectData,
-            sig: {
-              v,
-              r,
-              s,
-              deadline: typedData.value.deadline
-            }
+            sig
           }
-          write({ args: inputStruct })
+          if (RELAY_ON) {
+            broadcast({ variables: { request: { id, signature } } })
+          } else {
+            write({ args: inputStruct })
+          }
         })
       },
       onError(error) {
@@ -364,11 +380,17 @@ const CollectModule: FC<Props> = ({ post }) => {
             </div>
           )}
         </div>
-        {writeData?.hash && (
+        {writeData?.hash ?? broadcastData?.broadcast?.txHash ? (
           <div className="mt-5">
-            <IndexStatus txHash={writeData?.hash} />
+            <IndexStatus
+              txHash={
+                writeData?.hash
+                  ? writeData?.hash
+                  : broadcastData?.broadcast?.txHash
+              }
+            />
           </div>
-        )}
+        ) : null}
         {currentUser ? (
           allowanceLoading ? (
             <div className="mt-5 w-28 rounded-lg h-[34px] shimmer" />
@@ -376,9 +398,17 @@ const CollectModule: FC<Props> = ({ post }) => {
             <Button
               className="mt-5"
               onClick={createCollect}
-              disabled={typedDataLoading || signLoading || writeLoading}
+              disabled={
+                typedDataLoading ||
+                signLoading ||
+                writeLoading ||
+                broadcastLoading
+              }
               icon={
-                typedDataLoading || signLoading || writeLoading ? (
+                typedDataLoading ||
+                signLoading ||
+                writeLoading ||
+                broadcastLoading ? (
                   <Spinner size="xs" />
                 ) : (
                   <CollectionIcon className="w-4 h-4" />

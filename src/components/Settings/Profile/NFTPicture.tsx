@@ -13,6 +13,7 @@ import {
   NftImage,
   Profile
 } from '@generated/types'
+import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { PencilIcon } from '@heroicons/react/outline'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
@@ -25,6 +26,7 @@ import {
   CONNECT_WALLET,
   ERROR_MESSAGE,
   LENSHUB_PROXY,
+  RELAY_ON,
   WRONG_NETWORK
 } from 'src/constants'
 import {
@@ -105,6 +107,12 @@ const NFTPicture: FC<Props> = ({ profile }) => {
     }
   })
   const { signMessageAsync } = useSignMessage()
+
+  const onCompleted = () => {
+    toast.success('Avatar updated successfully!')
+    trackEvent('update nft avatar')
+  }
+
   const {
     data: writeData,
     isLoading: writeLoading,
@@ -118,8 +126,7 @@ const NFTPicture: FC<Props> = ({ profile }) => {
     'setProfileImageURIWithSig',
     {
       onSuccess() {
-        toast.success('Avatar updated successfully!')
-        trackEvent('update nft avatar')
+        onCompleted()
       },
       onError(error: any) {
         toast.error(error?.data?.message ?? error?.message)
@@ -128,7 +135,15 @@ const NFTPicture: FC<Props> = ({ profile }) => {
   )
   const [loadChallenge, { loading: challengeLoading }] =
     useLazyQuery(CHALLENGE_QUERY)
-
+  const [broadcast, { data: broadcastData, loading: broadcastLoading }] =
+    useMutation(BROADCAST_MUTATION, {
+      onCompleted() {
+        onCompleted()
+      },
+      onError(error) {
+        toast.error(error.message ?? ERROR_MESSAGE)
+      }
+    })
   const [createSetProfileImageURITypedData, { loading: typedDataLoading }] =
     useMutation(CREATE_SET_PROFILE_IMAGE_URI_TYPED_DATA_MUTATION, {
       onCompleted({
@@ -136,7 +151,7 @@ const NFTPicture: FC<Props> = ({ profile }) => {
       }: {
         createSetProfileImageURITypedData: CreateSetProfileImageUriBroadcastItemResult
       }) {
-        const { typedData } = createSetProfileImageURITypedData
+        const { id, typedData } = createSetProfileImageURITypedData
 
         signTypedDataAsync({
           domain: omit(typedData?.domain, '__typename'),
@@ -145,17 +160,17 @@ const NFTPicture: FC<Props> = ({ profile }) => {
         }).then((signature) => {
           const { profileId, imageURI } = typedData?.value
           const { v, r, s } = splitSignature(signature)
+          const sig = { v, r, s, deadline: typedData.value.deadline }
           const inputStruct = {
             profileId,
             imageURI,
-            sig: {
-              v,
-              r,
-              s,
-              deadline: typedData.value.deadline
-            }
+            sig
           }
-          write({ args: inputStruct })
+          if (RELAY_ON) {
+            broadcast({ variables: { request: { id, signature } } })
+          } else {
+            write({ args: inputStruct })
+          }
         })
       },
       onError(error) {
@@ -237,13 +252,15 @@ const NFTPicture: FC<Props> = ({ profile }) => {
               challengeLoading ||
               typedDataLoading ||
               signLoading ||
-              writeLoading
+              writeLoading ||
+              broadcastLoading
             }
             icon={
               challengeLoading ||
               typedDataLoading ||
               signLoading ||
-              writeLoading ? (
+              writeLoading ||
+              broadcastLoading ? (
                 <Spinner size="xs" />
               ) : (
                 <PencilIcon className="w-4 h-4" />
@@ -252,7 +269,15 @@ const NFTPicture: FC<Props> = ({ profile }) => {
           >
             Save
           </Button>
-          {writeData?.hash && <IndexStatus txHash={writeData?.hash} />}
+          {writeData?.hash ?? broadcastData?.broadcast?.txHash ? (
+            <IndexStatus
+              txHash={
+                writeData?.hash
+                  ? writeData?.hash
+                  : broadcastData?.broadcast?.txHash
+              }
+            />
+          ) : null}
         </div>
       )}
     </Form>

@@ -17,6 +17,7 @@ import {
   MediaSet,
   Profile
 } from '@generated/types'
+import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { PencilIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
 import getAttribute from '@lib/getAttribute'
@@ -34,6 +35,7 @@ import {
   CONNECT_WALLET,
   ERROR_MESSAGE,
   LENS_PERIPHERY,
+  RELAY_ON,
   WRONG_NETWORK
 } from 'src/constants'
 import { v4 as uuidv4 } from 'uuid'
@@ -111,6 +113,12 @@ const Profile: FC<Props> = ({ profile }) => {
       toast.error(error?.message)
     }
   })
+
+  const onCompleted = () => {
+    toast.success('Profile updated successfully!')
+    trackEvent('update profile')
+  }
+
   const {
     data: writeData,
     isLoading: writeLoading,
@@ -124,8 +132,7 @@ const Profile: FC<Props> = ({ profile }) => {
     'setProfileMetadataURIWithSig',
     {
       onSuccess() {
-        toast.success('Profile updated successfully!')
-        trackEvent('update profile')
+        onCompleted()
       },
       onError(error: any) {
         toast.error(error?.data?.message ?? error?.message)
@@ -133,6 +140,15 @@ const Profile: FC<Props> = ({ profile }) => {
     }
   )
 
+  const [broadcast, { data: broadcastData, loading: broadcastLoading }] =
+    useMutation(BROADCAST_MUTATION, {
+      onCompleted() {
+        onCompleted()
+      },
+      onError(error) {
+        toast.error(error.message ?? ERROR_MESSAGE)
+      }
+    })
   const [createSetProfileMetadataTypedData, { loading: typedDataLoading }] =
     useMutation(CREATE_SET_PROFILE_METADATA_TYPED_DATA_MUTATION, {
       onCompleted({
@@ -145,7 +161,7 @@ const Profile: FC<Props> = ({ profile }) => {
           '#4ade80',
           'Generated createSetProfileImageURITypedData'
         )
-        const { typedData } = createSetProfileMetadataTypedData
+        const { id, typedData } = createSetProfileMetadataTypedData
         signTypedDataAsync({
           domain: omit(typedData?.domain, '__typename'),
           types: omit(typedData?.types, '__typename'),
@@ -153,18 +169,18 @@ const Profile: FC<Props> = ({ profile }) => {
         }).then((signature) => {
           const { profileId, metadata } = typedData?.value
           const { v, r, s } = splitSignature(signature)
+          const sig = { v, r, s, deadline: typedData.value.deadline }
           const inputStruct = {
             user: currentUser?.ownedBy,
             profileId,
             metadata,
-            sig: {
-              v,
-              r,
-              s,
-              deadline: typedData.value.deadline
-            }
+            sig
           }
-          write({ args: inputStruct })
+          if (RELAY_ON) {
+            broadcast({ variables: { request: { id, signature } } })
+          } else {
+            write({ args: inputStruct })
+          }
         })
       },
       onError(error) {
@@ -352,13 +368,18 @@ const Profile: FC<Props> = ({ profile }) => {
                 className="ml-auto"
                 type="submit"
                 disabled={
-                  isUploading || typedDataLoading || signLoading || writeLoading
+                  isUploading ||
+                  typedDataLoading ||
+                  signLoading ||
+                  writeLoading ||
+                  broadcastLoading
                 }
                 icon={
                   isUploading ||
                   typedDataLoading ||
                   signLoading ||
-                  writeLoading ? (
+                  writeLoading ||
+                  broadcastLoading ? (
                     <Spinner size="xs" />
                   ) : (
                     <PencilIcon className="w-4 h-4" />
@@ -367,7 +388,15 @@ const Profile: FC<Props> = ({ profile }) => {
               >
                 Save
               </Button>
-              {writeData?.hash && <IndexStatus txHash={writeData?.hash} />}
+              {writeData?.hash ?? broadcastData?.broadcast?.txHash ? (
+                <IndexStatus
+                  txHash={
+                    writeData?.hash
+                      ? writeData?.hash
+                      : broadcastData?.broadcast?.txHash
+                  }
+                />
+              ) : null}
             </div>
           )}
         </Form>

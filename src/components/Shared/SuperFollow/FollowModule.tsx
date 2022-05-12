@@ -10,6 +10,7 @@ import {
   FeeFollowModuleSettings,
   Profile
 } from '@generated/types'
+import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { StarIcon, UserIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
 import formatAddress from '@lib/formatAddress'
@@ -25,6 +26,7 @@ import {
   ERROR_MESSAGE,
   LENSHUB_PROXY,
   POLYGONSCAN_URL,
+  RELAY_ON,
   WRONG_NETWORK
 } from 'src/constants'
 import {
@@ -111,6 +113,14 @@ const FollowModule: FC<Props> = ({
       toast.error(error?.message)
     }
   })
+
+  const onCompleted = () => {
+    setFollowing(true)
+    setShowFollowModal(false)
+    toast.success('Followed successfully!')
+    trackEvent('super follow user')
+  }
+
   const { isLoading: writeLoading, write } = useContractWrite(
     {
       addressOrName: LENSHUB_PROXY,
@@ -119,10 +129,7 @@ const FollowModule: FC<Props> = ({
     'followWithSig',
     {
       onSuccess() {
-        setFollowing(true)
-        setShowFollowModal(false)
-        toast.success('Followed successfully!')
-        trackEvent('super follow user')
+        onCompleted()
       },
       onError(error: any) {
         toast.error(error?.data?.message ?? error?.message)
@@ -164,6 +171,17 @@ const FollowModule: FC<Props> = ({
     }
   )
 
+  const [broadcast, { loading: broadcastLoading }] = useMutation(
+    BROADCAST_MUTATION,
+    {
+      onCompleted() {
+        onCompleted()
+      },
+      onError(error) {
+        toast.error(error.message ?? ERROR_MESSAGE)
+      }
+    }
+  )
   const [createFollowTypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_FOLLOW_TYPED_DATA_MUTATION,
     {
@@ -173,7 +191,7 @@ const FollowModule: FC<Props> = ({
         createFollowTypedData: CreateFollowBroadcastItemResult
       }) {
         consoleLog('Mutation', '#4ade80', 'Generated createFollowTypedData')
-        const { typedData } = createFollowTypedData
+        const { id, typedData } = createFollowTypedData
         signTypedDataAsync({
           domain: omit(typedData?.domain, '__typename'),
           types: omit(typedData?.types, '__typename'),
@@ -181,18 +199,18 @@ const FollowModule: FC<Props> = ({
         }).then((signature) => {
           const { profileIds, datas: followData } = typedData?.value
           const { v, r, s } = splitSignature(signature)
+          const sig = { v, r, s, deadline: typedData.value.deadline }
           const inputStruct = {
             follower: account?.address,
             profileIds,
             datas: followData,
-            sig: {
-              v,
-              r,
-              s,
-              deadline: typedData.value.deadline
-            }
+            sig
           }
-          write({ args: inputStruct })
+          if (RELAY_ON) {
+            broadcast({ variables: { request: { id, signature } } })
+          } else {
+            write({ args: inputStruct })
+          }
         })
       },
       onError(error) {
@@ -311,9 +329,17 @@ const FollowModule: FC<Props> = ({
             variant="super"
             outline
             onClick={createFollow}
-            disabled={typedDataLoading || signLoading || writeLoading}
+            disabled={
+              typedDataLoading ||
+              signLoading ||
+              writeLoading ||
+              broadcastLoading
+            }
             icon={
-              typedDataLoading || signLoading || writeLoading ? (
+              typedDataLoading ||
+              signLoading ||
+              writeLoading ||
+              broadcastLoading ? (
                 <Spinner variant="super" size="xs" />
               ) : (
                 <StarIcon className="w-4 h-4" />

@@ -13,6 +13,7 @@ import AppContext from '@components/utils/AppContext'
 import { LensterAttachment } from '@generated/lenstertypes'
 import { CreatePostBroadcastItemResult, EnabledModule } from '@generated/types'
 import { IGif } from '@giphy/js-types'
+import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { PencilAltIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
 import {
@@ -34,6 +35,7 @@ import {
   CONNECT_WALLET,
   ERROR_MESSAGE,
   LENSHUB_PROXY,
+  RELAY_ON,
   WRONG_NETWORK
 } from 'src/constants'
 import { v4 as uuidv4 } from 'uuid'
@@ -122,6 +124,14 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
       toast.error(error?.message)
     }
   })
+
+  const onCompleted = () => {
+    setPostContent('')
+    setAttachments([])
+    setSelectedModule(defaultModuleData)
+    setFeeData(defaultFeeData)
+    trackEvent('new post', 'create')
+  }
   const {
     data,
     error,
@@ -135,11 +145,7 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
     'postWithSig',
     {
       onSuccess() {
-        setPostContent('')
-        setAttachments([])
-        setSelectedModule(defaultModuleData)
-        setFeeData(defaultFeeData)
-        trackEvent('new post', 'create')
+        onCompleted()
       },
       onError(error: any) {
         toast.error(error?.data?.message ?? error?.message)
@@ -147,6 +153,15 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
     }
   )
 
+  const [broadcast, { data: broadcastData, loading: broadcastLoading }] =
+    useMutation(BROADCAST_MUTATION, {
+      onCompleted() {
+        onCompleted()
+      },
+      onError(error) {
+        toast.error(error.message ?? ERROR_MESSAGE)
+      }
+    })
   const [createPostTypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_POST_TYPED_DATA_MUTATION,
     {
@@ -156,7 +171,7 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
         createPostTypedData: CreatePostBroadcastItemResult
       }) {
         consoleLog('Mutation', '#4ade80', 'Generated createPostTypedData')
-        const { typedData } = createPostTypedData
+        const { id, typedData } = createPostTypedData
         const {
           profileId,
           contentURI,
@@ -172,6 +187,7 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
           value: omit(typedData?.value, '__typename')
         }).then((signature) => {
           const { v, r, s } = splitSignature(signature)
+          const sig = { v, r, s, deadline: typedData.value.deadline }
           const inputStruct = {
             profileId,
             contentURI,
@@ -179,14 +195,13 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
             collectModuleInitData,
             referenceModule,
             referenceModuleInitData,
-            sig: {
-              v,
-              r,
-              s,
-              deadline: typedData.value.deadline
-            }
+            sig
           }
-          write({ args: inputStruct })
+          if (RELAY_ON) {
+            broadcast({ variables: { request: { id, signature } } })
+          } else {
+            write({ args: inputStruct })
+          }
         })
       },
       onError(error) {
@@ -299,13 +314,15 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
               )}
             </div>
             <div className="flex items-center pt-2 ml-auto space-x-2 sm:pt-0">
-              {data?.hash && (
+              {data?.hash ?? broadcastData?.broadcast?.txHash ? (
                 <PubIndexStatus
                   setShowModal={setShowModal}
                   type="Post"
-                  txHash={data?.hash}
+                  txHash={
+                    data?.hash ? data?.hash : broadcastData?.broadcast?.txHash
+                  }
                 />
-              )}
+              ) : null}
               {activeChain?.id !== CHAIN_ID ? (
                 <SwitchNetwork className="ml-auto" />
               ) : (
@@ -315,13 +332,15 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
                     isUploading ||
                     typedDataLoading ||
                     signLoading ||
-                    writeLoading
+                    writeLoading ||
+                    broadcastLoading
                   }
                   icon={
                     isUploading ||
                     typedDataLoading ||
                     signLoading ||
-                    writeLoading ? (
+                    writeLoading ||
+                    broadcastLoading ? (
                       <Spinner size="xs" />
                     ) : (
                       <PencilAltIcon className="w-4 h-4" />
@@ -335,7 +354,7 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
                     ? 'Generating Post'
                     : signLoading
                     ? 'Sign'
-                    : writeLoading
+                    : writeLoading || broadcastLoading
                     ? 'Send'
                     : 'Post'}
                 </Button>

@@ -12,6 +12,11 @@ export const GIT_COMMIT_REF = process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_REF
 
 // Misc
 export const CONTACT_EMAIL = 'support@lenster.xyz'
+export const RELAY_ON =
+  process.env.NEXT_PUBLIC_URL === 'https://lenster.xyz' ||
+  process.env.NEXT_PUBLIC_URL === 'http://localhost:4783'
+    ? process.env.NEXT_PUBLIC_RELAY_ON === 'true'
+    : false
 
 // Messages
 export const ERROR_MESSAGE = 'Something went wrong!'

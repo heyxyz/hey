@@ -61,7 +61,7 @@ yarn
 yarn dev
 ```
 
-and visit http://localhost:3000
+and visit http://localhost:4783
 
 ### Using Gitpod
 

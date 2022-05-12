@@ -7,6 +7,7 @@ import { Spinner } from '@components/UI/Spinner'
 import AppContext from '@components/utils/AppContext'
 import { LensterCollectModule, LensterPost } from '@generated/lenstertypes'
 import { CreateCollectBroadcastItemResult } from '@generated/types'
+import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { CashIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
 import omit from '@lib/omit'
@@ -19,6 +20,7 @@ import {
   CONNECT_WALLET,
   ERROR_MESSAGE,
   LENSHUB_PROXY,
+  RELAY_ON,
   WRONG_NETWORK
 } from 'src/constants'
 import {
@@ -97,6 +99,12 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
     }
   )
 
+  const onCompleted = () => {
+    setRevenue(revenue + parseFloat(collectModule?.amount?.value))
+    toast.success('Successfully funded!')
+    trackEvent('fund a crowdfund')
+  }
+
   const {
     data: writeData,
     isLoading: writeLoading,
@@ -109,9 +117,7 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
     'collectWithSig',
     {
       onSuccess() {
-        setRevenue(revenue + parseFloat(collectModule?.amount?.value))
-        toast.success('Successfully funded!')
-        trackEvent('fund a crowdfund')
+        onCompleted()
       },
       onError(error: any) {
         toast.error(error?.data?.message ?? error?.message)
@@ -119,6 +125,15 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
     }
   )
 
+  const [broadcast, { data: broadcastData, loading: broadcastLoading }] =
+    useMutation(BROADCAST_MUTATION, {
+      onCompleted() {
+        onCompleted()
+      },
+      onError(error) {
+        toast.error(error.message ?? ERROR_MESSAGE)
+      }
+    })
   const [createCollectTypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_COLLECT_TYPED_DATA_MUTATION,
     {
@@ -128,7 +143,7 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
         createCollectTypedData: CreateCollectBroadcastItemResult
       }) {
         consoleLog('Mutation', '#4ade80', 'Generated createCollectTypedData')
-        const { typedData } = createCollectTypedData
+        const { id, typedData } = createCollectTypedData
         signTypedDataAsync({
           domain: omit(typedData?.domain, '__typename'),
           types: omit(typedData?.types, '__typename'),
@@ -136,19 +151,19 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
         }).then((signature) => {
           const { profileId, pubId, data: collectData } = typedData?.value
           const { v, r, s } = splitSignature(signature)
+          const sig = { v, r, s, deadline: typedData.value.deadline }
           const inputStruct = {
             collector: account?.address,
             profileId,
             pubId,
             data: collectData,
-            sig: {
-              v,
-              r,
-              s,
-              deadline: typedData.value.deadline
-            }
+            sig
           }
-          write({ args: inputStruct })
+          if (RELAY_ON) {
+            broadcast({ variables: { request: { id, signature } } })
+          } else {
+            write({ args: inputStruct })
+          }
         })
       },
       onError(error) {
@@ -177,10 +192,15 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
         <Button
           className="sm:mt-0 sm:ml-auto"
           onClick={createCollect}
-          disabled={typedDataLoading || signLoading || writeLoading}
+          disabled={
+            typedDataLoading || signLoading || writeLoading || broadcastLoading
+          }
           variant="success"
           icon={
-            typedDataLoading || signLoading || writeLoading ? (
+            typedDataLoading ||
+            signLoading ||
+            writeLoading ||
+            broadcastLoading ? (
               <Spinner variant="success" size="xs" />
             ) : (
               <CashIcon className="w-4 h-4" />
@@ -189,11 +209,17 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
         >
           Fund
         </Button>
-        {writeData?.hash && (
+        {writeData?.hash ?? broadcastData?.broadcast?.txHash ? (
           <div className="mt-2">
-            <IndexStatus txHash={writeData?.hash} />
+            <IndexStatus
+              txHash={
+                writeData?.hash
+                  ? writeData?.hash
+                  : broadcastData?.broadcast?.txHash
+              }
+            />
           </div>
-        )}
+        ) : null}
       </div>
     ) : (
       <AllowanceButton

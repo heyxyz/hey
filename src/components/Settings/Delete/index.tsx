@@ -8,6 +8,7 @@ import { Spinner } from '@components/UI/Spinner'
 import AppContext from '@components/utils/AppContext'
 import SEO from '@components/utils/SEO'
 import { CreateBurnProfileBroadcastItemResult } from '@generated/types'
+import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { TrashIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
 import omit from '@lib/omit'
@@ -20,6 +21,7 @@ import {
   CONNECT_WALLET,
   ERROR_MESSAGE,
   LENSHUB_PROXY,
+  RELAY_ON,
   WRONG_NETWORK
 } from 'src/constants'
 import Custom404 from 'src/pages/404'
@@ -69,6 +71,13 @@ const DeleteSettings: FC = () => {
       toast.error(error?.message)
     }
   })
+
+  const onCompleted = () => {
+    trackEvent('delete profile')
+    localStorage.setItem('selectedProfile', '0')
+    location.href = '/'
+  }
+
   const { isLoading: writeLoading, write } = useContractWrite(
     {
       addressOrName: LENSHUB_PROXY,
@@ -77,9 +86,7 @@ const DeleteSettings: FC = () => {
     'burnWithSig',
     {
       onSuccess() {
-        trackEvent('delete profile')
-        localStorage.setItem('selectedProfile', '0')
-        location.href = '/'
+        onCompleted()
       },
       onError(error: any) {
         toast.error(error?.data?.message ?? error?.message)
@@ -87,6 +94,17 @@ const DeleteSettings: FC = () => {
     }
   )
 
+  const [broadcast, { loading: broadcastLoading }] = useMutation(
+    BROADCAST_MUTATION,
+    {
+      onCompleted() {
+        onCompleted()
+      },
+      onError(error) {
+        toast.error(error.message ?? ERROR_MESSAGE)
+      }
+    }
+  )
   const [createBurnProfileTypedData, { loading: typedDataLoading }] =
     useMutation(CREATE_BURN_PROFILE_TYPED_DATA_MUTATION, {
       onCompleted({
@@ -99,7 +117,7 @@ const DeleteSettings: FC = () => {
           '#4ade80',
           'Generated createBurnProfileTypedData'
         )
-        const { typedData } = createBurnProfileTypedData
+        const { id, typedData } = createBurnProfileTypedData
         signTypedDataAsync({
           domain: omit(typedData?.domain, '__typename'),
           types: omit(typedData?.types, '__typename'),
@@ -113,7 +131,11 @@ const DeleteSettings: FC = () => {
             s,
             deadline: typedData.value.deadline
           }
-          write({ args: [tokenId, sig] })
+          if (RELAY_ON) {
+            broadcast({ variables: { request: { id, signature } } })
+          } else {
+            write({ args: [tokenId, sig] })
+          }
         })
       },
       onError(error) {
@@ -170,7 +192,10 @@ const DeleteSettings: FC = () => {
             <Button
               variant="danger"
               icon={
-                typedDataLoading || signLoading || writeLoading ? (
+                typedDataLoading ||
+                signLoading ||
+                writeLoading ||
+                broadcastLoading ? (
                   <Spinner variant="danger" size="xs" />
                 ) : (
                   <TrashIcon className="w-5 h-5" />
@@ -178,7 +203,10 @@ const DeleteSettings: FC = () => {
               }
               onClick={handleDelete}
             >
-              {typedDataLoading || signLoading || writeLoading
+              {typedDataLoading ||
+              signLoading ||
+              writeLoading ||
+              broadcastLoading
                 ? 'Deleting...'
                 : 'Delete your account'}
             </Button>

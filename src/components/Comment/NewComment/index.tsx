@@ -17,6 +17,7 @@ import {
   EnabledModule
 } from '@generated/types'
 import { IGif } from '@giphy/js-types'
+import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { ChatAlt2Icon, PencilAltIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
 import {
@@ -38,6 +39,7 @@ import {
   CONNECT_WALLET,
   ERROR_MESSAGE,
   LENSHUB_PROXY,
+  RELAY_ON,
   WRONG_NETWORK
 } from 'src/constants'
 import { v4 as uuidv4 } from 'uuid'
@@ -126,6 +128,13 @@ const NewComment: FC<Props> = ({ post, type }) => {
       toast.error(error?.message)
     }
   })
+  const onCompleted = () => {
+    setCommentContent('')
+    setAttachments([])
+    setSelectedModule(defaultModuleData)
+    setFeeData(defaultFeeData)
+    trackEvent('new comment', 'create')
+  }
   const {
     data,
     error,
@@ -139,11 +148,7 @@ const NewComment: FC<Props> = ({ post, type }) => {
     'commentWithSig',
     {
       onSuccess() {
-        setCommentContent('')
-        setAttachments([])
-        setSelectedModule(defaultModuleData)
-        setFeeData(defaultFeeData)
-        trackEvent('new comment', 'create')
+        onCompleted()
       },
       onError(error: any) {
         toast.error(error?.data?.message ?? error?.message)
@@ -151,6 +156,15 @@ const NewComment: FC<Props> = ({ post, type }) => {
     }
   )
 
+  const [broadcast, { data: broadcastData, loading: broadcastLoading }] =
+    useMutation(BROADCAST_MUTATION, {
+      onCompleted() {
+        onCompleted()
+      },
+      onError(error) {
+        toast.error(error.message ?? ERROR_MESSAGE)
+      }
+    })
   const [createCommentTypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_COMMENT_TYPED_DATA_MUTATION,
     {
@@ -160,7 +174,7 @@ const NewComment: FC<Props> = ({ post, type }) => {
         createCommentTypedData: CreateCommentBroadcastItemResult
       }) {
         consoleLog('Mutation', '#4ade80', 'Generated createCommentTypedData')
-        const { typedData } = createCommentTypedData
+        const { id, typedData } = createCommentTypedData
         const {
           profileId,
           profileIdPointed,
@@ -179,6 +193,7 @@ const NewComment: FC<Props> = ({ post, type }) => {
           value: omit(typedData?.value, '__typename')
         }).then((signature) => {
           const { v, r, s } = splitSignature(signature)
+          const sig = { v, r, s, deadline: typedData.value.deadline }
           const inputStruct = {
             profileId,
             profileIdPointed,
@@ -189,14 +204,13 @@ const NewComment: FC<Props> = ({ post, type }) => {
             referenceModule,
             referenceModuleData,
             referenceModuleInitData,
-            sig: {
-              v,
-              r,
-              s,
-              deadline: typedData.value.deadline
-            }
+            sig
           }
-          write({ args: inputStruct })
+          if (RELAY_ON) {
+            broadcast({ variables: { request: { id, signature } } })
+          } else {
+            write({ args: inputStruct })
+          }
         })
       },
       onError(error) {
@@ -310,12 +324,14 @@ const NewComment: FC<Props> = ({ post, type }) => {
               )}
             </div>
             <div className="flex items-center pt-2 ml-auto space-x-2 sm:pt-0">
-              {data?.hash && (
+              {data?.hash ?? broadcastData?.broadcast?.txHash ? (
                 <PubIndexStatus
                   type={type === 'comment' ? 'Comment' : 'Post'}
-                  txHash={data?.hash}
+                  txHash={
+                    data?.hash ? data?.hash : broadcastData?.broadcast?.txHash
+                  }
                 />
-              )}
+              ) : null}
               {activeChain?.id !== CHAIN_ID ? (
                 <SwitchNetwork className="ml-auto" />
               ) : (
@@ -325,13 +341,15 @@ const NewComment: FC<Props> = ({ post, type }) => {
                     isUploading ||
                     typedDataLoading ||
                     signLoading ||
-                    writeLoading
+                    writeLoading ||
+                    broadcastLoading
                   }
                   icon={
                     isUploading ||
                     typedDataLoading ||
                     signLoading ||
-                    writeLoading ? (
+                    writeLoading ||
+                    broadcastLoading ? (
                       <Spinner size="xs" />
                     ) : type === 'community post' ? (
                       <PencilAltIcon className="w-4 h-4" />
@@ -347,7 +365,7 @@ const NewComment: FC<Props> = ({ post, type }) => {
                     ? `Generating ${type === 'comment' ? 'Comment' : 'Post'}`
                     : signLoading
                     ? 'Sign'
-                    : writeLoading
+                    : writeLoading || broadcastLoading
                     ? 'Send'
                     : type === 'comment'
                     ? 'Comment'

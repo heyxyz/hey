@@ -9,6 +9,7 @@ import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { Spinner } from '@components/UI/Spinner'
 import AppContext from '@components/utils/AppContext'
 import { Profile, SetDefaultProfileBroadcastItemResult } from '@generated/types'
+import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { ExclamationIcon, PencilIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
 import omit from '@lib/omit'
@@ -21,6 +22,7 @@ import {
   CONNECT_WALLET,
   ERROR_MESSAGE,
   LENSHUB_PROXY,
+  RELAY_ON,
   WRONG_NETWORK
 } from 'src/constants'
 import Custom404 from 'src/pages/404'
@@ -72,6 +74,12 @@ const SetProfile: FC = () => {
       toast.error(error?.message)
     }
   })
+
+  const onCompleted = () => {
+    toast.success('Default profile updated successfully!')
+    trackEvent('set default profile')
+  }
+
   const {
     data: writeData,
     isLoading: writeLoading,
@@ -85,8 +93,7 @@ const SetProfile: FC = () => {
     'setDefaultProfileWithSig',
     {
       onSuccess() {
-        toast.success('Default profile updated successfully!')
-        trackEvent('set default profile')
+        onCompleted()
       },
       onError(error: any) {
         toast.error(error?.data?.message ?? error?.message)
@@ -103,6 +110,15 @@ const SetProfile: FC = () => {
     setSelectedUser(sortedProfiles[0]?.id)
   }, [sortedProfiles])
 
+  const [broadcast, { data: broadcastData, loading: broadcastLoading }] =
+    useMutation(BROADCAST_MUTATION, {
+      onCompleted() {
+        onCompleted()
+      },
+      onError(error) {
+        toast.error(error.message ?? ERROR_MESSAGE)
+      }
+    })
   const [createSetDefaultProfileTypedData, { loading: typedDataLoading }] =
     useMutation(CREATE_SET_DEFAULT_PROFILE_DATA_MUTATION, {
       onCompleted({
@@ -115,7 +131,7 @@ const SetProfile: FC = () => {
           '#4ade80',
           'Generated createSetDefaultProfileTypedData'
         )
-        const { typedData } = createSetDefaultProfileTypedData
+        const { id, typedData } = createSetDefaultProfileTypedData
         signTypedDataAsync({
           domain: omit(typedData?.domain, '__typename'),
           types: omit(typedData?.types, '__typename'),
@@ -123,18 +139,18 @@ const SetProfile: FC = () => {
         }).then((signature) => {
           const { wallet, profileId } = typedData?.value
           const { v, r, s } = splitSignature(signature)
+          const sig = { v, r, s, deadline: typedData.value.deadline }
           const inputStruct = {
             follower: account?.address,
             wallet,
             profileId,
-            sig: {
-              v,
-              r,
-              s,
-              deadline: typedData.value.deadline
-            }
+            sig
           }
-          write({ args: inputStruct })
+          if (RELAY_ON) {
+            broadcast({ variables: { request: { id, signature } } })
+          } else {
+            write({ args: inputStruct })
+          }
         })
       },
       onError(error) {
@@ -206,10 +222,18 @@ const SetProfile: FC = () => {
             <Button
               className="ml-auto"
               type="submit"
-              disabled={typedDataLoading || signLoading || writeLoading}
+              disabled={
+                typedDataLoading ||
+                signLoading ||
+                writeLoading ||
+                broadcastLoading
+              }
               onClick={setDefaultProfile}
               icon={
-                typedDataLoading || signLoading || writeLoading ? (
+                typedDataLoading ||
+                signLoading ||
+                writeLoading ||
+                broadcastLoading ? (
                   <Spinner size="xs" />
                 ) : (
                   <PencilIcon className="w-4 h-4" />
@@ -218,7 +242,16 @@ const SetProfile: FC = () => {
             >
               Save
             </Button>
-            {writeData?.hash && <IndexStatus txHash={writeData?.hash} reload />}
+            {writeData?.hash ?? broadcastData?.broadcast?.txHash ? (
+              <IndexStatus
+                txHash={
+                  writeData?.hash
+                    ? writeData?.hash
+                    : broadcastData?.broadcast?.txHash
+                }
+                reload
+              />
+            ) : null}
           </div>
         )}
       </CardBody>
