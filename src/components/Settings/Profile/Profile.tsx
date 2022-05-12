@@ -198,7 +198,9 @@ const Profile: FC<Props> = ({ profile }) => {
     setUploading(true)
     try {
       const attachment = await uploadAssetsToIPFS(evt.target.files)
-      setCover(attachment[0].item)
+      if (attachment) {
+        setCover(attachment[0].item)
+      }
     } finally {
       setUploading(false)
     }

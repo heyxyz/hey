@@ -60,7 +60,9 @@ const Create: FC<Props> = ({ isModal = false }) => {
     setUploading(true)
     try {
       const attachment = await uploadAssetsToIPFS(evt.target.files)
-      setAvatar(attachment[0].item)
+      if (attachment) {
+        setAvatar(attachment[0].item)
+      }
     } finally {
       setUploading(false)
     }

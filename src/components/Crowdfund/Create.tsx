@@ -136,8 +136,10 @@ const Create: NextPage = () => {
     setUploading(true)
     try {
       const attachment = await uploadAssetsToIPFS(evt.target.files)
-      setCover(attachment[0].item)
-      setCoverType(attachment[0].type)
+      if (attachment) {
+        setCover(attachment[0].item)
+        setCoverType(attachment[0].type)
+      }
     } finally {
       setUploading(false)
     }
