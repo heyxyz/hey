@@ -24,14 +24,18 @@ const FollowerNotification: FC<Props> = ({ notification }) => {
 
   return (
     <div className="flex items-center space-x-3">
-      {notification?.profile ? (
-        <NotificationProfileAvatar profile={notification?.profile} />
+      {notification?.wallet?.defaultProfile ? (
+        <NotificationProfileAvatar
+          profile={notification?.wallet?.defaultProfile}
+        />
       ) : (
         <NotificationWalletProfileAvatar wallet={notification?.wallet} />
       )}
       <div className="w-4/5">
-        {notification?.profile ? (
-          <NotificationProfileName profile={notification?.profile} />
+        {notification?.wallet?.defaultProfile ? (
+          <NotificationProfileName
+            profile={notification?.wallet?.defaultProfile}
+          />
         ) : (
           <NotificationWalletProfileName wallet={notification?.wallet} />
         )}{' '}
