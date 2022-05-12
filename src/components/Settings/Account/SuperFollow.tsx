@@ -219,7 +219,7 @@ const SuperFollow: FC = () => {
                   }
                 }
               : {
-                  emptyFollowModule: true
+                  freeFollowModule: true
                 }
           }
         }
