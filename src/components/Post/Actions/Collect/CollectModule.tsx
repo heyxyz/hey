@@ -372,11 +372,17 @@ const CollectModule: FC<Props> = ({ post }) => {
             </div>
           )}
         </div>
-        {writeData?.hash && (
+        {writeData?.hash ?? broadcastData?.broadcast?.txHash ? (
           <div className="mt-5">
-            <IndexStatus txHash={writeData?.hash} />
+            <IndexStatus
+              txHash={
+                writeData?.hash
+                  ? writeData?.hash
+                  : broadcastData?.broadcast?.txHash
+              }
+            />
           </div>
-        )}
+        ) : null}
         {currentUser ? (
           allowanceLoading ? (
             <div className="mt-5 w-28 rounded-lg h-[34px] shimmer" />
