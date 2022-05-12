@@ -9,11 +9,11 @@ tasks:
   - command: |
       clear
       echo "Waiting for server to start 🕒"
-      gp await-port 3000
+      gp await-port 4783
       scripts/gp-welcome.sh
 
 ports:
-  - port: 3000 # Web app
+  - port: 4783 # Web app
     visibility: public
     onOpen: notify
 
