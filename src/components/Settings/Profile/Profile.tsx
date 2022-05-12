@@ -113,6 +113,12 @@ const Profile: FC<Props> = ({ profile }) => {
       toast.error(error?.message)
     }
   })
+
+  const onCompleted = () => {
+    toast.success('Profile updated successfully!')
+    trackEvent('update profile')
+  }
+
   const {
     data: writeData,
     isLoading: writeLoading,
@@ -126,8 +132,7 @@ const Profile: FC<Props> = ({ profile }) => {
     'setProfileMetadataURIWithSig',
     {
       onSuccess() {
-        toast.success('Profile updated successfully!')
-        trackEvent('update profile')
+        onCompleted()
       },
       onError(error: any) {
         toast.error(error?.data?.message ?? error?.message)
@@ -137,6 +142,9 @@ const Profile: FC<Props> = ({ profile }) => {
 
   const [broadcast, { data: broadcastData, loading: broadcastLoading }] =
     useMutation(BROADCAST_MUTATION, {
+      onCompleted() {
+        onCompleted()
+      },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
       }
