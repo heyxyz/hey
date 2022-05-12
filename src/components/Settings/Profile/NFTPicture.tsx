@@ -107,6 +107,12 @@ const NFTPicture: FC<Props> = ({ profile }) => {
     }
   })
   const { signMessageAsync } = useSignMessage()
+
+  const onCompleted = () => {
+    toast.success('Avatar updated successfully!')
+    trackEvent('update nft avatar')
+  }
+
   const {
     data: writeData,
     isLoading: writeLoading,
@@ -120,8 +126,7 @@ const NFTPicture: FC<Props> = ({ profile }) => {
     'setProfileImageURIWithSig',
     {
       onSuccess() {
-        toast.success('Avatar updated successfully!')
-        trackEvent('update nft avatar')
+        onCompleted()
       },
       onError(error: any) {
         toast.error(error?.data?.message ?? error?.message)
@@ -132,6 +137,9 @@ const NFTPicture: FC<Props> = ({ profile }) => {
     useLazyQuery(CHALLENGE_QUERY)
   const [broadcast, { data: broadcastData, loading: broadcastLoading }] =
     useMutation(BROADCAST_MUTATION, {
+      onCompleted() {
+        onCompleted()
+      },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
       }
