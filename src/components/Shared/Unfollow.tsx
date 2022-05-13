@@ -49,11 +49,19 @@ const CREATE_UNFOLLOW_TYPED_DATA_MUTATION = gql`
 
 interface Props {
   profile: Profile
-  showText?: boolean
   setFollowing: Dispatch<boolean>
+  followersCount?: number
+  setFollowersCount?: Dispatch<number>
+  showText?: boolean
 }
 
-const Unfollow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
+const Unfollow: FC<Props> = ({
+  profile,
+  showText = false,
+  setFollowing,
+  followersCount,
+  setFollowersCount
+}) => {
   const [writeLoading, setWriteLoading] = useState<boolean>(false)
   const { activeChain } = useNetwork()
   const { data: account } = useAccount()
@@ -97,6 +105,9 @@ const Unfollow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
 
             const tx = await followNftContract.burnWithSig(tokenId, sig)
             if (tx) {
+              if (followersCount && setFollowersCount) {
+                setFollowersCount(followersCount - 1)
+              }
               setFollowing(false)
             }
             toast.success('Unfollowed successfully!')
