@@ -132,7 +132,13 @@ const DeleteSettings: FC = () => {
             deadline: typedData.value.deadline
           }
           if (RELAY_ON) {
-            broadcast({ variables: { request: { id, signature } } })
+            broadcast({ variables: { request: { id, signature } } }).then(
+              ({ errors }) => {
+                if (errors) {
+                  write({ args: [tokenId, sig] })
+                }
+              }
+            )
           } else {
             write({ args: [tokenId, sig] })
           }
