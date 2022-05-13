@@ -124,7 +124,7 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
   const onCompleted = () => {
     // setShowCollectModal && setShowCollectModal(false)
     setCount(count + 1)
-    toast.success('Post has been collected!')
+    toast.success('Transaction submitted successfully!')
     trackEvent('collect publication')
   }
 
