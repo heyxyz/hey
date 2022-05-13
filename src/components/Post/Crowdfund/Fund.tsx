@@ -131,7 +131,7 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
         onCompleted()
       },
       onError(error) {
-        toast.error(error.message ?? ERROR_MESSAGE)
+        consoleLog('Relay Error', '#ef4444', error.message)
       }
     })
   const [createCollectTypedData, { loading: typedDataLoading }] = useMutation(
