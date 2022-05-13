@@ -19,6 +19,7 @@ interface Props {
 }
 
 const Collect: FC<Props> = ({ post }) => {
+  const [count, setCount] = useState<number>(post?.stats?.totalAmountOfCollects)
   const [showCollectModal, setShowCollectModal] = useState<boolean>(false)
   const isFreeCollect =
     post?.collectModule?.__typename === 'FreeCollectModuleSettings'
@@ -35,11 +36,7 @@ const Collect: FC<Props> = ({ post }) => {
             <CollectionIcon className="w-[18px]" />
           </Tooltip>
         </div>
-        {post?.stats?.totalAmountOfCollects > 0 && (
-          <div className="text-xs">
-            {humanize(post?.stats?.totalAmountOfCollects)}
-          </div>
-        )}
+        {count > 0 && <div className="text-xs">{humanize(count)}</div>}
       </div>
       <Modal
         title={
@@ -60,7 +57,7 @@ const Collect: FC<Props> = ({ post }) => {
         show={showCollectModal}
         onClose={() => setShowCollectModal(!showCollectModal)}
       >
-        <CollectModule post={post} />
+        <CollectModule post={post} count={count} setCount={setCount} />
       </Modal>
     </motion.button>
   )
