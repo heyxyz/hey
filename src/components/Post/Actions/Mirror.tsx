@@ -78,12 +78,6 @@ const Mirror: FC<Props> = ({ post }) => {
     }
   })
 
-  const onCompleted = () => {
-    setCount(count + 1)
-    toast.success('Post has been mirrored!')
-    trackEvent('mirror')
-  }
-
   const { isLoading: writeLoading, write } = useContractWrite(
     {
       addressOrName: LENSHUB_PROXY,
@@ -92,7 +86,7 @@ const Mirror: FC<Props> = ({ post }) => {
     'mirrorWithSig',
     {
       onSuccess() {
-        onCompleted()
+        toast.success('Post has been mirrored!')
       },
       onError(error: any) {
         toast.error(error?.data?.message ?? error?.message)
@@ -100,17 +94,11 @@ const Mirror: FC<Props> = ({ post }) => {
     }
   )
 
-  const [broadcast, { loading: broadcastLoading }] = useMutation(
-    BROADCAST_MUTATION,
-    {
-      onCompleted() {
-        onCompleted()
-      },
-      onError(error) {
-        consoleLog('Relay Error', '#ef4444', error.message)
-      }
+  const [broadcast] = useMutation(BROADCAST_MUTATION, {
+    onError(error) {
+      consoleLog('Relay Error', '#ef4444', error.message)
     }
-  )
+  })
   const [createMirrorTypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_MIRROR_TYPED_DATA_MUTATION,
     {
@@ -135,6 +123,7 @@ const Mirror: FC<Props> = ({ post }) => {
           types: omit(typedData?.types, '__typename'),
           value: omit(typedData?.value, '__typename')
         }).then((signature) => {
+          setCount(count + 1)
           const { v, r, s } = splitSignature(signature)
           const sig = { v, r, s, deadline: typedData.value.deadline }
           const inputStruct = {
@@ -146,6 +135,7 @@ const Mirror: FC<Props> = ({ post }) => {
             referenceModuleInitData,
             sig
           }
+          trackEvent('mirror')
           if (RELAY_ON) {
             broadcast({ variables: { request: { id, signature } } }).then(
               ({ errors }) => {
@@ -194,10 +184,7 @@ const Mirror: FC<Props> = ({ post }) => {
     >
       <div className="flex items-center space-x-1 text-brand">
         <div className="p-1.5 rounded-full hover:bg-opacity-20 hover:bg-brand-300">
-          {typedDataLoading ||
-          signLoading ||
-          writeLoading ||
-          broadcastLoading ? (
+          {typedDataLoading || signLoading || writeLoading ? (
             <Spinner size="xs" />
           ) : (
             <Tooltip placement="top" content="Mirror" withDelay>
