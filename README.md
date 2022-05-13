@@ -70,8 +70,6 @@ and visit http://localhost:4783
 ## 🤝 Supporting Repos
 
 - [Lenster Assets](https://gitlab.com/lenster/assets) - Static assets hosted in Vercel edge CDN
-- [Design](https://gitlab.com/yo/design) - Design library used in this project
-- [Lenster NFT](https://gitlab.com/lenster/nft) - Used to generate follow NFT
 
 ## ⚖️ License
 
