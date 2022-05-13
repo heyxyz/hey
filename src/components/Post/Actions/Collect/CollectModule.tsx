@@ -31,7 +31,7 @@ import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import trackEvent from '@lib/trackEvent'
 import dayjs from 'dayjs'
-import React, { FC, useContext, useState } from 'react'
+import React, { Dispatch, FC, useContext, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
   CHAIN_ID,
@@ -103,10 +103,12 @@ const CREATE_COLLECT_TYPED_DATA_MUTATION = gql`
 `
 
 interface Props {
+  count: number
+  setCount: Dispatch<number>
   post: LensterPost
 }
 
-const CollectModule: FC<Props> = ({ post }) => {
+const CollectModule: FC<Props> = ({ count, setCount, post }) => {
   const { currentUser } = useContext(AppContext)
   const [showCollectorsModal, setShowCollectorsModal] = useState<boolean>(false)
   const [allowed, setAllowed] = useState<boolean>(true)
@@ -121,6 +123,7 @@ const CollectModule: FC<Props> = ({ post }) => {
 
   const onCompleted = () => {
     // setShowCollectModal && setShowCollectModal(false)
+    setCount(count + 1)
     toast.success('Post has been collected!')
     trackEvent('collect publication')
   }
@@ -159,9 +162,7 @@ const CollectModule: FC<Props> = ({ post }) => {
 
   const collectModule: any = data?.publication?.collectModule
   const percentageCollected =
-    (post?.stats?.totalAmountOfCollects /
-      parseInt(collectModule?.collectLimit)) *
-    100
+    (count / parseInt(collectModule?.collectLimit)) * 100
 
   const { data: allowanceData, loading: allowanceLoading } = useQuery(
     ALLOWANCE_SETTINGS_QUERY,
@@ -236,10 +237,7 @@ const CollectModule: FC<Props> = ({ post }) => {
       toast.error(CONNECT_WALLET)
     } else if (activeChain?.id !== CHAIN_ID) {
       toast.error(WRONG_NETWORK)
-    } else if (
-      parseInt(collectModule?.collectLimit) <=
-      post?.stats?.totalAmountOfCollects
-    ) {
+    } else if (parseInt(collectModule?.collectLimit) <= count) {
       toast.error('Collect limit reached for this publication!')
     } else {
       createCollectTypedData({
@@ -319,7 +317,7 @@ const CollectModule: FC<Props> = ({ post }) => {
                 type="button"
                 onClick={() => setShowCollectorsModal(!showCollectorsModal)}
               >
-                {post?.stats?.totalAmountOfCollects} collectors
+                {count} collectors
               </button>
               <Modal
                 title="Collectors"
@@ -334,9 +332,7 @@ const CollectModule: FC<Props> = ({ post }) => {
               <div className="flex items-center space-x-2">
                 <PhotographIcon className="w-4 h-4 text-gray-500" />
                 <div className="font-bold">
-                  {parseInt(collectModule?.collectLimit) -
-                    post?.stats?.totalAmountOfCollects}{' '}
-                  available
+                  {parseInt(collectModule?.collectLimit) - count} available
                 </div>
               </div>
             )}
