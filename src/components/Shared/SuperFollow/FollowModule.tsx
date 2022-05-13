@@ -95,6 +95,8 @@ interface Props {
   profile: Profile
   setFollowing: Dispatch<boolean>
   setShowFollowModal: Dispatch<boolean>
+  followersCount?: number
+  setFollowersCount?: Dispatch<number>
   again: boolean
 }
 
@@ -102,6 +104,8 @@ const FollowModule: FC<Props> = ({
   profile,
   setFollowing,
   setShowFollowModal,
+  followersCount,
+  setFollowersCount,
   again
 }) => {
   const { currentUser } = useContext(AppContext)
@@ -115,6 +119,9 @@ const FollowModule: FC<Props> = ({
   })
 
   const onCompleted = () => {
+    if (followersCount && setFollowersCount) {
+      setFollowersCount(followersCount + 1)
+    }
     setFollowing(true)
     setShowFollowModal(false)
     toast.success('Followed successfully!')

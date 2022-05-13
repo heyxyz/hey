@@ -42,6 +42,9 @@ interface Props {
 }
 
 const Details: FC<Props> = ({ profile }) => {
+  const [followersCount, setFollowersCount] = useState<number>(
+    profile?.stats?.totalFollowers
+  )
   const [following, setFollowing] = useState<boolean>(false)
   const { currentUser, staffMode } = useContext(AppContext)
   const { resolvedTheme } = useTheme()
@@ -126,7 +129,7 @@ const Details: FC<Props> = ({ profile }) => {
         </div>
       </div>
       <div className="space-y-5">
-        <Followerings profile={profile} />
+        <Followerings followersCount={followersCount} profile={profile} />
         <div className="flex items-center space-x-2">
           {followLoading ? (
             <div className="w-28 rounded-lg h-[34px] shimmer" />
@@ -135,12 +138,16 @@ const Details: FC<Props> = ({ profile }) => {
               <Unfollow
                 profile={profile}
                 setFollowing={setFollowing}
+                followersCount={followersCount}
+                setFollowersCount={setFollowersCount}
                 showText
               />
               {profile?.followModule && (
                 <SuperFollow
                   profile={profile}
                   setFollowing={setFollowing}
+                  followersCount={followersCount}
+                  setFollowersCount={setFollowersCount}
                   again
                 />
               )}
@@ -149,10 +156,18 @@ const Details: FC<Props> = ({ profile }) => {
             <SuperFollow
               profile={profile}
               setFollowing={setFollowing}
+              followersCount={followersCount}
+              setFollowersCount={setFollowersCount}
               showText
             />
           ) : (
-            <Follow profile={profile} setFollowing={setFollowing} showText />
+            <Follow
+              profile={profile}
+              setFollowing={setFollowing}
+              followersCount={followersCount}
+              setFollowersCount={setFollowersCount}
+              showText
+            />
           )}
           {currentUser?.id === profile?.id && (
             <Link href="/settings">

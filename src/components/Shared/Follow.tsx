@@ -57,11 +57,19 @@ const CREATE_FOLLOW_TYPED_DATA_MUTATION = gql`
 
 interface Props {
   profile: Profile
-  showText?: boolean
   setFollowing: Dispatch<boolean>
+  followersCount?: number
+  setFollowersCount?: Dispatch<number>
+  showText?: boolean
 }
 
-const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
+const Follow: FC<Props> = ({
+  profile,
+  showText = false,
+  setFollowing,
+  followersCount,
+  setFollowersCount
+}) => {
   const { activeChain } = useNetwork()
   const { data: account } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
@@ -71,6 +79,9 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
   })
 
   const onCompleted = () => {
+    if (followersCount && setFollowersCount) {
+      setFollowersCount(followersCount + 1)
+    }
     setFollowing(true)
     toast.success('Followed successfully!')
     trackEvent('follow user')
