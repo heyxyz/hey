@@ -20,11 +20,5 @@
       "src": "server/index.js",
       "use": "@vercel/node"
     }
-  ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "src/index.js"
-    }
   ]
 }
