@@ -1,5 +1,4 @@
 {
-  "version": 2,
   "cleanUrls": true,
   "trailingSlash": false,
   "redirects": [
@@ -14,12 +13,6 @@
     {
       "source": "/donate",
       "destination": "https://gitcoin.co/grants/5007/lenster"
-    }
-  ],
-  "builds": [
-    {
-      "src": "./server/index.js",
-      "use": "@vercel/node"
     }
   ]
 }
