@@ -101,7 +101,7 @@ const DeleteSettings: FC = () => {
         onCompleted()
       },
       onError(error) {
-        toast.error(error.message ?? ERROR_MESSAGE)
+        consoleLog('Relay Error', '#ef4444', error.message)
       }
     }
   )
