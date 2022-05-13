@@ -8,9 +8,6 @@
     <a href="https://vercel.com/lenster?utm_source=Lenster&utm_campaign=oss">
         <img src="https://therealsujitk-vercel-badge.vercel.app/?app=lenster" alt="Vercel">
     </a>
-    <a href="https://github.com/lensterxyz/lenster/actions/workflows/ci.yml">
-        <img src="https://github.com/lensterxyz/lenster/actions/workflows/ci.yml/badge.svg" alt="GitHub actions">
-    </a>
     <a href="https://deepsource.io/gl/lenster/lenster">
         <img src="https://deepsource.io/gl/lenster/lenster.svg/?label=active+issues&show_trend=true" alt="GitHub actions">
     </a>
