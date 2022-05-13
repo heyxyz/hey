@@ -15,7 +15,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "@apollo/client": "3.6.2",
+    "@apollo/client": "^3.6.2",
     "@giphy/js-fetch-api": "^4.1.2",
     "@giphy/react-components": "^5.7.0",
     "@headlessui/react": "^1.6.1",
@@ -44,12 +44,12 @@
     "react-cool-inview": "^3.0.0",
     "react-copy-to-clipboard": "^5.1.0",
     "react-dom": "^18.1.0",
-    "react-hook-form": "7.31.1",
+    "react-hook-form": "^7.31.1",
     "react-hot-toast": "^2.2.0",
     "react-mentions": "^4.3.2",
     "use-streak": "^1.0.4",
     "uuid": "^8.3.2",
-    "wagmi": "0.3.5",
+    "wagmi": "^0.3.5",
     "zod": "^3.16.0"
   },
   "devDependencies": {
@@ -65,7 +65,7 @@
     "@types/uuid": "^8.3.4",
     "@typescript-eslint/eslint-plugin": "^5.23.0",
     "autoprefixer": "^10.4.5",
-    "eslint": "8.15.0",
+    "eslint": "^8.15.0",
     "eslint-config-next": "^12.1.5",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-simple-import-sort": "^7.0.0",
