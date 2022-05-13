@@ -13,7 +13,7 @@ import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import trackEvent from '@lib/trackEvent'
 import { motion } from 'framer-motion'
-import { FC, useContext } from 'react'
+import { FC, useContext, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
   CHAIN_ID,
@@ -68,6 +68,7 @@ interface Props {
 }
 
 const Mirror: FC<Props> = ({ post }) => {
+  const [count, setCount] = useState<number>(post?.stats?.totalAmountOfMirrors)
   const { currentUser } = useContext(AppContext)
   const { activeChain } = useNetwork()
   const { data: account } = useAccount()
@@ -78,6 +79,7 @@ const Mirror: FC<Props> = ({ post }) => {
   })
 
   const onCompleted = () => {
+    setCount(count + 1)
     toast.success('Post has been mirrored!')
     trackEvent('mirror')
   }
@@ -197,11 +199,7 @@ const Mirror: FC<Props> = ({ post }) => {
             </Tooltip>
           )}
         </div>
-        {post?.stats?.totalAmountOfMirrors > 0 && (
-          <div className="text-xs">
-            {humanize(post?.stats?.totalAmountOfMirrors)}
-          </div>
-        )}
+        {count > 0 && <div className="text-xs">{humanize(count)}</div>}
       </div>
     </motion.button>
   )
