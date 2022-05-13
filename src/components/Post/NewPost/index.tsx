@@ -198,11 +198,7 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
             sig
           }
           if (RELAY_ON) {
-            broadcast({ variables: { request: { id, signature } } }).then(
-              ({ errors }) => {
-                console.log(errors)
-              }
-            )
+            broadcast({ variables: { request: { id, signature } } })
           } else {
             write({ args: inputStruct })
           }
