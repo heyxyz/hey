@@ -20,11 +20,11 @@ const User: FC<UserProps> = ({ suggestion, focused }) => (
   <div
     className={clsx(
       { 'bg-gray-100 dark:bg-gray-800': focused },
-      'flex items-center space-x-2 m-1.5 px-3 py-1.5 rounded-xl'
+      'flex items-center space-x-2 m-1.5 px-3 py-1 rounded-xl'
     )}
   >
     <img
-      className="w-8 h-8 rounded-full"
+      className="w-7 h-7 rounded-full"
       height={32}
       width={32}
       src={imagekitURL(suggestion.picture, 'avatar')}
@@ -93,7 +93,7 @@ export const MentionTextArea: FC<Props> = ({
   return (
     <div className="mb-2">
       <MentionsInput
-        className="pt-3 mention-input min-h-[4rem]"
+        className="mention-input pt-3 min-h-[4rem]"
         value={value}
         placeholder={placeholder}
         onChange={(e) => {
