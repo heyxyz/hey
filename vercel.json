@@ -14,11 +14,5 @@
       "source": "/donate",
       "destination": "https://gitcoin.co/grants/5007/lenster"
     }
-  ],
-  "builds": [
-    {
-      "src": "server/index.js",
-      "use": "@vercel/node"
-    }
   ]
 }
