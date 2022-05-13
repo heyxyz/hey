@@ -115,7 +115,7 @@ const Create: NextPage = () => {
         onCompleted()
       },
       onError(error) {
-        toast.error(error.message ?? ERROR_MESSAGE)
+        consoleLog('Relay Error', '#ef4444', error.message)
       }
     })
   const [createPostTypedData, { loading: typedDataLoading }] = useMutation(
@@ -154,7 +154,13 @@ const Create: NextPage = () => {
             sig
           }
           if (RELAY_ON) {
-            broadcast({ variables: { request: { id, signature } } })
+            broadcast({ variables: { request: { id, signature } } }).then(
+              ({ errors }) => {
+                if (errors) {
+                  write({ args: inputStruct })
+                }
+              }
+            )
           } else {
             write({ args: inputStruct })
           }

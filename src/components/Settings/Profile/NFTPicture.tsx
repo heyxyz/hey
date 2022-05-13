@@ -15,6 +15,7 @@ import {
 } from '@generated/types'
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { PencilIcon } from '@heroicons/react/outline'
+import consoleLog from '@lib/consoleLog'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import trackEvent from '@lib/trackEvent'
@@ -141,7 +142,7 @@ const NFTPicture: FC<Props> = ({ profile }) => {
         onCompleted()
       },
       onError(error) {
-        toast.error(error.message ?? ERROR_MESSAGE)
+        consoleLog('Relay Error', '#ef4444', error.message)
       }
     })
   const [createSetProfileImageURITypedData, { loading: typedDataLoading }] =
@@ -167,7 +168,13 @@ const NFTPicture: FC<Props> = ({ profile }) => {
             sig
           }
           if (RELAY_ON) {
-            broadcast({ variables: { request: { id, signature } } })
+            broadcast({ variables: { request: { id, signature } } }).then(
+              ({ errors }) => {
+                if (errors) {
+                  write({ args: inputStruct })
+                }
+              }
+            )
           } else {
             write({ args: inputStruct })
           }

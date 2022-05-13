@@ -150,8 +150,8 @@ const NewComment: FC<Props> = ({ post, type }) => {
       onSuccess() {
         onCompleted()
       },
-      onError(error: any) {
-        toast.error(error?.data?.message ?? error?.message)
+      onError(error) {
+        consoleLog('Relay Error', '#ef4444', error.message)
       }
     }
   )
@@ -162,7 +162,7 @@ const NewComment: FC<Props> = ({ post, type }) => {
         onCompleted()
       },
       onError(error) {
-        toast.error(error.message ?? ERROR_MESSAGE)
+        consoleLog('Relay Error', '#ef4444', error.message)
       }
     })
   const [createCommentTypedData, { loading: typedDataLoading }] = useMutation(
@@ -207,7 +207,13 @@ const NewComment: FC<Props> = ({ post, type }) => {
             sig
           }
           if (RELAY_ON) {
-            broadcast({ variables: { request: { id, signature } } })
+            broadcast({ variables: { request: { id, signature } } }).then(
+              ({ errors }) => {
+                if (errors) {
+                  write({ args: inputStruct })
+                }
+              }
+            )
           } else {
             write({ args: inputStruct })
           }
