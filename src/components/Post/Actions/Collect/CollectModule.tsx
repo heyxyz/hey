@@ -189,7 +189,7 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
         onCompleted()
       },
       onError(error) {
-        toast.error(error.message ?? ERROR_MESSAGE)
+        consoleLog('Relay Error', '#ef4444', error.message)
       }
     })
   const [createCollectTypedData, { loading: typedDataLoading }] = useMutation(
@@ -219,7 +219,13 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
             sig
           }
           if (RELAY_ON) {
-            broadcast({ variables: { request: { id, signature } } })
+            broadcast({ variables: { request: { id, signature } } }).then(
+              ({ errors }) => {
+                if (errors) {
+                  write({ args: inputStruct })
+                }
+              }
+            )
           } else {
             write({ args: inputStruct })
           }

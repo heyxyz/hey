@@ -146,7 +146,7 @@ const Profile: FC<Props> = ({ profile }) => {
         onCompleted()
       },
       onError(error) {
-        toast.error(error.message ?? ERROR_MESSAGE)
+        consoleLog('Relay Error', '#ef4444', error.message)
       }
     })
   const [createSetProfileMetadataTypedData, { loading: typedDataLoading }] =
@@ -177,7 +177,13 @@ const Profile: FC<Props> = ({ profile }) => {
             sig
           }
           if (RELAY_ON) {
-            broadcast({ variables: { request: { id, signature } } })
+            broadcast({ variables: { request: { id, signature } } }).then(
+              ({ errors }) => {
+                if (errors) {
+                  write({ args: inputStruct })
+                }
+              }
+            )
           } else {
             write({ args: inputStruct })
           }
