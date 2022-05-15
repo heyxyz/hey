@@ -1,8 +1,8 @@
-import React, { FC } from 'react'
+import React, { FC, ReactNode } from 'react'
 
 interface Props {
   title?: string
-  message?: string
+  message?: ReactNode
   className?: string
 }
 

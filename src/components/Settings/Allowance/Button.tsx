@@ -1,11 +1,13 @@
 import { gql, useLazyQuery } from '@apollo/client'
 import { Button } from '@components/UI/Button'
+import { Modal } from '@components/UI/Modal'
 import { Spinner } from '@components/UI/Spinner'
+import { WarningMessage } from '@components/UI/WarningMessage'
 import { ApprovedAllowanceAmount } from '@generated/types'
-import { MinusIcon, PlusIcon } from '@heroicons/react/outline'
+import { ExclamationIcon, MinusIcon, PlusIcon } from '@heroicons/react/outline'
 import { getModule } from '@lib/getModule'
 import trackEvent from '@lib/trackEvent'
-import React, { Dispatch, FC } from 'react'
+import React, { Dispatch, FC, useState } from 'react'
 import toast from 'react-hot-toast'
 import { useSendTransaction, useWaitForTransaction } from 'wagmi'
 
@@ -34,6 +36,7 @@ const AllowanceButton: FC<Props> = ({
   allowed,
   setAllowed
 }) => {
+  const [showWarningModal, setShowWarninModal] = useState<boolean>(false)
   const [generateAllowanceQuery, { loading: queryLoading }] = useLazyQuery(
     GENERATE_ALLOWANCE_QUERY
   )
@@ -51,6 +54,7 @@ const AllowanceButton: FC<Props> = ({
     hash: txData?.hash,
     onSuccess() {
       toast.success(`Module ${allowed ? 'disabled' : 'enabled'} successfully!`)
+      setShowWarninModal(false)
       setAllowed(!allowed)
       trackEvent(`${allowed ? 'disabled' : 'enabled'} module allowance`)
     },
@@ -95,21 +99,49 @@ const AllowanceButton: FC<Props> = ({
       Revoke
     </Button>
   ) : (
-    <Button
-      variant="success"
-      icon={
-        queryLoading || transactionLoading || waitLoading ? (
-          <Spinner variant="success" size="xs" />
-        ) : (
-          <PlusIcon className="w-4 h-4" />
-        )
-      }
-      onClick={() =>
-        handleAllowance(module.currency, '10000000000', module.module)
-      }
-    >
-      {title}
-    </Button>
+    <>
+      <Button
+        variant="success"
+        icon={<PlusIcon className="w-4 h-4" />}
+        onClick={() => setShowWarninModal(!showWarningModal)}
+      >
+        {title}
+      </Button>
+      <Modal
+        title="Warning"
+        icon={<ExclamationIcon className="w-5 h-5 text-yellow-500" />}
+        show={showWarningModal}
+        onClose={() => setShowWarninModal(!showWarningModal)}
+      >
+        <div className="p-5 space-y-3">
+          <WarningMessage
+            title="Handle with care!"
+            message={
+              <div className="leading-6">
+                Please make sure that if you allow this module you will
+                automatically be detected with the amount if you <b>collect</b>,
+                <b> fund</b> and <b>super follow</b>.
+              </div>
+            }
+          />
+          <Button
+            variant="success"
+            icon={
+              queryLoading || transactionLoading || waitLoading ? (
+                <Spinner variant="success" size="xs" />
+              ) : (
+                <PlusIcon className="w-4 h-4" />
+              )
+            }
+            onClick={() =>
+              handleAllowance(module.currency, '10000000000', module.module)
+            }
+          >
+            {title}
+          </Button>
+        </div>
+      </Modal>
+    </>
   )
 }
 
