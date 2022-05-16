@@ -2,6 +2,7 @@ import LensHubProxy from '@abis/LensHubProxy.json'
 import { gql, useMutation, useQuery } from '@apollo/client'
 import { ALLOWANCE_SETTINGS_QUERY } from '@components/Settings/Allowance'
 import AllowanceButton from '@components/Settings/Allowance/Button'
+import Uniswap from '@components/Shared/Uniswap'
 import { Button } from '@components/UI/Button'
 import { Spinner } from '@components/UI/Spinner'
 import AppContext from '@components/utils/AppContext'
@@ -210,41 +211,47 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
     <div className="w-24 rounded-lg h-[34px] shimmer" />
   ) : allowed ? (
     <div className="flex items-center mt-3 space-y-0 space-x-3 sm:block sm:mt-0 sm:space-y-2">
-      <Button
-        className="sm:mt-0 sm:ml-auto"
-        onClick={createCollect}
-        disabled={
-          !hasAmount ||
-          typedDataLoading ||
-          signLoading ||
-          writeLoading ||
-          broadcastLoading
-        }
-        variant="success"
-        icon={
-          typedDataLoading ||
-          signLoading ||
-          writeLoading ||
-          broadcastLoading ? (
-            <Spinner variant="success" size="xs" />
-          ) : (
-            <CashIcon className="w-4 h-4" />
-          )
-        }
-      >
-        Fund
-      </Button>
-      {writeData?.hash ?? broadcastData?.broadcast?.txHash ? (
-        <div className="mt-2">
-          <IndexStatus
-            txHash={
-              writeData?.hash
-                ? writeData?.hash
-                : broadcastData?.broadcast?.txHash
+      {hasAmount ? (
+        <>
+          <Button
+            className="sm:mt-0 sm:ml-auto"
+            onClick={createCollect}
+            disabled={
+              !hasAmount ||
+              typedDataLoading ||
+              signLoading ||
+              writeLoading ||
+              broadcastLoading
             }
-          />
-        </div>
-      ) : null}
+            variant="success"
+            icon={
+              typedDataLoading ||
+              signLoading ||
+              writeLoading ||
+              broadcastLoading ? (
+                <Spinner variant="success" size="xs" />
+              ) : (
+                <CashIcon className="w-4 h-4" />
+              )
+            }
+          >
+            Fund
+          </Button>
+          {writeData?.hash ?? broadcastData?.broadcast?.txHash ? (
+            <div className="mt-2">
+              <IndexStatus
+                txHash={
+                  writeData?.hash
+                    ? writeData?.hash
+                    : broadcastData?.broadcast?.txHash
+                }
+              />
+            </div>
+          ) : null}
+        </>
+      ) : (
+        <Uniswap collectModule={collectModule} />
+      )}
     </div>
   ) : (
     <AllowanceButton
