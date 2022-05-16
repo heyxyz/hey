@@ -182,7 +182,7 @@ const FollowModule: FC<Props> = ({
     }
   )
 
-  const { data: balanceData } = useBalance({
+  const { data: balanceData, isLoading: balanceLoading } = useBalance({
     addressOrName: currentUser?.ownedBy,
     token: followModule?.amount?.asset?.address
   })
