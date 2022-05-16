@@ -1,6 +1,7 @@
 import {
   Comment,
   FeeCollectModuleSettings,
+  FeeFollowModuleSettings,
   FreeCollectModuleSettings,
   LimitedFeeCollectModuleSettings,
   LimitedTimedFeeCollectModuleSettings,
@@ -8,7 +9,9 @@ import {
   Notification,
   Post,
   Profile,
+  ProfileFollowModuleSettings,
   RevertCollectModuleSettings,
+  RevertFollowModuleSettings,
   TimedFeeCollectModuleSettings
 } from './types'
 
@@ -21,6 +24,9 @@ export type LensterCollectModule = FreeCollectModuleSettings &
   LimitedTimedFeeCollectModuleSettings &
   RevertCollectModuleSettings &
   TimedFeeCollectModuleSettings
+export type LensterFollowModule = FeeFollowModuleSettings &
+  ProfileFollowModuleSettings &
+  RevertFollowModuleSettings
 export type LensterAttachment = { item: string; type: string }
 export type UserSuggestion = {
   uid: string

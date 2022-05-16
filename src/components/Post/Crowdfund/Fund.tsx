@@ -250,7 +250,7 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
           ) : null}
         </>
       ) : (
-        <Uniswap collectModule={collectModule} />
+        <Uniswap module={collectModule} />
       )}
     </div>
   ) : (
