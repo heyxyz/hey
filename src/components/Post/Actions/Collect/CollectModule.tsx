@@ -442,7 +442,7 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
             ) : (
               <WarningMessage
                 className="mt-5"
-                message={<Uniswap collectModule={collectModule} />}
+                message={<Uniswap module={collectModule} />}
               />
             )
           ) : (
