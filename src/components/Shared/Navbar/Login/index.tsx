@@ -48,7 +48,12 @@ const Login: FC = () => {
             <div className="space-y-1">
               <div className="linkify">
                 Visit{' '}
-                <a className="font-bold" href="/" target="_blank">
+                <a
+                  className="font-bold"
+                  href="http://claim.lens.xyz"
+                  target="_blank"
+                  rel="noreferrer noopener"
+                >
                   claiming site
                 </a>{' '}
                 to claim your profile now 🏃‍♂️
