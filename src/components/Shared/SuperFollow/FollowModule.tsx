@@ -4,6 +4,7 @@ import { ALLOWANCE_SETTINGS_QUERY } from '@components/Settings/Allowance'
 import AllowanceButton from '@components/Settings/Allowance/Button'
 import { Button } from '@components/UI/Button'
 import { Spinner } from '@components/UI/Spinner'
+import { WarningMessage } from '@components/UI/WarningMessage'
 import AppContext from '@components/utils/AppContext'
 import { LensterFollowModule } from '@generated/lenstertypes'
 import {
@@ -381,7 +382,10 @@ const FollowModule: FC<Props> = ({
               Super follow {again ? 'again' : 'now'}
             </Button>
           ) : (
-            <Uniswap module={followModule as LensterFollowModule} />
+            <WarningMessage
+              className="mt-5"
+              message={<Uniswap module={followModule as LensterFollowModule} />}
+            />
           )
         ) : (
           <div className="mt-5">
