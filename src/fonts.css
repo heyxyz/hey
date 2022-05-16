@@ -6,6 +6,7 @@
     url('https://assets.lenster.xyz/css/fonts/Lenster-Light.woff')
       format('woff');
 }
+
 @font-face {
   font-family: 'Lenster';
   font-style: italic;
@@ -22,6 +23,7 @@
     url('https://assets.lenster.xyz/css/fonts/Lenster-Medium.woff')
       format('woff');
 }
+
 @font-face {
   font-family: 'Lenster';
   font-style: italic;
@@ -37,6 +39,7 @@
   src: local('Lenster'),
     url('https://assets.lenster.xyz/css/fonts/Lenster-Bold.woff') format('woff');
 }
+
 @font-face {
   font-family: 'Lenster';
   font-style: italic;
@@ -45,6 +48,7 @@
     url('https://assets.lenster.xyz/css/fonts/Lenster-BoldItalic.woff')
       format('woff');
 }
+
 @font-face {
   font-family: 'Lenster';
   font-style: normal;
@@ -53,6 +57,7 @@
     url('https://assets.lenster.xyz/css/fonts/Lenster-Black.woff')
       format('woff');
 }
+
 @font-face {
   font-family: 'Lenster';
   font-style: italic;
