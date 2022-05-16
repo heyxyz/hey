@@ -58,7 +58,7 @@ const wagmiClient = createClient({
       return new providers.InfuraProvider(config.chainId, INFURA_ID)
     } catch {
       throw new Error(
-        `Wrong network, please change to ${IS_MAINNET ? 'Polygon' : 'Mumbai'}`
+        `Wrong network, please switch to ${IS_MAINNET ? 'Polygon' : 'Mumbai'}`
       )
     }
   },
