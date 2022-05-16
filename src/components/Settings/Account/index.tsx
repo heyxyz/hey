@@ -8,6 +8,7 @@ import Custom404 from 'src/pages/404'
 
 import Sidebar from '../Sidebar'
 import SetProfile from './SetProfile'
+import Verification from './Verification'
 
 const AccountSettings: NextPage = () => {
   const { currentUser } = useContext(AppContext)
@@ -23,6 +24,7 @@ const AccountSettings: NextPage = () => {
       <GridItemEight className="space-y-5">
         <SetProfile />
         <SuperFollow />
+        <Verification />
       </GridItemEight>
     </GridLayout>
   )
