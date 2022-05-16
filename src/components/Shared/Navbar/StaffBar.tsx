@@ -3,14 +3,17 @@ import {
   ChartPieIcon,
   GlobeAltIcon,
   HashtagIcon,
+  SwitchVerticalIcon,
   TerminalIcon
 } from '@heroicons/react/outline'
+import clsx from 'clsx'
 import React, { FC, Fragment, ReactNode } from 'react'
 import {
   GIT_COMMIT_REF,
   GIT_COMMIT_SHA,
   IS_MAINNET,
-  IS_PRODUCTION
+  IS_PRODUCTION,
+  RELAY_ON
 } from 'src/constants'
 
 import Stats from './Stats'
@@ -50,6 +53,19 @@ const StaffBar: FC = () => {
             </Badge>
           </div>
         )}
+        <div className="flex items-center space-x-1" title="Git commit ref">
+          <SwitchVerticalIcon
+            className={clsx(
+              RELAY_ON ? ' text-green-500' : ' text-yellow-500',
+              'w-4 h-4'
+            )}
+          />
+          <Badge>
+            <span className="text-[10px]">
+              {RELAY_ON ? 'Relay enabled' : 'Relay disabled'}
+            </span>
+          </Badge>
+        </div>
         {GIT_COMMIT_REF && (
           <a
             href={`https://gitlab.com/lenster/lenster/-/tree/${GIT_COMMIT_REF}`}
