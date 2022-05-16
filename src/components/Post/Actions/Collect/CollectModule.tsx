@@ -7,10 +7,12 @@ import IndexStatus from '@components/Shared/IndexStatus'
 import Loader from '@components/Shared/Loader'
 import ReferenceAlert from '@components/Shared/ReferenceAlert'
 import ReferralAlert from '@components/Shared/ReferralAlert'
+import Uniswap from '@components/Shared/Uniswap'
 import { Button } from '@components/UI/Button'
 import { Modal } from '@components/UI/Modal'
 import { Spinner } from '@components/UI/Spinner'
 import { Tooltip } from '@components/UI/Tooltip'
+import { WarningMessage } from '@components/UI/WarningMessage'
 import AppContext from '@components/utils/AppContext'
 import { LensterPost } from '@generated/lenstertypes'
 import { CreateCollectBroadcastItemResult } from '@generated/types'
@@ -44,6 +46,7 @@ import {
 } from 'src/constants'
 import {
   useAccount,
+  useBalance,
   useContractWrite,
   useNetwork,
   useSignTypedData
@@ -182,6 +185,22 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
       }
     }
   )
+
+  const { data: balanceData, isLoading: balanceLoading } = useBalance({
+    addressOrName: currentUser?.ownedBy,
+    token: collectModule?.amount?.asset?.address
+  })
+  let hasAmount: boolean = false
+
+  if (
+    balanceData &&
+    parseFloat(balanceData?.formatted) <
+      parseFloat(collectModule?.amount?.value)
+  ) {
+    hasAmount = false
+  } else {
+    hasAmount = true
+  }
 
   const [broadcast, { data: broadcastData, loading: broadcastLoading }] =
     useMutation(BROADCAST_MUTATION, {
@@ -394,31 +413,38 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
           </div>
         ) : null}
         {currentUser ? (
-          allowanceLoading ? (
+          allowanceLoading || balanceLoading ? (
             <div className="mt-5 w-28 rounded-lg h-[34px] shimmer" />
           ) : allowed || collectModule.type === 'FreeCollectModule' ? (
-            <Button
-              className="mt-5"
-              onClick={createCollect}
-              disabled={
-                typedDataLoading ||
-                signLoading ||
-                writeLoading ||
-                broadcastLoading
-              }
-              icon={
-                typedDataLoading ||
-                signLoading ||
-                writeLoading ||
-                broadcastLoading ? (
-                  <Spinner size="xs" />
-                ) : (
-                  <CollectionIcon className="w-4 h-4" />
-                )
-              }
-            >
-              Collect now
-            </Button>
+            hasAmount ? (
+              <Button
+                className="mt-5"
+                onClick={createCollect}
+                disabled={
+                  typedDataLoading ||
+                  signLoading ||
+                  writeLoading ||
+                  broadcastLoading
+                }
+                icon={
+                  typedDataLoading ||
+                  signLoading ||
+                  writeLoading ||
+                  broadcastLoading ? (
+                    <Spinner size="xs" />
+                  ) : (
+                    <CollectionIcon className="w-4 h-4" />
+                  )
+                }
+              >
+                Collect now
+              </Button>
+            ) : (
+              <WarningMessage
+                className="mt-5"
+                message={<Uniswap module={collectModule} />}
+              />
+            )
           ) : (
             <div className="mt-5">
               <AllowanceButton

@@ -4,7 +4,9 @@ import { ALLOWANCE_SETTINGS_QUERY } from '@components/Settings/Allowance'
 import AllowanceButton from '@components/Settings/Allowance/Button'
 import { Button } from '@components/UI/Button'
 import { Spinner } from '@components/UI/Spinner'
+import { WarningMessage } from '@components/UI/WarningMessage'
 import AppContext from '@components/utils/AppContext'
+import { LensterFollowModule } from '@generated/lenstertypes'
 import {
   CreateFollowBroadcastItemResult,
   FeeFollowModuleSettings,
@@ -31,6 +33,7 @@ import {
 } from 'src/constants'
 import {
   useAccount,
+  useBalance,
   useContractWrite,
   useNetwork,
   useSignTypedData
@@ -38,6 +41,7 @@ import {
 
 import Loader from '../Loader'
 import Slug from '../Slug'
+import Uniswap from '../Uniswap'
 
 const SUPER_FOLLOW_QUERY = gql`
   query SuperFollow($request: ProfileQueryRequest!) {
@@ -177,6 +181,21 @@ const FollowModule: FC<Props> = ({
       }
     }
   )
+
+  const { data: balanceData, isLoading: balanceLoading } = useBalance({
+    addressOrName: currentUser?.ownedBy,
+    token: followModule?.amount?.asset?.address
+  })
+  let hasAmount: boolean = false
+
+  if (
+    balanceData &&
+    parseFloat(balanceData?.formatted) < parseFloat(followModule?.amount?.value)
+  ) {
+    hasAmount = false
+  } else {
+    hasAmount = true
+  }
 
   const [broadcast, { loading: broadcastLoading }] = useMutation(
     BROADCAST_MUTATION,
@@ -337,30 +356,37 @@ const FollowModule: FC<Props> = ({
         allowanceLoading ? (
           <div className="mt-5 w-28 rounded-lg h-[34px] shimmer" />
         ) : allowed ? (
-          <Button
-            className="text-sm !px-3 !py-1.5 mt-5"
-            variant="super"
-            outline
-            onClick={createFollow}
-            disabled={
-              typedDataLoading ||
-              signLoading ||
-              writeLoading ||
-              broadcastLoading
-            }
-            icon={
-              typedDataLoading ||
-              signLoading ||
-              writeLoading ||
-              broadcastLoading ? (
-                <Spinner variant="super" size="xs" />
-              ) : (
-                <StarIcon className="w-4 h-4" />
-              )
-            }
-          >
-            Super follow {again ? 'again' : 'now'}
-          </Button>
+          hasAmount ? (
+            <Button
+              className="text-sm !px-3 !py-1.5 mt-5"
+              variant="super"
+              outline
+              onClick={createFollow}
+              disabled={
+                typedDataLoading ||
+                signLoading ||
+                writeLoading ||
+                broadcastLoading
+              }
+              icon={
+                typedDataLoading ||
+                signLoading ||
+                writeLoading ||
+                broadcastLoading ? (
+                  <Spinner variant="super" size="xs" />
+                ) : (
+                  <StarIcon className="w-4 h-4" />
+                )
+              }
+            >
+              Super follow {again ? 'again' : 'now'}
+            </Button>
+          ) : (
+            <WarningMessage
+              className="mt-5"
+              message={<Uniswap module={followModule as LensterFollowModule} />}
+            />
+          )
         ) : (
           <div className="mt-5">
             <AllowanceButton
