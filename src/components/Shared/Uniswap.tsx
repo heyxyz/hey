@@ -17,7 +17,7 @@ const Uniswap: FC<Props> = ({ collectModule }) => {
           parseFloat(collectModule?.amount?.value),
           collectModule?.amount?.asset?.address
         )}
-        className="flex items-center space-x-1.5 text-xs font-bold text-pink-500 float-left sm:float-right"
+        className="flex items-center space-x-1.5 text-xs font-bold text-pink-500"
         target="_blank"
         rel="noreferrer noopener"
       >
