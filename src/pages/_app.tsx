@@ -54,7 +54,13 @@ const connectors = ({ chainId }: ConnectorsConfig) => {
 const wagmiClient = createClient({
   autoConnect: true,
   provider(config) {
-    return new providers.InfuraProvider(config.chainId, INFURA_ID)
+    try {
+      return new providers.InfuraProvider(config.chainId, INFURA_ID)
+    } catch {
+      throw new Error(
+        `Wrong network, please change to ${IS_MAINNET ? 'Polygon' : 'Mumbai'}`
+      )
+    }
   },
   connectors
 })
