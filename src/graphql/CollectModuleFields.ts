@@ -11,6 +11,7 @@ export const CollectModuleFields = gql`
       type
       recipient
       referralFee
+      contractAddress
       followerOnly
       amount {
         asset {
@@ -25,6 +26,7 @@ export const CollectModuleFields = gql`
       collectLimit
       recipient
       referralFee
+      contractAddress
       followerOnly
       amount {
         asset {
@@ -40,6 +42,7 @@ export const CollectModuleFields = gql`
       recipient
       endTimestamp
       referralFee
+      contractAddress
       followerOnly
       amount {
         asset {
@@ -54,6 +57,7 @@ export const CollectModuleFields = gql`
       recipient
       endTimestamp
       referralFee
+      contractAddress
       followerOnly
       amount {
         asset {

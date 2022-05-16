@@ -7,6 +7,7 @@ import CrowdfundShimmer from '@components/Shared/Shimmer/CrowdfundShimmer'
 import { Card } from '@components/UI/Card'
 import { Modal } from '@components/UI/Modal'
 import { Tooltip } from '@components/UI/Tooltip'
+import AppContext from '@components/utils/AppContext'
 import { LensterPost } from '@generated/lenstertypes'
 import {
   CashIcon,
@@ -17,7 +18,7 @@ import consoleLog from '@lib/consoleLog'
 import getTokenImage from '@lib/getTokenImage'
 import imagekitURL from '@lib/imagekitURL'
 import clsx from 'clsx'
-import React, { FC, ReactNode, useEffect, useState } from 'react'
+import React, { FC, ReactNode, useContext, useEffect, useState } from 'react'
 import { STATIC_ASSETS } from 'src/constants'
 
 import { COLLECT_QUERY } from '../Actions/Collect/CollectModule'
@@ -52,6 +53,7 @@ interface Props {
 }
 
 const Crowdfund: FC<Props> = ({ fund }) => {
+  const { currentUser } = useContext(AppContext)
   const [showFundersModal, setShowFundersModal] = useState<boolean>(false)
   const [revenue, setRevenue] = useState<number>(0)
   const { data, loading } = useQuery(COLLECT_QUERY, {
@@ -172,14 +174,16 @@ const Crowdfund: FC<Props> = ({ fund }) => {
               referralFee={collectModule?.referralFee}
             />
           </div>
-          <div className="pt-3 sm:pt-0">
-            <Fund
-              fund={fund}
-              collectModule={collectModule}
-              revenue={revenue}
-              setRevenue={setRevenue}
-            />
-          </div>
+          {currentUser ? (
+            <div className="pt-3 sm:pt-0">
+              <Fund
+                fund={fund}
+                collectModule={collectModule}
+                revenue={revenue}
+                setRevenue={setRevenue}
+              />
+            </div>
+          ) : null}
         </div>
         {revenueLoading ? (
           <div className="w-full h-[13px] !mt-5 rounded-full shimmer" />
