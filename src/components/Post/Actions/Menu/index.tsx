@@ -11,6 +11,7 @@ import clsx from 'clsx'
 import { FC, Fragment, useContext } from 'react'
 
 import Delete from './Delete'
+import Permalink from './Permalink'
 
 interface Props {
   post: LensterPost
@@ -63,6 +64,7 @@ const PostMenu: FC<Props> = ({ post }) => {
                   </div>
                 </Menu.Item>
               )}
+              <Permalink post={post} />
             </Menu.Items>
           </Transition>
         </>
