@@ -15,7 +15,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "@apollo/client": "^3.6.2",
+    "@apollo/client": "^3.6.4",
     "@giphy/js-fetch-api": "^4.1.2",
     "@giphy/react-components": "^5.7.0",
     "@headlessui/react": "^1.6.1",
@@ -58,12 +58,12 @@
     "@graphql-codegen/typescript": "^2.4.11",
     "@tailwindcss/forms": "^0.5.1",
     "@tailwindcss/line-clamp": "^0.4.0",
-    "@types/node": "^17.0.33",
+    "@types/node": "^17.0.34",
     "@types/react": "^18.0.9",
     "@types/react-copy-to-clipboard": "^5.0.2",
     "@types/react-dom": "^18.0.4",
     "@types/uuid": "^8.3.4",
-    "@typescript-eslint/eslint-plugin": "^5.23.0",
+    "@typescript-eslint/eslint-plugin": "^5.24.0",
     "autoprefixer": "^10.4.5",
     "eslint": "^8.15.0",
     "eslint-config-next": "^12.1.5",
