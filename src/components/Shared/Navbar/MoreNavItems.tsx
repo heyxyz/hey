@@ -50,10 +50,7 @@ const MoreNavItems: FC = () => {
                     as={NextLink}
                     href="/create/community"
                     className={({ active }: { active: boolean }) =>
-                      clsx(
-                        { 'bg-gray-100 dark:bg-gray-800': active },
-                        'menu-item'
-                      )
+                      clsx({ 'dropdown-active': active }, 'menu-item')
                     }
                   >
                     <div className="flex items-center space-x-1.5">
@@ -65,10 +62,7 @@ const MoreNavItems: FC = () => {
                     as={NextLink}
                     href="/create/crowdfund"
                     className={({ active }: { active: boolean }) =>
-                      clsx(
-                        { 'bg-gray-100 dark:bg-gray-800': active },
-                        'menu-item'
-                      )
+                      clsx({ 'dropdown-active': active }, 'menu-item')
                     }
                   >
                     <div className="flex items-center space-x-1.5">
@@ -80,10 +74,7 @@ const MoreNavItems: FC = () => {
                     as={NextLink}
                     href="/create/profile"
                     className={({ active }: { active: boolean }) =>
-                      clsx(
-                        { 'bg-gray-100 dark:bg-gray-800': active },
-                        'menu-item'
-                      )
+                      clsx({ 'dropdown-active': active }, 'menu-item')
                     }
                   >
                     <div className="flex items-center space-x-1.5">
@@ -98,7 +89,7 @@ const MoreNavItems: FC = () => {
                 as={NextLink}
                 href="/contact"
                 className={({ active }: { active: boolean }) =>
-                  clsx({ 'bg-gray-100 dark:bg-gray-800': active }, 'menu-item')
+                  clsx({ 'dropdown-active': active }, 'menu-item')
                 }
               >
                 <div className="flex items-center space-x-1.5">

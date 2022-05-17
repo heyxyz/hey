@@ -23,7 +23,7 @@ const Permalink: FC<Props> = ({ post }) => {
         as="div"
         className={({ active }: { active: boolean }) =>
           clsx(
-            { 'bg-gray-100 dark:bg-gray-800': active },
+            { 'dropdown-active': active },
             'block px-4 py-1.5 text-sm m-2 rounded-lg cursor-pointer'
           )
         }
