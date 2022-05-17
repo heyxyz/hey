@@ -65,7 +65,10 @@ const NFTFeed: FC<Props> = ({ profile }) => {
       fetchMore({
         variables: {
           request: {
-            chainIds: [CHAIN_ID, chain.kovan.id],
+            chainIds: [
+              CHAIN_ID,
+              IS_MAINNET ? chain.mainnet.id : chain.kovan.id
+            ],
             ownerAddress: profile?.ownedBy,
             cursor: pageInfo?.next,
             limit: 10
