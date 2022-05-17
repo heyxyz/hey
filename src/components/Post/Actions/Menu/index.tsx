@@ -53,7 +53,7 @@ const PostMenu: FC<Props> = ({ post }) => {
                   onClick={() => trackEvent('report menu')}
                   className={({ active }: { active: boolean }) =>
                     clsx(
-                      { 'bg-gray-100 dark:bg-gray-800': active },
+                      { 'dropdown-active': active },
                       'block px-4 py-1.5 text-sm text-red-500 m-2 rounded-lg cursor-pointer'
                     )
                   }
