@@ -54,7 +54,14 @@ const Attachments: FC<Props> = ({
           'video/mp4' ? (
             <video
               controls
-              className="object-cover bg-gray-100 rounded-lg border dark:bg-gray-800 dark:border-gray-700/80"
+              className={clsx(
+                {
+                  'object-cover':
+                    (isNew ? attachment.type : attachment.original.mimeType) !==
+                    'video/mp4'
+                },
+                'bg-gray-100 rounded-lg border dark:bg-gray-800 dark:border-gray-700/80'
+              )}
             >
               <source
                 src={
