@@ -7,8 +7,9 @@ import { AppProps } from 'next/app'
 import Script from 'next/script'
 import { ThemeProvider } from 'next-themes'
 import {
+  ALCHEMY_KEY,
+  ALCHEMY_RPC,
   CHAIN_ID,
-  INFURA_ID,
   IS_MAINNET,
   IS_PRODUCTION,
   POLYGON_MAINNET,
@@ -38,14 +39,13 @@ const connectors = ({ chainId }: ConnectorsConfig) => {
     }),
     new WalletConnectConnector({
       options: {
-        infuraId: INFURA_ID,
-        chainId: CHAIN_ID
+        rpc: { [CHAIN_ID]: ALCHEMY_RPC }
       }
     }),
     new CoinbaseWalletConnector({
       options: {
         appName: 'Lenster',
-        jsonRpcUrl: `${rpcUrl}/${INFURA_ID}`
+        jsonRpcUrl: ALCHEMY_RPC
       }
     })
   ]
@@ -55,7 +55,7 @@ const wagmiClient = createClient({
   autoConnect: true,
   provider(config) {
     try {
-      return new providers.InfuraProvider(config.chainId, INFURA_ID)
+      return new providers.AlchemyProvider(config.chainId, ALCHEMY_KEY)
     } catch {
       throw new Error(
         `Wrong network, please switch to ${IS_MAINNET ? 'Polygon' : 'Mumbai'}`

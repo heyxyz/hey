@@ -92,6 +92,8 @@ const Details: FC<Props> = ({ profile }) => {
     </div>
   )
 
+  const followType = profile?.followModule?.__typename
+
   return (
     <div className="px-5 mb-4 space-y-5 sm:px-0">
       <div className="relative -mt-24 w-32 h-32 sm:-mt-32 sm:w-52 sm:h-52">
@@ -133,42 +135,44 @@ const Details: FC<Props> = ({ profile }) => {
         <div className="flex items-center space-x-2">
           {followLoading ? (
             <div className="w-28 rounded-lg h-[34px] shimmer" />
-          ) : following ? (
-            <div className="flex space-x-2">
-              <Unfollow
+          ) : followType !== 'RevertFollowModuleSettings' ? (
+            following ? (
+              <div className="flex space-x-2">
+                <Unfollow
+                  profile={profile}
+                  setFollowing={setFollowing}
+                  followersCount={followersCount}
+                  setFollowersCount={setFollowersCount}
+                  showText
+                />
+                {followType === 'FeeFollowModuleSettings' && (
+                  <SuperFollow
+                    profile={profile}
+                    setFollowing={setFollowing}
+                    followersCount={followersCount}
+                    setFollowersCount={setFollowersCount}
+                    again
+                  />
+                )}
+              </div>
+            ) : followType === 'FeeFollowModuleSettings' ? (
+              <SuperFollow
                 profile={profile}
                 setFollowing={setFollowing}
                 followersCount={followersCount}
                 setFollowersCount={setFollowersCount}
                 showText
               />
-              {profile?.followModule && (
-                <SuperFollow
-                  profile={profile}
-                  setFollowing={setFollowing}
-                  followersCount={followersCount}
-                  setFollowersCount={setFollowersCount}
-                  again
-                />
-              )}
-            </div>
-          ) : profile?.followModule ? (
-            <SuperFollow
-              profile={profile}
-              setFollowing={setFollowing}
-              followersCount={followersCount}
-              setFollowersCount={setFollowersCount}
-              showText
-            />
-          ) : (
-            <Follow
-              profile={profile}
-              setFollowing={setFollowing}
-              followersCount={followersCount}
-              setFollowersCount={setFollowersCount}
-              showText
-            />
-          )}
+            ) : (
+              <Follow
+                profile={profile}
+                setFollowing={setFollowing}
+                followersCount={followersCount}
+                setFollowersCount={setFollowersCount}
+                showText
+              />
+            )
+          ) : null}
           {currentUser?.id === profile?.id && (
             <Link href="/settings">
               <a href="/settings">

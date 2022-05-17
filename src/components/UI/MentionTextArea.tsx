@@ -19,7 +19,7 @@ interface UserProps {
 const User: FC<UserProps> = ({ suggestion, focused }) => (
   <div
     className={clsx(
-      { 'bg-gray-100 dark:bg-gray-800': focused },
+      { 'dropdown-active': focused },
       'flex items-center space-x-2 m-1.5 px-3 py-1 rounded-xl'
     )}
   >

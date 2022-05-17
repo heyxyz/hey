@@ -190,7 +190,7 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
     addressOrName: currentUser?.ownedBy,
     token: collectModule?.amount?.asset?.address
   })
-  let hasAmount: boolean = false
+  let hasAmount = false
 
   if (
     balanceData &&
