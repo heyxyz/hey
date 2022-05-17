@@ -32,6 +32,7 @@ const HOME_FEED_QUERY = gql`
       }
       pageInfo {
         next
+        totalCount
       }
     }
   }
@@ -97,7 +98,7 @@ const Feed: FC = () => {
               <SinglePost key={`${post?.id}_${index}`} post={post} />
             ))}
           </div>
-          {pageInfo?.next && (
+          {pageInfo?.next && publications.length !== pageInfo?.totalCount && (
             <span ref={observe} className="flex justify-center p-5">
               <Spinner size="sm" />
             </span>

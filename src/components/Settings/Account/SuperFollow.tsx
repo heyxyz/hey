@@ -243,6 +243,8 @@ const SuperFollow: FC = () => {
       </Card>
     )
 
+  const followType = currencyData?.profiles?.items[0]?.followModule
+
   return (
     <Card>
       <Form
@@ -308,7 +310,7 @@ const SuperFollow: FC = () => {
           ) : (
             <div className="flex flex-col space-y-2">
               <div className="block space-y-2 space-x-0 sm:flex sm:space-y-0 sm:space-x-2">
-                {currencyData?.profiles?.items[0]?.followModule && (
+                {followType === 'FeeFollowModuleSettings' && (
                   <Button
                     type="button"
                     variant="danger"
@@ -337,7 +339,7 @@ const SuperFollow: FC = () => {
                   }
                   icon={<StarIcon className="w-4 h-4" />}
                 >
-                  {currencyData?.profiles?.items[0]?.followModule
+                  {followType === 'FeeFollowModuleSettings'
                     ? 'Update Super follow'
                     : 'Set Super follow'}
                 </Button>
