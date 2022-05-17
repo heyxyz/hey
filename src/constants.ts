@@ -29,7 +29,7 @@ export const SIGN_ERROR = 'Failed to sign data'
 // URLs
 export const STATIC_ASSETS = 'https://assets.lenster.xyz/images'
 export const API_URL = IS_MAINNET
-  ? 'https://api-mumbai.lens.dev'
+  ? 'https://api.lens.dev'
   : 'https://api-mumbai.lens.dev'
 export const POLYGONSCAN_URL = IS_MAINNET
   ? 'https://polygonscan.com'
