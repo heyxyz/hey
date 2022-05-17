@@ -23,15 +23,8 @@ import { WalletConnectConnector } from 'wagmi/connectors/walletConnect'
 import client from '../apollo'
 
 const supportedChains = IS_MAINNET ? [POLYGON_MAINNET] : [POLYGON_MUMBAI]
-const defaultChain = IS_MAINNET ? POLYGON_MAINNET : POLYGON_MUMBAI
 
-type ConnectorsConfig = { chainId?: number }
-
-const connectors = ({ chainId }: ConnectorsConfig) => {
-  const rpcUrl =
-    supportedChains.find((x) => x.id === chainId)?.rpcUrls?.default?.[0] ??
-    defaultChain.rpcUrls.default[0]
-
+const connectors = () => {
   return [
     new InjectedConnector({
       chains: supportedChains,
