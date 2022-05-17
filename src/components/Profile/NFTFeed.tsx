@@ -27,6 +27,7 @@ const PROFILE_NFT_FEED_QUERY = gql`
       }
       pageInfo {
         next
+        totalCount
       }
     }
   }
@@ -111,7 +112,7 @@ const NFTFeed: FC<Props> = ({ profile }) => {
               />
             ))}
           </div>
-          {pageInfo?.next && (
+          {pageInfo?.next && nfts.length !== pageInfo?.totalCount && (
             <span ref={observe} className="flex justify-center p-5">
               <Spinner size="sm" />
             </span>
