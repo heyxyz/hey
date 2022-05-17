@@ -1,5 +1,6 @@
 import { Card, CardBody } from '@components/UI/Card'
 import { Nft } from '@generated/types'
+import getIPFSLink from '@lib/getIPFSLink'
 import React, { FC } from 'react'
 import { CHAIN_ID, OPENSEA_URL, STATIC_ASSETS } from 'src/constants'
 
@@ -20,10 +21,10 @@ const SingleNFT: FC<Props> = ({ nft }) => {
           style={{
             backgroundImage: `url(${
               nft.originalContent.uri
-                ? nft.originalContent.uri
+                ? getIPFSLink(nft.originalContent.uri)
                 : `${STATIC_ASSETS}/placeholder.webp`
             })`,
-            backgroundSize: 'cover',
+            backgroundSize: 'contain',
             backgroundPosition: 'center center',
             backgroundRepeat: 'no-repeat'
           }}
