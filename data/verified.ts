@@ -1,7 +1,8 @@
 export const mainnetVerified = [
   '0x01' /** @lensprotocol */,
   '0x02' /** @aaveaave.lens */,
-  '0x03' /** @aavegrants.lens */
+  '0x03' /** @aavegrants.lens */,
+  '0x04' /** @letsraave.lens */
 ]
 
 export const testnetVerified = [
