@@ -1,6 +1,5 @@
 import { Card, CardBody } from '@components/UI/Card'
 import { Nft } from '@generated/types'
-import imagekitURL from '@lib/imagekitURL'
 import React, { FC } from 'react'
 import { CHAIN_ID, OPENSEA_URL, STATIC_ASSETS } from 'src/constants'
 
@@ -14,11 +13,11 @@ const SingleNFT: FC<Props> = ({ nft }) => {
       <div
         className="h-52 border-b sm:h-80 sm:rounded-t-[10px]"
         style={{
-          backgroundImage: `url(${imagekitURL(
+          backgroundImage: `url(${
             nft.originalContent.uri
               ? nft.originalContent.uri
               : `${STATIC_ASSETS}/placeholder.webp`
-          )})`,
+          })`,
           backgroundSize: 'cover',
           backgroundPosition: 'center center',
           backgroundRepeat: 'no-repeat'
