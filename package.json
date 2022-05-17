@@ -15,12 +15,12 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "@apollo/client": "^3.6.2",
+    "@apollo/client": "^3.6.4",
     "@giphy/js-fetch-api": "^4.1.2",
     "@giphy/react-components": "^5.7.0",
     "@headlessui/react": "^1.6.1",
     "@heroicons/react": "^1.0.6",
-    "@hookform/resolvers": "^2.8.9",
+    "@hookform/resolvers": "^2.8.10",
     "@sentry/nextjs": "^6.19.7",
     "@tailwindcss/aspect-ratio": "^0.4.0",
     "@tippyjs/react": "^4.2.6",
@@ -58,7 +58,7 @@
     "@graphql-codegen/typescript": "^2.4.11",
     "@tailwindcss/forms": "^0.5.1",
     "@tailwindcss/line-clamp": "^0.4.0",
-    "@types/node": "^17.0.33",
+    "@types/node": "^17.0.34",
     "@types/react": "^18.0.9",
     "@types/react-copy-to-clipboard": "^5.0.2",
     "@types/react-dom": "^18.0.4",
