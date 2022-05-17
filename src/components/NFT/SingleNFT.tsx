@@ -8,21 +8,27 @@ interface Props {
 }
 
 const SingleNFT: FC<Props> = ({ nft }) => {
+  const nftURL = `${OPENSEA_URL}/assets/${
+    nft.chainId === CHAIN_ID ? 'matic/' : ''
+  }${nft.contractAddress}/${nft.tokenId}`
+
   return (
     <Card>
-      <div
-        className="h-52 border-b sm:h-80 sm:rounded-t-[10px]"
-        style={{
-          backgroundImage: `url(${
-            nft.originalContent.uri
-              ? nft.originalContent.uri
-              : `${STATIC_ASSETS}/placeholder.webp`
-          })`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center center',
-          backgroundRepeat: 'no-repeat'
-        }}
-      />
+      <a href={nftURL} target="_blank" rel="noreferrer noopener">
+        <div
+          className="h-52 border-b sm:h-80 sm:rounded-t-[10px]"
+          style={{
+            backgroundImage: `url(${
+              nft.originalContent.uri
+                ? nft.originalContent.uri
+                : `${STATIC_ASSETS}/placeholder.webp`
+            })`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center center',
+            backgroundRepeat: 'no-repeat'
+          }}
+        />
+      </a>
       <CardBody className="space-y-1">
         {nft.collectionName && (
           <div className="text-sm text-gray-500 truncate">
@@ -32,9 +38,7 @@ const SingleNFT: FC<Props> = ({ nft }) => {
         <div className="truncate">
           <a
             className="font-bold"
-            href={`${OPENSEA_URL}/assets/${
-              nft.chainId === CHAIN_ID ? 'matic/' : ''
-            }${nft.contractAddress}/${nft.tokenId}`}
+            href={nftURL}
             target="_blank"
             rel="noreferrer noopener"
           >
