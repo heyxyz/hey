@@ -85,7 +85,7 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
     addressOrName: currentUser?.ownedBy,
     token: collectModule?.amount?.asset?.address
   })
-  let hasAmount: boolean = false
+  let hasAmount = false
 
   if (
     balanceData &&

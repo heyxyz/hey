@@ -186,7 +186,7 @@ const FollowModule: FC<Props> = ({
     addressOrName: currentUser?.ownedBy,
     token: followModule?.amount?.asset?.address
   })
-  let hasAmount: boolean = false
+  let hasAmount = false
 
   if (
     balanceData &&
