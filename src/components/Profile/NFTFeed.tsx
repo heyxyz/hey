@@ -23,6 +23,7 @@ const PROFILE_NFT_FEED_QUERY = gql`
         chainId
         originalContent {
           uri
+          animatedUrl
         }
       }
       pageInfo {
