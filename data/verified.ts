@@ -3,6 +3,7 @@ export const mainnetVerified = [
   '0x8e' /** @christina.lens */,
   '0x0d' /** @yoginth.lens */,
   '0x0c' /** @lenster.lens */,
+  '0x0b' /** @zer0dot.lens */,
   '0x10' /** @damarnez.lens */,
   '0x09' /** @nicolo.lens */,
   '0x08' /** @donosonaumczuk.lens */,
