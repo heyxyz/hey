@@ -144,8 +144,10 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
 
   const [broadcast, { data: broadcastData, loading: broadcastLoading }] =
     useMutation(BROADCAST_MUTATION, {
-      onCompleted() {
-        onCompleted()
+      onCompleted({ broadcast }) {
+        if (broadcast?.reason !== 'NOT_ALLOWED') {
+          onCompleted()
+        }
       },
       onError(error) {
         consoleLog('Relay Error', '#ef4444', error.message)
