@@ -34,7 +34,7 @@ const newUserSchema = object({
     .min(2, { message: 'Handle should be atleast 2 characters' })
     .max(31, { message: 'Handle should be less than 32 characters' })
     .regex(/^[a-z0-9]+$/, {
-      message: 'Handle should only contain alphanumeric characters'
+      message: 'Handle should only contain lowercase alphanumeric characters'
     })
 })
 
