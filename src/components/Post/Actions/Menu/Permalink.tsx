@@ -14,7 +14,7 @@ interface Props {
 const Permalink: FC<Props> = ({ post }) => {
   return (
     <CopyToClipboard
-      text={`${PUBLIC_URL}/${post?.id}`}
+      text={`${PUBLIC_URL}/posts/${post?.id}`}
       onCopy={() => {
         toast.success('Copied to clipboard!')
       }}
