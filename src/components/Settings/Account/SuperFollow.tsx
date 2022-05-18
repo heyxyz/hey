@@ -190,8 +190,8 @@ const SuperFollow: FC = () => {
           }
           if (RELAY_ON) {
             broadcast({ variables: { request: { id, signature } } }).then(
-              ({ errors }) => {
-                if (errors) {
+              ({ data: { broadcast }, errors }) => {
+                if (errors || broadcast?.reason === 'NOT_ALLOWED') {
                   write({ args: inputStruct })
                 }
               }
