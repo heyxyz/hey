@@ -22,7 +22,7 @@ import isStaff from '@lib/isStaff'
 import isVerified from '@lib/isVerified'
 import Link from 'next/link'
 import { useTheme } from 'next-themes'
-import React, { FC, ReactElement, useContext, useState } from 'react'
+import React, { FC, ReactElement, useContext, useEffect, useState } from 'react'
 import { STATIC_ASSETS } from 'src/constants'
 
 import DoesFollow from './DoesFollow'
@@ -42,12 +42,17 @@ interface Props {
 }
 
 const Details: FC<Props> = ({ profile }) => {
-  const [followersCount, setFollowersCount] = useState<number>(
-    profile?.stats?.totalFollowers
-  )
+  const [followersCount, setFollowersCount] = useState<number>(0)
   const [following, setFollowing] = useState<boolean>(false)
   const { currentUser, staffMode } = useContext(AppContext)
   const { resolvedTheme } = useTheme()
+
+  useEffect(() => {
+    if (profile?.stats?.totalFollowers) {
+      setFollowersCount(profile?.stats?.totalFollowers)
+    }
+  }, [profile?.stats?.totalFollowers])
+
   const { data: followData, loading: followLoading } = useQuery(
     DOES_FOLLOW_QUERY,
     {
