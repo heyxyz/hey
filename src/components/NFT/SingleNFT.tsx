@@ -15,15 +15,29 @@ const SingleNFT: FC<Props> = ({ nft }) => {
 
   return (
     <Card>
-      <a href={nftURL} target="_blank" rel="noreferrer noopener">
-        {nft?.originalContent?.animatedUrl ? (
-          <div className="h-52 border-b sm:h-80 sm:rounded-t-[10px]">
+      {nft?.originalContent?.animatedUrl ? (
+        <div className="h-52 border-b sm:h-80 sm:rounded-t-[10px]">
+          {nft?.originalContent?.animatedUrl?.includes('.gltf') ? (
+            <a href={nftURL} target="_blank" rel="noreferrer noopener">
+              <div
+                className="h-52 border-b sm:h-80 sm:rounded-t-[10px]"
+                style={{
+                  backgroundImage: `url(${`${STATIC_ASSETS}/placeholder.webp`})`,
+                  backgroundSize: 'contain',
+                  backgroundPosition: 'center center',
+                  backgroundRepeat: 'no-repeat'
+                }}
+              />
+            </a>
+          ) : (
             <iframe
               className="w-full h-full sm:rounded-t-[10px]"
               src={nft?.originalContent?.animatedUrl}
             />
-          </div>
-        ) : (
+          )}
+        </div>
+      ) : (
+        <a href={nftURL} target="_blank" rel="noreferrer noopener">
           <div
             className="h-52 border-b sm:h-80 sm:rounded-t-[10px]"
             style={{
@@ -37,8 +51,8 @@ const SingleNFT: FC<Props> = ({ nft }) => {
               backgroundRepeat: 'no-repeat'
             }}
           />
-        )}
-      </a>
+        </a>
+      )}
       <CardBody className="space-y-1">
         {nft.collectionName && (
           <div className="text-sm text-gray-500 truncate">
