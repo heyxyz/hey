@@ -1,6 +1,6 @@
 import { Card, CardBody } from '@components/UI/Card'
 import { Nft } from '@generated/types'
-import imagekitURL from '@lib/imagekitURL'
+import getIPFSLink from '@lib/getIPFSLink'
 import React, { FC } from 'react'
 import { CHAIN_ID, OPENSEA_URL, STATIC_ASSETS } from 'src/constants'
 
@@ -9,21 +9,50 @@ interface Props {
 }
 
 const SingleNFT: FC<Props> = ({ nft }) => {
+  const nftURL = `${OPENSEA_URL}/assets/${
+    nft.chainId === CHAIN_ID ? 'matic/' : ''
+  }${nft.contractAddress}/${nft.tokenId}`
+
   return (
     <Card>
-      <div
-        className="h-52 border-b sm:h-80 sm:rounded-t-[10px]"
-        style={{
-          backgroundImage: `url(${imagekitURL(
-            nft.originalContent.uri
-              ? nft.originalContent.uri
-              : `${STATIC_ASSETS}/placeholder.webp`
-          )})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center center',
-          backgroundRepeat: 'no-repeat'
-        }}
-      />
+      {nft?.originalContent?.animatedUrl ? (
+        <div className="h-52 border-b sm:h-80 sm:rounded-t-[10px]">
+          {nft?.originalContent?.animatedUrl?.includes('.gltf') ? (
+            <a href={nftURL} target="_blank" rel="noreferrer noopener">
+              <div
+                className="h-52 border-b sm:h-80 sm:rounded-t-[10px]"
+                style={{
+                  backgroundImage: `url(${`${STATIC_ASSETS}/placeholder.webp`})`,
+                  backgroundSize: 'contain',
+                  backgroundPosition: 'center center',
+                  backgroundRepeat: 'no-repeat'
+                }}
+              />
+            </a>
+          ) : (
+            <iframe
+              className="w-full h-full sm:rounded-t-[10px]"
+              src={nft?.originalContent?.animatedUrl}
+            />
+          )}
+        </div>
+      ) : (
+        <a href={nftURL} target="_blank" rel="noreferrer noopener">
+          <div
+            className="h-52 border-b sm:h-80 sm:rounded-t-[10px]"
+            style={{
+              backgroundImage: `url(${
+                nft.originalContent.uri
+                  ? getIPFSLink(nft.originalContent.uri)
+                  : `${STATIC_ASSETS}/placeholder.webp`
+              })`,
+              backgroundSize: 'contain',
+              backgroundPosition: 'center center',
+              backgroundRepeat: 'no-repeat'
+            }}
+          />
+        </a>
+      )}
       <CardBody className="space-y-1">
         {nft.collectionName && (
           <div className="text-sm text-gray-500 truncate">
@@ -33,9 +62,7 @@ const SingleNFT: FC<Props> = ({ nft }) => {
         <div className="truncate">
           <a
             className="font-bold"
-            href={`${OPENSEA_URL}/assets/${
-              nft.chainId === CHAIN_ID ? 'matic/' : ''
-            }${nft.contractAddress}/${nft.tokenId}`}
+            href={nftURL}
             target="_blank"
             rel="noreferrer noopener"
           >

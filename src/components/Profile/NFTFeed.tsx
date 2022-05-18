@@ -23,10 +23,12 @@ const PROFILE_NFT_FEED_QUERY = gql`
         chainId
         originalContent {
           uri
+          animatedUrl
         }
       }
       pageInfo {
         next
+        totalCount
       }
     }
   }
@@ -65,7 +67,10 @@ const NFTFeed: FC<Props> = ({ profile }) => {
       fetchMore({
         variables: {
           request: {
-            chainIds: [CHAIN_ID, chain.kovan.id],
+            chainIds: [
+              CHAIN_ID,
+              IS_MAINNET ? chain.mainnet.id : chain.kovan.id
+            ],
             ownerAddress: profile?.ownedBy,
             cursor: pageInfo?.next,
             limit: 10
@@ -108,7 +113,7 @@ const NFTFeed: FC<Props> = ({ profile }) => {
               />
             ))}
           </div>
-          {pageInfo?.next && (
+          {pageInfo?.next && nfts.length !== pageInfo?.totalCount && (
             <span ref={observe} className="flex justify-center p-5">
               <Spinner size="sm" />
             </span>

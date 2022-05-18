@@ -86,7 +86,7 @@ const MenuItems: FC = () => {
                 as={NextLink}
                 href={`/u/${currentUser?.handle}`}
                 className={({ active }: { active: boolean }) =>
-                  clsx({ 'bg-gray-100 dark:bg-gray-800': active }, 'menu-item')
+                  clsx({ 'dropdown-active': active }, 'menu-item')
                 }
               >
                 <div>Logged in as</div>
@@ -103,7 +103,7 @@ const MenuItems: FC = () => {
                 as={NextLink}
                 href={`/u/${currentUser?.handle}`}
                 className={({ active }: { active: boolean }) =>
-                  clsx({ 'bg-gray-100 dark:bg-gray-800': active }, 'menu-item')
+                  clsx({ 'dropdown-active': active }, 'menu-item')
                 }
               >
                 <div className="flex items-center space-x-1.5">
@@ -115,7 +115,7 @@ const MenuItems: FC = () => {
                 as={NextLink}
                 href="/settings"
                 className={({ active }: { active: boolean }) =>
-                  clsx({ 'bg-gray-100 dark:bg-gray-800': active }, 'menu-item')
+                  clsx({ 'dropdown-active': active }, 'menu-item')
                 }
               >
                 <div className="flex items-center space-x-1.5">
@@ -133,7 +133,7 @@ const MenuItems: FC = () => {
                   disconnect()
                 }}
                 className={({ active }: { active: boolean }) =>
-                  clsx({ 'bg-gray-100 dark:bg-gray-800': active }, 'menu-item')
+                  clsx({ 'dropdown-active': active }, 'menu-item')
                 }
               >
                 <div className="flex items-center space-x-1.5">
@@ -191,7 +191,7 @@ const MenuItems: FC = () => {
                   setTheme(theme === 'light' ? 'dark' : 'light')
                 }}
                 className={({ active }: { active: boolean }) =>
-                  clsx({ 'bg-gray-100 dark:bg-gray-800': active }, 'menu-item')
+                  clsx({ 'dropdown-active': active }, 'menu-item')
                 }
               >
                 <div className="flex items-center space-x-1.5">
