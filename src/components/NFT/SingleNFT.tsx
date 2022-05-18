@@ -19,7 +19,7 @@ const SingleNFT: FC<Props> = ({ nft }) => {
         {nft?.originalContent?.animatedUrl ? (
           <div className="h-52 border-b sm:h-80 sm:rounded-t-[10px]">
             <iframe
-              className="w-full h-full"
+              className="w-full h-full sm:rounded-t-[10px]"
               src={nft?.originalContent?.animatedUrl}
             />
           </div>
