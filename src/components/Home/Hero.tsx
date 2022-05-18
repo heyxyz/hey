@@ -10,8 +10,8 @@ const Hero: FC = () => {
               Welcome to Lenster 👋
             </div>
             <div className="leading-7 text-gray-700">
-              Lenster is a composable, decentralized, and permissionless social
-              media web app built with Lens Protocol 🌿
+              Lenster is a decentralized, and permissionless social media app
+              built with Lens Protocol 🌿
             </div>
           </div>
           <div className="hidden flex-1 flex-shrink-0 w-full sm:block" />

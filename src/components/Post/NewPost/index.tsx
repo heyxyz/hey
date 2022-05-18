@@ -155,8 +155,10 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
 
   const [broadcast, { data: broadcastData, loading: broadcastLoading }] =
     useMutation(BROADCAST_MUTATION, {
-      onCompleted() {
-        onCompleted()
+      onCompleted({ broadcast }) {
+        if (broadcast?.reason !== 'NOT_ALLOWED') {
+          onCompleted()
+        }
       },
       onError(error) {
         consoleLog('Relay Error', '#ef4444', error.message)
@@ -199,8 +201,8 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
           }
           if (RELAY_ON) {
             broadcast({ variables: { request: { id, signature } } }).then(
-              ({ errors }) => {
-                if (errors) {
+              ({ data: { broadcast }, errors }) => {
+                if (errors || broadcast?.reason === 'NOT_ALLOWED') {
                   write({ args: inputStruct })
                 }
               }

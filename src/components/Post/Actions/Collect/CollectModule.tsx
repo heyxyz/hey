@@ -190,7 +190,7 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
     addressOrName: currentUser?.ownedBy,
     token: collectModule?.amount?.asset?.address
   })
-  let hasAmount: boolean = false
+  let hasAmount = false
 
   if (
     balanceData &&
@@ -204,8 +204,10 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
 
   const [broadcast, { data: broadcastData, loading: broadcastLoading }] =
     useMutation(BROADCAST_MUTATION, {
-      onCompleted() {
-        onCompleted()
+      onCompleted({ broadcast }) {
+        if (broadcast?.reason !== 'NOT_ALLOWED') {
+          onCompleted()
+        }
       },
       onError(error) {
         consoleLog('Relay Error', '#ef4444', error.message)
@@ -239,8 +241,8 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
           }
           if (RELAY_ON) {
             broadcast({ variables: { request: { id, signature } } }).then(
-              ({ errors }) => {
-                if (errors) {
+              ({ data: { broadcast }, errors }) => {
+                if (errors || broadcast?.reason === 'NOT_ALLOWED') {
                   write({ args: inputStruct })
                 }
               }
