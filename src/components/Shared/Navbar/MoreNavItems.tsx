@@ -71,7 +71,7 @@ const MoreNavItems: FC = () => {
                       <div>Create Crowdfund</div>
                     </div>
                   </Menu.Item>
-                  {IS_MAINNET && (
+                  {!IS_MAINNET && (
                     <Menu.Item
                       as={NextLink}
                       href="/create/profile"
