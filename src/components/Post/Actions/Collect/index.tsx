@@ -8,7 +8,7 @@ import { getModule } from '@lib/getModule'
 import humanize from '@lib/humanize'
 import { motion } from 'framer-motion'
 import dynamic from 'next/dynamic'
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 
 const CollectModule = dynamic(() => import('./CollectModule'), {
   loading: () => <Loader message="Loading collect" />
@@ -19,10 +19,16 @@ interface Props {
 }
 
 const Collect: FC<Props> = ({ post }) => {
-  const [count, setCount] = useState<number>(post?.stats?.totalAmountOfCollects)
+  const [count, setCount] = useState<number>(0)
   const [showCollectModal, setShowCollectModal] = useState<boolean>(false)
   const isFreeCollect =
     post?.collectModule?.__typename === 'FreeCollectModuleSettings'
+
+  useEffect(() => {
+    if (post?.stats?.totalAmountOfCollects) {
+      setCount(post?.stats?.totalAmountOfCollects)
+    }
+  }, [post?.stats?.totalAmountOfCollects])
 
   return (
     <motion.button
