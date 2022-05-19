@@ -1,5 +1,6 @@
 export const mainnetVerified = [
   '0xcc' /** @indexcoop.lens */,
+  '0x1cef' /** @trustlessstate.lens */,
   '0x38' /** @cashmere.lens */,
   '0x0210' /** @paris.lens */,
   '0x0160' /** @ethglobal.lens */,

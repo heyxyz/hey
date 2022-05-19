@@ -98,7 +98,7 @@ const MenuItems: FC = () => {
                   />
                 </div>
               </Menu.Item>
-              <div className="border-b dark:border-gray-700/80" />
+              <div className="divider" />
               <Menu.Item
                 as={NextLink}
                 href={`/u/${currentUser?.handle}`}
@@ -143,7 +143,7 @@ const MenuItems: FC = () => {
               </Menu.Item>
               {profiles.length > 1 && (
                 <>
-                  <div className="border-b dark:border-gray-700/80" />
+                  <div className="divider" />
                   <div className="overflow-auto m-2 max-h-36 no-scrollbar">
                     <div className="flex items-center px-4 pt-1 pb-2 space-x-1.5 text-sm font-bold text-gray-500">
                       <SwitchHorizontalIcon className="w-4 h-4" />
@@ -183,7 +183,7 @@ const MenuItems: FC = () => {
                   </div>
                 </>
               )}
-              <div className="border-b dark:border-gray-700/80" />
+              <div className="divider" />
               <Menu.Item
                 as="a"
                 onClick={() => {
@@ -210,7 +210,7 @@ const MenuItems: FC = () => {
               </Menu.Item>
               {currentUser && isBeta(currentUser) && GIT_COMMIT_SHA && (
                 <>
-                  <div className="border-b dark:border-gray-700/80" />
+                  <div className="divider" />
                   <div className="py-3 px-6 text-xs">
                     <a
                       href={`https://gitlab.com/lenster/lenster/-/commit/${GIT_COMMIT_SHA}`}
@@ -226,7 +226,7 @@ const MenuItems: FC = () => {
               )}
               {isStaff(currentUser?.id) && (
                 <>
-                  <div className="border-b dark:border-gray-700/80" />
+                  <div className="divider" />
                   <Menu.Item
                     as="div"
                     onClick={toggleStaffMode}
