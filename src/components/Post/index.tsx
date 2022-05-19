@@ -7,12 +7,8 @@ import { Card, CardBody } from '@components/UI/Card'
 import AppContext from '@components/utils/AppContext'
 import SEO from '@components/utils/SEO'
 import { LensterPost } from '@generated/lenstertypes'
-import { CommentFields } from '@gql/CommentFields'
-import { MirrorFields } from '@gql/MirrorFields'
-import { PostFields } from '@gql/PostFields'
 import consoleLog from '@lib/consoleLog'
 import { NextPage } from 'next'
-import { useRouter } from 'next/router'
 import React, { useContext } from 'react'
 import { ZERO_ADDRESS } from 'src/constants'
 import Custom404 from 'src/pages/404'
@@ -23,52 +19,25 @@ import PostPageShimmer from './Shimmer'
 import SinglePost from './SinglePost'
 import ViaLenster from './ViaLenster'
 
-export const POST_QUERY = gql`
-  query Post(
-    $request: PublicationQueryRequest!
-    $followRequest: DoesFollowRequest!
-  ) {
-    publication(request: $request) {
-      ... on Post {
-        ...PostFields
-        onChainContentURI
-        referenceModule {
-          __typename
-        }
-      }
-      ... on Comment {
-        ...CommentFields
-        onChainContentURI
-        referenceModule {
-          __typename
-        }
-      }
-      ... on Mirror {
-        ...MirrorFields
-        onChainContentURI
-        referenceModule {
-          __typename
-        }
-      }
-    }
+export const FOLLOW_QUERY = gql`
+  query Post($followRequest: DoesFollowRequest!) {
     doesFollow(request: $followRequest) {
       follows
     }
   }
-  ${PostFields}
-  ${CommentFields}
-  ${MirrorFields}
 `
 
-const ViewPost: NextPage = () => {
-  const {
-    query: { id }
-  } = useRouter()
-
+const ViewPost: NextPage<{
+  id: string
+  post: { publication: LensterPost }
+}> = ({ id, post: data }) => {
   const { currentUser } = useContext(AppContext)
-  const { data, loading, error } = useQuery(POST_QUERY, {
+  const {
+    data: followData,
+    loading,
+    error
+  } = useQuery(FOLLOW_QUERY, {
     variables: {
-      request: { publicationId: id },
       followRequest: {
         followInfos: {
           followerAddress: currentUser?.ownedBy
@@ -107,7 +76,7 @@ const ViewPost: NextPage = () => {
             post?.referenceModule?.__typename ===
             'FollowOnlyReferenceModuleSettings'
           }
-          isFollowing={data?.doesFollow[0]?.follows}
+          isFollowing={followData?.doesFollow[0]?.follows}
         />
       </GridItemEight>
       <GridItemFour className="space-y-5">
