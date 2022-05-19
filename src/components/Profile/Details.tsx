@@ -22,7 +22,7 @@ import isStaff from '@lib/isStaff'
 import isVerified from '@lib/isVerified'
 import Link from 'next/link'
 import { useTheme } from 'next-themes'
-import React, { FC, ReactElement, useContext, useState } from 'react'
+import React, { FC, ReactElement, useContext, useEffect, useState } from 'react'
 import { STATIC_ASSETS } from 'src/constants'
 
 import DoesFollow from './DoesFollow'
@@ -42,12 +42,17 @@ interface Props {
 }
 
 const Details: FC<Props> = ({ profile }) => {
-  const [followersCount, setFollowersCount] = useState<number>(
-    profile?.stats?.totalFollowers
-  )
+  const [followersCount, setFollowersCount] = useState<number>(0)
   const [following, setFollowing] = useState<boolean>(false)
   const { currentUser, staffMode } = useContext(AppContext)
   const { resolvedTheme } = useTheme()
+
+  useEffect(() => {
+    if (profile?.stats?.totalFollowers) {
+      setFollowersCount(profile?.stats?.totalFollowers)
+    }
+  }, [profile?.stats?.totalFollowers])
+
   const { data: followData, loading: followLoading } = useQuery(
     DOES_FOLLOW_QUERY,
     {
@@ -92,6 +97,8 @@ const Details: FC<Props> = ({ profile }) => {
     </div>
   )
 
+  const followType = profile?.followModule?.__typename
+
   return (
     <div className="px-5 mb-4 space-y-5 sm:px-0">
       <div className="relative -mt-24 w-32 h-32 sm:-mt-32 sm:w-52 sm:h-52">
@@ -133,42 +140,44 @@ const Details: FC<Props> = ({ profile }) => {
         <div className="flex items-center space-x-2">
           {followLoading ? (
             <div className="w-28 rounded-lg h-[34px] shimmer" />
-          ) : following ? (
-            <div className="flex space-x-2">
-              <Unfollow
+          ) : followType !== 'RevertFollowModuleSettings' ? (
+            following ? (
+              <div className="flex space-x-2">
+                <Unfollow
+                  profile={profile}
+                  setFollowing={setFollowing}
+                  followersCount={followersCount}
+                  setFollowersCount={setFollowersCount}
+                  showText
+                />
+                {followType === 'FeeFollowModuleSettings' && (
+                  <SuperFollow
+                    profile={profile}
+                    setFollowing={setFollowing}
+                    followersCount={followersCount}
+                    setFollowersCount={setFollowersCount}
+                    again
+                  />
+                )}
+              </div>
+            ) : followType === 'FeeFollowModuleSettings' ? (
+              <SuperFollow
                 profile={profile}
                 setFollowing={setFollowing}
                 followersCount={followersCount}
                 setFollowersCount={setFollowersCount}
                 showText
               />
-              {profile?.followModule && (
-                <SuperFollow
-                  profile={profile}
-                  setFollowing={setFollowing}
-                  followersCount={followersCount}
-                  setFollowersCount={setFollowersCount}
-                  again
-                />
-              )}
-            </div>
-          ) : profile?.followModule ? (
-            <SuperFollow
-              profile={profile}
-              setFollowing={setFollowing}
-              followersCount={followersCount}
-              setFollowersCount={setFollowersCount}
-              showText
-            />
-          ) : (
-            <Follow
-              profile={profile}
-              setFollowing={setFollowing}
-              followersCount={followersCount}
-              setFollowersCount={setFollowersCount}
-              showText
-            />
-          )}
+            ) : (
+              <Follow
+                profile={profile}
+                setFollowing={setFollowing}
+                followersCount={followersCount}
+                setFollowersCount={setFollowersCount}
+                showText
+              />
+            )
+          ) : null}
           {currentUser?.id === profile?.id && (
             <Link href="/settings">
               <a href="/settings">
@@ -186,7 +195,7 @@ const Details: FC<Props> = ({ profile }) => {
             <Markup>{profile?.bio}</Markup>
           </div>
         )}
-        <div className="w-full border-b dark:border-gray-700/80" />
+        <div className="w-full divider" />
         <div className="space-y-2">
           <MetaDetails icon={<HashtagIcon className="w-4 h-4" />}>
             {profile?.id}

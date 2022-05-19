@@ -13,7 +13,7 @@ import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import trackEvent from '@lib/trackEvent'
 import { motion } from 'framer-motion'
-import { FC, useContext, useState } from 'react'
+import { FC, useContext, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
   CHAIN_ID,
@@ -68,10 +68,17 @@ interface Props {
 }
 
 const Mirror: FC<Props> = ({ post }) => {
-  const [count, setCount] = useState<number>(post?.stats?.totalAmountOfMirrors)
+  const [count, setCount] = useState<number>(0)
   const { currentUser } = useContext(AppContext)
   const { activeChain } = useNetwork()
   const { data: account } = useAccount()
+
+  useEffect(() => {
+    if (post?.stats?.totalAmountOfMirrors) {
+      setCount(post?.stats?.totalAmountOfMirrors)
+    }
+  }, [post?.stats?.totalAmountOfMirrors])
+
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
       toast.error(error?.message)
@@ -103,8 +110,10 @@ const Mirror: FC<Props> = ({ post }) => {
   const [broadcast, { loading: broadcastLoading }] = useMutation(
     BROADCAST_MUTATION,
     {
-      onCompleted() {
-        onCompleted()
+      onCompleted({ broadcast }) {
+        if (broadcast?.reason !== 'NOT_ALLOWED') {
+          onCompleted()
+        }
       },
       onError(error) {
         consoleLog('Relay Error', '#ef4444', error.message)
@@ -148,8 +157,8 @@ const Mirror: FC<Props> = ({ post }) => {
           }
           if (RELAY_ON) {
             broadcast({ variables: { request: { id, signature } } }).then(
-              ({ errors }) => {
-                if (errors) {
+              ({ data: { broadcast }, errors }) => {
+                if (errors || broadcast?.reason === 'NOT_ALLOWED') {
                   write({ args: inputStruct })
                 }
               }

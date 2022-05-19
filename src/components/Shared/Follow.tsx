@@ -2,6 +2,7 @@ import LensHubProxy from '@abis/LensHubProxy.json'
 import { gql, useMutation } from '@apollo/client'
 import { Button } from '@components/UI/Button'
 import { Spinner } from '@components/UI/Spinner'
+import AppContext from '@components/utils/AppContext'
 import { CreateFollowBroadcastItemResult, Profile } from '@generated/types'
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { UserAddIcon } from '@heroicons/react/outline'
@@ -9,7 +10,7 @@ import consoleLog from '@lib/consoleLog'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import trackEvent from '@lib/trackEvent'
-import { Dispatch, FC } from 'react'
+import { Dispatch, FC, useContext } from 'react'
 import toast from 'react-hot-toast'
 import {
   CHAIN_ID,
@@ -70,6 +71,7 @@ const Follow: FC<Props> = ({
   followersCount,
   setFollowersCount
 }) => {
+  const { currentUser } = useContext(AppContext)
   const { activeChain } = useNetwork()
   const { data: account } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
@@ -106,8 +108,10 @@ const Follow: FC<Props> = ({
   const [broadcast, { loading: broadcastLoading }] = useMutation(
     BROADCAST_MUTATION,
     {
-      onCompleted() {
-        onCompleted()
+      onCompleted({ broadcast }) {
+        if (broadcast?.reason !== 'NOT_ALLOWED') {
+          onCompleted()
+        }
       },
       onError(error) {
         consoleLog('Relay Error', '#ef4444', error.message)
@@ -140,8 +144,8 @@ const Follow: FC<Props> = ({
           }
           if (RELAY_ON) {
             broadcast({ variables: { request: { id, signature } } }).then(
-              ({ errors }) => {
-                if (errors) {
+              ({ data: { broadcast }, errors }) => {
+                if (errors || broadcast?.reason === 'NOT_ALLOWED') {
                   write({ args: inputStruct })
                 }
               }
@@ -165,7 +169,16 @@ const Follow: FC<Props> = ({
     } else {
       createFollowTypedData({
         variables: {
-          request: { follow: { profile: profile?.id } }
+          request: {
+            follow: {
+              profile: profile?.id,
+              followModule:
+                profile?.followModule?.__typename ===
+                'ProfileFollowModuleSettings'
+                  ? { profileFollowModule: { profileId: currentUser?.id } }
+                  : null
+            }
+          }
         }
       })
     }

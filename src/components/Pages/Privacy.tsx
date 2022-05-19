@@ -13,7 +13,7 @@ const Privacy: FC = () => {
           </h1>
           <div className="flex justify-center mt-4">
             <div className="py-0.5 px-2 text-xs text-white bg-gray-800 rounded-md">
-              Updated April 13, 2022
+              Updated May 18, 2022
             </div>
           </div>
         </div>
