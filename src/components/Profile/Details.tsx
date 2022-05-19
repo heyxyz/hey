@@ -195,7 +195,7 @@ const Details: FC<Props> = ({ profile }) => {
             <Markup>{profile?.bio}</Markup>
           </div>
         )}
-        <div className="w-full border-b dark:border-gray-700/80" />
+        <div className="w-full divider" />
         <div className="space-y-2">
           <MetaDetails icon={<HashtagIcon className="w-4 h-4" />}>
             {profile?.id}

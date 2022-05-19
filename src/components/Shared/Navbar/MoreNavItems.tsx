@@ -85,7 +85,7 @@ const MoreNavItems: FC = () => {
                       </div>
                     </Menu.Item>
                   )}
-                  <div className="border-b dark:border-gray-700/80" />
+                  <div className="divider" />
                 </>
               )}
               <Menu.Item

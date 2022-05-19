@@ -93,3 +93,7 @@ body {
 .dropdown-active {
   @apply bg-gray-100 dark:bg-gray-800;
 }
+
+.divider {
+  @apply border-b dark:border-gray-700/80;
+}
