@@ -89,3 +89,11 @@ body {
 .mention-input__suggestions__list {
   @apply divide-y dark:divide-gray-700/80;
 }
+
+.dropdown-active {
+  @apply bg-gray-100 dark:bg-gray-800;
+}
+
+.divider {
+  @apply border-b dark:border-gray-700/80;
+}

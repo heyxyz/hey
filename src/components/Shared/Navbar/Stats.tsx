@@ -1,6 +1,6 @@
 import { gql, useQuery } from '@apollo/client'
-import { GlobalProtocolStats } from '@generated/types'
-import { Menu } from '@headlessui/react'
+import { Erc20Amount, GlobalProtocolStats } from '@generated/types'
+import { Disclosure, Menu } from '@headlessui/react'
 import {
   CashIcon,
   ChatAlt2Icon,
@@ -11,6 +11,7 @@ import {
   UserAddIcon,
   UsersIcon
 } from '@heroicons/react/outline'
+import getTokenImage from '@lib/getTokenImage'
 import humanize from '@lib/humanize'
 import { FC, ReactChild } from 'react'
 import { ERROR_MESSAGE } from 'src/constants'
@@ -166,6 +167,34 @@ const Stats: FC = () => {
           </span>
         }
       />
+      <div className="divider" />
+      <Disclosure>
+        <>
+          <Disclosure.Button className="menu-item">
+            <div className="flex items-center space-x-2">
+              <CashIcon className="w-4 h-4" />
+              <div>Total Revenue</div>
+            </div>
+          </Disclosure.Button>
+          <Disclosure.Panel className="px-6 pb-3 text-sm text-gray-500 space-y-2">
+            {stats?.totalRevenue.map((revenue: Erc20Amount) => (
+              <div
+                key={revenue?.asset?.address}
+                className="flex items-center space-x-1"
+              >
+                <img
+                  className="h-5 w-5"
+                  src={getTokenImage(revenue?.asset?.symbol)}
+                  alt="revenue?.asset?.symbol"
+                />
+                <span>
+                  <b>{revenue?.value}</b> {revenue?.asset?.symbol}
+                </span>
+              </div>
+            ))}
+          </Disclosure.Panel>
+        </>
+      </Disclosure>
     </>
   )
 }

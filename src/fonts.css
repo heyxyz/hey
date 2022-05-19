@@ -15,6 +15,7 @@
     url('https://assets.lenster.xyz/css/fonts/Lenster-LightItalic.woff')
       format('woff');
 }
+
 @font-face {
   font-family: 'Lenster';
   font-style: normal;
@@ -32,6 +33,7 @@
     url('https://assets.lenster.xyz/css/fonts/Lenster-MediumItalic.woff')
       format('woff');
 }
+
 @font-face {
   font-family: 'Lenster';
   font-style: normal;

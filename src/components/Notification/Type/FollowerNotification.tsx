@@ -40,11 +40,15 @@ const FollowerNotification: FC<Props> = ({ notification }) => {
           <NotificationWalletProfileName wallet={notification?.wallet} />
         )}{' '}
         <span className="text-gray-600 dark:text-gray-400">
-          {currentUser?.followModule ? 'super' : ''} followed you
+          {currentUser?.followModule?.__typename === 'FeeFollowModuleSettings'
+            ? 'super'
+            : ''}{' '}
+          followed you
         </span>
         <div className="flex items-center pt-1 space-x-1 text-gray-400 text-[12px]">
           <UserAddIcon className="text-green-500 h-[15px]" />
-          {currentUser?.followModule && (
+          {currentUser?.followModule?.__typename ===
+            'FeeFollowModuleSettings' && (
             <HeartIcon className="text-pink-500 h-[15px]" />
           )}
           <div>{dayjs(new Date(notification?.createdAt)).fromNow()}</div>
