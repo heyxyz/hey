@@ -2,6 +2,7 @@ import { Profile } from '@generated/types'
 import generateMeta from '@lib/generateMeta'
 import getIPFSLink from '@lib/getIPFSLink'
 import { NextRequest } from 'next/server'
+import { DEFAULT_OG } from 'src/constants'
 import parser from 'ua-parser-js'
 
 export async function middleware(req: NextRequest) {
@@ -19,16 +20,16 @@ export async function middleware(req: NextRequest) {
       const title = profile?.name
         ? `${profile?.name} (@${profile?.handle}) • Lenster`
         : `@${profile?.handle} • Lenster`
-      const description = profile?.bio
-      const image =
-        profile &&
-        `https://ik.imagekit.io/lensterimg/tr:n-avatar/${getIPFSLink(
-          // @ts-ignore
-          profile?.picture?.original?.url ??
+      const description = profile?.bio ?? ''
+      const image = profile
+        ? `https://ik.imagekit.io/lensterimg/tr:n-avatar/${getIPFSLink(
             // @ts-ignore
-            profile?.picture?.uri ??
-            `https://avatar.tobi.sh/${profile?.ownedBy}_${profile?.handle}.png`
-        )}`
+            profile?.picture?.original?.url ??
+              // @ts-ignore
+              profile?.picture?.uri ??
+              `https://avatar.tobi.sh/${profile?.ownedBy}_${profile?.handle}.png`
+          )}`
+        : DEFAULT_OG
 
       return new Response(generateMeta(title, description, image), {
         headers: { 'Content-Type': 'text/html' }

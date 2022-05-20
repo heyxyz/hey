@@ -1,14 +1,12 @@
 const generateMeta = (
-  title: string | null = 'Lenster',
-  description:
-    | string
-    | null = 'Lenster is a composable, decentralized, and permissionless social media web app built with Lens Protocol 🌿',
-  image: string | null = 'https://assets.lenster.xyz/images/og/logo.jpeg'
+  title: string,
+  description: string,
+  image: string
 ): string => {
   return `<!DOCTYPE html>
   <html lang="en">
     <title>${title}</title>
-    <meta name="description" content="${title}" />
+    <meta name="description" content="${description}" />
   
     <meta property="og:url" content="https://lenster.xyz" />
     <meta property="og:site_name" content="Lenster" />
