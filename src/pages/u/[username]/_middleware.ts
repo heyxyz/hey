@@ -31,7 +31,10 @@ export async function middleware(req: NextRequest) {
         : 'https://assets.lenster.xyz/images/og/logo.jpeg'
 
       return new Response(generateMeta(title, description, image), {
-        headers: { 'Content-Type': 'text/html' }
+        headers: {
+          'Content-Type': 'text/html',
+          'Cache-Control': 's-maxage=86400'
+        }
       })
     }
   }
