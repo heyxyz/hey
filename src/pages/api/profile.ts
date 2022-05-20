@@ -1,7 +1,33 @@
-import { PROFILE_QUERY } from '@components/Profile'
+import { gql } from '@apollo/client'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { nodeClient } from 'src/apollo'
 import { ERROR_MESSAGE } from 'src/constants'
+
+const PROFILE_QUERY = gql`
+  query Profile($request: ProfileQueryRequest!) {
+    profiles(request: $request) {
+      items {
+        handle
+        name
+        bio
+        stats {
+          totalFollowers
+          totalFollowing
+        }
+        picture {
+          ... on MediaSet {
+            original {
+              url
+            }
+          }
+          ... on NftImage {
+            uri
+          }
+        }
+      }
+    }
+  }
+`
 
 export default async function handler(
   req: NextApiRequest,
