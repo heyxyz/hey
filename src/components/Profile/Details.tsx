@@ -7,6 +7,7 @@ import Unfollow from '@components/Shared/Unfollow'
 import { Button } from '@components/UI/Button'
 import { Tooltip } from '@components/UI/Tooltip'
 import AppContext from '@components/utils/AppContext'
+import { useENS } from '@components/utils/hooks/useENS'
 import { Profile } from '@generated/types'
 import {
   HashtagIcon,
@@ -46,6 +47,9 @@ const Details: FC<Props> = ({ profile }) => {
   const [following, setFollowing] = useState<boolean>(false)
   const { currentUser, staffMode } = useContext(AppContext)
   const { resolvedTheme } = useTheme()
+  const { data: ensName, isLoading: ensLoading } = useENS(
+    profile?.ownedBy ?? ''
+  )
 
   useEffect(() => {
     if (profile?.stats?.totalFollowers) {
@@ -123,6 +127,7 @@ const Details: FC<Props> = ({ profile }) => {
               <ShieldCheckIcon className="w-6 h-6 text-green-500" />
             </Tooltip>
           )}
+          {ensName}
         </div>
         <div className="flex items-center space-x-3">
           {profile?.name ? (
