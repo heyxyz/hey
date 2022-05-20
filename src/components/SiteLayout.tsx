@@ -9,7 +9,6 @@ import { FC, ReactNode, useEffect, useState } from 'react'
 import { Toaster } from 'react-hot-toast'
 import { useAccount, useConnect, useDisconnect } from 'wagmi'
 
-import Loading from './Loading'
 import Navbar from './Shared/Navbar'
 import AppContext from './utils/AppContext'
 
@@ -31,7 +30,6 @@ interface Props {
 
 const SiteLayout: FC<Props> = ({ children }) => {
   const { resolvedTheme } = useTheme()
-  const [pageLoading, setPageLoading] = useState<boolean>(true)
   const [staffMode, setStaffMode] = useState<boolean>()
   const [refreshToken, setRefreshToken] = useState<string>()
   const [selectedProfile, setSelectedProfile] = useState<number>(0)
@@ -60,7 +58,6 @@ const SiteLayout: FC<Props> = ({ children }) => {
     setRefreshToken(Cookies.get('refreshToken'))
     setSelectedProfile(localStorage.selectedProfile)
     setStaffMode(localStorage.staffMode === 'true')
-    setPageLoading(false)
 
     if (!activeConnector) {
       disconnect()
@@ -106,8 +103,6 @@ const SiteLayout: FC<Props> = ({ children }) => {
     },
     loading: { className: 'border border-gray-300' }
   }
-
-  if (loading || pageLoading) return <Loading />
 
   return (
     <AppContext.Provider value={injectedGlobalContext}>

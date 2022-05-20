@@ -39,8 +39,10 @@ const ViewPost: NextPage<{
   return (
     <>
       <SEO
-        title={`${profile?.name} (${profile?.handle}) on Lenster:`}
-        description={post?.metadata?.content}
+        title={
+          profile?.handle && `${profile?.name} (${profile.handle}) on Lenster:`
+        }
+        description={post && post.metadata?.content}
       />
       <PostRender id={id} post={post} profile={profile} />
     </>
