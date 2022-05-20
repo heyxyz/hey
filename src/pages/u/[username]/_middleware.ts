@@ -10,7 +10,6 @@ export async function middleware(req: NextRequest) {
   const ua = parser(headers.get('user-agent')!)
 
   if (!ua.os.name) {
-    console.log()
     const result = await fetch(`${url.origin}/api/profile?handle=${username}`)
     const data = await result.json()
     const profile: Profile = data?.profile
