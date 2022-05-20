@@ -97,10 +97,3 @@ body {
 .divider {
   @apply border-b dark:border-gray-700/80;
 }
-
-#nprogress {
-  @apply pointer-events-none z-50;
-}
-#nprogress .bar {
-  @apply bg-brand-500 fixed z-50 top-0 left-0 w-full h-0.5;
-}
