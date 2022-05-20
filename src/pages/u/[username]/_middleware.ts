@@ -1,5 +1,5 @@
 import { Profile } from '@generated/types'
-import getAvatar from '@lib/getAvatar'
+import generateMeta from '@lib/generateMeta'
 import { NextRequest } from 'next/server'
 import parser from 'ua-parser-js'
 
@@ -14,32 +14,12 @@ export async function middleware(req: NextRequest) {
     const data = await result.json()
     const profile: Profile = data?.profile
 
-    return new Response(
-      `<!DOCTYPE html>
-<html lang="en">
-  <title>${`${profile?.name} (@${profile?.handle}) • Lenster`}</title>
-  <meta name="description" content="${profile?.bio}" />
+    const title = `${profile?.name} (@${profile?.handle}) • Lenster`
 
-  <meta property="og:url" content="https://lenster.xyz" />
-  <meta property="og:site_name" content="Lenster" />
-  <meta property="og:title" content="${`${profile?.name} (@${profile?.handle}) • Lenster`}" />
-  <meta property="og:description" content="${profile?.bio}" />
-  <meta property="og:image" content="${profile && getAvatar(profile)}" />
-  <meta property="og:image:width" content="400" />
-  <meta property="og:image:height" content="400" />
+    console.log(data)
 
-  <meta property="twitter:card" content="summary" />
-  <meta property="twitter:site" content="Lenster" />
-  <meta property="twitter:title" content="${`${profile?.name} (@${profile?.handle}) • Lenster`}" />
-  <meta property="twitter:description" content="${profile?.bio}" />
-  <meta property="twitter:image:src" content="${
-    profile && getAvatar(profile)
-  }" />
-  <meta property="twitter:image:width" content="400" />
-  <meta property="twitter:image:height" content="400" />
-  <meta property="twitter:creator" content="lensterxyz" />
-</html>`,
-      { headers: { 'Content-Type': 'text/html' } }
-    )
+    return new Response(generateMeta(title), {
+      headers: { 'Content-Type': 'text/html' }
+    })
   }
 }
