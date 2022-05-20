@@ -1,7 +1,6 @@
 import '../styles.css'
 
 import { ApolloProvider } from '@apollo/client'
-import NProgress from '@components/Shared/NProgress'
 import SiteLayout from '@components/SiteLayout'
 import { providers } from 'ethers'
 import { AppProps } from 'next/app'
@@ -64,7 +63,6 @@ const App = ({ Component, pageProps }: AppProps) => {
     <Provider client={wagmiClient}>
       <ApolloProvider client={client}>
         <ThemeProvider defaultTheme="light" attribute="class">
-          <NProgress />
           <SiteLayout>
             <Component {...pageProps} />
           </SiteLayout>

@@ -15,12 +15,12 @@ import SetProfile from './SetProfile'
 import Streak from './Streak'
 
 const Home: NextPage = () => {
-  const { currentUser, currentUserLoading } = useContext(AppContext)
+  const { currentUser } = useContext(AppContext)
 
   return (
     <>
       <SEO />
-      {!currentUserLoading ? !currentUser && <Hero /> : null}
+      {!currentUser && <Hero />}
       <GridLayout>
         <GridItemEight className="space-y-5">
           {currentUser ? <HomeFeed /> : <ExploreFeed />}
