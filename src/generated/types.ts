@@ -80,6 +80,13 @@ export type Scalars = {
   Void: any
 }
 
+export type AchRequest = {
+  ethereumAddress: Scalars['EthereumAddress']
+  freeTextHandle?: InputMaybe<Scalars['Boolean']>
+  handle?: InputMaybe<Scalars['CreateHandle']>
+  secret: Scalars['String']
+}
+
 export type ApprovedAllowanceAmount = {
   __typename?: 'ApprovedAllowanceAmount'
   allowance: Scalars['String']
@@ -1327,6 +1334,7 @@ export type ModuleInfo = {
 
 export type Mutation = {
   __typename?: 'Mutation'
+  ach?: Maybe<Scalars['Void']>
   authenticate: AuthenticationResult
   broadcast: RelayResult
   claim: RelayResult
@@ -1348,6 +1356,10 @@ export type Mutation = {
   hidePublication?: Maybe<Scalars['Void']>
   refresh: AuthenticationResult
   reportPublication?: Maybe<Scalars['Void']>
+}
+
+export type MutationAchArgs = {
+  request: AchRequest
 }
 
 export type MutationAuthenticateArgs = {
