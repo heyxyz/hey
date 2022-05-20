@@ -42,6 +42,7 @@ export default async function handler(
     })
 
     if (data?.publication) {
+      res.setHeader('Cache-Control', 's-maxage=86400')
       return res
         .status(200)
         .json({ success: true, publication: data?.publication })

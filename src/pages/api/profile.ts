@@ -48,6 +48,7 @@ export default async function handler(
     })
 
     if (data?.profiles?.items[0]) {
+      res.setHeader('Cache-Control', 's-maxage=86400')
       return res
         .status(200)
         .json({ success: true, profile: data?.profiles?.items[0] })
