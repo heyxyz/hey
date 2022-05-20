@@ -229,7 +229,9 @@ const Details: FC<Props> = ({ profile }) => {
                   src={`https://www.google.com/s2/favicons?domain=${getAttribute(
                     profile?.attributes,
                     'website'
-                  )}`}
+                  )
+                    ?.replace('https://', '')
+                    .replace('http://', '')}`}
                   className="w-4 h-4 rounded-full"
                   height={16}
                   width={16}
@@ -238,11 +240,15 @@ const Details: FC<Props> = ({ profile }) => {
               }
             >
               <a
-                href={getAttribute(profile?.attributes, 'website')}
+                href={`https://${getAttribute(profile?.attributes, 'website')
+                  ?.replace('https://', '')
+                  .replace('http://', '')}`}
                 target="_blank"
                 rel="noreferrer noopener"
               >
-                {getAttribute(profile?.attributes, 'website')}
+                {getAttribute(profile?.attributes, 'website')
+                  ?.replace('https://', '')
+                  .replace('http://', '')}
               </a>
             </MetaDetails>
           )}
