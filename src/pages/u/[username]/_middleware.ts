@@ -3,8 +3,8 @@ import parser from 'ua-parser-js'
 
 export async function middleware(req: NextRequest) {
   const { headers } = req
-  // const url = req.nextUrl.clone()
-  // const username = url.pathname.replace('/u/', '')
+  const url = req.nextUrl.clone()
+  const username = url.pathname.replace('/u/', '')
   const ua = parser(headers.get('user-agent')!)
 
   if (!ua.os.name) {
@@ -14,6 +14,6 @@ export async function middleware(req: NextRequest) {
     // const data = await result.json()
     // const profile: Profile = data?.profile
 
-    return new Response(`gm`, { headers: { 'Content-Type': 'text/html' } })
+    return new Response(username, { headers: { 'Content-Type': 'text/html' } })
   }
 }
