@@ -5,14 +5,14 @@ import { STATIC_ASSETS } from 'src/constants'
 interface Props {
   title?: string
   description?: string
+  image?: string
 }
 
 const SEO: FC<Props> = ({
   title = 'Lenster',
-  description = 'Lenster is a composable, decentralized, and permissionless social media web app built with Lens Protocol 🌿'
+  description = 'Lenster is a composable, decentralized, and permissionless social media web app built with Lens Protocol 🌿',
+  image = 'https://assets.lenster.xyz/images/og/logo.jpeg'
 }) => {
-  const image = 'https://assets.lenster.xyz/images/og/logo.jpeg'
-
   return (
     <Head>
       <title>{title}</title>

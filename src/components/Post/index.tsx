@@ -62,11 +62,14 @@ const ViewPost: NextPage<{
   if (!data.publication) return <Custom404 />
 
   const post: LensterPost = data.publication
+  const profile =
+    post?.__typename === 'Mirror' ? post?.mirrorOf?.profile : post?.profile
 
   return (
     <GridLayout>
       <SEO
-        title={`${post?.__typename} by @${post?.profile?.handle} • Lenster`}
+        title={`${profile?.name} (${profile.handle}) on Lenster:`}
+        description={post.metadata.content}
       />
       <GridItemEight className="space-y-5">
         <SinglePost post={post} />
