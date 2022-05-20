@@ -47,9 +47,7 @@ const Details: FC<Props> = ({ profile }) => {
   const [following, setFollowing] = useState<boolean>(false)
   const { currentUser, staffMode } = useContext(AppContext)
   const { resolvedTheme } = useTheme()
-  const { data: ensName, isLoading: ensLoading } = useENS(
-    profile?.ownedBy ?? ''
-  )
+  const { data: ensName } = useENS(profile?.ownedBy ?? '')
 
   useEffect(() => {
     if (profile?.stats?.totalFollowers) {
