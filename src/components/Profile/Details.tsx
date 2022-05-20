@@ -7,6 +7,7 @@ import Unfollow from '@components/Shared/Unfollow'
 import { Button } from '@components/UI/Button'
 import { Tooltip } from '@components/UI/Tooltip'
 import AppContext from '@components/utils/AppContext'
+import { useENS } from '@components/utils/hooks/useENS'
 import { Profile } from '@generated/types'
 import {
   HashtagIcon,
@@ -46,6 +47,7 @@ const Details: FC<Props> = ({ profile }) => {
   const [following, setFollowing] = useState<boolean>(false)
   const { currentUser, staffMode } = useContext(AppContext)
   const { resolvedTheme } = useTheme()
+  const { data: ensName } = useENS(profile?.ownedBy ?? '')
 
   useEffect(() => {
     if (profile?.stats?.totalFollowers) {
@@ -203,6 +205,21 @@ const Details: FC<Props> = ({ profile }) => {
           {getAttribute(profile?.attributes, 'location') && (
             <MetaDetails icon={<LocationMarkerIcon className="w-4 h-4" />}>
               {getAttribute(profile?.attributes, 'location') as any}
+            </MetaDetails>
+          )}
+          {ensName && (
+            <MetaDetails
+              icon={
+                <img
+                  src={`${STATIC_ASSETS}/brands/ens.svg`}
+                  className="w-4 h-4"
+                  height={16}
+                  width={16}
+                  alt="ENS Logo"
+                />
+              }
+            >
+              {ensName as any}
             </MetaDetails>
           )}
           {getAttribute(profile?.attributes, 'website') && (
