@@ -1,5 +1,6 @@
 import { gql, useMutation, useQuery } from '@apollo/client'
 import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout'
+import { POST_QUERY } from '@components/Post'
 import SinglePost from '@components/Post/SinglePost'
 import SettingsHelper from '@components/Shared/SettingsHelper'
 import PostShimmer from '@components/Shared/Shimmer/PostShimmer'
@@ -12,9 +13,6 @@ import { Spinner } from '@components/UI/Spinner'
 import { TextArea } from '@components/UI/TextArea'
 import AppContext from '@components/utils/AppContext'
 import SEO from '@components/utils/SEO'
-import { CommentFields } from '@gql/CommentFields'
-import { MirrorFields } from '@gql/MirrorFields'
-import { PostFields } from '@gql/PostFields'
 import { PencilAltIcon } from '@heroicons/react/outline'
 import { CheckCircleIcon } from '@heroicons/react/solid'
 import consoleLog from '@lib/consoleLog'
@@ -26,43 +24,6 @@ import Custom404 from 'src/pages/404'
 import { object, string } from 'zod'
 
 import Reason from './Reason'
-
-export const POST_QUERY = gql`
-  query Post(
-    $request: PublicationQueryRequest!
-    $followRequest: DoesFollowRequest!
-  ) {
-    publication(request: $request) {
-      ... on Post {
-        ...PostFields
-        onChainContentURI
-        referenceModule {
-          __typename
-        }
-      }
-      ... on Comment {
-        ...CommentFields
-        onChainContentURI
-        referenceModule {
-          __typename
-        }
-      }
-      ... on Mirror {
-        ...MirrorFields
-        onChainContentURI
-        referenceModule {
-          __typename
-        }
-      }
-    }
-    doesFollow(request: $followRequest) {
-      follows
-    }
-  }
-  ${PostFields}
-  ${CommentFields}
-  ${MirrorFields}
-`
 
 export const CREATE_REPORT_PUBLICATION_MUTATION = gql`
   mutation ReportPublication($request: ReportPublicationRequest!) {

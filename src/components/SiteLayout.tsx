@@ -9,6 +9,7 @@ import { FC, ReactNode, useEffect, useState } from 'react'
 import { Toaster } from 'react-hot-toast'
 import { useAccount, useConnect, useDisconnect } from 'wagmi'
 
+import Loading from './Loading'
 import Navbar from './Shared/Navbar'
 import AppContext from './utils/AppContext'
 
@@ -80,7 +81,7 @@ const SiteLayout: FC<Props> = ({ children }) => {
     setStaffMode,
     profiles: profiles,
     currentUser: profiles && profiles[selectedProfile],
-    currentUserLoading: pageLoading || loading,
+    currentUserLoading: loading,
     currentUserError: error
   }
 
@@ -105,6 +106,8 @@ const SiteLayout: FC<Props> = ({ children }) => {
     },
     loading: { className: 'border border-gray-300' }
   }
+
+  if (loading || pageLoading) return <Loading />
 
   return (
     <AppContext.Provider value={injectedGlobalContext}>
