@@ -10,9 +10,9 @@ import AppContext from '@components/utils/AppContext'
 import { useENS } from '@components/utils/hooks/useENS'
 import { Profile } from '@generated/types'
 import {
+  CogIcon,
   HashtagIcon,
-  LocationMarkerIcon,
-  PencilAltIcon
+  LocationMarkerIcon
 } from '@heroicons/react/outline'
 import { BadgeCheckIcon, ShieldCheckIcon } from '@heroicons/react/solid'
 import consoleLog from '@lib/consoleLog'
@@ -186,7 +186,7 @@ const Details: FC<Props> = ({ profile }) => {
                 <Button
                   variant="secondary"
                   className="!py-1.5"
-                  icon={<PencilAltIcon className="w-5 h-5" />}
+                  icon={<CogIcon className="w-5 h-5" />}
                 />
               </a>
             </Link>
