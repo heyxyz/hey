@@ -46,6 +46,12 @@ export const getStaticProps: GetStaticProps<{}, { id: string }> = async (
     variables: { request: { publicationId: id } }
   })
 
+  if (!data.publication) {
+    return {
+      notFound: true
+    }
+  }
+
   return {
     props: { id, post: data.publication },
     revalidate: 1
