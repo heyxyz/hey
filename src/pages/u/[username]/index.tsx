@@ -11,6 +11,12 @@ export const getStaticProps: GetStaticProps<{}, { username: string }> = async (
     variables: { request: { handles: username } }
   })
 
+  if (!data?.profiles?.items?.[0]) {
+    return {
+      notFound: true
+    }
+  }
+
   return {
     props: { profile: data?.profiles?.items?.[0] },
     revalidate: 1
