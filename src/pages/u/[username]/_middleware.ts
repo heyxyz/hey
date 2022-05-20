@@ -1,13 +1,14 @@
 import { Profile } from '@generated/types'
-import { NextRequest, NextResponse } from 'next/server'
+import { NextRequest } from 'next/server'
+import parser from 'ua-parser-js'
 
-export async function middleware(req: NextRequest, res: NextResponse) {
+export async function middleware(req: NextRequest) {
   const { headers } = req
   const url = req.nextUrl.clone()
   const username = url.pathname.replace('/u/', '')
-  const ua = headers.get('user-agent')
+  const ua = parser(headers.get('user-agent')!)
 
-  if (ua === 'googlebot') {
+  if (!ua.os.name) {
     const result = await fetch(
       `http://localhost:4783/api/profile?handle=${username}`
     )
