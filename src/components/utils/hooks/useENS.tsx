@@ -1,11 +1,6 @@
-import { useState } from 'react'
 import { useContractRead } from 'wagmi'
 
-export const useENS = (
-  address: string
-): { data: string | null; isLoading: boolean } => {
-  const [ensName, setENSName] = useState<string | null>(null)
-
+export const useENS = (address: string): { data: string | null } => {
   const abi = [
     {
       inputs: [
@@ -18,7 +13,7 @@ export const useENS = (
     }
   ]
 
-  const { data, isLoading } = useContractRead(
+  const { data } = useContractRead(
     {
       addressOrName: '0x3671ae578e63fdf66ad4f3e12cc0c0d71ac7510c',
       contractInterface: abi
@@ -27,5 +22,5 @@ export const useENS = (
     { args: [[address]], chainId: 1 }
   )
 
-  return { data: data ? data[0] : null, isLoading }
+  return { data: data ? data[0] : null }
 }
