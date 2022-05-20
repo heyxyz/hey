@@ -1,12 +1,12 @@
-import { gql, useQuery } from '@apollo/client'
+import { gql } from '@apollo/client'
 import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout'
 import SEO from '@components/utils/SEO'
-import consoleLog from '@lib/consoleLog'
+import { MediaSet, Profile } from '@generated/types'
+import getAvatar from '@lib/getAvatar'
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import Custom404 from 'src/pages/404'
-import Custom500 from 'src/pages/500'
 
 import Cover from './Cover'
 import Details from './Details'
@@ -60,41 +60,34 @@ export const PROFILE_QUERY = gql`
   }
 `
 
-const ViewProfile: NextPage = () => {
+const ViewProfile: NextPage<{ username: string; profile: Profile }> = ({
+  profile
+}) => {
+  const { isFallback } = useRouter()
   const {
-    query: { username, type }
+    query: { type }
   } = useRouter()
   const [feedType, setFeedType] = useState<string>(
     type && ['post', 'comment', 'mirror', 'nft'].includes(type as string)
       ? type?.toString().toUpperCase()
       : 'POST'
   )
-  const { data, loading, error } = useQuery(PROFILE_QUERY, {
-    variables: { request: { handles: username } },
-    skip: !username,
-    onCompleted(data) {
-      consoleLog(
-        'Query',
-        '#8b5cf6',
-        `Fetched profile details Profile:${data?.profiles?.items[0]?.id}`
-      )
-    }
-  })
 
-  if (error) return <Custom500 />
-  if (loading || !data) return <ProfilePageShimmer />
-  if (data?.profiles?.items?.length === 0) return <Custom404 />
-
-  const profile = data?.profiles?.items[0]
+  if (isFallback) return <ProfilePageShimmer />
+  if (!profile) return <Custom404 />
 
   return (
     <>
-      {profile?.name ? (
-        <SEO title={`${profile?.name} (@${profile?.handle}) • Lenster`} />
-      ) : (
-        <SEO title={`@${profile?.handle} • Lenster`} />
-      )}
-      <Cover cover={profile?.coverPicture?.original?.url} />
+      <SEO
+        title={
+          profile?.name
+            ? `${profile?.name} (@${profile?.handle}) • Lenster`
+            : `@${profile?.handle} • Lenster`
+        }
+        description={profile && profile?.bio!}
+        image={profile && getAvatar(profile)}
+      />
+      <Cover cover={(profile?.coverPicture as MediaSet)?.original?.url} />
       <GridLayout className="pt-6">
         <GridItemFour>
           <Details profile={profile} />
