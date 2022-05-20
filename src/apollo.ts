@@ -93,4 +93,9 @@ const client = new ApolloClient({
   cache: new InMemoryCache({ possibleTypes: result.possibleTypes })
 })
 
+export const nodeClient = new ApolloClient({
+  link: httpLink,
+  cache: new InMemoryCache({ possibleTypes: result.possibleTypes })
+})
+
 export default client
