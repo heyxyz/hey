@@ -7,9 +7,11 @@ import { Card, CardBody } from '@components/UI/Card'
 import AppContext from '@components/utils/AppContext'
 import SEO from '@components/utils/SEO'
 import { LensterPost } from '@generated/lenstertypes'
+import { Profile } from '@generated/types'
 import consoleLog from '@lib/consoleLog'
 import { NextPage } from 'next'
-import React, { useContext } from 'react'
+import { useRouter } from 'next/router'
+import React, { FC, useContext } from 'react'
 import { ZERO_ADDRESS } from 'src/constants'
 import Custom404 from 'src/pages/404'
 import Custom500 from 'src/pages/500'
@@ -29,9 +31,29 @@ export const FOLLOW_QUERY = gql`
 
 const ViewPost: NextPage<{
   id: string
-  post: { publication: LensterPost }
-}> = ({ id, post: data }) => {
+  post: LensterPost
+}> = ({ id, post }) => {
+  const profile =
+    post?.__typename === 'Mirror' ? post?.mirrorOf?.profile : post?.profile
+
+  return (
+    <>
+      <SEO
+        title={`${profile?.name} (${profile?.handle}) on Lenster:`}
+        description={post?.metadata?.content}
+      />
+      <PostRender id={id} post={post} profile={profile} />
+    </>
+  )
+}
+
+const PostRender: FC<{ id: string; post: LensterPost; profile: Profile }> = ({
+  id,
+  post,
+  profile
+}) => {
   const { currentUser } = useContext(AppContext)
+  const { isFallback } = useRouter()
   const {
     data: followData,
     loading,
@@ -58,12 +80,8 @@ const ViewPost: NextPage<{
   })
 
   if (error) return <Custom500 />
-  if (loading || !data) return <PostPageShimmer />
-  if (!data.publication) return <Custom404 />
-
-  const post: LensterPost = data.publication
-  const profile =
-    post?.__typename === 'Mirror' ? post?.mirrorOf?.profile : post?.profile
+  if (loading || isFallback) return <PostPageShimmer />
+  if (!post) return <Custom404 />
 
   return (
     <GridLayout>
