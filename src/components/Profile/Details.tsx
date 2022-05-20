@@ -125,7 +125,6 @@ const Details: FC<Props> = ({ profile }) => {
               <ShieldCheckIcon className="w-6 h-6 text-green-500" />
             </Tooltip>
           )}
-          {ensName}
         </div>
         <div className="flex items-center space-x-3">
           {profile?.name ? (
@@ -206,6 +205,21 @@ const Details: FC<Props> = ({ profile }) => {
           {getAttribute(profile?.attributes, 'location') && (
             <MetaDetails icon={<LocationMarkerIcon className="w-4 h-4" />}>
               {getAttribute(profile?.attributes, 'location') as any}
+            </MetaDetails>
+          )}
+          {ensName && (
+            <MetaDetails
+              icon={
+                <img
+                  src={`${STATIC_ASSETS}/brands/ens.svg`}
+                  className="w-4 h-4"
+                  height={16}
+                  width={16}
+                  alt="ENS Logo"
+                />
+              }
+            >
+              {ensName as any}
             </MetaDetails>
           )}
           {getAttribute(profile?.attributes, 'website') && (
