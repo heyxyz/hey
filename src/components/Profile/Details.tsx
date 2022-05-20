@@ -7,11 +7,12 @@ import Unfollow from '@components/Shared/Unfollow'
 import { Button } from '@components/UI/Button'
 import { Tooltip } from '@components/UI/Tooltip'
 import AppContext from '@components/utils/AppContext'
+import { useENS } from '@components/utils/hooks/useENS'
 import { Profile } from '@generated/types'
 import {
+  CogIcon,
   HashtagIcon,
-  LocationMarkerIcon,
-  PencilAltIcon
+  LocationMarkerIcon
 } from '@heroicons/react/outline'
 import { BadgeCheckIcon, ShieldCheckIcon } from '@heroicons/react/solid'
 import consoleLog from '@lib/consoleLog'
@@ -46,6 +47,7 @@ const Details: FC<Props> = ({ profile }) => {
   const [following, setFollowing] = useState<boolean>(false)
   const { currentUser, staffMode } = useContext(AppContext)
   const { resolvedTheme } = useTheme()
+  const { data: ensName } = useENS(profile?.ownedBy ?? '')
 
   useEffect(() => {
     if (profile?.stats?.totalFollowers) {
@@ -184,7 +186,7 @@ const Details: FC<Props> = ({ profile }) => {
                 <Button
                   variant="secondary"
                   className="!py-1.5"
-                  icon={<PencilAltIcon className="w-5 h-5" />}
+                  icon={<CogIcon className="w-5 h-5" />}
                 />
               </a>
             </Link>
@@ -205,6 +207,21 @@ const Details: FC<Props> = ({ profile }) => {
               {getAttribute(profile?.attributes, 'location') as any}
             </MetaDetails>
           )}
+          {ensName && (
+            <MetaDetails
+              icon={
+                <img
+                  src={`${STATIC_ASSETS}/brands/ens.svg`}
+                  className="w-4 h-4"
+                  height={16}
+                  width={16}
+                  alt="ENS Logo"
+                />
+              }
+            >
+              {ensName as any}
+            </MetaDetails>
+          )}
           {getAttribute(profile?.attributes, 'website') && (
             <MetaDetails
               icon={
@@ -212,7 +229,9 @@ const Details: FC<Props> = ({ profile }) => {
                   src={`https://www.google.com/s2/favicons?domain=${getAttribute(
                     profile?.attributes,
                     'website'
-                  )}`}
+                  )
+                    ?.replace('https://', '')
+                    .replace('http://', '')}`}
                   className="w-4 h-4 rounded-full"
                   height={16}
                   width={16}
@@ -221,11 +240,15 @@ const Details: FC<Props> = ({ profile }) => {
               }
             >
               <a
-                href={getAttribute(profile?.attributes, 'website')}
+                href={`https://${getAttribute(profile?.attributes, 'website')
+                  ?.replace('https://', '')
+                  .replace('http://', '')}`}
                 target="_blank"
                 rel="noreferrer noopener"
               >
-                {getAttribute(profile?.attributes, 'website')}
+                {getAttribute(profile?.attributes, 'website')
+                  ?.replace('https://', '')
+                  .replace('http://', '')}
               </a>
             </MetaDetails>
           )}

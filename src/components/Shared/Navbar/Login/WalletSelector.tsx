@@ -93,7 +93,7 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
     loadChallenge({
       variables: { request: { address: accountData?.address } }
     }).then((res) => {
-      signMessageAsync({ message: res.data.challenge.text }).then(
+      signMessageAsync({ message: res?.data?.challenge?.text }).then(
         (signature) => {
           authenticate({
             variables: {
