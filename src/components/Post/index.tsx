@@ -9,6 +9,7 @@ import SEO from '@components/utils/SEO'
 import { LensterPost } from '@generated/lenstertypes'
 import { Profile } from '@generated/types'
 import consoleLog from '@lib/consoleLog'
+import getAvatar from '@lib/getAvatar'
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import React, { FC, useContext } from 'react'
@@ -43,6 +44,7 @@ const ViewPost: NextPage<{
           profile?.handle && `${profile?.name} (${profile.handle}) on Lenster:`
         }
         description={post && post.metadata?.content}
+        image={profile && getAvatar(profile)}
       />
       <PostRender id={id} post={post} profile={profile} />
     </>
