@@ -245,7 +245,7 @@ const SuperFollow: FC = () => {
       </Card>
     )
 
-  const followType = currencyData?.profiles?.items[0]?.followModule
+  const followType = currencyData?.profiles?.items[0]?.followModule?.__typename
 
   return (
     <Card>
