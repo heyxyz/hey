@@ -15,7 +15,7 @@ import {
   POLYGON_MAINNET,
   POLYGON_MUMBAI
 } from 'src/constants'
-import { createClient, Provider } from 'wagmi'
+import { createClient, WagmiConfig } from 'wagmi'
 import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet'
 import { InjectedConnector } from 'wagmi/connectors/injected'
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect'
@@ -60,7 +60,7 @@ const wagmiClient = createClient({
 
 const App = ({ Component, pageProps }: AppProps) => {
   return (
-    <Provider client={wagmiClient}>
+    <WagmiConfig client={wagmiClient}>
       <ApolloProvider client={client}>
         <ThemeProvider defaultTheme="light" attribute="class">
           <SiteLayout>
@@ -76,7 +76,7 @@ const App = ({ Component, pageProps }: AppProps) => {
           defer
         />
       )}
-    </Provider>
+    </WagmiConfig>
   )
 }
 

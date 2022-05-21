@@ -983,7 +983,7 @@
     "@babel/helper-validator-identifier" "^7.16.7"
     to-fast-properties "^2.0.0"
 
-"@coinbase/wallet-sdk@^3.0.11":
+"@coinbase/wallet-sdk@^3.1.0":
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/@coinbase/wallet-sdk/-/wallet-sdk-3.1.0.tgz#294fbd52cf7262b68137731ac414f0cf5a0580a3"
   integrity sha512-8IGfVklv/CMfCT4qd9KfL0IwlINsIgSlW1oQB/or8uSY9wAqoY8lIoQVpOyFx7YDK094Xfd9alhulZtRZNJBjw==
@@ -2663,10 +2663,10 @@
     "@typescript-eslint/types" "5.25.0"
     eslint-visitor-keys "^3.3.0"
 
-"@wagmi/core@^0.2.5":
-  version "0.2.5"
-  resolved "https://registry.yarnpkg.com/@wagmi/core/-/core-0.2.5.tgz#e1314ffa482477d818bd210550d0d14144c48f77"
-  integrity sha512-4l7fA9RsKxMDaILUP8eUxDcudOi5gB5Hyfwox9pDzZNdzt8QShwOsfm0gbtLcfpHpZPzRDt1D0VY1UtP1NMicQ==
+"@wagmi/core@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@wagmi/core/-/core-0.3.0.tgz#2eff5b1bea457516d3892f627bd7aa897a1f901c"
+  integrity sha512-PU2fGc8JpY9AYV6JilVFcTUhEMcoipev1bSYygNfprBG2Iywhf/1NRCUYDTVoRjt85oFN7filEEweg4q51wcQA==
   dependencies:
     eventemitter3 "^4.0.7"
     zustand "^4.0.0-rc.1"
@@ -7852,16 +7852,16 @@ react-native-fetch-api@^2.0.0:
   dependencies:
     p-defer "^3.0.0"
 
-react-query@4.0.0-beta.9:
-  version "4.0.0-beta.9"
-  resolved "https://registry.yarnpkg.com/react-query/-/react-query-4.0.0-beta.9.tgz#1de58a717287f7e5e03abbe2ea155c1d7e9a9cae"
-  integrity sha512-RRred9TzbWcsaJBwuHmsuCLYhcytObPmM5mFktLEm3I0s6PJjE3vh8WA7ZYklpfR1My3ffZyLn6gCMWpvEgSag==
+react-query@4.0.0-beta.12:
+  version "4.0.0-beta.12"
+  resolved "https://registry.yarnpkg.com/react-query/-/react-query-4.0.0-beta.12.tgz#479299c6691e55294e6481ee49131ac6aadf0a0e"
+  integrity sha512-PAeGKj/SlIvxShJVBbyKojUYUK78yK/W9nS9Uw78e40wjhuHiFMqbQWjtAQTBCbliZ5p1VkSHCAtpEVrr5GOvQ==
   dependencies:
     "@babel/runtime" "^7.17.9"
     "@types/use-sync-external-store" "^0.0.3"
     broadcast-channel "^3.4.1"
     match-sorter "^6.0.2"
-    use-sync-external-store "^1.0.0"
+    use-sync-external-store "^1.1.0"
 
 react-universal-interface@^0.6.2:
   version "0.6.2"
@@ -9217,7 +9217,7 @@ use-streak@^1.0.4:
   resolved "https://registry.yarnpkg.com/use-streak/-/use-streak-1.0.4.tgz#3f08e56028ca68ce9c19355e6a12e77d90315881"
   integrity sha512-+nRmjOiWLyp4/YHJFSEh+8SxMfNCUehznrJ8/ubfn+bNuVdQHY895ITbo1zInv9veMVKXlV/Ukp76RKoGFYR7A==
 
-use-sync-external-store@1.1.0, use-sync-external-store@^1.0.0, use-sync-external-store@^1.1.0:
+use-sync-external-store@1.1.0, use-sync-external-store@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/use-sync-external-store/-/use-sync-external-store-1.1.0.tgz#3343c3fe7f7e404db70f8c687adf5c1652d34e82"
   integrity sha512-SEnieB2FPKEVne66NpXPd1Np4R1lTNKfjuy3XdIoPQKYBAFdzbzSZlSn1KJZUiihQLQC5Znot4SBz1EOTBwQAQ==
@@ -9257,15 +9257,15 @@ varint@^6.0.0:
   resolved "https://registry.yarnpkg.com/varint/-/varint-6.0.0.tgz#9881eb0ce8feaea6512439d19ddf84bf551661d0"
   integrity sha512-cXEIW6cfr15lFv563k4GuVuW/fiwjknytD37jIOLSdSWuOI6WnO/oKwmP2FQTU2l01LP8/M5TSAJpzUaGe3uWg==
 
-wagmi@^0.3.5:
-  version "0.3.5"
-  resolved "https://registry.yarnpkg.com/wagmi/-/wagmi-0.3.5.tgz#d48fa7cd4cf264491201ff0b0bb0356f7d9a2472"
-  integrity sha512-NZx8vfPBnkW2UTRUjLTAGC+t8VEJyOxydT1VYAA/7+5/2+xr1likVAVqgk+U/tLdfd3rn/iuQKIEuJWfZNu+Ew==
+wagmi@^0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/wagmi/-/wagmi-0.4.0.tgz#ff11dfc7b1a07046750e824acc31152c73a5437d"
+  integrity sha512-54B+tTOeZN06V3G0ZXUEUi+d6KLQu6GQ48SV2XmupqxqjthgELSDL6zoBR5OhYKitvGv4wODuz0XsB2MriSumw==
   dependencies:
-    "@coinbase/wallet-sdk" "^3.0.11"
-    "@wagmi/core" "^0.2.5"
+    "@coinbase/wallet-sdk" "^3.1.0"
+    "@wagmi/core" "^0.3.0"
     "@walletconnect/ethereum-provider" "^1.7.8"
-    react-query "4.0.0-beta.9"
+    react-query "4.0.0-beta.12"
     use-sync-external-store "^1.1.0"
 
 wcwidth@^1.0.1:
