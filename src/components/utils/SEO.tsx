@@ -39,6 +39,7 @@ const SEO: FC<Props> = ({ title = TITLE, description = DESCRIPTION }) => {
       <meta property="og:image:width" content="400" />
       <meta property="og:image:height" content="400" />
 
+      <meta property="twitter:card" content="summary" />
       <meta property="twitter:site" content="Lenster" />
       <meta property="twitter:title" content={title} />
       <meta property="twitter:description" content={description} />
