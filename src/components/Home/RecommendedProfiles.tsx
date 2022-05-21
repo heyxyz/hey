@@ -10,6 +10,7 @@ import { MinimalProfileFields } from '@gql/MinimalProfileFields'
 import { UsersIcon } from '@heroicons/react/outline'
 import { LightningBoltIcon, SparklesIcon } from '@heroicons/react/solid'
 import consoleLog from '@lib/consoleLog'
+import randomizeArray from '@lib/randomizeArray'
 import React, { FC, useContext } from 'react'
 
 const RECOMMENDED_PROFILES_QUERY = gql`
@@ -89,9 +90,11 @@ const RecommendedProfiles: FC = () => {
       <Card>
         <CardBody className="space-y-4">
           <ErrorMessage title="Failed to recommendations" error={error} />
-          {data?.recommendedProfiles?.slice(0, 5)?.map((profile: Profile) => (
-            <UserProfile key={profile?.id} profile={profile} showFollow />
-          ))}
+          {randomizeArray(data?.recommendedProfiles)
+            ?.slice(0, 5)
+            ?.map((profile: Profile) => (
+              <UserProfile key={profile?.id} profile={profile} showFollow />
+            ))}
         </CardBody>
       </Card>
     </>
