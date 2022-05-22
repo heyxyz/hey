@@ -13,7 +13,8 @@ import { API_URL, ERROR_MESSAGE } from './constants'
 
 export const COOKIE_CONFIG: CookieAttributes = {
   sameSite: 'None',
-  secure: true
+  secure: true,
+  expires: 360
 }
 
 const REFRESH_AUTHENTICATION_MUTATION = `
