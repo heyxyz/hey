@@ -296,7 +296,10 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
           <div className="pb-5">
             <ReferenceAlert
               handle={post?.profile?.handle}
-              isSuperFollow={post?.profile?.followModule ? true : false}
+              isSuperFollow={
+                post?.profile?.followModule?.__typename ===
+                'FeeFollowModuleSettings'
+              }
               action="collect"
             />
           </div>
