@@ -77,7 +77,7 @@ const UserProfile: FC<Props> = ({
           <div className="w-10 h-8 rounded-lg shimmer" />
         ) : following ? (
           <Unfollow profile={profile} setFollowing={setFollowing} />
-        ) : profile?.followModule ? (
+        ) : profile?.followModule?.__typename === 'FeeFollowModuleSettings' ? (
           <SuperFollow profile={profile} setFollowing={setFollowing} />
         ) : (
           <Follow profile={profile} setFollowing={setFollowing} />
