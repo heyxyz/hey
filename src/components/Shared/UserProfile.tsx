@@ -32,7 +32,7 @@ const UserProfile: FC<Props> = ({
   const [following, setFollowing] = useState<boolean>(isFollowing)
 
   return (
-    <div className="flex justify-between items-center">
+    <div className="flex justify-between items-center truncate max-w-sm">
       <Link href={`/u/${profile?.handle}`}>
         <a href={`/u/${profile?.handle}`}>
           <div className="flex items-center space-x-3">
