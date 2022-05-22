@@ -2,16 +2,16 @@ import { Card, CardBody } from '@components/UI/Card'
 import { Nft } from '@generated/types'
 import getIPFSLink from '@lib/getIPFSLink'
 import React, { FC } from 'react'
-import { CHAIN_ID, OPENSEA_URL, STATIC_ASSETS } from 'src/constants'
+import { CHAIN_ID, RARIBLE_URL, STATIC_ASSETS } from 'src/constants'
 
 interface Props {
   nft: Nft
 }
 
 const SingleNFT: FC<Props> = ({ nft }) => {
-  const nftURL = `${OPENSEA_URL}/assets/${
-    nft.chainId === CHAIN_ID ? 'matic/' : ''
-  }${nft.contractAddress}/${nft.tokenId}`
+  const nftURL = `${RARIBLE_URL}/token/${
+    nft.chainId === CHAIN_ID ? 'polygon/' : ''
+  }${nft.contractAddress}:${nft.tokenId}`
 
   return (
     <Card>
