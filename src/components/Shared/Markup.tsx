@@ -19,6 +19,8 @@ const Markup: FC<Props> = ({ children }) => {
   return (
     <Interweave
       content={trimify(children)}
+      escapeHtml
+      allowList={['b', 'i', 'a', 'br', 'code', 'span']}
       matchers={[
         new HashtagMatcher('hashtag'),
         new MentionMatcher('mention'),
