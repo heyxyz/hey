@@ -21,7 +21,7 @@ export async function middleware(req: NextRequest) {
 
     if (data?.success) {
       const title =
-        profile?.handle && `${profile?.name} (${profile.handle}) on Lenster:`
+        profile?.name ?? `${profile?.handle} (${profile.handle}) on Lenster:`
       const description = publication.metadata?.content ?? ''
       const image = profile
         ? `https://ik.imagekit.io/lensterimg/tr:n-avatar/${getIPFSLink(
