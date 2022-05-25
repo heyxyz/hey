@@ -99,7 +99,7 @@ const FeeEntry: FC<Props> = ({
           label="Referral Fee"
           helper={
             <span>
-              When someone mirror the publication they will get some reward in
+              When someone mirrors the publication they will get some reward in
               percentage for referring it.
             </span>
           }

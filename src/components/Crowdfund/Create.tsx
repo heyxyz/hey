@@ -394,7 +394,7 @@ const Create: NextPage = () => {
                 label="Referral Fee"
                 helper={
                   <span>
-                    When someone mirror the crowdfund they will get some reward
+                    When someone mirrors the crowdfund they will get some reward
                     in percentage for referring it.
                   </span>
                 }
