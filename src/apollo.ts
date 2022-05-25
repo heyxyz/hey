@@ -89,14 +89,16 @@ const authLink = new ApolloLink((operation, forward) => {
   }
 })
 
+const cache = new InMemoryCache({ possibleTypes: result.possibleTypes })
+
 const client = new ApolloClient({
   link: authLink.concat(httpLink),
-  cache: new InMemoryCache({ possibleTypes: result.possibleTypes })
+  cache
 })
 
 export const nodeClient = new ApolloClient({
   link: httpLink,
-  cache: new InMemoryCache({ possibleTypes: result.possibleTypes })
+  cache
 })
 
 export default client
