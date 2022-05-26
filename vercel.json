@@ -14,5 +14,11 @@
       "source": "/donate",
       "destination": "https://gitcoin.co/grants/5007/lenster"
     }
+  ],
+  "rewrites": [
+    {
+      "source": "/sitemaps/:match*",
+      "destination": "https://sitemap.lenster.xyz/sitemaps/:match*"
+    }
   ]
 }
