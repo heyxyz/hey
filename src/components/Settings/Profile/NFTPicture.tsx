@@ -96,7 +96,7 @@ const NFTPicture: FC<Props> = ({ profile }) => {
   const form = useZodForm({
     schema: editNftPictureSchema,
     defaultValues: {
-      contractAddress: '0x277f5959e22f94d5bd4c2cc0a77c4c71f31da3ac',
+      contractAddress: profile?.picture?.contractAddress,
       tokenId: profile?.picture?.tokenId
     }
   })
