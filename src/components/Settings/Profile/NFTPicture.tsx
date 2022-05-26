@@ -20,17 +20,19 @@ import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import trackEvent from '@lib/trackEvent'
 import gql from 'graphql-tag'
-import React, { FC, useContext } from 'react'
+import React, { FC, useContext, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
   CHAIN_ID,
   CONNECT_WALLET,
   ERROR_MESSAGE,
+  IS_MAINNET,
   LENSHUB_PROXY,
   RELAY_ON,
   WRONG_NETWORK
 } from 'src/constants'
 import {
+  chain,
   useAccount,
   useContractWrite,
   useNetwork,
@@ -100,6 +102,9 @@ const NFTPicture: FC<Props> = ({ profile }) => {
   })
 
   const { currentUser } = useContext(AppContext)
+  const [chainId, setChainId] = useState<number>(
+    IS_MAINNET ? chain.mainnet.id : chain.kovan.id
+  )
   const { activeChain } = useNetwork()
   const { data: account } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
@@ -200,7 +205,7 @@ const NFTPicture: FC<Props> = ({ profile }) => {
             nfts: {
               contractAddress,
               tokenId,
-              chainId: 80001
+              chainId: chain
             }
           }
         }
@@ -238,6 +243,25 @@ const NFTPicture: FC<Props> = ({ profile }) => {
           error={error}
         />
       )}
+      <div>
+        <div className="label">Chain</div>
+        <div>
+          <select
+            className="w-full bg-white rounded-xl border border-gray-300 outline-none dark:bg-gray-800 disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 dark:border-gray-700/80 focus:border-brand-500 focus:ring-brand-400"
+            onChange={(e) => setChainId(parseInt(e.target.value))}
+            value={chainId}
+          >
+            <option value={IS_MAINNET ? chain.mainnet.id : chain.kovan.id}>
+              {IS_MAINNET ? 'Ethereum' : 'Kovan'}
+            </option>
+            <option
+              value={IS_MAINNET ? chain.polygon.id : chain.polygonMumbai.id}
+            >
+              {IS_MAINNET ? 'Polygon' : 'Mumbai'}
+            </option>
+          </select>
+        </div>
+      </div>
       <Input
         label="Contract Address"
         type="text"
