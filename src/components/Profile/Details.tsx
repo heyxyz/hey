@@ -200,7 +200,9 @@ const Details: FC<Props> = ({ profile }) => {
         <div className="w-full divider" />
         <div className="space-y-2">
           <MetaDetails icon={<HashtagIcon className="w-4 h-4" />}>
-            {profile?.id}
+            <Tooltip content={`#${parseInt(profile?.id)}`}>
+              {profile?.id}
+            </Tooltip>
           </MetaDetails>
           {getAttribute(profile?.attributes, 'location') && (
             <MetaDetails icon={<LocationMarkerIcon className="w-4 h-4" />}>
