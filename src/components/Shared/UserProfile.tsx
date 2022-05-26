@@ -32,7 +32,7 @@ const UserProfile: FC<Props> = ({
   const [following, setFollowing] = useState<boolean>(isFollowing)
 
   return (
-    <div className="flex justify-between items-center truncate max-w-sm">
+    <div className="flex justify-between items-center">
       <Link href={`/u/${profile?.handle}`}>
         <a href={`/u/${profile?.handle}`}>
           <div className="flex items-center space-x-3">
@@ -48,7 +48,7 @@ const UserProfile: FC<Props> = ({
               alt={profile?.handle}
             />
             <div>
-              <div className="flex gap-1 items-center">
+              <div className="flex gap-1 items-center truncate max-w-sm">
                 <div className={clsx(isBig ? 'font-bold' : 'text-md')}>
                   {profile?.name ?? profile?.handle}
                 </div>
