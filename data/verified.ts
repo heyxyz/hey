@@ -1,4 +1,5 @@
 export const mainnetVerified = [
+  '0x24' /** @bradorbradley.lens */,
   '0x2e0a' /** @sandeep.lens */,
   '0x228d' /** @wongmjane.lens */,
   '0x28a2' /** @nader.lens */,
