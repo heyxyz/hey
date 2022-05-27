@@ -53,7 +53,6 @@ const Collectors: FC<Props> = ({ pubId }) => {
   })
 
   const { observe } = useInView({
-    threshold: 1,
     onEnter: () => {
       fetchMore({
         variables: {
