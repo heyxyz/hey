@@ -4,7 +4,7 @@ import { Input } from '@components/UI/Input'
 import AppContext from '@components/utils/AppContext'
 import { EnabledModule, Erc20 } from '@generated/types'
 import { ArrowLeftIcon } from '@heroicons/react/outline'
-import { FEE_DATA_TYPE } from '@lib/getModule'
+import { defaultModuleData, FEE_DATA_TYPE } from '@lib/getModule'
 import { Dispatch, FC, useContext, useState } from 'react'
 import { DEFAULT_COLLECT_TOKEN } from 'src/constants'
 import { object, string } from 'zod'
@@ -25,6 +25,7 @@ const feeDataSchema = object({
 interface Props {
   enabledModuleCurrencies: Erc20[]
   selectedModule: EnabledModule
+  setSelectedModule: Dispatch<EnabledModule>
   setShowFeeEntry: Dispatch<boolean>
   setShowModal: Dispatch<boolean>
   feeData: FEE_DATA_TYPE
@@ -34,6 +35,7 @@ interface Props {
 const FeeEntry: FC<Props> = ({
   enabledModuleCurrencies,
   selectedModule,
+  setSelectedModule,
   setShowFeeEntry,
   setShowModal,
   feeData,
@@ -61,7 +63,10 @@ const FeeEntry: FC<Props> = ({
       <button
         type="button"
         className="flex items-center space-x-1.5 font-bold text-gray-500"
-        onClick={() => setShowFeeEntry(false)}
+        onClick={() => {
+          setSelectedModule(defaultModuleData)
+          setShowFeeEntry(false)
+        }}
       >
         <ArrowLeftIcon className="w-4 h-4" />
         <div>Back</div>
