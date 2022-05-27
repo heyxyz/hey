@@ -66,7 +66,6 @@ const Feed: FC<Props> = ({ feedType = 'TOP_COMMENTED' }) => {
   })
 
   const { observe } = useInView({
-    threshold: 1,
     onEnter: () => {
       fetchMore({
         variables: {
