@@ -52,6 +52,10 @@ const FeeEntry: FC<Props> = ({
     }
   })
 
+  const showCollect =
+    selectedModule.moduleName === 'LimitedFeeCollectModule' ||
+    selectedModule.moduleName === 'LimitedTimedFeeCollectModule'
+
   return (
     <div className="space-y-5">
       <button
@@ -76,8 +80,7 @@ const FeeEntry: FC<Props> = ({
             ))}
           </select>
         </div>
-        {(selectedModule.moduleName === 'LimitedFeeCollectModule' ||
-          selectedModule.moduleName === 'LimitedTimedFeeCollectModule') && (
+        {showCollect && (
           <Input
             label="Collect Limit"
             type="number"
@@ -121,6 +124,13 @@ const FeeEntry: FC<Props> = ({
         </div>
         <Button
           type="button"
+          disabled={
+            !form.watch('value') ||
+            parseFloat(form.watch('value')) <= 0 ||
+            (showCollect
+              ? !form.watch('collectLimit') || form.watch('collectLimit') == '0'
+              : false)
+          }
           onClick={() => {
             setFeeData({
               amount: {
