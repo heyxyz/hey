@@ -39,9 +39,9 @@ export const API_URL = IS_MAINNET
 export const POLYGONSCAN_URL = IS_MAINNET
   ? 'https://polygonscan.com'
   : 'https://mumbai.polygonscan.com'
-export const OPENSEA_URL = IS_MAINNET
-  ? 'https://opensea.io'
-  : 'https://testnets.opensea.io'
+export const RARIBLE_URL = IS_MAINNET
+  ? 'https://rarible.com'
+  : 'https://rinkeby.rarible.com'
 export const IMAGEKIT_URL_PROD = 'https://ik.imagekit.io/lensterimg'
 export const IMAGEKIT_URL_DEV = 'https://ik.imagekit.io/lensterdev'
 export const IMAGEKIT_URL = IS_PRODUCTION ? IMAGEKIT_URL_PROD : IMAGEKIT_URL_DEV

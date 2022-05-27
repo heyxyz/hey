@@ -129,6 +129,7 @@ const NewComment: FC<Props> = ({ post, type }) => {
     }
   })
   const onCompleted = () => {
+    setPreview(false)
     setCommentContent('')
     setAttachments([])
     setSelectedModule(defaultModuleData)

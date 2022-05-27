@@ -12,7 +12,7 @@ export const PostFields = gql`
     collectedBy {
       address
       defaultProfile {
-        handle
+        ...MinimalProfileFields
       }
     }
     collectModule {

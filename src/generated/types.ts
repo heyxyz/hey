@@ -84,6 +84,7 @@ export type AchRequest = {
   ethereumAddress: Scalars['EthereumAddress']
   freeTextHandle?: InputMaybe<Scalars['Boolean']>
   handle?: InputMaybe<Scalars['CreateHandle']>
+  overrideTradeMark: Scalars['Boolean']
   secret: Scalars['String']
 }
 
@@ -1971,7 +1972,7 @@ export type Query = {
   profileRevenue: ProfileRevenueResult
   profiles: PaginatedProfileResult
   publication?: Maybe<Publication>
-  publicationRevenue: PublicationRevenue
+  publicationRevenue?: Maybe<PublicationRevenue>
   publications: PaginatedPublicationResult
   recommendedProfiles: Array<Profile>
   search: SearchResult

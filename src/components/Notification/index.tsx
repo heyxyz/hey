@@ -22,7 +22,6 @@ const Notification: FC = () => {
   const [showBadge, setShowBadge] = useState<boolean>(false)
   const { data } = useQuery(NOTIFICATION_COUNT_QUERY, {
     variables: { request: { profileId: currentUser?.id } },
-    pollInterval: 5000,
     skip: !currentUser?.id
   })
 

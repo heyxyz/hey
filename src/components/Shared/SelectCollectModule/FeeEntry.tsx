@@ -4,7 +4,7 @@ import { Input } from '@components/UI/Input'
 import AppContext from '@components/utils/AppContext'
 import { EnabledModule, Erc20 } from '@generated/types'
 import { ArrowLeftIcon } from '@heroicons/react/outline'
-import { FEE_DATA_TYPE } from '@lib/getModule'
+import { defaultModuleData, FEE_DATA_TYPE } from '@lib/getModule'
 import { Dispatch, FC, useContext, useState } from 'react'
 import { DEFAULT_COLLECT_TOKEN } from 'src/constants'
 import { object, string } from 'zod'
@@ -25,6 +25,7 @@ const feeDataSchema = object({
 interface Props {
   enabledModuleCurrencies: Erc20[]
   selectedModule: EnabledModule
+  setSelectedModule: Dispatch<EnabledModule>
   setShowFeeEntry: Dispatch<boolean>
   setShowModal: Dispatch<boolean>
   feeData: FEE_DATA_TYPE
@@ -34,6 +35,7 @@ interface Props {
 const FeeEntry: FC<Props> = ({
   enabledModuleCurrencies,
   selectedModule,
+  setSelectedModule,
   setShowFeeEntry,
   setShowModal,
   feeData,
@@ -52,12 +54,19 @@ const FeeEntry: FC<Props> = ({
     }
   })
 
+  const showCollect =
+    selectedModule.moduleName === 'LimitedFeeCollectModule' ||
+    selectedModule.moduleName === 'LimitedTimedFeeCollectModule'
+
   return (
     <div className="space-y-5">
       <button
         type="button"
         className="flex items-center space-x-1.5 font-bold text-gray-500"
-        onClick={() => setShowFeeEntry(false)}
+        onClick={() => {
+          setSelectedModule(defaultModuleData)
+          setShowFeeEntry(false)
+        }}
       >
         <ArrowLeftIcon className="w-4 h-4" />
         <div>Back</div>
@@ -76,8 +85,7 @@ const FeeEntry: FC<Props> = ({
             ))}
           </select>
         </div>
-        {(selectedModule.moduleName === 'LimitedFeeCollectModule' ||
-          selectedModule.moduleName === 'LimitedTimedFeeCollectModule') && (
+        {showCollect && (
           <Input
             label="Collect Limit"
             type="number"
@@ -99,7 +107,7 @@ const FeeEntry: FC<Props> = ({
           label="Referral Fee"
           helper={
             <span>
-              When someone mirror the publication they will get some reward in
+              When someone mirrors the publication they will get some reward in
               percentage for referring it.
             </span>
           }
@@ -121,6 +129,13 @@ const FeeEntry: FC<Props> = ({
         </div>
         <Button
           type="button"
+          disabled={
+            !form.watch('value') ||
+            parseFloat(form.watch('value')) <= 0 ||
+            (showCollect
+              ? !form.watch('collectLimit') || form.watch('collectLimit') == '0'
+              : false)
+          }
           onClick={() => {
             setFeeData({
               amount: {

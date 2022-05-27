@@ -27,10 +27,12 @@ const SinglePost: FC<Props> = ({ post, hideType = false }) => {
     <Card>
       <CardBody>
         <PostType post={post} hideType={hideType} />
-        <div className="flex justify-between pb-4">
+        <div className="flex justify-between pb-4 space-x-1.5">
           <UserProfile
             profile={
-              post?.__typename === 'Mirror'
+              postType === 'community' && !!post?.collectedBy?.defaultProfile
+                ? post?.collectedBy?.defaultProfile
+                : post?.__typename === 'Mirror'
                 ? post?.mirrorOf?.profile
                 : post?.profile
             }
