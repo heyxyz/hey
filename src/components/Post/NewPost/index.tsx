@@ -126,6 +126,7 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
   })
 
   const onCompleted = () => {
+    setPreview(false)
     setPostContent('')
     setAttachments([])
     setSelectedModule(defaultModuleData)

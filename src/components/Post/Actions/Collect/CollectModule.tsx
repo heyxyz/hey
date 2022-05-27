@@ -23,6 +23,7 @@ import {
   ClockIcon,
   CollectionIcon,
   PhotographIcon,
+  PuzzleIcon,
   UserIcon,
   UsersIcon
 } from '@heroicons/react/outline'
@@ -56,16 +57,19 @@ export const COLLECT_QUERY = gql`
   query CollectModule($request: PublicationQueryRequest!) {
     publication(request: $request) {
       ... on Post {
+        collectNftAddress
         collectModule {
           ...CollectModuleFields
         }
       }
       ... on Comment {
+        collectNftAddress
         collectModule {
           ...CollectModuleFields
         }
       }
       ... on Mirror {
+        collectNftAddress
         collectModule {
           ...CollectModuleFields
         }
@@ -296,7 +300,10 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
           <div className="pb-5">
             <ReferenceAlert
               handle={post?.profile?.handle}
-              isSuperFollow={post?.profile?.followModule ? true : false}
+              isSuperFollow={
+                post?.profile?.followModule?.__typename ===
+                'FeeFollowModuleSettings'
+              }
               action="collect"
             />
           </div>
@@ -398,6 +405,22 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
                   rel="noreferrer noopener"
                 >
                   {formatAddress(collectModule.recipient)}
+                </a>
+              </div>
+            </div>
+          )}
+          {data?.publication?.collectNftAddress && (
+            <div className="flex items-center space-x-2">
+              <PuzzleIcon className="w-4 h-4 text-gray-500" />
+              <div className="space-x-1.5">
+                <span>Contract:</span>
+                <a
+                  href={`${POLYGONSCAN_URL}/token/${data?.publication?.collectNftAddress}`}
+                  target="_blank"
+                  className="font-bold text-gray-600"
+                  rel="noreferrer noopener"
+                >
+                  {formatAddress(data?.publication?.collectNftAddress)}
                 </a>
               </div>
             </div>

@@ -77,6 +77,7 @@ const Modules: FC<Props> = ({
       {showFeeEntry ? (
         <FeeEntry
           selectedModule={selectedModule}
+          setSelectedModule={setSelectedModule}
           enabledModuleCurrencies={data?.enabledModuleCurrencies}
           setShowFeeEntry={setShowFeeEntry}
           setShowModal={setShowModal}

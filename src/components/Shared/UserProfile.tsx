@@ -48,7 +48,7 @@ const UserProfile: FC<Props> = ({
               alt={profile?.handle}
             />
             <div>
-              <div className="flex gap-1 items-center">
+              <div className="flex gap-1 items-center truncate max-w-sm">
                 <div className={clsx(isBig ? 'font-bold' : 'text-md')}>
                   {profile?.name ?? profile?.handle}
                 </div>
@@ -77,7 +77,7 @@ const UserProfile: FC<Props> = ({
           <div className="w-10 h-8 rounded-lg shimmer" />
         ) : following ? (
           <Unfollow profile={profile} setFollowing={setFollowing} />
-        ) : profile?.followModule ? (
+        ) : profile?.followModule?.__typename === 'FeeFollowModuleSettings' ? (
           <SuperFollow profile={profile} setFollowing={setFollowing} />
         ) : (
           <Follow profile={profile} setFollowing={setFollowing} />

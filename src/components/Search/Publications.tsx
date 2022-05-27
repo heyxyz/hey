@@ -60,7 +60,6 @@ const Publications: FC<Props> = ({ query }) => {
   )
 
   const { observe } = useInView({
-    threshold: 1,
     onEnter: () => {
       fetchMore({
         variables: {

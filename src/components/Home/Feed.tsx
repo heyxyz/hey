@@ -58,7 +58,6 @@ const Feed: FC = () => {
   })
 
   const { observe } = useInView({
-    threshold: 1,
     onEnter: () => {
       fetchMore({
         variables: {

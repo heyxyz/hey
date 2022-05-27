@@ -71,7 +71,6 @@ const Feed: FC<Props> = ({
   })
 
   const { observe } = useInView({
-    threshold: 1,
     onEnter: () => {
       fetchMore({
         variables: {
@@ -101,7 +100,10 @@ const Feed: FC<Props> = ({
         ) : (
           <ReferenceAlert
             handle={post?.profile?.handle}
-            isSuperFollow={post?.profile?.followModule ? true : false}
+            isSuperFollow={
+              post?.profile?.followModule?.__typename ===
+              'FeeFollowModuleSettings'
+            }
             action="comment"
           />
         ))}

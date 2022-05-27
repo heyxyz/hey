@@ -13,7 +13,8 @@ import { API_URL, ERROR_MESSAGE } from './constants'
 
 export const COOKIE_CONFIG: CookieAttributes = {
   sameSite: 'None',
-  secure: true
+  secure: true,
+  expires: 360
 }
 
 const REFRESH_AUTHENTICATION_MUTATION = `
@@ -88,14 +89,16 @@ const authLink = new ApolloLink((operation, forward) => {
   }
 })
 
+const cache = new InMemoryCache({ possibleTypes: result.possibleTypes })
+
 const client = new ApolloClient({
   link: authLink.concat(httpLink),
-  cache: new InMemoryCache({ possibleTypes: result.possibleTypes })
+  cache
 })
 
 export const nodeClient = new ApolloClient({
   link: httpLink,
-  cache: new InMemoryCache({ possibleTypes: result.possibleTypes })
+  cache
 })
 
 export default client

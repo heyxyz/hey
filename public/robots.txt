@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /_next/*
+
+Sitemap: https://lenster.xyz/sitemap.xml

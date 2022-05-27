@@ -8,7 +8,6 @@ import { Spinner } from '@components/UI/Spinner'
 import AppContext from '@components/utils/AppContext'
 import SEO from '@components/utils/SEO'
 import { CreateBurnProfileBroadcastItemResult } from '@generated/types'
-import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { TrashIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
 import omit from '@lib/omit'
@@ -21,7 +20,6 @@ import {
   CONNECT_WALLET,
   ERROR_MESSAGE,
   LENSHUB_PROXY,
-  RELAY_ON,
   WRONG_NETWORK
 } from 'src/constants'
 import Custom404 from 'src/pages/404'
@@ -94,19 +92,6 @@ const DeleteSettings: FC = () => {
     }
   )
 
-  const [broadcast, { loading: broadcastLoading }] = useMutation(
-    BROADCAST_MUTATION,
-    {
-      onCompleted({ broadcast }) {
-        if (broadcast?.reason !== 'NOT_ALLOWED') {
-          onCompleted()
-        }
-      },
-      onError(error) {
-        consoleLog('Relay Error', '#ef4444', error.message)
-      }
-    }
-  )
   const [createBurnProfileTypedData, { loading: typedDataLoading }] =
     useMutation(CREATE_BURN_PROFILE_TYPED_DATA_MUTATION, {
       onCompleted({
@@ -119,7 +104,7 @@ const DeleteSettings: FC = () => {
           '#4ade80',
           'Generated createBurnProfileTypedData'
         )
-        const { id, typedData } = createBurnProfileTypedData
+        const { typedData } = createBurnProfileTypedData
         signTypedDataAsync({
           domain: omit(typedData?.domain, '__typename'),
           types: omit(typedData?.types, '__typename'),
@@ -133,17 +118,8 @@ const DeleteSettings: FC = () => {
             s,
             deadline: typedData.value.deadline
           }
-          if (RELAY_ON) {
-            broadcast({ variables: { request: { id, signature } } }).then(
-              ({ data: { broadcast }, errors }) => {
-                if (errors || broadcast?.reason === 'NOT_ALLOWED') {
-                  write({ args: [tokenId, sig] })
-                }
-              }
-            )
-          } else {
-            write({ args: [tokenId, sig] })
-          }
+
+          write({ args: [tokenId, sig] })
         })
       },
       onError(error) {
@@ -200,10 +176,7 @@ const DeleteSettings: FC = () => {
             <Button
               variant="danger"
               icon={
-                typedDataLoading ||
-                signLoading ||
-                writeLoading ||
-                broadcastLoading ? (
+                typedDataLoading || signLoading || writeLoading ? (
                   <Spinner variant="danger" size="xs" />
                 ) : (
                   <TrashIcon className="w-5 h-5" />
@@ -211,10 +184,7 @@ const DeleteSettings: FC = () => {
               }
               onClick={handleDelete}
             >
-              {typedDataLoading ||
-              signLoading ||
-              writeLoading ||
-              broadcastLoading
+              {typedDataLoading || signLoading || writeLoading
                 ? 'Deleting...'
                 : 'Delete your account'}
             </Button>
