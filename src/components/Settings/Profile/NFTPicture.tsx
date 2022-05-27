@@ -205,7 +205,7 @@ const NFTPicture: FC<Props> = ({ profile }) => {
             nfts: {
               contractAddress,
               tokenId,
-              chainId: chain
+              chainId
             }
           }
         }
