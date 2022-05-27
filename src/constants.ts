@@ -30,6 +30,7 @@ export const WRONG_NETWORK = IS_MAINNET
   ? 'Please change network to Polygon mainnet.'
   : 'Please change network to Polygon Mumbai testnet.'
 export const SIGN_ERROR = 'Failed to sign data'
+export const SELF_FOLLOW = 'You cannot follow yourself.'
 
 // URLs
 export const STATIC_ASSETS = 'https://assets.lenster.xyz/images'

@@ -29,6 +29,7 @@ import {
   LENSHUB_PROXY,
   POLYGONSCAN_URL,
   RELAY_ON,
+  SELF_FOLLOW,
   WRONG_NETWORK
 } from 'src/constants'
 import {
@@ -258,6 +259,8 @@ const FollowModule: FC<Props> = ({
       toast.error(CONNECT_WALLET)
     } else if (activeChain?.id !== CHAIN_ID) {
       toast.error(WRONG_NETWORK)
+    } else if (currentUser?.id === profile?.id) {
+      toast.error(SELF_FOLLOW)
     } else {
       createFollowTypedData({
         variables: {
