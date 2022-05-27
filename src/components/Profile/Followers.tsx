@@ -55,7 +55,6 @@ const Followers: FC<Props> = ({ profile }) => {
   })
 
   const { observe } = useInView({
-    threshold: 1,
     onEnter: () => {
       fetchMore({
         variables: {
