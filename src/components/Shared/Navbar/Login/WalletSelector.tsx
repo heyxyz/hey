@@ -89,7 +89,7 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
   }
 
   const handleSign = () => {
-    trackEvent('sign in with ethereum')
+    trackEvent('sign in with lens')
     loadChallenge({
       variables: { request: { address: accountData?.address } }
     }).then((res) => {
@@ -152,7 +152,7 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
           }
           onClick={handleSign}
         >
-          Sign-In with Ethereum
+          Sign-In with Lens
         </Button>
       ) : (
         <SwitchNetwork />
