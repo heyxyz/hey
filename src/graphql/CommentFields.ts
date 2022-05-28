@@ -50,6 +50,7 @@ export const CommentFields = gql`
         metadata {
           ...MetadataFields
         }
+        createdAt
       }
       ... on Comment {
         id
