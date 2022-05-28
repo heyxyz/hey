@@ -43,17 +43,19 @@ const SinglePost: FC<Props> = ({ post, hideType = false }) => {
             </a>
           </Link>
         </div>
-        <PostBody post={post} />
-        {post?.metadata?.media?.length > 0 ? (
-          <Attachments attachments={post?.metadata?.media} />
-        ) : (
-          post?.metadata?.content &&
-          postType !== 'crowdfund' &&
-          postType !== 'community' &&
-          getURLs(post?.metadata?.content)?.length > 0 && (
-            <IFramely url={getURLs(post?.metadata?.content)[0]} />
-          )
-        )}
+        <div className="ml-14">
+          <PostBody post={post} />
+          {post?.metadata?.media?.length > 0 ? (
+            <Attachments attachments={post?.metadata?.media} />
+          ) : (
+            post?.metadata?.content &&
+            postType !== 'crowdfund' &&
+            postType !== 'community' &&
+            getURLs(post?.metadata?.content)?.length > 0 && (
+              <IFramely url={getURLs(post?.metadata?.content)[0]} />
+            )
+          )}
+        </div>
       </CardBody>
       <PostActions post={post} />
     </Card>
