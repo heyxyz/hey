@@ -10,43 +10,64 @@ interface Props {
   post: LensterPost
 }
 
+const PostBody: FC<Props> = ({ post }) => (
+  <div className="flex items-center pb-3.5 space-x-1 text-gray-500 text-[13px]">
+    <Link href={`/u/${post?.profile?.handle}`}>
+      <a href={`/u/${post?.profile?.handle}`}>
+        <Slug slug={post?.profile?.handle} prefix="@" />:
+      </a>
+    </Link>
+    <Link href={`/posts/${post?.id ?? post?.pubId}`}>
+      <a
+        href={`/posts/${post?.id ?? post?.pubId}`}
+        className="break-all line-clamp-1"
+      >
+        {post?.metadata?.content?.trim() ? (
+          <div className="linkify">
+            <Markup>{post?.metadata?.content}</Markup>
+          </div>
+        ) : (
+          post?.metadata?.name
+        )}
+      </a>
+    </Link>
+  </div>
+)
+
 const Commented: FC<Props> = ({ post }) => {
   const { resolvedTheme } = useTheme()
   const commentOn: LensterPost | any = post?.commentOn
+  const mainPost = commentOn?.mainPost
 
   return (
-    <div className="flex items-end w-3/5">
-      <img
-        draggable={false}
-        src={`${STATIC_ASSETS}/icons/${
-          resolvedTheme === 'dark' ? 'comment-dark' : 'comment-light'
-        }.svg`}
-        className="mr-1.5 ml-5 w-4"
-        width={16}
-        alt="Comment"
-      />
-      <div className="flex items-center pb-3.5 space-x-1 text-gray-500 text-[13px]">
-        <Link href={`/u/${commentOn?.profile?.handle}`}>
-          <a href={`/u/${commentOn?.profile?.handle}`}>
-            <Slug slug={commentOn?.profile?.handle} prefix="@" />:
-          </a>
-        </Link>
-        <Link href={`/posts/${commentOn?.id ?? commentOn?.pubId}`}>
-          <a
-            href={`/posts/${commentOn?.id ?? commentOn?.pubId}`}
-            className="break-all line-clamp-1"
-          >
-            {commentOn?.metadata?.content?.trim() ? (
-              <div className="linkify">
-                <Markup>{commentOn?.metadata?.content}</Markup>
-              </div>
-            ) : (
-              commentOn?.metadata?.name
-            )}
-          </a>
-        </Link>
+    <>
+      {mainPost ? (
+        <div className="flex items-end w-3/5">
+          <img
+            draggable={false}
+            src={`${STATIC_ASSETS}/icons/${
+              resolvedTheme === 'dark' ? 'comment-dark' : 'comment-light'
+            }.svg`}
+            className="mr-1.5 ml-5 w-4"
+            width={16}
+            alt="Comment"
+          />
+          <PostBody post={mainPost} />
+        </div>
+      ) : null}
+      <div className="flex items-end w-3/5">
+        <img
+          draggable={false}
+          src={`${STATIC_ASSETS}/icons/${
+            resolvedTheme === 'dark' ? 'comment-dark' : 'comment-light'
+          }.svg`}
+          className="mr-1.5 ml-5 w-4"
+          width={16}
+          alt="Comment"
+        />
+        <PostBody post={commentOn} />
       </div>
-    </div>
+    </>
   )
 }
 
