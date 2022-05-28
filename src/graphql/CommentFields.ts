@@ -57,6 +57,15 @@ export const CommentFields = gql`
         metadata {
           name
           content
+          media {
+            original {
+              url
+              mimeType
+            }
+          }
+          attributes {
+            value
+          }
         }
         mainPost {
           ... on Post {
@@ -67,6 +76,12 @@ export const CommentFields = gql`
             metadata {
               name
               content
+              media {
+                original {
+                  url
+                  mimeType
+                }
+              }
               attributes {
                 value
               }
@@ -81,6 +96,12 @@ export const CommentFields = gql`
             metadata {
               name
               content
+              media {
+                original {
+                  url
+                  mimeType
+                }
+              }
               attributes {
                 value
               }
