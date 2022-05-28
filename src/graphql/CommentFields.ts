@@ -47,6 +47,15 @@ export const CommentFields = gql`
         metadata {
           name
           content
+          media {
+            original {
+              url
+              mimeType
+            }
+          }
+          attributes {
+            value
+          }
         }
       }
       ... on Comment {
