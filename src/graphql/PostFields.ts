@@ -20,9 +20,7 @@ export const PostFields = gql`
       ...MinimalCollectModuleFields
     }
     stats {
-      totalAmountOfComments
-      totalAmountOfMirrors
-      totalAmountOfCollects
+      ...StatsFields
     }
     metadata {
       ...MetadataFields

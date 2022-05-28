@@ -3,6 +3,7 @@ import { gql } from '@apollo/client'
 import { MinimalCollectModuleFields } from './CollectModuleFields'
 import { MetadataFields } from './MetadataFields'
 import { MinimalProfileFields } from './MinimalProfileFields'
+import { StatsFields } from './StatsFields'
 
 export const MirrorFields = gql`
   fragment MirrorFields on Mirror {
@@ -15,9 +16,7 @@ export const MirrorFields = gql`
       ...MinimalCollectModuleFields
     }
     stats {
-      totalAmountOfComments
-      totalAmountOfMirrors
-      totalAmountOfCollects
+      ...StatsFields
     }
     metadata {
       ...MetadataFields
@@ -47,4 +46,5 @@ export const MirrorFields = gql`
   ${MinimalProfileFields}
   ${MinimalCollectModuleFields}
   ${MetadataFields}
+  ${StatsFields}
 `
