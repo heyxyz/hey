@@ -67,6 +67,9 @@ export const CommentFields = gql`
             metadata {
               name
               content
+              attributes {
+                value
+              }
             }
           }
           ... on Mirror {
@@ -77,6 +80,9 @@ export const CommentFields = gql`
             metadata {
               name
               content
+              attributes {
+                value
+              }
             }
           }
         }
