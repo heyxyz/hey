@@ -35,10 +35,13 @@ const PostBody: FC<Props> = ({ post }) => (
 const Commented: FC<Props> = ({ post }) => {
   const commentOn: LensterPost | any = post?.commentOn
   const mainPost = commentOn?.mainPost
+  const postType = mainPost?.metadata?.attributes[0]?.value
 
   return (
     <div>
-      {mainPost ? <PostBody post={mainPost} /> : null}
+      {mainPost && postType !== 'community' ? (
+        <PostBody post={mainPost} />
+      ) : null}
       <PostBody post={commentOn} />
     </div>
   )
