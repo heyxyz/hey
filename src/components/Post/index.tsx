@@ -112,22 +112,24 @@ const ViewPost: NextPage = () => {
           isFollowing={data?.doesFollow[0]?.follows}
         />
       </GridItemEight>
-      <GridItemFour className="space-y-5">
-        <Card>
-          <CardBody>
-            <UserProfile
-              profile={
-                post?.__typename === 'Mirror'
-                  ? post?.mirrorOf?.profile
-                  : post?.profile
-              }
-              showBio
-            />
-          </CardBody>
-          {post?.appId === 'Lenster' && <ViaLenster />}
-        </Card>
-        <IPFSHash ipfsHash={post?.onChainContentURI} />
-        <Footer />
+      <GridItemFour>
+        <div className="sticky top-[126px] space-y-5">
+          <Card>
+            <CardBody>
+              <UserProfile
+                profile={
+                  post?.__typename === 'Mirror'
+                    ? post?.mirrorOf?.profile
+                    : post?.profile
+                }
+                showBio
+              />
+            </CardBody>
+            {post?.appId === 'Lenster' && <ViaLenster />}
+          </Card>
+          <IPFSHash ipfsHash={post?.onChainContentURI} />
+          <Footer />
+        </div>
       </GridItemFour>
     </GridLayout>
   )
