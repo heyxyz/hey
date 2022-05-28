@@ -58,6 +58,28 @@ export const CommentFields = gql`
           name
           content
         }
+        mainPost {
+          ... on Post {
+            id
+            profile {
+              ...MinimalProfileFields
+            }
+            metadata {
+              name
+              content
+            }
+          }
+          ... on Mirror {
+            id
+            profile {
+              ...MinimalProfileFields
+            }
+            metadata {
+              name
+              content
+            }
+          }
+        }
       }
       ... on Mirror {
         id
