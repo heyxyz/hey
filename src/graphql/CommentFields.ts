@@ -1,6 +1,7 @@
 import { gql } from '@apollo/client'
 
 import { MinimalCollectModuleFields } from './CollectModuleFields'
+import { MetadataFields } from './MetadataFields'
 import { MinimalProfileFields } from './MinimalProfileFields'
 
 export const CommentFields = gql`
@@ -24,19 +25,7 @@ export const CommentFields = gql`
       totalAmountOfCollects
     }
     metadata {
-      name
-      description
-      content
-      description
-      media {
-        original {
-          url
-          mimeType
-        }
-      }
-      attributes {
-        value
-      }
+      ...MetadataFields
     }
     commentOn {
       ... on Post {
@@ -45,17 +34,7 @@ export const CommentFields = gql`
           ...MinimalProfileFields
         }
         metadata {
-          name
-          content
-          media {
-            original {
-              url
-              mimeType
-            }
-          }
-          attributes {
-            value
-          }
+          ...MetadataFields
         }
       }
       ... on Comment {
@@ -64,17 +43,7 @@ export const CommentFields = gql`
           ...MinimalProfileFields
         }
         metadata {
-          name
-          content
-          media {
-            original {
-              url
-              mimeType
-            }
-          }
-          attributes {
-            value
-          }
+          ...MetadataFields
         }
         mainPost {
           ... on Post {
@@ -83,17 +52,7 @@ export const CommentFields = gql`
               ...MinimalProfileFields
             }
             metadata {
-              name
-              content
-              media {
-                original {
-                  url
-                  mimeType
-                }
-              }
-              attributes {
-                value
-              }
+              ...MetadataFields
             }
             createdAt
           }
@@ -103,17 +62,7 @@ export const CommentFields = gql`
               ...MinimalProfileFields
             }
             metadata {
-              name
-              content
-              media {
-                original {
-                  url
-                  mimeType
-                }
-              }
-              attributes {
-                value
-              }
+              ...MetadataFields
             }
             createdAt
           }
@@ -126,8 +75,7 @@ export const CommentFields = gql`
           ...MinimalProfileFields
         }
         metadata {
-          name
-          content
+          ...MetadataFields
         }
       }
     }
@@ -136,4 +84,5 @@ export const CommentFields = gql`
   }
   ${MinimalProfileFields}
   ${MinimalCollectModuleFields}
+  ${MetadataFields}
 `
