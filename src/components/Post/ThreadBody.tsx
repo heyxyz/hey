@@ -3,8 +3,7 @@ import { LensterPost } from '@generated/lenstertypes'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
-import React, { FC, useState } from 'react'
+import React, { FC } from 'react'
 
 import PostActions from './Actions'
 import PostBody from './PostBody'
@@ -16,12 +15,6 @@ interface Props {
 }
 
 const ThreadBody: FC<Props> = ({ post }) => {
-  const { pathname } = useRouter()
-  const postType = post?.metadata?.attributes[0]?.value
-  const [showMore, setShowMore] = useState<boolean>(
-    post?.metadata?.content?.length > 450
-  )
-
   return (
     <div>
       <div className="flex justify-between space-x-1.5">
