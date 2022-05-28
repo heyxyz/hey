@@ -3,6 +3,7 @@ import { gql } from '@apollo/client'
 import { MinimalCollectModuleFields } from './CollectModuleFields'
 import { MetadataFields } from './MetadataFields'
 import { MinimalProfileFields } from './MinimalProfileFields'
+import { StatsFields } from './StatsFields'
 
 export const CommentFields = gql`
   fragment CommentFields on Comment {
@@ -20,9 +21,7 @@ export const CommentFields = gql`
       ...MinimalCollectModuleFields
     }
     stats {
-      totalAmountOfComments
-      totalAmountOfMirrors
-      totalAmountOfCollects
+      ...StatsFields
     }
     metadata {
       ...MetadataFields
@@ -43,9 +42,7 @@ export const CommentFields = gql`
           ...MinimalCollectModuleFields
         }
         stats {
-          totalAmountOfComments
-          totalAmountOfMirrors
-          totalAmountOfCollects
+          ...StatsFields
         }
         metadata {
           ...MetadataFields
@@ -76,9 +73,7 @@ export const CommentFields = gql`
               ...MinimalCollectModuleFields
             }
             stats {
-              totalAmountOfComments
-              totalAmountOfMirrors
-              totalAmountOfCollects
+              ...StatsFields
             }
             metadata {
               ...MetadataFields
@@ -94,9 +89,7 @@ export const CommentFields = gql`
               ...MinimalCollectModuleFields
             }
             stats {
-              totalAmountOfComments
-              totalAmountOfMirrors
-              totalAmountOfCollects
+              ...StatsFields
             }
             metadata {
               ...MetadataFields
@@ -122,4 +115,5 @@ export const CommentFields = gql`
   ${MinimalProfileFields}
   ${MinimalCollectModuleFields}
   ${MetadataFields}
+  ${StatsFields}
 `
