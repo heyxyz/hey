@@ -116,7 +116,7 @@ const Feed: FC<Props> = ({
         />
       )}
       <ErrorMessage title="Failed to load comment feed" error={error} />
-      {!error && !loading && (
+      {!error && !loading && data?.publications?.items?.length !== 0 && (
         <>
           <Card className="divide-y-[1px]">
             {publications?.map((post: LensterPost, index: number) => (
