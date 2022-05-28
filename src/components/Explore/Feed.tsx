@@ -1,6 +1,7 @@
 import { gql, useQuery } from '@apollo/client'
 import SinglePost from '@components/Post/SinglePost'
 import PostsShimmer from '@components/Shared/Shimmer/PostsShimmer'
+import { Card } from '@components/UI/Card'
 import { EmptyState } from '@components/UI/EmptyState'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { Spinner } from '@components/UI/Spinner'
@@ -100,11 +101,13 @@ const Feed: FC<Props> = ({ feedType = 'TOP_COMMENTED' }) => {
       <ErrorMessage title="Failed to load explore feed" error={error} />
       {!error && !loading && (
         <>
-          <div className="space-y-3">
+          <Card className="divide-y-[1px]">
             {publications?.map((post: LensterPost, index: number) => (
-              <SinglePost key={`${post?.id}_${index}`} post={post} />
+              <div key={`${post?.id}_${index}`} className="px-5 pt-5">
+                <SinglePost key={`${post?.id}_${index}`} post={post} />
+              </div>
             ))}
-          </div>
+          </Card>
           {pageInfo?.next && publications.length !== pageInfo?.totalCount && (
             <span ref={observe} className="flex justify-center p-5">
               <Spinner size="sm" />
