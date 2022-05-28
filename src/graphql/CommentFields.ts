@@ -33,6 +33,20 @@ export const CommentFields = gql`
         profile {
           ...MinimalProfileFields
         }
+        collectedBy {
+          address
+          defaultProfile {
+            handle
+          }
+        }
+        collectModule {
+          ...MinimalCollectModuleFields
+        }
+        stats {
+          totalAmountOfComments
+          totalAmountOfMirrors
+          totalAmountOfCollects
+        }
         metadata {
           ...MetadataFields
         }
@@ -51,6 +65,20 @@ export const CommentFields = gql`
             profile {
               ...MinimalProfileFields
             }
+            collectedBy {
+              address
+              defaultProfile {
+                handle
+              }
+            }
+            collectModule {
+              ...MinimalCollectModuleFields
+            }
+            stats {
+              totalAmountOfComments
+              totalAmountOfMirrors
+              totalAmountOfCollects
+            }
             metadata {
               ...MetadataFields
             }
@@ -60,6 +88,14 @@ export const CommentFields = gql`
             id
             profile {
               ...MinimalProfileFields
+            }
+            collectModule {
+              ...MinimalCollectModuleFields
+            }
+            stats {
+              totalAmountOfComments
+              totalAmountOfMirrors
+              totalAmountOfCollects
             }
             metadata {
               ...MetadataFields

@@ -27,7 +27,7 @@ const ThreadBody: FC<Props> = ({ post }) => {
       </div>
       <div className="flex">
         <div className="ml-5 mr-8 border-[0.8px] bg-gray-300 border-gray-300 -my-[4px]" />
-        <div className="pt-4 pb-2">
+        <div className="pt-4 pb-5">
           <PostBody post={post} />
           <PostActions post={post} />
         </div>
