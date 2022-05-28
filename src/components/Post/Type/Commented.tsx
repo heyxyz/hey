@@ -16,7 +16,7 @@ const PostBody: FC<Props> = ({ post }) => (
       </div>
     </Link>
     <div className="flex">
-      <div className="w-[2px] ml-5 mr-8 bg-gray-300 -mb-[4px]" />
+      <div className="w-[2px] ml-5 mr-8 border-[1px] -mb-[4px] mt-[4px]" />
       <Link href={`/posts/${post?.id ?? post?.pubId}`}>
         <a href={`/posts/${post?.id ?? post?.pubId}`}>
           {post?.metadata?.content?.trim() ? (
