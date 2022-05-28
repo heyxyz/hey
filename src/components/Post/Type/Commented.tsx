@@ -46,9 +46,9 @@ const Commented: FC<Props> = ({ post }) => {
           <img
             draggable={false}
             src={`${STATIC_ASSETS}/icons/${
-              resolvedTheme === 'dark' ? 'comment-dark' : 'comment-light'
+              resolvedTheme === 'dark' ? 'mainpost-dark' : 'mainpost-light'
             }.svg`}
-            className="mr-1.5 ml-5 w-4"
+            className="mr-1.5 ml-5 w-4 -mb-[14px]"
             width={16}
             alt="Comment"
           />
