@@ -1,8 +1,5 @@
-import Attachments from '@components/Shared/Attachments'
-import IFramely from '@components/Shared/IFramely'
 import UserProfile from '@components/Shared/UserProfile'
 import { LensterPost } from '@generated/lenstertypes'
-import getURLs from '@lib/getURLs'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import Link from 'next/link'
@@ -43,16 +40,6 @@ const SinglePost: FC<Props> = ({ post, hideType = false }) => {
       </div>
       <div className="ml-14">
         <PostBody post={post} />
-        {post?.metadata?.media?.length > 0 ? (
-          <Attachments attachments={post?.metadata?.media} />
-        ) : (
-          post?.metadata?.content &&
-          postType !== 'crowdfund' &&
-          postType !== 'community' &&
-          getURLs(post?.metadata?.content)?.length > 0 && (
-            <IFramely url={getURLs(post?.metadata?.content)[0]} />
-          )
-        )}
         <PostActions post={post} />
       </div>
     </div>
