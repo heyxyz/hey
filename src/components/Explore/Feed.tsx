@@ -103,9 +103,7 @@ const Feed: FC<Props> = ({ feedType = 'TOP_COMMENTED' }) => {
         <>
           <Card className="divide-y-[1px]">
             {publications?.map((post: LensterPost, index: number) => (
-              <div key={`${post?.id}_${index}`} className="p-5">
-                <SinglePost key={`${post?.id}_${index}`} post={post} />
-              </div>
+              <SinglePost key={`${post?.id}_${index}`} post={post} />
             ))}
           </Card>
           {pageInfo?.next && publications.length !== pageInfo?.totalCount && (

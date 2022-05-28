@@ -100,7 +100,9 @@ const ViewPost: NextPage = () => {
         title={`${post?.__typename} by @${post?.profile?.handle} • Lenster`}
       />
       <GridItemEight className="space-y-5">
-        <SinglePost post={post} />
+        <Card>
+          <SinglePost post={post} />
+        </Card>
         <Feed
           post={post}
           onlyFollowers={
