@@ -1,6 +1,7 @@
 import Markup from '@components/Shared/Markup'
 import Slug from '@components/Shared/Slug'
 import { LensterPost } from '@generated/lenstertypes'
+import getAvatar from '@lib/getAvatar'
 import Link from 'next/link'
 import { useTheme } from 'next-themes'
 import React, { FC } from 'react'
@@ -13,7 +14,19 @@ interface Props {
 const PostBody: FC<Props> = ({ post }) => (
   <div className="flex items-center pb-3.5 space-x-1 text-gray-500 text-[13px]">
     <Link href={`/u/${post?.profile?.handle}`}>
-      <a href={`/u/${post?.profile?.handle}`}>
+      <a
+        className="flex items-center space-x-1"
+        href={`/u/${post?.profile?.handle}`}
+      >
+        <div className="h-4 w-4">
+          <img
+            className="rounded-full border dark:border-gray-700/80"
+            height={16}
+            width={16}
+            src={getAvatar(post?.profile)}
+            alt="Avatar"
+          />
+        </div>
         <Slug slug={post?.profile?.handle} prefix="@" />:
       </a>
     </Link>
