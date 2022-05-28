@@ -71,6 +71,7 @@ export const CommentFields = gql`
                 value
               }
             }
+            createdAt
           }
           ... on Mirror {
             id
@@ -84,8 +85,10 @@ export const CommentFields = gql`
                 value
               }
             }
+            createdAt
           }
         }
+        createdAt
       }
       ... on Mirror {
         id
