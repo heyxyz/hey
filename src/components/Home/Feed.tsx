@@ -91,7 +91,7 @@ const Feed: FC = () => {
         />
       )}
       <ErrorMessage title="Failed to load home feed" error={error} />
-      {!error && !loading && (
+      {!error && !loading && data?.timeline?.items?.length !== 0 && (
         <>
           <Card className="divide-y-[1px]">
             {publications?.map((post: LensterPost, index: number) => (
