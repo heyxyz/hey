@@ -20,7 +20,7 @@ const SinglePost: FC<Props> = ({ post, hideType = false }) => {
   const postType = post?.metadata?.attributes[0]?.value
 
   return (
-    <div>
+    <div className="p-5">
       <PostType post={post} hideType={hideType} />
       <div className="flex justify-between pb-4 space-x-1.5">
         <UserProfile
