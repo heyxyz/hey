@@ -54,6 +54,15 @@ export const CommentFields = gql`
         profile {
           ...MinimalProfileFields
         }
+        collectedBy {
+          address
+          defaultProfile {
+            handle
+          }
+        }
+        collectModule {
+          ...MinimalCollectModuleFields
+        }
         metadata {
           ...MetadataFields
         }
