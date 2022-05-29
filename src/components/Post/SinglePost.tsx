@@ -14,33 +14,40 @@ dayjs.extend(relativeTime)
 interface Props {
   post: LensterPost
   hideType?: boolean
+  showThread?: boolean
 }
 
-const SinglePost: FC<Props> = ({ post, hideType = false }) => {
+const SinglePost: FC<Props> = ({
+  post,
+  hideType = false,
+  showThread = false
+}) => {
   const postType = post?.metadata?.attributes[0]?.value
 
   return (
     <div className="p-5">
-      <PostType post={post} hideType={hideType} />
-      <div className="flex justify-between pb-4 space-x-1.5">
-        <UserProfile
-          profile={
-            postType === 'community' && !!post?.collectedBy?.defaultProfile
-              ? post?.collectedBy?.defaultProfile
-              : post?.__typename === 'Mirror'
-              ? post?.mirrorOf?.profile
-              : post?.profile
-          }
-        />
-        <Link href={`/posts/${post?.id}`}>
-          <a href={`/posts/${post?.id}`} className="text-sm text-gray-500">
-            {dayjs(new Date(post?.createdAt)).fromNow()}
-          </a>
-        </Link>
-      </div>
-      <div className="ml-14">
-        <PostBody post={post} />
-        <PostActions post={post} />
+      <PostType post={post} hideType={hideType} showThread={showThread} />
+      <div>
+        <div className="flex justify-between pb-4 space-x-1.5">
+          <UserProfile
+            profile={
+              postType === 'community' && !!post?.collectedBy?.defaultProfile
+                ? post?.collectedBy?.defaultProfile
+                : post?.__typename === 'Mirror'
+                ? post?.mirrorOf?.profile
+                : post?.profile
+            }
+          />
+          <Link href={`/posts/${post?.id}`}>
+            <a href={`/posts/${post?.id}`} className="text-sm text-gray-500">
+              {dayjs(new Date(post?.createdAt)).fromNow()}
+            </a>
+          </Link>
+        </div>
+        <div className="ml-14">
+          <PostBody post={post} />
+          <PostActions post={post} />
+        </div>
       </div>
     </div>
   )
