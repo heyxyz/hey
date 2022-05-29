@@ -1,9 +1,5 @@
-import Attachments from '@components/Shared/Attachments'
-import IFramely from '@components/Shared/IFramely'
 import UserProfile from '@components/Shared/UserProfile'
-import { Card, CardBody } from '@components/UI/Card'
 import { LensterPost } from '@generated/lenstertypes'
-import getURLs from '@lib/getURLs'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import Link from 'next/link'
@@ -18,15 +14,20 @@ dayjs.extend(relativeTime)
 interface Props {
   post: LensterPost
   hideType?: boolean
+  showThread?: boolean
 }
 
-const SinglePost: FC<Props> = ({ post, hideType = false }) => {
+const SinglePost: FC<Props> = ({
+  post,
+  hideType = false,
+  showThread = false
+}) => {
   const postType = post?.metadata?.attributes[0]?.value
 
   return (
-    <Card>
-      <CardBody>
-        <PostType post={post} hideType={hideType} />
+    <div className="p-5">
+      <PostType post={post} hideType={hideType} showThread={showThread} />
+      <div>
         <div className="flex justify-between pb-4 space-x-1.5">
           <UserProfile
             profile={
@@ -43,20 +44,12 @@ const SinglePost: FC<Props> = ({ post, hideType = false }) => {
             </a>
           </Link>
         </div>
-        <PostBody post={post} />
-        {post?.metadata?.media?.length > 0 ? (
-          <Attachments attachments={post?.metadata?.media} />
-        ) : (
-          post?.metadata?.content &&
-          postType !== 'crowdfund' &&
-          postType !== 'community' &&
-          getURLs(post?.metadata?.content)?.length > 0 && (
-            <IFramely url={getURLs(post?.metadata?.content)[0]} />
-          )
-        )}
-      </CardBody>
-      <PostActions post={post} />
-    </Card>
+        <div className="ml-[53px]">
+          <PostBody post={post} />
+          <PostActions post={post} />
+        </div>
+      </div>
+    </div>
   )
 }
 

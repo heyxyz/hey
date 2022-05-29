@@ -58,7 +58,7 @@ const IFramely: FC<Props> = ({ url }) => {
     if (!title) return null
 
     return (
-      <div className="mt-4 text-sm sm:w-2/3">
+      <div className="mt-4 text-sm sm:w-5/6">
         <a
           href={url}
           target="_blank"
@@ -76,8 +76,9 @@ const IFramely: FC<Props> = ({ url }) => {
             <div className="flex items-center">
               {isSquare && thumbnail && (
                 <img
-                  className="h-36 rounded-l-xl"
+                  className="h-36 w-36 rounded-l-xl"
                   height={144}
+                  width={144}
                   src={thumbnail}
                   alt="Thumbnail"
                 />

@@ -1,7 +1,10 @@
+import Attachments from '@components/Shared/Attachments'
+import IFramely from '@components/Shared/IFramely'
 import Markup from '@components/Shared/Markup'
 import CrowdfundShimmer from '@components/Shared/Shimmer/CrowdfundShimmer'
 import { LensterPost } from '@generated/lenstertypes'
 import { UserAddIcon, UsersIcon } from '@heroicons/react/outline'
+import getURLs from '@lib/getURLs'
 import imagekitURL from '@lib/imagekitURL'
 import clsx from 'clsx'
 import dynamic from 'next/dynamic'
@@ -85,6 +88,16 @@ const PostBody: FC<Props> = ({ post }) => {
             </button>
           )}
         </>
+      )}
+      {post?.metadata?.media?.length > 0 ? (
+        <Attachments attachments={post?.metadata?.media} />
+      ) : (
+        post?.metadata?.content &&
+        postType !== 'crowdfund' &&
+        postType !== 'community' &&
+        getURLs(post?.metadata?.content)?.length > 0 && (
+          <IFramely url={getURLs(post?.metadata?.content)[0]} />
+        )
       )}
     </div>
   )

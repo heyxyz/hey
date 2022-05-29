@@ -1,4 +1,6 @@
 export const mainnetVerified = [
+  '0x20c6' /** @coopahtroopa.lens */,
+  '0xa1' /** @pealco.lens */,
   '0x24' /** @bradorbradley.lens */,
   '0x2e0a' /** @sandeep.lens */,
   '0x228d' /** @wongmjane.lens */,
