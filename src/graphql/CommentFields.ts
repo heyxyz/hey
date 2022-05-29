@@ -66,6 +66,9 @@ export const CommentFields = gql`
         metadata {
           ...MetadataFields
         }
+        stats {
+          ...StatsFields
+        }
         mainPost {
           ... on Post {
             id
@@ -116,6 +119,21 @@ export const CommentFields = gql`
         metadata {
           ...MetadataFields
         }
+        mirrorOf {
+          ... on Post {
+            id
+            profile {
+              ...MinimalProfileFields
+            }
+          }
+          ... on Comment {
+            id
+            profile {
+              ...MinimalProfileFields
+            }
+          }
+        }
+        createdAt
       }
     }
     createdAt
