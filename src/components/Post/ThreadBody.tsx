@@ -19,8 +19,11 @@ const ThreadBody: FC<Props> = ({ post }) => {
     <div>
       <div className="flex justify-between space-x-1.5">
         <UserProfile profile={post?.profile} />
-        <Link href={`/posts/${post?.id}`}>
-          <a href={`/posts/${post?.id}`} className="text-sm text-gray-500">
+        <Link href={`/posts/${post?.pubId ?? post?.id}`}>
+          <a
+            href={`/posts/${post?.pubId ?? post?.id}`}
+            className="text-sm text-gray-500"
+          >
             {dayjs(new Date(post?.createdAt)).fromNow()}
           </a>
         </Link>
