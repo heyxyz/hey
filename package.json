@@ -46,7 +46,7 @@
     "react-dom": "^18.1.0",
     "react-hook-form": "^7.31.3",
     "react-hot-toast": "^2.2.0",
-    "react-mentions": "^4.4.0",
+    "react-mentions": "4.4.0",
     "ua-parser-js": "^1.0.2",
     "use-streak": "^1.0.4",
     "uuid": "^8.3.2",
