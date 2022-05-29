@@ -176,7 +176,7 @@ const Picture: FC<Props> = ({ profile }) => {
     setUploading(true)
     try {
       const attachment = await uploadAssetsToIPFS(evt.target.files)
-      if (attachment[0].item) {
+      if (attachment[0]?.item) {
         setAvatar(attachment[0].item)
       }
     } finally {

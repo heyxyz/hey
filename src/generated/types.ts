@@ -870,6 +870,20 @@ export type Erc20Amount = {
   value: Scalars['String']
 }
 
+/** The paginated publication result */
+export type ExploreProfileResult = {
+  __typename?: 'ExploreProfileResult'
+  items: Array<Profile>
+  pageInfo: PaginatedResultInfo
+}
+
+export type ExploreProfilesRequest = {
+  cursor?: InputMaybe<Scalars['Cursor']>
+  limit?: InputMaybe<Scalars['LimitScalar']>
+  sortCriteria: ProfileSortCriteria
+  timestamp?: InputMaybe<Scalars['TimestampScalar']>
+}
+
 export type ExplorePublicationRequest = {
   cursor?: InputMaybe<Scalars['Cursor']>
   /** If you wish to exclude any results for profile ids */
@@ -1813,6 +1827,18 @@ export type ProfileSearchResult = {
   type: SearchRequestTypes
 }
 
+/** profile sort criteria */
+export enum ProfileSortCriteria {
+  CreatedOn = 'CREATED_ON',
+  LatestCreated = 'LATEST_CREATED',
+  MostCollects = 'MOST_COLLECTS',
+  MostComments = 'MOST_COMMENTS',
+  MostFollowers = 'MOST_FOLLOWERS',
+  MostMirrors = 'MOST_MIRRORS',
+  MostPosts = 'MOST_POSTS',
+  MostPublication = 'MOST_PUBLICATION'
+}
+
 /** The Profile Stats */
 export type ProfileStats = {
   __typename?: 'ProfileStats'
@@ -1955,6 +1981,7 @@ export type Query = {
   doesFollow: Array<DoesFollowResponse>
   enabledModuleCurrencies: Array<Erc20>
   enabledModules: EnabledModules
+  exploreProfiles: ExploreProfileResult
   explorePublications: ExplorePublicationResult
   followerNftOwnedTokenIds: FollowerNftOwnedTokenIds
   followers: PaginatedFollowersResult
@@ -1996,6 +2023,10 @@ export type QueryDefaultProfileArgs = {
 
 export type QueryDoesFollowArgs = {
   request: DoesFollowRequest
+}
+
+export type QueryExploreProfilesArgs = {
+  request: ExploreProfilesRequest
 }
 
 export type QueryExplorePublicationsArgs = {

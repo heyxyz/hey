@@ -10,7 +10,9 @@ const PostPageShimmer: FC = () => {
   return (
     <GridLayout>
       <GridItemEight className="space-y-5">
-        <PostShimmer />
+        <Card>
+          <PostShimmer />
+        </Card>
         <PostsShimmer />
       </GridItemEight>
       <GridItemFour className="space-y-5">
