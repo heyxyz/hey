@@ -32,11 +32,13 @@ const connectors = () => {
       options: { shimDisconnect: true }
     }),
     new WalletConnectConnector({
+      chains,
       options: {
         rpc: { [CHAIN_ID]: ALCHEMY_RPC }
       }
     }),
     new CoinbaseWalletConnector({
+      chains,
       options: {
         appName: 'Lenster',
         jsonRpcUrl: ALCHEMY_RPC
