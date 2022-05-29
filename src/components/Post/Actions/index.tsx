@@ -14,7 +14,7 @@ const PostActions: FC<Props> = ({ post }) => {
   const postType = post?.metadata?.attributes[0]?.value
 
   return postType !== 'community' ? (
-    <div className="flex gap-6 items-center py-1.5 px-3 text-gray-500 border-t dark:border-gray-700/80">
+    <div className="flex gap-8 items-center pt-3 text-gray-500 -ml-2">
       <Comment post={post} />
       <Mirror post={post} />
       {post?.collectModule?.__typename !== 'RevertCollectModuleSettings' &&
