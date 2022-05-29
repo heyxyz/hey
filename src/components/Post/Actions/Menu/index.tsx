@@ -11,6 +11,7 @@ import clsx from 'clsx'
 import { FC, Fragment, useContext } from 'react'
 
 import Delete from './Delete'
+import Embed from './Embed'
 import Permalink from './Permalink'
 
 interface Props {
@@ -65,6 +66,7 @@ const PostMenu: FC<Props> = ({ post }) => {
                 </Menu.Item>
               )}
               <Permalink post={post} />
+              <Embed post={post} />
             </Menu.Items>
           </Transition>
         </>
