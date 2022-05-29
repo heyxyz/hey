@@ -18,7 +18,15 @@ const ThreadBody: FC<Props> = ({ post }) => {
   return (
     <div>
       <div className="flex justify-between space-x-1.5">
-        <UserProfile profile={post?.profile} />
+        <UserProfile
+          profile={
+            !!post?.collectedBy?.defaultProfile
+              ? post?.collectedBy?.defaultProfile
+              : post?.__typename === 'Mirror'
+              ? post?.mirrorOf?.profile
+              : post?.profile
+          }
+        />
         <Link href={`/posts/${post?.pubId ?? post?.id}`}>
           <a
             href={`/posts/${post?.pubId ?? post?.id}`}
