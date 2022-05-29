@@ -58,7 +58,7 @@ const IFramely: FC<Props> = ({ url }) => {
     if (!title) return null
 
     return (
-      <div className="mt-4 text-sm sm:w-2/3">
+      <div className="mt-4 text-sm sm:w-5/6">
         <a
           href={url}
           target="_blank"

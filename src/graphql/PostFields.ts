@@ -1,6 +1,7 @@
 import { gql } from '@apollo/client'
 
 import { MinimalCollectModuleFields } from './CollectModuleFields'
+import { MetadataFields } from './MetadataFields'
 import { MinimalProfileFields } from './MinimalProfileFields'
 
 export const PostFields = gql`
@@ -19,28 +20,14 @@ export const PostFields = gql`
       ...MinimalCollectModuleFields
     }
     stats {
-      totalAmountOfComments
-      totalAmountOfMirrors
-      totalAmountOfCollects
+      ...StatsFields
     }
     metadata {
-      name
-      description
-      content
-      description
-      media {
-        original {
-          url
-          mimeType
-        }
-      }
+      ...MetadataFields
       cover {
         original {
           url
         }
-      }
-      attributes {
-        value
       }
     }
     createdAt
@@ -48,4 +35,5 @@ export const PostFields = gql`
   }
   ${MinimalProfileFields}
   ${MinimalCollectModuleFields}
+  ${MetadataFields}
 `

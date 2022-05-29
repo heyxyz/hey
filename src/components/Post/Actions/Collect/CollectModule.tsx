@@ -281,8 +281,8 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
 
   return (
     <>
-      {(collectModule.type === 'LimitedFeeCollectModule' ||
-        collectModule.type === 'LimitedTimedFeeCollectModule') && (
+      {(collectModule?.type === 'LimitedFeeCollectModule' ||
+        collectModule?.type === 'LimitedTimedFeeCollectModule') && (
         <Tooltip
           placement="top"
           content={`${percentageCollected.toFixed(0)}% Collected`}
