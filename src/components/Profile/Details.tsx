@@ -95,7 +95,7 @@ const Details: FC<Props> = ({ profile }) => {
   }) => (
     <div className="flex gap-2 items-center">
       {icon}
-      {children}
+      <div className="truncate">{children}</div>
     </div>
   )
 
