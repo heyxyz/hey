@@ -44,7 +44,7 @@ const SinglePost: FC<Props> = ({
             </a>
           </Link>
         </div>
-        <div className="ml-14">
+        <div className="ml-[53px]">
           <PostBody post={post} />
           <PostActions post={post} />
         </div>
