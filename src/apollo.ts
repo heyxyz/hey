@@ -28,6 +28,7 @@ const REFRESH_AUTHENTICATION_MUTATION = `
 
 const httpLink = new HttpLink({
   uri: API_URL,
+  fetchOptions: 'no-cors',
   fetch
 })
 
