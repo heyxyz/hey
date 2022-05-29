@@ -65,8 +65,8 @@ const PostMenu: FC<Props> = ({ post }) => {
                   </div>
                 </Menu.Item>
               )}
-              <Permalink post={post} />
               <Embed post={post} />
+              <Permalink post={post} />
             </Menu.Items>
           </Transition>
         </>
