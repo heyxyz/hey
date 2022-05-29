@@ -106,6 +106,20 @@ export const CommentFields = gql`
             metadata {
               ...MetadataFields
             }
+            mirrorOf {
+              ... on Post {
+                id
+                profile {
+                  ...MinimalProfileFields
+                }
+              }
+              ... on Comment {
+                id
+                profile {
+                  ...MinimalProfileFields
+                }
+              }
+            }
             createdAt
           }
         }
