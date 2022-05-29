@@ -2,7 +2,6 @@ import '../styles.css'
 
 import { ApolloProvider } from '@apollo/client'
 import SiteLayout from '@components/SiteLayout'
-import { providers } from 'ethers'
 import { AppProps } from 'next/app'
 import Script from 'next/script'
 import { ThemeProvider } from 'next-themes'
@@ -11,23 +10,25 @@ import {
   ALCHEMY_RPC,
   CHAIN_ID,
   IS_MAINNET,
-  IS_PRODUCTION,
-  POLYGON_MAINNET,
-  POLYGON_MUMBAI
+  IS_PRODUCTION
 } from 'src/constants'
-import { createClient, WagmiConfig } from 'wagmi'
+import { chain, configureChains, createClient, WagmiConfig } from 'wagmi'
 import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet'
 import { InjectedConnector } from 'wagmi/connectors/injected'
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect'
+import { alchemyProvider } from 'wagmi/providers/alchemy'
 
 import client from '../apollo'
 
-const supportedChains = IS_MAINNET ? [POLYGON_MAINNET] : [POLYGON_MUMBAI]
+const { chains, provider } = configureChains(
+  [IS_MAINNET ? chain.polygon : chain.polygonMumbai, chain.mainnet],
+  [alchemyProvider({ alchemyId: ALCHEMY_KEY })]
+)
 
 const connectors = () => {
   return [
     new InjectedConnector({
-      chains: supportedChains,
+      chains,
       options: { shimDisconnect: true }
     }),
     new WalletConnectConnector({
@@ -46,16 +47,8 @@ const connectors = () => {
 
 const wagmiClient = createClient({
   autoConnect: true,
-  provider(config) {
-    try {
-      return new providers.AlchemyProvider(config.chainId, ALCHEMY_KEY)
-    } catch {
-      throw new Error(
-        `Wrong network, please switch to ${IS_MAINNET ? 'Polygon' : 'Mumbai'}`
-      )
-    }
-  },
-  connectors
+  connectors,
+  provider
 })
 
 const App = ({ Component, pageProps }: AppProps) => {
