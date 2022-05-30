@@ -29,8 +29,6 @@ const Attachment: FC<Props> = ({ attachments, setAttachments }) => {
       }
     }
 
-    console.log(videos > 0, images > 0)
-
     if (videos > 0) {
       if (videos > 1) {
         return true
