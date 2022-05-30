@@ -76,7 +76,7 @@ const IFramely: FC<Props> = ({ url }) => {
             <div className="flex items-center">
               {isSquare && thumbnail && (
                 <img
-                  className="h-36 w-36 rounded-l-xl"
+                  className="w-36 h-36 rounded-l-xl"
                   height={144}
                   width={144}
                   src={thumbnail}

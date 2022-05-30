@@ -176,14 +176,14 @@ const Stats: FC = () => {
               <div>Total Revenue</div>
             </div>
           </Disclosure.Button>
-          <Disclosure.Panel className="px-6 pb-3 text-sm text-gray-500 space-y-2">
+          <Disclosure.Panel className="px-6 pb-3 space-y-2 text-sm text-gray-500">
             {stats?.totalRevenue.map((revenue: Erc20Amount) => (
               <div
                 key={revenue?.asset?.address}
                 className="flex items-center space-x-1"
               >
                 <img
-                  className="h-5 w-5"
+                  className="w-5 h-5"
                   src={getTokenImage(revenue?.asset?.symbol)}
                   alt="revenue?.asset?.symbol"
                 />

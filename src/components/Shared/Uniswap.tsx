@@ -26,7 +26,7 @@ const Uniswap: FC<Props> = ({ module }) => {
       >
         <img
           src="https://assets.lenster.xyz/images/brands/uniswap.png"
-          className="h-5 w-5"
+          className="w-5 h-5"
           height={20}
           width={20}
           alt="Uniswap"

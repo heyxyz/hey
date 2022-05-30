@@ -8,7 +8,7 @@ import dynamic from 'next/dynamic'
 import React, { FC } from 'react'
 
 const Video = dynamic(() => import('./Video'), {
-  loading: () => <div className="aspect-w-16 aspect-h-12 rounded-lg shimmer" />
+  loading: () => <div className="rounded-lg aspect-w-16 aspect-h-12 shimmer" />
 })
 
 const getGridRows = (attachments: number) => {

@@ -48,7 +48,7 @@ const UserProfile: FC<Props> = ({
               alt={profile?.handle}
             />
             <div>
-              <div className="flex gap-1 items-center truncate max-w-sm">
+              <div className="flex gap-1 items-center max-w-sm truncate">
                 <div className={clsx(isBig ? 'font-bold' : 'text-md')}>
                   {profile?.name ?? profile?.handle}
                 </div>

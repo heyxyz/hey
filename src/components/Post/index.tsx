@@ -115,7 +115,7 @@ const ViewPost: NextPage = () => {
         />
       </GridItemEight>
       <GridItemFour>
-        <div className="sticky top-[126px] space-y-5">
+        <div className="sticky space-y-5 top-[126px]">
           <Card>
             <CardBody>
               <UserProfile
