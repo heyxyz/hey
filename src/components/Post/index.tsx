@@ -11,6 +11,7 @@ import { CommentFields } from '@gql/CommentFields'
 import { MirrorFields } from '@gql/MirrorFields'
 import { PostFields } from '@gql/PostFields'
 import consoleLog from '@lib/consoleLog'
+import { apps } from 'data/apps'
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import React, { useContext } from 'react'
@@ -21,7 +22,7 @@ import Custom500 from 'src/pages/500'
 import IPFSHash from './IPFSHash'
 import PostPageShimmer from './Shimmer'
 import SinglePost from './SinglePost'
-import ViaLenster from './ViaLenster'
+import ViaApp from './ViaApp'
 
 export const POST_QUERY = gql`
   query Post(
@@ -93,6 +94,7 @@ const ViewPost: NextPage = () => {
   if (!data.publication) return <Custom404 />
 
   const post: LensterPost = data.publication
+  const appConfig = apps.filter((e) => e.id === post?.appId)[0]
 
   return (
     <GridLayout>
@@ -125,7 +127,7 @@ const ViewPost: NextPage = () => {
                 showBio
               />
             </CardBody>
-            {post?.appId === 'Lenster' && <ViaLenster />}
+            <ViaApp appConfig={appConfig} />
           </Card>
           <IPFSHash ipfsHash={post?.onChainContentURI} />
           <Footer />
