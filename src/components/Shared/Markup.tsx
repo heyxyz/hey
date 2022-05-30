@@ -7,7 +7,6 @@ import { MDStrikeMatcher } from '@components/utils/matchers/markdown/MDStrikeMat
 import { MentionMatcher } from '@components/utils/matchers/MentionMatcher'
 import { SpoilerMatcher } from '@components/utils/matchers/SpoilerMatcher'
 import trimify from '@lib/trimify'
-import { customTLDs } from 'data/tlds'
 import { Interweave } from 'interweave'
 import { UrlMatcher } from 'interweave-autolink'
 import React, { FC } from 'react'
@@ -31,7 +30,7 @@ const Markup: FC<Props> = ({ children }) => {
         new MDQuoteMatcher('mdQuote'),
         new MDCodeMatcher('mdCode'),
         new SpoilerMatcher('spoiler'),
-        new UrlMatcher('url', { customTLDs })
+        new UrlMatcher('url', { validateTLD: false })
       ]}
     />
   )
