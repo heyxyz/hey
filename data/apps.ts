@@ -8,5 +8,10 @@ export const apps = [
     id: 'phaver',
     name: 'Phaver',
     logo: 'phaver.jpeg'
+  },
+  {
+    id: 'refract',
+    name: 'Refract',
+    logo: 'refract.jpeg'
   }
 ]
