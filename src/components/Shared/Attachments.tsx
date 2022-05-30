@@ -4,7 +4,12 @@ import { XIcon } from '@heroicons/react/outline'
 import getIPFSLink from '@lib/getIPFSLink'
 import imagekitURL from '@lib/imagekitURL'
 import clsx from 'clsx'
+import dynamic from 'next/dynamic'
 import React, { FC } from 'react'
+
+const Video = dynamic(() => import('./Video'), {
+  loading: () => <div className="aspect-w-16 aspect-h-12 rounded-lg shimmer" />
+})
 
 const getGridRows = (attachments: number) => {
   if (attachments === 1) {
@@ -47,29 +52,21 @@ const Attachments: FC<Props> = ({
     >
       {slicedAttachments?.map((attachment: LensterAttachment & MediaSet) => (
         <div
-          className="aspect-w-16 aspect-h-12"
+          className={clsx(
+            (isNew ? attachment.type : attachment.original.mimeType) ===
+              'video/mp4'
+              ? ''
+              : 'aspect-w-16 aspect-h-12'
+          )}
           key={isNew ? attachment.item : getIPFSLink(attachment.original.url)}
         >
           {(isNew ? attachment.type : attachment.original.mimeType) ===
           'video/mp4' ? (
-            <video
-              controls
-              className={clsx(
-                {
-                  'object-cover':
-                    (isNew ? attachment.type : attachment.original.mimeType) !==
-                    'video/mp4'
-                },
-                'bg-gray-100 rounded-lg border dark:bg-gray-800 dark:border-gray-700/80'
-              )}
-            >
-              <source
-                src={
-                  isNew ? attachment.item : getIPFSLink(attachment.original.url)
-                }
-                type="video/mp4"
-              />
-            </video>
+            <Video
+              src={
+                isNew ? attachment.item : getIPFSLink(attachment.original.url)
+              }
+            />
           ) : (
             <img
               className="object-cover bg-gray-100 rounded-lg border dark:bg-gray-800 dark:border-gray-700/80"
