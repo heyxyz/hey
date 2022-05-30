@@ -17,13 +17,38 @@ const Attachment: FC<Props> = ({ attachments, setAttachments }) => {
   const [loading, setLoading] = useState<boolean>(false)
   const id = useId()
 
+  const hasVideos = (files: any) => {
+    let videos = 0
+    let images = 0
+
+    for (let i = 0; i < files.length; i++) {
+      if (files[i].type === 'video/mp4') {
+        videos = videos + 1
+      } else {
+        images = images + 1
+      }
+    }
+
+    console.log(videos > 0, images > 0)
+
+    if (videos > 0) {
+      if (videos > 1) {
+        return true
+      }
+
+      return images > 0 ? true : false
+    } else {
+      return false
+    }
+  }
+
   const handleAttachment = async (evt: ChangeEvent<HTMLInputElement>) => {
     evt.preventDefault()
     setLoading(true)
 
     try {
-      if (evt.target.files!.length > 4) {
-        toast.error('Only 4 attachments are allowed!')
+      if (hasVideos(evt.target.files) || evt.target.files!.length > 4) {
+        toast.error('Please choose either 1 GIF or up to 4 photos.')
       } else {
         const attachment = await uploadAssetsToIPFS(evt.target.files)
         if (attachment) {
