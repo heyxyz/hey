@@ -145,8 +145,8 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
                 className="mr-1 w-5 h-5"
                 height={20}
                 width={20}
-                src="/eth-white.svg"
-                alt="Ethereum Logo"
+                src="/lens.png"
+                alt="Lens Logo"
               />
             )
           }
