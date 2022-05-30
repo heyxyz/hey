@@ -299,7 +299,7 @@ const NewComment: FC<Props> = ({ post, type }) => {
             />
           )}
           {preview ? (
-            <div className="pb-3 mb-2 border-b dark:border-b-gray-700/80">
+            <div className="pb-3 mb-2 linkify border-b dark:border-b-gray-700/80">
               <Markup>{commentContent}</Markup>
             </div>
           ) : (
