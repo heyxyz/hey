@@ -7,6 +7,6 @@ export const apps = [
   {
     id: 'phaver',
     name: 'Phaver',
-    logo: 'lenster.svg'
+    logo: 'phaver.jpeg'
   }
 ]
