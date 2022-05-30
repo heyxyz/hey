@@ -4,9 +4,12 @@ import { XIcon } from '@heroicons/react/outline'
 import getIPFSLink from '@lib/getIPFSLink'
 import imagekitURL from '@lib/imagekitURL'
 import clsx from 'clsx'
+import dynamic from 'next/dynamic'
 import React, { FC } from 'react'
 
-import Video from './Video'
+const Video = dynamic(() => import('./Video'), {
+  loading: () => <div className="aspect-w-16 aspect-h-12 rounded-lg shimmer" />
+})
 
 const getGridRows = (attachments: number) => {
   if (attachments === 1) {
