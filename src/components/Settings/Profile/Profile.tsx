@@ -1,4 +1,4 @@
-import LensPeriphery from '@abis/LensPeriphery.json'
+import { LensPeriphery } from '@abis/LensPeriphery'
 import { gql, useMutation } from '@apollo/client'
 import ChooseFile from '@components/Shared/ChooseFile'
 import IndexStatus from '@components/Shared/IndexStatus'

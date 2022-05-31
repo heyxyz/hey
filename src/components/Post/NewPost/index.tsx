@@ -1,4 +1,4 @@
-import LensHubProxy from '@abis/LensHubProxy.json'
+import { LensHubProxy } from '@abis/LensHubProxy'
 import { gql, useMutation } from '@apollo/client'
 import Attachments from '@components/Shared/Attachments'
 import Markup from '@components/Shared/Markup'

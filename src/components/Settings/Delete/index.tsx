@@ -1,4 +1,4 @@
-import LensHubProxy from '@abis/LensHubProxy.json'
+import { LensHubProxy } from '@abis/LensHubProxy'
 import { gql, useMutation } from '@apollo/client'
 import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout'
 import UserProfile from '@components/Shared/UserProfile'
