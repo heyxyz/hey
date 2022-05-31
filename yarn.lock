@@ -7903,10 +7903,10 @@ react-is@^16.13.1, react-is@^16.7.0:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
 
-react-mentions@4.4.0:
-  version "4.4.0"
-  resolved "https://registry.yarnpkg.com/react-mentions/-/react-mentions-4.4.0.tgz#af7556c2dd9e7a36e21de5a8d8e7ea0fbbd5099d"
-  integrity sha512-5cbXRm73efshM/l9KhIOC/68wclbz+Tu2lKHGZG8X/keffFqeh2KcyF1SxH7H/Xkb02CpR/I4IwP6qbX6fXO1g==
+react-mentions@4.4.2:
+  version "4.4.2"
+  resolved "https://registry.yarnpkg.com/react-mentions/-/react-mentions-4.4.2.tgz#b832eeca0b2e141a6fc80d49cadd7c17680c99b1"
+  integrity sha512-vkhTeUQaxUYlWKxj/wTFBX+h+JmsKIwjLvigeeYar/+UlJ8vFVKq7iM/9YwAsVg+Wye3nvihH7WPld66fVrjmg==
   dependencies:
     "@babel/runtime" "7.4.5"
     invariant "^2.2.4"
