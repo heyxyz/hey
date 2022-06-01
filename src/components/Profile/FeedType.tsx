@@ -8,7 +8,7 @@ import {
 import humanize from '@lib/humanize'
 import trackEvent from '@lib/trackEvent'
 import clsx from 'clsx'
-import React, { Dispatch, FC, ReactChild } from 'react'
+import React, { Dispatch, FC, ReactNode } from 'react'
 
 interface Props {
   stats: ProfileStats
@@ -19,7 +19,7 @@ interface Props {
 const FeedType: FC<Props> = ({ stats, setFeedType, feedType }) => {
   interface FeedLinkProps {
     name: string
-    icon: ReactChild
+    icon: ReactNode
     type: string
     count?: number
   }

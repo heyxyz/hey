@@ -5,7 +5,13 @@ type Attribute = {
   value: string
 }
 
-type Query = 'isBeta' | 'app' | 'twitter' | 'location' | 'website'
+type Query =
+  | 'isBeta'
+  | 'hasPrideLogo'
+  | 'app'
+  | 'twitter'
+  | 'location'
+  | 'website'
 
 const getAttribute = (
   attributes: Maybe<Attribute[]> | undefined,
