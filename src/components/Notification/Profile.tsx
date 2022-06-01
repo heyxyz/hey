@@ -11,7 +11,7 @@ interface Props {
 
 export const NotificationProfileAvatar: FC<Props> = ({ profile }) => {
   return (
-    <Link href={`/u/${profile?.handle}`}>
+    <Link href={`/u/${profile?.handle}`} prefetch={false}>
       <a href={`/u/${profile?.handle}`}>
         <img
           src={getAvatar(profile)}
@@ -27,7 +27,7 @@ export const NotificationProfileAvatar: FC<Props> = ({ profile }) => {
 
 export const NotificationProfileName: FC<Props> = ({ profile }) => {
   return (
-    <Link href={`/u/${profile?.handle}`}>
+    <Link href={`/u/${profile?.handle}`} prefetch={false}>
       <a
         href={`/u/${profile?.handle}`}
         className="inline-flex items-center space-x-1 font-bold"

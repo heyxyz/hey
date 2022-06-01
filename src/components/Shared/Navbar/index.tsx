@@ -27,7 +27,7 @@ const Navbar: FC = () => {
 
   const NavItem = ({ url, name, current }: NavItemProps) => {
     return (
-      <Link href={url}>
+      <Link href={url} prefetch={false}>
         <a href={url} aria-current={current ? 'page' : undefined}>
           <Disclosure.Button
             className={clsx(
@@ -87,7 +87,7 @@ const Navbar: FC = () => {
                     <MenuIcon className="block w-6 h-6" aria-hidden="true" />
                   )}
                 </Disclosure.Button>
-                <Link href="/">
+                <Link href="/" prefetch={false}>
                   <a href="/">
                     <div className="text-3xl font-black">
                       <img
