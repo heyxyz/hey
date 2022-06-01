@@ -43,7 +43,7 @@ const PostBody: FC<Props> = ({ post }) => {
               <span>Launched a new community</span>
             )}
           </span>
-          <Link href={`/communities/${post?.id}`}>
+          <Link href={`/communities/${post?.id}`} prefetch={false}>
             <a
               href={`/communities/${post?.id}`}
               className="flex items-center space-x-1.5 font-bold"

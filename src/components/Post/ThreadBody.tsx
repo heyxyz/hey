@@ -27,7 +27,7 @@ const ThreadBody: FC<Props> = ({ post }) => {
               : post?.profile
           }
         />
-        <Link href={`/posts/${post?.pubId ?? post?.id}`}>
+        <Link href={`/posts/${post?.pubId ?? post?.id}`} prefetch={false}>
           <a
             href={`/posts/${post?.pubId ?? post?.id}`}
             className="text-sm text-gray-500"

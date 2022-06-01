@@ -43,7 +43,10 @@ const Pending: FC<Props> = ({ txHash, indexing, indexed, type, urlPrefix }) => {
           <div className="text-[40px]">🌿</div>
           <div>{indexed}</div>
           <div className="pt-3">
-            <Link href={`/${urlPrefix}/${data?.publication?.id}`}>
+            <Link
+              href={`/${urlPrefix}/${data?.publication?.id}`}
+              prefetch={false}
+            >
               <a href={`/${urlPrefix}/${data?.publication?.id}`}>
                 <Button
                   className="mx-auto"

@@ -16,7 +16,10 @@ const CollectedContent: FC<Props> = ({ notification }) => {
   return (
     <div className="text-sm text-gray-500 line-clamp-1">
       {postType === 'community' ? (
-        <Link href={`/communities/${notification?.collectedPublication?.id}`}>
+        <Link
+          href={`/communities/${notification?.collectedPublication?.id}`}
+          prefetch={false}
+        >
           <a
             href={`/communities/${notification?.collectedPublication?.id}`}
             className="flex items-center space-x-1.5 font-bold"
@@ -39,13 +42,19 @@ const CollectedContent: FC<Props> = ({ notification }) => {
           </a>
         </Link>
       ) : postType === 'crowdfund' ? (
-        <Link href={`/posts/${notification?.collectedPublication?.id}`}>
+        <Link
+          href={`/posts/${notification?.collectedPublication?.id}`}
+          prefetch={false}
+        >
           <a href={`/posts/${notification?.collectedPublication?.id}`}>
             {notification?.collectedPublication?.metadata?.name}
           </a>
         </Link>
       ) : (
-        <Link href={`/posts/${notification?.collectedPublication?.id}`}>
+        <Link
+          href={`/posts/${notification?.collectedPublication?.id}`}
+          prefetch={false}
+        >
           <a
             className="linkify"
             href={`/posts/${notification?.collectedPublication?.id}`}
