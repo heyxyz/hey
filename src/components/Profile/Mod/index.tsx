@@ -9,6 +9,7 @@ import {
 import formatAddress from '@lib/formatAddress'
 import getAttribute from '@lib/getAttribute'
 import isBeta from '@lib/isBeta'
+import hasPrideLogo from '@lib/isPride'
 import React, { FC, ReactNode } from 'react'
 import CopyToClipboard from 'react-copy-to-clipboard'
 import toast from 'react-hot-toast'
@@ -52,7 +53,7 @@ const ProfileMod: FC<Props> = ({ profile }) => {
                   className="w-4 h-4"
                   height={16}
                   width={16}
-                  src="/logo.svg"
+                  src={hasPrideLogo(profile) ? '/pride.svg' : '/logo.svg'}
                   alt="Logo"
                 />
               }

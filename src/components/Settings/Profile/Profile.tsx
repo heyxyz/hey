@@ -23,6 +23,7 @@ import consoleLog from '@lib/consoleLog'
 import getAttribute from '@lib/getAttribute'
 import imagekitURL from '@lib/imagekitURL'
 import isBeta from '@lib/isBeta'
+import hasPrideLogo from '@lib/isPride'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import trackEvent from '@lib/trackEvent'
@@ -102,6 +103,7 @@ interface Props {
 
 const Profile: FC<Props> = ({ profile }) => {
   const [beta, setBeta] = useState<boolean>(isBeta(profile))
+  const [pride, setPride] = useState<boolean>(hasPrideLogo(profile))
   const [cover, setCover] = useState<string>()
   const [isUploading, setIsUploading] = useState<boolean>(false)
   const [uploading, setUploading] = useState<boolean>(false)
@@ -267,6 +269,11 @@ const Profile: FC<Props> = ({ profile }) => {
             value: beta
           },
           {
+            traitType: 'boolean',
+            key: 'hasPrideLogo',
+            value: pride
+          },
+          {
             traitType: 'string',
             key: 'app',
             value: 'Lenster'
@@ -368,6 +375,19 @@ const Profile: FC<Props> = ({ profile }) => {
             <div className="flex items-center space-x-2">
               <Toggle on={beta} setOn={setBeta} />
               <div>Enroll to Lenster Beta</div>
+            </div>
+          </div>
+          <div className="space-y-2 pt-4">
+            <div className="label flex items-center space-x-2">
+              <img className="h-5 w-5" src="/pride.svg" alt="Pride Logo" />
+              <span>Celebrate pride every day</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <Toggle on={pride} setOn={setPride} />
+              <div>
+                Turn this on to show your pride and turn the Lenster logo
+                rainbow every day.
+              </div>
             </div>
           </div>
           {activeChain?.id !== CHAIN_ID ? (
