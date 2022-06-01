@@ -33,7 +33,7 @@ const UserProfile: FC<Props> = ({
 
   return (
     <div className="flex justify-between items-center">
-      <Link href={`/u/${profile?.handle}`}>
+      <Link href={`/u/${profile?.handle}`} prefetch={false}>
         <a href={`/u/${profile?.handle}`}>
           <div className="flex items-center space-x-3">
             <img
