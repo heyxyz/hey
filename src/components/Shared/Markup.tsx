@@ -20,6 +20,7 @@ const Markup: FC<Props> = ({ children }) => {
       content={trimify(children)}
       escapeHtml
       allowList={['b', 'i', 'a', 'br', 'code', 'span']}
+      newWindow
       matchers={[
         new HashtagMatcher('hashtag'),
         new MentionMatcher('mention'),
