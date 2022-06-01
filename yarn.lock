@@ -5905,10 +5905,10 @@ ipfs-core-utils@^0.15.0:
     timeout-abort-controller "^3.0.0"
     uint8arrays "^3.0.0"
 
-ipfs-http-client@^57.0.0:
-  version "57.0.0"
-  resolved "https://registry.yarnpkg.com/ipfs-http-client/-/ipfs-http-client-57.0.0.tgz#62042488b87ff0020f099de8f4f9aadbc90b507a"
-  integrity sha512-nXxj0QckRIG4ImXMC4XSB+JM0LsNMHExIMGB4DK/+ArzDij51A0NxeYGrJpBmSnaFKX5I4BHOoWL5M8jm6zOVg==
+ipfs-http-client@^57.0.1:
+  version "57.0.1"
+  resolved "https://registry.yarnpkg.com/ipfs-http-client/-/ipfs-http-client-57.0.1.tgz#3db006a4307616bdd6b0e9dba8f6bf09126cfea1"
+  integrity sha512-ULwA6DenevB2qnVFxUXhSJSkHaBJIANHmUHKQwuu+y3O7oo2Vy8AmbJvstm37bJT5pWFaj9jZdZ4Am0VwHn5fg==
   dependencies:
     "@ipld/dag-cbor" "^7.0.0"
     "@ipld/dag-json" "^8.0.1"
