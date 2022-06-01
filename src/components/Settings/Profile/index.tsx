@@ -8,7 +8,7 @@ import { PhotographIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
 import clsx from 'clsx'
 import { NextPage } from 'next'
-import React, { FC, ReactChild, useContext, useState } from 'react'
+import React, { FC, ReactNode, useContext, useState } from 'react'
 import Custom404 from 'src/pages/404'
 import Custom500 from 'src/pages/500'
 
@@ -71,7 +71,7 @@ const ProfileSettings: NextPage = () => {
 
   interface TypeButtonProps {
     name: string
-    icon: ReactChild
+    icon: ReactNode
     type: 'NFT' | 'AVATAR'
   }
 

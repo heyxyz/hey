@@ -5,7 +5,7 @@ import {
 } from '@heroicons/react/outline'
 import trackEvent from '@lib/trackEvent'
 import clsx from 'clsx'
-import React, { Dispatch, FC, ReactChild } from 'react'
+import React, { Dispatch, FC, ReactNode } from 'react'
 
 interface Props {
   setFeedType: Dispatch<string>
@@ -15,7 +15,7 @@ interface Props {
 const FeedType: FC<Props> = ({ setFeedType, feedType }) => {
   interface FeedLinkProps {
     name: string
-    icon: ReactChild
+    icon: ReactNode
     type: string
   }
 

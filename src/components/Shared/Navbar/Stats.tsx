@@ -13,7 +13,7 @@ import {
 } from '@heroicons/react/outline'
 import getTokenImage from '@lib/getTokenImage'
 import humanize from '@lib/humanize'
-import { FC, ReactChild } from 'react'
+import { FC, ReactNode } from 'react'
 import { ERROR_MESSAGE } from 'src/constants'
 
 const LENSTER_STATS_QUERY = gql`
@@ -47,8 +47,8 @@ const LENSTER_STATS_QUERY = gql`
 `
 
 interface Props {
-  icon: ReactChild
-  title: ReactChild
+  icon: ReactNode
+  title: ReactNode
   isLenster?: boolean
 }
 

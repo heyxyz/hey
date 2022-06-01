@@ -9,7 +9,7 @@ import {
 import formatAddress from '@lib/formatAddress'
 import getAttribute from '@lib/getAttribute'
 import isBeta from '@lib/isBeta'
-import React, { FC, ReactChild } from 'react'
+import React, { FC, ReactNode } from 'react'
 import CopyToClipboard from 'react-copy-to-clipboard'
 import toast from 'react-hot-toast'
 
@@ -23,9 +23,9 @@ const ProfileMod: FC<Props> = ({ profile }) => {
     value,
     icon
   }: {
-    children: ReactChild
+    children: ReactNode
     value: string
-    icon: ReactChild
+    icon: ReactNode
   }) => (
     <CopyToClipboard
       text={value}
