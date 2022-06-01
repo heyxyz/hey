@@ -1,6 +1,7 @@
 import AppContext from '@components/utils/AppContext'
 import { Disclosure } from '@headlessui/react'
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
+import hasPrideLogo from '@lib/hasPrideLogo'
 import isStaff from '@lib/isStaff'
 import clsx from 'clsx'
 import dynamic from 'next/dynamic'
@@ -94,7 +95,11 @@ const Navbar: FC = () => {
                         className="w-8 h-8"
                         height={32}
                         width={32}
-                        src="/logo.svg"
+                        src={
+                          currentUser && hasPrideLogo(currentUser)
+                            ? '/pride.svg'
+                            : '/logo.svg'
+                        }
                         alt="Logo"
                       />
                     </div>
