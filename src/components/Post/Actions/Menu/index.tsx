@@ -13,6 +13,7 @@ import { FC, Fragment, useContext } from 'react'
 import Delete from './Delete'
 import Embed from './Embed'
 import Permalink from './Permalink'
+import Tweet from './Tweet'
 
 interface Props {
   post: LensterPost
@@ -67,6 +68,7 @@ const PostMenu: FC<Props> = ({ post }) => {
               )}
               <Embed post={post} />
               <Permalink post={post} />
+              <Tweet post={post} />
             </Menu.Items>
           </Transition>
         </>
