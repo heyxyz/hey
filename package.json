@@ -33,7 +33,7 @@
     "graphql": "^16.5.0",
     "interweave": "^13.0.0",
     "interweave-autolink": "^5.0.0",
-    "ipfs-http-client": "^57.0.0",
+    "ipfs-http-client": "^57.0.1",
     "js-cookie": "^3.0.1",
     "jwt-decode": "^3.1.2",
     "next": "^12.1.6",
