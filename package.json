@@ -33,7 +33,7 @@
     "graphql": "^16.5.0",
     "interweave": "^13.0.0",
     "interweave-autolink": "^5.0.0",
-    "ipfs-http-client": "^57.0.0",
+    "ipfs-http-client": "^57.0.1",
     "js-cookie": "^3.0.1",
     "jwt-decode": "^3.1.2",
     "next": "^12.1.6",
@@ -51,7 +51,7 @@
     "ua-parser-js": "^1.0.2",
     "use-streak": "^1.0.4",
     "uuid": "^8.3.2",
-    "wagmi": "^0.4.5",
+    "wagmi": "^0.4.6",
     "zod": "^3.17.3"
   },
   "devDependencies": {
@@ -74,7 +74,7 @@
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "eslint-plugin-unused-imports": "^2.0.0",
     "husky": "^8.0.1",
-    "lint-staged": "^12.5.0",
+    "lint-staged": "^13.0.0",
     "postcss": "^8.4.14",
     "prettier": "^2.6.2",
     "tailwindcss": "^3.0.24",
