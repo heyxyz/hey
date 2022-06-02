@@ -14,7 +14,7 @@ export const Toggle: FC<Props> = ({ name, on, setOn }) => {
     <Switch
       checked={on}
       onChange={() => {
-        trackEvent(`toggle ${on ? 'on' : 'off'} ${name}`)
+        trackEvent(`toggle ${on ? 'off' : 'on'} ${name}`)
         setOn(!on)
       }}
       className={clsx(
