@@ -3,7 +3,6 @@ import { Profile } from '@generated/types'
 import { MinimalProfileFields } from '@gql/MinimalProfileFields'
 import consoleLog from '@lib/consoleLog'
 import Cookies from 'js-cookie'
-import Head from 'next/head'
 import { useTheme } from 'next-themes'
 import { FC, ReactNode, useEffect, useState } from 'react'
 import { Toaster } from 'react-hot-toast'
@@ -111,12 +110,6 @@ const SiteLayout: FC<Props> = ({ children }) => {
 
   return (
     <AppContext.Provider value={injectedGlobalContext}>
-      <Head>
-        <meta
-          name="theme-color"
-          content={resolvedTheme === 'dark' ? '#1b1b1d' : '#ffffff'}
-        />
-      </Head>
       <Toaster position="bottom-right" toastOptions={toastOptions} />
       <div className="flex flex-col min-h-screen">
         <Navbar />
