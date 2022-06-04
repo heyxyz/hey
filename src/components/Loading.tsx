@@ -4,7 +4,7 @@ import SEO from './utils/SEO'
 
 const Loading: FC = () => {
   return (
-    <div className="flex flex-grow justify-center items-center h-screen animate-pulse">
+    <div className="flex flex-grow justify-center items-center h-screen">
       <SEO />
       <img
         className="w-28 h-28"
