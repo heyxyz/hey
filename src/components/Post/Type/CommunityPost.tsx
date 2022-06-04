@@ -15,8 +15,8 @@ const CommunityPost: FC<Props> = ({ post }) => {
     <div className="flex items-center pb-4 space-x-1 text-gray-500 text-[13px]">
       <UsersIcon className="w-4 h-4" />
       <div className="flex items-center space-x-1">
-        <Link href={`/communities/${commentOn?.pubId}`} prefetch={false}>
-          <a href={`/communities/${commentOn?.pubId}`}>
+        <Link href={`/communities/${commentOn?.id}`} prefetch={false}>
+          <a href={`/communities/${commentOn?.id}`}>
             <span>Posted on </span>
             <Slug slug={post?.commentOn?.metadata?.name} />
           </a>
