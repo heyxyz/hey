@@ -105,7 +105,7 @@ const Feed: FC<Props> = ({ profile, type }) => {
       <ErrorMessage title="Failed to load profile feed" error={error} />
       {!error && !loading && data?.publications?.items?.length !== 0 && (
         <>
-          <Card className="divide-y-[1px]">
+          <Card className="divide-y-[1px] dark:divide-gray-700/80">
             {publications?.map((post: LensterPost, index: number) => (
               <SinglePost key={`${post?.id}_${index}`} post={post} />
             ))}

@@ -33,7 +33,7 @@ const UserProfile: FC<Props> = ({
 
   return (
     <div className="flex justify-between items-center">
-      <Link href={`/u/${profile?.handle}`}>
+      <Link href={`/u/${profile?.handle}`} prefetch={false}>
         <a href={`/u/${profile?.handle}`}>
           <div className="flex items-center space-x-3">
             <img
@@ -48,7 +48,7 @@ const UserProfile: FC<Props> = ({
               alt={profile?.handle}
             />
             <div>
-              <div className="flex gap-1 items-center truncate max-w-sm">
+              <div className="flex gap-1 items-center max-w-sm truncate">
                 <div className={clsx(isBig ? 'font-bold' : 'text-md')}>
                   {profile?.name ?? profile?.handle}
                 </div>

@@ -1,6 +1,7 @@
 import AppContext from '@components/utils/AppContext'
 import { Disclosure } from '@headlessui/react'
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
+import hasPrideLogo from '@lib/hasPrideLogo'
 import isStaff from '@lib/isStaff'
 import clsx from 'clsx'
 import dynamic from 'next/dynamic'
@@ -27,7 +28,7 @@ const Navbar: FC = () => {
 
   const NavItem = ({ url, name, current }: NavItemProps) => {
     return (
-      <Link href={url}>
+      <Link href={url} prefetch={false}>
         <a href={url} aria-current={current ? 'page' : undefined}>
           <Disclosure.Button
             className={clsx(
@@ -87,14 +88,18 @@ const Navbar: FC = () => {
                     <MenuIcon className="block w-6 h-6" aria-hidden="true" />
                   )}
                 </Disclosure.Button>
-                <Link href="/">
+                <Link href="/" prefetch={false}>
                   <a href="/">
                     <div className="text-3xl font-black">
                       <img
                         className="w-8 h-8"
                         height={32}
                         width={32}
-                        src="/logo.svg"
+                        src={
+                          currentUser && hasPrideLogo(currentUser)
+                            ? '/pride.svg'
+                            : '/logo.svg'
+                        }
                         alt="Logo"
                       />
                     </div>

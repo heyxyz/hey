@@ -147,6 +147,9 @@ export const CommentFields = gql`
             }
           }
         }
+        stats {
+          ...StatsFields
+        }
         createdAt
       }
     }

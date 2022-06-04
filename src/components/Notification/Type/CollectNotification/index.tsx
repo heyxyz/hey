@@ -58,6 +58,7 @@ const CollectNotification: FC<Props> = ({ notification }) => {
               ? `/communities/${notification?.collectedPublication?.id}`
               : `/posts/${notification?.collectedPublication?.id}`
           }
+          prefetch={false}
         >
           <a
             href={

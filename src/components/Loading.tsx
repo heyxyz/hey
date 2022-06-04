@@ -10,7 +10,7 @@ const Loading: FC = () => {
         className="w-28 h-28"
         height={112}
         width={112}
-        src="/logo.svg"
+        src="/pride.svg"
         alt="Logo"
       />
     </div>

@@ -18,7 +18,7 @@ import imagekitURL from '@lib/imagekitURL'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import dynamic from 'next/dynamic'
-import React, { FC, ReactChild, useContext, useState } from 'react'
+import React, { FC, ReactNode, useContext, useState } from 'react'
 
 import Join from './Join'
 
@@ -71,8 +71,8 @@ const Details: FC<Props> = ({ community }) => {
     children,
     icon
   }: {
-    children: ReactChild
-    icon: ReactChild
+    children: ReactNode
+    icon: ReactNode
   }) => (
     <div className="flex gap-2 items-center">
       {icon}

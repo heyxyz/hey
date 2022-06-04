@@ -1,4 +1,4 @@
-import LensHubProxy from '@abis/LensHubProxy.json'
+import { LensHubProxy } from '@abis/LensHubProxy'
 import { gql, useMutation } from '@apollo/client'
 import Attachments from '@components/Shared/Attachments'
 import Markup from '@components/Shared/Markup'
@@ -299,7 +299,7 @@ const NewComment: FC<Props> = ({ post, type }) => {
             />
           )}
           {preview ? (
-            <div className="pb-3 mb-2 border-b dark:border-b-gray-700/80">
+            <div className="pb-3 mb-2 border-b linkify dark:border-b-gray-700/80">
               <Markup>{commentContent}</Markup>
             </div>
           ) : (

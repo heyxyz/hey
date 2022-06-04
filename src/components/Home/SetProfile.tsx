@@ -50,7 +50,7 @@ const SetProfile: FC = () => {
         </div>
         <div className="flex items-center space-x-1.5 text-sm font-bold">
           <PencilAltIcon className="w-4 h-4" />
-          <Link href="/settings">
+          <Link href="/settings" prefetch={false}>
             <a href="/settings">Update profile here</a>
           </Link>
         </div>
