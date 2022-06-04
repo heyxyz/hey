@@ -990,7 +990,7 @@
     "@babel/helper-validator-identifier" "^7.16.7"
     to-fast-properties "^2.0.0"
 
-"@coinbase/wallet-sdk@^3.1.0":
+"@coinbase/wallet-sdk@^3.2.0":
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/@coinbase/wallet-sdk/-/wallet-sdk-3.2.0.tgz#cceda6c2ed213b663c5cbb35fcf65a57c24323f0"
   integrity sha512-uw9rdsfzXsdmC9FblMt2UH4094vLl9h3i1za5A2MaC8Ak1X/E1QbGr1oi64QAx9HD+M75zmy506F+zT0/s5dpQ==
@@ -2720,10 +2720,10 @@
     "@typescript-eslint/types" "5.27.0"
     eslint-visitor-keys "^3.3.0"
 
-"@wagmi/core@^0.3.6":
-  version "0.3.6"
-  resolved "https://registry.yarnpkg.com/@wagmi/core/-/core-0.3.6.tgz#f6dc68e44a0b96ed9cfb3ed35a081f4a7e9e052a"
-  integrity sha512-FJgEp3b6WmVpZj4TuVT4GZQGRIcYuwfCeK3rfhuK8OdV8yVEmsPl16nOGC54JSCaRfN20PA1ljSRXSFVVczlNA==
+"@wagmi/core@^0.3.7":
+  version "0.3.7"
+  resolved "https://registry.yarnpkg.com/@wagmi/core/-/core-0.3.7.tgz#68cda69426f9a35c77a5afc39daeb561e3096014"
+  integrity sha512-RJAaypcQK0OA/ezpgNz4Smk4rUUMf9IXapLR2PtDLUWjJxI2Xw5l+Pq4t6xOvJt6fNO1GKM0iRjUaUN37py0+w==
   dependencies:
     eventemitter3 "^4.0.7"
     zustand "^4.0.0-rc.1"
@@ -9361,13 +9361,13 @@ varint@^6.0.0:
   resolved "https://registry.yarnpkg.com/varint/-/varint-6.0.0.tgz#9881eb0ce8feaea6512439d19ddf84bf551661d0"
   integrity sha512-cXEIW6cfr15lFv563k4GuVuW/fiwjknytD37jIOLSdSWuOI6WnO/oKwmP2FQTU2l01LP8/M5TSAJpzUaGe3uWg==
 
-wagmi@^0.4.7:
-  version "0.4.7"
-  resolved "https://registry.yarnpkg.com/wagmi/-/wagmi-0.4.7.tgz#59d65c973ab51e9200155bc87caac4379294ee07"
-  integrity sha512-pr5besVfPGVaq/l4KU6aD+fgChF6DBLJxFTMEw53uHgXupsk9lJinrYtwKm/dkgUjqQKshH0Ekxi3ozEdbibLQ==
+wagmi@^0.4.8:
+  version "0.4.8"
+  resolved "https://registry.yarnpkg.com/wagmi/-/wagmi-0.4.8.tgz#4fadc14d8947952464fdd8b7f2d3079985e14b1d"
+  integrity sha512-hflZRiO48J5TCXQoKSSOFNNQpYziEA228KkpuDVHAr5C/rfB1hfRmkNjaPKQFF/IP65JJmBR1uWR9U9u/T+BKg==
   dependencies:
-    "@coinbase/wallet-sdk" "^3.1.0"
-    "@wagmi/core" "^0.3.6"
+    "@coinbase/wallet-sdk" "^3.2.0"
+    "@wagmi/core" "^0.3.7"
     "@walletconnect/ethereum-provider" "^1.7.8"
     react-query "^4.0.0-beta.19"
     use-sync-external-store "^1.1.0"
