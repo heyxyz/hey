@@ -34,6 +34,7 @@ tsconfig.tsbuildinfo
 
 # PWA
 public/sw.js
+public/sw.js.map
 public/workbox-*
 
 # Sentry
