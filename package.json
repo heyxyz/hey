@@ -51,7 +51,7 @@
     "ua-parser-js": "^1.0.2",
     "use-streak": "^1.0.4",
     "uuid": "^8.3.2",
-    "wagmi": "^0.4.7",
+    "wagmi": "^0.4.8",
     "zod": "^3.17.3"
   },
   "devDependencies": {
