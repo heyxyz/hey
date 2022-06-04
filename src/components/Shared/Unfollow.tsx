@@ -1,4 +1,4 @@
-import FollowNFT from '@abis/FollowNFT.json'
+import { FollowNFT } from '@abis/FollowNFT'
 import { gql, useMutation } from '@apollo/client'
 import { Button } from '@components/UI/Button'
 import { Spinner } from '@components/UI/Spinner'

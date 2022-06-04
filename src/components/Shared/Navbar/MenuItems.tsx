@@ -31,7 +31,7 @@ import Slug from '../Slug'
 import Login from './Login'
 
 export const NextLink = ({ href, children, ...rest }: Record<string, any>) => (
-  <Link href={href}>
+  <Link href={href} prefetch={false}>
     <a {...rest}>{children}</a>
   </Link>
 )
@@ -272,8 +272,8 @@ const MenuItems: FC = () => {
             className="mr-0.5 w-4 h-4"
             height={16}
             width={16}
-            src="/eth-white.svg"
-            alt="Ethereum Logo"
+            src="/lens.png"
+            alt="Lens Logo"
           />
         }
         onClick={() => {

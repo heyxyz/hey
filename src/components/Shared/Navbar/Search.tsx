@@ -99,7 +99,7 @@ const Search: FC<Props> = ({ hideDrodown = false }) => {
                     key={profile?.handle}
                     className="py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-800"
                   >
-                    <Link href={`/u/${profile?.handle}`}>
+                    <Link href={`/u/${profile?.handle}`} prefetch={false}>
                       <a
                         href={`/u/${profile?.handle}`}
                         onClick={() => setSearchText('')}

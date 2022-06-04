@@ -14,10 +14,10 @@ const Footer: FC = () => {
       <span className="font-bold text-gray-500 dark:text-gray-300">
         © Lenster
       </span>
-      <Link href="/about">
+      <Link href="/about" prefetch={false}>
         <a href="/about">About</a>
       </Link>
-      <Link href="/privacy">
+      <Link href="/privacy" prefetch={false}>
         <a href="/privacy">Privacy</a>
       </Link>
       <a
@@ -55,7 +55,7 @@ const Footer: FC = () => {
       >
         Vote
       </a>
-      <Link href="/thanks">
+      <Link href="/thanks" prefetch={false}>
         <a href="/thanks">Thanks</a>
       </Link>
       <a

@@ -1,4 +1,4 @@
-import LensHubProxy from '@abis/LensHubProxy.json'
+import { LensHubProxy } from '@abis/LensHubProxy'
 import { gql, useMutation } from '@apollo/client'
 import Attachments from '@components/Shared/Attachments'
 import Markup from '@components/Shared/Markup'
@@ -289,7 +289,7 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
             />
           )}
           {preview ? (
-            <div className="pb-3 mb-2 border-b dark:border-b-gray-700/80">
+            <div className="pb-3 mb-2 border-b linkify dark:border-b-gray-700/80">
               <Markup>{postContent}</Markup>
             </div>
           ) : (

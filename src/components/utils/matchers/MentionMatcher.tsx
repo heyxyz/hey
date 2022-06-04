@@ -3,7 +3,11 @@ import Link from 'next/link'
 import React from 'react'
 
 export function Mention({ ...props }: any) {
-  return <Link href={`/u/${props.display.slice(1)}`}>{props.display}</Link>
+  return (
+    <Link href={`/u/${props.display.slice(1)}`} prefetch={false}>
+      {props.display}
+    </Link>
+  )
 }
 
 export class MentionMatcher extends Matcher {

@@ -13,6 +13,7 @@ export function Hashtag({ ...props }: any) {
       <span>
         <Link
           href={`/search?q=${props.display.slice(1)}&type=pubs&src=link_click`}
+          prefetch={false}
         >
           {props.display}
         </Link>
