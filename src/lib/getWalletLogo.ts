@@ -4,8 +4,6 @@ const getWalletLogo = (name: string): string => {
   switch (name) {
     case 'WalletConnect':
       return `${STATIC_ASSETS}/wallets/walletconnect.svg`
-    case 'Coinbase Wallet':
-      return `${STATIC_ASSETS}/wallets/coinbase.svg`
     default:
       return `${STATIC_ASSETS}/wallets/browser-wallet.svg`
   }
