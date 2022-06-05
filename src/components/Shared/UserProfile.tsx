@@ -49,7 +49,9 @@ const UserProfile: FC<Props> = ({
             />
             <div>
               <div className="flex gap-1 items-center max-w-sm truncate">
-                <div className={clsx(isBig ? 'font-bold' : 'text-md')}>
+                <div
+                  className={clsx(isBig ? 'font-bold' : 'text-sm sm:text-base')}
+                >
                   {profile?.name ?? profile?.handle}
                 </div>
                 {isVerified(profile?.id) && (
@@ -60,7 +62,7 @@ const UserProfile: FC<Props> = ({
               {showBio && profile?.bio && (
                 <div
                   className={clsx(
-                    isBig ? 'text-md' : 'text-sm',
+                    isBig ? 'text-base' : 'text-sm',
                     'mt-2',
                     'linkify leading-6'
                   )}
