@@ -74,10 +74,17 @@ const Mirror: FC<Props> = ({ post }) => {
   const { data: account } = useAccount()
 
   useEffect(() => {
-    if (post?.stats?.totalAmountOfMirrors) {
-      setCount(post?.stats?.totalAmountOfMirrors)
+    if (
+      post?.mirrorOf?.stats?.totalAmountOfMirrors ||
+      post?.stats?.totalAmountOfMirrors
+    ) {
+      setCount(
+        post.__typename === 'Mirror'
+          ? post?.mirrorOf?.stats?.totalAmountOfMirrors
+          : post?.stats?.totalAmountOfMirrors
+      )
     }
-  }, [post?.stats?.totalAmountOfMirrors])
+  }, [post])
 
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
