@@ -95,7 +95,7 @@ const Details: FC<Props> = ({ profile }) => {
   }) => (
     <div className="flex gap-2 items-center">
       {icon}
-      <div className="truncate">{children}</div>
+      <div className="truncate text-md">{children}</div>
     </div>
   )
 
@@ -128,9 +128,16 @@ const Details: FC<Props> = ({ profile }) => {
         </div>
         <div className="flex items-center space-x-3">
           {profile?.name ? (
-            <Slug slug={profile?.handle} prefix="@" />
+            <Slug
+              className="!text-sm sm:!text-base"
+              slug={profile?.handle}
+              prefix="@"
+            />
           ) : (
-            <Slug slug={formatAddress(profile?.ownedBy)} />
+            <Slug
+              className="!text-sm sm:!text-base"
+              slug={formatAddress(profile?.ownedBy)}
+            />
           )}
           {currentUser && currentUser?.id !== profile?.id && (
             <DoesFollow followData={followData?.doesFollow[0]} />
@@ -193,7 +200,7 @@ const Details: FC<Props> = ({ profile }) => {
           )}
         </div>
         {profile?.bio && (
-          <div className="mr-0 leading-7 sm:mr-10 linkify">
+          <div className="mr-0 leading-md sm:mr-10 linkify text-md">
             <Markup>{profile?.bio}</Markup>
           </div>
         )}
