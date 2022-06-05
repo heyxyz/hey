@@ -377,9 +377,9 @@ const Profile: FC<Props> = ({ profile }) => {
               <div>Enroll to Lenster Beta</div>
             </div>
           </div>
-          <div className="space-y-2 pt-4">
-            <div className="label flex items-center space-x-2">
-              <img className="h-5 w-5" src="/pride.svg" alt="Pride Logo" />
+          <div className="pt-4 space-y-2">
+            <div className="flex items-center space-x-2 label">
+              <img className="w-5 h-5" src="/pride.svg" alt="Pride Logo" />
               <span>Celebrate pride every day</span>
             </div>
             <div className="flex items-center space-x-2">
