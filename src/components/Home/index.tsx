@@ -1,18 +1,25 @@
-import ExploreFeed from '@components/Explore/Feed'
 import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout'
 import Announcement from '@components/Home/Announcement'
 import Footer from '@components/Shared/Footer'
+import PostsShimmer from '@components/Shared/Shimmer/PostsShimmer'
 import AppContext from '@components/utils/AppContext'
 import SEO from '@components/utils/SEO'
 import { NextPage } from 'next'
+import dynamic from 'next/dynamic'
 import React, { useContext } from 'react'
 
-import HomeFeed from './Feed'
 import Hero from './Hero'
 import RecommendedProfiles from './RecommendedProfiles'
 import SetDefaultProfile from './SetDefaultProfile'
 import SetProfile from './SetProfile'
 import Streak from './Streak'
+
+const HomeFeed = dynamic(() => import('./Feed'), {
+  loading: () => <PostsShimmer />
+})
+const ExploreFeed = dynamic(() => import('@components/Explore/Feed'), {
+  loading: () => <PostsShimmer />
+})
 
 const Home: NextPage = () => {
   const { currentUser } = useContext(AppContext)

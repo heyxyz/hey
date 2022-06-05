@@ -1,13 +1,18 @@
 import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout'
 import RecommendedProfiles from '@components/Home/RecommendedProfiles'
 import Footer from '@components/Shared/Footer'
+import PostsShimmer from '@components/Shared/Shimmer/PostsShimmer'
 import SEO from '@components/utils/SEO'
 import { NextPage } from 'next'
+import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 
-import Feed from './Feed'
 import FeedType from './FeedType'
+
+const Feed = dynamic(() => import('./Feed'), {
+  loading: () => <PostsShimmer />
+})
 
 const Explore: NextPage = () => {
   const {

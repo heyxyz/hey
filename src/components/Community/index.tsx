@@ -1,10 +1,11 @@
 import { gql, useQuery } from '@apollo/client'
-import Feed from '@components/Comment/Feed'
 import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout'
+import PostsShimmer from '@components/Shared/Shimmer/PostsShimmer'
 import SEO from '@components/utils/SEO'
 import { CommunityFields } from '@gql/CommunityFields'
 import consoleLog from '@lib/consoleLog'
 import { NextPage } from 'next'
+import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import React from 'react'
 import Custom404 from 'src/pages/404'
@@ -12,6 +13,10 @@ import Custom500 from 'src/pages/500'
 
 import Details from './Details'
 import CommunityPageShimmer from './Shimmer'
+
+const Feed = dynamic(() => import('@components/Comment/Feed'), {
+  loading: () => <PostsShimmer />
+})
 
 const COMMUNITY_QUERY = gql`
   query Community($request: PublicationQueryRequest!) {
