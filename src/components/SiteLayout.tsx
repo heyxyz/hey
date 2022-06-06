@@ -3,6 +3,7 @@ import { Profile } from '@generated/types'
 import { MinimalProfileFields } from '@gql/MinimalProfileFields'
 import consoleLog from '@lib/consoleLog'
 import Cookies from 'js-cookie'
+import dynamic from 'next/dynamic'
 import Head from 'next/head'
 import { useTheme } from 'next-themes'
 import { FC, ReactNode, useEffect, useState } from 'react'
@@ -10,8 +11,11 @@ import { Toaster } from 'react-hot-toast'
 import { useAccount, useConnect, useDisconnect } from 'wagmi'
 
 import Loading from './Loading'
-import Navbar from './Shared/Navbar'
 import AppContext from './utils/AppContext'
+
+const Navbar = dynamic(() => import('./Shared/Navbar'), {
+  loading: () => <Loading />
+})
 
 export const CURRENT_USER_QUERY = gql`
   query CurrentUser($ownedBy: [EthereumAddress!]) {

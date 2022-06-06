@@ -60,7 +60,7 @@ const UserProfile: FC<Props> = ({
               {showBio && profile?.bio && (
                 <div
                   className={clsx(
-                    isBig ? 'text-md' : 'text-sm',
+                    isBig ? 'text-base' : 'text-sm',
                     'mt-2',
                     'linkify leading-6'
                   )}

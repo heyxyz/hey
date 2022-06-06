@@ -1,7 +1,7 @@
 import { gql, useQuery } from '@apollo/client'
-import Feed from '@components/Comment/Feed'
 import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout'
 import Footer from '@components/Shared/Footer'
+import PostsShimmer from '@components/Shared/Shimmer/PostsShimmer'
 import UserProfile from '@components/Shared/UserProfile'
 import { Card, CardBody } from '@components/UI/Card'
 import AppContext from '@components/utils/AppContext'
@@ -13,6 +13,7 @@ import { PostFields } from '@gql/PostFields'
 import consoleLog from '@lib/consoleLog'
 import { apps } from 'data/apps'
 import { NextPage } from 'next'
+import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import React, { useContext } from 'react'
 import { ZERO_ADDRESS } from 'src/constants'
@@ -23,6 +24,10 @@ import IPFSHash from './IPFSHash'
 import PostPageShimmer from './Shimmer'
 import SinglePost from './SinglePost'
 import ViaApp from './ViaApp'
+
+const Feed = dynamic(() => import('@components/Comment/Feed'), {
+  loading: () => <PostsShimmer />
+})
 
 export const POST_QUERY = gql`
   query Post(
@@ -114,24 +119,22 @@ const ViewPost: NextPage = () => {
           isFollowing={data?.doesFollow[0]?.follows}
         />
       </GridItemEight>
-      <GridItemFour>
-        <div className="sticky space-y-5 top-[126px]">
-          <Card>
-            <CardBody>
-              <UserProfile
-                profile={
-                  post?.__typename === 'Mirror'
-                    ? post?.mirrorOf?.profile
-                    : post?.profile
-                }
-                showBio
-              />
-            </CardBody>
-            <ViaApp appConfig={appConfig} />
-          </Card>
-          <IPFSHash ipfsHash={post?.onChainContentURI} />
-          <Footer />
-        </div>
+      <GridItemFour className="space-y-5">
+        <Card>
+          <CardBody>
+            <UserProfile
+              profile={
+                post?.__typename === 'Mirror'
+                  ? post?.mirrorOf?.profile
+                  : post?.profile
+              }
+              showBio
+            />
+          </CardBody>
+          <ViaApp appConfig={appConfig} />
+        </Card>
+        <IPFSHash ipfsHash={post?.onChainContentURI} />
+        <Footer />
       </GridItemFour>
     </GridLayout>
   )

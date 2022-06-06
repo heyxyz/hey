@@ -26,7 +26,7 @@
     "@tippyjs/react": "^4.2.6",
     "@types/react-mentions": "^4.1.6",
     "clsx": "^1.1.1",
-    "dayjs": "^1.11.2",
+    "dayjs": "^1.11.3",
     "dotenv": "^16.0.1",
     "ethers": "^5.6.7",
     "framer-motion": "^6.3.10",
@@ -51,7 +51,7 @@
     "ua-parser-js": "^1.0.2",
     "use-streak": "^1.0.4",
     "uuid": "^8.3.2",
-    "wagmi": "^0.4.7",
+    "wagmi": "^0.4.9",
     "zod": "^3.17.3"
   },
   "devDependencies": {
@@ -60,7 +60,7 @@
     "@graphql-codegen/typescript": "^2.4.11",
     "@tailwindcss/forms": "^0.5.2",
     "@tailwindcss/line-clamp": "^0.4.0",
-    "@types/node": "^17.0.39",
+    "@types/node": "^17.0.40",
     "@types/react": "^18.0.11",
     "@types/react-copy-to-clipboard": "^5.0.2",
     "@types/react-dom": "^18.0.5",
