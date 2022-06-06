@@ -38,8 +38,11 @@ const SinglePost: FC<Props> = ({
                 : post?.profile
             }
           />
-          <Link href={`/posts/${post?.id}`} prefetch={false}>
-            <a href={`/posts/${post?.id}`} className="text-sm text-gray-500">
+          <Link href={`/posts/${post?.id ?? post?.pubId}`} prefetch={false}>
+            <a
+              href={`/posts/${post?.id ?? post?.pubId}`}
+              className="text-sm text-gray-500"
+            >
               {dayjs(new Date(post?.createdAt)).fromNow()}
             </a>
           </Link>
