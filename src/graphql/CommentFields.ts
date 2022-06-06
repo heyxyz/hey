@@ -112,11 +112,17 @@ export const CommentFields = gql`
                 profile {
                   ...MinimalProfileFields
                 }
+                stats {
+                  ...StatsFields
+                }
               }
               ... on Comment {
                 id
                 profile {
                   ...MinimalProfileFields
+                }
+                stats {
+                  ...StatsFields
                 }
               }
             }
@@ -139,11 +145,17 @@ export const CommentFields = gql`
             profile {
               ...MinimalProfileFields
             }
+            stats {
+              ...StatsFields
+            }
           }
           ... on Comment {
             id
             profile {
               ...MinimalProfileFields
+            }
+            stats {
+              ...StatsFields
             }
           }
         }

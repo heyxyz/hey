@@ -113,3 +113,11 @@ body {
 .plyr__control {
   @apply hover:!bg-brand-500;
 }
+
+.text-md {
+  @apply text-sm sm:text-base;
+}
+
+.leading-md {
+  @apply !leading-6 sm:!leading-7;
+}

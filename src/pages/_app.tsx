@@ -13,7 +13,6 @@ import {
   IS_PRODUCTION
 } from 'src/constants'
 import { chain, configureChains, createClient, WagmiConfig } from 'wagmi'
-import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet'
 import { InjectedConnector } from 'wagmi/connectors/injected'
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect'
 import { alchemyProvider } from 'wagmi/providers/alchemy'
@@ -35,13 +34,6 @@ const connectors = () => {
       chains,
       options: {
         rpc: { [CHAIN_ID]: ALCHEMY_RPC }
-      }
-    }),
-    new CoinbaseWalletConnector({
-      chains,
-      options: {
-        appName: 'Lenster',
-        jsonRpcUrl: ALCHEMY_RPC
       }
     })
   ]

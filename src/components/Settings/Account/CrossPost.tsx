@@ -22,7 +22,7 @@ const CrossPost: FC = () => {
           rel="noreferrer noopener"
         >
           <span>Setup now</span>
-          <ExternalLinkIcon className="h-4 w-4" />
+          <ExternalLinkIcon className="w-4 h-4" />
         </a>
       </CardBody>
     </Card>

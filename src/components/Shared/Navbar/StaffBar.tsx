@@ -33,7 +33,7 @@ const StaffBar: FC = () => {
     <div className="flex justify-between py-1 px-3 text-sm bg-gray-200 dark:bg-black">
       <div className="flex items-center space-x-2">
         {IS_PRODUCTION ? (
-          <div className="flex items-center space-x-1" title="Git commit ref">
+          <div className="flex items-center space-x-1">
             <GlobeAltIcon className="w-4 h-4 text-green-500" />
             <Badge>
               prod{' '}
@@ -43,7 +43,7 @@ const StaffBar: FC = () => {
             </Badge>
           </div>
         ) : (
-          <div className="flex items-center space-x-1" title="Git commit ref">
+          <div className="flex items-center space-x-1">
             <GlobeAltIcon className="w-4 h-4 text-yellow-500" />
             <Badge>
               dev{' '}
@@ -53,7 +53,7 @@ const StaffBar: FC = () => {
             </Badge>
           </div>
         )}
-        <div className="flex items-center space-x-1" title="Git commit ref">
+        <div className="hidden items-center space-x-1 sm:flex">
           <SwitchVerticalIcon
             className={clsx(
               RELAY_ON ? ' text-green-500' : ' text-yellow-500',
