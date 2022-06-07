@@ -18,34 +18,32 @@ import Picture from './Picture'
 import Profile from './Profile'
 
 const PROFILE_SETTINGS_QUERY = gql`
-  query ProfileSettings($request: ProfileQueryRequest!) {
-    profiles(request: $request) {
-      items {
-        id
-        name
-        bio
-        attributes {
-          key
-          value
-        }
-        coverPicture {
-          ... on MediaSet {
-            original {
-              url
-            }
+  query ProfileSettings($request: SingleProfileQueryRequest!) {
+    profile(request: $request) {
+      id
+      name
+      bio
+      attributes {
+        key
+        value
+      }
+      coverPicture {
+        ... on MediaSet {
+          original {
+            url
           }
         }
-        picture {
-          ... on MediaSet {
-            original {
-              url
-            }
+      }
+      picture {
+        ... on MediaSet {
+          original {
+            url
           }
-          ... on NftImage {
-            uri
-            tokenId
-            contractAddress
-          }
+        }
+        ... on NftImage {
+          uri
+          tokenId
+          contractAddress
         }
       }
     }
@@ -56,11 +54,11 @@ const ProfileSettings: NextPage = () => {
   const { currentUser } = useContext(AppContext)
   const [settingsType, setSettingsType] = useState<'NFT' | 'AVATAR'>('AVATAR')
   const { data, loading, error } = useQuery(PROFILE_SETTINGS_QUERY, {
-    variables: { request: { profileIds: currentUser?.id } },
+    variables: { request: { profileId: currentUser?.id } },
     skip: !currentUser?.id,
     onCompleted(data) {
       consoleLog('Query', '#8b5cf6', `Fetched profile settings`)
-      setSettingsType(data?.profiles?.items[0]?.picture?.uri ? 'NFT' : 'AVATAR')
+      setSettingsType(data?.profile?.picture?.uri ? 'NFT' : 'AVATAR')
     }
   })
 
@@ -68,7 +66,7 @@ const ProfileSettings: NextPage = () => {
   if (loading) return <PageLoading message="Loading settings" />
   if (!currentUser) return <Custom404 />
 
-  const profile = data?.profiles?.items[0]
+  const profile = data?.profile
 
   interface TypeButtonProps {
     name: string
