@@ -46,18 +46,16 @@ const newCrowdfundSchema = object({
 })
 
 const MODULES_CURRENCY_QUERY = gql`
-  query EnabledCurrencyModules($request: ProfileQueryRequest!) {
+  query EnabledCurrencyModules($request: SingleProfileQueryRequest!) {
     enabledModuleCurrencies {
       name
       symbol
       decimals
       address
     }
-    profiles(request: $request) {
-      items {
-        followModule {
-          __typename
-        }
+    profile(request: $request) {
+      followModule {
+        __typename
       }
     }
   }
@@ -110,7 +108,7 @@ const SuperFollow: FC = () => {
     }
   })
   const { data: currencyData, loading } = useQuery(MODULES_CURRENCY_QUERY, {
-    variables: { request: { profileIds: currentUser?.id } },
+    variables: { request: { profileId: currentUser?.id } },
     skip: !currentUser?.id,
     onCompleted() {
       consoleLog('Query', '#8b5cf6', `Fetched enabled module currencies`)
@@ -245,7 +243,7 @@ const SuperFollow: FC = () => {
       </Card>
     )
 
-  const followType = currencyData?.profiles?.items[0]?.followModule?.__typename
+  const followType = currencyData?.profile?.followModule?.__typename
 
   return (
     <Card>
