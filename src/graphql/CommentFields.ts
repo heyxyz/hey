@@ -130,7 +130,6 @@ export const CommentFields = gql`
                 hidden
               }
             }
-            hidden
             createdAt
           }
         }
