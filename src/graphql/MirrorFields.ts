@@ -35,6 +35,7 @@ export const MirrorFields = gql`
         stats {
           ...StatsFields
         }
+        hidden
       }
       ... on Comment {
         id
@@ -44,6 +45,7 @@ export const MirrorFields = gql`
         stats {
           ...StatsFields
         }
+        hidden
       }
     }
     createdAt
