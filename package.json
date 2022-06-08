@@ -29,7 +29,7 @@
     "dayjs": "^1.11.3",
     "dotenv": "^16.0.1",
     "ethers": "^5.6.7",
-    "framer-motion": "^6.3.10",
+    "framer-motion": "^6.3.11",
     "graphql": "^16.5.0",
     "interweave": "^13.0.0",
     "interweave-autolink": "^5.0.0",
