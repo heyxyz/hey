@@ -47,6 +47,7 @@ export const CommentFields = gql`
         metadata {
           ...MetadataFields
         }
+        hidden
         createdAt
       }
       ... on Comment {
@@ -90,6 +91,7 @@ export const CommentFields = gql`
             metadata {
               ...MetadataFields
             }
+            hidden
             createdAt
           }
           ... on Mirror {
@@ -115,6 +117,7 @@ export const CommentFields = gql`
                 stats {
                   ...StatsFields
                 }
+                hidden
               }
               ... on Comment {
                 id
@@ -124,11 +127,13 @@ export const CommentFields = gql`
                 stats {
                   ...StatsFields
                 }
+                hidden
               }
             }
             createdAt
           }
         }
+        hidden
         createdAt
       }
       ... on Mirror {
@@ -148,6 +153,7 @@ export const CommentFields = gql`
             stats {
               ...StatsFields
             }
+            hidden
           }
           ... on Comment {
             id
@@ -157,14 +163,17 @@ export const CommentFields = gql`
             stats {
               ...StatsFields
             }
+            hidden
           }
         }
         stats {
           ...StatsFields
         }
+        hidden
         createdAt
       }
     }
+    hidden
     createdAt
     appId
   }

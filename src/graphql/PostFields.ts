@@ -30,6 +30,7 @@ export const PostFields = gql`
         }
       }
     }
+    hidden
     createdAt
     appId
   }
