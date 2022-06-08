@@ -117,6 +117,7 @@ export const CommentFields = gql`
                 stats {
                   ...StatsFields
                 }
+                hidden
               }
               ... on Comment {
                 id
@@ -126,6 +127,7 @@ export const CommentFields = gql`
                 stats {
                   ...StatsFields
                 }
+                hidden
               }
             }
             hidden
