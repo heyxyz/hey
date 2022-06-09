@@ -6,6 +6,7 @@ import Link from 'next/link'
 import React, { FC } from 'react'
 
 import PostActions from './Actions'
+import HiddenPost from './HiddenPost'
 import PostBody from './PostBody'
 import PostType from './Type'
 
@@ -38,15 +39,24 @@ const SinglePost: FC<Props> = ({
                 : post?.profile
             }
           />
-          <Link href={`/posts/${post?.id}`} prefetch={false}>
-            <a href={`/posts/${post?.id}`} className="text-sm text-gray-500">
+          <Link href={`/posts/${post?.id ?? post?.pubId}`} prefetch={false}>
+            <a
+              href={`/posts/${post?.id ?? post?.pubId}`}
+              className="text-sm text-gray-500"
+            >
               {dayjs(new Date(post?.createdAt)).fromNow()}
             </a>
           </Link>
         </div>
         <div className="ml-[53px]">
-          <PostBody post={post} />
-          <PostActions post={post} />
+          {post?.hidden ? (
+            <HiddenPost type={post?.__typename} />
+          ) : (
+            <>
+              <PostBody post={post} />
+              <PostActions post={post} />
+            </>
+          )}
         </div>
       </div>
     </div>
