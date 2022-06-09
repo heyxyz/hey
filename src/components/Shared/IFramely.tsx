@@ -83,7 +83,7 @@ const IFramely: FC<Props> = ({ url }) => {
                   alt="Thumbnail"
                 />
               )}
-              <div className="p-5">
+              <div className="p-5 truncate">
                 <div className="space-y-1.5">
                   {title && (
                     <div className="font-bold line-clamp-1">{title}</div>
