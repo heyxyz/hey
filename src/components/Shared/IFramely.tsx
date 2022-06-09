@@ -42,20 +42,22 @@ const IFramely: FC<Props> = ({ url }) => {
   if (error || !isLoaded) {
     return null
   } else {
-    const title = data?.meta?.title
-    const description = data?.meta?.description
-    const site = data?.meta?.site
-    const url = data?.url
-    const favicon = `https://www.google.com/s2/favicons?domain=${url}`
-    const thumbnail =
-      data?.links?.thumbnail &&
-      imagekitURL(data?.links?.thumbnail[0]?.href, 'attachment')
-    const isSquare =
-      data?.links?.thumbnail &&
-      data?.links?.thumbnail[0]?.media?.width ===
-        data?.links?.thumbnail[0]?.media?.height
+    const og = {
+      title: data?.meta?.title,
+      description: data?.meta?.description,
+      site: data?.meta?.site,
+      url: data?.url,
+      favicon: `https://www.google.com/s2/favicons?domain=${url}`,
+      thumbnail:
+        data?.links?.thumbnail &&
+        imagekitURL(data?.links?.thumbnail[0]?.href, 'attachment'),
+      isSquare:
+        data?.links?.thumbnail &&
+        data?.links?.thumbnail[0]?.media?.width ===
+          data?.links?.thumbnail[0]?.media?.height
+    }
 
-    if (!title) return null
+    if (!og.title) return null
 
     return (
       <div className="mt-4 text-sm sm:w-4/6">
@@ -66,45 +68,45 @@ const IFramely: FC<Props> = ({ url }) => {
           onClick={() => trackEvent('oembed')}
         >
           <Card forceRounded>
-            {!isSquare && thumbnail && (
+            {!og.isSquare && og.thumbnail && (
               <img
                 className="w-full rounded-t-xl"
-                src={thumbnail}
+                src={og.thumbnail}
                 alt="Thumbnail"
               />
             )}
             <div className="flex items-center">
-              {isSquare && thumbnail && (
+              {og.isSquare && og.thumbnail && (
                 <img
                   className="w-36 h-36 rounded-l-xl"
                   height={144}
                   width={144}
-                  src={thumbnail}
+                  src={og.thumbnail}
                   alt="Thumbnail"
                 />
               )}
               <div className="p-5 truncate">
                 <div className="space-y-1.5">
-                  {title && (
-                    <div className="font-bold line-clamp-1">{title}</div>
+                  {og.title && (
+                    <div className="font-bold line-clamp-1">{og.title}</div>
                   )}
-                  {description && (
+                  {og.description && (
                     <div className="text-gray-500 line-clamp-2">
-                      {description}
+                      {og.description}
                     </div>
                   )}
-                  {site && (
+                  {og.site && (
                     <div className="flex items-center pt-1.5 space-x-1">
-                      {favicon && (
+                      {og.favicon && (
                         <img
                           className="w-4 h-4 rounded-full"
                           height={16}
                           width={16}
-                          src={favicon}
+                          src={og.favicon}
                           alt="Favicon"
                         />
                       )}
-                      <div className="text-xs text-gray-500">{site}</div>
+                      <div className="text-xs text-gray-500">{og.site}</div>
                     </div>
                   )}
                 </div>
