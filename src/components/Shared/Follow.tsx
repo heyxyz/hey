@@ -28,8 +28,11 @@ import {
 } from 'wagmi'
 
 const CREATE_FOLLOW_TYPED_DATA_MUTATION = gql`
-  mutation CreateFollowTypedData($request: FollowRequest!) {
-    createFollowTypedData(request: $request) {
+  mutation CreateFollowTypedData(
+    $options: TypedDataOptions
+    $request: FollowRequest!
+  ) {
+    createFollowTypedData(options: $options, request: $request) {
       id
       expiresAt
       typedData {
@@ -71,7 +74,8 @@ const Follow: FC<Props> = ({
   followersCount,
   setFollowersCount
 }) => {
-  const { currentUser } = useContext(AppContext)
+  const { currentUser, userSigNonces, setUserSigNonces } =
+    useContext(AppContext)
   const { activeChain } = useNetwork()
   const { data: account } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
@@ -133,6 +137,7 @@ const Follow: FC<Props> = ({
           types: omit(typedData?.types, '__typename'),
           value: omit(typedData?.value, '__typename')
         }).then((signature) => {
+          setUserSigNonces(userSigNonces + 1)
           const { profileIds, datas: followData } = typedData?.value
           const { v, r, s } = splitSignature(signature)
           const sig = { v, r, s, deadline: typedData.value.deadline }
@@ -169,6 +174,7 @@ const Follow: FC<Props> = ({
     } else {
       createFollowTypedData({
         variables: {
+          options: { overrideSigNonce: userSigNonces },
           request: {
             follow: {
               profile: profile?.id,
