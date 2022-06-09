@@ -25,6 +25,9 @@ export const CURRENT_USER_QUERY = gql`
         isDefault
       }
     }
+    userSigNonces {
+      lensHubOnChainSigNonce
+    }
   }
   ${MinimalProfileFields}
 `
@@ -39,6 +42,7 @@ const SiteLayout: FC<Props> = ({ children }) => {
   const [staffMode, setStaffMode] = useState<boolean>()
   const [refreshToken, setRefreshToken] = useState<string>()
   const [selectedProfile, setSelectedProfile] = useState<number>(0)
+  const [userSigNonces, setUserSigNonces] = useState<number>(0)
   const { data: accountData } = useAccount()
   const { activeConnector } = useConnect()
   const { disconnect } = useDisconnect()
@@ -63,6 +67,8 @@ const SiteLayout: FC<Props> = ({ children }) => {
   useEffect(() => {
     setRefreshToken(Cookies.get('refreshToken'))
     setSelectedProfile(localStorage.selectedProfile)
+    console.log(data?.userSigNonces?.lensHubOnChainSigNonce)
+    setUserSigNonces(data?.userSigNonces?.lensHubOnChainSigNonce)
     setStaffMode(localStorage.staffMode === 'true')
     setPageLoading(false)
 
@@ -76,11 +82,18 @@ const SiteLayout: FC<Props> = ({ children }) => {
       Cookies.remove('refreshToken')
       disconnect()
     })
-  }, [selectedProfile, activeConnector, disconnect])
+  }, [
+    selectedProfile,
+    activeConnector,
+    disconnect,
+    data?.userSigNonces?.lensHubOnChainSigNonce
+  ])
 
   const injectedGlobalContext = {
     selectedProfile,
     setSelectedProfile,
+    userSigNonces,
+    setUserSigNonces,
     staffMode,
     setStaffMode,
     profiles: profiles,
