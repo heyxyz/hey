@@ -2,6 +2,7 @@ import imagekitURL from '@lib/imagekitURL'
 import React, { FC, useEffect, useState } from 'react'
 
 import Embed from './Embed'
+import Player from './Player'
 
 interface Props {
   url: string
@@ -54,12 +55,13 @@ const IFramely: FC<Props> = ({ url }) => {
       isSquare:
         data?.links?.thumbnail &&
         data?.links?.thumbnail[0]?.media?.width ===
-          data?.links?.thumbnail[0]?.media?.height
+          data?.links?.thumbnail[0]?.media?.height,
+      html: data?.links?.player ? data?.links?.player[0]?.html : null
     }
 
     if (!og.title) return null
 
-    return <Embed og={og} />
+    return og.html ? <Player og={og} /> : <Embed og={og} />
   }
 }
 
