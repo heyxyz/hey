@@ -121,3 +121,8 @@ body {
 .leading-md {
   @apply !leading-6 sm:!leading-7;
 }
+
+.iframely-player,
+iframe {
+  @apply rounded-xl;
+}
