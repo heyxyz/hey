@@ -44,22 +44,20 @@ import Slug from '../Slug'
 import Uniswap from '../Uniswap'
 
 const SUPER_FOLLOW_QUERY = gql`
-  query SuperFollow($request: ProfileQueryRequest!) {
-    profiles(request: $request) {
-      items {
-        id
-        followModule {
-          ... on FeeFollowModuleSettings {
-            amount {
-              asset {
-                name
-                symbol
-                address
-              }
-              value
+  query SuperFollow($request: SingleProfileQueryRequest!) {
+    profile(request: $request) {
+      id
+      followModule {
+        ... on FeeFollowModuleSettings {
+          amount {
+            asset {
+              name
+              symbol
+              address
             }
-            recipient
+            value
           }
+          recipient
         }
       }
     }
@@ -149,7 +147,7 @@ const FollowModule: FC<Props> = ({
   )
 
   const { data, loading } = useQuery(SUPER_FOLLOW_QUERY, {
-    variables: { request: { profileIds: profile?.id } },
+    variables: { request: { profileId: profile?.id } },
     skip: !profile?.id,
     onCompleted() {
       consoleLog(
@@ -160,8 +158,7 @@ const FollowModule: FC<Props> = ({
     }
   })
 
-  const followModule: FeeFollowModuleSettings =
-    data?.profiles?.items[0]?.followModule
+  const followModule: FeeFollowModuleSettings = data?.profile?.followModule
 
   const { data: allowanceData, loading: allowanceLoading } = useQuery(
     ALLOWANCE_SETTINGS_QUERY,

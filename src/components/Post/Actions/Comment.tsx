@@ -13,9 +13,9 @@ interface Props {
 const Comment: FC<Props> = ({ post }) => {
   return (
     <motion.button whileTap={{ scale: 0.9 }} aria-label="Comment">
-      <Link href={`/posts/${post?.id}`} prefetch={false}>
+      <Link href={`/posts/${post?.id ?? post?.pubId}`} prefetch={false}>
         <a
-          href={`/posts/${post?.id}`}
+          href={`/posts/${post?.id ?? post?.pubId}`}
           className="flex items-center space-x-1 text-blue-500 hover:text-blue-400"
         >
           <div className="p-1.5 rounded-full hover:bg-blue-300 hover:bg-opacity-20">

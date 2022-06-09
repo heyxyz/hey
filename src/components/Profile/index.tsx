@@ -24,45 +24,43 @@ const NFTFeed = dynamic(() => import('./NFTFeed'), {
 })
 
 export const PROFILE_QUERY = gql`
-  query Profile($request: ProfileQueryRequest!) {
-    profiles(request: $request) {
-      items {
-        id
-        handle
-        ownedBy
-        name
-        attributes {
-          key
-          value
-        }
-        bio
-        stats {
-          totalFollowers
-          totalFollowing
-          totalPosts
-          totalComments
-          totalMirrors
-        }
-        picture {
-          ... on MediaSet {
-            original {
-              url
-            }
-          }
-          ... on NftImage {
-            uri
+  query Profile($request: SingleProfileQueryRequest!) {
+    profile(request: $request) {
+      id
+      handle
+      ownedBy
+      name
+      attributes {
+        key
+        value
+      }
+      bio
+      stats {
+        totalFollowers
+        totalFollowing
+        totalPosts
+        totalComments
+        totalMirrors
+      }
+      picture {
+        ... on MediaSet {
+          original {
+            url
           }
         }
-        coverPicture {
-          ... on MediaSet {
-            original {
-              url
-            }
+        ... on NftImage {
+          uri
+        }
+      }
+      coverPicture {
+        ... on MediaSet {
+          original {
+            url
           }
         }
-        followModule {
-          __typename
-        }
+      }
+      followModule {
+        __typename
       }
     }
   }
@@ -78,22 +76,22 @@ const ViewProfile: NextPage = () => {
       : 'POST'
   )
   const { data, loading, error } = useQuery(PROFILE_QUERY, {
-    variables: { request: { handles: username } },
+    variables: { request: { handle: username } },
     skip: !username,
     onCompleted(data) {
       consoleLog(
         'Query',
         '#8b5cf6',
-        `Fetched profile details Profile:${data?.profiles?.items[0]?.id}`
+        `Fetched profile details Profile:${data?.profile?.id}`
       )
     }
   })
 
   if (error) return <Custom500 />
   if (loading || !data) return <ProfilePageShimmer />
-  if (data?.profiles?.items?.length === 0) return <Custom404 />
+  if (!data?.profile) return <Custom404 />
 
-  const profile = data?.profiles?.items[0]
+  const profile = data?.profile
 
   return (
     <>

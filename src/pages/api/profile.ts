@@ -4,25 +4,23 @@ import { nodeClient } from 'src/apollo'
 import { ERROR_MESSAGE } from 'src/constants'
 
 const PROFILE_QUERY = gql`
-  query Profile($request: ProfileQueryRequest!) {
-    profiles(request: $request) {
-      items {
-        handle
-        name
-        bio
-        stats {
-          totalFollowers
-          totalFollowing
+  query Profile($request: SingleProfileQueryRequest!) {
+    profile(request: $request) {
+      handle
+      name
+      bio
+      stats {
+        totalFollowers
+        totalFollowing
+      }
+      picture {
+        ... on MediaSet {
+          original {
+            url
+          }
         }
-        picture {
-          ... on MediaSet {
-            original {
-              url
-            }
-          }
-          ... on NftImage {
-            uri
-          }
+        ... on NftImage {
+          uri
         }
       }
     }
@@ -44,14 +42,12 @@ export default async function handler(
 
     const { data } = await nodeClient.query({
       query: PROFILE_QUERY,
-      variables: { request: { handles: handle } }
+      variables: { request: { handle } }
     })
 
-    if (data?.profiles?.items[0]) {
+    if (data?.profile) {
       res.setHeader('Cache-Control', 's-maxage=86400')
-      return res
-        .status(200)
-        .json({ success: true, profile: data?.profiles?.items[0] })
+      return res.status(200).json({ success: true, profile: data?.profile })
     } else {
       return res
         .status(404)
