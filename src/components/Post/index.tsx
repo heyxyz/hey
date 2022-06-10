@@ -77,9 +77,7 @@ const ViewPost: NextPage = () => {
       request: { publicationId: id },
       followRequest: {
         followInfos: {
-          followerAddress: currentUser?.ownedBy
-            ? currentUser?.ownedBy
-            : ZERO_ADDRESS,
+          followerAddress: currentUser?.ownedBy ?? ZERO_ADDRESS,
           profileId: id?.toString().split('-')[0]
         }
       }

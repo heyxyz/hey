@@ -70,8 +70,10 @@ export type Scalars = {
   Sources: any
   /** timestamp date custom scalar type */
   TimestampScalar: any
-  /** The tx has */
+  /** The tx hash */
   TxHash: any
+  /** The tx id */
+  TxId: any
   /** UnixTimestamp custom scalar type */
   UnixTimestamp: any
   /** Url scalar type */
@@ -1144,7 +1146,10 @@ export type HasMirroredResult = {
 }
 
 export type HasTxHashBeenIndexedRequest = {
-  txHash: Scalars['TxHash']
+  /** Tx hash.. if your using the broadcaster you should use txId due to gas price upgrades */
+  txHash?: InputMaybe<Scalars['TxHash']>
+  /** Tx id.. if your using the broadcaster you should always use this field */
+  txId?: InputMaybe<Scalars['TxId']>
 }
 
 export type HidePublicationRequest = {
@@ -2167,8 +2172,10 @@ export type RelayResult = RelayError | RelayerResult
 /** The relayer result */
 export type RelayerResult = {
   __typename?: 'RelayerResult'
-  /** The tx hash */
+  /** The tx hash - you should use the `txId` as your identifier as gas prices can be upgraded meaning txHash will change */
   txHash: Scalars['TxHash']
+  /** The tx id */
+  txId: Scalars['TxId']
 }
 
 export type ReportPublicationRequest = {
@@ -2342,6 +2349,7 @@ export type TransactionIndexedResult = {
   indexed: Scalars['Boolean']
   /** Publications can be indexed but the ipfs link for example not findable for x time. This allows you to work that out for publications. If its not a publication tx then it always be null. */
   metadataStatus?: Maybe<PublicationMetadataStatus>
+  txHash: Scalars['TxHash']
   txReceipt?: Maybe<TransactionReceipt>
 }
 

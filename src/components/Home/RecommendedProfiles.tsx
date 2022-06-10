@@ -12,6 +12,7 @@ import { LightningBoltIcon, SparklesIcon } from '@heroicons/react/solid'
 import consoleLog from '@lib/consoleLog'
 import randomizeArray from '@lib/randomizeArray'
 import React, { FC, useContext } from 'react'
+import { ZERO_ADDRESS } from 'src/constants'
 
 const RECOMMENDED_PROFILES_QUERY = gql`
   query RecommendedProfiles {
@@ -73,7 +74,7 @@ const RecommendedProfiles: FC = () => {
         request: {
           followInfos: data?.recommendedProfiles?.map((profile: Profile) => {
             return {
-              followerAddress: currentUser?.ownedBy,
+              followerAddress: currentUser?.ownedBy ?? ZERO_ADDRESS,
               profileId: profile?.id
             }
           })
