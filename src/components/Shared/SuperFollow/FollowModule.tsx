@@ -110,7 +110,7 @@ const FollowModule: FC<Props> = ({
   setFollowersCount,
   again
 }) => {
-  const { currentUser } = useContext(AppContext)
+  const { currentUser, userSigNonce, setUserSigNonce } = useContext(AppContext)
   const [allowed, setAllowed] = useState<boolean>(true)
   const { activeChain } = useNetwork()
   const { data: account } = useAccount()
@@ -222,6 +222,7 @@ const FollowModule: FC<Props> = ({
           types: omit(typedData?.types, '__typename'),
           value: omit(typedData?.value, '__typename')
         }).then((signature) => {
+          setUserSigNonce(userSigNonce + 1)
           const { profileIds, datas: followData } = typedData?.value
           const { v, r, s } = splitSignature(signature)
           const sig = { v, r, s, deadline: typedData.value.deadline }
@@ -258,6 +259,7 @@ const FollowModule: FC<Props> = ({
     } else {
       createFollowTypedData({
         variables: {
+          options: { overrideSigNonce: userSigNonce },
           request: {
             follow: {
               profile: profile?.id,
