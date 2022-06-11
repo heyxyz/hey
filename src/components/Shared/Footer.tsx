@@ -1,6 +1,7 @@
 import AppContext from '@components/utils/AppContext'
 import Link from 'next/link'
 import { FC, useContext } from 'react'
+import { APP_NAME } from 'src/constants'
 
 const Footer: FC = () => {
   const { staffMode } = useContext(AppContext)
@@ -12,7 +13,7 @@ const Footer: FC = () => {
       }`}
     >
       <span className="font-bold text-gray-500 dark:text-gray-300">
-        © Lenster
+        © {APP_NAME}
       </span>
       <Link href="/about" prefetch={false}>
         <a href="/about">About</a>
@@ -67,7 +68,7 @@ const Footer: FC = () => {
       </a>
       <a
         className="pr-3 hover:font-bold"
-        href="https://vercel.com/?utm_source=Lenster&utm_campaign=oss"
+        href={`https://vercel.com/?utm_source=${APP_NAME}&utm_campaign=oss`}
         target="_blank"
         rel="noreferrer noopener"
       >

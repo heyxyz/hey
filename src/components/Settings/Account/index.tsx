@@ -4,6 +4,7 @@ import AppContext from '@components/utils/AppContext'
 import SEO from '@components/utils/SEO'
 import { NextPage } from 'next'
 import React, { useContext } from 'react'
+import { APP_NAME } from 'src/constants'
 import Custom404 from 'src/pages/404'
 
 import Sidebar from '../Sidebar'
@@ -18,7 +19,7 @@ const AccountSettings: NextPage = () => {
 
   return (
     <GridLayout>
-      <SEO title="Account settings • Lenster" />
+      <SEO title={`Account settings • ${APP_NAME}`} />
       <GridItemFour>
         <Sidebar />
       </GridItemFour>

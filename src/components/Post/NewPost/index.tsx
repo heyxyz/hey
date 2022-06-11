@@ -31,6 +31,7 @@ import dynamic from 'next/dynamic'
 import { Dispatch, FC, useContext, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
+  APP_NAME,
   CHAIN_ID,
   CONNECT_WALLET,
   ERROR_MESSAGE,
@@ -251,7 +252,7 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
           }
         ],
         media: attachments,
-        appId: 'Lenster'
+        appId: APP_NAME
       }).finally(() => setIsUploading(false))
 
       createPostTypedData({

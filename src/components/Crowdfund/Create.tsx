@@ -30,6 +30,7 @@ import { NextPage } from 'next'
 import React, { ChangeEvent, useContext, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
+  APP_NAME,
   CHAIN_ID,
   CONNECT_WALLET,
   DEFAULT_COLLECT_TOKEN,
@@ -247,7 +248,7 @@ const Create: NextPage = () => {
           }
         ],
         media: [],
-        appId: 'Lenster Crowdfund'
+        appId: `${APP_NAME} Crowdfund`
       }).finally(() => setIsUploading(false))
 
       createPostTypedData({
@@ -281,7 +282,7 @@ const Create: NextPage = () => {
 
   return (
     <GridLayout>
-      <SEO title="Create Crowdfund • Lenster" />
+      <SEO title={`Create Crowdfund • ${APP_NAME}`} />
       <GridItemFour>
         <SettingsHelper
           heading="Create crowdfund"
@@ -325,7 +326,7 @@ const Create: NextPage = () => {
               <Input
                 label="Title"
                 type="text"
-                placeholder="Lenster DAO"
+                placeholder={`${APP_NAME} DAO`}
                 {...form.register('title')}
               />
               <div>

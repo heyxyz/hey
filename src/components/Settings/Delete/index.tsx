@@ -16,6 +16,7 @@ import trackEvent from '@lib/trackEvent'
 import React, { FC, useContext } from 'react'
 import toast from 'react-hot-toast'
 import {
+  APP_NAME,
   CHAIN_ID,
   CONNECT_WALLET,
   ERROR_MESSAGE,
@@ -150,7 +151,7 @@ const DeleteSettings: FC = () => {
 
   return (
     <GridLayout>
-      <SEO title="Delete Profile • Lenster" />
+      <SEO title={`Delete Profile • ${APP_NAME}`} />
       <GridItemFour>
         <Sidebar />
       </GridItemFour>
@@ -168,8 +169,8 @@ const DeleteSettings: FC = () => {
             <div className="text-lg font-bold">What else you should know</div>
             <div className="text-sm text-gray-500 divide-y dark:divide-gray-700">
               <p className="pb-3">
-                You cannot restore your Lenster account if it was accidentally
-                or wrongfully deleted.
+                You cannot restore your {APP_NAME} account if it was
+                accidentally or wrongfully deleted.
               </p>
               <p className="py-3">
                 Some account information may still be available in search
