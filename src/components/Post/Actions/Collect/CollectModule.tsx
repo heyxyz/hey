@@ -159,8 +159,7 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
   )
 
   const { data, loading } = useQuery(COLLECT_QUERY, {
-    variables: { request: { publicationId: post?.id } },
-    skip: !post?.id,
+    variables: { request: { publicationId: post?.pubId ?? post?.id } },
     onCompleted() {
       consoleLog(
         'Query',
