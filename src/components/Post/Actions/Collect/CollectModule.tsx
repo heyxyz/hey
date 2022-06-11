@@ -272,8 +272,6 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
       toast.error(CONNECT_WALLET)
     } else if (activeChain?.id !== CHAIN_ID) {
       toast.error(WRONG_NETWORK)
-    } else if (parseInt(collectModule?.collectLimit) <= count) {
-      toast.error('Collect limit reached for this publication!')
     } else {
       createCollectTypedData({
         variables: {
