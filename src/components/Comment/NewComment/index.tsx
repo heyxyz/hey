@@ -35,6 +35,7 @@ import dynamic from 'next/dynamic'
 import { FC, useContext, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
+  APP_NAME,
   CHAIN_ID,
   CONNECT_WALLET,
   ERROR_MESSAGE,
@@ -260,7 +261,7 @@ const NewComment: FC<Props> = ({ post, type }) => {
           }
         ],
         media: attachments,
-        appId: 'Lenster'
+        appId: APP_NAME
       }).finally(() => setIsUploading(false))
 
       createCommentTypedData({

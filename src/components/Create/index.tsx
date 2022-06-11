@@ -6,6 +6,7 @@ import AppContext from '@components/utils/AppContext'
 import SEO from '@components/utils/SEO'
 import { NextPage } from 'next'
 import React, { useContext } from 'react'
+import { APP_NAME } from 'src/constants'
 import Custom404 from 'src/pages/404'
 
 const Create: NextPage = () => {
@@ -15,7 +16,7 @@ const Create: NextPage = () => {
 
   return (
     <GridLayout>
-      <SEO title="Create Profile • Lenster" />
+      <SEO title={`Create Profile • ${APP_NAME}`} />
       <GridItemFour>
         <SettingsHelper
           heading="Create profile"

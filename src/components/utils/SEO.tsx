@@ -1,13 +1,13 @@
 import Head from 'next/head'
 import React, { FC } from 'react'
-import { DEFAULT_OG, DESCRIPTION, STATIC_ASSETS, TITLE } from 'src/constants'
+import { APP_NAME, DEFAULT_OG, DESCRIPTION, STATIC_ASSETS } from 'src/constants'
 
 interface Props {
   title?: string
   description?: string
 }
 
-const SEO: FC<Props> = ({ title = TITLE, description = DESCRIPTION }) => {
+const SEO: FC<Props> = ({ title = APP_NAME, description = DESCRIPTION }) => {
   return (
     <Head>
       <title>{title}</title>
@@ -52,7 +52,7 @@ const SEO: FC<Props> = ({ title = TITLE, description = DESCRIPTION }) => {
         rel="search"
         type="application/opensearchdescription+xml"
         href="/opensearch.xml"
-        title="Lenster"
+        title={APP_NAME}
       />
     </Head>
   )

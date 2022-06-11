@@ -12,7 +12,7 @@ import { CheckCircleIcon } from '@heroicons/react/solid'
 import trackEvent from '@lib/trackEvent'
 import { useRouter } from 'next/router'
 import React, { FC } from 'react'
-import { CONTACT_EMAIL } from 'src/constants'
+import { APP_NAME, CONTACT_EMAIL } from 'src/constants'
 import { object, string } from 'zod'
 
 const newContactSchema = object({
@@ -36,10 +36,10 @@ const Contact: FC = () => {
 
   return (
     <GridLayout>
-      <SEO title="Contact • Lenster" />
+      <SEO title={`Contact • ${APP_NAME}`} />
       <GridItemFour>
         <SettingsHelper
-          heading="Contact Lenster"
+          heading={`Contact ${APP_NAME}`}
           description="Contact us to help you get the issue resolved."
         />
       </GridItemFour>

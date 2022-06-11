@@ -1,7 +1,7 @@
 import { Card, CardBody } from '@components/UI/Card'
 import { BeakerIcon, CurrencyDollarIcon } from '@heroicons/react/outline'
 import { FC } from 'react'
-import { IS_MAINNET } from 'src/constants'
+import { APP_NAME, IS_MAINNET } from 'src/constants'
 
 const Announcement: FC = () => {
   return (
@@ -12,8 +12,8 @@ const Announcement: FC = () => {
           <p>Beta warning!</p>
         </div>
         <p className="text-sm leading-[22px]">
-          Lenster is still in the beta phase, things may break, please handle us
-          with care.
+          {APP_NAME} is still in the beta phase, things may break, please handle
+          us with care.
         </p>
         {!IS_MAINNET && (
           <div className="flex items-center space-x-1.5 text-sm font-bold">

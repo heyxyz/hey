@@ -14,11 +14,11 @@ import {
 import getTokenImage from '@lib/getTokenImage'
 import humanize from '@lib/humanize'
 import { FC, ReactNode } from 'react'
-import { ERROR_MESSAGE } from 'src/constants'
+import { APP_NAME, ERROR_MESSAGE } from 'src/constants'
 
 const LENSTER_STATS_QUERY = gql`
   query LensterStats {
-    globalProtocolStats(request: { sources: "Lenster" }) {
+    globalProtocolStats(request: { sources: APP_NAME }) {
       totalProfiles
       totalPosts
       totalBurntProfiles
@@ -66,7 +66,7 @@ const MenuItem: FC<Props> = ({ icon, title, isLenster = false }) => (
             className="w-3 h-3"
             height={12}
             width={12}
-            alt="Lenster's Data"
+            alt={`${APP_NAME}'s Data`}
           />
         )}
       </div>

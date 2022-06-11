@@ -1,6 +1,6 @@
 import WalletSelector from '@components/Shared/Navbar/Login/WalletSelector'
 import { FC, useState } from 'react'
-import { IS_MAINNET, STATIC_ASSETS } from 'src/constants'
+import { APP_NAME, IS_MAINNET, STATIC_ASSETS } from 'src/constants'
 
 import Create from './Create'
 
@@ -16,7 +16,7 @@ const Login: FC = () => {
             <div className="space-y-1">
               <div className="text-xl font-bold">Please sign the message.</div>
               <div className="text-sm text-gray-500">
-                Lenster uses this signature to verify that you&rsquo;re the
+                {APP_NAME} uses this signature to verify that you&rsquo;re the
                 owner of this address.
               </div>
             </div>

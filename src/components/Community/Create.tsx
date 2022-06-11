@@ -27,6 +27,7 @@ import { NextPage } from 'next'
 import React, { ChangeEvent, useContext, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
+  APP_NAME,
   CHAIN_ID,
   CONNECT_WALLET,
   ERROR_MESSAGE,
@@ -199,7 +200,7 @@ const Create: NextPage = () => {
           }
         ],
         media: [],
-        appId: 'Lenster Community'
+        appId: `${APP_NAME} Community`
       }).finally(() => setIsUploading(false))
 
       createPostTypedData({
@@ -226,7 +227,7 @@ const Create: NextPage = () => {
 
   return (
     <GridLayout>
-      <SEO title="Create Community • Lenster" />
+      <SEO title={`Create Community • ${APP_NAME}`} />
       <GridItemFour>
         <SettingsHelper
           heading="Create community"

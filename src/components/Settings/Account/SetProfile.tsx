@@ -18,6 +18,7 @@ import trackEvent from '@lib/trackEvent'
 import React, { FC, useContext, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
+  APP_NAME,
   CHAIN_ID,
   CONNECT_WALLET,
   ERROR_MESSAGE,
@@ -205,13 +206,13 @@ const SetProfile: FC = () => {
         <div className="text-lg font-bold">Select default profile</div>
         <p>
           Selecting your default account helps to display the selected profile
-          across Lenster, you can change your default profile anytime.
+          across {APP_NAME}, you can change your default profile anytime.
         </p>
         <div className="text-lg font-bold">What else you should know</div>
         <div className="text-sm text-gray-500 divide-y dark:divide-gray-700">
           <p className="pb-3">
-            Only the default profile will be visible across the Lenster, example
-            notifications, follow etc.
+            Only the default profile will be visible across the {APP_NAME},
+            example notifications, follow etc.
           </p>
           <p className="py-3">You can change default profile anytime here.</p>
         </div>

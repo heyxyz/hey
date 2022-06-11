@@ -8,6 +8,7 @@ import { NextPage } from 'next'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
+import { APP_NAME } from 'src/constants'
 import Custom404 from 'src/pages/404'
 import Custom500 from 'src/pages/500'
 
@@ -96,9 +97,9 @@ const ViewProfile: NextPage = () => {
   return (
     <>
       {profile?.name ? (
-        <SEO title={`${profile?.name} (@${profile?.handle}) • Lenster`} />
+        <SEO title={`${profile?.name} (@${profile?.handle}) • ${APP_NAME}`} />
       ) : (
-        <SEO title={`@${profile?.handle} • Lenster`} />
+        <SEO title={`@${profile?.handle} • ${APP_NAME}`} />
       )}
       <Cover cover={profile?.coverPicture?.original?.url} />
       <GridLayout className="pt-6">
