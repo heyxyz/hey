@@ -164,7 +164,7 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
       consoleLog(
         'Query',
         '#8b5cf6',
-        `Fetched collect module details Publication:${post?.id}`
+        `Fetched collect module details Publication:${post?.pubId ?? post?.id}`
       )
     }
   })
@@ -274,7 +274,7 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
       createCollectTypedData({
         variables: {
           options: { overrideSigNonce: userSigNonce },
-          request: { publicationId: post?.id }
+          request: { publicationId: post?.pubId ?? post?.id }
         }
       })
     }
@@ -362,7 +362,7 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
                 show={showCollectorsModal}
                 onClose={() => setShowCollectorsModal(!showCollectorsModal)}
               >
-                <Collectors pubId={post?.id} />
+                <Collectors pubId={post?.pubId ?? post?.id} />
               </Modal>
             </div>
             {collectModule?.collectLimit && (
