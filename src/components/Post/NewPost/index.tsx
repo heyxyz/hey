@@ -69,8 +69,11 @@ const Preview = dynamic(() => import('../../Shared/Preview'), {
 })
 
 export const CREATE_POST_TYPED_DATA_MUTATION = gql`
-  mutation CreatePostTypedData($request: CreatePublicPostRequest!) {
-    createPostTypedData(request: $request) {
+  mutation CreatePostTypedData(
+    $options: TypedDataOptions
+    $request: CreatePublicPostRequest!
+  ) {
+    createPostTypedData(options: $options, request: $request) {
       id
       expiresAt
       typedData {
@@ -116,7 +119,7 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
   const [feeData, setFeeData] = useState<FEE_DATA_TYPE>(defaultFeeData)
   const [isUploading, setIsUploading] = useState<boolean>(false)
   const [attachments, setAttachments] = useState<LensterAttachment[]>([])
-  const { currentUser } = useContext(AppContext)
+  const { currentUser, userSigNonce, setUserSigNonce } = useContext(AppContext)
   const { activeChain } = useNetwork()
   const { data: account } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
@@ -189,6 +192,7 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
           types: omit(typedData?.types, '__typename'),
           value: omit(typedData?.value, '__typename')
         }).then((signature) => {
+          setUserSigNonce(userSigNonce + 1)
           const { v, r, s } = splitSignature(signature)
           const sig = { v, r, s, deadline: typedData.value.deadline }
           const inputStruct = {
@@ -252,6 +256,7 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
 
       createPostTypedData({
         variables: {
+          options: { overrideSigNonce: userSigNonce },
           request: {
             profileId: currentUser?.id,
             contentURI: `https://ipfs.infura.io/ipfs/${path}`,
