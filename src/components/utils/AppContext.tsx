@@ -5,8 +5,8 @@ import { createContext, Dispatch } from 'react'
 export interface ContextType {
   selectedProfile: number
   setSelectedProfile: Dispatch<number>
-  userSigNonces: number
-  setUserSigNonces: Dispatch<number>
+  userSigNonce: number
+  setUserSigNonce: Dispatch<number>
   staffMode?: boolean
   setStaffMode: Dispatch<boolean>
   profiles: Profile[]
@@ -18,8 +18,8 @@ export interface ContextType {
 const AppContext = createContext<ContextType>({
   selectedProfile: 0,
   setSelectedProfile: () => {},
-  userSigNonces: 0,
-  setUserSigNonces: () => {},
+  userSigNonce: 0,
+  setUserSigNonce: () => {},
   staffMode: false,
   setStaffMode: () => {},
   profiles: [],

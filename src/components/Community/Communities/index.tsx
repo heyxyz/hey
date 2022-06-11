@@ -7,6 +7,7 @@ import { ChartBarIcon, FireIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
 import { NextPage } from 'next'
 import React from 'react'
+import { APP_NAME } from 'src/constants'
 import Custom500 from 'src/pages/500'
 
 import List from './List'
@@ -38,13 +39,13 @@ const Communities: NextPage = () => {
   const { data, loading, error } = useQuery(COMMUNITY_QUERY, {
     variables: {
       topCommented: {
-        sources: 'Lenster Community',
+        sources: `${APP_NAME} Community`,
         sortCriteria: 'TOP_COMMENTED',
         publicationTypes: ['POST'],
         limit: 8
       },
       topCollected: {
-        sources: 'Lenster Community',
+        sources: `${APP_NAME} Community`,
         sortCriteria: 'TOP_COLLECTED',
         publicationTypes: ['POST'],
         limit: 8
@@ -64,7 +65,7 @@ const Communities: NextPage = () => {
 
   return (
     <GridLayout>
-      <SEO title="Communities • Lenster" />
+      <SEO title={`Communities • ${APP_NAME}`} />
       <GridItemSix>
         <div className="flex items-center mb-2 space-x-1.5 font-bold text-gray-500">
           <FireIcon className="w-5 h-5 text-yellow-500" />

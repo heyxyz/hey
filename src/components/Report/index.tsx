@@ -19,7 +19,7 @@ import consoleLog from '@lib/consoleLog'
 import trackEvent from '@lib/trackEvent'
 import { useRouter } from 'next/router'
 import React, { FC, useContext, useState } from 'react'
-import { ZERO_ADDRESS } from 'src/constants'
+import { APP_NAME, ZERO_ADDRESS } from 'src/constants'
 import Custom404 from 'src/pages/404'
 import { object, string } from 'zod'
 
@@ -96,7 +96,7 @@ const Report: FC = () => {
 
   return (
     <GridLayout>
-      <SEO title="Report • Lenster" />
+      <SEO title={`Report • ${APP_NAME}`} />
       <GridItemFour>
         <SettingsHelper
           heading="Report publication"

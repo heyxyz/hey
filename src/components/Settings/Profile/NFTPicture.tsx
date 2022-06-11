@@ -50,9 +50,10 @@ const editNftPictureSchema = object({
 
 const CREATE_SET_PROFILE_IMAGE_URI_TYPED_DATA_MUTATION = gql`
   mutation CreateSetProfileImageUriTypedData(
+    $options: TypedDataOptions
     $request: UpdateProfileImageRequest!
   ) {
-    createSetProfileImageURITypedData(request: $request) {
+    createSetProfileImageURITypedData(options: $options, request: $request) {
       id
       expiresAt
       typedData {
@@ -101,7 +102,7 @@ const NFTPicture: FC<Props> = ({ profile }) => {
     }
   })
 
-  const { currentUser } = useContext(AppContext)
+  const { currentUser, userSigNonce, setUserSigNonce } = useContext(AppContext)
   const [chainId, setChainId] = useState<number>(
     IS_MAINNET ? chain.mainnet.id : chain.kovan.id
   )
@@ -166,6 +167,7 @@ const NFTPicture: FC<Props> = ({ profile }) => {
           types: omit(typedData?.types, '__typename'),
           value: omit(typedData?.value, '__typename')
         }).then((signature) => {
+          setUserSigNonce(userSigNonce + 1)
           const { profileId, imageURI } = typedData?.value
           const { v, r, s } = splitSignature(signature)
           const sig = { v, r, s, deadline: typedData.value.deadline }
@@ -215,6 +217,7 @@ const NFTPicture: FC<Props> = ({ profile }) => {
       }).then((signature) => {
         createSetProfileImageURITypedData({
           variables: {
+            options: { overrideSigNonce: userSigNonce },
             request: {
               profileId: currentUser?.id,
               nftData: {

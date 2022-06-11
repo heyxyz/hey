@@ -2,6 +2,7 @@ import Beta from '@components/Shared/Beta'
 import { Card, CardBody } from '@components/UI/Card'
 import { ExternalLinkIcon } from '@heroicons/react/outline'
 import React, { FC } from 'react'
+import { APP_NAME } from 'src/constants'
 
 const CrossPost: FC = () => {
   return (
@@ -12,8 +13,8 @@ const CrossPost: FC = () => {
           <Beta />
         </div>
         <div className="pb-3">
-          Reflect will auto-tweet new Lenster posts, so you can finally escape
-          the bird site.
+          Reflect will auto-tweet new {APP_NAME} posts, so you can finally
+          escape the bird site.
         </div>
         <a
           className="flex items-center space-x-1.5"

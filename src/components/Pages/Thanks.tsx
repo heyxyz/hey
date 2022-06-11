@@ -3,7 +3,7 @@ import SEO from '@components/utils/SEO'
 import { HeartIcon } from '@heroicons/react/outline'
 import { useTheme } from 'next-themes'
 import React, { FC, Fragment, ReactNode } from 'react'
-import { STATIC_ASSETS } from 'src/constants'
+import { APP_NAME, STATIC_ASSETS } from 'src/constants'
 
 interface Props {
   name: string
@@ -44,7 +44,7 @@ const Brand: FC<Props> = ({ name, logo, url, size, children }) => {
 const Thanks: FC = () => {
   return (
     <>
-      <SEO title="Thanks • Lenster" />
+      <SEO title={`Thanks • ${APP_NAME}`} />
       <div className="flex justify-center items-center w-full h-48 bg-brand-400">
         <div className="relative text-center">
           <div className="flex items-center space-x-2 text-3xl font-semibold text-white md:text-4xl">
@@ -61,7 +61,7 @@ const Thanks: FC = () => {
               <Brand
                 name="Vercel"
                 logo="vercel"
-                url="https://vercel.com/?utm_source=Lenster&utm_campaign=oss"
+                url={`https://vercel.com/?utm_source=${APP_NAME}&utm_campaign=oss`}
                 size={40}
               >
                 Vercel combines the best developer experience with an obsessive

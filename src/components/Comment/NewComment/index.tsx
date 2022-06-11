@@ -35,6 +35,7 @@ import dynamic from 'next/dynamic'
 import { FC, useContext, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
+  APP_NAME,
   CHAIN_ID,
   CONNECT_WALLET,
   ERROR_MESSAGE,
@@ -70,8 +71,11 @@ const SelectReferenceModule = dynamic(
 )
 
 const CREATE_COMMENT_TYPED_DATA_MUTATION = gql`
-  mutation CreateCommentTypedData($request: CreatePublicCommentRequest!) {
-    createCommentTypedData(request: $request) {
+  mutation CreateCommentTypedData(
+    $options: TypedDataOptions
+    $request: CreatePublicCommentRequest!
+  ) {
+    createCommentTypedData(options: $options, request: $request) {
       id
       expiresAt
       typedData {
@@ -114,7 +118,7 @@ const NewComment: FC<Props> = ({ post, type }) => {
   const [preview, setPreview] = useState<boolean>(false)
   const [commentContent, setCommentContent] = useState<string>('')
   const [commentContentError, setCommentContentError] = useState<string>('')
-  const { currentUser } = useContext(AppContext)
+  const { currentUser, userSigNonce, setUserSigNonce } = useContext(AppContext)
   const [selectedModule, setSelectedModule] =
     useState<EnabledModule>(defaultModuleData)
   const [onlyFollowers, setOnlyFollowers] = useState<boolean>(false)
@@ -195,6 +199,7 @@ const NewComment: FC<Props> = ({ post, type }) => {
           types: omit(typedData?.types, '__typename'),
           value: omit(typedData?.value, '__typename')
         }).then((signature) => {
+          setUserSigNonce(userSigNonce + 1)
           const { v, r, s } = splitSignature(signature)
           const sig = { v, r, s, deadline: typedData.value.deadline }
           const inputStruct = {
@@ -256,11 +261,12 @@ const NewComment: FC<Props> = ({ post, type }) => {
           }
         ],
         media: attachments,
-        appId: 'Lenster'
+        appId: APP_NAME
       }).finally(() => setIsUploading(false))
 
       createCommentTypedData({
         variables: {
+          options: { overrideSigNonce: userSigNonce },
           request: {
             profileId: currentUser?.id,
             publicationId: post?.id,

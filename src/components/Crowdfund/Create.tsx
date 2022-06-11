@@ -30,6 +30,7 @@ import { NextPage } from 'next'
 import React, { ChangeEvent, useContext, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
+  APP_NAME,
   CHAIN_ID,
   CONNECT_WALLET,
   DEFAULT_COLLECT_TOKEN,
@@ -86,7 +87,7 @@ const Create: NextPage = () => {
   )
   const [selectedCurrencySymobol, setSelectedCurrencySymobol] =
     useState<string>('WMATIC')
-  const { currentUser } = useContext(AppContext)
+  const { currentUser, userSigNonce, setUserSigNonce } = useContext(AppContext)
   const { activeChain } = useNetwork()
   const { data: account } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
@@ -180,6 +181,7 @@ const Create: NextPage = () => {
           types: omit(typedData?.types, '__typename'),
           value: omit(typedData?.value, '__typename')
         }).then((signature) => {
+          setUserSigNonce(userSigNonce + 1)
           const { v, r, s } = splitSignature(signature)
           const sig = { v, r, s, deadline: typedData.value.deadline }
           const inputStruct = {
@@ -246,11 +248,12 @@ const Create: NextPage = () => {
           }
         ],
         media: [],
-        appId: 'Lenster Crowdfund'
+        appId: `${APP_NAME} Crowdfund`
       }).finally(() => setIsUploading(false))
 
       createPostTypedData({
         variables: {
+          options: { overrideSigNonce: userSigNonce },
           request: {
             profileId: currentUser?.id,
             contentURI: `https://ipfs.infura.io/ipfs/${path}`,
@@ -279,7 +282,7 @@ const Create: NextPage = () => {
 
   return (
     <GridLayout>
-      <SEO title="Create Crowdfund • Lenster" />
+      <SEO title={`Create Crowdfund • ${APP_NAME}`} />
       <GridItemFour>
         <SettingsHelper
           heading="Create crowdfund"
@@ -323,7 +326,7 @@ const Create: NextPage = () => {
               <Input
                 label="Title"
                 type="text"
-                placeholder="Lenster DAO"
+                placeholder={`${APP_NAME} DAO`}
                 {...form.register('title')}
               />
               <div>

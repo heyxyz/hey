@@ -80,8 +80,11 @@ export const COLLECT_QUERY = gql`
 `
 
 const CREATE_COLLECT_TYPED_DATA_MUTATION = gql`
-  mutation CreateCollectTypedData($request: CreateCollectRequest!) {
-    createCollectTypedData(request: $request) {
+  mutation CreateCollectTypedData(
+    $options: TypedDataOptions
+    $request: CreateCollectRequest!
+  ) {
+    createCollectTypedData(options: $options, request: $request) {
       id
       expiresAt
       typedData {
@@ -116,7 +119,7 @@ interface Props {
 }
 
 const CollectModule: FC<Props> = ({ count, setCount, post }) => {
-  const { currentUser } = useContext(AppContext)
+  const { currentUser, userSigNonce, setUserSigNonce } = useContext(AppContext)
   const [showCollectorsModal, setShowCollectorsModal] = useState<boolean>(false)
   const [allowed, setAllowed] = useState<boolean>(true)
 
@@ -233,6 +236,7 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
           types: omit(typedData?.types, '__typename'),
           value: omit(typedData?.value, '__typename')
         }).then((signature) => {
+          setUserSigNonce(userSigNonce + 1)
           const { profileId, pubId, data: collectData } = typedData?.value
           const { v, r, s } = splitSignature(signature)
           const sig = { v, r, s, deadline: typedData.value.deadline }
@@ -272,7 +276,10 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
       toast.error('Collect limit reached for this publication!')
     } else {
       createCollectTypedData({
-        variables: { request: { publicationId: post?.id } }
+        variables: {
+          options: { overrideSigNonce: userSigNonce },
+          request: { publicationId: post?.id }
+        }
       })
     }
   }

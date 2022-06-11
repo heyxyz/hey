@@ -32,6 +32,7 @@ import uploadToIPFS from '@lib/uploadToIPFS'
 import React, { ChangeEvent, FC, useContext, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
+  APP_NAME,
   CHAIN_ID,
   CONNECT_WALLET,
   ERROR_MESSAGE,
@@ -107,7 +108,7 @@ const Profile: FC<Props> = ({ profile }) => {
   const [cover, setCover] = useState<string>()
   const [isUploading, setIsUploading] = useState<boolean>(false)
   const [uploading, setUploading] = useState<boolean>(false)
-  const { currentUser } = useContext(AppContext)
+  const { currentUser, userSigNonce, setUserSigNonce } = useContext(AppContext)
   const { activeChain } = useNetwork()
   const { data: account } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
@@ -171,6 +172,7 @@ const Profile: FC<Props> = ({ profile }) => {
           types: omit(typedData?.types, '__typename'),
           value: omit(typedData?.value, '__typename')
         }).then((signature) => {
+          setUserSigNonce(userSigNonce + 1)
           const { profileId, metadata } = typedData?.value
           const { v, r, s } = splitSignature(signature)
           const sig = { v, r, s, deadline: typedData.value.deadline }
@@ -276,16 +278,17 @@ const Profile: FC<Props> = ({ profile }) => {
           {
             traitType: 'string',
             key: 'app',
-            value: 'Lenster'
+            value: APP_NAME
           }
         ],
         version: '1.0.0',
         metadata_id: uuidv4(),
-        appId: 'Lenster'
+        appId: APP_NAME
       }).finally(() => setIsUploading(false))
 
       createSetProfileMetadataTypedData({
         variables: {
+          options: { overrideSigNonce: userSigNonce },
           request: {
             profileId: currentUser?.id,
             metadata: `https://ipfs.infura.io/ipfs/${path}`
@@ -374,7 +377,7 @@ const Profile: FC<Props> = ({ profile }) => {
             <div className="label">Beta</div>
             <div className="flex items-center space-x-2">
               <Toggle name="beta" on={beta} setOn={setBeta} />
-              <div>Enroll to Lenster Beta</div>
+              <div>Enroll to {APP_NAME} Beta</div>
             </div>
           </div>
           <div className="pt-4 space-y-2">
@@ -385,7 +388,7 @@ const Profile: FC<Props> = ({ profile }) => {
             <div className="flex items-center space-x-2">
               <Toggle name="pride" on={pride} setOn={setPride} />
               <div>
-                Turn this on to show your pride and turn the Lenster logo
+                Turn this on to show your pride and turn the {APP_NAME} logo
                 rainbow every day.
               </div>
             </div>
