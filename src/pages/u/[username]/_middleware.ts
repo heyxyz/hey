@@ -2,7 +2,6 @@ import { Profile } from '@generated/types'
 import generateMeta from '@lib/generateMeta'
 import getIPFSLink from '@lib/getIPFSLink'
 import { NextRequest } from 'next/server'
-import { APP_NAME } from 'src/constants'
 import parser from 'ua-parser-js'
 
 export async function middleware(req: NextRequest) {
@@ -18,8 +17,8 @@ export async function middleware(req: NextRequest) {
 
     if (data?.success) {
       const title = profile?.name
-        ? `${profile?.name} (@${profile?.handle}) • ${APP_NAME}`
-        : `@${profile?.handle} • ${APP_NAME}`
+        ? `${profile?.name} (@${profile?.handle}) • Lenster`
+        : `@${profile?.handle} • Lenster`
       const description = profile?.bio ?? ''
       const image = profile
         ? `https://ik.imagekit.io/lensterimg/tr:n-avatar/${getIPFSLink(
