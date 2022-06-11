@@ -267,7 +267,6 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
   )
 
   const createCollect = () => {
-    // TODO: Add time check
     if (!account?.address) {
       toast.error(CONNECT_WALLET)
     } else if (activeChain?.id !== CHAIN_ID) {
