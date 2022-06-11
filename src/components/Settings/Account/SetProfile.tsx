@@ -65,7 +65,8 @@ const CREATE_SET_DEFAULT_PROFILE_DATA_MUTATION = gql`
 `
 
 const SetProfile: FC = () => {
-  const { currentUser, profiles } = useContext(AppContext)
+  const { currentUser, profiles, userSigNonce, setUserSigNonce } =
+    useContext(AppContext)
   const [selectedUser, setSelectedUser] = useState<string>()
   const { activeChain } = useNetwork()
   const { data: account } = useAccount()
@@ -139,6 +140,7 @@ const SetProfile: FC = () => {
           types: omit(typedData?.types, '__typename'),
           value: omit(typedData?.value, '__typename')
         }).then((signature) => {
+          setUserSigNonce(userSigNonce + 1)
           const { wallet, profileId } = typedData?.value
           const { v, r, s } = splitSignature(signature)
           const sig = { v, r, s, deadline: typedData.value.deadline }
@@ -174,7 +176,10 @@ const SetProfile: FC = () => {
     } else {
       createSetDefaultProfileTypedData({
         variables: {
-          request: { profileId: selectedUser }
+          request: {
+            options: { overrideSigNonce: userSigNonce },
+            profileId: selectedUser
+          }
         }
       })
     }
