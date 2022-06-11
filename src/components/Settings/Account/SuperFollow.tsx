@@ -63,9 +63,10 @@ const MODULES_CURRENCY_QUERY = gql`
 
 export const CREATE_SET_FOLLOW_MODULE_TYPED_DATA_MUTATION = gql`
   mutation CreateSetFollowModuleTypedData(
+    $options: TypedDataOptions
     $request: CreateSetFollowModuleRequest!
   ) {
-    createSetFollowModuleTypedData(request: $request) {
+    createSetFollowModuleTypedData(options: $options, request: $request) {
       id
       expiresAt
       typedData {
@@ -99,7 +100,7 @@ const SuperFollow: FC = () => {
   )
   const [selectedCurrencySymobol, setSelectedCurrencySymobol] =
     useState<string>('WMATIC')
-  const { currentUser } = useContext(AppContext)
+  const { currentUser, userSigNonce, setUserSigNonce } = useContext(AppContext)
   const { activeChain } = useNetwork()
   const { data: account } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
@@ -178,6 +179,7 @@ const SuperFollow: FC = () => {
           types: omit(typedData?.types, '__typename'),
           value: omit(typedData?.value, '__typename')
         }).then((signature) => {
+          setUserSigNonce(userSigNonce + 1)
           const { v, r, s } = splitSignature(signature)
           const sig = { v, r, s, deadline: typedData.value.deadline }
           const inputStruct = {
@@ -212,6 +214,7 @@ const SuperFollow: FC = () => {
     } else {
       createSetFollowModuleTypedData({
         variables: {
+          options: { overrideSigNonce: userSigNonce },
           request: {
             profileId: currentUser?.id,
             followModule: amount
