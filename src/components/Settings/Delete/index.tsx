@@ -33,8 +33,11 @@ import {
 import Sidebar from '../Sidebar'
 
 const CREATE_BURN_PROFILE_TYPED_DATA_MUTATION = gql`
-  mutation CreateBurnProfileTypedData($request: BurnProfileRequest!) {
-    createBurnProfileTypedData(request: $request) {
+  mutation CreateBurnProfileTypedData(
+    $options: TypedDataOptions
+    $request: BurnProfileRequest!
+  ) {
+    createBurnProfileTypedData(options: $options, request: $request) {
       id
       expiresAt
       typedData {
@@ -61,7 +64,7 @@ const CREATE_BURN_PROFILE_TYPED_DATA_MUTATION = gql`
 `
 
 const DeleteSettings: FC = () => {
-  const { currentUser } = useContext(AppContext)
+  const { currentUser, userSigNonce, setUserSigNonce } = useContext(AppContext)
   const { activeChain } = useNetwork()
   const { data: account } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
@@ -110,6 +113,7 @@ const DeleteSettings: FC = () => {
           types: omit(typedData?.types, '__typename'),
           value: omit(typedData?.value, '__typename')
         }).then((signature) => {
+          setUserSigNonce(userSigNonce + 1)
           const { tokenId } = typedData?.value
           const { v, r, s } = splitSignature(signature)
           const sig = {
@@ -134,7 +138,10 @@ const DeleteSettings: FC = () => {
       toast.error(WRONG_NETWORK)
     } else {
       createBurnProfileTypedData({
-        variables: { request: { profileId: currentUser?.id } }
+        variables: {
+          options: { overrideSigNonce: userSigNonce },
+          request: { profileId: currentUser?.id }
+        }
       })
     }
   }
