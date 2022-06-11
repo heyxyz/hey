@@ -16,6 +16,7 @@ import trackEvent from '@lib/trackEvent'
 import React, { FC, useContext } from 'react'
 import toast from 'react-hot-toast'
 import {
+  APP_NAME,
   CHAIN_ID,
   CONNECT_WALLET,
   ERROR_MESSAGE,
@@ -33,8 +34,11 @@ import {
 import Sidebar from '../Sidebar'
 
 const CREATE_BURN_PROFILE_TYPED_DATA_MUTATION = gql`
-  mutation CreateBurnProfileTypedData($request: BurnProfileRequest!) {
-    createBurnProfileTypedData(request: $request) {
+  mutation CreateBurnProfileTypedData(
+    $options: TypedDataOptions
+    $request: BurnProfileRequest!
+  ) {
+    createBurnProfileTypedData(options: $options, request: $request) {
       id
       expiresAt
       typedData {
@@ -61,7 +65,7 @@ const CREATE_BURN_PROFILE_TYPED_DATA_MUTATION = gql`
 `
 
 const DeleteSettings: FC = () => {
-  const { currentUser } = useContext(AppContext)
+  const { currentUser, userSigNonce, setUserSigNonce } = useContext(AppContext)
   const { activeChain } = useNetwork()
   const { data: account } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
@@ -110,6 +114,7 @@ const DeleteSettings: FC = () => {
           types: omit(typedData?.types, '__typename'),
           value: omit(typedData?.value, '__typename')
         }).then((signature) => {
+          setUserSigNonce(userSigNonce + 1)
           const { tokenId } = typedData?.value
           const { v, r, s } = splitSignature(signature)
           const sig = {
@@ -134,7 +139,10 @@ const DeleteSettings: FC = () => {
       toast.error(WRONG_NETWORK)
     } else {
       createBurnProfileTypedData({
-        variables: { request: { profileId: currentUser?.id } }
+        variables: {
+          options: { overrideSigNonce: userSigNonce },
+          request: { profileId: currentUser?.id }
+        }
       })
     }
   }
@@ -143,7 +151,7 @@ const DeleteSettings: FC = () => {
 
   return (
     <GridLayout>
-      <SEO title="Delete Profile • Lenster" />
+      <SEO title={`Delete Profile • ${APP_NAME}`} />
       <GridItemFour>
         <Sidebar />
       </GridItemFour>
@@ -161,8 +169,8 @@ const DeleteSettings: FC = () => {
             <div className="text-lg font-bold">What else you should know</div>
             <div className="text-sm text-gray-500 divide-y dark:divide-gray-700">
               <p className="pb-3">
-                You cannot restore your Lenster account if it was accidentally
-                or wrongfully deleted.
+                You cannot restore your {APP_NAME} account if it was
+                accidentally or wrongfully deleted.
               </p>
               <p className="py-3">
                 Some account information may still be available in search

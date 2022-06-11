@@ -1,7 +1,9 @@
+import { APP_NAME } from 'src/constants'
+
 export const apps = [
   {
-    id: 'Lenster',
-    name: 'Lenster',
+    id: APP_NAME,
+    name: APP_NAME,
     logo: 'lenster.svg'
   },
   {
