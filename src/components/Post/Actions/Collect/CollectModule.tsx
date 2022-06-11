@@ -417,7 +417,7 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
             <div className="flex items-center space-x-2">
               <PuzzleIcon className="w-4 h-4 text-gray-500" />
               <div className="space-x-1.5">
-                <span>Contract:</span>
+                <span>Token:</span>
                 <a
                   href={`${POLYGONSCAN_URL}/token/${data?.publication?.collectNftAddress}`}
                   target="_blank"
