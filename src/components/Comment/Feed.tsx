@@ -11,7 +11,6 @@ import { PaginatedResultInfo } from '@generated/types'
 import { CommentFields } from '@gql/CommentFields'
 import { CollectionIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
-import { useRouter } from 'next/router'
 import React, { FC, useContext, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 
@@ -48,17 +47,15 @@ const Feed: FC<Props> = ({
   onlyFollowers = false,
   isFollowing = true
 }) => {
-  const {
-    query: { id }
-  } = useRouter()
+  const pubId = post?.__typename === 'Mirror' ? post?.mirrorOf?.id : post?.id
   const { currentUser } = useContext(AppContext)
   const [publications, setPublications] = useState<LensterPost[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
   const { data, loading, error, fetchMore } = useQuery(COMMENT_FEED_QUERY, {
     variables: {
-      request: { commentsOf: id, limit: 10 }
+      request: { commentsOf: pubId, limit: 10 }
     },
-    skip: !id,
+    skip: !pubId,
     fetchPolicy: 'no-cache',
     onCompleted(data) {
       setPageInfo(data?.publications?.pageInfo)
@@ -66,7 +63,7 @@ const Feed: FC<Props> = ({
       consoleLog(
         'Query',
         '#8b5cf6',
-        `Fetched first 10 comments of Publication:${id}`
+        `Fetched first 10 comments of Publication:${pubId}`
       )
     }
   })
@@ -76,7 +73,7 @@ const Feed: FC<Props> = ({
       fetchMore({
         variables: {
           request: {
-            commentsOf: post?.id,
+            commentsOf: pubId,
             cursor: pageInfo?.next,
             limit: 10
           }
@@ -87,7 +84,7 @@ const Feed: FC<Props> = ({
         consoleLog(
           'Query',
           '#8b5cf6',
-          `Fetched next 10 comments of Publication:${id} Next:${pageInfo?.next}`
+          `Fetched next 10 comments of Publication:${pubId} Next:${pageInfo?.next}`
         )
       })
     }
@@ -120,7 +117,7 @@ const Feed: FC<Props> = ({
         <>
           <Card className="divide-y-[1px] dark:divide-gray-700/80">
             {publications?.map((post: LensterPost, index: number) => (
-              <SinglePost key={`${post?.id}_${index}`} post={post} hideType />
+              <SinglePost key={`${pubId}_${index}`} post={post} hideType />
             ))}
           </Card>
           {pageInfo?.next && publications.length !== pageInfo?.totalCount && (

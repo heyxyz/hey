@@ -23,11 +23,17 @@ const Comment: FC<Props> = ({ post }) => {
               <ChatAlt2Icon className="w-[18px]" />
             </Tooltip>
           </div>
-          {post?.stats?.totalAmountOfComments > 0 && (
-            <div className="text-xs">
-              {humanize(post?.stats?.totalAmountOfComments)}
-            </div>
-          )}
+          {post.__typename === 'Mirror'
+            ? post?.mirrorOf?.stats?.totalAmountOfComments > 0 && (
+                <div className="text-xs">
+                  {humanize(post?.mirrorOf?.stats?.totalAmountOfComments)}
+                </div>
+              )
+            : post?.stats?.totalAmountOfComments > 0 && (
+                <div className="text-xs">
+                  {humanize(post?.stats?.totalAmountOfComments)}
+                </div>
+              )}
         </a>
       </Link>
     </motion.button>
