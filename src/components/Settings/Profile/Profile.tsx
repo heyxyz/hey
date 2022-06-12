@@ -20,6 +20,7 @@ import {
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { PencilIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
+import generateSnowflake from '@lib/generateSnowflake'
 import getAttribute from '@lib/getAttribute'
 import hasPrideLogo from '@lib/hasPrideLogo'
 import imagekitURL from '@lib/imagekitURL'
@@ -40,7 +41,6 @@ import {
   RELAY_ON,
   WRONG_NETWORK
 } from 'src/constants'
-import { v4 as uuidv4 } from 'uuid'
 import {
   useAccount,
   useContractWrite,
@@ -282,7 +282,7 @@ const Profile: FC<Props> = ({ profile }) => {
           }
         ],
         version: '1.0.0',
-        metadata_id: uuidv4(),
+        metadata_id: generateSnowflake(),
         appId: APP_NAME
       }).finally(() => setIsUploading(false))
 
