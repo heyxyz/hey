@@ -36,9 +36,10 @@ import {
 
 const CREATE_SET_DEFAULT_PROFILE_DATA_MUTATION = gql`
   mutation CreateSetDefaultProfileTypedData(
+    $options: TypedDataOptions
     $request: CreateSetDefaultProfileRequest!
   ) {
-    createSetDefaultProfileTypedData(request: $request) {
+    createSetDefaultProfileTypedData(options: $options, request: $request) {
       id
       expiresAt
       typedData {
@@ -177,10 +178,8 @@ const SetProfile: FC = () => {
     } else {
       createSetDefaultProfileTypedData({
         variables: {
-          request: {
-            options: { overrideSigNonce: userSigNonce },
-            profileId: selectedUser
-          }
+          options: { overrideSigNonce: userSigNonce },
+          request: { profileId: selectedUser }
         }
       })
     }
