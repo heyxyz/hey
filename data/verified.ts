@@ -18,7 +18,6 @@ export const mainnetVerified = [
   '0x16' /** @davidev.lens */,
   '0x23ac' /** @devpillme.lens */,
   '0xf5' /** @m1guelpf.lens */,
-  '0x1b2f' /** @mudit.lens */,
   '0xcc' /** @indexcoop.lens */,
   '0x1cef' /** @trustlessstate.lens */,
   '0x38' /** @cashmere.lens */,
