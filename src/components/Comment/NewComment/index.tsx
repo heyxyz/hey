@@ -263,13 +263,13 @@ const NewComment: FC<Props> = ({ post, type }) => {
         media: attachments,
         appId: APP_NAME
       }).finally(() => setIsUploading(false))
-
       createCommentTypedData({
         variables: {
           options: { overrideSigNonce: userSigNonce },
           request: {
             profileId: currentUser?.id,
-            publicationId: post?.id,
+            publicationId:
+              post?.__typename === 'Mirror' ? post?.mirrorOf?.id : post?.id,
             contentURI: `https://ipfs.infura.io/ipfs/${path}`,
             collectModule: feeData.recipient
               ? {
