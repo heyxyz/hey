@@ -85,6 +85,12 @@ const ProfileMod: FC<Props> = ({ profile }) => {
             icon={<BeakerIcon className="w-4 h-4 text-gray-500" />}
             value={profile?.handle}
           >
+            {JSON.stringify(profile?.followModule?.__typename)}
+          </MetaDetails>
+          <MetaDetails
+            icon={<BeakerIcon className="w-4 h-4 text-gray-500" />}
+            value={profile?.handle}
+          >
             {isBeta(profile) ? 'Beta user' : 'Non-beta user'}
           </MetaDetails>
         </div>

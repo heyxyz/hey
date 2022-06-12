@@ -133,9 +133,8 @@ const RecommendedProfiles: FC = () => {
           {randomizeArray(data?.recommendedProfiles)
             ?.slice(0, 5)
             ?.map((profile: Profile) => (
-              <>
+              <div key={profile?.id} className="truncate">
                 <UserProfile
-                  key={profile?.id}
                   profile={profile}
                   isFollowing={
                     followData?.doesFollow?.find(
@@ -145,7 +144,7 @@ const RecommendedProfiles: FC = () => {
                   }
                   showFollow
                 />
-              </>
+              </div>
             ))}
         </CardBody>
       </Card>
