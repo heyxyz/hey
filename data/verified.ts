@@ -1,5 +1,4 @@
 export const mainnetVerified = [
-  '0x565f' /** @zapper.lens */,
   '0x6417' /** @blockworks.lens */,
   '0x1eb8' /** @kartik.lens */,
   '0x5138' /** @fabien.lens */,
