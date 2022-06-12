@@ -20,6 +20,7 @@ import { IGif } from '@giphy/js-types'
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { ChatAlt2Icon, PencilAltIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
+import generateSnowflake from '@lib/generateSnowflake'
 import {
   defaultFeeData,
   defaultModuleData,
@@ -43,7 +44,6 @@ import {
   RELAY_ON,
   WRONG_NETWORK
 } from 'src/constants'
-import { v4 as uuidv4 } from 'uuid'
 import {
   useAccount,
   useContractWrite,
@@ -246,7 +246,7 @@ const NewComment: FC<Props> = ({ post, type }) => {
       // TODO: Add animated_url support
       const { path } = await uploadToIPFS({
         version: '1.0.0',
-        metadata_id: uuidv4(),
+        metadata_id: generateSnowflake(),
         description: trimify(commentContent),
         content: trimify(commentContent),
         external_url: null,
