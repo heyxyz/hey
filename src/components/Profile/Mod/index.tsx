@@ -4,10 +4,12 @@ import {
   AtSymbolIcon,
   BeakerIcon,
   CashIcon,
-  HashtagIcon
+  HashtagIcon,
+  IdentificationIcon
 } from '@heroicons/react/outline'
 import formatAddress from '@lib/formatAddress'
 import getAttribute from '@lib/getAttribute'
+import { getFollowModule } from '@lib/getFollowModule'
 import hasPrideLogo from '@lib/hasPrideLogo'
 import isBeta from '@lib/isBeta'
 import React, { FC, ReactNode } from 'react'
@@ -82,10 +84,10 @@ const ProfileMod: FC<Props> = ({ profile }) => {
             {profile?.handle}
           </MetaDetails>
           <MetaDetails
-            icon={<BeakerIcon className="w-4 h-4 text-gray-500" />}
+            icon={<IdentificationIcon className="w-4 h-4 text-gray-500" />}
             value={profile?.handle}
           >
-            {JSON.stringify(profile?.followModule?.__typename)}
+            {getFollowModule(profile?.followModule?.__typename).description}
           </MetaDetails>
           <MetaDetails
             icon={<BeakerIcon className="w-4 h-4 text-gray-500" />}
