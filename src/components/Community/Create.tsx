@@ -18,6 +18,7 @@ import { CreatePostBroadcastItemResult } from '@generated/types'
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { PlusIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
+import generateSnowflake from '@lib/generateSnowflake'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import trackEvent from '@lib/trackEvent'
@@ -36,7 +37,6 @@ import {
   WRONG_NETWORK
 } from 'src/constants'
 import Custom404 from 'src/pages/404'
-import { v4 as uuidv4 } from 'uuid'
 import {
   useAccount,
   useContractWrite,
@@ -185,11 +185,13 @@ const Create: NextPage = () => {
       setIsUploading(true)
       const { path } = await uploadToIPFS({
         version: '1.0.0',
-        metadata_id: uuidv4(),
+        metadata_id: generateSnowflake(),
         description: description,
         content: description,
         external_url: null,
-        image: avatar ? avatar : `https://avatar.tobi.sh/${uuidv4()}.png`,
+        image: avatar
+          ? avatar
+          : `https://avatar.tobi.sh/${generateSnowflake()}.png`,
         imageMimeType: avatarType,
         name: name,
         attributes: [
