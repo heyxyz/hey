@@ -65,8 +65,6 @@ const RecommendedProfiles: FC = () => {
     }
   })
 
-  console.log(data?.recommendedProfiles)
-
   const { data: followData, loading: followLoading } = useQuery(
     DOES_FOLLOW_QUERY,
     {
@@ -90,8 +88,6 @@ const RecommendedProfiles: FC = () => {
       }
     }
   )
-
-  console.log(followData)
 
   if (loading || followLoading)
     return (

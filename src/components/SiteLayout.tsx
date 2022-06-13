@@ -65,7 +65,6 @@ const SiteLayout: FC<Props> = ({ children }) => {
   useEffect(() => {
     setRefreshToken(Cookies.get('refreshToken'))
     setSelectedProfile(localStorage.selectedProfile)
-    console.log(data?.userSigNonces?.lensHubOnChainSigNonce)
     setUserSigNonce(data?.userSigNonces?.lensHubOnChainSigNonce)
     setStaffMode(localStorage.staffMode === 'true')
     setPageLoading(false)
