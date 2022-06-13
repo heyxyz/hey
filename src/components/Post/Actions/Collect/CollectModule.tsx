@@ -25,6 +25,7 @@ import {
   CollectionIcon,
   PhotographIcon,
   PuzzleIcon,
+  SwitchHorizontalIcon,
   UserIcon,
   UsersIcon
 } from '@heroicons/react/outline'
@@ -344,9 +345,20 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
           </div>
         )}
         <div className="pb-2 space-y-1.5">
-          {post?.metadata?.name && (
-            <div className="text-xl font-bold">{post?.metadata?.name}</div>
-          )}
+          <div className="flex items-center space-x-2">
+            {post?.__typename === 'Mirror' && (
+              <Tooltip
+                content={`Mirror of ${post?.mirrorOf?.__typename?.toLowerCase()} by ${
+                  post?.mirrorOf?.profile?.handle
+                }`}
+              >
+                <SwitchHorizontalIcon className="h-5 w-5 text-brand" />
+              </Tooltip>
+            )}
+            {post?.metadata?.name && (
+              <div className="text-xl font-bold">{post?.metadata?.name}</div>
+            )}
+          </div>
           {post?.metadata?.description && (
             <div className="text-gray-500 line-clamp-2">
               {post?.metadata?.description}
