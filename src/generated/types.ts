@@ -1952,7 +1952,8 @@ export type PublicationSearchResultItem = Comment | Post
 export enum PublicationSortCriteria {
   Latest = 'LATEST',
   TopCollected = 'TOP_COLLECTED',
-  TopCommented = 'TOP_COMMENTED'
+  TopCommented = 'TOP_COMMENTED',
+  TopMirrored = 'TOP_MIRRORED'
 }
 
 /** The publication stats */
