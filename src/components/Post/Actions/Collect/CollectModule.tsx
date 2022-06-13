@@ -442,7 +442,7 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
             <div className="flex items-center space-x-2">
               <ClockIcon className="w-4 h-4 text-gray-500" />
               <div className="space-x-1.5">
-                <span>Sale Ends</span>
+                <span>Sale Ends:</span>
                 <span className="font-bold text-gray-600">
                   {dayjs(collectModule.endTimestamp).format('MMMM DD, YYYY')} at{' '}
                   {dayjs(collectModule.endTimestamp).format('hh:mm a')}
