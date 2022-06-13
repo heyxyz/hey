@@ -407,7 +407,13 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
                 show={showCollectorsModal}
                 onClose={() => setShowCollectorsModal(!showCollectorsModal)}
               >
-                <Collectors pubId={post?.pubId ?? post?.id} />
+                <Collectors
+                  pubId={
+                    post?.__typename === 'Mirror'
+                      ? post?.mirrorOf?.id
+                      : post?.pubId ?? post?.id
+                  }
+                />
               </Modal>
             </div>
             {collectModule?.collectLimit && (
