@@ -1,5 +1,6 @@
 import { LensHubProxy } from '@abis/LensHubProxy'
 import { gql, useMutation, useQuery } from '@apollo/client'
+import { PUBLICATION_REVENUE_QUERY } from '@components/Post/Crowdfund'
 import { ALLOWANCE_SETTINGS_QUERY } from '@components/Settings/Allowance'
 import AllowanceButton from '@components/Settings/Allowance/Button'
 import Collectors from '@components/Shared/Collectors'
@@ -34,7 +35,7 @@ import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import trackEvent from '@lib/trackEvent'
 import dayjs from 'dayjs'
-import React, { Dispatch, FC, useContext, useState } from 'react'
+import React, { Dispatch, FC, useContext, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
   CHAIN_ID,
@@ -120,6 +121,7 @@ interface Props {
 
 const CollectModule: FC<Props> = ({ count, setCount, post }) => {
   const { currentUser, userSigNonce, setUserSigNonce } = useContext(AppContext)
+  const [revenue, setRevenue] = useState<number>(0)
   const [showCollectorsModal, setShowCollectorsModal] = useState<boolean>(false)
   const [allowed, setAllowed] = useState<boolean>(true)
 
@@ -132,7 +134,7 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
   })
 
   const onCompleted = () => {
-    // setShowCollectModal && setShowCollectModal(false)
+    setRevenue(revenue + parseFloat(collectModule?.amount?.value))
     setCount(count + 1)
     toast.success('Transaction submitted successfully!')
     trackEvent('collect publication')
@@ -191,6 +193,36 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
       }
     }
   )
+
+  const { data: revenueData, loading: revenueLoading } = useQuery(
+    PUBLICATION_REVENUE_QUERY,
+    {
+      variables: {
+        request: {
+          publicationId:
+            post?.__typename === 'Mirror'
+              ? post?.mirrorOf?.id
+              : post?.pubId ?? post?.id
+        }
+      },
+      skip: !post?.id,
+      onCompleted() {
+        consoleLog(
+          'Query',
+          '#8b5cf6',
+          `Fetched collect revenue details Publication:${
+            post?.pubId ?? post?.id
+          }`
+        )
+      }
+    }
+  )
+
+  useEffect(() => {
+    setRevenue(
+      parseFloat(revenueData?.publicationRevenue?.earnings?.value ?? 0)
+    )
+  }, [revenueData])
 
   const { data: balanceData, isLoading: balanceLoading } = useBalance({
     addressOrName: currentUser?.ownedBy,
@@ -382,20 +414,42 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
               </div>
             ) : null}
           </div>
-          <div>
-            {collectModule?.endTimestamp && (
-              <div className="flex items-center space-x-2">
-                <ClockIcon className="w-4 h-4 text-gray-500" />
-                <div className="space-x-1.5">
-                  <span>Sale Ends</span>
-                  <span className="font-bold text-gray-600">
-                    {dayjs(collectModule.endTimestamp).format('MMMM DD, YYYY')}{' '}
-                    at {dayjs(collectModule.endTimestamp).format('hh:mm a')}
-                  </span>
-                </div>
+          {revenueData && (
+            <div className="flex items-center space-x-2">
+              <CashIcon className="w-4 h-4 text-gray-500" />
+              <div className="space-x-1.5 flex items-center">
+                <span>Revenue:</span>
+                <span className="flex items-center space-x-1">
+                  <img
+                    src={getTokenImage(collectModule?.amount?.asset?.symbol)}
+                    className="h-5 w-5"
+                    height={20}
+                    width={20}
+                    alt={collectModule?.amount?.asset?.symbol}
+                    title={collectModule?.amount?.asset?.symbol}
+                  />
+                  <div className="flex items-baseline space-x-1.5">
+                    <div className="font-bold">{revenue}</div>
+                    <div className="text-[10px]">
+                      {collectModule?.amount?.asset?.symbol}
+                    </div>
+                  </div>
+                </span>
               </div>
-            )}
-          </div>
+            </div>
+          )}
+          {collectModule?.endTimestamp && (
+            <div className="flex items-center space-x-2">
+              <ClockIcon className="w-4 h-4 text-gray-500" />
+              <div className="space-x-1.5">
+                <span>Sale Ends</span>
+                <span className="font-bold text-gray-600">
+                  {dayjs(collectModule.endTimestamp).format('MMMM DD, YYYY')} at{' '}
+                  {dayjs(collectModule.endTimestamp).format('hh:mm a')}
+                </span>
+              </div>
+            </div>
+          )}
           {collectModule?.recipient && (
             <div className="flex items-center space-x-2">
               <UserIcon className="w-4 h-4 text-gray-500" />
@@ -441,7 +495,7 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
           </div>
         ) : null}
         {currentUser ? (
-          allowanceLoading || balanceLoading ? (
+          allowanceLoading || balanceLoading || revenueLoading ? (
             <div className="mt-5 w-28 rounded-lg h-[34px] shimmer" />
           ) : allowed || collectModule.type === 'FreeCollectModule' ? (
             hasAmount ? (
