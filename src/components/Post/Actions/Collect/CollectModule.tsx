@@ -6,6 +6,7 @@ import AllowanceButton from '@components/Settings/Allowance/Button'
 import Collectors from '@components/Shared/Collectors'
 import IndexStatus from '@components/Shared/IndexStatus'
 import Loader from '@components/Shared/Loader'
+import Markup from '@components/Shared/Markup'
 import ReferenceAlert from '@components/Shared/ReferenceAlert'
 import ReferralAlert from '@components/Shared/ReferralAlert'
 import Uniswap from '@components/Shared/Uniswap'
@@ -361,7 +362,7 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
           </div>
           {post?.metadata?.description && (
             <div className="text-gray-500 line-clamp-2">
-              {post?.metadata?.description}
+              <Markup>{post?.metadata?.description}</Markup>
             </div>
           )}
           <ReferralAlert
