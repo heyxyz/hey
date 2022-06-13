@@ -42,7 +42,7 @@ const Attachments: FC<Props> = ({
   }
 
   const slicedAttachments = attachments?.some(
-    (e: any) => e.original.mimeType === 'video/mp4'
+    (e: any) => e.type ?? e.original.mimeType === 'video/mp4'
   )
     ? attachments?.slice(0, 1)
     : attachments?.slice(0, 4)
