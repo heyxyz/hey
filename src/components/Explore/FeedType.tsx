@@ -1,7 +1,8 @@
 import {
   ChatAlt2Icon,
   ClockIcon,
-  CollectionIcon
+  CollectionIcon,
+  SwitchHorizontalIcon
 } from '@heroicons/react/outline'
 import trackEvent from '@lib/trackEvent'
 import clsx from 'clsx'
@@ -51,6 +52,11 @@ const FeedType: FC<Props> = ({ setFeedType, feedType }) => {
         name="Top Collected"
         icon={<CollectionIcon className="w-4 h-4" />}
         type="TOP_COLLECTED"
+      />
+      <FeedLink
+        name="Top Mirrored"
+        icon={<SwitchHorizontalIcon className="w-4 h-4" />}
+        type="TOP_MIRRORED"
       />
       <FeedLink
         name="Latest"
