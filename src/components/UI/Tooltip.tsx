@@ -5,7 +5,7 @@ import clsx from 'clsx'
 import React, { FC, ReactNode } from 'react'
 interface Props {
   children: ReactNode
-  content: string
+  content: ReactNode
   placement?: 'top' | 'right'
   className?: string
   withDelay?: boolean
