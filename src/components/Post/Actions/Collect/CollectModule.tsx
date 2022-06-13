@@ -353,7 +353,7 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
                   post?.mirrorOf?.profile?.handle
                 }`}
               >
-                <SwitchHorizontalIcon className="h-5 w-5 text-brand" />
+                <SwitchHorizontalIcon className="w-5 h-5 text-brand" />
               </Tooltip>
             )}
             {post?.metadata?.name && (
@@ -436,12 +436,12 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
           {revenueData?.publicationRevenue && (
             <div className="flex items-center space-x-2">
               <CashIcon className="w-4 h-4 text-gray-500" />
-              <div className="space-x-1.5 flex items-center">
+              <div className="flex items-center space-x-1.5">
                 <span>Revenue:</span>
                 <span className="flex items-center space-x-1">
                   <img
                     src={getTokenImage(collectModule?.amount?.asset?.symbol)}
-                    className="h-5 w-5"
+                    className="w-5 h-5"
                     height={20}
                     width={20}
                     alt={collectModule?.amount?.asset?.symbol}

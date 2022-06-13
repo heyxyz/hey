@@ -64,7 +64,7 @@ const Notification: FC = () => {
             leaveFrom="transform opacity-100 scale-100"
             leaveTo="transform opacity-0 scale-95"
           >
-            <Menu.Items className="overflow-y-auto absolute right-0 py-1 mt-2 min-w-full bg-white rounded-xl border shadow-sm dark:bg-gray-900 focus:outline-none max-h-[80vh] sm:max-h-[60vh] sm:min-w-[28rem] dark:border-gray-700/80 text-md">
+            <Menu.Items className="overflow-y-auto absolute right-0 py-1 mt-2 min-w-full bg-white rounded-xl border shadow-sm dark:bg-gray-900 focus:outline-none max-h-[80vh] text-md sm:max-h-[60vh] sm:min-w-[28rem] dark:border-gray-700/80">
               <List />
             </Menu.Items>
           </Transition>
