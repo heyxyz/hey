@@ -312,7 +312,7 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
     }
   }
 
-  if (loading) return <Loader message="Loading collect" />
+  if (loading || revenueLoading) return <Loader message="Loading collect" />
 
   return (
     <>
@@ -414,7 +414,7 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
               </div>
             ) : null}
           </div>
-          {revenueData && (
+          {revenueData?.publicationRevenue && (
             <div className="flex items-center space-x-2">
               <CashIcon className="w-4 h-4 text-gray-500" />
               <div className="space-x-1.5 flex items-center">
@@ -495,7 +495,7 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
           </div>
         ) : null}
         {currentUser ? (
-          allowanceLoading || balanceLoading || revenueLoading ? (
+          allowanceLoading || balanceLoading ? (
             <div className="mt-5 w-28 rounded-lg h-[34px] shimmer" />
           ) : allowed || collectModule.type === 'FreeCollectModule' ? (
             hasAmount ? (
