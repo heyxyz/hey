@@ -18,7 +18,6 @@ import { PencilIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
-import trackEvent from '@lib/trackEvent'
 import gql from 'graphql-tag'
 import React, { FC, useContext, useState } from 'react'
 import toast from 'react-hot-toast'
@@ -117,7 +116,6 @@ const NFTPicture: FC<Props> = ({ profile }) => {
 
   const onCompleted = () => {
     toast.success('Avatar updated successfully!')
-    trackEvent('update nft avatar')
   }
 
   const {

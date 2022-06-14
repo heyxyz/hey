@@ -4,7 +4,6 @@ import GetModuleIcon from '@components/utils/GetModuleIcon'
 import { EnabledModule } from '@generated/types'
 import { CashIcon } from '@heroicons/react/outline'
 import { FEE_DATA_TYPE, getModule } from '@lib/getModule'
-import trackEvent from '@lib/trackEvent'
 import { motion } from 'framer-motion'
 import { Dispatch, FC, useState } from 'react'
 
@@ -35,7 +34,6 @@ const SelectCollectModule: FC<Props> = ({
           whileTap={{ scale: 0.9 }}
           type="button"
           onClick={() => {
-            trackEvent('choose collect module')
             setShowModal(!showModal)
           }}
           aria-label="Choose Collect Module"

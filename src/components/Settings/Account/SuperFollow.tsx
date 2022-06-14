@@ -18,7 +18,6 @@ import consoleLog from '@lib/consoleLog'
 import getTokenImage from '@lib/getTokenImage'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
-import trackEvent from '@lib/trackEvent'
 import React, { FC, useContext, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
@@ -116,10 +115,6 @@ const SuperFollow: FC = () => {
     }
   })
 
-  const onCompleted = () => {
-    trackEvent('set superfollow', 'create')
-  }
-
   const {
     data: writeData,
     isLoading: writeLoading,
@@ -131,9 +126,6 @@ const SuperFollow: FC = () => {
     },
     'setFollowModuleWithSig',
     {
-      onSuccess() {
-        onCompleted()
-      },
       onError(error: any) {
         toast.error(error?.data?.message ?? error?.message)
       }
@@ -149,11 +141,6 @@ const SuperFollow: FC = () => {
 
   const [broadcast, { data: broadcastData, loading: broadcastLoading }] =
     useMutation(BROADCAST_MUTATION, {
-      onCompleted({ broadcast }) {
-        if (broadcast?.reason !== 'NOT_ALLOWED') {
-          onCompleted()
-        }
-      },
       onError(error) {
         consoleLog('Relay Error', '#ef4444', error.message)
       }

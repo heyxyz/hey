@@ -2,7 +2,6 @@ import { Modal } from '@components/UI/Modal'
 import { Tooltip } from '@components/UI/Tooltip'
 import { ChatAlt2Icon, GlobeAltIcon, UsersIcon } from '@heroicons/react/outline'
 import { CheckCircleIcon } from '@heroicons/react/solid'
-import trackEvent from '@lib/trackEvent'
 import clsx from 'clsx'
 import { motion } from 'framer-motion'
 import { Dispatch, FC, useState } from 'react'
@@ -30,7 +29,6 @@ const SelectReferenceModule: FC<Props> = ({
           whileTap={{ scale: 0.9 }}
           type="button"
           onClick={() => {
-            trackEvent('choose reference module')
             setShowModal(!showModal)
           }}
           aria-label="Choose Reference Module"
@@ -58,7 +56,6 @@ const SelectReferenceModule: FC<Props> = ({
               'w-full p-3 border rounded-xl dark:border-gray-700/80 flex justify-between items-center'
             )}
             onClick={() => {
-              trackEvent('everyone reference module', 'select')
               setOnlyFollowers(false)
               setShowModal(false)
             }}
@@ -78,7 +75,6 @@ const SelectReferenceModule: FC<Props> = ({
               'w-full p-3 border rounded-xl dark:border-gray-700/80 flex justify-between items-center'
             )}
             onClick={() => {
-              trackEvent('only followers reference module', 'select')
               setOnlyFollowers(true)
               setShowModal(false)
             }}

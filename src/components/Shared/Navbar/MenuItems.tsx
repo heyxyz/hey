@@ -18,7 +18,6 @@ import { CheckCircleIcon } from '@heroicons/react/solid'
 import getAvatar from '@lib/getAvatar'
 import isBeta from '@lib/isBeta'
 import isStaff from '@lib/isStaff'
-import trackEvent from '@lib/trackEvent'
 import clsx from 'clsx'
 import Cookies from 'js-cookie'
 import Link from 'next/link'
@@ -126,7 +125,6 @@ const MenuItems: FC = () => {
               <Menu.Item
                 as="a"
                 onClick={() => {
-                  trackEvent('logout')
                   localStorage.removeItem('selectedProfile')
                   Cookies.remove('accessToken')
                   Cookies.remove('refreshToken')
@@ -163,7 +161,6 @@ const MenuItems: FC = () => {
                               index.toString()
                             )
                             setSelectedProfile(index)
-                            trackEvent('switch profile')
                           }}
                         >
                           {currentUser?.id === profile?.id && (
@@ -187,7 +184,6 @@ const MenuItems: FC = () => {
               <Menu.Item
                 as="a"
                 onClick={() => {
-                  trackEvent(`${theme === 'light' ? 'dark' : 'light'} mode`)
                   setTheme(theme === 'light' ? 'dark' : 'light')
                 }}
                 className={({ active }: { active: boolean }) =>
@@ -277,7 +273,6 @@ const MenuItems: FC = () => {
           />
         }
         onClick={() => {
-          trackEvent('login')
           setShowLoginModal(!showLoginModal)
         }}
       >

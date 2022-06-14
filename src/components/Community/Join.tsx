@@ -10,7 +10,6 @@ import { PlusIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
-import trackEvent from '@lib/trackEvent'
 import React, { Dispatch, FC, useContext } from 'react'
 import toast from 'react-hot-toast'
 import {
@@ -80,7 +79,6 @@ const Join: FC<Props> = ({ community, setJoined, showJoin = true }) => {
   const onCompleted = () => {
     setJoined(true)
     toast.success('Joined successfully!')
-    trackEvent('join community')
   }
 
   const { isLoading: writeLoading, write } = useContractWrite(

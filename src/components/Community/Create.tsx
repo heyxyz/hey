@@ -21,7 +21,6 @@ import consoleLog from '@lib/consoleLog'
 import generateSnowflake from '@lib/generateSnowflake'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
-import trackEvent from '@lib/trackEvent'
 import uploadAssetsToIPFS from '@lib/uploadAssetsToIPFS'
 import uploadToIPFS from '@lib/uploadToIPFS'
 import { NextPage } from 'next'
@@ -68,10 +67,6 @@ const Create: NextPage = () => {
     }
   })
 
-  const onCompleted = () => {
-    trackEvent('new community', 'create')
-  }
-
   const {
     data,
     isLoading: writeLoading,
@@ -83,9 +78,6 @@ const Create: NextPage = () => {
     },
     'postWithSig',
     {
-      onSuccess() {
-        onCompleted()
-      },
       onError(error: any) {
         toast.error(error?.data?.message ?? error?.message)
       }
@@ -112,11 +104,6 @@ const Create: NextPage = () => {
 
   const [broadcast, { data: broadcastData, loading: broadcastLoading }] =
     useMutation(BROADCAST_MUTATION, {
-      onCompleted({ broadcast }) {
-        if (broadcast?.reason !== 'NOT_ALLOWED') {
-          onCompleted()
-        }
-      },
       onError(error) {
         consoleLog('Relay Error', '#ef4444', error.message)
       }

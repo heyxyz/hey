@@ -9,7 +9,6 @@ import { UserAddIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
-import trackEvent from '@lib/trackEvent'
 import { Dispatch, FC, useContext } from 'react'
 import toast from 'react-hot-toast'
 import {
@@ -89,7 +88,6 @@ const Follow: FC<Props> = ({
     }
     setFollowing(true)
     toast.success('Followed successfully!')
-    trackEvent('follow user')
   }
 
   const { isLoading: writeLoading, write } = useContractWrite(

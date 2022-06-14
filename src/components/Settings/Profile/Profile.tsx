@@ -27,7 +27,6 @@ import imagekitURL from '@lib/imagekitURL'
 import isBeta from '@lib/isBeta'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
-import trackEvent from '@lib/trackEvent'
 import uploadAssetsToIPFS from '@lib/uploadAssetsToIPFS'
 import uploadToIPFS from '@lib/uploadToIPFS'
 import React, { ChangeEvent, FC, useContext, useEffect, useState } from 'react'
@@ -119,7 +118,6 @@ const Profile: FC<Props> = ({ profile }) => {
 
   const onCompleted = () => {
     toast.success('Profile updated successfully!')
-    trackEvent('update profile')
   }
 
   const {

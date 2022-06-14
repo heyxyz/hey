@@ -4,7 +4,6 @@ import {
   CollectionIcon,
   SwitchHorizontalIcon
 } from '@heroicons/react/outline'
-import trackEvent from '@lib/trackEvent'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
 import React, { Dispatch, FC, ReactNode } from 'react'
@@ -27,7 +26,6 @@ const FeedType: FC<Props> = ({ setFeedType, feedType }) => {
     <button
       type="button"
       onClick={() => {
-        trackEvent(`explore ${name.toLowerCase()}`)
         push({ query: { type: type.toLowerCase() } })
         setFeedType(type)
       }}

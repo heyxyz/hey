@@ -19,7 +19,6 @@ import consoleLog from '@lib/consoleLog'
 import imagekitURL from '@lib/imagekitURL'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
-import trackEvent from '@lib/trackEvent'
 import uploadAssetsToIPFS from '@lib/uploadAssetsToIPFS'
 import React, { ChangeEvent, FC, useContext, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
@@ -88,7 +87,6 @@ const Picture: FC<Props> = ({ profile }) => {
 
   const onCompleted = () => {
     toast.success('Avatar updated successfully!')
-    trackEvent('update avatar')
   }
 
   const {
