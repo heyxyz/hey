@@ -35,7 +35,6 @@ import formatAddress from '@lib/formatAddress'
 import getTokenImage from '@lib/getTokenImage'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
-import trackEvent from '@lib/trackEvent'
 import dayjs from 'dayjs'
 import React, { Dispatch, FC, useContext, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
@@ -139,7 +138,6 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
     setRevenue(revenue + parseFloat(collectModule?.amount?.value))
     setCount(count + 1)
     toast.success('Transaction submitted successfully!')
-    trackEvent('collect publication')
   }
 
   const {

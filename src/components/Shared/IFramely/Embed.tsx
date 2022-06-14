@@ -1,5 +1,4 @@
 import { Card } from '@components/UI/Card'
-import trackEvent from '@lib/trackEvent'
 import React, { FC } from 'react'
 
 interface Props {
@@ -9,12 +8,7 @@ interface Props {
 const Embed: FC<Props> = ({ og }) => {
   return (
     <div className="mt-4 text-sm sm:w-4/6">
-      <a
-        href={og.url}
-        target="_blank"
-        rel="noreferrer noopener"
-        onClick={() => trackEvent('oembed')}
-      >
+      <a href={og.url} target="_blank" rel="noreferrer noopener">
         <Card forceRounded>
           {!og.isSquare && og.thumbnail && (
             <img

@@ -1,6 +1,5 @@
 import { Modal } from '@components/UI/Modal'
 import { PencilAltIcon } from '@heroicons/react/outline'
-import trackEvent from '@lib/trackEvent'
 import { FC, useState } from 'react'
 
 import NewPost from '..'
@@ -14,7 +13,6 @@ const NewPostModal: FC = () => {
         type="button"
         className="flex items-start"
         onClick={() => {
-          trackEvent('new post modal')
           setShowModal(!showModal)
         }}
       >

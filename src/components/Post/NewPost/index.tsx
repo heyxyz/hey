@@ -25,7 +25,6 @@ import {
 } from '@lib/getModule'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
-import trackEvent from '@lib/trackEvent'
 import trimify from '@lib/trimify'
 import uploadToIPFS from '@lib/uploadToIPFS'
 import dynamic from 'next/dynamic'
@@ -135,7 +134,6 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
     setAttachments([])
     setSelectedModule(defaultModuleData)
     setFeeData(defaultFeeData)
-    trackEvent('new post', 'create')
   }
   const {
     data,

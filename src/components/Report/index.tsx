@@ -16,7 +16,6 @@ import SEO from '@components/utils/SEO'
 import { PencilAltIcon } from '@heroicons/react/outline'
 import { CheckCircleIcon } from '@heroicons/react/solid'
 import consoleLog from '@lib/consoleLog'
-import trackEvent from '@lib/trackEvent'
 import { useRouter } from 'next/router'
 import React, { FC, useContext, useState } from 'react'
 import { APP_NAME, ZERO_ADDRESS } from 'src/constants'
@@ -75,7 +74,6 @@ const Report: FC = () => {
   })
 
   const reportPublication = (additionalComments: string | null) => {
-    trackEvent('report')
     createReport({
       variables: {
         request: {

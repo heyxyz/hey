@@ -2,7 +2,6 @@ import { Modal } from '@components/UI/Modal'
 import { Tooltip } from '@components/UI/Tooltip'
 import { IGif } from '@giphy/js-types'
 import { PhotographIcon } from '@heroicons/react/outline'
-import trackEvent from '@lib/trackEvent'
 import { motion } from 'framer-motion'
 import dynamic from 'next/dynamic'
 import { FC, useState } from 'react'
@@ -28,7 +27,6 @@ const Giphy: FC<Props> = ({ setGifAttachment }) => {
           whileTap={{ scale: 0.9 }}
           type="button"
           onClick={() => {
-            trackEvent('choose gif')
             setShowModal(!showModal)
           }}
           aria-label="Choose GIFs"

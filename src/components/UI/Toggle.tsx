@@ -1,5 +1,4 @@
 import { Switch } from '@headlessui/react'
-import trackEvent from '@lib/trackEvent'
 import clsx from 'clsx'
 import { Dispatch, FC } from 'react'
 
@@ -14,7 +13,6 @@ export const Toggle: FC<Props> = ({ name, on, setOn }) => {
     <Switch
       checked={on}
       onChange={() => {
-        trackEvent(`toggle ${on ? 'off' : 'on'} ${name}`)
         setOn(!on)
       }}
       className={clsx(
