@@ -16,7 +16,7 @@ import { NextPage } from 'next'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import React, { useContext } from 'react'
-import { ZERO_ADDRESS } from 'src/constants'
+import { APP_NAME, ZERO_ADDRESS } from 'src/constants'
 import Custom404 from 'src/pages/404'
 import Custom500 from 'src/pages/500'
 
@@ -102,7 +102,7 @@ const ViewPost: NextPage = () => {
   return (
     <GridLayout>
       <SEO
-        title={`${post?.__typename} by @${post?.profile?.handle} • Lenster`}
+        title={`${post?.__typename} by @${post?.profile?.handle} • ${APP_NAME}`}
       />
       <GridItemEight className="space-y-5">
         <Card>

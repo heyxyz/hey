@@ -13,7 +13,6 @@ import { CashIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
-import trackEvent from '@lib/trackEvent'
 import React, { Dispatch, FC, useContext, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
@@ -35,8 +34,11 @@ import {
 import IndexStatus from '../../Shared/IndexStatus'
 
 const CREATE_COLLECT_TYPED_DATA_MUTATION = gql`
-  mutation CreateCollectTypedData($request: CreateCollectRequest!) {
-    createCollectTypedData(request: $request) {
+  mutation CreateCollectTypedData(
+    $options: TypedDataOptions
+    $request: CreateCollectRequest!
+  ) {
+    createCollectTypedData(options: $options, request: $request) {
       id
       expiresAt
       typedData {
@@ -72,7 +74,7 @@ interface Props {
 }
 
 const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
-  const { currentUser } = useContext(AppContext)
+  const { currentUser, userSigNonce, setUserSigNonce } = useContext(AppContext)
   const [allowed, setAllowed] = useState<boolean>(true)
   const { activeChain } = useNetwork()
   const { data: account } = useAccount()
@@ -119,7 +121,6 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
   const onCompleted = () => {
     setRevenue(revenue + parseFloat(collectModule?.amount?.value))
     toast.success('Transaction submitted successfully!')
-    trackEvent('fund a crowdfund')
   }
 
   const {
@@ -168,6 +169,7 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
           types: omit(typedData?.types, '__typename'),
           value: omit(typedData?.value, '__typename')
         }).then((signature) => {
+          setUserSigNonce(userSigNonce + 1)
           const { profileId, pubId, data: collectData } = typedData?.value
           const { v, r, s } = splitSignature(signature)
           const sig = { v, r, s, deadline: typedData.value.deadline }
@@ -204,7 +206,10 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
       toast.error(WRONG_NETWORK)
     } else {
       createCollectTypedData({
-        variables: { request: { publicationId: fund.id } }
+        variables: {
+          options: { overrideSigNonce: userSigNonce },
+          request: { publicationId: fund.id }
+        }
       })
     }
   }

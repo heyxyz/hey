@@ -200,7 +200,7 @@ const Details: FC<Props> = ({ profile }) => {
           )}
         </div>
         {profile?.bio && (
-          <div className="mr-0 leading-md sm:mr-10 linkify text-md">
+          <div className="mr-0 sm:mr-10 leading-md linkify text-md">
             <Markup>{profile?.bio}</Markup>
           </div>
         )}

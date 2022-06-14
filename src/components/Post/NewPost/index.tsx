@@ -16,6 +16,7 @@ import { IGif } from '@giphy/js-types'
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { PencilAltIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
+import generateSnowflake from '@lib/generateSnowflake'
 import {
   defaultFeeData,
   defaultModuleData,
@@ -24,13 +25,13 @@ import {
 } from '@lib/getModule'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
-import trackEvent from '@lib/trackEvent'
 import trimify from '@lib/trimify'
 import uploadToIPFS from '@lib/uploadToIPFS'
 import dynamic from 'next/dynamic'
 import { Dispatch, FC, useContext, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
+  APP_NAME,
   CHAIN_ID,
   CONNECT_WALLET,
   ERROR_MESSAGE,
@@ -38,7 +39,6 @@ import {
   RELAY_ON,
   WRONG_NETWORK
 } from 'src/constants'
-import { v4 as uuidv4 } from 'uuid'
 import {
   useAccount,
   useContractWrite,
@@ -69,8 +69,11 @@ const Preview = dynamic(() => import('../../Shared/Preview'), {
 })
 
 export const CREATE_POST_TYPED_DATA_MUTATION = gql`
-  mutation CreatePostTypedData($request: CreatePublicPostRequest!) {
-    createPostTypedData(request: $request) {
+  mutation CreatePostTypedData(
+    $options: TypedDataOptions
+    $request: CreatePublicPostRequest!
+  ) {
+    createPostTypedData(options: $options, request: $request) {
       id
       expiresAt
       typedData {
@@ -116,7 +119,7 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
   const [feeData, setFeeData] = useState<FEE_DATA_TYPE>(defaultFeeData)
   const [isUploading, setIsUploading] = useState<boolean>(false)
   const [attachments, setAttachments] = useState<LensterAttachment[]>([])
-  const { currentUser } = useContext(AppContext)
+  const { currentUser, userSigNonce, setUserSigNonce } = useContext(AppContext)
   const { activeChain } = useNetwork()
   const { data: account } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
@@ -131,7 +134,6 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
     setAttachments([])
     setSelectedModule(defaultModuleData)
     setFeeData(defaultFeeData)
-    trackEvent('new post', 'create')
   }
   const {
     data,
@@ -189,6 +191,7 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
           types: omit(typedData?.types, '__typename'),
           value: omit(typedData?.value, '__typename')
         }).then((signature) => {
+          setUserSigNonce(userSigNonce + 1)
           const { v, r, s } = splitSignature(signature)
           const sig = { v, r, s, deadline: typedData.value.deadline }
           const inputStruct = {
@@ -232,7 +235,7 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
       // TODO: Add animated_url support
       const { path } = await uploadToIPFS({
         version: '1.0.0',
-        metadata_id: uuidv4(),
+        metadata_id: generateSnowflake(),
         description: trimify(postContent),
         content: trimify(postContent),
         external_url: null,
@@ -247,11 +250,12 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
           }
         ],
         media: attachments,
-        appId: 'Lenster'
+        appId: APP_NAME
       }).finally(() => setIsUploading(false))
 
       createPostTypedData({
         variables: {
+          options: { overrideSigNonce: userSigNonce },
           request: {
             profileId: currentUser?.id,
             contentURI: `https://ipfs.infura.io/ipfs/${path}`,

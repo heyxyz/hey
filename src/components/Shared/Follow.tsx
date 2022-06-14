@@ -9,7 +9,6 @@ import { UserAddIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
-import trackEvent from '@lib/trackEvent'
 import { Dispatch, FC, useContext } from 'react'
 import toast from 'react-hot-toast'
 import {
@@ -74,8 +73,7 @@ const Follow: FC<Props> = ({
   followersCount,
   setFollowersCount
 }) => {
-  const { currentUser, userSigNonces, setUserSigNonces } =
-    useContext(AppContext)
+  const { currentUser, userSigNonce, setUserSigNonce } = useContext(AppContext)
   const { activeChain } = useNetwork()
   const { data: account } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
@@ -90,7 +88,6 @@ const Follow: FC<Props> = ({
     }
     setFollowing(true)
     toast.success('Followed successfully!')
-    trackEvent('follow user')
   }
 
   const { isLoading: writeLoading, write } = useContractWrite(
@@ -137,7 +134,7 @@ const Follow: FC<Props> = ({
           types: omit(typedData?.types, '__typename'),
           value: omit(typedData?.value, '__typename')
         }).then((signature) => {
-          setUserSigNonces(userSigNonces + 1)
+          setUserSigNonce(userSigNonce + 1)
           const { profileIds, datas: followData } = typedData?.value
           const { v, r, s } = splitSignature(signature)
           const sig = { v, r, s, deadline: typedData.value.deadline }
@@ -174,7 +171,7 @@ const Follow: FC<Props> = ({
     } else {
       createFollowTypedData({
         variables: {
-          options: { overrideSigNonce: userSigNonces },
+          options: { overrideSigNonce: userSigNonce },
           request: {
             follow: {
               profile: profile?.id,

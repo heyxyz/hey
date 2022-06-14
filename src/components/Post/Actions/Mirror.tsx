@@ -11,7 +11,6 @@ import consoleLog from '@lib/consoleLog'
 import humanize from '@lib/humanize'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
-import trackEvent from '@lib/trackEvent'
 import { motion } from 'framer-motion'
 import { FC, useContext, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
@@ -31,8 +30,11 @@ import {
 } from 'wagmi'
 
 const CREATE_MIRROR_TYPED_DATA_MUTATION = gql`
-  mutation CreateMirrorTypedData($request: CreateMirrorRequest!) {
-    createMirrorTypedData(request: $request) {
+  mutation CreateMirrorTypedData(
+    $options: TypedDataOptions
+    $request: CreateMirrorRequest!
+  ) {
+    createMirrorTypedData(options: $options, request: $request) {
       id
       expiresAt
       typedData {
@@ -69,7 +71,7 @@ interface Props {
 
 const Mirror: FC<Props> = ({ post }) => {
   const [count, setCount] = useState<number>(0)
-  const { currentUser } = useContext(AppContext)
+  const { currentUser, userSigNonce, setUserSigNonce } = useContext(AppContext)
   const { activeChain } = useNetwork()
   const { data: account } = useAccount()
 
@@ -95,7 +97,6 @@ const Mirror: FC<Props> = ({ post }) => {
   const onCompleted = () => {
     setCount(count + 1)
     toast.success('Post has been mirrored!')
-    trackEvent('mirror')
   }
 
   const { isLoading: writeLoading, write } = useContractWrite(
@@ -151,6 +152,7 @@ const Mirror: FC<Props> = ({ post }) => {
           types: omit(typedData?.types, '__typename'),
           value: omit(typedData?.value, '__typename')
         }).then((signature) => {
+          setUserSigNonce(userSigNonce + 1)
           const { v, r, s } = splitSignature(signature)
           const sig = { v, r, s, deadline: typedData.value.deadline }
           const inputStruct = {
@@ -189,6 +191,7 @@ const Mirror: FC<Props> = ({ post }) => {
     } else {
       createMirrorTypedData({
         variables: {
+          options: { overrideSigNonce: userSigNonce },
           request: {
             profileId: currentUser?.id,
             publicationId: post?.id,

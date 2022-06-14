@@ -1,6 +1,5 @@
 import { Tooltip } from '@components/UI/Tooltip'
 import { EyeIcon } from '@heroicons/react/outline'
-import trackEvent from '@lib/trackEvent'
 import { motion } from 'framer-motion'
 import { Dispatch, FC } from 'react'
 
@@ -17,7 +16,6 @@ const Preview: FC<Props> = ({ preview, setPreview }) => {
         type="button"
         onClick={() => {
           setPreview(!preview)
-          trackEvent(`markdown preview ${preview ? 'open' : 'close'}`)
         }}
         aria-label="Choose Attachment"
       >

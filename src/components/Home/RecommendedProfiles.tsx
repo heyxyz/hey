@@ -65,8 +65,6 @@ const RecommendedProfiles: FC = () => {
     }
   })
 
-  console.log(data?.recommendedProfiles)
-
   const { data: followData, loading: followLoading } = useQuery(
     DOES_FOLLOW_QUERY,
     {
@@ -90,8 +88,6 @@ const RecommendedProfiles: FC = () => {
       }
     }
   )
-
-  console.log(followData)
 
   if (loading || followLoading)
     return (
@@ -133,9 +129,8 @@ const RecommendedProfiles: FC = () => {
           {randomizeArray(data?.recommendedProfiles)
             ?.slice(0, 5)
             ?.map((profile: Profile) => (
-              <>
+              <div key={profile?.id} className="truncate">
                 <UserProfile
-                  key={profile?.id}
                   profile={profile}
                   isFollowing={
                     followData?.doesFollow?.find(
@@ -145,7 +140,7 @@ const RecommendedProfiles: FC = () => {
                   }
                   showFollow
                 />
-              </>
+              </div>
             ))}
         </CardBody>
       </Card>

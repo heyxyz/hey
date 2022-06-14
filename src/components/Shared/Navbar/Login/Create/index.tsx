@@ -7,10 +7,9 @@ import { Form, useZodForm } from '@components/UI/Form'
 import { Input } from '@components/UI/Input'
 import { Spinner } from '@components/UI/Spinner'
 import { PlusIcon } from '@heroicons/react/outline'
-import trackEvent from '@lib/trackEvent'
 import uploadAssetsToIPFS from '@lib/uploadAssetsToIPFS'
 import React, { ChangeEvent, FC, useState } from 'react'
-import { CHAIN_ID } from 'src/constants'
+import { APP_NAME, CHAIN_ID } from 'src/constants'
 import { useAccount, useNetwork } from 'wagmi'
 import { object, string } from 'zod'
 
@@ -79,7 +78,6 @@ const Create: FC<Props> = ({ isModal = false }) => {
       className="space-y-4"
       onSubmit={({ handle }) => {
         const username = handle.toLowerCase()
-        trackEvent('signup')
         createProfile({
           variables: {
             request: {
@@ -111,7 +109,7 @@ const Create: FC<Props> = ({ isModal = false }) => {
             src="/logo.svg"
             alt="Logo"
           />
-          <div className="text-xl font-bold">Signup to Lenster</div>
+          <div className="text-xl font-bold">Signup to {APP_NAME}</div>
         </div>
       )}
       <Input

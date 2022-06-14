@@ -25,10 +25,17 @@ const Collect: FC<Props> = ({ post }) => {
     post?.collectModule?.__typename === 'FreeCollectModuleSettings'
 
   useEffect(() => {
-    if (post?.stats?.totalAmountOfCollects) {
-      setCount(post?.stats?.totalAmountOfCollects)
+    if (
+      post?.mirrorOf?.stats?.totalAmountOfCollects ||
+      post?.stats?.totalAmountOfCollects
+    ) {
+      setCount(
+        post.__typename === 'Mirror'
+          ? post?.mirrorOf?.stats?.totalAmountOfCollects
+          : post?.stats?.totalAmountOfCollects
+      )
     }
-  }, [post?.stats?.totalAmountOfCollects])
+  }, [post])
 
   return (
     <motion.button
