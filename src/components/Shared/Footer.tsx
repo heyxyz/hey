@@ -29,13 +29,6 @@ const Footer: FC = () => {
         Discord
       </a>
       <a
-        href="https://lenster.xyz/open"
-        target="_blank"
-        rel="noreferrer noopener"
-      >
-        Open
-      </a>
-      <a
         href="https://lenster.xyz/donate"
         target="_blank"
         rel="noreferrer noopener"
