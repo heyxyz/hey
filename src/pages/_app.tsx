@@ -67,7 +67,7 @@ const App = ({ Component, pageProps }: AppProps) => {
             function gtag(){window.dataLayer.push(arguments);}
             gtag('js', new Date());
             gtag('config', 'G-18NFK33KC6');
-          `}
+            `}
           </Script>
         </>
       )}
