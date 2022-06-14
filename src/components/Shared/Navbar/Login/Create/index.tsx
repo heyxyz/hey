@@ -7,7 +7,6 @@ import { Form, useZodForm } from '@components/UI/Form'
 import { Input } from '@components/UI/Input'
 import { Spinner } from '@components/UI/Spinner'
 import { PlusIcon } from '@heroicons/react/outline'
-import trackEvent from '@lib/trackEvent'
 import uploadAssetsToIPFS from '@lib/uploadAssetsToIPFS'
 import React, { ChangeEvent, FC, useState } from 'react'
 import { APP_NAME, CHAIN_ID } from 'src/constants'
@@ -79,7 +78,6 @@ const Create: FC<Props> = ({ isModal = false }) => {
       className="space-y-4"
       onSubmit={({ handle }) => {
         const username = handle.toLowerCase()
-        trackEvent('signup')
         createProfile({
           variables: {
             request: {

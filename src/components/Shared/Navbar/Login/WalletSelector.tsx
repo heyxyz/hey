@@ -7,7 +7,6 @@ import AppContext from '@components/utils/AppContext'
 import { XCircleIcon } from '@heroicons/react/solid'
 import consoleLog from '@lib/consoleLog'
 import getWalletLogo from '@lib/getWalletLogo'
-import trackEvent from '@lib/trackEvent'
 import clsx from 'clsx'
 import Cookies from 'js-cookie'
 import React, { Dispatch, FC, useContext, useEffect, useState } from 'react'
@@ -80,7 +79,6 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
   const { setSelectedProfile } = useContext(AppContext)
 
   const onConnect = async (x: Connector) => {
-    trackEvent(`connect with ${x.name.toLowerCase()}`)
     await connectAsync(x).then(({ account }) => {
       if (account) {
         setHasConnected(true)
@@ -89,7 +87,6 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
   }
 
   const handleSign = () => {
-    trackEvent('sign in with lens')
     loadChallenge({
       variables: { request: { address: accountData?.address } }
     }).then((res) => {

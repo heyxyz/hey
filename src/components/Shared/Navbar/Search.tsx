@@ -6,7 +6,6 @@ import useOnClickOutside from '@components/utils/hooks/useOnClickOutside'
 import { Profile } from '@generated/types'
 import { MinimalProfileFields } from '@gql/MinimalProfileFields'
 import consoleLog from '@lib/consoleLog'
-import trackEvent from '@lib/trackEvent'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { ChangeEvent, FC, useRef, useState } from 'react'
@@ -70,7 +69,7 @@ const Search: FC<Props> = ({ hideDrodown = false }) => {
 
   return (
     <>
-      <div onClick={() => trackEvent('search')} aria-hidden="true">
+      <div aria-hidden="true">
         <form onSubmit={handleKeyDown}>
           <Input
             type="text"

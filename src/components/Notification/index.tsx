@@ -2,7 +2,6 @@ import { gql, useQuery } from '@apollo/client'
 import AppContext from '@components/utils/AppContext'
 import { Menu, Transition } from '@headlessui/react'
 import { LightningBoltIcon } from '@heroicons/react/outline'
-import trackEvent from '@lib/trackEvent'
 import { FC, Fragment, useContext, useEffect, useState } from 'react'
 
 import List from './List'
@@ -42,7 +41,6 @@ const Notification: FC = () => {
               type="button"
               className="flex items-start"
               onClick={() => {
-                trackEvent(`notifications ${open ? 'open' : 'close'}`)
                 localStorage.setItem(
                   'notificationCount',
                   data?.notifications?.pageInfo?.totalCount.toString()

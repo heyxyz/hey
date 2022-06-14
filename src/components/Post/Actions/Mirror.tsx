@@ -11,7 +11,6 @@ import consoleLog from '@lib/consoleLog'
 import humanize from '@lib/humanize'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
-import trackEvent from '@lib/trackEvent'
 import { motion } from 'framer-motion'
 import { FC, useContext, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
@@ -98,7 +97,6 @@ const Mirror: FC<Props> = ({ post }) => {
   const onCompleted = () => {
     setCount(count + 1)
     toast.success('Post has been mirrored!')
-    trackEvent('mirror')
   }
 
   const { isLoading: writeLoading, write } = useContractWrite(

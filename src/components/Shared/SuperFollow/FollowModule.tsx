@@ -19,7 +19,6 @@ import formatAddress from '@lib/formatAddress'
 import getTokenImage from '@lib/getTokenImage'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
-import trackEvent from '@lib/trackEvent'
 import { Dispatch, FC, useContext, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
@@ -127,7 +126,6 @@ const FollowModule: FC<Props> = ({
     setFollowing(true)
     setShowFollowModal(false)
     toast.success('Followed successfully!')
-    trackEvent('super follow user')
   }
 
   const { isLoading: writeLoading, write } = useContractWrite(
