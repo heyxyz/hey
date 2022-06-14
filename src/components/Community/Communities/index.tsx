@@ -1,6 +1,7 @@
 import { gql, useQuery } from '@apollo/client'
 import { GridItemSix, GridLayout } from '@components/GridLayout'
-import { PageLoading } from '@components/UI/PageLoading'
+import CommunityShimmer from '@components/Shared/Shimmer/CommunityShimmer'
+import { Card, CardBody } from '@components/UI/Card'
 import SEO from '@components/utils/SEO'
 import { CommunityFields } from '@gql/CommunityFields'
 import { ChartBarIcon, FireIcon } from '@heroicons/react/outline'
@@ -61,7 +62,48 @@ const Communities: NextPage = () => {
   })
 
   if (error) return <Custom500 />
-  if (loading || !data) return <PageLoading message="Loading community" />
+  if (loading || !data)
+    return (
+      <GridLayout>
+        <SEO title="Communities • Lenster" />
+        <GridItemSix>
+          <div className="flex items-center mb-2 space-x-1.5 font-bold text-gray-500">
+            <FireIcon className="w-5 h-5 text-yellow-500" />
+            <div>Most Active</div>
+          </div>
+          <Card>
+            <CardBody className="space-y-6">
+              <CommunityShimmer />
+              <CommunityShimmer />
+              <CommunityShimmer />
+              <CommunityShimmer />
+              <CommunityShimmer />
+              <CommunityShimmer />
+              <CommunityShimmer />
+              <CommunityShimmer />
+            </CardBody>
+          </Card>
+        </GridItemSix>
+        <GridItemSix>
+          <div className="flex items-center mb-2 space-x-1.5 font-bold text-gray-500">
+            <ChartBarIcon className="w-5 h-5 text-green-500" />
+            <div>Fastest Growing</div>
+          </div>
+          <Card>
+            <CardBody className="space-y-6">
+              <CommunityShimmer />
+              <CommunityShimmer />
+              <CommunityShimmer />
+              <CommunityShimmer />
+              <CommunityShimmer />
+              <CommunityShimmer />
+              <CommunityShimmer />
+              <CommunityShimmer />
+            </CardBody>
+          </Card>
+        </GridItemSix>
+      </GridLayout>
+    )
 
   return (
     <GridLayout>
