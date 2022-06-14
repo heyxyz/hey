@@ -15,7 +15,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "@apollo/client": "^3.6.7",
+    "@apollo/client": "^3.6.8",
     "@giphy/js-fetch-api": "^4.1.2",
     "@giphy/react-components": "^5.8.2",
     "@headlessui/react": "^1.6.4",
