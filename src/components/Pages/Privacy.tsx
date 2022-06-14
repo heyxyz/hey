@@ -1,11 +1,12 @@
 import Footer from '@components/Shared/Footer'
 import SEO from '@components/utils/SEO'
 import React, { FC } from 'react'
+import { APP_NAME } from 'src/constants'
 
 const Privacy: FC = () => {
   return (
     <>
-      <SEO title="Privacy • Lenster" />
+      <SEO title={`Privacy • ${APP_NAME}`} />
       <div className="flex justify-center items-center w-full h-48 bg-brand-400">
         <div className="relative text-center">
           <h1 className="text-3xl font-semibold text-white md:text-4xl">
@@ -23,11 +24,11 @@ const Privacy: FC = () => {
           <div className="relative mx-auto rounded-lg sm:w-2/4 max-w-3/4">
             <div className="!p-8 prose dark:prose-dark max-w-none text-gray-600 dark:text-gray-200">
               <p>
-                Lenster.xyz. (&ldquo;Lenster&rdquo; or &ldquo;we&rdquo;)
+                {APP_NAME}.xyz. (&ldquo;{APP_NAME}&rdquo; or &ldquo;we&rdquo;)
                 respects and protects the privacy of Users (&ldquo;you&rdquo; or
-                &ldquo;users&rdquo;). Lenster will collect and use your Personal
-                Information, generated from your use of Lenster, in accordance
-                with this Privacy Policy (&ldquo;Policy&rdquo;).
+                &ldquo;users&rdquo;). {APP_NAME} will collect and use your
+                Personal Information, generated from your use of {APP_NAME}, in
+                accordance with this Privacy Policy (&ldquo;Policy&rdquo;).
               </p>
               <div className="mt-8 mb-5 text-xl font-bold text-black dark:text-white">
                 What information do we collect
@@ -79,7 +80,7 @@ const Privacy: FC = () => {
               </p>
               <p className="mb-5">
                 In particular, if you do not accept the revised policies, please
-                immediately stop your use of Lenster.
+                immediately stop your use of {APP_NAME}.
               </p>
               <p className="mb-5">
                 Your continued use of our Services confirms your acceptance of

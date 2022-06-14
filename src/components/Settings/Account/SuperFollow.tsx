@@ -18,7 +18,6 @@ import consoleLog from '@lib/consoleLog'
 import getTokenImage from '@lib/getTokenImage'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
-import trackEvent from '@lib/trackEvent'
 import React, { FC, useContext, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
@@ -63,9 +62,10 @@ const MODULES_CURRENCY_QUERY = gql`
 
 export const CREATE_SET_FOLLOW_MODULE_TYPED_DATA_MUTATION = gql`
   mutation CreateSetFollowModuleTypedData(
+    $options: TypedDataOptions
     $request: CreateSetFollowModuleRequest!
   ) {
-    createSetFollowModuleTypedData(request: $request) {
+    createSetFollowModuleTypedData(options: $options, request: $request) {
       id
       expiresAt
       typedData {
@@ -99,7 +99,7 @@ const SuperFollow: FC = () => {
   )
   const [selectedCurrencySymobol, setSelectedCurrencySymobol] =
     useState<string>('WMATIC')
-  const { currentUser } = useContext(AppContext)
+  const { currentUser, userSigNonce, setUserSigNonce } = useContext(AppContext)
   const { activeChain } = useNetwork()
   const { data: account } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
@@ -115,10 +115,6 @@ const SuperFollow: FC = () => {
     }
   })
 
-  const onCompleted = () => {
-    trackEvent('set superfollow', 'create')
-  }
-
   const {
     data: writeData,
     isLoading: writeLoading,
@@ -130,9 +126,6 @@ const SuperFollow: FC = () => {
     },
     'setFollowModuleWithSig',
     {
-      onSuccess() {
-        onCompleted()
-      },
       onError(error: any) {
         toast.error(error?.data?.message ?? error?.message)
       }
@@ -148,11 +141,6 @@ const SuperFollow: FC = () => {
 
   const [broadcast, { data: broadcastData, loading: broadcastLoading }] =
     useMutation(BROADCAST_MUTATION, {
-      onCompleted({ broadcast }) {
-        if (broadcast?.reason !== 'NOT_ALLOWED') {
-          onCompleted()
-        }
-      },
       onError(error) {
         consoleLog('Relay Error', '#ef4444', error.message)
       }
@@ -178,6 +166,7 @@ const SuperFollow: FC = () => {
           types: omit(typedData?.types, '__typename'),
           value: omit(typedData?.value, '__typename')
         }).then((signature) => {
+          setUserSigNonce(userSigNonce + 1)
           const { v, r, s } = splitSignature(signature)
           const sig = { v, r, s, deadline: typedData.value.deadline }
           const inputStruct = {
@@ -212,6 +201,7 @@ const SuperFollow: FC = () => {
     } else {
       createSetFollowModuleTypedData({
         variables: {
+          options: { overrideSigNonce: userSigNonce },
           request: {
             profileId: currentUser?.id,
             followModule: amount

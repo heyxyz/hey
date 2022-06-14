@@ -1,4 +1,6 @@
 export const mainnetVerified = [
+  '0x6417' /** @blockworks.lens */,
+  '0x1eb8' /** @kartik.lens */,
   '0x5138' /** @fabien.lens */,
   '0x3498' /** @sassal.lens */,
   '0x2e02' /** @rabbithole.lens */,
@@ -16,7 +18,6 @@ export const mainnetVerified = [
   '0x16' /** @davidev.lens */,
   '0x23ac' /** @devpillme.lens */,
   '0xf5' /** @m1guelpf.lens */,
-  '0x1b2f' /** @mudit.lens */,
   '0xcc' /** @indexcoop.lens */,
   '0x1cef' /** @trustlessstate.lens */,
   '0x38' /** @cashmere.lens */,

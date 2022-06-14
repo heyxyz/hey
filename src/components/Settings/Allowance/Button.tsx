@@ -6,7 +6,6 @@ import { WarningMessage } from '@components/UI/WarningMessage'
 import { ApprovedAllowanceAmount } from '@generated/types'
 import { ExclamationIcon, MinusIcon, PlusIcon } from '@heroicons/react/outline'
 import { getModule } from '@lib/getModule'
-import trackEvent from '@lib/trackEvent'
 import React, { Dispatch, FC, useState } from 'react'
 import toast from 'react-hot-toast'
 import { useSendTransaction, useWaitForTransaction } from 'wagmi'
@@ -56,7 +55,6 @@ const AllowanceButton: FC<Props> = ({
       toast.success(`Module ${allowed ? 'disabled' : 'enabled'} successfully!`)
       setShowWarninModal(false)
       setAllowed(!allowed)
-      trackEvent(`${allowed ? 'disabled' : 'enabled'} module allowance`)
     },
     onError(error: any) {
       toast.error(error?.data?.message ?? error?.message)

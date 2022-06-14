@@ -7,6 +7,7 @@ import { NextPage } from 'next'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
+import { APP_NAME } from 'src/constants'
 
 import FeedType from './FeedType'
 
@@ -20,7 +21,9 @@ const Explore: NextPage = () => {
   } = useRouter()
   const [feedType, setFeedType] = useState<string>(
     type &&
-      ['top_commented', 'top_collected', 'latest'].includes(type as string)
+      ['top_commented', 'top_collected', 'top_mirrored', 'latest'].includes(
+        type as string
+      )
       ? type?.toString().toUpperCase()
       : 'TOP_COMMENTED'
   )
@@ -28,8 +31,8 @@ const Explore: NextPage = () => {
   return (
     <GridLayout>
       <SEO
-        title="Explore • Lenster"
-        description="Explore top commented, collected and latest publications in the Lenster community."
+        title={`Explore • ${APP_NAME}`}
+        description={`Explore top commented, collected and latest publications in the ${APP_NAME} community.`}
       />
       <GridItemEight className="space-y-5">
         <FeedType setFeedType={setFeedType} feedType={feedType} />

@@ -9,7 +9,7 @@ import { Erc20 } from '@generated/types'
 import consoleLog from '@lib/consoleLog'
 import { NextPage } from 'next'
 import React, { useContext, useState } from 'react'
-import { DEFAULT_COLLECT_TOKEN } from 'src/constants'
+import { APP_NAME, DEFAULT_COLLECT_TOKEN } from 'src/constants'
 import Custom404 from 'src/pages/404'
 import Custom500 from 'src/pages/500'
 
@@ -70,7 +70,7 @@ const AllowanceSettings: NextPage = () => {
 
   return (
     <GridLayout>
-      <SEO title="Allowance settings • Lenster" />
+      <SEO title={`Allowance settings • ${APP_NAME}`} />
       <GridItemFour>
         <Sidebar />
       </GridItemFour>

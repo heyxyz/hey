@@ -41,7 +41,11 @@ const Attachments: FC<Props> = ({
     )
   }
 
-  const slicedAttachments = attachments?.slice(0, 4)
+  const slicedAttachments = isNew
+    ? attachments?.slice(0, 4)
+    : attachments?.some((e: any) => e.original.mimeType === 'video/mp4')
+    ? attachments?.slice(0, 1)
+    : attachments?.slice(0, 4)
 
   return slicedAttachments?.length !== 0 ? (
     <div

@@ -6,7 +6,7 @@ interface Props {
 
 const Player: FC<Props> = ({ og }) => {
   return (
-    <div className="mt-4 text-sm w-5/6">
+    <div className="mt-4 w-5/6 text-sm">
       <div
         className="iframely-player"
         dangerouslySetInnerHTML={{ __html: og.html }}

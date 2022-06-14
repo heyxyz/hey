@@ -20,6 +20,7 @@ import { IGif } from '@giphy/js-types'
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { ChatAlt2Icon, PencilAltIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
+import generateSnowflake from '@lib/generateSnowflake'
 import {
   defaultFeeData,
   defaultModuleData,
@@ -28,13 +29,13 @@ import {
 } from '@lib/getModule'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
-import trackEvent from '@lib/trackEvent'
 import trimify from '@lib/trimify'
 import uploadToIPFS from '@lib/uploadToIPFS'
 import dynamic from 'next/dynamic'
 import { FC, useContext, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
+  APP_NAME,
   CHAIN_ID,
   CONNECT_WALLET,
   ERROR_MESSAGE,
@@ -42,7 +43,6 @@ import {
   RELAY_ON,
   WRONG_NETWORK
 } from 'src/constants'
-import { v4 as uuidv4 } from 'uuid'
 import {
   useAccount,
   useContractWrite,
@@ -70,8 +70,11 @@ const SelectReferenceModule = dynamic(
 )
 
 const CREATE_COMMENT_TYPED_DATA_MUTATION = gql`
-  mutation CreateCommentTypedData($request: CreatePublicCommentRequest!) {
-    createCommentTypedData(request: $request) {
+  mutation CreateCommentTypedData(
+    $options: TypedDataOptions
+    $request: CreatePublicCommentRequest!
+  ) {
+    createCommentTypedData(options: $options, request: $request) {
       id
       expiresAt
       typedData {
@@ -114,7 +117,7 @@ const NewComment: FC<Props> = ({ post, type }) => {
   const [preview, setPreview] = useState<boolean>(false)
   const [commentContent, setCommentContent] = useState<string>('')
   const [commentContentError, setCommentContentError] = useState<string>('')
-  const { currentUser } = useContext(AppContext)
+  const { currentUser, userSigNonce, setUserSigNonce } = useContext(AppContext)
   const [selectedModule, setSelectedModule] =
     useState<EnabledModule>(defaultModuleData)
   const [onlyFollowers, setOnlyFollowers] = useState<boolean>(false)
@@ -134,7 +137,6 @@ const NewComment: FC<Props> = ({ post, type }) => {
     setAttachments([])
     setSelectedModule(defaultModuleData)
     setFeeData(defaultFeeData)
-    trackEvent('new comment', 'create')
   }
   const {
     data,
@@ -195,6 +197,7 @@ const NewComment: FC<Props> = ({ post, type }) => {
           types: omit(typedData?.types, '__typename'),
           value: omit(typedData?.value, '__typename')
         }).then((signature) => {
+          setUserSigNonce(userSigNonce + 1)
           const { v, r, s } = splitSignature(signature)
           const sig = { v, r, s, deadline: typedData.value.deadline }
           const inputStruct = {
@@ -241,7 +244,7 @@ const NewComment: FC<Props> = ({ post, type }) => {
       // TODO: Add animated_url support
       const { path } = await uploadToIPFS({
         version: '1.0.0',
-        metadata_id: uuidv4(),
+        metadata_id: generateSnowflake(),
         description: trimify(commentContent),
         content: trimify(commentContent),
         external_url: null,
@@ -256,14 +259,15 @@ const NewComment: FC<Props> = ({ post, type }) => {
           }
         ],
         media: attachments,
-        appId: 'Lenster'
+        appId: APP_NAME
       }).finally(() => setIsUploading(false))
-
       createCommentTypedData({
         variables: {
+          options: { overrideSigNonce: userSigNonce },
           request: {
             profileId: currentUser?.id,
-            publicationId: post?.id,
+            publicationId:
+              post?.__typename === 'Mirror' ? post?.mirrorOf?.id : post?.id,
             contentURI: `https://ipfs.infura.io/ipfs/${path}`,
             collectModule: feeData.recipient
               ? {

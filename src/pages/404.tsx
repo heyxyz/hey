@@ -2,12 +2,12 @@ import { Button } from '@components/UI/Button'
 import SEO from '@components/utils/SEO'
 import { HomeIcon } from '@heroicons/react/outline'
 import Link from 'next/link'
-import { STATIC_ASSETS } from 'src/constants'
+import { APP_NAME, STATIC_ASSETS } from 'src/constants'
 
 export default function Custom404() {
   return (
     <div className="flex-col page-center">
-      <SEO title="404 • Lenster" />
+      <SEO title={`404 • ${APP_NAME}`} />
       <img
         src={`${STATIC_ASSETS}/gifs/nyan-cat.gif`}
         alt="Nyan Cat"

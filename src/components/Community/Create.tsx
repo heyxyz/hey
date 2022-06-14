@@ -18,15 +18,16 @@ import { CreatePostBroadcastItemResult } from '@generated/types'
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { PlusIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
+import generateSnowflake from '@lib/generateSnowflake'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
-import trackEvent from '@lib/trackEvent'
 import uploadAssetsToIPFS from '@lib/uploadAssetsToIPFS'
 import uploadToIPFS from '@lib/uploadToIPFS'
 import { NextPage } from 'next'
 import React, { ChangeEvent, useContext, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
+  APP_NAME,
   CHAIN_ID,
   CONNECT_WALLET,
   ERROR_MESSAGE,
@@ -35,7 +36,6 @@ import {
   WRONG_NETWORK
 } from 'src/constants'
 import Custom404 from 'src/pages/404'
-import { v4 as uuidv4 } from 'uuid'
 import {
   useAccount,
   useContractWrite,
@@ -58,7 +58,7 @@ const Create: NextPage = () => {
   const [avatarType, setAvatarType] = useState<string>()
   const [isUploading, setIsUploading] = useState<boolean>(false)
   const [uploading, setUploading] = useState<boolean>(false)
-  const { currentUser } = useContext(AppContext)
+  const { currentUser, userSigNonce, setUserSigNonce } = useContext(AppContext)
   const { activeChain } = useNetwork()
   const { data: account } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
@@ -66,10 +66,6 @@ const Create: NextPage = () => {
       toast.error(error?.message)
     }
   })
-
-  const onCompleted = () => {
-    trackEvent('new community', 'create')
-  }
 
   const {
     data,
@@ -82,9 +78,6 @@ const Create: NextPage = () => {
     },
     'postWithSig',
     {
-      onSuccess() {
-        onCompleted()
-      },
       onError(error: any) {
         toast.error(error?.data?.message ?? error?.message)
       }
@@ -111,11 +104,6 @@ const Create: NextPage = () => {
 
   const [broadcast, { data: broadcastData, loading: broadcastLoading }] =
     useMutation(BROADCAST_MUTATION, {
-      onCompleted({ broadcast }) {
-        if (broadcast?.reason !== 'NOT_ALLOWED') {
-          onCompleted()
-        }
-      },
       onError(error) {
         consoleLog('Relay Error', '#ef4444', error.message)
       }
@@ -144,6 +132,7 @@ const Create: NextPage = () => {
           types: omit(typedData?.types, '__typename'),
           value: omit(typedData?.value, '__typename')
         }).then((signature) => {
+          setUserSigNonce(userSigNonce + 1)
           const { v, r, s } = splitSignature(signature)
           const sig = { v, r, s, deadline: typedData.value.deadline }
           const inputStruct = {
@@ -183,11 +172,13 @@ const Create: NextPage = () => {
       setIsUploading(true)
       const { path } = await uploadToIPFS({
         version: '1.0.0',
-        metadata_id: uuidv4(),
+        metadata_id: generateSnowflake(),
         description: description,
         content: description,
         external_url: null,
-        image: avatar ? avatar : `https://avatar.tobi.sh/${uuidv4()}.png`,
+        image: avatar
+          ? avatar
+          : `https://avatar.tobi.sh/${generateSnowflake()}.png`,
         imageMimeType: avatarType,
         name: name,
         attributes: [
@@ -198,11 +189,12 @@ const Create: NextPage = () => {
           }
         ],
         media: [],
-        appId: 'Lenster Community'
+        appId: `${APP_NAME} Community`
       }).finally(() => setIsUploading(false))
 
       createPostTypedData({
         variables: {
+          options: { overrideSigNonce: userSigNonce },
           request: {
             profileId: currentUser?.id,
             contentURI: `https://ipfs.infura.io/ipfs/${path}`,
@@ -224,7 +216,7 @@ const Create: NextPage = () => {
 
   return (
     <GridLayout>
-      <SEO title="Create Community • Lenster" />
+      <SEO title={`Create Community • ${APP_NAME}`} />
       <GridItemFour>
         <SettingsHelper
           heading="Create community"

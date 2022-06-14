@@ -6,7 +6,6 @@ import {
   SwitchHorizontalIcon
 } from '@heroicons/react/outline'
 import humanize from '@lib/humanize'
-import trackEvent from '@lib/trackEvent'
 import clsx from 'clsx'
 import React, { Dispatch, FC, ReactNode } from 'react'
 
@@ -28,7 +27,6 @@ const FeedType: FC<Props> = ({ stats, setFeedType, feedType }) => {
     <button
       type="button"
       onClick={() => {
-        trackEvent(`user ${name.toLowerCase()}`)
         setFeedType(type)
       }}
       className={clsx(

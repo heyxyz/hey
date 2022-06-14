@@ -1,10 +1,12 @@
 import { LensHubProxy } from '@abis/LensHubProxy'
 import { gql, useMutation, useQuery } from '@apollo/client'
+import { PUBLICATION_REVENUE_QUERY } from '@components/Post/Crowdfund'
 import { ALLOWANCE_SETTINGS_QUERY } from '@components/Settings/Allowance'
 import AllowanceButton from '@components/Settings/Allowance/Button'
 import Collectors from '@components/Shared/Collectors'
 import IndexStatus from '@components/Shared/IndexStatus'
 import Loader from '@components/Shared/Loader'
+import Markup from '@components/Shared/Markup'
 import ReferenceAlert from '@components/Shared/ReferenceAlert'
 import ReferralAlert from '@components/Shared/ReferralAlert'
 import Uniswap from '@components/Shared/Uniswap'
@@ -24,6 +26,7 @@ import {
   CollectionIcon,
   PhotographIcon,
   PuzzleIcon,
+  SwitchHorizontalIcon,
   UserIcon,
   UsersIcon
 } from '@heroicons/react/outline'
@@ -32,9 +35,8 @@ import formatAddress from '@lib/formatAddress'
 import getTokenImage from '@lib/getTokenImage'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
-import trackEvent from '@lib/trackEvent'
 import dayjs from 'dayjs'
-import React, { Dispatch, FC, useContext, useState } from 'react'
+import React, { Dispatch, FC, useContext, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
   CHAIN_ID,
@@ -80,8 +82,11 @@ export const COLLECT_QUERY = gql`
 `
 
 const CREATE_COLLECT_TYPED_DATA_MUTATION = gql`
-  mutation CreateCollectTypedData($request: CreateCollectRequest!) {
-    createCollectTypedData(request: $request) {
+  mutation CreateCollectTypedData(
+    $options: TypedDataOptions
+    $request: CreateCollectRequest!
+  ) {
+    createCollectTypedData(options: $options, request: $request) {
       id
       expiresAt
       typedData {
@@ -116,7 +121,8 @@ interface Props {
 }
 
 const CollectModule: FC<Props> = ({ count, setCount, post }) => {
-  const { currentUser } = useContext(AppContext)
+  const { currentUser, userSigNonce, setUserSigNonce } = useContext(AppContext)
+  const [revenue, setRevenue] = useState<number>(0)
   const [showCollectorsModal, setShowCollectorsModal] = useState<boolean>(false)
   const [allowed, setAllowed] = useState<boolean>(true)
 
@@ -129,10 +135,9 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
   })
 
   const onCompleted = () => {
-    // setShowCollectModal && setShowCollectModal(false)
+    setRevenue(revenue + parseFloat(collectModule?.amount?.value))
     setCount(count + 1)
     toast.success('Transaction submitted successfully!')
-    trackEvent('collect publication')
   }
 
   const {
@@ -156,13 +161,12 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
   )
 
   const { data, loading } = useQuery(COLLECT_QUERY, {
-    variables: { request: { publicationId: post?.id } },
-    skip: !post?.id,
+    variables: { request: { publicationId: post?.pubId ?? post?.id } },
     onCompleted() {
       consoleLog(
         'Query',
         '#8b5cf6',
-        `Fetched collect module details Publication:${post?.id}`
+        `Fetched collect module details Publication:${post?.pubId ?? post?.id}`
       )
     }
   })
@@ -189,6 +193,36 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
       }
     }
   )
+
+  const { data: revenueData, loading: revenueLoading } = useQuery(
+    PUBLICATION_REVENUE_QUERY,
+    {
+      variables: {
+        request: {
+          publicationId:
+            post?.__typename === 'Mirror'
+              ? post?.mirrorOf?.id
+              : post?.pubId ?? post?.id
+        }
+      },
+      skip: !post?.id,
+      onCompleted() {
+        consoleLog(
+          'Query',
+          '#8b5cf6',
+          `Fetched collect revenue details Publication:${
+            post?.pubId ?? post?.id
+          }`
+        )
+      }
+    }
+  )
+
+  useEffect(() => {
+    setRevenue(
+      parseFloat(revenueData?.publicationRevenue?.earnings?.value ?? 0)
+    )
+  }, [revenueData])
 
   const { data: balanceData, isLoading: balanceLoading } = useBalance({
     addressOrName: currentUser?.ownedBy,
@@ -233,6 +267,7 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
           types: omit(typedData?.types, '__typename'),
           value: omit(typedData?.value, '__typename')
         }).then((signature) => {
+          setUserSigNonce(userSigNonce + 1)
           const { profileId, pubId, data: collectData } = typedData?.value
           const { v, r, s } = splitSignature(signature)
           const sig = { v, r, s, deadline: typedData.value.deadline }
@@ -263,21 +298,21 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
   )
 
   const createCollect = () => {
-    // TODO: Add time check
     if (!account?.address) {
       toast.error(CONNECT_WALLET)
     } else if (activeChain?.id !== CHAIN_ID) {
       toast.error(WRONG_NETWORK)
-    } else if (parseInt(collectModule?.collectLimit) <= count) {
-      toast.error('Collect limit reached for this publication!')
     } else {
       createCollectTypedData({
-        variables: { request: { publicationId: post?.id } }
+        variables: {
+          options: { overrideSigNonce: userSigNonce },
+          request: { publicationId: post?.pubId ?? post?.id }
+        }
       })
     }
   }
 
-  if (loading) return <Loader message="Loading collect" />
+  if (loading || revenueLoading) return <Loader message="Loading collect" />
 
   return (
     <>
@@ -309,12 +344,23 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
           </div>
         )}
         <div className="pb-2 space-y-1.5">
-          {post?.metadata?.name && (
-            <div className="text-xl font-bold">{post?.metadata?.name}</div>
-          )}
+          <div className="flex items-center space-x-2">
+            {post?.__typename === 'Mirror' && (
+              <Tooltip
+                content={`Mirror of ${post?.mirrorOf?.__typename?.toLowerCase()} by ${
+                  post?.mirrorOf?.profile?.handle
+                }`}
+              >
+                <SwitchHorizontalIcon className="w-5 h-5 text-brand" />
+              </Tooltip>
+            )}
+            {post?.metadata?.name && (
+              <div className="text-xl font-bold">{post?.metadata?.name}</div>
+            )}
+          </div>
           {post?.metadata?.description && (
             <div className="text-gray-500 line-clamp-2">
-              {post?.metadata?.description}
+              <Markup>{post?.metadata?.description}</Markup>
             </div>
           )}
           <ReferralAlert
@@ -359,7 +405,13 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
                 show={showCollectorsModal}
                 onClose={() => setShowCollectorsModal(!showCollectorsModal)}
               >
-                <Collectors pubId={post?.id} />
+                <Collectors
+                  pubId={
+                    post?.__typename === 'Mirror'
+                      ? post?.mirrorOf?.id
+                      : post?.pubId ?? post?.id
+                  }
+                />
               </Modal>
             </div>
             {collectModule?.collectLimit && (
@@ -379,20 +431,42 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
               </div>
             ) : null}
           </div>
-          <div>
-            {collectModule?.endTimestamp && (
-              <div className="flex items-center space-x-2">
-                <ClockIcon className="w-4 h-4 text-gray-500" />
-                <div className="space-x-1.5">
-                  <span>Sale Ends</span>
-                  <span className="font-bold text-gray-600">
-                    {dayjs(collectModule.endTimestamp).format('MMMM DD, YYYY')}{' '}
-                    at {dayjs(collectModule.endTimestamp).format('hh:mm a')}
-                  </span>
-                </div>
+          {revenueData?.publicationRevenue && (
+            <div className="flex items-center space-x-2">
+              <CashIcon className="w-4 h-4 text-gray-500" />
+              <div className="flex items-center space-x-1.5">
+                <span>Revenue:</span>
+                <span className="flex items-center space-x-1">
+                  <img
+                    src={getTokenImage(collectModule?.amount?.asset?.symbol)}
+                    className="w-5 h-5"
+                    height={20}
+                    width={20}
+                    alt={collectModule?.amount?.asset?.symbol}
+                    title={collectModule?.amount?.asset?.symbol}
+                  />
+                  <div className="flex items-baseline space-x-1.5">
+                    <div className="font-bold">{revenue}</div>
+                    <div className="text-[10px]">
+                      {collectModule?.amount?.asset?.symbol}
+                    </div>
+                  </div>
+                </span>
               </div>
-            )}
-          </div>
+            </div>
+          )}
+          {collectModule?.endTimestamp && (
+            <div className="flex items-center space-x-2">
+              <ClockIcon className="w-4 h-4 text-gray-500" />
+              <div className="space-x-1.5">
+                <span>Sale Ends:</span>
+                <span className="font-bold text-gray-600">
+                  {dayjs(collectModule.endTimestamp).format('MMMM DD, YYYY')} at{' '}
+                  {dayjs(collectModule.endTimestamp).format('hh:mm a')}
+                </span>
+              </div>
+            </div>
+          )}
           {collectModule?.recipient && (
             <div className="flex items-center space-x-2">
               <UserIcon className="w-4 h-4 text-gray-500" />
@@ -413,7 +487,7 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
             <div className="flex items-center space-x-2">
               <PuzzleIcon className="w-4 h-4 text-gray-500" />
               <div className="space-x-1.5">
-                <span>Contract:</span>
+                <span>Token:</span>
                 <a
                   href={`${POLYGONSCAN_URL}/token/${data?.publication?.collectNftAddress}`}
                   target="_blank"

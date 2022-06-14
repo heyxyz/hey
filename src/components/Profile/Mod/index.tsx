@@ -4,15 +4,18 @@ import {
   AtSymbolIcon,
   BeakerIcon,
   CashIcon,
-  HashtagIcon
+  HashtagIcon,
+  IdentificationIcon
 } from '@heroicons/react/outline'
 import formatAddress from '@lib/formatAddress'
 import getAttribute from '@lib/getAttribute'
+import { getFollowModule } from '@lib/getFollowModule'
 import hasPrideLogo from '@lib/hasPrideLogo'
 import isBeta from '@lib/isBeta'
 import React, { FC, ReactNode } from 'react'
 import CopyToClipboard from 'react-copy-to-clipboard'
 import toast from 'react-hot-toast'
+import { APP_NAME } from 'src/constants'
 
 interface Props {
   profile: Profile
@@ -46,7 +49,7 @@ const ProfileMod: FC<Props> = ({ profile }) => {
       <CardBody>
         <div className="text-lg font-bold">Details</div>
         <div className="mt-3 space-y-1.5">
-          {getAttribute(profile?.attributes, 'app') === 'Lenster' && (
+          {getAttribute(profile?.attributes, 'app') === APP_NAME && (
             <MetaDetails
               icon={
                 <img
@@ -59,7 +62,7 @@ const ProfileMod: FC<Props> = ({ profile }) => {
               }
               value={profile?.handle}
             >
-              Lenster account
+              {APP_NAME} account
             </MetaDetails>
           )}
           <MetaDetails
@@ -79,6 +82,12 @@ const ProfileMod: FC<Props> = ({ profile }) => {
             value={profile?.handle}
           >
             {profile?.handle}
+          </MetaDetails>
+          <MetaDetails
+            icon={<IdentificationIcon className="w-4 h-4 text-gray-500" />}
+            value={profile?.handle}
+          >
+            {getFollowModule(profile?.followModule?.__typename).description}
           </MetaDetails>
           <MetaDetails
             icon={<BeakerIcon className="w-4 h-4 text-gray-500" />}

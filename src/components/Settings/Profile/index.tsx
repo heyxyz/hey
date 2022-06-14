@@ -9,6 +9,7 @@ import consoleLog from '@lib/consoleLog'
 import clsx from 'clsx'
 import { NextPage } from 'next'
 import React, { FC, ReactNode, useContext, useState } from 'react'
+import { APP_NAME } from 'src/constants'
 import Custom404 from 'src/pages/404'
 import Custom500 from 'src/pages/500'
 
@@ -95,7 +96,7 @@ const ProfileSettings: NextPage = () => {
 
   return (
     <GridLayout>
-      <SEO title="Profile settings • Lenster" />
+      <SEO title={`Profile settings • ${APP_NAME}`} />
       <GridItemFour>
         <Sidebar />
       </GridItemFour>

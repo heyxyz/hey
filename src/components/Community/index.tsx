@@ -8,6 +8,7 @@ import { NextPage } from 'next'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import React from 'react'
+import { APP_NAME } from 'src/constants'
 import Custom404 from 'src/pages/404'
 import Custom500 from 'src/pages/500'
 
@@ -55,7 +56,7 @@ const ViewCommunity: NextPage = () => {
 
   return (
     <GridLayout>
-      <SEO title={`${data?.publication?.metadata?.name} • Lenster`} />
+      <SEO title={`${data?.publication?.metadata?.name} • ${APP_NAME}`} />
       <GridItemFour>
         <Details community={data.publication} />
       </GridItemFour>

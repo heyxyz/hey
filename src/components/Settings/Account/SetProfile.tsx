@@ -14,10 +14,10 @@ import { ExclamationIcon, PencilIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
-import trackEvent from '@lib/trackEvent'
 import React, { FC, useContext, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
+  APP_NAME,
   CHAIN_ID,
   CONNECT_WALLET,
   ERROR_MESSAGE,
@@ -35,9 +35,10 @@ import {
 
 const CREATE_SET_DEFAULT_PROFILE_DATA_MUTATION = gql`
   mutation CreateSetDefaultProfileTypedData(
+    $options: TypedDataOptions
     $request: CreateSetDefaultProfileRequest!
   ) {
-    createSetDefaultProfileTypedData(request: $request) {
+    createSetDefaultProfileTypedData(options: $options, request: $request) {
       id
       expiresAt
       typedData {
@@ -65,7 +66,8 @@ const CREATE_SET_DEFAULT_PROFILE_DATA_MUTATION = gql`
 `
 
 const SetProfile: FC = () => {
-  const { currentUser, profiles } = useContext(AppContext)
+  const { currentUser, profiles, userSigNonce, setUserSigNonce } =
+    useContext(AppContext)
   const [selectedUser, setSelectedUser] = useState<string>()
   const { activeChain } = useNetwork()
   const { data: account } = useAccount()
@@ -77,7 +79,6 @@ const SetProfile: FC = () => {
 
   const onCompleted = () => {
     toast.success('Default profile updated successfully!')
-    trackEvent('set default profile')
   }
 
   const {
@@ -139,6 +140,7 @@ const SetProfile: FC = () => {
           types: omit(typedData?.types, '__typename'),
           value: omit(typedData?.value, '__typename')
         }).then((signature) => {
+          setUserSigNonce(userSigNonce + 1)
           const { wallet, profileId } = typedData?.value
           const { v, r, s } = splitSignature(signature)
           const sig = { v, r, s, deadline: typedData.value.deadline }
@@ -174,6 +176,7 @@ const SetProfile: FC = () => {
     } else {
       createSetDefaultProfileTypedData({
         variables: {
+          options: { overrideSigNonce: userSigNonce },
           request: { profileId: selectedUser }
         }
       })
@@ -200,13 +203,13 @@ const SetProfile: FC = () => {
         <div className="text-lg font-bold">Select default profile</div>
         <p>
           Selecting your default account helps to display the selected profile
-          across Lenster, you can change your default profile anytime.
+          across {APP_NAME}, you can change your default profile anytime.
         </p>
         <div className="text-lg font-bold">What else you should know</div>
         <div className="text-sm text-gray-500 divide-y dark:divide-gray-700">
           <p className="pb-3">
-            Only the default profile will be visible across the Lenster, example
-            notifications, follow etc.
+            Only the default profile will be visible across the {APP_NAME},
+            example notifications, follow etc.
           </p>
           <p className="py-3">You can change default profile anytime here.</p>
         </div>

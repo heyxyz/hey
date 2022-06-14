@@ -1,10 +1,11 @@
 import {
   ChatAlt2Icon,
   ClockIcon,
-  CollectionIcon
+  CollectionIcon,
+  SwitchHorizontalIcon
 } from '@heroicons/react/outline'
-import trackEvent from '@lib/trackEvent'
 import clsx from 'clsx'
+import { useRouter } from 'next/router'
 import React, { Dispatch, FC, ReactNode } from 'react'
 
 interface Props {
@@ -13,6 +14,8 @@ interface Props {
 }
 
 const FeedType: FC<Props> = ({ setFeedType, feedType }) => {
+  const { push } = useRouter()
+
   interface FeedLinkProps {
     name: string
     icon: ReactNode
@@ -23,7 +26,7 @@ const FeedType: FC<Props> = ({ setFeedType, feedType }) => {
     <button
       type="button"
       onClick={() => {
-        trackEvent(`explore ${name.toLowerCase()}`)
+        push({ query: { type: type.toLowerCase() } })
         setFeedType(type)
       }}
       className={clsx(
@@ -51,6 +54,11 @@ const FeedType: FC<Props> = ({ setFeedType, feedType }) => {
         name="Top Collected"
         icon={<CollectionIcon className="w-4 h-4" />}
         type="TOP_COLLECTED"
+      />
+      <FeedLink
+        name="Top Mirrored"
+        icon={<SwitchHorizontalIcon className="w-4 h-4" />}
+        type="TOP_MIRRORED"
       />
       <FeedLink
         name="Latest"
