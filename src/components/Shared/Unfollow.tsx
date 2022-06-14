@@ -7,7 +7,6 @@ import { UserRemoveIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
-import trackEvent from '@lib/trackEvent'
 import { Contract, Signer } from 'ethers'
 import { Dispatch, FC, useState } from 'react'
 import toast from 'react-hot-toast'
@@ -111,7 +110,6 @@ const Unfollow: FC<Props> = ({
               setFollowing(false)
             }
             toast.success('Unfollowed successfully!')
-            trackEvent('unfollow user')
           } catch {
             toast.error('User rejected request')
           } finally {

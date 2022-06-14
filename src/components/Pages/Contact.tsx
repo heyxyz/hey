@@ -9,7 +9,6 @@ import { TextArea } from '@components/UI/TextArea'
 import SEO from '@components/utils/SEO'
 import { PencilAltIcon } from '@heroicons/react/outline'
 import { CheckCircleIcon } from '@heroicons/react/solid'
-import trackEvent from '@lib/trackEvent'
 import { useRouter } from 'next/router'
 import React, { FC } from 'react'
 import { APP_NAME, CONTACT_EMAIL } from 'src/constants'
@@ -59,7 +58,6 @@ const Contact: FC = () => {
                 location.href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(
                   subject
                 )}&body=${encodeURIComponent(message)}`
-                trackEvent('contact')
                 push('/')
               }}
             >

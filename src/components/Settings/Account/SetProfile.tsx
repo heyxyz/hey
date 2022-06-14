@@ -14,7 +14,6 @@ import { ExclamationIcon, PencilIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
-import trackEvent from '@lib/trackEvent'
 import React, { FC, useContext, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
@@ -80,7 +79,6 @@ const SetProfile: FC = () => {
 
   const onCompleted = () => {
     toast.success('Default profile updated successfully!')
-    trackEvent('set default profile')
   }
 
   const {

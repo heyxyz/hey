@@ -13,7 +13,6 @@ import { CashIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
-import trackEvent from '@lib/trackEvent'
 import React, { Dispatch, FC, useContext, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
@@ -122,7 +121,6 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
   const onCompleted = () => {
     setRevenue(revenue + parseFloat(collectModule?.amount?.value))
     toast.success('Transaction submitted successfully!')
-    trackEvent('fund a crowdfund')
   }
 
   const {
