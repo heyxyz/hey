@@ -1,7 +1,7 @@
 import { Modal } from '@components/UI/Modal'
 import { Profile } from '@generated/types'
 import { UsersIcon } from '@heroicons/react/outline'
-import nFormatter from '@lib/nFormatter'
+import humanize from '@lib/humanize'
 import React, { FC, useState } from 'react'
 
 import Followers from './Followers'
@@ -24,7 +24,7 @@ const Followerings: FC<Props> = ({ followersCount, profile }) => {
         onClick={() => setShowFollowingModal(!showFollowingModal)}
       >
         <div className="text-xl">
-          {nFormatter(profile?.stats?.totalFollowing)}
+          {humanize(profile?.stats?.totalFollowing)}
         </div>
         <div className="text-gray-500">Following</div>
       </button>
@@ -33,7 +33,7 @@ const Followerings: FC<Props> = ({ followersCount, profile }) => {
         className="text-left"
         onClick={() => setShowFollowersModal(!showFollowersModal)}
       >
-        <div className="text-xl">{nFormatter(followersCount)}</div>
+        <div className="text-xl">{humanize(followersCount)}</div>
         <div className="text-gray-500">Followers</div>
       </button>
       <Modal
