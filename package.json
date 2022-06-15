@@ -60,7 +60,7 @@
     "@graphql-codegen/typescript": "^2.5.1",
     "@tailwindcss/forms": "^0.5.2",
     "@tailwindcss/line-clamp": "^0.4.0",
-    "@types/node": "^17.0.43",
+    "@types/node": "^17.0.44",
     "@types/react": "^18.0.11",
     "@types/react-copy-to-clipboard": "^5.0.2",
     "@types/react-dom": "^18.0.5",
