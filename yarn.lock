@@ -4165,6 +4165,11 @@ csstype@^3.0.2, csstype@^3.0.6:
   resolved "https://registry.yarnpkg.com/csstype/-/csstype-3.1.0.tgz#4ddcac3718d787cf9df0d1b7d15033925c8f29f2"
   integrity sha512-uX1KG+x9h5hIJsaKR9xHUeUraxf8IODOwq9JLNPq6BwB04a/xgpq3rcx47l5BZu5zBPlgD342tdke3Hom/nJRA==
 
+cuid@^2.1.8:
+  version "2.1.8"
+  resolved "https://registry.yarnpkg.com/cuid/-/cuid-2.1.8.tgz#cbb88f954171e0d5747606c0139fb65c5101eac0"
+  integrity sha512-xiEMER6E7TlTPnDxrM4eRiC6TRgjNX9xzEZ5U/Se2YJKr7Mq4pJn/2XEHjl3STcSh96GmkHPcBXLES8M29wyyg==
+
 custom-event-polyfill@^1.0.7:
   version "1.0.7"
   resolved "https://registry.yarnpkg.com/custom-event-polyfill/-/custom-event-polyfill-1.0.7.tgz#9bc993ddda937c1a30ccd335614c6c58c4f87aee"
@@ -8893,11 +8898,6 @@ substyle@^9.1.0:
   dependencies:
     "@babel/runtime" "^7.3.4"
     invariant "^2.2.4"
-
-sunflake@^0.4.1:
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/sunflake/-/sunflake-0.4.1.tgz#a6bf4d51d4177f97598f25696776857ec568551b"
-  integrity sha512-AmFZCINm5nyJHjC2SXEMUShiOLGgIMVT5x123STeuSoMvFN4fTK8n0wP+w9tiCv/f/nDTSbNbCEj4SZFqQ1kfA==
 
 supports-color@^2.0.0:
   version "2.0.0"
