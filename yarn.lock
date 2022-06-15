@@ -8894,10 +8894,10 @@ substyle@^9.1.0:
     "@babel/runtime" "^7.3.4"
     invariant "^2.2.4"
 
-sunflake@^0.4.1:
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/sunflake/-/sunflake-0.4.1.tgz#a6bf4d51d4177f97598f25696776857ec568551b"
-  integrity sha512-AmFZCINm5nyJHjC2SXEMUShiOLGgIMVT5x123STeuSoMvFN4fTK8n0wP+w9tiCv/f/nDTSbNbCEj4SZFqQ1kfA==
+sunflake@^0.5.0:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/sunflake/-/sunflake-0.5.0.tgz#b439d2af61dda85f5044d20ca24ce5cf929109eb"
+  integrity sha512-CRCJIDmADMd/lRB16DD5mRlSDbHiB9Q8XlmXm2qZqfvxJkbAbp3OMa6z7MbUXwSI0U9ldpeSNzqmih58Xc+/0g==
 
 supports-color@^2.0.0:
   version "2.0.0"
