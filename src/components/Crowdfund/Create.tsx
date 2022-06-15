@@ -19,13 +19,13 @@ import { CreatePostBroadcastItemResult, Erc20 } from '@generated/types'
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { PlusIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
-import generateSnowflake from '@lib/generateSnowflake'
 import getTokenImage from '@lib/getTokenImage'
 import imagekitURL from '@lib/imagekitURL'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import uploadAssetsToIPFS from '@lib/uploadAssetsToIPFS'
 import uploadToIPFS from '@lib/uploadToIPFS'
+import cuid from 'cuid'
 import { NextPage } from 'next'
 import React, { ChangeEvent, useContext, useState } from 'react'
 import toast from 'react-hot-toast'
@@ -215,13 +215,11 @@ const Create: NextPage = () => {
       setIsUploading(true)
       const { path } = await uploadToIPFS({
         version: '1.0.0',
-        metadata_id: generateSnowflake(),
+        metadata_id: cuid(),
         description: description,
         content: description,
         external_url: null,
-        image: cover
-          ? cover
-          : `https://avatar.tobi.sh/${generateSnowflake()}.png`,
+        image: cover ? cover : `https://avatar.tobi.sh/${cuid()}.png`,
         imageMimeType: coverType,
         name: title,
         attributes: [
