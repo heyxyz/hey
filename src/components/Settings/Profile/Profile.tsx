@@ -374,7 +374,7 @@ const Profile: FC<Props> = ({ profile }) => {
           <div className="space-y-2">
             <div className="label">Beta</div>
             <div className="flex items-center space-x-2">
-              <Toggle name="beta" on={beta} setOn={setBeta} />
+              <Toggle on={beta} setOn={setBeta} />
               <div>Enroll to {APP_NAME} Beta</div>
             </div>
           </div>
@@ -384,7 +384,7 @@ const Profile: FC<Props> = ({ profile }) => {
               <span>Celebrate pride every day</span>
             </div>
             <div className="flex items-center space-x-2">
-              <Toggle name="pride" on={pride} setOn={setPride} />
+              <Toggle on={pride} setOn={setPride} />
               <div>
                 Turn this on to show your pride and turn the {APP_NAME} logo
                 rainbow every day.
