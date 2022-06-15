@@ -20,7 +20,6 @@ import {
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { PencilIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
-import generateSnowflake from '@lib/generateSnowflake'
 import getAttribute from '@lib/getAttribute'
 import hasPrideLogo from '@lib/hasPrideLogo'
 import imagekitURL from '@lib/imagekitURL'
@@ -29,6 +28,7 @@ import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import uploadAssetsToIPFS from '@lib/uploadAssetsToIPFS'
 import uploadToIPFS from '@lib/uploadToIPFS'
+import cuid from 'cuid'
 import React, { ChangeEvent, FC, useContext, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
@@ -280,7 +280,7 @@ const Profile: FC<Props> = ({ profile }) => {
           }
         ],
         version: '1.0.0',
-        metadata_id: generateSnowflake(),
+        metadata_id: cuid(),
         appId: APP_NAME
       }).finally(() => setIsUploading(false))
 
