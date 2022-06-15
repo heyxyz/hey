@@ -5,7 +5,7 @@ import {
   PhotographIcon,
   SwitchHorizontalIcon
 } from '@heroicons/react/outline'
-import humanize from '@lib/humanize'
+import nFormatter from '@lib/nFormatter'
 import clsx from 'clsx'
 import React, { Dispatch, FC, ReactNode } from 'react'
 
@@ -42,7 +42,7 @@ const FeedType: FC<Props> = ({ stats, setFeedType, feedType }) => {
       <div className="hidden sm:block">{name}</div>
       {count ? (
         <div className="px-2 text-xs font-medium rounded-full bg-brand-200 dark:bg-brand-800">
-          {humanize(count)}
+          {nFormatter(count)}
         </div>
       ) : null}
     </button>
