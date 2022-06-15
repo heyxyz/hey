@@ -9,6 +9,7 @@ import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { SwitchHorizontalIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
 import humanize from '@lib/humanize'
+import nFormatter from '@lib/nFormatter'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import { motion } from 'framer-motion'
@@ -219,12 +220,16 @@ const Mirror: FC<Props> = ({ post }) => {
           broadcastLoading ? (
             <Spinner size="xs" />
           ) : (
-            <Tooltip placement="top" content="Mirror" withDelay>
+            <Tooltip
+              placement="top"
+              content={count > 0 ? `${humanize(count)} Mirrors` : 'Mirror'}
+              withDelay
+            >
               <SwitchHorizontalIcon className="w-[18px]" />
             </Tooltip>
           )}
         </div>
-        {count > 0 && <div className="text-xs">{humanize(count)}</div>}
+        {count > 0 && <div className="text-xs">{nFormatter(count)}</div>}
       </div>
     </motion.button>
   )
