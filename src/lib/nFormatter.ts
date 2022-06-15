@@ -1,3 +1,5 @@
+import humanize from './humanize'
+
 const nFormatter = (num: number, digits: number = 1): string => {
   const lookup = [
     { value: 1, symbol: '' },
@@ -17,7 +19,9 @@ const nFormatter = (num: number, digits: number = 1): string => {
     })
 
   return item
-    ? (num / item.value).toFixed(digits).replace(rx, '$1') + item.symbol
+    ? num < 10000
+      ? humanize(num)
+      : (num / item.value).toFixed(digits).replace(rx, '$1') + item.symbol
     : '0'
 }
 
