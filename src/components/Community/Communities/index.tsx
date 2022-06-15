@@ -81,7 +81,7 @@ const Communities: NextPage = () => {
     <GridLayout>
       <SEO title={`Communities • ${APP_NAME}`} />
       <GridItemFour>
-        <div className="flex items-center mb- space-x-1.5 font-bold text-gray-500">
+        <div className="flex items-center mb-2 space-x-1.5 font-bold text-gray-500">
           <FireIcon className="w-5 h-5 text-yellow-500" />
           <div>Most Active</div>
         </div>
