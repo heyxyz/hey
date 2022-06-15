@@ -16,6 +16,7 @@ import { IGif } from '@giphy/js-types'
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { PencilAltIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
+import generateSnowflake from '@lib/generateSnowflake'
 import {
   defaultFeeData,
   defaultModuleData,
@@ -26,7 +27,6 @@ import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import trimify from '@lib/trimify'
 import uploadToIPFS from '@lib/uploadToIPFS'
-import cuid from 'cuid'
 import dynamic from 'next/dynamic'
 import { Dispatch, FC, useContext, useState } from 'react'
 import toast from 'react-hot-toast'
@@ -235,7 +235,7 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
       // TODO: Add animated_url support
       const { path } = await uploadToIPFS({
         version: '1.0.0',
-        metadata_id: cuid(),
+        metadata_id: generateSnowflake(),
         description: trimify(postContent),
         content: trimify(postContent),
         external_url: null,
