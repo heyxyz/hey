@@ -24,6 +24,7 @@ const PROFILE_SETTINGS_QUERY = gql`
       id
       name
       bio
+      metadata
       attributes {
         key
         value

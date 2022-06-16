@@ -25,6 +25,7 @@ import {
   CONNECT_WALLET,
   DEFAULT_COLLECT_TOKEN,
   ERROR_MESSAGE,
+  ERRORS,
   LENSHUB_PROXY,
   RELAY_ON,
   WRONG_NETWORK
@@ -142,6 +143,9 @@ const SuperFollow: FC = () => {
   const [broadcast, { data: broadcastData, loading: broadcastLoading }] =
     useMutation(BROADCAST_MUTATION, {
       onError(error) {
+        if (error.message === ERRORS.notMined) {
+          toast.error(error.message)
+        }
         consoleLog('Relay Error', '#ef4444', error.message)
       }
     })
@@ -177,8 +181,8 @@ const SuperFollow: FC = () => {
           }
           if (RELAY_ON) {
             broadcast({ variables: { request: { id, signature } } }).then(
-              ({ data: { broadcast }, errors }) => {
-                if (errors || broadcast?.reason === 'NOT_ALLOWED') {
+              ({ data, errors }) => {
+                if (errors || data?.broadcast?.reason === 'NOT_ALLOWED') {
                   write({ args: inputStruct })
                 }
               }
@@ -247,7 +251,7 @@ const SuperFollow: FC = () => {
         <div className="text-lg font-bold">Set super follow</div>
         <p>
           Setting super follow makes users spend crypto to follow you, and
-          it&rsquo;s the good way to earn it, you can change the amount and
+          it&rsquo;s a good way to earn it, you can change the amount and
           currency or disable/enable it anytime.
         </p>
         <div className="pt-2">

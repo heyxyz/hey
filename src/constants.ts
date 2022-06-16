@@ -63,6 +63,11 @@ export const POLYGON_MUMBAI = {
 }
 export const CHAIN_ID = IS_MAINNET ? POLYGON_MAINNET.id : POLYGON_MUMBAI.id
 
+export const ERRORS = {
+  notMined:
+    'A previous transaction may not been mined yet or you have passed in a invalid nonce. You must wait for that to be mined before doing another action, please try again in a few moments. Nonce out of sync.'
+}
+
 // Addresses
 export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000'
 export const LENSHUB_PROXY = IS_MAINNET

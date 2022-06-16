@@ -1,7 +1,7 @@
 import { Community } from '@generated/lenstertypes'
 import { UsersIcon } from '@heroicons/react/outline'
-import humanize from '@lib/humanize'
 import imagekitURL from '@lib/imagekitURL'
+import nFormatter from '@lib/nFormatter'
 import Link from 'next/link'
 import React, { FC } from 'react'
 
@@ -36,7 +36,7 @@ const CommunityProfile: FC<Props> = ({ community }) => {
                 <div className="flex items-center space-x-1 text-sm">
                   <UsersIcon className="w-3 h-3" />
                   <div>
-                    {humanize(community?.stats?.totalAmountOfCollects)}{' '}
+                    {nFormatter(community?.stats?.totalAmountOfCollects)}{' '}
                     {community?.stats?.totalAmountOfCollects > 1
                       ? 'members'
                       : 'member'}

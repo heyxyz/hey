@@ -3,12 +3,11 @@ import clsx from 'clsx'
 import { Dispatch, FC } from 'react'
 
 interface Props {
-  name: string
   on: boolean
   setOn: Dispatch<boolean>
 }
 
-export const Toggle: FC<Props> = ({ name, on, setOn }) => {
+export const Toggle: FC<Props> = ({ on, setOn }) => {
   return (
     <Switch
       checked={on}

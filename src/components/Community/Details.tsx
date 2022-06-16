@@ -13,8 +13,8 @@ import {
   UsersIcon
 } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
-import humanize from '@lib/humanize'
 import imagekitURL from '@lib/imagekitURL'
+import nFormatter from '@lib/nFormatter'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import dynamic from 'next/dynamic'
@@ -144,7 +144,7 @@ const Details: FC<Props> = ({ community }) => {
                 type="button"
                 onClick={() => setShowMembersModal(!showMembersModal)}
               >
-                {humanize(community?.stats?.totalAmountOfCollects)}{' '}
+                {nFormatter(community?.stats?.totalAmountOfCollects)}{' '}
                 {community?.stats?.totalAmountOfCollects > 1
                   ? 'members'
                   : 'member'}
@@ -161,7 +161,7 @@ const Details: FC<Props> = ({ community }) => {
           </MetaDetails>
           <MetaDetails icon={<UsersIcon className="w-4 h-4" />}>
             <>
-              {humanize(community?.stats?.totalAmountOfComments)}{' '}
+              {nFormatter(community?.stats?.totalAmountOfComments)}{' '}
               {community?.stats?.totalAmountOfComments > 1 ? 'posts' : 'post'}
             </>
           </MetaDetails>
