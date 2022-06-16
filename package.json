@@ -61,7 +61,7 @@
     "@tailwindcss/forms": "^0.5.2",
     "@tailwindcss/line-clamp": "^0.4.0",
     "@types/node": "^18.0.0",
-    "@types/react": "^18.0.13",
+    "@types/react": "^18.0.14",
     "@types/react-copy-to-clipboard": "^5.0.2",
     "@types/react-dom": "^18.0.5",
     "@types/ua-parser-js": "^0.7.36",
