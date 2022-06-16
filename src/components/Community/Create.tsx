@@ -181,6 +181,7 @@ const Create: NextPage = () => {
           : `https://avatar.tobi.sh/${generateSnowflake()}.png`,
         imageMimeType: avatarType,
         name: name,
+        contentWarning: null, // TODO
         attributes: [
           {
             traitType: 'string',
@@ -189,6 +190,7 @@ const Create: NextPage = () => {
           }
         ],
         media: [],
+        createdOn: new Date(),
         appId: `${APP_NAME} Community`
       }).finally(() => setIsUploading(false))
 
