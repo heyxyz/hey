@@ -18,7 +18,7 @@ import { useInView } from 'react-cool-inview'
 const SEARCH_PUBLICATIONS_QUERY = gql`
   query SearchPublications(
     $request: SearchQueryRequest!
-    $reactionRequest: ReactionFieldResolverRequest!
+    $reactionRequest: ReactionFieldResolverRequest
   ) {
     search(request: $request) {
       ... on PublicationSearchResult {

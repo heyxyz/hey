@@ -20,7 +20,7 @@ import NewComment from './NewComment'
 const COMMENT_FEED_QUERY = gql`
   query CommentFeed(
     $request: PublicationsQueryRequest!
-    $reactionRequest: ReactionFieldResolverRequest!
+    $reactionRequest: ReactionFieldResolverRequest
   ) {
     publications(request: $request) {
       items {
