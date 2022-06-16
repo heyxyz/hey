@@ -1,3 +1,4 @@
+import { gql, useMutation } from '@apollo/client'
 import { Tooltip } from '@components/UI/Tooltip'
 import { LensterPost } from '@generated/lenstertypes'
 import { HeartIcon } from '@heroicons/react/outline'
@@ -8,6 +9,18 @@ import { FC, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { CHAIN_ID, CONNECT_WALLET, WRONG_NETWORK } from 'src/constants'
 import { useAccount, useNetwork } from 'wagmi'
+
+const ADD_REACTION_MUTATION = gql`
+  mutation AddReaction($request: ReactionRequest!) {
+    addReaction(request: $request)
+  }
+`
+
+const REMOVE_REACTION_MUTATION = gql`
+  mutation RemoveReaction($request: ReactionRequest!) {
+    removeReaction(request: $request)
+  }
+`
 
 interface Props {
   post: LensterPost
@@ -33,15 +46,24 @@ const Like: FC<Props> = ({ post }) => {
     }
   }, [post])
 
+  const [addReaction] = useMutation(ADD_REACTION_MUTATION)
+  const [removeReaction] = useMutation(REMOVE_REACTION_MUTATION)
+
   const createLike = () => {
     if (!account?.address) {
       toast.error(CONNECT_WALLET)
     } else if (activeChain?.id !== CHAIN_ID) {
       toast.error(WRONG_NETWORK)
     } else {
-      setLiked(!liked)
-      setCount(liked ? count - 1 : count + 1)
-      toast.success('WIP')
+      if (liked) {
+        setLiked(false)
+        setCount(count - 1)
+        removeReaction()
+      } else {
+        setLiked(true)
+        setCount(count + 1)
+        addReaction()
+      }
     }
   }
 
