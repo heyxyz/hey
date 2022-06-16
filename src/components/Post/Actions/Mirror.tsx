@@ -199,7 +199,7 @@ const Mirror: FC<Props> = ({ post }) => {
           options: { overrideSigNonce: userSigNonce },
           request: {
             profileId: currentUser?.id,
-            publicationId: post?.id,
+            publicationId: post?.pubId ?? post?.id,
             referenceModule: {
               followerOnlyReferenceModule: false
             }
