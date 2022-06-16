@@ -18,7 +18,10 @@ import React, { FC, useContext, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 
 const HOME_FEED_QUERY = gql`
-  query HomeFeed($request: TimelineRequest!) {
+  query HomeFeed(
+    $request: TimelineRequest!
+    $reactionRequest: ReactionFieldResolverRequest!
+  ) {
     timeline(request: $request) {
       items {
         ... on Post {
@@ -48,7 +51,8 @@ const Feed: FC = () => {
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
   const { data, loading, error, fetchMore } = useQuery(HOME_FEED_QUERY, {
     variables: {
-      request: { profileId: currentUser?.id, limit: 10 }
+      request: { profileId: currentUser?.id, limit: 10 },
+      reactionRequest: { profileId: currentUser?.id }
     },
     fetchPolicy: 'no-cache',
     onCompleted(data) {
@@ -66,7 +70,8 @@ const Feed: FC = () => {
             profileId: currentUser?.id,
             cursor: pageInfo?.next,
             limit: 10
-          }
+          },
+          reactionRequest: { profileId: currentUser?.id }
         }
       }).then(({ data }: any) => {
         setPageInfo(data?.timeline?.pageInfo)

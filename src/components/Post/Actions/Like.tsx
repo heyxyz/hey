@@ -35,16 +35,13 @@ const Like: FC<Props> = ({ post }) => {
   const { data: account } = useAccount()
 
   useEffect(() => {
-    if (
-      post?.mirrorOf?.stats?.totalAmountOfMirrors ||
-      post?.stats?.totalAmountOfMirrors
-    ) {
+    if (post?.mirrorOf?.stats?.totalUpvotes || post?.stats?.totalUpvotes) {
       setCount(
         post.__typename === 'Mirror'
-          ? post?.mirrorOf?.stats?.totalAmountOfMirrors
-          : post?.stats?.totalAmountOfMirrors
+          ? post?.mirrorOf?.stats?.totalUpvotes
+          : post?.stats?.totalUpvotes
       )
-      setLiked(false)
+      setLiked(post?.reaction === 'UPVOTE')
     }
   }, [post])
 
