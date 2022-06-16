@@ -281,6 +281,7 @@ const Profile: FC<Props> = ({ profile }) => {
         ],
         version: '1.0.0',
         metadata_id: generateSnowflake(),
+        previousMetadata: profile?.metadata,
         createdOn: new Date(),
         appId: APP_NAME
       }).finally(() => setIsUploading(false))
