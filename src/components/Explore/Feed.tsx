@@ -59,7 +59,7 @@ const Feed: FC<Props> = ({ feedType = 'TOP_COMMENTED' }) => {
         limit: 10,
         noRandomize: feedType === 'LATEST'
       },
-      reactionRequest: { profileId: currentUser?.id }
+      reactionRequest: currentUser ? { profileId: currentUser?.id } : null
     },
     onCompleted(data) {
       setPageInfo(data?.explorePublications?.pageInfo)
@@ -82,7 +82,7 @@ const Feed: FC<Props> = ({ feedType = 'TOP_COMMENTED' }) => {
             limit: 10,
             noRandomize: feedType === 'LATEST'
           },
-          reactionRequest: { profileId: currentUser?.id }
+          reactionRequest: currentUser ? { profileId: currentUser?.id } : null
         }
       }).then(({ data }: any) => {
         setPageInfo(data?.explorePublications?.pageInfo)

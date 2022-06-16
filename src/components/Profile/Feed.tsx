@@ -56,7 +56,7 @@ const Feed: FC<Props> = ({ profile, type }) => {
   const { data, loading, error, fetchMore } = useQuery(PROFILE_FEED_QUERY, {
     variables: {
       request: { publicationTypes: type, profileId: profile?.id, limit: 10 },
-      reactionRequest: { profileId: currentUser?.id }
+      reactionRequest: currentUser ? { profileId: currentUser?.id } : null
     },
     skip: !profile?.id,
     fetchPolicy: 'no-cache',
@@ -81,7 +81,7 @@ const Feed: FC<Props> = ({ profile, type }) => {
             cursor: pageInfo?.next,
             limit: 10
           },
-          reactionRequest: { profileId: currentUser?.id }
+          reactionRequest: currentUser ? { profileId: currentUser?.id } : null
         }
       }).then(({ data }: any) => {
         setPageInfo(data?.publications?.pageInfo)
