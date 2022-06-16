@@ -5,17 +5,21 @@ import { Card } from '@components/UI/Card'
 import { EmptyState } from '@components/UI/EmptyState'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { Spinner } from '@components/UI/Spinner'
+import AppContext from '@components/utils/AppContext'
 import { LensterPost } from '@generated/lenstertypes'
 import { PaginatedResultInfo } from '@generated/types'
 import { CommentFields } from '@gql/CommentFields'
 import { PostFields } from '@gql/PostFields'
 import { CollectionIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
-import React, { FC, useState } from 'react'
+import React, { FC, useContext, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 
 const SEARCH_PUBLICATIONS_QUERY = gql`
-  query SearchPublications($request: SearchQueryRequest!) {
+  query SearchPublications(
+    $request: SearchQueryRequest!
+    $reactionRequest: ReactionFieldResolverRequest!
+  ) {
     search(request: $request) {
       ... on PublicationSearchResult {
         items {
@@ -42,12 +46,16 @@ interface Props {
 }
 
 const Publications: FC<Props> = ({ query }) => {
+  const { currentUser } = useContext(AppContext)
   const [publications, setPublications] = useState<LensterPost[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
   const { data, loading, error, fetchMore } = useQuery(
     SEARCH_PUBLICATIONS_QUERY,
     {
-      variables: { request: { query, type: 'PUBLICATION', limit: 10 } },
+      variables: {
+        request: { query, type: 'PUBLICATION', limit: 10 },
+        reactionRequest: { profileId: currentUser?.id }
+      },
       onCompleted(data) {
         setPageInfo(data?.search?.pageInfo)
         setPublications(data?.search?.items)
@@ -69,7 +77,8 @@ const Publications: FC<Props> = ({ query }) => {
             type: 'PUBLICATION',
             cursor: pageInfo?.next,
             limit: 10
-          }
+          },
+          reactionRequest: { profileId: currentUser?.id }
         }
       }).then(({ data }: any) => {
         setPageInfo(data?.search?.pageInfo)

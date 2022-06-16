@@ -5,6 +5,7 @@ import { Card } from '@components/UI/Card'
 import { EmptyState } from '@components/UI/EmptyState'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { Spinner } from '@components/UI/Spinner'
+import AppContext from '@components/utils/AppContext'
 import { LensterPost } from '@generated/lenstertypes'
 import { PaginatedResultInfo } from '@generated/types'
 import { CommentFields } from '@gql/CommentFields'
@@ -12,11 +13,14 @@ import { MirrorFields } from '@gql/MirrorFields'
 import { PostFields } from '@gql/PostFields'
 import { CollectionIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
-import React, { FC, useState } from 'react'
+import React, { FC, useContext, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 
 const EXPLORE_FEED_QUERY = gql`
-  query ExploreFeed($request: ExplorePublicationRequest!) {
+  query ExploreFeed(
+    $request: ExplorePublicationRequest!
+    $reactionRequest: ReactionFieldResolverRequest!
+  ) {
     explorePublications(request: $request) {
       items {
         ... on Post {
@@ -45,6 +49,7 @@ interface Props {
 }
 
 const Feed: FC<Props> = ({ feedType = 'TOP_COMMENTED' }) => {
+  const { currentUser } = useContext(AppContext)
   const [publications, setPublications] = useState<LensterPost[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
   const { data, loading, error, fetchMore } = useQuery(EXPLORE_FEED_QUERY, {
@@ -53,7 +58,8 @@ const Feed: FC<Props> = ({ feedType = 'TOP_COMMENTED' }) => {
         sortCriteria: feedType,
         limit: 10,
         noRandomize: feedType === 'LATEST'
-      }
+      },
+      reactionRequest: { profileId: currentUser?.id }
     },
     onCompleted(data) {
       setPageInfo(data?.explorePublications?.pageInfo)
@@ -75,7 +81,8 @@ const Feed: FC<Props> = ({ feedType = 'TOP_COMMENTED' }) => {
             cursor: pageInfo?.next,
             limit: 10,
             noRandomize: feedType === 'LATEST'
-          }
+          },
+          reactionRequest: { profileId: currentUser?.id }
         }
       }).then(({ data }: any) => {
         setPageInfo(data?.explorePublications?.pageInfo)

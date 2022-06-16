@@ -18,7 +18,10 @@ import ReferenceAlert from '../Shared/ReferenceAlert'
 import NewComment from './NewComment'
 
 const COMMENT_FEED_QUERY = gql`
-  query CommentFeed($request: PublicationsQueryRequest!) {
+  query CommentFeed(
+    $request: PublicationsQueryRequest!
+    $reactionRequest: ReactionFieldResolverRequest!
+  ) {
     publications(request: $request) {
       items {
         ... on Comment {
@@ -53,7 +56,8 @@ const Feed: FC<Props> = ({
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
   const { data, loading, error, fetchMore } = useQuery(COMMENT_FEED_QUERY, {
     variables: {
-      request: { commentsOf: pubId, limit: 10 }
+      request: { commentsOf: pubId, limit: 10 },
+      reactionRequest: { profileId: currentUser?.id }
     },
     skip: !pubId,
     fetchPolicy: 'no-cache',
@@ -76,7 +80,8 @@ const Feed: FC<Props> = ({
             commentsOf: pubId,
             cursor: pageInfo?.next,
             limit: 10
-          }
+          },
+          reactionRequest: { profileId: currentUser?.id }
         }
       }).then(({ data }: any) => {
         setPageInfo(data?.publications?.pageInfo)

@@ -11,6 +11,7 @@ export const PostFields = gql`
     profile {
       ...MinimalProfileFields
     }
+    reaction(request: $reactionRequest)
     collectedBy {
       address
       defaultProfile {
