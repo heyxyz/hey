@@ -247,10 +247,17 @@ const NewComment: FC<Props> = ({ post, type }) => {
         metadata_id: generateSnowflake(),
         description: trimify(commentContent),
         content: trimify(commentContent),
-        external_url: null,
+        external_url: `https://lenster.xyz/u/${currentUser?.handle}`,
         image: attachments.length > 0 ? attachments[0]?.item : null,
         imageMimeType: attachments.length > 0 ? attachments[0]?.type : null,
         name: `Comment by @${currentUser?.handle}`,
+        mainContentFocus:
+          attachments.length > 0
+            ? attachments[0]?.type === 'video/mp4'
+              ? 'VIDEO'
+              : 'IMAGE'
+            : 'TEXT',
+        contentWarning: null, // TODO
         attributes: [
           {
             traitType: 'string',
@@ -259,6 +266,7 @@ const NewComment: FC<Props> = ({ post, type }) => {
           }
         ],
         media: attachments,
+        createdOn: new Date(),
         appId: APP_NAME
       }).finally(() => setIsUploading(false))
       createCommentTypedData({
@@ -286,7 +294,8 @@ const NewComment: FC<Props> = ({ post, type }) => {
   const setGifAttachment = (gif: IGif) => {
     const attachment = {
       item: gif.images.original.url,
-      type: 'image/gif'
+      type: 'image/gif',
+      altTag: ''
     }
     setAttachments([...attachments, attachment])
   }
