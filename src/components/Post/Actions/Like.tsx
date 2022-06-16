@@ -46,8 +46,21 @@ const Like: FC<Props> = ({ post }) => {
     }
   }, [post])
 
-  const [addReaction] = useMutation(ADD_REACTION_MUTATION)
-  const [removeReaction] = useMutation(REMOVE_REACTION_MUTATION)
+  const [addReaction] = useMutation(ADD_REACTION_MUTATION, {
+    onError(error) {
+      setLiked(!liked)
+      setCount(count - 1)
+      toast.error(error.message)
+    }
+  })
+
+  const [removeReaction] = useMutation(REMOVE_REACTION_MUTATION, {
+    onError(error) {
+      setLiked(!liked)
+      setCount(count + 1)
+      toast.error(error.message)
+    }
+  })
 
   const createLike = () => {
     if (!account?.address) {
