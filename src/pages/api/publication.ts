@@ -7,7 +7,10 @@ import { nodeClient } from 'src/apollo'
 import { ERROR_MESSAGE } from 'src/constants'
 
 const PUBLICATION_QUERY = gql`
-  query Post($request: PublicationQueryRequest!) {
+  query Post(
+    $request: PublicationQueryRequest!
+    $reactionRequest: ReactionFieldResolverRequest!
+  ) {
     publication(request: $request) {
       ... on Post {
         ...PostFields
@@ -38,7 +41,10 @@ export default async function handler(
 
     const { data } = await nodeClient.query({
       query: PUBLICATION_QUERY,
-      variables: { request: { publicationId: id } }
+      variables: {
+        request: { publicationId: id },
+        reactionRequest: null
+      }
     })
 
     if (data?.publication) {
