@@ -145,9 +145,9 @@ const Details: FC<Props> = ({ community }) => {
                 onClick={() => setShowMembersModal(!showMembersModal)}
               >
                 {nFormatter(community?.stats?.totalAmountOfCollects)}{' '}
-                {community?.stats?.totalAmountOfCollects > 1
-                  ? 'members'
-                  : 'member'}
+                {community?.stats?.totalAmountOfCollects === 1
+                  ? 'member'
+                  : 'members'}
               </button>
               <Modal
                 title="Members"
@@ -162,7 +162,7 @@ const Details: FC<Props> = ({ community }) => {
           <MetaDetails icon={<UsersIcon className="w-4 h-4" />}>
             <>
               {nFormatter(community?.stats?.totalAmountOfComments)}{' '}
-              {community?.stats?.totalAmountOfComments > 1 ? 'posts' : 'post'}
+              {community?.stats?.totalAmountOfComments === 1 ? 'post' : 'posts'}
             </>
           </MetaDetails>
           <MetaDetails icon={<ClockIcon className="w-4 h-4" />}>

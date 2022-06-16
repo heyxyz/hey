@@ -19,8 +19,8 @@ const SetDefaultProfile: FC = () => {
           <p>Set default profile</p>
         </div>
         <p className="text-sm leading-[22px]">
-          You have owned {count} {count > 1 ? 'profiles' : 'profile'} but you
-          don&rsquo;t have any default account.
+          You own {count} {count === 1 ? 'profile' : 'profiles'} but you
+          don&rsquo;t have an default one.
         </p>
         <div className="flex items-center space-x-1.5 text-sm font-bold">
           <CurrencyDollarIcon className="w-4 h-4" />
