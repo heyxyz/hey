@@ -1458,14 +1458,17 @@ export type MutationCreateSetProfileImageUriTypedDataArgs = {
 }
 
 export type MutationCreateSetProfileMetadataTypedDataArgs = {
+  options?: InputMaybe<TypedDataOptions>
   request: CreatePublicSetProfileMetadataUriRequest
 }
 
 export type MutationCreateToggleFollowTypedDataArgs = {
+  options?: InputMaybe<TypedDataOptions>
   request: CreateToggleFollowRequest
 }
 
 export type MutationCreateUnfollowTypedDataArgs = {
+  options?: InputMaybe<TypedDataOptions>
   request: UnfollowRequest
 }
 
@@ -2407,6 +2410,7 @@ export type UpdateProfileImageRequest = {
 export type UserSigNonces = {
   __typename?: 'UserSigNonces'
   lensHubOnChainSigNonce: Scalars['Nonce']
+  peripheryOnChainSigNonce: Scalars['Nonce']
 }
 
 /** The access request */
