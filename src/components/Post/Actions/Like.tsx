@@ -1,11 +1,12 @@
 import { gql, useMutation } from '@apollo/client'
 import { Tooltip } from '@components/UI/Tooltip'
+import AppContext from '@components/utils/AppContext'
 import { LensterPost } from '@generated/lenstertypes'
 import { HeartIcon } from '@heroicons/react/outline'
 import { HeartIcon as HeartIconSolid } from '@heroicons/react/solid'
 import humanize from '@lib/humanize'
 import { motion } from 'framer-motion'
-import { FC, useEffect, useState } from 'react'
+import { FC, useContext, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { CHAIN_ID, CONNECT_WALLET, WRONG_NETWORK } from 'src/constants'
 import { useAccount, useNetwork } from 'wagmi'
@@ -27,6 +28,7 @@ interface Props {
 }
 
 const Like: FC<Props> = ({ post }) => {
+  const { currentUser } = useContext(AppContext)
   const [liked, setLiked] = useState<boolean>(false)
   const [count, setCount] = useState<number>(0)
   const { activeChain } = useNetwork()
@@ -68,14 +70,24 @@ const Like: FC<Props> = ({ post }) => {
     } else if (activeChain?.id !== CHAIN_ID) {
       toast.error(WRONG_NETWORK)
     } else {
+      const variable = {
+        variables: {
+          request: {
+            profileId: currentUser?.id,
+            reaction: 'UPVOTE',
+            publicationId: post?.pubId ?? post?.id
+          }
+        }
+      }
+
       if (liked) {
         setLiked(false)
         setCount(count - 1)
-        removeReaction()
+        removeReaction(variable)
       } else {
         setLiked(true)
         setCount(count + 1)
-        addReaction()
+        addReaction(variable)
       }
     }
   }
