@@ -19,7 +19,7 @@ const SetDefaultProfile: FC = () => {
           <p>Set default profile</p>
         </div>
         <p className="text-sm leading-[22px]">
-          You own {count} {count === 1 ? 'profiles' : 'profile'} but you
+          You own {count} {count === 1 ? 'profile' : 'profiles'} but you
           don&rsquo;t have an default one.
         </p>
         <div className="flex items-center space-x-1.5 text-sm font-bold">

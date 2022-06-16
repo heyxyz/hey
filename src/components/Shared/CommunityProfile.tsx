@@ -38,8 +38,8 @@ const CommunityProfile: FC<Props> = ({ community }) => {
                   <div>
                     {nFormatter(community?.stats?.totalAmountOfCollects)}{' '}
                     {community?.stats?.totalAmountOfCollects === 1
-                      ? 'members'
-                      : 'member'}
+                      ? 'member'
+                      : 'members'}
                   </div>
                 </div>
               )}
