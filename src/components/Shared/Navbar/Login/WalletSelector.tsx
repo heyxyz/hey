@@ -48,14 +48,14 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
   const { signMessageAsync, isLoading: signLoading } = useSignMessage()
   const [
     loadChallenge,
-    { error: errorChallenege, loading: challenegeLoading }
+    { error: errorChallenge, loading: challengeLoading }
   ] = useLazyQuery(CHALLENGE_QUERY, {
     fetchPolicy: 'no-cache',
     onCompleted(data) {
       consoleLog(
         'Lazy Query',
         '#8b5cf6',
-        `Fetched auth challenege - ${data?.challenge?.text}`
+        `Fetched auth challenge - ${data?.challenge?.text}`
       )
     }
   })
@@ -129,11 +129,11 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
         <Button
           size="lg"
           disabled={
-            signLoading || challenegeLoading || authLoading || profilesLoading
+            signLoading || challengeLoading || authLoading || profilesLoading
           }
           icon={
             signLoading ||
-            challenegeLoading ||
+            challengeLoading ||
             authLoading ||
             profilesLoading ? (
               <Spinner className="mr-0.5" size="xs" />
@@ -154,7 +154,7 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
       ) : (
         <SwitchNetwork />
       )}
-      {(errorChallenege || errorAuthenticate || errorProfiles) && (
+      {(errorChallenge || errorAuthenticate || errorProfiles) && (
         <div className="flex items-center space-x-1 font-bold text-red-500">
           <XCircleIcon className="w-5 h-5" />
           <div>{ERROR_MESSAGE}</div>
