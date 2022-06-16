@@ -54,7 +54,7 @@ const Publications: FC<Props> = ({ query }) => {
     {
       variables: {
         request: { query, type: 'PUBLICATION', limit: 10 },
-        reactionRequest: { profileId: currentUser?.id }
+        reactionRequest: currentUser ? { profileId: currentUser?.id } : null
       },
       onCompleted(data) {
         setPageInfo(data?.search?.pageInfo)
@@ -78,7 +78,7 @@ const Publications: FC<Props> = ({ query }) => {
             cursor: pageInfo?.next,
             limit: 10
           },
-          reactionRequest: { profileId: currentUser?.id }
+          reactionRequest: currentUser ? { profileId: currentUser?.id } : null
         }
       }).then(({ data }: any) => {
         setPageInfo(data?.search?.pageInfo)

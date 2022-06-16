@@ -57,7 +57,7 @@ const Feed: FC<Props> = ({
   const { data, loading, error, fetchMore } = useQuery(COMMENT_FEED_QUERY, {
     variables: {
       request: { commentsOf: pubId, limit: 10 },
-      reactionRequest: { profileId: currentUser?.id }
+      reactionRequest: currentUser ? { profileId: currentUser?.id } : null
     },
     skip: !pubId,
     fetchPolicy: 'no-cache',
@@ -81,7 +81,7 @@ const Feed: FC<Props> = ({
             cursor: pageInfo?.next,
             limit: 10
           },
-          reactionRequest: { profileId: currentUser?.id }
+          reactionRequest: currentUser ? { profileId: currentUser?.id } : null
         }
       }).then(({ data }: any) => {
         setPageInfo(data?.publications?.pageInfo)

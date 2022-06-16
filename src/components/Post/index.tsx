@@ -82,7 +82,7 @@ const ViewPost: NextPage = () => {
           profileId: id?.toString().split('-')[0]
         }
       },
-      reactionRequest: { profileId: currentUser?.id }
+      reactionRequest: currentUser ? { profileId: currentUser?.id } : null
     },
     skip: !id,
     onCompleted() {
