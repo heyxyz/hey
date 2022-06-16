@@ -77,7 +77,7 @@ const AllowanceButton: FC<Props> = ({
     }).then((res) => {
       const data = res?.data?.generateModuleCurrencyApprovalData
       sendTransaction({
-        request: { from: data.from, to: data.to, data: data.data }
+        request: { from: data?.from, to: data?.to, data: data?.data }
       })
     })
   }
