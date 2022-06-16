@@ -9,6 +9,7 @@ import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { SwitchHorizontalIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
 import humanize from '@lib/humanize'
+import nFormatter from '@lib/nFormatter'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import { motion } from 'framer-motion'
@@ -18,6 +19,7 @@ import {
   CHAIN_ID,
   CONNECT_WALLET,
   ERROR_MESSAGE,
+  ERRORS,
   LENSHUB_PROXY,
   RELAY_ON,
   WRONG_NETWORK
@@ -118,12 +120,15 @@ const Mirror: FC<Props> = ({ post }) => {
   const [broadcast, { loading: broadcastLoading }] = useMutation(
     BROADCAST_MUTATION,
     {
-      onCompleted({ broadcast }) {
-        if (broadcast?.reason !== 'NOT_ALLOWED') {
+      onCompleted(data) {
+        if (data?.broadcast?.reason !== 'NOT_ALLOWED') {
           onCompleted()
         }
       },
       onError(error) {
+        if (error.message === ERRORS.notMined) {
+          toast.error(error.message)
+        }
         consoleLog('Relay Error', '#ef4444', error.message)
       }
     }
@@ -166,8 +171,8 @@ const Mirror: FC<Props> = ({ post }) => {
           }
           if (RELAY_ON) {
             broadcast({ variables: { request: { id, signature } } }).then(
-              ({ data: { broadcast }, errors }) => {
-                if (errors || broadcast?.reason === 'NOT_ALLOWED') {
+              ({ data, errors }) => {
+                if (errors || data?.broadcast?.reason === 'NOT_ALLOWED') {
                   write({ args: inputStruct })
                 }
               }
@@ -194,7 +199,7 @@ const Mirror: FC<Props> = ({ post }) => {
           options: { overrideSigNonce: userSigNonce },
           request: {
             profileId: currentUser?.id,
-            publicationId: post?.id,
+            publicationId: post?.pubId ?? post?.id,
             referenceModule: {
               followerOnlyReferenceModule: false
             }
@@ -219,12 +224,16 @@ const Mirror: FC<Props> = ({ post }) => {
           broadcastLoading ? (
             <Spinner size="xs" />
           ) : (
-            <Tooltip placement="top" content="Mirror" withDelay>
+            <Tooltip
+              placement="top"
+              content={count > 0 ? `${humanize(count)} Mirrors` : 'Mirror'}
+              withDelay
+            >
               <SwitchHorizontalIcon className="w-[18px]" />
             </Tooltip>
           )}
         </div>
-        {count > 0 && <div className="text-xs">{humanize(count)}</div>}
+        {count > 0 && <div className="text-xs">{nFormatter(count)}</div>}
       </div>
     </motion.button>
   )
