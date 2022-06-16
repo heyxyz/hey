@@ -116,6 +116,7 @@ export const CommentFields = gql`
             mirrorOf {
               ... on Post {
                 id
+                reaction(request: $reactionRequest)
                 profile {
                   ...MinimalProfileFields
                 }
@@ -126,6 +127,7 @@ export const CommentFields = gql`
               }
               ... on Comment {
                 id
+                reaction(request: $reactionRequest)
                 profile {
                   ...MinimalProfileFields
                 }
