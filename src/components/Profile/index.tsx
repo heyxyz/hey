@@ -31,6 +31,8 @@ export const PROFILE_QUERY = gql`
       handle
       ownedBy
       name
+      metadata
+      followNftAddress
       attributes {
         key
         value
