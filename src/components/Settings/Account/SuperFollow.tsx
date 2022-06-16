@@ -247,7 +247,7 @@ const SuperFollow: FC = () => {
         <div className="text-lg font-bold">Set super follow</div>
         <p>
           Setting super follow makes users spend crypto to follow you, and
-          it&rsquo;s the good way to earn it, you can change the amount and
+          it&rsquo;s a good way to earn it, you can change the amount and
           currency or disable/enable it anytime.
         </p>
         <div className="pt-2">
