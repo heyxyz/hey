@@ -35,6 +35,7 @@ import {
   CONNECT_WALLET,
   DEFAULT_COLLECT_TOKEN,
   ERROR_MESSAGE,
+  ERRORS,
   LENSHUB_PROXY,
   RELAY_ON,
   WRONG_NETWORK
@@ -141,6 +142,9 @@ const Create: NextPage = () => {
   const [broadcast, { data: broadcastData, loading: broadcastLoading }] =
     useMutation(BROADCAST_MUTATION, {
       onError(error) {
+        if (error.message === ERRORS.notMined) {
+          toast.error(error.message)
+        }
         consoleLog('Relay Error', '#ef4444', error.message)
       }
     })
