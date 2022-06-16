@@ -16,9 +16,9 @@ const PostActions: FC<Props> = ({ post }) => {
 
   return postType !== 'community' ? (
     <div className="flex gap-8 items-center pt-3 -ml-2 text-gray-500">
-      <Like post={post} />
       <Comment post={post} />
       <Mirror post={post} />
+      <Like post={post} />
       {post?.collectModule?.__typename !== 'RevertCollectModuleSettings' &&
         postType !== 'crowdfund' && <Collect post={post} />}
       <PostMenu post={post} />
