@@ -5,7 +5,9 @@ import {
   BeakerIcon,
   CashIcon,
   HashtagIcon,
-  IdentificationIcon
+  IdentificationIcon,
+  LinkIcon,
+  PhotographIcon
 } from '@heroicons/react/outline'
 import formatAddress from '@lib/formatAddress'
 import getAttribute from '@lib/getAttribute'
@@ -24,10 +26,12 @@ interface Props {
 const ProfileMod: FC<Props> = ({ profile }) => {
   const MetaDetails = ({
     children,
+    title,
     value,
     icon
   }: {
     children: ReactNode
+    title?: string
     value: string
     icon: ReactNode
   }) => (
@@ -37,8 +41,9 @@ const ProfileMod: FC<Props> = ({ profile }) => {
         toast.success('Copied to clipboard!')
       }}
     >
-      <div className="flex gap-2 items-center font-bold cursor-pointer">
+      <div className="flex gap-2 items-center font-bold cursor-pointer linkify">
         {icon}
+        {title ? <div className="text-gray-500 text-sm">{title}:</div> : null}
         <div>{children}</div>
       </div>
     </CopyToClipboard>
@@ -68,26 +73,48 @@ const ProfileMod: FC<Props> = ({ profile }) => {
           <MetaDetails
             icon={<HashtagIcon className="w-4 h-4 text-gray-500" />}
             value={profile?.id}
+            title="Profile ID"
           >
             {profile?.id}
           </MetaDetails>
           <MetaDetails
             icon={<CashIcon className="w-4 h-4 text-gray-500" />}
             value={profile?.ownedBy}
+            title="Address"
           >
             {formatAddress(profile?.ownedBy)}
           </MetaDetails>
+          {profile?.followNftAddress ? (
+            <MetaDetails
+              icon={<PhotographIcon className="w-4 h-4 text-gray-500" />}
+              value={profile?.ownedBy}
+              title="NFT address"
+            >
+              {formatAddress(profile?.followNftAddress)}
+            </MetaDetails>
+          ) : null}
           <MetaDetails
             icon={<AtSymbolIcon className="w-4 h-4 text-gray-500" />}
             value={profile?.handle}
+            title="Handle"
           >
             {profile?.handle}
           </MetaDetails>
           <MetaDetails
             icon={<IdentificationIcon className="w-4 h-4 text-gray-500" />}
             value={profile?.handle}
+            title="Follow module"
           >
             {getFollowModule(profile?.followModule?.__typename).description}
+          </MetaDetails>
+          <MetaDetails
+            icon={<LinkIcon className="w-4 h-4 text-gray-500" />}
+            value={profile?.metadata}
+            title="Metadata"
+          >
+            <a href={profile?.metadata} target="_blank" rel="noreferrer">
+              Open
+            </a>
           </MetaDetails>
           <MetaDetails
             icon={<BeakerIcon className="w-4 h-4 text-gray-500" />}
