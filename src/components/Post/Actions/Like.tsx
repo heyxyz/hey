@@ -8,8 +8,8 @@ import humanize from '@lib/humanize'
 import { motion } from 'framer-motion'
 import { FC, useContext, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
-import { CHAIN_ID, CONNECT_WALLET, WRONG_NETWORK } from 'src/constants'
-import { useAccount, useNetwork } from 'wagmi'
+import { CONNECT_WALLET } from 'src/constants'
+import { useAccount } from 'wagmi'
 
 const ADD_REACTION_MUTATION = gql`
   mutation AddReaction($request: ReactionRequest!) {
@@ -31,7 +31,6 @@ const Like: FC<Props> = ({ post }) => {
   const { currentUser } = useContext(AppContext)
   const [liked, setLiked] = useState<boolean>(false)
   const [count, setCount] = useState<number>(0)
-  const { activeChain } = useNetwork()
   const { data: account } = useAccount()
 
   useEffect(() => {
@@ -64,8 +63,6 @@ const Like: FC<Props> = ({ post }) => {
   const createLike = () => {
     if (!account?.address) {
       toast.error(CONNECT_WALLET)
-    } else if (activeChain?.id !== CHAIN_ID) {
-      toast.error(WRONG_NETWORK)
     } else {
       const variable = {
         variables: {
