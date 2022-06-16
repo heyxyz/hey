@@ -12,6 +12,7 @@ export const MirrorFields = gql`
       name
       handle
     }
+    reaction(request: $reactionRequest)
     collectModule {
       ...MinimalCollectModuleFields
     }

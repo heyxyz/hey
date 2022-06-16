@@ -225,10 +225,16 @@ export type Comment = {
   onChainContentURI: Scalars['String']
   /** The profile ref */
   profile: Profile
+  reaction?: Maybe<ReactionTypes>
   /** The reference module */
   referenceModule?: Maybe<ReferenceModule>
   /** The publication stats */
   stats: PublicationStats
+}
+
+/** The social comment */
+export type CommentReactionArgs = {
+  request?: InputMaybe<ReactionFieldResolverRequest>
 }
 
 /** The create burn eip 712 typed data */
@@ -1327,10 +1333,16 @@ export type Mirror = {
   onChainContentURI: Scalars['String']
   /** The profile ref */
   profile: Profile
+  reaction?: Maybe<ReactionTypes>
   /** The reference module */
   referenceModule?: Maybe<ReferenceModule>
   /** The publication stats */
   stats: PublicationStats
+}
+
+/** The social mirror */
+export type MirrorReactionArgs = {
+  request?: InputMaybe<ReactionFieldResolverRequest>
 }
 
 export type MirrorablePublication = Comment | Post
@@ -1359,6 +1371,7 @@ export type ModuleInfo = {
 export type Mutation = {
   __typename?: 'Mutation'
   ach?: Maybe<Scalars['Void']>
+  addReaction?: Maybe<Scalars['Void']>
   authenticate: AuthenticationResult
   broadcast: RelayResult
   claim: RelayResult
@@ -1379,11 +1392,16 @@ export type Mutation = {
   createUnfollowTypedData: CreateUnfollowBroadcastItemResult
   hidePublication?: Maybe<Scalars['Void']>
   refresh: AuthenticationResult
+  removeReaction?: Maybe<Scalars['Void']>
   reportPublication?: Maybe<Scalars['Void']>
 }
 
 export type MutationAchArgs = {
   request: AchRequest
+}
+
+export type MutationAddReactionArgs = {
+  request: ReactionRequest
 }
 
 export type MutationAuthenticateArgs = {
@@ -1458,14 +1476,17 @@ export type MutationCreateSetProfileImageUriTypedDataArgs = {
 }
 
 export type MutationCreateSetProfileMetadataTypedDataArgs = {
+  options?: InputMaybe<TypedDataOptions>
   request: CreatePublicSetProfileMetadataUriRequest
 }
 
 export type MutationCreateToggleFollowTypedDataArgs = {
+  options?: InputMaybe<TypedDataOptions>
   request: CreateToggleFollowRequest
 }
 
 export type MutationCreateUnfollowTypedDataArgs = {
+  options?: InputMaybe<TypedDataOptions>
   request: UnfollowRequest
 }
 
@@ -1475,6 +1496,10 @@ export type MutationHidePublicationArgs = {
 
 export type MutationRefreshArgs = {
   request: RefreshRequest
+}
+
+export type MutationRemoveReactionArgs = {
+  request: ReactionRequest
 }
 
 export type MutationReportPublicationArgs = {
@@ -1741,10 +1766,16 @@ export type Post = {
   onChainContentURI: Scalars['String']
   /** The profile ref */
   profile: Profile
+  reaction?: Maybe<ReactionTypes>
   /** The reference module */
   referenceModule?: Maybe<ReferenceModule>
   /** The publication stats */
   stats: PublicationStats
+}
+
+/** The social post */
+export type PostReactionArgs = {
+  request?: InputMaybe<ReactionFieldResolverRequest>
 }
 
 /** The Profile */
@@ -1965,6 +1996,10 @@ export type PublicationStats = {
   totalAmountOfComments: Scalars['Int']
   /** The total amount of mirrors */
   totalAmountOfMirrors: Scalars['Int']
+  /** The total amount of upvotes */
+  totalDownvotes: Scalars['Int']
+  /** The total amount of downvotes */
+  totalUpvotes: Scalars['Int']
 }
 
 /** The publication types */
@@ -2144,6 +2179,26 @@ export type QueryVerifyArgs = {
 
 export type QueryWhoCollectedPublicationArgs = {
   request: WhoCollectedPublicationRequest
+}
+
+export type ReactionFieldResolverRequest = {
+  /** Profile id */
+  profileId: Scalars['ProfileId']
+}
+
+export type ReactionRequest = {
+  /** Profile id to perform the action */
+  profileId: Scalars['ProfileId']
+  /** The internal publication id */
+  publicationId: Scalars['InternalPublicationId']
+  /** The reaction */
+  reaction: ReactionTypes
+}
+
+/** Reaction types */
+export enum ReactionTypes {
+  Downvote = 'DOWNVOTE',
+  Upvote = 'UPVOTE'
 }
 
 export type ReferenceModule = FollowOnlyReferenceModuleSettings
@@ -2407,6 +2462,7 @@ export type UpdateProfileImageRequest = {
 export type UserSigNonces = {
   __typename?: 'UserSigNonces'
   lensHubOnChainSigNonce: Scalars['Nonce']
+  peripheryOnChainSigNonce: Scalars['Nonce']
 }
 
 /** The access request */
