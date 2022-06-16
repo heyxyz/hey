@@ -94,7 +94,11 @@ const Like: FC<Props> = ({ post }) => {
     >
       <div className="flex items-center space-x-1 text-pink-500">
         <div className="p-1.5 rounded-full hover:bg-opacity-20 hover:bg-pink-300">
-          <Tooltip placement="top" content="Like" withDelay>
+          <Tooltip
+            placement="top"
+            content={liked ? 'Unlike' : 'Like'}
+            withDelay
+          >
             {liked ? (
               <HeartIconSolid className="w-[18px]" />
             ) : (
