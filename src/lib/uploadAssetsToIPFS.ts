@@ -14,7 +14,8 @@ const uploadAssetsToIPFS = async (data: any): Promise<LensterAttachment[]> => {
       const { Hash }: { Hash: string } = await upload.json()
       attachments.push({
         item: `https://ipfs.infura.io/ipfs/${Hash}`,
-        type: file.type
+        type: file.type,
+        altTag: ''
       })
     }
 
