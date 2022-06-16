@@ -224,6 +224,7 @@ const Create: NextPage = () => {
           : `https://avatar.tobi.sh/${generateSnowflake()}.png`,
         imageMimeType: coverType,
         name: title,
+        contentWarning: null, // TODO
         attributes: [
           {
             traitType: 'string',
@@ -237,6 +238,7 @@ const Create: NextPage = () => {
           }
         ],
         media: [],
+        createdOn: new Date(),
         appId: `${APP_NAME} Crowdfund`
       }).finally(() => setIsUploading(false))
 
