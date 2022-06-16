@@ -33,6 +33,7 @@ export const MirrorFields = gql`
         profile {
           ...MinimalProfileFields
         }
+        reaction(request: $reactionRequest)
         stats {
           ...StatsFields
         }
@@ -42,6 +43,7 @@ export const MirrorFields = gql`
         profile {
           ...MinimalProfileFields
         }
+        reaction(request: $reactionRequest)
         stats {
           ...StatsFields
         }
