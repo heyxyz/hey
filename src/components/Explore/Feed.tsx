@@ -19,7 +19,7 @@ import { useInView } from 'react-cool-inview'
 const EXPLORE_FEED_QUERY = gql`
   query ExploreFeed(
     $request: ExplorePublicationRequest!
-    $reactionRequest: ReactionFieldResolverRequest!
+    $reactionRequest: ReactionFieldResolverRequest
   ) {
     explorePublications(request: $request) {
       items {

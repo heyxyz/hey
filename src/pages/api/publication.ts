@@ -9,7 +9,7 @@ import { ERROR_MESSAGE } from 'src/constants'
 const PUBLICATION_QUERY = gql`
   query Post(
     $request: PublicationQueryRequest!
-    $reactionRequest: ReactionFieldResolverRequest!
+    $reactionRequest: ReactionFieldResolverRequest
   ) {
     publication(request: $request) {
       ... on Post {

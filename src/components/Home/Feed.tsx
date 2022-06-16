@@ -20,7 +20,7 @@ import { useInView } from 'react-cool-inview'
 const HOME_FEED_QUERY = gql`
   query HomeFeed(
     $request: TimelineRequest!
-    $reactionRequest: ReactionFieldResolverRequest!
+    $reactionRequest: ReactionFieldResolverRequest
   ) {
     timeline(request: $request) {
       items {

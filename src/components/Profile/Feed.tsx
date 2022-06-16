@@ -19,7 +19,7 @@ import { useInView } from 'react-cool-inview'
 const PROFILE_FEED_QUERY = gql`
   query ProfileFeed(
     $request: PublicationsQueryRequest!
-    $reactionRequest: ReactionFieldResolverRequest!
+    $reactionRequest: ReactionFieldResolverRequest
   ) {
     publications(request: $request) {
       items {
