@@ -5,6 +5,7 @@ import { Card } from '@components/UI/Card'
 import { EmptyState } from '@components/UI/EmptyState'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { Spinner } from '@components/UI/Spinner'
+import AppContext from '@components/utils/AppContext'
 import { LensterPost } from '@generated/lenstertypes'
 import { PaginatedResultInfo, Profile } from '@generated/types'
 import { CommentFields } from '@gql/CommentFields'
@@ -12,11 +13,14 @@ import { MirrorFields } from '@gql/MirrorFields'
 import { PostFields } from '@gql/PostFields'
 import { CollectionIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
-import React, { FC, useState } from 'react'
+import React, { FC, useContext, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 
 const PROFILE_FEED_QUERY = gql`
-  query ProfileFeed($request: PublicationsQueryRequest!) {
+  query ProfileFeed(
+    $request: PublicationsQueryRequest!
+    $reactionRequest: ReactionFieldResolverRequest
+  ) {
     publications(request: $request) {
       items {
         ... on Post {
@@ -46,11 +50,13 @@ interface Props {
 }
 
 const Feed: FC<Props> = ({ profile, type }) => {
+  const { currentUser } = useContext(AppContext)
   const [publications, setPublications] = useState<LensterPost[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
   const { data, loading, error, fetchMore } = useQuery(PROFILE_FEED_QUERY, {
     variables: {
-      request: { publicationTypes: type, profileId: profile?.id, limit: 10 }
+      request: { publicationTypes: type, profileId: profile?.id, limit: 10 },
+      reactionRequest: currentUser ? { profileId: currentUser?.id } : null
     },
     skip: !profile?.id,
     fetchPolicy: 'no-cache',
@@ -74,7 +80,8 @@ const Feed: FC<Props> = ({ profile, type }) => {
             profileId: profile?.id,
             cursor: pageInfo?.next,
             limit: 10
-          }
+          },
+          reactionRequest: currentUser ? { profileId: currentUser?.id } : null
         }
       }).then(({ data }: any) => {
         setPageInfo(data?.publications?.pageInfo)

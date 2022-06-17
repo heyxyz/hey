@@ -115,7 +115,7 @@ body {
 }
 
 .text-md {
-  @apply text-sm sm:text-base;
+  @apply !text-sm sm:!text-base;
 }
 
 .leading-md {

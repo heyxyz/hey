@@ -11,6 +11,7 @@ export const CommentFields = gql`
     profile {
       ...MinimalProfileFields
     }
+    reaction(request: $reactionRequest)
     collectedBy {
       address
       defaultProfile {
@@ -32,6 +33,7 @@ export const CommentFields = gql`
         profile {
           ...MinimalProfileFields
         }
+        reaction(request: $reactionRequest)
         collectedBy {
           address
           defaultProfile {
@@ -55,6 +57,7 @@ export const CommentFields = gql`
         profile {
           ...MinimalProfileFields
         }
+        reaction(request: $reactionRequest)
         collectedBy {
           address
           defaultProfile {
@@ -76,6 +79,7 @@ export const CommentFields = gql`
             profile {
               ...MinimalProfileFields
             }
+            reaction(request: $reactionRequest)
             collectedBy {
               address
               defaultProfile {
@@ -99,6 +103,7 @@ export const CommentFields = gql`
             profile {
               ...MinimalProfileFields
             }
+            reaction(request: $reactionRequest)
             collectModule {
               ...MinimalCollectModuleFields
             }
@@ -111,6 +116,7 @@ export const CommentFields = gql`
             mirrorOf {
               ... on Post {
                 id
+                reaction(request: $reactionRequest)
                 profile {
                   ...MinimalProfileFields
                 }
@@ -121,9 +127,11 @@ export const CommentFields = gql`
               }
               ... on Comment {
                 id
+                reaction(request: $reactionRequest)
                 profile {
                   ...MinimalProfileFields
                 }
+                reaction(request: $reactionRequest)
                 stats {
                   ...StatsFields
                 }
@@ -138,6 +146,7 @@ export const CommentFields = gql`
       }
       ... on Mirror {
         id
+        reaction(request: $reactionRequest)
         profile {
           ...MinimalProfileFields
         }
@@ -150,6 +159,7 @@ export const CommentFields = gql`
             profile {
               ...MinimalProfileFields
             }
+            reaction(request: $reactionRequest)
             stats {
               ...StatsFields
             }
@@ -160,6 +170,7 @@ export const CommentFields = gql`
             profile {
               ...MinimalProfileFields
             }
+            reaction(request: $reactionRequest)
             stats {
               ...StatsFields
             }
