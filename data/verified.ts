@@ -1,4 +1,5 @@
 export const mainnetVerified = [
+  '0x7b38' /** @lensapi.lens */,
   '0x6417' /** @blockworks.lens */,
   '0x1eb8' /** @kartik.lens */,
   '0x5138' /** @fabien.lens */,

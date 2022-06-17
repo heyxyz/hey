@@ -19,6 +19,7 @@ import {
   CHAIN_ID,
   CONNECT_WALLET,
   ERROR_MESSAGE,
+  ERRORS,
   LENSHUB_PROXY,
   RELAY_ON,
   WRONG_NETWORK
@@ -119,12 +120,15 @@ const Mirror: FC<Props> = ({ post }) => {
   const [broadcast, { loading: broadcastLoading }] = useMutation(
     BROADCAST_MUTATION,
     {
-      onCompleted({ broadcast }) {
-        if (broadcast?.reason !== 'NOT_ALLOWED') {
+      onCompleted(data) {
+        if (data?.broadcast?.reason !== 'NOT_ALLOWED') {
           onCompleted()
         }
       },
       onError(error) {
+        if (error.message === ERRORS.notMined) {
+          toast.error(error.message)
+        }
         consoleLog('Relay Error', '#ef4444', error.message)
       }
     }
@@ -167,8 +171,8 @@ const Mirror: FC<Props> = ({ post }) => {
           }
           if (RELAY_ON) {
             broadcast({ variables: { request: { id, signature } } }).then(
-              ({ data: { broadcast }, errors }) => {
-                if (errors || broadcast?.reason === 'NOT_ALLOWED') {
+              ({ data, errors }) => {
+                if (errors || data?.broadcast?.reason === 'NOT_ALLOWED') {
                   write({ args: inputStruct })
                 }
               }
@@ -195,7 +199,7 @@ const Mirror: FC<Props> = ({ post }) => {
           options: { overrideSigNonce: userSigNonce },
           request: {
             profileId: currentUser?.id,
-            publicationId: post?.id,
+            publicationId: post?.pubId ?? post?.id,
             referenceModule: {
               followerOnlyReferenceModule: false
             }

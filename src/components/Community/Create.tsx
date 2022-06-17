@@ -31,6 +31,7 @@ import {
   CHAIN_ID,
   CONNECT_WALLET,
   ERROR_MESSAGE,
+  ERRORS,
   LENSHUB_PROXY,
   RELAY_ON,
   WRONG_NETWORK
@@ -105,6 +106,9 @@ const Create: NextPage = () => {
   const [broadcast, { data: broadcastData, loading: broadcastLoading }] =
     useMutation(BROADCAST_MUTATION, {
       onError(error) {
+        if (error.message === ERRORS.notMined) {
+          toast.error(error.message)
+        }
         consoleLog('Relay Error', '#ef4444', error.message)
       }
     })
@@ -146,8 +150,8 @@ const Create: NextPage = () => {
           }
           if (RELAY_ON) {
             broadcast({ variables: { request: { id, signature } } }).then(
-              ({ data: { broadcast }, errors }) => {
-                if (errors || broadcast?.reason === 'NOT_ALLOWED') {
+              ({ data, errors }) => {
+                if (errors || data?.broadcast?.reason === 'NOT_ALLOWED') {
                   write({ args: inputStruct })
                 }
               }
@@ -181,6 +185,7 @@ const Create: NextPage = () => {
           : `https://avatar.tobi.sh/${generateSnowflake()}.png`,
         imageMimeType: avatarType,
         name: name,
+        contentWarning: null, // TODO
         attributes: [
           {
             traitType: 'string',
@@ -189,6 +194,7 @@ const Create: NextPage = () => {
           }
         ],
         media: [],
+        createdOn: new Date(),
         appId: `${APP_NAME} Community`
       }).finally(() => setIsUploading(false))
 

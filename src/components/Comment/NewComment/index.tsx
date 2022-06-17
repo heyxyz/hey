@@ -39,6 +39,7 @@ import {
   CHAIN_ID,
   CONNECT_WALLET,
   ERROR_MESSAGE,
+  ERRORS,
   LENSHUB_PROXY,
   RELAY_ON,
   WRONG_NETWORK
@@ -153,20 +154,23 @@ const NewComment: FC<Props> = ({ post, type }) => {
       onSuccess() {
         onCompleted()
       },
-      onError(error) {
-        consoleLog('Relay Error', '#ef4444', error.message)
+      onError(error: any) {
+        toast.error(error?.data?.message ?? error?.message)
       }
     }
   )
 
   const [broadcast, { data: broadcastData, loading: broadcastLoading }] =
     useMutation(BROADCAST_MUTATION, {
-      onCompleted({ broadcast }) {
-        if (broadcast?.reason !== 'NOT_ALLOWED') {
+      onCompleted(data) {
+        if (data?.broadcast?.reason !== 'NOT_ALLOWED') {
           onCompleted()
         }
       },
       onError(error) {
+        if (error.message === ERRORS.notMined) {
+          toast.error(error.message)
+        }
         consoleLog('Relay Error', '#ef4444', error.message)
       }
     })
@@ -214,8 +218,8 @@ const NewComment: FC<Props> = ({ post, type }) => {
           }
           if (RELAY_ON) {
             broadcast({ variables: { request: { id, signature } } }).then(
-              ({ data: { broadcast }, errors }) => {
-                if (errors || broadcast?.reason === 'NOT_ALLOWED') {
+              ({ data, errors }) => {
+                if (errors || data?.broadcast?.reason === 'NOT_ALLOWED') {
                   write({ args: inputStruct })
                 }
               }
@@ -247,10 +251,17 @@ const NewComment: FC<Props> = ({ post, type }) => {
         metadata_id: generateSnowflake(),
         description: trimify(commentContent),
         content: trimify(commentContent),
-        external_url: null,
+        external_url: `https://lenster.xyz/u/${currentUser?.handle}`,
         image: attachments.length > 0 ? attachments[0]?.item : null,
         imageMimeType: attachments.length > 0 ? attachments[0]?.type : null,
         name: `Comment by @${currentUser?.handle}`,
+        mainContentFocus:
+          attachments.length > 0
+            ? attachments[0]?.type === 'video/mp4'
+              ? 'VIDEO'
+              : 'IMAGE'
+            : 'TEXT',
+        contentWarning: null, // TODO
         attributes: [
           {
             traitType: 'string',
@@ -259,6 +270,7 @@ const NewComment: FC<Props> = ({ post, type }) => {
           }
         ],
         media: attachments,
+        createdOn: new Date(),
         appId: APP_NAME
       }).finally(() => setIsUploading(false))
       createCommentTypedData({
@@ -286,7 +298,8 @@ const NewComment: FC<Props> = ({ post, type }) => {
   const setGifAttachment = (gif: IGif) => {
     const attachment = {
       item: gif.images.original.url,
-      type: 'image/gif'
+      type: 'image/gif',
+      altTag: ''
     }
     setAttachments([...attachments, attachment])
   }
