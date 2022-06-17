@@ -58,7 +58,6 @@ const Crowdfund: FC<Props> = ({ fund }) => {
   const [revenue, setRevenue] = useState<number>(0)
   const { data, loading } = useQuery(COLLECT_QUERY, {
     variables: { request: { publicationId: fund?.pubId ?? fund?.id } },
-    skip: !fund?.pubId ?? fund?.id,
     onCompleted() {
       consoleLog(
         'Query',
@@ -81,7 +80,6 @@ const Crowdfund: FC<Props> = ({ fund }) => {
               : fund?.pubId ?? fund?.id
         }
       },
-      skip: !fund?.pubId ?? fund?.id,
       onCompleted() {
         consoleLog(
           'Query',
