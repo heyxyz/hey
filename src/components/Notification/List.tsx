@@ -5,6 +5,7 @@ import { Spinner } from '@components/UI/Spinner'
 import AppContext from '@components/utils/AppContext'
 import { Notification, PaginatedResultInfo } from '@generated/types'
 import { CollectModuleFields } from '@gql/CollectModuleFields'
+import { MetadataFields } from '@gql/MetadataFields'
 import { MinimalProfileFields } from '@gql/MinimalProfileFields'
 import { Menu } from '@headlessui/react'
 import { MailIcon } from '@heroicons/react/outline'
@@ -117,7 +118,7 @@ const NOTIFICATIONS_QUERY = gql`
             ... on Post {
               id
               metadata {
-                ...NotificationCollectMetadataFields
+                ...MetadataFields
               }
               collectModule {
                 ...CollectModuleFields
@@ -126,7 +127,7 @@ const NOTIFICATIONS_QUERY = gql`
             ... on Comment {
               id
               metadata {
-                ...NotificationCollectMetadataFields
+                ...MetadataFields
               }
               collectModule {
                 ...CollectModuleFields
@@ -143,18 +144,7 @@ const NOTIFICATIONS_QUERY = gql`
   }
   ${MinimalProfileFields}
   ${CollectModuleFields}
-  fragment NotificationCollectMetadataFields on MetadataOutput {
-    name
-    content
-    cover {
-      original {
-        url
-      }
-    }
-    attributes {
-      value
-    }
-  }
+  ${MetadataFields}
 `
 
 const List: FC = () => {
