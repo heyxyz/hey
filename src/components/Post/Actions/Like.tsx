@@ -9,7 +9,6 @@ import { motion } from 'framer-motion'
 import { FC, useContext, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { CONNECT_WALLET } from 'src/constants'
-import { useAccount } from 'wagmi'
 
 const ADD_REACTION_MUTATION = gql`
   mutation AddReaction($request: ReactionRequest!) {
@@ -31,7 +30,6 @@ const Like: FC<Props> = ({ post }) => {
   const { currentUser } = useContext(AppContext)
   const [liked, setLiked] = useState<boolean>(false)
   const [count, setCount] = useState<number>(0)
-  const { data: account } = useAccount()
 
   useEffect(() => {
     if (post?.mirrorOf?.stats?.totalUpvotes || post?.stats?.totalUpvotes) {
@@ -64,7 +62,7 @@ const Like: FC<Props> = ({ post }) => {
   })
 
   const createLike = () => {
-    if (!account?.address) {
+    if (!currentUser) {
       toast.error(CONNECT_WALLET)
     } else {
       const variable = {
