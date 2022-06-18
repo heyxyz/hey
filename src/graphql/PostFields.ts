@@ -26,11 +26,6 @@ export const PostFields = gql`
     }
     metadata {
       ...MetadataFields
-      cover {
-        original {
-          url
-        }
-      }
     }
     hidden
     createdAt
