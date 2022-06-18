@@ -1,9 +1,3 @@
-include:
-  - template: Security/Dependency-Scanning.gitlab-ci.yml
-  - template: Security/License-Scanning.gitlab-ci.yml
-  - template: Security/SAST.gitlab-ci.yml
-  - template: Security/Secret-Detection.gitlab-ci.yml
-
 image: node:18
 
 cache:
@@ -13,7 +7,6 @@ cache:
 
 stages:
   - build
-  - test
   - clean
 
 before_script:
@@ -21,12 +14,6 @@ before_script:
   - yarn -v
   - cp .env.example .env
   - yarn install --frozen-lockfile --silent
-
-sast:
-  stage: test
-  before_script: []
-  variables:
-    SAST_EXCLUDED_PATHS: node_modules
 
 lint:
   stage: build
