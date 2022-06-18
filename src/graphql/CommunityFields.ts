@@ -1,5 +1,7 @@
 import { gql } from '@apollo/client'
 
+import { MetadataFields } from './MetadataFields'
+
 export const CommunityFields = gql`
   fragment CommunityFields on Post {
     id
@@ -7,17 +9,7 @@ export const CommunityFields = gql`
       id
     }
     metadata {
-      name
-      description
-      content
-      attributes {
-        value
-      }
-      cover {
-        original {
-          url
-        }
-      }
+      ...MetadataFields
     }
     stats {
       totalAmountOfCollects
@@ -25,4 +17,5 @@ export const CommunityFields = gql`
     }
     createdAt
   }
+  ${MetadataFields}
 `

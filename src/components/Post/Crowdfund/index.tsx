@@ -57,13 +57,12 @@ const Crowdfund: FC<Props> = ({ fund }) => {
   const [showFundersModal, setShowFundersModal] = useState<boolean>(false)
   const [revenue, setRevenue] = useState<number>(0)
   const { data, loading } = useQuery(COLLECT_QUERY, {
-    variables: { request: { publicationId: fund?.id } },
-    skip: !fund?.id,
+    variables: { request: { publicationId: fund?.pubId ?? fund?.id } },
     onCompleted() {
       consoleLog(
         'Query',
         '#8b5cf6',
-        `Fetched collect module details Crowdfund:${fund?.id}`
+        `Fetched collect module details Crowdfund:${fund?.pubId ?? fund?.id}`
       )
     }
   })
@@ -76,15 +75,18 @@ const Crowdfund: FC<Props> = ({ fund }) => {
       variables: {
         request: {
           publicationId:
-            fund?.__typename === 'Mirror' ? fund?.mirrorOf?.id : fund?.id
+            fund?.__typename === 'Mirror'
+              ? fund?.mirrorOf?.id
+              : fund?.pubId ?? fund?.id
         }
       },
-      skip: !fund?.id,
       onCompleted() {
         consoleLog(
           'Query',
           '#8b5cf6',
-          `Fetched crowdfund revenue details Crowdfund:${fund?.id}`
+          `Fetched crowdfund revenue details Crowdfund:${
+            fund?.pubId ?? fund?.id
+          }`
         )
       }
     }
@@ -155,7 +157,7 @@ const Crowdfund: FC<Props> = ({ fund }) => {
                     show={showFundersModal}
                     onClose={() => setShowFundersModal(!showFundersModal)}
                   >
-                    <Collectors pubId={fund?.id} />
+                    <Collectors pubId={fund?.pubId ?? fund?.id} />
                   </Modal>
                 </>
               )}

@@ -5,6 +5,11 @@ export const MetadataFields = gql`
     name
     description
     content
+    cover {
+      original {
+        url
+      }
+    }
     media {
       original {
         url

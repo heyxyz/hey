@@ -21,11 +21,6 @@ export const MirrorFields = gql`
     }
     metadata {
       ...MetadataFields
-      cover {
-        original {
-          url
-        }
-      }
     }
     mirrorOf {
       ... on Post {
