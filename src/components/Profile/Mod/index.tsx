@@ -43,7 +43,7 @@ const ProfileMod: FC<Props> = ({ profile }) => {
     >
       <div className="flex gap-2 items-center font-bold cursor-pointer linkify">
         {icon}
-        {title ? <div className="text-gray-500 text-sm">{title}:</div> : null}
+        {title ? <div className="text-sm text-gray-500">{title}:</div> : null}
         <div>{children}</div>
       </div>
     </CopyToClipboard>

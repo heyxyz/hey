@@ -15,7 +15,7 @@ const PostActions: FC<Props> = ({ post }) => {
   const postType = post?.metadata?.attributes[0]?.value
 
   return postType !== 'community' ? (
-    <div className="flex gap-6 sm:gap-8 items-center pt-3 -ml-2 text-gray-500">
+    <div className="flex gap-6 items-center pt-3 -ml-2 text-gray-500 sm:gap-8">
       <Comment post={post} />
       <Mirror post={post} />
       <Like post={post} />
