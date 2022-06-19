@@ -310,12 +310,13 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
               <Markup>{postContent}</Markup>
             </div>
           ) : (
+            // Note: CuddleofDeath edited the placeholder text to "What's your goal?"
             <MentionTextArea
               value={postContent}
               setValue={setPostContent}
               error={postContentError}
               setError={setPostContentError}
-              placeholder="What's happening?"
+              placeholder="What's your goal?"
             />
           )}
           <div className="block items-center sm:flex">
