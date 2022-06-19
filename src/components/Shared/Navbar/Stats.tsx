@@ -18,7 +18,7 @@ import { APP_NAME, ERROR_MESSAGE } from 'src/constants'
 
 const LENSTER_STATS_QUERY = gql`
   query LensterStats {
-    globalProtocolStats(request: { sources: APP_NAME }) {
+    globalProtocolStats(request: { sources: "Lenster" }) {
       totalProfiles
       totalPosts
       totalBurntProfiles
