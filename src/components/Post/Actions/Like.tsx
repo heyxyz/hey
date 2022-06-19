@@ -97,7 +97,7 @@ const Like: FC<Props> = ({ post }) => {
       aria-label="Like"
     >
       <div className="flex items-center space-x-1 text-pink-500">
-        <div className="p-1.5 rounded-full hover:bg-opacity-20 hover:bg-pink-300">
+        <div className="p-1.5 rounded-full hover:bg-pink-300 hover:bg-opacity-20">
           <Tooltip
             placement="top"
             content={liked ? 'Unlike' : 'Like'}

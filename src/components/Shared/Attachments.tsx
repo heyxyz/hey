@@ -73,7 +73,7 @@ const Attachments: FC<Props> = ({
             />
           ) : (
             <img
-              className="object-cover cursor-pointer bg-gray-100 rounded-lg border dark:bg-gray-800 dark:border-gray-700/80"
+              className="object-cover bg-gray-100 rounded-lg border cursor-pointer dark:bg-gray-800 dark:border-gray-700/80"
               loading="lazy"
               onClick={() =>
                 window.open(

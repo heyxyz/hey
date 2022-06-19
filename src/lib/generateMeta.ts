@@ -8,7 +8,7 @@ const generateMeta = (
     <head>
       <title>${title}</title>
       <meta name="description" content="${description}" />
-      <meta charset="UTF-8">
+      <meta charset="UTF-8" />
       <meta property="og:url" content="https://lenster.xyz" />
       <meta property="og:site_name" content="Lenster" />
       <meta property="og:title" content="${title}" />
