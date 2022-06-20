@@ -6,6 +6,7 @@ import {
 } from '@apollo/client'
 import result from '@generated/types'
 import consoleLog from '@lib/consoleLog'
+import axios from 'axios'
 import Cookies, { CookieAttributes } from 'js-cookie'
 import jwtDecode from 'jwt-decode'
 
@@ -52,10 +53,10 @@ const authLink = new ApolloLink((operation, forward) => {
 
     if (Date.now() >= exp * 1000) {
       consoleLog('Auth', '#eab308', 'Generate new access token')
-      fetch(API_URL, {
+      axios(API_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
+        data: JSON.stringify({
           operationName: 'Refresh',
           query: REFRESH_AUTHENTICATION_MUTATION,
           variables: {
@@ -63,25 +64,17 @@ const authLink = new ApolloLink((operation, forward) => {
           }
         })
       })
-        .then((res) => res.json())
-        .then((res) => {
+        .then(({ data }) => {
+          const refresh = data?.data?.refresh
           operation.setContext({
             headers: {
               'x-access-token': accessToken
-                ? `Bearer ${res?.data?.refresh?.accessToken}`
+                ? `Bearer ${refresh?.accessToken}`
                 : ''
             }
           })
-          Cookies.set(
-            'accessToken',
-            res?.data?.refresh?.accessToken,
-            COOKIE_CONFIG
-          )
-          Cookies.set(
-            'refreshToken',
-            res?.data?.refresh?.refreshToken,
-            COOKIE_CONFIG
-          )
+          Cookies.set('accessToken', refresh?.accessToken, COOKIE_CONFIG)
+          Cookies.set('refreshToken', refresh?.refreshToken, COOKIE_CONFIG)
         })
         .catch(() => console.log(ERROR_MESSAGE))
     }
