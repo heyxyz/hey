@@ -17,6 +17,7 @@ const FOLLOWING_QUERY = gql`
       items {
         profile {
           ...MinimalProfileFields
+          isFollowedByMe
         }
         totalAmountOfTimesFollowing
       }
@@ -99,7 +100,12 @@ const Following: FC<Props> = ({ profile }) => {
         <div className="divide-y dark:divide-gray-700">
           {following?.map((following: Following) => (
             <div className="p-5" key={following?.profile?.id}>
-              <UserProfile profile={following?.profile} showBio />
+              <UserProfile
+                profile={following?.profile}
+                showBio
+                showFollow
+                isFollowing={following?.profile?.isFollowedByMe}
+              />
             </div>
           ))}
         </div>
