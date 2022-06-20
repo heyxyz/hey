@@ -4,7 +4,6 @@ import Footer from '@components/Shared/Footer'
 import PostsShimmer from '@components/Shared/Shimmer/PostsShimmer'
 import UserProfile from '@components/Shared/UserProfile'
 import { Card, CardBody } from '@components/UI/Card'
-import AppContext from '@components/utils/AppContext'
 import SEO from '@components/utils/SEO'
 import { LensterPost } from '@generated/lenstertypes'
 import { CommentFields } from '@gql/CommentFields'
@@ -15,10 +14,11 @@ import { apps } from 'data/apps'
 import { NextPage } from 'next'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
-import React, { useContext } from 'react'
+import React from 'react'
 import { APP_NAME, ZERO_ADDRESS } from 'src/constants'
 import Custom404 from 'src/pages/404'
 import Custom500 from 'src/pages/500'
+import useAppStore from 'src/store'
 
 import IPFSHash from './IPFSHash'
 import PostPageShimmer from './Shimmer'
@@ -72,7 +72,7 @@ const ViewPost: NextPage = () => {
     query: { id }
   } = useRouter()
 
-  const { currentUser } = useContext(AppContext)
+  const { currentUser } = useAppStore()
   const { data, loading, error } = useQuery(POST_QUERY, {
     variables: {
       request: { publicationId: id },

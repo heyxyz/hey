@@ -3,7 +3,6 @@ import Collectors from '@components/Shared/Collectors'
 import Markup from '@components/Shared/Markup'
 import { Button } from '@components/UI/Button'
 import { Modal } from '@components/UI/Modal'
-import AppContext from '@components/utils/AppContext'
 import { LensterPost } from '@generated/lenstertypes'
 import {
   ClockIcon,
@@ -18,7 +17,8 @@ import nFormatter from '@lib/nFormatter'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import dynamic from 'next/dynamic'
-import React, { FC, ReactNode, useContext, useState } from 'react'
+import React, { FC, ReactNode, useState } from 'react'
+import useAppStore from 'src/store'
 
 import Join from './Join'
 
@@ -43,7 +43,7 @@ interface Props {
 }
 
 const Details: FC<Props> = ({ community }) => {
-  const { currentUser } = useContext(AppContext)
+  const { currentUser } = useAppStore()
   const [showMembersModal, setShowMembersModal] = useState<boolean>(false)
   const [showSettingsModal, setShowSettingsModal] = useState<boolean>(false)
   const [joined, setJoined] = useState<boolean>(false)

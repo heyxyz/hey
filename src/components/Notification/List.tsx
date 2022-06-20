@@ -2,7 +2,6 @@ import { gql, useQuery } from '@apollo/client'
 import { EmptyState } from '@components/UI/EmptyState'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { Spinner } from '@components/UI/Spinner'
-import AppContext from '@components/utils/AppContext'
 import { Notification, PaginatedResultInfo } from '@generated/types'
 import { CollectModuleFields } from '@gql/CollectModuleFields'
 import { MetadataFields } from '@gql/MetadataFields'
@@ -10,8 +9,9 @@ import { MinimalProfileFields } from '@gql/MinimalProfileFields'
 import { Menu } from '@headlessui/react'
 import { MailIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
-import { FC, useContext, useState } from 'react'
+import { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
+import useAppStore from 'src/store'
 
 import NotificationShimmer from './Shimmer'
 import CollectNotification from './Type/CollectNotification'
@@ -148,7 +148,7 @@ const NOTIFICATIONS_QUERY = gql`
 `
 
 const List: FC = () => {
-  const { currentUser } = useContext(AppContext)
+  const { currentUser } = useAppStore()
   const [notifications, setNotifications] = useState<Notification[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
   const { data, loading, error, fetchMore } = useQuery(NOTIFICATIONS_QUERY, {
