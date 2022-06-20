@@ -27,6 +27,7 @@ import {
   WRONG_NETWORK
 } from 'src/constants'
 import Custom404 from 'src/pages/404'
+import useAppStore from 'src/store'
 import {
   useAccount,
   useContractWrite,
@@ -67,8 +68,8 @@ const CREATE_SET_DEFAULT_PROFILE_DATA_MUTATION = gql`
 `
 
 const SetProfile: FC = () => {
-  const { currentUser, profiles, userSigNonce, setUserSigNonce } =
-    useContext(AppContext)
+  const { profiles, userSigNonce, setUserSigNonce } = useContext(AppContext)
+  const { currentUser } = useAppStore()
   const [selectedUser, setSelectedUser] = useState<string>()
   const { activeChain } = useNetwork()
   const { data: account } = useAccount()

@@ -1,12 +1,12 @@
 import { Button } from '@components/UI/Button'
 import { Form, useZodForm } from '@components/UI/Form'
 import { Input } from '@components/UI/Input'
-import AppContext from '@components/utils/AppContext'
 import { EnabledModule, Erc20 } from '@generated/types'
 import { ArrowLeftIcon } from '@heroicons/react/outline'
 import { defaultModuleData, FEE_DATA_TYPE } from '@lib/getModule'
-import { Dispatch, FC, useContext, useState } from 'react'
+import { Dispatch, FC, useState } from 'react'
 import { DEFAULT_COLLECT_TOKEN } from 'src/constants'
+import useAppStore from 'src/store'
 import { object, string } from 'zod'
 
 const feeDataSchema = object({
@@ -41,7 +41,7 @@ const FeeEntry: FC<Props> = ({
   feeData,
   setFeeData
 }) => {
-  const { currentUser } = useContext(AppContext)
+  const { currentUser } = useAppStore()
   const [followerOnly, setFollowerOnly] = useState<boolean>(false)
   const [selectedCurrency, setSelectedCurrency] = useState<string>(
     DEFAULT_COLLECT_TOKEN

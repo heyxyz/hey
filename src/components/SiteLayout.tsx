@@ -8,6 +8,7 @@ import Head from 'next/head'
 import { useTheme } from 'next-themes'
 import { FC, ReactNode, Suspense, useEffect, useState } from 'react'
 import { Toaster } from 'react-hot-toast'
+import useAppStore from 'src/store'
 import { useAccount, useConnect, useDisconnect } from 'wagmi'
 
 import Loading from './Loading'
@@ -36,17 +37,17 @@ interface Props {
 
 const SiteLayout: FC<Props> = ({ children }) => {
   const { resolvedTheme } = useTheme()
+  const { currentUser, setCurrentUser } = useAppStore()
   const [pageLoading, setPageLoading] = useState<boolean>(true)
   const [staffMode, setStaffMode] = useState<boolean>()
   const [refreshToken, setRefreshToken] = useState<string>()
-  const [selectedProfile, setSelectedProfile] = useState<number>(0)
   const [userSigNonce, setUserSigNonce] = useState<number>(0)
   const { data: accountData } = useAccount()
   const { activeConnector } = useConnect()
   const { disconnect } = useDisconnect()
   const { data, loading, error } = useQuery(CURRENT_USER_QUERY, {
     variables: { ownedBy: accountData?.address },
-    skip: !selectedProfile || !refreshToken,
+    skip: !currentUser || !refreshToken,
     onCompleted(data) {
       consoleLog(
         'Query',
@@ -55,6 +56,7 @@ const SiteLayout: FC<Props> = ({ children }) => {
       )
     }
   })
+
   const profiles: Profile[] = data?.profiles?.items
     ?.slice()
     ?.sort((a: Profile, b: Profile) => Number(a.id) - Number(b.id))
@@ -64,7 +66,6 @@ const SiteLayout: FC<Props> = ({ children }) => {
 
   useEffect(() => {
     setRefreshToken(Cookies.get('refreshToken'))
-    setSelectedProfile(localStorage.selectedProfile)
     setUserSigNonce(data?.userSigNonces?.lensHubOnChainSigNonce)
     setStaffMode(localStorage.staffMode === 'true')
     setPageLoading(false)
@@ -74,27 +75,18 @@ const SiteLayout: FC<Props> = ({ children }) => {
     }
 
     activeConnector?.on('change', () => {
-      localStorage.removeItem('selectedProfile')
       Cookies.remove('accessToken')
       Cookies.remove('refreshToken')
       disconnect()
     })
-  }, [
-    selectedProfile,
-    activeConnector,
-    disconnect,
-    data?.userSigNonces?.lensHubOnChainSigNonce
-  ])
+  }, [activeConnector, disconnect, data?.userSigNonces?.lensHubOnChainSigNonce])
 
   const injectedGlobalContext = {
-    selectedProfile,
-    setSelectedProfile,
     userSigNonce,
     setUserSigNonce,
     staffMode,
     setStaffMode,
     profiles: profiles,
-    currentUser: profiles && profiles[selectedProfile],
     currentUserLoading: loading,
     currentUserError: error
   }

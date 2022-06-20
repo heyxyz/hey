@@ -5,14 +5,14 @@ import { Card } from '@components/UI/Card'
 import { EmptyState } from '@components/UI/EmptyState'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { Spinner } from '@components/UI/Spinner'
-import AppContext from '@components/utils/AppContext'
 import { LensterPost } from '@generated/lenstertypes'
 import { PaginatedResultInfo } from '@generated/types'
 import { CommentFields } from '@gql/CommentFields'
 import { CollectionIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
-import React, { FC, useContext, useState } from 'react'
+import React, { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
+import useAppStore from 'src/store'
 
 import ReferenceAlert from '../Shared/ReferenceAlert'
 import NewComment from './NewComment'
@@ -51,7 +51,7 @@ const Feed: FC<Props> = ({
   isFollowing = true
 }) => {
   const pubId = post?.__typename === 'Mirror' ? post?.mirrorOf?.id : post?.id
-  const { currentUser } = useContext(AppContext)
+  const { currentUser } = useAppStore()
   const [publications, setPublications] = useState<LensterPost[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
   const { data, loading, error, fetchMore } = useQuery(COMMENT_FEED_QUERY, {

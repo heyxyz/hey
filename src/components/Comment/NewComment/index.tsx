@@ -44,6 +44,7 @@ import {
   RELAY_ON,
   WRONG_NETWORK
 } from 'src/constants'
+import useAppStore from 'src/store'
 import {
   useAccount,
   useContractWrite,
@@ -118,7 +119,8 @@ const NewComment: FC<Props> = ({ post, type }) => {
   const [preview, setPreview] = useState<boolean>(false)
   const [commentContent, setCommentContent] = useState<string>('')
   const [commentContentError, setCommentContentError] = useState<string>('')
-  const { currentUser, userSigNonce, setUserSigNonce } = useContext(AppContext)
+  const { userSigNonce, setUserSigNonce } = useContext(AppContext)
+  const { currentUser } = useAppStore()
   const [selectedModule, setSelectedModule] =
     useState<EnabledModule>(defaultModuleData)
   const [onlyFollowers, setOnlyFollowers] = useState<boolean>(false)

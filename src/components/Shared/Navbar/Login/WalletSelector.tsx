@@ -3,15 +3,15 @@ import SwitchNetwork from '@components/Shared/SwitchNetwork'
 import { CURRENT_USER_QUERY } from '@components/SiteLayout'
 import { Button } from '@components/UI/Button'
 import { Spinner } from '@components/UI/Spinner'
-import AppContext from '@components/utils/AppContext'
 import { XCircleIcon } from '@heroicons/react/solid'
 import consoleLog from '@lib/consoleLog'
 import getWalletLogo from '@lib/getWalletLogo'
 import clsx from 'clsx'
 import Cookies from 'js-cookie'
-import React, { Dispatch, FC, useContext, useEffect, useState } from 'react'
+import React, { Dispatch, FC, useEffect, useState } from 'react'
 import { COOKIE_CONFIG } from 'src/apollo'
 import { CHAIN_ID, ERROR_MESSAGE } from 'src/constants'
+import useAppStore from 'src/store'
 import {
   Connector,
   useAccount,
@@ -76,7 +76,7 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
 
   const { connectors, error, connectAsync } = useConnect()
   const { data: accountData } = useAccount()
-  const { setSelectedProfile } = useContext(AppContext)
+  const { setCurrentUser } = useAppStore()
 
   const onConnect = async (x: Connector) => {
     await connectAsync(x).then(({ account }) => {
@@ -110,11 +110,10 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
             getProfiles({
               variables: { ownedBy: accountData?.address }
             }).then(({ data }) => {
-              localStorage.setItem('selectedProfile', '0')
               if (data?.profiles?.items?.length === 0) {
                 setHasProfile(false)
               } else {
-                setSelectedProfile(0)
+                setCurrentUser(data?.profiles?.items[0])
               }
             })
           })

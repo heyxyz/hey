@@ -10,6 +10,7 @@ import clsx from 'clsx'
 import Link from 'next/link'
 import { FC, useContext } from 'react'
 import { APP_NAME } from 'src/constants'
+import useAppStore from 'src/store'
 
 interface StatusProps {
   finished: boolean
@@ -30,7 +31,8 @@ const Status: FC<StatusProps> = ({ finished, title }) => (
 )
 
 const SetProfile: FC = () => {
-  const { currentUser, profiles } = useContext(AppContext)
+  const { profiles } = useContext(AppContext)
+  const { currentUser } = useAppStore()
   const hasDefaultProfile = !!profiles.find((o) => o.isDefault)
   const doneSetup =
     !!currentUser?.name && !!currentUser?.bio && !!currentUser?.picture

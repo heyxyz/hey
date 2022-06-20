@@ -9,6 +9,7 @@ import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { FC, useContext } from 'react'
+import useAppStore from 'src/store'
 
 import MenuItems from './MenuItems'
 import MoreNavItems from './MoreNavItems'
@@ -25,7 +26,8 @@ const PING_QUERY = gql`
 `
 
 const Navbar: FC = () => {
-  const { currentUser, staffMode } = useContext(AppContext)
+  const { staffMode } = useContext(AppContext)
+  const { currentUser } = useAppStore()
   const { data: pingData } = useQuery(PING_QUERY, {
     pollInterval: 3000,
     skip: !currentUser

@@ -25,6 +25,7 @@ import Link from 'next/link'
 import { useTheme } from 'next-themes'
 import React, { FC, ReactElement, useContext, useEffect, useState } from 'react'
 import { STATIC_ASSETS } from 'src/constants'
+import useAppStore from 'src/store'
 
 import DoesFollow from './DoesFollow'
 import Followerings from './Followerings'
@@ -45,7 +46,8 @@ interface Props {
 const Details: FC<Props> = ({ profile }) => {
   const [followersCount, setFollowersCount] = useState<number>(0)
   const [following, setFollowing] = useState<boolean>(false)
-  const { currentUser, staffMode } = useContext(AppContext)
+  const { currentUser } = useAppStore()
+  const { staffMode } = useContext(AppContext)
   const { resolvedTheme } = useTheme()
   const { data: ensName } = useENS(profile?.ownedBy ?? '')
 
