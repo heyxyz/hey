@@ -26,7 +26,7 @@ export const useAppStore = create(
       userSigNonce: 0,
       setUserSigNonce: (userSigNonce) => set(() => ({ userSigNonce }))
     }),
-    { name: 'lenster-storage' }
+    { name: 'lenster.store' }
   )
 )
 
