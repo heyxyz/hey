@@ -42,7 +42,7 @@ const SiteLayout: FC<Props> = ({ children }) => {
   const { data: accountData } = useAccount()
   const { activeConnector } = useConnect()
   const { disconnect } = useDisconnect()
-  const { data, loading } = useQuery(CURRENT_USER_QUERY, {
+  const { loading } = useQuery(CURRENT_USER_QUERY, {
     variables: { ownedBy: accountData?.address },
     skip: !currentUser || !refreshToken,
     onCompleted(data) {
@@ -72,9 +72,10 @@ const SiteLayout: FC<Props> = ({ children }) => {
     }
 
     activeConnector?.on('change', () => {
+      localStorage.removeItem('lenster.store')
       Cookies.remove('accessToken')
       Cookies.remove('refreshToken')
-      disconnect()
+      location.href = '/'
     })
   }, [activeConnector, disconnect])
 

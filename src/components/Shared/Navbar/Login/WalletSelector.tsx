@@ -3,6 +3,7 @@ import SwitchNetwork from '@components/Shared/SwitchNetwork'
 import { CURRENT_USER_QUERY } from '@components/SiteLayout'
 import { Button } from '@components/UI/Button'
 import { Spinner } from '@components/UI/Spinner'
+import { Profile } from '@generated/types'
 import { XCircleIcon } from '@heroicons/react/solid'
 import consoleLog from '@lib/consoleLog'
 import getWalletLogo from '@lib/getWalletLogo'
@@ -76,7 +77,7 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
 
   const { connectors, error, connectAsync } = useConnect()
   const { data: accountData } = useAccount()
-  const { setCurrentUser } = useAppStore()
+  const { setCurrentUser, setProfiles, setUserSigNonce } = useAppStore()
 
   const onConnect = async (x: Connector) => {
     await connectAsync(x).then(({ account }) => {
@@ -113,7 +114,17 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
               if (data?.profiles?.items?.length === 0) {
                 setHasProfile(false)
               } else {
-                setCurrentUser(data?.profiles?.items[0])
+                const profiles: Profile[] = data?.profiles?.items
+                  ?.slice()
+                  ?.sort(
+                    (a: Profile, b: Profile) => Number(a.id) - Number(b.id)
+                  )
+                  ?.sort((a: Profile, b: Profile) =>
+                    !(a.isDefault !== b.isDefault) ? 0 : a.isDefault ? -1 : 1
+                  )
+                setProfiles(profiles)
+                setCurrentUser(profiles[0])
+                setUserSigNonce(data?.userSigNonces?.lensHubOnChainSigNonce)
               }
             })
           })
