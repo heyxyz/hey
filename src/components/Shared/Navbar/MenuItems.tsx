@@ -1,5 +1,6 @@
 import { Button } from '@components/UI/Button'
 import { Modal } from '@components/UI/Modal'
+import { Tooltip } from '@components/UI/Tooltip'
 import AppContext from '@components/utils/AppContext'
 import { Profile } from '@generated/types'
 import { Menu, Transition } from '@headlessui/react'
@@ -210,10 +211,21 @@ const MenuItems: FC<Props> = ({ pingData }) => {
                   )}
                 </div>
               </Menu.Item>
-              {currentUser && isBeta(currentUser) && GIT_COMMIT_SHA && (
+              {currentUser && GIT_COMMIT_SHA && (
                 <>
                   <div className="divider" />
-                  <div className="py-3 px-6 text-xs">
+                  <div className="py-3 px-6 text-xs flex items-center space-x-2">
+                    {pingData && (
+                      <Tooltip content="Indexer Status" placement="top">
+                        <div
+                          className={clsx(
+                            { 'bg-green-500': pingData?.ping === 'pong' },
+                            { 'bg-red-500': pingData?.ping !== 'pong' },
+                            'p-[4.5px] rounded-full animate-pulse'
+                          )}
+                        />
+                      </Tooltip>
+                    )}
                     <a
                       href={`https://gitlab.com/lenster/lenster/-/commit/${GIT_COMMIT_SHA}`}
                       className="font-mono"
@@ -221,7 +233,7 @@ const MenuItems: FC<Props> = ({ pingData }) => {
                       target="_blank"
                       rel="noreferrer noopener"
                     >
-                      fc4a59ea (beta)
+                      {GIT_COMMIT_SHA} {isBeta(currentUser) && '(beta)'}
                     </a>
                   </div>
                 </>
@@ -251,25 +263,6 @@ const MenuItems: FC<Props> = ({ pingData }) => {
                       </div>
                     )}
                   </Menu.Item>
-                </>
-              )}
-              {pingData && (
-                <>
-                  <div className="border-b dark:border-gray-800" />
-                  <div className="flex items-center px-6 py-3 space-x-2.5 text-sm">
-                    <div
-                      className={clsx(
-                        { 'bg-green-500': pingData?.ping === 'pong' },
-                        { 'bg-red-500': pingData?.ping !== 'pong' },
-                        'p-[4.5px] rounded-full animate-pulse'
-                      )}
-                    />
-                    <div>
-                      {pingData?.ping === 'pong'
-                        ? 'Indexer active'
-                        : 'Indexer inactive'}
-                    </div>
-                  </div>
                 </>
               )}
             </Menu.Items>
