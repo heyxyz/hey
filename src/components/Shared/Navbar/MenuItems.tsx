@@ -123,10 +123,11 @@ const MenuItems: FC<Props> = ({ pingData }) => {
               <Menu.Item
                 as="a"
                 onClick={() => {
-                  localStorage.removeItem('lenster.store')
+                  setCurrentUser(undefined)
                   Cookies.remove('accessToken')
                   Cookies.remove('refreshToken')
-                  location.href = '/'
+                  localStorage.removeItem('lenster.store')
+                  disconnect()
                 }}
                 className={({ active }: { active: boolean }) =>
                   clsx({ 'dropdown-active': active }, 'menu-item')
