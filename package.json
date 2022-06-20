@@ -25,6 +25,7 @@
     "@tailwindcss/aspect-ratio": "^0.4.0",
     "@tippyjs/react": "^4.2.6",
     "@types/react-mentions": "^4.1.6",
+    "axios": "^0.27.2",
     "clsx": "^1.1.1",
     "dayjs": "^1.11.3",
     "dotenv": "^16.0.1",
