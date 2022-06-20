@@ -37,7 +37,7 @@ interface Props {
 
 const SiteLayout: FC<Props> = ({ children }) => {
   const { resolvedTheme } = useTheme()
-  const { currentUser, setCurrentUser } = useAppStore()
+  const { currentUser, setProfiles } = useAppStore()
   const [pageLoading, setPageLoading] = useState<boolean>(true)
   const [staffMode, setStaffMode] = useState<boolean>()
   const [refreshToken, setRefreshToken] = useState<string>()
@@ -49,6 +49,14 @@ const SiteLayout: FC<Props> = ({ children }) => {
     variables: { ownedBy: accountData?.address },
     skip: !currentUser || !refreshToken,
     onCompleted(data) {
+      const profiles: Profile[] = data?.profiles?.items
+        ?.slice()
+        ?.sort((a: Profile, b: Profile) => Number(a.id) - Number(b.id))
+        ?.sort((a: Profile, b: Profile) =>
+          !(a.isDefault !== b.isDefault) ? 0 : a.isDefault ? -1 : 1
+        )
+      setProfiles(profiles)
+
       consoleLog(
         'Query',
         '#8b5cf6',
@@ -56,13 +64,6 @@ const SiteLayout: FC<Props> = ({ children }) => {
       )
     }
   })
-
-  const profiles: Profile[] = data?.profiles?.items
-    ?.slice()
-    ?.sort((a: Profile, b: Profile) => Number(a.id) - Number(b.id))
-    ?.sort((a: Profile, b: Profile) =>
-      !(a.isDefault !== b.isDefault) ? 0 : a.isDefault ? -1 : 1
-    )
 
   useEffect(() => {
     setRefreshToken(Cookies.get('refreshToken'))
@@ -86,7 +87,6 @@ const SiteLayout: FC<Props> = ({ children }) => {
     setUserSigNonce,
     staffMode,
     setStaffMode,
-    profiles: profiles,
     currentUserLoading: loading,
     currentUserError: error
   }
