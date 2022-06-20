@@ -2,11 +2,11 @@ import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout'
 import Announcement from '@components/Home/Announcement'
 import Footer from '@components/Shared/Footer'
 import PostsShimmer from '@components/Shared/Shimmer/PostsShimmer'
-import AppContext from '@components/utils/AppContext'
 import SEO from '@components/utils/SEO'
 import { NextPage } from 'next'
 import dynamic from 'next/dynamic'
-import React, { useContext } from 'react'
+import React from 'react'
+import useAppStore from 'src/store'
 
 import Hero from './Hero'
 import RecommendedProfiles from './RecommendedProfiles'
@@ -22,7 +22,7 @@ const ExploreFeed = dynamic(() => import('@components/Explore/Feed'), {
 })
 
 const Home: NextPage = () => {
-  const { currentUser } = useContext(AppContext)
+  const { currentUser } = useAppStore()
 
   return (
     <>

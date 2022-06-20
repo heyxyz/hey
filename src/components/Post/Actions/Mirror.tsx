@@ -2,7 +2,6 @@ import { LensHubProxy } from '@abis/LensHubProxy'
 import { gql, useMutation } from '@apollo/client'
 import { Spinner } from '@components/UI/Spinner'
 import { Tooltip } from '@components/UI/Tooltip'
-import AppContext from '@components/utils/AppContext'
 import { LensterPost } from '@generated/lenstertypes'
 import { CreateMirrorBroadcastItemResult } from '@generated/types'
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
@@ -13,7 +12,7 @@ import nFormatter from '@lib/nFormatter'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import { motion } from 'framer-motion'
-import { FC, useContext, useEffect, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
   CHAIN_ID,
@@ -24,6 +23,7 @@ import {
   RELAY_ON,
   WRONG_NETWORK
 } from 'src/constants'
+import useAppStore from 'src/store'
 import {
   useAccount,
   useContractWrite,
@@ -73,7 +73,7 @@ interface Props {
 
 const Mirror: FC<Props> = ({ post }) => {
   const [count, setCount] = useState<number>(0)
-  const { currentUser, userSigNonce, setUserSigNonce } = useContext(AppContext)
+  const { currentUser, userSigNonce, setUserSigNonce } = useAppStore()
   const { activeChain } = useNetwork()
   const { data: account } = useAccount()
 

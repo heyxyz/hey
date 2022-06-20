@@ -6,7 +6,6 @@ import SuperFollow from '@components/Shared/SuperFollow'
 import Unfollow from '@components/Shared/Unfollow'
 import { Button } from '@components/UI/Button'
 import { Tooltip } from '@components/UI/Tooltip'
-import AppContext from '@components/utils/AppContext'
 import { useENS } from '@components/utils/hooks/useENS'
 import { Profile } from '@generated/types'
 import {
@@ -23,8 +22,9 @@ import isStaff from '@lib/isStaff'
 import isVerified from '@lib/isVerified'
 import Link from 'next/link'
 import { useTheme } from 'next-themes'
-import React, { FC, ReactElement, useContext, useEffect, useState } from 'react'
+import React, { FC, ReactElement, useEffect, useState } from 'react'
 import { STATIC_ASSETS } from 'src/constants'
+import useAppStore from 'src/store'
 
 import DoesFollow from './DoesFollow'
 import Followerings from './Followerings'
@@ -45,7 +45,7 @@ interface Props {
 const Details: FC<Props> = ({ profile }) => {
   const [followersCount, setFollowersCount] = useState<number>(0)
   const [following, setFollowing] = useState<boolean>(false)
-  const { currentUser, staffMode } = useContext(AppContext)
+  const { currentUser, staffMode } = useAppStore()
   const { resolvedTheme } = useTheme()
   const { data: ensName } = useENS(profile?.ownedBy ?? '')
 

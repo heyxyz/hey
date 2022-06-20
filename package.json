@@ -53,7 +53,8 @@
     "ua-parser-js": "^1.0.2",
     "use-streak": "^1.0.4",
     "wagmi": "^0.4.12",
-    "zod": "^3.17.3"
+    "zod": "^3.17.3",
+    "zustand": "^4.0.0-rc.1"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^2.6.2",

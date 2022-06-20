@@ -1,11 +1,11 @@
-import AppContext from '@components/utils/AppContext'
 import { LensterNotification } from '@generated/lenstertypes'
 import { NewFollowerNotification } from '@generated/types'
 import { UserAddIcon } from '@heroicons/react/outline'
 import { HeartIcon } from '@heroicons/react/solid'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
-import React, { FC, useContext } from 'react'
+import React, { FC } from 'react'
+import useAppStore from 'src/store'
 
 import { NotificationProfileAvatar, NotificationProfileName } from '../Profile'
 import {
@@ -20,7 +20,7 @@ interface Props {
 }
 
 const FollowerNotification: FC<Props> = ({ notification }) => {
-  const { currentUser } = useContext(AppContext)
+  const { currentUser } = useAppStore()
 
   return (
     <div className="flex items-center space-x-3">

@@ -5,14 +5,13 @@ import UserProfile from '@components/Shared/UserProfile'
 import { Button } from '@components/UI/Button'
 import { Card, CardBody } from '@components/UI/Card'
 import { Spinner } from '@components/UI/Spinner'
-import AppContext from '@components/utils/AppContext'
 import SEO from '@components/utils/SEO'
 import { CreateBurnProfileBroadcastItemResult } from '@generated/types'
 import { TrashIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
-import React, { FC, useContext } from 'react'
+import React, { FC } from 'react'
 import toast from 'react-hot-toast'
 import {
   APP_NAME,
@@ -23,6 +22,7 @@ import {
   WRONG_NETWORK
 } from 'src/constants'
 import Custom404 from 'src/pages/404'
+import useAppStore from 'src/store'
 import {
   useAccount,
   useContractWrite,
@@ -64,7 +64,7 @@ const CREATE_BURN_PROFILE_TYPED_DATA_MUTATION = gql`
 `
 
 const DeleteSettings: FC = () => {
-  const { currentUser, userSigNonce, setUserSigNonce } = useContext(AppContext)
+  const { currentUser, userSigNonce, setUserSigNonce } = useAppStore()
   const { activeChain } = useNetwork()
   const { data: account } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
@@ -74,7 +74,6 @@ const DeleteSettings: FC = () => {
   })
 
   const onCompleted = () => {
-    localStorage.setItem('selectedProfile', '0')
     location.href = '/'
   }
 
