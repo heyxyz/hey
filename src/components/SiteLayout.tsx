@@ -36,7 +36,8 @@ interface Props {
 
 const SiteLayout: FC<Props> = ({ children }) => {
   const { resolvedTheme } = useTheme()
-  const { currentUser, setProfiles, setUserSigNonce } = useAppStore()
+  const { currentUser, setCurrentUser, setProfiles, setUserSigNonce } =
+    useAppStore()
   const [pageLoading, setPageLoading] = useState<boolean>(true)
   const [refreshToken, setRefreshToken] = useState<string>()
   const { data: accountData } = useAccount()
@@ -72,10 +73,11 @@ const SiteLayout: FC<Props> = ({ children }) => {
     }
 
     activeConnector?.on('change', () => {
-      localStorage.removeItem('lenster.store')
+      setCurrentUser(undefined)
       Cookies.remove('accessToken')
       Cookies.remove('refreshToken')
-      location.href = '/'
+      localStorage.removeItem('lenster.store')
+      disconnect()
     })
   }, [activeConnector, disconnect])
 
