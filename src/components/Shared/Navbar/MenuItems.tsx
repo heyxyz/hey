@@ -25,6 +25,7 @@ import Link from 'next/link'
 import { useTheme } from 'next-themes'
 import { FC, Fragment, useContext, useState } from 'react'
 import { CHAIN_ID, GIT_COMMIT_SHA } from 'src/constants'
+import useAppStore from 'src/store'
 import { useDisconnect, useNetwork } from 'wagmi'
 
 import Slug from '../Slug'
@@ -48,14 +49,9 @@ const MenuItems: FC<Props> = ({ pingData }) => {
   const { activeChain } = useNetwork()
   const { disconnect } = useDisconnect()
 
-  const {
-    staffMode,
-    setStaffMode,
-    profiles,
-    currentUser,
-    currentUserLoading,
-    setSelectedProfile
-  } = useContext(AppContext)
+  const { staffMode, setStaffMode, profiles, currentUserLoading } =
+    useContext(AppContext)
+  const { currentUser, setCurrentUser } = useAppStore()
 
   const toggleStaffMode = () => {
     localStorage.setItem('staffMode', String(!staffMode))
@@ -132,7 +128,7 @@ const MenuItems: FC<Props> = ({ pingData }) => {
               <Menu.Item
                 as="a"
                 onClick={() => {
-                  localStorage.removeItem('selectedProfile')
+                  setCurrentUser(undefined)
                   Cookies.remove('accessToken')
                   Cookies.remove('refreshToken')
                   disconnect()
@@ -146,7 +142,7 @@ const MenuItems: FC<Props> = ({ pingData }) => {
                   <div>Logout</div>
                 </div>
               </Menu.Item>
-              {profiles.length > 1 && (
+              {profiles?.length > 1 && (
                 <>
                   <div className="divider" />
                   <div className="overflow-auto m-2 max-h-36 no-scrollbar">
@@ -163,11 +159,7 @@ const MenuItems: FC<Props> = ({ pingData }) => {
                           type="button"
                           className="flex items-center py-1.5 px-4 space-x-2 w-full rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
                           onClick={() => {
-                            localStorage.setItem(
-                              'selectedProfile',
-                              index.toString()
-                            )
-                            setSelectedProfile(index)
+                            setCurrentUser(profiles[index])
                           }}
                         >
                           {currentUser?.id === profile?.id && (

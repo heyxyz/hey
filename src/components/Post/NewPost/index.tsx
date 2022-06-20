@@ -40,6 +40,7 @@ import {
   RELAY_ON,
   WRONG_NETWORK
 } from 'src/constants'
+import useAppStore from 'src/store'
 import {
   useAccount,
   useContractWrite,
@@ -120,7 +121,8 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
   const [feeData, setFeeData] = useState<FEE_DATA_TYPE>(defaultFeeData)
   const [isUploading, setIsUploading] = useState<boolean>(false)
   const [attachments, setAttachments] = useState<LensterAttachment[]>([])
-  const { currentUser, userSigNonce, setUserSigNonce } = useContext(AppContext)
+  const { userSigNonce, setUserSigNonce } = useContext(AppContext)
+  const { currentUser } = useAppStore()
   const { activeChain } = useNetwork()
   const { data: account } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({

@@ -31,6 +31,7 @@ import {
   RELAY_ON,
   WRONG_NETWORK
 } from 'src/constants'
+import useAppStore from 'src/store'
 import {
   chain,
   useAccount,
@@ -102,7 +103,8 @@ const NFTPicture: FC<Props> = ({ profile }) => {
     }
   })
 
-  const { currentUser, userSigNonce, setUserSigNonce } = useContext(AppContext)
+  const { userSigNonce, setUserSigNonce } = useContext(AppContext)
+  const { currentUser } = useAppStore()
   const [chainId, setChainId] = useState<number>(
     IS_MAINNET ? chain.mainnet.id : chain.kovan.id
   )

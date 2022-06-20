@@ -1,11 +1,11 @@
 import { Card, CardBody } from '@components/UI/Card'
-import AppContext from '@components/utils/AppContext'
 import { BadgeCheckIcon } from '@heroicons/react/solid'
 import isVerified from '@lib/isVerified'
-import React, { FC, useContext } from 'react'
+import React, { FC } from 'react'
+import useAppStore from 'src/store'
 
 const Verification: FC = () => {
-  const { currentUser } = useContext(AppContext)
+  const { currentUser } = useAppStore()
 
   return (
     <Card>

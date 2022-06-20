@@ -31,6 +31,7 @@ import {
   RELAY_ON,
   WRONG_NETWORK
 } from 'src/constants'
+import useAppStore from 'src/store'
 import {
   useAccount,
   useBalance,
@@ -110,7 +111,8 @@ const FollowModule: FC<Props> = ({
   setFollowersCount,
   again
 }) => {
-  const { currentUser, userSigNonce, setUserSigNonce } = useContext(AppContext)
+  const { userSigNonce, setUserSigNonce } = useContext(AppContext)
+  const { currentUser } = useAppStore()
   const [allowed, setAllowed] = useState<boolean>(true)
   const { activeChain } = useNetwork()
   const { data: account } = useAccount()
