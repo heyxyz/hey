@@ -10,6 +10,8 @@ interface AppState {
   setStaffMode: (staffMode: boolean) => void
   profiles: Profile[] | []
   setProfiles: (profiles: Profile[]) => void
+  userSigNonce: number
+  setUserSigNonce: (userSigNonce: number) => void
 }
 
 export const useAppStore = create(
@@ -20,7 +22,9 @@ export const useAppStore = create(
       staffMode: false,
       setStaffMode: (staffMode) => set(() => ({ staffMode })),
       profiles: [],
-      setProfiles: (profiles) => set(() => ({ profiles }))
+      setProfiles: (profiles) => set(() => ({ profiles })),
+      userSigNonce: 0,
+      setUserSigNonce: (userSigNonce) => set(() => ({ userSigNonce }))
     }),
     { name: 'lenster-storage' }
   )

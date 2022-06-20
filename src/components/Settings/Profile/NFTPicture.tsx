@@ -7,7 +7,6 @@ import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { Form, useZodForm } from '@components/UI/Form'
 import { Input } from '@components/UI/Input'
 import { Spinner } from '@components/UI/Spinner'
-import AppContext from '@components/utils/AppContext'
 import {
   CreateSetProfileImageUriBroadcastItemResult,
   NftImage,
@@ -19,7 +18,7 @@ import consoleLog from '@lib/consoleLog'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import gql from 'graphql-tag'
-import React, { FC, useContext, useState } from 'react'
+import React, { FC, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
   CHAIN_ID,
@@ -103,8 +102,7 @@ const NFTPicture: FC<Props> = ({ profile }) => {
     }
   })
 
-  const { userSigNonce, setUserSigNonce } = useContext(AppContext)
-  const { currentUser } = useAppStore()
+  const { currentUser, userSigNonce, setUserSigNonce } = useAppStore()
   const [chainId, setChainId] = useState<number>(
     IS_MAINNET ? chain.mainnet.id : chain.kovan.id
   )

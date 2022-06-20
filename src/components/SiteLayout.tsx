@@ -12,7 +12,6 @@ import useAppStore from 'src/store'
 import { useAccount, useConnect, useDisconnect } from 'wagmi'
 
 import Loading from './Loading'
-import AppContext from './utils/AppContext'
 
 const Navbar = dynamic(() => import('./Shared/Navbar'), { suspense: true })
 
@@ -37,14 +36,13 @@ interface Props {
 
 const SiteLayout: FC<Props> = ({ children }) => {
   const { resolvedTheme } = useTheme()
-  const { currentUser, setProfiles } = useAppStore()
+  const { currentUser, setProfiles, setUserSigNonce } = useAppStore()
   const [pageLoading, setPageLoading] = useState<boolean>(true)
   const [refreshToken, setRefreshToken] = useState<string>()
-  const [userSigNonce, setUserSigNonce] = useState<number>(0)
   const { data: accountData } = useAccount()
   const { activeConnector } = useConnect()
   const { disconnect } = useDisconnect()
-  const { data, loading, error } = useQuery(CURRENT_USER_QUERY, {
+  const { data, loading } = useQuery(CURRENT_USER_QUERY, {
     variables: { ownedBy: accountData?.address },
     skip: !currentUser || !refreshToken,
     onCompleted(data) {
@@ -55,6 +53,7 @@ const SiteLayout: FC<Props> = ({ children }) => {
           !(a.isDefault !== b.isDefault) ? 0 : a.isDefault ? -1 : 1
         )
       setProfiles(profiles)
+      setUserSigNonce(data?.userSigNonces?.lensHubOnChainSigNonce)
 
       consoleLog(
         'Query',
@@ -66,7 +65,6 @@ const SiteLayout: FC<Props> = ({ children }) => {
 
   useEffect(() => {
     setRefreshToken(Cookies.get('refreshToken'))
-    setUserSigNonce(data?.userSigNonces?.lensHubOnChainSigNonce)
     setPageLoading(false)
 
     if (!activeConnector) {
@@ -78,12 +76,7 @@ const SiteLayout: FC<Props> = ({ children }) => {
       Cookies.remove('refreshToken')
       disconnect()
     })
-  }, [activeConnector, disconnect, data?.userSigNonces?.lensHubOnChainSigNonce])
-
-  const injectedGlobalContext = {
-    userSigNonce,
-    setUserSigNonce
-  }
+  }, [activeConnector, disconnect])
 
   const toastOptions = {
     style: {
@@ -110,7 +103,7 @@ const SiteLayout: FC<Props> = ({ children }) => {
   if (loading || pageLoading) return <Loading />
 
   return (
-    <AppContext.Provider value={injectedGlobalContext}>
+    <>
       <Head>
         <meta
           name="theme-color"
@@ -124,7 +117,7 @@ const SiteLayout: FC<Props> = ({ children }) => {
           {children}
         </div>
       </Suspense>
-    </AppContext.Provider>
+    </>
   )
 }
 
