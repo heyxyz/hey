@@ -49,9 +49,8 @@ const MenuItems: FC<Props> = ({ pingData }) => {
   const { activeChain } = useNetwork()
   const { disconnect } = useDisconnect()
 
-  const { staffMode, setStaffMode, profiles, currentUserLoading } =
-    useContext(AppContext)
-  const { currentUser, setCurrentUser } = useAppStore()
+  const { staffMode, setStaffMode, currentUserLoading } = useContext(AppContext)
+  const { currentUser, setCurrentUser, profiles } = useAppStore()
 
   const toggleStaffMode = () => {
     localStorage.setItem('staffMode', String(!staffMode))
