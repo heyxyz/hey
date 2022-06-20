@@ -1,3 +1,4 @@
+import { gql, useQuery } from '@apollo/client'
 import AppContext from '@components/utils/AppContext'
 import { Disclosure } from '@headlessui/react'
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
@@ -17,8 +18,18 @@ const StaffBar = dynamic(() => import('./StaffBar'))
 const NewPostModal = dynamic(() => import('../../Post/NewPost/Modal'))
 const Notification = dynamic(() => import('../../Notification'))
 
+const PING_QUERY = gql`
+  query Ping {
+    ping
+  }
+`
+
 const Navbar: FC = () => {
   const { currentUser, staffMode } = useContext(AppContext)
+  const { data: pingData } = useQuery(PING_QUERY, {
+    pollInterval: 3000,
+    skip: !currentUser
+  })
 
   interface NavItemProps {
     url: string
@@ -117,7 +128,7 @@ const Navbar: FC = () => {
               <div className="flex gap-8 items-center">
                 {currentUser && <NewPostModal />}
                 {currentUser && <Notification />}
-                <MenuItems />
+                <MenuItems pingData={pingData} />
               </div>
             </div>
           </div>
