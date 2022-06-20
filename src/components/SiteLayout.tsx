@@ -79,7 +79,7 @@ const SiteLayout: FC<Props> = ({ children }) => {
       localStorage.removeItem('lenster.store')
       disconnect()
     })
-  }, [activeConnector, disconnect])
+  }, [activeConnector, disconnect, setCurrentUser])
 
   const toastOptions = {
     style: {
