@@ -35,7 +35,13 @@ export const NextLink = ({ href, children, ...rest }: Record<string, any>) => (
   </Link>
 )
 
-const MenuItems: FC = () => {
+interface Props {
+  pingData: {
+    ping: string
+  }
+}
+
+const MenuItems: FC<Props> = ({ pingData }) => {
   const [showLoginModal, setShowLoginModal] = useState<boolean>(false)
   const { theme, setTheme } = useTheme()
   const { activeChain } = useNetwork()
@@ -245,6 +251,25 @@ const MenuItems: FC = () => {
                       </div>
                     )}
                   </Menu.Item>
+                </>
+              )}
+              {pingData && (
+                <>
+                  <div className="border-b dark:border-gray-800" />
+                  <div className="flex items-center px-6 py-3 space-x-2.5 text-sm">
+                    <div
+                      className={clsx(
+                        { 'bg-green-500': pingData?.ping === 'pong' },
+                        { 'bg-red-500': pingData?.ping !== 'pong' },
+                        'p-[4.5px] rounded-full animate-pulse'
+                      )}
+                    />
+                    <div>
+                      {pingData?.ping === 'pong'
+                        ? 'Indexer active'
+                        : 'Indexer inactive'}
+                    </div>
+                  </div>
                 </>
               )}
             </Menu.Items>
