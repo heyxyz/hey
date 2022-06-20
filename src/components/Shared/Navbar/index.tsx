@@ -1,5 +1,4 @@
 import { gql, useQuery } from '@apollo/client'
-import AppContext from '@components/utils/AppContext'
 import { Disclosure } from '@headlessui/react'
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
 import hasPrideLogo from '@lib/hasPrideLogo'
@@ -8,7 +7,7 @@ import clsx from 'clsx'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { FC, useContext } from 'react'
+import { FC } from 'react'
 import useAppStore from 'src/store'
 
 import MenuItems from './MenuItems'
@@ -26,8 +25,7 @@ const PING_QUERY = gql`
 `
 
 const Navbar: FC = () => {
-  const { staffMode } = useContext(AppContext)
-  const { currentUser } = useAppStore()
+  const { currentUser, staffMode } = useAppStore()
   const { data: pingData } = useQuery(PING_QUERY, {
     pollInterval: 3000,
     skip: !currentUser
