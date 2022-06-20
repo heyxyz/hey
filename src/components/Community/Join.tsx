@@ -2,7 +2,6 @@ import { LensHubProxy } from '@abis/LensHubProxy'
 import { gql, useMutation } from '@apollo/client'
 import { Button } from '@components/UI/Button'
 import { Spinner } from '@components/UI/Spinner'
-import AppContext from '@components/utils/AppContext'
 import { Community } from '@generated/lenstertypes'
 import { CreateCollectBroadcastItemResult } from '@generated/types'
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
@@ -10,7 +9,7 @@ import { PlusIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
-import React, { Dispatch, FC, useContext } from 'react'
+import React, { Dispatch, FC } from 'react'
 import toast from 'react-hot-toast'
 import {
   CHAIN_ID,
@@ -21,6 +20,7 @@ import {
   RELAY_ON,
   WRONG_NETWORK
 } from 'src/constants'
+import useAppStore from 'src/store'
 import {
   useAccount,
   useContractWrite,
@@ -68,7 +68,7 @@ interface Props {
 }
 
 const Join: FC<Props> = ({ community, setJoined, showJoin = true }) => {
-  const { userSigNonce, setUserSigNonce } = useContext(AppContext)
+  const { userSigNonce, setUserSigNonce } = useAppStore()
   const { activeChain } = useNetwork()
   const { data: account } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({

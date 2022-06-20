@@ -9,7 +9,6 @@ import { Card } from '@components/UI/Card'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { MentionTextArea } from '@components/UI/MentionTextArea'
 import { Spinner } from '@components/UI/Spinner'
-import AppContext from '@components/utils/AppContext'
 import { LensterAttachment } from '@generated/lenstertypes'
 import { CreatePostBroadcastItemResult, EnabledModule } from '@generated/types'
 import { IGif } from '@giphy/js-types'
@@ -28,7 +27,7 @@ import splitSignature from '@lib/splitSignature'
 import trimify from '@lib/trimify'
 import uploadToIPFS from '@lib/uploadToIPFS'
 import dynamic from 'next/dynamic'
-import { Dispatch, FC, useContext, useState } from 'react'
+import { Dispatch, FC, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
   APP_NAME,
@@ -121,8 +120,7 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
   const [feeData, setFeeData] = useState<FEE_DATA_TYPE>(defaultFeeData)
   const [isUploading, setIsUploading] = useState<boolean>(false)
   const [attachments, setAttachments] = useState<LensterAttachment[]>([])
-  const { userSigNonce, setUserSigNonce } = useContext(AppContext)
-  const { currentUser } = useAppStore()
+  const { currentUser, userSigNonce, setUserSigNonce } = useAppStore()
   const { activeChain } = useNetwork()
   const { data: account } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({

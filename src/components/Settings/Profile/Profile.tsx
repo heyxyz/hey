@@ -11,7 +11,6 @@ import { Input } from '@components/UI/Input'
 import { Spinner } from '@components/UI/Spinner'
 import { TextArea } from '@components/UI/TextArea'
 import { Toggle } from '@components/UI/Toggle'
-import AppContext from '@components/utils/AppContext'
 import {
   CreateSetProfileMetadataUriBroadcastItemResult,
   MediaSet,
@@ -29,7 +28,7 @@ import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import uploadAssetsToIPFS from '@lib/uploadAssetsToIPFS'
 import uploadToIPFS from '@lib/uploadToIPFS'
-import React, { ChangeEvent, FC, useContext, useEffect, useState } from 'react'
+import React, { ChangeEvent, FC, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
   APP_NAME,
@@ -109,8 +108,7 @@ const Profile: FC<Props> = ({ profile }) => {
   const [cover, setCover] = useState<string>()
   const [isUploading, setIsUploading] = useState<boolean>(false)
   const [uploading, setUploading] = useState<boolean>(false)
-  const { userSigNonce, setUserSigNonce } = useContext(AppContext)
-  const { currentUser } = useAppStore()
+  const { currentUser, userSigNonce, setUserSigNonce } = useAppStore()
   const { activeChain } = useNetwork()
   const { data: account } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({

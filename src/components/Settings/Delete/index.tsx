@@ -5,14 +5,13 @@ import UserProfile from '@components/Shared/UserProfile'
 import { Button } from '@components/UI/Button'
 import { Card, CardBody } from '@components/UI/Card'
 import { Spinner } from '@components/UI/Spinner'
-import AppContext from '@components/utils/AppContext'
 import SEO from '@components/utils/SEO'
 import { CreateBurnProfileBroadcastItemResult } from '@generated/types'
 import { TrashIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
-import React, { FC, useContext } from 'react'
+import React, { FC } from 'react'
 import toast from 'react-hot-toast'
 import {
   APP_NAME,
@@ -65,8 +64,7 @@ const CREATE_BURN_PROFILE_TYPED_DATA_MUTATION = gql`
 `
 
 const DeleteSettings: FC = () => {
-  const { userSigNonce, setUserSigNonce } = useContext(AppContext)
-  const { currentUser } = useAppStore()
+  const { currentUser, userSigNonce, setUserSigNonce } = useAppStore()
   const { activeChain } = useNetwork()
   const { data: account } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
