@@ -39,7 +39,6 @@ const SiteLayout: FC<Props> = ({ children }) => {
   const { resolvedTheme } = useTheme()
   const { currentUser, setProfiles } = useAppStore()
   const [pageLoading, setPageLoading] = useState<boolean>(true)
-  const [staffMode, setStaffMode] = useState<boolean>()
   const [refreshToken, setRefreshToken] = useState<string>()
   const [userSigNonce, setUserSigNonce] = useState<number>(0)
   const { data: accountData } = useAccount()
@@ -68,7 +67,6 @@ const SiteLayout: FC<Props> = ({ children }) => {
   useEffect(() => {
     setRefreshToken(Cookies.get('refreshToken'))
     setUserSigNonce(data?.userSigNonces?.lensHubOnChainSigNonce)
-    setStaffMode(localStorage.staffMode === 'true')
     setPageLoading(false)
 
     if (!activeConnector) {
@@ -84,11 +82,7 @@ const SiteLayout: FC<Props> = ({ children }) => {
 
   const injectedGlobalContext = {
     userSigNonce,
-    setUserSigNonce,
-    staffMode,
-    setStaffMode,
-    currentUserLoading: loading,
-    currentUserError: error
+    setUserSigNonce
   }
 
   const toastOptions = {

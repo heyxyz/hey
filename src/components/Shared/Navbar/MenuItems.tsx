@@ -1,7 +1,6 @@
 import { Button } from '@components/UI/Button'
 import { Modal } from '@components/UI/Modal'
 import { Tooltip } from '@components/UI/Tooltip'
-import AppContext from '@components/utils/AppContext'
 import { Profile } from '@generated/types'
 import { Menu, Transition } from '@headlessui/react'
 import {
@@ -23,7 +22,7 @@ import clsx from 'clsx'
 import Cookies from 'js-cookie'
 import Link from 'next/link'
 import { useTheme } from 'next-themes'
-import { FC, Fragment, useContext, useState } from 'react'
+import { FC, Fragment, useState } from 'react'
 import { CHAIN_ID, GIT_COMMIT_SHA } from 'src/constants'
 import useAppStore from 'src/store'
 import { useDisconnect, useNetwork } from 'wagmi'
@@ -49,17 +48,14 @@ const MenuItems: FC<Props> = ({ pingData }) => {
   const { activeChain } = useNetwork()
   const { disconnect } = useDisconnect()
 
-  const { staffMode, setStaffMode, currentUserLoading } = useContext(AppContext)
-  const { currentUser, setCurrentUser, profiles } = useAppStore()
+  const { currentUser, setCurrentUser, profiles, staffMode, setStaffMode } =
+    useAppStore()
 
   const toggleStaffMode = () => {
-    localStorage.setItem('staffMode', String(!staffMode))
     setStaffMode(!staffMode)
   }
 
-  return currentUserLoading ? (
-    <div className="w-8 h-8 rounded-full shimmer" />
-  ) : currentUser && activeChain?.id === CHAIN_ID ? (
+  return currentUser && activeChain?.id === CHAIN_ID ? (
     <Menu as="div">
       {({ open }) => (
         <>
