@@ -47,7 +47,12 @@ const Create: FC<Props> = ({ isModal = false }) => {
   const { activeChain } = useNetwork()
   const { data: account } = useAccount()
   const [createProfile, { data, loading }] = useMutation(
-    CREATE_PROFILE_MUTATION
+    CREATE_PROFILE_MUTATION,
+    {
+      onCompleted(data) {
+        console.log(data)
+      }
+    }
   )
 
   const form = useZodForm({
@@ -115,7 +120,7 @@ const Create: FC<Props> = ({ isModal = false }) => {
       <Input
         label="Handle"
         type="text"
-        placeholder="justinbieber"
+        placeholder="gavin"
         {...form.register('handle')}
       />
       <div className="space-y-1.5">
