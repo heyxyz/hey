@@ -26,7 +26,7 @@ const NFTFeed = dynamic(() => import('./NFTFeed'), {
 })
 
 export const PROFILE_QUERY = gql`
-  query Profile($request: SingleProfileQueryRequest!, $who: ProfileId!) {
+  query Profile($request: SingleProfileQueryRequest!, $who: ProfileId) {
     profile(request: $request) {
       id
       handle
@@ -83,7 +83,7 @@ const ViewProfile: NextPage = () => {
       : 'POST'
   )
   const { data, loading, error } = useQuery(PROFILE_QUERY, {
-    variables: { request: { handle: username }, who: currentUser?.id },
+    variables: { request: { handle: username }, who: currentUser?.id ?? null },
     skip: !username,
     onCompleted(data) {
       consoleLog(
