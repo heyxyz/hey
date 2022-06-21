@@ -7,10 +7,10 @@ import { NextPage } from 'next'
 import React from 'react'
 import { APP_NAME } from 'src/constants'
 import Custom404 from 'src/pages/404'
-import useAppStore from 'src/store'
+import { usePersistStore } from 'src/store'
 
 const Create: NextPage = () => {
-  const { currentUser } = useAppStore()
+  const { currentUser } = usePersistStore()
 
   if (!currentUser) return <Custom404 />
 

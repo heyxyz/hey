@@ -6,7 +6,7 @@ import { ArrowLeftIcon } from '@heroicons/react/outline'
 import { defaultModuleData, FEE_DATA_TYPE } from '@lib/getModule'
 import { Dispatch, FC, useState } from 'react'
 import { DEFAULT_COLLECT_TOKEN } from 'src/constants'
-import useAppStore from 'src/store'
+import { usePersistStore } from 'src/store'
 import { object, string } from 'zod'
 
 const feeDataSchema = object({
@@ -41,7 +41,7 @@ const FeeEntry: FC<Props> = ({
   feeData,
   setFeeData
 }) => {
-  const { currentUser } = useAppStore()
+  const { currentUser } = usePersistStore()
   const [followerOnly, setFollowerOnly] = useState<boolean>(false)
   const [selectedCurrency, setSelectedCurrency] = useState<string>(
     DEFAULT_COLLECT_TOKEN

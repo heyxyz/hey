@@ -2,10 +2,10 @@ import { Card, CardBody } from '@components/UI/Card'
 import { BadgeCheckIcon } from '@heroicons/react/solid'
 import isVerified from '@lib/isVerified'
 import React, { FC } from 'react'
-import useAppStore from 'src/store'
+import { usePersistStore } from 'src/store'
 
 const Verification: FC = () => {
-  const { currentUser } = useAppStore()
+  const { currentUser } = usePersistStore()
 
   return (
     <Card>

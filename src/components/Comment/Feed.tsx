@@ -12,7 +12,7 @@ import { CollectionIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
 import React, { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
-import useAppStore from 'src/store'
+import { usePersistStore } from 'src/store'
 
 import ReferenceAlert from '../Shared/ReferenceAlert'
 import NewComment from './NewComment'
@@ -51,7 +51,7 @@ const Feed: FC<Props> = ({
   isFollowing = true
 }) => {
   const pubId = post?.__typename === 'Mirror' ? post?.mirrorOf?.id : post?.id
-  const { currentUser } = useAppStore()
+  const { currentUser } = usePersistStore()
   const [publications, setPublications] = useState<LensterPost[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
   const { data, loading, error, fetchMore } = useQuery(COMMENT_FEED_QUERY, {

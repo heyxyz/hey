@@ -40,7 +40,7 @@ import {
   LENSHUB_PROXY,
   RELAY_ON
 } from 'src/constants'
-import useAppStore from 'src/store'
+import { useAppStore, usePersistStore } from 'src/store'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 
 const Attachment = dynamic(() => import('../../Shared/Attachment'), {
@@ -110,8 +110,8 @@ const NewComment: FC<Props> = ({ post, type }) => {
   const [preview, setPreview] = useState<boolean>(false)
   const [commentContent, setCommentContent] = useState<string>('')
   const [commentContentError, setCommentContentError] = useState<string>('')
-  const { isAuthenticated, currentUser, userSigNonce, setUserSigNonce } =
-    useAppStore()
+  const { userSigNonce, setUserSigNonce } = useAppStore()
+  const { isAuthenticated, currentUser } = usePersistStore()
   const [selectedModule, setSelectedModule] =
     useState<EnabledModule>(defaultModuleData)
   const [onlyFollowers, setOnlyFollowers] = useState<boolean>(false)

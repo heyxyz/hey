@@ -21,7 +21,7 @@ import {
   LENSHUB_PROXY
 } from 'src/constants'
 import Custom404 from 'src/pages/404'
-import useAppStore from 'src/store'
+import { useAppStore, usePersistStore } from 'src/store'
 import { useContractWrite, useDisconnect, useSignTypedData } from 'wagmi'
 
 import Sidebar from '../Sidebar'
@@ -58,14 +58,9 @@ const CREATE_BURN_PROFILE_TYPED_DATA_MUTATION = gql`
 `
 
 const DeleteSettings: FC = () => {
-  const {
-    isAuthenticated,
-    setIsAuthenticated,
-    currentUser,
-    setCurrentUser,
-    userSigNonce,
-    setUserSigNonce
-  } = useAppStore()
+  const { userSigNonce, setUserSigNonce } = useAppStore()
+  const { isAuthenticated, setIsAuthenticated, currentUser, setCurrentUser } =
+    usePersistStore()
   const { disconnect } = useDisconnect()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {

@@ -8,7 +8,7 @@ import { motion } from 'framer-motion'
 import { FC, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { CONNECT_WALLET } from 'src/constants'
-import useAppStore from 'src/store'
+import { usePersistStore } from 'src/store'
 
 const ADD_REACTION_MUTATION = gql`
   mutation AddReaction($request: ReactionRequest!) {
@@ -27,7 +27,7 @@ interface Props {
 }
 
 const Like: FC<Props> = ({ post }) => {
-  const { isAuthenticated, currentUser } = useAppStore()
+  const { isAuthenticated, currentUser } = usePersistStore()
   const [liked, setLiked] = useState<boolean>(false)
   const [count, setCount] = useState<number>(0)
 
