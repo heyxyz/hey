@@ -27,7 +27,7 @@ interface Props {
 }
 
 const Like: FC<Props> = ({ post }) => {
-  const { currentUser } = useAppStore()
+  const { isAuthenticated, currentUser } = useAppStore()
   const [liked, setLiked] = useState<boolean>(false)
   const [count, setCount] = useState<number>(0)
 
@@ -62,31 +62,29 @@ const Like: FC<Props> = ({ post }) => {
   })
 
   const createLike = () => {
-    if (!currentUser) {
-      toast.error(CONNECT_WALLET)
-    } else {
-      const variable = {
-        variables: {
-          request: {
-            profileId: currentUser?.id,
-            reaction: 'UPVOTE',
-            publicationId:
-              post.__typename === 'Mirror'
-                ? post?.mirrorOf?.id
-                : post?.pubId ?? post?.id
-          }
+    if (!isAuthenticated) return toast.error(CONNECT_WALLET)
+
+    const variable = {
+      variables: {
+        request: {
+          profileId: currentUser?.id,
+          reaction: 'UPVOTE',
+          publicationId:
+            post.__typename === 'Mirror'
+              ? post?.mirrorOf?.id
+              : post?.pubId ?? post?.id
         }
       }
+    }
 
-      if (liked) {
-        setLiked(false)
-        setCount(count - 1)
-        removeReaction(variable)
-      } else {
-        setLiked(true)
-        setCount(count + 1)
-        addReaction(variable)
-      }
+    if (liked) {
+      setLiked(false)
+      setCount(count - 1)
+      removeReaction(variable)
+    } else {
+      setLiked(true)
+      setCount(count + 1)
+      addReaction(variable)
     }
   }
 
