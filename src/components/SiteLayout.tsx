@@ -47,13 +47,13 @@ const SiteLayout: FC<Props> = ({ children }) => {
     setUserSigNonce
   } = useAppStore()
   const [pageLoading, setPageLoading] = useState<boolean>(true)
-  const { data: accountData } = useAccount()
+  const { data: account } = useAccount()
   const { activeConnector } = useConnect()
   const { activeChain } = useNetwork()
   const { disconnect } = useDisconnect()
   const { mounted } = useIsMounted()
   const { loading } = useQuery(CURRENT_USER_QUERY, {
-    variables: { ownedBy: accountData?.address },
+    variables: { ownedBy: account?.address },
     skip: !isAuthenticated,
     onCompleted(data) {
       const profiles: Profile[] = data?.profiles?.items
@@ -62,8 +62,13 @@ const SiteLayout: FC<Props> = ({ children }) => {
         ?.sort((a: Profile, b: Profile) =>
           !(a.isDefault !== b.isDefault) ? 0 : a.isDefault ? -1 : 1
         )
-      setProfiles(profiles)
-      setUserSigNonce(data?.userSigNonces?.lensHubOnChainSigNonce)
+
+      if (profiles.length === 0) {
+        setCurrentUser(undefined)
+      } else {
+        setProfiles(profiles)
+        setUserSigNonce(data?.userSigNonces?.lensHubOnChainSigNonce)
+      }
 
       consoleLog(
         'Query',
