@@ -19,7 +19,7 @@ import { useRouter } from 'next/router'
 import React, { FC, useState } from 'react'
 import { APP_NAME, ZERO_ADDRESS } from 'src/constants'
 import Custom404 from 'src/pages/404'
-import useAppStore from 'src/store'
+import { usePersistStore } from 'src/store'
 import { object, string } from 'zod'
 
 import Reason from './Reason'
@@ -44,7 +44,7 @@ const Report: FC = () => {
   } = useRouter()
   const [type, setType] = useState<string>('')
   const [subReason, setSubReason] = useState<string>('')
-  const { currentUser } = useAppStore()
+  const { currentUser } = usePersistStore()
   const { data, loading, error } = useQuery(POST_QUERY, {
     variables: {
       request: { publicationId: id },

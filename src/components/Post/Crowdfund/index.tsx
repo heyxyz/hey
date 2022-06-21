@@ -19,7 +19,7 @@ import imagekitURL from '@lib/imagekitURL'
 import clsx from 'clsx'
 import React, { FC, ReactNode, useEffect, useState } from 'react'
 import { STATIC_ASSETS } from 'src/constants'
-import useAppStore from 'src/store'
+import { usePersistStore } from 'src/store'
 
 import { COLLECT_QUERY } from '../Actions/Collect/CollectModule'
 import Fund from './Fund'
@@ -53,7 +53,7 @@ interface Props {
 }
 
 const Crowdfund: FC<Props> = ({ fund }) => {
-  const { currentUser } = useAppStore()
+  const { currentUser } = usePersistStore()
   const [showFundersModal, setShowFundersModal] = useState<boolean>(false)
   const [revenue, setRevenue] = useState<number>(0)
   const { data, loading } = useQuery(COLLECT_QUERY, {

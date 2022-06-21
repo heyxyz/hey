@@ -8,12 +8,12 @@ import {
 import clsx from 'clsx'
 import { FC, Fragment } from 'react'
 import { IS_MAINNET } from 'src/constants'
-import useAppStore from 'src/store'
+import { usePersistStore } from 'src/store'
 
 import { NextLink } from './MenuItems'
 
 const MoreNavItems: FC = () => {
-  const { currentUser } = useAppStore()
+  const { currentUser } = usePersistStore()
 
   return (
     <Menu as="div">
