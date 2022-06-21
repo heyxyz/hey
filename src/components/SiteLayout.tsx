@@ -8,10 +8,12 @@ import Head from 'next/head'
 import { useTheme } from 'next-themes'
 import { FC, ReactNode, Suspense, useEffect, useState } from 'react'
 import { Toaster } from 'react-hot-toast'
+import { CHAIN_ID } from 'src/constants'
 import useAppStore from 'src/store'
-import { useAccount, useConnect, useDisconnect } from 'wagmi'
+import { useAccount, useConnect, useDisconnect, useNetwork } from 'wagmi'
 
 import Loading from './Loading'
+import useIsMounted from './utils/hooks/useIsMounted'
 
 const Navbar = dynamic(() => import('./Shared/Navbar'), { suspense: true })
 
@@ -36,16 +38,23 @@ interface Props {
 
 const SiteLayout: FC<Props> = ({ children }) => {
   const { resolvedTheme } = useTheme()
-  const { currentUser, setCurrentUser, setProfiles, setUserSigNonce } =
-    useAppStore()
+  const {
+    isAuthenticated,
+    setIsAuthenticated,
+    currentUser,
+    setCurrentUser,
+    setProfiles,
+    setUserSigNonce
+  } = useAppStore()
   const [pageLoading, setPageLoading] = useState<boolean>(true)
-  const [refreshToken, setRefreshToken] = useState<string>()
   const { data: accountData } = useAccount()
   const { activeConnector } = useConnect()
+  const { activeChain } = useNetwork()
   const { disconnect } = useDisconnect()
+  const { mounted } = useIsMounted()
   const { loading } = useQuery(CURRENT_USER_QUERY, {
     variables: { ownedBy: accountData?.address },
-    skip: !currentUser || !refreshToken,
+    skip: !isAuthenticated,
     onCompleted(data) {
       const profiles: Profile[] = data?.profiles?.items
         ?.slice()
@@ -65,21 +74,41 @@ const SiteLayout: FC<Props> = ({ children }) => {
   })
 
   useEffect(() => {
-    setRefreshToken(Cookies.get('refreshToken'))
-    setPageLoading(false)
+    const accessToken = Cookies.get('accessToken')
+    const refreshToken = Cookies.get('refreshToken')
 
-    if (!activeConnector) {
-      disconnect()
-    }
-
-    activeConnector?.on('change', () => {
+    const logout = () => {
+      setIsAuthenticated(false)
       setCurrentUser(undefined)
       Cookies.remove('accessToken')
       Cookies.remove('refreshToken')
       localStorage.removeItem('lenster.store')
       disconnect()
+    }
+
+    setPageLoading(false)
+
+    if (
+      refreshToken &&
+      accessToken &&
+      accessToken !== 'undefined' &&
+      refreshToken !== 'undefined' &&
+      currentUser &&
+      activeChain?.id === CHAIN_ID
+    ) {
+      setIsAuthenticated(true)
+    } else {
+      if (isAuthenticated) logout()
+    }
+    if (!activeConnector?.id && mounted) {
+      disconnect()
+      setIsAuthenticated(false)
+    }
+    activeConnector?.on('change', () => {
+      logout()
     })
-  }, [activeConnector, disconnect, setCurrentUser])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isAuthenticated, activeConnector, disconnect, setCurrentUser])
 
   const toastOptions = {
     style: {
