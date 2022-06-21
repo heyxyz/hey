@@ -2,7 +2,6 @@ import { LensHubProxy } from '@abis/LensHubProxy'
 import { gql, useMutation } from '@apollo/client'
 import ChooseFile from '@components/Shared/ChooseFile'
 import IndexStatus from '@components/Shared/IndexStatus'
-import SwitchNetwork from '@components/Shared/SwitchNetwork'
 import { Button } from '@components/UI/Button'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { Spinner } from '@components/UI/Spinner'
@@ -22,7 +21,6 @@ import uploadAssetsToIPFS from '@lib/uploadAssetsToIPFS'
 import React, { ChangeEvent, FC, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
-  CHAIN_ID,
   CONNECT_WALLET,
   ERROR_MESSAGE,
   ERRORS,
@@ -30,7 +28,7 @@ import {
   RELAY_ON
 } from 'src/constants'
 import useAppStore from 'src/store'
-import { useContractWrite, useNetwork, useSignTypedData } from 'wagmi'
+import { useContractWrite, useSignTypedData } from 'wagmi'
 
 const CREATE_SET_PROFILE_IMAGE_URI_TYPED_DATA_MUTATION = gql`
   mutation CreateSetProfileImageUriTypedData(
@@ -73,7 +71,6 @@ const Picture: FC<Props> = ({ profile }) => {
     useAppStore()
   const [avatar, setAvatar] = useState<string>()
   const [uploading, setUploading] = useState<boolean>(false)
-  const { activeChain } = useNetwork()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
       toast.error(error?.message)
@@ -229,44 +226,37 @@ const Picture: FC<Props> = ({ profile }) => {
           </div>
         </div>
       </div>
-      {activeChain?.id !== CHAIN_ID ? (
-        <SwitchNetwork className="ml-auto" />
-      ) : (
-        <div className="flex flex-col space-y-2">
-          <Button
-            className="ml-auto"
-            type="submit"
-            disabled={
-              typedDataLoading ||
-              signLoading ||
-              writeLoading ||
-              broadcastLoading
+      <div className="flex flex-col space-y-2">
+        <Button
+          className="ml-auto"
+          type="submit"
+          disabled={
+            typedDataLoading || signLoading || writeLoading || broadcastLoading
+          }
+          onClick={() => editPicture(avatar)}
+          icon={
+            typedDataLoading ||
+            signLoading ||
+            writeLoading ||
+            broadcastLoading ? (
+              <Spinner size="xs" />
+            ) : (
+              <PencilIcon className="w-4 h-4" />
+            )
+          }
+        >
+          Save
+        </Button>
+        {writeData?.hash ?? broadcastData?.broadcast?.txHash ? (
+          <IndexStatus
+            txHash={
+              writeData?.hash
+                ? writeData?.hash
+                : broadcastData?.broadcast?.txHash
             }
-            onClick={() => editPicture(avatar)}
-            icon={
-              typedDataLoading ||
-              signLoading ||
-              writeLoading ||
-              broadcastLoading ? (
-                <Spinner size="xs" />
-              ) : (
-                <PencilIcon className="w-4 h-4" />
-              )
-            }
-          >
-            Save
-          </Button>
-          {writeData?.hash ?? broadcastData?.broadcast?.txHash ? (
-            <IndexStatus
-              txHash={
-                writeData?.hash
-                  ? writeData?.hash
-                  : broadcastData?.broadcast?.txHash
-              }
-            />
-          ) : null}
-        </div>
-      )}
+          />
+        ) : null}
+      </div>
     </>
   )
 }

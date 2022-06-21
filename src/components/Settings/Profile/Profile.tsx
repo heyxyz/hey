@@ -2,7 +2,6 @@ import { LensPeriphery } from '@abis/LensPeriphery'
 import { gql, useMutation } from '@apollo/client'
 import ChooseFile from '@components/Shared/ChooseFile'
 import IndexStatus from '@components/Shared/IndexStatus'
-import SwitchNetwork from '@components/Shared/SwitchNetwork'
 import { Button } from '@components/UI/Button'
 import { Card, CardBody } from '@components/UI/Card'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
@@ -32,7 +31,6 @@ import React, { ChangeEvent, FC, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
   APP_NAME,
-  CHAIN_ID,
   CONNECT_WALLET,
   ERROR_MESSAGE,
   ERRORS,
@@ -40,7 +38,7 @@ import {
   RELAY_ON
 } from 'src/constants'
 import useAppStore from 'src/store'
-import { useContractWrite, useNetwork, useSignTypedData } from 'wagmi'
+import { useContractWrite, useSignTypedData } from 'wagmi'
 import { object, optional, string } from 'zod'
 
 const CREATE_SET_PROFILE_METADATA_TYPED_DATA_MUTATION = gql`
@@ -104,7 +102,6 @@ const Profile: FC<Props> = ({ profile }) => {
   const [cover, setCover] = useState<string>()
   const [isUploading, setIsUploading] = useState<boolean>(false)
   const [uploading, setUploading] = useState<boolean>(false)
-  const { activeChain } = useNetwork()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
       toast.error(error?.message)
@@ -387,45 +384,41 @@ const Profile: FC<Props> = ({ profile }) => {
               </div>
             </div>
           </div>
-          {activeChain?.id !== CHAIN_ID ? (
-            <SwitchNetwork className="ml-auto" />
-          ) : (
-            <div className="flex flex-col space-y-2">
-              <Button
-                className="ml-auto"
-                type="submit"
-                disabled={
-                  isUploading ||
-                  typedDataLoading ||
-                  signLoading ||
-                  writeLoading ||
-                  broadcastLoading
+          <div className="flex flex-col space-y-2">
+            <Button
+              className="ml-auto"
+              type="submit"
+              disabled={
+                isUploading ||
+                typedDataLoading ||
+                signLoading ||
+                writeLoading ||
+                broadcastLoading
+              }
+              icon={
+                isUploading ||
+                typedDataLoading ||
+                signLoading ||
+                writeLoading ||
+                broadcastLoading ? (
+                  <Spinner size="xs" />
+                ) : (
+                  <PencilIcon className="w-4 h-4" />
+                )
+              }
+            >
+              Save
+            </Button>
+            {writeData?.hash ?? broadcastData?.broadcast?.txHash ? (
+              <IndexStatus
+                txHash={
+                  writeData?.hash
+                    ? writeData?.hash
+                    : broadcastData?.broadcast?.txHash
                 }
-                icon={
-                  isUploading ||
-                  typedDataLoading ||
-                  signLoading ||
-                  writeLoading ||
-                  broadcastLoading ? (
-                    <Spinner size="xs" />
-                  ) : (
-                    <PencilIcon className="w-4 h-4" />
-                  )
-                }
-              >
-                Save
-              </Button>
-              {writeData?.hash ?? broadcastData?.broadcast?.txHash ? (
-                <IndexStatus
-                  txHash={
-                    writeData?.hash
-                      ? writeData?.hash
-                      : broadcastData?.broadcast?.txHash
-                  }
-                />
-              ) : null}
-            </div>
-          )}
+              />
+            ) : null}
+          </div>
         </Form>
       </CardBody>
     </Card>

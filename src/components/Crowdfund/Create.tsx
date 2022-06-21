@@ -5,7 +5,6 @@ import { CREATE_POST_TYPED_DATA_MUTATION } from '@components/Post/NewPost'
 import ChooseFile from '@components/Shared/ChooseFile'
 import Pending from '@components/Shared/Pending'
 import SettingsHelper from '@components/Shared/SettingsHelper'
-import SwitchNetwork from '@components/Shared/SwitchNetwork'
 import { Button } from '@components/UI/Button'
 import { Card } from '@components/UI/Card'
 import { Form, useZodForm } from '@components/UI/Form'
@@ -30,7 +29,6 @@ import React, { ChangeEvent, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
   APP_NAME,
-  CHAIN_ID,
   CONNECT_WALLET,
   DEFAULT_COLLECT_TOKEN,
   ERROR_MESSAGE,
@@ -40,7 +38,7 @@ import {
 } from 'src/constants'
 import Custom404 from 'src/pages/404'
 import useAppStore from 'src/store'
-import { useContractWrite, useNetwork, useSignTypedData } from 'wagmi'
+import { useContractWrite, useSignTypedData } from 'wagmi'
 import { object, string } from 'zod'
 
 const MODULES_CURRENCY_QUERY = gql`
@@ -83,7 +81,6 @@ const Create: NextPage = () => {
     useState<string>('WMATIC')
   const { isAuthenticated, currentUser, userSigNonce, setUserSigNonce } =
     useAppStore()
-  const { activeChain } = useNetwork()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
       toast.error(error?.message)
@@ -418,35 +415,30 @@ const Create: NextPage = () => {
                   </div>
                 </div>
               </div>
-              <div className="ml-auto">
-                {activeChain?.id !== CHAIN_ID ? (
-                  <SwitchNetwork />
-                ) : (
-                  <Button
-                    type="submit"
-                    disabled={
-                      typedDataLoading ||
-                      isUploading ||
-                      signLoading ||
-                      writeLoading ||
-                      broadcastLoading
-                    }
-                    icon={
-                      typedDataLoading ||
-                      isUploading ||
-                      signLoading ||
-                      writeLoading ||
-                      broadcastLoading ? (
-                        <Spinner size="xs" />
-                      ) : (
-                        <PlusIcon className="w-4 h-4" />
-                      )
-                    }
-                  >
-                    Create
-                  </Button>
-                )}
-              </div>
+              <Button
+                className="ml-auto"
+                type="submit"
+                disabled={
+                  typedDataLoading ||
+                  isUploading ||
+                  signLoading ||
+                  writeLoading ||
+                  broadcastLoading
+                }
+                icon={
+                  typedDataLoading ||
+                  isUploading ||
+                  signLoading ||
+                  writeLoading ||
+                  broadcastLoading ? (
+                    <Spinner size="xs" />
+                  ) : (
+                    <PlusIcon className="w-4 h-4" />
+                  )
+                }
+              >
+                Create
+              </Button>
             </Form>
           )}
         </Card>

@@ -1,7 +1,6 @@
 import { LensHubProxy } from '@abis/LensHubProxy'
 import { gql, useMutation, useQuery } from '@apollo/client'
 import IndexStatus from '@components/Shared/IndexStatus'
-import SwitchNetwork from '@components/Shared/SwitchNetwork'
 import { Button } from '@components/UI/Button'
 import { Card } from '@components/UI/Card'
 import { Form, useZodForm } from '@components/UI/Form'
@@ -20,7 +19,6 @@ import splitSignature from '@lib/splitSignature'
 import React, { FC, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
-  CHAIN_ID,
   CONNECT_WALLET,
   DEFAULT_COLLECT_TOKEN,
   ERROR_MESSAGE,
@@ -29,7 +27,7 @@ import {
   RELAY_ON
 } from 'src/constants'
 import useAppStore from 'src/store'
-import { useContractWrite, useNetwork, useSignTypedData } from 'wagmi'
+import { useContractWrite, useSignTypedData } from 'wagmi'
 import { object, string } from 'zod'
 
 const newCrowdfundSchema = object({
@@ -96,7 +94,6 @@ const SuperFollow: FC = () => {
   )
   const [selectedCurrencySymobol, setSelectedCurrencySymobol] =
     useState<string>('WMATIC')
-  const { activeChain } = useNetwork()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
       toast.error(error?.message)
@@ -288,57 +285,51 @@ const SuperFollow: FC = () => {
           placeholder="0x3A5bd...5e3"
           {...form.register('recipient')}
         />
-        <div className="ml-auto">
-          {activeChain?.id !== CHAIN_ID ? (
-            <SwitchNetwork />
-          ) : (
-            <div className="flex flex-col space-y-2">
-              <div className="block space-y-2 space-x-0 sm:flex sm:space-y-0 sm:space-x-2">
-                {followType === 'FeeFollowModuleSettings' && (
-                  <Button
-                    type="button"
-                    variant="danger"
-                    outline
-                    onClick={() => {
-                      setSuperFollow(null, null)
-                    }}
-                    disabled={
-                      typedDataLoading ||
-                      signLoading ||
-                      writeLoading ||
-                      broadcastLoading
-                    }
-                    icon={<XIcon className="w-4 h-4" />}
-                  >
-                    Disable Super follow
-                  </Button>
-                )}
-                <Button
-                  type="submit"
-                  disabled={
-                    typedDataLoading ||
-                    signLoading ||
-                    writeLoading ||
-                    broadcastLoading
-                  }
-                  icon={<StarIcon className="w-4 h-4" />}
-                >
-                  {followType === 'FeeFollowModuleSettings'
-                    ? 'Update Super follow'
-                    : 'Set Super follow'}
-                </Button>
-              </div>
-              {writeData?.hash ?? broadcastData?.broadcast?.txHash ? (
-                <IndexStatus
-                  txHash={
-                    writeData?.hash
-                      ? writeData?.hash
-                      : broadcastData?.broadcast?.txHash
-                  }
-                />
-              ) : null}
-            </div>
-          )}
+        <div className="ml-auto flex flex-col space-y-2">
+          <div className="block space-y-2 space-x-0 sm:flex sm:space-y-0 sm:space-x-2">
+            {followType === 'FeeFollowModuleSettings' && (
+              <Button
+                type="button"
+                variant="danger"
+                outline
+                onClick={() => {
+                  setSuperFollow(null, null)
+                }}
+                disabled={
+                  typedDataLoading ||
+                  signLoading ||
+                  writeLoading ||
+                  broadcastLoading
+                }
+                icon={<XIcon className="w-4 h-4" />}
+              >
+                Disable Super follow
+              </Button>
+            )}
+            <Button
+              type="submit"
+              disabled={
+                typedDataLoading ||
+                signLoading ||
+                writeLoading ||
+                broadcastLoading
+              }
+              icon={<StarIcon className="w-4 h-4" />}
+            >
+              {followType === 'FeeFollowModuleSettings'
+                ? 'Update Super follow'
+                : 'Set Super follow'}
+            </Button>
+          </div>
+          {writeData?.hash ?? broadcastData?.broadcast?.txHash ? (
+            <IndexStatus
+              txHash={
+                writeData?.hash
+                  ? writeData?.hash
+                  : broadcastData?.broadcast?.txHash
+              }
+            />
+          ) : null}
         </div>
       </Form>
     </Card>

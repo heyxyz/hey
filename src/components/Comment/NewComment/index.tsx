@@ -4,7 +4,6 @@ import Attachments from '@components/Shared/Attachments'
 import Markup from '@components/Shared/Markup'
 import Preview from '@components/Shared/Preview'
 import PubIndexStatus from '@components/Shared/PubIndexStatus'
-import SwitchNetwork from '@components/Shared/SwitchNetwork'
 import { Button } from '@components/UI/Button'
 import { Card } from '@components/UI/Card'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
@@ -35,7 +34,6 @@ import { FC, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
   APP_NAME,
-  CHAIN_ID,
   CONNECT_WALLET,
   ERROR_MESSAGE,
   ERRORS,
@@ -43,7 +41,7 @@ import {
   RELAY_ON
 } from 'src/constants'
 import useAppStore from 'src/store'
-import { useContractWrite, useNetwork, useSignTypedData } from 'wagmi'
+import { useContractWrite, useSignTypedData } from 'wagmi'
 
 const Attachment = dynamic(() => import('../../Shared/Attachment'), {
   loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
@@ -120,7 +118,6 @@ const NewComment: FC<Props> = ({ post, type }) => {
   const [feeData, setFeeData] = useState<FEE_DATA_TYPE>(defaultFeeData)
   const [isUploading, setIsUploading] = useState<boolean>(false)
   const [attachments, setAttachments] = useState<LensterAttachment[]>([])
-  const { activeChain } = useNetwork()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
       toast.error(error?.message)
@@ -349,46 +346,42 @@ const NewComment: FC<Props> = ({ post, type }) => {
                   }
                 />
               ) : null}
-              {activeChain?.id !== CHAIN_ID ? (
-                <SwitchNetwork className="ml-auto" />
-              ) : (
-                <Button
-                  className="ml-auto"
-                  disabled={
-                    isUploading ||
-                    typedDataLoading ||
-                    signLoading ||
-                    writeLoading ||
-                    broadcastLoading
-                  }
-                  icon={
-                    isUploading ||
-                    typedDataLoading ||
-                    signLoading ||
-                    writeLoading ||
-                    broadcastLoading ? (
-                      <Spinner size="xs" />
-                    ) : type === 'community post' ? (
-                      <PencilAltIcon className="w-4 h-4" />
-                    ) : (
-                      <ChatAlt2Icon className="w-4 h-4" />
-                    )
-                  }
-                  onClick={createComment}
-                >
-                  {isUploading
-                    ? 'Uploading to IPFS'
-                    : typedDataLoading
-                    ? `Generating ${type === 'comment' ? 'Comment' : 'Post'}`
-                    : signLoading
-                    ? 'Sign'
-                    : writeLoading || broadcastLoading
-                    ? 'Send'
-                    : type === 'comment'
-                    ? 'Comment'
-                    : 'Post'}
-                </Button>
-              )}
+              <Button
+                className="ml-auto"
+                disabled={
+                  isUploading ||
+                  typedDataLoading ||
+                  signLoading ||
+                  writeLoading ||
+                  broadcastLoading
+                }
+                icon={
+                  isUploading ||
+                  typedDataLoading ||
+                  signLoading ||
+                  writeLoading ||
+                  broadcastLoading ? (
+                    <Spinner size="xs" />
+                  ) : type === 'community post' ? (
+                    <PencilAltIcon className="w-4 h-4" />
+                  ) : (
+                    <ChatAlt2Icon className="w-4 h-4" />
+                  )
+                }
+                onClick={createComment}
+              >
+                {isUploading
+                  ? 'Uploading to IPFS'
+                  : typedDataLoading
+                  ? `Generating ${type === 'comment' ? 'Comment' : 'Post'}`
+                  : signLoading
+                  ? 'Sign'
+                  : writeLoading || broadcastLoading
+                  ? 'Send'
+                  : type === 'comment'
+                  ? 'Comment'
+                  : 'Post'}
+              </Button>
             </div>
           </div>
           <Attachments
