@@ -15,20 +15,17 @@ import splitSignature from '@lib/splitSignature'
 import React, { Dispatch, FC, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
-  CHAIN_ID,
   CONNECT_WALLET,
   ERROR_MESSAGE,
   ERRORS,
   LENSHUB_PROXY,
-  RELAY_ON,
-  WRONG_NETWORK
+  RELAY_ON
 } from 'src/constants'
 import useAppStore from 'src/store'
 import {
   useAccount,
   useBalance,
   useContractWrite,
-  useNetwork,
   useSignTypedData
 } from 'wagmi'
 
@@ -75,9 +72,9 @@ interface Props {
 }
 
 const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
-  const { currentUser, userSigNonce, setUserSigNonce } = useAppStore()
+  const { isAuthenticated, currentUser, userSigNonce, setUserSigNonce } =
+    useAppStore()
   const [allowed, setAllowed] = useState<boolean>(true)
-  const { activeChain } = useNetwork()
   const { data: account } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
@@ -204,18 +201,14 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
   )
 
   const createCollect = () => {
-    if (!account?.address) {
-      toast.error(CONNECT_WALLET)
-    } else if (activeChain?.id !== CHAIN_ID) {
-      toast.error(WRONG_NETWORK)
-    } else {
-      createCollectTypedData({
-        variables: {
-          options: { overrideSigNonce: userSigNonce },
-          request: { publicationId: fund.id }
-        }
-      })
-    }
+    if (!isAuthenticated) return toast.error(CONNECT_WALLET)
+
+    createCollectTypedData({
+      variables: {
+        options: { overrideSigNonce: userSigNonce },
+        request: { publicationId: fund.id }
+      }
+    })
   }
 
   return allowanceLoading || balanceLoading ? (
