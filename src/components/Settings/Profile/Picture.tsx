@@ -27,16 +27,10 @@ import {
   ERROR_MESSAGE,
   ERRORS,
   LENSHUB_PROXY,
-  RELAY_ON,
-  WRONG_NETWORK
+  RELAY_ON
 } from 'src/constants'
 import useAppStore from 'src/store'
-import {
-  useAccount,
-  useContractWrite,
-  useNetwork,
-  useSignTypedData
-} from 'wagmi'
+import { useContractWrite, useNetwork, useSignTypedData } from 'wagmi'
 
 const CREATE_SET_PROFILE_IMAGE_URI_TYPED_DATA_MUTATION = gql`
   mutation CreateSetProfileImageUriTypedData(
@@ -75,11 +69,11 @@ interface Props {
 }
 
 const Picture: FC<Props> = ({ profile }) => {
+  const { isAuthenticated, currentUser, userSigNonce, setUserSigNonce } =
+    useAppStore()
   const [avatar, setAvatar] = useState<string>()
   const [uploading, setUploading] = useState<boolean>(false)
-  const { currentUser, userSigNonce, setUserSigNonce } = useAppStore()
   const { activeChain } = useNetwork()
-  const { data: account } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
       toast.error(error?.message)
@@ -189,23 +183,18 @@ const Picture: FC<Props> = ({ profile }) => {
   }
 
   const editPicture = (avatar: string | undefined) => {
-    if (!avatar) {
-      toast.error("Avatar can't be empty!")
-    } else if (!account?.address) {
-      toast.error(CONNECT_WALLET)
-    } else if (activeChain?.id !== CHAIN_ID) {
-      toast.error(WRONG_NETWORK)
-    } else {
-      createSetProfileImageURITypedData({
-        variables: {
-          options: { overrideSigNonce: userSigNonce },
-          request: {
-            profileId: currentUser?.id,
-            url: avatar
-          }
+    if (!isAuthenticated) return toast.error(CONNECT_WALLET)
+    if (!avatar) return toast.error("Avatar can't be empty!")
+
+    createSetProfileImageURITypedData({
+      variables: {
+        options: { overrideSigNonce: userSigNonce },
+        request: {
+          profileId: currentUser?.id,
+          url: avatar
         }
-      })
-    }
+      }
+    })
   }
 
   return (
