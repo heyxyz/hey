@@ -36,16 +36,10 @@ import {
   ERROR_MESSAGE,
   ERRORS,
   LENSHUB_PROXY,
-  RELAY_ON,
-  WRONG_NETWORK
+  RELAY_ON
 } from 'src/constants'
 import useAppStore from 'src/store'
-import {
-  useAccount,
-  useContractWrite,
-  useNetwork,
-  useSignTypedData
-} from 'wagmi'
+import { useContractWrite, useNetwork, useSignTypedData } from 'wagmi'
 
 const Attachment = dynamic(() => import('../../Shared/Attachment'), {
   loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
@@ -111,6 +105,8 @@ interface Props {
 }
 
 const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
+  const { isAuthenticated, currentUser, userSigNonce, setUserSigNonce } =
+    useAppStore()
   const [preview, setPreview] = useState<boolean>(false)
   const [postContent, setPostContent] = useState<string>('')
   const [postContentError, setPostContentError] = useState<string>('')
@@ -120,9 +116,7 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
   const [feeData, setFeeData] = useState<FEE_DATA_TYPE>(defaultFeeData)
   const [isUploading, setIsUploading] = useState<boolean>(false)
   const [attachments, setAttachments] = useState<LensterAttachment[]>([])
-  const { currentUser, userSigNonce, setUserSigNonce } = useAppStore()
   const { activeChain } = useNetwork()
-  const { data: account } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
       toast.error(error?.message)
@@ -227,62 +221,59 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
   )
 
   const createPost = async () => {
-    if (!account?.address) {
-      toast.error(CONNECT_WALLET)
-    } else if (activeChain?.id !== CHAIN_ID) {
-      toast.error(WRONG_NETWORK)
-    } else if (postContent.length === 0 && attachments.length === 0) {
-      setPostContentError('Post should not be empty!')
-    } else {
-      setPostContentError('')
-      setIsUploading(true)
-      // TODO: Add animated_url support
-      const { path } = await uploadToIPFS({
-        version: '1.0.0',
-        metadata_id: generateSnowflake(),
-        description: trimify(postContent),
-        content: trimify(postContent),
-        external_url: `https://lenster.xyz/u/${currentUser?.handle}`,
-        image: attachments.length > 0 ? attachments[0]?.item : null,
-        imageMimeType: attachments.length > 0 ? attachments[0]?.type : null,
-        name: `Post by @${currentUser?.handle}`,
-        mainContentFocus:
-          attachments.length > 0
-            ? attachments[0]?.type === 'video/mp4'
-              ? 'VIDEO'
-              : 'IMAGE'
-            : 'TEXT',
-        contentWarning: null, // TODO
-        attributes: [
-          {
-            traitType: 'string',
-            key: 'type',
-            value: 'post'
-          }
-        ],
-        media: attachments,
-        createdOn: new Date(),
-        appId: APP_NAME
-      }).finally(() => setIsUploading(false))
+    if (!isAuthenticated) return toast.error(CONNECT_WALLET)
+    if (postContent.length === 0 && attachments.length === 0) {
+      return setPostContentError('Post should not be empty!')
+    }
 
-      createPostTypedData({
-        variables: {
-          options: { overrideSigNonce: userSigNonce },
-          request: {
-            profileId: currentUser?.id,
-            contentURI: `https://ipfs.infura.io/ipfs/${path}`,
-            collectModule: feeData.recipient
-              ? {
-                  [getModule(selectedModule.moduleName).config]: feeData
-                }
-              : getModule(selectedModule.moduleName).config,
-            referenceModule: {
-              followerOnlyReferenceModule: onlyFollowers ? true : false
-            }
+    setPostContentError('')
+    setIsUploading(true)
+    // TODO: Add animated_url support
+    const { path } = await uploadToIPFS({
+      version: '1.0.0',
+      metadata_id: generateSnowflake(),
+      description: trimify(postContent),
+      content: trimify(postContent),
+      external_url: `https://lenster.xyz/u/${currentUser?.handle}`,
+      image: attachments.length > 0 ? attachments[0]?.item : null,
+      imageMimeType: attachments.length > 0 ? attachments[0]?.type : null,
+      name: `Post by @${currentUser?.handle}`,
+      mainContentFocus:
+        attachments.length > 0
+          ? attachments[0]?.type === 'video/mp4'
+            ? 'VIDEO'
+            : 'IMAGE'
+          : 'TEXT',
+      contentWarning: null, // TODO
+      attributes: [
+        {
+          traitType: 'string',
+          key: 'type',
+          value: 'post'
+        }
+      ],
+      media: attachments,
+      createdOn: new Date(),
+      appId: APP_NAME
+    }).finally(() => setIsUploading(false))
+
+    createPostTypedData({
+      variables: {
+        options: { overrideSigNonce: userSigNonce },
+        request: {
+          profileId: currentUser?.id,
+          contentURI: `https://ipfs.infura.io/ipfs/${path}`,
+          collectModule: feeData.recipient
+            ? {
+                [getModule(selectedModule.moduleName).config]: feeData
+              }
+            : getModule(selectedModule.moduleName).config,
+          referenceModule: {
+            followerOnlyReferenceModule: onlyFollowers ? true : false
           }
         }
-      })
-    }
+      }
+    })
   }
 
   const setGifAttachment = (gif: IGif) => {
