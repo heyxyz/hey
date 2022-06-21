@@ -47,12 +47,7 @@ const Create: FC<Props> = ({ isModal = false }) => {
   const { activeChain } = useNetwork()
   const { data: account } = useAccount()
   const [createProfile, { data, loading }] = useMutation(
-    CREATE_PROFILE_MUTATION,
-    {
-      onCompleted(data) {
-        console.log(data)
-      }
-    }
+    CREATE_PROFILE_MUTATION
   )
 
   const form = useZodForm({
