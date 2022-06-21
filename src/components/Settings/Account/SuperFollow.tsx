@@ -26,16 +26,10 @@ import {
   ERROR_MESSAGE,
   ERRORS,
   LENSHUB_PROXY,
-  RELAY_ON,
-  WRONG_NETWORK
+  RELAY_ON
 } from 'src/constants'
 import useAppStore from 'src/store'
-import {
-  useAccount,
-  useContractWrite,
-  useNetwork,
-  useSignTypedData
-} from 'wagmi'
+import { useContractWrite, useNetwork, useSignTypedData } from 'wagmi'
 import { object, string } from 'zod'
 
 const newCrowdfundSchema = object({
@@ -95,14 +89,14 @@ export const CREATE_SET_FOLLOW_MODULE_TYPED_DATA_MUTATION = gql`
 `
 
 const SuperFollow: FC = () => {
+  const { isAuthenticated, currentUser, userSigNonce, setUserSigNonce } =
+    useAppStore()
   const [selectedCurrency, setSelectedCurrency] = useState<string>(
     DEFAULT_COLLECT_TOKEN
   )
   const [selectedCurrencySymobol, setSelectedCurrencySymobol] =
     useState<string>('WMATIC')
-  const { currentUser, userSigNonce, setUserSigNonce } = useAppStore()
   const { activeChain } = useNetwork()
-  const { data: account } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
       toast.error(error?.message)
@@ -198,33 +192,29 @@ const SuperFollow: FC = () => {
     })
 
   const setSuperFollow = (amount: string | null, recipient: string | null) => {
-    if (!account?.address) {
-      toast.error(CONNECT_WALLET)
-    } else if (activeChain?.id !== CHAIN_ID) {
-      toast.error(WRONG_NETWORK)
-    } else {
-      createSetFollowModuleTypedData({
-        variables: {
-          options: { overrideSigNonce: userSigNonce },
-          request: {
-            profileId: currentUser?.id,
-            followModule: amount
-              ? {
-                  feeFollowModule: {
-                    amount: {
-                      currency: selectedCurrency,
-                      value: amount
-                    },
-                    recipient
-                  }
+    if (!isAuthenticated) return toast.error(CONNECT_WALLET)
+
+    createSetFollowModuleTypedData({
+      variables: {
+        options: { overrideSigNonce: userSigNonce },
+        request: {
+          profileId: currentUser?.id,
+          followModule: amount
+            ? {
+                feeFollowModule: {
+                  amount: {
+                    currency: selectedCurrency,
+                    value: amount
+                  },
+                  recipient
                 }
-              : {
-                  freeFollowModule: true
-                }
-          }
+              }
+            : {
+                freeFollowModule: true
+              }
         }
-      })
-    }
+      }
+    })
   }
 
   if (loading)

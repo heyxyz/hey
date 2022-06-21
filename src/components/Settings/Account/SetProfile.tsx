@@ -22,8 +22,7 @@ import {
   ERROR_MESSAGE,
   ERRORS,
   LENSHUB_PROXY,
-  RELAY_ON,
-  WRONG_NETWORK
+  RELAY_ON
 } from 'src/constants'
 import Custom404 from 'src/pages/404'
 import useAppStore from 'src/store'
@@ -67,7 +66,8 @@ const CREATE_SET_DEFAULT_PROFILE_DATA_MUTATION = gql`
 `
 
 const SetProfile: FC = () => {
-  const { currentUser, profiles, userSigNonce, setUserSigNonce } = useAppStore()
+  const { isAuthenticated, profiles, userSigNonce, setUserSigNonce } =
+    useAppStore()
   const [selectedUser, setSelectedUser] = useState<string>()
   const { activeChain } = useNetwork()
   const { data: account } = useAccount()
@@ -172,21 +172,17 @@ const SetProfile: FC = () => {
     })
 
   const setDefaultProfile = () => {
-    if (!account?.address) {
-      toast.error(CONNECT_WALLET)
-    } else if (activeChain?.id !== CHAIN_ID) {
-      toast.error(WRONG_NETWORK)
-    } else {
-      createSetDefaultProfileTypedData({
-        variables: {
-          options: { overrideSigNonce: userSigNonce },
-          request: { profileId: selectedUser }
-        }
-      })
-    }
+    if (!isAuthenticated) return toast.error(CONNECT_WALLET)
+
+    createSetDefaultProfileTypedData({
+      variables: {
+        options: { overrideSigNonce: userSigNonce },
+        request: { profileId: selectedUser }
+      }
+    })
   }
 
-  if (!currentUser) return <Custom404 />
+  if (!isAuthenticated) return <Custom404 />
 
   return (
     <Card>
