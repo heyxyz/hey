@@ -37,16 +37,10 @@ import {
   ERROR_MESSAGE,
   ERRORS,
   LENS_PERIPHERY,
-  RELAY_ON,
-  WRONG_NETWORK
+  RELAY_ON
 } from 'src/constants'
 import useAppStore from 'src/store'
-import {
-  useAccount,
-  useContractWrite,
-  useNetwork,
-  useSignTypedData
-} from 'wagmi'
+import { useContractWrite, useNetwork, useSignTypedData } from 'wagmi'
 import { object, optional, string } from 'zod'
 
 const CREATE_SET_PROFILE_METADATA_TYPED_DATA_MUTATION = gql`
@@ -103,14 +97,14 @@ interface Props {
 }
 
 const Profile: FC<Props> = ({ profile }) => {
+  const { isAuthenticated, currentUser, userSigNonce, setUserSigNonce } =
+    useAppStore()
   const [beta, setBeta] = useState<boolean>(isBeta(profile))
   const [pride, setPride] = useState<boolean>(hasPrideLogo(profile))
   const [cover, setCover] = useState<string>()
   const [isUploading, setIsUploading] = useState<boolean>(false)
   const [uploading, setUploading] = useState<boolean>(false)
-  const { currentUser, userSigNonce, setUserSigNonce } = useAppStore()
   const { activeChain } = useNetwork()
-  const { data: account } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
       toast.error(error?.message)
@@ -241,65 +235,61 @@ const Profile: FC<Props> = ({ profile }) => {
     twitter: string | null,
     bio: string | null
   ) => {
-    if (!account?.address) {
-      toast.error(CONNECT_WALLET)
-    } else if (activeChain?.id !== CHAIN_ID) {
-      toast.error(WRONG_NETWORK)
-    } else {
-      setIsUploading(true)
-      const { path } = await uploadToIPFS({
-        name,
-        bio,
-        cover_picture: cover ? cover : null,
-        attributes: [
-          {
-            traitType: 'string',
-            key: 'location',
-            value: location
-          },
-          {
-            traitType: 'string',
-            key: 'website',
-            value: website
-          },
-          {
-            traitType: 'string',
-            key: 'twitter',
-            value: twitter
-          },
-          {
-            traitType: 'boolean',
-            key: 'isBeta',
-            value: beta
-          },
-          {
-            traitType: 'boolean',
-            key: 'hasPrideLogo',
-            value: pride
-          },
-          {
-            traitType: 'string',
-            key: 'app',
-            value: APP_NAME
-          }
-        ],
-        version: '1.0.0',
-        metadata_id: generateSnowflake(),
-        previousMetadata: profile?.metadata,
-        createdOn: new Date(),
-        appId: APP_NAME
-      }).finally(() => setIsUploading(false))
+    if (!isAuthenticated) return toast.error(CONNECT_WALLET)
 
-      createSetProfileMetadataTypedData({
-        variables: {
-          options: { overrideSigNonce: userSigNonce },
-          request: {
-            profileId: currentUser?.id,
-            metadata: `https://ipfs.infura.io/ipfs/${path}`
-          }
+    setIsUploading(true)
+    const { path } = await uploadToIPFS({
+      name,
+      bio,
+      cover_picture: cover ? cover : null,
+      attributes: [
+        {
+          traitType: 'string',
+          key: 'location',
+          value: location
+        },
+        {
+          traitType: 'string',
+          key: 'website',
+          value: website
+        },
+        {
+          traitType: 'string',
+          key: 'twitter',
+          value: twitter
+        },
+        {
+          traitType: 'boolean',
+          key: 'isBeta',
+          value: beta
+        },
+        {
+          traitType: 'boolean',
+          key: 'hasPrideLogo',
+          value: pride
+        },
+        {
+          traitType: 'string',
+          key: 'app',
+          value: APP_NAME
         }
-      })
-    }
+      ],
+      version: '1.0.0',
+      metadata_id: generateSnowflake(),
+      previousMetadata: profile?.metadata,
+      createdOn: new Date(),
+      appId: APP_NAME
+    }).finally(() => setIsUploading(false))
+
+    createSetProfileMetadataTypedData({
+      variables: {
+        options: { overrideSigNonce: userSigNonce },
+        request: {
+          profileId: currentUser?.id,
+          metadata: `https://ipfs.infura.io/ipfs/${path}`
+        }
+      }
+    })
   }
 
   return (
