@@ -36,7 +36,7 @@ import {
   LENSHUB_PROXY,
   RELAY_ON
 } from 'src/constants'
-import useAppStore from 'src/store'
+import { useAppStore, usePersistStore } from 'src/store'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 
 const Attachment = dynamic(() => import('../../Shared/Attachment'), {
@@ -103,8 +103,8 @@ interface Props {
 }
 
 const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
-  const { isAuthenticated, currentUser, userSigNonce, setUserSigNonce } =
-    useAppStore()
+  const { userSigNonce, setUserSigNonce } = useAppStore()
+  const { isAuthenticated, currentUser } = usePersistStore()
   const [preview, setPreview] = useState<boolean>(false)
   const [postContent, setPostContent] = useState<string>('')
   const [postContentError, setPostContentError] = useState<string>('')

@@ -23,7 +23,7 @@ import {
   RELAY_ON
 } from 'src/constants'
 import Custom404 from 'src/pages/404'
-import useAppStore from 'src/store'
+import { useAppStore, usePersistStore } from 'src/store'
 import { useAccount, useContractWrite, useSignTypedData } from 'wagmi'
 
 const CREATE_SET_DEFAULT_PROFILE_DATA_MUTATION = gql`
@@ -59,8 +59,8 @@ const CREATE_SET_DEFAULT_PROFILE_DATA_MUTATION = gql`
 `
 
 const SetProfile: FC = () => {
-  const { isAuthenticated, profiles, userSigNonce, setUserSigNonce } =
-    useAppStore()
+  const { profiles, userSigNonce, setUserSigNonce } = useAppStore()
+  const { isAuthenticated } = usePersistStore()
   const [selectedUser, setSelectedUser] = useState<string>()
   const { data: account } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({

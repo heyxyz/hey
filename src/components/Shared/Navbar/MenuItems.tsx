@@ -24,7 +24,7 @@ import Link from 'next/link'
 import { useTheme } from 'next-themes'
 import { FC, Fragment, useState } from 'react'
 import { CHAIN_ID, GIT_COMMIT_SHA } from 'src/constants'
-import useAppStore from 'src/store'
+import { useAppStore, usePersistStore } from 'src/store'
 import { useDisconnect, useNetwork } from 'wagmi'
 
 import Slug from '../Slug'
@@ -48,8 +48,9 @@ const MenuItems: FC<Props> = ({ pingData }) => {
   const { activeChain } = useNetwork()
   const { disconnect } = useDisconnect()
 
-  const { currentUser, setCurrentUser, profiles, staffMode, setStaffMode } =
-    useAppStore()
+  const { profiles } = useAppStore()
+  const { currentUser, setCurrentUser, staffMode, setStaffMode } =
+    usePersistStore()
 
   const toggleStaffMode = () => {
     setStaffMode(!staffMode)

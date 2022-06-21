@@ -12,7 +12,7 @@ import Cookies from 'js-cookie'
 import React, { Dispatch, FC, useEffect, useState } from 'react'
 import { COOKIE_CONFIG } from 'src/apollo'
 import { CHAIN_ID, ERROR_MESSAGE } from 'src/constants'
-import useAppStore from 'src/store'
+import { useAppStore, usePersistStore } from 'src/store'
 import {
   Connector,
   useAccount,
@@ -77,8 +77,8 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
 
   const { connectors, error, connectAsync } = useConnect()
   const { data: accountData } = useAccount()
-  const { setIsAuthenticated, setCurrentUser, setProfiles, setUserSigNonce } =
-    useAppStore()
+  const { setProfiles } = useAppStore()
+  const { setIsAuthenticated, setCurrentUser } = usePersistStore()
 
   const onConnect = async (x: Connector) => {
     await connectAsync(x).then(({ account }) => {
@@ -126,7 +126,6 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
                 setIsAuthenticated(true)
                 setProfiles(profiles)
                 setCurrentUser(profiles[0])
-                setUserSigNonce(data?.userSigNonces?.lensHubOnChainSigNonce)
               }
             })
           })

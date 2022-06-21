@@ -17,7 +17,7 @@ import {
   LENSHUB_PROXY,
   RELAY_ON
 } from 'src/constants'
-import useAppStore from 'src/store'
+import { useAppStore, usePersistStore } from 'src/store'
 import { useAccount, useContractWrite, useSignTypedData } from 'wagmi'
 
 const CREATE_FOLLOW_TYPED_DATA_MUTATION = gql`
@@ -67,8 +67,8 @@ const Follow: FC<Props> = ({
   followersCount,
   setFollowersCount
 }) => {
-  const { isAuthenticated, currentUser, userSigNonce, setUserSigNonce } =
-    useAppStore()
+  const { userSigNonce, setUserSigNonce } = useAppStore()
+  const { isAuthenticated, currentUser } = usePersistStore()
   const { data: account } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {

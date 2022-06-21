@@ -18,7 +18,7 @@ import React from 'react'
 import { APP_NAME, ZERO_ADDRESS } from 'src/constants'
 import Custom404 from 'src/pages/404'
 import Custom500 from 'src/pages/500'
-import useAppStore from 'src/store'
+import { usePersistStore } from 'src/store'
 
 import IPFSHash from './IPFSHash'
 import PostPageShimmer from './Shimmer'
@@ -72,7 +72,7 @@ const ViewPost: NextPage = () => {
     query: { id }
   } = useRouter()
 
-  const { currentUser } = useAppStore()
+  const { currentUser } = usePersistStore()
   const { data, loading, error } = useQuery(POST_QUERY, {
     variables: {
       request: { publicationId: id },

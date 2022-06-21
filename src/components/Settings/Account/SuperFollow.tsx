@@ -26,7 +26,7 @@ import {
   LENSHUB_PROXY,
   RELAY_ON
 } from 'src/constants'
-import useAppStore from 'src/store'
+import { useAppStore, usePersistStore } from 'src/store'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 import { object, string } from 'zod'
 
@@ -87,8 +87,8 @@ export const CREATE_SET_FOLLOW_MODULE_TYPED_DATA_MUTATION = gql`
 `
 
 const SuperFollow: FC = () => {
-  const { isAuthenticated, currentUser, userSigNonce, setUserSigNonce } =
-    useAppStore()
+  const { userSigNonce, setUserSigNonce } = useAppStore()
+  const { isAuthenticated, currentUser } = usePersistStore()
   const [selectedCurrency, setSelectedCurrency] = useState<string>(
     DEFAULT_COLLECT_TOKEN
   )

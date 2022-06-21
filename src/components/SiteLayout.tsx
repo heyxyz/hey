@@ -9,7 +9,7 @@ import { useTheme } from 'next-themes'
 import { FC, ReactNode, Suspense, useEffect, useState } from 'react'
 import { Toaster } from 'react-hot-toast'
 import { CHAIN_ID } from 'src/constants'
-import useAppStore from 'src/store'
+import { useAppStore, usePersistStore } from 'src/store'
 import { useAccount, useConnect, useDisconnect, useNetwork } from 'wagmi'
 
 import Loading from './Loading'
@@ -38,14 +38,9 @@ interface Props {
 
 const SiteLayout: FC<Props> = ({ children }) => {
   const { resolvedTheme } = useTheme()
-  const {
-    isAuthenticated,
-    setIsAuthenticated,
-    currentUser,
-    setCurrentUser,
-    setProfiles,
-    setUserSigNonce
-  } = useAppStore()
+  const { setProfiles, setUserSigNonce } = useAppStore()
+  const { isAuthenticated, setIsAuthenticated, currentUser, setCurrentUser } =
+    usePersistStore()
   const [pageLoading, setPageLoading] = useState<boolean>(true)
   const { data: account } = useAccount()
   const { activeConnector } = useConnect()
