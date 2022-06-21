@@ -4,6 +4,8 @@ import create from 'zustand'
 import { persist } from 'zustand/middleware'
 
 interface AppState {
+  isAuthenticated: boolean
+  setIsAuthenticated: (isAuthenticated: boolean) => void
   currentUser: Profile | undefined
   setCurrentUser: (currentUser: Profile | undefined) => void
   staffMode: boolean
@@ -17,6 +19,8 @@ interface AppState {
 export const useAppStore = create(
   persist<AppState>(
     (set) => ({
+      isAuthenticated: false,
+      setIsAuthenticated: (isAuthenticated) => set(() => ({ isAuthenticated })),
       currentUser: undefined,
       setCurrentUser: (currentUser) => set(() => ({ currentUser })),
       staffMode: false,

@@ -11,6 +11,7 @@ import React, { useState } from 'react'
 import { APP_NAME } from 'src/constants'
 import Custom404 from 'src/pages/404'
 import Custom500 from 'src/pages/500'
+import useAppStore from 'src/store'
 
 import Cover from './Cover'
 import Details from './Details'
@@ -25,7 +26,7 @@ const NFTFeed = dynamic(() => import('./NFTFeed'), {
 })
 
 export const PROFILE_QUERY = gql`
-  query Profile($request: SingleProfileQueryRequest!) {
+  query Profile($request: SingleProfileQueryRequest!, $who: ProfileId) {
     profile(request: $request) {
       id
       handle
@@ -33,6 +34,8 @@ export const PROFILE_QUERY = gql`
       name
       metadata
       followNftAddress
+      isFollowedByMe
+      isFollowing(who: $who)
       attributes {
         key
         value
@@ -73,13 +76,14 @@ const ViewProfile: NextPage = () => {
   const {
     query: { username, type }
   } = useRouter()
+  const { currentUser } = useAppStore()
   const [feedType, setFeedType] = useState<string>(
     type && ['post', 'comment', 'mirror', 'nft'].includes(type as string)
       ? type?.toString().toUpperCase()
       : 'POST'
   )
   const { data, loading, error } = useQuery(PROFILE_QUERY, {
-    variables: { request: { handle: username } },
+    variables: { request: { handle: username }, who: currentUser?.id ?? null },
     skip: !username,
     onCompleted(data) {
       consoleLog(

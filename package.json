@@ -88,8 +88,5 @@
       "eslint --cache --fix",
       "prettier --write"
     ]
-  },
-  "engines": {
-    "node": ">=16.x"
   }
 }

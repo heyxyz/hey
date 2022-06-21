@@ -15,20 +15,13 @@ import React, { FC } from 'react'
 import toast from 'react-hot-toast'
 import {
   APP_NAME,
-  CHAIN_ID,
   CONNECT_WALLET,
   ERROR_MESSAGE,
-  LENSHUB_PROXY,
-  WRONG_NETWORK
+  LENSHUB_PROXY
 } from 'src/constants'
 import Custom404 from 'src/pages/404'
 import useAppStore from 'src/store'
-import {
-  useAccount,
-  useContractWrite,
-  useNetwork,
-  useSignTypedData
-} from 'wagmi'
+import { useContractWrite, useSignTypedData } from 'wagmi'
 
 import Sidebar from '../Sidebar'
 
@@ -64,9 +57,8 @@ const CREATE_BURN_PROFILE_TYPED_DATA_MUTATION = gql`
 `
 
 const DeleteSettings: FC = () => {
-  const { currentUser, userSigNonce, setUserSigNonce } = useAppStore()
-  const { activeChain } = useNetwork()
-  const { data: account } = useAccount()
+  const { isAuthenticated, currentUser, userSigNonce, setUserSigNonce } =
+    useAppStore()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
       toast.error(error?.message)
@@ -130,18 +122,14 @@ const DeleteSettings: FC = () => {
     })
 
   const handleDelete = () => {
-    if (!account?.address) {
-      toast.error(CONNECT_WALLET)
-    } else if (activeChain?.id !== CHAIN_ID) {
-      toast.error(WRONG_NETWORK)
-    } else {
-      createBurnProfileTypedData({
-        variables: {
-          options: { overrideSigNonce: userSigNonce },
-          request: { profileId: currentUser?.id }
-        }
-      })
-    }
+    if (!isAuthenticated) return toast.error(CONNECT_WALLET)
+
+    createBurnProfileTypedData({
+      variables: {
+        options: { overrideSigNonce: userSigNonce },
+        request: { profileId: currentUser?.id }
+      }
+    })
   }
 
   if (!currentUser) return <Custom404 />

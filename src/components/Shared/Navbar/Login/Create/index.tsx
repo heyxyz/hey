@@ -115,7 +115,7 @@ const Create: FC<Props> = ({ isModal = false }) => {
       <Input
         label="Handle"
         type="text"
-        placeholder="justinbieber"
+        placeholder="gavin"
         {...form.register('handle')}
       />
       <div className="space-y-1.5">

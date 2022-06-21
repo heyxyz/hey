@@ -12,21 +12,14 @@ import splitSignature from '@lib/splitSignature'
 import React, { Dispatch, FC } from 'react'
 import toast from 'react-hot-toast'
 import {
-  CHAIN_ID,
   CONNECT_WALLET,
   ERROR_MESSAGE,
   ERRORS,
   LENSHUB_PROXY,
-  RELAY_ON,
-  WRONG_NETWORK
+  RELAY_ON
 } from 'src/constants'
 import useAppStore from 'src/store'
-import {
-  useAccount,
-  useContractWrite,
-  useNetwork,
-  useSignTypedData
-} from 'wagmi'
+import { useAccount, useContractWrite, useSignTypedData } from 'wagmi'
 
 const CREATE_COLLECT_TYPED_DATA_MUTATION = gql`
   mutation CreateCollectTypedData(
@@ -68,8 +61,7 @@ interface Props {
 }
 
 const Join: FC<Props> = ({ community, setJoined, showJoin = true }) => {
-  const { userSigNonce, setUserSigNonce } = useAppStore()
-  const { activeChain } = useNetwork()
+  const { isAuthenticated, userSigNonce, setUserSigNonce } = useAppStore()
   const { data: account } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
@@ -160,18 +152,14 @@ const Join: FC<Props> = ({ community, setJoined, showJoin = true }) => {
   )
 
   const createCollect = () => {
-    if (!account?.address) {
-      toast.error(CONNECT_WALLET)
-    } else if (activeChain?.id !== CHAIN_ID) {
-      toast.error(WRONG_NETWORK)
-    } else {
-      createCollectTypedData({
-        variables: {
-          options: { overrideSigNonce: userSigNonce },
-          request: { publicationId: community.id }
-        }
-      })
-    }
+    if (!isAuthenticated) return toast.error(CONNECT_WALLET)
+
+    createCollectTypedData({
+      variables: {
+        options: { overrideSigNonce: userSigNonce },
+        request: { publicationId: community.id }
+      }
+    })
   }
 
   return (
