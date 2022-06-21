@@ -11,6 +11,7 @@ import { TrashIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
+import Cookies from 'js-cookie'
 import React, { FC } from 'react'
 import toast from 'react-hot-toast'
 import {
@@ -21,7 +22,7 @@ import {
 } from 'src/constants'
 import Custom404 from 'src/pages/404'
 import useAppStore from 'src/store'
-import { useContractWrite, useSignTypedData } from 'wagmi'
+import { useContractWrite, useDisconnect, useSignTypedData } from 'wagmi'
 
 import Sidebar from '../Sidebar'
 
@@ -57,8 +58,15 @@ const CREATE_BURN_PROFILE_TYPED_DATA_MUTATION = gql`
 `
 
 const DeleteSettings: FC = () => {
-  const { isAuthenticated, currentUser, userSigNonce, setUserSigNonce } =
-    useAppStore()
+  const {
+    isAuthenticated,
+    setIsAuthenticated,
+    currentUser,
+    setCurrentUser,
+    userSigNonce,
+    setUserSigNonce
+  } = useAppStore()
+  const { disconnect } = useDisconnect()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
       toast.error(error?.message)
@@ -66,6 +74,12 @@ const DeleteSettings: FC = () => {
   })
 
   const onCompleted = () => {
+    setIsAuthenticated(false)
+    setCurrentUser(undefined)
+    Cookies.remove('accessToken')
+    Cookies.remove('refreshToken')
+    localStorage.removeItem('lenster.store')
+    disconnect()
     location.href = '/'
   }
 
