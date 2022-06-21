@@ -15,21 +15,14 @@ import { motion } from 'framer-motion'
 import { FC, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
-  CHAIN_ID,
   CONNECT_WALLET,
   ERROR_MESSAGE,
   ERRORS,
   LENSHUB_PROXY,
-  RELAY_ON,
-  WRONG_NETWORK
+  RELAY_ON
 } from 'src/constants'
 import useAppStore from 'src/store'
-import {
-  useAccount,
-  useContractWrite,
-  useNetwork,
-  useSignTypedData
-} from 'wagmi'
+import { useContractWrite, useSignTypedData } from 'wagmi'
 
 const CREATE_MIRROR_TYPED_DATA_MUTATION = gql`
   mutation CreateMirrorTypedData(
@@ -73,9 +66,8 @@ interface Props {
 
 const Mirror: FC<Props> = ({ post }) => {
   const [count, setCount] = useState<number>(0)
-  const { currentUser, userSigNonce, setUserSigNonce } = useAppStore()
-  const { activeChain } = useNetwork()
-  const { data: account } = useAccount()
+  const { isAuthenticated, currentUser, userSigNonce, setUserSigNonce } =
+    useAppStore()
 
   useEffect(() => {
     if (
@@ -189,24 +181,20 @@ const Mirror: FC<Props> = ({ post }) => {
   )
 
   const createMirror = () => {
-    if (!account?.address) {
-      toast.error(CONNECT_WALLET)
-    } else if (activeChain?.id !== CHAIN_ID) {
-      toast.error(WRONG_NETWORK)
-    } else {
-      createMirrorTypedData({
-        variables: {
-          options: { overrideSigNonce: userSigNonce },
-          request: {
-            profileId: currentUser?.id,
-            publicationId: post?.pubId ?? post?.id,
-            referenceModule: {
-              followerOnlyReferenceModule: false
-            }
+    if (!isAuthenticated) return toast.error(CONNECT_WALLET)
+
+    createMirrorTypedData({
+      variables: {
+        options: { overrideSigNonce: userSigNonce },
+        request: {
+          profileId: currentUser?.id,
+          publicationId: post?.pubId ?? post?.id,
+          referenceModule: {
+            followerOnlyReferenceModule: false
           }
         }
-      })
-    }
+      }
+    })
   }
 
   return (

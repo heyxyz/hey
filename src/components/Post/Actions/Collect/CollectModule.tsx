@@ -38,21 +38,18 @@ import dayjs from 'dayjs'
 import React, { Dispatch, FC, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
-  CHAIN_ID,
   CONNECT_WALLET,
   ERROR_MESSAGE,
   ERRORS,
   LENSHUB_PROXY,
   POLYGONSCAN_URL,
-  RELAY_ON,
-  WRONG_NETWORK
+  RELAY_ON
 } from 'src/constants'
 import useAppStore from 'src/store'
 import {
   useAccount,
   useBalance,
   useContractWrite,
-  useNetwork,
   useSignTypedData
 } from 'wagmi'
 
@@ -122,12 +119,12 @@ interface Props {
 }
 
 const CollectModule: FC<Props> = ({ count, setCount, post }) => {
-  const { currentUser, userSigNonce, setUserSigNonce } = useAppStore()
+  const { isAuthenticated, currentUser, userSigNonce, setUserSigNonce } =
+    useAppStore()
   const [revenue, setRevenue] = useState<number>(0)
   const [showCollectorsModal, setShowCollectorsModal] = useState<boolean>(false)
   const [allowed, setAllowed] = useState<boolean>(true)
 
-  const { activeChain } = useNetwork()
   const { data: account } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
@@ -302,18 +299,14 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
   )
 
   const createCollect = () => {
-    if (!account?.address) {
-      toast.error(CONNECT_WALLET)
-    } else if (activeChain?.id !== CHAIN_ID) {
-      toast.error(WRONG_NETWORK)
-    } else {
-      createCollectTypedData({
-        variables: {
-          options: { overrideSigNonce: userSigNonce },
-          request: { publicationId: post?.pubId ?? post?.id }
-        }
-      })
-    }
+    if (!isAuthenticated) return toast.error(CONNECT_WALLET)
+
+    createCollectTypedData({
+      variables: {
+        options: { overrideSigNonce: userSigNonce },
+        request: { publicationId: post?.pubId ?? post?.id }
+      }
+    })
   }
 
   if (loading || revenueLoading) return <Loader message="Loading collect" />

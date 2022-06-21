@@ -77,7 +77,8 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
 
   const { connectors, error, connectAsync } = useConnect()
   const { data: accountData } = useAccount()
-  const { setCurrentUser, setProfiles, setUserSigNonce } = useAppStore()
+  const { setIsAuthenticated, setCurrentUser, setProfiles, setUserSigNonce } =
+    useAppStore()
 
   const onConnect = async (x: Connector) => {
     await connectAsync(x).then(({ account }) => {
@@ -122,6 +123,7 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
                   ?.sort((a: Profile, b: Profile) =>
                     !(a.isDefault !== b.isDefault) ? 0 : a.isDefault ? -1 : 1
                   )
+                setIsAuthenticated(true)
                 setProfiles(profiles)
                 setCurrentUser(profiles[0])
                 setUserSigNonce(data?.userSigNonces?.lensHubOnChainSigNonce)

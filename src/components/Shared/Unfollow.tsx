@@ -10,13 +10,9 @@ import splitSignature from '@lib/splitSignature'
 import { Contract, Signer } from 'ethers'
 import { Dispatch, FC, useState } from 'react'
 import toast from 'react-hot-toast'
-import {
-  CHAIN_ID,
-  CONNECT_WALLET,
-  ERROR_MESSAGE,
-  WRONG_NETWORK
-} from 'src/constants'
-import { useAccount, useNetwork, useSigner, useSignTypedData } from 'wagmi'
+import { CONNECT_WALLET, ERROR_MESSAGE } from 'src/constants'
+import useAppStore from 'src/store'
+import { useSigner, useSignTypedData } from 'wagmi'
 
 const CREATE_UNFOLLOW_TYPED_DATA_MUTATION = gql`
   mutation CreateUnfollowTypedData($request: UnfollowRequest!) {
@@ -61,9 +57,8 @@ const Unfollow: FC<Props> = ({
   followersCount,
   setFollowersCount
 }) => {
+  const { isAuthenticated } = useAppStore()
   const [writeLoading, setWriteLoading] = useState<boolean>(false)
-  const { activeChain } = useNetwork()
-  const { data: account } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
       toast.error(error?.message)
@@ -124,17 +119,13 @@ const Unfollow: FC<Props> = ({
   )
 
   const createUnfollow = () => {
-    if (!account?.address) {
-      toast.error(CONNECT_WALLET)
-    } else if (activeChain?.id !== CHAIN_ID) {
-      toast.error(WRONG_NETWORK)
-    } else {
-      createUnfollowTypedData({
-        variables: {
-          request: { profile: profile?.id }
-        }
-      })
-    }
+    if (!isAuthenticated) return toast.error(CONNECT_WALLET)
+
+    createUnfollowTypedData({
+      variables: {
+        request: { profile: profile?.id }
+      }
+    })
   }
 
   return (
