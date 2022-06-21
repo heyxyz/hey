@@ -11,7 +11,7 @@ import { Contract, Signer } from 'ethers'
 import { Dispatch, FC, useState } from 'react'
 import toast from 'react-hot-toast'
 import { CONNECT_WALLET, ERROR_MESSAGE } from 'src/constants'
-import useAppStore from 'src/store'
+import { usePersistStore } from 'src/store'
 import { useSigner, useSignTypedData } from 'wagmi'
 
 const CREATE_UNFOLLOW_TYPED_DATA_MUTATION = gql`
@@ -57,7 +57,7 @@ const Unfollow: FC<Props> = ({
   followersCount,
   setFollowersCount
 }) => {
-  const { isAuthenticated } = useAppStore()
+  const { isAuthenticated } = usePersistStore()
   const [writeLoading, setWriteLoading] = useState<boolean>(false)
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {

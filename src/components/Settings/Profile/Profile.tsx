@@ -37,7 +37,7 @@ import {
   LENS_PERIPHERY,
   RELAY_ON
 } from 'src/constants'
-import useAppStore from 'src/store'
+import { useAppStore, usePersistStore } from 'src/store'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 import { object, optional, string } from 'zod'
 
@@ -95,8 +95,8 @@ interface Props {
 }
 
 const Profile: FC<Props> = ({ profile }) => {
-  const { isAuthenticated, currentUser, userSigNonce, setUserSigNonce } =
-    useAppStore()
+  const { userSigNonce, setUserSigNonce } = useAppStore()
+  const { isAuthenticated, currentUser } = usePersistStore()
   const [beta, setBeta] = useState<boolean>(isBeta(profile))
   const [pride, setPride] = useState<boolean>(hasPrideLogo(profile))
   const [cover, setCover] = useState<string>()

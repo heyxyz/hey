@@ -5,7 +5,7 @@ import { HeartIcon } from '@heroicons/react/solid'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import React, { FC } from 'react'
-import useAppStore from 'src/store'
+import { usePersistStore } from 'src/store'
 
 import { NotificationProfileAvatar, NotificationProfileName } from '../Profile'
 import {
@@ -20,7 +20,7 @@ interface Props {
 }
 
 const FollowerNotification: FC<Props> = ({ notification }) => {
-  const { currentUser } = useAppStore()
+  const { currentUser } = usePersistStore()
 
   return (
     <div className="flex items-center space-x-3">
