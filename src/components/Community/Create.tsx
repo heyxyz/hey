@@ -32,17 +32,11 @@ import {
   ERROR_MESSAGE,
   ERRORS,
   LENSHUB_PROXY,
-  RELAY_ON,
-  WRONG_NETWORK
+  RELAY_ON
 } from 'src/constants'
 import Custom404 from 'src/pages/404'
 import useAppStore from 'src/store'
-import {
-  useAccount,
-  useContractWrite,
-  useNetwork,
-  useSignTypedData
-} from 'wagmi'
+import { useContractWrite, useNetwork, useSignTypedData } from 'wagmi'
 import { object, string } from 'zod'
 
 const newCommunitySchema = object({
@@ -55,13 +49,13 @@ const newCommunitySchema = object({
 })
 
 const Create: NextPage = () => {
+  const { isAuthenticated } = useAppStore()
   const [avatar, setAvatar] = useState<string>()
   const [avatarType, setAvatarType] = useState<string>()
   const [isUploading, setIsUploading] = useState<boolean>(false)
   const [uploading, setUploading] = useState<boolean>(false)
   const { currentUser, userSigNonce, setUserSigNonce } = useAppStore()
   const { activeChain } = useNetwork()
-  const { data: account } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
       toast.error(error?.message)
@@ -168,57 +162,53 @@ const Create: NextPage = () => {
   )
 
   const createCommunity = async (name: string, description: string | null) => {
-    if (!account?.address) {
-      toast.error(CONNECT_WALLET)
-    } else if (activeChain?.id !== CHAIN_ID) {
-      toast.error(WRONG_NETWORK)
-    } else {
-      setIsUploading(true)
-      const { path } = await uploadToIPFS({
-        version: '1.0.0',
-        metadata_id: generateSnowflake(),
-        description: description,
-        content: description,
-        external_url: null,
-        image: avatar
-          ? avatar
-          : `https://avatar.tobi.sh/${generateSnowflake()}.png`,
-        imageMimeType: avatarType,
-        name: name,
-        contentWarning: null, // TODO
-        attributes: [
-          {
-            traitType: 'string',
-            key: 'type',
-            value: 'community'
-          }
-        ],
-        media: [],
-        createdOn: new Date(),
-        appId: `${APP_NAME} Community`
-      }).finally(() => setIsUploading(false))
+    if (!isAuthenticated) return toast.error(CONNECT_WALLET)
 
-      createPostTypedData({
-        variables: {
-          options: { overrideSigNonce: userSigNonce },
-          request: {
-            profileId: currentUser?.id,
-            contentURI: `https://ipfs.infura.io/ipfs/${path}`,
-            collectModule: {
-              freeCollectModule: {
-                followerOnly: false
-              }
-            },
-            referenceModule: {
-              followerOnlyReferenceModule: false
+    setIsUploading(true)
+    const { path } = await uploadToIPFS({
+      version: '1.0.0',
+      metadata_id: generateSnowflake(),
+      description: description,
+      content: description,
+      external_url: null,
+      image: avatar
+        ? avatar
+        : `https://avatar.tobi.sh/${generateSnowflake()}.png`,
+      imageMimeType: avatarType,
+      name: name,
+      contentWarning: null, // TODO
+      attributes: [
+        {
+          traitType: 'string',
+          key: 'type',
+          value: 'community'
+        }
+      ],
+      media: [],
+      createdOn: new Date(),
+      appId: `${APP_NAME} Community`
+    }).finally(() => setIsUploading(false))
+
+    createPostTypedData({
+      variables: {
+        options: { overrideSigNonce: userSigNonce },
+        request: {
+          profileId: currentUser?.id,
+          contentURI: `https://ipfs.infura.io/ipfs/${path}`,
+          collectModule: {
+            freeCollectModule: {
+              followerOnly: false
             }
+          },
+          referenceModule: {
+            followerOnlyReferenceModule: false
           }
         }
-      })
-    }
+      }
+    })
   }
 
-  if (!currentUser) return <Custom404 />
+  if (!isAuthenticated) return <Custom404 />
 
   return (
     <GridLayout>
