@@ -27,13 +27,11 @@ import {
   ERRORS,
   IS_MAINNET,
   LENSHUB_PROXY,
-  RELAY_ON,
-  WRONG_NETWORK
+  RELAY_ON
 } from 'src/constants'
 import useAppStore from 'src/store'
 import {
   chain,
-  useAccount,
   useContractWrite,
   useNetwork,
   useSignMessage,
@@ -102,12 +100,12 @@ const NFTPicture: FC<Props> = ({ profile }) => {
     }
   })
 
-  const { currentUser, userSigNonce, setUserSigNonce } = useAppStore()
+  const { isAuthenticated, currentUser, userSigNonce, setUserSigNonce } =
+    useAppStore()
   const [chainId, setChainId] = useState<number>(
     IS_MAINNET ? chain.mainnet.id : chain.kovan.id
   )
   const { activeChain } = useNetwork()
-  const { data: account } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
       toast.error(error?.message)
@@ -197,40 +195,36 @@ const NFTPicture: FC<Props> = ({ profile }) => {
     })
 
   const setAvatar = async (contractAddress: string, tokenId: string) => {
-    if (!account?.address) {
-      toast.error(CONNECT_WALLET)
-    } else if (activeChain?.id !== CHAIN_ID) {
-      toast.error(WRONG_NETWORK)
-    } else {
-      const challengeRes = await loadChallenge({
+    if (!isAuthenticated) return toast.error(CONNECT_WALLET)
+
+    const challengeRes = await loadChallenge({
+      variables: {
+        request: {
+          ethereumAddress: currentUser?.ownedBy,
+          nfts: {
+            contractAddress,
+            tokenId,
+            chainId
+          }
+        }
+      }
+    })
+    signMessageAsync({
+      message: challengeRes?.data?.nftOwnershipChallenge?.text
+    }).then((signature) => {
+      createSetProfileImageURITypedData({
         variables: {
+          options: { overrideSigNonce: userSigNonce },
           request: {
-            ethereumAddress: currentUser?.ownedBy,
-            nfts: {
-              contractAddress,
-              tokenId,
-              chainId
+            profileId: currentUser?.id,
+            nftData: {
+              id: challengeRes?.data?.nftOwnershipChallenge?.id,
+              signature
             }
           }
         }
       })
-      signMessageAsync({
-        message: challengeRes?.data?.nftOwnershipChallenge?.text
-      }).then((signature) => {
-        createSetProfileImageURITypedData({
-          variables: {
-            options: { overrideSigNonce: userSigNonce },
-            request: {
-              profileId: currentUser?.id,
-              nftData: {
-                id: challengeRes?.data?.nftOwnershipChallenge?.id,
-                signature
-              }
-            }
-          }
-        })
-      })
-    }
+    })
   }
 
   return (
