@@ -1,7 +1,6 @@
 import { LensHubProxy } from '@abis/LensHubProxy'
 import { useLazyQuery, useMutation } from '@apollo/client'
 import IndexStatus from '@components/Shared/IndexStatus'
-import SwitchNetwork from '@components/Shared/SwitchNetwork'
 import { Button } from '@components/UI/Button'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { Form, useZodForm } from '@components/UI/Form'
@@ -21,7 +20,6 @@ import gql from 'graphql-tag'
 import React, { FC, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
-  CHAIN_ID,
   CONNECT_WALLET,
   ERROR_MESSAGE,
   ERRORS,
@@ -33,7 +31,6 @@ import useAppStore from 'src/store'
 import {
   chain,
   useContractWrite,
-  useNetwork,
   useSignMessage,
   useSignTypedData
 } from 'wagmi'
@@ -105,7 +102,6 @@ const NFTPicture: FC<Props> = ({ profile }) => {
   const [chainId, setChainId] = useState<number>(
     IS_MAINNET ? chain.mainnet.id : chain.kovan.id
   )
-  const { activeChain } = useNetwork()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
       toast.error(error?.message)
@@ -273,45 +269,42 @@ const NFTPicture: FC<Props> = ({ profile }) => {
         placeholder="1"
         {...form.register('tokenId')}
       />
-      {activeChain?.id !== CHAIN_ID ? (
-        <SwitchNetwork className="ml-auto" />
-      ) : (
-        <div className="flex flex-col space-y-2">
-          <Button
-            className="ml-auto"
-            type="submit"
-            disabled={
-              challengeLoading ||
-              typedDataLoading ||
-              signLoading ||
-              writeLoading ||
-              broadcastLoading
+
+      <div className="flex flex-col space-y-2">
+        <Button
+          className="ml-auto"
+          type="submit"
+          disabled={
+            challengeLoading ||
+            typedDataLoading ||
+            signLoading ||
+            writeLoading ||
+            broadcastLoading
+          }
+          icon={
+            challengeLoading ||
+            typedDataLoading ||
+            signLoading ||
+            writeLoading ||
+            broadcastLoading ? (
+              <Spinner size="xs" />
+            ) : (
+              <PencilIcon className="w-4 h-4" />
+            )
+          }
+        >
+          Save
+        </Button>
+        {writeData?.hash ?? broadcastData?.broadcast?.txHash ? (
+          <IndexStatus
+            txHash={
+              writeData?.hash
+                ? writeData?.hash
+                : broadcastData?.broadcast?.txHash
             }
-            icon={
-              challengeLoading ||
-              typedDataLoading ||
-              signLoading ||
-              writeLoading ||
-              broadcastLoading ? (
-                <Spinner size="xs" />
-              ) : (
-                <PencilIcon className="w-4 h-4" />
-              )
-            }
-          >
-            Save
-          </Button>
-          {writeData?.hash ?? broadcastData?.broadcast?.txHash ? (
-            <IndexStatus
-              txHash={
-                writeData?.hash
-                  ? writeData?.hash
-                  : broadcastData?.broadcast?.txHash
-              }
-            />
-          ) : null}
-        </div>
-      )}
+          />
+        ) : null}
+      </div>
     </Form>
   )
 }

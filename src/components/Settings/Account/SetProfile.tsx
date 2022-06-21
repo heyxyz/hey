@@ -1,7 +1,6 @@
 import { LensHubProxy } from '@abis/LensHubProxy'
 import { gql, useMutation } from '@apollo/client'
 import IndexStatus from '@components/Shared/IndexStatus'
-import SwitchNetwork from '@components/Shared/SwitchNetwork'
 import UserProfile from '@components/Shared/UserProfile'
 import { Button } from '@components/UI/Button'
 import { Card, CardBody } from '@components/UI/Card'
@@ -17,7 +16,6 @@ import React, { FC, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
   APP_NAME,
-  CHAIN_ID,
   CONNECT_WALLET,
   ERROR_MESSAGE,
   ERRORS,
@@ -26,12 +24,7 @@ import {
 } from 'src/constants'
 import Custom404 from 'src/pages/404'
 import useAppStore from 'src/store'
-import {
-  useAccount,
-  useContractWrite,
-  useNetwork,
-  useSignTypedData
-} from 'wagmi'
+import { useAccount, useContractWrite, useSignTypedData } from 'wagmi'
 
 const CREATE_SET_DEFAULT_PROFILE_DATA_MUTATION = gql`
   mutation CreateSetDefaultProfileTypedData(
@@ -69,7 +62,6 @@ const SetProfile: FC = () => {
   const { isAuthenticated, profiles, userSigNonce, setUserSigNonce } =
     useAppStore()
   const [selectedUser, setSelectedUser] = useState<string>()
-  const { activeChain } = useNetwork()
   const { data: account } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
@@ -225,45 +217,41 @@ const SetProfile: FC = () => {
             ))}
           </select>
         </div>
-        {activeChain?.id !== CHAIN_ID ? (
-          <SwitchNetwork className="ml-auto" />
-        ) : (
-          <div className="flex flex-col space-y-2">
-            <Button
-              className="ml-auto"
-              type="submit"
-              disabled={
-                typedDataLoading ||
-                signLoading ||
-                writeLoading ||
-                broadcastLoading
+        <div className="flex flex-col space-y-2">
+          <Button
+            className="ml-auto"
+            type="submit"
+            disabled={
+              typedDataLoading ||
+              signLoading ||
+              writeLoading ||
+              broadcastLoading
+            }
+            onClick={setDefaultProfile}
+            icon={
+              typedDataLoading ||
+              signLoading ||
+              writeLoading ||
+              broadcastLoading ? (
+                <Spinner size="xs" />
+              ) : (
+                <PencilIcon className="w-4 h-4" />
+              )
+            }
+          >
+            Save
+          </Button>
+          {writeData?.hash ?? broadcastData?.broadcast?.txHash ? (
+            <IndexStatus
+              txHash={
+                writeData?.hash
+                  ? writeData?.hash
+                  : broadcastData?.broadcast?.txHash
               }
-              onClick={setDefaultProfile}
-              icon={
-                typedDataLoading ||
-                signLoading ||
-                writeLoading ||
-                broadcastLoading ? (
-                  <Spinner size="xs" />
-                ) : (
-                  <PencilIcon className="w-4 h-4" />
-                )
-              }
-            >
-              Save
-            </Button>
-            {writeData?.hash ?? broadcastData?.broadcast?.txHash ? (
-              <IndexStatus
-                txHash={
-                  writeData?.hash
-                    ? writeData?.hash
-                    : broadcastData?.broadcast?.txHash
-                }
-                reload
-              />
-            ) : null}
-          </div>
-        )}
+              reload
+            />
+          ) : null}
+        </div>
       </CardBody>
     </Card>
   )
