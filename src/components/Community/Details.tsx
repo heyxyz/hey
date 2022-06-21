@@ -1,4 +1,3 @@
-import { gql, useQuery } from '@apollo/client'
 import Collectors from '@components/Shared/Collectors'
 import Markup from '@components/Shared/Markup'
 import { Button } from '@components/UI/Button'
@@ -11,7 +10,6 @@ import {
   PencilAltIcon,
   UsersIcon
 } from '@heroicons/react/outline'
-import consoleLog from '@lib/consoleLog'
 import imagekitURL from '@lib/imagekitURL'
 import nFormatter from '@lib/nFormatter'
 import dayjs from 'dayjs'
@@ -28,16 +26,6 @@ const Settings = dynamic(() => import('./Settings'), {
 
 dayjs.extend(relativeTime)
 
-export const HAS_JOINED_QUERY = gql`
-  query HasJoined($request: HasCollectedRequest!) {
-    hasCollected(request: $request) {
-      results {
-        collected
-      }
-    }
-  }
-`
-
 interface Props {
   community: LensterPost
 }
@@ -46,26 +34,7 @@ const Details: FC<Props> = ({ community }) => {
   const { currentUser } = useAppStore()
   const [showMembersModal, setShowMembersModal] = useState<boolean>(false)
   const [showSettingsModal, setShowSettingsModal] = useState<boolean>(false)
-  const [joined, setJoined] = useState<boolean>(false)
-  const { loading: joinLoading } = useQuery(HAS_JOINED_QUERY, {
-    variables: {
-      request: {
-        collectRequests: {
-          publicationIds: community.id,
-          walletAddress: currentUser?.ownedBy
-        }
-      }
-    },
-    skip: !currentUser || !community,
-    onCompleted(data) {
-      setJoined(data?.hasCollected[0]?.results[0]?.collected)
-      consoleLog(
-        'Query',
-        '#8b5cf6',
-        `Fetched has joined check Community:${community?.id} Joined:${joined}`
-      )
-    }
-  })
+  const [joined, setJoined] = useState<boolean>(community?.hasCollectedByMe)
 
   const MetaDetails = ({
     children,
@@ -106,9 +75,7 @@ const Details: FC<Props> = ({ community }) => {
           </div>
         )}
         <div className="flex items-center space-x-2">
-          {joinLoading ? (
-            <div className="w-28 rounded-lg h-[34px] shimmer" />
-          ) : joined ? (
+          {joined ? (
             <div className="py-0.5 px-2 text-sm text-white rounded-lg shadow-sm bg-brand-500 w-fit">
               Member
             </div>
