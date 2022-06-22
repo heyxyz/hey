@@ -18,7 +18,6 @@ import {
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { PencilIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
-import generateSnowflake from '@lib/generateSnowflake'
 import getAttribute from '@lib/getAttribute'
 import hasPrideLogo from '@lib/hasPrideLogo'
 import imagekitURL from '@lib/imagekitURL'
@@ -38,6 +37,7 @@ import {
   RELAY_ON
 } from 'src/constants'
 import { useAppStore, usePersistStore } from 'src/store'
+import { v4 as uuid } from 'uuid'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 import { object, optional, string } from 'zod'
 
@@ -272,7 +272,7 @@ const Profile: FC<Props> = ({ profile }) => {
         }
       ],
       version: '1.0.0',
-      metadata_id: generateSnowflake(),
+      metadata_id: uuid(),
       previousMetadata: profile?.metadata,
       createdOn: new Date(),
       appId: APP_NAME

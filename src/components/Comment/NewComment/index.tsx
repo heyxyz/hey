@@ -18,7 +18,6 @@ import { IGif } from '@giphy/js-types'
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { ChatAlt2Icon, PencilAltIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
-import generateSnowflake from '@lib/generateSnowflake'
 import {
   defaultFeeData,
   defaultModuleData,
@@ -41,6 +40,7 @@ import {
   RELAY_ON
 } from 'src/constants'
 import { useAppStore, usePersistStore } from 'src/store'
+import { v4 as uuid } from 'uuid'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 
 const Attachment = dynamic(() => import('../../Shared/Attachment'), {
@@ -237,7 +237,7 @@ const NewComment: FC<Props> = ({ post, type }) => {
     // TODO: Add animated_url support
     const { path } = await uploadToIPFS({
       version: '1.0.0',
-      metadata_id: generateSnowflake(),
+      metadata_id: uuid(),
       description: trimify(commentContent),
       content: trimify(commentContent),
       external_url: `https://lenster.xyz/u/${currentUser?.handle}`,
