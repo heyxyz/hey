@@ -5902,10 +5902,10 @@ intersection-observer@^0.11.0:
   resolved "https://registry.yarnpkg.com/intersection-observer/-/intersection-observer-0.11.0.tgz#f4ea067070326f68393ee161cc0a2ca4c0040c6f"
   integrity sha512-KZArj2QVnmdud9zTpKf279m2bbGfG+4/kn16UU0NL3pTVl52ZHiJ9IRNSsnn6jaHrL9EGLFM5eWjTx2fz/+zoQ==
 
-interweave-autolink@^5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/interweave-autolink/-/interweave-autolink-5.0.0.tgz#7ecd7c921dae8bfc55c27e18d2f63d8fbcc1e931"
-  integrity sha512-Hg+QTtul/57LesVouaBrvgknT01+2vx4Te8VOwV7PjEvmP0LQs2XYD2ZyF5uWRTn51mnSESAtz/Kx/MElwS50Q==
+interweave-autolink@^5.1.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/interweave-autolink/-/interweave-autolink-5.1.0.tgz#a5a5438c45c5e4d631838473845be1fdd38a664b"
+  integrity sha512-WOEakAdwqv/W2H85cLdigkpMM7o6qVg4CWM6iO5cHrFCywwUh+ILVmZgX1tHphEpa55sFdzpKNO2EHhAjbR4GA==
 
 interweave@^13.0.0:
   version "13.0.0"
