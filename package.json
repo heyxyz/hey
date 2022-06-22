@@ -49,9 +49,9 @@
     "react-hook-form": "^7.32.2",
     "react-hot-toast": "^2.2.0",
     "react-mentions": "4.4.2",
-    "sunflake": "^0.5.0",
     "ua-parser-js": "^1.0.2",
     "use-streak": "^1.0.4",
+    "uuid": "^8.3.2",
     "wagmi": "^0.4.12",
     "zod": "^3.17.3",
     "zustand": "^4.0.0-rc.1"
@@ -67,6 +67,7 @@
     "@types/react-copy-to-clipboard": "^5.0.2",
     "@types/react-dom": "^18.0.5",
     "@types/ua-parser-js": "^0.7.36",
+    "@types/uuid": "^8.3.4",
     "@typescript-eslint/eslint-plugin": "^5.29.0",
     "autoprefixer": "^10.4.5",
     "eslint": "^8.18.0",
