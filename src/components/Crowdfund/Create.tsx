@@ -17,7 +17,6 @@ import { CreatePostBroadcastItemResult, Erc20 } from '@generated/types'
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { PlusIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
-import generateSnowflake from '@lib/generateSnowflake'
 import getTokenImage from '@lib/getTokenImage'
 import imagekitURL from '@lib/imagekitURL'
 import omit from '@lib/omit'
@@ -38,6 +37,7 @@ import {
 } from 'src/constants'
 import Custom404 from 'src/pages/404'
 import { useAppStore, usePersistStore } from 'src/store'
+import { v4 as uuid } from 'uuid'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 import { object, string } from 'zod'
 
@@ -207,13 +207,11 @@ const Create: NextPage = () => {
     setIsUploading(true)
     const { path } = await uploadToIPFS({
       version: '1.0.0',
-      metadata_id: generateSnowflake(),
+      metadata_id: uuid(),
       description: description,
       content: description,
       external_url: null,
-      image: cover
-        ? cover
-        : `https://avatar.tobi.sh/${generateSnowflake()}.png`,
+      image: cover ? cover : `https://avatar.tobi.sh/${uuid()}.png`,
       imageMimeType: coverType,
       name: title,
       contentWarning: null, // TODO
