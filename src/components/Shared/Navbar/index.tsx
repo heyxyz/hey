@@ -25,7 +25,7 @@ const PING_QUERY = gql`
 `
 
 const Navbar: FC = () => {
-  const { currentUser, staffMode } = usePersistStore()
+  const { isAuthenticated, currentUser, staffMode } = usePersistStore()
   const { data: pingData } = useQuery(PING_QUERY, {
     pollInterval: 3000,
     skip: !currentUser
@@ -126,8 +126,8 @@ const Navbar: FC = () => {
                 </div>
               </div>
               <div className="flex gap-8 items-center">
-                {currentUser && <NewPostModal />}
-                {currentUser && <Notification />}
+                {isAuthenticated && currentUser && <NewPostModal />}
+                {isAuthenticated && currentUser && <Notification />}
                 <MenuItems pingData={pingData} />
               </div>
             </div>
