@@ -4464,9 +4464,9 @@ electron-fetch@^1.7.2:
     encoding "^0.1.13"
 
 electron-to-chromium@^1.4.164:
-  version "1.4.165"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.165.tgz#a1ae079a4412b0c2d3bf6908e8db54511fb0bbac"
-  integrity sha512-DKQW1lqUSAYQvn9dnpK7mWaDpWbNOXQLXhfCi7Iwx0BKxdZOxkKcCyKw1l3ihWWW5iWSxKKbhEUoNRoHvl/hbA==
+  version "1.4.167"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.167.tgz#72424aebc85df12c5331d37b1bcfd1ae01322c55"
+  integrity sha512-lPHuHXBwpkr4RcfaZBKm6TKOWG/1N9mVggUpP4fY3l1JIUU2x4fkM8928smYdZ5lF+6KCTAxo1aK9JmqT+X71Q==
 
 elegant-spinner@^1.0.1:
   version "1.0.1"
@@ -5879,15 +5879,15 @@ inquirer@^8.0.0:
     wrap-ansi "^7.0.0"
 
 interface-datastore@^6.0.2, interface-datastore@^6.1.0:
-  version "6.1.0"
-  resolved "https://registry.yarnpkg.com/interface-datastore/-/interface-datastore-6.1.0.tgz#e8c4821c50c1b708d07d0ee06a77ecca8c2dd79b"
-  integrity sha512-oNHdsrWBsI/kDwUtEgt+aaZtQFKtQYN0TGZzc3SGiIA6m+plZ6malhmsygtbmDpfpIsNNC7ce9Gyaj+Tki+gVw==
+  version "6.1.1"
+  resolved "https://registry.yarnpkg.com/interface-datastore/-/interface-datastore-6.1.1.tgz#5150a00de2e7513eaadba58bcafd059cb50004c1"
+  integrity sha512-AmCS+9CT34pp2u0QQVXjKztkuq3y5T+BIciuiHDDtDZucZD8VudosnSdUyXJV6IsRkN5jc4RFDhCk1O6Q3Gxjg==
   dependencies:
-    interface-store "^2.0.1"
+    interface-store "^2.0.2"
     nanoid "^3.0.2"
     uint8arrays "^3.0.0"
 
-interface-store@^2.0.1:
+interface-store@^2.0.2:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/interface-store/-/interface-store-2.0.2.tgz#83175fd2b0c501585ed96db54bb8ba9d55fce34c"
   integrity sha512-rScRlhDcz6k199EkHqT8NpM87ebN89ICOzILoBHgaG36/WX50N32BnU/kpZgCGPLhARRAWUUX5/cyaIjt7Kipg==
@@ -6001,9 +6001,9 @@ ipfs-unixfs@^6.0.9:
     protobufjs "^6.10.2"
 
 ipfs-utils@^9.0.6:
-  version "9.0.6"
-  resolved "https://registry.yarnpkg.com/ipfs-utils/-/ipfs-utils-9.0.6.tgz#b7657b8be101e0bb64402aeb631c64168075a5e4"
-  integrity sha512-/WfdwOIiJVb3uqfKRQ9Eo+vCEKsDgp7h4Pdc37MRwAiFciZ7xKAkEqsfXubV0VQi8x5jWTifeHn8WEPBLL451w==
+  version "9.0.7"
+  resolved "https://registry.yarnpkg.com/ipfs-utils/-/ipfs-utils-9.0.7.tgz#b8644b9d053e4dd258f69773b146ac243921aa1f"
+  integrity sha512-Umvb0Zydy2zZiTmQBGLfLISr8vOmXX8cxEIP+N8zGHrtRShG/j32yl1xd/BtS+Hbg0FIbVm3opwvxB2gmta0YA==
   dependencies:
     any-signal "^3.0.0"
     buffer "^6.0.1"
@@ -6609,11 +6609,11 @@ jsonwebtoken@^8.5.1:
     semver "^5.6.0"
 
 "jsx-ast-utils@^2.4.1 || ^3.0.0", jsx-ast-utils@^3.2.1:
-  version "3.3.0"
-  resolved "https://registry.yarnpkg.com/jsx-ast-utils/-/jsx-ast-utils-3.3.0.tgz#e624f259143b9062c92b6413ff92a164c80d3ccb"
-  integrity sha512-XzO9luP6L0xkxwhIJMTJQpZo/eeN60K08jHdexfD569AGxeNug6UketeHXEhROoM8aR7EcUoOQmIhcJQjcuq8Q==
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/jsx-ast-utils/-/jsx-ast-utils-3.3.1.tgz#a3e0f1cb7e230954eab4dcbce9f6288a78f8ba44"
+  integrity sha512-pxrjmNpeRw5wwVeWyEAk7QJu2GnBO3uzPFmHCKJJFPKK2Cy0cWL23krGtLdnMmbIi6/FjlrQpPyfQI19ByPOhQ==
   dependencies:
-    array-includes "^3.1.4"
+    array-includes "^3.1.5"
     object.assign "^4.1.2"
 
 jwa@^1.4.1:
@@ -7153,9 +7153,9 @@ ms@^2.1.1:
   integrity sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==
 
 multiformats@^9.0.2, multiformats@^9.4.2, multiformats@^9.4.5, multiformats@^9.5.1, multiformats@^9.5.4, multiformats@^9.6.3:
-  version "9.6.5"
-  resolved "https://registry.yarnpkg.com/multiformats/-/multiformats-9.6.5.tgz#f2d894a26664b454a90abf5a8911b7e39195db80"
-  integrity sha512-vMwf/FUO+qAPvl3vlSZEgEVFY/AxeZq5yg761ScF3CZsXgmTi/HGkicUiNN0CI4PW8FiY2P0OLklOcmQjdQJhw==
+  version "9.7.0"
+  resolved "https://registry.yarnpkg.com/multiformats/-/multiformats-9.7.0.tgz#845799e8df70fbb6b15922500e45cb87cf12f7e5"
+  integrity sha512-uv/tcgwk0yN4DStopnBN4GTgvaAlYdy6KnZpuzEPFOYQd71DYFJjs0MN1ERElAflrZaYyGBWXyGxL5GgrxIx0Q==
 
 mute-stream@0.0.8:
   version "0.0.8"
@@ -7848,9 +7848,9 @@ preact@10.4.1:
   integrity sha512-WKrRpCSwL2t3tpOOGhf2WfTpcmbpxaWtDbdJdKdjd0aEiTkvOmS4NBkG6kzlaAHI9AkQ3iVqbFWM3Ei7mZ4o1Q==
 
 preact@^10.5.9:
-  version "10.8.1"
-  resolved "https://registry.yarnpkg.com/preact/-/preact-10.8.1.tgz#54227a20a688efe41e07c52d420e7f829c33c8c5"
-  integrity sha512-p5CKQ0MCEXTGKGOHiFaNE2V2nDq2hvDHykXvIlz+4lbfJ9umLZr8JS/fa1bXUwRcHXK+Ljk8zqmDhr25n0LtVg==
+  version "10.8.2"
+  resolved "https://registry.yarnpkg.com/preact/-/preact-10.8.2.tgz#b8a614f5cc8ab0cd9e63337a3d60dc80410f4ed4"
+  integrity sha512-AKGt0BsDSiAYzVS78jZ9qRwuorY2CoSZtf1iOC6gLb/3QyZt+fLT09aYJBjRc/BEcRc4j+j3ggERMdNE43i1LQ==
 
 prelude-ls@^1.2.1:
   version "1.2.1"
