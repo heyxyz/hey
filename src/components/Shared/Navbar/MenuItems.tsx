@@ -23,9 +23,9 @@ import Cookies from 'js-cookie'
 import Link from 'next/link'
 import { useTheme } from 'next-themes'
 import { FC, Fragment, useState } from 'react'
-import { CHAIN_ID, GIT_COMMIT_SHA } from 'src/constants'
+import { GIT_COMMIT_SHA } from 'src/constants'
 import { useAppStore, usePersistStore } from 'src/store'
-import { useDisconnect, useNetwork } from 'wagmi'
+import { useDisconnect } from 'wagmi'
 
 import Slug from '../Slug'
 import Login from './Login'
@@ -45,18 +45,22 @@ interface Props {
 const MenuItems: FC<Props> = ({ pingData }) => {
   const [showLoginModal, setShowLoginModal] = useState<boolean>(false)
   const { theme, setTheme } = useTheme()
-  const { activeChain } = useNetwork()
   const { disconnect } = useDisconnect()
 
   const { profiles } = useAppStore()
-  const { currentUser, setCurrentUser, staffMode, setStaffMode } =
-    usePersistStore()
+  const {
+    isAuthenticated,
+    currentUser,
+    setCurrentUser,
+    staffMode,
+    setStaffMode
+  } = usePersistStore()
 
   const toggleStaffMode = () => {
     setStaffMode(!staffMode)
   }
 
-  return currentUser && activeChain?.id === CHAIN_ID ? (
+  return isAuthenticated && currentUser ? (
     <Menu as="div">
       {({ open }) => (
         <>
