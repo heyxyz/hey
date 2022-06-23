@@ -13,5 +13,10 @@ export const apps = [
     id: 'refract',
     name: 'Refract',
     logo: 'refract.jpeg'
+  },
+  {
+    id: 'iris',
+    name: 'iris',
+    logo: 'iris.png'
   }
 ]
