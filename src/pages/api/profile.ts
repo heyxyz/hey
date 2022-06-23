@@ -1,4 +1,5 @@
 import { gql } from '@apollo/client'
+import { withSentry } from '@sentry/nextjs'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { nodeClient } from 'src/apollo'
 import { ERROR_MESSAGE } from 'src/constants'
@@ -27,10 +28,7 @@ const PROFILE_QUERY = gql`
   }
 `
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const { handle } = req.query
 
@@ -57,3 +55,5 @@ export default async function handler(
     return res.status(500).json({ success: false, message: ERROR_MESSAGE })
   }
 }
+
+export default withSentry(handler)
