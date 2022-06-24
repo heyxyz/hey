@@ -74,6 +74,7 @@ const SiteLayout: FC<Props> = ({ children }) => {
   useEffect(() => {
     const accessToken = Cookies.get('accessToken')
     const refreshToken = Cookies.get('refreshToken')
+    setMounted(true)
 
     const logout = () => {
       setIsAuthenticated(false)
@@ -83,8 +84,6 @@ const SiteLayout: FC<Props> = ({ children }) => {
       localStorage.removeItem('lenster.store')
       disconnect()
     }
-
-    setMounted(true)
 
     if (
       refreshToken &&
