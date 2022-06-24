@@ -1,4 +1,7 @@
 {
+  "search.exclude": {
+    "yarn.lock": true
+  },
   "typescript.tsdk": "node_modules/typescript/lib",
   "editor.formatOnSave": true,
   "editor.fontSize": 15,
