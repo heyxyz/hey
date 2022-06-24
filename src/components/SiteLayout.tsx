@@ -13,7 +13,6 @@ import { useAppStore, usePersistStore } from 'src/store'
 import { useAccount, useConnect, useDisconnect, useNetwork } from 'wagmi'
 
 import Loading from './Loading'
-import useIsMounted from './utils/hooks/useIsMounted'
 
 const Navbar = dynamic(() => import('./Shared/Navbar'), { suspense: true })
 
@@ -41,12 +40,11 @@ const SiteLayout: FC<Props> = ({ children }) => {
   const { setProfiles, setUserSigNonce } = useAppStore()
   const { isAuthenticated, setIsAuthenticated, currentUser, setCurrentUser } =
     usePersistStore()
-  const [pageLoading, setPageLoading] = useState<boolean>(true)
+  const [mounted, setMounted] = useState<boolean>(false)
   const { data: account } = useAccount()
   const { activeConnector } = useConnect()
   const { activeChain } = useNetwork()
   const { disconnect } = useDisconnect()
-  const { mounted } = useIsMounted()
   const { loading } = useQuery(CURRENT_USER_QUERY, {
     variables: { ownedBy: account?.address },
     skip: !isAuthenticated,
@@ -86,7 +84,7 @@ const SiteLayout: FC<Props> = ({ children }) => {
       disconnect()
     }
 
-    setPageLoading(false)
+    setMounted(true)
 
     if (
       refreshToken &&
@@ -100,10 +98,7 @@ const SiteLayout: FC<Props> = ({ children }) => {
     } else {
       if (isAuthenticated) logout()
     }
-    if (!activeConnector?.id && mounted) {
-      disconnect()
-      setIsAuthenticated(false)
-    }
+
     activeConnector?.on('change', () => {
       logout()
     })
@@ -132,7 +127,7 @@ const SiteLayout: FC<Props> = ({ children }) => {
     loading: { className: 'border border-gray-300' }
   }
 
-  if (loading || pageLoading) return <Loading />
+  if (loading || !mounted) return <Loading />
 
   return (
     <>
