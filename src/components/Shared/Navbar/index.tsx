@@ -1,4 +1,5 @@
 import { gql, useQuery } from '@apollo/client'
+import NotificationIcon from '@components/Notification/Icon'
 import { Disclosure } from '@headlessui/react'
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
 import hasPrideLogo from '@lib/hasPrideLogo'
@@ -16,7 +17,6 @@ import Search from './Search'
 
 const StaffBar = dynamic(() => import('./StaffBar'))
 const NewPostModal = dynamic(() => import('../../Post/NewPost/Modal'))
-const Notification = dynamic(() => import('../../Notification'))
 
 const PING_QUERY = gql`
   query Ping {
@@ -127,7 +127,7 @@ const Navbar: FC = () => {
               </div>
               <div className="flex gap-8 items-center">
                 {isAuthenticated && currentUser && <NewPostModal />}
-                {isAuthenticated && currentUser && <Notification />}
+                {isAuthenticated && currentUser && <NotificationIcon />}
                 <MenuItems pingData={pingData} />
               </div>
             </div>
