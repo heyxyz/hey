@@ -1,6 +1,6 @@
 import { gql, useQuery } from '@apollo/client'
 import { LightningBoltIcon } from '@heroicons/react/outline'
-import { Link } from 'interweave-autolink'
+import Link from 'next/link'
 import { FC, useEffect, useState } from 'react'
 import { usePersistStore } from 'src/store'
 
@@ -31,7 +31,7 @@ const NotificationIcon: FC = () => {
   }, [currentUser, data])
 
   return (
-    <Link href="/notifications">
+    <Link href="/notifications" prefetch={false}>
       <a
         className="flex items-start"
         href="/notifications"
