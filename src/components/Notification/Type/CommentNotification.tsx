@@ -22,7 +22,7 @@ const CommentNotification: FC<Props> = ({ notification }) => {
           <ChatAlt2Icon className="h-6 w-6 text-blue-500" />
           <NotificationProfileAvatar profile={notification?.profile} />
         </div>
-        <div className="ml-8">
+        <div className="ml-9">
           <NotificationProfileName profile={notification?.profile} />{' '}
           <span className="text-gray-600 dark:text-gray-400">
             commented on your{' '}
