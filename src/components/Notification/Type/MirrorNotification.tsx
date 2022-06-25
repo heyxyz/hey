@@ -24,7 +24,7 @@ const MirrorNotification: FC<Props> = ({ notification }) => {
           <SwitchHorizontalIcon className="h-6 w-6 text-brand" />
           <NotificationProfileAvatar profile={notification?.profile} />
         </div>
-        <div className="ml-8">
+        <div className="ml-9">
           <NotificationProfileName profile={notification?.profile} />{' '}
           <span className="pl-0.5 text-gray-600 dark:text-gray-400">
             mirrored your{' '}

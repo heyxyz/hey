@@ -24,7 +24,7 @@ const MentionNotification: FC<Props> = ({ notification }) => {
           <AtSymbolIcon className="h-6 w-6 text-orange-500" />
           <NotificationProfileAvatar profile={profile} />
         </div>
-        <div className="ml-8">
+        <div className="ml-9">
           <NotificationProfileName profile={profile} />{' '}
           <span className="text-gray-600 dark:text-gray-400">
             mentioned you in a{' '}

@@ -40,7 +40,7 @@ const FollowerNotification: FC<Props> = ({ notification }) => {
             <NotificationWalletProfileAvatar wallet={notification?.wallet} />
           )}
         </div>
-        <div className="ml-8">
+        <div className="ml-9">
           {notification?.wallet?.defaultProfile ? (
             <NotificationProfileName
               profile={notification?.wallet?.defaultProfile}
