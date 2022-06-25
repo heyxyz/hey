@@ -33,11 +33,11 @@ const CollectNotification: FC<Props> = ({ notification }) => {
       <div className="space-y-2 w-4/5">
         <div className="flex items-center space-x-3">
           {postType === 'community' ? (
-            <UsersIcon className="h-6 w-6 text-pink-500" />
+            <UsersIcon className="h-6 w-6 text-pink-500/70" />
           ) : postType === 'crowdfund' ? (
-            <CashIcon className="h-6 w-6 text-pink-500" />
+            <CashIcon className="h-6 w-6 text-pink-500/70" />
           ) : (
-            <CollectionIcon className="h-6 w-6 text-pink-500" />
+            <CollectionIcon className="h-6 w-6 text-pink-500/70" />
           )}
           {notification?.wallet?.defaultProfile ? (
             <NotificationProfileAvatar
