@@ -50,7 +50,7 @@ const MirrorNotification: FC<Props> = ({ notification }) => {
           >
             <a
               href={`/posts/${notification?.publication?.id}`}
-              className="text-gray-500 line-clamp-1 linkify mt-2"
+              className="text-gray-500 line-clamp-2 linkify mt-2"
             >
               {postType === 'crowdfund' ? (
                 notification?.publication?.metadata?.name
