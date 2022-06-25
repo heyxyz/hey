@@ -1,5 +1,5 @@
 import { gql, useQuery } from '@apollo/client'
-import NotificationIcon from '@components/NewNotification/Icon'
+import NotificationIcon from '@components/Notification/Icon'
 import { Disclosure } from '@headlessui/react'
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
 import hasPrideLogo from '@lib/hasPrideLogo'
