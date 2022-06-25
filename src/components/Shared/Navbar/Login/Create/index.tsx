@@ -9,7 +9,7 @@ import { PlusIcon } from '@heroicons/react/outline'
 import uploadAssetsToIPFS from '@lib/uploadAssetsToIPFS'
 import React, { ChangeEvent, FC, useState } from 'react'
 import { APP_NAME } from 'src/constants'
-import { useAccount, useNetwork } from 'wagmi'
+import { useAccount } from 'wagmi'
 import { object, string } from 'zod'
 
 import Pending from './Pending'
@@ -43,7 +43,6 @@ interface Props {
 const Create: FC<Props> = ({ isModal = false }) => {
   const [avatar, setAvatar] = useState<string>()
   const [uploading, setUploading] = useState<boolean>(false)
-  const { activeChain } = useNetwork()
   const { data: account } = useAccount()
   const [createProfile, { data, loading }] = useMutation(
     CREATE_PROFILE_MUTATION
