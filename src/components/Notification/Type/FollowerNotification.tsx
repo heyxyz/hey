@@ -30,7 +30,7 @@ const FollowerNotification: FC<Props> = ({ notification }) => {
           {isSuperFollow ? (
             <UserAddIcon className="h-6 w-6 text-pink-500" />
           ) : (
-            <UserAddIcon className="h-6 w-6 text-brand" />
+            <UserAddIcon className="h-6 w-6 text-green-500" />
           )}
           {notification?.wallet?.defaultProfile ? (
             <NotificationProfileAvatar
