@@ -1520,10 +1520,10 @@
     append-query "^2.1.0"
     throttle-debounce "^3.0.1"
 
-"@giphy/js-brand@^2.2.1":
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/@giphy/js-brand/-/js-brand-2.2.1.tgz#4070d44f67ff464ed28e7a44d2f2f8274cad8e19"
-  integrity sha512-O1IKG23aDtLNzbdVWDJr83LP66hb3EpDQ08Tg/E9RxydvBlgRXSur8gI2DP9hwTk9961KRRfZw13MlCsAGrZAA==
+"@giphy/js-brand@^2.2.2":
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/@giphy/js-brand/-/js-brand-2.2.2.tgz#5d55e71cad69db5251daf9a079214ad752ae1b43"
+  integrity sha512-ZHdnkDLDJt4L6nlogeElxoCmCJvFBWQ5HV6R5mz26G7ZfWs45//mjz7maqLP/UqA+9azBERPewAKm2zTtxy5kQ==
   dependencies:
     emotion "10.0.27"
 
@@ -1550,15 +1550,15 @@
     dompurify "^2.2.2"
     uuid "^8.3.0"
 
-"@giphy/react-components@^5.9.1":
-  version "5.9.1"
-  resolved "https://registry.yarnpkg.com/@giphy/react-components/-/react-components-5.9.1.tgz#ae84c319651375557c604d01791bb883e711b5e9"
-  integrity sha512-499myZv335cQOe8tCBDpSpG2KS9J9GgGBiA319z5u4tgh3c5FluIt0+jZMcW2m3ESxCza/rBiI7vNYpJ98xo8w==
+"@giphy/react-components@^5.9.2":
+  version "5.9.2"
+  resolved "https://registry.yarnpkg.com/@giphy/react-components/-/react-components-5.9.2.tgz#6140275d18d30139c81d256f9a79eceb47411542"
+  integrity sha512-futJrDUllbKcSmLVDzWgEWbGAhrFRi5eEYosVQqh0nRaDmAqMpXZf4a78tLpPkq9NodaLY8SAskqF9lTWG3T/w==
   dependencies:
     "@emotion/core" "10.1.1"
     "@emotion/styled" "10.0.27"
     "@giphy/js-analytics" "^4.1.1"
-    "@giphy/js-brand" "^2.2.1"
+    "@giphy/js-brand" "^2.2.2"
     "@giphy/js-fetch-api" "^4.2.2"
     "@giphy/js-types" "^4.2.1"
     "@giphy/js-util" "^4.1.1"
