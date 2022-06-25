@@ -1,4 +1,5 @@
 import { gql, useQuery } from '@apollo/client'
+import NotificationIcon from '@components/NewNotification/Icon'
 import { Disclosure } from '@headlessui/react'
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
 import hasPrideLogo from '@lib/hasPrideLogo'
@@ -127,7 +128,7 @@ const Navbar: FC = () => {
               </div>
               <div className="flex gap-8 items-center">
                 {isAuthenticated && currentUser && <NewPostModal />}
-                {isAuthenticated && currentUser && <Notification />}
+                {isAuthenticated && currentUser && <NotificationIcon />}
                 <MenuItems pingData={pingData} />
               </div>
             </div>
