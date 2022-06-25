@@ -31,7 +31,7 @@ const CollectNotification: FC<Props> = ({ notification }) => {
   return (
     <div className="flex justify-between items-start">
       <div className="space-y-2 w-4/5">
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center space-x-3">
           {postType === 'community' ? (
             <UsersIcon className="h-6 w-6 text-pink-500" />
           ) : postType === 'crowdfund' ? (
