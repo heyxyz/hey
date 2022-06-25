@@ -14,7 +14,7 @@ const CollectedContent: FC<Props> = ({ notification }) => {
     notification?.collectedPublication?.__typename?.toLowerCase()
 
   return (
-    <div className="text-gray-500 line-clamp-1 mt-2">
+    <div className="text-gray-500 line-clamp-2 mt-2">
       {postType === 'community' ? (
         <Link
           href={`/communities/${notification?.collectedPublication?.id}`}
