@@ -17,7 +17,6 @@ import Search from './Search'
 
 const StaffBar = dynamic(() => import('./StaffBar'))
 const NewPostModal = dynamic(() => import('../../Post/NewPost/Modal'))
-const Notification = dynamic(() => import('../../Notification'))
 
 const PING_QUERY = gql`
   query Ping {
