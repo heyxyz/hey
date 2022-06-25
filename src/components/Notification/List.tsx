@@ -1,4 +1,5 @@
 import { gql, useQuery } from '@apollo/client'
+import { Card } from '@components/UI/Card'
 import { EmptyState } from '@components/UI/EmptyState'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { Spinner } from '@components/UI/Spinner'
@@ -186,12 +187,12 @@ const List: FC = () => {
 
   if (loading)
     return (
-      <div className="divide-y dark:divide-gray-700">
+      <Card className="divide-y dark:divide-gray-700">
         <NotificationShimmer />
         <NotificationShimmer />
         <NotificationShimmer />
         <NotificationShimmer />
-      </div>
+      </Card>
     )
 
   if (error)
@@ -217,7 +218,7 @@ const List: FC = () => {
     )
 
   return (
-    <div className="divide-y dark:divide-gray-700">
+    <Card className="divide-y dark:divide-gray-700">
       {notifications?.map((notification: Notification, index: number) => (
         <div key={index}>
           {notification?.__typename === 'NewFollowerNotification' && (
@@ -252,7 +253,7 @@ const List: FC = () => {
           <Spinner size="sm" />
         </span>
       )}
-    </div>
+    </Card>
   )
 }
 
