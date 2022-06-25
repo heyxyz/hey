@@ -56,7 +56,7 @@ const MentionNotification: FC<Props> = ({ notification }) => {
         </div>
       </div>
       <div className="text-gray-400 text-[12px]">
-        <div>{dayjs(new Date(notification?.createdAt)).fromNow()}</div>
+        {dayjs(new Date(notification?.createdAt)).fromNow()}
       </div>
     </div>
   )
