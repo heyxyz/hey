@@ -16,6 +16,11 @@ before_script:
   - cp .env.example .env
   - yarn install --frozen-lockfile --silent
 
+test:
+  stage: test
+  script:
+    - yarn cypress:e2e
+
 lint:
   stage: build
   script:
