@@ -3,12 +3,9 @@ context('Home Page', () => {
     cy.visit('http://localhost:4783')
   })
 
-  it('should render the home page', () => {
+  it('should render required components', () => {
     cy.get('[data-test=app-name]')
     cy.get('[data-test=app-description]')
-  })
-
-  it('should render required components', () => {
     cy.get('[data-test=explore-feed]')
     cy.get('[data-test=recommended-users]')
     cy.get('[data-test=beta-warning]')

@@ -21,6 +21,7 @@ const Cover: FC<Props> = ({ cover }) => {
         backgroundPosition: 'center center',
         backgroundRepeat: cover ? 'no-repeat' : 'repeat'
       }}
+      data-test="profile-cover"
     />
   )
 }
