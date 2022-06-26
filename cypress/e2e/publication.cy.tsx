@@ -16,7 +16,7 @@ context('Publication Page', () => {
   })
 
   it('should render publication content', () => {
-    cy.get('[data-test=publication]')
+    cy.get('[data-test=publication-content]')
   })
 
   it('should render publication comment button', () => {
