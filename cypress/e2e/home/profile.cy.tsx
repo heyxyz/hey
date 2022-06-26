@@ -37,6 +37,22 @@ context('Profile Page', () => {
   it('should render profile feed', () => {
     cy.get('[data-test=profile-feed]')
   })
+
+  it('should render type - posts', () => {
+    cy.get('[data-test=type-posts]')
+  })
+
+  it('should render type - comments', () => {
+    cy.get('[data-test=type-comments]')
+  })
+
+  it('should render type - mirrors', () => {
+    cy.get('[data-test=type-mirrors]')
+  })
+
+  it('should render type - nfts', () => {
+    cy.get('[data-test=type-nfts]')
+  })
 })
 
 export {}
