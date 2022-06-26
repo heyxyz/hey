@@ -13,7 +13,8 @@
     "prettier:check": "prettier --check \"./src/**/*.{ts,tsx}\"",
     "codegen": "graphql-codegen",
     "prepare": "husky install",
-    "cypress": "cypress run --headless --browser chrome"
+    "test": "cypress run --headless --browser chrome",
+    "cypress:open": "cypress open"
   },
   "dependencies": {
     "@apollo/client": "^3.6.9",
