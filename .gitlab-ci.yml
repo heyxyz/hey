@@ -20,6 +20,7 @@ test:
   image: cypress/browsers:node16.13.2-chrome100-ff98
   stage: test
   before_script: []
+  allow_failure: true
   script:
     - yarn install --frozen-lockfile --silent
     - yarn cypress:e2e
