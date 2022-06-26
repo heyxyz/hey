@@ -6,6 +6,7 @@ cache:
     - .next/cache/
 
 stages:
+  - test
   - build
   - clean
 
