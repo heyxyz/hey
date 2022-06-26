@@ -1,4 +1,4 @@
-context('Communities Page', () => {
+context('Privacy Page', () => {
   before(() => {
     cy.visit('http://localhost:4783/privacy')
   })
