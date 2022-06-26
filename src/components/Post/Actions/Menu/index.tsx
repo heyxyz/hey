@@ -27,6 +27,7 @@ const PostMenu: FC<Props> = ({ post }) => {
           <Menu.Button
             className="p-1.5 rounded-full hover:bg-gray-300 hover:bg-opacity-20"
             aria-label="More"
+            data-test="publication-more"
           >
             <DotsHorizontalIcon className="w-5 h-5 text-gray-500 dark:text-gray-300" />
           </Menu.Button>

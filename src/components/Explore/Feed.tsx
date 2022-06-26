@@ -108,7 +108,10 @@ const Feed: FC<Props> = ({ feedType = 'TOP_COMMENTED' }) => {
       <ErrorMessage title="Failed to load explore feed" error={error} />
       {!error && !loading && data?.explorePublications?.items?.length !== 0 && (
         <>
-          <Card className="divide-y-[1px] dark:divide-gray-700/80">
+          <Card
+            className="divide-y-[1px] dark:divide-gray-700/80"
+            testId="explore-feed"
+          >
             {publications?.map((post: LensterPost, index: number) => (
               <SinglePost key={`${post?.id}_${index}`} post={post} />
             ))}

@@ -203,6 +203,7 @@ const Mirror: FC<Props> = ({ post }) => {
       onClick={createMirror}
       disabled={typedDataLoading || writeLoading}
       aria-label="Mirror"
+      data-test="publication-mirror"
     >
       <div className="flex items-center space-x-1 text-brand">
         <div className="p-1.5 rounded-full hover:bg-opacity-20 hover:bg-brand-300">
