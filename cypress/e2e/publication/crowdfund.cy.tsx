@@ -2,7 +2,7 @@ context('Crowdfund Page', () => {
   before(() => {
     cy.visit(
       `http://localhost:4783/posts/${
-        Cypress.env('is_mainnet') ? '0x0d-0x9b' : '0x15-0x1d'
+        Cypress.env('is_mainnet') ? '0x24b6-0x03' : '0x15-0x1d'
       }`
     )
   })
