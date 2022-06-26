@@ -4,7 +4,7 @@ import WalletProfile from '@components/Shared/WalletProfile'
 import { EmptyState } from '@components/UI/EmptyState'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { Spinner } from '@components/UI/Spinner'
-import { PaginatedResultInfo, Profile, Wallet } from '@generated/types'
+import { PaginatedResultInfo, Wallet } from '@generated/types'
 import { MinimalProfileFields } from '@gql/MinimalProfileFields'
 import { CollectionIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
@@ -20,6 +20,7 @@ const COLLECTORS_QUERY = gql`
         address
         defaultProfile {
           ...MinimalProfileFields
+          isFollowedByMe
         }
       }
       pageInfo {
@@ -100,8 +101,10 @@ const Collectors: FC<Props> = ({ pubId }) => {
             <div className="p-5" key={wallet?.address}>
               {wallet?.defaultProfile ? (
                 <UserProfile
-                  profile={wallet?.defaultProfile as Profile}
+                  profile={wallet?.defaultProfile}
                   showBio
+                  showFollow
+                  isFollowing={wallet?.defaultProfile?.isFollowedByMe}
                 />
               ) : (
                 <WalletProfile wallet={wallet} />

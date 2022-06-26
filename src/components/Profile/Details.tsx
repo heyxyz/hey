@@ -1,4 +1,3 @@
-import { gql, useQuery } from '@apollo/client'
 import Follow from '@components/Shared/Follow'
 import Markup from '@components/Shared/Markup'
 import Slug from '@components/Shared/Slug'
@@ -6,7 +5,6 @@ import SuperFollow from '@components/Shared/SuperFollow'
 import Unfollow from '@components/Shared/Unfollow'
 import { Button } from '@components/UI/Button'
 import { Tooltip } from '@components/UI/Tooltip'
-import AppContext from '@components/utils/AppContext'
 import { useENS } from '@components/utils/hooks/useENS'
 import { Profile } from '@generated/types'
 import {
@@ -15,7 +13,6 @@ import {
   LocationMarkerIcon
 } from '@heroicons/react/outline'
 import { BadgeCheckIcon, ShieldCheckIcon } from '@heroicons/react/solid'
-import consoleLog from '@lib/consoleLog'
 import formatAddress from '@lib/formatAddress'
 import getAttribute from '@lib/getAttribute'
 import getAvatar from '@lib/getAvatar'
@@ -23,20 +20,12 @@ import isStaff from '@lib/isStaff'
 import isVerified from '@lib/isVerified'
 import Link from 'next/link'
 import { useTheme } from 'next-themes'
-import React, { FC, ReactElement, useContext, useEffect, useState } from 'react'
+import React, { FC, ReactElement, useEffect, useState } from 'react'
 import { STATIC_ASSETS } from 'src/constants'
+import { usePersistStore } from 'src/store'
 
-import DoesFollow from './DoesFollow'
 import Followerings from './Followerings'
 import ProfileMod from './Mod'
-
-export const DOES_FOLLOW_QUERY = gql`
-  query DoesFollow($request: DoesFollowRequest!) {
-    doesFollow(request: $request) {
-      follows
-    }
-  }
-`
 
 interface Props {
   profile: Profile
@@ -44,8 +33,8 @@ interface Props {
 
 const Details: FC<Props> = ({ profile }) => {
   const [followersCount, setFollowersCount] = useState<number>(0)
-  const [following, setFollowing] = useState<boolean>(false)
-  const { currentUser, staffMode } = useContext(AppContext)
+  const [following, setFollowing] = useState<boolean>(profile?.isFollowedByMe)
+  const { currentUser, staffMode } = usePersistStore()
   const { resolvedTheme } = useTheme()
   const { data: ensName } = useENS(profile?.ownedBy ?? '')
 
@@ -54,37 +43,6 @@ const Details: FC<Props> = ({ profile }) => {
       setFollowersCount(profile?.stats?.totalFollowers)
     }
   }, [profile?.stats?.totalFollowers])
-
-  const { data: followData, loading: followLoading } = useQuery(
-    DOES_FOLLOW_QUERY,
-    {
-      variables: {
-        request: {
-          followInfos: [
-            {
-              // Am I following them
-              followerAddress: profile?.ownedBy,
-              profileId: currentUser?.id
-            },
-            {
-              // Do they follow me
-              followerAddress: currentUser?.ownedBy,
-              profileId: profile?.id
-            }
-          ]
-        }
-      },
-      skip: !profile || !currentUser,
-      onCompleted(data) {
-        setFollowing(data?.doesFollow[1]?.follows)
-        consoleLog(
-          'Query',
-          '#8b5cf6',
-          `Fetched has followed check Profile:${profile?.id} Following:${following}`
-        )
-      }
-    }
-  )
 
   const MetaDetails = ({
     children,
@@ -139,17 +97,19 @@ const Details: FC<Props> = ({ profile }) => {
               slug={formatAddress(profile?.ownedBy)}
             />
           )}
-          {currentUser && currentUser?.id !== profile?.id && (
-            <DoesFollow followData={followData?.doesFollow[0]} />
-          )}
+          {currentUser &&
+            currentUser?.id !== profile?.id &&
+            profile?.isFollowing && (
+              <div className="py-0.5 px-2 text-xs bg-gray-200 rounded-full dark:bg-gray-700">
+                Follows you
+              </div>
+            )}
         </div>
       </div>
       <div className="space-y-5">
         <Followerings followersCount={followersCount} profile={profile} />
         <div className="flex items-center space-x-2">
-          {followLoading ? (
-            <div className="w-28 rounded-lg h-[34px] shimmer" />
-          ) : followType !== 'RevertFollowModuleSettings' ? (
+          {followType !== 'RevertFollowModuleSettings' ? (
             following ? (
               <div className="flex space-x-2">
                 <Unfollow

@@ -1,11 +1,10 @@
-import AppContext from '@components/utils/AppContext'
 import { LensterNotification } from '@generated/lenstertypes'
 import { NewFollowerNotification } from '@generated/types'
-import { UserAddIcon } from '@heroicons/react/outline'
-import { HeartIcon } from '@heroicons/react/solid'
+import { UserAddIcon } from '@heroicons/react/solid'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
-import React, { FC, useContext } from 'react'
+import React, { FC } from 'react'
+import { usePersistStore } from 'src/store'
 
 import { NotificationProfileAvatar, NotificationProfileName } from '../Profile'
 import {
@@ -20,39 +19,42 @@ interface Props {
 }
 
 const FollowerNotification: FC<Props> = ({ notification }) => {
-  const { currentUser } = useContext(AppContext)
+  const { currentUser } = usePersistStore()
+  const isSuperFollow =
+    currentUser?.followModule?.__typename === 'FeeFollowModuleSettings'
 
   return (
-    <div className="flex items-center space-x-3">
-      {notification?.wallet?.defaultProfile ? (
-        <NotificationProfileAvatar
-          profile={notification?.wallet?.defaultProfile}
-        />
-      ) : (
-        <NotificationWalletProfileAvatar wallet={notification?.wallet} />
-      )}
-      <div className="w-4/5">
-        {notification?.wallet?.defaultProfile ? (
-          <NotificationProfileName
-            profile={notification?.wallet?.defaultProfile}
-          />
-        ) : (
-          <NotificationWalletProfileName wallet={notification?.wallet} />
-        )}{' '}
-        <span className="text-gray-600 dark:text-gray-400">
-          {currentUser?.followModule?.__typename === 'FeeFollowModuleSettings'
-            ? 'super'
-            : ''}{' '}
-          followed you
-        </span>
-        <div className="flex items-center pt-1 space-x-1 text-gray-400 text-[12px]">
-          <UserAddIcon className="text-green-500 h-[15px]" />
-          {currentUser?.followModule?.__typename ===
-            'FeeFollowModuleSettings' && (
-            <HeartIcon className="text-pink-500 h-[15px]" />
+    <div className="flex justify-between items-start">
+      <div className="space-y-2 w-4/5">
+        <div className="flex items-center space-x-3">
+          {isSuperFollow ? (
+            <UserAddIcon className="h-6 w-6 text-pink-500/70" />
+          ) : (
+            <UserAddIcon className="h-6 w-6 text-green-500/70" />
           )}
-          <div>{dayjs(new Date(notification?.createdAt)).fromNow()}</div>
+          {notification?.wallet?.defaultProfile ? (
+            <NotificationProfileAvatar
+              profile={notification?.wallet?.defaultProfile}
+            />
+          ) : (
+            <NotificationWalletProfileAvatar wallet={notification?.wallet} />
+          )}
         </div>
+        <div className="ml-9">
+          {notification?.wallet?.defaultProfile ? (
+            <NotificationProfileName
+              profile={notification?.wallet?.defaultProfile}
+            />
+          ) : (
+            <NotificationWalletProfileName wallet={notification?.wallet} />
+          )}{' '}
+          <span className="text-gray-600 dark:text-gray-400">
+            {isSuperFollow ? 'super' : ''} followed you
+          </span>
+        </div>
+      </div>
+      <div className="text-gray-400 text-[12px]">
+        {dayjs(new Date(notification?.createdAt)).fromNow()}
       </div>
     </div>
   )
