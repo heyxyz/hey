@@ -13,7 +13,7 @@
     "prettier:check": "prettier --check \"./src/**/*.{ts,tsx}\"",
     "codegen": "graphql-codegen",
     "prepare": "husky install",
-    "test": "cypress run --headless --browser chrome",
+    "test": "cypress run --headless",
     "cypress:open": "cypress open"
   },
   "dependencies": {

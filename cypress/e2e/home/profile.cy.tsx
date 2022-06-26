@@ -1,6 +1,8 @@
+import { IS_MAINNET } from 'src/constants'
+
 context('Home Page', () => {
   before(() => {
-    cy.visit('http://localhost:4783/u/lensprotocol')
+    cy.visit(`http://localhost:4783/u/yoginth${IS_MAINNET ? '.lens' : '.test'}`)
   })
 
   it('should render profile cover', () => {
