@@ -50,6 +50,18 @@ context('Publication Page', () => {
   it('should render publication source', () => {
     cy.get('[data-test=publication-source]')
   })
+
+  it('should render attachments', () => {
+    cy.get('[data-test=attachments]')
+  })
+
+  it('should render footer', () => {
+    cy.get('[data-test=footer]')
+  })
+
+  it('should render comment feed', () => {
+    cy.get('[data-test=comment-feed]')
+  })
 })
 
 export {}

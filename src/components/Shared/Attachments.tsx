@@ -62,6 +62,7 @@ const Attachments: FC<Props> = ({
         getClass(slicedAttachments?.length)?.row,
         'grid grid-flow-col gap-2 pt-3'
       )}
+      data-test="attachments"
     >
       {slicedAttachments?.map((attachment: LensterAttachment & MediaSet) => (
         <div
