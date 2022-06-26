@@ -1,8 +1,10 @@
-import { IS_MAINNET } from 'src/constants'
-
 context('Profile Page', () => {
   before(() => {
-    cy.visit(`http://localhost:4783/u/yoginth${IS_MAINNET ? '.lens' : '.test'}`)
+    cy.visit(
+      `http://localhost:4783/u/yoginth${
+        Cypress.env('is_mainnet') ? '.lens' : '.test'
+      }`
+    )
   })
 
   it('should render profile cover', () => {
