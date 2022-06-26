@@ -1,6 +1,10 @@
+import { IS_MAINNET } from 'src/constants'
+
 context('Publication Page', () => {
   before(() => {
-    cy.visit('http://localhost:4783/posts/0x01-0x01')
+    cy.visit(
+      `http://localhost:4783/posts/${IS_MAINNET ? '0x0d-0x0f' : '0x15-0x0a'}`
+    )
   })
 
   it('should render publication', () => {
@@ -37,6 +41,14 @@ context('Publication Page', () => {
 
   it('should render publication more', () => {
     cy.get('[data-test=publication-more]')
+  })
+
+  it('should render publication ipfs hash', () => {
+    cy.get('[data-test=ipfs-hash]')
+  })
+
+  it('should render publication source', () => {
+    cy.get('[data-test=publication-source]')
   })
 })
 

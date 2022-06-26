@@ -14,7 +14,7 @@ const IPFSHash: FC<Props> = ({ ipfsHash }) => {
   if (!formattedHash) return null
 
   return (
-    <Card>
+    <Card testId="ipfs-hash">
       <CardBody className="text-sm text-gray-500">
         <a
           className="flex justify-between items-center"
