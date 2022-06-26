@@ -1,6 +1,6 @@
 import { IS_MAINNET } from 'src/constants'
 
-context('Home Page', () => {
+context('Profile Page', () => {
   before(() => {
     cy.visit(`http://localhost:4783/u/yoginth${IS_MAINNET ? '.lens' : '.test'}`)
   })
@@ -32,6 +32,10 @@ context('Home Page', () => {
 
   it('should render profile meta', () => {
     cy.get('[data-test=profile-meta]')
+  })
+
+  it('should render profile feed', () => {
+    cy.get('[data-test=profile-feed]')
   })
 })
 
