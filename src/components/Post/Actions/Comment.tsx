@@ -17,7 +17,11 @@ const Comment: FC<Props> = ({ post }) => {
       ? post?.mirrorOf?.stats?.totalAmountOfComments
       : post?.stats?.totalAmountOfComments
   return (
-    <motion.button whileTap={{ scale: 0.9 }} aria-label="Comment">
+    <motion.button
+      whileTap={{ scale: 0.9 }}
+      aria-label="Comment"
+      data-test="publication-comment"
+    >
       <Link href={`/posts/${post?.id ?? post?.pubId}`} prefetch={false}>
         <a
           href={`/posts/${post?.id ?? post?.pubId}`}
