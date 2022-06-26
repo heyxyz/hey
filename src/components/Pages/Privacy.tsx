@@ -7,7 +7,10 @@ const Privacy: FC = () => {
   return (
     <>
       <SEO title={`Privacy • ${APP_NAME}`} />
-      <div className="flex justify-center items-center w-full h-48 bg-brand-400">
+      <div
+        className="flex justify-center items-center w-full h-48 bg-brand-400"
+        data-test="privacy-content"
+      >
         <div className="relative text-center">
           <h1 className="text-3xl font-semibold text-white md:text-4xl">
             Privacy Policy
