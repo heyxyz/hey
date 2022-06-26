@@ -13,7 +13,7 @@
     "prettier:check": "prettier --check \"./src/**/*.{ts,tsx}\"",
     "codegen": "graphql-codegen",
     "prepare": "husky install",
-    "cypress": "cypress run --headless"
+    "cypress": "cypress open"
   },
   "dependencies": {
     "@apollo/client": "^3.6.9",
@@ -21,7 +21,7 @@
     "@giphy/react-components": "^5.9.2",
     "@headlessui/react": "^1.6.5",
     "@heroicons/react": "^1.0.6",
-    "@hookform/resolvers": "^2.9.2",
+    "@hookform/resolvers": "^2.9.3",
     "@sentry/nextjs": "^7.3.0",
     "@tailwindcss/aspect-ratio": "^0.4.0",
     "@tippyjs/react": "^4.2.6",
