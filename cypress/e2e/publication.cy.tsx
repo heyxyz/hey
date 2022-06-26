@@ -1,9 +1,9 @@
-import { IS_MAINNET } from 'src/constants'
-
 context('Publication Page', () => {
   before(() => {
     cy.visit(
-      `http://localhost:4783/posts/${IS_MAINNET ? '0x0d-0x0f' : '0x15-0x0a'}`
+      `http://localhost:4783/posts/${
+        Cypress.env('is_mainnet') ? '0x0d-0x0f' : '0x15-0x0a'
+      }`
     )
   })
 
