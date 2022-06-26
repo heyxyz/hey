@@ -1,5 +1,5 @@
 import { gql, useQuery } from '@apollo/client'
-import AppContext from '@components/utils/AppContext'
+import NotificationIcon from '@components/Notification/Icon'
 import { Disclosure } from '@headlessui/react'
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
 import hasPrideLogo from '@lib/hasPrideLogo'
@@ -8,7 +8,8 @@ import clsx from 'clsx'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { FC, useContext } from 'react'
+import { FC } from 'react'
+import { usePersistStore } from 'src/store'
 
 import MenuItems from './MenuItems'
 import MoreNavItems from './MoreNavItems'
@@ -16,7 +17,6 @@ import Search from './Search'
 
 const StaffBar = dynamic(() => import('./StaffBar'))
 const NewPostModal = dynamic(() => import('../../Post/NewPost/Modal'))
-const Notification = dynamic(() => import('../../Notification'))
 
 const PING_QUERY = gql`
   query Ping {
@@ -25,7 +25,7 @@ const PING_QUERY = gql`
 `
 
 const Navbar: FC = () => {
-  const { currentUser, staffMode } = useContext(AppContext)
+  const { isAuthenticated, currentUser, staffMode } = usePersistStore()
   const { data: pingData } = useQuery(PING_QUERY, {
     pollInterval: 3000,
     skip: !currentUser
@@ -126,8 +126,8 @@ const Navbar: FC = () => {
                 </div>
               </div>
               <div className="flex gap-8 items-center">
-                {currentUser && <NewPostModal />}
-                {currentUser && <Notification />}
+                {isAuthenticated && currentUser && <NewPostModal />}
+                {isAuthenticated && currentUser && <NotificationIcon />}
                 <MenuItems pingData={pingData} />
               </div>
             </div>

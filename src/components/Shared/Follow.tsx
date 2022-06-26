@@ -2,30 +2,23 @@ import { LensHubProxy } from '@abis/LensHubProxy'
 import { gql, useMutation } from '@apollo/client'
 import { Button } from '@components/UI/Button'
 import { Spinner } from '@components/UI/Spinner'
-import AppContext from '@components/utils/AppContext'
 import { CreateFollowBroadcastItemResult, Profile } from '@generated/types'
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { UserAddIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
-import { Dispatch, FC, useContext } from 'react'
+import { Dispatch, FC } from 'react'
 import toast from 'react-hot-toast'
 import {
-  CHAIN_ID,
   CONNECT_WALLET,
   ERROR_MESSAGE,
   ERRORS,
   LENSHUB_PROXY,
-  RELAY_ON,
-  WRONG_NETWORK
+  RELAY_ON
 } from 'src/constants'
-import {
-  useAccount,
-  useContractWrite,
-  useNetwork,
-  useSignTypedData
-} from 'wagmi'
+import { useAppStore, usePersistStore } from 'src/store'
+import { useAccount, useContractWrite, useSignTypedData } from 'wagmi'
 
 const CREATE_FOLLOW_TYPED_DATA_MUTATION = gql`
   mutation CreateFollowTypedData(
@@ -74,8 +67,8 @@ const Follow: FC<Props> = ({
   followersCount,
   setFollowersCount
 }) => {
-  const { currentUser, userSigNonce, setUserSigNonce } = useContext(AppContext)
-  const { activeChain } = useNetwork()
+  const { userSigNonce, setUserSigNonce } = useAppStore()
+  const { isAuthenticated, currentUser } = usePersistStore()
   const { data: account } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
@@ -168,27 +161,23 @@ const Follow: FC<Props> = ({
   )
 
   const createFollow = () => {
-    if (!account?.address) {
-      toast.error(CONNECT_WALLET)
-    } else if (activeChain?.id !== CHAIN_ID) {
-      toast.error(WRONG_NETWORK)
-    } else {
-      createFollowTypedData({
-        variables: {
-          options: { overrideSigNonce: userSigNonce },
-          request: {
-            follow: {
-              profile: profile?.id,
-              followModule:
-                profile?.followModule?.__typename ===
-                'ProfileFollowModuleSettings'
-                  ? { profileFollowModule: { profileId: currentUser?.id } }
-                  : null
-            }
+    if (!isAuthenticated) return toast.error(CONNECT_WALLET)
+
+    createFollowTypedData({
+      variables: {
+        options: { overrideSigNonce: userSigNonce },
+        request: {
+          follow: {
+            profile: profile?.id,
+            followModule:
+              profile?.followModule?.__typename ===
+              'ProfileFollowModuleSettings'
+                ? { profileFollowModule: { profileId: currentUser?.id } }
+                : null
           }
         }
-      })
-    }
+      }
+    })
   }
 
   return (
