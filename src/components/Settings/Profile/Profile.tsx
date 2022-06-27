@@ -117,21 +117,17 @@ const Profile: FC<Props> = ({ profile }) => {
     isLoading: writeLoading,
     error,
     write
-  } = useContractWrite(
-    {
-      addressOrName: LENS_PERIPHERY,
-      contractInterface: LensPeriphery
+  } = useContractWrite({
+    addressOrName: LENS_PERIPHERY,
+    contractInterface: LensPeriphery,
+    functionName: 'setProfileMetadataURIWithSig',
+    onSuccess() {
+      onCompleted()
     },
-    'setProfileMetadataURIWithSig',
-    {
-      onSuccess() {
-        onCompleted()
-      },
-      onError(error: any) {
-        toast.error(error?.data?.message ?? error?.message)
-      }
+    onError(error: any) {
+      toast.error(error?.data?.message ?? error?.message)
     }
-  )
+  })
 
   const [broadcast, { data: broadcastData, loading: broadcastLoading }] =
     useMutation(BROADCAST_MUTATION, {

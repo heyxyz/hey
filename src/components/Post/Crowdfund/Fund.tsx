@@ -75,7 +75,7 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
   const { userSigNonce, setUserSigNonce } = useAppStore()
   const { isAuthenticated, currentUser } = usePersistStore()
   const [allowed, setAllowed] = useState<boolean>(true)
-  const { data: account } = useAccount()
+  const { address } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
       toast.error(error?.message)
@@ -125,21 +125,17 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
     data: writeData,
     isLoading: writeLoading,
     write
-  } = useContractWrite(
-    {
-      addressOrName: LENSHUB_PROXY,
-      contractInterface: LensHubProxy
+  } = useContractWrite({
+    addressOrName: LENSHUB_PROXY,
+    contractInterface: LensHubProxy,
+    functionName: 'collectWithSig',
+    onSuccess() {
+      onCompleted()
     },
-    'collectWithSig',
-    {
-      onSuccess() {
-        onCompleted()
-      },
-      onError(error: any) {
-        toast.error(error?.data?.message ?? error?.message)
-      }
+    onError(error: any) {
+      toast.error(error?.data?.message ?? error?.message)
     }
-  )
+  })
 
   const [broadcast, { data: broadcastData, loading: broadcastLoading }] =
     useMutation(BROADCAST_MUTATION, {
@@ -175,7 +171,7 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
           const { v, r, s } = splitSignature(signature)
           const sig = { v, r, s, deadline: typedData.value.deadline }
           const inputStruct = {
-            collector: account?.address,
+            collector: address,
             profileId,
             pubId,
             data: collectData,

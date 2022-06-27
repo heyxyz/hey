@@ -63,7 +63,7 @@ interface Props {
 const Join: FC<Props> = ({ community, setJoined, showJoin = true }) => {
   const { userSigNonce, setUserSigNonce } = useAppStore()
   const { isAuthenticated } = usePersistStore()
-  const { data: account } = useAccount()
+  const { address } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
       toast.error(error?.message)
@@ -75,21 +75,17 @@ const Join: FC<Props> = ({ community, setJoined, showJoin = true }) => {
     toast.success('Joined successfully!')
   }
 
-  const { isLoading: writeLoading, write } = useContractWrite(
-    {
-      addressOrName: LENSHUB_PROXY,
-      contractInterface: LensHubProxy
+  const { isLoading: writeLoading, write } = useContractWrite({
+    addressOrName: LENSHUB_PROXY,
+    contractInterface: LensHubProxy,
+    functionName: 'collectWithSig',
+    onSuccess() {
+      onCompleted()
     },
-    'collectWithSig',
-    {
-      onSuccess() {
-        onCompleted()
-      },
-      onError(error: any) {
-        toast.error(error?.data?.message ?? error?.message)
-      }
+    onError(error: any) {
+      toast.error(error?.data?.message ?? error?.message)
     }
-  )
+  })
 
   const [broadcast, { loading: broadcastLoading }] = useMutation(
     BROADCAST_MUTATION,
@@ -127,7 +123,7 @@ const Join: FC<Props> = ({ community, setJoined, showJoin = true }) => {
           const { v, r, s } = splitSignature(signature)
           const sig = { v, r, s, deadline: typedData.value.deadline }
           const inputStruct = {
-            collector: account?.address,
+            collector: address,
             profileId,
             pubId,
             data: collectData,
