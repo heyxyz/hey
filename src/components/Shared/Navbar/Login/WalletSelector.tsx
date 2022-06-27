@@ -45,7 +45,7 @@ interface Props {
 
 const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
   const [mounted, setMounted] = useState(false)
-  const { activeChain } = useNetwork()
+  const { chain } = useNetwork()
   const { signMessageAsync, isLoading: signLoading } = useSignMessage()
   const [
     loadChallenge,
@@ -76,12 +76,12 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
   useEffect(() => setMounted(true), [])
 
   const { connectors, error, connectAsync } = useConnect()
-  const { data: accountData } = useAccount()
+  const { address, connector: activeConnector } = useAccount()
   const { setProfiles } = useAppStore()
   const { setIsAuthenticated, setCurrentUser } = usePersistStore()
 
-  const onConnect = async (x: Connector) => {
-    await connectAsync(x).then(({ account }) => {
+  const onConnect = async (connector: Connector) => {
+    await connectAsync({ connector }).then(({ account }) => {
       if (account) {
         setHasConnected(true)
       }
@@ -90,13 +90,13 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
 
   const handleSign = () => {
     loadChallenge({
-      variables: { request: { address: accountData?.address } }
+      variables: { request: { address } }
     }).then((res) => {
       signMessageAsync({ message: res?.data?.challenge?.text }).then(
         (signature) => {
           authenticate({
             variables: {
-              request: { address: accountData?.address, signature }
+              request: { address, signature }
             }
           }).then((res) => {
             Cookies.set(
@@ -110,7 +110,7 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
               COOKIE_CONFIG
             )
             getProfiles({
-              variables: { ownedBy: accountData?.address }
+              variables: { ownedBy: address }
             }).then(({ data }) => {
               if (data?.profiles?.items?.length === 0) {
                 setHasProfile(false)
@@ -134,9 +134,9 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
     })
   }
 
-  return accountData?.connector?.id ? (
+  return activeConnector?.id ? (
     <div className="space-y-3">
-      {activeChain?.id === CHAIN_ID ? (
+      {chain?.id === CHAIN_ID ? (
         <Button
           size="lg"
           disabled={
@@ -174,38 +174,40 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
     </div>
   ) : (
     <div className="inline-block overflow-hidden space-y-3 w-full text-left align-middle transition-all transform">
-      {connectors.map((x) => {
+      {connectors.map((connector) => {
         return (
           <button
             type="button"
-            key={x.id}
+            key={connector.id}
             className={clsx(
               {
                 'hover:bg-gray-100 dark:hover:bg-gray-700':
-                  x.id !== accountData?.connector?.id
+                  connector.id !== activeConnector?.id
               },
               'w-full flex items-center space-x-2.5 justify-center px-4 py-3 overflow-hidden rounded-xl border dark:border-gray-700/80 outline-none'
             )}
-            onClick={() => onConnect(x)}
+            onClick={() => onConnect(connector)}
             disabled={
-              mounted ? !x.ready || x.id === accountData?.connector?.id : false
+              mounted
+                ? !connector.ready || connector.id === activeConnector?.id
+                : false
             }
           >
             <span className="flex justify-between items-center w-full">
               {mounted
-                ? x.id === 'injected'
+                ? connector.id === 'injected'
                   ? 'Browser Wallet'
-                  : x.name
-                : x.name}
-              {mounted ? !x.ready && ' (unsupported)' : ''}
+                  : connector.name
+                : connector.name}
+              {mounted ? !connector.ready && ' (unsupported)' : ''}
             </span>
             <img
-              src={getWalletLogo(x.name)}
+              src={getWalletLogo(connector.name)}
               draggable={false}
               className="w-6 h-6"
               height={24}
               width={24}
-              alt={x.id}
+              alt={connector.id}
             />
           </button>
         )

@@ -125,7 +125,7 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
   const [showCollectorsModal, setShowCollectorsModal] = useState<boolean>(false)
   const [allowed, setAllowed] = useState<boolean>(true)
 
-  const { data: account } = useAccount()
+  const { address } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
       toast.error(error?.message)
@@ -142,21 +142,17 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
     data: writeData,
     isLoading: writeLoading,
     write
-  } = useContractWrite(
-    {
-      addressOrName: LENSHUB_PROXY,
-      contractInterface: LensHubProxy
+  } = useContractWrite({
+    addressOrName: LENSHUB_PROXY,
+    contractInterface: LensHubProxy,
+    functionName: 'collectWithSig',
+    onSuccess() {
+      onCompleted()
     },
-    'collectWithSig',
-    {
-      onSuccess() {
-        onCompleted()
-      },
-      onError(error: any) {
-        toast.error(error?.data?.message ?? error?.message)
-      }
+    onError(error: any) {
+      toast.error(error?.data?.message ?? error?.message)
     }
-  )
+  })
 
   const { data, loading } = useQuery(COLLECT_QUERY, {
     variables: { request: { publicationId: post?.pubId ?? post?.id } },
@@ -273,7 +269,7 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
           const { v, r, s } = splitSignature(signature)
           const sig = { v, r, s, deadline: typedData.value.deadline }
           const inputStruct = {
-            collector: account?.address,
+            collector: address,
             profileId,
             pubId,
             data: collectData,
