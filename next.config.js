@@ -8,8 +8,7 @@ const moduleExports = withPWA({
     disable: process.env.NODE_ENV === 'development',
     runtimeCaching
   },
-  reactStrictMode: process.env.NODE_ENV === 'production',
-  poweredByHeader: false
+  reactStrictMode: process.env.NODE_ENV === 'production'
 })
 
 const sentryWebpackPluginOptions = {
