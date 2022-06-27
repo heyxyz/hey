@@ -93,21 +93,17 @@ const Mirror: FC<Props> = ({ post }) => {
     toast.success('Post has been mirrored!')
   }
 
-  const { isLoading: writeLoading, write } = useContractWrite(
-    {
-      addressOrName: LENSHUB_PROXY,
-      contractInterface: LensHubProxy
+  const { isLoading: writeLoading, write } = useContractWrite({
+    addressOrName: LENSHUB_PROXY,
+    contractInterface: LensHubProxy,
+    functionName: 'mirrorWithSig',
+    onSuccess() {
+      onCompleted()
     },
-    'mirrorWithSig',
-    {
-      onSuccess() {
-        onCompleted()
-      },
-      onError(error: any) {
-        toast.error(error?.data?.message ?? error?.message)
-      }
+    onError(error: any) {
+      toast.error(error?.data?.message ?? error?.message)
     }
-  )
+  })
 
   const [broadcast, { loading: broadcastLoading }] = useMutation(
     BROADCAST_MUTATION,

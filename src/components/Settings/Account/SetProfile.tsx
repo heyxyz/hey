@@ -62,7 +62,7 @@ const SetProfile: FC = () => {
   const { profiles, userSigNonce, setUserSigNonce } = useAppStore()
   const { isAuthenticated } = usePersistStore()
   const [selectedUser, setSelectedUser] = useState<string>()
-  const { data: account } = useAccount()
+  const { address } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
       toast.error(error?.message)
@@ -78,21 +78,17 @@ const SetProfile: FC = () => {
     isLoading: writeLoading,
     error,
     write
-  } = useContractWrite(
-    {
-      addressOrName: LENSHUB_PROXY,
-      contractInterface: LensHubProxy
+  } = useContractWrite({
+    addressOrName: LENSHUB_PROXY,
+    contractInterface: LensHubProxy,
+    functionName: 'setDefaultProfileWithSig',
+    onSuccess() {
+      onCompleted()
     },
-    'setDefaultProfileWithSig',
-    {
-      onSuccess() {
-        onCompleted()
-      },
-      onError(error: any) {
-        toast.error(error?.data?.message ?? error?.message)
-      }
+    onError(error: any) {
+      toast.error(error?.data?.message ?? error?.message)
     }
-  )
+  })
 
   const hasDefaultProfile = !!profiles.find((o) => o.isDefault)
   const sortedProfiles: Profile[] = profiles?.sort((a, b) =>
@@ -140,7 +136,7 @@ const SetProfile: FC = () => {
           const { v, r, s } = splitSignature(signature)
           const sig = { v, r, s, deadline: typedData.value.deadline }
           const inputStruct = {
-            follower: account?.address,
+            follower: address,
             wallet,
             profileId,
             sig
