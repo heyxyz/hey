@@ -70,7 +70,7 @@ const DeleteSettings: FC = () => {
 
   const onCompleted = () => {
     setIsAuthenticated(false)
-    setCurrentUser(undefined)
+    setCurrentUser(null)
     Cookies.remove('accessToken')
     Cookies.remove('refreshToken')
     localStorage.removeItem('lenster.store')
