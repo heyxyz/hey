@@ -10,6 +10,7 @@ import getWalletLogo from '@lib/getWalletLogo'
 import clsx from 'clsx'
 import Cookies from 'js-cookie'
 import React, { Dispatch, FC, useEffect, useState } from 'react'
+import toast from 'react-hot-toast'
 import { COOKIE_CONFIG } from 'src/apollo'
 import { CHAIN_ID, ERROR_MESSAGE } from 'src/constants'
 import { useAppStore, usePersistStore } from 'src/store'
@@ -92,12 +93,14 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
     loadChallenge({
       variables: { request: { address } }
     }).then((res) => {
+      if (!res?.data?.challenge?.text) {
+        return toast.error(ERROR_MESSAGE)
+      }
+
       signMessageAsync({ message: res?.data?.challenge?.text }).then(
         (signature) => {
           authenticate({
-            variables: {
-              request: { address, signature }
-            }
+            variables: { request: { address, signature } }
           }).then((res) => {
             Cookies.set(
               'accessToken',
