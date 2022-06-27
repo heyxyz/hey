@@ -76,7 +76,7 @@
     "cypress": "^10.1.0",
     "eslint": "^8.18.0",
     "eslint-config-next": "^12.1.5",
-    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-prettier": "^4.1.0",
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "eslint-plugin-unused-imports": "^2.0.0",
     "husky": "^8.0.1",
