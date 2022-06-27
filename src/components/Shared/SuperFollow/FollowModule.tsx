@@ -110,7 +110,7 @@ const FollowModule: FC<Props> = ({
   const { userSigNonce, setUserSigNonce } = useAppStore()
   const { isAuthenticated, currentUser } = usePersistStore()
   const [allowed, setAllowed] = useState<boolean>(true)
-  const { data: account } = useAccount()
+  const { address } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
       toast.error(error?.message)
@@ -126,21 +126,17 @@ const FollowModule: FC<Props> = ({
     toast.success('Followed successfully!')
   }
 
-  const { isLoading: writeLoading, write } = useContractWrite(
-    {
-      addressOrName: LENSHUB_PROXY,
-      contractInterface: LensHubProxy
+  const { isLoading: writeLoading, write } = useContractWrite({
+    addressOrName: LENSHUB_PROXY,
+    contractInterface: LensHubProxy,
+    functionName: 'followWithSig',
+    onSuccess() {
+      onCompleted()
     },
-    'followWithSig',
-    {
-      onSuccess() {
-        onCompleted()
-      },
-      onError(error: any) {
-        toast.error(error?.data?.message ?? error?.message)
-      }
+    onError(error: any) {
+      toast.error(error?.data?.message ?? error?.message)
     }
-  )
+  })
 
   const { data, loading } = useQuery(SUPER_FOLLOW_QUERY, {
     variables: { request: { profileId: profile?.id } },
@@ -226,7 +222,7 @@ const FollowModule: FC<Props> = ({
           const { v, r, s } = splitSignature(signature)
           const sig = { v, r, s, deadline: typedData.value.deadline }
           const inputStruct = {
-            follower: account?.address,
+            follower: address,
             profileIds,
             datas: followData,
             sig

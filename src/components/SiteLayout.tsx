@@ -10,7 +10,7 @@ import { FC, ReactNode, Suspense, useEffect, useState } from 'react'
 import { Toaster } from 'react-hot-toast'
 import { CHAIN_ID } from 'src/constants'
 import { useAppStore, usePersistStore } from 'src/store'
-import { useAccount, useConnect, useDisconnect, useNetwork } from 'wagmi'
+import { useAccount, useDisconnect, useNetwork } from 'wagmi'
 
 import Loading from './Loading'
 
@@ -41,12 +41,11 @@ const SiteLayout: FC<Props> = ({ children }) => {
   const { isAuthenticated, setIsAuthenticated, currentUser, setCurrentUser } =
     usePersistStore()
   const [mounted, setMounted] = useState<boolean>(false)
-  const { data: account } = useAccount()
-  const { activeConnector } = useConnect()
-  const { activeChain } = useNetwork()
+  const { address, connector } = useAccount()
+  const { chain } = useNetwork()
   const { disconnect } = useDisconnect()
   const { loading } = useQuery(CURRENT_USER_QUERY, {
-    variables: { ownedBy: account?.address },
+    variables: { ownedBy: address },
     skip: !isAuthenticated,
     onCompleted(data) {
       const profiles: Profile[] = data?.profiles?.items
@@ -91,18 +90,18 @@ const SiteLayout: FC<Props> = ({ children }) => {
       accessToken !== 'undefined' &&
       refreshToken !== 'undefined' &&
       currentUser &&
-      activeChain?.id === CHAIN_ID
+      chain?.id === CHAIN_ID
     ) {
       setIsAuthenticated(true)
     } else {
       if (isAuthenticated) logout()
     }
 
-    activeConnector?.on('change', () => {
+    connector?.on('change', () => {
       logout()
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isAuthenticated, activeConnector, disconnect, setCurrentUser])
+  }, [isAuthenticated, connector, disconnect, setCurrentUser])
 
   const toastOptions = {
     style: {

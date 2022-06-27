@@ -43,7 +43,7 @@ interface Props {
 const Create: FC<Props> = ({ isModal = false }) => {
   const [avatar, setAvatar] = useState<string>()
   const [uploading, setUploading] = useState<boolean>(false)
-  const { data: account } = useAccount()
+  const { address } = useAccount()
   const [createProfile, { data, loading }] = useMutation(
     CREATE_PROFILE_MUTATION
   )
@@ -82,7 +82,7 @@ const Create: FC<Props> = ({ isModal = false }) => {
               handle: username,
               profilePictureUri: avatar
                 ? avatar
-                : `https://avatar.tobi.sh/${account?.address}_${username}.png`
+                : `https://avatar.tobi.sh/${address}_${username}.png`
             }
           }
         })

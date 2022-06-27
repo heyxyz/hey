@@ -96,18 +96,14 @@ const Create: NextPage = () => {
     data,
     isLoading: writeLoading,
     write
-  } = useContractWrite(
-    {
-      addressOrName: LENSHUB_PROXY,
-      contractInterface: LensHubProxy
-    },
-    'postWithSig',
-    {
-      onError(error: any) {
-        toast.error(error?.data?.message ?? error?.message)
-      }
+  } = useContractWrite({
+    addressOrName: LENSHUB_PROXY,
+    contractInterface: LensHubProxy,
+    functionName: 'postWithSig',
+    onError(error: any) {
+      toast.error(error?.data?.message ?? error?.message)
     }
-  )
+  })
 
   const form = useZodForm({
     schema: newCrowdfundSchema,

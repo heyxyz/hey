@@ -6,8 +6,8 @@ cache:
     - .next/cache/
 
 stages:
-  - test
   - build
+  - test
   - clean
 
 before_script:
@@ -15,15 +15,6 @@ before_script:
   - yarn -v
   - cp .env.example .env
   - yarn install --frozen-lockfile --silent
-
-test:
-  image: cypress/browsers:node16.13.2-chrome100-ff98
-  stage: test
-  before_script: []
-  allow_failure: true
-  script:
-    - yarn install --frozen-lockfile --silent
-    - yarn cypress:e2e
 
 lint:
   stage: build
@@ -45,6 +36,15 @@ typecheck:
   script:
     - yarn codegen
     - yarn typecheck
+
+test:
+  image: cypress/browsers:node16.13.2-chrome100-ff98
+  stage: test
+  before_script: []
+  allow_failure: true
+  script:
+    - yarn install --frozen-lockfile --silent
+    - yarn cypress:e2e
 
 housekeeping:
   stage: clean

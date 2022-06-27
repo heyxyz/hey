@@ -78,21 +78,17 @@ const DeleteSettings: FC = () => {
     location.href = '/'
   }
 
-  const { isLoading: writeLoading, write } = useContractWrite(
-    {
-      addressOrName: LENSHUB_PROXY,
-      contractInterface: LensHubProxy
+  const { isLoading: writeLoading, write } = useContractWrite({
+    addressOrName: LENSHUB_PROXY,
+    contractInterface: LensHubProxy,
+    functionName: 'burnWithSig',
+    onSuccess() {
+      onCompleted()
     },
-    'burnWithSig',
-    {
-      onSuccess() {
-        onCompleted()
-      },
-      onError(error: any) {
-        toast.error(error?.data?.message ?? error?.message)
-      }
+    onError(error: any) {
+      toast.error(error?.data?.message ?? error?.message)
     }
-  )
+  })
 
   const [createBurnProfileTypedData, { loading: typedDataLoading }] =
     useMutation(CREATE_BURN_PROFILE_TYPED_DATA_MUTATION, {

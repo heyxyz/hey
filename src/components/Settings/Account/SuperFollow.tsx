@@ -111,18 +111,14 @@ const SuperFollow: FC = () => {
     data: writeData,
     isLoading: writeLoading,
     write
-  } = useContractWrite(
-    {
-      addressOrName: LENSHUB_PROXY,
-      contractInterface: LensHubProxy
-    },
-    'setFollowModuleWithSig',
-    {
-      onError(error: any) {
-        toast.error(error?.data?.message ?? error?.message)
-      }
+  } = useContractWrite({
+    addressOrName: LENSHUB_PROXY,
+    contractInterface: LensHubProxy,
+    functionName: 'setFollowModuleWithSig',
+    onError(error: any) {
+      toast.error(error?.data?.message ?? error?.message)
     }
-  )
+  })
 
   const form = useZodForm({
     schema: newCrowdfundSchema,
