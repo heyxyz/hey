@@ -41,7 +41,7 @@ const SiteLayout: FC<Props> = ({ children }) => {
   const { isAuthenticated, setIsAuthenticated, currentUser, setCurrentUser } =
     usePersistStore()
   const [mounted, setMounted] = useState<boolean>(false)
-  const { address, connector } = useAccount()
+  const { address, connector, isDisconnected } = useAccount()
   const { chain } = useNetwork()
   const { disconnect } = useDisconnect()
   const { loading } = useQuery(CURRENT_USER_QUERY, {
@@ -81,7 +81,7 @@ const SiteLayout: FC<Props> = ({ children }) => {
       Cookies.remove('accessToken')
       Cookies.remove('refreshToken')
       localStorage.removeItem('lenster.store')
-      disconnect()
+      if (disconnect) disconnect()
     }
 
     if (
@@ -97,11 +97,16 @@ const SiteLayout: FC<Props> = ({ children }) => {
       if (isAuthenticated) logout()
     }
 
+    if (isDisconnected) {
+      if (disconnect) disconnect()
+      setIsAuthenticated(false)
+    }
+
     connector?.on('change', () => {
       logout()
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isAuthenticated, connector, disconnect, setCurrentUser])
+  }, [isAuthenticated, isDisconnected, connector, disconnect, setCurrentUser])
 
   const toastOptions = {
     style: {
