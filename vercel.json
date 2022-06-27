@@ -39,7 +39,7 @@
         },
         {
           "key": "Permissions-Policy",
-          "value": "geolocation=(self), microphone=()"
+          "value": "interest-cohort=()"
         }
       ]
     }
