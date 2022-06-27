@@ -128,7 +128,7 @@ const MenuItems: FC<Props> = ({ pingData }) => {
               <Menu.Item
                 as="a"
                 onClick={() => {
-                  setCurrentUser(undefined)
+                  setCurrentUser(null)
                   Cookies.remove('accessToken')
                   Cookies.remove('refreshToken')
                   localStorage.removeItem('lenster.store')
