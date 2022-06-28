@@ -1,4 +1,7 @@
 import { gql } from '@apollo/client'
+import { MediaSet, NftImage, Profile } from '@generated/types'
+import generateMeta from '@lib/generateMeta'
+import getIPFSLink from '@lib/getIPFSLink'
 import { withSentry } from '@sentry/nextjs'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { nodeClient } from 'src/apollo'
@@ -44,8 +47,21 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     })
 
     if (data?.profile) {
+      const profile: Profile & { picture: MediaSet & NftImage } = data?.profile
+      const title = profile?.name
+        ? `${profile?.name} (@${profile?.handle}) • Lenster`
+        : `@${profile?.handle} • Lenster`
+      const description = profile?.bio ?? ''
+      const image = profile
+        ? `https://ik.imagekit.io/lensterimg/tr:n-avatar/${getIPFSLink(
+            profile?.picture?.original?.url ??
+              profile?.picture?.uri ??
+              `https://avatar.tobi.sh/${profile?.ownedBy}_${profile?.handle}.png`
+          )}`
+        : 'https://assets.lenster.xyz/images/og/logo.jpeg'
+
       res.setHeader('Cache-Control', 's-maxage=86400')
-      return res.status(200).json({ success: true, profile: data?.profile })
+      return res.send(generateMeta(title, description, image))
     } else {
       return res
         .status(404)
