@@ -20,6 +20,7 @@ const FOLLOWERS_QUERY = gql`
           address
           defaultProfile {
             ...MinimalProfileFields
+            isFollowedByMe
           }
         }
         totalAmountOfTimesFollowed
@@ -105,8 +106,10 @@ const Followers: FC<Props> = ({ profile }) => {
             <div className="p-5" key={follower?.wallet?.defaultProfile?.id}>
               {follower?.wallet?.defaultProfile ? (
                 <UserProfile
-                  profile={follower?.wallet?.defaultProfile as Profile}
+                  profile={follower?.wallet?.defaultProfile}
                   showBio
+                  showFollow
+                  isFollowing={follower?.wallet?.defaultProfile?.isFollowedByMe}
                 />
               ) : (
                 <WalletProfile wallet={follower?.wallet} />

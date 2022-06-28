@@ -22,6 +22,7 @@ const Followerings: FC<Props> = ({ followersCount, profile }) => {
         type="button"
         className="text-left"
         onClick={() => setShowFollowingModal(!showFollowingModal)}
+        data-test="profile-following"
       >
         <div className="text-xl">
           {humanize(profile?.stats?.totalFollowing)}
@@ -32,6 +33,7 @@ const Followerings: FC<Props> = ({ followersCount, profile }) => {
         type="button"
         className="text-left"
         onClick={() => setShowFollowersModal(!showFollowersModal)}
+        data-test="profile-followers"
       >
         <div className="text-xl">{humanize(followersCount)}</div>
         <div className="text-gray-500">Followers</div>

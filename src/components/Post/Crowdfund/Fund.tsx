@@ -5,7 +5,6 @@ import AllowanceButton from '@components/Settings/Allowance/Button'
 import Uniswap from '@components/Shared/Uniswap'
 import { Button } from '@components/UI/Button'
 import { Spinner } from '@components/UI/Spinner'
-import AppContext from '@components/utils/AppContext'
 import { LensterCollectModule, LensterPost } from '@generated/lenstertypes'
 import { CreateCollectBroadcastItemResult } from '@generated/types'
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
@@ -13,22 +12,20 @@ import { CashIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
-import React, { Dispatch, FC, useContext, useState } from 'react'
+import React, { Dispatch, FC, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
-  CHAIN_ID,
   CONNECT_WALLET,
   ERROR_MESSAGE,
   ERRORS,
   LENSHUB_PROXY,
-  RELAY_ON,
-  WRONG_NETWORK
+  RELAY_ON
 } from 'src/constants'
+import { useAppStore, usePersistStore } from 'src/store'
 import {
   useAccount,
   useBalance,
   useContractWrite,
-  useNetwork,
   useSignTypedData
 } from 'wagmi'
 
@@ -75,10 +72,10 @@ interface Props {
 }
 
 const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
-  const { currentUser, userSigNonce, setUserSigNonce } = useContext(AppContext)
+  const { userSigNonce, setUserSigNonce } = useAppStore()
+  const { isAuthenticated, currentUser } = usePersistStore()
   const [allowed, setAllowed] = useState<boolean>(true)
-  const { activeChain } = useNetwork()
-  const { data: account } = useAccount()
+  const { address } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
       toast.error(error?.message)
@@ -128,21 +125,17 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
     data: writeData,
     isLoading: writeLoading,
     write
-  } = useContractWrite(
-    {
-      addressOrName: LENSHUB_PROXY,
-      contractInterface: LensHubProxy
+  } = useContractWrite({
+    addressOrName: LENSHUB_PROXY,
+    contractInterface: LensHubProxy,
+    functionName: 'collectWithSig',
+    onSuccess() {
+      onCompleted()
     },
-    'collectWithSig',
-    {
-      onSuccess() {
-        onCompleted()
-      },
-      onError(error: any) {
-        toast.error(error?.data?.message ?? error?.message)
-      }
+    onError(error: any) {
+      toast.error(error?.data?.message ?? error?.message)
     }
-  )
+  })
 
   const [broadcast, { data: broadcastData, loading: broadcastLoading }] =
     useMutation(BROADCAST_MUTATION, {
@@ -178,7 +171,7 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
           const { v, r, s } = splitSignature(signature)
           const sig = { v, r, s, deadline: typedData.value.deadline }
           const inputStruct = {
-            collector: account?.address,
+            collector: address,
             profileId,
             pubId,
             data: collectData,
@@ -204,18 +197,14 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
   )
 
   const createCollect = () => {
-    if (!account?.address) {
-      toast.error(CONNECT_WALLET)
-    } else if (activeChain?.id !== CHAIN_ID) {
-      toast.error(WRONG_NETWORK)
-    } else {
-      createCollectTypedData({
-        variables: {
-          options: { overrideSigNonce: userSigNonce },
-          request: { publicationId: fund.id }
-        }
-      })
-    }
+    if (!isAuthenticated) return toast.error(CONNECT_WALLET)
+
+    createCollectTypedData({
+      variables: {
+        options: { overrideSigNonce: userSigNonce },
+        request: { publicationId: fund.id }
+      }
+    })
   }
 
   return allowanceLoading || balanceLoading ? (

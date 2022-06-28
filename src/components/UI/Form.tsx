@@ -39,7 +39,9 @@ export const FieldError: FC<FieldErrorProps> = ({ name }) => {
   if (!error) return null
 
   return (
-    <div className="mt-1 text-sm font-bold text-red-500">{error.message}</div>
+    <div className="mt-1 text-sm font-bold text-red-500">
+      {error.message as any}
+    </div>
   )
 }
 

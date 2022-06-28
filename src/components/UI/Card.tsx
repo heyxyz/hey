@@ -5,12 +5,14 @@ interface CardProps {
   children: ReactNode
   className?: string
   forceRounded?: boolean
+  testId?: string
 }
 
 export const Card: FC<CardProps> = ({
   children,
   className = '',
-  forceRounded = false
+  forceRounded = false,
+  testId = ''
 }) => {
   return (
     <div
@@ -19,6 +21,7 @@ export const Card: FC<CardProps> = ({
         'border dark:border-gray-700/80 bg-white dark:bg-gray-900',
         className
       )}
+      data-test={testId}
     >
       {children}
     </div>

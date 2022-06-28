@@ -5,30 +5,24 @@ import UserProfile from '@components/Shared/UserProfile'
 import { Button } from '@components/UI/Button'
 import { Card, CardBody } from '@components/UI/Card'
 import { Spinner } from '@components/UI/Spinner'
-import AppContext from '@components/utils/AppContext'
 import SEO from '@components/utils/SEO'
 import { CreateBurnProfileBroadcastItemResult } from '@generated/types'
 import { TrashIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
-import React, { FC, useContext } from 'react'
+import Cookies from 'js-cookie'
+import React, { FC } from 'react'
 import toast from 'react-hot-toast'
 import {
   APP_NAME,
-  CHAIN_ID,
   CONNECT_WALLET,
   ERROR_MESSAGE,
-  LENSHUB_PROXY,
-  WRONG_NETWORK
+  LENSHUB_PROXY
 } from 'src/constants'
 import Custom404 from 'src/pages/404'
-import {
-  useAccount,
-  useContractWrite,
-  useNetwork,
-  useSignTypedData
-} from 'wagmi'
+import { useAppStore, usePersistStore } from 'src/store'
+import { useContractWrite, useDisconnect, useSignTypedData } from 'wagmi'
 
 import Sidebar from '../Sidebar'
 
@@ -64,9 +58,10 @@ const CREATE_BURN_PROFILE_TYPED_DATA_MUTATION = gql`
 `
 
 const DeleteSettings: FC = () => {
-  const { currentUser, userSigNonce, setUserSigNonce } = useContext(AppContext)
-  const { activeChain } = useNetwork()
-  const { data: account } = useAccount()
+  const { userSigNonce, setUserSigNonce } = useAppStore()
+  const { isAuthenticated, setIsAuthenticated, currentUser, setCurrentUser } =
+    usePersistStore()
+  const { disconnect } = useDisconnect()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
       toast.error(error?.message)
@@ -74,25 +69,26 @@ const DeleteSettings: FC = () => {
   })
 
   const onCompleted = () => {
-    localStorage.setItem('selectedProfile', '0')
+    setIsAuthenticated(false)
+    setCurrentUser(null)
+    Cookies.remove('accessToken')
+    Cookies.remove('refreshToken')
+    localStorage.removeItem('lenster.store')
+    if (disconnect) disconnect()
     location.href = '/'
   }
 
-  const { isLoading: writeLoading, write } = useContractWrite(
-    {
-      addressOrName: LENSHUB_PROXY,
-      contractInterface: LensHubProxy
+  const { isLoading: writeLoading, write } = useContractWrite({
+    addressOrName: LENSHUB_PROXY,
+    contractInterface: LensHubProxy,
+    functionName: 'burnWithSig',
+    onSuccess() {
+      onCompleted()
     },
-    'burnWithSig',
-    {
-      onSuccess() {
-        onCompleted()
-      },
-      onError(error: any) {
-        toast.error(error?.data?.message ?? error?.message)
-      }
+    onError(error: any) {
+      toast.error(error?.data?.message ?? error?.message)
     }
-  )
+  })
 
   const [createBurnProfileTypedData, { loading: typedDataLoading }] =
     useMutation(CREATE_BURN_PROFILE_TYPED_DATA_MUTATION, {
@@ -131,18 +127,14 @@ const DeleteSettings: FC = () => {
     })
 
   const handleDelete = () => {
-    if (!account?.address) {
-      toast.error(CONNECT_WALLET)
-    } else if (activeChain?.id !== CHAIN_ID) {
-      toast.error(WRONG_NETWORK)
-    } else {
-      createBurnProfileTypedData({
-        variables: {
-          options: { overrideSigNonce: userSigNonce },
-          request: { profileId: currentUser?.id }
-        }
-      })
-    }
+    if (!isAuthenticated) return toast.error(CONNECT_WALLET)
+
+    createBurnProfileTypedData({
+      variables: {
+        options: { overrideSigNonce: userSigNonce },
+        request: { profileId: currentUser?.id }
+      }
+    })
   }
 
   if (!currentUser) return <Custom404 />

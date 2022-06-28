@@ -1,6 +1,5 @@
 import { gql, useMutation } from '@apollo/client'
 import ChooseFile from '@components/Shared/ChooseFile'
-import SwitchNetwork from '@components/Shared/SwitchNetwork'
 import { Button } from '@components/UI/Button'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { Form, useZodForm } from '@components/UI/Form'
@@ -9,8 +8,8 @@ import { Spinner } from '@components/UI/Spinner'
 import { PlusIcon } from '@heroicons/react/outline'
 import uploadAssetsToIPFS from '@lib/uploadAssetsToIPFS'
 import React, { ChangeEvent, FC, useState } from 'react'
-import { APP_NAME, CHAIN_ID } from 'src/constants'
-import { useAccount, useNetwork } from 'wagmi'
+import { APP_NAME } from 'src/constants'
+import { useAccount } from 'wagmi'
 import { object, string } from 'zod'
 
 import Pending from './Pending'
@@ -44,8 +43,7 @@ interface Props {
 const Create: FC<Props> = ({ isModal = false }) => {
   const [avatar, setAvatar] = useState<string>()
   const [uploading, setUploading] = useState<boolean>(false)
-  const { activeChain } = useNetwork()
-  const { data: account } = useAccount()
+  const { address } = useAccount()
   const [createProfile, { data, loading }] = useMutation(
     CREATE_PROFILE_MUTATION
   )
@@ -84,7 +82,7 @@ const Create: FC<Props> = ({ isModal = false }) => {
               handle: username,
               profilePictureUri: avatar
                 ? avatar
-                : `https://avatar.tobi.sh/${account?.address}_${username}.png`
+                : `https://avatar.tobi.sh/${address}_${username}.png`
             }
           }
         })
@@ -115,7 +113,7 @@ const Create: FC<Props> = ({ isModal = false }) => {
       <Input
         label="Handle"
         type="text"
-        placeholder="justinbieber"
+        placeholder="gavin"
         {...form.register('handle')}
       />
       <div className="space-y-1.5">
@@ -144,21 +142,16 @@ const Create: FC<Props> = ({ isModal = false }) => {
           </div>
         </div>
       </div>
-      <div className="ml-auto">
-        {activeChain?.id !== CHAIN_ID ? (
-          <SwitchNetwork />
-        ) : (
-          <Button
-            type="submit"
-            disabled={loading}
-            icon={
-              loading ? <Spinner size="xs" /> : <PlusIcon className="w-4 h-4" />
-            }
-          >
-            Signup
-          </Button>
-        )}
-      </div>
+      <Button
+        className="ml-auto"
+        type="submit"
+        disabled={loading}
+        icon={
+          loading ? <Spinner size="xs" /> : <PlusIcon className="w-4 h-4" />
+        }
+      >
+        Signup
+      </Button>
     </Form>
   )
 }

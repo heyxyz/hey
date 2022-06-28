@@ -1,13 +1,11 @@
 import { LensHubProxy } from '@abis/LensHubProxy'
 import { useLazyQuery, useMutation } from '@apollo/client'
 import IndexStatus from '@components/Shared/IndexStatus'
-import SwitchNetwork from '@components/Shared/SwitchNetwork'
 import { Button } from '@components/UI/Button'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { Form, useZodForm } from '@components/UI/Form'
 import { Input } from '@components/UI/Input'
 import { Spinner } from '@components/UI/Spinner'
-import AppContext from '@components/utils/AppContext'
 import {
   CreateSetProfileImageUriBroadcastItemResult,
   NftImage,
@@ -19,23 +17,20 @@ import consoleLog from '@lib/consoleLog'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import gql from 'graphql-tag'
-import React, { FC, useContext, useState } from 'react'
+import React, { FC, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
-  CHAIN_ID,
   CONNECT_WALLET,
   ERROR_MESSAGE,
   ERRORS,
   IS_MAINNET,
   LENSHUB_PROXY,
-  RELAY_ON,
-  WRONG_NETWORK
+  RELAY_ON
 } from 'src/constants'
+import { useAppStore, usePersistStore } from 'src/store'
 import {
   chain,
-  useAccount,
   useContractWrite,
-  useNetwork,
   useSignMessage,
   useSignTypedData
 } from 'wagmi'
@@ -102,12 +97,11 @@ const NFTPicture: FC<Props> = ({ profile }) => {
     }
   })
 
-  const { currentUser, userSigNonce, setUserSigNonce } = useContext(AppContext)
+  const { userSigNonce, setUserSigNonce } = useAppStore()
+  const { isAuthenticated, currentUser } = usePersistStore()
   const [chainId, setChainId] = useState<number>(
     IS_MAINNET ? chain.mainnet.id : chain.kovan.id
   )
-  const { activeChain } = useNetwork()
-  const { data: account } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
       toast.error(error?.message)
@@ -124,21 +118,18 @@ const NFTPicture: FC<Props> = ({ profile }) => {
     isLoading: writeLoading,
     error,
     write
-  } = useContractWrite(
-    {
-      addressOrName: LENSHUB_PROXY,
-      contractInterface: LensHubProxy
+  } = useContractWrite({
+    addressOrName: LENSHUB_PROXY,
+    contractInterface: LensHubProxy,
+    functionName: 'setProfileImageURIWithSig',
+    onSuccess() {
+      onCompleted()
     },
-    'setProfileImageURIWithSig',
-    {
-      onSuccess() {
-        onCompleted()
-      },
-      onError(error: any) {
-        toast.error(error?.data?.message ?? error?.message)
-      }
+    onError(error: any) {
+      toast.error(error?.data?.message ?? error?.message)
     }
-  )
+  })
+
   const [loadChallenge, { loading: challengeLoading }] =
     useLazyQuery(CHALLENGE_QUERY)
   const [broadcast, { data: broadcastData, loading: broadcastLoading }] =
@@ -197,40 +188,36 @@ const NFTPicture: FC<Props> = ({ profile }) => {
     })
 
   const setAvatar = async (contractAddress: string, tokenId: string) => {
-    if (!account?.address) {
-      toast.error(CONNECT_WALLET)
-    } else if (activeChain?.id !== CHAIN_ID) {
-      toast.error(WRONG_NETWORK)
-    } else {
-      const challengeRes = await loadChallenge({
+    if (!isAuthenticated) return toast.error(CONNECT_WALLET)
+
+    const challengeRes = await loadChallenge({
+      variables: {
+        request: {
+          ethereumAddress: currentUser?.ownedBy,
+          nfts: {
+            contractAddress,
+            tokenId,
+            chainId
+          }
+        }
+      }
+    })
+    signMessageAsync({
+      message: challengeRes?.data?.nftOwnershipChallenge?.text
+    }).then((signature) => {
+      createSetProfileImageURITypedData({
         variables: {
+          options: { overrideSigNonce: userSigNonce },
           request: {
-            ethereumAddress: currentUser?.ownedBy,
-            nfts: {
-              contractAddress,
-              tokenId,
-              chainId
+            profileId: currentUser?.id,
+            nftData: {
+              id: challengeRes?.data?.nftOwnershipChallenge?.id,
+              signature
             }
           }
         }
       })
-      signMessageAsync({
-        message: challengeRes?.data?.nftOwnershipChallenge?.text
-      }).then((signature) => {
-        createSetProfileImageURITypedData({
-          variables: {
-            options: { overrideSigNonce: userSigNonce },
-            request: {
-              profileId: currentUser?.id,
-              nftData: {
-                id: challengeRes?.data?.nftOwnershipChallenge?.id,
-                signature
-              }
-            }
-          }
-        })
-      })
-    }
+    })
   }
 
   return (
@@ -279,45 +266,42 @@ const NFTPicture: FC<Props> = ({ profile }) => {
         placeholder="1"
         {...form.register('tokenId')}
       />
-      {activeChain?.id !== CHAIN_ID ? (
-        <SwitchNetwork className="ml-auto" />
-      ) : (
-        <div className="flex flex-col space-y-2">
-          <Button
-            className="ml-auto"
-            type="submit"
-            disabled={
-              challengeLoading ||
-              typedDataLoading ||
-              signLoading ||
-              writeLoading ||
-              broadcastLoading
+
+      <div className="flex flex-col space-y-2">
+        <Button
+          className="ml-auto"
+          type="submit"
+          disabled={
+            challengeLoading ||
+            typedDataLoading ||
+            signLoading ||
+            writeLoading ||
+            broadcastLoading
+          }
+          icon={
+            challengeLoading ||
+            typedDataLoading ||
+            signLoading ||
+            writeLoading ||
+            broadcastLoading ? (
+              <Spinner size="xs" />
+            ) : (
+              <PencilIcon className="w-4 h-4" />
+            )
+          }
+        >
+          Save
+        </Button>
+        {writeData?.hash ?? broadcastData?.broadcast?.txHash ? (
+          <IndexStatus
+            txHash={
+              writeData?.hash
+                ? writeData?.hash
+                : broadcastData?.broadcast?.txHash
             }
-            icon={
-              challengeLoading ||
-              typedDataLoading ||
-              signLoading ||
-              writeLoading ||
-              broadcastLoading ? (
-                <Spinner size="xs" />
-              ) : (
-                <PencilIcon className="w-4 h-4" />
-              )
-            }
-          >
-            Save
-          </Button>
-          {writeData?.hash ?? broadcastData?.broadcast?.txHash ? (
-            <IndexStatus
-              txHash={
-                writeData?.hash
-                  ? writeData?.hash
-                  : broadcastData?.broadcast?.txHash
-              }
-            />
-          ) : null}
-        </div>
-      )}
+          />
+        ) : null}
+      </div>
     </Form>
   )
 }

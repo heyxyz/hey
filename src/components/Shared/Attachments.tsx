@@ -11,13 +11,22 @@ const Video = dynamic(() => import('./Video'), {
   loading: () => <div className="rounded-lg aspect-w-16 aspect-h-12 shimmer" />
 })
 
-const getGridRows = (attachments: number) => {
+const getClass = (attachments: number) => {
   if (attachments === 1) {
-    return 'grid-cols-1 grid-rows-1 w-2/3'
+    return {
+      aspect: '',
+      row: 'grid-cols-1 grid-rows-1 w-2/3'
+    }
   } else if (attachments === 2) {
-    return 'grid-cols-2 grid-rows-1'
+    return {
+      aspect: 'aspect-w-16 aspect-h-12',
+      row: 'grid-cols-2 grid-rows-1'
+    }
   } else if (attachments > 2) {
-    return 'grid-cols-2 grid-rows-2'
+    return {
+      aspect: 'aspect-w-16 aspect-h-12',
+      row: 'grid-cols-2 grid-rows-2'
+    }
   }
 }
 
@@ -50,9 +59,10 @@ const Attachments: FC<Props> = ({
   return slicedAttachments?.length !== 0 ? (
     <div
       className={clsx(
-        getGridRows(slicedAttachments?.length),
+        getClass(slicedAttachments?.length)?.row,
         'grid grid-flow-col gap-2 pt-3'
       )}
+      data-test="attachments"
     >
       {slicedAttachments?.map((attachment: LensterAttachment & MediaSet) => (
         <div
@@ -60,7 +70,7 @@ const Attachments: FC<Props> = ({
             (isNew ? attachment.type : attachment.original.mimeType) ===
               'video/mp4'
               ? ''
-              : 'aspect-w-16 aspect-h-12'
+              : getClass(slicedAttachments?.length)?.aspect
           )}
           key={isNew ? attachment.item : getIPFSLink(attachment.original.url)}
         >
