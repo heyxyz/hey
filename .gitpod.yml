@@ -1,3 +1,6 @@
+image:
+  file: .gitpod.Dockerfile
+
 tasks:
   - name: Setup
     init: |
@@ -16,6 +19,12 @@ ports:
   - port: 4783 # Web app
     visibility: public
     onOpen: notify
+  - port: 6080 # VNC
+    visibility: public
+    onOpen: ignore
+  - port: 5900 # VNC service
+    visibility: public
+    onOpen: ignore
 
 vscode:
   extensions:

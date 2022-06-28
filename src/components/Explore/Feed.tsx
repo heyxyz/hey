@@ -5,7 +5,6 @@ import { Card } from '@components/UI/Card'
 import { EmptyState } from '@components/UI/EmptyState'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { Spinner } from '@components/UI/Spinner'
-import AppContext from '@components/utils/AppContext'
 import { LensterPost } from '@generated/lenstertypes'
 import { PaginatedResultInfo } from '@generated/types'
 import { CommentFields } from '@gql/CommentFields'
@@ -13,8 +12,9 @@ import { MirrorFields } from '@gql/MirrorFields'
 import { PostFields } from '@gql/PostFields'
 import { CollectionIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
-import React, { FC, useContext, useState } from 'react'
+import React, { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
+import { usePersistStore } from 'src/store'
 
 const EXPLORE_FEED_QUERY = gql`
   query ExploreFeed(
@@ -49,7 +49,7 @@ interface Props {
 }
 
 const Feed: FC<Props> = ({ feedType = 'TOP_COMMENTED' }) => {
-  const { currentUser } = useContext(AppContext)
+  const { currentUser } = usePersistStore()
   const [publications, setPublications] = useState<LensterPost[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
   const { data, loading, error, fetchMore } = useQuery(EXPLORE_FEED_QUERY, {
@@ -108,7 +108,10 @@ const Feed: FC<Props> = ({ feedType = 'TOP_COMMENTED' }) => {
       <ErrorMessage title="Failed to load explore feed" error={error} />
       {!error && !loading && data?.explorePublications?.items?.length !== 0 && (
         <>
-          <Card className="divide-y-[1px] dark:divide-gray-700/80">
+          <Card
+            className="divide-y-[1px] dark:divide-gray-700/80"
+            testId="explore-feed"
+          >
             {publications?.map((post: LensterPost, index: number) => (
               <SinglePost key={`${post?.id}_${index}`} post={post} />
             ))}

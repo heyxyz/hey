@@ -5,6 +5,7 @@ import { MetadataFields } from './MetadataFields'
 export const CommunityFields = gql`
   fragment CommunityFields on Post {
     id
+    hasCollectedByMe
     profile {
       id
     }

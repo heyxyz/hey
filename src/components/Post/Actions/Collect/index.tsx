@@ -43,6 +43,7 @@ const Collect: FC<Props> = ({ post }) => {
       whileTap={{ scale: 0.9 }}
       onClick={() => setShowCollectModal(true)}
       aria-label="Collect"
+      data-test="publication-collect"
     >
       <div className="flex items-center space-x-1 text-red-500 hover:red-brand-400">
         <div className="p-1.5 rounded-full hover:bg-red-300 hover:bg-opacity-20">

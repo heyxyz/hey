@@ -1,17 +1,17 @@
 import { gql, useQuery } from '@apollo/client'
+import { Card } from '@components/UI/Card'
 import { EmptyState } from '@components/UI/EmptyState'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { Spinner } from '@components/UI/Spinner'
-import AppContext from '@components/utils/AppContext'
 import { Notification, PaginatedResultInfo } from '@generated/types'
 import { CollectModuleFields } from '@gql/CollectModuleFields'
 import { MetadataFields } from '@gql/MetadataFields'
 import { MinimalProfileFields } from '@gql/MinimalProfileFields'
-import { Menu } from '@headlessui/react'
 import { MailIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
-import { FC, useContext, useState } from 'react'
+import { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
+import { usePersistStore } from 'src/store'
 
 import NotificationShimmer from './Shimmer'
 import CollectNotification from './Type/CollectNotification'
@@ -148,7 +148,7 @@ const NOTIFICATIONS_QUERY = gql`
 `
 
 const List: FC = () => {
-  const { currentUser } = useContext(AppContext)
+  const { currentUser } = usePersistStore()
   const [notifications, setNotifications] = useState<Notification[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
   const { data, loading, error, fetchMore } = useQuery(NOTIFICATIONS_QUERY, {
@@ -187,12 +187,12 @@ const List: FC = () => {
 
   if (loading)
     return (
-      <div className="divide-y dark:divide-gray-700">
+      <Card className="divide-y dark:divide-gray-700">
         <NotificationShimmer />
         <NotificationShimmer />
         <NotificationShimmer />
         <NotificationShimmer />
-      </div>
+      </Card>
     )
 
   if (error)
@@ -218,33 +218,23 @@ const List: FC = () => {
     )
 
   return (
-    <Menu.Item as="div" className="divide-y dark:divide-gray-700">
+    <Card className="divide-y dark:divide-gray-700">
       {notifications?.map((notification: Notification, index: number) => (
-        <div key={index}>
+        <div key={index} className="p-5">
           {notification?.__typename === 'NewFollowerNotification' && (
-            <div className="p-4">
-              <FollowerNotification notification={notification as any} />
-            </div>
+            <FollowerNotification notification={notification as any} />
           )}
           {notification?.__typename === 'NewMentionNotification' && (
-            <div className="p-4">
-              <MentionNotification notification={notification as any} />
-            </div>
+            <MentionNotification notification={notification as any} />
           )}
           {notification?.__typename === 'NewCommentNotification' && (
-            <div className="p-4">
-              <CommentNotification notification={notification} />
-            </div>
+            <CommentNotification notification={notification} />
           )}
           {notification?.__typename === 'NewMirrorNotification' && (
-            <div className="p-4">
-              <MirrorNotification notification={notification} />
-            </div>
+            <MirrorNotification notification={notification} />
           )}
           {notification?.__typename === 'NewCollectNotification' && (
-            <div className="p-4">
-              <CollectNotification notification={notification as any} />
-            </div>
+            <CollectNotification notification={notification as any} />
           )}
         </div>
       ))}
@@ -253,7 +243,7 @@ const List: FC = () => {
           <Spinner size="sm" />
         </span>
       )}
-    </Menu.Item>
+    </Card>
   )
 }
 

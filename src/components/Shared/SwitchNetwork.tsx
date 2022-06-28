@@ -3,14 +3,14 @@ import { SwitchHorizontalIcon } from '@heroicons/react/outline'
 import { FC } from 'react'
 import toast from 'react-hot-toast'
 import { CHAIN_ID } from 'src/constants'
-import { useNetwork } from 'wagmi'
+import { useSwitchNetwork } from 'wagmi'
 
 interface Props {
   className?: string
 }
 
 const SwitchNetwork: FC<Props> = ({ className = '' }) => {
-  const { switchNetwork } = useNetwork()
+  const { switchNetwork } = useSwitchNetwork()
 
   return (
     <Button

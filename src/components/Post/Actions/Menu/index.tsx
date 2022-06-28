@@ -1,5 +1,4 @@
 import { NextLink } from '@components/Shared/Navbar/MenuItems'
-import AppContext from '@components/utils/AppContext'
 import { LensterPost } from '@generated/lenstertypes'
 import { Menu, Transition } from '@headlessui/react'
 import {
@@ -7,7 +6,8 @@ import {
   ShieldExclamationIcon
 } from '@heroicons/react/outline'
 import clsx from 'clsx'
-import { FC, Fragment, useContext } from 'react'
+import { FC, Fragment } from 'react'
+import { usePersistStore } from 'src/store'
 
 import Delete from './Delete'
 import Embed from './Embed'
@@ -18,7 +18,7 @@ interface Props {
 }
 
 const PostMenu: FC<Props> = ({ post }) => {
-  const { currentUser } = useContext(AppContext)
+  const { currentUser } = usePersistStore()
 
   return (
     <Menu as="div">
@@ -27,6 +27,7 @@ const PostMenu: FC<Props> = ({ post }) => {
           <Menu.Button
             className="p-1.5 rounded-full hover:bg-gray-300 hover:bg-opacity-20"
             aria-label="More"
+            data-test="publication-more"
           >
             <DotsHorizontalIcon className="w-5 h-5 text-gray-500 dark:text-gray-300" />
           </Menu.Button>

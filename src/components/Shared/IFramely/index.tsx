@@ -1,4 +1,5 @@
 import imagekitURL from '@lib/imagekitURL'
+import axios from 'axios'
 import React, { FC, useEffect, useState } from 'react'
 
 import Embed from './Embed'
@@ -15,14 +16,14 @@ const IFramely: FC<Props> = ({ url }) => {
 
   useEffect(() => {
     if (url) {
-      fetch(
-        `https://iframe.ly/api/iframely?api_key=258c8580bd477c9b886b49&url=${url}`
+      axios(
+        `https://iframe.ly/api/iframely?api_key=258c8580bd477c9b886b49&url=${url}`,
+        { method: 'GET' }
       )
-        .then((res) => res.json())
-        .then((res) => {
+        .then(({ data }) => {
           setIsLoaded(true)
-          if (!res.error) {
-            setData(res)
+          if (data) {
+            setData(data)
           } else {
             setError(true)
           }

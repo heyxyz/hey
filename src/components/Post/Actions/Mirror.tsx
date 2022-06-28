@@ -2,7 +2,6 @@ import { LensHubProxy } from '@abis/LensHubProxy'
 import { gql, useMutation } from '@apollo/client'
 import { Spinner } from '@components/UI/Spinner'
 import { Tooltip } from '@components/UI/Tooltip'
-import AppContext from '@components/utils/AppContext'
 import { LensterPost } from '@generated/lenstertypes'
 import { CreateMirrorBroadcastItemResult } from '@generated/types'
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
@@ -13,23 +12,17 @@ import nFormatter from '@lib/nFormatter'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import { motion } from 'framer-motion'
-import { FC, useContext, useEffect, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
-  CHAIN_ID,
   CONNECT_WALLET,
   ERROR_MESSAGE,
   ERRORS,
   LENSHUB_PROXY,
-  RELAY_ON,
-  WRONG_NETWORK
+  RELAY_ON
 } from 'src/constants'
-import {
-  useAccount,
-  useContractWrite,
-  useNetwork,
-  useSignTypedData
-} from 'wagmi'
+import { useAppStore, usePersistStore } from 'src/store'
+import { useContractWrite, useSignTypedData } from 'wagmi'
 
 const CREATE_MIRROR_TYPED_DATA_MUTATION = gql`
   mutation CreateMirrorTypedData(
@@ -73,9 +66,8 @@ interface Props {
 
 const Mirror: FC<Props> = ({ post }) => {
   const [count, setCount] = useState<number>(0)
-  const { currentUser, userSigNonce, setUserSigNonce } = useContext(AppContext)
-  const { activeChain } = useNetwork()
-  const { data: account } = useAccount()
+  const { userSigNonce, setUserSigNonce } = useAppStore()
+  const { isAuthenticated, currentUser } = usePersistStore()
 
   useEffect(() => {
     if (
@@ -101,21 +93,17 @@ const Mirror: FC<Props> = ({ post }) => {
     toast.success('Post has been mirrored!')
   }
 
-  const { isLoading: writeLoading, write } = useContractWrite(
-    {
-      addressOrName: LENSHUB_PROXY,
-      contractInterface: LensHubProxy
+  const { isLoading: writeLoading, write } = useContractWrite({
+    addressOrName: LENSHUB_PROXY,
+    contractInterface: LensHubProxy,
+    functionName: 'mirrorWithSig',
+    onSuccess() {
+      onCompleted()
     },
-    'mirrorWithSig',
-    {
-      onSuccess() {
-        onCompleted()
-      },
-      onError(error: any) {
-        toast.error(error?.data?.message ?? error?.message)
-      }
+    onError(error: any) {
+      toast.error(error?.data?.message ?? error?.message)
     }
-  )
+  })
 
   const [broadcast, { loading: broadcastLoading }] = useMutation(
     BROADCAST_MUTATION,
@@ -189,24 +177,20 @@ const Mirror: FC<Props> = ({ post }) => {
   )
 
   const createMirror = () => {
-    if (!account?.address) {
-      toast.error(CONNECT_WALLET)
-    } else if (activeChain?.id !== CHAIN_ID) {
-      toast.error(WRONG_NETWORK)
-    } else {
-      createMirrorTypedData({
-        variables: {
-          options: { overrideSigNonce: userSigNonce },
-          request: {
-            profileId: currentUser?.id,
-            publicationId: post?.pubId ?? post?.id,
-            referenceModule: {
-              followerOnlyReferenceModule: false
-            }
+    if (!isAuthenticated) return toast.error(CONNECT_WALLET)
+
+    createMirrorTypedData({
+      variables: {
+        options: { overrideSigNonce: userSigNonce },
+        request: {
+          profileId: currentUser?.id,
+          publicationId: post?.pubId ?? post?.id,
+          referenceModule: {
+            followerOnlyReferenceModule: false
           }
         }
-      })
-    }
+      }
+    })
   }
 
   return (
@@ -215,6 +199,7 @@ const Mirror: FC<Props> = ({ post }) => {
       onClick={createMirror}
       disabled={typedDataLoading || writeLoading}
       aria-label="Mirror"
+      data-test="publication-mirror"
     >
       <div className="flex items-center space-x-1 text-brand">
         <div className="p-1.5 rounded-full hover:bg-opacity-20 hover:bg-brand-300">

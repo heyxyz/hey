@@ -1,13 +1,11 @@
 import { LensHubProxy } from '@abis/LensHubProxy'
 import { gql, useMutation, useQuery } from '@apollo/client'
 import IndexStatus from '@components/Shared/IndexStatus'
-import SwitchNetwork from '@components/Shared/SwitchNetwork'
 import { Button } from '@components/UI/Button'
 import { Card } from '@components/UI/Card'
 import { Form, useZodForm } from '@components/UI/Form'
 import { Input } from '@components/UI/Input'
 import { Spinner } from '@components/UI/Spinner'
-import AppContext from '@components/utils/AppContext'
 import {
   CreateSetFollowModuleBroadcastItemResult,
   Erc20
@@ -18,24 +16,18 @@ import consoleLog from '@lib/consoleLog'
 import getTokenImage from '@lib/getTokenImage'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
-import React, { FC, useContext, useState } from 'react'
+import React, { FC, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
-  CHAIN_ID,
   CONNECT_WALLET,
   DEFAULT_COLLECT_TOKEN,
   ERROR_MESSAGE,
   ERRORS,
   LENSHUB_PROXY,
-  RELAY_ON,
-  WRONG_NETWORK
+  RELAY_ON
 } from 'src/constants'
-import {
-  useAccount,
-  useContractWrite,
-  useNetwork,
-  useSignTypedData
-} from 'wagmi'
+import { useAppStore, usePersistStore } from 'src/store'
+import { useContractWrite, useSignTypedData } from 'wagmi'
 import { object, string } from 'zod'
 
 const newCrowdfundSchema = object({
@@ -95,14 +87,13 @@ export const CREATE_SET_FOLLOW_MODULE_TYPED_DATA_MUTATION = gql`
 `
 
 const SuperFollow: FC = () => {
+  const { userSigNonce, setUserSigNonce } = useAppStore()
+  const { isAuthenticated, currentUser } = usePersistStore()
   const [selectedCurrency, setSelectedCurrency] = useState<string>(
     DEFAULT_COLLECT_TOKEN
   )
   const [selectedCurrencySymobol, setSelectedCurrencySymobol] =
     useState<string>('WMATIC')
-  const { currentUser, userSigNonce, setUserSigNonce } = useContext(AppContext)
-  const { activeChain } = useNetwork()
-  const { data: account } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
       toast.error(error?.message)
@@ -120,18 +111,14 @@ const SuperFollow: FC = () => {
     data: writeData,
     isLoading: writeLoading,
     write
-  } = useContractWrite(
-    {
-      addressOrName: LENSHUB_PROXY,
-      contractInterface: LensHubProxy
-    },
-    'setFollowModuleWithSig',
-    {
-      onError(error: any) {
-        toast.error(error?.data?.message ?? error?.message)
-      }
+  } = useContractWrite({
+    addressOrName: LENSHUB_PROXY,
+    contractInterface: LensHubProxy,
+    functionName: 'setFollowModuleWithSig',
+    onError(error: any) {
+      toast.error(error?.data?.message ?? error?.message)
     }
-  )
+  })
 
   const form = useZodForm({
     schema: newCrowdfundSchema,
@@ -198,33 +185,29 @@ const SuperFollow: FC = () => {
     })
 
   const setSuperFollow = (amount: string | null, recipient: string | null) => {
-    if (!account?.address) {
-      toast.error(CONNECT_WALLET)
-    } else if (activeChain?.id !== CHAIN_ID) {
-      toast.error(WRONG_NETWORK)
-    } else {
-      createSetFollowModuleTypedData({
-        variables: {
-          options: { overrideSigNonce: userSigNonce },
-          request: {
-            profileId: currentUser?.id,
-            followModule: amount
-              ? {
-                  feeFollowModule: {
-                    amount: {
-                      currency: selectedCurrency,
-                      value: amount
-                    },
-                    recipient
-                  }
+    if (!isAuthenticated) return toast.error(CONNECT_WALLET)
+
+    createSetFollowModuleTypedData({
+      variables: {
+        options: { overrideSigNonce: userSigNonce },
+        request: {
+          profileId: currentUser?.id,
+          followModule: amount
+            ? {
+                feeFollowModule: {
+                  amount: {
+                    currency: selectedCurrency,
+                    value: amount
+                  },
+                  recipient
                 }
-              : {
-                  freeFollowModule: true
-                }
-          }
+              }
+            : {
+                freeFollowModule: true
+              }
         }
-      })
-    }
+      }
+    })
   }
 
   if (loading)
@@ -298,57 +281,51 @@ const SuperFollow: FC = () => {
           placeholder="0x3A5bd...5e3"
           {...form.register('recipient')}
         />
-        <div className="ml-auto">
-          {activeChain?.id !== CHAIN_ID ? (
-            <SwitchNetwork />
-          ) : (
-            <div className="flex flex-col space-y-2">
-              <div className="block space-y-2 space-x-0 sm:flex sm:space-y-0 sm:space-x-2">
-                {followType === 'FeeFollowModuleSettings' && (
-                  <Button
-                    type="button"
-                    variant="danger"
-                    outline
-                    onClick={() => {
-                      setSuperFollow(null, null)
-                    }}
-                    disabled={
-                      typedDataLoading ||
-                      signLoading ||
-                      writeLoading ||
-                      broadcastLoading
-                    }
-                    icon={<XIcon className="w-4 h-4" />}
-                  >
-                    Disable Super follow
-                  </Button>
-                )}
-                <Button
-                  type="submit"
-                  disabled={
-                    typedDataLoading ||
-                    signLoading ||
-                    writeLoading ||
-                    broadcastLoading
-                  }
-                  icon={<StarIcon className="w-4 h-4" />}
-                >
-                  {followType === 'FeeFollowModuleSettings'
-                    ? 'Update Super follow'
-                    : 'Set Super follow'}
-                </Button>
-              </div>
-              {writeData?.hash ?? broadcastData?.broadcast?.txHash ? (
-                <IndexStatus
-                  txHash={
-                    writeData?.hash
-                      ? writeData?.hash
-                      : broadcastData?.broadcast?.txHash
-                  }
-                />
-              ) : null}
-            </div>
-          )}
+        <div className="ml-auto flex flex-col space-y-2">
+          <div className="block space-y-2 space-x-0 sm:flex sm:space-y-0 sm:space-x-2">
+            {followType === 'FeeFollowModuleSettings' && (
+              <Button
+                type="button"
+                variant="danger"
+                outline
+                onClick={() => {
+                  setSuperFollow(null, null)
+                }}
+                disabled={
+                  typedDataLoading ||
+                  signLoading ||
+                  writeLoading ||
+                  broadcastLoading
+                }
+                icon={<XIcon className="w-4 h-4" />}
+              >
+                Disable Super follow
+              </Button>
+            )}
+            <Button
+              type="submit"
+              disabled={
+                typedDataLoading ||
+                signLoading ||
+                writeLoading ||
+                broadcastLoading
+              }
+              icon={<StarIcon className="w-4 h-4" />}
+            >
+              {followType === 'FeeFollowModuleSettings'
+                ? 'Update Super follow'
+                : 'Set Super follow'}
+            </Button>
+          </div>
+          {writeData?.hash ?? broadcastData?.broadcast?.txHash ? (
+            <IndexStatus
+              txHash={
+                writeData?.hash
+                  ? writeData?.hash
+                  : broadcastData?.broadcast?.txHash
+              }
+            />
+          ) : null}
         </div>
       </Form>
     </Card>

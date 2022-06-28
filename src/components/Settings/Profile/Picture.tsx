@@ -2,11 +2,9 @@ import { LensHubProxy } from '@abis/LensHubProxy'
 import { gql, useMutation } from '@apollo/client'
 import ChooseFile from '@components/Shared/ChooseFile'
 import IndexStatus from '@components/Shared/IndexStatus'
-import SwitchNetwork from '@components/Shared/SwitchNetwork'
 import { Button } from '@components/UI/Button'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { Spinner } from '@components/UI/Spinner'
-import AppContext from '@components/utils/AppContext'
 import {
   CreateSetProfileImageUriBroadcastItemResult,
   MediaSet,
@@ -20,23 +18,17 @@ import imagekitURL from '@lib/imagekitURL'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import uploadAssetsToIPFS from '@lib/uploadAssetsToIPFS'
-import React, { ChangeEvent, FC, useContext, useEffect, useState } from 'react'
+import React, { ChangeEvent, FC, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
-  CHAIN_ID,
   CONNECT_WALLET,
   ERROR_MESSAGE,
   ERRORS,
   LENSHUB_PROXY,
-  RELAY_ON,
-  WRONG_NETWORK
+  RELAY_ON
 } from 'src/constants'
-import {
-  useAccount,
-  useContractWrite,
-  useNetwork,
-  useSignTypedData
-} from 'wagmi'
+import { useAppStore, usePersistStore } from 'src/store'
+import { useContractWrite, useSignTypedData } from 'wagmi'
 
 const CREATE_SET_PROFILE_IMAGE_URI_TYPED_DATA_MUTATION = gql`
   mutation CreateSetProfileImageUriTypedData(
@@ -75,11 +67,10 @@ interface Props {
 }
 
 const Picture: FC<Props> = ({ profile }) => {
+  const { userSigNonce, setUserSigNonce } = useAppStore()
+  const { isAuthenticated, currentUser } = usePersistStore()
   const [avatar, setAvatar] = useState<string>()
   const [uploading, setUploading] = useState<boolean>(false)
-  const { currentUser, userSigNonce, setUserSigNonce } = useContext(AppContext)
-  const { activeChain } = useNetwork()
-  const { data: account } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
       toast.error(error?.message)
@@ -95,21 +86,17 @@ const Picture: FC<Props> = ({ profile }) => {
     isLoading: writeLoading,
     error,
     write
-  } = useContractWrite(
-    {
-      addressOrName: LENSHUB_PROXY,
-      contractInterface: LensHubProxy
+  } = useContractWrite({
+    addressOrName: LENSHUB_PROXY,
+    contractInterface: LensHubProxy,
+    functionName: 'setProfileImageURIWithSig',
+    onSuccess() {
+      onCompleted()
     },
-    'setProfileImageURIWithSig',
-    {
-      onSuccess() {
-        onCompleted()
-      },
-      onError(error: any) {
-        toast.error(error?.data?.message ?? error?.message)
-      }
+    onError(error: any) {
+      toast.error(error?.data?.message ?? error?.message)
     }
-  )
+  })
 
   useEffect(() => {
     if (profile?.picture?.original?.url || profile?.picture?.uri)
@@ -189,23 +176,18 @@ const Picture: FC<Props> = ({ profile }) => {
   }
 
   const editPicture = (avatar: string | undefined) => {
-    if (!avatar) {
-      toast.error("Avatar can't be empty!")
-    } else if (!account?.address) {
-      toast.error(CONNECT_WALLET)
-    } else if (activeChain?.id !== CHAIN_ID) {
-      toast.error(WRONG_NETWORK)
-    } else {
-      createSetProfileImageURITypedData({
-        variables: {
-          options: { overrideSigNonce: userSigNonce },
-          request: {
-            profileId: currentUser?.id,
-            url: avatar
-          }
+    if (!isAuthenticated) return toast.error(CONNECT_WALLET)
+    if (!avatar) return toast.error("Avatar can't be empty!")
+
+    createSetProfileImageURITypedData({
+      variables: {
+        options: { overrideSigNonce: userSigNonce },
+        request: {
+          profileId: currentUser?.id,
+          url: avatar
         }
-      })
-    }
+      }
+    })
   }
 
   return (
@@ -240,44 +222,37 @@ const Picture: FC<Props> = ({ profile }) => {
           </div>
         </div>
       </div>
-      {activeChain?.id !== CHAIN_ID ? (
-        <SwitchNetwork className="ml-auto" />
-      ) : (
-        <div className="flex flex-col space-y-2">
-          <Button
-            className="ml-auto"
-            type="submit"
-            disabled={
-              typedDataLoading ||
-              signLoading ||
-              writeLoading ||
-              broadcastLoading
+      <div className="flex flex-col space-y-2">
+        <Button
+          className="ml-auto"
+          type="submit"
+          disabled={
+            typedDataLoading || signLoading || writeLoading || broadcastLoading
+          }
+          onClick={() => editPicture(avatar)}
+          icon={
+            typedDataLoading ||
+            signLoading ||
+            writeLoading ||
+            broadcastLoading ? (
+              <Spinner size="xs" />
+            ) : (
+              <PencilIcon className="w-4 h-4" />
+            )
+          }
+        >
+          Save
+        </Button>
+        {writeData?.hash ?? broadcastData?.broadcast?.txHash ? (
+          <IndexStatus
+            txHash={
+              writeData?.hash
+                ? writeData?.hash
+                : broadcastData?.broadcast?.txHash
             }
-            onClick={() => editPicture(avatar)}
-            icon={
-              typedDataLoading ||
-              signLoading ||
-              writeLoading ||
-              broadcastLoading ? (
-                <Spinner size="xs" />
-              ) : (
-                <PencilIcon className="w-4 h-4" />
-              )
-            }
-          >
-            Save
-          </Button>
-          {writeData?.hash ?? broadcastData?.broadcast?.txHash ? (
-            <IndexStatus
-              txHash={
-                writeData?.hash
-                  ? writeData?.hash
-                  : broadcastData?.broadcast?.txHash
-              }
-            />
-          ) : null}
-        </div>
-      )}
+          />
+        ) : null}
+      </div>
     </>
   )
 }

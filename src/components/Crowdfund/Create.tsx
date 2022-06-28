@@ -5,7 +5,6 @@ import { CREATE_POST_TYPED_DATA_MUTATION } from '@components/Post/NewPost'
 import ChooseFile from '@components/Shared/ChooseFile'
 import Pending from '@components/Shared/Pending'
 import SettingsHelper from '@components/Shared/SettingsHelper'
-import SwitchNetwork from '@components/Shared/SwitchNetwork'
 import { Button } from '@components/UI/Button'
 import { Card } from '@components/UI/Card'
 import { Form, useZodForm } from '@components/UI/Form'
@@ -13,13 +12,11 @@ import { Input } from '@components/UI/Input'
 import { PageLoading } from '@components/UI/PageLoading'
 import { Spinner } from '@components/UI/Spinner'
 import { TextArea } from '@components/UI/TextArea'
-import AppContext from '@components/utils/AppContext'
 import SEO from '@components/utils/SEO'
 import { CreatePostBroadcastItemResult, Erc20 } from '@generated/types'
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { PlusIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
-import generateSnowflake from '@lib/generateSnowflake'
 import getTokenImage from '@lib/getTokenImage'
 import imagekitURL from '@lib/imagekitURL'
 import omit from '@lib/omit'
@@ -27,26 +24,21 @@ import splitSignature from '@lib/splitSignature'
 import uploadAssetsToIPFS from '@lib/uploadAssetsToIPFS'
 import uploadToIPFS from '@lib/uploadToIPFS'
 import { NextPage } from 'next'
-import React, { ChangeEvent, useContext, useState } from 'react'
+import React, { ChangeEvent, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
   APP_NAME,
-  CHAIN_ID,
   CONNECT_WALLET,
   DEFAULT_COLLECT_TOKEN,
   ERROR_MESSAGE,
   ERRORS,
   LENSHUB_PROXY,
-  RELAY_ON,
-  WRONG_NETWORK
+  RELAY_ON
 } from 'src/constants'
 import Custom404 from 'src/pages/404'
-import {
-  useAccount,
-  useContractWrite,
-  useNetwork,
-  useSignTypedData
-} from 'wagmi'
+import { useAppStore, usePersistStore } from 'src/store'
+import { v4 as uuid } from 'uuid'
+import { useContractWrite, useSignTypedData } from 'wagmi'
 import { object, string } from 'zod'
 
 const MODULES_CURRENCY_QUERY = gql`
@@ -87,9 +79,8 @@ const Create: NextPage = () => {
   )
   const [selectedCurrencySymobol, setSelectedCurrencySymobol] =
     useState<string>('WMATIC')
-  const { currentUser, userSigNonce, setUserSigNonce } = useContext(AppContext)
-  const { activeChain } = useNetwork()
-  const { data: account } = useAccount()
+  const { userSigNonce, setUserSigNonce } = useAppStore()
+  const { isAuthenticated, currentUser } = usePersistStore()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
       toast.error(error?.message)
@@ -105,18 +96,14 @@ const Create: NextPage = () => {
     data,
     isLoading: writeLoading,
     write
-  } = useContractWrite(
-    {
-      addressOrName: LENSHUB_PROXY,
-      contractInterface: LensHubProxy
-    },
-    'postWithSig',
-    {
-      onError(error: any) {
-        toast.error(error?.data?.message ?? error?.message)
-      }
+  } = useContractWrite({
+    addressOrName: LENSHUB_PROXY,
+    contractInterface: LensHubProxy,
+    functionName: 'postWithSig',
+    onError(error: any) {
+      toast.error(error?.data?.message ?? error?.message)
     }
-  )
+  })
 
   const form = useZodForm({
     schema: newCrowdfundSchema,
@@ -211,69 +198,63 @@ const Create: NextPage = () => {
     referralFee: string,
     description: string | null
   ) => {
-    if (!account?.address) {
-      toast.error(CONNECT_WALLET)
-    } else if (activeChain?.id !== CHAIN_ID) {
-      toast.error(WRONG_NETWORK)
-    } else {
-      setIsUploading(true)
-      const { path } = await uploadToIPFS({
-        version: '1.0.0',
-        metadata_id: generateSnowflake(),
-        description: description,
-        content: description,
-        external_url: null,
-        image: cover
-          ? cover
-          : `https://avatar.tobi.sh/${generateSnowflake()}.png`,
-        imageMimeType: coverType,
-        name: title,
-        contentWarning: null, // TODO
-        attributes: [
-          {
-            traitType: 'string',
-            key: 'type',
-            value: 'crowdfund'
-          },
-          {
-            traitType: 'string',
-            key: 'goal',
-            value: goal
-          }
-        ],
-        media: [],
-        createdOn: new Date(),
-        appId: `${APP_NAME} Crowdfund`
-      }).finally(() => setIsUploading(false))
+    if (!isAuthenticated) return toast.error(CONNECT_WALLET)
 
-      createPostTypedData({
-        variables: {
-          options: { overrideSigNonce: userSigNonce },
-          request: {
-            profileId: currentUser?.id,
-            contentURI: `https://ipfs.infura.io/ipfs/${path}`,
-            collectModule: {
-              feeCollectModule: {
-                amount: {
-                  currency: selectedCurrency,
-                  value: amount
-                },
-                recipient,
-                referralFee: parseInt(referralFee),
-                followerOnly: false
-              }
-            },
-            referenceModule: {
-              followerOnlyReferenceModule: false
+    setIsUploading(true)
+    const { path } = await uploadToIPFS({
+      version: '1.0.0',
+      metadata_id: uuid(),
+      description: description,
+      content: description,
+      external_url: null,
+      image: cover ? cover : `https://avatar.tobi.sh/${uuid()}.png`,
+      imageMimeType: coverType,
+      name: title,
+      contentWarning: null, // TODO
+      attributes: [
+        {
+          traitType: 'string',
+          key: 'type',
+          value: 'crowdfund'
+        },
+        {
+          traitType: 'string',
+          key: 'goal',
+          value: goal
+        }
+      ],
+      media: [],
+      createdOn: new Date(),
+      appId: `${APP_NAME} Crowdfund`
+    }).finally(() => setIsUploading(false))
+
+    createPostTypedData({
+      variables: {
+        options: { overrideSigNonce: userSigNonce },
+        request: {
+          profileId: currentUser?.id,
+          contentURI: `https://ipfs.infura.io/ipfs/${path}`,
+          collectModule: {
+            feeCollectModule: {
+              amount: {
+                currency: selectedCurrency,
+                value: amount
+              },
+              recipient,
+              referralFee: parseInt(referralFee),
+              followerOnly: false
             }
+          },
+          referenceModule: {
+            followerOnlyReferenceModule: false
           }
         }
-      })
-    }
+      }
+    })
   }
 
   if (loading) return <PageLoading message="Loading create crowdfund" />
-  if (!currentUser) return <Custom404 />
+  if (!isAuthenticated) return <Custom404 />
 
   return (
     <GridLayout>
@@ -428,35 +409,30 @@ const Create: NextPage = () => {
                   </div>
                 </div>
               </div>
-              <div className="ml-auto">
-                {activeChain?.id !== CHAIN_ID ? (
-                  <SwitchNetwork />
-                ) : (
-                  <Button
-                    type="submit"
-                    disabled={
-                      typedDataLoading ||
-                      isUploading ||
-                      signLoading ||
-                      writeLoading ||
-                      broadcastLoading
-                    }
-                    icon={
-                      typedDataLoading ||
-                      isUploading ||
-                      signLoading ||
-                      writeLoading ||
-                      broadcastLoading ? (
-                        <Spinner size="xs" />
-                      ) : (
-                        <PlusIcon className="w-4 h-4" />
-                      )
-                    }
-                  >
-                    Create
-                  </Button>
-                )}
-              </div>
+              <Button
+                className="ml-auto"
+                type="submit"
+                disabled={
+                  typedDataLoading ||
+                  isUploading ||
+                  signLoading ||
+                  writeLoading ||
+                  broadcastLoading
+                }
+                icon={
+                  typedDataLoading ||
+                  isUploading ||
+                  signLoading ||
+                  writeLoading ||
+                  broadcastLoading ? (
+                    <Spinner size="xs" />
+                  ) : (
+                    <PlusIcon className="w-4 h-4" />
+                  )
+                }
+              >
+                Create
+              </Button>
             </Form>
           )}
         </Card>

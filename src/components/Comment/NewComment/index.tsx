@@ -4,13 +4,11 @@ import Attachments from '@components/Shared/Attachments'
 import Markup from '@components/Shared/Markup'
 import Preview from '@components/Shared/Preview'
 import PubIndexStatus from '@components/Shared/PubIndexStatus'
-import SwitchNetwork from '@components/Shared/SwitchNetwork'
 import { Button } from '@components/UI/Button'
 import { Card } from '@components/UI/Card'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { MentionTextArea } from '@components/UI/MentionTextArea'
 import { Spinner } from '@components/UI/Spinner'
-import AppContext from '@components/utils/AppContext'
 import { LensterAttachment, LensterPost } from '@generated/lenstertypes'
 import {
   CreateCommentBroadcastItemResult,
@@ -20,7 +18,6 @@ import { IGif } from '@giphy/js-types'
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { ChatAlt2Icon, PencilAltIcon } from '@heroicons/react/outline'
 import consoleLog from '@lib/consoleLog'
-import generateSnowflake from '@lib/generateSnowflake'
 import {
   defaultFeeData,
   defaultModuleData,
@@ -32,24 +29,19 @@ import splitSignature from '@lib/splitSignature'
 import trimify from '@lib/trimify'
 import uploadToIPFS from '@lib/uploadToIPFS'
 import dynamic from 'next/dynamic'
-import { FC, useContext, useState } from 'react'
+import { FC, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
   APP_NAME,
-  CHAIN_ID,
   CONNECT_WALLET,
   ERROR_MESSAGE,
   ERRORS,
   LENSHUB_PROXY,
-  RELAY_ON,
-  WRONG_NETWORK
+  RELAY_ON
 } from 'src/constants'
-import {
-  useAccount,
-  useContractWrite,
-  useNetwork,
-  useSignTypedData
-} from 'wagmi'
+import { useAppStore, usePersistStore } from 'src/store'
+import { v4 as uuid } from 'uuid'
+import { useContractWrite, useSignTypedData } from 'wagmi'
 
 const Attachment = dynamic(() => import('../../Shared/Attachment'), {
   loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
@@ -118,15 +110,14 @@ const NewComment: FC<Props> = ({ post, type }) => {
   const [preview, setPreview] = useState<boolean>(false)
   const [commentContent, setCommentContent] = useState<string>('')
   const [commentContentError, setCommentContentError] = useState<string>('')
-  const { currentUser, userSigNonce, setUserSigNonce } = useContext(AppContext)
+  const { userSigNonce, setUserSigNonce } = useAppStore()
+  const { isAuthenticated, currentUser } = usePersistStore()
   const [selectedModule, setSelectedModule] =
     useState<EnabledModule>(defaultModuleData)
   const [onlyFollowers, setOnlyFollowers] = useState<boolean>(false)
   const [feeData, setFeeData] = useState<FEE_DATA_TYPE>(defaultFeeData)
   const [isUploading, setIsUploading] = useState<boolean>(false)
   const [attachments, setAttachments] = useState<LensterAttachment[]>([])
-  const { activeChain } = useNetwork()
-  const { data: account } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
       toast.error(error?.message)
@@ -144,21 +135,17 @@ const NewComment: FC<Props> = ({ post, type }) => {
     error,
     isLoading: writeLoading,
     write
-  } = useContractWrite(
-    {
-      addressOrName: LENSHUB_PROXY,
-      contractInterface: LensHubProxy
+  } = useContractWrite({
+    addressOrName: LENSHUB_PROXY,
+    contractInterface: LensHubProxy,
+    functionName: 'commentWithSig',
+    onSuccess() {
+      onCompleted()
     },
-    'commentWithSig',
-    {
-      onSuccess() {
-        onCompleted()
-      },
-      onError(error: any) {
-        toast.error(error?.data?.message ?? error?.message)
-      }
+    onError(error: any) {
+      toast.error(error?.data?.message ?? error?.message)
     }
-  )
+  })
 
   const [broadcast, { data: broadcastData, loading: broadcastLoading }] =
     useMutation(BROADCAST_MUTATION, {
@@ -236,63 +223,60 @@ const NewComment: FC<Props> = ({ post, type }) => {
   )
 
   const createComment = async () => {
-    if (!account?.address) {
-      toast.error(CONNECT_WALLET)
-    } else if (activeChain?.id !== CHAIN_ID) {
-      toast.error(WRONG_NETWORK)
-    } else if (commentContent.length === 0 && attachments.length === 0) {
-      setCommentContentError('Comment should not be empty!')
-    } else {
-      setCommentContentError('')
-      setIsUploading(true)
-      // TODO: Add animated_url support
-      const { path } = await uploadToIPFS({
-        version: '1.0.0',
-        metadata_id: generateSnowflake(),
-        description: trimify(commentContent),
-        content: trimify(commentContent),
-        external_url: `https://lenster.xyz/u/${currentUser?.handle}`,
-        image: attachments.length > 0 ? attachments[0]?.item : null,
-        imageMimeType: attachments.length > 0 ? attachments[0]?.type : null,
-        name: `Comment by @${currentUser?.handle}`,
-        mainContentFocus:
-          attachments.length > 0
-            ? attachments[0]?.type === 'video/mp4'
-              ? 'VIDEO'
-              : 'IMAGE'
-            : 'TEXT',
-        contentWarning: null, // TODO
-        attributes: [
-          {
-            traitType: 'string',
-            key: 'type',
-            value: type
-          }
-        ],
-        media: attachments,
-        createdOn: new Date(),
-        appId: APP_NAME
-      }).finally(() => setIsUploading(false))
-      createCommentTypedData({
-        variables: {
-          options: { overrideSigNonce: userSigNonce },
-          request: {
-            profileId: currentUser?.id,
-            publicationId:
-              post?.__typename === 'Mirror' ? post?.mirrorOf?.id : post?.id,
-            contentURI: `https://ipfs.infura.io/ipfs/${path}`,
-            collectModule: feeData.recipient
-              ? {
-                  [getModule(selectedModule.moduleName).config]: feeData
-                }
-              : getModule(selectedModule.moduleName).config,
-            referenceModule: {
-              followerOnlyReferenceModule: onlyFollowers ? true : false
-            }
+    if (!isAuthenticated) return toast.error(CONNECT_WALLET)
+    if (commentContent.length === 0 && attachments.length === 0) {
+      return setCommentContentError('Comment should not be empty!')
+    }
+
+    setCommentContentError('')
+    setIsUploading(true)
+    // TODO: Add animated_url support
+    const { path } = await uploadToIPFS({
+      version: '1.0.0',
+      metadata_id: uuid(),
+      description: trimify(commentContent),
+      content: trimify(commentContent),
+      external_url: `https://lenster.xyz/u/${currentUser?.handle}`,
+      image: attachments.length > 0 ? attachments[0]?.item : null,
+      imageMimeType: attachments.length > 0 ? attachments[0]?.type : null,
+      name: `Comment by @${currentUser?.handle}`,
+      mainContentFocus:
+        attachments.length > 0
+          ? attachments[0]?.type === 'video/mp4'
+            ? 'VIDEO'
+            : 'IMAGE'
+          : 'TEXT',
+      contentWarning: null, // TODO
+      attributes: [
+        {
+          traitType: 'string',
+          key: 'type',
+          value: type
+        }
+      ],
+      media: attachments,
+      createdOn: new Date(),
+      appId: APP_NAME
+    }).finally(() => setIsUploading(false))
+    createCommentTypedData({
+      variables: {
+        options: { overrideSigNonce: userSigNonce },
+        request: {
+          profileId: currentUser?.id,
+          publicationId:
+            post?.__typename === 'Mirror' ? post?.mirrorOf?.id : post?.id,
+          contentURI: `https://ipfs.infura.io/ipfs/${path}`,
+          collectModule: feeData.recipient
+            ? {
+                [getModule(selectedModule.moduleName).config]: feeData
+              }
+            : getModule(selectedModule.moduleName).config,
+          referenceModule: {
+            followerOnlyReferenceModule: onlyFollowers ? true : false
           }
         }
-      })
-    }
+      }
+    })
   }
 
   const setGifAttachment = (gif: IGif) => {
@@ -358,46 +342,42 @@ const NewComment: FC<Props> = ({ post, type }) => {
                   }
                 />
               ) : null}
-              {activeChain?.id !== CHAIN_ID ? (
-                <SwitchNetwork className="ml-auto" />
-              ) : (
-                <Button
-                  className="ml-auto"
-                  disabled={
-                    isUploading ||
-                    typedDataLoading ||
-                    signLoading ||
-                    writeLoading ||
-                    broadcastLoading
-                  }
-                  icon={
-                    isUploading ||
-                    typedDataLoading ||
-                    signLoading ||
-                    writeLoading ||
-                    broadcastLoading ? (
-                      <Spinner size="xs" />
-                    ) : type === 'community post' ? (
-                      <PencilAltIcon className="w-4 h-4" />
-                    ) : (
-                      <ChatAlt2Icon className="w-4 h-4" />
-                    )
-                  }
-                  onClick={createComment}
-                >
-                  {isUploading
-                    ? 'Uploading to IPFS'
-                    : typedDataLoading
-                    ? `Generating ${type === 'comment' ? 'Comment' : 'Post'}`
-                    : signLoading
-                    ? 'Sign'
-                    : writeLoading || broadcastLoading
-                    ? 'Send'
-                    : type === 'comment'
-                    ? 'Comment'
-                    : 'Post'}
-                </Button>
-              )}
+              <Button
+                className="ml-auto"
+                disabled={
+                  isUploading ||
+                  typedDataLoading ||
+                  signLoading ||
+                  writeLoading ||
+                  broadcastLoading
+                }
+                icon={
+                  isUploading ||
+                  typedDataLoading ||
+                  signLoading ||
+                  writeLoading ||
+                  broadcastLoading ? (
+                    <Spinner size="xs" />
+                  ) : type === 'community post' ? (
+                    <PencilAltIcon className="w-4 h-4" />
+                  ) : (
+                    <ChatAlt2Icon className="w-4 h-4" />
+                  )
+                }
+                onClick={createComment}
+              >
+                {isUploading
+                  ? 'Uploading to IPFS'
+                  : typedDataLoading
+                  ? `Generating ${type === 'comment' ? 'Comment' : 'Post'}`
+                  : signLoading
+                  ? 'Sign'
+                  : writeLoading || broadcastLoading
+                  ? 'Send'
+                  : type === 'comment'
+                  ? 'Comment'
+                  : 'Post'}
+              </Button>
             </div>
           </div>
           <Attachments
