@@ -3,7 +3,7 @@ import { NextRequest, NextResponse, userAgent } from 'next/server'
 export async function middleware(request: NextRequest) {
   const { os } = userAgent(request)
   const headers = {
-    'Content-type': 'text/html',
+    'Content-Type': 'text/html',
     'Cache-Control': 's-maxage=86400'
   }
 
