@@ -182,7 +182,7 @@ const Profile: FC<Props> = ({ profile }) => {
             write({ args: inputStruct })
           }
         } catch (error) {
-          // TODO: Handle catch
+          Logger.warn('Sign Error =>', error)
         }
       },
       onError(error) {

@@ -109,7 +109,7 @@ const Unfollow: FC<Props> = ({
             setWriteLoading(false)
           }
         } catch (error) {
-          // TODO: Handle catch
+          Logger.warn('Sign Error =>', error)
         }
       },
       onError(error) {

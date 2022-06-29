@@ -89,7 +89,7 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
         setHasConnected(true)
       }
     } catch (error) {
-      // TODO: Handle catch
+      Logger.warn('Sign Error =>', error)
     }
   }
 
