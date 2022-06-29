@@ -7,7 +7,7 @@ import { Spinner } from '@components/UI/Spinner'
 import { PaginatedResultInfo, Wallet } from '@generated/types'
 import { MinimalProfileFields } from '@gql/MinimalProfileFields'
 import { CollectionIcon } from '@heroicons/react/outline'
-import consoleLog from '@lib/consoleLog'
+import Logger from '@lib/logger'
 import { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 
@@ -45,11 +45,7 @@ const Collectors: FC<Props> = ({ pubId }) => {
     onCompleted(data) {
       setPageInfo(data?.whoCollectedPublication?.pageInfo)
       setCollectors(data?.whoCollectedPublication?.items)
-      consoleLog(
-        'Query',
-        '#8b5cf6',
-        `Fetched first 10 collectors Publication:${pubId}`
-      )
+      Logger.log('Query =>', `Fetched first 10 collectors Publication:${pubId}`)
     }
   })
 
@@ -66,9 +62,8 @@ const Collectors: FC<Props> = ({ pubId }) => {
       }).then(({ data }: any) => {
         setPageInfo(data?.whoCollectedPublication?.pageInfo)
         setCollectors([...collectors, ...data?.whoCollectedPublication?.items])
-        consoleLog(
-          'Query',
-          '#8b5cf6',
+        Logger.log(
+          'Query =>',
           `Fetched next 10 collectors Publication:${pubId} Next:${pageInfo?.next}`
         )
       })

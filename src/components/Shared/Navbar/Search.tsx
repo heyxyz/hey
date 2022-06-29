@@ -5,7 +5,7 @@ import { Spinner } from '@components/UI/Spinner'
 import useOnClickOutside from '@components/utils/hooks/useOnClickOutside'
 import { Profile } from '@generated/types'
 import { MinimalProfileFields } from '@gql/MinimalProfileFields'
-import consoleLog from '@lib/consoleLog'
+import Logger from '@lib/logger'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { ChangeEvent, FC, useRef, useState } from 'react'
@@ -39,9 +39,8 @@ const Search: FC<Props> = ({ hideDrodown = false }) => {
   const [searchUsers, { data: searchUsersData, loading: searchUsersLoading }] =
     useLazyQuery(SEARCH_USERS_QUERY, {
       onCompleted(data) {
-        consoleLog(
-          'Lazy Query',
-          '#8b5cf6',
+        Logger.log(
+          'Lazy Query =>',
           `Fetched ${data?.search?.items?.length} search result for ${searchText}`
         )
       }

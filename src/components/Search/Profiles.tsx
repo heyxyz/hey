@@ -8,7 +8,7 @@ import { Spinner } from '@components/UI/Spinner'
 import { PaginatedResultInfo, Profile } from '@generated/types'
 import { MinimalProfileFields } from '@gql/MinimalProfileFields'
 import { UsersIcon } from '@heroicons/react/outline'
-import consoleLog from '@lib/consoleLog'
+import Logger from '@lib/logger'
 import React, { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 
@@ -42,9 +42,8 @@ const Profiles: FC<Props> = ({ query }) => {
     onCompleted(data) {
       setPageInfo(data?.search?.pageInfo)
       setProfiles(data?.search?.items)
-      consoleLog(
-        'Query',
-        '#8b5cf6',
+      Logger.log(
+        'Query =>',
         `Fetched first 10 profiles for search Keyword:${query}`
       )
     }
@@ -64,9 +63,8 @@ const Profiles: FC<Props> = ({ query }) => {
       }).then(({ data }: any) => {
         setPageInfo(data?.search?.pageInfo)
         setProfiles([...profiles, ...data?.search?.items])
-        consoleLog(
-          'Query',
-          '#8b5cf6',
+        Logger.log(
+          'Query =>',
           `Fetched next 10 profiles for search Keyword:${query} Next:${pageInfo?.next}`
         )
       })

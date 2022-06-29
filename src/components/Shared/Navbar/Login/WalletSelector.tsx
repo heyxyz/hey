@@ -5,8 +5,8 @@ import { Button } from '@components/UI/Button'
 import { Spinner } from '@components/UI/Spinner'
 import { Profile } from '@generated/types'
 import { XCircleIcon } from '@heroicons/react/solid'
-import consoleLog from '@lib/consoleLog'
 import getWalletLogo from '@lib/getWalletLogo'
+import Logger from '@lib/logger'
 import clsx from 'clsx'
 import Cookies from 'js-cookie'
 import React, { Dispatch, FC, useEffect, useState } from 'react'
@@ -51,16 +51,19 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
   const { chain } = useNetwork()
   const { connectors, error, connectAsync } = useConnect()
   const { address, connector: activeConnector } = useAccount()
-  const { signMessageAsync, isLoading: signLoading } = useSignMessage()
+  const { signMessageAsync, isLoading: signLoading } = useSignMessage({
+    onError(error) {
+      toast.error(error?.message)
+    }
+  })
   const [
     loadChallenge,
     { error: errorChallenege, loading: challenegeLoading }
   ] = useLazyQuery(CHALLENGE_QUERY, {
     fetchPolicy: 'no-cache',
     onCompleted(data) {
-      consoleLog(
-        'Lazy Query',
-        '#8b5cf6',
+      Logger.log(
+        'Lazy Query =>',
         `Fetched auth challenege - ${data?.challenge?.text}`
       )
     }
@@ -70,9 +73,8 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
   const [getProfiles, { error: errorProfiles, loading: profilesLoading }] =
     useLazyQuery(CURRENT_USER_QUERY, {
       onCompleted(data) {
-        consoleLog(
-          'Lazy Query',
-          '#8b5cf6',
+        Logger.log(
+          'Lazy Query =>',
           `Fetched ${data?.profiles?.items?.length} user profiles for auth`
         )
       }
@@ -135,8 +137,8 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
             }
           })
         })
-      } catch (error: any) {
-        toast.error(error.message ?? ERROR_MESSAGE)
+      } catch (error) {
+        console.log(error)
       }
     })
   }

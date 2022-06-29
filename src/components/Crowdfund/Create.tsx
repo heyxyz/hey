@@ -16,9 +16,9 @@ import SEO from '@components/utils/SEO'
 import { CreatePostBroadcastItemResult, Erc20 } from '@generated/types'
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { PlusIcon } from '@heroicons/react/outline'
-import consoleLog from '@lib/consoleLog'
 import getTokenImage from '@lib/getTokenImage'
 import imagekitURL from '@lib/imagekitURL'
+import Logger from '@lib/logger'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import uploadAssetsToIPFS from '@lib/uploadAssetsToIPFS'
@@ -88,7 +88,7 @@ const Create: NextPage = () => {
   })
   const { data: currencyData, loading } = useQuery(MODULES_CURRENCY_QUERY, {
     onCompleted() {
-      consoleLog('Query', '#8b5cf6', `Fetched enabled module currencies`)
+      Logger.log('Query =>', `Fetched enabled module currencies`)
     }
   })
 
@@ -132,7 +132,7 @@ const Create: NextPage = () => {
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
         }
-        consoleLog('Relay Error', '#ef4444', error.message)
+        Logger.error('Relay Error =>', error.message)
       }
     })
   const [createPostTypedData, { loading: typedDataLoading }] = useMutation(
@@ -143,7 +143,7 @@ const Create: NextPage = () => {
       }: {
         createPostTypedData: CreatePostBroadcastItemResult
       }) {
-        consoleLog('Mutation', '#4ade80', 'Generated createPostTypedData')
+        Logger.log('Mutation =>', 'Generated createPostTypedData')
         const { id, typedData } = createPostTypedData
         const {
           profileId,
