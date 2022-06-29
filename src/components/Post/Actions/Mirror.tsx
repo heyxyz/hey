@@ -137,7 +137,8 @@ const Mirror: FC<Props> = ({ post }) => {
           pubIdPointed,
           referenceModule,
           referenceModuleData,
-          referenceModuleInitData
+          referenceModuleInitData,
+          deadline
         } = typedData?.value
 
         try {
@@ -148,7 +149,7 @@ const Mirror: FC<Props> = ({ post }) => {
           })
           setUserSigNonce(userSigNonce + 1)
           const { v, r, s } = splitSignature(signature)
-          const sig = { v, r, s, deadline: typedData.value.deadline }
+          const sig = { v, r, s, deadline }
           const inputStruct = {
             profileId,
             profileIdPointed,

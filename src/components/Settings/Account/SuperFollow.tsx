@@ -149,7 +149,7 @@ const SuperFollow: FC = () => {
           'Generated createSetFollowModuleTypedData'
         )
         const { id, typedData } = createSetFollowModuleTypedData
-        const { profileId, followModule, followModuleInitData } =
+        const { profileId, followModule, followModuleInitData, deadline } =
           typedData?.value
 
         try {
@@ -160,7 +160,7 @@ const SuperFollow: FC = () => {
           })
           setUserSigNonce(userSigNonce + 1)
           const { v, r, s } = splitSignature(signature)
-          const sig = { v, r, s, deadline: typedData.value.deadline }
+          const sig = { v, r, s, deadline }
           const inputStruct = {
             profileId,
             followModule,

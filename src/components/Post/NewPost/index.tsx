@@ -174,7 +174,8 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
           collectModule,
           collectModuleInitData,
           referenceModule,
-          referenceModuleInitData
+          referenceModuleInitData,
+          deadline
         } = typedData?.value
 
         try {
@@ -185,7 +186,7 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
           })
           setUserSigNonce(userSigNonce + 1)
           const { v, r, s } = splitSignature(signature)
-          const sig = { v, r, s, deadline: typedData.value.deadline }
+          const sig = { v, r, s, deadline }
           const inputStruct = {
             profileId,
             contentURI,

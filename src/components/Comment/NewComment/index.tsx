@@ -180,7 +180,8 @@ const NewComment: FC<Props> = ({ post, type }) => {
           collectModuleInitData,
           referenceModule,
           referenceModuleData,
-          referenceModuleInitData
+          referenceModuleInitData,
+          deadline
         } = typedData?.value
 
         try {
@@ -191,7 +192,7 @@ const NewComment: FC<Props> = ({ post, type }) => {
           })
           setUserSigNonce(userSigNonce + 1)
           const { v, r, s } = splitSignature(signature)
-          const sig = { v, r, s, deadline: typedData.value.deadline }
+          const sig = { v, r, s, deadline }
           const inputStruct = {
             profileId,
             profileIdPointed,

@@ -76,6 +76,7 @@ const Unfollow: FC<Props> = ({
       }) {
         consoleLog('Mutation', '#4ade80', 'Generated createUnfollowTypedData')
         const { typedData } = createUnfollowTypedData
+        const { deadline } = typedData?.value
 
         try {
           const signature = await signTypedDataAsync({
@@ -85,12 +86,7 @@ const Unfollow: FC<Props> = ({
           })
           const { tokenId } = typedData?.value
           const { v, r, s } = splitSignature(signature)
-          const sig = {
-            v,
-            r,
-            s,
-            deadline: typedData.value.deadline
-          }
+          const sig = { v, r, s, deadline }
           setWriteLoading(true)
           try {
             const followNftContract = new Contract(
