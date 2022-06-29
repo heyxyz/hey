@@ -161,6 +161,7 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
       }) {
         consoleLog('Mutation', '#4ade80', 'Generated createCollectTypedData')
         const { id, typedData } = createCollectTypedData
+        const { deadline } = typedData?.value
 
         try {
           const signature = await signTypedDataAsync({
@@ -171,7 +172,7 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
           setUserSigNonce(userSigNonce + 1)
           const { profileId, pubId, data: collectData } = typedData?.value
           const { v, r, s } = splitSignature(signature)
-          const sig = { v, r, s, deadline: typedData.value.deadline }
+          const sig = { v, r, s, deadline }
           const inputStruct = {
             collector: address,
             profileId,

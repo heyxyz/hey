@@ -113,6 +113,7 @@ const Join: FC<Props> = ({ community, setJoined, showJoin = true }) => {
       }) {
         consoleLog('Mutation', '#4ade80', 'Generated createCollectTypedData')
         const { id, typedData } = createCollectTypedData
+        const { deadline } = typedData?.value
 
         try {
           const signature = await signTypedDataAsync({
@@ -123,7 +124,7 @@ const Join: FC<Props> = ({ community, setJoined, showJoin = true }) => {
           setUserSigNonce(userSigNonce + 1)
           const { profileId, pubId, data: collectData } = typedData?.value
           const { v, r, s } = splitSignature(signature)
-          const sig = { v, r, s, deadline: typedData.value.deadline }
+          const sig = { v, r, s, deadline }
           const inputStruct = {
             collector: address,
             profileId,

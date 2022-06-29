@@ -156,6 +156,7 @@ const Profile: FC<Props> = ({ profile }) => {
           'Generated createSetProfileImageURITypedData'
         )
         const { id, typedData } = createSetProfileMetadataTypedData
+        const { deadline } = typedData?.value
 
         try {
           const signature = await signTypedDataAsync({
@@ -166,7 +167,7 @@ const Profile: FC<Props> = ({ profile }) => {
           setUserSigNonce(userSigNonce + 1)
           const { profileId, metadata } = typedData?.value
           const { v, r, s } = splitSignature(signature)
-          const sig = { v, r, s, deadline: typedData.value.deadline }
+          const sig = { v, r, s, deadline }
           const inputStruct = {
             user: currentUser?.ownedBy,
             profileId,

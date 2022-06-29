@@ -126,6 +126,7 @@ const SetProfile: FC = () => {
           'Generated createSetDefaultProfileTypedData'
         )
         const { id, typedData } = createSetDefaultProfileTypedData
+        const { deadline } = typedData?.value
 
         try {
           const signature = await signTypedDataAsync({
@@ -136,7 +137,7 @@ const SetProfile: FC = () => {
           setUserSigNonce(userSigNonce + 1)
           const { wallet, profileId } = typedData?.value
           const { v, r, s } = splitSignature(signature)
-          const sig = { v, r, s, deadline: typedData.value.deadline }
+          const sig = { v, r, s, deadline }
           const inputStruct = {
             follower: address,
             wallet,

@@ -103,6 +103,7 @@ const DeleteSettings: FC = () => {
           'Generated createBurnProfileTypedData'
         )
         const { typedData } = createBurnProfileTypedData
+        const { deadline } = typedData?.value
 
         try {
           const signature = await signTypedDataAsync({
@@ -113,12 +114,7 @@ const DeleteSettings: FC = () => {
           setUserSigNonce(userSigNonce + 1)
           const { tokenId } = typedData?.value
           const { v, r, s } = splitSignature(signature)
-          const sig = {
-            v,
-            r,
-            s,
-            deadline: typedData.value.deadline
-          }
+          const sig = { v, r, s, deadline }
 
           write({ args: [tokenId, sig] })
         } catch (error) {
