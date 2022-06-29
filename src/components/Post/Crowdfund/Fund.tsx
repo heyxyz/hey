@@ -154,22 +154,25 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
   const [createCollectTypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_COLLECT_TYPED_DATA_MUTATION,
     {
-      onCompleted({
+      async onCompleted({
         createCollectTypedData
       }: {
         createCollectTypedData: CreateCollectBroadcastItemResult
       }) {
         consoleLog('Mutation', '#4ade80', 'Generated createCollectTypedData')
         const { id, typedData } = createCollectTypedData
-        signTypedDataAsync({
-          domain: omit(typedData?.domain, '__typename'),
-          types: omit(typedData?.types, '__typename'),
-          value: omit(typedData?.value, '__typename')
-        }).then((signature) => {
+        const { deadline } = typedData?.value
+
+        try {
+          const signature = await signTypedDataAsync({
+            domain: omit(typedData?.domain, '__typename'),
+            types: omit(typedData?.types, '__typename'),
+            value: omit(typedData?.value, '__typename')
+          })
           setUserSigNonce(userSigNonce + 1)
           const { profileId, pubId, data: collectData } = typedData?.value
           const { v, r, s } = splitSignature(signature)
-          const sig = { v, r, s, deadline: typedData.value.deadline }
+          const sig = { v, r, s, deadline }
           const inputStruct = {
             collector: address,
             profileId,
@@ -188,7 +191,9 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
           } else {
             write({ args: inputStruct })
           }
-        })
+        } catch (error) {
+          // TODO: Handle catch
+        }
       },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)

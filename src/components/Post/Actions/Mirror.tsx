@@ -124,7 +124,7 @@ const Mirror: FC<Props> = ({ post }) => {
   const [createMirrorTypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_MIRROR_TYPED_DATA_MUTATION,
     {
-      onCompleted({
+      async onCompleted({
         createMirrorTypedData
       }: {
         createMirrorTypedData: CreateMirrorBroadcastItemResult
@@ -137,17 +137,19 @@ const Mirror: FC<Props> = ({ post }) => {
           pubIdPointed,
           referenceModule,
           referenceModuleData,
-          referenceModuleInitData
+          referenceModuleInitData,
+          deadline
         } = typedData?.value
 
-        signTypedDataAsync({
-          domain: omit(typedData?.domain, '__typename'),
-          types: omit(typedData?.types, '__typename'),
-          value: omit(typedData?.value, '__typename')
-        }).then((signature) => {
+        try {
+          const signature = await signTypedDataAsync({
+            domain: omit(typedData?.domain, '__typename'),
+            types: omit(typedData?.types, '__typename'),
+            value: omit(typedData?.value, '__typename')
+          })
           setUserSigNonce(userSigNonce + 1)
           const { v, r, s } = splitSignature(signature)
-          const sig = { v, r, s, deadline: typedData.value.deadline }
+          const sig = { v, r, s, deadline }
           const inputStruct = {
             profileId,
             profileIdPointed,
@@ -168,7 +170,9 @@ const Mirror: FC<Props> = ({ post }) => {
           } else {
             write({ args: inputStruct })
           }
-        })
+        } catch (error) {
+          // TODO: Handle catch
+        }
       },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
