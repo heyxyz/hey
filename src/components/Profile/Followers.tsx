@@ -8,7 +8,7 @@ import { Spinner } from '@components/UI/Spinner'
 import { Follower, PaginatedResultInfo, Profile } from '@generated/types'
 import { MinimalProfileFields } from '@gql/MinimalProfileFields'
 import { UsersIcon } from '@heroicons/react/outline'
-import consoleLog from '@lib/consoleLog'
+import Logger from '@lib/logger'
 import { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 
@@ -47,9 +47,8 @@ const Followers: FC<Props> = ({ profile }) => {
     onCompleted(data) {
       setPageInfo(data?.followers?.pageInfo)
       setFollowers(data?.followers?.items)
-      consoleLog(
-        'Query',
-        '#8b5cf6',
+      Logger.log(
+        'Query =>',
         `Fetched first 10 followers Profile:${profile?.id}`
       )
     }
@@ -68,9 +67,8 @@ const Followers: FC<Props> = ({ profile }) => {
       }).then(({ data }: any) => {
         setPageInfo(data?.followers?.pageInfo)
         setFollowers([...followers, ...data?.followers?.items])
-        consoleLog(
-          'Query',
-          '#8b5cf6',
+        Logger.log(
+          'Query =>',
           `Fetched next 10 followers Profile:${profile?.id} Next:${pageInfo?.next}`
         )
       })

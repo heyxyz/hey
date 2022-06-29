@@ -6,8 +6,8 @@ import { LensterPost } from '@generated/lenstertypes'
 import { CreateMirrorBroadcastItemResult } from '@generated/types'
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { SwitchHorizontalIcon } from '@heroicons/react/outline'
-import consoleLog from '@lib/consoleLog'
 import humanize from '@lib/humanize'
+import Logger from '@lib/logger'
 import nFormatter from '@lib/nFormatter'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
@@ -117,7 +117,7 @@ const Mirror: FC<Props> = ({ post }) => {
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
         }
-        consoleLog('Relay Error', '#ef4444', error.message)
+        Logger.error('Relay Error =>', error.message)
       }
     }
   )
@@ -129,7 +129,7 @@ const Mirror: FC<Props> = ({ post }) => {
       }: {
         createMirrorTypedData: CreateMirrorBroadcastItemResult
       }) {
-        consoleLog('Mutation', '#4ade80', 'Generated createMirrorTypedData')
+        Logger.log('Mutation =>', 'Generated createMirrorTypedData')
         const { id, typedData } = createMirrorTypedData
         const {
           profileId,

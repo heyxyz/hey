@@ -1,7 +1,7 @@
 import { gql, useQuery } from '@apollo/client'
 import { Profile } from '@generated/types'
 import { MinimalProfileFields } from '@gql/MinimalProfileFields'
-import consoleLog from '@lib/consoleLog'
+import Logger from '@lib/logger'
 import Cookies from 'js-cookie'
 import dynamic from 'next/dynamic'
 import Head from 'next/head'
@@ -62,9 +62,8 @@ const SiteLayout: FC<Props> = ({ children }) => {
         setUserSigNonce(data?.userSigNonces?.lensHubOnChainSigNonce)
       }
 
-      consoleLog(
-        'Query',
-        '#8b5cf6',
+      Logger.log(
+        'Query =>',
         `Fetched ${data?.profiles?.items?.length} owned profiles`
       )
     }
