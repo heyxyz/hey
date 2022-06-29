@@ -151,7 +151,7 @@ const Details: FC<Props> = ({ profile }) => {
             )
           ) : null}
           {currentUser?.id === profile?.id && (
-            <Link href="/settings" prefetch={false}>
+            <Link href="/settings">
               <a href="/settings">
                 <Button
                   variant="secondary"
