@@ -92,7 +92,7 @@ const DeleteSettings: FC = () => {
 
   const [createBurnProfileTypedData, { loading: typedDataLoading }] =
     useMutation(CREATE_BURN_PROFILE_TYPED_DATA_MUTATION, {
-      onCompleted({
+      async onCompleted({
         createBurnProfileTypedData
       }: {
         createBurnProfileTypedData: CreateBurnProfileBroadcastItemResult
@@ -103,11 +103,13 @@ const DeleteSettings: FC = () => {
           'Generated createBurnProfileTypedData'
         )
         const { typedData } = createBurnProfileTypedData
-        signTypedDataAsync({
-          domain: omit(typedData?.domain, '__typename'),
-          types: omit(typedData?.types, '__typename'),
-          value: omit(typedData?.value, '__typename')
-        }).then((signature) => {
+
+        try {
+          const signature = await signTypedDataAsync({
+            domain: omit(typedData?.domain, '__typename'),
+            types: omit(typedData?.types, '__typename'),
+            value: omit(typedData?.value, '__typename')
+          })
           setUserSigNonce(userSigNonce + 1)
           const { tokenId } = typedData?.value
           const { v, r, s } = splitSignature(signature)
@@ -119,7 +121,9 @@ const DeleteSettings: FC = () => {
           }
 
           write({ args: [tokenId, sig] })
-        })
+        } catch (error) {
+          // TODO: Handle catch
+        }
       },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)

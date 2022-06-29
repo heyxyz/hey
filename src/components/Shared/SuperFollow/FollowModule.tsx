@@ -205,18 +205,20 @@ const FollowModule: FC<Props> = ({
   const [createFollowTypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_FOLLOW_TYPED_DATA_MUTATION,
     {
-      onCompleted({
+      async onCompleted({
         createFollowTypedData
       }: {
         createFollowTypedData: CreateFollowBroadcastItemResult
       }) {
         consoleLog('Mutation', '#4ade80', 'Generated createFollowTypedData')
         const { id, typedData } = createFollowTypedData
-        signTypedDataAsync({
-          domain: omit(typedData?.domain, '__typename'),
-          types: omit(typedData?.types, '__typename'),
-          value: omit(typedData?.value, '__typename')
-        }).then((signature) => {
+
+        try {
+          const signature = await signTypedDataAsync({
+            domain: omit(typedData?.domain, '__typename'),
+            types: omit(typedData?.types, '__typename'),
+            value: omit(typedData?.value, '__typename')
+          })
           setUserSigNonce(userSigNonce + 1)
           const { profileIds, datas: followData } = typedData?.value
           const { v, r, s } = splitSignature(signature)
@@ -238,7 +240,9 @@ const FollowModule: FC<Props> = ({
           } else {
             write({ args: inputStruct })
           }
-        })
+        } catch (error) {
+          // TODO: Handle catch
+        }
       },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
