@@ -18,10 +18,7 @@ const Collected: FC<Props> = ({ post, type }) => {
       <div className="flex items-center space-x-1">
         <div>{type} by</div>
         {post?.collectedBy?.defaultProfile ? (
-          <Link
-            href={`/u/${post?.collectedBy?.defaultProfile?.handle}`}
-            prefetch={false}
-          >
+          <Link href={`/u/${post?.collectedBy?.defaultProfile?.handle}`}>
             <a href={`/u/${post?.collectedBy?.defaultProfile?.handle}`}>
               <Slug
                 slug={post?.collectedBy?.defaultProfile?.handle}
