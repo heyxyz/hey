@@ -140,7 +140,7 @@ const Profile: FC<Props> = ({ profile }) => {
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
         }
-        Logger.log('Relay Error =>', error.message)
+        Logger.error('Relay Error =>', error.message)
       }
     })
   const [createSetProfileMetadataTypedData, { loading: typedDataLoading }] =
