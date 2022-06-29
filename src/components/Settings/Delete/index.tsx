@@ -114,7 +114,7 @@ const DeleteSettings: FC = () => {
 
           write({ args: [tokenId, sig] })
         } catch (error) {
-          // TODO: Handle catch
+          Logger.warn('Sign Error =>', error)
         }
       },
       onError(error) {

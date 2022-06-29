@@ -171,7 +171,7 @@ const Mirror: FC<Props> = ({ post }) => {
             write({ args: inputStruct })
           }
         } catch (error) {
-          // TODO: Handle catch
+          Logger.warn('Sign Error =>', error)
         }
       },
       onError(error) {

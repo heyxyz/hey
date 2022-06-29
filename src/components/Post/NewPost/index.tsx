@@ -208,7 +208,7 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
             write({ args: inputStruct })
           }
         } catch (error) {
-          // TODO: Handle catch
+          Logger.warn('Sign Error =>', error)
         }
       },
       onError(error) {
