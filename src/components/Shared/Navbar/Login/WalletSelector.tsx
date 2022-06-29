@@ -45,8 +45,12 @@ interface Props {
 }
 
 const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
+  const { setProfiles } = useAppStore()
+  const { setIsAuthenticated, setCurrentUser } = usePersistStore()
   const [mounted, setMounted] = useState(false)
   const { chain } = useNetwork()
+  const { connectors, error, connectAsync } = useConnect()
+  const { address, connector: activeConnector } = useAccount()
   const { signMessageAsync, isLoading: signLoading } = useSignMessage()
   const [
     loadChallenge,
@@ -76,64 +80,64 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
 
   useEffect(() => setMounted(true), [])
 
-  const { connectors, error, connectAsync } = useConnect()
-  const { address, connector: activeConnector } = useAccount()
-  const { setProfiles } = useAppStore()
-  const { setIsAuthenticated, setCurrentUser } = usePersistStore()
-
   const onConnect = async (connector: Connector) => {
-    await connectAsync({ connector }).then(({ account }) => {
+    try {
+      const account = await connectAsync({ connector })
       if (account) {
         setHasConnected(true)
       }
-    })
+    } catch (error) {
+      // TODO: Handle catch
+    }
   }
 
   const handleSign = () => {
     loadChallenge({
       variables: { request: { address } }
-    }).then((res) => {
+    }).then(async (res) => {
       if (!res?.data?.challenge?.text) {
         return toast.error(ERROR_MESSAGE)
       }
 
-      signMessageAsync({ message: res?.data?.challenge?.text }).then(
-        (signature) => {
-          authenticate({
-            variables: { request: { address, signature } }
-          }).then((res) => {
-            Cookies.set(
-              'accessToken',
-              res.data.authenticate.accessToken,
-              COOKIE_CONFIG
-            )
-            Cookies.set(
-              'refreshToken',
-              res.data.authenticate.refreshToken,
-              COOKIE_CONFIG
-            )
-            getProfiles({
-              variables: { ownedBy: address }
-            }).then(({ data }) => {
-              if (data?.profiles?.items?.length === 0) {
-                setHasProfile(false)
-              } else {
-                const profiles: Profile[] = data?.profiles?.items
-                  ?.slice()
-                  ?.sort(
-                    (a: Profile, b: Profile) => Number(a.id) - Number(b.id)
-                  )
-                  ?.sort((a: Profile, b: Profile) =>
-                    !(a.isDefault !== b.isDefault) ? 0 : a.isDefault ? -1 : 1
-                  )
-                setIsAuthenticated(true)
-                setProfiles(profiles)
-                setCurrentUser(profiles[0])
-              }
-            })
+      try {
+        const signature = await signMessageAsync({
+          message: res?.data?.challenge?.text
+        })
+
+        authenticate({
+          variables: { request: { address, signature } }
+        }).then((res) => {
+          Cookies.set(
+            'accessToken',
+            res.data.authenticate.accessToken,
+            COOKIE_CONFIG
+          )
+          Cookies.set(
+            'refreshToken',
+            res.data.authenticate.refreshToken,
+            COOKIE_CONFIG
+          )
+          getProfiles({
+            variables: { ownedBy: address }
+          }).then(({ data }) => {
+            if (data?.profiles?.items?.length === 0) {
+              setHasProfile(false)
+            } else {
+              const profiles: Profile[] = data?.profiles?.items
+                ?.slice()
+                ?.sort((a: Profile, b: Profile) => Number(a.id) - Number(b.id))
+                ?.sort((a: Profile, b: Profile) =>
+                  !(a.isDefault !== b.isDefault) ? 0 : a.isDefault ? -1 : 1
+                )
+              setIsAuthenticated(true)
+              setProfiles(profiles)
+              setCurrentUser(profiles[0])
+            }
           })
-        }
-      )
+        })
+      } catch (error: any) {
+        toast.error(error.message ?? ERROR_MESSAGE)
+      }
     })
   }
 
