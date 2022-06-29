@@ -145,7 +145,7 @@ const Profile: FC<Props> = ({ profile }) => {
     })
   const [createSetProfileMetadataTypedData, { loading: typedDataLoading }] =
     useMutation(CREATE_SET_PROFILE_METADATA_TYPED_DATA_MUTATION, {
-      onCompleted({
+      async onCompleted({
         createSetProfileMetadataTypedData
       }: {
         createSetProfileMetadataTypedData: CreateSetProfileMetadataUriBroadcastItemResult
@@ -156,11 +156,13 @@ const Profile: FC<Props> = ({ profile }) => {
           'Generated createSetProfileImageURITypedData'
         )
         const { id, typedData } = createSetProfileMetadataTypedData
-        signTypedDataAsync({
-          domain: omit(typedData?.domain, '__typename'),
-          types: omit(typedData?.types, '__typename'),
-          value: omit(typedData?.value, '__typename')
-        }).then((signature) => {
+
+        try {
+          const signature = await signTypedDataAsync({
+            domain: omit(typedData?.domain, '__typename'),
+            types: omit(typedData?.types, '__typename'),
+            value: omit(typedData?.value, '__typename')
+          })
           setUserSigNonce(userSigNonce + 1)
           const { profileId, metadata } = typedData?.value
           const { v, r, s } = splitSignature(signature)
@@ -182,7 +184,9 @@ const Profile: FC<Props> = ({ profile }) => {
           } else {
             write({ args: inputStruct })
           }
-        })
+        } catch (error) {
+          // TODO: Handle catch
+        }
       },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)

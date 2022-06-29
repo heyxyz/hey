@@ -251,7 +251,7 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
   const [createCollectTypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_COLLECT_TYPED_DATA_MUTATION,
     {
-      onCompleted({
+      async onCompleted({
         createCollectTypedData
       }: {
         createCollectTypedData: CreateCollectBroadcastItemResult
@@ -259,11 +259,12 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
         consoleLog('Mutation', '#4ade80', 'Generated createCollectTypedData')
         const { id, typedData } = createCollectTypedData
 
-        signTypedDataAsync({
-          domain: omit(typedData?.domain, '__typename'),
-          types: omit(typedData?.types, '__typename'),
-          value: omit(typedData?.value, '__typename')
-        }).then((signature) => {
+        try {
+          const signature = await signTypedDataAsync({
+            domain: omit(typedData?.domain, '__typename'),
+            types: omit(typedData?.types, '__typename'),
+            value: omit(typedData?.value, '__typename')
+          })
           setUserSigNonce(userSigNonce + 1)
           const { profileId, pubId, data: collectData } = typedData?.value
           const { v, r, s } = splitSignature(signature)
@@ -286,7 +287,9 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
           } else {
             write({ args: inputStruct })
           }
-        })
+        } catch (error) {
+          // TODO: Handle catch
+        }
       },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
