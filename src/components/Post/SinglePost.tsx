@@ -39,7 +39,7 @@ const SinglePost: FC<Props> = ({
                 : post?.profile
             }
           />
-          <Link href={`/posts/${post?.id ?? post?.pubId}`} prefetch={false}>
+          <Link href={`/posts/${post?.id ?? post?.pubId}`}>
             <a
               href={`/posts/${post?.id ?? post?.pubId}`}
               className="text-sm text-gray-500"

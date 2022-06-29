@@ -31,7 +31,7 @@ const NotificationIcon: FC = () => {
   }, [currentUser, data])
 
   return (
-    <Link href="/notifications" prefetch={false}>
+    <Link href="/notifications">
       <a
         className="flex items-start"
         href="/notifications"
