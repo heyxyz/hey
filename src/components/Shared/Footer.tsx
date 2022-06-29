@@ -16,10 +16,10 @@ const Footer: FC = () => {
       <span className="font-bold text-gray-500 dark:text-gray-300">
         © {APP_NAME}
       </span>
-      <Link href="/about" prefetch={false}>
+      <Link href="/about">
         <a href="/about">About</a>
       </Link>
-      <Link href="/privacy" prefetch={false}>
+      <Link href="/privacy">
         <a href="/privacy">Privacy</a>
       </Link>
       <a
@@ -50,7 +50,7 @@ const Footer: FC = () => {
       >
         Vote
       </a>
-      <Link href="/thanks" prefetch={false}>
+      <Link href="/thanks">
         <a href="/thanks">Thanks</a>
       </Link>
       <a

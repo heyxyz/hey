@@ -12,7 +12,7 @@ interface Props {
 const CommunityProfile: FC<Props> = ({ community }) => {
   return (
     <div className="flex justify-between items-center">
-      <Link href={`/communities/${community?.id}`} prefetch={false}>
+      <Link href={`/communities/${community?.id}`}>
         <a href={`/communities/${community?.id}`}>
           <div className="flex items-center space-x-3">
             <img
