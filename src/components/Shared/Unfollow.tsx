@@ -4,7 +4,7 @@ import { Button } from '@components/UI/Button'
 import { Spinner } from '@components/UI/Spinner'
 import { CreateUnfollowBroadcastItemResult, Profile } from '@generated/types'
 import { UserRemoveIcon } from '@heroicons/react/outline'
-import consoleLog from '@lib/consoleLog'
+import Logger from '@lib/logger'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import { Contract, Signer } from 'ethers'
@@ -74,7 +74,7 @@ const Unfollow: FC<Props> = ({
       }: {
         createUnfollowTypedData: CreateUnfollowBroadcastItemResult
       }) {
-        consoleLog('Mutation', '#4ade80', 'Generated createUnfollowTypedData')
+        Logger.log('Mutation =>', 'Generated createUnfollowTypedData')
         const { typedData } = createUnfollowTypedData
         const { deadline } = typedData?.value
 
@@ -109,7 +109,7 @@ const Unfollow: FC<Props> = ({
             setWriteLoading(false)
           }
         } catch (error) {
-          // TODO: Handle catch
+          Logger.warn('Sign Error =>', error)
         }
       },
       onError(error) {

@@ -17,13 +17,13 @@ import {
 import { IGif } from '@giphy/js-types'
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { ChatAlt2Icon, PencilAltIcon } from '@heroicons/react/outline'
-import consoleLog from '@lib/consoleLog'
 import {
   defaultFeeData,
   defaultModuleData,
   FEE_DATA_TYPE,
   getModule
 } from '@lib/getModule'
+import Logger from '@lib/logger'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import trimify from '@lib/trimify'
@@ -158,7 +158,7 @@ const NewComment: FC<Props> = ({ post, type }) => {
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
         }
-        consoleLog('Relay Error', '#ef4444', error.message)
+        Logger.error('Relay Error =>', error.message)
       }
     })
   const [createCommentTypedData, { loading: typedDataLoading }] = useMutation(
@@ -169,7 +169,7 @@ const NewComment: FC<Props> = ({ post, type }) => {
       }: {
         createCommentTypedData: CreateCommentBroadcastItemResult
       }) {
-        consoleLog('Mutation', '#4ade80', 'Generated createCommentTypedData')
+        Logger.log('Mutation =>', 'Generated createCommentTypedData')
         const { id, typedData } = createCommentTypedData
         const {
           profileId,
@@ -216,8 +216,8 @@ const NewComment: FC<Props> = ({ post, type }) => {
           } else {
             write({ args: inputStruct })
           }
-        } catch (error) {
-          // TODO: Handle catch
+        } catch (error: any) {
+          toast.error(error.message ?? ERROR_MESSAGE)
         }
       },
       onError(error) {

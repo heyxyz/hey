@@ -12,7 +12,7 @@ import { CommentFields } from '@gql/CommentFields'
 import { MirrorFields } from '@gql/MirrorFields'
 import { PostFields } from '@gql/PostFields'
 import { CollectionIcon } from '@heroicons/react/outline'
-import consoleLog from '@lib/consoleLog'
+import Logger from '@lib/logger'
 import React, { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import { usePersistStore } from 'src/store'
@@ -58,7 +58,7 @@ const Feed: FC = () => {
     onCompleted(data) {
       setPageInfo(data?.timeline?.pageInfo)
       setPublications(data?.timeline?.items)
-      consoleLog('Query', '#8b5cf6', `Fetched first 10 timeline publications`)
+      Logger.log('Query =>', `Fetched first 10 timeline publications`)
     }
   })
 
@@ -76,9 +76,8 @@ const Feed: FC = () => {
       }).then(({ data }: any) => {
         setPageInfo(data?.timeline?.pageInfo)
         setPublications([...publications, ...data?.timeline?.items])
-        consoleLog(
-          'Query',
-          '#8b5cf6',
+        Logger.log(
+          'Query =>',
           `Fetched next 10 timeline publications Next:${pageInfo?.next}`
         )
       })

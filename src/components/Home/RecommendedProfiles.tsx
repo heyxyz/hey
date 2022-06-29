@@ -8,7 +8,7 @@ import { Profile } from '@generated/types'
 import { MinimalProfileFields } from '@gql/MinimalProfileFields'
 import { UsersIcon } from '@heroicons/react/outline'
 import { LightningBoltIcon, SparklesIcon } from '@heroicons/react/solid'
-import consoleLog from '@lib/consoleLog'
+import Logger from '@lib/logger'
 import randomizeArray from '@lib/randomizeArray'
 import React, { FC } from 'react'
 import { usePersistStore } from 'src/store'
@@ -46,9 +46,8 @@ const Title = () => {
 const RecommendedProfiles: FC = () => {
   const { data, loading, error } = useQuery(RECOMMENDED_PROFILES_QUERY, {
     onCompleted(data) {
-      consoleLog(
-        'Query',
-        '#8b5cf6',
+      Logger.log(
+        'Query =>',
         `Fetched ${data?.recommendedProfiles?.length} recommended profiles`
       )
     }

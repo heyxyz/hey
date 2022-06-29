@@ -8,7 +8,7 @@ import { Spinner } from '@components/UI/Spinner'
 import SEO from '@components/utils/SEO'
 import { CreateBurnProfileBroadcastItemResult } from '@generated/types'
 import { TrashIcon } from '@heroicons/react/outline'
-import consoleLog from '@lib/consoleLog'
+import Logger from '@lib/logger'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import Cookies from 'js-cookie'
@@ -97,11 +97,7 @@ const DeleteSettings: FC = () => {
       }: {
         createBurnProfileTypedData: CreateBurnProfileBroadcastItemResult
       }) {
-        consoleLog(
-          'Mutation',
-          '#4ade80',
-          'Generated createBurnProfileTypedData'
-        )
+        Logger.log('Mutation =>', 'Generated createBurnProfileTypedData')
         const { typedData } = createBurnProfileTypedData
         const { deadline } = typedData?.value
 
@@ -118,7 +114,7 @@ const DeleteSettings: FC = () => {
 
           write({ args: [tokenId, sig] })
         } catch (error) {
-          // TODO: Handle catch
+          Logger.warn('Sign Error =>', error)
         }
       },
       onError(error) {

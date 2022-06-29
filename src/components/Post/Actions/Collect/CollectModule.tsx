@@ -29,9 +29,9 @@ import {
   UserIcon,
   UsersIcon
 } from '@heroicons/react/outline'
-import consoleLog from '@lib/consoleLog'
 import formatAddress from '@lib/formatAddress'
 import getTokenImage from '@lib/getTokenImage'
+import Logger from '@lib/logger'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import dayjs from 'dayjs'
@@ -157,9 +157,8 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
   const { data, loading } = useQuery(COLLECT_QUERY, {
     variables: { request: { publicationId: post?.pubId ?? post?.id } },
     onCompleted() {
-      consoleLog(
-        'Query',
-        '#8b5cf6',
+      Logger.log(
+        'Query =>',
         `Fetched collect module details Publication:${post?.pubId ?? post?.id}`
       )
     }
@@ -183,7 +182,7 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
       skip: !collectModule?.amount?.asset?.address || !currentUser,
       onCompleted(data) {
         setAllowed(data?.approvedModuleAllowanceAmount[0]?.allowance !== '0x00')
-        consoleLog('Query', '#8b5cf6', `Fetched allowance data`)
+        Logger.log('Query =>', `Fetched allowance data`)
       }
     }
   )
@@ -201,9 +200,8 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
       },
       skip: !post?.id,
       onCompleted() {
-        consoleLog(
-          'Query',
-          '#8b5cf6',
+        Logger.log(
+          'Query =>',
           `Fetched collect revenue details Publication:${
             post?.pubId ?? post?.id
           }`
@@ -245,7 +243,7 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
         }
-        consoleLog('Relay Error', '#ef4444', error.message)
+        Logger.error('Relay Error =>', error.message)
       }
     })
   const [createCollectTypedData, { loading: typedDataLoading }] = useMutation(
@@ -256,7 +254,7 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
       }: {
         createCollectTypedData: CreateCollectBroadcastItemResult
       }) {
-        consoleLog('Mutation', '#4ade80', 'Generated createCollectTypedData')
+        Logger.log('Mutation =>', 'Generated createCollectTypedData')
         const { id, typedData } = createCollectTypedData
         const { deadline } = typedData?.value
 
@@ -289,7 +287,7 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
             write({ args: inputStruct })
           }
         } catch (error) {
-          // TODO: Handle catch
+          Logger.warn('Sign Error =>', error)
         }
       },
       onError(error) {

@@ -3,7 +3,7 @@ import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout'
 import NFTShimmer from '@components/Shared/Shimmer/NFTShimmer'
 import PostsShimmer from '@components/Shared/Shimmer/PostsShimmer'
 import SEO from '@components/utils/SEO'
-import consoleLog from '@lib/consoleLog'
+import Logger from '@lib/logger'
 import { NextPage } from 'next'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
@@ -86,9 +86,8 @@ const ViewProfile: NextPage = () => {
     variables: { request: { handle: username }, who: currentUser?.id ?? null },
     skip: !username,
     onCompleted(data) {
-      consoleLog(
-        'Query',
-        '#8b5cf6',
+      Logger.log(
+        'Query =>',
         `Fetched profile details Profile:${data?.profile?.id}`
       )
     }

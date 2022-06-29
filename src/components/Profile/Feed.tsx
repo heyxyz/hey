@@ -11,7 +11,7 @@ import { CommentFields } from '@gql/CommentFields'
 import { MirrorFields } from '@gql/MirrorFields'
 import { PostFields } from '@gql/PostFields'
 import { CollectionIcon } from '@heroicons/react/outline'
-import consoleLog from '@lib/consoleLog'
+import Logger from '@lib/logger'
 import React, { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import { usePersistStore } from 'src/store'
@@ -63,9 +63,8 @@ const Feed: FC<Props> = ({ profile, type }) => {
     onCompleted(data) {
       setPageInfo(data?.publications?.pageInfo)
       setPublications(data?.publications?.items)
-      consoleLog(
-        'Query',
-        '#8b5cf6',
+      Logger.log(
+        'Query =>',
         `Fetched first 10 profile publications Profile:${profile?.id}`
       )
     }
@@ -86,9 +85,8 @@ const Feed: FC<Props> = ({ profile, type }) => {
       }).then(({ data }: any) => {
         setPageInfo(data?.publications?.pageInfo)
         setPublications([...publications, ...data?.publications?.items])
-        consoleLog(
-          'Query',
-          '#8b5cf6',
+        Logger.log(
+          'Query =>',
           `Fetched next 10 profile publications Profile:${profile?.id} Next:${pageInfo?.next}`
         )
       })
