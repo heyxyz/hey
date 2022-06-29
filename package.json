@@ -72,7 +72,7 @@
     "@types/uuid": "^8.3.4",
     "@typescript-eslint/eslint-plugin": "^5.29.0",
     "autoprefixer": "^10.4.5",
-    "cypress": "^10.1.0",
+    "cypress": "^10.3.0",
     "eslint": "^8.18.0",
     "eslint-config-next": "^12.2.0",
     "eslint-plugin-prettier": "^4.1.0",
