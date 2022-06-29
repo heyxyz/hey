@@ -115,7 +115,7 @@ const SetProfile: FC = () => {
     })
   const [createSetDefaultProfileTypedData, { loading: typedDataLoading }] =
     useMutation(CREATE_SET_DEFAULT_PROFILE_DATA_MUTATION, {
-      onCompleted({
+      async onCompleted({
         createSetDefaultProfileTypedData
       }: {
         createSetDefaultProfileTypedData: SetDefaultProfileBroadcastItemResult
@@ -126,11 +126,13 @@ const SetProfile: FC = () => {
           'Generated createSetDefaultProfileTypedData'
         )
         const { id, typedData } = createSetDefaultProfileTypedData
-        signTypedDataAsync({
-          domain: omit(typedData?.domain, '__typename'),
-          types: omit(typedData?.types, '__typename'),
-          value: omit(typedData?.value, '__typename')
-        }).then((signature) => {
+
+        try {
+          const signature = await signTypedDataAsync({
+            domain: omit(typedData?.domain, '__typename'),
+            types: omit(typedData?.types, '__typename'),
+            value: omit(typedData?.value, '__typename')
+          })
           setUserSigNonce(userSigNonce + 1)
           const { wallet, profileId } = typedData?.value
           const { v, r, s } = splitSignature(signature)
@@ -152,7 +154,9 @@ const SetProfile: FC = () => {
           } else {
             write({ args: inputStruct })
           }
-        })
+        } catch (error) {
+          // TODO: Handle catch
+        }
       },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)

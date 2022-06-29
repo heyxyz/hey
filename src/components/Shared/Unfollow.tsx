@@ -69,20 +69,22 @@ const Unfollow: FC<Props> = ({
   const [createUnfollowTypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_UNFOLLOW_TYPED_DATA_MUTATION,
     {
-      onCompleted({
+      async onCompleted({
         createUnfollowTypedData
       }: {
         createUnfollowTypedData: CreateUnfollowBroadcastItemResult
       }) {
         consoleLog('Mutation', '#4ade80', 'Generated createUnfollowTypedData')
         const { typedData } = createUnfollowTypedData
-        signTypedDataAsync({
-          domain: omit(typedData?.domain, '__typename'),
-          types: omit(typedData?.types, '__typename'),
-          value: omit(typedData?.value, '__typename')
-        }).then(async (res) => {
+
+        try {
+          const signature = await signTypedDataAsync({
+            domain: omit(typedData?.domain, '__typename'),
+            types: omit(typedData?.types, '__typename'),
+            value: omit(typedData?.value, '__typename')
+          })
           const { tokenId } = typedData?.value
-          const { v, r, s } = splitSignature(res)
+          const { v, r, s } = splitSignature(signature)
           const sig = {
             v,
             r,
@@ -110,7 +112,9 @@ const Unfollow: FC<Props> = ({
           } finally {
             setWriteLoading(false)
           }
-        })
+        } catch (error) {
+          // TODO: Handle catch
+        }
       },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)

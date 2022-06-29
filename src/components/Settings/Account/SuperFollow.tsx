@@ -138,7 +138,7 @@ const SuperFollow: FC = () => {
     })
   const [createSetFollowModuleTypedData, { loading: typedDataLoading }] =
     useMutation(CREATE_SET_FOLLOW_MODULE_TYPED_DATA_MUTATION, {
-      onCompleted({
+      async onCompleted({
         createSetFollowModuleTypedData
       }: {
         createSetFollowModuleTypedData: CreateSetFollowModuleBroadcastItemResult
@@ -152,11 +152,12 @@ const SuperFollow: FC = () => {
         const { profileId, followModule, followModuleInitData } =
           typedData?.value
 
-        signTypedDataAsync({
-          domain: omit(typedData?.domain, '__typename'),
-          types: omit(typedData?.types, '__typename'),
-          value: omit(typedData?.value, '__typename')
-        }).then((signature) => {
+        try {
+          const signature = await signTypedDataAsync({
+            domain: omit(typedData?.domain, '__typename'),
+            types: omit(typedData?.types, '__typename'),
+            value: omit(typedData?.value, '__typename')
+          })
           setUserSigNonce(userSigNonce + 1)
           const { v, r, s } = splitSignature(signature)
           const sig = { v, r, s, deadline: typedData.value.deadline }
@@ -177,7 +178,9 @@ const SuperFollow: FC = () => {
           } else {
             write({ args: inputStruct })
           }
-        })
+        } catch (error) {
+          // TODO: Handle catch
+        }
       },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
