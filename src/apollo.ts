@@ -5,7 +5,7 @@ import {
   InMemoryCache
 } from '@apollo/client'
 import result from '@generated/types'
-import consoleLog from '@lib/consoleLog'
+import Logger from '@lib/logger'
 import axios from 'axios'
 import Cookies, { CookieAttributes } from 'js-cookie'
 import jwtDecode from 'jwt-decode'
@@ -51,7 +51,7 @@ const authLink = new ApolloLink((operation, forward) => {
     const { exp }: { exp: number } = jwtDecode(accessToken)
 
     if (Date.now() >= exp * 1000) {
-      consoleLog('Auth', '#eab308', 'Generate new access token')
+      Logger.log('Auth =>', 'Generate new access token')
       axios(API_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

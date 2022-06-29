@@ -13,13 +13,13 @@ import { CreatePostBroadcastItemResult, EnabledModule } from '@generated/types'
 import { IGif } from '@giphy/js-types'
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { PencilAltIcon } from '@heroicons/react/outline'
-import consoleLog from '@lib/consoleLog'
 import {
   defaultFeeData,
   defaultModuleData,
   FEE_DATA_TYPE,
   getModule
 } from '@lib/getModule'
+import Logger from '@lib/logger'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import trimify from '@lib/trimify'
@@ -155,7 +155,7 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
         }
-        consoleLog('Relay Error', '#ef4444', error.message)
+        Logger.error('Relay Error =>', error.message)
       }
     })
   const [createPostTypedData, { loading: typedDataLoading }] = useMutation(
@@ -166,7 +166,7 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
       }: {
         createPostTypedData: CreatePostBroadcastItemResult
       }) {
-        consoleLog('Mutation', '#4ade80', 'Generated createPostTypedData')
+        Logger.log('Mutation =>', 'Generated createPostTypedData')
         const { id, typedData } = createPostTypedData
         const {
           profileId,
@@ -208,7 +208,7 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
             write({ args: inputStruct })
           }
         } catch (error) {
-          // TODO: Handle catch
+          Logger.warn('Sign Error =>', error)
         }
       },
       onError(error) {

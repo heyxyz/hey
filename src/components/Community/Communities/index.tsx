@@ -4,7 +4,7 @@ import { PageLoading } from '@components/UI/PageLoading'
 import SEO from '@components/utils/SEO'
 import { CommunityFields } from '@gql/CommunityFields'
 import { ChartBarIcon, FireIcon, SparklesIcon } from '@heroicons/react/outline'
-import consoleLog from '@lib/consoleLog'
+import Logger from '@lib/logger'
 import { NextPage } from 'next'
 import React from 'react'
 import { APP_NAME } from 'src/constants'
@@ -66,9 +66,8 @@ const Communities: NextPage = () => {
       }
     },
     onCompleted() {
-      consoleLog(
-        'Query',
-        '#8b5cf6',
+      Logger.log(
+        'Query =>',
         `Fetched 10 TOP_COMMENTED, TOP_COLLECTED and LATEST communities`
       )
     }

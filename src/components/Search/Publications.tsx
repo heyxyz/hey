@@ -10,7 +10,7 @@ import { PaginatedResultInfo } from '@generated/types'
 import { CommentFields } from '@gql/CommentFields'
 import { PostFields } from '@gql/PostFields'
 import { CollectionIcon } from '@heroicons/react/outline'
-import consoleLog from '@lib/consoleLog'
+import Logger from '@lib/logger'
 import React, { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import { usePersistStore } from 'src/store'
@@ -59,9 +59,8 @@ const Publications: FC<Props> = ({ query }) => {
       onCompleted(data) {
         setPageInfo(data?.search?.pageInfo)
         setPublications(data?.search?.items)
-        consoleLog(
-          'Query',
-          '#8b5cf6',
+        Logger.log(
+          'Query =>',
           `Fetched first 10 publication for search Keyword:${query}`
         )
       }
@@ -83,9 +82,8 @@ const Publications: FC<Props> = ({ query }) => {
       }).then(({ data }: any) => {
         setPageInfo(data?.search?.pageInfo)
         setPublications([...publications, ...data?.search?.items])
-        consoleLog(
-          'Query',
-          '#8b5cf6',
+        Logger.log(
+          'Query =>',
           `Fetched next 10 publications for search Keyword:${query} Next:${pageInfo?.next}`
         )
       })

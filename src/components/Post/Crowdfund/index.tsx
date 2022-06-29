@@ -13,9 +13,9 @@ import {
   CurrencyDollarIcon,
   UsersIcon
 } from '@heroicons/react/outline'
-import consoleLog from '@lib/consoleLog'
 import getTokenImage from '@lib/getTokenImage'
 import imagekitURL from '@lib/imagekitURL'
+import Logger from '@lib/logger'
 import clsx from 'clsx'
 import React, { FC, ReactNode, useEffect, useState } from 'react'
 import { STATIC_ASSETS } from 'src/constants'
@@ -59,9 +59,8 @@ const Crowdfund: FC<Props> = ({ fund }) => {
   const { data, loading } = useQuery(COLLECT_QUERY, {
     variables: { request: { publicationId: fund?.pubId ?? fund?.id } },
     onCompleted() {
-      consoleLog(
-        'Query',
-        '#8b5cf6',
+      Logger.log(
+        'Query =>',
         `Fetched collect module details Crowdfund:${fund?.pubId ?? fund?.id}`
       )
     }
@@ -81,9 +80,8 @@ const Crowdfund: FC<Props> = ({ fund }) => {
         }
       },
       onCompleted() {
-        consoleLog(
-          'Query',
-          '#8b5cf6',
+        Logger.log(
+          'Query =>',
           `Fetched crowdfund revenue details Crowdfund:${
             fund?.pubId ?? fund?.id
           }`

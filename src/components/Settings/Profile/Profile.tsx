@@ -17,11 +17,11 @@ import {
 } from '@generated/types'
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { PencilIcon } from '@heroicons/react/outline'
-import consoleLog from '@lib/consoleLog'
 import getAttribute from '@lib/getAttribute'
 import hasPrideLogo from '@lib/hasPrideLogo'
 import imagekitURL from '@lib/imagekitURL'
 import isBeta from '@lib/isBeta'
+import Logger from '@lib/logger'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import uploadAssetsToIPFS from '@lib/uploadAssetsToIPFS'
@@ -140,7 +140,7 @@ const Profile: FC<Props> = ({ profile }) => {
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
         }
-        consoleLog('Relay Error', '#ef4444', error.message)
+        Logger.error('Relay Error =>', error.message)
       }
     })
   const [createSetProfileMetadataTypedData, { loading: typedDataLoading }] =
@@ -150,11 +150,7 @@ const Profile: FC<Props> = ({ profile }) => {
       }: {
         createSetProfileMetadataTypedData: CreateSetProfileMetadataUriBroadcastItemResult
       }) {
-        consoleLog(
-          'Mutation',
-          '#4ade80',
-          'Generated createSetProfileImageURITypedData'
-        )
+        Logger.log('Mutation =>', 'Generated createSetProfileImageURITypedData')
         const { id, typedData } = createSetProfileMetadataTypedData
         const { deadline } = typedData?.value
 
@@ -186,7 +182,7 @@ const Profile: FC<Props> = ({ profile }) => {
             write({ args: inputStruct })
           }
         } catch (error) {
-          // TODO: Handle catch
+          Logger.warn('Sign Error =>', error)
         }
       },
       onError(error) {

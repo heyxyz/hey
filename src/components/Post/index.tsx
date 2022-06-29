@@ -9,7 +9,7 @@ import { LensterPost } from '@generated/lenstertypes'
 import { CommentFields } from '@gql/CommentFields'
 import { MirrorFields } from '@gql/MirrorFields'
 import { PostFields } from '@gql/PostFields'
-import consoleLog from '@lib/consoleLog'
+import Logger from '@lib/logger'
 import { apps } from 'data/apps'
 import { NextPage } from 'next'
 import dynamic from 'next/dynamic'
@@ -86,11 +86,7 @@ const ViewPost: NextPage = () => {
     },
     skip: !id,
     onCompleted() {
-      consoleLog(
-        'Query',
-        '#8b5cf6',
-        `Fetched publication details Publication:${id}`
-      )
+      Logger.log('Query =>', `Fetched publication details Publication:${id}`)
     }
   })
 

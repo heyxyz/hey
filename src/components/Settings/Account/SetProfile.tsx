@@ -9,7 +9,7 @@ import { Spinner } from '@components/UI/Spinner'
 import { Profile, SetDefaultProfileBroadcastItemResult } from '@generated/types'
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { ExclamationIcon, PencilIcon } from '@heroicons/react/outline'
-import consoleLog from '@lib/consoleLog'
+import Logger from '@lib/logger'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import React, { FC, useEffect, useState } from 'react'
@@ -110,7 +110,7 @@ const SetProfile: FC = () => {
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
         }
-        consoleLog('Relay Error', '#ef4444', error.message)
+        Logger.error('Relay Error =>', error.message)
       }
     })
   const [createSetDefaultProfileTypedData, { loading: typedDataLoading }] =
@@ -120,11 +120,7 @@ const SetProfile: FC = () => {
       }: {
         createSetDefaultProfileTypedData: SetDefaultProfileBroadcastItemResult
       }) {
-        consoleLog(
-          'Mutation',
-          '#4ade80',
-          'Generated createSetDefaultProfileTypedData'
-        )
+        Logger.log('Mutation =>', 'Generated createSetDefaultProfileTypedData')
         const { id, typedData } = createSetDefaultProfileTypedData
         const { deadline } = typedData?.value
 
@@ -156,7 +152,7 @@ const SetProfile: FC = () => {
             write({ args: inputStruct })
           }
         } catch (error) {
-          // TODO: Handle catch
+          Logger.warn('Sign Error =>', error)
         }
       },
       onError(error) {

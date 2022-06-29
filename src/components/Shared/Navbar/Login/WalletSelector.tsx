@@ -5,8 +5,8 @@ import { Button } from '@components/UI/Button'
 import { Spinner } from '@components/UI/Spinner'
 import { Profile } from '@generated/types'
 import { XCircleIcon } from '@heroicons/react/solid'
-import consoleLog from '@lib/consoleLog'
 import getWalletLogo from '@lib/getWalletLogo'
+import Logger from '@lib/logger'
 import clsx from 'clsx'
 import Cookies from 'js-cookie'
 import React, { Dispatch, FC, useEffect, useState } from 'react'
@@ -45,18 +45,25 @@ interface Props {
 }
 
 const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
+  const { setProfiles } = useAppStore()
+  const { setIsAuthenticated, setCurrentUser } = usePersistStore()
   const [mounted, setMounted] = useState(false)
   const { chain } = useNetwork()
-  const { signMessageAsync, isLoading: signLoading } = useSignMessage()
+  const { connectors, error, connectAsync } = useConnect()
+  const { address, connector: activeConnector } = useAccount()
+  const { signMessageAsync, isLoading: signLoading } = useSignMessage({
+    onError(error) {
+      toast.error(error?.message)
+    }
+  })
   const [
     loadChallenge,
     { error: errorChallenege, loading: challenegeLoading }
   ] = useLazyQuery(CHALLENGE_QUERY, {
     fetchPolicy: 'no-cache',
     onCompleted(data) {
-      consoleLog(
-        'Lazy Query',
-        '#8b5cf6',
+      Logger.log(
+        'Lazy Query =>',
         `Fetched auth challenege - ${data?.challenge?.text}`
       )
     }
@@ -66,9 +73,8 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
   const [getProfiles, { error: errorProfiles, loading: profilesLoading }] =
     useLazyQuery(CURRENT_USER_QUERY, {
       onCompleted(data) {
-        consoleLog(
-          'Lazy Query',
-          '#8b5cf6',
+        Logger.log(
+          'Lazy Query =>',
           `Fetched ${data?.profiles?.items?.length} user profiles for auth`
         )
       }
@@ -76,64 +82,64 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
 
   useEffect(() => setMounted(true), [])
 
-  const { connectors, error, connectAsync } = useConnect()
-  const { address, connector: activeConnector } = useAccount()
-  const { setProfiles } = useAppStore()
-  const { setIsAuthenticated, setCurrentUser } = usePersistStore()
-
   const onConnect = async (connector: Connector) => {
-    await connectAsync({ connector }).then(({ account }) => {
+    try {
+      const account = await connectAsync({ connector })
       if (account) {
         setHasConnected(true)
       }
-    })
+    } catch (error) {
+      Logger.warn('Sign Error =>', error)
+    }
   }
 
   const handleSign = () => {
     loadChallenge({
       variables: { request: { address } }
-    }).then((res) => {
+    }).then(async (res) => {
       if (!res?.data?.challenge?.text) {
         return toast.error(ERROR_MESSAGE)
       }
 
-      signMessageAsync({ message: res?.data?.challenge?.text }).then(
-        (signature) => {
-          authenticate({
-            variables: { request: { address, signature } }
-          }).then((res) => {
-            Cookies.set(
-              'accessToken',
-              res.data.authenticate.accessToken,
-              COOKIE_CONFIG
-            )
-            Cookies.set(
-              'refreshToken',
-              res.data.authenticate.refreshToken,
-              COOKIE_CONFIG
-            )
-            getProfiles({
-              variables: { ownedBy: address }
-            }).then(({ data }) => {
-              if (data?.profiles?.items?.length === 0) {
-                setHasProfile(false)
-              } else {
-                const profiles: Profile[] = data?.profiles?.items
-                  ?.slice()
-                  ?.sort(
-                    (a: Profile, b: Profile) => Number(a.id) - Number(b.id)
-                  )
-                  ?.sort((a: Profile, b: Profile) =>
-                    !(a.isDefault !== b.isDefault) ? 0 : a.isDefault ? -1 : 1
-                  )
-                setIsAuthenticated(true)
-                setProfiles(profiles)
-                setCurrentUser(profiles[0])
-              }
-            })
+      try {
+        const signature = await signMessageAsync({
+          message: res?.data?.challenge?.text
+        })
+
+        authenticate({
+          variables: { request: { address, signature } }
+        }).then((res) => {
+          Cookies.set(
+            'accessToken',
+            res.data.authenticate.accessToken,
+            COOKIE_CONFIG
+          )
+          Cookies.set(
+            'refreshToken',
+            res.data.authenticate.refreshToken,
+            COOKIE_CONFIG
+          )
+          getProfiles({
+            variables: { ownedBy: address }
+          }).then(({ data }) => {
+            if (data?.profiles?.items?.length === 0) {
+              setHasProfile(false)
+            } else {
+              const profiles: Profile[] = data?.profiles?.items
+                ?.slice()
+                ?.sort((a: Profile, b: Profile) => Number(a.id) - Number(b.id))
+                ?.sort((a: Profile, b: Profile) =>
+                  !(a.isDefault !== b.isDefault) ? 0 : a.isDefault ? -1 : 1
+                )
+              setIsAuthenticated(true)
+              setProfiles(profiles)
+              setCurrentUser(profiles[0])
+            }
           })
-        }
-      )
+        })
+      } catch (error) {
+        console.log(error)
+      }
     })
   }
 

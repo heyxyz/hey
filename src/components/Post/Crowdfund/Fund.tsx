@@ -9,7 +9,7 @@ import { LensterCollectModule, LensterPost } from '@generated/lenstertypes'
 import { CreateCollectBroadcastItemResult } from '@generated/types'
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { CashIcon } from '@heroicons/react/outline'
-import consoleLog from '@lib/consoleLog'
+import Logger from '@lib/logger'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import React, { Dispatch, FC, useState } from 'react'
@@ -111,7 +111,7 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
       skip: !collectModule?.amount?.asset?.address || !currentUser,
       onCompleted(data) {
         setAllowed(data?.approvedModuleAllowanceAmount[0]?.allowance !== '0x00')
-        consoleLog('Query', '#8b5cf6', `Fetched allowance data`)
+        Logger.log('Query =>', `Fetched allowance data`)
       }
     }
   )
@@ -148,7 +148,7 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
         }
-        consoleLog('Relay Error', '#ef4444', error.message)
+        Logger.error('Relay Error =>', error.message)
       }
     })
   const [createCollectTypedData, { loading: typedDataLoading }] = useMutation(
@@ -159,7 +159,7 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
       }: {
         createCollectTypedData: CreateCollectBroadcastItemResult
       }) {
-        consoleLog('Mutation', '#4ade80', 'Generated createCollectTypedData')
+        Logger.log('Mutation =>', 'Generated createCollectTypedData')
         const { id, typedData } = createCollectTypedData
         const { deadline } = typedData?.value
 
@@ -192,7 +192,7 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
             write({ args: inputStruct })
           }
         } catch (error) {
-          // TODO: Handle catch
+          Logger.warn('Sign Error =>', error)
         }
       },
       onError(error) {

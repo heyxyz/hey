@@ -4,9 +4,9 @@ import Slug from '@components/Shared/Slug'
 import { UserSuggestion } from '@generated/lenstertypes'
 import { MediaSet, NftImage, Profile } from '@generated/types'
 import { BadgeCheckIcon } from '@heroicons/react/solid'
-import consoleLog from '@lib/consoleLog'
 import imagekitURL from '@lib/imagekitURL'
 import isVerified from '@lib/isVerified'
+import Logger from '@lib/logger'
 import clsx from 'clsx'
 import { Dispatch, FC } from 'react'
 import { Mention, MentionsInput } from 'react-mentions'
@@ -59,9 +59,8 @@ export const MentionTextArea: FC<Props> = ({
 }) => {
   const [searchUsers] = useLazyQuery(SEARCH_USERS_QUERY, {
     onCompleted(data) {
-      consoleLog(
-        'Lazy Query',
-        '#8b5cf6',
+      Logger.log(
+        'Lazy Query =>',
         `Fetched ${data?.search?.items?.length} user mention result for ${value}`
       )
     }

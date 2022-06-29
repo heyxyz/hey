@@ -13,9 +13,9 @@ import {
 } from '@generated/types'
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { StarIcon, UserIcon } from '@heroicons/react/outline'
-import consoleLog from '@lib/consoleLog'
 import formatAddress from '@lib/formatAddress'
 import getTokenImage from '@lib/getTokenImage'
+import Logger from '@lib/logger'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import { Dispatch, FC, useState } from 'react'
@@ -142,9 +142,8 @@ const FollowModule: FC<Props> = ({
     variables: { request: { profileId: profile?.id } },
     skip: !profile?.id,
     onCompleted() {
-      consoleLog(
-        'Query',
-        '#8b5cf6',
+      Logger.log(
+        'Query =>',
         `Fetched super follow details Profile:${profile?.id}`
       )
     }
@@ -166,7 +165,7 @@ const FollowModule: FC<Props> = ({
       skip: !followModule?.amount?.asset?.address || !currentUser,
       onCompleted(data) {
         setAllowed(data?.approvedModuleAllowanceAmount[0]?.allowance !== '0x00')
-        consoleLog('Query', '#8b5cf6', `Fetched allowance data`)
+        Logger.log('Query =>', `Fetched allowance data`)
       }
     }
   )
@@ -198,7 +197,7 @@ const FollowModule: FC<Props> = ({
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
         }
-        consoleLog('Relay Error', '#ef4444', error.message)
+        Logger.error('Relay Error =>', error.message)
       }
     }
   )
@@ -210,7 +209,7 @@ const FollowModule: FC<Props> = ({
       }: {
         createFollowTypedData: CreateFollowBroadcastItemResult
       }) {
-        consoleLog('Mutation', '#4ade80', 'Generated createFollowTypedData')
+        Logger.log('Mutation =>', 'Generated createFollowTypedData')
         const { id, typedData } = createFollowTypedData
         const { deadline } = typedData?.value
 
@@ -242,7 +241,7 @@ const FollowModule: FC<Props> = ({
             write({ args: inputStruct })
           }
         } catch (error) {
-          // TODO: Handle catch
+          Logger.warn('Sign Error =>', error)
         }
       },
       onError(error) {

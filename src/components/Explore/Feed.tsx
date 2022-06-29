@@ -11,7 +11,7 @@ import { CommentFields } from '@gql/CommentFields'
 import { MirrorFields } from '@gql/MirrorFields'
 import { PostFields } from '@gql/PostFields'
 import { CollectionIcon } from '@heroicons/react/outline'
-import consoleLog from '@lib/consoleLog'
+import Logger from '@lib/logger'
 import React, { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import { usePersistStore } from 'src/store'
@@ -64,9 +64,8 @@ const Feed: FC<Props> = ({ feedType = 'TOP_COMMENTED' }) => {
     onCompleted(data) {
       setPageInfo(data?.explorePublications?.pageInfo)
       setPublications(data?.explorePublications?.items)
-      consoleLog(
-        'Query',
-        '#8b5cf6',
+      Logger.log(
+        'Query =>',
         `Fetched first 10 explore publications FeedType:${feedType}`
       )
     }
@@ -87,9 +86,8 @@ const Feed: FC<Props> = ({ feedType = 'TOP_COMMENTED' }) => {
       }).then(({ data }: any) => {
         setPageInfo(data?.explorePublications?.pageInfo)
         setPublications([...publications, ...data?.explorePublications?.items])
-        consoleLog(
-          'Query',
-          '#8b5cf6',
+        Logger.log(
+          'Query =>',
           `Fetched next 10 explore publications FeedType:${feedType} Next:${pageInfo?.next}`
         )
       })
