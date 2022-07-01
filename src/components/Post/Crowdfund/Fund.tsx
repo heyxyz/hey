@@ -9,7 +9,6 @@ import { LensterCollectModule, LensterPost } from '@generated/lenstertypes'
 import { CreateCollectBroadcastItemResult } from '@generated/types'
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { CashIcon } from '@heroicons/react/outline'
-import getDecimal from '@lib/getDeciaml'
 import Logger from '@lib/logger'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
@@ -85,7 +84,7 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
   const { data: balanceData, isLoading: balanceLoading } = useBalance({
     addressOrName: currentUser?.ownedBy,
     token: collectModule?.amount?.asset?.address,
-    formatUnits: getDecimal(collectModule?.amount?.asset?.symbol),
+    formatUnits: collectModule?.amount?.asset?.decimals,
     watch: true
   })
   let hasAmount = false

@@ -14,7 +14,6 @@ import {
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { StarIcon, UserIcon } from '@heroicons/react/outline'
 import formatAddress from '@lib/formatAddress'
-import getDecimal from '@lib/getDeciaml'
 import getTokenImage from '@lib/getTokenImage'
 import Logger from '@lib/logger'
 import omit from '@lib/omit'
@@ -51,6 +50,7 @@ const SUPER_FOLLOW_QUERY = gql`
             asset {
               name
               symbol
+              decimals
               address
             }
             value
@@ -174,7 +174,7 @@ const FollowModule: FC<Props> = ({
   const { data: balanceData } = useBalance({
     addressOrName: currentUser?.ownedBy,
     token: followModule?.amount?.asset?.address,
-    formatUnits: getDecimal(followModule?.amount?.asset?.symbol),
+    formatUnits: followModule?.amount?.asset?.decimals,
     watch: true
   })
   let hasAmount = false
