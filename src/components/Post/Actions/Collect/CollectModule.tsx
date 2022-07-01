@@ -30,6 +30,7 @@ import {
   UsersIcon
 } from '@heroicons/react/outline'
 import formatAddress from '@lib/formatAddress'
+import getDecimal from '@lib/getDeciaml'
 import getTokenImage from '@lib/getTokenImage'
 import Logger from '@lib/logger'
 import omit from '@lib/omit'
@@ -218,7 +219,9 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
 
   const { data: balanceData, isLoading: balanceLoading } = useBalance({
     addressOrName: currentUser?.ownedBy,
-    token: collectModule?.amount?.asset?.address
+    token: collectModule?.amount?.asset?.address,
+    formatUnits: getDecimal(collectModule?.amount?.asset?.symbol),
+    watch: true
   })
   let hasAmount = false
 
