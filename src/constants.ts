@@ -1,4 +1,4 @@
-import getAnkrURL from '@lib/getAnkrURL'
+import getRpcUrl from '@lib/getRpcUrl'
 import { chain } from 'wagmi'
 
 // Environments
@@ -51,12 +51,12 @@ export const IMAGEKIT_URL = IS_PRODUCTION ? IMAGEKIT_URL_PROD : IMAGEKIT_URL_DEV
 export const POLYGON_MAINNET = {
   ...chain.polygon,
   name: 'Polygon Mainnet',
-  rpcUrls: { default: getAnkrURL(chain.polygon.id) }
+  rpcUrls: { default: getRpcUrl(chain.polygon.id) }
 }
 export const POLYGON_MUMBAI = {
   ...chain.polygonMumbai,
   name: 'Polygon Mumbai',
-  rpcUrls: { default: getAnkrURL(chain.polygonMumbai.id) }
+  rpcUrls: { default: getRpcUrl(chain.polygonMumbai.id) }
 }
 export const CHAIN_ID = IS_MAINNET ? POLYGON_MAINNET.id : POLYGON_MUMBAI.id
 
