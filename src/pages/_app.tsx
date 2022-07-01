@@ -2,7 +2,7 @@ import '../styles.css'
 
 import { ApolloProvider } from '@apollo/client'
 import SiteLayout from '@components/SiteLayout'
-import getAnkrURL from '@lib/getAnkrURL'
+import getRpcUrl from '@lib/getRpcUrl'
 import { AppProps } from 'next/app'
 import Script from 'next/script'
 import { ThemeProvider } from 'next-themes'
@@ -16,7 +16,7 @@ import client from '../apollo'
 
 const { chains, provider } = configureChains(
   [IS_MAINNET ? chain.polygon : chain.polygonMumbai, chain.mainnet],
-  [jsonRpcProvider({ rpc: (chain) => ({ http: getAnkrURL(chain.id) }) })]
+  [jsonRpcProvider({ rpc: (chain) => ({ http: getRpcUrl(chain.id) }) })]
 )
 
 const connectors = () => {
@@ -27,7 +27,7 @@ const connectors = () => {
     }),
     new WalletConnectConnector({
       chains,
-      options: { rpc: { [CHAIN_ID]: getAnkrURL(CHAIN_ID) } }
+      options: { rpc: { [CHAIN_ID]: getRpcUrl(CHAIN_ID) } }
     })
   ]
 }
