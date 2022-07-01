@@ -1566,7 +1566,7 @@
   dependencies:
     emotion "10.0.27"
 
-"@giphy/js-fetch-api@^4.2.2", "@giphy/js-fetch-api@^4.3.1":
+"@giphy/js-fetch-api@^4.3.1":
   version "4.3.1"
   resolved "https://registry.yarnpkg.com/@giphy/js-fetch-api/-/js-fetch-api-4.3.1.tgz#67e2dfabd6d641225e9073677d746af5781586f4"
   integrity sha512-jwdhVgHCX/afNVeV5+vmsZ9x0XtOqWRbvJhBV9KeJFas+QWN6y/l9+HRWfgGUogu0JEozFI8gPWxPr8av5vdAg==
@@ -1589,20 +1589,20 @@
     dompurify "^2.2.2"
     uuid "^8.3.0"
 
-"@giphy/react-components@^5.9.2":
-  version "5.9.2"
-  resolved "https://registry.yarnpkg.com/@giphy/react-components/-/react-components-5.9.2.tgz#6140275d18d30139c81d256f9a79eceb47411542"
-  integrity sha512-futJrDUllbKcSmLVDzWgEWbGAhrFRi5eEYosVQqh0nRaDmAqMpXZf4a78tLpPkq9NodaLY8SAskqF9lTWG3T/w==
+"@giphy/react-components@^5.10.1":
+  version "5.10.1"
+  resolved "https://registry.yarnpkg.com/@giphy/react-components/-/react-components-5.10.1.tgz#017d33930cb0b3b7409951c9709141984a702429"
+  integrity sha512-1QLWz7dkWyddygjTazw3ev8JjJoWUnsR0JLw2SqUYz/3hHADYEzL/oOVIcq5B6+8lOgMee+OybM+6+/KNw/AGw==
   dependencies:
     "@emotion/core" "10.1.1"
     "@emotion/styled" "10.0.27"
     "@giphy/js-analytics" "^4.1.1"
     "@giphy/js-brand" "^2.2.2"
-    "@giphy/js-fetch-api" "^4.2.2"
+    "@giphy/js-fetch-api" "^4.3.1"
     "@giphy/js-types" "^4.2.1"
     "@giphy/js-util" "^4.1.1"
     emotion-theming "10.0.27"
-    intersection-observer "^0.11.0"
+    intersection-observer "^0.12.2"
     react-use "17.2.4"
     throttle-debounce "^3.0.1"
 
@@ -6357,10 +6357,10 @@ internal-slot@^1.0.3:
     has "^1.0.3"
     side-channel "^1.0.4"
 
-intersection-observer@^0.11.0:
-  version "0.11.0"
-  resolved "https://registry.yarnpkg.com/intersection-observer/-/intersection-observer-0.11.0.tgz#f4ea067070326f68393ee161cc0a2ca4c0040c6f"
-  integrity sha512-KZArj2QVnmdud9zTpKf279m2bbGfG+4/kn16UU0NL3pTVl52ZHiJ9IRNSsnn6jaHrL9EGLFM5eWjTx2fz/+zoQ==
+intersection-observer@^0.12.2:
+  version "0.12.2"
+  resolved "https://registry.yarnpkg.com/intersection-observer/-/intersection-observer-0.12.2.tgz#4a45349cc0cd91916682b1f44c28d7ec737dc375"
+  integrity sha512-7m1vEcPCxXYI8HqnL8CKI6siDyD+eIWSwgB3DZA+ZTogxk9I4CDnj4wilt9x/+/QbHI4YG5YZNmC6458/e9Ktg==
 
 interweave-autolink@^5.1.0:
   version "5.1.0"
