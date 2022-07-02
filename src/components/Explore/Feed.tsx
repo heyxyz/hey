@@ -20,6 +20,7 @@ const EXPLORE_FEED_QUERY = gql`
   query ExploreFeed(
     $request: ExplorePublicationRequest!
     $reactionRequest: ReactionFieldResolverRequest
+    $profileId: ProfileId
   ) {
     explorePublications(request: $request) {
       items {
@@ -59,7 +60,8 @@ const Feed: FC<Props> = ({ feedType = 'TOP_COMMENTED' }) => {
         limit: 10,
         noRandomize: feedType === 'LATEST'
       },
-      reactionRequest: currentUser ? { profileId: currentUser?.id } : null
+      reactionRequest: currentUser ? { profileId: currentUser?.id } : null,
+      profileId: currentUser?.id ?? null
     },
     onCompleted(data) {
       setPageInfo(data?.explorePublications?.pageInfo)
@@ -81,7 +83,8 @@ const Feed: FC<Props> = ({ feedType = 'TOP_COMMENTED' }) => {
             limit: 10,
             noRandomize: feedType === 'LATEST'
           },
-          reactionRequest: currentUser ? { profileId: currentUser?.id } : null
+          reactionRequest: currentUser ? { profileId: currentUser?.id } : null,
+          profileId: currentUser?.id ?? null
         }
       }).then(({ data }: any) => {
         setPageInfo(data?.explorePublications?.pageInfo)

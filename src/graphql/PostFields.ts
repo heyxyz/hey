@@ -12,6 +12,7 @@ export const PostFields = gql`
       ...MinimalProfileFields
     }
     reaction(request: $reactionRequest)
+    mirrors(by: $profileId)
     collectedBy {
       address
       defaultProfile {
