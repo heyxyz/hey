@@ -34,6 +34,7 @@ export const POST_QUERY = gql`
     $request: PublicationQueryRequest!
     $followRequest: DoesFollowRequest!
     $reactionRequest: ReactionFieldResolverRequest
+    $profileId: ProfileId
   ) {
     publication(request: $request) {
       ... on Post {
@@ -82,7 +83,8 @@ const ViewPost: NextPage = () => {
           profileId: id?.toString().split('-')[0]
         }
       },
-      reactionRequest: currentUser ? { profileId: currentUser?.id } : null
+      reactionRequest: currentUser ? { profileId: currentUser?.id } : null,
+      profileId: currentUser?.id ?? null
     },
     skip: !id,
     onCompleted() {

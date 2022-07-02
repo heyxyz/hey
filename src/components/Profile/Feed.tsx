@@ -20,6 +20,7 @@ const PROFILE_FEED_QUERY = gql`
   query ProfileFeed(
     $request: PublicationsQueryRequest!
     $reactionRequest: ReactionFieldResolverRequest
+    $profileId: ProfileId
   ) {
     publications(request: $request) {
       items {
@@ -56,7 +57,8 @@ const Feed: FC<Props> = ({ profile, type }) => {
   const { data, loading, error, fetchMore } = useQuery(PROFILE_FEED_QUERY, {
     variables: {
       request: { publicationTypes: type, profileId: profile?.id, limit: 10 },
-      reactionRequest: currentUser ? { profileId: currentUser?.id } : null
+      reactionRequest: currentUser ? { profileId: currentUser?.id } : null,
+      profileId: currentUser?.id ?? null
     },
     skip: !profile?.id,
     fetchPolicy: 'no-cache',
@@ -80,7 +82,8 @@ const Feed: FC<Props> = ({ profile, type }) => {
             cursor: pageInfo?.next,
             limit: 10
           },
-          reactionRequest: currentUser ? { profileId: currentUser?.id } : null
+          reactionRequest: currentUser ? { profileId: currentUser?.id } : null,
+          profileId: currentUser?.id ?? null
         }
       }).then(({ data }: any) => {
         setPageInfo(data?.publications?.pageInfo)
