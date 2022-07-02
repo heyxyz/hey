@@ -15,7 +15,7 @@ import { NextPage } from 'next'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import React from 'react'
-import { APP_NAME, ZERO_ADDRESS } from 'src/constants'
+import { APP_NAME } from 'src/constants'
 import Custom404 from 'src/pages/404'
 import Custom500 from 'src/pages/500'
 import { usePersistStore } from 'src/store'
@@ -32,7 +32,6 @@ const Feed = dynamic(() => import('@components/Comment/Feed'), {
 export const POST_QUERY = gql`
   query Post(
     $request: PublicationQueryRequest!
-    $followRequest: DoesFollowRequest!
     $reactionRequest: ReactionFieldResolverRequest
     $profileId: ProfileId
   ) {
@@ -40,6 +39,9 @@ export const POST_QUERY = gql`
       ... on Post {
         ...PostFields
         onChainContentURI
+        profile {
+          isFollowedByMe
+        }
         referenceModule {
           __typename
         }
@@ -47,6 +49,9 @@ export const POST_QUERY = gql`
       ... on Comment {
         ...CommentFields
         onChainContentURI
+        profile {
+          isFollowedByMe
+        }
         referenceModule {
           __typename
         }
@@ -54,13 +59,13 @@ export const POST_QUERY = gql`
       ... on Mirror {
         ...MirrorFields
         onChainContentURI
+        profile {
+          isFollowedByMe
+        }
         referenceModule {
           __typename
         }
       }
-    }
-    doesFollow(request: $followRequest) {
-      follows
     }
   }
   ${PostFields}
@@ -77,12 +82,6 @@ const ViewPost: NextPage = () => {
   const { data, loading, error } = useQuery(POST_QUERY, {
     variables: {
       request: { publicationId: id },
-      followRequest: {
-        followInfos: {
-          followerAddress: currentUser?.ownedBy ?? ZERO_ADDRESS,
-          profileId: id?.toString().split('-')[0]
-        }
-      },
       reactionRequest: currentUser ? { profileId: currentUser?.id } : null,
       profileId: currentUser?.id ?? null
     },
@@ -114,7 +113,7 @@ const ViewPost: NextPage = () => {
             post?.referenceModule?.__typename ===
             'FollowOnlyReferenceModuleSettings'
           }
-          isFollowing={data?.doesFollow[0]?.follows}
+          isFollowing={post?.profile?.isFollowedByMe}
         />
       </GridItemEight>
       <GridItemFour className="space-y-5">

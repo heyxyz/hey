@@ -191,11 +191,7 @@ const FollowModule: FC<Props> = ({
   const [broadcast, { loading: broadcastLoading }] = useMutation(
     BROADCAST_MUTATION,
     {
-      onCompleted(data) {
-        if (data?.broadcast?.reason !== 'NOT_ALLOWED') {
-          onCompleted()
-        }
-      },
+      onCompleted,
       onError(error) {
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
@@ -234,10 +230,11 @@ const FollowModule: FC<Props> = ({
           }
           if (RELAY_ON) {
             const {
-              data: { broadcast: result }
+              data: { broadcast: result },
+              errors
             } = await broadcast({ variables: { request: { id, signature } } })
 
-            if ('reason' in result) write({ args: inputStruct })
+            if ('reason' in result || errors) write({ args: inputStruct })
           } else {
             write({ args: inputStruct })
           }
