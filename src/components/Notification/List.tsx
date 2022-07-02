@@ -8,7 +8,7 @@ import { CollectModuleFields } from '@gql/CollectModuleFields'
 import { MetadataFields } from '@gql/MetadataFields'
 import { MinimalProfileFields } from '@gql/MinimalProfileFields'
 import { MailIcon } from '@heroicons/react/outline'
-import consoleLog from '@lib/consoleLog'
+import Logger from '@lib/logger'
 import { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import { usePersistStore } from 'src/store'
@@ -159,7 +159,7 @@ const List: FC = () => {
     onCompleted(data) {
       setPageInfo(data?.notifications?.pageInfo)
       setNotifications(data?.notifications?.items)
-      consoleLog('Query', '#8b5cf6', `Fetched first 10 notifications`)
+      Logger.log('Query =>', `Fetched first 10 notifications`)
     }
   })
 
@@ -176,9 +176,8 @@ const List: FC = () => {
       }).then(({ data }: any) => {
         setPageInfo(data?.notifications?.pageInfo)
         setNotifications([...notifications, ...data?.notifications?.items])
-        consoleLog(
-          'Query',
-          '#8b5cf6',
+        Logger.log(
+          'Query =>',
           `Fetched next 10 notifications Next:${pageInfo?.next}`
         )
       })

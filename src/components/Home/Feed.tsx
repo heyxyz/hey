@@ -12,7 +12,7 @@ import { CommentFields } from '@gql/CommentFields'
 import { MirrorFields } from '@gql/MirrorFields'
 import { PostFields } from '@gql/PostFields'
 import { CollectionIcon } from '@heroicons/react/outline'
-import consoleLog from '@lib/consoleLog'
+import Logger from '@lib/logger'
 import React, { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import { usePersistStore } from 'src/store'
@@ -21,6 +21,7 @@ const HOME_FEED_QUERY = gql`
   query HomeFeed(
     $request: TimelineRequest!
     $reactionRequest: ReactionFieldResolverRequest
+    $profileId: ProfileId
   ) {
     timeline(request: $request) {
       items {
@@ -52,13 +53,14 @@ const Feed: FC = () => {
   const { data, loading, error, fetchMore } = useQuery(HOME_FEED_QUERY, {
     variables: {
       request: { profileId: currentUser?.id, limit: 10 },
-      reactionRequest: currentUser ? { profileId: currentUser?.id } : null
+      reactionRequest: currentUser ? { profileId: currentUser?.id } : null,
+      profileId: currentUser?.id ?? null
     },
     fetchPolicy: 'no-cache',
     onCompleted(data) {
       setPageInfo(data?.timeline?.pageInfo)
       setPublications(data?.timeline?.items)
-      consoleLog('Query', '#8b5cf6', `Fetched first 10 timeline publications`)
+      Logger.log('Query =>', `Fetched first 10 timeline publications`)
     }
   })
 
@@ -71,14 +73,14 @@ const Feed: FC = () => {
             cursor: pageInfo?.next,
             limit: 10
           },
-          reactionRequest: currentUser ? { profileId: currentUser?.id } : null
+          reactionRequest: currentUser ? { profileId: currentUser?.id } : null,
+          profileId: currentUser?.id ?? null
         }
       }).then(({ data }: any) => {
         setPageInfo(data?.timeline?.pageInfo)
         setPublications([...publications, ...data?.timeline?.items])
-        consoleLog(
-          'Query',
-          '#8b5cf6',
+        Logger.log(
+          'Query =>',
           `Fetched next 10 timeline publications Next:${pageInfo?.next}`
         )
       })

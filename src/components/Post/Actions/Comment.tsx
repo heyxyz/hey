@@ -22,7 +22,7 @@ const Comment: FC<Props> = ({ post }) => {
       aria-label="Comment"
       data-test="publication-comment"
     >
-      <Link href={`/posts/${post?.id ?? post?.pubId}`} prefetch={false}>
+      <Link href={`/posts/${post?.id ?? post?.pubId}`}>
         <a
           href={`/posts/${post?.id ?? post?.pubId}`}
           className="flex items-center space-x-1 text-blue-500 hover:text-blue-400"

@@ -27,10 +27,7 @@ const CommentNotification: FC<Props> = ({ notification }) => {
           <span className="text-gray-600 dark:text-gray-400">
             commented on your{' '}
           </span>
-          <Link
-            href={`/posts/${notification?.comment?.commentOn?.id}`}
-            prefetch={false}
-          >
+          <Link href={`/posts/${notification?.comment?.commentOn?.id}`}>
             <a
               href={`/posts/${notification?.comment?.commentOn?.id}`}
               className="font-bold"
@@ -38,7 +35,7 @@ const CommentNotification: FC<Props> = ({ notification }) => {
               {notification?.comment?.commentOn?.__typename?.toLowerCase()}
             </a>
           </Link>
-          <Link href={`/posts/${notification?.comment.id}`} prefetch={false}>
+          <Link href={`/posts/${notification?.comment.id}`}>
             <a
               href={`/posts/${notification?.comment.id}`}
               className="text-gray-500 line-clamp-2 linkify mt-2"

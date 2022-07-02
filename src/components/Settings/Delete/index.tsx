@@ -8,7 +8,7 @@ import { Spinner } from '@components/UI/Spinner'
 import SEO from '@components/utils/SEO'
 import { CreateBurnProfileBroadcastItemResult } from '@generated/types'
 import { TrashIcon } from '@heroicons/react/outline'
-import consoleLog from '@lib/consoleLog'
+import Logger from '@lib/logger'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import Cookies from 'js-cookie'
@@ -92,34 +92,30 @@ const DeleteSettings: FC = () => {
 
   const [createBurnProfileTypedData, { loading: typedDataLoading }] =
     useMutation(CREATE_BURN_PROFILE_TYPED_DATA_MUTATION, {
-      onCompleted({
+      async onCompleted({
         createBurnProfileTypedData
       }: {
         createBurnProfileTypedData: CreateBurnProfileBroadcastItemResult
       }) {
-        consoleLog(
-          'Mutation',
-          '#4ade80',
-          'Generated createBurnProfileTypedData'
-        )
+        Logger.log('Mutation =>', 'Generated createBurnProfileTypedData')
         const { typedData } = createBurnProfileTypedData
-        signTypedDataAsync({
-          domain: omit(typedData?.domain, '__typename'),
-          types: omit(typedData?.types, '__typename'),
-          value: omit(typedData?.value, '__typename')
-        }).then((signature) => {
+        const { deadline } = typedData?.value
+
+        try {
+          const signature = await signTypedDataAsync({
+            domain: omit(typedData?.domain, '__typename'),
+            types: omit(typedData?.types, '__typename'),
+            value: omit(typedData?.value, '__typename')
+          })
           setUserSigNonce(userSigNonce + 1)
           const { tokenId } = typedData?.value
           const { v, r, s } = splitSignature(signature)
-          const sig = {
-            v,
-            r,
-            s,
-            deadline: typedData.value.deadline
-          }
+          const sig = { v, r, s, deadline }
 
           write({ args: [tokenId, sig] })
-        })
+        } catch (error) {
+          Logger.warn('Sign Error =>', error)
+        }
       },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)

@@ -29,9 +29,9 @@ import {
   UserIcon,
   UsersIcon
 } from '@heroicons/react/outline'
-import consoleLog from '@lib/consoleLog'
 import formatAddress from '@lib/formatAddress'
 import getTokenImage from '@lib/getTokenImage'
+import Logger from '@lib/logger'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import dayjs from 'dayjs'
@@ -157,9 +157,8 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
   const { data, loading } = useQuery(COLLECT_QUERY, {
     variables: { request: { publicationId: post?.pubId ?? post?.id } },
     onCompleted() {
-      consoleLog(
-        'Query',
-        '#8b5cf6',
+      Logger.log(
+        'Query =>',
         `Fetched collect module details Publication:${post?.pubId ?? post?.id}`
       )
     }
@@ -183,7 +182,7 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
       skip: !collectModule?.amount?.asset?.address || !currentUser,
       onCompleted(data) {
         setAllowed(data?.approvedModuleAllowanceAmount[0]?.allowance !== '0x00')
-        consoleLog('Query', '#8b5cf6', `Fetched allowance data`)
+        Logger.log('Query =>', `Fetched allowance data`)
       }
     }
   )
@@ -201,9 +200,8 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
       },
       skip: !post?.id,
       onCompleted() {
-        consoleLog(
-          'Query',
-          '#8b5cf6',
+        Logger.log(
+          'Query =>',
           `Fetched collect revenue details Publication:${
             post?.pubId ?? post?.id
           }`
@@ -220,7 +218,9 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
 
   const { data: balanceData, isLoading: balanceLoading } = useBalance({
     addressOrName: currentUser?.ownedBy,
-    token: collectModule?.amount?.asset?.address
+    token: collectModule?.amount?.asset?.address,
+    formatUnits: collectModule?.amount?.asset?.decimals,
+    watch: true
   })
   let hasAmount = false
 
@@ -236,38 +236,36 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
 
   const [broadcast, { data: broadcastData, loading: broadcastLoading }] =
     useMutation(BROADCAST_MUTATION, {
-      onCompleted(data) {
-        if (data?.broadcast?.reason !== 'NOT_ALLOWED') {
-          onCompleted()
-        }
-      },
+      onCompleted,
       onError(error) {
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
         }
-        consoleLog('Relay Error', '#ef4444', error.message)
+        Logger.error('Relay Error =>', error.message)
       }
     })
   const [createCollectTypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_COLLECT_TYPED_DATA_MUTATION,
     {
-      onCompleted({
+      async onCompleted({
         createCollectTypedData
       }: {
         createCollectTypedData: CreateCollectBroadcastItemResult
       }) {
-        consoleLog('Mutation', '#4ade80', 'Generated createCollectTypedData')
+        Logger.log('Mutation =>', 'Generated createCollectTypedData')
         const { id, typedData } = createCollectTypedData
+        const { deadline } = typedData?.value
 
-        signTypedDataAsync({
-          domain: omit(typedData?.domain, '__typename'),
-          types: omit(typedData?.types, '__typename'),
-          value: omit(typedData?.value, '__typename')
-        }).then((signature) => {
+        try {
+          const signature = await signTypedDataAsync({
+            domain: omit(typedData?.domain, '__typename'),
+            types: omit(typedData?.types, '__typename'),
+            value: omit(typedData?.value, '__typename')
+          })
           setUserSigNonce(userSigNonce + 1)
           const { profileId, pubId, data: collectData } = typedData?.value
           const { v, r, s } = splitSignature(signature)
-          const sig = { v, r, s, deadline: typedData.value.deadline }
+          const sig = { v, r, s, deadline }
           const inputStruct = {
             collector: address,
             profileId,
@@ -276,17 +274,17 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
             sig
           }
           if (RELAY_ON) {
-            broadcast({ variables: { request: { id, signature } } }).then(
-              ({ data, errors }) => {
-                if (errors || data?.broadcast?.reason === 'NOT_ALLOWED') {
-                  write({ args: inputStruct })
-                }
-              }
-            )
+            const {
+              data: { broadcast: result }
+            } = await broadcast({ variables: { request: { id, signature } } })
+
+            if ('reason' in result) write({ args: inputStruct })
           } else {
             write({ args: inputStruct })
           }
-        })
+        } catch (error) {
+          Logger.warn('Sign Error =>', error)
+        }
       },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)

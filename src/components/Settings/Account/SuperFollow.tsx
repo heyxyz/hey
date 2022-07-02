@@ -12,8 +12,8 @@ import {
 } from '@generated/types'
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { StarIcon, XIcon } from '@heroicons/react/outline'
-import consoleLog from '@lib/consoleLog'
 import getTokenImage from '@lib/getTokenImage'
+import Logger from '@lib/logger'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import React, { FC, useState } from 'react'
@@ -103,7 +103,7 @@ const SuperFollow: FC = () => {
     variables: { request: { profileId: currentUser?.id } },
     skip: !currentUser?.id,
     onCompleted() {
-      consoleLog('Query', '#8b5cf6', `Fetched enabled module currencies`)
+      Logger.log('Query =>', `Fetched enabled module currencies`)
     }
   })
 
@@ -133,33 +133,30 @@ const SuperFollow: FC = () => {
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
         }
-        consoleLog('Relay Error', '#ef4444', error.message)
+        Logger.error('Relay Error =>', error.message)
       }
     })
   const [createSetFollowModuleTypedData, { loading: typedDataLoading }] =
     useMutation(CREATE_SET_FOLLOW_MODULE_TYPED_DATA_MUTATION, {
-      onCompleted({
+      async onCompleted({
         createSetFollowModuleTypedData
       }: {
         createSetFollowModuleTypedData: CreateSetFollowModuleBroadcastItemResult
       }) {
-        consoleLog(
-          'Mutation',
-          '#4ade80',
-          'Generated createSetFollowModuleTypedData'
-        )
+        Logger.log('Mutation =>', 'Generated createSetFollowModuleTypedData')
         const { id, typedData } = createSetFollowModuleTypedData
-        const { profileId, followModule, followModuleInitData } =
+        const { profileId, followModule, followModuleInitData, deadline } =
           typedData?.value
 
-        signTypedDataAsync({
-          domain: omit(typedData?.domain, '__typename'),
-          types: omit(typedData?.types, '__typename'),
-          value: omit(typedData?.value, '__typename')
-        }).then((signature) => {
+        try {
+          const signature = await signTypedDataAsync({
+            domain: omit(typedData?.domain, '__typename'),
+            types: omit(typedData?.types, '__typename'),
+            value: omit(typedData?.value, '__typename')
+          })
           setUserSigNonce(userSigNonce + 1)
           const { v, r, s } = splitSignature(signature)
-          const sig = { v, r, s, deadline: typedData.value.deadline }
+          const sig = { v, r, s, deadline }
           const inputStruct = {
             profileId,
             followModule,
@@ -167,17 +164,17 @@ const SuperFollow: FC = () => {
             sig
           }
           if (RELAY_ON) {
-            broadcast({ variables: { request: { id, signature } } }).then(
-              ({ data, errors }) => {
-                if (errors || data?.broadcast?.reason === 'NOT_ALLOWED') {
-                  write({ args: inputStruct })
-                }
-              }
-            )
+            const {
+              data: { broadcast: result }
+            } = await broadcast({ variables: { request: { id, signature } } })
+
+            if ('reason' in result) write({ args: inputStruct })
           } else {
             write({ args: inputStruct })
           }
-        })
+        } catch (error) {
+          Logger.warn('Sign Error =>', error)
+        }
       },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)

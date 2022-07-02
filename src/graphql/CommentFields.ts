@@ -12,6 +12,7 @@ export const CommentFields = gql`
       ...MinimalProfileFields
     }
     reaction(request: $reactionRequest)
+    mirrors(by: $profileId)
     collectedBy {
       address
       defaultProfile {
@@ -34,6 +35,7 @@ export const CommentFields = gql`
           ...MinimalProfileFields
         }
         reaction(request: $reactionRequest)
+        mirrors(by: $profileId)
         collectedBy {
           address
           defaultProfile {
@@ -58,6 +60,7 @@ export const CommentFields = gql`
           ...MinimalProfileFields
         }
         reaction(request: $reactionRequest)
+        mirrors(by: $profileId)
         collectedBy {
           address
           defaultProfile {
@@ -80,6 +83,7 @@ export const CommentFields = gql`
               ...MinimalProfileFields
             }
             reaction(request: $reactionRequest)
+            mirrors(by: $profileId)
             collectedBy {
               address
               defaultProfile {
@@ -117,6 +121,7 @@ export const CommentFields = gql`
               ... on Post {
                 id
                 reaction(request: $reactionRequest)
+                mirrors(by: $profileId)
                 profile {
                   ...MinimalProfileFields
                 }
@@ -128,10 +133,10 @@ export const CommentFields = gql`
               ... on Comment {
                 id
                 reaction(request: $reactionRequest)
+                mirrors(by: $profileId)
                 profile {
                   ...MinimalProfileFields
                 }
-                reaction(request: $reactionRequest)
                 stats {
                   ...StatsFields
                 }
@@ -160,6 +165,7 @@ export const CommentFields = gql`
               ...MinimalProfileFields
             }
             reaction(request: $reactionRequest)
+            mirrors(by: $profileId)
             stats {
               ...StatsFields
             }
@@ -171,6 +177,7 @@ export const CommentFields = gql`
               ...MinimalProfileFields
             }
             reaction(request: $reactionRequest)
+            mirrors(by: $profileId)
             stats {
               ...StatsFields
             }
