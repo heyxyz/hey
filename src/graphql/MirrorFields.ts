@@ -22,6 +22,7 @@ export const MirrorFields = gql`
     metadata {
       ...MetadataFields
     }
+    hidden
     mirrorOf {
       ... on Post {
         id
