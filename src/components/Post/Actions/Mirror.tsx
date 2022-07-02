@@ -11,6 +11,7 @@ import Logger from '@lib/logger'
 import nFormatter from '@lib/nFormatter'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
+import clsx from 'clsx'
 import { motion } from 'framer-motion'
 import { FC, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
@@ -68,6 +69,7 @@ const Mirror: FC<Props> = ({ post }) => {
   const [count, setCount] = useState<number>(0)
   const { userSigNonce, setUserSigNonce } = useAppStore()
   const { isAuthenticated, currentUser } = usePersistStore()
+  const hasMirrored = post?.mirrors?.length > 0
 
   useEffect(() => {
     if (
@@ -203,8 +205,18 @@ const Mirror: FC<Props> = ({ post }) => {
       aria-label="Mirror"
       data-test="publication-mirror"
     >
-      <div className="flex items-center space-x-1 text-brand">
-        <div className="p-1.5 rounded-full hover:bg-opacity-20 hover:bg-brand-300">
+      <div
+        className={clsx(
+          hasMirrored ? 'text-green-500' : 'text-brand',
+          'flex items-center space-x-1'
+        )}
+      >
+        <div
+          className={clsx(
+            hasMirrored ? 'hover:bg-green-300' : 'hover:bg-brand-300',
+            'p-1.5 rounded-full hover:bg-opacity-20'
+          )}
+        >
           {typedDataLoading ||
           signLoading ||
           writeLoading ||

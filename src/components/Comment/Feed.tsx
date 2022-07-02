@@ -21,6 +21,7 @@ const COMMENT_FEED_QUERY = gql`
   query CommentFeed(
     $request: PublicationsQueryRequest!
     $reactionRequest: ReactionFieldResolverRequest
+    $profileId: ProfileId
   ) {
     publications(request: $request) {
       items {
@@ -57,7 +58,8 @@ const Feed: FC<Props> = ({
   const { data, loading, error, fetchMore } = useQuery(COMMENT_FEED_QUERY, {
     variables: {
       request: { commentsOf: pubId, limit: 10 },
-      reactionRequest: currentUser ? { profileId: currentUser?.id } : null
+      reactionRequest: currentUser ? { profileId: currentUser?.id } : null,
+      profileId: currentUser?.id ?? null
     },
     skip: !pubId,
     fetchPolicy: 'no-cache',
@@ -80,7 +82,8 @@ const Feed: FC<Props> = ({
             cursor: pageInfo?.next,
             limit: 10
           },
-          reactionRequest: currentUser ? { profileId: currentUser?.id } : null
+          reactionRequest: currentUser ? { profileId: currentUser?.id } : null,
+          profileId: currentUser?.id ?? null
         }
       }).then(({ data }: any) => {
         setPageInfo(data?.publications?.pageInfo)
