@@ -67,9 +67,9 @@ interface Props {
 
 const Mirror: FC<Props> = ({ post }) => {
   const [count, setCount] = useState<number>(0)
+  const [mirrored, setMirrored] = useState<boolean>(post?.mirrors?.length > 0)
   const { userSigNonce, setUserSigNonce } = useAppStore()
   const { isAuthenticated, currentUser } = usePersistStore()
-  const hasMirrored = post?.mirrors?.length > 0
 
   useEffect(() => {
     if (
@@ -92,6 +92,7 @@ const Mirror: FC<Props> = ({ post }) => {
 
   const onCompleted = () => {
     setCount(count + 1)
+    setMirrored(true)
     toast.success('Post has been mirrored!')
   }
 
@@ -207,13 +208,13 @@ const Mirror: FC<Props> = ({ post }) => {
     >
       <div
         className={clsx(
-          hasMirrored ? 'text-green-500' : 'text-brand',
+          mirrored ? 'text-green-500' : 'text-brand',
           'flex items-center space-x-1'
         )}
       >
         <div
           className={clsx(
-            hasMirrored ? 'hover:bg-green-300' : 'hover:bg-brand-300',
+            mirrored ? 'hover:bg-green-300' : 'hover:bg-brand-300',
             'p-1.5 rounded-full hover:bg-opacity-20'
           )}
         >
