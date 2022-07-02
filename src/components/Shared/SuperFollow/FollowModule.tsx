@@ -36,7 +36,6 @@ import {
   useSignTypedData
 } from 'wagmi'
 
-import IndexStatus from '../IndexStatus'
 import Loader from '../Loader'
 import Slug from '../Slug'
 import Uniswap from '../Uniswap'
@@ -128,11 +127,7 @@ const FollowModule: FC<Props> = ({
     toast.success('Followed successfully!')
   }
 
-  const {
-    data: writeData,
-    isLoading: writeLoading,
-    write
-  } = useContractWrite({
+  const { isLoading: writeLoading, write } = useContractWrite({
     addressOrName: LENSHUB_PROXY,
     contractInterface: LensHubProxy,
     functionName: 'followWithSig',
@@ -193,12 +188,11 @@ const FollowModule: FC<Props> = ({
     hasAmount = true
   }
 
-  const [broadcast, { data: broadcastData, loading: broadcastLoading }] =
-    useMutation(BROADCAST_MUTATION, {
-      onCompleted(data) {
-        if (data?.broadcast?.reason !== 'NOT_ALLOWED') {
-          onCompleted()
-        }
+  const [broadcast, { loading: broadcastLoading }] = useMutation(
+    BROADCAST_MUTATION,
+    {
+      onCompleted() {
+        onCompleted()
       },
       onError(error) {
         if (error.message === ERRORS.notMined) {
@@ -206,7 +200,8 @@ const FollowModule: FC<Props> = ({
         }
         Logger.error('Relay Error =>', error.message)
       }
-    })
+    }
+  )
   const [createFollowTypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_FOLLOW_TYPED_DATA_MUTATION,
     {
@@ -352,17 +347,6 @@ const FollowModule: FC<Props> = ({
           </li>
         </ul>
       </div>
-      {writeData?.hash ?? broadcastData?.broadcast?.txHash ? (
-        <div className="mt-5">
-          <IndexStatus
-            txHash={
-              writeData?.hash
-                ? writeData?.hash
-                : broadcastData?.broadcast?.txHash
-            }
-          />
-        </div>
-      ) : null}
       {currentUser ? (
         allowanceLoading ? (
           <div className="mt-5 w-28 rounded-lg h-[34px] shimmer" />

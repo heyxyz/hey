@@ -237,9 +237,7 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
   const [broadcast, { data: broadcastData, loading: broadcastLoading }] =
     useMutation(BROADCAST_MUTATION, {
       onCompleted(data) {
-        if (data?.broadcast?.reason !== 'NOT_ALLOWED') {
-          onCompleted()
-        }
+        if (data) onCompleted()
       },
       onError(error) {
         if (error.message === ERRORS.notMined) {
