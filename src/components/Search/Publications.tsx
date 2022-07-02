@@ -10,7 +10,7 @@ import { PaginatedResultInfo } from '@generated/types'
 import { CommentFields } from '@gql/CommentFields'
 import { PostFields } from '@gql/PostFields'
 import { CollectionIcon } from '@heroicons/react/outline'
-import consoleLog from '@lib/consoleLog'
+import Logger from '@lib/logger'
 import React, { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import { usePersistStore } from 'src/store'
@@ -19,6 +19,7 @@ const SEARCH_PUBLICATIONS_QUERY = gql`
   query SearchPublications(
     $request: SearchQueryRequest!
     $reactionRequest: ReactionFieldResolverRequest
+    $profileId: ProfileId
   ) {
     search(request: $request) {
       ... on PublicationSearchResult {
@@ -54,14 +55,14 @@ const Publications: FC<Props> = ({ query }) => {
     {
       variables: {
         request: { query, type: 'PUBLICATION', limit: 10 },
-        reactionRequest: currentUser ? { profileId: currentUser?.id } : null
+        reactionRequest: currentUser ? { profileId: currentUser?.id } : null,
+        profileId: currentUser?.id ?? null
       },
       onCompleted(data) {
         setPageInfo(data?.search?.pageInfo)
         setPublications(data?.search?.items)
-        consoleLog(
-          'Query',
-          '#8b5cf6',
+        Logger.log(
+          'Query =>',
           `Fetched first 10 publication for search Keyword:${query}`
         )
       }
@@ -78,14 +79,14 @@ const Publications: FC<Props> = ({ query }) => {
             cursor: pageInfo?.next,
             limit: 10
           },
-          reactionRequest: currentUser ? { profileId: currentUser?.id } : null
+          reactionRequest: currentUser ? { profileId: currentUser?.id } : null,
+          profileId: currentUser?.id ?? null
         }
       }).then(({ data }: any) => {
         setPageInfo(data?.search?.pageInfo)
         setPublications([...publications, ...data?.search?.items])
-        consoleLog(
-          'Query',
-          '#8b5cf6',
+        Logger.log(
+          'Query =>',
           `Fetched next 10 publications for search Keyword:${query} Next:${pageInfo?.next}`
         )
       })

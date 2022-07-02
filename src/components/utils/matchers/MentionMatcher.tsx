@@ -5,7 +5,7 @@ import React from 'react'
 
 export function Mention({ ...props }: any) {
   return (
-    <Link href={`/u/${props.display.slice(1)}`} prefetch={false}>
+    <Link href={`/u/${props.display.slice(1)}`}>
       <a href={`/u/${props.display.slice(1)}`}>
         <Slug className="text-md" slug={props.display} />
       </a>

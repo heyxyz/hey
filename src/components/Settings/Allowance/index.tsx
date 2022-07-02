@@ -5,7 +5,7 @@ import { PageLoading } from '@components/UI/PageLoading'
 import { Spinner } from '@components/UI/Spinner'
 import SEO from '@components/utils/SEO'
 import { Erc20 } from '@generated/types'
-import consoleLog from '@lib/consoleLog'
+import Logger from '@lib/logger'
 import { NextPage } from 'next'
 import React, { useState } from 'react'
 import { APP_NAME, DEFAULT_COLLECT_TOKEN } from 'src/constants'
@@ -60,7 +60,7 @@ const AllowanceSettings: NextPage = () => {
     },
     skip: !currentUser?.id,
     onCompleted() {
-      consoleLog('Query', '#8b5cf6', `Fetched allowance settings`)
+      Logger.log('Query =>', `Fetched allowance settings`)
     }
   })
 

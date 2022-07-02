@@ -29,10 +29,7 @@ const MirrorNotification: FC<Props> = ({ notification }) => {
           <span className="pl-0.5 text-gray-600 dark:text-gray-400">
             mirrored your{' '}
           </span>
-          <Link
-            href={`/posts/${notification?.publication?.id}`}
-            prefetch={false}
-          >
+          <Link href={`/posts/${notification?.publication?.id}`}>
             <a
               href={`/posts/${notification?.publication?.id}`}
               className="font-bold"
@@ -44,10 +41,7 @@ const MirrorNotification: FC<Props> = ({ notification }) => {
                 : notification?.publication?.__typename?.toLowerCase()}
             </a>
           </Link>
-          <Link
-            href={`/posts/${notification?.publication?.id}`}
-            prefetch={false}
-          >
+          <Link href={`/posts/${notification?.publication?.id}`}>
             <a
               href={`/posts/${notification?.publication?.id}`}
               className="text-gray-500 line-clamp-2 linkify mt-2"

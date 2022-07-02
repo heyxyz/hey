@@ -6,11 +6,12 @@ import { LensterPost } from '@generated/lenstertypes'
 import { CreateMirrorBroadcastItemResult } from '@generated/types'
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { SwitchHorizontalIcon } from '@heroicons/react/outline'
-import consoleLog from '@lib/consoleLog'
 import humanize from '@lib/humanize'
+import Logger from '@lib/logger'
 import nFormatter from '@lib/nFormatter'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
+import clsx from 'clsx'
 import { motion } from 'framer-motion'
 import { FC, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
@@ -66,6 +67,7 @@ interface Props {
 
 const Mirror: FC<Props> = ({ post }) => {
   const [count, setCount] = useState<number>(0)
+  const [mirrored, setMirrored] = useState<boolean>(post?.mirrors?.length > 0)
   const { userSigNonce, setUserSigNonce } = useAppStore()
   const { isAuthenticated, currentUser } = usePersistStore()
 
@@ -90,6 +92,7 @@ const Mirror: FC<Props> = ({ post }) => {
 
   const onCompleted = () => {
     setCount(count + 1)
+    setMirrored(true)
     toast.success('Post has been mirrored!')
   }
 
@@ -108,28 +111,24 @@ const Mirror: FC<Props> = ({ post }) => {
   const [broadcast, { loading: broadcastLoading }] = useMutation(
     BROADCAST_MUTATION,
     {
-      onCompleted(data) {
-        if (data?.broadcast?.reason !== 'NOT_ALLOWED') {
-          onCompleted()
-        }
-      },
+      onCompleted,
       onError(error) {
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
         }
-        consoleLog('Relay Error', '#ef4444', error.message)
+        Logger.error('Relay Error =>', error.message)
       }
     }
   )
   const [createMirrorTypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_MIRROR_TYPED_DATA_MUTATION,
     {
-      onCompleted({
+      async onCompleted({
         createMirrorTypedData
       }: {
         createMirrorTypedData: CreateMirrorBroadcastItemResult
       }) {
-        consoleLog('Mutation', '#4ade80', 'Generated createMirrorTypedData')
+        Logger.log('Mutation =>', 'Generated createMirrorTypedData')
         const { id, typedData } = createMirrorTypedData
         const {
           profileId,
@@ -137,17 +136,19 @@ const Mirror: FC<Props> = ({ post }) => {
           pubIdPointed,
           referenceModule,
           referenceModuleData,
-          referenceModuleInitData
+          referenceModuleInitData,
+          deadline
         } = typedData?.value
 
-        signTypedDataAsync({
-          domain: omit(typedData?.domain, '__typename'),
-          types: omit(typedData?.types, '__typename'),
-          value: omit(typedData?.value, '__typename')
-        }).then((signature) => {
+        try {
+          const signature = await signTypedDataAsync({
+            domain: omit(typedData?.domain, '__typename'),
+            types: omit(typedData?.types, '__typename'),
+            value: omit(typedData?.value, '__typename')
+          })
           setUserSigNonce(userSigNonce + 1)
           const { v, r, s } = splitSignature(signature)
-          const sig = { v, r, s, deadline: typedData.value.deadline }
+          const sig = { v, r, s, deadline }
           const inputStruct = {
             profileId,
             profileIdPointed,
@@ -158,17 +159,17 @@ const Mirror: FC<Props> = ({ post }) => {
             sig
           }
           if (RELAY_ON) {
-            broadcast({ variables: { request: { id, signature } } }).then(
-              ({ data, errors }) => {
-                if (errors || data?.broadcast?.reason === 'NOT_ALLOWED') {
-                  write({ args: inputStruct })
-                }
-              }
-            )
+            const {
+              data: { broadcast: result }
+            } = await broadcast({ variables: { request: { id, signature } } })
+
+            if ('reason' in result) write({ args: inputStruct })
           } else {
             write({ args: inputStruct })
           }
-        })
+        } catch (error) {
+          Logger.warn('Sign Error =>', error)
+        }
       },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
@@ -201,8 +202,18 @@ const Mirror: FC<Props> = ({ post }) => {
       aria-label="Mirror"
       data-test="publication-mirror"
     >
-      <div className="flex items-center space-x-1 text-brand">
-        <div className="p-1.5 rounded-full hover:bg-opacity-20 hover:bg-brand-300">
+      <div
+        className={clsx(
+          mirrored ? 'text-green-500' : 'text-brand',
+          'flex items-center space-x-1'
+        )}
+      >
+        <div
+          className={clsx(
+            mirrored ? 'hover:bg-green-300' : 'hover:bg-brand-300',
+            'p-1.5 rounded-full hover:bg-opacity-20'
+          )}
+        >
           {typedDataLoading ||
           signLoading ||
           writeLoading ||

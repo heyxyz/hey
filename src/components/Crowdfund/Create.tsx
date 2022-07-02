@@ -16,9 +16,9 @@ import SEO from '@components/utils/SEO'
 import { CreatePostBroadcastItemResult, Erc20 } from '@generated/types'
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { PlusIcon } from '@heroicons/react/outline'
-import consoleLog from '@lib/consoleLog'
 import getTokenImage from '@lib/getTokenImage'
 import imagekitURL from '@lib/imagekitURL'
+import Logger from '@lib/logger'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import uploadAssetsToIPFS from '@lib/uploadAssetsToIPFS'
@@ -88,7 +88,7 @@ const Create: NextPage = () => {
   })
   const { data: currencyData, loading } = useQuery(MODULES_CURRENCY_QUERY, {
     onCompleted() {
-      consoleLog('Query', '#8b5cf6', `Fetched enabled module currencies`)
+      Logger.log('Query =>', `Fetched enabled module currencies`)
     }
   })
 
@@ -132,18 +132,18 @@ const Create: NextPage = () => {
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
         }
-        consoleLog('Relay Error', '#ef4444', error.message)
+        Logger.error('Relay Error =>', error.message)
       }
     })
   const [createPostTypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_POST_TYPED_DATA_MUTATION,
     {
-      onCompleted({
+      async onCompleted({
         createPostTypedData
       }: {
         createPostTypedData: CreatePostBroadcastItemResult
       }) {
-        consoleLog('Mutation', '#4ade80', 'Generated createPostTypedData')
+        Logger.log('Mutation =>', 'Generated createPostTypedData')
         const { id, typedData } = createPostTypedData
         const {
           profileId,
@@ -151,17 +151,19 @@ const Create: NextPage = () => {
           collectModule,
           collectModuleInitData,
           referenceModule,
-          referenceModuleInitData
+          referenceModuleInitData,
+          deadline
         } = typedData?.value
 
-        signTypedDataAsync({
-          domain: omit(typedData?.domain, '__typename'),
-          types: omit(typedData?.types, '__typename'),
-          value: omit(typedData?.value, '__typename')
-        }).then((signature) => {
+        try {
+          const signature = await signTypedDataAsync({
+            domain: omit(typedData?.domain, '__typename'),
+            types: omit(typedData?.types, '__typename'),
+            value: omit(typedData?.value, '__typename')
+          })
           setUserSigNonce(userSigNonce + 1)
           const { v, r, s } = splitSignature(signature)
-          const sig = { v, r, s, deadline: typedData.value.deadline }
+          const sig = { v, r, s, deadline }
           const inputStruct = {
             profileId,
             contentURI,
@@ -172,17 +174,17 @@ const Create: NextPage = () => {
             sig
           }
           if (RELAY_ON) {
-            broadcast({ variables: { request: { id, signature } } }).then(
-              ({ data, errors }) => {
-                if (errors || data?.broadcast?.reason === 'NOT_ALLOWED') {
-                  write({ args: inputStruct })
-                }
-              }
-            )
+            const {
+              data: { broadcast: result }
+            } = await broadcast({ variables: { request: { id, signature } } })
+
+            if ('reason' in result) write({ args: inputStruct })
           } else {
             write({ args: inputStruct })
           }
-        })
+        } catch (error) {
+          Logger.warn('Sign Error =>', error)
+        }
       },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
