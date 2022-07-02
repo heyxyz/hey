@@ -33,6 +33,7 @@ export const POST_QUERY = gql`
   query Post(
     $request: PublicationQueryRequest!
     $reactionRequest: ReactionFieldResolverRequest
+    $profileId: ProfileId
   ) {
     publication(request: $request) {
       ... on Post {
@@ -81,7 +82,8 @@ const ViewPost: NextPage = () => {
   const { data, loading, error } = useQuery(POST_QUERY, {
     variables: {
       request: { publicationId: id },
-      who: currentUser ? id?.toString().split('-')[0] : null
+      reactionRequest: currentUser ? { profileId: currentUser?.id } : null,
+      profileId: currentUser?.id ?? null
     },
     skip: !id,
     onCompleted() {
