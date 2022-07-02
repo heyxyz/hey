@@ -236,9 +236,7 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
 
   const [broadcast, { data: broadcastData, loading: broadcastLoading }] =
     useMutation(BROADCAST_MUTATION, {
-      onCompleted(data) {
-        if (data) onCompleted()
-      },
+      onCompleted,
       onError(error) {
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)

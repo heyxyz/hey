@@ -90,9 +90,7 @@ const Join: FC<Props> = ({ community, setJoined, showJoin = true }) => {
   const [broadcast, { loading: broadcastLoading }] = useMutation(
     BROADCAST_MUTATION,
     {
-      onCompleted() {
-        onCompleted()
-      },
+      onCompleted,
       onError(error) {
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)

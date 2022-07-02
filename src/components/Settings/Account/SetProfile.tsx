@@ -101,9 +101,7 @@ const SetProfile: FC = () => {
 
   const [broadcast, { data: broadcastData, loading: broadcastLoading }] =
     useMutation(BROADCAST_MUTATION, {
-      onCompleted() {
-        onCompleted()
-      },
+      onCompleted,
       onError(error) {
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
