@@ -21,6 +21,7 @@ const HOME_FEED_QUERY = gql`
   query HomeFeed(
     $request: TimelineRequest!
     $reactionRequest: ReactionFieldResolverRequest
+    $profileId: ProfileId
   ) {
     timeline(request: $request) {
       items {
@@ -52,7 +53,8 @@ const Feed: FC = () => {
   const { data, loading, error, fetchMore } = useQuery(HOME_FEED_QUERY, {
     variables: {
       request: { profileId: currentUser?.id, limit: 10 },
-      reactionRequest: currentUser ? { profileId: currentUser?.id } : null
+      reactionRequest: currentUser ? { profileId: currentUser?.id } : null,
+      profileId: currentUser?.id ?? null
     },
     fetchPolicy: 'no-cache',
     onCompleted(data) {
@@ -71,7 +73,8 @@ const Feed: FC = () => {
             cursor: pageInfo?.next,
             limit: 10
           },
-          reactionRequest: currentUser ? { profileId: currentUser?.id } : null
+          reactionRequest: currentUser ? { profileId: currentUser?.id } : null,
+          profileId: currentUser?.id ?? null
         }
       }).then(({ data }: any) => {
         setPageInfo(data?.timeline?.pageInfo)

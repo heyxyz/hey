@@ -19,6 +19,7 @@ const SEARCH_PUBLICATIONS_QUERY = gql`
   query SearchPublications(
     $request: SearchQueryRequest!
     $reactionRequest: ReactionFieldResolverRequest
+    $profileId: ProfileId
   ) {
     search(request: $request) {
       ... on PublicationSearchResult {
@@ -54,7 +55,8 @@ const Publications: FC<Props> = ({ query }) => {
     {
       variables: {
         request: { query, type: 'PUBLICATION', limit: 10 },
-        reactionRequest: currentUser ? { profileId: currentUser?.id } : null
+        reactionRequest: currentUser ? { profileId: currentUser?.id } : null,
+        profileId: currentUser?.id ?? null
       },
       onCompleted(data) {
         setPageInfo(data?.search?.pageInfo)
@@ -77,7 +79,8 @@ const Publications: FC<Props> = ({ query }) => {
             cursor: pageInfo?.next,
             limit: 10
           },
-          reactionRequest: currentUser ? { profileId: currentUser?.id } : null
+          reactionRequest: currentUser ? { profileId: currentUser?.id } : null,
+          profileId: currentUser?.id ?? null
         }
       }).then(({ data }: any) => {
         setPageInfo(data?.search?.pageInfo)
