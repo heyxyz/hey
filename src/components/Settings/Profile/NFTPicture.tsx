@@ -202,21 +202,21 @@ const NFTPicture: FC<Props> = ({ profile }) => {
         }
       }
     })
-    signMessageAsync({
+
+    const signature = await signMessageAsync({
       message: challengeRes?.data?.nftOwnershipChallenge?.text
-    }).then((signature) => {
-      createSetProfileImageURITypedData({
-        variables: {
-          options: { overrideSigNonce: userSigNonce },
-          request: {
-            profileId: currentUser?.id,
-            nftData: {
-              id: challengeRes?.data?.nftOwnershipChallenge?.id,
-              signature
-            }
+    })
+    createSetProfileImageURITypedData({
+      variables: {
+        options: { overrideSigNonce: userSigNonce },
+        request: {
+          profileId: currentUser?.id,
+          nftData: {
+            id: challengeRes?.data?.nftOwnershipChallenge?.id,
+            signature
           }
         }
-      })
+      }
     })
   }
 

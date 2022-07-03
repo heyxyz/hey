@@ -93,54 +93,52 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
     }
   }
 
-  const handleSign = () => {
-    loadChallenge({
-      variables: { request: { address } }
-    }).then(async (res) => {
-      if (!res?.data?.challenge?.text) {
-        return toast.error(ERROR_MESSAGE)
-      }
+  const handleSign = async () => {
+    try {
+      const challenge = await loadChallenge({
+        variables: { request: { address } }
+      })
 
-      try {
-        const signature = await signMessageAsync({
-          message: res?.data?.challenge?.text
-        })
+      if (!challenge?.data?.challenge?.text) return toast.error(ERROR_MESSAGE)
 
-        authenticate({
-          variables: { request: { address, signature } }
-        }).then((res) => {
-          Cookies.set(
-            'accessToken',
-            res.data.authenticate.accessToken,
-            COOKIE_CONFIG
+      const signature = await signMessageAsync({
+        message: challenge?.data?.challenge?.text
+      })
+
+      const auth = await authenticate({
+        variables: { request: { address, signature } }
+      })
+      Cookies.set(
+        'accessToken',
+        auth.data.authenticate.accessToken,
+        COOKIE_CONFIG
+      )
+      Cookies.set(
+        'refreshToken',
+        auth.data.authenticate.refreshToken,
+        COOKIE_CONFIG
+      )
+
+      const { data: profilesData } = await getProfiles({
+        variables: { ownedBy: address }
+      })
+
+      if (profilesData?.profiles?.items?.length === 0) {
+        setHasProfile(false)
+      } else {
+        const profiles: Profile[] = profilesData?.profiles?.items
+          ?.slice()
+          ?.sort((a: Profile, b: Profile) => Number(a.id) - Number(b.id))
+          ?.sort((a: Profile, b: Profile) =>
+            !(a.isDefault !== b.isDefault) ? 0 : a.isDefault ? -1 : 1
           )
-          Cookies.set(
-            'refreshToken',
-            res.data.authenticate.refreshToken,
-            COOKIE_CONFIG
-          )
-          getProfiles({
-            variables: { ownedBy: address }
-          }).then(({ data }) => {
-            if (data?.profiles?.items?.length === 0) {
-              setHasProfile(false)
-            } else {
-              const profiles: Profile[] = data?.profiles?.items
-                ?.slice()
-                ?.sort((a: Profile, b: Profile) => Number(a.id) - Number(b.id))
-                ?.sort((a: Profile, b: Profile) =>
-                  !(a.isDefault !== b.isDefault) ? 0 : a.isDefault ? -1 : 1
-                )
-              setIsAuthenticated(true)
-              setProfiles(profiles)
-              setCurrentUser(profiles[0])
-            }
-          })
-        })
-      } catch (error) {
-        console.log(error)
+        setIsAuthenticated(true)
+        setProfiles(profiles)
+        setCurrentUser(profiles[0])
       }
-    })
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return activeConnector?.id ? (
