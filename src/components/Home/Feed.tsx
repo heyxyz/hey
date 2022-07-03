@@ -65,8 +65,8 @@ const Feed: FC = () => {
   })
 
   const { observe } = useInView({
-    onEnter: () => {
-      fetchMore({
+    onEnter: async () => {
+      const { data } = await fetchMore({
         variables: {
           request: {
             profileId: currentUser?.id,
@@ -76,14 +76,13 @@ const Feed: FC = () => {
           reactionRequest: currentUser ? { profileId: currentUser?.id } : null,
           profileId: currentUser?.id ?? null
         }
-      }).then(({ data }: any) => {
-        setPageInfo(data?.timeline?.pageInfo)
-        setPublications([...publications, ...data?.timeline?.items])
-        Logger.log(
-          'Query =>',
-          `Fetched next 10 timeline publications Next:${pageInfo?.next}`
-        )
       })
+      setPageInfo(data?.timeline?.pageInfo)
+      setPublications([...publications, ...data?.timeline?.items])
+      Logger.log(
+        'Query =>',
+        `Fetched next 10 timeline publications Next:${pageInfo?.next}`
+      )
     }
   })
 

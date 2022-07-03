@@ -51,8 +51,8 @@ const Following: FC<Props> = ({ profile }) => {
   })
 
   const { observe } = useInView({
-    onEnter: () => {
-      fetchMore({
+    onEnter: async () => {
+      const { data } = await fetchMore({
         variables: {
           request: {
             address: profile?.ownedBy,
@@ -60,14 +60,13 @@ const Following: FC<Props> = ({ profile }) => {
             limit: 10
           }
         }
-      }).then(({ data }: any) => {
-        setPageInfo(data?.following?.pageInfo)
-        setFollowing([...following, ...data?.following?.items])
-        Logger.log(
-          'Query =>',
-          `Fetched next 10 following Profile:${profile?.id} Next:${pageInfo?.next}`
-        )
       })
+      setPageInfo(data?.following?.pageInfo)
+      setFollowing([...following, ...data?.following?.items])
+      Logger.log(
+        'Query =>',
+        `Fetched next 10 following Profile:${profile?.id} Next:${pageInfo?.next}`
+      )
     }
   })
 

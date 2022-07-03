@@ -50,8 +50,8 @@ const Profiles: FC<Props> = ({ query }) => {
   })
 
   const { observe } = useInView({
-    onEnter: () => {
-      fetchMore({
+    onEnter: async () => {
+      const { data } = await fetchMore({
         variables: {
           request: {
             query,
@@ -60,14 +60,13 @@ const Profiles: FC<Props> = ({ query }) => {
             limit: 10
           }
         }
-      }).then(({ data }: any) => {
-        setPageInfo(data?.search?.pageInfo)
-        setProfiles([...profiles, ...data?.search?.items])
-        Logger.log(
-          'Query =>',
-          `Fetched next 10 profiles for search Keyword:${query} Next:${pageInfo?.next}`
-        )
       })
+      setPageInfo(data?.search?.pageInfo)
+      setProfiles([...profiles, ...data?.search?.items])
+      Logger.log(
+        'Query =>',
+        `Fetched next 10 profiles for search Keyword:${query} Next:${pageInfo?.next}`
+      )
     }
   })
 
