@@ -1,10 +1,10 @@
 Command : npm run lint
-Description : # Check for linting errors
+Description : Check for linting errors
 Command : npm run typecheck
-Description : # Check for type errors
+Description : Check for type errors
 Command : npm run prettier
-Description : # Check for prettier errors
+Description : Check for prettier errors
 Command : npm run codegen
-Description : # Generate types from GraphQL
+Description : Generate types from GraphQL
 Command : npm run test
-Description : # Run all test scripts
+Description : Run all test scripts
