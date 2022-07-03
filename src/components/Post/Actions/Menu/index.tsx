@@ -7,7 +7,7 @@ import {
 } from '@heroicons/react/outline'
 import clsx from 'clsx'
 import { FC, Fragment } from 'react'
-import { usePersistStore } from 'src/store/app'
+import { useAppPersistStore } from 'src/store/app'
 
 import Delete from './Delete'
 import Embed from './Embed'
@@ -18,7 +18,7 @@ interface Props {
 }
 
 const PostMenu: FC<Props> = ({ post }) => {
-  const { currentUser } = usePersistStore()
+  const { currentUser } = useAppPersistStore()
 
   return (
     <Menu as="div">

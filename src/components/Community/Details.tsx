@@ -16,7 +16,7 @@ import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import dynamic from 'next/dynamic'
 import React, { FC, ReactNode, useState } from 'react'
-import { usePersistStore } from 'src/store/app'
+import { useAppPersistStore } from 'src/store/app'
 
 import Join from './Join'
 
@@ -31,7 +31,7 @@ interface Props {
 }
 
 const Details: FC<Props> = ({ community }) => {
-  const { currentUser } = usePersistStore()
+  const { currentUser } = useAppPersistStore()
   const [showMembersModal, setShowMembersModal] = useState<boolean>(false)
   const [showSettingsModal, setShowSettingsModal] = useState<boolean>(false)
   const [joined, setJoined] = useState<boolean>(community?.hasCollectedByMe)

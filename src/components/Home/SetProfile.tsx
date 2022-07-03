@@ -9,7 +9,7 @@ import clsx from 'clsx'
 import Link from 'next/link'
 import { FC } from 'react'
 import { APP_NAME } from 'src/constants'
-import { useAppStore, usePersistStore } from 'src/store/app'
+import { useAppPersistStore, useAppStore } from 'src/store/app'
 
 interface StatusProps {
   finished: boolean
@@ -31,7 +31,7 @@ const Status: FC<StatusProps> = ({ finished, title }) => (
 
 const SetProfile: FC = () => {
   const { profiles } = useAppStore()
-  const { currentUser } = usePersistStore()
+  const { currentUser } = useAppPersistStore()
   const hasDefaultProfile = !!profiles.find((o) => o.isDefault)
   const doneSetup =
     !!currentUser?.name && !!currentUser?.bio && !!currentUser?.picture

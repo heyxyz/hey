@@ -2,13 +2,13 @@
 import create from 'zustand'
 import { persist } from 'zustand/middleware'
 
-interface PublicationState {
+interface PublicationPersistState {
   persistedPublication: string
   setPersistedPublication: (persistedPublication: string) => void
 }
 
-export const usePublicationStore = create(
-  persist<PublicationState>(
+export const usePublicationPersistStore = create(
+  persist<PublicationPersistState>(
     (set) => ({
       persistedPublication: '',
       setPersistedPublication: (persistedPublication) =>

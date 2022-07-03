@@ -39,8 +39,8 @@ import {
   LENSHUB_PROXY,
   RELAY_ON
 } from 'src/constants'
-import { useAppStore, usePersistStore } from 'src/store/app'
-import { usePublicationStore } from 'src/store/publication'
+import { useAppPersistStore, useAppStore } from 'src/store/app'
+import { usePublicationPersistStore } from 'src/store/publication'
 import { v4 as uuid } from 'uuid'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 
@@ -109,9 +109,9 @@ interface Props {
 
 const NewComment: FC<Props> = ({ post, type }) => {
   const { userSigNonce, setUserSigNonce } = useAppStore()
-  const { isAuthenticated, currentUser } = usePersistStore()
+  const { isAuthenticated, currentUser } = useAppPersistStore()
   const { persistedPublication, setPersistedPublication } =
-    usePublicationStore()
+    usePublicationPersistStore()
   const [preview, setPreview] = useState<boolean>(false)
   const [commentContentError, setCommentContentError] = useState<string>('')
   const [selectedModule, setSelectedModule] =

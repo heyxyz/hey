@@ -11,7 +11,7 @@ import React, { useState } from 'react'
 import { APP_NAME } from 'src/constants'
 import Custom404 from 'src/pages/404'
 import Custom500 from 'src/pages/500'
-import { usePersistStore } from 'src/store/app'
+import { useAppPersistStore } from 'src/store/app'
 
 import Cover from './Cover'
 import Details from './Details'
@@ -76,7 +76,7 @@ const ViewProfile: NextPage = () => {
   const {
     query: { username, type }
   } = useRouter()
-  const { currentUser } = usePersistStore()
+  const { currentUser } = useAppPersistStore()
   const [feedType, setFeedType] = useState<string>(
     type && ['post', 'comment', 'mirror', 'nft'].includes(type as string)
       ? type?.toString().toUpperCase()
