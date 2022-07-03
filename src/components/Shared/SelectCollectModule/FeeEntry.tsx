@@ -6,7 +6,7 @@ import { ArrowLeftIcon } from '@heroicons/react/outline'
 import { defaultModuleData, FEE_DATA_TYPE } from '@lib/getModule'
 import { Dispatch, FC, useState } from 'react'
 import { DEFAULT_COLLECT_TOKEN } from 'src/constants'
-import { usePersistStore } from 'src/store'
+import { usePersistStore } from 'src/store/app'
 import { object, string } from 'zod'
 
 const feeDataSchema = object({

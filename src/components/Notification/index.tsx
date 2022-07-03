@@ -3,7 +3,7 @@ import { LightningBoltIcon } from '@heroicons/react/outline'
 import { FC } from 'react'
 import { APP_NAME } from 'src/constants'
 import Custom404 from 'src/pages/404'
-import { usePersistStore } from 'src/store'
+import { usePersistStore } from 'src/store/app'
 
 import List from './List'
 

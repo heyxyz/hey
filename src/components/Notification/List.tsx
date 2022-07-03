@@ -11,7 +11,7 @@ import { MailIcon } from '@heroicons/react/outline'
 import Logger from '@lib/logger'
 import { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
-import { usePersistStore } from 'src/store'
+import { usePersistStore } from 'src/store/app'
 
 import NotificationShimmer from './Shimmer'
 import CollectNotification from './Type/CollectNotification'

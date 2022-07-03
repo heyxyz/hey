@@ -9,7 +9,7 @@ import clsx from 'clsx'
 import Link from 'next/link'
 import { FC } from 'react'
 import { APP_NAME } from 'src/constants'
-import { useAppStore, usePersistStore } from 'src/store'
+import { useAppStore, usePersistStore } from 'src/store/app'
 
 interface StatusProps {
   finished: boolean

@@ -19,7 +19,7 @@ import Logger from '@lib/logger'
 import clsx from 'clsx'
 import React, { FC, ReactNode, useEffect, useState } from 'react'
 import { STATIC_ASSETS } from 'src/constants'
-import { usePersistStore } from 'src/store'
+import { usePersistStore } from 'src/store/app'
 
 import { COLLECT_QUERY } from '../Actions/Collect/CollectModule'
 import Fund from './Fund'
