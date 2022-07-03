@@ -18,7 +18,7 @@ import {
   LENSHUB_PROXY,
   RELAY_ON
 } from 'src/constants'
-import { useAppStore, usePersistStore } from 'src/store'
+import { useAppPersistStore, useAppStore } from 'src/store/app'
 import { useAccount, useContractWrite, useSignTypedData } from 'wagmi'
 
 const CREATE_COLLECT_TYPED_DATA_MUTATION = gql`
@@ -62,7 +62,7 @@ interface Props {
 
 const Join: FC<Props> = ({ community, setJoined, showJoin = true }) => {
   const { userSigNonce, setUserSigNonce } = useAppStore()
-  const { isAuthenticated } = usePersistStore()
+  const { isAuthenticated } = useAppPersistStore()
   const { address } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {

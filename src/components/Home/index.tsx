@@ -6,7 +6,7 @@ import SEO from '@components/utils/SEO'
 import { NextPage } from 'next'
 import dynamic from 'next/dynamic'
 import React from 'react'
-import { usePersistStore } from 'src/store'
+import { useAppPersistStore } from 'src/store/app'
 
 import Hero from './Hero'
 import RecommendedProfiles from './RecommendedProfiles'
@@ -22,7 +22,7 @@ const ExploreFeed = dynamic(() => import('@components/Explore/Feed'), {
 })
 
 const Home: NextPage = () => {
-  const { currentUser } = usePersistStore()
+  const { currentUser } = useAppPersistStore()
 
   return (
     <>
