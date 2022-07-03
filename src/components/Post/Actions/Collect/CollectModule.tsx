@@ -45,7 +45,7 @@ import {
   POLYGONSCAN_URL,
   RELAY_ON
 } from 'src/constants'
-import { useAppStore, usePersistStore } from 'src/store/app'
+import { useAppPersistStore, useAppStore } from 'src/store/app'
 import {
   useAccount,
   useBalance,
@@ -120,7 +120,7 @@ interface Props {
 
 const CollectModule: FC<Props> = ({ count, setCount, post }) => {
   const { userSigNonce, setUserSigNonce } = useAppStore()
-  const { isAuthenticated, currentUser } = usePersistStore()
+  const { isAuthenticated, currentUser } = useAppPersistStore()
   const [revenue, setRevenue] = useState<number>(0)
   const [showCollectorsModal, setShowCollectorsModal] = useState<boolean>(false)
   const [allowed, setAllowed] = useState<boolean>(true)

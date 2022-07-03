@@ -10,7 +10,7 @@ import Logger from '@lib/logger'
 import clsx from 'clsx'
 import { Dispatch, FC } from 'react'
 import { Mention, MentionsInput } from 'react-mentions'
-import { usePublicationStore } from 'src/store/publication'
+import { usePublicationPersistStore } from 'src/store/publication'
 
 interface UserProps {
   suggestion: UserSuggestion
@@ -55,7 +55,7 @@ export const MentionTextArea: FC<Props> = ({
   placeholder = ''
 }) => {
   const { persistedPublication, setPersistedPublication } =
-    usePublicationStore()
+    usePublicationPersistStore()
   const [searchUsers] = useLazyQuery(SEARCH_USERS_QUERY, {
     onCompleted(data) {
       Logger.log(

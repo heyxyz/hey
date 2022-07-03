@@ -11,7 +11,7 @@ import React, { FC, ReactNode, useState } from 'react'
 import { APP_NAME } from 'src/constants'
 import Custom404 from 'src/pages/404'
 import Custom500 from 'src/pages/500'
-import { usePersistStore } from 'src/store/app'
+import { useAppPersistStore } from 'src/store/app'
 
 import Sidebar from '../Sidebar'
 import NFTPicture from './NFTPicture'
@@ -53,7 +53,7 @@ const PROFILE_SETTINGS_QUERY = gql`
 `
 
 const ProfileSettings: NextPage = () => {
-  const { currentUser } = usePersistStore()
+  const { currentUser } = useAppPersistStore()
   const [settingsType, setSettingsType] = useState<'NFT' | 'AVATAR'>('AVATAR')
   const { data, loading, error } = useQuery(PROFILE_SETTINGS_QUERY, {
     variables: { request: { profileId: currentUser?.id } },

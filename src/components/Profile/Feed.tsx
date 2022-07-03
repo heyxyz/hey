@@ -14,7 +14,7 @@ import { CollectionIcon } from '@heroicons/react/outline'
 import Logger from '@lib/logger'
 import React, { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
-import { usePersistStore } from 'src/store/app'
+import { useAppPersistStore } from 'src/store/app'
 
 const PROFILE_FEED_QUERY = gql`
   query ProfileFeed(
@@ -51,7 +51,7 @@ interface Props {
 }
 
 const Feed: FC<Props> = ({ profile, type }) => {
-  const { currentUser } = usePersistStore()
+  const { currentUser } = useAppPersistStore()
   const [publications, setPublications] = useState<LensterPost[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
   const { data, loading, error, fetchMore } = useQuery(PROFILE_FEED_QUERY, {

@@ -22,7 +22,7 @@ import {
   LENSHUB_PROXY,
   RELAY_ON
 } from 'src/constants'
-import { useAppStore, usePersistStore } from 'src/store/app'
+import { useAppPersistStore, useAppStore } from 'src/store/app'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 
 const CREATE_MIRROR_TYPED_DATA_MUTATION = gql`
@@ -69,7 +69,7 @@ const Mirror: FC<Props> = ({ post }) => {
   const [count, setCount] = useState<number>(0)
   const [mirrored, setMirrored] = useState<boolean>(post?.mirrors?.length > 0)
   const { userSigNonce, setUserSigNonce } = useAppStore()
-  const { isAuthenticated, currentUser } = usePersistStore()
+  const { isAuthenticated, currentUser } = useAppPersistStore()
 
   useEffect(() => {
     if (

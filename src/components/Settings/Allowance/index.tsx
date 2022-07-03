@@ -11,7 +11,7 @@ import React, { useState } from 'react'
 import { APP_NAME, DEFAULT_COLLECT_TOKEN } from 'src/constants'
 import Custom404 from 'src/pages/404'
 import Custom500 from 'src/pages/500'
-import { usePersistStore } from 'src/store/app'
+import { useAppPersistStore } from 'src/store/app'
 
 import Sidebar from '../Sidebar'
 import Allowance from './Allowance'
@@ -52,7 +52,7 @@ const getAllowancePayload = (currency: string) => {
 }
 
 const AllowanceSettings: NextPage = () => {
-  const { currentUser } = usePersistStore()
+  const { currentUser } = useAppPersistStore()
   const [currencyLoading, setCurrencyLoading] = useState<boolean>(false)
   const { data, loading, error, refetch } = useQuery(ALLOWANCE_SETTINGS_QUERY, {
     variables: {
