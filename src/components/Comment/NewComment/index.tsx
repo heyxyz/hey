@@ -212,8 +212,8 @@ const NewComment: FC<Props> = ({ post, type }) => {
           } else {
             write({ args: inputStruct })
           }
-        } catch (error: any) {
-          toast.error(error.message ?? ERROR_MESSAGE)
+        } catch (error) {
+          Logger.warn('Sign Error =>', error)
         }
       },
       onError(error) {
