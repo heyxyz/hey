@@ -13,6 +13,7 @@
     "prettier:check": "prettier --check \"./src/**/*.{ts,tsx}\"",
     "codegen": "graphql-codegen",
     "prepare": "husky install",
+    "test": "cypress run --headless",
     "cypress:headless": "cypress run --headless",
     "cypress:open": "cypress open",
     "cypress:e2e": "start-server-and-test dev http://localhost:4783 cypress:headless"
