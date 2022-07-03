@@ -50,8 +50,8 @@ const Collectors: FC<Props> = ({ pubId }) => {
   })
 
   const { observe } = useInView({
-    onEnter: () => {
-      fetchMore({
+    onEnter: async () => {
+      const { data } = await fetchMore({
         variables: {
           request: {
             publicationId: pubId,
@@ -59,14 +59,13 @@ const Collectors: FC<Props> = ({ pubId }) => {
             limit: 10
           }
         }
-      }).then(({ data }: any) => {
-        setPageInfo(data?.whoCollectedPublication?.pageInfo)
-        setCollectors([...collectors, ...data?.whoCollectedPublication?.items])
-        Logger.log(
-          'Query =>',
-          `Fetched next 10 collectors Publication:${pubId} Next:${pageInfo?.next}`
-        )
       })
+      setPageInfo(data?.whoCollectedPublication?.pageInfo)
+      setCollectors([...collectors, ...data?.whoCollectedPublication?.items])
+      Logger.log(
+        'Query =>',
+        `Fetched next 10 collectors Publication:${pubId} Next:${pageInfo?.next}`
+      )
     }
   })
 
