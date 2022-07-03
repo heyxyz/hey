@@ -10,7 +10,7 @@ import clsx from 'clsx'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { FC, ReactNode } from 'react'
-import { usePersistStore } from 'src/store'
+import { usePersistStore } from 'src/store/app'
 
 interface MenuProps {
   children: ReactNode

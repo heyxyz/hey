@@ -36,7 +36,7 @@ import {
   RELAY_ON
 } from 'src/constants'
 import Custom404 from 'src/pages/404'
-import { useAppStore, usePersistStore } from 'src/store'
+import { useAppStore, usePersistStore } from 'src/store/app'
 import { v4 as uuid } from 'uuid'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 import { object, string } from 'zod'

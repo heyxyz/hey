@@ -22,7 +22,7 @@ import Link from 'next/link'
 import { useTheme } from 'next-themes'
 import React, { FC, ReactElement, useEffect, useState } from 'react'
 import { STATIC_ASSETS } from 'src/constants'
-import { usePersistStore } from 'src/store'
+import { usePersistStore } from 'src/store/app'
 
 import Followerings from './Followerings'
 import ProfileMod from './Mod'

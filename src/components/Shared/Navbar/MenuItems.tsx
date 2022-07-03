@@ -24,7 +24,7 @@ import Link from 'next/link'
 import { useTheme } from 'next-themes'
 import { FC, Fragment, useState } from 'react'
 import { GIT_COMMIT_SHA } from 'src/constants'
-import { useAppStore, usePersistStore } from 'src/store'
+import { useAppStore, usePersistStore } from 'src/store/app'
 import { useDisconnect } from 'wagmi'
 
 import Slug from '../Slug'

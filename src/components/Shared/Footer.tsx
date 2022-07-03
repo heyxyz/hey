@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { FC } from 'react'
 import { APP_NAME } from 'src/constants'
-import { usePersistStore } from 'src/store'
+import { usePersistStore } from 'src/store/app'
 
 const Footer: FC = () => {
   const { staffMode } = usePersistStore()

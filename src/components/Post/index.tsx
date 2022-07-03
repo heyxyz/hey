@@ -18,7 +18,7 @@ import React from 'react'
 import { APP_NAME } from 'src/constants'
 import Custom404 from 'src/pages/404'
 import Custom500 from 'src/pages/500'
-import { usePersistStore } from 'src/store'
+import { usePersistStore } from 'src/store/app'
 
 import IPFSHash from './IPFSHash'
 import PostPageShimmer from './Shimmer'

@@ -19,7 +19,7 @@ import { useRouter } from 'next/router'
 import React, { FC, useState } from 'react'
 import { APP_NAME, ZERO_ADDRESS } from 'src/constants'
 import Custom404 from 'src/pages/404'
-import { usePersistStore } from 'src/store'
+import { usePersistStore } from 'src/store/app'
 import { object, string } from 'zod'
 
 import Reason from './Reason'

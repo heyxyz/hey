@@ -7,7 +7,7 @@ import {
 } from '@heroicons/react/outline'
 import clsx from 'clsx'
 import { FC, Fragment } from 'react'
-import { usePersistStore } from 'src/store'
+import { usePersistStore } from 'src/store/app'
 
 import Delete from './Delete'
 import Embed from './Embed'

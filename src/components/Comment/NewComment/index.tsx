@@ -39,7 +39,7 @@ import {
   LENSHUB_PROXY,
   RELAY_ON
 } from 'src/constants'
-import { useAppStore, usePersistStore } from 'src/store'
+import { useAppStore, usePersistStore } from 'src/store/app'
 import { usePublicationStore } from 'src/store/publication'
 import { v4 as uuid } from 'uuid'
 import { useContractWrite, useSignTypedData } from 'wagmi'

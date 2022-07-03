@@ -22,7 +22,7 @@ import {
   LENSHUB_PROXY,
   RELAY_ON
 } from 'src/constants'
-import { useAppStore, usePersistStore } from 'src/store'
+import { useAppStore, usePersistStore } from 'src/store/app'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 
 const CREATE_MIRROR_TYPED_DATA_MUTATION = gql`

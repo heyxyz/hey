@@ -8,7 +8,7 @@ import {
 import clsx from 'clsx'
 import { FC, Fragment } from 'react'
 import { IS_MAINNET } from 'src/constants'
-import { usePersistStore } from 'src/store'
+import { usePersistStore } from 'src/store/app'
 
 import { NextLink } from './MenuItems'
 

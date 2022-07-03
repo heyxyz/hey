@@ -23,7 +23,7 @@ import {
   RELAY_ON
 } from 'src/constants'
 import Custom404 from 'src/pages/404'
-import { useAppStore, usePersistStore } from 'src/store'
+import { useAppStore, usePersistStore } from 'src/store/app'
 import { useAccount, useContractWrite, useSignTypedData } from 'wagmi'
 
 const CREATE_SET_DEFAULT_PROFILE_DATA_MUTATION = gql`

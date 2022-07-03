@@ -21,7 +21,7 @@ import {
   LENSHUB_PROXY
 } from 'src/constants'
 import Custom404 from 'src/pages/404'
-import { useAppStore, usePersistStore } from 'src/store'
+import { useAppStore, usePersistStore } from 'src/store/app'
 import { useContractWrite, useDisconnect, useSignTypedData } from 'wagmi'
 
 import Sidebar from '../Sidebar'

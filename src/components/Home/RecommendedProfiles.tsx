@@ -11,7 +11,7 @@ import { LightningBoltIcon, SparklesIcon } from '@heroicons/react/solid'
 import Logger from '@lib/logger'
 import randomizeArray from '@lib/randomizeArray'
 import React, { FC } from 'react'
-import { usePersistStore } from 'src/store'
+import { usePersistStore } from 'src/store/app'
 
 const RECOMMENDED_PROFILES_QUERY = gql`
   query RecommendedProfiles {

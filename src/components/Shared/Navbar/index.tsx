@@ -9,7 +9,7 @@ import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { FC } from 'react'
-import { usePersistStore } from 'src/store'
+import { usePersistStore } from 'src/store/app'
 
 import MenuItems from './MenuItems'
 import MoreNavItems from './MoreNavItems'

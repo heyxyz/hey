@@ -9,7 +9,7 @@ import { useTheme } from 'next-themes'
 import { FC, ReactNode, Suspense, useEffect, useState } from 'react'
 import { Toaster } from 'react-hot-toast'
 import { CHAIN_ID } from 'src/constants'
-import { useAppStore, usePersistStore } from 'src/store'
+import { useAppStore, usePersistStore } from 'src/store/app'
 import { useAccount, useDisconnect, useNetwork } from 'wagmi'
 
 import Loading from './Loading'

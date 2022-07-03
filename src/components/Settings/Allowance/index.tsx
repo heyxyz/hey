@@ -11,7 +11,7 @@ import React, { useState } from 'react'
 import { APP_NAME, DEFAULT_COLLECT_TOKEN } from 'src/constants'
 import Custom404 from 'src/pages/404'
 import Custom500 from 'src/pages/500'
-import { usePersistStore } from 'src/store'
+import { usePersistStore } from 'src/store/app'
 
 import Sidebar from '../Sidebar'
 import Allowance from './Allowance'

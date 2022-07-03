@@ -4,7 +4,7 @@ import { UserAddIcon } from '@heroicons/react/solid'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import React, { FC } from 'react'
-import { usePersistStore } from 'src/store'
+import { usePersistStore } from 'src/store/app'
 
 import { NotificationProfileAvatar, NotificationProfileName } from '../Profile'
 import {

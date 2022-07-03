@@ -14,7 +14,7 @@ import { CollectionIcon } from '@heroicons/react/outline'
 import Logger from '@lib/logger'
 import React, { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
-import { usePersistStore } from 'src/store'
+import { usePersistStore } from 'src/store/app'
 
 const EXPLORE_FEED_QUERY = gql`
   query ExploreFeed(
