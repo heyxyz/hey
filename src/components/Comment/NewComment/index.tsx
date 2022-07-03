@@ -40,6 +40,7 @@ import {
   RELAY_ON
 } from 'src/constants'
 import { useAppStore, usePersistStore } from 'src/store'
+import { usePublicationStore } from 'src/store/publication'
 import { v4 as uuid } from 'uuid'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 
@@ -107,11 +108,12 @@ interface Props {
 }
 
 const NewComment: FC<Props> = ({ post, type }) => {
-  const [preview, setPreview] = useState<boolean>(false)
-  const [commentContent, setCommentContent] = useState<string>('')
-  const [commentContentError, setCommentContentError] = useState<string>('')
   const { userSigNonce, setUserSigNonce } = useAppStore()
   const { isAuthenticated, currentUser } = usePersistStore()
+  const { persistedPublication, setPersistedPublication } =
+    usePublicationStore()
+  const [preview, setPreview] = useState<boolean>(false)
+  const [commentContentError, setCommentContentError] = useState<string>('')
   const [selectedModule, setSelectedModule] =
     useState<EnabledModule>(defaultModuleData)
   const [onlyFollowers, setOnlyFollowers] = useState<boolean>(false)
@@ -125,7 +127,7 @@ const NewComment: FC<Props> = ({ post, type }) => {
   })
   const onCompleted = () => {
     setPreview(false)
-    setCommentContent('')
+    setPersistedPublication('')
     setAttachments([])
     setSelectedModule(defaultModuleData)
     setFeeData(defaultFeeData)
@@ -222,7 +224,7 @@ const NewComment: FC<Props> = ({ post, type }) => {
 
   const createComment = async () => {
     if (!isAuthenticated) return toast.error(CONNECT_WALLET)
-    if (commentContent.length === 0 && attachments.length === 0) {
+    if (persistedPublication.length === 0 && attachments.length === 0) {
       return setCommentContentError('Comment should not be empty!')
     }
 
@@ -232,8 +234,8 @@ const NewComment: FC<Props> = ({ post, type }) => {
     const { path } = await uploadToIPFS({
       version: '1.0.0',
       metadata_id: uuid(),
-      description: trimify(commentContent),
-      content: trimify(commentContent),
+      description: trimify(persistedPublication),
+      content: trimify(persistedPublication),
       external_url: `https://lenster.xyz/u/${currentUser?.handle}`,
       image: attachments.length > 0 ? attachments[0]?.item : null,
       imageMimeType: attachments.length > 0 ? attachments[0]?.type : null,
@@ -299,12 +301,10 @@ const NewComment: FC<Props> = ({ post, type }) => {
           )}
           {preview ? (
             <div className="pb-3 mb-2 border-b linkify dark:border-b-gray-700/80">
-              <Markup>{commentContent}</Markup>
+              <Markup>{persistedPublication}</Markup>
             </div>
           ) : (
             <MentionTextArea
-              value={commentContent}
-              setValue={setCommentContent}
               error={commentContentError}
               setError={setCommentContentError}
               placeholder="Tell something cool!"
@@ -327,7 +327,7 @@ const NewComment: FC<Props> = ({ post, type }) => {
                 onlyFollowers={onlyFollowers}
                 setOnlyFollowers={setOnlyFollowers}
               />
-              {commentContent && (
+              {persistedPublication && (
                 <Preview preview={preview} setPreview={setPreview} />
               )}
             </div>
