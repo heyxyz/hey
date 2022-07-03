@@ -24,6 +24,8 @@ interface PersistState {
   setCurrentUser: (currentUser: Profile | null) => void
   staffMode: boolean
   setStaffMode: (staffMode: boolean) => void
+  persistedPublication: string | null
+  setPersistedPublication: (persistedPublication: string | null) => void
 }
 
 export const usePersistStore = create(
@@ -34,7 +36,10 @@ export const usePersistStore = create(
       currentUser: null,
       setCurrentUser: (currentUser) => set(() => ({ currentUser })),
       staffMode: false,
-      setStaffMode: (staffMode) => set(() => ({ staffMode }))
+      setStaffMode: (staffMode) => set(() => ({ staffMode })),
+      persistedPublication: null,
+      setPersistedPublication: (persistedPublication) =>
+        set(() => ({ persistedPublication }))
     }),
     { name: 'lenster.store' }
   )
