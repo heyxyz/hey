@@ -74,8 +74,8 @@ const Feed: FC<Props> = ({ feedType = 'TOP_COMMENTED' }) => {
   })
 
   const { observe } = useInView({
-    onEnter: () => {
-      fetchMore({
+    onEnter: async () => {
+      const { data } = await fetchMore({
         variables: {
           request: {
             sortCriteria: feedType,
@@ -86,14 +86,13 @@ const Feed: FC<Props> = ({ feedType = 'TOP_COMMENTED' }) => {
           reactionRequest: currentUser ? { profileId: currentUser?.id } : null,
           profileId: currentUser?.id ?? null
         }
-      }).then(({ data }: any) => {
-        setPageInfo(data?.explorePublications?.pageInfo)
-        setPublications([...publications, ...data?.explorePublications?.items])
-        Logger.log(
-          'Query =>',
-          `Fetched next 10 explore publications FeedType:${feedType} Next:${pageInfo?.next}`
-        )
       })
+      setPageInfo(data?.explorePublications?.pageInfo)
+      setPublications([...publications, ...data?.explorePublications?.items])
+      Logger.log(
+        'Query =>',
+        `Fetched next 10 explore publications FeedType:${feedType} Next:${pageInfo?.next}`
+      )
     }
   })
 

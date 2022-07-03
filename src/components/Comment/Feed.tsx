@@ -74,8 +74,8 @@ const Feed: FC<Props> = ({
   })
 
   const { observe } = useInView({
-    onEnter: () => {
-      fetchMore({
+    onEnter: async () => {
+      const { data } = await fetchMore({
         variables: {
           request: {
             commentsOf: pubId,
@@ -85,14 +85,13 @@ const Feed: FC<Props> = ({
           reactionRequest: currentUser ? { profileId: currentUser?.id } : null,
           profileId: currentUser?.id ?? null
         }
-      }).then(({ data }: any) => {
-        setPageInfo(data?.publications?.pageInfo)
-        setPublications([...publications, ...data?.publications?.items])
-        Logger.log(
-          'Query =>',
-          `Fetched next 10 comments of Publication:${pubId} Next:${pageInfo?.next}`
-        )
       })
+      setPageInfo(data?.publications?.pageInfo)
+      setPublications([...publications, ...data?.publications?.items])
+      Logger.log(
+        'Query =>',
+        `Fetched next 10 comments of Publication:${pubId} Next:${pageInfo?.next}`
+      )
     }
   })
 

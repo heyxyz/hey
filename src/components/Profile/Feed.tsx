@@ -73,8 +73,8 @@ const Feed: FC<Props> = ({ profile, type }) => {
   })
 
   const { observe } = useInView({
-    onEnter: () => {
-      fetchMore({
+    onEnter: async () => {
+      const { data } = await fetchMore({
         variables: {
           request: {
             publicationTypes: type,
@@ -85,14 +85,13 @@ const Feed: FC<Props> = ({ profile, type }) => {
           reactionRequest: currentUser ? { profileId: currentUser?.id } : null,
           profileId: currentUser?.id ?? null
         }
-      }).then(({ data }: any) => {
-        setPageInfo(data?.publications?.pageInfo)
-        setPublications([...publications, ...data?.publications?.items])
-        Logger.log(
-          'Query =>',
-          `Fetched next 10 profile publications Profile:${profile?.id} Next:${pageInfo?.next}`
-        )
       })
+      setPageInfo(data?.publications?.pageInfo)
+      setPublications([...publications, ...data?.publications?.items])
+      Logger.log(
+        'Query =>',
+        `Fetched next 10 profile publications Profile:${profile?.id} Next:${pageInfo?.next}`
+      )
     }
   })
 
