@@ -44,6 +44,7 @@
     "next": "^12.2.0",
     "next-pwa": "^5.5.4",
     "next-themes": "^0.2.0",
+    "next-transpile-modules": "^9.0.0",
     "omit-deep": "^0.3.0",
     "plyr-react": "^5.0.2",
     "react": "^18.2.0",
