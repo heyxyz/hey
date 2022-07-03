@@ -1,6 +1,6 @@
 {
   "search.exclude": {
-    "yarn.lock": true
+    "package-lock.json": true
   },
   "typescript.tsdk": "node_modules/typescript/lib",
   "editor.formatOnSave": true,
