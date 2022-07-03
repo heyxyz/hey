@@ -13,7 +13,7 @@ import React, { Dispatch, FC, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { COOKIE_CONFIG } from 'src/apollo'
 import { CHAIN_ID, ERROR_MESSAGE } from 'src/constants'
-import { useAppStore, usePersistStore } from 'src/store'
+import { useAppPersistStore, useAppStore } from 'src/store/app'
 import {
   Connector,
   useAccount,
@@ -46,7 +46,7 @@ interface Props {
 
 const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
   const { setProfiles } = useAppStore()
-  const { setIsAuthenticated, setCurrentUser } = usePersistStore()
+  const { setIsAuthenticated, setCurrentUser } = useAppPersistStore()
   const [mounted, setMounted] = useState(false)
   const { chain } = useNetwork()
   const { connectors, error, connectAsync } = useConnect()

@@ -2,7 +2,7 @@ import { gql, useQuery } from '@apollo/client'
 import { LightningBoltIcon } from '@heroicons/react/outline'
 import Link from 'next/link'
 import { FC, useEffect, useState } from 'react'
-import { usePersistStore } from 'src/store'
+import { useAppPersistStore } from 'src/store/app'
 
 const NOTIFICATION_COUNT_QUERY = gql`
   query NotificationCount($request: NotificationRequest!) {
@@ -15,7 +15,7 @@ const NOTIFICATION_COUNT_QUERY = gql`
 `
 
 const NotificationIcon: FC = () => {
-  const { currentUser } = usePersistStore()
+  const { currentUser } = useAppPersistStore()
   const [showBadge, setShowBadge] = useState<boolean>(false)
   const { data } = useQuery(NOTIFICATION_COUNT_QUERY, {
     variables: { request: { profileId: currentUser?.id } },

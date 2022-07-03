@@ -24,7 +24,7 @@ import Link from 'next/link'
 import { useTheme } from 'next-themes'
 import { FC, Fragment, useState } from 'react'
 import { GIT_COMMIT_SHA } from 'src/constants'
-import { useAppStore, usePersistStore } from 'src/store'
+import { useAppPersistStore, useAppStore } from 'src/store/app'
 import { useDisconnect } from 'wagmi'
 
 import Slug from '../Slug'
@@ -54,7 +54,7 @@ const MenuItems: FC<Props> = ({ pingData }) => {
     setCurrentUser,
     staffMode,
     setStaffMode
-  } = usePersistStore()
+  } = useAppPersistStore()
 
   const toggleStaffMode = () => {
     setStaffMode(!staffMode)
