@@ -12,30 +12,30 @@ stages:
 
 before_script:
   - node -v
-  - yarn -v
+  - npm -v
   - cp .env.example .env
-  - yarn install --frozen-lockfile --silent
+  - npm ci
 
 lint:
   stage: build
   script:
-    - yarn lint
+    - npm run lint
 
 prettier:
   stage: build
   script:
-    - yarn prettier:check
+    - npm run prettier:check
 
 codegen:
   stage: build
   script:
-    - yarn codegen
+    - npm run codegen
 
 typecheck:
   stage: build
   script:
-    - yarn codegen
-    - yarn typecheck
+    - npm run codegen
+    - npm run typecheck
 
 test:
   image: cypress/browsers:node16.13.2-chrome100-ff98
@@ -43,8 +43,8 @@ test:
   before_script: []
   allow_failure: true
   script:
-    - yarn install --frozen-lockfile --silent
-    - yarn cypress:e2e
+    - npm ci
+    - npm run cypress:e2e
 
 housekeeping:
   stage: clean
