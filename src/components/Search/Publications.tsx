@@ -70,8 +70,8 @@ const Publications: FC<Props> = ({ query }) => {
   )
 
   const { observe } = useInView({
-    onEnter: () => {
-      fetchMore({
+    onEnter: async () => {
+      const { data } = await fetchMore({
         variables: {
           request: {
             query,
@@ -82,14 +82,13 @@ const Publications: FC<Props> = ({ query }) => {
           reactionRequest: currentUser ? { profileId: currentUser?.id } : null,
           profileId: currentUser?.id ?? null
         }
-      }).then(({ data }: any) => {
-        setPageInfo(data?.search?.pageInfo)
-        setPublications([...publications, ...data?.search?.items])
-        Logger.log(
-          'Query =>',
-          `Fetched next 10 publications for search Keyword:${query} Next:${pageInfo?.next}`
-        )
       })
+      setPageInfo(data?.search?.pageInfo)
+      setPublications([...publications, ...data?.search?.items])
+      Logger.log(
+        'Query =>',
+        `Fetched next 10 publications for search Keyword:${query} Next:${pageInfo?.next}`
+      )
     }
   })
 

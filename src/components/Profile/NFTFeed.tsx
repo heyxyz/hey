@@ -58,8 +58,8 @@ const NFTFeed: FC<Props> = ({ profile }) => {
   })
 
   const { observe } = useInView({
-    onEnter: () => {
-      fetchMore({
+    onEnter: async () => {
+      const { data } = await fetchMore({
         variables: {
           request: {
             chainIds: [
@@ -71,14 +71,13 @@ const NFTFeed: FC<Props> = ({ profile }) => {
             limit: 10
           }
         }
-      }).then(({ data }: any) => {
-        setPageInfo(data?.nfts?.pageInfo)
-        setNfts([...nfts, ...data?.nfts?.items])
-        Logger.log(
-          'Query =>',
-          `Fetched next 10 nfts Profile:${profile?.id} Next:${pageInfo?.next}`
-        )
       })
+      setPageInfo(data?.nfts?.pageInfo)
+      setNfts([...nfts, ...data?.nfts?.items])
+      Logger.log(
+        'Query =>',
+        `Fetched next 10 nfts Profile:${profile?.id} Next:${pageInfo?.next}`
+      )
     }
   })
 

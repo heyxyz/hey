@@ -164,8 +164,8 @@ const List: FC = () => {
   })
 
   const { observe } = useInView({
-    onEnter: () => {
-      fetchMore({
+    onEnter: async () => {
+      const { data } = await fetchMore({
         variables: {
           request: {
             profileId: currentUser?.id,
@@ -173,14 +173,13 @@ const List: FC = () => {
             limit: 10
           }
         }
-      }).then(({ data }: any) => {
-        setPageInfo(data?.notifications?.pageInfo)
-        setNotifications([...notifications, ...data?.notifications?.items])
-        Logger.log(
-          'Query =>',
-          `Fetched next 10 notifications Next:${pageInfo?.next}`
-        )
       })
+      setPageInfo(data?.notifications?.pageInfo)
+      setNotifications([...notifications, ...data?.notifications?.items])
+      Logger.log(
+        'Query =>',
+        `Fetched next 10 notifications Next:${pageInfo?.next}`
+      )
     }
   })
 
