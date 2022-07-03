@@ -1,4 +1,4 @@
-import 'plyr-react/dist/plyr.css'
+import 'plyr-react/plyr.css'
 
 import Plyr from 'plyr-react'
 import React, { FC } from 'react'
