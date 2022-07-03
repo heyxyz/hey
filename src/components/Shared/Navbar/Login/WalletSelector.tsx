@@ -95,16 +95,19 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
 
   const handleSign = async () => {
     try {
+      // Get challenge
       const challenge = await loadChallenge({
         variables: { request: { address } }
       })
 
       if (!challenge?.data?.challenge?.text) return toast.error(ERROR_MESSAGE)
 
+      // Get signature
       const signature = await signMessageAsync({
         message: challenge?.data?.challenge?.text
       })
 
+      // Auth user and set cookies
       const auth = await authenticate({
         variables: { request: { address, signature } }
       })
@@ -119,6 +122,7 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
         COOKIE_CONFIG
       )
 
+      // Get authed profiles
       const { data: profilesData } = await getProfiles({
         variables: { ownedBy: address }
       })
