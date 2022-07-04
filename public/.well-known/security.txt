@@ -1,5 +1,3 @@
-# Security
-
 Contact: security@lenster.xyz
 Canonical: https://lenster.xyz/.well-known/security.txt
 
