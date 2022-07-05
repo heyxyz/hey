@@ -72,7 +72,7 @@
     "@types/react-dom": "^18.0.5",
     "@types/ua-parser-js": "^0.7.36",
     "@types/uuid": "^8.3.4",
-    "@typescript-eslint/eslint-plugin": "^5.30.4",
+    "@typescript-eslint/eslint-plugin": "^5.30.5",
     "autoprefixer": "^10.4.7",
     "cypress": "^10.3.0",
     "eslint": "^8.19.0",
