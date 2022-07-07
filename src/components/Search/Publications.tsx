@@ -13,7 +13,7 @@ import { CollectionIcon } from '@heroicons/react/outline'
 import Logger from '@lib/logger'
 import React, { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
-import { usePersistStore } from 'src/store'
+import { useAppPersistStore } from 'src/store/app'
 
 const SEARCH_PUBLICATIONS_QUERY = gql`
   query SearchPublications(
@@ -47,7 +47,7 @@ interface Props {
 }
 
 const Publications: FC<Props> = ({ query }) => {
-  const { currentUser } = usePersistStore()
+  const { currentUser } = useAppPersistStore()
   const [publications, setPublications] = useState<LensterPost[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
   const { data, loading, error, fetchMore } = useQuery(
@@ -70,8 +70,8 @@ const Publications: FC<Props> = ({ query }) => {
   )
 
   const { observe } = useInView({
-    onEnter: () => {
-      fetchMore({
+    onEnter: async () => {
+      const { data } = await fetchMore({
         variables: {
           request: {
             query,
@@ -82,14 +82,13 @@ const Publications: FC<Props> = ({ query }) => {
           reactionRequest: currentUser ? { profileId: currentUser?.id } : null,
           profileId: currentUser?.id ?? null
         }
-      }).then(({ data }: any) => {
-        setPageInfo(data?.search?.pageInfo)
-        setPublications([...publications, ...data?.search?.items])
-        Logger.log(
-          'Query =>',
-          `Fetched next 10 publications for search Keyword:${query} Next:${pageInfo?.next}`
-        )
       })
+      setPageInfo(data?.search?.pageInfo)
+      setPublications([...publications, ...data?.search?.items])
+      Logger.log(
+        'Query =>',
+        `Fetched next 10 publications for search Keyword:${query} Next:${pageInfo?.next}`
+      )
     }
   })
 

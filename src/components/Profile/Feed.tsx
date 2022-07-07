@@ -14,7 +14,7 @@ import { CollectionIcon } from '@heroicons/react/outline'
 import Logger from '@lib/logger'
 import React, { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
-import { usePersistStore } from 'src/store'
+import { useAppPersistStore } from 'src/store/app'
 
 const PROFILE_FEED_QUERY = gql`
   query ProfileFeed(
@@ -51,7 +51,7 @@ interface Props {
 }
 
 const Feed: FC<Props> = ({ profile, type }) => {
-  const { currentUser } = usePersistStore()
+  const { currentUser } = useAppPersistStore()
   const [publications, setPublications] = useState<LensterPost[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
   const { data, loading, error, fetchMore } = useQuery(PROFILE_FEED_QUERY, {
@@ -73,8 +73,8 @@ const Feed: FC<Props> = ({ profile, type }) => {
   })
 
   const { observe } = useInView({
-    onEnter: () => {
-      fetchMore({
+    onEnter: async () => {
+      const { data } = await fetchMore({
         variables: {
           request: {
             publicationTypes: type,
@@ -85,14 +85,13 @@ const Feed: FC<Props> = ({ profile, type }) => {
           reactionRequest: currentUser ? { profileId: currentUser?.id } : null,
           profileId: currentUser?.id ?? null
         }
-      }).then(({ data }: any) => {
-        setPageInfo(data?.publications?.pageInfo)
-        setPublications([...publications, ...data?.publications?.items])
-        Logger.log(
-          'Query =>',
-          `Fetched next 10 profile publications Profile:${profile?.id} Next:${pageInfo?.next}`
-        )
       })
+      setPageInfo(data?.publications?.pageInfo)
+      setPublications([...publications, ...data?.publications?.items])
+      Logger.log(
+        'Query =>',
+        `Fetched next 10 profile publications Profile:${profile?.id} Next:${pageInfo?.next}`
+      )
     }
   })
 

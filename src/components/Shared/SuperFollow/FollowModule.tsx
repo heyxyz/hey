@@ -28,7 +28,7 @@ import {
   POLYGONSCAN_URL,
   RELAY_ON
 } from 'src/constants'
-import { useAppStore, usePersistStore } from 'src/store'
+import { useAppPersistStore, useAppStore } from 'src/store/app'
 import {
   useAccount,
   useBalance,
@@ -109,7 +109,7 @@ const FollowModule: FC<Props> = ({
   again
 }) => {
   const { userSigNonce, setUserSigNonce } = useAppStore()
-  const { isAuthenticated, currentUser } = usePersistStore()
+  const { isAuthenticated, currentUser } = useAppPersistStore()
   const [allowed, setAllowed] = useState<boolean>(true)
   const { address } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({

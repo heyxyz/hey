@@ -35,7 +35,8 @@ import {
   LENSHUB_PROXY,
   RELAY_ON
 } from 'src/constants'
-import { useAppStore, usePersistStore } from 'src/store'
+import { useAppPersistStore, useAppStore } from 'src/store/app'
+import { usePublicationPersistStore } from 'src/store/publication'
 import { v4 as uuid } from 'uuid'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 
@@ -104,9 +105,10 @@ interface Props {
 
 const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
   const { userSigNonce, setUserSigNonce } = useAppStore()
-  const { isAuthenticated, currentUser } = usePersistStore()
+  const { isAuthenticated, currentUser } = useAppPersistStore()
+  const { persistedPublication, setPersistedPublication } =
+    usePublicationPersistStore()
   const [preview, setPreview] = useState<boolean>(false)
-  const [postContent, setPostContent] = useState<string>('')
   const [postContentError, setPostContentError] = useState<string>('')
   const [selectedModule, setSelectedModule] =
     useState<EnabledModule>(defaultModuleData)
@@ -122,7 +124,7 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
 
   const onCompleted = () => {
     setPreview(false)
-    setPostContent('')
+    setPersistedPublication('')
     setAttachments([])
     setSelectedModule(defaultModuleData)
     setFeeData(defaultFeeData)
@@ -213,7 +215,7 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
 
   const createPost = async () => {
     if (!isAuthenticated) return toast.error(CONNECT_WALLET)
-    if (postContent.length === 0 && attachments.length === 0) {
+    if (persistedPublication.length === 0 && attachments.length === 0) {
       return setPostContentError('Post should not be empty!')
     }
 
@@ -223,8 +225,8 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
     const { path } = await uploadToIPFS({
       version: '1.0.0',
       metadata_id: uuid(),
-      description: trimify(postContent),
-      content: trimify(postContent),
+      description: trimify(persistedPublication),
+      content: trimify(persistedPublication),
       external_url: `https://lenster.xyz/u/${currentUser?.handle}`,
       image: attachments.length > 0 ? attachments[0]?.item : null,
       imageMimeType: attachments.length > 0 ? attachments[0]?.type : null,
@@ -289,12 +291,10 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
           )}
           {preview ? (
             <div className="pb-3 mb-2 border-b linkify dark:border-b-gray-700/80">
-              <Markup>{postContent}</Markup>
+              <Markup>{persistedPublication}</Markup>
             </div>
           ) : (
             <MentionTextArea
-              value={postContent}
-              setValue={setPostContent}
               error={postContentError}
               setError={setPostContentError}
               placeholder="What's happening?"
@@ -317,7 +317,7 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
                 onlyFollowers={onlyFollowers}
                 setOnlyFollowers={setOnlyFollowers}
               />
-              {postContent && (
+              {persistedPublication && (
                 <Preview preview={preview} setPreview={setPreview} />
               )}
             </div>
