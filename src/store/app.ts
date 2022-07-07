@@ -17,7 +17,7 @@ export const useAppStore = create<AppState>((set, get) => ({
   setUserSigNonce: (userSigNonce) => set(() => ({ userSigNonce }))
 }))
 
-interface PersistState {
+interface AppPersistState {
   isAuthenticated: boolean
   setIsAuthenticated: (isAuthenticated: boolean) => void
   currentUser: Profile | null
@@ -26,8 +26,8 @@ interface PersistState {
   setStaffMode: (staffMode: boolean) => void
 }
 
-export const usePersistStore = create(
-  persist<PersistState>(
+export const useAppPersistStore = create(
+  persist<AppPersistState>(
     (set) => ({
       isAuthenticated: false,
       setIsAuthenticated: (isAuthenticated) => set(() => ({ isAuthenticated })),

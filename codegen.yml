@@ -1,8 +1,10 @@
 schema: https://api-mumbai.lens.dev
+
 hooks:
   afterOneFileWrite:
     - eslint --fix
     - prettier --write
+
 generates:
   src/generated/types.ts:
     plugins:

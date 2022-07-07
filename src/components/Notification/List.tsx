@@ -11,7 +11,7 @@ import { MailIcon } from '@heroicons/react/outline'
 import Logger from '@lib/logger'
 import { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
-import { usePersistStore } from 'src/store'
+import { useAppPersistStore } from 'src/store/app'
 
 import NotificationShimmer from './Shimmer'
 import CollectNotification from './Type/CollectNotification'
@@ -148,7 +148,7 @@ const NOTIFICATIONS_QUERY = gql`
 `
 
 const List: FC = () => {
-  const { currentUser } = usePersistStore()
+  const { currentUser } = useAppPersistStore()
   const [notifications, setNotifications] = useState<Notification[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
   const { data, loading, error, fetchMore } = useQuery(NOTIFICATIONS_QUERY, {
@@ -164,8 +164,8 @@ const List: FC = () => {
   })
 
   const { observe } = useInView({
-    onEnter: () => {
-      fetchMore({
+    onEnter: async () => {
+      const { data } = await fetchMore({
         variables: {
           request: {
             profileId: currentUser?.id,
@@ -173,14 +173,13 @@ const List: FC = () => {
             limit: 10
           }
         }
-      }).then(({ data }: any) => {
-        setPageInfo(data?.notifications?.pageInfo)
-        setNotifications([...notifications, ...data?.notifications?.items])
-        Logger.log(
-          'Query =>',
-          `Fetched next 10 notifications Next:${pageInfo?.next}`
-        )
       })
+      setPageInfo(data?.notifications?.pageInfo)
+      setNotifications([...notifications, ...data?.notifications?.items])
+      Logger.log(
+        'Query =>',
+        `Fetched next 10 notifications Next:${pageInfo?.next}`
+      )
     }
   })
 
