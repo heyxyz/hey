@@ -47,7 +47,7 @@ const SelectCollectModule: FC<Props> = ({
         title="Select collect module"
         icon={<CashIcon className="w-5 h-5 text-brand" />}
         show={showModal}
-        onClose={() => setShowModal(!showModal)}
+        onClose={() => setShowModal(false)}
       >
         <Modules
           feeData={feeData}

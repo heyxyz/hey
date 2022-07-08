@@ -39,24 +39,26 @@ const Collect: FC<Props> = ({ post }) => {
   }, [post])
 
   return (
-    <motion.button
-      whileTap={{ scale: 0.9 }}
-      onClick={() => setShowCollectModal(true)}
-      aria-label="Collect"
-      data-test="publication-collect"
-    >
-      <div className="flex items-center space-x-1 text-red-500 hover:red-brand-400">
-        <div className="p-1.5 rounded-full hover:bg-red-300 hover:bg-opacity-20">
-          <Tooltip
-            placement="top"
-            content={count > 0 ? `${humanize(count)} Collects` : 'Collect'}
-            withDelay
-          >
-            <CollectionIcon className="w-[18px]" />
-          </Tooltip>
+    <>
+      <motion.button
+        whileTap={{ scale: 0.9 }}
+        onClick={() => setShowCollectModal(true)}
+        aria-label="Collect"
+        data-test="publication-collect"
+      >
+        <div className="flex items-center space-x-1 text-red-500 hover:red-brand-400">
+          <div className="p-1.5 rounded-full hover:bg-red-300 hover:bg-opacity-20">
+            <Tooltip
+              placement="top"
+              content={count > 0 ? `${humanize(count)} Collects` : 'Collect'}
+              withDelay
+            >
+              <CollectionIcon className="w-[18px]" />
+            </Tooltip>
+          </div>
+          {count > 0 && <div className="text-xs">{nFormatter(count)}</div>}
         </div>
-        {count > 0 && <div className="text-xs">{nFormatter(count)}</div>}
-      </div>
+      </motion.button>
       <Modal
         title={
           isFreeCollect
@@ -74,11 +76,11 @@ const Collect: FC<Props> = ({ post }) => {
           </div>
         }
         show={showCollectModal}
-        onClose={() => setShowCollectModal(!showCollectModal)}
+        onClose={() => setShowCollectModal(false)}
       >
         <CollectModule post={post} count={count} setCount={setCount} />
       </Modal>
-    </motion.button>
+    </>
   )
 }
 

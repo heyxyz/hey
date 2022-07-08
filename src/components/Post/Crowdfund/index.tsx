@@ -158,7 +158,7 @@ const Crowdfund: FC<Props> = ({ fund }) => {
                     title="Funders"
                     icon={<CashIcon className="w-5 h-5 text-brand" />}
                     show={showFundersModal}
-                    onClose={() => setShowFundersModal(!showFundersModal)}
+                    onClose={() => setShowFundersModal(false)}
                   >
                     <Collectors pubId={fund?.pubId ?? fund?.id} />
                   </Modal>

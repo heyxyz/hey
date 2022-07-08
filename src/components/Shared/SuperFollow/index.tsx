@@ -52,7 +52,7 @@ const SuperFollow: FC<Props> = ({
         }
         icon={<StarIcon className="w-5 h-5 text-pink-500" />}
         show={showFollowModal}
-        onClose={() => setShowFollowModal(!showFollowModal)}
+        onClose={() => setShowFollowModal(false)}
       >
         <FollowModule
           profile={profile}
