@@ -31,6 +31,7 @@ import {
 } from '@heroicons/react/outline'
 import formatAddress from '@lib/formatAddress'
 import getTokenImage from '@lib/getTokenImage'
+import humanize from '@lib/humanize'
 import Logger from '@lib/logger'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
@@ -388,7 +389,7 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
                 type="button"
                 onClick={() => setShowCollectorsModal(!showCollectorsModal)}
               >
-                {count} collectors
+                {humanize(count)} collectors
               </button>
               <Modal
                 title="Collectors"
