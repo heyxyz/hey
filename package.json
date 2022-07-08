@@ -22,7 +22,7 @@
     "@apollo/client": "^3.6.9",
     "@giphy/js-fetch-api": "^4.3.1",
     "@giphy/react-components": "^5.11.0",
-    "@headlessui/react": "^1.6.5",
+    "@headlessui/react": "^1.6.6",
     "@heroicons/react": "^1.0.6",
     "@hookform/resolvers": "^2.9.4",
     "@sentry/nextjs": "^7.5.1",
