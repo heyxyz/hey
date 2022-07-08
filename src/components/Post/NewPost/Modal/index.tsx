@@ -23,7 +23,7 @@ const NewPostModal: FC = () => {
         icon={<PencilAltIcon className="w-5 h-5 text-brand" />}
         size="md"
         show={showModal}
-        onClose={() => setShowModal(!showModal)}
+        onClose={() => setShowModal(false)}
       >
         <NewPost setShowModal={setShowModal} hideCard />
       </Modal>

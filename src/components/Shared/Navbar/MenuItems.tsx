@@ -269,7 +269,7 @@ const MenuItems: FC<Props> = ({ pingData }) => {
         title="Login"
         icon={<ArrowCircleRightIcon className="w-5 h-5 text-brand" />}
         show={showLoginModal}
-        onClose={() => setShowLoginModal(!showLoginModal)}
+        onClose={() => setShowLoginModal(false)}
       >
         <Login />
       </Modal>

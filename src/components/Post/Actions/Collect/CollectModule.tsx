@@ -395,7 +395,7 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
                 title="Collectors"
                 icon={<CollectionIcon className="w-5 h-5 text-brand" />}
                 show={showCollectorsModal}
-                onClose={() => setShowCollectorsModal(!showCollectorsModal)}
+                onClose={() => setShowCollectorsModal(false)}
               >
                 <Collectors
                   pubId={

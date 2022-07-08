@@ -109,7 +109,7 @@ const AllowanceButton: FC<Props> = ({
         title="Warning"
         icon={<ExclamationIcon className="w-5 h-5 text-yellow-500" />}
         show={showWarningModal}
-        onClose={() => setShowWarninModal(!showWarningModal)}
+        onClose={() => setShowWarninModal(false)}
       >
         <div className="p-5 space-y-3">
           <WarningMessage
