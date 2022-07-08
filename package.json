@@ -1,6 +1,6 @@
 {
   "name": "lenster",
-  "version": "0.0.1",
+  "version": "1.0.2-beta",
   "private": true,
   "scripts": {
     "dev": "next dev --port 4783",
@@ -22,7 +22,7 @@
     "@apollo/client": "^3.6.9",
     "@giphy/js-fetch-api": "^4.3.1",
     "@giphy/react-components": "^5.11.0",
-    "@headlessui/react": "^1.6.5",
+    "@headlessui/react": "^1.6.6",
     "@heroicons/react": "^1.0.6",
     "@hookform/resolvers": "^2.9.4",
     "@sentry/nextjs": "^7.5.1",
@@ -41,7 +41,7 @@
     "ipfs-http-client": "^57.0.3",
     "js-cookie": "^3.0.1",
     "jwt-decode": "^3.1.2",
-    "next": "^12.2.0",
+    "next": "^12.2.1",
     "next-pwa": "^5.5.4",
     "next-themes": "^0.2.0",
     "next-transpile-modules": "^9.0.0",
@@ -76,7 +76,7 @@
     "autoprefixer": "^10.4.7",
     "cypress": "^10.3.0",
     "eslint": "^8.19.0",
-    "eslint-config-next": "^12.2.0",
+    "eslint-config-next": "^12.2.1",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "eslint-plugin-unused-imports": "^2.0.0",
@@ -85,7 +85,7 @@
     "postcss": "^8.4.14",
     "prettier": "^2.7.1",
     "start-server-and-test": "^1.14.0",
-    "tailwindcss": "^3.1.4",
+    "tailwindcss": "^3.1.5",
     "ts-node": "^10.8.2",
     "tsconfig-paths": "^4.0.0",
     "typescript": "^4.7.4"
