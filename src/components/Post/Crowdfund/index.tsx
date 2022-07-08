@@ -27,8 +27,10 @@ import Fund from './Fund'
 export const PUBLICATION_REVENUE_QUERY = gql`
   query PublicationRevenue($request: PublicationRevenueQueryRequest!) {
     publicationRevenue(request: $request) {
-      earnings {
-        value
+      revenue {
+        total {
+          value
+        }
       }
     }
   }

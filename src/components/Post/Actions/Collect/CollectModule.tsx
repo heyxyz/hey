@@ -31,6 +31,7 @@ import {
 } from '@heroicons/react/outline'
 import formatAddress from '@lib/formatAddress'
 import getTokenImage from '@lib/getTokenImage'
+import humanize from '@lib/humanize'
 import Logger from '@lib/logger'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
@@ -212,7 +213,7 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
 
   useEffect(() => {
     setRevenue(
-      parseFloat(revenueData?.publicationRevenue?.earnings?.value ?? 0)
+      parseFloat(revenueData?.publicationRevenue?.revenue?.total?.value ?? 0)
     )
   }, [revenueData])
 
@@ -388,7 +389,7 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
                 type="button"
                 onClick={() => setShowCollectorsModal(!showCollectorsModal)}
               >
-                {count} collectors
+                {humanize(count)} collectors
               </button>
               <Modal
                 title="Collectors"
