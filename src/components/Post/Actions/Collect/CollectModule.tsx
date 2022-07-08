@@ -213,7 +213,7 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
 
   useEffect(() => {
     setRevenue(
-      parseFloat(revenueData?.publicationRevenue?.earnings?.value ?? 0)
+      parseFloat(revenueData?.publicationRevenue?.revenue?.total?.value ?? 0)
     )
   }, [revenueData])
 
