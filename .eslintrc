@@ -15,6 +15,7 @@
     "prettier/prettier": "error",
     "react/prop-types": "off",
     "react/no-unescaped-entities": "off",
+    "react/jsx-no-useless-fragment": 2,
     "no-unused-vars": "warn",
     "unused-imports/no-unused-imports": "error",
     "@next/next/no-html-link-for-pages": "off",
