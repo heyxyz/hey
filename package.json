@@ -61,9 +61,9 @@
     "zustand": "^4.0.0-rc.1"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^2.7.0",
+    "@graphql-codegen/cli": "^2.8.0",
     "@graphql-codegen/fragment-matcher": "^3.3.0",
-    "@graphql-codegen/typescript": "^2.6.0",
+    "@graphql-codegen/typescript": "^2.7.1",
     "@tailwindcss/forms": "^0.5.2",
     "@tailwindcss/line-clamp": "^0.4.0",
     "@types/node": "^18.0.3",
