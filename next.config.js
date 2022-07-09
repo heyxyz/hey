@@ -11,7 +11,7 @@ module.exports = withTM(
   withSentryConfig(
     {
       reactStrictMode: process.env.NODE_ENV === 'production',
-      async redirects() {
+      async headers() {
         return [
           { source: '/about', headers },
           { source: '/privacy', headers },
