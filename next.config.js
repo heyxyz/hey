@@ -23,11 +23,13 @@ module.exports = withTM(
         return [
           {
             source: '/discord',
-            destination: 'https://discord.com/invite/B8eKhSSUwX'
+            destination: 'https://discord.com/invite/B8eKhSSUwX',
+            permanent: true
           },
           {
             source: '/donate',
-            destination: 'https://gitcoin.co/grants/5007/lenster'
+            destination: 'https://gitcoin.co/grants/5007/lenster',
+            permanent: true
           }
         ]
       },
