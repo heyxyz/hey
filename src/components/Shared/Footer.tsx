@@ -16,9 +16,6 @@ const Footer: FC = () => {
       <span className="font-bold text-gray-500 dark:text-gray-300">
         © {APP_NAME}
       </span>
-      <Link href="/about">
-        <a href="/about">About</a>
-      </Link>
       <Link href="/privacy">
         <a href="/privacy">Privacy</a>
       </Link>
