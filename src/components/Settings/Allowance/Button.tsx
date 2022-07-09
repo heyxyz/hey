@@ -132,7 +132,11 @@ const AllowanceButton: FC<Props> = ({
               )
             }
             onClick={() =>
-              handleAllowance(module.currency, '10000000000', module.module)
+              handleAllowance(
+                module.currency,
+                Number.MAX_SAFE_INTEGER.toString(),
+                module.module
+              )
             }
           >
             {title}
