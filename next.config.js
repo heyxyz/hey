@@ -10,7 +10,8 @@ const headers = [{ key: 'Cache-Control', value: 'public, max-age=3600' }]
 module.exports = withTM(
   withSentryConfig(
     {
-      reactStrictMode: process.env.NODE_ENV === 'production',
+      reactStrictMode: true,
+      trailingSlash: false,
       async rewrites() {
         return [
           {
