@@ -32,10 +32,5 @@ tsconfig.tsbuildinfo
 .env.test.local
 .env.production.local
 
-# PWA
-public/sw.js
-public/sw.js.map
-public/workbox-*
-
 # Sentry
 .sentryclirc

@@ -18,5 +18,10 @@ export const apps = [
     id: 'iris',
     name: 'iris',
     logo: 'iris.png'
+  },
+  {
+    id: 'teaparty',
+    name: 'TeaParty',
+    logo: 'teaparty.png'
   }
 ]
