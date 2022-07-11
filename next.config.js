@@ -43,7 +43,8 @@ module.exports = withTM(
               { key: 'X-Frame-Options', value: 'DENY' },
               { key: 'X-XSS-Protection', value: '1; mode=block' },
               { key: 'Referrer-Policy', value: 'strict-origin' },
-              { key: 'Permissions-Policy', value: 'interest-cohort=()' }
+              { key: 'Permissions-Policy', value: 'interest-cohort=()' },
+              { key: 'Server', value: 'Lenster.xyz' }
             ]
           },
           { source: '/about', headers },
