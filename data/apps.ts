@@ -23,5 +23,10 @@ export const apps = [
     id: 'teaparty',
     name: 'TeaParty',
     logo: 'teaparty.png'
+  },
+  {
+    id: 'lenstube',
+    name: 'Lenstube',
+    logo: 'lenstube.svg'
   }
 ]
