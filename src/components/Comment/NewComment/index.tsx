@@ -156,7 +156,7 @@ const NewComment: FC<Props> = ({ post, type }) => {
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
         }
-        Logger.error('Relay Error =>', error.message)
+        Logger.error('[Relay Error]', error.message)
       }
     })
   const [createCommentTypedData, { loading: typedDataLoading }] = useMutation(
