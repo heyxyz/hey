@@ -213,7 +213,7 @@ const NewComment: FC<Props> = ({ post, type }) => {
             write({ args: inputStruct })
           }
         } catch (error) {
-          Logger.warn('Sign Error =>', error)
+          Logger.warn('[Sign Error]', error)
         }
       },
       onError(error) {

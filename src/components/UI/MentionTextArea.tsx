@@ -59,7 +59,7 @@ export const MentionTextArea: FC<Props> = ({
   const [searchUsers] = useLazyQuery(SEARCH_USERS_QUERY, {
     onCompleted(data) {
       Logger.log(
-        'Lazy Query =>',
+        '[Lazy Query]',
         `Fetched ${data?.search?.items?.length} user mention result for ${persistedPublication}`
       )
     }
