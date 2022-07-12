@@ -43,10 +43,7 @@ const Following: FC<Props> = ({ profile }) => {
     onCompleted(data) {
       setPageInfo(data?.following?.pageInfo)
       setFollowing(data?.following?.items)
-      Logger.log(
-        'Query =>',
-        `Fetched first 10 following Profile:${profile?.id}`
-      )
+      Logger.log('[Query]', `Fetched first 10 following Profile:${profile?.id}`)
     }
   })
 
@@ -64,7 +61,7 @@ const Following: FC<Props> = ({ profile }) => {
       setPageInfo(data?.following?.pageInfo)
       setFollowing([...following, ...data?.following?.items])
       Logger.log(
-        'Query =>',
+        '[Query]',
         `Fetched next 10 following Profile:${profile?.id} Next:${pageInfo?.next}`
       )
     }

@@ -110,7 +110,7 @@ const Picture: FC<Props> = ({ profile }) => {
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
         }
-        Logger.error('Relay Error =>', error.message)
+        Logger.error('[Relay Error]', error.message)
       }
     })
   const [createSetProfileImageURITypedData, { loading: typedDataLoading }] =
@@ -120,7 +120,7 @@ const Picture: FC<Props> = ({ profile }) => {
       }: {
         createSetProfileImageURITypedData: CreateSetProfileImageUriBroadcastItemResult
       }) {
-        Logger.log('Mutation =>', 'Generated createSetProfileImageURITypedData')
+        Logger.log('[Mutation]', 'Generated createSetProfileImageURITypedData')
         const { id, typedData } = createSetProfileImageURITypedData
         const { deadline } = typedData?.value
 
@@ -149,7 +149,7 @@ const Picture: FC<Props> = ({ profile }) => {
             write({ args: inputStruct })
           }
         } catch (error) {
-          Logger.warn('Sign Error =>', error)
+          Logger.warn('[Sign Error]', error)
         }
       },
       onError(error) {

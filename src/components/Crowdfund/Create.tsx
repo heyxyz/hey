@@ -88,7 +88,7 @@ const Create: NextPage = () => {
   })
   const { data: currencyData, loading } = useQuery(MODULES_CURRENCY_QUERY, {
     onCompleted() {
-      Logger.log('Query =>', `Fetched enabled module currencies`)
+      Logger.log('[Query]', `Fetched enabled module currencies`)
     }
   })
 
@@ -132,7 +132,7 @@ const Create: NextPage = () => {
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
         }
-        Logger.error('Relay Error =>', error.message)
+        Logger.error('[Relay Error]', error.message)
       }
     })
   const [createPostTypedData, { loading: typedDataLoading }] = useMutation(
@@ -143,7 +143,7 @@ const Create: NextPage = () => {
       }: {
         createPostTypedData: CreatePostBroadcastItemResult
       }) {
-        Logger.log('Mutation =>', 'Generated createPostTypedData')
+        Logger.log('[Mutation]', 'Generated createPostTypedData')
         const { id, typedData } = createPostTypedData
         const {
           profileId,
@@ -183,7 +183,7 @@ const Create: NextPage = () => {
             write({ args: inputStruct })
           }
         } catch (error) {
-          Logger.warn('Sign Error =>', error)
+          Logger.warn('[Sign Error]', error)
         }
       },
       onError(error) {
