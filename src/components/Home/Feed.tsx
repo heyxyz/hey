@@ -60,7 +60,7 @@ const Feed: FC = () => {
     onCompleted(data) {
       setPageInfo(data?.timeline?.pageInfo)
       setPublications(data?.timeline?.items)
-      Logger.log('Query =>', `Fetched first 10 timeline publications`)
+      Logger.log('[Query]', `Fetched first 10 timeline publications`)
     }
   })
 
@@ -80,7 +80,7 @@ const Feed: FC = () => {
       setPageInfo(data?.timeline?.pageInfo)
       setPublications([...publications, ...data?.timeline?.items])
       Logger.log(
-        'Query =>',
+        '[Query]',
         `Fetched next 10 timeline publications Next:${pageInfo?.next}`
       )
     }

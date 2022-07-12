@@ -103,7 +103,7 @@ const SuperFollow: FC = () => {
     variables: { request: { profileId: currentUser?.id } },
     skip: !currentUser?.id,
     onCompleted() {
-      Logger.log('Query =>', `Fetched enabled module currencies`)
+      Logger.log('[Query]', `Fetched enabled module currencies`)
     }
   })
 
@@ -143,7 +143,7 @@ const SuperFollow: FC = () => {
       }: {
         createSetFollowModuleTypedData: CreateSetFollowModuleBroadcastItemResult
       }) {
-        Logger.log('Mutation =>', 'Generated createSetFollowModuleTypedData')
+        Logger.log('[Mutation]', 'Generated createSetFollowModuleTypedData')
         const { id, typedData } = createSetFollowModuleTypedData
         const { profileId, followModule, followModuleInitData, deadline } =
           typedData?.value

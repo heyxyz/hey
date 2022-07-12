@@ -66,7 +66,7 @@ const Feed: FC<Props> = ({ profile, type }) => {
       setPageInfo(data?.publications?.pageInfo)
       setPublications(data?.publications?.items)
       Logger.log(
-        'Query =>',
+        '[Query]',
         `Fetched first 10 profile publications Profile:${profile?.id}`
       )
     }
@@ -89,7 +89,7 @@ const Feed: FC<Props> = ({ profile, type }) => {
       setPageInfo(data?.publications?.pageInfo)
       setPublications([...publications, ...data?.publications?.items])
       Logger.log(
-        'Query =>',
+        '[Query]',
         `Fetched next 10 profile publications Profile:${profile?.id} Next:${pageInfo?.next}`
       )
     }

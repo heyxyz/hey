@@ -38,7 +38,7 @@ const ViewCommunity: NextPage = () => {
     variables: { request: { publicationId: id } },
     skip: !id,
     onCompleted() {
-      Logger.log('Query =>', `Fetched community details Community:${id}`)
+      Logger.log('[Query]', `Fetched community details Community:${id}`)
     }
   })
 

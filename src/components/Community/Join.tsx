@@ -107,7 +107,7 @@ const Join: FC<Props> = ({ community, setJoined, showJoin = true }) => {
       }: {
         createCollectTypedData: CreateCollectBroadcastItemResult
       }) {
-        Logger.log('Mutation =>', 'Generated createCollectTypedData')
+        Logger.log('[Mutation]', 'Generated createCollectTypedData')
         const { id, typedData } = createCollectTypedData
         const { deadline } = typedData?.value
 

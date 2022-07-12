@@ -63,7 +63,7 @@ const SiteLayout: FC<Props> = ({ children }) => {
       }
 
       Logger.log(
-        'Query =>',
+        '[Query]',
         `Fetched ${data?.profiles?.items?.length} owned profiles`
       )
     }

@@ -60,7 +60,7 @@ const AllowanceSettings: NextPage = () => {
     },
     skip: !currentUser?.id,
     onCompleted() {
-      Logger.log('Query =>', `Fetched allowance settings`)
+      Logger.log('[Query]', `Fetched allowance settings`)
     }
   })
 

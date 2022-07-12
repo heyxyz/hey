@@ -88,7 +88,7 @@ const Create: NextPage = () => {
   })
   const { data: currencyData, loading } = useQuery(MODULES_CURRENCY_QUERY, {
     onCompleted() {
-      Logger.log('Query =>', `Fetched enabled module currencies`)
+      Logger.log('[Query]', `Fetched enabled module currencies`)
     }
   })
 
@@ -143,7 +143,7 @@ const Create: NextPage = () => {
       }: {
         createPostTypedData: CreatePostBroadcastItemResult
       }) {
-        Logger.log('Mutation =>', 'Generated createPostTypedData')
+        Logger.log('[Mutation]', 'Generated createPostTypedData')
         const { id, typedData } = createPostTypedData
         const {
           profileId,

@@ -113,7 +113,7 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
       skip: !collectModule?.amount?.asset?.address || !currentUser,
       onCompleted(data) {
         setAllowed(data?.approvedModuleAllowanceAmount[0]?.allowance !== '0x00')
-        Logger.log('Query =>', `Fetched allowance data`)
+        Logger.log('[Query]', `Fetched allowance data`)
       }
     }
   )
@@ -157,7 +157,7 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
       }: {
         createCollectTypedData: CreateCollectBroadcastItemResult
       }) {
-        Logger.log('Mutation =>', 'Generated createCollectTypedData')
+        Logger.log('[Mutation]', 'Generated createCollectTypedData')
         const { id, typedData } = createCollectTypedData
         const { deadline } = typedData?.value
 

@@ -62,7 +62,7 @@ const Publications: FC<Props> = ({ query }) => {
         setPageInfo(data?.search?.pageInfo)
         setPublications(data?.search?.items)
         Logger.log(
-          'Query =>',
+          '[Query]',
           `Fetched first 10 publication for search Keyword:${query}`
         )
       }
@@ -86,7 +86,7 @@ const Publications: FC<Props> = ({ query }) => {
       setPageInfo(data?.search?.pageInfo)
       setPublications([...publications, ...data?.search?.items])
       Logger.log(
-        'Query =>',
+        '[Query]',
         `Fetched next 10 publications for search Keyword:${query} Next:${pageInfo?.next}`
       )
     }

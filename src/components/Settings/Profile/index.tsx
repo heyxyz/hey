@@ -59,7 +59,7 @@ const ProfileSettings: NextPage = () => {
     variables: { request: { profileId: currentUser?.id } },
     skip: !currentUser?.id,
     onCompleted(data) {
-      Logger.log('Query =>', `Fetched profile settings`)
+      Logger.log('[Query]', `Fetched profile settings`)
       setSettingsType(data?.profile?.picture?.uri ? 'NFT' : 'AVATAR')
     }
   })

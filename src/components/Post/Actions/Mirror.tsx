@@ -128,7 +128,7 @@ const Mirror: FC<Props> = ({ post }) => {
       }: {
         createMirrorTypedData: CreateMirrorBroadcastItemResult
       }) {
-        Logger.log('Mutation =>', 'Generated createMirrorTypedData')
+        Logger.log('[Mutation]', 'Generated createMirrorTypedData')
         const { id, typedData } = createMirrorTypedData
         const {
           profileId,
