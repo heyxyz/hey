@@ -58,7 +58,7 @@ const Report: FC = () => {
     skip: !id,
     onCompleted() {
       Logger.log(
-        'Query =>',
+        '[Query]',
         `Fetched publication details to report Publication:${id}`
       )
     }

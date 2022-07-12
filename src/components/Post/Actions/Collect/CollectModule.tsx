@@ -159,7 +159,7 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
     variables: { request: { publicationId: post?.pubId ?? post?.id } },
     onCompleted() {
       Logger.log(
-        'Query =>',
+        '[Query]',
         `Fetched collect module details Publication:${post?.pubId ?? post?.id}`
       )
     }
@@ -183,7 +183,7 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
       skip: !collectModule?.amount?.asset?.address || !currentUser,
       onCompleted(data) {
         setAllowed(data?.approvedModuleAllowanceAmount[0]?.allowance !== '0x00')
-        Logger.log('Query =>', `Fetched allowance data`)
+        Logger.log('[Query]', `Fetched allowance data`)
       }
     }
   )
@@ -202,7 +202,7 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
       skip: !post?.id,
       onCompleted() {
         Logger.log(
-          'Query =>',
+          '[Query]',
           `Fetched collect revenue details Publication:${
             post?.pubId ?? post?.id
           }`
@@ -242,7 +242,7 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
         }
-        Logger.error('Relay Error =>', error.message)
+        Logger.error('[Relay Error]', error.message)
       }
     })
   const [createCollectTypedData, { loading: typedDataLoading }] = useMutation(
@@ -253,7 +253,7 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
       }: {
         createCollectTypedData: CreateCollectBroadcastItemResult
       }) {
-        Logger.log('Mutation =>', 'Generated createCollectTypedData')
+        Logger.log('[Mutation]', 'Generated createCollectTypedData')
         const { id, typedData } = createCollectTypedData
         const { deadline } = typedData?.value
 
@@ -284,7 +284,7 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
             write({ args: inputStruct })
           }
         } catch (error) {
-          Logger.warn('Sign Error =>', error)
+          Logger.warn('[Sign Error]', error)
         }
       },
       onError(error) {

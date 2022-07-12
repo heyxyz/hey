@@ -66,10 +66,7 @@ const Feed: FC<Props> = ({
     onCompleted(data) {
       setPageInfo(data?.publications?.pageInfo)
       setPublications(data?.publications?.items)
-      Logger.log(
-        'Query =>',
-        `Fetched first 10 comments of Publication:${pubId}`
-      )
+      Logger.log('[Query]', `Fetched first 10 comments of Publication:${pubId}`)
     }
   })
 
@@ -89,7 +86,7 @@ const Feed: FC<Props> = ({
       setPageInfo(data?.publications?.pageInfo)
       setPublications([...publications, ...data?.publications?.items])
       Logger.log(
-        'Query =>',
+        '[Query]',
         `Fetched next 10 comments of Publication:${pubId} Next:${pageInfo?.next}`
       )
     }

@@ -156,7 +156,7 @@ const NewComment: FC<Props> = ({ post, type }) => {
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
         }
-        Logger.error('Relay Error =>', error.message)
+        Logger.error('[Relay Error]', error.message)
       }
     })
   const [createCommentTypedData, { loading: typedDataLoading }] = useMutation(
@@ -167,7 +167,7 @@ const NewComment: FC<Props> = ({ post, type }) => {
       }: {
         createCommentTypedData: CreateCommentBroadcastItemResult
       }) {
-        Logger.log('Mutation =>', 'Generated createCommentTypedData')
+        Logger.log('[Mutation]', 'Generated createCommentTypedData')
         const { id, typedData } = createCommentTypedData
         const {
           profileId,
@@ -213,7 +213,7 @@ const NewComment: FC<Props> = ({ post, type }) => {
             write({ args: inputStruct })
           }
         } catch (error) {
-          Logger.warn('Sign Error =>', error)
+          Logger.warn('[Sign Error]', error)
         }
       },
       onError(error) {

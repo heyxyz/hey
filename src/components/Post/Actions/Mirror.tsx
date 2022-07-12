@@ -116,7 +116,7 @@ const Mirror: FC<Props> = ({ post }) => {
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
         }
-        Logger.error('Relay Error =>', error.message)
+        Logger.error('[Relay Error]', error.message)
       }
     }
   )
@@ -128,7 +128,7 @@ const Mirror: FC<Props> = ({ post }) => {
       }: {
         createMirrorTypedData: CreateMirrorBroadcastItemResult
       }) {
-        Logger.log('Mutation =>', 'Generated createMirrorTypedData')
+        Logger.log('[Mutation]', 'Generated createMirrorTypedData')
         const { id, typedData } = createMirrorTypedData
         const {
           profileId,
@@ -168,7 +168,7 @@ const Mirror: FC<Props> = ({ post }) => {
             write({ args: inputStruct })
           }
         } catch (error) {
-          Logger.warn('Sign Error =>', error)
+          Logger.warn('[Sign Error]', error)
         }
       },
       onError(error) {

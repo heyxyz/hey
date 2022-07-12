@@ -47,10 +47,7 @@ const Followers: FC<Props> = ({ profile }) => {
     onCompleted(data) {
       setPageInfo(data?.followers?.pageInfo)
       setFollowers(data?.followers?.items)
-      Logger.log(
-        'Query =>',
-        `Fetched first 10 followers Profile:${profile?.id}`
-      )
+      Logger.log('[Query]', `Fetched first 10 followers Profile:${profile?.id}`)
     }
   })
 
@@ -68,7 +65,7 @@ const Followers: FC<Props> = ({ profile }) => {
       setPageInfo(data?.followers?.pageInfo)
       setFollowers([...followers, ...data?.followers?.items])
       Logger.log(
-        'Query =>',
+        '[Query]',
         `Fetched next 10 followers Profile:${profile?.id} Next:${pageInfo?.next}`
       )
     }

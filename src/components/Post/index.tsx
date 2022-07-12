@@ -87,7 +87,7 @@ const ViewPost: NextPage = () => {
     },
     skip: !id,
     onCompleted() {
-      Logger.log('Query =>', `Fetched publication details Publication:${id}`)
+      Logger.log('[Query]', `Fetched publication details Publication:${id}`)
     }
   })
 

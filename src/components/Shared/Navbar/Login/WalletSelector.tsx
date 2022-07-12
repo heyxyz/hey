@@ -63,7 +63,7 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
     fetchPolicy: 'no-cache',
     onCompleted(data) {
       Logger.log(
-        'Lazy Query =>',
+        '[Lazy Query]',
         `Fetched auth challenege - ${data?.challenge?.text}`
       )
     }
@@ -74,7 +74,7 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
     useLazyQuery(CURRENT_USER_QUERY, {
       onCompleted(data) {
         Logger.log(
-          'Lazy Query =>',
+          '[Lazy Query]',
           `Fetched ${data?.profiles?.items?.length} user profiles for auth`
         )
       }
@@ -89,7 +89,7 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
         setHasConnected(true)
       }
     } catch (error) {
-      Logger.warn('Sign Error =>', error)
+      Logger.warn('[Sign Error]', error)
     }
   }
 

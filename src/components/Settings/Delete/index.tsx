@@ -97,7 +97,7 @@ const DeleteSettings: FC = () => {
       }: {
         createBurnProfileTypedData: CreateBurnProfileBroadcastItemResult
       }) {
-        Logger.log('Mutation =>', 'Generated createBurnProfileTypedData')
+        Logger.log('[Mutation]', 'Generated createBurnProfileTypedData')
         const { typedData } = createBurnProfileTypedData
         const { deadline } = typedData?.value
 
@@ -114,7 +114,7 @@ const DeleteSettings: FC = () => {
 
           write({ args: [tokenId, sig] })
         } catch (error) {
-          Logger.warn('Sign Error =>', error)
+          Logger.warn('[Sign Error]', error)
         }
       },
       onError(error) {

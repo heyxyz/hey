@@ -159,7 +159,7 @@ const List: FC = () => {
     onCompleted(data) {
       setPageInfo(data?.notifications?.pageInfo)
       setNotifications(data?.notifications?.items)
-      Logger.log('Query =>', `Fetched first 10 notifications`)
+      Logger.log('[Query]', `Fetched first 10 notifications`)
     }
   })
 
@@ -177,7 +177,7 @@ const List: FC = () => {
       setPageInfo(data?.notifications?.pageInfo)
       setNotifications([...notifications, ...data?.notifications?.items])
       Logger.log(
-        'Query =>',
+        '[Query]',
         `Fetched next 10 notifications Next:${pageInfo?.next}`
       )
     }
