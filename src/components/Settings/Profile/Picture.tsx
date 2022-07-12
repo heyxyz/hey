@@ -120,7 +120,7 @@ const Picture: FC<Props> = ({ profile }) => {
       }: {
         createSetProfileImageURITypedData: CreateSetProfileImageUriBroadcastItemResult
       }) {
-        Logger.log('Mutation =>', 'Generated createSetProfileImageURITypedData')
+        Logger.log('[Mutation]', 'Generated createSetProfileImageURITypedData')
         const { id, typedData } = createSetProfileImageURITypedData
         const { deadline } = typedData?.value
 

@@ -116,7 +116,7 @@ const SetProfile: FC = () => {
       }: {
         createSetDefaultProfileTypedData: SetDefaultProfileBroadcastItemResult
       }) {
-        Logger.log('Mutation =>', 'Generated createSetDefaultProfileTypedData')
+        Logger.log('[Mutation]', 'Generated createSetDefaultProfileTypedData')
         const { id, typedData } = createSetDefaultProfileTypedData
         const { deadline } = typedData?.value
 

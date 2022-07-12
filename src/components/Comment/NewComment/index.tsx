@@ -167,7 +167,7 @@ const NewComment: FC<Props> = ({ post, type }) => {
       }: {
         createCommentTypedData: CreateCommentBroadcastItemResult
       }) {
-        Logger.log('Mutation =>', 'Generated createCommentTypedData')
+        Logger.log('[Mutation]', 'Generated createCommentTypedData')
         const { id, typedData } = createCommentTypedData
         const {
           profileId,

@@ -164,7 +164,7 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
       }: {
         createPostTypedData: CreatePostBroadcastItemResult
       }) {
-        Logger.log('Mutation =>', 'Generated createPostTypedData')
+        Logger.log('[Mutation]', 'Generated createPostTypedData')
         const { id, typedData } = createPostTypedData
         const {
           profileId,

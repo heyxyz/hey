@@ -97,7 +97,7 @@ const DeleteSettings: FC = () => {
       }: {
         createBurnProfileTypedData: CreateBurnProfileBroadcastItemResult
       }) {
-        Logger.log('Mutation =>', 'Generated createBurnProfileTypedData')
+        Logger.log('[Mutation]', 'Generated createBurnProfileTypedData')
         const { typedData } = createBurnProfileTypedData
         const { deadline } = typedData?.value
 
