@@ -179,7 +179,7 @@ const NFTPicture: FC<Props> = ({ profile }) => {
             write({ args: inputStruct })
           }
         } catch (error) {
-          Logger.warn('Sign Error =>', error)
+          Logger.warn('[Sign Error]', error)
         }
       },
       onError(error) {
