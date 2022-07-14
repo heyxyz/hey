@@ -12,7 +12,7 @@ tasks:
   - command: |
       clear
       echo "Waiting for server to start 🕒"
-      gp await-port 4783
+      gp ports await 4783
       scripts/gp-welcome.sh
 
 ports:
