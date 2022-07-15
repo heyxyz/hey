@@ -122,7 +122,11 @@ const Feed: FC<Props> = ({
             testId="comment-feed"
           >
             {publications?.map((post: LensterPost, index: number) => (
-              <SinglePost key={`${pubId}_${index}`} post={post} hideType />
+              <SinglePost
+                key={`${pubId}_${index}`}
+                post={post}
+                showType={false}
+              />
             ))}
           </Card>
           {pageInfo?.next && publications.length !== pageInfo?.totalCount && (
