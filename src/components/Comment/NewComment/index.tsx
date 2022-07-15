@@ -29,7 +29,7 @@ import splitSignature from '@lib/splitSignature'
 import trimify from '@lib/trimify'
 import uploadToIPFS from '@lib/uploadToIPFS'
 import dynamic from 'next/dynamic'
-import { FC, useState } from 'react'
+import { Dispatch, FC, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
   APP_NAME,
@@ -103,11 +103,18 @@ const CREATE_COMMENT_TYPED_DATA_MUTATION = gql`
 `
 
 interface Props {
+  setShowModal?: Dispatch<boolean>
+  hideCard?: boolean
   post: LensterPost
   type: 'comment' | 'community post'
 }
 
-const NewComment: FC<Props> = ({ post, type }) => {
+const NewComment: FC<Props> = ({
+  setShowModal,
+  hideCard = false,
+  post,
+  type
+}) => {
   const { userSigNonce, setUserSigNonce } = useAppStore()
   const { isAuthenticated, currentUser } = useAppPersistStore()
   const { persistedPublication, setPersistedPublication } =
@@ -289,7 +296,7 @@ const NewComment: FC<Props> = ({ post, type }) => {
   }
 
   return (
-    <Card>
+    <Card className={hideCard ? 'border-0 !shadow-none !bg-transparent' : ''}>
       <div className="px-5 pt-5 pb-3">
         <div className="space-y-1">
           {error && (
@@ -334,6 +341,7 @@ const NewComment: FC<Props> = ({ post, type }) => {
             <div className="flex items-center pt-2 ml-auto space-x-2 sm:pt-0">
               {data?.hash ?? broadcastData?.broadcast?.txHash ? (
                 <PubIndexStatus
+                  setShowModal={setShowModal}
                   type={type === 'comment' ? 'Comment' : 'Post'}
                   txHash={
                     data?.hash ? data?.hash : broadcastData?.broadcast?.txHash
