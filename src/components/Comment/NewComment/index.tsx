@@ -40,7 +40,6 @@ import {
   RELAY_ON
 } from 'src/constants'
 import { useAppPersistStore, useAppStore } from 'src/store/app'
-import { usePublicationPersistStore } from 'src/store/publication'
 import { v4 as uuid } from 'uuid'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 
@@ -117,8 +116,7 @@ const NewComment: FC<Props> = ({
 }) => {
   const { userSigNonce, setUserSigNonce } = useAppStore()
   const { isAuthenticated, currentUser } = useAppPersistStore()
-  const { persistedPublication, setPersistedPublication } =
-    usePublicationPersistStore()
+  const [commentContent, setCommentContent] = useState<string>('')
   const [preview, setPreview] = useState<boolean>(false)
   const [commentContentError, setCommentContentError] = useState<string>('')
   const [selectedModule, setSelectedModule] =
@@ -134,7 +132,7 @@ const NewComment: FC<Props> = ({
   })
   const onCompleted = () => {
     setPreview(false)
-    setPersistedPublication('')
+    setCommentContent('')
     setAttachments([])
     setSelectedModule(defaultModuleData)
     setFeeData(defaultFeeData)
@@ -231,7 +229,7 @@ const NewComment: FC<Props> = ({
 
   const createComment = async () => {
     if (!isAuthenticated) return toast.error(CONNECT_WALLET)
-    if (persistedPublication.length === 0 && attachments.length === 0) {
+    if (commentContent.length === 0 && attachments.length === 0) {
       return setCommentContentError('Comment should not be empty!')
     }
 
@@ -241,8 +239,8 @@ const NewComment: FC<Props> = ({
     const { path } = await uploadToIPFS({
       version: '1.0.0',
       metadata_id: uuid(),
-      description: trimify(persistedPublication),
-      content: trimify(persistedPublication),
+      description: trimify(commentContent),
+      content: trimify(commentContent),
       external_url: `https://lenster.xyz/u/${currentUser?.handle}`,
       image: attachments.length > 0 ? attachments[0]?.item : null,
       imageMimeType: attachments.length > 0 ? attachments[0]?.type : null,
@@ -308,10 +306,12 @@ const NewComment: FC<Props> = ({
           )}
           {preview ? (
             <div className="pb-3 mb-2 border-b linkify dark:border-b-gray-700/80">
-              <Markup>{persistedPublication}</Markup>
+              <Markup>{commentContent}</Markup>
             </div>
           ) : (
             <MentionTextArea
+              publication={commentContent}
+              setPublication={setCommentContent}
               error={commentContentError}
               setError={setCommentContentError}
               placeholder="Tell something cool!"
@@ -334,7 +334,7 @@ const NewComment: FC<Props> = ({
                 onlyFollowers={onlyFollowers}
                 setOnlyFollowers={setOnlyFollowers}
               />
-              {persistedPublication && (
+              {commentContent && (
                 <Preview preview={preview} setPreview={setPreview} />
               )}
             </div>
