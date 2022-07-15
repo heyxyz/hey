@@ -1,3 +1,4 @@
+import NewComment from '@components/Comment/NewComment'
 import SinglePost from '@components/Post/SinglePost'
 import { Card } from '@components/UI/Card'
 import { Modal } from '@components/UI/Modal'
@@ -31,11 +32,24 @@ const NewPostModal: FC = () => {
         onClose={() => setShowNewPostModal(false)}
       >
         {parentPub ? (
-          <Card className="mx-5 mt-5">
-            <SinglePost post={parentPub} showType={false} showActions={false} />
-          </Card>
-        ) : null}
-        <NewPost setShowModal={setShowNewPostModal} hideCard />
+          <>
+            <Card className="mx-5 mt-5">
+              <SinglePost
+                post={parentPub}
+                showType={false}
+                showActions={false}
+              />
+            </Card>
+            <NewComment
+              setShowModal={setShowNewPostModal}
+              hideCard
+              post={parentPub}
+              type="comment"
+            />
+          </>
+        ) : (
+          <NewPost setShowModal={setShowNewPostModal} hideCard />
+        )}
       </Modal>
     </>
   )
