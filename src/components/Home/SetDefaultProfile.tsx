@@ -6,7 +6,7 @@ import { useAppStore } from 'src/store/app'
 
 const SetDefaultProfile: FC = () => {
   const { profiles } = useAppStore()
-  const hasDefaultProfile = !!profiles.find((o) => o.isDefault)
+  const hasDefaultProfile = !!profiles.find((o) => o.isDefault) ?? true
   const count = profiles.length
 
   if (hasDefaultProfile) return null
