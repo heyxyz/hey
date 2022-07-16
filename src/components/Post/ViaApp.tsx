@@ -19,7 +19,7 @@ const ViaApp: FC<Props> = ({ appConfig }) => {
     >
       <img
         src={`${STATIC_ASSETS}/apps/${appConfig.logo}`}
-        className="w-5 h-5 rounded-full"
+        className="w-5 h-5"
         height={20}
         width={20}
         alt={appConfig.name}

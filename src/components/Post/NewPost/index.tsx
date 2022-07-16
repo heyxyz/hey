@@ -36,7 +36,6 @@ import {
   RELAY_ON
 } from 'src/constants'
 import { useAppPersistStore, useAppStore } from 'src/store/app'
-import { usePublicationPersistStore } from 'src/store/publication'
 import { v4 as uuid } from 'uuid'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 
@@ -106,8 +105,7 @@ interface Props {
 const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
   const { userSigNonce, setUserSigNonce } = useAppStore()
   const { isAuthenticated, currentUser } = useAppPersistStore()
-  const { persistedPublication, setPersistedPublication } =
-    usePublicationPersistStore()
+  const [postContent, setPostContent] = useState<string>('')
   const [preview, setPreview] = useState<boolean>(false)
   const [postContentError, setPostContentError] = useState<string>('')
   const [selectedModule, setSelectedModule] =
@@ -124,7 +122,7 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
 
   const onCompleted = () => {
     setPreview(false)
-    setPersistedPublication('')
+    setPostContent('')
     setAttachments([])
     setSelectedModule(defaultModuleData)
     setFeeData(defaultFeeData)
@@ -153,7 +151,7 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
         }
-        Logger.error('Relay Error =>', error.message)
+        Logger.error('[Relay Error]', error.message)
       }
     })
   const [createPostTypedData, { loading: typedDataLoading }] = useMutation(
@@ -164,7 +162,7 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
       }: {
         createPostTypedData: CreatePostBroadcastItemResult
       }) {
-        Logger.log('Mutation =>', 'Generated createPostTypedData')
+        Logger.log('[Mutation]', 'Generated createPostTypedData')
         const { id, typedData } = createPostTypedData
         const {
           profileId,
@@ -204,7 +202,7 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
             write({ args: inputStruct })
           }
         } catch (error) {
-          Logger.warn('Sign Error =>', error)
+          Logger.warn('[Sign Error]', error)
         }
       },
       onError(error) {
@@ -215,7 +213,7 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
 
   const createPost = async () => {
     if (!isAuthenticated) return toast.error(CONNECT_WALLET)
-    if (persistedPublication.length === 0 && attachments.length === 0) {
+    if (postContent.length === 0 && attachments.length === 0) {
       return setPostContentError('Post should not be empty!')
     }
 
@@ -225,8 +223,8 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
     const { path } = await uploadToIPFS({
       version: '1.0.0',
       metadata_id: uuid(),
-      description: trimify(persistedPublication),
-      content: trimify(persistedPublication),
+      description: trimify(postContent),
+      content: trimify(postContent),
       external_url: `https://lenster.xyz/u/${currentUser?.handle}`,
       image: attachments.length > 0 ? attachments[0]?.item : null,
       imageMimeType: attachments.length > 0 ? attachments[0]?.type : null,
@@ -291,10 +289,12 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
           )}
           {preview ? (
             <div className="pb-3 mb-2 border-b linkify dark:border-b-gray-700/80">
-              <Markup>{persistedPublication}</Markup>
+              <Markup>{postContent}</Markup>
             </div>
           ) : (
             <MentionTextArea
+              publication={postContent}
+              setPublication={setPostContent}
               error={postContentError}
               setError={setPostContentError}
               placeholder="What's happening?"
@@ -317,7 +317,7 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
                 onlyFollowers={onlyFollowers}
                 setOnlyFollowers={setOnlyFollowers}
               />
-              {persistedPublication && (
+              {postContent && (
                 <Preview preview={preview} setPreview={setPreview} />
               )}
             </div>

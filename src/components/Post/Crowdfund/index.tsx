@@ -62,7 +62,7 @@ const Crowdfund: FC<Props> = ({ fund }) => {
     variables: { request: { publicationId: fund?.pubId ?? fund?.id } },
     onCompleted() {
       Logger.log(
-        'Query =>',
+        '[Query]',
         `Fetched collect module details Crowdfund:${fund?.pubId ?? fund?.id}`
       )
     }
@@ -83,7 +83,7 @@ const Crowdfund: FC<Props> = ({ fund }) => {
       },
       onCompleted() {
         Logger.log(
-          'Query =>',
+          '[Query]',
           `Fetched crowdfund revenue details Crowdfund:${
             fund?.pubId ?? fund?.id
           }`

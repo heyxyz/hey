@@ -29,7 +29,7 @@ import splitSignature from '@lib/splitSignature'
 import trimify from '@lib/trimify'
 import uploadToIPFS from '@lib/uploadToIPFS'
 import dynamic from 'next/dynamic'
-import { FC, useState } from 'react'
+import { Dispatch, FC, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
   APP_NAME,
@@ -40,7 +40,6 @@ import {
   RELAY_ON
 } from 'src/constants'
 import { useAppPersistStore, useAppStore } from 'src/store/app'
-import { usePublicationPersistStore } from 'src/store/publication'
 import { v4 as uuid } from 'uuid'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 
@@ -103,15 +102,21 @@ const CREATE_COMMENT_TYPED_DATA_MUTATION = gql`
 `
 
 interface Props {
+  setShowModal?: Dispatch<boolean>
+  hideCard?: boolean
   post: LensterPost
   type: 'comment' | 'community post'
 }
 
-const NewComment: FC<Props> = ({ post, type }) => {
+const NewComment: FC<Props> = ({
+  setShowModal,
+  hideCard = false,
+  post,
+  type
+}) => {
   const { userSigNonce, setUserSigNonce } = useAppStore()
   const { isAuthenticated, currentUser } = useAppPersistStore()
-  const { persistedPublication, setPersistedPublication } =
-    usePublicationPersistStore()
+  const [commentContent, setCommentContent] = useState<string>('')
   const [preview, setPreview] = useState<boolean>(false)
   const [commentContentError, setCommentContentError] = useState<string>('')
   const [selectedModule, setSelectedModule] =
@@ -127,7 +132,7 @@ const NewComment: FC<Props> = ({ post, type }) => {
   })
   const onCompleted = () => {
     setPreview(false)
-    setPersistedPublication('')
+    setCommentContent('')
     setAttachments([])
     setSelectedModule(defaultModuleData)
     setFeeData(defaultFeeData)
@@ -156,7 +161,7 @@ const NewComment: FC<Props> = ({ post, type }) => {
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
         }
-        Logger.error('Relay Error =>', error.message)
+        Logger.error('[Relay Error]', error.message)
       }
     })
   const [createCommentTypedData, { loading: typedDataLoading }] = useMutation(
@@ -167,7 +172,7 @@ const NewComment: FC<Props> = ({ post, type }) => {
       }: {
         createCommentTypedData: CreateCommentBroadcastItemResult
       }) {
-        Logger.log('Mutation =>', 'Generated createCommentTypedData')
+        Logger.log('[Mutation]', 'Generated createCommentTypedData')
         const { id, typedData } = createCommentTypedData
         const {
           profileId,
@@ -213,7 +218,7 @@ const NewComment: FC<Props> = ({ post, type }) => {
             write({ args: inputStruct })
           }
         } catch (error) {
-          Logger.warn('Sign Error =>', error)
+          Logger.warn('[Sign Error]', error)
         }
       },
       onError(error) {
@@ -224,7 +229,7 @@ const NewComment: FC<Props> = ({ post, type }) => {
 
   const createComment = async () => {
     if (!isAuthenticated) return toast.error(CONNECT_WALLET)
-    if (persistedPublication.length === 0 && attachments.length === 0) {
+    if (commentContent.length === 0 && attachments.length === 0) {
       return setCommentContentError('Comment should not be empty!')
     }
 
@@ -234,8 +239,8 @@ const NewComment: FC<Props> = ({ post, type }) => {
     const { path } = await uploadToIPFS({
       version: '1.0.0',
       metadata_id: uuid(),
-      description: trimify(persistedPublication),
-      content: trimify(persistedPublication),
+      description: trimify(commentContent),
+      content: trimify(commentContent),
       external_url: `https://lenster.xyz/u/${currentUser?.handle}`,
       image: attachments.length > 0 ? attachments[0]?.item : null,
       imageMimeType: attachments.length > 0 ? attachments[0]?.type : null,
@@ -289,7 +294,7 @@ const NewComment: FC<Props> = ({ post, type }) => {
   }
 
   return (
-    <Card>
+    <Card className={hideCard ? 'border-0 !shadow-none !bg-transparent' : ''}>
       <div className="px-5 pt-5 pb-3">
         <div className="space-y-1">
           {error && (
@@ -301,10 +306,12 @@ const NewComment: FC<Props> = ({ post, type }) => {
           )}
           {preview ? (
             <div className="pb-3 mb-2 border-b linkify dark:border-b-gray-700/80">
-              <Markup>{persistedPublication}</Markup>
+              <Markup>{commentContent}</Markup>
             </div>
           ) : (
             <MentionTextArea
+              publication={commentContent}
+              setPublication={setCommentContent}
               error={commentContentError}
               setError={setCommentContentError}
               placeholder="Tell something cool!"
@@ -327,13 +334,14 @@ const NewComment: FC<Props> = ({ post, type }) => {
                 onlyFollowers={onlyFollowers}
                 setOnlyFollowers={setOnlyFollowers}
               />
-              {persistedPublication && (
+              {commentContent && (
                 <Preview preview={preview} setPreview={setPreview} />
               )}
             </div>
             <div className="flex items-center pt-2 ml-auto space-x-2 sm:pt-0">
               {data?.hash ?? broadcastData?.broadcast?.txHash ? (
                 <PubIndexStatus
+                  setShowModal={setShowModal}
                   type={type === 'comment' ? 'Comment' : 'Post'}
                   txHash={
                     data?.hash ? data?.hash : broadcastData?.broadcast?.txHash
