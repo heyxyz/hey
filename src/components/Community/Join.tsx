@@ -95,7 +95,7 @@ const Join: FC<Props> = ({ community, setJoined, showJoin = true }) => {
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
         }
-        Logger.error('Relay Error =>', error.message)
+        Logger.error('[Relay Error]', error.message)
       }
     }
   )
@@ -107,7 +107,7 @@ const Join: FC<Props> = ({ community, setJoined, showJoin = true }) => {
       }: {
         createCollectTypedData: CreateCollectBroadcastItemResult
       }) {
-        Logger.log('Mutation =>', 'Generated createCollectTypedData')
+        Logger.log('[Mutation]', 'Generated createCollectTypedData')
         const { id, typedData } = createCollectTypedData
         const { deadline } = typedData?.value
 
@@ -138,7 +138,7 @@ const Join: FC<Props> = ({ community, setJoined, showJoin = true }) => {
             write({ args: inputStruct })
           }
         } catch (error) {
-          Logger.warn('Sign Error =>', error)
+          Logger.warn('[Sign Error]', error)
         }
       },
       onError(error) {

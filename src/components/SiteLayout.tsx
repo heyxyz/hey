@@ -63,13 +63,21 @@ const SiteLayout: FC<Props> = ({ children }) => {
       }
 
       Logger.log(
-        'Query =>',
+        '[Query]',
         `Fetched ${data?.profiles?.items?.length} owned profiles`
       )
     }
   })
 
   useEffect(() => {
+    // Remove service worker
+    // TODO: remove after a month
+    navigator.serviceWorker.getRegistrations().then(function (registrations) {
+      for (let registration of registrations) {
+        registration.unregister()
+      }
+    })
+
     const accessToken = Cookies.get('accessToken')
     const refreshToken = Cookies.get('refreshToken')
     setMounted(true)

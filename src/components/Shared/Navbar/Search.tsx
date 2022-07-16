@@ -40,7 +40,7 @@ const Search: FC<Props> = ({ hideDrodown = false }) => {
     useLazyQuery(SEARCH_USERS_QUERY, {
       onCompleted(data) {
         Logger.log(
-          'Lazy Query =>',
+          '[Lazy Query]',
           `Fetched ${data?.search?.items?.length} search result for ${searchText}`
         )
       }

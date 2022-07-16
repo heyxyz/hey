@@ -103,7 +103,7 @@ const SuperFollow: FC = () => {
     variables: { request: { profileId: currentUser?.id } },
     skip: !currentUser?.id,
     onCompleted() {
-      Logger.log('Query =>', `Fetched enabled module currencies`)
+      Logger.log('[Query]', `Fetched enabled module currencies`)
     }
   })
 
@@ -133,7 +133,7 @@ const SuperFollow: FC = () => {
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
         }
-        Logger.error('Relay Error =>', error.message)
+        Logger.error('[Relay Error]', error.message)
       }
     })
   const [createSetFollowModuleTypedData, { loading: typedDataLoading }] =
@@ -143,7 +143,7 @@ const SuperFollow: FC = () => {
       }: {
         createSetFollowModuleTypedData: CreateSetFollowModuleBroadcastItemResult
       }) {
-        Logger.log('Mutation =>', 'Generated createSetFollowModuleTypedData')
+        Logger.log('[Mutation]', 'Generated createSetFollowModuleTypedData')
         const { id, typedData } = createSetFollowModuleTypedData
         const { profileId, followModule, followModuleInitData, deadline } =
           typedData?.value
@@ -173,7 +173,7 @@ const SuperFollow: FC = () => {
             write({ args: inputStruct })
           }
         } catch (error) {
-          Logger.warn('Sign Error =>', error)
+          Logger.warn('[Sign Error]', error)
         }
       },
       onError(error) {

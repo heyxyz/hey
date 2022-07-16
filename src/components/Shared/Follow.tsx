@@ -104,7 +104,7 @@ const Follow: FC<Props> = ({
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
         }
-        Logger.error('Relay Error =>', error.message)
+        Logger.error('[Relay Error]', error.message)
       }
     }
   )
@@ -116,7 +116,7 @@ const Follow: FC<Props> = ({
       }: {
         createFollowTypedData: CreateFollowBroadcastItemResult
       }) {
-        Logger.log('Mutation =>', 'Generated createFollowTypedData')
+        Logger.log('[Mutation]', 'Generated createFollowTypedData')
         const { id, typedData } = createFollowTypedData
         const { deadline } = typedData?.value
 
@@ -146,7 +146,7 @@ const Follow: FC<Props> = ({
             write({ args: inputStruct })
           }
         } catch (error) {
-          Logger.warn('Sign Error =>', error)
+          Logger.warn('[Sign Error]', error)
         }
       },
       onError(error) {

@@ -43,7 +43,7 @@ const Profiles: FC<Props> = ({ query }) => {
       setPageInfo(data?.search?.pageInfo)
       setProfiles(data?.search?.items)
       Logger.log(
-        'Query =>',
+        '[Query]',
         `Fetched first 10 profiles for search Keyword:${query}`
       )
     }
@@ -64,7 +64,7 @@ const Profiles: FC<Props> = ({ query }) => {
       setPageInfo(data?.search?.pageInfo)
       setProfiles([...profiles, ...data?.search?.items])
       Logger.log(
-        'Query =>',
+        '[Query]',
         `Fetched next 10 profiles for search Keyword:${query} Next:${pageInfo?.next}`
       )
     }

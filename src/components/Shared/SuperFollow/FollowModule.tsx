@@ -144,7 +144,7 @@ const FollowModule: FC<Props> = ({
     skip: !profile?.id,
     onCompleted() {
       Logger.log(
-        'Query =>',
+        '[Query]',
         `Fetched super follow details Profile:${profile?.id}`
       )
     }
@@ -166,7 +166,7 @@ const FollowModule: FC<Props> = ({
       skip: !followModule?.amount?.asset?.address || !currentUser,
       onCompleted(data) {
         setAllowed(data?.approvedModuleAllowanceAmount[0]?.allowance !== '0x00')
-        Logger.log('Query =>', `Fetched allowance data`)
+        Logger.log('[Query]', `Fetched allowance data`)
       }
     }
   )
@@ -196,7 +196,7 @@ const FollowModule: FC<Props> = ({
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
         }
-        Logger.error('Relay Error =>', error.message)
+        Logger.error('[Relay Error]', error.message)
       }
     }
   )
@@ -208,7 +208,7 @@ const FollowModule: FC<Props> = ({
       }: {
         createFollowTypedData: CreateFollowBroadcastItemResult
       }) {
-        Logger.log('Mutation =>', 'Generated createFollowTypedData')
+        Logger.log('[Mutation]', 'Generated createFollowTypedData')
         const { id, typedData } = createFollowTypedData
         const { deadline } = typedData?.value
 
@@ -239,7 +239,7 @@ const FollowModule: FC<Props> = ({
             write({ args: inputStruct })
           }
         } catch (error) {
-          Logger.warn('Sign Error =>', error)
+          Logger.warn('[Sign Error]', error)
         }
       },
       onError(error) {
