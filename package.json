@@ -57,7 +57,7 @@
     "use-streak": "^1.0.4",
     "uuid": "^8.3.2",
     "wagmi": "^0.5.9",
-    "zod": "^3.17.3",
+    "zod": "^3.17.9",
     "zustand": "^4.0.0-rc.2"
   },
   "devDependencies": {
