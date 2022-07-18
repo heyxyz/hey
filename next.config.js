@@ -13,6 +13,10 @@ module.exports = withAxiom(
         async rewrites() {
           return [
             {
+              source: '/sitemap.xml',
+              destination: 'https://sitemap.lenster.xyz/sitemap.xml'
+            },
+            {
               source: '/sitemaps/:match*',
               destination: 'https://sitemap.lenster.xyz/sitemaps/:match*'
             }
