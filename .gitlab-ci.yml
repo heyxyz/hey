@@ -12,30 +12,30 @@ stages:
 
 before_script:
   - node -v
-  - npm -v
+  - yarn -v
   - cp .env.example .env
-  - npm ci
+  - yarn install
 
 lint:
   stage: build
   script:
-    - npm run lint
+    - yarn lint
 
 prettier:
   stage: build
   script:
-    - npm run prettier:check
+    - yarn prettier:check
 
 codegen:
   stage: build
   script:
-    - npm run codegen
+    - yarn codegen
 
 typecheck:
   stage: build
   script:
-    - npm run codegen
-    - npm run typecheck
+    - yarn codegen
+    - yarn typecheck
 
 test:
   image: cypress/browsers:node16.13.2-chrome100-ff98
@@ -43,8 +43,8 @@ test:
   before_script: []
   allow_failure: true
   script:
-    - npm ci
-    - npm run cypress:e2e
+    - yarn install
+    - yarn cypress:e2e
 
 housekeeping:
   stage: clean

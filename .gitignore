@@ -5,10 +5,8 @@ config/certs/
 *.db
 
 # Logs
-npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-lerna-debug.log*
 
 # Coverage directory used by tools like istanbul
 coverage
