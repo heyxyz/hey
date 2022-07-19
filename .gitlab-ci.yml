@@ -7,7 +7,6 @@ cache:
 
 stages:
   - build
-  - test
   - clean
 
 before_script:
@@ -36,15 +35,6 @@ typecheck:
   script:
     - yarn codegen
     - yarn typecheck
-
-test:
-  image: cypress/browsers:node16.13.2-chrome100-ff98
-  stage: test
-  before_script: []
-  allow_failure: true
-  script:
-    - yarn install
-    - yarn cypress:e2e
 
 housekeeping:
   stage: clean
