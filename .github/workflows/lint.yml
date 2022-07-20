@@ -21,7 +21,7 @@ jobs:
           cache: 'yarn'
 
       - name: Install dependencies
-        run: npm ci
+        run: yarn install
 
       - name: Lint codebase
         run: npm run lint
@@ -39,7 +39,7 @@ jobs:
           cache: 'yarn'
 
       - name: Install dependencies
-        run: npm ci
+        run: yarn install
 
       - name: Lint codebase
         run: npm run prettier:check
