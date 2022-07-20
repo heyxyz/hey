@@ -4,10 +4,10 @@ image:
 tasks:
   - name: Setup
     init: |
-      npm install
-      npm run codegen
+      yarn install
+      yarn codegen
       cp .env.example .env
-    command: npm run dev
+    command: yarn dev
 
   - command: |
       clear

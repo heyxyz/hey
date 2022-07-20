@@ -1,3 +1,4 @@
+/** @type {import('next').NextConfig} */
 const { withSentryConfig } = require('@sentry/nextjs')
 const withTM = require('next-transpile-modules')(['plyr-react'])
 const { withAxiom } = require('next-axiom')
