@@ -39,7 +39,7 @@ jobs:
           cache: 'yarn'
 
       - name: Install dependencies
-        run: yarn install
+        run: yarn install --frozen-lockfile --silent
 
       - name: Lint codebase
         run: npm run prettier:check
