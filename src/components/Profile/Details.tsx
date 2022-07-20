@@ -5,7 +5,6 @@ import SuperFollow from '@components/Shared/SuperFollow'
 import Unfollow from '@components/Shared/Unfollow'
 import { Button } from '@components/UI/Button'
 import { Tooltip } from '@components/UI/Tooltip'
-import { useENS } from '@components/utils/hooks/useENS'
 import { Profile } from '@generated/types'
 import {
   CogIcon,
@@ -36,7 +35,6 @@ const Details: FC<Props> = ({ profile }) => {
   const [following, setFollowing] = useState<boolean>(profile?.isFollowedByMe)
   const { currentUser, staffMode } = useAppPersistStore()
   const { resolvedTheme } = useTheme()
-  const { data: ensName } = useENS(profile?.ownedBy ?? '')
 
   useEffect(() => {
     if (profile?.stats?.totalFollowers) {
@@ -179,7 +177,8 @@ const Details: FC<Props> = ({ profile }) => {
               {getAttribute(profile?.attributes, 'location') as any}
             </MetaDetails>
           )}
-          {ensName && (
+          {/* Get ENS name from API */}
+          {true && (
             <MetaDetails
               icon={
                 <img
@@ -191,7 +190,7 @@ const Details: FC<Props> = ({ profile }) => {
                 />
               }
             >
-              {ensName as any}
+              <span>WIP.eth</span>
             </MetaDetails>
           )}
           {getAttribute(profile?.attributes, 'website') && (
