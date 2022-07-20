@@ -42,4 +42,4 @@ jobs:
         run: yarn install --frozen-lockfile --silent
 
       - name: Lint codebase
-        run: npm run prettier:check
+        run: yarn prettier:check
