@@ -3,7 +3,7 @@ version = 1
 exclude_patterns = [
   "node_modules",
   ".next",
-  ".gitlab",
+  ".github",
   ".husky",
   ".vscode",
   "src/generated/types.ts",
