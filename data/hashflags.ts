@@ -1,1 +1,16 @@
-export const hashflags = ['lenster', 'bitcoin', 'ethereum', 'lens']
+export const hashflags: any = {
+  lenster: 'lenster',
+  bitcoin: 'bitcoin',
+  btc: 'bitcoin',
+  ethereum: 'ethereum',
+  eth: 'ethereum',
+  lens: 'lens',
+  bts: 'bts',
+  btsarmy: 'btsarmy',
+  blm: 'blm',
+  blacklivesmatter: 'blm',
+  bhm: 'blm',
+  pride: 'pride',
+  lgbt: 'lgbt',
+  voted: 'voted'
+}
