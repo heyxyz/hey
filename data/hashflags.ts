@@ -11,5 +11,6 @@ export const hashflags: any = {
   blacklivesmatter: 'blm',
   bhm: 'blm',
   pride: 'pride',
-  lgbt: 'lgbt'
+  lgbt: 'lgbt',
+  voted: 'voted'
 }
