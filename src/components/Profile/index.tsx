@@ -32,6 +32,7 @@ export const PROFILE_QUERY = gql`
       handle
       ownedBy
       name
+      bio
       metadata
       followNftAddress
       isFollowedByMe
@@ -40,7 +41,11 @@ export const PROFILE_QUERY = gql`
         key
         value
       }
-      bio
+      onChainIdentity {
+        ens {
+          name
+        }
+      }
       stats {
         totalFollowers
         totalFollowing
