@@ -8,17 +8,17 @@
     <a href="https://vercel.com/lenster?utm_source=Lenster&utm_campaign=oss">
         <img src="https://therealsujitk-vercel-badge.vercel.app/?app=lenster" alt="Vercel">
     </a>
-    <a href="https://deepsource.io/gl/lenster/lenster">
-        <img src="https://deepsource.io/gl/lenster/lenster.svg/?label=active+issues&show_trend=true" alt="GitHub actions">
+    <a href="https://deepsource.io/gh/lensterxyz/lenster">
+        <img src="https://deepsource.io/gh/lensterxyz/lenster.svg/?label=active+issues&show_trend=true" alt="GitHub actions">
     </a>
-    <a href="https://gitpod.io/#https://gitlab.com/lenster/lenster/-/tree/main">
+    <a href="https://gitpod.io/#https://github.com/lensterxyz/lenster/-/tree/main">
         <img src="https://img.shields.io/badge/setup-automated-blue?logo=gitpod" alt="Gitpod">
     </a>
-    <a href="https://gitlab.com/lenster/lenster/-/commits/main">
-        <img src="https://badgen.net/gitlab/last-commit/lenster/lenster" alt="Last Commit">
+    <a href="https://github.com/lensterxyz/lenster/-/commits/main">
+        <img src="https://badgen.net/github/last-commit/lensterxyz/lenster" alt="Last Commit">
     </a>
-    <a href="https://gitlab.com/lenster/lenster/-/blob/main/LICENSE">
-        <img src="https://badgen.net/gitlab/license/lenster/lenster" alt="License">
+    <a href="https://github.com/lensterxyz/lenster/-/blob/main/LICENSE">
+        <img src="https://badgen.net/github/license/lensterxyz/lenster" alt="License">
     </a>
     <a href="https://discord.gg/B8eKhSSUwX">
         <img src="https://img.shields.io/discord/953679040722665512.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2" alt="Discord">
@@ -33,7 +33,7 @@
     <br><br>
     <a href="https://discord.gg/B8eKhSSUwX"><b>Discord</b></a>
     •
-    <a href="https://gitlab.com/lenster/lenster/-/issues/new"><b>Issues</b></a>
+    <a href="https://github.com/lensterxyz/lenster/-/issues/new"><b>Issues</b></a>
 </div>
 
 ## 🌿 About Lenster
@@ -62,11 +62,12 @@ and visit http://localhost:4783
 
 ### Using Gitpod
 
-[<img src="https://gitpod.io/button/open-in-gitpod.svg" height="40">](https://gitpod.io/#https://gitlab.com/lenster/lenster)
+[<img src="https://gitpod.io/button/open-in-gitpod.svg" height="40">](https://gitpod.io/#https://github.com/lensterxyz/lenster)
 
 ## 🤝 Supporting Repos
 
-- [Lenster Assets](https://gitlab.com/lenster/assets) - Static assets hosted in Vercel edge CDN
+- [Lenster Assets](https://github.com/lensterxyz/assets) - Static assets hosted in Vercel edge CDN
+- [Lenster Sitemap](https://github.com/lensterxyz/sitemap) - List of sitemap for SEO
 
 ## ⚖️ License
 

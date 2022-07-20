@@ -51,11 +51,11 @@ const Footer: FC = () => {
         <a href="/thanks">Thanks</a>
       </Link>
       <a
-        href="https://gitlab.com/lenster/lenster"
+        href="https://github.com/lensterxyz/lenster"
         target="_blank"
         rel="noreferrer noopener"
       >
-        GitLab
+        GitHub
       </a>
       <a
         className="pr-3 hover:font-bold"
