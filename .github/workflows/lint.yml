@@ -17,7 +17,7 @@ jobs:
       - name: Use Node.js 14
         uses: actions/setup-node@v3
         with:
-          node-version: 15.x
+          node-version: 16.x
           cache: 'yarn'
 
       - name: Install dependencies
@@ -35,7 +35,7 @@ jobs:
       - name: Use Node.js 14
         uses: actions/setup-node@v3
         with:
-          node-version: 15.x
+          node-version: 16.x
           cache: 'yarn'
 
       - name: Install dependencies
