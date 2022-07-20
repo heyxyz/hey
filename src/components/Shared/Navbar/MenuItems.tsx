@@ -220,7 +220,7 @@ const MenuItems: FC<Props> = ({ pingData }) => {
                       </Tooltip>
                     )}
                     <a
-                      href={`https://gitlab.com/lenster/lenster/-/commit/${GIT_COMMIT_SHA}`}
+                      href={`https://github.com/lensterxyz/lenster/commit/${GIT_COMMIT_SHA}`}
                       className="font-mono"
                       title="Git commit SHA"
                       target="_blank"
