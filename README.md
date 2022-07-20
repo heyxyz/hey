@@ -14,9 +14,6 @@
     <a href="https://gitpod.io/#https://github.com/lensterxyz/lenster">
         <img src="https://img.shields.io/badge/setup-automated-blue?logo=gitpod" alt="Gitpod">
     </a>
-    <a href="https://github.com/lensterxyz/lenster/commits/main">
-        <img src="https://badgen.net/github/last-commit/lensterxyz/lenster" alt="Last Commit">
-    </a>
     <a href="https://github.com/lensterxyz/lenster/blob/main/LICENSE">
         <img src="https://badgen.net/github/license/lensterxyz/lenster" alt="License">
     </a>
