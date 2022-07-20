@@ -1,24 +1,22 @@
-import AppContext from '@components/utils/AppContext'
 import Link from 'next/link'
-import { FC, useContext } from 'react'
+import { FC } from 'react'
 import { APP_NAME } from 'src/constants'
+import { useAppPersistStore } from 'src/store/app'
 
 const Footer: FC = () => {
-  const { staffMode } = useContext(AppContext)
+  const { staffMode } = useAppPersistStore()
 
   return (
     <footer
       className={`mt-4 leading-7 text-sm sticky flex flex-wrap px-3 lg:px-0 gap-x-[12px] ${
         staffMode ? 'top-28' : 'top-20'
       }`}
+      data-test="footer"
     >
       <span className="font-bold text-gray-500 dark:text-gray-300">
         © {APP_NAME}
       </span>
-      <Link href="/about" prefetch={false}>
-        <a href="/about">About</a>
-      </Link>
-      <Link href="/privacy" prefetch={false}>
+      <Link href="/privacy">
         <a href="/privacy">Privacy</a>
       </Link>
       <a
@@ -49,15 +47,15 @@ const Footer: FC = () => {
       >
         Vote
       </a>
-      <Link href="/thanks" prefetch={false}>
+      <Link href="/thanks">
         <a href="/thanks">Thanks</a>
       </Link>
       <a
-        href="https://gitlab.com/lenster/lenster"
+        href="https://github.com/lensterxyz/lenster"
         target="_blank"
         rel="noreferrer noopener"
       >
-        GitLab
+        GitHub
       </a>
       <a
         className="pr-3 hover:font-bold"

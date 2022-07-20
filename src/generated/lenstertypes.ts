@@ -27,7 +27,7 @@ export type LensterCollectModule = FreeCollectModuleSettings &
 export type LensterFollowModule = FeeFollowModuleSettings &
   ProfileFollowModuleSettings &
   RevertFollowModuleSettings
-export type LensterAttachment = { item: string; type: string }
+export type LensterAttachment = { item: string; type: string; altTag: string }
 export type UserSuggestion = {
   uid: string
   id: string

@@ -1,5 +1,4 @@
 import { Card, CardBody } from '@components/UI/Card'
-import AppContext from '@components/utils/AppContext'
 import {
   MinusCircleIcon,
   PencilAltIcon,
@@ -8,8 +7,9 @@ import {
 import { CheckCircleIcon } from '@heroicons/react/solid'
 import clsx from 'clsx'
 import Link from 'next/link'
-import { FC, useContext } from 'react'
+import { FC } from 'react'
 import { APP_NAME } from 'src/constants'
+import { useAppPersistStore, useAppStore } from 'src/store/app'
 
 interface StatusProps {
   finished: boolean
@@ -30,7 +30,8 @@ const Status: FC<StatusProps> = ({ finished, title }) => (
 )
 
 const SetProfile: FC = () => {
-  const { currentUser, profiles } = useContext(AppContext)
+  const { profiles } = useAppStore()
+  const { currentUser } = useAppPersistStore()
   const hasDefaultProfile = !!profiles.find((o) => o.isDefault)
   const doneSetup =
     !!currentUser?.name && !!currentUser?.bio && !!currentUser?.picture
@@ -51,7 +52,7 @@ const SetProfile: FC = () => {
         </div>
         <div className="flex items-center space-x-1.5 text-sm font-bold">
           <PencilAltIcon className="w-4 h-4" />
-          <Link href="/settings" prefetch={false}>
+          <Link href="/settings">
             <a href="/settings">Update profile here</a>
           </Link>
         </div>

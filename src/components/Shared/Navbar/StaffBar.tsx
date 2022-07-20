@@ -68,7 +68,7 @@ const StaffBar: FC = () => {
         </div>
         {GIT_COMMIT_REF && (
           <a
-            href={`https://gitlab.com/lenster/lenster/-/tree/${GIT_COMMIT_REF}`}
+            href={`https://github.com/lensterxyz/lenster/commit/${GIT_COMMIT_REF}`}
             className="flex items-center space-x-1"
             title="Git commit ref"
             target="_blank"
@@ -80,7 +80,7 @@ const StaffBar: FC = () => {
         )}
         {GIT_COMMIT_SHA && (
           <a
-            href={`https://gitlab.com/lenster/lenster/-/commit/${GIT_COMMIT_SHA}`}
+            href={`https://github.com/lensterxyz/lenster/commit/${GIT_COMMIT_SHA}`}
             className="flex items-center space-x-1"
             title="Git commit SHA"
             target="_blank"

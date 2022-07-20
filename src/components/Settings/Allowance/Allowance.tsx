@@ -12,16 +12,13 @@ const Allowance: FC<Props> = ({ allowance }) => {
   return (
     <CardBody className="space-y-4">
       {allowance?.approvedModuleAllowanceAmount?.map(
-        (item: ApprovedAllowanceAmount) => (
-          <>
-            {item?.module === 'RevertCollectModule' ||
-            item?.module === 'FreeCollectModule' ? (
-              ''
-            ) : (
-              <Module key={item?.contractAddress} module={item} />
-            )}
-          </>
-        )
+        (item: ApprovedAllowanceAmount) =>
+          item?.module === 'RevertCollectModule' ||
+          item?.module === 'FreeCollectModule' ? (
+            ''
+          ) : (
+            <Module key={item?.contractAddress} module={item} />
+          )
       )}
     </CardBody>
   )

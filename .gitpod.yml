@@ -1,3 +1,6 @@
+image:
+  file: .gitpod.Dockerfile
+
 tasks:
   - name: Setup
     init: |
@@ -9,13 +12,19 @@ tasks:
   - command: |
       clear
       echo "Waiting for server to start 🕒"
-      gp await-port 4783
+      gp ports await 4783
       scripts/gp-welcome.sh
 
 ports:
   - port: 4783 # Web app
     visibility: public
     onOpen: notify
+  - port: 6080 # VNC
+    visibility: public
+    onOpen: ignore
+  - port: 5900 # VNC service
+    visibility: public
+    onOpen: ignore
 
 vscode:
   extensions:

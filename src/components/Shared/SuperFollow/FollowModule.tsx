@@ -5,7 +5,6 @@ import AllowanceButton from '@components/Settings/Allowance/Button'
 import { Button } from '@components/UI/Button'
 import { Spinner } from '@components/UI/Spinner'
 import { WarningMessage } from '@components/UI/WarningMessage'
-import AppContext from '@components/utils/AppContext'
 import { LensterFollowModule } from '@generated/lenstertypes'
 import {
   CreateFollowBroadcastItemResult,
@@ -14,27 +13,26 @@ import {
 } from '@generated/types'
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { StarIcon, UserIcon } from '@heroicons/react/outline'
-import consoleLog from '@lib/consoleLog'
 import formatAddress from '@lib/formatAddress'
 import getTokenImage from '@lib/getTokenImage'
+import Logger from '@lib/logger'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
-import { Dispatch, FC, useContext, useState } from 'react'
+import { Dispatch, FC, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
-  CHAIN_ID,
   CONNECT_WALLET,
   ERROR_MESSAGE,
+  ERRORS,
   LENSHUB_PROXY,
   POLYGONSCAN_URL,
-  RELAY_ON,
-  WRONG_NETWORK
+  RELAY_ON
 } from 'src/constants'
+import { useAppPersistStore, useAppStore } from 'src/store/app'
 import {
   useAccount,
   useBalance,
   useContractWrite,
-  useNetwork,
   useSignTypedData
 } from 'wagmi'
 
@@ -52,6 +50,7 @@ const SUPER_FOLLOW_QUERY = gql`
             asset {
               name
               symbol
+              decimals
               address
             }
             value
@@ -109,10 +108,10 @@ const FollowModule: FC<Props> = ({
   setFollowersCount,
   again
 }) => {
-  const { currentUser, userSigNonce, setUserSigNonce } = useContext(AppContext)
+  const { userSigNonce, setUserSigNonce } = useAppStore()
+  const { isAuthenticated, currentUser } = useAppPersistStore()
   const [allowed, setAllowed] = useState<boolean>(true)
-  const { activeChain } = useNetwork()
-  const { data: account } = useAccount()
+  const { address } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
       toast.error(error?.message)
@@ -128,29 +127,24 @@ const FollowModule: FC<Props> = ({
     toast.success('Followed successfully!')
   }
 
-  const { isLoading: writeLoading, write } = useContractWrite(
-    {
-      addressOrName: LENSHUB_PROXY,
-      contractInterface: LensHubProxy
+  const { isLoading: writeLoading, write } = useContractWrite({
+    addressOrName: LENSHUB_PROXY,
+    contractInterface: LensHubProxy,
+    functionName: 'followWithSig',
+    onSuccess() {
+      onCompleted()
     },
-    'followWithSig',
-    {
-      onSuccess() {
-        onCompleted()
-      },
-      onError(error: any) {
-        toast.error(error?.data?.message ?? error?.message)
-      }
+    onError(error: any) {
+      toast.error(error?.data?.message ?? error?.message)
     }
-  )
+  })
 
   const { data, loading } = useQuery(SUPER_FOLLOW_QUERY, {
     variables: { request: { profileId: profile?.id } },
     skip: !profile?.id,
     onCompleted() {
-      consoleLog(
-        'Query',
-        '#8b5cf6',
+      Logger.log(
+        '[Query]',
         `Fetched super follow details Profile:${profile?.id}`
       )
     }
@@ -172,14 +166,16 @@ const FollowModule: FC<Props> = ({
       skip: !followModule?.amount?.asset?.address || !currentUser,
       onCompleted(data) {
         setAllowed(data?.approvedModuleAllowanceAmount[0]?.allowance !== '0x00')
-        consoleLog('Query', '#8b5cf6', `Fetched allowance data`)
+        Logger.log('[Query]', `Fetched allowance data`)
       }
     }
   )
 
   const { data: balanceData } = useBalance({
     addressOrName: currentUser?.ownedBy,
-    token: followModule?.amount?.asset?.address
+    token: followModule?.amount?.asset?.address,
+    formatUnits: followModule?.amount?.asset?.decimals,
+    watch: true
   })
   let hasAmount = false
 
@@ -195,53 +191,56 @@ const FollowModule: FC<Props> = ({
   const [broadcast, { loading: broadcastLoading }] = useMutation(
     BROADCAST_MUTATION,
     {
-      onCompleted({ broadcast }) {
-        if (broadcast?.reason !== 'NOT_ALLOWED') {
-          onCompleted()
-        }
-      },
+      onCompleted,
       onError(error) {
-        consoleLog('Relay Error', '#ef4444', error.message)
+        if (error.message === ERRORS.notMined) {
+          toast.error(error.message)
+        }
+        Logger.error('[Relay Error]', error.message)
       }
     }
   )
   const [createFollowTypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_FOLLOW_TYPED_DATA_MUTATION,
     {
-      onCompleted({
+      async onCompleted({
         createFollowTypedData
       }: {
         createFollowTypedData: CreateFollowBroadcastItemResult
       }) {
-        consoleLog('Mutation', '#4ade80', 'Generated createFollowTypedData')
+        Logger.log('[Mutation]', 'Generated createFollowTypedData')
         const { id, typedData } = createFollowTypedData
-        signTypedDataAsync({
-          domain: omit(typedData?.domain, '__typename'),
-          types: omit(typedData?.types, '__typename'),
-          value: omit(typedData?.value, '__typename')
-        }).then((signature) => {
+        const { deadline } = typedData?.value
+
+        try {
+          const signature = await signTypedDataAsync({
+            domain: omit(typedData?.domain, '__typename'),
+            types: omit(typedData?.types, '__typename'),
+            value: omit(typedData?.value, '__typename')
+          })
           setUserSigNonce(userSigNonce + 1)
           const { profileIds, datas: followData } = typedData?.value
           const { v, r, s } = splitSignature(signature)
-          const sig = { v, r, s, deadline: typedData.value.deadline }
+          const sig = { v, r, s, deadline }
           const inputStruct = {
-            follower: account?.address,
+            follower: address,
             profileIds,
             datas: followData,
             sig
           }
           if (RELAY_ON) {
-            broadcast({ variables: { request: { id, signature } } }).then(
-              ({ data: { broadcast }, errors }) => {
-                if (errors || broadcast?.reason === 'NOT_ALLOWED') {
-                  write({ args: inputStruct })
-                }
-              }
-            )
+            const {
+              data: { broadcast: result },
+              errors
+            } = await broadcast({ variables: { request: { id, signature } } })
+
+            if ('reason' in result || errors) write({ args: inputStruct })
           } else {
             write({ args: inputStruct })
           }
-        })
+        } catch (error) {
+          Logger.warn('[Sign Error]', error)
+        }
       },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
@@ -250,30 +249,26 @@ const FollowModule: FC<Props> = ({
   )
 
   const createFollow = () => {
-    if (!account?.address) {
-      toast.error(CONNECT_WALLET)
-    } else if (activeChain?.id !== CHAIN_ID) {
-      toast.error(WRONG_NETWORK)
-    } else {
-      createFollowTypedData({
-        variables: {
-          options: { overrideSigNonce: userSigNonce },
-          request: {
-            follow: {
-              profile: profile?.id,
-              followModule: {
-                feeFollowModule: {
-                  amount: {
-                    currency: followModule?.amount?.asset?.address,
-                    value: followModule?.amount?.value
-                  }
+    if (!isAuthenticated) return toast.error(CONNECT_WALLET)
+
+    createFollowTypedData({
+      variables: {
+        options: { overrideSigNonce: userSigNonce },
+        request: {
+          follow: {
+            profile: profile?.id,
+            followModule: {
+              feeFollowModule: {
+                amount: {
+                  currency: followModule?.amount?.asset?.address,
+                  value: followModule?.amount?.value
                 }
               }
             }
           }
         }
-      })
-    }
+      }
+    })
   }
 
   if (loading) return <Loader message="Loading super follow" />

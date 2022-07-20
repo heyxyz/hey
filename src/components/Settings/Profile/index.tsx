@@ -2,16 +2,16 @@ import { gql, useQuery } from '@apollo/client'
 import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout'
 import { Card, CardBody } from '@components/UI/Card'
 import { PageLoading } from '@components/UI/PageLoading'
-import AppContext from '@components/utils/AppContext'
 import SEO from '@components/utils/SEO'
 import { PhotographIcon } from '@heroicons/react/outline'
-import consoleLog from '@lib/consoleLog'
+import Logger from '@lib/logger'
 import clsx from 'clsx'
 import { NextPage } from 'next'
-import React, { FC, ReactNode, useContext, useState } from 'react'
+import React, { FC, ReactNode, useState } from 'react'
 import { APP_NAME } from 'src/constants'
 import Custom404 from 'src/pages/404'
 import Custom500 from 'src/pages/500'
+import { useAppPersistStore } from 'src/store/app'
 
 import Sidebar from '../Sidebar'
 import NFTPicture from './NFTPicture'
@@ -24,6 +24,7 @@ const PROFILE_SETTINGS_QUERY = gql`
       id
       name
       bio
+      metadata
       attributes {
         key
         value
@@ -52,13 +53,13 @@ const PROFILE_SETTINGS_QUERY = gql`
 `
 
 const ProfileSettings: NextPage = () => {
-  const { currentUser } = useContext(AppContext)
+  const { currentUser } = useAppPersistStore()
   const [settingsType, setSettingsType] = useState<'NFT' | 'AVATAR'>('AVATAR')
   const { data, loading, error } = useQuery(PROFILE_SETTINGS_QUERY, {
     variables: { request: { profileId: currentUser?.id } },
     skip: !currentUser?.id,
     onCompleted(data) {
-      consoleLog('Query', '#8b5cf6', `Fetched profile settings`)
+      Logger.log('[Query]', `Fetched profile settings`)
       setSettingsType(data?.profile?.picture?.uri ? 'NFT' : 'AVATAR')
     }
   })

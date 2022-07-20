@@ -1,11 +1,11 @@
 import { Card, CardBody } from '@components/UI/Card'
-import AppContext from '@components/utils/AppContext'
 import { CurrencyDollarIcon, UserCircleIcon } from '@heroicons/react/outline'
 import Link from 'next/link'
-import { FC, useContext } from 'react'
+import { FC } from 'react'
+import { useAppStore } from 'src/store/app'
 
 const SetDefaultProfile: FC = () => {
-  const { profiles } = useContext(AppContext)
+  const { profiles } = useAppStore()
   const hasDefaultProfile = !!profiles.find((o) => o.isDefault)
   const count = profiles.length
 
@@ -19,12 +19,12 @@ const SetDefaultProfile: FC = () => {
           <p>Set default profile</p>
         </div>
         <p className="text-sm leading-[22px]">
-          You have owned {count} {count > 1 ? 'profiles' : 'profile'} but you
-          don&rsquo;t have any default account.
+          You own {count} {count === 1 ? 'profile' : 'profiles'} but you
+          don&rsquo;t have a default one.
         </p>
         <div className="flex items-center space-x-1.5 text-sm font-bold">
           <CurrencyDollarIcon className="w-4 h-4" />
-          <Link href="/settings/account" prefetch={false}>
+          <Link href="/settings/account">
             <a href="/settings/account">Set default profile here</a>
           </Link>
         </div>

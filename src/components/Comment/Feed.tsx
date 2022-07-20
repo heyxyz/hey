@@ -5,20 +5,24 @@ import { Card } from '@components/UI/Card'
 import { EmptyState } from '@components/UI/EmptyState'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { Spinner } from '@components/UI/Spinner'
-import AppContext from '@components/utils/AppContext'
 import { LensterPost } from '@generated/lenstertypes'
 import { PaginatedResultInfo } from '@generated/types'
 import { CommentFields } from '@gql/CommentFields'
 import { CollectionIcon } from '@heroicons/react/outline'
-import consoleLog from '@lib/consoleLog'
-import React, { FC, useContext, useState } from 'react'
+import Logger from '@lib/logger'
+import React, { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
+import { useAppPersistStore } from 'src/store/app'
 
 import ReferenceAlert from '../Shared/ReferenceAlert'
 import NewComment from './NewComment'
 
 const COMMENT_FEED_QUERY = gql`
-  query CommentFeed($request: PublicationsQueryRequest!) {
+  query CommentFeed(
+    $request: PublicationsQueryRequest!
+    $reactionRequest: ReactionFieldResolverRequest
+    $profileId: ProfileId
+  ) {
     publications(request: $request) {
       items {
         ... on Comment {
@@ -48,45 +52,43 @@ const Feed: FC<Props> = ({
   isFollowing = true
 }) => {
   const pubId = post?.__typename === 'Mirror' ? post?.mirrorOf?.id : post?.id
-  const { currentUser } = useContext(AppContext)
+  const { currentUser } = useAppPersistStore()
   const [publications, setPublications] = useState<LensterPost[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
   const { data, loading, error, fetchMore } = useQuery(COMMENT_FEED_QUERY, {
     variables: {
-      request: { commentsOf: pubId, limit: 10 }
+      request: { commentsOf: pubId, limit: 10 },
+      reactionRequest: currentUser ? { profileId: currentUser?.id } : null,
+      profileId: currentUser?.id ?? null
     },
     skip: !pubId,
     fetchPolicy: 'no-cache',
     onCompleted(data) {
       setPageInfo(data?.publications?.pageInfo)
       setPublications(data?.publications?.items)
-      consoleLog(
-        'Query',
-        '#8b5cf6',
-        `Fetched first 10 comments of Publication:${pubId}`
-      )
+      Logger.log('[Query]', `Fetched first 10 comments of Publication:${pubId}`)
     }
   })
 
   const { observe } = useInView({
-    onEnter: () => {
-      fetchMore({
+    onEnter: async () => {
+      const { data } = await fetchMore({
         variables: {
           request: {
             commentsOf: pubId,
             cursor: pageInfo?.next,
             limit: 10
-          }
+          },
+          reactionRequest: currentUser ? { profileId: currentUser?.id } : null,
+          profileId: currentUser?.id ?? null
         }
-      }).then(({ data }: any) => {
-        setPageInfo(data?.publications?.pageInfo)
-        setPublications([...publications, ...data?.publications?.items])
-        consoleLog(
-          'Query',
-          '#8b5cf6',
-          `Fetched next 10 comments of Publication:${pubId} Next:${pageInfo?.next}`
-        )
       })
+      setPageInfo(data?.publications?.pageInfo)
+      setPublications([...publications, ...data?.publications?.items])
+      Logger.log(
+        '[Query]',
+        `Fetched next 10 comments of Publication:${pubId} Next:${pageInfo?.next}`
+      )
     }
   })
 
@@ -115,9 +117,16 @@ const Feed: FC<Props> = ({
       <ErrorMessage title="Failed to load comment feed" error={error} />
       {!error && !loading && data?.publications?.items?.length !== 0 && (
         <>
-          <Card className="divide-y-[1px] dark:divide-gray-700/80">
+          <Card
+            className="divide-y-[1px] dark:divide-gray-700/80"
+            testId="comment-feed"
+          >
             {publications?.map((post: LensterPost, index: number) => (
-              <SinglePost key={`${pubId}_${index}`} post={post} hideType />
+              <SinglePost
+                key={`${pubId}_${index}`}
+                post={post}
+                showType={false}
+              />
             ))}
           </Card>
           {pageInfo?.next && publications.length !== pageInfo?.totalCount && (

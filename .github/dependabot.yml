@@ -8,8 +8,8 @@ updates:
       prefix: '⬆️ deps:'
       prefix-development: '⬆️ deps(dev):'
     assignees:
-      - yo
+      - bigint
     reviewers:
-      - yo
+      - bigint
     open-pull-requests-limit: 69
     rebase-strategy: auto

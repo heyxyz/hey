@@ -6,19 +6,23 @@ import { Card } from '@components/UI/Card'
 import { EmptyState } from '@components/UI/EmptyState'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { Spinner } from '@components/UI/Spinner'
-import AppContext from '@components/utils/AppContext'
 import { LensterPost } from '@generated/lenstertypes'
 import { PaginatedResultInfo } from '@generated/types'
 import { CommentFields } from '@gql/CommentFields'
 import { MirrorFields } from '@gql/MirrorFields'
 import { PostFields } from '@gql/PostFields'
 import { CollectionIcon } from '@heroicons/react/outline'
-import consoleLog from '@lib/consoleLog'
-import React, { FC, useContext, useState } from 'react'
+import Logger from '@lib/logger'
+import React, { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
+import { useAppPersistStore } from 'src/store/app'
 
 const HOME_FEED_QUERY = gql`
-  query HomeFeed($request: TimelineRequest!) {
+  query HomeFeed(
+    $request: TimelineRequest!
+    $reactionRequest: ReactionFieldResolverRequest
+    $profileId: ProfileId
+  ) {
     timeline(request: $request) {
       items {
         ... on Post {
@@ -43,40 +47,42 @@ const HOME_FEED_QUERY = gql`
 `
 
 const Feed: FC = () => {
-  const { currentUser } = useContext(AppContext)
+  const { currentUser } = useAppPersistStore()
   const [publications, setPublications] = useState<LensterPost[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
   const { data, loading, error, fetchMore } = useQuery(HOME_FEED_QUERY, {
     variables: {
-      request: { profileId: currentUser?.id, limit: 10 }
+      request: { profileId: currentUser?.id, limit: 10 },
+      reactionRequest: currentUser ? { profileId: currentUser?.id } : null,
+      profileId: currentUser?.id ?? null
     },
     fetchPolicy: 'no-cache',
     onCompleted(data) {
       setPageInfo(data?.timeline?.pageInfo)
       setPublications(data?.timeline?.items)
-      consoleLog('Query', '#8b5cf6', `Fetched first 10 timeline publications`)
+      Logger.log('[Query]', `Fetched first 10 timeline publications`)
     }
   })
 
   const { observe } = useInView({
-    onEnter: () => {
-      fetchMore({
+    onEnter: async () => {
+      const { data } = await fetchMore({
         variables: {
           request: {
             profileId: currentUser?.id,
             cursor: pageInfo?.next,
             limit: 10
-          }
+          },
+          reactionRequest: currentUser ? { profileId: currentUser?.id } : null,
+          profileId: currentUser?.id ?? null
         }
-      }).then(({ data }: any) => {
-        setPageInfo(data?.timeline?.pageInfo)
-        setPublications([...publications, ...data?.timeline?.items])
-        consoleLog(
-          'Query',
-          '#8b5cf6',
-          `Fetched next 10 timeline publications Next:${pageInfo?.next}`
-        )
       })
+      setPageInfo(data?.timeline?.pageInfo)
+      setPublications([...publications, ...data?.timeline?.items])
+      Logger.log(
+        '[Query]',
+        `Fetched next 10 timeline publications Next:${pageInfo?.next}`
+      )
     }
   })
 

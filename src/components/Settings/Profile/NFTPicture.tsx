@@ -1,13 +1,11 @@
 import { LensHubProxy } from '@abis/LensHubProxy'
 import { useLazyQuery, useMutation } from '@apollo/client'
 import IndexStatus from '@components/Shared/IndexStatus'
-import SwitchNetwork from '@components/Shared/SwitchNetwork'
 import { Button } from '@components/UI/Button'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { Form, useZodForm } from '@components/UI/Form'
 import { Input } from '@components/UI/Input'
 import { Spinner } from '@components/UI/Spinner'
-import AppContext from '@components/utils/AppContext'
 import {
   CreateSetProfileImageUriBroadcastItemResult,
   NftImage,
@@ -15,26 +13,24 @@ import {
 } from '@generated/types'
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { PencilIcon } from '@heroicons/react/outline'
-import consoleLog from '@lib/consoleLog'
+import Logger from '@lib/logger'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import gql from 'graphql-tag'
-import React, { FC, useContext, useState } from 'react'
+import React, { FC, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
-  CHAIN_ID,
   CONNECT_WALLET,
   ERROR_MESSAGE,
+  ERRORS,
   IS_MAINNET,
   LENSHUB_PROXY,
-  RELAY_ON,
-  WRONG_NETWORK
+  RELAY_ON
 } from 'src/constants'
+import { useAppPersistStore, useAppStore } from 'src/store/app'
 import {
   chain,
-  useAccount,
   useContractWrite,
-  useNetwork,
   useSignMessage,
   useSignTypedData
 } from 'wagmi'
@@ -101,12 +97,11 @@ const NFTPicture: FC<Props> = ({ profile }) => {
     }
   })
 
-  const { currentUser, userSigNonce, setUserSigNonce } = useContext(AppContext)
+  const { userSigNonce, setUserSigNonce } = useAppStore()
+  const { isAuthenticated, currentUser } = useAppPersistStore()
   const [chainId, setChainId] = useState<number>(
     IS_MAINNET ? chain.mainnet.id : chain.kovan.id
   )
-  const { activeChain } = useNetwork()
-  const { data: account } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
       toast.error(error?.message)
@@ -123,69 +118,69 @@ const NFTPicture: FC<Props> = ({ profile }) => {
     isLoading: writeLoading,
     error,
     write
-  } = useContractWrite(
-    {
-      addressOrName: LENSHUB_PROXY,
-      contractInterface: LensHubProxy
+  } = useContractWrite({
+    addressOrName: LENSHUB_PROXY,
+    contractInterface: LensHubProxy,
+    functionName: 'setProfileImageURIWithSig',
+    onSuccess() {
+      onCompleted()
     },
-    'setProfileImageURIWithSig',
-    {
-      onSuccess() {
-        onCompleted()
-      },
-      onError(error: any) {
-        toast.error(error?.data?.message ?? error?.message)
-      }
+    onError(error: any) {
+      toast.error(error?.data?.message ?? error?.message)
     }
-  )
+  })
+
   const [loadChallenge, { loading: challengeLoading }] =
     useLazyQuery(CHALLENGE_QUERY)
   const [broadcast, { data: broadcastData, loading: broadcastLoading }] =
     useMutation(BROADCAST_MUTATION, {
-      onCompleted({ broadcast }) {
-        if (broadcast?.reason !== 'NOT_ALLOWED') {
-          onCompleted()
-        }
+      onCompleted() {
+        onCompleted()
       },
       onError(error) {
-        consoleLog('Relay Error', '#ef4444', error.message)
+        if (error.message === ERRORS.notMined) {
+          toast.error(error.message)
+        }
+        Logger.error('[Relay Error]', error.message)
       }
     })
   const [createSetProfileImageURITypedData, { loading: typedDataLoading }] =
     useMutation(CREATE_SET_PROFILE_IMAGE_URI_TYPED_DATA_MUTATION, {
-      onCompleted({
+      async onCompleted({
         createSetProfileImageURITypedData
       }: {
         createSetProfileImageURITypedData: CreateSetProfileImageUriBroadcastItemResult
       }) {
         const { id, typedData } = createSetProfileImageURITypedData
+        const { deadline } = typedData?.value
 
-        signTypedDataAsync({
-          domain: omit(typedData?.domain, '__typename'),
-          types: omit(typedData?.types, '__typename'),
-          value: omit(typedData?.value, '__typename')
-        }).then((signature) => {
+        try {
+          const signature = await signTypedDataAsync({
+            domain: omit(typedData?.domain, '__typename'),
+            types: omit(typedData?.types, '__typename'),
+            value: omit(typedData?.value, '__typename')
+          })
           setUserSigNonce(userSigNonce + 1)
           const { profileId, imageURI } = typedData?.value
           const { v, r, s } = splitSignature(signature)
-          const sig = { v, r, s, deadline: typedData.value.deadline }
+          const sig = { v, r, s, deadline }
           const inputStruct = {
             profileId,
             imageURI,
             sig
           }
           if (RELAY_ON) {
-            broadcast({ variables: { request: { id, signature } } }).then(
-              ({ data: { broadcast }, errors }) => {
-                if (errors || broadcast?.reason === 'NOT_ALLOWED') {
-                  write({ args: inputStruct })
-                }
-              }
-            )
+            const {
+              data: { broadcast: result }
+            } = await broadcast({ variables: { request: { id, signature } } })
+
+            if ('reason' in result) write({ args: inputStruct })
           } else {
             write({ args: inputStruct })
           }
-        })
+        } catch (error) {
+          Logger.warn('[Sign Error]', error)
+        }
       },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
@@ -193,40 +188,36 @@ const NFTPicture: FC<Props> = ({ profile }) => {
     })
 
   const setAvatar = async (contractAddress: string, tokenId: string) => {
-    if (!account?.address) {
-      toast.error(CONNECT_WALLET)
-    } else if (activeChain?.id !== CHAIN_ID) {
-      toast.error(WRONG_NETWORK)
-    } else {
-      const challengeRes = await loadChallenge({
-        variables: {
-          request: {
-            ethereumAddress: currentUser?.ownedBy,
-            nfts: {
-              contractAddress,
-              tokenId,
-              chainId
-            }
+    if (!isAuthenticated) return toast.error(CONNECT_WALLET)
+
+    const challengeRes = await loadChallenge({
+      variables: {
+        request: {
+          ethereumAddress: currentUser?.ownedBy,
+          nfts: {
+            contractAddress,
+            tokenId,
+            chainId
           }
         }
-      })
-      signMessageAsync({
-        message: challengeRes?.data?.nftOwnershipChallenge?.text
-      }).then((signature) => {
-        createSetProfileImageURITypedData({
-          variables: {
-            options: { overrideSigNonce: userSigNonce },
-            request: {
-              profileId: currentUser?.id,
-              nftData: {
-                id: challengeRes?.data?.nftOwnershipChallenge?.id,
-                signature
-              }
-            }
+      }
+    })
+
+    const signature = await signMessageAsync({
+      message: challengeRes?.data?.nftOwnershipChallenge?.text
+    })
+    createSetProfileImageURITypedData({
+      variables: {
+        options: { overrideSigNonce: userSigNonce },
+        request: {
+          profileId: currentUser?.id,
+          nftData: {
+            id: challengeRes?.data?.nftOwnershipChallenge?.id,
+            signature
           }
-        })
-      })
-    }
+        }
+      }
+    })
   }
 
   return (
@@ -275,45 +266,42 @@ const NFTPicture: FC<Props> = ({ profile }) => {
         placeholder="1"
         {...form.register('tokenId')}
       />
-      {activeChain?.id !== CHAIN_ID ? (
-        <SwitchNetwork className="ml-auto" />
-      ) : (
-        <div className="flex flex-col space-y-2">
-          <Button
-            className="ml-auto"
-            type="submit"
-            disabled={
-              challengeLoading ||
-              typedDataLoading ||
-              signLoading ||
-              writeLoading ||
-              broadcastLoading
+
+      <div className="flex flex-col space-y-2">
+        <Button
+          className="ml-auto"
+          type="submit"
+          disabled={
+            challengeLoading ||
+            typedDataLoading ||
+            signLoading ||
+            writeLoading ||
+            broadcastLoading
+          }
+          icon={
+            challengeLoading ||
+            typedDataLoading ||
+            signLoading ||
+            writeLoading ||
+            broadcastLoading ? (
+              <Spinner size="xs" />
+            ) : (
+              <PencilIcon className="w-4 h-4" />
+            )
+          }
+        >
+          Save
+        </Button>
+        {writeData?.hash ?? broadcastData?.broadcast?.txHash ? (
+          <IndexStatus
+            txHash={
+              writeData?.hash
+                ? writeData?.hash
+                : broadcastData?.broadcast?.txHash
             }
-            icon={
-              challengeLoading ||
-              typedDataLoading ||
-              signLoading ||
-              writeLoading ||
-              broadcastLoading ? (
-                <Spinner size="xs" />
-              ) : (
-                <PencilIcon className="w-4 h-4" />
-              )
-            }
-          >
-            Save
-          </Button>
-          {writeData?.hash ?? broadcastData?.broadcast?.txHash ? (
-            <IndexStatus
-              txHash={
-                writeData?.hash
-                  ? writeData?.hash
-                  : broadcastData?.broadcast?.txHash
-              }
-            />
-          ) : null}
-        </div>
-      )}
+          />
+        ) : null}
+      </div>
     </Form>
   )
 }

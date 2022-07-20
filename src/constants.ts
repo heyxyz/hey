@@ -51,6 +51,7 @@ export const ALCHEMY_KEY = process.env.NEXT_PUBLIC_ALCHEMY_KEY
 export const ALCHEMY_RPC = IS_MAINNET
   ? `https://polygon-mainnet.g.alchemy.com/v2/${ALCHEMY_KEY}`
   : `https://polygon-mumbai.g.alchemy.com/v2/${ALCHEMY_KEY}`
+
 export const POLYGON_MAINNET = {
   ...chain.polygon,
   name: 'Polygon Mainnet',
@@ -63,6 +64,11 @@ export const POLYGON_MUMBAI = {
 }
 export const CHAIN_ID = IS_MAINNET ? POLYGON_MAINNET.id : POLYGON_MUMBAI.id
 
+export const ERRORS = {
+  notMined:
+    'A previous transaction may not been mined yet or you have passed in a invalid nonce. You must wait for that to be mined before doing another action, please try again in a few moments. Nonce out of sync.'
+}
+
 // Addresses
 export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000'
 export const LENSHUB_PROXY = IS_MAINNET
@@ -71,8 +77,8 @@ export const LENSHUB_PROXY = IS_MAINNET
 export const LENS_PERIPHERY = IS_MAINNET
   ? '0xeff187b4190E551FC25a7fA4dFC6cf7fDeF7194f'
   : '0xD5037d72877808cdE7F669563e9389930AF404E8'
-export const FREE_COLLECT_MODULE = IS_MAINNET
-  ? '0x23b9467334bEb345aAa6fd1545538F3d54436e96'
+export const REVERT_COLLECT_MODULE = IS_MAINNET
+  ? '0xa31FF85E840ED117E172BC9Ad89E55128A999205'
   : '0x5E70fFD2C6D04d65C3abeBa64E93082cfA348dF8'
 export const DEFAULT_COLLECT_TOKEN = IS_MAINNET
   ? '0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270'

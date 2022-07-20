@@ -3,15 +3,17 @@ import SwitchNetwork from '@components/Shared/SwitchNetwork'
 import { CURRENT_USER_QUERY } from '@components/SiteLayout'
 import { Button } from '@components/UI/Button'
 import { Spinner } from '@components/UI/Spinner'
-import AppContext from '@components/utils/AppContext'
+import { Profile } from '@generated/types'
 import { XCircleIcon } from '@heroicons/react/solid'
-import consoleLog from '@lib/consoleLog'
 import getWalletLogo from '@lib/getWalletLogo'
+import Logger from '@lib/logger'
 import clsx from 'clsx'
 import Cookies from 'js-cookie'
-import React, { Dispatch, FC, useContext, useEffect, useState } from 'react'
+import React, { Dispatch, FC, useEffect, useState } from 'react'
+import toast from 'react-hot-toast'
 import { COOKIE_CONFIG } from 'src/apollo'
 import { CHAIN_ID, ERROR_MESSAGE } from 'src/constants'
+import { useAppPersistStore, useAppStore } from 'src/store/app'
 import {
   Connector,
   useAccount,
@@ -43,18 +45,25 @@ interface Props {
 }
 
 const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
+  const { setProfiles } = useAppStore()
+  const { setIsAuthenticated, setCurrentUser } = useAppPersistStore()
   const [mounted, setMounted] = useState(false)
-  const { activeChain } = useNetwork()
-  const { signMessageAsync, isLoading: signLoading } = useSignMessage()
+  const { chain } = useNetwork()
+  const { connectors, error, connectAsync } = useConnect()
+  const { address, connector: activeConnector } = useAccount()
+  const { signMessageAsync, isLoading: signLoading } = useSignMessage({
+    onError(error) {
+      toast.error(error?.message)
+    }
+  })
   const [
     loadChallenge,
     { error: errorChallenege, loading: challenegeLoading }
   ] = useLazyQuery(CHALLENGE_QUERY, {
     fetchPolicy: 'no-cache',
     onCompleted(data) {
-      consoleLog(
-        'Lazy Query',
-        '#8b5cf6',
+      Logger.log(
+        '[Lazy Query]',
         `Fetched auth challenege - ${data?.challenge?.text}`
       )
     }
@@ -64,9 +73,8 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
   const [getProfiles, { error: errorProfiles, loading: profilesLoading }] =
     useLazyQuery(CURRENT_USER_QUERY, {
       onCompleted(data) {
-        consoleLog(
-          'Lazy Query',
-          '#8b5cf6',
+        Logger.log(
+          '[Lazy Query]',
           `Fetched ${data?.profiles?.items?.length} user profiles for auth`
         )
       }
@@ -74,58 +82,72 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
 
   useEffect(() => setMounted(true), [])
 
-  const { connectors, error, connectAsync } = useConnect()
-  const { data: accountData } = useAccount()
-  const { setSelectedProfile } = useContext(AppContext)
-
-  const onConnect = async (x: Connector) => {
-    await connectAsync(x).then(({ account }) => {
+  const onConnect = async (connector: Connector) => {
+    try {
+      const account = await connectAsync({ connector })
       if (account) {
         setHasConnected(true)
       }
-    })
+    } catch (error) {
+      Logger.warn('[Sign Error]', error)
+    }
   }
 
-  const handleSign = () => {
-    loadChallenge({
-      variables: { request: { address: accountData?.address } }
-    }).then((res) => {
-      signMessageAsync({ message: res?.data?.challenge?.text }).then(
-        (signature) => {
-          authenticate({
-            variables: {
-              request: { address: accountData?.address, signature }
-            }
-          }).then((res) => {
-            Cookies.set(
-              'accessToken',
-              res.data.authenticate.accessToken,
-              COOKIE_CONFIG
-            )
-            Cookies.set(
-              'refreshToken',
-              res.data.authenticate.refreshToken,
-              COOKIE_CONFIG
-            )
-            getProfiles({
-              variables: { ownedBy: accountData?.address }
-            }).then((res) => {
-              localStorage.setItem('selectedProfile', '0')
-              if (res.data.profiles.items.length === 0) {
-                setHasProfile(false)
-              } else {
-                setSelectedProfile(0)
-              }
-            })
-          })
-        }
+  const handleSign = async () => {
+    try {
+      // Get challenge
+      const challenge = await loadChallenge({
+        variables: { request: { address } }
+      })
+
+      if (!challenge?.data?.challenge?.text) return toast.error(ERROR_MESSAGE)
+
+      // Get signature
+      const signature = await signMessageAsync({
+        message: challenge?.data?.challenge?.text
+      })
+
+      // Auth user and set cookies
+      const auth = await authenticate({
+        variables: { request: { address, signature } }
+      })
+      Cookies.set(
+        'accessToken',
+        auth.data.authenticate.accessToken,
+        COOKIE_CONFIG
       )
-    })
+      Cookies.set(
+        'refreshToken',
+        auth.data.authenticate.refreshToken,
+        COOKIE_CONFIG
+      )
+
+      // Get authed profiles
+      const { data: profilesData } = await getProfiles({
+        variables: { ownedBy: address }
+      })
+
+      if (profilesData?.profiles?.items?.length === 0) {
+        setHasProfile(false)
+      } else {
+        const profiles: Profile[] = profilesData?.profiles?.items
+          ?.slice()
+          ?.sort((a: Profile, b: Profile) => Number(a.id) - Number(b.id))
+          ?.sort((a: Profile, b: Profile) =>
+            !(a.isDefault !== b.isDefault) ? 0 : a.isDefault ? -1 : 1
+          )
+        setIsAuthenticated(true)
+        setProfiles(profiles)
+        setCurrentUser(profiles[0])
+      }
+    } catch (error) {
+      console.log(error)
+    }
   }
 
-  return accountData?.connector?.id ? (
+  return activeConnector?.id ? (
     <div className="space-y-3">
-      {activeChain?.id === CHAIN_ID ? (
+      {chain?.id === CHAIN_ID ? (
         <Button
           size="lg"
           disabled={
@@ -163,38 +185,40 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
     </div>
   ) : (
     <div className="inline-block overflow-hidden space-y-3 w-full text-left align-middle transition-all transform">
-      {connectors.map((x) => {
+      {connectors.map((connector) => {
         return (
           <button
             type="button"
-            key={x.id}
+            key={connector.id}
             className={clsx(
               {
                 'hover:bg-gray-100 dark:hover:bg-gray-700':
-                  x.id !== accountData?.connector?.id
+                  connector.id !== activeConnector?.id
               },
               'w-full flex items-center space-x-2.5 justify-center px-4 py-3 overflow-hidden rounded-xl border dark:border-gray-700/80 outline-none'
             )}
-            onClick={() => onConnect(x)}
+            onClick={() => onConnect(connector)}
             disabled={
-              mounted ? !x.ready || x.id === accountData?.connector?.id : false
+              mounted
+                ? !connector.ready || connector.id === activeConnector?.id
+                : false
             }
           >
             <span className="flex justify-between items-center w-full">
               {mounted
-                ? x.id === 'injected'
+                ? connector.id === 'injected'
                   ? 'Browser Wallet'
-                  : x.name
-                : x.name}
-              {mounted ? !x.ready && ' (unsupported)' : ''}
+                  : connector.name
+                : connector.name}
+              {mounted ? !connector.ready && ' (unsupported)' : ''}
             </span>
             <img
-              src={getWalletLogo(x.name)}
+              src={getWalletLogo(connector.name)}
               draggable={false}
               className="w-6 h-6"
               height={24}
               width={24}
-              alt={x.id}
+              alt={connector.id}
             />
           </button>
         )

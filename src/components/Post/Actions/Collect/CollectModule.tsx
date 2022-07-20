@@ -15,7 +15,6 @@ import { Modal } from '@components/UI/Modal'
 import { Spinner } from '@components/UI/Spinner'
 import { Tooltip } from '@components/UI/Tooltip'
 import { WarningMessage } from '@components/UI/WarningMessage'
-import AppContext from '@components/utils/AppContext'
 import { LensterPost } from '@generated/lenstertypes'
 import { CreateCollectBroadcastItemResult } from '@generated/types'
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
@@ -30,28 +29,28 @@ import {
   UserIcon,
   UsersIcon
 } from '@heroicons/react/outline'
-import consoleLog from '@lib/consoleLog'
 import formatAddress from '@lib/formatAddress'
 import getTokenImage from '@lib/getTokenImage'
+import humanize from '@lib/humanize'
+import Logger from '@lib/logger'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import dayjs from 'dayjs'
-import React, { Dispatch, FC, useContext, useEffect, useState } from 'react'
+import React, { Dispatch, FC, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
-  CHAIN_ID,
   CONNECT_WALLET,
   ERROR_MESSAGE,
+  ERRORS,
   LENSHUB_PROXY,
   POLYGONSCAN_URL,
-  RELAY_ON,
-  WRONG_NETWORK
+  RELAY_ON
 } from 'src/constants'
+import { useAppPersistStore, useAppStore } from 'src/store/app'
 import {
   useAccount,
   useBalance,
   useContractWrite,
-  useNetwork,
   useSignTypedData
 } from 'wagmi'
 
@@ -121,13 +120,13 @@ interface Props {
 }
 
 const CollectModule: FC<Props> = ({ count, setCount, post }) => {
-  const { currentUser, userSigNonce, setUserSigNonce } = useContext(AppContext)
+  const { userSigNonce, setUserSigNonce } = useAppStore()
+  const { isAuthenticated, currentUser } = useAppPersistStore()
   const [revenue, setRevenue] = useState<number>(0)
   const [showCollectorsModal, setShowCollectorsModal] = useState<boolean>(false)
   const [allowed, setAllowed] = useState<boolean>(true)
 
-  const { activeChain } = useNetwork()
-  const { data: account } = useAccount()
+  const { address } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
       toast.error(error?.message)
@@ -144,28 +143,23 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
     data: writeData,
     isLoading: writeLoading,
     write
-  } = useContractWrite(
-    {
-      addressOrName: LENSHUB_PROXY,
-      contractInterface: LensHubProxy
+  } = useContractWrite({
+    addressOrName: LENSHUB_PROXY,
+    contractInterface: LensHubProxy,
+    functionName: 'collectWithSig',
+    onSuccess() {
+      onCompleted()
     },
-    'collectWithSig',
-    {
-      onSuccess() {
-        onCompleted()
-      },
-      onError(error: any) {
-        toast.error(error?.data?.message ?? error?.message)
-      }
+    onError(error: any) {
+      toast.error(error?.data?.message ?? error?.message)
     }
-  )
+  })
 
   const { data, loading } = useQuery(COLLECT_QUERY, {
     variables: { request: { publicationId: post?.pubId ?? post?.id } },
     onCompleted() {
-      consoleLog(
-        'Query',
-        '#8b5cf6',
+      Logger.log(
+        '[Query]',
         `Fetched collect module details Publication:${post?.pubId ?? post?.id}`
       )
     }
@@ -189,7 +183,7 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
       skip: !collectModule?.amount?.asset?.address || !currentUser,
       onCompleted(data) {
         setAllowed(data?.approvedModuleAllowanceAmount[0]?.allowance !== '0x00')
-        consoleLog('Query', '#8b5cf6', `Fetched allowance data`)
+        Logger.log('[Query]', `Fetched allowance data`)
       }
     }
   )
@@ -207,9 +201,8 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
       },
       skip: !post?.id,
       onCompleted() {
-        consoleLog(
-          'Query',
-          '#8b5cf6',
+        Logger.log(
+          '[Query]',
           `Fetched collect revenue details Publication:${
             post?.pubId ?? post?.id
           }`
@@ -220,13 +213,15 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
 
   useEffect(() => {
     setRevenue(
-      parseFloat(revenueData?.publicationRevenue?.earnings?.value ?? 0)
+      parseFloat(revenueData?.publicationRevenue?.revenue?.total?.value ?? 0)
     )
   }, [revenueData])
 
   const { data: balanceData, isLoading: balanceLoading } = useBalance({
     addressOrName: currentUser?.ownedBy,
-    token: collectModule?.amount?.asset?.address
+    token: collectModule?.amount?.asset?.address,
+    formatUnits: collectModule?.amount?.asset?.decimals,
+    watch: true
   })
   let hasAmount = false
 
@@ -242,54 +237,55 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
 
   const [broadcast, { data: broadcastData, loading: broadcastLoading }] =
     useMutation(BROADCAST_MUTATION, {
-      onCompleted({ broadcast }) {
-        if (broadcast?.reason !== 'NOT_ALLOWED') {
-          onCompleted()
-        }
-      },
+      onCompleted,
       onError(error) {
-        consoleLog('Relay Error', '#ef4444', error.message)
+        if (error.message === ERRORS.notMined) {
+          toast.error(error.message)
+        }
+        Logger.error('[Relay Error]', error.message)
       }
     })
   const [createCollectTypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_COLLECT_TYPED_DATA_MUTATION,
     {
-      onCompleted({
+      async onCompleted({
         createCollectTypedData
       }: {
         createCollectTypedData: CreateCollectBroadcastItemResult
       }) {
-        consoleLog('Mutation', '#4ade80', 'Generated createCollectTypedData')
+        Logger.log('[Mutation]', 'Generated createCollectTypedData')
         const { id, typedData } = createCollectTypedData
+        const { deadline } = typedData?.value
 
-        signTypedDataAsync({
-          domain: omit(typedData?.domain, '__typename'),
-          types: omit(typedData?.types, '__typename'),
-          value: omit(typedData?.value, '__typename')
-        }).then((signature) => {
+        try {
+          const signature = await signTypedDataAsync({
+            domain: omit(typedData?.domain, '__typename'),
+            types: omit(typedData?.types, '__typename'),
+            value: omit(typedData?.value, '__typename')
+          })
           setUserSigNonce(userSigNonce + 1)
           const { profileId, pubId, data: collectData } = typedData?.value
           const { v, r, s } = splitSignature(signature)
-          const sig = { v, r, s, deadline: typedData.value.deadline }
+          const sig = { v, r, s, deadline }
           const inputStruct = {
-            collector: account?.address,
+            collector: address,
             profileId,
             pubId,
             data: collectData,
             sig
           }
           if (RELAY_ON) {
-            broadcast({ variables: { request: { id, signature } } }).then(
-              ({ data: { broadcast }, errors }) => {
-                if (errors || broadcast?.reason === 'NOT_ALLOWED') {
-                  write({ args: inputStruct })
-                }
-              }
-            )
+            const {
+              data: { broadcast: result }
+            } = await broadcast({ variables: { request: { id, signature } } })
+
+            if ('reason' in result) write({ args: inputStruct })
           } else {
             write({ args: inputStruct })
           }
-        })
+        } catch (error) {
+          Logger.warn('[Sign Error]', error)
+        }
       },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
@@ -298,18 +294,14 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
   )
 
   const createCollect = () => {
-    if (!account?.address) {
-      toast.error(CONNECT_WALLET)
-    } else if (activeChain?.id !== CHAIN_ID) {
-      toast.error(WRONG_NETWORK)
-    } else {
-      createCollectTypedData({
-        variables: {
-          options: { overrideSigNonce: userSigNonce },
-          request: { publicationId: post?.pubId ?? post?.id }
-        }
-      })
-    }
+    if (!isAuthenticated) return toast.error(CONNECT_WALLET)
+
+    createCollectTypedData({
+      variables: {
+        options: { overrideSigNonce: userSigNonce },
+        request: { publicationId: post?.pubId ?? post?.id }
+      }
+    })
   }
 
   if (loading || revenueLoading) return <Loader message="Loading collect" />
@@ -397,13 +389,13 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
                 type="button"
                 onClick={() => setShowCollectorsModal(!showCollectorsModal)}
               >
-                {count} collectors
+                {humanize(count)} collectors
               </button>
               <Modal
                 title="Collectors"
                 icon={<CollectionIcon className="w-5 h-5 text-brand" />}
                 show={showCollectorsModal}
-                onClose={() => setShowCollectorsModal(!showCollectorsModal)}
+                onClose={() => setShowCollectorsModal(false)}
               >
                 <Collectors
                   pubId={

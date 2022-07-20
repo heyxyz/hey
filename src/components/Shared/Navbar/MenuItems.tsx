@@ -1,6 +1,6 @@
 import { Button } from '@components/UI/Button'
 import { Modal } from '@components/UI/Modal'
-import AppContext from '@components/utils/AppContext'
+import { Tooltip } from '@components/UI/Tooltip'
 import { Profile } from '@generated/types'
 import { Menu, Transition } from '@headlessui/react'
 import {
@@ -22,42 +22,45 @@ import clsx from 'clsx'
 import Cookies from 'js-cookie'
 import Link from 'next/link'
 import { useTheme } from 'next-themes'
-import { FC, Fragment, useContext, useState } from 'react'
-import { CHAIN_ID, GIT_COMMIT_SHA } from 'src/constants'
-import { useDisconnect, useNetwork } from 'wagmi'
+import { FC, Fragment, useState } from 'react'
+import { GIT_COMMIT_SHA } from 'src/constants'
+import { useAppPersistStore, useAppStore } from 'src/store/app'
+import { useDisconnect } from 'wagmi'
 
 import Slug from '../Slug'
 import Login from './Login'
 
 export const NextLink = ({ href, children, ...rest }: Record<string, any>) => (
-  <Link href={href} prefetch={false}>
+  <Link href={href}>
     <a {...rest}>{children}</a>
   </Link>
 )
 
-const MenuItems: FC = () => {
+interface Props {
+  pingData: {
+    ping: string
+  }
+}
+
+const MenuItems: FC<Props> = ({ pingData }) => {
   const [showLoginModal, setShowLoginModal] = useState<boolean>(false)
   const { theme, setTheme } = useTheme()
-  const { activeChain } = useNetwork()
   const { disconnect } = useDisconnect()
 
+  const { profiles } = useAppStore()
   const {
-    staffMode,
-    setStaffMode,
-    profiles,
+    isAuthenticated,
     currentUser,
-    currentUserLoading,
-    setSelectedProfile
-  } = useContext(AppContext)
+    setCurrentUser,
+    staffMode,
+    setStaffMode
+  } = useAppPersistStore()
 
   const toggleStaffMode = () => {
-    localStorage.setItem('staffMode', String(!staffMode))
     setStaffMode(!staffMode)
   }
 
-  return currentUserLoading ? (
-    <div className="w-8 h-8 rounded-full shimmer" />
-  ) : currentUser && activeChain?.id === CHAIN_ID ? (
+  return isAuthenticated && currentUser ? (
     <Menu as="div">
       {({ open }) => (
         <>
@@ -125,10 +128,11 @@ const MenuItems: FC = () => {
               <Menu.Item
                 as="a"
                 onClick={() => {
-                  localStorage.removeItem('selectedProfile')
+                  setCurrentUser(null)
                   Cookies.remove('accessToken')
                   Cookies.remove('refreshToken')
-                  disconnect()
+                  localStorage.removeItem('lenster.store')
+                  if (disconnect) disconnect()
                 }}
                 className={({ active }: { active: boolean }) =>
                   clsx({ 'dropdown-active': active }, 'menu-item')
@@ -139,7 +143,7 @@ const MenuItems: FC = () => {
                   <div>Logout</div>
                 </div>
               </Menu.Item>
-              {profiles.length > 1 && (
+              {profiles?.length > 1 && (
                 <>
                   <div className="divider" />
                   <div className="overflow-auto m-2 max-h-36 no-scrollbar">
@@ -156,11 +160,7 @@ const MenuItems: FC = () => {
                           type="button"
                           className="flex items-center py-1.5 px-4 space-x-2 w-full rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
                           onClick={() => {
-                            localStorage.setItem(
-                              'selectedProfile',
-                              index.toString()
-                            )
-                            setSelectedProfile(index)
+                            setCurrentUser(profiles[index])
                           }}
                         >
                           {currentUser?.id === profile?.id && (
@@ -204,18 +204,29 @@ const MenuItems: FC = () => {
                   )}
                 </div>
               </Menu.Item>
-              {currentUser && isBeta(currentUser) && GIT_COMMIT_SHA && (
+              {currentUser && GIT_COMMIT_SHA && (
                 <>
                   <div className="divider" />
-                  <div className="py-3 px-6 text-xs">
+                  <div className="py-3 px-6 text-xs flex items-center space-x-2">
+                    {pingData && (
+                      <Tooltip content="Indexer Status" placement="top">
+                        <div
+                          className={clsx(
+                            { 'bg-green-500': pingData?.ping === 'pong' },
+                            { 'bg-red-500': pingData?.ping !== 'pong' },
+                            'p-[4.5px] rounded-full animate-pulse'
+                          )}
+                        />
+                      </Tooltip>
+                    )}
                     <a
-                      href={`https://gitlab.com/lenster/lenster/-/commit/${GIT_COMMIT_SHA}`}
+                      href={`https://github.com/lensterxyz/lenster/commit/${GIT_COMMIT_SHA}`}
                       className="font-mono"
                       title="Git commit SHA"
                       target="_blank"
                       rel="noreferrer noopener"
                     >
-                      fc4a59ea (beta)
+                      {GIT_COMMIT_SHA} {isBeta(currentUser) && '(beta)'}
                     </a>
                   </div>
                 </>
@@ -258,7 +269,7 @@ const MenuItems: FC = () => {
         title="Login"
         icon={<ArrowCircleRightIcon className="w-5 h-5 text-brand" />}
         show={showLoginModal}
-        onClose={() => setShowLoginModal(!showLoginModal)}
+        onClose={() => setShowLoginModal(false)}
       >
         <Login />
       </Modal>

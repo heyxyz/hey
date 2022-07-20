@@ -12,6 +12,7 @@ export const MirrorFields = gql`
       name
       handle
     }
+    reaction(request: $reactionRequest)
     collectModule {
       ...MinimalCollectModuleFields
     }
@@ -20,18 +21,15 @@ export const MirrorFields = gql`
     }
     metadata {
       ...MetadataFields
-      cover {
-        original {
-          url
-        }
-      }
     }
+    hidden
     mirrorOf {
       ... on Post {
         id
         profile {
           ...MinimalProfileFields
         }
+        reaction(request: $reactionRequest)
         stats {
           ...StatsFields
         }
@@ -41,6 +39,7 @@ export const MirrorFields = gql`
         profile {
           ...MinimalProfileFields
         }
+        reaction(request: $reactionRequest)
         stats {
           ...StatsFields
         }

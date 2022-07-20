@@ -4,11 +4,11 @@ import Slug from '@components/Shared/Slug'
 import { UserSuggestion } from '@generated/lenstertypes'
 import { MediaSet, NftImage, Profile } from '@generated/types'
 import { BadgeCheckIcon } from '@heroicons/react/solid'
-import consoleLog from '@lib/consoleLog'
 import imagekitURL from '@lib/imagekitURL'
 import isVerified from '@lib/isVerified'
+import Logger from '@lib/logger'
 import clsx from 'clsx'
-import { Dispatch, FC } from 'react'
+import { Dispatch, FC, SetStateAction } from 'react'
 import { Mention, MentionsInput } from 'react-mentions'
 
 interface UserProps {
@@ -43,26 +43,25 @@ const User: FC<UserProps> = ({ suggestion, focused }) => (
 )
 
 interface Props {
-  value: string
-  setValue: Dispatch<string>
+  publication: string
+  setPublication: Dispatch<SetStateAction<string>>
   error: string
   setError: Dispatch<string>
   placeholder?: string
 }
 
 export const MentionTextArea: FC<Props> = ({
-  value,
-  setValue,
+  publication,
+  setPublication,
   error,
   setError,
   placeholder = ''
 }) => {
   const [searchUsers] = useLazyQuery(SEARCH_USERS_QUERY, {
     onCompleted(data) {
-      consoleLog(
-        'Lazy Query',
-        '#8b5cf6',
-        `Fetched ${data?.search?.items?.length} user mention result for ${value}`
+      Logger.log(
+        '[Lazy Query]',
+        `Fetched ${data?.search?.items?.length} user mention result`
       )
     }
   })
@@ -94,10 +93,10 @@ export const MentionTextArea: FC<Props> = ({
     <div className="mb-2">
       <MentionsInput
         className="mention-input"
-        value={value}
+        value={publication}
         placeholder={placeholder}
         onChange={(e) => {
-          setValue(e.target.value)
+          setPublication(e.target.value)
           setError('')
         }}
       >

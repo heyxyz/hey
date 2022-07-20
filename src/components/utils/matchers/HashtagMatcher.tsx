@@ -6,14 +6,13 @@ import { STATIC_ASSETS } from 'src/constants'
 
 export function Hashtag({ ...props }: any) {
   const hashflag = props.display.slice(1).toLowerCase()
-  const hasHashflag = hashflags.includes(hashflag)
+  const hasHashflag = hashflags.hasOwnProperty(hashflag)
 
   return (
     <span className="inline-flex items-center space-x-1">
       <span>
         <Link
           href={`/search?q=${props.display.slice(1)}&type=pubs&src=link_click`}
-          prefetch={false}
         >
           {props.display}
         </Link>
@@ -22,7 +21,7 @@ export function Hashtag({ ...props }: any) {
         <img
           className="h-4 !mr-0.5"
           height={16}
-          src={`${STATIC_ASSETS}/hashflags/${hashflag}.png`}
+          src={`${STATIC_ASSETS}/hashflags/${hashflags[hashflag]}.png`}
           alt={hashflag}
         />
       )}

@@ -1,4 +1,5 @@
-import AppContext from '@components/utils/AppContext'
+import { gql, useQuery } from '@apollo/client'
+import NotificationIcon from '@components/Notification/Icon'
 import { Disclosure } from '@headlessui/react'
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
 import hasPrideLogo from '@lib/hasPrideLogo'
@@ -7,7 +8,8 @@ import clsx from 'clsx'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { FC, useContext } from 'react'
+import { FC } from 'react'
+import { useAppPersistStore } from 'src/store/app'
 
 import MenuItems from './MenuItems'
 import MoreNavItems from './MoreNavItems'
@@ -15,10 +17,19 @@ import Search from './Search'
 
 const StaffBar = dynamic(() => import('./StaffBar'))
 const NewPostModal = dynamic(() => import('../../Post/NewPost/Modal'))
-const Notification = dynamic(() => import('../../Notification'))
+
+const PING_QUERY = gql`
+  query Ping {
+    ping
+  }
+`
 
 const Navbar: FC = () => {
-  const { currentUser, staffMode } = useContext(AppContext)
+  const { isAuthenticated, currentUser, staffMode } = useAppPersistStore()
+  const { data: pingData } = useQuery(PING_QUERY, {
+    pollInterval: 3000,
+    skip: !currentUser
+  })
 
   interface NavItemProps {
     url: string
@@ -28,7 +39,7 @@ const Navbar: FC = () => {
 
   const NavItem = ({ url, name, current }: NavItemProps) => {
     return (
-      <Link href={url} prefetch={false}>
+      <Link href={url}>
         <a href={url} aria-current={current ? 'page' : undefined}>
           <Disclosure.Button
             className={clsx(
@@ -88,7 +99,7 @@ const Navbar: FC = () => {
                     <MenuIcon className="block w-6 h-6" aria-hidden="true" />
                   )}
                 </Disclosure.Button>
-                <Link href="/" prefetch={false}>
+                <Link href="/">
                   <a href="/">
                     <div className="text-3xl font-black">
                       <img
@@ -115,9 +126,9 @@ const Navbar: FC = () => {
                 </div>
               </div>
               <div className="flex gap-8 items-center">
-                {currentUser && <NewPostModal />}
-                {currentUser && <Notification />}
-                <MenuItems />
+                {isAuthenticated && currentUser && <NewPostModal />}
+                {isAuthenticated && currentUser && <NotificationIcon />}
+                <MenuItems pingData={pingData} />
               </div>
             </div>
           </div>
