@@ -10,7 +10,7 @@ All efforts to contribute are highly appreciated, we recommend you talk to a mai
 
 ## Open Development & Community Driven
 
-Lenster is an open-source project. See the [LICENSE](https://github.com/lensterxyz/lenster/-/blob/main/LICENSE) file for licensing information. All the work done is available on GitHub.
+Lenster is an open-source project. See the [LICENSE](https://github.com/lensterxyz/lenster/blob/main/LICENSE) file for licensing information. All the work done is available on GitHub.
 
 The maintainers and the contributors send merge requests which go through the same validation process.
 
@@ -20,7 +20,7 @@ Feature Requests by the community are highly encouraged. Please feel free to cre
 
 ## Code of Conduct
 
-This project and everyone participating in it are governed by the [Code of Conduct](https://github.com/lensterxyz/lenster/-/blob/main/CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code. Please read the [full text](https://github.com/lensterxyz/lenster/-/blob/main/CODE_OF_CONDUCT.md) so that you can read which actions may or may not be tolerated.
+This project and everyone participating in it are governed by the [Code of Conduct](https://github.com/lensterxyz/lenster/blob/main/CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code. Please read the [full text](https://github.com/lensterxyz/lenster/blob/main/CODE_OF_CONDUCT.md) so that you can read which actions may or may not be tolerated.
 
 ## Bugs
 
