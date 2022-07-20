@@ -1,5 +1,4 @@
 import UserProfile from '@components/Shared/UserProfile'
-import AppContext from '@components/utils/AppContext'
 import { Profile } from '@generated/types'
 import {
   ChipIcon,
@@ -10,7 +9,8 @@ import {
 import clsx from 'clsx'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React, { FC, ReactNode, useContext } from 'react'
+import React, { FC, ReactNode } from 'react'
+import { useAppPersistStore } from 'src/store/app'
 
 interface MenuProps {
   children: ReactNode
@@ -19,7 +19,7 @@ interface MenuProps {
 }
 
 const Menu: FC<MenuProps> = ({ children, current, url }) => (
-  <Link href={url} prefetch={false}>
+  <Link href={url}>
     <a
       href={url}
       className={clsx(
@@ -34,7 +34,7 @@ const Menu: FC<MenuProps> = ({ children, current, url }) => (
 
 const Sidebar: FC = () => {
   const { pathname } = useRouter()
-  const { currentUser } = useContext(AppContext)
+  const { currentUser } = useAppPersistStore()
 
   return (
     <div className="px-3 mb-4 space-y-1.5 sm:px-0">

@@ -10,12 +10,17 @@ import { PaginatedResultInfo } from '@generated/types'
 import { CommentFields } from '@gql/CommentFields'
 import { PostFields } from '@gql/PostFields'
 import { CollectionIcon } from '@heroicons/react/outline'
-import consoleLog from '@lib/consoleLog'
+import Logger from '@lib/logger'
 import React, { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
+import { useAppPersistStore } from 'src/store/app'
 
 const SEARCH_PUBLICATIONS_QUERY = gql`
-  query SearchPublications($request: SearchQueryRequest!) {
+  query SearchPublications(
+    $request: SearchQueryRequest!
+    $reactionRequest: ReactionFieldResolverRequest
+    $profileId: ProfileId
+  ) {
     search(request: $request) {
       ... on PublicationSearchResult {
         items {
@@ -42,18 +47,22 @@ interface Props {
 }
 
 const Publications: FC<Props> = ({ query }) => {
+  const { currentUser } = useAppPersistStore()
   const [publications, setPublications] = useState<LensterPost[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
   const { data, loading, error, fetchMore } = useQuery(
     SEARCH_PUBLICATIONS_QUERY,
     {
-      variables: { request: { query, type: 'PUBLICATION', limit: 10 } },
+      variables: {
+        request: { query, type: 'PUBLICATION', limit: 10 },
+        reactionRequest: currentUser ? { profileId: currentUser?.id } : null,
+        profileId: currentUser?.id ?? null
+      },
       onCompleted(data) {
         setPageInfo(data?.search?.pageInfo)
         setPublications(data?.search?.items)
-        consoleLog(
-          'Query',
-          '#8b5cf6',
+        Logger.log(
+          '[Query]',
           `Fetched first 10 publication for search Keyword:${query}`
         )
       }
@@ -61,25 +70,25 @@ const Publications: FC<Props> = ({ query }) => {
   )
 
   const { observe } = useInView({
-    onEnter: () => {
-      fetchMore({
+    onEnter: async () => {
+      const { data } = await fetchMore({
         variables: {
           request: {
             query,
             type: 'PUBLICATION',
             cursor: pageInfo?.next,
             limit: 10
-          }
+          },
+          reactionRequest: currentUser ? { profileId: currentUser?.id } : null,
+          profileId: currentUser?.id ?? null
         }
-      }).then(({ data }: any) => {
-        setPageInfo(data?.search?.pageInfo)
-        setPublications([...publications, ...data?.search?.items])
-        consoleLog(
-          'Query',
-          '#8b5cf6',
-          `Fetched next 10 publications for search Keyword:${query} Next:${pageInfo?.next}`
-        )
       })
+      setPageInfo(data?.search?.pageInfo)
+      setPublications([...publications, ...data?.search?.items])
+      Logger.log(
+        '[Query]',
+        `Fetched next 10 publications for search Keyword:${query} Next:${pageInfo?.next}`
+      )
     }
   })
 

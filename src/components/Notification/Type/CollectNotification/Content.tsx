@@ -14,12 +14,9 @@ const CollectedContent: FC<Props> = ({ notification }) => {
     notification?.collectedPublication?.__typename?.toLowerCase()
 
   return (
-    <div className="text-sm text-gray-500 line-clamp-1">
+    <div className="text-gray-500 line-clamp-2 mt-2">
       {postType === 'community' ? (
-        <Link
-          href={`/communities/${notification?.collectedPublication?.id}`}
-          prefetch={false}
-        >
+        <Link href={`/communities/${notification?.collectedPublication?.id}`}>
           <a
             href={`/communities/${notification?.collectedPublication?.id}`}
             className="flex items-center space-x-1.5 font-bold"
@@ -42,19 +39,13 @@ const CollectedContent: FC<Props> = ({ notification }) => {
           </a>
         </Link>
       ) : postType === 'crowdfund' ? (
-        <Link
-          href={`/posts/${notification?.collectedPublication?.id}`}
-          prefetch={false}
-        >
+        <Link href={`/posts/${notification?.collectedPublication?.id}`}>
           <a href={`/posts/${notification?.collectedPublication?.id}`}>
             {notification?.collectedPublication?.metadata?.name}
           </a>
         </Link>
       ) : (
-        <Link
-          href={`/posts/${notification?.collectedPublication?.id}`}
-          prefetch={false}
-        >
+        <Link href={`/posts/${notification?.collectedPublication?.id}`}>
           <a
             className="linkify"
             href={`/posts/${notification?.collectedPublication?.id}`}

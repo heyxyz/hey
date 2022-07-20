@@ -4,10 +4,10 @@ import WalletProfile from '@components/Shared/WalletProfile'
 import { EmptyState } from '@components/UI/EmptyState'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { Spinner } from '@components/UI/Spinner'
-import { PaginatedResultInfo, Profile, Wallet } from '@generated/types'
+import { PaginatedResultInfo, Wallet } from '@generated/types'
 import { MinimalProfileFields } from '@gql/MinimalProfileFields'
 import { CollectionIcon } from '@heroicons/react/outline'
-import consoleLog from '@lib/consoleLog'
+import Logger from '@lib/logger'
 import { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 
@@ -20,6 +20,7 @@ const COLLECTORS_QUERY = gql`
         address
         defaultProfile {
           ...MinimalProfileFields
+          isFollowedByMe
         }
       }
       pageInfo {
@@ -44,17 +45,13 @@ const Collectors: FC<Props> = ({ pubId }) => {
     onCompleted(data) {
       setPageInfo(data?.whoCollectedPublication?.pageInfo)
       setCollectors(data?.whoCollectedPublication?.items)
-      consoleLog(
-        'Query',
-        '#8b5cf6',
-        `Fetched first 10 collectors Publication:${pubId}`
-      )
+      Logger.log('[Query]', `Fetched first 10 collectors Publication:${pubId}`)
     }
   })
 
   const { observe } = useInView({
-    onEnter: () => {
-      fetchMore({
+    onEnter: async () => {
+      const { data } = await fetchMore({
         variables: {
           request: {
             publicationId: pubId,
@@ -62,15 +59,13 @@ const Collectors: FC<Props> = ({ pubId }) => {
             limit: 10
           }
         }
-      }).then(({ data }: any) => {
-        setPageInfo(data?.whoCollectedPublication?.pageInfo)
-        setCollectors([...collectors, ...data?.whoCollectedPublication?.items])
-        consoleLog(
-          'Query',
-          '#8b5cf6',
-          `Fetched next 10 collectors Publication:${pubId} Next:${pageInfo?.next}`
-        )
       })
+      setPageInfo(data?.whoCollectedPublication?.pageInfo)
+      setCollectors([...collectors, ...data?.whoCollectedPublication?.items])
+      Logger.log(
+        '[Query]',
+        `Fetched next 10 collectors Publication:${pubId} Next:${pageInfo?.next}`
+      )
     }
   })
 
@@ -100,8 +95,10 @@ const Collectors: FC<Props> = ({ pubId }) => {
             <div className="p-5" key={wallet?.address}>
               {wallet?.defaultProfile ? (
                 <UserProfile
-                  profile={wallet?.defaultProfile as Profile}
+                  profile={wallet?.defaultProfile}
                   showBio
+                  showFollow
+                  isFollowing={wallet?.defaultProfile?.isFollowedByMe}
                 />
               ) : (
                 <WalletProfile wallet={wallet} />

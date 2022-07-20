@@ -16,7 +16,7 @@ export default function Custom500() {
           We track these errors automatically, but if the problem persists feel
           free to contact us. In the meantime, try refreshing.
         </div>
-        <Link href="/" prefetch={false}>
+        <Link href="/">
           <a href="/">
             <Button
               className="flex mx-auto item-center"

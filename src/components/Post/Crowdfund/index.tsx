@@ -7,19 +7,19 @@ import CrowdfundShimmer from '@components/Shared/Shimmer/CrowdfundShimmer'
 import { Card } from '@components/UI/Card'
 import { Modal } from '@components/UI/Modal'
 import { Tooltip } from '@components/UI/Tooltip'
-import AppContext from '@components/utils/AppContext'
 import { LensterPost } from '@generated/lenstertypes'
 import {
   CashIcon,
   CurrencyDollarIcon,
   UsersIcon
 } from '@heroicons/react/outline'
-import consoleLog from '@lib/consoleLog'
 import getTokenImage from '@lib/getTokenImage'
 import imagekitURL from '@lib/imagekitURL'
+import Logger from '@lib/logger'
 import clsx from 'clsx'
-import React, { FC, ReactNode, useContext, useEffect, useState } from 'react'
+import React, { FC, ReactNode, useEffect, useState } from 'react'
 import { STATIC_ASSETS } from 'src/constants'
+import { useAppPersistStore } from 'src/store/app'
 
 import { COLLECT_QUERY } from '../Actions/Collect/CollectModule'
 import Fund from './Fund'
@@ -27,8 +27,10 @@ import Fund from './Fund'
 export const PUBLICATION_REVENUE_QUERY = gql`
   query PublicationRevenue($request: PublicationRevenueQueryRequest!) {
     publicationRevenue(request: $request) {
-      earnings {
-        value
+      revenue {
+        total {
+          value
+        }
       }
     }
   }
@@ -53,17 +55,15 @@ interface Props {
 }
 
 const Crowdfund: FC<Props> = ({ fund }) => {
-  const { currentUser } = useContext(AppContext)
+  const { currentUser } = useAppPersistStore()
   const [showFundersModal, setShowFundersModal] = useState<boolean>(false)
   const [revenue, setRevenue] = useState<number>(0)
   const { data, loading } = useQuery(COLLECT_QUERY, {
-    variables: { request: { publicationId: fund?.id } },
-    skip: !fund?.id,
+    variables: { request: { publicationId: fund?.pubId ?? fund?.id } },
     onCompleted() {
-      consoleLog(
-        'Query',
-        '#8b5cf6',
-        `Fetched collect module details Crowdfund:${fund?.id}`
+      Logger.log(
+        '[Query]',
+        `Fetched collect module details Crowdfund:${fund?.pubId ?? fund?.id}`
       )
     }
   })
@@ -76,15 +76,17 @@ const Crowdfund: FC<Props> = ({ fund }) => {
       variables: {
         request: {
           publicationId:
-            fund?.__typename === 'Mirror' ? fund?.mirrorOf?.id : fund?.id
+            fund?.__typename === 'Mirror'
+              ? fund?.mirrorOf?.id
+              : fund?.pubId ?? fund?.id
         }
       },
-      skip: !fund?.id,
       onCompleted() {
-        consoleLog(
-          'Query',
-          '#8b5cf6',
-          `Fetched crowdfund revenue details Crowdfund:${fund?.id}`
+        Logger.log(
+          '[Query]',
+          `Fetched crowdfund revenue details Crowdfund:${
+            fund?.pubId ?? fund?.id
+          }`
         )
       }
     }
@@ -105,7 +107,7 @@ const Crowdfund: FC<Props> = ({ fund }) => {
   if (loading) return <CrowdfundShimmer />
 
   return (
-    <Card forceRounded>
+    <Card forceRounded testId="crowdfund">
       <div
         className="h-40 rounded-t-xl border-b sm:h-52 dark:border-b-gray-700/80"
         style={{
@@ -131,7 +133,10 @@ const Crowdfund: FC<Props> = ({ fund }) => {
                   .trim()}
               </Markup>
             </div>
-            <div className="block sm:flex items-center !my-3 space-y-2 sm:space-y-0 sm:space-x-3">
+            <div
+              className="block sm:flex items-center !my-3 space-y-2 sm:space-y-0 sm:space-x-3"
+              data-test="crowdfund-meta"
+            >
               {fund?.stats?.totalAmountOfCollects > 0 && (
                 <>
                   <button
@@ -153,9 +158,9 @@ const Crowdfund: FC<Props> = ({ fund }) => {
                     title="Funders"
                     icon={<CashIcon className="w-5 h-5 text-brand" />}
                     show={showFundersModal}
-                    onClose={() => setShowFundersModal(!showFundersModal)}
+                    onClose={() => setShowFundersModal(false)}
                   >
-                    <Collectors pubId={fund?.id} />
+                    <Collectors pubId={fund?.pubId ?? fund?.id} />
                   </Modal>
                 </>
               )}
@@ -212,6 +217,7 @@ const Crowdfund: FC<Props> = ({ fund }) => {
                         : percentageReached
                     }%`
                   }}
+                  data-test="crowdfund-progress-bar"
                 />
               </div>
             </Tooltip>

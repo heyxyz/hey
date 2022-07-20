@@ -11,13 +11,13 @@ interface Props {
 
 export const NotificationProfileAvatar: FC<Props> = ({ profile }) => {
   return (
-    <Link href={`/u/${profile?.handle}`} prefetch={false}>
+    <Link href={`/u/${profile?.handle}`}>
       <a href={`/u/${profile?.handle}`}>
         <img
           src={getAvatar(profile)}
-          className="w-10 h-10 bg-gray-200 rounded-full border dark:border-gray-700/80"
-          height={40}
-          width={40}
+          className="w-8 h-8 bg-gray-200 rounded-full border dark:border-gray-700/80"
+          height={32}
+          width={32}
           alt={profile?.handle}
         />
       </a>
@@ -27,7 +27,7 @@ export const NotificationProfileAvatar: FC<Props> = ({ profile }) => {
 
 export const NotificationProfileName: FC<Props> = ({ profile }) => {
   return (
-    <Link href={`/u/${profile?.handle}`} prefetch={false}>
+    <Link href={`/u/${profile?.handle}`}>
       <a
         href={`/u/${profile?.handle}`}
         className="inline-flex items-center space-x-1 font-bold"

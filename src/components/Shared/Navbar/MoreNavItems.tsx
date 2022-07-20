@@ -1,4 +1,3 @@
-import AppContext from '@components/utils/AppContext'
 import { Menu, Transition } from '@headlessui/react'
 import {
   CashIcon,
@@ -7,13 +6,14 @@ import {
   UsersIcon
 } from '@heroicons/react/outline'
 import clsx from 'clsx'
-import { FC, Fragment, useContext } from 'react'
+import { FC, Fragment } from 'react'
 import { IS_MAINNET } from 'src/constants'
+import { useAppPersistStore } from 'src/store/app'
 
 import { NextLink } from './MenuItems'
 
 const MoreNavItems: FC = () => {
-  const { currentUser } = useContext(AppContext)
+  const { currentUser } = useAppPersistStore()
 
   return (
     <Menu as="div">

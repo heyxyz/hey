@@ -3,48 +3,41 @@ import { gql, useMutation } from '@apollo/client'
 import Attachments from '@components/Shared/Attachments'
 import Markup from '@components/Shared/Markup'
 import PubIndexStatus from '@components/Shared/PubIndexStatus'
-import SwitchNetwork from '@components/Shared/SwitchNetwork'
 import { Button } from '@components/UI/Button'
 import { Card } from '@components/UI/Card'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { MentionTextArea } from '@components/UI/MentionTextArea'
 import { Spinner } from '@components/UI/Spinner'
-import AppContext from '@components/utils/AppContext'
 import { LensterAttachment } from '@generated/lenstertypes'
 import { CreatePostBroadcastItemResult, EnabledModule } from '@generated/types'
 import { IGif } from '@giphy/js-types'
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { PencilAltIcon } from '@heroicons/react/outline'
-import consoleLog from '@lib/consoleLog'
-import generateSnowflake from '@lib/generateSnowflake'
 import {
   defaultFeeData,
   defaultModuleData,
   FEE_DATA_TYPE,
   getModule
 } from '@lib/getModule'
+import Logger from '@lib/logger'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import trimify from '@lib/trimify'
 import uploadToIPFS from '@lib/uploadToIPFS'
 import dynamic from 'next/dynamic'
-import { Dispatch, FC, useContext, useState } from 'react'
+import { Dispatch, FC, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
   APP_NAME,
-  CHAIN_ID,
   CONNECT_WALLET,
   ERROR_MESSAGE,
+  ERRORS,
   LENSHUB_PROXY,
-  RELAY_ON,
-  WRONG_NETWORK
+  RELAY_ON
 } from 'src/constants'
-import {
-  useAccount,
-  useContractWrite,
-  useNetwork,
-  useSignTypedData
-} from 'wagmi'
+import { useAppPersistStore, useAppStore } from 'src/store/app'
+import { v4 as uuid } from 'uuid'
+import { useContractWrite, useSignTypedData } from 'wagmi'
 
 const Attachment = dynamic(() => import('../../Shared/Attachment'), {
   loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
@@ -110,8 +103,10 @@ interface Props {
 }
 
 const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
-  const [preview, setPreview] = useState<boolean>(false)
+  const { userSigNonce, setUserSigNonce } = useAppStore()
+  const { isAuthenticated, currentUser } = useAppPersistStore()
   const [postContent, setPostContent] = useState<string>('')
+  const [preview, setPreview] = useState<boolean>(false)
   const [postContentError, setPostContentError] = useState<string>('')
   const [selectedModule, setSelectedModule] =
     useState<EnabledModule>(defaultModuleData)
@@ -119,9 +114,6 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
   const [feeData, setFeeData] = useState<FEE_DATA_TYPE>(defaultFeeData)
   const [isUploading, setIsUploading] = useState<boolean>(false)
   const [attachments, setAttachments] = useState<LensterAttachment[]>([])
-  const { currentUser, userSigNonce, setUserSigNonce } = useContext(AppContext)
-  const { activeChain } = useNetwork()
-  const { data: account } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
       toast.error(error?.message)
@@ -140,42 +132,37 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
     error,
     isLoading: writeLoading,
     write
-  } = useContractWrite(
-    {
-      addressOrName: LENSHUB_PROXY,
-      contractInterface: LensHubProxy
+  } = useContractWrite({
+    addressOrName: LENSHUB_PROXY,
+    contractInterface: LensHubProxy,
+    functionName: 'postWithSig',
+    onSuccess() {
+      onCompleted()
     },
-    'postWithSig',
-    {
-      onSuccess() {
-        onCompleted()
-      },
-      onError(error: any) {
-        toast.error(error?.data?.message ?? error?.message)
-      }
+    onError(error: any) {
+      toast.error(error?.data?.message ?? error?.message)
     }
-  )
+  })
 
   const [broadcast, { data: broadcastData, loading: broadcastLoading }] =
     useMutation(BROADCAST_MUTATION, {
-      onCompleted({ broadcast }) {
-        if (broadcast?.reason !== 'NOT_ALLOWED') {
-          onCompleted()
-        }
-      },
+      onCompleted,
       onError(error) {
-        consoleLog('Relay Error', '#ef4444', error.message)
+        if (error.message === ERRORS.notMined) {
+          toast.error(error.message)
+        }
+        Logger.error('[Relay Error]', error.message)
       }
     })
   const [createPostTypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_POST_TYPED_DATA_MUTATION,
     {
-      onCompleted({
+      async onCompleted({
         createPostTypedData
       }: {
         createPostTypedData: CreatePostBroadcastItemResult
       }) {
-        consoleLog('Mutation', '#4ade80', 'Generated createPostTypedData')
+        Logger.log('[Mutation]', 'Generated createPostTypedData')
         const { id, typedData } = createPostTypedData
         const {
           profileId,
@@ -183,17 +170,19 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
           collectModule,
           collectModuleInitData,
           referenceModule,
-          referenceModuleInitData
+          referenceModuleInitData,
+          deadline
         } = typedData?.value
 
-        signTypedDataAsync({
-          domain: omit(typedData?.domain, '__typename'),
-          types: omit(typedData?.types, '__typename'),
-          value: omit(typedData?.value, '__typename')
-        }).then((signature) => {
+        try {
+          const signature = await signTypedDataAsync({
+            domain: omit(typedData?.domain, '__typename'),
+            types: omit(typedData?.types, '__typename'),
+            value: omit(typedData?.value, '__typename')
+          })
           setUserSigNonce(userSigNonce + 1)
           const { v, r, s } = splitSignature(signature)
-          const sig = { v, r, s, deadline: typedData.value.deadline }
+          const sig = { v, r, s, deadline }
           const inputStruct = {
             profileId,
             contentURI,
@@ -204,17 +193,17 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
             sig
           }
           if (RELAY_ON) {
-            broadcast({ variables: { request: { id, signature } } }).then(
-              ({ data: { broadcast }, errors }) => {
-                if (errors || broadcast?.reason === 'NOT_ALLOWED') {
-                  write({ args: inputStruct })
-                }
-              }
-            )
+            const {
+              data: { broadcast: result }
+            } = await broadcast({ variables: { request: { id, signature } } })
+
+            if ('reason' in result) write({ args: inputStruct })
           } else {
             write({ args: inputStruct })
           }
-        })
+        } catch (error) {
+          Logger.warn('[Sign Error]', error)
+        }
       },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
@@ -223,60 +212,66 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
   )
 
   const createPost = async () => {
-    if (!account?.address) {
-      toast.error(CONNECT_WALLET)
-    } else if (activeChain?.id !== CHAIN_ID) {
-      toast.error(WRONG_NETWORK)
-    } else if (postContent.length === 0 && attachments.length === 0) {
-      setPostContentError('Post should not be empty!')
-    } else {
-      setPostContentError('')
-      setIsUploading(true)
-      // TODO: Add animated_url support
-      const { path } = await uploadToIPFS({
-        version: '1.0.0',
-        metadata_id: generateSnowflake(),
-        description: trimify(postContent),
-        content: trimify(postContent),
-        external_url: null,
-        image: attachments.length > 0 ? attachments[0]?.item : null,
-        imageMimeType: attachments.length > 0 ? attachments[0]?.type : null,
-        name: `Post by @${currentUser?.handle}`,
-        attributes: [
-          {
-            traitType: 'string',
-            key: 'type',
-            value: 'post'
-          }
-        ],
-        media: attachments,
-        appId: APP_NAME
-      }).finally(() => setIsUploading(false))
+    if (!isAuthenticated) return toast.error(CONNECT_WALLET)
+    if (postContent.length === 0 && attachments.length === 0) {
+      return setPostContentError('Post should not be empty!')
+    }
 
-      createPostTypedData({
-        variables: {
-          options: { overrideSigNonce: userSigNonce },
-          request: {
-            profileId: currentUser?.id,
-            contentURI: `https://ipfs.infura.io/ipfs/${path}`,
-            collectModule: feeData.recipient
-              ? {
-                  [getModule(selectedModule.moduleName).config]: feeData
-                }
-              : getModule(selectedModule.moduleName).config,
-            referenceModule: {
-              followerOnlyReferenceModule: onlyFollowers ? true : false
-            }
+    setPostContentError('')
+    setIsUploading(true)
+    // TODO: Add animated_url support
+    const { path } = await uploadToIPFS({
+      version: '1.0.0',
+      metadata_id: uuid(),
+      description: trimify(postContent),
+      content: trimify(postContent),
+      external_url: `https://lenster.xyz/u/${currentUser?.handle}`,
+      image: attachments.length > 0 ? attachments[0]?.item : null,
+      imageMimeType: attachments.length > 0 ? attachments[0]?.type : null,
+      name: `Post by @${currentUser?.handle}`,
+      mainContentFocus:
+        attachments.length > 0
+          ? attachments[0]?.type === 'video/mp4'
+            ? 'VIDEO'
+            : 'IMAGE'
+          : 'TEXT',
+      contentWarning: null, // TODO
+      attributes: [
+        {
+          traitType: 'string',
+          key: 'type',
+          value: 'post'
+        }
+      ],
+      media: attachments,
+      createdOn: new Date(),
+      appId: APP_NAME
+    }).finally(() => setIsUploading(false))
+
+    createPostTypedData({
+      variables: {
+        options: { overrideSigNonce: userSigNonce },
+        request: {
+          profileId: currentUser?.id,
+          contentURI: `https://ipfs.infura.io/ipfs/${path}`,
+          collectModule: feeData.recipient
+            ? {
+                [getModule(selectedModule.moduleName).config]: feeData
+              }
+            : getModule(selectedModule.moduleName).config,
+          referenceModule: {
+            followerOnlyReferenceModule: onlyFollowers ? true : false
           }
         }
-      })
-    }
+      }
+    })
   }
 
   const setGifAttachment = (gif: IGif) => {
     const attachment = {
       item: gif.images.original.url,
-      type: 'image/gif'
+      type: 'image/gif',
+      altTag: ''
     }
     setAttachments([...attachments, attachment])
   }
@@ -298,8 +293,8 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
             </div>
           ) : (
             <MentionTextArea
-              value={postContent}
-              setValue={setPostContent}
+              publication={postContent}
+              setPublication={setPostContent}
               error={postContentError}
               setError={setPostContentError}
               placeholder="What's happening?"
@@ -336,42 +331,38 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
                   }
                 />
               ) : null}
-              {activeChain?.id !== CHAIN_ID ? (
-                <SwitchNetwork className="ml-auto" />
-              ) : (
-                <Button
-                  className="ml-auto"
-                  disabled={
-                    isUploading ||
-                    typedDataLoading ||
-                    signLoading ||
-                    writeLoading ||
-                    broadcastLoading
-                  }
-                  icon={
-                    isUploading ||
-                    typedDataLoading ||
-                    signLoading ||
-                    writeLoading ||
-                    broadcastLoading ? (
-                      <Spinner size="xs" />
-                    ) : (
-                      <PencilAltIcon className="w-4 h-4" />
-                    )
-                  }
-                  onClick={createPost}
-                >
-                  {isUploading
-                    ? 'Uploading to IPFS'
-                    : typedDataLoading
-                    ? 'Generating Post'
-                    : signLoading
-                    ? 'Sign'
-                    : writeLoading || broadcastLoading
-                    ? 'Send'
-                    : 'Post'}
-                </Button>
-              )}
+              <Button
+                className="ml-auto"
+                disabled={
+                  isUploading ||
+                  typedDataLoading ||
+                  signLoading ||
+                  writeLoading ||
+                  broadcastLoading
+                }
+                icon={
+                  isUploading ||
+                  typedDataLoading ||
+                  signLoading ||
+                  writeLoading ||
+                  broadcastLoading ? (
+                    <Spinner size="xs" />
+                  ) : (
+                    <PencilAltIcon className="w-4 h-4" />
+                  )
+                }
+                onClick={createPost}
+              >
+                {isUploading
+                  ? 'Uploading to IPFS'
+                  : typedDataLoading
+                  ? 'Generating Post'
+                  : signLoading
+                  ? 'Sign'
+                  : writeLoading || broadcastLoading
+                  ? 'Send'
+                  : 'Post'}
+              </Button>
             </div>
           </div>
           <Attachments

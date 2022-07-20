@@ -14,20 +14,22 @@ dayjs.extend(relativeTime)
 
 interface Props {
   post: LensterPost
-  hideType?: boolean
+  showType?: boolean
   showThread?: boolean
+  showActions?: boolean
 }
 
 const SinglePost: FC<Props> = ({
   post,
-  hideType = false,
-  showThread = false
+  showType = true,
+  showThread = false,
+  showActions = true
 }) => {
   const postType = post?.metadata?.attributes[0]?.value
 
   return (
-    <div className="p-5">
-      <PostType post={post} hideType={hideType} showThread={showThread} />
+    <div className="p-5" data-test="publication">
+      <PostType post={post} showType={showType} showThread={showThread} />
       <div>
         <div className="flex justify-between pb-4 space-x-1.5">
           <UserProfile
@@ -39,22 +41,23 @@ const SinglePost: FC<Props> = ({
                 : post?.profile
             }
           />
-          <Link href={`/posts/${post?.id ?? post?.pubId}`} prefetch={false}>
+          <Link href={`/posts/${post?.id ?? post?.pubId}`}>
             <a
               href={`/posts/${post?.id ?? post?.pubId}`}
               className="text-sm text-gray-500"
+              data-test="publication-timestamp"
             >
               {dayjs(new Date(post?.createdAt)).fromNow()}
             </a>
           </Link>
         </div>
-        <div className="ml-[53px]">
+        <div className="ml-[53px]" data-test="publication-content">
           {post?.hidden ? (
             <HiddenPost type={post?.__typename} />
           ) : (
             <>
               <PostBody post={post} />
-              <PostActions post={post} />
+              {showActions && <PostActions post={post} />}
             </>
           )}
         </div>

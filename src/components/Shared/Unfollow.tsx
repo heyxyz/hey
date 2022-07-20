@@ -4,19 +4,15 @@ import { Button } from '@components/UI/Button'
 import { Spinner } from '@components/UI/Spinner'
 import { CreateUnfollowBroadcastItemResult, Profile } from '@generated/types'
 import { UserRemoveIcon } from '@heroicons/react/outline'
-import consoleLog from '@lib/consoleLog'
+import Logger from '@lib/logger'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import { Contract, Signer } from 'ethers'
 import { Dispatch, FC, useState } from 'react'
 import toast from 'react-hot-toast'
-import {
-  CHAIN_ID,
-  CONNECT_WALLET,
-  ERROR_MESSAGE,
-  WRONG_NETWORK
-} from 'src/constants'
-import { useAccount, useNetwork, useSigner, useSignTypedData } from 'wagmi'
+import { CONNECT_WALLET, ERROR_MESSAGE } from 'src/constants'
+import { useAppPersistStore } from 'src/store/app'
+import { useSigner, useSignTypedData } from 'wagmi'
 
 const CREATE_UNFOLLOW_TYPED_DATA_MUTATION = gql`
   mutation CreateUnfollowTypedData($request: UnfollowRequest!) {
@@ -61,9 +57,8 @@ const Unfollow: FC<Props> = ({
   followersCount,
   setFollowersCount
 }) => {
+  const { isAuthenticated } = useAppPersistStore()
   const [writeLoading, setWriteLoading] = useState<boolean>(false)
-  const { activeChain } = useNetwork()
-  const { data: account } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
       toast.error(error?.message)
@@ -74,26 +69,24 @@ const Unfollow: FC<Props> = ({
   const [createUnfollowTypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_UNFOLLOW_TYPED_DATA_MUTATION,
     {
-      onCompleted({
+      async onCompleted({
         createUnfollowTypedData
       }: {
         createUnfollowTypedData: CreateUnfollowBroadcastItemResult
       }) {
-        consoleLog('Mutation', '#4ade80', 'Generated createUnfollowTypedData')
+        Logger.log('[Mutation]', 'Generated createUnfollowTypedData')
         const { typedData } = createUnfollowTypedData
-        signTypedDataAsync({
-          domain: omit(typedData?.domain, '__typename'),
-          types: omit(typedData?.types, '__typename'),
-          value: omit(typedData?.value, '__typename')
-        }).then(async (res) => {
+        const { deadline } = typedData?.value
+
+        try {
+          const signature = await signTypedDataAsync({
+            domain: omit(typedData?.domain, '__typename'),
+            types: omit(typedData?.types, '__typename'),
+            value: omit(typedData?.value, '__typename')
+          })
           const { tokenId } = typedData?.value
-          const { v, r, s } = splitSignature(res)
-          const sig = {
-            v,
-            r,
-            s,
-            deadline: typedData.value.deadline
-          }
+          const { v, r, s } = splitSignature(signature)
+          const sig = { v, r, s, deadline }
           setWriteLoading(true)
           try {
             const followNftContract = new Contract(
@@ -115,7 +108,9 @@ const Unfollow: FC<Props> = ({
           } finally {
             setWriteLoading(false)
           }
-        })
+        } catch (error) {
+          Logger.warn('[Sign Error]', error)
+        }
       },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
@@ -124,17 +119,13 @@ const Unfollow: FC<Props> = ({
   )
 
   const createUnfollow = () => {
-    if (!account?.address) {
-      toast.error(CONNECT_WALLET)
-    } else if (activeChain?.id !== CHAIN_ID) {
-      toast.error(WRONG_NETWORK)
-    } else {
-      createUnfollowTypedData({
-        variables: {
-          request: { profile: profile?.id }
-        }
-      })
-    }
+    if (!isAuthenticated) return toast.error(CONNECT_WALLET)
+
+    createUnfollowTypedData({
+      variables: {
+        request: { profile: profile?.id }
+      }
+    })
   }
 
   return (

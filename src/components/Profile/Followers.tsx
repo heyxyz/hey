@@ -8,7 +8,7 @@ import { Spinner } from '@components/UI/Spinner'
 import { Follower, PaginatedResultInfo, Profile } from '@generated/types'
 import { MinimalProfileFields } from '@gql/MinimalProfileFields'
 import { UsersIcon } from '@heroicons/react/outline'
-import consoleLog from '@lib/consoleLog'
+import Logger from '@lib/logger'
 import { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 
@@ -20,6 +20,7 @@ const FOLLOWERS_QUERY = gql`
           address
           defaultProfile {
             ...MinimalProfileFields
+            isFollowedByMe
           }
         }
         totalAmountOfTimesFollowed
@@ -46,17 +47,13 @@ const Followers: FC<Props> = ({ profile }) => {
     onCompleted(data) {
       setPageInfo(data?.followers?.pageInfo)
       setFollowers(data?.followers?.items)
-      consoleLog(
-        'Query',
-        '#8b5cf6',
-        `Fetched first 10 followers Profile:${profile?.id}`
-      )
+      Logger.log('[Query]', `Fetched first 10 followers Profile:${profile?.id}`)
     }
   })
 
   const { observe } = useInView({
-    onEnter: () => {
-      fetchMore({
+    onEnter: async () => {
+      const { data } = await fetchMore({
         variables: {
           request: {
             profileId: profile?.id,
@@ -64,15 +61,13 @@ const Followers: FC<Props> = ({ profile }) => {
             limit: 10
           }
         }
-      }).then(({ data }: any) => {
-        setPageInfo(data?.followers?.pageInfo)
-        setFollowers([...followers, ...data?.followers?.items])
-        consoleLog(
-          'Query',
-          '#8b5cf6',
-          `Fetched next 10 followers Profile:${profile?.id} Next:${pageInfo?.next}`
-        )
       })
+      setPageInfo(data?.followers?.pageInfo)
+      setFollowers([...followers, ...data?.followers?.items])
+      Logger.log(
+        '[Query]',
+        `Fetched next 10 followers Profile:${profile?.id} Next:${pageInfo?.next}`
+      )
     }
   })
 
@@ -105,8 +100,10 @@ const Followers: FC<Props> = ({ profile }) => {
             <div className="p-5" key={follower?.wallet?.defaultProfile?.id}>
               {follower?.wallet?.defaultProfile ? (
                 <UserProfile
-                  profile={follower?.wallet?.defaultProfile as Profile}
+                  profile={follower?.wallet?.defaultProfile}
                   showBio
+                  showFollow
+                  isFollowing={follower?.wallet?.defaultProfile?.isFollowedByMe}
                 />
               ) : (
                 <WalletProfile wallet={follower?.wallet} />

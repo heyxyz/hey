@@ -11,15 +11,15 @@ import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { Form, useZodForm } from '@components/UI/Form'
 import { Spinner } from '@components/UI/Spinner'
 import { TextArea } from '@components/UI/TextArea'
-import AppContext from '@components/utils/AppContext'
 import SEO from '@components/utils/SEO'
 import { PencilAltIcon } from '@heroicons/react/outline'
 import { CheckCircleIcon } from '@heroicons/react/solid'
-import consoleLog from '@lib/consoleLog'
+import Logger from '@lib/logger'
 import { useRouter } from 'next/router'
-import React, { FC, useContext, useState } from 'react'
+import React, { FC, useState } from 'react'
 import { APP_NAME, ZERO_ADDRESS } from 'src/constants'
 import Custom404 from 'src/pages/404'
+import { useAppPersistStore } from 'src/store/app'
 import { object, string } from 'zod'
 
 import Reason from './Reason'
@@ -44,7 +44,7 @@ const Report: FC = () => {
   } = useRouter()
   const [type, setType] = useState<string>('')
   const [subReason, setSubReason] = useState<string>('')
-  const { currentUser } = useContext(AppContext)
+  const { currentUser } = useAppPersistStore()
   const { data, loading, error } = useQuery(POST_QUERY, {
     variables: {
       request: { publicationId: id },
@@ -57,9 +57,8 @@ const Report: FC = () => {
     },
     skip: !id,
     onCompleted() {
-      consoleLog(
-        'Query',
-        '#8b5cf6',
+      Logger.log(
+        '[Query]',
         `Fetched publication details to report Publication:${id}`
       )
     }

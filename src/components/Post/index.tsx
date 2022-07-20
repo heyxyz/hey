@@ -4,21 +4,21 @@ import Footer from '@components/Shared/Footer'
 import PostsShimmer from '@components/Shared/Shimmer/PostsShimmer'
 import UserProfile from '@components/Shared/UserProfile'
 import { Card, CardBody } from '@components/UI/Card'
-import AppContext from '@components/utils/AppContext'
 import SEO from '@components/utils/SEO'
 import { LensterPost } from '@generated/lenstertypes'
 import { CommentFields } from '@gql/CommentFields'
 import { MirrorFields } from '@gql/MirrorFields'
 import { PostFields } from '@gql/PostFields'
-import consoleLog from '@lib/consoleLog'
+import Logger from '@lib/logger'
 import { apps } from 'data/apps'
 import { NextPage } from 'next'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
-import React, { useContext } from 'react'
-import { APP_NAME, ZERO_ADDRESS } from 'src/constants'
+import React from 'react'
+import { APP_NAME } from 'src/constants'
 import Custom404 from 'src/pages/404'
 import Custom500 from 'src/pages/500'
+import { useAppPersistStore } from 'src/store/app'
 
 import IPFSHash from './IPFSHash'
 import PostPageShimmer from './Shimmer'
@@ -32,12 +32,16 @@ const Feed = dynamic(() => import('@components/Comment/Feed'), {
 export const POST_QUERY = gql`
   query Post(
     $request: PublicationQueryRequest!
-    $followRequest: DoesFollowRequest!
+    $reactionRequest: ReactionFieldResolverRequest
+    $profileId: ProfileId
   ) {
     publication(request: $request) {
       ... on Post {
         ...PostFields
         onChainContentURI
+        profile {
+          isFollowedByMe
+        }
         referenceModule {
           __typename
         }
@@ -45,6 +49,9 @@ export const POST_QUERY = gql`
       ... on Comment {
         ...CommentFields
         onChainContentURI
+        profile {
+          isFollowedByMe
+        }
         referenceModule {
           __typename
         }
@@ -52,13 +59,13 @@ export const POST_QUERY = gql`
       ... on Mirror {
         ...MirrorFields
         onChainContentURI
+        profile {
+          isFollowedByMe
+        }
         referenceModule {
           __typename
         }
       }
-    }
-    doesFollow(request: $followRequest) {
-      follows
     }
   }
   ${PostFields}
@@ -71,24 +78,16 @@ const ViewPost: NextPage = () => {
     query: { id }
   } = useRouter()
 
-  const { currentUser } = useContext(AppContext)
+  const { currentUser } = useAppPersistStore()
   const { data, loading, error } = useQuery(POST_QUERY, {
     variables: {
       request: { publicationId: id },
-      followRequest: {
-        followInfos: {
-          followerAddress: currentUser?.ownedBy ?? ZERO_ADDRESS,
-          profileId: id?.toString().split('-')[0]
-        }
-      }
+      reactionRequest: currentUser ? { profileId: currentUser?.id } : null,
+      profileId: currentUser?.id ?? null
     },
     skip: !id,
     onCompleted() {
-      consoleLog(
-        'Query',
-        '#8b5cf6',
-        `Fetched publication details Publication:${id}`
-      )
+      Logger.log('[Query]', `Fetched publication details Publication:${id}`)
     }
   })
 
@@ -114,7 +113,7 @@ const ViewPost: NextPage = () => {
             post?.referenceModule?.__typename ===
             'FollowOnlyReferenceModuleSettings'
           }
-          isFollowing={data?.doesFollow[0]?.follows}
+          isFollowing={post?.profile?.isFollowedByMe}
         />
       </GridItemEight>
       <GridItemFour className="space-y-5">

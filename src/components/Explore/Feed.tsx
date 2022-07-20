@@ -11,12 +11,17 @@ import { CommentFields } from '@gql/CommentFields'
 import { MirrorFields } from '@gql/MirrorFields'
 import { PostFields } from '@gql/PostFields'
 import { CollectionIcon } from '@heroicons/react/outline'
-import consoleLog from '@lib/consoleLog'
+import Logger from '@lib/logger'
 import React, { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
+import { useAppPersistStore } from 'src/store/app'
 
 const EXPLORE_FEED_QUERY = gql`
-  query ExploreFeed($request: ExplorePublicationRequest!) {
+  query ExploreFeed(
+    $request: ExplorePublicationRequest!
+    $reactionRequest: ReactionFieldResolverRequest
+    $profileId: ProfileId
+  ) {
     explorePublications(request: $request) {
       items {
         ... on Post {
@@ -45,6 +50,7 @@ interface Props {
 }
 
 const Feed: FC<Props> = ({ feedType = 'TOP_COMMENTED' }) => {
+  const { currentUser } = useAppPersistStore()
   const [publications, setPublications] = useState<LensterPost[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
   const { data, loading, error, fetchMore } = useQuery(EXPLORE_FEED_QUERY, {
@@ -53,39 +59,40 @@ const Feed: FC<Props> = ({ feedType = 'TOP_COMMENTED' }) => {
         sortCriteria: feedType,
         limit: 10,
         noRandomize: feedType === 'LATEST'
-      }
+      },
+      reactionRequest: currentUser ? { profileId: currentUser?.id } : null,
+      profileId: currentUser?.id ?? null
     },
     onCompleted(data) {
       setPageInfo(data?.explorePublications?.pageInfo)
       setPublications(data?.explorePublications?.items)
-      consoleLog(
-        'Query',
-        '#8b5cf6',
+      Logger.log(
+        '[Query]',
         `Fetched first 10 explore publications FeedType:${feedType}`
       )
     }
   })
 
   const { observe } = useInView({
-    onEnter: () => {
-      fetchMore({
+    onEnter: async () => {
+      const { data } = await fetchMore({
         variables: {
           request: {
             sortCriteria: feedType,
             cursor: pageInfo?.next,
             limit: 10,
             noRandomize: feedType === 'LATEST'
-          }
+          },
+          reactionRequest: currentUser ? { profileId: currentUser?.id } : null,
+          profileId: currentUser?.id ?? null
         }
-      }).then(({ data }: any) => {
-        setPageInfo(data?.explorePublications?.pageInfo)
-        setPublications([...publications, ...data?.explorePublications?.items])
-        consoleLog(
-          'Query',
-          '#8b5cf6',
-          `Fetched next 10 explore publications FeedType:${feedType} Next:${pageInfo?.next}`
-        )
       })
+      setPageInfo(data?.explorePublications?.pageInfo)
+      setPublications([...publications, ...data?.explorePublications?.items])
+      Logger.log(
+        '[Query]',
+        `Fetched next 10 explore publications FeedType:${feedType} Next:${pageInfo?.next}`
+      )
     }
   })
 
@@ -101,7 +108,10 @@ const Feed: FC<Props> = ({ feedType = 'TOP_COMMENTED' }) => {
       <ErrorMessage title="Failed to load explore feed" error={error} />
       {!error && !loading && data?.explorePublications?.items?.length !== 0 && (
         <>
-          <Card className="divide-y-[1px] dark:divide-gray-700/80">
+          <Card
+            className="divide-y-[1px] dark:divide-gray-700/80"
+            testId="explore-feed"
+          >
             {publications?.map((post: LensterPost, index: number) => (
               <SinglePost key={`${post?.id}_${index}`} post={post} />
             ))}

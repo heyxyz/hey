@@ -4,36 +4,27 @@ import UserProfile from '@components/Shared/UserProfile'
 import { Card, CardBody } from '@components/UI/Card'
 import { EmptyState } from '@components/UI/EmptyState'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
-import AppContext from '@components/utils/AppContext'
-import { DoesFollowResponse, Profile } from '@generated/types'
+import { Profile } from '@generated/types'
 import { MinimalProfileFields } from '@gql/MinimalProfileFields'
 import { UsersIcon } from '@heroicons/react/outline'
 import { LightningBoltIcon, SparklesIcon } from '@heroicons/react/solid'
-import consoleLog from '@lib/consoleLog'
+import Logger from '@lib/logger'
 import randomizeArray from '@lib/randomizeArray'
-import React, { FC, useContext } from 'react'
-import { ZERO_ADDRESS } from 'src/constants'
+import React, { FC } from 'react'
+import { useAppPersistStore } from 'src/store/app'
 
 const RECOMMENDED_PROFILES_QUERY = gql`
   query RecommendedProfiles {
     recommendedProfiles {
       ...MinimalProfileFields
+      isFollowedByMe
     }
   }
   ${MinimalProfileFields}
 `
 
-const DOES_FOLLOW_QUERY = gql`
-  query DoesFollow($request: DoesFollowRequest!) {
-    doesFollow(request: $request) {
-      profileId
-      follows
-    }
-  }
-`
-
 const Title = () => {
-  const { currentUser } = useContext(AppContext)
+  const { currentUser } = useAppPersistStore()
 
   return (
     <div className="flex gap-2 items-center px-5 mb-2 sm:px-0">
@@ -53,43 +44,16 @@ const Title = () => {
 }
 
 const RecommendedProfiles: FC = () => {
-  const { currentUser } = useContext(AppContext)
-
   const { data, loading, error } = useQuery(RECOMMENDED_PROFILES_QUERY, {
     onCompleted(data) {
-      consoleLog(
-        'Query',
-        '#8b5cf6',
+      Logger.log(
+        '[Query]',
         `Fetched ${data?.recommendedProfiles?.length} recommended profiles`
       )
     }
   })
 
-  const { data: followData, loading: followLoading } = useQuery(
-    DOES_FOLLOW_QUERY,
-    {
-      variables: {
-        request: {
-          followInfos: data?.recommendedProfiles?.map((profile: Profile) => {
-            return {
-              followerAddress: currentUser?.ownedBy ?? ZERO_ADDRESS,
-              profileId: profile?.id
-            }
-          })
-        }
-      },
-      skip: !data?.recommendedProfiles,
-      onCompleted() {
-        consoleLog(
-          'Query',
-          '#8b5cf6',
-          `Fetched ${data?.recommendedProfiles?.length} user's follow status`
-        )
-      }
-    }
-  )
-
-  if (loading || followLoading)
+  if (loading)
     return (
       <>
         <Title />
@@ -123,7 +87,7 @@ const RecommendedProfiles: FC = () => {
   return (
     <>
       <Title />
-      <Card>
+      <Card testId="recommended-users">
         <CardBody className="space-y-4">
           <ErrorMessage title="Failed to recommendations" error={error} />
           {randomizeArray(data?.recommendedProfiles)
@@ -132,12 +96,7 @@ const RecommendedProfiles: FC = () => {
               <div key={profile?.id} className="truncate">
                 <UserProfile
                   profile={profile}
-                  isFollowing={
-                    followData?.doesFollow?.find(
-                      (follow: DoesFollowResponse) =>
-                        follow.profileId === profile.id
-                    ).follows
-                  }
+                  isFollowing={profile.isFollowedByMe}
                   showFollow
                 />
               </div>

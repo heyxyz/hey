@@ -11,6 +11,8 @@ export const PostFields = gql`
     profile {
       ...MinimalProfileFields
     }
+    reaction(request: $reactionRequest)
+    mirrors(by: $profileId)
     collectedBy {
       address
       defaultProfile {
@@ -25,11 +27,6 @@ export const PostFields = gql`
     }
     metadata {
       ...MetadataFields
-      cover {
-        original {
-          url
-        }
-      }
     }
     hidden
     createdAt

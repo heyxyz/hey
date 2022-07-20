@@ -12,7 +12,7 @@ interface Props {
 const CommunityProfile: FC<Props> = ({ community }) => {
   return (
     <div className="flex justify-between items-center">
-      <Link href={`/communities/${community?.id}`} prefetch={false}>
+      <Link href={`/communities/${community?.id}`}>
         <a href={`/communities/${community?.id}`}>
           <div className="flex items-center space-x-3">
             <img
@@ -37,9 +37,9 @@ const CommunityProfile: FC<Props> = ({ community }) => {
                   <UsersIcon className="w-3 h-3" />
                   <div>
                     {nFormatter(community?.stats?.totalAmountOfCollects)}{' '}
-                    {community?.stats?.totalAmountOfCollects > 1
-                      ? 'members'
-                      : 'member'}
+                    {community?.stats?.totalAmountOfCollects === 1
+                      ? 'member'
+                      : 'members'}
                   </div>
                 </div>
               )}

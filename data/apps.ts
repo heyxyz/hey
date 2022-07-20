@@ -1,6 +1,6 @@
 export const apps = [
   {
-    id: 'Lenster',
+    id: 'lenster',
     name: 'Lenster',
     logo: 'lenster.svg'
   },
@@ -13,5 +13,20 @@ export const apps = [
     id: 'refract',
     name: 'Refract',
     logo: 'refract.jpeg'
+  },
+  {
+    id: 'iris',
+    name: 'iris',
+    logo: 'iris.png'
+  },
+  {
+    id: 'teaparty',
+    name: 'TeaParty',
+    logo: 'teaparty.png'
+  },
+  {
+    id: 'lenstube',
+    name: 'Lenstube',
+    logo: 'lenstube.svg'
   }
 ]

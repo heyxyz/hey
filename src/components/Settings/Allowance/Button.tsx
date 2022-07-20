@@ -77,7 +77,7 @@ const AllowanceButton: FC<Props> = ({
     }).then((res) => {
       const data = res?.data?.generateModuleCurrencyApprovalData
       sendTransaction({
-        request: { from: data.from, to: data.to, data: data.data }
+        request: { from: data?.from, to: data?.to, data: data?.data }
       })
     })
   }
@@ -109,7 +109,7 @@ const AllowanceButton: FC<Props> = ({
         title="Warning"
         icon={<ExclamationIcon className="w-5 h-5 text-yellow-500" />}
         show={showWarningModal}
-        onClose={() => setShowWarninModal(!showWarningModal)}
+        onClose={() => setShowWarninModal(false)}
       >
         <div className="p-5 space-y-3">
           <WarningMessage
@@ -132,7 +132,11 @@ const AllowanceButton: FC<Props> = ({
               )
             }
             onClick={() =>
-              handleAllowance(module.currency, '10000000000', module.module)
+              handleAllowance(
+                module.currency,
+                Number.MAX_SAFE_INTEGER.toString(),
+                module.module
+              )
             }
           >
             {title}

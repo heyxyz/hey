@@ -1,4 +1,11 @@
 export const mainnetVerified = [
+  '0x1053' /** @finematics.lens */,
+  '0x1c19' /** @gabriel.lens */,
+  '0x8e79' /** @primary.lens */,
+  '0x011d' /** @aavechan.lens */,
+  '0x8b61' /** @bankless.lens */,
+  '0x8690' /** @pussyriotxyz.lens */,
+  '0x7b38' /** @lensapi.lens */,
   '0x6417' /** @blockworks.lens */,
   '0x1eb8' /** @kartik.lens */,
   '0x5138' /** @fabien.lens */,

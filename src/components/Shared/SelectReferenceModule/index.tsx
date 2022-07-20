@@ -46,7 +46,7 @@ const SelectReferenceModule: FC<Props> = ({
         title="Select who to comment or mirror"
         icon={<ChatAlt2Icon className="w-5 h-5 text-brand" />}
         show={showModal}
-        onClose={() => setShowModal(!showModal)}
+        onClose={() => setShowModal(false)}
       >
         <div className="py-3.5 px-5 space-y-3">
           <button
