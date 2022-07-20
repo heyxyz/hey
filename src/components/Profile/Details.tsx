@@ -177,8 +177,7 @@ const Details: FC<Props> = ({ profile }) => {
               {getAttribute(profile?.attributes, 'location') as any}
             </MetaDetails>
           )}
-          {/* Get ENS name from API */}
-          {true && (
+          {profile?.onChainIdentity?.ens?.name && (
             <MetaDetails
               icon={
                 <img
@@ -190,7 +189,7 @@ const Details: FC<Props> = ({ profile }) => {
                 />
               }
             >
-              <span>WIP.eth</span>
+              {profile?.onChainIdentity?.ens?.name}
             </MetaDetails>
           )}
           {getAttribute(profile?.attributes, 'website') && (
