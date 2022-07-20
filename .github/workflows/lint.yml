@@ -1,4 +1,4 @@
-name: Lint / Prettier checks
+name: Checks
 
 on:
   push:
