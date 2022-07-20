@@ -29,7 +29,6 @@ const SEO: FC<Props> = ({ title = APP_NAME, description = DESCRIPTION }) => {
         sizes="192x192"
         href={`${STATIC_ASSETS}/images/icons/apple-touch-icon.png`}
       />
-      <link rel="manifest" href="/manifest.json" />
 
       <meta property="og:url" content="https://lenster.xyz" />
       <meta property="og:site_name" content="Lenster" />
