@@ -24,6 +24,7 @@ export type Scalars = {
   CreateHandle: any
   Cursor: any
   DateTime: any
+  Ens: any
   EthereumAddress: any
   FollowModuleData: any
   Handle: any
@@ -834,6 +835,12 @@ export type EnabledModules = {
   referenceModules: Array<EnabledModule>
 }
 
+export type EnsOnChainIdentity = {
+  __typename?: 'EnsOnChainIdentity'
+  /** The default ens mapped to this address */
+  name?: Maybe<Scalars['Ens']>
+}
+
 /** The erc20 type */
 export type Erc20 = {
   __typename?: 'Erc20'
@@ -1595,6 +1602,16 @@ export type NotificationRequest = {
   sources?: InputMaybe<Array<Scalars['Sources']>>
 }
 
+export type OnChainIdentity = {
+  __typename?: 'OnChainIdentity'
+  /** The ens information */
+  ens?: Maybe<EnsOnChainIdentity>
+  /** The POH status */
+  proofOfHumanity: Scalars['Boolean']
+  /** The sybil dot org information */
+  sybilDotOrg: SybilDotOrgIdentity
+}
+
 /** The nft type */
 export type Owner = {
   __typename?: 'Owner'
@@ -1751,6 +1768,8 @@ export type Profile = {
   metadata?: Maybe<Scalars['Url']>
   /** Name of the profile */
   name?: Maybe<Scalars['String']>
+  /** The on chain identity */
+  onChainIdentity: OnChainIdentity
   /** Who owns the profile */
   ownedBy: Scalars['EthereumAddress']
   /** The picture for the profile */
@@ -1787,6 +1806,10 @@ export type ProfileFollowRevenueQueryRequest = {
 }
 
 export type ProfileMedia = MediaSet | NftImage
+
+export type ProfileOnChainIdentityRequest = {
+  profileIds: Array<Scalars['ProfileId']>
+}
 
 export type ProfilePublicationRevenueQueryRequest = {
   cursor?: InputMaybe<Scalars['Cursor']>
@@ -1851,6 +1874,11 @@ export enum ProfileSortCriteria {
 /** The Profile Stats */
 export type ProfileStats = {
   __typename?: 'ProfileStats'
+  commentsTotal: Scalars['Int']
+  id: Scalars['ProfileId']
+  mirrorsTotal: Scalars['Int']
+  postsTotal: Scalars['Int']
+  publicationsTotal: Scalars['Int']
   /** Total collects count */
   totalCollects: Scalars['Int']
   /** Total comment count */
@@ -1865,6 +1893,26 @@ export type ProfileStats = {
   totalPosts: Scalars['Int']
   /** Total publication count */
   totalPublications: Scalars['Int']
+}
+
+/** The Profile Stats */
+export type ProfileStatsCommentsTotalArgs = {
+  forSources: Array<Scalars['Sources']>
+}
+
+/** The Profile Stats */
+export type ProfileStatsMirrorsTotalArgs = {
+  forSources: Array<Scalars['Sources']>
+}
+
+/** The Profile Stats */
+export type ProfileStatsPostsTotalArgs = {
+  forSources: Array<Scalars['Sources']>
+}
+
+/** The Profile Stats */
+export type ProfileStatsPublicationsTotalArgs = {
+  forSources: Array<Scalars['Sources']>
 }
 
 export type Publication = Comment | Mirror | Post
@@ -1950,6 +1998,9 @@ export enum PublicationSortCriteria {
 /** The publication stats */
 export type PublicationStats = {
   __typename?: 'PublicationStats'
+  commentsTotal: Scalars['Int']
+  /** The publication id */
+  id: Scalars['InternalPublicationId']
   /** The total amount of collects */
   totalAmountOfCollects: Scalars['Int']
   /** The total amount of comments */
@@ -1960,6 +2011,11 @@ export type PublicationStats = {
   totalDownvotes: Scalars['Int']
   /** The total amount of downvotes */
   totalUpvotes: Scalars['Int']
+}
+
+/** The publication stats */
+export type PublicationStatsCommentsTotalArgs = {
+  forSources: Array<Scalars['Sources']>
 }
 
 /** The publication types */
@@ -2011,6 +2067,7 @@ export type Query = {
   profile?: Maybe<Profile>
   profileFollowModuleBeenRedeemed: Scalars['Boolean']
   profileFollowRevenue: FollowRevenueResult
+  profileOnChainIdentity: Array<OnChainIdentity>
   profilePublicationRevenue: ProfilePublicationRevenueResult
   profilePublicationsForSale: PaginatedProfilePublicationsForSaleResult
   profiles: PaginatedProfileResult
@@ -2099,6 +2156,10 @@ export type QueryProfileFollowModuleBeenRedeemedArgs = {
 
 export type QueryProfileFollowRevenueArgs = {
   request: ProfileFollowRevenueQueryRequest
+}
+
+export type QueryProfileOnChainIdentityArgs = {
+  request: ProfileOnChainIdentityRequest
 }
 
 export type QueryProfilePublicationRevenueArgs = {
@@ -2325,6 +2386,23 @@ export type SingleProfileQueryRequest = {
   handle?: InputMaybe<Scalars['Handle']>
   /** The profile id */
   profileId?: InputMaybe<Scalars['ProfileId']>
+}
+
+export type SybilDotOrgIdentity = {
+  __typename?: 'SybilDotOrgIdentity'
+  source: SybilDotOrgIdentitySource
+  /** The sybil dot org status */
+  verified: Scalars['Boolean']
+}
+
+export type SybilDotOrgIdentitySource = {
+  __typename?: 'SybilDotOrgIdentitySource'
+  twitter: SybilDotOrgTwitterIdentity
+}
+
+export type SybilDotOrgTwitterIdentity = {
+  __typename?: 'SybilDotOrgTwitterIdentity'
+  handle?: Maybe<Scalars['String']>
 }
 
 export type TimedFeeCollectModuleParams = {
