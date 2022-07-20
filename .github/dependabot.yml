@@ -1,0 +1,15 @@
+version: 2
+updates:
+  - package-ecosystem: 'yarn'
+    directory: '/'
+    schedule:
+      interval: 'daily'
+    commit-message:
+      prefix: '⬆️ deps:'
+      prefix-development: '⬆️ deps(dev):'
+    assignees:
+      - bigint
+    reviewers:
+      - bigint
+    open-pull-requests-limit: 69
+    rebase-strategy: auto
