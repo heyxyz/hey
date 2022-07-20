@@ -1,14 +1,8 @@
 version = 1
 
-exclude_patterns = [
-  "node_modules",
-  ".next",
-  ".github",
-  ".husky",
-  ".vscode",
-  "src/generated/types.ts",
-  "package-lock.json"
-]
+[[analyzers]]
+name = "shell"
+enabled = true
 
 [[analyzers]]
 name = "javascript"
@@ -16,7 +10,3 @@ enabled = true
 
   [analyzers.meta]
   plugins = ["react"]
-
-[[transformers]]
-name = "prettier"
-enabled = true
