@@ -24,7 +24,7 @@ jobs:
         run: yarn install
 
       - name: Lint codebase
-        run: npm run lint
+        run: yarn lint
 
   prettier:
     runs-on: ubuntu-latest
