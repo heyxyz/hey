@@ -10,36 +10,36 @@ on:
 jobs:
   lint:
     runs-on: ubuntu-latest
-    name: Lint check
+    name: Lint
     steps:
       - uses: actions/checkout@v3
 
       - name: Use Node.js 14
         uses: actions/setup-node@v3
         with:
-          node-version: 14.x
+          node-version: 15.x
           cache: 'npm'
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: npm ci
 
       - name: Lint codebase
         run: npm run lint
 
   prettier:
     runs-on: ubuntu-latest
-    name: Lint check
+    name: Prettier
     steps:
       - uses: actions/checkout@v3
 
       - name: Use Node.js 14
         uses: actions/setup-node@v3
         with:
-          node-version: 14.x
+          node-version: 15.x
           cache: 'npm'
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: npm ci
 
       - name: Lint codebase
         run: npm run prettier:check
