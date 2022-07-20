@@ -22,7 +22,7 @@ import client from '../apollo'
 export { reportWebVitals } from 'next-axiom'
 
 const { chains, provider } = configureChains(
-  [IS_MAINNET ? chain.polygon : chain.polygonMumbai, chain.mainnet],
+  [IS_MAINNET ? chain.polygon : chain.polygonMumbai],
   [alchemyProvider({ alchemyId: ALCHEMY_KEY })]
 )
 
