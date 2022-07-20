@@ -2,7 +2,7 @@
 
 👍🎉 Thank you for your interest in contributing to the Lenster! 🎉👍
 
-Lenster is an open-source project maintained by [Yoginth](https://gitlab.com/yo). We appreciate your interest and efforts to contribute to Lenster.
+Lenster is an open-source project maintained by [Lenster team](https://github.com/lensterxyz). We appreciate your interest and efforts to contribute to Lenster.
 
 Anyone can be a contributor. Either you found a typo, or you have an awesome feature request you could implement, we encourage you to create a Merge Request.
 
