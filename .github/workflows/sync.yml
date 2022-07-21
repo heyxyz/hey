@@ -13,8 +13,10 @@ jobs:
     - uses: repo-sync/pull-request@v2
       name: Sync Testnet
       with:
+        source_branch: "main"
         destination_branch: "testnet"
         pr_title: "🔁 Sync `testnet` with `main`"
         pr_body: "**🔁 Sync `testnet` with `main`**"
         pr_reviewer: "bigint"
+        pr_label: "sync"
         github_token: ${{ secrets.GITHUB_TOKEN }}
