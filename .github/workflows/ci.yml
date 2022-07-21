@@ -1,6 +1,7 @@
-name: Checks
+name: CI
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
@@ -44,6 +45,27 @@ jobs:
       - name: Lint codebase
         run: yarn prettier:check
 
+  test:
+    runs-on: ubuntu-latest
+    name: Test
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Use Node.js 16
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile --silent
+
+      - name: GraphQL codegen
+        run: yarn codegen
+
+      - name: Build codebase
+        run: yarn cypress:e2e
+
   build:
     runs-on: ubuntu-latest
     name: Build
@@ -58,6 +80,9 @@ jobs:
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile --silent
+
+      - name: GraphQL codegen
+        run: yarn codegen
 
       - name: Build codebase
         run: yarn build
