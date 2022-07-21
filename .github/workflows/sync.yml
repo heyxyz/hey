@@ -1,4 +1,4 @@
-name: Testnet
+name: Sync Testnet
 
 on:
   workflow_dispatch:
