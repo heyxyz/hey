@@ -36,7 +36,9 @@ const Details: FC<Props> = ({ profile }) => {
   const { currentUser, staffMode } = useAppPersistStore()
   const { resolvedTheme } = useTheme()
 
-  const hasOnChainIdentity = profile?.onChainIdentity?.proofOfHumanity
+  const hasOnChainIdentity =
+    profile?.onChainIdentity?.proofOfHumanity ||
+    profile?.onChainIdentity?.ens?.name
 
   useEffect(() => {
     if (profile?.stats?.totalFollowers) {
@@ -266,14 +268,23 @@ const Details: FC<Props> = ({ profile }) => {
       {hasOnChainIdentity && (
         <>
           <div className="w-full divider" />
-          <div>
+          <div className="flex flex-row gap-3">
             {profile?.onChainIdentity?.proofOfHumanity && (
               <img
                 className="drop-shadow-xl"
-                height={80}
-                width={80}
-                src={`${STATIC_ASSETS}/achievements/poh.png`}
+                height={75}
+                width={75}
+                src={`${STATIC_ASSETS}/badges/poh.png`}
                 alt="POH Badge"
+              />
+            )}
+            {profile?.onChainIdentity?.ens?.name && (
+              <img
+                className="drop-shadow-xl"
+                height={75}
+                width={75}
+                src={`${STATIC_ASSETS}/badges/ens.png`}
+                alt="ENS Badge"
               />
             )}
           </div>
