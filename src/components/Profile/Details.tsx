@@ -36,6 +36,8 @@ const Details: FC<Props> = ({ profile }) => {
   const { currentUser, staffMode } = useAppPersistStore()
   const { resolvedTheme } = useTheme()
 
+  const hasOnChainIdentity = profile?.onChainIdentity?.proofOfHumanity
+
   useEffect(() => {
     if (profile?.stats?.totalFollowers) {
       setFollowersCount(profile?.stats?.totalFollowers)
@@ -261,6 +263,22 @@ const Details: FC<Props> = ({ profile }) => {
           )}
         </div>
       </div>
+      {hasOnChainIdentity && (
+        <>
+          <div className="w-full divider" />
+          <div>
+            {profile?.onChainIdentity?.proofOfHumanity && (
+              <img
+                className="drop-shadow-xl"
+                height={80}
+                width={80}
+                src={`${STATIC_ASSETS}/achievements/poh.png`}
+                alt="POH Badge"
+              />
+            )}
+          </div>
+        </>
+      )}
       {isStaff(currentUser?.id) && staffMode && (
         <ProfileMod profile={profile} />
       )}
