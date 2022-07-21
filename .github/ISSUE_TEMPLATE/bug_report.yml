@@ -12,7 +12,7 @@ body:
     attributes:
       label: Summary
       description: Describe the issue in 1 or 2 sentences
-      placeholder: Clearly describe what the expected behavior is vs. what is actually happening. This should be as short as possible, while still communicating all the necessary information. If your summary is just 'login not working', then you need to continue debugging yourself and provide more information.
+      placeholder: Clearly describe what the expected behavior is vs. what is actually happening.
     validations:
       required: true
   - type: dropdown
@@ -25,6 +25,3 @@ body:
         - Web
     validations:
       required: true
-  - type: markdown
-    attributes:
-      value: Please make sure contributors can run your code and follow the steps your provided in order to reproduce the bug.
