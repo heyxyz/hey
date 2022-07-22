@@ -36,6 +36,10 @@ const Details: FC<Props> = ({ profile }) => {
   const { currentUser, staffMode } = useAppPersistStore()
   const { resolvedTheme } = useTheme()
 
+  const hasOnChainIdentity =
+    profile?.onChainIdentity?.proofOfHumanity ||
+    profile?.onChainIdentity?.ens?.name
+
   useEffect(() => {
     if (profile?.stats?.totalFollowers) {
       setFollowersCount(profile?.stats?.totalFollowers)
@@ -261,6 +265,31 @@ const Details: FC<Props> = ({ profile }) => {
           )}
         </div>
       </div>
+      {hasOnChainIdentity && (
+        <>
+          <div className="w-full divider" />
+          <div className="flex flex-row gap-3">
+            {profile?.onChainIdentity?.proofOfHumanity && (
+              <img
+                className="drop-shadow-xl"
+                height={75}
+                width={75}
+                src={`${STATIC_ASSETS}/badges/poh.png`}
+                alt="POH Badge"
+              />
+            )}
+            {profile?.onChainIdentity?.ens?.name && (
+              <img
+                className="drop-shadow-xl"
+                height={75}
+                width={75}
+                src={`${STATIC_ASSETS}/badges/ens.png`}
+                alt="ENS Badge"
+              />
+            )}
+          </div>
+        </>
+      )}
       {isStaff(currentUser?.id) && staffMode && (
         <ProfileMod profile={profile} />
       )}
