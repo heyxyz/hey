@@ -180,7 +180,7 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
           referenceModules: []
         }
       },
-      skip: !collectModule?.amount?.asset?.address || !currentUser,
+      skip: !collectModule?.amount?.asset?.address || !isConnected,
       onCompleted(data) {
         setAllowed(data?.approvedModuleAllowanceAmount[0]?.allowance !== '0x00')
         Logger.log('[Query]', `Fetched allowance data`)
