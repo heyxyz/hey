@@ -38,6 +38,7 @@ const Details: FC<Props> = ({ profile }) => {
 
   const hasOnChainIdentity =
     profile?.onChainIdentity?.proofOfHumanity ||
+    profile?.onChainIdentity?.sybilDotOrg?.verified ||
     profile?.onChainIdentity?.ens?.name
 
   useEffect(() => {
@@ -284,6 +285,15 @@ const Details: FC<Props> = ({ profile }) => {
                 height={75}
                 width={75}
                 src={`${STATIC_ASSETS}/badges/ens.png`}
+                alt="ENS Badge"
+              />
+            )}
+            {profile?.onChainIdentity?.sybilDotOrg?.verified && (
+              <img
+                className="drop-shadow-xl"
+                height={75}
+                width={75}
+                src={`${STATIC_ASSETS}/badges/sybil.png`}
                 alt="ENS Badge"
               />
             )}
