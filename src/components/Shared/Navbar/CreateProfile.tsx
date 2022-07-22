@@ -1,19 +1,13 @@
 import { Menu, Transition } from '@headlessui/react'
-import { LogoutIcon, UserIcon } from '@heroicons/react/outline'
+import { LogoutIcon } from '@heroicons/react/outline'
 import clsx from 'clsx'
 import Cookies from 'js-cookie'
 import { FC, Fragment } from 'react'
-import { useAppPersistStore } from 'src/store/app'
 import { useAccount, useDisconnect } from 'wagmi'
-
-import { NextLink } from './MenuItems'
 
 const CreateProfile: FC = () => {
   const { disconnect } = useDisconnect()
   const { address } = useAccount()
-
-  const { isConnected, isAuthenticated, staffMode, setStaffMode } =
-    useAppPersistStore()
 
   return (
     <Menu as="div">
@@ -39,18 +33,6 @@ const CreateProfile: FC = () => {
               static
               className="absolute right-0 py-1 mt-2 w-48 bg-white rounded-xl border shadow-sm dark:bg-gray-900 focus:outline-none dark:border-gray-700/80"
             >
-              <Menu.Item
-                as={NextLink}
-                href={`/u/`}
-                className={({ active }: { active: boolean }) =>
-                  clsx({ 'dropdown-active': active }, 'menu-item')
-                }
-              >
-                <div className="flex items-center space-x-1.5">
-                  <UserIcon className="w-4 h-4" />
-                  <div>Your Profile</div>
-                </div>
-              </Menu.Item>
               <Menu.Item
                 as="a"
                 onClick={() => {
