@@ -1,3 +1,4 @@
+import { Popover } from '@components/UI/Popover'
 import { Profile } from '@generated/types'
 import React, { FC } from 'react'
 import { STATIC_ASSETS } from 'src/constants'
@@ -37,13 +38,15 @@ const Badges: FC<Props> = ({ profile }) => {
           />
         )}
         {profile?.onChainIdentity?.sybilDotOrg?.verified && (
-          <img
-            className="drop-shadow-xl"
-            height={75}
-            width={75}
-            src={`${STATIC_ASSETS}/badges/sybil.png`}
-            alt="Sybil Badge"
-          />
+          <Popover content="gm" placement="top">
+            <img
+              className="drop-shadow-xl"
+              height={75}
+              width={75}
+              src={`${STATIC_ASSETS}/badges/sybil.png`}
+              alt="Sybil Badge"
+            />
+          </Popover>
         )}
       </div>
     </>
