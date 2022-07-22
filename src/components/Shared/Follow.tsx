@@ -11,11 +11,11 @@ import splitSignature from '@lib/splitSignature'
 import { Dispatch, FC } from 'react'
 import toast from 'react-hot-toast'
 import {
+  CONNECT_WALLET,
   ERROR_MESSAGE,
   ERRORS,
   LENSHUB_PROXY,
-  RELAY_ON,
-  SIGN_WALLET
+  RELAY_ON
 } from 'src/constants'
 import { useAppPersistStore, useAppStore } from 'src/store/app'
 import { useAccount, useContractWrite, useSignTypedData } from 'wagmi'
@@ -68,7 +68,7 @@ const Follow: FC<Props> = ({
   setFollowersCount
 }) => {
   const { userSigNonce, setUserSigNonce } = useAppStore()
-  const { isAuthenticated, currentUser } = useAppPersistStore()
+  const { isConnected, currentUser } = useAppPersistStore()
   const { address } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
@@ -156,7 +156,7 @@ const Follow: FC<Props> = ({
   )
 
   const createFollow = () => {
-    if (!isAuthenticated) return toast.error(SIGN_WALLET)
+    if (!isConnected) return toast.error(CONNECT_WALLET)
 
     createFollowTypedData({
       variables: {
