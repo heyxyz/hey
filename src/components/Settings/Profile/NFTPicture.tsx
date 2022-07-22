@@ -20,12 +20,12 @@ import gql from 'graphql-tag'
 import React, { FC, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
-  CONNECT_WALLET,
   ERROR_MESSAGE,
   ERRORS,
   IS_MAINNET,
   LENSHUB_PROXY,
-  RELAY_ON
+  RELAY_ON,
+  SIGN_WALLET
 } from 'src/constants'
 import { useAppPersistStore, useAppStore } from 'src/store/app'
 import {
@@ -188,7 +188,7 @@ const NFTPicture: FC<Props> = ({ profile }) => {
     })
 
   const setAvatar = async (contractAddress: string, tokenId: string) => {
-    if (!isAuthenticated) return toast.error(CONNECT_WALLET)
+    if (!isAuthenticated) return toast.error(SIGN_WALLET)
 
     const challengeRes = await loadChallenge({
       variables: {

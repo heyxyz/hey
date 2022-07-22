@@ -121,7 +121,7 @@ interface Props {
 
 const CollectModule: FC<Props> = ({ count, setCount, post }) => {
   const { userSigNonce, setUserSigNonce } = useAppStore()
-  const { isAuthenticated, currentUser } = useAppPersistStore()
+  const { isConnected, isAuthenticated, currentUser } = useAppPersistStore()
   const [revenue, setRevenue] = useState<number>(0)
   const [showCollectorsModal, setShowCollectorsModal] = useState<boolean>(false)
   const [allowed, setAllowed] = useState<boolean>(true)
@@ -294,7 +294,7 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
   )
 
   const createCollect = () => {
-    if (!isAuthenticated) return toast.error(CONNECT_WALLET)
+    if (!isConnected) return toast.error(CONNECT_WALLET)
 
     createCollectTypedData({
       variables: {
@@ -503,7 +503,7 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
             />
           </div>
         ) : null}
-        {currentUser ? (
+        {isConnected ? (
           allowanceLoading || balanceLoading ? (
             <div className="mt-5 w-28 rounded-lg h-[34px] shimmer" />
           ) : allowed || collectModule.type === 'FreeCollectModule' ? (
