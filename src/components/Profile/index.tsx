@@ -43,6 +43,14 @@ export const PROFILE_QUERY = gql`
       }
       onChainIdentity {
         proofOfHumanity
+        sybilDotOrg {
+          verified
+          source {
+            twitter {
+              handle
+            }
+          }
+        }
         ens {
           name
         }
