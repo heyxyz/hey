@@ -52,7 +52,7 @@ const SiteLayout: FC<Props> = ({ children }) => {
   const { disconnect } = useDisconnect()
   const { loading } = useQuery(CURRENT_USER_QUERY, {
     variables: { ownedBy: address },
-    skip: !isAuthenticated,
+    skip: !isConnected,
     onCompleted(data) {
       const profiles: Profile[] = data?.profiles?.items
         ?.slice()
@@ -61,11 +61,12 @@ const SiteLayout: FC<Props> = ({ children }) => {
           !(a.isDefault !== b.isDefault) ? 0 : a.isDefault ? -1 : 1
         )
 
+      setUserSigNonce(data?.userSigNonces?.lensHubOnChainSigNonce)
+
       if (profiles.length === 0) {
         setCurrentUser(null)
       } else {
         setProfiles(profiles)
-        setUserSigNonce(data?.userSigNonces?.lensHubOnChainSigNonce)
       }
 
       Logger.log(
