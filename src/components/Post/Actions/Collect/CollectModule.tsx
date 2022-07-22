@@ -121,7 +121,7 @@ interface Props {
 
 const CollectModule: FC<Props> = ({ count, setCount, post }) => {
   const { userSigNonce, setUserSigNonce } = useAppStore()
-  const { isConnected, currentUser } = useAppPersistStore()
+  const { isConnected } = useAppPersistStore()
   const [revenue, setRevenue] = useState<number>(0)
   const [showCollectorsModal, setShowCollectorsModal] = useState<boolean>(false)
   const [allowed, setAllowed] = useState<boolean>(true)
@@ -218,7 +218,7 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
   }, [revenueData])
 
   const { data: balanceData, isLoading: balanceLoading } = useBalance({
-    addressOrName: currentUser?.ownedBy,
+    addressOrName: address,
     token: collectModule?.amount?.asset?.address,
     formatUnits: collectModule?.amount?.asset?.decimals,
     watch: true
