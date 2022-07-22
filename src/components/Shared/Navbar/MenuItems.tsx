@@ -49,6 +49,7 @@ const MenuItems: FC<Props> = ({ pingData }) => {
 
   const { profiles } = useAppStore()
   const {
+    isConnected,
     isAuthenticated,
     currentUser,
     setCurrentUser,
@@ -263,6 +264,8 @@ const MenuItems: FC<Props> = ({ pingData }) => {
         </>
       )}
     </Menu>
+  ) : isConnected ? (
+    <div>gm</div>
   ) : (
     <>
       <Modal

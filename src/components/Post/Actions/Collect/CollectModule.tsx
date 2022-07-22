@@ -294,7 +294,7 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
   )
 
   const createCollect = () => {
-    if (!isAuthenticated) return toast.error(CONNECT_WALLET)
+    if (!isConnected) return toast.error(CONNECT_WALLET)
 
     createCollectTypedData({
       variables: {
