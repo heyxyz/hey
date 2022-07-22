@@ -10,7 +10,7 @@ import splitSignature from '@lib/splitSignature'
 import { Contract, Signer } from 'ethers'
 import { Dispatch, FC, useState } from 'react'
 import toast from 'react-hot-toast'
-import { CONNECT_WALLET, ERROR_MESSAGE } from 'src/constants'
+import { ERROR_MESSAGE, SIGN_WALLET } from 'src/constants'
 import { useAppPersistStore } from 'src/store/app'
 import { useSigner, useSignTypedData } from 'wagmi'
 
@@ -119,7 +119,7 @@ const Unfollow: FC<Props> = ({
   )
 
   const createUnfollow = () => {
-    if (!isAuthenticated) return toast.error(CONNECT_WALLET)
+    if (!isAuthenticated) return toast.error(SIGN_WALLET)
 
     createUnfollowTypedData({
       variables: {

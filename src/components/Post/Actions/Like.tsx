@@ -7,7 +7,7 @@ import humanize from '@lib/humanize'
 import { motion } from 'framer-motion'
 import { FC, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
-import { CONNECT_WALLET } from 'src/constants'
+import { SIGN_WALLET } from 'src/constants'
 import { useAppPersistStore } from 'src/store/app'
 
 const ADD_REACTION_MUTATION = gql`
@@ -62,7 +62,7 @@ const Like: FC<Props> = ({ post }) => {
   })
 
   const createLike = () => {
-    if (!isAuthenticated) return toast.error(CONNECT_WALLET)
+    if (!isAuthenticated) return toast.error(SIGN_WALLET)
 
     const variable = {
       variables: {

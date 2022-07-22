@@ -29,11 +29,11 @@ import { Dispatch, FC, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
   APP_NAME,
-  CONNECT_WALLET,
   ERROR_MESSAGE,
   ERRORS,
   LENSHUB_PROXY,
-  RELAY_ON
+  RELAY_ON,
+  SIGN_WALLET
 } from 'src/constants'
 import { useAppPersistStore, useAppStore } from 'src/store/app'
 import { v4 as uuid } from 'uuid'
@@ -212,7 +212,7 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
   )
 
   const createPost = async () => {
-    if (!isAuthenticated) return toast.error(CONNECT_WALLET)
+    if (!isAuthenticated) return toast.error(SIGN_WALLET)
     if (postContent.length === 0 && attachments.length === 0) {
       return setPostContentError('Post should not be empty!')
     }

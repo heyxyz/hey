@@ -16,11 +16,11 @@ import { motion } from 'framer-motion'
 import { FC, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
-  CONNECT_WALLET,
   ERROR_MESSAGE,
   ERRORS,
   LENSHUB_PROXY,
-  RELAY_ON
+  RELAY_ON,
+  SIGN_WALLET
 } from 'src/constants'
 import { useAppPersistStore, useAppStore } from 'src/store/app'
 import { useContractWrite, useSignTypedData } from 'wagmi'
@@ -178,7 +178,7 @@ const Mirror: FC<Props> = ({ post }) => {
   )
 
   const createMirror = () => {
-    if (!isAuthenticated) return toast.error(CONNECT_WALLET)
+    if (!isAuthenticated) return toast.error(SIGN_WALLET)
 
     createMirrorTypedData({
       variables: {

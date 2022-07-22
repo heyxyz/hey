@@ -46,7 +46,8 @@ interface Props {
 
 const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
   const { setProfiles } = useAppStore()
-  const { setIsAuthenticated, setCurrentUser } = useAppPersistStore()
+  const { setIsConnected, setIsAuthenticated, setCurrentUser } =
+    useAppPersistStore()
   const [mounted, setMounted] = useState(false)
   const { chain } = useNetwork()
   const { connectors, error, connectAsync } = useConnect()
@@ -126,7 +127,7 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
       const { data: profilesData } = await getProfiles({
         variables: { ownedBy: address }
       })
-
+      setIsConnected(true)
       if (profilesData?.profiles?.items?.length === 0) {
         setHasProfile(false)
       } else {

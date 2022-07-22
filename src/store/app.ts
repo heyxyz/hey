@@ -18,6 +18,8 @@ export const useAppStore = create<AppState>((set, get) => ({
 }))
 
 interface AppPersistState {
+  isConnected: boolean
+  setIsConnected: (isConnected: boolean) => void
   isAuthenticated: boolean
   setIsAuthenticated: (isAuthenticated: boolean) => void
   currentUser: Profile | null
@@ -29,6 +31,8 @@ interface AppPersistState {
 export const useAppPersistStore = create(
   persist<AppPersistState>(
     (set) => ({
+      isConnected: false,
+      setIsConnected: (isConnected) => set(() => ({ isConnected })),
       isAuthenticated: false,
       setIsAuthenticated: (isAuthenticated) => set(() => ({ isAuthenticated })),
       currentUser: null,
