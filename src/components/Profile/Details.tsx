@@ -294,7 +294,7 @@ const Details: FC<Props> = ({ profile }) => {
                 height={75}
                 width={75}
                 src={`${STATIC_ASSETS}/badges/sybil.png`}
-                alt="ENS Badge"
+                alt="Sybil Badge"
               />
             )}
           </div>
