@@ -32,7 +32,7 @@ export const useAppPersistStore = create(
   persist<AppPersistState>(
     (set) => ({
       isConnected: false,
-      setIsConnected: (isAuthenticated) => set(() => ({ isAuthenticated })),
+      setIsConnected: (isConnected) => set(() => ({ isConnected })),
       isAuthenticated: false,
       setIsAuthenticated: (isAuthenticated) => set(() => ({ isAuthenticated })),
       currentUser: null,

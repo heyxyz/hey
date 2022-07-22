@@ -59,8 +59,13 @@ const CREATE_BURN_PROFILE_TYPED_DATA_MUTATION = gql`
 
 const DeleteSettings: FC = () => {
   const { userSigNonce, setUserSigNonce } = useAppStore()
-  const { isAuthenticated, setIsAuthenticated, currentUser, setCurrentUser } =
-    useAppPersistStore()
+  const {
+    setIsConnected,
+    isAuthenticated,
+    setIsAuthenticated,
+    currentUser,
+    setCurrentUser
+  } = useAppPersistStore()
   const { disconnect } = useDisconnect()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
@@ -70,6 +75,7 @@ const DeleteSettings: FC = () => {
 
   const onCompleted = () => {
     setIsAuthenticated(false)
+    setIsConnected(false)
     setCurrentUser(null)
     Cookies.remove('accessToken')
     Cookies.remove('refreshToken')
