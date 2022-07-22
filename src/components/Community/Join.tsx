@@ -12,11 +12,11 @@ import splitSignature from '@lib/splitSignature'
 import React, { Dispatch, FC } from 'react'
 import toast from 'react-hot-toast'
 import {
-  CONNECT_WALLET,
   ERROR_MESSAGE,
   ERRORS,
   LENSHUB_PROXY,
-  RELAY_ON
+  RELAY_ON,
+  SIGN_WALLET
 } from 'src/constants'
 import { useAppPersistStore, useAppStore } from 'src/store/app'
 import { useAccount, useContractWrite, useSignTypedData } from 'wagmi'
@@ -148,7 +148,7 @@ const Join: FC<Props> = ({ community, setJoined, showJoin = true }) => {
   )
 
   const createCollect = () => {
-    if (!isAuthenticated) return toast.error(CONNECT_WALLET)
+    if (!isAuthenticated) return toast.error(SIGN_WALLET)
 
     createCollectTypedData({
       variables: {

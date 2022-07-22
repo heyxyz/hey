@@ -16,9 +16,9 @@ import React, { FC } from 'react'
 import toast from 'react-hot-toast'
 import {
   APP_NAME,
-  CONNECT_WALLET,
   ERROR_MESSAGE,
-  LENSHUB_PROXY
+  LENSHUB_PROXY,
+  SIGN_WALLET
 } from 'src/constants'
 import Custom404 from 'src/pages/404'
 import { useAppPersistStore, useAppStore } from 'src/store/app'
@@ -129,7 +129,7 @@ const DeleteSettings: FC = () => {
     })
 
   const handleDelete = () => {
-    if (!isAuthenticated) return toast.error(CONNECT_WALLET)
+    if (!isAuthenticated) return toast.error(SIGN_WALLET)
 
     createBurnProfileTypedData({
       variables: {
