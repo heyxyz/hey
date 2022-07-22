@@ -42,6 +42,7 @@ export const PROFILE_QUERY = gql`
         value
       }
       onChainIdentity {
+        proofOfHumanity
         ens {
           name
         }
