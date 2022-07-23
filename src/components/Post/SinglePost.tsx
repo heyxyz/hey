@@ -28,7 +28,7 @@ const SinglePost: FC<Props> = ({
   const postType = post?.metadata?.attributes[0]?.value
 
   return (
-    <div className="p-5" data-test="publication">
+    <article className="p-5" data-test="publication">
       <PostType post={post} showType={showType} showThread={showThread} />
       <div>
         <div className="flex justify-between pb-4 space-x-1.5">
@@ -62,7 +62,7 @@ const SinglePost: FC<Props> = ({
           )}
         </div>
       </div>
-    </div>
+    </article>
   )
 }
 
