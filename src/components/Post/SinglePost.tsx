@@ -1,5 +1,6 @@
 import UserProfile from '@components/Shared/UserProfile'
 import { LensterPost } from '@generated/lenstertypes'
+import clsx from 'clsx'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import Link from 'next/link'
@@ -14,6 +15,7 @@ dayjs.extend(relativeTime)
 
 interface Props {
   post: LensterPost
+  clickable?: boolean
   showType?: boolean
   showThread?: boolean
   showActions?: boolean
@@ -21,6 +23,7 @@ interface Props {
 
 const SinglePost: FC<Props> = ({
   post,
+  clickable = true,
   showType = true,
   showThread = false,
   showActions = true
@@ -30,7 +33,13 @@ const SinglePost: FC<Props> = ({
   return (
     <Link href={`/posts/${post?.id ?? post?.pubId}`}>
       <div
-        className="cursor-pointer p-5 first:rounded-t-xl last:rounded-b-xl hover:bg-gray-100/70"
+        className={clsx(
+          {
+            'cursor-pointer first:rounded-t-xl last:rounded-b-xl hover:bg-gray-100/70 hover:dark:bg-gray-800/70':
+              clickable
+          },
+          'p-5'
+        )}
         data-test="publication"
       >
         <PostType post={post} showType={showType} showThread={showThread} />
@@ -45,15 +54,12 @@ const SinglePost: FC<Props> = ({
                   : post?.profile
               }
             />
-            <Link href={`/posts/${post?.id ?? post?.pubId}`}>
-              <a
-                href={`/posts/${post?.id ?? post?.pubId}`}
-                className="text-sm text-gray-500"
-                data-test="publication-timestamp"
-              >
-                {dayjs(new Date(post?.createdAt)).fromNow()}
-              </a>
-            </Link>
+            <span
+              className="text-sm text-gray-500"
+              data-test="publication-timestamp"
+            >
+              {dayjs(new Date(post?.createdAt)).fromNow()}
+            </span>
           </div>
           <div className="ml-[53px]" data-test="publication-content">
             {post?.hidden ? (
