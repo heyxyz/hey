@@ -14,25 +14,27 @@ interface Props {
   showThread?: boolean
 }
 
-const PostType: FC<Props> = ({ post, showType, showThread = false }) => {
+const PostType: FC<Props> = ({ post, showType, showThread }) => {
   const { pathname } = useRouter()
   const type = post?.__typename
   const postType = post?.metadata?.attributes[0]?.value
   const isCollected = !!post?.collectedBy
-  const isCommunityPost = postType === 'community post'
 
   if (!showType) return null
 
   return (
     <>
       {type === 'Mirror' && <Mirrored post={post} />}
-      {type === 'Comment' && !showThread && !isCommunityPost && (
-        <CommentedPublication publication={post} />
-      )}
-      {type === 'Comment' && showThread && !isCollected && !isCommunityPost && (
-        <Commented post={post} />
-      )}
-      {isCommunityPost &&
+      {type === 'Comment' &&
+        pathname === '/posts/[id]' &&
+        postType !== 'community post' && (
+          <CommentedPublication publication={post} />
+        )}
+      {type === 'Comment' &&
+        !showThread &&
+        !isCollected &&
+        postType !== 'community post' && <Commented post={post} />}
+      {postType === 'community post' &&
         pathname !== '/communities/[id]' &&
         type !== 'Mirror' && <CommunityPost post={post} />}
       {isCollected && postType !== 'community' && postType !== 'crowdfund' && (
