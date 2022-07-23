@@ -7195,10 +7195,10 @@ pify@^5.0.0:
   resolved "https://registry.yarnpkg.com/pify/-/pify-5.0.0.tgz#1f5eca3f5e87ebec28cc6d54a0e4aaf00acc127f"
   integrity sha512-eW/gHNMlxdSP6dmG6uJip6FXN0EQBwm2clYYd8Wul42Cwu/DK8HEftzsapcNdYe2MfLiIwZqsDk2RDEsTE79hA==
 
-plyr-react@^5.0.2:
-  version "5.0.2"
-  resolved "https://registry.yarnpkg.com/plyr-react/-/plyr-react-5.0.2.tgz#93eea6ce73d57321d8e573a20781db5a38126d1a"
-  integrity sha512-CksykyesFtmPoslasOVIplYZkduJ2OQ/q3QNUdktjy8Ds4Rhxw9u57jKBjSLdpyhENp/Yu+lDC7lOHc1o9iPUQ==
+plyr-react@^5.1.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/plyr-react/-/plyr-react-5.1.0.tgz#b080261103d2fbf4e8a151e9d25431201e1bec59"
+  integrity sha512-N0qIuN1wZZzpKUXngtNeZwTiWqvOb6qAzqcfMI48rLkRJGM5xM5MRWILd3hW1PWPbVBKsAH4Ged32ZZhkJVbXA==
   dependencies:
     plyr "^3.7.2"
     react-aptor "^2.0.0-alpha.1"
