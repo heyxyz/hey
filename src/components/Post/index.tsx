@@ -20,9 +20,9 @@ import Custom404 from 'src/pages/404'
 import Custom500 from 'src/pages/500'
 import { useAppPersistStore } from 'src/store/app'
 
+import FullPost from './FullPost'
 import IPFSHash from './IPFSHash'
 import PostPageShimmer from './Shimmer'
-import SinglePost from './SinglePost'
 import ViaApp from './ViaApp'
 
 const Feed = dynamic(() => import('@components/Comment/Feed'), {
@@ -105,7 +105,7 @@ const ViewPost: NextPage = () => {
       />
       <GridItemEight className="space-y-5">
         <Card>
-          <SinglePost post={post} showThread />
+          <FullPost post={post} />
         </Card>
         <Feed
           post={post}
