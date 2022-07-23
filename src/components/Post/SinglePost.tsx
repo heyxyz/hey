@@ -28,7 +28,7 @@ const SinglePost: FC<Props> = ({
   const postType = post?.metadata?.attributes[0]?.value
 
   return (
-    <article className="p-5" data-test="publication">
+    <article className="p-5" data-test="publication" onClick={() => alert()}>
       <PostType post={post} showType={showType} showThread={showThread} />
       <div>
         <div className="flex justify-between pb-4 space-x-1.5">
