@@ -28,6 +28,7 @@ import { useAppPersistStore, useAppStore } from 'src/store/app'
 import { useDisconnect } from 'wagmi'
 
 import Slug from '../Slug'
+import CreateProfile from './CreateProfile'
 import Login from './Login'
 
 export const NextLink = ({ href, children, ...rest }: Record<string, any>) => (
@@ -49,6 +50,7 @@ const MenuItems: FC<Props> = ({ pingData }) => {
 
   const { profiles } = useAppStore()
   const {
+    isConnected,
     isAuthenticated,
     currentUser,
     setCurrentUser,
@@ -263,6 +265,8 @@ const MenuItems: FC<Props> = ({ pingData }) => {
         </>
       )}
     </Menu>
+  ) : isConnected ? (
+    <CreateProfile />
   ) : (
     <>
       <Modal

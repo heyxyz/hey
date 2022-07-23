@@ -38,15 +38,21 @@ interface Props {
 const SiteLayout: FC<Props> = ({ children }) => {
   const { resolvedTheme } = useTheme()
   const { setProfiles, setUserSigNonce } = useAppStore()
-  const { isAuthenticated, setIsAuthenticated, currentUser, setCurrentUser } =
-    useAppPersistStore()
+  const {
+    isConnected,
+    setIsConnected,
+    isAuthenticated,
+    setIsAuthenticated,
+    currentUser,
+    setCurrentUser
+  } = useAppPersistStore()
   const [mounted, setMounted] = useState<boolean>(false)
   const { address, connector, isDisconnected } = useAccount()
   const { chain } = useNetwork()
   const { disconnect } = useDisconnect()
   const { loading } = useQuery(CURRENT_USER_QUERY, {
     variables: { ownedBy: address },
-    skip: !isAuthenticated,
+    skip: !isConnected,
     onCompleted(data) {
       const profiles: Profile[] = data?.profiles?.items
         ?.slice()
@@ -55,11 +61,12 @@ const SiteLayout: FC<Props> = ({ children }) => {
           !(a.isDefault !== b.isDefault) ? 0 : a.isDefault ? -1 : 1
         )
 
+      setUserSigNonce(data?.userSigNonces?.lensHubOnChainSigNonce)
+
       if (profiles.length === 0) {
         setCurrentUser(null)
       } else {
         setProfiles(profiles)
-        setUserSigNonce(data?.userSigNonces?.lensHubOnChainSigNonce)
       }
 
       Logger.log(
@@ -84,6 +91,7 @@ const SiteLayout: FC<Props> = ({ children }) => {
 
     const logout = () => {
       setIsAuthenticated(false)
+      setIsConnected(false)
       setCurrentUser(null)
       Cookies.remove('accessToken')
       Cookies.remove('refreshToken')
@@ -107,13 +115,21 @@ const SiteLayout: FC<Props> = ({ children }) => {
     if (isDisconnected) {
       if (disconnect) disconnect()
       setIsAuthenticated(false)
+      setIsConnected(false)
     }
 
     connector?.on('change', () => {
       logout()
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isAuthenticated, isDisconnected, connector, disconnect, setCurrentUser])
+  }, [
+    isConnected,
+    isAuthenticated,
+    isDisconnected,
+    connector,
+    disconnect,
+    setCurrentUser
+  ])
 
   const toastOptions = {
     style: {

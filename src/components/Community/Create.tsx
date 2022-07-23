@@ -25,11 +25,11 @@ import React, { ChangeEvent, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
   APP_NAME,
-  CONNECT_WALLET,
   ERROR_MESSAGE,
   ERRORS,
   LENSHUB_PROXY,
-  RELAY_ON
+  RELAY_ON,
+  SIGN_WALLET
 } from 'src/constants'
 import Custom404 from 'src/pages/404'
 import { useAppPersistStore, useAppStore } from 'src/store/app'
@@ -157,7 +157,7 @@ const Create: NextPage = () => {
   )
 
   const createCommunity = async (name: string, description: string | null) => {
-    if (!isAuthenticated) return toast.error(CONNECT_WALLET)
+    if (!isAuthenticated) return toast.error(SIGN_WALLET)
 
     setIsUploading(true)
     const { path } = await uploadToIPFS({

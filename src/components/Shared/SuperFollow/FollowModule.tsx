@@ -21,12 +21,12 @@ import splitSignature from '@lib/splitSignature'
 import { Dispatch, FC, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
-  CONNECT_WALLET,
   ERROR_MESSAGE,
   ERRORS,
   LENSHUB_PROXY,
   POLYGONSCAN_URL,
-  RELAY_ON
+  RELAY_ON,
+  SIGN_WALLET
 } from 'src/constants'
 import { useAppPersistStore, useAppStore } from 'src/store/app'
 import {
@@ -249,7 +249,7 @@ const FollowModule: FC<Props> = ({
   )
 
   const createFollow = () => {
-    if (!isAuthenticated) return toast.error(CONNECT_WALLET)
+    if (!isAuthenticated) return toast.error(SIGN_WALLET)
 
     createFollowTypedData({
       variables: {
