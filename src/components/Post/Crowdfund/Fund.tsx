@@ -73,7 +73,7 @@ interface Props {
 
 const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
   const { userSigNonce, setUserSigNonce } = useAppStore()
-  const { isAuthenticated, currentUser } = useAppPersistStore()
+  const { isConnected } = useAppPersistStore()
   const [allowed, setAllowed] = useState<boolean>(true)
   const { address } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
@@ -82,7 +82,7 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
     }
   })
   const { data: balanceData, isLoading: balanceLoading } = useBalance({
-    addressOrName: currentUser?.ownedBy,
+    addressOrName: address,
     token: collectModule?.amount?.asset?.address,
     formatUnits: collectModule?.amount?.asset?.decimals,
     watch: true
@@ -110,7 +110,7 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
           referenceModules: []
         }
       },
-      skip: !collectModule?.amount?.asset?.address || !currentUser,
+      skip: !collectModule?.amount?.asset?.address || !isConnected,
       onCompleted(data) {
         setAllowed(data?.approvedModuleAllowanceAmount[0]?.allowance !== '0x00')
         Logger.log('[Query]', `Fetched allowance data`)
@@ -198,7 +198,7 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
   )
 
   const createCollect = () => {
-    if (!isAuthenticated) return toast.error(CONNECT_WALLET)
+    if (!isConnected) return toast.error(CONNECT_WALLET)
 
     createCollectTypedData({
       variables: {

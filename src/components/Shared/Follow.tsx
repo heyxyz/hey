@@ -68,7 +68,7 @@ const Follow: FC<Props> = ({
   setFollowersCount
 }) => {
   const { userSigNonce, setUserSigNonce } = useAppStore()
-  const { isAuthenticated, currentUser } = useAppPersistStore()
+  const { isConnected, currentUser } = useAppPersistStore()
   const { address } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
@@ -156,7 +156,7 @@ const Follow: FC<Props> = ({
   )
 
   const createFollow = () => {
-    if (!isAuthenticated) return toast.error(CONNECT_WALLET)
+    if (!isConnected) return toast.error(CONNECT_WALLET)
 
     createFollowTypedData({
       variables: {

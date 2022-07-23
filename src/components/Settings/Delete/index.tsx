@@ -16,9 +16,9 @@ import React, { FC } from 'react'
 import toast from 'react-hot-toast'
 import {
   APP_NAME,
-  CONNECT_WALLET,
   ERROR_MESSAGE,
-  LENSHUB_PROXY
+  LENSHUB_PROXY,
+  SIGN_WALLET
 } from 'src/constants'
 import Custom404 from 'src/pages/404'
 import { useAppPersistStore, useAppStore } from 'src/store/app'
@@ -59,8 +59,13 @@ const CREATE_BURN_PROFILE_TYPED_DATA_MUTATION = gql`
 
 const DeleteSettings: FC = () => {
   const { userSigNonce, setUserSigNonce } = useAppStore()
-  const { isAuthenticated, setIsAuthenticated, currentUser, setCurrentUser } =
-    useAppPersistStore()
+  const {
+    setIsConnected,
+    isAuthenticated,
+    setIsAuthenticated,
+    currentUser,
+    setCurrentUser
+  } = useAppPersistStore()
   const { disconnect } = useDisconnect()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
@@ -70,6 +75,7 @@ const DeleteSettings: FC = () => {
 
   const onCompleted = () => {
     setIsAuthenticated(false)
+    setIsConnected(false)
     setCurrentUser(null)
     Cookies.remove('accessToken')
     Cookies.remove('refreshToken')
@@ -123,7 +129,7 @@ const DeleteSettings: FC = () => {
     })
 
   const handleDelete = () => {
-    if (!isAuthenticated) return toast.error(CONNECT_WALLET)
+    if (!isAuthenticated) return toast.error(SIGN_WALLET)
 
     createBurnProfileTypedData({
       variables: {
