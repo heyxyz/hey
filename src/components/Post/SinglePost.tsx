@@ -1,6 +1,5 @@
 import UserProfile from '@components/Shared/UserProfile'
 import { LensterPost } from '@generated/lenstertypes'
-import clsx from 'clsx'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import Link from 'next/link'
@@ -23,7 +22,6 @@ interface Props {
 
 const SinglePost: FC<Props> = ({
   post,
-  clickable = true,
   showType = true,
   showThread = false,
   showActions = true
@@ -33,13 +31,7 @@ const SinglePost: FC<Props> = ({
   return (
     <Link href={`/posts/${post?.id ?? post?.pubId}`}>
       <div
-        className={clsx(
-          {
-            'cursor-pointer first:rounded-t-xl last:rounded-b-xl hover:bg-gray-100/70 hover:dark:bg-gray-800/70':
-              clickable
-          },
-          'p-5'
-        )}
+        className="cursor-pointer first:rounded-t-xl last:rounded-b-xl hover:bg-gray-100/70 hover:dark:bg-gray-800/70 p-5"
         data-test="publication"
       >
         <PostType post={post} showType={showType} showThread={showThread} />
