@@ -16,14 +16,12 @@ interface Props {
   post: LensterPost
   clickable?: boolean
   showType?: boolean
-  showThread?: boolean
   showActions?: boolean
 }
 
 const SinglePost: FC<Props> = ({
   post,
   showType = true,
-  showThread = false,
   showActions = true
 }) => {
   const postType = post?.metadata?.attributes[0]?.value
@@ -34,7 +32,7 @@ const SinglePost: FC<Props> = ({
         className="cursor-pointer first:rounded-t-xl last:rounded-b-xl hover:bg-gray-100/70 hover:dark:bg-gray-800/70 p-5"
         data-test="publication"
       >
-        <PostType post={post} showType={showType} showThread={showThread} />
+        <PostType post={post} showType={showType} showThread />
         <div>
           <div className="flex justify-between pb-4 space-x-1.5">
             <UserProfile

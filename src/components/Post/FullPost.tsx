@@ -20,7 +20,7 @@ const FullPost: FC<Props> = ({ post }) => {
 
   return (
     <div className="p-5" data-test="publication">
-      <PostType post={post} showType showThread />
+      <PostType post={post} showType />
       <div>
         <div className="flex justify-between pb-4 space-x-1.5">
           <UserProfile
