@@ -2,14 +2,15 @@ import { Card, CardBody } from '@components/UI/Card'
 import { CurrencyDollarIcon, UserCircleIcon } from '@heroicons/react/outline'
 import Link from 'next/link'
 import { FC } from 'react'
-import { useAppStore } from 'src/store/app'
+import { useAppPersistStore, useAppStore } from 'src/store/app'
 
 const SetDefaultProfile: FC = () => {
   const { profiles } = useAppStore()
+  const { currentUser } = useAppPersistStore()
   const hasDefaultProfile = !!profiles.find((o) => o.isDefault)
   const count = profiles.length
 
-  if (hasDefaultProfile) return null
+  if (currentUser || hasDefaultProfile) return null
 
   return (
     <Card className="mb-4 bg-green-50 dark:bg-green-900 !border-green-600">
