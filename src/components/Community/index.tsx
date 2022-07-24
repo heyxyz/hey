@@ -1,7 +1,7 @@
 import { gql, useQuery } from '@apollo/client'
 import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout'
 import PostsShimmer from '@components/Shared/Shimmer/PostsShimmer'
-import Seo from '@components/utils/Seoo'
+import Seo from '@components/utils/Seo'
 import { CommunityFields } from '@gql/CommunityFields'
 import Logger from '@lib/logger'
 import { NextPage } from 'next'

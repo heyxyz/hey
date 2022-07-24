@@ -1,7 +1,7 @@
 import { gql, useQuery } from '@apollo/client'
 import { GridItemFour, GridLayout } from '@components/GridLayout'
 import { PageLoading } from '@components/UI/PageLoading'
-import Seo from '@components/utils/Seoo'
+import Seo from '@components/utils/Seo'
 import { CommunityFields } from '@gql/CommunityFields'
 import { ChartBarIcon, FireIcon, SparklesIcon } from '@heroicons/react/outline'
 import Logger from '@lib/logger'

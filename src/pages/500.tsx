@@ -1,5 +1,5 @@
 import { Button } from '@components/UI/Button'
-import Seo from '@components/utils/Seoo'
+import Seo from '@components/utils/Seo'
 import { HomeIcon } from '@heroicons/react/outline'
 import Link from 'next/link'
 import { APP_NAME } from 'src/constants'

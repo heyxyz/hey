@@ -1,4 +1,4 @@
-import Seo from '@components/utils/Seoo'
+import Seo from '@components/utils/Seo'
 import { LightningBoltIcon } from '@heroicons/react/outline'
 import { FC } from 'react'
 import { APP_NAME } from 'src/constants'

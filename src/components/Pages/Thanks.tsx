@@ -1,5 +1,5 @@
 import Footer from '@components/Shared/Footer'
-import Seo from '@components/utils/Seoo'
+import Seo from '@components/utils/Seo'
 import { HeartIcon } from '@heroicons/react/outline'
 import { useTheme } from 'next-themes'
 import React, { FC, Fragment, ReactNode } from 'react'

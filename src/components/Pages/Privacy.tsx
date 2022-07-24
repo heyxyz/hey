@@ -1,5 +1,5 @@
 import Footer from '@components/Shared/Footer'
-import Seo from '@components/utils/Seoo'
+import Seo from '@components/utils/Seo'
 import React, { FC } from 'react'
 import { APP_NAME } from 'src/constants'
 

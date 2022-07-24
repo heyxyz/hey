@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-import Seo from './utils/Seoo'
+import Seo from './utils/Seo'
 
 const Loading: FC = () => {
   return (

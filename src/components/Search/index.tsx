@@ -1,5 +1,5 @@
 import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout'
-import Seo from '@components/utils/Seoo'
+import Seo from '@components/utils/Seo'
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import React from 'react'
