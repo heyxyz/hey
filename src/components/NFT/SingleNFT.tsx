@@ -31,6 +31,7 @@ const SingleNFT: FC<Props> = ({ nft }) => {
             </a>
           ) : (
             <iframe
+              title={`${nft.contractAddress}:${nft.tokenId}`}
               className="w-full h-full sm:rounded-t-[10px]"
               src={nft?.originalContent?.animatedUrl}
             />
