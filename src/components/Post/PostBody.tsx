@@ -3,14 +3,14 @@ import IFramely from '@components/Shared/IFramely'
 import Markup from '@components/Shared/Markup'
 import CrowdfundShimmer from '@components/Shared/Shimmer/CrowdfundShimmer'
 import { LensterPost } from '@generated/lenstertypes'
-import { UserAddIcon, UsersIcon } from '@heroicons/react/outline'
+import { EyeIcon, UserAddIcon, UsersIcon } from '@heroicons/react/outline'
 import getURLs from '@lib/getURLs'
 import imagekitURL from '@lib/imagekitURL'
 import clsx from 'clsx'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React, { FC, useState } from 'react'
+import React, { FC } from 'react'
 
 const Crowdfund = dynamic(() => import('./Crowdfund'), {
   loading: () => <CrowdfundShimmer />
@@ -23,9 +23,8 @@ interface Props {
 const PostBody: FC<Props> = ({ post }) => {
   const { pathname } = useRouter()
   const postType = post?.metadata?.attributes[0]?.value
-  const [showMore, setShowMore] = useState<boolean>(
-    post?.metadata?.content?.length > 450
-  )
+  const showMore =
+    post?.metadata?.content?.length > 450 && pathname !== '/posts/[id]'
 
   return (
     <div className="break-words">
@@ -70,22 +69,18 @@ const PostBody: FC<Props> = ({ post }) => {
         <>
           <div
             className={clsx({
-              'line-clamp-5 text-transparent bg-clip-text bg-gradient-to-b from-black dark:from-white to-gray-400 dark:to-gray-900':
-                showMore && pathname !== '/posts/[id]'
+              'line-clamp-5': showMore
             })}
           >
             <div className="whitespace-pre-wrap break-words leading-md linkify text-md">
               <Markup>{post?.metadata?.content}</Markup>
             </div>
           </div>
-          {showMore && pathname !== '/posts/[id]' && (
-            <button
-              type="button"
-              className="mt-2 text-sm font-bold"
-              onClick={() => setShowMore(!showMore)}
-            >
-              Show more
-            </button>
+          {showMore && (
+            <div className="mt-4 text-sm text-gray-500 font-bold flex items-center space-x-1">
+              <EyeIcon className="h-4 w-4" />
+              <span>Show more</span>
+            </div>
           )}
         </>
       )}

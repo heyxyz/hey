@@ -1,5 +1,5 @@
 import { LensterPost } from '@generated/lenstertypes'
-import React, { FC } from 'react'
+import React, { FC, MouseEvent } from 'react'
 
 import Collect from './Collect'
 import Comment from './Comment'
@@ -15,7 +15,10 @@ const PostActions: FC<Props> = ({ post }) => {
   const postType = post?.metadata?.attributes[0]?.value
 
   return postType !== 'community' ? (
-    <div className="flex gap-6 items-center pt-3 -ml-2 text-gray-500 sm:gap-8">
+    <div
+      className="flex gap-6 items-center pt-3 -ml-2 text-gray-500 sm:gap-8"
+      onClick={(event: MouseEvent<HTMLDivElement>) => event.stopPropagation()}
+    >
       <Comment post={post} />
       <Mirror post={post} />
       <Like post={post} />
