@@ -1,7 +1,7 @@
 import { Profile } from '@generated/types'
 import React, { FC } from 'react'
 
-import ENS from './ENS'
+import Ens from './Enss'
 import ProofOfHumanity from './ProofOfHumanity'
 import Sybil from './Sybil'
 
@@ -22,7 +22,7 @@ const Badges: FC<Props> = ({ profile }) => {
       <div className="w-full divider" />
       <div className="flex flex-row gap-3">
         <ProofOfHumanity profile={profile} />
-        <ENS profile={profile} />
+        <Ens profile={profile} />
         <Sybil profile={profile} />
       </div>
     </>
