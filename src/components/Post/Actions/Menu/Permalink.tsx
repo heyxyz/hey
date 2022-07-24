@@ -27,7 +27,6 @@ const Permalink: FC<Props> = ({ post }) => {
             'block px-4 py-1.5 text-sm m-2 rounded-lg cursor-pointer'
           )
         }
-        onClick={() => {}}
       >
         <div className="flex items-center space-x-2">
           <ClipboardCopyIcon className="w-4 h-4" />
