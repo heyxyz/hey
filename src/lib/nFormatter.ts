@@ -1,6 +1,6 @@
 import humanize from './humanize'
 
-const nFormatter = (num: number, digits: number = 1): string => {
+const nFormatter = (num: number, digits = 1): string => {
   const lookup = [
     { value: 1, symbol: '' },
     { value: 1e3, symbol: 'k' },
