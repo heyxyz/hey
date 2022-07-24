@@ -5,7 +5,7 @@ import UserProfile from '@components/Shared/UserProfile'
 import { Button } from '@components/UI/Button'
 import { Card, CardBody } from '@components/UI/Card'
 import { Spinner } from '@components/UI/Spinner'
-import SEO from '@components/utils/SEO'
+import Seo from '@components/utils/Seo'
 import { CreateBurnProfileBroadcastItemResult } from '@generated/types'
 import { TrashIcon } from '@heroicons/react/outline'
 import Logger from '@lib/logger'
@@ -143,7 +143,7 @@ const DeleteSettings: FC = () => {
 
   return (
     <GridLayout>
-      <SEO title={`Delete Profile • ${APP_NAME}`} />
+      <Seo title={`Delete Profile • ${APP_NAME}`} />
       <GridItemFour>
         <Sidebar />
       </GridItemFour>

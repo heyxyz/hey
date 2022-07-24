@@ -2,7 +2,7 @@ import { gql, useQuery } from '@apollo/client'
 import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout'
 import { Card, CardBody } from '@components/UI/Card'
 import { PageLoading } from '@components/UI/PageLoading'
-import SEO from '@components/utils/SEO'
+import Seo from '@components/utils/Seo'
 import { PhotographIcon } from '@heroicons/react/outline'
 import Logger from '@lib/logger'
 import clsx from 'clsx'
@@ -97,7 +97,7 @@ const ProfileSettings: NextPage = () => {
 
   return (
     <GridLayout>
-      <SEO title={`Profile settings • ${APP_NAME}`} />
+      <Seo title={`Profile settings • ${APP_NAME}`} />
       <GridItemFour>
         <Sidebar />
       </GridItemFour>

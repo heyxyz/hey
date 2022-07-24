@@ -6,7 +6,7 @@ import { EmptyState } from '@components/UI/EmptyState'
 import { Form, useZodForm } from '@components/UI/Form'
 import { Input } from '@components/UI/Input'
 import { TextArea } from '@components/UI/TextArea'
-import SEO from '@components/utils/SEO'
+import Seo from '@components/utils/Seo'
 import { PencilAltIcon } from '@heroicons/react/outline'
 import { CheckCircleIcon } from '@heroicons/react/solid'
 import { useRouter } from 'next/router'
@@ -35,7 +35,7 @@ const Contact: FC = () => {
 
   return (
     <GridLayout>
-      <SEO title={`Contact • ${APP_NAME}`} />
+      <Seo title={`Contact • ${APP_NAME}`} />
       <GridItemFour>
         <SettingsHelper
           heading={`Contact ${APP_NAME}`}
