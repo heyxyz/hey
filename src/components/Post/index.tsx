@@ -4,7 +4,7 @@ import Footer from '@components/Shared/Footer'
 import PostsShimmer from '@components/Shared/Shimmer/PostsShimmer'
 import UserProfile from '@components/Shared/UserProfile'
 import { Card, CardBody } from '@components/UI/Card'
-import SEO from '@components/utils/SEO'
+import Seo from '@components/utils/Seo'
 import { LensterPost } from '@generated/lenstertypes'
 import { CommentFields } from '@gql/CommentFields'
 import { MirrorFields } from '@gql/MirrorFields'
@@ -100,7 +100,7 @@ const ViewPost: NextPage = () => {
 
   return (
     <GridLayout>
-      <SEO
+      <Seo
         title={`${post?.__typename} by @${post?.profile?.handle} • ${APP_NAME}`}
       />
       <GridItemEight className="space-y-5">

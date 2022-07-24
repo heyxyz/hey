@@ -11,7 +11,7 @@ import { Form, useZodForm } from '@components/UI/Form'
 import { Input } from '@components/UI/Input'
 import { Spinner } from '@components/UI/Spinner'
 import { TextArea } from '@components/UI/TextArea'
-import SEO from '@components/utils/SEO'
+import Seo from '@components/utils/Seo'
 import { CreatePostBroadcastItemResult } from '@generated/types'
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { PlusIcon } from '@heroicons/react/outline'
@@ -205,7 +205,7 @@ const Create: NextPage = () => {
 
   return (
     <GridLayout>
-      <SEO title={`Create Community • ${APP_NAME}`} />
+      <Seo title={`Create Community • ${APP_NAME}`} />
       <GridItemFour>
         <SettingsHelper
           heading="Create community"

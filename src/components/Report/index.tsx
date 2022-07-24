@@ -11,7 +11,7 @@ import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { Form, useZodForm } from '@components/UI/Form'
 import { Spinner } from '@components/UI/Spinner'
 import { TextArea } from '@components/UI/TextArea'
-import SEO from '@components/utils/SEO'
+import Seo from '@components/utils/Seo'
 import { PencilAltIcon } from '@heroicons/react/outline'
 import { CheckCircleIcon } from '@heroicons/react/solid'
 import Logger from '@lib/logger'
@@ -93,7 +93,7 @@ const Report: FC = () => {
 
   return (
     <GridLayout>
-      <SEO title={`Report • ${APP_NAME}`} />
+      <Seo title={`Report • ${APP_NAME}`} />
       <GridItemFour>
         <SettingsHelper
           heading="Report publication"

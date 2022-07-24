@@ -3,7 +3,7 @@ import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout'
 import { Card } from '@components/UI/Card'
 import { PageLoading } from '@components/UI/PageLoading'
 import { Spinner } from '@components/UI/Spinner'
-import SEO from '@components/utils/SEO'
+import Seo from '@components/utils/Seo'
 import { Erc20 } from '@generated/types'
 import Logger from '@lib/logger'
 import { NextPage } from 'next'
@@ -70,7 +70,7 @@ const AllowanceSettings: NextPage = () => {
 
   return (
     <GridLayout>
-      <SEO title={`Allowance settings • ${APP_NAME}`} />
+      <Seo title={`Allowance settings • ${APP_NAME}`} />
       <GridItemFour>
         <Sidebar />
       </GridItemFour>

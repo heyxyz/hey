@@ -2,7 +2,7 @@ import { gql, useQuery } from '@apollo/client'
 import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout'
 import NFTShimmer from '@components/Shared/Shimmer/NFTShimmer'
 import PostsShimmer from '@components/Shared/Shimmer/PostsShimmer'
-import SEO from '@components/utils/SEO'
+import Seo from '@components/utils/Seo'
 import Logger from '@lib/logger'
 import { NextPage } from 'next'
 import dynamic from 'next/dynamic'
@@ -116,9 +116,9 @@ const ViewProfile: NextPage = () => {
   return (
     <>
       {profile?.name ? (
-        <SEO title={`${profile?.name} (@${profile?.handle}) • ${APP_NAME}`} />
+        <Seo title={`${profile?.name} (@${profile?.handle}) • ${APP_NAME}`} />
       ) : (
-        <SEO title={`@${profile?.handle} • ${APP_NAME}`} />
+        <Seo title={`@${profile?.handle} • ${APP_NAME}`} />
       )}
       <Cover cover={profile?.coverPicture?.original?.url} />
       <GridLayout className="pt-6">

@@ -2,7 +2,7 @@ import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout'
 import Announcement from '@components/Home/Announcement'
 import Footer from '@components/Shared/Footer'
 import PostsShimmer from '@components/Shared/Shimmer/PostsShimmer'
-import SEO from '@components/utils/SEO'
+import Seo from '@components/utils/Seo'
 import { NextPage } from 'next'
 import dynamic from 'next/dynamic'
 import React from 'react'
@@ -27,7 +27,7 @@ const Home: NextPage = () => {
 
   return (
     <>
-      <SEO />
+      <Seo />
       {isConnected && !currentUser && <ProfileWarning />}
       {!isConnected && <Hero />}
       <GridLayout>

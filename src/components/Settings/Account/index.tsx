@@ -1,6 +1,6 @@
 import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout'
 import SuperFollow from '@components/Settings/Account/SuperFollow'
-import SEO from '@components/utils/SEO'
+import Seo from '@components/utils/Seo'
 import { NextPage } from 'next'
 import React from 'react'
 import { APP_NAME } from 'src/constants'
@@ -19,7 +19,7 @@ const AccountSettings: NextPage = () => {
 
   return (
     <GridLayout>
-      <SEO title={`Account settings • ${APP_NAME}`} />
+      <Seo title={`Account settings • ${APP_NAME}`} />
       <GridItemFour>
         <Sidebar />
       </GridItemFour>
