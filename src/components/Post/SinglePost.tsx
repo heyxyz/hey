@@ -27,7 +27,7 @@ const SinglePost: FC<Props> = ({
   const postType = post?.metadata?.attributes[0]?.value
 
   return (
-    <Link href={`/posts/${post?.id ?? post?.pubId}`}>
+    <Link href={`/posts/${post?.id ?? post?.pubId}`} passHref>
       <article
         className="cursor-pointer first:rounded-t-xl last:rounded-b-xl hover:bg-gray-100/70 hover:dark:bg-gray-800/70 p-5"
         data-test="publication"
