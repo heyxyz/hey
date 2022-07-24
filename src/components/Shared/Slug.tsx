@@ -2,7 +2,7 @@ import clsx from 'clsx'
 import React, { FC } from 'react'
 
 interface Props {
-  slug: string | null
+  slug: string | undefined | null
   prefix?: string
   className?: string
 }
