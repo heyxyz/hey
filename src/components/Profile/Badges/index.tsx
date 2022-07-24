@@ -1,7 +1,7 @@
 import { Profile } from '@generated/types'
 import React, { FC } from 'react'
 
-import Ens from './Enss'
+import Ens from './Ens'
 import ProofOfHumanity from './ProofOfHumanity'
 import Sybil from './Sybil'
 
