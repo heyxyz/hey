@@ -14,7 +14,6 @@ dayjs.extend(relativeTime)
 
 interface Props {
   post: LensterPost
-  clickable?: boolean
   showType?: boolean
   showActions?: boolean
 }
