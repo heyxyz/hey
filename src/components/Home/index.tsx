@@ -9,6 +9,7 @@ import React from 'react'
 import { useAppPersistStore } from 'src/store/app'
 
 import Hero from './Hero'
+import ProfileWarning from './ProfileWarning'
 import RecommendedProfiles from './RecommendedProfiles'
 import SetDefaultProfile from './SetDefaultProfile'
 import SetProfile from './SetProfile'
@@ -22,12 +23,13 @@ const ExploreFeed = dynamic(() => import('@components/Explore/Feed'), {
 })
 
 const Home: NextPage = () => {
-  const { currentUser } = useAppPersistStore()
+  const { isConnected, currentUser } = useAppPersistStore()
 
   return (
     <>
       <SEO />
-      {!currentUser && <Hero />}
+      {isConnected && !currentUser && <ProfileWarning />}
+      {!isConnected && <Hero />}
       <GridLayout>
         <GridItemEight className="space-y-5">
           {currentUser ? <HomeFeed /> : <ExploreFeed />}
