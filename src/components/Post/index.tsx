@@ -22,6 +22,7 @@ import { useAppPersistStore } from 'src/store/app'
 
 import FullPost from './FullPost'
 import IPFSHash from './IPFSHash'
+import RelevantPeople from './RelevantPeople'
 import PostPageShimmer from './Shimmer'
 import ViaApp from './ViaApp'
 
@@ -130,6 +131,7 @@ const ViewPost: NextPage = () => {
           </CardBody>
           <ViaApp appConfig={appConfig} />
         </Card>
+        <RelevantPeople publication={post} />
         <IPFSHash ipfsHash={post?.onChainContentURI} />
         <Footer />
       </GridItemFour>
