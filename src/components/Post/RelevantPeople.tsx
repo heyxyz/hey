@@ -26,26 +26,32 @@ interface Props {
 }
 
 const RelevantPeople: FC<Props> = ({ publication }) => {
-  const mentions = publication?.metadata?.content?.match(
-    /([\s+])@([^\s]+)/g,
-    '$1[~$2]'
-  )
+  const mentions =
+    publication?.metadata?.content?.match(/([\s+])@([^\s]+)/g, '$1[~$2]') ?? []
+
+  mentions.push(publication?.profile?.handle)
 
   const processedMentions = mentions
     ? mentions.map((mention: string) => {
-        return mention.trim().replace('@', '').replace("'s", '')
+        const trimmedMention = mention.trim().replace('@', '').replace("'s", '')
+
+        if (trimmedMention.length > 9) {
+          return mention.trim().replace('@', '').replace("'s", '')
+        } else {
+          return publication?.profile?.handle
+        }
       })
     : []
 
-  processedMentions?.push(publication?.profile?.handle)
+  const cleanedMentions = [...new Set(processedMentions)]
 
   const { data, loading, error } = useQuery(RELEVANT_PEOPLE_QUERY, {
-    variables: { request: { handles: processedMentions.slice(0, 5) } },
-    skip: processedMentions.length === 1,
+    variables: { request: { handles: cleanedMentions.slice(0, 5) } },
+    skip: cleanedMentions.length === 1,
     onCompleted(data) {
       Logger.log(
         '[Query]',
-        `Fetched ${data?.recommendedProfiles?.length} relevant people`
+        `Fetched ${data?.cleanedMentions?.length} relevant people`
       )
     }
   })
@@ -63,7 +69,7 @@ const RelevantPeople: FC<Props> = ({ publication }) => {
       </Card>
     )
 
-  if (processedMentions.length === 1) return null
+  if (data?.profiles?.items?.length === 0) return null
 
   return (
     <Card testId="relevant-people">
