@@ -47,7 +47,6 @@ const RelevantPeople: FC<Props> = ({ publication }) => {
 
   const { data, loading, error } = useQuery(RELEVANT_PEOPLE_QUERY, {
     variables: { request: { handles: cleanedMentions.slice(0, 5) } },
-    skip: cleanedMentions.length === 1,
     onCompleted(data) {
       Logger.log(
         '[Query]',
