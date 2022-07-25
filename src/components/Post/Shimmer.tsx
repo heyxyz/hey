@@ -22,6 +22,15 @@ const PostPageShimmer: FC = () => {
           </CardBody>
         </Card>
         <Card>
+          <CardBody className="space-y-4">
+            <UserProfileShimmer showFollow />
+            <UserProfileShimmer showFollow />
+            <UserProfileShimmer showFollow />
+            <UserProfileShimmer showFollow />
+            <UserProfileShimmer showFollow />
+          </CardBody>
+        </Card>
+        <Card>
           <CardBody className="flex justify-between">
             <div className="w-1/2 h-3 rounded-lg shimmer" />
             <div className="w-1/4 h-3 rounded-lg shimmer" />

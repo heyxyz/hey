@@ -89,7 +89,7 @@ const RecommendedProfiles: FC = () => {
       <Title />
       <Card testId="recommended-users">
         <CardBody className="space-y-4">
-          <ErrorMessage title="Failed to recommendations" error={error} />
+          <ErrorMessage title="Failed to load recommendations" error={error} />
           {randomizeArray(data?.recommendedProfiles)
             ?.slice(0, 5)
             ?.map((profile: Profile) => (
