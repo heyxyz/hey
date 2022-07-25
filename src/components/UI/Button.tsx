@@ -74,6 +74,7 @@ export const Button = forwardRef<HTMLButtonElement, Props>(function Button(
         className
       )}
       disabled={loading}
+      type={rest.type}
       {...rest}
     >
       {icon}

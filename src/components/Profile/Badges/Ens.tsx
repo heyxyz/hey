@@ -7,7 +7,7 @@ interface Props {
   profile: Profile
 }
 
-const ENS: FC<Props> = ({ profile }) => {
+const Ens: FC<Props> = ({ profile }) => {
   if (!profile?.onChainIdentity?.ens?.name) return null
 
   return (
@@ -30,4 +30,4 @@ const ENS: FC<Props> = ({ profile }) => {
   )
 }
 
-export default ENS
+export default Ens

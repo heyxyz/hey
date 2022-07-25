@@ -6,7 +6,7 @@ import React, { FC } from 'react'
 
 interface Props {
   handle: string
-  isSuperFollow?: boolean | null | undefined
+  isSuperFollow?: boolean | null
   action: string
 }
 

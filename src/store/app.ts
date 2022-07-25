@@ -10,7 +10,7 @@ interface AppState {
   setUserSigNonce: (userSigNonce: number) => void
 }
 
-export const useAppStore = create<AppState>((set, get) => ({
+export const useAppStore = create<AppState>((set) => ({
   profiles: [],
   setProfiles: (profiles) => set(() => ({ profiles })),
   userSigNonce: 0,

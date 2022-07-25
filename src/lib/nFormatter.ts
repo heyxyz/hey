@@ -1,6 +1,6 @@
 import humanize from './humanize'
 
-const nFormatter = (num: number, digits: number = 1): string => {
+const nFormatter = (num: number, digits = 1): string => {
   const lookup = [
     { value: 1, symbol: '' },
     { value: 1e3, symbol: 'k' },
@@ -11,7 +11,7 @@ const nFormatter = (num: number, digits: number = 1): string => {
     { value: 1e18, symbol: 'E' }
   ]
   const rx = /\.0+$|(\.[0-9]*[1-9])0+$/
-  var item = lookup
+  const item = lookup
     .slice()
     .reverse()
     .find(function (item) {

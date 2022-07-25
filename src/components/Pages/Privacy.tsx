@@ -1,12 +1,12 @@
 import Footer from '@components/Shared/Footer'
-import SEO from '@components/utils/SEO'
+import Seo from '@components/utils/Seo'
 import React, { FC } from 'react'
 import { APP_NAME } from 'src/constants'
 
 const Privacy: FC = () => {
   return (
     <>
-      <SEO title={`Privacy • ${APP_NAME}`} />
+      <Seo title={`Privacy • ${APP_NAME}`} />
       <div
         className="flex justify-center items-center w-full h-48 bg-brand-400"
         data-test="privacy-content"

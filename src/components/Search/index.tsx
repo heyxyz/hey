@@ -1,5 +1,5 @@
 import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout'
-import SEO from '@components/utils/SEO'
+import Seo from '@components/utils/Seo'
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import React from 'react'
@@ -17,7 +17,7 @@ const Search: NextPage = () => {
 
   return (
     <>
-      <SEO />
+      <Seo />
       <GridLayout>
         <GridItemFour>
           <Sidebar />

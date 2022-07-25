@@ -5,7 +5,7 @@ const uploadAssetsToIPFS = async (data: any): Promise<LensterAttachment[]> => {
   try {
     const attachments = []
     for (let i = 0; i < data.length; i++) {
-      let file = data.item(i)
+      const file = data.item(i)
       const formData = new FormData()
       formData.append('file', file, 'img')
       const upload = await axios('https://ipfs.infura.io:5001/api/v0/add', {

@@ -2,7 +2,7 @@ import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout'
 import Signup from '@components/Shared/Navbar/Login/Create'
 import SettingsHelper from '@components/Shared/SettingsHelper'
 import { Card, CardBody } from '@components/UI/Card'
-import SEO from '@components/utils/SEO'
+import Seo from '@components/utils/Seo'
 import { NextPage } from 'next'
 import React from 'react'
 import { APP_NAME } from 'src/constants'
@@ -16,7 +16,7 @@ const Create: NextPage = () => {
 
   return (
     <GridLayout>
-      <SEO title={`Create Profile • ${APP_NAME}`} />
+      <Seo title={`Create Profile • ${APP_NAME}`} />
       <GridItemFour>
         <SettingsHelper
           heading="Create profile"
