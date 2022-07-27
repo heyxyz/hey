@@ -54,6 +54,7 @@ const AllowanceButton: FC<Props> = ({
     sendTransaction
   } = useSendTransaction({
     ...config,
+    mode: 'recklesslyUnprepared',
     onError(error: any) {
       toast.error(error?.data?.message ?? error?.message)
     }
