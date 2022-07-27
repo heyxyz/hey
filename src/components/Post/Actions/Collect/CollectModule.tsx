@@ -133,12 +133,6 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
     }
   })
 
-  const onCompleted = () => {
-    setRevenue(revenue + parseFloat(collectModule?.amount?.value))
-    setCount(count + 1)
-    toast.success('Transaction submitted successfully!')
-  }
-
   const {
     data: writeData,
     isLoading: writeLoading,
@@ -168,6 +162,12 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
   const collectModule: any = data?.publication?.collectModule
   const percentageCollected =
     (count / parseInt(collectModule?.collectLimit)) * 100
+
+  const onCompleted = () => {
+    setRevenue(revenue + parseFloat(collectModule?.amount?.value))
+    setCount(count + 1)
+    toast.success('Transaction submitted successfully!')
+  }
 
   const { data: allowanceData, loading: allowanceLoading } = useQuery(
     ALLOWANCE_SETTINGS_QUERY,
