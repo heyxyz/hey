@@ -58,7 +58,7 @@
     "uuid": "^8.3.2",
     "wagmi": "^0.5.11",
     "zod": "^3.17.10",
-    "zustand": "^4.0.0-rc.4"
+    "zustand": "^4.0.0"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^2.9.1",
