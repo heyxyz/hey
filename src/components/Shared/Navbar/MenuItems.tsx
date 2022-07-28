@@ -278,6 +278,7 @@ const MenuItems: FC<Props> = ({ pingData }) => {
         <Login />
       </Modal>
       <Button
+        className="w-max"
         icon={
           <img
             className="mr-0.5 w-4 h-4"

@@ -118,7 +118,7 @@ const Navbar: FC = () => {
                 </Link>
                 <div className="hidden sm:block sm:ml-6">
                   <div className="flex items-center space-x-4">
-                    <div className="hidden lg:block">
+                    <div className="hidden sm:block">
                       <Search />
                     </div>
                     <NavItems />
