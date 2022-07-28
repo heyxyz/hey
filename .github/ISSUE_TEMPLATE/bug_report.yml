@@ -1,6 +1,6 @@
 name: "Bug Report"
-description: 'Report a reproducible bug in the Lenster'
-labels: 'needs review'
+description: "Report a reproducible bug in the Lenster"
+labels: "needs review"
 body:
   - type: markdown
     attributes:
@@ -20,8 +20,18 @@ body:
       label: What platform(s) does this occur on?
       multiple: true
       options:
-        - Android
-        - iOS
         - Web
+        - Mobile
+  - type: dropdown
+    attributes:
+      label: What browser(s) does this occur on?
+      multiple: true
+      options:
+        - Chrome
+        - Firefox
+        - Brave
+        - Safari
+        - Edge
+        - Others
     validations:
       required: true
