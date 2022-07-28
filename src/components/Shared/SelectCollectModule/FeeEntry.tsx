@@ -58,6 +58,10 @@ const FeeEntry: FC<Props> = ({
     selectedModule.moduleName === 'LimitedFeeCollectModule' ||
     selectedModule.moduleName === 'LimitedTimedFeeCollectModule'
 
+  function handleSubmit() {
+    //do nothing
+  }
+
   return (
     <div className="space-y-5">
       <button
@@ -71,7 +75,7 @@ const FeeEntry: FC<Props> = ({
         <ArrowLeftIcon className="w-4 h-4" />
         <div>Back</div>
       </button>
-      <Form form={form} className="space-y-4" onSubmit={({}) => {}}>
+      <Form form={form} className="space-y-4" onSubmit={handleSubmit}>
         <div>
           <div className="label">Select Currency</div>
           <select
