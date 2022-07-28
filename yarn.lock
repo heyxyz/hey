@@ -1517,9 +1517,9 @@
   integrity sha512-JJCXydOFWMDpCP4q13iEplA503MQO3xLoZiKum+955ZCtHINWnx26CUxVxxFQu/uLb4LW3ge15ZpzIkXKkJ8oQ==
 
 "@hookform/resolvers@^2.9.6":
-  version "2.9.6"
-  resolved "https://registry.yarnpkg.com/@hookform/resolvers/-/resolvers-2.9.6.tgz#db4277a96d1817d94169108167014926d8a10398"
-  integrity sha512-f4VxF8w9rdX0WsDCk3FW1dGPj/Sj8+1Ulcgtm5ymgWEpbA/fjY+NUDh+L9hftmxDgP8+EJFtF+qFK4gPEXVrVQ==
+  version "2.9.7"
+  resolved "https://registry.yarnpkg.com/@hookform/resolvers/-/resolvers-2.9.7.tgz#8b257ae67234ce0270e6b044c1a61fb98ec02b4b"
+  integrity sha512-BloehX3MOLwuFEwT4yZnmolPjVmqyn8VsSuodLfazbCIqxBHsQ4qUZsi+bvNNCduRli1AGWFrkDLGD5QoNzsoA==
 
 "@humanwhocodes/config-array@^0.9.2":
   version "0.9.5"
@@ -1674,9 +1674,9 @@
     multiformats "^9.6.3"
 
 "@libp2p/peer-id@^1.1.10":
-  version "1.1.14"
-  resolved "https://registry.yarnpkg.com/@libp2p/peer-id/-/peer-id-1.1.14.tgz#11372de04a225d2cdb7a73005f0e36725bd3b895"
-  integrity sha512-8Ch/kQGyoDl3m0TYz/uuHRbJ3TRoG7XI9ZTFHd1P21KrpF3YvCeK5PCWDsP7IICc+Q39n0IS9zLVhGySiS7FXQ==
+  version "1.1.15"
+  resolved "https://registry.yarnpkg.com/@libp2p/peer-id/-/peer-id-1.1.15.tgz#5c005ab4cb3f933977d0ec18a7d67071136cbed6"
+  integrity sha512-Y33JLEfsLmLUjuC2nhQ2lBXP6PIsR892gSsNy4Vd7oILkuRhjPouIojP9BbME0m9bhVbAws+Zh9NBKtp7UH7wA==
   dependencies:
     "@libp2p/interface-peer-id" "^1.0.0"
     err-code "^3.0.1"
@@ -2300,22 +2300,14 @@
     tsutils "^3.21.0"
 
 "@typescript-eslint/parser@^5.21.0":
-  version "5.30.7"
-  resolved "https://registry.yarnpkg.com/@typescript-eslint/parser/-/parser-5.30.7.tgz#99d09729392aec9e64b1de45cd63cb81a4ddd980"
-  integrity sha512-Rg5xwznHWWSy7v2o0cdho6n+xLhK2gntImp0rJroVVFkcYFYQ8C8UJTSuTw/3CnExBmPjycjmUJkxVmjXsld6A==
+  version "5.31.0"
+  resolved "https://registry.yarnpkg.com/@typescript-eslint/parser/-/parser-5.31.0.tgz#7f42d7dcc68a0a6d80a0f3d9a65063aee7bb8d2c"
+  integrity sha512-UStjQiZ9OFTFReTrN+iGrC6O/ko9LVDhreEK5S3edmXgR396JGq7CoX2TWIptqt/ESzU2iRKXAHfSF2WJFcWHw==
   dependencies:
-    "@typescript-eslint/scope-manager" "5.30.7"
-    "@typescript-eslint/types" "5.30.7"
-    "@typescript-eslint/typescript-estree" "5.30.7"
+    "@typescript-eslint/scope-manager" "5.31.0"
+    "@typescript-eslint/types" "5.31.0"
+    "@typescript-eslint/typescript-estree" "5.31.0"
     debug "^4.3.4"
-
-"@typescript-eslint/scope-manager@5.30.7":
-  version "5.30.7"
-  resolved "https://registry.yarnpkg.com/@typescript-eslint/scope-manager/-/scope-manager-5.30.7.tgz#8269a931ef1e5ae68b5eb80743cc515c4ffe3dd7"
-  integrity sha512-7BM1bwvdF1UUvt+b9smhqdc/eniOnCKxQT/kj3oXtj3LqnTWCAM0qHRHfyzCzhEfWX0zrW7KqXXeE4DlchZBKw==
-  dependencies:
-    "@typescript-eslint/types" "5.30.7"
-    "@typescript-eslint/visitor-keys" "5.30.7"
 
 "@typescript-eslint/scope-manager@5.31.0":
   version "5.31.0"
@@ -2334,28 +2326,10 @@
     debug "^4.3.4"
     tsutils "^3.21.0"
 
-"@typescript-eslint/types@5.30.7":
-  version "5.30.7"
-  resolved "https://registry.yarnpkg.com/@typescript-eslint/types/-/types-5.30.7.tgz#18331487cc92d0f1fb1a6f580c8ec832528079d0"
-  integrity sha512-ocVkETUs82+U+HowkovV6uxf1AnVRKCmDRNUBUUo46/5SQv1owC/EBFkiu4MOHeZqhKz2ktZ3kvJJ1uFqQ8QPg==
-
 "@typescript-eslint/types@5.31.0":
   version "5.31.0"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/types/-/types-5.31.0.tgz#7aa389122b64b18e473c1672fb3b8310e5f07a9a"
   integrity sha512-/f/rMaEseux+I4wmR6mfpM2wvtNZb1p9hAV77hWfuKc3pmaANp5dLAZSiE3/8oXTYTt3uV9KW5yZKJsMievp6g==
-
-"@typescript-eslint/typescript-estree@5.30.7":
-  version "5.30.7"
-  resolved "https://registry.yarnpkg.com/@typescript-eslint/typescript-estree/-/typescript-estree-5.30.7.tgz#05da9f1b281985bfedcf62349847f8d168eecc07"
-  integrity sha512-tNslqXI1ZdmXXrHER83TJ8OTYl4epUzJC0aj2i4DMDT4iU+UqLT3EJeGQvJ17BMbm31x5scSwo3hPM0nqQ1AEA==
-  dependencies:
-    "@typescript-eslint/types" "5.30.7"
-    "@typescript-eslint/visitor-keys" "5.30.7"
-    debug "^4.3.4"
-    globby "^11.1.0"
-    is-glob "^4.0.3"
-    semver "^7.3.7"
-    tsutils "^3.21.0"
 
 "@typescript-eslint/typescript-estree@5.31.0":
   version "5.31.0"
@@ -2382,14 +2356,6 @@
     eslint-scope "^5.1.1"
     eslint-utils "^3.0.0"
 
-"@typescript-eslint/visitor-keys@5.30.7":
-  version "5.30.7"
-  resolved "https://registry.yarnpkg.com/@typescript-eslint/visitor-keys/-/visitor-keys-5.30.7.tgz#c093abae75b4fd822bfbad9fc337f38a7a14909a"
-  integrity sha512-KrRXf8nnjvcpxDFOKej4xkD7657+PClJs5cJVSG7NNoCNnjEdc46juNAQt7AyuWctuCgs6mVRc1xGctEqrjxWw==
-  dependencies:
-    "@typescript-eslint/types" "5.30.7"
-    eslint-visitor-keys "^3.3.0"
-
 "@typescript-eslint/visitor-keys@5.31.0":
   version "5.31.0"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/visitor-keys/-/visitor-keys-5.31.0.tgz#b0eca264df01ce85dceb76aebff3784629258f54"
@@ -2398,10 +2364,10 @@
     "@typescript-eslint/types" "5.31.0"
     eslint-visitor-keys "^3.3.0"
 
-"@wagmi/core@^0.4.9":
-  version "0.4.9"
-  resolved "https://registry.yarnpkg.com/@wagmi/core/-/core-0.4.9.tgz#0b6e35c73862380d4bb8dba0be23670783cd385f"
-  integrity sha512-V/1PgetbA0PcIT6FJxDnCwRU/MZhecHVu1/7+QMncdxUQykyDd8MGlx0b8EjitMLLqzuD9kcx7sQpfS0gk5rZg==
+"@wagmi/core@^0.5.0":
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/@wagmi/core/-/core-0.5.0.tgz#6a1420a192f4a05fe0efa3ca3ef8976331ae234e"
+  integrity sha512-bh4cI7WaBDtEM8E7KPCLnK5PfmBPg5iIUydTw5DTX2yo6BiRhcFIflRn/Bg9IJCFq3SGhW6Zmpu+jHHeH9ZELQ==
   dependencies:
     eventemitter3 "^4.0.7"
     zustand "^4.0.0-rc.1"
@@ -4082,9 +4048,9 @@ electron-fetch@^1.7.2:
     encoding "^0.1.13"
 
 electron-to-chromium@^1.4.188:
-  version "1.4.199"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.199.tgz#e0384fde79fdda89880e8be58196a9153e04db3b"
-  integrity sha512-WIGME0Cs7oob3mxsJwHbeWkH0tYkIE/sjkJ8ML2BYmuRcjhRl/q5kVDXG7W9LOOKwzPU5M0LBlXRq9rlSgnNlg==
+  version "1.4.202"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.202.tgz#0c2ed733f42b02ec49a955c5badfcc65888c390b"
+  integrity sha512-JYsK2ex9lmQD27kj19fhXYxzFJ/phLAkLKHv49A5UY6kMRV2xED3qMMLg/voW/+0AR6wMiI+VxlmK9NDtdxlPA==
 
 elliptic@6.5.4, elliptic@^6.5.2, elliptic@^6.5.4:
   version "6.5.4"
@@ -6655,9 +6621,9 @@ ms@^2.1.1:
   integrity sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==
 
 multiformats@^9.0.2, multiformats@^9.4.2, multiformats@^9.4.5, multiformats@^9.5.1, multiformats@^9.5.4, multiformats@^9.6.3:
-  version "9.7.0"
-  resolved "https://registry.yarnpkg.com/multiformats/-/multiformats-9.7.0.tgz#845799e8df70fbb6b15922500e45cb87cf12f7e5"
-  integrity sha512-uv/tcgwk0yN4DStopnBN4GTgvaAlYdy6KnZpuzEPFOYQd71DYFJjs0MN1ERElAflrZaYyGBWXyGxL5GgrxIx0Q==
+  version "9.7.1"
+  resolved "https://registry.yarnpkg.com/multiformats/-/multiformats-9.7.1.tgz#ab348e5fd6f8e7fb3fd56033211bda48854e2173"
+  integrity sha512-TaVmGEBt0fhxiNJMGphBfB+oGvUxFs8KgGvgl8d3C+GWtrFcvXdJ2196eg+dYhmSFClmgFfSfJEklo+SZzdNuw==
 
 mute-stream@0.0.8:
   version "0.0.8"
@@ -7765,9 +7731,9 @@ rlp@^2.0.0, rlp@^2.2.3:
     bn.js "^5.2.0"
 
 rtl-css-js@^1.14.0:
-  version "1.15.0"
-  resolved "https://registry.yarnpkg.com/rtl-css-js/-/rtl-css-js-1.15.0.tgz#680ed816e570a9ebccba9e1cd0f202c6a8bb2dc0"
-  integrity sha512-99Cu4wNNIhrI10xxUaABHsdDqzalrSRTie4GeCmbGVuehm4oj+fIy8fTzB+16pmKe8Bv9rl+hxIBez6KxExTew==
+  version "1.16.0"
+  resolved "https://registry.yarnpkg.com/rtl-css-js/-/rtl-css-js-1.16.0.tgz#e8d682982441aadb63cabcb2f7385f3fb78ff26e"
+  integrity sha512-Oc7PnzwIEU4M0K1J4h/7qUUaljXhQ0kCObRsZjxs2HjkpKsnoTMvSmvJ4sqgJZd0zBoEfAyTdnK/jMIYvrjySQ==
   dependencies:
     "@babel/runtime" "^7.1.2"
 
@@ -8742,13 +8708,13 @@ verror@1.10.0:
     core-util-is "1.0.2"
     extsprintf "^1.2.0"
 
-wagmi@^0.5.11:
-  version "0.5.11"
-  resolved "https://registry.yarnpkg.com/wagmi/-/wagmi-0.5.11.tgz#ff193e4ca05d2fc215be5dfe2498f499ffee7bb1"
-  integrity sha512-7ayOgMuaMQasvU7IbJfdmFS0YnxbtBOlnJj9Xqlz0h6MAYJ+3iSDmJeIZaPb5OKDPrvhTzawSlFt8rYSYoSKbQ==
+wagmi@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/wagmi/-/wagmi-0.6.0.tgz#1356402e0717ec6b3a5bc268e64bc9a63ef4dafb"
+  integrity sha512-Jyj22eQNoNcs9DoLDhD+foF5skEc7XPAZjqZ7GK+rVzxWVlA6Vx+qrcAALNGnxayE6H+CYVKWGtTK8PPN/WHOw==
   dependencies:
     "@coinbase/wallet-sdk" "^3.3.0"
-    "@wagmi/core" "^0.4.9"
+    "@wagmi/core" "^0.5.0"
     "@walletconnect/ethereum-provider" "^1.7.8"
     react-query "4.0.0-beta.23"
     use-sync-external-store "^1.2.0"

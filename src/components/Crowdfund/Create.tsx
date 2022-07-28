@@ -38,7 +38,11 @@ import {
 import Custom404 from 'src/pages/404'
 import { useAppPersistStore, useAppStore } from 'src/store/app'
 import { v4 as uuid } from 'uuid'
-import { useContractWrite, useSignTypedData } from 'wagmi'
+import {
+  useContractWrite,
+  usePrepareContractWrite,
+  useSignTypedData
+} from 'wagmi'
 import { object, string } from 'zod'
 
 const MODULES_CURRENCY_QUERY = gql`
@@ -92,14 +96,19 @@ const Create: NextPage = () => {
     }
   })
 
+  const { config } = usePrepareContractWrite({
+    addressOrName: LENSHUB_PROXY,
+    contractInterface: LensHubProxy,
+    functionName: 'postWithSig',
+    enabled: false
+  })
+
   const {
     data,
     isLoading: writeLoading,
     write
   } = useContractWrite({
-    addressOrName: LENSHUB_PROXY,
-    contractInterface: LensHubProxy,
-    functionName: 'postWithSig',
+    ...config,
     onError(error: any) {
       toast.error(error?.data?.message ?? error?.message)
     }
@@ -178,9 +187,10 @@ const Create: NextPage = () => {
               data: { broadcast: result }
             } = await broadcast({ variables: { request: { id, signature } } })
 
-            if ('reason' in result) write({ args: inputStruct })
+            if ('reason' in result)
+              write?.({ recklesslySetUnpreparedArgs: inputStruct })
           } else {
-            write({ args: inputStruct })
+            write?.({ recklesslySetUnpreparedArgs: inputStruct })
           }
         } catch (error) {
           Logger.warn('[Sign Error]', error)

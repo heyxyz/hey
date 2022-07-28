@@ -33,6 +33,7 @@ import {
   useAccount,
   useBalance,
   useContractWrite,
+  usePrepareContractWrite,
   useSignTypedData
 } from 'wagmi'
 
@@ -127,10 +128,15 @@ const FollowModule: FC<Props> = ({
     toast.success('Followed successfully!')
   }
 
-  const { isLoading: writeLoading, write } = useContractWrite({
+  const { config } = usePrepareContractWrite({
     addressOrName: LENSHUB_PROXY,
     contractInterface: LensHubProxy,
     functionName: 'followWithSig',
+    enabled: false
+  })
+
+  const { isLoading: writeLoading, write } = useContractWrite({
+    ...config,
     onSuccess() {
       onCompleted()
     },
@@ -234,9 +240,10 @@ const FollowModule: FC<Props> = ({
               errors
             } = await broadcast({ variables: { request: { id, signature } } })
 
-            if ('reason' in result || errors) write({ args: inputStruct })
+            if ('reason' in result || errors)
+              write?.({ recklesslySetUnpreparedArgs: inputStruct })
           } else {
-            write({ args: inputStruct })
+            write?.({ recklesslySetUnpreparedArgs: inputStruct })
           }
         } catch (error) {
           Logger.warn('[Sign Error]', error)
