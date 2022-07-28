@@ -51,6 +51,7 @@ import {
   useAccount,
   useBalance,
   useContractWrite,
+  usePrepareContractWrite,
   useSignTypedData
 } from 'wagmi'
 
@@ -149,14 +150,19 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
     toast.success('Transaction submitted successfully!')
   }
 
+  const { config } = usePrepareContractWrite({
+    addressOrName: LENSHUB_PROXY,
+    contractInterface: LensHubProxy,
+    functionName: 'collectWithSig',
+    enabled: false
+  })
+
   const {
     data: writeData,
     isLoading: writeLoading,
     write
   } = useContractWrite({
-    addressOrName: LENSHUB_PROXY,
-    contractInterface: LensHubProxy,
-    functionName: 'collectWithSig',
+    ...config,
     onSuccess() {
       onCompleted()
     },
@@ -278,9 +284,10 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
               data: { broadcast: result }
             } = await broadcast({ variables: { request: { id, signature } } })
 
-            if ('reason' in result) write({ args: inputStruct })
+            if ('reason' in result)
+              write?.({ recklesslySetUnpreparedArgs: inputStruct })
           } else {
-            write({ args: inputStruct })
+            write?.({ recklesslySetUnpreparedArgs: inputStruct })
           }
         } catch (error) {
           Logger.warn('[Sign Error]', error)

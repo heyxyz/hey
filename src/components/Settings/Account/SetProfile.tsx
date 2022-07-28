@@ -24,7 +24,12 @@ import {
 } from 'src/constants'
 import Custom404 from 'src/pages/404'
 import { useAppPersistStore, useAppStore } from 'src/store/app'
-import { useAccount, useContractWrite, useSignTypedData } from 'wagmi'
+import {
+  useAccount,
+  useContractWrite,
+  usePrepareContractWrite,
+  useSignTypedData
+} from 'wagmi'
 
 const CREATE_SET_DEFAULT_PROFILE_DATA_MUTATION = gql`
   mutation CreateSetDefaultProfileTypedData(
@@ -73,15 +78,20 @@ const SetProfile: FC = () => {
     toast.success('Default profile updated successfully!')
   }
 
+  const { config } = usePrepareContractWrite({
+    addressOrName: LENSHUB_PROXY,
+    contractInterface: LensHubProxy,
+    functionName: 'setDefaultProfileWithSig',
+    enabled: false
+  })
+
   const {
     data: writeData,
     isLoading: writeLoading,
     error,
     write
   } = useContractWrite({
-    addressOrName: LENSHUB_PROXY,
-    contractInterface: LensHubProxy,
-    functionName: 'setDefaultProfileWithSig',
+    ...config,
     onSuccess() {
       onCompleted()
     },
@@ -141,9 +151,10 @@ const SetProfile: FC = () => {
               data: { broadcast: result }
             } = await broadcast({ variables: { request: { id, signature } } })
 
-            if ('reason' in result) write({ args: inputStruct })
+            if ('reason' in result)
+              write?.({ recklesslySetUnpreparedArgs: inputStruct })
           } else {
-            write({ args: inputStruct })
+            write?.({ recklesslySetUnpreparedArgs: inputStruct })
           }
         } catch (error) {
           Logger.warn('[Sign Error]', error)

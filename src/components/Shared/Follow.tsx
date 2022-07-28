@@ -18,7 +18,12 @@ import {
   RELAY_ON
 } from 'src/constants'
 import { useAppPersistStore, useAppStore } from 'src/store/app'
-import { useAccount, useContractWrite, useSignTypedData } from 'wagmi'
+import {
+  useAccount,
+  useContractWrite,
+  usePrepareContractWrite,
+  useSignTypedData
+} from 'wagmi'
 
 const CREATE_FOLLOW_TYPED_DATA_MUTATION = gql`
   mutation CreateFollowTypedData(
@@ -84,10 +89,15 @@ const Follow: FC<Props> = ({
     toast.success('Followed successfully!')
   }
 
-  const { isLoading: writeLoading, write } = useContractWrite({
+  const { config } = usePrepareContractWrite({
     addressOrName: LENSHUB_PROXY,
     contractInterface: LensHubProxy,
     functionName: 'followWithSig',
+    enabled: false
+  })
+
+  const { isLoading: writeLoading, write } = useContractWrite({
+    ...config,
     onSuccess() {
       onCompleted()
     },
@@ -141,9 +151,10 @@ const Follow: FC<Props> = ({
               data: { broadcast: result }
             } = await broadcast({ variables: { request: { id, signature } } })
 
-            if ('reason' in result) write({ args: inputStruct })
+            if ('reason' in result)
+              write?.({ recklesslySetUnpreparedArgs: inputStruct })
           } else {
-            write({ args: inputStruct })
+            write?.({ recklesslySetUnpreparedArgs: inputStruct })
           }
         } catch (error) {
           Logger.warn('[Sign Error]', error)
