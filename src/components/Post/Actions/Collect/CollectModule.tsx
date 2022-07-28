@@ -132,6 +132,17 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
       toast.error(error?.message)
     }
   })
+  const { data, loading } = useQuery(COLLECT_QUERY, {
+    variables: { request: { publicationId: post?.pubId ?? post?.id } },
+    onCompleted() {
+      Logger.log(
+        '[Query]',
+        `Fetched collect module details Publication:${post?.pubId ?? post?.id}`
+      )
+    }
+  })
+
+  const collectModule: any = data?.publication?.collectModule
 
   const onCompleted = () => {
     setRevenue(revenue + parseFloat(collectModule?.amount?.value))
@@ -155,17 +166,6 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
     }
   })
 
-  const { data, loading } = useQuery(COLLECT_QUERY, {
-    variables: { request: { publicationId: post?.pubId ?? post?.id } },
-    onCompleted() {
-      Logger.log(
-        '[Query]',
-        `Fetched collect module details Publication:${post?.pubId ?? post?.id}`
-      )
-    }
-  })
-
-  const collectModule: any = data?.publication?.collectModule
   const percentageCollected =
     (count / parseInt(collectModule?.collectLimit)) * 100
 
