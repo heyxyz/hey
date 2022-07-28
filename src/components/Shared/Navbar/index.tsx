@@ -136,7 +136,7 @@ const Navbar: FC = () => {
           <Disclosure.Panel className="sm:hidden">
             <div className="flex flex-col p-3 space-y-2">
               <div className="mb-2">
-                <Search hideDrodown />
+                <Search hideDropdown />
               </div>
               <NavItems />
             </div>
