@@ -42,6 +42,8 @@ body:
       options:
         - Web
         - Mobile
+    validations:
+      required: true
 
   - type: dropdown
     attributes:
