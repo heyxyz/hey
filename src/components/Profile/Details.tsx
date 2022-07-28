@@ -23,6 +23,7 @@ import React, { FC, ReactElement, useEffect, useState } from 'react'
 import { STATIC_ASSETS } from 'src/constants'
 import { useAppPersistStore } from 'src/store/app'
 
+import Badges from './Badges'
 import Followerings from './Followerings'
 import ProfileMod from './Mod'
 
@@ -261,6 +262,7 @@ const Details: FC<Props> = ({ profile }) => {
           )}
         </div>
       </div>
+      <Badges profile={profile} />
       {isStaff(currentUser?.id) && staffMode && (
         <ProfileMod profile={profile} />
       )}

@@ -19,12 +19,12 @@ import splitSignature from '@lib/splitSignature'
 import React, { FC, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
-  CONNECT_WALLET,
   DEFAULT_COLLECT_TOKEN,
   ERROR_MESSAGE,
   ERRORS,
   LENSHUB_PROXY,
-  RELAY_ON
+  RELAY_ON,
+  SIGN_WALLET
 } from 'src/constants'
 import { useAppPersistStore, useAppStore } from 'src/store/app'
 import { useContractWrite, useSignTypedData } from 'wagmi'
@@ -182,7 +182,7 @@ const SuperFollow: FC = () => {
     })
 
   const setSuperFollow = (amount: string | null, recipient: string | null) => {
-    if (!isAuthenticated) return toast.error(CONNECT_WALLET)
+    if (!isAuthenticated) return toast.error(SIGN_WALLET)
 
     createSetFollowModuleTypedData({
       variables: {

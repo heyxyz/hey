@@ -68,4 +68,4 @@ and visit http://localhost:4783
 
 ## ⚖️ License
 
-Lenster is open-sourced software licensed under the © [GNU General Public License v3.0](LICENSE).
+Lenster is open-sourced software licensed under the © [MIT](LICENSE).

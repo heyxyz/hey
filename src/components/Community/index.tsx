@@ -1,7 +1,7 @@
 import { gql, useQuery } from '@apollo/client'
 import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout'
 import PostsShimmer from '@components/Shared/Shimmer/PostsShimmer'
-import SEO from '@components/utils/SEO'
+import Seo from '@components/utils/Seo'
 import { CommunityFields } from '@gql/CommunityFields'
 import Logger from '@lib/logger'
 import { NextPage } from 'next'
@@ -52,7 +52,7 @@ const ViewCommunity: NextPage = () => {
 
   return (
     <GridLayout>
-      <SEO title={`${data?.publication?.metadata?.name} • ${APP_NAME}`} />
+      <Seo title={`${data?.publication?.metadata?.name} • ${APP_NAME}`} />
       <GridItemFour>
         <Details community={data.publication} />
       </GridItemFour>

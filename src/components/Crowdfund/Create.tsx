@@ -12,7 +12,7 @@ import { Input } from '@components/UI/Input'
 import { PageLoading } from '@components/UI/PageLoading'
 import { Spinner } from '@components/UI/Spinner'
 import { TextArea } from '@components/UI/TextArea'
-import SEO from '@components/utils/SEO'
+import Seo from '@components/utils/Seo'
 import { CreatePostBroadcastItemResult, Erc20 } from '@generated/types'
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { PlusIcon } from '@heroicons/react/outline'
@@ -28,12 +28,12 @@ import React, { ChangeEvent, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
   APP_NAME,
-  CONNECT_WALLET,
   DEFAULT_COLLECT_TOKEN,
   ERROR_MESSAGE,
   ERRORS,
   LENSHUB_PROXY,
-  RELAY_ON
+  RELAY_ON,
+  SIGN_WALLET
 } from 'src/constants'
 import Custom404 from 'src/pages/404'
 import { useAppPersistStore, useAppStore } from 'src/store/app'
@@ -200,7 +200,7 @@ const Create: NextPage = () => {
     referralFee: string,
     description: string | null
   ) => {
-    if (!isAuthenticated) return toast.error(CONNECT_WALLET)
+    if (!isAuthenticated) return toast.error(SIGN_WALLET)
 
     setIsUploading(true)
     const { path } = await uploadToIPFS({
@@ -260,7 +260,7 @@ const Create: NextPage = () => {
 
   return (
     <GridLayout>
-      <SEO title={`Create Crowdfund • ${APP_NAME}`} />
+      <Seo title={`Create Crowdfund • ${APP_NAME}`} />
       <GridItemFour>
         <SettingsHelper
           heading="Create crowdfund"

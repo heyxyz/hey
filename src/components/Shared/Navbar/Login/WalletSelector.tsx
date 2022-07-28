@@ -46,7 +46,8 @@ interface Props {
 
 const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
   const { setProfiles } = useAppStore()
-  const { setIsAuthenticated, setCurrentUser } = useAppPersistStore()
+  const { setIsConnected, setIsAuthenticated, setCurrentUser } =
+    useAppPersistStore()
   const [mounted, setMounted] = useState(false)
   const { chain } = useNetwork()
   const { connectors, error, connectAsync } = useConnect()
@@ -56,18 +57,16 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
       toast.error(error?.message)
     }
   })
-  const [
-    loadChallenge,
-    { error: errorChallenege, loading: challenegeLoading }
-  ] = useLazyQuery(CHALLENGE_QUERY, {
-    fetchPolicy: 'no-cache',
-    onCompleted(data) {
-      Logger.log(
-        '[Lazy Query]',
-        `Fetched auth challenege - ${data?.challenge?.text}`
-      )
-    }
-  })
+  const [loadChallenge, { error: errorChallenge, loading: challengeLoading }] =
+    useLazyQuery(CHALLENGE_QUERY, {
+      fetchPolicy: 'no-cache',
+      onCompleted(data) {
+        Logger.log(
+          '[Lazy Query]',
+          `Fetched auth challenge - ${data?.challenge?.text}`
+        )
+      }
+    })
   const [authenticate, { error: errorAuthenticate, loading: authLoading }] =
     useMutation(AUTHENTICATE_MUTATION)
   const [getProfiles, { error: errorProfiles, loading: profilesLoading }] =
@@ -126,7 +125,7 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
       const { data: profilesData } = await getProfiles({
         variables: { ownedBy: address }
       })
-
+      setIsConnected(true)
       if (profilesData?.profiles?.items?.length === 0) {
         setHasProfile(false)
       } else {
@@ -151,11 +150,11 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
         <Button
           size="lg"
           disabled={
-            signLoading || challenegeLoading || authLoading || profilesLoading
+            signLoading || challengeLoading || authLoading || profilesLoading
           }
           icon={
             signLoading ||
-            challenegeLoading ||
+            challengeLoading ||
             authLoading ||
             profilesLoading ? (
               <Spinner className="mr-0.5" size="xs" />
@@ -176,7 +175,7 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
       ) : (
         <SwitchNetwork />
       )}
-      {(errorChallenege || errorAuthenticate || errorProfiles) && (
+      {(errorChallenge || errorAuthenticate || errorProfiles) && (
         <div className="flex items-center space-x-1 font-bold text-red-500">
           <XCircleIcon className="w-5 h-5" />
           <div>{ERROR_MESSAGE}</div>

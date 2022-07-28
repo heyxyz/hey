@@ -4,7 +4,7 @@ import Footer from '@components/Shared/Footer'
 import PostsShimmer from '@components/Shared/Shimmer/PostsShimmer'
 import UserProfile from '@components/Shared/UserProfile'
 import { Card, CardBody } from '@components/UI/Card'
-import SEO from '@components/utils/SEO'
+import Seo from '@components/utils/Seo'
 import { LensterPost } from '@generated/lenstertypes'
 import { CommentFields } from '@gql/CommentFields'
 import { MirrorFields } from '@gql/MirrorFields'
@@ -20,9 +20,10 @@ import Custom404 from 'src/pages/404'
 import Custom500 from 'src/pages/500'
 import { useAppPersistStore } from 'src/store/app'
 
+import FullPost from './FullPost'
 import IPFSHash from './IPFSHash'
+import RelevantPeople from './RelevantPeople'
 import PostPageShimmer from './Shimmer'
-import SinglePost from './SinglePost'
 import ViaApp from './ViaApp'
 
 const Feed = dynamic(() => import('@components/Comment/Feed'), {
@@ -100,12 +101,12 @@ const ViewPost: NextPage = () => {
 
   return (
     <GridLayout>
-      <SEO
+      <Seo
         title={`${post?.__typename} by @${post?.profile?.handle} • ${APP_NAME}`}
       />
       <GridItemEight className="space-y-5">
         <Card>
-          <SinglePost post={post} showThread />
+          <FullPost post={post} />
         </Card>
         <Feed
           post={post}
@@ -130,6 +131,7 @@ const ViewPost: NextPage = () => {
           </CardBody>
           <ViaApp appConfig={appConfig} />
         </Card>
+        <RelevantPeople publication={post} />
         <IPFSHash ipfsHash={post?.onChainContentURI} />
         <Footer />
       </GridItemFour>

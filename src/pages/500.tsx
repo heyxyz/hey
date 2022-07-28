@@ -1,5 +1,5 @@
 import { Button } from '@components/UI/Button'
-import SEO from '@components/utils/SEO'
+import Seo from '@components/utils/Seo'
 import { HomeIcon } from '@heroicons/react/outline'
 import Link from 'next/link'
 import { APP_NAME } from 'src/constants'
@@ -7,7 +7,7 @@ import { APP_NAME } from 'src/constants'
 export default function Custom500() {
   return (
     <div className="flex-col page-center">
-      <SEO title={`500 • ${APP_NAME}`} />
+      <Seo title={`500 • ${APP_NAME}`} />
       <div className="py-10 text-center">
         <h1 className="mb-4 text-3xl font-bold">
           Looks like something went wrong!
