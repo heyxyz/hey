@@ -153,7 +153,8 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
   const { config } = usePrepareContractWrite({
     addressOrName: LENSHUB_PROXY,
     contractInterface: LensHubProxy,
-    functionName: 'collectWithSig'
+    functionName: 'collectWithSig',
+    enabled: false
   })
 
   const {

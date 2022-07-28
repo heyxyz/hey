@@ -66,7 +66,8 @@ const Create: NextPage = () => {
   const { config } = usePrepareContractWrite({
     addressOrName: LENSHUB_PROXY,
     contractInterface: LensHubProxy,
-    functionName: 'postWithSig'
+    functionName: 'postWithSig',
+    enabled: false
   })
 
   const {

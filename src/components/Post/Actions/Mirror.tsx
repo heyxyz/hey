@@ -103,7 +103,8 @@ const Mirror: FC<Props> = ({ post }) => {
   const { config } = usePrepareContractWrite({
     addressOrName: LENSHUB_PROXY,
     contractInterface: LensHubProxy,
-    functionName: 'mirrorWithSig'
+    functionName: 'mirrorWithSig',
+    enabled: false
   })
 
   const { isLoading: writeLoading, write } = useContractWrite({

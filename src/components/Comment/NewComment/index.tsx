@@ -144,7 +144,8 @@ const NewComment: FC<Props> = ({
   const { config } = usePrepareContractWrite({
     addressOrName: LENSHUB_PROXY,
     contractInterface: LensHubProxy,
-    functionName: 'commentWithSig'
+    functionName: 'commentWithSig',
+    enabled: false
   })
 
   const {

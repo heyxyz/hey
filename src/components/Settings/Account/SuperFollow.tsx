@@ -114,7 +114,8 @@ const SuperFollow: FC = () => {
   const { config } = usePrepareContractWrite({
     addressOrName: LENSHUB_PROXY,
     contractInterface: LensHubProxy,
-    functionName: 'setFollowModuleWithSig'
+    functionName: 'setFollowModuleWithSig',
+    enabled: false
   })
 
   const {

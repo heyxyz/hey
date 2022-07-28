@@ -92,7 +92,8 @@ const Follow: FC<Props> = ({
   const { config } = usePrepareContractWrite({
     addressOrName: LENSHUB_PROXY,
     contractInterface: LensHubProxy,
-    functionName: 'followWithSig'
+    functionName: 'followWithSig',
+    enabled: false
   })
 
   const { isLoading: writeLoading, write } = useContractWrite({

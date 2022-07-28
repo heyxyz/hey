@@ -88,7 +88,8 @@ const Picture: FC<Props> = ({ profile }) => {
   const { config } = usePrepareContractWrite({
     addressOrName: LENSHUB_PROXY,
     contractInterface: LensHubProxy,
-    functionName: 'setProfileImageURIWithSig'
+    functionName: 'setProfileImageURIWithSig',
+    enabled: false
   })
 
   const {

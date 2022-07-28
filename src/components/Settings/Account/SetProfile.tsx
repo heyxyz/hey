@@ -81,7 +81,8 @@ const SetProfile: FC = () => {
   const { config } = usePrepareContractWrite({
     addressOrName: LENSHUB_PROXY,
     contractInterface: LensHubProxy,
-    functionName: 'setDefaultProfileWithSig'
+    functionName: 'setDefaultProfileWithSig',
+    enabled: false
   })
 
   const {

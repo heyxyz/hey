@@ -119,7 +119,8 @@ const Profile: FC<Props> = ({ profile }) => {
   const { config } = usePrepareContractWrite({
     addressOrName: LENS_PERIPHERY,
     contractInterface: LensPeriphery,
-    functionName: 'setProfileMetadataURIWithSig'
+    functionName: 'setProfileMetadataURIWithSig',
+    enabled: false
   })
 
   const {

@@ -127,7 +127,8 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
   const { config } = usePrepareContractWrite({
     addressOrName: LENSHUB_PROXY,
     contractInterface: LensHubProxy,
-    functionName: 'collectWithSig'
+    functionName: 'collectWithSig',
+    enabled: false
   })
 
   const {

@@ -83,7 +83,8 @@ const Join: FC<Props> = ({ community, setJoined, showJoin = true }) => {
   const { config } = usePrepareContractWrite({
     addressOrName: LENSHUB_PROXY,
     contractInterface: LensHubProxy,
-    functionName: 'collectWithSig'
+    functionName: 'collectWithSig',
+    enabled: false
   })
 
   const { isLoading: writeLoading, write } = useContractWrite({
