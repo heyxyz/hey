@@ -71,7 +71,13 @@ const FeeEntry: FC<Props> = ({
         <ArrowLeftIcon className="w-4 h-4" />
         <div>Back</div>
       </button>
-      <Form form={form} className="space-y-4" onSubmit={({}) => {}}>
+      <Form
+        form={form}
+        className="space-y-4"
+        onSubmit={() => {
+          // do nothing
+        }}
+      >
         <div>
           <div className="label">Select Currency</div>
           <select
