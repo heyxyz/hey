@@ -8,7 +8,11 @@ import { ExclamationIcon, MinusIcon, PlusIcon } from '@heroicons/react/outline'
 import { getModule } from '@lib/getModule'
 import React, { Dispatch, FC, useState } from 'react'
 import toast from 'react-hot-toast'
-import { useSendTransaction, useWaitForTransaction } from 'wagmi'
+import {
+  usePrepareSendTransaction,
+  useSendTransaction,
+  useWaitForTransaction
+} from 'wagmi'
 
 const GENERATE_ALLOWANCE_QUERY = gql`
   query GenerateModuleCurrencyApprovalData(
@@ -40,15 +44,22 @@ const AllowanceButton: FC<Props> = ({
     GENERATE_ALLOWANCE_QUERY
   )
 
+  const { config } = usePrepareSendTransaction({
+    request: {}
+  })
+
   const {
     data: txData,
     isLoading: transactionLoading,
     sendTransaction
   } = useSendTransaction({
+    ...config,
+    mode: 'recklesslyUnprepared',
     onError(error: any) {
       toast.error(error?.data?.message ?? error?.message)
     }
   })
+
   const { isLoading: waitLoading } = useWaitForTransaction({
     hash: txData?.hash,
     onSuccess() {
@@ -76,8 +87,12 @@ const AllowanceButton: FC<Props> = ({
       }
     }).then((res) => {
       const data = res?.data?.generateModuleCurrencyApprovalData
-      sendTransaction({
-        request: { from: data?.from, to: data?.to, data: data?.data }
+      sendTransaction?.({
+        recklesslySetUnpreparedRequest: {
+          from: data?.from,
+          to: data?.to,
+          data: data?.data
+        }
       })
     })
   }

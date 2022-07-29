@@ -26,10 +26,10 @@ export const SEARCH_USERS_QUERY = gql`
 `
 
 interface Props {
-  hideDrodown?: boolean
+  hideDropdown?: boolean
 }
 
-const Search: FC<Props> = ({ hideDrodown = false }) => {
+const Search: FC<Props> = ({ hideDropdown = false }) => {
   const { push, pathname, query } = useRouter()
   const [searchText, setSearchText] = useState<string>('')
   const dropdownRef = useRef(null)
@@ -49,7 +49,7 @@ const Search: FC<Props> = ({ hideDrodown = false }) => {
   const handleSearch = (evt: ChangeEvent<HTMLInputElement>) => {
     const keyword = evt.target.value
     setSearchText(keyword)
-    if (pathname !== '/search' && !hideDrodown) {
+    if (pathname !== '/search' && !hideDropdown) {
       searchUsers({
         variables: { request: { type: 'PROFILE', query: keyword, limit: 8 } }
       })
@@ -79,7 +79,7 @@ const Search: FC<Props> = ({ hideDrodown = false }) => {
           />
         </form>
       </div>
-      {pathname !== '/search' && !hideDrodown && searchText.length > 0 && (
+      {pathname !== '/search' && !hideDropdown && searchText.length > 0 && (
         <div
           className="flex absolute flex-col mt-2 w-full sm:max-w-md"
           ref={dropdownRef}

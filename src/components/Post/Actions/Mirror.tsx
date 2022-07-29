@@ -23,7 +23,11 @@ import {
   SIGN_WALLET
 } from 'src/constants'
 import { useAppPersistStore, useAppStore } from 'src/store/app'
-import { useContractWrite, useSignTypedData } from 'wagmi'
+import {
+  useContractWrite,
+  usePrepareContractWrite,
+  useSignTypedData
+} from 'wagmi'
 
 const CREATE_MIRROR_TYPED_DATA_MUTATION = gql`
   mutation CreateMirrorTypedData(
@@ -96,10 +100,15 @@ const Mirror: FC<Props> = ({ post }) => {
     toast.success('Post has been mirrored!')
   }
 
-  const { isLoading: writeLoading, write } = useContractWrite({
+  const { config } = usePrepareContractWrite({
     addressOrName: LENSHUB_PROXY,
     contractInterface: LensHubProxy,
     functionName: 'mirrorWithSig',
+    enabled: false
+  })
+
+  const { isLoading: writeLoading, write } = useContractWrite({
+    ...config,
     onSuccess() {
       onCompleted()
     },
@@ -163,9 +172,10 @@ const Mirror: FC<Props> = ({ post }) => {
               data: { broadcast: result }
             } = await broadcast({ variables: { request: { id, signature } } })
 
-            if ('reason' in result) write({ args: inputStruct })
+            if ('reason' in result)
+              write?.({ recklesslySetUnpreparedArgs: inputStruct })
           } else {
-            write({ args: inputStruct })
+            write?.({ recklesslySetUnpreparedArgs: inputStruct })
           }
         } catch (error) {
           Logger.warn('[Sign Error]', error)
