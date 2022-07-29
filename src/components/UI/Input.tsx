@@ -51,7 +51,10 @@ export const Input = forwardRef<HTMLInputElement, Props>(function Input(
             { '!border-red-500': error },
             { 'rounded-r-xl': prefix },
             { 'rounded-xl': !prefix },
-            'flex items-center pl-3 border border-gray-300 dark:border-gray-700/80 focus-within:border-brand-500 focus-within:ring-1 focus-within:ring-brand-400 w-full'
+            {
+              'opacity-60 bg-gray-500 bg-opacity-20': props.disabled
+            },
+            'flex items-center pl-3 border bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-700/80 focus-within:border-brand-500 focus-within:ring-1 focus-within:ring-brand-400 w-full'
           )}
         >
           <input
@@ -60,14 +63,18 @@ export const Input = forwardRef<HTMLInputElement, Props>(function Input(
               { 'placeholder-red-500': error },
               { 'rounded-r-xl': prefix },
               { 'rounded-xl': !prefix },
-              'peer bg-white dark:bg-gray-800 border-none focus:ring-0 disabled:opacity-60 disabled:bg-gray-500 disabled:bg-opacity-20 outline-none w-full',
+              'peer border-none focus:ring-0 outline-none bg-transparent w-full',
               className
             )}
             type={type}
             ref={ref}
             {...props}
           />
-          <span className="order-first text-zinc-500 [&>*]:peer-focus:text-brand-500 [&>*]:h-6">
+          <span
+            className={clsx(
+              'order-first text-zinc-500 [&>*]:peer-focus:text-brand-500 [&>*]:h-6'
+            )}
+          >
             {leftIcon}
           </span>
         </div>
