@@ -82,7 +82,7 @@ export const Input = forwardRef<HTMLInputElement, Props>(function Input(
           {type === 'search' && (
             <SearchIcon
               className={clsx(
-                'w-6 h-6 mr-2 text-gray-300 dark:text-gray-700/80',
+                'w-6 h-6 ml-2 text-gray-300 dark:text-gray-700/80',
                 { '!text-brand-500': isFocused }
               )}
             />
