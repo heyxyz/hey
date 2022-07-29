@@ -16,10 +16,8 @@ const PostActions: FC<Props> = ({ post }) => {
 
   return postType !== 'community' ? (
     <div
-      tabIndex={0}
       className="flex gap-6 items-center pt-3 -ml-2 text-gray-500 sm:gap-8"
       onClick={(event: MouseEvent<HTMLDivElement>) => event.stopPropagation()}
-      role="button"
     >
       <Comment post={post} />
       <Mirror post={post} />
