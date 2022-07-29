@@ -13,5 +13,9 @@ export default defineConfig({
   env: {
     is_mainnet: process.env.NEXT_PUBLIC_IS_MAINNET === 'true'
   },
-  e2e: { setupNodeEvents() {} }
+  e2e: {
+    setupNodeEvents() {
+      //do nothing
+    }
+  }
 })
