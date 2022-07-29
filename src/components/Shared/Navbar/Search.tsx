@@ -72,7 +72,7 @@ const Search: FC<Props> = ({ hideDropdown = false }) => {
         <form onSubmit={handleKeyDown}>
           <Input
             type="search"
-            className="py-2 px-3 text-sm"
+            className="py-[0.375rem] px-3 text-sm"
             placeholder="Search..."
             value={searchText}
             onChange={handleSearch}
