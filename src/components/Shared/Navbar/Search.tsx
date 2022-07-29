@@ -71,7 +71,7 @@ const Search: FC<Props> = ({ hideDropdown = false }) => {
       <div aria-hidden="true">
         <form onSubmit={handleKeyDown}>
           <Input
-            type="text"
+            type="search"
             className="py-2 px-3 text-sm"
             placeholder="Search..."
             value={searchText}

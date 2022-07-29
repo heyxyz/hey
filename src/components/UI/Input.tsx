@@ -1,6 +1,14 @@
+import { SearchIcon } from '@heroicons/react/outline'
 import clsx from 'clsx'
 import dynamic from 'next/dynamic'
-import { ComponentProps, forwardRef, ReactNode, useId } from 'react'
+import {
+  ComponentProps,
+  FocusEvent,
+  forwardRef,
+  ReactNode,
+  useId,
+  useState
+} from 'react'
 
 import { FieldError } from './Form'
 
@@ -19,6 +27,16 @@ export const Input = forwardRef<HTMLInputElement, Props>(function Input(
   ref
 ) {
   const id = useId()
+  const [isFocused, setIsFocused] = useState(false)
+
+  const handleFocus = (event: FocusEvent<HTMLInputElement>) => {
+    setIsFocused(true)
+    props.onFocus?.(event)
+  }
+  const handleBlur = (event: FocusEvent<HTMLInputElement>) => {
+    setIsFocused(false)
+    props.onBlur?.(event)
+  }
 
   return (
     <label className="w-full" htmlFor={id}>
@@ -36,19 +54,40 @@ export const Input = forwardRef<HTMLInputElement, Props>(function Input(
             {prefix}
           </span>
         )}
-        <input
-          id={id}
+        <div
           className={clsx(
-            { '!border-red-500 placeholder-red-500': error },
+            { '!border-red-500': error },
             { 'rounded-r-xl': prefix },
             { 'rounded-xl': !prefix },
-            'bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700/80 focus:border-brand-500 focus:ring-brand-400 disabled:opacity-60 disabled:bg-gray-500 disabled:bg-opacity-20 outline-none w-full',
+            { 'ring-1 border-brand-500 ring-brand-400': isFocused },
+            {
+              'opacity-60 bg-gray-500 bg-opacity-20': props.disabled
+            },
+            'bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700/80 outline-none w-full flex items-center',
             className
           )}
-          type={type}
-          ref={ref}
-          {...props}
-        />
+        >
+          <input
+            {...props}
+            id={id}
+            className={clsx(
+              'w-full bg-transparent appearance-none focus:border-none focus:ring-0 border-none p-0 text-[length:inherit]',
+              { 'placeholder-red-500': error }
+            )}
+            type={type}
+            ref={ref}
+            onFocus={handleFocus}
+            onBlur={handleBlur}
+          />
+          {type === 'search' && (
+            <SearchIcon
+              className={clsx(
+                'w-6 h-6 mr-2 text-gray-300 dark:text-gray-700/80',
+                { '!text-brand-500': isFocused }
+              )}
+            />
+          )}
+        </div>
       </div>
       {props.name && <FieldError name={props.name} />}
     </label>
