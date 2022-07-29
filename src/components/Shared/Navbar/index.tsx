@@ -118,10 +118,12 @@ const Navbar: FC = () => {
                 </Link>
                 <div className="hidden sm:block sm:ml-6">
                   <div className="flex items-center space-x-4">
-                    <div className="hidden lg:block">
+                    <div className="hidden lg:block flex-[0_1_33%]">
                       <Search />
                     </div>
-                    <NavItems />
+                    <div className="hidden sm:flex flex-1">
+                      <NavItems />
+                    </div>
                   </div>
                 </div>
               </div>
