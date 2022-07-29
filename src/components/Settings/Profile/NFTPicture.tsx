@@ -31,6 +31,7 @@ import { useAppPersistStore, useAppStore } from 'src/store/app'
 import {
   chain,
   useContractWrite,
+  usePrepareContractWrite,
   useSignMessage,
   useSignTypedData
 } from 'wagmi'
@@ -113,15 +114,20 @@ const NFTPicture: FC<Props> = ({ profile }) => {
     toast.success('Avatar updated successfully!')
   }
 
+  const { config } = usePrepareContractWrite({
+    addressOrName: LENSHUB_PROXY,
+    contractInterface: LensHubProxy,
+    functionName: 'setProfileImageURIWithSig',
+    enabled: false
+  })
+
   const {
     data: writeData,
     isLoading: writeLoading,
     error,
     write
   } = useContractWrite({
-    addressOrName: LENSHUB_PROXY,
-    contractInterface: LensHubProxy,
-    functionName: 'setProfileImageURIWithSig',
+    ...config,
     onSuccess() {
       onCompleted()
     },
@@ -174,9 +180,10 @@ const NFTPicture: FC<Props> = ({ profile }) => {
               data: { broadcast: result }
             } = await broadcast({ variables: { request: { id, signature } } })
 
-            if ('reason' in result) write({ args: inputStruct })
+            if ('reason' in result)
+              write?.({ recklesslySetUnpreparedArgs: inputStruct })
           } else {
-            write({ args: inputStruct })
+            write?.({ recklesslySetUnpreparedArgs: inputStruct })
           }
         } catch (error) {
           Logger.warn('[Sign Error]', error)

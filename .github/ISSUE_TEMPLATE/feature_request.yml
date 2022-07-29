@@ -1,0 +1,11 @@
+name: "Feature Request"
+description: "Request a feature for Lenster"
+labels: "needs review"
+body:
+  - type: textarea
+    attributes:
+      label: Summary
+      description: Describe the feature in 1 or 2 sentences
+      placeholder: Clearly describe what you want to see in Lenster.
+    validations:
+      required: true

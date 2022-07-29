@@ -44,7 +44,10 @@ const Attachment: FC<Props> = ({ attachments, setAttachments }) => {
     setLoading(true)
 
     try {
-      if (hasVideos(evt.target.files) || evt.target.files!.length > 4) {
+      if (
+        evt.target.files &&
+        (hasVideos(evt.target.files) || evt.target.files.length > 4)
+      ) {
         toast.error('Please choose either 1 video or up to 4 photos.')
       } else {
         const attachment = await uploadAssetsToIPFS(evt.target.files)

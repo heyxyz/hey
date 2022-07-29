@@ -51,6 +51,7 @@ import {
   useAccount,
   useBalance,
   useContractWrite,
+  usePrepareContractWrite,
   useSignTypedData
 } from 'wagmi'
 
@@ -125,36 +126,12 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
   const [revenue, setRevenue] = useState<number>(0)
   const [showCollectorsModal, setShowCollectorsModal] = useState<boolean>(false)
   const [allowed, setAllowed] = useState<boolean>(true)
-
   const { address } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
       toast.error(error?.message)
     }
   })
-
-  const onCompleted = () => {
-    setRevenue(revenue + parseFloat(collectModule?.amount?.value))
-    setCount(count + 1)
-    toast.success('Transaction submitted successfully!')
-  }
-
-  const {
-    data: writeData,
-    isLoading: writeLoading,
-    write
-  } = useContractWrite({
-    addressOrName: LENSHUB_PROXY,
-    contractInterface: LensHubProxy,
-    functionName: 'collectWithSig',
-    onSuccess() {
-      onCompleted()
-    },
-    onError(error: any) {
-      toast.error(error?.data?.message ?? error?.message)
-    }
-  })
-
   const { data, loading } = useQuery(COLLECT_QUERY, {
     variables: { request: { publicationId: post?.pubId ?? post?.id } },
     onCompleted() {
@@ -166,6 +143,34 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
   })
 
   const collectModule: any = data?.publication?.collectModule
+
+  const onCompleted = () => {
+    setRevenue(revenue + parseFloat(collectModule?.amount?.value))
+    setCount(count + 1)
+    toast.success('Transaction submitted successfully!')
+  }
+
+  const { config } = usePrepareContractWrite({
+    addressOrName: LENSHUB_PROXY,
+    contractInterface: LensHubProxy,
+    functionName: 'collectWithSig',
+    enabled: false
+  })
+
+  const {
+    data: writeData,
+    isLoading: writeLoading,
+    write
+  } = useContractWrite({
+    ...config,
+    onSuccess() {
+      onCompleted()
+    },
+    onError(error: any) {
+      toast.error(error?.data?.message ?? error?.message)
+    }
+  })
+
   const percentageCollected =
     (count / parseInt(collectModule?.collectLimit)) * 100
 
@@ -279,9 +284,10 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
               data: { broadcast: result }
             } = await broadcast({ variables: { request: { id, signature } } })
 
-            if ('reason' in result) write({ args: inputStruct })
+            if ('reason' in result)
+              write?.({ recklesslySetUnpreparedArgs: inputStruct })
           } else {
-            write({ args: inputStruct })
+            write?.({ recklesslySetUnpreparedArgs: inputStruct })
           }
         } catch (error) {
           Logger.warn('[Sign Error]', error)

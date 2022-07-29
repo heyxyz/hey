@@ -22,7 +22,12 @@ import {
 } from 'src/constants'
 import Custom404 from 'src/pages/404'
 import { useAppPersistStore, useAppStore } from 'src/store/app'
-import { useContractWrite, useDisconnect, useSignTypedData } from 'wagmi'
+import {
+  useContractWrite,
+  useDisconnect,
+  usePrepareContractWrite,
+  useSignTypedData
+} from 'wagmi'
 
 import Sidebar from '../Sidebar'
 
@@ -84,10 +89,15 @@ const DeleteSettings: FC = () => {
     location.href = '/'
   }
 
-  const { isLoading: writeLoading, write } = useContractWrite({
+  const { config } = usePrepareContractWrite({
     addressOrName: LENSHUB_PROXY,
     contractInterface: LensHubProxy,
     functionName: 'burnWithSig',
+    enabled: false
+  })
+
+  const { isLoading: writeLoading, write } = useContractWrite({
+    ...config,
     onSuccess() {
       onCompleted()
     },
@@ -118,7 +128,7 @@ const DeleteSettings: FC = () => {
           const { v, r, s } = splitSignature(signature)
           const sig = { v, r, s, deadline }
 
-          write({ args: [tokenId, sig] })
+          write?.({ recklesslySetUnpreparedArgs: [tokenId, sig] })
         } catch (error) {
           Logger.warn('[Sign Error]', error)
         }
