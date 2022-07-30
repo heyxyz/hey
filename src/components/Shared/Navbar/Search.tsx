@@ -76,7 +76,6 @@ const Search: FC<Props> = ({ hideDropdown = false }) => {
             className="py-2 px-3 text-sm"
             placeholder="Search..."
             value={searchText}
-            error
             leftIcon={<SearchIcon />}
             onChange={handleSearch}
           />
