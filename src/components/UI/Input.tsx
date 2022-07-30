@@ -9,7 +9,8 @@ const HelpTooltip = dynamic(() => import('./HelpTooltip'))
 interface Props extends Omit<ComponentProps<'input'>, 'prefix'> {
   label?: string
   prefix?: string | ReactNode
-  leftIcon?: ReactNode
+  iconLeft?: ReactNode
+  iconRight?: ReactNode
   className?: string
   helper?: ReactNode
   error?: boolean
@@ -20,7 +21,8 @@ export const Input = forwardRef<HTMLInputElement, Props>(function Input(
     label,
     prefix,
     type = 'text',
-    leftIcon,
+    iconLeft,
+    iconRight,
     error,
     className = '',
     helper,
@@ -54,7 +56,7 @@ export const Input = forwardRef<HTMLInputElement, Props>(function Input(
             {
               'opacity-60 bg-gray-500 bg-opacity-20': props.disabled
             },
-            'flex items-center pl-3 border bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-700/80 focus-within:border-brand-500 focus-within:ring-1 focus-within:ring-brand-400 w-full'
+            'flex items-center border bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-700/80 focus-within:border-brand-500 focus-within:ring-1 focus-within:ring-brand-400 w-full'
           )}
         >
           <input
@@ -73,10 +75,12 @@ export const Input = forwardRef<HTMLInputElement, Props>(function Input(
           <span
             className={clsx(
               { '!text-red-500 [&>*]:peer-focus:!text-red-500': error },
-              'order-first text-zinc-500 [&>*]:peer-focus:text-brand-500 [&>*]:h-5'
+              { 'order-first pl-3': iconLeft },
+              { 'order-last pr-3': iconRight },
+              'text-zinc-500 [&>*]:peer-focus:text-brand-500 [&>*]:h-5'
             )}
           >
-            {leftIcon}
+            {iconLeft ?? iconRight}
           </span>
         </div>
       </div>
