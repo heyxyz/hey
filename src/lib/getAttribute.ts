@@ -16,8 +16,8 @@ type Query =
 const getAttribute = (
   attributes: Maybe<Attribute[]> | undefined,
   query: Query
-): string | undefined => {
-  return attributes?.find((o) => o.key === query)?.value
+): string => {
+  return attributes?.find((o) => o.key === query)?.value || ''
 }
 
 export default getAttribute
