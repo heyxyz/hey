@@ -9,7 +9,7 @@ const HelpTooltip = dynamic(() => import('./HelpTooltip'))
 interface Props extends Omit<ComponentProps<'input'>, 'prefix'> {
   label?: string
   prefix?: string | ReactNode
-  leftIcon?: JSX.Element
+  leftIcon?: ReactNode
   className?: string
   helper?: ReactNode
   error?: boolean
