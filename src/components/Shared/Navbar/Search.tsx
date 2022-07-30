@@ -76,7 +76,8 @@ const Search: FC<Props> = ({ hideDropdown = false }) => {
             className="py-2 px-3 text-sm"
             placeholder="Search..."
             value={searchText}
-            leftIcon={<SearchIcon className="sm:hidden" />}
+            error
+            leftIcon={<SearchIcon />}
             onChange={handleSearch}
           />
         </form>
