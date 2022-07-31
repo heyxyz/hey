@@ -63,7 +63,7 @@ const ProfileSettings: NextPage = () => {
       setSettingsType(data?.profile?.picture?.uri ? 'NFT' : 'AVATAR')
     },
     onError(error) {
-      Logger.error('[Query Error]', error.message)
+      Logger.error('[Query Error]', error)
     }
   })
 

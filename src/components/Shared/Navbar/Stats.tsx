@@ -80,7 +80,7 @@ const Stats: FC = () => {
   const { data, loading, error } = useQuery(LENSTER_STATS_QUERY, {
     pollInterval: 1000,
     onError(error) {
-      Logger.error('[Query Error]', error.message)
+      Logger.error('[Query Error]', error)
     }
   })
 

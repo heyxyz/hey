@@ -116,7 +116,7 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
         Logger.log('[Query]', `Fetched allowance data`)
       },
       onError(error) {
-        Logger.error('[Query Error]', error.message)
+        Logger.error('[Query Error]', error)
       }
     }
   )
@@ -150,7 +150,7 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
         }
-        Logger.error('[Broadcast Error]', error.message)
+        Logger.error('[Broadcast Error]', error)
       }
     })
   const [createCollectTypedData, { loading: typedDataLoading }] = useMutation(
@@ -198,7 +198,7 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
       },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
-        Logger.error('[Typed-data Generate Error]', error.message)
+        Logger.error('[Typed-data Generate Error]', error)
       }
     }
   )

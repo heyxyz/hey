@@ -46,7 +46,7 @@ const Following: FC<Props> = ({ profile }) => {
       Logger.log('[Query]', `Fetched first 10 following Profile:${profile?.id}`)
     },
     onError(error) {
-      Logger.error('[Query Error]', error.message)
+      Logger.error('[Query Error]', error)
     }
   })
 

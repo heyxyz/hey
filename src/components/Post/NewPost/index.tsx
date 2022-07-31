@@ -153,7 +153,7 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
         }
-        Logger.error('[Broadcast Error]', error.message)
+        Logger.error('[Broadcast Error]', error)
       }
     })
   const [createPostTypedData, { loading: typedDataLoading }] = useMutation(
@@ -210,7 +210,7 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
       },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
-        Logger.error('[Typed-data Generate Error]', error.message)
+        Logger.error('[Typed-data Generate Error]', error)
       }
     }
   )

@@ -150,7 +150,7 @@ const FollowModule: FC<Props> = ({
       )
     },
     onError(error) {
-      Logger.error('[Query Error]', error.message)
+      Logger.error('[Query Error]', error)
     }
   })
 
@@ -173,7 +173,7 @@ const FollowModule: FC<Props> = ({
         Logger.log('[Query]', `Fetched allowance data`)
       },
       onError(error) {
-        Logger.error('[Query Error]', error.message)
+        Logger.error('[Query Error]', error)
       }
     }
   )
@@ -203,7 +203,7 @@ const FollowModule: FC<Props> = ({
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
         }
-        Logger.error('[Broadcast Error]', error.message)
+        Logger.error('[Broadcast Error]', error)
       }
     }
   )
@@ -252,7 +252,7 @@ const FollowModule: FC<Props> = ({
       },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
-        Logger.error('[Typed-data Generate Error]', error.message)
+        Logger.error('[Typed-data Generate Error]', error)
       }
     }
   )

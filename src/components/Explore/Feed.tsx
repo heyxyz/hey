@@ -72,7 +72,7 @@ const Feed: FC<Props> = ({ feedType = 'TOP_COMMENTED' }) => {
       )
     },
     onError(error) {
-      Logger.error('[Query Error]', error.message)
+      Logger.error('[Query Error]', error)
     }
   })
 

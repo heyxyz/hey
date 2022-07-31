@@ -71,7 +71,7 @@ const Feed: FC<Props> = ({ profile, type }) => {
       )
     },
     onError(error) {
-      Logger.error('[Query Error]', error.message)
+      Logger.error('[Query Error]', error)
     }
   })
 

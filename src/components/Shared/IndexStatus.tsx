@@ -37,7 +37,7 @@ const IndexStatus: FC<Props> = ({
       }
     },
     onError(error) {
-      Logger.error('[Query Error]', error.message)
+      Logger.error('[Query Error]', error)
     }
   })
 

@@ -63,7 +63,7 @@ const AllowanceSettings: NextPage = () => {
       Logger.log('[Query]', `Fetched allowance settings`)
     },
     onError(error) {
-      Logger.error('[Query Error]', error.message)
+      Logger.error('[Query Error]', error)
     }
   })
 
