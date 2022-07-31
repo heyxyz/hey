@@ -114,6 +114,9 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
       onCompleted(data) {
         setAllowed(data?.approvedModuleAllowanceAmount[0]?.allowance !== '0x00')
         Logger.log('[Query]', `Fetched allowance data`)
+      },
+      onError(error) {
+        Logger.error('[Query Error]', error.message)
       }
     }
   )

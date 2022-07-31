@@ -88,6 +88,9 @@ const Crowdfund: FC<Props> = ({ fund }) => {
             fund?.pubId ?? fund?.id
           }`
         )
+      },
+      onError(error) {
+        Logger.error('[Query Error]', error.message)
       }
     }
   )
