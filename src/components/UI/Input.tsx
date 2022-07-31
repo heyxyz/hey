@@ -51,12 +51,13 @@ export const Input = forwardRef<HTMLInputElement, Props>(function Input(
         <div
           className={clsx(
             { '!border-red-500': error },
+            { 'focus-within:ring-1': !error },
             { 'rounded-r-xl': prefix },
             { 'rounded-xl': !prefix },
             {
               'opacity-60 bg-gray-500 bg-opacity-20': props.disabled
             },
-            'flex items-center border bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-700/80 focus-within:border-brand-500 focus-within:ring-1 focus-within:ring-brand-400 w-full'
+            'flex items-center border bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-700/80 focus-within:border-brand-500 focus-within:ring-brand-400 w-full'
           )}
         >
           <input
