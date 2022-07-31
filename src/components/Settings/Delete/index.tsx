@@ -22,12 +22,7 @@ import {
 } from 'src/constants'
 import Custom404 from 'src/pages/404'
 import { useAppPersistStore, useAppStore } from 'src/store/app'
-import {
-  useContractWrite,
-  useDisconnect,
-  usePrepareContractWrite,
-  useSignTypedData
-} from 'wagmi'
+import { useContractWrite, useDisconnect, useSignTypedData } from 'wagmi'
 
 import Sidebar from '../Sidebar'
 
@@ -89,15 +84,11 @@ const DeleteSettings: FC = () => {
     location.href = '/'
   }
 
-  const { config } = usePrepareContractWrite({
+  const { isLoading: writeLoading, write } = useContractWrite({
     addressOrName: LENSHUB_PROXY,
     contractInterface: LensHubProxy,
     functionName: 'burnWithSig',
-    enabled: false
-  })
-
-  const { isLoading: writeLoading, write } = useContractWrite({
-    ...config,
+    mode: 'recklesslyUnprepared',
     onSuccess() {
       onCompleted()
     },

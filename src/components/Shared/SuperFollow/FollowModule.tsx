@@ -33,7 +33,6 @@ import {
   useAccount,
   useBalance,
   useContractWrite,
-  usePrepareContractWrite,
   useSignTypedData
 } from 'wagmi'
 
@@ -128,15 +127,11 @@ const FollowModule: FC<Props> = ({
     toast.success('Followed successfully!')
   }
 
-  const { config } = usePrepareContractWrite({
+  const { isLoading: writeLoading, write } = useContractWrite({
     addressOrName: LENSHUB_PROXY,
     contractInterface: LensHubProxy,
     functionName: 'followWithSig',
-    enabled: false
-  })
-
-  const { isLoading: writeLoading, write } = useContractWrite({
-    ...config,
+    mode: 'recklesslyUnprepared',
     onSuccess() {
       onCompleted()
     },

@@ -27,11 +27,7 @@ import {
   SIGN_WALLET
 } from 'src/constants'
 import { useAppPersistStore, useAppStore } from 'src/store/app'
-import {
-  useContractWrite,
-  usePrepareContractWrite,
-  useSignTypedData
-} from 'wagmi'
+import { useContractWrite, useSignTypedData } from 'wagmi'
 import { object, string } from 'zod'
 
 const newCrowdfundSchema = object({
@@ -111,19 +107,15 @@ const SuperFollow: FC = () => {
     }
   })
 
-  const { config } = usePrepareContractWrite({
-    addressOrName: LENSHUB_PROXY,
-    contractInterface: LensHubProxy,
-    functionName: 'setFollowModuleWithSig',
-    enabled: false
-  })
-
   const {
     data: writeData,
     isLoading: writeLoading,
     write
   } = useContractWrite({
-    ...config,
+    addressOrName: LENSHUB_PROXY,
+    contractInterface: LensHubProxy,
+    functionName: 'setFollowModuleWithSig',
+    mode: 'recklesslyUnprepared',
     onError(error: any) {
       toast.error(error?.data?.message ?? error?.message)
     }
