@@ -9,13 +9,25 @@ const HelpTooltip = dynamic(() => import('./HelpTooltip'))
 interface Props extends Omit<ComponentProps<'input'>, 'prefix'> {
   label?: string
   prefix?: string | ReactNode
+  iconLeft?: ReactNode
+  iconRight?: ReactNode
   className?: string
   helper?: ReactNode
   error?: boolean
 }
 
 export const Input = forwardRef<HTMLInputElement, Props>(function Input(
-  { label, prefix, type = 'text', error, className = '', helper, ...props },
+  {
+    label,
+    prefix,
+    type = 'text',
+    iconLeft,
+    iconRight,
+    error,
+    className = '',
+    helper,
+    ...props
+  },
   ref
 ) {
   const id = useId()
@@ -32,23 +44,46 @@ export const Input = forwardRef<HTMLInputElement, Props>(function Input(
       )}
       <div className="flex">
         {prefix && (
-          <span className="inline-flex items-center px-3 text-gray-500 bg-gray-100 rounded-l-xl border border-r-0 border-gray-300 dark:bg-gray-900 roun xl dark:border-gray-700/80">
+          <span className="inline-flex items-center px-3 text-gray-500 bg-gray-100 rounded-l-xl border border-r-0 border-gray-300 dark:bg-gray-900 dark:border-gray-700/80">
             {prefix}
           </span>
         )}
-        <input
-          id={id}
+        <div
           className={clsx(
-            { '!border-red-500 placeholder-red-500': error },
+            { '!border-red-500': error },
+            { 'focus-within:ring-1': !error },
             { 'rounded-r-xl': prefix },
             { 'rounded-xl': !prefix },
-            'bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700/80 focus:border-brand-500 focus:ring-brand-400 disabled:opacity-60 disabled:bg-gray-500 disabled:bg-opacity-20 outline-none w-full',
-            className
+            {
+              'opacity-60 bg-gray-500 bg-opacity-20': props.disabled
+            },
+            'flex items-center border bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-700/80 focus-within:border-brand-500 focus-within:ring-brand-400 w-full'
           )}
-          type={type}
-          ref={ref}
-          {...props}
-        />
+        >
+          <input
+            id={id}
+            className={clsx(
+              { 'placeholder-red-500': error },
+              { 'rounded-r-xl': prefix },
+              { 'rounded-xl': !prefix },
+              'peer border-none focus:ring-0 outline-none bg-transparent w-full',
+              className
+            )}
+            type={type}
+            ref={ref}
+            {...props}
+          />
+          <span
+            className={clsx(
+              { '!text-red-500 [&>*]:peer-focus:!text-red-500': error },
+              { 'order-first pl-3': iconLeft },
+              { 'order-last pr-3': iconRight },
+              'text-zinc-500 [&>*]:peer-focus:text-brand-500 [&>*]:h-5'
+            )}
+          >
+            {iconLeft ?? iconRight}
+          </span>
+        </div>
       </div>
       {props.name && <FieldError name={props.name} />}
     </label>

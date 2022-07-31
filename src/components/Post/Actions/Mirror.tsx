@@ -23,11 +23,7 @@ import {
   SIGN_WALLET
 } from 'src/constants'
 import { useAppPersistStore, useAppStore } from 'src/store/app'
-import {
-  useContractWrite,
-  usePrepareContractWrite,
-  useSignTypedData
-} from 'wagmi'
+import { useContractWrite, useSignTypedData } from 'wagmi'
 
 const CREATE_MIRROR_TYPED_DATA_MUTATION = gql`
   mutation CreateMirrorTypedData(
@@ -99,16 +95,11 @@ const Mirror: FC<Props> = ({ post }) => {
     setMirrored(true)
     toast.success('Post has been mirrored!')
   }
-
-  const { config } = usePrepareContractWrite({
+  const { isLoading: writeLoading, write } = useContractWrite({
     addressOrName: LENSHUB_PROXY,
     contractInterface: LensHubProxy,
     functionName: 'mirrorWithSig',
-    enabled: false
-  })
-
-  const { isLoading: writeLoading, write } = useContractWrite({
-    ...config,
+    mode: 'recklesslyUnprepared',
     onSuccess() {
       onCompleted()
     },
@@ -125,7 +116,7 @@ const Mirror: FC<Props> = ({ post }) => {
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
         }
-        Logger.error('[Relay Error]', error.message)
+        Logger.error('[Broadcast Error]', error)
       }
     }
   )
@@ -183,6 +174,7 @@ const Mirror: FC<Props> = ({ post }) => {
       },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
+        Logger.error('[Typed-data Generate Error]', error)
       }
     }
   )

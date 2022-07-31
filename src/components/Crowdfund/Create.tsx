@@ -38,11 +38,7 @@ import {
 import Custom404 from 'src/pages/404'
 import { useAppPersistStore, useAppStore } from 'src/store/app'
 import { v4 as uuid } from 'uuid'
-import {
-  useContractWrite,
-  usePrepareContractWrite,
-  useSignTypedData
-} from 'wagmi'
+import { useContractWrite, useSignTypedData } from 'wagmi'
 import { object, string } from 'zod'
 
 const MODULES_CURRENCY_QUERY = gql`
@@ -93,14 +89,10 @@ const Create: NextPage = () => {
   const { data: currencyData, loading } = useQuery(MODULES_CURRENCY_QUERY, {
     onCompleted() {
       Logger.log('[Query]', `Fetched enabled module currencies`)
+    },
+    onError(error) {
+      Logger.error('[Query Error]', error)
     }
-  })
-
-  const { config } = usePrepareContractWrite({
-    addressOrName: LENSHUB_PROXY,
-    contractInterface: LensHubProxy,
-    functionName: 'postWithSig',
-    enabled: false
   })
 
   const {
@@ -108,7 +100,10 @@ const Create: NextPage = () => {
     isLoading: writeLoading,
     write
   } = useContractWrite({
-    ...config,
+    addressOrName: LENSHUB_PROXY,
+    contractInterface: LensHubProxy,
+    functionName: 'postWithSig',
+    mode: 'recklesslyUnprepared',
     onError(error: any) {
       toast.error(error?.data?.message ?? error?.message)
     }
@@ -141,7 +136,7 @@ const Create: NextPage = () => {
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
         }
-        Logger.error('[Relay Error]', error.message)
+        Logger.error('[Broadcast Error]', error)
       }
     })
   const [createPostTypedData, { loading: typedDataLoading }] = useMutation(
@@ -198,6 +193,7 @@ const Create: NextPage = () => {
       },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
+        Logger.error('[Typed-data Generate Error]', error)
       }
     }
   )

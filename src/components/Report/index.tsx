@@ -61,6 +61,9 @@ const Report: FC = () => {
         '[Query]',
         `Fetched publication details to report Publication:${id}`
       )
+    },
+    onError(error) {
+      Logger.error('[Query Error]', error)
     }
   })
   const [

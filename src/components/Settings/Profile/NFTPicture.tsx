@@ -31,7 +31,6 @@ import { useAppPersistStore, useAppStore } from 'src/store/app'
 import {
   chain,
   useContractWrite,
-  usePrepareContractWrite,
   useSignMessage,
   useSignTypedData
 } from 'wagmi'
@@ -114,20 +113,16 @@ const NFTPicture: FC<Props> = ({ profile }) => {
     toast.success('Avatar updated successfully!')
   }
 
-  const { config } = usePrepareContractWrite({
-    addressOrName: LENSHUB_PROXY,
-    contractInterface: LensHubProxy,
-    functionName: 'setProfileImageURIWithSig',
-    enabled: false
-  })
-
   const {
     data: writeData,
     isLoading: writeLoading,
     error,
     write
   } = useContractWrite({
-    ...config,
+    addressOrName: LENSHUB_PROXY,
+    contractInterface: LensHubProxy,
+    functionName: 'setProfileImageURIWithSig',
+    mode: 'recklesslyUnprepared',
     onSuccess() {
       onCompleted()
     },
@@ -147,7 +142,7 @@ const NFTPicture: FC<Props> = ({ profile }) => {
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
         }
-        Logger.error('[Relay Error]', error.message)
+        Logger.error('[Broadcast Error]', error)
       }
     })
   const [createSetProfileImageURITypedData, { loading: typedDataLoading }] =
@@ -191,6 +186,7 @@ const NFTPicture: FC<Props> = ({ profile }) => {
       },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
+        Logger.error('[Typed-data Generate Error]', error)
       }
     })
 

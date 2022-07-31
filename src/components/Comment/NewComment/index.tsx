@@ -41,11 +41,7 @@ import {
 } from 'src/constants'
 import { useAppPersistStore, useAppStore } from 'src/store/app'
 import { v4 as uuid } from 'uuid'
-import {
-  useContractWrite,
-  usePrepareContractWrite,
-  useSignTypedData
-} from 'wagmi'
+import { useContractWrite, useSignTypedData } from 'wagmi'
 
 const Attachment = dynamic(() => import('../../Shared/Attachment'), {
   loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
@@ -141,12 +137,6 @@ const NewComment: FC<Props> = ({
     setSelectedModule(defaultModuleData)
     setFeeData(defaultFeeData)
   }
-  const { config } = usePrepareContractWrite({
-    addressOrName: LENSHUB_PROXY,
-    contractInterface: LensHubProxy,
-    functionName: 'commentWithSig',
-    enabled: false
-  })
 
   const {
     data,
@@ -154,7 +144,10 @@ const NewComment: FC<Props> = ({
     isLoading: writeLoading,
     write
   } = useContractWrite({
-    ...config,
+    addressOrName: LENSHUB_PROXY,
+    contractInterface: LensHubProxy,
+    functionName: 'commentWithSig',
+    mode: 'recklesslyUnprepared',
     onSuccess() {
       onCompleted()
     },
@@ -170,7 +163,7 @@ const NewComment: FC<Props> = ({
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
         }
-        Logger.error('[Relay Error]', error.message)
+        Logger.error('[Broadcast Error]', error)
       }
     })
   const [createCommentTypedData, { loading: typedDataLoading }] = useMutation(
@@ -233,6 +226,7 @@ const NewComment: FC<Props> = ({
       },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
+        Logger.error('[Typed-data Generate Error]', error)
       }
     }
   )

@@ -18,12 +18,7 @@ import {
   RELAY_ON
 } from 'src/constants'
 import { useAppPersistStore, useAppStore } from 'src/store/app'
-import {
-  useAccount,
-  useContractWrite,
-  usePrepareContractWrite,
-  useSignTypedData
-} from 'wagmi'
+import { useAccount, useContractWrite, useSignTypedData } from 'wagmi'
 
 const CREATE_FOLLOW_TYPED_DATA_MUTATION = gql`
   mutation CreateFollowTypedData(
@@ -89,15 +84,11 @@ const Follow: FC<Props> = ({
     toast.success('Followed successfully!')
   }
 
-  const { config } = usePrepareContractWrite({
+  const { isLoading: writeLoading, write } = useContractWrite({
     addressOrName: LENSHUB_PROXY,
     contractInterface: LensHubProxy,
     functionName: 'followWithSig',
-    enabled: false
-  })
-
-  const { isLoading: writeLoading, write } = useContractWrite({
-    ...config,
+    mode: 'recklesslyUnprepared',
     onSuccess() {
       onCompleted()
     },
@@ -114,7 +105,7 @@ const Follow: FC<Props> = ({
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
         }
-        Logger.error('[Relay Error]', error.message)
+        Logger.error('[Broadcast Error]', error)
       }
     }
   )
@@ -162,6 +153,7 @@ const Follow: FC<Props> = ({
       },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
+        Logger.error('[Typed-data Generate Error]', error)
       }
     }
   )

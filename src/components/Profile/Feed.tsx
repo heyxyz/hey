@@ -69,6 +69,9 @@ const Feed: FC<Props> = ({ profile, type }) => {
         '[Query]',
         `Fetched first 10 profile publications Profile:${profile?.id}`
       )
+    },
+    onError(error) {
+      Logger.error('[Query Error]', error)
     }
   })
 

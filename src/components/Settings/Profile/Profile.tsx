@@ -38,11 +38,7 @@ import {
 } from 'src/constants'
 import { useAppPersistStore, useAppStore } from 'src/store/app'
 import { v4 as uuid } from 'uuid'
-import {
-  useContractWrite,
-  usePrepareContractWrite,
-  useSignTypedData
-} from 'wagmi'
+import { useContractWrite, useSignTypedData } from 'wagmi'
 import { object, optional, string } from 'zod'
 
 const CREATE_SET_PROFILE_METADATA_TYPED_DATA_MUTATION = gql`
@@ -116,20 +112,16 @@ const Profile: FC<Props> = ({ profile }) => {
     toast.success('Profile updated successfully!')
   }
 
-  const { config } = usePrepareContractWrite({
-    addressOrName: LENS_PERIPHERY,
-    contractInterface: LensPeriphery,
-    functionName: 'setProfileMetadataURIWithSig',
-    enabled: false
-  })
-
   const {
     data: writeData,
     isLoading: writeLoading,
     error,
     write
   } = useContractWrite({
-    ...config,
+    addressOrName: LENS_PERIPHERY,
+    contractInterface: LensPeriphery,
+    functionName: 'setProfileMetadataURIWithSig',
+    mode: 'recklesslyUnprepared',
     onSuccess() {
       onCompleted()
     },
@@ -145,7 +137,7 @@ const Profile: FC<Props> = ({ profile }) => {
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
         }
-        Logger.error('[Relay Error]', error.message)
+        Logger.error('[Broadcast Error]', error)
       }
     })
   const [createSetProfileMetadataTypedData, { loading: typedDataLoading }] =
@@ -191,6 +183,7 @@ const Profile: FC<Props> = ({ profile }) => {
       },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
+        Logger.error('[Typed-data Generate Error]', error)
       }
     })
 

@@ -5,6 +5,7 @@ import { Spinner } from '@components/UI/Spinner'
 import useOnClickOutside from '@components/utils/hooks/useOnClickOutside'
 import { Profile } from '@generated/types'
 import { MinimalProfileFields } from '@gql/MinimalProfileFields'
+import { SearchIcon } from '@heroicons/react/outline'
 import Logger from '@lib/logger'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -75,6 +76,7 @@ const Search: FC<Props> = ({ hideDropdown = false }) => {
             className="py-2 px-3 text-sm"
             placeholder="Search..."
             value={searchText}
+            iconLeft={<SearchIcon />}
             onChange={handleSearch}
           />
         </form>

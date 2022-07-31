@@ -52,6 +52,9 @@ const RelevantPeople: FC<Props> = ({ publication }) => {
         '[Query]',
         `Fetched ${data?.cleanedMentions?.length} relevant people`
       )
+    },
+    onError(error) {
+      Logger.error('[Query Error]', error)
     }
   })
 

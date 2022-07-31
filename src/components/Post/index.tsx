@@ -89,6 +89,9 @@ const ViewPost: NextPage = () => {
     skip: !id,
     onCompleted() {
       Logger.log('[Query]', `Fetched publication details Publication:${id}`)
+    },
+    onError(error) {
+      Logger.error('[Query Error]', error)
     }
   })
 
@@ -102,7 +105,11 @@ const ViewPost: NextPage = () => {
   return (
     <GridLayout>
       <Seo
-        title={`${post?.__typename} by @${post?.profile?.handle} • ${APP_NAME}`}
+        title={
+          post?.__typename && post?.profile?.handle
+            ? `${post.__typename} by @${post.profile.handle} • ${APP_NAME}`
+            : APP_NAME
+        }
       />
       <GridItemEight className="space-y-5">
         <Card>

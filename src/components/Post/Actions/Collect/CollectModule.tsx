@@ -51,7 +51,6 @@ import {
   useAccount,
   useBalance,
   useContractWrite,
-  usePrepareContractWrite,
   useSignTypedData
 } from 'wagmi'
 
@@ -139,6 +138,9 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
         '[Query]',
         `Fetched collect module details Publication:${post?.pubId ?? post?.id}`
       )
+    },
+    onError(error) {
+      Logger.error('[Query Error]', error)
     }
   })
 
@@ -150,19 +152,15 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
     toast.success('Transaction submitted successfully!')
   }
 
-  const { config } = usePrepareContractWrite({
-    addressOrName: LENSHUB_PROXY,
-    contractInterface: LensHubProxy,
-    functionName: 'collectWithSig',
-    enabled: false
-  })
-
   const {
     data: writeData,
     isLoading: writeLoading,
     write
   } = useContractWrite({
-    ...config,
+    addressOrName: LENSHUB_PROXY,
+    contractInterface: LensHubProxy,
+    functionName: 'collectWithSig',
+    mode: 'recklesslyUnprepared',
     onSuccess() {
       onCompleted()
     },
@@ -189,6 +187,9 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
       onCompleted(data) {
         setAllowed(data?.approvedModuleAllowanceAmount[0]?.allowance !== '0x00')
         Logger.log('[Query]', `Fetched allowance data`)
+      },
+      onError(error) {
+        Logger.error('[Query Error]', error)
       }
     }
   )
@@ -212,6 +213,9 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
             post?.pubId ?? post?.id
           }`
         )
+      },
+      onError(error) {
+        Logger.error('[Query Error]', error)
       }
     }
   )
@@ -247,7 +251,7 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
         }
-        Logger.error('[Relay Error]', error.message)
+        Logger.error('[Broadcast Error]', error)
       }
     })
   const [createCollectTypedData, { loading: typedDataLoading }] = useMutation(
@@ -295,6 +299,7 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
       },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
+        Logger.error('[Typed-data Generate Error]', error)
       }
     }
   )

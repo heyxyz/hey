@@ -61,6 +61,9 @@ const AllowanceSettings: NextPage = () => {
     skip: !currentUser?.id,
     onCompleted() {
       Logger.log('[Query]', `Fetched allowance settings`)
+    },
+    onError(error) {
+      Logger.error('[Query Error]', error)
     }
   })
 

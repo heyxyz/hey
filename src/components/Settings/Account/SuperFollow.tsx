@@ -27,11 +27,7 @@ import {
   SIGN_WALLET
 } from 'src/constants'
 import { useAppPersistStore, useAppStore } from 'src/store/app'
-import {
-  useContractWrite,
-  usePrepareContractWrite,
-  useSignTypedData
-} from 'wagmi'
+import { useContractWrite, useSignTypedData } from 'wagmi'
 import { object, string } from 'zod'
 
 const newCrowdfundSchema = object({
@@ -108,14 +104,10 @@ const SuperFollow: FC = () => {
     skip: !currentUser?.id,
     onCompleted() {
       Logger.log('[Query]', `Fetched enabled module currencies`)
+    },
+    onError(error) {
+      Logger.error('[Query Error]', error)
     }
-  })
-
-  const { config } = usePrepareContractWrite({
-    addressOrName: LENSHUB_PROXY,
-    contractInterface: LensHubProxy,
-    functionName: 'setFollowModuleWithSig',
-    enabled: false
   })
 
   const {
@@ -123,7 +115,10 @@ const SuperFollow: FC = () => {
     isLoading: writeLoading,
     write
   } = useContractWrite({
-    ...config,
+    addressOrName: LENSHUB_PROXY,
+    contractInterface: LensHubProxy,
+    functionName: 'setFollowModuleWithSig',
+    mode: 'recklesslyUnprepared',
     onError(error: any) {
       toast.error(error?.data?.message ?? error?.message)
     }
@@ -142,7 +137,7 @@ const SuperFollow: FC = () => {
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
         }
-        Logger.error('[Relay Error]', error.message)
+        Logger.error('[Broadcast Error]', error)
       }
     })
   const [createSetFollowModuleTypedData, { loading: typedDataLoading }] =
@@ -188,6 +183,7 @@ const SuperFollow: FC = () => {
       },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
+        Logger.error('[Typed-data Generate Error]', error)
       }
     })
 
