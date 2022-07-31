@@ -186,6 +186,7 @@ const NFTPicture: FC<Props> = ({ profile }) => {
       },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
+        Logger.error('[Typed-data Generate Error]', error.message)
       }
     })
 

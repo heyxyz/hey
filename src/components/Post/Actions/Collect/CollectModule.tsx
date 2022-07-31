@@ -299,6 +299,7 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
       },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
+        Logger.error('[Typed-data Generate Error]', error.message)
       }
     }
   )
