@@ -73,6 +73,9 @@ const SiteLayout: FC<Props> = ({ children }) => {
         '[Query]',
         `Fetched ${data?.profiles?.items?.length} owned profiles`
       )
+    },
+    onError(error) {
+      Logger.error('[Query Error]', error.message)
     }
   })
 

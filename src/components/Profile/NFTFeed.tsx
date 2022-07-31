@@ -54,6 +54,9 @@ const NFTFeed: FC<Props> = ({ profile }) => {
       setPageInfo(data?.nfts?.pageInfo)
       setNfts(data?.nfts?.items)
       Logger.log('[Query]', `Fetched first 10 nfts Profile:${profile?.id}`)
+    },
+    onError(error) {
+      Logger.error('[Query Error]', error.message)
     }
   })
 

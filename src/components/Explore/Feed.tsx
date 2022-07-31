@@ -70,6 +70,9 @@ const Feed: FC<Props> = ({ feedType = 'TOP_COMMENTED' }) => {
         '[Query]',
         `Fetched first 10 explore publications FeedType:${feedType}`
       )
+    },
+    onError(error) {
+      Logger.error('[Query Error]', error.message)
     }
   })
 

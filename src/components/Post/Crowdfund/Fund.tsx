@@ -114,6 +114,9 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
       onCompleted(data) {
         setAllowed(data?.approvedModuleAllowanceAmount[0]?.allowance !== '0x00')
         Logger.log('[Query]', `Fetched allowance data`)
+      },
+      onError(error) {
+        Logger.error('[Query Error]', error.message)
       }
     }
   )
@@ -195,6 +198,7 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
       },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
+        Logger.error('[Typed-data Generate Error]', error.message)
       }
     }
   )

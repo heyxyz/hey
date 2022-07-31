@@ -46,6 +46,9 @@ const Collectors: FC<Props> = ({ pubId }) => {
       setPageInfo(data?.whoCollectedPublication?.pageInfo)
       setCollectors(data?.whoCollectedPublication?.items)
       Logger.log('[Query]', `Fetched first 10 collectors Publication:${pubId}`)
+    },
+    onError(error) {
+      Logger.error('[Query Error]', error.message)
     }
   })
 

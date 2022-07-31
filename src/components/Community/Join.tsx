@@ -145,6 +145,7 @@ const Join: FC<Props> = ({ community, setJoined, showJoin = true }) => {
       },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
+        Logger.error('[Typed-data Generate Error]', error.message)
       }
     }
   )

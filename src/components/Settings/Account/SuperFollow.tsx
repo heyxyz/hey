@@ -104,6 +104,9 @@ const SuperFollow: FC = () => {
     skip: !currentUser?.id,
     onCompleted() {
       Logger.log('[Query]', `Fetched enabled module currencies`)
+    },
+    onError(error) {
+      Logger.error('[Query Error]', error.message)
     }
   })
 
@@ -180,6 +183,7 @@ const SuperFollow: FC = () => {
       },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
+        Logger.error('[Typed-data Generate Error]', error.message)
       }
     })
 

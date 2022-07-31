@@ -10,7 +10,6 @@ const Logger = {
   },
 
   error: (message: string, error: any) => {
-    console.error(message, error)
     log.error(message, error)
   }
 }
