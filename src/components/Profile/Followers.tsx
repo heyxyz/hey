@@ -50,7 +50,7 @@ const Followers: FC<Props> = ({ profile }) => {
       Logger.log('[Query]', `Fetched first 10 followers Profile:${profile?.id}`)
     },
     onError(error) {
-      Logger.error('[Query Error]', error.message)
+      Logger.error('[Query Error]', error)
     }
   })
 

@@ -41,7 +41,7 @@ const ViewCommunity: NextPage = () => {
       Logger.log('[Query]', `Fetched community details Community:${id}`)
     },
     onError(error) {
-      Logger.error('[Query Error]', error.message)
+      Logger.error('[Query Error]', error)
     }
   })
 

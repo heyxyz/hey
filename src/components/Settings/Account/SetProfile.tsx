@@ -107,7 +107,7 @@ const SetProfile: FC = () => {
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
         }
-        Logger.error('[Broadcast Error]', error.message)
+        Logger.error('[Broadcast Error]', error)
       }
     })
   const [createSetDefaultProfileTypedData, { loading: typedDataLoading }] =
@@ -153,7 +153,7 @@ const SetProfile: FC = () => {
       },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
-        Logger.error('[Typed-data Generate Error]', error.message)
+        Logger.error('[Typed-data Generate Error]', error)
       }
     })
 

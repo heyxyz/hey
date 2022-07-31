@@ -48,7 +48,7 @@ const Collectors: FC<Props> = ({ pubId }) => {
       Logger.log('[Query]', `Fetched first 10 collectors Publication:${pubId}`)
     },
     onError(error) {
-      Logger.error('[Query Error]', error.message)
+      Logger.error('[Query Error]', error)
     }
   })
 

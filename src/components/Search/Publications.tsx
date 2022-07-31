@@ -67,7 +67,7 @@ const Publications: FC<Props> = ({ query }) => {
         )
       },
       onError(error) {
-        Logger.error('[Query Error]', error.message)
+        Logger.error('[Query Error]', error)
       }
     }
   )
