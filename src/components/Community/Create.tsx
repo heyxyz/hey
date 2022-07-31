@@ -97,7 +97,7 @@ const Create: NextPage = () => {
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
         }
-        Logger.error('[Relay Error]', error.message)
+        Logger.error('[Broadcast Error]', error.message)
       }
     })
   const [createPostTypedData, { loading: typedDataLoading }] = useMutation(
