@@ -39,6 +39,9 @@ const ViewCommunity: NextPage = () => {
     skip: !id,
     onCompleted() {
       Logger.log('[Query]', `Fetched community details Community:${id}`)
+    },
+    onError(error) {
+      Logger.error('[Query Error]', error.message)
     }
   })
 

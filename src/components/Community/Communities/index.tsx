@@ -70,6 +70,9 @@ const Communities: NextPage = () => {
         '[Query]',
         `Fetched 10 TOP_COMMENTED, TOP_COLLECTED and LATEST communities`
       )
+    },
+    onError(error) {
+      Logger.error('[Query Error]', error.message)
     }
   })
 

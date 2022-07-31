@@ -138,6 +138,9 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
         '[Query]',
         `Fetched collect module details Publication:${post?.pubId ?? post?.id}`
       )
+    },
+    onError(error) {
+      Logger.error('[Query Error]', error.message)
     }
   })
 
@@ -184,6 +187,9 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
       onCompleted(data) {
         setAllowed(data?.approvedModuleAllowanceAmount[0]?.allowance !== '0x00')
         Logger.log('[Query]', `Fetched allowance data`)
+      },
+      onError(error) {
+        Logger.error('[Query Error]', error.message)
       }
     }
   )
@@ -207,6 +213,9 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
             post?.pubId ?? post?.id
           }`
         )
+      },
+      onError(error) {
+        Logger.error('[Query Error]', error.message)
       }
     }
   )
@@ -290,6 +299,7 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
       },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
+        Logger.error('[Typed-data Generate Error]', error.message)
       }
     }
   )

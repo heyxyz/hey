@@ -89,6 +89,9 @@ const Create: NextPage = () => {
   const { data: currencyData, loading } = useQuery(MODULES_CURRENCY_QUERY, {
     onCompleted() {
       Logger.log('[Query]', `Fetched enabled module currencies`)
+    },
+    onError(error) {
+      Logger.error('[Query Error]', error.message)
     }
   })
 
@@ -190,6 +193,7 @@ const Create: NextPage = () => {
       },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
+        Logger.error('[Typed-data Generate Error]', error.message)
       }
     }
   )

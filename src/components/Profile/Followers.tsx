@@ -48,6 +48,9 @@ const Followers: FC<Props> = ({ profile }) => {
       setPageInfo(data?.followers?.pageInfo)
       setFollowers(data?.followers?.items)
       Logger.log('[Query]', `Fetched first 10 followers Profile:${profile?.id}`)
+    },
+    onError(error) {
+      Logger.error('[Query Error]', error.message)
     }
   })
 

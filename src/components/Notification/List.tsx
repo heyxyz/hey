@@ -160,6 +160,9 @@ const List: FC = () => {
       setPageInfo(data?.notifications?.pageInfo)
       setNotifications(data?.notifications?.items)
       Logger.log('[Query]', `Fetched first 10 notifications`)
+    },
+    onError(error) {
+      Logger.error('[Query Error]', error.message)
     }
   })
 

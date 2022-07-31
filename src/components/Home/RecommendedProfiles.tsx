@@ -50,6 +50,9 @@ const RecommendedProfiles: FC = () => {
         '[Query]',
         `Fetched ${data?.recommendedProfiles?.length} recommended profiles`
       )
+    },
+    onError(error) {
+      Logger.error('[Query Error]', error.message)
     }
   })
 

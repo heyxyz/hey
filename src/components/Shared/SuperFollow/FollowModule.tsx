@@ -148,6 +148,9 @@ const FollowModule: FC<Props> = ({
         '[Query]',
         `Fetched super follow details Profile:${profile?.id}`
       )
+    },
+    onError(error) {
+      Logger.error('[Query Error]', error.message)
     }
   })
 
@@ -168,6 +171,9 @@ const FollowModule: FC<Props> = ({
       onCompleted(data) {
         setAllowed(data?.approvedModuleAllowanceAmount[0]?.allowance !== '0x00')
         Logger.log('[Query]', `Fetched allowance data`)
+      },
+      onError(error) {
+        Logger.error('[Query Error]', error.message)
       }
     }
   )
@@ -246,6 +252,7 @@ const FollowModule: FC<Props> = ({
       },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
+        Logger.error('[Typed-data Generate Error]', error.message)
       }
     }
   )
