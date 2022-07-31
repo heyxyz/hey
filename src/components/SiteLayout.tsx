@@ -47,7 +47,7 @@ const SiteLayout: FC<Props> = ({ children }) => {
     setCurrentUser
   } = useAppPersistStore()
   const [mounted, setMounted] = useState<boolean>(false)
-  const { address, connector, isDisconnected } = useAccount()
+  const { address, isDisconnected } = useAccount()
   const { chain } = useNetwork()
   const { disconnect } = useDisconnect()
   const { loading } = useQuery(CURRENT_USER_QUERY, {
@@ -113,15 +113,11 @@ const SiteLayout: FC<Props> = ({ children }) => {
       setIsConnected(false)
     }
 
-    connector?.on('change', () => {
-      logout()
-    })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     isConnected,
     isAuthenticated,
     isDisconnected,
-    connector,
     disconnect,
     setCurrentUser
   ])
