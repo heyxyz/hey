@@ -46,6 +46,9 @@ const Profiles: FC<Props> = ({ query }) => {
         '[Query]',
         `Fetched first 10 profiles for search Keyword:${query}`
       )
+    },
+    onError(error) {
+      Logger.error('[Query Error]', error)
     }
   })
 

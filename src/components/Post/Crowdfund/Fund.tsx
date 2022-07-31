@@ -26,7 +26,6 @@ import {
   useAccount,
   useBalance,
   useContractWrite,
-  usePrepareContractWrite,
   useSignTypedData
 } from 'wagmi'
 
@@ -115,6 +114,9 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
       onCompleted(data) {
         setAllowed(data?.approvedModuleAllowanceAmount[0]?.allowance !== '0x00')
         Logger.log('[Query]', `Fetched allowance data`)
+      },
+      onError(error) {
+        Logger.error('[Query Error]', error)
       }
     }
   )
@@ -124,19 +126,15 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
     toast.success('Transaction submitted successfully!')
   }
 
-  const { config } = usePrepareContractWrite({
-    addressOrName: LENSHUB_PROXY,
-    contractInterface: LensHubProxy,
-    functionName: 'collectWithSig',
-    enabled: false
-  })
-
   const {
     data: writeData,
     isLoading: writeLoading,
     write
   } = useContractWrite({
-    ...config,
+    addressOrName: LENSHUB_PROXY,
+    contractInterface: LensHubProxy,
+    functionName: 'collectWithSig',
+    mode: 'recklesslyUnprepared',
     onSuccess() {
       onCompleted()
     },
@@ -152,7 +150,7 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
         }
-        Logger.error('[Relay Error]', error.message)
+        Logger.error('[Broadcast Error]', error)
       }
     })
   const [createCollectTypedData, { loading: typedDataLoading }] = useMutation(
@@ -200,6 +198,7 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
       },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
+        Logger.error('[Typed-data Generate Error]', error)
       }
     }
   )

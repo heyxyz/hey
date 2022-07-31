@@ -61,6 +61,9 @@ const Feed: FC = () => {
       setPageInfo(data?.timeline?.pageInfo)
       setPublications(data?.timeline?.items)
       Logger.log('[Query]', `Fetched first 10 timeline publications`)
+    },
+    onError(error) {
+      Logger.error('[Query Error]', error)
     }
   })
 

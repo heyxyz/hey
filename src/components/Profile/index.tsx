@@ -104,6 +104,9 @@ const ViewProfile: NextPage = () => {
         '[Query]',
         `Fetched profile details Profile:${data?.profile?.id}`
       )
+    },
+    onError(error) {
+      Logger.error('[Query Error]', error)
     }
   })
 

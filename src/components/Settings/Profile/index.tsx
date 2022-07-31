@@ -61,6 +61,9 @@ const ProfileSettings: NextPage = () => {
     onCompleted(data) {
       Logger.log('[Query]', `Fetched profile settings`)
       setSettingsType(data?.profile?.picture?.uri ? 'NFT' : 'AVATAR')
+    },
+    onError(error) {
+      Logger.error('[Query Error]', error)
     }
   })
 
