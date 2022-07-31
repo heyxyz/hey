@@ -142,7 +142,7 @@ const NFTPicture: FC<Props> = ({ profile }) => {
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
         }
-        Logger.error('[Relay Error]', error.message)
+        Logger.error('[Broadcast Error]', error.message)
       }
     })
   const [createSetProfileImageURITypedData, { loading: typedDataLoading }] =

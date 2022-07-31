@@ -163,7 +163,7 @@ const NewComment: FC<Props> = ({
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
         }
-        Logger.error('[Relay Error]', error.message)
+        Logger.error('[Broadcast Error]', error.message)
       }
     })
   const [createCommentTypedData, { loading: typedDataLoading }] = useMutation(
