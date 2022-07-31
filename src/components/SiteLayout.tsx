@@ -114,13 +114,7 @@ const SiteLayout: FC<Props> = ({ children }) => {
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    isConnected,
-    isAuthenticated,
-    isDisconnected,
-    disconnect,
-    setCurrentUser
-  ])
+  }, [isConnected, isAuthenticated, isDisconnected, disconnect, setCurrentUser])
 
   const toastOptions = {
     style: {
