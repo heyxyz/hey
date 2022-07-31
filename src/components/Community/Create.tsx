@@ -34,11 +34,7 @@ import {
 import Custom404 from 'src/pages/404'
 import { useAppPersistStore, useAppStore } from 'src/store/app'
 import { v4 as uuid } from 'uuid'
-import {
-  useContractWrite,
-  usePrepareContractWrite,
-  useSignTypedData
-} from 'wagmi'
+import { useContractWrite, useSignTypedData } from 'wagmi'
 import { object, string } from 'zod'
 
 const newCommunitySchema = object({
@@ -63,19 +59,15 @@ const Create: NextPage = () => {
     }
   })
 
-  const { config } = usePrepareContractWrite({
-    addressOrName: LENSHUB_PROXY,
-    contractInterface: LensHubProxy,
-    functionName: 'postWithSig',
-    enabled: false
-  })
-
   const {
     data,
     isLoading: writeLoading,
     write
   } = useContractWrite({
-    ...config,
+    addressOrName: LENSHUB_PROXY,
+    contractInterface: LensHubProxy,
+    functionName: 'postWithSig',
+    mode: 'recklesslyUnprepared',
     onError(error: any) {
       toast.error(error?.data?.message ?? error?.message)
     }
