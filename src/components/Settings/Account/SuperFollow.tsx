@@ -106,7 +106,7 @@ const SuperFollow: FC = () => {
       Logger.log('[Query]', `Fetched enabled module currencies`)
     },
     onError(error) {
-      Logger.error('[Query Error]', error.message)
+      Logger.error('[Query Error]', error)
     }
   })
 
@@ -137,7 +137,7 @@ const SuperFollow: FC = () => {
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
         }
-        Logger.error('[Broadcast Error]', error.message)
+        Logger.error('[Broadcast Error]', error)
       }
     })
   const [createSetFollowModuleTypedData, { loading: typedDataLoading }] =
@@ -183,7 +183,7 @@ const SuperFollow: FC = () => {
       },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
-        Logger.error('[Typed-data Generate Error]', error.message)
+        Logger.error('[Typed-data Generate Error]', error)
       }
     })
 

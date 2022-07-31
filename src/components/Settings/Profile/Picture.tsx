@@ -111,7 +111,7 @@ const Picture: FC<Props> = ({ profile }) => {
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
         }
-        Logger.error('[Broadcast Error]', error.message)
+        Logger.error('[Broadcast Error]', error)
       }
     })
   const [createSetProfileImageURITypedData, { loading: typedDataLoading }] =
@@ -156,7 +156,7 @@ const Picture: FC<Props> = ({ profile }) => {
       },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
-        Logger.error('[Typed-data Generate Error]', error.message)
+        Logger.error('[Typed-data Generate Error]', error)
       }
     })
 

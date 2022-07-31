@@ -91,7 +91,7 @@ const Create: NextPage = () => {
       Logger.log('[Query]', `Fetched enabled module currencies`)
     },
     onError(error) {
-      Logger.error('[Query Error]', error.message)
+      Logger.error('[Query Error]', error)
     }
   })
 
@@ -136,7 +136,7 @@ const Create: NextPage = () => {
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
         }
-        Logger.error('[Broadcast Error]', error.message)
+        Logger.error('[Broadcast Error]', error)
       }
     })
   const [createPostTypedData, { loading: typedDataLoading }] = useMutation(
@@ -193,7 +193,7 @@ const Create: NextPage = () => {
       },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
-        Logger.error('[Typed-data Generate Error]', error.message)
+        Logger.error('[Typed-data Generate Error]', error)
       }
     }
   )

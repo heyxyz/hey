@@ -69,7 +69,7 @@ const Feed: FC<Props> = ({
       Logger.log('[Query]', `Fetched first 10 comments of Publication:${pubId}`)
     },
     onError(error) {
-      Logger.error('[Query Error]', error.message)
+      Logger.error('[Query Error]', error)
     }
   })
 

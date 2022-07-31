@@ -19,7 +19,7 @@ const Pending: FC<Props> = ({ handle, txHash }) => {
     },
     pollInterval: 1000,
     onError(error) {
-      Logger.error('[Query Error]', error.message)
+      Logger.error('[Query Error]', error)
     }
   })
 

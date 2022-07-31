@@ -31,7 +31,7 @@ const Navbar: FC = () => {
     pollInterval: 3000,
     skip: !currentUser,
     onError(error) {
-      Logger.error('[Query Error]', error.message)
+      Logger.error('[Query Error]', error)
     }
   })
 

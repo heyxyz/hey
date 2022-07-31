@@ -140,7 +140,7 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
       )
     },
     onError(error) {
-      Logger.error('[Query Error]', error.message)
+      Logger.error('[Query Error]', error)
     }
   })
 
@@ -189,7 +189,7 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
         Logger.log('[Query]', `Fetched allowance data`)
       },
       onError(error) {
-        Logger.error('[Query Error]', error.message)
+        Logger.error('[Query Error]', error)
       }
     }
   )
@@ -215,7 +215,7 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
         )
       },
       onError(error) {
-        Logger.error('[Query Error]', error.message)
+        Logger.error('[Query Error]', error)
       }
     }
   )
@@ -251,7 +251,7 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
         }
-        Logger.error('[Broadcast Error]', error.message)
+        Logger.error('[Broadcast Error]', error)
       }
     })
   const [createCollectTypedData, { loading: typedDataLoading }] = useMutation(
@@ -299,7 +299,7 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
       },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
-        Logger.error('[Typed-data Generate Error]', error.message)
+        Logger.error('[Typed-data Generate Error]', error)
       }
     }
   )

@@ -63,7 +63,7 @@ const Feed: FC = () => {
       Logger.log('[Query]', `Fetched first 10 timeline publications`)
     },
     onError(error) {
-      Logger.error('[Query Error]', error.message)
+      Logger.error('[Query Error]', error)
     }
   })
 
