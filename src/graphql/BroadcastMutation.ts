@@ -4,7 +4,7 @@ export const BROADCAST_MUTATION = gql`
   mutation Broadcast($request: BroadcastRequest!) {
     broadcast(request: $request) {
       ... on RelayerResult {
-        txHashd
+        txHash
       }
       ... on RelayError {
         reason
