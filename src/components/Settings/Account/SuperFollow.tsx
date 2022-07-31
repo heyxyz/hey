@@ -104,6 +104,9 @@ const SuperFollow: FC = () => {
     skip: !currentUser?.id,
     onCompleted() {
       Logger.log('[Query]', `Fetched enabled module currencies`)
+    },
+    onError(error) {
+      Logger.error('[Query Error]', error.message)
     }
   })
 
