@@ -6,7 +6,7 @@ import Cookies from 'js-cookie'
 import dynamic from 'next/dynamic'
 import Head from 'next/head'
 import { useTheme } from 'next-themes'
-import { FC, ReactNode, Suspense, useEffect, useRef, useState } from 'react'
+import { FC, ReactNode, Suspense, useEffect, useState } from 'react'
 import { Toaster } from 'react-hot-toast'
 import { CHAIN_ID } from 'src/constants'
 import { useAppPersistStore, useAppStore } from 'src/store/app'
@@ -47,7 +47,7 @@ const SiteLayout: FC<Props> = ({ children }) => {
     setCurrentUser
   } = useAppPersistStore()
   const [mounted, setMounted] = useState<boolean>(false)
-  const { address, connector, isDisconnected } = useAccount()
+  const { address, isDisconnected } = useAccount()
   const { chain } = useNetwork()
   const { disconnect } = useDisconnect()
   const { loading } = useQuery(CURRENT_USER_QUERY, {
@@ -79,12 +79,13 @@ const SiteLayout: FC<Props> = ({ children }) => {
     }
   })
 
-  const prevLoginAddressRef = useRef<string | undefined>()
-
   useEffect(() => {
     const accessToken = Cookies.get('accessToken')
     const refreshToken = Cookies.get('refreshToken')
-    prevLoginAddressRef.current = address
+    const storedUserState = localStorage.getItem('lenster.store' || '{}')
+    const storedUserStateObj =
+      storedUserState !== null ? JSON.parse(storedUserState) : null
+    const storedUserAddress = storedUserStateObj?.state?.currentUser?.ownedBy
     setMounted(true)
 
     const logout = () => {
@@ -115,26 +116,16 @@ const SiteLayout: FC<Props> = ({ children }) => {
       setIsAuthenticated(false)
       setIsConnected(false)
     }
-
-    connector?.on('change', () => {
-      if (address !== prevLoginAddressRef.current) {
-        // debug - will be removed
-        console.log('address changed')
-        console.log(
-          `prevLoginAddressRef.current:${prevLoginAddressRef.current}`
-        )
-        console.log(`address:${address}`)
-        logout()
-      }
-    })
+    if (storedUserAddress !== undefined && storedUserAddress !== address) {
+      logout()
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     isConnected,
     isAuthenticated,
-    connector,
     isDisconnected,
     address,
-    prevLoginAddressRef.current,
+    chain,
     disconnect,
     setCurrentUser
   ])
