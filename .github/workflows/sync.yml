@@ -12,7 +12,7 @@ jobs:
       - uses: actions/checkout@v3
         with:
           ref: 'testnet'
-      - run: git pull origin testnet
+      - run: git pull origin main
       - uses: mikeal/publish-to-github-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
