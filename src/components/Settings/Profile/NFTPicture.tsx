@@ -20,6 +20,7 @@ import gql from 'graphql-tag'
 import React, { FC, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
+  ADDRESS_REGEX,
   ERROR_MESSAGE,
   ERRORS,
   IS_MAINNET,
@@ -39,7 +40,7 @@ import { object, string } from 'zod'
 const editNftPictureSchema = object({
   contractAddress: string()
     .max(42, { message: 'Contract address should be within 42 characters' })
-    .regex(/^0x[a-fA-F0-9]{40}$/, { message: 'Invalid Contract address' }),
+    .regex(ADDRESS_REGEX, { message: 'Invalid Contract address' }),
   tokenId: string()
 })
 

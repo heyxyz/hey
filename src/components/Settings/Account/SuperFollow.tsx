@@ -19,6 +19,7 @@ import splitSignature from '@lib/splitSignature'
 import React, { FC, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
+  ADDRESS_REGEX,
   DEFAULT_COLLECT_TOKEN,
   ERROR_MESSAGE,
   ERRORS,
@@ -34,7 +35,7 @@ const newCrowdfundSchema = object({
   amount: string().min(1, { message: 'Invalid amount' }),
   recipient: string()
     .max(42, { message: 'Ethereum address should be within 42 characters' })
-    .regex(/^0x[a-fA-F0-9]{40}$/, { message: 'Invalid Ethereum address' })
+    .regex(ADDRESS_REGEX, { message: 'Invalid Ethereum address' })
 })
 
 const MODULES_CURRENCY_QUERY = gql`

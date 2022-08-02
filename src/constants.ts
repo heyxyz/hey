@@ -84,3 +84,9 @@ export const FREE_COLLECT_MODULE = IS_MAINNET
 export const DEFAULT_COLLECT_TOKEN = IS_MAINNET
   ? '0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270'
   : '0x9c3C9283D3e44854697Cd22D3Faa240Cfb032889'
+
+// Regex
+export const URL_REGEX =
+  /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/
+export const ADDRESS_REGEX = /^(0x)?[0-9a-f]{40}$/i
+export const HANDLE_REGEX = /^[a-z0-9]+$/
