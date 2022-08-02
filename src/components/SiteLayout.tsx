@@ -47,7 +47,7 @@ const SiteLayout: FC<Props> = ({ children }) => {
     setCurrentUser
   } = useAppPersistStore()
   const [mounted, setMounted] = useState<boolean>(false)
-  const { address, connector, isDisconnected } = useAccount()
+  const { address, isDisconnected } = useAccount()
   const { chain } = useNetwork()
   const { disconnect } = useDisconnect()
   const { loading } = useQuery(CURRENT_USER_QUERY, {
@@ -82,6 +82,7 @@ const SiteLayout: FC<Props> = ({ children }) => {
   useEffect(() => {
     const accessToken = Cookies.get('accessToken')
     const refreshToken = Cookies.get('refreshToken')
+    const currentUserAddress = currentUser?.ownedBy
     setMounted(true)
 
     const logout = () => {
@@ -113,15 +114,17 @@ const SiteLayout: FC<Props> = ({ children }) => {
       setIsConnected(false)
     }
 
-    connector?.on('change', () => {
+    if (currentUserAddress !== undefined && currentUserAddress !== address) {
       logout()
-    })
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     isConnected,
     isAuthenticated,
     isDisconnected,
-    connector,
+    address,
+    chain,
+    currentUser,
     disconnect,
     setCurrentUser
   ])
