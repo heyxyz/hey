@@ -82,10 +82,7 @@ const SiteLayout: FC<Props> = ({ children }) => {
   useEffect(() => {
     const accessToken = Cookies.get('accessToken')
     const refreshToken = Cookies.get('refreshToken')
-    const storedUserState = localStorage.getItem('lenster.store' || '{}')
-    const storedUserStateObj =
-      storedUserState !== null ? JSON.parse(storedUserState) : null
-    const storedUserAddress = storedUserStateObj?.state?.currentUser?.ownedBy
+    const currentUserAddress = currentUser?.ownedBy
     setMounted(true)
 
     const logout = () => {
@@ -116,7 +113,8 @@ const SiteLayout: FC<Props> = ({ children }) => {
       setIsAuthenticated(false)
       setIsConnected(false)
     }
-    if (storedUserAddress !== undefined && storedUserAddress !== address) {
+
+    if (currentUserAddress !== undefined && currentUserAddress !== address) {
       logout()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -126,6 +124,7 @@ const SiteLayout: FC<Props> = ({ children }) => {
     isDisconnected,
     address,
     chain,
+    currentUser,
     disconnect,
     setCurrentUser
   ])
