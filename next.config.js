@@ -4,7 +4,7 @@ const withTM = require('next-transpile-modules')(['plyr-react'])
 const { withAxiom } = require('next-axiom')
 
 const headers = [{ key: 'Cache-Control', value: 'public, max-age=3600' }]
-const useCDN = process.env.USE_ASSETS_CDN === 'true'
+// const useCDN = process.env.USE_ASSETS_CDN === 'true'
 
 module.exports = withAxiom(
   withTM(
@@ -12,7 +12,7 @@ module.exports = withAxiom(
       {
         reactStrictMode: false,
         trailingSlash: false,
-        assetPrefix: useCDN ? 'https://cdn.yogi.codes' : '',
+        // assetPrefix: useCDN ? 'https://cdn.yogi.codes' : '',
         async rewrites() {
           return [
             {
