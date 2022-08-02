@@ -1,10 +1,15 @@
-import Head from 'next/head'
-import React, { FC } from 'react'
-import { APP_NAME, DEFAULT_OG, DESCRIPTION, STATIC_ASSETS } from 'src/constants'
+import Head from "next/head";
+import React, { FC } from "react";
+import {
+  APP_NAME,
+  DEFAULT_OG,
+  DESCRIPTION,
+  STATIC_ASSETS,
+} from "src/constants";
 
 interface Props {
-  title?: string
-  description?: string
+  title?: string;
+  description?: string;
 }
 
 const Seo: FC<Props> = ({ title = APP_NAME, description = DESCRIPTION }) => {
@@ -19,8 +24,10 @@ const Seo: FC<Props> = ({ title = APP_NAME, description = DESCRIPTION }) => {
 
       <link rel="preconnect" href="https://ik.imagekit.io" />
       <link rel="dns-prefetch" href="https://ik.imagekit.io" />
-      <link rel="preconnect" href="https://assets.lenster.xyz" />
-      <link rel="dns-prefetch" href="https://assets.lenster.xyz" />
+      <link rel="preconnect" href="https://lensterassets.xyz" />
+      <link rel="dns-prefetch" href="https://lensterassets.xyz" />
+      <link rel="preconnect" href="https://static.lensterassets.xyz" />
+      <link rel="dns-prefetch" href="https://static.lensterassets.xyz" />
       <link rel="preconnect" href="https://ipfs.infura.io" />
       <link rel="dns-prefetch" href="https://ipfs.infura.io" />
 
@@ -54,7 +61,7 @@ const Seo: FC<Props> = ({ title = APP_NAME, description = DESCRIPTION }) => {
         title={APP_NAME}
       />
     </Head>
-  )
-}
+  );
+};
 
-export default Seo
+export default Seo;
