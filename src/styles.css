@@ -45,7 +45,7 @@ body {
 
 .bg-hero {
   background: linear-gradient(90deg, #fff, #fff 50%, hsla(0, 0%, 100%, 0)),
-    url(https://static.lensterassets.xyz/images/patterns/hero.webp);
+    url(https://assets.lenster.xyz/images/patterns/hero.webp);
   background-size: cover;
 }
 
