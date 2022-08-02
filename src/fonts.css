@@ -39,7 +39,8 @@
   font-style: normal;
   font-weight: 700;
   src: local('Lenster'),
-    url('https://static.lensterassets.xyz/css/fonts/Lenster-Bold.woff') format('woff');
+    url('https://static.lensterassets.xyz/css/fonts/Lenster-Bold.woff')
+      format('woff');
 }
 
 @font-face {
