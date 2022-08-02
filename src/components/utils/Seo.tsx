@@ -1,15 +1,10 @@
-import Head from "next/head";
-import React, { FC } from "react";
-import {
-  APP_NAME,
-  DEFAULT_OG,
-  DESCRIPTION,
-  STATIC_ASSETS,
-} from "src/constants";
+import Head from 'next/head'
+import React, { FC } from 'react'
+import { APP_NAME, DEFAULT_OG, DESCRIPTION, STATIC_ASSETS } from 'src/constants'
 
 interface Props {
-  title?: string;
-  description?: string;
+  title?: string
+  description?: string
 }
 
 const Seo: FC<Props> = ({ title = APP_NAME, description = DESCRIPTION }) => {
@@ -61,7 +56,7 @@ const Seo: FC<Props> = ({ title = APP_NAME, description = DESCRIPTION }) => {
         title={APP_NAME}
       />
     </Head>
-  );
-};
+  )
+}
 
-export default Seo;
+export default Seo
