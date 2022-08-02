@@ -1,4 +1,5 @@
 export const mainnetVerified = [
+  '0x25f1' /** @gelato.lens */,
   '0x07' /** @wassim.lens */,
   '0x2816' /** @cryptoguicci.lens */,
   '0x2c6d' /** @shefi.lens */,

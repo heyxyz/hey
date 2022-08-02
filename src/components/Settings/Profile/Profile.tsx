@@ -34,7 +34,8 @@ import {
   ERRORS,
   LENS_PERIPHERY,
   RELAY_ON,
-  SIGN_WALLET
+  SIGN_WALLET,
+  URL_REGEX
 } from 'src/constants'
 import { useAppPersistStore, useAppStore } from 'src/store/app'
 import { v4 as uuid } from 'uuid'
@@ -80,7 +81,9 @@ const editProfileSchema = object({
     .max(100, { message: 'Location should not exceed 100 characters' })
     .nullable(),
   website: optional(
-    string().max(100, { message: 'Website should not exceed 100 characters' })
+    string()
+      .regex(URL_REGEX, { message: 'Invalid website' })
+      .max(100, { message: 'Website should not exceed 100 characters' })
   ),
   twitter: string()
     .max(100, { message: 'Twitter should not exceed 100 characters' })
