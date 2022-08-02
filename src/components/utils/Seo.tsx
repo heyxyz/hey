@@ -19,10 +19,8 @@ const Seo: FC<Props> = ({ title = APP_NAME, description = DESCRIPTION }) => {
 
       <link rel="preconnect" href="https://ik.imagekit.io" />
       <link rel="dns-prefetch" href="https://ik.imagekit.io" />
-      <link rel="preconnect" href="https://lensterassets.xyz" />
-      <link rel="dns-prefetch" href="https://lensterassets.xyz" />
-      <link rel="preconnect" href="https://static.lensterassets.xyz" />
-      <link rel="dns-prefetch" href="https://static.lensterassets.xyz" />
+      <link rel="preconnect" href="https://assets.lenster.xyz" />
+      <link rel="dns-prefetch" href="https://assets.lenster.xyz" />
       <link rel="preconnect" href="https://ipfs.infura.io" />
       <link rel="dns-prefetch" href="https://ipfs.infura.io" />
 
