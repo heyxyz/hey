@@ -4,7 +4,6 @@ import {
 } from '@generated/lenstertypes'
 import getUniswapURL from '@lib/getUniswapURL'
 import React, { FC } from 'react'
-import { STATIC_ASSETS } from 'src/constants'
 
 interface Props {
   module: LensterCollectModule | LensterFollowModule
@@ -26,7 +25,7 @@ const Uniswap: FC<Props> = ({ module }) => {
         rel="noreferrer noopener"
       >
         <img
-          src={`${STATIC_ASSETS}/brands/uniswap.svg`}
+          src="https://assets.lenster.xyz/images/brands/uniswap.png"
           className="w-5 h-5"
           height={20}
           width={20}
