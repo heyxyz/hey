@@ -15,7 +15,7 @@
     "prettier/prettier": "error",
     "react/prop-types": "off",
     "react/no-unescaped-entities": "off",
-    "react/jsx-no-useless-fragment": 2,
+    "react/jsx-no-useless-fragment": "error",
     "no-unused-vars": "warn",
     "unused-imports/no-unused-imports": "error",
     "@next/next/no-html-link-for-pages": "off",
@@ -25,7 +25,8 @@
     "simple-import-sort/imports": "error",
     "simple-import-sort/exports": "error",
     "jsx-a11y/role-supports-aria-props": "off",
-    "no-use-before-define" :"error"
+    "no-use-before-define": "error",
+    "no-unexpected-multiline": "error"
   },
   "ignorePatterns": ["/src/generated/types.ts"]
 }
