@@ -8,7 +8,7 @@ import { Spinner } from '@components/UI/Spinner'
 import { PlusIcon } from '@heroicons/react/outline'
 import uploadAssetsToIPFS from '@lib/uploadAssetsToIPFS'
 import React, { ChangeEvent, FC, useState } from 'react'
-import { APP_NAME } from 'src/constants'
+import { APP_NAME, HANDLE_REGEX } from 'src/constants'
 import { useAccount } from 'wagmi'
 import { object, string } from 'zod'
 
@@ -31,7 +31,7 @@ const newUserSchema = object({
   handle: string()
     .min(2, { message: 'Handle should be atleast 2 characters' })
     .max(31, { message: 'Handle should be less than 32 characters' })
-    .regex(/^[a-z0-9]+$/, {
+    .regex(HANDLE_REGEX, {
       message: 'Handle should only contain alphanumeric characters'
     })
 })
