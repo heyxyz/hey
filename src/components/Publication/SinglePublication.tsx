@@ -8,7 +8,7 @@ import React, { FC } from 'react'
 import PublicationActions from './Actions'
 import HiddenPublication from './HiddenPublication'
 import PublicationBody from './PublicationBody'
-import PostType from './Type'
+import PublicationType from './Type'
 
 dayjs.extend(relativeTime)
 
@@ -31,7 +31,11 @@ const SinglePublication: FC<Props> = ({
         className="cursor-pointer first:rounded-t-xl last:rounded-b-xl hover:bg-gray-100/70 hover:dark:bg-gray-800/70 p-5"
         data-test="publication"
       >
-        <PostType post={publication} showType={showType} showThread />
+        <PublicationType
+          publication={publication}
+          showType={showType}
+          showThread
+        />
         <div>
           <div className="flex justify-between pb-4 space-x-1.5">
             <UserProfile
