@@ -23,7 +23,7 @@ import { useAppPersistStore } from 'src/store/app'
 import FullPublication from './FullPublication'
 import IPFSHash from './IPFSHash'
 import RelevantPeople from './RelevantPeople'
-import PostPageShimmer from './Shimmer'
+import PublicationPageShimmer from './Shimmer'
 import ViaApp from './ViaApp'
 
 const Feed = dynamic(() => import('@components/Comment/Feed'), {
@@ -96,7 +96,7 @@ const ViewPublication: NextPage = () => {
   })
 
   if (error) return <Custom500 />
-  if (loading || !data) return <PostPageShimmer />
+  if (loading || !data) return <PublicationPageShimmer />
   if (!data.publication) return <Custom404 />
 
   const post: LensterPublication = data.publication

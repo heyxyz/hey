@@ -6,7 +6,7 @@ import UserProfileShimmer from '@components/Shared/Shimmer/UserProfileShimmer'
 import { Card, CardBody } from '@components/UI/Card'
 import React, { FC } from 'react'
 
-const PostPageShimmer: FC = () => {
+const PublicationPageShimmer: FC = () => {
   return (
     <GridLayout>
       <GridItemEight className="space-y-5">
@@ -42,4 +42,4 @@ const PostPageShimmer: FC = () => {
   )
 }
 
-export default PostPageShimmer
+export default PublicationPageShimmer
