@@ -7,7 +7,7 @@ import React, { FC } from 'react'
 
 import PostActions from './Actions'
 import HiddenPost from './HiddenPost'
-import PostBody from './PostBody'
+import PublicationBody from './PublicationBody'
 import PostType from './Type'
 
 dayjs.extend(relativeTime)
@@ -56,7 +56,7 @@ const SinglePublication: FC<Props> = ({
               <HiddenPost type={publication?.__typename} />
             ) : (
               <>
-                <PostBody post={publication} />
+                <PublicationBody publication={publication} />
                 {showActions && <PostActions post={publication} />}
               </>
             )}

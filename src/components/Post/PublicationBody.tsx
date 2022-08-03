@@ -17,54 +17,54 @@ const Crowdfund = dynamic(() => import('./Crowdfund'), {
 })
 
 interface Props {
-  post: LensterPost
+  publication: LensterPost
 }
 
-const PostBody: FC<Props> = ({ post }) => {
+const PublicationBody: FC<Props> = ({ publication }) => {
   const { pathname } = useRouter()
-  const postType = post?.metadata?.attributes[0]?.value
+  const postType = publication?.metadata?.attributes[0]?.value
   const showMore =
-    post?.metadata?.content?.length > 450 && pathname !== '/posts/[id]'
+    publication?.metadata?.content?.length > 450 && pathname !== '/posts/[id]'
 
   return (
     <div className="break-words">
       {postType === 'community' ? (
         <div className="block items-center space-y-2 space-x-0 sm:flex sm:space-y-0 sm:space-x-2 linkify">
           <span className="flex items-center space-x-1.5">
-            {post?.collectedBy ? (
+            {publication?.collectedBy ? (
               <UserAddIcon className="w-4 h-4 text-brand" />
             ) : (
               <UsersIcon className="w-4 h-4 text-brand" />
             )}
-            {post?.collectedBy ? (
+            {publication?.collectedBy ? (
               <span>Joined</span>
             ) : (
               <span>Launched a new community</span>
             )}
           </span>
-          <Link href={`/communities/${post?.id}`}>
+          <Link href={`/communities/${publication?.id}`}>
             <a
-              href={`/communities/${post?.id}`}
+              href={`/communities/${publication?.id}`}
               className="flex items-center space-x-1.5 font-bold"
             >
               <img
                 src={imagekitURL(
-                  post?.metadata?.cover?.original?.url
-                    ? post?.metadata?.cover?.original?.url
-                    : `https://avatar.tobi.sh/${post?.id}.png`,
+                  publication?.metadata?.cover?.original?.url
+                    ? publication?.metadata?.cover?.original?.url
+                    : `https://avatar.tobi.sh/${publication?.id}.png`,
                   'avatar'
                 )}
                 className="bg-gray-200 rounded ring-2 ring-gray-50 dark:bg-gray-700 dark:ring-black w-[19px] h-[19px]"
                 height={19}
                 width={19}
-                alt={post?.id}
+                alt={publication?.id}
               />
-              <div>{post?.metadata?.name}</div>
+              <div>{publication?.metadata?.name}</div>
             </a>
           </Link>
         </div>
       ) : postType === 'crowdfund' ? (
-        <Crowdfund fund={post} />
+        <Crowdfund fund={publication} />
       ) : (
         <>
           <div
@@ -73,7 +73,7 @@ const PostBody: FC<Props> = ({ post }) => {
             })}
           >
             <div className="whitespace-pre-wrap break-words leading-md linkify text-md">
-              <Markup>{post?.metadata?.content}</Markup>
+              <Markup>{publication?.metadata?.content}</Markup>
             </div>
           </div>
           {showMore && (
@@ -84,18 +84,18 @@ const PostBody: FC<Props> = ({ post }) => {
           )}
         </>
       )}
-      {post?.metadata?.media?.length > 0 ? (
-        <Attachments attachments={post?.metadata?.media} />
+      {publication?.metadata?.media?.length > 0 ? (
+        <Attachments attachments={publication?.metadata?.media} />
       ) : (
-        post?.metadata?.content &&
+        publication?.metadata?.content &&
         postType !== 'crowdfund' &&
         postType !== 'community' &&
-        getURLs(post?.metadata?.content)?.length > 0 && (
-          <IFramely url={getURLs(post?.metadata?.content)[0]} />
+        getURLs(publication?.metadata?.content)?.length > 0 && (
+          <IFramely url={getURLs(publication?.metadata?.content)[0]} />
         )
       )}
     </div>
   )
 }
 
-export default PostBody
+export default PublicationBody
