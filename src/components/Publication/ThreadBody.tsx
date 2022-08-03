@@ -5,7 +5,7 @@ import relativeTime from 'dayjs/plugin/relativeTime'
 import Link from 'next/link'
 import React, { FC } from 'react'
 
-import PostActions from './Actions'
+import PublicationActions from './Actions'
 import HiddenPublication from './HiddenPublication'
 import PublicationBody from './PublicationBody'
 
@@ -45,7 +45,7 @@ const ThreadBody: FC<Props> = ({ post }) => {
           ) : (
             <>
               <PublicationBody publication={post} />
-              <PostActions post={post} />
+              <PublicationActions publication={post} />
             </>
           )}
         </div>
