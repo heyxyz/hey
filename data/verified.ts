@@ -1,4 +1,17 @@
 export const mainnetVerified = [
+  '0xc0dc' /** @yearn.lens */,
+  '0xb289' /** @harvest.lens */,
+  '0xad1e' /** @apwine.lens */,
+  '0xb400' /** @jarvis.lens */,
+  '0xb27a' /** @mtpelerin.lens */,
+  '0x8cb6' /** @makerdao.lens */,
+  '0xbca0' /** @defibasket.lens */,
+  '0xac' /** @dydymoon.lens */,
+  '0xb17c' /** @perpetual.lens */,
+  '0x0352' /** @gmoney.lens */,
+  '0xb28e' /** @beefyfinance.lens */,
+  '0xb821' /** @boyfriend.lens */,
+  '0x0c7e' /** @corbin.lens */,
   '0x25f1' /** @gelato.lens */,
   '0x07' /** @wassim.lens */,
   '0x2816' /** @cryptoguicci.lens */,
@@ -66,11 +79,11 @@ export const mainnetVerified = [
   '0x02' /** @aaveaave.lens */,
   '0x0c' /** @lenster.lens */,
   '0x0d' /** @yoginth.lens */,
-  '0x01' /** @lensprotocol */
-]
+  '0x01' /** @lensprotocol */,
+];
 
 export const testnetVerified = [
   '0x15' /** @yoginth.test */,
   '0x01' /** @lensprotocol.test */,
-  '0x02' /** @donosonaumczuk.test */
-]
+  '0x02' /** @donosonaumczuk.test */,
+];
