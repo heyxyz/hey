@@ -4,7 +4,7 @@ import React, { FC, MouseEvent } from 'react'
 import Collect from './Collect'
 import Comment from './Comment'
 import Like from './Like'
-import PostMenu from './Menu'
+import PublicationMenu from './Menu'
 import Mirror from './Mirror'
 
 interface Props {
@@ -25,7 +25,7 @@ const PublicationActions: FC<Props> = ({ publication }) => {
       {publication?.collectModule?.__typename !==
         'RevertCollectModuleSettings' &&
         postType !== 'crowdfund' && <Collect post={publication} />}
-      <PostMenu post={publication} />
+      <PublicationMenu publication={publication} />
     </div>
   ) : null
 }
