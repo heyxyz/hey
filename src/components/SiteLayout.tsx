@@ -98,7 +98,9 @@ const SiteLayout: FC<Props> = ({ children }) => {
     if (currentUser?.id) {
       Mixpanel.identify(currentUser.id)
       Mixpanel.people.set({
-        address: currentUser?.ownedBy
+        address: currentUser?.ownedBy,
+        handle: currentUser?.handle,
+        name: currentUser?.name
       })
     } else {
       Mixpanel.identify('0x00')
