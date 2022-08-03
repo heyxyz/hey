@@ -5,11 +5,11 @@ import Link from 'next/link'
 import React, { FC } from 'react'
 
 interface Props {
-  post: LensterPublication
+  publication: LensterPublication
 }
 
-const CommunityPost: FC<Props> = ({ post }) => {
-  const commentOn: any = post?.commentOn
+const CommunityPublication: FC<Props> = ({ publication }) => {
+  const commentOn: any = publication?.commentOn
 
   return (
     <div className="flex items-center pb-4 space-x-1 text-gray-500 text-[13px]">
@@ -18,7 +18,7 @@ const CommunityPost: FC<Props> = ({ post }) => {
         <Link href={`/communities/${commentOn?.pubId}`}>
           <a href={`/communities/${commentOn?.pubId}`}>
             <span>Posted on </span>
-            <Slug slug={post?.commentOn?.metadata?.name} />
+            <Slug slug={publication?.commentOn?.metadata?.name} />
           </a>
         </Link>
       </div>
@@ -26,4 +26,4 @@ const CommunityPost: FC<Props> = ({ post }) => {
   )
 }
 
-export default CommunityPost
+export default CommunityPublication

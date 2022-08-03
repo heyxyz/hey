@@ -5,7 +5,7 @@ import React, { FC } from 'react'
 import Collected from './Collected'
 import Commented from './Commented'
 import CommentedPublication from './CommentedPublication'
-import CommunityPost from './CommunityPost'
+import CommunityPublication from './CommunityPost'
 import Mirrored from './Mirrored'
 
 interface Props {
@@ -34,7 +34,7 @@ const PostType: FC<Props> = ({ post, showType, showThread = false }) => {
       )}
       {isCommunityPost &&
         pathname !== '/communities/[id]' &&
-        type !== 'Mirror' && <CommunityPost post={post} />}
+        type !== 'Mirror' && <CommunityPublication publication={post} />}
       {isCollected && postType !== 'community' && postType !== 'crowdfund' && (
         <Collected post={post} type="Collected" />
       )}
