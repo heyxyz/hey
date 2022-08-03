@@ -12,40 +12,41 @@ import PostType from './Type'
 dayjs.extend(relativeTime)
 
 interface Props {
-  post: LensterPublication
+  publication: LensterPublication
 }
 
-const FullPost: FC<Props> = ({ post }) => {
-  const postType = post?.metadata?.attributes[0]?.value
+const FullPublication: FC<Props> = ({ publication }) => {
+  const postType = publication?.metadata?.attributes[0]?.value
 
   return (
     <article className="p-5" data-test="publication">
-      <PostType post={post} showType />
+      <PostType post={publication} showType />
       <div>
         <div className="flex justify-between pb-4 space-x-1.5">
           <UserProfile
             profile={
-              postType === 'community' && !!post?.collectedBy?.defaultProfile
-                ? post?.collectedBy?.defaultProfile
-                : post?.__typename === 'Mirror'
-                ? post?.mirrorOf?.profile
-                : post?.profile
+              postType === 'community' &&
+              !!publication?.collectedBy?.defaultProfile
+                ? publication?.collectedBy?.defaultProfile
+                : publication?.__typename === 'Mirror'
+                ? publication?.mirrorOf?.profile
+                : publication?.profile
             }
           />
           <span
             className="text-sm text-gray-500"
             data-test="publication-timestamp"
           >
-            {dayjs(new Date(post?.createdAt)).fromNow()}
+            {dayjs(new Date(publication?.createdAt)).fromNow()}
           </span>
         </div>
         <div className="ml-[53px]" data-test="publication-content">
-          {post?.hidden ? (
-            <HiddenPost type={post?.__typename} />
+          {publication?.hidden ? (
+            <HiddenPost type={publication?.__typename} />
           ) : (
             <>
-              <PublicationBody publication={post} />
-              <PostActions post={post} />
+              <PublicationBody publication={publication} />
+              <PostActions post={publication} />
             </>
           )}
         </div>
@@ -54,4 +55,4 @@ const FullPost: FC<Props> = ({ post }) => {
   )
 }
 
-export default FullPost
+export default FullPublication
