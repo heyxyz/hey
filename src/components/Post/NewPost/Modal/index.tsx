@@ -1,5 +1,5 @@
 import NewComment from '@components/Comment/NewComment'
-import SinglePost from '@components/Post/SinglePost'
+import SinglePublication from '@components/Post/SinglePublication'
 import { Card } from '@components/UI/Card'
 import { Modal } from '@components/UI/Modal'
 import { PencilAltIcon } from '@heroicons/react/outline'
@@ -34,8 +34,8 @@ const NewPostModal: FC = () => {
         {parentPub ? (
           <>
             <Card className="mx-5 mt-5">
-              <SinglePost
-                post={parentPub}
+              <SinglePublication
+                publication={parentPub}
                 showType={false}
                 showActions={false}
               />
