@@ -16,27 +16,27 @@ const CollectModule = dynamic(() => import('./CollectModule'), {
 })
 
 interface Props {
-  post: LensterPublication
+  publication: LensterPublication
 }
 
-const Collect: FC<Props> = ({ post }) => {
+const Collect: FC<Props> = ({ publication }) => {
   const [count, setCount] = useState<number>(0)
   const [showCollectModal, setShowCollectModal] = useState<boolean>(false)
   const isFreeCollect =
-    post?.collectModule?.__typename === 'FreeCollectModuleSettings'
+    publication?.collectModule?.__typename === 'FreeCollectModuleSettings'
 
   useEffect(() => {
     if (
-      post?.mirrorOf?.stats?.totalAmountOfCollects ||
-      post?.stats?.totalAmountOfCollects
+      publication?.mirrorOf?.stats?.totalAmountOfCollects ||
+      publication?.stats?.totalAmountOfCollects
     ) {
       setCount(
-        post.__typename === 'Mirror'
-          ? post?.mirrorOf?.stats?.totalAmountOfCollects
-          : post?.stats?.totalAmountOfCollects
+        publication.__typename === 'Mirror'
+          ? publication?.mirrorOf?.stats?.totalAmountOfCollects
+          : publication?.stats?.totalAmountOfCollects
       )
     }
-  }, [post])
+  }, [publication])
 
   return (
     <>
@@ -63,13 +63,15 @@ const Collect: FC<Props> = ({ post }) => {
         title={
           isFreeCollect
             ? 'Free Collect'
-            : getModule(post?.collectModule?.type).name
+            : getModule(publication?.collectModule?.type).name
         }
         icon={
           <div className="text-brand">
             <GetModuleIcon
               module={
-                isFreeCollect ? 'FreeCollectModule' : post?.collectModule?.type
+                isFreeCollect
+                  ? 'FreeCollectModule'
+                  : publication?.collectModule?.type
               }
               size={5}
             />
@@ -78,7 +80,11 @@ const Collect: FC<Props> = ({ post }) => {
         show={showCollectModal}
         onClose={() => setShowCollectModal(false)}
       >
-        <CollectModule post={post} count={count} setCount={setCount} />
+        <CollectModule
+          publication={publication}
+          count={count}
+          setCount={setCount}
+        />
       </Modal>
     </>
   )

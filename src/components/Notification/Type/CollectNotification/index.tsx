@@ -24,7 +24,7 @@ interface Props {
 }
 
 const CollectNotification: FC<Props> = ({ notification }) => {
-  const postType =
+  const publicationType =
     notification?.collectedPublication?.metadata?.attributes[0]?.value ??
     notification?.collectedPublication?.__typename?.toLowerCase()
 
@@ -32,9 +32,9 @@ const CollectNotification: FC<Props> = ({ notification }) => {
     <div className="flex justify-between items-start">
       <div className="space-y-2 w-4/5">
         <div className="flex items-center space-x-3">
-          {postType === 'community' ? (
+          {publicationType === 'community' ? (
             <UsersIcon className="h-6 w-6 text-pink-500/70" />
-          ) : postType === 'crowdfund' ? (
+          ) : publicationType === 'crowdfund' ? (
             <CashIcon className="h-6 w-6 text-pink-500/70" />
           ) : (
             <CollectionIcon className="h-6 w-6 text-pink-500/70" />
@@ -56,32 +56,32 @@ const CollectNotification: FC<Props> = ({ notification }) => {
             <NotificationWalletProfileName wallet={notification?.wallet} />
           )}{' '}
           <span className="text-gray-600 dark:text-gray-400">
-            {postType === 'community'
+            {publicationType === 'community'
               ? 'joined your'
-              : postType === 'crowdfund'
+              : publicationType === 'crowdfund'
               ? 'funded your'
               : 'collected your'}{' '}
           </span>
           <Link
             href={
-              postType === 'community'
+              publicationType === 'community'
                 ? `/communities/${notification?.collectedPublication?.id}`
                 : `/posts/${notification?.collectedPublication?.id}`
             }
           >
             <a
               href={
-                postType === 'community'
+                publicationType === 'community'
                   ? `/communities/${notification?.collectedPublication?.id}`
                   : `/posts/${notification?.collectedPublication?.id}`
               }
               className="font-bold"
             >
-              {postType}
+              {publicationType}
             </a>
           </Link>
           <CollectedContent notification={notification} />
-          {postType !== 'community' && (
+          {publicationType !== 'community' && (
             <CollectedAmount notification={notification} />
           )}
         </div>

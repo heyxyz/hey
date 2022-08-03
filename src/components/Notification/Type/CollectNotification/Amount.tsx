@@ -9,14 +9,14 @@ interface Props {
 }
 
 const CollectedAmount: FC<Props> = ({ notification }) => {
-  const postType =
+  const publicationType =
     notification?.collectedPublication?.metadata?.attributes[0]?.value ??
     notification?.collectedPublication?.__typename?.toLowerCase()
   const collectModule: any = notification?.collectedPublication?.collectModule
 
   return (
     <div className="flex items-center mt-2 space-x-1">
-      {postType === 'crowdfund' ? (
+      {publicationType === 'crowdfund' ? (
         <HandIcon className="text-green-500 h-[15px]" />
       ) : (
         <CurrencyDollarIcon className="text-green-500 h-[15px]" />
@@ -26,7 +26,7 @@ const CollectedAmount: FC<Props> = ({ notification }) => {
       ) : (
         <>
           <div className="text-[12px]">
-            {postType === 'crowdfund' ? 'Funded' : 'Collected for'}{' '}
+            {publicationType === 'crowdfund' ? 'Funded' : 'Collected for'}{' '}
             {humanize(collectModule?.amount?.value)}{' '}
             {collectModule?.amount?.asset?.symbol}
           </div>

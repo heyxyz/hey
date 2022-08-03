@@ -60,7 +60,7 @@ const ViewCommunity: NextPage = () => {
         <Details community={data.publication} />
       </GridItemFour>
       <GridItemEight className="space-y-5">
-        <Feed post={data.publication} type="community post" />
+        <Feed publication={data.publication} type="community post" />
       </GridItemEight>
     </GridLayout>
   )

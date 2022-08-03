@@ -15,7 +15,8 @@ interface Props {
 }
 
 const MirrorNotification: FC<Props> = ({ notification }) => {
-  const postType = notification?.publication?.metadata?.attributes[0]?.value
+  const publicationType =
+    notification?.publication?.metadata?.attributes[0]?.value
 
   return (
     <div className="flex justify-between items-start">
@@ -35,7 +36,7 @@ const MirrorNotification: FC<Props> = ({ notification }) => {
               className="font-bold"
             >
               {notification?.publication?.__typename === 'Post'
-                ? postType === 'crowdfund'
+                ? publicationType === 'crowdfund'
                   ? 'crowdfund'
                   : notification?.publication?.__typename?.toLowerCase()
                 : notification?.publication?.__typename?.toLowerCase()}
@@ -46,7 +47,7 @@ const MirrorNotification: FC<Props> = ({ notification }) => {
               href={`/posts/${notification?.publication?.id}`}
               className="text-gray-500 line-clamp-2 linkify mt-2"
             >
-              {postType === 'crowdfund' ? (
+              {publicationType === 'crowdfund' ? (
                 notification?.publication?.metadata?.name
               ) : (
                 <Markup>{notification?.publication?.metadata?.content}</Markup>

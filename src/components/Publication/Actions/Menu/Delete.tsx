@@ -13,10 +13,10 @@ export const HIDE_POST_MUTATION = gql`
 `
 
 interface Props {
-  post: LensterPublication
+  publication: LensterPublication
 }
 
-const Delete: FC<Props> = ({ post }) => {
+const Delete: FC<Props> = ({ publication }) => {
   const { pathname, push } = useRouter()
   const [hidePost] = useMutation(HIDE_POST_MUTATION, {
     onCompleted() {
@@ -35,7 +35,9 @@ const Delete: FC<Props> = ({ post }) => {
       }
       onClick={() => {
         if (confirm('Are you sure you want to delete?')) {
-          hidePost({ variables: { request: { publicationId: post?.id } } })
+          hidePost({
+            variables: { request: { publicationId: publication?.id } }
+          })
         }
       }}
     >

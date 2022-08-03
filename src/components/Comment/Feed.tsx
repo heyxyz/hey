@@ -39,19 +39,22 @@ const COMMENT_FEED_QUERY = gql`
 `
 
 interface Props {
-  post: LensterPublication
+  publication: LensterPublication
   type?: 'comment' | 'community post'
   onlyFollowers?: boolean
   isFollowing?: boolean
 }
 
 const Feed: FC<Props> = ({
-  post,
+  publication,
   type = 'comment',
   onlyFollowers = false,
   isFollowing = true
 }) => {
-  const pubId = post?.__typename === 'Mirror' ? post?.mirrorOf?.id : post?.id
+  const pubId =
+    publication?.__typename === 'Mirror'
+      ? publication?.mirrorOf?.id
+      : publication?.id
   const { currentUser } = useAppPersistStore()
   const [publications, setPublications] = useState<LensterPublication[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
@@ -99,12 +102,12 @@ const Feed: FC<Props> = ({
     <>
       {currentUser &&
         (isFollowing || !onlyFollowers ? (
-          <NewComment post={post} type={type} />
+          <NewComment publication={publication} type={type} />
         ) : (
           <ReferenceAlert
-            handle={post?.profile?.handle}
+            handle={publication?.profile?.handle}
             isSuperFollow={
-              post?.profile?.followModule?.__typename ===
+              publication?.profile?.followModule?.__typename ===
               'FeeFollowModuleSettings'
             }
             action="comment"

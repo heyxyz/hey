@@ -22,13 +22,13 @@ interface Props {
 
 const PublicationBody: FC<Props> = ({ publication }) => {
   const { pathname } = useRouter()
-  const postType = publication?.metadata?.attributes[0]?.value
+  const publicationType = publication?.metadata?.attributes[0]?.value
   const showMore =
     publication?.metadata?.content?.length > 450 && pathname !== '/posts/[id]'
 
   return (
     <div className="break-words">
-      {postType === 'community' ? (
+      {publicationType === 'community' ? (
         <div className="block items-center space-y-2 space-x-0 sm:flex sm:space-y-0 sm:space-x-2 linkify">
           <span className="flex items-center space-x-1.5">
             {publication?.collectedBy ? (
@@ -63,7 +63,7 @@ const PublicationBody: FC<Props> = ({ publication }) => {
             </a>
           </Link>
         </div>
-      ) : postType === 'crowdfund' ? (
+      ) : publicationType === 'crowdfund' ? (
         <Crowdfund fund={publication} />
       ) : (
         <>
@@ -88,8 +88,8 @@ const PublicationBody: FC<Props> = ({ publication }) => {
         <Attachments attachments={publication?.metadata?.media} />
       ) : (
         publication?.metadata?.content &&
-        postType !== 'crowdfund' &&
-        postType !== 'community' &&
+        publicationType !== 'crowdfund' &&
+        publicationType !== 'community' &&
         getURLs(publication?.metadata?.content)?.length > 0 && (
           <IFramely url={getURLs(publication?.metadata?.content)[0]} />
         )

@@ -43,7 +43,7 @@ const NewPostModal: FC = () => {
             <NewComment
               setShowModal={setShowNewPostModal}
               hideCard
-              post={parentPub}
+              publication={parentPub}
               type="comment"
             />
           </>
