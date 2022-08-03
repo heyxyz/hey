@@ -1,7 +1,7 @@
 import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout'
 import RecommendedProfiles from '@components/Home/RecommendedProfiles'
 import Footer from '@components/Shared/Footer'
-import PostsShimmer from '@components/Shared/Shimmer/PostsShimmer'
+import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer'
 import Seo from '@components/utils/Seo'
 import { NextPage } from 'next'
 import dynamic from 'next/dynamic'
@@ -12,7 +12,7 @@ import { APP_NAME } from 'src/constants'
 import FeedType from './FeedType'
 
 const Feed = dynamic(() => import('./Feed'), {
-  loading: () => <PostsShimmer />
+  loading: () => <PublicationsShimmer />
 })
 
 const Explore: NextPage = () => {

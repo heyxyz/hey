@@ -1,7 +1,7 @@
 import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout'
 import Footer from '@components/Shared/Footer'
-import PostShimmer from '@components/Shared/Shimmer/PostShimmer'
-import PostsShimmer from '@components/Shared/Shimmer/PostsShimmer'
+import PublicationShimmer from '@components/Shared/Shimmer/PublicationShimmer'
+import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer'
 import UserProfileShimmer from '@components/Shared/Shimmer/UserProfileShimmer'
 import { Card, CardBody } from '@components/UI/Card'
 import React, { FC } from 'react'
@@ -11,9 +11,9 @@ const PostPageShimmer: FC = () => {
     <GridLayout>
       <GridItemEight className="space-y-5">
         <Card>
-          <PostShimmer />
+          <PublicationShimmer />
         </Card>
-        <PostsShimmer />
+        <PublicationsShimmer />
       </GridItemEight>
       <GridItemFour className="space-y-5">
         <Card>

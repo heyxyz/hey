@@ -1,7 +1,7 @@
 import { gql, useQuery } from '@apollo/client'
 import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout'
 import Footer from '@components/Shared/Footer'
-import PostsShimmer from '@components/Shared/Shimmer/PostsShimmer'
+import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer'
 import UserProfile from '@components/Shared/UserProfile'
 import { Card, CardBody } from '@components/UI/Card'
 import Seo from '@components/utils/Seo'
@@ -27,11 +27,11 @@ import PostPageShimmer from './Shimmer'
 import ViaApp from './ViaApp'
 
 const Feed = dynamic(() => import('@components/Comment/Feed'), {
-  loading: () => <PostsShimmer />
+  loading: () => <PublicationsShimmer />
 })
 
-export const POST_QUERY = gql`
-  query Post(
+export const PUBLICATION_QUERY = gql`
+  query Publication(
     $request: PublicationQueryRequest!
     $reactionRequest: ReactionFieldResolverRequest
     $profileId: ProfileId
@@ -80,7 +80,7 @@ const ViewPublication: NextPage = () => {
   } = useRouter()
 
   const { currentUser } = useAppPersistStore()
-  const { data, loading, error } = useQuery(POST_QUERY, {
+  const { data, loading, error } = useQuery(PUBLICATION_QUERY, {
     variables: {
       request: { publicationId: id },
       reactionRequest: currentUser ? { profileId: currentUser?.id } : null,

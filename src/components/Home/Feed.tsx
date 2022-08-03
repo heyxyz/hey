@@ -1,7 +1,7 @@
 import { gql, useQuery } from '@apollo/client'
 import NewPost from '@components/Publication/NewPost'
 import SinglePublication from '@components/Publication/SinglePublication'
-import PostsShimmer from '@components/Shared/Shimmer/PostsShimmer'
+import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer'
 import { Card } from '@components/UI/Card'
 import { EmptyState } from '@components/UI/EmptyState'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
@@ -92,7 +92,7 @@ const Feed: FC = () => {
   return (
     <>
       {currentUser && <NewPost />}
-      {loading && <PostsShimmer />}
+      {loading && <PublicationsShimmer />}
       {data?.timeline?.items?.length === 0 && (
         <EmptyState
           message={<div>No posts yet!</div>}
