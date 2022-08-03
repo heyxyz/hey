@@ -1,12 +1,12 @@
 /* eslint-disable no-unused-vars */
-import { LensterPost } from '@generated/lenstertypes'
+import { LensterPublication } from '@generated/lenstertypes'
 import create from 'zustand'
 
 interface PublicationState {
   showNewPostModal: boolean
   setShowNewPostModal: (showNewPostModal: boolean) => void
-  parentPub: LensterPost | null
-  setParentPub: (parentPub: LensterPost | null) => void
+  parentPub: LensterPublication | null
+  setParentPub: (parentPub: LensterPublication | null) => void
 }
 
 export const usePublicationStore = create<PublicationState>((set) => ({

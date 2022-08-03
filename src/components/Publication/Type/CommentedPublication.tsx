@@ -1,11 +1,11 @@
 import Slug from '@components/Shared/Slug'
-import { LensterPost } from '@generated/lenstertypes'
+import { LensterPublication } from '@generated/lenstertypes'
 import { ChatAlt2Icon } from '@heroicons/react/outline'
 import Link from 'next/link'
 import React, { FC } from 'react'
 
 interface Props {
-  publication: LensterPost
+  publication: LensterPublication
 }
 
 const CommentedPublication: FC<Props> = ({ publication }) => {

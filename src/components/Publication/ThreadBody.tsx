@@ -1,5 +1,5 @@
 import UserProfile from '@components/Shared/UserProfile'
-import { LensterPost } from '@generated/lenstertypes'
+import { LensterPublication } from '@generated/lenstertypes'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import Link from 'next/link'
@@ -12,7 +12,7 @@ import PublicationBody from './PublicationBody'
 dayjs.extend(relativeTime)
 
 interface Props {
-  post: LensterPost
+  post: LensterPublication
 }
 
 const ThreadBody: FC<Props> = ({ post }) => {

@@ -1,4 +1,4 @@
-import { LensterPost } from '@generated/lenstertypes'
+import { LensterPublication } from '@generated/lenstertypes'
 import { Menu } from '@headlessui/react'
 import { ClipboardCopyIcon } from '@heroicons/react/outline'
 import clsx from 'clsx'
@@ -8,7 +8,7 @@ import toast from 'react-hot-toast'
 import { PUBLIC_URL } from 'src/constants'
 
 interface Props {
-  post: LensterPost
+  post: LensterPublication
 }
 
 const Permalink: FC<Props> = ({ post }) => {

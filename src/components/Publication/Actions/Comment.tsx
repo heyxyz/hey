@@ -1,5 +1,5 @@
 import { Tooltip } from '@components/UI/Tooltip'
-import { LensterPost } from '@generated/lenstertypes'
+import { LensterPublication } from '@generated/lenstertypes'
 import { ChatAlt2Icon } from '@heroicons/react/outline'
 import humanize from '@lib/humanize'
 import nFormatter from '@lib/nFormatter'
@@ -8,7 +8,7 @@ import { FC } from 'react'
 import { usePublicationStore } from 'src/store/publication'
 
 interface Props {
-  post: LensterPost
+  post: LensterPublication
 }
 
 const Comment: FC<Props> = ({ post }) => {

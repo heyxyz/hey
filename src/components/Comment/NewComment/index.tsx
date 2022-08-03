@@ -9,7 +9,7 @@ import { Card } from '@components/UI/Card'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { MentionTextArea } from '@components/UI/MentionTextArea'
 import { Spinner } from '@components/UI/Spinner'
-import { LensterAttachment, LensterPost } from '@generated/lenstertypes'
+import { LensterAttachment, LensterPublication } from '@generated/lenstertypes'
 import {
   CreateCommentBroadcastItemResult,
   EnabledModule
@@ -104,7 +104,7 @@ const CREATE_COMMENT_TYPED_DATA_MUTATION = gql`
 interface Props {
   setShowModal?: Dispatch<boolean>
   hideCard?: boolean
-  post: LensterPost
+  post: LensterPublication
   type: 'comment' | 'community post'
 }
 

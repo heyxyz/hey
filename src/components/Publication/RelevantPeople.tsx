@@ -3,7 +3,7 @@ import UserProfileShimmer from '@components/Shared/Shimmer/UserProfileShimmer'
 import UserProfile from '@components/Shared/UserProfile'
 import { Card, CardBody } from '@components/UI/Card'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
-import { LensterPost } from '@generated/lenstertypes'
+import { LensterPublication } from '@generated/lenstertypes'
 import { Profile } from '@generated/types'
 import { MinimalProfileFields } from '@gql/MinimalProfileFields'
 import Logger from '@lib/logger'
@@ -22,7 +22,7 @@ const RELEVANT_PEOPLE_QUERY = gql`
 `
 
 interface Props {
-  publication: LensterPost
+  publication: LensterPublication
 }
 
 const RelevantPeople: FC<Props> = ({ publication }) => {
