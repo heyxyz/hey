@@ -1,5 +1,3 @@
-import { log } from 'next-axiom'
-
 const Logger = {
   log: (...args: any) => {
     console.log(...args)
@@ -9,8 +7,8 @@ const Logger = {
     console.warn(...args)
   },
 
-  error: (message: string, error: any) => {
-    log.error(message, error)
+  error: (...args: any) => {
+    console.error(...args)
   }
 }
 
