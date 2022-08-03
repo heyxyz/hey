@@ -1,6 +1,6 @@
 import { gql, useMutation } from '@apollo/client'
 import { Tooltip } from '@components/UI/Tooltip'
-import { LensterPost } from '@generated/lenstertypes'
+import { LensterPublication } from '@generated/lenstertypes'
 import { HeartIcon } from '@heroicons/react/outline'
 import { HeartIcon as HeartIconSolid } from '@heroicons/react/solid'
 import humanize from '@lib/humanize'
@@ -23,7 +23,7 @@ const REMOVE_REACTION_MUTATION = gql`
 `
 
 interface Props {
-  post: LensterPost
+  post: LensterPublication
 }
 
 const Like: FC<Props> = ({ post }) => {

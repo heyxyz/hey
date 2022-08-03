@@ -7,7 +7,7 @@ import CrowdfundShimmer from '@components/Shared/Shimmer/CrowdfundShimmer'
 import { Card } from '@components/UI/Card'
 import { Modal } from '@components/UI/Modal'
 import { Tooltip } from '@components/UI/Tooltip'
-import { LensterPost } from '@generated/lenstertypes'
+import { LensterPublication } from '@generated/lenstertypes'
 import {
   CashIcon,
   CurrencyDollarIcon,
@@ -51,7 +51,7 @@ const Badge: FC<BadgeProps> = ({ title, value }) => (
 )
 
 interface Props {
-  fund: LensterPost
+  fund: LensterPublication
 }
 
 const Crowdfund: FC<Props> = ({ fund }) => {

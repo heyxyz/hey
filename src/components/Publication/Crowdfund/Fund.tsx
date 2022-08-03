@@ -5,7 +5,10 @@ import AllowanceButton from '@components/Settings/Allowance/Button'
 import Uniswap from '@components/Shared/Uniswap'
 import { Button } from '@components/UI/Button'
 import { Spinner } from '@components/UI/Spinner'
-import { LensterCollectModule, LensterPost } from '@generated/lenstertypes'
+import {
+  LensterCollectModule,
+  LensterPublication
+} from '@generated/lenstertypes'
 import { CreateCollectBroadcastItemResult } from '@generated/types'
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { CashIcon } from '@heroicons/react/outline'
@@ -65,7 +68,7 @@ const CREATE_COLLECT_TYPED_DATA_MUTATION = gql`
 `
 
 interface Props {
-  fund: LensterPost
+  fund: LensterPublication
   collectModule: LensterCollectModule
   setRevenue: Dispatch<number>
   revenue: number

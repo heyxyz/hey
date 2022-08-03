@@ -1,5 +1,5 @@
 import { NextLink } from '@components/Shared/Navbar/MenuItems'
-import { LensterPost } from '@generated/lenstertypes'
+import { LensterPublication } from '@generated/lenstertypes'
 import { Menu, Transition } from '@headlessui/react'
 import {
   DotsHorizontalIcon,
@@ -14,7 +14,7 @@ import Embed from './Embed'
 import Permalink from './Permalink'
 
 interface Props {
-  post: LensterPost
+  post: LensterPublication
 }
 
 const PostMenu: FC<Props> = ({ post }) => {

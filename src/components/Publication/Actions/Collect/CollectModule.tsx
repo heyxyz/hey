@@ -15,7 +15,7 @@ import { Modal } from '@components/UI/Modal'
 import { Spinner } from '@components/UI/Spinner'
 import { Tooltip } from '@components/UI/Tooltip'
 import { WarningMessage } from '@components/UI/WarningMessage'
-import { LensterPost } from '@generated/lenstertypes'
+import { LensterPublication } from '@generated/lenstertypes'
 import { CreateCollectBroadcastItemResult } from '@generated/types'
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { CollectModuleFields } from '@gql/CollectModuleFields'
@@ -116,7 +116,7 @@ const CREATE_COLLECT_TYPED_DATA_MUTATION = gql`
 interface Props {
   count: number
   setCount: Dispatch<number>
-  post: LensterPost
+  post: LensterPublication
 }
 
 const CollectModule: FC<Props> = ({ count, setCount, post }) => {

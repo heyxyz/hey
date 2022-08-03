@@ -5,7 +5,7 @@ import { Card } from '@components/UI/Card'
 import { EmptyState } from '@components/UI/EmptyState'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { Spinner } from '@components/UI/Spinner'
-import { LensterPost } from '@generated/lenstertypes'
+import { LensterPublication } from '@generated/lenstertypes'
 import { PaginatedResultInfo } from '@generated/types'
 import { CommentFields } from '@gql/CommentFields'
 import { CollectionIcon } from '@heroicons/react/outline'
@@ -39,7 +39,7 @@ const COMMENT_FEED_QUERY = gql`
 `
 
 interface Props {
-  post: LensterPost
+  post: LensterPublication
   type?: 'comment' | 'community post'
   onlyFollowers?: boolean
   isFollowing?: boolean
@@ -53,7 +53,7 @@ const Feed: FC<Props> = ({
 }) => {
   const pubId = post?.__typename === 'Mirror' ? post?.mirrorOf?.id : post?.id
   const { currentUser } = useAppPersistStore()
-  const [publications, setPublications] = useState<LensterPost[]>([])
+  const [publications, setPublications] = useState<LensterPublication[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
   const { data, loading, error, fetchMore } = useQuery(COMMENT_FEED_QUERY, {
     variables: {
@@ -124,7 +124,7 @@ const Feed: FC<Props> = ({
             className="divide-y-[1px] dark:divide-gray-700/80"
             testId="comment-feed"
           >
-            {publications?.map((post: LensterPost, index: number) => (
+            {publications?.map((post: LensterPublication, index: number) => (
               <SinglePublication
                 key={`${pubId}_${index}`}
                 publication={post}
