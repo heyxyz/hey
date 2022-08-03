@@ -7,6 +7,7 @@ import Cookies from 'js-cookie'
 import mixpanel from 'mixpanel-browser'
 import dynamic from 'next/dynamic'
 import Head from 'next/head'
+import { useRouter } from 'next/router'
 import { useTheme } from 'next-themes'
 import { FC, ReactNode, Suspense, useEffect, useState } from 'react'
 import { Toaster } from 'react-hot-toast'
@@ -45,6 +46,7 @@ interface Props {
 }
 
 const SiteLayout: FC<Props> = ({ children }) => {
+  const { pathname } = useRouter()
   const { resolvedTheme } = useTheme()
   const { setProfiles, setUserSigNonce } = useAppStore()
   const {
@@ -87,6 +89,10 @@ const SiteLayout: FC<Props> = ({ children }) => {
       Logger.error('[Query Error]', error)
     }
   })
+
+  useEffect(() => {
+    Mixpanel.track('page_view', { path: pathname })
+  }, [pathname])
 
   useEffect(() => {
     const accessToken = Cookies.get('accessToken')
