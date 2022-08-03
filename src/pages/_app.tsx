@@ -19,8 +19,6 @@ import { alchemyProvider } from 'wagmi/providers/alchemy'
 
 import client from '../apollo'
 
-export { reportWebVitals } from 'next-axiom'
-
 const { chains, provider } = configureChains(
   [IS_MAINNET ? chain.polygon : chain.polygonMumbai],
   [alchemyProvider({ apiKey: ALCHEMY_KEY })]
