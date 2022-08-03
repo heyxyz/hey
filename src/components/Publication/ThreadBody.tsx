@@ -6,7 +6,7 @@ import Link from 'next/link'
 import React, { FC } from 'react'
 
 import PostActions from './Actions'
-import HiddenPost from './HiddenPost'
+import HiddenPublication from './HiddenPublication'
 import PublicationBody from './PublicationBody'
 
 dayjs.extend(relativeTime)
@@ -41,7 +41,7 @@ const ThreadBody: FC<Props> = ({ post }) => {
         <div className="mr-8 ml-5 bg-gray-300 border-gray-300 dark:bg-gray-700 dark:border-gray-700 border-[0.8px] -my-[4px]" />
         <div className="pt-4 pb-5 w-full">
           {post?.hidden ? (
-            <HiddenPost type={post?.__typename} />
+            <HiddenPublication type={post?.__typename} />
           ) : (
             <>
               <PublicationBody publication={post} />

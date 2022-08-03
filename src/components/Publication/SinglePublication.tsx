@@ -6,7 +6,7 @@ import Link from 'next/link'
 import React, { FC } from 'react'
 
 import PostActions from './Actions'
-import HiddenPost from './HiddenPost'
+import HiddenPublication from './HiddenPublication'
 import PublicationBody from './PublicationBody'
 import PostType from './Type'
 
@@ -53,7 +53,7 @@ const SinglePublication: FC<Props> = ({
           </div>
           <div className="ml-[53px]" data-test="publication-content">
             {publication?.hidden ? (
-              <HiddenPost type={publication?.__typename} />
+              <HiddenPublication type={publication?.__typename} />
             ) : (
               <>
                 <PublicationBody publication={publication} />
