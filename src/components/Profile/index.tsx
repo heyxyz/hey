@@ -1,7 +1,7 @@
 import { gql, useQuery } from '@apollo/client'
 import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout'
 import NFTShimmer from '@components/Shared/Shimmer/NFTShimmer'
-import PostsShimmer from '@components/Shared/Shimmer/PostsShimmer'
+import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer'
 import Seo from '@components/utils/Seo'
 import Logger from '@lib/logger'
 import { NextPage } from 'next'
@@ -19,7 +19,7 @@ import FeedType from './FeedType'
 import ProfilePageShimmer from './Shimmer'
 
 const Feed = dynamic(() => import('./Feed'), {
-  loading: () => <PostsShimmer />
+  loading: () => <PublicationsShimmer />
 })
 const NFTFeed = dynamic(() => import('./NFTFeed'), {
   loading: () => <NFTShimmer />
