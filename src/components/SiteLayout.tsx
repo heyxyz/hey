@@ -19,7 +19,10 @@ import Loading from './Loading'
 const Navbar = dynamic(() => import('./Shared/Navbar'), { suspense: true })
 
 if (MIXPANEL_TOKEN) {
-  mixpanel.init(MIXPANEL_TOKEN, { debug: true })
+  mixpanel.init(MIXPANEL_TOKEN, {
+    debug: true,
+    ignore_dnt: true
+  })
 }
 
 export const CURRENT_USER_QUERY = gql`
@@ -93,7 +96,10 @@ const SiteLayout: FC<Props> = ({ children }) => {
 
     // Set mixpanel user id
     if (currentUser?.id) {
-      Mixpanel.identify(currentUser?.id)
+      Mixpanel.identify(currentUser.id)
+      Mixpanel.people.set({
+        address: currentUser?.ownedBy
+      })
     } else {
       Mixpanel.identify('0x00')
     }

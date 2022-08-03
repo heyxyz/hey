@@ -18,9 +18,9 @@ import { CheckCircleIcon } from '@heroicons/react/solid'
 import getAvatar from '@lib/getAvatar'
 import isBeta from '@lib/isBeta'
 import isStaff from '@lib/isStaff'
+import { Mixpanel } from '@lib/mixpanel'
 import clsx from 'clsx'
 import Cookies from 'js-cookie'
-import mixpanel from 'mixpanel-browser'
 import Link from 'next/link'
 import { useTheme } from 'next-themes'
 import { FC, Fragment, useState } from 'react'
@@ -289,7 +289,7 @@ const MenuItems: FC<Props> = ({ pingData }) => {
           />
         }
         onClick={() => {
-          mixpanel.track('Clicked Login Button')
+          Mixpanel.track('Clicked Login Button')
           setShowLoginModal(!showLoginModal)
         }}
       >

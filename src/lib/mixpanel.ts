@@ -1,22 +1,18 @@
-import mixpanel from 'mixpanel-browser'
+import mixpanel, { Dict } from 'mixpanel-browser'
+import { MIXPANEL_TOKEN } from 'src/constants'
 
-const enabled = true
+const enabled = MIXPANEL_TOKEN.length && true
 
-const actions = {
-  identify: (id?: string) => {
+export const Mixpanel = {
+  identify: (id: string) => {
     if (enabled) mixpanel.identify(id)
   },
-  alias: (id: string) => {
-    if (enabled) mixpanel.alias(id)
-  },
-  track: (name: string, props?: {}) => {
+  track: (name: string, props?: Dict) => {
     if (enabled) mixpanel.track(name, props)
   },
   people: {
-    set: (props: {}) => {
-      if (enabled) mixpanel.people.set(props)
+    set: (props: Dict) => {
+      mixpanel.people.set(props)
     }
   }
 }
-
-export let Mixpanel = actions
