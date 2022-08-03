@@ -13,50 +13,51 @@ import PostType from './Type'
 dayjs.extend(relativeTime)
 
 interface Props {
-  post: LensterPost
+  publication: LensterPost
   showType?: boolean
   showActions?: boolean
 }
 
-const SinglePost: FC<Props> = ({
-  post,
+const SinglePublication: FC<Props> = ({
+  publication,
   showType = true,
   showActions = true
 }) => {
-  const postType = post?.metadata?.attributes[0]?.value
+  const postType = publication?.metadata?.attributes[0]?.value
 
   return (
-    <Link href={`/posts/${post?.id ?? post?.pubId}`} passHref>
+    <Link href={`/posts/${publication?.id ?? publication?.pubId}`} passHref>
       <article
         className="cursor-pointer first:rounded-t-xl last:rounded-b-xl hover:bg-gray-100/70 hover:dark:bg-gray-800/70 p-5"
         data-test="publication"
       >
-        <PostType post={post} showType={showType} showThread />
+        <PostType post={publication} showType={showType} showThread />
         <div>
           <div className="flex justify-between pb-4 space-x-1.5">
             <UserProfile
               profile={
-                postType === 'community' && !!post?.collectedBy?.defaultProfile
-                  ? post?.collectedBy?.defaultProfile
-                  : post?.__typename === 'Mirror'
-                  ? post?.mirrorOf?.profile
-                  : post?.profile
+                postType === 'community' &&
+                !!publication?.collectedBy?.defaultProfile
+                  ? publication?.collectedBy?.defaultProfile
+                  : publication?.__typename === 'Mirror'
+                  ? publication?.mirrorOf?.profile
+                  : publication?.profile
               }
             />
             <span
               className="text-sm text-gray-500"
               data-test="publication-timestamp"
             >
-              {dayjs(new Date(post?.createdAt)).fromNow()}
+              {dayjs(new Date(publication?.createdAt)).fromNow()}
             </span>
           </div>
           <div className="ml-[53px]" data-test="publication-content">
-            {post?.hidden ? (
-              <HiddenPost type={post?.__typename} />
+            {publication?.hidden ? (
+              <HiddenPost type={publication?.__typename} />
             ) : (
               <>
-                <PostBody post={post} />
-                {showActions && <PostActions post={post} />}
+                <PostBody post={publication} />
+                {showActions && <PostActions post={publication} />}
               </>
             )}
           </div>
@@ -66,4 +67,4 @@ const SinglePost: FC<Props> = ({
   )
 }
 
-export default SinglePost
+export default SinglePublication
