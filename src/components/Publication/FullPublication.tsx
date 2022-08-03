@@ -4,7 +4,7 @@ import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import React, { FC } from 'react'
 
-import PostActions from './Actions'
+import PublicationActions from './Actions'
 import HiddenPublication from './HiddenPublication'
 import PublicationBody from './PublicationBody'
 import PostType from './Type'
@@ -46,7 +46,7 @@ const FullPublication: FC<Props> = ({ publication }) => {
           ) : (
             <>
               <PublicationBody publication={publication} />
-              <PostActions post={publication} />
+              <PublicationActions publication={publication} />
             </>
           )}
         </div>
