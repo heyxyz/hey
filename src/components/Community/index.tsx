@@ -1,6 +1,6 @@
 import { gql, useQuery } from '@apollo/client'
 import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout'
-import PostsShimmer from '@components/Shared/Shimmer/PostsShimmer'
+import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer'
 import Seo from '@components/utils/Seo'
 import { CommunityFields } from '@gql/CommunityFields'
 import Logger from '@lib/logger'
@@ -16,7 +16,7 @@ import Details from './Details'
 import CommunityPageShimmer from './Shimmer'
 
 const Feed = dynamic(() => import('@components/Comment/Feed'), {
-  loading: () => <PostsShimmer />
+  loading: () => <PublicationsShimmer />
 })
 
 const COMMUNITY_QUERY = gql`
