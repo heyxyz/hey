@@ -1,6 +1,6 @@
 import { LensHubProxy } from '@abis/LensHubProxy'
 import { gql, useMutation, useQuery } from '@apollo/client'
-import { PUBLICATION_REVENUE_QUERY } from '@components/Post/Crowdfund'
+import { PUBLICATION_REVENUE_QUERY } from '@components/Publication/Crowdfund'
 import { ALLOWANCE_SETTINGS_QUERY } from '@components/Settings/Allowance'
 import AllowanceButton from '@components/Settings/Allowance/Button'
 import Collectors from '@components/Shared/Collectors'

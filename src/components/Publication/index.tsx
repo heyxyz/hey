@@ -74,7 +74,7 @@ export const POST_QUERY = gql`
   ${MirrorFields}
 `
 
-const ViewPost: NextPage = () => {
+const ViewPublication: NextPage = () => {
   const {
     query: { id }
   } = useRouter()
@@ -146,4 +146,4 @@ const ViewPost: NextPage = () => {
   )
 }
 
-export default ViewPost
+export default ViewPublication
