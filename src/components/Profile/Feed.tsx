@@ -1,6 +1,6 @@
 import { gql, useQuery } from '@apollo/client'
 import SinglePublication from '@components/Publication/SinglePublication'
-import PostsShimmer from '@components/Shared/Shimmer/PostsShimmer'
+import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer'
 import { Card } from '@components/UI/Card'
 import { EmptyState } from '@components/UI/EmptyState'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
@@ -100,7 +100,7 @@ const Feed: FC<Props> = ({ profile, type }) => {
 
   return (
     <>
-      {loading && <PostsShimmer />}
+      {loading && <PublicationsShimmer />}
       {data?.publications?.items?.length === 0 && (
         <EmptyState
           message={

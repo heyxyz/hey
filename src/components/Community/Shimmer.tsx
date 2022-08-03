@@ -1,5 +1,5 @@
 import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout'
-import PostsShimmer from '@components/Shared/Shimmer/PostsShimmer'
+import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer'
 import React, { FC } from 'react'
 
 const CommunityPageShimmer: FC = () => {
@@ -35,7 +35,7 @@ const CommunityPageShimmer: FC = () => {
         </div>
       </GridItemFour>
       <GridItemEight>
-        <PostsShimmer />
+        <PublicationsShimmer />
       </GridItemEight>
     </GridLayout>
   )

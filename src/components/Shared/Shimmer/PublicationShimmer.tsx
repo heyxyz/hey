@@ -2,7 +2,7 @@ import { FC } from 'react'
 
 import UserProfileShimmer from './UserProfileShimmer'
 
-const PostShimmer: FC = () => {
+const PublicationShimmer: FC = () => {
   return (
     <div className="p-5 space-y-4">
       <div className="flex justify-between">
@@ -24,4 +24,4 @@ const PostShimmer: FC = () => {
   )
 }
 
-export default PostShimmer
+export default PublicationShimmer
