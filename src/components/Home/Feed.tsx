@@ -1,12 +1,12 @@
 import { gql, useQuery } from '@apollo/client'
-import NewPost from '@components/Post/NewPost'
-import SinglePost from '@components/Post/SinglePost'
-import PostsShimmer from '@components/Shared/Shimmer/PostsShimmer'
+import NewPost from '@components/Publication/NewPost'
+import SinglePublication from '@components/Publication/SinglePublication'
+import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer'
 import { Card } from '@components/UI/Card'
 import { EmptyState } from '@components/UI/EmptyState'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { Spinner } from '@components/UI/Spinner'
-import { LensterPost } from '@generated/lenstertypes'
+import { LensterPublication } from '@generated/lenstertypes'
 import { PaginatedResultInfo } from '@generated/types'
 import { CommentFields } from '@gql/CommentFields'
 import { MirrorFields } from '@gql/MirrorFields'
@@ -48,7 +48,7 @@ const HOME_FEED_QUERY = gql`
 
 const Feed: FC = () => {
   const { currentUser } = useAppPersistStore()
-  const [publications, setPublications] = useState<LensterPost[]>([])
+  const [publications, setPublications] = useState<LensterPublication[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
   const { data, loading, error, fetchMore } = useQuery(HOME_FEED_QUERY, {
     variables: {
@@ -92,7 +92,7 @@ const Feed: FC = () => {
   return (
     <>
       {currentUser && <NewPost />}
-      {loading && <PostsShimmer />}
+      {loading && <PublicationsShimmer />}
       {data?.timeline?.items?.length === 0 && (
         <EmptyState
           message={<div>No posts yet!</div>}
@@ -103,8 +103,11 @@ const Feed: FC = () => {
       {!error && !loading && data?.timeline?.items?.length !== 0 && (
         <>
           <Card className="divide-y-[1px] dark:divide-gray-700/80">
-            {publications?.map((post: LensterPost, index: number) => (
-              <SinglePost key={`${post?.id}_${index}`} post={post} />
+            {publications?.map((post: LensterPublication, index: number) => (
+              <SinglePublication
+                key={`${post?.id}_${index}`}
+                publication={post}
+              />
             ))}
           </Card>
           {pageInfo?.next && publications.length !== pageInfo?.totalCount && (

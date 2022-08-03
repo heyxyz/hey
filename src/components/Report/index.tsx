@@ -1,9 +1,9 @@
 import { gql, useMutation, useQuery } from '@apollo/client'
 import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout'
-import { POST_QUERY } from '@components/Post'
-import SinglePost from '@components/Post/SinglePost'
+import { PUBLICATION_QUERY } from '@components/Publication'
+import SinglePublication from '@components/Publication/SinglePublication'
 import SettingsHelper from '@components/Shared/SettingsHelper'
-import PostShimmer from '@components/Shared/Shimmer/PostShimmer'
+import PublicationShimmer from '@components/Shared/Shimmer/PublicationShimmer'
 import { Button } from '@components/UI/Button'
 import { Card, CardBody } from '@components/UI/Card'
 import { EmptyState } from '@components/UI/EmptyState'
@@ -45,7 +45,7 @@ const Report: FC = () => {
   const [type, setType] = useState<string>('')
   const [subReason, setSubReason] = useState<string>('')
   const { currentUser } = useAppPersistStore()
-  const { data, loading, error } = useQuery(POST_QUERY, {
+  const { data, loading, error } = useQuery(PUBLICATION_QUERY, {
     variables: {
       request: { publicationId: id },
       followRequest: {
@@ -115,14 +115,14 @@ const Report: FC = () => {
             <CardBody>
               <ErrorMessage title="Failed to load post" error={error} />
               {loading ? (
-                <PostShimmer />
+                <PublicationShimmer />
               ) : !data?.publication ? (
                 <ErrorMessage
                   title="Failed to load post"
                   error={{ name: '', message: 'No such publication' }}
                 />
               ) : (
-                <SinglePost post={data?.publication} />
+                <SinglePublication publication={data?.publication} />
               )}
               {data?.publication && (
                 <Form

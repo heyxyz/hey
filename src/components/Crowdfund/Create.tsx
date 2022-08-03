@@ -1,7 +1,7 @@
 import { LensHubProxy } from '@abis/LensHubProxy'
 import { gql, useMutation, useQuery } from '@apollo/client'
 import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout'
-import { CREATE_POST_TYPED_DATA_MUTATION } from '@components/Post/NewPost'
+import { CREATE_POST_TYPED_DATA_MUTATION } from '@components/Publication/NewPost'
 import ChooseFile from '@components/Shared/ChooseFile'
 import Pending from '@components/Shared/Pending'
 import SettingsHelper from '@components/Shared/SettingsHelper'
@@ -27,6 +27,7 @@ import { NextPage } from 'next'
 import React, { ChangeEvent, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
+  ADDRESS_REGEX,
   APP_NAME,
   DEFAULT_COLLECT_TOKEN,
   ERROR_MESSAGE,
@@ -60,7 +61,7 @@ const newCrowdfundSchema = object({
   goal: string(),
   recipient: string()
     .max(42, { message: 'Ethereum address should be within 42 characters' })
-    .regex(/^0x[a-fA-F0-9]{40}$/, { message: 'Invalid Ethereum address' }),
+    .regex(ADDRESS_REGEX, { message: 'Invalid Ethereum address' }),
   referralFee: string()
     .min(1, { message: 'Invalid Referral fee' })
     .max(20, { message: 'Invalid Referral fee' }),

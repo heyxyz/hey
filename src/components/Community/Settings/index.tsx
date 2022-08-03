@@ -1,5 +1,5 @@
 import { useMutation } from '@apollo/client'
-import { HIDE_POST_MUTATION } from '@components/Post/Actions/Menu/Delete'
+import { HIDE_POST_MUTATION } from '@components/Publication/Actions/Menu/Delete'
 import { Button } from '@components/UI/Button'
 import { WarningMessage } from '@components/UI/WarningMessage'
 import { Community } from '@generated/lenstertypes'
