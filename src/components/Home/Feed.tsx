@@ -1,6 +1,6 @@
 import { gql, useQuery } from '@apollo/client'
-import NewPost from '@components/Post/NewPost'
-import SinglePublication from '@components/Post/SinglePublication'
+import NewPost from '@components/Publication/NewPost'
+import SinglePublication from '@components/Publication/SinglePublication'
 import PostsShimmer from '@components/Shared/Shimmer/PostsShimmer'
 import { Card } from '@components/UI/Card'
 import { EmptyState } from '@components/UI/EmptyState'
