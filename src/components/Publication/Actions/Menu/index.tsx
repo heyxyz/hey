@@ -14,10 +14,10 @@ import Embed from './Embed'
 import Permalink from './Permalink'
 
 interface Props {
-  post: LensterPublication
+  publication: LensterPublication
 }
 
-const PostMenu: FC<Props> = ({ post }) => {
+const PublicationMenu: FC<Props> = ({ publication }) => {
   const { currentUser } = useAppPersistStore()
 
   return (
@@ -45,12 +45,12 @@ const PostMenu: FC<Props> = ({ post }) => {
               static
               className="absolute py-1 w-max bg-white rounded-xl border shadow-sm dark:bg-gray-900 focus:outline-none z-[5] dark:border-gray-700/80"
             >
-              {currentUser?.id === post?.profile?.id ? (
-                <Delete post={post} />
+              {currentUser?.id === publication?.profile?.id ? (
+                <Delete post={publication} />
               ) : (
                 <Menu.Item
                   as={NextLink}
-                  href={`/report/${post?.id}`}
+                  href={`/report/${publication?.id}`}
                   className={({ active }: { active: boolean }) =>
                     clsx(
                       { 'dropdown-active': active },
@@ -64,8 +64,8 @@ const PostMenu: FC<Props> = ({ post }) => {
                   </div>
                 </Menu.Item>
               )}
-              <Embed post={post} />
-              <Permalink post={post} />
+              <Embed post={publication} />
+              <Permalink post={publication} />
             </Menu.Items>
           </Transition>
         </>
@@ -74,4 +74,4 @@ const PostMenu: FC<Props> = ({ post }) => {
   )
 }
 
-export default PostMenu
+export default PublicationMenu
