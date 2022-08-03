@@ -12,40 +12,40 @@ import PublicationBody from './PublicationBody'
 dayjs.extend(relativeTime)
 
 interface Props {
-  post: LensterPublication
+  publication: LensterPublication
 }
 
-const ThreadBody: FC<Props> = ({ post }) => {
+const ThreadBody: FC<Props> = ({ publication }) => {
   return (
     <div>
       <div className="flex justify-between space-x-1.5">
         <UserProfile
           profile={
-            post?.collectedBy?.defaultProfile
-              ? post?.collectedBy?.defaultProfile
-              : post?.__typename === 'Mirror'
-              ? post?.mirrorOf?.profile
-              : post?.profile
+            publication?.collectedBy?.defaultProfile
+              ? publication?.collectedBy?.defaultProfile
+              : publication?.__typename === 'Mirror'
+              ? publication?.mirrorOf?.profile
+              : publication?.profile
           }
         />
-        <Link href={`/posts/${post?.id ?? post?.pubId}`}>
+        <Link href={`/posts/${publication?.id ?? publication?.pubId}`}>
           <a
-            href={`/posts/${post?.id ?? post?.pubId}`}
+            href={`/posts/${publication?.id ?? publication?.pubId}`}
             className="text-sm text-gray-500"
           >
-            {dayjs(new Date(post?.createdAt)).fromNow()}
+            {dayjs(new Date(publication?.createdAt)).fromNow()}
           </a>
         </Link>
       </div>
       <div className="flex">
         <div className="mr-8 ml-5 bg-gray-300 border-gray-300 dark:bg-gray-700 dark:border-gray-700 border-[0.8px] -my-[4px]" />
         <div className="pt-4 pb-5 w-full">
-          {post?.hidden ? (
-            <HiddenPublication type={post?.__typename} />
+          {publication?.hidden ? (
+            <HiddenPublication type={publication?.__typename} />
           ) : (
             <>
-              <PublicationBody publication={post} />
-              <PublicationActions publication={post} />
+              <PublicationBody publication={publication} />
+              <PublicationActions publication={publication} />
             </>
           )}
         </div>

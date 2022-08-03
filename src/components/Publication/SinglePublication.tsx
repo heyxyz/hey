@@ -23,7 +23,7 @@ const SinglePublication: FC<Props> = ({
   showType = true,
   showActions = true
 }) => {
-  const postType = publication?.metadata?.attributes[0]?.value
+  const publicationType = publication?.metadata?.attributes[0]?.value
 
   return (
     <Link href={`/posts/${publication?.id ?? publication?.pubId}`} passHref>
@@ -40,7 +40,7 @@ const SinglePublication: FC<Props> = ({
           <div className="flex justify-between pb-4 space-x-1.5">
             <UserProfile
               profile={
-                postType === 'community' &&
+                publicationType === 'community' &&
                 !!publication?.collectedBy?.defaultProfile
                   ? publication?.collectedBy?.defaultProfile
                   : publication?.__typename === 'Mirror'

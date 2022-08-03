@@ -9,13 +9,13 @@ interface Props {
 }
 
 const CollectedContent: FC<Props> = ({ notification }) => {
-  const postType =
+  const publicationType =
     notification?.collectedPublication?.metadata?.attributes[0]?.value ??
     notification?.collectedPublication?.__typename?.toLowerCase()
 
   return (
     <div className="text-gray-500 line-clamp-2 mt-2">
-      {postType === 'community' ? (
+      {publicationType === 'community' ? (
         <Link href={`/communities/${notification?.collectedPublication?.id}`}>
           <a
             href={`/communities/${notification?.collectedPublication?.id}`}
@@ -38,7 +38,7 @@ const CollectedContent: FC<Props> = ({ notification }) => {
             <div>{notification?.collectedPublication?.metadata?.name}</div>
           </a>
         </Link>
-      ) : postType === 'crowdfund' ? (
+      ) : publicationType === 'crowdfund' ? (
         <Link href={`/posts/${notification?.collectedPublication?.id}`}>
           <a href={`/posts/${notification?.collectedPublication?.id}`}>
             {notification?.collectedPublication?.metadata?.name}

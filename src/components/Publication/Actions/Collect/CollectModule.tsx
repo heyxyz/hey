@@ -116,10 +116,10 @@ const CREATE_COLLECT_TYPED_DATA_MUTATION = gql`
 interface Props {
   count: number
   setCount: Dispatch<number>
-  post: LensterPublication
+  publication: LensterPublication
 }
 
-const CollectModule: FC<Props> = ({ count, setCount, post }) => {
+const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
   const { userSigNonce, setUserSigNonce } = useAppStore()
   const { isConnected } = useAppPersistStore()
   const [revenue, setRevenue] = useState<number>(0)
@@ -132,11 +132,15 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
     }
   })
   const { data, loading } = useQuery(COLLECT_QUERY, {
-    variables: { request: { publicationId: post?.pubId ?? post?.id } },
+    variables: {
+      request: { publicationId: publication?.pubId ?? publication?.id }
+    },
     onCompleted() {
       Logger.log(
         '[Query]',
-        `Fetched collect module details Publication:${post?.pubId ?? post?.id}`
+        `Fetched collect module details Publication:${
+          publication?.pubId ?? publication?.id
+        }`
       )
     },
     onError(error) {
@@ -200,17 +204,17 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
       variables: {
         request: {
           publicationId:
-            post?.__typename === 'Mirror'
-              ? post?.mirrorOf?.id
-              : post?.pubId ?? post?.id
+            publication?.__typename === 'Mirror'
+              ? publication?.mirrorOf?.id
+              : publication?.pubId ?? publication?.id
         }
       },
-      skip: !post?.id,
+      skip: !publication?.id,
       onCompleted() {
         Logger.log(
           '[Query]',
           `Fetched collect revenue details Publication:${
-            post?.pubId ?? post?.id
+            publication?.pubId ?? publication?.id
           }`
         )
       },
@@ -310,7 +314,7 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
     createCollectTypedData({
       variables: {
         options: { overrideSigNonce: userSigNonce },
-        request: { publicationId: post?.pubId ?? post?.id }
+        request: { publicationId: publication?.pubId ?? publication?.id }
       }
     })
   }
@@ -337,9 +341,9 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
         {collectModule?.followerOnly && (
           <div className="pb-5">
             <ReferenceAlert
-              handle={post?.profile?.handle}
+              handle={publication?.profile?.handle}
               isSuperFollow={
-                post?.profile?.followModule?.__typename ===
+                publication?.profile?.followModule?.__typename ===
                 'FeeFollowModuleSettings'
               }
               action="collect"
@@ -348,26 +352,28 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
         )}
         <div className="pb-2 space-y-1.5">
           <div className="flex items-center space-x-2">
-            {post?.__typename === 'Mirror' && (
+            {publication?.__typename === 'Mirror' && (
               <Tooltip
-                content={`Mirror of ${post?.mirrorOf?.__typename?.toLowerCase()} by ${
-                  post?.mirrorOf?.profile?.handle
+                content={`Mirror of ${publication?.mirrorOf?.__typename?.toLowerCase()} by ${
+                  publication?.mirrorOf?.profile?.handle
                 }`}
               >
                 <SwitchHorizontalIcon className="w-5 h-5 text-brand" />
               </Tooltip>
             )}
-            {post?.metadata?.name && (
-              <div className="text-xl font-bold">{post?.metadata?.name}</div>
+            {publication?.metadata?.name && (
+              <div className="text-xl font-bold">
+                {publication?.metadata?.name}
+              </div>
             )}
           </div>
-          {post?.metadata?.description && (
+          {publication?.metadata?.description && (
             <div className="text-gray-500 line-clamp-2">
-              <Markup>{post?.metadata?.description}</Markup>
+              <Markup>{publication?.metadata?.description}</Markup>
             </div>
           )}
           <ReferralAlert
-            mirror={post}
+            mirror={publication}
             referralFee={collectModule?.referralFee}
           />
         </div>
@@ -410,9 +416,9 @@ const CollectModule: FC<Props> = ({ count, setCount, post }) => {
               >
                 <Collectors
                   pubId={
-                    post?.__typename === 'Mirror'
-                      ? post?.mirrorOf?.id
-                      : post?.pubId ?? post?.id
+                    publication?.__typename === 'Mirror'
+                      ? publication?.mirrorOf?.id
+                      : publication?.pubId ?? publication?.id
                   }
                 />
               </Modal>

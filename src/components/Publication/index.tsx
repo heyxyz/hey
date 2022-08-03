@@ -99,29 +99,29 @@ const ViewPublication: NextPage = () => {
   if (loading || !data) return <PublicationPageShimmer />
   if (!data.publication) return <Custom404 />
 
-  const post: LensterPublication = data.publication
-  const appConfig = apps.filter((e) => e.id === post?.appId)[0]
+  const publication: LensterPublication = data.publication
+  const appConfig = apps.filter((e) => e.id === publication?.appId)[0]
 
   return (
     <GridLayout>
       <Seo
         title={
-          post?.__typename && post?.profile?.handle
-            ? `${post.__typename} by @${post.profile.handle} • ${APP_NAME}`
+          publication?.__typename && publication?.profile?.handle
+            ? `${publication.__typename} by @${publication.profile.handle} • ${APP_NAME}`
             : APP_NAME
         }
       />
       <GridItemEight className="space-y-5">
         <Card>
-          <FullPublication publication={post} />
+          <FullPublication publication={publication} />
         </Card>
         <Feed
-          post={post}
+          publication={publication}
           onlyFollowers={
-            post?.referenceModule?.__typename ===
+            publication?.referenceModule?.__typename ===
             'FollowOnlyReferenceModuleSettings'
           }
-          isFollowing={post?.profile?.isFollowedByMe}
+          isFollowing={publication?.profile?.isFollowedByMe}
         />
       </GridItemEight>
       <GridItemFour className="space-y-5">
@@ -129,17 +129,17 @@ const ViewPublication: NextPage = () => {
           <CardBody>
             <UserProfile
               profile={
-                post?.__typename === 'Mirror'
-                  ? post?.mirrorOf?.profile
-                  : post?.profile
+                publication?.__typename === 'Mirror'
+                  ? publication?.mirrorOf?.profile
+                  : publication?.profile
               }
               showBio
             />
           </CardBody>
           <ViaApp appConfig={appConfig} />
         </Card>
-        <RelevantPeople publication={post} />
-        <IPFSHash ipfsHash={post?.onChainContentURI} />
+        <RelevantPeople publication={publication} />
+        <IPFSHash ipfsHash={publication?.onChainContentURI} />
         <Footer />
       </GridItemFour>
     </GridLayout>

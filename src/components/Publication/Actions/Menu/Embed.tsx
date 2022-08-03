@@ -5,10 +5,10 @@ import clsx from 'clsx'
 import React, { FC } from 'react'
 
 interface Props {
-  post: LensterPublication
+  publication: LensterPublication
 }
 
-const Embed: FC<Props> = ({ post }) => {
+const Embed: FC<Props> = ({ publication }) => {
   return (
     <Menu.Item
       as="a"
@@ -18,7 +18,9 @@ const Embed: FC<Props> = ({ post }) => {
           'block px-4 py-1.5 text-sm m-2 rounded-lg cursor-pointer'
         )
       }
-      href={`https://embed.withlens.app/?url=${post?.id ?? post?.pubId}`}
+      href={`https://embed.withlens.app/?url=${
+        publication?.id ?? publication?.pubId
+      }`}
       target="_blank"
     >
       <div className="flex items-center space-x-2">

@@ -8,21 +8,21 @@ import { FC } from 'react'
 import { usePublicationStore } from 'src/store/publication'
 
 interface Props {
-  post: LensterPublication
+  publication: LensterPublication
 }
 
-const Comment: FC<Props> = ({ post }) => {
+const Comment: FC<Props> = ({ publication }) => {
   const { setParentPub, setShowNewPostModal } = usePublicationStore()
   const count =
-    post.__typename === 'Mirror'
-      ? post?.mirrorOf?.stats?.totalAmountOfComments
-      : post?.stats?.totalAmountOfComments
+    publication.__typename === 'Mirror'
+      ? publication?.mirrorOf?.stats?.totalAmountOfComments
+      : publication?.stats?.totalAmountOfComments
 
   return (
     <motion.button
       whileTap={{ scale: 0.9 }}
       onClick={() => {
-        setParentPub(post)
+        setParentPub(publication)
         setShowNewPostModal(true)
       }}
       aria-label="Like"

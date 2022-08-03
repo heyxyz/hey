@@ -8,13 +8,13 @@ import toast from 'react-hot-toast'
 import { PUBLIC_URL } from 'src/constants'
 
 interface Props {
-  post: LensterPublication
+  publication: LensterPublication
 }
 
-const Permalink: FC<Props> = ({ post }) => {
+const Permalink: FC<Props> = ({ publication }) => {
   return (
     <CopyToClipboard
-      text={`${PUBLIC_URL}/posts/${post?.id ?? post?.pubId}`}
+      text={`${PUBLIC_URL}/posts/${publication?.id ?? publication?.pubId}`}
       onCopy={() => {
         toast.success('Copied to clipboard!')
       }}
