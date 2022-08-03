@@ -1,11 +1,11 @@
 import { gql, useQuery } from '@apollo/client'
-import SinglePost from '@components/Post/SinglePost'
-import PostsShimmer from '@components/Shared/Shimmer/PostsShimmer'
+import SinglePublication from '@components/Publication/SinglePublication'
+import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer'
 import { Card } from '@components/UI/Card'
 import { EmptyState } from '@components/UI/EmptyState'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { Spinner } from '@components/UI/Spinner'
-import { LensterPost } from '@generated/lenstertypes'
+import { LensterPublication } from '@generated/lenstertypes'
 import { PaginatedResultInfo } from '@generated/types'
 import { CommentFields } from '@gql/CommentFields'
 import { MirrorFields } from '@gql/MirrorFields'
@@ -51,7 +51,7 @@ interface Props {
 
 const Feed: FC<Props> = ({ feedType = 'TOP_COMMENTED' }) => {
   const { currentUser } = useAppPersistStore()
-  const [publications, setPublications] = useState<LensterPost[]>([])
+  const [publications, setPublications] = useState<LensterPublication[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
   const { data, loading, error, fetchMore } = useQuery(EXPLORE_FEED_QUERY, {
     variables: {
@@ -101,7 +101,7 @@ const Feed: FC<Props> = ({ feedType = 'TOP_COMMENTED' }) => {
 
   return (
     <>
-      {loading && <PostsShimmer />}
+      {loading && <PublicationsShimmer />}
       {data?.explorePublications?.items?.length === 0 && (
         <EmptyState
           message={<div>No posts yet!</div>}
@@ -115,8 +115,11 @@ const Feed: FC<Props> = ({ feedType = 'TOP_COMMENTED' }) => {
             className="divide-y-[1px] dark:divide-gray-700/80"
             testId="explore-feed"
           >
-            {publications?.map((post: LensterPost, index: number) => (
-              <SinglePost key={`${post?.id}_${index}`} post={post} />
+            {publications?.map((post: LensterPublication, index: number) => (
+              <SinglePublication
+                key={`${post?.id}_${index}`}
+                publication={post}
+              />
             ))}
           </Card>
           {pageInfo?.next && publications.length !== pageInfo?.totalCount && (

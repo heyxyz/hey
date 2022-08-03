@@ -1,11 +1,11 @@
 import { gql, useQuery } from '@apollo/client'
-import SinglePost from '@components/Post/SinglePost'
-import PostsShimmer from '@components/Shared/Shimmer/PostsShimmer'
+import SinglePublication from '@components/Publication/SinglePublication'
+import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer'
 import { Card } from '@components/UI/Card'
 import { EmptyState } from '@components/UI/EmptyState'
 import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { Spinner } from '@components/UI/Spinner'
-import { LensterPost } from '@generated/lenstertypes'
+import { LensterPublication } from '@generated/lenstertypes'
 import { PaginatedResultInfo } from '@generated/types'
 import { CommentFields } from '@gql/CommentFields'
 import { CollectionIcon } from '@heroicons/react/outline'
@@ -39,21 +39,24 @@ const COMMENT_FEED_QUERY = gql`
 `
 
 interface Props {
-  post: LensterPost
+  publication: LensterPublication
   type?: 'comment' | 'community post'
   onlyFollowers?: boolean
   isFollowing?: boolean
 }
 
 const Feed: FC<Props> = ({
-  post,
+  publication,
   type = 'comment',
   onlyFollowers = false,
   isFollowing = true
 }) => {
-  const pubId = post?.__typename === 'Mirror' ? post?.mirrorOf?.id : post?.id
+  const pubId =
+    publication?.__typename === 'Mirror'
+      ? publication?.mirrorOf?.id
+      : publication?.id
   const { currentUser } = useAppPersistStore()
-  const [publications, setPublications] = useState<LensterPost[]>([])
+  const [publications, setPublications] = useState<LensterPublication[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
   const { data, loading, error, fetchMore } = useQuery(COMMENT_FEED_QUERY, {
     variables: {
@@ -99,18 +102,18 @@ const Feed: FC<Props> = ({
     <>
       {currentUser &&
         (isFollowing || !onlyFollowers ? (
-          <NewComment post={post} type={type} />
+          <NewComment publication={publication} type={type} />
         ) : (
           <ReferenceAlert
-            handle={post?.profile?.handle}
+            handle={publication?.profile?.handle}
             isSuperFollow={
-              post?.profile?.followModule?.__typename ===
+              publication?.profile?.followModule?.__typename ===
               'FeeFollowModuleSettings'
             }
             action="comment"
           />
         ))}
-      {loading && <PostsShimmer />}
+      {loading && <PublicationsShimmer />}
       {data?.publications?.items?.length === 0 && (
         <EmptyState
           message={<span>Be the first one to comment!</span>}
@@ -124,10 +127,10 @@ const Feed: FC<Props> = ({
             className="divide-y-[1px] dark:divide-gray-700/80"
             testId="comment-feed"
           >
-            {publications?.map((post: LensterPost, index: number) => (
-              <SinglePost
+            {publications?.map((post: LensterPublication, index: number) => (
+              <SinglePublication
                 key={`${pubId}_${index}`}
-                post={post}
+                publication={post}
                 showType={false}
               />
             ))}

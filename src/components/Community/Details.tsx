@@ -2,7 +2,7 @@ import Collectors from '@components/Shared/Collectors'
 import Markup from '@components/Shared/Markup'
 import { Button } from '@components/UI/Button'
 import { Modal } from '@components/UI/Modal'
-import { LensterPost } from '@generated/lenstertypes'
+import { LensterPublication } from '@generated/lenstertypes'
 import {
   ClockIcon,
   CogIcon,
@@ -27,7 +27,7 @@ const Settings = dynamic(() => import('./Settings'), {
 dayjs.extend(relativeTime)
 
 interface Props {
-  community: LensterPost
+  community: LensterPublication
 }
 
 const Details: FC<Props> = ({ community }) => {

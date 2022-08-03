@@ -1,3 +1,3 @@
-import ViewPost from '@components/Post'
+import ViewPublication from '@components/Publication'
 
-export default ViewPost
+export default ViewPublication
