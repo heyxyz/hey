@@ -91,10 +91,6 @@ const SiteLayout: FC<Props> = ({ children }) => {
   })
 
   useEffect(() => {
-    Mixpanel.track('page_view', { path: pathname })
-  }, [pathname])
-
-  useEffect(() => {
     const accessToken = Cookies.get('accessToken')
     const refreshToken = Cookies.get('refreshToken')
     const currentUserAddress = currentUser?.ownedBy
@@ -155,6 +151,10 @@ const SiteLayout: FC<Props> = ({ children }) => {
     disconnect,
     setCurrentUser
   ])
+
+  useEffect(() => {
+    Mixpanel.track('page_view', { path: pathname })
+  }, [pathname])
 
   const toastOptions = {
     style: {
