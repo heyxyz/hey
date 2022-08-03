@@ -5,7 +5,7 @@ import relativeTime from 'dayjs/plugin/relativeTime'
 import React, { FC } from 'react'
 
 import PostActions from './Actions'
-import HiddenPost from './HiddenPost'
+import HiddenPublication from './HiddenPublication'
 import PublicationBody from './PublicationBody'
 import PostType from './Type'
 
@@ -42,7 +42,7 @@ const FullPublication: FC<Props> = ({ publication }) => {
         </div>
         <div className="ml-[53px]" data-test="publication-content">
           {publication?.hidden ? (
-            <HiddenPost type={publication?.__typename} />
+            <HiddenPublication type={publication?.__typename} />
           ) : (
             <>
               <PublicationBody publication={publication} />

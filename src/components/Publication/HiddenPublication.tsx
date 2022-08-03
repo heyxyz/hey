@@ -5,7 +5,7 @@ interface Props {
   type?: string
 }
 
-const HiddenPost: FC<Props> = ({ type = 'Publication' }) => {
+const HiddenPublication: FC<Props> = ({ type = 'Publication' }) => {
   return (
     <Card className="!bg-gray-100 dark:!bg-gray-800">
       <div className="py-3 px-4 text-sm italic">
@@ -15,4 +15,4 @@ const HiddenPost: FC<Props> = ({ type = 'Publication' }) => {
   )
 }
 
-export default HiddenPost
+export default HiddenPublication
