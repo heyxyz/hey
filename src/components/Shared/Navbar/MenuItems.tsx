@@ -18,6 +18,7 @@ import { CheckCircleIcon } from '@heroicons/react/solid'
 import getAvatar from '@lib/getAvatar'
 import isBeta from '@lib/isBeta'
 import isStaff from '@lib/isStaff'
+import { Mixpanel } from '@lib/mixpanel'
 import clsx from 'clsx'
 import Cookies from 'js-cookie'
 import Link from 'next/link'
@@ -25,6 +26,7 @@ import { useTheme } from 'next-themes'
 import { FC, Fragment, useState } from 'react'
 import { GIT_COMMIT_SHA } from 'src/constants'
 import { useAppPersistStore, useAppStore } from 'src/store/app'
+import { PROFILE_LOGOUT, USER_LOGIN } from 'src/tracking'
 import { useDisconnect } from 'wagmi'
 
 import Slug from '../Slug'
@@ -130,6 +132,7 @@ const MenuItems: FC<Props> = ({ pingData }) => {
               <Menu.Item
                 as="a"
                 onClick={() => {
+                  Mixpanel.track(PROFILE_LOGOUT, { action: 'click' })
                   setCurrentUser(null)
                   Cookies.remove('accessToken')
                   Cookies.remove('refreshToken')
@@ -288,6 +291,7 @@ const MenuItems: FC<Props> = ({ pingData }) => {
           />
         }
         onClick={() => {
+          Mixpanel.track(USER_LOGIN, { action: 'click' })
           setShowLoginModal(!showLoginModal)
         }}
       >
