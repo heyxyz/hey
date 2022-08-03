@@ -20,7 +20,7 @@ import Custom404 from 'src/pages/404'
 import Custom500 from 'src/pages/500'
 import { useAppPersistStore } from 'src/store/app'
 
-import FullPost from './FullPost'
+import FullPublication from './FullPublication'
 import IPFSHash from './IPFSHash'
 import RelevantPeople from './RelevantPeople'
 import PostPageShimmer from './Shimmer'
@@ -113,7 +113,7 @@ const ViewPublication: NextPage = () => {
       />
       <GridItemEight className="space-y-5">
         <Card>
-          <FullPost post={post} />
+          <FullPublication publication={post} />
         </Card>
         <Feed
           post={post}
