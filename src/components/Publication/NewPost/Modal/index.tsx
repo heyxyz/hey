@@ -1,5 +1,5 @@
 import NewComment from '@components/Comment/NewComment'
-import SinglePublication from '@components/Post/SinglePublication'
+import SinglePublication from '@components/Publication/SinglePublication'
 import { Card } from '@components/UI/Card'
 import { Modal } from '@components/UI/Modal'
 import { PencilAltIcon } from '@heroicons/react/outline'

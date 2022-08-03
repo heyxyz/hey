@@ -1,5 +1,5 @@
 import { gql, useQuery } from '@apollo/client'
-import SinglePublication from '@components/Post/SinglePublication'
+import SinglePublication from '@components/Publication/SinglePublication'
 import PostsShimmer from '@components/Shared/Shimmer/PostsShimmer'
 import { Card } from '@components/UI/Card'
 import { EmptyState } from '@components/UI/EmptyState'
