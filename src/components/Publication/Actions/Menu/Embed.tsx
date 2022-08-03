@@ -1,11 +1,11 @@
-import { LensterPost } from '@generated/lenstertypes'
+import { LensterPublication } from '@generated/lenstertypes'
 import { Menu } from '@headlessui/react'
 import { CodeIcon } from '@heroicons/react/outline'
 import clsx from 'clsx'
 import React, { FC } from 'react'
 
 interface Props {
-  post: LensterPost
+  post: LensterPublication
 }
 
 const Embed: FC<Props> = ({ post }) => {

@@ -5,7 +5,7 @@ import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer'
 import UserProfile from '@components/Shared/UserProfile'
 import { Card, CardBody } from '@components/UI/Card'
 import Seo from '@components/utils/Seo'
-import { LensterPost } from '@generated/lenstertypes'
+import { LensterPublication } from '@generated/lenstertypes'
 import { CommentFields } from '@gql/CommentFields'
 import { MirrorFields } from '@gql/MirrorFields'
 import { PostFields } from '@gql/PostFields'
@@ -99,7 +99,7 @@ const ViewPublication: NextPage = () => {
   if (loading || !data) return <PostPageShimmer />
   if (!data.publication) return <Custom404 />
 
-  const post: LensterPost = data.publication
+  const post: LensterPublication = data.publication
   const appConfig = apps.filter((e) => e.id === post?.appId)[0]
 
   return (

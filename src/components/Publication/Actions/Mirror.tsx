@@ -2,7 +2,7 @@ import { LensHubProxy } from '@abis/LensHubProxy'
 import { gql, useMutation } from '@apollo/client'
 import { Spinner } from '@components/UI/Spinner'
 import { Tooltip } from '@components/UI/Tooltip'
-import { LensterPost } from '@generated/lenstertypes'
+import { LensterPublication } from '@generated/lenstertypes'
 import { CreateMirrorBroadcastItemResult } from '@generated/types'
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { SwitchHorizontalIcon } from '@heroicons/react/outline'
@@ -62,7 +62,7 @@ const CREATE_MIRROR_TYPED_DATA_MUTATION = gql`
 `
 
 interface Props {
-  post: LensterPost
+  post: LensterPublication
 }
 
 const Mirror: FC<Props> = ({ post }) => {

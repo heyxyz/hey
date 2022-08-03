@@ -1,5 +1,5 @@
 import { gql, useMutation } from '@apollo/client'
-import { LensterPost } from '@generated/lenstertypes'
+import { LensterPublication } from '@generated/lenstertypes'
 import { Menu } from '@headlessui/react'
 import { TrashIcon } from '@heroicons/react/outline'
 import clsx from 'clsx'
@@ -13,7 +13,7 @@ export const HIDE_POST_MUTATION = gql`
 `
 
 interface Props {
-  post: LensterPost
+  post: LensterPublication
 }
 
 const Delete: FC<Props> = ({ post }) => {

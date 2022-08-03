@@ -1,4 +1,4 @@
-import { LensterPost } from '@generated/lenstertypes'
+import { LensterPublication } from '@generated/lenstertypes'
 import React, { FC, MouseEvent } from 'react'
 
 import Collect from './Collect'
@@ -8,7 +8,7 @@ import PostMenu from './Menu'
 import Mirror from './Mirror'
 
 interface Props {
-  post: LensterPost
+  post: LensterPublication
 }
 
 const PostActions: FC<Props> = ({ post }) => {

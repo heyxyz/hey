@@ -2,7 +2,7 @@ import Loader from '@components/Shared/Loader'
 import { Modal } from '@components/UI/Modal'
 import { Tooltip } from '@components/UI/Tooltip'
 import GetModuleIcon from '@components/utils/GetModuleIcon'
-import { LensterPost } from '@generated/lenstertypes'
+import { LensterPublication } from '@generated/lenstertypes'
 import { CollectionIcon } from '@heroicons/react/outline'
 import { getModule } from '@lib/getModule'
 import humanize from '@lib/humanize'
@@ -16,7 +16,7 @@ const CollectModule = dynamic(() => import('./CollectModule'), {
 })
 
 interface Props {
-  post: LensterPost
+  post: LensterPublication
 }
 
 const Collect: FC<Props> = ({ post }) => {

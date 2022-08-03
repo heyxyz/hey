@@ -1,4 +1,4 @@
-import { LensterPost } from '@generated/lenstertypes'
+import { LensterPublication } from '@generated/lenstertypes'
 import { useRouter } from 'next/router'
 import React, { FC } from 'react'
 
@@ -9,7 +9,7 @@ import CommunityPost from './CommunityPost'
 import Mirrored from './Mirrored'
 
 interface Props {
-  post: LensterPost
+  post: LensterPublication
   showType?: boolean
   showThread?: boolean
 }

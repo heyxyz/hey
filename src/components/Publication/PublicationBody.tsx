@@ -2,7 +2,7 @@ import Attachments from '@components/Shared/Attachments'
 import IFramely from '@components/Shared/IFramely'
 import Markup from '@components/Shared/Markup'
 import CrowdfundShimmer from '@components/Shared/Shimmer/CrowdfundShimmer'
-import { LensterPost } from '@generated/lenstertypes'
+import { LensterPublication } from '@generated/lenstertypes'
 import { EyeIcon, UserAddIcon, UsersIcon } from '@heroicons/react/outline'
 import getURLs from '@lib/getURLs'
 import imagekitURL from '@lib/imagekitURL'
@@ -17,7 +17,7 @@ const Crowdfund = dynamic(() => import('./Crowdfund'), {
 })
 
 interface Props {
-  publication: LensterPost
+  publication: LensterPublication
 }
 
 const PublicationBody: FC<Props> = ({ publication }) => {
