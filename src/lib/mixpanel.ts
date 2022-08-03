@@ -1,7 +1,7 @@
 import mixpanel, { Dict } from 'mixpanel-browser'
-import { MIXPANEL_TOKEN } from 'src/constants'
+import { IS_PRODUCTION, MIXPANEL_TOKEN } from 'src/constants'
 
-const enabled = MIXPANEL_TOKEN && true
+const enabled = MIXPANEL_TOKEN && IS_PRODUCTION
 
 export const Mixpanel = {
   identify: (id: string) => {
