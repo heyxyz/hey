@@ -104,14 +104,14 @@ const CREATE_COMMENT_TYPED_DATA_MUTATION = gql`
 interface Props {
   setShowModal?: Dispatch<boolean>
   hideCard?: boolean
-  post: LensterPublication
+  publication: LensterPublication
   type: 'comment' | 'community post'
 }
 
 const NewComment: FC<Props> = ({
   setShowModal,
   hideCard = false,
-  post,
+  publication,
   type
 }) => {
   const { userSigNonce, setUserSigNonce } = useAppStore()
@@ -273,7 +273,9 @@ const NewComment: FC<Props> = ({
         request: {
           profileId: currentUser?.id,
           publicationId:
-            post?.__typename === 'Mirror' ? post?.mirrorOf?.id : post?.id,
+            publication?.__typename === 'Mirror'
+              ? publication?.mirrorOf?.id
+              : publication?.id,
           contentURI: `https://ipfs.infura.io/ipfs/${path}`,
           collectModule: feeData.recipient
             ? {

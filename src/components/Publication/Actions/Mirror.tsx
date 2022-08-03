@@ -62,27 +62,29 @@ const CREATE_MIRROR_TYPED_DATA_MUTATION = gql`
 `
 
 interface Props {
-  post: LensterPublication
+  publication: LensterPublication
 }
 
-const Mirror: FC<Props> = ({ post }) => {
+const Mirror: FC<Props> = ({ publication }) => {
   const [count, setCount] = useState<number>(0)
-  const [mirrored, setMirrored] = useState<boolean>(post?.mirrors?.length > 0)
+  const [mirrored, setMirrored] = useState<boolean>(
+    publication?.mirrors?.length > 0
+  )
   const { userSigNonce, setUserSigNonce } = useAppStore()
   const { isAuthenticated, currentUser } = useAppPersistStore()
 
   useEffect(() => {
     if (
-      post?.mirrorOf?.stats?.totalAmountOfMirrors ||
-      post?.stats?.totalAmountOfMirrors
+      publication?.mirrorOf?.stats?.totalAmountOfMirrors ||
+      publication?.stats?.totalAmountOfMirrors
     ) {
       setCount(
-        post.__typename === 'Mirror'
-          ? post?.mirrorOf?.stats?.totalAmountOfMirrors
-          : post?.stats?.totalAmountOfMirrors
+        publication.__typename === 'Mirror'
+          ? publication?.mirrorOf?.stats?.totalAmountOfMirrors
+          : publication?.stats?.totalAmountOfMirrors
       )
     }
-  }, [post])
+  }, [publication])
 
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
@@ -187,7 +189,7 @@ const Mirror: FC<Props> = ({ post }) => {
         options: { overrideSigNonce: userSigNonce },
         request: {
           profileId: currentUser?.id,
-          publicationId: post?.pubId ?? post?.id,
+          publicationId: publication?.pubId ?? publication?.id,
           referenceModule: {
             followerOnlyReferenceModule: false
           }

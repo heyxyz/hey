@@ -16,7 +16,7 @@ interface Props {
 }
 
 const FullPublication: FC<Props> = ({ publication }) => {
-  const postType = publication?.metadata?.attributes[0]?.value
+  const publicationType = publication?.metadata?.attributes[0]?.value
 
   return (
     <article className="p-5" data-test="publication">
@@ -25,7 +25,7 @@ const FullPublication: FC<Props> = ({ publication }) => {
         <div className="flex justify-between pb-4 space-x-1.5">
           <UserProfile
             profile={
-              postType === 'community' &&
+              publicationType === 'community' &&
               !!publication?.collectedBy?.defaultProfile
                 ? publication?.collectedBy?.defaultProfile
                 : publication?.__typename === 'Mirror'

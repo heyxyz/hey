@@ -21,29 +21,31 @@ const PublicationType: FC<Props> = ({
 }) => {
   const { pathname } = useRouter()
   const type = publication?.__typename
-  const postType = publication?.metadata?.attributes[0]?.value
+  const publicationType = publication?.metadata?.attributes[0]?.value
   const isCollected = !!publication?.collectedBy
-  const isCommunityPost = postType === 'community post'
+  const isCommunityPost = publicationType === 'community post'
 
   if (!showType) return null
 
   return (
     <>
-      {type === 'Mirror' && <Mirrored post={publication} />}
+      {type === 'Mirror' && <Mirrored publication={publication} />}
       {type === 'Comment' && !showThread && !isCommunityPost && (
         <CommentedPublication publication={publication} />
       )}
       {type === 'Comment' && showThread && !isCollected && !isCommunityPost && (
-        <Commented post={publication} />
+        <Commented publication={publication} />
       )}
       {isCommunityPost &&
         pathname !== '/communities/[id]' &&
         type !== 'Mirror' && <CommunityPublication publication={publication} />}
-      {isCollected && postType !== 'community' && postType !== 'crowdfund' && (
-        <Collected post={publication} type="Collected" />
-      )}
-      {isCollected && postType === 'crowdfund' && (
-        <Collected post={publication} type="Funded" />
+      {isCollected &&
+        publicationType !== 'community' &&
+        publicationType !== 'crowdfund' && (
+          <Collected publication={publication} type="Collected" />
+        )}
+      {isCollected && publicationType === 'crowdfund' && (
+        <Collected publication={publication} type="Funded" />
       )}
     </>
   )

@@ -4,20 +4,20 @@ import React, { FC } from 'react'
 import ThreadBody from '../ThreadBody'
 
 interface Props {
-  post: LensterPublication
+  publication: LensterPublication
 }
 
-const Commented: FC<Props> = ({ post }) => {
-  const commentOn: LensterPublication | any = post?.commentOn
+const Commented: FC<Props> = ({ publication }) => {
+  const commentOn: LensterPublication | any = publication?.commentOn
   const mainPost = commentOn?.mainPost
-  const postType = mainPost?.metadata?.attributes[0]?.value
+  const publicationType = mainPost?.metadata?.attributes[0]?.value
 
   return (
     <div>
-      {mainPost && postType !== 'community' ? (
-        <ThreadBody post={mainPost} />
+      {mainPost && publicationType !== 'community' ? (
+        <ThreadBody publication={mainPost} />
       ) : null}
-      <ThreadBody post={commentOn} />
+      <ThreadBody publication={commentOn} />
     </div>
   )
 }

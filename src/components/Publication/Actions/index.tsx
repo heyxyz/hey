@@ -12,19 +12,21 @@ interface Props {
 }
 
 const PublicationActions: FC<Props> = ({ publication }) => {
-  const postType = publication?.metadata?.attributes[0]?.value
+  const publicationType = publication?.metadata?.attributes[0]?.value
 
-  return postType !== 'community' ? (
+  return publicationType !== 'community' ? (
     <div
       className="flex gap-6 items-center pt-3 -ml-2 text-gray-500 sm:gap-8"
       onClick={(event: MouseEvent<HTMLDivElement>) => event.stopPropagation()}
     >
-      <Comment post={publication} />
-      <Mirror post={publication} />
-      <Like post={publication} />
+      <Comment publication={publication} />
+      <Mirror publication={publication} />
+      <Like publication={publication} />
       {publication?.collectModule?.__typename !==
         'RevertCollectModuleSettings' &&
-        postType !== 'crowdfund' && <Collect post={publication} />}
+        publicationType !== 'crowdfund' && (
+          <Collect publication={publication} />
+        )}
       <PublicationMenu publication={publication} />
     </div>
   ) : null

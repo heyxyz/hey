@@ -23,27 +23,32 @@ const REMOVE_REACTION_MUTATION = gql`
 `
 
 interface Props {
-  post: LensterPublication
+  publication: LensterPublication
 }
 
-const Like: FC<Props> = ({ post }) => {
+const Like: FC<Props> = ({ publication }) => {
   const { isAuthenticated, currentUser } = useAppPersistStore()
   const [liked, setLiked] = useState<boolean>(false)
   const [count, setCount] = useState<number>(0)
 
   useEffect(() => {
-    if (post?.mirrorOf?.stats?.totalUpvotes || post?.stats?.totalUpvotes) {
+    if (
+      publication?.mirrorOf?.stats?.totalUpvotes ||
+      publication?.stats?.totalUpvotes
+    ) {
       const reactionCount =
-        post.__typename === 'Mirror'
-          ? post?.mirrorOf?.stats?.totalUpvotes
-          : post?.stats?.totalUpvotes
+        publication.__typename === 'Mirror'
+          ? publication?.mirrorOf?.stats?.totalUpvotes
+          : publication?.stats?.totalUpvotes
       const reaction =
-        post.__typename === 'Mirror' ? post?.mirrorOf?.reaction : post?.reaction
+        publication.__typename === 'Mirror'
+          ? publication?.mirrorOf?.reaction
+          : publication?.reaction
 
       setCount(reactionCount)
       setLiked(reaction === 'UPVOTE')
     }
-  }, [post])
+  }, [publication])
 
   const [addReaction] = useMutation(ADD_REACTION_MUTATION, {
     onError(error) {
@@ -70,9 +75,9 @@ const Like: FC<Props> = ({ post }) => {
           profileId: currentUser?.id,
           reaction: 'UPVOTE',
           publicationId:
-            post.__typename === 'Mirror'
-              ? post?.mirrorOf?.id
-              : post?.pubId ?? post?.id
+            publication.__typename === 'Mirror'
+              ? publication?.mirrorOf?.id
+              : publication?.pubId ?? publication?.id
         }
       }
     }

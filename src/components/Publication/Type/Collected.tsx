@@ -7,32 +7,32 @@ import React, { FC } from 'react'
 import { POLYGONSCAN_URL } from 'src/constants'
 
 interface Props {
-  post: LensterPublication
+  publication: LensterPublication
   type: string
 }
 
-const Collected: FC<Props> = ({ post, type }) => {
+const Collected: FC<Props> = ({ publication, type }) => {
   return (
     <div className="flex items-center pb-4 space-x-1 text-gray-500 text-[13px]">
       <CollectionIcon className="w-4 h-4" />
       <div className="flex items-center space-x-1">
         <div>{type} by</div>
-        {post?.collectedBy?.defaultProfile ? (
-          <Link href={`/u/${post?.collectedBy?.defaultProfile?.handle}`}>
-            <a href={`/u/${post?.collectedBy?.defaultProfile?.handle}`}>
+        {publication?.collectedBy?.defaultProfile ? (
+          <Link href={`/u/${publication?.collectedBy?.defaultProfile?.handle}`}>
+            <a href={`/u/${publication?.collectedBy?.defaultProfile?.handle}`}>
               <Slug
-                slug={post?.collectedBy?.defaultProfile?.handle}
+                slug={publication?.collectedBy?.defaultProfile?.handle}
                 prefix="@"
               />
             </a>
           </Link>
         ) : (
           <a
-            href={`${POLYGONSCAN_URL}/address/${post?.collectedBy?.address}`}
+            href={`${POLYGONSCAN_URL}/address/${publication?.collectedBy?.address}`}
             target="_blank"
             rel="noreferrer noopener"
           >
-            <Slug slug={formatAddress(post?.collectedBy?.address)} />
+            <Slug slug={formatAddress(publication?.collectedBy?.address)} />
           </a>
         )}
       </div>

@@ -46,7 +46,7 @@ const PublicationMenu: FC<Props> = ({ publication }) => {
               className="absolute py-1 w-max bg-white rounded-xl border shadow-sm dark:bg-gray-900 focus:outline-none z-[5] dark:border-gray-700/80"
             >
               {currentUser?.id === publication?.profile?.id ? (
-                <Delete post={publication} />
+                <Delete publication={publication} />
               ) : (
                 <Menu.Item
                   as={NextLink}
@@ -64,8 +64,8 @@ const PublicationMenu: FC<Props> = ({ publication }) => {
                   </div>
                 </Menu.Item>
               )}
-              <Embed post={publication} />
-              <Permalink post={publication} />
+              <Embed publication={publication} />
+              <Permalink publication={publication} />
             </Menu.Items>
           </Transition>
         </>
