@@ -1,14 +1,14 @@
-import { LensterPost } from '@generated/lenstertypes'
+import { LensterPublication } from '@generated/lenstertypes'
 import React, { FC } from 'react'
 
 import ThreadBody from '../ThreadBody'
 
 interface Props {
-  post: LensterPost
+  post: LensterPublication
 }
 
 const Commented: FC<Props> = ({ post }) => {
-  const commentOn: LensterPost | any = post?.commentOn
+  const commentOn: LensterPublication | any = post?.commentOn
   const mainPost = commentOn?.mainPost
   const postType = mainPost?.metadata?.attributes[0]?.value
 

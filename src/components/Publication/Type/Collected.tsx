@@ -1,5 +1,5 @@
 import Slug from '@components/Shared/Slug'
-import { LensterPost } from '@generated/lenstertypes'
+import { LensterPublication } from '@generated/lenstertypes'
 import { CollectionIcon } from '@heroicons/react/outline'
 import formatAddress from '@lib/formatAddress'
 import Link from 'next/link'
@@ -7,7 +7,7 @@ import React, { FC } from 'react'
 import { POLYGONSCAN_URL } from 'src/constants'
 
 interface Props {
-  post: LensterPost
+  post: LensterPublication
   type: string
 }
 
