@@ -9,40 +9,44 @@ import CommunityPublication from './CommunityPost'
 import Mirrored from './Mirrored'
 
 interface Props {
-  post: LensterPublication
+  publication: LensterPublication
   showType?: boolean
   showThread?: boolean
 }
 
-const PostType: FC<Props> = ({ post, showType, showThread = false }) => {
+const PublicationType: FC<Props> = ({
+  publication,
+  showType,
+  showThread = false
+}) => {
   const { pathname } = useRouter()
-  const type = post?.__typename
-  const postType = post?.metadata?.attributes[0]?.value
-  const isCollected = !!post?.collectedBy
+  const type = publication?.__typename
+  const postType = publication?.metadata?.attributes[0]?.value
+  const isCollected = !!publication?.collectedBy
   const isCommunityPost = postType === 'community post'
 
   if (!showType) return null
 
   return (
     <>
-      {type === 'Mirror' && <Mirrored post={post} />}
+      {type === 'Mirror' && <Mirrored post={publication} />}
       {type === 'Comment' && !showThread && !isCommunityPost && (
-        <CommentedPublication publication={post} />
+        <CommentedPublication publication={publication} />
       )}
       {type === 'Comment' && showThread && !isCollected && !isCommunityPost && (
-        <Commented post={post} />
+        <Commented post={publication} />
       )}
       {isCommunityPost &&
         pathname !== '/communities/[id]' &&
-        type !== 'Mirror' && <CommunityPublication publication={post} />}
+        type !== 'Mirror' && <CommunityPublication publication={publication} />}
       {isCollected && postType !== 'community' && postType !== 'crowdfund' && (
-        <Collected post={post} type="Collected" />
+        <Collected post={publication} type="Collected" />
       )}
       {isCollected && postType === 'crowdfund' && (
-        <Collected post={post} type="Funded" />
+        <Collected post={publication} type="Funded" />
       )}
     </>
   )
 }
 
-export default PostType
+export default PublicationType
