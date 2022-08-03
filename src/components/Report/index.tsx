@@ -1,7 +1,7 @@
 import { gql, useMutation, useQuery } from '@apollo/client'
 import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout'
 import { POST_QUERY } from '@components/Post'
-import SinglePost from '@components/Post/SinglePost'
+import SinglePublication from '@components/Post/SinglePublication'
 import SettingsHelper from '@components/Shared/SettingsHelper'
 import PostShimmer from '@components/Shared/Shimmer/PostShimmer'
 import { Button } from '@components/UI/Button'
@@ -122,7 +122,7 @@ const Report: FC = () => {
                   error={{ name: '', message: 'No such publication' }}
                 />
               ) : (
-                <SinglePost post={data?.publication} />
+                <SinglePublication publication={data?.publication} />
               )}
               {data?.publication && (
                 <Form

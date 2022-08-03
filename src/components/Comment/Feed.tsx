@@ -1,5 +1,5 @@
 import { gql, useQuery } from '@apollo/client'
-import SinglePost from '@components/Post/SinglePost'
+import SinglePublication from '@components/Post/SinglePublication'
 import PostsShimmer from '@components/Shared/Shimmer/PostsShimmer'
 import { Card } from '@components/UI/Card'
 import { EmptyState } from '@components/UI/EmptyState'
@@ -125,9 +125,9 @@ const Feed: FC<Props> = ({
             testId="comment-feed"
           >
             {publications?.map((post: LensterPost, index: number) => (
-              <SinglePost
+              <SinglePublication
                 key={`${pubId}_${index}`}
-                post={post}
+                publication={post}
                 showType={false}
               />
             ))}

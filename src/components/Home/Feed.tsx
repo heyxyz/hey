@@ -1,6 +1,6 @@
 import { gql, useQuery } from '@apollo/client'
 import NewPost from '@components/Post/NewPost'
-import SinglePost from '@components/Post/SinglePost'
+import SinglePublication from '@components/Post/SinglePublication'
 import PostsShimmer from '@components/Shared/Shimmer/PostsShimmer'
 import { Card } from '@components/UI/Card'
 import { EmptyState } from '@components/UI/EmptyState'
@@ -104,7 +104,10 @@ const Feed: FC = () => {
         <>
           <Card className="divide-y-[1px] dark:divide-gray-700/80">
             {publications?.map((post: LensterPost, index: number) => (
-              <SinglePost key={`${post?.id}_${index}`} post={post} />
+              <SinglePublication
+                key={`${post?.id}_${index}`}
+                publication={post}
+              />
             ))}
           </Card>
           {pageInfo?.next && publications.length !== pageInfo?.totalCount && (
