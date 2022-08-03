@@ -10,7 +10,7 @@ import Head from 'next/head'
 import { useTheme } from 'next-themes'
 import { FC, ReactNode, Suspense, useEffect, useState } from 'react'
 import { Toaster } from 'react-hot-toast'
-import { CHAIN_ID, MIXPANEL_TOKEN } from 'src/constants'
+import { CHAIN_ID, IS_DEVELOPMENT, MIXPANEL_TOKEN } from 'src/constants'
 import { useAppPersistStore, useAppStore } from 'src/store/app'
 import { useAccount, useDisconnect, useNetwork } from 'wagmi'
 
@@ -20,7 +20,7 @@ const Navbar = dynamic(() => import('./Shared/Navbar'), { suspense: true })
 
 if (MIXPANEL_TOKEN) {
   mixpanel.init(MIXPANEL_TOKEN, {
-    debug: true,
+    debug: IS_DEVELOPMENT,
     ignore_dnt: true
   })
 }
