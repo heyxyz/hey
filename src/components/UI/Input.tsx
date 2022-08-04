@@ -32,6 +32,11 @@ export const Input = forwardRef<HTMLInputElement, Props>(function Input(
 ) {
   const id = useId()
 
+  const iconStyles = [
+    'text-zinc-500 [&>*]:peer-focus:text-brand-500 [&>*]:h-5',
+    { '!text-red-500 [&>*]:peer-focus:!text-red-500': error }
+  ]
+
   return (
     <label className="w-full" htmlFor={id}>
       {label && (
@@ -74,14 +79,16 @@ export const Input = forwardRef<HTMLInputElement, Props>(function Input(
             {...props}
           />
           <span
-            className={clsx(
-              { '!text-red-500 [&>*]:peer-focus:!text-red-500': error },
-              { 'order-first pl-3': iconLeft },
-              { 'order-last pr-3': iconRight },
-              'text-zinc-500 [&>*]:peer-focus:text-brand-500 [&>*]:h-5'
-            )}
+            tabIndex={-1}
+            className={clsx({ 'order-first pl-3': iconLeft }, iconStyles)}
           >
-            {iconLeft ?? iconRight}
+            {iconLeft}
+          </span>
+          <span
+            tabIndex={-1}
+            className={clsx({ 'order-last pr-3': iconRight }, iconStyles)}
+          >
+            {iconRight}
           </span>
         </div>
       </div>
