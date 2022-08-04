@@ -4,6 +4,7 @@ import GetModuleIcon from '@components/utils/GetModuleIcon'
 import { EnabledModule } from '@generated/types'
 import { CashIcon } from '@heroicons/react/outline'
 import { FEE_DATA_TYPE, getModule } from '@lib/getModule'
+import { Mixpanel } from '@lib/mixpanel'
 import { motion } from 'framer-motion'
 import { Dispatch, FC, useState } from 'react'
 
@@ -35,6 +36,7 @@ const SelectCollectModule: FC<Props> = ({
           type="button"
           onClick={() => {
             setShowModal(!showModal)
+            Mixpanel.track('publication.new.collect_module_modal.open')
           }}
           aria-label="Choose Collect Module"
         >
