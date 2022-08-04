@@ -1149,10 +1149,10 @@
   dependencies:
     emotion "10.0.27"
 
-"@giphy/js-fetch-api@^4.3.1":
-  version "4.3.1"
-  resolved "https://registry.yarnpkg.com/@giphy/js-fetch-api/-/js-fetch-api-4.3.1.tgz#67e2dfabd6d641225e9073677d746af5781586f4"
-  integrity sha512-jwdhVgHCX/afNVeV5+vmsZ9x0XtOqWRbvJhBV9KeJFas+QWN6y/l9+HRWfgGUogu0JEozFI8gPWxPr8av5vdAg==
+"@giphy/js-fetch-api@^4.3.1", "@giphy/js-fetch-api@^4.4.0":
+  version "4.4.0"
+  resolved "https://registry.yarnpkg.com/@giphy/js-fetch-api/-/js-fetch-api-4.4.0.tgz#1249be7924b5c6d4bc0c233d9b3f29de70268310"
+  integrity sha512-eLJuOxY8LQnmg80qzH34zs9s0+ibLzgX98mQwWSOFxz3WKyVkxT5/YBvr5e1bNznrlFGKSqIb2RV4gG+/YlLPg==
   dependencies:
     "@giphy/js-types" "^4.2.1"
     "@giphy/js-util" "^4.1.1"
@@ -1172,19 +1172,18 @@
     dompurify "^2.2.2"
     uuid "^8.3.0"
 
-"@giphy/react-components@^5.13.0":
-  version "5.13.0"
-  resolved "https://registry.yarnpkg.com/@giphy/react-components/-/react-components-5.13.0.tgz#655e02bf81a0454e49b9566b842b027cfc8fa8b4"
-  integrity sha512-YS0UoQf7TYt27stHw7KWYnTasPexWotBm3VhrwzSfg0IOlXGgz9eUvmKFNd147FIw7GDA+ptOKL59aSVTlEsRA==
+"@giphy/react-components@^6.0.0":
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/@giphy/react-components/-/react-components-6.0.0.tgz#c9041cff8be19527ae2925a0ab2959ad01993504"
+  integrity sha512-LVHEC/hlNprvME43vm4i71p1WBWLW6dKOarIwsGhA8kd11aD5aphxffRYk752pCP7b8uqa41gMPoDOB1kSlUIQ==
   dependencies:
     "@emotion/react" "11.9.3"
     "@emotion/styled" "11.9.3"
     "@giphy/js-analytics" "^4.1.1"
     "@giphy/js-brand" "^2.2.2"
-    "@giphy/js-fetch-api" "^4.3.1"
+    "@giphy/js-fetch-api" "^4.4.0"
     "@giphy/js-types" "^4.2.1"
     "@giphy/js-util" "^4.1.1"
-    "@percy/cypress" "^3.1.2"
     intersection-observer "^0.12.2"
     react-use "17.4.0"
     throttle-debounce "^3.0.1"
@@ -1917,18 +1916,6 @@
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@pedrouid/environment/-/environment-1.0.1.tgz#858f0f8a057340e0b250398b75ead77d6f4342ec"
   integrity sha512-HaW78NszGzRZd9SeoI3JD11JqY+lubnaOx7Pewj5pfjqWXOEATpeKIFb9Z4t2WBUK2iryiXX3lzWwmYWgUL0Ug==
-
-"@percy/cypress@^3.1.2":
-  version "3.1.2"
-  resolved "https://registry.yarnpkg.com/@percy/cypress/-/cypress-3.1.2.tgz#a087d3c59a6b155eab5fdb4c237526b9cfacbc22"
-  integrity sha512-JXrGDZbqwkzQd2h5T5D7PvqoucNaiMh4ChPp8cLQiEtRuLHta9nf1lEuXH+jnatGL2j+3jJFIHJ0L7XrgVnvQA==
-  dependencies:
-    "@percy/sdk-utils" "^1.3.1"
-
-"@percy/sdk-utils@^1.3.1":
-  version "1.7.2"
-  resolved "https://registry.yarnpkg.com/@percy/sdk-utils/-/sdk-utils-1.7.2.tgz#58b760356e9570832a52c6bb1c892cdf737d7264"
-  integrity sha512-jvh9wcyAbVxOUElJ7966AC8eI8pfCoggIe/9Avl5UfMLA6bbOS++EYR4iWkpgdcAQABTyFJnuOvQc95foEFJog==
 
 "@popperjs/core@^2.9.0":
   version "2.11.5"
