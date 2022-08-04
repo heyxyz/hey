@@ -7,6 +7,7 @@ import { Profile } from '@generated/types'
 import { XCircleIcon } from '@heroicons/react/solid'
 import getWalletLogo from '@lib/getWalletLogo'
 import Logger from '@lib/logger'
+import { Mixpanel } from '@lib/mixpanel'
 import clsx from 'clsx'
 import Cookies from 'js-cookie'
 import React, { Dispatch, FC, useEffect, useState } from 'react'
@@ -139,6 +140,7 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
         setProfiles(profiles)
         setCurrentUser(profiles[0])
       }
+      Mixpanel.track('user.sign_wallet', { result: 'success' })
     } catch (error) {
       console.log(error)
     }
