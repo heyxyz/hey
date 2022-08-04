@@ -123,12 +123,12 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
   })
 
   const onCompleted = () => {
-    Mixpanel.track(POST.NEW, { result: 'success' })
     setPreview(false)
     setPostContent('')
     setAttachments([])
     setSelectedModule(defaultModuleData)
     setFeeData(defaultFeeData)
+    Mixpanel.track(POST.NEW, { result: 'success' })
   }
 
   const {

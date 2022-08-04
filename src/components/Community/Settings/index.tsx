@@ -17,7 +17,7 @@ const Settings: FC<Props> = ({ community }) => {
   const { push } = useRouter()
   const [hidePost] = useMutation(HIDE_POST_MUTATION, {
     onCompleted() {
-      Mixpanel.track(COMMUNITY.DELETE, { result: 'success' })
+      Mixpanel.track(COMMUNITY.SETTINGS.DELETE, { result: 'success' })
       push('/')
     }
   })
@@ -38,7 +38,6 @@ const Settings: FC<Props> = ({ community }) => {
           icon={<TrashIcon className="w-5 h-5" />}
           variant="danger"
           onClick={() => {
-            Mixpanel.track(COMMUNITY.DELETE)
             if (confirm('Are you sure you want to delete?')) {
               hidePost({
                 variables: { request: { publicationId: community?.id } }

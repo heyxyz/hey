@@ -16,10 +16,12 @@ import {
 import getTokenImage from '@lib/getTokenImage'
 import imagekitURL from '@lib/imagekitURL'
 import Logger from '@lib/logger'
+import { Mixpanel } from '@lib/mixpanel'
 import clsx from 'clsx'
 import React, { FC, ReactNode, useEffect, useState } from 'react'
 import { STATIC_ASSETS } from 'src/constants'
 import { useAppPersistStore } from 'src/store/app'
+import { CROWDFUND } from 'src/tracking'
 
 import { COLLECT_QUERY } from '../Actions/Collect/CollectModule'
 import Fund from './Fund'
@@ -142,7 +144,10 @@ const Crowdfund: FC<Props> = ({ fund }) => {
                   <button
                     type="button"
                     className="text-sm"
-                    onClick={() => setShowFundersModal(!showFundersModal)}
+                    onClick={() => {
+                      setShowFundersModal(!showFundersModal)
+                      Mixpanel.track(CROWDFUND.OPEN_FUNDERS)
+                    }}
                   >
                     <Badge
                       title={

@@ -90,7 +90,10 @@ const Details: FC<Props> = ({ community }) => {
                 variant="secondary"
                 className="!py-1.5"
                 icon={<PencilAltIcon className="w-5 h-5" />}
-                onClick={() => setShowSettingsModal(!showSettingsModal)}
+                onClick={() => {
+                  setShowSettingsModal(!showSettingsModal)
+                  Mixpanel.track(COMMUNITY.SETTINGS.DELETE)
+                }}
               />
               <Modal
                 title="Settings"

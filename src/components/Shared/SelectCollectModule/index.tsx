@@ -37,7 +37,7 @@ const SelectCollectModule: FC<Props> = ({
           type="button"
           onClick={() => {
             setShowModal(!showModal)
-            Mixpanel.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECT)
+            Mixpanel.track(PUBLICATION.NEW.COLLECT_MODULE.OPEN_COLLECT_CONFIG)
           }}
           aria-label="Choose Collect Module"
         >
