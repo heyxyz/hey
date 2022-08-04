@@ -90,7 +90,7 @@ const RecommendedProfiles: FC = () => {
   return (
     <>
       <Title />
-      <Card testId="recommended-users">
+      <Card>
         <CardBody className="space-y-4">
           <ErrorMessage title="Failed to load recommendations" error={error} />
           {randomizeArray(data?.recommendedProfiles)

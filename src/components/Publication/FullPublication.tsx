@@ -19,7 +19,7 @@ const FullPublication: FC<Props> = ({ publication }) => {
   const publicationType = publication?.metadata?.attributes[0]?.value
 
   return (
-    <article className="p-5" data-test="publication">
+    <article className="p-5">
       <PublicationType publication={publication} showType />
       <div>
         <div className="flex justify-between pb-4 space-x-1.5">
@@ -33,14 +33,11 @@ const FullPublication: FC<Props> = ({ publication }) => {
                 : publication?.profile
             }
           />
-          <span
-            className="text-sm text-gray-500"
-            data-test="publication-timestamp"
-          >
+          <span className="text-sm text-gray-500">
             {dayjs(new Date(publication?.createdAt)).fromNow()}
           </span>
         </div>
-        <div className="ml-[53px]" data-test="publication-content">
+        <div className="ml-[53px]">
           {publication?.hidden ? (
             <HiddenPublication type={publication?.__typename} />
           ) : (

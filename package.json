@@ -9,14 +9,10 @@
     "export": "next export",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "typecheck": "tsc --noEmit",
-    "prettier": "prettier --write \"./{cypress,data,src}/**/*.{ts,tsx}\"",
-    "prettier:check": "prettier --check \"./{cypress,data,src}/**/*.{ts,tsx}\"",
+    "prettier": "prettier --write \"./{data,src}/**/*.{ts,tsx}\"",
+    "prettier:check": "prettier --check \"./{data,src}/**/*.{ts,tsx}\"",
     "codegen": "graphql-codegen",
-    "prepare": "husky install",
-    "test": "cypress run --headless",
-    "cypress:headless": "cypress run --headless",
-    "cypress:open": "cypress open",
-    "cypress:e2e": "start-server-and-test dev http://localhost:4783 cypress:headless"
+    "prepare": "husky install"
   },
   "dependencies": {
     "@apollo/client": "^3.6.9",
@@ -75,7 +71,6 @@
     "@types/uuid": "^8.3.4",
     "@typescript-eslint/eslint-plugin": "^5.32.0",
     "autoprefixer": "^10.4.8",
-    "cypress": "^10.4.0",
     "eslint": "^8.21.0",
     "eslint-config-next": "^12.2.3",
     "eslint-plugin-prettier": "^4.2.1",

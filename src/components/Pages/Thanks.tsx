@@ -45,10 +45,7 @@ const Thanks: FC = () => {
   return (
     <>
       <Seo title={`Thanks • ${APP_NAME}`} />
-      <div
-        className="flex justify-center items-center w-full h-48 bg-brand-400"
-        data-test="thanks-content"
-      >
+      <div className="flex justify-center items-center w-full h-48 bg-brand-400">
         <div className="relative text-center">
           <div className="flex items-center space-x-2 text-3xl font-semibold text-white md:text-4xl">
             <div>Thank you!</div>

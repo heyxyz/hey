@@ -67,14 +67,11 @@ const Details: FC<Props> = ({ profile }) => {
           height={128}
           width={128}
           alt={profile?.handle}
-          data-test="profile-avatar"
         />
       </div>
       <div className="py-2 space-y-1">
         <div className="flex gap-1.5 items-center text-2xl font-bold">
-          <div className="truncate" data-test="profile-name">
-            {profile?.name ?? profile?.handle}
-          </div>
+          <div className="truncate">{profile?.name ?? profile?.handle}</div>
           {isVerified(profile?.id) && (
             <Tooltip content="Verified">
               <BadgeCheckIcon className="w-6 h-6 text-brand" />
@@ -86,7 +83,7 @@ const Details: FC<Props> = ({ profile }) => {
             </Tooltip>
           )}
         </div>
-        <div className="flex items-center space-x-3" data-test="profile-slug">
+        <div className="flex items-center space-x-3">
           {profile?.name ? (
             <Slug
               className="!text-sm sm:!text-base"
@@ -110,7 +107,7 @@ const Details: FC<Props> = ({ profile }) => {
       </div>
       <div className="space-y-5">
         <Followerings followersCount={followersCount} profile={profile} />
-        <div className="flex items-center space-x-2" data-test="profile-follow">
+        <div className="flex items-center space-x-2">
           {followType !== 'RevertFollowModuleSettings' ? (
             following ? (
               <div className="flex space-x-2">
@@ -167,7 +164,7 @@ const Details: FC<Props> = ({ profile }) => {
           </div>
         )}
         <div className="w-full divider" />
-        <div className="space-y-2" data-test="profile-meta">
+        <div className="space-y-2">
           <MetaDetails icon={<HashtagIcon className="w-4 h-4" />}>
             <Tooltip content={`#${parseInt(profile?.id)}`}>
               {profile?.id}

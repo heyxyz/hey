@@ -74,7 +74,7 @@ const RelevantPeople: FC<Props> = ({ publication }) => {
   if (data?.profiles?.items?.length === 0) return null
 
   return (
-    <Card testId="relevant-people">
+    <Card>
       <CardBody className="space-y-4">
         <ErrorMessage title="Failed to load relevant people" error={error} />
         {data?.profiles?.items?.map((profile: Profile) => (

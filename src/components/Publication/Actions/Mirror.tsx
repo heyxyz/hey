@@ -209,7 +209,6 @@ const Mirror: FC<Props> = ({ publication }) => {
       onClick={createMirror}
       disabled={typedDataLoading || writeLoading}
       aria-label="Mirror"
-      data-test="publication-mirror"
     >
       <div
         className={clsx(

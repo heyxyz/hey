@@ -110,7 +110,7 @@ const Crowdfund: FC<Props> = ({ fund }) => {
   if (loading) return <CrowdfundShimmer />
 
   return (
-    <Card forceRounded testId="crowdfund">
+    <Card forceRounded>
       <div
         className="h-40 rounded-t-xl border-b sm:h-52 dark:border-b-gray-700/80"
         style={{
@@ -136,10 +136,7 @@ const Crowdfund: FC<Props> = ({ fund }) => {
                   .trim()}
               </Markup>
             </div>
-            <div
-              className="block sm:flex items-center !my-3 space-y-2 sm:space-y-0 sm:space-x-3"
-              data-test="crowdfund-meta"
-            >
+            <div className="block sm:flex items-center !my-3 space-y-2 sm:space-y-0 sm:space-x-3">
               {fund?.stats?.totalAmountOfCollects > 0 && (
                 <>
                   <button
@@ -220,7 +217,6 @@ const Crowdfund: FC<Props> = ({ fund }) => {
                         : percentageReached
                     }%`
                   }}
-                  data-test="crowdfund-progress-bar"
                 />
               </div>
             </Tooltip>
