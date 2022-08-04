@@ -4,7 +4,6 @@ import { Mixpanel } from '@lib/mixpanel'
 import clsx from 'clsx'
 import Cookies from 'js-cookie'
 import { FC, Fragment } from 'react'
-import { USER_LOGOUT } from 'src/tracking'
 import { useAccount, useDisconnect } from 'wagmi'
 
 const CreateProfile: FC = () => {
@@ -38,7 +37,7 @@ const CreateProfile: FC = () => {
               <Menu.Item
                 as="a"
                 onClick={() => {
-                  Mixpanel.track(USER_LOGOUT, { action: 'click' })
+                  Mixpanel.track('user.logout')
                   Cookies.remove('accessToken')
                   Cookies.remove('refreshToken')
                   localStorage.removeItem('lenster.store')

@@ -7,6 +7,7 @@ import { CreateCollectBroadcastItemResult } from '@generated/types'
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { PlusIcon } from '@heroicons/react/outline'
 import Logger from '@lib/logger'
+import { Mixpanel } from '@lib/mixpanel'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import React, { Dispatch, FC } from 'react'
@@ -73,6 +74,7 @@ const Join: FC<Props> = ({ community, setJoined, showJoin = true }) => {
   const onCompleted = () => {
     setJoined(true)
     toast.success('Joined successfully!')
+    Mixpanel.track('community.join', { result: 'success' })
   }
 
   const { isLoading: writeLoading, write } = useContractWrite({
@@ -97,6 +99,7 @@ const Join: FC<Props> = ({ community, setJoined, showJoin = true }) => {
           toast.error(error.message)
         }
         Logger.error('[Broadcast Error]', error)
+        Mixpanel.track('community.join', { result: 'broadcast_error' })
       }
     }
   )

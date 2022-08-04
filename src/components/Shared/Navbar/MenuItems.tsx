@@ -26,7 +26,6 @@ import { useTheme } from 'next-themes'
 import { FC, Fragment, useState } from 'react'
 import { GIT_COMMIT_SHA } from 'src/constants'
 import { useAppPersistStore, useAppStore } from 'src/store/app'
-import { PROFILE_LOGOUT, USER_LOGIN } from 'src/tracking'
 import { useDisconnect } from 'wagmi'
 
 import Slug from '../Slug'
@@ -132,7 +131,7 @@ const MenuItems: FC<Props> = ({ pingData }) => {
               <Menu.Item
                 as="a"
                 onClick={() => {
-                  Mixpanel.track(PROFILE_LOGOUT, { action: 'click' })
+                  Mixpanel.track('profile.logout')
                   setCurrentUser(null)
                   Cookies.remove('accessToken')
                   Cookies.remove('refreshToken')
@@ -291,7 +290,7 @@ const MenuItems: FC<Props> = ({ pingData }) => {
           />
         }
         onClick={() => {
-          Mixpanel.track(USER_LOGIN, { action: 'click' })
+          Mixpanel.track('user.login')
           setShowLoginModal(!showLoginModal)
         }}
       >

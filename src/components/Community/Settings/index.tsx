@@ -4,6 +4,7 @@ import { Button } from '@components/UI/Button'
 import { WarningMessage } from '@components/UI/WarningMessage'
 import { Community } from '@generated/lenstertypes'
 import { TrashIcon } from '@heroicons/react/outline'
+import { Mixpanel } from '@lib/mixpanel'
 import { useRouter } from 'next/router'
 import React, { FC } from 'react'
 
@@ -15,6 +16,7 @@ const Settings: FC<Props> = ({ community }) => {
   const { push } = useRouter()
   const [hidePost] = useMutation(HIDE_POST_MUTATION, {
     onCompleted() {
+      Mixpanel.track('community.delete', { result: 'success' })
       push('/')
     }
   })
@@ -35,6 +37,7 @@ const Settings: FC<Props> = ({ community }) => {
           icon={<TrashIcon className="w-5 h-5" />}
           variant="danger"
           onClick={() => {
+            Mixpanel.track('community.delete')
             if (confirm('Are you sure you want to delete?')) {
               hidePost({
                 variables: { request: { publicationId: community?.id } }

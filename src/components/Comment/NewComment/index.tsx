@@ -41,7 +41,6 @@ import {
   SIGN_WALLET
 } from 'src/constants'
 import { useAppPersistStore, useAppStore } from 'src/store/app'
-import { COMMENT_NEW } from 'src/tracking'
 import { v4 as uuid } from 'uuid'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 
@@ -133,7 +132,7 @@ const NewComment: FC<Props> = ({
     }
   })
   const onCompleted = () => {
-    Mixpanel.track(COMMENT_NEW, { action: 'click', restult: 'success' })
+    Mixpanel.track('comment.new', { result: 'success' })
     setPreview(false)
     setCommentContent('')
     setAttachments([])
@@ -167,6 +166,7 @@ const NewComment: FC<Props> = ({
           toast.error(error.message)
         }
         Logger.error('[Broadcast Error]', error)
+        Mixpanel.track('comment.new', { result: 'broadcast_error' })
       }
     })
   const [createCommentTypedData, { loading: typedDataLoading }] = useMutation(
@@ -237,7 +237,7 @@ const NewComment: FC<Props> = ({
   const createComment = async () => {
     if (!isAuthenticated) return toast.error(SIGN_WALLET)
     if (commentContent.length === 0 && attachments.length === 0) {
-      Mixpanel.track(COMMENT_NEW, { action: 'click', restult: 'empty' })
+      Mixpanel.track('comment.new', { result: 'empty' })
       return setCommentContentError('Comment should not be empty!')
     }
 
