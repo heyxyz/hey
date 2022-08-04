@@ -2,10 +2,12 @@ import { gql, useQuery } from '@apollo/client'
 import { datadogLogs } from '@datadog/browser-logs'
 import { Profile } from '@generated/types'
 import { MinimalProfileFields } from '@gql/MinimalProfileFields'
+import { Dogstats } from '@lib/dogstats'
 import Logger from '@lib/logger'
 import Cookies from 'js-cookie'
 import dynamic from 'next/dynamic'
 import Head from 'next/head'
+import { useRouter } from 'next/router'
 import { useTheme } from 'next-themes'
 import { FC, ReactNode, Suspense, useEffect, useState } from 'react'
 import { Toaster } from 'react-hot-toast'
@@ -46,6 +48,7 @@ interface Props {
 }
 
 const SiteLayout: FC<Props> = ({ children }) => {
+  const { pathname } = useRouter()
   const { resolvedTheme } = useTheme()
   const { setProfiles, setUserSigNonce } = useAppStore()
   const {
@@ -152,6 +155,10 @@ const SiteLayout: FC<Props> = ({ children }) => {
     disconnect,
     setCurrentUser
   ])
+
+  useEffect(() => {
+    Dogstats.track('Pageview', { path: pathname })
+  }, [pathname])
 
   const toastOptions = {
     style: {
