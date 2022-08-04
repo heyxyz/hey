@@ -56,7 +56,10 @@ export const COMMUNITY = {
   NEW: 'New community',
   JOIN: 'Join community',
   OPEN_MEMBERS: 'Open members list',
-  DELETE: 'Delete community'
+  SETTINGS: {
+    OPEN: 'Open settings modal',
+    DELETE: 'Delete community'
+  }
 }
 
 export const CROWDFUND = {
