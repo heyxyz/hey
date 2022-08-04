@@ -112,6 +112,9 @@ const SetProfile: FC = () => {
           toast.error(error.message)
         }
         Logger.error('[Broadcast Error]', error)
+        Mixpanel.track('profile.settings.account.set_default_profile', {
+          result: 'broadcast_error'
+        })
       }
     })
   const [createSetDefaultProfileTypedData, { loading: typedDataLoading }] =

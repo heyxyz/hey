@@ -116,6 +116,9 @@ const Picture: FC<Props> = ({ profile }) => {
           toast.error(error.message)
         }
         Logger.error('[Broadcast Error]', error)
+        Mixpanel.track('profile.settings.profile.set_picture', {
+          result: 'broadcast_error'
+        })
       }
     })
   const [createSetProfileImageURITypedData, { loading: typedDataLoading }] =

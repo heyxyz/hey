@@ -145,6 +145,9 @@ const Profile: FC<Props> = ({ profile }) => {
           toast.error(error.message)
         }
         Logger.error('[Broadcast Error]', error)
+        Mixpanel.track('profile.settings.profile.update', {
+          result: 'broadcast_error'
+        })
       }
     })
   const [createSetProfileMetadataTypedData, { loading: typedDataLoading }] =

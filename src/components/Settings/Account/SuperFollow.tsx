@@ -150,6 +150,9 @@ const SuperFollow: FC = () => {
           toast.error(error.message)
         }
         Logger.error('[Broadcast Error]', error)
+        Mixpanel.track('profile.settings.account.set_super_follow', {
+          result: 'broadcast_error'
+        })
       }
     })
   const [createSetFollowModuleTypedData, { loading: typedDataLoading }] =

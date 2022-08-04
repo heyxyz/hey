@@ -122,6 +122,7 @@ const Mirror: FC<Props> = ({ publication }) => {
           toast.error(error.message)
         }
         Logger.error('[Broadcast Error]', error)
+        Mixpanel.track('publication.mirror', { result: 'broadcast_error' })
       }
     }
   )

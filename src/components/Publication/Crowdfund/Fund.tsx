@@ -156,6 +156,7 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
           toast.error(error.message)
         }
         Logger.error('[Broadcast Error]', error)
+        Mixpanel.track('crowdfund.fund', { result: 'broadcast_error' })
       }
     })
   const [createCollectTypedData, { loading: typedDataLoading }] = useMutation(

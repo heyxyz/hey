@@ -108,6 +108,7 @@ const Follow: FC<Props> = ({
           toast.error(error.message)
         }
         Logger.error('[Broadcast Error]', error)
+        Mixpanel.track('profile.follow', { result: 'broadcast_error' })
       }
     }
   )
