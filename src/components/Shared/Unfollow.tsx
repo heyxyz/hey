@@ -13,6 +13,7 @@ import { Dispatch, FC, useState } from 'react'
 import toast from 'react-hot-toast'
 import { ERROR_MESSAGE, SIGN_WALLET } from 'src/constants'
 import { useAppPersistStore } from 'src/store/app'
+import { PROFILE } from 'src/tracking'
 import { useSigner, useSignTypedData } from 'wagmi'
 
 const CREATE_UNFOLLOW_TYPED_DATA_MUTATION = gql`
@@ -104,7 +105,7 @@ const Unfollow: FC<Props> = ({
               setFollowing(false)
             }
             toast.success('Unfollowed successfully!')
-            Mixpanel.track('profile.unfollow', { result: 'success' })
+            Mixpanel.track(PROFILE.UNFOLLOW, { result: 'success' })
           } catch {
             toast.error('User rejected request')
           } finally {

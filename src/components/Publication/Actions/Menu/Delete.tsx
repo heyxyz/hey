@@ -6,6 +6,7 @@ import { Mixpanel } from '@lib/mixpanel'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
 import React, { FC } from 'react'
+import { PUBLICATION } from 'src/tracking'
 
 export const HIDE_POST_MUTATION = gql`
   mutation HidePublication($request: HidePublicationRequest!) {
@@ -21,7 +22,7 @@ const Delete: FC<Props> = ({ publication }) => {
   const { pathname, push } = useRouter()
   const [hidePost] = useMutation(HIDE_POST_MUTATION, {
     onCompleted() {
-      Mixpanel.track('publication.delete', { result: 'success' })
+      Mixpanel.track(PUBLICATION.DELETE, { result: 'success' })
       pathname === '/posts/[id]' ? push('/') : location.reload()
     }
   })

@@ -29,6 +29,7 @@ import {
   SIGN_WALLET
 } from 'src/constants'
 import { useAppPersistStore, useAppStore } from 'src/store/app'
+import { SETTINGS } from 'src/tracking'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 
 const CREATE_SET_PROFILE_IMAGE_URI_TYPED_DATA_MUTATION = gql`
@@ -80,7 +81,7 @@ const Picture: FC<Props> = ({ profile }) => {
 
   const onCompleted = () => {
     toast.success('Avatar updated successfully!')
-    Mixpanel.track('profile.settings.profile.set_picture', {
+    Mixpanel.track(SETTINGS.PROFILE.SET_PICTURE, {
       result: 'success'
     })
   }
@@ -116,7 +117,7 @@ const Picture: FC<Props> = ({ profile }) => {
           toast.error(error.message)
         }
         Logger.error('[Broadcast Error]', error)
-        Mixpanel.track('profile.settings.profile.set_picture', {
+        Mixpanel.track(SETTINGS.PROFILE.SET_PICTURE, {
           result: 'broadcast_error'
         })
       }

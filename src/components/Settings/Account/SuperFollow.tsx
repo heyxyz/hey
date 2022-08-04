@@ -29,6 +29,7 @@ import {
   SIGN_WALLET
 } from 'src/constants'
 import { useAppPersistStore, useAppStore } from 'src/store/app'
+import { SETTINGS } from 'src/tracking'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 import { object, string } from 'zod'
 
@@ -113,7 +114,7 @@ const SuperFollow: FC = () => {
   })
 
   const onCompleted = () => {
-    Mixpanel.track('profile.settings.account.set_super_follow', {
+    Mixpanel.track(SETTINGS.ACCOUNT.SET_SUPER_FOLLOW, {
       result: 'success'
     })
   }
@@ -150,7 +151,7 @@ const SuperFollow: FC = () => {
           toast.error(error.message)
         }
         Logger.error('[Broadcast Error]', error)
-        Mixpanel.track('profile.settings.account.set_super_follow', {
+        Mixpanel.track(SETTINGS.ACCOUNT.SET_SUPER_FOLLOW, {
           result: 'broadcast_error'
         })
       }

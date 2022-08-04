@@ -24,6 +24,7 @@ import {
   SIGN_WALLET
 } from 'src/constants'
 import { useAppPersistStore, useAppStore } from 'src/store/app'
+import { PUBLICATION } from 'src/tracking'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 
 const CREATE_MIRROR_TYPED_DATA_MUTATION = gql`
@@ -97,7 +98,7 @@ const Mirror: FC<Props> = ({ publication }) => {
     setCount(count + 1)
     setMirrored(true)
     toast.success('Post has been mirrored!')
-    Mixpanel.track('publication.mirror', { result: 'success' })
+    Mixpanel.track(PUBLICATION.MIRROR, { result: 'success' })
   }
 
   const { isLoading: writeLoading, write } = useContractWrite({
@@ -122,7 +123,7 @@ const Mirror: FC<Props> = ({ publication }) => {
           toast.error(error.message)
         }
         Logger.error('[Broadcast Error]', error)
-        Mixpanel.track('publication.mirror', { result: 'broadcast_error' })
+        Mixpanel.track(PUBLICATION.MIRROR, { result: 'broadcast_error' })
       }
     }
   )

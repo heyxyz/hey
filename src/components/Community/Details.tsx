@@ -18,6 +18,7 @@ import relativeTime from 'dayjs/plugin/relativeTime'
 import dynamic from 'next/dynamic'
 import React, { FC, ReactNode, useState } from 'react'
 import { useAppPersistStore } from 'src/store/app'
+import { COMMUNITY } from 'src/tracking'
 
 import Join from './Join'
 
@@ -111,7 +112,7 @@ const Details: FC<Props> = ({ community }) => {
               <button
                 type="button"
                 onClick={() => {
-                  Mixpanel.track('community.members_modal.open')
+                  Mixpanel.track(COMMUNITY.OPEN_MEMBERS)
                   setShowMembersModal(!showMembersModal)
                 }}
               >

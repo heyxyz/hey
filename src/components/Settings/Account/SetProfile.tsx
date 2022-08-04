@@ -25,6 +25,7 @@ import {
 } from 'src/constants'
 import Custom404 from 'src/pages/404'
 import { useAppPersistStore, useAppStore } from 'src/store/app'
+import { SETTINGS } from 'src/tracking'
 import { useAccount, useContractWrite, useSignTypedData } from 'wagmi'
 
 const CREATE_SET_DEFAULT_PROFILE_DATA_MUTATION = gql`
@@ -72,7 +73,7 @@ const SetProfile: FC = () => {
 
   const onCompleted = () => {
     toast.success('Default profile updated successfully!')
-    Mixpanel.track('profile.settings.account.set_default_profile', {
+    Mixpanel.track(SETTINGS.ACCOUNT.SET_DEFAULT_PROFILE, {
       result: 'success'
     })
   }
@@ -112,7 +113,7 @@ const SetProfile: FC = () => {
           toast.error(error.message)
         }
         Logger.error('[Broadcast Error]', error)
-        Mixpanel.track('profile.settings.account.set_default_profile', {
+        Mixpanel.track(SETTINGS.ACCOUNT.SET_DEFAULT_PROFILE, {
           result: 'broadcast_error'
         })
       }

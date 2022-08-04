@@ -5,6 +5,7 @@ import { Mixpanel } from '@lib/mixpanel'
 import Link from 'next/link'
 import { FC, useEffect, useState } from 'react'
 import { useAppPersistStore } from 'src/store/app'
+import { NOTIFICATION } from 'src/tracking'
 
 const NOTIFICATION_COUNT_QUERY = gql`
   query NotificationCount($request: NotificationRequest!) {
@@ -46,7 +47,7 @@ const NotificationIcon: FC = () => {
             data?.notifications?.pageInfo?.totalCount.toString()
           )
           setShowBadge(false)
-          Mixpanel.track('notification.open')
+          Mixpanel.track(NOTIFICATION.OPEN)
         }}
       >
         <LightningBoltIcon className="w-5 h-5 sm:w-6 sm:h-6" />

@@ -1,6 +1,7 @@
 import { Card } from '@components/UI/Card'
 import { Mixpanel } from '@lib/mixpanel'
 import React, { FC } from 'react'
+import { PUBLICATION } from 'src/tracking'
 
 interface Props {
   og: any
@@ -12,7 +13,7 @@ const Embed: FC<Props> = ({ og }) => {
       <a
         href={og.url}
         onClick={() => {
-          Mixpanel.track('publication.oembed.open')
+          Mixpanel.track(PUBLICATION.OEMBED_CLICK)
         }}
         target="_blank"
         rel="noreferrer noopener"

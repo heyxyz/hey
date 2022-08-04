@@ -30,6 +30,7 @@ import {
   SIGN_WALLET
 } from 'src/constants'
 import { useAppPersistStore, useAppStore } from 'src/store/app'
+import { SETTINGS } from 'src/tracking'
 import {
   chain,
   useContractWrite,
@@ -113,7 +114,7 @@ const NFTPicture: FC<Props> = ({ profile }) => {
 
   const onCompleted = () => {
     toast.success('Avatar updated successfully!')
-    Mixpanel.track('profile.settings.profile.set_nft_picture', {
+    Mixpanel.track(SETTINGS.PROFILE.SET_NFT_PICTURE, {
       result: 'success'
     })
   }
@@ -148,7 +149,7 @@ const NFTPicture: FC<Props> = ({ profile }) => {
           toast.error(error.message)
         }
         Logger.error('[Broadcast Error]', error)
-        Mixpanel.track('profile.settings.profile.set_nft_picture', {
+        Mixpanel.track(SETTINGS.PROFILE.SET_NFT_PICTURE, {
           result: 'broadcast_error'
         })
       }

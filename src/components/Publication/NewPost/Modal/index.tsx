@@ -6,6 +6,7 @@ import { PencilAltIcon } from '@heroicons/react/outline'
 import { Mixpanel } from '@lib/mixpanel'
 import { FC } from 'react'
 import { usePublicationStore } from 'src/store/publication'
+import { PUBLICATION } from 'src/tracking'
 
 import NewPost from '..'
 
@@ -21,7 +22,7 @@ const NewPostModal: FC = () => {
         onClick={() => {
           setParentPub(null)
           setShowNewPostModal(!showNewPostModal)
-          Mixpanel.track('publication.new_modal.open')
+          Mixpanel.track(PUBLICATION.OPEN_NEW)
         }}
       >
         <PencilAltIcon className="w-5 h-5 sm:w-6 sm:h-6" />

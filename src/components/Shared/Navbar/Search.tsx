@@ -12,6 +12,7 @@ import clsx from 'clsx'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { ChangeEvent, FC, useRef, useState } from 'react'
+import { SEARCH } from 'src/tracking'
 
 import UserProfile from '../UserProfile'
 
@@ -87,7 +88,7 @@ const Search: FC<Props> = ({ hideDropdown = false }) => {
                 )}
                 onClick={() => {
                   setSearchText('')
-                  Mixpanel.track('search.clear_text')
+                  Mixpanel.track(SEARCH.CLEAR)
                 }}
               />
             }
