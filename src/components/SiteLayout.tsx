@@ -2,19 +2,28 @@ import { gql, useQuery } from '@apollo/client'
 import { Profile } from '@generated/types'
 import { MinimalProfileFields } from '@gql/MinimalProfileFields'
 import Logger from '@lib/logger'
+import { Mixpanel } from '@lib/mixpanel'
 import Cookies from 'js-cookie'
+import mixpanel from 'mixpanel-browser'
 import dynamic from 'next/dynamic'
 import Head from 'next/head'
 import { useTheme } from 'next-themes'
 import { FC, ReactNode, Suspense, useEffect, useState } from 'react'
 import { Toaster } from 'react-hot-toast'
-import { CHAIN_ID } from 'src/constants'
+import { CHAIN_ID, IS_DEVELOPMENT, MIXPANEL_TOKEN } from 'src/constants'
 import { useAppPersistStore, useAppStore } from 'src/store/app'
 import { useAccount, useDisconnect, useNetwork } from 'wagmi'
 
 import Loading from './Loading'
 
 const Navbar = dynamic(() => import('./Shared/Navbar'), { suspense: true })
+
+if (MIXPANEL_TOKEN) {
+  mixpanel.init(MIXPANEL_TOKEN, {
+    debug: IS_DEVELOPMENT,
+    ignore_dnt: true
+  })
+}
 
 export const CURRENT_USER_QUERY = gql`
   query CurrentUser($ownedBy: [EthereumAddress!]) {
@@ -84,6 +93,18 @@ const SiteLayout: FC<Props> = ({ children }) => {
     const refreshToken = Cookies.get('refreshToken')
     const currentUserAddress = currentUser?.ownedBy
     setMounted(true)
+
+    // Set mixpanel user id
+    if (currentUser?.id) {
+      Mixpanel.identify(currentUser.id)
+      Mixpanel.people.set({
+        address: currentUser?.ownedBy,
+        handle: currentUser?.handle,
+        name: currentUser?.name ?? currentUser?.handle
+      })
+    } else {
+      Mixpanel.identify('0x00')
+    }
 
     const logout = () => {
       setIsAuthenticated(false)
