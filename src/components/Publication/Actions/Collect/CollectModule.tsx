@@ -260,6 +260,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
           toast.error(error.message)
         }
         Logger.error('[Broadcast Error]', error)
+        Mixpanel.track('publication.collect', { result: 'broadcast_error' })
       }
     })
   const [createCollectTypedData, { loading: typedDataLoading }] = useMutation(
