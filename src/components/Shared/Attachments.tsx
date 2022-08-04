@@ -5,7 +5,7 @@ import getIPFSLink from '@lib/getIPFSLink'
 import imagekitURL from '@lib/imagekitURL'
 import clsx from 'clsx'
 import dynamic from 'next/dynamic'
-import React, { FC } from 'react'
+import React, { FC, MouseEvent } from 'react'
 
 const Video = dynamic(() => import('./Video'), {
   loading: () => <div className="rounded-lg aspect-w-16 aspect-h-12 shimmer" />
@@ -62,6 +62,7 @@ const Attachments: FC<Props> = ({
         getClass(slicedAttachments?.length)?.row,
         'grid grid-flow-col gap-2 pt-3'
       )}
+      onClick={(event: MouseEvent<HTMLDivElement>) => event.stopPropagation()}
     >
       {slicedAttachments?.map((attachment: LensterAttachment & MediaSet) => (
         <div
