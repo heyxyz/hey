@@ -2,7 +2,7 @@ import { Modal } from '@components/UI/Modal'
 import { Tooltip } from '@components/UI/Tooltip'
 import { ChatAlt2Icon, GlobeAltIcon, UsersIcon } from '@heroicons/react/outline'
 import { CheckCircleIcon } from '@heroicons/react/solid'
-import { Mixpanel } from '@lib/mixpanel'
+import { Dogstats } from '@lib/dogstats'
 import clsx from 'clsx'
 import { motion } from 'framer-motion'
 import { Dispatch, FC, useState } from 'react'
@@ -32,7 +32,7 @@ const SelectReferenceModule: FC<Props> = ({
           type="button"
           onClick={() => {
             setShowModal(!showModal)
-            Mixpanel.track(PUBLICATION.REFERENCE_MODULE.OPEN_REFERENCE)
+            Dogstats.track(PUBLICATION.REFERENCE_MODULE.OPEN_REFERENCE)
           }}
           aria-label="Choose Reference Module"
         >

@@ -29,11 +29,11 @@ import {
   UserIcon,
   UsersIcon
 } from '@heroicons/react/outline'
+import { Dogstats } from '@lib/dogstats'
 import formatAddress from '@lib/formatAddress'
 import getTokenImage from '@lib/getTokenImage'
 import humanize from '@lib/humanize'
 import Logger from '@lib/logger'
-import { Mixpanel } from '@lib/mixpanel'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import dayjs from 'dayjs'
@@ -156,7 +156,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
     setRevenue(revenue + parseFloat(collectModule?.amount?.value))
     setCount(count + 1)
     toast.success('Transaction submitted successfully!')
-    Mixpanel.track(PUBLICATION.COLLECT_MODULE.COLLECT, {
+    Dogstats.track(PUBLICATION.COLLECT_MODULE.COLLECT, {
       result: 'success'
     })
   }
@@ -261,7 +261,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
           toast.error(error.message)
         }
         Logger.error('[Broadcast Error]', error)
-        Mixpanel.track(PUBLICATION.COLLECT_MODULE.COLLECT, {
+        Dogstats.track(PUBLICATION.COLLECT_MODULE.COLLECT, {
           result: 'broadcast_error'
         })
       }
@@ -414,7 +414,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
                 type="button"
                 onClick={() => {
                   setShowCollectorsModal(!showCollectorsModal)
-                  Mixpanel.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECTORS)
+                  Dogstats.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECTORS)
                 }}
               >
                 {humanize(count)} collectors

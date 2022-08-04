@@ -5,9 +5,9 @@ import { Button } from '@components/UI/Button'
 import { Spinner } from '@components/UI/Spinner'
 import { Profile } from '@generated/types'
 import { XCircleIcon } from '@heroicons/react/solid'
+import { Dogstats } from '@lib/dogstats'
 import getWalletLogo from '@lib/getWalletLogo'
 import Logger from '@lib/logger'
-import { Mixpanel } from '@lib/mixpanel'
 import clsx from 'clsx'
 import Cookies from 'js-cookie'
 import React, { Dispatch, FC, useEffect, useState } from 'react'
@@ -89,7 +89,7 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
       if (account) {
         setHasConnected(true)
       }
-      Mixpanel.track(`Connect with ${connector.name.toLowerCase()}`)
+      Dogstats.track(`Connect with ${connector.name.toLowerCase()}`)
     } catch (error) {
       Logger.warn('[Sign Error]', error)
     }
@@ -142,7 +142,7 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
         setProfiles(profiles)
         setCurrentUser(profiles[0])
       }
-      Mixpanel.track(USER.SIWL, { result: 'success' })
+      Dogstats.track(USER.SIWL, { result: 'success' })
     } catch (error) {
       console.log(error)
     }

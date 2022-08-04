@@ -13,10 +13,10 @@ import {
 } from '@generated/types'
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { StarIcon, UserIcon } from '@heroicons/react/outline'
+import { Dogstats } from '@lib/dogstats'
 import formatAddress from '@lib/formatAddress'
 import getTokenImage from '@lib/getTokenImage'
 import Logger from '@lib/logger'
-import { Mixpanel } from '@lib/mixpanel'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import { Dispatch, FC, useState } from 'react'
@@ -127,7 +127,7 @@ const FollowModule: FC<Props> = ({
     setFollowing(true)
     setShowFollowModal(false)
     toast.success('Followed successfully!')
-    Mixpanel.track(PROFILE.SUPER_FOLLOW, { result: 'success' })
+    Dogstats.track(PROFILE.SUPER_FOLLOW, { result: 'success' })
   }
 
   const { isLoading: writeLoading, write } = useContractWrite({
@@ -207,7 +207,7 @@ const FollowModule: FC<Props> = ({
           toast.error(error.message)
         }
         Logger.error('[Broadcast Error]', error)
-        Mixpanel.track(PROFILE.SUPER_FOLLOW, { result: 'broadcast_error' })
+        Dogstats.track(PROFILE.SUPER_FOLLOW, { result: 'broadcast_error' })
       }
     }
   )

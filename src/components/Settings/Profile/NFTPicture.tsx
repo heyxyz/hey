@@ -13,8 +13,8 @@ import {
 } from '@generated/types'
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { PencilIcon } from '@heroicons/react/outline'
+import { Dogstats } from '@lib/dogstats'
 import Logger from '@lib/logger'
-import { Mixpanel } from '@lib/mixpanel'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import gql from 'graphql-tag'
@@ -114,7 +114,7 @@ const NFTPicture: FC<Props> = ({ profile }) => {
 
   const onCompleted = () => {
     toast.success('Avatar updated successfully!')
-    Mixpanel.track(SETTINGS.PROFILE.SET_NFT_PICTURE, {
+    Dogstats.track(SETTINGS.PROFILE.SET_NFT_PICTURE, {
       result: 'success'
     })
   }
@@ -149,7 +149,7 @@ const NFTPicture: FC<Props> = ({ profile }) => {
           toast.error(error.message)
         }
         Logger.error('[Broadcast Error]', error)
-        Mixpanel.track(SETTINGS.PROFILE.SET_NFT_PICTURE, {
+        Dogstats.track(SETTINGS.PROFILE.SET_NFT_PICTURE, {
           result: 'broadcast_error'
         })
       }

@@ -2,7 +2,7 @@ import { gql, useMutation } from '@apollo/client'
 import { LensterPublication } from '@generated/lenstertypes'
 import { Menu } from '@headlessui/react'
 import { TrashIcon } from '@heroicons/react/outline'
-import { Mixpanel } from '@lib/mixpanel'
+import { Dogstats } from '@lib/dogstats'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
 import React, { FC } from 'react'
@@ -22,7 +22,7 @@ const Delete: FC<Props> = ({ publication }) => {
   const { pathname, push } = useRouter()
   const [hidePost] = useMutation(HIDE_POST_MUTATION, {
     onCompleted() {
-      Mixpanel.track(PUBLICATION.DELETE, { result: 'success' })
+      Dogstats.track(PUBLICATION.DELETE, { result: 'success' })
       pathname === '/posts/[id]' ? push('/') : location.reload()
     }
   })

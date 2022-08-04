@@ -6,8 +6,8 @@ import { Community } from '@generated/lenstertypes'
 import { CreateCollectBroadcastItemResult } from '@generated/types'
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { PlusIcon } from '@heroicons/react/outline'
+import { Dogstats } from '@lib/dogstats'
 import Logger from '@lib/logger'
-import { Mixpanel } from '@lib/mixpanel'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import React, { Dispatch, FC } from 'react'
@@ -75,7 +75,7 @@ const Join: FC<Props> = ({ community, setJoined, showJoin = true }) => {
   const onCompleted = () => {
     setJoined(true)
     toast.success('Joined successfully!')
-    Mixpanel.track(COMMUNITY.JOIN, { result: 'success' })
+    Dogstats.track(COMMUNITY.JOIN, { result: 'success' })
   }
 
   const { isLoading: writeLoading, write } = useContractWrite({
@@ -100,7 +100,7 @@ const Join: FC<Props> = ({ community, setJoined, showJoin = true }) => {
           toast.error(error.message)
         }
         Logger.error('[Broadcast Error]', error)
-        Mixpanel.track(COMMUNITY.JOIN, { result: 'broadcast_error' })
+        Dogstats.track(COMMUNITY.JOIN, { result: 'broadcast_error' })
       }
     }
   )

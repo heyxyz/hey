@@ -13,9 +13,9 @@ import {
 } from '@generated/types'
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { PencilIcon } from '@heroicons/react/outline'
+import { Dogstats } from '@lib/dogstats'
 import imagekitURL from '@lib/imagekitURL'
 import Logger from '@lib/logger'
-import { Mixpanel } from '@lib/mixpanel'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import uploadAssetsToIPFS from '@lib/uploadAssetsToIPFS'
@@ -81,7 +81,7 @@ const Picture: FC<Props> = ({ profile }) => {
 
   const onCompleted = () => {
     toast.success('Avatar updated successfully!')
-    Mixpanel.track(SETTINGS.PROFILE.SET_PICTURE, {
+    Dogstats.track(SETTINGS.PROFILE.SET_PICTURE, {
       result: 'success'
     })
   }
@@ -117,7 +117,7 @@ const Picture: FC<Props> = ({ profile }) => {
           toast.error(error.message)
         }
         Logger.error('[Broadcast Error]', error)
-        Mixpanel.track(SETTINGS.PROFILE.SET_PICTURE, {
+        Dogstats.track(SETTINGS.PROFILE.SET_PICTURE, {
           result: 'broadcast_error'
         })
       }

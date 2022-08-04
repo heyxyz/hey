@@ -5,7 +5,7 @@ import {
   DotsHorizontalIcon,
   ShieldExclamationIcon
 } from '@heroicons/react/outline'
-import { Mixpanel } from '@lib/mixpanel'
+import { Dogstats } from '@lib/dogstats'
 import clsx from 'clsx'
 import { FC, Fragment } from 'react'
 import { useAppPersistStore } from 'src/store/app'
@@ -29,7 +29,7 @@ const PublicationMenu: FC<Props> = ({ publication }) => {
           <Menu.Button
             className="p-1.5 rounded-full hover:bg-gray-300 hover:bg-opacity-20"
             onClick={() => {
-              Mixpanel.track(PUBLICATION.MORE)
+              Dogstats.track(PUBLICATION.MORE)
             }}
             aria-label="More"
           >

@@ -12,8 +12,8 @@ import {
 import { CreateCollectBroadcastItemResult } from '@generated/types'
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { CashIcon } from '@heroicons/react/outline'
+import { Dogstats } from '@lib/dogstats'
 import Logger from '@lib/logger'
-import { Mixpanel } from '@lib/mixpanel'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import React, { Dispatch, FC, useState } from 'react'
@@ -129,7 +129,7 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
   const onCompleted = () => {
     setRevenue(revenue + parseFloat(collectModule?.amount?.value))
     toast.success('Transaction submitted successfully!')
-    Mixpanel.track(CROWDFUND.FUND, { result: 'success' })
+    Dogstats.track(CROWDFUND.FUND, { result: 'success' })
   }
 
   const {
@@ -157,7 +157,7 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
           toast.error(error.message)
         }
         Logger.error('[Broadcast Error]', error)
-        Mixpanel.track(CROWDFUND.FUND, { result: 'broadcast_error' })
+        Dogstats.track(CROWDFUND.FUND, { result: 'broadcast_error' })
       }
     })
   const [createCollectTypedData, { loading: typedDataLoading }] = useMutation(

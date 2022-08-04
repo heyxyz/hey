@@ -17,6 +17,7 @@ import {
 import { IGif } from '@giphy/js-types'
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { ChatAlt2Icon, PencilAltIcon } from '@heroicons/react/outline'
+import { Dogstats } from '@lib/dogstats'
 import {
   defaultFeeData,
   defaultModuleData,
@@ -24,7 +25,6 @@ import {
   getModule
 } from '@lib/getModule'
 import Logger from '@lib/logger'
-import { Mixpanel } from '@lib/mixpanel'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import trimify from '@lib/trimify'
@@ -133,7 +133,7 @@ const NewComment: FC<Props> = ({
     }
   })
   const onCompleted = () => {
-    Mixpanel.track(COMMENT.NEW, { result: 'success' })
+    Dogstats.track(COMMENT.NEW, { result: 'success' })
     setPreview(false)
     setCommentContent('')
     setAttachments([])
@@ -167,7 +167,7 @@ const NewComment: FC<Props> = ({
           toast.error(error.message)
         }
         Logger.error('[Broadcast Error]', error)
-        Mixpanel.track(COMMENT.NEW, { result: 'broadcast_error' })
+        Dogstats.track(COMMENT.NEW, { result: 'broadcast_error' })
       }
     })
   const [createCommentTypedData, { loading: typedDataLoading }] = useMutation(
@@ -238,7 +238,7 @@ const NewComment: FC<Props> = ({
   const createComment = async () => {
     if (!isAuthenticated) return toast.error(SIGN_WALLET)
     if (commentContent.length === 0 && attachments.length === 0) {
-      Mixpanel.track(COMMENT.NEW, { result: 'empty' })
+      Dogstats.track(COMMENT.NEW, { result: 'empty' })
       return setCommentContentError('Comment should not be empty!')
     }
 

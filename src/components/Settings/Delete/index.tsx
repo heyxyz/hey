@@ -8,8 +8,8 @@ import { Spinner } from '@components/UI/Spinner'
 import Seo from '@components/utils/Seo'
 import { CreateBurnProfileBroadcastItemResult } from '@generated/types'
 import { TrashIcon } from '@heroicons/react/outline'
+import { Dogstats } from '@lib/dogstats'
 import Logger from '@lib/logger'
-import { Mixpanel } from '@lib/mixpanel'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import Cookies from 'js-cookie'
@@ -76,7 +76,7 @@ const DeleteSettings: FC = () => {
   })
 
   const onCompleted = () => {
-    Mixpanel.track(SETTINGS.DELETE)
+    Dogstats.track(SETTINGS.DELETE)
     setIsAuthenticated(false)
     setIsConnected(false)
     setCurrentUser(null)

@@ -9,8 +9,8 @@ import { Spinner } from '@components/UI/Spinner'
 import { Profile, SetDefaultProfileBroadcastItemResult } from '@generated/types'
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { ExclamationIcon, PencilIcon } from '@heroicons/react/outline'
+import { Dogstats } from '@lib/dogstats'
 import Logger from '@lib/logger'
-import { Mixpanel } from '@lib/mixpanel'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import React, { FC, useEffect, useState } from 'react'
@@ -73,7 +73,7 @@ const SetProfile: FC = () => {
 
   const onCompleted = () => {
     toast.success('Default profile updated successfully!')
-    Mixpanel.track(SETTINGS.ACCOUNT.SET_DEFAULT_PROFILE, {
+    Dogstats.track(SETTINGS.ACCOUNT.SET_DEFAULT_PROFILE, {
       result: 'success'
     })
   }
@@ -113,7 +113,7 @@ const SetProfile: FC = () => {
           toast.error(error.message)
         }
         Logger.error('[Broadcast Error]', error)
-        Mixpanel.track(SETTINGS.ACCOUNT.SET_DEFAULT_PROFILE, {
+        Dogstats.track(SETTINGS.ACCOUNT.SET_DEFAULT_PROFILE, {
           result: 'broadcast_error'
         })
       }

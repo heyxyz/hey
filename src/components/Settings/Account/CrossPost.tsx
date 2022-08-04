@@ -1,7 +1,7 @@
 import Beta from '@components/Shared/Beta'
 import { Card, CardBody } from '@components/UI/Card'
 import { ExternalLinkIcon } from '@heroicons/react/outline'
-import { Mixpanel } from '@lib/mixpanel'
+import { Dogstats } from '@lib/dogstats'
 import React, { FC } from 'react'
 import { APP_NAME } from 'src/constants'
 import { SETTINGS } from 'src/tracking'
@@ -22,7 +22,7 @@ const CrossPost: FC = () => {
           className="flex items-center space-x-1.5"
           href="https://reflect.withlens.app/"
           onClick={() => {
-            Mixpanel.track(SETTINGS.ACCOUNT.OPEN_REFLECT)
+            Dogstats.track(SETTINGS.ACCOUNT.OPEN_REFLECT)
           }}
           target="_blank"
           rel="noreferrer noopener"
