@@ -23,7 +23,7 @@ export const RELAY_ON =
     ? process.env.NEXT_PUBLIC_RELAY_ON === 'true'
     : false
 export const DATADOG_TOKEN = process.env.NEXT_PUBLIC_DATADOG_TOKEN ?? ''
-export const DOGSTATS_ENABLED = true
+export const DOGSTATS_ENABLED = DATADOG_TOKEN && IS_PRODUCTION
 
 // Messages
 export const ERROR_MESSAGE = 'Something went wrong!'
