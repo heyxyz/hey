@@ -11,6 +11,7 @@ import {
   UsersIcon
 } from '@heroicons/react/outline'
 import imagekitURL from '@lib/imagekitURL'
+import { Mixpanel } from '@lib/mixpanel'
 import nFormatter from '@lib/nFormatter'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
@@ -109,7 +110,10 @@ const Details: FC<Props> = ({ community }) => {
             <>
               <button
                 type="button"
-                onClick={() => setShowMembersModal(!showMembersModal)}
+                onClick={() => {
+                  Mixpanel.track('community.members_modal.open')
+                  setShowMembersModal(!showMembersModal)
+                }}
               >
                 {nFormatter(community?.stats?.totalAmountOfCollects)}{' '}
                 {community?.stats?.totalAmountOfCollects === 1

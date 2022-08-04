@@ -16,6 +16,7 @@ import { StarIcon, UserIcon } from '@heroicons/react/outline'
 import formatAddress from '@lib/formatAddress'
 import getTokenImage from '@lib/getTokenImage'
 import Logger from '@lib/logger'
+import { Mixpanel } from '@lib/mixpanel'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import { Dispatch, FC, useState } from 'react'
@@ -125,6 +126,7 @@ const FollowModule: FC<Props> = ({
     setFollowing(true)
     setShowFollowModal(false)
     toast.success('Followed successfully!')
+    Mixpanel.track('profile.super_follow', { result: 'success' })
   }
 
   const { isLoading: writeLoading, write } = useContractWrite({
@@ -204,6 +206,7 @@ const FollowModule: FC<Props> = ({
           toast.error(error.message)
         }
         Logger.error('[Broadcast Error]', error)
+        Mixpanel.track('profile.super_follow', { result: 'broadcast_error' })
       }
     }
   )

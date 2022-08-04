@@ -20,6 +20,7 @@ import {
   getModule
 } from '@lib/getModule'
 import Logger from '@lib/logger'
+import { Mixpanel } from '@lib/mixpanel'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import trimify from '@lib/trimify'
@@ -121,6 +122,7 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
   })
 
   const onCompleted = () => {
+    Mixpanel.track('post.new', { result: 'success' })
     setPreview(false)
     setPostContent('')
     setAttachments([])
@@ -154,6 +156,7 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
           toast.error(error.message)
         }
         Logger.error('[Broadcast Error]', error)
+        Mixpanel.track('post.new', { result: 'broadcast_error' })
       }
     })
   const [createPostTypedData, { loading: typedDataLoading }] = useMutation(
@@ -218,6 +221,7 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
   const createPost = async () => {
     if (!isAuthenticated) return toast.error(SIGN_WALLET)
     if (postContent.length === 0 && attachments.length === 0) {
+      Mixpanel.track('post.new', { result: 'empty' })
       return setPostContentError('Post should not be empty!')
     }
 

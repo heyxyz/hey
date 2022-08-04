@@ -5,6 +5,7 @@ import {
   DotsHorizontalIcon,
   ShieldExclamationIcon
 } from '@heroicons/react/outline'
+import { Mixpanel } from '@lib/mixpanel'
 import clsx from 'clsx'
 import { FC, Fragment } from 'react'
 import { useAppPersistStore } from 'src/store/app'
@@ -26,6 +27,9 @@ const PublicationMenu: FC<Props> = ({ publication }) => {
         <>
           <Menu.Button
             className="p-1.5 rounded-full hover:bg-gray-300 hover:bg-opacity-20"
+            onClick={() => {
+              Mixpanel.track('publication.more')
+            }}
             aria-label="More"
             data-test="publication-more"
           >

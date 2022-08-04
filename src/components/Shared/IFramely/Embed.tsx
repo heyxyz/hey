@@ -1,4 +1,5 @@
 import { Card } from '@components/UI/Card'
+import { Mixpanel } from '@lib/mixpanel'
 import React, { FC } from 'react'
 
 interface Props {
@@ -8,7 +9,14 @@ interface Props {
 const Embed: FC<Props> = ({ og }) => {
   return (
     <div className="mt-4 text-sm sm:w-4/6">
-      <a href={og.url} target="_blank" rel="noreferrer noopener">
+      <a
+        href={og.url}
+        onClick={() => {
+          Mixpanel.track('publication.oembed.open')
+        }}
+        target="_blank"
+        rel="noreferrer noopener"
+      >
         <Card forceRounded>
           {!og.isSquare && og.thumbnail && (
             <img

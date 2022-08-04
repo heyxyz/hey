@@ -10,6 +10,7 @@ import { Profile, SetDefaultProfileBroadcastItemResult } from '@generated/types'
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { ExclamationIcon, PencilIcon } from '@heroicons/react/outline'
 import Logger from '@lib/logger'
+import { Mixpanel } from '@lib/mixpanel'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import React, { FC, useEffect, useState } from 'react'
@@ -71,6 +72,9 @@ const SetProfile: FC = () => {
 
   const onCompleted = () => {
     toast.success('Default profile updated successfully!')
+    Mixpanel.track('profile.settings.account.set_default_profile', {
+      result: 'success'
+    })
   }
 
   const {
@@ -108,6 +112,9 @@ const SetProfile: FC = () => {
           toast.error(error.message)
         }
         Logger.error('[Broadcast Error]', error)
+        Mixpanel.track('profile.settings.account.set_default_profile', {
+          result: 'broadcast_error'
+        })
       }
     })
   const [createSetDefaultProfileTypedData, { loading: typedDataLoading }] =

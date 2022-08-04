@@ -22,6 +22,7 @@ import hasPrideLogo from '@lib/hasPrideLogo'
 import imagekitURL from '@lib/imagekitURL'
 import isBeta from '@lib/isBeta'
 import Logger from '@lib/logger'
+import { Mixpanel } from '@lib/mixpanel'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import uploadAssetsToIPFS from '@lib/uploadAssetsToIPFS'
@@ -113,6 +114,9 @@ const Profile: FC<Props> = ({ profile }) => {
 
   const onCompleted = () => {
     toast.success('Profile updated successfully!')
+    Mixpanel.track('profile.settings.profile.update', {
+      result: 'success'
+    })
   }
 
   const {
@@ -141,6 +145,9 @@ const Profile: FC<Props> = ({ profile }) => {
           toast.error(error.message)
         }
         Logger.error('[Broadcast Error]', error)
+        Mixpanel.track('profile.settings.profile.update', {
+          result: 'broadcast_error'
+        })
       }
     })
   const [createSetProfileMetadataTypedData, { loading: typedDataLoading }] =

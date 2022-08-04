@@ -33,6 +33,7 @@ import formatAddress from '@lib/formatAddress'
 import getTokenImage from '@lib/getTokenImage'
 import humanize from '@lib/humanize'
 import Logger from '@lib/logger'
+import { Mixpanel } from '@lib/mixpanel'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import dayjs from 'dayjs'
@@ -154,6 +155,9 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
     setRevenue(revenue + parseFloat(collectModule?.amount?.value))
     setCount(count + 1)
     toast.success('Transaction submitted successfully!')
+    Mixpanel.track('publication.collect', {
+      result: 'success'
+    })
   }
 
   const {
@@ -256,6 +260,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
           toast.error(error.message)
         }
         Logger.error('[Broadcast Error]', error)
+        Mixpanel.track('publication.collect', { result: 'broadcast_error' })
       }
     })
   const [createCollectTypedData, { loading: typedDataLoading }] = useMutation(
@@ -404,7 +409,10 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
               <button
                 className="font-bold"
                 type="button"
-                onClick={() => setShowCollectorsModal(!showCollectorsModal)}
+                onClick={() => {
+                  setShowCollectorsModal(!showCollectorsModal)
+                  Mixpanel.track('publication.collect.collectors_modal.open')
+                }}
               >
                 {humanize(count)} collectors
               </button>

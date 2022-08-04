@@ -8,6 +8,7 @@ import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { SwitchHorizontalIcon } from '@heroicons/react/outline'
 import humanize from '@lib/humanize'
 import Logger from '@lib/logger'
+import { Mixpanel } from '@lib/mixpanel'
 import nFormatter from '@lib/nFormatter'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
@@ -96,7 +97,9 @@ const Mirror: FC<Props> = ({ publication }) => {
     setCount(count + 1)
     setMirrored(true)
     toast.success('Post has been mirrored!')
+    Mixpanel.track('publication.mirror', { result: 'success' })
   }
+
   const { isLoading: writeLoading, write } = useContractWrite({
     addressOrName: LENSHUB_PROXY,
     contractInterface: LensHubProxy,
@@ -119,6 +122,7 @@ const Mirror: FC<Props> = ({ publication }) => {
           toast.error(error.message)
         }
         Logger.error('[Broadcast Error]', error)
+        Mixpanel.track('publication.mirror', { result: 'broadcast_error' })
       }
     }
   )

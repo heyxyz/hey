@@ -14,6 +14,7 @@ import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { StarIcon, XIcon } from '@heroicons/react/outline'
 import getTokenImage from '@lib/getTokenImage'
 import Logger from '@lib/logger'
+import { Mixpanel } from '@lib/mixpanel'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import React, { FC, useState } from 'react'
@@ -111,6 +112,12 @@ const SuperFollow: FC = () => {
     }
   })
 
+  const onCompleted = () => {
+    Mixpanel.track('profile.settings.account.set_super_follow', {
+      result: 'success'
+    })
+  }
+
   const {
     data: writeData,
     isLoading: writeLoading,
@@ -120,6 +127,9 @@ const SuperFollow: FC = () => {
     contractInterface: LensHubProxy,
     functionName: 'setFollowModuleWithSig',
     mode: 'recklesslyUnprepared',
+    onSuccess() {
+      onCompleted()
+    },
     onError(error: any) {
       toast.error(error?.data?.message ?? error?.message)
     }
@@ -134,11 +144,15 @@ const SuperFollow: FC = () => {
 
   const [broadcast, { data: broadcastData, loading: broadcastLoading }] =
     useMutation(BROADCAST_MUTATION, {
+      onCompleted,
       onError(error) {
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
         }
         Logger.error('[Broadcast Error]', error)
+        Mixpanel.track('profile.settings.account.set_super_follow', {
+          result: 'broadcast_error'
+        })
       }
     })
   const [createSetFollowModuleTypedData, { loading: typedDataLoading }] =
