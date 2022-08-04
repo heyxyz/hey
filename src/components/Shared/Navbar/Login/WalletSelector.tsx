@@ -88,6 +88,7 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
       if (account) {
         setHasConnected(true)
       }
+      Mixpanel.track(`user.wallet.${connector.name.toLowerCase()}.connect`)
     } catch (error) {
       Logger.warn('[Sign Error]', error)
     }
