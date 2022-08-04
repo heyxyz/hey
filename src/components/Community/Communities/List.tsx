@@ -7,12 +7,11 @@ import React, { FC } from 'react'
 
 interface Props {
   communities: Community[]
-  testId: string
 }
 
-const List: FC<Props> = ({ communities, testId }) => {
+const List: FC<Props> = ({ communities }) => {
   return (
-    <Card testId={testId}>
+    <Card>
       <CardBody className="space-y-6">
         {communities?.length === 0 && (
           <EmptyState

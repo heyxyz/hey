@@ -32,7 +32,6 @@ const PublicationMenu: FC<Props> = ({ publication }) => {
               Mixpanel.track(PUBLICATION.MORE)
             }}
             aria-label="More"
-            data-test="publication-more"
           >
             <DotsHorizontalIcon className="w-5 h-5 text-gray-500 dark:text-gray-300" />
           </Menu.Button>

@@ -34,7 +34,6 @@ const SinglePublication: FC<Props> = ({
         onClick={() => {
           Mixpanel.track(PUBLICATION.OPEN)
         }}
-        data-test="publication"
       >
         <PublicationType
           publication={publication}
@@ -53,14 +52,11 @@ const SinglePublication: FC<Props> = ({
                   : publication?.profile
               }
             />
-            <span
-              className="text-sm text-gray-500"
-              data-test="publication-timestamp"
-            >
+            <span className="text-sm text-gray-500">
               {dayjs(new Date(publication?.createdAt)).fromNow()}
             </span>
           </div>
-          <div className="ml-[53px]" data-test="publication-content">
+          <div className="ml-[53px]">
             {publication?.hidden ? (
               <HiddenPublication type={publication?.__typename} />
             ) : (

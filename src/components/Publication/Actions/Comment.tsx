@@ -29,7 +29,6 @@ const Comment: FC<Props> = ({ publication }) => {
         Mixpanel.track(PUBLICATION.OPEN_COMMENT)
       }}
       aria-label="Like"
-      data-test="publication-comment"
     >
       <div className="flex items-center space-x-1 text-blue-500 hover:text-blue-400">
         <div className="p-1.5 rounded-full hover:bg-blue-300 hover:bg-opacity-20">

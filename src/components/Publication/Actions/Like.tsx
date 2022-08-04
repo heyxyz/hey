@@ -108,7 +108,6 @@ const Like: FC<Props> = ({ publication }) => {
       whileTap={{ scale: 0.9 }}
       onClick={createLike}
       aria-label="Like"
-      data-test="publication-like"
     >
       <div className="flex items-center space-x-1 text-pink-500">
         <div className="p-1.5 rounded-full hover:bg-pink-300 hover:bg-opacity-20">

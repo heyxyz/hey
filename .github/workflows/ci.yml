@@ -43,24 +43,3 @@ jobs:
 
       - name: Lint codebase
         run: yarn prettier:check
-
-  test:
-    runs-on: ubuntu-latest
-    name: Test
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Use Node.js 16
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16.x
-          cache: 'yarn'
-
-      - name: Install dependencies
-        run: yarn install --frozen-lockfile --silent
-
-      - name: GraphQL codegen
-        run: yarn codegen
-
-      - name: Run cypress
-        run: yarn cypress:e2e
