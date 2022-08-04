@@ -64,7 +64,8 @@ export const COMMUNITY = {
 
 export const CROWDFUND = {
   NEW: 'New crowdfund',
-  FUND: 'Fund a crowdfund'
+  FUND: 'Fund a crowdfund',
+  OPEN_FUNDERS: 'Open funders list'
 }
 
 export const NOTIFICATION = {

@@ -38,7 +38,6 @@ const Settings: FC<Props> = ({ community }) => {
           icon={<TrashIcon className="w-5 h-5" />}
           variant="danger"
           onClick={() => {
-            Mixpanel.track(COMMUNITY.SETTINGS.DELETE)
             if (confirm('Are you sure you want to delete?')) {
               hidePost({
                 variables: { request: { publicationId: community?.id } }
