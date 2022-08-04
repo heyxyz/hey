@@ -48,7 +48,7 @@ We encourage you to contribute to Lenster! Please check out the [Contributing gu
 ## ⭐️ Values
 
 - **Be the change** - Don't wait for anything, if you want is ship it make sure it's sustainable
-- **Pride in product** - Ask yourself will you use the feature if it's live before making it
+- **Pride in product** - We ask ourselves that will we use the feature if it's live before making it
 - **Diversity** - We welcome differences, and listen before we speak. It proportianly leads to extraordinary results and experiences.
 
 ## ⚙️ Setup
