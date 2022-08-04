@@ -36,7 +36,7 @@ const FeedType: FC<Props> = ({ stats, setFeedType, feedType }) => {
       type="button"
       onClick={() => {
         setFeedType(type)
-        Mixpanel.track('profile.tab_switch', { type: type.toLowerCase() })
+        Mixpanel.track(`profile.${type.toLowerCase()}.tab_switch`)
       }}
       className={clsx(
         {
