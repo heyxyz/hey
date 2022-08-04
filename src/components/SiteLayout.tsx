@@ -94,7 +94,6 @@ const SiteLayout: FC<Props> = ({ children }) => {
     const refreshToken = Cookies.get('refreshToken')
     const currentUserAddress = currentUser?.ownedBy
     setMounted(true)
-    datadogLogs.logger.info('Button clicked', { name: 'buttonName', id: 123 })
 
     // Set dogstats user id
     if (currentUser?.id) {
