@@ -24,6 +24,7 @@ import {
   getModule
 } from '@lib/getModule'
 import Logger from '@lib/logger'
+import { Mixpanel } from '@lib/mixpanel'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import trimify from '@lib/trimify'
@@ -40,6 +41,7 @@ import {
   SIGN_WALLET
 } from 'src/constants'
 import { useAppPersistStore, useAppStore } from 'src/store/app'
+import { COMMENT_NEW } from 'src/tracking'
 import { v4 as uuid } from 'uuid'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 
@@ -131,6 +133,7 @@ const NewComment: FC<Props> = ({
     }
   })
   const onCompleted = () => {
+    Mixpanel.track(COMMENT_NEW, { action: 'click', restult: 'success' })
     setPreview(false)
     setCommentContent('')
     setAttachments([])
@@ -234,6 +237,7 @@ const NewComment: FC<Props> = ({
   const createComment = async () => {
     if (!isAuthenticated) return toast.error(SIGN_WALLET)
     if (commentContent.length === 0 && attachments.length === 0) {
+      Mixpanel.track(COMMENT_NEW, { action: 'click', restult: 'empty' })
       return setCommentContentError('Comment should not be empty!')
     }
 

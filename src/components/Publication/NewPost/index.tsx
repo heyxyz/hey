@@ -20,6 +20,7 @@ import {
   getModule
 } from '@lib/getModule'
 import Logger from '@lib/logger'
+import { Mixpanel } from '@lib/mixpanel'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import trimify from '@lib/trimify'
@@ -36,6 +37,7 @@ import {
   SIGN_WALLET
 } from 'src/constants'
 import { useAppPersistStore, useAppStore } from 'src/store/app'
+import { POST_NEW } from 'src/tracking'
 import { v4 as uuid } from 'uuid'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 
@@ -121,6 +123,7 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
   })
 
   const onCompleted = () => {
+    Mixpanel.track(POST_NEW, { action: 'click', restult: 'success' })
     setPreview(false)
     setPostContent('')
     setAttachments([])
@@ -218,6 +221,7 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
   const createPost = async () => {
     if (!isAuthenticated) return toast.error(SIGN_WALLET)
     if (postContent.length === 0 && attachments.length === 0) {
+      Mixpanel.track(POST_NEW, { action: 'click', restult: 'empty' })
       return setPostContentError('Post should not be empty!')
     }
 

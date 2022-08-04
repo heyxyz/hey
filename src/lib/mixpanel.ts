@@ -7,7 +7,10 @@ export const Mixpanel = {
   identify: (id: string) => {
     if (enabled) mixpanel.identify(id)
   },
-  track: (name: string, props?: Dict) => {
+  track: (
+    name: string,
+    props?: Dict & { action?: string; restult?: string }
+  ) => {
     if (enabled) mixpanel.track(name, props)
   },
   people: {
