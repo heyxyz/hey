@@ -1,5 +1,6 @@
 import { Tooltip } from '@components/UI/Tooltip'
 import { EyeIcon } from '@heroicons/react/outline'
+import { Mixpanel } from '@lib/mixpanel'
 import { motion } from 'framer-motion'
 import { Dispatch, FC } from 'react'
 
@@ -16,6 +17,7 @@ const Preview: FC<Props> = ({ preview, setPreview }) => {
         type="button"
         onClick={() => {
           setPreview(!preview)
+          Mixpanel.track('publication.new.markdown_preview')
         }}
         aria-label="Choose Attachment"
       >
