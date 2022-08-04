@@ -26,7 +26,7 @@ import { useTheme } from 'next-themes'
 import { FC, Fragment, useState } from 'react'
 import { GIT_COMMIT_SHA } from 'src/constants'
 import { useAppPersistStore, useAppStore } from 'src/store/app'
-import { PROFILE, STAFF, USER } from 'src/tracking'
+import { PROFILE, STAFF, SYSTEM, USER } from 'src/tracking'
 import { useDisconnect } from 'wagmi'
 
 import Slug from '../Slug'
@@ -193,7 +193,9 @@ const MenuItems: FC<Props> = ({ pingData }) => {
                 onClick={() => {
                   setTheme(theme === 'light' ? 'dark' : 'light')
                   Mixpanel.track(
-                    `theme.${theme === 'light' ? 'dark' : 'light'}`
+                    theme === 'light'
+                      ? SYSTEM.SWITCH_DARK_THEME
+                      : SYSTEM.SWITCH_LIGHT_THEME
                   )
                 }}
                 className={({ active }: { active: boolean }) =>

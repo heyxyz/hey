@@ -58,7 +58,7 @@ const Modules: FC<Props> = ({
   const handleSelectModule = (module: EnabledModule) => {
     setSelectedModule(module)
     Mixpanel.track(
-      `publication.new.collect_module.select.${module?.moduleName.toLowerCase()}`
+      `Select ${module?.moduleName.toLowerCase()} for new publication`
     )
 
     if (getModule(module?.moduleName).hasParam) {
