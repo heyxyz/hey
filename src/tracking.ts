@@ -6,7 +6,9 @@ export const USER_LOGOUT = 'user.logout'
 export const PROFILE_LOGOUT = 'profile.logout'
 
 // Post
+export const POST_NEW = 'post.new'
 
 // Comment
+export const COMMENT_NEW = 'comment.new'
 
 // Publication
