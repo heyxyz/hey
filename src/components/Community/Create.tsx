@@ -16,6 +16,7 @@ import { CreatePostBroadcastItemResult } from '@generated/types'
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { PlusIcon } from '@heroicons/react/outline'
 import Logger from '@lib/logger'
+import { Mixpanel } from '@lib/mixpanel'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import uploadAssetsToIPFS from '@lib/uploadAssetsToIPFS'
@@ -59,6 +60,10 @@ const Create: NextPage = () => {
     }
   })
 
+  const onCompleted = () => {
+    Mixpanel.track('community.new', { result: 'success' })
+  }
+
   const {
     data,
     isLoading: writeLoading,
@@ -68,6 +73,9 @@ const Create: NextPage = () => {
     contractInterface: LensHubProxy,
     functionName: 'postWithSig',
     mode: 'recklesslyUnprepared',
+    onSuccess() {
+      onCompleted()
+    },
     onError(error: any) {
       toast.error(error?.data?.message ?? error?.message)
     }
@@ -93,6 +101,7 @@ const Create: NextPage = () => {
 
   const [broadcast, { data: broadcastData, loading: broadcastLoading }] =
     useMutation(BROADCAST_MUTATION, {
+      onCompleted,
       onError(error) {
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
