@@ -6,6 +6,7 @@ import { CreateFollowBroadcastItemResult, Profile } from '@generated/types'
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { UserAddIcon } from '@heroicons/react/outline'
 import Logger from '@lib/logger'
+import { Mixpanel } from '@lib/mixpanel'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import { Dispatch, FC } from 'react'
@@ -82,6 +83,7 @@ const Follow: FC<Props> = ({
     }
     setFollowing(true)
     toast.success('Followed successfully!')
+    Mixpanel.track('profile.follow', { result: 'success' })
   }
 
   const { isLoading: writeLoading, write } = useContractWrite({
