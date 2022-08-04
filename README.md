@@ -45,6 +45,12 @@ For a place to have open discussions on features, voice your ideas, or get help 
 
 We encourage you to contribute to Lenster! Please check out the [Contributing guide](CONTRIBUTING.md) for guidelines about how to proceed.
 
+## ⭐️ Values
+
+- **Be the change** - Don't wait for anything, if you want is ship it make sure it's sustainable
+- **Pride in product** - Ask yourself will you use the feature if it's live before making it
+- **Diversity** - We welcome differences, and listen before we speak. It proportianly leads to extraordinary results and experiences.
+
 ## ⚙️ Setup
 
 ### Using Local Environment
