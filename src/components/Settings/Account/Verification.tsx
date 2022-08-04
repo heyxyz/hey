@@ -4,6 +4,7 @@ import isVerified from '@lib/isVerified'
 import { Mixpanel } from '@lib/mixpanel'
 import React, { FC } from 'react'
 import { useAppPersistStore } from 'src/store/app'
+import { SETTINGS } from 'src/tracking'
 
 const Verification: FC = () => {
   const { currentUser } = useAppPersistStore()
@@ -23,7 +24,7 @@ const Verification: FC = () => {
             <a
               href="https://tally.so/r/wgDajK"
               onClick={() => {
-                Mixpanel.track('profile.settings.account.verification')
+                Mixpanel.track(SETTINGS.ACCOUNT.OPEN_VERIFICATION)
               }}
               target="_blank"
               rel="noreferrer noopener"

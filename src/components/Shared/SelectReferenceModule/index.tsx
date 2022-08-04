@@ -6,6 +6,7 @@ import { Mixpanel } from '@lib/mixpanel'
 import clsx from 'clsx'
 import { motion } from 'framer-motion'
 import { Dispatch, FC, useState } from 'react'
+import { PUBLICATION } from 'src/tracking'
 
 interface Props {
   setOnlyFollowers: Dispatch<boolean>
@@ -31,7 +32,7 @@ const SelectReferenceModule: FC<Props> = ({
           type="button"
           onClick={() => {
             setShowModal(!showModal)
-            Mixpanel.track('publication.new.reference_modal.open')
+            Mixpanel.track(PUBLICATION.REFERENCE_MODULE.OPEN_REFERENCE)
           }}
           aria-label="Choose Reference Module"
         >

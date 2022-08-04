@@ -34,6 +34,7 @@ import {
 } from 'src/constants'
 import Custom404 from 'src/pages/404'
 import { useAppPersistStore, useAppStore } from 'src/store/app'
+import { COMMUNITY } from 'src/tracking'
 import { v4 as uuid } from 'uuid'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 import { object, string } from 'zod'
@@ -61,7 +62,7 @@ const Create: NextPage = () => {
   })
 
   const onCompleted = () => {
-    Mixpanel.track('community.new', { result: 'success' })
+    Mixpanel.track(COMMUNITY.NEW, { result: 'success' })
   }
 
   const {
@@ -107,7 +108,7 @@ const Create: NextPage = () => {
           toast.error(error.message)
         }
         Logger.error('[Broadcast Error]', error)
-        Mixpanel.track('community.new', { result: 'broadcast_error' })
+        Mixpanel.track(COMMUNITY.NEW, { result: 'broadcast_error' })
       }
     })
   const [createPostTypedData, { loading: typedDataLoading }] = useMutation(

@@ -4,6 +4,7 @@ import { UsersIcon } from '@heroicons/react/outline'
 import humanize from '@lib/humanize'
 import { Mixpanel } from '@lib/mixpanel'
 import React, { FC, useState } from 'react'
+import { PROFILE } from 'src/tracking'
 
 import Followers from './Followers'
 import Following from './Following'
@@ -24,7 +25,7 @@ const Followerings: FC<Props> = ({ followersCount, profile }) => {
         className="text-left"
         onClick={() => {
           setShowFollowingModal(!showFollowingModal)
-          Mixpanel.track('profile.following_modal.open')
+          Mixpanel.track(PROFILE.OPEN_FOLLOWING)
         }}
         data-test="profile-following"
       >
@@ -38,7 +39,7 @@ const Followerings: FC<Props> = ({ followersCount, profile }) => {
         className="text-left"
         onClick={() => {
           setShowFollowersModal(!showFollowersModal)
-          Mixpanel.track('profile.followers_modal.open')
+          Mixpanel.track(PROFILE.OPEN_FOLLOWERS)
         }}
         data-test="profile-followers"
       >

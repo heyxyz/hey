@@ -15,6 +15,7 @@ import toast from 'react-hot-toast'
 import { COOKIE_CONFIG } from 'src/apollo'
 import { CHAIN_ID, ERROR_MESSAGE } from 'src/constants'
 import { useAppPersistStore, useAppStore } from 'src/store/app'
+import { USER } from 'src/tracking'
 import {
   Connector,
   useAccount,
@@ -141,7 +142,7 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
         setProfiles(profiles)
         setCurrentUser(profiles[0])
       }
-      Mixpanel.track('user.sign_wallet', { result: 'success' })
+      Mixpanel.track(USER.SIWL, { result: 'success' })
     } catch (error) {
       console.log(error)
     }

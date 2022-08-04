@@ -7,6 +7,7 @@ import { TrashIcon } from '@heroicons/react/outline'
 import { Mixpanel } from '@lib/mixpanel'
 import { useRouter } from 'next/router'
 import React, { FC } from 'react'
+import { COMMUNITY } from 'src/tracking'
 
 interface Props {
   community: Community
@@ -16,7 +17,7 @@ const Settings: FC<Props> = ({ community }) => {
   const { push } = useRouter()
   const [hidePost] = useMutation(HIDE_POST_MUTATION, {
     onCompleted() {
-      Mixpanel.track('community.delete', { result: 'success' })
+      Mixpanel.track(COMMUNITY.DELETE, { result: 'success' })
       push('/')
     }
   })
@@ -37,7 +38,7 @@ const Settings: FC<Props> = ({ community }) => {
           icon={<TrashIcon className="w-5 h-5" />}
           variant="danger"
           onClick={() => {
-            Mixpanel.track('community.delete')
+            Mixpanel.track(COMMUNITY.DELETE)
             if (confirm('Are you sure you want to delete?')) {
               hidePost({
                 variables: { request: { publicationId: community?.id } }

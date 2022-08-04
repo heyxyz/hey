@@ -5,6 +5,7 @@ import {
 import getUniswapURL from '@lib/getUniswapURL'
 import { Mixpanel } from '@lib/mixpanel'
 import React, { FC } from 'react'
+import { PUBLICATION } from 'src/tracking'
 
 interface Props {
   module: LensterCollectModule | LensterFollowModule
@@ -22,7 +23,7 @@ const Uniswap: FC<Props> = ({ module }) => {
           module?.amount?.asset?.address
         )}
         onClick={() => {
-          Mixpanel.track('publication.collect.uniswap.open')
+          Mixpanel.track(PUBLICATION.COLLECT_MODULE.OPEN_UNISWAP)
         }}
         className="flex items-center space-x-1.5 text-xs font-bold text-pink-500"
         target="_blank"

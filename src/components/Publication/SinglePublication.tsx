@@ -5,6 +5,7 @@ import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import Link from 'next/link'
 import React, { FC } from 'react'
+import { PUBLICATION } from 'src/tracking'
 
 import PublicationActions from './Actions'
 import HiddenPublication from './HiddenPublication'
@@ -31,7 +32,7 @@ const SinglePublication: FC<Props> = ({
       <article
         className="cursor-pointer first:rounded-t-xl last:rounded-b-xl hover:bg-gray-100/70 hover:dark:bg-gray-800/70 p-5"
         onClick={() => {
-          Mixpanel.track('publication.open')
+          Mixpanel.track(PUBLICATION.OPEN)
         }}
         data-test="publication"
       >

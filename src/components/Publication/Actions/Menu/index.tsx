@@ -9,6 +9,7 @@ import { Mixpanel } from '@lib/mixpanel'
 import clsx from 'clsx'
 import { FC, Fragment } from 'react'
 import { useAppPersistStore } from 'src/store/app'
+import { PUBLICATION } from 'src/tracking'
 
 import Delete from './Delete'
 import Embed from './Embed'
@@ -28,7 +29,7 @@ const PublicationMenu: FC<Props> = ({ publication }) => {
           <Menu.Button
             className="p-1.5 rounded-full hover:bg-gray-300 hover:bg-opacity-20"
             onClick={() => {
-              Mixpanel.track('publication.more')
+              Mixpanel.track(PUBLICATION.MORE)
             }}
             aria-label="More"
             data-test="publication-more"

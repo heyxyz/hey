@@ -10,6 +10,7 @@ import { FC, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { SIGN_WALLET } from 'src/constants'
 import { useAppPersistStore } from 'src/store/app'
+import { PUBLICATION } from 'src/tracking'
 
 const ADD_REACTION_MUTATION = gql`
   mutation AddReaction($request: ReactionRequest!) {
@@ -53,25 +54,25 @@ const Like: FC<Props> = ({ publication }) => {
 
   const [addReaction] = useMutation(ADD_REACTION_MUTATION, {
     onCompleted() {
-      Mixpanel.track('publication.like', { result: 'success' })
+      Mixpanel.track(PUBLICATION.LIKE, { result: 'success' })
     },
     onError(error) {
       setLiked(!liked)
       setCount(count - 1)
       toast.error(error.message)
-      Mixpanel.track('publication.like', { result: 'error' })
+      Mixpanel.track(PUBLICATION.LIKE, { result: 'error' })
     }
   })
 
   const [removeReaction] = useMutation(REMOVE_REACTION_MUTATION, {
     onCompleted() {
-      Mixpanel.track('publication.dislike', { result: 'success' })
+      Mixpanel.track(PUBLICATION.DISLIKE, { result: 'success' })
     },
     onError(error) {
       setLiked(!liked)
       setCount(count + 1)
       toast.error(error.message)
-      Mixpanel.track('publication.dislike', { result: 'error' })
+      Mixpanel.track(PUBLICATION.DISLIKE, { result: 'error' })
     }
   })
 

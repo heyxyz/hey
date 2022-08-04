@@ -39,6 +39,7 @@ import {
 } from 'src/constants'
 import Custom404 from 'src/pages/404'
 import { useAppPersistStore, useAppStore } from 'src/store/app'
+import { CROWDFUND } from 'src/tracking'
 import { v4 as uuid } from 'uuid'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 import { object, string } from 'zod'
@@ -85,7 +86,7 @@ const Create: NextPage = () => {
   const { isAuthenticated, currentUser } = useAppPersistStore()
 
   const onCompleted = () => {
-    Mixpanel.track('crowdfund.new', { result: 'success' })
+    Mixpanel.track(CROWDFUND.NEW, { result: 'success' })
   }
 
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
@@ -148,7 +149,7 @@ const Create: NextPage = () => {
           toast.error(error.message)
         }
         Logger.error('[Broadcast Error]', error)
-        Mixpanel.track('crowdfund.new', { result: 'broadcast_error' })
+        Mixpanel.track(CROWDFUND.NEW, { result: 'broadcast_error' })
       }
     })
   const [createPostTypedData, { loading: typedDataLoading }] = useMutation(

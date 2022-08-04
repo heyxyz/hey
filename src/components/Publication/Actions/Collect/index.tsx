@@ -11,6 +11,7 @@ import nFormatter from '@lib/nFormatter'
 import { motion } from 'framer-motion'
 import dynamic from 'next/dynamic'
 import { FC, useEffect, useState } from 'react'
+import { PUBLICATION } from 'src/tracking'
 
 const CollectModule = dynamic(() => import('./CollectModule'), {
   loading: () => <Loader message="Loading collect" />
@@ -45,7 +46,7 @@ const Collect: FC<Props> = ({ publication }) => {
         whileTap={{ scale: 0.9 }}
         onClick={() => {
           setShowCollectModal(true)
-          Mixpanel.track('publication.collect_modal.open')
+          Mixpanel.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECT)
         }}
         aria-label="Collect"
         data-test="publication-collect"

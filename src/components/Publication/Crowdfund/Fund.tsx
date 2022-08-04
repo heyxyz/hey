@@ -26,6 +26,7 @@ import {
   RELAY_ON
 } from 'src/constants'
 import { useAppPersistStore, useAppStore } from 'src/store/app'
+import { CROWDFUND } from 'src/tracking'
 import {
   useAccount,
   useBalance,
@@ -128,7 +129,7 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
   const onCompleted = () => {
     setRevenue(revenue + parseFloat(collectModule?.amount?.value))
     toast.success('Transaction submitted successfully!')
-    Mixpanel.track('crowdfund.fund', { result: 'success' })
+    Mixpanel.track(CROWDFUND.FUND, { result: 'success' })
   }
 
   const {
@@ -156,7 +157,7 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
           toast.error(error.message)
         }
         Logger.error('[Broadcast Error]', error)
-        Mixpanel.track('crowdfund.fund', { result: 'broadcast_error' })
+        Mixpanel.track(CROWDFUND.FUND, { result: 'broadcast_error' })
       }
     })
   const [createCollectTypedData, { loading: typedDataLoading }] = useMutation(

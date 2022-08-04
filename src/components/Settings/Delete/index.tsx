@@ -23,6 +23,7 @@ import {
 } from 'src/constants'
 import Custom404 from 'src/pages/404'
 import { useAppPersistStore, useAppStore } from 'src/store/app'
+import { SETTINGS } from 'src/tracking'
 import { useContractWrite, useDisconnect, useSignTypedData } from 'wagmi'
 
 import Sidebar from '../Sidebar'
@@ -75,7 +76,7 @@ const DeleteSettings: FC = () => {
   })
 
   const onCompleted = () => {
-    Mixpanel.track('profile.settings.delete')
+    Mixpanel.track(SETTINGS.DELETE)
     setIsAuthenticated(false)
     setIsConnected(false)
     setCurrentUser(null)

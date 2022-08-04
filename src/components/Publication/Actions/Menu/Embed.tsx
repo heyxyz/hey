@@ -4,6 +4,7 @@ import { CodeIcon } from '@heroicons/react/outline'
 import { Mixpanel } from '@lib/mixpanel'
 import clsx from 'clsx'
 import React, { FC } from 'react'
+import { PUBLICATION } from 'src/tracking'
 
 interface Props {
   publication: LensterPublication
@@ -20,7 +21,7 @@ const Embed: FC<Props> = ({ publication }) => {
         )
       }
       onClick={() => {
-        Mixpanel.track('publication.embed')
+        Mixpanel.track(PUBLICATION.EMBED)
       }}
       href={`https://embed.withlens.app/?url=${
         publication?.id ?? publication?.pubId

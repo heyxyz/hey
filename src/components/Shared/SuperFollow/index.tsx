@@ -5,6 +5,7 @@ import { StarIcon } from '@heroicons/react/outline'
 import { Mixpanel } from '@lib/mixpanel'
 import dynamic from 'next/dynamic'
 import { Dispatch, FC, useState } from 'react'
+import { PROFILE } from 'src/tracking'
 
 import Loader from '../Loader'
 import Slug from '../Slug'
@@ -40,7 +41,7 @@ const SuperFollow: FC<Props> = ({
         outline
         onClick={() => {
           setShowFollowModal(!showFollowModal)
-          Mixpanel.track('profile.super_follow_modal.open')
+          Mixpanel.track(PROFILE.OPEN_SUPER_FOLLOW)
         }}
         aria-label="Super Follow"
         icon={<StarIcon className="w-4 h-4" />}

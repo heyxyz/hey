@@ -48,6 +48,7 @@ import {
   RELAY_ON
 } from 'src/constants'
 import { useAppPersistStore, useAppStore } from 'src/store/app'
+import { PUBLICATION } from 'src/tracking'
 import {
   useAccount,
   useBalance,
@@ -155,7 +156,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
     setRevenue(revenue + parseFloat(collectModule?.amount?.value))
     setCount(count + 1)
     toast.success('Transaction submitted successfully!')
-    Mixpanel.track('publication.collect', {
+    Mixpanel.track(PUBLICATION.COLLECT_MODULE.COLLECT, {
       result: 'success'
     })
   }
@@ -260,7 +261,9 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
           toast.error(error.message)
         }
         Logger.error('[Broadcast Error]', error)
-        Mixpanel.track('publication.collect', { result: 'broadcast_error' })
+        Mixpanel.track(PUBLICATION.COLLECT_MODULE.COLLECT, {
+          result: 'broadcast_error'
+        })
       }
     })
   const [createCollectTypedData, { loading: typedDataLoading }] = useMutation(
@@ -411,7 +414,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
                 type="button"
                 onClick={() => {
                   setShowCollectorsModal(!showCollectorsModal)
-                  Mixpanel.track('publication.collect.collectors_modal.open')
+                  Mixpanel.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECTORS)
                 }}
               >
                 {humanize(count)} collectors
