@@ -14,6 +14,7 @@ import {
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { PencilIcon } from '@heroicons/react/outline'
 import Logger from '@lib/logger'
+import { Mixpanel } from '@lib/mixpanel'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import gql from 'graphql-tag'
@@ -112,6 +113,9 @@ const NFTPicture: FC<Props> = ({ profile }) => {
 
   const onCompleted = () => {
     toast.success('Avatar updated successfully!')
+    Mixpanel.track('profile.settings.profile.set_nft_picture', {
+      result: 'success'
+    })
   }
 
   const {

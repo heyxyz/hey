@@ -6,6 +6,7 @@ import { WarningMessage } from '@components/UI/WarningMessage'
 import { ApprovedAllowanceAmount } from '@generated/types'
 import { ExclamationIcon, MinusIcon, PlusIcon } from '@heroicons/react/outline'
 import { getModule } from '@lib/getModule'
+import { Mixpanel } from '@lib/mixpanel'
 import React, { Dispatch, FC, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
@@ -66,6 +67,12 @@ const AllowanceButton: FC<Props> = ({
       toast.success(`Module ${allowed ? 'disabled' : 'enabled'} successfully!`)
       setShowWarninModal(false)
       setAllowed(!allowed)
+      Mixpanel.track(
+        `profile.settings.allowance.${allowed ? 'disabled' : 'enabled'}`,
+        {
+          result: 'success'
+        }
+      )
     },
     onError(error: any) {
       toast.error(error?.data?.message ?? error?.message)
