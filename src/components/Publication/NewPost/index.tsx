@@ -37,6 +37,7 @@ import {
   SIGN_WALLET
 } from 'src/constants'
 import { useAppPersistStore, useAppStore } from 'src/store/app'
+import { POST } from 'src/tracking'
 import { v4 as uuid } from 'uuid'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 
@@ -122,7 +123,7 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
   })
 
   const onCompleted = () => {
-    Mixpanel.track('post.new', { result: 'success' })
+    Mixpanel.track(POST.NEW, { result: 'success' })
     setPreview(false)
     setPostContent('')
     setAttachments([])
@@ -156,7 +157,7 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
           toast.error(error.message)
         }
         Logger.error('[Broadcast Error]', error)
-        Mixpanel.track('post.new', { result: 'broadcast_error' })
+        Mixpanel.track(POST.NEW, { result: 'broadcast_error' })
       }
     })
   const [createPostTypedData, { loading: typedDataLoading }] = useMutation(
@@ -221,7 +222,7 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
   const createPost = async () => {
     if (!isAuthenticated) return toast.error(SIGN_WALLET)
     if (postContent.length === 0 && attachments.length === 0) {
-      Mixpanel.track('post.new', { result: 'empty' })
+      Mixpanel.track(POST.NEW, { result: 'empty' })
       return setPostContentError('Post should not be empty!')
     }
 

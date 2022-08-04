@@ -30,6 +30,7 @@ import {
   SIGN_WALLET
 } from 'src/constants'
 import { useAppPersistStore, useAppStore } from 'src/store/app'
+import { PROFILE } from 'src/tracking'
 import {
   useAccount,
   useBalance,
@@ -126,7 +127,7 @@ const FollowModule: FC<Props> = ({
     setFollowing(true)
     setShowFollowModal(false)
     toast.success('Followed successfully!')
-    Mixpanel.track('profile.super_follow', { result: 'success' })
+    Mixpanel.track(PROFILE.SUPER_FOLLOW, { result: 'success' })
   }
 
   const { isLoading: writeLoading, write } = useContractWrite({
@@ -206,7 +207,7 @@ const FollowModule: FC<Props> = ({
           toast.error(error.message)
         }
         Logger.error('[Broadcast Error]', error)
-        Mixpanel.track('profile.super_follow', { result: 'broadcast_error' })
+        Mixpanel.track(PROFILE.SUPER_FOLLOW, { result: 'broadcast_error' })
       }
     }
   )

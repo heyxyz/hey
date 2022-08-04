@@ -7,6 +7,7 @@ import nFormatter from '@lib/nFormatter'
 import { motion } from 'framer-motion'
 import { FC } from 'react'
 import { usePublicationStore } from 'src/store/publication'
+import { PUBLICATION } from 'src/tracking'
 
 interface Props {
   publication: LensterPublication
@@ -25,7 +26,7 @@ const Comment: FC<Props> = ({ publication }) => {
       onClick={() => {
         setParentPub(publication)
         setShowNewPostModal(true)
-        Mixpanel.track('publication.comment_modal.open')
+        Mixpanel.track(PUBLICATION.OPEN_COMMENT)
       }}
       aria-label="Like"
       data-test="publication-comment"

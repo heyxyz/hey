@@ -7,6 +7,7 @@ import React, { FC } from 'react'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import toast from 'react-hot-toast'
 import { PUBLIC_URL } from 'src/constants'
+import { PUBLICATION } from 'src/tracking'
 
 interface Props {
   publication: LensterPublication
@@ -18,7 +19,7 @@ const Permalink: FC<Props> = ({ publication }) => {
       text={`${PUBLIC_URL}/posts/${publication?.id ?? publication?.pubId}`}
       onCopy={() => {
         toast.success('Copied to clipboard!')
-        Mixpanel.track('publication.permalink')
+        Mixpanel.track(PUBLICATION.PERMALINK)
       }}
     >
       <Menu.Item

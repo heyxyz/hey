@@ -21,6 +21,7 @@ import React, { FC, useState } from 'react'
 import { APP_NAME, ZERO_ADDRESS } from 'src/constants'
 import Custom404 from 'src/pages/404'
 import { useAppPersistStore } from 'src/store/app'
+import { PUBLICATION } from 'src/tracking'
 import { object, string } from 'zod'
 
 import Reason from './Reason'
@@ -72,7 +73,7 @@ const Report: FC = () => {
     { data: submitData, loading: submitLoading, error: submitError }
   ] = useMutation(CREATE_REPORT_PUBLICATION_MUTATION, {
     onCompleted() {
-      Mixpanel.track('publication.report', { result: 'success' })
+      Mixpanel.track(PUBLICATION.REPORT, { result: 'success' })
     }
   })
 

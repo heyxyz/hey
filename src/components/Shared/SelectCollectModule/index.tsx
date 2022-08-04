@@ -7,6 +7,7 @@ import { FEE_DATA_TYPE, getModule } from '@lib/getModule'
 import { Mixpanel } from '@lib/mixpanel'
 import { motion } from 'framer-motion'
 import { Dispatch, FC, useState } from 'react'
+import { PUBLICATION } from 'src/tracking'
 
 import Modules from './Modules'
 
@@ -36,7 +37,7 @@ const SelectCollectModule: FC<Props> = ({
           type="button"
           onClick={() => {
             setShowModal(!showModal)
-            Mixpanel.track('publication.new.collect_module_modal.open')
+            Mixpanel.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECT)
           }}
           aria-label="Choose Collect Module"
         >

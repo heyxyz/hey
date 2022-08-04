@@ -20,6 +20,7 @@ import {
   SIGN_WALLET
 } from 'src/constants'
 import { useAppPersistStore, useAppStore } from 'src/store/app'
+import { COMMUNITY } from 'src/tracking'
 import { useAccount, useContractWrite, useSignTypedData } from 'wagmi'
 
 const CREATE_COLLECT_TYPED_DATA_MUTATION = gql`
@@ -74,7 +75,7 @@ const Join: FC<Props> = ({ community, setJoined, showJoin = true }) => {
   const onCompleted = () => {
     setJoined(true)
     toast.success('Joined successfully!')
-    Mixpanel.track('community.join', { result: 'success' })
+    Mixpanel.track(COMMUNITY.JOIN, { result: 'success' })
   }
 
   const { isLoading: writeLoading, write } = useContractWrite({
@@ -99,10 +100,11 @@ const Join: FC<Props> = ({ community, setJoined, showJoin = true }) => {
           toast.error(error.message)
         }
         Logger.error('[Broadcast Error]', error)
-        Mixpanel.track('community.join', { result: 'broadcast_error' })
+        Mixpanel.track(COMMUNITY.JOIN, { result: 'broadcast_error' })
       }
     }
   )
+
   const [createCollectTypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_COLLECT_TYPED_DATA_MUTATION,
     {

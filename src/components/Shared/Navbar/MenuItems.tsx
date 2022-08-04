@@ -26,6 +26,7 @@ import { useTheme } from 'next-themes'
 import { FC, Fragment, useState } from 'react'
 import { GIT_COMMIT_SHA } from 'src/constants'
 import { useAppPersistStore, useAppStore } from 'src/store/app'
+import { PROFILE, STAFF, USER } from 'src/tracking'
 import { useDisconnect } from 'wagmi'
 
 import Slug from '../Slug'
@@ -61,7 +62,7 @@ const MenuItems: FC<Props> = ({ pingData }) => {
 
   const toggleStaffMode = () => {
     setStaffMode(!staffMode)
-    Mixpanel.track('staff.toggle_mode')
+    Mixpanel.track(STAFF.TOGGLE_MODE)
   }
 
   return isAuthenticated && currentUser ? (
@@ -132,7 +133,7 @@ const MenuItems: FC<Props> = ({ pingData }) => {
               <Menu.Item
                 as="a"
                 onClick={() => {
-                  Mixpanel.track('profile.logout')
+                  Mixpanel.track(PROFILE.LOGOUT)
                   setCurrentUser(null)
                   Cookies.remove('accessToken')
                   Cookies.remove('refreshToken')
@@ -166,7 +167,7 @@ const MenuItems: FC<Props> = ({ pingData }) => {
                           className="flex items-center py-1.5 px-4 space-x-2 w-full rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
                           onClick={() => {
                             setCurrentUser(profiles[index])
-                            Mixpanel.track('profile.select_profile')
+                            Mixpanel.track(PROFILE.SWITCH_PROFILE)
                           }}
                         >
                           {currentUser?.id === profile?.id && (
@@ -295,7 +296,7 @@ const MenuItems: FC<Props> = ({ pingData }) => {
           />
         }
         onClick={() => {
-          Mixpanel.track('user.login')
+          Mixpanel.track(USER.LOGIN)
           setShowLoginModal(!showLoginModal)
         }}
       >

@@ -39,6 +39,7 @@ import {
   URL_REGEX
 } from 'src/constants'
 import { useAppPersistStore, useAppStore } from 'src/store/app'
+import { SETTINGS } from 'src/tracking'
 import { v4 as uuid } from 'uuid'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 import { object, optional, string } from 'zod'
@@ -114,7 +115,7 @@ const Profile: FC<Props> = ({ profile }) => {
 
   const onCompleted = () => {
     toast.success('Profile updated successfully!')
-    Mixpanel.track('profile.settings.profile.update', {
+    Mixpanel.track(SETTINGS.PROFILE.UPDATE, {
       result: 'success'
     })
   }
@@ -145,7 +146,7 @@ const Profile: FC<Props> = ({ profile }) => {
           toast.error(error.message)
         }
         Logger.error('[Broadcast Error]', error)
-        Mixpanel.track('profile.settings.profile.update', {
+        Mixpanel.track(SETTINGS.PROFILE.UPDATE, {
           result: 'broadcast_error'
         })
       }

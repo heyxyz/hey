@@ -19,6 +19,7 @@ import {
   RELAY_ON
 } from 'src/constants'
 import { useAppPersistStore, useAppStore } from 'src/store/app'
+import { PROFILE } from 'src/tracking'
 import { useAccount, useContractWrite, useSignTypedData } from 'wagmi'
 
 const CREATE_FOLLOW_TYPED_DATA_MUTATION = gql`
@@ -83,7 +84,7 @@ const Follow: FC<Props> = ({
     }
     setFollowing(true)
     toast.success('Followed successfully!')
-    Mixpanel.track('profile.follow', { result: 'success' })
+    Mixpanel.track(PROFILE.FOLLOW, { result: 'success' })
   }
 
   const { isLoading: writeLoading, write } = useContractWrite({
@@ -108,7 +109,7 @@ const Follow: FC<Props> = ({
           toast.error(error.message)
         }
         Logger.error('[Broadcast Error]', error)
-        Mixpanel.track('profile.follow', { result: 'broadcast_error' })
+        Mixpanel.track(PROFILE.FOLLOW, { result: 'broadcast_error' })
       }
     }
   )
