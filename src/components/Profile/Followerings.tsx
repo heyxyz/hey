@@ -2,6 +2,7 @@ import { Modal } from '@components/UI/Modal'
 import { Profile } from '@generated/types'
 import { UsersIcon } from '@heroicons/react/outline'
 import humanize from '@lib/humanize'
+import { Mixpanel } from '@lib/mixpanel'
 import React, { FC, useState } from 'react'
 
 import Followers from './Followers'
@@ -21,7 +22,10 @@ const Followerings: FC<Props> = ({ followersCount, profile }) => {
       <button
         type="button"
         className="text-left"
-        onClick={() => setShowFollowingModal(!showFollowingModal)}
+        onClick={() => {
+          setShowFollowingModal(!showFollowingModal)
+          Mixpanel.track('profile.following_modal.open')
+        }}
         data-test="profile-following"
       >
         <div className="text-xl">
@@ -32,7 +36,10 @@ const Followerings: FC<Props> = ({ followersCount, profile }) => {
       <button
         type="button"
         className="text-left"
-        onClick={() => setShowFollowersModal(!showFollowersModal)}
+        onClick={() => {
+          setShowFollowersModal(!showFollowersModal)
+          Mixpanel.track('profile.followers_modal.open')
+        }}
         data-test="profile-followers"
       >
         <div className="text-xl">{humanize(followersCount)}</div>
