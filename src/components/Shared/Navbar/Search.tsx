@@ -7,6 +7,7 @@ import { Profile } from '@generated/types'
 import { MinimalProfileFields } from '@gql/MinimalProfileFields'
 import { SearchIcon, XIcon } from '@heroicons/react/outline'
 import Logger from '@lib/logger'
+import { Mixpanel } from '@lib/mixpanel'
 import clsx from 'clsx'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -84,7 +85,10 @@ const Search: FC<Props> = ({ hideDropdown = false }) => {
                   'cursor-pointer',
                   searchText ? 'visible' : 'invisible'
                 )}
-                onClick={() => setSearchText('')}
+                onClick={() => {
+                  setSearchText('')
+                  Mixpanel.track('search.clear_text')
+                }}
               />
             }
             onChange={handleSearch}

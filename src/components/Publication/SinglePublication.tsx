@@ -1,5 +1,6 @@
 import UserProfile from '@components/Shared/UserProfile'
 import { LensterPublication } from '@generated/lenstertypes'
+import { Mixpanel } from '@lib/mixpanel'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import Link from 'next/link'
@@ -29,6 +30,9 @@ const SinglePublication: FC<Props> = ({
     <Link href={`/posts/${publication?.id ?? publication?.pubId}`} passHref>
       <article
         className="cursor-pointer first:rounded-t-xl last:rounded-b-xl hover:bg-gray-100/70 hover:dark:bg-gray-800/70 p-5"
+        onClick={() => {
+          Mixpanel.track('publication.open')
+        }}
         data-test="publication"
       >
         <PublicationType

@@ -15,6 +15,7 @@ import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { PencilIcon } from '@heroicons/react/outline'
 import imagekitURL from '@lib/imagekitURL'
 import Logger from '@lib/logger'
+import { Mixpanel } from '@lib/mixpanel'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import uploadAssetsToIPFS from '@lib/uploadAssetsToIPFS'
@@ -79,6 +80,9 @@ const Picture: FC<Props> = ({ profile }) => {
 
   const onCompleted = () => {
     toast.success('Avatar updated successfully!')
+    Mixpanel.track('profile.settings.profile.set_picture', {
+      result: 'success'
+    })
   }
 
   const {
@@ -112,6 +116,9 @@ const Picture: FC<Props> = ({ profile }) => {
           toast.error(error.message)
         }
         Logger.error('[Broadcast Error]', error)
+        Mixpanel.track('profile.settings.profile.set_picture', {
+          result: 'broadcast_error'
+        })
       }
     })
   const [createSetProfileImageURITypedData, { loading: typedDataLoading }] =

@@ -2,6 +2,7 @@ import { Tooltip } from '@components/UI/Tooltip'
 import { LensterPublication } from '@generated/lenstertypes'
 import { ChatAlt2Icon } from '@heroicons/react/outline'
 import humanize from '@lib/humanize'
+import { Mixpanel } from '@lib/mixpanel'
 import nFormatter from '@lib/nFormatter'
 import { motion } from 'framer-motion'
 import { FC } from 'react'
@@ -24,6 +25,7 @@ const Comment: FC<Props> = ({ publication }) => {
       onClick={() => {
         setParentPub(publication)
         setShowNewPostModal(true)
+        Mixpanel.track('publication.comment_modal.open')
       }}
       aria-label="Like"
       data-test="publication-comment"

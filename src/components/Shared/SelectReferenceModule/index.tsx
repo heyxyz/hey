@@ -2,6 +2,7 @@ import { Modal } from '@components/UI/Modal'
 import { Tooltip } from '@components/UI/Tooltip'
 import { ChatAlt2Icon, GlobeAltIcon, UsersIcon } from '@heroicons/react/outline'
 import { CheckCircleIcon } from '@heroicons/react/solid'
+import { Mixpanel } from '@lib/mixpanel'
 import clsx from 'clsx'
 import { motion } from 'framer-motion'
 import { Dispatch, FC, useState } from 'react'
@@ -30,6 +31,7 @@ const SelectReferenceModule: FC<Props> = ({
           type="button"
           onClick={() => {
             setShowModal(!showModal)
+            Mixpanel.track('publication.new.reference_modal.open')
           }}
           aria-label="Choose Reference Module"
         >

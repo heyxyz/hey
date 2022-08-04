@@ -1,6 +1,7 @@
 import { gql, useQuery } from '@apollo/client'
 import { LightningBoltIcon } from '@heroicons/react/outline'
 import Logger from '@lib/logger'
+import { Mixpanel } from '@lib/mixpanel'
 import Link from 'next/link'
 import { FC, useEffect, useState } from 'react'
 import { useAppPersistStore } from 'src/store/app'
@@ -45,6 +46,7 @@ const NotificationIcon: FC = () => {
             data?.notifications?.pageInfo?.totalCount.toString()
           )
           setShowBadge(false)
+          Mixpanel.track('notification.open')
         }}
       >
         <LightningBoltIcon className="w-5 h-5 sm:w-6 sm:h-6" />

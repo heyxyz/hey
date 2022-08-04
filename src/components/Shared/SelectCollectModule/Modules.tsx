@@ -7,6 +7,7 @@ import { EnabledModule } from '@generated/types'
 import { CheckCircleIcon } from '@heroicons/react/solid'
 import { FEE_DATA_TYPE, getModule } from '@lib/getModule'
 import Logger from '@lib/logger'
+import { Mixpanel } from '@lib/mixpanel'
 import clsx from 'clsx'
 import { Dispatch, FC, useState } from 'react'
 
@@ -56,6 +57,9 @@ const Modules: FC<Props> = ({
 
   const handleSelectModule = (module: EnabledModule) => {
     setSelectedModule(module)
+    Mixpanel.track(
+      `publication.new.collect_module.select.${module?.moduleName.toLowerCase()}`
+    )
 
     if (getModule(module?.moduleName).hasParam) {
       setShowFeeEntry(true)

@@ -24,6 +24,7 @@ import {
   getModule
 } from '@lib/getModule'
 import Logger from '@lib/logger'
+import { Mixpanel } from '@lib/mixpanel'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import trimify from '@lib/trimify'
@@ -131,6 +132,7 @@ const NewComment: FC<Props> = ({
     }
   })
   const onCompleted = () => {
+    Mixpanel.track('comment.new', { result: 'success' })
     setPreview(false)
     setCommentContent('')
     setAttachments([])
@@ -164,6 +166,7 @@ const NewComment: FC<Props> = ({
           toast.error(error.message)
         }
         Logger.error('[Broadcast Error]', error)
+        Mixpanel.track('comment.new', { result: 'broadcast_error' })
       }
     })
   const [createCommentTypedData, { loading: typedDataLoading }] = useMutation(
@@ -234,6 +237,7 @@ const NewComment: FC<Props> = ({
   const createComment = async () => {
     if (!isAuthenticated) return toast.error(SIGN_WALLET)
     if (commentContent.length === 0 && attachments.length === 0) {
+      Mixpanel.track('comment.new', { result: 'empty' })
       return setCommentContentError('Comment should not be empty!')
     }
 

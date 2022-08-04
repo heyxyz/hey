@@ -9,6 +9,7 @@ import Seo from '@components/utils/Seo'
 import { CreateBurnProfileBroadcastItemResult } from '@generated/types'
 import { TrashIcon } from '@heroicons/react/outline'
 import Logger from '@lib/logger'
+import { Mixpanel } from '@lib/mixpanel'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import Cookies from 'js-cookie'
@@ -74,6 +75,7 @@ const DeleteSettings: FC = () => {
   })
 
   const onCompleted = () => {
+    Mixpanel.track('profile.settings.delete')
     setIsAuthenticated(false)
     setIsConnected(false)
     setCurrentUser(null)

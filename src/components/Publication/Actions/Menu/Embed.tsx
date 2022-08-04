@@ -1,6 +1,7 @@
 import { LensterPublication } from '@generated/lenstertypes'
 import { Menu } from '@headlessui/react'
 import { CodeIcon } from '@heroicons/react/outline'
+import { Mixpanel } from '@lib/mixpanel'
 import clsx from 'clsx'
 import React, { FC } from 'react'
 
@@ -18,6 +19,9 @@ const Embed: FC<Props> = ({ publication }) => {
           'block px-4 py-1.5 text-sm m-2 rounded-lg cursor-pointer'
         )
       }
+      onClick={() => {
+        Mixpanel.track('publication.embed')
+      }}
       href={`https://embed.withlens.app/?url=${
         publication?.id ?? publication?.pubId
       }`}
