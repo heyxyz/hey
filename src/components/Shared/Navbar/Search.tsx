@@ -5,8 +5,9 @@ import { Spinner } from '@components/UI/Spinner'
 import useOnClickOutside from '@components/utils/hooks/useOnClickOutside'
 import { Profile } from '@generated/types'
 import { MinimalProfileFields } from '@gql/MinimalProfileFields'
-import { SearchIcon } from '@heroicons/react/outline'
+import { SearchIcon, XIcon } from '@heroicons/react/outline'
 import Logger from '@lib/logger'
+import clsx from 'clsx'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { ChangeEvent, FC, useRef, useState } from 'react'
@@ -77,6 +78,15 @@ const Search: FC<Props> = ({ hideDropdown = false }) => {
             placeholder="Search..."
             value={searchText}
             iconLeft={<SearchIcon />}
+            iconRight={
+              <XIcon
+                className={clsx(
+                  'cursor-pointer',
+                  searchText ? 'visible' : 'invisible'
+                )}
+                onClick={() => setSearchText('')}
+              />
+            }
             onChange={handleSearch}
           />
         </form>
