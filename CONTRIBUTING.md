@@ -8,6 +8,12 @@ Anyone can be a contributor. Either you found a typo, or you have an awesome fea
 
 All efforts to contribute are highly appreciated, we recommend you talk to a maintainer prior to spending a lot of time making a merge request that may not align with the project roadmap.
 
+## Values
+
+- **Be the change** - Don't wait for anything, if you want something ship it but make sure it is sustainable for the long term.
+- **Pride in product** - We ask ourselves that will we use the feature if it's live before making it.
+- **Diversity** - We welcome differences, and listen before we speak. It proportionally leads to extraordinary results and experiences.
+
 ## Open Development & Community Driven
 
 Lenster is an open-source project. See the [LICENSE](https://github.com/lensterxyz/lenster/blob/main/LICENSE) file for licensing information. All the work done is available on GitHub.

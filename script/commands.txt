@@ -6,5 +6,3 @@ Command : yarn prettier
 Description : Check for prettier errors
 Command : yarn codegen
 Description : Generate types from GraphQL
-Command : yarn test
-Description : Run all test scripts
