@@ -40,7 +40,11 @@ export const PUBLICATION = {
   },
   NEW: {
     MARKDOWN_PREVIEW: 'Preview markdown',
-    OPEN_GIF: 'Open GIF modal'
+    OPEN_GIF: 'Open GIF modal',
+    COLLECT_MODULE: {
+      OPEN_COLLECT_CONFIG: 'Open collect module config',
+      BACK_FEE_ENTRY: 'Back from fee entry'
+    }
   }
 }
 
