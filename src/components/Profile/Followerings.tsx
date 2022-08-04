@@ -27,7 +27,6 @@ const Followerings: FC<Props> = ({ followersCount, profile }) => {
           setShowFollowingModal(!showFollowingModal)
           Mixpanel.track(PROFILE.OPEN_FOLLOWING)
         }}
-        data-test="profile-following"
       >
         <div className="text-xl">
           {humanize(profile?.stats?.totalFollowing)}
@@ -41,7 +40,6 @@ const Followerings: FC<Props> = ({ followersCount, profile }) => {
           setShowFollowersModal(!showFollowersModal)
           Mixpanel.track(PROFILE.OPEN_FOLLOWERS)
         }}
-        data-test="profile-followers"
       >
         <div className="text-xl">{humanize(followersCount)}</div>
         <div className="text-gray-500">Followers</div>
