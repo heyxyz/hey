@@ -19,7 +19,7 @@ const ProfileWarning: FC = () => {
             target="_blank"
             rel="noreferrer noopener"
           >
-            Cliam your profile here
+            Claim your profile here
           </a>
         </div>
       </div>
