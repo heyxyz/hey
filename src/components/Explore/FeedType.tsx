@@ -30,7 +30,7 @@ const FeedType: FC<Props> = ({ setFeedType, feedType }) => {
       onClick={() => {
         push({ query: { type: type.toLowerCase() } })
         setFeedType(type)
-        Mixpanel.track('explore.tab_switch', { type: type.toLowerCase() })
+        Mixpanel.track(`explore.${type.toLowerCase()}.tab_switch`)
       }}
       className={clsx(
         {
