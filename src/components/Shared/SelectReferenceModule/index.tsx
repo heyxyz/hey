@@ -32,7 +32,7 @@ const SelectReferenceModule: FC<Props> = ({
           type="button"
           onClick={() => {
             setShowModal(!showModal)
-            Mixpanel.track(PUBLICATION.REFERENCE_MODULE.OPEN_REFERENCE)
+            Mixpanel.track(PUBLICATION.NEW.REFERENCE_MODULE.OPEN_COLLECT_CONFIG)
           }}
           aria-label="Choose Reference Module"
         >
@@ -61,6 +61,7 @@ const SelectReferenceModule: FC<Props> = ({
             onClick={() => {
               setOnlyFollowers(false)
               setShowModal(false)
+              Mixpanel.track(PUBLICATION.NEW.REFERENCE_MODULE.EVERYONE)
             }}
           >
             <div className="flex items-center space-x-3">
@@ -80,6 +81,7 @@ const SelectReferenceModule: FC<Props> = ({
             onClick={() => {
               setOnlyFollowers(true)
               setShowModal(false)
+              Mixpanel.track(PUBLICATION.NEW.REFERENCE_MODULE.ONLY_FOLLOWERS)
             }}
           >
             <div className="flex items-center space-x-3">

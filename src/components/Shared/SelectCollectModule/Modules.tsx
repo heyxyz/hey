@@ -57,15 +57,14 @@ const Modules: FC<Props> = ({
 
   const handleSelectModule = (module: EnabledModule) => {
     setSelectedModule(module)
-    Mixpanel.track(
-      `Select ${module?.moduleName.toLowerCase()} for new publication`
-    )
-
     if (getModule(module?.moduleName).hasParam) {
       setShowFeeEntry(true)
     } else {
       setShowModal(false)
     }
+    Mixpanel.track(
+      `Select ${module?.moduleName.toLowerCase()} for new publication`
+    )
   }
 
   if (loading)

@@ -298,8 +298,8 @@ const MenuItems: FC<Props> = ({ pingData }) => {
           />
         }
         onClick={() => {
-          Mixpanel.track(USER.LOGIN)
           setShowLoginModal(!showLoginModal)
+          Mixpanel.track(USER.LOGIN)
         }}
       >
         Login
