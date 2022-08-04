@@ -61,6 +61,7 @@ const MenuItems: FC<Props> = ({ pingData }) => {
 
   const toggleStaffMode = () => {
     setStaffMode(!staffMode)
+    Mixpanel.track('staff.toggle_mode')
   }
 
   return isAuthenticated && currentUser ? (
@@ -165,6 +166,7 @@ const MenuItems: FC<Props> = ({ pingData }) => {
                           className="flex items-center py-1.5 px-4 space-x-2 w-full rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
                           onClick={() => {
                             setCurrentUser(profiles[index])
+                            Mixpanel.track('profile.select_profile')
                           }}
                         >
                           {currentUser?.id === profile?.id && (
@@ -189,6 +191,9 @@ const MenuItems: FC<Props> = ({ pingData }) => {
                 as="a"
                 onClick={() => {
                   setTheme(theme === 'light' ? 'dark' : 'light')
+                  Mixpanel.track(
+                    `theme.${theme === 'light' ? 'dark' : 'light'}`
+                  )
                 }}
                 className={({ active }: { active: boolean }) =>
                   clsx({ 'dropdown-active': active }, 'menu-item')
