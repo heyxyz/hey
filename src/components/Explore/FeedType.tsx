@@ -4,6 +4,7 @@ import {
   CollectionIcon,
   SwitchHorizontalIcon
 } from '@heroicons/react/outline'
+import { Mixpanel } from '@lib/mixpanel'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
 import React, { Dispatch, FC, ReactNode } from 'react'
@@ -29,6 +30,7 @@ const FeedType: FC<Props> = ({ setFeedType, feedType }) => {
       onClick={() => {
         push({ query: { type: type.toLowerCase() } })
         setFeedType(type)
+        Mixpanel.track('explore.tab_switch', { type: type.toLowerCase() })
       }}
       className={clsx(
         {
