@@ -67,12 +67,9 @@ const AllowanceButton: FC<Props> = ({
       toast.success(`Module ${allowed ? 'disabled' : 'enabled'} successfully!`)
       setShowWarninModal(false)
       setAllowed(!allowed)
-      Mixpanel.track(
-        `profile.settings.allowance.${allowed ? 'disabled' : 'enabled'}`,
-        {
-          result: 'success'
-        }
-      )
+      Mixpanel.track(`Module ${allowed ? 'disabled' : 'enabled'}`, {
+        result: 'success'
+      })
     },
     onError(error: any) {
       toast.error(error?.data?.message ?? error?.message)
