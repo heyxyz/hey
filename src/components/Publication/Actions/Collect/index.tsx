@@ -6,6 +6,7 @@ import { LensterPublication } from '@generated/lenstertypes'
 import { CollectionIcon } from '@heroicons/react/outline'
 import { getModule } from '@lib/getModule'
 import humanize from '@lib/humanize'
+import { Mixpanel } from '@lib/mixpanel'
 import nFormatter from '@lib/nFormatter'
 import { motion } from 'framer-motion'
 import dynamic from 'next/dynamic'
@@ -42,7 +43,10 @@ const Collect: FC<Props> = ({ publication }) => {
     <>
       <motion.button
         whileTap={{ scale: 0.9 }}
-        onClick={() => setShowCollectModal(true)}
+        onClick={() => {
+          setShowCollectModal(true)
+          Mixpanel.track('publication.collect_modal.open')
+        }}
         aria-label="Collect"
         data-test="publication-collect"
       >
