@@ -10,7 +10,12 @@ import Head from 'next/head'
 import { useTheme } from 'next-themes'
 import { FC, ReactNode, Suspense, useEffect, useState } from 'react'
 import { Toaster } from 'react-hot-toast'
-import { CHAIN_ID, IS_DEVELOPMENT, MIXPANEL_TOKEN } from 'src/constants'
+import {
+  CHAIN_ID,
+  IS_DEVELOPMENT,
+  MIXPANEL_TOKEN,
+  STATIC_ASSETS
+} from 'src/constants'
 import { useAppPersistStore, useAppStore } from 'src/store/app'
 import { useAccount, useDisconnect, useNetwork } from 'wagmi'
 
@@ -100,10 +105,15 @@ const SiteLayout: FC<Props> = ({ children }) => {
       Mixpanel.people.set({
         address: currentUser?.ownedBy,
         handle: currentUser?.handle,
-        name: currentUser?.name ?? currentUser?.handle
+        $name: currentUser?.name ?? currentUser?.handle,
+        $avatar: `https://avatar.tobi.sh/${currentUser?.handle}.png`
       })
     } else {
       Mixpanel.identify('0x00')
+      Mixpanel.people.set({
+        $name: 'Anonymous',
+        $avatar: `${STATIC_ASSETS}/anon.jpeg`
+      })
     }
 
     const logout = () => {
