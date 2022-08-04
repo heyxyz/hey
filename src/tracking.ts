@@ -35,12 +35,18 @@ export const PUBLICATION = {
     OPEN_COLLECTORS: 'Open collectors list',
     OPEN_UNISWAP: 'Open Uniswap'
   },
-  REFERENCE_MODULE: {
-    OPEN_REFERENCE: 'Open reference modal'
-  },
   NEW: {
     MARKDOWN_PREVIEW: 'Preview markdown',
-    OPEN_GIF: 'Open GIF modal'
+    OPEN_GIF: 'Open GIF modal',
+    COLLECT_MODULE: {
+      OPEN_COLLECT_CONFIG: 'Open collect module config',
+      BACK_FEE_ENTRY: 'Back from fee entry'
+    },
+    REFERENCE_MODULE: {
+      OPEN_COLLECT_CONFIG: 'Open reference modal',
+      EVERYONE: 'Select everyone reference',
+      ONLY_FOLLOWERS: 'Select only followers reference'
+    }
   }
 }
 
@@ -56,12 +62,16 @@ export const COMMUNITY = {
   NEW: 'New community',
   JOIN: 'Join community',
   OPEN_MEMBERS: 'Open members list',
-  DELETE: 'Delete community'
+  SETTINGS: {
+    OPEN: 'Open settings modal',
+    DELETE: 'Delete community'
+  }
 }
 
 export const CROWDFUND = {
   NEW: 'New crowdfund',
-  FUND: 'Fund a crowdfund'
+  FUND: 'Fund a crowdfund',
+  OPEN_FUNDERS: 'Open funders list'
 }
 
 export const NOTIFICATION = {

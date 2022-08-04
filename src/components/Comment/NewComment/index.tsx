@@ -133,12 +133,12 @@ const NewComment: FC<Props> = ({
     }
   })
   const onCompleted = () => {
-    Mixpanel.track(COMMENT.NEW, { result: 'success' })
     setPreview(false)
     setCommentContent('')
     setAttachments([])
     setSelectedModule(defaultModuleData)
     setFeeData(defaultFeeData)
+    Mixpanel.track(COMMENT.NEW, { result: 'success' })
   }
 
   const {
