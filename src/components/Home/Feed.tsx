@@ -13,9 +13,11 @@ import { MirrorFields } from '@gql/MirrorFields'
 import { PostFields } from '@gql/PostFields'
 import { CollectionIcon } from '@heroicons/react/outline'
 import Logger from '@lib/logger'
+import { Mixpanel } from '@lib/mixpanel'
 import React, { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import { useAppPersistStore } from 'src/store/app'
+import { PAGINATION } from 'src/tracking'
 
 const HOME_FEED_QUERY = gql`
   query HomeFeed(
@@ -86,6 +88,7 @@ const Feed: FC = () => {
         '[Query]',
         `Fetched next 10 timeline publications Next:${pageInfo?.next}`
       )
+      Mixpanel.track(PAGINATION.HOME_FEED, { pageInfo })
     }
   })
 
