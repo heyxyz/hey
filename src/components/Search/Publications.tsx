@@ -10,7 +10,6 @@ import { PaginatedResultInfo } from '@generated/types'
 import { CommentFields } from '@gql/CommentFields'
 import { PostFields } from '@gql/PostFields'
 import { CollectionIcon } from '@heroicons/react/outline'
-import Logger from '@lib/logger'
 import { Mixpanel } from '@lib/mixpanel'
 import React, { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
@@ -63,13 +62,6 @@ const Publications: FC<Props> = ({ query }) => {
       onCompleted(data) {
         setPageInfo(data?.search?.pageInfo)
         setPublications(data?.search?.items)
-        Logger.log(
-          '[Query]',
-          `Fetched first 10 publication for search Keyword:${query}`
-        )
-      },
-      onError(error) {
-        Logger.error('[Query Error]', error)
       }
     }
   )
@@ -90,10 +82,6 @@ const Publications: FC<Props> = ({ query }) => {
       })
       setPageInfo(data?.search?.pageInfo)
       setPublications([...publications, ...data?.search?.items])
-      Logger.log(
-        '[Query]',
-        `Fetched next 10 publications for search Keyword:${query} Next:${pageInfo?.next}`
-      )
       Mixpanel.track(PAGINATION.PUBLICATION_SEARCH, { pageInfo })
     }
   })

@@ -13,7 +13,6 @@ import {
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { StarIcon, XIcon } from '@heroicons/react/outline'
 import getTokenImage from '@lib/getTokenImage'
-import Logger from '@lib/logger'
 import { Mixpanel } from '@lib/mixpanel'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
@@ -104,13 +103,7 @@ const SuperFollow: FC = () => {
   })
   const { data: currencyData, loading } = useQuery(MODULES_CURRENCY_QUERY, {
     variables: { request: { profileId: currentUser?.id } },
-    skip: !currentUser?.id,
-    onCompleted() {
-      Logger.log('[Query]', `Fetched enabled module currencies`)
-    },
-    onError(error) {
-      Logger.error('[Query Error]', error)
-    }
+    skip: !currentUser?.id
   })
 
   const onCompleted = () => {
@@ -150,7 +143,6 @@ const SuperFollow: FC = () => {
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
         }
-        Logger.error('[Broadcast Error]', error)
         Mixpanel.track(SETTINGS.ACCOUNT.SET_SUPER_FOLLOW, {
           result: 'broadcast_error'
         })
@@ -163,7 +155,6 @@ const SuperFollow: FC = () => {
       }: {
         createSetFollowModuleTypedData: CreateSetFollowModuleBroadcastItemResult
       }) {
-        Logger.log('[Mutation]', 'Generated createSetFollowModuleTypedData')
         const { id, typedData } = createSetFollowModuleTypedData
         const { profileId, followModule, followModuleInitData, deadline } =
           typedData?.value
@@ -193,13 +184,10 @@ const SuperFollow: FC = () => {
           } else {
             write?.({ recklesslySetUnpreparedArgs: inputStruct })
           }
-        } catch (error) {
-          Logger.warn('[Sign Error]', error)
-        }
+        } catch (error) {}
       },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
-        Logger.error('[Typed-data Generate Error]', error)
       }
     })
 

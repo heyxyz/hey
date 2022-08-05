@@ -13,7 +13,6 @@ import {
 } from '@heroicons/react/outline'
 import getTokenImage from '@lib/getTokenImage'
 import humanize from '@lib/humanize'
-import Logger from '@lib/logger'
 import { FC, ReactNode } from 'react'
 import { APP_NAME, ERROR_MESSAGE } from 'src/constants'
 
@@ -78,10 +77,7 @@ const MenuItem: FC<Props> = ({ icon, title, isLenster = false }) => (
 
 const Stats: FC = () => {
   const { data, loading, error } = useQuery(LENSTER_STATS_QUERY, {
-    pollInterval: 1000,
-    onError(error) {
-      Logger.error('[Query Error]', error)
-    }
+    pollInterval: 1000
   })
 
   if (loading) return <div className="m-3 w-52 h-4 rounded-lg shimmer" />

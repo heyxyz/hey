@@ -6,7 +6,6 @@ import GetModuleIcon from '@components/utils/GetModuleIcon'
 import { EnabledModule } from '@generated/types'
 import { CheckCircleIcon } from '@heroicons/react/solid'
 import { FEE_DATA_TYPE, getModule } from '@lib/getModule'
-import Logger from '@lib/logger'
 import { Mixpanel } from '@lib/mixpanel'
 import clsx from 'clsx'
 import { Dispatch, FC, useState } from 'react'
@@ -45,14 +44,7 @@ const Modules: FC<Props> = ({
   setShowModal,
   setFeeData
 }) => {
-  const { error, data, loading } = useQuery(MODULES_QUERY, {
-    onCompleted() {
-      Logger.log('[Query]', `Fetched enabled modules`)
-    },
-    onError(error) {
-      Logger.error('[Query Error]', error)
-    }
-  })
+  const { error, data, loading } = useQuery(MODULES_QUERY)
   const [showFeeEntry, setShowFeeEntry] = useState<boolean>(false)
 
   const handleSelectModule = (module: EnabledModule) => {

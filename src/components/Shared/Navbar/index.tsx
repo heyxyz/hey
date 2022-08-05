@@ -4,7 +4,6 @@ import { Disclosure } from '@headlessui/react'
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
 import hasPrideLogo from '@lib/hasPrideLogo'
 import isStaff from '@lib/isStaff'
-import Logger from '@lib/logger'
 import clsx from 'clsx'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
@@ -29,10 +28,7 @@ const Navbar: FC = () => {
   const { isAuthenticated, currentUser, staffMode } = useAppPersistStore()
   const { data: pingData } = useQuery(PING_QUERY, {
     pollInterval: 3000,
-    skip: !currentUser,
-    onError(error) {
-      Logger.error('[Query Error]', error)
-    }
+    skip: !currentUser
   })
 
   interface NavItemProps {

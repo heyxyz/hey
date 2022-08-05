@@ -14,7 +14,6 @@ import { TextArea } from '@components/UI/TextArea'
 import Seo from '@components/utils/Seo'
 import { PencilAltIcon } from '@heroicons/react/outline'
 import { CheckCircleIcon } from '@heroicons/react/solid'
-import Logger from '@lib/logger'
 import { Mixpanel } from '@lib/mixpanel'
 import { useRouter } from 'next/router'
 import React, { FC, useState } from 'react'
@@ -57,16 +56,7 @@ const Report: FC = () => {
         }
       }
     },
-    skip: !id,
-    onCompleted() {
-      Logger.log(
-        '[Query]',
-        `Fetched publication details to report Publication:${id}`
-      )
-    },
-    onError(error) {
-      Logger.error('[Query Error]', error)
-    }
+    skip: !id
   })
   const [
     createReport,

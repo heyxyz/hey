@@ -8,7 +8,6 @@ import { Spinner } from '@components/UI/Spinner'
 import { Follower, PaginatedResultInfo, Profile } from '@generated/types'
 import { MinimalProfileFields } from '@gql/MinimalProfileFields'
 import { UsersIcon } from '@heroicons/react/outline'
-import Logger from '@lib/logger'
 import { Mixpanel } from '@lib/mixpanel'
 import { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
@@ -49,10 +48,6 @@ const Followers: FC<Props> = ({ profile }) => {
     onCompleted(data) {
       setPageInfo(data?.followers?.pageInfo)
       setFollowers(data?.followers?.items)
-      Logger.log('[Query]', `Fetched first 10 followers Profile:${profile?.id}`)
-    },
-    onError(error) {
-      Logger.error('[Query Error]', error)
     }
   })
 
@@ -69,10 +64,6 @@ const Followers: FC<Props> = ({ profile }) => {
       })
       setPageInfo(data?.followers?.pageInfo)
       setFollowers([...followers, ...data?.followers?.items])
-      Logger.log(
-        '[Query]',
-        `Fetched next 10 followers Profile:${profile?.id} Next:${pageInfo?.next}`
-      )
       Mixpanel.track(PAGINATION.FOLLOWERS, { pageInfo })
     }
   })

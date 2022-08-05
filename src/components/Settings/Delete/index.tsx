@@ -8,7 +8,6 @@ import { Spinner } from '@components/UI/Spinner'
 import Seo from '@components/utils/Seo'
 import { CreateBurnProfileBroadcastItemResult } from '@generated/types'
 import { TrashIcon } from '@heroicons/react/outline'
-import Logger from '@lib/logger'
 import { Mixpanel } from '@lib/mixpanel'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
@@ -107,7 +106,6 @@ const DeleteSettings: FC = () => {
       }: {
         createBurnProfileTypedData: CreateBurnProfileBroadcastItemResult
       }) {
-        Logger.log('[Mutation]', 'Generated createBurnProfileTypedData')
         const { typedData } = createBurnProfileTypedData
         const { deadline } = typedData?.value
 
@@ -123,13 +121,10 @@ const DeleteSettings: FC = () => {
           const sig = { v, r, s, deadline }
 
           write?.({ recklesslySetUnpreparedArgs: [tokenId, sig] })
-        } catch (error) {
-          Logger.warn('[Sign Error]', error)
-        }
+        } catch (error) {}
       },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
-        Logger.error('[Typed-data Generate Error]', error)
       }
     })
 

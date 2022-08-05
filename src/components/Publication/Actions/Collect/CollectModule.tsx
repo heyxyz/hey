@@ -32,7 +32,6 @@ import {
 import formatAddress from '@lib/formatAddress'
 import getTokenImage from '@lib/getTokenImage'
 import humanize from '@lib/humanize'
-import Logger from '@lib/logger'
 import { Mixpanel } from '@lib/mixpanel'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
@@ -136,17 +135,6 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
   const { data, loading } = useQuery(COLLECT_QUERY, {
     variables: {
       request: { publicationId: publication?.pubId ?? publication?.id }
-    },
-    onCompleted() {
-      Logger.log(
-        '[Query]',
-        `Fetched collect module details Publication:${
-          publication?.pubId ?? publication?.id
-        }`
-      )
-    },
-    onError(error) {
-      Logger.error('[Query Error]', error)
     }
   })
 
@@ -195,10 +183,6 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
       skip: !collectModule?.amount?.asset?.address || !isConnected,
       onCompleted(data) {
         setAllowed(data?.approvedModuleAllowanceAmount[0]?.allowance !== '0x00')
-        Logger.log('[Query]', `Fetched allowance data`)
-      },
-      onError(error) {
-        Logger.error('[Query Error]', error)
       }
     }
   )
@@ -214,18 +198,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
               : publication?.pubId ?? publication?.id
         }
       },
-      skip: !publication?.id,
-      onCompleted() {
-        Logger.log(
-          '[Query]',
-          `Fetched collect revenue details Publication:${
-            publication?.pubId ?? publication?.id
-          }`
-        )
-      },
-      onError(error) {
-        Logger.error('[Query Error]', error)
-      }
+      skip: !publication?.id
     }
   )
 
@@ -260,7 +233,6 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
         }
-        Logger.error('[Broadcast Error]', error)
         Mixpanel.track(PUBLICATION.COLLECT_MODULE.COLLECT, {
           result: 'broadcast_error'
         })
@@ -274,7 +246,6 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
       }: {
         createCollectTypedData: CreateCollectBroadcastItemResult
       }) {
-        Logger.log('[Mutation]', 'Generated createCollectTypedData')
         const { id, typedData } = createCollectTypedData
         const { deadline } = typedData?.value
 
@@ -305,13 +276,10 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
           } else {
             write?.({ recklesslySetUnpreparedArgs: inputStruct })
           }
-        } catch (error) {
-          Logger.warn('[Sign Error]', error)
-        }
+        } catch (error) {}
       },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
-        Logger.error('[Typed-data Generate Error]', error)
       }
     }
   )

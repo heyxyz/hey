@@ -6,7 +6,6 @@ import { Spinner } from '@components/UI/Spinner'
 import { Profile } from '@generated/types'
 import { XCircleIcon } from '@heroicons/react/solid'
 import getWalletLogo from '@lib/getWalletLogo'
-import Logger from '@lib/logger'
 import { Mixpanel } from '@lib/mixpanel'
 import clsx from 'clsx'
 import Cookies from 'js-cookie'
@@ -61,25 +60,12 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
   })
   const [loadChallenge, { error: errorChallenge, loading: challengeLoading }] =
     useLazyQuery(CHALLENGE_QUERY, {
-      fetchPolicy: 'no-cache',
-      onCompleted(data) {
-        Logger.log(
-          '[Lazy Query]',
-          `Fetched auth challenge - ${data?.challenge?.text}`
-        )
-      }
+      fetchPolicy: 'no-cache'
     })
   const [authenticate, { error: errorAuthenticate, loading: authLoading }] =
     useMutation(AUTHENTICATE_MUTATION)
   const [getProfiles, { error: errorProfiles, loading: profilesLoading }] =
-    useLazyQuery(CURRENT_USER_QUERY, {
-      onCompleted(data) {
-        Logger.log(
-          '[Lazy Query]',
-          `Fetched ${data?.profiles?.items?.length} user profiles for auth`
-        )
-      }
-    })
+    useLazyQuery(CURRENT_USER_QUERY)
 
   useEffect(() => setMounted(true), [])
 
@@ -90,9 +76,7 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
         setHasConnected(true)
       }
       Mixpanel.track(`Connect with ${connector.name.toLowerCase()}`)
-    } catch (error) {
-      Logger.warn('[Sign Error]', error)
-    }
+    } catch (error) {}
   }
 
   const handleSign = async () => {
