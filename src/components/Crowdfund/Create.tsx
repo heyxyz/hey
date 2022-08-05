@@ -16,9 +16,9 @@ import Seo from '@components/utils/Seo'
 import { CreatePostBroadcastItemResult, Erc20 } from '@generated/types'
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { PlusIcon } from '@heroicons/react/outline'
+import { Dogstats } from '@lib/dogstats'
 import getTokenImage from '@lib/getTokenImage'
 import imagekitURL from '@lib/imagekitURL'
-import { Mixpanel } from '@lib/mixpanel'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import uploadAssetsToIPFS from '@lib/uploadAssetsToIPFS'
@@ -85,7 +85,7 @@ const Create: NextPage = () => {
   const { isAuthenticated, currentUser } = useAppPersistStore()
 
   const onCompleted = () => {
-    Mixpanel.track(CROWDFUND.NEW, { result: 'success' })
+    Dogstats.track(CROWDFUND.NEW, { result: 'success' })
   }
 
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
@@ -140,7 +140,7 @@ const Create: NextPage = () => {
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
         }
-        Mixpanel.track(CROWDFUND.NEW, { result: 'broadcast_error' })
+        Dogstats.track(CROWDFUND.NEW, { result: 'broadcast_error' })
       }
     })
   const [createPostTypedData, { loading: typedDataLoading }] = useMutation(

@@ -7,7 +7,7 @@ import { Spinner } from '@components/UI/Spinner'
 import { Following, PaginatedResultInfo, Profile } from '@generated/types'
 import { MinimalProfileFields } from '@gql/MinimalProfileFields'
 import { UsersIcon } from '@heroicons/react/outline'
-import { Mixpanel } from '@lib/mixpanel'
+import { Dogstats } from '@lib/dogstats'
 import { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import { PAGINATION } from 'src/tracking'
@@ -60,7 +60,7 @@ const Following: FC<Props> = ({ profile }) => {
       })
       setPageInfo(data?.following?.pageInfo)
       setFollowing([...following, ...data?.following?.items])
-      Mixpanel.track(PAGINATION.FOLLOWING, { pageInfo })
+      Dogstats.track(PAGINATION.FOLLOWING, { pageInfo })
     }
   })
 

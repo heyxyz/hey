@@ -7,7 +7,7 @@ import { Spinner } from '@components/UI/Spinner'
 import { PaginatedResultInfo, Wallet } from '@generated/types'
 import { MinimalProfileFields } from '@gql/MinimalProfileFields'
 import { CollectionIcon } from '@heroicons/react/outline'
-import { Mixpanel } from '@lib/mixpanel'
+import { Dogstats } from '@lib/dogstats'
 import { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import { PAGINATION } from 'src/tracking'
@@ -62,7 +62,7 @@ const Collectors: FC<Props> = ({ pubId }) => {
       })
       setPageInfo(data?.whoCollectedPublication?.pageInfo)
       setCollectors([...collectors, ...data?.whoCollectedPublication?.items])
-      Mixpanel.track(PAGINATION.COLLECTORS, { pageInfo })
+      Dogstats.track(PAGINATION.COLLECTORS, { pageInfo })
     }
   })
 

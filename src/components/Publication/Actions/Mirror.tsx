@@ -6,8 +6,8 @@ import { LensterPublication } from '@generated/lenstertypes'
 import { CreateMirrorBroadcastItemResult } from '@generated/types'
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { SwitchHorizontalIcon } from '@heroicons/react/outline'
+import { Dogstats } from '@lib/dogstats'
 import humanize from '@lib/humanize'
-import { Mixpanel } from '@lib/mixpanel'
 import nFormatter from '@lib/nFormatter'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
@@ -97,7 +97,7 @@ const Mirror: FC<Props> = ({ publication }) => {
     setCount(count + 1)
     setMirrored(true)
     toast.success('Post has been mirrored!')
-    Mixpanel.track(PUBLICATION.MIRROR, { result: 'success' })
+    Dogstats.track(PUBLICATION.MIRROR, { result: 'success' })
   }
 
   const { isLoading: writeLoading, write } = useContractWrite({
@@ -121,7 +121,7 @@ const Mirror: FC<Props> = ({ publication }) => {
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
         }
-        Mixpanel.track(PUBLICATION.MIRROR, { result: 'broadcast_error' })
+        Dogstats.track(PUBLICATION.MIRROR, { result: 'broadcast_error' })
       }
     }
   )

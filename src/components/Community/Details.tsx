@@ -10,8 +10,8 @@ import {
   PencilAltIcon,
   UsersIcon
 } from '@heroicons/react/outline'
+import { Dogstats } from '@lib/dogstats'
 import imagekitURL from '@lib/imagekitURL'
-import { Mixpanel } from '@lib/mixpanel'
 import nFormatter from '@lib/nFormatter'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
@@ -92,7 +92,7 @@ const Details: FC<Props> = ({ community }) => {
                 icon={<PencilAltIcon className="w-5 h-5" />}
                 onClick={() => {
                   setShowSettingsModal(!showSettingsModal)
-                  Mixpanel.track(COMMUNITY.SETTINGS.DELETE)
+                  Dogstats.track(COMMUNITY.SETTINGS.DELETE)
                 }}
               />
               <Modal
@@ -115,7 +115,7 @@ const Details: FC<Props> = ({ community }) => {
               <button
                 type="button"
                 onClick={() => {
-                  Mixpanel.track(COMMUNITY.OPEN_MEMBERS)
+                  Dogstats.track(COMMUNITY.OPEN_MEMBERS)
                   setShowMembersModal(!showMembersModal)
                 }}
               >
