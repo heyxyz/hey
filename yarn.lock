@@ -575,18 +575,6 @@
   dependencies:
     "@jridgewell/trace-mapping" "0.3.9"
 
-"@datadog/browser-core@4.16.1":
-  version "4.16.1"
-  resolved "https://registry.yarnpkg.com/@datadog/browser-core/-/browser-core-4.16.1.tgz#4f9ee1841b7343049b3734f69d9e8aee70ad1815"
-  integrity sha512-VrJDNUHlCkp2ABqTBui7M1gwZ+UNu0+dpJSIydWVCX7ch4fSE7anEplvrr1y4Y3aC0GYp5KShJQxlxx91YPcHQ==
-
-"@datadog/browser-logs@^4.16.1":
-  version "4.16.1"
-  resolved "https://registry.yarnpkg.com/@datadog/browser-logs/-/browser-logs-4.16.1.tgz#d42ed6b73d794397326118d29eeab024fe9f3381"
-  integrity sha512-ss9zCypED6UmQAMKVIXKrbDzjeexoC9koTlvYq8TbDLdAuC2uxXae9WVlXFQZxcPnNGGE8yPm1eiIlxbsEfT3Q==
-  dependencies:
-    "@datadog/browser-core" "4.16.1"
-
 "@emotion/babel-plugin@^11.7.1":
   version "11.10.0"
   resolved "https://registry.yarnpkg.com/@emotion/babel-plugin/-/babel-plugin-11.10.0.tgz#ae545b8faa6b42d3a50ec86b70b758296f3c4467"
@@ -2199,6 +2187,11 @@
   version "3.0.5"
   resolved "https://registry.yarnpkg.com/@types/minimatch/-/minimatch-3.0.5.tgz#1001cc5e6a3704b83c236027e77f2f58ea010f40"
   integrity sha512-Klz949h02Gz2uZCMGwDUSDS1YBlTdDDgbWHi+81l29tQALUtvz4rAYi5uoVhE5Lagoq6DeqAUlbrHvW/mXDgdQ==
+
+"@types/mixpanel-browser@^2.38.0":
+  version "2.38.0"
+  resolved "https://registry.yarnpkg.com/@types/mixpanel-browser/-/mixpanel-browser-2.38.0.tgz#b3e28e1ba06c10a9f88510b88f1ac9d1b2adfc42"
+  integrity sha512-TR8rvsILnqXA7oiiGOxuMGXwvDeCoQDonXJB5UR+TYvEAFpiK8ReFj5LhZT+Xhm3NpI9aPoju30jB2ssorSUww==
 
 "@types/node@*", "@types/node@>=13.7.0", "@types/node@^18.6.3":
   version "18.6.3"
@@ -6275,6 +6268,11 @@ minimist@^1.2.0, minimist@^1.2.5, minimist@^1.2.6:
   version "1.2.6"
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.6.tgz#8637a5b759ea0d6e98702cfb3a9283323c93af44"
   integrity sha512-Jsjnk4bw3YJqYzbdyBiNsPWHPfO++UGG749Cxs6peCu5Xg4nrena6OVxOYxrQTqww0Jmwt+Ref8rggumkTLz9Q==
+
+mixpanel-browser@^2.45.0:
+  version "2.45.0"
+  resolved "https://registry.yarnpkg.com/mixpanel-browser/-/mixpanel-browser-2.45.0.tgz#a2973be5b66e6d2799ef95a1e55b8ad8eede57e8"
+  integrity sha512-PQ1DaTk68yyYtLA0iejmzPA9iNDhT4uIZpqZjRTw7HWpYfl123fydHb2laKanaKjm8YDmrGGz3+xZ4Q6joogyg==
 
 mkdirp@^0.5.5:
   version "0.5.6"

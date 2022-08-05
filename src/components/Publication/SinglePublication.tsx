@@ -1,6 +1,6 @@
 import UserProfile from '@components/Shared/UserProfile'
 import { LensterPublication } from '@generated/lenstertypes'
-import { Dogstats } from '@lib/dogstats'
+import { Mixpanel } from '@lib/mixpanel'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import Link from 'next/link'
@@ -32,7 +32,7 @@ const SinglePublication: FC<Props> = ({
       <article
         className="cursor-pointer first:rounded-t-xl last:rounded-b-xl hover:bg-gray-100/70 hover:dark:bg-gray-800/70 p-5"
         onClick={() => {
-          Dogstats.track(PUBLICATION.OPEN)
+          Mixpanel.track(PUBLICATION.OPEN)
         }}
       >
         <PublicationType

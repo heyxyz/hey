@@ -1,7 +1,7 @@
 import { Card, CardBody } from '@components/UI/Card'
 import { BadgeCheckIcon } from '@heroicons/react/solid'
-import { Dogstats } from '@lib/dogstats'
 import isVerified from '@lib/isVerified'
+import { Mixpanel } from '@lib/mixpanel'
 import React, { FC } from 'react'
 import { useAppPersistStore } from 'src/store/app'
 import { SETTINGS } from 'src/tracking'
@@ -24,7 +24,7 @@ const Verification: FC = () => {
             <a
               href="https://tally.so/r/wgDajK"
               onClick={() => {
-                Dogstats.track(SETTINGS.ACCOUNT.OPEN_VERIFICATION)
+                Mixpanel.track(SETTINGS.ACCOUNT.OPEN_VERIFICATION)
               }}
               target="_blank"
               rel="noreferrer noopener"

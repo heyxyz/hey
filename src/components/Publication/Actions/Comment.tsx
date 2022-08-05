@@ -1,8 +1,8 @@
 import { Tooltip } from '@components/UI/Tooltip'
 import { LensterPublication } from '@generated/lenstertypes'
 import { ChatAlt2Icon } from '@heroicons/react/outline'
-import { Dogstats } from '@lib/dogstats'
 import humanize from '@lib/humanize'
+import { Mixpanel } from '@lib/mixpanel'
 import nFormatter from '@lib/nFormatter'
 import { motion } from 'framer-motion'
 import { FC } from 'react'
@@ -26,7 +26,7 @@ const Comment: FC<Props> = ({ publication }) => {
       onClick={() => {
         setParentPub(publication)
         setShowNewPostModal(true)
-        Dogstats.track(PUBLICATION.OPEN_COMMENT)
+        Mixpanel.track(PUBLICATION.OPEN_COMMENT)
       }}
       aria-label="Like"
     >

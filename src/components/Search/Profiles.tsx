@@ -8,7 +8,7 @@ import { Spinner } from '@components/UI/Spinner'
 import { PaginatedResultInfo, Profile } from '@generated/types'
 import { MinimalProfileFields } from '@gql/MinimalProfileFields'
 import { UsersIcon } from '@heroicons/react/outline'
-import { Dogstats } from '@lib/dogstats'
+import { Mixpanel } from '@lib/mixpanel'
 import React, { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import { PAGINATION } from 'src/tracking'
@@ -60,7 +60,7 @@ const Profiles: FC<Props> = ({ query }) => {
       })
       setPageInfo(data?.search?.pageInfo)
       setProfiles([...profiles, ...data?.search?.items])
-      Dogstats.track(PAGINATION.PROFILE_SEARCH, { pageInfo })
+      Mixpanel.track(PAGINATION.PROFILE_SEARCH, { pageInfo })
     }
   })
 

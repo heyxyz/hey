@@ -1,7 +1,7 @@
 import { LensterPublication } from '@generated/lenstertypes'
 import { Menu } from '@headlessui/react'
 import { CodeIcon } from '@heroicons/react/outline'
-import { Dogstats } from '@lib/dogstats'
+import { Mixpanel } from '@lib/mixpanel'
 import clsx from 'clsx'
 import React, { FC } from 'react'
 import { PUBLICATION } from 'src/tracking'
@@ -21,7 +21,7 @@ const Embed: FC<Props> = ({ publication }) => {
         )
       }
       onClick={() => {
-        Dogstats.track(PUBLICATION.EMBED)
+        Mixpanel.track(PUBLICATION.EMBED)
       }}
       href={`https://embed.withlens.app/?url=${
         publication?.id ?? publication?.pubId

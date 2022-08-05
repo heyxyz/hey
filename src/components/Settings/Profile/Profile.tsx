@@ -17,11 +17,11 @@ import {
 } from '@generated/types'
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { PencilIcon } from '@heroicons/react/outline'
-import { Dogstats } from '@lib/dogstats'
 import getAttribute from '@lib/getAttribute'
 import hasPrideLogo from '@lib/hasPrideLogo'
 import imagekitURL from '@lib/imagekitURL'
 import isBeta from '@lib/isBeta'
+import { Mixpanel } from '@lib/mixpanel'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import uploadAssetsToIPFS from '@lib/uploadAssetsToIPFS'
@@ -114,7 +114,7 @@ const Profile: FC<Props> = ({ profile }) => {
 
   const onCompleted = () => {
     toast.success('Profile updated successfully!')
-    Dogstats.track(SETTINGS.PROFILE.UPDATE, {
+    Mixpanel.track(SETTINGS.PROFILE.UPDATE, {
       result: 'success'
     })
   }
@@ -144,7 +144,7 @@ const Profile: FC<Props> = ({ profile }) => {
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
         }
-        Dogstats.track(SETTINGS.PROFILE.UPDATE, {
+        Mixpanel.track(SETTINGS.PROFILE.UPDATE, {
           result: 'broadcast_error'
         })
       }

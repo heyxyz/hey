@@ -6,7 +6,7 @@ import useOnClickOutside from '@components/utils/hooks/useOnClickOutside'
 import { Profile } from '@generated/types'
 import { MinimalProfileFields } from '@gql/MinimalProfileFields'
 import { SearchIcon, XIcon } from '@heroicons/react/outline'
-import { Dogstats } from '@lib/dogstats'
+import { Mixpanel } from '@lib/mixpanel'
 import clsx from 'clsx'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -80,7 +80,7 @@ const Search: FC<Props> = ({ hideDropdown = false }) => {
                 )}
                 onClick={() => {
                   setSearchText('')
-                  Dogstats.track(SEARCH.CLEAR)
+                  Mixpanel.track(SEARCH.CLEAR)
                 }}
               />
             }

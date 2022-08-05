@@ -3,7 +3,7 @@ import SinglePublication from '@components/Publication/SinglePublication'
 import { Card } from '@components/UI/Card'
 import { Modal } from '@components/UI/Modal'
 import { PencilAltIcon } from '@heroicons/react/outline'
-import { Dogstats } from '@lib/dogstats'
+import { Mixpanel } from '@lib/mixpanel'
 import { FC } from 'react'
 import { usePublicationStore } from 'src/store/publication'
 import { PUBLICATION } from 'src/tracking'
@@ -22,7 +22,7 @@ const NewPostModal: FC = () => {
         onClick={() => {
           setParentPub(null)
           setShowNewPostModal(!showNewPostModal)
-          Dogstats.track(PUBLICATION.OPEN_NEW)
+          Mixpanel.track(PUBLICATION.OPEN_NEW)
         }}
       >
         <PencilAltIcon className="w-5 h-5 sm:w-6 sm:h-6" />
