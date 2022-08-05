@@ -38,7 +38,7 @@
     "js-cookie": "^3.0.1",
     "jwt-decode": "^3.1.2",
     "mixpanel-browser": "^2.45.0",
-    "next": "^12.2.3",
+    "next": "^12.2.4",
     "next-themes": "^0.2.0",
     "next-transpile-modules": "^9.0.0",
     "omit-deep": "^0.3.0",
