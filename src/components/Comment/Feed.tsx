@@ -9,7 +9,6 @@ import { LensterPublication } from '@generated/lenstertypes'
 import { PaginatedResultInfo } from '@generated/types'
 import { CommentFields } from '@gql/CommentFields'
 import { CollectionIcon } from '@heroicons/react/outline'
-import Logger from '@lib/logger'
 import { Mixpanel } from '@lib/mixpanel'
 import React, { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
@@ -71,10 +70,6 @@ const Feed: FC<Props> = ({
     onCompleted(data) {
       setPageInfo(data?.publications?.pageInfo)
       setPublications(data?.publications?.items)
-      Logger.log('[Query]', `Fetched first 10 comments of Publication:${pubId}`)
-    },
-    onError(error) {
-      Logger.error('[Query Error]', error)
     }
   })
 
@@ -93,10 +88,6 @@ const Feed: FC<Props> = ({
       })
       setPageInfo(data?.publications?.pageInfo)
       setPublications([...publications, ...data?.publications?.items])
-      Logger.log(
-        '[Query]',
-        `Fetched next 10 comments of Publication:${pubId} Next:${pageInfo?.next}`
-      )
       Mixpanel.track(
         type === 'comment'
           ? PAGINATION.COMMENT_FEED

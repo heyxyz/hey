@@ -9,7 +9,6 @@ import { LensterPublication } from '@generated/lenstertypes'
 import { CommentFields } from '@gql/CommentFields'
 import { MirrorFields } from '@gql/MirrorFields'
 import { PostFields } from '@gql/PostFields'
-import Logger from '@lib/logger'
 import { apps } from 'data/apps'
 import { NextPage } from 'next'
 import dynamic from 'next/dynamic'
@@ -86,13 +85,7 @@ const ViewPublication: NextPage = () => {
       reactionRequest: currentUser ? { profileId: currentUser?.id } : null,
       profileId: currentUser?.id ?? null
     },
-    skip: !id,
-    onCompleted() {
-      Logger.log('[Query]', `Fetched publication details Publication:${id}`)
-    },
-    onError(error) {
-      Logger.error('[Query Error]', error)
-    }
+    skip: !id
   })
 
   if (error) return <Custom500 />

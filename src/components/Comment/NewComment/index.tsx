@@ -23,7 +23,6 @@ import {
   FEE_DATA_TYPE,
   getModule
 } from '@lib/getModule'
-import Logger from '@lib/logger'
 import { Mixpanel } from '@lib/mixpanel'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
@@ -166,7 +165,6 @@ const NewComment: FC<Props> = ({
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
         }
-        Logger.error('[Broadcast Error]', error)
         Mixpanel.track(COMMENT.NEW, { result: 'broadcast_error' })
       }
     })
@@ -178,7 +176,6 @@ const NewComment: FC<Props> = ({
       }: {
         createCommentTypedData: CreateCommentBroadcastItemResult
       }) {
-        Logger.log('[Mutation]', 'Generated createCommentTypedData')
         const { id, typedData } = createCommentTypedData
         const {
           profileId,
@@ -224,13 +221,10 @@ const NewComment: FC<Props> = ({
           } else {
             write?.({ recklesslySetUnpreparedArgs: inputStruct })
           }
-        } catch (error) {
-          Logger.warn('[Sign Error]', error)
-        }
+        } catch (error) {}
       },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
-        Logger.error('[Typed-data Generate Error]', error)
       }
     }
   )

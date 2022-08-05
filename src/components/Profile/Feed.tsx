@@ -11,7 +11,6 @@ import { CommentFields } from '@gql/CommentFields'
 import { MirrorFields } from '@gql/MirrorFields'
 import { PostFields } from '@gql/PostFields'
 import { CollectionIcon } from '@heroicons/react/outline'
-import Logger from '@lib/logger'
 import { Mixpanel } from '@lib/mixpanel'
 import React, { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
@@ -67,13 +66,6 @@ const Feed: FC<Props> = ({ profile, type }) => {
     onCompleted(data) {
       setPageInfo(data?.publications?.pageInfo)
       setPublications(data?.publications?.items)
-      Logger.log(
-        '[Query]',
-        `Fetched first 10 profile publications Profile:${profile?.id}`
-      )
-    },
-    onError(error) {
-      Logger.error('[Query Error]', error)
     }
   })
 
@@ -93,10 +85,6 @@ const Feed: FC<Props> = ({ profile, type }) => {
       })
       setPageInfo(data?.publications?.pageInfo)
       setPublications([...publications, ...data?.publications?.items])
-      Logger.log(
-        '[Query]',
-        `Fetched next 10 profile publications Profile:${profile?.id} Next:${pageInfo?.next}`
-      )
       Mixpanel.track(PAGINATION.PROFILE_FEED, { pageInfo })
     }
   })

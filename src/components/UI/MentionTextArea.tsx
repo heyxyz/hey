@@ -6,7 +6,6 @@ import { MediaSet, NftImage, Profile } from '@generated/types'
 import { BadgeCheckIcon } from '@heroicons/react/solid'
 import imagekitURL from '@lib/imagekitURL'
 import isVerified from '@lib/isVerified'
-import Logger from '@lib/logger'
 import clsx from 'clsx'
 import { Dispatch, FC, SetStateAction } from 'react'
 import { Mention, MentionsInput } from 'react-mentions'
@@ -57,14 +56,7 @@ export const MentionTextArea: FC<Props> = ({
   setError,
   placeholder = ''
 }) => {
-  const [searchUsers] = useLazyQuery(SEARCH_USERS_QUERY, {
-    onCompleted(data) {
-      Logger.log(
-        '[Lazy Query]',
-        `Fetched ${data?.search?.items?.length} user mention result`
-      )
-    }
-  })
+  const [searchUsers] = useLazyQuery(SEARCH_USERS_QUERY)
 
   const fetchUsers = (query: string, callback: any) => {
     if (!query) return

@@ -15,7 +15,6 @@ import Seo from '@components/utils/Seo'
 import { CreatePostBroadcastItemResult } from '@generated/types'
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { PlusIcon } from '@heroicons/react/outline'
-import Logger from '@lib/logger'
 import { Mixpanel } from '@lib/mixpanel'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
@@ -107,7 +106,6 @@ const Create: NextPage = () => {
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
         }
-        Logger.error('[Broadcast Error]', error)
         Mixpanel.track(COMMUNITY.NEW, { result: 'broadcast_error' })
       }
     })
@@ -119,7 +117,6 @@ const Create: NextPage = () => {
       }: {
         createPostTypedData: CreatePostBroadcastItemResult
       }) {
-        Logger.log('[Mutation]', 'Generated createPostTypedData')
         const { id, typedData } = createPostTypedData
         const {
           profileId,
@@ -159,13 +156,10 @@ const Create: NextPage = () => {
           } else {
             write?.({ recklesslySetUnpreparedArgs: inputStruct })
           }
-        } catch (error) {
-          Logger.warn('[Sign Error]', error)
-        }
+        } catch (error) {}
       },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
-        Logger.error('[Typed-data Generate Error]', error)
       }
     }
   )

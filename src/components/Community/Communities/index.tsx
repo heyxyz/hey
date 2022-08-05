@@ -4,7 +4,6 @@ import { PageLoading } from '@components/UI/PageLoading'
 import Seo from '@components/utils/Seo'
 import { CommunityFields } from '@gql/CommunityFields'
 import { ChartBarIcon, FireIcon, SparklesIcon } from '@heroicons/react/outline'
-import Logger from '@lib/logger'
 import { NextPage } from 'next'
 import React from 'react'
 import { APP_NAME } from 'src/constants'
@@ -64,15 +63,6 @@ const Communities: NextPage = () => {
         publicationTypes: ['POST'],
         limit: 8
       }
-    },
-    onCompleted() {
-      Logger.log(
-        '[Query]',
-        `Fetched 10 TOP_COMMENTED, TOP_COLLECTED and LATEST communities`
-      )
-    },
-    onError(error) {
-      Logger.error('[Query Error]', error)
     }
   })
 

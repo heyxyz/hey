@@ -18,7 +18,6 @@ import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { PlusIcon } from '@heroicons/react/outline'
 import getTokenImage from '@lib/getTokenImage'
 import imagekitURL from '@lib/imagekitURL'
-import Logger from '@lib/logger'
 import { Mixpanel } from '@lib/mixpanel'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
@@ -94,14 +93,7 @@ const Create: NextPage = () => {
       toast.error(error?.message)
     }
   })
-  const { data: currencyData, loading } = useQuery(MODULES_CURRENCY_QUERY, {
-    onCompleted() {
-      Logger.log('[Query]', `Fetched enabled module currencies`)
-    },
-    onError(error) {
-      Logger.error('[Query Error]', error)
-    }
-  })
+  const { data: currencyData, loading } = useQuery(MODULES_CURRENCY_QUERY)
 
   const {
     data,
@@ -148,7 +140,6 @@ const Create: NextPage = () => {
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
         }
-        Logger.error('[Broadcast Error]', error)
         Mixpanel.track(CROWDFUND.NEW, { result: 'broadcast_error' })
       }
     })
@@ -160,7 +151,6 @@ const Create: NextPage = () => {
       }: {
         createPostTypedData: CreatePostBroadcastItemResult
       }) {
-        Logger.log('[Mutation]', 'Generated createPostTypedData')
         const { id, typedData } = createPostTypedData
         const {
           profileId,
@@ -200,13 +190,10 @@ const Create: NextPage = () => {
           } else {
             write?.({ recklesslySetUnpreparedArgs: inputStruct })
           }
-        } catch (error) {
-          Logger.warn('[Sign Error]', error)
-        }
+        } catch (error) {}
       },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
-        Logger.error('[Typed-data Generate Error]', error)
       }
     }
   )

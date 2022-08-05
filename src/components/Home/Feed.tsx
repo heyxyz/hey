@@ -12,7 +12,6 @@ import { CommentFields } from '@gql/CommentFields'
 import { MirrorFields } from '@gql/MirrorFields'
 import { PostFields } from '@gql/PostFields'
 import { CollectionIcon } from '@heroicons/react/outline'
-import Logger from '@lib/logger'
 import { Mixpanel } from '@lib/mixpanel'
 import React, { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
@@ -62,10 +61,6 @@ const Feed: FC = () => {
     onCompleted(data) {
       setPageInfo(data?.timeline?.pageInfo)
       setPublications(data?.timeline?.items)
-      Logger.log('[Query]', `Fetched first 10 timeline publications`)
-    },
-    onError(error) {
-      Logger.error('[Query Error]', error)
     }
   })
 
@@ -84,10 +79,6 @@ const Feed: FC = () => {
       })
       setPageInfo(data?.timeline?.pageInfo)
       setPublications([...publications, ...data?.timeline?.items])
-      Logger.log(
-        '[Query]',
-        `Fetched next 10 timeline publications Next:${pageInfo?.next}`
-      )
       Mixpanel.track(PAGINATION.HOME_FEED, { pageInfo })
     }
   })

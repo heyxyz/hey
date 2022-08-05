@@ -2,7 +2,6 @@ import { gql, useQuery } from '@apollo/client'
 import { Button } from '@components/UI/Button'
 import { Spinner } from '@components/UI/Spinner'
 import { ArrowRightIcon } from '@heroicons/react/outline'
-import Logger from '@lib/logger'
 import Link from 'next/link'
 import React, { FC } from 'react'
 
@@ -29,10 +28,7 @@ const Pending: FC<Props> = ({ txHash, indexing, indexed, type, urlPrefix }) => {
     variables: {
       request: { txHash }
     },
-    pollInterval: 1000,
-    onError(error) {
-      Logger.error('[Query Error]', error)
-    }
+    pollInterval: 1000
   })
 
   return (
