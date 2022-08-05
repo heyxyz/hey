@@ -54,13 +54,14 @@ const GifSelector: FC<Props> = ({ setShowModal, setGifAttachment }) => {
 
   return (
     <div>
-      <Input
-        className="m-3"
-        type="text"
-        placeholder="Search for GIFs"
-        value={debouncedGifInput}
-        onChange={handleSearch}
-      />
+      <div className="m-3">
+        <Input
+          type="text"
+          placeholder="Search for GIFs"
+          value={debouncedGifInput}
+          onChange={handleSearch}
+        />
+      </div>
       <div className="flex overflow-y-auto overflow-x-hidden h-[45vh]">
         {debouncedGifInput ? (
           <Grid
