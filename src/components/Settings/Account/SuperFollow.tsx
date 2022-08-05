@@ -12,8 +12,8 @@ import {
 } from '@generated/types'
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { StarIcon, XIcon } from '@heroicons/react/outline'
+import { Dogstats } from '@lib/dogstats'
 import getTokenImage from '@lib/getTokenImage'
-import { Mixpanel } from '@lib/mixpanel'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import React, { FC, useState } from 'react'
@@ -107,7 +107,7 @@ const SuperFollow: FC = () => {
   })
 
   const onCompleted = () => {
-    Mixpanel.track(SETTINGS.ACCOUNT.SET_SUPER_FOLLOW, {
+    Dogstats.track(SETTINGS.ACCOUNT.SET_SUPER_FOLLOW, {
       result: 'success'
     })
   }
@@ -143,7 +143,7 @@ const SuperFollow: FC = () => {
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
         }
-        Mixpanel.track(SETTINGS.ACCOUNT.SET_SUPER_FOLLOW, {
+        Dogstats.track(SETTINGS.ACCOUNT.SET_SUPER_FOLLOW, {
           result: 'broadcast_error'
         })
       }

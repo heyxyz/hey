@@ -4,7 +4,7 @@ import {
   CollectionIcon,
   SwitchHorizontalIcon
 } from '@heroicons/react/outline'
-import { Mixpanel } from '@lib/mixpanel'
+import { Dogstats } from '@lib/dogstats'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
 import React, { Dispatch, FC, ReactNode } from 'react'
@@ -29,7 +29,7 @@ const FeedType: FC<Props> = ({ setFeedType, feedType }) => {
       onClick={() => {
         push({ query: { type: type.toLowerCase() } })
         setFeedType(type)
-        Mixpanel.track(`Switch to ${type.toLowerCase()} type in explore`)
+        Dogstats.track(`Switch to ${type.toLowerCase()} type in explore`)
       }}
       className={clsx(
         {

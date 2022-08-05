@@ -15,10 +15,10 @@ import {
   UserIcon
 } from '@heroicons/react/outline'
 import { CheckCircleIcon } from '@heroicons/react/solid'
+import { Dogstats } from '@lib/dogstats'
 import getAvatar from '@lib/getAvatar'
 import isBeta from '@lib/isBeta'
 import isStaff from '@lib/isStaff'
-import { Mixpanel } from '@lib/mixpanel'
 import clsx from 'clsx'
 import Cookies from 'js-cookie'
 import Link from 'next/link'
@@ -62,7 +62,7 @@ const MenuItems: FC<Props> = ({ pingData }) => {
 
   const toggleStaffMode = () => {
     setStaffMode(!staffMode)
-    Mixpanel.track(STAFF.TOGGLE_MODE)
+    Dogstats.track(STAFF.TOGGLE_MODE)
   }
 
   return isAuthenticated && currentUser ? (
@@ -133,7 +133,7 @@ const MenuItems: FC<Props> = ({ pingData }) => {
               <Menu.Item
                 as="a"
                 onClick={() => {
-                  Mixpanel.track(PROFILE.LOGOUT)
+                  Dogstats.track(PROFILE.LOGOUT)
                   setCurrentUser(null)
                   Cookies.remove('accessToken')
                   Cookies.remove('refreshToken')
@@ -167,7 +167,7 @@ const MenuItems: FC<Props> = ({ pingData }) => {
                           className="flex items-center py-1.5 px-4 space-x-2 w-full rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
                           onClick={() => {
                             setCurrentUser(profiles[index])
-                            Mixpanel.track(PROFILE.SWITCH_PROFILE)
+                            Dogstats.track(PROFILE.SWITCH_PROFILE)
                           }}
                         >
                           {currentUser?.id === profile?.id && (
@@ -192,7 +192,7 @@ const MenuItems: FC<Props> = ({ pingData }) => {
                 as="a"
                 onClick={() => {
                   setTheme(theme === 'light' ? 'dark' : 'light')
-                  Mixpanel.track(
+                  Dogstats.track(
                     theme === 'light'
                       ? SYSTEM.SWITCH_DARK_THEME
                       : SYSTEM.SWITCH_LIGHT_THEME
@@ -299,7 +299,7 @@ const MenuItems: FC<Props> = ({ pingData }) => {
         }
         onClick={() => {
           setShowLoginModal(!showLoginModal)
-          Mixpanel.track(USER.LOGIN)
+          Dogstats.track(USER.LOGIN)
         }}
       >
         Login

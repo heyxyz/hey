@@ -6,7 +6,7 @@ import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { Spinner } from '@components/UI/Spinner'
 import { Nft, PaginatedResultInfo, Profile } from '@generated/types'
 import { CollectionIcon } from '@heroicons/react/outline'
-import { Mixpanel } from '@lib/mixpanel'
+import { Dogstats } from '@lib/dogstats'
 import React, { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import { CHAIN_ID, IS_MAINNET } from 'src/constants'
@@ -74,7 +74,7 @@ const NFTFeed: FC<Props> = ({ profile }) => {
       })
       setPageInfo(data?.nfts?.pageInfo)
       setNfts([...nfts, ...data?.nfts?.items])
-      Mixpanel.track(PAGINATION.NFT_FEED, { pageInfo })
+      Dogstats.track(PAGINATION.NFT_FEED, { pageInfo })
     }
   })
 

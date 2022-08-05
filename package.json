@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.6.9",
+    "@datadog/browser-logs": "^4.16.1",
     "@giphy/js-fetch-api": "^4.3.1",
     "@giphy/react-components": "^6.0.0",
     "@headlessui/react": "^1.6.6",
@@ -37,7 +38,6 @@
     "ipfs-http-client": "^57.0.3",
     "js-cookie": "^3.0.1",
     "jwt-decode": "^3.1.2",
-    "mixpanel-browser": "^2.45.0",
     "next": "^12.2.4",
     "next-themes": "^0.2.0",
     "next-transpile-modules": "^9.0.0",
@@ -62,7 +62,6 @@
     "@graphql-codegen/typescript": "^2.7.2",
     "@tailwindcss/forms": "^0.5.2",
     "@tailwindcss/line-clamp": "^0.4.0",
-    "@types/mixpanel-browser": "^2.38.0",
     "@types/node": "^18.6.3",
     "@types/react": "^18.0.15",
     "@types/react-copy-to-clipboard": "^5.0.4",

@@ -11,7 +11,7 @@ import { CommentFields } from '@gql/CommentFields'
 import { MirrorFields } from '@gql/MirrorFields'
 import { PostFields } from '@gql/PostFields'
 import { CollectionIcon } from '@heroicons/react/outline'
-import { Mixpanel } from '@lib/mixpanel'
+import { Dogstats } from '@lib/dogstats'
 import React, { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import { useAppPersistStore } from 'src/store/app'
@@ -86,7 +86,7 @@ const Feed: FC<Props> = ({ feedType = 'TOP_COMMENTED' }) => {
       })
       setPageInfo(data?.explorePublications?.pageInfo)
       setPublications([...publications, ...data?.explorePublications?.items])
-      Mixpanel.track(PAGINATION.EXPLORE_FEED, { feedType, pageInfo })
+      Dogstats.track(PAGINATION.EXPLORE_FEED, { feedType, pageInfo })
     }
   })
 

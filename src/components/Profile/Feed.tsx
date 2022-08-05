@@ -11,7 +11,7 @@ import { CommentFields } from '@gql/CommentFields'
 import { MirrorFields } from '@gql/MirrorFields'
 import { PostFields } from '@gql/PostFields'
 import { CollectionIcon } from '@heroicons/react/outline'
-import { Mixpanel } from '@lib/mixpanel'
+import { Dogstats } from '@lib/dogstats'
 import React, { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import { useAppPersistStore } from 'src/store/app'
@@ -85,7 +85,7 @@ const Feed: FC<Props> = ({ profile, type }) => {
       })
       setPageInfo(data?.publications?.pageInfo)
       setPublications([...publications, ...data?.publications?.items])
-      Mixpanel.track(PAGINATION.PROFILE_FEED, { pageInfo })
+      Dogstats.track(PAGINATION.PROFILE_FEED, { pageInfo })
     }
   })
 

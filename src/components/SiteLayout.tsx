@@ -1,20 +1,14 @@
 import { gql, useQuery } from '@apollo/client'
+import { datadogLogs } from '@datadog/browser-logs'
 import { Profile } from '@generated/types'
 import { MinimalProfileFields } from '@gql/MinimalProfileFields'
-import { Mixpanel } from '@lib/mixpanel'
 import Cookies from 'js-cookie'
-import mixpanel from 'mixpanel-browser'
 import dynamic from 'next/dynamic'
 import Head from 'next/head'
 import { useTheme } from 'next-themes'
 import { FC, ReactNode, Suspense, useEffect, useState } from 'react'
 import { Toaster } from 'react-hot-toast'
-import {
-  CHAIN_ID,
-  IS_DEVELOPMENT,
-  MIXPANEL_TOKEN,
-  STATIC_ASSETS
-} from 'src/constants'
+import { CHAIN_ID, DATADOG_TOKEN, DOGSTATS_ENABLED } from 'src/constants'
 import { useAppPersistStore, useAppStore } from 'src/store/app'
 import { useAccount, useDisconnect, useNetwork } from 'wagmi'
 
@@ -22,10 +16,12 @@ import Loading from './Loading'
 
 const Navbar = dynamic(() => import('./Shared/Navbar'), { suspense: true })
 
-if (MIXPANEL_TOKEN) {
-  mixpanel.init(MIXPANEL_TOKEN, {
-    debug: IS_DEVELOPMENT,
-    ignore_dnt: true
+if (DOGSTATS_ENABLED) {
+  datadogLogs.init({
+    clientToken: DATADOG_TOKEN,
+    site: 'datadoghq.eu',
+    forwardErrorsToLogs: false,
+    sampleRate: 100
   })
 }
 
@@ -90,20 +86,17 @@ const SiteLayout: FC<Props> = ({ children }) => {
     const currentUserAddress = currentUser?.ownedBy
     setMounted(true)
 
-    // Set mixpanel user id
+    // Set dogstats user id
     if (currentUser?.id) {
-      Mixpanel.identify(currentUser.id)
-      Mixpanel.people.set({
+      datadogLogs.setLoggerGlobalContext({
+        userId: currentUser.id,
         address: currentUser?.ownedBy,
-        handle: currentUser?.handle,
-        $name: currentUser?.name ?? currentUser?.handle,
-        $avatar: `https://avatar.tobi.sh/${currentUser?.handle}.png`
+        handle: currentUser?.handle
       })
     } else {
-      Mixpanel.identify('0x00')
-      Mixpanel.people.set({
-        $name: 'Anonymous',
-        $avatar: `${STATIC_ASSETS}/anon.jpeg`
+      datadogLogs.setLoggerGlobalContext({
+        userId: '0x00',
+        handle: 'Anonymous'
       })
     }
 

@@ -13,9 +13,9 @@ import {
   CurrencyDollarIcon,
   UsersIcon
 } from '@heroicons/react/outline'
+import { Dogstats } from '@lib/dogstats'
 import getTokenImage from '@lib/getTokenImage'
 import imagekitURL from '@lib/imagekitURL'
-import { Mixpanel } from '@lib/mixpanel'
 import clsx from 'clsx'
 import React, { FC, ReactNode, useEffect, useState } from 'react'
 import { STATIC_ASSETS } from 'src/constants'
@@ -128,7 +128,7 @@ const Crowdfund: FC<Props> = ({ fund }) => {
                     className="text-sm"
                     onClick={() => {
                       setShowFundersModal(!showFundersModal)
-                      Mixpanel.track(CROWDFUND.OPEN_FUNDERS)
+                      Dogstats.track(CROWDFUND.OPEN_FUNDERS)
                     }}
                   >
                     <Badge
