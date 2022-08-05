@@ -12,9 +12,11 @@ import { MirrorFields } from '@gql/MirrorFields'
 import { PostFields } from '@gql/PostFields'
 import { CollectionIcon } from '@heroicons/react/outline'
 import Logger from '@lib/logger'
+import { Mixpanel } from '@lib/mixpanel'
 import React, { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import { useAppPersistStore } from 'src/store/app'
+import { PAGINATION } from 'src/tracking'
 
 const PROFILE_FEED_QUERY = gql`
   query ProfileFeed(
@@ -95,6 +97,7 @@ const Feed: FC<Props> = ({ profile, type }) => {
         '[Query]',
         `Fetched next 10 profile publications Profile:${profile?.id} Next:${pageInfo?.next}`
       )
+      Mixpanel.track(PAGINATION.PROFILE_FEED, { pageInfo })
     }
   })
 

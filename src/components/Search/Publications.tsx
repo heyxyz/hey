@@ -11,9 +11,11 @@ import { CommentFields } from '@gql/CommentFields'
 import { PostFields } from '@gql/PostFields'
 import { CollectionIcon } from '@heroicons/react/outline'
 import Logger from '@lib/logger'
+import { Mixpanel } from '@lib/mixpanel'
 import React, { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import { useAppPersistStore } from 'src/store/app'
+import { PAGINATION } from 'src/tracking'
 
 const SEARCH_PUBLICATIONS_QUERY = gql`
   query SearchPublications(
@@ -92,6 +94,7 @@ const Publications: FC<Props> = ({ query }) => {
         '[Query]',
         `Fetched next 10 publications for search Keyword:${query} Next:${pageInfo?.next}`
       )
+      Mixpanel.track(PAGINATION.PUBLICATION_SEARCH, { pageInfo })
     }
   })
 
