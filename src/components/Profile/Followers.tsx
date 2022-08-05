@@ -9,8 +9,10 @@ import { Follower, PaginatedResultInfo, Profile } from '@generated/types'
 import { MinimalProfileFields } from '@gql/MinimalProfileFields'
 import { UsersIcon } from '@heroicons/react/outline'
 import Logger from '@lib/logger'
+import { Mixpanel } from '@lib/mixpanel'
 import { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
+import { PAGINATION } from 'src/tracking'
 
 const FOLLOWERS_QUERY = gql`
   query Followers($request: FollowersRequest!) {
@@ -71,6 +73,7 @@ const Followers: FC<Props> = ({ profile }) => {
         '[Query]',
         `Fetched next 10 followers Profile:${profile?.id} Next:${pageInfo?.next}`
       )
+      Mixpanel.track(PAGINATION.FOLLOWERS, { pageInfo })
     }
   })
 
