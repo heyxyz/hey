@@ -3,8 +3,8 @@ import { Tooltip } from '@components/UI/Tooltip'
 import GetModuleIcon from '@components/utils/GetModuleIcon'
 import { EnabledModule } from '@generated/types'
 import { CashIcon } from '@heroicons/react/outline'
-import { Dogstats } from '@lib/dogstats'
 import { FEE_DATA_TYPE, getModule } from '@lib/getModule'
+import { Mixpanel } from '@lib/mixpanel'
 import { motion } from 'framer-motion'
 import { Dispatch, FC, useState } from 'react'
 import { PUBLICATION } from 'src/tracking'
@@ -37,7 +37,7 @@ const SelectCollectModule: FC<Props> = ({
           type="button"
           onClick={() => {
             setShowModal(!showModal)
-            Dogstats.track(PUBLICATION.NEW.COLLECT_MODULE.OPEN_COLLECT_CONFIG)
+            Mixpanel.track(PUBLICATION.NEW.COLLECT_MODULE.OPEN_COLLECT_CONFIG)
           }}
           aria-label="Choose Collect Module"
         >

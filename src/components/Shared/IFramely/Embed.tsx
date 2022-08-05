@@ -1,5 +1,5 @@
 import { Card } from '@components/UI/Card'
-import { Dogstats } from '@lib/dogstats'
+import { Mixpanel } from '@lib/mixpanel'
 import React, { FC } from 'react'
 import { PUBLICATION } from 'src/tracking'
 
@@ -13,7 +13,7 @@ const Embed: FC<Props> = ({ og }) => {
       <a
         href={og.url}
         onClick={() => {
-          Dogstats.track(PUBLICATION.OEMBED_CLICK)
+          Mixpanel.track(PUBLICATION.OEMBED_CLICK)
         }}
         target="_blank"
         rel="noreferrer noopener"

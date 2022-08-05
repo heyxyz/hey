@@ -1,6 +1,6 @@
 import { Menu, Transition } from '@headlessui/react'
 import { LogoutIcon } from '@heroicons/react/outline'
-import { Dogstats } from '@lib/dogstats'
+import { Mixpanel } from '@lib/mixpanel'
 import clsx from 'clsx'
 import Cookies from 'js-cookie'
 import { FC, Fragment } from 'react'
@@ -38,7 +38,7 @@ const CreateProfile: FC = () => {
               <Menu.Item
                 as="a"
                 onClick={() => {
-                  Dogstats.track(USER.LOGOUT)
+                  Mixpanel.track(USER.LOGOUT)
                   Cookies.remove('accessToken')
                   Cookies.remove('refreshToken')
                   localStorage.removeItem('lenster.store')

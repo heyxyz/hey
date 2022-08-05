@@ -10,7 +10,7 @@ import { PaginatedResultInfo } from '@generated/types'
 import { CommentFields } from '@gql/CommentFields'
 import { PostFields } from '@gql/PostFields'
 import { CollectionIcon } from '@heroicons/react/outline'
-import { Dogstats } from '@lib/dogstats'
+import { Mixpanel } from '@lib/mixpanel'
 import React, { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import { useAppPersistStore } from 'src/store/app'
@@ -82,7 +82,7 @@ const Publications: FC<Props> = ({ query }) => {
       })
       setPageInfo(data?.search?.pageInfo)
       setPublications([...publications, ...data?.search?.items])
-      Dogstats.track(PAGINATION.PUBLICATION_SEARCH, { pageInfo })
+      Mixpanel.track(PAGINATION.PUBLICATION_SEARCH, { pageInfo })
     }
   })
 

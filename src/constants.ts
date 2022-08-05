@@ -22,8 +22,7 @@ export const RELAY_ON =
   PUBLIC_URL === 'https://lenster.xyz' || PUBLIC_URL === 'http://localhost:4783'
     ? process.env.NEXT_PUBLIC_RELAY_ON === 'true'
     : false
-export const DATADOG_TOKEN = process.env.NEXT_PUBLIC_DATADOG_TOKEN ?? ''
-export const DOGSTATS_ENABLED = DATADOG_TOKEN && IS_PRODUCTION
+export const MIXPANEL_TOKEN = process.env.NEXT_PUBLIC_MIXPANEL_TOKEN ?? ''
 
 // Messages
 export const ERROR_MESSAGE = 'Something went wrong!'
