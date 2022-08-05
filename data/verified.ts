@@ -1,4 +1,6 @@
 export const mainnetVerified = [
+  '0x07c7' /** @moongotchi.lens */,
+  '0xad5d' /** @zerion.lens */,
   '0xc0dc' /** @yearn.lens */,
   '0xb289' /** @harvest.lens */,
   '0xad1e' /** @apwine.lens */,
