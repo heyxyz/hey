@@ -21,7 +21,6 @@ import getAttribute from '@lib/getAttribute'
 import hasPrideLogo from '@lib/hasPrideLogo'
 import imagekitURL from '@lib/imagekitURL'
 import isBeta from '@lib/isBeta'
-import Logger from '@lib/logger'
 import { Mixpanel } from '@lib/mixpanel'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
@@ -145,7 +144,6 @@ const Profile: FC<Props> = ({ profile }) => {
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
         }
-        Logger.error('[Broadcast Error]', error)
         Mixpanel.track(SETTINGS.PROFILE.UPDATE, {
           result: 'broadcast_error'
         })
@@ -158,7 +156,6 @@ const Profile: FC<Props> = ({ profile }) => {
       }: {
         createSetProfileMetadataTypedData: CreateSetProfileMetadataUriBroadcastItemResult
       }) {
-        Logger.log('[Mutation]', 'Generated createSetProfileImageURITypedData')
         const { id, typedData } = createSetProfileMetadataTypedData
         const { deadline } = typedData?.value
 
@@ -188,13 +185,10 @@ const Profile: FC<Props> = ({ profile }) => {
           } else {
             write?.({ recklesslySetUnpreparedArgs: inputStruct })
           }
-        } catch (error) {
-          Logger.warn('[Sign Error]', error)
-        }
+        } catch (error) {}
       },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
-        Logger.error('[Typed-data Generate Error]', error)
       }
     })
 

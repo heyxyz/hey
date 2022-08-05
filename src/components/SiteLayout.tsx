@@ -1,7 +1,6 @@
 import { gql, useQuery } from '@apollo/client'
 import { Profile } from '@generated/types'
 import { MinimalProfileFields } from '@gql/MinimalProfileFields'
-import Logger from '@lib/logger'
 import { Mixpanel } from '@lib/mixpanel'
 import Cookies from 'js-cookie'
 import mixpanel from 'mixpanel-browser'
@@ -82,14 +81,6 @@ const SiteLayout: FC<Props> = ({ children }) => {
       } else {
         setProfiles(profiles)
       }
-
-      Logger.log(
-        '[Query]',
-        `Fetched ${data?.profiles?.items?.length} owned profiles`
-      )
-    },
-    onError(error) {
-      Logger.error('[Query Error]', error)
     }
   })
 

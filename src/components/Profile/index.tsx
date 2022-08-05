@@ -3,7 +3,6 @@ import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout'
 import NFTShimmer from '@components/Shared/Shimmer/NFTShimmer'
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer'
 import Seo from '@components/utils/Seo'
-import Logger from '@lib/logger'
 import { NextPage } from 'next'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
@@ -98,16 +97,7 @@ const ViewProfile: NextPage = () => {
   )
   const { data, loading, error } = useQuery(PROFILE_QUERY, {
     variables: { request: { handle: username }, who: currentUser?.id ?? null },
-    skip: !username,
-    onCompleted(data) {
-      Logger.log(
-        '[Query]',
-        `Fetched profile details Profile:${data?.profile?.id}`
-      )
-    },
-    onError(error) {
-      Logger.error('[Query Error]', error)
-    }
+    skip: !username
   })
 
   if (error) return <Custom500 />

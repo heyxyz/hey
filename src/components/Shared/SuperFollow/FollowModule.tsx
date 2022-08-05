@@ -15,7 +15,6 @@ import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { StarIcon, UserIcon } from '@heroicons/react/outline'
 import formatAddress from '@lib/formatAddress'
 import getTokenImage from '@lib/getTokenImage'
-import Logger from '@lib/logger'
 import { Mixpanel } from '@lib/mixpanel'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
@@ -145,16 +144,7 @@ const FollowModule: FC<Props> = ({
 
   const { data, loading } = useQuery(SUPER_FOLLOW_QUERY, {
     variables: { request: { profileId: profile?.id } },
-    skip: !profile?.id,
-    onCompleted() {
-      Logger.log(
-        '[Query]',
-        `Fetched super follow details Profile:${profile?.id}`
-      )
-    },
-    onError(error) {
-      Logger.error('[Query Error]', error)
-    }
+    skip: !profile?.id
   })
 
   const followModule: FeeFollowModuleSettings = data?.profile?.followModule
@@ -173,10 +163,6 @@ const FollowModule: FC<Props> = ({
       skip: !followModule?.amount?.asset?.address || !currentUser,
       onCompleted(data) {
         setAllowed(data?.approvedModuleAllowanceAmount[0]?.allowance !== '0x00')
-        Logger.log('[Query]', `Fetched allowance data`)
-      },
-      onError(error) {
-        Logger.error('[Query Error]', error)
       }
     }
   )
@@ -206,7 +192,6 @@ const FollowModule: FC<Props> = ({
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
         }
-        Logger.error('[Broadcast Error]', error)
         Mixpanel.track(PROFILE.SUPER_FOLLOW, { result: 'broadcast_error' })
       }
     }
@@ -219,7 +204,6 @@ const FollowModule: FC<Props> = ({
       }: {
         createFollowTypedData: CreateFollowBroadcastItemResult
       }) {
-        Logger.log('[Mutation]', 'Generated createFollowTypedData')
         const { id, typedData } = createFollowTypedData
         const { deadline } = typedData?.value
 
@@ -250,13 +234,10 @@ const FollowModule: FC<Props> = ({
           } else {
             write?.({ recklesslySetUnpreparedArgs: inputStruct })
           }
-        } catch (error) {
-          Logger.warn('[Sign Error]', error)
-        }
+        } catch (error) {}
       },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
-        Logger.error('[Typed-data Generate Error]', error)
       }
     }
   )

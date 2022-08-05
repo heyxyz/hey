@@ -15,7 +15,6 @@ import {
 } from '@heroicons/react/outline'
 import getTokenImage from '@lib/getTokenImage'
 import imagekitURL from '@lib/imagekitURL'
-import Logger from '@lib/logger'
 import { Mixpanel } from '@lib/mixpanel'
 import clsx from 'clsx'
 import React, { FC, ReactNode, useEffect, useState } from 'react'
@@ -61,13 +60,7 @@ const Crowdfund: FC<Props> = ({ fund }) => {
   const [showFundersModal, setShowFundersModal] = useState<boolean>(false)
   const [revenue, setRevenue] = useState<number>(0)
   const { data, loading } = useQuery(COLLECT_QUERY, {
-    variables: { request: { publicationId: fund?.pubId ?? fund?.id } },
-    onCompleted() {
-      Logger.log(
-        '[Query]',
-        `Fetched collect module details Crowdfund:${fund?.pubId ?? fund?.id}`
-      )
-    }
+    variables: { request: { publicationId: fund?.pubId ?? fund?.id } }
   })
 
   const collectModule: any = data?.publication?.collectModule
@@ -82,17 +75,6 @@ const Crowdfund: FC<Props> = ({ fund }) => {
               ? fund?.mirrorOf?.id
               : fund?.pubId ?? fund?.id
         }
-      },
-      onCompleted() {
-        Logger.log(
-          '[Query]',
-          `Fetched crowdfund revenue details Crowdfund:${
-            fund?.pubId ?? fund?.id
-          }`
-        )
-      },
-      onError(error) {
-        Logger.error('[Query Error]', error)
       }
     }
   )

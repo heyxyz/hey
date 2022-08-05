@@ -19,7 +19,6 @@ import {
   FEE_DATA_TYPE,
   getModule
 } from '@lib/getModule'
-import Logger from '@lib/logger'
 import { Mixpanel } from '@lib/mixpanel'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
@@ -156,7 +155,6 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
         }
-        Logger.error('[Broadcast Error]', error)
         Mixpanel.track(POST.NEW, { result: 'broadcast_error' })
       }
     })
@@ -168,7 +166,6 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
       }: {
         createPostTypedData: CreatePostBroadcastItemResult
       }) {
-        Logger.log('[Mutation]', 'Generated createPostTypedData')
         const { id, typedData } = createPostTypedData
         const {
           profileId,
@@ -208,13 +205,10 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
           } else {
             write?.({ recklesslySetUnpreparedArgs: inputStruct })
           }
-        } catch (error) {
-          Logger.warn('[Sign Error]', error)
-        }
+        } catch (error) {}
       },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
-        Logger.error('[Typed-data Generate Error]', error)
       }
     }
   )

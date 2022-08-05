@@ -6,7 +6,6 @@ import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { LensterPublication } from '@generated/lenstertypes'
 import { Profile } from '@generated/types'
 import { MinimalProfileFields } from '@gql/MinimalProfileFields'
-import Logger from '@lib/logger'
 import React, { FC } from 'react'
 
 const RELEVANT_PEOPLE_QUERY = gql`
@@ -46,16 +45,7 @@ const RelevantPeople: FC<Props> = ({ publication }) => {
   const cleanedMentions = [...new Set(processedMentions)]
 
   const { data, loading, error } = useQuery(RELEVANT_PEOPLE_QUERY, {
-    variables: { request: { handles: cleanedMentions.slice(0, 5) } },
-    onCompleted(data) {
-      Logger.log(
-        '[Query]',
-        `Fetched ${data?.cleanedMentions?.length} relevant people`
-      )
-    },
-    onError(error) {
-      Logger.error('[Query Error]', error)
-    }
+    variables: { request: { handles: cleanedMentions.slice(0, 5) } }
   })
 
   if (loading)

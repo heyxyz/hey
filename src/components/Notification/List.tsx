@@ -8,7 +8,6 @@ import { CollectModuleFields } from '@gql/CollectModuleFields'
 import { MetadataFields } from '@gql/MetadataFields'
 import { MinimalProfileFields } from '@gql/MinimalProfileFields'
 import { MailIcon } from '@heroicons/react/outline'
-import Logger from '@lib/logger'
 import { Mixpanel } from '@lib/mixpanel'
 import { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
@@ -161,10 +160,6 @@ const List: FC = () => {
     onCompleted(data) {
       setPageInfo(data?.notifications?.pageInfo)
       setNotifications(data?.notifications?.items)
-      Logger.log('[Query]', `Fetched first 10 notifications`)
-    },
-    onError(error) {
-      Logger.error('[Query Error]', error)
     }
   })
 
@@ -181,10 +176,6 @@ const List: FC = () => {
       })
       setPageInfo(data?.notifications?.pageInfo)
       setNotifications([...notifications, ...data?.notifications?.items])
-      Logger.log(
-        '[Query]',
-        `Fetched next 10 notifications Next:${pageInfo?.next}`
-      )
       Mixpanel.track(PAGINATION.NOTIFICATION_FEED, { pageInfo })
     }
   })

@@ -4,7 +4,6 @@ import { Button } from '@components/UI/Button'
 import { Spinner } from '@components/UI/Spinner'
 import { CreateUnfollowBroadcastItemResult, Profile } from '@generated/types'
 import { UserRemoveIcon } from '@heroicons/react/outline'
-import Logger from '@lib/logger'
 import { Mixpanel } from '@lib/mixpanel'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
@@ -76,7 +75,6 @@ const Unfollow: FC<Props> = ({
       }: {
         createUnfollowTypedData: CreateUnfollowBroadcastItemResult
       }) {
-        Logger.log('[Mutation]', 'Generated createUnfollowTypedData')
         const { typedData } = createUnfollowTypedData
         const { deadline } = typedData?.value
 
@@ -111,13 +109,10 @@ const Unfollow: FC<Props> = ({
           } finally {
             setWriteLoading(false)
           }
-        } catch (error) {
-          Logger.warn('[Sign Error]', error)
-        }
+        } catch (error) {}
       },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
-        Logger.error('[Typed-data Generate Error]', error)
       }
     }
   )

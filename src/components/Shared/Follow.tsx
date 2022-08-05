@@ -5,7 +5,6 @@ import { Spinner } from '@components/UI/Spinner'
 import { CreateFollowBroadcastItemResult, Profile } from '@generated/types'
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { UserAddIcon } from '@heroicons/react/outline'
-import Logger from '@lib/logger'
 import { Mixpanel } from '@lib/mixpanel'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
@@ -108,7 +107,6 @@ const Follow: FC<Props> = ({
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
         }
-        Logger.error('[Broadcast Error]', error)
         Mixpanel.track(PROFILE.FOLLOW, { result: 'broadcast_error' })
       }
     }
@@ -121,7 +119,6 @@ const Follow: FC<Props> = ({
       }: {
         createFollowTypedData: CreateFollowBroadcastItemResult
       }) {
-        Logger.log('[Mutation]', 'Generated createFollowTypedData')
         const { id, typedData } = createFollowTypedData
         const { deadline } = typedData?.value
 
@@ -151,13 +148,10 @@ const Follow: FC<Props> = ({
           } else {
             write?.({ recklesslySetUnpreparedArgs: inputStruct })
           }
-        } catch (error) {
-          Logger.warn('[Sign Error]', error)
-        }
+        } catch (error) {}
       },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
-        Logger.error('[Typed-data Generate Error]', error)
       }
     }
   )

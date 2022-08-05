@@ -13,7 +13,6 @@ import {
 } from '@generated/types'
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { PencilIcon } from '@heroicons/react/outline'
-import Logger from '@lib/logger'
 import { Mixpanel } from '@lib/mixpanel'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
@@ -148,7 +147,6 @@ const NFTPicture: FC<Props> = ({ profile }) => {
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
         }
-        Logger.error('[Broadcast Error]', error)
         Mixpanel.track(SETTINGS.PROFILE.SET_NFT_PICTURE, {
           result: 'broadcast_error'
         })
@@ -189,13 +187,10 @@ const NFTPicture: FC<Props> = ({ profile }) => {
           } else {
             write?.({ recklesslySetUnpreparedArgs: inputStruct })
           }
-        } catch (error) {
-          Logger.warn('[Sign Error]', error)
-        }
+        } catch (error) {}
       },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
-        Logger.error('[Typed-data Generate Error]', error)
       }
     })
 

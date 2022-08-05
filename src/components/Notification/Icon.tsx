@@ -1,6 +1,5 @@
 import { gql, useQuery } from '@apollo/client'
 import { LightningBoltIcon } from '@heroicons/react/outline'
-import Logger from '@lib/logger'
 import { Mixpanel } from '@lib/mixpanel'
 import Link from 'next/link'
 import { FC, useEffect, useState } from 'react'
@@ -22,10 +21,7 @@ const NotificationIcon: FC = () => {
   const [showBadge, setShowBadge] = useState<boolean>(false)
   const { data } = useQuery(NOTIFICATION_COUNT_QUERY, {
     variables: { request: { profileId: currentUser?.id } },
-    skip: !currentUser?.id,
-    onError(error) {
-      Logger.error('[Query Error]', error)
-    }
+    skip: !currentUser?.id
   })
 
   useEffect(() => {

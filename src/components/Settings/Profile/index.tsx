@@ -4,7 +4,6 @@ import { Card, CardBody } from '@components/UI/Card'
 import { PageLoading } from '@components/UI/PageLoading'
 import Seo from '@components/utils/Seo'
 import { PhotographIcon } from '@heroicons/react/outline'
-import Logger from '@lib/logger'
 import clsx from 'clsx'
 import { NextPage } from 'next'
 import React, { FC, ReactNode, useState } from 'react'
@@ -59,11 +58,7 @@ const ProfileSettings: NextPage = () => {
     variables: { request: { profileId: currentUser?.id } },
     skip: !currentUser?.id,
     onCompleted(data) {
-      Logger.log('[Query]', `Fetched profile settings`)
       setSettingsType(data?.profile?.picture?.uri ? 'NFT' : 'AVATAR')
-    },
-    onError(error) {
-      Logger.error('[Query Error]', error)
     }
   })
 

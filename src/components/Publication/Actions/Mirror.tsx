@@ -7,7 +7,6 @@ import { CreateMirrorBroadcastItemResult } from '@generated/types'
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { SwitchHorizontalIcon } from '@heroicons/react/outline'
 import humanize from '@lib/humanize'
-import Logger from '@lib/logger'
 import { Mixpanel } from '@lib/mixpanel'
 import nFormatter from '@lib/nFormatter'
 import omit from '@lib/omit'
@@ -122,7 +121,6 @@ const Mirror: FC<Props> = ({ publication }) => {
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
         }
-        Logger.error('[Broadcast Error]', error)
         Mixpanel.track(PUBLICATION.MIRROR, { result: 'broadcast_error' })
       }
     }
@@ -135,7 +133,6 @@ const Mirror: FC<Props> = ({ publication }) => {
       }: {
         createMirrorTypedData: CreateMirrorBroadcastItemResult
       }) {
-        Logger.log('[Mutation]', 'Generated createMirrorTypedData')
         const { id, typedData } = createMirrorTypedData
         const {
           profileId,
@@ -175,13 +172,10 @@ const Mirror: FC<Props> = ({ publication }) => {
           } else {
             write?.({ recklesslySetUnpreparedArgs: inputStruct })
           }
-        } catch (error) {
-          Logger.warn('[Sign Error]', error)
-        }
+        } catch (error) {}
       },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
-        Logger.error('[Typed-data Generate Error]', error)
       }
     }
   )
