@@ -12,7 +12,7 @@ import { CommentFields } from '@gql/CommentFields'
 import { MirrorFields } from '@gql/MirrorFields'
 import { PostFields } from '@gql/PostFields'
 import { CollectionIcon } from '@heroicons/react/outline'
-import { Dogstats } from '@lib/dogstats'
+import { Mixpanel } from '@lib/mixpanel'
 import React, { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import { useAppPersistStore } from 'src/store/app'
@@ -79,7 +79,7 @@ const Feed: FC = () => {
       })
       setPageInfo(data?.timeline?.pageInfo)
       setPublications([...publications, ...data?.timeline?.items])
-      Dogstats.track(PAGINATION.HOME_FEED, { pageInfo })
+      Mixpanel.track(PAGINATION.HOME_FEED, { pageInfo })
     }
   })
 

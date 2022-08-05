@@ -15,7 +15,7 @@ import Seo from '@components/utils/Seo'
 import { CreatePostBroadcastItemResult } from '@generated/types'
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { PlusIcon } from '@heroicons/react/outline'
-import { Dogstats } from '@lib/dogstats'
+import { Mixpanel } from '@lib/mixpanel'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import uploadAssetsToIPFS from '@lib/uploadAssetsToIPFS'
@@ -61,7 +61,7 @@ const Create: NextPage = () => {
   })
 
   const onCompleted = () => {
-    Dogstats.track(COMMUNITY.NEW, { result: 'success' })
+    Mixpanel.track(COMMUNITY.NEW, { result: 'success' })
   }
 
   const {
@@ -106,7 +106,7 @@ const Create: NextPage = () => {
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
         }
-        Dogstats.track(COMMUNITY.NEW, { result: 'broadcast_error' })
+        Mixpanel.track(COMMUNITY.NEW, { result: 'broadcast_error' })
       }
     })
   const [createPostTypedData, { loading: typedDataLoading }] = useMutation(

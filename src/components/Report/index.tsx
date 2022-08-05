@@ -14,7 +14,7 @@ import { TextArea } from '@components/UI/TextArea'
 import Seo from '@components/utils/Seo'
 import { PencilAltIcon } from '@heroicons/react/outline'
 import { CheckCircleIcon } from '@heroicons/react/solid'
-import { Dogstats } from '@lib/dogstats'
+import { Mixpanel } from '@lib/mixpanel'
 import { useRouter } from 'next/router'
 import React, { FC, useState } from 'react'
 import { APP_NAME, ZERO_ADDRESS } from 'src/constants'
@@ -63,7 +63,7 @@ const Report: FC = () => {
     { data: submitData, loading: submitLoading, error: submitError }
   ] = useMutation(CREATE_REPORT_PUBLICATION_MUTATION, {
     onCompleted() {
-      Dogstats.track(PUBLICATION.REPORT, { result: 'success' })
+      Mixpanel.track(PUBLICATION.REPORT, { result: 'success' })
     }
   })
 

@@ -5,7 +5,7 @@ import { Spinner } from '@components/UI/Spinner'
 import { CreateFollowBroadcastItemResult, Profile } from '@generated/types'
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { UserAddIcon } from '@heroicons/react/outline'
-import { Dogstats } from '@lib/dogstats'
+import { Mixpanel } from '@lib/mixpanel'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import { Dispatch, FC } from 'react'
@@ -83,7 +83,7 @@ const Follow: FC<Props> = ({
     }
     setFollowing(true)
     toast.success('Followed successfully!')
-    Dogstats.track(PROFILE.FOLLOW, { result: 'success' })
+    Mixpanel.track(PROFILE.FOLLOW, { result: 'success' })
   }
 
   const { isLoading: writeLoading, write } = useContractWrite({
@@ -107,7 +107,7 @@ const Follow: FC<Props> = ({
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
         }
-        Dogstats.track(PROFILE.FOLLOW, { result: 'broadcast_error' })
+        Mixpanel.track(PROFILE.FOLLOW, { result: 'broadcast_error' })
       }
     }
   )

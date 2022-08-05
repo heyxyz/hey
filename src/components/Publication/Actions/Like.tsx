@@ -3,8 +3,8 @@ import { Tooltip } from '@components/UI/Tooltip'
 import { LensterPublication } from '@generated/lenstertypes'
 import { HeartIcon } from '@heroicons/react/outline'
 import { HeartIcon as HeartIconSolid } from '@heroicons/react/solid'
-import { Dogstats } from '@lib/dogstats'
 import humanize from '@lib/humanize'
+import { Mixpanel } from '@lib/mixpanel'
 import { motion } from 'framer-motion'
 import { FC, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
@@ -54,25 +54,25 @@ const Like: FC<Props> = ({ publication }) => {
 
   const [addReaction] = useMutation(ADD_REACTION_MUTATION, {
     onCompleted() {
-      Dogstats.track(PUBLICATION.LIKE, { result: 'success' })
+      Mixpanel.track(PUBLICATION.LIKE, { result: 'success' })
     },
     onError(error) {
       setLiked(!liked)
       setCount(count - 1)
       toast.error(error.message)
-      Dogstats.track(PUBLICATION.LIKE, { result: 'error' })
+      Mixpanel.track(PUBLICATION.LIKE, { result: 'error' })
     }
   })
 
   const [removeReaction] = useMutation(REMOVE_REACTION_MUTATION, {
     onCompleted() {
-      Dogstats.track(PUBLICATION.DISLIKE, { result: 'success' })
+      Mixpanel.track(PUBLICATION.DISLIKE, { result: 'success' })
     },
     onError(error) {
       setLiked(!liked)
       setCount(count + 1)
       toast.error(error.message)
-      Dogstats.track(PUBLICATION.DISLIKE, { result: 'error' })
+      Mixpanel.track(PUBLICATION.DISLIKE, { result: 'error' })
     }
   })
 

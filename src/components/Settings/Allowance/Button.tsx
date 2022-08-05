@@ -5,8 +5,8 @@ import { Spinner } from '@components/UI/Spinner'
 import { WarningMessage } from '@components/UI/WarningMessage'
 import { ApprovedAllowanceAmount } from '@generated/types'
 import { ExclamationIcon, MinusIcon, PlusIcon } from '@heroicons/react/outline'
-import { Dogstats } from '@lib/dogstats'
 import { getModule } from '@lib/getModule'
+import { Mixpanel } from '@lib/mixpanel'
 import React, { Dispatch, FC, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
@@ -67,7 +67,7 @@ const AllowanceButton: FC<Props> = ({
       toast.success(`Module ${allowed ? 'disabled' : 'enabled'} successfully!`)
       setShowWarninModal(false)
       setAllowed(!allowed)
-      Dogstats.track(`Module ${allowed ? 'disabled' : 'enabled'}`, {
+      Mixpanel.track(`Module ${allowed ? 'disabled' : 'enabled'}`, {
         result: 'success'
       })
     },

@@ -5,7 +5,7 @@ import {
   PhotographIcon,
   SwitchHorizontalIcon
 } from '@heroicons/react/outline'
-import { Dogstats } from '@lib/dogstats'
+import { Mixpanel } from '@lib/mixpanel'
 import nFormatter from '@lib/nFormatter'
 import clsx from 'clsx'
 import React, { Dispatch, FC, ReactNode } from 'react'
@@ -29,7 +29,7 @@ const FeedType: FC<Props> = ({ stats, setFeedType, feedType }) => {
       type="button"
       onClick={() => {
         setFeedType(type)
-        Dogstats.track(`Switch to ${type.toLowerCase()} tab in profile`)
+        Mixpanel.track(`Switch to ${type.toLowerCase()} tab in profile`)
       }}
       className={clsx(
         {

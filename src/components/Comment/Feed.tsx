@@ -9,7 +9,7 @@ import { LensterPublication } from '@generated/lenstertypes'
 import { PaginatedResultInfo } from '@generated/types'
 import { CommentFields } from '@gql/CommentFields'
 import { CollectionIcon } from '@heroicons/react/outline'
-import { Dogstats } from '@lib/dogstats'
+import { Mixpanel } from '@lib/mixpanel'
 import React, { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import { useAppPersistStore } from 'src/store/app'
@@ -88,7 +88,7 @@ const Feed: FC<Props> = ({
       })
       setPageInfo(data?.publications?.pageInfo)
       setPublications([...publications, ...data?.publications?.items])
-      Dogstats.track(
+      Mixpanel.track(
         type === 'comment'
           ? PAGINATION.COMMENT_FEED
           : PAGINATION.COMMUNITY_FEED,

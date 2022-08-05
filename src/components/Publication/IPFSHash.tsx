@@ -1,8 +1,8 @@
 import { Card, CardBody } from '@components/UI/Card'
 import { ExternalLinkIcon } from '@heroicons/react/outline'
-import { Dogstats } from '@lib/dogstats'
 import formatIPFSHash from '@lib/formatIPFSHash'
 import getIPFSHash from '@lib/getIPFSHash'
+import { Mixpanel } from '@lib/mixpanel'
 import React, { FC } from 'react'
 import { PUBLICATION } from 'src/tracking'
 
@@ -22,7 +22,7 @@ const IPFSHash: FC<Props> = ({ ipfsHash }) => {
           className="flex justify-between items-center"
           href={`https://ipfs.infura.io/ipfs/${formattedHash}`}
           onClick={() => {
-            Dogstats.track(PUBLICATION.OPEN_CONTENT_URI)
+            Mixpanel.track(PUBLICATION.OPEN_CONTENT_URI)
           }}
           target="_blank"
           rel="noreferrer noopener"

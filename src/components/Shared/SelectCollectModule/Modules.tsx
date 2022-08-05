@@ -5,8 +5,8 @@ import { Spinner } from '@components/UI/Spinner'
 import GetModuleIcon from '@components/utils/GetModuleIcon'
 import { EnabledModule } from '@generated/types'
 import { CheckCircleIcon } from '@heroicons/react/solid'
-import { Dogstats } from '@lib/dogstats'
 import { FEE_DATA_TYPE, getModule } from '@lib/getModule'
+import { Mixpanel } from '@lib/mixpanel'
 import clsx from 'clsx'
 import { Dispatch, FC, useState } from 'react'
 
@@ -54,7 +54,7 @@ const Modules: FC<Props> = ({
     } else {
       setShowModal(false)
     }
-    Dogstats.track(
+    Mixpanel.track(
       `Select ${module?.moduleName.toLowerCase()} for new publication`
     )
   }

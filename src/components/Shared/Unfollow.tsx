@@ -4,7 +4,7 @@ import { Button } from '@components/UI/Button'
 import { Spinner } from '@components/UI/Spinner'
 import { CreateUnfollowBroadcastItemResult, Profile } from '@generated/types'
 import { UserRemoveIcon } from '@heroicons/react/outline'
-import { Dogstats } from '@lib/dogstats'
+import { Mixpanel } from '@lib/mixpanel'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import { Contract, Signer } from 'ethers'
@@ -103,7 +103,7 @@ const Unfollow: FC<Props> = ({
               setFollowing(false)
             }
             toast.success('Unfollowed successfully!')
-            Dogstats.track(PROFILE.UNFOLLOW, { result: 'success' })
+            Mixpanel.track(PROFILE.UNFOLLOW, { result: 'success' })
           } catch {
             toast.error('User rejected request')
           } finally {
