@@ -10,9 +10,11 @@ import { PaginatedResultInfo } from '@generated/types'
 import { CommentFields } from '@gql/CommentFields'
 import { CollectionIcon } from '@heroicons/react/outline'
 import Logger from '@lib/logger'
+import { Mixpanel } from '@lib/mixpanel'
 import React, { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import { useAppPersistStore } from 'src/store/app'
+import { PAGINATION } from 'src/tracking'
 
 import ReferenceAlert from '../Shared/ReferenceAlert'
 import NewComment from './NewComment'
@@ -94,6 +96,12 @@ const Feed: FC<Props> = ({
       Logger.log(
         '[Query]',
         `Fetched next 10 comments of Publication:${pubId} Next:${pageInfo?.next}`
+      )
+      Mixpanel.track(
+        type === 'comment'
+          ? PAGINATION.COMMENT_FEED
+          : PAGINATION.COMMUNITY_FEED,
+        { pageInfo }
       )
     }
   })

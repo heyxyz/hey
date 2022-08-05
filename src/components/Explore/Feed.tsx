@@ -12,9 +12,11 @@ import { MirrorFields } from '@gql/MirrorFields'
 import { PostFields } from '@gql/PostFields'
 import { CollectionIcon } from '@heroicons/react/outline'
 import Logger from '@lib/logger'
+import { Mixpanel } from '@lib/mixpanel'
 import React, { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import { useAppPersistStore } from 'src/store/app'
+import { PAGINATION } from 'src/tracking'
 
 const EXPLORE_FEED_QUERY = gql`
   query ExploreFeed(
@@ -96,6 +98,7 @@ const Feed: FC<Props> = ({ feedType = 'TOP_COMMENTED' }) => {
         '[Query]',
         `Fetched next 10 explore publications FeedType:${feedType} Next:${pageInfo?.next}`
       )
+      Mixpanel.track(PAGINATION.EXPLORE_FEED, { feedType, pageInfo })
     }
   })
 

@@ -9,9 +9,11 @@ import { MetadataFields } from '@gql/MetadataFields'
 import { MinimalProfileFields } from '@gql/MinimalProfileFields'
 import { MailIcon } from '@heroicons/react/outline'
 import Logger from '@lib/logger'
+import { Mixpanel } from '@lib/mixpanel'
 import { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import { useAppPersistStore } from 'src/store/app'
+import { PAGINATION } from 'src/tracking'
 
 import NotificationShimmer from './Shimmer'
 import CollectNotification from './Type/CollectNotification'
@@ -183,6 +185,7 @@ const List: FC = () => {
         '[Query]',
         `Fetched next 10 notifications Next:${pageInfo?.next}`
       )
+      Mixpanel.track(PAGINATION.NOTIFICATION_FEED, { pageInfo })
     }
   })
 
