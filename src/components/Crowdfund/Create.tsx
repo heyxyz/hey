@@ -386,9 +386,10 @@ const Create: NextPage = () => {
                   </span>
                 }
                 type="number"
-                placeholder="5%"
+                placeholder="5"
                 min="0"
                 max="100"
+                iconRight={<span>%</span>}
                 {...form.register('referralFee')}
               />
               <TextArea
