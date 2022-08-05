@@ -13,7 +13,7 @@ import {
 } from '@generated/types'
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { PencilIcon } from '@heroicons/react/outline'
-import { Mixpanel } from '@lib/mixpanel'
+import { Dogstats } from '@lib/dogstats'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import gql from 'graphql-tag'
@@ -113,7 +113,7 @@ const NFTPicture: FC<Props> = ({ profile }) => {
 
   const onCompleted = () => {
     toast.success('Avatar updated successfully!')
-    Mixpanel.track(SETTINGS.PROFILE.SET_NFT_PICTURE, {
+    Dogstats.track(SETTINGS.PROFILE.SET_NFT_PICTURE, {
       result: 'success'
     })
   }
@@ -147,7 +147,7 @@ const NFTPicture: FC<Props> = ({ profile }) => {
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
         }
-        Mixpanel.track(SETTINGS.PROFILE.SET_NFT_PICTURE, {
+        Dogstats.track(SETTINGS.PROFILE.SET_NFT_PICTURE, {
           result: 'broadcast_error'
         })
       }

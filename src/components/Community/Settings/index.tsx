@@ -4,7 +4,7 @@ import { Button } from '@components/UI/Button'
 import { WarningMessage } from '@components/UI/WarningMessage'
 import { Community } from '@generated/lenstertypes'
 import { TrashIcon } from '@heroicons/react/outline'
-import { Mixpanel } from '@lib/mixpanel'
+import { Dogstats } from '@lib/dogstats'
 import { useRouter } from 'next/router'
 import React, { FC } from 'react'
 import { COMMUNITY } from 'src/tracking'
@@ -17,7 +17,7 @@ const Settings: FC<Props> = ({ community }) => {
   const { push } = useRouter()
   const [hidePost] = useMutation(HIDE_POST_MUTATION, {
     onCompleted() {
-      Mixpanel.track(COMMUNITY.SETTINGS.DELETE, { result: 'success' })
+      Dogstats.track(COMMUNITY.SETTINGS.DELETE, { result: 'success' })
       push('/')
     }
   })

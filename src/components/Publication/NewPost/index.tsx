@@ -13,13 +13,13 @@ import { CreatePostBroadcastItemResult, EnabledModule } from '@generated/types'
 import { IGif } from '@giphy/js-types'
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { PencilAltIcon } from '@heroicons/react/outline'
+import { Dogstats } from '@lib/dogstats'
 import {
   defaultFeeData,
   defaultModuleData,
   FEE_DATA_TYPE,
   getModule
 } from '@lib/getModule'
-import { Mixpanel } from '@lib/mixpanel'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import trimify from '@lib/trimify'
@@ -127,7 +127,7 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
     setAttachments([])
     setSelectedModule(defaultModuleData)
     setFeeData(defaultFeeData)
-    Mixpanel.track(POST.NEW, { result: 'success' })
+    Dogstats.track(POST.NEW, { result: 'success' })
   }
 
   const {
@@ -155,7 +155,7 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
         }
-        Mixpanel.track(POST.NEW, { result: 'broadcast_error' })
+        Dogstats.track(POST.NEW, { result: 'broadcast_error' })
       }
     })
   const [createPostTypedData, { loading: typedDataLoading }] = useMutation(
@@ -216,7 +216,7 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
   const createPost = async () => {
     if (!isAuthenticated) return toast.error(SIGN_WALLET)
     if (postContent.length === 0 && attachments.length === 0) {
-      Mixpanel.track(POST.NEW, { result: 'empty' })
+      Dogstats.track(POST.NEW, { result: 'empty' })
       return setPostContentError('Post should not be empty!')
     }
 

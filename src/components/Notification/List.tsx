@@ -8,7 +8,7 @@ import { CollectModuleFields } from '@gql/CollectModuleFields'
 import { MetadataFields } from '@gql/MetadataFields'
 import { MinimalProfileFields } from '@gql/MinimalProfileFields'
 import { MailIcon } from '@heroicons/react/outline'
-import { Mixpanel } from '@lib/mixpanel'
+import { Dogstats } from '@lib/dogstats'
 import { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import { useAppPersistStore } from 'src/store/app'
@@ -176,7 +176,7 @@ const List: FC = () => {
       })
       setPageInfo(data?.notifications?.pageInfo)
       setNotifications([...notifications, ...data?.notifications?.items])
-      Mixpanel.track(PAGINATION.NOTIFICATION_FEED, { pageInfo })
+      Dogstats.track(PAGINATION.NOTIFICATION_FEED, { pageInfo })
     }
   })
 
