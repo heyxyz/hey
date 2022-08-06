@@ -28,5 +28,10 @@ export const apps = [
     id: 'lenstube',
     name: 'Lenstube',
     logo: 'lenstube.svg'
+  },
+  {
+    id: 'lenstube-bytes',
+    name: 'Lenstube Bytes',
+    logo: 'lenstube.svg'
   }
 ]
