@@ -15,7 +15,7 @@ import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { StarIcon, UserIcon } from '@heroicons/react/outline'
 import formatAddress from '@lib/formatAddress'
 import getTokenImage from '@lib/getTokenImage'
-import Logger from '@lib/logger'
+import { Mixpanel } from '@lib/mixpanel'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import { Dispatch, FC, useState } from 'react'
@@ -29,6 +29,7 @@ import {
   SIGN_WALLET
 } from 'src/constants'
 import { useAppPersistStore, useAppStore } from 'src/store/app'
+import { PROFILE } from 'src/tracking'
 import {
   useAccount,
   useBalance,
@@ -108,8 +109,10 @@ const FollowModule: FC<Props> = ({
   setFollowersCount,
   again
 }) => {
-  const { userSigNonce, setUserSigNonce } = useAppStore()
-  const { isAuthenticated, currentUser } = useAppPersistStore()
+  const userSigNonce = useAppStore((state) => state.userSigNonce)
+  const setUserSigNonce = useAppStore((state) => state.setUserSigNonce)
+  const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated)
+  const currentUser = useAppPersistStore((state) => state.currentUser)
   const [allowed, setAllowed] = useState<boolean>(true)
   const { address } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
@@ -125,6 +128,7 @@ const FollowModule: FC<Props> = ({
     setFollowing(true)
     setShowFollowModal(false)
     toast.success('Followed successfully!')
+    Mixpanel.track(PROFILE.SUPER_FOLLOW, { result: 'success' })
   }
 
   const { isLoading: writeLoading, write } = useContractWrite({
@@ -142,16 +146,7 @@ const FollowModule: FC<Props> = ({
 
   const { data, loading } = useQuery(SUPER_FOLLOW_QUERY, {
     variables: { request: { profileId: profile?.id } },
-    skip: !profile?.id,
-    onCompleted() {
-      Logger.log(
-        '[Query]',
-        `Fetched super follow details Profile:${profile?.id}`
-      )
-    },
-    onError(error) {
-      Logger.error('[Query Error]', error)
-    }
+    skip: !profile?.id
   })
 
   const followModule: FeeFollowModuleSettings = data?.profile?.followModule
@@ -170,10 +165,6 @@ const FollowModule: FC<Props> = ({
       skip: !followModule?.amount?.asset?.address || !currentUser,
       onCompleted(data) {
         setAllowed(data?.approvedModuleAllowanceAmount[0]?.allowance !== '0x00')
-        Logger.log('[Query]', `Fetched allowance data`)
-      },
-      onError(error) {
-        Logger.error('[Query Error]', error)
       }
     }
   )
@@ -203,7 +194,7 @@ const FollowModule: FC<Props> = ({
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
         }
-        Logger.error('[Broadcast Error]', error)
+        Mixpanel.track(PROFILE.SUPER_FOLLOW, { result: 'broadcast_error' })
       }
     }
   )
@@ -215,7 +206,6 @@ const FollowModule: FC<Props> = ({
       }: {
         createFollowTypedData: CreateFollowBroadcastItemResult
       }) {
-        Logger.log('[Mutation]', 'Generated createFollowTypedData')
         const { id, typedData } = createFollowTypedData
         const { deadline } = typedData?.value
 
@@ -246,13 +236,10 @@ const FollowModule: FC<Props> = ({
           } else {
             write?.({ recklesslySetUnpreparedArgs: inputStruct })
           }
-        } catch (error) {
-          Logger.warn('[Sign Error]', error)
-        }
+        } catch (error) {}
       },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
-        Logger.error('[Typed-data Generate Error]', error)
       }
     }
   )

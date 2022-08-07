@@ -14,7 +14,7 @@ import {
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { PencilIcon } from '@heroicons/react/outline'
 import imagekitURL from '@lib/imagekitURL'
-import Logger from '@lib/logger'
+import { Mixpanel } from '@lib/mixpanel'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import uploadAssetsToIPFS from '@lib/uploadAssetsToIPFS'
@@ -28,6 +28,7 @@ import {
   SIGN_WALLET
 } from 'src/constants'
 import { useAppPersistStore, useAppStore } from 'src/store/app'
+import { SETTINGS } from 'src/tracking'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 
 const CREATE_SET_PROFILE_IMAGE_URI_TYPED_DATA_MUTATION = gql`
@@ -67,8 +68,10 @@ interface Props {
 }
 
 const Picture: FC<Props> = ({ profile }) => {
-  const { userSigNonce, setUserSigNonce } = useAppStore()
-  const { isAuthenticated, currentUser } = useAppPersistStore()
+  const userSigNonce = useAppStore((state) => state.userSigNonce)
+  const setUserSigNonce = useAppStore((state) => state.setUserSigNonce)
+  const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated)
+  const currentUser = useAppPersistStore((state) => state.currentUser)
   const [avatar, setAvatar] = useState<string>()
   const [uploading, setUploading] = useState<boolean>(false)
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
@@ -79,6 +82,9 @@ const Picture: FC<Props> = ({ profile }) => {
 
   const onCompleted = () => {
     toast.success('Avatar updated successfully!')
+    Mixpanel.track(SETTINGS.PROFILE.SET_PICTURE, {
+      result: 'success'
+    })
   }
 
   const {
@@ -111,7 +117,9 @@ const Picture: FC<Props> = ({ profile }) => {
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
         }
-        Logger.error('[Broadcast Error]', error)
+        Mixpanel.track(SETTINGS.PROFILE.SET_PICTURE, {
+          result: 'broadcast_error'
+        })
       }
     })
   const [createSetProfileImageURITypedData, { loading: typedDataLoading }] =
@@ -121,7 +129,6 @@ const Picture: FC<Props> = ({ profile }) => {
       }: {
         createSetProfileImageURITypedData: CreateSetProfileImageUriBroadcastItemResult
       }) {
-        Logger.log('[Mutation]', 'Generated createSetProfileImageURITypedData')
         const { id, typedData } = createSetProfileImageURITypedData
         const { deadline } = typedData?.value
 
@@ -150,13 +157,10 @@ const Picture: FC<Props> = ({ profile }) => {
           } else {
             write?.({ recklesslySetUnpreparedArgs: inputStruct })
           }
-        } catch (error) {
-          Logger.warn('[Sign Error]', error)
-        }
+        } catch (error) {}
       },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
-        Logger.error('[Typed-data Generate Error]', error)
       }
     })
 

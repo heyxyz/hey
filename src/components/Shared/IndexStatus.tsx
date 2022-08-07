@@ -2,7 +2,6 @@ import { useQuery } from '@apollo/client'
 import { Spinner } from '@components/UI/Spinner'
 import { TX_STATUS_QUERY } from '@gql/HasTxHashBeenIndexed'
 import { CheckCircleIcon } from '@heroicons/react/solid'
-import Logger from '@lib/logger'
 import clsx from 'clsx'
 import React, { FC, useState } from 'react'
 import { POLYGONSCAN_URL } from 'src/constants'
@@ -35,9 +34,6 @@ const IndexStatus: FC<Props> = ({
           setHide(true)
         }, 5000)
       }
-    },
-    onError(error) {
-      Logger.error('[Query Error]', error)
     }
   })
 

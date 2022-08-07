@@ -18,6 +18,7 @@ import { CheckCircleIcon } from '@heroicons/react/solid'
 import getAvatar from '@lib/getAvatar'
 import isBeta from '@lib/isBeta'
 import isStaff from '@lib/isStaff'
+import { Mixpanel } from '@lib/mixpanel'
 import clsx from 'clsx'
 import Cookies from 'js-cookie'
 import Link from 'next/link'
@@ -25,6 +26,7 @@ import { useTheme } from 'next-themes'
 import { FC, Fragment, useState } from 'react'
 import { GIT_COMMIT_SHA } from 'src/constants'
 import { useAppPersistStore, useAppStore } from 'src/store/app'
+import { PROFILE, STAFF, SYSTEM, USER } from 'src/tracking'
 import { useDisconnect } from 'wagmi'
 
 import Slug from '../Slug'
@@ -48,18 +50,17 @@ const MenuItems: FC<Props> = ({ pingData }) => {
   const { theme, setTheme } = useTheme()
   const { disconnect } = useDisconnect()
 
-  const { profiles } = useAppStore()
-  const {
-    isConnected,
-    isAuthenticated,
-    currentUser,
-    setCurrentUser,
-    staffMode,
-    setStaffMode
-  } = useAppPersistStore()
+  const profiles = useAppStore((state) => state.profiles)
+  const isConnected = useAppPersistStore((state) => state.isConnected)
+  const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated)
+  const currentUser = useAppPersistStore((state) => state.currentUser)
+  const setCurrentUser = useAppPersistStore((state) => state.setCurrentUser)
+  const staffMode = useAppPersistStore((state) => state.staffMode)
+  const setStaffMode = useAppPersistStore((state) => state.setStaffMode)
 
   const toggleStaffMode = () => {
     setStaffMode(!staffMode)
+    Mixpanel.track(STAFF.TOGGLE_MODE)
   }
 
   return isAuthenticated && currentUser ? (
@@ -130,6 +131,7 @@ const MenuItems: FC<Props> = ({ pingData }) => {
               <Menu.Item
                 as="a"
                 onClick={() => {
+                  Mixpanel.track(PROFILE.LOGOUT)
                   setCurrentUser(null)
                   Cookies.remove('accessToken')
                   Cookies.remove('refreshToken')
@@ -163,6 +165,7 @@ const MenuItems: FC<Props> = ({ pingData }) => {
                           className="flex items-center py-1.5 px-4 space-x-2 w-full rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
                           onClick={() => {
                             setCurrentUser(profiles[index])
+                            Mixpanel.track(PROFILE.SWITCH_PROFILE)
                           }}
                         >
                           {currentUser?.id === profile?.id && (
@@ -187,6 +190,11 @@ const MenuItems: FC<Props> = ({ pingData }) => {
                 as="a"
                 onClick={() => {
                   setTheme(theme === 'light' ? 'dark' : 'light')
+                  Mixpanel.track(
+                    theme === 'light'
+                      ? SYSTEM.SWITCH_DARK_THEME
+                      : SYSTEM.SWITCH_LIGHT_THEME
+                  )
                 }}
                 className={({ active }: { active: boolean }) =>
                   clsx({ 'dropdown-active': active }, 'menu-item')
@@ -289,6 +297,7 @@ const MenuItems: FC<Props> = ({ pingData }) => {
         }
         onClick={() => {
           setShowLoginModal(!showLoginModal)
+          Mixpanel.track(USER.LOGIN)
         }}
       >
         Login

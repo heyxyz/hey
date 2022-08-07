@@ -8,10 +8,11 @@ import { CollectModuleFields } from '@gql/CollectModuleFields'
 import { MetadataFields } from '@gql/MetadataFields'
 import { MinimalProfileFields } from '@gql/MinimalProfileFields'
 import { MailIcon } from '@heroicons/react/outline'
-import Logger from '@lib/logger'
+import { Mixpanel } from '@lib/mixpanel'
 import { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import { useAppPersistStore } from 'src/store/app'
+import { PAGINATION } from 'src/tracking'
 
 import NotificationShimmer from './Shimmer'
 import CollectNotification from './Type/CollectNotification'
@@ -148,7 +149,7 @@ const NOTIFICATIONS_QUERY = gql`
 `
 
 const List: FC = () => {
-  const { currentUser } = useAppPersistStore()
+  const currentUser = useAppPersistStore((state) => state.currentUser)
   const [notifications, setNotifications] = useState<Notification[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
   const { data, loading, error, fetchMore } = useQuery(NOTIFICATIONS_QUERY, {
@@ -159,10 +160,6 @@ const List: FC = () => {
     onCompleted(data) {
       setPageInfo(data?.notifications?.pageInfo)
       setNotifications(data?.notifications?.items)
-      Logger.log('[Query]', `Fetched first 10 notifications`)
-    },
-    onError(error) {
-      Logger.error('[Query Error]', error)
     }
   })
 
@@ -179,10 +176,7 @@ const List: FC = () => {
       })
       setPageInfo(data?.notifications?.pageInfo)
       setNotifications([...notifications, ...data?.notifications?.items])
-      Logger.log(
-        '[Query]',
-        `Fetched next 10 notifications Next:${pageInfo?.next}`
-      )
+      Mixpanel.track(PAGINATION.NOTIFICATION_FEED, { pageInfo })
     }
   })
 

@@ -3,7 +3,6 @@ import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout'
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer'
 import Seo from '@components/utils/Seo'
 import { CommunityFields } from '@gql/CommunityFields'
-import Logger from '@lib/logger'
 import { NextPage } from 'next'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
@@ -36,13 +35,7 @@ const ViewCommunity: NextPage = () => {
   } = useRouter()
   const { data, loading, error } = useQuery(COMMUNITY_QUERY, {
     variables: { request: { publicationId: id } },
-    skip: !id,
-    onCompleted() {
-      Logger.log('[Query]', `Fetched community details Community:${id}`)
-    },
-    onError(error) {
-      Logger.error('[Query Error]', error)
-    }
+    skip: !id
   })
 
   if (error) return <Custom500 />

@@ -6,10 +6,11 @@ import { ErrorMessage } from '@components/UI/ErrorMessage'
 import { Spinner } from '@components/UI/Spinner'
 import { Nft, PaginatedResultInfo, Profile } from '@generated/types'
 import { CollectionIcon } from '@heroicons/react/outline'
-import Logger from '@lib/logger'
+import { Mixpanel } from '@lib/mixpanel'
 import React, { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import { CHAIN_ID, IS_MAINNET } from 'src/constants'
+import { PAGINATION } from 'src/tracking'
 import { chain } from 'wagmi'
 
 const PROFILE_NFT_FEED_QUERY = gql`
@@ -53,10 +54,6 @@ const NFTFeed: FC<Props> = ({ profile }) => {
     onCompleted(data) {
       setPageInfo(data?.nfts?.pageInfo)
       setNfts(data?.nfts?.items)
-      Logger.log('[Query]', `Fetched first 10 nfts Profile:${profile?.id}`)
-    },
-    onError(error) {
-      Logger.error('[Query Error]', error)
     }
   })
 
@@ -77,10 +74,7 @@ const NFTFeed: FC<Props> = ({ profile }) => {
       })
       setPageInfo(data?.nfts?.pageInfo)
       setNfts([...nfts, ...data?.nfts?.items])
-      Logger.log(
-        '[Query]',
-        `Fetched next 10 nfts Profile:${profile?.id} Next:${pageInfo?.next}`
-      )
+      Mixpanel.track(PAGINATION.NFT_FEED, { pageInfo })
     }
   })
 

@@ -7,7 +7,7 @@ import { CreateMirrorBroadcastItemResult } from '@generated/types'
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { SwitchHorizontalIcon } from '@heroicons/react/outline'
 import humanize from '@lib/humanize'
-import Logger from '@lib/logger'
+import { Mixpanel } from '@lib/mixpanel'
 import nFormatter from '@lib/nFormatter'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
@@ -23,6 +23,7 @@ import {
   SIGN_WALLET
 } from 'src/constants'
 import { useAppPersistStore, useAppStore } from 'src/store/app'
+import { PUBLICATION } from 'src/tracking'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 
 const CREATE_MIRROR_TYPED_DATA_MUTATION = gql`
@@ -70,8 +71,11 @@ const Mirror: FC<Props> = ({ publication }) => {
   const [mirrored, setMirrored] = useState<boolean>(
     publication?.mirrors?.length > 0
   )
-  const { userSigNonce, setUserSigNonce } = useAppStore()
-  const { isAuthenticated, currentUser } = useAppPersistStore()
+
+  const userSigNonce = useAppStore((state) => state.userSigNonce)
+  const setUserSigNonce = useAppStore((state) => state.setUserSigNonce)
+  const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated)
+  const currentUser = useAppPersistStore((state) => state.currentUser)
 
   useEffect(() => {
     if (
@@ -96,7 +100,9 @@ const Mirror: FC<Props> = ({ publication }) => {
     setCount(count + 1)
     setMirrored(true)
     toast.success('Post has been mirrored!')
+    Mixpanel.track(PUBLICATION.MIRROR, { result: 'success' })
   }
+
   const { isLoading: writeLoading, write } = useContractWrite({
     addressOrName: LENSHUB_PROXY,
     contractInterface: LensHubProxy,
@@ -118,7 +124,7 @@ const Mirror: FC<Props> = ({ publication }) => {
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
         }
-        Logger.error('[Broadcast Error]', error)
+        Mixpanel.track(PUBLICATION.MIRROR, { result: 'broadcast_error' })
       }
     }
   )
@@ -130,7 +136,6 @@ const Mirror: FC<Props> = ({ publication }) => {
       }: {
         createMirrorTypedData: CreateMirrorBroadcastItemResult
       }) {
-        Logger.log('[Mutation]', 'Generated createMirrorTypedData')
         const { id, typedData } = createMirrorTypedData
         const {
           profileId,
@@ -170,13 +175,10 @@ const Mirror: FC<Props> = ({ publication }) => {
           } else {
             write?.({ recklesslySetUnpreparedArgs: inputStruct })
           }
-        } catch (error) {
-          Logger.warn('[Sign Error]', error)
-        }
+        } catch (error) {}
       },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
-        Logger.error('[Typed-data Generate Error]', error)
       }
     }
   )
@@ -204,7 +206,6 @@ const Mirror: FC<Props> = ({ publication }) => {
       onClick={createMirror}
       disabled={typedDataLoading || writeLoading}
       aria-label="Mirror"
-      data-test="publication-mirror"
     >
       <div
         className={clsx(

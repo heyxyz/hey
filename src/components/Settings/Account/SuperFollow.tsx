@@ -13,7 +13,7 @@ import {
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { StarIcon, XIcon } from '@heroicons/react/outline'
 import getTokenImage from '@lib/getTokenImage'
-import Logger from '@lib/logger'
+import { Mixpanel } from '@lib/mixpanel'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import React, { FC, useState } from 'react'
@@ -28,6 +28,7 @@ import {
   SIGN_WALLET
 } from 'src/constants'
 import { useAppPersistStore, useAppStore } from 'src/store/app'
+import { SETTINGS } from 'src/tracking'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 import { object, string } from 'zod'
 
@@ -88,8 +89,10 @@ export const CREATE_SET_FOLLOW_MODULE_TYPED_DATA_MUTATION = gql`
 `
 
 const SuperFollow: FC = () => {
-  const { userSigNonce, setUserSigNonce } = useAppStore()
-  const { isAuthenticated, currentUser } = useAppPersistStore()
+  const userSigNonce = useAppStore((state) => state.userSigNonce)
+  const setUserSigNonce = useAppStore((state) => state.setUserSigNonce)
+  const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated)
+  const currentUser = useAppPersistStore((state) => state.currentUser)
   const [selectedCurrency, setSelectedCurrency] = useState<string>(
     DEFAULT_COLLECT_TOKEN
   )
@@ -102,14 +105,14 @@ const SuperFollow: FC = () => {
   })
   const { data: currencyData, loading } = useQuery(MODULES_CURRENCY_QUERY, {
     variables: { request: { profileId: currentUser?.id } },
-    skip: !currentUser?.id,
-    onCompleted() {
-      Logger.log('[Query]', `Fetched enabled module currencies`)
-    },
-    onError(error) {
-      Logger.error('[Query Error]', error)
-    }
+    skip: !currentUser?.id
   })
+
+  const onCompleted = () => {
+    Mixpanel.track(SETTINGS.ACCOUNT.SET_SUPER_FOLLOW, {
+      result: 'success'
+    })
+  }
 
   const {
     data: writeData,
@@ -120,6 +123,9 @@ const SuperFollow: FC = () => {
     contractInterface: LensHubProxy,
     functionName: 'setFollowModuleWithSig',
     mode: 'recklesslyUnprepared',
+    onSuccess() {
+      onCompleted()
+    },
     onError(error: any) {
       toast.error(error?.data?.message ?? error?.message)
     }
@@ -134,11 +140,14 @@ const SuperFollow: FC = () => {
 
   const [broadcast, { data: broadcastData, loading: broadcastLoading }] =
     useMutation(BROADCAST_MUTATION, {
+      onCompleted,
       onError(error) {
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
         }
-        Logger.error('[Broadcast Error]', error)
+        Mixpanel.track(SETTINGS.ACCOUNT.SET_SUPER_FOLLOW, {
+          result: 'broadcast_error'
+        })
       }
     })
   const [createSetFollowModuleTypedData, { loading: typedDataLoading }] =
@@ -148,7 +157,6 @@ const SuperFollow: FC = () => {
       }: {
         createSetFollowModuleTypedData: CreateSetFollowModuleBroadcastItemResult
       }) {
-        Logger.log('[Mutation]', 'Generated createSetFollowModuleTypedData')
         const { id, typedData } = createSetFollowModuleTypedData
         const { profileId, followModule, followModuleInitData, deadline } =
           typedData?.value
@@ -178,13 +186,10 @@ const SuperFollow: FC = () => {
           } else {
             write?.({ recklesslySetUnpreparedArgs: inputStruct })
           }
-        } catch (error) {
-          Logger.warn('[Sign Error]', error)
-        }
+        } catch (error) {}
       },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
-        Logger.error('[Typed-data Generate Error]', error)
       }
     })
 

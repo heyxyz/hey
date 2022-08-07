@@ -34,7 +34,7 @@ const Menu: FC<MenuProps> = ({ children, current, url }) => (
 
 const Sidebar: FC = () => {
   const { pathname } = useRouter()
-  const { currentUser } = useAppPersistStore()
+  const currentUser = useAppPersistStore((state) => state.currentUser)
 
   return (
     <div className="px-3 mb-4 space-y-1.5 sm:px-0">

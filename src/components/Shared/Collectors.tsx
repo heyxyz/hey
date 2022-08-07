@@ -7,9 +7,10 @@ import { Spinner } from '@components/UI/Spinner'
 import { PaginatedResultInfo, Wallet } from '@generated/types'
 import { MinimalProfileFields } from '@gql/MinimalProfileFields'
 import { CollectionIcon } from '@heroicons/react/outline'
-import Logger from '@lib/logger'
+import { Mixpanel } from '@lib/mixpanel'
 import { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
+import { PAGINATION } from 'src/tracking'
 
 import Loader from './Loader'
 
@@ -45,10 +46,6 @@ const Collectors: FC<Props> = ({ pubId }) => {
     onCompleted(data) {
       setPageInfo(data?.whoCollectedPublication?.pageInfo)
       setCollectors(data?.whoCollectedPublication?.items)
-      Logger.log('[Query]', `Fetched first 10 collectors Publication:${pubId}`)
-    },
-    onError(error) {
-      Logger.error('[Query Error]', error)
     }
   })
 
@@ -65,10 +62,7 @@ const Collectors: FC<Props> = ({ pubId }) => {
       })
       setPageInfo(data?.whoCollectedPublication?.pageInfo)
       setCollectors([...collectors, ...data?.whoCollectedPublication?.items])
-      Logger.log(
-        '[Query]',
-        `Fetched next 10 collectors Publication:${pubId} Next:${pageInfo?.next}`
-      )
+      Mixpanel.track(PAGINATION.COLLECTORS, { pageInfo })
     }
   })
 

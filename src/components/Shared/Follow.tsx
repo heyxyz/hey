@@ -5,7 +5,7 @@ import { Spinner } from '@components/UI/Spinner'
 import { CreateFollowBroadcastItemResult, Profile } from '@generated/types'
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { UserAddIcon } from '@heroicons/react/outline'
-import Logger from '@lib/logger'
+import { Mixpanel } from '@lib/mixpanel'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import { Dispatch, FC } from 'react'
@@ -18,6 +18,7 @@ import {
   RELAY_ON
 } from 'src/constants'
 import { useAppPersistStore, useAppStore } from 'src/store/app'
+import { PROFILE } from 'src/tracking'
 import { useAccount, useContractWrite, useSignTypedData } from 'wagmi'
 
 const CREATE_FOLLOW_TYPED_DATA_MUTATION = gql`
@@ -67,8 +68,10 @@ const Follow: FC<Props> = ({
   followersCount,
   setFollowersCount
 }) => {
-  const { userSigNonce, setUserSigNonce } = useAppStore()
-  const { isConnected, currentUser } = useAppPersistStore()
+  const userSigNonce = useAppStore((state) => state.userSigNonce)
+  const setUserSigNonce = useAppStore((state) => state.setUserSigNonce)
+  const isConnected = useAppPersistStore((state) => state.isConnected)
+  const currentUser = useAppPersistStore((state) => state.currentUser)
   const { address } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
@@ -82,6 +85,7 @@ const Follow: FC<Props> = ({
     }
     setFollowing(true)
     toast.success('Followed successfully!')
+    Mixpanel.track(PROFILE.FOLLOW, { result: 'success' })
   }
 
   const { isLoading: writeLoading, write } = useContractWrite({
@@ -105,7 +109,7 @@ const Follow: FC<Props> = ({
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
         }
-        Logger.error('[Broadcast Error]', error)
+        Mixpanel.track(PROFILE.FOLLOW, { result: 'broadcast_error' })
       }
     }
   )
@@ -117,7 +121,6 @@ const Follow: FC<Props> = ({
       }: {
         createFollowTypedData: CreateFollowBroadcastItemResult
       }) {
-        Logger.log('[Mutation]', 'Generated createFollowTypedData')
         const { id, typedData } = createFollowTypedData
         const { deadline } = typedData?.value
 
@@ -147,13 +150,10 @@ const Follow: FC<Props> = ({
           } else {
             write?.({ recklesslySetUnpreparedArgs: inputStruct })
           }
-        } catch (error) {
-          Logger.warn('[Sign Error]', error)
-        }
+        } catch (error) {}
       },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
-        Logger.error('[Typed-data Generate Error]', error)
       }
     }
   )

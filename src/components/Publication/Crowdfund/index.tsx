@@ -15,11 +15,12 @@ import {
 } from '@heroicons/react/outline'
 import getTokenImage from '@lib/getTokenImage'
 import imagekitURL from '@lib/imagekitURL'
-import Logger from '@lib/logger'
+import { Mixpanel } from '@lib/mixpanel'
 import clsx from 'clsx'
 import React, { FC, ReactNode, useEffect, useState } from 'react'
 import { STATIC_ASSETS } from 'src/constants'
 import { useAppPersistStore } from 'src/store/app'
+import { CROWDFUND } from 'src/tracking'
 
 import { COLLECT_QUERY } from '../Actions/Collect/CollectModule'
 import Fund from './Fund'
@@ -55,17 +56,11 @@ interface Props {
 }
 
 const Crowdfund: FC<Props> = ({ fund }) => {
-  const { isConnected } = useAppPersistStore()
+  const isConnected = useAppPersistStore((state) => state.isConnected)
   const [showFundersModal, setShowFundersModal] = useState<boolean>(false)
   const [revenue, setRevenue] = useState<number>(0)
   const { data, loading } = useQuery(COLLECT_QUERY, {
-    variables: { request: { publicationId: fund?.pubId ?? fund?.id } },
-    onCompleted() {
-      Logger.log(
-        '[Query]',
-        `Fetched collect module details Crowdfund:${fund?.pubId ?? fund?.id}`
-      )
-    }
+    variables: { request: { publicationId: fund?.pubId ?? fund?.id } }
   })
 
   const collectModule: any = data?.publication?.collectModule
@@ -80,17 +75,6 @@ const Crowdfund: FC<Props> = ({ fund }) => {
               ? fund?.mirrorOf?.id
               : fund?.pubId ?? fund?.id
         }
-      },
-      onCompleted() {
-        Logger.log(
-          '[Query]',
-          `Fetched crowdfund revenue details Crowdfund:${
-            fund?.pubId ?? fund?.id
-          }`
-        )
-      },
-      onError(error) {
-        Logger.error('[Query Error]', error)
       }
     }
   )
@@ -110,7 +94,7 @@ const Crowdfund: FC<Props> = ({ fund }) => {
   if (loading) return <CrowdfundShimmer />
 
   return (
-    <Card forceRounded testId="crowdfund">
+    <Card forceRounded>
       <div
         className="h-40 rounded-t-xl border-b sm:h-52 dark:border-b-gray-700/80"
         style={{
@@ -136,16 +120,16 @@ const Crowdfund: FC<Props> = ({ fund }) => {
                   .trim()}
               </Markup>
             </div>
-            <div
-              className="block sm:flex items-center !my-3 space-y-2 sm:space-y-0 sm:space-x-3"
-              data-test="crowdfund-meta"
-            >
+            <div className="block sm:flex items-center !my-3 space-y-2 sm:space-y-0 sm:space-x-3">
               {fund?.stats?.totalAmountOfCollects > 0 && (
                 <>
                   <button
                     type="button"
                     className="text-sm"
-                    onClick={() => setShowFundersModal(!showFundersModal)}
+                    onClick={() => {
+                      setShowFundersModal(!showFundersModal)
+                      Mixpanel.track(CROWDFUND.OPEN_FUNDERS)
+                    }}
                   >
                     <Badge
                       title={
@@ -220,7 +204,6 @@ const Crowdfund: FC<Props> = ({ fund }) => {
                         : percentageReached
                     }%`
                   }}
-                  data-test="crowdfund-progress-bar"
                 />
               </div>
             </Tooltip>

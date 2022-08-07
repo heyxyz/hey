@@ -14,12 +14,13 @@ import { TextArea } from '@components/UI/TextArea'
 import Seo from '@components/utils/Seo'
 import { PencilAltIcon } from '@heroicons/react/outline'
 import { CheckCircleIcon } from '@heroicons/react/solid'
-import Logger from '@lib/logger'
+import { Mixpanel } from '@lib/mixpanel'
 import { useRouter } from 'next/router'
 import React, { FC, useState } from 'react'
 import { APP_NAME, ZERO_ADDRESS } from 'src/constants'
 import Custom404 from 'src/pages/404'
 import { useAppPersistStore } from 'src/store/app'
+import { PUBLICATION } from 'src/tracking'
 import { object, string } from 'zod'
 
 import Reason from './Reason'
@@ -44,7 +45,7 @@ const Report: FC = () => {
   } = useRouter()
   const [type, setType] = useState<string>('')
   const [subReason, setSubReason] = useState<string>('')
-  const { currentUser } = useAppPersistStore()
+  const currentUser = useAppPersistStore((state) => state.currentUser)
   const { data, loading, error } = useQuery(PUBLICATION_QUERY, {
     variables: {
       request: { publicationId: id },
@@ -55,21 +56,16 @@ const Report: FC = () => {
         }
       }
     },
-    skip: !id,
-    onCompleted() {
-      Logger.log(
-        '[Query]',
-        `Fetched publication details to report Publication:${id}`
-      )
-    },
-    onError(error) {
-      Logger.error('[Query Error]', error)
-    }
+    skip: !id
   })
   const [
     createReport,
     { data: submitData, loading: submitLoading, error: submitError }
-  ] = useMutation(CREATE_REPORT_PUBLICATION_MUTATION)
+  ] = useMutation(CREATE_REPORT_PUBLICATION_MUTATION, {
+    onCompleted() {
+      Mixpanel.track(PUBLICATION.REPORT, { result: 'success' })
+    }
+  })
 
   const form = useZodForm({
     schema: newReportSchema

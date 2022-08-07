@@ -2,7 +2,9 @@ import { Card, CardBody } from '@components/UI/Card'
 import { ExternalLinkIcon } from '@heroicons/react/outline'
 import formatIPFSHash from '@lib/formatIPFSHash'
 import getIPFSHash from '@lib/getIPFSHash'
+import { Mixpanel } from '@lib/mixpanel'
 import React, { FC } from 'react'
+import { PUBLICATION } from 'src/tracking'
 
 interface Props {
   ipfsHash: string
@@ -14,11 +16,14 @@ const IPFSHash: FC<Props> = ({ ipfsHash }) => {
   if (!formattedHash) return null
 
   return (
-    <Card testId="ipfs-hash">
+    <Card>
       <CardBody className="text-sm text-gray-500">
         <a
           className="flex justify-between items-center"
           href={`https://ipfs.infura.io/ipfs/${formattedHash}`}
+          onClick={() => {
+            Mixpanel.track(PUBLICATION.OPEN_CONTENT_URI)
+          }}
           target="_blank"
           rel="noreferrer noopener"
         >

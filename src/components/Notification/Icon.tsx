@@ -1,9 +1,10 @@
 import { gql, useQuery } from '@apollo/client'
 import { LightningBoltIcon } from '@heroicons/react/outline'
-import Logger from '@lib/logger'
+import { Mixpanel } from '@lib/mixpanel'
 import Link from 'next/link'
 import { FC, useEffect, useState } from 'react'
 import { useAppPersistStore } from 'src/store/app'
+import { NOTIFICATION } from 'src/tracking'
 
 const NOTIFICATION_COUNT_QUERY = gql`
   query NotificationCount($request: NotificationRequest!) {
@@ -16,14 +17,11 @@ const NOTIFICATION_COUNT_QUERY = gql`
 `
 
 const NotificationIcon: FC = () => {
-  const { currentUser } = useAppPersistStore()
+  const currentUser = useAppPersistStore((state) => state.currentUser)
   const [showBadge, setShowBadge] = useState<boolean>(false)
   const { data } = useQuery(NOTIFICATION_COUNT_QUERY, {
     variables: { request: { profileId: currentUser?.id } },
-    skip: !currentUser?.id,
-    onError(error) {
-      Logger.error('[Query Error]', error)
-    }
+    skip: !currentUser?.id
   })
 
   useEffect(() => {
@@ -45,6 +43,7 @@ const NotificationIcon: FC = () => {
             data?.notifications?.pageInfo?.totalCount.toString()
           )
           setShowBadge(false)
+          Mixpanel.track(NOTIFICATION.OPEN)
         }}
       >
         <LightningBoltIcon className="w-5 h-5 sm:w-6 sm:h-6" />

@@ -9,7 +9,6 @@ import { LensterPublication } from '@generated/lenstertypes'
 import { CommentFields } from '@gql/CommentFields'
 import { MirrorFields } from '@gql/MirrorFields'
 import { PostFields } from '@gql/PostFields'
-import Logger from '@lib/logger'
 import { apps } from 'data/apps'
 import { NextPage } from 'next'
 import dynamic from 'next/dynamic'
@@ -79,20 +78,14 @@ const ViewPublication: NextPage = () => {
     query: { id }
   } = useRouter()
 
-  const { currentUser } = useAppPersistStore()
+  const currentUser = useAppPersistStore((state) => state.currentUser)
   const { data, loading, error } = useQuery(PUBLICATION_QUERY, {
     variables: {
       request: { publicationId: id },
       reactionRequest: currentUser ? { profileId: currentUser?.id } : null,
       profileId: currentUser?.id ?? null
     },
-    skip: !id,
-    onCompleted() {
-      Logger.log('[Query]', `Fetched publication details Publication:${id}`)
-    },
-    onError(error) {
-      Logger.error('[Query Error]', error)
-    }
+    skip: !id
   })
 
   if (error) return <Custom500 />

@@ -5,11 +5,13 @@ import { Spinner } from '@components/UI/Spinner'
 import useOnClickOutside from '@components/utils/hooks/useOnClickOutside'
 import { Profile } from '@generated/types'
 import { MinimalProfileFields } from '@gql/MinimalProfileFields'
-import { SearchIcon } from '@heroicons/react/outline'
-import Logger from '@lib/logger'
+import { SearchIcon, XIcon } from '@heroicons/react/outline'
+import { Mixpanel } from '@lib/mixpanel'
+import clsx from 'clsx'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { ChangeEvent, FC, useRef, useState } from 'react'
+import { SEARCH } from 'src/tracking'
 
 import UserProfile from '../UserProfile'
 
@@ -38,14 +40,7 @@ const Search: FC<Props> = ({ hideDropdown = false }) => {
   useOnClickOutside(dropdownRef, () => setSearchText(''))
 
   const [searchUsers, { data: searchUsersData, loading: searchUsersLoading }] =
-    useLazyQuery(SEARCH_USERS_QUERY, {
-      onCompleted(data) {
-        Logger.log(
-          '[Lazy Query]',
-          `Fetched ${data?.search?.items?.length} search result for ${searchText}`
-        )
-      }
-    })
+    useLazyQuery(SEARCH_USERS_QUERY)
 
   const handleSearch = (evt: ChangeEvent<HTMLInputElement>) => {
     const keyword = evt.target.value
@@ -77,6 +72,18 @@ const Search: FC<Props> = ({ hideDropdown = false }) => {
             placeholder="Search..."
             value={searchText}
             iconLeft={<SearchIcon />}
+            iconRight={
+              <XIcon
+                className={clsx(
+                  'cursor-pointer',
+                  searchText ? 'visible' : 'invisible'
+                )}
+                onClick={() => {
+                  setSearchText('')
+                  Mixpanel.track(SEARCH.CLEAR)
+                }}
+              />
+            }
             onChange={handleSearch}
           />
         </form>

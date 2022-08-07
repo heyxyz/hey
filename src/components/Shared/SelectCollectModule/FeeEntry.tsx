@@ -4,9 +4,11 @@ import { Input } from '@components/UI/Input'
 import { EnabledModule, Erc20 } from '@generated/types'
 import { ArrowLeftIcon } from '@heroicons/react/outline'
 import { defaultModuleData, FEE_DATA_TYPE } from '@lib/getModule'
+import { Mixpanel } from '@lib/mixpanel'
 import { Dispatch, FC, useState } from 'react'
 import { DEFAULT_COLLECT_TOKEN } from 'src/constants'
 import { useAppPersistStore } from 'src/store/app'
+import { PUBLICATION } from 'src/tracking'
 import { object, string } from 'zod'
 
 const feeDataSchema = object({
@@ -41,7 +43,7 @@ const FeeEntry: FC<Props> = ({
   feeData,
   setFeeData
 }) => {
-  const { currentUser } = useAppPersistStore()
+  const currentUser = useAppPersistStore((state) => state.currentUser)
   const [followerOnly, setFollowerOnly] = useState<boolean>(false)
   const [selectedCurrency, setSelectedCurrency] = useState<string>(
     DEFAULT_COLLECT_TOKEN
@@ -66,6 +68,7 @@ const FeeEntry: FC<Props> = ({
         onClick={() => {
           setSelectedModule(defaultModuleData)
           setShowFeeEntry(false)
+          Mixpanel.track(PUBLICATION.NEW.COLLECT_MODULE.BACK_FEE_ENTRY)
         }}
       >
         <ArrowLeftIcon className="w-4 h-4" />
@@ -118,9 +121,10 @@ const FeeEntry: FC<Props> = ({
             </span>
           }
           type="number"
-          placeholder="5%"
+          placeholder="5"
           min="0"
           max="100"
+          iconRight={<span>%</span>}
           {...form.register('referralFee')}
         />
         <div>

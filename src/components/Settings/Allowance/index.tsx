@@ -5,7 +5,6 @@ import { PageLoading } from '@components/UI/PageLoading'
 import { Spinner } from '@components/UI/Spinner'
 import Seo from '@components/utils/Seo'
 import { Erc20 } from '@generated/types'
-import Logger from '@lib/logger'
 import { NextPage } from 'next'
 import React, { useState } from 'react'
 import { APP_NAME, DEFAULT_COLLECT_TOKEN } from 'src/constants'
@@ -52,19 +51,13 @@ const getAllowancePayload = (currency: string) => {
 }
 
 const AllowanceSettings: NextPage = () => {
-  const { currentUser } = useAppPersistStore()
+  const currentUser = useAppPersistStore((state) => state.currentUser)
   const [currencyLoading, setCurrencyLoading] = useState<boolean>(false)
   const { data, loading, error, refetch } = useQuery(ALLOWANCE_SETTINGS_QUERY, {
     variables: {
       request: getAllowancePayload(DEFAULT_COLLECT_TOKEN)
     },
-    skip: !currentUser?.id,
-    onCompleted() {
-      Logger.log('[Query]', `Fetched allowance settings`)
-    },
-    onError(error) {
-      Logger.error('[Query Error]', error)
-    }
+    skip: !currentUser?.id
   })
 
   if (error) return <Custom500 />

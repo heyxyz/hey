@@ -18,7 +18,7 @@ import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { PlusIcon } from '@heroicons/react/outline'
 import getTokenImage from '@lib/getTokenImage'
 import imagekitURL from '@lib/imagekitURL'
-import Logger from '@lib/logger'
+import { Mixpanel } from '@lib/mixpanel'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import uploadAssetsToIPFS from '@lib/uploadAssetsToIPFS'
@@ -38,6 +38,7 @@ import {
 } from 'src/constants'
 import Custom404 from 'src/pages/404'
 import { useAppPersistStore, useAppStore } from 'src/store/app'
+import { CROWDFUND } from 'src/tracking'
 import { v4 as uuid } from 'uuid'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 import { object, string } from 'zod'
@@ -80,21 +81,21 @@ const Create: NextPage = () => {
   )
   const [selectedCurrencySymobol, setSelectedCurrencySymobol] =
     useState<string>('WMATIC')
-  const { userSigNonce, setUserSigNonce } = useAppStore()
-  const { isAuthenticated, currentUser } = useAppPersistStore()
+  const userSigNonce = useAppStore((state) => state.userSigNonce)
+  const setUserSigNonce = useAppStore((state) => state.setUserSigNonce)
+  const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated)
+  const currentUser = useAppPersistStore((state) => state.currentUser)
+
+  const onCompleted = () => {
+    Mixpanel.track(CROWDFUND.NEW, { result: 'success' })
+  }
+
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
       toast.error(error?.message)
     }
   })
-  const { data: currencyData, loading } = useQuery(MODULES_CURRENCY_QUERY, {
-    onCompleted() {
-      Logger.log('[Query]', `Fetched enabled module currencies`)
-    },
-    onError(error) {
-      Logger.error('[Query Error]', error)
-    }
-  })
+  const { data: currencyData, loading } = useQuery(MODULES_CURRENCY_QUERY)
 
   const {
     data,
@@ -105,6 +106,9 @@ const Create: NextPage = () => {
     contractInterface: LensHubProxy,
     functionName: 'postWithSig',
     mode: 'recklesslyUnprepared',
+    onSuccess() {
+      onCompleted()
+    },
     onError(error: any) {
       toast.error(error?.data?.message ?? error?.message)
     }
@@ -133,11 +137,12 @@ const Create: NextPage = () => {
 
   const [broadcast, { data: broadcastData, loading: broadcastLoading }] =
     useMutation(BROADCAST_MUTATION, {
+      onCompleted,
       onError(error) {
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
         }
-        Logger.error('[Broadcast Error]', error)
+        Mixpanel.track(CROWDFUND.NEW, { result: 'broadcast_error' })
       }
     })
   const [createPostTypedData, { loading: typedDataLoading }] = useMutation(
@@ -148,7 +153,6 @@ const Create: NextPage = () => {
       }: {
         createPostTypedData: CreatePostBroadcastItemResult
       }) {
-        Logger.log('[Mutation]', 'Generated createPostTypedData')
         const { id, typedData } = createPostTypedData
         const {
           profileId,
@@ -188,13 +192,10 @@ const Create: NextPage = () => {
           } else {
             write?.({ recklesslySetUnpreparedArgs: inputStruct })
           }
-        } catch (error) {
-          Logger.warn('[Sign Error]', error)
-        }
+        } catch (error) {}
       },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
-        Logger.error('[Typed-data Generate Error]', error)
       }
     }
   )
@@ -387,9 +388,10 @@ const Create: NextPage = () => {
                   </span>
                 }
                 type="number"
-                placeholder="5%"
+                placeholder="5"
                 min="0"
                 max="100"
+                iconRight={<span>%</span>}
                 {...form.register('referralFee')}
               />
               <TextArea

@@ -2,9 +2,11 @@ import { Modal } from '@components/UI/Modal'
 import { Tooltip } from '@components/UI/Tooltip'
 import { ChatAlt2Icon, GlobeAltIcon, UsersIcon } from '@heroicons/react/outline'
 import { CheckCircleIcon } from '@heroicons/react/solid'
+import { Mixpanel } from '@lib/mixpanel'
 import clsx from 'clsx'
 import { motion } from 'framer-motion'
 import { Dispatch, FC, useState } from 'react'
+import { PUBLICATION } from 'src/tracking'
 
 interface Props {
   setOnlyFollowers: Dispatch<boolean>
@@ -30,6 +32,7 @@ const SelectReferenceModule: FC<Props> = ({
           type="button"
           onClick={() => {
             setShowModal(!showModal)
+            Mixpanel.track(PUBLICATION.NEW.REFERENCE_MODULE.OPEN_COLLECT_CONFIG)
           }}
           aria-label="Choose Reference Module"
         >
@@ -58,6 +61,7 @@ const SelectReferenceModule: FC<Props> = ({
             onClick={() => {
               setOnlyFollowers(false)
               setShowModal(false)
+              Mixpanel.track(PUBLICATION.NEW.REFERENCE_MODULE.EVERYONE)
             }}
           >
             <div className="flex items-center space-x-3">
@@ -77,6 +81,7 @@ const SelectReferenceModule: FC<Props> = ({
             onClick={() => {
               setOnlyFollowers(true)
               setShowModal(false)
+              Mixpanel.track(PUBLICATION.NEW.REFERENCE_MODULE.ONLY_FOLLOWERS)
             }}
           >
             <div className="flex items-center space-x-3">

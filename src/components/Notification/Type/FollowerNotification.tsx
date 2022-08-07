@@ -19,7 +19,7 @@ interface Props {
 }
 
 const FollowerNotification: FC<Props> = ({ notification }) => {
-  const { currentUser } = useAppPersistStore()
+  const currentUser = useAppPersistStore((state) => state.currentUser)
   const isSuperFollow =
     currentUser?.followModule?.__typename === 'FeeFollowModuleSettings'
 

@@ -6,10 +6,12 @@ import { LensterPublication } from '@generated/lenstertypes'
 import { CollectionIcon } from '@heroicons/react/outline'
 import { getModule } from '@lib/getModule'
 import humanize from '@lib/humanize'
+import { Mixpanel } from '@lib/mixpanel'
 import nFormatter from '@lib/nFormatter'
 import { motion } from 'framer-motion'
 import dynamic from 'next/dynamic'
 import { FC, useEffect, useState } from 'react'
+import { PUBLICATION } from 'src/tracking'
 
 const CollectModule = dynamic(() => import('./CollectModule'), {
   loading: () => <Loader message="Loading collect" />
@@ -42,9 +44,11 @@ const Collect: FC<Props> = ({ publication }) => {
     <>
       <motion.button
         whileTap={{ scale: 0.9 }}
-        onClick={() => setShowCollectModal(true)}
+        onClick={() => {
+          setShowCollectModal(true)
+          Mixpanel.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECT)
+        }}
         aria-label="Collect"
-        data-test="publication-collect"
       >
         <div className="flex items-center space-x-1 text-red-500 hover:red-brand-400">
           <div className="p-1.5 rounded-full hover:bg-red-300 hover:bg-opacity-20">

@@ -13,7 +13,7 @@ import {
 } from '@generated/types'
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { PencilIcon } from '@heroicons/react/outline'
-import Logger from '@lib/logger'
+import { Mixpanel } from '@lib/mixpanel'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import gql from 'graphql-tag'
@@ -29,6 +29,7 @@ import {
   SIGN_WALLET
 } from 'src/constants'
 import { useAppPersistStore, useAppStore } from 'src/store/app'
+import { SETTINGS } from 'src/tracking'
 import {
   chain,
   useContractWrite,
@@ -90,16 +91,10 @@ interface Props {
 }
 
 const NFTPicture: FC<Props> = ({ profile }) => {
-  const form = useZodForm({
-    schema: editNftPictureSchema,
-    defaultValues: {
-      contractAddress: profile?.picture?.contractAddress,
-      tokenId: profile?.picture?.tokenId
-    }
-  })
-
-  const { userSigNonce, setUserSigNonce } = useAppStore()
-  const { isAuthenticated, currentUser } = useAppPersistStore()
+  const userSigNonce = useAppStore((state) => state.userSigNonce)
+  const setUserSigNonce = useAppStore((state) => state.setUserSigNonce)
+  const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated)
+  const currentUser = useAppPersistStore((state) => state.currentUser)
   const [chainId, setChainId] = useState<number>(
     IS_MAINNET ? chain.mainnet.id : chain.kovan.id
   )
@@ -112,7 +107,18 @@ const NFTPicture: FC<Props> = ({ profile }) => {
 
   const onCompleted = () => {
     toast.success('Avatar updated successfully!')
+    Mixpanel.track(SETTINGS.PROFILE.SET_NFT_PICTURE, {
+      result: 'success'
+    })
   }
+
+  const form = useZodForm({
+    schema: editNftPictureSchema,
+    defaultValues: {
+      contractAddress: profile?.picture?.contractAddress,
+      tokenId: profile?.picture?.tokenId
+    }
+  })
 
   const {
     data: writeData,
@@ -143,7 +149,9 @@ const NFTPicture: FC<Props> = ({ profile }) => {
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
         }
-        Logger.error('[Broadcast Error]', error)
+        Mixpanel.track(SETTINGS.PROFILE.SET_NFT_PICTURE, {
+          result: 'broadcast_error'
+        })
       }
     })
   const [createSetProfileImageURITypedData, { loading: typedDataLoading }] =
@@ -181,13 +189,10 @@ const NFTPicture: FC<Props> = ({ profile }) => {
           } else {
             write?.({ recklesslySetUnpreparedArgs: inputStruct })
           }
-        } catch (error) {
-          Logger.warn('[Sign Error]', error)
-        }
+        } catch (error) {}
       },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
-        Logger.error('[Typed-data Generate Error]', error)
       }
     })
 

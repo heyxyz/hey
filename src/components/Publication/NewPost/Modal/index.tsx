@@ -3,14 +3,22 @@ import SinglePublication from '@components/Publication/SinglePublication'
 import { Card } from '@components/UI/Card'
 import { Modal } from '@components/UI/Modal'
 import { PencilAltIcon } from '@heroicons/react/outline'
+import { Mixpanel } from '@lib/mixpanel'
 import { FC } from 'react'
 import { usePublicationStore } from 'src/store/publication'
+import { PUBLICATION } from 'src/tracking'
 
 import NewPost from '..'
 
 const NewPostModal: FC = () => {
-  const { showNewPostModal, setShowNewPostModal, parentPub, setParentPub } =
-    usePublicationStore()
+  const showNewPostModal = usePublicationStore(
+    (state) => state.showNewPostModal
+  )
+  const setShowNewPostModal = usePublicationStore(
+    (state) => state.setShowNewPostModal
+  )
+  const parentPub = usePublicationStore((state) => state.parentPub)
+  const setParentPub = usePublicationStore((state) => state.setParentPub)
 
   return (
     <>
@@ -20,6 +28,7 @@ const NewPostModal: FC = () => {
         onClick={() => {
           setParentPub(null)
           setShowNewPostModal(!showNewPostModal)
+          Mixpanel.track(PUBLICATION.OPEN_NEW)
         }}
       >
         <PencilAltIcon className="w-5 h-5 sm:w-6 sm:h-6" />

@@ -6,7 +6,7 @@ import { Spinner } from '@components/UI/Spinner'
 import { Profile } from '@generated/types'
 import { XCircleIcon } from '@heroicons/react/solid'
 import getWalletLogo from '@lib/getWalletLogo'
-import Logger from '@lib/logger'
+import { Mixpanel } from '@lib/mixpanel'
 import clsx from 'clsx'
 import Cookies from 'js-cookie'
 import React, { Dispatch, FC, useEffect, useState } from 'react'
@@ -14,6 +14,7 @@ import toast from 'react-hot-toast'
 import { COOKIE_CONFIG } from 'src/apollo'
 import { CHAIN_ID, ERROR_MESSAGE } from 'src/constants'
 import { useAppPersistStore, useAppStore } from 'src/store/app'
+import { USER } from 'src/tracking'
 import {
   Connector,
   useAccount,
@@ -45,9 +46,13 @@ interface Props {
 }
 
 const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
-  const { setProfiles } = useAppStore()
-  const { setIsConnected, setIsAuthenticated, setCurrentUser } =
-    useAppPersistStore()
+  const setProfiles = useAppStore((state) => state.setProfiles)
+  const setIsConnected = useAppPersistStore((state) => state.setIsConnected)
+  const setIsAuthenticated = useAppPersistStore(
+    (state) => state.setIsAuthenticated
+  )
+  const setCurrentUser = useAppPersistStore((state) => state.setCurrentUser)
+
   const [mounted, setMounted] = useState(false)
   const { chain } = useNetwork()
   const { connectors, error, connectAsync } = useConnect()
@@ -59,25 +64,12 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
   })
   const [loadChallenge, { error: errorChallenge, loading: challengeLoading }] =
     useLazyQuery(CHALLENGE_QUERY, {
-      fetchPolicy: 'no-cache',
-      onCompleted(data) {
-        Logger.log(
-          '[Lazy Query]',
-          `Fetched auth challenge - ${data?.challenge?.text}`
-        )
-      }
+      fetchPolicy: 'no-cache'
     })
   const [authenticate, { error: errorAuthenticate, loading: authLoading }] =
     useMutation(AUTHENTICATE_MUTATION)
   const [getProfiles, { error: errorProfiles, loading: profilesLoading }] =
-    useLazyQuery(CURRENT_USER_QUERY, {
-      onCompleted(data) {
-        Logger.log(
-          '[Lazy Query]',
-          `Fetched ${data?.profiles?.items?.length} user profiles for auth`
-        )
-      }
-    })
+    useLazyQuery(CURRENT_USER_QUERY)
 
   useEffect(() => setMounted(true), [])
 
@@ -87,9 +79,8 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
       if (account) {
         setHasConnected(true)
       }
-    } catch (error) {
-      Logger.warn('[Sign Error]', error)
-    }
+      Mixpanel.track(`Connect with ${connector.name.toLowerCase()}`)
+    } catch (error) {}
   }
 
   const handleSign = async () => {
@@ -139,6 +130,7 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
         setProfiles(profiles)
         setCurrentUser(profiles[0])
       }
+      Mixpanel.track(USER.SIWL, { result: 'success' })
     } catch (error) {
       console.log(error)
     }

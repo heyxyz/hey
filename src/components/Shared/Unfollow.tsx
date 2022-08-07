@@ -4,7 +4,7 @@ import { Button } from '@components/UI/Button'
 import { Spinner } from '@components/UI/Spinner'
 import { CreateUnfollowBroadcastItemResult, Profile } from '@generated/types'
 import { UserRemoveIcon } from '@heroicons/react/outline'
-import Logger from '@lib/logger'
+import { Mixpanel } from '@lib/mixpanel'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import { Contract, Signer } from 'ethers'
@@ -12,6 +12,7 @@ import { Dispatch, FC, useState } from 'react'
 import toast from 'react-hot-toast'
 import { ERROR_MESSAGE, SIGN_WALLET } from 'src/constants'
 import { useAppPersistStore } from 'src/store/app'
+import { PROFILE } from 'src/tracking'
 import { useSigner, useSignTypedData } from 'wagmi'
 
 const CREATE_UNFOLLOW_TYPED_DATA_MUTATION = gql`
@@ -57,7 +58,7 @@ const Unfollow: FC<Props> = ({
   followersCount,
   setFollowersCount
 }) => {
-  const { isAuthenticated } = useAppPersistStore()
+  const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated)
   const [writeLoading, setWriteLoading] = useState<boolean>(false)
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
@@ -74,7 +75,6 @@ const Unfollow: FC<Props> = ({
       }: {
         createUnfollowTypedData: CreateUnfollowBroadcastItemResult
       }) {
-        Logger.log('[Mutation]', 'Generated createUnfollowTypedData')
         const { typedData } = createUnfollowTypedData
         const { deadline } = typedData?.value
 
@@ -103,18 +103,16 @@ const Unfollow: FC<Props> = ({
               setFollowing(false)
             }
             toast.success('Unfollowed successfully!')
+            Mixpanel.track(PROFILE.UNFOLLOW, { result: 'success' })
           } catch {
             toast.error('User rejected request')
           } finally {
             setWriteLoading(false)
           }
-        } catch (error) {
-          Logger.warn('[Sign Error]', error)
-        }
+        } catch (error) {}
       },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
-        Logger.error('[Typed-data Generate Error]', error)
       }
     }
   )

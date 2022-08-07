@@ -15,7 +15,7 @@ import Seo from '@components/utils/Seo'
 import { CreatePostBroadcastItemResult } from '@generated/types'
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { PlusIcon } from '@heroicons/react/outline'
-import Logger from '@lib/logger'
+import { Mixpanel } from '@lib/mixpanel'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import uploadAssetsToIPFS from '@lib/uploadAssetsToIPFS'
@@ -33,6 +33,7 @@ import {
 } from 'src/constants'
 import Custom404 from 'src/pages/404'
 import { useAppPersistStore, useAppStore } from 'src/store/app'
+import { COMMUNITY } from 'src/tracking'
 import { v4 as uuid } from 'uuid'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 import { object, string } from 'zod'
@@ -47,8 +48,10 @@ const newCommunitySchema = object({
 })
 
 const Create: NextPage = () => {
-  const { userSigNonce, setUserSigNonce } = useAppStore()
-  const { isAuthenticated, currentUser } = useAppPersistStore()
+  const userSigNonce = useAppStore((state) => state.userSigNonce)
+  const setUserSigNonce = useAppStore((state) => state.setUserSigNonce)
+  const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated)
+  const currentUser = useAppPersistStore((state) => state.currentUser)
   const [avatar, setAvatar] = useState<string>()
   const [avatarType, setAvatarType] = useState<string>()
   const [isUploading, setIsUploading] = useState<boolean>(false)
@@ -59,6 +62,10 @@ const Create: NextPage = () => {
     }
   })
 
+  const onCompleted = () => {
+    Mixpanel.track(COMMUNITY.NEW, { result: 'success' })
+  }
+
   const {
     data,
     isLoading: writeLoading,
@@ -68,6 +75,9 @@ const Create: NextPage = () => {
     contractInterface: LensHubProxy,
     functionName: 'postWithSig',
     mode: 'recklesslyUnprepared',
+    onSuccess() {
+      onCompleted()
+    },
     onError(error: any) {
       toast.error(error?.data?.message ?? error?.message)
     }
@@ -93,11 +103,12 @@ const Create: NextPage = () => {
 
   const [broadcast, { data: broadcastData, loading: broadcastLoading }] =
     useMutation(BROADCAST_MUTATION, {
+      onCompleted,
       onError(error) {
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
         }
-        Logger.error('[Broadcast Error]', error)
+        Mixpanel.track(COMMUNITY.NEW, { result: 'broadcast_error' })
       }
     })
   const [createPostTypedData, { loading: typedDataLoading }] = useMutation(
@@ -108,7 +119,6 @@ const Create: NextPage = () => {
       }: {
         createPostTypedData: CreatePostBroadcastItemResult
       }) {
-        Logger.log('[Mutation]', 'Generated createPostTypedData')
         const { id, typedData } = createPostTypedData
         const {
           profileId,
@@ -148,13 +158,10 @@ const Create: NextPage = () => {
           } else {
             write?.({ recklesslySetUnpreparedArgs: inputStruct })
           }
-        } catch (error) {
-          Logger.warn('[Sign Error]', error)
-        }
+        } catch (error) {}
       },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
-        Logger.error('[Typed-data Generate Error]', error)
       }
     }
   )

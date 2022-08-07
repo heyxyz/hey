@@ -21,7 +21,7 @@ import getAttribute from '@lib/getAttribute'
 import hasPrideLogo from '@lib/hasPrideLogo'
 import imagekitURL from '@lib/imagekitURL'
 import isBeta from '@lib/isBeta'
-import Logger from '@lib/logger'
+import { Mixpanel } from '@lib/mixpanel'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import uploadAssetsToIPFS from '@lib/uploadAssetsToIPFS'
@@ -38,6 +38,7 @@ import {
   URL_REGEX
 } from 'src/constants'
 import { useAppPersistStore, useAppStore } from 'src/store/app'
+import { SETTINGS } from 'src/tracking'
 import { v4 as uuid } from 'uuid'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 import { object, optional, string } from 'zod'
@@ -98,8 +99,10 @@ interface Props {
 }
 
 const Profile: FC<Props> = ({ profile }) => {
-  const { userSigNonce, setUserSigNonce } = useAppStore()
-  const { isAuthenticated, currentUser } = useAppPersistStore()
+  const userSigNonce = useAppStore((state) => state.userSigNonce)
+  const setUserSigNonce = useAppStore((state) => state.setUserSigNonce)
+  const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated)
+  const currentUser = useAppPersistStore((state) => state.currentUser)
   const [beta, setBeta] = useState<boolean>(isBeta(profile))
   const [pride, setPride] = useState<boolean>(hasPrideLogo(profile))
   const [cover, setCover] = useState<string>()
@@ -113,6 +116,9 @@ const Profile: FC<Props> = ({ profile }) => {
 
   const onCompleted = () => {
     toast.success('Profile updated successfully!')
+    Mixpanel.track(SETTINGS.PROFILE.UPDATE, {
+      result: 'success'
+    })
   }
 
   const {
@@ -140,7 +146,9 @@ const Profile: FC<Props> = ({ profile }) => {
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
         }
-        Logger.error('[Broadcast Error]', error)
+        Mixpanel.track(SETTINGS.PROFILE.UPDATE, {
+          result: 'broadcast_error'
+        })
       }
     })
   const [createSetProfileMetadataTypedData, { loading: typedDataLoading }] =
@@ -150,7 +158,6 @@ const Profile: FC<Props> = ({ profile }) => {
       }: {
         createSetProfileMetadataTypedData: CreateSetProfileMetadataUriBroadcastItemResult
       }) {
-        Logger.log('[Mutation]', 'Generated createSetProfileImageURITypedData')
         const { id, typedData } = createSetProfileMetadataTypedData
         const { deadline } = typedData?.value
 
@@ -180,13 +187,10 @@ const Profile: FC<Props> = ({ profile }) => {
           } else {
             write?.({ recklesslySetUnpreparedArgs: inputStruct })
           }
-        } catch (error) {
-          Logger.warn('[Sign Error]', error)
-        }
+        } catch (error) {}
       },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
-        Logger.error('[Typed-data Generate Error]', error)
       }
     })
 

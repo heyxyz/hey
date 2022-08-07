@@ -9,7 +9,7 @@ import { Spinner } from '@components/UI/Spinner'
 import { Profile, SetDefaultProfileBroadcastItemResult } from '@generated/types'
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { ExclamationIcon, PencilIcon } from '@heroicons/react/outline'
-import Logger from '@lib/logger'
+import { Mixpanel } from '@lib/mixpanel'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import React, { FC, useEffect, useState } from 'react'
@@ -24,6 +24,7 @@ import {
 } from 'src/constants'
 import Custom404 from 'src/pages/404'
 import { useAppPersistStore, useAppStore } from 'src/store/app'
+import { SETTINGS } from 'src/tracking'
 import { useAccount, useContractWrite, useSignTypedData } from 'wagmi'
 
 const CREATE_SET_DEFAULT_PROFILE_DATA_MUTATION = gql`
@@ -59,8 +60,10 @@ const CREATE_SET_DEFAULT_PROFILE_DATA_MUTATION = gql`
 `
 
 const SetProfile: FC = () => {
-  const { profiles, userSigNonce, setUserSigNonce } = useAppStore()
-  const { isAuthenticated } = useAppPersistStore()
+  const profiles = useAppStore((state) => state.profiles)
+  const userSigNonce = useAppStore((state) => state.userSigNonce)
+  const setUserSigNonce = useAppStore((state) => state.setUserSigNonce)
+  const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated)
   const [selectedUser, setSelectedUser] = useState<string>()
   const { address } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
@@ -71,6 +74,9 @@ const SetProfile: FC = () => {
 
   const onCompleted = () => {
     toast.success('Default profile updated successfully!')
+    Mixpanel.track(SETTINGS.ACCOUNT.SET_DEFAULT_PROFILE, {
+      result: 'success'
+    })
   }
 
   const {
@@ -107,7 +113,9 @@ const SetProfile: FC = () => {
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
         }
-        Logger.error('[Broadcast Error]', error)
+        Mixpanel.track(SETTINGS.ACCOUNT.SET_DEFAULT_PROFILE, {
+          result: 'broadcast_error'
+        })
       }
     })
   const [createSetDefaultProfileTypedData, { loading: typedDataLoading }] =
@@ -117,7 +125,6 @@ const SetProfile: FC = () => {
       }: {
         createSetDefaultProfileTypedData: SetDefaultProfileBroadcastItemResult
       }) {
-        Logger.log('[Mutation]', 'Generated createSetDefaultProfileTypedData')
         const { id, typedData } = createSetDefaultProfileTypedData
         const { deadline } = typedData?.value
 
@@ -147,13 +154,10 @@ const SetProfile: FC = () => {
           } else {
             write?.({ recklesslySetUnpreparedArgs: inputStruct })
           }
-        } catch (error) {
-          Logger.warn('[Sign Error]', error)
-        }
+        } catch (error) {}
       },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
-        Logger.error('[Typed-data Generate Error]', error)
       }
     })
 

@@ -6,7 +6,7 @@ import { Community } from '@generated/lenstertypes'
 import { CreateCollectBroadcastItemResult } from '@generated/types'
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { PlusIcon } from '@heroicons/react/outline'
-import Logger from '@lib/logger'
+import { Mixpanel } from '@lib/mixpanel'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import React, { Dispatch, FC } from 'react'
@@ -19,6 +19,7 @@ import {
   SIGN_WALLET
 } from 'src/constants'
 import { useAppPersistStore, useAppStore } from 'src/store/app'
+import { COMMUNITY } from 'src/tracking'
 import { useAccount, useContractWrite, useSignTypedData } from 'wagmi'
 
 const CREATE_COLLECT_TYPED_DATA_MUTATION = gql`
@@ -61,8 +62,9 @@ interface Props {
 }
 
 const Join: FC<Props> = ({ community, setJoined, showJoin = true }) => {
-  const { userSigNonce, setUserSigNonce } = useAppStore()
-  const { isAuthenticated } = useAppPersistStore()
+  const userSigNonce = useAppStore((state) => state.userSigNonce)
+  const setUserSigNonce = useAppStore((state) => state.setUserSigNonce)
+  const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated)
   const { address } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
@@ -73,6 +75,7 @@ const Join: FC<Props> = ({ community, setJoined, showJoin = true }) => {
   const onCompleted = () => {
     setJoined(true)
     toast.success('Joined successfully!')
+    Mixpanel.track(COMMUNITY.JOIN, { result: 'success' })
   }
 
   const { isLoading: writeLoading, write } = useContractWrite({
@@ -96,10 +99,11 @@ const Join: FC<Props> = ({ community, setJoined, showJoin = true }) => {
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
         }
-        Logger.error('[Broadcast Error]', error)
+        Mixpanel.track(COMMUNITY.JOIN, { result: 'broadcast_error' })
       }
     }
   )
+
   const [createCollectTypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_COLLECT_TYPED_DATA_MUTATION,
     {
@@ -108,7 +112,6 @@ const Join: FC<Props> = ({ community, setJoined, showJoin = true }) => {
       }: {
         createCollectTypedData: CreateCollectBroadcastItemResult
       }) {
-        Logger.log('[Mutation]', 'Generated createCollectTypedData')
         const { id, typedData } = createCollectTypedData
         const { deadline } = typedData?.value
 
@@ -139,13 +142,10 @@ const Join: FC<Props> = ({ community, setJoined, showJoin = true }) => {
           } else {
             write?.({ recklesslySetUnpreparedArgs: inputStruct })
           }
-        } catch (error) {
-          Logger.warn('[Sign Error]', error)
-        }
+        } catch (error) {}
       },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
-        Logger.error('[Typed-data Generate Error]', error)
       }
     }
   )

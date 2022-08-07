@@ -1,9 +1,11 @@
 import UserProfile from '@components/Shared/UserProfile'
 import { LensterPublication } from '@generated/lenstertypes'
+import { Mixpanel } from '@lib/mixpanel'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import Link from 'next/link'
 import React, { FC } from 'react'
+import { PUBLICATION } from 'src/tracking'
 
 import PublicationActions from './Actions'
 import HiddenPublication from './HiddenPublication'
@@ -29,7 +31,9 @@ const SinglePublication: FC<Props> = ({
     <Link href={`/posts/${publication?.id ?? publication?.pubId}`} passHref>
       <article
         className="cursor-pointer first:rounded-t-xl last:rounded-b-xl hover:bg-gray-100/70 hover:dark:bg-gray-800/70 p-5"
-        data-test="publication"
+        onClick={() => {
+          Mixpanel.track(PUBLICATION.OPEN)
+        }}
       >
         <PublicationType
           publication={publication}
@@ -48,14 +52,11 @@ const SinglePublication: FC<Props> = ({
                   : publication?.profile
               }
             />
-            <span
-              className="text-sm text-gray-500"
-              data-test="publication-timestamp"
-            >
+            <span className="text-sm text-gray-500">
               {dayjs(new Date(publication?.createdAt)).fromNow()}
             </span>
           </div>
-          <div className="ml-[53px]" data-test="publication-content">
+          <div className="ml-[53px]">
             {publication?.hidden ? (
               <HiddenPublication type={publication?.__typename} />
             ) : (

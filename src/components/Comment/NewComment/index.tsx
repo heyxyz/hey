@@ -23,7 +23,7 @@ import {
   FEE_DATA_TYPE,
   getModule
 } from '@lib/getModule'
-import Logger from '@lib/logger'
+import { Mixpanel } from '@lib/mixpanel'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import trimify from '@lib/trimify'
@@ -40,6 +40,8 @@ import {
   SIGN_WALLET
 } from 'src/constants'
 import { useAppPersistStore, useAppStore } from 'src/store/app'
+import { usePublicationStore } from 'src/store/publication'
+import { COMMENT } from 'src/tracking'
 import { v4 as uuid } from 'uuid'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 
@@ -114,9 +116,16 @@ const NewComment: FC<Props> = ({
   publication,
   type
 }) => {
-  const { userSigNonce, setUserSigNonce } = useAppStore()
-  const { isAuthenticated, currentUser } = useAppPersistStore()
-  const [commentContent, setCommentContent] = useState<string>('')
+  const userSigNonce = useAppStore((state) => state.userSigNonce)
+  const setUserSigNonce = useAppStore((state) => state.setUserSigNonce)
+  const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated)
+  const currentUser = useAppPersistStore((state) => state.currentUser)
+  const publicationContent = usePublicationStore(
+    (state) => state.publicationContent
+  )
+  const setPublicationContent = usePublicationStore(
+    (state) => state.setPublicationContent
+  )
   const [preview, setPreview] = useState<boolean>(false)
   const [commentContentError, setCommentContentError] = useState<string>('')
   const [selectedModule, setSelectedModule] =
@@ -132,10 +141,11 @@ const NewComment: FC<Props> = ({
   })
   const onCompleted = () => {
     setPreview(false)
-    setCommentContent('')
+    setPublicationContent('')
     setAttachments([])
     setSelectedModule(defaultModuleData)
     setFeeData(defaultFeeData)
+    Mixpanel.track(COMMENT.NEW, { result: 'success' })
   }
 
   const {
@@ -163,7 +173,7 @@ const NewComment: FC<Props> = ({
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
         }
-        Logger.error('[Broadcast Error]', error)
+        Mixpanel.track(COMMENT.NEW, { result: 'broadcast_error' })
       }
     })
   const [createCommentTypedData, { loading: typedDataLoading }] = useMutation(
@@ -174,7 +184,6 @@ const NewComment: FC<Props> = ({
       }: {
         createCommentTypedData: CreateCommentBroadcastItemResult
       }) {
-        Logger.log('[Mutation]', 'Generated createCommentTypedData')
         const { id, typedData } = createCommentTypedData
         const {
           profileId,
@@ -220,20 +229,18 @@ const NewComment: FC<Props> = ({
           } else {
             write?.({ recklesslySetUnpreparedArgs: inputStruct })
           }
-        } catch (error) {
-          Logger.warn('[Sign Error]', error)
-        }
+        } catch (error) {}
       },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
-        Logger.error('[Typed-data Generate Error]', error)
       }
     }
   )
 
   const createComment = async () => {
     if (!isAuthenticated) return toast.error(SIGN_WALLET)
-    if (commentContent.length === 0 && attachments.length === 0) {
+    if (publicationContent.length === 0 && attachments.length === 0) {
+      Mixpanel.track(COMMENT.NEW, { result: 'empty' })
       return setCommentContentError('Comment should not be empty!')
     }
 
@@ -243,8 +250,8 @@ const NewComment: FC<Props> = ({
     const { path } = await uploadToIPFS({
       version: '1.0.0',
       metadata_id: uuid(),
-      description: trimify(commentContent),
-      content: trimify(commentContent),
+      description: trimify(publicationContent),
+      content: trimify(publicationContent),
       external_url: `https://lenster.xyz/u/${currentUser?.handle}`,
       image: attachments.length > 0 ? attachments[0]?.item : null,
       imageMimeType: attachments.length > 0 ? attachments[0]?.type : null,
@@ -312,12 +319,10 @@ const NewComment: FC<Props> = ({
           )}
           {preview ? (
             <div className="pb-3 mb-2 border-b linkify dark:border-b-gray-700/80">
-              <Markup>{commentContent}</Markup>
+              <Markup>{publicationContent}</Markup>
             </div>
           ) : (
             <MentionTextArea
-              publication={commentContent}
-              setPublication={setCommentContent}
               error={commentContentError}
               setError={setCommentContentError}
               placeholder="Tell something cool!"
@@ -340,7 +345,7 @@ const NewComment: FC<Props> = ({
                 onlyFollowers={onlyFollowers}
                 setOnlyFollowers={setOnlyFollowers}
               />
-              {commentContent && (
+              {publicationContent && (
                 <Preview preview={preview} setPreview={setPreview} />
               )}
             </div>

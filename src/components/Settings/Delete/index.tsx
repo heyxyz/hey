@@ -8,7 +8,7 @@ import { Spinner } from '@components/UI/Spinner'
 import Seo from '@components/utils/Seo'
 import { CreateBurnProfileBroadcastItemResult } from '@generated/types'
 import { TrashIcon } from '@heroicons/react/outline'
-import Logger from '@lib/logger'
+import { Mixpanel } from '@lib/mixpanel'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import Cookies from 'js-cookie'
@@ -22,6 +22,7 @@ import {
 } from 'src/constants'
 import Custom404 from 'src/pages/404'
 import { useAppPersistStore, useAppStore } from 'src/store/app'
+import { SETTINGS } from 'src/tracking'
 import { useContractWrite, useDisconnect, useSignTypedData } from 'wagmi'
 
 import Sidebar from '../Sidebar'
@@ -58,14 +59,16 @@ const CREATE_BURN_PROFILE_TYPED_DATA_MUTATION = gql`
 `
 
 const DeleteSettings: FC = () => {
-  const { userSigNonce, setUserSigNonce } = useAppStore()
-  const {
-    setIsConnected,
-    isAuthenticated,
-    setIsAuthenticated,
-    currentUser,
-    setCurrentUser
-  } = useAppPersistStore()
+  const userSigNonce = useAppStore((state) => state.userSigNonce)
+  const setUserSigNonce = useAppStore((state) => state.setUserSigNonce)
+  const setIsConnected = useAppPersistStore((state) => state.setIsConnected)
+  const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated)
+  const setIsAuthenticated = useAppPersistStore(
+    (state) => state.setIsAuthenticated
+  )
+  const currentUser = useAppPersistStore((state) => state.currentUser)
+  const setCurrentUser = useAppPersistStore((state) => state.setCurrentUser)
+
   const { disconnect } = useDisconnect()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
@@ -74,6 +77,7 @@ const DeleteSettings: FC = () => {
   })
 
   const onCompleted = () => {
+    Mixpanel.track(SETTINGS.DELETE)
     setIsAuthenticated(false)
     setIsConnected(false)
     setCurrentUser(null)
@@ -104,7 +108,6 @@ const DeleteSettings: FC = () => {
       }: {
         createBurnProfileTypedData: CreateBurnProfileBroadcastItemResult
       }) {
-        Logger.log('[Mutation]', 'Generated createBurnProfileTypedData')
         const { typedData } = createBurnProfileTypedData
         const { deadline } = typedData?.value
 
@@ -120,13 +123,10 @@ const DeleteSettings: FC = () => {
           const sig = { v, r, s, deadline }
 
           write?.({ recklesslySetUnpreparedArgs: [tokenId, sig] })
-        } catch (error) {
-          Logger.warn('[Sign Error]', error)
-        }
+        } catch (error) {}
       },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
-        Logger.error('[Typed-data Generate Error]', error)
       }
     })
 

@@ -4,6 +4,7 @@ import {
   CollectionIcon,
   SwitchHorizontalIcon
 } from '@heroicons/react/outline'
+import { Mixpanel } from '@lib/mixpanel'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
 import React, { Dispatch, FC, ReactNode } from 'react'
@@ -20,15 +21,15 @@ const FeedType: FC<Props> = ({ setFeedType, feedType }) => {
     name: string
     icon: ReactNode
     type: string
-    testId: string
   }
 
-  const FeedLink: FC<FeedLinkProps> = ({ name, icon, type, testId }) => (
+  const FeedLink: FC<FeedLinkProps> = ({ name, icon, type }) => (
     <button
       type="button"
       onClick={() => {
         push({ query: { type: type.toLowerCase() } })
         setFeedType(type)
+        Mixpanel.track(`Switch to ${type.toLowerCase()} type in explore`)
       }}
       className={clsx(
         {
@@ -38,7 +39,6 @@ const FeedType: FC<Props> = ({ setFeedType, feedType }) => {
         'flex items-center space-x-2 rounded-lg px-4 sm:px-3 py-2 sm:py-1 text-brand hover:bg-brand-100 dark:hover:bg-opacity-20 hover:bg-opacity-100'
       )}
       aria-label={name}
-      data-test={testId}
     >
       {icon}
       <div className="hidden sm:block">{name}</div>
@@ -51,25 +51,21 @@ const FeedType: FC<Props> = ({ setFeedType, feedType }) => {
         name="Top Commented"
         icon={<ChatAlt2Icon className="w-4 h-4" />}
         type="TOP_COMMENTED"
-        testId="type-top-commented"
       />
       <FeedLink
         name="Top Collected"
         icon={<CollectionIcon className="w-4 h-4" />}
         type="TOP_COLLECTED"
-        testId="type-top-collected"
       />
       <FeedLink
         name="Top Mirrored"
         icon={<SwitchHorizontalIcon className="w-4 h-4" />}
         type="TOP_MIRRORED"
-        testId="type-top-mirrored"
       />
       <FeedLink
         name="Latest"
         icon={<ClockIcon className="w-4 h-4" />}
         type="LATEST"
-        testId="type-latest"
       />
     </div>
   )

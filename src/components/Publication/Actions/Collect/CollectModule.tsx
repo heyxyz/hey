@@ -32,7 +32,7 @@ import {
 import formatAddress from '@lib/formatAddress'
 import getTokenImage from '@lib/getTokenImage'
 import humanize from '@lib/humanize'
-import Logger from '@lib/logger'
+import { Mixpanel } from '@lib/mixpanel'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import dayjs from 'dayjs'
@@ -47,6 +47,7 @@ import {
   RELAY_ON
 } from 'src/constants'
 import { useAppPersistStore, useAppStore } from 'src/store/app'
+import { PUBLICATION } from 'src/tracking'
 import {
   useAccount,
   useBalance,
@@ -120,8 +121,9 @@ interface Props {
 }
 
 const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
-  const { userSigNonce, setUserSigNonce } = useAppStore()
-  const { isConnected } = useAppPersistStore()
+  const userSigNonce = useAppStore((state) => state.userSigNonce)
+  const setUserSigNonce = useAppStore((state) => state.setUserSigNonce)
+  const isConnected = useAppPersistStore((state) => state.isConnected)
   const [revenue, setRevenue] = useState<number>(0)
   const [showCollectorsModal, setShowCollectorsModal] = useState<boolean>(false)
   const [allowed, setAllowed] = useState<boolean>(true)
@@ -134,17 +136,6 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
   const { data, loading } = useQuery(COLLECT_QUERY, {
     variables: {
       request: { publicationId: publication?.pubId ?? publication?.id }
-    },
-    onCompleted() {
-      Logger.log(
-        '[Query]',
-        `Fetched collect module details Publication:${
-          publication?.pubId ?? publication?.id
-        }`
-      )
-    },
-    onError(error) {
-      Logger.error('[Query Error]', error)
     }
   })
 
@@ -154,6 +145,9 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
     setRevenue(revenue + parseFloat(collectModule?.amount?.value))
     setCount(count + 1)
     toast.success('Transaction submitted successfully!')
+    Mixpanel.track(PUBLICATION.COLLECT_MODULE.COLLECT, {
+      result: 'success'
+    })
   }
 
   const {
@@ -190,10 +184,6 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
       skip: !collectModule?.amount?.asset?.address || !isConnected,
       onCompleted(data) {
         setAllowed(data?.approvedModuleAllowanceAmount[0]?.allowance !== '0x00')
-        Logger.log('[Query]', `Fetched allowance data`)
-      },
-      onError(error) {
-        Logger.error('[Query Error]', error)
       }
     }
   )
@@ -209,18 +199,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
               : publication?.pubId ?? publication?.id
         }
       },
-      skip: !publication?.id,
-      onCompleted() {
-        Logger.log(
-          '[Query]',
-          `Fetched collect revenue details Publication:${
-            publication?.pubId ?? publication?.id
-          }`
-        )
-      },
-      onError(error) {
-        Logger.error('[Query Error]', error)
-      }
+      skip: !publication?.id
     }
   )
 
@@ -255,7 +234,9 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
         }
-        Logger.error('[Broadcast Error]', error)
+        Mixpanel.track(PUBLICATION.COLLECT_MODULE.COLLECT, {
+          result: 'broadcast_error'
+        })
       }
     })
   const [createCollectTypedData, { loading: typedDataLoading }] = useMutation(
@@ -266,7 +247,6 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
       }: {
         createCollectTypedData: CreateCollectBroadcastItemResult
       }) {
-        Logger.log('[Mutation]', 'Generated createCollectTypedData')
         const { id, typedData } = createCollectTypedData
         const { deadline } = typedData?.value
 
@@ -297,13 +277,10 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
           } else {
             write?.({ recklesslySetUnpreparedArgs: inputStruct })
           }
-        } catch (error) {
-          Logger.warn('[Sign Error]', error)
-        }
+        } catch (error) {}
       },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
-        Logger.error('[Typed-data Generate Error]', error)
       }
     }
   )
@@ -404,7 +381,10 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
               <button
                 className="font-bold"
                 type="button"
-                onClick={() => setShowCollectorsModal(!showCollectorsModal)}
+                onClick={() => {
+                  setShowCollectorsModal(!showCollectorsModal)
+                  Mixpanel.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECTORS)
+                }}
               >
                 {humanize(count)} collectors
               </button>

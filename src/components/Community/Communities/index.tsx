@@ -4,7 +4,6 @@ import { PageLoading } from '@components/UI/PageLoading'
 import Seo from '@components/utils/Seo'
 import { CommunityFields } from '@gql/CommunityFields'
 import { ChartBarIcon, FireIcon, SparklesIcon } from '@heroicons/react/outline'
-import Logger from '@lib/logger'
 import { NextPage } from 'next'
 import React from 'react'
 import { APP_NAME } from 'src/constants'
@@ -64,15 +63,6 @@ const Communities: NextPage = () => {
         publicationTypes: ['POST'],
         limit: 8
       }
-    },
-    onCompleted() {
-      Logger.log(
-        '[Query]',
-        `Fetched 10 TOP_COMMENTED, TOP_COLLECTED and LATEST communities`
-      )
-    },
-    onError(error) {
-      Logger.error('[Query Error]', error)
     }
   })
 
@@ -87,27 +77,21 @@ const Communities: NextPage = () => {
           <FireIcon className="w-5 h-5 text-yellow-500" />
           <div>Most Active</div>
         </div>
-        <List
-          communities={data?.topCommented.items}
-          testId="most-active-communities"
-        />
+        <List communities={data?.topCommented.items} />
       </GridItemFour>
       <GridItemFour>
         <div className="flex items-center mb-2 space-x-1.5 font-bold text-gray-500">
           <ChartBarIcon className="w-5 h-5 text-green-500" />
           <div>Fastest Growing</div>
         </div>
-        <List
-          communities={data?.topCollected.items}
-          testId="fastest-growing-communities"
-        />
+        <List communities={data?.topCollected.items} />
       </GridItemFour>
       <GridItemFour>
         <div className="flex items-center mb-2 space-x-1.5 font-bold text-gray-500">
           <SparklesIcon className="w-5 h-5 text-green-500" />
           <div>Latest</div>
         </div>
-        <List communities={data?.latest.items} testId="latest-communities" />
+        <List communities={data?.latest.items} />
       </GridItemFour>
     </GridLayout>
   )

@@ -11,12 +11,14 @@ import {
   UsersIcon
 } from '@heroicons/react/outline'
 import imagekitURL from '@lib/imagekitURL'
+import { Mixpanel } from '@lib/mixpanel'
 import nFormatter from '@lib/nFormatter'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import dynamic from 'next/dynamic'
 import React, { FC, ReactNode, useState } from 'react'
 import { useAppPersistStore } from 'src/store/app'
+import { COMMUNITY } from 'src/tracking'
 
 import Join from './Join'
 
@@ -31,7 +33,7 @@ interface Props {
 }
 
 const Details: FC<Props> = ({ community }) => {
-  const { currentUser } = useAppPersistStore()
+  const currentUser = useAppPersistStore((state) => state.currentUser)
   const [showMembersModal, setShowMembersModal] = useState<boolean>(false)
   const [showSettingsModal, setShowSettingsModal] = useState<boolean>(false)
   const [joined, setJoined] = useState<boolean>(community?.hasCollectedByMe)
@@ -88,7 +90,10 @@ const Details: FC<Props> = ({ community }) => {
                 variant="secondary"
                 className="!py-1.5"
                 icon={<PencilAltIcon className="w-5 h-5" />}
-                onClick={() => setShowSettingsModal(!showSettingsModal)}
+                onClick={() => {
+                  setShowSettingsModal(!showSettingsModal)
+                  Mixpanel.track(COMMUNITY.SETTINGS.DELETE)
+                }}
               />
               <Modal
                 title="Settings"
@@ -109,7 +114,10 @@ const Details: FC<Props> = ({ community }) => {
             <>
               <button
                 type="button"
-                onClick={() => setShowMembersModal(!showMembersModal)}
+                onClick={() => {
+                  Mixpanel.track(COMMUNITY.OPEN_MEMBERS)
+                  setShowMembersModal(!showMembersModal)
+                }}
               >
                 {nFormatter(community?.stats?.totalAmountOfCollects)}{' '}
                 {community?.stats?.totalAmountOfCollects === 1

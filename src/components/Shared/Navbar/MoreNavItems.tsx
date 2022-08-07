@@ -13,7 +13,7 @@ import { useAppPersistStore } from 'src/store/app'
 import { NextLink } from './MenuItems'
 
 const MoreNavItems: FC = () => {
-  const { currentUser } = useAppPersistStore()
+  const currentUser = useAppPersistStore((state) => state.currentUser)
 
   return (
     <Menu as="div">

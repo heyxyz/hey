@@ -3,7 +3,6 @@ import { Button } from '@components/UI/Button'
 import { Spinner } from '@components/UI/Spinner'
 import { TX_STATUS_QUERY } from '@gql/HasTxHashBeenIndexed'
 import { ArrowRightIcon } from '@heroicons/react/outline'
-import Logger from '@lib/logger'
 import React, { FC } from 'react'
 import { IS_MAINNET } from 'src/constants'
 
@@ -17,10 +16,7 @@ const Pending: FC<Props> = ({ handle, txHash }) => {
     variables: {
       request: { txHash }
     },
-    pollInterval: 1000,
-    onError(error) {
-      Logger.error('[Query Error]', error)
-    }
+    pollInterval: 1000
   })
 
   return (

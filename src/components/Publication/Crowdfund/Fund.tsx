@@ -12,7 +12,7 @@ import {
 import { CreateCollectBroadcastItemResult } from '@generated/types'
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
 import { CashIcon } from '@heroicons/react/outline'
-import Logger from '@lib/logger'
+import { Mixpanel } from '@lib/mixpanel'
 import omit from '@lib/omit'
 import splitSignature from '@lib/splitSignature'
 import React, { Dispatch, FC, useState } from 'react'
@@ -25,6 +25,7 @@ import {
   RELAY_ON
 } from 'src/constants'
 import { useAppPersistStore, useAppStore } from 'src/store/app'
+import { CROWDFUND } from 'src/tracking'
 import {
   useAccount,
   useBalance,
@@ -75,8 +76,9 @@ interface Props {
 }
 
 const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
-  const { userSigNonce, setUserSigNonce } = useAppStore()
-  const { isConnected } = useAppPersistStore()
+  const userSigNonce = useAppStore((state) => state.userSigNonce)
+  const setUserSigNonce = useAppStore((state) => state.setUserSigNonce)
+  const isConnected = useAppPersistStore((state) => state.isConnected)
   const [allowed, setAllowed] = useState<boolean>(true)
   const { address } = useAccount()
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
@@ -116,10 +118,6 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
       skip: !collectModule?.amount?.asset?.address || !isConnected,
       onCompleted(data) {
         setAllowed(data?.approvedModuleAllowanceAmount[0]?.allowance !== '0x00')
-        Logger.log('[Query]', `Fetched allowance data`)
-      },
-      onError(error) {
-        Logger.error('[Query Error]', error)
       }
     }
   )
@@ -127,6 +125,7 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
   const onCompleted = () => {
     setRevenue(revenue + parseFloat(collectModule?.amount?.value))
     toast.success('Transaction submitted successfully!')
+    Mixpanel.track(CROWDFUND.FUND, { result: 'success' })
   }
 
   const {
@@ -153,7 +152,7 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
         if (error.message === ERRORS.notMined) {
           toast.error(error.message)
         }
-        Logger.error('[Broadcast Error]', error)
+        Mixpanel.track(CROWDFUND.FUND, { result: 'broadcast_error' })
       }
     })
   const [createCollectTypedData, { loading: typedDataLoading }] = useMutation(
@@ -164,7 +163,6 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
       }: {
         createCollectTypedData: CreateCollectBroadcastItemResult
       }) {
-        Logger.log('[Mutation]', 'Generated createCollectTypedData')
         const { id, typedData } = createCollectTypedData
         const { deadline } = typedData?.value
 
@@ -195,13 +193,10 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
           } else {
             write?.({ recklesslySetUnpreparedArgs: inputStruct })
           }
-        } catch (error) {
-          Logger.warn('[Sign Error]', error)
-        }
+        } catch (error) {}
       },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
-        Logger.error('[Typed-data Generate Error]', error)
       }
     }
   )

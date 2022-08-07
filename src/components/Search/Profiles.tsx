@@ -8,9 +8,10 @@ import { Spinner } from '@components/UI/Spinner'
 import { PaginatedResultInfo, Profile } from '@generated/types'
 import { MinimalProfileFields } from '@gql/MinimalProfileFields'
 import { UsersIcon } from '@heroicons/react/outline'
-import Logger from '@lib/logger'
+import { Mixpanel } from '@lib/mixpanel'
 import React, { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
+import { PAGINATION } from 'src/tracking'
 
 const SEARCH_PROFILES_QUERY = gql`
   query SearchProfiles($request: SearchQueryRequest!) {
@@ -42,13 +43,6 @@ const Profiles: FC<Props> = ({ query }) => {
     onCompleted(data) {
       setPageInfo(data?.search?.pageInfo)
       setProfiles(data?.search?.items)
-      Logger.log(
-        '[Query]',
-        `Fetched first 10 profiles for search Keyword:${query}`
-      )
-    },
-    onError(error) {
-      Logger.error('[Query Error]', error)
     }
   })
 
@@ -66,10 +60,7 @@ const Profiles: FC<Props> = ({ query }) => {
       })
       setPageInfo(data?.search?.pageInfo)
       setProfiles([...profiles, ...data?.search?.items])
-      Logger.log(
-        '[Query]',
-        `Fetched next 10 profiles for search Keyword:${query} Next:${pageInfo?.next}`
-      )
+      Mixpanel.track(PAGINATION.PROFILE_SEARCH, { pageInfo })
     }
   })
 

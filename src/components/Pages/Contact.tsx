@@ -43,7 +43,7 @@ const Contact: FC = () => {
         />
       </GridItemFour>
       <GridItemEight>
-        <Card testId="contact-form">
+        <Card>
           {false ? (
             <EmptyState
               message={<span>Publication reported successfully!</span>}

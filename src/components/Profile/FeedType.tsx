@@ -5,6 +5,7 @@ import {
   PhotographIcon,
   SwitchHorizontalIcon
 } from '@heroicons/react/outline'
+import { Mixpanel } from '@lib/mixpanel'
 import nFormatter from '@lib/nFormatter'
 import clsx from 'clsx'
 import React, { Dispatch, FC, ReactNode } from 'react'
@@ -21,20 +22,14 @@ const FeedType: FC<Props> = ({ stats, setFeedType, feedType }) => {
     icon: ReactNode
     type: string
     count?: number
-    testId: string
   }
 
-  const FeedLink: FC<FeedLinkProps> = ({
-    name,
-    icon,
-    type,
-    count = 0,
-    testId
-  }) => (
+  const FeedLink: FC<FeedLinkProps> = ({ name, icon, type, count = 0 }) => (
     <button
       type="button"
       onClick={() => {
         setFeedType(type)
+        Mixpanel.track(`Switch to ${type.toLowerCase()} tab in profile`)
       }}
       className={clsx(
         {
@@ -44,7 +39,6 @@ const FeedType: FC<Props> = ({ stats, setFeedType, feedType }) => {
         'flex items-center space-x-2 rounded-lg px-4 sm:px-3 py-2 sm:py-1 text-brand hover:bg-brand-100 dark:hover:bg-opacity-20 hover:bg-opacity-100'
       )}
       aria-label={name}
-      data-test={testId}
     >
       {icon}
       <div className="hidden sm:block">{name}</div>
@@ -63,27 +57,23 @@ const FeedType: FC<Props> = ({ stats, setFeedType, feedType }) => {
         icon={<PencilAltIcon className="w-4 h-4" />}
         type="POST"
         count={stats?.totalPosts}
-        testId="type-posts"
       />
       <FeedLink
         name="Comments"
         icon={<ChatAlt2Icon className="w-4 h-4" />}
         type="COMMENT"
         count={stats?.totalComments}
-        testId="type-comments"
       />
       <FeedLink
         name="Mirrors"
         icon={<SwitchHorizontalIcon className="w-4 h-4" />}
         type="MIRROR"
         count={stats?.totalMirrors}
-        testId="type-mirrors"
       />
       <FeedLink
         name="NFTs"
         icon={<PhotographIcon className="w-4 h-4" />}
         type="NFT"
-        testId="type-nfts"
       />
     </div>
   )

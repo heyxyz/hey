@@ -13,7 +13,6 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "types": ["cypress"],
     "jsx": "preserve",
     "baseUrl": ".",
     "paths": {
@@ -26,5 +25,5 @@
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "server/index.js"],
-  "exclude": ["node_modules", "cypress/support"]
+  "exclude": ["node_modules"]
 }

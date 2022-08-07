@@ -9,10 +9,11 @@ import { LensterPublication } from '@generated/lenstertypes'
 import { PaginatedResultInfo } from '@generated/types'
 import { CommentFields } from '@gql/CommentFields'
 import { CollectionIcon } from '@heroicons/react/outline'
-import Logger from '@lib/logger'
+import { Mixpanel } from '@lib/mixpanel'
 import React, { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import { useAppPersistStore } from 'src/store/app'
+import { PAGINATION } from 'src/tracking'
 
 import ReferenceAlert from '../Shared/ReferenceAlert'
 import NewComment from './NewComment'
@@ -55,7 +56,7 @@ const Feed: FC<Props> = ({
     publication?.__typename === 'Mirror'
       ? publication?.mirrorOf?.id
       : publication?.id
-  const { currentUser } = useAppPersistStore()
+  const currentUser = useAppPersistStore((state) => state.currentUser)
   const [publications, setPublications] = useState<LensterPublication[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
   const { data, loading, error, fetchMore } = useQuery(COMMENT_FEED_QUERY, {
@@ -69,10 +70,6 @@ const Feed: FC<Props> = ({
     onCompleted(data) {
       setPageInfo(data?.publications?.pageInfo)
       setPublications(data?.publications?.items)
-      Logger.log('[Query]', `Fetched first 10 comments of Publication:${pubId}`)
-    },
-    onError(error) {
-      Logger.error('[Query Error]', error)
     }
   })
 
@@ -91,9 +88,11 @@ const Feed: FC<Props> = ({
       })
       setPageInfo(data?.publications?.pageInfo)
       setPublications([...publications, ...data?.publications?.items])
-      Logger.log(
-        '[Query]',
-        `Fetched next 10 comments of Publication:${pubId} Next:${pageInfo?.next}`
+      Mixpanel.track(
+        type === 'comment'
+          ? PAGINATION.COMMENT_FEED
+          : PAGINATION.COMMUNITY_FEED,
+        { pageInfo }
       )
     }
   })
@@ -123,10 +122,7 @@ const Feed: FC<Props> = ({
       <ErrorMessage title="Failed to load comment feed" error={error} />
       {!error && !loading && data?.publications?.items?.length !== 0 && (
         <>
-          <Card
-            className="divide-y-[1px] dark:divide-gray-700/80"
-            testId="comment-feed"
-          >
+          <Card className="divide-y-[1px] dark:divide-gray-700/80">
             {publications?.map((post: LensterPublication, index: number) => (
               <SinglePublication
                 key={`${pubId}_${index}`}

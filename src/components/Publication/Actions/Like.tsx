@@ -4,11 +4,13 @@ import { LensterPublication } from '@generated/lenstertypes'
 import { HeartIcon } from '@heroicons/react/outline'
 import { HeartIcon as HeartIconSolid } from '@heroicons/react/solid'
 import humanize from '@lib/humanize'
+import { Mixpanel } from '@lib/mixpanel'
 import { motion } from 'framer-motion'
 import { FC, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { SIGN_WALLET } from 'src/constants'
 import { useAppPersistStore } from 'src/store/app'
+import { PUBLICATION } from 'src/tracking'
 
 const ADD_REACTION_MUTATION = gql`
   mutation AddReaction($request: ReactionRequest!) {
@@ -27,7 +29,8 @@ interface Props {
 }
 
 const Like: FC<Props> = ({ publication }) => {
-  const { isAuthenticated, currentUser } = useAppPersistStore()
+  const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated)
+  const currentUser = useAppPersistStore((state) => state.currentUser)
   const [liked, setLiked] = useState<boolean>(false)
   const [count, setCount] = useState<number>(0)
 
@@ -51,18 +54,26 @@ const Like: FC<Props> = ({ publication }) => {
   }, [publication])
 
   const [addReaction] = useMutation(ADD_REACTION_MUTATION, {
+    onCompleted() {
+      Mixpanel.track(PUBLICATION.LIKE, { result: 'success' })
+    },
     onError(error) {
       setLiked(!liked)
       setCount(count - 1)
       toast.error(error.message)
+      Mixpanel.track(PUBLICATION.LIKE, { result: 'error' })
     }
   })
 
   const [removeReaction] = useMutation(REMOVE_REACTION_MUTATION, {
+    onCompleted() {
+      Mixpanel.track(PUBLICATION.DISLIKE, { result: 'success' })
+    },
     onError(error) {
       setLiked(!liked)
       setCount(count + 1)
       toast.error(error.message)
+      Mixpanel.track(PUBLICATION.DISLIKE, { result: 'error' })
     }
   })
 
@@ -98,7 +109,6 @@ const Like: FC<Props> = ({ publication }) => {
       whileTap={{ scale: 0.9 }}
       onClick={createLike}
       aria-label="Like"
-      data-test="publication-like"
     >
       <div className="flex items-center space-x-1 text-pink-500">
         <div className="p-1.5 rounded-full hover:bg-pink-300 hover:bg-opacity-20">
