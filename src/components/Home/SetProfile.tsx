@@ -30,8 +30,8 @@ const Status: FC<StatusProps> = ({ finished, title }) => (
 )
 
 const SetProfile: FC = () => {
-  const { profiles } = useAppStore()
-  const { currentUser } = useAppPersistStore()
+  const profiles = useAppStore((state) => state.profiles)
+  const currentUser = useAppPersistStore((state) => state.currentUser)
   const hasDefaultProfile = !!profiles.find((o) => o.isDefault)
   const doneSetup =
     !!currentUser?.name && !!currentUser?.bio && !!currentUser?.picture

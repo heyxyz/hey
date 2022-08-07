@@ -5,8 +5,8 @@ import { FC } from 'react'
 import { useAppPersistStore, useAppStore } from 'src/store/app'
 
 const SetDefaultProfile: FC = () => {
-  const { profiles } = useAppStore()
-  const { currentUser } = useAppPersistStore()
+  const profiles = useAppStore((state) => state.profiles)
+  const currentUser = useAppPersistStore((state) => state.currentUser)
   const hasDefaultProfile = !!profiles.find((o) => o.isDefault)
   const count = profiles.length
 

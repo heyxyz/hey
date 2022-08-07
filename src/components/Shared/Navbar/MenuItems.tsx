@@ -50,15 +50,13 @@ const MenuItems: FC<Props> = ({ pingData }) => {
   const { theme, setTheme } = useTheme()
   const { disconnect } = useDisconnect()
 
-  const { profiles } = useAppStore()
-  const {
-    isConnected,
-    isAuthenticated,
-    currentUser,
-    setCurrentUser,
-    staffMode,
-    setStaffMode
-  } = useAppPersistStore()
+  const profiles = useAppStore((state) => state.profiles)
+  const isConnected = useAppPersistStore((state) => state.isConnected)
+  const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated)
+  const currentUser = useAppPersistStore((state) => state.currentUser)
+  const setCurrentUser = useAppPersistStore((state) => state.setCurrentUser)
+  const staffMode = useAppPersistStore((state) => state.staffMode)
+  const setStaffMode = useAppPersistStore((state) => state.setStaffMode)
 
   const toggleStaffMode = () => {
     setStaffMode(!staffMode)

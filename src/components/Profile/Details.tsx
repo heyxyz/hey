@@ -34,7 +34,8 @@ interface Props {
 const Details: FC<Props> = ({ profile }) => {
   const [followersCount, setFollowersCount] = useState<number>(0)
   const [following, setFollowing] = useState<boolean>(profile?.isFollowedByMe)
-  const { currentUser, staffMode } = useAppPersistStore()
+  const currentUser = useAppPersistStore((state) => state.currentUser)
+  const staffMode = useAppPersistStore((state) => state.staffMode)
   const { resolvedTheme } = useTheme()
 
   useEffect(() => {

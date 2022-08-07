@@ -48,7 +48,7 @@ const HOME_FEED_QUERY = gql`
 `
 
 const Feed: FC = () => {
-  const { currentUser } = useAppPersistStore()
+  const currentUser = useAppPersistStore((state) => state.currentUser)
   const [publications, setPublications] = useState<LensterPublication[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
   const { data, loading, error, fetchMore } = useQuery(HOME_FEED_QUERY, {

@@ -78,7 +78,7 @@ const ViewPublication: NextPage = () => {
     query: { id }
   } = useRouter()
 
-  const { currentUser } = useAppPersistStore()
+  const currentUser = useAppPersistStore((state) => state.currentUser)
   const { data, loading, error } = useQuery(PUBLICATION_QUERY, {
     variables: {
       request: { publicationId: id },
