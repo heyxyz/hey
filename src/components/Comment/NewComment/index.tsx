@@ -126,7 +126,12 @@ const NewComment: FC<Props> = ({
   const setPublicationContent = usePublicationStore(
     (state) => state.setPublicationContent
   )
-  const [preview, setPreview] = useState<boolean>(false)
+  const previewPublication = usePublicationStore(
+    (state) => state.previewPublication
+  )
+  const setPreviewPublication = usePublicationStore(
+    (state) => state.setPreviewPublication
+  )
   const [commentContentError, setCommentContentError] = useState<string>('')
   const [selectedModule, setSelectedModule] =
     useState<EnabledModule>(defaultModuleData)
@@ -140,7 +145,7 @@ const NewComment: FC<Props> = ({
     }
   })
   const onCompleted = () => {
-    setPreview(false)
+    setPreviewPublication(false)
     setPublicationContent('')
     setAttachments([])
     setSelectedModule(defaultModuleData)
@@ -317,7 +322,7 @@ const NewComment: FC<Props> = ({
               error={error}
             />
           )}
-          {preview ? (
+          {previewPublication ? (
             <div className="pb-3 mb-2 border-b linkify dark:border-b-gray-700/80">
               <Markup>{publicationContent}</Markup>
             </div>
@@ -345,9 +350,7 @@ const NewComment: FC<Props> = ({
                 onlyFollowers={onlyFollowers}
                 setOnlyFollowers={setOnlyFollowers}
               />
-              {publicationContent && (
-                <Preview preview={preview} setPreview={setPreview} />
-              )}
+              {publicationContent && <Preview />}
             </div>
             <div className="flex items-center pt-2 ml-auto space-x-2 sm:pt-0">
               {data?.hash ?? broadcastData?.broadcast?.txHash ? (
