@@ -29,7 +29,9 @@ const NewPostModal: FC = () => {
     if (isReady && query.text) {
       const { text, url, via } = query
       setShowNewPostModal(true)
-      setPublicationContent(`${text}\n\n${url} via @${via}`)
+      setPublicationContent(
+        `${text}${url ? `\n\n${url}` : ''}${via ? `\n\nvia @${via}` : ''}`
+      )
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
