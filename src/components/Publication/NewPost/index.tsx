@@ -104,8 +104,10 @@ interface Props {
 }
 
 const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
-  const { userSigNonce, setUserSigNonce } = useAppStore()
-  const { isAuthenticated, currentUser } = useAppPersistStore()
+  const userSigNonce = useAppStore((state) => state.userSigNonce)
+  const setUserSigNonce = useAppStore((state) => state.setUserSigNonce)
+  const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated)
+  const currentUser = useAppPersistStore((state) => state.currentUser)
   const [postContent, setPostContent] = useState<string>('')
   const [preview, setPreview] = useState<boolean>(false)
   const [postContentError, setPostContentError] = useState<string>('')

@@ -14,7 +14,11 @@ interface Props {
 }
 
 const Comment: FC<Props> = ({ publication }) => {
-  const { setParentPub, setShowNewPostModal } = usePublicationStore()
+  const setParentPub = usePublicationStore((state) => state.setParentPub)
+  const setShowNewPostModal = usePublicationStore(
+    (state) => state.setShowNewPostModal
+  )
+
   const count =
     publication.__typename === 'Mirror'
       ? publication?.mirrorOf?.stats?.totalAmountOfComments

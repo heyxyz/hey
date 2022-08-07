@@ -56,7 +56,7 @@ const Feed: FC<Props> = ({
     publication?.__typename === 'Mirror'
       ? publication?.mirrorOf?.id
       : publication?.id
-  const { currentUser } = useAppPersistStore()
+  const currentUser = useAppPersistStore((state) => state.currentUser)
   const [publications, setPublications] = useState<LensterPublication[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
   const { data, loading, error, fetchMore } = useQuery(COMMENT_FEED_QUERY, {

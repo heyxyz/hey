@@ -56,7 +56,7 @@ interface Props {
 }
 
 const Crowdfund: FC<Props> = ({ fund }) => {
-  const { isConnected } = useAppPersistStore()
+  const isConnected = useAppPersistStore((state) => state.isConnected)
   const [showFundersModal, setShowFundersModal] = useState<boolean>(false)
   const [revenue, setRevenue] = useState<number>(0)
   const { data, loading } = useQuery(COLLECT_QUERY, {

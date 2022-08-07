@@ -45,7 +45,7 @@ const Report: FC = () => {
   } = useRouter()
   const [type, setType] = useState<string>('')
   const [subReason, setSubReason] = useState<string>('')
-  const { currentUser } = useAppPersistStore()
+  const currentUser = useAppPersistStore((state) => state.currentUser)
   const { data, loading, error } = useQuery(PUBLICATION_QUERY, {
     variables: {
       request: { publicationId: id },

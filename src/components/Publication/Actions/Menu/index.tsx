@@ -20,7 +20,7 @@ interface Props {
 }
 
 const PublicationMenu: FC<Props> = ({ publication }) => {
-  const { currentUser } = useAppPersistStore()
+  const currentUser = useAppPersistStore((state) => state.currentUser)
 
   return (
     <Menu as="div">

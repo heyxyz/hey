@@ -11,8 +11,14 @@ import { PUBLICATION } from 'src/tracking'
 import NewPost from '..'
 
 const NewPostModal: FC = () => {
-  const { showNewPostModal, setShowNewPostModal, parentPub, setParentPub } =
-    usePublicationStore()
+  const showNewPostModal = usePublicationStore(
+    (state) => state.showNewPostModal
+  )
+  const setShowNewPostModal = usePublicationStore(
+    (state) => state.setShowNewPostModal
+  )
+  const parentPub = usePublicationStore((state) => state.parentPub)
+  const setParentPub = usePublicationStore((state) => state.setParentPub)
 
   return (
     <>

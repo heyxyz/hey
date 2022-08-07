@@ -23,7 +23,8 @@ const ExploreFeed = dynamic(() => import('@components/Explore/Feed'), {
 })
 
 const Home: NextPage = () => {
-  const { isConnected, currentUser } = useAppPersistStore()
+  const isConnected = useAppPersistStore((state) => state.isConnected)
+  const currentUser = useAppPersistStore((state) => state.currentUser)
 
   return (
     <>
