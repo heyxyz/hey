@@ -115,8 +115,10 @@ const NewComment: FC<Props> = ({
   publication,
   type
 }) => {
-  const { userSigNonce, setUserSigNonce } = useAppStore()
-  const { isAuthenticated, currentUser } = useAppPersistStore()
+  const userSigNonce = useAppStore((state) => state.userSigNonce)
+  const setUserSigNonce = useAppStore((state) => state.setUserSigNonce)
+  const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated)
+  const currentUser = useAppPersistStore((state) => state.currentUser)
   const [commentContent, setCommentContent] = useState<string>('')
   const [preview, setPreview] = useState<boolean>(false)
   const [commentContentError, setCommentContentError] = useState<string>('')

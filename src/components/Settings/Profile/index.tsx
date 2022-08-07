@@ -52,7 +52,7 @@ const PROFILE_SETTINGS_QUERY = gql`
 `
 
 const ProfileSettings: NextPage = () => {
-  const { currentUser } = useAppPersistStore()
+  const currentUser = useAppPersistStore((state) => state.currentUser)
   const [settingsType, setSettingsType] = useState<'NFT' | 'AVATAR'>('AVATAR')
   const { data, loading, error } = useQuery(PROFILE_SETTINGS_QUERY, {
     variables: { request: { profileId: currentUser?.id } },

@@ -25,7 +25,10 @@ const PING_QUERY = gql`
 `
 
 const Navbar: FC = () => {
-  const { isAuthenticated, currentUser, staffMode } = useAppPersistStore()
+  const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated)
+  const currentUser = useAppPersistStore((state) => state.currentUser)
+  const staffMode = useAppPersistStore((state) => state.staffMode)
+
   const { data: pingData } = useQuery(PING_QUERY, {
     pollInterval: 3000,
     skip: !currentUser

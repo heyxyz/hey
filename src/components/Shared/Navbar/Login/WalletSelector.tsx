@@ -46,9 +46,13 @@ interface Props {
 }
 
 const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
-  const { setProfiles } = useAppStore()
-  const { setIsConnected, setIsAuthenticated, setCurrentUser } =
-    useAppPersistStore()
+  const setProfiles = useAppStore((state) => state.setProfiles)
+  const setIsConnected = useAppPersistStore((state) => state.setIsConnected)
+  const setIsAuthenticated = useAppPersistStore(
+    (state) => state.setIsAuthenticated
+  )
+  const setCurrentUser = useAppPersistStore((state) => state.setCurrentUser)
+
   const [mounted, setMounted] = useState(false)
   const { chain } = useNetwork()
   const { connectors, error, connectAsync } = useConnect()

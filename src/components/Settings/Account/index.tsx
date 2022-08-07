@@ -13,7 +13,7 @@ import SetProfile from './SetProfile'
 import Verification from './Verification'
 
 const AccountSettings: NextPage = () => {
-  const { currentUser } = useAppPersistStore()
+  const currentUser = useAppPersistStore((state) => state.currentUser)
 
   if (!currentUser) return <Custom404 />
 

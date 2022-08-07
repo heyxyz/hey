@@ -7,7 +7,7 @@ import { useAppPersistStore } from 'src/store/app'
 import { SETTINGS } from 'src/tracking'
 
 const Verification: FC = () => {
-  const { currentUser } = useAppPersistStore()
+  const currentUser = useAppPersistStore((state) => state.currentUser)
 
   return (
     <Card>

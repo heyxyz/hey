@@ -8,7 +8,7 @@ import { useAppPersistStore } from 'src/store/app'
 import List from './List'
 
 const Notification: FC = () => {
-  const { isAuthenticated } = useAppPersistStore()
+  const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated)
 
   if (!isAuthenticated) return <Custom404 />
 
