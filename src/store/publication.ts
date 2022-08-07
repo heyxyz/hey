@@ -7,11 +7,16 @@ interface PublicationState {
   setShowNewPostModal: (showNewPostModal: boolean) => void
   parentPub: LensterPublication | null
   setParentPub: (parentPub: LensterPublication | null) => void
+  publicationContent: string
+  setPublicationContent: (publicationContent: string) => void
 }
 
 export const usePublicationStore = create<PublicationState>((set) => ({
   showNewPostModal: false,
   setShowNewPostModal: (showNewPostModal) => set(() => ({ showNewPostModal })),
   parentPub: null,
-  setParentPub: (parentPub) => set(() => ({ parentPub }))
+  setParentPub: (parentPub) => set(() => ({ parentPub })),
+  publicationContent: '',
+  setPublicationContent: (publicationContent) =>
+    set(() => ({ publicationContent }))
 }))

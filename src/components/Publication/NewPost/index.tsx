@@ -36,6 +36,7 @@ import {
   SIGN_WALLET
 } from 'src/constants'
 import { useAppPersistStore, useAppStore } from 'src/store/app'
+import { usePublicationStore } from 'src/store/publication'
 import { POST } from 'src/tracking'
 import { v4 as uuid } from 'uuid'
 import { useContractWrite, useSignTypedData } from 'wagmi'
@@ -108,7 +109,12 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce)
   const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated)
   const currentUser = useAppPersistStore((state) => state.currentUser)
-  const [postContent, setPostContent] = useState<string>('')
+  const publicationContent = usePublicationStore(
+    (state) => state.publicationContent
+  )
+  const setPublicationContent = usePublicationStore(
+    (state) => state.setPublicationContent
+  )
   const [preview, setPreview] = useState<boolean>(false)
   const [postContentError, setPostContentError] = useState<string>('')
   const [selectedModule, setSelectedModule] =
@@ -125,7 +131,7 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
 
   const onCompleted = () => {
     setPreview(false)
-    setPostContent('')
+    setPublicationContent('')
     setAttachments([])
     setSelectedModule(defaultModuleData)
     setFeeData(defaultFeeData)
@@ -217,7 +223,7 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
 
   const createPost = async () => {
     if (!isAuthenticated) return toast.error(SIGN_WALLET)
-    if (postContent.length === 0 && attachments.length === 0) {
+    if (publicationContent.length === 0 && attachments.length === 0) {
       Mixpanel.track(POST.NEW, { result: 'empty' })
       return setPostContentError('Post should not be empty!')
     }
@@ -228,8 +234,8 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
     const { path } = await uploadToIPFS({
       version: '1.0.0',
       metadata_id: uuid(),
-      description: trimify(postContent),
-      content: trimify(postContent),
+      description: trimify(publicationContent),
+      content: trimify(publicationContent),
       external_url: `https://lenster.xyz/u/${currentUser?.handle}`,
       image: attachments.length > 0 ? attachments[0]?.item : null,
       imageMimeType: attachments.length > 0 ? attachments[0]?.type : null,
@@ -294,12 +300,10 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
           )}
           {preview ? (
             <div className="pb-3 mb-2 border-b linkify dark:border-b-gray-700/80">
-              <Markup>{postContent}</Markup>
+              <Markup>{publicationContent}</Markup>
             </div>
           ) : (
             <MentionTextArea
-              publication={postContent}
-              setPublication={setPostContent}
               error={postContentError}
               setError={setPostContentError}
               placeholder="What's happening?"
@@ -322,7 +326,7 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
                 onlyFollowers={onlyFollowers}
                 setOnlyFollowers={setOnlyFollowers}
               />
-              {postContent && (
+              {publicationContent && (
                 <Preview preview={preview} setPreview={setPreview} />
               )}
             </div>

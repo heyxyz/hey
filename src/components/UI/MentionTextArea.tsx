@@ -7,8 +7,9 @@ import { BadgeCheckIcon } from '@heroicons/react/solid'
 import imagekitURL from '@lib/imagekitURL'
 import isVerified from '@lib/isVerified'
 import clsx from 'clsx'
-import { Dispatch, FC, SetStateAction } from 'react'
+import { Dispatch, FC } from 'react'
 import { Mention, MentionsInput } from 'react-mentions'
+import { usePublicationStore } from 'src/store/publication'
 
 interface UserProps {
   suggestion: UserSuggestion
@@ -42,20 +43,22 @@ const User: FC<UserProps> = ({ suggestion, focused }) => (
 )
 
 interface Props {
-  publication: string
-  setPublication: Dispatch<SetStateAction<string>>
   error: string
   setError: Dispatch<string>
   placeholder?: string
 }
 
 export const MentionTextArea: FC<Props> = ({
-  publication,
-  setPublication,
   error,
   setError,
   placeholder = ''
 }) => {
+  const publicationContent = usePublicationStore(
+    (state) => state.publicationContent
+  )
+  const setPublicationContent = usePublicationStore(
+    (state) => state.setPublicationContent
+  )
   const [searchUsers] = useLazyQuery(SEARCH_USERS_QUERY)
 
   const fetchUsers = (query: string, callback: any) => {
@@ -85,10 +88,10 @@ export const MentionTextArea: FC<Props> = ({
     <div className="mb-2">
       <MentionsInput
         className="mention-input"
-        value={publication}
+        value={publicationContent}
         placeholder={placeholder}
         onChange={(e) => {
-          setPublication(e.target.value)
+          setPublicationContent(e.target.value)
           setError('')
         }}
       >
