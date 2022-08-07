@@ -4,21 +4,37 @@ import { Card } from '@components/UI/Card'
 import { Modal } from '@components/UI/Modal'
 import { PencilAltIcon } from '@heroicons/react/outline'
 import { Mixpanel } from '@lib/mixpanel'
-import { FC } from 'react'
+import { useRouter } from 'next/router'
+import { FC, useEffect } from 'react'
 import { usePublicationStore } from 'src/store/publication'
 import { PUBLICATION } from 'src/tracking'
 
 import NewPost from '..'
 
 const NewPostModal: FC = () => {
+  const { query, isReady } = useRouter()
   const showNewPostModal = usePublicationStore(
     (state) => state.showNewPostModal
   )
   const setShowNewPostModal = usePublicationStore(
     (state) => state.setShowNewPostModal
   )
+  const setPublicationContent = usePublicationStore(
+    (state) => state.setPublicationContent
+  )
   const parentPub = usePublicationStore((state) => state.parentPub)
   const setParentPub = usePublicationStore((state) => state.setParentPub)
+
+  useEffect(() => {
+    if (isReady && query.text) {
+      const { text, url, via } = query
+      setShowNewPostModal(true)
+      setPublicationContent(
+        `${text}${url ? `\n\n${url}` : ''}${via ? `\n\nvia @${via}` : ''}`
+      )
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <>
