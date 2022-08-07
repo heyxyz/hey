@@ -9,6 +9,8 @@ interface PublicationState {
   setParentPub: (parentPub: LensterPublication | null) => void
   publicationContent: string
   setPublicationContent: (publicationContent: string) => void
+  previewPublication: boolean
+  setPreviewPublication: (previewPublication: boolean) => void
 }
 
 export const usePublicationStore = create<PublicationState>((set) => ({
@@ -18,5 +20,8 @@ export const usePublicationStore = create<PublicationState>((set) => ({
   setParentPub: (parentPub) => set(() => ({ parentPub })),
   publicationContent: '',
   setPublicationContent: (publicationContent) =>
-    set(() => ({ publicationContent }))
+    set(() => ({ publicationContent })),
+  previewPublication: false,
+  setPreviewPublication: (previewPublication) =>
+    set(() => ({ previewPublication }))
 }))

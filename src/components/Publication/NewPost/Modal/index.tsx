@@ -22,12 +22,15 @@ const NewPostModal: FC = () => {
   const setPublicationContent = usePublicationStore(
     (state) => state.setPublicationContent
   )
+  const setPreviewPublication = usePublicationStore(
+    (state) => state.setPreviewPublication
+  )
   const parentPub = usePublicationStore((state) => state.parentPub)
   const setParentPub = usePublicationStore((state) => state.setParentPub)
 
   useEffect(() => {
     if (isReady && query.text) {
-      const { text, url, via, hashtags } = query
+      const { text, url, via, hashtags, preview } = query
       let processedHashtags
 
       if (hashtags) {
@@ -43,6 +46,7 @@ const NewPostModal: FC = () => {
           url ? `\n\n${url}` : ''
         }${via ? `\n\nvia @${via}` : ''}`
       )
+      setPreviewPublication(preview ? true : false)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
