@@ -1,8 +1,8 @@
 #!/bin/bash
 
 #/ Usage: script/clean-branches
-#/ Delete merged branches from the origin remote.
+#/ Delete all branches except main and testnet.
 
-echo "Deleting branches 🗑"
-git fetch -p && git branch --merged | grep -v '*' | grep -v 'main' | xargs git branch -d
+echo "Deleting all branches except 'main' and 'testnet' 🗑"
+git branch | grep -v "main" | grep -v "testnet" | xargs git branch -D
 echo "Branches deleted 🎉"
