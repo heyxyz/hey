@@ -29,7 +29,8 @@ interface Props {
 }
 
 const Like: FC<Props> = ({ publication }) => {
-  const { isAuthenticated, currentUser } = useAppPersistStore()
+  const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated)
+  const currentUser = useAppPersistStore((state) => state.currentUser)
   const [liked, setLiked] = useState<boolean>(false)
   const [count, setCount] = useState<number>(0)
 

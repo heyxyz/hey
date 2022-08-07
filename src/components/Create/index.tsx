@@ -10,7 +10,7 @@ import Custom404 from 'src/pages/404'
 import { useAppPersistStore } from 'src/store/app'
 
 const Create: NextPage = () => {
-  const { currentUser } = useAppPersistStore()
+  const currentUser = useAppPersistStore((state) => state.currentUser)
 
   if (!currentUser) return <Custom404 />
 

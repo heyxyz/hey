@@ -50,15 +50,17 @@ interface Props {
 
 const SiteLayout: FC<Props> = ({ children }) => {
   const { resolvedTheme } = useTheme()
-  const { setProfiles, setUserSigNonce } = useAppStore()
-  const {
-    isConnected,
-    setIsConnected,
-    isAuthenticated,
-    setIsAuthenticated,
-    currentUser,
-    setCurrentUser
-  } = useAppPersistStore()
+  const setProfiles = useAppStore((state) => state.setProfiles)
+  const setUserSigNonce = useAppStore((state) => state.setUserSigNonce)
+  const isConnected = useAppPersistStore((state) => state.isConnected)
+  const setIsConnected = useAppPersistStore((state) => state.setIsConnected)
+  const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated)
+  const setIsAuthenticated = useAppPersistStore(
+    (state) => state.setIsAuthenticated
+  )
+  const currentUser = useAppPersistStore((state) => state.currentUser)
+  const setCurrentUser = useAppPersistStore((state) => state.setCurrentUser)
+
   const [mounted, setMounted] = useState<boolean>(false)
   const { address, isDisconnected } = useAccount()
   const { chain } = useNetwork()

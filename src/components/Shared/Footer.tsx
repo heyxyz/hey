@@ -4,7 +4,7 @@ import { APP_NAME } from 'src/constants'
 import { useAppPersistStore } from 'src/store/app'
 
 const Footer: FC = () => {
-  const { staffMode } = useAppPersistStore()
+  const staffMode = useAppPersistStore((state) => state.staffMode)
 
   return (
     <footer

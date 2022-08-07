@@ -91,16 +91,10 @@ interface Props {
 }
 
 const NFTPicture: FC<Props> = ({ profile }) => {
-  const form = useZodForm({
-    schema: editNftPictureSchema,
-    defaultValues: {
-      contractAddress: profile?.picture?.contractAddress,
-      tokenId: profile?.picture?.tokenId
-    }
-  })
-
-  const { userSigNonce, setUserSigNonce } = useAppStore()
-  const { isAuthenticated, currentUser } = useAppPersistStore()
+  const userSigNonce = useAppStore((state) => state.userSigNonce)
+  const setUserSigNonce = useAppStore((state) => state.setUserSigNonce)
+  const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated)
+  const currentUser = useAppPersistStore((state) => state.currentUser)
   const [chainId, setChainId] = useState<number>(
     IS_MAINNET ? chain.mainnet.id : chain.kovan.id
   )
@@ -117,6 +111,14 @@ const NFTPicture: FC<Props> = ({ profile }) => {
       result: 'success'
     })
   }
+
+  const form = useZodForm({
+    schema: editNftPictureSchema,
+    defaultValues: {
+      contractAddress: profile?.picture?.contractAddress,
+      tokenId: profile?.picture?.tokenId
+    }
+  })
 
   const {
     data: writeData,

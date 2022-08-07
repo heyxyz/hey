@@ -58,7 +58,7 @@ const Unfollow: FC<Props> = ({
   followersCount,
   setFollowersCount
 }) => {
-  const { isAuthenticated } = useAppPersistStore()
+  const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated)
   const [writeLoading, setWriteLoading] = useState<boolean>(false)
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {

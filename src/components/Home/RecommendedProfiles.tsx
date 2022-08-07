@@ -23,7 +23,7 @@ const RECOMMENDED_PROFILES_QUERY = gql`
 `
 
 const Title = () => {
-  const { currentUser } = useAppPersistStore()
+  const currentUser = useAppPersistStore((state) => state.currentUser)
 
   return (
     <div className="flex gap-2 items-center px-5 mb-2 sm:px-0">
