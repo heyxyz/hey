@@ -118,13 +118,15 @@ const Like: FC<Props> = ({ publication }) => {
             withDelay
           >
             {liked ? (
-              <HeartIconSolid className="w-[18px]" />
+              <HeartIconSolid className="w-[15px] sm:w-[18px]" />
             ) : (
-              <HeartIcon className="w-[18px]" />
+              <HeartIcon className="w-[15px] sm:w-[18px]" />
             )}
           </Tooltip>
         </div>
-        {count > 0 && <div className="text-xs">{humanize(count)}</div>}
+        {count > 0 && (
+          <div className="text-[11px] sm:text-xs">{humanize(count)}</div>
+        )}
       </div>
     </motion.button>
   )
