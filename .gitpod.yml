@@ -1,10 +1,10 @@
 tasks:
   - name: Setup
     init: |
-      yarn install
-      yarn codegen
+      npm install
+      npm run codegen
       cp .env.example .env
-    command: yarn dev
+    command: npm run dev
 
   - command: |
       clear
