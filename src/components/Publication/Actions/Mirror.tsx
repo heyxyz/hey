@@ -230,11 +230,13 @@ const Mirror: FC<Props> = ({ publication }) => {
               content={count > 0 ? `${humanize(count)} Mirrors` : 'Mirror'}
               withDelay
             >
-              <SwitchHorizontalIcon className="w-[18px]" />
+              <SwitchHorizontalIcon className="w-[15px] sm:w-[18px]" />
             </Tooltip>
           )}
         </div>
-        {count > 0 && <div className="text-xs">{nFormatter(count)}</div>}
+        {count > 0 && (
+          <div className="text-[11px] sm:text-xs">{nFormatter(count)}</div>
+        )}
       </div>
     </motion.button>
   )
