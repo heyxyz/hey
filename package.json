@@ -59,7 +59,7 @@
   "devDependencies": {
     "@graphql-codegen/cli": "^2.11.3",
     "@graphql-codegen/fragment-matcher": "^3.3.0",
-    "@graphql-codegen/typescript": "^2.7.2",
+    "@graphql-codegen/typescript": "^2.7.3",
     "@tailwindcss/forms": "^0.5.2",
     "@tailwindcss/line-clamp": "^0.4.0",
     "@types/mixpanel-browser": "^2.38.0",
