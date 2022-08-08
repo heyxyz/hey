@@ -18,13 +18,13 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16.x
-          cache: 'yarn'
+          cache: 'npm'
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile --silent
+        run: npm ci
 
       - name: Lint codebase
-        run: yarn lint
+        run: npm run lint
 
   prettier:
     runs-on: ubuntu-latest
@@ -36,10 +36,10 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16.x
-          cache: 'yarn'
+          cache: 'npm'
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile --silent
+        run: npm ci
 
       - name: Lint codebase
-        run: yarn prettier:check
+        run: npm run prettier:check

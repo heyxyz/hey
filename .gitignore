@@ -4,10 +4,6 @@
 config/certs/
 *.db
 
-# Logs
-yarn-debug.log*
-yarn-error.log*
-
 # Coverage directory used by tools like istanbul
 coverage
 *.lcov
