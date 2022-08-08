@@ -64,7 +64,7 @@
     "@tailwindcss/line-clamp": "^0.4.0",
     "@types/mixpanel-browser": "^2.38.0",
     "@types/node": "^18.6.5",
-    "@types/react": "^18.0.15",
+    "@types/react": "^18.0.17",
     "@types/react-copy-to-clipboard": "^5.0.4",
     "@types/react-dom": "^18.0.6",
     "@types/ua-parser-js": "^0.7.36",
