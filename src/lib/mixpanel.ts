@@ -12,7 +12,7 @@ export const Mixpanel = {
   },
   people: {
     set: (props: Dict) => {
-      mixpanel.people.set(props);
+      if (enabled) mixpanel.people.set(props);
     }
   }
 };

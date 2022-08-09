@@ -12,6 +12,7 @@ import { MirrorFields } from '@gql/MirrorFields';
 import { PostFields } from '@gql/PostFields';
 import { CollectionIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
+import { apps } from 'data/apps';
 import React, { FC, useState } from 'react';
 import { useInView } from 'react-cool-inview';
 import { useAppPersistStore } from 'src/store/app';
@@ -51,12 +52,14 @@ interface Props {
 }
 
 const Feed: FC<Props> = ({ feedType = 'TOP_COMMENTED' }) => {
+  const sources = feedType === 'TOP_COLLECTED' ? apps.map((app) => app.id) : undefined;
   const currentUser = useAppPersistStore((state) => state.currentUser);
   const [publications, setPublications] = useState<LensterPublication[]>([]);
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>();
   const { data, loading, error, fetchMore } = useQuery(EXPLORE_FEED_QUERY, {
     variables: {
       request: {
+        sources,
         sortCriteria: feedType,
         limit: 10,
         noRandomize: feedType === 'LATEST'
@@ -75,6 +78,7 @@ const Feed: FC<Props> = ({ feedType = 'TOP_COMMENTED' }) => {
       const { data } = await fetchMore({
         variables: {
           request: {
+            sources,
             sortCriteria: feedType,
             cursor: pageInfo?.next,
             limit: 10,

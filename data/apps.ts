@@ -35,3 +35,9 @@ export const apps = [
     logo: 'lenstube.svg'
   }
 ];
+
+export const lensterCommunity = {
+  id: 'lenster community',
+  name: 'Lenster Community',
+  logo: 'lenster.svg'
+};
