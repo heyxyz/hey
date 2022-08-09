@@ -1,63 +1,53 @@
-import Follow from '@components/Shared/Follow'
-import Markup from '@components/Shared/Markup'
-import Slug from '@components/Shared/Slug'
-import SuperFollow from '@components/Shared/SuperFollow'
-import Unfollow from '@components/Shared/Unfollow'
-import { Button } from '@components/UI/Button'
-import { Tooltip } from '@components/UI/Tooltip'
-import { Profile } from '@generated/types'
-import {
-  CogIcon,
-  HashtagIcon,
-  LocationMarkerIcon
-} from '@heroicons/react/outline'
-import { BadgeCheckIcon, ShieldCheckIcon } from '@heroicons/react/solid'
-import formatAddress from '@lib/formatAddress'
-import getAttribute from '@lib/getAttribute'
-import getAvatar from '@lib/getAvatar'
-import isStaff from '@lib/isStaff'
-import isVerified from '@lib/isVerified'
-import Link from 'next/link'
-import { useTheme } from 'next-themes'
-import React, { FC, ReactElement, useEffect, useState } from 'react'
-import { STATIC_ASSETS } from 'src/constants'
-import { useAppPersistStore } from 'src/store/app'
+import Follow from '@components/Shared/Follow';
+import Markup from '@components/Shared/Markup';
+import Slug from '@components/Shared/Slug';
+import SuperFollow from '@components/Shared/SuperFollow';
+import Unfollow from '@components/Shared/Unfollow';
+import { Button } from '@components/UI/Button';
+import { Tooltip } from '@components/UI/Tooltip';
+import { Profile } from '@generated/types';
+import { CogIcon, HashtagIcon, LocationMarkerIcon } from '@heroicons/react/outline';
+import { BadgeCheckIcon, ShieldCheckIcon } from '@heroicons/react/solid';
+import formatAddress from '@lib/formatAddress';
+import getAttribute from '@lib/getAttribute';
+import getAvatar from '@lib/getAvatar';
+import isStaff from '@lib/isStaff';
+import isVerified from '@lib/isVerified';
+import Link from 'next/link';
+import { useTheme } from 'next-themes';
+import React, { FC, ReactElement, useEffect, useState } from 'react';
+import { STATIC_ASSETS } from 'src/constants';
+import { useAppPersistStore } from 'src/store/app';
 
-import Badges from './Badges'
-import Followerings from './Followerings'
-import ProfileMod from './Mod'
+import Badges from './Badges';
+import Followerings from './Followerings';
+import ProfileMod from './Mod';
 
 interface Props {
-  profile: Profile
+  profile: Profile;
 }
 
 const Details: FC<Props> = ({ profile }) => {
-  const [followersCount, setFollowersCount] = useState<number>(0)
-  const [following, setFollowing] = useState<boolean>(profile?.isFollowedByMe)
-  const currentUser = useAppPersistStore((state) => state.currentUser)
-  const staffMode = useAppPersistStore((state) => state.staffMode)
-  const { resolvedTheme } = useTheme()
+  const [followersCount, setFollowersCount] = useState<number>(0);
+  const [following, setFollowing] = useState<boolean>(profile?.isFollowedByMe);
+  const currentUser = useAppPersistStore((state) => state.currentUser);
+  const staffMode = useAppPersistStore((state) => state.staffMode);
+  const { resolvedTheme } = useTheme();
 
   useEffect(() => {
     if (profile?.stats?.totalFollowers) {
-      setFollowersCount(profile?.stats?.totalFollowers)
+      setFollowersCount(profile?.stats?.totalFollowers);
     }
-  }, [profile?.stats?.totalFollowers])
+  }, [profile?.stats?.totalFollowers]);
 
-  const MetaDetails = ({
-    children,
-    icon
-  }: {
-    children: ReactElement
-    icon: ReactElement
-  }) => (
+  const MetaDetails = ({ children, icon }: { children: ReactElement; icon: ReactElement }) => (
     <div className="flex gap-2 items-center">
       {icon}
       <div className="truncate text-md">{children}</div>
     </div>
-  )
+  );
 
-  const followType = profile?.followModule?.__typename
+  const followType = profile?.followModule?.__typename;
 
   return (
     <div className="px-5 mb-4 space-y-5 sm:px-0">
@@ -86,24 +76,13 @@ const Details: FC<Props> = ({ profile }) => {
         </div>
         <div className="flex items-center space-x-3">
           {profile?.name ? (
-            <Slug
-              className="!text-sm sm:!text-base"
-              slug={profile?.handle}
-              prefix="@"
-            />
+            <Slug className="!text-sm sm:!text-base" slug={profile?.handle} prefix="@" />
           ) : (
-            <Slug
-              className="!text-sm sm:!text-base"
-              slug={formatAddress(profile?.ownedBy)}
-            />
+            <Slug className="!text-sm sm:!text-base" slug={formatAddress(profile?.ownedBy)} />
           )}
-          {currentUser &&
-            currentUser?.id !== profile?.id &&
-            profile?.isFollowing && (
-              <div className="py-0.5 px-2 text-xs bg-gray-200 rounded-full dark:bg-gray-700">
-                Follows you
-              </div>
-            )}
+          {currentUser && currentUser?.id !== profile?.id && profile?.isFollowing && (
+            <div className="py-0.5 px-2 text-xs bg-gray-200 rounded-full dark:bg-gray-700">Follows you</div>
+          )}
         </div>
       </div>
       <div className="space-y-5">
@@ -150,11 +129,7 @@ const Details: FC<Props> = ({ profile }) => {
           {currentUser?.id === profile?.id && (
             <Link href="/settings">
               <a href="/settings">
-                <Button
-                  variant="secondary"
-                  className="!py-1.5"
-                  icon={<CogIcon className="w-5 h-5" />}
-                />
+                <Button variant="secondary" className="!py-1.5" icon={<CogIcon className="w-5 h-5" />} />
               </a>
             </Link>
           )}
@@ -167,9 +142,7 @@ const Details: FC<Props> = ({ profile }) => {
         <div className="w-full divider" />
         <div className="space-y-2">
           <MetaDetails icon={<HashtagIcon className="w-4 h-4" />}>
-            <Tooltip content={`#${parseInt(profile?.id)}`}>
-              {profile?.id}
-            </Tooltip>
+            <Tooltip content={`#${parseInt(profile?.id)}`}>{profile?.id}</Tooltip>
           </MetaDetails>
           {getAttribute(profile?.attributes, 'location') && (
             <MetaDetails icon={<LocationMarkerIcon className="w-4 h-4" />}>
@@ -215,9 +188,7 @@ const Details: FC<Props> = ({ profile }) => {
                 target="_blank"
                 rel="noreferrer noopener"
               >
-                {getAttribute(profile?.attributes, 'website')
-                  ?.replace('https://', '')
-                  .replace('http://', '')}
+                {getAttribute(profile?.attributes, 'website')?.replace('https://', '').replace('http://', '')}
               </a>
             </MetaDetails>
           )}
@@ -244,28 +215,20 @@ const Details: FC<Props> = ({ profile }) => {
               }
             >
               <a
-                href={`https://twitter.com/${getAttribute(
-                  profile?.attributes,
-                  'twitter'
-                )}`}
+                href={`https://twitter.com/${getAttribute(profile?.attributes, 'twitter')}`}
                 target="_blank"
                 rel="noreferrer noopener"
               >
-                {getAttribute(profile?.attributes, 'twitter')?.replace(
-                  'https://twitter.com/',
-                  ''
-                )}
+                {getAttribute(profile?.attributes, 'twitter')?.replace('https://twitter.com/', '')}
               </a>
             </MetaDetails>
           )}
         </div>
       </div>
       <Badges profile={profile} />
-      {isStaff(currentUser?.id) && staffMode && (
-        <ProfileMod profile={profile} />
-      )}
+      {isStaff(currentUser?.id) && staffMode && <ProfileMod profile={profile} />}
     </div>
-  )
-}
+  );
+};
 
-export default Details
+export default Details;

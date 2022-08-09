@@ -1,7 +1,7 @@
-import Slug from '@components/Shared/Slug'
-import { Matcher } from 'interweave'
-import Link from 'next/link'
-import React from 'react'
+import Slug from '@components/Shared/Slug';
+import { Matcher } from 'interweave';
+import Link from 'next/link';
+import React from 'react';
 
 export function Mention({ ...props }: any) {
   return (
@@ -10,23 +10,23 @@ export function Mention({ ...props }: any) {
         <Slug className="text-md" slug={props.display} />
       </a>
     </Link>
-  )
+  );
 }
 
 export class MentionMatcher extends Matcher {
   replaceWith(match: string, props: any) {
-    return React.createElement(Mention, props, match)
+    return React.createElement(Mention, props, match);
   }
 
   asTag(): string {
-    return 'a'
+    return 'a';
   }
 
   match(value: string) {
     return this.doMatch(value, /@[a-zA-Z0-9_.]+/, (matches) => {
       return {
         display: matches[0]
-      }
-    })
+      };
+    });
   }
 }

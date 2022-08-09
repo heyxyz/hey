@@ -1,43 +1,43 @@
-import { gql, useQuery } from '@apollo/client'
-import NotificationIcon from '@components/Notification/Icon'
-import { Disclosure } from '@headlessui/react'
-import { MenuIcon, XIcon } from '@heroicons/react/outline'
-import hasPrideLogo from '@lib/hasPrideLogo'
-import isStaff from '@lib/isStaff'
-import clsx from 'clsx'
-import dynamic from 'next/dynamic'
-import Link from 'next/link'
-import { useRouter } from 'next/router'
-import { FC } from 'react'
-import { useAppPersistStore } from 'src/store/app'
+import { gql, useQuery } from '@apollo/client';
+import NotificationIcon from '@components/Notification/Icon';
+import { Disclosure } from '@headlessui/react';
+import { MenuIcon, XIcon } from '@heroicons/react/outline';
+import hasPrideLogo from '@lib/hasPrideLogo';
+import isStaff from '@lib/isStaff';
+import clsx from 'clsx';
+import dynamic from 'next/dynamic';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { FC } from 'react';
+import { useAppPersistStore } from 'src/store/app';
 
-import MenuItems from './MenuItems'
-import MoreNavItems from './MoreNavItems'
-import Search from './Search'
+import MenuItems from './MenuItems';
+import MoreNavItems from './MoreNavItems';
+import Search from './Search';
 
-const StaffBar = dynamic(() => import('./StaffBar'))
-const NewPostModal = dynamic(() => import('../../Publication/NewPost/Modal'))
+const StaffBar = dynamic(() => import('./StaffBar'));
+const NewPostModal = dynamic(() => import('../../Publication/NewPost/Modal'));
 
 const PING_QUERY = gql`
   query Ping {
     ping
   }
-`
+`;
 
 const Navbar: FC = () => {
-  const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated)
-  const currentUser = useAppPersistStore((state) => state.currentUser)
-  const staffMode = useAppPersistStore((state) => state.staffMode)
+  const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
+  const currentUser = useAppPersistStore((state) => state.currentUser);
+  const staffMode = useAppPersistStore((state) => state.staffMode);
 
   const { data: pingData } = useQuery(PING_QUERY, {
     pollInterval: 3000,
     skip: !currentUser
-  })
+  });
 
   interface NavItemProps {
-    url: string
-    name: string
-    current: boolean
+    url: string;
+    name: string;
+    current: boolean;
   }
 
   const NavItem = ({ url, name, current }: NavItemProps) => {
@@ -48,8 +48,7 @@ const Navbar: FC = () => {
             className={clsx(
               'w-full text-left px-2 md:px-3 py-1 rounded-md font-black cursor-pointer text-sm tracking-wide',
               {
-                'text-black dark:text-white bg-gray-200 dark:bg-gray-800':
-                  current,
+                'text-black dark:text-white bg-gray-200 dark:bg-gray-800': current,
                 'text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white hover:bg-gray-200 dark:hover:bg-gray-800':
                   !current
               }
@@ -59,29 +58,21 @@ const Navbar: FC = () => {
           </Disclosure.Button>
         </a>
       </Link>
-    )
-  }
+    );
+  };
 
   const NavItems = () => {
-    const { pathname } = useRouter()
+    const { pathname } = useRouter();
 
     return (
       <>
         <NavItem url="/" name="Home" current={pathname == '/'} />
-        <NavItem
-          url="/explore"
-          name="Explore"
-          current={pathname == '/explore'}
-        />
-        <NavItem
-          url="/communities"
-          name="Communities"
-          current={pathname == '/communities'}
-        />
+        <NavItem url="/explore" name="Explore" current={pathname == '/explore'} />
+        <NavItem url="/communities" name="Communities" current={pathname == '/communities'} />
         <MoreNavItems />
       </>
-    )
-  }
+    );
+  };
 
   return (
     <Disclosure
@@ -109,11 +100,7 @@ const Navbar: FC = () => {
                         className="w-8 h-8"
                         height={32}
                         width={32}
-                        src={
-                          currentUser && hasPrideLogo(currentUser)
-                            ? '/pride.svg'
-                            : '/logo.svg'
-                        }
+                        src={currentUser && hasPrideLogo(currentUser) ? '/pride.svg' : '/logo.svg'}
                         alt="Logo"
                       />
                     </div>
@@ -147,7 +134,7 @@ const Navbar: FC = () => {
         </>
       )}
     </Disclosure>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;

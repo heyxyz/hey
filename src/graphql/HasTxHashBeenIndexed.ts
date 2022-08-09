@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client'
+import { gql } from '@apollo/client';
 
 export const TX_STATUS_QUERY = gql`
   query HasTxHashBeenIndexed($request: HasTxHashBeenIndexedRequest!) {
@@ -8,4 +8,4 @@ export const TX_STATUS_QUERY = gql`
       }
     }
   }
-`
+`;

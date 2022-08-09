@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC } from 'react';
 
 const NotificationShimmer: FC = () => {
   return (
@@ -17,7 +17,7 @@ const NotificationShimmer: FC = () => {
         <div className="shimmer h-3 w-16 rounded-lg" />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default NotificationShimmer
+export default NotificationShimmer;

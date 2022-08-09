@@ -1,38 +1,19 @@
-import clsx from 'clsx'
-import React, {
-  ButtonHTMLAttributes,
-  DetailedHTMLProps,
-  forwardRef,
-  ReactNode
-} from 'react'
+import clsx from 'clsx';
+import React, { ButtonHTMLAttributes, DetailedHTMLProps, forwardRef, ReactNode } from 'react';
 
-interface Props
-  extends DetailedHTMLProps<
-    ButtonHTMLAttributes<HTMLButtonElement>,
-    HTMLButtonElement
-  > {
-  size?: 'sm' | 'md' | 'lg'
-  variant?: 'primary' | 'secondary' | 'success' | 'warning' | 'super' | 'danger'
-  outline?: boolean
-  light?: boolean
-  loading?: boolean
-  icon?: ReactNode
-  children?: ReactNode
-  className?: string
+interface Props extends DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> {
+  size?: 'sm' | 'md' | 'lg';
+  variant?: 'primary' | 'secondary' | 'success' | 'warning' | 'super' | 'danger';
+  outline?: boolean;
+  light?: boolean;
+  loading?: boolean;
+  icon?: ReactNode;
+  children?: ReactNode;
+  className?: string;
 }
 
 export const Button = forwardRef<HTMLButtonElement, Props>(function Button(
-  {
-    className = '',
-    size = 'md',
-    variant = 'primary',
-    outline,
-    light,
-    loading,
-    icon,
-    children,
-    ...rest
-  },
+  { className = '', size = 'md', variant = 'primary', outline, light, loading, icon, children, ...rest },
   ref
 ) {
   return (
@@ -80,5 +61,5 @@ export const Button = forwardRef<HTMLButtonElement, Props>(function Button(
       {icon}
       <div>{children}</div>
     </button>
-  )
-})
+  );
+});

@@ -1,8 +1,8 @@
 // @ts-ignore
-import omitDeep from 'omit-deep'
+import omitDeep from 'omit-deep';
 
 const omit = (object: any, name: string) => {
-  return omitDeep(object, name)
-}
+  return omitDeep(object, name);
+};
 
-export default omit
+export default omit;

@@ -1,19 +1,18 @@
-import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout'
-import Seo from '@components/utils/Seo'
-import { NextPage } from 'next'
-import { useRouter } from 'next/router'
-import React from 'react'
-import Custom404 from 'src/pages/404'
+import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout';
+import Seo from '@components/utils/Seo';
+import { NextPage } from 'next';
+import { useRouter } from 'next/router';
+import React from 'react';
+import Custom404 from 'src/pages/404';
 
-import Profiles from './Profiles'
-import Publications from './Publications'
-import Sidebar from './Sidebar'
+import Profiles from './Profiles';
+import Publications from './Publications';
+import Sidebar from './Sidebar';
 
 const Search: NextPage = () => {
-  const { query } = useRouter()
+  const { query } = useRouter();
 
-  if (!query.q || !['pubs', 'profiles'].includes(query.type as any))
-    return <Custom404 />
+  if (!query.q || !['pubs', 'profiles'].includes(query.type as any)) return <Custom404 />;
 
   return (
     <>
@@ -28,7 +27,7 @@ const Search: NextPage = () => {
         </GridItemEight>
       </GridLayout>
     </>
-  )
-}
+  );
+};
 
-export default Search
+export default Search;

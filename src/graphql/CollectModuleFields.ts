@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client'
+import { gql } from '@apollo/client';
 
 export const CollectModuleFields = gql`
   fragment CollectModuleFields on CollectModule {
@@ -72,7 +72,7 @@ export const CollectModuleFields = gql`
       }
     }
   }
-`
+`;
 
 export const MinimalCollectModuleFields = gql`
   fragment MinimalCollectModuleFields on CollectModule {
@@ -112,4 +112,4 @@ export const MinimalCollectModuleFields = gql`
       }
     }
   }
-`
+`;

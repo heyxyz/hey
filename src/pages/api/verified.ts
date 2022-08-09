@@ -1,7 +1,7 @@
-import { withSentry } from '@sentry/nextjs'
-import { mainnetVerified, testnetVerified } from 'data/verified'
-import { NextApiRequest, NextApiResponse } from 'next'
-import { ERROR_MESSAGE, IS_MAINNET } from 'src/constants'
+import { withSentry } from '@sentry/nextjs';
+import { mainnetVerified, testnetVerified } from 'data/verified';
+import { NextApiRequest, NextApiResponse } from 'next';
+import { ERROR_MESSAGE, IS_MAINNET } from 'src/constants';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
@@ -12,10 +12,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         success: true,
         network: IS_MAINNET ? 'mainnet' : 'testnet',
         profile_ids: IS_MAINNET ? mainnetVerified : testnetVerified
-      })
+      });
   } catch (e) {
-    return res.status(500).json({ success: false, message: ERROR_MESSAGE })
+    return res.status(500).json({ success: false, message: ERROR_MESSAGE });
   }
-}
+};
 
-export default withSentry(handler)
+export default withSentry(handler);

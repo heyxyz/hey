@@ -1,35 +1,35 @@
-import { gql, useMutation, useQuery } from '@apollo/client'
-import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout'
-import { PUBLICATION_QUERY } from '@components/Publication'
-import SinglePublication from '@components/Publication/SinglePublication'
-import SettingsHelper from '@components/Shared/SettingsHelper'
-import PublicationShimmer from '@components/Shared/Shimmer/PublicationShimmer'
-import { Button } from '@components/UI/Button'
-import { Card, CardBody } from '@components/UI/Card'
-import { EmptyState } from '@components/UI/EmptyState'
-import { ErrorMessage } from '@components/UI/ErrorMessage'
-import { Form, useZodForm } from '@components/UI/Form'
-import { Spinner } from '@components/UI/Spinner'
-import { TextArea } from '@components/UI/TextArea'
-import Seo from '@components/utils/Seo'
-import { PencilAltIcon } from '@heroicons/react/outline'
-import { CheckCircleIcon } from '@heroicons/react/solid'
-import { Mixpanel } from '@lib/mixpanel'
-import { useRouter } from 'next/router'
-import React, { FC, useState } from 'react'
-import { APP_NAME, ZERO_ADDRESS } from 'src/constants'
-import Custom404 from 'src/pages/404'
-import { useAppPersistStore } from 'src/store/app'
-import { PUBLICATION } from 'src/tracking'
-import { object, string } from 'zod'
+import { gql, useMutation, useQuery } from '@apollo/client';
+import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout';
+import { PUBLICATION_QUERY } from '@components/Publication';
+import SinglePublication from '@components/Publication/SinglePublication';
+import SettingsHelper from '@components/Shared/SettingsHelper';
+import PublicationShimmer from '@components/Shared/Shimmer/PublicationShimmer';
+import { Button } from '@components/UI/Button';
+import { Card, CardBody } from '@components/UI/Card';
+import { EmptyState } from '@components/UI/EmptyState';
+import { ErrorMessage } from '@components/UI/ErrorMessage';
+import { Form, useZodForm } from '@components/UI/Form';
+import { Spinner } from '@components/UI/Spinner';
+import { TextArea } from '@components/UI/TextArea';
+import Seo from '@components/utils/Seo';
+import { PencilAltIcon } from '@heroicons/react/outline';
+import { CheckCircleIcon } from '@heroicons/react/solid';
+import { Mixpanel } from '@lib/mixpanel';
+import { useRouter } from 'next/router';
+import React, { FC, useState } from 'react';
+import { APP_NAME, ZERO_ADDRESS } from 'src/constants';
+import Custom404 from 'src/pages/404';
+import { useAppPersistStore } from 'src/store/app';
+import { PUBLICATION } from 'src/tracking';
+import { object, string } from 'zod';
 
-import Reason from './Reason'
+import Reason from './Reason';
 
 export const CREATE_REPORT_PUBLICATION_MUTATION = gql`
   mutation ReportPublication($request: ReportPublicationRequest!) {
     reportPublication(request: $request)
   }
-`
+`;
 
 const newReportSchema = object({
   additionalComments: string()
@@ -37,15 +37,15 @@ const newReportSchema = object({
       message: 'Additional comments should not exceed 260 characters'
     })
     .nullable()
-})
+});
 
 const Report: FC = () => {
   const {
     query: { id }
-  } = useRouter()
-  const [type, setType] = useState<string>('')
-  const [subReason, setSubReason] = useState<string>('')
-  const currentUser = useAppPersistStore((state) => state.currentUser)
+  } = useRouter();
+  const [type, setType] = useState<string>('');
+  const [subReason, setSubReason] = useState<string>('');
+  const currentUser = useAppPersistStore((state) => state.currentUser);
   const { data, loading, error } = useQuery(PUBLICATION_QUERY, {
     variables: {
       request: { publicationId: id },
@@ -57,19 +57,19 @@ const Report: FC = () => {
       }
     },
     skip: !id
-  })
-  const [
-    createReport,
-    { data: submitData, loading: submitLoading, error: submitError }
-  ] = useMutation(CREATE_REPORT_PUBLICATION_MUTATION, {
-    onCompleted() {
-      Mixpanel.track(PUBLICATION.REPORT, { result: 'success' })
+  });
+  const [createReport, { data: submitData, loading: submitLoading, error: submitError }] = useMutation(
+    CREATE_REPORT_PUBLICATION_MUTATION,
+    {
+      onCompleted() {
+        Mixpanel.track(PUBLICATION.REPORT, { result: 'success' });
+      }
     }
-  })
+  );
 
   const form = useZodForm({
     schema: newReportSchema
-  })
+  });
 
   const reportPublication = (additionalComments: string | null) => {
     createReport({
@@ -85,10 +85,10 @@ const Report: FC = () => {
           additionalComments
         }
       }
-    })
-  }
+    });
+  };
 
-  if (!currentUser || !id) return <Custom404 />
+  if (!currentUser || !id) return <Custom404 />;
 
   return (
     <GridLayout>
@@ -125,20 +125,11 @@ const Report: FC = () => {
                   form={form}
                   className="pt-5 space-y-4"
                   onSubmit={({ additionalComments }) => {
-                    reportPublication(additionalComments)
+                    reportPublication(additionalComments);
                   }}
                 >
-                  {submitError && (
-                    <ErrorMessage
-                      title="Failed to report"
-                      error={submitError}
-                    />
-                  )}
-                  <Reason
-                    setType={setType}
-                    setSubReason={setSubReason}
-                    type={type}
-                  />
+                  {submitError && <ErrorMessage title="Failed to report" error={submitError} />}
+                  <Reason setType={setType} setSubReason={setSubReason} type={type} />
                   {subReason && (
                     <>
                       <TextArea
@@ -150,13 +141,7 @@ const Report: FC = () => {
                         <Button
                           type="submit"
                           disabled={submitLoading}
-                          icon={
-                            submitLoading ? (
-                              <Spinner size="xs" />
-                            ) : (
-                              <PencilAltIcon className="w-4 h-4" />
-                            )
-                          }
+                          icon={submitLoading ? <Spinner size="xs" /> : <PencilAltIcon className="w-4 h-4" />}
                         >
                           Report
                         </Button>
@@ -170,7 +155,7 @@ const Report: FC = () => {
         </Card>
       </GridItemEight>
     </GridLayout>
-  )
-}
+  );
+};
 
-export default Report
+export default Report;

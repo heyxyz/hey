@@ -1,55 +1,43 @@
-import Collectors from '@components/Shared/Collectors'
-import Markup from '@components/Shared/Markup'
-import { Button } from '@components/UI/Button'
-import { Modal } from '@components/UI/Modal'
-import { LensterPublication } from '@generated/lenstertypes'
-import {
-  ClockIcon,
-  CogIcon,
-  HashtagIcon,
-  PencilAltIcon,
-  UsersIcon
-} from '@heroicons/react/outline'
-import imagekitURL from '@lib/imagekitURL'
-import { Mixpanel } from '@lib/mixpanel'
-import nFormatter from '@lib/nFormatter'
-import dayjs from 'dayjs'
-import relativeTime from 'dayjs/plugin/relativeTime'
-import dynamic from 'next/dynamic'
-import React, { FC, ReactNode, useState } from 'react'
-import { useAppPersistStore } from 'src/store/app'
-import { COMMUNITY } from 'src/tracking'
+import Collectors from '@components/Shared/Collectors';
+import Markup from '@components/Shared/Markup';
+import { Button } from '@components/UI/Button';
+import { Modal } from '@components/UI/Modal';
+import { LensterPublication } from '@generated/lenstertypes';
+import { ClockIcon, CogIcon, HashtagIcon, PencilAltIcon, UsersIcon } from '@heroicons/react/outline';
+import imagekitURL from '@lib/imagekitURL';
+import { Mixpanel } from '@lib/mixpanel';
+import nFormatter from '@lib/nFormatter';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import dynamic from 'next/dynamic';
+import React, { FC, ReactNode, useState } from 'react';
+import { useAppPersistStore } from 'src/store/app';
+import { COMMUNITY } from 'src/tracking';
 
-import Join from './Join'
+import Join from './Join';
 
 const Settings = dynamic(() => import('./Settings'), {
   loading: () => <div className="m-5 h-5 rounded-lg shimmer" />
-})
+});
 
-dayjs.extend(relativeTime)
+dayjs.extend(relativeTime);
 
 interface Props {
-  community: LensterPublication
+  community: LensterPublication;
 }
 
 const Details: FC<Props> = ({ community }) => {
-  const currentUser = useAppPersistStore((state) => state.currentUser)
-  const [showMembersModal, setShowMembersModal] = useState<boolean>(false)
-  const [showSettingsModal, setShowSettingsModal] = useState<boolean>(false)
-  const [joined, setJoined] = useState<boolean>(community?.hasCollectedByMe)
+  const currentUser = useAppPersistStore((state) => state.currentUser);
+  const [showMembersModal, setShowMembersModal] = useState<boolean>(false);
+  const [showSettingsModal, setShowSettingsModal] = useState<boolean>(false);
+  const [joined, setJoined] = useState<boolean>(community?.hasCollectedByMe);
 
-  const MetaDetails = ({
-    children,
-    icon
-  }: {
-    children: ReactNode
-    icon: ReactNode
-  }) => (
+  const MetaDetails = ({ children, icon }: { children: ReactNode; icon: ReactNode }) => (
     <div className="flex gap-2 items-center">
       {icon}
       {children}
     </div>
-  )
+  );
 
   return (
     <div className="px-5 mb-4 space-y-5 sm:px-0">
@@ -91,8 +79,8 @@ const Details: FC<Props> = ({ community }) => {
                 className="!py-1.5"
                 icon={<PencilAltIcon className="w-5 h-5" />}
                 onClick={() => {
-                  setShowSettingsModal(!showSettingsModal)
-                  Mixpanel.track(COMMUNITY.SETTINGS.DELETE)
+                  setShowSettingsModal(!showSettingsModal);
+                  Mixpanel.track(COMMUNITY.SETTINGS.DELETE);
                 }}
               />
               <Modal
@@ -107,22 +95,18 @@ const Details: FC<Props> = ({ community }) => {
           )}
         </div>
         <div className="space-y-2">
-          <MetaDetails icon={<HashtagIcon className="w-4 h-4" />}>
-            {community?.id}
-          </MetaDetails>
+          <MetaDetails icon={<HashtagIcon className="w-4 h-4" />}>{community?.id}</MetaDetails>
           <MetaDetails icon={<UsersIcon className="w-4 h-4" />}>
             <>
               <button
                 type="button"
                 onClick={() => {
-                  Mixpanel.track(COMMUNITY.OPEN_MEMBERS)
-                  setShowMembersModal(!showMembersModal)
+                  Mixpanel.track(COMMUNITY.OPEN_MEMBERS);
+                  setShowMembersModal(!showMembersModal);
                 }}
               >
                 {nFormatter(community?.stats?.totalAmountOfCollects)}{' '}
-                {community?.stats?.totalAmountOfCollects === 1
-                  ? 'member'
-                  : 'members'}
+                {community?.stats?.totalAmountOfCollects === 1 ? 'member' : 'members'}
               </button>
               <Modal
                 title="Members"
@@ -146,7 +130,7 @@ const Details: FC<Props> = ({ community }) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Details
+export default Details;

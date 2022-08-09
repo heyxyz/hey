@@ -1,21 +1,21 @@
-import { Profile } from '@generated/types'
-import React, { FC } from 'react'
+import { Profile } from '@generated/types';
+import React, { FC } from 'react';
 
-import Ens from './Ens'
-import ProofOfHumanity from './ProofOfHumanity'
-import Sybil from './Sybil'
+import Ens from './Ens';
+import ProofOfHumanity from './ProofOfHumanity';
+import Sybil from './Sybil';
 
 interface Props {
-  profile: Profile
+  profile: Profile;
 }
 
 const Badges: FC<Props> = ({ profile }) => {
   const hasOnChainIdentity =
     profile?.onChainIdentity?.proofOfHumanity ||
     profile?.onChainIdentity?.sybilDotOrg?.verified ||
-    profile?.onChainIdentity?.ens?.name
+    profile?.onChainIdentity?.ens?.name;
 
-  if (!hasOnChainIdentity) return null
+  if (!hasOnChainIdentity) return null;
 
   return (
     <>
@@ -26,7 +26,7 @@ const Badges: FC<Props> = ({ profile }) => {
         <Sybil profile={profile} />
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Badges
+export default Badges;

@@ -1,24 +1,20 @@
-import { useQuery } from '@apollo/client'
-import { Spinner } from '@components/UI/Spinner'
-import { TX_STATUS_QUERY } from '@gql/HasTxHashBeenIndexed'
-import { CheckCircleIcon } from '@heroicons/react/solid'
-import clsx from 'clsx'
-import React, { FC, useState } from 'react'
-import { POLYGONSCAN_URL } from 'src/constants'
+import { useQuery } from '@apollo/client';
+import { Spinner } from '@components/UI/Spinner';
+import { TX_STATUS_QUERY } from '@gql/HasTxHashBeenIndexed';
+import { CheckCircleIcon } from '@heroicons/react/solid';
+import clsx from 'clsx';
+import React, { FC, useState } from 'react';
+import { POLYGONSCAN_URL } from 'src/constants';
 
 interface Props {
-  type?: string
-  txHash: string
-  reload?: boolean
+  type?: string;
+  txHash: string;
+  reload?: boolean;
 }
 
-const IndexStatus: FC<Props> = ({
-  type = 'Transaction',
-  txHash,
-  reload = false
-}) => {
-  const [hide, setHide] = useState<boolean>(false)
-  const [pollInterval, setPollInterval] = useState<number>(500)
+const IndexStatus: FC<Props> = ({ type = 'Transaction', txHash, reload = false }) => {
+  const [hide, setHide] = useState<boolean>(false);
+  const [pollInterval, setPollInterval] = useState<number>(500);
   const { data, loading } = useQuery(TX_STATUS_QUERY, {
     variables: {
       request: { txHash }
@@ -26,16 +22,16 @@ const IndexStatus: FC<Props> = ({
     pollInterval,
     onCompleted(data) {
       if (data?.hasTxHashBeenIndexed?.indexed) {
-        setPollInterval(0)
+        setPollInterval(0);
         if (reload) {
-          location.reload()
+          location.reload();
         }
         setTimeout(() => {
-          setHide(true)
-        }, 5000)
+          setHide(true);
+        }, 5000);
       }
     }
-  })
+  });
 
   return (
     <a
@@ -56,7 +52,7 @@ const IndexStatus: FC<Props> = ({
         </div>
       )}
     </a>
-  )
-}
+  );
+};
 
-export default IndexStatus
+export default IndexStatus;

@@ -1,32 +1,29 @@
-import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout'
-import RecommendedProfiles from '@components/Home/RecommendedProfiles'
-import Footer from '@components/Shared/Footer'
-import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer'
-import Seo from '@components/utils/Seo'
-import { NextPage } from 'next'
-import dynamic from 'next/dynamic'
-import { useRouter } from 'next/router'
-import React, { useState } from 'react'
-import { APP_NAME } from 'src/constants'
+import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout';
+import RecommendedProfiles from '@components/Home/RecommendedProfiles';
+import Footer from '@components/Shared/Footer';
+import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
+import Seo from '@components/utils/Seo';
+import { NextPage } from 'next';
+import dynamic from 'next/dynamic';
+import { useRouter } from 'next/router';
+import React, { useState } from 'react';
+import { APP_NAME } from 'src/constants';
 
-import FeedType from './FeedType'
+import FeedType from './FeedType';
 
 const Feed = dynamic(() => import('./Feed'), {
   loading: () => <PublicationsShimmer />
-})
+});
 
 const Explore: NextPage = () => {
   const {
     query: { type }
-  } = useRouter()
+  } = useRouter();
   const [feedType, setFeedType] = useState<string>(
-    type &&
-      ['top_commented', 'top_collected', 'top_mirrored', 'latest'].includes(
-        type as string
-      )
+    type && ['top_commented', 'top_collected', 'top_mirrored', 'latest'].includes(type as string)
       ? type?.toString().toUpperCase()
       : 'TOP_COMMENTED'
-  )
+  );
 
   return (
     <GridLayout>
@@ -43,7 +40,7 @@ const Explore: NextPage = () => {
         <Footer />
       </GridItemFour>
     </GridLayout>
-  )
-}
+  );
+};
 
-export default Explore
+export default Explore;

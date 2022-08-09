@@ -1,3 +1,3 @@
-import Privacy from '@components/Pages/Privacy'
+import Privacy from '@components/Pages/Privacy';
 
-export default Privacy
+export default Privacy;

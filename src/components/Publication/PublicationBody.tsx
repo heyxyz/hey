@@ -1,30 +1,29 @@
-import Attachments from '@components/Shared/Attachments'
-import IFramely from '@components/Shared/IFramely'
-import Markup from '@components/Shared/Markup'
-import CrowdfundShimmer from '@components/Shared/Shimmer/CrowdfundShimmer'
-import { LensterPublication } from '@generated/lenstertypes'
-import { EyeIcon, UserAddIcon, UsersIcon } from '@heroicons/react/outline'
-import getURLs from '@lib/getURLs'
-import imagekitURL from '@lib/imagekitURL'
-import clsx from 'clsx'
-import dynamic from 'next/dynamic'
-import Link from 'next/link'
-import { useRouter } from 'next/router'
-import React, { FC } from 'react'
+import Attachments from '@components/Shared/Attachments';
+import IFramely from '@components/Shared/IFramely';
+import Markup from '@components/Shared/Markup';
+import CrowdfundShimmer from '@components/Shared/Shimmer/CrowdfundShimmer';
+import { LensterPublication } from '@generated/lenstertypes';
+import { EyeIcon, UserAddIcon, UsersIcon } from '@heroicons/react/outline';
+import getURLs from '@lib/getURLs';
+import imagekitURL from '@lib/imagekitURL';
+import clsx from 'clsx';
+import dynamic from 'next/dynamic';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import React, { FC } from 'react';
 
 const Crowdfund = dynamic(() => import('./Crowdfund'), {
   loading: () => <CrowdfundShimmer />
-})
+});
 
 interface Props {
-  publication: LensterPublication
+  publication: LensterPublication;
 }
 
 const PublicationBody: FC<Props> = ({ publication }) => {
-  const { pathname } = useRouter()
-  const publicationType = publication?.metadata?.attributes[0]?.value
-  const showMore =
-    publication?.metadata?.content?.length > 450 && pathname !== '/posts/[id]'
+  const { pathname } = useRouter();
+  const publicationType = publication?.metadata?.attributes[0]?.value;
+  const showMore = publication?.metadata?.content?.length > 450 && pathname !== '/posts/[id]';
 
   return (
     <div className="break-words">
@@ -36,17 +35,10 @@ const PublicationBody: FC<Props> = ({ publication }) => {
             ) : (
               <UsersIcon className="w-4 h-4 text-brand" />
             )}
-            {publication?.collectedBy ? (
-              <span>Joined</span>
-            ) : (
-              <span>Launched a new community</span>
-            )}
+            {publication?.collectedBy ? <span>Joined</span> : <span>Launched a new community</span>}
           </span>
           <Link href={`/communities/${publication?.id}`}>
-            <a
-              href={`/communities/${publication?.id}`}
-              className="flex items-center space-x-1.5 font-bold"
-            >
+            <a href={`/communities/${publication?.id}`} className="flex items-center space-x-1.5 font-bold">
               <img
                 src={imagekitURL(
                   publication?.metadata?.cover?.original?.url
@@ -95,7 +87,7 @@ const PublicationBody: FC<Props> = ({ publication }) => {
         )
       )}
     </div>
-  )
-}
+  );
+};
 
-export default PublicationBody
+export default PublicationBody;

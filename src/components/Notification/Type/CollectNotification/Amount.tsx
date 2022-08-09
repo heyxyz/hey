@@ -1,18 +1,18 @@
-import { NewCollectNotification } from '@generated/types'
-import { CurrencyDollarIcon, HandIcon } from '@heroicons/react/outline'
-import getTokenImage from '@lib/getTokenImage'
-import humanize from '@lib/humanize'
-import React, { FC } from 'react'
+import { NewCollectNotification } from '@generated/types';
+import { CurrencyDollarIcon, HandIcon } from '@heroicons/react/outline';
+import getTokenImage from '@lib/getTokenImage';
+import humanize from '@lib/humanize';
+import React, { FC } from 'react';
 
 interface Props {
-  notification: NewCollectNotification
+  notification: NewCollectNotification;
 }
 
 const CollectedAmount: FC<Props> = ({ notification }) => {
   const publicationType =
     notification?.collectedPublication?.metadata?.attributes[0]?.value ??
-    notification?.collectedPublication?.__typename?.toLowerCase()
-  const collectModule: any = notification?.collectedPublication?.collectModule
+    notification?.collectedPublication?.__typename?.toLowerCase();
+  const collectModule: any = notification?.collectedPublication?.collectModule;
 
   return (
     <div className="flex items-center mt-2 space-x-1">
@@ -27,8 +27,7 @@ const CollectedAmount: FC<Props> = ({ notification }) => {
         <>
           <div className="text-[12px]">
             {publicationType === 'crowdfund' ? 'Funded' : 'Collected for'}{' '}
-            {humanize(collectModule?.amount?.value)}{' '}
-            {collectModule?.amount?.asset?.symbol}
+            {humanize(collectModule?.amount?.value)} {collectModule?.amount?.asset?.symbol}
           </div>
           <img
             className="w-5 h-5"
@@ -40,7 +39,7 @@ const CollectedAmount: FC<Props> = ({ notification }) => {
         </>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default CollectedAmount
+export default CollectedAmount;

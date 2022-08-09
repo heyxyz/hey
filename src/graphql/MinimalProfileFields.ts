@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client'
+import { gql } from '@apollo/client';
 
 export const MinimalProfileFields = gql`
   fragment MinimalProfileFields on Profile {
@@ -25,4 +25,4 @@ export const MinimalProfileFields = gql`
       __typename
     }
   }
-`
+`;

@@ -1,4 +1,4 @@
-import Document, { Head, Html, Main, NextScript } from 'next/document'
+import Document, { Head, Html, Main, NextScript } from 'next/document';
 
 class LensterDocument extends Document {
   render() {
@@ -14,8 +14,8 @@ class LensterDocument extends Document {
           <NextScript />
         </body>
       </Html>
-    )
+    );
   }
 }
 
-export default LensterDocument
+export default LensterDocument;

@@ -14,4 +14,4 @@ export const hashflags: any = {
   pride: 'pride',
   lgbt: 'pride',
   voted: 'voted'
-}
+};

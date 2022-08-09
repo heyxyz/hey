@@ -1,16 +1,16 @@
-import React, { FC } from 'react'
-import { STATIC_ASSETS } from 'src/constants'
+import React, { FC } from 'react';
+import { STATIC_ASSETS } from 'src/constants';
 
 interface Props {
   appConfig: {
-    id: string
-    name: string
-    logo: string
-  } | null
+    id: string;
+    name: string;
+    logo: string;
+  } | null;
 }
 
 const ViaApp: FC<Props> = ({ appConfig }) => {
-  if (!appConfig) return null
+  if (!appConfig) return null;
 
   return (
     <div className="flex items-center py-3 px-5 space-x-2 text-gray-500 border-t dark:border-t-gray-700/80">
@@ -23,7 +23,7 @@ const ViaApp: FC<Props> = ({ appConfig }) => {
       />
       <div>Posted via {appConfig.name}</div>
     </div>
-  )
-}
+  );
+};
 
-export default ViaApp
+export default ViaApp;

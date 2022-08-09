@@ -1,15 +1,15 @@
-import { gql, useQuery } from '@apollo/client'
-import { GridItemFour, GridLayout } from '@components/GridLayout'
-import { PageLoading } from '@components/UI/PageLoading'
-import Seo from '@components/utils/Seo'
-import { CommunityFields } from '@gql/CommunityFields'
-import { ChartBarIcon, FireIcon, SparklesIcon } from '@heroicons/react/outline'
-import { NextPage } from 'next'
-import React from 'react'
-import { APP_NAME } from 'src/constants'
-import Custom500 from 'src/pages/500'
+import { gql, useQuery } from '@apollo/client';
+import { GridItemFour, GridLayout } from '@components/GridLayout';
+import { PageLoading } from '@components/UI/PageLoading';
+import Seo from '@components/utils/Seo';
+import { CommunityFields } from '@gql/CommunityFields';
+import { ChartBarIcon, FireIcon, SparklesIcon } from '@heroicons/react/outline';
+import { NextPage } from 'next';
+import React from 'react';
+import { APP_NAME } from 'src/constants';
+import Custom500 from 'src/pages/500';
 
-import List from './List'
+import List from './List';
 
 const COMMUNITY_QUERY = gql`
   query (
@@ -40,7 +40,7 @@ const COMMUNITY_QUERY = gql`
     }
   }
   ${CommunityFields}
-`
+`;
 
 const Communities: NextPage = () => {
   const { data, loading, error } = useQuery(COMMUNITY_QUERY, {
@@ -64,10 +64,10 @@ const Communities: NextPage = () => {
         limit: 8
       }
     }
-  })
+  });
 
-  if (error) return <Custom500 />
-  if (loading || !data) return <PageLoading message="Loading community" />
+  if (error) return <Custom500 />;
+  if (loading || !data) return <PageLoading message="Loading community" />;
 
   return (
     <GridLayout>
@@ -94,7 +94,7 @@ const Communities: NextPage = () => {
         <List communities={data?.latest.items} />
       </GridItemFour>
     </GridLayout>
-  )
-}
+  );
+};
 
-export default Communities
+export default Communities;

@@ -1,3 +1,3 @@
-import DeleteSettings from '@components/Settings/Delete'
+import DeleteSettings from '@components/Settings/Delete';
 
-export default DeleteSettings
+export default DeleteSettings;

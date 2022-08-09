@@ -1,4 +1,3 @@
-const humanize = (number: number): string =>
-  number?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+const humanize = (number: number): string => number?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 
-export default humanize
+export default humanize;

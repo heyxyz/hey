@@ -1,31 +1,31 @@
-import { gql, useMutation } from '@apollo/client'
-import { LensterPublication } from '@generated/lenstertypes'
-import { Menu } from '@headlessui/react'
-import { TrashIcon } from '@heroicons/react/outline'
-import { Mixpanel } from '@lib/mixpanel'
-import clsx from 'clsx'
-import { useRouter } from 'next/router'
-import React, { FC } from 'react'
-import { PUBLICATION } from 'src/tracking'
+import { gql, useMutation } from '@apollo/client';
+import { LensterPublication } from '@generated/lenstertypes';
+import { Menu } from '@headlessui/react';
+import { TrashIcon } from '@heroicons/react/outline';
+import { Mixpanel } from '@lib/mixpanel';
+import clsx from 'clsx';
+import { useRouter } from 'next/router';
+import React, { FC } from 'react';
+import { PUBLICATION } from 'src/tracking';
 
 export const HIDE_POST_MUTATION = gql`
   mutation HidePublication($request: HidePublicationRequest!) {
     hidePublication(request: $request)
   }
-`
+`;
 
 interface Props {
-  publication: LensterPublication
+  publication: LensterPublication;
 }
 
 const Delete: FC<Props> = ({ publication }) => {
-  const { pathname, push } = useRouter()
+  const { pathname, push } = useRouter();
   const [hidePost] = useMutation(HIDE_POST_MUTATION, {
     onCompleted() {
-      Mixpanel.track(PUBLICATION.DELETE, { result: 'success' })
-      pathname === '/posts/[id]' ? push('/') : location.reload()
+      Mixpanel.track(PUBLICATION.DELETE, { result: 'success' });
+      pathname === '/posts/[id]' ? push('/') : location.reload();
     }
-  })
+  });
 
   return (
     <Menu.Item
@@ -40,7 +40,7 @@ const Delete: FC<Props> = ({ publication }) => {
         if (confirm('Are you sure you want to delete?')) {
           hidePost({
             variables: { request: { publicationId: publication?.id } }
-          })
+          });
         }
       }}
     >
@@ -49,7 +49,7 @@ const Delete: FC<Props> = ({ publication }) => {
         <div>Delete</div>
       </div>
     </Menu.Item>
-  )
-}
+  );
+};
 
-export default Delete
+export default Delete;

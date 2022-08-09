@@ -1,5 +1,5 @@
-import { Card, CardBody } from '@components/UI/Card'
-import { Profile } from '@generated/types'
+import { Card, CardBody } from '@components/UI/Card';
+import { Profile } from '@generated/types';
 import {
   AtSymbolIcon,
   BeakerIcon,
@@ -8,19 +8,19 @@ import {
   IdentificationIcon,
   LinkIcon,
   PhotographIcon
-} from '@heroicons/react/outline'
-import formatAddress from '@lib/formatAddress'
-import getAttribute from '@lib/getAttribute'
-import { getFollowModule } from '@lib/getFollowModule'
-import hasPrideLogo from '@lib/hasPrideLogo'
-import isBeta from '@lib/isBeta'
-import React, { FC, ReactNode } from 'react'
-import CopyToClipboard from 'react-copy-to-clipboard'
-import toast from 'react-hot-toast'
-import { APP_NAME } from 'src/constants'
+} from '@heroicons/react/outline';
+import formatAddress from '@lib/formatAddress';
+import getAttribute from '@lib/getAttribute';
+import { getFollowModule } from '@lib/getFollowModule';
+import hasPrideLogo from '@lib/hasPrideLogo';
+import isBeta from '@lib/isBeta';
+import React, { FC, ReactNode } from 'react';
+import CopyToClipboard from 'react-copy-to-clipboard';
+import toast from 'react-hot-toast';
+import { APP_NAME } from 'src/constants';
 
 interface Props {
-  profile: Profile
+  profile: Profile;
 }
 
 const ProfileMod: FC<Props> = ({ profile }) => {
@@ -30,15 +30,15 @@ const ProfileMod: FC<Props> = ({ profile }) => {
     value,
     icon
   }: {
-    children: ReactNode
-    title?: string
-    value: string
-    icon: ReactNode
+    children: ReactNode;
+    title?: string;
+    value: string;
+    icon: ReactNode;
   }) => (
     <CopyToClipboard
       text={value}
       onCopy={() => {
-        toast.success('Copied to clipboard!')
+        toast.success('Copied to clipboard!');
       }}
     >
       <div className="flex gap-2 items-center font-bold cursor-pointer linkify">
@@ -47,7 +47,7 @@ const ProfileMod: FC<Props> = ({ profile }) => {
         <div>{children}</div>
       </div>
     </CopyToClipboard>
-  )
+  );
 
   return (
     <Card className="mt-5 border-yellow-400 !bg-yellow-300 !bg-opacity-20">
@@ -116,16 +116,13 @@ const ProfileMod: FC<Props> = ({ profile }) => {
               Open
             </a>
           </MetaDetails>
-          <MetaDetails
-            icon={<BeakerIcon className="w-4 h-4 text-gray-500" />}
-            value={profile?.handle}
-          >
+          <MetaDetails icon={<BeakerIcon className="w-4 h-4 text-gray-500" />} value={profile?.handle}>
             {isBeta(profile) ? 'Beta user' : 'Non-beta user'}
           </MetaDetails>
         </div>
       </CardBody>
     </Card>
-  )
-}
+  );
+};
 
-export default ProfileMod
+export default ProfileMod;

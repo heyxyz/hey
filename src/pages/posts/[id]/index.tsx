@@ -1,3 +1,3 @@
-import ViewPublication from '@components/Publication'
+import ViewPublication from '@components/Publication';
 
-export default ViewPublication
+export default ViewPublication;

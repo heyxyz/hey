@@ -1,16 +1,16 @@
-import { Card, CardBody } from '@components/UI/Card'
-import { CurrencyDollarIcon, UserCircleIcon } from '@heroicons/react/outline'
-import Link from 'next/link'
-import { FC } from 'react'
-import { useAppPersistStore, useAppStore } from 'src/store/app'
+import { Card, CardBody } from '@components/UI/Card';
+import { CurrencyDollarIcon, UserCircleIcon } from '@heroicons/react/outline';
+import Link from 'next/link';
+import { FC } from 'react';
+import { useAppPersistStore, useAppStore } from 'src/store/app';
 
 const SetDefaultProfile: FC = () => {
-  const profiles = useAppStore((state) => state.profiles)
-  const currentUser = useAppPersistStore((state) => state.currentUser)
-  const hasDefaultProfile = !!profiles.find((o) => o.isDefault)
-  const count = profiles.length
+  const profiles = useAppStore((state) => state.profiles);
+  const currentUser = useAppPersistStore((state) => state.currentUser);
+  const hasDefaultProfile = !!profiles.find((o) => o.isDefault);
+  const count = profiles.length;
 
-  if (currentUser || hasDefaultProfile) return null
+  if (currentUser || hasDefaultProfile) return null;
 
   return (
     <Card className="mb-4 bg-green-50 dark:bg-green-900 !border-green-600">
@@ -20,8 +20,7 @@ const SetDefaultProfile: FC = () => {
           <p>Set default profile</p>
         </div>
         <p className="text-sm leading-[22px]">
-          You own {count} {count === 1 ? 'profile' : 'profiles'} but you
-          don&rsquo;t have a default one.
+          You own {count} {count === 1 ? 'profile' : 'profiles'} but you don&rsquo;t have a default one.
         </p>
         <div className="flex items-center space-x-1.5 text-sm font-bold">
           <CurrencyDollarIcon className="w-4 h-4" />
@@ -31,7 +30,7 @@ const SetDefaultProfile: FC = () => {
         </div>
       </CardBody>
     </Card>
-  )
-}
+  );
+};
 
-export default SetDefaultProfile
+export default SetDefaultProfile;

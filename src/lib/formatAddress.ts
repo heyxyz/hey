@@ -1,17 +1,14 @@
-import { ADDRESS_REGEX } from 'src/constants'
+import { ADDRESS_REGEX } from 'src/constants';
 
 const formatAddress = (address: string | null | undefined): string => {
-  if (!address) return ''
+  if (!address) return '';
 
-  const regex = ADDRESS_REGEX
+  const regex = ADDRESS_REGEX;
   if (address.match(regex)) {
-    return `${address.slice(0, 4)}…${address.slice(
-      address.length - 4,
-      address.length
-    )}`
+    return `${address.slice(0, 4)}…${address.slice(address.length - 4, address.length)}`;
   } else {
-    return address
+    return address;
   }
-}
+};
 
-export default formatAddress
+export default formatAddress;

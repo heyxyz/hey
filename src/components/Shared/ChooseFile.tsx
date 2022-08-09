@@ -1,7 +1,7 @@
-import { ChangeEventHandler, FC } from 'react'
+import { ChangeEventHandler, FC } from 'react';
 
 interface Props {
-  onChange: ChangeEventHandler<HTMLInputElement>
+  onChange: ChangeEventHandler<HTMLInputElement>;
 }
 
 const ChooseFile: FC<Props> = ({ onChange }) => {
@@ -12,7 +12,7 @@ const ChooseFile: FC<Props> = ({ onChange }) => {
       accept="image/*"
       onChange={onChange}
     />
-  )
-}
+  );
+};
 
-export default ChooseFile
+export default ChooseFile;

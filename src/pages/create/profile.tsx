@@ -1,3 +1,3 @@
-import Create from '@components/Create'
+import Create from '@components/Create';
 
-export default Create
+export default Create;

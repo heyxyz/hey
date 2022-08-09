@@ -1,10 +1,10 @@
-import clsx from 'clsx'
-import React, { FC } from 'react'
+import clsx from 'clsx';
+import React, { FC } from 'react';
 
 interface Props {
-  slug: string | undefined | null
-  prefix?: string
-  className?: string
+  slug: string | undefined | null;
+  prefix?: string;
+  className?: string;
 }
 
 const Slug: FC<Props> = ({ slug, prefix, className = '' }) => {
@@ -18,7 +18,7 @@ const Slug: FC<Props> = ({ slug, prefix, className = '' }) => {
       {prefix}
       {slug}
     </span>
-  )
-}
+  );
+};
 
-export default Slug
+export default Slug;

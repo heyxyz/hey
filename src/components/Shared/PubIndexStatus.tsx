@@ -1,9 +1,9 @@
-import { gql, useQuery } from '@apollo/client'
-import { Spinner } from '@components/UI/Spinner'
-import { CheckCircleIcon } from '@heroicons/react/solid'
-import { useRouter } from 'next/router'
-import React, { Dispatch, FC, useState } from 'react'
-import { POLYGONSCAN_URL } from 'src/constants'
+import { gql, useQuery } from '@apollo/client';
+import { Spinner } from '@components/UI/Spinner';
+import { CheckCircleIcon } from '@heroicons/react/solid';
+import { useRouter } from 'next/router';
+import React, { Dispatch, FC, useState } from 'react';
+import { POLYGONSCAN_URL } from 'src/constants';
 
 export const TX_STATUS_QUERY = gql`
   query HasPublicationIndexed($request: PublicationQueryRequest!) {
@@ -16,17 +16,17 @@ export const TX_STATUS_QUERY = gql`
       }
     }
   }
-`
+`;
 
 interface Props {
-  setShowModal?: Dispatch<boolean>
-  type: string
-  txHash: string
+  setShowModal?: Dispatch<boolean>;
+  type: string;
+  txHash: string;
 }
 
 const PubIndexStatus: FC<Props> = ({ setShowModal, type, txHash }) => {
-  const { push } = useRouter()
-  const [pollInterval, setPollInterval] = useState<number>(500)
+  const { push } = useRouter();
+  const [pollInterval, setPollInterval] = useState<number>(500);
   const { data, loading } = useQuery(TX_STATUS_QUERY, {
     variables: {
       request: { txHash }
@@ -34,14 +34,14 @@ const PubIndexStatus: FC<Props> = ({ setShowModal, type, txHash }) => {
     pollInterval,
     onCompleted(data) {
       if (data?.publication) {
-        setPollInterval(0)
+        setPollInterval(0);
         if (setShowModal) {
-          setShowModal(false)
+          setShowModal(false);
         }
-        push(`/posts/${data?.publication?.id}`)
+        push(`/posts/${data?.publication?.id}`);
       }
     }
-  })
+  });
 
   return (
     <a
@@ -62,7 +62,7 @@ const PubIndexStatus: FC<Props> = ({ setShowModal, type, txHash }) => {
         </div>
       )}
     </a>
-  )
-}
+  );
+};
 
-export default PubIndexStatus
+export default PubIndexStatus;

@@ -1,8 +1,8 @@
-import { Button } from '@components/UI/Button'
-import { Modal } from '@components/UI/Modal'
-import { Tooltip } from '@components/UI/Tooltip'
-import { Profile } from '@generated/types'
-import { Menu, Transition } from '@headlessui/react'
+import { Button } from '@components/UI/Button';
+import { Modal } from '@components/UI/Modal';
+import { Tooltip } from '@components/UI/Tooltip';
+import { Profile } from '@generated/types';
+import { Menu, Transition } from '@headlessui/react';
 import {
   ArrowCircleRightIcon,
   CogIcon,
@@ -13,55 +13,55 @@ import {
   SunIcon,
   SwitchHorizontalIcon,
   UserIcon
-} from '@heroicons/react/outline'
-import { CheckCircleIcon } from '@heroicons/react/solid'
-import getAvatar from '@lib/getAvatar'
-import isBeta from '@lib/isBeta'
-import isStaff from '@lib/isStaff'
-import { Mixpanel } from '@lib/mixpanel'
-import clsx from 'clsx'
-import Cookies from 'js-cookie'
-import Link from 'next/link'
-import { useTheme } from 'next-themes'
-import { FC, Fragment, useState } from 'react'
-import { GIT_COMMIT_SHA } from 'src/constants'
-import { useAppPersistStore, useAppStore } from 'src/store/app'
-import { PROFILE, STAFF, SYSTEM, USER } from 'src/tracking'
-import { useDisconnect } from 'wagmi'
+} from '@heroicons/react/outline';
+import { CheckCircleIcon } from '@heroicons/react/solid';
+import getAvatar from '@lib/getAvatar';
+import isBeta from '@lib/isBeta';
+import isStaff from '@lib/isStaff';
+import { Mixpanel } from '@lib/mixpanel';
+import clsx from 'clsx';
+import Cookies from 'js-cookie';
+import Link from 'next/link';
+import { useTheme } from 'next-themes';
+import { FC, Fragment, useState } from 'react';
+import { GIT_COMMIT_SHA } from 'src/constants';
+import { useAppPersistStore, useAppStore } from 'src/store/app';
+import { PROFILE, STAFF, SYSTEM, USER } from 'src/tracking';
+import { useDisconnect } from 'wagmi';
 
-import Slug from '../Slug'
-import CreateProfile from './CreateProfile'
-import Login from './Login'
+import Slug from '../Slug';
+import CreateProfile from './CreateProfile';
+import Login from './Login';
 
 export const NextLink = ({ href, children, ...rest }: Record<string, any>) => (
   <Link href={href}>
     <a {...rest}>{children}</a>
   </Link>
-)
+);
 
 interface Props {
   pingData: {
-    ping: string
-  }
+    ping: string;
+  };
 }
 
 const MenuItems: FC<Props> = ({ pingData }) => {
-  const [showLoginModal, setShowLoginModal] = useState<boolean>(false)
-  const { theme, setTheme } = useTheme()
-  const { disconnect } = useDisconnect()
+  const [showLoginModal, setShowLoginModal] = useState<boolean>(false);
+  const { theme, setTheme } = useTheme();
+  const { disconnect } = useDisconnect();
 
-  const profiles = useAppStore((state) => state.profiles)
-  const isConnected = useAppPersistStore((state) => state.isConnected)
-  const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated)
-  const currentUser = useAppPersistStore((state) => state.currentUser)
-  const setCurrentUser = useAppPersistStore((state) => state.setCurrentUser)
-  const staffMode = useAppPersistStore((state) => state.staffMode)
-  const setStaffMode = useAppPersistStore((state) => state.setStaffMode)
+  const profiles = useAppStore((state) => state.profiles);
+  const isConnected = useAppPersistStore((state) => state.isConnected);
+  const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
+  const currentUser = useAppPersistStore((state) => state.currentUser);
+  const setCurrentUser = useAppPersistStore((state) => state.setCurrentUser);
+  const staffMode = useAppPersistStore((state) => state.staffMode);
+  const setStaffMode = useAppPersistStore((state) => state.setStaffMode);
 
   const toggleStaffMode = () => {
-    setStaffMode(!staffMode)
-    Mixpanel.track(STAFF.TOGGLE_MODE)
-  }
+    setStaffMode(!staffMode);
+    Mixpanel.track(STAFF.TOGGLE_MODE);
+  };
 
   return isAuthenticated && currentUser ? (
     <Menu as="div">
@@ -96,11 +96,7 @@ const MenuItems: FC<Props> = ({ pingData }) => {
               >
                 <div>Logged in as</div>
                 <div className="truncate">
-                  <Slug
-                    className="font-bold"
-                    slug={currentUser?.handle}
-                    prefix="@"
-                  />
+                  <Slug className="font-bold" slug={currentUser?.handle} prefix="@" />
                 </div>
               </Menu.Item>
               <div className="divider" />
@@ -131,12 +127,12 @@ const MenuItems: FC<Props> = ({ pingData }) => {
               <Menu.Item
                 as="a"
                 onClick={() => {
-                  Mixpanel.track(PROFILE.LOGOUT)
-                  setCurrentUser(null)
-                  Cookies.remove('accessToken')
-                  Cookies.remove('refreshToken')
-                  localStorage.removeItem('lenster.store')
-                  if (disconnect) disconnect()
+                  Mixpanel.track(PROFILE.LOGOUT);
+                  setCurrentUser(null);
+                  Cookies.remove('accessToken');
+                  Cookies.remove('refreshToken');
+                  localStorage.removeItem('lenster.store');
+                  if (disconnect) disconnect();
                 }}
                 className={({ active }: { active: boolean }) =>
                   clsx({ 'dropdown-active': active }, 'menu-item')
@@ -164,8 +160,8 @@ const MenuItems: FC<Props> = ({ pingData }) => {
                           type="button"
                           className="flex items-center py-1.5 px-4 space-x-2 w-full rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
                           onClick={() => {
-                            setCurrentUser(profiles[index])
-                            Mixpanel.track(PROFILE.SWITCH_PROFILE)
+                            setCurrentUser(profiles[index]);
+                            Mixpanel.track(PROFILE.SWITCH_PROFILE);
                           }}
                         >
                           {currentUser?.id === profile?.id && (
@@ -189,12 +185,8 @@ const MenuItems: FC<Props> = ({ pingData }) => {
               <Menu.Item
                 as="a"
                 onClick={() => {
-                  setTheme(theme === 'light' ? 'dark' : 'light')
-                  Mixpanel.track(
-                    theme === 'light'
-                      ? SYSTEM.SWITCH_DARK_THEME
-                      : SYSTEM.SWITCH_LIGHT_THEME
-                  )
+                  setTheme(theme === 'light' ? 'dark' : 'light');
+                  Mixpanel.track(theme === 'light' ? SYSTEM.SWITCH_DARK_THEME : SYSTEM.SWITCH_LIGHT_THEME);
                 }}
                 className={({ active }: { active: boolean }) =>
                   clsx({ 'dropdown-active': active }, 'menu-item')
@@ -248,10 +240,7 @@ const MenuItems: FC<Props> = ({ pingData }) => {
                     as="div"
                     onClick={toggleStaffMode}
                     className={({ active }: { active: boolean }) =>
-                      clsx(
-                        { 'bg-yellow-100 dark:bg-yellow-800': active },
-                        'menu-item'
-                      )
+                      clsx({ 'bg-yellow-100 dark:bg-yellow-800': active }, 'menu-item')
                     }
                   >
                     {staffMode ? (
@@ -286,24 +275,16 @@ const MenuItems: FC<Props> = ({ pingData }) => {
         <Login />
       </Modal>
       <Button
-        icon={
-          <img
-            className="mr-0.5 w-4 h-4"
-            height={16}
-            width={16}
-            src="/lens.png"
-            alt="Lens Logo"
-          />
-        }
+        icon={<img className="mr-0.5 w-4 h-4" height={16} width={16} src="/lens.png" alt="Lens Logo" />}
         onClick={() => {
-          setShowLoginModal(!showLoginModal)
-          Mixpanel.track(USER.LOGIN)
+          setShowLoginModal(!showLoginModal);
+          Mixpanel.track(USER.LOGIN);
         }}
       >
         Login
       </Button>
     </>
-  )
-}
+  );
+};
 
-export default MenuItems
+export default MenuItems;

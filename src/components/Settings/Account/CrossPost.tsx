@@ -1,10 +1,10 @@
-import Beta from '@components/Shared/Beta'
-import { Card, CardBody } from '@components/UI/Card'
-import { ExternalLinkIcon } from '@heroicons/react/outline'
-import { Mixpanel } from '@lib/mixpanel'
-import React, { FC } from 'react'
-import { APP_NAME } from 'src/constants'
-import { SETTINGS } from 'src/tracking'
+import Beta from '@components/Shared/Beta';
+import { Card, CardBody } from '@components/UI/Card';
+import { ExternalLinkIcon } from '@heroicons/react/outline';
+import { Mixpanel } from '@lib/mixpanel';
+import React, { FC } from 'react';
+import { APP_NAME } from 'src/constants';
+import { SETTINGS } from 'src/tracking';
 
 const CrossPost: FC = () => {
   return (
@@ -15,14 +15,13 @@ const CrossPost: FC = () => {
           <Beta />
         </div>
         <div className="pb-3">
-          Reflect will auto-tweet new {APP_NAME} posts, so you can finally
-          escape the bird site.
+          Reflect will auto-tweet new {APP_NAME} posts, so you can finally escape the bird site.
         </div>
         <a
           className="flex items-center space-x-1.5"
           href="https://reflect.withlens.app/"
           onClick={() => {
-            Mixpanel.track(SETTINGS.ACCOUNT.OPEN_REFLECT)
+            Mixpanel.track(SETTINGS.ACCOUNT.OPEN_REFLECT);
           }}
           target="_blank"
           rel="noreferrer noopener"
@@ -32,7 +31,7 @@ const CrossPost: FC = () => {
         </a>
       </CardBody>
     </Card>
-  )
-}
+  );
+};
 
-export default CrossPost
+export default CrossPost;

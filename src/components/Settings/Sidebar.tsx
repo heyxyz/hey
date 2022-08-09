@@ -1,21 +1,16 @@
-import UserProfile from '@components/Shared/UserProfile'
-import { Profile } from '@generated/types'
-import {
-  ChipIcon,
-  ExclamationIcon,
-  ShareIcon,
-  UserIcon
-} from '@heroicons/react/outline'
-import clsx from 'clsx'
-import Link from 'next/link'
-import { useRouter } from 'next/router'
-import React, { FC, ReactNode } from 'react'
-import { useAppPersistStore } from 'src/store/app'
+import UserProfile from '@components/Shared/UserProfile';
+import { Profile } from '@generated/types';
+import { ChipIcon, ExclamationIcon, ShareIcon, UserIcon } from '@heroicons/react/outline';
+import clsx from 'clsx';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import React, { FC, ReactNode } from 'react';
+import { useAppPersistStore } from 'src/store/app';
 
 interface MenuProps {
-  children: ReactNode
-  current: boolean
-  url: string
+  children: ReactNode;
+  current: boolean;
+  url: string;
 }
 
 const Menu: FC<MenuProps> = ({ children, current, url }) => (
@@ -30,11 +25,11 @@ const Menu: FC<MenuProps> = ({ children, current, url }) => (
       {children}
     </a>
   </Link>
-)
+);
 
 const Sidebar: FC = () => {
-  const { pathname } = useRouter()
-  const currentUser = useAppPersistStore((state) => state.currentUser)
+  const { pathname } = useRouter();
+  const currentUser = useAppPersistStore((state) => state.currentUser);
 
   return (
     <div className="px-3 mb-4 space-y-1.5 sm:px-0">
@@ -49,10 +44,7 @@ const Sidebar: FC = () => {
         <ChipIcon className="w-4 h-4" />
         <div>Account</div>
       </Menu>
-      <Menu
-        current={pathname == '/settings/allowance'}
-        url="/settings/allowance"
-      >
+      <Menu current={pathname == '/settings/allowance'} url="/settings/allowance">
         <ShareIcon className="w-4 h-4" />
         <div>Allowance</div>
       </Menu>
@@ -61,7 +53,7 @@ const Sidebar: FC = () => {
         <div className="text-red-500">Danger Zone</div>
       </Menu>
     </div>
-  )
-}
+  );
+};
 
-export default Sidebar
+export default Sidebar;

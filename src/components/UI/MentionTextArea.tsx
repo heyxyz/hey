@@ -1,27 +1,24 @@
-import { useLazyQuery } from '@apollo/client'
-import { SEARCH_USERS_QUERY } from '@components/Shared/Navbar/Search'
-import Slug from '@components/Shared/Slug'
-import { UserSuggestion } from '@generated/lenstertypes'
-import { MediaSet, NftImage, Profile } from '@generated/types'
-import { BadgeCheckIcon } from '@heroicons/react/solid'
-import imagekitURL from '@lib/imagekitURL'
-import isVerified from '@lib/isVerified'
-import clsx from 'clsx'
-import { Dispatch, FC } from 'react'
-import { Mention, MentionsInput } from 'react-mentions'
-import { usePublicationStore } from 'src/store/publication'
+import { useLazyQuery } from '@apollo/client';
+import { SEARCH_USERS_QUERY } from '@components/Shared/Navbar/Search';
+import Slug from '@components/Shared/Slug';
+import { UserSuggestion } from '@generated/lenstertypes';
+import { MediaSet, NftImage, Profile } from '@generated/types';
+import { BadgeCheckIcon } from '@heroicons/react/solid';
+import imagekitURL from '@lib/imagekitURL';
+import isVerified from '@lib/isVerified';
+import clsx from 'clsx';
+import { Dispatch, FC } from 'react';
+import { Mention, MentionsInput } from 'react-mentions';
+import { usePublicationStore } from 'src/store/publication';
 
 interface UserProps {
-  suggestion: UserSuggestion
-  focused: boolean
+  suggestion: UserSuggestion;
+  focused: boolean;
 }
 
 const User: FC<UserProps> = ({ suggestion, focused }) => (
   <div
-    className={clsx(
-      { 'dropdown-active': focused },
-      'flex items-center space-x-2 m-1.5 px-3 py-1 rounded-xl'
-    )}
+    className={clsx({ 'dropdown-active': focused }, 'flex items-center space-x-2 m-1.5 px-3 py-1 rounded-xl')}
   >
     <img
       className="w-7 h-7 rounded-full"
@@ -33,56 +30,44 @@ const User: FC<UserProps> = ({ suggestion, focused }) => (
     <div className="flex flex-col truncate">
       <div className="flex gap-1 items-center">
         <div className="text-sm truncate">{suggestion.name}</div>
-        {isVerified(suggestion.uid) && (
-          <BadgeCheckIcon className="w-3 h-3 text-brand" />
-        )}
+        {isVerified(suggestion.uid) && <BadgeCheckIcon className="w-3 h-3 text-brand" />}
       </div>
       <Slug className="text-xs" slug={suggestion.id} prefix="@" />
     </div>
   </div>
-)
+);
 
 interface Props {
-  error: string
-  setError: Dispatch<string>
-  placeholder?: string
+  error: string;
+  setError: Dispatch<string>;
+  placeholder?: string;
 }
 
-export const MentionTextArea: FC<Props> = ({
-  error,
-  setError,
-  placeholder = ''
-}) => {
-  const publicationContent = usePublicationStore(
-    (state) => state.publicationContent
-  )
-  const setPublicationContent = usePublicationStore(
-    (state) => state.setPublicationContent
-  )
-  const [searchUsers] = useLazyQuery(SEARCH_USERS_QUERY)
+export const MentionTextArea: FC<Props> = ({ error, setError, placeholder = '' }) => {
+  const publicationContent = usePublicationStore((state) => state.publicationContent);
+  const setPublicationContent = usePublicationStore((state) => state.setPublicationContent);
+  const [searchUsers] = useLazyQuery(SEARCH_USERS_QUERY);
 
   const fetchUsers = (query: string, callback: any) => {
-    if (!query) return
+    if (!query) return;
 
     searchUsers({
       variables: { request: { type: 'PROFILE', query, limit: 5 } }
     })
       .then(({ data }) =>
-        data?.search?.items?.map(
-          (user: Profile & { picture: MediaSet & NftImage }) => ({
-            uid: user.id,
-            id: user.handle,
-            display: user.handle,
-            name: user?.name ?? user?.handle,
-            picture:
-              user?.picture?.original?.url ??
-              user?.picture?.uri ??
-              `https://avatar.tobi.sh/${user?.id}_${user?.handle}.png`
-          })
-        )
+        data?.search?.items?.map((user: Profile & { picture: MediaSet & NftImage }) => ({
+          uid: user.id,
+          id: user.handle,
+          display: user.handle,
+          name: user?.name ?? user?.handle,
+          picture:
+            user?.picture?.original?.url ??
+            user?.picture?.uri ??
+            `https://avatar.tobi.sh/${user?.id}_${user?.handle}.png`
+        }))
       )
-      .then(callback)
-  }
+      .then(callback);
+  };
 
   return (
     <div className="mb-2">
@@ -91,8 +76,8 @@ export const MentionTextArea: FC<Props> = ({
         value={publicationContent}
         placeholder={placeholder}
         onChange={(e) => {
-          setPublicationContent(e.target.value)
-          setError('')
+          setPublicationContent(e.target.value);
+          setError('');
         }}
       >
         <Mention
@@ -100,19 +85,13 @@ export const MentionTextArea: FC<Props> = ({
           displayTransform={(login) => `@${login} `}
           markup="@__id__ "
           // @ts-ignore
-          renderSuggestion={(
-            suggestion: UserSuggestion,
-            search,
-            highlightedDisplay,
-            index,
-            focused
-          ) => <User suggestion={suggestion} focused={focused} />}
+          renderSuggestion={(suggestion: UserSuggestion, search, highlightedDisplay, index, focused) => (
+            <User suggestion={suggestion} focused={focused} />
+          )}
           data={fetchUsers}
         />
       </MentionsInput>
-      {error && (
-        <div className="mt-1 text-sm font-bold text-red-500">{error}</div>
-      )}
+      {error && <div className="mt-1 text-sm font-bold text-red-500">{error}</div>}
     </div>
-  )
-}
+  );
+};

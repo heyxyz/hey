@@ -1,19 +1,14 @@
-import { Menu, Transition } from '@headlessui/react'
-import {
-  CashIcon,
-  SupportIcon,
-  UserIcon,
-  UsersIcon
-} from '@heroicons/react/outline'
-import clsx from 'clsx'
-import { FC, Fragment } from 'react'
-import { IS_MAINNET } from 'src/constants'
-import { useAppPersistStore } from 'src/store/app'
+import { Menu, Transition } from '@headlessui/react';
+import { CashIcon, SupportIcon, UserIcon, UsersIcon } from '@heroicons/react/outline';
+import clsx from 'clsx';
+import { FC, Fragment } from 'react';
+import { IS_MAINNET } from 'src/constants';
+import { useAppPersistStore } from 'src/store/app';
 
-import { NextLink } from './MenuItems'
+import { NextLink } from './MenuItems';
 
 const MoreNavItems: FC = () => {
-  const currentUser = useAppPersistStore((state) => state.currentUser)
+  const currentUser = useAppPersistStore((state) => state.currentUser);
 
   return (
     <Menu as="div">
@@ -105,7 +100,7 @@ const MoreNavItems: FC = () => {
         </>
       )}
     </Menu>
-  )
-}
+  );
+};
 
-export default MoreNavItems
+export default MoreNavItems;

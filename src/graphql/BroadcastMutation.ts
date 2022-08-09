@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client'
+import { gql } from '@apollo/client';
 
 export const BROADCAST_MUTATION = gql`
   mutation Broadcast($request: BroadcastRequest!) {
@@ -11,4 +11,4 @@ export const BROADCAST_MUTATION = gql`
       }
     }
   }
-`
+`;

@@ -1,6 +1,6 @@
-import { GridItemSix, GridLayout } from '@components/GridLayout'
-import { Card, CardBody } from '@components/UI/Card'
-import { FC } from 'react'
+import { GridItemSix, GridLayout } from '@components/GridLayout';
+import { Card, CardBody } from '@components/UI/Card';
+import { FC } from 'react';
 
 const CrowdfundShimmer: FC = () => {
   return (
@@ -26,7 +26,7 @@ const CrowdfundShimmer: FC = () => {
         </GridLayout>
       </CardBody>
     </Card>
-  )
-}
+  );
+};
 
-export default CrowdfundShimmer
+export default CrowdfundShimmer;

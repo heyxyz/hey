@@ -1,6 +1,6 @@
-import { gql } from '@apollo/client'
+import { gql } from '@apollo/client';
 
-import { MetadataFields } from './MetadataFields'
+import { MetadataFields } from './MetadataFields';
 
 export const CommunityFields = gql`
   fragment CommunityFields on Post {
@@ -19,4 +19,4 @@ export const CommunityFields = gql`
     createdAt
   }
   ${MetadataFields}
-`
+`;

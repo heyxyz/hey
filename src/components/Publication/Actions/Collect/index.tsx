@@ -1,52 +1,48 @@
-import Loader from '@components/Shared/Loader'
-import { Modal } from '@components/UI/Modal'
-import { Tooltip } from '@components/UI/Tooltip'
-import GetModuleIcon from '@components/utils/GetModuleIcon'
-import { LensterPublication } from '@generated/lenstertypes'
-import { CollectionIcon } from '@heroicons/react/outline'
-import { getModule } from '@lib/getModule'
-import humanize from '@lib/humanize'
-import { Mixpanel } from '@lib/mixpanel'
-import nFormatter from '@lib/nFormatter'
-import { motion } from 'framer-motion'
-import dynamic from 'next/dynamic'
-import { FC, useEffect, useState } from 'react'
-import { PUBLICATION } from 'src/tracking'
+import Loader from '@components/Shared/Loader';
+import { Modal } from '@components/UI/Modal';
+import { Tooltip } from '@components/UI/Tooltip';
+import GetModuleIcon from '@components/utils/GetModuleIcon';
+import { LensterPublication } from '@generated/lenstertypes';
+import { CollectionIcon } from '@heroicons/react/outline';
+import { getModule } from '@lib/getModule';
+import humanize from '@lib/humanize';
+import { Mixpanel } from '@lib/mixpanel';
+import nFormatter from '@lib/nFormatter';
+import { motion } from 'framer-motion';
+import dynamic from 'next/dynamic';
+import { FC, useEffect, useState } from 'react';
+import { PUBLICATION } from 'src/tracking';
 
 const CollectModule = dynamic(() => import('./CollectModule'), {
   loading: () => <Loader message="Loading collect" />
-})
+});
 
 interface Props {
-  publication: LensterPublication
+  publication: LensterPublication;
 }
 
 const Collect: FC<Props> = ({ publication }) => {
-  const [count, setCount] = useState<number>(0)
-  const [showCollectModal, setShowCollectModal] = useState<boolean>(false)
-  const isFreeCollect =
-    publication?.collectModule?.__typename === 'FreeCollectModuleSettings'
+  const [count, setCount] = useState<number>(0);
+  const [showCollectModal, setShowCollectModal] = useState<boolean>(false);
+  const isFreeCollect = publication?.collectModule?.__typename === 'FreeCollectModuleSettings';
 
   useEffect(() => {
-    if (
-      publication?.mirrorOf?.stats?.totalAmountOfCollects ||
-      publication?.stats?.totalAmountOfCollects
-    ) {
+    if (publication?.mirrorOf?.stats?.totalAmountOfCollects || publication?.stats?.totalAmountOfCollects) {
       setCount(
         publication.__typename === 'Mirror'
           ? publication?.mirrorOf?.stats?.totalAmountOfCollects
           : publication?.stats?.totalAmountOfCollects
-      )
+      );
     }
-  }, [publication])
+  }, [publication]);
 
   return (
     <>
       <motion.button
         whileTap={{ scale: 0.9 }}
         onClick={() => {
-          setShowCollectModal(true)
-          Mixpanel.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECT)
+          setShowCollectModal(true);
+          Mixpanel.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECT);
         }}
         aria-label="Collect"
       >
@@ -60,25 +56,15 @@ const Collect: FC<Props> = ({ publication }) => {
               <CollectionIcon className="w-[15px] sm:w-[18px]" />
             </Tooltip>
           </div>
-          {count > 0 && (
-            <div className="text-[11px] sm:text-xs">{nFormatter(count)}</div>
-          )}
+          {count > 0 && <div className="text-[11px] sm:text-xs">{nFormatter(count)}</div>}
         </div>
       </motion.button>
       <Modal
-        title={
-          isFreeCollect
-            ? 'Free Collect'
-            : getModule(publication?.collectModule?.type).name
-        }
+        title={isFreeCollect ? 'Free Collect' : getModule(publication?.collectModule?.type).name}
         icon={
           <div className="text-brand">
             <GetModuleIcon
-              module={
-                isFreeCollect
-                  ? 'FreeCollectModule'
-                  : publication?.collectModule?.type
-              }
+              module={isFreeCollect ? 'FreeCollectModule' : publication?.collectModule?.type}
               size={5}
             />
           </div>
@@ -86,14 +72,10 @@ const Collect: FC<Props> = ({ publication }) => {
         show={showCollectModal}
         onClose={() => setShowCollectModal(false)}
       >
-        <CollectModule
-          publication={publication}
-          count={count}
-          setCount={setCount}
-        />
+        <CollectModule publication={publication} count={count} setCount={setCount} />
       </Modal>
     </>
-  )
-}
+  );
+};
 
-export default Collect
+export default Collect;

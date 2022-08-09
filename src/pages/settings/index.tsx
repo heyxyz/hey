@@ -1,3 +1,3 @@
-import ProfileSettings from '@components/Settings/Profile'
+import ProfileSettings from '@components/Settings/Profile';
 
-export default ProfileSettings
+export default ProfileSettings;

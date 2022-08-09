@@ -1,4 +1,4 @@
-import humanize from './humanize'
+import humanize from './humanize';
 
 const nFormatter = (num: number, digits = 1): string => {
   const lookup = [
@@ -9,20 +9,20 @@ const nFormatter = (num: number, digits = 1): string => {
     { value: 1e12, symbol: 'T' },
     { value: 1e15, symbol: 'P' },
     { value: 1e18, symbol: 'E' }
-  ]
-  const rx = /\.0+$|(\.[0-9]*[1-9])0+$/
+  ];
+  const rx = /\.0+$|(\.[0-9]*[1-9])0+$/;
   const item = lookup
     .slice()
     .reverse()
     .find(function (item) {
-      return num >= item.value
-    })
+      return num >= item.value;
+    });
 
   return item
     ? num < 10000
       ? humanize(num)
       : (num / item.value).toFixed(digits).replace(rx, '$1') + item.symbol
-    : '0'
-}
+    : '0';
+};
 
-export default nFormatter
+export default nFormatter;

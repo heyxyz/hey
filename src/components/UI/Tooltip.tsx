@@ -1,14 +1,14 @@
-import 'tippy.js/dist/tippy.css'
+import 'tippy.js/dist/tippy.css';
 
-import Tippy from '@tippyjs/react'
-import clsx from 'clsx'
-import React, { FC, ReactNode } from 'react'
+import Tippy from '@tippyjs/react';
+import clsx from 'clsx';
+import React, { FC, ReactNode } from 'react';
 interface Props {
-  children: ReactNode
-  content: ReactNode
-  placement?: 'top' | 'right'
-  className?: string
-  withDelay?: boolean
+  children: ReactNode;
+  content: ReactNode;
+  placement?: 'top' | 'right';
+  className?: string;
+  withDelay?: boolean;
 }
 
 export const Tooltip: FC<Props> = ({
@@ -28,5 +28,5 @@ export const Tooltip: FC<Props> = ({
     >
       <span>{children}</span>
     </Tippy>
-  )
-}
+  );
+};

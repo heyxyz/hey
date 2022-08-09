@@ -1,15 +1,15 @@
-import { Tooltip } from '@components/UI/Tooltip'
-import { Profile } from '@generated/types'
-import { CheckCircleIcon } from '@heroicons/react/solid'
-import React, { FC } from 'react'
-import { STATIC_ASSETS } from 'src/constants'
+import { Tooltip } from '@components/UI/Tooltip';
+import { Profile } from '@generated/types';
+import { CheckCircleIcon } from '@heroicons/react/solid';
+import React, { FC } from 'react';
+import { STATIC_ASSETS } from 'src/constants';
 
 interface Props {
-  profile: Profile
+  profile: Profile;
 }
 
 const ProofOfHumanity: FC<Props> = ({ profile }) => {
-  if (!profile?.onChainIdentity?.proofOfHumanity) return null
+  if (!profile?.onChainIdentity?.proofOfHumanity) return null;
 
   return (
     <Tooltip
@@ -29,7 +29,7 @@ const ProofOfHumanity: FC<Props> = ({ profile }) => {
         alt="Proof Of Humanity Badge"
       />
     </Tooltip>
-  )
-}
+  );
+};
 
-export default ProofOfHumanity
+export default ProofOfHumanity;

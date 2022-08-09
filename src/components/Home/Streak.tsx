@@ -1,7 +1,7 @@
-import { Card, CardBody } from '@components/UI/Card'
-import { motion } from 'framer-motion'
-import { STATIC_ASSETS } from 'src/constants'
-import { useStreak } from 'use-streak'
+import { Card, CardBody } from '@components/UI/Card';
+import { motion } from 'framer-motion';
+import { STATIC_ASSETS } from 'src/constants';
+import { useStreak } from 'use-streak';
 
 const Day = ({ day }: { day: number }) => (
   <motion.button whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
@@ -13,29 +13,27 @@ const Day = ({ day }: { day: number }) => (
       alt={`Day ${day}`}
     />
   </motion.button>
-)
+);
 
 const Streak = () => {
-  const today = new Date()
+  const today = new Date();
   const streak =
     // eslint-disable-next-line
-    typeof window !== 'undefined' ? useStreak(localStorage, today) : undefined
+    typeof window !== 'undefined' ? useStreak(localStorage, today) : undefined;
 
-  if ((streak?.currentCount as number) > 5) return null
+  if ((streak?.currentCount as number) > 5) return null;
 
   return (
     <Card className="mb-4">
       <CardBody className="flex justify-between items-center space-y-2">
         <div>
           <div>You&rsquo;re on a</div>
-          <div className="text-xl">
-            {streak && streak.currentCount} day streak 🌿
-          </div>
+          <div className="text-xl">{streak && streak.currentCount} day streak 🌿</div>
         </div>
         <div>{streak && <Day day={streak.currentCount} />}</div>
       </CardBody>
     </Card>
-  )
-}
+  );
+};
 
-export default Streak
+export default Streak;

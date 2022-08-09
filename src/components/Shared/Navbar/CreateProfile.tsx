@@ -1,15 +1,15 @@
-import { Menu, Transition } from '@headlessui/react'
-import { LogoutIcon } from '@heroicons/react/outline'
-import { Mixpanel } from '@lib/mixpanel'
-import clsx from 'clsx'
-import Cookies from 'js-cookie'
-import { FC, Fragment } from 'react'
-import { USER } from 'src/tracking'
-import { useAccount, useDisconnect } from 'wagmi'
+import { Menu, Transition } from '@headlessui/react';
+import { LogoutIcon } from '@heroicons/react/outline';
+import { Mixpanel } from '@lib/mixpanel';
+import clsx from 'clsx';
+import Cookies from 'js-cookie';
+import { FC, Fragment } from 'react';
+import { USER } from 'src/tracking';
+import { useAccount, useDisconnect } from 'wagmi';
 
 const CreateProfile: FC = () => {
-  const { disconnect } = useDisconnect()
-  const { address } = useAccount()
+  const { disconnect } = useDisconnect();
+  const { address } = useAccount();
 
   return (
     <Menu as="div">
@@ -38,11 +38,11 @@ const CreateProfile: FC = () => {
               <Menu.Item
                 as="a"
                 onClick={() => {
-                  Mixpanel.track(USER.LOGOUT)
-                  Cookies.remove('accessToken')
-                  Cookies.remove('refreshToken')
-                  localStorage.removeItem('lenster.store')
-                  if (disconnect) disconnect()
+                  Mixpanel.track(USER.LOGOUT);
+                  Cookies.remove('accessToken');
+                  Cookies.remove('refreshToken');
+                  localStorage.removeItem('lenster.store');
+                  if (disconnect) disconnect();
                 }}
                 className={({ active }: { active: boolean }) =>
                   clsx({ 'dropdown-active': active }, 'menu-item')
@@ -58,7 +58,7 @@ const CreateProfile: FC = () => {
         </>
       )}
     </Menu>
-  )
-}
+  );
+};
 
-export default CreateProfile
+export default CreateProfile;
