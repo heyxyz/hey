@@ -52,7 +52,7 @@
     "react-mentions": "4.4.7",
     "use-streak": "^1.0.4",
     "uuid": "^8.3.2",
-    "wagmi": "^0.6.1",
+    "wagmi": "^0.6.2",
     "zod": "^3.17.10",
     "zustand": "^4.0.0"
   },
