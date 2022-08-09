@@ -11,6 +11,9 @@
     <a href="https://deepsource.io/gh/lensterxyz/lenster">
         <img src="https://deepsource.io/gh/lensterxyz/lenster.svg/?label=active+issues&show_trend=true" alt="GitHub actions">
     </a>
+    <a href="https://github.com/orgs/lensterxyz/projects/1/views/2">
+        <img src="https://img.shields.io/badge/Help%20wanted-contribute-blue" alt="Help wanted">
+    </a>
     <a href="https://lenster.checklyhq.com">
         <img src="https://api.checklyhq.com/v1/badges/checks/4c205fee-8666-4dc8-bc92-077084ef9643?style=flat&theme=default&responseTime=true" alt="Checkly">
     </a>
