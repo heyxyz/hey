@@ -1,8 +1,8 @@
 /** @type {import('next').NextConfig} */
-const { withSentryConfig } = require('@sentry/nextjs')
-const withTM = require('next-transpile-modules')(['plyr-react'])
+const { withSentryConfig } = require('@sentry/nextjs');
+const withTM = require('next-transpile-modules')(['plyr-react']);
 
-const headers = [{ key: 'Cache-Control', value: 'public, max-age=3600' }]
+const headers = [{ key: 'Cache-Control', value: 'public, max-age=3600' }];
 
 module.exports = withTM(
   withSentryConfig(
@@ -19,7 +19,7 @@ module.exports = withTM(
             source: '/sitemaps/:match*',
             destination: 'https://sitemap.lenster.xyz/sitemaps/:match*'
           }
-        ]
+        ];
       },
       async redirects() {
         return [
@@ -33,7 +33,7 @@ module.exports = withTM(
             destination: 'https://gitcoin.co/grants/5007/lenster',
             permanent: true
           }
-        ]
+        ];
       },
       async headers() {
         return [
@@ -50,9 +50,9 @@ module.exports = withTM(
           { source: '/about', headers },
           { source: '/privacy', headers },
           { source: '/thanks', headers }
-        ]
+        ];
       }
     },
     { silent: true } // Sentry config
   )
-)
+);

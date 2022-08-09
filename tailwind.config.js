@@ -1,5 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-const colors = require('tailwindcss/colors')
+const colors = require('tailwindcss/colors');
 
 module.exports = {
   content: ['./src/**/*.{js,ts,jsx,tsx}'],
@@ -43,7 +43,7 @@ module.exports = {
               'tbody tr': { borderBottomColor: theme('colors.gray.800') }
             }
           }
-        }
+        };
       }
     }
   },
@@ -55,4 +55,4 @@ module.exports = {
     require('@tailwindcss/forms'),
     require('@tailwindcss/line-clamp')
   ]
-}
+};
