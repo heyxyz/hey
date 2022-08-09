@@ -1,32 +1,24 @@
-import { Menu, Transition } from '@headlessui/react'
+import { Menu, Transition } from '@headlessui/react';
 import {
   ChartPieIcon,
   GlobeAltIcon,
   HashtagIcon,
   SwitchVerticalIcon,
   TerminalIcon
-} from '@heroicons/react/outline'
-import clsx from 'clsx'
-import React, { FC, Fragment, ReactNode } from 'react'
-import {
-  GIT_COMMIT_REF,
-  GIT_COMMIT_SHA,
-  IS_MAINNET,
-  IS_PRODUCTION,
-  RELAY_ON
-} from 'src/constants'
+} from '@heroicons/react/outline';
+import clsx from 'clsx';
+import React, { FC, Fragment, ReactNode } from 'react';
+import { GIT_COMMIT_REF, GIT_COMMIT_SHA, IS_MAINNET, IS_PRODUCTION, RELAY_ON } from 'src/constants';
 
-import Stats from './Stats'
+import Stats from './Stats';
 
 interface Props {
-  children: ReactNode
+  children: ReactNode;
 }
 
 const Badge: FC<Props> = ({ children }) => (
-  <span className="py-0.5 px-1.5 text-xs font-bold bg-gray-300 rounded-md dark:bg-gray-900">
-    {children}
-  </span>
-)
+  <span className="py-0.5 px-1.5 text-xs font-bold bg-gray-300 rounded-md dark:bg-gray-900">{children}</span>
+);
 
 const StaffBar: FC = () => {
   return (
@@ -36,34 +28,23 @@ const StaffBar: FC = () => {
           <div className="flex items-center space-x-1">
             <GlobeAltIcon className="w-4 h-4 text-green-500" />
             <Badge>
-              prod{' '}
-              <span className="text-[10px]">
-                ({IS_MAINNET ? 'mainnet' : 'testnet'})
-              </span>
+              prod <span className="text-[10px]">({IS_MAINNET ? 'mainnet' : 'testnet'})</span>
             </Badge>
           </div>
         ) : (
           <div className="flex items-center space-x-1">
             <GlobeAltIcon className="w-4 h-4 text-yellow-500" />
             <Badge>
-              dev{' '}
-              <span className="text-[10px]">
-                ({IS_MAINNET ? 'mainnet' : 'testnet'})
-              </span>
+              dev <span className="text-[10px]">({IS_MAINNET ? 'mainnet' : 'testnet'})</span>
             </Badge>
           </div>
         )}
         <div className="hidden items-center space-x-1 sm:flex">
           <SwitchVerticalIcon
-            className={clsx(
-              RELAY_ON ? ' text-green-500' : ' text-yellow-500',
-              'w-4 h-4'
-            )}
+            className={clsx(RELAY_ON ? ' text-green-500' : ' text-yellow-500', 'w-4 h-4')}
           />
           <Badge>
-            <span className="text-[10px]">
-              {RELAY_ON ? 'Relay enabled' : 'Relay disabled'}
-            </span>
+            <span className="text-[10px]">{RELAY_ON ? 'Relay enabled' : 'Relay disabled'}</span>
           </Badge>
         </div>
         {GIT_COMMIT_REF && (
@@ -118,7 +99,7 @@ const StaffBar: FC = () => {
         )}
       </Menu>
     </div>
-  )
-}
+  );
+};
 
-export default StaffBar
+export default StaffBar;

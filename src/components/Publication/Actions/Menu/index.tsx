@@ -1,26 +1,23 @@
-import { NextLink } from '@components/Shared/Navbar/MenuItems'
-import { LensterPublication } from '@generated/lenstertypes'
-import { Menu, Transition } from '@headlessui/react'
-import {
-  DotsHorizontalIcon,
-  ShieldExclamationIcon
-} from '@heroicons/react/outline'
-import { Mixpanel } from '@lib/mixpanel'
-import clsx from 'clsx'
-import { FC, Fragment } from 'react'
-import { useAppPersistStore } from 'src/store/app'
-import { PUBLICATION } from 'src/tracking'
+import { NextLink } from '@components/Shared/Navbar/MenuItems';
+import { LensterPublication } from '@generated/lenstertypes';
+import { Menu, Transition } from '@headlessui/react';
+import { DotsHorizontalIcon, ShieldExclamationIcon } from '@heroicons/react/outline';
+import { Mixpanel } from '@lib/mixpanel';
+import clsx from 'clsx';
+import { FC, Fragment } from 'react';
+import { useAppPersistStore } from 'src/store/app';
+import { PUBLICATION } from 'src/tracking';
 
-import Delete from './Delete'
-import Embed from './Embed'
-import Permalink from './Permalink'
+import Delete from './Delete';
+import Embed from './Embed';
+import Permalink from './Permalink';
 
 interface Props {
-  publication: LensterPublication
+  publication: LensterPublication;
 }
 
 const PublicationMenu: FC<Props> = ({ publication }) => {
-  const currentUser = useAppPersistStore((state) => state.currentUser)
+  const currentUser = useAppPersistStore((state) => state.currentUser);
 
   return (
     <Menu as="div">
@@ -29,11 +26,11 @@ const PublicationMenu: FC<Props> = ({ publication }) => {
           <Menu.Button
             className="p-1.5 rounded-full hover:bg-gray-300 hover:bg-opacity-20"
             onClick={() => {
-              Mixpanel.track(PUBLICATION.MORE)
+              Mixpanel.track(PUBLICATION.MORE);
             }}
             aria-label="More"
           >
-            <DotsHorizontalIcon className="w-5 h-5 text-gray-500 dark:text-gray-300" />
+            <DotsHorizontalIcon className="w-[15px] sm:w-[18px] text-gray-500 dark:text-gray-300" />
           </Menu.Button>
           <Transition
             show={open}
@@ -75,7 +72,7 @@ const PublicationMenu: FC<Props> = ({ publication }) => {
         </>
       )}
     </Menu>
-  )
-}
+  );
+};
 
-export default PublicationMenu
+export default PublicationMenu;

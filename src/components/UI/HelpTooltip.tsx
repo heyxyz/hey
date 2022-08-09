@@ -1,15 +1,15 @@
-import 'tippy.js/dist/tippy.css'
+import 'tippy.js/dist/tippy.css';
 
-import { InformationCircleIcon } from '@heroicons/react/outline'
-import Tippy from '@tippyjs/react'
-import React, { FC, ReactNode } from 'react'
+import { InformationCircleIcon } from '@heroicons/react/outline';
+import Tippy from '@tippyjs/react';
+import React, { FC, ReactNode } from 'react';
 
 interface Props {
-  content: ReactNode
+  content: ReactNode;
 }
 
 const HelpTooltip: FC<Props> = ({ content }) => {
-  if (!content) return null
+  if (!content) return null;
 
   return (
     <Tippy
@@ -20,7 +20,7 @@ const HelpTooltip: FC<Props> = ({ content }) => {
     >
       <InformationCircleIcon className="text-gray-500 h-[15px] w-[15px]" />
     </Tippy>
-  )
-}
+  );
+};
 
-export default HelpTooltip
+export default HelpTooltip;

@@ -1,22 +1,22 @@
-import { gql, useQuery } from '@apollo/client'
-import SinglePublication from '@components/Publication/SinglePublication'
-import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer'
-import { Card } from '@components/UI/Card'
-import { EmptyState } from '@components/UI/EmptyState'
-import { ErrorMessage } from '@components/UI/ErrorMessage'
-import { Spinner } from '@components/UI/Spinner'
-import { LensterPublication } from '@generated/lenstertypes'
-import { PaginatedResultInfo } from '@generated/types'
-import { CommentFields } from '@gql/CommentFields'
-import { CollectionIcon } from '@heroicons/react/outline'
-import { Mixpanel } from '@lib/mixpanel'
-import React, { FC, useState } from 'react'
-import { useInView } from 'react-cool-inview'
-import { useAppPersistStore } from 'src/store/app'
-import { PAGINATION } from 'src/tracking'
+import { gql, useQuery } from '@apollo/client';
+import SinglePublication from '@components/Publication/SinglePublication';
+import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
+import { Card } from '@components/UI/Card';
+import { EmptyState } from '@components/UI/EmptyState';
+import { ErrorMessage } from '@components/UI/ErrorMessage';
+import { Spinner } from '@components/UI/Spinner';
+import { LensterPublication } from '@generated/lenstertypes';
+import { PaginatedResultInfo } from '@generated/types';
+import { CommentFields } from '@gql/CommentFields';
+import { CollectionIcon } from '@heroicons/react/outline';
+import { Mixpanel } from '@lib/mixpanel';
+import React, { FC, useState } from 'react';
+import { useInView } from 'react-cool-inview';
+import { useAppPersistStore } from 'src/store/app';
+import { PAGINATION } from 'src/tracking';
 
-import ReferenceAlert from '../Shared/ReferenceAlert'
-import NewComment from './NewComment'
+import ReferenceAlert from '../Shared/ReferenceAlert';
+import NewComment from './NewComment';
 
 const COMMENT_FEED_QUERY = gql`
   query CommentFeed(
@@ -37,28 +37,20 @@ const COMMENT_FEED_QUERY = gql`
     }
   }
   ${CommentFields}
-`
+`;
 
 interface Props {
-  publication: LensterPublication
-  type?: 'comment' | 'community post'
-  onlyFollowers?: boolean
-  isFollowing?: boolean
+  publication: LensterPublication;
+  type?: 'comment' | 'community post';
+  onlyFollowers?: boolean;
+  isFollowing?: boolean;
 }
 
-const Feed: FC<Props> = ({
-  publication,
-  type = 'comment',
-  onlyFollowers = false,
-  isFollowing = true
-}) => {
-  const pubId =
-    publication?.__typename === 'Mirror'
-      ? publication?.mirrorOf?.id
-      : publication?.id
-  const currentUser = useAppPersistStore((state) => state.currentUser)
-  const [publications, setPublications] = useState<LensterPublication[]>([])
-  const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
+const Feed: FC<Props> = ({ publication, type = 'comment', onlyFollowers = false, isFollowing = true }) => {
+  const pubId = publication?.__typename === 'Mirror' ? publication?.mirrorOf?.id : publication?.id;
+  const currentUser = useAppPersistStore((state) => state.currentUser);
+  const [publications, setPublications] = useState<LensterPublication[]>([]);
+  const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>();
   const { data, loading, error, fetchMore } = useQuery(COMMENT_FEED_QUERY, {
     variables: {
       request: { commentsOf: pubId, limit: 10 },
@@ -68,10 +60,10 @@ const Feed: FC<Props> = ({
     skip: !pubId,
     fetchPolicy: 'no-cache',
     onCompleted(data) {
-      setPageInfo(data?.publications?.pageInfo)
-      setPublications(data?.publications?.items)
+      setPageInfo(data?.publications?.pageInfo);
+      setPublications(data?.publications?.items);
     }
-  })
+  });
 
   const { observe } = useInView({
     onEnter: async () => {
@@ -85,17 +77,12 @@ const Feed: FC<Props> = ({
           reactionRequest: currentUser ? { profileId: currentUser?.id } : null,
           profileId: currentUser?.id ?? null
         }
-      })
-      setPageInfo(data?.publications?.pageInfo)
-      setPublications([...publications, ...data?.publications?.items])
-      Mixpanel.track(
-        type === 'comment'
-          ? PAGINATION.COMMENT_FEED
-          : PAGINATION.COMMUNITY_FEED,
-        { pageInfo }
-      )
+      });
+      setPageInfo(data?.publications?.pageInfo);
+      setPublications([...publications, ...data?.publications?.items]);
+      Mixpanel.track(type === 'comment' ? PAGINATION.COMMENT_FEED : PAGINATION.COMMUNITY_FEED, { pageInfo });
     }
-  })
+  });
 
   return (
     <>
@@ -105,10 +92,7 @@ const Feed: FC<Props> = ({
         ) : (
           <ReferenceAlert
             handle={publication?.profile?.handle}
-            isSuperFollow={
-              publication?.profile?.followModule?.__typename ===
-              'FeeFollowModuleSettings'
-            }
+            isSuperFollow={publication?.profile?.followModule?.__typename === 'FeeFollowModuleSettings'}
             action="comment"
           />
         ))}
@@ -124,11 +108,7 @@ const Feed: FC<Props> = ({
         <>
           <Card className="divide-y-[1px] dark:divide-gray-700/80">
             {publications?.map((post: LensterPublication, index: number) => (
-              <SinglePublication
-                key={`${pubId}_${index}`}
-                publication={post}
-                showType={false}
-              />
+              <SinglePublication key={`${pubId}_${index}`} publication={post} showType={false} />
             ))}
           </Card>
           {pageInfo?.next && publications.length !== pageInfo?.totalCount && (
@@ -139,7 +119,7 @@ const Feed: FC<Props> = ({
         </>
       )}
     </>
-  )
-}
+  );
+};
 
-export default Feed
+export default Feed;

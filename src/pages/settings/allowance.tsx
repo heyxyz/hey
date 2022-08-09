@@ -1,3 +1,3 @@
-import AllowanceSettings from '@components/Settings/Allowance'
+import AllowanceSettings from '@components/Settings/Allowance';
 
-export default AllowanceSettings
+export default AllowanceSettings;

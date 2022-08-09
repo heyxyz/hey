@@ -1,18 +1,18 @@
-import UserProfile from '@components/Shared/UserProfile'
-import { LensterPublication } from '@generated/lenstertypes'
-import dayjs from 'dayjs'
-import relativeTime from 'dayjs/plugin/relativeTime'
-import Link from 'next/link'
-import React, { FC } from 'react'
+import UserProfile from '@components/Shared/UserProfile';
+import { LensterPublication } from '@generated/lenstertypes';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import Link from 'next/link';
+import React, { FC } from 'react';
 
-import PublicationActions from './Actions'
-import HiddenPublication from './HiddenPublication'
-import PublicationBody from './PublicationBody'
+import PublicationActions from './Actions';
+import HiddenPublication from './HiddenPublication';
+import PublicationBody from './PublicationBody';
 
-dayjs.extend(relativeTime)
+dayjs.extend(relativeTime);
 
 interface Props {
-  publication: LensterPublication
+  publication: LensterPublication;
 }
 
 const ThreadBody: FC<Props> = ({ publication }) => {
@@ -29,10 +29,7 @@ const ThreadBody: FC<Props> = ({ publication }) => {
           }
         />
         <Link href={`/posts/${publication?.id ?? publication?.pubId}`}>
-          <a
-            href={`/posts/${publication?.id ?? publication?.pubId}`}
-            className="text-sm text-gray-500"
-          >
+          <a href={`/posts/${publication?.id ?? publication?.pubId}`} className="text-sm text-gray-500">
             {dayjs(new Date(publication?.createdAt)).fromNow()}
           </a>
         </Link>
@@ -51,7 +48,7 @@ const ThreadBody: FC<Props> = ({ publication }) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default ThreadBody
+export default ThreadBody;

@@ -34,4 +34,4 @@ export const apps = [
     name: 'Lenstube Bytes',
     logo: 'lenstube.svg'
   }
-]
+];

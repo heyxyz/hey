@@ -1,8 +1,8 @@
-import { Spinner } from '@components/UI/Spinner'
-import { FC } from 'react'
+import { Spinner } from '@components/UI/Spinner';
+import { FC } from 'react';
 
 interface Props {
-  message: string
+  message: string;
 }
 
 const Loader: FC<Props> = ({ message }) => {
@@ -11,7 +11,7 @@ const Loader: FC<Props> = ({ message }) => {
       <Spinner size="md" className="mx-auto" />
       <div>{message}</div>
     </div>
-  )
-}
+  );
+};
 
-export default Loader
+export default Loader;

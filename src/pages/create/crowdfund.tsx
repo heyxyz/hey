@@ -1,3 +1,3 @@
-import Create from '@components/Crowdfund/Create'
+import Create from '@components/Crowdfund/Create';
 
-export default Create
+export default Create;

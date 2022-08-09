@@ -1,5 +1,5 @@
-import { Card, CardBody } from '@components/UI/Card'
-import { FC } from 'react'
+import { Card, CardBody } from '@components/UI/Card';
+import { FC } from 'react';
 
 const NFTShimmer: FC = () => {
   return (
@@ -10,7 +10,7 @@ const NFTShimmer: FC = () => {
         <div className="w-1/3 h-3 rounded-lg shimmer" />
       </div>
     </Card>
-  )
-}
+  );
+};
 
-export default NFTShimmer
+export default NFTShimmer;

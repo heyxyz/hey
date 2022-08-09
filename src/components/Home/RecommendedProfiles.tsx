@@ -1,16 +1,16 @@
-import { gql, useQuery } from '@apollo/client'
-import UserProfileShimmer from '@components/Shared/Shimmer/UserProfileShimmer'
-import UserProfile from '@components/Shared/UserProfile'
-import { Card, CardBody } from '@components/UI/Card'
-import { EmptyState } from '@components/UI/EmptyState'
-import { ErrorMessage } from '@components/UI/ErrorMessage'
-import { Profile } from '@generated/types'
-import { MinimalProfileFields } from '@gql/MinimalProfileFields'
-import { UsersIcon } from '@heroicons/react/outline'
-import { LightningBoltIcon, SparklesIcon } from '@heroicons/react/solid'
-import randomizeArray from '@lib/randomizeArray'
-import React, { FC } from 'react'
-import { useAppPersistStore } from 'src/store/app'
+import { gql, useQuery } from '@apollo/client';
+import UserProfileShimmer from '@components/Shared/Shimmer/UserProfileShimmer';
+import UserProfile from '@components/Shared/UserProfile';
+import { Card, CardBody } from '@components/UI/Card';
+import { EmptyState } from '@components/UI/EmptyState';
+import { ErrorMessage } from '@components/UI/ErrorMessage';
+import { Profile } from '@generated/types';
+import { MinimalProfileFields } from '@gql/MinimalProfileFields';
+import { UsersIcon } from '@heroicons/react/outline';
+import { LightningBoltIcon, SparklesIcon } from '@heroicons/react/solid';
+import randomizeArray from '@lib/randomizeArray';
+import React, { FC } from 'react';
+import { useAppPersistStore } from 'src/store/app';
 
 const RECOMMENDED_PROFILES_QUERY = gql`
   query RecommendedProfiles {
@@ -20,10 +20,10 @@ const RECOMMENDED_PROFILES_QUERY = gql`
     }
   }
   ${MinimalProfileFields}
-`
+`;
 
 const Title = () => {
-  const currentUser = useAppPersistStore((state) => state.currentUser)
+  const currentUser = useAppPersistStore((state) => state.currentUser);
 
   return (
     <div className="flex gap-2 items-center px-5 mb-2 sm:px-0">
@@ -39,11 +39,11 @@ const Title = () => {
         </>
       )}
     </div>
-  )
-}
+  );
+};
 
 const RecommendedProfiles: FC = () => {
-  const { data, loading, error } = useQuery(RECOMMENDED_PROFILES_QUERY)
+  const { data, loading, error } = useQuery(RECOMMENDED_PROFILES_QUERY);
 
   if (loading)
     return (
@@ -59,7 +59,7 @@ const RecommendedProfiles: FC = () => {
           </CardBody>
         </Card>
       </>
-    )
+    );
 
   if (data?.recommendedProfiles?.length === 0)
     return (
@@ -74,7 +74,7 @@ const RecommendedProfiles: FC = () => {
           icon={<UsersIcon className="w-8 h-8 text-brand" />}
         />
       </>
-    )
+    );
 
   return (
     <>
@@ -86,17 +86,13 @@ const RecommendedProfiles: FC = () => {
             ?.slice(0, 5)
             ?.map((profile: Profile) => (
               <div key={profile?.id} className="truncate">
-                <UserProfile
-                  profile={profile}
-                  isFollowing={profile.isFollowedByMe}
-                  showFollow
-                />
+                <UserProfile profile={profile} isFollowing={profile.isFollowedByMe} showFollow />
               </div>
             ))}
         </CardBody>
       </Card>
     </>
-  )
-}
+  );
+};
 
-export default RecommendedProfiles
+export default RecommendedProfiles;

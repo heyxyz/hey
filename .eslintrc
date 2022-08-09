@@ -4,12 +4,7 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "plugins": [
-    "@typescript-eslint",
-    "unused-imports",
-    "simple-import-sort",
-    "prettier"
-  ],
+  "plugins": ["@typescript-eslint", "unused-imports", "simple-import-sort", "prettier"],
   "extends": ["next", "next/core-web-vitals"],
   "rules": {
     "prettier/prettier": "error",

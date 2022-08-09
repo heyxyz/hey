@@ -1,23 +1,20 @@
-import { LensHubProxy } from '@abis/LensHubProxy'
-import { gql, useMutation, useQuery } from '@apollo/client'
-import IndexStatus from '@components/Shared/IndexStatus'
-import { Button } from '@components/UI/Button'
-import { Card } from '@components/UI/Card'
-import { Form, useZodForm } from '@components/UI/Form'
-import { Input } from '@components/UI/Input'
-import { Spinner } from '@components/UI/Spinner'
-import {
-  CreateSetFollowModuleBroadcastItemResult,
-  Erc20
-} from '@generated/types'
-import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
-import { StarIcon, XIcon } from '@heroicons/react/outline'
-import getTokenImage from '@lib/getTokenImage'
-import { Mixpanel } from '@lib/mixpanel'
-import omit from '@lib/omit'
-import splitSignature from '@lib/splitSignature'
-import React, { FC, useState } from 'react'
-import toast from 'react-hot-toast'
+import { LensHubProxy } from '@abis/LensHubProxy';
+import { gql, useMutation, useQuery } from '@apollo/client';
+import IndexStatus from '@components/Shared/IndexStatus';
+import { Button } from '@components/UI/Button';
+import { Card } from '@components/UI/Card';
+import { Form, useZodForm } from '@components/UI/Form';
+import { Input } from '@components/UI/Input';
+import { Spinner } from '@components/UI/Spinner';
+import { CreateSetFollowModuleBroadcastItemResult, Erc20 } from '@generated/types';
+import { BROADCAST_MUTATION } from '@gql/BroadcastMutation';
+import { StarIcon, XIcon } from '@heroicons/react/outline';
+import getTokenImage from '@lib/getTokenImage';
+import { Mixpanel } from '@lib/mixpanel';
+import omit from '@lib/omit';
+import splitSignature from '@lib/splitSignature';
+import React, { FC, useState } from 'react';
+import toast from 'react-hot-toast';
 import {
   ADDRESS_REGEX,
   DEFAULT_COLLECT_TOKEN,
@@ -26,18 +23,18 @@ import {
   LENSHUB_PROXY,
   RELAY_ON,
   SIGN_WALLET
-} from 'src/constants'
-import { useAppPersistStore, useAppStore } from 'src/store/app'
-import { SETTINGS } from 'src/tracking'
-import { useContractWrite, useSignTypedData } from 'wagmi'
-import { object, string } from 'zod'
+} from 'src/constants';
+import { useAppPersistStore, useAppStore } from 'src/store/app';
+import { SETTINGS } from 'src/tracking';
+import { useContractWrite, useSignTypedData } from 'wagmi';
+import { object, string } from 'zod';
 
 const newCrowdfundSchema = object({
   amount: string().min(1, { message: 'Invalid amount' }),
   recipient: string()
     .max(42, { message: 'Ethereum address should be within 42 characters' })
     .regex(ADDRESS_REGEX, { message: 'Invalid Ethereum address' })
-})
+});
 
 const MODULES_CURRENCY_QUERY = gql`
   query EnabledCurrencyModules($request: SingleProfileQueryRequest!) {
@@ -53,7 +50,7 @@ const MODULES_CURRENCY_QUERY = gql`
       }
     }
   }
-`
+`;
 
 export const CREATE_SET_FOLLOW_MODULE_TYPED_DATA_MUTATION = gql`
   mutation CreateSetFollowModuleTypedData(
@@ -86,33 +83,30 @@ export const CREATE_SET_FOLLOW_MODULE_TYPED_DATA_MUTATION = gql`
       }
     }
   }
-`
+`;
 
 const SuperFollow: FC = () => {
-  const userSigNonce = useAppStore((state) => state.userSigNonce)
-  const setUserSigNonce = useAppStore((state) => state.setUserSigNonce)
-  const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated)
-  const currentUser = useAppPersistStore((state) => state.currentUser)
-  const [selectedCurrency, setSelectedCurrency] = useState<string>(
-    DEFAULT_COLLECT_TOKEN
-  )
-  const [selectedCurrencySymobol, setSelectedCurrencySymobol] =
-    useState<string>('WMATIC')
+  const userSigNonce = useAppStore((state) => state.userSigNonce);
+  const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
+  const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
+  const currentUser = useAppPersistStore((state) => state.currentUser);
+  const [selectedCurrency, setSelectedCurrency] = useState<string>(DEFAULT_COLLECT_TOKEN);
+  const [selectedCurrencySymobol, setSelectedCurrencySymobol] = useState<string>('WMATIC');
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
-      toast.error(error?.message)
+      toast.error(error?.message);
     }
-  })
+  });
   const { data: currencyData, loading } = useQuery(MODULES_CURRENCY_QUERY, {
     variables: { request: { profileId: currentUser?.id } },
     skip: !currentUser?.id
-  })
+  });
 
   const onCompleted = () => {
     Mixpanel.track(SETTINGS.ACCOUNT.SET_SUPER_FOLLOW, {
       result: 'success'
-    })
-  }
+    });
+  };
 
   const {
     data: writeData,
@@ -124,77 +118,76 @@ const SuperFollow: FC = () => {
     functionName: 'setFollowModuleWithSig',
     mode: 'recklesslyUnprepared',
     onSuccess() {
-      onCompleted()
+      onCompleted();
     },
     onError(error: any) {
-      toast.error(error?.data?.message ?? error?.message)
+      toast.error(error?.data?.message ?? error?.message);
     }
-  })
+  });
 
   const form = useZodForm({
     schema: newCrowdfundSchema,
     defaultValues: {
       recipient: currentUser?.ownedBy
     }
-  })
+  });
 
-  const [broadcast, { data: broadcastData, loading: broadcastLoading }] =
-    useMutation(BROADCAST_MUTATION, {
-      onCompleted,
-      onError(error) {
-        if (error.message === ERRORS.notMined) {
-          toast.error(error.message)
-        }
-        Mixpanel.track(SETTINGS.ACCOUNT.SET_SUPER_FOLLOW, {
-          result: 'broadcast_error'
-        })
+  const [broadcast, { data: broadcastData, loading: broadcastLoading }] = useMutation(BROADCAST_MUTATION, {
+    onCompleted,
+    onError(error) {
+      if (error.message === ERRORS.notMined) {
+        toast.error(error.message);
       }
-    })
-  const [createSetFollowModuleTypedData, { loading: typedDataLoading }] =
-    useMutation(CREATE_SET_FOLLOW_MODULE_TYPED_DATA_MUTATION, {
+      Mixpanel.track(SETTINGS.ACCOUNT.SET_SUPER_FOLLOW, {
+        result: 'broadcast_error'
+      });
+    }
+  });
+  const [createSetFollowModuleTypedData, { loading: typedDataLoading }] = useMutation(
+    CREATE_SET_FOLLOW_MODULE_TYPED_DATA_MUTATION,
+    {
       async onCompleted({
         createSetFollowModuleTypedData
       }: {
-        createSetFollowModuleTypedData: CreateSetFollowModuleBroadcastItemResult
+        createSetFollowModuleTypedData: CreateSetFollowModuleBroadcastItemResult;
       }) {
-        const { id, typedData } = createSetFollowModuleTypedData
-        const { profileId, followModule, followModuleInitData, deadline } =
-          typedData?.value
+        const { id, typedData } = createSetFollowModuleTypedData;
+        const { profileId, followModule, followModuleInitData, deadline } = typedData?.value;
 
         try {
           const signature = await signTypedDataAsync({
             domain: omit(typedData?.domain, '__typename'),
             types: omit(typedData?.types, '__typename'),
             value: omit(typedData?.value, '__typename')
-          })
-          setUserSigNonce(userSigNonce + 1)
-          const { v, r, s } = splitSignature(signature)
-          const sig = { v, r, s, deadline }
+          });
+          setUserSigNonce(userSigNonce + 1);
+          const { v, r, s } = splitSignature(signature);
+          const sig = { v, r, s, deadline };
           const inputStruct = {
             profileId,
             followModule,
             followModuleInitData,
             sig
-          }
+          };
           if (RELAY_ON) {
             const {
               data: { broadcast: result }
-            } = await broadcast({ variables: { request: { id, signature } } })
+            } = await broadcast({ variables: { request: { id, signature } } });
 
-            if ('reason' in result)
-              write?.({ recklesslySetUnpreparedArgs: inputStruct })
+            if ('reason' in result) write?.({ recklesslySetUnpreparedArgs: inputStruct });
           } else {
-            write?.({ recklesslySetUnpreparedArgs: inputStruct })
+            write?.({ recklesslySetUnpreparedArgs: inputStruct });
           }
         } catch (error) {}
       },
       onError(error) {
-        toast.error(error.message ?? ERROR_MESSAGE)
+        toast.error(error.message ?? ERROR_MESSAGE);
       }
-    })
+    }
+  );
 
   const setSuperFollow = (amount: string | null, recipient: string | null) => {
-    if (!isAuthenticated) return toast.error(SIGN_WALLET)
+    if (!isAuthenticated) return toast.error(SIGN_WALLET);
 
     createSetFollowModuleTypedData({
       variables: {
@@ -216,8 +209,8 @@ const SuperFollow: FC = () => {
               }
         }
       }
-    })
-  }
+    });
+  };
 
   if (loading)
     return (
@@ -227,9 +220,9 @@ const SuperFollow: FC = () => {
           <div>Loading super follow settings</div>
         </div>
       </Card>
-    )
+    );
 
-  const followType = currencyData?.profile?.followModule?.__typename
+  const followType = currencyData?.profile?.followModule?.__typename;
 
   return (
     <Card>
@@ -237,30 +230,26 @@ const SuperFollow: FC = () => {
         form={form}
         className="p-5 space-y-4"
         onSubmit={({ amount, recipient }) => {
-          setSuperFollow(amount, recipient)
+          setSuperFollow(amount, recipient);
         }}
       >
         <div className="text-lg font-bold">Set super follow</div>
         <p>
-          Setting super follow makes users spend crypto to follow you, and
-          it&rsquo;s a good way to earn it, you can change the amount and
-          currency or disable/enable it anytime.
+          Setting super follow makes users spend crypto to follow you, and it&rsquo;s a good way to earn it,
+          you can change the amount and currency or disable/enable it anytime.
         </p>
         <div className="pt-2">
           <div className="label">Select Currency</div>
           <select
             className="w-full bg-white rounded-xl border border-gray-300 outline-none dark:bg-gray-800 disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 dark:border-gray-700/80 focus:border-brand-500 focus:ring-brand-400"
             onChange={(e) => {
-              const currency = e.target.value.split('-')
-              setSelectedCurrency(currency[0])
-              setSelectedCurrencySymobol(currency[1])
+              const currency = e.target.value.split('-');
+              setSelectedCurrency(currency[0]);
+              setSelectedCurrencySymobol(currency[1]);
             }}
           >
             {currencyData?.enabledModuleCurrencies?.map((currency: Erc20) => (
-              <option
-                key={currency.address}
-                value={`${currency.address}-${currency.symbol}`}
-              >
+              <option key={currency.address} value={`${currency.address}-${currency.symbol}`}>
                 {currency.name}
               </option>
             ))}
@@ -298,14 +287,9 @@ const SuperFollow: FC = () => {
                 variant="danger"
                 outline
                 onClick={() => {
-                  setSuperFollow(null, null)
+                  setSuperFollow(null, null);
                 }}
-                disabled={
-                  typedDataLoading ||
-                  signLoading ||
-                  writeLoading ||
-                  broadcastLoading
-                }
+                disabled={typedDataLoading || signLoading || writeLoading || broadcastLoading}
                 icon={<XIcon className="w-4 h-4" />}
               >
                 Disable Super follow
@@ -313,32 +297,19 @@ const SuperFollow: FC = () => {
             )}
             <Button
               type="submit"
-              disabled={
-                typedDataLoading ||
-                signLoading ||
-                writeLoading ||
-                broadcastLoading
-              }
+              disabled={typedDataLoading || signLoading || writeLoading || broadcastLoading}
               icon={<StarIcon className="w-4 h-4" />}
             >
-              {followType === 'FeeFollowModuleSettings'
-                ? 'Update Super follow'
-                : 'Set Super follow'}
+              {followType === 'FeeFollowModuleSettings' ? 'Update Super follow' : 'Set Super follow'}
             </Button>
           </div>
           {writeData?.hash ?? broadcastData?.broadcast?.txHash ? (
-            <IndexStatus
-              txHash={
-                writeData?.hash
-                  ? writeData?.hash
-                  : broadcastData?.broadcast?.txHash
-              }
-            />
+            <IndexStatus txHash={writeData?.hash ? writeData?.hash : broadcastData?.broadcast?.txHash} />
           ) : null}
         </div>
       </Form>
     </Card>
-  )
-}
+  );
+};
 
-export default SuperFollow
+export default SuperFollow;

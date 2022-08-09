@@ -1,13 +1,13 @@
-import { PencilAltIcon, UsersIcon } from '@heroicons/react/outline'
-import clsx from 'clsx'
-import Link from 'next/link'
-import { useRouter } from 'next/router'
-import React, { FC, ReactNode } from 'react'
+import { PencilAltIcon, UsersIcon } from '@heroicons/react/outline';
+import clsx from 'clsx';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import React, { FC, ReactNode } from 'react';
 
 interface MenuProps {
-  children: ReactNode
-  current: boolean
-  url: string
+  children: ReactNode;
+  current: boolean;
+  url: string;
 }
 
 const Menu: FC<MenuProps> = ({ children, current, url }) => (
@@ -22,29 +22,23 @@ const Menu: FC<MenuProps> = ({ children, current, url }) => (
       {children}
     </a>
   </Link>
-)
+);
 
 const Sidebar: FC = () => {
-  const { query } = useRouter()
+  const { query } = useRouter();
 
   return (
     <div className="sticky px-3 mb-4 space-y-1.5 sm:px-0 top-[128px]">
-      <Menu
-        current={query.type == 'pubs'}
-        url={`/search?q=${query.q}&type=pubs`}
-      >
+      <Menu current={query.type == 'pubs'} url={`/search?q=${query.q}&type=pubs`}>
         <PencilAltIcon className="w-4 h-4" />
         <div>Publications</div>
       </Menu>
-      <Menu
-        current={query.type == 'profiles'}
-        url={`/search?q=${query.q}&type=profiles`}
-      >
+      <Menu current={query.type == 'profiles'} url={`/search?q=${query.q}&type=profiles`}>
         <UsersIcon className="w-4 h-4" />
         <div>Profiles</div>
       </Menu>
     </div>
-  )
-}
+  );
+};
 
-export default Sidebar
+export default Sidebar;

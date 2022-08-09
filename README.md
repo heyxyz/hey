@@ -1,5 +1,5 @@
 <div align="center">
-    <img src="public/logo.svg" height="70" alt="Lenster Logo">
+    <img src="https://user-images.githubusercontent.com/69431456/183576577-2486db3f-f0a9-4252-b283-a8322e5eb8b6.png" alt="Lenster Logo">
     <h1>Lenster</h1>
     <strong>Decentralized, and permissionless social media app 🌿</strong>
 </div>
@@ -11,8 +11,14 @@
     <a href="https://deepsource.io/gh/lensterxyz/lenster">
         <img src="https://deepsource.io/gh/lensterxyz/lenster.svg/?label=active+issues&show_trend=true" alt="GitHub actions">
     </a>
-    <a href="https://gitpod.io/#https://github.com/lensterxyz/lenster">
-        <img src="https://img.shields.io/badge/setup-automated-blue?logo=gitpod" alt="Gitpod">
+    <a href="https://github.com/orgs/lensterxyz/projects/1/views/2">
+        <img src="https://img.shields.io/badge/Help%20wanted-contribute-blue" alt="Help wanted">
+    </a>
+    <a href="https://lenster.checklyhq.com">
+        <img src="https://api.checklyhq.com/v1/badges/checks/4c205fee-8666-4dc8-bc92-077084ef9643?style=flat&theme=default&responseTime=true" alt="Checkly">
+    </a>
+    <a href="https://status.lenster.xyz">
+        <img src="https://betteruptime.com/status-badges/v1/monitor/dfaw.svg" alt="Better Uptime">
     </a>
     <a href="https://github.com/lensterxyz/lenster/blob/main/LICENSE">
         <img src="https://badgen.net/github/license/lensterxyz/lenster" alt="License">
@@ -51,8 +57,8 @@ We encourage you to contribute to Lenster! Please check out the [Contributing gu
 
 ```sh
 cp .env.example .env
-yarn install
-yarn dev
+npm install
+npm run dev
 ```
 
 and visit http://localhost:4783

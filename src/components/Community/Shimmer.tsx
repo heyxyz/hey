@@ -1,6 +1,6 @@
-import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout'
-import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer'
-import React, { FC } from 'react'
+import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout';
+import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
+import React, { FC } from 'react';
 
 const CommunityPageShimmer: FC = () => {
   return (
@@ -38,7 +38,7 @@ const CommunityPageShimmer: FC = () => {
         <PublicationsShimmer />
       </GridItemEight>
     </GridLayout>
-  )
-}
+  );
+};
 
-export default CommunityPageShimmer
+export default CommunityPageShimmer;

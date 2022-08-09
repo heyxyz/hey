@@ -1,9 +1,9 @@
-import imagekitURL from '@lib/imagekitURL'
-import React, { FC } from 'react'
-import { STATIC_ASSETS } from 'src/constants'
+import imagekitURL from '@lib/imagekitURL';
+import React, { FC } from 'react';
+import { STATIC_ASSETS } from 'src/constants';
 
 interface Props {
-  cover: string
+  cover: string;
 }
 
 const Cover: FC<Props> = ({ cover }) => {
@@ -11,18 +11,14 @@ const Cover: FC<Props> = ({ cover }) => {
     <div
       className="h-52 sm:h-80"
       style={{
-        backgroundImage: `url(${
-          cover
-            ? imagekitURL(cover, 'cover')
-            : `${STATIC_ASSETS}/patterns/2.svg`
-        })`,
+        backgroundImage: `url(${cover ? imagekitURL(cover, 'cover') : `${STATIC_ASSETS}/patterns/2.svg`})`,
         backgroundColor: '#8b5cf6',
         backgroundSize: cover ? 'cover' : '30%',
         backgroundPosition: 'center center',
         backgroundRepeat: cover ? 'no-repeat' : 'repeat'
       }}
     />
-  )
-}
+  );
+};
 
-export default Cover
+export default Cover;

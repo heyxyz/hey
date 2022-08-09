@@ -1,8 +1,7 @@
-import { Profile } from '@generated/types'
+import { Profile } from '@generated/types';
 
-import getAttribute from './getAttribute'
+import getAttribute from './getAttribute';
 
-const isBeta = (profile: Profile): boolean =>
-  getAttribute(profile?.attributes, 'isBeta') === 'true'
+const isBeta = (profile: Profile): boolean => getAttribute(profile?.attributes, 'isBeta') === 'true';
 
-export default isBeta
+export default isBeta;

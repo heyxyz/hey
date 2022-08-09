@@ -1,3 +1,3 @@
-import AccountSettings from '@components/Settings/Account'
+import AccountSettings from '@components/Settings/Account';
 
-export default AccountSettings
+export default AccountSettings;

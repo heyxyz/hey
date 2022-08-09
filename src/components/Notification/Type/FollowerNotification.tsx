@@ -1,27 +1,23 @@
-import { LensterNotification } from '@generated/lenstertypes'
-import { NewFollowerNotification } from '@generated/types'
-import { UserAddIcon } from '@heroicons/react/solid'
-import dayjs from 'dayjs'
-import relativeTime from 'dayjs/plugin/relativeTime'
-import React, { FC } from 'react'
-import { useAppPersistStore } from 'src/store/app'
+import { LensterNotification } from '@generated/lenstertypes';
+import { NewFollowerNotification } from '@generated/types';
+import { UserAddIcon } from '@heroicons/react/solid';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import React, { FC } from 'react';
+import { useAppPersistStore } from 'src/store/app';
 
-import { NotificationProfileAvatar, NotificationProfileName } from '../Profile'
-import {
-  NotificationWalletProfileAvatar,
-  NotificationWalletProfileName
-} from '../WalletProfile'
+import { NotificationProfileAvatar, NotificationProfileName } from '../Profile';
+import { NotificationWalletProfileAvatar, NotificationWalletProfileName } from '../WalletProfile';
 
-dayjs.extend(relativeTime)
+dayjs.extend(relativeTime);
 
 interface Props {
-  notification: NewFollowerNotification & LensterNotification
+  notification: NewFollowerNotification & LensterNotification;
 }
 
 const FollowerNotification: FC<Props> = ({ notification }) => {
-  const currentUser = useAppPersistStore((state) => state.currentUser)
-  const isSuperFollow =
-    currentUser?.followModule?.__typename === 'FeeFollowModuleSettings'
+  const currentUser = useAppPersistStore((state) => state.currentUser);
+  const isSuperFollow = currentUser?.followModule?.__typename === 'FeeFollowModuleSettings';
 
   return (
     <div className="flex justify-between items-start">
@@ -33,18 +29,14 @@ const FollowerNotification: FC<Props> = ({ notification }) => {
             <UserAddIcon className="h-6 w-6 text-green-500/70" />
           )}
           {notification?.wallet?.defaultProfile ? (
-            <NotificationProfileAvatar
-              profile={notification?.wallet?.defaultProfile}
-            />
+            <NotificationProfileAvatar profile={notification?.wallet?.defaultProfile} />
           ) : (
             <NotificationWalletProfileAvatar wallet={notification?.wallet} />
           )}
         </div>
         <div className="ml-9">
           {notification?.wallet?.defaultProfile ? (
-            <NotificationProfileName
-              profile={notification?.wallet?.defaultProfile}
-            />
+            <NotificationProfileName profile={notification?.wallet?.defaultProfile} />
           ) : (
             <NotificationWalletProfileName wallet={notification?.wallet} />
           )}{' '}
@@ -53,11 +45,9 @@ const FollowerNotification: FC<Props> = ({ notification }) => {
           </span>
         </div>
       </div>
-      <div className="text-gray-400 text-[12px]">
-        {dayjs(new Date(notification?.createdAt)).fromNow()}
-      </div>
+      <div className="text-gray-400 text-[12px]">{dayjs(new Date(notification?.createdAt)).fromNow()}</div>
     </div>
-  )
-}
+  );
+};
 
-export default FollowerNotification
+export default FollowerNotification;

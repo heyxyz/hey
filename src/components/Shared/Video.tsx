@@ -1,10 +1,10 @@
-import 'plyr-react/plyr.css'
+import 'plyr-react/plyr.css';
 
-import Plyr from 'plyr-react'
-import React, { FC } from 'react'
+import Plyr from 'plyr-react';
+import React, { FC } from 'react';
 
 interface Props {
-  src: string
+  src: string;
 }
 
 const Video: FC<Props> = ({ src }) => {
@@ -17,20 +17,12 @@ const Video: FC<Props> = ({ src }) => {
           poster: src
         }}
         options={{
-          controls: [
-            'play-large',
-            'play',
-            'progress',
-            'current-time',
-            'mute',
-            'volume',
-            'fullscreen'
-          ],
+          controls: ['play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'fullscreen'],
           ratio: '16:12'
         }}
       />
     </div>
-  )
-}
+  );
+};
 
-export default Video
+export default Video;

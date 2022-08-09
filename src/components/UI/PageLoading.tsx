@@ -1,9 +1,9 @@
-import React, { FC } from 'react'
+import React, { FC } from 'react';
 
-import { Spinner } from './Spinner'
+import { Spinner } from './Spinner';
 
 interface Props {
-  message?: string
+  message?: string;
 }
 
 export const PageLoading: FC<Props> = ({ message }) => {
@@ -14,5 +14,5 @@ export const PageLoading: FC<Props> = ({ message }) => {
         <div>{message}</div>
       </div>
     </div>
-  )
-}
+  );
+};

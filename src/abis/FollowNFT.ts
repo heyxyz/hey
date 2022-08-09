@@ -410,4 +410,4 @@ export const FollowNFT = [
     stateMutability: 'nonpayable',
     type: 'function'
   }
-]
+];

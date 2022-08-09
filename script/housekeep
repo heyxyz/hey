@@ -1,0 +1,17 @@
+#!/bin/bash
+
+#/ Usage: script/housekeep
+#/ Housekeep git repository.
+
+echo "Housekeeping git repository 🏘"
+echo "Installing git-sizer 📦"
+brew install git-sizer
+echo "Size before cleaning"
+git count-objects -vH | grep "size-pack"
+git reflog expire --all --expire=now
+git gc --prune=now --aggressive
+git push origin main --force
+echo "Size after cleaning"
+git count-objects -vH | grep "size-pack"
+git-sizer --verbose
+echo "Housekeeping done 🎉"

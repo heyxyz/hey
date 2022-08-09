@@ -1,37 +1,35 @@
-import { Button } from '@components/UI/Button'
-import { Form, useZodForm } from '@components/UI/Form'
-import { Input } from '@components/UI/Input'
-import { EnabledModule, Erc20 } from '@generated/types'
-import { ArrowLeftIcon } from '@heroicons/react/outline'
-import { defaultModuleData, FEE_DATA_TYPE } from '@lib/getModule'
-import { Mixpanel } from '@lib/mixpanel'
-import { Dispatch, FC, useState } from 'react'
-import { DEFAULT_COLLECT_TOKEN } from 'src/constants'
-import { useAppPersistStore } from 'src/store/app'
-import { PUBLICATION } from 'src/tracking'
-import { object, string } from 'zod'
+import { Button } from '@components/UI/Button';
+import { Form, useZodForm } from '@components/UI/Form';
+import { Input } from '@components/UI/Input';
+import { EnabledModule, Erc20 } from '@generated/types';
+import { ArrowLeftIcon } from '@heroicons/react/outline';
+import { defaultModuleData, FEE_DATA_TYPE } from '@lib/getModule';
+import { Mixpanel } from '@lib/mixpanel';
+import { Dispatch, FC, useState } from 'react';
+import { DEFAULT_COLLECT_TOKEN } from 'src/constants';
+import { useAppPersistStore } from 'src/store/app';
+import { PUBLICATION } from 'src/tracking';
+import { object, string } from 'zod';
 
 const feeDataSchema = object({
   collectLimit: string()
     .min(1, { message: 'Invalid value' })
     .max(20, { message: 'Invalid value' })
     .nullable(),
-  value: string()
-    .min(1, { message: 'Invalid value' })
-    .max(20, { message: 'Invalid value' }),
+  value: string().min(1, { message: 'Invalid value' }).max(20, { message: 'Invalid value' }),
   referralFee: string()
     .min(1, { message: 'Invalid Referral fee' })
     .max(20, { message: 'Invalid Referral fee' })
-})
+});
 
 interface Props {
-  enabledModuleCurrencies: Erc20[]
-  selectedModule: EnabledModule
-  setSelectedModule: Dispatch<EnabledModule>
-  setShowFeeEntry: Dispatch<boolean>
-  setShowModal: Dispatch<boolean>
-  feeData: FEE_DATA_TYPE
-  setFeeData: Dispatch<FEE_DATA_TYPE>
+  enabledModuleCurrencies: Erc20[];
+  selectedModule: EnabledModule;
+  setSelectedModule: Dispatch<EnabledModule>;
+  setShowFeeEntry: Dispatch<boolean>;
+  setShowModal: Dispatch<boolean>;
+  feeData: FEE_DATA_TYPE;
+  setFeeData: Dispatch<FEE_DATA_TYPE>;
 }
 
 const FeeEntry: FC<Props> = ({
@@ -43,22 +41,20 @@ const FeeEntry: FC<Props> = ({
   feeData,
   setFeeData
 }) => {
-  const currentUser = useAppPersistStore((state) => state.currentUser)
-  const [followerOnly, setFollowerOnly] = useState<boolean>(false)
-  const [selectedCurrency, setSelectedCurrency] = useState<string>(
-    DEFAULT_COLLECT_TOKEN
-  )
+  const currentUser = useAppPersistStore((state) => state.currentUser);
+  const [followerOnly, setFollowerOnly] = useState<boolean>(false);
+  const [selectedCurrency, setSelectedCurrency] = useState<string>(DEFAULT_COLLECT_TOKEN);
   const form = useZodForm({
     schema: feeDataSchema,
     defaultValues: {
       value: feeData.amount.value,
       referralFee: feeData.referralFee.toString()
     }
-  })
+  });
 
   const showCollect =
     selectedModule.moduleName === 'LimitedFeeCollectModule' ||
-    selectedModule.moduleName === 'LimitedTimedFeeCollectModule'
+    selectedModule.moduleName === 'LimitedTimedFeeCollectModule';
 
   return (
     <div className="space-y-5">
@@ -66,9 +62,9 @@ const FeeEntry: FC<Props> = ({
         type="button"
         className="flex items-center space-x-1.5 font-bold text-gray-500"
         onClick={() => {
-          setSelectedModule(defaultModuleData)
-          setShowFeeEntry(false)
-          Mixpanel.track(PUBLICATION.NEW.COLLECT_MODULE.BACK_FEE_ENTRY)
+          setSelectedModule(defaultModuleData);
+          setShowFeeEntry(false);
+          Mixpanel.track(PUBLICATION.NEW.COLLECT_MODULE.BACK_FEE_ENTRY);
         }}
       >
         <ArrowLeftIcon className="w-4 h-4" />
@@ -116,8 +112,7 @@ const FeeEntry: FC<Props> = ({
           label="Referral Fee"
           helper={
             <span>
-              When someone mirrors the publication they will get some reward in
-              percentage for referring it.
+              When someone mirrors the publication they will get some reward in percentage for referring it.
             </span>
           }
           type="number"
@@ -142,9 +137,7 @@ const FeeEntry: FC<Props> = ({
           disabled={
             !form.watch('value') ||
             parseFloat(form.watch('value')) <= 0 ||
-            (showCollect
-              ? !form.watch('collectLimit') || form.watch('collectLimit') == '0'
-              : false)
+            (showCollect ? !form.watch('collectLimit') || form.watch('collectLimit') == '0' : false)
           }
           onClick={() => {
             setFeeData({
@@ -156,15 +149,15 @@ const FeeEntry: FC<Props> = ({
               recipient: currentUser?.ownedBy,
               referralFee: parseFloat(form.getValues('referralFee')),
               followerOnly: followerOnly
-            })
-            setShowModal(false)
+            });
+            setShowModal(false);
           }}
         >
           Save
         </Button>
       </Form>
     </div>
-  )
-}
+  );
+};
 
-export default FeeEntry
+export default FeeEntry;

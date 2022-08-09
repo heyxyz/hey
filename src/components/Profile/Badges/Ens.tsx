@@ -1,14 +1,14 @@
-import { Tooltip } from '@components/UI/Tooltip'
-import { Profile } from '@generated/types'
-import React, { FC } from 'react'
-import { STATIC_ASSETS } from 'src/constants'
+import { Tooltip } from '@components/UI/Tooltip';
+import { Profile } from '@generated/types';
+import React, { FC } from 'react';
+import { STATIC_ASSETS } from 'src/constants';
 
 interface Props {
-  profile: Profile
+  profile: Profile;
 }
 
 const Ens: FC<Props> = ({ profile }) => {
-  if (!profile?.onChainIdentity?.ens?.name) return null
+  if (!profile?.onChainIdentity?.ens?.name) return null;
 
   return (
     <Tooltip
@@ -27,7 +27,7 @@ const Ens: FC<Props> = ({ profile }) => {
         alt="ENS Badge"
       />
     </Tooltip>
-  )
-}
+  );
+};
 
-export default Ens
+export default Ens;

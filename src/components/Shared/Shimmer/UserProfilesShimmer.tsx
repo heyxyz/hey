@@ -1,17 +1,14 @@
-import { Card, CardBody } from '@components/UI/Card'
-import { FC } from 'react'
+import { Card, CardBody } from '@components/UI/Card';
+import { FC } from 'react';
 
-import UserProfileShimmer from './UserProfileShimmer'
+import UserProfileShimmer from './UserProfileShimmer';
 
 interface Props {
-  showFollow?: boolean
-  isBig?: boolean
+  showFollow?: boolean;
+  isBig?: boolean;
 }
 
-const UserProfilesShimmer: FC<Props> = ({
-  showFollow = false,
-  isBig = false
-}) => {
+const UserProfilesShimmer: FC<Props> = ({ showFollow = false, isBig = false }) => {
   return (
     <div className="space-y-3">
       <Card>
@@ -30,7 +27,7 @@ const UserProfilesShimmer: FC<Props> = ({
         </CardBody>
       </Card>
     </div>
-  )
-}
+  );
+};
 
-export default UserProfilesShimmer
+export default UserProfilesShimmer;

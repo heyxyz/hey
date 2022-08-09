@@ -1,12 +1,12 @@
-import { Profile } from '@generated/types'
-import { BadgeCheckIcon } from '@heroicons/react/solid'
-import getAvatar from '@lib/getAvatar'
-import isVerified from '@lib/isVerified'
-import Link from 'next/link'
-import React, { FC } from 'react'
+import { Profile } from '@generated/types';
+import { BadgeCheckIcon } from '@heroicons/react/solid';
+import getAvatar from '@lib/getAvatar';
+import isVerified from '@lib/isVerified';
+import Link from 'next/link';
+import React, { FC } from 'react';
 
 interface Props {
-  profile: Profile
+  profile: Profile;
 }
 
 export const NotificationProfileAvatar: FC<Props> = ({ profile }) => {
@@ -22,21 +22,16 @@ export const NotificationProfileAvatar: FC<Props> = ({ profile }) => {
         />
       </a>
     </Link>
-  )
-}
+  );
+};
 
 export const NotificationProfileName: FC<Props> = ({ profile }) => {
   return (
     <Link href={`/u/${profile?.handle}`}>
-      <a
-        href={`/u/${profile?.handle}`}
-        className="inline-flex items-center space-x-1 font-bold"
-      >
+      <a href={`/u/${profile?.handle}`} className="inline-flex items-center space-x-1 font-bold">
         <div>{profile?.name ?? profile?.handle}</div>
-        {isVerified(profile?.id) && (
-          <BadgeCheckIcon className="w-4 h-4 text-brand" />
-        )}
+        {isVerified(profile?.id) && <BadgeCheckIcon className="w-4 h-4 text-brand" />}
       </a>
     </Link>
-  )
-}
+  );
+};

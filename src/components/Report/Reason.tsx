@@ -1,9 +1,9 @@
-import React, { Dispatch, FC } from 'react'
+import React, { Dispatch, FC } from 'react';
 
 interface Props {
-  setType: Dispatch<string>
-  setSubReason: Dispatch<string>
-  type: string
+  setType: Dispatch<string>;
+  setSubReason: Dispatch<string>;
+  type: string;
 }
 
 const Reason: FC<Props> = ({ setType, setSubReason, type }) => {
@@ -59,7 +59,7 @@ const Reason: FC<Props> = ({ setType, setSubReason, type }) => {
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default Reason
+export default Reason;

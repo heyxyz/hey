@@ -1,12 +1,12 @@
-import CommunityProfile from '@components/Shared/CommunityProfile'
-import { Card, CardBody } from '@components/UI/Card'
-import { EmptyState } from '@components/UI/EmptyState'
-import { Community } from '@generated/lenstertypes'
-import { UsersIcon } from '@heroicons/react/outline'
-import React, { FC } from 'react'
+import CommunityProfile from '@components/Shared/CommunityProfile';
+import { Card, CardBody } from '@components/UI/Card';
+import { EmptyState } from '@components/UI/EmptyState';
+import { Community } from '@generated/lenstertypes';
+import { UsersIcon } from '@heroicons/react/outline';
+import React, { FC } from 'react';
 
 interface Props {
-  communities: Community[]
+  communities: Community[];
 }
 
 const List: FC<Props> = ({ communities }) => {
@@ -27,7 +27,7 @@ const List: FC<Props> = ({ communities }) => {
         ))}
       </CardBody>
     </Card>
-  )
-}
+  );
+};
 
-export default List
+export default List;

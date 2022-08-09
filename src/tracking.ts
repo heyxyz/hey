@@ -2,7 +2,7 @@ export const USER = {
   LOGIN: 'User login',
   LOGOUT: 'User logout',
   SIWL: 'Sign in with Lens'
-}
+};
 
 export const PROFILE = {
   FOLLOW: 'Follow profile',
@@ -13,7 +13,7 @@ export const PROFILE = {
   OPEN_FOLLOWERS: 'Open followers list',
   SWITCH_PROFILE: 'Switch profile',
   LOGOUT: 'Profile logout'
-}
+};
 
 export const PUBLICATION = {
   OPEN: 'Open publication',
@@ -48,15 +48,15 @@ export const PUBLICATION = {
       ONLY_FOLLOWERS: 'Select only followers reference'
     }
   }
-}
+};
 
 export const POST = {
   NEW: 'New Post'
-}
+};
 
 export const COMMENT = {
   NEW: 'New comment'
-}
+};
 
 export const COMMUNITY = {
   NEW: 'New community',
@@ -66,17 +66,17 @@ export const COMMUNITY = {
     OPEN: 'Open settings modal',
     DELETE: 'Delete community'
   }
-}
+};
 
 export const CROWDFUND = {
   NEW: 'New crowdfund',
   FUND: 'Fund a crowdfund',
   OPEN_FUNDERS: 'Open funders list'
-}
+};
 
 export const NOTIFICATION = {
   OPEN: 'Open notifications'
-}
+};
 
 export const SETTINGS = {
   ACCOUNT: {
@@ -91,15 +91,15 @@ export const SETTINGS = {
     SET_PICTURE: 'Set profile picture'
   },
   DELETE: 'Delete profile'
-}
+};
 
 export const STAFF = {
   TOGGLE_MODE: 'Toggle staff mode'
-}
+};
 
 export const SEARCH = {
   CLEAR: 'Clear search text'
-}
+};
 
 export const PAGINATION = {
   HOME_FEED: 'Paginate home feed',
@@ -114,10 +114,10 @@ export const PAGINATION = {
   COLLECTORS: 'Paginate collectors list',
   PROFILE_SEARCH: 'Paginate profile search list',
   PUBLICATION_SEARCH: 'Paginate publication search list'
-}
+};
 
 export const SYSTEM = {
   SWITCH_LIGHT_THEME: 'Switch light theme',
   SWITCH_DARK_THEME: 'Switch dark theme',
   SWITCH_NETWORK: 'Switch network'
-}
+};

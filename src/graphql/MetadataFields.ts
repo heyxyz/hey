@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client'
+import { gql } from '@apollo/client';
 
 export const MetadataFields = gql`
   fragment MetadataFields on MetadataOutput {
@@ -20,4 +20,4 @@ export const MetadataFields = gql`
       value
     }
   }
-`
+`;

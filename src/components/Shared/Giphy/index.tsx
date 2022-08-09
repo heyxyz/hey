@@ -1,26 +1,26 @@
-import { Modal } from '@components/UI/Modal'
-import { Tooltip } from '@components/UI/Tooltip'
-import { IGif } from '@giphy/js-types'
-import { PhotographIcon } from '@heroicons/react/outline'
-import { Mixpanel } from '@lib/mixpanel'
-import { motion } from 'framer-motion'
-import dynamic from 'next/dynamic'
-import { FC, useState } from 'react'
-import { PUBLICATION } from 'src/tracking'
+import { Modal } from '@components/UI/Modal';
+import { Tooltip } from '@components/UI/Tooltip';
+import { IGif } from '@giphy/js-types';
+import { PhotographIcon } from '@heroicons/react/outline';
+import { Mixpanel } from '@lib/mixpanel';
+import { motion } from 'framer-motion';
+import dynamic from 'next/dynamic';
+import { FC, useState } from 'react';
+import { PUBLICATION } from 'src/tracking';
 
-import Loader from '../Loader'
+import Loader from '../Loader';
 
 const GifSelector = dynamic(() => import('./GifSelector'), {
   loading: () => <Loader message="Loading GIFs" />
-})
+});
 
 interface Props {
   // eslint-disable-next-line no-unused-vars
-  setGifAttachment: (gif: IGif) => void
+  setGifAttachment: (gif: IGif) => void;
 }
 
 const Giphy: FC<Props> = ({ setGifAttachment }) => {
-  const [showModal, setShowModal] = useState<boolean>(false)
+  const [showModal, setShowModal] = useState<boolean>(false);
 
   return (
     <>
@@ -29,8 +29,8 @@ const Giphy: FC<Props> = ({ setGifAttachment }) => {
           whileTap={{ scale: 0.9 }}
           type="button"
           onClick={() => {
-            setShowModal(!showModal)
-            Mixpanel.track(PUBLICATION.NEW.OPEN_GIF)
+            setShowModal(!showModal);
+            Mixpanel.track(PUBLICATION.NEW.OPEN_GIF);
           }}
           aria-label="Choose GIFs"
         >
@@ -50,13 +50,10 @@ const Giphy: FC<Props> = ({ setGifAttachment }) => {
         show={showModal}
         onClose={() => setShowModal(false)}
       >
-        <GifSelector
-          setShowModal={setShowModal}
-          setGifAttachment={setGifAttachment}
-        />
+        <GifSelector setShowModal={setShowModal} setGifAttachment={setGifAttachment} />
       </Modal>
     </>
-  )
-}
+  );
+};
 
-export default Giphy
+export default Giphy;

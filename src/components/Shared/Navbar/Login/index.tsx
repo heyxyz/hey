@@ -1,12 +1,12 @@
-import WalletSelector from '@components/Shared/Navbar/Login/WalletSelector'
-import { FC, useState } from 'react'
-import { APP_NAME, IS_MAINNET, STATIC_ASSETS } from 'src/constants'
+import WalletSelector from '@components/Shared/Navbar/Login/WalletSelector';
+import { FC, useState } from 'react';
+import { APP_NAME, IS_MAINNET, STATIC_ASSETS } from 'src/constants';
 
-import Create from './Create'
+import Create from './Create';
 
 const Login: FC = () => {
-  const [hasConnected, setHasConnected] = useState<boolean>(false)
-  const [hasProfile, setHasProfile] = useState<boolean>(true)
+  const [hasConnected, setHasConnected] = useState<boolean>(false);
+  const [hasProfile, setHasProfile] = useState<boolean>(true);
 
   return (
     <div className="p-5">
@@ -16,23 +16,18 @@ const Login: FC = () => {
             <div className="space-y-1">
               <div className="text-xl font-bold">Please sign the message.</div>
               <div className="text-sm text-gray-500">
-                {APP_NAME} uses this signature to verify that you&rsquo;re the
-                owner of this address.
+                {APP_NAME} uses this signature to verify that you&rsquo;re the owner of this address.
               </div>
             </div>
           ) : (
             <div className="space-y-1">
               <div className="text-xl font-bold">Connect your wallet.</div>
               <div className="text-sm text-gray-500">
-                Connect with one of our available wallet providers or create a
-                new one.
+                Connect with one of our available wallet providers or create a new one.
               </div>
             </div>
           )}
-          <WalletSelector
-            setHasConnected={setHasConnected}
-            setHasProfile={setHasProfile}
-          />
+          <WalletSelector setHasConnected={setHasConnected} setHasProfile={setHasProfile} />
         </div>
       ) : IS_MAINNET ? (
         <div>
@@ -58,9 +53,7 @@ const Login: FC = () => {
                 </a>{' '}
                 to claim your profile now 🏃‍♂️
               </div>
-              <div className="text-sm text-gray-500">
-                Make sure to check back here when done!
-              </div>
+              <div className="text-sm text-gray-500">Make sure to check back here when done!</div>
             </div>
           </div>
         </div>
@@ -68,7 +61,7 @@ const Login: FC = () => {
         <Create isModal />
       )}
     </div>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;

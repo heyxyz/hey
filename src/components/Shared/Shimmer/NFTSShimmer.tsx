@@ -1,6 +1,6 @@
-import { FC } from 'react'
+import { FC } from 'react';
 
-import NFTShimmer from './NFTShimmer'
+import NFTShimmer from './NFTShimmer';
 
 const NFTSShimmer: FC = () => {
   return (
@@ -10,7 +10,7 @@ const NFTSShimmer: FC = () => {
       <NFTShimmer />
       <NFTShimmer />
     </div>
-  )
-}
+  );
+};
 
-export default NFTSShimmer
+export default NFTSShimmer;

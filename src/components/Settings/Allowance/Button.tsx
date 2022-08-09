@@ -1,53 +1,40 @@
-import { gql, useLazyQuery } from '@apollo/client'
-import { Button } from '@components/UI/Button'
-import { Modal } from '@components/UI/Modal'
-import { Spinner } from '@components/UI/Spinner'
-import { WarningMessage } from '@components/UI/WarningMessage'
-import { ApprovedAllowanceAmount } from '@generated/types'
-import { ExclamationIcon, MinusIcon, PlusIcon } from '@heroicons/react/outline'
-import { getModule } from '@lib/getModule'
-import { Mixpanel } from '@lib/mixpanel'
-import React, { Dispatch, FC, useState } from 'react'
-import toast from 'react-hot-toast'
-import {
-  usePrepareSendTransaction,
-  useSendTransaction,
-  useWaitForTransaction
-} from 'wagmi'
+import { gql, useLazyQuery } from '@apollo/client';
+import { Button } from '@components/UI/Button';
+import { Modal } from '@components/UI/Modal';
+import { Spinner } from '@components/UI/Spinner';
+import { WarningMessage } from '@components/UI/WarningMessage';
+import { ApprovedAllowanceAmount } from '@generated/types';
+import { ExclamationIcon, MinusIcon, PlusIcon } from '@heroicons/react/outline';
+import { getModule } from '@lib/getModule';
+import { Mixpanel } from '@lib/mixpanel';
+import React, { Dispatch, FC, useState } from 'react';
+import toast from 'react-hot-toast';
+import { usePrepareSendTransaction, useSendTransaction, useWaitForTransaction } from 'wagmi';
 
 const GENERATE_ALLOWANCE_QUERY = gql`
-  query GenerateModuleCurrencyApprovalData(
-    $request: GenerateModuleCurrencyApprovalDataRequest!
-  ) {
+  query GenerateModuleCurrencyApprovalData($request: GenerateModuleCurrencyApprovalDataRequest!) {
     generateModuleCurrencyApprovalData(request: $request) {
       to
       from
       data
     }
   }
-`
+`;
 
 interface Props {
-  title?: string
-  module: ApprovedAllowanceAmount
-  allowed: boolean
-  setAllowed: Dispatch<boolean>
+  title?: string;
+  module: ApprovedAllowanceAmount;
+  allowed: boolean;
+  setAllowed: Dispatch<boolean>;
 }
 
-const AllowanceButton: FC<Props> = ({
-  title = 'Allow',
-  module,
-  allowed,
-  setAllowed
-}) => {
-  const [showWarningModal, setShowWarninModal] = useState<boolean>(false)
-  const [generateAllowanceQuery, { loading: queryLoading }] = useLazyQuery(
-    GENERATE_ALLOWANCE_QUERY
-  )
+const AllowanceButton: FC<Props> = ({ title = 'Allow', module, allowed, setAllowed }) => {
+  const [showWarningModal, setShowWarninModal] = useState<boolean>(false);
+  const [generateAllowanceQuery, { loading: queryLoading }] = useLazyQuery(GENERATE_ALLOWANCE_QUERY);
 
   const { config } = usePrepareSendTransaction({
     request: {}
-  })
+  });
 
   const {
     data: txData,
@@ -57,30 +44,26 @@ const AllowanceButton: FC<Props> = ({
     ...config,
     mode: 'recklesslyUnprepared',
     onError(error: any) {
-      toast.error(error?.data?.message ?? error?.message)
+      toast.error(error?.data?.message ?? error?.message);
     }
-  })
+  });
 
   const { isLoading: waitLoading } = useWaitForTransaction({
     hash: txData?.hash,
     onSuccess() {
-      toast.success(`Module ${allowed ? 'disabled' : 'enabled'} successfully!`)
-      setShowWarninModal(false)
-      setAllowed(!allowed)
+      toast.success(`Module ${allowed ? 'disabled' : 'enabled'} successfully!`);
+      setShowWarninModal(false);
+      setAllowed(!allowed);
       Mixpanel.track(`Module ${allowed ? 'disabled' : 'enabled'}`, {
         result: 'success'
-      })
+      });
     },
     onError(error: any) {
-      toast.error(error?.data?.message ?? error?.message)
+      toast.error(error?.data?.message ?? error?.message);
     }
-  })
+  });
 
-  const handleAllowance = (
-    currencies: string,
-    value: string,
-    selectedModule: string
-  ) => {
+  const handleAllowance = (currencies: string, value: string, selectedModule: string) => {
     generateAllowanceQuery({
       variables: {
         request: {
@@ -90,16 +73,16 @@ const AllowanceButton: FC<Props> = ({
         }
       }
     }).then((res) => {
-      const data = res?.data?.generateModuleCurrencyApprovalData
+      const data = res?.data?.generateModuleCurrencyApprovalData;
       sendTransaction?.({
         recklesslySetUnpreparedRequest: {
           from: data?.from,
           to: data?.to,
           data: data?.data
         }
-      })
-    })
-  }
+      });
+    });
+  };
 
   return allowed ? (
     <Button
@@ -135,9 +118,8 @@ const AllowanceButton: FC<Props> = ({
             title="Handle with care!"
             message={
               <div className="leading-6">
-                Please make sure that if you allow this module you will
-                automatically be detected with the amount if you <b>collect</b>,
-                <b> fund</b> and <b>super follow</b>.
+                Please make sure that if you allow this module you will automatically be detected with the
+                amount if you <b>collect</b>,<b> fund</b> and <b>super follow</b>.
               </div>
             }
           />
@@ -151,11 +133,7 @@ const AllowanceButton: FC<Props> = ({
               )
             }
             onClick={() =>
-              handleAllowance(
-                module.currency,
-                Number.MAX_SAFE_INTEGER.toString(),
-                module.module
-              )
+              handleAllowance(module.currency, Number.MAX_SAFE_INTEGER.toString(), module.module)
             }
           >
             {title}
@@ -163,7 +141,7 @@ const AllowanceButton: FC<Props> = ({
         </div>
       </Modal>
     </>
-  )
-}
+  );
+};
 
-export default AllowanceButton
+export default AllowanceButton;

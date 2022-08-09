@@ -1,17 +1,13 @@
-import clsx from 'clsx'
-import { FC } from 'react'
+import clsx from 'clsx';
+import { FC } from 'react';
 
 interface Props {
-  className?: string
-  variant?: 'primary' | 'secondary' | 'success' | 'warning' | 'super' | 'danger'
-  size?: 'xs' | 'sm' | 'md' | 'lg'
+  className?: string;
+  variant?: 'primary' | 'secondary' | 'success' | 'warning' | 'super' | 'danger';
+  size?: 'xs' | 'sm' | 'md' | 'lg';
 }
 
-export const Spinner: FC<Props> = ({
-  className = '',
-  variant = 'primary',
-  size = 'md'
-}) => {
+export const Spinner: FC<Props> = ({ className = '', variant = 'primary', size = 'md' }) => {
   return (
     <div
       className={clsx(
@@ -31,5 +27,5 @@ export const Spinner: FC<Props> = ({
         className
       )}
     />
-  )
-}
+  );
+};

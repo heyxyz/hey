@@ -1,27 +1,21 @@
-import { gql, useLazyQuery, useMutation } from '@apollo/client'
-import SwitchNetwork from '@components/Shared/SwitchNetwork'
-import { CURRENT_USER_QUERY } from '@components/SiteLayout'
-import { Button } from '@components/UI/Button'
-import { Spinner } from '@components/UI/Spinner'
-import { Profile } from '@generated/types'
-import { XCircleIcon } from '@heroicons/react/solid'
-import getWalletLogo from '@lib/getWalletLogo'
-import { Mixpanel } from '@lib/mixpanel'
-import clsx from 'clsx'
-import Cookies from 'js-cookie'
-import React, { Dispatch, FC, useEffect, useState } from 'react'
-import toast from 'react-hot-toast'
-import { COOKIE_CONFIG } from 'src/apollo'
-import { CHAIN_ID, ERROR_MESSAGE } from 'src/constants'
-import { useAppPersistStore, useAppStore } from 'src/store/app'
-import { USER } from 'src/tracking'
-import {
-  Connector,
-  useAccount,
-  useConnect,
-  useNetwork,
-  useSignMessage
-} from 'wagmi'
+import { gql, useLazyQuery, useMutation } from '@apollo/client';
+import SwitchNetwork from '@components/Shared/SwitchNetwork';
+import { CURRENT_USER_QUERY } from '@components/SiteLayout';
+import { Button } from '@components/UI/Button';
+import { Spinner } from '@components/UI/Spinner';
+import { Profile } from '@generated/types';
+import { XCircleIcon } from '@heroicons/react/solid';
+import getWalletLogo from '@lib/getWalletLogo';
+import { Mixpanel } from '@lib/mixpanel';
+import clsx from 'clsx';
+import Cookies from 'js-cookie';
+import React, { Dispatch, FC, useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
+import { COOKIE_CONFIG } from 'src/apollo';
+import { CHAIN_ID, ERROR_MESSAGE } from 'src/constants';
+import { useAppPersistStore, useAppStore } from 'src/store/app';
+import { USER } from 'src/tracking';
+import { Connector, useAccount, useConnect, useNetwork, useSignMessage } from 'wagmi';
 
 const CHALLENGE_QUERY = gql`
   query Challenge($request: ChallengeRequest!) {
@@ -29,7 +23,7 @@ const CHALLENGE_QUERY = gql`
       text
     }
   }
-`
+`;
 
 export const AUTHENTICATE_MUTATION = gql`
   mutation Authenticate($request: SignedAuthChallenge!) {
@@ -38,126 +32,104 @@ export const AUTHENTICATE_MUTATION = gql`
       refreshToken
     }
   }
-`
+`;
 
 interface Props {
-  setHasConnected: Dispatch<boolean>
-  setHasProfile: Dispatch<boolean>
+  setHasConnected: Dispatch<boolean>;
+  setHasProfile: Dispatch<boolean>;
 }
 
 const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
-  const setProfiles = useAppStore((state) => state.setProfiles)
-  const setIsConnected = useAppPersistStore((state) => state.setIsConnected)
-  const setIsAuthenticated = useAppPersistStore(
-    (state) => state.setIsAuthenticated
-  )
-  const setCurrentUser = useAppPersistStore((state) => state.setCurrentUser)
+  const setProfiles = useAppStore((state) => state.setProfiles);
+  const setIsConnected = useAppPersistStore((state) => state.setIsConnected);
+  const setIsAuthenticated = useAppPersistStore((state) => state.setIsAuthenticated);
+  const setCurrentUser = useAppPersistStore((state) => state.setCurrentUser);
 
-  const [mounted, setMounted] = useState(false)
-  const { chain } = useNetwork()
-  const { connectors, error, connectAsync } = useConnect()
-  const { address, connector: activeConnector } = useAccount()
+  const [mounted, setMounted] = useState(false);
+  const { chain } = useNetwork();
+  const { connectors, error, connectAsync } = useConnect();
+  const { address, connector: activeConnector } = useAccount();
   const { signMessageAsync, isLoading: signLoading } = useSignMessage({
     onError(error) {
-      toast.error(error?.message)
+      toast.error(error?.message);
     }
-  })
-  const [loadChallenge, { error: errorChallenge, loading: challengeLoading }] =
-    useLazyQuery(CHALLENGE_QUERY, {
+  });
+  const [loadChallenge, { error: errorChallenge, loading: challengeLoading }] = useLazyQuery(
+    CHALLENGE_QUERY,
+    {
       fetchPolicy: 'no-cache'
-    })
+    }
+  );
   const [authenticate, { error: errorAuthenticate, loading: authLoading }] =
-    useMutation(AUTHENTICATE_MUTATION)
-  const [getProfiles, { error: errorProfiles, loading: profilesLoading }] =
-    useLazyQuery(CURRENT_USER_QUERY)
+    useMutation(AUTHENTICATE_MUTATION);
+  const [getProfiles, { error: errorProfiles, loading: profilesLoading }] = useLazyQuery(CURRENT_USER_QUERY);
 
-  useEffect(() => setMounted(true), [])
+  useEffect(() => setMounted(true), []);
 
   const onConnect = async (connector: Connector) => {
     try {
-      const account = await connectAsync({ connector })
+      const account = await connectAsync({ connector });
       if (account) {
-        setHasConnected(true)
+        setHasConnected(true);
       }
-      Mixpanel.track(`Connect with ${connector.name.toLowerCase()}`)
+      Mixpanel.track(`Connect with ${connector.name.toLowerCase()}`);
     } catch (error) {}
-  }
+  };
 
   const handleSign = async () => {
     try {
       // Get challenge
       const challenge = await loadChallenge({
         variables: { request: { address } }
-      })
+      });
 
-      if (!challenge?.data?.challenge?.text) return toast.error(ERROR_MESSAGE)
+      if (!challenge?.data?.challenge?.text) return toast.error(ERROR_MESSAGE);
 
       // Get signature
       const signature = await signMessageAsync({
         message: challenge?.data?.challenge?.text
-      })
+      });
 
       // Auth user and set cookies
       const auth = await authenticate({
         variables: { request: { address, signature } }
-      })
-      Cookies.set(
-        'accessToken',
-        auth.data.authenticate.accessToken,
-        COOKIE_CONFIG
-      )
-      Cookies.set(
-        'refreshToken',
-        auth.data.authenticate.refreshToken,
-        COOKIE_CONFIG
-      )
+      });
+      Cookies.set('accessToken', auth.data.authenticate.accessToken, COOKIE_CONFIG);
+      Cookies.set('refreshToken', auth.data.authenticate.refreshToken, COOKIE_CONFIG);
 
       // Get authed profiles
       const { data: profilesData } = await getProfiles({
         variables: { ownedBy: address }
-      })
-      setIsConnected(true)
+      });
+      setIsConnected(true);
       if (profilesData?.profiles?.items?.length === 0) {
-        setHasProfile(false)
+        setHasProfile(false);
       } else {
         const profiles: Profile[] = profilesData?.profiles?.items
           ?.slice()
           ?.sort((a: Profile, b: Profile) => Number(a.id) - Number(b.id))
-          ?.sort((a: Profile, b: Profile) =>
-            !(a.isDefault !== b.isDefault) ? 0 : a.isDefault ? -1 : 1
-          )
-        setIsAuthenticated(true)
-        setProfiles(profiles)
-        setCurrentUser(profiles[0])
+          ?.sort((a: Profile, b: Profile) => (!(a.isDefault !== b.isDefault) ? 0 : a.isDefault ? -1 : 1));
+        setIsAuthenticated(true);
+        setProfiles(profiles);
+        setCurrentUser(profiles[0]);
       }
-      Mixpanel.track(USER.SIWL, { result: 'success' })
+      Mixpanel.track(USER.SIWL, { result: 'success' });
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   return activeConnector?.id ? (
     <div className="space-y-3">
       {chain?.id === CHAIN_ID ? (
         <Button
           size="lg"
-          disabled={
-            signLoading || challengeLoading || authLoading || profilesLoading
-          }
+          disabled={signLoading || challengeLoading || authLoading || profilesLoading}
           icon={
-            signLoading ||
-            challengeLoading ||
-            authLoading ||
-            profilesLoading ? (
+            signLoading || challengeLoading || authLoading || profilesLoading ? (
               <Spinner className="mr-0.5" size="xs" />
             ) : (
-              <img
-                className="mr-1 w-5 h-5"
-                height={20}
-                width={20}
-                src="/lens.png"
-                alt="Lens Logo"
-              />
+              <img className="mr-1 w-5 h-5" height={20} width={20} src="/lens.png" alt="Lens Logo" />
             )
           }
           onClick={handleSign}
@@ -183,24 +155,15 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
             key={connector.id}
             className={clsx(
               {
-                'hover:bg-gray-100 dark:hover:bg-gray-700':
-                  connector.id !== activeConnector?.id
+                'hover:bg-gray-100 dark:hover:bg-gray-700': connector.id !== activeConnector?.id
               },
               'w-full flex items-center space-x-2.5 justify-center px-4 py-3 overflow-hidden rounded-xl border dark:border-gray-700/80 outline-none'
             )}
             onClick={() => onConnect(connector)}
-            disabled={
-              mounted
-                ? !connector.ready || connector.id === activeConnector?.id
-                : false
-            }
+            disabled={mounted ? !connector.ready || connector.id === activeConnector?.id : false}
           >
             <span className="flex justify-between items-center w-full">
-              {mounted
-                ? connector.id === 'injected'
-                  ? 'Browser Wallet'
-                  : connector.name
-                : connector.name}
+              {mounted ? (connector.id === 'injected' ? 'Browser Wallet' : connector.name) : connector.name}
               {mounted ? !connector.ready && ' (unsupported)' : ''}
             </span>
             <img
@@ -212,7 +175,7 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
               alt={connector.id}
             />
           </button>
-        )
+        );
       })}
       {error?.message ? (
         <div className="flex items-center space-x-1 text-red-500">
@@ -221,7 +184,7 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
         </div>
       ) : null}
     </div>
-  )
-}
+  );
+};
 
-export default WalletSelector
+export default WalletSelector;

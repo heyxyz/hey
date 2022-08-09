@@ -1,3 +1,3 @@
-import Notification from '@components/Notification'
+import Notification from '@components/Notification';
 
-export default Notification
+export default Notification;

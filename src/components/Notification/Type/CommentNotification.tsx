@@ -1,17 +1,17 @@
-import Markup from '@components/Shared/Markup'
-import { NewCommentNotification } from '@generated/types'
-import { ChatAlt2Icon } from '@heroicons/react/solid'
-import dayjs from 'dayjs'
-import relativeTime from 'dayjs/plugin/relativeTime'
-import Link from 'next/link'
-import React, { FC } from 'react'
+import Markup from '@components/Shared/Markup';
+import { NewCommentNotification } from '@generated/types';
+import { ChatAlt2Icon } from '@heroicons/react/solid';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import Link from 'next/link';
+import React, { FC } from 'react';
 
-import { NotificationProfileAvatar, NotificationProfileName } from '../Profile'
+import { NotificationProfileAvatar, NotificationProfileName } from '../Profile';
 
-dayjs.extend(relativeTime)
+dayjs.extend(relativeTime);
 
 interface Props {
-  notification: NewCommentNotification
+  notification: NewCommentNotification;
 }
 
 const CommentNotification: FC<Props> = ({ notification }) => {
@@ -24,14 +24,9 @@ const CommentNotification: FC<Props> = ({ notification }) => {
         </div>
         <div className="ml-9">
           <NotificationProfileName profile={notification?.profile} />{' '}
-          <span className="text-gray-600 dark:text-gray-400">
-            commented on your{' '}
-          </span>
+          <span className="text-gray-600 dark:text-gray-400">commented on your </span>
           <Link href={`/posts/${notification?.comment?.commentOn?.id}`}>
-            <a
-              href={`/posts/${notification?.comment?.commentOn?.id}`}
-              className="font-bold"
-            >
+            <a href={`/posts/${notification?.comment?.commentOn?.id}`} className="font-bold">
               {notification?.comment?.commentOn?.__typename?.toLowerCase()}
             </a>
           </Link>
@@ -45,11 +40,9 @@ const CommentNotification: FC<Props> = ({ notification }) => {
           </Link>
         </div>
       </div>
-      <div className="text-gray-400 text-[12px]">
-        {dayjs(new Date(notification?.createdAt)).fromNow()}
-      </div>
+      <div className="text-gray-400 text-[12px]">{dayjs(new Date(notification?.createdAt)).fromNow()}</div>
     </div>
-  )
-}
+  );
+};
 
-export default CommentNotification
+export default CommentNotification;

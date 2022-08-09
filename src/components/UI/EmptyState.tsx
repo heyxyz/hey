@@ -1,11 +1,11 @@
-import React, { FC, ReactNode } from 'react'
+import React, { FC, ReactNode } from 'react';
 
-import { Card } from './Card'
+import { Card } from './Card';
 
 interface Props {
-  message: ReactNode
-  icon: ReactNode
-  hideCard?: boolean
+  message: ReactNode;
+  icon: ReactNode;
+  hideCard?: boolean;
 }
 
 export const EmptyState: FC<Props> = ({ message, icon, hideCard = false }) => {
@@ -16,5 +16,5 @@ export const EmptyState: FC<Props> = ({ message, icon, hideCard = false }) => {
         <div>{message}</div>
       </div>
     </Card>
-  )
-}
+  );
+};

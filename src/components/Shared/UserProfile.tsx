@@ -1,24 +1,24 @@
-import { Profile } from '@generated/types'
-import { BadgeCheckIcon } from '@heroicons/react/solid'
-import getAvatar from '@lib/getAvatar'
-import isVerified from '@lib/isVerified'
-import clsx from 'clsx'
-import Link from 'next/link'
-import React, { FC, useState } from 'react'
+import { Profile } from '@generated/types';
+import { BadgeCheckIcon } from '@heroicons/react/solid';
+import getAvatar from '@lib/getAvatar';
+import isVerified from '@lib/isVerified';
+import clsx from 'clsx';
+import Link from 'next/link';
+import React, { FC, useState } from 'react';
 
-import Follow from './Follow'
-import Markup from './Markup'
-import Slug from './Slug'
-import SuperFollow from './SuperFollow'
-import Unfollow from './Unfollow'
+import Follow from './Follow';
+import Markup from './Markup';
+import Slug from './Slug';
+import SuperFollow from './SuperFollow';
+import Unfollow from './Unfollow';
 
 interface Props {
-  profile: Profile
-  showBio?: boolean
-  showFollow?: boolean
-  followStatusLoading?: boolean
-  isFollowing?: boolean
-  isBig?: boolean
+  profile: Profile;
+  showBio?: boolean;
+  showFollow?: boolean;
+  followStatusLoading?: boolean;
+  isFollowing?: boolean;
+  isBig?: boolean;
 }
 
 const UserProfile: FC<Props> = ({
@@ -29,7 +29,7 @@ const UserProfile: FC<Props> = ({
   isFollowing = false,
   isBig = false
 }) => {
-  const [following, setFollowing] = useState<boolean>(isFollowing)
+  const [following, setFollowing] = useState<boolean>(isFollowing);
 
   return (
     <div className="flex justify-between items-center">
@@ -52,19 +52,11 @@ const UserProfile: FC<Props> = ({
                 <div className={clsx(isBig ? 'font-bold' : 'text-md')}>
                   {profile?.name ?? profile?.handle}
                 </div>
-                {isVerified(profile?.id) && (
-                  <BadgeCheckIcon className="w-4 h-4 text-brand" />
-                )}
+                {isVerified(profile?.id) && <BadgeCheckIcon className="w-4 h-4 text-brand" />}
               </div>
               <Slug className="text-sm" slug={profile?.handle} prefix="@" />
               {showBio && profile?.bio && (
-                <div
-                  className={clsx(
-                    isBig ? 'text-base' : 'text-sm',
-                    'mt-2',
-                    'linkify leading-6'
-                  )}
-                >
+                <div className={clsx(isBig ? 'text-base' : 'text-sm', 'mt-2', 'linkify leading-6')}>
                   <Markup>{profile?.bio}</Markup>
                 </div>
               )}
@@ -83,7 +75,7 @@ const UserProfile: FC<Props> = ({
           <Follow profile={profile} setFollowing={setFollowing} />
         ))}
     </div>
-  )
-}
+  );
+};
 
-export default UserProfile
+export default UserProfile;

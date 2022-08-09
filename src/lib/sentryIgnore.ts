@@ -3,4 +3,4 @@ export const denyUrls = [
   /^chrome-extension:\/\//i,
   /^moz-extension:\/\//i,
   /^safari-web-extension:\/\//i
-]
+];

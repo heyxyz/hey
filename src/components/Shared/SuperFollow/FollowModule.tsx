@@ -1,45 +1,29 @@
-import { LensHubProxy } from '@abis/LensHubProxy'
-import { gql, useMutation, useQuery } from '@apollo/client'
-import { ALLOWANCE_SETTINGS_QUERY } from '@components/Settings/Allowance'
-import AllowanceButton from '@components/Settings/Allowance/Button'
-import { Button } from '@components/UI/Button'
-import { Spinner } from '@components/UI/Spinner'
-import { WarningMessage } from '@components/UI/WarningMessage'
-import { LensterFollowModule } from '@generated/lenstertypes'
-import {
-  CreateFollowBroadcastItemResult,
-  FeeFollowModuleSettings,
-  Profile
-} from '@generated/types'
-import { BROADCAST_MUTATION } from '@gql/BroadcastMutation'
-import { StarIcon, UserIcon } from '@heroicons/react/outline'
-import formatAddress from '@lib/formatAddress'
-import getTokenImage from '@lib/getTokenImage'
-import { Mixpanel } from '@lib/mixpanel'
-import omit from '@lib/omit'
-import splitSignature from '@lib/splitSignature'
-import { Dispatch, FC, useState } from 'react'
-import toast from 'react-hot-toast'
-import {
-  ERROR_MESSAGE,
-  ERRORS,
-  LENSHUB_PROXY,
-  POLYGONSCAN_URL,
-  RELAY_ON,
-  SIGN_WALLET
-} from 'src/constants'
-import { useAppPersistStore, useAppStore } from 'src/store/app'
-import { PROFILE } from 'src/tracking'
-import {
-  useAccount,
-  useBalance,
-  useContractWrite,
-  useSignTypedData
-} from 'wagmi'
+import { LensHubProxy } from '@abis/LensHubProxy';
+import { gql, useMutation, useQuery } from '@apollo/client';
+import { ALLOWANCE_SETTINGS_QUERY } from '@components/Settings/Allowance';
+import AllowanceButton from '@components/Settings/Allowance/Button';
+import { Button } from '@components/UI/Button';
+import { Spinner } from '@components/UI/Spinner';
+import { WarningMessage } from '@components/UI/WarningMessage';
+import { LensterFollowModule } from '@generated/lenstertypes';
+import { CreateFollowBroadcastItemResult, FeeFollowModuleSettings, Profile } from '@generated/types';
+import { BROADCAST_MUTATION } from '@gql/BroadcastMutation';
+import { StarIcon, UserIcon } from '@heroicons/react/outline';
+import formatAddress from '@lib/formatAddress';
+import getTokenImage from '@lib/getTokenImage';
+import { Mixpanel } from '@lib/mixpanel';
+import omit from '@lib/omit';
+import splitSignature from '@lib/splitSignature';
+import { Dispatch, FC, useState } from 'react';
+import toast from 'react-hot-toast';
+import { ERROR_MESSAGE, ERRORS, LENSHUB_PROXY, POLYGONSCAN_URL, RELAY_ON, SIGN_WALLET } from 'src/constants';
+import { useAppPersistStore, useAppStore } from 'src/store/app';
+import { PROFILE } from 'src/tracking';
+import { useAccount, useBalance, useContractWrite, useSignTypedData } from 'wagmi';
 
-import Loader from '../Loader'
-import Slug from '../Slug'
-import Uniswap from '../Uniswap'
+import Loader from '../Loader';
+import Slug from '../Slug';
+import Uniswap from '../Uniswap';
 
 const SUPER_FOLLOW_QUERY = gql`
   query SuperFollow($request: SingleProfileQueryRequest!) {
@@ -61,7 +45,7 @@ const SUPER_FOLLOW_QUERY = gql`
       }
     }
   }
-`
+`;
 
 const CREATE_FOLLOW_TYPED_DATA_MUTATION = gql`
   mutation CreateFollowTypedData($request: FollowRequest!) {
@@ -90,15 +74,15 @@ const CREATE_FOLLOW_TYPED_DATA_MUTATION = gql`
       }
     }
   }
-`
+`;
 
 interface Props {
-  profile: Profile
-  setFollowing: Dispatch<boolean>
-  setShowFollowModal: Dispatch<boolean>
-  followersCount?: number
-  setFollowersCount?: Dispatch<number>
-  again: boolean
+  profile: Profile;
+  setFollowing: Dispatch<boolean>;
+  setShowFollowModal: Dispatch<boolean>;
+  followersCount?: number;
+  setFollowersCount?: Dispatch<number>;
+  again: boolean;
 }
 
 const FollowModule: FC<Props> = ({
@@ -109,27 +93,27 @@ const FollowModule: FC<Props> = ({
   setFollowersCount,
   again
 }) => {
-  const userSigNonce = useAppStore((state) => state.userSigNonce)
-  const setUserSigNonce = useAppStore((state) => state.setUserSigNonce)
-  const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated)
-  const currentUser = useAppPersistStore((state) => state.currentUser)
-  const [allowed, setAllowed] = useState<boolean>(true)
-  const { address } = useAccount()
+  const userSigNonce = useAppStore((state) => state.userSigNonce);
+  const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
+  const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
+  const currentUser = useAppPersistStore((state) => state.currentUser);
+  const [allowed, setAllowed] = useState<boolean>(true);
+  const { address } = useAccount();
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
-      toast.error(error?.message)
+      toast.error(error?.message);
     }
-  })
+  });
 
   const onCompleted = () => {
     if (followersCount && setFollowersCount) {
-      setFollowersCount(followersCount + 1)
+      setFollowersCount(followersCount + 1);
     }
-    setFollowing(true)
-    setShowFollowModal(false)
-    toast.success('Followed successfully!')
-    Mixpanel.track(PROFILE.SUPER_FOLLOW, { result: 'success' })
-  }
+    setFollowing(true);
+    setShowFollowModal(false);
+    toast.success('Followed successfully!');
+    Mixpanel.track(PROFILE.SUPER_FOLLOW, { result: 'success' });
+  };
 
   const { isLoading: writeLoading, write } = useContractWrite({
     addressOrName: LENSHUB_PROXY,
@@ -137,115 +121,105 @@ const FollowModule: FC<Props> = ({
     functionName: 'followWithSig',
     mode: 'recklesslyUnprepared',
     onSuccess() {
-      onCompleted()
+      onCompleted();
     },
     onError(error: any) {
-      toast.error(error?.data?.message ?? error?.message)
+      toast.error(error?.data?.message ?? error?.message);
     }
-  })
+  });
 
   const { data, loading } = useQuery(SUPER_FOLLOW_QUERY, {
     variables: { request: { profileId: profile?.id } },
     skip: !profile?.id
-  })
+  });
 
-  const followModule: FeeFollowModuleSettings = data?.profile?.followModule
+  const followModule: FeeFollowModuleSettings = data?.profile?.followModule;
 
-  const { data: allowanceData, loading: allowanceLoading } = useQuery(
-    ALLOWANCE_SETTINGS_QUERY,
-    {
-      variables: {
-        request: {
-          currencies: followModule?.amount?.asset?.address,
-          followModules: 'FeeFollowModule',
-          collectModules: [],
-          referenceModules: []
-        }
-      },
-      skip: !followModule?.amount?.asset?.address || !currentUser,
-      onCompleted(data) {
-        setAllowed(data?.approvedModuleAllowanceAmount[0]?.allowance !== '0x00')
+  const { data: allowanceData, loading: allowanceLoading } = useQuery(ALLOWANCE_SETTINGS_QUERY, {
+    variables: {
+      request: {
+        currencies: followModule?.amount?.asset?.address,
+        followModules: 'FeeFollowModule',
+        collectModules: [],
+        referenceModules: []
       }
+    },
+    skip: !followModule?.amount?.asset?.address || !currentUser,
+    onCompleted(data) {
+      setAllowed(data?.approvedModuleAllowanceAmount[0]?.allowance !== '0x00');
     }
-  )
+  });
 
   const { data: balanceData } = useBalance({
     addressOrName: currentUser?.ownedBy,
     token: followModule?.amount?.asset?.address,
     formatUnits: followModule?.amount?.asset?.decimals,
     watch: true
-  })
-  let hasAmount = false
+  });
+  let hasAmount = false;
 
-  if (
-    balanceData &&
-    parseFloat(balanceData?.formatted) < parseFloat(followModule?.amount?.value)
-  ) {
-    hasAmount = false
+  if (balanceData && parseFloat(balanceData?.formatted) < parseFloat(followModule?.amount?.value)) {
+    hasAmount = false;
   } else {
-    hasAmount = true
+    hasAmount = true;
   }
 
-  const [broadcast, { loading: broadcastLoading }] = useMutation(
-    BROADCAST_MUTATION,
-    {
-      onCompleted,
-      onError(error) {
-        if (error.message === ERRORS.notMined) {
-          toast.error(error.message)
-        }
-        Mixpanel.track(PROFILE.SUPER_FOLLOW, { result: 'broadcast_error' })
+  const [broadcast, { loading: broadcastLoading }] = useMutation(BROADCAST_MUTATION, {
+    onCompleted,
+    onError(error) {
+      if (error.message === ERRORS.notMined) {
+        toast.error(error.message);
       }
+      Mixpanel.track(PROFILE.SUPER_FOLLOW, { result: 'broadcast_error' });
     }
-  )
+  });
   const [createFollowTypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_FOLLOW_TYPED_DATA_MUTATION,
     {
       async onCompleted({
         createFollowTypedData
       }: {
-        createFollowTypedData: CreateFollowBroadcastItemResult
+        createFollowTypedData: CreateFollowBroadcastItemResult;
       }) {
-        const { id, typedData } = createFollowTypedData
-        const { deadline } = typedData?.value
+        const { id, typedData } = createFollowTypedData;
+        const { deadline } = typedData?.value;
 
         try {
           const signature = await signTypedDataAsync({
             domain: omit(typedData?.domain, '__typename'),
             types: omit(typedData?.types, '__typename'),
             value: omit(typedData?.value, '__typename')
-          })
-          setUserSigNonce(userSigNonce + 1)
-          const { profileIds, datas: followData } = typedData?.value
-          const { v, r, s } = splitSignature(signature)
-          const sig = { v, r, s, deadline }
+          });
+          setUserSigNonce(userSigNonce + 1);
+          const { profileIds, datas: followData } = typedData?.value;
+          const { v, r, s } = splitSignature(signature);
+          const sig = { v, r, s, deadline };
           const inputStruct = {
             follower: address,
             profileIds,
             datas: followData,
             sig
-          }
+          };
           if (RELAY_ON) {
             const {
               data: { broadcast: result },
               errors
-            } = await broadcast({ variables: { request: { id, signature } } })
+            } = await broadcast({ variables: { request: { id, signature } } });
 
-            if ('reason' in result || errors)
-              write?.({ recklesslySetUnpreparedArgs: inputStruct })
+            if ('reason' in result || errors) write?.({ recklesslySetUnpreparedArgs: inputStruct });
           } else {
-            write?.({ recklesslySetUnpreparedArgs: inputStruct })
+            write?.({ recklesslySetUnpreparedArgs: inputStruct });
           }
         } catch (error) {}
       },
       onError(error) {
-        toast.error(error.message ?? ERROR_MESSAGE)
+        toast.error(error.message ?? ERROR_MESSAGE);
       }
     }
-  )
+  );
 
   const createFollow = () => {
-    if (!isAuthenticated) return toast.error(SIGN_WALLET)
+    if (!isAuthenticated) return toast.error(SIGN_WALLET);
 
     createFollowTypedData({
       variables: {
@@ -264,21 +238,18 @@ const FollowModule: FC<Props> = ({
           }
         }
       }
-    })
-  }
+    });
+  };
 
-  if (loading) return <Loader message="Loading super follow" />
+  if (loading) return <Loader message="Loading super follow" />;
 
   return (
     <div className="p-5">
       <div className="pb-2 space-y-1.5">
         <div className="text-lg font-bold">
-          Super follow <Slug slug={profile?.handle} prefix="@" />{' '}
-          {again ? 'again' : ''}
+          Super follow <Slug slug={profile?.handle} prefix="@" /> {again ? 'again' : ''}
         </div>
-        <div className="text-gray-500">
-          Follow {again ? 'again' : ''} and get some awesome perks!
-        </div>
+        <div className="text-gray-500">Follow {again ? 'again' : ''} and get some awesome perks!</div>
       </div>
       <div className="flex items-center py-2 space-x-1.5">
         <img
@@ -290,9 +261,7 @@ const FollowModule: FC<Props> = ({
           title={followModule?.amount?.asset?.name}
         />
         <span className="space-x-1">
-          <span className="text-2xl font-bold">
-            {followModule?.amount?.value}
-          </span>
+          <span className="text-2xl font-bold">{followModule?.amount?.value}</span>
           <span className="text-xs">{followModule?.amount?.asset?.symbol}</span>
         </span>
       </div>
@@ -315,9 +284,7 @@ const FollowModule: FC<Props> = ({
         <ul className="space-y-1 text-sm text-gray-500">
           <li className="flex space-x-2 tracking-normal leading-6">
             <div>•</div>
-            <div>
-              You can comment on @{profile?.handle}&rsquo;s publications
-            </div>
+            <div>You can comment on @{profile?.handle}&rsquo;s publications</div>
           </li>
           <li className="flex space-x-2 tracking-normal leading-6">
             <div>•</div>
@@ -325,16 +292,11 @@ const FollowModule: FC<Props> = ({
           </li>
           <li className="flex space-x-2 tracking-normal leading-6">
             <div>•</div>
-            <div>
-              You will get super follow badge in @{profile?.handle}&rsquo;s
-              profile
-            </div>
+            <div>You will get super follow badge in @{profile?.handle}&rsquo;s profile</div>
           </li>
           <li className="flex space-x-2 tracking-normal leading-6">
             <div>•</div>
-            <div>
-              You will have high voting power if you followed multiple times
-            </div>
+            <div>You will have high voting power if you followed multiple times</div>
           </li>
           <li className="flex space-x-2 tracking-normal leading-6">
             <div>•</div>
@@ -352,17 +314,9 @@ const FollowModule: FC<Props> = ({
               variant="super"
               outline
               onClick={createFollow}
-              disabled={
-                typedDataLoading ||
-                signLoading ||
-                writeLoading ||
-                broadcastLoading
-              }
+              disabled={typedDataLoading || signLoading || writeLoading || broadcastLoading}
               icon={
-                typedDataLoading ||
-                signLoading ||
-                writeLoading ||
-                broadcastLoading ? (
+                typedDataLoading || signLoading || writeLoading || broadcastLoading ? (
                   <Spinner variant="super" size="xs" />
                 ) : (
                   <StarIcon className="w-4 h-4" />
@@ -389,7 +343,7 @@ const FollowModule: FC<Props> = ({
         )
       ) : null}
     </div>
-  )
-}
+  );
+};
 
-export default FollowModule
+export default FollowModule;

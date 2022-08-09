@@ -626,9 +626,7 @@ export const LensHubProxy = [
       { internalType: 'uint256', name: 'pubId', type: 'uint256' }
     ],
     name: 'getPubType',
-    outputs: [
-      { internalType: 'enum DataTypes.PubType', name: '', type: 'uint8' }
-    ],
+    outputs: [{ internalType: 'enum DataTypes.PubType', name: '', type: 'uint8' }],
     stateMutability: 'view',
     type: 'function'
   },
@@ -677,27 +675,21 @@ export const LensHubProxy = [
     type: 'function'
   },
   {
-    inputs: [
-      { internalType: 'address', name: 'collectModule', type: 'address' }
-    ],
+    inputs: [{ internalType: 'address', name: 'collectModule', type: 'address' }],
     name: 'isCollectModuleWhitelisted',
     outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
     stateMutability: 'view',
     type: 'function'
   },
   {
-    inputs: [
-      { internalType: 'address', name: 'followModule', type: 'address' }
-    ],
+    inputs: [{ internalType: 'address', name: 'followModule', type: 'address' }],
     name: 'isFollowModuleWhitelisted',
     outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
     stateMutability: 'view',
     type: 'function'
   },
   {
-    inputs: [
-      { internalType: 'address', name: 'profileCreator', type: 'address' }
-    ],
+    inputs: [{ internalType: 'address', name: 'profileCreator', type: 'address' }],
     name: 'isProfileCreatorWhitelisted',
     outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
     stateMutability: 'view',
@@ -1200,9 +1192,7 @@ export const LensHubProxy = [
     type: 'function'
   },
   {
-    inputs: [
-      { internalType: 'address', name: 'newGovernance', type: 'address' }
-    ],
+    inputs: [{ internalType: 'address', name: 'newGovernance', type: 'address' }],
     name: 'setGovernance',
     outputs: [],
     stateMutability: 'nonpayable',
@@ -1395,4 +1385,4 @@ export const LensHubProxy = [
     stateMutability: 'nonpayable',
     type: 'function'
   }
-]
+];

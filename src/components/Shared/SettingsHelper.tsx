@@ -1,9 +1,9 @@
-import { FC, ReactNode } from 'react'
+import { FC, ReactNode } from 'react';
 
 interface Props {
-  icon?: ReactNode
-  heading: string
-  description: string
+  icon?: ReactNode;
+  heading: string;
+  description: string;
 }
 
 const SettingsHelper: FC<Props> = ({ icon, heading, description }) => {
@@ -15,7 +15,7 @@ const SettingsHelper: FC<Props> = ({ icon, heading, description }) => {
       </div>
       <div className="text-gray-600 dark:text-gray-400">{description}</div>
     </div>
-  )
-}
+  );
+};
 
-export default SettingsHelper
+export default SettingsHelper;

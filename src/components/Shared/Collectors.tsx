@@ -1,18 +1,18 @@
-import { gql, useQuery } from '@apollo/client'
-import UserProfile from '@components/Shared/UserProfile'
-import WalletProfile from '@components/Shared/WalletProfile'
-import { EmptyState } from '@components/UI/EmptyState'
-import { ErrorMessage } from '@components/UI/ErrorMessage'
-import { Spinner } from '@components/UI/Spinner'
-import { PaginatedResultInfo, Wallet } from '@generated/types'
-import { MinimalProfileFields } from '@gql/MinimalProfileFields'
-import { CollectionIcon } from '@heroicons/react/outline'
-import { Mixpanel } from '@lib/mixpanel'
-import { FC, useState } from 'react'
-import { useInView } from 'react-cool-inview'
-import { PAGINATION } from 'src/tracking'
+import { gql, useQuery } from '@apollo/client';
+import UserProfile from '@components/Shared/UserProfile';
+import WalletProfile from '@components/Shared/WalletProfile';
+import { EmptyState } from '@components/UI/EmptyState';
+import { ErrorMessage } from '@components/UI/ErrorMessage';
+import { Spinner } from '@components/UI/Spinner';
+import { PaginatedResultInfo, Wallet } from '@generated/types';
+import { MinimalProfileFields } from '@gql/MinimalProfileFields';
+import { CollectionIcon } from '@heroicons/react/outline';
+import { Mixpanel } from '@lib/mixpanel';
+import { FC, useState } from 'react';
+import { useInView } from 'react-cool-inview';
+import { PAGINATION } from 'src/tracking';
 
-import Loader from './Loader'
+import Loader from './Loader';
 
 const COLLECTORS_QUERY = gql`
   query Collectors($request: WhoCollectedPublicationRequest!) {
@@ -31,23 +31,23 @@ const COLLECTORS_QUERY = gql`
     }
   }
   ${MinimalProfileFields}
-`
+`;
 
 interface Props {
-  pubId: string
+  pubId: string;
 }
 
 const Collectors: FC<Props> = ({ pubId }) => {
-  const [collectors, setCollectors] = useState<Wallet[]>([])
-  const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
+  const [collectors, setCollectors] = useState<Wallet[]>([]);
+  const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>();
   const { data, loading, error, fetchMore } = useQuery(COLLECTORS_QUERY, {
     variables: { request: { publicationId: pubId, limit: 10 } },
     skip: !pubId,
     onCompleted(data) {
-      setPageInfo(data?.whoCollectedPublication?.pageInfo)
-      setCollectors(data?.whoCollectedPublication?.items)
+      setPageInfo(data?.whoCollectedPublication?.pageInfo);
+      setCollectors(data?.whoCollectedPublication?.items);
     }
-  })
+  });
 
   const { observe } = useInView({
     onEnter: async () => {
@@ -59,14 +59,14 @@ const Collectors: FC<Props> = ({ pubId }) => {
             limit: 10
           }
         }
-      })
-      setPageInfo(data?.whoCollectedPublication?.pageInfo)
-      setCollectors([...collectors, ...data?.whoCollectedPublication?.items])
-      Mixpanel.track(PAGINATION.COLLECTORS, { pageInfo })
+      });
+      setPageInfo(data?.whoCollectedPublication?.pageInfo);
+      setCollectors([...collectors, ...data?.whoCollectedPublication?.items]);
+      Mixpanel.track(PAGINATION.COLLECTORS, { pageInfo });
     }
-  })
+  });
 
-  if (loading) return <Loader message="Loading collectors" />
+  if (loading) return <Loader message="Loading collectors" />;
 
   if (data?.whoCollectedPublication?.items?.length === 0)
     return (
@@ -77,15 +77,11 @@ const Collectors: FC<Props> = ({ pubId }) => {
           hideCard
         />
       </div>
-    )
+    );
 
   return (
     <div className="overflow-y-auto max-h-[80vh]">
-      <ErrorMessage
-        className="m-5"
-        title="Failed to load collectors"
-        error={error}
-      />
+      <ErrorMessage className="m-5" title="Failed to load collectors" error={error} />
       <div className="space-y-3">
         <div className="divide-y dark:divide-gray-700">
           {collectors?.map((wallet: Wallet) => (
@@ -110,7 +106,7 @@ const Collectors: FC<Props> = ({ pubId }) => {
         )}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Collectors
+export default Collectors;

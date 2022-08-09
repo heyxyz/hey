@@ -1,13 +1,13 @@
-import { Card, CardBody } from '@components/UI/Card'
-import { BadgeCheckIcon } from '@heroicons/react/solid'
-import isVerified from '@lib/isVerified'
-import { Mixpanel } from '@lib/mixpanel'
-import React, { FC } from 'react'
-import { useAppPersistStore } from 'src/store/app'
-import { SETTINGS } from 'src/tracking'
+import { Card, CardBody } from '@components/UI/Card';
+import { BadgeCheckIcon } from '@heroicons/react/solid';
+import isVerified from '@lib/isVerified';
+import { Mixpanel } from '@lib/mixpanel';
+import React, { FC } from 'react';
+import { useAppPersistStore } from 'src/store/app';
+import { SETTINGS } from 'src/tracking';
 
 const Verification: FC = () => {
-  const currentUser = useAppPersistStore((state) => state.currentUser)
+  const currentUser = useAppPersistStore((state) => state.currentUser);
 
   return (
     <Card>
@@ -24,7 +24,7 @@ const Verification: FC = () => {
             <a
               href="https://tally.so/r/wgDajK"
               onClick={() => {
-                Mixpanel.track(SETTINGS.ACCOUNT.OPEN_VERIFICATION)
+                Mixpanel.track(SETTINGS.ACCOUNT.OPEN_VERIFICATION);
               }}
               target="_blank"
               rel="noreferrer noopener"
@@ -35,7 +35,7 @@ const Verification: FC = () => {
         )}
       </CardBody>
     </Card>
-  )
-}
+  );
+};
 
-export default Verification
+export default Verification;

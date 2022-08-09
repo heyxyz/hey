@@ -1,10 +1,10 @@
-import Head from 'next/head'
-import React, { FC } from 'react'
-import { APP_NAME, DEFAULT_OG, DESCRIPTION, STATIC_ASSETS } from 'src/constants'
+import Head from 'next/head';
+import React, { FC } from 'react';
+import { APP_NAME, DEFAULT_OG, DESCRIPTION, STATIC_ASSETS } from 'src/constants';
 
 interface Props {
-  title?: string
-  description?: string
+  title?: string;
+  description?: string;
 }
 
 const Seo: FC<Props> = ({ title = APP_NAME, description = DESCRIPTION }) => {
@@ -12,10 +12,7 @@ const Seo: FC<Props> = ({ title = APP_NAME, description = DESCRIPTION }) => {
     <Head>
       <title>{title}</title>
       <meta name="description" content={description} />
-      <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1, maximum-scale=5"
-      />
+      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
 
       <link rel="preconnect" href="https://ik.imagekit.io" />
       <link rel="dns-prefetch" href="https://ik.imagekit.io" />
@@ -54,7 +51,7 @@ const Seo: FC<Props> = ({ title = APP_NAME, description = DESCRIPTION }) => {
         title={APP_NAME}
       />
     </Head>
-  )
-}
+  );
+};
 
-export default Seo
+export default Seo;

@@ -1,18 +1,18 @@
-import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout'
-import SettingsHelper from '@components/Shared/SettingsHelper'
-import { Button } from '@components/UI/Button'
-import { Card } from '@components/UI/Card'
-import { EmptyState } from '@components/UI/EmptyState'
-import { Form, useZodForm } from '@components/UI/Form'
-import { Input } from '@components/UI/Input'
-import { TextArea } from '@components/UI/TextArea'
-import Seo from '@components/utils/Seo'
-import { PencilAltIcon } from '@heroicons/react/outline'
-import { CheckCircleIcon } from '@heroicons/react/solid'
-import { useRouter } from 'next/router'
-import React, { FC } from 'react'
-import { APP_NAME, CONTACT_EMAIL } from 'src/constants'
-import { object, string } from 'zod'
+import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout';
+import SettingsHelper from '@components/Shared/SettingsHelper';
+import { Button } from '@components/UI/Button';
+import { Card } from '@components/UI/Card';
+import { EmptyState } from '@components/UI/EmptyState';
+import { Form, useZodForm } from '@components/UI/Form';
+import { Input } from '@components/UI/Input';
+import { TextArea } from '@components/UI/TextArea';
+import Seo from '@components/utils/Seo';
+import { PencilAltIcon } from '@heroicons/react/outline';
+import { CheckCircleIcon } from '@heroicons/react/solid';
+import { useRouter } from 'next/router';
+import React, { FC } from 'react';
+import { APP_NAME, CONTACT_EMAIL } from 'src/constants';
+import { object, string } from 'zod';
 
 const newContactSchema = object({
   subject: string()
@@ -25,13 +25,13 @@ const newContactSchema = object({
       message: 'Message should not exceed 1000 characters'
     })
     .nonempty()
-})
+});
 
 const Contact: FC = () => {
-  const { push } = useRouter()
+  const { push } = useRouter();
   const form = useZodForm({
     schema: newContactSchema
-  })
+  });
 
   return (
     <GridLayout>
@@ -57,25 +57,14 @@ const Contact: FC = () => {
               onSubmit={({ subject, message }) => {
                 location.href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(
                   subject
-                )}&body=${encodeURIComponent(message)}`
-                push('/')
+                )}&body=${encodeURIComponent(message)}`;
+                push('/');
               }}
             >
-              <Input
-                label="Subject"
-                placeholder="What happened?"
-                {...form.register('subject')}
-              />
-              <TextArea
-                label="Message"
-                placeholder="How can we help?"
-                {...form.register('message')}
-              />
+              <Input label="Subject" placeholder="What happened?" {...form.register('subject')} />
+              <TextArea label="Message" placeholder="How can we help?" {...form.register('message')} />
               <div className="ml-auto">
-                <Button
-                  type="submit"
-                  icon={<PencilAltIcon className="w-4 h-4" />}
-                >
+                <Button type="submit" icon={<PencilAltIcon className="w-4 h-4" />}>
                   Submit
                 </Button>
               </div>
@@ -84,7 +73,7 @@ const Contact: FC = () => {
         </Card>
       </GridItemEight>
     </GridLayout>
-  )
-}
+  );
+};
 
-export default Contact
+export default Contact;
