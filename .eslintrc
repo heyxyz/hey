@@ -21,7 +21,8 @@
     "simple-import-sort/exports": "error",
     "jsx-a11y/role-supports-aria-props": "off",
     "no-use-before-define": "error",
-    "no-unexpected-multiline": "error"
+    "no-unexpected-multiline": "error",
+    "react/self-closing-comp":"error"
   },
   "ignorePatterns": ["/src/generated/types.ts"]
 }
