@@ -1,13 +1,13 @@
-import { LensterPublication } from '@generated/lenstertypes'
-import { Menu } from '@headlessui/react'
-import { CodeIcon } from '@heroicons/react/outline'
-import { Mixpanel } from '@lib/mixpanel'
-import clsx from 'clsx'
-import React, { FC } from 'react'
-import { PUBLICATION } from 'src/tracking'
+import { LensterPublication } from '@generated/lenstertypes';
+import { Menu } from '@headlessui/react';
+import { CodeIcon } from '@heroicons/react/outline';
+import { Mixpanel } from '@lib/mixpanel';
+import clsx from 'clsx';
+import React, { FC } from 'react';
+import { PUBLICATION } from 'src/tracking';
 
 interface Props {
-  publication: LensterPublication
+  publication: LensterPublication;
 }
 
 const Embed: FC<Props> = ({ publication }) => {
@@ -15,17 +15,12 @@ const Embed: FC<Props> = ({ publication }) => {
     <Menu.Item
       as="a"
       className={({ active }: { active: boolean }) =>
-        clsx(
-          { 'dropdown-active': active },
-          'block px-4 py-1.5 text-sm m-2 rounded-lg cursor-pointer'
-        )
+        clsx({ 'dropdown-active': active }, 'block px-4 py-1.5 text-sm m-2 rounded-lg cursor-pointer')
       }
       onClick={() => {
-        Mixpanel.track(PUBLICATION.EMBED)
+        Mixpanel.track(PUBLICATION.EMBED);
       }}
-      href={`https://embed.withlens.app/?url=${
-        publication?.id ?? publication?.pubId
-      }`}
+      href={`https://embed.withlens.app/?url=${publication?.id ?? publication?.pubId}`}
       target="_blank"
     >
       <div className="flex items-center space-x-2">
@@ -33,7 +28,7 @@ const Embed: FC<Props> = ({ publication }) => {
         <div>Embed</div>
       </div>
     </Menu.Item>
-  )
-}
+  );
+};
 
-export default Embed
+export default Embed;

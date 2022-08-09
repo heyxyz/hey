@@ -1,17 +1,17 @@
-import { gql, useQuery } from '@apollo/client'
-import UserProfilesShimmer from '@components/Shared/Shimmer/UserProfilesShimmer'
-import UserProfile from '@components/Shared/UserProfile'
-import { Card, CardBody } from '@components/UI/Card'
-import { EmptyState } from '@components/UI/EmptyState'
-import { ErrorMessage } from '@components/UI/ErrorMessage'
-import { Spinner } from '@components/UI/Spinner'
-import { PaginatedResultInfo, Profile } from '@generated/types'
-import { MinimalProfileFields } from '@gql/MinimalProfileFields'
-import { UsersIcon } from '@heroicons/react/outline'
-import { Mixpanel } from '@lib/mixpanel'
-import React, { FC, useState } from 'react'
-import { useInView } from 'react-cool-inview'
-import { PAGINATION } from 'src/tracking'
+import { gql, useQuery } from '@apollo/client';
+import UserProfilesShimmer from '@components/Shared/Shimmer/UserProfilesShimmer';
+import UserProfile from '@components/Shared/UserProfile';
+import { Card, CardBody } from '@components/UI/Card';
+import { EmptyState } from '@components/UI/EmptyState';
+import { ErrorMessage } from '@components/UI/ErrorMessage';
+import { Spinner } from '@components/UI/Spinner';
+import { PaginatedResultInfo, Profile } from '@generated/types';
+import { MinimalProfileFields } from '@gql/MinimalProfileFields';
+import { UsersIcon } from '@heroicons/react/outline';
+import { Mixpanel } from '@lib/mixpanel';
+import React, { FC, useState } from 'react';
+import { useInView } from 'react-cool-inview';
+import { PAGINATION } from 'src/tracking';
 
 const SEARCH_PROFILES_QUERY = gql`
   query SearchProfiles($request: SearchQueryRequest!) {
@@ -28,23 +28,23 @@ const SEARCH_PROFILES_QUERY = gql`
     }
   }
   ${MinimalProfileFields}
-`
+`;
 
 interface Props {
-  query: string | string[]
+  query: string | string[];
 }
 
 const Profiles: FC<Props> = ({ query }) => {
-  const [profiles, setProfiles] = useState<Profile[]>([])
-  const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
+  const [profiles, setProfiles] = useState<Profile[]>([]);
+  const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>();
   const { data, loading, error, fetchMore } = useQuery(SEARCH_PROFILES_QUERY, {
     variables: { request: { query, type: 'PROFILE', limit: 10 } },
     skip: !query,
     onCompleted(data) {
-      setPageInfo(data?.search?.pageInfo)
-      setProfiles(data?.search?.items)
+      setPageInfo(data?.search?.pageInfo);
+      setProfiles(data?.search?.items);
     }
-  })
+  });
 
   const { observe } = useInView({
     onEnter: async () => {
@@ -57,12 +57,12 @@ const Profiles: FC<Props> = ({ query }) => {
             limit: 10
           }
         }
-      })
-      setPageInfo(data?.search?.pageInfo)
-      setProfiles([...profiles, ...data?.search?.items])
-      Mixpanel.track(PAGINATION.PROFILE_SEARCH, { pageInfo })
+      });
+      setPageInfo(data?.search?.pageInfo);
+      setProfiles([...profiles, ...data?.search?.items]);
+      Mixpanel.track(PAGINATION.PROFILE_SEARCH, { pageInfo });
     }
-  })
+  });
 
   return (
     <>
@@ -97,7 +97,7 @@ const Profiles: FC<Props> = ({ query }) => {
         </>
       )}
     </>
-  )
-}
+  );
+};
 
-export default Profiles
+export default Profiles;

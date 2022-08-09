@@ -1,3 +1,3 @@
-import Contact from '@components/Pages/Contact'
+import Contact from '@components/Pages/Contact';
 
-export default Contact
+export default Contact;

@@ -1,15 +1,15 @@
-import { Tooltip } from '@components/UI/Tooltip'
-import { Profile } from '@generated/types'
-import { CheckCircleIcon } from '@heroicons/react/solid'
-import React, { FC } from 'react'
-import { STATIC_ASSETS } from 'src/constants'
+import { Tooltip } from '@components/UI/Tooltip';
+import { Profile } from '@generated/types';
+import { CheckCircleIcon } from '@heroicons/react/solid';
+import React, { FC } from 'react';
+import { STATIC_ASSETS } from 'src/constants';
 
 interface Props {
-  profile: Profile
+  profile: Profile;
 }
 
 const Sybil: FC<Props> = ({ profile }) => {
-  if (!profile?.onChainIdentity?.sybilDotOrg?.verified) return null
+  if (!profile?.onChainIdentity?.sybilDotOrg?.verified) return null;
 
   return (
     <Tooltip
@@ -20,10 +20,7 @@ const Sybil: FC<Props> = ({ profile }) => {
             <CheckCircleIcon className="h-4 w-4" />
           </span>
           <span>
-            Twitter:{' '}
-            <b>
-              @{profile?.onChainIdentity?.sybilDotOrg?.source?.twitter?.handle}
-            </b>
+            Twitter: <b>@{profile?.onChainIdentity?.sybilDotOrg?.source?.twitter?.handle}</b>
           </span>
         </span>
       }
@@ -37,7 +34,7 @@ const Sybil: FC<Props> = ({ profile }) => {
         alt="Sybil Badge"
       />
     </Tooltip>
-  )
-}
+  );
+};
 
-export default Sybil
+export default Sybil;

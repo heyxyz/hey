@@ -1,32 +1,21 @@
-import { Dialog, Transition } from '@headlessui/react'
-import { XIcon } from '@heroicons/react/outline'
-import clsx from 'clsx'
-import React, { FC, Fragment, ReactNode } from 'react'
+import { Dialog, Transition } from '@headlessui/react';
+import { XIcon } from '@heroicons/react/outline';
+import clsx from 'clsx';
+import React, { FC, Fragment, ReactNode } from 'react';
 
 interface Props {
-  icon?: ReactNode
-  title: ReactNode
-  size?: 'sm' | 'md' | 'lg'
-  show: boolean
-  children: ReactNode[] | ReactNode
-  onClose: () => void
+  icon?: ReactNode;
+  title: ReactNode;
+  size?: 'sm' | 'md' | 'lg';
+  show: boolean;
+  children: ReactNode[] | ReactNode;
+  onClose: () => void;
 }
 
-export const Modal: FC<Props> = ({
-  icon,
-  title,
-  size = 'sm',
-  show,
-  children,
-  onClose
-}) => {
+export const Modal: FC<Props> = ({ icon, title, size = 'sm', show, children, onClose }) => {
   return (
     <Transition.Root show={show} as={Fragment}>
-      <Dialog
-        as="div"
-        className="overflow-y-auto fixed inset-0 z-10"
-        onClose={onClose}
-      >
+      <Dialog as="div" className="overflow-y-auto fixed inset-0 z-10" onClose={onClose}>
         <div className="flex justify-center items-center p-4 min-h-screen text-center sm:block sm:p-0">
           <Transition.Child
             as={Fragment}
@@ -39,10 +28,7 @@ export const Modal: FC<Props> = ({
           >
             <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
           </Transition.Child>
-          <span
-            className="hidden sm:inline-block sm:h-screen sm:align-middle"
-            aria-hidden="true"
-          />
+          <span className="hidden sm:inline-block sm:h-screen sm:align-middle" aria-hidden="true" />
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-100"
@@ -79,5 +65,5 @@ export const Modal: FC<Props> = ({
         </div>
       </Dialog>
     </Transition.Root>
-  )
-}
+  );
+};

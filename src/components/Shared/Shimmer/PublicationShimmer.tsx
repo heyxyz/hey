@@ -1,6 +1,6 @@
-import { FC } from 'react'
+import { FC } from 'react';
 
-import UserProfileShimmer from './UserProfileShimmer'
+import UserProfileShimmer from './UserProfileShimmer';
 
 const PublicationShimmer: FC = () => {
   return (
@@ -21,7 +21,7 @@ const PublicationShimmer: FC = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default PublicationShimmer
+export default PublicationShimmer;

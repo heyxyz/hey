@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client'
+import { gql } from '@apollo/client';
 
 export const StatsFields = gql`
   fragment StatsFields on PublicationStats {
@@ -7,4 +7,4 @@ export const StatsFields = gql`
     totalAmountOfCollects
     totalAmountOfComments
   }
-`
+`;

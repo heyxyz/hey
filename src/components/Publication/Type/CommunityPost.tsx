@@ -1,15 +1,15 @@
-import Slug from '@components/Shared/Slug'
-import { LensterPublication } from '@generated/lenstertypes'
-import { UsersIcon } from '@heroicons/react/outline'
-import Link from 'next/link'
-import React, { FC } from 'react'
+import Slug from '@components/Shared/Slug';
+import { LensterPublication } from '@generated/lenstertypes';
+import { UsersIcon } from '@heroicons/react/outline';
+import Link from 'next/link';
+import React, { FC } from 'react';
 
 interface Props {
-  publication: LensterPublication
+  publication: LensterPublication;
 }
 
 const CommunityPublication: FC<Props> = ({ publication }) => {
-  const commentOn: any = publication?.commentOn
+  const commentOn: any = publication?.commentOn;
 
   return (
     <div className="flex items-center pb-4 space-x-1 text-gray-500 text-[13px]">
@@ -23,7 +23,7 @@ const CommunityPublication: FC<Props> = ({ publication }) => {
         </Link>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default CommunityPublication
+export default CommunityPublication;

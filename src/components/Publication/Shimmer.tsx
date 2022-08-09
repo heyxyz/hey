@@ -1,10 +1,10 @@
-import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout'
-import Footer from '@components/Shared/Footer'
-import PublicationShimmer from '@components/Shared/Shimmer/PublicationShimmer'
-import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer'
-import UserProfileShimmer from '@components/Shared/Shimmer/UserProfileShimmer'
-import { Card, CardBody } from '@components/UI/Card'
-import React, { FC } from 'react'
+import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout';
+import Footer from '@components/Shared/Footer';
+import PublicationShimmer from '@components/Shared/Shimmer/PublicationShimmer';
+import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
+import UserProfileShimmer from '@components/Shared/Shimmer/UserProfileShimmer';
+import { Card, CardBody } from '@components/UI/Card';
+import React, { FC } from 'react';
 
 const PublicationPageShimmer: FC = () => {
   return (
@@ -39,7 +39,7 @@ const PublicationPageShimmer: FC = () => {
         <Footer />
       </GridItemFour>
     </GridLayout>
-  )
-}
+  );
+};
 
-export default PublicationPageShimmer
+export default PublicationPageShimmer;

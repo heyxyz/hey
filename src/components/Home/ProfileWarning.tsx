@@ -1,6 +1,6 @@
-import { CursorClickIcon, UserIcon } from '@heroicons/react/outline'
-import { FC } from 'react'
-import { APP_NAME } from 'src/constants'
+import { CursorClickIcon, UserIcon } from '@heroicons/react/outline';
+import { FC } from 'react';
+import { APP_NAME } from 'src/constants';
 
 const ProfileWarning: FC = () => {
   return (
@@ -14,17 +14,13 @@ const ProfileWarning: FC = () => {
         <span>—</span>
         <div className="flex items-center space-x-1.5 text-sm font-bold">
           <CursorClickIcon className="w-4 h-4" />
-          <a
-            href="https://claim.lens.xyz"
-            target="_blank"
-            rel="noreferrer noopener"
-          >
+          <a href="https://claim.lens.xyz" target="_blank" rel="noreferrer noopener">
             Claim your profile here
           </a>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default ProfileWarning
+export default ProfileWarning;

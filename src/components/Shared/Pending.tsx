@@ -1,9 +1,9 @@
-import { gql, useQuery } from '@apollo/client'
-import { Button } from '@components/UI/Button'
-import { Spinner } from '@components/UI/Spinner'
-import { ArrowRightIcon } from '@heroicons/react/outline'
-import Link from 'next/link'
-import React, { FC } from 'react'
+import { gql, useQuery } from '@apollo/client';
+import { Button } from '@components/UI/Button';
+import { Spinner } from '@components/UI/Spinner';
+import { ArrowRightIcon } from '@heroicons/react/outline';
+import Link from 'next/link';
+import React, { FC } from 'react';
 
 const HAS_PUBLICATION_INDEXED_QUERY = gql`
   query HasPubicationIndexed($request: PublicationQueryRequest!) {
@@ -13,14 +13,14 @@ const HAS_PUBLICATION_INDEXED_QUERY = gql`
       }
     }
   }
-`
+`;
 
 interface Props {
-  txHash: string
-  indexing: string
-  indexed: string
-  type: string
-  urlPrefix: string
+  txHash: string;
+  indexing: string;
+  indexed: string;
+  type: string;
+  urlPrefix: string;
 }
 
 const Pending: FC<Props> = ({ txHash, indexing, indexed, type, urlPrefix }) => {
@@ -29,7 +29,7 @@ const Pending: FC<Props> = ({ txHash, indexing, indexed, type, urlPrefix }) => {
       request: { txHash }
     },
     pollInterval: 1000
-  })
+  });
 
   return (
     <div className="p-5 py-10 font-bold text-center">
@@ -45,10 +45,7 @@ const Pending: FC<Props> = ({ txHash, indexing, indexed, type, urlPrefix }) => {
           <div className="pt-3">
             <Link href={`/${urlPrefix}/${data?.publication?.id}`}>
               <a href={`/${urlPrefix}/${data?.publication?.id}`}>
-                <Button
-                  className="mx-auto"
-                  icon={<ArrowRightIcon className="mr-1 w-4 h-4" />}
-                >
+                <Button className="mx-auto" icon={<ArrowRightIcon className="mr-1 w-4 h-4" />}>
                   Go to {type}
                 </Button>
               </a>
@@ -57,7 +54,7 @@ const Pending: FC<Props> = ({ txHash, indexing, indexed, type, urlPrefix }) => {
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default Pending
+export default Pending;

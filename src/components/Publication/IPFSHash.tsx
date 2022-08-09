@@ -1,19 +1,19 @@
-import { Card, CardBody } from '@components/UI/Card'
-import { ExternalLinkIcon } from '@heroicons/react/outline'
-import formatIPFSHash from '@lib/formatIPFSHash'
-import getIPFSHash from '@lib/getIPFSHash'
-import { Mixpanel } from '@lib/mixpanel'
-import React, { FC } from 'react'
-import { PUBLICATION } from 'src/tracking'
+import { Card, CardBody } from '@components/UI/Card';
+import { ExternalLinkIcon } from '@heroicons/react/outline';
+import formatIPFSHash from '@lib/formatIPFSHash';
+import getIPFSHash from '@lib/getIPFSHash';
+import { Mixpanel } from '@lib/mixpanel';
+import React, { FC } from 'react';
+import { PUBLICATION } from 'src/tracking';
 
 interface Props {
-  ipfsHash: string
+  ipfsHash: string;
 }
 
 const IPFSHash: FC<Props> = ({ ipfsHash }) => {
-  const formattedHash = getIPFSHash(ipfsHash)
+  const formattedHash = getIPFSHash(ipfsHash);
 
-  if (!formattedHash) return null
+  if (!formattedHash) return null;
 
   return (
     <Card>
@@ -22,7 +22,7 @@ const IPFSHash: FC<Props> = ({ ipfsHash }) => {
           className="flex justify-between items-center"
           href={`https://ipfs.infura.io/ipfs/${formattedHash}`}
           onClick={() => {
-            Mixpanel.track(PUBLICATION.OPEN_CONTENT_URI)
+            Mixpanel.track(PUBLICATION.OPEN_CONTENT_URI);
           }}
           target="_blank"
           rel="noreferrer noopener"
@@ -31,15 +31,11 @@ const IPFSHash: FC<Props> = ({ ipfsHash }) => {
             <div>IPFS METADATA</div>
             <ExternalLinkIcon className="w-4 h-4" />
           </div>
-          {formattedHash ? (
-            <div>{formatIPFSHash(formattedHash)}</div>
-          ) : (
-            <div>OOPS</div>
-          )}
+          {formattedHash ? <div>{formatIPFSHash(formattedHash)}</div> : <div>OOPS</div>}
         </a>
       </CardBody>
     </Card>
-  )
-}
+  );
+};
 
-export default IPFSHash
+export default IPFSHash;

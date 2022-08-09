@@ -1,16 +1,16 @@
-import { gql, useQuery } from '@apollo/client'
-import Loader from '@components/Shared/Loader'
-import UserProfile from '@components/Shared/UserProfile'
-import { EmptyState } from '@components/UI/EmptyState'
-import { ErrorMessage } from '@components/UI/ErrorMessage'
-import { Spinner } from '@components/UI/Spinner'
-import { Following, PaginatedResultInfo, Profile } from '@generated/types'
-import { MinimalProfileFields } from '@gql/MinimalProfileFields'
-import { UsersIcon } from '@heroicons/react/outline'
-import { Mixpanel } from '@lib/mixpanel'
-import { FC, useState } from 'react'
-import { useInView } from 'react-cool-inview'
-import { PAGINATION } from 'src/tracking'
+import { gql, useQuery } from '@apollo/client';
+import Loader from '@components/Shared/Loader';
+import UserProfile from '@components/Shared/UserProfile';
+import { EmptyState } from '@components/UI/EmptyState';
+import { ErrorMessage } from '@components/UI/ErrorMessage';
+import { Spinner } from '@components/UI/Spinner';
+import { Following, PaginatedResultInfo, Profile } from '@generated/types';
+import { MinimalProfileFields } from '@gql/MinimalProfileFields';
+import { UsersIcon } from '@heroicons/react/outline';
+import { Mixpanel } from '@lib/mixpanel';
+import { FC, useState } from 'react';
+import { useInView } from 'react-cool-inview';
+import { PAGINATION } from 'src/tracking';
 
 const FOLLOWING_QUERY = gql`
   query Following($request: FollowingRequest!) {
@@ -29,23 +29,23 @@ const FOLLOWING_QUERY = gql`
     }
   }
   ${MinimalProfileFields}
-`
+`;
 
 interface Props {
-  profile: Profile
+  profile: Profile;
 }
 
 const Following: FC<Props> = ({ profile }) => {
-  const [following, setFollowing] = useState<Following[]>([])
-  const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
+  const [following, setFollowing] = useState<Following[]>([]);
+  const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>();
   const { data, loading, error, fetchMore } = useQuery(FOLLOWING_QUERY, {
     variables: { request: { address: profile?.ownedBy, limit: 10 } },
     skip: !profile?.id,
     onCompleted(data) {
-      setPageInfo(data?.following?.pageInfo)
-      setFollowing(data?.following?.items)
+      setPageInfo(data?.following?.pageInfo);
+      setFollowing(data?.following?.items);
     }
-  })
+  });
 
   const { observe } = useInView({
     onEnter: async () => {
@@ -57,14 +57,14 @@ const Following: FC<Props> = ({ profile }) => {
             limit: 10
           }
         }
-      })
-      setPageInfo(data?.following?.pageInfo)
-      setFollowing([...following, ...data?.following?.items])
-      Mixpanel.track(PAGINATION.FOLLOWING, { pageInfo })
+      });
+      setPageInfo(data?.following?.pageInfo);
+      setFollowing([...following, ...data?.following?.items]);
+      Mixpanel.track(PAGINATION.FOLLOWING, { pageInfo });
     }
-  })
+  });
 
-  if (loading) return <Loader message="Loading following" />
+  if (loading) return <Loader message="Loading following" />;
 
   if (data?.following?.items?.length === 0)
     return (
@@ -78,15 +78,11 @@ const Following: FC<Props> = ({ profile }) => {
         icon={<UsersIcon className="w-8 h-8 text-brand" />}
         hideCard
       />
-    )
+    );
 
   return (
     <div className="overflow-y-auto max-h-[80vh]">
-      <ErrorMessage
-        className="m-5"
-        title="Failed to load following"
-        error={error}
-      />
+      <ErrorMessage className="m-5" title="Failed to load following" error={error} />
       <div className="space-y-3">
         <div className="divide-y dark:divide-gray-700">
           {following?.map((following: Following) => (
@@ -107,7 +103,7 @@ const Following: FC<Props> = ({ profile }) => {
         )}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Following
+export default Following;

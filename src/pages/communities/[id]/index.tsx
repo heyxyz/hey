@@ -1,3 +1,3 @@
-import ViewCommunity from '@components/Community'
+import ViewCommunity from '@components/Community';
 
-export default ViewCommunity
+export default ViewCommunity;

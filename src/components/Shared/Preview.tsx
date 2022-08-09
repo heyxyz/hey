@@ -1,18 +1,14 @@
-import { Tooltip } from '@components/UI/Tooltip'
-import { EyeIcon } from '@heroicons/react/outline'
-import { Mixpanel } from '@lib/mixpanel'
-import { motion } from 'framer-motion'
-import { FC } from 'react'
-import { usePublicationStore } from 'src/store/publication'
-import { PUBLICATION } from 'src/tracking'
+import { Tooltip } from '@components/UI/Tooltip';
+import { EyeIcon } from '@heroicons/react/outline';
+import { Mixpanel } from '@lib/mixpanel';
+import { motion } from 'framer-motion';
+import { FC } from 'react';
+import { usePublicationStore } from 'src/store/publication';
+import { PUBLICATION } from 'src/tracking';
 
 const Preview: FC = () => {
-  const previewPublication = usePublicationStore(
-    (state) => state.previewPublication
-  )
-  const setPreviewPublication = usePublicationStore(
-    (state) => state.setPreviewPublication
-  )
+  const previewPublication = usePublicationStore((state) => state.previewPublication);
+  const setPreviewPublication = usePublicationStore((state) => state.setPreviewPublication);
 
   return (
     <div>
@@ -20,8 +16,8 @@ const Preview: FC = () => {
         whileTap={{ scale: 0.9 }}
         type="button"
         onClick={() => {
-          setPreviewPublication(!previewPublication)
-          Mixpanel.track(PUBLICATION.NEW.MARKDOWN_PREVIEW)
+          setPreviewPublication(!previewPublication);
+          Mixpanel.track(PUBLICATION.NEW.MARKDOWN_PREVIEW);
         }}
         aria-label="Choose Attachment"
       >
@@ -30,7 +26,7 @@ const Preview: FC = () => {
         </Tooltip>
       </motion.button>
     </div>
-  )
-}
+  );
+};
 
-export default Preview
+export default Preview;

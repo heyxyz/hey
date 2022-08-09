@@ -1,25 +1,25 @@
-import { gql, useQuery } from '@apollo/client'
-import { Card } from '@components/UI/Card'
-import { EmptyState } from '@components/UI/EmptyState'
-import { ErrorMessage } from '@components/UI/ErrorMessage'
-import { Spinner } from '@components/UI/Spinner'
-import { Notification, PaginatedResultInfo } from '@generated/types'
-import { CollectModuleFields } from '@gql/CollectModuleFields'
-import { MetadataFields } from '@gql/MetadataFields'
-import { MinimalProfileFields } from '@gql/MinimalProfileFields'
-import { MailIcon } from '@heroicons/react/outline'
-import { Mixpanel } from '@lib/mixpanel'
-import { FC, useState } from 'react'
-import { useInView } from 'react-cool-inview'
-import { useAppPersistStore } from 'src/store/app'
-import { PAGINATION } from 'src/tracking'
+import { gql, useQuery } from '@apollo/client';
+import { Card } from '@components/UI/Card';
+import { EmptyState } from '@components/UI/EmptyState';
+import { ErrorMessage } from '@components/UI/ErrorMessage';
+import { Spinner } from '@components/UI/Spinner';
+import { Notification, PaginatedResultInfo } from '@generated/types';
+import { CollectModuleFields } from '@gql/CollectModuleFields';
+import { MetadataFields } from '@gql/MetadataFields';
+import { MinimalProfileFields } from '@gql/MinimalProfileFields';
+import { MailIcon } from '@heroicons/react/outline';
+import { Mixpanel } from '@lib/mixpanel';
+import { FC, useState } from 'react';
+import { useInView } from 'react-cool-inview';
+import { useAppPersistStore } from 'src/store/app';
+import { PAGINATION } from 'src/tracking';
 
-import NotificationShimmer from './Shimmer'
-import CollectNotification from './Type/CollectNotification'
-import CommentNotification from './Type/CommentNotification'
-import FollowerNotification from './Type/FollowerNotification'
-import MentionNotification from './Type/MentionNotification'
-import MirrorNotification from './Type/MirrorNotification'
+import NotificationShimmer from './Shimmer';
+import CollectNotification from './Type/CollectNotification';
+import CommentNotification from './Type/CommentNotification';
+import FollowerNotification from './Type/FollowerNotification';
+import MentionNotification from './Type/MentionNotification';
+import MirrorNotification from './Type/MirrorNotification';
 
 const NOTIFICATIONS_QUERY = gql`
   query Notifications($request: NotificationRequest!) {
@@ -146,22 +146,22 @@ const NOTIFICATIONS_QUERY = gql`
   ${MinimalProfileFields}
   ${CollectModuleFields}
   ${MetadataFields}
-`
+`;
 
 const List: FC = () => {
-  const currentUser = useAppPersistStore((state) => state.currentUser)
-  const [notifications, setNotifications] = useState<Notification[]>([])
-  const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
+  const currentUser = useAppPersistStore((state) => state.currentUser);
+  const [notifications, setNotifications] = useState<Notification[]>([]);
+  const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>();
   const { data, loading, error, fetchMore } = useQuery(NOTIFICATIONS_QUERY, {
     variables: {
       request: { profileId: currentUser?.id, limit: 10 }
     },
     fetchPolicy: 'no-cache',
     onCompleted(data) {
-      setPageInfo(data?.notifications?.pageInfo)
-      setNotifications(data?.notifications?.items)
+      setPageInfo(data?.notifications?.pageInfo);
+      setNotifications(data?.notifications?.items);
     }
-  })
+  });
 
   const { observe } = useInView({
     onEnter: async () => {
@@ -173,12 +173,12 @@ const List: FC = () => {
             limit: 10
           }
         }
-      })
-      setPageInfo(data?.notifications?.pageInfo)
-      setNotifications([...notifications, ...data?.notifications?.items])
-      Mixpanel.track(PAGINATION.NOTIFICATION_FEED, { pageInfo })
+      });
+      setPageInfo(data?.notifications?.pageInfo);
+      setNotifications([...notifications, ...data?.notifications?.items]);
+      Mixpanel.track(PAGINATION.NOTIFICATION_FEED, { pageInfo });
     }
-  })
+  });
 
   if (loading)
     return (
@@ -188,16 +188,9 @@ const List: FC = () => {
         <NotificationShimmer />
         <NotificationShimmer />
       </Card>
-    )
+    );
 
-  if (error)
-    return (
-      <ErrorMessage
-        className="m-3"
-        title="Failed to load notifications"
-        error={error}
-      />
-    )
+  if (error) return <ErrorMessage className="m-3" title="Failed to load notifications" error={error} />;
 
   if (data?.notifications?.items?.length === 0)
     return (
@@ -210,7 +203,7 @@ const List: FC = () => {
         icon={<MailIcon className="w-8 h-8 text-brand" />}
         hideCard
       />
-    )
+    );
 
   return (
     <Card className="divide-y dark:divide-gray-700">
@@ -239,7 +232,7 @@ const List: FC = () => {
         </span>
       )}
     </Card>
-  )
-}
+  );
+};
 
-export default List
+export default List;

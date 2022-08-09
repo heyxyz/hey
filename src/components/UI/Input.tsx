@@ -1,49 +1,37 @@
-import clsx from 'clsx'
-import dynamic from 'next/dynamic'
-import { ComponentProps, forwardRef, ReactNode, useId } from 'react'
+import clsx from 'clsx';
+import dynamic from 'next/dynamic';
+import { ComponentProps, forwardRef, ReactNode, useId } from 'react';
 
-import { FieldError } from './Form'
+import { FieldError } from './Form';
 
-const HelpTooltip = dynamic(() => import('./HelpTooltip'))
+const HelpTooltip = dynamic(() => import('./HelpTooltip'));
 
 interface Props extends Omit<ComponentProps<'input'>, 'prefix'> {
-  label?: string
-  prefix?: string | ReactNode
-  iconLeft?: ReactNode
-  iconRight?: ReactNode
-  className?: string
-  helper?: ReactNode
-  error?: boolean
+  label?: string;
+  prefix?: string | ReactNode;
+  iconLeft?: ReactNode;
+  iconRight?: ReactNode;
+  className?: string;
+  helper?: ReactNode;
+  error?: boolean;
 }
 
 export const Input = forwardRef<HTMLInputElement, Props>(function Input(
-  {
-    label,
-    prefix,
-    type = 'text',
-    iconLeft,
-    iconRight,
-    error,
-    className = '',
-    helper,
-    ...props
-  },
+  { label, prefix, type = 'text', iconLeft, iconRight, error, className = '', helper, ...props },
   ref
 ) {
-  const id = useId()
+  const id = useId();
 
   const iconStyles = [
     'text-zinc-500 [&>*]:peer-focus:text-brand-500 [&>*]:h-5',
     { '!text-red-500 [&>*]:peer-focus:!text-red-500': error }
-  ]
+  ];
 
   return (
     <label className="w-full" htmlFor={id}>
       {label && (
         <div className="flex items-center mb-1 space-x-1.5">
-          <div className="font-medium text-gray-800 dark:text-gray-200">
-            {label}
-          </div>
+          <div className="font-medium text-gray-800 dark:text-gray-200">{label}</div>
           <HelpTooltip content={helper} />
         </div>
       )}
@@ -78,21 +66,15 @@ export const Input = forwardRef<HTMLInputElement, Props>(function Input(
             ref={ref}
             {...props}
           />
-          <span
-            tabIndex={-1}
-            className={clsx({ 'order-first pl-3': iconLeft }, iconStyles)}
-          >
+          <span tabIndex={-1} className={clsx({ 'order-first pl-3': iconLeft }, iconStyles)}>
             {iconLeft}
           </span>
-          <span
-            tabIndex={-1}
-            className={clsx({ 'order-last pr-3': iconRight }, iconStyles)}
-          >
+          <span tabIndex={-1} className={clsx({ 'order-last pr-3': iconRight }, iconStyles)}>
             {iconRight}
           </span>
         </div>
       </div>
       {props.name && <FieldError name={props.name} />}
     </label>
-  )
-})
+  );
+});

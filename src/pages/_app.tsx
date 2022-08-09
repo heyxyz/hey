@@ -1,21 +1,21 @@
-import '../styles.css'
+import '../styles.css';
 
-import { ApolloProvider } from '@apollo/client'
-import SiteLayout from '@components/SiteLayout'
-import { AppProps } from 'next/app'
-import { ThemeProvider } from 'next-themes'
-import { ALCHEMY_KEY, ALCHEMY_RPC, CHAIN_ID, IS_MAINNET } from 'src/constants'
-import { chain, configureChains, createClient, WagmiConfig } from 'wagmi'
-import { InjectedConnector } from 'wagmi/connectors/injected'
-import { WalletConnectConnector } from 'wagmi/connectors/walletConnect'
-import { alchemyProvider } from 'wagmi/providers/alchemy'
+import { ApolloProvider } from '@apollo/client';
+import SiteLayout from '@components/SiteLayout';
+import { AppProps } from 'next/app';
+import { ThemeProvider } from 'next-themes';
+import { ALCHEMY_KEY, ALCHEMY_RPC, CHAIN_ID, IS_MAINNET } from 'src/constants';
+import { chain, configureChains, createClient, WagmiConfig } from 'wagmi';
+import { InjectedConnector } from 'wagmi/connectors/injected';
+import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
+import { alchemyProvider } from 'wagmi/providers/alchemy';
 
-import client from '../apollo'
+import client from '../apollo';
 
 const { chains, provider } = configureChains(
   [IS_MAINNET ? chain.polygon : chain.polygonMumbai],
   [alchemyProvider({ apiKey: ALCHEMY_KEY })]
-)
+);
 
 const connectors = () => {
   return [
@@ -27,14 +27,14 @@ const connectors = () => {
       chains,
       options: { rpc: { [CHAIN_ID]: ALCHEMY_RPC } }
     })
-  ]
-}
+  ];
+};
 
 const wagmiClient = createClient({
   autoConnect: true,
   connectors,
   provider
-})
+});
 
 const App = ({ Component, pageProps }: AppProps) => {
   return (
@@ -47,7 +47,7 @@ const App = ({ Component, pageProps }: AppProps) => {
         </ThemeProvider>
       </ApolloProvider>
     </WagmiConfig>
-  )
-}
+  );
+};
 
-export default App
+export default App;

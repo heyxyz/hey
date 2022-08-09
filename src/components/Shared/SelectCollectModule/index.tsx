@@ -1,43 +1,35 @@
-import { Modal } from '@components/UI/Modal'
-import { Tooltip } from '@components/UI/Tooltip'
-import GetModuleIcon from '@components/utils/GetModuleIcon'
-import { EnabledModule } from '@generated/types'
-import { CashIcon } from '@heroicons/react/outline'
-import { FEE_DATA_TYPE, getModule } from '@lib/getModule'
-import { Mixpanel } from '@lib/mixpanel'
-import { motion } from 'framer-motion'
-import { Dispatch, FC, useState } from 'react'
-import { PUBLICATION } from 'src/tracking'
+import { Modal } from '@components/UI/Modal';
+import { Tooltip } from '@components/UI/Tooltip';
+import GetModuleIcon from '@components/utils/GetModuleIcon';
+import { EnabledModule } from '@generated/types';
+import { CashIcon } from '@heroicons/react/outline';
+import { FEE_DATA_TYPE, getModule } from '@lib/getModule';
+import { Mixpanel } from '@lib/mixpanel';
+import { motion } from 'framer-motion';
+import { Dispatch, FC, useState } from 'react';
+import { PUBLICATION } from 'src/tracking';
 
-import Modules from './Modules'
+import Modules from './Modules';
 
 interface Props {
-  feeData: FEE_DATA_TYPE
-  setFeeData: Dispatch<FEE_DATA_TYPE>
-  setSelectedModule: Dispatch<EnabledModule>
-  selectedModule: EnabledModule
+  feeData: FEE_DATA_TYPE;
+  setFeeData: Dispatch<FEE_DATA_TYPE>;
+  setSelectedModule: Dispatch<EnabledModule>;
+  selectedModule: EnabledModule;
 }
 
-const SelectCollectModule: FC<Props> = ({
-  feeData,
-  setFeeData,
-  setSelectedModule,
-  selectedModule
-}) => {
-  const [showModal, setShowModal] = useState<boolean>(false)
+const SelectCollectModule: FC<Props> = ({ feeData, setFeeData, setSelectedModule, selectedModule }) => {
+  const [showModal, setShowModal] = useState<boolean>(false);
 
   return (
     <>
-      <Tooltip
-        placement="top"
-        content={getModule(selectedModule.moduleName).name}
-      >
+      <Tooltip placement="top" content={getModule(selectedModule.moduleName).name}>
         <motion.button
           whileTap={{ scale: 0.9 }}
           type="button"
           onClick={() => {
-            setShowModal(!showModal)
-            Mixpanel.track(PUBLICATION.NEW.COLLECT_MODULE.OPEN_COLLECT_CONFIG)
+            setShowModal(!showModal);
+            Mixpanel.track(PUBLICATION.NEW.COLLECT_MODULE.OPEN_COLLECT_CONFIG);
           }}
           aria-label="Choose Collect Module"
         >
@@ -61,7 +53,7 @@ const SelectCollectModule: FC<Props> = ({
         />
       </Modal>
     </>
-  )
-}
+  );
+};
 
-export default SelectCollectModule
+export default SelectCollectModule;

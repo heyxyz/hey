@@ -1,14 +1,14 @@
-import Slug from '@components/Shared/Slug'
-import { LensterPublication } from '@generated/lenstertypes'
-import { CollectionIcon } from '@heroicons/react/outline'
-import formatAddress from '@lib/formatAddress'
-import Link from 'next/link'
-import React, { FC } from 'react'
-import { POLYGONSCAN_URL } from 'src/constants'
+import Slug from '@components/Shared/Slug';
+import { LensterPublication } from '@generated/lenstertypes';
+import { CollectionIcon } from '@heroicons/react/outline';
+import formatAddress from '@lib/formatAddress';
+import Link from 'next/link';
+import React, { FC } from 'react';
+import { POLYGONSCAN_URL } from 'src/constants';
 
 interface Props {
-  publication: LensterPublication
-  type: string
+  publication: LensterPublication;
+  type: string;
 }
 
 const Collected: FC<Props> = ({ publication, type }) => {
@@ -20,10 +20,7 @@ const Collected: FC<Props> = ({ publication, type }) => {
         {publication?.collectedBy?.defaultProfile ? (
           <Link href={`/u/${publication?.collectedBy?.defaultProfile?.handle}`}>
             <a href={`/u/${publication?.collectedBy?.defaultProfile?.handle}`}>
-              <Slug
-                slug={publication?.collectedBy?.defaultProfile?.handle}
-                prefix="@"
-              />
+              <Slug slug={publication?.collectedBy?.defaultProfile?.handle} prefix="@" />
             </a>
           </Link>
         ) : (
@@ -37,7 +34,7 @@ const Collected: FC<Props> = ({ publication, type }) => {
         )}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Collected
+export default Collected;

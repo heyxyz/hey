@@ -1,12 +1,12 @@
-import { Community } from '@generated/lenstertypes'
-import { UsersIcon } from '@heroicons/react/outline'
-import imagekitURL from '@lib/imagekitURL'
-import nFormatter from '@lib/nFormatter'
-import Link from 'next/link'
-import React, { FC } from 'react'
+import { Community } from '@generated/lenstertypes';
+import { UsersIcon } from '@heroicons/react/outline';
+import imagekitURL from '@lib/imagekitURL';
+import nFormatter from '@lib/nFormatter';
+import Link from 'next/link';
+import React, { FC } from 'react';
 
 interface Props {
-  community: Community
+  community: Community;
 }
 
 const CommunityProfile: FC<Props> = ({ community }) => {
@@ -29,17 +29,13 @@ const CommunityProfile: FC<Props> = ({ community }) => {
             />
             <div className="space-y-1">
               <div className="">{community?.metadata?.name}</div>
-              <div className="text-sm text-gray-500">
-                {community?.metadata?.description}
-              </div>
+              <div className="text-sm text-gray-500">{community?.metadata?.description}</div>
               {community?.stats?.totalAmountOfCollects !== 0 && (
                 <div className="flex items-center space-x-1 text-sm">
                   <UsersIcon className="w-3 h-3" />
                   <div>
                     {nFormatter(community?.stats?.totalAmountOfCollects)}{' '}
-                    {community?.stats?.totalAmountOfCollects === 1
-                      ? 'member'
-                      : 'members'}
+                    {community?.stats?.totalAmountOfCollects === 1 ? 'member' : 'members'}
                   </div>
                 </div>
               )}
@@ -48,7 +44,7 @@ const CommunityProfile: FC<Props> = ({ community }) => {
         </a>
       </Link>
     </div>
-  )
-}
+  );
+};
 
-export default CommunityProfile
+export default CommunityProfile;

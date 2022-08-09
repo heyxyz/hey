@@ -1,7 +1,7 @@
-import { Card } from '@components/UI/Card'
-import { FC } from 'react'
+import { Card } from '@components/UI/Card';
+import { FC } from 'react';
 
-import PublicationShimmer from './PublicationShimmer'
+import PublicationShimmer from './PublicationShimmer';
 
 const PublicationsShimmer: FC = () => {
   return (
@@ -10,7 +10,7 @@ const PublicationsShimmer: FC = () => {
       <PublicationShimmer />
       <PublicationShimmer />
     </Card>
-  )
-}
+  );
+};
 
-export default PublicationsShimmer
+export default PublicationsShimmer;

@@ -1,13 +1,13 @@
 /* eslint-disable no-unused-vars */
-import { Profile } from '@generated/types'
-import create from 'zustand'
-import { persist } from 'zustand/middleware'
+import { Profile } from '@generated/types';
+import create from 'zustand';
+import { persist } from 'zustand/middleware';
 
 interface AppState {
-  profiles: Profile[] | []
-  setProfiles: (profiles: Profile[]) => void
-  userSigNonce: number
-  setUserSigNonce: (userSigNonce: number) => void
+  profiles: Profile[] | [];
+  setProfiles: (profiles: Profile[]) => void;
+  userSigNonce: number;
+  setUserSigNonce: (userSigNonce: number) => void;
 }
 
 export const useAppStore = create<AppState>((set) => ({
@@ -15,17 +15,17 @@ export const useAppStore = create<AppState>((set) => ({
   setProfiles: (profiles) => set(() => ({ profiles })),
   userSigNonce: 0,
   setUserSigNonce: (userSigNonce) => set(() => ({ userSigNonce }))
-}))
+}));
 
 interface AppPersistState {
-  isConnected: boolean
-  setIsConnected: (isConnected: boolean) => void
-  isAuthenticated: boolean
-  setIsAuthenticated: (isAuthenticated: boolean) => void
-  currentUser: Profile | null
-  setCurrentUser: (currentUser: Profile | null) => void
-  staffMode: boolean
-  setStaffMode: (staffMode: boolean) => void
+  isConnected: boolean;
+  setIsConnected: (isConnected: boolean) => void;
+  isAuthenticated: boolean;
+  setIsAuthenticated: (isAuthenticated: boolean) => void;
+  currentUser: Profile | null;
+  setCurrentUser: (currentUser: Profile | null) => void;
+  staffMode: boolean;
+  setStaffMode: (staffMode: boolean) => void;
 }
 
 export const useAppPersistStore = create(
@@ -42,4 +42,4 @@ export const useAppPersistStore = create(
     }),
     { name: 'lenster.store' }
   )
-)
+);

@@ -1,17 +1,17 @@
-import { gql, useQuery } from '@apollo/client'
-import Loader from '@components/Shared/Loader'
-import UserProfile from '@components/Shared/UserProfile'
-import WalletProfile from '@components/Shared/WalletProfile'
-import { EmptyState } from '@components/UI/EmptyState'
-import { ErrorMessage } from '@components/UI/ErrorMessage'
-import { Spinner } from '@components/UI/Spinner'
-import { Follower, PaginatedResultInfo, Profile } from '@generated/types'
-import { MinimalProfileFields } from '@gql/MinimalProfileFields'
-import { UsersIcon } from '@heroicons/react/outline'
-import { Mixpanel } from '@lib/mixpanel'
-import { FC, useState } from 'react'
-import { useInView } from 'react-cool-inview'
-import { PAGINATION } from 'src/tracking'
+import { gql, useQuery } from '@apollo/client';
+import Loader from '@components/Shared/Loader';
+import UserProfile from '@components/Shared/UserProfile';
+import WalletProfile from '@components/Shared/WalletProfile';
+import { EmptyState } from '@components/UI/EmptyState';
+import { ErrorMessage } from '@components/UI/ErrorMessage';
+import { Spinner } from '@components/UI/Spinner';
+import { Follower, PaginatedResultInfo, Profile } from '@generated/types';
+import { MinimalProfileFields } from '@gql/MinimalProfileFields';
+import { UsersIcon } from '@heroicons/react/outline';
+import { Mixpanel } from '@lib/mixpanel';
+import { FC, useState } from 'react';
+import { useInView } from 'react-cool-inview';
+import { PAGINATION } from 'src/tracking';
 
 const FOLLOWERS_QUERY = gql`
   query Followers($request: FollowersRequest!) {
@@ -33,23 +33,23 @@ const FOLLOWERS_QUERY = gql`
     }
   }
   ${MinimalProfileFields}
-`
+`;
 
 interface Props {
-  profile: Profile
+  profile: Profile;
 }
 
 const Followers: FC<Props> = ({ profile }) => {
-  const [followers, setFollowers] = useState<Follower[]>([])
-  const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
+  const [followers, setFollowers] = useState<Follower[]>([]);
+  const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>();
   const { data, loading, error, fetchMore } = useQuery(FOLLOWERS_QUERY, {
     variables: { request: { profileId: profile?.id, limit: 10 } },
     skip: !profile?.id,
     onCompleted(data) {
-      setPageInfo(data?.followers?.pageInfo)
-      setFollowers(data?.followers?.items)
+      setPageInfo(data?.followers?.pageInfo);
+      setFollowers(data?.followers?.items);
     }
-  })
+  });
 
   const { observe } = useInView({
     onEnter: async () => {
@@ -61,14 +61,14 @@ const Followers: FC<Props> = ({ profile }) => {
             limit: 10
           }
         }
-      })
-      setPageInfo(data?.followers?.pageInfo)
-      setFollowers([...followers, ...data?.followers?.items])
-      Mixpanel.track(PAGINATION.FOLLOWERS, { pageInfo })
+      });
+      setPageInfo(data?.followers?.pageInfo);
+      setFollowers([...followers, ...data?.followers?.items]);
+      Mixpanel.track(PAGINATION.FOLLOWERS, { pageInfo });
     }
-  })
+  });
 
-  if (loading) return <Loader message="Loading followers" />
+  if (loading) return <Loader message="Loading followers" />;
 
   if (data?.followers?.items?.length === 0)
     return (
@@ -82,15 +82,11 @@ const Followers: FC<Props> = ({ profile }) => {
         icon={<UsersIcon className="w-8 h-8 text-brand" />}
         hideCard
       />
-    )
+    );
 
   return (
     <div className="overflow-y-auto max-h-[80vh]">
-      <ErrorMessage
-        className="m-5"
-        title="Failed to load followers"
-        error={error}
-      />
+      <ErrorMessage className="m-5" title="Failed to load followers" error={error} />
       <div className="space-y-3">
         <div className="divide-y dark:divide-gray-700">
           {followers?.map((follower: Follower) => (
@@ -115,7 +111,7 @@ const Followers: FC<Props> = ({ profile }) => {
         )}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Followers
+export default Followers;

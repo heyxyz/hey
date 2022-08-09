@@ -1,20 +1,16 @@
-import Slug from '@components/Shared/Slug'
-import { Card, CardBody } from '@components/UI/Card'
-import { StarIcon, UsersIcon } from '@heroicons/react/outline'
-import clsx from 'clsx'
-import React, { FC } from 'react'
+import Slug from '@components/Shared/Slug';
+import { Card, CardBody } from '@components/UI/Card';
+import { StarIcon, UsersIcon } from '@heroicons/react/outline';
+import clsx from 'clsx';
+import React, { FC } from 'react';
 
 interface Props {
-  handle: string
-  isSuperFollow?: boolean | null
-  action: string
+  handle: string;
+  isSuperFollow?: boolean | null;
+  action: string;
 }
 
-const ReferenceAlert: FC<Props> = ({
-  handle,
-  isSuperFollow = false,
-  action
-}) => {
+const ReferenceAlert: FC<Props> = ({ handle, isSuperFollow = false, action }) => {
   return (
     <Card className={clsx({ '!bg-pink-100 border-pink-300': isSuperFollow })}>
       <CardBody className="flex items-center space-x-1.5 text-sm font-bold text-gray-500">
@@ -36,7 +32,7 @@ const ReferenceAlert: FC<Props> = ({
         )}
       </CardBody>
     </Card>
-  )
-}
+  );
+};
 
-export default ReferenceAlert
+export default ReferenceAlert;

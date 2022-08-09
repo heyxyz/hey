@@ -1,10 +1,10 @@
-import Link from 'next/link'
-import { FC } from 'react'
-import { APP_NAME } from 'src/constants'
-import { useAppPersistStore } from 'src/store/app'
+import Link from 'next/link';
+import { FC } from 'react';
+import { APP_NAME } from 'src/constants';
+import { useAppPersistStore } from 'src/store/app';
 
 const Footer: FC = () => {
-  const staffMode = useAppPersistStore((state) => state.staffMode)
+  const staffMode = useAppPersistStore((state) => state.staffMode);
 
   return (
     <footer
@@ -12,48 +12,26 @@ const Footer: FC = () => {
         staffMode ? 'top-28' : 'top-20'
       }`}
     >
-      <span className="font-bold text-gray-500 dark:text-gray-300">
-        © {APP_NAME}
-      </span>
+      <span className="font-bold text-gray-500 dark:text-gray-300">© {APP_NAME}</span>
       <Link href="/privacy">
         <a href="/privacy">Privacy</a>
       </Link>
-      <a
-        href="https://lenster.xyz/discord"
-        target="_blank"
-        rel="noreferrer noopener"
-      >
+      <a href="https://lenster.xyz/discord" target="_blank" rel="noreferrer noopener">
         Discord
       </a>
-      <a
-        href="https://lenster.xyz/donate"
-        target="_blank"
-        rel="noreferrer noopener"
-      >
+      <a href="https://lenster.xyz/donate" target="_blank" rel="noreferrer noopener">
         Donate
       </a>
-      <a
-        href="https://status.lenster.xyz"
-        target="_blank"
-        rel="noreferrer noopener"
-      >
+      <a href="https://status.lenster.xyz" target="_blank" rel="noreferrer noopener">
         Status
       </a>
-      <a
-        href="https://vote.lenster.xyz"
-        target="_blank"
-        rel="noreferrer noopener"
-      >
+      <a href="https://vote.lenster.xyz" target="_blank" rel="noreferrer noopener">
         Vote
       </a>
       <Link href="/thanks">
         <a href="/thanks">Thanks</a>
       </Link>
-      <a
-        href="https://github.com/lensterxyz/lenster"
-        target="_blank"
-        rel="noreferrer noopener"
-      >
+      <a href="https://github.com/lensterxyz/lenster" target="_blank" rel="noreferrer noopener">
         GitHub
       </a>
       <a
@@ -65,7 +43,7 @@ const Footer: FC = () => {
         ▲ Powered by Vercel
       </a>
     </footer>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;

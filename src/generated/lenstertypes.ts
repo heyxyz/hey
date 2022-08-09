@@ -13,25 +13,25 @@ import {
   RevertCollectModuleSettings,
   RevertFollowModuleSettings,
   TimedFeeCollectModuleSettings
-} from './types'
+} from './types';
 
-export type LensterPublication = Post & Mirror & Comment & { pubId: string }
-export type LensterNotification = Notification & { profile: Profile }
-export type Community = Post
+export type LensterPublication = Post & Mirror & Comment & { pubId: string };
+export type LensterNotification = Notification & { profile: Profile };
+export type Community = Post;
 export type LensterCollectModule = FreeCollectModuleSettings &
   FeeCollectModuleSettings &
   LimitedFeeCollectModuleSettings &
   LimitedTimedFeeCollectModuleSettings &
   RevertCollectModuleSettings &
-  TimedFeeCollectModuleSettings
+  TimedFeeCollectModuleSettings;
 export type LensterFollowModule = FeeFollowModuleSettings &
   ProfileFollowModuleSettings &
-  RevertFollowModuleSettings
-export type LensterAttachment = { item: string; type: string; altTag: string }
+  RevertFollowModuleSettings;
+export type LensterAttachment = { item: string; type: string; altTag: string };
 export type UserSuggestion = {
-  uid: string
-  id: string
-  display: string
-  name: string
-  picture: string
-}
+  uid: string;
+  id: string;
+  display: string;
+  name: string;
+  picture: string;
+};

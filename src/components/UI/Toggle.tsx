@@ -1,10 +1,10 @@
-import { Switch } from '@headlessui/react'
-import clsx from 'clsx'
-import { Dispatch, FC } from 'react'
+import { Switch } from '@headlessui/react';
+import clsx from 'clsx';
+import { Dispatch, FC } from 'react';
 
 interface Props {
-  on: boolean
-  setOn: Dispatch<boolean>
+  on: boolean;
+  setOn: Dispatch<boolean>;
 }
 
 export const Toggle: FC<Props> = ({ on, setOn }) => {
@@ -12,7 +12,7 @@ export const Toggle: FC<Props> = ({ on, setOn }) => {
     <Switch
       checked={on}
       onChange={() => {
-        setOn(!on)
+        setOn(!on);
       }}
       className={clsx(
         on ? 'bg-brand-500' : 'bg-gray-200',
@@ -27,5 +27,5 @@ export const Toggle: FC<Props> = ({ on, setOn }) => {
         )}
       />
     </Switch>
-  )
-}
+  );
+};

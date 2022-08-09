@@ -1,22 +1,21 @@
-import Markup from '@components/Shared/Markup'
-import { NewMirrorNotification } from '@generated/types'
-import { SwitchHorizontalIcon } from '@heroicons/react/solid'
-import dayjs from 'dayjs'
-import relativeTime from 'dayjs/plugin/relativeTime'
-import Link from 'next/link'
-import React, { FC } from 'react'
+import Markup from '@components/Shared/Markup';
+import { NewMirrorNotification } from '@generated/types';
+import { SwitchHorizontalIcon } from '@heroicons/react/solid';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import Link from 'next/link';
+import React, { FC } from 'react';
 
-import { NotificationProfileAvatar, NotificationProfileName } from '../Profile'
+import { NotificationProfileAvatar, NotificationProfileName } from '../Profile';
 
-dayjs.extend(relativeTime)
+dayjs.extend(relativeTime);
 
 interface Props {
-  notification: NewMirrorNotification
+  notification: NewMirrorNotification;
 }
 
 const MirrorNotification: FC<Props> = ({ notification }) => {
-  const publicationType =
-    notification?.publication?.metadata?.attributes[0]?.value
+  const publicationType = notification?.publication?.metadata?.attributes[0]?.value;
 
   return (
     <div className="flex justify-between items-start">
@@ -27,14 +26,9 @@ const MirrorNotification: FC<Props> = ({ notification }) => {
         </div>
         <div className="ml-9">
           <NotificationProfileName profile={notification?.profile} />{' '}
-          <span className="pl-0.5 text-gray-600 dark:text-gray-400">
-            mirrored your{' '}
-          </span>
+          <span className="pl-0.5 text-gray-600 dark:text-gray-400">mirrored your </span>
           <Link href={`/posts/${notification?.publication?.id}`}>
-            <a
-              href={`/posts/${notification?.publication?.id}`}
-              className="font-bold"
-            >
+            <a href={`/posts/${notification?.publication?.id}`} className="font-bold">
               {notification?.publication?.__typename === 'Post'
                 ? publicationType === 'crowdfund'
                   ? 'crowdfund'
@@ -56,11 +50,9 @@ const MirrorNotification: FC<Props> = ({ notification }) => {
           </Link>
         </div>
       </div>
-      <div className="text-gray-400 text-[12px]">
-        {dayjs(new Date(notification?.createdAt)).fromNow()}
-      </div>
+      <div className="text-gray-400 text-[12px]">{dayjs(new Date(notification?.createdAt)).fromNow()}</div>
     </div>
-  )
-}
+  );
+};
 
-export default MirrorNotification
+export default MirrorNotification;

@@ -1,16 +1,16 @@
-import Seo from '@components/utils/Seo'
-import { LightningBoltIcon } from '@heroicons/react/outline'
-import { FC } from 'react'
-import { APP_NAME } from 'src/constants'
-import Custom404 from 'src/pages/404'
-import { useAppPersistStore } from 'src/store/app'
+import Seo from '@components/utils/Seo';
+import { LightningBoltIcon } from '@heroicons/react/outline';
+import { FC } from 'react';
+import { APP_NAME } from 'src/constants';
+import Custom404 from 'src/pages/404';
+import { useAppPersistStore } from 'src/store/app';
 
-import List from './List'
+import List from './List';
 
 const Notification: FC = () => {
-  const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated)
+  const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
 
-  if (!isAuthenticated) return <Custom404 />
+  if (!isAuthenticated) return <Custom404 />;
 
   return (
     <div className="flex flex-grow justify-center px-0 sm:px-6 lg:px-8 py-8">
@@ -23,7 +23,7 @@ const Notification: FC = () => {
         <List />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Notification
+export default Notification;

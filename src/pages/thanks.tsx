@@ -1,3 +1,3 @@
-import Thanks from '@components/Pages/Thanks'
+import Thanks from '@components/Pages/Thanks';
 
-export default Thanks
+export default Thanks;

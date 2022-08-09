@@ -1,45 +1,38 @@
-import Footer from '@components/Shared/Footer'
-import Seo from '@components/utils/Seo'
-import { HeartIcon } from '@heroicons/react/outline'
-import { useTheme } from 'next-themes'
-import React, { FC, Fragment, ReactNode } from 'react'
-import { APP_NAME, STATIC_ASSETS } from 'src/constants'
+import Footer from '@components/Shared/Footer';
+import Seo from '@components/utils/Seo';
+import { HeartIcon } from '@heroicons/react/outline';
+import { useTheme } from 'next-themes';
+import React, { FC, Fragment, ReactNode } from 'react';
+import { APP_NAME, STATIC_ASSETS } from 'src/constants';
 
 interface Props {
-  name: string
-  logo: string
-  url: string
-  size: number
-  children: ReactNode
+  name: string;
+  logo: string;
+  url: string;
+  size: number;
+  children: ReactNode;
 }
 
 const Brand: FC<Props> = ({ name, logo, url, size, children }) => {
-  const { resolvedTheme } = useTheme()
+  const { resolvedTheme } = useTheme();
 
   return (
     <div className="pt-10 space-y-5">
       <img
         className="mx-auto"
         style={{ height: size }}
-        src={`${STATIC_ASSETS}/thanks/${logo}-${
-          resolvedTheme === 'dark' ? 'dark' : 'light'
-        }.svg`}
+        src={`${STATIC_ASSETS}/thanks/${logo}-${resolvedTheme === 'dark' ? 'dark' : 'light'}.svg`}
         alt={`${name}'s Logo`}
       />
       <div className="pt-2 mx-auto sm:w-2/3">{children}</div>
       <div>
-        <a
-          className="font-bold"
-          href={url}
-          target="_blank"
-          rel="noreferrer noopener"
-        >
+        <a className="font-bold" href={url} target="_blank" rel="noreferrer noopener">
           ➜ Go to {name}
         </a>
       </div>
     </div>
-  )
-}
+  );
+};
 
 const Thanks: FC = () => {
   return (
@@ -64,29 +57,16 @@ const Thanks: FC = () => {
                 url={`https://vercel.com/?utm_source=${APP_NAME}&utm_campaign=oss`}
                 size={40}
               >
-                Vercel combines the best developer experience with an obsessive
-                focus on end-user performance. Vercel platform enables frontend
-                teams to do their best work.
+                Vercel combines the best developer experience with an obsessive focus on end-user performance.
+                Vercel platform enables frontend teams to do their best work.
               </Brand>
-              <Brand
-                name="Gitpod"
-                logo="gitpod"
-                url="https://gitpod.io"
-                size={50}
-              >
-                Gitpod streamlines developer workflows by providing prebuilt,
-                collaborative developer environments in your browser - powered
-                by VS Code.
+              <Brand name="Gitpod" logo="gitpod" url="https://gitpod.io" size={50}>
+                Gitpod streamlines developer workflows by providing prebuilt, collaborative developer
+                environments in your browser - powered by VS Code.
               </Brand>
-              <Brand
-                name="Imagekit"
-                logo="imagekit"
-                url="https://imagekit.io"
-                size={50}
-              >
-                Image CDN with automatic optimization, real-time transformation,
-                and storage that you can integrate with existing setup in
-                minutes.
+              <Brand name="Imagekit" logo="imagekit" url="https://imagekit.io" size={50}>
+                Image CDN with automatic optimization, real-time transformation, and storage that you can
+                integrate with existing setup in minutes.
               </Brand>
             </div>
           </div>
@@ -96,7 +76,7 @@ const Thanks: FC = () => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Thanks
+export default Thanks;
