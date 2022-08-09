@@ -1,5 +1,5 @@
 <div align="center">
-    <img src="public/logo.svg" height="70" alt="Lenster Logo">
+    <img src="https://user-images.githubusercontent.com/69431456/183576577-2486db3f-f0a9-4252-b283-a8322e5eb8b6.png" alt="Lenster Logo">
     <h1>Lenster</h1>
     <strong>Decentralized, and permissionless social media app 🌿</strong>
 </div>
