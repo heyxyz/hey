@@ -97,7 +97,8 @@ const SetProfile: FC = () => {
 
   useEffect(() => {
     setSelectedUser(sortedProfiles[0]?.id);
-  }, [sortedProfiles]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const [broadcast, { data: broadcastData, loading: broadcastLoading }] = useMutation(BROADCAST_MUTATION, {
     onCompleted,
