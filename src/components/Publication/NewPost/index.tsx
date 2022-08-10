@@ -299,7 +299,7 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
                 onClick={createPost}
               >
                 {isUploading
-                  ? 'Uploading to IPFS'
+                  ? 'Uploading to Arweave'
                   : typedDataLoading
                   ? 'Generating Post'
                   : signLoading

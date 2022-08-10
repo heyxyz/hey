@@ -316,7 +316,7 @@ const NewComment: FC<Props> = ({ setShowModal, hideCard = false, publication, ty
                 onClick={createComment}
               >
                 {isUploading
-                  ? 'Uploading to IPFS'
+                  ? 'Uploading to Arweave'
                   : typedDataLoading
                   ? `Generating ${type === 'comment' ? 'Comment' : 'Post'}`
                   : signLoading
