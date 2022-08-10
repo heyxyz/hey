@@ -20,7 +20,6 @@ import Custom500 from 'src/pages/500';
 import { useAppPersistStore } from 'src/store/app';
 
 import FullPublication from './FullPublication';
-import IPFSHash from './IPFSHash';
 import RelevantPeople from './RelevantPeople';
 import PublicationPageShimmer from './Shimmer';
 import ViaApp from './ViaApp';
@@ -127,7 +126,6 @@ const ViewPublication: NextPage = () => {
           <ViaApp appConfig={appConfig} />
         </Card>
         <RelevantPeople publication={publication} />
-        <IPFSHash ipfsHash={publication?.onChainContentURI} />
         <Footer />
       </GridItemFour>
     </GridLayout>
