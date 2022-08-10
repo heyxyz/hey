@@ -12,7 +12,9 @@ const Footer: FC = () => {
         staffMode ? 'top-28' : 'top-20'
       }`}
     >
-      <span className="font-bold text-gray-500 dark:text-gray-300">© {APP_NAME}</span>
+      <span className="font-bold text-gray-500 dark:text-gray-300">
+        &copy; {new Date().getFullYear()} {APP_NAME}
+      </span>
       <Link href="/privacy">
         <a href="/privacy">Privacy</a>
       </Link>
