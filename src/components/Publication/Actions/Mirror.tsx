@@ -74,7 +74,8 @@ const Mirror: FC<Props> = ({ publication }) => {
           : publication?.stats?.totalAmountOfMirrors
       );
     }
-  }, [publication]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {

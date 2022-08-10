@@ -46,7 +46,8 @@ const Like: FC<Props> = ({ publication }) => {
       setCount(reactionCount);
       setLiked(reaction === 'UPVOTE');
     }
-  }, [publication]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const [addReaction] = useMutation(ADD_REACTION_MUTATION, {
     onCompleted() {
