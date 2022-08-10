@@ -80,19 +80,10 @@ interface Props {
   profile: Profile;
   setFollowing: Dispatch<boolean>;
   setShowFollowModal: Dispatch<boolean>;
-  followersCount?: number;
-  setFollowersCount?: Dispatch<number>;
   again: boolean;
 }
 
-const FollowModule: FC<Props> = ({
-  profile,
-  setFollowing,
-  setShowFollowModal,
-  followersCount,
-  setFollowersCount,
-  again
-}) => {
+const FollowModule: FC<Props> = ({ profile, setFollowing, setShowFollowModal, again }) => {
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
@@ -106,9 +97,6 @@ const FollowModule: FC<Props> = ({
   });
 
   const onCompleted = () => {
-    if (followersCount && setFollowersCount) {
-      setFollowersCount(followersCount + 1);
-    }
     setFollowing(true);
     setShowFollowModal(false);
     toast.success('Followed successfully!');
