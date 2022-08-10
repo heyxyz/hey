@@ -34,7 +34,8 @@ const Collect: FC<Props> = ({ publication }) => {
           : publication?.stats?.totalAmountOfCollects
       );
     }
-  }, [publication]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <>
