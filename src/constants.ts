@@ -40,6 +40,7 @@ export const POLYGONSCAN_URL = IS_MAINNET ? 'https://polygonscan.com' : 'https:/
 export const RARIBLE_URL = IS_MAINNET ? 'https://rarible.com' : 'https://rinkeby.rarible.com';
 export const IMAGEKIT_URL_PROD = 'https://ik.imagekit.io/lensterimg';
 export const IMAGEKIT_URL_DEV = 'https://ik.imagekit.io/lensterdev';
+export const ARWEAVE_GATEWAY = 'https://arweave.net';
 export const IMAGEKIT_URL = IS_PRODUCTION ? IMAGEKIT_URL_PROD : IMAGEKIT_URL_DEV;
 
 // Web3
@@ -85,3 +86,7 @@ export const URL_REGEX =
   /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/;
 export const ADDRESS_REGEX = /^(0x)?[0-9a-f]{40}$/i;
 export const HANDLE_REGEX = /^[a-z0-9]+$/;
+
+// Bundlr
+export const BUNDLR_CURRENCY = 'matic';
+export const BUNDLR_NODE_URL = IS_MAINNET ? 'https://node1.bundlr.network' : 'https://devnet.bundlr.network';

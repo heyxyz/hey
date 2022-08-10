@@ -21,7 +21,7 @@ import { Mixpanel } from '@lib/mixpanel';
 import omit from '@lib/omit';
 import splitSignature from '@lib/splitSignature';
 import uploadAssetsToIPFS from '@lib/uploadAssetsToIPFS';
-import uploadToIPFS from '@lib/uploadToIPFS';
+import uploadToArweave from '@lib/uploadToArweave';
 import React, { ChangeEvent, FC, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import {
@@ -223,7 +223,7 @@ const Profile: FC<Props> = ({ profile }) => {
     if (!isAuthenticated) return toast.error(SIGN_WALLET);
 
     setIsUploading(true);
-    const { path } = await uploadToIPFS({
+    const id = await uploadToArweave({
       name,
       bio,
       cover_picture: cover ? cover : null,
@@ -271,7 +271,7 @@ const Profile: FC<Props> = ({ profile }) => {
         options: { overrideSigNonce: userSigNonce },
         request: {
           profileId: currentUser?.id,
-          metadata: `https://ipfs.infura.io/ipfs/${path}`
+          metadata: `https://arweave.net/${id}`
         }
       }
     });
