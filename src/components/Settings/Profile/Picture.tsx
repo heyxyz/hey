@@ -95,9 +95,11 @@ const Picture: FC<Props> = ({ profile }) => {
   });
 
   useEffect(() => {
-    if (profile?.picture?.original?.url || profile?.picture?.uri)
+    if (profile?.picture?.original?.url || profile?.picture?.uri) {
       setAvatar(profile?.picture?.original?.url ?? profile?.picture?.uri);
-  }, [profile]);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const [broadcast, { data: broadcastData, loading: broadcastLoading }] = useMutation(BROADCAST_MUTATION, {
     onCompleted,
