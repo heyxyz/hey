@@ -4,7 +4,7 @@ import formatIPFSHash from '@lib/formatIPFSHash';
 import getIPFSHash from '@lib/getIPFSHash';
 import { Mixpanel } from '@lib/mixpanel';
 import React, { FC } from 'react';
-import { IPFS_GATEWAY } from 'src/constants';
+import { ARWEAVE_GATEWAY } from 'src/constants';
 import { PUBLICATION } from 'src/tracking';
 
 interface Props {
@@ -21,7 +21,7 @@ const IPFSHash: FC<Props> = ({ ipfsHash }) => {
       <CardBody className="text-sm text-gray-500">
         <a
           className="flex justify-between items-center"
-          href={`${IPFS_GATEWAY}/ipfs/${formattedHash}`}
+          href={`${ARWEAVE_GATEWAY}/${formattedHash}`}
           onClick={() => {
             Mixpanel.track(PUBLICATION.OPEN_CONTENT_URI);
           }}

@@ -1,7 +1,5 @@
-import { IPFS_GATEWAY } from 'src/constants';
-
 const getIPFSLink = (hash: string): string => {
-  const infuraIPFS = `${IPFS_GATEWAY}/ipfs/`;
+  const infuraIPFS = `https://ipfs.io/ipfs/`;
 
   return hash
     .replace(/^Qm[1-9A-Za-z]{44}/gm, `${infuraIPFS}${hash}`)
