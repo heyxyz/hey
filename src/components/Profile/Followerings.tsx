@@ -10,11 +10,10 @@ import Followers from './Followers';
 import Following from './Following';
 
 interface Props {
-  followersCount: number;
   profile: Profile;
 }
 
-const Followerings: FC<Props> = ({ followersCount, profile }) => {
+const Followerings: FC<Props> = ({ profile }) => {
   const [showFollowingModal, setShowFollowingModal] = useState<boolean>(false);
   const [showFollowersModal, setShowFollowersModal] = useState<boolean>(false);
 
@@ -39,7 +38,7 @@ const Followerings: FC<Props> = ({ followersCount, profile }) => {
           Mixpanel.track(PROFILE.OPEN_FOLLOWERS);
         }}
       >
-        <div className="text-xl">{humanize(followersCount)}</div>
+        <div className="text-xl">{humanize(profile?.stats?.totalFollowers)}</div>
         <div className="text-gray-500">Followers</div>
       </button>
       <Modal

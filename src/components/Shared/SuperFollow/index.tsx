@@ -17,20 +17,11 @@ const FollowModule = dynamic(() => import('./FollowModule'), {
 interface Props {
   profile: Profile;
   setFollowing: Dispatch<boolean>;
-  followersCount?: number;
-  setFollowersCount?: Dispatch<number>;
   showText?: boolean;
   again?: boolean;
 }
 
-const SuperFollow: FC<Props> = ({
-  profile,
-  setFollowing,
-  followersCount,
-  setFollowersCount,
-  showText = false,
-  again = false
-}) => {
+const SuperFollow: FC<Props> = ({ profile, setFollowing, showText = false, again = false }) => {
   const [showFollowModal, setShowFollowModal] = useState<boolean>(false);
 
   return (
@@ -62,8 +53,6 @@ const SuperFollow: FC<Props> = ({
           profile={profile}
           setFollowing={setFollowing}
           setShowFollowModal={setShowFollowModal}
-          followersCount={followersCount}
-          setFollowersCount={setFollowersCount}
           again={again}
         />
       </Modal>
