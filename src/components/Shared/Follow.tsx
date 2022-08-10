@@ -47,18 +47,10 @@ const CREATE_FOLLOW_TYPED_DATA_MUTATION = gql`
 interface Props {
   profile: Profile;
   setFollowing: Dispatch<boolean>;
-  followersCount?: number;
-  setFollowersCount?: Dispatch<number>;
   showText?: boolean;
 }
 
-const Follow: FC<Props> = ({
-  profile,
-  showText = false,
-  setFollowing,
-  followersCount,
-  setFollowersCount
-}) => {
+const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const isConnected = useAppPersistStore((state) => state.isConnected);
@@ -71,9 +63,6 @@ const Follow: FC<Props> = ({
   });
 
   const onCompleted = () => {
-    if (followersCount && setFollowersCount) {
-      setFollowersCount(followersCount + 1);
-    }
     setFollowing(true);
     toast.success('Followed successfully!');
     Mixpanel.track(PROFILE.FOLLOW, { result: 'success' });

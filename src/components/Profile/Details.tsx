@@ -15,7 +15,7 @@ import isStaff from '@lib/isStaff';
 import isVerified from '@lib/isVerified';
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
-import React, { FC, ReactElement, useEffect, useState } from 'react';
+import React, { FC, ReactElement, useState } from 'react';
 import { STATIC_ASSETS } from 'src/constants';
 import { useAppPersistStore } from 'src/store/app';
 
@@ -28,17 +28,10 @@ interface Props {
 }
 
 const Details: FC<Props> = ({ profile }) => {
-  const [followersCount, setFollowersCount] = useState<number>(0);
   const [following, setFollowing] = useState<boolean>(profile?.isFollowedByMe);
   const currentUser = useAppPersistStore((state) => state.currentUser);
   const staffMode = useAppPersistStore((state) => state.staffMode);
   const { resolvedTheme } = useTheme();
-
-  useEffect(() => {
-    if (profile?.stats?.totalFollowers) {
-      setFollowersCount(profile?.stats?.totalFollowers);
-    }
-  }, [profile?.stats?.totalFollowers]);
 
   const MetaDetails = ({ children, icon }: { children: ReactElement; icon: ReactElement }) => (
     <div className="flex gap-2 items-center">
@@ -86,44 +79,20 @@ const Details: FC<Props> = ({ profile }) => {
         </div>
       </div>
       <div className="space-y-5">
-        <Followerings followersCount={followersCount} profile={profile} />
+        <Followerings profile={profile} />
         <div className="flex items-center space-x-2">
           {followType !== 'RevertFollowModuleSettings' ? (
             following ? (
               <div className="flex space-x-2">
-                <Unfollow
-                  profile={profile}
-                  setFollowing={setFollowing}
-                  followersCount={followersCount}
-                  setFollowersCount={setFollowersCount}
-                  showText
-                />
+                <Unfollow profile={profile} setFollowing={setFollowing} showText />
                 {followType === 'FeeFollowModuleSettings' && (
-                  <SuperFollow
-                    profile={profile}
-                    setFollowing={setFollowing}
-                    followersCount={followersCount}
-                    setFollowersCount={setFollowersCount}
-                    again
-                  />
+                  <SuperFollow profile={profile} setFollowing={setFollowing} again />
                 )}
               </div>
             ) : followType === 'FeeFollowModuleSettings' ? (
-              <SuperFollow
-                profile={profile}
-                setFollowing={setFollowing}
-                followersCount={followersCount}
-                setFollowersCount={setFollowersCount}
-                showText
-              />
+              <SuperFollow profile={profile} setFollowing={setFollowing} showText />
             ) : (
-              <Follow
-                profile={profile}
-                setFollowing={setFollowing}
-                followersCount={followersCount}
-                setFollowersCount={setFollowersCount}
-                showText
-              />
+              <Follow profile={profile} setFollowing={setFollowing} showText />
             )
           ) : null}
           {currentUser?.id === profile?.id && (
