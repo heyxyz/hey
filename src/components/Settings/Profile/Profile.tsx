@@ -183,8 +183,11 @@ const Profile: FC<Props> = ({ profile }) => {
   );
 
   useEffect(() => {
-    if (profile?.coverPicture?.original?.url) setCover(profile?.coverPicture?.original?.url);
-  }, [profile]);
+    if (profile?.coverPicture?.original?.url) {
+      setCover(profile?.coverPicture?.original?.url);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleUpload = async (evt: ChangeEvent<HTMLInputElement>) => {
     evt.preventDefault();
