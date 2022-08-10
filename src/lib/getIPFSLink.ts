@@ -1,5 +1,7 @@
+import { IPFS_GATEWAY } from 'src/constants';
+
 const getIPFSLink = (hash: string): string => {
-  const infuraIPFS = 'https://lenster.infura-ipfs.io/ipfs/';
+  const infuraIPFS = `${IPFS_GATEWAY}/ipfs/`;
 
   return hash
     .replace(/^Qm[1-9A-Za-z]{44}/gm, `${infuraIPFS}${hash}`)
