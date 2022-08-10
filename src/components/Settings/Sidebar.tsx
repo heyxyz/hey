@@ -1,6 +1,6 @@
 import UserProfile from '@components/Shared/UserProfile';
 import { Profile } from '@generated/types';
-import { ChipIcon, ExclamationIcon, ShareIcon, UserIcon } from '@heroicons/react/outline';
+import { ChipIcon, DatabaseIcon, ExclamationIcon, ShareIcon, UserIcon } from '@heroicons/react/outline';
 import clsx from 'clsx';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -47,6 +47,10 @@ const Sidebar: FC = () => {
       <Menu current={pathname == '/settings/allowance'} url="/settings/allowance">
         <ShareIcon className="w-4 h-4" />
         <div>Allowance</div>
+      </Menu>
+      <Menu current={pathname == '/settings/data'} url="/settings/data">
+        <DatabaseIcon className="w-4 h-4" />
+        <div>Data</div>
       </Menu>
       <Menu current={pathname == '/settings/delete'} url="/settings/delete">
         <ExclamationIcon className="w-4 h-4 text-red-500" />
