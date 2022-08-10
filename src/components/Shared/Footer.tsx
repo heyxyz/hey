@@ -13,7 +13,7 @@ const Footer: FC = () => {
       }`}
     >
       <span className="font-bold text-gray-500 dark:text-gray-300">
-        {APP_NAME} &copy; {new Date().getFullYear()}
+        &copy; {new Date().getFullYear()} {APP_NAME}
       </span>
       <Link href="/privacy">
         <a href="/privacy">Privacy</a>
