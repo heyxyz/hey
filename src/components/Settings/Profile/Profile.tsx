@@ -271,7 +271,7 @@ const Profile: FC<Props> = ({ profile }) => {
         options: { overrideSigNonce: userSigNonce },
         request: {
           profileId: currentUser?.id,
-          metadata: `https://ipfs.infura.io/ipfs/${path}`
+          metadata: `ipfs://${path}`
         }
       }
     });

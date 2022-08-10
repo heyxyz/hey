@@ -241,7 +241,7 @@ const NewComment: FC<Props> = ({ setShowModal, hideCard = false, publication, ty
         request: {
           profileId: currentUser?.id,
           publicationId: publication?.__typename === 'Mirror' ? publication?.mirrorOf?.id : publication?.id,
-          contentURI: `https://ipfs.infura.io/ipfs/${path}`,
+          contentURI: `ipfs://${path}`,
           collectModule: feeData.recipient
             ? {
                 [getModule(selectedModule.moduleName).config]: feeData

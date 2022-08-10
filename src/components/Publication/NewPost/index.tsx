@@ -226,7 +226,7 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
         options: { overrideSigNonce: userSigNonce },
         request: {
           profileId: currentUser?.id,
-          contentURI: `https://ipfs.infura.io/ipfs/${path}`,
+          contentURI: `ipfs://${path}`,
           collectModule: feeData.recipient
             ? {
                 [getModule(selectedModule.moduleName).config]: feeData

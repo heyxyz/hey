@@ -179,7 +179,7 @@ const Create: NextPage = () => {
         options: { overrideSigNonce: userSigNonce },
         request: {
           profileId: currentUser?.id,
-          contentURI: `https://ipfs.infura.io/ipfs/${path}`,
+          contentURI: `ipfs://${path}`,
           collectModule: {
             freeCollectModule: {
               followerOnly: false
