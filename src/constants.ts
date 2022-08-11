@@ -89,4 +89,4 @@ export const HANDLE_REGEX = /^[a-z0-9]+$/;
 
 // Bundlr
 export const BUNDLR_CURRENCY = 'matic';
-export const BUNDLR_NODE_URL = IS_MAINNET ? 'https://node1.bundlr.network' : 'https://devnet.bundlr.network';
+export const BUNDLR_NODE_URL = IS_MAINNET ? 'https://node2.bundlr.network' : 'https://devnet.bundlr.network';
