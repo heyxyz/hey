@@ -7,6 +7,7 @@ const headers = [{ key: 'Cache-Control', value: 'public, max-age=3600' }];
 module.exports = withTM(
   withSentryConfig(
     {
+      swcMinify: true,
       reactStrictMode: false,
       trailingSlash: false,
       async rewrites() {
