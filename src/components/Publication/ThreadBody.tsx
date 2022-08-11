@@ -16,21 +16,21 @@ interface Props {
 }
 
 const ThreadBody: FC<Props> = ({ publication }) => {
+  const isMirror = publication?.__typename === 'Mirror';
+  const profile = isMirror ? publication?.mirrorOf?.profile : publication?.profile;
+  const timestamp = isMirror ? publication?.mirrorOf?.createdAt : publication?.createdAt;
+
   return (
     <div>
       <div className="flex justify-between space-x-1.5">
         <UserProfile
           profile={
-            publication?.collectedBy?.defaultProfile
-              ? publication?.collectedBy?.defaultProfile
-              : publication?.__typename === 'Mirror'
-              ? publication?.mirrorOf?.profile
-              : publication?.profile
+            publication?.collectedBy?.defaultProfile ? publication?.collectedBy?.defaultProfile : profile
           }
         />
         <Link href={`/posts/${publication?.id ?? publication?.pubId}`}>
           <a href={`/posts/${publication?.id ?? publication?.pubId}`} className="text-sm text-gray-500">
-            {dayjs(new Date(publication?.createdAt)).fromNow()}
+            {dayjs(new Date(timestamp)).fromNow()}
           </a>
         </Link>
       </div>
