@@ -75,7 +75,11 @@ const Attachments: FC<Props> = ({ attachments, setAttachments, isNew = false }) 
               onClick={() =>
                 window.open(isNew ? attachment.item : getIPFSLink(attachment.original.url), '_blank')
               }
-              src={isNew ? attachment.item : imagekitURL(getIPFSLink(attachment.original.url), 'attachment')}
+              src={
+                isNew
+                  ? getIPFSLink(attachment.item)
+                  : imagekitURL(getIPFSLink(attachment.original.url), 'attachment')
+              }
               alt={isNew ? attachment.item : imagekitURL(getIPFSLink(attachment.original.url), 'attachment')}
             />
           )}

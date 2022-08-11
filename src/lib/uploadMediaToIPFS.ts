@@ -1,20 +1,24 @@
 import { LensterAttachment } from '@generated/lenstertypes';
 import axios from 'axios';
 
-const uploadAssetsToIPFS = async (data: any): Promise<LensterAttachment[]> => {
+const uploadMediaToIPFS = async (data: any): Promise<LensterAttachment[]> => {
   try {
     const attachments = [];
     for (let i = 0; i < data.length; i++) {
       const file = data.item(i);
       const formData = new FormData();
       formData.append('file', file, 'img');
-      const upload = await axios('https://ipfs.infura.io:5001/api/v0/add', {
+      const upload = await axios('https://api.web3.storage/upload', {
         method: 'POST',
-        data: formData
+        data: formData,
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${process.env.NEXT_PUBLIC_WEB3_STORAGE_TOKEN}`
+        }
       });
-      const { Hash }: { Hash: string } = upload?.data;
+      const { cid }: { cid: string } = await upload.data;
       attachments.push({
-        item: `ipfs://${Hash}`,
+        item: `ipfs://${cid}`,
         type: file.type,
         altTag: ''
       });
@@ -26,4 +30,4 @@ const uploadAssetsToIPFS = async (data: any): Promise<LensterAttachment[]> => {
   }
 };
 
-export default uploadAssetsToIPFS;
+export default uploadMediaToIPFS;
