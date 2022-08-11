@@ -12,7 +12,7 @@ import imagekitURL from '@lib/imagekitURL';
 import { Mixpanel } from '@lib/mixpanel';
 import omit from '@lib/omit';
 import splitSignature from '@lib/splitSignature';
-import uploadAssetsToIPFS from '@lib/uploadAssetsToIPFS';
+import uploadMediaToIPFS from '@lib/uploadMediaToIPFS';
 import React, { ChangeEvent, FC, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { ERROR_MESSAGE, ERRORS, LENSHUB_PROXY, RELAY_ON, SIGN_WALLET } from 'src/constants';
@@ -159,7 +159,7 @@ const Picture: FC<Props> = ({ profile }) => {
     evt.preventDefault();
     setUploading(true);
     try {
-      const attachment = await uploadAssetsToIPFS(evt.target.files);
+      const attachment = await uploadMediaToIPFS(evt.target.files);
       if (attachment[0]?.item) {
         setAvatar(attachment[0].item);
       }
