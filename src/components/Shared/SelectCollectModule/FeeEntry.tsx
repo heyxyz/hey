@@ -37,6 +37,7 @@ const FeeEntry: FC<Props> = ({ enabledModuleCurrencies, setShowFeeEntry, setShow
   const setFeeData = useCollectModuleStore((state) => state.setFeeData);
   const [followerOnly, setFollowerOnly] = useState<boolean>(false);
   const [selectedCurrency, setSelectedCurrency] = useState<string>(DEFAULT_COLLECT_TOKEN);
+
   const form = useZodForm({
     schema: feeDataSchema,
     defaultValues: {

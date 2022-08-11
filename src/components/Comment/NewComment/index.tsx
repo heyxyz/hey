@@ -100,7 +100,6 @@ const NewComment: FC<Props> = ({ setShowModal, hideCard = false, publication, ty
   const setSelectedModule = useCollectModuleStore((state) => state.setSelectedModule);
   const feeData = useCollectModuleStore((state) => state.feeData);
   const setFeeData = useCollectModuleStore((state) => state.setFeeData);
-
   const [commentContentError, setCommentContentError] = useState<string>('');
   const [onlyFollowers, setOnlyFollowers] = useState<boolean>(false);
   const [isUploading, setIsUploading] = useState<boolean>(false);
