@@ -5,10 +5,11 @@ import { Spinner } from '@components/UI/Spinner';
 import GetModuleIcon from '@components/utils/GetModuleIcon';
 import { EnabledModule } from '@generated/types';
 import { CheckCircleIcon } from '@heroicons/react/solid';
-import { FEE_DATA_TYPE, getModule } from '@lib/getModule';
+import { getModule } from '@lib/getModule';
 import { Mixpanel } from '@lib/mixpanel';
 import clsx from 'clsx';
 import { Dispatch, FC, useState } from 'react';
+import { useCollectModuleStore } from 'src/store/collectmodule';
 
 import FeeEntry from './FeeEntry';
 
@@ -30,16 +31,15 @@ export const MODULES_QUERY = gql`
 `;
 
 interface Props {
-  feeData: FEE_DATA_TYPE;
-  setSelectedModule: Dispatch<EnabledModule>;
-  selectedModule: EnabledModule;
   setShowModal: Dispatch<boolean>;
-  setFeeData: Dispatch<FEE_DATA_TYPE>;
 }
 
-const Modules: FC<Props> = ({ feeData, setSelectedModule, selectedModule, setShowModal, setFeeData }) => {
-  const { error, data, loading } = useQuery(MODULES_QUERY);
+const Modules: FC<Props> = ({ setShowModal }) => {
+  const selectedModule = useCollectModuleStore((state) => state.selectedModule);
+  const setSelectedModule = useCollectModuleStore((state) => state.setSelectedModule);
   const [showFeeEntry, setShowFeeEntry] = useState<boolean>(false);
+
+  const { error, data, loading } = useQuery(MODULES_QUERY);
 
   const handleSelectModule = (module: EnabledModule) => {
     setSelectedModule(module);
@@ -64,13 +64,9 @@ const Modules: FC<Props> = ({ feeData, setSelectedModule, selectedModule, setSho
       <ErrorMessage title="Failed to load modules" error={error} />
       {showFeeEntry ? (
         <FeeEntry
-          selectedModule={selectedModule}
-          setSelectedModule={setSelectedModule}
           enabledModuleCurrencies={data?.enabledModuleCurrencies}
           setShowFeeEntry={setShowFeeEntry}
           setShowModal={setShowModal}
-          feeData={feeData}
-          setFeeData={setFeeData}
         />
       ) : (
         data?.enabledModules?.collectModules?.map(

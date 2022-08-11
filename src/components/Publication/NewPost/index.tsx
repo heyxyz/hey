@@ -9,11 +9,11 @@ import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { MentionTextArea } from '@components/UI/MentionTextArea';
 import { Spinner } from '@components/UI/Spinner';
 import { LensterAttachment } from '@generated/lenstertypes';
-import { CreatePostBroadcastItemResult, EnabledModule } from '@generated/types';
+import { CreatePostBroadcastItemResult } from '@generated/types';
 import { IGif } from '@giphy/js-types';
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation';
 import { PencilAltIcon } from '@heroicons/react/outline';
-import { defaultFeeData, defaultModuleData, FEE_DATA_TYPE, getModule } from '@lib/getModule';
+import { defaultFeeData, defaultModuleData, getModule } from '@lib/getModule';
 import { Mixpanel } from '@lib/mixpanel';
 import omit from '@lib/omit';
 import splitSignature from '@lib/splitSignature';
@@ -24,6 +24,7 @@ import { Dispatch, FC, useState } from 'react';
 import toast from 'react-hot-toast';
 import { APP_NAME, ERROR_MESSAGE, ERRORS, LENSHUB_PROXY, RELAY_ON, SIGN_WALLET } from 'src/constants';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
+import { useCollectModuleStore } from 'src/store/collectmodule';
 import { usePublicationStore } from 'src/store/publication';
 import { POST } from 'src/tracking';
 import { v4 as uuid } from 'uuid';
@@ -92,10 +93,12 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
   const setPublicationContent = usePublicationStore((state) => state.setPublicationContent);
   const previewPublication = usePublicationStore((state) => state.previewPublication);
   const setPreviewPublication = usePublicationStore((state) => state.setPreviewPublication);
+  const selectedModule = useCollectModuleStore((state) => state.selectedModule);
+  const setSelectedModule = useCollectModuleStore((state) => state.setSelectedModule);
+  const feeData = useCollectModuleStore((state) => state.feeData);
+  const setFeeData = useCollectModuleStore((state) => state.setFeeData);
   const [postContentError, setPostContentError] = useState<string>('');
-  const [selectedModule, setSelectedModule] = useState<EnabledModule>(defaultModuleData);
   const [onlyFollowers, setOnlyFollowers] = useState<boolean>(false);
-  const [feeData, setFeeData] = useState<FEE_DATA_TYPE>(defaultFeeData);
   const [isUploading, setIsUploading] = useState<boolean>(false);
   const [attachments, setAttachments] = useState<LensterAttachment[]>([]);
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
@@ -269,12 +272,7 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
             <div className="flex items-center space-x-4">
               <Attachment attachments={attachments} setAttachments={setAttachments} />
               <Giphy setGifAttachment={(gif: IGif) => setGifAttachment(gif)} />
-              <SelectCollectModule
-                feeData={feeData}
-                setFeeData={setFeeData}
-                selectedModule={selectedModule}
-                setSelectedModule={setSelectedModule}
-              />
+              <SelectCollectModule />
               <SelectReferenceModule onlyFollowers={onlyFollowers} setOnlyFollowers={setOnlyFollowers} />
               {publicationContent && <Preview />}
             </div>
