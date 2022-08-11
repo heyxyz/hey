@@ -129,6 +129,7 @@ export const CommentFields = gql`
                   ...StatsFields
                 }
                 hidden
+                createdAt
               }
               ... on Comment {
                 id
@@ -141,6 +142,7 @@ export const CommentFields = gql`
                   ...StatsFields
                 }
                 hidden
+                createdAt
               }
             }
             createdAt
@@ -170,6 +172,7 @@ export const CommentFields = gql`
               ...StatsFields
             }
             hidden
+            createdAt
           }
           ... on Comment {
             id
@@ -182,6 +185,7 @@ export const CommentFields = gql`
               ...StatsFields
             }
             hidden
+            createdAt
           }
         }
         stats {

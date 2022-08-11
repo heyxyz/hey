@@ -22,6 +22,9 @@ interface Props {
 
 const SinglePublication: FC<Props> = ({ publication, showType = true, showActions = true }) => {
   const publicationType = publication?.metadata?.attributes[0]?.value;
+  const isMirror = publication?.__typename === 'Mirror';
+  const profile = isMirror ? publication?.mirrorOf?.profile : publication?.profile;
+  const timestamp = isMirror ? publication?.mirrorOf?.createdAt : publication?.createdAt;
 
   return (
     <Link href={`/posts/${publication?.id ?? publication?.pubId}`} passHref>
@@ -38,12 +41,10 @@ const SinglePublication: FC<Props> = ({ publication, showType = true, showAction
               profile={
                 publicationType === 'community' && !!publication?.collectedBy?.defaultProfile
                   ? publication?.collectedBy?.defaultProfile
-                  : publication?.__typename === 'Mirror'
-                  ? publication?.mirrorOf?.profile
-                  : publication?.profile
+                  : profile
               }
             />
-            <span className="text-sm text-gray-500">{dayjs(new Date(publication?.createdAt)).fromNow()}</span>
+            <span className="text-sm text-gray-500">{dayjs(new Date(timestamp)).fromNow()}</span>
           </div>
           <div className="ml-[53px]">
             {publication?.hidden ? (
