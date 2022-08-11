@@ -6,7 +6,7 @@ import { Form, useZodForm } from '@components/UI/Form';
 import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
 import { PlusIcon } from '@heroicons/react/outline';
-import uploadAssetsToIPFS from '@lib/uploadAssetsToIPFS';
+import uploadMediaToIPFS from '@lib/uploadMediaToIPFS';
 import React, { ChangeEvent, FC, useState } from 'react';
 import { APP_NAME, HANDLE_REGEX } from 'src/constants';
 import { useAccount } from 'wagmi';
@@ -54,7 +54,7 @@ const Create: FC<Props> = ({ isModal = false }) => {
     evt.preventDefault();
     setUploading(true);
     try {
-      const attachment = await uploadAssetsToIPFS(evt.target.files);
+      const attachment = await uploadMediaToIPFS(evt.target.files);
       if (attachment[0]?.item) {
         setAvatar(attachment[0].item);
       }

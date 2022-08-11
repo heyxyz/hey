@@ -20,7 +20,7 @@ import isBeta from '@lib/isBeta';
 import { Mixpanel } from '@lib/mixpanel';
 import omit from '@lib/omit';
 import splitSignature from '@lib/splitSignature';
-import uploadAssetsToIPFS from '@lib/uploadAssetsToIPFS';
+import uploadMediaToIPFS from '@lib/uploadMediaToIPFS';
 import uploadToArweave from '@lib/uploadToArweave';
 import React, { ChangeEvent, FC, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
@@ -193,7 +193,7 @@ const Profile: FC<Props> = ({ profile }) => {
     evt.preventDefault();
     setUploading(true);
     try {
-      const attachment = await uploadAssetsToIPFS(evt.target.files);
+      const attachment = await uploadMediaToIPFS(evt.target.files);
       if (attachment[0]?.item) {
         setCover(attachment[0].item);
       }

@@ -2,7 +2,7 @@ import { Spinner } from '@components/UI/Spinner';
 import { Tooltip } from '@components/UI/Tooltip';
 import { LensterAttachment } from '@generated/lenstertypes';
 import { PhotographIcon } from '@heroicons/react/outline';
-import uploadAssetsToIPFS from '@lib/uploadAssetsToIPFS';
+import uploadMediaToIPFS from '@lib/uploadMediaToIPFS';
 import { motion } from 'framer-motion';
 import { ChangeEvent, Dispatch, FC, useId, useState } from 'react';
 import toast from 'react-hot-toast';
@@ -47,7 +47,7 @@ const Attachment: FC<Props> = ({ attachments, setAttachments }) => {
       if (evt.target.files && (hasVideos(evt.target.files) || evt.target.files.length > 4)) {
         toast.error('Please choose either 1 video or up to 4 photos.');
       } else {
-        const attachment = await uploadAssetsToIPFS(evt.target.files);
+        const attachment = await uploadMediaToIPFS(evt.target.files);
         if (attachment) {
           setAttachments(attachment);
         }

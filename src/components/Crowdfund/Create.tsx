@@ -21,7 +21,7 @@ import imagekitURL from '@lib/imagekitURL';
 import { Mixpanel } from '@lib/mixpanel';
 import omit from '@lib/omit';
 import splitSignature from '@lib/splitSignature';
-import uploadAssetsToIPFS from '@lib/uploadAssetsToIPFS';
+import uploadMediaToIPFS from '@lib/uploadMediaToIPFS';
 import uploadToArweave from '@lib/uploadToArweave';
 import { NextPage } from 'next';
 import React, { ChangeEvent, useState } from 'react';
@@ -120,7 +120,7 @@ const Create: NextPage = () => {
     evt.preventDefault();
     setUploading(true);
     try {
-      const attachment = await uploadAssetsToIPFS(evt.target.files);
+      const attachment = await uploadMediaToIPFS(evt.target.files);
       if (attachment[0]?.item) {
         setCover(attachment[0].item);
         setCoverType(attachment[0].type);
