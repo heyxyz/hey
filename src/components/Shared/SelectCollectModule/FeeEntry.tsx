@@ -1,13 +1,14 @@
 import { Button } from '@components/UI/Button';
 import { Form, useZodForm } from '@components/UI/Form';
 import { Input } from '@components/UI/Input';
-import { EnabledModule, Erc20 } from '@generated/types';
+import { Erc20 } from '@generated/types';
 import { ArrowLeftIcon } from '@heroicons/react/outline';
-import { defaultModuleData, FEE_DATA_TYPE } from '@lib/getModule';
+import { defaultModuleData } from '@lib/getModule';
 import { Mixpanel } from '@lib/mixpanel';
 import { Dispatch, FC, useState } from 'react';
 import { DEFAULT_COLLECT_TOKEN } from 'src/constants';
 import { useAppPersistStore } from 'src/store/app';
+import { useCollectModuleStore } from 'src/store/collectmodule';
 import { PUBLICATION } from 'src/tracking';
 import { object, string } from 'zod';
 
@@ -24,26 +25,19 @@ const feeDataSchema = object({
 
 interface Props {
   enabledModuleCurrencies: Erc20[];
-  selectedModule: EnabledModule;
-  setSelectedModule: Dispatch<EnabledModule>;
   setShowFeeEntry: Dispatch<boolean>;
   setShowModal: Dispatch<boolean>;
-  feeData: FEE_DATA_TYPE;
-  setFeeData: Dispatch<FEE_DATA_TYPE>;
 }
 
-const FeeEntry: FC<Props> = ({
-  enabledModuleCurrencies,
-  selectedModule,
-  setSelectedModule,
-  setShowFeeEntry,
-  setShowModal,
-  feeData,
-  setFeeData
-}) => {
+const FeeEntry: FC<Props> = ({ enabledModuleCurrencies, setShowFeeEntry, setShowModal }) => {
   const currentUser = useAppPersistStore((state) => state.currentUser);
+  const selectedModule = useCollectModuleStore((state) => state.selectedModule);
+  const setSelectedModule = useCollectModuleStore((state) => state.setSelectedModule);
+  const feeData = useCollectModuleStore((state) => state.feeData);
+  const setFeeData = useCollectModuleStore((state) => state.setFeeData);
   const [followerOnly, setFollowerOnly] = useState<boolean>(false);
   const [selectedCurrency, setSelectedCurrency] = useState<string>(DEFAULT_COLLECT_TOKEN);
+
   const form = useZodForm({
     schema: feeDataSchema,
     defaultValues: {
