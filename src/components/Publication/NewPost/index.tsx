@@ -9,7 +9,7 @@ import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { MentionTextArea } from '@components/UI/MentionTextArea';
 import { Spinner } from '@components/UI/Spinner';
 import { LensterAttachment } from '@generated/lenstertypes';
-import { CreatePostBroadcastItemResult, EnabledModule } from '@generated/types';
+import { CreatePostBroadcastItemResult } from '@generated/types';
 import { IGif } from '@giphy/js-types';
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation';
 import { PencilAltIcon } from '@heroicons/react/outline';
@@ -93,11 +93,12 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
   const setPublicationContent = usePublicationStore((state) => state.setPublicationContent);
   const previewPublication = usePublicationStore((state) => state.previewPublication);
   const setPreviewPublication = usePublicationStore((state) => state.setPreviewPublication);
+  const selectedModule = useCollectModuleStore((state) => state.selectedModule);
+  const setSelectedModule = useCollectModuleStore((state) => state.setSelectedModule);
   const feeData = useCollectModuleStore((state) => state.feeData);
   const setFeeData = useCollectModuleStore((state) => state.setFeeData);
 
   const [postContentError, setPostContentError] = useState<string>('');
-  const [selectedModule, setSelectedModule] = useState<EnabledModule>(defaultModuleData);
   const [onlyFollowers, setOnlyFollowers] = useState<boolean>(false);
   const [isUploading, setIsUploading] = useState<boolean>(false);
   const [attachments, setAttachments] = useState<LensterAttachment[]>([]);
@@ -272,7 +273,7 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
             <div className="flex items-center space-x-4">
               <Attachment attachments={attachments} setAttachments={setAttachments} />
               <Giphy setGifAttachment={(gif: IGif) => setGifAttachment(gif)} />
-              <SelectCollectModule selectedModule={selectedModule} setSelectedModule={setSelectedModule} />
+              <SelectCollectModule />
               <SelectReferenceModule onlyFollowers={onlyFollowers} setOnlyFollowers={setOnlyFollowers} />
               {publicationContent && <Preview />}
             </div>

@@ -9,6 +9,7 @@ import { getModule } from '@lib/getModule';
 import { Mixpanel } from '@lib/mixpanel';
 import clsx from 'clsx';
 import { Dispatch, FC, useState } from 'react';
+import { useCollectModuleStore } from 'src/store/collectmodule';
 
 import FeeEntry from './FeeEntry';
 
@@ -30,12 +31,12 @@ export const MODULES_QUERY = gql`
 `;
 
 interface Props {
-  setSelectedModule: Dispatch<EnabledModule>;
-  selectedModule: EnabledModule;
   setShowModal: Dispatch<boolean>;
 }
 
-const Modules: FC<Props> = ({ setSelectedModule, selectedModule, setShowModal }) => {
+const Modules: FC<Props> = ({ setShowModal }) => {
+  const selectedModule = useCollectModuleStore((state) => state.selectedModule);
+  const setSelectedModule = useCollectModuleStore((state) => state.setSelectedModule);
   const [showFeeEntry, setShowFeeEntry] = useState<boolean>(false);
 
   const { error, data, loading } = useQuery(MODULES_QUERY);
@@ -63,8 +64,6 @@ const Modules: FC<Props> = ({ setSelectedModule, selectedModule, setShowModal })
       <ErrorMessage title="Failed to load modules" error={error} />
       {showFeeEntry ? (
         <FeeEntry
-          selectedModule={selectedModule}
-          setSelectedModule={setSelectedModule}
           enabledModuleCurrencies={data?.enabledModuleCurrencies}
           setShowFeeEntry={setShowFeeEntry}
           setShowModal={setShowModal}

@@ -1,7 +1,7 @@
 import { Button } from '@components/UI/Button';
 import { Form, useZodForm } from '@components/UI/Form';
 import { Input } from '@components/UI/Input';
-import { EnabledModule, Erc20 } from '@generated/types';
+import { Erc20 } from '@generated/types';
 import { ArrowLeftIcon } from '@heroicons/react/outline';
 import { defaultModuleData } from '@lib/getModule';
 import { Mixpanel } from '@lib/mixpanel';
@@ -25,20 +25,14 @@ const feeDataSchema = object({
 
 interface Props {
   enabledModuleCurrencies: Erc20[];
-  selectedModule: EnabledModule;
-  setSelectedModule: Dispatch<EnabledModule>;
   setShowFeeEntry: Dispatch<boolean>;
   setShowModal: Dispatch<boolean>;
 }
 
-const FeeEntry: FC<Props> = ({
-  enabledModuleCurrencies,
-  selectedModule,
-  setSelectedModule,
-  setShowFeeEntry,
-  setShowModal
-}) => {
+const FeeEntry: FC<Props> = ({ enabledModuleCurrencies, setShowFeeEntry, setShowModal }) => {
   const currentUser = useAppPersistStore((state) => state.currentUser);
+  const selectedModule = useCollectModuleStore((state) => state.selectedModule);
+  const setSelectedModule = useCollectModuleStore((state) => state.setSelectedModule);
   const feeData = useCollectModuleStore((state) => state.feeData);
   const setFeeData = useCollectModuleStore((state) => state.setFeeData);
   const [followerOnly, setFollowerOnly] = useState<boolean>(false);
