@@ -210,7 +210,7 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
       imageMimeType: attachments.length > 0 ? attachments[0]?.type : null,
       name: `Post by @${currentUser?.handle}`,
       mainContentFocus:
-        attachments.length > 0 ? (attachments[0]?.type === 'video/mp4' ? 'VIDEO' : 'IMAGE') : 'TEXT',
+        attachments.length > 0 ? (attachments[0]?.type === 'video/mp4' ? 'VIDEO' : 'IMAGE') : 'TEXT_ONLY',
       contentWarning: null, // TODO
       attributes: [
         {
@@ -220,6 +220,7 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
         }
       ],
       media: attachments,
+      locale: 'en',
       createdOn: new Date(),
       appId: APP_NAME
     }).finally(() => setIsUploading(false));

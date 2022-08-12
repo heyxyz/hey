@@ -220,6 +220,7 @@ const Create: NextPage = () => {
         }
       ],
       media: [],
+      locale: 'en',
       createdOn: new Date(),
       appId: `${APP_NAME} Crowdfund`
     }).finally(() => setIsUploading(false));
