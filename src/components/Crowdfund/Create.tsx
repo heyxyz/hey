@@ -198,7 +198,7 @@ const Create: NextPage = () => {
 
     setIsUploading(true);
     const id = await uploadToArweave({
-      version: '1.0.0',
+      version: '2.0.0',
       metadata_id: uuid(),
       description: description,
       content: description,
@@ -220,6 +220,7 @@ const Create: NextPage = () => {
         }
       ],
       media: [],
+      locale: 'en',
       createdOn: new Date(),
       appId: `${APP_NAME} Crowdfund`
     }).finally(() => setIsUploading(false));

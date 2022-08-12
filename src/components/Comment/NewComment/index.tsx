@@ -216,7 +216,7 @@ const NewComment: FC<Props> = ({ setShowModal, hideCard = false, publication, ty
     setIsUploading(true);
     // TODO: Add animated_url support
     const id = await uploadToArweave({
-      version: '1.0.0',
+      version: '2.0.0',
       metadata_id: uuid(),
       description: trimify(publicationContent),
       content: trimify(publicationContent),
@@ -225,7 +225,7 @@ const NewComment: FC<Props> = ({ setShowModal, hideCard = false, publication, ty
       imageMimeType: attachments.length > 0 ? attachments[0]?.type : null,
       name: `Comment by @${currentUser?.handle}`,
       mainContentFocus:
-        attachments.length > 0 ? (attachments[0]?.type === 'video/mp4' ? 'VIDEO' : 'IMAGE') : 'TEXT',
+        attachments.length > 0 ? (attachments[0]?.type === 'video/mp4' ? 'VIDEO' : 'IMAGE') : 'TEXT_ONLY',
       contentWarning: null, // TODO
       attributes: [
         {
@@ -235,6 +235,7 @@ const NewComment: FC<Props> = ({ setShowModal, hideCard = false, publication, ty
         }
       ],
       media: attachments,
+      locale: 'en',
       createdOn: new Date(),
       appId: APP_NAME
     }).finally(() => setIsUploading(false));

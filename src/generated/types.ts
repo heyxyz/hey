@@ -1,14 +1,8 @@
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
-export type Exact<T extends { [key: string]: unknown }> = {
-  [K in keyof T]: T[K];
-};
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
-  [SubKey in K]?: Maybe<T[SubKey]>;
-};
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
-  [SubKey in K]: Maybe<T[SubKey]>;
-};
+export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -32,12 +26,15 @@ export type Scalars = {
   InternalPublicationId: any;
   Jwt: any;
   LimitScalar: any;
+  Locale: any;
   Markdown: any;
   MimeType: any;
   NftOwnershipId: any;
   Nonce: any;
+  NotificationId: any;
   ProfileId: any;
   PublicationId: any;
+  PublicationTag: any;
   PublicationUrl: any;
   ReferenceModuleData: any;
   Search: any;
@@ -57,6 +54,14 @@ export type AchRequest = {
   handle?: InputMaybe<Scalars['CreateHandle']>;
   overrideTradeMark: Scalars['Boolean'];
   secret: Scalars['String'];
+};
+
+export type AllPublicationsTagsRequest = {
+  cursor?: InputMaybe<Scalars['Cursor']>;
+  limit?: InputMaybe<Scalars['LimitScalar']>;
+  sort: TagSortCriteria;
+  /** The App Id */
+  source?: InputMaybe<Scalars['Sources']>;
 };
 
 export type ApprovedAllowanceAmount = {
@@ -881,6 +886,7 @@ export type ExplorePublicationRequest = {
   /** If you wish to exclude any results for profile ids */
   excludeProfileIds?: InputMaybe<Array<Scalars['ProfileId']>>;
   limit?: InputMaybe<Scalars['LimitScalar']>;
+  metadata?: InputMaybe<PublicationMetadataFilters>;
   /** If you want the randomizer off (default on) */
   noRandomize?: InputMaybe<Scalars['Boolean']>;
   /** The publication types you want to query */
@@ -1212,19 +1218,12 @@ export type MentionPublication = Comment | Post;
 export type MetadataAttributeOutput = {
   __typename?: 'MetadataAttributeOutput';
   /** The display type */
-  displayType?: Maybe<MetadataDisplayType>;
+  displayType?: Maybe<PublicationMetadataDisplayTypes>;
   /** The trait type - can be anything its the name it will render so include spaces */
   traitType?: Maybe<Scalars['String']>;
   /** The value */
   value?: Maybe<Scalars['String']>;
 };
-
-/** The metadata display types */
-export enum MetadataDisplayType {
-  Date = 'date',
-  Number = 'number',
-  String = 'string'
-}
 
 /** The metadata output */
 export type MetadataOutput = {
@@ -1233,16 +1232,24 @@ export type MetadataOutput = {
   attributes: Array<MetadataAttributeOutput>;
   /** This is the metadata content for the publication, should be markdown */
   content?: Maybe<Scalars['Markdown']>;
+  /** The content warning for the publication */
+  contentWarning?: Maybe<PublicationContentWarning>;
   /** The image cover for video/music publications */
   cover?: Maybe<MediaSet>;
   /** This is the metadata description */
   description?: Maybe<Scalars['Markdown']>;
   /** This is the image attached to the metadata and the property used to show the NFT! */
   image?: Maybe<Scalars['Url']>;
+  /** The locale of the publication,  */
+  locale?: Maybe<Scalars['Locale']>;
+  /** The main focus of the publication */
+  mainContentFocus: PublicationMainFocus;
   /** The images/audios/videos for the publication */
   media: Array<MediaSet>;
   /** The metadata name */
   name?: Maybe<Scalars['String']>;
+  /** The tags for the publication */
+  tags: Array<Scalars['String']>;
 };
 
 /** The social mirror */
@@ -1511,6 +1518,7 @@ export type NewCollectNotification = {
   __typename?: 'NewCollectNotification';
   collectedPublication: Publication;
   createdAt: Scalars['DateTime'];
+  notificationId: Scalars['NotificationId'];
   wallet: Wallet;
 };
 
@@ -1518,6 +1526,7 @@ export type NewCommentNotification = {
   __typename?: 'NewCommentNotification';
   comment: Comment;
   createdAt: Scalars['DateTime'];
+  notificationId: Scalars['NotificationId'];
   /** The profile */
   profile: Profile;
 };
@@ -1526,6 +1535,7 @@ export type NewFollowerNotification = {
   __typename?: 'NewFollowerNotification';
   createdAt: Scalars['DateTime'];
   isFollowedByMe: Scalars['Boolean'];
+  notificationId: Scalars['NotificationId'];
   wallet: Wallet;
 };
 
@@ -1533,11 +1543,13 @@ export type NewMentionNotification = {
   __typename?: 'NewMentionNotification';
   createdAt: Scalars['DateTime'];
   mentionPublication: MentionPublication;
+  notificationId: Scalars['NotificationId'];
 };
 
 export type NewMirrorNotification = {
   __typename?: 'NewMirrorNotification';
   createdAt: Scalars['DateTime'];
+  notificationId: Scalars['NotificationId'];
   /** The profile */
   profile: Profile;
   publication: MirrorablePublication;
@@ -1593,6 +1605,7 @@ export type Notification =
 export type NotificationRequest = {
   cursor?: InputMaybe<Scalars['Cursor']>;
   limit?: InputMaybe<Scalars['LimitScalar']>;
+  metadata?: InputMaybe<PublicationMetadataFilters>;
   /** The profile id */
   profileId: Scalars['ProfileId'];
   /** The App Id */
@@ -1616,6 +1629,13 @@ export type Owner = {
   address: Scalars['EthereumAddress'];
   /** number of tokens owner */
   amount: Scalars['Float'];
+};
+
+/** The paginated wallet result */
+export type PaginatedAllPublicationsTagsResult = {
+  __typename?: 'PaginatedAllPublicationsTagsResult';
+  items: Array<TagResult>;
+  pageInfo: PaginatedResultInfo;
 };
 
 /** The paginated followers result */
@@ -1811,6 +1831,7 @@ export type ProfileOnChainIdentityRequest = {
 export type ProfilePublicationRevenueQueryRequest = {
   cursor?: InputMaybe<Scalars['Cursor']>;
   limit?: InputMaybe<Scalars['LimitScalar']>;
+  metadata?: InputMaybe<PublicationMetadataFilters>;
   /** The profile id */
   profileId: Scalars['ProfileId'];
   /** The App Id */
@@ -1829,6 +1850,7 @@ export type ProfilePublicationRevenueResult = {
 export type ProfilePublicationsForSaleRequest = {
   cursor?: InputMaybe<Scalars['Cursor']>;
   limit?: InputMaybe<Scalars['LimitScalar']>;
+  metadata?: InputMaybe<PublicationMetadataFilters>;
   /** Profile id */
   profileId: Scalars['ProfileId'];
   /** The App Id */
@@ -1914,7 +1936,47 @@ export type ProfileStatsPublicationsTotalArgs = {
 
 export type Publication = Comment | Mirror | Post;
 
+/** The publication content warning */
+export enum PublicationContentWarning {
+  Nsfw = 'NSFW',
+  Sensitive = 'SENSITIVE',
+  Spoiler = 'SPOILER'
+}
+
 export type PublicationForSale = Comment | Post;
+
+/** The publication main focus */
+export enum PublicationMainFocus {
+  Article = 'ARTICLE',
+  Audio = 'AUDIO',
+  Embed = 'EMBED',
+  Image = 'IMAGE',
+  Link = 'LINK',
+  TextOnly = 'TEXT_ONLY',
+  Video = 'VIDEO'
+}
+
+/** Publication metadata content waring filters */
+export type PublicationMetadataContentWarningFilter = {
+  /** By default all content warnings will be hidden you can include them in your query by adding them to this array. */
+  includeOneOf?: InputMaybe<Array<PublicationContentWarning>>;
+};
+
+/** The publication metadata display types */
+export enum PublicationMetadataDisplayTypes {
+  Date = 'date',
+  Number = 'number',
+  String = 'string'
+}
+
+/** Publication metadata filters */
+export type PublicationMetadataFilters = {
+  contentWarning?: InputMaybe<PublicationMetadataContentWarningFilter>;
+  /** IOS 639-1 language code aka en or it and ISO 3166-1 alpha-2 region code aka US or IT aka en-US or it-IT. You can just filter on language if you wish. */
+  locale?: InputMaybe<Scalars['Locale']>;
+  mainContentFocus?: InputMaybe<Array<PublicationMainFocus>>;
+  tags?: InputMaybe<PublicationMetadataTagsFilter>;
+};
 
 export type PublicationMetadataStatus = {
   __typename?: 'PublicationMetadataStatus';
@@ -1929,6 +1991,14 @@ export enum PublicationMetadataStatusType {
   Pending = 'PENDING',
   Success = 'SUCCESS'
 }
+
+/** Publication metadata tag filter */
+export type PublicationMetadataTagsFilter = {
+  /** Needs to only match all */
+  all?: InputMaybe<Array<Scalars['String']>>;
+  /** Needs to only match one of */
+  oneOf?: InputMaybe<Array<Scalars['String']>>;
+};
 
 export type PublicationQueryRequest = {
   /** The publication id */
@@ -2029,6 +2099,7 @@ export type PublicationsQueryRequest = {
   commentsOf?: InputMaybe<Scalars['InternalPublicationId']>;
   cursor?: InputMaybe<Scalars['Cursor']>;
   limit?: InputMaybe<Scalars['LimitScalar']>;
+  metadata?: InputMaybe<PublicationMetadataFilters>;
   /** Profile id */
   profileId?: InputMaybe<Scalars['ProfileId']>;
   /** The publication id */
@@ -2041,6 +2112,7 @@ export type PublicationsQueryRequest = {
 
 export type Query = {
   __typename?: 'Query';
+  allPublicationsTags: PaginatedAllPublicationsTagsResult;
   approvedModuleAllowanceAmount: Array<ApprovedAllowanceAmount>;
   challenge: AuthChallengeResult;
   claimableHandles: ClaimableHandles;
@@ -2077,6 +2149,10 @@ export type Query = {
   userSigNonces: UserSigNonces;
   verify: Scalars['Boolean'];
   whoCollectedPublication: PaginatedWhoCollectedResult;
+};
+
+export type QueryAllPublicationsTagsArgs = {
+  request: AllPublicationsTagsRequest;
 };
 
 export type QueryApprovedModuleAllowanceAmountArgs = {
@@ -2402,6 +2478,21 @@ export type SybilDotOrgTwitterIdentity = {
   handle?: Maybe<Scalars['String']>;
 };
 
+/** The social comment */
+export type TagResult = {
+  __typename?: 'TagResult';
+  /** The tag */
+  tag: Scalars['PublicationTag'];
+  /** The total amount of publication tagged */
+  total: Scalars['Int'];
+};
+
+/** The publications tags sort criteria */
+export enum TagSortCriteria {
+  Alphabetical = 'ALPHABETICAL',
+  MostPopular = 'MOST_POPULAR'
+}
+
 export type TimedFeeCollectModuleParams = {
   /** The collect module amount info */
   amount: ModuleFeeAmountParams;
@@ -2433,6 +2524,7 @@ export type TimedFeeCollectModuleSettings = {
 export type TimelineRequest = {
   cursor?: InputMaybe<Scalars['Cursor']>;
   limit?: InputMaybe<Scalars['LimitScalar']>;
+  metadata?: InputMaybe<PublicationMetadataFilters>;
   /** The profile id */
   profileId: Scalars['ProfileId'];
   /** The App Id */

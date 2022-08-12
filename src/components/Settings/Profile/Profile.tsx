@@ -259,9 +259,10 @@ const Profile: FC<Props> = ({ profile }) => {
           value: APP_NAME
         }
       ],
-      version: '1.0.0',
+      version: '2.0.0',
       metadata_id: uuid(),
       previousMetadata: profile?.metadata,
+      locale: 'en',
       createdOn: new Date(),
       appId: APP_NAME
     }).finally(() => setIsUploading(false));
