@@ -201,7 +201,7 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
     setIsUploading(true);
     // TODO: Add animated_url support
     const id = await uploadToArweave({
-      version: '1.0.0',
+      version: '2.0.0',
       metadata_id: uuid(),
       description: trimify(publicationContent),
       content: trimify(publicationContent),
