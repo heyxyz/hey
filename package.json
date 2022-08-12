@@ -31,7 +31,7 @@
     "dayjs": "^1.11.4",
     "dotenv": "^16.0.1",
     "ethers": "^5.6.9",
-    "framer-motion": "^7.0.1",
+    "framer-motion": "^7.1.0",
     "graphql": "^16.5.0",
     "interweave": "^13.0.0",
     "interweave-autolink": "^5.1.0",
@@ -57,7 +57,7 @@
     "zustand": "^4.0.0"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^2.11.3",
+    "@graphql-codegen/cli": "^2.11.6",
     "@graphql-codegen/fragment-matcher": "^3.3.1",
     "@graphql-codegen/typescript": "^2.7.3",
     "@tailwindcss/forms": "^0.5.2",
