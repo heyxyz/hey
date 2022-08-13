@@ -28,3 +28,6 @@ tsconfig.tsbuildinfo
 
 # Sentry
 .sentryclirc
+
+# IDE settings
+.idea/
