@@ -54,7 +54,7 @@ const CREATE_BURN_PROFILE_TYPED_DATA_MUTATION = gql`
 `;
 
 const DeleteSettings: FC = () => {
-  const [showWarningModal, setShowWarningModal] = useState(false);
+  const [showWarningModal, setShowWarningModal] = useState<boolean>(false);
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const setIsConnected = useAppPersistStore((state) => state.setIsConnected);
