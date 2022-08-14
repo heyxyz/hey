@@ -1,14 +1,7 @@
 import { Menu, Transition } from '@headlessui/react';
-import {
-  ChartPieIcon,
-  GlobeAltIcon,
-  HashtagIcon,
-  SwitchVerticalIcon,
-  TerminalIcon
-} from '@heroicons/react/outline';
-import clsx from 'clsx';
+import { ChartPieIcon, GlobeAltIcon, HashtagIcon, TerminalIcon } from '@heroicons/react/outline';
 import React, { FC, Fragment, ReactNode } from 'react';
-import { GIT_COMMIT_REF, GIT_COMMIT_SHA, IS_MAINNET, IS_PRODUCTION, RELAY_ON } from 'src/constants';
+import { GIT_COMMIT_REF, GIT_COMMIT_SHA, IS_MAINNET, IS_PRODUCTION } from 'src/constants';
 
 import Stats from './Stats';
 
@@ -39,14 +32,6 @@ const StaffBar: FC = () => {
             </Badge>
           </div>
         )}
-        <div className="hidden items-center space-x-1 sm:flex">
-          <SwitchVerticalIcon
-            className={clsx(RELAY_ON ? ' text-green-500' : ' text-yellow-500', 'w-4 h-4')}
-          />
-          <Badge>
-            <span className="text-[10px]">{RELAY_ON ? 'Relay enabled' : 'Relay disabled'}</span>
-          </Badge>
-        </div>
         {GIT_COMMIT_REF && (
           <a
             href={`https://github.com/lensterxyz/lenster/commit/${GIT_COMMIT_REF}`}
