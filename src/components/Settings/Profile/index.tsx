@@ -4,13 +4,15 @@ import { Card, CardBody } from '@components/UI/Card';
 import { PageLoading } from '@components/UI/PageLoading';
 import Seo from '@components/utils/Seo';
 import { PhotographIcon } from '@heroicons/react/outline';
+import { Mixpanel } from '@lib/mixpanel';
 import clsx from 'clsx';
 import { NextPage } from 'next';
-import React, { FC, ReactNode, useState } from 'react';
+import React, { FC, ReactNode, useEffect, useState } from 'react';
 import { APP_NAME } from 'src/constants';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
 import { useAppPersistStore } from 'src/store/app';
+import { PAGEVIEW } from 'src/tracking';
 
 import Sidebar from '../Sidebar';
 import NFTPicture from './NFTPicture';
@@ -53,6 +55,11 @@ const PROFILE_SETTINGS_QUERY = gql`
 const ProfileSettings: NextPage = () => {
   const currentUser = useAppPersistStore((state) => state.currentUser);
   const [settingsType, setSettingsType] = useState<'NFT' | 'AVATAR'>('AVATAR');
+
+  useEffect(() => {
+    Mixpanel.track(PAGEVIEW.SETTINGS.PROFILE);
+  }, []);
+
   const { data, loading, error } = useQuery(PROFILE_SETTINGS_QUERY, {
     variables: { request: { profileId: currentUser?.id } },
     skip: !currentUser?.id,

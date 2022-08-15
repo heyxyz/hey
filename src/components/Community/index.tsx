@@ -3,13 +3,15 @@ import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout'
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
 import Seo from '@components/utils/Seo';
 import { CommunityFields } from '@gql/CommunityFields';
+import { Mixpanel } from '@lib/mixpanel';
 import { NextPage } from 'next';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { APP_NAME } from 'src/constants';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
+import { PAGEVIEW } from 'src/tracking';
 
 import Details from './Details';
 import CommunityPageShimmer from './Shimmer';
@@ -33,6 +35,11 @@ const ViewCommunity: NextPage = () => {
   const {
     query: { id }
   } = useRouter();
+
+  useEffect(() => {
+    Mixpanel.track(PAGEVIEW.COMMUNITY);
+  }, []);
+
   const { data, loading, error } = useQuery(COMMUNITY_QUERY, {
     variables: { request: { publicationId: id } },
     skip: !id

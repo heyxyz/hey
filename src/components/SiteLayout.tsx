@@ -6,7 +6,6 @@ import Cookies from 'js-cookie';
 import mixpanel from 'mixpanel-browser';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
 import { useTheme } from 'next-themes';
 import { FC, ReactNode, Suspense, useEffect, useState } from 'react';
 import { Toaster } from 'react-hot-toast';
@@ -45,7 +44,6 @@ interface Props {
 }
 
 const SiteLayout: FC<Props> = ({ children }) => {
-  const { asPath } = useRouter();
   const { resolvedTheme } = useTheme();
   const setProfiles = useAppStore((state) => state.setProfiles);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
@@ -136,10 +134,6 @@ const SiteLayout: FC<Props> = ({ children }) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isConnected, isAuthenticated, isDisconnected, address, chain, currentUser, disconnect, setCurrentUser]);
-
-  useEffect(() => {
-    Mixpanel.track('Pagview', { path: asPath });
-  }, [asPath]);
 
   const toastOptions = {
     style: {

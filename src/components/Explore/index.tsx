@@ -3,11 +3,13 @@ import RecommendedProfiles from '@components/Home/RecommendedProfiles';
 import Footer from '@components/Shared/Footer';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
 import Seo from '@components/utils/Seo';
+import { Mixpanel } from '@lib/mixpanel';
 import { NextPage } from 'next';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { APP_NAME } from 'src/constants';
+import { PAGEVIEW } from 'src/tracking';
 
 import FeedType from './FeedType';
 
@@ -24,6 +26,10 @@ const Explore: NextPage = () => {
       ? type?.toString().toUpperCase()
       : 'TOP_COMMENTED'
   );
+
+  useEffect(() => {
+    Mixpanel.track(PAGEVIEW.EXPLORE);
+  }, []);
 
   return (
     <GridLayout>
