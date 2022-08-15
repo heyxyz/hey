@@ -121,3 +121,7 @@ export const SYSTEM = {
   SWITCH_DARK_THEME: 'Switch dark theme',
   SWITCH_NETWORK: 'Switch network'
 };
+
+export const PAGEVIEW = {
+  THANKS: 'Thanks page'
+};
