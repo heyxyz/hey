@@ -22,6 +22,7 @@ import { useAppPersistStore } from 'src/store/app';
 import { PAGEVIEW } from 'src/tracking';
 
 import FullPublication from './FullPublication';
+import OnchainMeta from './OnchainMeta';
 import RelevantPeople from './RelevantPeople';
 import PublicationPageShimmer from './Shimmer';
 import ViaApp from './ViaApp';
@@ -40,6 +41,7 @@ export const PUBLICATION_QUERY = gql`
       ... on Post {
         ...PostFields
         onChainContentURI
+        collectNftAddress
         profile {
           isFollowedByMe
         }
@@ -50,6 +52,7 @@ export const PUBLICATION_QUERY = gql`
       ... on Comment {
         ...CommentFields
         onChainContentURI
+        collectNftAddress
         profile {
           isFollowedByMe
         }
@@ -60,6 +63,7 @@ export const PUBLICATION_QUERY = gql`
       ... on Mirror {
         ...MirrorFields
         onChainContentURI
+        collectNftAddress
         profile {
           isFollowedByMe
         }
@@ -132,6 +136,7 @@ const ViewPublication: NextPage = () => {
           <ViaApp appConfig={appConfig} />
         </Card>
         <RelevantPeople publication={publication} />
+        <OnchainMeta publication={publication} />
         <Footer />
       </GridItemFour>
     </GridLayout>
