@@ -34,7 +34,10 @@ const RelevantPeople: FC<Props> = ({ publication }) => {
         const trimmedMention = mention.trim().replace('@', '').replace("'s", '');
 
         if (trimmedMention.length > 9) {
-          return mention.trim().replace('@', '').replace("'s", '');
+          return mention
+            .trim()
+            .replace("'s", '')
+            .replace(/[^a-zA-Z ]/g, '');
         } else {
           return publication?.profile?.handle;
         }
