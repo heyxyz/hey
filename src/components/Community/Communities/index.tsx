@@ -4,10 +4,12 @@ import { PageLoading } from '@components/UI/PageLoading';
 import Seo from '@components/utils/Seo';
 import { CommunityFields } from '@gql/CommunityFields';
 import { ChartBarIcon, FireIcon, SparklesIcon } from '@heroicons/react/outline';
+import { Mixpanel } from '@lib/mixpanel';
 import { NextPage } from 'next';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { APP_NAME } from 'src/constants';
 import Custom500 from 'src/pages/500';
+import { PAGEVIEW } from 'src/tracking';
 
 import List from './List';
 
@@ -43,6 +45,10 @@ const COMMUNITY_QUERY = gql`
 `;
 
 const Communities: NextPage = () => {
+  useEffect(() => {
+    Mixpanel.track(PAGEVIEW.COMMUNITIES);
+  }, []);
+
   const { data, loading, error } = useQuery(COMMUNITY_QUERY, {
     variables: {
       topCommented: {

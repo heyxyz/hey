@@ -21,12 +21,12 @@ import splitSignature from '@lib/splitSignature';
 import uploadMediaToIPFS from '@lib/uploadMediaToIPFS';
 import uploadToArweave from '@lib/uploadToArweave';
 import { NextPage } from 'next';
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { APP_NAME, ERROR_MESSAGE, ERRORS, LENSHUB_PROXY, RELAY_ON, SIGN_WALLET } from 'src/constants';
 import Custom404 from 'src/pages/404';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
-import { COMMUNITY } from 'src/tracking';
+import { COMMUNITY, PAGEVIEW } from 'src/tracking';
 import { v4 as uuid } from 'uuid';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 import { object, string } from 'zod';
@@ -52,6 +52,10 @@ const Create: NextPage = () => {
       toast.error(error?.message);
     }
   });
+
+  useEffect(() => {
+    Mixpanel.track(PAGEVIEW.CREATE_COMMUNITY);
+  }, []);
 
   const onCompleted = () => {
     Mixpanel.track(COMMUNITY.NEW, { result: 'success' });

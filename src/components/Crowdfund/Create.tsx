@@ -24,7 +24,7 @@ import splitSignature from '@lib/splitSignature';
 import uploadMediaToIPFS from '@lib/uploadMediaToIPFS';
 import uploadToArweave from '@lib/uploadToArweave';
 import { NextPage } from 'next';
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import {
   ADDRESS_REGEX,
@@ -38,7 +38,7 @@ import {
 } from 'src/constants';
 import Custom404 from 'src/pages/404';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
-import { CROWDFUND } from 'src/tracking';
+import { CROWDFUND, PAGEVIEW } from 'src/tracking';
 import { v4 as uuid } from 'uuid';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 import { object, string } from 'zod';
@@ -80,6 +80,10 @@ const Create: NextPage = () => {
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
   const currentUser = useAppPersistStore((state) => state.currentUser);
+
+  useEffect(() => {
+    Mixpanel.track(PAGEVIEW.CREATE_CROWDFUND);
+  }, []);
 
   const onCompleted = () => {
     Mixpanel.track(CROWDFUND.NEW, { result: 'success' });

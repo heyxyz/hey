@@ -3,10 +3,12 @@ import Announcement from '@components/Home/Announcement';
 import Footer from '@components/Shared/Footer';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
 import Seo from '@components/utils/Seo';
+import { Mixpanel } from '@lib/mixpanel';
 import { NextPage } from 'next';
 import dynamic from 'next/dynamic';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useAppPersistStore } from 'src/store/app';
+import { PAGEVIEW } from 'src/tracking';
 
 import Hero from './Hero';
 import ProfileWarning from './ProfileWarning';
@@ -23,6 +25,10 @@ const ExploreFeed = dynamic(() => import('@components/Explore/Feed'), {
 });
 
 const Home: NextPage = () => {
+  useEffect(() => {
+    Mixpanel.track(PAGEVIEW.HOME);
+  }, []);
+
   const isConnected = useAppPersistStore((state) => state.isConnected);
   const currentUser = useAppPersistStore((state) => state.currentUser);
 

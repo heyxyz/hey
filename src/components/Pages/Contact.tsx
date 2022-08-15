@@ -9,9 +9,11 @@ import { TextArea } from '@components/UI/TextArea';
 import Seo from '@components/utils/Seo';
 import { PencilAltIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
+import { Mixpanel } from '@lib/mixpanel';
 import { useRouter } from 'next/router';
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import { APP_NAME, CONTACT_EMAIL } from 'src/constants';
+import { PAGEVIEW } from 'src/tracking';
 import { object, string } from 'zod';
 
 const newContactSchema = object({
@@ -28,6 +30,10 @@ const newContactSchema = object({
 });
 
 const Contact: FC = () => {
+  useEffect(() => {
+    Mixpanel.track(PAGEVIEW.CONTACT);
+  }, []);
+
   const { push } = useRouter();
   const form = useZodForm({
     schema: newContactSchema
