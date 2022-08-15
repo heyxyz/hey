@@ -9,15 +9,17 @@ import { LensterPublication } from '@generated/lenstertypes';
 import { CommentFields } from '@gql/CommentFields';
 import { MirrorFields } from '@gql/MirrorFields';
 import { PostFields } from '@gql/PostFields';
+import { Mixpanel } from '@lib/mixpanel';
 import { apps } from 'data/apps';
 import { NextPage } from 'next';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { APP_NAME } from 'src/constants';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
 import { useAppPersistStore } from 'src/store/app';
+import { PAGEVIEW } from 'src/tracking';
 
 import FullPublication from './FullPublication';
 import RelevantPeople from './RelevantPeople';
@@ -73,6 +75,10 @@ export const PUBLICATION_QUERY = gql`
 `;
 
 const ViewPublication: NextPage = () => {
+  useEffect(() => {
+    Mixpanel.track(PAGEVIEW.PUBLICATION);
+  }, []);
+
   const {
     query: { id }
   } = useRouter();

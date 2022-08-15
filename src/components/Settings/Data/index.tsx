@@ -2,17 +2,23 @@ import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout'
 import { Card, CardBody } from '@components/UI/Card';
 import { Toggle } from '@components/UI/Toggle';
 import Seo from '@components/utils/Seo';
+import { Mixpanel } from '@lib/mixpanel';
 import mixpanel from 'mixpanel-browser';
 import React, { FC, useEffect, useState } from 'react';
 import { APP_NAME } from 'src/constants';
 import Custom404 from 'src/pages/404';
 import { useAppPersistStore } from 'src/store/app';
+import { PAGEVIEW } from 'src/tracking';
 
 import Sidebar from '../Sidebar';
 
 const DataSettings: FC = () => {
   const currentUser = useAppPersistStore((state) => state.currentUser);
   const [disabled, setDisabled] = useState<boolean>(false);
+
+  useEffect(() => {
+    Mixpanel.track(PAGEVIEW.SETTINGS.DATA);
+  }, []);
 
   useEffect(() => {
     if (mixpanel.has_opted_out_tracking()) {

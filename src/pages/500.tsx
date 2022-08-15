@@ -1,10 +1,17 @@
 import { Button } from '@components/UI/Button';
 import Seo from '@components/utils/Seo';
 import { HomeIcon } from '@heroicons/react/outline';
+import { Mixpanel } from '@lib/mixpanel';
 import Link from 'next/link';
+import { useEffect } from 'react';
 import { APP_NAME } from 'src/constants';
+import { PAGEVIEW } from 'src/tracking';
 
 export default function Custom500() {
+  useEffect(() => {
+    Mixpanel.track(PAGEVIEW.ERROR_500);
+  }, []);
+
   return (
     <div className="flex-col page-center">
       <Seo title={`500 • ${APP_NAME}`} />

@@ -1,15 +1,21 @@
 import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout';
 import Seo from '@components/utils/Seo';
+import { Mixpanel } from '@lib/mixpanel';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useEffect } from 'react';
 import Custom404 from 'src/pages/404';
+import { PAGEVIEW } from 'src/tracking';
 
 import Profiles from './Profiles';
 import Publications from './Publications';
 import Sidebar from './Sidebar';
 
 const Search: NextPage = () => {
+  useEffect(() => {
+    Mixpanel.track(PAGEVIEW.SEARCH);
+  }, []);
+
   const { query } = useRouter();
 
   if (!query.q || !['pubs', 'profiles'].includes(query.type as any)) return <Custom404 />;

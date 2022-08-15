@@ -1,9 +1,15 @@
 import Footer from '@components/Shared/Footer';
 import Seo from '@components/utils/Seo';
-import React, { FC } from 'react';
+import { Mixpanel } from '@lib/mixpanel';
+import React, { FC, useEffect } from 'react';
 import { APP_NAME } from 'src/constants';
+import { PAGEVIEW } from 'src/tracking';
 
 const Privacy: FC = () => {
+  useEffect(() => {
+    Mixpanel.track(PAGEVIEW.PRIVACY);
+  }, []);
+
   return (
     <>
       <Seo title={`Privacy • ${APP_NAME}`} />

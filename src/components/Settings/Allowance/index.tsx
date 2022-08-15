@@ -5,12 +5,14 @@ import { PageLoading } from '@components/UI/PageLoading';
 import { Spinner } from '@components/UI/Spinner';
 import Seo from '@components/utils/Seo';
 import { Erc20 } from '@generated/types';
+import { Mixpanel } from '@lib/mixpanel';
 import { NextPage } from 'next';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { APP_NAME, DEFAULT_COLLECT_TOKEN } from 'src/constants';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
 import { useAppPersistStore } from 'src/store/app';
+import { PAGEVIEW } from 'src/tracking';
 
 import Sidebar from '../Sidebar';
 import Allowance from './Allowance';
@@ -49,6 +51,10 @@ const getAllowancePayload = (currency: string) => {
 };
 
 const AllowanceSettings: NextPage = () => {
+  useEffect(() => {
+    Mixpanel.track(PAGEVIEW.SETTINGS.ALLOWANCE);
+  }, []);
+
   const currentUser = useAppPersistStore((state) => state.currentUser);
   const [currencyLoading, setCurrencyLoading] = useState<boolean>(false);
   const { data, loading, error, refetch } = useQuery(ALLOWANCE_SETTINGS_QUERY, {

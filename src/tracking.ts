@@ -121,3 +121,30 @@ export const SYSTEM = {
   SWITCH_DARK_THEME: 'Switch dark theme',
   SWITCH_NETWORK: 'Switch network'
 };
+
+export const PAGEVIEW = {
+  HOME: 'Home page',
+  THANKS: 'Thanks page',
+  PRIVACY: 'Privacy page',
+  EXPLORE: 'Explore page',
+  CONTACT: 'Contact page',
+  NOTIFICATION: 'Notification page',
+  SEARCH: 'Search page',
+  PROFILE: 'Profile page',
+  REPORT: 'Report page',
+  PUBLICATION: 'Publication page',
+  ERROR_500: 'Error 500 page',
+  ERROR_404: 'Error 404 page',
+  CREATE_COMMUNITY: 'Create community page',
+  CREATE_CROWDFUND: 'Create crowdfund page',
+  CREATE_PROFILE: 'Create profile page',
+  COMMUNITIES: 'Communities page',
+  COMMUNITY: 'Community page',
+  SETTINGS: {
+    ACCOUNT: 'Account settings page',
+    PROFILE: 'Profile settings page',
+    ALLOWANCE: 'Allowance settings page',
+    DATA: 'Data settings page',
+    DELETE: 'Delete settings page'
+  }
+};
