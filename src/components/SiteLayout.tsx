@@ -45,7 +45,7 @@ interface Props {
 }
 
 const SiteLayout: FC<Props> = ({ children }) => {
-  const { pathname, asPath } = useRouter();
+  const { asPath } = useRouter();
   const { resolvedTheme } = useTheme();
   const setProfiles = useAppStore((state) => state.setProfiles);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
