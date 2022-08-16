@@ -69,17 +69,15 @@ const CREATE_SET_PROFILE_METADATA_TYPED_DATA_MUTATION = gql`
 `;
 
 const editProfileSchema = object({
-  name: string()
-    .min(2, { message: 'Name should have atleast 2 characters' })
-    .max(100, { message: 'Name should not exceed 100 characters' }),
-  location: string().max(100, { message: 'Location should not exceed 100 characters' }).nullable(),
+  name: string().max(100, { message: 'Name should not exceed 100 characters' }),
+  location: string().max(100, { message: 'Location should not exceed 100 characters' }),
   website: optional(
     string()
       .regex(URL_REGEX, { message: 'Invalid website' })
       .max(100, { message: 'Website should not exceed 100 characters' })
   ),
-  twitter: string().max(100, { message: 'Twitter should not exceed 100 characters' }).nullable(),
-  bio: string().max(260, { message: 'Bio should not exceed 260 characters' }).nullable()
+  twitter: string().max(100, { message: 'Twitter should not exceed 100 characters' }),
+  bio: string().max(260, { message: 'Bio should not exceed 260 characters' })
 });
 
 interface Props {
