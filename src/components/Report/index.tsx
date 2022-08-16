@@ -32,11 +32,9 @@ export const CREATE_REPORT_PUBLICATION_MUTATION = gql`
 `;
 
 const newReportSchema = object({
-  additionalComments: string()
-    .max(260, {
-      message: 'Additional comments should not exceed 260 characters'
-    })
-    .nullable()
+  additionalComments: string().max(260, {
+    message: 'Additional comments should not exceed 260 characters'
+  })
 });
 
 const Report: FC = () => {
