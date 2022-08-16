@@ -1,5 +1,6 @@
 import { LensterAttachment } from '@generated/lenstertypes';
 import axios from 'axios';
+import { v4 as uuid } from 'uuid';
 
 const uploadMediaToIPFS = async (data: any): Promise<LensterAttachment[]> => {
   try {
@@ -7,7 +8,7 @@ const uploadMediaToIPFS = async (data: any): Promise<LensterAttachment[]> => {
     for (let i = 0; i < data.length; i++) {
       const file = data.item(i);
       const formData = new FormData();
-      formData.append('data', file, 'img');
+      formData.append('data', file, uuid());
       const upload = await axios('https://shuttle-4.estuary.tech/content/add', {
         method: 'POST',
         data: formData,
