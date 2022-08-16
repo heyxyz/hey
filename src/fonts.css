@@ -2,58 +2,54 @@
   font-family: 'Lenster';
   font-style: normal;
   font-weight: 450;
-  src: local('Lenster'), url('https://static.lensterassets.xyz/css/fonts/Lenster-Light.woff') format('woff');
+  src: local('Lenster'), url('https://assets.lenster.xyz/css/fonts/Lenster-Light.woff') format('woff');
 }
 
 @font-face {
   font-family: 'Lenster';
   font-style: italic;
   font-weight: 450;
-  src: local('Lenster'),
-    url('https://static.lensterassets.xyz/css/fonts/Lenster-LightItalic.woff') format('woff');
+  src: local('Lenster'), url('https://assets.lenster.xyz/css/fonts/Lenster-LightItalic.woff') format('woff');
 }
 
 @font-face {
   font-family: 'Lenster';
   font-style: normal;
   font-weight: 500;
-  src: local('Lenster'), url('https://static.lensterassets.xyz/css/fonts/Lenster-Medium.woff') format('woff');
+  src: local('Lenster'), url('https://assets.lenster.xyz/css/fonts/Lenster-Medium.woff') format('woff');
 }
 
 @font-face {
   font-family: 'Lenster';
   font-style: italic;
   font-weight: 500;
-  src: local('Lenster'),
-    url('https://static.lensterassets.xyz/css/fonts/Lenster-MediumItalic.woff') format('woff');
+  src: local('Lenster'), url('https://assets.lenster.xyz/css/fonts/Lenster-MediumItalic.woff') format('woff');
 }
 
 @font-face {
   font-family: 'Lenster';
   font-style: normal;
   font-weight: 700;
-  src: local('Lenster'), url('https://static.lensterassets.xyz/css/fonts/Lenster-Bold.woff') format('woff');
+  src: local('Lenster'), url('https://assets.lenster.xyz/css/fonts/Lenster-Bold.woff') format('woff');
 }
 
 @font-face {
   font-family: 'Lenster';
   font-style: italic;
   font-weight: 700;
-  src: local('Lenster'),
-    url('https://static.lensterassets.xyz/css/fonts/Lenster-BoldItalic.woff') format('woff');
+  src: local('Lenster'), url('https://assets.lenster.xyz/css/fonts/Lenster-BoldItalic.woff') format('woff');
 }
 
 @font-face {
   font-family: 'Lenster';
   font-style: normal;
   font-weight: 900;
-  src: local('Lenster'), url('https://static.lensterassets.xyz/css/fonts/Lenster-Black.woff') format('woff');
+  src: local('Lenster'), url('https://assets.lenster.xyz/css/fonts/Lenster-Black.woff') format('woff');
 }
 
 @font-face {
   font-family: 'Lenster';
   font-style: italic;
   font-weight: 900;
-  src: local('Lenster'),
-    url('https://static.lensterassets.xyz/css/fonts/Lenster-BlackItalic.woff') format('woff');
+  src: local('Lenster'), url('https://assets.lenster.xyz/css/fonts/Lenster-BlackItalic.woff') format('woff');
 }
