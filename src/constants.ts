@@ -8,7 +8,7 @@ export const IS_MAINNET = process.env.NEXT_PUBLIC_IS_MAINNET === 'true';
 export const APP_NAME = 'Lenster';
 export const DESCRIPTION =
   'Lenster is a composable, decentralized, and permissionless social media web app built with Lens Protocol 🌿';
-export const DEFAULT_OG = 'https://assets.lenster.xyz/images/og/logo.jpeg';
+export const DEFAULT_OG = 'https://static.lensterassets.xyz/images/og/logo.jpeg';
 
 // Git
 export const GIT_COMMIT_SHA = process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA?.slice(0, 7);
@@ -33,7 +33,7 @@ export const WRONG_NETWORK = IS_MAINNET
 export const SIGN_ERROR = 'Failed to sign data';
 
 // URLs
-export const STATIC_ASSETS = 'https://assets.lenster.xyz/images';
+export const STATIC_ASSETS = 'https://static.lensterassets.xyz/images';
 export const API_URL = IS_MAINNET ? 'https://api.lens.dev' : 'https://api-mumbai.lens.dev';
 export const POLYGONSCAN_URL = IS_MAINNET ? 'https://polygonscan.com' : 'https://mumbai.polygonscan.com';
 export const RARIBLE_URL = IS_MAINNET ? 'https://rarible.com' : 'https://rinkeby.rarible.com';
