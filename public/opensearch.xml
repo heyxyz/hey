@@ -1,7 +1,7 @@
 <OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/" xmlns:moz="http://www.mozilla.org/2006/browser/search/">
     <ShortName>Lenster</ShortName>
     <Description>Lenster Search</Description>
-    <Url type="text/html" method="get" template="https://lenster.xyz/search?q={searchTerms}&type=profiles"/>
+    <Url type="text/html" method="get" template="https://lenster.xyz/search?q={searchTerms}&#38;type=profiles"/>
     <Image width="64" height="64">https://lenster.xyz/favicon.ico</Image>
     <InputEncoding>UTF-8</InputEncoding>
     <moz:SearchForm>https://lenster.xyz</moz:SearchForm>
