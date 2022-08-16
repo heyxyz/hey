@@ -1,7 +1,7 @@
 import { Menu, Transition } from '@headlessui/react';
-import { ChartPieIcon, GlobeAltIcon, HashtagIcon, TerminalIcon } from '@heroicons/react/outline';
+import { ChartPieIcon, GlobeAltIcon, HashtagIcon } from '@heroicons/react/outline';
 import React, { FC, Fragment, ReactNode } from 'react';
-import { GIT_COMMIT_REF, GIT_COMMIT_SHA, IS_MAINNET, IS_PRODUCTION } from 'src/constants';
+import { GIT_COMMIT_SHA, IS_MAINNET, IS_PRODUCTION } from 'src/constants';
 
 import Stats from './Stats';
 
@@ -31,18 +31,6 @@ const StaffBar: FC = () => {
               dev <span className="text-[10px]">({IS_MAINNET ? 'mainnet' : 'testnet'})</span>
             </Badge>
           </div>
-        )}
-        {GIT_COMMIT_REF && (
-          <a
-            href={`https://github.com/lensterxyz/lenster/commit/${GIT_COMMIT_REF}`}
-            className="flex items-center space-x-1"
-            title="Git commit ref"
-            target="_blank"
-            rel="noreferrer noopener"
-          >
-            <TerminalIcon className="w-4 h-4" />
-            <Badge>{GIT_COMMIT_REF}</Badge>
-          </a>
         )}
         {GIT_COMMIT_SHA && (
           <a
