@@ -79,6 +79,8 @@ export const PUBLICATION_QUERY = gql`
 `;
 
 const ViewPublication: NextPage = () => {
+  const { push } = useRouter();
+
   useEffect(() => {
     Mixpanel.track(PAGEVIEW.PUBLICATION);
   }, []);
@@ -94,7 +96,13 @@ const ViewPublication: NextPage = () => {
       reactionRequest: currentUser ? { profileId: currentUser?.id } : null,
       profileId: currentUser?.id ?? null
     },
-    skip: !id
+    skip: !id,
+    onCompleted(data) {
+      const isCommunity = data?.publication?.metadata?.attributes[0]?.value === 'community';
+      if (isCommunity) {
+        push(`/communities/${data.publication?.id}`);
+      }
+    }
   });
 
   if (error) return <Custom500 />;
