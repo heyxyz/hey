@@ -60,7 +60,7 @@ const Join: FC<Props> = ({ community, setJoined, showJoin = true }) => {
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
       toast.error(error?.message);
-      Mixpanel.track(COMMUNITY.JOIN, { result: 'typed_data_error' });
+      Mixpanel.track(COMMUNITY.JOIN, { result: 'typed_data_error', error });
     }
   });
 
@@ -89,7 +89,7 @@ const Join: FC<Props> = ({ community, setJoined, showJoin = true }) => {
       if (error.message === ERRORS.notMined) {
         toast.error(error.message);
       }
-      Mixpanel.track(COMMUNITY.JOIN, { result: 'broadcast_error' });
+      Mixpanel.track(COMMUNITY.JOIN, { result: 'broadcast_error', error });
     }
   });
 

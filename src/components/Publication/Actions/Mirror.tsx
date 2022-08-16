@@ -80,7 +80,7 @@ const Mirror: FC<Props> = ({ publication }) => {
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
       toast.error(error?.message);
-      Mixpanel.track(PUBLICATION.MIRROR, { result: 'typed_data_error' });
+      Mixpanel.track(PUBLICATION.MIRROR, { result: 'typed_data_error', error });
     }
   });
 
@@ -110,7 +110,7 @@ const Mirror: FC<Props> = ({ publication }) => {
       if (error.message === ERRORS.notMined) {
         toast.error(error.message);
       }
-      Mixpanel.track(PUBLICATION.MIRROR, { result: 'broadcast_error' });
+      Mixpanel.track(PUBLICATION.MIRROR, { result: 'broadcast_error', error });
     }
   });
   const [createMirrorTypedData, { loading: typedDataLoading }] = useMutation(
