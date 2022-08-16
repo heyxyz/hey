@@ -62,14 +62,13 @@ const SetProfile: FC = () => {
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
       toast.error(error?.message);
+      Mixpanel.track(SETTINGS.ACCOUNT.SET_DEFAULT_PROFILE, { result: 'typed_data_error' });
     }
   });
 
   const onCompleted = () => {
     toast.success('Default profile updated successfully!');
-    Mixpanel.track(SETTINGS.ACCOUNT.SET_DEFAULT_PROFILE, {
-      result: 'success'
-    });
+    Mixpanel.track(SETTINGS.ACCOUNT.SET_DEFAULT_PROFILE, { result: 'success' });
   };
 
   const {

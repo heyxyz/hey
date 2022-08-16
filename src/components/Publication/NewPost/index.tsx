@@ -104,6 +104,7 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
       toast.error(error?.message);
+      Mixpanel.track(POST.NEW, { result: 'typed_data_error' });
     }
   });
 
