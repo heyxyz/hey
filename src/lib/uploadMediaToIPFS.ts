@@ -7,13 +7,13 @@ const uploadMediaToIPFS = async (data: any): Promise<LensterAttachment[]> => {
     for (let i = 0; i < data.length; i++) {
       const file = data.item(i);
       const formData = new FormData();
-      formData.append('file', file, 'img');
-      const upload = await axios('https://api.web3.storage/upload', {
+      formData.append('data', file, 'img');
+      const upload = await axios('https://shuttle-4.estuary.tech/content/add', {
         method: 'POST',
         data: formData,
         headers: {
           'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer ${process.env.NEXT_PUBLIC_WEB3_STORAGE_TOKEN}`
+          Authorization: `Bearer ${process.env.NEXT_PUBLIC_ESTUARY_KEY}`
         }
       });
       const { cid }: { cid: string } = await upload.data;
