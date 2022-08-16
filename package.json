@@ -47,7 +47,7 @@
     "react-cool-inview": "^3.0.1",
     "react-copy-to-clipboard": "^5.1.0",
     "react-dom": "^18.2.0",
-    "react-hook-form": "^7.34.1",
+    "react-hook-form": "^7.34.2",
     "react-hot-toast": "^2.3.0",
     "react-mentions": "4.4.7",
     "use-streak": "^1.0.4",
