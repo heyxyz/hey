@@ -95,7 +95,10 @@ const SuperFollow: FC = () => {
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
       toast.error(error?.message);
-      Mixpanel.track(SETTINGS.ACCOUNT.SET_SUPER_FOLLOW, { result: 'typed_data_error', error });
+      Mixpanel.track(SETTINGS.ACCOUNT.SET_SUPER_FOLLOW, {
+        result: 'typed_data_error',
+        error: error?.message
+      });
     }
   });
   const { data: currencyData, loading } = useQuery(MODULES_CURRENCY_QUERY, {
@@ -141,7 +144,7 @@ const SuperFollow: FC = () => {
       }
       Mixpanel.track(SETTINGS.ACCOUNT.SET_SUPER_FOLLOW, {
         result: 'broadcast_error',
-        error
+        error: error?.message
       });
     }
   });

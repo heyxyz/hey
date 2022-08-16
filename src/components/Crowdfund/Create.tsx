@@ -92,7 +92,7 @@ const Create: NextPage = () => {
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
       toast.error(error?.message);
-      Mixpanel.track(CROWDFUND.NEW, { result: 'typed_data_error', error });
+      Mixpanel.track(CROWDFUND.NEW, { result: 'typed_data_error', error: error?.message });
     }
   });
   const { data: currencyData, loading } = useQuery(MODULES_CURRENCY_QUERY);
@@ -141,7 +141,7 @@ const Create: NextPage = () => {
       if (error.message === ERRORS.notMined) {
         toast.error(error.message);
       }
-      Mixpanel.track(CROWDFUND.NEW, { result: 'broadcast_error', error });
+      Mixpanel.track(CROWDFUND.NEW, { result: 'broadcast_error', error: error?.message });
     }
   });
   const [createPostTypedData, { loading: typedDataLoading }] = useMutation(CREATE_POST_TYPED_DATA_MUTATION, {

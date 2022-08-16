@@ -55,7 +55,7 @@ const Unfollow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
       toast.error(error?.message);
-      Mixpanel.track(PROFILE.UNFOLLOW, { result: 'typed_data_error', error });
+      Mixpanel.track(PROFILE.UNFOLLOW, { result: 'typed_data_error', error: error?.message });
     }
   });
   const { data: signer } = useSigner();

@@ -104,7 +104,7 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
       toast.error(error?.message);
-      Mixpanel.track(POST.NEW, { result: 'typed_data_error', error });
+      Mixpanel.track(POST.NEW, { result: 'typed_data_error', error: error?.message });
     }
   });
 
@@ -141,7 +141,7 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
       if (error.message === ERRORS.notMined) {
         toast.error(error.message);
       }
-      Mixpanel.track(POST.NEW, { result: 'broadcast_error', error });
+      Mixpanel.track(POST.NEW, { result: 'broadcast_error', error: error?.message });
     }
   });
   const [createPostTypedData, { loading: typedDataLoading }] = useMutation(CREATE_POST_TYPED_DATA_MUTATION, {
