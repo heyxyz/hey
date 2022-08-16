@@ -67,7 +67,7 @@ const Picture: FC<Props> = ({ profile }) => {
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
       toast.error(error?.message);
-      Mixpanel.track(SETTINGS.PROFILE.SET_PICTURE, { result: 'typed_data_error', error });
+      Mixpanel.track(SETTINGS.PROFILE.SET_PICTURE, { result: 'typed_data_error', error: error?.message });
     }
   });
 
@@ -111,7 +111,7 @@ const Picture: FC<Props> = ({ profile }) => {
       }
       Mixpanel.track(SETTINGS.PROFILE.SET_PICTURE, {
         result: 'broadcast_error',
-        error
+        error: error?.message
       });
     }
   });

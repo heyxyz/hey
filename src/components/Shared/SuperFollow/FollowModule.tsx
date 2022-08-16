@@ -93,7 +93,7 @@ const FollowModule: FC<Props> = ({ profile, setFollowing, setShowFollowModal, ag
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
       toast.error(error?.message);
-      Mixpanel.track(PROFILE.SUPER_FOLLOW, { result: 'typed_data_error', error });
+      Mixpanel.track(PROFILE.SUPER_FOLLOW, { result: 'typed_data_error', error: error?.message });
     }
   });
 
@@ -159,7 +159,7 @@ const FollowModule: FC<Props> = ({ profile, setFollowing, setShowFollowModal, ag
       if (error.message === ERRORS.notMined) {
         toast.error(error.message);
       }
-      Mixpanel.track(PROFILE.SUPER_FOLLOW, { result: 'broadcast_error', error });
+      Mixpanel.track(PROFILE.SUPER_FOLLOW, { result: 'broadcast_error', error: error?.message });
     }
   });
   const [createFollowTypedData, { loading: typedDataLoading }] = useMutation(
