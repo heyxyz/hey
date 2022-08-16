@@ -67,6 +67,7 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
       toast.error(error?.message);
+      Mixpanel.track(CROWDFUND.FUND, { result: 'typed_data_error' });
     }
   });
   const { data: balanceData, isLoading: balanceLoading } = useBalance({

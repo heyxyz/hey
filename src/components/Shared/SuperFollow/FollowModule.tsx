@@ -93,6 +93,7 @@ const FollowModule: FC<Props> = ({ profile, setFollowing, setShowFollowModal, ag
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
       toast.error(error?.message);
+      Mixpanel.track(PROFILE.SUPER_FOLLOW, { result: 'typed_data_error' });
     }
   });
 
