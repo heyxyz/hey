@@ -41,7 +41,7 @@ export const IMAGEKIT_URL_PROD = 'https://ik.imagekit.io/lensterimg';
 export const IMAGEKIT_URL_DEV = 'https://ik.imagekit.io/lensterdev';
 export const ARWEAVE_GATEWAY = 'https://arweave.net';
 export const IMAGEKIT_URL = IS_PRODUCTION ? IMAGEKIT_URL_PROD : IMAGEKIT_URL_DEV;
-export const IPFS_GATEWAY = 'https://cf-ipfs.com/ipfs/';
+export const IPFS_GATEWAY = 'https://lens.infura-ipfs.io/ipfs/';
 
 // Web3
 export const ALCHEMY_KEY = process.env.NEXT_PUBLIC_ALCHEMY_KEY;
