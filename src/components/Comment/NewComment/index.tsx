@@ -107,6 +107,7 @@ const NewComment: FC<Props> = ({ setShowModal, hideCard = false, publication, ty
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
       toast.error(error?.message);
+      Mixpanel.track(COMMENT.NEW, { result: 'typed_data_error' });
     }
   });
   const onCompleted = () => {

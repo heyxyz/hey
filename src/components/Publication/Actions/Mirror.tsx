@@ -80,6 +80,7 @@ const Mirror: FC<Props> = ({ publication }) => {
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
       toast.error(error?.message);
+      Mixpanel.track(PUBLICATION.MIRROR, { result: 'typed_data_error' });
     }
   });
 

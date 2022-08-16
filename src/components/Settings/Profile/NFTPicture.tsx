@@ -90,6 +90,7 @@ const NFTPicture: FC<Props> = ({ profile }) => {
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
       toast.error(error?.message);
+      Mixpanel.track(SETTINGS.PROFILE.SET_NFT_PICTURE, { result: 'typed_data_error' });
     }
   });
   const { signMessageAsync } = useSignMessage();
