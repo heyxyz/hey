@@ -123,7 +123,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
       toast.error(error?.message);
-      Mixpanel.track(PUBLICATION.COLLECT_MODULE.COLLECT, { result: 'typed_data_error' });
+      Mixpanel.track(PUBLICATION.COLLECT_MODULE.COLLECT, { result: 'typed_data_error', error });
     }
   });
   const { data, loading } = useQuery(COLLECT_QUERY, {
@@ -214,7 +214,8 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
         toast.error(error.message);
       }
       Mixpanel.track(PUBLICATION.COLLECT_MODULE.COLLECT, {
-        result: 'broadcast_error'
+        result: 'broadcast_error',
+        error
       });
     }
   });

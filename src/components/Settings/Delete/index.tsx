@@ -70,7 +70,7 @@ const DeleteSettings: FC = () => {
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
       toast.error(error?.message);
-      Mixpanel.track(SETTINGS.DELETE, { result: 'typed_data_error' });
+      Mixpanel.track(SETTINGS.DELETE, { result: 'typed_data_error', error });
     }
   });
 

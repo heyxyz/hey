@@ -107,7 +107,7 @@ const NewComment: FC<Props> = ({ setShowModal, hideCard = false, publication, ty
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
       toast.error(error?.message);
-      Mixpanel.track(COMMENT.NEW, { result: 'typed_data_error' });
+      Mixpanel.track(COMMENT.NEW, { result: 'typed_data_error', error });
     }
   });
   const onCompleted = () => {
@@ -143,7 +143,7 @@ const NewComment: FC<Props> = ({ setShowModal, hideCard = false, publication, ty
       if (error.message === ERRORS.notMined) {
         toast.error(error.message);
       }
-      Mixpanel.track(COMMENT.NEW, { result: 'broadcast_error' });
+      Mixpanel.track(COMMENT.NEW, { result: 'broadcast_error', error });
     }
   });
   const [createCommentTypedData, { loading: typedDataLoading }] = useMutation(
