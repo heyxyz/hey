@@ -66,7 +66,7 @@ const newCrowdfundSchema = object({
   referralFee: string()
     .min(1, { message: 'Invalid Referral fee' })
     .max(20, { message: 'Invalid Referral fee' }),
-  description: string().max(1000, { message: 'Description should not exceed 1000 characters' }).nullable()
+  description: string().max(1000, { message: 'Description should not exceed 1000 characters' })
 });
 
 const Create: NextPage = () => {

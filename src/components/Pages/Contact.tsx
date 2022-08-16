@@ -17,16 +17,12 @@ import { PAGEVIEW } from 'src/tracking';
 import { object, string } from 'zod';
 
 const newContactSchema = object({
-  subject: string()
-    .max(260, {
-      message: 'Subject should not exceed 260 characters'
-    })
-    .nonempty(),
-  message: string()
-    .max(1000, {
-      message: 'Message should not exceed 1000 characters'
-    })
-    .nonempty()
+  subject: string().min(1, { message: 'Subject  should not be empty' }).max(260, {
+    message: 'Subject should not exceed 260 characters'
+  }),
+  message: string().min(1, { message: 'Message should not be empty' }).max(1000, {
+    message: 'Message should not exceed 1000 characters'
+  })
 });
 
 const Contact: FC = () => {
