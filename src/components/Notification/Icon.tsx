@@ -18,6 +18,8 @@ const NOTIFICATION_COUNT_QUERY = gql`
 
 const NotificationIcon: FC = () => {
   const currentUser = useAppPersistStore((state) => state.currentUser);
+  const notificationCount = useAppPersistStore((state) => state.notificationCount);
+  const setNotificationCount = useAppPersistStore((state) => state.setNotificationCount);
   const [showBadge, setShowBadge] = useState<boolean>(false);
   const { data } = useQuery(NOTIFICATION_COUNT_QUERY, {
     variables: { request: { profileId: currentUser?.id } },
@@ -26,11 +28,11 @@ const NotificationIcon: FC = () => {
 
   useEffect(() => {
     if (currentUser && data) {
-      const localCount = localStorage.notificationCount ?? '0';
-      const currentCount = data?.notifications?.pageInfo?.totalCount.toString();
-      setShowBadge(localCount !== currentCount);
+      const currentCount = data?.notifications?.pageInfo?.totalCount;
+      setShowBadge(notificationCount !== currentCount);
     }
-  }, [currentUser, data]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data]);
 
   return (
     <Link href="/notifications">
@@ -38,7 +40,7 @@ const NotificationIcon: FC = () => {
         className="flex items-start"
         href="/notifications"
         onClick={() => {
-          localStorage.setItem('notificationCount', data?.notifications?.pageInfo?.totalCount.toString());
+          setNotificationCount(data?.notifications?.pageInfo?.totalCount);
           setShowBadge(false);
           Mixpanel.track(NOTIFICATION.OPEN);
         }}

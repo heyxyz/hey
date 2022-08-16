@@ -26,6 +26,8 @@ interface AppPersistState {
   setCurrentUser: (currentUser: Profile | null) => void;
   staffMode: boolean;
   setStaffMode: (staffMode: boolean) => void;
+  notificationCount: number;
+  setNotificationCount: (notificationCount: number) => void;
 }
 
 export const useAppPersistStore = create(
@@ -38,7 +40,9 @@ export const useAppPersistStore = create(
       currentUser: null,
       setCurrentUser: (currentUser) => set(() => ({ currentUser })),
       staffMode: false,
-      setStaffMode: (staffMode) => set(() => ({ staffMode }))
+      setStaffMode: (staffMode) => set(() => ({ staffMode })),
+      notificationCount: 0,
+      setNotificationCount: (notificationCount) => set(() => ({ notificationCount }))
     }),
     { name: 'lenster.store' }
   )
