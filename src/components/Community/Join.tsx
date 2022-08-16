@@ -60,6 +60,7 @@ const Join: FC<Props> = ({ community, setJoined, showJoin = true }) => {
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
       toast.error(error?.message);
+      Mixpanel.track(COMMUNITY.JOIN, { result: 'typed_data_error' });
     }
   });
 

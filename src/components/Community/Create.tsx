@@ -50,6 +50,7 @@ const Create: NextPage = () => {
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError(error) {
       toast.error(error?.message);
+      Mixpanel.track(COMMUNITY.NEW, { result: 'typed_data_error' });
     }
   });
 
