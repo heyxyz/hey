@@ -1,7 +1,7 @@
 import WebBundlr from '@bundlr-network/client';
 import { withSentry } from '@sentry/nextjs';
 import { NextApiRequest, NextApiResponse } from 'next';
-import { ALCHEMY_RPC, APP_NAME, BUNDLR_CURRENCY, BUNDLR_NODE_URL, ERROR_MESSAGE } from 'src/constants';
+import { APP_NAME, BUNDLR_CURRENCY, BUNDLR_NODE_URL, ERROR_MESSAGE } from 'src/constants';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method !== 'POST') {
@@ -15,9 +15,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const data = JSON.stringify(req.body);
 
   try {
-    const bundlr = new WebBundlr(BUNDLR_NODE_URL, BUNDLR_CURRENCY, process.env.BUNDLR_PRIVATE_KEY, {
-      providerUrl: ALCHEMY_RPC
-    });
+    const bundlr = new WebBundlr(BUNDLR_NODE_URL, BUNDLR_CURRENCY, process.env.BUNDLR_PRIVATE_KEY);
     const tags = [
       { name: 'Content-Type', value: 'application/json' },
       { name: 'App-Name', value: APP_NAME }
