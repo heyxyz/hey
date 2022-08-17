@@ -108,7 +108,9 @@ const Unfollow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
   );
 
   const createUnfollow = () => {
-    if (!isAuthenticated) return toast.error(SIGN_WALLET);
+    if (!isAuthenticated) {
+      return toast.error(SIGN_WALLET);
+    }
 
     createUnfollowTypedData({
       variables: {

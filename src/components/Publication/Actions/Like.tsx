@@ -74,7 +74,9 @@ const Like: FC<Props> = ({ publication }) => {
   });
 
   const createLike = () => {
-    if (!isAuthenticated) return toast.error(SIGN_WALLET);
+    if (!isAuthenticated) {
+      return toast.error(SIGN_WALLET);
+    }
 
     const variable = {
       variables: {

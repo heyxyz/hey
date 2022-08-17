@@ -1,7 +1,9 @@
 import { ADDRESS_REGEX } from 'src/constants';
 
 const formatAddress = (address: string | null | undefined): string => {
-  if (!address) return '';
+  if (!address) {
+    return '';
+  }
 
   const regex = ADDRESS_REGEX;
   if (address.match(regex)) {

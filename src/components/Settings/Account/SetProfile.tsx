@@ -146,7 +146,9 @@ const SetProfile: FC = () => {
               data: { broadcast: result }
             } = await broadcast({ variables: { request: { id, signature } } });
 
-            if ('reason' in result) write?.({ recklesslySetUnpreparedArgs: inputStruct });
+            if ('reason' in result) {
+              write?.({ recklesslySetUnpreparedArgs: inputStruct });
+            }
           } else {
             write?.({ recklesslySetUnpreparedArgs: inputStruct });
           }
@@ -159,7 +161,9 @@ const SetProfile: FC = () => {
   );
 
   const setDefaultProfile = () => {
-    if (!isAuthenticated) return toast.error(SIGN_WALLET);
+    if (!isAuthenticated) {
+      return toast.error(SIGN_WALLET);
+    }
 
     createSetDefaultProfileTypedData({
       variables: {
@@ -169,7 +173,9 @@ const SetProfile: FC = () => {
     });
   };
 
-  if (!isAuthenticated) return <Custom404 />;
+  if (!isAuthenticated) {
+    return <Custom404 />;
+  }
 
   return (
     <Card>

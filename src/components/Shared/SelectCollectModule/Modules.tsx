@@ -51,13 +51,14 @@ const Modules: FC<Props> = ({ setShowModal }) => {
     Mixpanel.track(`Select ${module?.moduleName.toLowerCase()} for new publication`);
   };
 
-  if (loading)
+  if (loading) {
     return (
       <div className="py-3.5 px-5 space-y-2 font-bold text-center">
         <Spinner size="md" className="mx-auto" />
         <div>Loading your modules</div>
       </div>
     );
+  }
 
   return (
     <div className="py-3.5 px-5 space-y-3">

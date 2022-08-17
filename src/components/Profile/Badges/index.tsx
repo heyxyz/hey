@@ -15,7 +15,9 @@ const Badges: FC<Props> = ({ profile }) => {
     profile?.onChainIdentity?.sybilDotOrg?.verified ||
     profile?.onChainIdentity?.ens?.name;
 
-  if (!hasOnChainIdentity) return null;
+  if (!hasOnChainIdentity) {
+    return null;
+  }
 
   return (
     <>

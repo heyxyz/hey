@@ -164,7 +164,9 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
               data: { broadcast: result }
             } = await broadcast({ variables: { request: { id, signature } } });
 
-            if ('reason' in result) write?.({ recklesslySetUnpreparedArgs: inputStruct });
+            if ('reason' in result) {
+              write?.({ recklesslySetUnpreparedArgs: inputStruct });
+            }
           } else {
             write?.({ recklesslySetUnpreparedArgs: inputStruct });
           }
@@ -177,7 +179,9 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
   );
 
   const createCollect = () => {
-    if (!isConnected) return toast.error(CONNECT_WALLET);
+    if (!isConnected) {
+      return toast.error(CONNECT_WALLET);
+    }
 
     createCollectTypedData({
       variables: {

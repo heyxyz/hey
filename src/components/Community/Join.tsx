@@ -126,7 +126,9 @@ const Join: FC<Props> = ({ community, setJoined, showJoin = true }) => {
               data: { broadcast: result }
             } = await broadcast({ variables: { request: { id, signature } } });
 
-            if ('reason' in result) write?.({ recklesslySetUnpreparedArgs: inputStruct });
+            if ('reason' in result) {
+              write?.({ recklesslySetUnpreparedArgs: inputStruct });
+            }
           } else {
             write?.({ recklesslySetUnpreparedArgs: inputStruct });
           }
@@ -139,7 +141,9 @@ const Join: FC<Props> = ({ community, setJoined, showJoin = true }) => {
   );
 
   const createCollect = () => {
-    if (!isAuthenticated) return toast.error(SIGN_WALLET);
+    if (!isAuthenticated) {
+      return toast.error(SIGN_WALLET);
+    }
 
     createCollectTypedData({
       variables: {

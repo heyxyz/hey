@@ -179,7 +179,9 @@ const SuperFollow: FC = () => {
               data: { broadcast: result }
             } = await broadcast({ variables: { request: { id, signature } } });
 
-            if ('reason' in result) write?.({ recklesslySetUnpreparedArgs: inputStruct });
+            if ('reason' in result) {
+              write?.({ recklesslySetUnpreparedArgs: inputStruct });
+            }
           } else {
             write?.({ recklesslySetUnpreparedArgs: inputStruct });
           }
@@ -192,7 +194,9 @@ const SuperFollow: FC = () => {
   );
 
   const setSuperFollow = (amount: string | null, recipient: string | null) => {
-    if (!isAuthenticated) return toast.error(SIGN_WALLET);
+    if (!isAuthenticated) {
+      return toast.error(SIGN_WALLET);
+    }
 
     createSetFollowModuleTypedData({
       variables: {
@@ -217,7 +221,7 @@ const SuperFollow: FC = () => {
     });
   };
 
-  if (loading)
+  if (loading) {
     return (
       <Card>
         <div className="p-5 py-10 space-y-2 text-center">
@@ -226,6 +230,7 @@ const SuperFollow: FC = () => {
         </div>
       </Card>
     );
+  }
 
   const followType = currencyData?.profile?.followModule?.__typename;
 

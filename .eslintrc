@@ -7,6 +7,7 @@
   "plugins": ["@typescript-eslint", "unused-imports", "simple-import-sort", "prettier"],
   "extends": ["next", "next/core-web-vitals"],
   "rules": {
+    "curly": "error",
     "prettier/prettier": "error",
     "react/prop-types": "off",
     "react/no-unescaped-entities": "off",
@@ -22,7 +23,7 @@
     "jsx-a11y/role-supports-aria-props": "off",
     "no-use-before-define": "error",
     "no-unexpected-multiline": "error",
-    "react/self-closing-comp":"error"
+    "react/self-closing-comp": "error"
   },
   "ignorePatterns": ["/src/generated/types.ts"]
 }

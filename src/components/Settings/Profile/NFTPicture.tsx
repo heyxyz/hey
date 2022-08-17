@@ -174,7 +174,9 @@ const NFTPicture: FC<Props> = ({ profile }) => {
               data: { broadcast: result }
             } = await broadcast({ variables: { request: { id, signature } } });
 
-            if ('reason' in result) write?.({ recklesslySetUnpreparedArgs: inputStruct });
+            if ('reason' in result) {
+              write?.({ recklesslySetUnpreparedArgs: inputStruct });
+            }
           } else {
             write?.({ recklesslySetUnpreparedArgs: inputStruct });
           }
@@ -187,7 +189,9 @@ const NFTPicture: FC<Props> = ({ profile }) => {
   );
 
   const setAvatar = async (contractAddress: string, tokenId: string) => {
-    if (!isAuthenticated) return toast.error(SIGN_WALLET);
+    if (!isAuthenticated) {
+      return toast.error(SIGN_WALLET);
+    }
 
     const challengeRes = await loadChallenge({
       variables: {

@@ -146,7 +146,9 @@ const Picture: FC<Props> = ({ profile }) => {
               data: { broadcast: result }
             } = await broadcast({ variables: { request: { id, signature } } });
 
-            if ('reason' in result) write?.({ recklesslySetUnpreparedArgs: inputStruct });
+            if ('reason' in result) {
+              write?.({ recklesslySetUnpreparedArgs: inputStruct });
+            }
           } else {
             write?.({ recklesslySetUnpreparedArgs: inputStruct });
           }
@@ -172,8 +174,13 @@ const Picture: FC<Props> = ({ profile }) => {
   };
 
   const editPicture = (avatar: string | undefined) => {
-    if (!isAuthenticated) return toast.error(SIGN_WALLET);
-    if (!avatar) return toast.error("Avatar can't be empty!");
+    if (!isAuthenticated) {
+      return toast.error(SIGN_WALLET);
+    }
+
+    if (!avatar) {
+      return toast.error("Avatar can't be empty!");
+    }
 
     createSetProfileImageURITypedData({
       variables: {

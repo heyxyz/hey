@@ -82,7 +82,9 @@ const DeleteSettings: FC = () => {
     Cookies.remove('accessToken');
     Cookies.remove('refreshToken');
     localStorage.removeItem('lenster.store');
-    if (disconnect) disconnect();
+    if (disconnect) {
+      disconnect();
+    }
     location.href = '/';
   };
 
@@ -131,7 +133,9 @@ const DeleteSettings: FC = () => {
   );
 
   const handleDelete = () => {
-    if (!isAuthenticated) return toast.error(SIGN_WALLET);
+    if (!isAuthenticated) {
+      return toast.error(SIGN_WALLET);
+    }
 
     createBurnProfileTypedData({
       variables: {
@@ -143,7 +147,9 @@ const DeleteSettings: FC = () => {
 
   const isDeleting = typedDataLoading || signLoading || writeLoading;
 
-  if (!currentUser) return <Custom404 />;
+  if (!currentUser) {
+    return <Custom404 />;
+  }
 
   return (
     <GridLayout>

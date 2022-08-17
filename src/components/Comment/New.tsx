@@ -194,7 +194,9 @@ const NewComment: FC<Props> = ({ setShowModal, hideCard = false, publication, ty
               data: { broadcast: result }
             } = await broadcast({ variables: { request: { id, signature } } });
 
-            if ('reason' in result) write?.({ recklesslySetUnpreparedArgs: inputStruct });
+            if ('reason' in result) {
+              write?.({ recklesslySetUnpreparedArgs: inputStruct });
+            }
           } else {
             write?.({ recklesslySetUnpreparedArgs: inputStruct });
           }
@@ -207,7 +209,9 @@ const NewComment: FC<Props> = ({ setShowModal, hideCard = false, publication, ty
   );
 
   const createComment = async () => {
-    if (!isAuthenticated) return toast.error(SIGN_WALLET);
+    if (!isAuthenticated) {
+      return toast.error(SIGN_WALLET);
+    }
     if (publicationContent.length === 0 && attachments.length === 0) {
       Mixpanel.track(COMMENT.NEW, { result: 'empty' });
       return setCommentContentError('Comment should not be empty!');

@@ -255,7 +255,9 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
               data: { broadcast: result }
             } = await broadcast({ variables: { request: { id, signature } } });
 
-            if ('reason' in result) write?.({ recklesslySetUnpreparedArgs: inputStruct });
+            if ('reason' in result) {
+              write?.({ recklesslySetUnpreparedArgs: inputStruct });
+            }
           } else {
             write?.({ recklesslySetUnpreparedArgs: inputStruct });
           }
@@ -268,7 +270,9 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
   );
 
   const createCollect = () => {
-    if (!isConnected) return toast.error(CONNECT_WALLET);
+    if (!isConnected) {
+      return toast.error(CONNECT_WALLET);
+    }
 
     createCollectTypedData({
       variables: {
@@ -278,7 +282,9 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
     });
   };
 
-  if (loading || revenueLoading) return <Loader message="Loading collect" />;
+  if (loading || revenueLoading) {
+    return <Loader message="Loading collect" />;
+  }
 
   return (
     <>

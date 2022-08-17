@@ -108,9 +108,17 @@ const ViewPublication: NextPage = () => {
     }
   });
 
-  if (error) return <Custom500 />;
-  if (loading || !data) return <PublicationPageShimmer />;
-  if (!data.publication) return <Custom404 />;
+  if (error) {
+    return <Custom500 />;
+  }
+
+  if (loading || !data) {
+    return <PublicationPageShimmer />;
+  }
+
+  if (!data.publication) {
+    return <Custom404 />;
+  }
 
   const publication: LensterPublication = data.publication;
   const appConfig = apps.filter((e) => e.id === publication?.appId)[0];

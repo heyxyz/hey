@@ -72,8 +72,13 @@ const Communities: NextPage = () => {
     }
   });
 
-  if (error) return <Custom500 />;
-  if (loading || !data) return <PageLoading message="Loading community" />;
+  if (error) {
+    return <Custom500 />;
+  }
+
+  if (loading || !data) {
+    return <PageLoading message="Loading community" />;
+  }
 
   return (
     <GridLayout>

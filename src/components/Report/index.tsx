@@ -91,7 +91,9 @@ const Report: FC = () => {
     });
   };
 
-  if (!currentUser || !id) return <Custom404 />;
+  if (!currentUser || !id) {
+    return <Custom404 />;
+  }
 
   return (
     <GridLayout>

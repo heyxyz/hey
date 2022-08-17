@@ -66,9 +66,11 @@ const Collectors: FC<Props> = ({ pubId }) => {
     }
   });
 
-  if (loading) return <Loader message="Loading collectors" />;
+  if (loading) {
+    return <Loader message="Loading collectors" />;
+  }
 
-  if (data?.whoCollectedPublication?.items?.length === 0)
+  if (data?.whoCollectedPublication?.items?.length === 0) {
     return (
       <div className="p-5">
         <EmptyState
@@ -78,6 +80,7 @@ const Collectors: FC<Props> = ({ pubId }) => {
         />
       </div>
     );
+  }
 
   return (
     <div className="overflow-y-auto max-h-[80vh]">

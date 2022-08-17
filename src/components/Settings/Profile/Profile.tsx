@@ -170,7 +170,9 @@ const Profile: FC<Props> = ({ profile }) => {
               data: { broadcast: result }
             } = await broadcast({ variables: { request: { id, signature } } });
 
-            if ('reason' in result) write?.({ recklesslySetUnpreparedArgs: inputStruct });
+            if ('reason' in result) {
+              write?.({ recklesslySetUnpreparedArgs: inputStruct });
+            }
           } else {
             write?.({ recklesslySetUnpreparedArgs: inputStruct });
           }
@@ -220,7 +222,9 @@ const Profile: FC<Props> = ({ profile }) => {
     twitter: string | null,
     bio: string | null
   ) => {
-    if (!isAuthenticated) return toast.error(SIGN_WALLET);
+    if (!isAuthenticated) {
+      return toast.error(SIGN_WALLET);
+    }
 
     setIsUploading(true);
     const id = await uploadToArweave({

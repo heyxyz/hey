@@ -42,7 +42,9 @@ const UnsignedUser: FC = () => {
                   Cookies.remove('accessToken');
                   Cookies.remove('refreshToken');
                   localStorage.removeItem('lenster.store');
-                  if (disconnect) disconnect();
+                  if (disconnect) {
+                    disconnect();
+                  }
                 }}
                 className={({ active }: { active: boolean }) =>
                   clsx({ 'dropdown-active': active }, 'menu-item')

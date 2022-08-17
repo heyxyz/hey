@@ -195,7 +195,9 @@ const FollowModule: FC<Props> = ({ profile, setFollowing, setShowFollowModal, ag
               errors
             } = await broadcast({ variables: { request: { id, signature } } });
 
-            if ('reason' in result || errors) write?.({ recklesslySetUnpreparedArgs: inputStruct });
+            if ('reason' in result || errors) {
+              write?.({ recklesslySetUnpreparedArgs: inputStruct });
+            }
           } else {
             write?.({ recklesslySetUnpreparedArgs: inputStruct });
           }
@@ -208,7 +210,9 @@ const FollowModule: FC<Props> = ({ profile, setFollowing, setShowFollowModal, ag
   );
 
   const createFollow = () => {
-    if (!isAuthenticated) return toast.error(SIGN_WALLET);
+    if (!isAuthenticated) {
+      return toast.error(SIGN_WALLET);
+    }
 
     createFollowTypedData({
       variables: {
@@ -230,7 +234,9 @@ const FollowModule: FC<Props> = ({ profile, setFollowing, setShowFollowModal, ag
     });
   };
 
-  if (loading) return <Loader message="Loading super follow" />;
+  if (loading) {
+    return <Loader message="Loading super follow" />;
+  }
 
   return (
     <div className="p-5">

@@ -29,7 +29,9 @@ const SetProfile: FC = () => {
   const hasDefaultProfile = !!profiles.find((o) => o.isDefault);
   const doneSetup = !!currentUser?.name && !!currentUser?.bio && !!currentUser?.picture;
 
-  if (!hasDefaultProfile || doneSetup) return null;
+  if (!hasDefaultProfile || doneSetup) {
+    return null;
+  }
 
   return (
     <Card className="mb-4 bg-green-50 dark:bg-green-900 !border-green-600">

@@ -180,7 +180,9 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
             data: { broadcast: result }
           } = await broadcast({ variables: { request: { id, signature } } });
 
-          if ('reason' in result) write?.({ recklesslySetUnpreparedArgs: inputStruct });
+          if ('reason' in result) {
+            write?.({ recklesslySetUnpreparedArgs: inputStruct });
+          }
         } else {
           write?.({ recklesslySetUnpreparedArgs: inputStruct });
         }
@@ -192,7 +194,9 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
   });
 
   const createPost = async () => {
-    if (!isAuthenticated) return toast.error(SIGN_WALLET);
+    if (!isAuthenticated) {
+      return toast.error(SIGN_WALLET);
+    }
     if (publicationContent.length === 0 && attachments.length === 0) {
       Mixpanel.track(POST.NEW, { result: 'empty' });
       return setPostContentError('Post should not be empty!');

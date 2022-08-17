@@ -142,7 +142,9 @@ const NewCommunity: NextPage = () => {
             data: { broadcast: result }
           } = await broadcast({ variables: { request: { id, signature } } });
 
-          if ('reason' in result) write?.({ recklesslySetUnpreparedArgs: inputStruct });
+          if ('reason' in result) {
+            write?.({ recklesslySetUnpreparedArgs: inputStruct });
+          }
         } else {
           write?.({ recklesslySetUnpreparedArgs: inputStruct });
         }
@@ -154,7 +156,9 @@ const NewCommunity: NextPage = () => {
   });
 
   const createCommunity = async (name: string, description: string | null) => {
-    if (!isAuthenticated) return toast.error(SIGN_WALLET);
+    if (!isAuthenticated) {
+      return toast.error(SIGN_WALLET);
+    }
 
     setIsUploading(true);
     const id = await uploadToArweave({
@@ -199,7 +203,9 @@ const NewCommunity: NextPage = () => {
     });
   };
 
-  if (!isAuthenticated) return <Custom404 />;
+  if (!isAuthenticated) {
+    return <Custom404 />;
+  }
 
   return (
     <GridLayout>

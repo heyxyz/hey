@@ -180,7 +180,9 @@ const NewCrowdfund: NextPage = () => {
             data: { broadcast: result }
           } = await broadcast({ variables: { request: { id, signature } } });
 
-          if ('reason' in result) write?.({ recklesslySetUnpreparedArgs: inputStruct });
+          if ('reason' in result) {
+            write?.({ recklesslySetUnpreparedArgs: inputStruct });
+          }
         } else {
           write?.({ recklesslySetUnpreparedArgs: inputStruct });
         }
@@ -199,7 +201,9 @@ const NewCrowdfund: NextPage = () => {
     referralFee: string,
     description: string | null
   ) => {
-    if (!isAuthenticated) return toast.error(SIGN_WALLET);
+    if (!isAuthenticated) {
+      return toast.error(SIGN_WALLET);
+    }
 
     setIsUploading(true);
     const id = await uploadToArweave({
@@ -255,8 +259,13 @@ const NewCrowdfund: NextPage = () => {
     });
   };
 
-  if (loading) return <PageLoading message="Loading create crowdfund" />;
-  if (!isAuthenticated) return <Custom404 />;
+  if (loading) {
+    return <PageLoading message="Loading create crowdfund" />;
+  }
+
+  if (!isAuthenticated) {
+    return <Custom404 />;
+  }
 
   return (
     <GridLayout>

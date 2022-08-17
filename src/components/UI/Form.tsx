@@ -33,9 +33,16 @@ export const FieldError: FC<FieldErrorProps> = ({ name }) => {
   const {
     formState: { errors }
   } = useFormContext();
-  if (!name) return null;
+
+  if (!name) {
+    return null;
+  }
+
   const error = errors[name];
-  if (!error) return null;
+
+  if (!error) {
+    return null;
+  }
 
   return <div className="mt-1 text-sm font-bold text-red-500">{error.message as any}</div>;
 };

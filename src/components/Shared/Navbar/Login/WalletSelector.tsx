@@ -83,7 +83,9 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
         variables: { request: { address } }
       });
 
-      if (!challenge?.data?.challenge?.text) return toast.error(ERROR_MESSAGE);
+      if (!challenge?.data?.challenge?.text) {
+        return toast.error(ERROR_MESSAGE);
+      }
 
       // Get signature
       const signature = await signMessageAsync({

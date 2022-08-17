@@ -123,7 +123,9 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
               data: { broadcast: result }
             } = await broadcast({ variables: { request: { id, signature } } });
 
-            if ('reason' in result) write?.({ recklesslySetUnpreparedArgs: inputStruct });
+            if ('reason' in result) {
+              write?.({ recklesslySetUnpreparedArgs: inputStruct });
+            }
           } else {
             write?.({ recklesslySetUnpreparedArgs: inputStruct });
           }
@@ -136,7 +138,9 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
   );
 
   const createFollow = () => {
-    if (!isConnected) return toast.error(CONNECT_WALLET);
+    if (!isConnected) {
+      return toast.error(CONNECT_WALLET);
+    }
 
     createFollowTypedData({
       variables: {

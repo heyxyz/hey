@@ -68,9 +68,11 @@ const Followers: FC<Props> = ({ profile }) => {
     }
   });
 
-  if (loading) return <Loader message="Loading followers" />;
+  if (loading) {
+    return <Loader message="Loading followers" />;
+  }
 
-  if (data?.followers?.items?.length === 0)
+  if (data?.followers?.items?.length === 0) {
     return (
       <EmptyState
         message={
@@ -83,6 +85,7 @@ const Followers: FC<Props> = ({ profile }) => {
         hideCard
       />
     );
+  }
 
   return (
     <div className="overflow-y-auto max-h-[80vh]">
