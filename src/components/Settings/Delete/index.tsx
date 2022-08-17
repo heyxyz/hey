@@ -68,9 +68,12 @@ const DeleteSettings: FC = () => {
 
   const { disconnect } = useDisconnect();
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
-    onError(error) {
+    onError: (error) => {
       toast.error(error?.message);
-      Mixpanel.track(SETTINGS.DELETE, { result: 'typed_data_error', error: error?.message });
+      Mixpanel.track(SETTINGS.DELETE, {
+        result: 'typed_data_error',
+        error: error?.message
+      });
     }
   });
 
@@ -93,10 +96,10 @@ const DeleteSettings: FC = () => {
     contractInterface: LensHubProxy,
     functionName: 'burnWithSig',
     mode: 'recklesslyUnprepared',
-    onSuccess() {
+    onSuccess: () => {
       onCompleted();
     },
-    onError(error: any) {
+    onError: (error: any) => {
       toast.error(error?.data?.message ?? error?.message);
     }
   });
@@ -104,11 +107,11 @@ const DeleteSettings: FC = () => {
   const [createBurnProfileTypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_BURN_PROFILE_TYPED_DATA_MUTATION,
     {
-      async onCompleted({
+      onCompleted: async ({
         createBurnProfileTypedData
       }: {
         createBurnProfileTypedData: CreateBurnProfileBroadcastItemResult;
-      }) {
+      }) => {
         const { typedData } = createBurnProfileTypedData;
         const { deadline } = typedData?.value;
 
@@ -126,7 +129,7 @@ const DeleteSettings: FC = () => {
           write?.({ recklesslySetUnpreparedArgs: [tokenId, sig] });
         } catch (error) {}
       },
-      onError(error) {
+      onError: (error) => {
         toast.error(error.message ?? ERROR_MESSAGE);
       }
     }

@@ -32,7 +32,7 @@ const PubIndexStatus: FC<Props> = ({ setShowModal, type, txHash }) => {
       request: { txHash }
     },
     pollInterval,
-    onCompleted(data) {
+    onCompleted: (data) => {
       if (data?.publication) {
         setPollInterval(0);
         if (setShowModal) {

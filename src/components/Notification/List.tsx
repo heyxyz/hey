@@ -157,7 +157,7 @@ const List: FC = () => {
       request: { profileId: currentUser?.id, limit: 10 }
     },
     fetchPolicy: 'no-cache',
-    onCompleted(data) {
+    onCompleted: (data) => {
       setPageInfo(data?.notifications?.pageInfo);
       setNotifications(data?.notifications?.items);
     }

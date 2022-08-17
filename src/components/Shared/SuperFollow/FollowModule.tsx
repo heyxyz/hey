@@ -91,9 +91,12 @@ const FollowModule: FC<Props> = ({ profile, setFollowing, setShowFollowModal, ag
   const [allowed, setAllowed] = useState<boolean>(true);
   const { address } = useAccount();
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
-    onError(error) {
+    onError: (error) => {
       toast.error(error?.message);
-      Mixpanel.track(PROFILE.SUPER_FOLLOW, { result: 'typed_data_error', error: error?.message });
+      Mixpanel.track(PROFILE.SUPER_FOLLOW, {
+        result: 'typed_data_error',
+        error: error?.message
+      });
     }
   });
 
@@ -109,10 +112,10 @@ const FollowModule: FC<Props> = ({ profile, setFollowing, setShowFollowModal, ag
     contractInterface: LensHubProxy,
     functionName: 'followWithSig',
     mode: 'recklesslyUnprepared',
-    onSuccess() {
+    onSuccess: () => {
       onCompleted();
     },
-    onError(error: any) {
+    onError: (error: any) => {
       toast.error(error?.data?.message ?? error?.message);
     }
   });
@@ -134,7 +137,7 @@ const FollowModule: FC<Props> = ({ profile, setFollowing, setShowFollowModal, ag
       }
     },
     skip: !followModule?.amount?.asset?.address || !currentUser,
-    onCompleted(data) {
+    onCompleted: (data) => {
       setAllowed(data?.approvedModuleAllowanceAmount[0]?.allowance !== '0x00');
     }
   });
@@ -155,21 +158,24 @@ const FollowModule: FC<Props> = ({ profile, setFollowing, setShowFollowModal, ag
 
   const [broadcast, { loading: broadcastLoading }] = useMutation(BROADCAST_MUTATION, {
     onCompleted,
-    onError(error) {
+    onError: (error) => {
       if (error.message === ERRORS.notMined) {
         toast.error(error.message);
       }
-      Mixpanel.track(PROFILE.SUPER_FOLLOW, { result: 'broadcast_error', error: error?.message });
+      Mixpanel.track(PROFILE.SUPER_FOLLOW, {
+        result: 'broadcast_error',
+        error: error?.message
+      });
     }
   });
   const [createFollowTypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_FOLLOW_TYPED_DATA_MUTATION,
     {
-      async onCompleted({
+      onCompleted: async ({
         createFollowTypedData
       }: {
         createFollowTypedData: CreateFollowBroadcastItemResult;
-      }) {
+      }) => {
         const { id, typedData } = createFollowTypedData;
         const { deadline } = typedData?.value;
 
@@ -203,7 +209,7 @@ const FollowModule: FC<Props> = ({ profile, setFollowing, setShowFollowModal, ag
           }
         } catch (error) {}
       },
-      onError(error) {
+      onError: (error) => {
         toast.error(error.message ?? ERROR_MESSAGE);
       }
     }

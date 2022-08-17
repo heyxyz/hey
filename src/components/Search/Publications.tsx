@@ -57,7 +57,7 @@ const Publications: FC<Props> = ({ query }) => {
       reactionRequest: currentUser ? { profileId: currentUser?.id } : null,
       profileId: currentUser?.id ?? null
     },
-    onCompleted(data) {
+    onCompleted: (data) => {
       setPageInfo(data?.search?.pageInfo);
       setPublications(data?.search?.items);
     }

@@ -93,7 +93,7 @@ const SuperFollow: FC = () => {
   const [selectedCurrency, setSelectedCurrency] = useState<string>(DEFAULT_COLLECT_TOKEN);
   const [selectedCurrencySymobol, setSelectedCurrencySymobol] = useState<string>('WMATIC');
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
-    onError(error) {
+    onError: (error) => {
       toast.error(error?.message);
       Mixpanel.track(SETTINGS.ACCOUNT.SET_SUPER_FOLLOW, {
         result: 'typed_data_error',
@@ -121,10 +121,10 @@ const SuperFollow: FC = () => {
     contractInterface: LensHubProxy,
     functionName: 'setFollowModuleWithSig',
     mode: 'recklesslyUnprepared',
-    onSuccess() {
+    onSuccess: () => {
       onCompleted();
     },
-    onError(error: any) {
+    onError: (error: any) => {
       toast.error(error?.data?.message ?? error?.message);
     }
   });
@@ -138,7 +138,7 @@ const SuperFollow: FC = () => {
 
   const [broadcast, { data: broadcastData, loading: broadcastLoading }] = useMutation(BROADCAST_MUTATION, {
     onCompleted,
-    onError(error) {
+    onError: (error) => {
       if (error.message === ERRORS.notMined) {
         toast.error(error.message);
       }
@@ -151,11 +151,11 @@ const SuperFollow: FC = () => {
   const [createSetFollowModuleTypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_SET_FOLLOW_MODULE_TYPED_DATA_MUTATION,
     {
-      async onCompleted({
+      onCompleted: async ({
         createSetFollowModuleTypedData
       }: {
         createSetFollowModuleTypedData: CreateSetFollowModuleBroadcastItemResult;
-      }) {
+      }) => {
         const { id, typedData } = createSetFollowModuleTypedData;
         const { profileId, followModule, followModuleInitData, deadline } = typedData?.value;
 
@@ -187,7 +187,7 @@ const SuperFollow: FC = () => {
           }
         } catch (error) {}
       },
-      onError(error) {
+      onError: (error) => {
         toast.error(error.message ?? ERROR_MESSAGE);
       }
     }

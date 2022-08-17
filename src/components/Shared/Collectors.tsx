@@ -43,7 +43,7 @@ const Collectors: FC<Props> = ({ pubId }) => {
   const { data, loading, error, fetchMore } = useQuery(COLLECTORS_QUERY, {
     variables: { request: { publicationId: pubId, limit: 10 } },
     skip: !pubId,
-    onCompleted(data) {
+    onCompleted: (data) => {
       setPageInfo(data?.whoCollectedPublication?.pageInfo);
       setCollectors(data?.whoCollectedPublication?.items);
     }

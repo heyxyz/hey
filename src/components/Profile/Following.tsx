@@ -41,7 +41,7 @@ const Following: FC<Props> = ({ profile }) => {
   const { data, loading, error, fetchMore } = useQuery(FOLLOWING_QUERY, {
     variables: { request: { address: profile?.ownedBy, limit: 10 } },
     skip: !profile?.id,
-    onCompleted(data) {
+    onCompleted: (data) => {
       setPageInfo(data?.following?.pageInfo);
       setFollowing(data?.following?.items);
     }

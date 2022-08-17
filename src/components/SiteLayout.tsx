@@ -61,7 +61,7 @@ const SiteLayout: FC<Props> = ({ children }) => {
   const { loading } = useQuery(CURRENT_USER_QUERY, {
     variables: { ownedBy: address },
     skip: !isConnected,
-    onCompleted(data) {
+    onCompleted: (data) => {
       const profiles: Profile[] = data?.profiles?.items
         ?.slice()
         ?.sort((a: Profile, b: Profile) => Number(a.id) - Number(b.id))

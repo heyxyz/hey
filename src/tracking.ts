@@ -1,3 +1,5 @@
+// Strings used for mixpanel tracking
+
 export const USER = {
   LOGIN: 'User login',
   LOGOUT: 'User logout',

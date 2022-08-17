@@ -50,7 +50,7 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
   const { connectors, error, connectAsync } = useConnect();
   const { address, connector: activeConnector } = useAccount();
   const { signMessageAsync, isLoading: signLoading } = useSignMessage({
-    onError(error) {
+    onError: (error) => {
       toast.error(error?.message);
     }
   });

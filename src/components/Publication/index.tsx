@@ -100,7 +100,7 @@ const ViewPublication: NextPage = () => {
       profileId: currentUser?.id ?? null
     },
     skip: !id,
-    onCompleted(data) {
+    onCompleted: (data) => {
       const isCommunity = data?.publication?.metadata?.attributes[0]?.value === 'community';
       if (isCommunity) {
         push(`/communities/${data.publication?.id}`);

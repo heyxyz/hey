@@ -65,9 +65,12 @@ const Picture: FC<Props> = ({ profile }) => {
   const [avatar, setAvatar] = useState<string>();
   const [uploading, setUploading] = useState<boolean>(false);
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
-    onError(error) {
+    onError: (error) => {
       toast.error(error?.message);
-      Mixpanel.track(SETTINGS.PROFILE.SET_PICTURE, { result: 'typed_data_error', error: error?.message });
+      Mixpanel.track(SETTINGS.PROFILE.SET_PICTURE, {
+        result: 'typed_data_error',
+        error: error?.message
+      });
     }
   });
 
@@ -88,10 +91,10 @@ const Picture: FC<Props> = ({ profile }) => {
     contractInterface: LensHubProxy,
     functionName: 'setProfileImageURIWithSig',
     mode: 'recklesslyUnprepared',
-    onSuccess() {
+    onSuccess: () => {
       onCompleted();
     },
-    onError(error: any) {
+    onError: (error: any) => {
       toast.error(error?.data?.message ?? error?.message);
     }
   });
@@ -105,7 +108,7 @@ const Picture: FC<Props> = ({ profile }) => {
 
   const [broadcast, { data: broadcastData, loading: broadcastLoading }] = useMutation(BROADCAST_MUTATION, {
     onCompleted,
-    onError(error) {
+    onError: (error) => {
       if (error.message === ERRORS.notMined) {
         toast.error(error.message);
       }
@@ -118,11 +121,11 @@ const Picture: FC<Props> = ({ profile }) => {
   const [createSetProfileImageURITypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_SET_PROFILE_IMAGE_URI_TYPED_DATA_MUTATION,
     {
-      async onCompleted({
+      onCompleted: async ({
         createSetProfileImageURITypedData
       }: {
         createSetProfileImageURITypedData: CreateSetProfileImageUriBroadcastItemResult;
-      }) {
+      }) => {
         const { id, typedData } = createSetProfileImageURITypedData;
         const { deadline } = typedData?.value;
 
@@ -154,7 +157,7 @@ const Picture: FC<Props> = ({ profile }) => {
           }
         } catch (error) {}
       },
-      onError(error) {
+      onError: (error) => {
         toast.error(error.message ?? ERROR_MESSAGE);
       }
     }

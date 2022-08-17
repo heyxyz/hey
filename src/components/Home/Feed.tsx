@@ -58,7 +58,7 @@ const Feed: FC = () => {
       profileId: currentUser?.id ?? null
     },
     fetchPolicy: 'no-cache',
-    onCompleted(data) {
+    onCompleted: (data) => {
       setPageInfo(data?.timeline?.pageInfo);
       setPublications(data?.timeline?.items);
     }

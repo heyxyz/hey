@@ -45,7 +45,7 @@ const Followers: FC<Props> = ({ profile }) => {
   const { data, loading, error, fetchMore } = useQuery(FOLLOWERS_QUERY, {
     variables: { request: { profileId: profile?.id, limit: 10 } },
     skip: !profile?.id,
-    onCompleted(data) {
+    onCompleted: (data) => {
       setPageInfo(data?.followers?.pageInfo);
       setFollowers(data?.followers?.items);
     }
