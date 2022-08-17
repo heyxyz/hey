@@ -15,7 +15,7 @@ const Verification: FC = () => {
         <div className="text-lg font-bold">Verified</div>
         {isVerified(currentUser?.id) ? (
           <div className="flex items-center space-x-1.5">
-            <span>Yes</span>
+            <span>Believe it. Yes, you're really verified.</span>
             <BadgeCheckIcon className="w-5 h-5 text-brand" />
           </div>
         ) : (
