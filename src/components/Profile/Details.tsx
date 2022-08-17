@@ -19,9 +19,9 @@ import React, { FC, ReactElement, useState } from 'react';
 import { STATIC_ASSETS } from 'src/constants';
 import { useAppPersistStore } from 'src/store/app';
 
+import ProfileStaffTool from '../StaffTools/Profile';
 import Badges from './Badges';
 import Followerings from './Followerings';
-import ProfileMod from './Mod';
 
 interface Props {
   profile: Profile;
@@ -195,7 +195,7 @@ const Details: FC<Props> = ({ profile }) => {
         </div>
       </div>
       <Badges profile={profile} />
-      {isStaff(currentUser?.id) && staffMode && <ProfileMod profile={profile} />}
+      {isStaff(currentUser?.id) && staffMode && <ProfileStaffTool profile={profile} />}
     </div>
   );
 };
