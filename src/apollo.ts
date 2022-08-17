@@ -35,42 +35,42 @@ const authLink = new ApolloLink((operation, forward) => {
     Cookies.remove('refreshToken');
 
     return forward(operation);
-  } else {
-    operation.setContext({
-      headers: {
-        'x-access-token': accessToken ? `Bearer ${accessToken}` : ''
-      }
-    });
-
-    const { exp }: { exp: number } = jwtDecode(accessToken);
-
-    if (Date.now() >= exp * 1000) {
-      axios(API_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        data: JSON.stringify({
-          operationName: 'Refresh',
-          query: REFRESH_AUTHENTICATION_MUTATION,
-          variables: {
-            request: { refreshToken: Cookies.get('refreshToken') }
-          }
-        })
-      })
-        .then(({ data }) => {
-          const refresh = data?.data?.refresh;
-          operation.setContext({
-            headers: {
-              'x-access-token': accessToken ? `Bearer ${refresh?.accessToken}` : ''
-            }
-          });
-          Cookies.set('accessToken', refresh?.accessToken, COOKIE_CONFIG);
-          Cookies.set('refreshToken', refresh?.refreshToken, COOKIE_CONFIG);
-        })
-        .catch(() => console.log(ERROR_MESSAGE));
-    }
-
-    return forward(operation);
   }
+
+  operation.setContext({
+    headers: {
+      'x-access-token': accessToken ? `Bearer ${accessToken}` : ''
+    }
+  });
+
+  const { exp }: { exp: number } = jwtDecode(accessToken);
+
+  if (Date.now() >= exp * 1000) {
+    axios(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      data: JSON.stringify({
+        operationName: 'Refresh',
+        query: REFRESH_AUTHENTICATION_MUTATION,
+        variables: {
+          request: { refreshToken: Cookies.get('refreshToken') }
+        }
+      })
+    })
+      .then(({ data }) => {
+        const refresh = data?.data?.refresh;
+        operation.setContext({
+          headers: {
+            'x-access-token': accessToken ? `Bearer ${refresh?.accessToken}` : ''
+          }
+        });
+        Cookies.set('accessToken', refresh?.accessToken, COOKIE_CONFIG);
+        Cookies.set('refreshToken', refresh?.refreshToken, COOKIE_CONFIG);
+      })
+      .catch(() => console.log(ERROR_MESSAGE));
+  }
+
+  return forward(operation);
 });
 
 const cache = new InMemoryCache({ possibleTypes: result.possibleTypes });

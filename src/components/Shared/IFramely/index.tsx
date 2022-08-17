@@ -40,24 +40,24 @@ const IFramely: FC<Props> = ({ url }) => {
 
   if (error || !isLoaded) {
     return null;
-  } else {
-    const og = {
-      title: data?.meta?.title,
-      description: data?.meta?.description,
-      site: data?.meta?.site,
-      url: data?.url,
-      favicon: `https://www.google.com/s2/favicons?domain=${url}`,
-      thumbnail: data?.links?.thumbnail && imagekitURL(data?.links?.thumbnail[0]?.href, 'attachment'),
-      isSquare:
-        data?.links?.thumbnail &&
-        data?.links?.thumbnail[0]?.media?.width === data?.links?.thumbnail[0]?.media?.height,
-      html: data?.links?.player ? data?.links?.player[0]?.html : null
-    };
-
-    if (!og.title) return null;
-
-    return og.html ? <Player og={og} /> : <Embed og={og} />;
   }
+
+  const og = {
+    title: data?.meta?.title,
+    description: data?.meta?.description,
+    site: data?.meta?.site,
+    url: data?.url,
+    favicon: `https://www.google.com/s2/favicons?domain=${url}`,
+    thumbnail: data?.links?.thumbnail && imagekitURL(data?.links?.thumbnail[0]?.href, 'attachment'),
+    isSquare:
+      data?.links?.thumbnail &&
+      data?.links?.thumbnail[0]?.media?.width === data?.links?.thumbnail[0]?.media?.height,
+    html: data?.links?.player ? data?.links?.player[0]?.html : null
+  };
+
+  if (!og.title) return null;
+
+  return og.html ? <Player og={og} /> : <Embed og={og} />;
 };
 
 export default IFramely;
