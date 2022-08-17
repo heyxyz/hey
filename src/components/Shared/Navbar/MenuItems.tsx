@@ -1,3 +1,4 @@
+import Avatar from '@components/UI/Avatar';
 import { Button } from '@components/UI/Button';
 import { Modal } from '@components/UI/Modal';
 import { Tooltip } from '@components/UI/Tooltip';
@@ -15,7 +16,6 @@ import {
   UserIcon
 } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
-import getAvatar from '@lib/getAvatar';
 import isBeta from '@lib/isBeta';
 import isStaff from '@lib/isStaff';
 import { Mixpanel } from '@lib/mixpanel';
@@ -67,11 +67,10 @@ const MenuItems: FC<Props> = ({ pingData }) => {
     <Menu as="div">
       {({ open }) => (
         <>
-          <Menu.Button
-            as="img"
-            src={getAvatar(currentUser)}
-            className="w-8 h-8 rounded-full border cursor-pointer dark:border-gray-700/80"
-            alt={currentUser?.handle}
+          <Avatar
+            profile={currentUser}
+            className="w-8 h-8 cursor-pointer rounded-full"
+            render={(imgProps) => <Menu.Button as="img" {...imgProps} />}
           />
           <Transition
             show={open}
@@ -169,13 +168,7 @@ const MenuItems: FC<Props> = ({ pingData }) => {
                           {currentUser?.id === profile?.id && (
                             <CheckCircleIcon className="w-4 h-4 text-green-500" />
                           )}
-                          <img
-                            className="w-5 h-5 rounded-full border dark:border-gray-700/80"
-                            height={20}
-                            width={20}
-                            src={getAvatar(profile)}
-                            alt={profile?.handle}
-                          />
+                          <Avatar profile={profile} className="w-5 h-5 rounded-full" height={20} width={20} />
                           <div className="truncate">{profile?.handle}</div>
                         </button>
                       </div>

@@ -1,3 +1,4 @@
+import HexagonClipConfig from '@components/Shared/HexagonClipConfig';
 import Document, { Head, Html, Main, NextScript } from 'next/document';
 
 class LensterDocument extends Document {
@@ -12,6 +13,7 @@ class LensterDocument extends Document {
         <body>
           <Main />
           <NextScript />
+          <HexagonClipConfig />
         </body>
       </Html>
     );

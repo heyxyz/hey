@@ -5,6 +5,7 @@ import {
   FreeCollectModuleSettings,
   LimitedFeeCollectModuleSettings,
   LimitedTimedFeeCollectModuleSettings,
+  Maybe,
   Mirror,
   Notification,
   Post,
@@ -34,4 +35,5 @@ export type UserSuggestion = {
   display: string;
   name: string;
   picture: string;
+  pictureType: Maybe<'NftImage' | 'MediaSet'>;
 };

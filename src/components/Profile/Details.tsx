@@ -4,6 +4,7 @@ import Slug from '@components/Shared/Slug';
 import SuperFollow from '@components/Shared/SuperFollow';
 import Unfollow from '@components/Shared/Unfollow';
 import ProfileStaffTool from '@components/StaffTools/Profile';
+import Avatar from '@components/UI/Avatar';
 import { Button } from '@components/UI/Button';
 import { Tooltip } from '@components/UI/Tooltip';
 import { Profile } from '@generated/types';
@@ -11,9 +12,9 @@ import { CogIcon, HashtagIcon, LocationMarkerIcon } from '@heroicons/react/outli
 import { BadgeCheckIcon, ShieldCheckIcon } from '@heroicons/react/solid';
 import formatAddress from '@lib/formatAddress';
 import getAttribute from '@lib/getAttribute';
-import getAvatar from '@lib/getAvatar';
 import isStaff from '@lib/isStaff';
 import isVerified from '@lib/isVerified';
+import clsx from 'clsx';
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
 import React, { FC, ReactElement, useState } from 'react';
@@ -44,14 +45,13 @@ const Details: FC<Props> = ({ profile }) => {
 
   return (
     <div className="px-5 mb-4 space-y-5 sm:px-0">
-      <div className="relative -mt-24 w-32 h-32 sm:-mt-32 sm:w-52 sm:h-52">
-        <img
-          src={getAvatar(profile)}
-          className="w-32 h-32 bg-gray-200 rounded-xl ring-8 ring-gray-50 sm:w-52 sm:h-52 dark:bg-gray-700 dark:ring-black"
-          height={128}
-          width={128}
-          alt={profile?.handle}
-        />
+      <div
+        className={clsx(
+          'flex justify-center items-center -mt-24 w-36 h-36 sm:-mt-32 sm:w-56 sm:h-56 bg-gray-50 dark:bg-black',
+          profile?.picture?.__typename === 'NftImage' ? 'hexagon' : 'rounded-xl'
+        )}
+      >
+        <Avatar profile={profile} className="w-32 h-32 sm:w-52 sm:h-52 rounded-xl" height={128} width={128} />
       </div>
       <div className="py-2 space-y-1">
         <div className="flex gap-1.5 items-center text-2xl font-bold">

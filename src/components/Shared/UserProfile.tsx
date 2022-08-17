@@ -1,6 +1,6 @@
+import Avatar from '@components/UI/Avatar';
 import { Profile } from '@generated/types';
 import { BadgeCheckIcon } from '@heroicons/react/solid';
-import getAvatar from '@lib/getAvatar';
 import isVerified from '@lib/isVerified';
 import clsx from 'clsx';
 import Link from 'next/link';
@@ -36,16 +36,12 @@ const UserProfile: FC<Props> = ({
       <Link href={`/u/${profile?.handle}`}>
         <a href={`/u/${profile?.handle}`}>
           <div className="flex items-center space-x-3">
-            <img
-              src={getAvatar(profile)}
+            <Avatar
+              profile={profile}
               loading="lazy"
-              className={clsx(
-                isBig ? 'w-14 h-14' : 'w-10 h-10',
-                'bg-gray-200 rounded-full border dark:border-gray-700/80'
-              )}
+              className={clsx('rounded-full', isBig ? 'w-14 h-14' : 'w-10 h-10')}
               height={isBig ? 56 : 40}
               width={isBig ? 56 : 40}
-              alt={profile?.handle}
             />
             <div>
               <div className="flex gap-1 items-center max-w-sm truncate">

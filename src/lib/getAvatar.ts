@@ -8,7 +8,7 @@ import imagekitURL from './imagekitURL';
  * @param profile - Profile object
  * @returns avatar image url
  */
-const getAvatar = (profile: Profile): string => {
+const getAvatar = (profile?: Profile): string => {
   return imagekitURL(
     getIPFSLink(
       // @ts-ignore

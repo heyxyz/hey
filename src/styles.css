@@ -141,3 +141,7 @@ body {
 iframe {
   @apply rounded-xl;
 }
+
+.hexagon {
+  clip-path: url(#hexagon-clip-config)
+}

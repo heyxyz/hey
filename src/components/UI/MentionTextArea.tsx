@@ -1,6 +1,7 @@
 import { useLazyQuery } from '@apollo/client';
 import { SEARCH_USERS_QUERY } from '@components/Shared/Navbar/Search';
 import Slug from '@components/Shared/Slug';
+import Avatar from '@components/UI/Avatar';
 import { UserSuggestion } from '@generated/lenstertypes';
 import { MediaSet, NftImage, Profile } from '@generated/types';
 import { BadgeCheckIcon } from '@heroicons/react/solid';
@@ -20,7 +21,8 @@ const User: FC<UserProps> = ({ suggestion, focused }) => (
   <div
     className={clsx({ 'dropdown-active': focused }, 'flex items-center space-x-2 m-1.5 px-3 py-1 rounded-xl')}
   >
-    <img
+    <Avatar
+      isNft={suggestion.pictureType === 'NftImage'}
       className="w-7 h-7 rounded-full"
       height={32}
       width={32}
@@ -62,6 +64,7 @@ export const MentionTextArea: FC<Props> = ({ error, setError, placeholder = '' }
           id: user.handle,
           display: user.handle,
           name: user?.name ?? user?.handle,
+          pictureType: user?.picture?.__typename,
           picture:
             user?.picture?.original?.url ??
             user?.picture?.uri ??
