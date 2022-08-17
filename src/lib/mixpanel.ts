@@ -3,6 +3,9 @@ import { IS_PRODUCTION, MIXPANEL_TOKEN } from 'src/constants';
 
 const enabled = MIXPANEL_TOKEN && IS_PRODUCTION;
 
+/**
+ * Mixpanel analytics
+ */
 export const Mixpanel = {
   identify: (id: string) => {
     if (enabled) {

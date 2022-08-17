@@ -4,6 +4,11 @@ import { v4 as uuid } from 'uuid';
 
 import shuffleArray from './shuffleArray';
 
+/**
+ *
+ * @param data - Data to upload to IPFS
+ * @returns attachment array
+ */
 const uploadMediaToIPFS = async (data: any): Promise<LensterAttachment[]> => {
   try {
     const attachments = [];

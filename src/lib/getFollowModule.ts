@@ -1,3 +1,8 @@
+/**
+ *
+ * @param name - Name to format
+ * @returns formatted name
+ */
 export const getFollowModule = (name: string | undefined): { description: string } => {
   switch (name) {
     case 'ProfileFollowModuleSettings':

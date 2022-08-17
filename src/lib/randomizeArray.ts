@@ -1,3 +1,8 @@
+/**
+ *
+ * @param array - Array to randomize
+ * @returns randomized array
+ */
 const randomizeArray = (array: any) => {
   return array
     ?.map((value: any) => ({ value, sort: Math.random() }))
