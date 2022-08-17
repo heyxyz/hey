@@ -16,7 +16,7 @@ import MoreNavItems from './MoreNavItems';
 import Search from './Search';
 
 const StaffBar = dynamic(() => import('./StaffBar'));
-const NewPostModal = dynamic(() => import('../../Publication/NewPost/Modal'));
+const NewPostModal = dynamic(() => import('../../Publication/New/NewPostModal'));
 
 const PING_QUERY = gql`
   query Ping {

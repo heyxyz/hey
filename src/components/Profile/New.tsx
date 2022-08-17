@@ -1,5 +1,5 @@
 import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout';
-import Signup from '@components/Shared/Navbar/Login/Create';
+import Signup from '@components/Shared/Navbar/Login/New';
 import SettingsHelper from '@components/Shared/SettingsHelper';
 import { Card, CardBody } from '@components/UI/Card';
 import Seo from '@components/utils/Seo';
@@ -11,7 +11,7 @@ import Custom404 from 'src/pages/404';
 import { useAppPersistStore } from 'src/store/app';
 import { PAGEVIEW } from 'src/tracking';
 
-const Create: NextPage = () => {
+const NewProfile: NextPage = () => {
   const currentUser = useAppPersistStore((state) => state.currentUser);
 
   useEffect(() => {
@@ -37,4 +37,4 @@ const Create: NextPage = () => {
   );
 };
 
-export default Create;
+export default NewProfile;

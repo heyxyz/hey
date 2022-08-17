@@ -7,7 +7,7 @@ import { FC, Fragment } from 'react';
 import { USER } from 'src/tracking';
 import { useAccount, useDisconnect } from 'wagmi';
 
-const CreateProfile: FC = () => {
+const UnsignedUser: FC = () => {
   const { disconnect } = useDisconnect();
   const { address } = useAccount();
 
@@ -61,4 +61,4 @@ const CreateProfile: FC = () => {
   );
 };
 
-export default CreateProfile;
+export default UnsignedUser;
