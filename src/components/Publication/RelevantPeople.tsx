@@ -37,7 +37,7 @@ const RelevantPeople: FC<Props> = ({ publication }) => {
           return mention
             .trim()
             .replace("'s", '')
-            .replace(/[^a-zA-Z ]/g, '');
+            .replace(/[^a-zA-Z. ]/g, '');
         } else {
           return publication?.profile?.handle;
         }
