@@ -16,7 +16,7 @@ import { useAppPersistStore } from 'src/store/app';
 import { PAGINATION } from 'src/tracking';
 
 import ReferenceAlert from '../Shared/ReferenceAlert';
-import NewComment from './NewComment';
+import NewComment from './New';
 
 const COMMENT_FEED_QUERY = gql`
   query CommentFeed(

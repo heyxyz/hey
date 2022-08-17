@@ -1,7 +1,7 @@
 import { LensHubProxy } from '@abis/LensHubProxy';
 import { useMutation } from '@apollo/client';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout';
-import { CREATE_POST_TYPED_DATA_MUTATION } from '@components/Publication/NewPost';
+import { CREATE_POST_TYPED_DATA_MUTATION } from '@components/Publication/New';
 import ChooseFile from '@components/Shared/ChooseFile';
 import Pending from '@components/Shared/Pending';
 import SettingsHelper from '@components/Shared/SettingsHelper';
@@ -38,7 +38,7 @@ const newCommunitySchema = object({
   description: string().max(260, { message: 'Description should not exceed 260 characters' })
 });
 
-const Create: NextPage = () => {
+const NewCommunity: NextPage = () => {
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
@@ -271,4 +271,4 @@ const Create: NextPage = () => {
   );
 };
 
-export default Create;
+export default NewCommunity;

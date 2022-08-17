@@ -1,7 +1,7 @@
 import { LensHubProxy } from '@abis/LensHubProxy';
 import { gql, useMutation, useQuery } from '@apollo/client';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout';
-import { CREATE_POST_TYPED_DATA_MUTATION } from '@components/Publication/NewPost';
+import { CREATE_POST_TYPED_DATA_MUTATION } from '@components/Publication/New';
 import ChooseFile from '@components/Shared/ChooseFile';
 import Pending from '@components/Shared/Pending';
 import SettingsHelper from '@components/Shared/SettingsHelper';
@@ -69,7 +69,7 @@ const newCrowdfundSchema = object({
   description: string().max(1000, { message: 'Description should not exceed 1000 characters' })
 });
 
-const Create: NextPage = () => {
+const NewCrowdfund: NextPage = () => {
   const [cover, setCover] = useState<string>();
   const [coverType, setCoverType] = useState<string>();
   const [isUploading, setIsUploading] = useState<boolean>(false);
@@ -401,4 +401,4 @@ const Create: NextPage = () => {
   );
 };
 
-export default Create;
+export default NewCrowdfund;

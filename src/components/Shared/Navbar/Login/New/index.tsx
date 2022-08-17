@@ -40,7 +40,7 @@ interface Props {
   isModal?: boolean;
 }
 
-const Create: FC<Props> = ({ isModal = false }) => {
+const NewProfile: FC<Props> = ({ isModal = false }) => {
   const [avatar, setAvatar] = useState<string>();
   const [uploading, setUploading] = useState<boolean>(false);
   const { address } = useAccount();
@@ -126,4 +126,4 @@ const Create: FC<Props> = ({ isModal = false }) => {
   );
 };
 
-export default Create;
+export default NewProfile;

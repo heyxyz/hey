@@ -30,8 +30,8 @@ import { PROFILE, STAFF, SYSTEM, USER } from 'src/tracking';
 import { useDisconnect } from 'wagmi';
 
 import Slug from '../Slug';
-import CreateProfile from './CreateProfile';
 import Login from './Login';
+import UnsignedUser from './UnsignedUser';
 
 export const NextLink = ({ href, children, ...rest }: Record<string, any>) => (
   <Link href={href}>
@@ -263,7 +263,7 @@ const MenuItems: FC<Props> = ({ pingData }) => {
       )}
     </Menu>
   ) : isConnected ? (
-    <CreateProfile />
+    <UnsignedUser />
   ) : (
     <>
       <Modal
