@@ -57,45 +57,40 @@ const Attachments: FC<Props> = ({ attachments, setAttachments, isNew = false }) 
       className={clsx(getClass(slicedAttachments?.length)?.row, 'grid grid-flow-col gap-2 pt-3')}
       onClick={(event: MouseEvent<HTMLDivElement>) => event.stopPropagation()}
     >
-      {slicedAttachments?.map((attachment: LensterAttachment & MediaSet) => (
-        <div
-          className={clsx(
-            (isNew ? attachment.type : attachment.original.mimeType) === 'video/mp4'
-              ? ''
-              : getClass(slicedAttachments?.length)?.aspect
-          )}
-          key={isNew ? attachment.item : getIPFSLink(attachment.original.url)}
-        >
-          {(isNew ? attachment.type : attachment.original.mimeType) === 'video/mp4' ? (
-            <Video src={isNew ? attachment.item : getIPFSLink(attachment.original.url)} />
-          ) : (
-            <img
-              className="object-cover bg-gray-100 rounded-lg border cursor-pointer dark:bg-gray-800 dark:border-gray-700/80"
-              loading="lazy"
-              onClick={() =>
-                window.open(isNew ? attachment.item : getIPFSLink(attachment.original.url), '_blank')
-              }
-              src={
-                isNew
-                  ? getIPFSLink(attachment.item)
-                  : imagekitURL(getIPFSLink(attachment.original.url), 'attachment')
-              }
-              alt={isNew ? attachment.item : imagekitURL(getIPFSLink(attachment.original.url), 'attachment')}
-            />
-          )}
-          {isNew && (
-            <div className="m-3">
-              <button
-                type="button"
-                className="p-1.5 bg-gray-900 rounded-full opacity-75"
-                onClick={() => removeAttachment(attachment)}
-              >
-                <XIcon className="w-4 h-4 text-white" />
-              </button>
-            </div>
-          )}
-        </div>
-      ))}
+      {slicedAttachments?.map((attachment: LensterAttachment & MediaSet) => {
+        const type = isNew ? attachment.type : attachment.original.mimeType;
+        const url = isNew ? getIPFSLink(attachment.item) : getIPFSLink(attachment.original.url);
+
+        return (
+          <div
+            className={clsx(type === 'video/mp4' ? '' : getClass(slicedAttachments?.length)?.aspect)}
+            key={url}
+          >
+            {type === 'video/mp4' ? (
+              <Video src={url} />
+            ) : (
+              <img
+                className="object-cover bg-gray-100 rounded-lg border cursor-pointer dark:bg-gray-800 dark:border-gray-700/80"
+                loading="lazy"
+                onClick={() => window.open(url, '_blank')}
+                src={imagekitURL(url, 'attachment')}
+                alt={imagekitURL(url, 'attachment')}
+              />
+            )}
+            {isNew && (
+              <div className="m-3">
+                <button
+                  type="button"
+                  className="p-1.5 bg-gray-900 rounded-full opacity-75"
+                  onClick={() => removeAttachment(attachment)}
+                >
+                  <XIcon className="w-4 h-4 text-white" />
+                </button>
+              </div>
+            )}
+          </div>
+        );
+      })}
     </div>
   ) : null;
 };
