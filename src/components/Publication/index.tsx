@@ -3,12 +3,14 @@ import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout'
 import Footer from '@components/Shared/Footer';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
 import UserProfile from '@components/Shared/UserProfile';
+import PublicationStaffTool from '@components/StaffTools/Publication';
 import { Card, CardBody } from '@components/UI/Card';
 import Seo from '@components/utils/Seo';
 import { LensterPublication } from '@generated/lenstertypes';
 import { CommentFields } from '@gql/CommentFields';
 import { MirrorFields } from '@gql/MirrorFields';
 import { PostFields } from '@gql/PostFields';
+import isStaff from '@lib/isStaff';
 import { Mixpanel } from '@lib/mixpanel';
 import { apps } from 'data/apps';
 import { NextPage } from 'next';
@@ -80,6 +82,8 @@ export const PUBLICATION_QUERY = gql`
 
 const ViewPublication: NextPage = () => {
   const { push } = useRouter();
+  const currentUser = useAppPersistStore((state) => state.currentUser);
+  const staffMode = useAppPersistStore((state) => state.staffMode);
 
   useEffect(() => {
     Mixpanel.track(PAGEVIEW.PUBLICATION);
@@ -89,7 +93,6 @@ const ViewPublication: NextPage = () => {
     query: { id }
   } = useRouter();
 
-  const currentUser = useAppPersistStore((state) => state.currentUser);
   const { data, loading, error } = useQuery(PUBLICATION_QUERY, {
     variables: {
       request: { publicationId: id },
@@ -145,6 +148,7 @@ const ViewPublication: NextPage = () => {
         </Card>
         <RelevantPeople publication={publication} />
         <OnchainMeta publication={publication} />
+        {isStaff(currentUser?.id) && staffMode && <PublicationStaffTool publication={publication} />}
         <Footer />
       </GridItemFour>
     </GridLayout>

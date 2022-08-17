@@ -9,50 +9,29 @@ import {
   LinkIcon,
   PhotographIcon
 } from '@heroicons/react/outline';
+import { ShieldCheckIcon } from '@heroicons/react/solid';
 import formatAddress from '@lib/formatAddress';
 import getAttribute from '@lib/getAttribute';
 import { getFollowModule } from '@lib/getFollowModule';
 import hasPrideLogo from '@lib/hasPrideLogo';
 import isBeta from '@lib/isBeta';
-import React, { FC, ReactNode } from 'react';
-import CopyToClipboard from 'react-copy-to-clipboard';
-import toast from 'react-hot-toast';
+import React, { FC } from 'react';
 import { APP_NAME } from 'src/constants';
+
+import MetaDetails from './MetaDetails';
 
 interface Props {
   profile: Profile;
 }
 
-const ProfileMod: FC<Props> = ({ profile }) => {
-  const MetaDetails = ({
-    children,
-    title,
-    value,
-    icon
-  }: {
-    children: ReactNode;
-    title?: string;
-    value: string;
-    icon: ReactNode;
-  }) => (
-    <CopyToClipboard
-      text={value}
-      onCopy={() => {
-        toast.success('Copied to clipboard!');
-      }}
-    >
-      <div className="flex gap-2 items-center font-bold cursor-pointer linkify">
-        {icon}
-        {title ? <div className="text-sm text-gray-500">{title}:</div> : null}
-        <div>{children}</div>
-      </div>
-    </CopyToClipboard>
-  );
-
+const ProfileStaffTool: FC<Props> = ({ profile }) => {
   return (
     <Card className="mt-5 border-yellow-400 !bg-yellow-300 !bg-opacity-20">
       <CardBody>
-        <div className="text-lg font-bold">Details</div>
+        <div className="flex items-center space-x-2 text-yellow-600">
+          <ShieldCheckIcon className="h-5 w-5" />
+          <div className="text-lg font-bold">Staff tool</div>
+        </div>
         <div className="mt-3 space-y-1.5">
           {getAttribute(profile?.attributes, 'app') === APP_NAME && (
             <MetaDetails
@@ -125,4 +104,4 @@ const ProfileMod: FC<Props> = ({ profile }) => {
   );
 };
 
-export default ProfileMod;
+export default ProfileStaffTool;
