@@ -2,7 +2,7 @@ import WalletSelector from '@components/Shared/Navbar/Login/WalletSelector';
 import { FC, useState } from 'react';
 import { APP_NAME, IS_MAINNET, STATIC_ASSETS } from 'src/constants';
 
-import Create from './Create';
+import NewProfile from './New';
 
 const Login: FC = () => {
   const [hasConnected, setHasConnected] = useState<boolean>(false);
@@ -58,7 +58,7 @@ const Login: FC = () => {
           </div>
         </div>
       ) : (
-        <Create isModal />
+        <NewProfile isModal />
       )}
     </div>
   );
