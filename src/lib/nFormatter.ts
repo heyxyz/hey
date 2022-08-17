@@ -1,5 +1,11 @@
 import humanize from './humanize';
 
+/**
+ *
+ * @param num - Number to humanize
+ * @param digits - Number of digits to show
+ * @returns humanized number
+ */
 const nFormatter = (num: number, digits = 1): string => {
   const lookup = [
     { value: 1, symbol: '' },

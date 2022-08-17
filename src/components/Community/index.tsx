@@ -45,10 +45,17 @@ const ViewCommunity: NextPage = () => {
     skip: !id
   });
 
-  if (error) return <Custom500 />;
-  if (loading || !data) return <CommunityPageShimmer />;
-  if (!data.publication || data.publication?.metadata?.attributes[0]?.value !== 'community')
+  if (error) {
+    return <Custom500 />;
+  }
+
+  if (loading || !data) {
+    return <CommunityPageShimmer />;
+  }
+
+  if (!data.publication || data.publication?.metadata?.attributes[0]?.value !== 'community') {
     return <Custom404 />;
+  }
 
   return (
     <GridLayout>

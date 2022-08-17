@@ -63,14 +63,22 @@ const ProfileSettings: NextPage = () => {
   const { data, loading, error } = useQuery(PROFILE_SETTINGS_QUERY, {
     variables: { request: { profileId: currentUser?.id } },
     skip: !currentUser?.id,
-    onCompleted(data) {
+    onCompleted: (data) => {
       setSettingsType(data?.profile?.picture?.uri ? 'NFT' : 'AVATAR');
     }
   });
 
-  if (error) return <Custom500 />;
-  if (loading) return <PageLoading message="Loading settings" />;
-  if (!currentUser) return <Custom404 />;
+  if (error) {
+    return <Custom500 />;
+  }
+
+  if (loading) {
+    return <PageLoading message="Loading settings" />;
+  }
+
+  if (!currentUser) {
+    return <Custom404 />;
+  }
 
   const profile = data?.profile;
 

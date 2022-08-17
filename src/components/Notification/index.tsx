@@ -16,7 +16,9 @@ const Notification: FC = () => {
     Mixpanel.track(PAGEVIEW.NOTIFICATION);
   }, []);
 
-  if (!isAuthenticated) return <Custom404 />;
+  if (!isAuthenticated) {
+    return <Custom404 />;
+  }
 
   return (
     <div className="flex flex-grow justify-center px-0 sm:px-6 lg:px-8 py-8">

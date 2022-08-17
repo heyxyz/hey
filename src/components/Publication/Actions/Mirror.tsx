@@ -78,9 +78,12 @@ const Mirror: FC<Props> = ({ publication }) => {
   }, []);
 
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
-    onError(error) {
+    onError: (error) => {
       toast.error(error?.message);
-      Mixpanel.track(PUBLICATION.MIRROR, { result: 'typed_data_error', error: error?.message });
+      Mixpanel.track(PUBLICATION.MIRROR, {
+        result: 'typed_data_error',
+        error: error?.message
+      });
     }
   });
 
@@ -96,31 +99,34 @@ const Mirror: FC<Props> = ({ publication }) => {
     contractInterface: LensHubProxy,
     functionName: 'mirrorWithSig',
     mode: 'recklesslyUnprepared',
-    onSuccess() {
+    onSuccess: () => {
       onCompleted();
     },
-    onError(error: any) {
+    onError: (error: any) => {
       toast.error(error?.data?.message ?? error?.message);
     }
   });
 
   const [broadcast, { loading: broadcastLoading }] = useMutation(BROADCAST_MUTATION, {
     onCompleted,
-    onError(error) {
+    onError: (error) => {
       if (error.message === ERRORS.notMined) {
         toast.error(error.message);
       }
-      Mixpanel.track(PUBLICATION.MIRROR, { result: 'broadcast_error', error: error?.message });
+      Mixpanel.track(PUBLICATION.MIRROR, {
+        result: 'broadcast_error',
+        error: error?.message
+      });
     }
   });
   const [createMirrorTypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_MIRROR_TYPED_DATA_MUTATION,
     {
-      async onCompleted({
+      onCompleted: async ({
         createMirrorTypedData
       }: {
         createMirrorTypedData: CreateMirrorBroadcastItemResult;
-      }) {
+      }) => {
         const { id, typedData } = createMirrorTypedData;
         const {
           profileId,
@@ -155,20 +161,24 @@ const Mirror: FC<Props> = ({ publication }) => {
               data: { broadcast: result }
             } = await broadcast({ variables: { request: { id, signature } } });
 
-            if ('reason' in result) write?.({ recklesslySetUnpreparedArgs: inputStruct });
+            if ('reason' in result) {
+              write?.({ recklesslySetUnpreparedArgs: inputStruct });
+            }
           } else {
             write?.({ recklesslySetUnpreparedArgs: inputStruct });
           }
         } catch (error) {}
       },
-      onError(error) {
+      onError: (error) => {
         toast.error(error.message ?? ERROR_MESSAGE);
       }
     }
   );
 
   const createMirror = () => {
-    if (!isAuthenticated) return toast.error(SIGN_WALLET);
+    if (!isAuthenticated) {
+      return toast.error(SIGN_WALLET);
+    }
 
     createMirrorTypedData({
       variables: {

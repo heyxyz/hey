@@ -9,7 +9,9 @@ interface Props {
 }
 
 const ProofOfHumanity: FC<Props> = ({ profile }) => {
-  if (!profile?.onChainIdentity?.proofOfHumanity) return null;
+  if (!profile?.onChainIdentity?.proofOfHumanity) {
+    return null;
+  }
 
   return (
     <Tooltip

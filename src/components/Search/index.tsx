@@ -18,7 +18,9 @@ const Search: NextPage = () => {
 
   const { query } = useRouter();
 
-  if (!query.q || !['pubs', 'profiles'].includes(query.type as any)) return <Custom404 />;
+  if (!query.q || !['pubs', 'profiles'].includes(query.type as any)) {
+    return <Custom404 />;
+  }
 
   return (
     <>

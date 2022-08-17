@@ -50,10 +50,10 @@ const Like: FC<Props> = ({ publication }) => {
   }, []);
 
   const [addReaction] = useMutation(ADD_REACTION_MUTATION, {
-    onCompleted() {
+    onCompleted: () => {
       Mixpanel.track(PUBLICATION.LIKE, { result: 'success' });
     },
-    onError(error) {
+    onError: (error) => {
       setLiked(!liked);
       setCount(count - 1);
       toast.error(error.message);
@@ -62,10 +62,10 @@ const Like: FC<Props> = ({ publication }) => {
   });
 
   const [removeReaction] = useMutation(REMOVE_REACTION_MUTATION, {
-    onCompleted() {
+    onCompleted: () => {
       Mixpanel.track(PUBLICATION.DISLIKE, { result: 'success' });
     },
-    onError(error) {
+    onError: (error) => {
       setLiked(!liked);
       setCount(count + 1);
       toast.error(error.message);
@@ -74,7 +74,9 @@ const Like: FC<Props> = ({ publication }) => {
   });
 
   const createLike = () => {
-    if (!isAuthenticated) return toast.error(SIGN_WALLET);
+    if (!isAuthenticated) {
+      return toast.error(SIGN_WALLET);
+    }
 
     const variable = {
       variables: {

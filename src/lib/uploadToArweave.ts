@@ -2,7 +2,12 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import { ERROR_MESSAGE } from 'src/constants';
 
-const uploadToArweave = async (data: any) => {
+/**
+ *
+ * @param data - Data to upload to arweave
+ * @returns arweave transaction id
+ */
+const uploadToArweave = async (data: any): Promise<string> => {
   try {
     const upload = await axios('/api/upload', {
       method: 'POST',

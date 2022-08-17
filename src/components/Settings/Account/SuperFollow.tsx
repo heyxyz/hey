@@ -93,7 +93,7 @@ const SuperFollow: FC = () => {
   const [selectedCurrency, setSelectedCurrency] = useState<string>(DEFAULT_COLLECT_TOKEN);
   const [selectedCurrencySymobol, setSelectedCurrencySymobol] = useState<string>('WMATIC');
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
-    onError(error) {
+    onError: (error) => {
       toast.error(error?.message);
       Mixpanel.track(SETTINGS.ACCOUNT.SET_SUPER_FOLLOW, {
         result: 'typed_data_error',
@@ -121,10 +121,10 @@ const SuperFollow: FC = () => {
     contractInterface: LensHubProxy,
     functionName: 'setFollowModuleWithSig',
     mode: 'recklesslyUnprepared',
-    onSuccess() {
+    onSuccess: () => {
       onCompleted();
     },
-    onError(error: any) {
+    onError: (error: any) => {
       toast.error(error?.data?.message ?? error?.message);
     }
   });
@@ -138,7 +138,7 @@ const SuperFollow: FC = () => {
 
   const [broadcast, { data: broadcastData, loading: broadcastLoading }] = useMutation(BROADCAST_MUTATION, {
     onCompleted,
-    onError(error) {
+    onError: (error) => {
       if (error.message === ERRORS.notMined) {
         toast.error(error.message);
       }
@@ -151,11 +151,11 @@ const SuperFollow: FC = () => {
   const [createSetFollowModuleTypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_SET_FOLLOW_MODULE_TYPED_DATA_MUTATION,
     {
-      async onCompleted({
+      onCompleted: async ({
         createSetFollowModuleTypedData
       }: {
         createSetFollowModuleTypedData: CreateSetFollowModuleBroadcastItemResult;
-      }) {
+      }) => {
         const { id, typedData } = createSetFollowModuleTypedData;
         const { profileId, followModule, followModuleInitData, deadline } = typedData?.value;
 
@@ -179,20 +179,24 @@ const SuperFollow: FC = () => {
               data: { broadcast: result }
             } = await broadcast({ variables: { request: { id, signature } } });
 
-            if ('reason' in result) write?.({ recklesslySetUnpreparedArgs: inputStruct });
+            if ('reason' in result) {
+              write?.({ recklesslySetUnpreparedArgs: inputStruct });
+            }
           } else {
             write?.({ recklesslySetUnpreparedArgs: inputStruct });
           }
         } catch (error) {}
       },
-      onError(error) {
+      onError: (error) => {
         toast.error(error.message ?? ERROR_MESSAGE);
       }
     }
   );
 
   const setSuperFollow = (amount: string | null, recipient: string | null) => {
-    if (!isAuthenticated) return toast.error(SIGN_WALLET);
+    if (!isAuthenticated) {
+      return toast.error(SIGN_WALLET);
+    }
 
     createSetFollowModuleTypedData({
       variables: {
@@ -217,7 +221,7 @@ const SuperFollow: FC = () => {
     });
   };
 
-  if (loading)
+  if (loading) {
     return (
       <Card>
         <div className="p-5 py-10 space-y-2 text-center">
@@ -226,6 +230,7 @@ const SuperFollow: FC = () => {
         </div>
       </Card>
     );
+  }
 
   const followType = currencyData?.profile?.followModule?.__typename;
 

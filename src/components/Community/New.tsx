@@ -35,7 +35,9 @@ const newCommunitySchema = object({
   name: string()
     .min(2, { message: 'Name should be atleast 2 characters' })
     .max(31, { message: 'Name should be less than 32 characters' }),
-  description: string().max(260, { message: 'Description should not exceed 260 characters' })
+  description: string().max(260, {
+    message: 'Description should not exceed 260 characters'
+  })
 });
 
 const NewCommunity: NextPage = () => {
@@ -48,9 +50,12 @@ const NewCommunity: NextPage = () => {
   const [isUploading, setIsUploading] = useState<boolean>(false);
   const [uploading, setUploading] = useState<boolean>(false);
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
-    onError(error) {
+    onError: (error) => {
       toast.error(error?.message);
-      Mixpanel.track(COMMUNITY.NEW, { result: 'typed_data_error', error: error?.message });
+      Mixpanel.track(COMMUNITY.NEW, {
+        result: 'typed_data_error',
+        error: error?.message
+      });
     }
   });
 
@@ -71,10 +76,10 @@ const NewCommunity: NextPage = () => {
     contractInterface: LensHubProxy,
     functionName: 'postWithSig',
     mode: 'recklesslyUnprepared',
-    onSuccess() {
+    onSuccess: () => {
       onCompleted();
     },
-    onError(error: any) {
+    onError: (error: any) => {
       toast.error(error?.data?.message ?? error?.message);
     }
   });
@@ -99,15 +104,18 @@ const NewCommunity: NextPage = () => {
 
   const [broadcast, { data: broadcastData, loading: broadcastLoading }] = useMutation(BROADCAST_MUTATION, {
     onCompleted,
-    onError(error) {
+    onError: (error) => {
       if (error.message === ERRORS.notMined) {
         toast.error(error.message);
       }
-      Mixpanel.track(COMMUNITY.NEW, { result: 'broadcast_error', error: error?.message });
+      Mixpanel.track(COMMUNITY.NEW, {
+        result: 'broadcast_error',
+        error: error?.message
+      });
     }
   });
   const [createPostTypedData, { loading: typedDataLoading }] = useMutation(CREATE_POST_TYPED_DATA_MUTATION, {
-    async onCompleted({ createPostTypedData }: { createPostTypedData: CreatePostBroadcastItemResult }) {
+    onCompleted: async ({ createPostTypedData }: { createPostTypedData: CreatePostBroadcastItemResult }) => {
       const { id, typedData } = createPostTypedData;
       const {
         profileId,
@@ -142,19 +150,23 @@ const NewCommunity: NextPage = () => {
             data: { broadcast: result }
           } = await broadcast({ variables: { request: { id, signature } } });
 
-          if ('reason' in result) write?.({ recklesslySetUnpreparedArgs: inputStruct });
+          if ('reason' in result) {
+            write?.({ recklesslySetUnpreparedArgs: inputStruct });
+          }
         } else {
           write?.({ recklesslySetUnpreparedArgs: inputStruct });
         }
       } catch (error) {}
     },
-    onError(error) {
+    onError: (error) => {
       toast.error(error.message ?? ERROR_MESSAGE);
     }
   });
 
   const createCommunity = async (name: string, description: string | null) => {
-    if (!isAuthenticated) return toast.error(SIGN_WALLET);
+    if (!isAuthenticated) {
+      return toast.error(SIGN_WALLET);
+    }
 
     setIsUploading(true);
     const id = await uploadToArweave({
@@ -199,7 +211,9 @@ const NewCommunity: NextPage = () => {
     });
   };
 
-  if (!isAuthenticated) return <Custom404 />;
+  if (!isAuthenticated) {
+    return <Custom404 />;
+  }
 
   return (
     <GridLayout>

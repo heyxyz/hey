@@ -53,9 +53,12 @@ const Unfollow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
   const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
   const [writeLoading, setWriteLoading] = useState<boolean>(false);
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
-    onError(error) {
+    onError: (error) => {
       toast.error(error?.message);
-      Mixpanel.track(PROFILE.UNFOLLOW, { result: 'typed_data_error', error: error?.message });
+      Mixpanel.track(PROFILE.UNFOLLOW, {
+        result: 'typed_data_error',
+        error: error?.message
+      });
     }
   });
   const { data: signer } = useSigner();
@@ -63,11 +66,11 @@ const Unfollow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
   const [createUnfollowTypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_UNFOLLOW_TYPED_DATA_MUTATION,
     {
-      async onCompleted({
+      onCompleted: async ({
         createUnfollowTypedData
       }: {
         createUnfollowTypedData: CreateUnfollowBroadcastItemResult;
-      }) {
+      }) => {
         const { typedData } = createUnfollowTypedData;
         const { deadline } = typedData?.value;
 
@@ -101,14 +104,16 @@ const Unfollow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
           }
         } catch (error) {}
       },
-      onError(error) {
+      onError: (error) => {
         toast.error(error.message ?? ERROR_MESSAGE);
       }
     }
   );
 
   const createUnfollow = () => {
-    if (!isAuthenticated) return toast.error(SIGN_WALLET);
+    if (!isAuthenticated) {
+      return toast.error(SIGN_WALLET);
+    }
 
     createUnfollowTypedData({
       variables: {

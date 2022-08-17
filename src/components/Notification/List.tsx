@@ -157,7 +157,7 @@ const List: FC = () => {
       request: { profileId: currentUser?.id, limit: 10 }
     },
     fetchPolicy: 'no-cache',
-    onCompleted(data) {
+    onCompleted: (data) => {
       setPageInfo(data?.notifications?.pageInfo);
       setNotifications(data?.notifications?.items);
     }
@@ -180,7 +180,7 @@ const List: FC = () => {
     }
   });
 
-  if (loading)
+  if (loading) {
     return (
       <Card className="divide-y dark:divide-gray-700">
         <NotificationShimmer />
@@ -189,10 +189,13 @@ const List: FC = () => {
         <NotificationShimmer />
       </Card>
     );
+  }
 
-  if (error) return <ErrorMessage className="m-3" title="Failed to load notifications" error={error} />;
+  if (error) {
+    return <ErrorMessage className="m-3" title="Failed to load notifications" error={error} />;
+  }
 
-  if (data?.notifications?.items?.length === 0)
+  if (data?.notifications?.items?.length === 0) {
     return (
       <EmptyState
         message={
@@ -204,6 +207,7 @@ const List: FC = () => {
         hideCard
       />
     );
+  }
 
   return (
     <Card className="divide-y dark:divide-gray-700">

@@ -1,3 +1,6 @@
+/**
+ * Sentry ignore
+ */
 export const denyUrls = [
   // Browser extensions
   /^chrome-extension:\/\//i,

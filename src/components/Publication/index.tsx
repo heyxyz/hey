@@ -100,7 +100,7 @@ const ViewPublication: NextPage = () => {
       profileId: currentUser?.id ?? null
     },
     skip: !id,
-    onCompleted(data) {
+    onCompleted: (data) => {
       const isCommunity = data?.publication?.metadata?.attributes[0]?.value === 'community';
       if (isCommunity) {
         push(`/communities/${data.publication?.id}`);
@@ -108,9 +108,17 @@ const ViewPublication: NextPage = () => {
     }
   });
 
-  if (error) return <Custom500 />;
-  if (loading || !data) return <PublicationPageShimmer />;
-  if (!data.publication) return <Custom404 />;
+  if (error) {
+    return <Custom500 />;
+  }
+
+  if (loading || !data) {
+    return <PublicationPageShimmer />;
+  }
+
+  if (!data.publication) {
+    return <Custom404 />;
+  }
 
   const publication: LensterPublication = data.publication;
   const appConfig = apps.filter((e) => e.id === publication?.appId)[0];

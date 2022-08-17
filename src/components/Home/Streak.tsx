@@ -21,7 +21,9 @@ const Streak = () => {
     // eslint-disable-next-line
     typeof window !== 'undefined' ? useStreak(localStorage, today) : undefined;
 
-  if ((streak?.currentCount as number) > 5) return null;
+  if ((streak?.currentCount as number) > 5) {
+    return null;
+  }
 
   return (
     <Card className="mb-4">

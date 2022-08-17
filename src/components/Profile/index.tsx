@@ -107,9 +107,17 @@ const ViewProfile: NextPage = () => {
     skip: !username
   });
 
-  if (error) return <Custom500 />;
-  if (loading || !data) return <ProfilePageShimmer />;
-  if (!data?.profile) return <Custom404 />;
+  if (error) {
+    return <Custom500 />;
+  }
+
+  if (loading || !data) {
+    return <ProfilePageShimmer />;
+  }
+
+  if (!data?.profile) {
+    return <Custom404 />;
+  }
 
   const profile = data?.profile;
 

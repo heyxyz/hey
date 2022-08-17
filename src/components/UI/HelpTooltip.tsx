@@ -9,7 +9,9 @@ interface Props {
 }
 
 const HelpTooltip: FC<Props> = ({ content }) => {
-  if (!content) return null;
+  if (!content) {
+    return null;
+  }
 
   return (
     <Tippy

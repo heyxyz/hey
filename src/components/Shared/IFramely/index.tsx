@@ -55,7 +55,9 @@ const IFramely: FC<Props> = ({ url }) => {
     html: data?.links?.player ? data?.links?.player[0]?.html : null
   };
 
-  if (!og.title) return null;
+  if (!og.title) {
+    return null;
+  }
 
   return og.html ? <Player og={og} /> : <Embed og={og} />;
 };

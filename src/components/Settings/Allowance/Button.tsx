@@ -43,14 +43,14 @@ const AllowanceButton: FC<Props> = ({ title = 'Allow', module, allowed, setAllow
   } = useSendTransaction({
     ...config,
     mode: 'recklesslyUnprepared',
-    onError(error: any) {
+    onError: (error: any) => {
       toast.error(error?.data?.message ?? error?.message);
     }
   });
 
   const { isLoading: waitLoading } = useWaitForTransaction({
     hash: txData?.hash,
-    onSuccess() {
+    onSuccess: () => {
       toast.success(`Module ${allowed ? 'disabled' : 'enabled'} successfully!`);
       setShowWarninModal(false);
       setAllowed(!allowed);
@@ -58,7 +58,7 @@ const AllowanceButton: FC<Props> = ({ title = 'Allow', module, allowed, setAllow
         result: 'success'
       });
     },
-    onError(error: any) {
+    onError: (error: any) => {
       toast.error(error?.data?.message ?? error?.message);
     }
   });

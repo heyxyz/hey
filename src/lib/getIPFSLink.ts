@@ -1,5 +1,10 @@
 import { IPFS_GATEWAY } from 'src/constants';
 
+/**
+ *
+ * @param hash - IPFS hash
+ * @returns IPFS link
+ */
 const getIPFSLink = (hash: string): string => {
   const gateway = IPFS_GATEWAY;
 

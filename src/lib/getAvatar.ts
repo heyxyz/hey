@@ -3,6 +3,11 @@ import { Profile } from '@generated/types';
 import getIPFSLink from './getIPFSLink';
 import imagekitURL from './imagekitURL';
 
+/**
+ *
+ * @param profile - Profile object
+ * @returns avatar image url
+ */
 const getAvatar = (profile: Profile): string => {
   return imagekitURL(
     getIPFSLink(

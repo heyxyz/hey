@@ -88,9 +88,12 @@ const NFTPicture: FC<Props> = ({ profile }) => {
   const currentUser = useAppPersistStore((state) => state.currentUser);
   const [chainId, setChainId] = useState<number>(IS_MAINNET ? chain.mainnet.id : chain.kovan.id);
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
-    onError(error) {
+    onError: (error) => {
       toast.error(error?.message);
-      Mixpanel.track(SETTINGS.PROFILE.SET_NFT_PICTURE, { result: 'typed_data_error', error: error?.message });
+      Mixpanel.track(SETTINGS.PROFILE.SET_NFT_PICTURE, {
+        result: 'typed_data_error',
+        error: error?.message
+      });
     }
   });
   const { signMessageAsync } = useSignMessage();
@@ -120,20 +123,20 @@ const NFTPicture: FC<Props> = ({ profile }) => {
     contractInterface: LensHubProxy,
     functionName: 'setProfileImageURIWithSig',
     mode: 'recklesslyUnprepared',
-    onSuccess() {
+    onSuccess: () => {
       onCompleted();
     },
-    onError(error: any) {
+    onError: (error: any) => {
       toast.error(error?.data?.message ?? error?.message);
     }
   });
 
   const [loadChallenge, { loading: challengeLoading }] = useLazyQuery(CHALLENGE_QUERY);
   const [broadcast, { data: broadcastData, loading: broadcastLoading }] = useMutation(BROADCAST_MUTATION, {
-    onCompleted() {
+    onCompleted: () => {
       onCompleted();
     },
-    onError(error) {
+    onError: (error) => {
       if (error.message === ERRORS.notMined) {
         toast.error(error.message);
       }
@@ -146,11 +149,11 @@ const NFTPicture: FC<Props> = ({ profile }) => {
   const [createSetProfileImageURITypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_SET_PROFILE_IMAGE_URI_TYPED_DATA_MUTATION,
     {
-      async onCompleted({
+      onCompleted: async ({
         createSetProfileImageURITypedData
       }: {
         createSetProfileImageURITypedData: CreateSetProfileImageUriBroadcastItemResult;
-      }) {
+      }) => {
         const { id, typedData } = createSetProfileImageURITypedData;
         const { deadline } = typedData?.value;
 
@@ -174,20 +177,24 @@ const NFTPicture: FC<Props> = ({ profile }) => {
               data: { broadcast: result }
             } = await broadcast({ variables: { request: { id, signature } } });
 
-            if ('reason' in result) write?.({ recklesslySetUnpreparedArgs: inputStruct });
+            if ('reason' in result) {
+              write?.({ recklesslySetUnpreparedArgs: inputStruct });
+            }
           } else {
             write?.({ recklesslySetUnpreparedArgs: inputStruct });
           }
         } catch (error) {}
       },
-      onError(error) {
+      onError: (error) => {
         toast.error(error.message ?? ERROR_MESSAGE);
       }
     }
   );
 
   const setAvatar = async (contractAddress: string, tokenId: string) => {
-    if (!isAuthenticated) return toast.error(SIGN_WALLET);
+    if (!isAuthenticated) {
+      return toast.error(SIGN_WALLET);
+    }
 
     const challengeRes = await loadChallenge({
       variables: {

@@ -41,7 +41,7 @@ const Following: FC<Props> = ({ profile }) => {
   const { data, loading, error, fetchMore } = useQuery(FOLLOWING_QUERY, {
     variables: { request: { address: profile?.ownedBy, limit: 10 } },
     skip: !profile?.id,
-    onCompleted(data) {
+    onCompleted: (data) => {
       setPageInfo(data?.following?.pageInfo);
       setFollowing(data?.following?.items);
     }
@@ -64,9 +64,11 @@ const Following: FC<Props> = ({ profile }) => {
     }
   });
 
-  if (loading) return <Loader message="Loading following" />;
+  if (loading) {
+    return <Loader message="Loading following" />;
+  }
 
-  if (data?.following?.items?.length === 0)
+  if (data?.following?.items?.length === 0) {
     return (
       <EmptyState
         message={
@@ -79,6 +81,7 @@ const Following: FC<Props> = ({ profile }) => {
         hideCard
       />
     );
+  }
 
   return (
     <div className="overflow-y-auto max-h-[80vh]">

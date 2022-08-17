@@ -75,7 +75,9 @@ const Crowdfund: FC<Props> = ({ fund }) => {
   const percentageReached = revenue ? (revenue / parseInt(goalAmount as string)) * 100 : 0;
   const cover = fund?.metadata?.cover?.original?.url;
 
-  if (loading) return <CrowdfundShimmer />;
+  if (loading) {
+    return <CrowdfundShimmer />;
+  }
 
   return (
     <Card forceRounded>

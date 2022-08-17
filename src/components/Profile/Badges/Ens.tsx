@@ -8,7 +8,9 @@ interface Props {
 }
 
 const Ens: FC<Props> = ({ profile }) => {
-  if (!profile?.onChainIdentity?.ens?.name) return null;
+  if (!profile?.onChainIdentity?.ens?.name) {
+    return null;
+  }
 
   return (
     <Tooltip

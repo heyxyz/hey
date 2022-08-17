@@ -58,9 +58,12 @@ const Join: FC<Props> = ({ community, setJoined, showJoin = true }) => {
   const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
   const { address } = useAccount();
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
-    onError(error) {
+    onError: (error) => {
       toast.error(error?.message);
-      Mixpanel.track(COMMUNITY.JOIN, { result: 'typed_data_error', error: error?.message });
+      Mixpanel.track(COMMUNITY.JOIN, {
+        result: 'typed_data_error',
+        error: error?.message
+      });
     }
   });
 
@@ -75,32 +78,35 @@ const Join: FC<Props> = ({ community, setJoined, showJoin = true }) => {
     contractInterface: LensHubProxy,
     functionName: 'collectWithSig',
     mode: 'recklesslyUnprepared',
-    onSuccess() {
+    onSuccess: () => {
       onCompleted();
     },
-    onError(error: any) {
+    onError: (error: any) => {
       toast.error(error?.data?.message ?? error?.message);
     }
   });
 
   const [broadcast, { loading: broadcastLoading }] = useMutation(BROADCAST_MUTATION, {
     onCompleted,
-    onError(error) {
+    onError: (error) => {
       if (error.message === ERRORS.notMined) {
         toast.error(error.message);
       }
-      Mixpanel.track(COMMUNITY.JOIN, { result: 'broadcast_error', error: error?.message });
+      Mixpanel.track(COMMUNITY.JOIN, {
+        result: 'broadcast_error',
+        error: error?.message
+      });
     }
   });
 
   const [createCollectTypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_COLLECT_TYPED_DATA_MUTATION,
     {
-      async onCompleted({
+      onCompleted: async ({
         createCollectTypedData
       }: {
         createCollectTypedData: CreateCollectBroadcastItemResult;
-      }) {
+      }) => {
         const { id, typedData } = createCollectTypedData;
         const { deadline } = typedData?.value;
 
@@ -126,20 +132,24 @@ const Join: FC<Props> = ({ community, setJoined, showJoin = true }) => {
               data: { broadcast: result }
             } = await broadcast({ variables: { request: { id, signature } } });
 
-            if ('reason' in result) write?.({ recklesslySetUnpreparedArgs: inputStruct });
+            if ('reason' in result) {
+              write?.({ recklesslySetUnpreparedArgs: inputStruct });
+            }
           } else {
             write?.({ recklesslySetUnpreparedArgs: inputStruct });
           }
         } catch (error) {}
       },
-      onError(error) {
+      onError: (error) => {
         toast.error(error.message ?? ERROR_MESSAGE);
       }
     }
   );
 
   const createCollect = () => {
-    if (!isAuthenticated) return toast.error(SIGN_WALLET);
+    if (!isAuthenticated) {
+      return toast.error(SIGN_WALLET);
+    }
 
     createCollectTypedData({
       variables: {

@@ -121,7 +121,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
   const [allowed, setAllowed] = useState<boolean>(true);
   const { address } = useAccount();
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
-    onError(error) {
+    onError: (error) => {
       toast.error(error?.message);
       Mixpanel.track(PUBLICATION.COLLECT_MODULE.COLLECT, {
         result: 'typed_data_error',
@@ -155,10 +155,10 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
     contractInterface: LensHubProxy,
     functionName: 'collectWithSig',
     mode: 'recklesslyUnprepared',
-    onSuccess() {
+    onSuccess: () => {
       onCompleted();
     },
-    onError(error: any) {
+    onError: (error: any) => {
       toast.error(error?.data?.message ?? error?.message);
     }
   });
@@ -175,7 +175,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
       }
     },
     skip: !collectModule?.amount?.asset?.address || !isConnected,
-    onCompleted(data) {
+    onCompleted: (data) => {
       setAllowed(data?.approvedModuleAllowanceAmount[0]?.allowance !== '0x00');
     }
   });
@@ -212,7 +212,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
 
   const [broadcast, { data: broadcastData, loading: broadcastLoading }] = useMutation(BROADCAST_MUTATION, {
     onCompleted,
-    onError(error) {
+    onError: (error) => {
       if (error.message === ERRORS.notMined) {
         toast.error(error.message);
       }
@@ -225,11 +225,11 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
   const [createCollectTypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_COLLECT_TYPED_DATA_MUTATION,
     {
-      async onCompleted({
+      onCompleted: async ({
         createCollectTypedData
       }: {
         createCollectTypedData: CreateCollectBroadcastItemResult;
-      }) {
+      }) => {
         const { id, typedData } = createCollectTypedData;
         const { deadline } = typedData?.value;
 
@@ -255,20 +255,24 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
               data: { broadcast: result }
             } = await broadcast({ variables: { request: { id, signature } } });
 
-            if ('reason' in result) write?.({ recklesslySetUnpreparedArgs: inputStruct });
+            if ('reason' in result) {
+              write?.({ recklesslySetUnpreparedArgs: inputStruct });
+            }
           } else {
             write?.({ recklesslySetUnpreparedArgs: inputStruct });
           }
         } catch (error) {}
       },
-      onError(error) {
+      onError: (error) => {
         toast.error(error.message ?? ERROR_MESSAGE);
       }
     }
   );
 
   const createCollect = () => {
-    if (!isConnected) return toast.error(CONNECT_WALLET);
+    if (!isConnected) {
+      return toast.error(CONNECT_WALLET);
+    }
 
     createCollectTypedData({
       variables: {
@@ -278,7 +282,9 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
     });
   };
 
-  if (loading || revenueLoading) return <Loader message="Loading collect" />;
+  if (loading || revenueLoading) {
+    return <Loader message="Loading collect" />;
+  }
 
   return (
     <>
