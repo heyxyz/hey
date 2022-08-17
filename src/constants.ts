@@ -86,6 +86,7 @@ export const URL_REGEX =
   /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/;
 export const ADDRESS_REGEX = /^(0x)?[0-9a-f]{40}$/i;
 export const HANDLE_REGEX = /^[a-z0-9]+$/;
+export const HANDLE_SANITIZE_REGEX = /[^a-zA-Z0-9. ]/g;
 
 // Bundlr
 export const BUNDLR_CURRENCY = 'matic';
