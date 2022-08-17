@@ -13,7 +13,7 @@ const Uniswap: FC<Props> = ({ module }) => {
   return (
     <div className="space-y-1">
       <div className="text-sm">
-        You don&apos;t have enough <b>{module?.amount?.asset?.symbol}</b>
+        You don't have enough <b>{module?.amount?.asset?.symbol}</b>
       </div>
       <a
         href={getUniswapURL(parseFloat(module?.amount?.value), module?.amount?.asset?.address)}
