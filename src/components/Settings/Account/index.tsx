@@ -21,7 +21,9 @@ const AccountSettings: NextPage = () => {
     Mixpanel.track(PAGEVIEW.SETTINGS.ACCOUNT);
   }, []);
 
-  if (!currentUser) return <Custom404 />;
+  if (!currentUser) {
+    return <Custom404 />;
+  }
 
   return (
     <GridLayout>

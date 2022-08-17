@@ -70,13 +70,17 @@ const CREATE_SET_PROFILE_METADATA_TYPED_DATA_MUTATION = gql`
 
 const editProfileSchema = object({
   name: string().max(100, { message: 'Name should not exceed 100 characters' }),
-  location: string().max(100, { message: 'Location should not exceed 100 characters' }),
+  location: string().max(100, {
+    message: 'Location should not exceed 100 characters'
+  }),
   website: optional(
     string()
       .regex(URL_REGEX, { message: 'Invalid website' })
       .max(100, { message: 'Website should not exceed 100 characters' })
   ),
-  twitter: string().max(100, { message: 'Twitter should not exceed 100 characters' }),
+  twitter: string().max(100, {
+    message: 'Twitter should not exceed 100 characters'
+  }),
   bio: string().max(260, { message: 'Bio should not exceed 260 characters' })
 });
 
@@ -95,9 +99,12 @@ const Profile: FC<Props> = ({ profile }) => {
   const [isUploading, setIsUploading] = useState<boolean>(false);
   const [uploading, setUploading] = useState<boolean>(false);
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
-    onError(error) {
+    onError: (error) => {
       toast.error(error?.message);
-      Mixpanel.track(SETTINGS.PROFILE.UPDATE, { result: 'typed_data_error', error: error?.message });
+      Mixpanel.track(SETTINGS.PROFILE.UPDATE, {
+        result: 'typed_data_error',
+        error: error?.message
+      });
     }
   });
 
@@ -118,17 +125,17 @@ const Profile: FC<Props> = ({ profile }) => {
     contractInterface: LensPeriphery,
     functionName: 'setProfileMetadataURIWithSig',
     mode: 'recklesslyUnprepared',
-    onSuccess() {
+    onSuccess: () => {
       onCompleted();
     },
-    onError(error: any) {
+    onError: (error: any) => {
       toast.error(error?.data?.message ?? error?.message);
     }
   });
 
   const [broadcast, { data: broadcastData, loading: broadcastLoading }] = useMutation(BROADCAST_MUTATION, {
     onCompleted,
-    onError(error) {
+    onError: (error) => {
       if (error.message === ERRORS.notMined) {
         toast.error(error.message);
       }
@@ -141,11 +148,11 @@ const Profile: FC<Props> = ({ profile }) => {
   const [createSetProfileMetadataTypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_SET_PROFILE_METADATA_TYPED_DATA_MUTATION,
     {
-      async onCompleted({
+      onCompleted: async ({
         createSetProfileMetadataTypedData
       }: {
         createSetProfileMetadataTypedData: CreateSetProfileMetadataUriBroadcastItemResult;
-      }) {
+      }) => {
         const { id, typedData } = createSetProfileMetadataTypedData;
         const { deadline } = typedData?.value;
 
@@ -170,13 +177,15 @@ const Profile: FC<Props> = ({ profile }) => {
               data: { broadcast: result }
             } = await broadcast({ variables: { request: { id, signature } } });
 
-            if ('reason' in result) write?.({ recklesslySetUnpreparedArgs: inputStruct });
+            if ('reason' in result) {
+              write?.({ recklesslySetUnpreparedArgs: inputStruct });
+            }
           } else {
             write?.({ recklesslySetUnpreparedArgs: inputStruct });
           }
         } catch (error) {}
       },
-      onError(error) {
+      onError: (error) => {
         toast.error(error.message ?? ERROR_MESSAGE);
       }
     }
@@ -220,7 +229,9 @@ const Profile: FC<Props> = ({ profile }) => {
     twitter: string | null,
     bio: string | null
   ) => {
-    if (!isAuthenticated) return toast.error(SIGN_WALLET);
+    if (!isAuthenticated) {
+      return toast.error(SIGN_WALLET);
+    }
 
     setIsUploading(true);
     const id = await uploadToArweave({

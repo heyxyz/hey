@@ -61,7 +61,7 @@ const SiteLayout: FC<Props> = ({ children }) => {
   const { loading } = useQuery(CURRENT_USER_QUERY, {
     variables: { ownedBy: address },
     skip: !isConnected,
-    onCompleted(data) {
+    onCompleted: (data) => {
       const profiles: Profile[] = data?.profiles?.items
         ?.slice()
         ?.sort((a: Profile, b: Profile) => Number(a.id) - Number(b.id))
@@ -107,7 +107,9 @@ const SiteLayout: FC<Props> = ({ children }) => {
       Cookies.remove('accessToken');
       Cookies.remove('refreshToken');
       localStorage.removeItem('lenster.store');
-      if (disconnect) disconnect();
+      if (disconnect) {
+        disconnect();
+      }
     };
 
     if (
@@ -120,11 +122,15 @@ const SiteLayout: FC<Props> = ({ children }) => {
     ) {
       setIsAuthenticated(true);
     } else {
-      if (isAuthenticated) logout();
+      if (isAuthenticated) {
+        logout();
+      }
     }
 
     if (isDisconnected) {
-      if (disconnect) disconnect();
+      if (disconnect) {
+        disconnect();
+      }
       setIsAuthenticated(false);
       setIsConnected(false);
     }
@@ -157,7 +163,9 @@ const SiteLayout: FC<Props> = ({ children }) => {
     loading: { className: 'border border-gray-300' }
   };
 
-  if (loading || !mounted) return <Loading />;
+  if (loading || !mounted) {
+    return <Loading />;
+  }
 
   return (
     <>

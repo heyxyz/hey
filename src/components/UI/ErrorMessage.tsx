@@ -7,7 +7,9 @@ interface Props {
 }
 
 export const ErrorMessage: FC<Props> = ({ title, error, className = '' }) => {
-  if (!error) return null;
+  if (!error) {
+    return null;
+  }
 
   return (
     <div

@@ -9,7 +9,9 @@ interface Props {
 }
 
 const Sybil: FC<Props> = ({ profile }) => {
-  if (!profile?.onChainIdentity?.sybilDotOrg?.verified) return null;
+  if (!profile?.onChainIdentity?.sybilDotOrg?.verified) {
+    return null;
+  }
 
   return (
     <Tooltip

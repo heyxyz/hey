@@ -64,9 +64,17 @@ const AllowanceSettings: NextPage = () => {
     skip: !currentUser?.id
   });
 
-  if (error) return <Custom500 />;
-  if (loading) return <PageLoading message="Loading settings" />;
-  if (!currentUser) return <Custom404 />;
+  if (error) {
+    return <Custom500 />;
+  }
+
+  if (loading) {
+    return <PageLoading message="Loading settings" />;
+  }
+
+  if (!currentUser) {
+    return <Custom404 />;
+  }
 
   return (
     <GridLayout>

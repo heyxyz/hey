@@ -48,7 +48,7 @@ const RelevantPeople: FC<Props> = ({ publication }) => {
     variables: { request: { handles: cleanedMentions.slice(0, 5) } }
   });
 
-  if (loading)
+  if (loading) {
     return (
       <Card>
         <CardBody className="space-y-4">
@@ -60,8 +60,11 @@ const RelevantPeople: FC<Props> = ({ publication }) => {
         </CardBody>
       </Card>
     );
+  }
 
-  if (data?.profiles?.items?.length === 0) return null;
+  if (data?.profiles?.items?.length === 0) {
+    return null;
+  }
 
   return (
     <Card>

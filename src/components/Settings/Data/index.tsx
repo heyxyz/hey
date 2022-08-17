@@ -26,7 +26,9 @@ const DataSettings: FC = () => {
     }
   }, []);
 
-  if (!currentUser) return <Custom404 />;
+  if (!currentUser) {
+    return <Custom404 />;
+  }
 
   return (
     <GridLayout>

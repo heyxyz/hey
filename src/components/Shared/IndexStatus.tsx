@@ -20,7 +20,7 @@ const IndexStatus: FC<Props> = ({ type = 'Transaction', txHash, reload = false }
       request: { txHash }
     },
     pollInterval,
-    onCompleted(data) {
+    onCompleted: (data) => {
       if (data?.hasTxHashBeenIndexed?.indexed) {
         setPollInterval(0);
         if (reload) {

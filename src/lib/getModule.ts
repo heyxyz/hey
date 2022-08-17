@@ -1,5 +1,10 @@
 import { FREE_COLLECT_MODULE } from 'src/constants';
 
+/**
+ *
+ * @param name - Module to format
+ * @returns module config
+ */
 export const getModule = (
   name: string
 ): {

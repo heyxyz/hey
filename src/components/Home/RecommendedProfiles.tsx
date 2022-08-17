@@ -45,7 +45,7 @@ const Title = () => {
 const RecommendedProfiles: FC = () => {
   const { data, loading, error } = useQuery(RECOMMENDED_PROFILES_QUERY);
 
-  if (loading)
+  if (loading) {
     return (
       <>
         <Title />
@@ -60,8 +60,9 @@ const RecommendedProfiles: FC = () => {
         </Card>
       </>
     );
+  }
 
-  if (data?.recommendedProfiles?.length === 0)
+  if (data?.recommendedProfiles?.length === 0) {
     return (
       <>
         <Title />
@@ -75,6 +76,7 @@ const RecommendedProfiles: FC = () => {
         />
       </>
     );
+  }
 
   return (
     <>

@@ -10,7 +10,9 @@ const SetDefaultProfile: FC = () => {
   const hasDefaultProfile = !!profiles.find((o) => o.isDefault);
   const count = profiles.length;
 
-  if (currentUser || hasDefaultProfile) return null;
+  if (currentUser || hasDefaultProfile) {
+    return null;
+  }
 
   return (
     <Card className="mb-4 bg-green-50 dark:bg-green-900 !border-green-600">

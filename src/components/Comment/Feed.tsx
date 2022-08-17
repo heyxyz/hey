@@ -59,7 +59,7 @@ const Feed: FC<Props> = ({ publication, type = 'comment', onlyFollowers = false,
     },
     skip: !pubId,
     fetchPolicy: 'no-cache',
-    onCompleted(data) {
+    onCompleted: (data) => {
       setPageInfo(data?.publications?.pageInfo);
       setPublications(data?.publications?.items);
     }

@@ -49,7 +49,9 @@ export const MentionTextArea: FC<Props> = ({ error, setError, placeholder = '' }
   const [searchUsers] = useLazyQuery(SEARCH_USERS_QUERY);
 
   const fetchUsers = (query: string, callback: any) => {
-    if (!query) return;
+    if (!query) {
+      return;
+    }
 
     searchUsers({
       variables: { request: { type: 'PROFILE', query, limit: 5 } }

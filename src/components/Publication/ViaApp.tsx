@@ -10,7 +10,9 @@ interface Props {
 }
 
 const ViaApp: FC<Props> = ({ appConfig }) => {
-  if (!appConfig) return null;
+  if (!appConfig) {
+    return null;
+  }
 
   return (
     <div className="flex items-center py-3 px-5 space-x-2 text-gray-500 border-t dark:border-t-gray-700/80">

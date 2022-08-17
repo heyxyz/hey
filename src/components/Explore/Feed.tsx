@@ -64,7 +64,7 @@ const Feed: FC<Props> = ({ feedType = 'TOP_COMMENTED' }) => {
       reactionRequest: currentUser ? { profileId: currentUser?.id } : null,
       profileId: currentUser?.id ?? null
     },
-    onCompleted(data) {
+    onCompleted: (data) => {
       setPageInfo(data?.explorePublications?.pageInfo);
       setPublications(data?.explorePublications?.items);
     }

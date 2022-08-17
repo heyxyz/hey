@@ -68,9 +68,12 @@ const DeleteSettings: FC = () => {
 
   const { disconnect } = useDisconnect();
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
-    onError(error) {
+    onError: (error) => {
       toast.error(error?.message);
-      Mixpanel.track(SETTINGS.DELETE, { result: 'typed_data_error', error: error?.message });
+      Mixpanel.track(SETTINGS.DELETE, {
+        result: 'typed_data_error',
+        error: error?.message
+      });
     }
   });
 
@@ -82,7 +85,9 @@ const DeleteSettings: FC = () => {
     Cookies.remove('accessToken');
     Cookies.remove('refreshToken');
     localStorage.removeItem('lenster.store');
-    if (disconnect) disconnect();
+    if (disconnect) {
+      disconnect();
+    }
     location.href = '/';
   };
 
@@ -91,10 +96,10 @@ const DeleteSettings: FC = () => {
     contractInterface: LensHubProxy,
     functionName: 'burnWithSig',
     mode: 'recklesslyUnprepared',
-    onSuccess() {
+    onSuccess: () => {
       onCompleted();
     },
-    onError(error: any) {
+    onError: (error: any) => {
       toast.error(error?.data?.message ?? error?.message);
     }
   });
@@ -102,11 +107,11 @@ const DeleteSettings: FC = () => {
   const [createBurnProfileTypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_BURN_PROFILE_TYPED_DATA_MUTATION,
     {
-      async onCompleted({
+      onCompleted: async ({
         createBurnProfileTypedData
       }: {
         createBurnProfileTypedData: CreateBurnProfileBroadcastItemResult;
-      }) {
+      }) => {
         const { typedData } = createBurnProfileTypedData;
         const { deadline } = typedData?.value;
 
@@ -124,14 +129,16 @@ const DeleteSettings: FC = () => {
           write?.({ recklesslySetUnpreparedArgs: [tokenId, sig] });
         } catch (error) {}
       },
-      onError(error) {
+      onError: (error) => {
         toast.error(error.message ?? ERROR_MESSAGE);
       }
     }
   );
 
   const handleDelete = () => {
-    if (!isAuthenticated) return toast.error(SIGN_WALLET);
+    if (!isAuthenticated) {
+      return toast.error(SIGN_WALLET);
+    }
 
     createBurnProfileTypedData({
       variables: {
@@ -143,7 +150,9 @@ const DeleteSettings: FC = () => {
 
   const isDeleting = typedDataLoading || signLoading || writeLoading;
 
-  if (!currentUser) return <Custom404 />;
+  if (!currentUser) {
+    return <Custom404 />;
+  }
 
   return (
     <GridLayout>

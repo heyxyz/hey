@@ -63,7 +63,7 @@ const Feed: FC<Props> = ({ profile, type }) => {
     },
     skip: !profile?.id,
     fetchPolicy: 'no-cache',
-    onCompleted(data) {
+    onCompleted: (data) => {
       setPageInfo(data?.publications?.pageInfo);
       setPublications(data?.publications?.items);
     }

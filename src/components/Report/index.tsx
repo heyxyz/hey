@@ -64,7 +64,7 @@ const Report: FC = () => {
   const [createReport, { data: submitData, loading: submitLoading, error: submitError }] = useMutation(
     CREATE_REPORT_PUBLICATION_MUTATION,
     {
-      onCompleted() {
+      onCompleted: () => {
         Mixpanel.track(PUBLICATION.REPORT, { result: 'success' });
       }
     }
@@ -91,7 +91,9 @@ const Report: FC = () => {
     });
   };
 
-  if (!currentUser || !id) return <Custom404 />;
+  if (!currentUser || !id) {
+    return <Custom404 />;
+  }
 
   return (
     <GridLayout>

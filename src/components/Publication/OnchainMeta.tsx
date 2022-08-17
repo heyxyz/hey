@@ -31,7 +31,9 @@ const OnchainMeta: FC<Props> = ({ publication }) => {
   const isArweaveHash = hash?.length === 43;
   const isIPFSHash = hash?.length === 46;
 
-  if (!isArweaveHash && !isIPFSHash && !publication?.collectNftAddress) return null;
+  if (!isArweaveHash && !isIPFSHash && !publication?.collectNftAddress) {
+    return null;
+  }
 
   return (
     <Card>

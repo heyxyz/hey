@@ -102,9 +102,12 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
   const [isUploading, setIsUploading] = useState<boolean>(false);
   const [attachments, setAttachments] = useState<LensterAttachment[]>([]);
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
-    onError(error) {
+    onError: (error) => {
       toast.error(error?.message);
-      Mixpanel.track(POST.NEW, { result: 'typed_data_error', error: error?.message });
+      Mixpanel.track(POST.NEW, {
+        result: 'typed_data_error',
+        error: error?.message
+      });
     }
   });
 
@@ -127,25 +130,28 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
     contractInterface: LensHubProxy,
     functionName: 'postWithSig',
     mode: 'recklesslyUnprepared',
-    onSuccess() {
+    onSuccess: () => {
       onCompleted();
     },
-    onError(error: any) {
+    onError: (error: any) => {
       toast.error(error?.data?.message ?? error?.message);
     }
   });
 
   const [broadcast, { data: broadcastData, loading: broadcastLoading }] = useMutation(BROADCAST_MUTATION, {
     onCompleted,
-    onError(error) {
+    onError: (error) => {
       if (error.message === ERRORS.notMined) {
         toast.error(error.message);
       }
-      Mixpanel.track(POST.NEW, { result: 'broadcast_error', error: error?.message });
+      Mixpanel.track(POST.NEW, {
+        result: 'broadcast_error',
+        error: error?.message
+      });
     }
   });
   const [createPostTypedData, { loading: typedDataLoading }] = useMutation(CREATE_POST_TYPED_DATA_MUTATION, {
-    async onCompleted({ createPostTypedData }: { createPostTypedData: CreatePostBroadcastItemResult }) {
+    onCompleted: async ({ createPostTypedData }: { createPostTypedData: CreatePostBroadcastItemResult }) => {
       const { id, typedData } = createPostTypedData;
       const {
         profileId,
@@ -180,19 +186,23 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
             data: { broadcast: result }
           } = await broadcast({ variables: { request: { id, signature } } });
 
-          if ('reason' in result) write?.({ recklesslySetUnpreparedArgs: inputStruct });
+          if ('reason' in result) {
+            write?.({ recklesslySetUnpreparedArgs: inputStruct });
+          }
         } else {
           write?.({ recklesslySetUnpreparedArgs: inputStruct });
         }
       } catch (error) {}
     },
-    onError(error) {
+    onError: (error) => {
       toast.error(error.message ?? ERROR_MESSAGE);
     }
   });
 
   const createPost = async () => {
-    if (!isAuthenticated) return toast.error(SIGN_WALLET);
+    if (!isAuthenticated) {
+      return toast.error(SIGN_WALLET);
+    }
     if (publicationContent.length === 0 && attachments.length === 0) {
       Mixpanel.track(POST.NEW, { result: 'empty' });
       return setPostContentError('Post should not be empty!');

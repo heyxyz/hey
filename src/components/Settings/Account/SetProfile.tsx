@@ -60,7 +60,7 @@ const SetProfile: FC = () => {
   const [selectedUser, setSelectedUser] = useState<string>();
   const { address } = useAccount();
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
-    onError(error) {
+    onError: (error) => {
       toast.error(error?.message);
       Mixpanel.track(SETTINGS.ACCOUNT.SET_DEFAULT_PROFILE, {
         result: 'typed_data_error',
@@ -84,10 +84,10 @@ const SetProfile: FC = () => {
     contractInterface: LensHubProxy,
     functionName: 'setDefaultProfileWithSig',
     mode: 'recklesslyUnprepared',
-    onSuccess() {
+    onSuccess: () => {
       onCompleted();
     },
-    onError(error: any) {
+    onError: (error: any) => {
       toast.error(error?.data?.message ?? error?.message);
     }
   });
@@ -104,7 +104,7 @@ const SetProfile: FC = () => {
 
   const [broadcast, { data: broadcastData, loading: broadcastLoading }] = useMutation(BROADCAST_MUTATION, {
     onCompleted,
-    onError(error) {
+    onError: (error) => {
       if (error.message === ERRORS.notMined) {
         toast.error(error.message);
       }
@@ -117,11 +117,11 @@ const SetProfile: FC = () => {
   const [createSetDefaultProfileTypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_SET_DEFAULT_PROFILE_DATA_MUTATION,
     {
-      async onCompleted({
+      onCompleted: async ({
         createSetDefaultProfileTypedData
       }: {
         createSetDefaultProfileTypedData: SetDefaultProfileBroadcastItemResult;
-      }) {
+      }) => {
         const { id, typedData } = createSetDefaultProfileTypedData;
         const { deadline } = typedData?.value;
 
@@ -146,20 +146,24 @@ const SetProfile: FC = () => {
               data: { broadcast: result }
             } = await broadcast({ variables: { request: { id, signature } } });
 
-            if ('reason' in result) write?.({ recklesslySetUnpreparedArgs: inputStruct });
+            if ('reason' in result) {
+              write?.({ recklesslySetUnpreparedArgs: inputStruct });
+            }
           } else {
             write?.({ recklesslySetUnpreparedArgs: inputStruct });
           }
         } catch (error) {}
       },
-      onError(error) {
+      onError: (error) => {
         toast.error(error.message ?? ERROR_MESSAGE);
       }
     }
   );
 
   const setDefaultProfile = () => {
-    if (!isAuthenticated) return toast.error(SIGN_WALLET);
+    if (!isAuthenticated) {
+      return toast.error(SIGN_WALLET);
+    }
 
     createSetDefaultProfileTypedData({
       variables: {
@@ -169,7 +173,9 @@ const SetProfile: FC = () => {
     });
   };
 
-  if (!isAuthenticated) return <Custom404 />;
+  if (!isAuthenticated) {
+    return <Custom404 />;
+  }
 
   return (
     <Card>

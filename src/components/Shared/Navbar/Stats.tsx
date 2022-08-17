@@ -71,8 +71,13 @@ const Stats: FC = () => {
     pollInterval: 1000
   });
 
-  if (loading) return <div className="m-3 w-52 h-4 rounded-lg shimmer" />;
-  if (error) return <div className="m-3 font-bold text-red-500">{ERROR_MESSAGE}</div>;
+  if (loading) {
+    return <div className="m-3 w-52 h-4 rounded-lg shimmer" />;
+  }
+
+  if (error) {
+    return <div className="m-3 font-bold text-red-500">{ERROR_MESSAGE}</div>;
+  }
 
   const stats: GlobalProtocolStats = data?.globalProtocolStats;
   const communityStats: GlobalProtocolStats = data?.communityStats;

@@ -18,7 +18,9 @@ const NewProfile: NextPage = () => {
     Mixpanel.track(PAGEVIEW.CREATE_PROFILE);
   }, []);
 
-  if (!currentUser) return <Custom404 />;
+  if (!currentUser) {
+    return <Custom404 />;
+  }
 
   return (
     <GridLayout>

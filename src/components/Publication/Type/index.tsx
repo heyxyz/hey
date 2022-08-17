@@ -21,7 +21,9 @@ const PublicationType: FC<Props> = ({ publication, showType, showThread = false 
   const isCollected = !!publication?.collectedBy;
   const isCommunityPost = publicationType === 'community post';
 
-  if (!showType) return null;
+  if (!showType) {
+    return null;
+  }
 
   return (
     <>

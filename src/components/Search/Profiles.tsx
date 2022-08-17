@@ -40,7 +40,7 @@ const Profiles: FC<Props> = ({ query }) => {
   const { data, loading, error, fetchMore } = useQuery(SEARCH_PROFILES_QUERY, {
     variables: { request: { query, type: 'PROFILE', limit: 10 } },
     skip: !query,
-    onCompleted(data) {
+    onCompleted: (data) => {
       setPageInfo(data?.search?.pageInfo);
       setProfiles(data?.search?.items);
     }

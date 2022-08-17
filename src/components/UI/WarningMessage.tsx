@@ -7,7 +7,9 @@ interface Props {
 }
 
 export const WarningMessage: FC<Props> = ({ title, message, className = '' }) => {
-  if (!message) return null;
+  if (!message) {
+    return null;
+  }
 
   return (
     <div
