@@ -4,6 +4,7 @@ import { Button } from '@components/UI/Button';
 import { Modal } from '@components/UI/Modal';
 import { LensterPublication } from '@generated/lenstertypes';
 import { ClockIcon, CogIcon, HashtagIcon, PencilAltIcon, UsersIcon } from '@heroicons/react/outline';
+import getIPFSLink from '@lib/getIPFSLink';
 import imagekitURL from '@lib/imagekitURL';
 import { Mixpanel } from '@lib/mixpanel';
 import nFormatter from '@lib/nFormatter';
@@ -44,9 +45,11 @@ const Details: FC<Props> = ({ community }) => {
       <div className="relative w-32 h-32 sm:w-72 sm:h-72">
         <img
           src={imagekitURL(
-            community?.metadata?.cover?.original?.url
-              ? community?.metadata?.cover?.original?.url
-              : `https://avatar.tobi.sh/${community?.id}.png`,
+            getIPFSLink(
+              community?.metadata?.cover?.original?.url
+                ? community?.metadata?.cover?.original?.url
+                : `https://avatar.tobi.sh/${community?.id}.png`
+            ),
             'avatar'
           )}
           className="w-32 h-32 bg-gray-200 rounded-xl ring-2 ring-gray-200 sm:w-72 sm:h-72 dark:bg-gray-700 dark:ring-gray-700/80"
