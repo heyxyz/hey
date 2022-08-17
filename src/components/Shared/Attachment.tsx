@@ -6,6 +6,7 @@ import uploadMediaToIPFS from '@lib/uploadMediaToIPFS';
 import { motion } from 'framer-motion';
 import { ChangeEvent, Dispatch, FC, useId, useState } from 'react';
 import toast from 'react-hot-toast';
+import { ALLOWED_MEDIA_TYPES } from 'src/constants';
 
 interface Props {
   attachments: LensterAttachment[];
@@ -34,9 +35,19 @@ const Attachment: FC<Props> = ({ attachments, setAttachments }) => {
       }
 
       return images > 0 ? true : false;
-    } else {
-      return false;
     }
+
+    return false;
+  };
+
+  const isTypeAllowed = (files: any) => {
+    for (let i = 0; i < files.length; i++) {
+      if (ALLOWED_MEDIA_TYPES.includes(files[i].type)) {
+        return true;
+      }
+    }
+
+    return false;
   };
 
   const handleAttachment = async (evt: ChangeEvent<HTMLInputElement>) => {
@@ -44,13 +55,19 @@ const Attachment: FC<Props> = ({ attachments, setAttachments }) => {
     setLoading(true);
 
     try {
+      // Count check
       if (evt.target.files && (hasVideos(evt.target.files) || evt.target.files.length > 4)) {
-        toast.error('Please choose either 1 video or up to 4 photos.');
-      } else {
+        return toast.error('Please choose either 1 video or up to 4 photos.');
+      }
+
+      // Type check
+      if (isTypeAllowed(evt.target.files)) {
         const attachment = await uploadMediaToIPFS(evt.target.files);
         if (attachment) {
           setAttachments(attachment);
         }
+      } else {
+        return toast.error('File format not allowed.');
       }
     } finally {
       setLoading(false);

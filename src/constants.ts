@@ -61,6 +61,7 @@ export const POLYGON_MUMBAI = {
 };
 export const CHAIN_ID = IS_MAINNET ? POLYGON_MAINNET.id : POLYGON_MUMBAI.id;
 
+// Errors
 export const ERRORS = {
   notMined:
     'A previous transaction may not been mined yet or you have passed in a invalid nonce. You must wait for that to be mined before doing another action, please try again in a few moments. Nonce out of sync.'
@@ -87,6 +88,9 @@ export const URL_REGEX =
 export const ADDRESS_REGEX = /^(0x)?[0-9a-f]{40}$/i;
 export const HANDLE_REGEX = /^[a-z0-9]+$/;
 export const HANDLE_SANITIZE_REGEX = /[^a-zA-Z0-9. ]/g;
+
+// Utils
+export const ALLOWED_MEDIA_TYPES = ['video/mp4', 'image/jpeg', 'image/png', 'image/webp', 'image/gif'];
 
 // Bundlr
 export const BUNDLR_CURRENCY = 'matic';
