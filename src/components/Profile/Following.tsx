@@ -5,7 +5,7 @@ import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
 import { Following, PaginatedResultInfo, Profile } from '@generated/types';
-import { MinimalProfileFields } from '@gql/MinimalProfileFields';
+import { ProfileFields } from '@gql/ProfileFields';
 import { UsersIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import { FC, useState } from 'react';
@@ -17,7 +17,7 @@ const FOLLOWING_QUERY = gql`
     following(request: $request) {
       items {
         profile {
-          ...MinimalProfileFields
+          ...ProfileFields
           isFollowedByMe
         }
         totalAmountOfTimesFollowing
@@ -28,7 +28,7 @@ const FOLLOWING_QUERY = gql`
       }
     }
   }
-  ${MinimalProfileFields}
+  ${ProfileFields}
 `;
 
 interface Props {
