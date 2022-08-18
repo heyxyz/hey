@@ -1,5 +1,5 @@
 import { LensHubProxy } from '@abis/LensHubProxy';
-import { gql, useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import Attachments from '@components/Shared/Attachments';
 import Markup from '@components/Shared/Markup';
 import PubIndexStatus from '@components/Shared/PubIndexStatus';
@@ -12,6 +12,7 @@ import { LensterAttachment } from '@generated/lenstertypes';
 import { CreatePostBroadcastItemResult } from '@generated/types';
 import { IGif } from '@giphy/js-types';
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation';
+import { CREATE_POST_TYPED_DATA_MUTATION } from '@gql/TypedAndDispatcherData/CreatePost';
 import { PencilAltIcon } from '@heroicons/react/outline';
 import { defaultFeeData, defaultModuleData, getModule } from '@lib/getModule';
 import { Mixpanel } from '@lib/mixpanel';
@@ -45,39 +46,6 @@ const SelectReferenceModule = dynamic(() => import('../../Shared/SelectReference
 const Preview = dynamic(() => import('../../Shared/Preview'), {
   loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
 });
-
-export const CREATE_POST_TYPED_DATA_MUTATION = gql`
-  mutation CreatePostTypedData($options: TypedDataOptions, $request: CreatePublicPostRequest!) {
-    createPostTypedData(options: $options, request: $request) {
-      id
-      expiresAt
-      typedData {
-        types {
-          PostWithSig {
-            name
-            type
-          }
-        }
-        domain {
-          name
-          chainId
-          version
-          verifyingContract
-        }
-        value {
-          nonce
-          deadline
-          profileId
-          contentURI
-          collectModule
-          collectModuleInitData
-          referenceModule
-          referenceModuleInitData
-        }
-      }
-    }
-  }
-`;
 
 interface Props {
   setShowModal?: Dispatch<boolean>;
