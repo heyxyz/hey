@@ -43,8 +43,8 @@ export const MirrorFields = gql`
     createdAt
     appId
   }
-  ${MinimalProfileFields}
   ${PostFields}
+  ${MinimalProfileFields}
   ${MinimalCollectModuleFields}
   ${MetadataFields}
   ${StatsFields}
