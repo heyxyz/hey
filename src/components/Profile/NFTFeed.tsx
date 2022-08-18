@@ -83,7 +83,7 @@ const NFTFeed: FC<Props> = ({ profile }) => {
           message={
             <div>
               <span className="mr-1 font-bold">@{profile?.handle}</span>
-              <span>seems like have no nfts!</span>
+              <span>doesn’t have any NFTs!</span>
             </div>
           }
           icon={<CollectionIcon className="w-8 h-8 text-brand" />}
