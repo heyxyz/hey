@@ -46,7 +46,7 @@ interface Props {
 }
 
 const MenuItems: FC<Props> = ({ pingData }) => {
-  const [showLoginModal, setShowLoginModal] = useState<boolean>(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
   const { theme, setTheme } = useTheme();
   const { disconnect } = useDisconnect();
 

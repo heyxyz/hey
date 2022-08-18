@@ -93,11 +93,11 @@ const Profile: FC<Props> = ({ profile }) => {
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
   const currentUser = useAppPersistStore((state) => state.currentUser);
-  const [beta, setBeta] = useState<boolean>(isBeta(profile));
-  const [pride, setPride] = useState<boolean>(hasPrideLogo(profile));
-  const [cover, setCover] = useState<string>();
-  const [isUploading, setIsUploading] = useState<boolean>(false);
-  const [uploading, setUploading] = useState<boolean>(false);
+  const [beta, setBeta] = useState(isBeta(profile));
+  const [pride, setPride] = useState(hasPrideLogo(profile));
+  const [cover, setCover] = useState('');
+  const [isUploading, setIsUploading] = useState(false);
+  const [uploading, setUploading] = useState(false);
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError: (error) => {
       toast.error(error?.message);

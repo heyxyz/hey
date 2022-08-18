@@ -29,7 +29,7 @@ interface Props {
 }
 
 const AllowanceButton: FC<Props> = ({ title = 'Allow', module, allowed, setAllowed }) => {
-  const [showWarningModal, setShowWarninModal] = useState<boolean>(false);
+  const [showWarningModal, setShowWarninModal] = useState(false);
   const [generateAllowanceQuery, { loading: queryLoading }] = useLazyQuery(GENERATE_ALLOWANCE_QUERY);
 
   const { config } = usePrepareSendTransaction({

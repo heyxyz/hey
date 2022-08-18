@@ -10,7 +10,7 @@ interface Props {
 }
 
 const IFramely: FC<Props> = ({ url }) => {
-  const [error, setError] = useState<boolean>(false);
+  const [error, setError] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const [data, setData] = useState<any>();
 

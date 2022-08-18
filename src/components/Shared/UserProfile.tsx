@@ -29,7 +29,7 @@ const UserProfile: FC<Props> = ({
   isFollowing = false,
   isBig = false
 }) => {
-  const [following, setFollowing] = useState<boolean>(isFollowing);
+  const [following, setFollowing] = useState(isFollowing);
 
   return (
     <div className="flex justify-between items-center">

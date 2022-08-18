@@ -58,8 +58,8 @@ interface Props {
 }
 
 const Mirror: FC<Props> = ({ publication }) => {
-  const [count, setCount] = useState<number>(0);
-  const [mirrored, setMirrored] = useState<boolean>(
+  const [count, setCount] = useState(0);
+  const [mirrored, setMirrored] = useState(
     publication?.mirrors?.length > 0 || publication?.mirrorOf?.mirrors?.length > 0
   );
 

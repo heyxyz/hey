@@ -14,7 +14,7 @@ interface Props {
 }
 
 const Attachment: FC<Props> = ({ attachments, setAttachments }) => {
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState(false);
   const id = useId();
 
   const hasVideos = (files: any) => {

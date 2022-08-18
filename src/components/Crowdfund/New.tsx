@@ -72,12 +72,12 @@ const newCrowdfundSchema = object({
 });
 
 const NewCrowdfund: NextPage = () => {
-  const [cover, setCover] = useState<string>();
-  const [coverType, setCoverType] = useState<string>();
-  const [isUploading, setIsUploading] = useState<boolean>(false);
-  const [uploading, setUploading] = useState<boolean>(false);
-  const [selectedCurrency, setSelectedCurrency] = useState<string>(DEFAULT_COLLECT_TOKEN);
-  const [selectedCurrencySymobol, setSelectedCurrencySymobol] = useState<string>('WMATIC');
+  const [cover, setCover] = useState('');
+  const [coverType, setCoverType] = useState('');
+  const [isUploading, setIsUploading] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const [selectedCurrency, setSelectedCurrency] = useState(DEFAULT_COLLECT_TOKEN);
+  const [selectedCurrencySymobol, setSelectedCurrencySymobol] = useState('WMATIC');
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);

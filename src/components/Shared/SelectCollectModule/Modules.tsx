@@ -37,7 +37,7 @@ interface Props {
 const Modules: FC<Props> = ({ setShowModal }) => {
   const selectedModule = useCollectModuleStore((state) => state.selectedModule);
   const setSelectedModule = useCollectModuleStore((state) => state.setSelectedModule);
-  const [showFeeEntry, setShowFeeEntry] = useState<boolean>(false);
+  const [showFeeEntry, setShowFeeEntry] = useState(false);
 
   const { error, data, loading } = useQuery(MODULES_QUERY);
 

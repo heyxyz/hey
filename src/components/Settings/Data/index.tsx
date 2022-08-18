@@ -14,7 +14,7 @@ import Sidebar from '../Sidebar';
 
 const DataSettings: FC = () => {
   const currentUser = useAppPersistStore((state) => state.currentUser);
-  const [disabled, setDisabled] = useState<boolean>(false);
+  const [disabled, setDisabled] = useState(false);
 
   useEffect(() => {
     Mixpanel.track(PAGEVIEW.SETTINGS.DATA);

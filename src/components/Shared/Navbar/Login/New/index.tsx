@@ -41,8 +41,8 @@ interface Props {
 }
 
 const NewProfile: FC<Props> = ({ isModal = false }) => {
-  const [avatar, setAvatar] = useState<string>();
-  const [uploading, setUploading] = useState<boolean>(false);
+  const [avatar, setAvatar] = useState('');
+  const [uploading, setUploading] = useState(false);
   const { address } = useAccount();
   const [createProfile, { data, loading }] = useMutation(CREATE_PROFILE_MUTATION);
 

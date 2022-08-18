@@ -34,7 +34,7 @@ interface Props {
 
 const Search: FC<Props> = ({ hideDropdown = false }) => {
   const { push, pathname, query } = useRouter();
-  const [searchText, setSearchText] = useState<string>('');
+  const [searchText, setSearchText] = useState('');
   const dropdownRef = useRef(null);
 
   useOnClickOutside(dropdownRef, () => setSearchText(''));
