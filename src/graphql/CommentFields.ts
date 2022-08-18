@@ -13,6 +13,7 @@ export const CommentFields = gql`
     }
     reaction(request: $reactionRequest)
     mirrors(by: $profileId)
+    hasCollectedByMe
     collectedBy {
       address
       defaultProfile {
@@ -36,6 +37,7 @@ export const CommentFields = gql`
         }
         reaction(request: $reactionRequest)
         mirrors(by: $profileId)
+        hasCollectedByMe
         collectedBy {
           address
           defaultProfile {
@@ -61,6 +63,7 @@ export const CommentFields = gql`
         }
         reaction(request: $reactionRequest)
         mirrors(by: $profileId)
+        hasCollectedByMe
         collectedBy {
           address
           defaultProfile {
@@ -84,6 +87,7 @@ export const CommentFields = gql`
             }
             reaction(request: $reactionRequest)
             mirrors(by: $profileId)
+            hasCollectedByMe
             collectedBy {
               address
               defaultProfile {
@@ -122,6 +126,7 @@ export const CommentFields = gql`
                 id
                 reaction(request: $reactionRequest)
                 mirrors(by: $profileId)
+                hasCollectedByMe
                 profile {
                   ...MinimalProfileFields
                 }
@@ -168,6 +173,7 @@ export const CommentFields = gql`
             }
             reaction(request: $reactionRequest)
             mirrors(by: $profileId)
+            hasCollectedByMe
             stats {
               ...StatsFields
             }
