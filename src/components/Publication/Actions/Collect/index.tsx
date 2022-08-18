@@ -4,6 +4,7 @@ import { Tooltip } from '@components/UI/Tooltip';
 import GetModuleIcon from '@components/utils/GetModuleIcon';
 import { LensterPublication } from '@generated/lenstertypes';
 import { CollectionIcon } from '@heroicons/react/outline';
+import { CollectionIcon as CollectionIconSolid } from '@heroicons/react/solid';
 import { getModule } from '@lib/getModule';
 import humanize from '@lib/humanize';
 import { Mixpanel } from '@lib/mixpanel';
@@ -25,6 +26,8 @@ const Collect: FC<Props> = ({ publication }) => {
   const [count, setCount] = useState<number>(0);
   const [showCollectModal, setShowCollectModal] = useState<boolean>(false);
   const isFreeCollect = publication?.collectModule?.__typename === 'FreeCollectModuleSettings';
+  const isMirror = publication?.__typename === 'Mirror';
+  const hasCollected = isMirror ? publication?.mirrorOf?.hasCollectedByMe : publication?.hasCollectedByMe;
 
   useEffect(() => {
     if (publication?.mirrorOf?.stats?.totalAmountOfCollects || publication?.stats?.totalAmountOfCollects) {
@@ -54,7 +57,11 @@ const Collect: FC<Props> = ({ publication }) => {
               content={count > 0 ? `${humanize(count)} Collects` : 'Collect'}
               withDelay
             >
-              <CollectionIcon className="w-[15px] sm:w-[18px]" />
+              {hasCollected ? (
+                <CollectionIconSolid className="w-[15px] sm:w-[18px]" />
+              ) : (
+                <CollectionIcon className="w-[15px] sm:w-[18px]" />
+              )}
             </Tooltip>
           </div>
           {count > 0 && <div className="text-[11px] sm:text-xs">{nFormatter(count)}</div>}
