@@ -5,7 +5,7 @@ import { Card, CardBody } from '@components/UI/Card';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { LensterPublication } from '@generated/lenstertypes';
 import { Profile } from '@generated/types';
-import { MinimalProfileFields } from '@gql/MinimalProfileFields';
+import { ProfileFields } from '@gql/ProfileFields';
 import React, { FC } from 'react';
 import { HANDLE_SANITIZE_REGEX } from 'src/constants';
 
@@ -13,12 +13,12 @@ const RELEVANT_PEOPLE_QUERY = gql`
   query RelevantPeople($request: ProfileQueryRequest!) {
     profiles(request: $request) {
       items {
-        ...MinimalProfileFields
+        ...ProfileFields
         isFollowedByMe
       }
     }
   }
-  ${MinimalProfileFields}
+  ${ProfileFields}
 `;
 
 interface Props {
