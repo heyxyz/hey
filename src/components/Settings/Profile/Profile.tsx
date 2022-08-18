@@ -10,9 +10,17 @@ import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
 import { TextArea } from '@components/UI/TextArea';
 import { Toggle } from '@components/UI/Toggle';
-import { CreateSetProfileMetadataUriBroadcastItemResult, MediaSet, Profile } from '@generated/types';
+import {
+  CreateSetProfileMetadataUriBroadcastItemResult,
+  MediaSet,
+  Profile,
+  RelayResult
+} from '@generated/types';
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation';
-import { CREATE_SET_PROFILE_METADATA_TYPED_DATA_MUTATION } from '@gql/TypedAndDispatcherData/CreateSetProfileMetadata';
+import {
+  CREATE_SET_PROFILE_METADATA_TYPED_DATA_MUTATION,
+  CREATE_SET_PROFILE_METADATA_VIA_DISPATHCER_MUTATION
+} from '@gql/TypedAndDispatcherData/CreateSetProfileMetadata';
 import { PencilIcon } from '@heroicons/react/outline';
 import getAttribute from '@lib/getAttribute';
 import hasPrideLogo from '@lib/hasPrideLogo';
@@ -164,6 +172,24 @@ const Profile: FC<Props> = ({ profile }) => {
     }
   );
 
+  const [createSetProfileMetadataViaDispatcher, { loading: viaDispatcherLoading }] = useMutation(
+    CREATE_SET_PROFILE_METADATA_VIA_DISPATHCER_MUTATION,
+    {
+      onCompleted: async ({
+        createSetProfileMetadataViaDispatcher
+      }: {
+        createSetProfileMetadataViaDispatcher: RelayResult;
+      }) => {
+        try {
+          alert('GM');
+        } catch (error) {}
+      },
+      onError: (error) => {
+        toast.error(error.message ?? ERROR_MESSAGE);
+      }
+    }
+  );
+
   useEffect(() => {
     if (profile?.coverPicture?.original?.url) {
       setCover(profile?.coverPicture?.original?.url);
@@ -249,18 +275,20 @@ const Profile: FC<Props> = ({ profile }) => {
       appId: APP_NAME
     }).finally(() => setIsUploading(false));
 
-    if (canUseRelay) {
-      alert('WIP');
-    } else {
-      createSetProfileMetadataTypedData({
-        variables: {
-          options: { overrideSigNonce: userSigNonce },
-          request: {
-            profileId: currentUser?.id,
-            metadata: `https://arweave.net/${id}`
-          }
+    const data = {
+      variables: {
+        options: { overrideSigNonce: userSigNonce },
+        request: {
+          profileId: currentUser?.id,
+          metadata: `https://arweave.net/${id}`
         }
-      });
+      }
+    };
+
+    if (canUseRelay) {
+      createSetProfileMetadataViaDispatcher(data);
+    } else {
+      createSetProfileMetadataTypedData(data);
     }
   };
 
