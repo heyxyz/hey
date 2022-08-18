@@ -8,6 +8,7 @@ import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
 import { CreateSetProfileImageUriBroadcastItemResult, NftImage, Profile } from '@generated/types';
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation';
+import { CREATE_SET_PROFILE_IMAGE_URI_TYPED_DATA_MUTATION } from '@gql/TypedAndDispatcherData/CCreateSetProfileImageURI';
 import { PencilIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import omit from '@lib/omit';
@@ -35,38 +36,6 @@ const editNftPictureSchema = object({
     .regex(ADDRESS_REGEX, { message: 'Invalid Contract address' }),
   tokenId: string()
 });
-
-const CREATE_SET_PROFILE_IMAGE_URI_TYPED_DATA_MUTATION = gql`
-  mutation CreateSetProfileImageUriTypedData(
-    $options: TypedDataOptions
-    $request: UpdateProfileImageRequest!
-  ) {
-    createSetProfileImageURITypedData(options: $options, request: $request) {
-      id
-      expiresAt
-      typedData {
-        domain {
-          name
-          chainId
-          version
-          verifyingContract
-        }
-        types {
-          SetProfileImageURIWithSig {
-            name
-            type
-          }
-        }
-        value {
-          nonce
-          deadline
-          imageURI
-          profileId
-        }
-      }
-    }
-  }
-`;
 
 const CHALLENGE_QUERY = gql`
   query Challenge($request: NftOwnershipChallengeRequest!) {
