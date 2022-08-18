@@ -8,7 +8,7 @@ import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
 import { CreateSetProfileImageUriBroadcastItemResult, NftImage, Profile } from '@generated/types';
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation';
-import { CREATE_SET_PROFILE_IMAGE_URI_TYPED_DATA_MUTATION } from '@gql/TypedAndDispatcherData/CCreateSetProfileImageURI';
+import { CREATE_SET_PROFILE_IMAGE_URI_TYPED_DATA_MUTATION } from '@gql/TypedAndDispatcherData/CreateSetProfileImageURI';
 import { PencilIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import omit from '@lib/omit';
