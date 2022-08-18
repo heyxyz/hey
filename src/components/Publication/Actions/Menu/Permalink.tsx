@@ -16,7 +16,7 @@ interface Props {
 const Permalink: FC<Props> = ({ publication }) => {
   return (
     <CopyToClipboard
-      text={`${PUBLIC_URL}/posts/${publication?.id ?? publication?.pubId}`}
+      text={`${PUBLIC_URL}/posts/${publication?.id}`}
       onCopy={() => {
         toast.success('Copied to clipboard!');
         Mixpanel.track(PUBLICATION.PERMALINK);

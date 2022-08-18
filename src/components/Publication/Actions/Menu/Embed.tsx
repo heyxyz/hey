@@ -20,7 +20,7 @@ const Embed: FC<Props> = ({ publication }) => {
       onClick={() => {
         Mixpanel.track(PUBLICATION.EMBED);
       }}
-      href={`https://embed.withlens.app/?url=${publication?.id ?? publication?.pubId}`}
+      href={`https://embed.withlens.app/?url=${publication?.id}`}
       target="_blank"
     >
       <div className="flex items-center space-x-2">
