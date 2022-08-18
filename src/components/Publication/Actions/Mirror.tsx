@@ -59,7 +59,9 @@ interface Props {
 
 const Mirror: FC<Props> = ({ publication }) => {
   const [count, setCount] = useState<number>(0);
-  const [mirrored, setMirrored] = useState<boolean>(publication?.mirrors?.length > 0);
+  const [mirrored, setMirrored] = useState<boolean>(
+    publication?.mirrors?.length > 0 || publication?.mirrorOf?.mirrors?.length > 0
+  );
 
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
