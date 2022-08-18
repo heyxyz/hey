@@ -30,6 +30,9 @@ export const CURRENT_USER_QUERY = gql`
       items {
         ...ProfileFields
         isDefault
+        dispatcher {
+          canUseRelay
+        }
       }
     }
     userSigNonces {
