@@ -1,15 +1,7 @@
 version: 2
 updates:
-  - package-ecosystem: 'npm'
-    directory: '/'
+  - package-ecosystem: "npm"
+    directory: "/"
+    target-branch: "main"
     schedule:
-      interval: 'daily'
-    commit-message:
-      prefix: '⬆️ deps:'
-      prefix-development: '⬆️ deps(dev):'
-    assignees:
-      - bigint
-    reviewers:
-      - bigint
-    open-pull-requests-limit: 69
-    rebase-strategy: auto
+      interval: "daily"
