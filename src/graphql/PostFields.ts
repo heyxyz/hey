@@ -13,6 +13,7 @@ export const PostFields = gql`
     }
     reaction(request: $reactionRequest)
     mirrors(by: $profileId)
+    hasCollectedByMe
     collectedBy {
       address
       defaultProfile {
