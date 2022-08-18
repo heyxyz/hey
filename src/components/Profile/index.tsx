@@ -55,6 +55,9 @@ export const PROFILE_QUERY = gql`
         ens {
           name
         }
+        worldcoin {
+          isHuman
+        }
       }
       stats {
         totalFollowers

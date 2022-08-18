@@ -4,6 +4,7 @@ import React, { FC } from 'react';
 import Ens from './Ens';
 import ProofOfHumanity from './ProofOfHumanity';
 import Sybil from './Sybil';
+import Worldcoin from './Worldcoin';
 
 interface Props {
   profile: Profile;
@@ -26,6 +27,7 @@ const Badges: FC<Props> = ({ profile }) => {
         <ProofOfHumanity profile={profile} />
         <Ens profile={profile} />
         <Sybil profile={profile} />
+        <Worldcoin profile={profile} />
       </div>
     </>
   );
