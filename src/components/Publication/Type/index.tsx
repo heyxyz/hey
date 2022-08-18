@@ -38,10 +38,10 @@ const PublicationType: FC<Props> = ({ publication, showType, showThread = false 
         <CommunityPublication publication={publication} />
       )}
       {isCollected && publicationType !== 'community' && publicationType !== 'crowdfund' && (
-        <Collected publication={publication} type="Collected" />
+        <Collected publication={publication} type="collected" />
       )}
       {isCollected && publicationType === 'crowdfund' && (
-        <Collected publication={publication} type="Funded" />
+        <Collected publication={publication} type="funded" />
       )}
     </>
   );

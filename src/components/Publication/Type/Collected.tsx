@@ -12,15 +12,20 @@ interface Props {
 }
 
 const Collected: FC<Props> = ({ publication, type }) => {
+  const publicationType = publication?.metadata?.attributes[0]?.value;
+
   return (
     <div className="flex items-center pb-4 space-x-1 text-gray-500 text-[13px]">
       <CollectionIcon className="w-4 h-4" />
-      <div className="flex items-center space-x-1">
-        <div>{type} by</div>
+      <div className="space-x-1">
         {publication?.collectedBy?.defaultProfile ? (
           <Link href={`/u/${publication?.collectedBy?.defaultProfile?.handle}`}>
             <a href={`/u/${publication?.collectedBy?.defaultProfile?.handle}`}>
-              <Slug slug={publication?.collectedBy?.defaultProfile?.handle} prefix="@" />
+              {publication?.collectedBy?.defaultProfile?.name ? (
+                <b>{publication?.collectedBy?.defaultProfile?.name}</b>
+              ) : (
+                <Slug slug={publication?.collectedBy?.defaultProfile?.handle} prefix="@" />
+              )}
             </a>
           </Link>
         ) : (
@@ -32,6 +37,18 @@ const Collected: FC<Props> = ({ publication, type }) => {
             <Slug slug={formatAddress(publication?.collectedBy?.address)} />
           </a>
         )}
+        <Link href={`/posts/${publication?.id}`}>
+          <a href={`/posts/${publication?.id}`}>
+            <span>{type} the </span>
+            <b>
+              {publication?.__typename === 'Post'
+                ? publicationType === 'crowdfund'
+                  ? 'crowdfund'
+                  : (publication?.__typename as string)?.toLowerCase()
+                : (publication?.__typename as any)?.toLowerCase()}
+            </b>
+          </a>
+        </Link>
       </div>
     </div>
   );
