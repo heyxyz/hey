@@ -1,5 +1,5 @@
 import { LensHubProxy } from '@abis/LensHubProxy';
-import { gql, useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import IndexStatus from '@components/Shared/IndexStatus';
 import UserProfile from '@components/Shared/UserProfile';
 import { Button } from '@components/UI/Button';
@@ -8,6 +8,7 @@ import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
 import { Profile, SetDefaultProfileBroadcastItemResult } from '@generated/types';
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation';
+import { CREATE_SET_DEFAULT_PROFILE_DATA_MUTATION } from '@gql/TypedAndDispatcherData/CreateSetDefaultProfile';
 import { ExclamationIcon, PencilIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import omit from '@lib/omit';
@@ -19,38 +20,6 @@ import Custom404 from 'src/pages/404';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { SETTINGS } from 'src/tracking';
 import { useAccount, useContractWrite, useSignTypedData } from 'wagmi';
-
-const CREATE_SET_DEFAULT_PROFILE_DATA_MUTATION = gql`
-  mutation CreateSetDefaultProfileTypedData(
-    $options: TypedDataOptions
-    $request: CreateSetDefaultProfileRequest!
-  ) {
-    createSetDefaultProfileTypedData(options: $options, request: $request) {
-      id
-      expiresAt
-      typedData {
-        domain {
-          name
-          chainId
-          version
-          verifyingContract
-        }
-        types {
-          SetDefaultProfileWithSig {
-            name
-            type
-          }
-        }
-        value {
-          nonce
-          deadline
-          wallet
-          profileId
-        }
-      }
-    }
-  }
-`;
 
 const SetProfile: FC = () => {
   const profiles = useAppStore((state) => state.profiles);
