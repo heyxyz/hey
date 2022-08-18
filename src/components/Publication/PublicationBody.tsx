@@ -4,6 +4,7 @@ import Markup from '@components/Shared/Markup';
 import CrowdfundShimmer from '@components/Shared/Shimmer/CrowdfundShimmer';
 import { LensterPublication } from '@generated/lenstertypes';
 import { EyeIcon, UserAddIcon, UsersIcon } from '@heroicons/react/outline';
+import getIPFSLink from '@lib/getIPFSLink';
 import getURLs from '@lib/getURLs';
 import imagekitURL from '@lib/imagekitURL';
 import clsx from 'clsx';
@@ -41,9 +42,11 @@ const PublicationBody: FC<Props> = ({ publication }) => {
             <a href={`/communities/${publication?.id}`} className="flex items-center space-x-1.5 font-bold">
               <img
                 src={imagekitURL(
-                  publication?.metadata?.cover?.original?.url
-                    ? publication?.metadata?.cover?.original?.url
-                    : `https://avatar.tobi.sh/${publication?.id}.png`,
+                  getIPFSLink(
+                    publication?.metadata?.cover?.original?.url
+                      ? publication?.metadata?.cover?.original?.url
+                      : `https://avatar.tobi.sh/${publication?.id}.png`
+                  ),
                   'avatar'
                 )}
                 className="bg-gray-200 rounded ring-2 ring-gray-50 dark:bg-gray-700 dark:ring-black w-[19px] h-[19px]"

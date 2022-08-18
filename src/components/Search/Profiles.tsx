@@ -6,7 +6,7 @@ import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
 import { PaginatedResultInfo, Profile } from '@generated/types';
-import { MinimalProfileFields } from '@gql/MinimalProfileFields';
+import { ProfileFields } from '@gql/ProfileFields';
 import { UsersIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import React, { FC, useState } from 'react';
@@ -18,7 +18,7 @@ const SEARCH_PROFILES_QUERY = gql`
     search(request: $request) {
       ... on ProfileSearchResult {
         items {
-          ...MinimalProfileFields
+          ...ProfileFields
         }
         pageInfo {
           next
@@ -27,7 +27,7 @@ const SEARCH_PROFILES_QUERY = gql`
       }
     }
   }
-  ${MinimalProfileFields}
+  ${ProfileFields}
 `;
 
 interface Props {

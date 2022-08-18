@@ -5,7 +5,7 @@ import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
 import { PaginatedResultInfo, Wallet } from '@generated/types';
-import { MinimalProfileFields } from '@gql/MinimalProfileFields';
+import { ProfileFields } from '@gql/ProfileFields';
 import { CollectionIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import { FC, useState } from 'react';
@@ -20,7 +20,7 @@ const COLLECTORS_QUERY = gql`
       items {
         address
         defaultProfile {
-          ...MinimalProfileFields
+          ...ProfileFields
           isFollowedByMe
         }
       }
@@ -30,7 +30,7 @@ const COLLECTORS_QUERY = gql`
       }
     }
   }
-  ${MinimalProfileFields}
+  ${ProfileFields}
 `;
 
 interface Props {
