@@ -1,10 +1,11 @@
 import { LensHubProxy } from '@abis/LensHubProxy';
-import { gql, useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import { Spinner } from '@components/UI/Spinner';
 import { Tooltip } from '@components/UI/Tooltip';
 import { LensterPublication } from '@generated/lenstertypes';
 import { CreateMirrorBroadcastItemResult } from '@generated/types';
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation';
+import { CREATE_MIRROR_TYPED_DATA_MUTATION } from '@gql/TypedAndDispatcherData/CreateMirror';
 import { SwitchHorizontalIcon } from '@heroicons/react/outline';
 import humanize from '@lib/humanize';
 import { Mixpanel } from '@lib/mixpanel';
@@ -19,39 +20,6 @@ import { ERROR_MESSAGE, ERRORS, LENSHUB_PROXY, RELAY_ON, SIGN_WALLET } from 'src
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { PUBLICATION } from 'src/tracking';
 import { useContractWrite, useSignTypedData } from 'wagmi';
-
-const CREATE_MIRROR_TYPED_DATA_MUTATION = gql`
-  mutation CreateMirrorTypedData($options: TypedDataOptions, $request: CreateMirrorRequest!) {
-    createMirrorTypedData(options: $options, request: $request) {
-      id
-      expiresAt
-      typedData {
-        types {
-          MirrorWithSig {
-            name
-            type
-          }
-        }
-        domain {
-          name
-          chainId
-          version
-          verifyingContract
-        }
-        value {
-          nonce
-          deadline
-          profileId
-          profileIdPointed
-          pubIdPointed
-          referenceModule
-          referenceModuleData
-          referenceModuleInitData
-        }
-      }
-    }
-  }
-`;
 
 interface Props {
   publication: LensterPublication;
