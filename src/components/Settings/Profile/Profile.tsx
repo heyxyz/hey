@@ -1,5 +1,5 @@
 import { LensPeriphery } from '@abis/LensPeriphery';
-import { gql, useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import ChooseFile from '@components/Shared/ChooseFile';
 import IndexStatus from '@components/Shared/IndexStatus';
 import { Button } from '@components/UI/Button';
@@ -12,6 +12,7 @@ import { TextArea } from '@components/UI/TextArea';
 import { Toggle } from '@components/UI/Toggle';
 import { CreateSetProfileMetadataUriBroadcastItemResult, MediaSet, Profile } from '@generated/types';
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation';
+import { CREATE_SET_PROFILE_METADATA_TYPED_DATA_MUTATION } from '@gql/TypedAndDispatcherData/CreateSetProfileMetadata';
 import { PencilIcon } from '@heroicons/react/outline';
 import getAttribute from '@lib/getAttribute';
 import hasPrideLogo from '@lib/hasPrideLogo';
@@ -38,35 +39,6 @@ import { SETTINGS } from 'src/tracking';
 import { v4 as uuid } from 'uuid';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 import { object, optional, string } from 'zod';
-
-const CREATE_SET_PROFILE_METADATA_TYPED_DATA_MUTATION = gql`
-  mutation CreateSetProfileMetadataTypedData($request: CreatePublicSetProfileMetadataURIRequest!) {
-    createSetProfileMetadataTypedData(request: $request) {
-      id
-      expiresAt
-      typedData {
-        types {
-          SetProfileMetadataURIWithSig {
-            name
-            type
-          }
-        }
-        domain {
-          name
-          chainId
-          version
-          verifyingContract
-        }
-        value {
-          nonce
-          deadline
-          profileId
-          metadata
-        }
-      }
-    }
-  }
-`;
 
 const editProfileSchema = object({
   name: string().max(100, { message: 'Name should not exceed 100 characters' }),
