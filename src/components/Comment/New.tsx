@@ -1,5 +1,5 @@
 import { LensHubProxy } from '@abis/LensHubProxy';
-import { gql, useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import Attachments from '@components/Shared/Attachments';
 import Markup from '@components/Shared/Markup';
 import Preview from '@components/Shared/Preview';
@@ -13,6 +13,7 @@ import { LensterAttachment, LensterPublication } from '@generated/lenstertypes';
 import { CreateCommentBroadcastItemResult } from '@generated/types';
 import { IGif } from '@giphy/js-types';
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation';
+import { CREATE_COMMENT_TYPED_DATA_MUTATION } from '@gql/TypedAndDispatcherData/CreateComment';
 import { ChatAlt2Icon, PencilAltIcon } from '@heroicons/react/outline';
 import { defaultFeeData, defaultModuleData, getModule } from '@lib/getModule';
 import { Mixpanel } from '@lib/mixpanel';
@@ -43,42 +44,6 @@ const SelectCollectModule = dynamic(() => import('../Shared/SelectCollectModule'
 const SelectReferenceModule = dynamic(() => import('../Shared/SelectReferenceModule'), {
   loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
 });
-
-const CREATE_COMMENT_TYPED_DATA_MUTATION = gql`
-  mutation CreateCommentTypedData($options: TypedDataOptions, $request: CreatePublicCommentRequest!) {
-    createCommentTypedData(options: $options, request: $request) {
-      id
-      expiresAt
-      typedData {
-        types {
-          CommentWithSig {
-            name
-            type
-          }
-        }
-        domain {
-          name
-          chainId
-          version
-          verifyingContract
-        }
-        value {
-          nonce
-          deadline
-          profileId
-          profileIdPointed
-          pubIdPointed
-          contentURI
-          collectModule
-          collectModuleInitData
-          referenceModule
-          referenceModuleData
-          referenceModuleInitData
-        }
-      }
-    }
-  }
-`;
 
 interface Props {
   setShowModal?: Dispatch<boolean>;

@@ -1,7 +1,6 @@
 import { LensHubProxy } from '@abis/LensHubProxy';
 import { useMutation } from '@apollo/client';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout';
-import { CREATE_POST_TYPED_DATA_MUTATION } from '@components/Publication/New';
 import ChooseFile from '@components/Shared/ChooseFile';
 import Pending from '@components/Shared/Pending';
 import SettingsHelper from '@components/Shared/SettingsHelper';
@@ -14,6 +13,7 @@ import { TextArea } from '@components/UI/TextArea';
 import Seo from '@components/utils/Seo';
 import { CreatePostBroadcastItemResult } from '@generated/types';
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation';
+import { CREATE_POST_TYPED_DATA_MUTATION } from '@gql/TypedAndDispatcherData/CreatePost';
 import { PlusIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import omit from '@lib/omit';
