@@ -55,6 +55,7 @@ const MenuItems: FC<Props> = ({ pingData }) => {
   const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
   const currentUser = useAppPersistStore((state) => state.currentUser);
   const setCurrentUser = useAppPersistStore((state) => state.setCurrentUser);
+  const setCanUseRelay = useAppPersistStore((state) => state.setCanUseRelay);
   const staffMode = useAppPersistStore((state) => state.staffMode);
   const setStaffMode = useAppPersistStore((state) => state.setStaffMode);
 
@@ -163,6 +164,7 @@ const MenuItems: FC<Props> = ({ pingData }) => {
                           className="flex items-center py-1.5 px-4 space-x-2 w-full rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
                           onClick={() => {
                             setCurrentUser(profiles[index]);
+                            setCanUseRelay(profiles[index].dispatcher?.canUseRelay ?? false);
                             Mixpanel.track(PROFILE.SWITCH_PROFILE);
                           }}
                         >
