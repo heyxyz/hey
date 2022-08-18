@@ -13,8 +13,8 @@ interface Props {
 }
 
 const IndexStatus: FC<Props> = ({ type = 'Transaction', txHash, reload = false }) => {
-  const [hide, setHide] = useState<boolean>(false);
-  const [pollInterval, setPollInterval] = useState<number>(500);
+  const [hide, setHide] = useState(false);
+  const [pollInterval, setPollInterval] = useState(500);
   const { data, loading } = useQuery(TX_STATUS_QUERY, {
     variables: {
       request: { txHash }

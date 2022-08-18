@@ -62,8 +62,8 @@ const Picture: FC<Props> = ({ profile }) => {
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
   const currentUser = useAppPersistStore((state) => state.currentUser);
-  const [avatar, setAvatar] = useState<string>();
-  const [uploading, setUploading] = useState<boolean>(false);
+  const [avatar, setAvatar] = useState('');
+  const [uploading, setUploading] = useState(false);
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError: (error) => {
       toast.error(error?.message);

@@ -14,7 +14,7 @@ interface Props {
 }
 
 const SelectReferenceModule: FC<Props> = ({ setOnlyFollowers, onlyFollowers }) => {
-  const [showModal, setShowModal] = useState<boolean>(false);
+  const [showModal, setShowModal] = useState(false);
   const ONLY_FOLLOWERS = 'Only followers can comment or mirror';
   const EVERYONE = 'Everyone can comment or mirror';
 

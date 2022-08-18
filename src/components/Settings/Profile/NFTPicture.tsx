@@ -86,7 +86,7 @@ const NFTPicture: FC<Props> = ({ profile }) => {
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
   const currentUser = useAppPersistStore((state) => state.currentUser);
-  const [chainId, setChainId] = useState<number>(IS_MAINNET ? chain.mainnet.id : chain.kovan.id);
+  const [chainId, setChainId] = useState(IS_MAINNET ? chain.mainnet.id : chain.kovan.id);
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError: (error) => {
       toast.error(error?.message);
