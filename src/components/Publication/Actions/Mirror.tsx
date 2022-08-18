@@ -211,7 +211,7 @@ const Mirror: FC<Props> = ({ publication }) => {
           )}
         >
           {typedDataLoading || signLoading || writeLoading || broadcastLoading ? (
-            <Spinner size="xs" />
+            <Spinner variant={mirrored ? 'success' : 'primary'} size="xs" />
           ) : (
             <Tooltip placement="top" content={count > 0 ? `${humanize(count)} Mirrors` : 'Mirror'} withDelay>
               <SwitchHorizontalIcon className="w-[15px] sm:w-[18px]" />
