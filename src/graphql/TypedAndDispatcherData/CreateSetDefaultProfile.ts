@@ -1,4 +1,5 @@
 import { gql } from '@apollo/client';
+import { RelayerResultFields } from '@gql/RelayerResultFields';
 
 export const CREATE_SET_DEFAULT_PROFILE_DATA_MUTATION = gql`
   mutation CreateSetDefaultProfileTypedData(
@@ -38,28 +39,8 @@ export const CREATE_SET_DEFAULT_PROFILE_VIA_DISPATHCER_MUTATION = gql`
     $request: CreateSetDefaultProfileRequest!
   ) {
     createSetDefaultProfileViaDispatcher(options: $options, request: $request) {
-      id
-      expiresAt
-      typedData {
-        domain {
-          name
-          chainId
-          version
-          verifyingContract
-        }
-        types {
-          SetDefaultProfileWithSig {
-            name
-            type
-          }
-        }
-        value {
-          nonce
-          deadline
-          wallet
-          profileId
-        }
-      }
+      ...RelayerResultFields
     }
   }
+  ${RelayerResultFields}
 `;

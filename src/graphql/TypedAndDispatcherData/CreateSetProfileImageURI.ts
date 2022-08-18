@@ -1,4 +1,5 @@
 import { gql } from '@apollo/client';
+import { RelayerResultFields } from '@gql/RelayerResultFields';
 
 export const CREATE_SET_PROFILE_IMAGE_URI_TYPED_DATA_MUTATION = gql`
   mutation CreateSetProfileImageURITypedData(
@@ -30,4 +31,16 @@ export const CREATE_SET_PROFILE_IMAGE_URI_TYPED_DATA_MUTATION = gql`
       }
     }
   }
+`;
+
+export const CREATE_SET_PROFILE_IMAGE_URI_VIA_DISPATHCER_MUTATION = gql`
+  mutation CreateSetProfileImageURIViaDispatcher(
+    $options: TypedDataOptions
+    $request: UpdateProfileImageRequest!
+  ) {
+    createSetProfileImageURIViaDispatcher(options: $options, request: $request) {
+      ...RelayerResultFields
+    }
+  }
+  ${RelayerResultFields}
 `;
