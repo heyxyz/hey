@@ -24,6 +24,8 @@ interface AppPersistState {
   setIsAuthenticated: (isAuthenticated: boolean) => void;
   currentUser: Profile | null;
   setCurrentUser: (currentUser: Profile | null) => void;
+  canUseRelay: boolean;
+  setCanUseRelay: (canUseRelay: boolean) => void;
   staffMode: boolean;
   setStaffMode: (staffMode: boolean) => void;
   notificationCount: number;
@@ -39,6 +41,8 @@ export const useAppPersistStore = create(
       setIsAuthenticated: (isAuthenticated) => set(() => ({ isAuthenticated })),
       currentUser: null,
       setCurrentUser: (currentUser) => set(() => ({ currentUser })),
+      canUseRelay: false,
+      setCanUseRelay: (canUseRelay) => set(() => ({ canUseRelay })),
       staffMode: false,
       setStaffMode: (staffMode) => set(() => ({ staffMode })),
       notificationCount: 0,

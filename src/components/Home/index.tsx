@@ -16,6 +16,7 @@ import RecommendedProfiles from './RecommendedProfiles';
 import SetDefaultProfile from './SetDefaultProfile';
 import SetProfile from './SetProfile';
 import Streak from './Streak';
+import UseRelay from './UseRelay';
 
 const HomeFeed = dynamic(() => import('./Feed'), {
   loading: () => <PublicationsShimmer />
@@ -40,14 +41,15 @@ const Home: NextPage = () => {
       <GridLayout>
         <GridItemEight className="space-y-5">{currentUser ? <HomeFeed /> : <ExploreFeed />}</GridItemEight>
         <GridItemFour>
+          {currentUser ? <UseRelay /> : null}
           <Announcement />
-          {currentUser && (
+          {currentUser ? (
             <>
               <SetDefaultProfile />
               <SetProfile />
               <Streak />
             </>
-          )}
+          ) : null}
           <RecommendedProfiles />
           <Footer />
         </GridItemFour>
