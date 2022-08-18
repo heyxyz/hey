@@ -83,10 +83,7 @@ const Like: FC<Props> = ({ publication }) => {
         request: {
           profileId: currentUser?.id,
           reaction: 'UPVOTE',
-          publicationId:
-            publication.__typename === 'Mirror'
-              ? publication?.mirrorOf?.id
-              : publication?.pubId ?? publication?.id
+          publicationId: publication.__typename === 'Mirror' ? publication?.mirrorOf?.id : publication?.id
         }
       }
     };

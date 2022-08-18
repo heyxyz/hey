@@ -29,9 +29,12 @@ export const CommentFields = gql`
     metadata {
       ...MetadataFields
     }
+    hidden
+    createdAt
+    appId
     commentOn {
       ... on Post {
-        pubId: id
+        id
         profile {
           ...MinimalProfileFields
         }
@@ -201,9 +204,6 @@ export const CommentFields = gql`
         createdAt
       }
     }
-    hidden
-    createdAt
-    appId
   }
   ${MinimalProfileFields}
   ${MinimalCollectModuleFields}
