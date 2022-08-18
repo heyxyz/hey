@@ -16,7 +16,7 @@
     {
       "label": "Web App",
       "type": "shell",
-      "command": "yarn dev",
+      "command": "npm run dev",
       "isBackground": true,
       "problemMatcher": []
     }
