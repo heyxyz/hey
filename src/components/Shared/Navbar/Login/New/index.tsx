@@ -5,6 +5,7 @@ import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Form, useZodForm } from '@components/UI/Form';
 import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
+import { RelayerResultFields } from '@gql/RelayerResultFields';
 import { PlusIcon } from '@heroicons/react/outline';
 import uploadMediaToIPFS from '@lib/uploadMediaToIPFS';
 import React, { ChangeEvent, FC, useState } from 'react';
@@ -17,14 +18,10 @@ import Pending from './Pending';
 const CREATE_PROFILE_MUTATION = gql`
   mutation CreateProfile($request: CreateProfileRequest!) {
     createProfile(request: $request) {
-      ... on RelayerResult {
-        txHash
-      }
-      ... on RelayError {
-        reason
-      }
+      ...RelayerResultFields
     }
   }
+  ${RelayerResultFields}
 `;
 
 const newUserSchema = object({
