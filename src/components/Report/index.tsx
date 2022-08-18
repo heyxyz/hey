@@ -41,8 +41,8 @@ const Report: FC = () => {
   const {
     query: { id }
   } = useRouter();
-  const [type, setType] = useState<string>('');
-  const [subReason, setSubReason] = useState<string>('');
+  const [type, setType] = useState('');
+  const [subReason, setSubReason] = useState('');
   const currentUser = useAppPersistStore((state) => state.currentUser);
 
   useEffect(() => {

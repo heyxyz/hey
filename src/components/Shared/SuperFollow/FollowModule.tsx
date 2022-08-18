@@ -88,7 +88,7 @@ const FollowModule: FC<Props> = ({ profile, setFollowing, setShowFollowModal, ag
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
   const currentUser = useAppPersistStore((state) => state.currentUser);
-  const [allowed, setAllowed] = useState<boolean>(true);
+  const [allowed, setAllowed] = useState(true);
   const { address } = useAccount();
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError: (error) => {

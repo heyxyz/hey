@@ -20,7 +20,7 @@ const NotificationIcon: FC = () => {
   const currentUser = useAppPersistStore((state) => state.currentUser);
   const notificationCount = useAppPersistStore((state) => state.notificationCount);
   const setNotificationCount = useAppPersistStore((state) => state.setNotificationCount);
-  const [showBadge, setShowBadge] = useState<boolean>(false);
+  const [showBadge, setShowBadge] = useState(false);
   const { data } = useQuery(NOTIFICATION_COUNT_QUERY, {
     variables: { request: { profileId: currentUser?.id } },
     skip: !currentUser?.id

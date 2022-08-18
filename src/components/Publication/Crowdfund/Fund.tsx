@@ -62,7 +62,7 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const isConnected = useAppPersistStore((state) => state.isConnected);
-  const [allowed, setAllowed] = useState<boolean>(true);
+  const [allowed, setAllowed] = useState(true);
   const { address } = useAccount();
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError: (error) => {

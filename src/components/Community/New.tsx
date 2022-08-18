@@ -45,10 +45,10 @@ const NewCommunity: NextPage = () => {
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
   const currentUser = useAppPersistStore((state) => state.currentUser);
-  const [avatar, setAvatar] = useState<string>();
-  const [avatarType, setAvatarType] = useState<string>();
-  const [isUploading, setIsUploading] = useState<boolean>(false);
-  const [uploading, setUploading] = useState<boolean>(false);
+  const [avatar, setAvatar] = useState('');
+  const [avatarType, setAvatarType] = useState('');
+  const [isUploading, setIsUploading] = useState(false);
+  const [uploading, setUploading] = useState(false);
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError: (error) => {
       toast.error(error?.message);

@@ -54,7 +54,7 @@ const SiteLayout: FC<Props> = ({ children }) => {
   const currentUser = useAppPersistStore((state) => state.currentUser);
   const setCurrentUser = useAppPersistStore((state) => state.setCurrentUser);
 
-  const [mounted, setMounted] = useState<boolean>(false);
+  const [mounted, setMounted] = useState(false);
   const { address, isDisconnected } = useAccount();
   const { chain } = useNetwork();
   const { disconnect } = useDisconnect();

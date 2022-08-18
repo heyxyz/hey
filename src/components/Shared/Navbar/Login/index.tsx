@@ -5,8 +5,8 @@ import { APP_NAME, IS_MAINNET, STATIC_ASSETS } from 'src/constants';
 import NewProfile from './New';
 
 const Login: FC = () => {
-  const [hasConnected, setHasConnected] = useState<boolean>(false);
-  const [hasProfile, setHasProfile] = useState<boolean>(true);
+  const [hasConnected, setHasConnected] = useState(false);
+  const [hasProfile, setHasProfile] = useState(true);
 
   return (
     <div className="p-5">

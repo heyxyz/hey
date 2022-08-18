@@ -20,7 +20,7 @@ interface Props {
 }
 
 const Giphy: FC<Props> = ({ setGifAttachment }) => {
-  const [showModal, setShowModal] = useState<boolean>(false);
+  const [showModal, setShowModal] = useState(false);
 
   return (
     <>

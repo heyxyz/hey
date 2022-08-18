@@ -51,7 +51,7 @@ interface Props {
 
 const Unfollow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
   const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
-  const [writeLoading, setWriteLoading] = useState<boolean>(false);
+  const [writeLoading, setWriteLoading] = useState(false);
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError: (error) => {
       toast.error(error?.message);

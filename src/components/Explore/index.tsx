@@ -21,9 +21,9 @@ const Explore: NextPage = () => {
   const {
     query: { type }
   } = useRouter();
-  const [feedType, setFeedType] = useState<string>(
+  const [feedType, setFeedType] = useState(
     type && ['top_commented', 'top_collected', 'top_mirrored', 'latest'].includes(type as string)
-      ? type?.toString().toUpperCase()
+      ? type.toString().toUpperCase()
       : 'TOP_COMMENTED'
   );
 
