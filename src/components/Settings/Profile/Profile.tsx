@@ -10,12 +10,7 @@ import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
 import { TextArea } from '@components/UI/TextArea';
 import { Toggle } from '@components/UI/Toggle';
-import {
-  CreateSetProfileMetadataUriBroadcastItemResult,
-  MediaSet,
-  Profile,
-  RelayResult
-} from '@generated/types';
+import { CreateSetProfileMetadataUriBroadcastItemResult, MediaSet, Profile } from '@generated/types';
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation';
 import {
   CREATE_SET_PROFILE_METADATA_TYPED_DATA_MUTATION,
@@ -175,11 +170,7 @@ const Profile: FC<Props> = ({ profile }) => {
   const [createSetProfileMetadataViaDispatcher, { loading: viaDispatcherLoading }] = useMutation(
     CREATE_SET_PROFILE_METADATA_VIA_DISPATHCER_MUTATION,
     {
-      onCompleted: async ({
-        createSetProfileMetadataViaDispatcher
-      }: {
-        createSetProfileMetadataViaDispatcher: RelayResult;
-      }) => {
+      onCompleted: () => {
         try {
           alert('GM');
         } catch (error) {}
@@ -292,6 +283,14 @@ const Profile: FC<Props> = ({ profile }) => {
     }
   };
 
+  const isLoading =
+    isUploading ||
+    typedDataLoading ||
+    viaDispatcherLoading ||
+    signLoading ||
+    writeLoading ||
+    broadcastLoading;
+
   return (
     <Card>
       <CardBody>
@@ -354,14 +353,8 @@ const Profile: FC<Props> = ({ profile }) => {
             <Button
               className="ml-auto"
               type="submit"
-              disabled={isUploading || typedDataLoading || signLoading || writeLoading || broadcastLoading}
-              icon={
-                isUploading || typedDataLoading || signLoading || writeLoading || broadcastLoading ? (
-                  <Spinner size="xs" />
-                ) : (
-                  <PencilIcon className="w-4 h-4" />
-                )
-              }
+              disabled={isLoading}
+              icon={isLoading ? <Spinner size="xs" /> : <PencilIcon className="w-4 h-4" />}
             >
               Save
             </Button>
