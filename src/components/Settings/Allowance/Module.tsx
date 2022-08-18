@@ -13,7 +13,7 @@ interface Props {
 }
 
 const Module: FC<Props> = ({ module }) => {
-  const [allowed, setAllowed] = useState<boolean>(module?.allowance !== '0x00');
+  const [allowed, setAllowed] = useState(module?.allowance !== '0x00');
 
   return (
     <Card key={module?.module} forceRounded>

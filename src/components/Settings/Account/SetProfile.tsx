@@ -57,7 +57,7 @@ const SetProfile: FC = () => {
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
-  const [selectedUser, setSelectedUser] = useState<string>();
+  const [selectedUser, setSelectedUser] = useState('');
   const { address } = useAccount();
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError: (error) => {

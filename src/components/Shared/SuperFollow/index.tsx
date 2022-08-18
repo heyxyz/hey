@@ -22,7 +22,7 @@ interface Props {
 }
 
 const SuperFollow: FC<Props> = ({ profile, setFollowing, showText = false, again = false }) => {
-  const [showFollowModal, setShowFollowModal] = useState<boolean>(false);
+  const [showFollowModal, setShowFollowModal] = useState(false);
 
   return (
     <>
