@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
 export const ProfileFields = gql`
-  fragment MinimalProfileFields on Profile {
+  fragment ProfileFields on Profile {
     id
     name
     handle
