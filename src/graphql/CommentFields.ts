@@ -16,7 +16,7 @@ export const CommentFields = gql`
     collectedBy {
       address
       defaultProfile {
-        handle
+        ...MinimalProfileFields
       }
     }
     collectModule {

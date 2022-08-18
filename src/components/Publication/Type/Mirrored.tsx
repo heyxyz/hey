@@ -14,7 +14,7 @@ const Mirrored: FC<Props> = ({ publication }) => {
   return (
     <div className="flex items-center pb-4 space-x-1 text-gray-500 text-[13px]">
       <SwitchHorizontalIcon className="w-4 h-4" />
-      <div className="flex items-center space-x-1">
+      <div className="space-x-1">
         <Link href={`/u/${publication?.profile?.handle}`}>
           <a className="max-w-xs truncate" href={`/u/${publication?.profile?.handle}`}>
             {publication?.profile?.name ? (

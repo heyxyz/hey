@@ -1,13 +1,15 @@
 import clsx from 'clsx';
-import { FC, ReactNode } from 'react';
+import { FC, MouseEvent, ReactNode } from 'react';
 
 interface CardProps {
   children: ReactNode;
   className?: string;
   forceRounded?: boolean;
+  // eslint-disable-next-line no-unused-vars
+  onClick?: (event: MouseEvent<HTMLDivElement>) => void;
 }
 
-export const Card: FC<CardProps> = ({ children, className = '', forceRounded = false }) => {
+export const Card: FC<CardProps> = ({ children, className = '', forceRounded = false, onClick }) => {
   return (
     <div
       className={clsx(
@@ -15,6 +17,7 @@ export const Card: FC<CardProps> = ({ children, className = '', forceRounded = f
         'border dark:border-gray-700/80 bg-white dark:bg-gray-900',
         className
       )}
+      onClick={onClick}
     >
       {children}
     </div>
