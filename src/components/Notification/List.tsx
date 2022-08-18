@@ -6,7 +6,7 @@ import { Spinner } from '@components/UI/Spinner';
 import { Notification, PaginatedResultInfo } from '@generated/types';
 import { CollectModuleFields } from '@gql/CollectModuleFields';
 import { MetadataFields } from '@gql/MetadataFields';
-import { MinimalProfileFields } from '@gql/MinimalProfileFields';
+import { ProfileFields } from '@gql/ProfileFields';
 import { MailIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import { FC, useState } from 'react';
@@ -29,7 +29,7 @@ const NOTIFICATIONS_QUERY = gql`
           wallet {
             address
             defaultProfile {
-              ...MinimalProfileFields
+              ...ProfileFields
             }
           }
           createdAt
@@ -39,7 +39,7 @@ const NOTIFICATIONS_QUERY = gql`
             ... on Post {
               id
               profile {
-                ...MinimalProfileFields
+                ...ProfileFields
               }
               metadata {
                 content
@@ -48,7 +48,7 @@ const NOTIFICATIONS_QUERY = gql`
             ... on Comment {
               id
               profile {
-                ...MinimalProfileFields
+                ...ProfileFields
               }
               metadata {
                 content
@@ -59,7 +59,7 @@ const NOTIFICATIONS_QUERY = gql`
         }
         ... on NewCommentNotification {
           profile {
-            ...MinimalProfileFields
+            ...ProfileFields
           }
           comment {
             id
@@ -82,7 +82,7 @@ const NOTIFICATIONS_QUERY = gql`
         }
         ... on NewMirrorNotification {
           profile {
-            ...MinimalProfileFields
+            ...ProfileFields
           }
           publication {
             ... on Post {
@@ -112,7 +112,7 @@ const NOTIFICATIONS_QUERY = gql`
           wallet {
             address
             defaultProfile {
-              ...MinimalProfileFields
+              ...ProfileFields
             }
           }
           collectedPublication {
@@ -143,7 +143,7 @@ const NOTIFICATIONS_QUERY = gql`
       }
     }
   }
-  ${MinimalProfileFields}
+  ${ProfileFields}
   ${CollectModuleFields}
   ${MetadataFields}
 `;

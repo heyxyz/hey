@@ -5,7 +5,7 @@ import { Card, CardBody } from '@components/UI/Card';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Profile } from '@generated/types';
-import { MinimalProfileFields } from '@gql/MinimalProfileFields';
+import { ProfileFields } from '@gql/ProfileFields';
 import { UsersIcon } from '@heroicons/react/outline';
 import { LightningBoltIcon, SparklesIcon } from '@heroicons/react/solid';
 import randomizeArray from '@lib/randomizeArray';
@@ -15,11 +15,11 @@ import { useAppPersistStore } from 'src/store/app';
 const RECOMMENDED_PROFILES_QUERY = gql`
   query RecommendedProfiles {
     recommendedProfiles {
-      ...MinimalProfileFields
+      ...ProfileFields
       isFollowedByMe
     }
   }
-  ${MinimalProfileFields}
+  ${ProfileFields}
 `;
 
 const Title = () => {

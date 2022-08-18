@@ -2,14 +2,14 @@ import { gql } from '@apollo/client';
 
 import { MinimalCollectModuleFields } from './CollectModuleFields';
 import { MetadataFields } from './MetadataFields';
-import { MinimalProfileFields } from './MinimalProfileFields';
+import { ProfileFields } from './ProfileFields';
 import { StatsFields } from './StatsFields';
 
 export const PostFields = gql`
   fragment PostFields on Post {
     id
     profile {
-      ...MinimalProfileFields
+      ...ProfileFields
     }
     reaction(request: $reactionRequest)
     mirrors(by: $profileId)
@@ -17,7 +17,7 @@ export const PostFields = gql`
     collectedBy {
       address
       defaultProfile {
-        ...MinimalProfileFields
+        ...ProfileFields
       }
     }
     collectModule {
@@ -33,7 +33,7 @@ export const PostFields = gql`
     createdAt
     appId
   }
-  ${MinimalProfileFields}
+  ${ProfileFields}
   ${MinimalCollectModuleFields}
   ${MetadataFields}
   ${StatsFields}

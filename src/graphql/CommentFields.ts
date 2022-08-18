@@ -2,14 +2,16 @@ import { gql } from '@apollo/client';
 
 import { MinimalCollectModuleFields } from './CollectModuleFields';
 import { MetadataFields } from './MetadataFields';
-import { MinimalProfileFields } from './MinimalProfileFields';
+import { MirrorFields } from './MirrorFields';
+import { PostFields } from './PostFields';
+import { ProfileFields } from './ProfileFields';
 import { StatsFields } from './StatsFields';
 
 export const CommentFields = gql`
   fragment CommentFields on Comment {
     id
     profile {
-      ...MinimalProfileFields
+      ...ProfileFields
     }
     reaction(request: $reactionRequest)
     mirrors(by: $profileId)
@@ -17,7 +19,7 @@ export const CommentFields = gql`
     collectedBy {
       address
       defaultProfile {
-        ...MinimalProfileFields
+        ...ProfileFields
       }
     }
     collectModule {
@@ -34,35 +36,12 @@ export const CommentFields = gql`
     appId
     commentOn {
       ... on Post {
-        id
-        profile {
-          ...MinimalProfileFields
-        }
-        reaction(request: $reactionRequest)
-        mirrors(by: $profileId)
-        hasCollectedByMe
-        collectedBy {
-          address
-          defaultProfile {
-            handle
-          }
-        }
-        collectModule {
-          ...MinimalCollectModuleFields
-        }
-        stats {
-          ...StatsFields
-        }
-        metadata {
-          ...MetadataFields
-        }
-        hidden
-        createdAt
+        ...PostFields
       }
       ... on Comment {
         id
         profile {
-          ...MinimalProfileFields
+          ...ProfileFields
         }
         reaction(request: $reactionRequest)
         mirrors(by: $profileId)
@@ -84,128 +63,23 @@ export const CommentFields = gql`
         }
         mainPost {
           ... on Post {
-            id
-            profile {
-              ...MinimalProfileFields
-            }
-            reaction(request: $reactionRequest)
-            mirrors(by: $profileId)
-            hasCollectedByMe
-            collectedBy {
-              address
-              defaultProfile {
-                handle
-              }
-            }
-            collectModule {
-              ...MinimalCollectModuleFields
-            }
-            stats {
-              ...StatsFields
-            }
-            metadata {
-              ...MetadataFields
-            }
-            hidden
-            createdAt
+            ...PostFields
           }
           ... on Mirror {
-            id
-            profile {
-              ...MinimalProfileFields
-            }
-            reaction(request: $reactionRequest)
-            collectModule {
-              ...MinimalCollectModuleFields
-            }
-            stats {
-              ...StatsFields
-            }
-            metadata {
-              ...MetadataFields
-            }
-            mirrorOf {
-              ... on Post {
-                id
-                reaction(request: $reactionRequest)
-                mirrors(by: $profileId)
-                hasCollectedByMe
-                profile {
-                  ...MinimalProfileFields
-                }
-                stats {
-                  ...StatsFields
-                }
-                hidden
-                createdAt
-              }
-              ... on Comment {
-                id
-                reaction(request: $reactionRequest)
-                mirrors(by: $profileId)
-                profile {
-                  ...MinimalProfileFields
-                }
-                stats {
-                  ...StatsFields
-                }
-                hidden
-                createdAt
-              }
-            }
-            createdAt
+            ...MirrorFields
           }
         }
         hidden
         createdAt
       }
       ... on Mirror {
-        id
-        reaction(request: $reactionRequest)
-        profile {
-          ...MinimalProfileFields
-        }
-        metadata {
-          ...MetadataFields
-        }
-        mirrorOf {
-          ... on Post {
-            id
-            profile {
-              ...MinimalProfileFields
-            }
-            reaction(request: $reactionRequest)
-            mirrors(by: $profileId)
-            hasCollectedByMe
-            stats {
-              ...StatsFields
-            }
-            hidden
-            createdAt
-          }
-          ... on Comment {
-            id
-            profile {
-              ...MinimalProfileFields
-            }
-            reaction(request: $reactionRequest)
-            mirrors(by: $profileId)
-            stats {
-              ...StatsFields
-            }
-            hidden
-            createdAt
-          }
-        }
-        stats {
-          ...StatsFields
-        }
-        hidden
-        createdAt
+        ...MirrorFields
       }
     }
   }
-  ${MinimalProfileFields}
+  ${PostFields}
+  ${MirrorFields}
+  ${ProfileFields}
   ${MinimalCollectModuleFields}
   ${MetadataFields}
   ${StatsFields}

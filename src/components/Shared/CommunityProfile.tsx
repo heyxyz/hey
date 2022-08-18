@@ -1,5 +1,6 @@
 import { Community } from '@generated/lenstertypes';
 import { UsersIcon } from '@heroicons/react/outline';
+import getIPFSLink from '@lib/getIPFSLink';
 import imagekitURL from '@lib/imagekitURL';
 import nFormatter from '@lib/nFormatter';
 import Link from 'next/link';
@@ -17,9 +18,11 @@ const CommunityProfile: FC<Props> = ({ community }) => {
           <div className="flex items-center space-x-3">
             <img
               src={imagekitURL(
-                community?.metadata?.cover?.original?.url
-                  ? community?.metadata?.cover?.original?.url
-                  : `https://avatar.tobi.sh/${community?.id}.png`,
+                getIPFSLink(
+                  community?.metadata?.cover?.original?.url
+                    ? community?.metadata?.cover?.original?.url
+                    : `https://avatar.tobi.sh/${community?.id}.png`
+                ),
                 'avatar'
               )}
               className="w-16 h-16 bg-gray-200 rounded-xl border dark:border-gray-700/80"
