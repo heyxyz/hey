@@ -27,7 +27,7 @@ const SinglePublication: FC<Props> = ({ publication, showType = true, showAction
   const timestamp = isMirror ? publication?.mirrorOf?.createdAt : publication?.createdAt;
 
   return (
-    <Link href={`/posts/${publication?.id ?? publication?.pubId}`} passHref>
+    <Link href={`/posts/${publication?.id}`} passHref>
       <article
         className="cursor-pointer first:rounded-t-xl last:rounded-b-xl hover:bg-gray-100/70 hover:dark:bg-gray-800/70 p-5"
         onClick={() => {
