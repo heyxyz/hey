@@ -65,6 +65,7 @@ const Profile: FC<Props> = ({ profile }) => {
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
   const currentUser = useAppPersistStore((state) => state.currentUser);
+  const canUseRelay = useAppPersistStore((state) => state.canUseRelay);
   const [beta, setBeta] = useState(isBeta(profile));
   const [pride, setPride] = useState(hasPrideLogo(profile));
   const [cover, setCover] = useState('');
@@ -248,15 +249,19 @@ const Profile: FC<Props> = ({ profile }) => {
       appId: APP_NAME
     }).finally(() => setIsUploading(false));
 
-    createSetProfileMetadataTypedData({
-      variables: {
-        options: { overrideSigNonce: userSigNonce },
-        request: {
-          profileId: currentUser?.id,
-          metadata: `https://arweave.net/${id}`
+    if (canUseRelay) {
+      alert('WIP');
+    } else {
+      createSetProfileMetadataTypedData({
+        variables: {
+          options: { overrideSigNonce: userSigNonce },
+          request: {
+            profileId: currentUser?.id,
+            metadata: `https://arweave.net/${id}`
+          }
         }
-      }
-    });
+      });
+    }
   };
 
   return (
