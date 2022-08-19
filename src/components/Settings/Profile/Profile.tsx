@@ -167,14 +167,9 @@ const Profile: FC<Props> = ({ profile }) => {
     }
   );
 
-  const [createSetProfileMetadataViaDispatcher, { loading: viaDispatcherLoading }] = useMutation(
-    CREATE_SET_PROFILE_METADATA_VIA_DISPATHCER_MUTATION,
-    {
-      onCompleted: () => {
-        try {
-          alert('GM');
-        } catch (error) {}
-      },
+  const [createSetProfileMetadataViaDispatcher, { data: dispatcherData, loading: dispatcherLoading }] =
+    useMutation(CREATE_SET_PROFILE_METADATA_VIA_DISPATHCER_MUTATION, {
+      onCompleted,
       onError: (error) => {
         toast.error(error.message ?? ERROR_MESSAGE);
         Mixpanel.track(SETTINGS.PROFILE.UPDATE, {
@@ -182,8 +177,7 @@ const Profile: FC<Props> = ({ profile }) => {
           error: error?.message
         });
       }
-    }
-  );
+    });
 
   useEffect(() => {
     if (profile?.coverPicture?.original?.url) {
@@ -288,12 +282,7 @@ const Profile: FC<Props> = ({ profile }) => {
   };
 
   const isLoading =
-    isUploading ||
-    typedDataLoading ||
-    viaDispatcherLoading ||
-    signLoading ||
-    writeLoading ||
-    broadcastLoading;
+    isUploading || typedDataLoading || dispatcherLoading || signLoading || writeLoading || broadcastLoading;
 
   return (
     <Card>
@@ -362,8 +351,16 @@ const Profile: FC<Props> = ({ profile }) => {
             >
               Save
             </Button>
-            {writeData?.hash ?? broadcastData?.broadcast?.txHash ? (
-              <IndexStatus txHash={writeData?.hash ? writeData?.hash : broadcastData?.broadcast?.txHash} />
+            {writeData?.hash ??
+            broadcastData?.broadcast?.txHash ??
+            dispatcherData?.createSetProfileMetadataViaDispatcher?.txHash ? (
+              <IndexStatus
+                txHash={
+                  writeData?.hash ??
+                  broadcastData?.broadcast?.txHash ??
+                  dispatcherData?.createSetProfileMetadataViaDispatcher?.txHash
+                }
+              />
             ) : null}
           </div>
         </Form>
