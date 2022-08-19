@@ -65,7 +65,7 @@ const DeleteSettings: FC = () => {
   const setIsConnected = useAppPersistStore((state) => state.setIsConnected);
   const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
   const setIsAuthenticated = useAppPersistStore((state) => state.setIsAuthenticated);
-  const setCurrentUserId = useAppPersistStore((state) => state.setCurrentUserId);
+  const setProfileId = useAppPersistStore((state) => state.setProfileId);
 
   const { disconnect } = useDisconnect();
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
@@ -83,7 +83,7 @@ const DeleteSettings: FC = () => {
     setIsAuthenticated(false);
     setIsConnected(false);
     setCurrentUser(undefined);
-    setCurrentUserId(null);
+    setProfileId(null);
     Cookies.remove('accessToken');
     Cookies.remove('refreshToken');
     localStorage.removeItem('lenster.store');

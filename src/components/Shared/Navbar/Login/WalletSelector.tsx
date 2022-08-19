@@ -45,7 +45,7 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
   const setCurrentUser = useAppStore((state) => state.setCurrentUser);
   const setIsConnected = useAppPersistStore((state) => state.setIsConnected);
   const setIsAuthenticated = useAppPersistStore((state) => state.setIsAuthenticated);
-  const setCurrentUserId = useAppPersistStore((state) => state.setCurrentUserId);
+  const setProfileId = useAppPersistStore((state) => state.setProfileId);
 
   const [mounted, setMounted] = useState(false);
   const { chain } = useNetwork();
@@ -115,8 +115,8 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
           ?.sort((a: Profile, b: Profile) => (!(a.isDefault !== b.isDefault) ? 0 : a.isDefault ? -1 : 1));
         setIsAuthenticated(true);
         setProfiles(profiles);
-        setCurrentUserId(profiles[0].id);
         setCurrentUser(profiles[0]);
+        setProfileId(profiles[0].id);
         setCanUseRelay(profiles[0].dispatcher?.canUseRelay ? true : false);
       }
       Mixpanel.track(USER.SIWL, { result: 'success' });

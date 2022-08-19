@@ -52,7 +52,7 @@ const MenuItems: FC<Props> = ({ pingData }) => {
   const setCurrentUser = useAppStore((state) => state.setCurrentUser);
   const isConnected = useAppPersistStore((state) => state.isConnected);
   const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
-  const setCurrentUserId = useAppPersistStore((state) => state.setCurrentUserId);
+  const setProfileId = useAppPersistStore((state) => state.setProfileId);
   const staffMode = useAppPersistStore((state) => state.staffMode);
   const setStaffMode = useAppPersistStore((state) => state.setStaffMode);
   const [showLoginModal, setShowLoginModal] = useState(false);
@@ -130,7 +130,7 @@ const MenuItems: FC<Props> = ({ pingData }) => {
                 onClick={() => {
                   Mixpanel.track(PROFILE.LOGOUT);
                   setCurrentUser(undefined);
-                  setCurrentUserId(null);
+                  setProfileId(null);
                   Cookies.remove('accessToken');
                   Cookies.remove('refreshToken');
                   localStorage.removeItem('lenster.store');
@@ -164,8 +164,8 @@ const MenuItems: FC<Props> = ({ pingData }) => {
                           type="button"
                           className="flex items-center py-1.5 px-4 space-x-2 w-full rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
                           onClick={() => {
-                            setCurrentUserId(profiles[index].id);
                             setCurrentUser(profiles[index]);
+                            setProfileId(profiles[index].id);
                             setCanUseRelay(profiles[index].dispatcher?.canUseRelay ?? false);
                             Mixpanel.track(PROFILE.SWITCH_PROFILE);
                           }}

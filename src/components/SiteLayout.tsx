@@ -57,8 +57,8 @@ const SiteLayout: FC<Props> = ({ children }) => {
   const setIsConnected = useAppPersistStore((state) => state.setIsConnected);
   const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
   const setIsAuthenticated = useAppPersistStore((state) => state.setIsAuthenticated);
-  const currentUserId = useAppPersistStore((state) => state.currentUserId);
-  const setCurrentUserId = useAppPersistStore((state) => state.setCurrentUserId);
+  const profileId = useAppPersistStore((state) => state.profileId);
+  const setProfileId = useAppPersistStore((state) => state.setProfileId);
 
   const [mounted, setMounted] = useState(false);
   const { address, isDisconnected } = useAccount();
@@ -76,9 +76,9 @@ const SiteLayout: FC<Props> = ({ children }) => {
       setUserSigNonce(data?.userSigNonces?.lensHubOnChainSigNonce);
 
       if (profiles.length === 0) {
-        setCurrentUserId(null);
+        setProfileId(null);
       } else {
-        const selectedUser = profiles.find((profile) => profile.id === currentUserId);
+        const selectedUser = profiles.find((profile) => profile.id === profileId);
         setProfiles(profiles);
         setCurrentUser(selectedUser);
         setCanUseRelay(selectedUser?.dispatcher?.canUseRelay ? true : false);
@@ -112,7 +112,8 @@ const SiteLayout: FC<Props> = ({ children }) => {
     const logout = () => {
       setIsAuthenticated(false);
       setIsConnected(false);
-      setCurrentUserId(null);
+      setCurrentUser(undefined);
+      setProfileId(null);
       Cookies.remove('accessToken');
       Cookies.remove('refreshToken');
       localStorage.removeItem('lenster.store');
@@ -126,7 +127,7 @@ const SiteLayout: FC<Props> = ({ children }) => {
       accessToken &&
       accessToken !== 'undefined' &&
       refreshToken !== 'undefined' &&
-      currentUserId &&
+      profileId &&
       chain?.id === CHAIN_ID
     ) {
       setIsAuthenticated(true);

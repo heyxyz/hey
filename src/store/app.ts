@@ -30,8 +30,8 @@ interface AppPersistState {
   setIsConnected: (isConnected: boolean) => void;
   isAuthenticated: boolean;
   setIsAuthenticated: (isAuthenticated: boolean) => void;
-  currentUserId: string | null;
-  setCurrentUserId: (currentUserId: string | null) => void;
+  profileId: string | null;
+  setProfileId: (profileId: string | null) => void;
   staffMode: boolean;
   setStaffMode: (staffMode: boolean) => void;
   notificationCount: number;
@@ -45,8 +45,8 @@ export const useAppPersistStore = create(
       setIsConnected: (isConnected) => set(() => ({ isConnected })),
       isAuthenticated: false,
       setIsAuthenticated: (isAuthenticated) => set(() => ({ isAuthenticated })),
-      currentUserId: null,
-      setCurrentUserId: (currentUserId) => set(() => ({ currentUserId })),
+      profileId: null,
+      setProfileId: (profileId) => set(() => ({ profileId })),
       staffMode: false,
       setStaffMode: (staffMode) => set(() => ({ staffMode })),
       notificationCount: 0,
