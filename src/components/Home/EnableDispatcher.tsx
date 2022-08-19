@@ -12,7 +12,7 @@ import omit from '@lib/omit';
 import splitSignature from '@lib/splitSignature';
 import { FC } from 'react';
 import toast from 'react-hot-toast';
-import { ERROR_MESSAGE, ERRORS, LENSHUB_PROXY, RELAY_ON } from 'src/constants';
+import { ERROR_MESSAGE, ERRORS, LENSHUB_PROXY, RELAY_ON, RELAYER_ADDRESS } from 'src/constants';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
@@ -140,7 +140,7 @@ const EnableDispatcher: FC = () => {
                 variables: {
                   request: {
                     profileId: currentUser?.id,
-                    dispatcher: '0x6c1e1bc39b13f9e0af9424d76de899203f47755f',
+                    dispatcher: RELAYER_ADDRESS,
                     enable: true
                   }
                 }
