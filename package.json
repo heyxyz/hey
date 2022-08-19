@@ -18,7 +18,7 @@
     "@apollo/client": "^3.6.9",
     "@bundlr-network/client": "^0.8.0",
     "@giphy/js-fetch-api": "^4.3.1",
-    "@giphy/react-components": "^6.1.0",
+    "@giphy/react-components": "^6.1.1",
     "@headlessui/react": "^1.6.6",
     "@heroicons/react": "^1.0.6",
     "@hookform/resolvers": "^2.9.6",
