@@ -259,7 +259,7 @@ const NewComment: FC<Props> = ({ setShowModal, hideCard = false, publication, ty
       createCommentTypedData({
         variables: {
           options: { overrideSigNonce: userSigNonce },
-          ...request
+          request
         }
       });
     }

@@ -128,7 +128,7 @@ const EnableDispatcher: FC = () => {
               variables: {
                 request: {
                   profileId: currentUser?.id,
-                  dispatcher: '0xd1feccf6881970105dfb2b654054174007f0e07e',
+                  dispatcher: '0x6c1e1bc39b13f9e0af9424d76de899203f47755f',
                   enable: true
                 }
               }

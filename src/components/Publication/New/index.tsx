@@ -248,7 +248,7 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
       createPostTypedData({
         variables: {
           options: { overrideSigNonce: userSigNonce },
-          ...request
+          request
         }
       });
     }

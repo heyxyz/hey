@@ -282,7 +282,7 @@ const Profile: FC<Props> = ({ profile }) => {
       createSetProfileMetadataTypedData({
         variables: {
           options: { overrideSigNonce: userSigNonce },
-          ...request
+          request
         }
       });
     }
