@@ -121,6 +121,7 @@ const Profile: FC<Props> = ({ profile }) => {
       });
     }
   });
+
   const [createSetProfileMetadataTypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_SET_PROFILE_METADATA_TYPED_DATA_MUTATION,
     {
