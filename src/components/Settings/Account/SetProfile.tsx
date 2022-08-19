@@ -8,7 +8,10 @@ import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
 import { Profile, SetDefaultProfileBroadcastItemResult } from '@generated/types';
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation';
-import { CREATE_SET_DEFAULT_PROFILE_DATA_MUTATION } from '@gql/TypedAndDispatcherData/CreateSetDefaultProfile';
+import {
+  CREATE_SET_DEFAULT_PROFILE_DATA_MUTATION,
+  CREATE_SET_DEFAULT_PROFILE_VIA_DISPATHCER_MUTATION
+} from '@gql/TypedAndDispatcherData/CreateSetDefaultProfile';
 import { ExclamationIcon, PencilIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import omit from '@lib/omit';
@@ -23,6 +26,7 @@ import { useAccount, useContractWrite, useSignTypedData } from 'wagmi';
 
 const SetProfile: FC = () => {
   const profiles = useAppStore((state) => state.profiles);
+  const currentProfile = useAppStore((state) => state.currentProfile);
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
@@ -83,6 +87,7 @@ const SetProfile: FC = () => {
       });
     }
   });
+
   const [createSetDefaultProfileTypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_SET_DEFAULT_PROFILE_DATA_MUTATION,
     {
@@ -129,22 +134,49 @@ const SetProfile: FC = () => {
     }
   );
 
+  const [createSetDefaultProfileViaDispatcher, { loading: viaDispatcherLoading }] = useMutation(
+    CREATE_SET_DEFAULT_PROFILE_VIA_DISPATHCER_MUTATION,
+    {
+      onCompleted: () => {
+        try {
+          alert('GM');
+        } catch (error) {}
+      },
+      onError: (error) => {
+        toast.error(error.message ?? ERROR_MESSAGE);
+        Mixpanel.track(SETTINGS.ACCOUNT.SET_DEFAULT_PROFILE, {
+          result: 'dispatcher_error',
+          error: error?.message
+        });
+      }
+    }
+  );
+
   const setDefaultProfile = () => {
     if (!isAuthenticated) {
       return toast.error(SIGN_WALLET);
     }
 
-    createSetDefaultProfileTypedData({
-      variables: {
-        options: { overrideSigNonce: userSigNonce },
-        request: { profileId: selectedUser }
-      }
-    });
+    const request = { profileId: selectedUser };
+
+    if (currentProfile?.dispatcher?.canUseRelay) {
+      createSetDefaultProfileViaDispatcher({ variables: { request } });
+    } else {
+      createSetDefaultProfileTypedData({
+        variables: {
+          options: { overrideSigNonce: userSigNonce },
+          request
+        }
+      });
+    }
   };
 
   if (!isAuthenticated) {
     return <Custom404 />;
   }
+
+  const isLoading =
+    typedDataLoading || viaDispatcherLoading || signLoading || writeLoading || broadcastLoading;
 
   return (
     <Card>
@@ -190,15 +222,9 @@ const SetProfile: FC = () => {
           <Button
             className="ml-auto"
             type="submit"
-            disabled={typedDataLoading || signLoading || writeLoading || broadcastLoading}
+            disabled={isLoading}
             onClick={setDefaultProfile}
-            icon={
-              typedDataLoading || signLoading || writeLoading || broadcastLoading ? (
-                <Spinner size="xs" />
-              ) : (
-                <PencilIcon className="w-4 h-4" />
-              )
-            }
+            icon={isLoading ? <Spinner size="xs" /> : <PencilIcon className="w-4 h-4" />}
           >
             Save
           </Button>
