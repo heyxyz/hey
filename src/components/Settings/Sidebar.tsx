@@ -1,6 +1,13 @@
 import UserProfile from '@components/Shared/UserProfile';
 import { Profile } from '@generated/types';
-import { ChipIcon, DatabaseIcon, ExclamationIcon, ShareIcon, UserIcon } from '@heroicons/react/outline';
+import {
+  ChipIcon,
+  DatabaseIcon,
+  ExclamationIcon,
+  FingerPrintIcon,
+  ShareIcon,
+  UserIcon
+} from '@heroicons/react/outline';
 import clsx from 'clsx';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -43,6 +50,10 @@ const Sidebar: FC = () => {
       <Menu current={pathname == '/settings/account'} url="/settings/account">
         <ChipIcon className="w-4 h-4" />
         <div>Account</div>
+      </Menu>
+      <Menu current={pathname == '/settings/dispatcher'} url="/settings/dispatcher">
+        <FingerPrintIcon className="w-4 h-4" />
+        <div>Dispatcher</div>
       </Menu>
       <Menu current={pathname == '/settings/allowance'} url="/settings/allowance">
         <ShareIcon className="w-4 h-4" />
