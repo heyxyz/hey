@@ -12,7 +12,10 @@ import { LensterAttachment } from '@generated/lenstertypes';
 import { CreatePostBroadcastItemResult } from '@generated/types';
 import { IGif } from '@giphy/js-types';
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation';
-import { CREATE_POST_TYPED_DATA_MUTATION } from '@gql/TypedAndDispatcherData/CreatePost';
+import {
+  CREATE_POST_TYPED_DATA_MUTATION,
+  CREATE_POST_VIA_DISPATHCER_MUTATION
+} from '@gql/TypedAndDispatcherData/CreatePost';
 import { PencilAltIcon } from '@heroicons/react/outline';
 import { defaultFeeData, defaultModuleData, getModule } from '@lib/getModule';
 import { Mixpanel } from '@lib/mixpanel';
@@ -57,6 +60,7 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
   const currentUser = useAppPersistStore((state) => state.currentUser);
+  const canUseRelay = useAppPersistStore((state) => state.canUseRelay);
   const publicationContent = usePublicationStore((state) => state.publicationContent);
   const setPublicationContent = usePublicationStore((state) => state.setPublicationContent);
   const previewPublication = usePublicationStore((state) => state.previewPublication);
@@ -118,6 +122,7 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
       });
     }
   });
+
   const [createPostTypedData, { loading: typedDataLoading }] = useMutation(CREATE_POST_TYPED_DATA_MUTATION, {
     onCompleted: async ({ createPostTypedData }: { createPostTypedData: CreatePostBroadcastItemResult }) => {
       const { id, typedData } = createPostTypedData;
@@ -167,6 +172,24 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
     }
   });
 
+  const [createPostViaDispatcher, { loading: viaDispatcherLoading }] = useMutation(
+    CREATE_POST_VIA_DISPATHCER_MUTATION,
+    {
+      onCompleted: () => {
+        try {
+          alert('GM');
+        } catch (error) {}
+      },
+      onError: (error) => {
+        toast.error(error.message ?? ERROR_MESSAGE);
+        Mixpanel.track(POST.NEW, {
+          result: 'dispatcher_error',
+          error: error?.message
+        });
+      }
+    }
+  );
+
   const createPost = async () => {
     if (!isAuthenticated) {
       return toast.error(SIGN_WALLET);
@@ -204,23 +227,31 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
       appId: APP_NAME
     }).finally(() => setIsUploading(false));
 
-    createPostTypedData({
-      variables: {
-        options: { overrideSigNonce: userSigNonce },
-        request: {
-          profileId: currentUser?.id,
-          contentURI: `https://arweave.net/${id}`,
-          collectModule: feeData.recipient
-            ? {
-                [getModule(selectedModule.moduleName).config]: feeData
-              }
-            : getModule(selectedModule.moduleName).config,
-          referenceModule: {
-            followerOnlyReferenceModule: onlyFollowers ? true : false
+    const request = {
+      profileId: currentUser?.id,
+      contentURI: `https://arweave.net/${id}`,
+      collectModule: feeData.recipient
+        ? {
+            [getModule(selectedModule.moduleName).config]: feeData
           }
-        }
+        : getModule(selectedModule.moduleName).config,
+      referenceModule: {
+        followerOnlyReferenceModule: onlyFollowers ? true : false
       }
-    });
+    };
+
+    if (canUseRelay) {
+      createPostViaDispatcher({
+        variables: { request }
+      });
+    } else {
+      createPostTypedData({
+        variables: {
+          options: { overrideSigNonce: userSigNonce },
+          ...request
+        }
+      });
+    }
   };
 
   const setGifAttachment = (gif: IGif) => {
@@ -231,6 +262,14 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
     };
     setAttachments([...attachments, attachment]);
   };
+
+  const isLoading =
+    isUploading ||
+    typedDataLoading ||
+    viaDispatcherLoading ||
+    signLoading ||
+    writeLoading ||
+    broadcastLoading;
 
   return (
     <Card className={hideCard ? 'border-0 !shadow-none !bg-transparent' : ''}>
@@ -266,14 +305,8 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
               ) : null}
               <Button
                 className="ml-auto"
-                disabled={isUploading || typedDataLoading || signLoading || writeLoading || broadcastLoading}
-                icon={
-                  isUploading || typedDataLoading || signLoading || writeLoading || broadcastLoading ? (
-                    <Spinner size="xs" />
-                  ) : (
-                    <PencilAltIcon className="w-4 h-4" />
-                  )
-                }
+                disabled={isLoading}
+                icon={isLoading ? <Spinner size="xs" /> : <PencilAltIcon className="w-4 h-4" />}
                 onClick={createPost}
               >
                 {isUploading
