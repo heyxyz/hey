@@ -1333,16 +1333,21 @@ export type Mutation = {
   createBurnProfileTypedData: CreateBurnProfileBroadcastItemResult;
   createCollectTypedData: CreateCollectBroadcastItemResult;
   createCommentTypedData: CreateCommentBroadcastItemResult;
+  createCommentViaDispatcher: RelayResult;
   createFollowTypedData: CreateFollowBroadcastItemResult;
   createMirrorTypedData: CreateMirrorBroadcastItemResult;
+  createMirrorViaDispatcher: RelayResult;
   createPostTypedData: CreatePostBroadcastItemResult;
+  createPostViaDispatcher: RelayResult;
   createProfile: RelayResult;
   createSetDefaultProfileTypedData: SetDefaultProfileBroadcastItemResult;
   createSetDispatcherTypedData: CreateSetDispatcherBroadcastItemResult;
   createSetFollowModuleTypedData: CreateSetFollowModuleBroadcastItemResult;
   createSetFollowNFTUriTypedData: CreateSetFollowNftUriBroadcastItemResult;
   createSetProfileImageURITypedData: CreateSetProfileImageUriBroadcastItemResult;
+  createSetProfileImageURIViaDispatcher: RelayResult;
   createSetProfileMetadataTypedData: CreateSetProfileMetadataUriBroadcastItemResult;
+  createSetProfileMetadataViaDispatcher: RelayResult;
   createToggleFollowTypedData: CreateToggleFollowBroadcastItemResult;
   createUnfollowTypedData: CreateUnfollowBroadcastItemResult;
   hidePublication?: Maybe<Scalars['Void']>;
@@ -1386,6 +1391,10 @@ export type MutationCreateCommentTypedDataArgs = {
   request: CreatePublicCommentRequest;
 };
 
+export type MutationCreateCommentViaDispatcherArgs = {
+  request: CreatePublicCommentRequest;
+};
+
 export type MutationCreateFollowTypedDataArgs = {
   options?: InputMaybe<TypedDataOptions>;
   request: FollowRequest;
@@ -1396,8 +1405,16 @@ export type MutationCreateMirrorTypedDataArgs = {
   request: CreateMirrorRequest;
 };
 
+export type MutationCreateMirrorViaDispatcherArgs = {
+  request: CreateMirrorRequest;
+};
+
 export type MutationCreatePostTypedDataArgs = {
   options?: InputMaybe<TypedDataOptions>;
+  request: CreatePublicPostRequest;
+};
+
+export type MutationCreatePostViaDispatcherArgs = {
   request: CreatePublicPostRequest;
 };
 
@@ -1430,8 +1447,16 @@ export type MutationCreateSetProfileImageUriTypedDataArgs = {
   request: UpdateProfileImageRequest;
 };
 
+export type MutationCreateSetProfileImageUriViaDispatcherArgs = {
+  request: UpdateProfileImageRequest;
+};
+
 export type MutationCreateSetProfileMetadataTypedDataArgs = {
   options?: InputMaybe<TypedDataOptions>;
+  request: CreatePublicSetProfileMetadataUriRequest;
+};
+
+export type MutationCreateSetProfileMetadataViaDispatcherArgs = {
   request: CreatePublicSetProfileMetadataUriRequest;
 };
 
@@ -2468,7 +2493,7 @@ export type SetDefaultProfileEip712TypedDataValue = {
 };
 
 export type SetDispatcherRequest = {
-  /** The dispatcher address - they can post, comment, mirror, set follow module, change your profile picture on your behalf. */
+  /** The dispatcher address - they can post, comment, mirror, set follow module, change your profile picture on your behalf, if left as none it will use the built in dispatcher address. */
   dispatcher?: InputMaybe<Scalars['EthereumAddress']>;
   /** If you want to enable or disable it */
   enable?: InputMaybe<Scalars['Boolean']>;
