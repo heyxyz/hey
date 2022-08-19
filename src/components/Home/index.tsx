@@ -10,13 +10,13 @@ import React, { useEffect } from 'react';
 import { useAppPersistStore } from 'src/store/app';
 import { PAGEVIEW } from 'src/tracking';
 
+import EnableDispatcher from './EnableDispatcher';
 import Hero from './Hero';
 import ProfileWarning from './ProfileWarning';
 import RecommendedProfiles from './RecommendedProfiles';
 import SetDefaultProfile from './SetDefaultProfile';
 import SetProfile from './SetProfile';
 import Streak from './Streak';
-import UseRelay from './UseRelay';
 
 const HomeFeed = dynamic(() => import('./Feed'), {
   loading: () => <PublicationsShimmer />
@@ -41,7 +41,7 @@ const Home: NextPage = () => {
       <GridLayout>
         <GridItemEight className="space-y-5">{currentUser ? <HomeFeed /> : <ExploreFeed />}</GridItemEight>
         <GridItemFour>
-          {currentUser ? <UseRelay /> : null}
+          {currentUser ? <EnableDispatcher /> : null}
           <Announcement />
           {currentUser ? (
             <>

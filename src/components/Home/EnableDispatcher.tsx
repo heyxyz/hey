@@ -15,7 +15,7 @@ import { ERROR_MESSAGE, ERRORS, LENSHUB_PROXY, RELAY_ON } from 'src/constants';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
-const UseRelay: FC = () => {
+const EnableDispatcher: FC = () => {
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const currentUser = useAppPersistStore((state) => state.currentUser);
@@ -129,7 +129,7 @@ const UseRelay: FC = () => {
                 request: {
                   profileId: currentUser?.id,
                   dispatcher: '0xd1feccf6881970105dfb2b654054174007f0e07e',
-                  enable: false
+                  enable: true
                 }
               }
             });
@@ -142,4 +142,4 @@ const UseRelay: FC = () => {
   );
 };
 
-export default UseRelay;
+export default EnableDispatcher;
