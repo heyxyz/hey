@@ -8,7 +8,10 @@ import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
 import { CreateSetProfileImageUriBroadcastItemResult, NftImage, Profile } from '@generated/types';
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation';
-import { CREATE_SET_PROFILE_IMAGE_URI_TYPED_DATA_MUTATION } from '@gql/TypedAndDispatcherData/CreateSetProfileImageURI';
+import {
+  CREATE_SET_PROFILE_IMAGE_URI_TYPED_DATA_MUTATION,
+  CREATE_SET_PROFILE_IMAGE_URI_VIA_DISPATHCER_MUTATION
+} from '@gql/TypedAndDispatcherData/CreateSetProfileImageURI';
 import { PencilIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import omit from '@lib/omit';
@@ -115,6 +118,7 @@ const NFTPicture: FC<Props> = ({ profile }) => {
       });
     }
   });
+
   const [createSetProfileImageURITypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_SET_PROFILE_IMAGE_URI_TYPED_DATA_MUTATION,
     {
@@ -160,6 +164,24 @@ const NFTPicture: FC<Props> = ({ profile }) => {
     }
   );
 
+  const [createSetProfileImageURIViaDispatcher, { loading: viaDispatcherLoading }] = useMutation(
+    CREATE_SET_PROFILE_IMAGE_URI_VIA_DISPATHCER_MUTATION,
+    {
+      onCompleted: () => {
+        try {
+          alert('GM');
+        } catch (error) {}
+      },
+      onError: (error) => {
+        toast.error(error.message ?? ERROR_MESSAGE);
+        Mixpanel.track(SETTINGS.PROFILE.SET_NFT_PICTURE, {
+          result: 'dispatcher_error',
+          error: error?.message
+        });
+      }
+    }
+  );
+
   const setAvatar = async (contractAddress: string, tokenId: string) => {
     if (!isAuthenticated) {
       return toast.error(SIGN_WALLET);
@@ -181,19 +203,34 @@ const NFTPicture: FC<Props> = ({ profile }) => {
     const signature = await signMessageAsync({
       message: challengeRes?.data?.nftOwnershipChallenge?.text
     });
-    createSetProfileImageURITypedData({
-      variables: {
-        options: { overrideSigNonce: userSigNonce },
-        request: {
-          profileId: currentProfile?.id,
-          nftData: {
-            id: challengeRes?.data?.nftOwnershipChallenge?.id,
-            signature
-          }
-        }
+
+    const request = {
+      profileId: currentProfile?.id,
+      nftData: {
+        id: challengeRes?.data?.nftOwnershipChallenge?.id,
+        signature
       }
-    });
+    };
+
+    if (currentProfile?.dispatcher?.canUseRelay) {
+      createSetProfileImageURIViaDispatcher({ variables: { request } });
+    } else {
+      createSetProfileImageURITypedData({
+        variables: {
+          options: { overrideSigNonce: userSigNonce },
+          request
+        }
+      });
+    }
   };
+
+  const isLoading =
+    challengeLoading ||
+    typedDataLoading ||
+    viaDispatcherLoading ||
+    signLoading ||
+    writeLoading ||
+    broadcastLoading;
 
   return (
     <Form
@@ -233,14 +270,8 @@ const NFTPicture: FC<Props> = ({ profile }) => {
         <Button
           className="ml-auto"
           type="submit"
-          disabled={challengeLoading || typedDataLoading || signLoading || writeLoading || broadcastLoading}
-          icon={
-            challengeLoading || typedDataLoading || signLoading || writeLoading || broadcastLoading ? (
-              <Spinner size="xs" />
-            ) : (
-              <PencilIcon className="w-4 h-4" />
-            )
-          }
+          disabled={isLoading}
+          icon={isLoading ? <Spinner size="xs" /> : <PencilIcon className="w-4 h-4" />}
         >
           Save
         </Button>
