@@ -28,7 +28,7 @@ interface Props {
 }
 
 const Details: FC<Props> = ({ community }) => {
-  const currentUser = useAppStore((state) => state.currentUser);
+  const currentProfile = useAppStore((state) => state.currentProfile);
   const [showMembersModal, setShowMembersModal] = useState(false);
   const [showSettingsModal, setShowSettingsModal] = useState(false);
   const [joined, setJoined] = useState(community?.hasCollectedByMe);
@@ -75,7 +75,7 @@ const Details: FC<Props> = ({ community }) => {
           ) : (
             <Join community={community} setJoined={setJoined} />
           )}
-          {currentUser?.id === community?.profile?.id && (
+          {currentProfile?.id === community?.profile?.id && (
             <>
               <Button
                 variant="secondary"

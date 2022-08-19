@@ -16,8 +16,8 @@ interface Props {
 }
 
 const FollowerNotification: FC<Props> = ({ notification }) => {
-  const currentUser = useAppStore((state) => state.currentUser);
-  const isSuperFollow = currentUser?.followModule?.__typename === 'FeeFollowModuleSettings';
+  const currentProfile = useAppStore((state) => state.currentProfile);
+  const isSuperFollow = currentProfile?.followModule?.__typename === 'FeeFollowModuleSettings';
 
   return (
     <div className="flex justify-between items-start">

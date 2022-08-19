@@ -15,13 +15,13 @@ import SetProfile from './SetProfile';
 import Verification from './Verification';
 
 const AccountSettings: NextPage = () => {
-  const currentUser = useAppStore((state) => state.currentUser);
+  const currentProfile = useAppStore((state) => state.currentProfile);
 
   useEffect(() => {
     Mixpanel.track(PAGEVIEW.SETTINGS.ACCOUNT);
   }, []);
 
-  if (!currentUser) {
+  if (!currentProfile) {
     return <Custom404 />;
   }
 

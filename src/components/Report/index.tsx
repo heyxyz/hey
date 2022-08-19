@@ -41,7 +41,7 @@ const Report: FC = () => {
   const {
     query: { id }
   } = useRouter();
-  const currentUser = useAppStore((state) => state.currentUser);
+  const currentProfile = useAppStore((state) => state.currentProfile);
   const [type, setType] = useState('');
   const [subReason, setSubReason] = useState('');
 
@@ -54,7 +54,7 @@ const Report: FC = () => {
       request: { publicationId: id },
       followRequest: {
         followInfos: {
-          followerAddress: currentUser?.ownedBy ?? ZERO_ADDRESS,
+          followerAddress: currentProfile?.ownedBy ?? ZERO_ADDRESS,
           profileId: id?.toString().split('-')[0]
         }
       }
@@ -91,7 +91,7 @@ const Report: FC = () => {
     });
   };
 
-  if (!currentUser || !id) {
+  if (!currentProfile || !id) {
     return <Custom404 />;
   }
 

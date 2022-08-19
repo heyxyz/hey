@@ -55,13 +55,13 @@ const AllowanceSettings: NextPage = () => {
     Mixpanel.track(PAGEVIEW.SETTINGS.ALLOWANCE);
   }, []);
 
-  const currentUser = useAppStore((state) => state.currentUser);
+  const currentProfile = useAppStore((state) => state.currentProfile);
   const [currencyLoading, setCurrencyLoading] = useState(false);
   const { data, loading, error, refetch } = useQuery(ALLOWANCE_SETTINGS_QUERY, {
     variables: {
       request: getAllowancePayload(DEFAULT_COLLECT_TOKEN)
     },
-    skip: !currentUser?.id
+    skip: !currentProfile?.id
   });
 
   if (error) {
@@ -72,7 +72,7 @@ const AllowanceSettings: NextPage = () => {
     return <PageLoading message="Loading settings" />;
   }
 
-  if (!currentUser) {
+  if (!currentProfile) {
     return <Custom404 />;
   }
 

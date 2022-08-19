@@ -12,13 +12,13 @@ import { useAppStore } from 'src/store/app';
 import { PAGEVIEW } from 'src/tracking';
 
 const NewProfile: NextPage = () => {
-  const currentUser = useAppStore((state) => state.currentUser);
+  const currentProfile = useAppStore((state) => state.currentProfile);
 
   useEffect(() => {
     Mixpanel.track(PAGEVIEW.CREATE_PROFILE);
   }, []);
 
-  if (!currentUser) {
+  if (!currentProfile) {
     return <Custom404 />;
   }
 

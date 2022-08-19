@@ -13,7 +13,7 @@ import { PAGEVIEW } from 'src/tracking';
 import Sidebar from '../Sidebar';
 
 const DataSettings: FC = () => {
-  const currentUser = useAppStore((state) => state.currentUser);
+  const currentProfile = useAppStore((state) => state.currentProfile);
   const [disabled, setDisabled] = useState(false);
 
   useEffect(() => {
@@ -26,7 +26,7 @@ const DataSettings: FC = () => {
     }
   }, []);
 
-  if (!currentUser) {
+  if (!currentProfile) {
     return <Custom404 />;
   }
 

@@ -94,7 +94,7 @@ const ViewProfile: NextPage = () => {
   const {
     query: { username, type }
   } = useRouter();
-  const currentUser = useAppStore((state) => state.currentUser);
+  const currentProfile = useAppStore((state) => state.currentProfile);
   const [feedType, setFeedType] = useState(
     type && ['post', 'comment', 'mirror', 'nft'].includes(type as string)
       ? type.toString().toUpperCase()
@@ -106,7 +106,7 @@ const ViewProfile: NextPage = () => {
   }, []);
 
   const { data, loading, error } = useQuery(PROFILE_QUERY, {
-    variables: { request: { handle: username }, who: currentUser?.id ?? null },
+    variables: { request: { handle: username }, who: currentProfile?.id ?? null },
     skip: !username
   });
 

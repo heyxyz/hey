@@ -7,13 +7,13 @@ import { useAppStore } from 'src/store/app';
 import { SETTINGS } from 'src/tracking';
 
 const Verification: FC = () => {
-  const currentUser = useAppStore((state) => state.currentUser);
+  const currentProfile = useAppStore((state) => state.currentProfile);
 
   return (
     <Card>
       <CardBody className="space-y-2 linkify">
         <div className="text-lg font-bold">Verified</div>
-        {isVerified(currentUser?.id) ? (
+        {isVerified(currentProfile?.id) ? (
           <div className="flex items-center space-x-1.5">
             <span>Believe it. Yes, you're really verified.</span>
             <BadgeCheckIcon className="w-5 h-5 text-brand" />

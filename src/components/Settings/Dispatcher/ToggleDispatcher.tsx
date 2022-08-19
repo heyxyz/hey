@@ -25,7 +25,7 @@ const ToggleDispatcher: FC<Props> = ({ buttonVariant = 'danger', buttonSize = 'm
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const canUseRelay = useAppStore((state) => state.canUseRelay);
-  const currentUser = useAppStore((state) => state.currentUser);
+  const currentProfile = useAppStore((state) => state.currentProfile);
 
   const onCompleted = () => {
     toast.success('Profile updated successfully!');
@@ -135,7 +135,7 @@ const ToggleDispatcher: FC<Props> = ({ buttonVariant = 'danger', buttonSize = 'm
         createSetProfileMetadataTypedData({
           variables: {
             request: {
-              profileId: currentUser?.id,
+              profileId: currentProfile?.id,
               dispatcher: RELAYER_ADDRESS,
               enable: canUseRelay ? false : true
             }

@@ -59,7 +59,7 @@ const NewComment: FC<Props> = ({ setShowModal, hideCard = false, publication, ty
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const canUseRelay = useAppStore((state) => state.canUseRelay);
-  const currentUser = useAppStore((state) => state.currentUser);
+  const currentProfile = useAppStore((state) => state.currentProfile);
   const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
   const publicationContent = usePublicationStore((state) => state.publicationContent);
   const setPublicationContent = usePublicationStore((state) => state.setPublicationContent);
@@ -219,10 +219,10 @@ const NewComment: FC<Props> = ({ setShowModal, hideCard = false, publication, ty
       metadata_id: uuid(),
       description: trimify(publicationContent),
       content: trimify(publicationContent),
-      external_url: `https://lenster.xyz/u/${currentUser?.handle}`,
+      external_url: `https://lenster.xyz/u/${currentProfile?.handle}`,
       image: attachments.length > 0 ? attachments[0]?.item : null,
       imageMimeType: attachments.length > 0 ? attachments[0]?.type : null,
-      name: `Comment by @${currentUser?.handle}`,
+      name: `Comment by @${currentProfile?.handle}`,
       mainContentFocus:
         attachments.length > 0 ? (attachments[0]?.type === 'video/mp4' ? 'VIDEO' : 'IMAGE') : 'TEXT_ONLY',
       contentWarning: null, // TODO
@@ -240,7 +240,7 @@ const NewComment: FC<Props> = ({ setShowModal, hideCard = false, publication, ty
     }).finally(() => setIsUploading(false));
 
     const request = {
-      profileId: currentUser?.id,
+      profileId: currentProfile?.id,
       publicationId: publication?.__typename === 'Mirror' ? publication?.mirrorOf?.id : publication?.id,
       contentURI: `https://arweave.net/${id}`,
       collectModule: feeData.recipient

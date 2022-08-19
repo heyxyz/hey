@@ -28,7 +28,7 @@ interface Props {
 }
 
 const Details: FC<Props> = ({ profile }) => {
-  const currentUser = useAppStore((state) => state.currentUser);
+  const currentProfile = useAppStore((state) => state.currentProfile);
   const staffMode = useAppPersistStore((state) => state.staffMode);
   const [following, setFollowing] = useState(profile?.isFollowedByMe);
   const { resolvedTheme } = useTheme();
@@ -73,7 +73,7 @@ const Details: FC<Props> = ({ profile }) => {
           ) : (
             <Slug className="!text-sm sm:!text-base" slug={formatAddress(profile?.ownedBy)} />
           )}
-          {currentUser && currentUser?.id !== profile?.id && profile?.isFollowing && (
+          {currentProfile && currentProfile?.id !== profile?.id && profile?.isFollowing && (
             <div className="py-0.5 px-2 text-xs bg-gray-200 rounded-full dark:bg-gray-700">Follows you</div>
           )}
         </div>
@@ -95,7 +95,7 @@ const Details: FC<Props> = ({ profile }) => {
               <Follow profile={profile} setFollowing={setFollowing} showText />
             )
           ) : null}
-          {currentUser?.id === profile?.id && (
+          {currentProfile?.id === profile?.id && (
             <Link href="/settings">
               <a href="/settings">
                 <Button variant="secondary" className="!py-1.5" icon={<CogIcon className="w-5 h-5" />} />
@@ -195,7 +195,7 @@ const Details: FC<Props> = ({ profile }) => {
         </div>
       </div>
       <Badges profile={profile} />
-      {isStaff(currentUser?.id) && staffMode && <ProfileStaffTool profile={profile} />}
+      {isStaff(currentProfile?.id) && staffMode && <ProfileStaffTool profile={profile} />}
     </div>
   );
 };

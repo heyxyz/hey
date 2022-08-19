@@ -6,8 +6,8 @@ import { persist } from 'zustand/middleware';
 interface AppState {
   profiles: Profile[] | [];
   setProfiles: (profiles: Profile[]) => void;
-  currentUser: Profile | undefined;
-  setCurrentUser: (currentUser: Profile | undefined) => void;
+  currentProfile: Profile | undefined;
+  setCurrentProfile: (currentProfile: Profile | undefined) => void;
   userSigNonce: number;
   setUserSigNonce: (userSigNonce: number) => void;
   canUseRelay: boolean;
@@ -17,8 +17,8 @@ interface AppState {
 export const useAppStore = create<AppState>((set) => ({
   profiles: [],
   setProfiles: (profiles) => set(() => ({ profiles })),
-  currentUser: undefined,
-  setCurrentUser: (currentUser) => set(() => ({ currentUser })),
+  currentProfile: undefined,
+  setCurrentProfile: (currentProfile) => set(() => ({ currentProfile })),
   userSigNonce: 0,
   setUserSigNonce: (userSigNonce) => set(() => ({ userSigNonce })),
   canUseRelay: false,

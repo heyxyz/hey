@@ -30,20 +30,20 @@ const Home: NextPage = () => {
     Mixpanel.track(PAGEVIEW.HOME);
   }, []);
 
-  const currentUser = useAppStore((state) => state.currentUser);
+  const currentProfile = useAppStore((state) => state.currentProfile);
   const isConnected = useAppPersistStore((state) => state.isConnected);
 
   return (
     <>
       <Seo />
-      {isConnected && !currentUser && <ProfileWarning />}
+      {isConnected && !currentProfile && <ProfileWarning />}
       {!isConnected && <Hero />}
       <GridLayout>
-        <GridItemEight className="space-y-5">{currentUser ? <HomeFeed /> : <ExploreFeed />}</GridItemEight>
+        <GridItemEight className="space-y-5">{currentProfile ? <HomeFeed /> : <ExploreFeed />}</GridItemEight>
         <GridItemFour>
-          {currentUser ? <EnableDispatcher /> : null}
+          {currentProfile ? <EnableDispatcher /> : null}
           <Announcement />
-          {currentUser ? (
+          {currentProfile ? (
             <>
               <SetDefaultProfile />
               <SetProfile />

@@ -53,7 +53,7 @@ interface Props {
 const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
-  const currentUser = useAppStore((state) => state.currentUser);
+  const currentProfile = useAppStore((state) => state.currentProfile);
   const isConnected = useAppPersistStore((state) => state.isConnected);
   const { address } = useAccount();
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
@@ -156,7 +156,7 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
             profile: profile?.id,
             followModule:
               profile?.followModule?.__typename === 'ProfileFollowModuleSettings'
-                ? { profileFollowModule: { profileId: currentUser?.id } }
+                ? { profileFollowModule: { profileId: currentProfile?.id } }
                 : null
           }
         }

@@ -17,7 +17,7 @@ interface Props {
 }
 
 const PublicationMenu: FC<Props> = ({ publication }) => {
-  const currentUser = useAppStore((state) => state.currentUser);
+  const currentProfile = useAppStore((state) => state.currentProfile);
 
   return (
     <Menu as="div">
@@ -46,7 +46,7 @@ const PublicationMenu: FC<Props> = ({ publication }) => {
               static
               className="absolute py-1 w-max bg-white rounded-xl border shadow-sm dark:bg-gray-900 focus:outline-none z-[5] dark:border-gray-700/80"
             >
-              {currentUser?.id === publication?.profile?.id ? (
+              {currentProfile?.id === publication?.profile?.id ? (
                 <Delete publication={publication} />
               ) : (
                 <Menu.Item

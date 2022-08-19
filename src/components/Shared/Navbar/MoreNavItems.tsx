@@ -8,7 +8,7 @@ import { useAppStore } from 'src/store/app';
 import { NextLink } from './MenuItems';
 
 const MoreNavItems: FC = () => {
-  const currentUser = useAppStore((state) => state.currentUser);
+  const currentProfile = useAppStore((state) => state.currentProfile);
 
   return (
     <Menu as="div">
@@ -40,7 +40,7 @@ const MoreNavItems: FC = () => {
               static
               className="absolute py-1 mt-2 w-52 bg-white rounded-xl border shadow-sm dark:bg-gray-900 focus:outline-none dark:border-gray-700/80"
             >
-              {currentUser && (
+              {currentProfile && (
                 <>
                   <Menu.Item
                     as={NextLink}

@@ -36,12 +36,12 @@ const Menu: FC<MenuProps> = ({ children, current, url }) => (
 
 const Sidebar: FC = () => {
   const { pathname } = useRouter();
-  const currentUser = useAppStore((state) => state.currentUser);
+  const currentProfile = useAppStore((state) => state.currentProfile);
 
   return (
     <div className="px-3 mb-4 space-y-1.5 sm:px-0">
       <div className="pb-3">
-        <UserProfile profile={currentUser as Profile} />
+        <UserProfile profile={currentProfile as Profile} />
       </div>
       <Menu current={pathname == '/settings'} url="/settings">
         <UserIcon className="w-4 h-4" />

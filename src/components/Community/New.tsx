@@ -43,7 +43,7 @@ const newCommunitySchema = object({
 const NewCommunity: NextPage = () => {
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
-  const currentUser = useAppStore((state) => state.currentUser);
+  const currentProfile = useAppStore((state) => state.currentProfile);
   const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
   const [avatar, setAvatar] = useState('');
   const [avatarType, setAvatarType] = useState('');
@@ -196,7 +196,7 @@ const NewCommunity: NextPage = () => {
       variables: {
         options: { overrideSigNonce: userSigNonce },
         request: {
-          profileId: currentUser?.id,
+          profileId: currentProfile?.id,
           contentURI: `https://arweave.net/${id}`,
           collectModule: {
             freeCollectModule: {

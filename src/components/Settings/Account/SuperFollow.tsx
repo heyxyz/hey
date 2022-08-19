@@ -88,7 +88,7 @@ export const CREATE_SET_FOLLOW_MODULE_TYPED_DATA_MUTATION = gql`
 const SuperFollow: FC = () => {
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
-  const currentUser = useAppStore((state) => state.currentUser);
+  const currentProfile = useAppStore((state) => state.currentProfile);
   const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
   const [selectedCurrency, setSelectedCurrency] = useState(DEFAULT_COLLECT_TOKEN);
   const [selectedCurrencySymobol, setSelectedCurrencySymobol] = useState('WMATIC');
@@ -102,8 +102,8 @@ const SuperFollow: FC = () => {
     }
   });
   const { data: currencyData, loading } = useQuery(MODULES_CURRENCY_QUERY, {
-    variables: { request: { profileId: currentUser?.id } },
-    skip: !currentUser?.id
+    variables: { request: { profileId: currentProfile?.id } },
+    skip: !currentProfile?.id
   });
 
   const onCompleted = () => {
@@ -132,7 +132,7 @@ const SuperFollow: FC = () => {
   const form = useZodForm({
     schema: newCrowdfundSchema,
     defaultValues: {
-      recipient: currentUser?.ownedBy
+      recipient: currentProfile?.ownedBy
     }
   });
 
@@ -202,7 +202,7 @@ const SuperFollow: FC = () => {
       variables: {
         options: { overrideSigNonce: userSigNonce },
         request: {
-          profileId: currentUser?.id,
+          profileId: currentProfile?.id,
           followModule: amount
             ? {
                 feeFollowModule: {

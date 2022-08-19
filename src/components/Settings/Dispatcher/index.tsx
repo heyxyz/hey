@@ -13,13 +13,13 @@ import ToggleDispatcher from './ToggleDispatcher';
 
 const DispatcherSettings: FC = () => {
   const canUseRelay = useAppStore((state) => state.canUseRelay);
-  const currentUser = useAppStore((state) => state.currentUser);
+  const currentProfile = useAppStore((state) => state.currentProfile);
 
   useEffect(() => {
     Mixpanel.track(PAGEVIEW.SETTINGS.DISPATCHER);
   }, []);
 
-  if (!currentUser) {
+  if (!currentProfile) {
     return <Custom404 />;
   }
 

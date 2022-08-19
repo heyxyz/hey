@@ -27,7 +27,7 @@ interface Props {
 }
 
 const FeeEntry: FC<Props> = ({ enabledModuleCurrencies, setShowFeeEntry, setShowModal }) => {
-  const currentUser = useAppStore((state) => state.currentUser);
+  const currentProfile = useAppStore((state) => state.currentProfile);
   const selectedModule = useCollectModuleStore((state) => state.selectedModule);
   const setSelectedModule = useCollectModuleStore((state) => state.setSelectedModule);
   const feeData = useCollectModuleStore((state) => state.feeData);
@@ -137,7 +137,7 @@ const FeeEntry: FC<Props> = ({ enabledModuleCurrencies, setShowFeeEntry, setShow
                 value: form.getValues('value')
               },
               collectLimit: form.getValues('collectLimit'),
-              recipient: currentUser?.ownedBy,
+              recipient: currentProfile?.ownedBy,
               referralFee: parseFloat(form.getValues('referralFee')),
               followerOnly: followerOnly
             });
