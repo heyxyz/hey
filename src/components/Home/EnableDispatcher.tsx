@@ -1,5 +1,6 @@
 import { LensHubProxy } from '@abis/LensHubProxy';
 import { useMutation } from '@apollo/client';
+import IndexStatus from '@components/Shared/IndexStatus';
 import { Button } from '@components/UI/Button';
 import { Card, CardBody } from '@components/UI/Card';
 import { Spinner } from '@components/UI/Spinner';
@@ -33,7 +34,11 @@ const EnableDispatcher: FC = () => {
     }
   });
 
-  const { isLoading: writeLoading, write } = useContractWrite({
+  const {
+    data: writeData,
+    isLoading: writeLoading,
+    write
+  } = useContractWrite({
     addressOrName: LENSHUB_PROXY,
     contractInterface: LensHubProxy,
     functionName: 'setDispatcherWithSig',
@@ -46,7 +51,7 @@ const EnableDispatcher: FC = () => {
     }
   });
 
-  const [broadcast, { loading: broadcastLoading }] = useMutation(BROADCAST_MUTATION, {
+  const [broadcast, { data: broadcastData, loading: broadcastLoading }] = useMutation(BROADCAST_MUTATION, {
     onCompleted,
     onError: (error) => {
       if (error.message === ERRORS.notMined) {
@@ -117,26 +122,34 @@ const EnableDispatcher: FC = () => {
         <p className="text-sm leading-[22px]">
           We suggest you to use dispatcher so you don't want to sign all your transactions.
         </p>
-        <Button
-          variant="danger"
-          size="md"
-          className="text-sm"
-          disabled={isLoading}
-          icon={isLoading ? <Spinner variant="danger" size="xs" /> : <CheckCircleIcon className="w-4 h-4" />}
-          onClick={() => {
-            createSetProfileMetadataTypedData({
-              variables: {
-                request: {
-                  profileId: currentUser?.id,
-                  dispatcher: '0x6c1e1bc39b13f9e0af9424d76de899203f47755f',
-                  enable: true
+        {writeData?.hash ?? broadcastData?.broadcast?.txHash ? (
+          <div className="mt-2">
+            <IndexStatus txHash={writeData?.hash ?? broadcastData?.broadcast?.txHash} reload />
+          </div>
+        ) : (
+          <Button
+            variant="danger"
+            size="md"
+            className="text-sm mr-auto"
+            disabled={isLoading}
+            icon={
+              isLoading ? <Spinner variant="danger" size="xs" /> : <CheckCircleIcon className="w-4 h-4" />
+            }
+            onClick={() => {
+              createSetProfileMetadataTypedData({
+                variables: {
+                  request: {
+                    profileId: currentUser?.id,
+                    dispatcher: '0x6c1e1bc39b13f9e0af9424d76de899203f47755f',
+                    enable: true
+                  }
                 }
-              }
-            });
-          }}
-        >
-          Enable dispatcher
-        </Button>
+              });
+            }}
+          >
+            Enable dispatcher
+          </Button>
+        )}
       </CardBody>
     </Card>
   );
