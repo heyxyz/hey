@@ -26,6 +26,7 @@ const NOTIFICATIONS_QUERY = gql`
     notifications(request: $request) {
       items {
         ... on NewFollowerNotification {
+          notificationId
           wallet {
             address
             defaultProfile {
@@ -35,6 +36,7 @@ const NOTIFICATIONS_QUERY = gql`
           createdAt
         }
         ... on NewMentionNotification {
+          notificationId
           mentionPublication {
             ... on Post {
               id
@@ -58,6 +60,7 @@ const NOTIFICATIONS_QUERY = gql`
           createdAt
         }
         ... on NewCommentNotification {
+          notificationId
           profile {
             ...ProfileFields
           }
@@ -81,6 +84,7 @@ const NOTIFICATIONS_QUERY = gql`
           createdAt
         }
         ... on NewMirrorNotification {
+          notificationId
           profile {
             ...ProfileFields
           }
@@ -109,6 +113,7 @@ const NOTIFICATIONS_QUERY = gql`
           createdAt
         }
         ... on NewCollectNotification {
+          notificationId
           wallet {
             address
             defaultProfile {
@@ -211,8 +216,8 @@ const List: FC = () => {
 
   return (
     <Card className="divide-y dark:divide-gray-700">
-      {notifications?.map((notification: Notification, index: number) => (
-        <div key={index} className="p-5">
+      {notifications?.map((notification: Notification) => (
+        <div key={notification?.notificationId} className="p-5">
           {notification?.__typename === 'NewFollowerNotification' && (
             <FollowerNotification notification={notification as any} />
           )}
