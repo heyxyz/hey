@@ -13,7 +13,10 @@ import { LensterAttachment, LensterPublication } from '@generated/lenstertypes';
 import { CreateCommentBroadcastItemResult } from '@generated/types';
 import { IGif } from '@giphy/js-types';
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation';
-import { CREATE_COMMENT_TYPED_DATA_MUTATION } from '@gql/TypedAndDispatcherData/CreateComment';
+import {
+  CREATE_COMMENT_TYPED_DATA_MUTATION,
+  CREATE_COMMENT_VIA_DISPATHCER_MUTATION
+} from '@gql/TypedAndDispatcherData/CreateComment';
 import { ChatAlt2Icon, PencilAltIcon } from '@heroicons/react/outline';
 import { defaultFeeData, defaultModuleData, getModule } from '@lib/getModule';
 import { Mixpanel } from '@lib/mixpanel';
@@ -57,6 +60,7 @@ const NewComment: FC<Props> = ({ setShowModal, hideCard = false, publication, ty
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
   const currentUser = useAppPersistStore((state) => state.currentUser);
+  const canUseRelay = useAppPersistStore((state) => state.canUseRelay);
   const publicationContent = usePublicationStore((state) => state.publicationContent);
   const setPublicationContent = usePublicationStore((state) => state.setPublicationContent);
   const previewPublication = usePublicationStore((state) => state.previewPublication);
@@ -117,6 +121,7 @@ const NewComment: FC<Props> = ({ setShowModal, hideCard = false, publication, ty
       });
     }
   });
+
   const [createCommentTypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_COMMENT_TYPED_DATA_MUTATION,
     {
@@ -179,6 +184,24 @@ const NewComment: FC<Props> = ({ setShowModal, hideCard = false, publication, ty
     }
   );
 
+  const [createCommentViaDispatcher, { loading: viaDispatcherLoading }] = useMutation(
+    CREATE_COMMENT_VIA_DISPATHCER_MUTATION,
+    {
+      onCompleted: () => {
+        try {
+          alert('GM');
+        } catch (error) {}
+      },
+      onError: (error) => {
+        toast.error(error.message ?? ERROR_MESSAGE);
+        Mixpanel.track(COMMENT.NEW, {
+          result: 'dispatcher_error',
+          error: error?.message
+        });
+      }
+    }
+  );
+
   const createComment = async () => {
     if (!isAuthenticated) {
       return toast.error(SIGN_WALLET);
@@ -215,24 +238,31 @@ const NewComment: FC<Props> = ({ setShowModal, hideCard = false, publication, ty
       createdOn: new Date(),
       appId: APP_NAME
     }).finally(() => setIsUploading(false));
-    createCommentTypedData({
-      variables: {
-        options: { overrideSigNonce: userSigNonce },
-        request: {
-          profileId: currentUser?.id,
-          publicationId: publication?.__typename === 'Mirror' ? publication?.mirrorOf?.id : publication?.id,
-          contentURI: `https://arweave.net/${id}`,
-          collectModule: feeData.recipient
-            ? {
-                [getModule(selectedModule.moduleName).config]: feeData
-              }
-            : getModule(selectedModule.moduleName).config,
-          referenceModule: {
-            followerOnlyReferenceModule: onlyFollowers ? true : false
+
+    const request = {
+      profileId: currentUser?.id,
+      publicationId: publication?.__typename === 'Mirror' ? publication?.mirrorOf?.id : publication?.id,
+      contentURI: `https://arweave.net/${id}`,
+      collectModule: feeData.recipient
+        ? {
+            [getModule(selectedModule.moduleName).config]: feeData
           }
-        }
+        : getModule(selectedModule.moduleName).config,
+      referenceModule: {
+        followerOnlyReferenceModule: onlyFollowers ? true : false
       }
-    });
+    };
+
+    if (canUseRelay) {
+      createCommentViaDispatcher({ variables: { request } });
+    } else {
+      createCommentTypedData({
+        variables: {
+          options: { overrideSigNonce: userSigNonce },
+          ...request
+        }
+      });
+    }
   };
 
   const setGifAttachment = (gif: IGif) => {
