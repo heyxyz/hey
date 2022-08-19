@@ -50,7 +50,6 @@ const SiteLayout: FC<Props> = ({ children }) => {
   const { resolvedTheme } = useTheme();
   const setProfiles = useAppStore((state) => state.setProfiles);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
-  const setCanUseRelay = useAppStore((state) => state.setCanUseRelay);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
   const isConnected = useAppPersistStore((state) => state.isConnected);
@@ -81,7 +80,6 @@ const SiteLayout: FC<Props> = ({ children }) => {
         const selectedUser = profiles.find((profile) => profile.id === profileId);
         setProfiles(profiles);
         setCurrentProfile(selectedUser);
-        setCanUseRelay(selectedUser?.dispatcher?.canUseRelay ? true : false);
       }
     }
   });

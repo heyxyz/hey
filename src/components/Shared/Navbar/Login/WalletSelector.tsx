@@ -41,7 +41,6 @@ interface Props {
 
 const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
   const setProfiles = useAppStore((state) => state.setProfiles);
-  const setCanUseRelay = useAppStore((state) => state.setCanUseRelay);
   const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
   const setIsConnected = useAppPersistStore((state) => state.setIsConnected);
   const setIsAuthenticated = useAppPersistStore((state) => state.setIsAuthenticated);
@@ -117,7 +116,6 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
         setProfiles(profiles);
         setCurrentProfile(profiles[0]);
         setProfileId(profiles[0].id);
-        setCanUseRelay(profiles[0].dispatcher?.canUseRelay ? true : false);
       }
       Mixpanel.track(USER.SIWL, { result: 'success' });
     } catch (error) {

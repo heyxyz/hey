@@ -24,8 +24,8 @@ interface Props {
 const ToggleDispatcher: FC<Props> = ({ buttonVariant = 'danger', buttonSize = 'md' }) => {
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
-  const canUseRelay = useAppStore((state) => state.canUseRelay);
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const canUseRelay = currentProfile?.dispatcher?.canUseRelay;
 
   const onCompleted = () => {
     toast.success('Profile updated successfully!');

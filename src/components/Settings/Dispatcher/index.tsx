@@ -12,7 +12,6 @@ import Sidebar from '../Sidebar';
 import ToggleDispatcher from './ToggleDispatcher';
 
 const DispatcherSettings: FC = () => {
-  const canUseRelay = useAppStore((state) => state.canUseRelay);
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   useEffect(() => {
@@ -33,7 +32,9 @@ const DispatcherSettings: FC = () => {
         <Card>
           <CardBody className="space-y-2 linkify">
             <div className="flex items-center space-x-2">
-              <div className="text-lg font-bold">{canUseRelay ? 'Disable' : 'Enable'} dispatcher</div>
+              <div className="text-lg font-bold">
+                {currentProfile?.dispatcher?.canUseRelay ? 'Disable' : 'Enable'} dispatcher
+              </div>
             </div>
             <div className="pb-2">
               We suggest you to enable dispatcher so you don't want to sign all your transactions in{' '}
