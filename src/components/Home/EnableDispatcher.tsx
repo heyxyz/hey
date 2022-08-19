@@ -18,8 +18,8 @@ import { useContractWrite, useSignTypedData } from 'wagmi';
 const EnableDispatcher: FC = () => {
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
+  const canUseRelay = useAppStore((state) => state.canUseRelay);
   const currentUser = useAppPersistStore((state) => state.currentUser);
-  const canUseRelay = useAppPersistStore((state) => state.canUseRelay);
 
   const onCompleted = () => {
     toast.success('Profile updated successfully!');

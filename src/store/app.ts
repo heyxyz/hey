@@ -8,13 +8,17 @@ interface AppState {
   setProfiles: (profiles: Profile[]) => void;
   userSigNonce: number;
   setUserSigNonce: (userSigNonce: number) => void;
+  canUseRelay: boolean;
+  setCanUseRelay: (canUseRelay: boolean) => void;
 }
 
 export const useAppStore = create<AppState>((set) => ({
   profiles: [],
   setProfiles: (profiles) => set(() => ({ profiles })),
   userSigNonce: 0,
-  setUserSigNonce: (userSigNonce) => set(() => ({ userSigNonce }))
+  setUserSigNonce: (userSigNonce) => set(() => ({ userSigNonce })),
+  canUseRelay: false,
+  setCanUseRelay: (canUseRelay) => set(() => ({ canUseRelay }))
 }));
 
 interface AppPersistState {
@@ -24,8 +28,6 @@ interface AppPersistState {
   setIsAuthenticated: (isAuthenticated: boolean) => void;
   currentUser: Profile | null;
   setCurrentUser: (currentUser: Profile | null) => void;
-  canUseRelay: boolean;
-  setCanUseRelay: (canUseRelay: boolean) => void;
   staffMode: boolean;
   setStaffMode: (staffMode: boolean) => void;
   notificationCount: number;
@@ -41,8 +43,6 @@ export const useAppPersistStore = create(
       setIsAuthenticated: (isAuthenticated) => set(() => ({ isAuthenticated })),
       currentUser: null,
       setCurrentUser: (currentUser) => set(() => ({ currentUser })),
-      canUseRelay: false,
-      setCanUseRelay: (canUseRelay) => set(() => ({ canUseRelay })),
       staffMode: false,
       setStaffMode: (staffMode) => set(() => ({ staffMode })),
       notificationCount: 0,

@@ -66,9 +66,9 @@ interface Props {
 const Profile: FC<Props> = ({ profile }) => {
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
+  const canUseRelay = useAppStore((state) => state.canUseRelay);
   const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
   const currentUser = useAppPersistStore((state) => state.currentUser);
-  const canUseRelay = useAppPersistStore((state) => state.canUseRelay);
   const [beta, setBeta] = useState(isBeta(profile));
   const [pride, setPride] = useState(hasPrideLogo(profile));
   const [cover, setCover] = useState('');

@@ -58,9 +58,9 @@ interface Props {
 const NewComment: FC<Props> = ({ setShowModal, hideCard = false, publication, type }) => {
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
+  const canUseRelay = useAppStore((state) => state.canUseRelay);
   const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
   const currentUser = useAppPersistStore((state) => state.currentUser);
-  const canUseRelay = useAppPersistStore((state) => state.canUseRelay);
   const publicationContent = usePublicationStore((state) => state.publicationContent);
   const setPublicationContent = usePublicationStore((state) => state.setPublicationContent);
   const previewPublication = usePublicationStore((state) => state.previewPublication);

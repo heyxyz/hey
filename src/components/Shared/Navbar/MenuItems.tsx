@@ -51,11 +51,11 @@ const MenuItems: FC<Props> = ({ pingData }) => {
   const { disconnect } = useDisconnect();
 
   const profiles = useAppStore((state) => state.profiles);
+  const setCanUseRelay = useAppStore((state) => state.setCanUseRelay);
   const isConnected = useAppPersistStore((state) => state.isConnected);
   const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
   const currentUser = useAppPersistStore((state) => state.currentUser);
   const setCurrentUser = useAppPersistStore((state) => state.setCurrentUser);
-  const setCanUseRelay = useAppPersistStore((state) => state.setCanUseRelay);
   const staffMode = useAppPersistStore((state) => state.staffMode);
   const setStaffMode = useAppPersistStore((state) => state.setStaffMode);
 
