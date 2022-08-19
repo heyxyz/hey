@@ -91,6 +91,9 @@ export const SETTINGS = {
     SET_NFT_PICTURE: 'Set NFT profile picture',
     SET_PICTURE: 'Set profile picture'
   },
+  DISPATCHER: {
+    TOGGLED: 'Toggled dispatcher'
+  },
   DELETE: 'Delete profile'
 };
 

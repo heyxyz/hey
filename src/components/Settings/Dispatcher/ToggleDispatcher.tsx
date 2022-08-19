@@ -7,6 +7,7 @@ import { CreateSetDispatcherBroadcastItemResult } from '@generated/types';
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation';
 import { CREATE_SET_DISPATCHER_TYPED_DATA_MUTATION } from '@gql/TypedAndDispatcherData/CreateSetDispatcher';
 import { CheckCircleIcon, XIcon } from '@heroicons/react/outline';
+import { Mixpanel } from '@lib/mixpanel';
 import omit from '@lib/omit';
 import splitSignature from '@lib/splitSignature';
 import clsx from 'clsx';
@@ -14,6 +15,7 @@ import { FC } from 'react';
 import toast from 'react-hot-toast';
 import { ERROR_MESSAGE, ERRORS, LENSHUB_PROXY, RELAY_ON } from 'src/constants';
 import { useAppStore } from 'src/store/app';
+import { SETTINGS } from 'src/tracking';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
 interface Props {
@@ -29,13 +31,16 @@ const ToggleDispatcher: FC<Props> = ({ buttonVariant = 'danger', buttonSize = 'm
 
   const onCompleted = () => {
     toast.success('Profile updated successfully!');
-    // TODO: mixpanel track success
+    Mixpanel.track(SETTINGS.DISPATCHER.TOGGLED, { result: 'success' });
   };
 
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError: (error) => {
       toast.error(error?.message);
-      // TODO: mixpanel track error
+      Mixpanel.track(SETTINGS.DISPATCHER.TOGGLED, {
+        result: 'typed_data_error',
+        error: error?.message
+      });
     }
   });
 
@@ -62,7 +67,10 @@ const ToggleDispatcher: FC<Props> = ({ buttonVariant = 'danger', buttonSize = 'm
       if (error.message === ERRORS.notMined) {
         toast.error(error.message);
       }
-      // TODO: mixpanel track broadcast_error
+      Mixpanel.track(SETTINGS.DISPATCHER.TOGGLED, {
+        result: 'broadcast_error',
+        error: error?.message
+      });
     }
   });
 
