@@ -20,7 +20,7 @@ import React, { useEffect } from 'react';
 import { APP_NAME } from 'src/constants';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
-import { useAppPersistStore } from 'src/store/app';
+import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { PAGEVIEW } from 'src/tracking';
 
 import FullPublication from './FullPublication';
@@ -82,7 +82,7 @@ export const PUBLICATION_QUERY = gql`
 
 const ViewPublication: NextPage = () => {
   const { push } = useRouter();
-  const currentUser = useAppPersistStore((state) => state.currentUser);
+  const currentProfile = useAppStore((state) => state.currentProfile);
   const staffMode = useAppPersistStore((state) => state.staffMode);
 
   useEffect(() => {
@@ -96,8 +96,8 @@ const ViewPublication: NextPage = () => {
   const { data, loading, error } = useQuery(PUBLICATION_QUERY, {
     variables: {
       request: { publicationId: id },
-      reactionRequest: currentUser ? { profileId: currentUser?.id } : null,
-      profileId: currentUser?.id ?? null
+      reactionRequest: currentProfile ? { profileId: currentProfile?.id } : null,
+      profileId: currentProfile?.id ?? null
     },
     skip: !id,
     onCompleted: (data) => {
@@ -156,7 +156,7 @@ const ViewPublication: NextPage = () => {
         </Card>
         <RelevantPeople publication={publication} />
         <OnchainMeta publication={publication} />
-        {isStaff(currentUser?.id) && staffMode && <PublicationStaffTool publication={publication} />}
+        {isStaff(currentProfile?.id) && staffMode && <PublicationStaffTool publication={publication} />}
         <Footer />
       </GridItemFour>
     </GridLayout>

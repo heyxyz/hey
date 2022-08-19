@@ -1,5 +1,5 @@
 import { LensHubProxy } from '@abis/LensHubProxy';
-import { gql, useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import ChooseFile from '@components/Shared/ChooseFile';
 import IndexStatus from '@components/Shared/IndexStatus';
 import { Button } from '@components/UI/Button';
@@ -7,6 +7,10 @@ import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
 import { CreateSetProfileImageUriBroadcastItemResult, MediaSet, NftImage, Profile } from '@generated/types';
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation';
+import {
+  CREATE_SET_PROFILE_IMAGE_URI_TYPED_DATA_MUTATION,
+  CREATE_SET_PROFILE_IMAGE_URI_VIA_DISPATHCER_MUTATION
+} from '@gql/TypedAndDispatcherData/CreateSetProfileImageURI';
 import { PencilIcon } from '@heroicons/react/outline';
 import getIPFSLink from '@lib/getIPFSLink';
 import imagekitURL from '@lib/imagekitURL';
@@ -21,38 +25,6 @@ import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { SETTINGS } from 'src/tracking';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
-const CREATE_SET_PROFILE_IMAGE_URI_TYPED_DATA_MUTATION = gql`
-  mutation CreateSetProfileImageUriTypedData(
-    $options: TypedDataOptions
-    $request: UpdateProfileImageRequest!
-  ) {
-    createSetProfileImageURITypedData(options: $options, request: $request) {
-      id
-      expiresAt
-      typedData {
-        domain {
-          name
-          chainId
-          version
-          verifyingContract
-        }
-        types {
-          SetProfileImageURIWithSig {
-            name
-            type
-          }
-        }
-        value {
-          nonce
-          deadline
-          imageURI
-          profileId
-        }
-      }
-    }
-  }
-`;
-
 interface Props {
   profile: Profile & { picture: MediaSet & NftImage };
 }
@@ -60,8 +32,8 @@ interface Props {
 const Picture: FC<Props> = ({ profile }) => {
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
+  const currentProfile = useAppStore((state) => state.currentProfile);
   const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
-  const currentUser = useAppPersistStore((state) => state.currentUser);
   const [avatar, setAvatar] = useState('');
   const [uploading, setUploading] = useState(false);
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
@@ -118,6 +90,7 @@ const Picture: FC<Props> = ({ profile }) => {
       });
     }
   });
+
   const [createSetProfileImageURITypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_SET_PROFILE_IMAGE_URI_TYPED_DATA_MUTATION,
     {
@@ -163,6 +136,18 @@ const Picture: FC<Props> = ({ profile }) => {
     }
   );
 
+  const [createSetProfileImageURIViaDispatcher, { data: dispatcherData, loading: dispatcherLoading }] =
+    useMutation(CREATE_SET_PROFILE_IMAGE_URI_VIA_DISPATHCER_MUTATION, {
+      onCompleted,
+      onError: (error) => {
+        toast.error(error.message ?? ERROR_MESSAGE);
+        Mixpanel.track(SETTINGS.PROFILE.SET_NFT_PICTURE, {
+          result: 'dispatcher_error',
+          error: error?.message
+        });
+      }
+    });
+
   const handleUpload = async (evt: ChangeEvent<HTMLInputElement>) => {
     evt.preventDefault();
     setUploading(true);
@@ -185,16 +170,24 @@ const Picture: FC<Props> = ({ profile }) => {
       return toast.error("Avatar can't be empty!");
     }
 
-    createSetProfileImageURITypedData({
-      variables: {
-        options: { overrideSigNonce: userSigNonce },
-        request: {
-          profileId: currentUser?.id,
-          url: avatar
+    const request = {
+      profileId: currentProfile?.id,
+      url: avatar
+    };
+
+    if (currentProfile?.dispatcher?.canUseRelay) {
+      createSetProfileImageURIViaDispatcher({ variables: { request } });
+    } else {
+      createSetProfileImageURITypedData({
+        variables: {
+          options: { overrideSigNonce: userSigNonce },
+          request
         }
-      }
-    });
+      });
+    }
   };
+
+  const isLoading = typedDataLoading || dispatcherLoading || signLoading || writeLoading || broadcastLoading;
 
   return (
     <>
@@ -222,20 +215,22 @@ const Picture: FC<Props> = ({ profile }) => {
         <Button
           className="ml-auto"
           type="submit"
-          disabled={typedDataLoading || signLoading || writeLoading || broadcastLoading}
+          disabled={isLoading}
           onClick={() => editPicture(avatar)}
-          icon={
-            typedDataLoading || signLoading || writeLoading || broadcastLoading ? (
-              <Spinner size="xs" />
-            ) : (
-              <PencilIcon className="w-4 h-4" />
-            )
-          }
+          icon={isLoading ? <Spinner size="xs" /> : <PencilIcon className="w-4 h-4" />}
         >
           Save
         </Button>
-        {writeData?.hash ?? broadcastData?.broadcast?.txHash ? (
-          <IndexStatus txHash={writeData?.hash ? writeData?.hash : broadcastData?.broadcast?.txHash} />
+        {writeData?.hash ??
+        broadcastData?.broadcast?.txHash ??
+        dispatcherData?.createSetProfileImageURIViaDispatcher?.txHash ? (
+          <IndexStatus
+            txHash={
+              writeData?.hash ??
+              broadcastData?.broadcast?.txHash ??
+              dispatcherData?.createSetProfileImageURIViaDispatcher?.txHash
+            }
+          />
         ) : null}
       </div>
     </>

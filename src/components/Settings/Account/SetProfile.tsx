@@ -1,5 +1,5 @@
 import { LensHubProxy } from '@abis/LensHubProxy';
-import { gql, useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import IndexStatus from '@components/Shared/IndexStatus';
 import UserProfile from '@components/Shared/UserProfile';
 import { Button } from '@components/UI/Button';
@@ -8,6 +8,7 @@ import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
 import { Profile, SetDefaultProfileBroadcastItemResult } from '@generated/types';
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation';
+import { CREATE_SET_DEFAULT_PROFILE_DATA_MUTATION } from '@gql/TypedAndDispatcherData/CreateSetDefaultProfile';
 import { ExclamationIcon, PencilIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import omit from '@lib/omit';
@@ -20,40 +21,9 @@ import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { SETTINGS } from 'src/tracking';
 import { useAccount, useContractWrite, useSignTypedData } from 'wagmi';
 
-const CREATE_SET_DEFAULT_PROFILE_DATA_MUTATION = gql`
-  mutation CreateSetDefaultProfileTypedData(
-    $options: TypedDataOptions
-    $request: CreateSetDefaultProfileRequest!
-  ) {
-    createSetDefaultProfileTypedData(options: $options, request: $request) {
-      id
-      expiresAt
-      typedData {
-        domain {
-          name
-          chainId
-          version
-          verifyingContract
-        }
-        types {
-          SetDefaultProfileWithSig {
-            name
-            type
-          }
-        }
-        value {
-          nonce
-          deadline
-          wallet
-          profileId
-        }
-      }
-    }
-  }
-`;
-
 const SetProfile: FC = () => {
   const profiles = useAppStore((state) => state.profiles);
+  const currentProfile = useAppStore((state) => state.currentProfile);
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
@@ -114,6 +84,7 @@ const SetProfile: FC = () => {
       });
     }
   });
+
   const [createSetDefaultProfileTypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_SET_DEFAULT_PROFILE_DATA_MUTATION,
     {
@@ -165,10 +136,11 @@ const SetProfile: FC = () => {
       return toast.error(SIGN_WALLET);
     }
 
+    const request = { profileId: selectedUser };
     createSetDefaultProfileTypedData({
       variables: {
         options: { overrideSigNonce: userSigNonce },
-        request: { profileId: selectedUser }
+        request
       }
     });
   };
@@ -176,6 +148,8 @@ const SetProfile: FC = () => {
   if (!isAuthenticated) {
     return <Custom404 />;
   }
+
+  const isLoading = typedDataLoading || signLoading || writeLoading || broadcastLoading;
 
   return (
     <Card>
@@ -221,15 +195,9 @@ const SetProfile: FC = () => {
           <Button
             className="ml-auto"
             type="submit"
-            disabled={typedDataLoading || signLoading || writeLoading || broadcastLoading}
+            disabled={isLoading}
             onClick={setDefaultProfile}
-            icon={
-              typedDataLoading || signLoading || writeLoading || broadcastLoading ? (
-                <Spinner size="xs" />
-              ) : (
-                <PencilIcon className="w-4 h-4" />
-              )
-            }
+            icon={isLoading ? <Spinner size="xs" /> : <PencilIcon className="w-4 h-4" />}
           >
             Save
           </Button>

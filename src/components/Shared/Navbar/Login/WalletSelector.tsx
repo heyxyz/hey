@@ -41,9 +41,10 @@ interface Props {
 
 const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
   const setProfiles = useAppStore((state) => state.setProfiles);
+  const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
   const setIsConnected = useAppPersistStore((state) => state.setIsConnected);
   const setIsAuthenticated = useAppPersistStore((state) => state.setIsAuthenticated);
-  const setCurrentUser = useAppPersistStore((state) => state.setCurrentUser);
+  const setProfileId = useAppPersistStore((state) => state.setProfileId);
 
   const [mounted, setMounted] = useState(false);
   const { chain } = useNetwork();
@@ -113,7 +114,8 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
           ?.sort((a: Profile, b: Profile) => (!(a.isDefault !== b.isDefault) ? 0 : a.isDefault ? -1 : 1));
         setIsAuthenticated(true);
         setProfiles(profiles);
-        setCurrentUser(profiles[0]);
+        setCurrentProfile(profiles[0]);
+        setProfileId(profiles[0].id);
       }
       Mixpanel.track(USER.SIWL, { result: 'success' });
     } catch (error) {

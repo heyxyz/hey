@@ -21,7 +21,7 @@ const ThreadBody: FC<Props> = ({ publication }) => {
   const timestamp = isMirror ? publication?.mirrorOf?.createdAt : publication?.createdAt;
 
   return (
-    <div>
+    <>
       <div className="flex justify-between space-x-1.5">
         <UserProfile
           profile={
@@ -47,7 +47,7 @@ const ThreadBody: FC<Props> = ({ publication }) => {
           )}
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
