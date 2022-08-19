@@ -1,5 +1,5 @@
 import { LensHubProxy } from '@abis/LensHubProxy';
-import { gql, useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import Attachments from '@components/Shared/Attachments';
 import Markup from '@components/Shared/Markup';
 import PubIndexStatus from '@components/Shared/PubIndexStatus';
@@ -12,6 +12,10 @@ import { LensterAttachment } from '@generated/lenstertypes';
 import { CreatePostBroadcastItemResult } from '@generated/types';
 import { IGif } from '@giphy/js-types';
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation';
+import {
+  CREATE_POST_TYPED_DATA_MUTATION,
+  CREATE_POST_VIA_DISPATHCER_MUTATION
+} from '@gql/TypedAndDispatcherData/CreatePost';
 import { PencilAltIcon } from '@heroicons/react/outline';
 import { defaultFeeData, defaultModuleData, getModule } from '@lib/getModule';
 import { Mixpanel } from '@lib/mixpanel';
@@ -46,39 +50,6 @@ const Preview = dynamic(() => import('../../Shared/Preview'), {
   loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
 });
 
-export const CREATE_POST_TYPED_DATA_MUTATION = gql`
-  mutation CreatePostTypedData($options: TypedDataOptions, $request: CreatePublicPostRequest!) {
-    createPostTypedData(options: $options, request: $request) {
-      id
-      expiresAt
-      typedData {
-        types {
-          PostWithSig {
-            name
-            type
-          }
-        }
-        domain {
-          name
-          chainId
-          version
-          verifyingContract
-        }
-        value {
-          nonce
-          deadline
-          profileId
-          contentURI
-          collectModule
-          collectModuleInitData
-          referenceModule
-          referenceModuleInitData
-        }
-      }
-    }
-  }
-`;
-
 interface Props {
   setShowModal?: Dispatch<boolean>;
   hideCard?: boolean;
@@ -87,8 +58,8 @@ interface Props {
 const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
+  const currentProfile = useAppStore((state) => state.currentProfile);
   const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
-  const currentUser = useAppPersistStore((state) => state.currentUser);
   const publicationContent = usePublicationStore((state) => state.publicationContent);
   const setPublicationContent = usePublicationStore((state) => state.setPublicationContent);
   const previewPublication = usePublicationStore((state) => state.previewPublication);
@@ -150,6 +121,7 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
       });
     }
   });
+
   const [createPostTypedData, { loading: typedDataLoading }] = useMutation(CREATE_POST_TYPED_DATA_MUTATION, {
     onCompleted: async ({ createPostTypedData }: { createPostTypedData: CreatePostBroadcastItemResult }) => {
       const { id, typedData } = createPostTypedData;
@@ -199,6 +171,20 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
     }
   });
 
+  const [createPostViaDispatcher, { data: dispatcherData, loading: dispatcherLoading }] = useMutation(
+    CREATE_POST_VIA_DISPATHCER_MUTATION,
+    {
+      onCompleted,
+      onError: (error) => {
+        toast.error(error.message ?? ERROR_MESSAGE);
+        Mixpanel.track(POST.NEW, {
+          result: 'dispatcher_error',
+          error: error?.message
+        });
+      }
+    }
+  );
+
   const createPost = async () => {
     if (!isAuthenticated) {
       return toast.error(SIGN_WALLET);
@@ -216,10 +202,10 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
       metadata_id: uuid(),
       description: trimify(publicationContent),
       content: trimify(publicationContent),
-      external_url: `https://lenster.xyz/u/${currentUser?.handle}`,
+      external_url: `https://lenster.xyz/u/${currentProfile?.handle}`,
       image: attachments.length > 0 ? attachments[0]?.item : null,
       imageMimeType: attachments.length > 0 ? attachments[0]?.type : null,
-      name: `Post by @${currentUser?.handle}`,
+      name: `Post by @${currentProfile?.handle}`,
       mainContentFocus:
         attachments.length > 0 ? (attachments[0]?.type === 'video/mp4' ? 'VIDEO' : 'IMAGE') : 'TEXT_ONLY',
       contentWarning: null, // TODO
@@ -236,23 +222,31 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
       appId: APP_NAME
     }).finally(() => setIsUploading(false));
 
-    createPostTypedData({
-      variables: {
-        options: { overrideSigNonce: userSigNonce },
-        request: {
-          profileId: currentUser?.id,
-          contentURI: `https://arweave.net/${id}`,
-          collectModule: feeData.recipient
-            ? {
-                [getModule(selectedModule.moduleName).config]: feeData
-              }
-            : getModule(selectedModule.moduleName).config,
-          referenceModule: {
-            followerOnlyReferenceModule: onlyFollowers ? true : false
+    const request = {
+      profileId: currentProfile?.id,
+      contentURI: `https://arweave.net/${id}`,
+      collectModule: feeData.recipient
+        ? {
+            [getModule(selectedModule.moduleName).config]: feeData
           }
-        }
+        : getModule(selectedModule.moduleName).config,
+      referenceModule: {
+        followerOnlyReferenceModule: onlyFollowers ? true : false
       }
-    });
+    };
+
+    if (currentProfile?.dispatcher?.canUseRelay) {
+      createPostViaDispatcher({
+        variables: { request }
+      });
+    } else {
+      createPostTypedData({
+        variables: {
+          options: { overrideSigNonce: userSigNonce },
+          request
+        }
+      });
+    }
   };
 
   const setGifAttachment = (gif: IGif) => {
@@ -263,6 +257,9 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
     };
     setAttachments([...attachments, attachment]);
   };
+
+  const isLoading =
+    isUploading || typedDataLoading || dispatcherLoading || signLoading || writeLoading || broadcastLoading;
 
   return (
     <Card className={hideCard ? 'border-0 !shadow-none !bg-transparent' : ''}>
@@ -289,23 +286,23 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
               {publicationContent && <Preview />}
             </div>
             <div className="flex items-center pt-2 ml-auto space-x-2 sm:pt-0">
-              {data?.hash ?? broadcastData?.broadcast?.txHash ? (
+              {data?.hash ??
+              broadcastData?.broadcast?.txHash ??
+              dispatcherData?.createPostViaDispatcher?.txHash ? (
                 <PubIndexStatus
                   setShowModal={setShowModal}
                   type="Post"
-                  txHash={data?.hash ? data?.hash : broadcastData?.broadcast?.txHash}
+                  txHash={
+                    data?.hash ??
+                    broadcastData?.broadcast?.txHash ??
+                    dispatcherData?.createPostViaDispatcher?.txHash
+                  }
                 />
               ) : null}
               <Button
                 className="ml-auto"
-                disabled={isUploading || typedDataLoading || signLoading || writeLoading || broadcastLoading}
-                icon={
-                  isUploading || typedDataLoading || signLoading || writeLoading || broadcastLoading ? (
-                    <Spinner size="xs" />
-                  ) : (
-                    <PencilAltIcon className="w-4 h-4" />
-                  )
-                }
+                disabled={isLoading}
+                icon={isLoading ? <Spinner size="xs" /> : <PencilAltIcon className="w-4 h-4" />}
                 onClick={createPost}
               >
                 {isUploading

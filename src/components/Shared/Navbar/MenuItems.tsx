@@ -46,32 +46,32 @@ interface Props {
 }
 
 const MenuItems: FC<Props> = ({ pingData }) => {
+  const profiles = useAppStore((state) => state.profiles);
+  const currentProfile = useAppStore((state) => state.currentProfile);
+  const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
+  const isConnected = useAppPersistStore((state) => state.isConnected);
+  const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
+  const setProfileId = useAppPersistStore((state) => state.setProfileId);
+  const staffMode = useAppPersistStore((state) => state.staffMode);
+  const setStaffMode = useAppPersistStore((state) => state.setStaffMode);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const { theme, setTheme } = useTheme();
   const { disconnect } = useDisconnect();
-
-  const profiles = useAppStore((state) => state.profiles);
-  const isConnected = useAppPersistStore((state) => state.isConnected);
-  const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
-  const currentUser = useAppPersistStore((state) => state.currentUser);
-  const setCurrentUser = useAppPersistStore((state) => state.setCurrentUser);
-  const staffMode = useAppPersistStore((state) => state.staffMode);
-  const setStaffMode = useAppPersistStore((state) => state.setStaffMode);
 
   const toggleStaffMode = () => {
     setStaffMode(!staffMode);
     Mixpanel.track(STAFF.TOGGLE_MODE);
   };
 
-  return isAuthenticated && currentUser ? (
+  return isAuthenticated && currentProfile ? (
     <Menu as="div">
       {({ open }) => (
         <>
           <Menu.Button
             as="img"
-            src={getAvatar(currentUser)}
+            src={getAvatar(currentProfile)}
             className="w-8 h-8 rounded-full border cursor-pointer dark:border-gray-700/80"
-            alt={currentUser?.handle}
+            alt={currentProfile?.handle}
           />
           <Transition
             show={open}
@@ -89,20 +89,20 @@ const MenuItems: FC<Props> = ({ pingData }) => {
             >
               <Menu.Item
                 as={NextLink}
-                href={`/u/${currentUser?.handle}`}
+                href={`/u/${currentProfile?.handle}`}
                 className={({ active }: { active: boolean }) =>
                   clsx({ 'dropdown-active': active }, 'menu-item')
                 }
               >
                 <div>Logged in as</div>
                 <div className="truncate">
-                  <Slug className="font-bold" slug={currentUser?.handle} prefix="@" />
+                  <Slug className="font-bold" slug={currentProfile?.handle} prefix="@" />
                 </div>
               </Menu.Item>
               <div className="divider" />
               <Menu.Item
                 as={NextLink}
-                href={`/u/${currentUser?.handle}`}
+                href={`/u/${currentProfile?.handle}`}
                 className={({ active }: { active: boolean }) =>
                   clsx({ 'dropdown-active': active }, 'menu-item')
                 }
@@ -128,7 +128,8 @@ const MenuItems: FC<Props> = ({ pingData }) => {
                 as="a"
                 onClick={() => {
                   Mixpanel.track(PROFILE.LOGOUT);
-                  setCurrentUser(null);
+                  setCurrentProfile(undefined);
+                  setProfileId(null);
                   Cookies.remove('accessToken');
                   Cookies.remove('refreshToken');
                   localStorage.removeItem('lenster.store');
@@ -162,11 +163,12 @@ const MenuItems: FC<Props> = ({ pingData }) => {
                           type="button"
                           className="flex items-center py-1.5 px-4 space-x-2 w-full rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
                           onClick={() => {
-                            setCurrentUser(profiles[index]);
+                            setCurrentProfile(profiles[index]);
+                            setProfileId(profiles[index].id);
                             Mixpanel.track(PROFILE.SWITCH_PROFILE);
                           }}
                         >
-                          {currentUser?.id === profile?.id && (
+                          {currentProfile?.id === profile?.id && (
                             <CheckCircleIcon className="w-4 h-4 text-green-500" />
                           )}
                           <img
@@ -208,7 +210,7 @@ const MenuItems: FC<Props> = ({ pingData }) => {
                   )}
                 </div>
               </Menu.Item>
-              {currentUser && GIT_COMMIT_SHA && (
+              {currentProfile && GIT_COMMIT_SHA && (
                 <>
                   <div className="divider" />
                   <div className="py-3 px-6 text-xs flex items-center space-x-2">
@@ -230,12 +232,12 @@ const MenuItems: FC<Props> = ({ pingData }) => {
                       target="_blank"
                       rel="noreferrer noopener"
                     >
-                      {GIT_COMMIT_SHA} {isBeta(currentUser) && '(beta)'}
+                      {GIT_COMMIT_SHA} {isBeta(currentProfile) && '(beta)'}
                     </a>
                   </div>
                 </>
               )}
-              {isStaff(currentUser?.id) && (
+              {isStaff(currentProfile?.id) && (
                 <>
                   <div className="divider" />
                   <Menu.Item
