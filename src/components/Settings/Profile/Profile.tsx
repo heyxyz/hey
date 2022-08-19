@@ -267,20 +267,20 @@ const Profile: FC<Props> = ({ profile }) => {
       appId: APP_NAME
     }).finally(() => setIsUploading(false));
 
-    const data = {
-      variables: {
-        options: { overrideSigNonce: userSigNonce },
-        request: {
-          profileId: currentUser?.id,
-          metadata: `https://arweave.net/${id}`
-        }
-      }
+    const request = {
+      profileId: currentUser?.id,
+      metadata: `https://arweave.net/${id}`
     };
 
     if (canUseRelay) {
-      createSetProfileMetadataViaDispatcher(data);
+      createSetProfileMetadataViaDispatcher({ variables: { request } });
     } else {
-      createSetProfileMetadataTypedData(data);
+      createSetProfileMetadataTypedData({
+        variables: {
+          options: { overrideSigNonce: userSigNonce },
+          ...request
+        }
+      });
     }
   };
 
