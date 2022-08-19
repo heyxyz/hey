@@ -178,6 +178,10 @@ const Profile: FC<Props> = ({ profile }) => {
       },
       onError: (error) => {
         toast.error(error.message ?? ERROR_MESSAGE);
+        Mixpanel.track(SETTINGS.PROFILE.UPDATE, {
+          result: 'dispatcher_error',
+          error: error?.message
+        });
       }
     }
   );
