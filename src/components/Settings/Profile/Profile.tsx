@@ -66,7 +66,6 @@ interface Props {
 const Profile: FC<Props> = ({ profile }) => {
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
-  const canUseRelay = useAppStore((state) => state.canUseRelay);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
   const [beta, setBeta] = useState(isBeta(profile));
@@ -276,7 +275,7 @@ const Profile: FC<Props> = ({ profile }) => {
       metadata: `https://arweave.net/${id}`
     };
 
-    if (canUseRelay) {
+    if (currentProfile?.dispatcher?.canUseRelay) {
       createSetProfileMetadataViaDispatcher({ variables: { request } });
     } else {
       createSetProfileMetadataTypedData({

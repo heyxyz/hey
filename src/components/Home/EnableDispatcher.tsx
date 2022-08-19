@@ -6,9 +6,9 @@ import { APP_NAME } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 
 const EnableDispatcher: FC = () => {
-  const canUseRelay = useAppStore((state) => state.canUseRelay);
+  const currentProfile = useAppStore((state) => state.currentProfile);
 
-  if (canUseRelay) {
+  if (currentProfile?.dispatcher?.canUseRelay) {
     return null;
   }
 

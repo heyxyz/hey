@@ -58,7 +58,6 @@ interface Props {
 const NewComment: FC<Props> = ({ setShowModal, hideCard = false, publication, type }) => {
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
-  const canUseRelay = useAppStore((state) => state.canUseRelay);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
   const publicationContent = usePublicationStore((state) => state.publicationContent);
@@ -253,7 +252,7 @@ const NewComment: FC<Props> = ({ setShowModal, hideCard = false, publication, ty
       }
     };
 
-    if (canUseRelay) {
+    if (currentProfile?.dispatcher?.canUseRelay) {
       createCommentViaDispatcher({ variables: { request } });
     } else {
       createCommentTypedData({

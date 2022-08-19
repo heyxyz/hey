@@ -47,7 +47,6 @@ interface Props {
 
 const MenuItems: FC<Props> = ({ pingData }) => {
   const profiles = useAppStore((state) => state.profiles);
-  const setCanUseRelay = useAppStore((state) => state.setCanUseRelay);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
   const isConnected = useAppPersistStore((state) => state.isConnected);
@@ -166,7 +165,6 @@ const MenuItems: FC<Props> = ({ pingData }) => {
                           onClick={() => {
                             setCurrentProfile(profiles[index]);
                             setProfileId(profiles[index].id);
-                            setCanUseRelay(profiles[index].dispatcher?.canUseRelay ?? false);
                             Mixpanel.track(PROFILE.SWITCH_PROFILE);
                           }}
                         >

@@ -10,8 +10,6 @@ interface AppState {
   setCurrentProfile: (currentProfile: Profile | undefined) => void;
   userSigNonce: number;
   setUserSigNonce: (userSigNonce: number) => void;
-  canUseRelay: boolean;
-  setCanUseRelay: (canUseRelay: boolean) => void;
 }
 
 export const useAppStore = create<AppState>((set) => ({
@@ -20,9 +18,7 @@ export const useAppStore = create<AppState>((set) => ({
   currentProfile: undefined,
   setCurrentProfile: (currentProfile) => set(() => ({ currentProfile })),
   userSigNonce: 0,
-  setUserSigNonce: (userSigNonce) => set(() => ({ userSigNonce })),
-  canUseRelay: false,
-  setCanUseRelay: (canUseRelay) => set(() => ({ canUseRelay }))
+  setUserSigNonce: (userSigNonce) => set(() => ({ userSigNonce }))
 }));
 
 interface AppPersistState {
