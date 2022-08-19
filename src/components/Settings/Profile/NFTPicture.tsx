@@ -164,14 +164,9 @@ const NFTPicture: FC<Props> = ({ profile }) => {
     }
   );
 
-  const [createSetProfileImageURIViaDispatcher, { loading: viaDispatcherLoading }] = useMutation(
-    CREATE_SET_PROFILE_IMAGE_URI_VIA_DISPATHCER_MUTATION,
-    {
-      onCompleted: () => {
-        try {
-          alert('GM');
-        } catch (error) {}
-      },
+  const [createSetProfileImageURIViaDispatcher, { data: dispatcherData, loading: dispatcherLoading }] =
+    useMutation(CREATE_SET_PROFILE_IMAGE_URI_VIA_DISPATHCER_MUTATION, {
+      onCompleted,
       onError: (error) => {
         toast.error(error.message ?? ERROR_MESSAGE);
         Mixpanel.track(SETTINGS.PROFILE.SET_NFT_PICTURE, {
@@ -179,8 +174,7 @@ const NFTPicture: FC<Props> = ({ profile }) => {
           error: error?.message
         });
       }
-    }
-  );
+    });
 
   const setAvatar = async (contractAddress: string, tokenId: string) => {
     if (!isAuthenticated) {
@@ -227,7 +221,7 @@ const NFTPicture: FC<Props> = ({ profile }) => {
   const isLoading =
     challengeLoading ||
     typedDataLoading ||
-    viaDispatcherLoading ||
+    dispatcherLoading ||
     signLoading ||
     writeLoading ||
     broadcastLoading;
@@ -275,8 +269,16 @@ const NFTPicture: FC<Props> = ({ profile }) => {
         >
           Save
         </Button>
-        {writeData?.hash ?? broadcastData?.broadcast?.txHash ? (
-          <IndexStatus txHash={writeData?.hash ? writeData?.hash : broadcastData?.broadcast?.txHash} />
+        {writeData?.hash ??
+        broadcastData?.broadcast?.txHash ??
+        dispatcherData?.createSetProfileImageURIViaDispatcher?.txHash ? (
+          <IndexStatus
+            txHash={
+              writeData?.hash ??
+              broadcastData?.broadcast?.txHash ??
+              dispatcherData?.createSetProfileImageURIViaDispatcher?.txHash
+            }
+          />
         ) : null}
       </div>
     </Form>

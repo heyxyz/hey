@@ -136,14 +136,9 @@ const Picture: FC<Props> = ({ profile }) => {
     }
   );
 
-  const [createSetProfileImageURIViaDispatcher, { loading: viaDispatcherLoading }] = useMutation(
-    CREATE_SET_PROFILE_IMAGE_URI_VIA_DISPATHCER_MUTATION,
-    {
-      onCompleted: () => {
-        try {
-          alert('GM');
-        } catch (error) {}
-      },
+  const [createSetProfileImageURIViaDispatcher, { data: dispatcherData, loading: dispatcherLoading }] =
+    useMutation(CREATE_SET_PROFILE_IMAGE_URI_VIA_DISPATHCER_MUTATION, {
+      onCompleted,
       onError: (error) => {
         toast.error(error.message ?? ERROR_MESSAGE);
         Mixpanel.track(SETTINGS.PROFILE.SET_NFT_PICTURE, {
@@ -151,8 +146,7 @@ const Picture: FC<Props> = ({ profile }) => {
           error: error?.message
         });
       }
-    }
-  );
+    });
 
   const handleUpload = async (evt: ChangeEvent<HTMLInputElement>) => {
     evt.preventDefault();
@@ -193,8 +187,7 @@ const Picture: FC<Props> = ({ profile }) => {
     }
   };
 
-  const isLoading =
-    typedDataLoading || viaDispatcherLoading || signLoading || writeLoading || broadcastLoading;
+  const isLoading = typedDataLoading || dispatcherLoading || signLoading || writeLoading || broadcastLoading;
 
   return (
     <>
@@ -228,8 +221,16 @@ const Picture: FC<Props> = ({ profile }) => {
         >
           Save
         </Button>
-        {writeData?.hash ?? broadcastData?.broadcast?.txHash ? (
-          <IndexStatus txHash={writeData?.hash ? writeData?.hash : broadcastData?.broadcast?.txHash} />
+        {writeData?.hash ??
+        broadcastData?.broadcast?.txHash ??
+        dispatcherData?.createSetProfileImageURIViaDispatcher?.txHash ? (
+          <IndexStatus
+            txHash={
+              writeData?.hash ??
+              broadcastData?.broadcast?.txHash ??
+              dispatcherData?.createSetProfileImageURIViaDispatcher?.txHash
+            }
+          />
         ) : null}
       </div>
     </>
