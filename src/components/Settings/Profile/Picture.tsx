@@ -29,8 +29,8 @@ interface Props {
 const Picture: FC<Props> = ({ profile }) => {
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
+  const currentProfile = useAppStore((state) => state.currentProfile);
   const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
-  const currentUser = useAppPersistStore((state) => state.currentUser);
   const [avatar, setAvatar] = useState('');
   const [uploading, setUploading] = useState(false);
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
@@ -158,7 +158,7 @@ const Picture: FC<Props> = ({ profile }) => {
       variables: {
         options: { overrideSigNonce: userSigNonce },
         request: {
-          profileId: currentUser?.id,
+          profileId: currentProfile?.id,
           url: avatar
         }
       }

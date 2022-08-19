@@ -10,7 +10,7 @@ import { UsersIcon } from '@heroicons/react/outline';
 import { LightningBoltIcon, SparklesIcon } from '@heroicons/react/solid';
 import randomizeArray from '@lib/randomizeArray';
 import React, { FC } from 'react';
-import { useAppPersistStore } from 'src/store/app';
+import { useAppStore } from 'src/store/app';
 
 const RECOMMENDED_PROFILES_QUERY = gql`
   query RecommendedProfiles {
@@ -23,11 +23,11 @@ const RECOMMENDED_PROFILES_QUERY = gql`
 `;
 
 const Title = () => {
-  const currentUser = useAppPersistStore((state) => state.currentUser);
+  const currentProfile = useAppStore((state) => state.currentProfile);
 
   return (
     <div className="flex gap-2 items-center px-5 mb-2 sm:px-0">
-      {currentUser ? (
+      {currentProfile ? (
         <>
           <SparklesIcon className="w-4 h-4 text-yellow-500" />
           <div>Who to follow</div>

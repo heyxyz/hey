@@ -67,8 +67,8 @@ const Profile: FC<Props> = ({ profile }) => {
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const canUseRelay = useAppStore((state) => state.canUseRelay);
+  const currentProfile = useAppStore((state) => state.currentProfile);
   const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
-  const currentUser = useAppPersistStore((state) => state.currentUser);
   const [beta, setBeta] = useState(isBeta(profile));
   const [pride, setPride] = useState(hasPrideLogo(profile));
   const [cover, setCover] = useState('');
@@ -144,7 +144,7 @@ const Profile: FC<Props> = ({ profile }) => {
           const { v, r, s } = splitSignature(signature);
           const sig = { v, r, s, deadline };
           const inputStruct = {
-            user: currentUser?.ownedBy,
+            user: currentProfile?.ownedBy,
             profileId,
             metadata,
             sig
@@ -272,7 +272,7 @@ const Profile: FC<Props> = ({ profile }) => {
     }).finally(() => setIsUploading(false));
 
     const request = {
-      profileId: currentUser?.id,
+      profileId: currentProfile?.id,
       metadata: `https://arweave.net/${id}`
     };
 
@@ -307,7 +307,7 @@ const Profile: FC<Props> = ({ profile }) => {
           }}
         >
           {error && <ErrorMessage className="mb-3" title="Transaction failed!" error={error} />}
-          <Input label="Profile Id" type="text" value={currentUser?.id} disabled />
+          <Input label="Profile Id" type="text" value={currentProfile?.id} disabled />
           <Input label="Name" type="text" placeholder="Gavin" {...form.register('name')} />
           <Input label="Location" type="text" placeholder="Miami" {...form.register('location')} />
           <Input label="Website" type="text" placeholder="https://hooli.com" {...form.register('website')} />

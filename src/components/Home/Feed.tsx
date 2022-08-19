@@ -15,7 +15,7 @@ import { CollectionIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import React, { FC, useState } from 'react';
 import { useInView } from 'react-cool-inview';
-import { useAppPersistStore } from 'src/store/app';
+import { useAppStore } from 'src/store/app';
 import { PAGINATION } from 'src/tracking';
 
 const HOME_FEED_QUERY = gql`
@@ -48,14 +48,14 @@ const HOME_FEED_QUERY = gql`
 `;
 
 const Feed: FC = () => {
-  const currentUser = useAppPersistStore((state) => state.currentUser);
+  const currentProfile = useAppStore((state) => state.currentProfile);
   const [publications, setPublications] = useState<LensterPublication[]>([]);
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>();
   const { data, loading, error, fetchMore } = useQuery(HOME_FEED_QUERY, {
     variables: {
-      request: { profileId: currentUser?.id, limit: 10 },
-      reactionRequest: currentUser ? { profileId: currentUser?.id } : null,
-      profileId: currentUser?.id ?? null
+      request: { profileId: currentProfile?.id, limit: 10 },
+      reactionRequest: currentProfile ? { profileId: currentProfile?.id } : null,
+      profileId: currentProfile?.id ?? null
     },
     fetchPolicy: 'no-cache',
     onCompleted: (data) => {
@@ -69,12 +69,12 @@ const Feed: FC = () => {
       const { data } = await fetchMore({
         variables: {
           request: {
-            profileId: currentUser?.id,
+            profileId: currentProfile?.id,
             cursor: pageInfo?.next,
             limit: 10
           },
-          reactionRequest: currentUser ? { profileId: currentUser?.id } : null,
-          profileId: currentUser?.id ?? null
+          reactionRequest: currentProfile ? { profileId: currentProfile?.id } : null,
+          profileId: currentProfile?.id ?? null
         }
       });
       setPageInfo(data?.timeline?.pageInfo);
@@ -85,7 +85,7 @@ const Feed: FC = () => {
 
   return (
     <>
-      {currentUser && <NewPost />}
+      {currentProfile && <NewPost />}
       {loading && <PublicationsShimmer />}
       {data?.timeline?.items?.length === 0 && (
         <EmptyState

@@ -7,7 +7,7 @@ import { Mixpanel } from '@lib/mixpanel';
 import { NextPage } from 'next';
 import dynamic from 'next/dynamic';
 import React, { useEffect } from 'react';
-import { useAppPersistStore } from 'src/store/app';
+import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { PAGEVIEW } from 'src/tracking';
 
 import EnableDispatcher from './EnableDispatcher';
@@ -30,20 +30,20 @@ const Home: NextPage = () => {
     Mixpanel.track(PAGEVIEW.HOME);
   }, []);
 
+  const currentProfile = useAppStore((state) => state.currentProfile);
   const isConnected = useAppPersistStore((state) => state.isConnected);
-  const currentUser = useAppPersistStore((state) => state.currentUser);
 
   return (
     <>
       <Seo />
-      {isConnected && !currentUser && <ProfileWarning />}
+      {isConnected && !currentProfile && <ProfileWarning />}
       {!isConnected && <Hero />}
       <GridLayout>
-        <GridItemEight className="space-y-5">{currentUser ? <HomeFeed /> : <ExploreFeed />}</GridItemEight>
+        <GridItemEight className="space-y-5">{currentProfile ? <HomeFeed /> : <ExploreFeed />}</GridItemEight>
         <GridItemFour>
-          {currentUser ? <EnableDispatcher /> : null}
+          {currentProfile ? <EnableDispatcher /> : null}
           <Announcement />
-          {currentUser ? (
+          {currentProfile ? (
             <>
               <SetDefaultProfile />
               <SetProfile />

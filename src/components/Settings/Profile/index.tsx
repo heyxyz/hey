@@ -11,7 +11,7 @@ import React, { FC, ReactNode, useEffect, useState } from 'react';
 import { APP_NAME } from 'src/constants';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
-import { useAppPersistStore } from 'src/store/app';
+import { useAppStore } from 'src/store/app';
 import { PAGEVIEW } from 'src/tracking';
 
 import Sidebar from '../Sidebar';
@@ -53,7 +53,7 @@ const PROFILE_SETTINGS_QUERY = gql`
 `;
 
 const ProfileSettings: NextPage = () => {
-  const currentUser = useAppPersistStore((state) => state.currentUser);
+  const currentProfile = useAppStore((state) => state.currentProfile);
   const [settingsType, setSettingsType] = useState<'NFT' | 'AVATAR'>('AVATAR');
 
   useEffect(() => {
@@ -61,8 +61,8 @@ const ProfileSettings: NextPage = () => {
   }, []);
 
   const { data, loading, error } = useQuery(PROFILE_SETTINGS_QUERY, {
-    variables: { request: { profileId: currentUser?.id } },
-    skip: !currentUser?.id,
+    variables: { request: { profileId: currentProfile?.id } },
+    skip: !currentProfile?.id,
     onCompleted: (data) => {
       setSettingsType(data?.profile?.picture?.uri ? 'NFT' : 'AVATAR');
     }
@@ -76,7 +76,7 @@ const ProfileSettings: NextPage = () => {
     return <PageLoading message="Loading settings" />;
   }
 
-  if (!currentUser) {
+  if (!currentProfile) {
     return <Custom404 />;
   }
 

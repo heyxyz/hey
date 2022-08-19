@@ -12,7 +12,7 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import dynamic from 'next/dynamic';
 import React, { FC, ReactNode, useState } from 'react';
-import { useAppPersistStore } from 'src/store/app';
+import { useAppStore } from 'src/store/app';
 import { COMMUNITY } from 'src/tracking';
 
 import Join from './Join';
@@ -28,7 +28,7 @@ interface Props {
 }
 
 const Details: FC<Props> = ({ community }) => {
-  const currentUser = useAppPersistStore((state) => state.currentUser);
+  const currentProfile = useAppStore((state) => state.currentProfile);
   const [showMembersModal, setShowMembersModal] = useState(false);
   const [showSettingsModal, setShowSettingsModal] = useState(false);
   const [joined, setJoined] = useState(community?.hasCollectedByMe);
@@ -75,7 +75,7 @@ const Details: FC<Props> = ({ community }) => {
           ) : (
             <Join community={community} setJoined={setJoined} />
           )}
-          {currentUser?.id === community?.profile?.id && (
+          {currentProfile?.id === community?.profile?.id && (
             <>
               <Button
                 variant="secondary"
