@@ -12,7 +12,7 @@ import splitSignature from '@lib/splitSignature';
 import clsx from 'clsx';
 import { FC } from 'react';
 import toast from 'react-hot-toast';
-import { ERROR_MESSAGE, ERRORS, LENSHUB_PROXY, RELAY_ON, RELAYER_ADDRESS } from 'src/constants';
+import { ERROR_MESSAGE, ERRORS, LENSHUB_PROXY, RELAY_ON } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
@@ -136,7 +136,6 @@ const ToggleDispatcher: FC<Props> = ({ buttonVariant = 'danger', buttonSize = 'm
           variables: {
             request: {
               profileId: currentProfile?.id,
-              dispatcher: RELAYER_ADDRESS,
               enable: canUseRelay ? false : true
             }
           }
