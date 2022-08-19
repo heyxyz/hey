@@ -148,14 +148,10 @@ const Mirror: FC<Props> = ({ publication }) => {
     }
   );
 
-  const [createMirrorViaDispatcher, { loading: viaDispatcherLoading }] = useMutation(
+  const [createMirrorViaDispatcher, { loading: dispatcherLoading }] = useMutation(
     CREATE_MIRROR_VIA_DISPATHCER_MUTATION,
     {
-      onCompleted: () => {
-        try {
-          alert('GM');
-        } catch (error) {}
-      },
+      onCompleted,
       onError: (error) => {
         toast.error(error.message ?? ERROR_MESSAGE);
         Mixpanel.track(PUBLICATION.MIRROR, {
@@ -191,8 +187,7 @@ const Mirror: FC<Props> = ({ publication }) => {
     }
   };
 
-  const isLoading =
-    typedDataLoading || viaDispatcherLoading || signLoading || writeLoading || broadcastLoading;
+  const isLoading = typedDataLoading || dispatcherLoading || signLoading || writeLoading || broadcastLoading;
 
   return (
     <motion.button whileTap={{ scale: 0.9 }} onClick={createMirror} disabled={isLoading} aria-label="Mirror">
