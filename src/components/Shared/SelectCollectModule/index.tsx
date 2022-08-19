@@ -13,7 +13,7 @@ import Modules from './Modules';
 
 const SelectCollectModule: FC = () => {
   const selectedModule = useCollectModuleStore((state) => state.selectedModule);
-  const [showModal, setShowModal] = useState<boolean>(false);
+  const [showModal, setShowModal] = useState(false);
 
   return (
     <>

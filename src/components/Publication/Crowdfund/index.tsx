@@ -13,7 +13,7 @@ import getTokenImage from '@lib/getTokenImage';
 import imagekitURL from '@lib/imagekitURL';
 import { Mixpanel } from '@lib/mixpanel';
 import clsx from 'clsx';
-import React, { FC, ReactNode, useEffect, useState } from 'react';
+import React, { FC, MouseEvent, ReactNode, useEffect, useState } from 'react';
 import { STATIC_ASSETS } from 'src/constants';
 import { useAppPersistStore } from 'src/store/app';
 import { CROWDFUND } from 'src/tracking';
@@ -51,10 +51,10 @@ interface Props {
 
 const Crowdfund: FC<Props> = ({ fund }) => {
   const isConnected = useAppPersistStore((state) => state.isConnected);
-  const [showFundersModal, setShowFundersModal] = useState<boolean>(false);
-  const [revenue, setRevenue] = useState<number>(0);
+  const [showFundersModal, setShowFundersModal] = useState(false);
+  const [revenue, setRevenue] = useState(0);
   const { data, loading } = useQuery(COLLECT_QUERY, {
-    variables: { request: { publicationId: fund?.pubId ?? fund?.id } }
+    variables: { request: { publicationId: fund?.id } }
   });
 
   const collectModule: any = data?.publication?.collectModule;
@@ -62,7 +62,7 @@ const Crowdfund: FC<Props> = ({ fund }) => {
   const { data: revenueData, loading: revenueLoading } = useQuery(PUBLICATION_REVENUE_QUERY, {
     variables: {
       request: {
-        publicationId: fund?.__typename === 'Mirror' ? fund?.mirrorOf?.id : fund?.pubId ?? fund?.id
+        publicationId: fund?.__typename === 'Mirror' ? fund?.mirrorOf?.id : fund?.id
       }
     }
   });
@@ -80,7 +80,7 @@ const Crowdfund: FC<Props> = ({ fund }) => {
   }
 
   return (
-    <Card forceRounded>
+    <Card forceRounded onClick={(event: MouseEvent<HTMLDivElement>) => event.stopPropagation()}>
       <div
         className="h-40 rounded-t-xl border-b sm:h-52 dark:border-b-gray-700/80"
         style={{
@@ -127,7 +127,7 @@ const Crowdfund: FC<Props> = ({ fund }) => {
                     show={showFundersModal}
                     onClose={() => setShowFundersModal(false)}
                   >
-                    <Collectors pubId={fund?.pubId ?? fund?.id} />
+                    <Collectors pubId={fund?.id} />
                   </Modal>
                 </>
               )}

@@ -58,8 +58,10 @@ interface Props {
 }
 
 const Mirror: FC<Props> = ({ publication }) => {
-  const [count, setCount] = useState<number>(0);
-  const [mirrored, setMirrored] = useState<boolean>(publication?.mirrors?.length > 0);
+  const [count, setCount] = useState(0);
+  const [mirrored, setMirrored] = useState(
+    publication?.mirrors?.length > 0 || publication?.mirrorOf?.mirrors?.length > 0
+  );
 
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
@@ -185,7 +187,7 @@ const Mirror: FC<Props> = ({ publication }) => {
         options: { overrideSigNonce: userSigNonce },
         request: {
           profileId: currentUser?.id,
-          publicationId: publication?.pubId ?? publication?.id,
+          publicationId: publication?.id,
           referenceModule: {
             followerOnlyReferenceModule: false
           }
@@ -209,7 +211,7 @@ const Mirror: FC<Props> = ({ publication }) => {
           )}
         >
           {typedDataLoading || signLoading || writeLoading || broadcastLoading ? (
-            <Spinner size="xs" />
+            <Spinner variant={mirrored ? 'success' : 'primary'} size="xs" />
           ) : (
             <Tooltip placement="top" content={count > 0 ? `${humanize(count)} Mirrors` : 'Mirror'} withDelay>
               <SwitchHorizontalIcon className="w-[15px] sm:w-[18px]" />

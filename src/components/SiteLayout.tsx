@@ -1,6 +1,6 @@
 import { gql, useQuery } from '@apollo/client';
 import { Profile } from '@generated/types';
-import { MinimalProfileFields } from '@gql/MinimalProfileFields';
+import { ProfileFields } from '@gql/ProfileFields';
 import { Mixpanel } from '@lib/mixpanel';
 import Cookies from 'js-cookie';
 import mixpanel from 'mixpanel-browser';
@@ -28,7 +28,7 @@ export const CURRENT_USER_QUERY = gql`
   query CurrentUser($ownedBy: [EthereumAddress!]) {
     profiles(request: { ownedBy: $ownedBy }) {
       items {
-        ...MinimalProfileFields
+        ...ProfileFields
         isDefault
       }
     }
@@ -36,7 +36,7 @@ export const CURRENT_USER_QUERY = gql`
       lensHubOnChainSigNonce
     }
   }
-  ${MinimalProfileFields}
+  ${ProfileFields}
 `;
 
 interface Props {
@@ -54,7 +54,7 @@ const SiteLayout: FC<Props> = ({ children }) => {
   const currentUser = useAppPersistStore((state) => state.currentUser);
   const setCurrentUser = useAppPersistStore((state) => state.setCurrentUser);
 
-  const [mounted, setMounted] = useState<boolean>(false);
+  const [mounted, setMounted] = useState(false);
   const { address, isDisconnected } = useAccount();
   const { chain } = useNetwork();
   const { disconnect } = useDisconnect();

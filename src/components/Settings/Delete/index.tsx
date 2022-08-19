@@ -57,7 +57,7 @@ const DeleteSettings: FC = () => {
     Mixpanel.track(PAGEVIEW.SETTINGS.DELETE);
   }, []);
 
-  const [showWarningModal, setShowWarningModal] = useState<boolean>(false);
+  const [showWarningModal, setShowWarningModal] = useState(false);
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const setIsConnected = useAppPersistStore((state) => state.setIsConnected);

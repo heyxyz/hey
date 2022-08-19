@@ -11,7 +11,7 @@ interface Props {
 const CommentedPublication: FC<Props> = ({ publication }) => {
   const sourceIsCommunity = publication?.commentOn?.metadata?.attributes[0]?.value === 'community post';
   // @ts-ignore
-  const sourceId = publication?.commentOn?.id ?? publication?.commentOn?.pubId;
+  const sourceId = publication?.commentOn?.id;
   const sourceProfileHandle = publication?.commentOn?.profile?.handle;
 
   return (

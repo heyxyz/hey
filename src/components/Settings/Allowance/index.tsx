@@ -56,7 +56,7 @@ const AllowanceSettings: NextPage = () => {
   }, []);
 
   const currentUser = useAppPersistStore((state) => state.currentUser);
-  const [currencyLoading, setCurrencyLoading] = useState<boolean>(false);
+  const [currencyLoading, setCurrencyLoading] = useState(false);
   const { data, loading, error, refetch } = useQuery(ALLOWANCE_SETTINGS_QUERY, {
     variables: {
       request: getAllowancePayload(DEFAULT_COLLECT_TOKEN)

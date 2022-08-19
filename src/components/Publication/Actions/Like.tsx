@@ -31,8 +31,8 @@ interface Props {
 const Like: FC<Props> = ({ publication }) => {
   const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
   const currentUser = useAppPersistStore((state) => state.currentUser);
-  const [liked, setLiked] = useState<boolean>(false);
-  const [count, setCount] = useState<number>(0);
+  const [liked, setLiked] = useState(false);
+  const [count, setCount] = useState(0);
 
   useEffect(() => {
     if (publication?.mirrorOf?.stats?.totalUpvotes || publication?.stats?.totalUpvotes) {
@@ -83,10 +83,7 @@ const Like: FC<Props> = ({ publication }) => {
         request: {
           profileId: currentUser?.id,
           reaction: 'UPVOTE',
-          publicationId:
-            publication.__typename === 'Mirror'
-              ? publication?.mirrorOf?.id
-              : publication?.pubId ?? publication?.id
+          publicationId: publication.__typename === 'Mirror' ? publication?.mirrorOf?.id : publication?.id
         }
       }
     };

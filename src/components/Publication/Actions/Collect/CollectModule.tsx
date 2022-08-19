@@ -116,9 +116,9 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const isConnected = useAppPersistStore((state) => state.isConnected);
-  const [revenue, setRevenue] = useState<number>(0);
-  const [showCollectorsModal, setShowCollectorsModal] = useState<boolean>(false);
-  const [allowed, setAllowed] = useState<boolean>(true);
+  const [revenue, setRevenue] = useState(0);
+  const [showCollectorsModal, setShowCollectorsModal] = useState(false);
+  const [allowed, setAllowed] = useState(true);
   const { address } = useAccount();
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError: (error) => {
@@ -131,7 +131,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
   });
   const { data, loading } = useQuery(COLLECT_QUERY, {
     variables: {
-      request: { publicationId: publication?.pubId ?? publication?.id }
+      request: { publicationId: publication?.id }
     }
   });
 
@@ -183,10 +183,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
   const { data: revenueData, loading: revenueLoading } = useQuery(PUBLICATION_REVENUE_QUERY, {
     variables: {
       request: {
-        publicationId:
-          publication?.__typename === 'Mirror'
-            ? publication?.mirrorOf?.id
-            : publication?.pubId ?? publication?.id
+        publicationId: publication?.__typename === 'Mirror' ? publication?.mirrorOf?.id : publication?.id
       }
     },
     skip: !publication?.id
@@ -277,7 +274,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
     createCollectTypedData({
       variables: {
         options: { overrideSigNonce: userSigNonce },
-        request: { publicationId: publication?.pubId ?? publication?.id }
+        request: { publicationId: publication?.id }
       }
     });
   };
@@ -365,11 +362,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
                 onClose={() => setShowCollectorsModal(false)}
               >
                 <Collectors
-                  pubId={
-                    publication?.__typename === 'Mirror'
-                      ? publication?.mirrorOf?.id
-                      : publication?.pubId ?? publication?.id
-                  }
+                  pubId={publication?.__typename === 'Mirror' ? publication?.mirrorOf?.id : publication?.id}
                 />
               </Modal>
             </div>

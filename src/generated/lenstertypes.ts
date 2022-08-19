@@ -15,7 +15,7 @@ import {
   TimedFeeCollectModuleSettings
 } from './types';
 
-export type LensterPublication = Post & Mirror & Comment & { pubId: string };
+export type LensterPublication = Post & Mirror & Comment;
 export type LensterNotification = Notification & { profile: Profile };
 export type Community = Post;
 export type LensterCollectModule = FreeCollectModuleSettings &

@@ -55,6 +55,9 @@ export const PROFILE_QUERY = gql`
         ens {
           name
         }
+        worldcoin {
+          isHuman
+        }
       }
       stats {
         totalFollowers
@@ -92,9 +95,9 @@ const ViewProfile: NextPage = () => {
     query: { username, type }
   } = useRouter();
   const currentUser = useAppPersistStore((state) => state.currentUser);
-  const [feedType, setFeedType] = useState<string>(
+  const [feedType, setFeedType] = useState(
     type && ['post', 'comment', 'mirror', 'nft'].includes(type as string)
-      ? type?.toString().toUpperCase()
+      ? type.toString().toUpperCase()
       : 'POST'
   );
 

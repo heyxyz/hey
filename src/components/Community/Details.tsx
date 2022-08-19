@@ -29,9 +29,9 @@ interface Props {
 
 const Details: FC<Props> = ({ community }) => {
   const currentUser = useAppPersistStore((state) => state.currentUser);
-  const [showMembersModal, setShowMembersModal] = useState<boolean>(false);
-  const [showSettingsModal, setShowSettingsModal] = useState<boolean>(false);
-  const [joined, setJoined] = useState<boolean>(community?.hasCollectedByMe);
+  const [showMembersModal, setShowMembersModal] = useState(false);
+  const [showSettingsModal, setShowSettingsModal] = useState(false);
+  const [joined, setJoined] = useState(community?.hasCollectedByMe);
 
   const MetaDetails = ({ children, icon }: { children: ReactNode; icon: ReactNode }) => (
     <div className="flex gap-2 items-center">
