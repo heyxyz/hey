@@ -273,6 +273,14 @@ const NewComment: FC<Props> = ({ setShowModal, hideCard = false, publication, ty
     setAttachments([...attachments, attachment]);
   };
 
+  const isLoading =
+    isUploading ||
+    typedDataLoading ||
+    viaDispatcherLoading ||
+    signLoading ||
+    writeLoading ||
+    broadcastLoading;
+
   return (
     <Card className={hideCard ? 'border-0 !shadow-none !bg-transparent' : ''}>
       <div className="px-5 pt-5 pb-3">
@@ -307,9 +315,9 @@ const NewComment: FC<Props> = ({ setShowModal, hideCard = false, publication, ty
               ) : null}
               <Button
                 className="ml-auto"
-                disabled={isUploading || typedDataLoading || signLoading || writeLoading || broadcastLoading}
+                disabled={isLoading}
                 icon={
-                  isUploading || typedDataLoading || signLoading || writeLoading || broadcastLoading ? (
+                  isLoading ? (
                     <Spinner size="xs" />
                   ) : type === 'community post' ? (
                     <PencilAltIcon className="w-4 h-4" />

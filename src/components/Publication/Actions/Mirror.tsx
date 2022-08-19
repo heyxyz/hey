@@ -5,7 +5,10 @@ import { Tooltip } from '@components/UI/Tooltip';
 import { LensterPublication } from '@generated/lenstertypes';
 import { CreateMirrorBroadcastItemResult } from '@generated/types';
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation';
-import { CREATE_MIRROR_TYPED_DATA_MUTATION } from '@gql/TypedAndDispatcherData/CreateMirror';
+import {
+  CREATE_MIRROR_TYPED_DATA_MUTATION,
+  CREATE_MIRROR_VIA_DISPATHCER_MUTATION
+} from '@gql/TypedAndDispatcherData/CreateMirror';
 import { SwitchHorizontalIcon } from '@heroicons/react/outline';
 import humanize from '@lib/humanize';
 import { Mixpanel } from '@lib/mixpanel';
@@ -88,6 +91,7 @@ const Mirror: FC<Props> = ({ publication }) => {
       });
     }
   });
+
   const [createMirrorTypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_MIRROR_TYPED_DATA_MUTATION,
     {
@@ -144,32 +148,54 @@ const Mirror: FC<Props> = ({ publication }) => {
     }
   );
 
+  const [createMirrorViaDispatcher, { loading: viaDispatcherLoading }] = useMutation(
+    CREATE_MIRROR_VIA_DISPATHCER_MUTATION,
+    {
+      onCompleted: () => {
+        try {
+          alert('GM');
+        } catch (error) {}
+      },
+      onError: (error) => {
+        toast.error(error.message ?? ERROR_MESSAGE);
+        Mixpanel.track(PUBLICATION.MIRROR, {
+          result: 'dispatcher_error',
+          error: error?.message
+        });
+      }
+    }
+  );
+
   const createMirror = () => {
     if (!isAuthenticated) {
       return toast.error(SIGN_WALLET);
     }
 
-    createMirrorTypedData({
-      variables: {
-        options: { overrideSigNonce: userSigNonce },
-        request: {
-          profileId: currentProfile?.id,
-          publicationId: publication?.id,
-          referenceModule: {
-            followerOnlyReferenceModule: false
-          }
-        }
+    const request = {
+      profileId: currentProfile?.id,
+      publicationId: publication?.id,
+      referenceModule: {
+        followerOnlyReferenceModule: false
       }
-    });
+    };
+
+    if (currentProfile?.dispatcher?.canUseRelay) {
+      createMirrorViaDispatcher({ variables: { request } });
+    } else {
+      createMirrorTypedData({
+        variables: {
+          options: { overrideSigNonce: userSigNonce },
+          request
+        }
+      });
+    }
   };
 
+  const isLoading =
+    typedDataLoading || viaDispatcherLoading || signLoading || writeLoading || broadcastLoading;
+
   return (
-    <motion.button
-      whileTap={{ scale: 0.9 }}
-      onClick={createMirror}
-      disabled={typedDataLoading || writeLoading}
-      aria-label="Mirror"
-    >
+    <motion.button whileTap={{ scale: 0.9 }} onClick={createMirror} disabled={isLoading} aria-label="Mirror">
       <div className={clsx(mirrored ? 'text-green-500' : 'text-brand', 'flex items-center space-x-1')}>
         <div
           className={clsx(
@@ -177,7 +203,7 @@ const Mirror: FC<Props> = ({ publication }) => {
             'p-1.5 rounded-full hover:bg-opacity-20'
           )}
         >
-          {typedDataLoading || signLoading || writeLoading || broadcastLoading ? (
+          {isLoading ? (
             <Spinner variant={mirrored ? 'success' : 'primary'} size="xs" />
           ) : (
             <Tooltip placement="top" content={count > 0 ? `${humanize(count)} Mirrors` : 'Mirror'} withDelay>
