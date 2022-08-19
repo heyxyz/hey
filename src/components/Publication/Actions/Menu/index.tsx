@@ -5,7 +5,7 @@ import { DotsHorizontalIcon, ShieldExclamationIcon } from '@heroicons/react/outl
 import { Mixpanel } from '@lib/mixpanel';
 import clsx from 'clsx';
 import { FC, Fragment } from 'react';
-import { useAppPersistStore } from 'src/store/app';
+import { useAppStore } from 'src/store/app';
 import { PUBLICATION } from 'src/tracking';
 
 import Delete from './Delete';
@@ -17,7 +17,7 @@ interface Props {
 }
 
 const PublicationMenu: FC<Props> = ({ publication }) => {
-  const currentUser = useAppPersistStore((state) => state.currentUser);
+  const currentUser = useAppStore((state) => state.currentUser);
 
   return (
     <Menu as="div">

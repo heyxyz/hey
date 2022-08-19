@@ -6,7 +6,7 @@ import { NextPage } from 'next';
 import React, { useEffect } from 'react';
 import { APP_NAME } from 'src/constants';
 import Custom404 from 'src/pages/404';
-import { useAppPersistStore } from 'src/store/app';
+import { useAppStore } from 'src/store/app';
 import { PAGEVIEW } from 'src/tracking';
 
 import Sidebar from '../Sidebar';
@@ -15,7 +15,7 @@ import SetProfile from './SetProfile';
 import Verification from './Verification';
 
 const AccountSettings: NextPage = () => {
-  const currentUser = useAppPersistStore((state) => state.currentUser);
+  const currentUser = useAppStore((state) => state.currentUser);
 
   useEffect(() => {
     Mixpanel.track(PAGEVIEW.SETTINGS.ACCOUNT);

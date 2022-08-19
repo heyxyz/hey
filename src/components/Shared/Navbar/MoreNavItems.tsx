@@ -3,12 +3,12 @@ import { CashIcon, SupportIcon, UserIcon, UsersIcon } from '@heroicons/react/out
 import clsx from 'clsx';
 import { FC, Fragment } from 'react';
 import { IS_MAINNET } from 'src/constants';
-import { useAppPersistStore } from 'src/store/app';
+import { useAppStore } from 'src/store/app';
 
 import { NextLink } from './MenuItems';
 
 const MoreNavItems: FC = () => {
-  const currentUser = useAppPersistStore((state) => state.currentUser);
+  const currentUser = useAppStore((state) => state.currentUser);
 
   return (
     <Menu as="div">

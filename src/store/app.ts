@@ -6,6 +6,8 @@ import { persist } from 'zustand/middleware';
 interface AppState {
   profiles: Profile[] | [];
   setProfiles: (profiles: Profile[]) => void;
+  currentUser: Profile | undefined;
+  setCurrentUser: (currentUser: Profile | undefined) => void;
   userSigNonce: number;
   setUserSigNonce: (userSigNonce: number) => void;
   canUseRelay: boolean;
@@ -15,6 +17,8 @@ interface AppState {
 export const useAppStore = create<AppState>((set) => ({
   profiles: [],
   setProfiles: (profiles) => set(() => ({ profiles })),
+  currentUser: undefined,
+  setCurrentUser: (currentUser) => set(() => ({ currentUser })),
   userSigNonce: 0,
   setUserSigNonce: (userSigNonce) => set(() => ({ userSigNonce })),
   canUseRelay: false,
@@ -26,8 +30,8 @@ interface AppPersistState {
   setIsConnected: (isConnected: boolean) => void;
   isAuthenticated: boolean;
   setIsAuthenticated: (isAuthenticated: boolean) => void;
-  currentUser: Profile | null;
-  setCurrentUser: (currentUser: Profile | null) => void;
+  currentUserId: string | null;
+  setCurrentUserId: (currentUserId: string | null) => void;
   staffMode: boolean;
   setStaffMode: (staffMode: boolean) => void;
   notificationCount: number;
@@ -41,8 +45,8 @@ export const useAppPersistStore = create(
       setIsConnected: (isConnected) => set(() => ({ isConnected })),
       isAuthenticated: false,
       setIsAuthenticated: (isAuthenticated) => set(() => ({ isAuthenticated })),
-      currentUser: null,
-      setCurrentUser: (currentUser) => set(() => ({ currentUser })),
+      currentUserId: null,
+      setCurrentUserId: (currentUserId) => set(() => ({ currentUserId })),
       staffMode: false,
       setStaffMode: (staffMode) => set(() => ({ staffMode })),
       notificationCount: 0,

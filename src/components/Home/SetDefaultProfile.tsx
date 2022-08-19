@@ -2,11 +2,11 @@ import { Card, CardBody } from '@components/UI/Card';
 import { CurrencyDollarIcon, UserCircleIcon } from '@heroicons/react/outline';
 import Link from 'next/link';
 import { FC } from 'react';
-import { useAppPersistStore, useAppStore } from 'src/store/app';
+import { useAppStore } from 'src/store/app';
 
 const SetDefaultProfile: FC = () => {
   const profiles = useAppStore((state) => state.profiles);
-  const currentUser = useAppPersistStore((state) => state.currentUser);
+  const currentUser = useAppStore((state) => state.currentUser);
   const hasDefaultProfile = !!profiles.find((o) => o.isDefault);
   const count = profiles.length;
 

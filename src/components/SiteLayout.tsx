@@ -51,12 +51,14 @@ const SiteLayout: FC<Props> = ({ children }) => {
   const setProfiles = useAppStore((state) => state.setProfiles);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const setCanUseRelay = useAppStore((state) => state.setCanUseRelay);
+  const currentUser = useAppStore((state) => state.currentUser);
+  const setCurrentUser = useAppStore((state) => state.setCurrentUser);
   const isConnected = useAppPersistStore((state) => state.isConnected);
   const setIsConnected = useAppPersistStore((state) => state.setIsConnected);
   const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
   const setIsAuthenticated = useAppPersistStore((state) => state.setIsAuthenticated);
-  const currentUser = useAppPersistStore((state) => state.currentUser);
-  const setCurrentUser = useAppPersistStore((state) => state.setCurrentUser);
+  const currentUserId = useAppPersistStore((state) => state.currentUserId);
+  const setCurrentUserId = useAppPersistStore((state) => state.setCurrentUserId);
 
   const [mounted, setMounted] = useState(false);
   const { address, isDisconnected } = useAccount();
@@ -74,11 +76,11 @@ const SiteLayout: FC<Props> = ({ children }) => {
       setUserSigNonce(data?.userSigNonces?.lensHubOnChainSigNonce);
 
       if (profiles.length === 0) {
-        setCurrentUser(null);
+        setCurrentUserId(null);
       } else {
+        const selectedUser = profiles.find((profile) => profile.id === currentUserId);
         setProfiles(profiles);
-
-        const selectedUser = profiles.find((profile) => profile.id === currentUser?.id);
+        setCurrentUser(selectedUser);
         setCanUseRelay(selectedUser?.dispatcher?.canUseRelay ? true : false);
       }
     }
@@ -110,7 +112,7 @@ const SiteLayout: FC<Props> = ({ children }) => {
     const logout = () => {
       setIsAuthenticated(false);
       setIsConnected(false);
-      setCurrentUser(null);
+      setCurrentUserId(null);
       Cookies.remove('accessToken');
       Cookies.remove('refreshToken');
       localStorage.removeItem('lenster.store');
@@ -124,7 +126,7 @@ const SiteLayout: FC<Props> = ({ children }) => {
       accessToken &&
       accessToken !== 'undefined' &&
       refreshToken !== 'undefined' &&
-      currentUser &&
+      currentUserId &&
       chain?.id === CHAIN_ID
     ) {
       setIsAuthenticated(true);

@@ -60,11 +60,12 @@ const DeleteSettings: FC = () => {
   const [showWarningModal, setShowWarningModal] = useState(false);
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
+  const currentUser = useAppStore((state) => state.currentUser);
+  const setCurrentUser = useAppStore((state) => state.setCurrentUser);
   const setIsConnected = useAppPersistStore((state) => state.setIsConnected);
   const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
   const setIsAuthenticated = useAppPersistStore((state) => state.setIsAuthenticated);
-  const currentUser = useAppPersistStore((state) => state.currentUser);
-  const setCurrentUser = useAppPersistStore((state) => state.setCurrentUser);
+  const setCurrentUserId = useAppPersistStore((state) => state.setCurrentUserId);
 
   const { disconnect } = useDisconnect();
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
@@ -81,7 +82,8 @@ const DeleteSettings: FC = () => {
     Mixpanel.track(SETTINGS.DELETE);
     setIsAuthenticated(false);
     setIsConnected(false);
-    setCurrentUser(null);
+    setCurrentUser(undefined);
+    setCurrentUserId(null);
     Cookies.remove('accessToken');
     Cookies.remove('refreshToken');
     localStorage.removeItem('lenster.store');

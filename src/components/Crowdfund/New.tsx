@@ -72,16 +72,16 @@ const newCrowdfundSchema = object({
 });
 
 const NewCrowdfund: NextPage = () => {
+  const userSigNonce = useAppStore((state) => state.userSigNonce);
+  const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
+  const currentUser = useAppStore((state) => state.currentUser);
+  const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
   const [cover, setCover] = useState('');
   const [coverType, setCoverType] = useState('');
   const [isUploading, setIsUploading] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [selectedCurrency, setSelectedCurrency] = useState(DEFAULT_COLLECT_TOKEN);
   const [selectedCurrencySymobol, setSelectedCurrencySymobol] = useState('WMATIC');
-  const userSigNonce = useAppStore((state) => state.userSigNonce);
-  const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
-  const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
-  const currentUser = useAppPersistStore((state) => state.currentUser);
 
   useEffect(() => {
     Mixpanel.track(PAGEVIEW.CREATE_CROWDFUND);

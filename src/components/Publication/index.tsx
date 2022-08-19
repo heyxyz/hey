@@ -20,7 +20,7 @@ import React, { useEffect } from 'react';
 import { APP_NAME } from 'src/constants';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
-import { useAppPersistStore } from 'src/store/app';
+import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { PAGEVIEW } from 'src/tracking';
 
 import FullPublication from './FullPublication';
@@ -82,7 +82,7 @@ export const PUBLICATION_QUERY = gql`
 
 const ViewPublication: NextPage = () => {
   const { push } = useRouter();
-  const currentUser = useAppPersistStore((state) => state.currentUser);
+  const currentUser = useAppStore((state) => state.currentUser);
   const staffMode = useAppPersistStore((state) => state.staffMode);
 
   useEffect(() => {

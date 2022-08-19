@@ -3,11 +3,11 @@ import { BadgeCheckIcon } from '@heroicons/react/solid';
 import isVerified from '@lib/isVerified';
 import { Mixpanel } from '@lib/mixpanel';
 import React, { FC } from 'react';
-import { useAppPersistStore } from 'src/store/app';
+import { useAppStore } from 'src/store/app';
 import { SETTINGS } from 'src/tracking';
 
 const Verification: FC = () => {
-  const currentUser = useAppPersistStore((state) => state.currentUser);
+  const currentUser = useAppStore((state) => state.currentUser);
 
   return (
     <Card>

@@ -46,18 +46,18 @@ interface Props {
 }
 
 const MenuItems: FC<Props> = ({ pingData }) => {
+  const profiles = useAppStore((state) => state.profiles);
+  const setCanUseRelay = useAppStore((state) => state.setCanUseRelay);
+  const currentUser = useAppStore((state) => state.currentUser);
+  const setCurrentUser = useAppStore((state) => state.setCurrentUser);
+  const isConnected = useAppPersistStore((state) => state.isConnected);
+  const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
+  const setCurrentUserId = useAppPersistStore((state) => state.setCurrentUserId);
+  const staffMode = useAppPersistStore((state) => state.staffMode);
+  const setStaffMode = useAppPersistStore((state) => state.setStaffMode);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const { theme, setTheme } = useTheme();
   const { disconnect } = useDisconnect();
-
-  const profiles = useAppStore((state) => state.profiles);
-  const setCanUseRelay = useAppStore((state) => state.setCanUseRelay);
-  const isConnected = useAppPersistStore((state) => state.isConnected);
-  const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
-  const currentUser = useAppPersistStore((state) => state.currentUser);
-  const setCurrentUser = useAppPersistStore((state) => state.setCurrentUser);
-  const staffMode = useAppPersistStore((state) => state.staffMode);
-  const setStaffMode = useAppPersistStore((state) => state.setStaffMode);
 
   const toggleStaffMode = () => {
     setStaffMode(!staffMode);
@@ -129,7 +129,8 @@ const MenuItems: FC<Props> = ({ pingData }) => {
                 as="a"
                 onClick={() => {
                   Mixpanel.track(PROFILE.LOGOUT);
-                  setCurrentUser(null);
+                  setCurrentUser(undefined);
+                  setCurrentUserId(null);
                   Cookies.remove('accessToken');
                   Cookies.remove('refreshToken');
                   localStorage.removeItem('lenster.store');
@@ -163,6 +164,7 @@ const MenuItems: FC<Props> = ({ pingData }) => {
                           type="button"
                           className="flex items-center py-1.5 px-4 space-x-2 w-full rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
                           onClick={() => {
+                            setCurrentUserId(profiles[index].id);
                             setCurrentUser(profiles[index]);
                             setCanUseRelay(profiles[index].dispatcher?.canUseRelay ?? false);
                             Mixpanel.track(PROFILE.SWITCH_PROFILE);

@@ -43,8 +43,8 @@ const newCommunitySchema = object({
 const NewCommunity: NextPage = () => {
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
+  const currentUser = useAppStore((state) => state.currentUser);
   const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
-  const currentUser = useAppPersistStore((state) => state.currentUser);
   const [avatar, setAvatar] = useState('');
   const [avatarType, setAvatarType] = useState('');
   const [isUploading, setIsUploading] = useState(false);

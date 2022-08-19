@@ -42,9 +42,10 @@ interface Props {
 const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
   const setProfiles = useAppStore((state) => state.setProfiles);
   const setCanUseRelay = useAppStore((state) => state.setCanUseRelay);
+  const setCurrentUser = useAppStore((state) => state.setCurrentUser);
   const setIsConnected = useAppPersistStore((state) => state.setIsConnected);
   const setIsAuthenticated = useAppPersistStore((state) => state.setIsAuthenticated);
-  const setCurrentUser = useAppPersistStore((state) => state.setCurrentUser);
+  const setCurrentUserId = useAppPersistStore((state) => state.setCurrentUserId);
 
   const [mounted, setMounted] = useState(false);
   const { chain } = useNetwork();
@@ -114,6 +115,7 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
           ?.sort((a: Profile, b: Profile) => (!(a.isDefault !== b.isDefault) ? 0 : a.isDefault ? -1 : 1));
         setIsAuthenticated(true);
         setProfiles(profiles);
+        setCurrentUserId(profiles[0].id);
         setCurrentUser(profiles[0]);
         setCanUseRelay(profiles[0].dispatcher?.canUseRelay ? true : false);
       }

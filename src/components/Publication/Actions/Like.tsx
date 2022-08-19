@@ -9,7 +9,7 @@ import { motion } from 'framer-motion';
 import { FC, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { SIGN_WALLET } from 'src/constants';
-import { useAppPersistStore } from 'src/store/app';
+import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { PUBLICATION } from 'src/tracking';
 
 const ADD_REACTION_MUTATION = gql`
@@ -30,7 +30,7 @@ interface Props {
 
 const Like: FC<Props> = ({ publication }) => {
   const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
-  const currentUser = useAppPersistStore((state) => state.currentUser);
+  const currentUser = useAppStore((state) => state.currentUser);
   const [liked, setLiked] = useState(false);
   const [count, setCount] = useState(0);
 

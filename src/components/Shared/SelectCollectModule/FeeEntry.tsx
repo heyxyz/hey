@@ -7,7 +7,7 @@ import { defaultModuleData } from '@lib/getModule';
 import { Mixpanel } from '@lib/mixpanel';
 import { Dispatch, FC, useState } from 'react';
 import { DEFAULT_COLLECT_TOKEN } from 'src/constants';
-import { useAppPersistStore } from 'src/store/app';
+import { useAppStore } from 'src/store/app';
 import { useCollectModuleStore } from 'src/store/collectmodule';
 import { PUBLICATION } from 'src/tracking';
 import { object, string } from 'zod';
@@ -27,7 +27,7 @@ interface Props {
 }
 
 const FeeEntry: FC<Props> = ({ enabledModuleCurrencies, setShowFeeEntry, setShowModal }) => {
-  const currentUser = useAppPersistStore((state) => state.currentUser);
+  const currentUser = useAppStore((state) => state.currentUser);
   const selectedModule = useCollectModuleStore((state) => state.selectedModule);
   const setSelectedModule = useCollectModuleStore((state) => state.setSelectedModule);
   const feeData = useCollectModuleStore((state) => state.feeData);

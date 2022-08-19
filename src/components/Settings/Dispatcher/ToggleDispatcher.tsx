@@ -13,7 +13,7 @@ import clsx from 'clsx';
 import { FC } from 'react';
 import toast from 'react-hot-toast';
 import { ERROR_MESSAGE, ERRORS, LENSHUB_PROXY, RELAY_ON, RELAYER_ADDRESS } from 'src/constants';
-import { useAppPersistStore, useAppStore } from 'src/store/app';
+import { useAppStore } from 'src/store/app';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
 interface Props {
@@ -25,7 +25,7 @@ const ToggleDispatcher: FC<Props> = ({ buttonVariant = 'danger', buttonSize = 'm
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const canUseRelay = useAppStore((state) => state.canUseRelay);
-  const currentUser = useAppPersistStore((state) => state.currentUser);
+  const currentUser = useAppStore((state) => state.currentUser);
 
   const onCompleted = () => {
     toast.success('Profile updated successfully!');

@@ -13,7 +13,7 @@ import { CollectionIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import React, { FC, useState } from 'react';
 import { useInView } from 'react-cool-inview';
-import { useAppPersistStore } from 'src/store/app';
+import { useAppStore } from 'src/store/app';
 import { PAGINATION } from 'src/tracking';
 
 const SEARCH_PUBLICATIONS_QUERY = gql`
@@ -48,7 +48,7 @@ interface Props {
 }
 
 const Publications: FC<Props> = ({ query }) => {
-  const currentUser = useAppPersistStore((state) => state.currentUser);
+  const currentUser = useAppStore((state) => state.currentUser);
   const [publications, setPublications] = useState<LensterPublication[]>([]);
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>();
   const { data, loading, error, fetchMore } = useQuery(SEARCH_PUBLICATIONS_QUERY, {

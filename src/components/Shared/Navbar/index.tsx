@@ -9,7 +9,7 @@ import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { FC } from 'react';
-import { useAppPersistStore } from 'src/store/app';
+import { useAppPersistStore, useAppStore } from 'src/store/app';
 
 import MenuItems from './MenuItems';
 import MoreNavItems from './MoreNavItems';
@@ -25,8 +25,8 @@ const PING_QUERY = gql`
 `;
 
 const Navbar: FC = () => {
+  const currentUser = useAppStore((state) => state.currentUser);
   const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
-  const currentUser = useAppPersistStore((state) => state.currentUser);
   const staffMode = useAppPersistStore((state) => state.staffMode);
 
   const { data: pingData } = useQuery(PING_QUERY, {

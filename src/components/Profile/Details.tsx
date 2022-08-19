@@ -18,7 +18,7 @@ import Link from 'next/link';
 import { useTheme } from 'next-themes';
 import React, { FC, ReactElement, useState } from 'react';
 import { STATIC_ASSETS } from 'src/constants';
-import { useAppPersistStore } from 'src/store/app';
+import { useAppPersistStore, useAppStore } from 'src/store/app';
 
 import Badges from './Badges';
 import Followerings from './Followerings';
@@ -28,9 +28,9 @@ interface Props {
 }
 
 const Details: FC<Props> = ({ profile }) => {
-  const [following, setFollowing] = useState(profile?.isFollowedByMe);
-  const currentUser = useAppPersistStore((state) => state.currentUser);
+  const currentUser = useAppStore((state) => state.currentUser);
   const staffMode = useAppPersistStore((state) => state.staffMode);
+  const [following, setFollowing] = useState(profile?.isFollowedByMe);
   const { resolvedTheme } = useTheme();
 
   const MetaDetails = ({ children, icon }: { children: ReactElement; icon: ReactElement }) => (

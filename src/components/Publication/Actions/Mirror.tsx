@@ -26,15 +26,14 @@ interface Props {
 }
 
 const Mirror: FC<Props> = ({ publication }) => {
+  const userSigNonce = useAppStore((state) => state.userSigNonce);
+  const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
+  const currentUser = useAppStore((state) => state.currentUser);
+  const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
   const [count, setCount] = useState(0);
   const [mirrored, setMirrored] = useState(
     publication?.mirrors?.length > 0 || publication?.mirrorOf?.mirrors?.length > 0
   );
-
-  const userSigNonce = useAppStore((state) => state.userSigNonce);
-  const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
-  const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
-  const currentUser = useAppPersistStore((state) => state.currentUser);
 
   useEffect(() => {
     if (publication?.mirrorOf?.stats?.totalAmountOfMirrors || publication?.stats?.totalAmountOfMirrors) {

@@ -4,7 +4,7 @@ import { UserAddIcon } from '@heroicons/react/solid';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import React, { FC } from 'react';
-import { useAppPersistStore } from 'src/store/app';
+import { useAppStore } from 'src/store/app';
 
 import { NotificationProfileAvatar, NotificationProfileName } from '../Profile';
 import { NotificationWalletProfileAvatar, NotificationWalletProfileName } from '../WalletProfile';
@@ -16,7 +16,7 @@ interface Props {
 }
 
 const FollowerNotification: FC<Props> = ({ notification }) => {
-  const currentUser = useAppPersistStore((state) => state.currentUser);
+  const currentUser = useAppStore((state) => state.currentUser);
   const isSuperFollow = currentUser?.followModule?.__typename === 'FeeFollowModuleSettings';
 
   return (

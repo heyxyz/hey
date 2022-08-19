@@ -19,7 +19,7 @@ import { useRouter } from 'next/router';
 import React, { FC, useEffect, useState } from 'react';
 import { APP_NAME, ZERO_ADDRESS } from 'src/constants';
 import Custom404 from 'src/pages/404';
-import { useAppPersistStore } from 'src/store/app';
+import { useAppStore } from 'src/store/app';
 import { PAGEVIEW, PUBLICATION } from 'src/tracking';
 import { object, string } from 'zod';
 
@@ -41,9 +41,9 @@ const Report: FC = () => {
   const {
     query: { id }
   } = useRouter();
+  const currentUser = useAppStore((state) => state.currentUser);
   const [type, setType] = useState('');
   const [subReason, setSubReason] = useState('');
-  const currentUser = useAppPersistStore((state) => state.currentUser);
 
   useEffect(() => {
     Mixpanel.track(PAGEVIEW.REPORT);

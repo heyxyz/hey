@@ -12,7 +12,7 @@ import clsx from 'clsx';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { FC, ReactNode } from 'react';
-import { useAppPersistStore } from 'src/store/app';
+import { useAppStore } from 'src/store/app';
 
 interface MenuProps {
   children: ReactNode;
@@ -36,7 +36,7 @@ const Menu: FC<MenuProps> = ({ children, current, url }) => (
 
 const Sidebar: FC = () => {
   const { pathname } = useRouter();
-  const currentUser = useAppPersistStore((state) => state.currentUser);
+  const currentUser = useAppStore((state) => state.currentUser);
 
   return (
     <div className="px-3 mb-4 space-y-1.5 sm:px-0">

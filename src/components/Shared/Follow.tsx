@@ -53,8 +53,8 @@ interface Props {
 const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
+  const currentUser = useAppStore((state) => state.currentUser);
   const isConnected = useAppPersistStore((state) => state.isConnected);
-  const currentUser = useAppPersistStore((state) => state.currentUser);
   const { address } = useAccount();
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError: (error) => {

@@ -7,7 +7,7 @@ import { Mixpanel } from '@lib/mixpanel';
 import { NextPage } from 'next';
 import dynamic from 'next/dynamic';
 import React, { useEffect } from 'react';
-import { useAppPersistStore } from 'src/store/app';
+import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { PAGEVIEW } from 'src/tracking';
 
 import EnableDispatcher from './EnableDispatcher';
@@ -30,8 +30,8 @@ const Home: NextPage = () => {
     Mixpanel.track(PAGEVIEW.HOME);
   }, []);
 
+  const currentUser = useAppStore((state) => state.currentUser);
   const isConnected = useAppPersistStore((state) => state.isConnected);
-  const currentUser = useAppPersistStore((state) => state.currentUser);
 
   return (
     <>

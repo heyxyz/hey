@@ -3,7 +3,7 @@ import { LightningBoltIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import Link from 'next/link';
 import { FC, useEffect, useState } from 'react';
-import { useAppPersistStore } from 'src/store/app';
+import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { NOTIFICATION } from 'src/tracking';
 
 const NOTIFICATION_COUNT_QUERY = gql`
@@ -17,7 +17,7 @@ const NOTIFICATION_COUNT_QUERY = gql`
 `;
 
 const NotificationIcon: FC = () => {
-  const currentUser = useAppPersistStore((state) => state.currentUser);
+  const currentUser = useAppStore((state) => state.currentUser);
   const notificationCount = useAppPersistStore((state) => state.notificationCount);
   const setNotificationCount = useAppPersistStore((state) => state.setNotificationCount);
   const [showBadge, setShowBadge] = useState(false);
