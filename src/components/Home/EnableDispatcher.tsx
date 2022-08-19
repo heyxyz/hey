@@ -20,7 +20,7 @@ const EnableDispatcher: FC = () => {
           <p>Set dispatcher</p>
         </div>
         <p className="text-sm leading-[22px]">
-          We suggest you to enable dispatcher so you don't want to sign all your transactions in {APP_NAME}.
+          We suggest you to enable dispatcher so you don't need to sign all your transactions in {APP_NAME}.
         </p>
         <ToggleDispatcher buttonSize="sm" />
       </CardBody>
