@@ -5,7 +5,7 @@ import clsx from 'clsx';
 import Link from 'next/link';
 import { FC } from 'react';
 import { APP_NAME } from 'src/constants';
-import { useAppPersistStore, useAppStore } from 'src/store/app';
+import { useAppStore } from 'src/store/app';
 
 interface StatusProps {
   finished: boolean;
@@ -25,9 +25,9 @@ const Status: FC<StatusProps> = ({ finished, title }) => (
 
 const SetProfile: FC = () => {
   const profiles = useAppStore((state) => state.profiles);
-  const currentUser = useAppPersistStore((state) => state.currentUser);
+  const currentProfile = useAppStore((state) => state.currentProfile);
   const hasDefaultProfile = !!profiles.find((o) => o.isDefault);
-  const doneSetup = !!currentUser?.name && !!currentUser?.bio && !!currentUser?.picture;
+  const doneSetup = !!currentProfile?.name && !!currentProfile?.bio && !!currentProfile?.picture;
 
   if (!hasDefaultProfile || doneSetup) {
     return null;
@@ -41,9 +41,9 @@ const SetProfile: FC = () => {
           <p>Setup your {APP_NAME} profile</p>
         </div>
         <div className="space-y-1 text-sm leading-[22px]">
-          <Status finished={!!currentUser?.name} title="Set profile name" />
-          <Status finished={!!currentUser?.bio} title="Set profile bio" />
-          <Status finished={!!currentUser?.picture} title="Set your avatar" />
+          <Status finished={!!currentProfile?.name} title="Set profile name" />
+          <Status finished={!!currentProfile?.bio} title="Set profile bio" />
+          <Status finished={!!currentProfile?.picture} title="Set your avatar" />
         </div>
         <div className="flex items-center space-x-1.5 text-sm font-bold">
           <PencilAltIcon className="w-4 h-4" />

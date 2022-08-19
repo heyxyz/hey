@@ -1,7 +1,6 @@
 import { LensHubProxy } from '@abis/LensHubProxy';
 import { gql, useMutation, useQuery } from '@apollo/client';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout';
-import { CREATE_POST_TYPED_DATA_MUTATION } from '@components/Publication/New';
 import ChooseFile from '@components/Shared/ChooseFile';
 import Pending from '@components/Shared/Pending';
 import SettingsHelper from '@components/Shared/SettingsHelper';
@@ -15,6 +14,7 @@ import { TextArea } from '@components/UI/TextArea';
 import Seo from '@components/utils/Seo';
 import { CreatePostBroadcastItemResult, Erc20 } from '@generated/types';
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation';
+import { CREATE_POST_TYPED_DATA_MUTATION } from '@gql/TypedAndDispatcherData/CreatePost';
 import { PlusIcon } from '@heroicons/react/outline';
 import getTokenImage from '@lib/getTokenImage';
 import imagekitURL from '@lib/imagekitURL';
@@ -72,16 +72,16 @@ const newCrowdfundSchema = object({
 });
 
 const NewCrowdfund: NextPage = () => {
+  const userSigNonce = useAppStore((state) => state.userSigNonce);
+  const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
+  const currentProfile = useAppStore((state) => state.currentProfile);
+  const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
   const [cover, setCover] = useState('');
   const [coverType, setCoverType] = useState('');
   const [isUploading, setIsUploading] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [selectedCurrency, setSelectedCurrency] = useState(DEFAULT_COLLECT_TOKEN);
   const [selectedCurrencySymobol, setSelectedCurrencySymobol] = useState('WMATIC');
-  const userSigNonce = useAppStore((state) => state.userSigNonce);
-  const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
-  const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
-  const currentUser = useAppPersistStore((state) => state.currentUser);
 
   useEffect(() => {
     Mixpanel.track(PAGEVIEW.CREATE_CROWDFUND);
@@ -122,7 +122,7 @@ const NewCrowdfund: NextPage = () => {
   const form = useZodForm({
     schema: newCrowdfundSchema,
     defaultValues: {
-      recipient: currentUser?.ownedBy
+      recipient: currentProfile?.ownedBy
     }
   });
 
@@ -246,7 +246,7 @@ const NewCrowdfund: NextPage = () => {
       variables: {
         options: { overrideSigNonce: userSigNonce },
         request: {
-          profileId: currentUser?.id,
+          profileId: currentProfile?.id,
           contentURI: `https://arweave.net/${id}`,
           collectModule: {
             feeCollectModule: {

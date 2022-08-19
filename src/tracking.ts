@@ -144,6 +144,7 @@ export const PAGEVIEW = {
   SETTINGS: {
     ACCOUNT: 'Account settings page',
     PROFILE: 'Profile settings page',
+    DISPATCHER: 'Dispatcher settings page',
     ALLOWANCE: 'Allowance settings page',
     DATA: 'Data settings page',
     DELETE: 'Delete settings page'
