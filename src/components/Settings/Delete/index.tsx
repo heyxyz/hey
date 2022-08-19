@@ -60,11 +60,12 @@ const DeleteSettings: FC = () => {
   const [showWarningModal, setShowWarningModal] = useState(false);
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
+  const currentProfile = useAppStore((state) => state.currentProfile);
+  const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
   const setIsConnected = useAppPersistStore((state) => state.setIsConnected);
   const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
   const setIsAuthenticated = useAppPersistStore((state) => state.setIsAuthenticated);
-  const currentUser = useAppPersistStore((state) => state.currentUser);
-  const setCurrentUser = useAppPersistStore((state) => state.setCurrentUser);
+  const setProfileId = useAppPersistStore((state) => state.setProfileId);
 
   const { disconnect } = useDisconnect();
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
@@ -81,7 +82,8 @@ const DeleteSettings: FC = () => {
     Mixpanel.track(SETTINGS.DELETE);
     setIsAuthenticated(false);
     setIsConnected(false);
-    setCurrentUser(null);
+    setCurrentProfile(undefined);
+    setProfileId(null);
     Cookies.remove('accessToken');
     Cookies.remove('refreshToken');
     localStorage.removeItem('lenster.store');
@@ -143,14 +145,14 @@ const DeleteSettings: FC = () => {
     createBurnProfileTypedData({
       variables: {
         options: { overrideSigNonce: userSigNonce },
-        request: { profileId: currentUser?.id }
+        request: { profileId: currentProfile?.id }
       }
     });
   };
 
   const isDeleting = typedDataLoading || signLoading || writeLoading;
 
-  if (!currentUser) {
+  if (!currentProfile) {
     return <Custom404 />;
   }
 
@@ -163,7 +165,7 @@ const DeleteSettings: FC = () => {
       <GridItemEight>
         <Card>
           <CardBody className="space-y-5">
-            <UserProfile profile={currentUser} />
+            <UserProfile profile={currentProfile} />
             <div className="text-lg font-bold text-red-500">This will deactivate your account</div>
             <p>
               Deleting your account is permanent. All your data will be wiped out immediately and you

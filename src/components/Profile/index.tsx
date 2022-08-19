@@ -11,7 +11,7 @@ import React, { useEffect, useState } from 'react';
 import { APP_NAME } from 'src/constants';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
-import { useAppPersistStore } from 'src/store/app';
+import { useAppStore } from 'src/store/app';
 import { PAGEVIEW } from 'src/tracking';
 
 import Cover from './Cover';
@@ -94,7 +94,7 @@ const ViewProfile: NextPage = () => {
   const {
     query: { username, type }
   } = useRouter();
-  const currentUser = useAppPersistStore((state) => state.currentUser);
+  const currentProfile = useAppStore((state) => state.currentProfile);
   const [feedType, setFeedType] = useState(
     type && ['post', 'comment', 'mirror', 'nft'].includes(type as string)
       ? type.toString().toUpperCase()
@@ -106,7 +106,7 @@ const ViewProfile: NextPage = () => {
   }, []);
 
   const { data, loading, error } = useQuery(PROFILE_QUERY, {
-    variables: { request: { handle: username }, who: currentUser?.id ?? null },
+    variables: { request: { handle: username }, who: currentProfile?.id ?? null },
     skip: !username
   });
 

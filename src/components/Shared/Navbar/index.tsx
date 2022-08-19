@@ -9,7 +9,7 @@ import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { FC } from 'react';
-import { useAppPersistStore } from 'src/store/app';
+import { useAppPersistStore, useAppStore } from 'src/store/app';
 
 import MenuItems from './MenuItems';
 import MoreNavItems from './MoreNavItems';
@@ -25,13 +25,13 @@ const PING_QUERY = gql`
 `;
 
 const Navbar: FC = () => {
+  const currentProfile = useAppStore((state) => state.currentProfile);
   const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
-  const currentUser = useAppPersistStore((state) => state.currentUser);
   const staffMode = useAppPersistStore((state) => state.staffMode);
 
   const { data: pingData } = useQuery(PING_QUERY, {
     pollInterval: 3000,
-    skip: !currentUser
+    skip: !currentProfile
   });
 
   interface NavItemProps {
@@ -81,7 +81,7 @@ const Navbar: FC = () => {
     >
       {({ open }) => (
         <>
-          {isStaff(currentUser?.id) && staffMode && <StaffBar />}
+          {isStaff(currentProfile?.id) && staffMode && <StaffBar />}
           <div className="container px-5 mx-auto max-w-screen-xl">
             <div className="flex relative justify-between items-center h-14 sm:h-16">
               <div className="flex justify-start items-center">
@@ -100,7 +100,7 @@ const Navbar: FC = () => {
                         className="w-8 h-8"
                         height={32}
                         width={32}
-                        src={currentUser && hasPrideLogo(currentUser) ? '/pride.svg' : '/logo.svg'}
+                        src={currentProfile && hasPrideLogo(currentProfile) ? '/pride.svg' : '/logo.svg'}
                         alt="Logo"
                       />
                     </div>
@@ -116,8 +116,8 @@ const Navbar: FC = () => {
                 </div>
               </div>
               <div className="flex gap-8 items-center">
-                {isAuthenticated && currentUser && <NewPostModal />}
-                {isAuthenticated && currentUser && <NotificationIcon />}
+                {isAuthenticated && currentProfile && <NewPostModal />}
+                {isAuthenticated && currentProfile && <NotificationIcon />}
                 <MenuItems pingData={pingData} />
               </div>
             </div>

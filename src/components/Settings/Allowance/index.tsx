@@ -11,7 +11,7 @@ import React, { useEffect, useState } from 'react';
 import { APP_NAME, DEFAULT_COLLECT_TOKEN } from 'src/constants';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
-import { useAppPersistStore } from 'src/store/app';
+import { useAppStore } from 'src/store/app';
 import { PAGEVIEW } from 'src/tracking';
 
 import Sidebar from '../Sidebar';
@@ -55,13 +55,13 @@ const AllowanceSettings: NextPage = () => {
     Mixpanel.track(PAGEVIEW.SETTINGS.ALLOWANCE);
   }, []);
 
-  const currentUser = useAppPersistStore((state) => state.currentUser);
+  const currentProfile = useAppStore((state) => state.currentProfile);
   const [currencyLoading, setCurrencyLoading] = useState(false);
   const { data, loading, error, refetch } = useQuery(ALLOWANCE_SETTINGS_QUERY, {
     variables: {
       request: getAllowancePayload(DEFAULT_COLLECT_TOKEN)
     },
-    skip: !currentUser?.id
+    skip: !currentProfile?.id
   });
 
   if (error) {
@@ -72,7 +72,7 @@ const AllowanceSettings: NextPage = () => {
     return <PageLoading message="Loading settings" />;
   }
 
-  if (!currentUser) {
+  if (!currentProfile) {
     return <Custom404 />;
   }
 

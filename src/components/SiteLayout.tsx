@@ -25,7 +25,7 @@ if (MIXPANEL_TOKEN) {
 }
 
 export const CURRENT_USER_QUERY = gql`
-  query CurrentUser($ownedBy: [EthereumAddress!]) {
+  query CurrentProfile($ownedBy: [EthereumAddress!]) {
     profiles(request: { ownedBy: $ownedBy }) {
       items {
         ...ProfileFields
@@ -51,12 +51,14 @@ const SiteLayout: FC<Props> = ({ children }) => {
   const setProfiles = useAppStore((state) => state.setProfiles);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const setCanUseRelay = useAppStore((state) => state.setCanUseRelay);
+  const currentProfile = useAppStore((state) => state.currentProfile);
+  const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
   const isConnected = useAppPersistStore((state) => state.isConnected);
   const setIsConnected = useAppPersistStore((state) => state.setIsConnected);
   const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
   const setIsAuthenticated = useAppPersistStore((state) => state.setIsAuthenticated);
-  const currentUser = useAppPersistStore((state) => state.currentUser);
-  const setCurrentUser = useAppPersistStore((state) => state.setCurrentUser);
+  const profileId = useAppPersistStore((state) => state.profileId);
+  const setProfileId = useAppPersistStore((state) => state.setProfileId);
 
   const [mounted, setMounted] = useState(false);
   const { address, isDisconnected } = useAccount();
@@ -74,11 +76,11 @@ const SiteLayout: FC<Props> = ({ children }) => {
       setUserSigNonce(data?.userSigNonces?.lensHubOnChainSigNonce);
 
       if (profiles.length === 0) {
-        setCurrentUser(null);
+        setProfileId(null);
       } else {
+        const selectedUser = profiles.find((profile) => profile.id === profileId);
         setProfiles(profiles);
-
-        const selectedUser = profiles.find((profile) => profile.id === currentUser?.id);
+        setCurrentProfile(selectedUser);
         setCanUseRelay(selectedUser?.dispatcher?.canUseRelay ? true : false);
       }
     }
@@ -87,17 +89,17 @@ const SiteLayout: FC<Props> = ({ children }) => {
   useEffect(() => {
     const accessToken = Cookies.get('accessToken');
     const refreshToken = Cookies.get('refreshToken');
-    const currentUserAddress = currentUser?.ownedBy;
+    const currentProfileAddress = currentProfile?.ownedBy;
     setMounted(true);
 
     // Set mixpanel user id
-    if (currentUser?.id) {
-      Mixpanel.identify(currentUser.id);
+    if (currentProfile?.id) {
+      Mixpanel.identify(currentProfile.id);
       Mixpanel.people.set({
-        address: currentUser?.ownedBy,
-        handle: currentUser?.handle,
-        $name: currentUser?.name ?? currentUser?.handle,
-        $avatar: `https://avatar.tobi.sh/${currentUser?.handle}.png`
+        address: currentProfile?.ownedBy,
+        handle: currentProfile?.handle,
+        $name: currentProfile?.name ?? currentProfile?.handle,
+        $avatar: `https://avatar.tobi.sh/${currentProfile?.handle}.png`
       });
     } else {
       Mixpanel.identify('0x00');
@@ -110,7 +112,8 @@ const SiteLayout: FC<Props> = ({ children }) => {
     const logout = () => {
       setIsAuthenticated(false);
       setIsConnected(false);
-      setCurrentUser(null);
+      setCurrentProfile(undefined);
+      setProfileId(null);
       Cookies.remove('accessToken');
       Cookies.remove('refreshToken');
       localStorage.removeItem('lenster.store');
@@ -124,7 +127,7 @@ const SiteLayout: FC<Props> = ({ children }) => {
       accessToken &&
       accessToken !== 'undefined' &&
       refreshToken !== 'undefined' &&
-      currentUser &&
+      profileId &&
       chain?.id === CHAIN_ID
     ) {
       setIsAuthenticated(true);
@@ -142,11 +145,20 @@ const SiteLayout: FC<Props> = ({ children }) => {
       setIsConnected(false);
     }
 
-    if (currentUserAddress !== undefined && currentUserAddress !== address) {
+    if (currentProfileAddress !== undefined && currentProfileAddress !== address) {
       logout();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isConnected, isAuthenticated, isDisconnected, address, chain, currentUser, disconnect, setCurrentUser]);
+  }, [
+    isConnected,
+    isAuthenticated,
+    isDisconnected,
+    address,
+    chain,
+    currentProfile,
+    disconnect,
+    setCurrentProfile
+  ]);
 
   const toastOptions = {
     style: {

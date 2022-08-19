@@ -11,7 +11,7 @@ import { MailIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import { FC, useState } from 'react';
 import { useInView } from 'react-cool-inview';
-import { useAppPersistStore } from 'src/store/app';
+import { useAppStore } from 'src/store/app';
 import { PAGINATION } from 'src/tracking';
 
 import NotificationShimmer from './Shimmer';
@@ -149,12 +149,12 @@ const NOTIFICATIONS_QUERY = gql`
 `;
 
 const List: FC = () => {
-  const currentUser = useAppPersistStore((state) => state.currentUser);
+  const currentProfile = useAppStore((state) => state.currentProfile);
   const [notifications, setNotifications] = useState<Notification[]>([]);
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>();
   const { data, loading, error, fetchMore } = useQuery(NOTIFICATIONS_QUERY, {
     variables: {
-      request: { profileId: currentUser?.id, limit: 10 }
+      request: { profileId: currentProfile?.id, limit: 10 }
     },
     fetchPolicy: 'no-cache',
     onCompleted: (data) => {
@@ -168,7 +168,7 @@ const List: FC = () => {
       const { data } = await fetchMore({
         variables: {
           request: {
-            profileId: currentUser?.id,
+            profileId: currentProfile?.id,
             cursor: pageInfo?.next,
             limit: 10
           }

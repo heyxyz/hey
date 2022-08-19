@@ -5,7 +5,7 @@ import { Mixpanel } from '@lib/mixpanel';
 import React, { FC, useEffect } from 'react';
 import { APP_NAME } from 'src/constants';
 import Custom404 from 'src/pages/404';
-import { useAppPersistStore, useAppStore } from 'src/store/app';
+import { useAppStore } from 'src/store/app';
 import { PAGEVIEW } from 'src/tracking';
 
 import Sidebar from '../Sidebar';
@@ -13,13 +13,13 @@ import ToggleDispatcher from './ToggleDispatcher';
 
 const DispatcherSettings: FC = () => {
   const canUseRelay = useAppStore((state) => state.canUseRelay);
-  const currentUser = useAppPersistStore((state) => state.currentUser);
+  const currentProfile = useAppStore((state) => state.currentProfile);
 
   useEffect(() => {
     Mixpanel.track(PAGEVIEW.SETTINGS.DISPATCHER);
   }, []);
 
-  if (!currentUser) {
+  if (!currentProfile) {
     return <Custom404 />;
   }
 

@@ -86,8 +86,8 @@ interface Props {
 const FollowModule: FC<Props> = ({ profile, setFollowing, setShowFollowModal, again }) => {
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
+  const currentProfile = useAppStore((state) => state.currentProfile);
   const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
-  const currentUser = useAppPersistStore((state) => state.currentUser);
   const [allowed, setAllowed] = useState(true);
   const { address } = useAccount();
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
@@ -136,14 +136,14 @@ const FollowModule: FC<Props> = ({ profile, setFollowing, setShowFollowModal, ag
         referenceModules: []
       }
     },
-    skip: !followModule?.amount?.asset?.address || !currentUser,
+    skip: !followModule?.amount?.asset?.address || !currentProfile,
     onCompleted: (data) => {
       setAllowed(data?.approvedModuleAllowanceAmount[0]?.allowance !== '0x00');
     }
   });
 
   const { data: balanceData } = useBalance({
-    addressOrName: currentUser?.ownedBy,
+    addressOrName: currentProfile?.ownedBy,
     token: followModule?.amount?.asset?.address,
     formatUnits: followModule?.amount?.asset?.decimals,
     watch: true
@@ -305,7 +305,7 @@ const FollowModule: FC<Props> = ({ profile, setFollowing, setShowFollowModal, ag
           </li>
         </ul>
       </div>
-      {currentUser ? (
+      {currentProfile ? (
         allowanceLoading ? (
           <div className="mt-5 w-28 rounded-lg h-[34px] shimmer" />
         ) : allowed ? (

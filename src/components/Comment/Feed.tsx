@@ -12,7 +12,7 @@ import { CollectionIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import React, { FC, useState } from 'react';
 import { useInView } from 'react-cool-inview';
-import { useAppPersistStore } from 'src/store/app';
+import { useAppStore } from 'src/store/app';
 import { PAGINATION } from 'src/tracking';
 
 import ReferenceAlert from '../Shared/ReferenceAlert';
@@ -48,14 +48,14 @@ interface Props {
 
 const Feed: FC<Props> = ({ publication, type = 'comment', onlyFollowers = false, isFollowing = true }) => {
   const pubId = publication?.__typename === 'Mirror' ? publication?.mirrorOf?.id : publication?.id;
-  const currentUser = useAppPersistStore((state) => state.currentUser);
+  const currentProfile = useAppStore((state) => state.currentProfile);
   const [publications, setPublications] = useState<LensterPublication[]>([]);
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>();
   const { data, loading, error, fetchMore } = useQuery(COMMENT_FEED_QUERY, {
     variables: {
       request: { commentsOf: pubId, limit: 10 },
-      reactionRequest: currentUser ? { profileId: currentUser?.id } : null,
-      profileId: currentUser?.id ?? null
+      reactionRequest: currentProfile ? { profileId: currentProfile?.id } : null,
+      profileId: currentProfile?.id ?? null
     },
     skip: !pubId,
     fetchPolicy: 'no-cache',
@@ -74,8 +74,8 @@ const Feed: FC<Props> = ({ publication, type = 'comment', onlyFollowers = false,
             cursor: pageInfo?.next,
             limit: 10
           },
-          reactionRequest: currentUser ? { profileId: currentUser?.id } : null,
-          profileId: currentUser?.id ?? null
+          reactionRequest: currentProfile ? { profileId: currentProfile?.id } : null,
+          profileId: currentProfile?.id ?? null
         }
       });
       setPageInfo(data?.publications?.pageInfo);
@@ -86,7 +86,7 @@ const Feed: FC<Props> = ({ publication, type = 'comment', onlyFollowers = false,
 
   return (
     <>
-      {currentUser &&
+      {currentProfile &&
         (isFollowing || !onlyFollowers ? (
           <NewComment publication={publication} type={type} />
         ) : (

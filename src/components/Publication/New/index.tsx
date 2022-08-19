@@ -59,8 +59,8 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const canUseRelay = useAppStore((state) => state.canUseRelay);
+  const currentProfile = useAppStore((state) => state.currentProfile);
   const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
-  const currentUser = useAppPersistStore((state) => state.currentUser);
   const publicationContent = usePublicationStore((state) => state.publicationContent);
   const setPublicationContent = usePublicationStore((state) => state.setPublicationContent);
   const previewPublication = usePublicationStore((state) => state.previewPublication);
@@ -207,10 +207,10 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
       metadata_id: uuid(),
       description: trimify(publicationContent),
       content: trimify(publicationContent),
-      external_url: `https://lenster.xyz/u/${currentUser?.handle}`,
+      external_url: `https://lenster.xyz/u/${currentProfile?.handle}`,
       image: attachments.length > 0 ? attachments[0]?.item : null,
       imageMimeType: attachments.length > 0 ? attachments[0]?.type : null,
-      name: `Post by @${currentUser?.handle}`,
+      name: `Post by @${currentProfile?.handle}`,
       mainContentFocus:
         attachments.length > 0 ? (attachments[0]?.type === 'video/mp4' ? 'VIDEO' : 'IMAGE') : 'TEXT_ONLY',
       contentWarning: null, // TODO
@@ -228,7 +228,7 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
     }).finally(() => setIsUploading(false));
 
     const request = {
-      profileId: currentUser?.id,
+      profileId: currentProfile?.id,
       contentURI: `https://arweave.net/${id}`,
       collectModule: feeData.recipient
         ? {
