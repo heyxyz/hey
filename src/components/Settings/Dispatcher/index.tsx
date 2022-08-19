@@ -35,13 +35,11 @@ const DispatcherSettings: FC = () => {
             <div className="flex items-center space-x-2">
               <div className="text-lg font-bold">{canUseRelay ? 'Disable' : 'Enable'} dispatcher</div>
             </div>
-            <div>
+            <div className="pb-2">
               We suggest you to enable dispatcher so you don't want to sign all your transactions in{' '}
               {APP_NAME}.
             </div>
-            <div className="flex items-center space-x-2 pt-2">
-              <ToggleDispatcher buttonVariant="primary" />
-            </div>
+            <ToggleDispatcher buttonVariant="primary" />
           </CardBody>
         </Card>
       </GridItemEight>
