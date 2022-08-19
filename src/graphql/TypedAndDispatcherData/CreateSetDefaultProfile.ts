@@ -34,11 +34,8 @@ export const CREATE_SET_DEFAULT_PROFILE_DATA_MUTATION = gql`
 `;
 
 export const CREATE_SET_DEFAULT_PROFILE_VIA_DISPATHCER_MUTATION = gql`
-  mutation CreateSetDefaultProfileViaDispatcher(
-    $options: TypedDataOptions
-    $request: CreateSetDefaultProfileRequest!
-  ) {
-    createSetDefaultProfileViaDispatcher(options: $options, request: $request) {
+  mutation CreateSetDefaultProfileViaDispatcher($request: CreateSetDefaultProfileRequest!) {
+    createSetDefaultProfileViaDispatcher(request: $request) {
       ...RelayerResultFields
     }
   }

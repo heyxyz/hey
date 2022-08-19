@@ -183,14 +183,10 @@ const NewComment: FC<Props> = ({ setShowModal, hideCard = false, publication, ty
     }
   );
 
-  const [createCommentViaDispatcher, { loading: viaDispatcherLoading }] = useMutation(
+  const [createCommentViaDispatcher, { data: dispatcherData, loading: dispatcherLoading }] = useMutation(
     CREATE_COMMENT_VIA_DISPATHCER_MUTATION,
     {
-      onCompleted: () => {
-        try {
-          alert('GM');
-        } catch (error) {}
-      },
+      onCompleted,
       onError: (error) => {
         toast.error(error.message ?? ERROR_MESSAGE);
         Mixpanel.track(COMMENT.NEW, {
@@ -274,12 +270,7 @@ const NewComment: FC<Props> = ({ setShowModal, hideCard = false, publication, ty
   };
 
   const isLoading =
-    isUploading ||
-    typedDataLoading ||
-    viaDispatcherLoading ||
-    signLoading ||
-    writeLoading ||
-    broadcastLoading;
+    isUploading || typedDataLoading || dispatcherLoading || signLoading || writeLoading || broadcastLoading;
 
   return (
     <Card className={hideCard ? 'border-0 !shadow-none !bg-transparent' : ''}>
@@ -306,11 +297,17 @@ const NewComment: FC<Props> = ({ setShowModal, hideCard = false, publication, ty
               {publicationContent && <Preview />}
             </div>
             <div className="flex items-center pt-2 ml-auto space-x-2 sm:pt-0">
-              {data?.hash ?? broadcastData?.broadcast?.txHash ? (
+              {data?.hash ??
+              broadcastData?.broadcast?.txHash ??
+              dispatcherData?.createCommentViaDispatcher?.txHash ? (
                 <PubIndexStatus
                   setShowModal={setShowModal}
                   type={type === 'comment' ? 'Comment' : 'Post'}
-                  txHash={data?.hash ? data?.hash : broadcastData?.broadcast?.txHash}
+                  txHash={
+                    data?.hash ??
+                    broadcastData?.broadcast?.txHash ??
+                    dispatcherData?.createCommentViaDispatcher?.txHash
+                  }
                 />
               ) : null}
               <Button

@@ -38,8 +38,8 @@ export const CREATE_COMMENT_TYPED_DATA_MUTATION = gql`
 `;
 
 export const CREATE_COMMENT_VIA_DISPATHCER_MUTATION = gql`
-  mutation CreateCommentViaDispatcher($options: TypedDataOptions, $request: CreatePublicCommentRequest!) {
-    createCommentViaDispatcher(options: $options, request: $request) {
+  mutation CreateCommentViaDispatcher($request: CreatePublicCommentRequest!) {
+    createCommentViaDispatcher(request: $request) {
       ...RelayerResultFields
     }
   }

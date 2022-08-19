@@ -35,8 +35,8 @@ export const CREATE_MIRROR_TYPED_DATA_MUTATION = gql`
 `;
 
 export const CREATE_MIRROR_VIA_DISPATHCER_MUTATION = gql`
-  mutation CreateMirrorViaDispatcher($options: TypedDataOptions, $request: CreateMirrorRequest!) {
-    createMirrorViaDispatcher(options: $options, request: $request) {
+  mutation CreateMirrorViaDispatcher($request: CreateMirrorRequest!) {
+    createMirrorViaDispatcher(request: $request) {
       ...RelayerResultFields
     }
   }

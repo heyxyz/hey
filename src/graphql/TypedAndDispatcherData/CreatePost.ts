@@ -35,8 +35,8 @@ export const CREATE_POST_TYPED_DATA_MUTATION = gql`
 `;
 
 export const CREATE_POST_VIA_DISPATHCER_MUTATION = gql`
-  mutation CreatePostViaDispatcher($options: TypedDataOptions, $request: CreatePublicPostRequest!) {
-    createPostViaDispatcher(options: $options, request: $request) {
+  mutation CreatePostViaDispatcher($request: CreatePublicPostRequest!) {
+    createPostViaDispatcher(request: $request) {
       ...RelayerResultFields
     }
   }

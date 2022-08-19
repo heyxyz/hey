@@ -34,11 +34,8 @@ export const CREATE_SET_PROFILE_IMAGE_URI_TYPED_DATA_MUTATION = gql`
 `;
 
 export const CREATE_SET_PROFILE_IMAGE_URI_VIA_DISPATHCER_MUTATION = gql`
-  mutation CreateSetProfileImageURIViaDispatcher(
-    $options: TypedDataOptions
-    $request: UpdateProfileImageRequest!
-  ) {
-    createSetProfileImageURIViaDispatcher(options: $options, request: $request) {
+  mutation CreateSetProfileImageURIViaDispatcher($request: UpdateProfileImageRequest!) {
+    createSetProfileImageURIViaDispatcher(request: $request) {
       ...RelayerResultFields
     }
   }
