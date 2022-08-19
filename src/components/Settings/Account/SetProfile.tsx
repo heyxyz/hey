@@ -23,7 +23,6 @@ import { useAccount, useContractWrite, useSignTypedData } from 'wagmi';
 
 const SetProfile: FC = () => {
   const profiles = useAppStore((state) => state.profiles);
-  const currentProfile = useAppStore((state) => state.currentProfile);
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
