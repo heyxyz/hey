@@ -19,11 +19,10 @@ import { SETTINGS } from 'src/tracking';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
 interface Props {
-  buttonVariant?: 'primary' | 'danger';
   buttonSize?: 'sm';
 }
 
-const ToggleDispatcher: FC<Props> = ({ buttonVariant = 'danger', buttonSize = 'md' }) => {
+const ToggleDispatcher: FC<Props> = ({ buttonSize = 'md' }) => {
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -127,12 +126,12 @@ const ToggleDispatcher: FC<Props> = ({ buttonVariant = 'danger', buttonSize = 'm
     </div>
   ) : (
     <Button
-      variant={canUseRelay ? 'danger' : buttonVariant}
+      variant={canUseRelay ? 'danger' : 'primary'}
       className={clsx({ 'text-sm': buttonSize === 'sm' }, `mr-auto`)}
       disabled={isLoading}
       icon={
         isLoading ? (
-          <Spinner variant={canUseRelay ? 'danger' : buttonVariant} size="xs" />
+          <Spinner variant={canUseRelay ? 'danger' : 'primary'} size="xs" />
         ) : canUseRelay ? (
           <XIcon className="w-4 h-4" />
         ) : (
