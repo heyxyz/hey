@@ -40,7 +40,7 @@ const DispatcherSettings: FC = () => {
               We suggest you to enable dispatcher so you don't need to sign all your transactions in{' '}
               {APP_NAME}.
             </div>
-            <ToggleDispatcher buttonVariant="primary" />
+            <ToggleDispatcher />
           </CardBody>
         </Card>
       </GridItemEight>
