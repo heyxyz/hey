@@ -30,13 +30,13 @@ const ToggleDispatcher: FC<Props> = ({ buttonSize = 'md' }) => {
 
   const onCompleted = () => {
     toast.success('Profile updated successfully!');
-    Mixpanel.track(SETTINGS.DISPATCHER.TOGGLED, { result: 'success' });
+    Mixpanel.track(SETTINGS.DISPATCHER.TOGGLE, { result: 'success' });
   };
 
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError: (error) => {
       toast.error(error?.message);
-      Mixpanel.track(SETTINGS.DISPATCHER.TOGGLED, {
+      Mixpanel.track(SETTINGS.DISPATCHER.TOGGLE, {
         result: 'typed_data_error',
         error: error?.message
       });
@@ -66,7 +66,7 @@ const ToggleDispatcher: FC<Props> = ({ buttonSize = 'md' }) => {
       if (error.message === ERRORS.notMined) {
         toast.error(error.message);
       }
-      Mixpanel.track(SETTINGS.DISPATCHER.TOGGLED, {
+      Mixpanel.track(SETTINGS.DISPATCHER.TOGGLE, {
         result: 'broadcast_error',
         error: error?.message
       });
