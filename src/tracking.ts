@@ -92,7 +92,7 @@ export const SETTINGS = {
     SET_PICTURE: 'Set profile picture'
   },
   DISPATCHER: {
-    TOGGLED: 'Toggled dispatcher'
+    TOGGLE: 'Toggle dispatcher'
   },
   DELETE: 'Delete profile'
 };
