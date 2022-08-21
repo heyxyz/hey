@@ -127,13 +127,10 @@ const NFTPicture: FC<Props> = ({ profile }) => {
       }: {
         createSetProfileImageURITypedData: CreateSetProfileImageUriBroadcastItemResult;
       }) => {
-        const { id, typedData } = createSetProfileImageURITypedData;
-        const { deadline } = typedData?.value;
-
         try {
+          const { id, typedData } = createSetProfileImageURITypedData;
+          const { profileId, imageURI, deadline } = typedData?.value;
           const signature = await signTypedDataAsync(getSignature(typedData));
-          setUserSigNonce(userSigNonce + 1);
-          const { profileId, imageURI } = typedData?.value;
           const { v, r, s } = splitSignature(signature);
           const sig = { v, r, s, deadline };
           const inputStruct = {
@@ -141,6 +138,8 @@ const NFTPicture: FC<Props> = ({ profile }) => {
             imageURI,
             sig
           };
+
+          setUserSigNonce(userSigNonce + 1);
           if (RELAY_ON) {
             const {
               data: { broadcast: result }

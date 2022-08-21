@@ -129,23 +129,21 @@ const NewComment: FC<Props> = ({ setShowModal, hideCard = false, publication, ty
       }: {
         createCommentTypedData: CreateCommentBroadcastItemResult;
       }) => {
-        const { id, typedData } = createCommentTypedData;
-        const {
-          profileId,
-          profileIdPointed,
-          pubIdPointed,
-          contentURI,
-          collectModule,
-          collectModuleInitData,
-          referenceModule,
-          referenceModuleData,
-          referenceModuleInitData,
-          deadline
-        } = typedData?.value;
-
         try {
+          const { id, typedData } = createCommentTypedData;
+          const {
+            profileId,
+            profileIdPointed,
+            pubIdPointed,
+            contentURI,
+            collectModule,
+            collectModuleInitData,
+            referenceModule,
+            referenceModuleData,
+            referenceModuleInitData,
+            deadline
+          } = typedData?.value;
           const signature = await signTypedDataAsync(getSignature(typedData));
-          setUserSigNonce(userSigNonce + 1);
           const { v, r, s } = splitSignature(signature);
           const sig = { v, r, s, deadline };
           const inputStruct = {
@@ -160,6 +158,8 @@ const NewComment: FC<Props> = ({ setShowModal, hideCard = false, publication, ty
             referenceModuleInitData,
             sig
           };
+
+          setUserSigNonce(userSigNonce + 1);
           if (RELAY_ON) {
             const {
               data: { broadcast: result }

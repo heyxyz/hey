@@ -227,13 +227,10 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
       }: {
         createCollectTypedData: CreateCollectBroadcastItemResult;
       }) => {
-        const { id, typedData } = createCollectTypedData;
-        const { deadline } = typedData?.value;
-
         try {
+          const { id, typedData } = createCollectTypedData;
+          const { profileId, pubId, data: collectData, deadline } = typedData?.value;
           const signature = await signTypedDataAsync(getSignature(typedData));
-          setUserSigNonce(userSigNonce + 1);
-          const { profileId, pubId, data: collectData } = typedData?.value;
           const { v, r, s } = splitSignature(signature);
           const sig = { v, r, s, deadline };
           const inputStruct = {
@@ -243,6 +240,8 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
             data: collectData,
             sig
           };
+
+          setUserSigNonce(userSigNonce + 1);
           if (RELAY_ON) {
             const {
               data: { broadcast: result }

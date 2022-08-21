@@ -156,12 +156,10 @@ const SuperFollow: FC = () => {
       }: {
         createSetFollowModuleTypedData: CreateSetFollowModuleBroadcastItemResult;
       }) => {
-        const { id, typedData } = createSetFollowModuleTypedData;
-        const { profileId, followModule, followModuleInitData, deadline } = typedData?.value;
-
         try {
+          const { id, typedData } = createSetFollowModuleTypedData;
+          const { profileId, followModule, followModuleInitData, deadline } = typedData?.value;
           const signature = await signTypedDataAsync(getSignature(typedData));
-          setUserSigNonce(userSigNonce + 1);
           const { v, r, s } = splitSignature(signature);
           const sig = { v, r, s, deadline };
           const inputStruct = {
@@ -170,6 +168,8 @@ const SuperFollow: FC = () => {
             followModuleInitData,
             sig
           };
+
+          setUserSigNonce(userSigNonce + 1);
           if (RELAY_ON) {
             const {
               data: { broadcast: result }

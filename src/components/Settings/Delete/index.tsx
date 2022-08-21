@@ -114,16 +114,14 @@ const DeleteSettings: FC = () => {
       }: {
         createBurnProfileTypedData: CreateBurnProfileBroadcastItemResult;
       }) => {
-        const { typedData } = createBurnProfileTypedData;
-        const { deadline } = typedData?.value;
-
         try {
+          const { typedData } = createBurnProfileTypedData;
+          const { tokenId, deadline } = typedData?.value;
           const signature = await signTypedDataAsync(getSignature(typedData));
-          setUserSigNonce(userSigNonce + 1);
-          const { tokenId } = typedData?.value;
           const { v, r, s } = splitSignature(signature);
           const sig = { v, r, s, deadline };
 
+          setUserSigNonce(userSigNonce + 1);
           write?.({ recklesslySetUnpreparedArgs: [tokenId, sig] });
         } catch {}
       },

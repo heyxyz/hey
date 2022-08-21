@@ -176,13 +176,10 @@ const FollowModule: FC<Props> = ({ profile, setFollowing, setShowFollowModal, ag
       }: {
         createFollowTypedData: CreateFollowBroadcastItemResult;
       }) => {
-        const { id, typedData } = createFollowTypedData;
-        const { deadline } = typedData?.value;
-
         try {
+          const { id, typedData } = createFollowTypedData;
+          const { profileIds, datas: followData, deadline } = typedData?.value;
           const signature = await signTypedDataAsync(getSignature(typedData));
-          setUserSigNonce(userSigNonce + 1);
-          const { profileIds, datas: followData } = typedData?.value;
           const { v, r, s } = splitSignature(signature);
           const sig = { v, r, s, deadline };
           const inputStruct = {
@@ -191,6 +188,8 @@ const FollowModule: FC<Props> = ({ profile, setFollowing, setShowFollowModal, ag
             datas: followData,
             sig
           };
+
+          setUserSigNonce(userSigNonce + 1);
           if (RELAY_ON) {
             const {
               data: { broadcast: result },

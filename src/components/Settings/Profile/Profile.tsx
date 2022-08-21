@@ -129,13 +129,10 @@ const Profile: FC<Props> = ({ profile }) => {
       }: {
         createSetProfileMetadataTypedData: CreateSetProfileMetadataUriBroadcastItemResult;
       }) => {
-        const { id, typedData } = createSetProfileMetadataTypedData;
-        const { deadline } = typedData?.value;
-
         try {
+          const { id, typedData } = createSetProfileMetadataTypedData;
+          const { profileId, metadata, deadline } = typedData?.value;
           const signature = await signTypedDataAsync(getSignature(typedData));
-          setUserSigNonce(userSigNonce + 1);
-          const { profileId, metadata } = typedData?.value;
           const { v, r, s } = splitSignature(signature);
           const sig = { v, r, s, deadline };
           const inputStruct = {
@@ -144,6 +141,8 @@ const Profile: FC<Props> = ({ profile }) => {
             metadata,
             sig
           };
+
+          setUserSigNonce(userSigNonce + 1);
           if (RELAY_ON) {
             const {
               data: { broadcast: result }

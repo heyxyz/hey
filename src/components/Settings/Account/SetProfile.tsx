@@ -92,13 +92,10 @@ const SetProfile: FC = () => {
       }: {
         createSetDefaultProfileTypedData: SetDefaultProfileBroadcastItemResult;
       }) => {
-        const { id, typedData } = createSetDefaultProfileTypedData;
-        const { deadline } = typedData?.value;
-
         try {
+          const { id, typedData } = createSetDefaultProfileTypedData;
+          const { wallet, profileId, deadline } = typedData?.value;
           const signature = await signTypedDataAsync(getSignature(typedData));
-          setUserSigNonce(userSigNonce + 1);
-          const { wallet, profileId } = typedData?.value;
           const { v, r, s } = splitSignature(signature);
           const sig = { v, r, s, deadline };
           const inputStruct = {
@@ -107,6 +104,8 @@ const SetProfile: FC = () => {
             profileId,
             sig
           };
+
+          setUserSigNonce(userSigNonce + 1);
           if (RELAY_ON) {
             const {
               data: { broadcast: result }

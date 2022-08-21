@@ -124,20 +124,18 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
 
   const [createPostTypedData, { loading: typedDataLoading }] = useMutation(CREATE_POST_TYPED_DATA_MUTATION, {
     onCompleted: async ({ createPostTypedData }: { createPostTypedData: CreatePostBroadcastItemResult }) => {
-      const { id, typedData } = createPostTypedData;
-      const {
-        profileId,
-        contentURI,
-        collectModule,
-        collectModuleInitData,
-        referenceModule,
-        referenceModuleInitData,
-        deadline
-      } = typedData?.value;
-
       try {
+        const { id, typedData } = createPostTypedData;
+        const {
+          profileId,
+          contentURI,
+          collectModule,
+          collectModuleInitData,
+          referenceModule,
+          referenceModuleInitData,
+          deadline
+        } = typedData?.value;
         const signature = await signTypedDataAsync(getSignature(typedData));
-        setUserSigNonce(userSigNonce + 1);
         const { v, r, s } = splitSignature(signature);
         const sig = { v, r, s, deadline };
         const inputStruct = {
@@ -149,6 +147,8 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
           referenceModuleInitData,
           sig
         };
+
+        setUserSigNonce(userSigNonce + 1);
         if (RELAY_ON) {
           const {
             data: { broadcast: result }

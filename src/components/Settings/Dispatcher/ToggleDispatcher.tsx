@@ -81,13 +81,10 @@ const ToggleDispatcher: FC<Props> = ({ buttonSize = 'md' }) => {
       }: {
         createSetDispatcherTypedData: CreateSetDispatcherBroadcastItemResult;
       }) => {
-        const { id, typedData } = createSetDispatcherTypedData;
-        const { deadline } = typedData?.value;
-
         try {
+          const { id, typedData } = createSetDispatcherTypedData;
+          const { profileId, dispatcher, deadline } = typedData?.value;
           const signature = await signTypedDataAsync(getSignature(typedData));
-          setUserSigNonce(userSigNonce + 1);
-          const { profileId, dispatcher } = typedData?.value;
           const { v, r, s } = splitSignature(signature);
           const sig = { v, r, s, deadline };
           const inputStruct = {
@@ -95,6 +92,8 @@ const ToggleDispatcher: FC<Props> = ({ buttonSize = 'md' }) => {
             dispatcher,
             sig
           };
+
+          setUserSigNonce(userSigNonce + 1);
           if (RELAY_ON) {
             const {
               data: { broadcast: result }

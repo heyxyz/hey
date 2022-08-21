@@ -71,14 +71,13 @@ const Unfollow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
       }: {
         createUnfollowTypedData: CreateUnfollowBroadcastItemResult;
       }) => {
-        const { typedData } = createUnfollowTypedData;
-        const { deadline } = typedData?.value;
-
         try {
+          const { typedData } = createUnfollowTypedData;
+          const { tokenId, deadline } = typedData?.value;
           const signature = await signTypedDataAsync(getSignature(typedData));
-          const { tokenId } = typedData?.value;
           const { v, r, s } = splitSignature(signature);
           const sig = { v, r, s, deadline };
+
           setWriteLoading(true);
           try {
             const followNftContract = new Contract(

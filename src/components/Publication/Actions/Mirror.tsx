@@ -100,20 +100,18 @@ const Mirror: FC<Props> = ({ publication }) => {
       }: {
         createMirrorTypedData: CreateMirrorBroadcastItemResult;
       }) => {
-        const { id, typedData } = createMirrorTypedData;
-        const {
-          profileId,
-          profileIdPointed,
-          pubIdPointed,
-          referenceModule,
-          referenceModuleData,
-          referenceModuleInitData,
-          deadline
-        } = typedData?.value;
-
         try {
+          const { id, typedData } = createMirrorTypedData;
+          const {
+            profileId,
+            profileIdPointed,
+            pubIdPointed,
+            referenceModule,
+            referenceModuleData,
+            referenceModuleInitData,
+            deadline
+          } = typedData?.value;
           const signature = await signTypedDataAsync(getSignature(typedData));
-          setUserSigNonce(userSigNonce + 1);
           const { v, r, s } = splitSignature(signature);
           const sig = { v, r, s, deadline };
           const inputStruct = {
@@ -125,6 +123,8 @@ const Mirror: FC<Props> = ({ publication }) => {
             referenceModuleInitData,
             sig
           };
+
+          setUserSigNonce(userSigNonce + 1);
           if (RELAY_ON) {
             const {
               data: { broadcast: result }

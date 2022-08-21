@@ -107,13 +107,10 @@ const Join: FC<Props> = ({ community, setJoined, showJoin = true }) => {
       }: {
         createCollectTypedData: CreateCollectBroadcastItemResult;
       }) => {
-        const { id, typedData } = createCollectTypedData;
-        const { deadline } = typedData?.value;
-
         try {
+          const { id, typedData } = createCollectTypedData;
+          const { profileId, pubId, data: collectData, deadline } = typedData?.value;
           const signature = await signTypedDataAsync(getSignature(typedData));
-          setUserSigNonce(userSigNonce + 1);
-          const { profileId, pubId, data: collectData } = typedData?.value;
           const { v, r, s } = splitSignature(signature);
           const sig = { v, r, s, deadline };
           const inputStruct = {
@@ -123,6 +120,8 @@ const Join: FC<Props> = ({ community, setJoined, showJoin = true }) => {
             data: collectData,
             sig
           };
+
+          setUserSigNonce(userSigNonce + 1);
           if (RELAY_ON) {
             const {
               data: { broadcast: result }
