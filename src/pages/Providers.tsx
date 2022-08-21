@@ -1,5 +1,6 @@
 import { ApolloProvider } from '@apollo/client';
 import { ThemeProvider } from 'next-themes';
+import { ReactNode } from 'react';
 import { ALCHEMY_KEY, ALCHEMY_RPC, CHAIN_ID, IS_MAINNET } from 'src/constants';
 import { chain, configureChains, createClient, WagmiConfig } from 'wagmi';
 import { InjectedConnector } from 'wagmi/connectors/injected';
@@ -32,7 +33,7 @@ const wagmiClient = createClient({
   provider
 });
 
-const Provider = ({ children }: { children: React.ReactNode }) => {
+const Providers = ({ children }: { children: ReactNode }) => {
   return (
     <WagmiConfig client={wagmiClient}>
       <ApolloProvider client={client}>
@@ -44,4 +45,4 @@ const Provider = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export default Provider;
+export default Providers;

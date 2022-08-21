@@ -5,17 +5,17 @@ import { AppProps } from 'next/app';
 import dynamic from 'next/dynamic';
 import { Suspense } from 'react';
 
-const Provider = dynamic(() => import('./Provider'));
+const Providers = dynamic(() => import('./Providers'));
 const SiteLayout = dynamic(() => import('@components/SiteLayout'));
 
 const App = ({ Component, pageProps }: AppProps) => {
   return (
     <Suspense fallback={<Loading />}>
-      <Provider>
+      <Providers>
         <SiteLayout>
           <Component {...pageProps} />
         </SiteLayout>
-      </Provider>
+      </Providers>
     </Suspense>
   );
 };
