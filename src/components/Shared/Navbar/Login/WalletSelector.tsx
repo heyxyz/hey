@@ -1,6 +1,6 @@
 import { gql, useLazyQuery, useMutation } from '@apollo/client';
+import { CURRENT_PROFILE_QUERY } from '@components/Layout';
 import SwitchNetwork from '@components/Shared/SwitchNetwork';
-import { CURRENT_USER_QUERY } from '@components/SiteLayout';
 import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
 import { Profile } from '@generated/types';
@@ -63,7 +63,8 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
   );
   const [authenticate, { error: errorAuthenticate, loading: authLoading }] =
     useMutation(AUTHENTICATE_MUTATION);
-  const [getProfiles, { error: errorProfiles, loading: profilesLoading }] = useLazyQuery(CURRENT_USER_QUERY);
+  const [getProfiles, { error: errorProfiles, loading: profilesLoading }] =
+    useLazyQuery(CURRENT_PROFILE_QUERY);
 
   useEffect(() => setMounted(true), []);
 

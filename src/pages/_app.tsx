@@ -1,7 +1,7 @@
 import '../styles.css';
 
 import { ApolloProvider } from '@apollo/client';
-import SiteLayout from '@components/SiteLayout';
+import Layout from '@components/Layout';
 import { AppProps } from 'next/app';
 import { ThemeProvider } from 'next-themes';
 import { ALCHEMY_KEY, ALCHEMY_RPC, CHAIN_ID, IS_MAINNET } from 'src/constants';
@@ -41,9 +41,9 @@ const App = ({ Component, pageProps }: AppProps) => {
     <WagmiConfig client={wagmiClient}>
       <ApolloProvider client={client}>
         <ThemeProvider defaultTheme="light" attribute="class">
-          <SiteLayout>
+          <Layout>
             <Component {...pageProps} />
-          </SiteLayout>
+          </Layout>
         </ThemeProvider>
       </ApolloProvider>
     </WagmiConfig>
