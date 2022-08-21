@@ -18,13 +18,13 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16.x
-          cache: 'npm'
+          cache: 'yarn'
 
       - name: Install dependencies
-        run: npm ci
+        run: yarn install
 
       - name: Lint codebase
-        run: npm run lint
+        run: yarn lint
 
   prettier:
     runs-on: ubuntu-latest
@@ -36,10 +36,10 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16.x
-          cache: 'npm'
+          cache: 'yarn'
 
       - name: Install dependencies
-        run: npm ci
+        run: yarn install
 
       - name: Lint codebase
-        run: npm run prettier:check
+        run: yarn prettier:check
