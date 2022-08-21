@@ -63,7 +63,7 @@ const MenuItems: FC<Props> = ({ pingData }) => {
     Mixpanel.track(STAFF.TOGGLE_MODE);
   };
 
-  return isAuthenticated && currentProfile ? (
+  return isConnected && isAuthenticated && currentProfile ? (
     <Menu as="div">
       {({ open }) => (
         <>
@@ -266,7 +266,7 @@ const MenuItems: FC<Props> = ({ pingData }) => {
         </>
       )}
     </Menu>
-  ) : isConnected ? (
+  ) : isConnected && !isAuthenticated && !currentProfile ? (
     <UnsignedUser />
   ) : (
     <>
