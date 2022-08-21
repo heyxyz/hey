@@ -90,8 +90,8 @@ const Layout: FC<Props> = ({ children }) => {
     setMounted(true);
 
     // Set mixpanel user id
-    if (currentProfile?.id) {
-      Mixpanel.identify(currentProfile.id);
+    if (profileId) {
+      Mixpanel.identify(currentProfile?.id);
       Mixpanel.people.set({
         address: currentProfile?.ownedBy,
         handle: currentProfile?.handle,
