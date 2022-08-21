@@ -1,8 +1,8 @@
-Command : npm run lint
+Command : yarn lint
 Description : Check for linting errors
-Command : npm run typecheck
+Command : yarn typecheck
 Description : Check for type errors
-Command : npm run prettier
+Command : yarn prettier
 Description : Check for prettier errors
-Command : npm run codegen
+Command : yarn codegen
 Description : Generate types from GraphQL

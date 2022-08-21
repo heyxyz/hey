@@ -57,8 +57,8 @@ We encourage you to contribute to Lenster! Please check out the [Contributing gu
 
 ```sh
 cp .env.example .env
-npm install
-npm run dev
+yarn install
+yarn dev
 ```
 
 and visit http://localhost:4783
