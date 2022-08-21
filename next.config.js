@@ -8,7 +8,7 @@ module.exports = withTM(
   withSentryConfig(
     {
       reactStrictMode: false,
-      trailingSlash: true,
+      trailingSlash: false,
       async rewrites() {
         return [
           {
@@ -18,10 +18,6 @@ module.exports = withTM(
           {
             source: '/sitemaps/:match*',
             destination: 'https://sitemap.lenster.xyz/sitemaps/:match*'
-          },
-          {
-            source: '/collect/:match*',
-            destination: 'https://api-eu.mixpanel.com/:match*'
           }
         ];
       },
