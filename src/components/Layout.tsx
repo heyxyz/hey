@@ -146,7 +146,16 @@ const Layout: FC<Props> = ({ children }) => {
       logout();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [address, chain, disconnect]);
+  }, [
+    isConnected,
+    isAuthenticated,
+    isDisconnected,
+    address,
+    chain,
+    currentProfile,
+    disconnect,
+    setCurrentProfile
+  ]);
 
   const toastOptions = {
     style: {
