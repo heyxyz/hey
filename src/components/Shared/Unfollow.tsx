@@ -102,7 +102,7 @@ const Unfollow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
           } finally {
             setWriteLoading(false);
           }
-        } catch (error) {}
+        } catch {}
       },
       onError: (error) => {
         toast.error(error.message ?? ERROR_MESSAGE);

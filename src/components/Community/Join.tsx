@@ -138,7 +138,7 @@ const Join: FC<Props> = ({ community, setJoined, showJoin = true }) => {
           } else {
             write?.({ recklesslySetUnpreparedArgs: inputStruct });
           }
-        } catch (error) {}
+        } catch {}
       },
       onError: (error) => {
         toast.error(error.message ?? ERROR_MESSAGE);
