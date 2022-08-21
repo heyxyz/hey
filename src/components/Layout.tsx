@@ -19,7 +19,7 @@ if (MIXPANEL_TOKEN) {
   mixpanel.init(MIXPANEL_TOKEN, {
     ignore_dnt: true,
     api_host: MIXPANEL_API_HOST,
-    batch_size: 2
+    batch_requests: false
   });
 }
 
