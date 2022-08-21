@@ -24,7 +24,7 @@ if (MIXPANEL_TOKEN) {
   });
 }
 
-export const CURRENT_USER_QUERY = gql`
+export const CURRENT_PROFILE_QUERY = gql`
   query CurrentProfile($ownedBy: [EthereumAddress!]) {
     profiles(request: { ownedBy: $ownedBy }) {
       items {
@@ -46,7 +46,7 @@ interface Props {
   children: ReactNode;
 }
 
-const SiteLayout: FC<Props> = ({ children }) => {
+const Layout: FC<Props> = ({ children }) => {
   const { resolvedTheme } = useTheme();
   const setProfiles = useAppStore((state) => state.setProfiles);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
@@ -63,7 +63,7 @@ const SiteLayout: FC<Props> = ({ children }) => {
   const { address, isDisconnected } = useAccount();
   const { chain } = useNetwork();
   const { disconnect } = useDisconnect();
-  const { loading } = useQuery(CURRENT_USER_QUERY, {
+  const { loading } = useQuery(CURRENT_PROFILE_QUERY, {
     variables: { ownedBy: address },
     skip: !isConnected,
     onCompleted: (data) => {
@@ -200,4 +200,4 @@ const SiteLayout: FC<Props> = ({ children }) => {
   );
 };
 
-export default SiteLayout;
+export default Layout;
