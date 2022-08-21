@@ -18,10 +18,6 @@ module.exports = withTM(
           {
             source: '/sitemaps/:match*',
             destination: 'https://sitemap.lenster.xyz/sitemaps/:match*'
-          },
-          {
-            source: '/collect/:slug',
-            destination: 'https://api-eu.mixpanel.com/:slug'
           }
         ];
       },
