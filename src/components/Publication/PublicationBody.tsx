@@ -1,4 +1,5 @@
 import Attachments from '@components/Shared/Attachments';
+import IFramely from '@components/Shared/IFramely';
 import Markup from '@components/Shared/Markup';
 import CrowdfundShimmer from '@components/Shared/Shimmer/CrowdfundShimmer';
 import { LensterPublication } from '@generated/lenstertypes';
@@ -12,7 +13,6 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { FC } from 'react';
 
-const IFramely = dynamic(() => import('@components/Shared/IFramely'));
 const Crowdfund = dynamic(() => import('./Crowdfund'), {
   loading: () => <CrowdfundShimmer />
 });
