@@ -4,18 +4,16 @@ import { ProfileFields } from '@gql/ProfileFields';
 import { Mixpanel } from '@lib/mixpanel';
 import Cookies from 'js-cookie';
 import mixpanel from 'mixpanel-browser';
-import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import { useTheme } from 'next-themes';
-import { FC, ReactNode, Suspense, useEffect, useState } from 'react';
+import { FC, ReactNode, useEffect, useState } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { CHAIN_ID, MIXPANEL_API_HOST, MIXPANEL_TOKEN, STATIC_ASSETS } from 'src/constants';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { useAccount, useDisconnect, useNetwork } from 'wagmi';
 
 import Loading from './Loading';
-
-const Navbar = dynamic(() => import('./Shared/Navbar'), { suspense: true });
+import Navbar from './Shared/Navbar';
 
 if (MIXPANEL_TOKEN) {
   mixpanel.init(MIXPANEL_TOKEN, {
@@ -190,12 +188,10 @@ const Layout: FC<Props> = ({ children }) => {
         <meta name="theme-color" content={resolvedTheme === 'dark' ? '#1b1b1d' : '#ffffff'} />
       </Head>
       <Toaster position="bottom-right" toastOptions={toastOptions} />
-      <Suspense fallback={<Loading />}>
-        <div className="flex flex-col min-h-screen">
-          <Navbar />
-          {children}
-        </div>
-      </Suspense>
+      <div className="flex flex-col min-h-screen">
+        <Navbar />
+        {children}
+      </div>
     </>
   );
 };
