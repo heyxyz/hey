@@ -29,11 +29,15 @@ const MenuItems: FC<Props> = ({ pingData }) => {
   const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
   const [showLoginModal, setShowLoginModal] = useState(false);
 
-  return isConnected && isAuthenticated && currentProfile ? (
-    <SignedUser pingData={pingData} />
-  ) : isConnected ? (
-    <UnsignedUser />
-  ) : (
+  if (isConnected && isAuthenticated && currentProfile) {
+    return <SignedUser pingData={pingData} />;
+  }
+
+  if (isConnected && !isAuthenticated && !currentProfile) {
+    return <UnsignedUser />;
+  }
+
+  return (
     <>
       <Modal
         title="Login"
