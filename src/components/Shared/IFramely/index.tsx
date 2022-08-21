@@ -16,7 +16,7 @@ const IFramely: FC<Props> = ({ url }) => {
 
   useEffect(() => {
     if (url) {
-      axios(`https://iframe.ly/api/iframely?api_key=258c8580bd477c9b886b49&url=${url}`, { method: 'GET' })
+      axios(`https://iframe.ly/api/iframely?api_key=258c8580bd477c9b886b49&url=${url}`)
         .then(({ data }) => {
           setIsLoaded(true);
           if (data) {
