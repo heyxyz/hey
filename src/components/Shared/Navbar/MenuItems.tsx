@@ -163,9 +163,15 @@ const MenuItems: FC<Props> = ({ pingData }) => {
                           type="button"
                           className="flex items-center py-1.5 px-4 space-x-2 w-full rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
                           onClick={() => {
-                            setCurrentProfile(profiles[index]);
-                            setProfileId(profiles[index].id);
+                            const selectedProfile = profiles[index];
+                            setCurrentProfile(selectedProfile);
+                            setProfileId(selectedProfile.id);
                             Mixpanel.track(PROFILE.SWITCH_PROFILE);
+                            Mixpanel.identify(selectedProfile.id);
+                            Mixpanel.people.set({
+                              address: currentProfile?.ownedBy,
+                              $name: currentProfile?.handle
+                            });
                           }}
                         >
                           {currentProfile?.id === profile?.id && (

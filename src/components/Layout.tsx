@@ -8,7 +8,7 @@ import Head from 'next/head';
 import { useTheme } from 'next-themes';
 import { FC, ReactNode, useEffect, useState } from 'react';
 import { Toaster } from 'react-hot-toast';
-import { CHAIN_ID, MIXPANEL_API_HOST, MIXPANEL_TOKEN, STATIC_ASSETS } from 'src/constants';
+import { CHAIN_ID, MIXPANEL_API_HOST, MIXPANEL_TOKEN } from 'src/constants';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { useAccount, useDisconnect, useNetwork } from 'wagmi';
 
@@ -19,7 +19,7 @@ if (MIXPANEL_TOKEN) {
   mixpanel.init(MIXPANEL_TOKEN, {
     ignore_dnt: true,
     api_host: MIXPANEL_API_HOST,
-    batch_requests: false
+    batch_size: 2
   });
 }
 
@@ -90,20 +90,8 @@ const Layout: FC<Props> = ({ children }) => {
     setMounted(true);
 
     // Set mixpanel user id
-    if (profileId) {
-      Mixpanel.identify(currentProfile?.id);
-      Mixpanel.people.set({
-        address: currentProfile?.ownedBy,
-        handle: currentProfile?.handle,
-        $name: currentProfile?.name ?? currentProfile?.handle,
-        $avatar: `https://avatar.tobi.sh/${currentProfile?.handle}.png`
-      });
-    } else {
+    if (!profileId) {
       Mixpanel.identify('0x00');
-      Mixpanel.people.set({
-        $name: 'Anonymous',
-        $avatar: `${STATIC_ASSETS}/anon.jpeg`
-      });
     }
 
     const logout = () => {
