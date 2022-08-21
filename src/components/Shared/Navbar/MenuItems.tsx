@@ -266,7 +266,7 @@ const MenuItems: FC<Props> = ({ pingData }) => {
         </>
       )}
     </Menu>
-  ) : isConnected && !isAuthenticated && !currentProfile ? (
+  ) : isConnected && !isAuthenticated ? (
     <UnsignedUser />
   ) : (
     <>
