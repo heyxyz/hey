@@ -3,11 +3,9 @@ import { Modal } from '@components/UI/Modal';
 import { ArrowCircleRightIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import Link from 'next/link';
-import { useTheme } from 'next-themes';
 import { FC, Fragment, useState } from 'react';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
-import { STAFF, USER } from 'src/tracking';
-import { useDisconnect } from 'wagmi';
+import { USER } from 'src/tracking';
 
 import Login from './Login';
 import SignedUser from './SignedUser';
@@ -26,22 +24,10 @@ interface Props {
 }
 
 const MenuItems: FC<Props> = ({ pingData }) => {
-  const profiles = useAppStore((state) => state.profiles);
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
   const isConnected = useAppPersistStore((state) => state.isConnected);
   const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
-  const setProfileId = useAppPersistStore((state) => state.setProfileId);
-  const staffMode = useAppPersistStore((state) => state.staffMode);
-  const setStaffMode = useAppPersistStore((state) => state.setStaffMode);
   const [showLoginModal, setShowLoginModal] = useState(false);
-  const { theme, setTheme } = useTheme();
-  const { disconnect } = useDisconnect();
-
-  const toggleStaffMode = () => {
-    setStaffMode(!staffMode);
-    Mixpanel.track(STAFF.TOGGLE_MODE);
-  };
 
   return isConnected && isAuthenticated && currentProfile ? (
     <SignedUser pingData={pingData} />
