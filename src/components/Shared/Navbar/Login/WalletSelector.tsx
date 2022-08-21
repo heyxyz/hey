@@ -104,7 +104,6 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
       const { data: profilesData } = await getProfiles({
         variables: { ownedBy: address }
       });
-      setIsConnected(true);
       if (profilesData?.profiles?.items?.length === 0) {
         setHasProfile(false);
       } else {
@@ -117,6 +116,7 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
         setCurrentProfile(profiles[0]);
         setProfileId(profiles[0].id);
       }
+      setIsConnected(true);
       Mixpanel.track(USER.SIWL, { result: 'success' });
     } catch (error) {
       console.log(error);
