@@ -10,10 +10,10 @@ import {
   CREATE_MIRROR_VIA_DISPATHCER_MUTATION
 } from '@gql/TypedAndDispatcherData/CreateMirror';
 import { SwitchHorizontalIcon } from '@heroicons/react/outline';
+import getSignature from '@lib/getSignature';
 import humanize from '@lib/humanize';
 import { Mixpanel } from '@lib/mixpanel';
 import nFormatter from '@lib/nFormatter';
-import omit from '@lib/omit';
 import splitSignature from '@lib/splitSignature';
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
@@ -112,11 +112,7 @@ const Mirror: FC<Props> = ({ publication }) => {
         } = typedData?.value;
 
         try {
-          const signature = await signTypedDataAsync({
-            domain: omit(typedData?.domain, '__typename'),
-            types: omit(typedData?.types, '__typename'),
-            value: omit(typedData?.value, '__typename')
-          });
+          const signature = await signTypedDataAsync(getSignature(typedData));
           setUserSigNonce(userSigNonce + 1);
           const { v, r, s } = splitSignature(signature);
           const sig = { v, r, s, deadline };

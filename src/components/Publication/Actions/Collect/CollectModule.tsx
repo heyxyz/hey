@@ -30,10 +30,10 @@ import {
   UsersIcon
 } from '@heroicons/react/outline';
 import formatAddress from '@lib/formatAddress';
+import getSignature from '@lib/getSignature';
 import getTokenImage from '@lib/getTokenImage';
 import humanize from '@lib/humanize';
 import { Mixpanel } from '@lib/mixpanel';
-import omit from '@lib/omit';
 import splitSignature from '@lib/splitSignature';
 import dayjs from 'dayjs';
 import React, { Dispatch, FC, useEffect, useState } from 'react';
@@ -231,11 +231,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
         const { deadline } = typedData?.value;
 
         try {
-          const signature = await signTypedDataAsync({
-            domain: omit(typedData?.domain, '__typename'),
-            types: omit(typedData?.types, '__typename'),
-            value: omit(typedData?.value, '__typename')
-          });
+          const signature = await signTypedDataAsync(getSignature(typedData));
 
           setUserSigNonce(userSigNonce + 1);
           const { profileId, pubId, data: collectData } = typedData?.value;

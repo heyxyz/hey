@@ -13,9 +13,9 @@ import {
 } from '@gql/TypedAndDispatcherData/CreateSetProfileImageURI';
 import { PencilIcon } from '@heroicons/react/outline';
 import getIPFSLink from '@lib/getIPFSLink';
+import getSignature from '@lib/getSignature';
 import imagekitURL from '@lib/imagekitURL';
 import { Mixpanel } from '@lib/mixpanel';
-import omit from '@lib/omit';
 import splitSignature from '@lib/splitSignature';
 import uploadMediaToIPFS from '@lib/uploadMediaToIPFS';
 import React, { ChangeEvent, FC, useEffect, useState } from 'react';
@@ -103,11 +103,7 @@ const Picture: FC<Props> = ({ profile }) => {
         const { deadline } = typedData?.value;
 
         try {
-          const signature = await signTypedDataAsync({
-            domain: omit(typedData?.domain, '__typename'),
-            types: omit(typedData?.types, '__typename'),
-            value: omit(typedData?.value, '__typename')
-          });
+          const signature = await signTypedDataAsync(getSignature(typedData));
           setUserSigNonce(userSigNonce + 1);
           const { profileId, imageURI } = typedData?.value;
           const { v, r, s } = splitSignature(signature);

@@ -18,8 +18,8 @@ import {
 } from '@gql/TypedAndDispatcherData/CreatePost';
 import { PencilAltIcon } from '@heroicons/react/outline';
 import { defaultFeeData, defaultModuleData, getModule } from '@lib/getModule';
+import getSignature from '@lib/getSignature';
 import { Mixpanel } from '@lib/mixpanel';
-import omit from '@lib/omit';
 import splitSignature from '@lib/splitSignature';
 import trimify from '@lib/trimify';
 import uploadToArweave from '@lib/uploadToArweave';
@@ -136,11 +136,7 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
       } = typedData?.value;
 
       try {
-        const signature = await signTypedDataAsync({
-          domain: omit(typedData?.domain, '__typename'),
-          types: omit(typedData?.types, '__typename'),
-          value: omit(typedData?.value, '__typename')
-        });
+        const signature = await signTypedDataAsync(getSignature(typedData));
         setUserSigNonce(userSigNonce + 1);
         const { v, r, s } = splitSignature(signature);
         const sig = { v, r, s, deadline };

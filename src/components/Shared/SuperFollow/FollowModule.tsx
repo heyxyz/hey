@@ -10,9 +10,9 @@ import { CreateFollowBroadcastItemResult, FeeFollowModuleSettings, Profile } fro
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation';
 import { StarIcon, UserIcon } from '@heroicons/react/outline';
 import formatAddress from '@lib/formatAddress';
+import getSignature from '@lib/getSignature';
 import getTokenImage from '@lib/getTokenImage';
 import { Mixpanel } from '@lib/mixpanel';
-import omit from '@lib/omit';
 import splitSignature from '@lib/splitSignature';
 import { Dispatch, FC, useState } from 'react';
 import toast from 'react-hot-toast';
@@ -180,11 +180,7 @@ const FollowModule: FC<Props> = ({ profile, setFollowing, setShowFollowModal, ag
         const { deadline } = typedData?.value;
 
         try {
-          const signature = await signTypedDataAsync({
-            domain: omit(typedData?.domain, '__typename'),
-            types: omit(typedData?.types, '__typename'),
-            value: omit(typedData?.value, '__typename')
-          });
+          const signature = await signTypedDataAsync(getSignature(typedData));
           setUserSigNonce(userSigNonce + 1);
           const { profileIds, datas: followData } = typedData?.value;
           const { v, r, s } = splitSignature(signature);

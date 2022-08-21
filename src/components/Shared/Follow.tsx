@@ -5,8 +5,8 @@ import { Spinner } from '@components/UI/Spinner';
 import { CreateFollowBroadcastItemResult, Profile } from '@generated/types';
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation';
 import { UserAddIcon } from '@heroicons/react/outline';
+import getSignature from '@lib/getSignature';
 import { Mixpanel } from '@lib/mixpanel';
-import omit from '@lib/omit';
 import splitSignature from '@lib/splitSignature';
 import { Dispatch, FC } from 'react';
 import toast from 'react-hot-toast';
@@ -109,11 +109,7 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
         const { deadline } = typedData?.value;
 
         try {
-          const signature = await signTypedDataAsync({
-            domain: omit(typedData?.domain, '__typename'),
-            types: omit(typedData?.types, '__typename'),
-            value: omit(typedData?.value, '__typename')
-          });
+          const signature = await signTypedDataAsync(getSignature(typedData));
           setUserSigNonce(userSigNonce + 1);
           const { profileIds, datas: followData } = typedData?.value;
           const { v, r, s } = splitSignature(signature);

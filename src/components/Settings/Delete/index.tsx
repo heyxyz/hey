@@ -10,8 +10,8 @@ import { WarningMessage } from '@components/UI/WarningMessage';
 import Seo from '@components/utils/Seo';
 import { CreateBurnProfileBroadcastItemResult } from '@generated/types';
 import { ExclamationIcon, TrashIcon } from '@heroicons/react/outline';
+import getSignature from '@lib/getSignature';
 import { Mixpanel } from '@lib/mixpanel';
-import omit from '@lib/omit';
 import splitSignature from '@lib/splitSignature';
 import Cookies from 'js-cookie';
 import React, { FC, useEffect, useState } from 'react';
@@ -118,11 +118,7 @@ const DeleteSettings: FC = () => {
         const { deadline } = typedData?.value;
 
         try {
-          const signature = await signTypedDataAsync({
-            domain: omit(typedData?.domain, '__typename'),
-            types: omit(typedData?.types, '__typename'),
-            value: omit(typedData?.value, '__typename')
-          });
+          const signature = await signTypedDataAsync(getSignature(typedData));
           setUserSigNonce(userSigNonce + 1);
           const { tokenId } = typedData?.value;
           const { v, r, s } = splitSignature(signature);

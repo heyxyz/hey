@@ -6,8 +6,8 @@ import { Community } from '@generated/lenstertypes';
 import { CreateCollectBroadcastItemResult } from '@generated/types';
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation';
 import { PlusIcon } from '@heroicons/react/outline';
+import getSignature from '@lib/getSignature';
 import { Mixpanel } from '@lib/mixpanel';
-import omit from '@lib/omit';
 import splitSignature from '@lib/splitSignature';
 import React, { Dispatch, FC } from 'react';
 import toast from 'react-hot-toast';
@@ -111,11 +111,7 @@ const Join: FC<Props> = ({ community, setJoined, showJoin = true }) => {
         const { deadline } = typedData?.value;
 
         try {
-          const signature = await signTypedDataAsync({
-            domain: omit(typedData?.domain, '__typename'),
-            types: omit(typedData?.types, '__typename'),
-            value: omit(typedData?.value, '__typename')
-          });
+          const signature = await signTypedDataAsync(getSignature(typedData));
           setUserSigNonce(userSigNonce + 1);
           const { profileId, pubId, data: collectData } = typedData?.value;
           const { v, r, s } = splitSignature(signature);

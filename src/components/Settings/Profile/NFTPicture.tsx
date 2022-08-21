@@ -13,8 +13,8 @@ import {
   CREATE_SET_PROFILE_IMAGE_URI_VIA_DISPATHCER_MUTATION
 } from '@gql/TypedAndDispatcherData/CreateSetProfileImageURI';
 import { PencilIcon } from '@heroicons/react/outline';
+import getSignature from '@lib/getSignature';
 import { Mixpanel } from '@lib/mixpanel';
-import omit from '@lib/omit';
 import splitSignature from '@lib/splitSignature';
 import gql from 'graphql-tag';
 import React, { FC, useState } from 'react';
@@ -131,11 +131,7 @@ const NFTPicture: FC<Props> = ({ profile }) => {
         const { deadline } = typedData?.value;
 
         try {
-          const signature = await signTypedDataAsync({
-            domain: omit(typedData?.domain, '__typename'),
-            types: omit(typedData?.types, '__typename'),
-            value: omit(typedData?.value, '__typename')
-          });
+          const signature = await signTypedDataAsync(getSignature(typedData));
           setUserSigNonce(userSigNonce + 1);
           const { profileId, imageURI } = typedData?.value;
           const { v, r, s } = splitSignature(signature);
