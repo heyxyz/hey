@@ -86,6 +86,7 @@ const Layout: FC<Props> = ({ children }) => {
   useEffect(() => {
     const accessToken = Cookies.get('accessToken');
     const refreshToken = Cookies.get('refreshToken');
+    const hasAuthTokens = accessToken !== 'undefined' && refreshToken !== 'undefined';
     const currentProfileAddress = currentProfile?.ownedBy;
     setMounted(true);
 
@@ -102,36 +103,19 @@ const Layout: FC<Props> = ({ children }) => {
       Cookies.remove('accessToken');
       Cookies.remove('refreshToken');
       localStorage.removeItem('lenster.store');
-      if (disconnect) {
-        disconnect();
-      }
+      disconnect();
     };
 
     if (
-      refreshToken &&
-      accessToken &&
-      accessToken !== 'undefined' &&
-      refreshToken !== 'undefined' &&
-      profileId &&
-      chain?.id === CHAIN_ID
+      (currentProfileAddress !== undefined && currentProfileAddress !== address) ||
+      isDisconnected ||
+      chain?.id !== CHAIN_ID ||
+      !profileId ||
+      !hasAuthTokens
     ) {
-      setIsAuthenticated(true);
-    } else {
       if (isAuthenticated) {
         logout();
       }
-    }
-
-    if (isDisconnected) {
-      if (disconnect) {
-        disconnect();
-      }
-      setIsAuthenticated(false);
-      setIsConnected(false);
-    }
-
-    if (currentProfileAddress !== undefined && currentProfileAddress !== address) {
-      logout();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isDisconnected, address, chain, currentProfile, disconnect, setCurrentProfile]);
