@@ -18,7 +18,8 @@ import Navbar from './Shared/Navbar';
 if (MIXPANEL_TOKEN) {
   mixpanel.init(MIXPANEL_TOKEN, {
     ignore_dnt: true,
-    api_host: MIXPANEL_API_HOST
+    api_host: MIXPANEL_API_HOST,
+    batch_requests: false
   });
 }
 
