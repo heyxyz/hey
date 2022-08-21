@@ -232,7 +232,6 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
 
         try {
           const signature = await signTypedDataAsync(getSignature(typedData));
-
           setUserSigNonce(userSigNonce + 1);
           const { profileId, pubId, data: collectData } = typedData?.value;
           const { v, r, s } = splitSignature(signature);
