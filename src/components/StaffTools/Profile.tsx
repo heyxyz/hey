@@ -4,6 +4,7 @@ import {
   AtSymbolIcon,
   BeakerIcon,
   CashIcon,
+  HandIcon,
   HashtagIcon,
   IdentificationIcon,
   LinkIcon,
@@ -62,6 +63,13 @@ const ProfileStaffTool: FC<Props> = ({ profile }) => {
             title="Address"
           >
             {formatAddress(profile?.ownedBy)}
+          </MetaDetails>
+          <MetaDetails
+            icon={<HandIcon className="w-4 h-4 text-gray-500" />}
+            value={profile?.dispatcher?.canUseRelay ? 'Yes' : 'No'}
+            title="Dispatcher enabled"
+          >
+            {profile?.dispatcher?.canUseRelay ? 'Yes' : 'No'}
           </MetaDetails>
           {profile?.followNftAddress ? (
             <MetaDetails

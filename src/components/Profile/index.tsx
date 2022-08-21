@@ -42,6 +42,9 @@ export const PROFILE_QUERY = gql`
         key
         value
       }
+      dispatcher {
+        canUseRelay
+      }
       onChainIdentity {
         proofOfHumanity
         sybilDotOrg {
