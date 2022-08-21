@@ -1,7 +1,7 @@
 import '../styles.css';
 
 import Loading from '@components/Loading';
-import { AppProps } from 'next/app';
+import type { AppProps } from 'next/app';
 import dynamic from 'next/dynamic';
 import { Suspense } from 'react';
 
