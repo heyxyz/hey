@@ -7,8 +7,8 @@ import { CreateSetDispatcherBroadcastItemResult } from '@generated/types';
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation';
 import { CREATE_SET_DISPATCHER_TYPED_DATA_MUTATION } from '@gql/TypedAndDispatcherData/CreateSetDispatcher';
 import { CheckCircleIcon, XIcon } from '@heroicons/react/outline';
+import getSignature from '@lib/getSignature';
 import { Mixpanel } from '@lib/mixpanel';
-import omit from '@lib/omit';
 import splitSignature from '@lib/splitSignature';
 import clsx from 'clsx';
 import { FC } from 'react';
@@ -81,17 +81,10 @@ const ToggleDispatcher: FC<Props> = ({ buttonSize = 'md' }) => {
       }: {
         createSetDispatcherTypedData: CreateSetDispatcherBroadcastItemResult;
       }) => {
-        const { id, typedData } = createSetDispatcherTypedData;
-        const { deadline } = typedData?.value;
-
         try {
-          const signature = await signTypedDataAsync({
-            domain: omit(typedData?.domain, '__typename'),
-            types: omit(typedData?.types, '__typename'),
-            value: omit(typedData?.value, '__typename')
-          });
-          setUserSigNonce(userSigNonce + 1);
-          const { profileId, dispatcher } = typedData?.value;
+          const { id, typedData } = createSetDispatcherTypedData;
+          const { profileId, dispatcher, deadline } = typedData?.value;
+          const signature = await signTypedDataAsync(getSignature(typedData));
           const { v, r, s } = splitSignature(signature);
           const sig = { v, r, s, deadline };
           const inputStruct = {
@@ -99,6 +92,8 @@ const ToggleDispatcher: FC<Props> = ({ buttonSize = 'md' }) => {
             dispatcher,
             sig
           };
+
+          setUserSigNonce(userSigNonce + 1);
           if (RELAY_ON) {
             const {
               data: { broadcast: result }

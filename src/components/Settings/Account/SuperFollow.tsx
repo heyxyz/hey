@@ -9,9 +9,9 @@ import { Spinner } from '@components/UI/Spinner';
 import { CreateSetFollowModuleBroadcastItemResult, Erc20 } from '@generated/types';
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation';
 import { StarIcon, XIcon } from '@heroicons/react/outline';
+import getSignature from '@lib/getSignature';
 import getTokenImage from '@lib/getTokenImage';
 import { Mixpanel } from '@lib/mixpanel';
-import omit from '@lib/omit';
 import splitSignature from '@lib/splitSignature';
 import React, { FC, useState } from 'react';
 import toast from 'react-hot-toast';
@@ -156,16 +156,10 @@ const SuperFollow: FC = () => {
       }: {
         createSetFollowModuleTypedData: CreateSetFollowModuleBroadcastItemResult;
       }) => {
-        const { id, typedData } = createSetFollowModuleTypedData;
-        const { profileId, followModule, followModuleInitData, deadline } = typedData?.value;
-
         try {
-          const signature = await signTypedDataAsync({
-            domain: omit(typedData?.domain, '__typename'),
-            types: omit(typedData?.types, '__typename'),
-            value: omit(typedData?.value, '__typename')
-          });
-          setUserSigNonce(userSigNonce + 1);
+          const { id, typedData } = createSetFollowModuleTypedData;
+          const { profileId, followModule, followModuleInitData, deadline } = typedData?.value;
+          const signature = await signTypedDataAsync(getSignature(typedData));
           const { v, r, s } = splitSignature(signature);
           const sig = { v, r, s, deadline };
           const inputStruct = {
@@ -174,6 +168,8 @@ const SuperFollow: FC = () => {
             followModuleInitData,
             sig
           };
+
+          setUserSigNonce(userSigNonce + 1);
           if (RELAY_ON) {
             const {
               data: { broadcast: result }

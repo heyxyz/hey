@@ -18,11 +18,11 @@ import {
 } from '@gql/TypedAndDispatcherData/CreateSetProfileMetadata';
 import { PencilIcon } from '@heroicons/react/outline';
 import getAttribute from '@lib/getAttribute';
+import getSignature from '@lib/getSignature';
 import hasPrideLogo from '@lib/hasPrideLogo';
 import imagekitURL from '@lib/imagekitURL';
 import isBeta from '@lib/isBeta';
 import { Mixpanel } from '@lib/mixpanel';
-import omit from '@lib/omit';
 import splitSignature from '@lib/splitSignature';
 import uploadMediaToIPFS from '@lib/uploadMediaToIPFS';
 import uploadToArweave from '@lib/uploadToArweave';
@@ -129,17 +129,10 @@ const Profile: FC<Props> = ({ profile }) => {
       }: {
         createSetProfileMetadataTypedData: CreateSetProfileMetadataUriBroadcastItemResult;
       }) => {
-        const { id, typedData } = createSetProfileMetadataTypedData;
-        const { deadline } = typedData?.value;
-
         try {
-          const signature = await signTypedDataAsync({
-            domain: omit(typedData?.domain, '__typename'),
-            types: omit(typedData?.types, '__typename'),
-            value: omit(typedData?.value, '__typename')
-          });
-          setUserSigNonce(userSigNonce + 1);
-          const { profileId, metadata } = typedData?.value;
+          const { id, typedData } = createSetProfileMetadataTypedData;
+          const { profileId, metadata, deadline } = typedData?.value;
+          const signature = await signTypedDataAsync(getSignature(typedData));
           const { v, r, s } = splitSignature(signature);
           const sig = { v, r, s, deadline };
           const inputStruct = {
@@ -148,6 +141,8 @@ const Profile: FC<Props> = ({ profile }) => {
             metadata,
             sig
           };
+
+          setUserSigNonce(userSigNonce + 1);
           if (RELAY_ON) {
             const {
               data: { broadcast: result }
