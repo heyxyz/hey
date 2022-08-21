@@ -21,7 +21,7 @@ export const RELAY_ON =
     ? process.env.NEXT_PUBLIC_RELAY_ON === 'true'
     : false;
 export const MIXPANEL_TOKEN = process.env.NEXT_PUBLIC_MIXPANEL_TOKEN ?? '';
-export const MIXPANEL_API_HOST = 'https://api-eu.mixpanel.com';
+export const MIXPANEL_API_HOST = 'https://lenster.xyz/collect';
 
 // Messages
 export const ERROR_MESSAGE = 'Something went wrong!';
