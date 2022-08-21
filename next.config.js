@@ -8,7 +8,6 @@ module.exports = withTM(
   withSentryConfig(
     {
       reactStrictMode: false,
-      trailingSlash: true,
       async rewrites() {
         return [
           {
