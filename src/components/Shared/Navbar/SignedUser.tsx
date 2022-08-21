@@ -119,9 +119,7 @@ const SignedUser: FC<Props> = ({ pingData }) => {
                   Cookies.remove('accessToken');
                   Cookies.remove('refreshToken');
                   localStorage.removeItem('lenster.store');
-                  if (disconnect) {
-                    disconnect();
-                  }
+                  disconnect();
                 }}
                 className={({ active }: { active: boolean }) =>
                   clsx({ 'dropdown-active': active }, 'menu-item')

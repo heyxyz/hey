@@ -87,9 +87,7 @@ const DeleteSettings: FC = () => {
     Cookies.remove('accessToken');
     Cookies.remove('refreshToken');
     localStorage.removeItem('lenster.store');
-    if (disconnect) {
-      disconnect();
-    }
+    disconnect();
     location.href = '/';
   };
 

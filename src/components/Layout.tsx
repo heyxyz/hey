@@ -86,7 +86,11 @@ const Layout: FC<Props> = ({ children }) => {
   useEffect(() => {
     const accessToken = Cookies.get('accessToken');
     const refreshToken = Cookies.get('refreshToken');
+    const hasAuthTokens = accessToken !== 'undefined' && refreshToken !== 'undefined';
     const currentProfileAddress = currentProfile?.ownedBy;
+    const hasSameAddress = currentProfileAddress !== undefined && currentProfileAddress !== address;
+
+    // Set mounted state to true after the first render
     setMounted(true);
 
     // Set mixpanel user id
@@ -94,44 +98,24 @@ const Layout: FC<Props> = ({ children }) => {
       Mixpanel.identify('0x00');
     }
 
-    const logout = () => {
-      setIsAuthenticated(false);
-      setIsConnected(false);
-      setCurrentProfile(undefined);
-      setProfileId(null);
-      Cookies.remove('accessToken');
-      Cookies.remove('refreshToken');
-      localStorage.removeItem('lenster.store');
-      if (disconnect) {
-        disconnect();
-      }
-    };
-
     if (
-      refreshToken &&
-      accessToken &&
-      accessToken !== 'undefined' &&
-      refreshToken !== 'undefined' &&
-      profileId &&
-      chain?.id === CHAIN_ID
+      hasSameAddress || // If the current address is not the same as the profile address
+      chain?.id !== CHAIN_ID || // If the user is not on the correct chain
+      isDisconnected || // If the user is disconnected from the wallet
+      !profileId || // If the user has no profile
+      !hasAuthTokens // If the user has no auth tokens
     ) {
-      setIsAuthenticated(true);
-    } else {
+      // Logout the user and profile
       if (isAuthenticated) {
-        logout();
-      }
-    }
-
-    if (isDisconnected) {
-      if (disconnect) {
+        setIsAuthenticated(false);
+        setIsConnected(false);
+        setCurrentProfile(undefined);
+        setProfileId(null);
+        Cookies.remove('accessToken');
+        Cookies.remove('refreshToken');
+        localStorage.removeItem('lenster.store');
         disconnect();
       }
-      setIsAuthenticated(false);
-      setIsConnected(false);
-    }
-
-    if (currentProfileAddress !== undefined && currentProfileAddress !== address) {
-      logout();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isDisconnected, address, chain, currentProfile, disconnect, setCurrentProfile]);
