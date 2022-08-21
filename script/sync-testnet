@@ -1,0 +1,12 @@
+#!/bin/bash
+
+#/ Usage: script/sync-testnet
+#/ Sync testnet branch with main branch.
+
+echo "Sync testnet branch with main branch 🔄"
+git pull origin main
+git checkout testnet
+git merge main
+git push origin testnet
+git checkout main
+echo "Branches synced 🎉"
