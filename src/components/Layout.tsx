@@ -95,17 +95,6 @@ const Layout: FC<Props> = ({ children }) => {
       Mixpanel.identify('0x00');
     }
 
-    const logout = () => {
-      setIsAuthenticated(false);
-      setIsConnected(false);
-      setCurrentProfile(undefined);
-      setProfileId(null);
-      Cookies.remove('accessToken');
-      Cookies.remove('refreshToken');
-      localStorage.removeItem('lenster.store');
-      disconnect();
-    };
-
     if (
       (currentProfileAddress !== undefined && currentProfileAddress !== address) ||
       isDisconnected ||
@@ -113,8 +102,16 @@ const Layout: FC<Props> = ({ children }) => {
       !profileId ||
       !hasAuthTokens
     ) {
+      // Logout the user and profile
       if (isAuthenticated) {
-        logout();
+        setIsAuthenticated(false);
+        setIsConnected(false);
+        setCurrentProfile(undefined);
+        setProfileId(null);
+        Cookies.remove('accessToken');
+        Cookies.remove('refreshToken');
+        localStorage.removeItem('lenster.store');
+        disconnect();
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
