@@ -105,6 +105,7 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
       const { data: profilesData } = await getProfiles({
         variables: { ownedBy: address }
       });
+
       if (profilesData?.profiles?.items?.length === 0) {
         setHasProfile(false);
       } else {
@@ -112,10 +113,16 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
           ?.slice()
           ?.sort((a: Profile, b: Profile) => Number(a.id) - Number(b.id))
           ?.sort((a: Profile, b: Profile) => (!(a.isDefault !== b.isDefault) ? 0 : a.isDefault ? -1 : 1));
+        const currentProfile = profiles[0];
         setIsAuthenticated(true);
         setProfiles(profiles);
-        setCurrentProfile(profiles[0]);
-        setProfileId(profiles[0].id);
+        setCurrentProfile(currentProfile);
+        setProfileId(currentProfile.id);
+        Mixpanel.identify(currentProfile.id);
+        Mixpanel.people.set({
+          address: currentProfile?.ownedBy,
+          $name: currentProfile?.handle
+        });
       }
       setIsConnected(true);
       Mixpanel.track(USER.SIWL, { result: 'success' });
