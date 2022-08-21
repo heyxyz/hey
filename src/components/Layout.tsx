@@ -96,11 +96,11 @@ const Layout: FC<Props> = ({ children }) => {
     }
 
     if (
-      (currentProfileAddress !== undefined && currentProfileAddress !== address) ||
-      isDisconnected ||
-      chain?.id !== CHAIN_ID ||
-      !profileId ||
-      !hasAuthTokens
+      (currentProfileAddress !== undefined && currentProfileAddress !== address) || // If the current address is not the same as the profile address
+      isDisconnected || // If the user is disconnected from the wallet
+      chain?.id !== CHAIN_ID || // If the user is not on the correct chain
+      !profileId || // If the user has no profile
+      !hasAuthTokens // If the user has no auth tokens
     ) {
       // Logout the user and profile
       if (isAuthenticated) {
