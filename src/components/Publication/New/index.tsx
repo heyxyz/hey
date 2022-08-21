@@ -164,7 +164,7 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
         } else {
           write?.({ recklesslySetUnpreparedArgs: inputStruct });
         }
-      } catch (error) {}
+      } catch {}
     },
     onError: (error) => {
       toast.error(error.message ?? ERROR_MESSAGE);

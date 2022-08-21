@@ -75,7 +75,7 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
         setHasConnected(true);
       }
       Mixpanel.track(`Connect with ${connector.name.toLowerCase()}`);
-    } catch (error) {}
+    } catch {}
   };
 
   const handleSign = async () => {

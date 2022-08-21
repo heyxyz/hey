@@ -129,7 +129,7 @@ const DeleteSettings: FC = () => {
           const sig = { v, r, s, deadline };
 
           write?.({ recklesslySetUnpreparedArgs: [tokenId, sig] });
-        } catch (error) {}
+        } catch {}
       },
       onError: (error) => {
         toast.error(error.message ?? ERROR_MESSAGE);

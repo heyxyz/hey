@@ -176,7 +176,7 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
           } else {
             write?.({ recklesslySetUnpreparedArgs: inputStruct });
           }
-        } catch (error) {}
+        } catch {}
       },
       onError: (error) => {
         toast.error(error.message ?? ERROR_MESSAGE);

@@ -236,6 +236,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
             types: omit(typedData?.types, '__typename'),
             value: omit(typedData?.value, '__typename')
           });
+
           setUserSigNonce(userSigNonce + 1);
           const { profileId, pubId, data: collectData } = typedData?.value;
           const { v, r, s } = splitSignature(signature);
@@ -258,7 +259,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
           } else {
             write?.({ recklesslySetUnpreparedArgs: inputStruct });
           }
-        } catch (error) {}
+        } catch {}
       },
       onError: (error) => {
         toast.error(error.message ?? ERROR_MESSAGE);

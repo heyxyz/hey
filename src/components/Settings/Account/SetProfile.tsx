@@ -122,7 +122,7 @@ const SetProfile: FC = () => {
           } else {
             write?.({ recklesslySetUnpreparedArgs: inputStruct });
           }
-        } catch (error) {}
+        } catch {}
       },
       onError: (error) => {
         toast.error(error.message ?? ERROR_MESSAGE);
