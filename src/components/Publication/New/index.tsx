@@ -18,8 +18,8 @@ import {
 } from '@gql/TypedAndDispatcherData/CreatePost';
 import { PencilAltIcon } from '@heroicons/react/outline';
 import { defaultFeeData, defaultModuleData, getModule } from '@lib/getModule';
+import getSignature from '@lib/getSignature';
 import { Mixpanel } from '@lib/mixpanel';
-import omit from '@lib/omit';
 import splitSignature from '@lib/splitSignature';
 import trimify from '@lib/trimify';
 import uploadToArweave from '@lib/uploadToArweave';
@@ -124,24 +124,18 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
 
   const [createPostTypedData, { loading: typedDataLoading }] = useMutation(CREATE_POST_TYPED_DATA_MUTATION, {
     onCompleted: async ({ createPostTypedData }: { createPostTypedData: CreatePostBroadcastItemResult }) => {
-      const { id, typedData } = createPostTypedData;
-      const {
-        profileId,
-        contentURI,
-        collectModule,
-        collectModuleInitData,
-        referenceModule,
-        referenceModuleInitData,
-        deadline
-      } = typedData?.value;
-
       try {
-        const signature = await signTypedDataAsync({
-          domain: omit(typedData?.domain, '__typename'),
-          types: omit(typedData?.types, '__typename'),
-          value: omit(typedData?.value, '__typename')
-        });
-        setUserSigNonce(userSigNonce + 1);
+        const { id, typedData } = createPostTypedData;
+        const {
+          profileId,
+          contentURI,
+          collectModule,
+          collectModuleInitData,
+          referenceModule,
+          referenceModuleInitData,
+          deadline
+        } = typedData?.value;
+        const signature = await signTypedDataAsync(getSignature(typedData));
         const { v, r, s } = splitSignature(signature);
         const sig = { v, r, s, deadline };
         const inputStruct = {
@@ -153,6 +147,8 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
           referenceModuleInitData,
           sig
         };
+
+        setUserSigNonce(userSigNonce + 1);
         if (RELAY_ON) {
           const {
             data: { broadcast: result }

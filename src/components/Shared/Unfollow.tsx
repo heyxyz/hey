@@ -4,8 +4,8 @@ import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
 import { CreateUnfollowBroadcastItemResult, Profile } from '@generated/types';
 import { UserRemoveIcon } from '@heroicons/react/outline';
+import getSignature from '@lib/getSignature';
 import { Mixpanel } from '@lib/mixpanel';
-import omit from '@lib/omit';
 import splitSignature from '@lib/splitSignature';
 import { Contract, Signer } from 'ethers';
 import { Dispatch, FC, useState } from 'react';
@@ -71,18 +71,13 @@ const Unfollow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
       }: {
         createUnfollowTypedData: CreateUnfollowBroadcastItemResult;
       }) => {
-        const { typedData } = createUnfollowTypedData;
-        const { deadline } = typedData?.value;
-
         try {
-          const signature = await signTypedDataAsync({
-            domain: omit(typedData?.domain, '__typename'),
-            types: omit(typedData?.types, '__typename'),
-            value: omit(typedData?.value, '__typename')
-          });
-          const { tokenId } = typedData?.value;
+          const { typedData } = createUnfollowTypedData;
+          const { tokenId, deadline } = typedData?.value;
+          const signature = await signTypedDataAsync(getSignature(typedData));
           const { v, r, s } = splitSignature(signature);
           const sig = { v, r, s, deadline };
+
           setWriteLoading(true);
           try {
             const followNftContract = new Contract(

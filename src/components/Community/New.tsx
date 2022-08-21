@@ -15,8 +15,8 @@ import { CreatePostBroadcastItemResult } from '@generated/types';
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation';
 import { CREATE_POST_TYPED_DATA_MUTATION } from '@gql/TypedAndDispatcherData/CreatePost';
 import { PlusIcon } from '@heroicons/react/outline';
+import getSignature from '@lib/getSignature';
 import { Mixpanel } from '@lib/mixpanel';
-import omit from '@lib/omit';
 import splitSignature from '@lib/splitSignature';
 import uploadMediaToIPFS from '@lib/uploadMediaToIPFS';
 import uploadToArweave from '@lib/uploadToArweave';
@@ -116,24 +116,18 @@ const NewCommunity: NextPage = () => {
   });
   const [createPostTypedData, { loading: typedDataLoading }] = useMutation(CREATE_POST_TYPED_DATA_MUTATION, {
     onCompleted: async ({ createPostTypedData }: { createPostTypedData: CreatePostBroadcastItemResult }) => {
-      const { id, typedData } = createPostTypedData;
-      const {
-        profileId,
-        contentURI,
-        collectModule,
-        collectModuleInitData,
-        referenceModule,
-        referenceModuleInitData,
-        deadline
-      } = typedData?.value;
-
       try {
-        const signature = await signTypedDataAsync({
-          domain: omit(typedData?.domain, '__typename'),
-          types: omit(typedData?.types, '__typename'),
-          value: omit(typedData?.value, '__typename')
-        });
-        setUserSigNonce(userSigNonce + 1);
+        const { id, typedData } = createPostTypedData;
+        const {
+          profileId,
+          contentURI,
+          collectModule,
+          collectModuleInitData,
+          referenceModule,
+          referenceModuleInitData,
+          deadline
+        } = typedData?.value;
+        const signature = await signTypedDataAsync(getSignature(typedData));
         const { v, r, s } = splitSignature(signature);
         const sig = { v, r, s, deadline };
         const inputStruct = {
@@ -145,6 +139,8 @@ const NewCommunity: NextPage = () => {
           referenceModuleInitData,
           sig
         };
+
+        setUserSigNonce(userSigNonce + 1);
         if (RELAY_ON) {
           const {
             data: { broadcast: result }

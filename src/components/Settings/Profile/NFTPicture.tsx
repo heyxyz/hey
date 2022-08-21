@@ -13,8 +13,8 @@ import {
   CREATE_SET_PROFILE_IMAGE_URI_VIA_DISPATHCER_MUTATION
 } from '@gql/TypedAndDispatcherData/CreateSetProfileImageURI';
 import { PencilIcon } from '@heroicons/react/outline';
+import getSignature from '@lib/getSignature';
 import { Mixpanel } from '@lib/mixpanel';
-import omit from '@lib/omit';
 import splitSignature from '@lib/splitSignature';
 import gql from 'graphql-tag';
 import React, { FC, useState } from 'react';
@@ -127,17 +127,10 @@ const NFTPicture: FC<Props> = ({ profile }) => {
       }: {
         createSetProfileImageURITypedData: CreateSetProfileImageUriBroadcastItemResult;
       }) => {
-        const { id, typedData } = createSetProfileImageURITypedData;
-        const { deadline } = typedData?.value;
-
         try {
-          const signature = await signTypedDataAsync({
-            domain: omit(typedData?.domain, '__typename'),
-            types: omit(typedData?.types, '__typename'),
-            value: omit(typedData?.value, '__typename')
-          });
-          setUserSigNonce(userSigNonce + 1);
-          const { profileId, imageURI } = typedData?.value;
+          const { id, typedData } = createSetProfileImageURITypedData;
+          const { profileId, imageURI, deadline } = typedData?.value;
+          const signature = await signTypedDataAsync(getSignature(typedData));
           const { v, r, s } = splitSignature(signature);
           const sig = { v, r, s, deadline };
           const inputStruct = {
@@ -145,6 +138,8 @@ const NFTPicture: FC<Props> = ({ profile }) => {
             imageURI,
             sig
           };
+
+          setUserSigNonce(userSigNonce + 1);
           if (RELAY_ON) {
             const {
               data: { broadcast: result }
