@@ -89,6 +89,8 @@ const Layout: FC<Props> = ({ children }) => {
     const hasAuthTokens = accessToken !== 'undefined' && refreshToken !== 'undefined';
     const currentProfileAddress = currentProfile?.ownedBy;
     const hasSameAddress = currentProfileAddress !== undefined && currentProfileAddress !== address;
+
+    // Set mounted state to true after the first render
     setMounted(true);
 
     // Set mixpanel user id
@@ -98,8 +100,8 @@ const Layout: FC<Props> = ({ children }) => {
 
     if (
       hasSameAddress || // If the current address is not the same as the profile address
-      isDisconnected || // If the user is disconnected from the wallet
       chain?.id !== CHAIN_ID || // If the user is not on the correct chain
+      isDisconnected || // If the user is disconnected from the wallet
       !profileId || // If the user has no profile
       !hasAuthTokens // If the user has no auth tokens
     ) {

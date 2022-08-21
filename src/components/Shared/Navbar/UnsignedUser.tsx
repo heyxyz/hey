@@ -4,10 +4,12 @@ import { Mixpanel } from '@lib/mixpanel';
 import clsx from 'clsx';
 import Cookies from 'js-cookie';
 import { FC, Fragment } from 'react';
+import { useAppPersistStore } from 'src/store/app';
 import { USER } from 'src/tracking';
 import { useAccount, useDisconnect } from 'wagmi';
 
 const UnsignedUser: FC = () => {
+  const setIsConnected = useAppPersistStore((state) => state.setIsConnected);
   const { disconnect } = useDisconnect();
   const { address } = useAccount();
 
@@ -39,12 +41,11 @@ const UnsignedUser: FC = () => {
                 as="a"
                 onClick={() => {
                   Mixpanel.track(USER.LOGOUT);
+                  setIsConnected(false);
                   Cookies.remove('accessToken');
                   Cookies.remove('refreshToken');
                   localStorage.removeItem('lenster.store');
-                  if (disconnect) {
-                    disconnect();
-                  }
+                  disconnect();
                 }}
                 className={({ active }: { active: boolean }) =>
                   clsx({ 'dropdown-active': active }, 'menu-item')
