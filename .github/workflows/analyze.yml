@@ -36,7 +36,7 @@ jobs:
           cp .env.example .env
           yarn build
         env:
-          SENTRY_AUTH_TOKEN: $SENTRY_AUTH_TOKEN
+          SENTRY_AUTH_TOKEN: '${{ secrets.SENTRY_AUTH_TOKEN }}'
 
       - name: Analyze bundle
         run: npx -p nextjs-bundle-analysis report
