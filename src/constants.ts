@@ -84,10 +84,11 @@ export const DEFAULT_COLLECT_TOKEN = IS_MAINNET
 
 // Regex
 export const URL_REGEX =
-  /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/;
-export const ADDRESS_REGEX = /^(0x)?[0-9a-f]{40}$/i;
-export const HANDLE_REGEX = /^[a-z0-9]+$/;
-export const HANDLE_SANITIZE_REGEX = /[^a-zA-Z0-9. ]/g;
+  /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[\da-z]+([.\-][\da-z]+)*\.[a-z]{2,5}(:\d{1,5})?(\/.*)?$/;
+export const ADDRESS_REGEX = /^(0x)?[\da-f]{40}$/i;
+export const HANDLE_REGEX = /^[\da-z]+$/;
+export const ALL_HANDLES_REGEX = /([\s+])@(\S+)/g;
+export const HANDLE_SANITIZE_REGEX = /[^\d .A-Za-z]/g;
 
 // Utils
 export const ALLOWED_MEDIA_TYPES = ['video/mp4', 'image/jpeg', 'image/png', 'image/webp', 'image/gif'];

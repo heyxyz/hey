@@ -7,7 +7,7 @@ import { LensterPublication } from '@generated/lenstertypes';
 import { Profile } from '@generated/types';
 import { ProfileFields } from '@gql/ProfileFields';
 import React, { FC } from 'react';
-import { HANDLE_SANITIZE_REGEX } from 'src/constants';
+import { ALL_HANDLES_REGEX, HANDLE_SANITIZE_REGEX } from 'src/constants';
 
 const RELEVANT_PEOPLE_QUERY = gql`
   query RelevantPeople($request: ProfileQueryRequest!) {
@@ -26,7 +26,7 @@ interface Props {
 }
 
 const RelevantPeople: FC<Props> = ({ publication }) => {
-  const mentions = publication?.metadata?.content?.match(/([\s+])@([^\s]+)/g, '$1[~$2]') ?? [];
+  const mentions = publication?.metadata?.content?.match(ALL_HANDLES_REGEX, '$1[~$2]') ?? [];
 
   mentions.push(publication?.profile?.handle);
 
