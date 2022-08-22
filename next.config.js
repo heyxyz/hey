@@ -10,10 +10,6 @@ module.exports = withTM(
       reactStrictMode: false,
       trailingSlash: false,
       swcMinify: true,
-      experimental: {
-        optimizeCss: true,
-        scrollRestoration: true
-      },
       async rewrites() {
         return [
           {
