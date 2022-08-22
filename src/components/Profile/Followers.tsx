@@ -57,7 +57,7 @@ const Followers: FC<Props> = ({ profile }) => {
           }
         }
       });
-      Mixpanel.track(PAGINATION.FOLLOWERS, { pageInfo });
+      Mixpanel.track(PAGINATION.FOLLOWERS);
     }
   });
 

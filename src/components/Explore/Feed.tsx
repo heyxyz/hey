@@ -78,7 +78,7 @@ const Feed: FC<Props> = ({ feedType = 'TOP_COMMENTED' }) => {
           profileId: currentProfile?.id ?? null
         }
       });
-      Mixpanel.track(PAGINATION.EXPLORE_FEED, { feedType, pageInfo });
+      Mixpanel.track(PAGINATION.EXPLORE_FEED);
     }
   });
 

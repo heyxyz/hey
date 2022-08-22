@@ -77,7 +77,7 @@ const Feed: FC<Props> = ({ profile, type }) => {
           profileId: currentProfile?.id ?? null
         }
       });
-      Mixpanel.track(PAGINATION.PROFILE_FEED, { pageInfo });
+      Mixpanel.track(PAGINATION.PROFILE_FEED);
     }
   });
 

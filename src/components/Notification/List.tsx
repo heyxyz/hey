@@ -173,7 +173,7 @@ const List: FC = () => {
           }
         }
       });
-      Mixpanel.track(PAGINATION.NOTIFICATION_FEED, { pageInfo });
+      Mixpanel.track(PAGINATION.NOTIFICATION_FEED);
     }
   });
 

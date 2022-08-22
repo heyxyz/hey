@@ -53,7 +53,7 @@ const Following: FC<Props> = ({ profile }) => {
           }
         }
       });
-      Mixpanel.track(PAGINATION.FOLLOWING, { pageInfo });
+      Mixpanel.track(PAGINATION.FOLLOWING);
     }
   });
 
