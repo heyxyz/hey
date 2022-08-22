@@ -32,7 +32,9 @@ jobs:
           key: ${{ runner.os }}-build-${{ env.cache-name }}
 
       - name: Build next.js app
-        run: yarn build
+        run: |
+          cp .env.example .env
+          yarn build
         env:
           SENTRY_AUTH_TOKEN: $SENTRY_AUTH_TOKEN
 
