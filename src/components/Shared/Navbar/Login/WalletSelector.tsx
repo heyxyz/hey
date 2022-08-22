@@ -115,7 +115,6 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
         setProfiles(profiles);
         setCurrentProfile(currentProfile);
         setProfileId(currentProfile.id);
-        Mixpanel.identify(currentProfile.id);
         Mixpanel.people.set({
           address: currentProfile?.ownedBy,
           $name: currentProfile?.handle

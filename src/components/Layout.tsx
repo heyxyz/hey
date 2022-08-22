@@ -1,7 +1,6 @@
 import { gql, useQuery } from '@apollo/client';
 import { Profile } from '@generated/types';
 import { ProfileFields } from '@gql/ProfileFields';
-import { Mixpanel } from '@lib/mixpanel';
 import Cookies from 'js-cookie';
 import mixpanel from 'mixpanel-browser';
 import Head from 'next/head';
@@ -92,11 +91,6 @@ const Layout: FC<Props> = ({ children }) => {
 
     // Set mounted state to true after the first render
     setMounted(true);
-
-    // Set mixpanel user id
-    if (!profileId) {
-      Mixpanel.identify('0x00');
-    }
 
     if (
       (hasSameAddress || // If the current address is not the same as the profile address
