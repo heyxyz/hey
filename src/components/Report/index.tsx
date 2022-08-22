@@ -123,7 +123,9 @@ const Report: FC = () => {
                   error={{ name: '', message: 'No such publication' }}
                 />
               ) : (
-                <SinglePublication publication={data?.publication} />
+                <Card>
+                  <SinglePublication publication={data?.publication} />
+                </Card>
               )}
               {data?.publication && (
                 <Form
