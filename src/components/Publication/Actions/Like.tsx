@@ -5,6 +5,7 @@ import { HeartIcon } from '@heroicons/react/outline';
 import { HeartIcon as HeartIconSolid } from '@heroicons/react/solid';
 import humanize from '@lib/humanize';
 import { Mixpanel } from '@lib/mixpanel';
+import onError from '@lib/onError';
 import { motion } from 'framer-motion';
 import { FC, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
@@ -56,8 +57,7 @@ const Like: FC<Props> = ({ publication }) => {
     onError: (error) => {
       setLiked(!liked);
       setCount(count - 1);
-      toast.error(error.message);
-      Mixpanel.track(PUBLICATION.LIKE, { result: 'error' });
+      onError(error);
     }
   });
 
@@ -68,8 +68,7 @@ const Like: FC<Props> = ({ publication }) => {
     onError: (error) => {
       setLiked(!liked);
       setCount(count + 1);
-      toast.error(error.message);
-      Mixpanel.track(PUBLICATION.DISLIKE, { result: 'error' });
+      onError(error);
     }
   });
 
