@@ -185,11 +185,10 @@ const FollowModule: FC<Props> = ({ profile, setFollowing, setShowFollowModal, ag
           setUserSigNonce(userSigNonce + 1);
           if (RELAY_ON) {
             const {
-              data: { broadcast: result },
-              errors
+              data: { broadcast: result }
             } = await broadcast({ request: { id, signature } });
 
-            if ('reason' in result || errors) {
+            if ('reason' in result) {
               write?.({ recklesslySetUnpreparedArgs: inputStruct });
             }
           } else {
