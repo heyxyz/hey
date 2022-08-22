@@ -1,5 +1,6 @@
 import { ApolloClient, ApolloLink, HttpLink, InMemoryCache } from '@apollo/client';
 import result from '@generated/types';
+import { cursorBasedPagination } from '@lib/cursorBasedPagination';
 import axios from 'axios';
 import Cookies, { CookieAttributes } from 'js-cookie';
 import jwtDecode from 'jwt-decode';
@@ -73,7 +74,18 @@ const authLink = new ApolloLink((operation, forward) => {
   return forward(operation);
 });
 
-const cache = new InMemoryCache({ possibleTypes: result.possibleTypes });
+const cache = new InMemoryCache({
+  possibleTypes: result.possibleTypes,
+  typePolicies: {
+    Query: {
+      fields: {
+        timeline: cursorBasedPagination(['request', ['profileId']]),
+        explorePublications: cursorBasedPagination(['request', ['sortCriteria']]),
+        publications: cursorBasedPagination(['request', ['profileId', 'commentsOf', 'publicationTypes']])
+      }
+    }
+  }
+});
 
 const client = new ApolloClient({
   link: authLink.concat(httpLink),
