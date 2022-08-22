@@ -121,7 +121,7 @@ const ViewPublication: NextPage = () => {
   }
 
   const publication: LensterPublication = data.publication;
-  const appConfig = apps.filter((e) => e.id === publication?.appId)[0];
+  const appConfig = apps.find((e) => e.id === publication?.appId);
 
   return (
     <GridLayout>
