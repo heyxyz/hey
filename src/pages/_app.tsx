@@ -5,7 +5,7 @@ import type { AppProps } from 'next/app';
 import dynamic from 'next/dynamic';
 import { Suspense } from 'react';
 
-const Providers = dynamic(() => import('./Providers'), { suspense: true });
+const Providers = dynamic(() => import('@components/Providers'), { suspense: true });
 const Layout = dynamic(() => import('@components/Layout'), { suspense: true });
 
 const App = ({ Component, pageProps }: AppProps) => {
