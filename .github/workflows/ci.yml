@@ -68,7 +68,7 @@ jobs:
           path: .next/cache
           key: ${{ runner.os }}-build-${{ env.cache-name }}
 
-      - name: Lint codebase
+      - name: Build codebase
         run: yarn build
         env:
           SENTRY_AUTH_TOKEN: '${{ secrets.SENTRY_AUTH_TOKEN }}'
