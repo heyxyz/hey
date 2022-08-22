@@ -7,7 +7,7 @@ import { Spinner } from '@components/UI/Spinner';
 import { WarningMessage } from '@components/UI/WarningMessage';
 import { LensterFollowModule } from '@generated/lenstertypes';
 import { CreateFollowBroadcastItemResult, FeeFollowModuleSettings, Profile } from '@generated/types';
-import { BROADCAST_MUTATION } from '@gql/BroadcastMutation';
+import { BROADCAST_MUTATION } from '@gql/Broadcast';
 import { StarIcon, UserIcon } from '@heroicons/react/outline';
 import formatAddress from '@lib/formatAddress';
 import getSignature from '@lib/getSignature';

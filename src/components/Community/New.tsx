@@ -12,7 +12,7 @@ import { Spinner } from '@components/UI/Spinner';
 import { TextArea } from '@components/UI/TextArea';
 import Seo from '@components/utils/Seo';
 import { CreatePostBroadcastItemResult } from '@generated/types';
-import { BROADCAST_MUTATION } from '@gql/BroadcastMutation';
+import { BROADCAST_MUTATION } from '@gql/Broadcast';
 import { CREATE_POST_TYPED_DATA_MUTATION } from '@gql/TypedAndDispatcherData/CreatePost';
 import { PlusIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
