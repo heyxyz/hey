@@ -78,7 +78,7 @@ const Layout: FC<Props> = ({ children }) => {
       } else {
         const selectedUser = profiles.find((profile) => profile.id === profileId);
         setProfiles(profiles);
-        setCurrentProfile(selectedUser);
+        setCurrentProfile(selectedUser as Profile);
       }
     }
   });
@@ -108,7 +108,7 @@ const Layout: FC<Props> = ({ children }) => {
     ) {
       setIsAuthenticated(false);
       setIsConnected(false);
-      setCurrentProfile(undefined);
+      setCurrentProfile(null);
       setProfileId(null);
       Cookies.remove('accessToken');
       Cookies.remove('refreshToken');
