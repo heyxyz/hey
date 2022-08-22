@@ -2411,9 +2411,9 @@
     buffer "~6.0.3"
 
 "@solana/wallet-adapter-base@^0.9.2":
-  version "0.9.14"
-  resolved "https://registry.yarnpkg.com/@solana/wallet-adapter-base/-/wallet-adapter-base-0.9.14.tgz#6039020eefeff527583c4bcf287f2c2efb570225"
-  integrity sha512-LdTN62dwez09C5TJzrKcPqMzJfwTaTqmaSZSrZl6mLa4G+pWAQbew6UelVvv8/dAVja/ukOc1+LM8MqTP1KehQ==
+  version "0.9.15"
+  resolved "https://registry.yarnpkg.com/@solana/wallet-adapter-base/-/wallet-adapter-base-0.9.15.tgz#3d88871226435432c69c788701ab21cec279de42"
+  integrity sha512-IZp02Egb4vOueBnPY3Hf2PRqsbBjLZyNOImq956J3OEtIRPSWbq+6TKMQ1OrSOI3g9mvccY7QjbtvJEwTQBY2w==
   dependencies:
     eventemitter3 "^4.0.0"
 
@@ -3920,9 +3920,9 @@ camelcase@^5.0.0:
   integrity sha512-L28STB170nwWS63UjtlEOE3dldQApaJXZkOI1uMFfzf3rRuPegHaHesyee+YxQ+W6SvRDQV6UrdOdRiR153wJg==
 
 caniuse-lite@^1.0.30001332, caniuse-lite@^1.0.30001370, caniuse-lite@^1.0.30001373:
-  version "1.0.30001380"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001380.tgz#6f2427ad8ebee1b400a38ca3560515756ba352bb"
-  integrity sha512-OO+pPubxx16lkI7TVrbFpde8XHz66SMwstl1YWpg6uMGw56XnhYVwtPIjvX4kYpzwMwQKr4DDce394E03dQPGg==
+  version "1.0.30001381"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001381.tgz#e62955310e6e69cdf4b40bc5bc0895aa24bc4b8b"
+  integrity sha512-fEnkDOKpvp6qc+olg7+NzE1SqyfiyKf4uci7fAU38M3zxs0YOyKOxW/nMZ2l9sJbt7KZHcDIxUnbI0Iime7V4w==
 
 capability@^0.2.5:
   version "0.2.5"
