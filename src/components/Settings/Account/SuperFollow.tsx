@@ -6,8 +6,8 @@ import { Card } from '@components/UI/Card';
 import { Form, useZodForm } from '@components/UI/Form';
 import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
+import useBroadcast from '@components/utils/hooks/useBroadcast';
 import { CreateSetFollowModuleBroadcastItemResult, Erc20 } from '@generated/types';
-import { BROADCAST_MUTATION } from '@gql/Broadcast';
 import { StarIcon, XIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
 import getTokenImage from '@lib/getTokenImage';
@@ -19,7 +19,6 @@ import {
   ADDRESS_REGEX,
   DEFAULT_COLLECT_TOKEN,
   ERROR_MESSAGE,
-  ERRORS,
   LENSHUB_PROXY,
   RELAY_ON,
   SIGN_WALLET
@@ -136,18 +135,15 @@ const SuperFollow: FC = () => {
     }
   });
 
-  const [broadcast, { data: broadcastData, loading: broadcastLoading }] = useMutation(BROADCAST_MUTATION, {
-    onCompleted,
-    onError: (error) => {
-      if (error.message === ERRORS.notMined) {
-        toast.error(error.message);
-      }
-      Mixpanel.track(SETTINGS.ACCOUNT.SET_SUPER_FOLLOW, {
-        result: 'broadcast_error',
-        error: error?.message
-      });
-    }
+  const {
+    broadcast,
+    data: broadcastData,
+    loading: broadcastLoading
+  } = useBroadcast({
+    trackingString: SETTINGS.ACCOUNT.SET_SUPER_FOLLOW,
+    onCompleted
   });
+
   const [createSetFollowModuleTypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_SET_FOLLOW_MODULE_TYPED_DATA_MUTATION,
     {
@@ -173,7 +169,7 @@ const SuperFollow: FC = () => {
           if (RELAY_ON) {
             const {
               data: { broadcast: result }
-            } = await broadcast({ variables: { request: { id, signature } } });
+            } = await broadcast({ request: { id, signature } });
 
             if ('reason' in result) {
               write?.({ recklesslySetUnpreparedArgs: inputStruct });

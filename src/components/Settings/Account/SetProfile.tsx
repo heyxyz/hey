@@ -6,8 +6,8 @@ import { Button } from '@components/UI/Button';
 import { Card, CardBody } from '@components/UI/Card';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
+import useBroadcast from '@components/utils/hooks/useBroadcast';
 import { Profile, SetDefaultProfileBroadcastItemResult } from '@generated/types';
-import { BROADCAST_MUTATION } from '@gql/Broadcast';
 import { CREATE_SET_DEFAULT_PROFILE_DATA_MUTATION } from '@gql/TypedAndDispatcherData/CreateSetDefaultProfile';
 import { ExclamationIcon, PencilIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
@@ -15,7 +15,7 @@ import { Mixpanel } from '@lib/mixpanel';
 import splitSignature from '@lib/splitSignature';
 import React, { FC, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import { APP_NAME, ERROR_MESSAGE, ERRORS, LENSHUB_PROXY, RELAY_ON, SIGN_WALLET } from 'src/constants';
+import { APP_NAME, ERROR_MESSAGE, LENSHUB_PROXY, RELAY_ON, SIGN_WALLET } from 'src/constants';
 import Custom404 from 'src/pages/404';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { SETTINGS } from 'src/tracking';
@@ -71,17 +71,13 @@ const SetProfile: FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const [broadcast, { data: broadcastData, loading: broadcastLoading }] = useMutation(BROADCAST_MUTATION, {
-    onCompleted,
-    onError: (error) => {
-      if (error.message === ERRORS.notMined) {
-        toast.error(error.message);
-      }
-      Mixpanel.track(SETTINGS.ACCOUNT.SET_DEFAULT_PROFILE, {
-        result: 'broadcast_error',
-        error: error?.message
-      });
-    }
+  const {
+    broadcast,
+    data: broadcastData,
+    loading: broadcastLoading
+  } = useBroadcast({
+    trackingString: SETTINGS.ACCOUNT.SET_DEFAULT_PROFILE,
+    onCompleted
   });
 
   const [createSetDefaultProfileTypedData, { loading: typedDataLoading }] = useMutation(
@@ -109,7 +105,7 @@ const SetProfile: FC = () => {
           if (RELAY_ON) {
             const {
               data: { broadcast: result }
-            } = await broadcast({ variables: { request: { id, signature } } });
+            } = await broadcast({ request: { id, signature } });
 
             if ('reason' in result) {
               write?.({ recklesslySetUnpreparedArgs: inputStruct });

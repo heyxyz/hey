@@ -6,8 +6,8 @@ import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Form, useZodForm } from '@components/UI/Form';
 import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
+import useBroadcast from '@components/utils/hooks/useBroadcast';
 import { CreateSetProfileImageUriBroadcastItemResult, NftImage, Profile } from '@generated/types';
-import { BROADCAST_MUTATION } from '@gql/Broadcast';
 import {
   CREATE_SET_PROFILE_IMAGE_URI_TYPED_DATA_MUTATION,
   CREATE_SET_PROFILE_IMAGE_URI_VIA_DISPATHCER_MUTATION
@@ -22,7 +22,6 @@ import toast from 'react-hot-toast';
 import {
   ADDRESS_REGEX,
   ERROR_MESSAGE,
-  ERRORS,
   IS_MAINNET,
   LENSHUB_PROXY,
   RELAY_ON,
@@ -104,19 +103,13 @@ const NFTPicture: FC<Props> = ({ profile }) => {
   });
 
   const [loadChallenge, { loading: challengeLoading }] = useLazyQuery(CHALLENGE_QUERY);
-  const [broadcast, { data: broadcastData, loading: broadcastLoading }] = useMutation(BROADCAST_MUTATION, {
-    onCompleted: () => {
-      onCompleted();
-    },
-    onError: (error) => {
-      if (error.message === ERRORS.notMined) {
-        toast.error(error.message);
-      }
-      Mixpanel.track(SETTINGS.PROFILE.SET_NFT_PICTURE, {
-        result: 'broadcast_error',
-        error: error?.message
-      });
-    }
+  const {
+    broadcast,
+    data: broadcastData,
+    loading: broadcastLoading
+  } = useBroadcast({
+    trackingString: SETTINGS.PROFILE.SET_NFT_PICTURE,
+    onCompleted
   });
 
   const [createSetProfileImageURITypedData, { loading: typedDataLoading }] = useMutation(
@@ -143,7 +136,7 @@ const NFTPicture: FC<Props> = ({ profile }) => {
           if (RELAY_ON) {
             const {
               data: { broadcast: result }
-            } = await broadcast({ variables: { request: { id, signature } } });
+            } = await broadcast({ request: { id, signature } });
 
             if ('reason' in result) {
               write?.({ recklesslySetUnpreparedArgs: inputStruct });

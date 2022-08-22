@@ -3,8 +3,8 @@ import { useMutation } from '@apollo/client';
 import IndexStatus from '@components/Shared/IndexStatus';
 import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
+import useBroadcast from '@components/utils/hooks/useBroadcast';
 import { CreateSetDispatcherBroadcastItemResult } from '@generated/types';
-import { BROADCAST_MUTATION } from '@gql/Broadcast';
 import { CREATE_SET_DISPATCHER_TYPED_DATA_MUTATION } from '@gql/TypedAndDispatcherData/CreateSetDispatcher';
 import { CheckCircleIcon, XIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
@@ -13,7 +13,7 @@ import splitSignature from '@lib/splitSignature';
 import clsx from 'clsx';
 import { FC } from 'react';
 import toast from 'react-hot-toast';
-import { ERROR_MESSAGE, ERRORS, LENSHUB_PROXY, RELAY_ON } from 'src/constants';
+import { ERROR_MESSAGE, LENSHUB_PROXY, RELAY_ON } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { SETTINGS } from 'src/tracking';
 import { useContractWrite, useSignTypedData } from 'wagmi';
@@ -60,17 +60,13 @@ const ToggleDispatcher: FC<Props> = ({ buttonSize = 'md' }) => {
     }
   });
 
-  const [broadcast, { data: broadcastData, loading: broadcastLoading }] = useMutation(BROADCAST_MUTATION, {
-    onCompleted,
-    onError: (error) => {
-      if (error.message === ERRORS.notMined) {
-        toast.error(error.message);
-      }
-      Mixpanel.track(SETTINGS.DISPATCHER.TOGGLE, {
-        result: 'broadcast_error',
-        error: error?.message
-      });
-    }
+  const {
+    broadcast,
+    data: broadcastData,
+    loading: broadcastLoading
+  } = useBroadcast({
+    trackingString: SETTINGS.DISPATCHER.TOGGLE,
+    onCompleted
   });
 
   const [createSetProfileMetadataTypedData, { loading: typedDataLoading }] = useMutation(
@@ -97,7 +93,7 @@ const ToggleDispatcher: FC<Props> = ({ buttonSize = 'md' }) => {
           if (RELAY_ON) {
             const {
               data: { broadcast: result }
-            } = await broadcast({ variables: { request: { id, signature } } });
+            } = await broadcast({ request: { id, signature } });
 
             if ('reason' in result) {
               write?.({ recklesslySetUnpreparedArgs: inputStruct });

@@ -10,8 +10,8 @@ import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
 import { TextArea } from '@components/UI/TextArea';
 import { Toggle } from '@components/UI/Toggle';
+import useBroadcast from '@components/utils/hooks/useBroadcast';
 import { CreateSetProfileMetadataUriBroadcastItemResult, MediaSet, Profile } from '@generated/types';
-import { BROADCAST_MUTATION } from '@gql/Broadcast';
 import {
   CREATE_SET_PROFILE_METADATA_TYPED_DATA_MUTATION,
   CREATE_SET_PROFILE_METADATA_VIA_DISPATHCER_MUTATION
@@ -28,15 +28,7 @@ import uploadMediaToIPFS from '@lib/uploadMediaToIPFS';
 import uploadToArweave from '@lib/uploadToArweave';
 import React, { ChangeEvent, FC, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import {
-  APP_NAME,
-  ERROR_MESSAGE,
-  ERRORS,
-  LENS_PERIPHERY,
-  RELAY_ON,
-  SIGN_WALLET,
-  URL_REGEX
-} from 'src/constants';
+import { APP_NAME, ERROR_MESSAGE, LENS_PERIPHERY, RELAY_ON, SIGN_WALLET, URL_REGEX } from 'src/constants';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { SETTINGS } from 'src/tracking';
 import { v4 as uuid } from 'uuid';
@@ -108,17 +100,13 @@ const Profile: FC<Props> = ({ profile }) => {
     }
   });
 
-  const [broadcast, { data: broadcastData, loading: broadcastLoading }] = useMutation(BROADCAST_MUTATION, {
-    onCompleted,
-    onError: (error) => {
-      if (error.message === ERRORS.notMined) {
-        toast.error(error.message);
-      }
-      Mixpanel.track(SETTINGS.PROFILE.UPDATE, {
-        result: 'broadcast_error',
-        error: error?.message
-      });
-    }
+  const {
+    broadcast,
+    data: broadcastData,
+    loading: broadcastLoading
+  } = useBroadcast({
+    trackingString: SETTINGS.PROFILE.UPDATE,
+    onCompleted
   });
 
   const [createSetProfileMetadataTypedData, { loading: typedDataLoading }] = useMutation(
@@ -146,7 +134,7 @@ const Profile: FC<Props> = ({ profile }) => {
           if (RELAY_ON) {
             const {
               data: { broadcast: result }
-            } = await broadcast({ variables: { request: { id, signature } } });
+            } = await broadcast({ request: { id, signature } });
 
             if ('reason' in result) {
               write?.({ recklesslySetUnpreparedArgs: inputStruct });
