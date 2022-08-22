@@ -43,7 +43,11 @@ const Title = () => {
 };
 
 const RecommendedProfiles: FC = () => {
-  const { data, loading, error } = useQuery(RECOMMENDED_PROFILES_QUERY);
+  const currentProfile = useAppStore((state) => state.currentProfile);
+  const { data, loading, error } = useQuery(RECOMMENDED_PROFILES_QUERY, {
+    variables: { profileId: currentProfile?.id ?? null }, // TODO: remove this fake variable
+    fetchPolicy: 'no-cache'
+  });
 
   if (loading) {
     return (
