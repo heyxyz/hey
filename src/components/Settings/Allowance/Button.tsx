@@ -7,6 +7,7 @@ import { ApprovedAllowanceAmount } from '@generated/types';
 import { ExclamationIcon, MinusIcon, PlusIcon } from '@heroicons/react/outline';
 import { getModule } from '@lib/getModule';
 import { Mixpanel } from '@lib/mixpanel';
+import onError from '@lib/onError';
 import React, { Dispatch, FC, useState } from 'react';
 import toast from 'react-hot-toast';
 import { usePrepareSendTransaction, useSendTransaction, useWaitForTransaction } from 'wagmi';
@@ -43,9 +44,7 @@ const AllowanceButton: FC<Props> = ({ title = 'Allow', module, allowed, setAllow
   } = useSendTransaction({
     ...config,
     mode: 'recklesslyUnprepared',
-    onError: (error: any) => {
-      toast.error(error?.data?.message ?? error?.message);
-    }
+    onError
   });
 
   const { isLoading: waitLoading } = useWaitForTransaction({
@@ -54,13 +53,9 @@ const AllowanceButton: FC<Props> = ({ title = 'Allow', module, allowed, setAllow
       toast.success(`Module ${allowed ? 'disabled' : 'enabled'} successfully!`);
       setShowWarninModal(false);
       setAllowed(!allowed);
-      Mixpanel.track(`Module ${allowed ? 'disabled' : 'enabled'}`, {
-        result: 'success'
-      });
+      Mixpanel.track(`Module ${allowed ? 'disabled' : 'enabled'}`);
     },
-    onError: (error: any) => {
-      toast.error(error?.data?.message ?? error?.message);
-    }
+    onError
   });
 
   const handleAllowance = (currencies: string, value: string, selectedModule: string) => {

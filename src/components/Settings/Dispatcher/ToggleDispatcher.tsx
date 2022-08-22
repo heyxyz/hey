@@ -9,11 +9,12 @@ import { CREATE_SET_DISPATCHER_TYPED_DATA_MUTATION } from '@gql/TypedAndDispatch
 import { CheckCircleIcon, XIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
 import { Mixpanel } from '@lib/mixpanel';
+import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import clsx from 'clsx';
 import { FC } from 'react';
 import toast from 'react-hot-toast';
-import { ERROR_MESSAGE, LENSHUB_PROXY, RELAY_ON } from 'src/constants';
+import { LENSHUB_PROXY, RELAY_ON } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { SETTINGS } from 'src/tracking';
 import { useContractWrite, useSignTypedData } from 'wagmi';
@@ -30,18 +31,10 @@ const ToggleDispatcher: FC<Props> = ({ buttonSize = 'md' }) => {
 
   const onCompleted = () => {
     toast.success('Profile updated successfully!');
-    Mixpanel.track(SETTINGS.DISPATCHER.TOGGLE, { result: 'success' });
+    Mixpanel.track(SETTINGS.DISPATCHER.TOGGLE);
   };
 
-  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
-    onError: (error) => {
-      toast.error(error?.message);
-      Mixpanel.track(SETTINGS.DISPATCHER.TOGGLE, {
-        result: 'typed_data_error',
-        error: error?.message
-      });
-    }
-  });
+  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
 
   const {
     data: writeData,
@@ -52,23 +45,11 @@ const ToggleDispatcher: FC<Props> = ({ buttonSize = 'md' }) => {
     contractInterface: LensHubProxy,
     functionName: 'setDispatcherWithSig',
     mode: 'recklesslyUnprepared',
-    onSuccess: () => {
-      onCompleted();
-    },
-    onError: (error: any) => {
-      toast.error(error?.data?.message ?? error?.message);
-    }
+    onSuccess: onCompleted,
+    onError
   });
 
-  const {
-    broadcast,
-    data: broadcastData,
-    loading: broadcastLoading
-  } = useBroadcast({
-    trackingString: SETTINGS.DISPATCHER.TOGGLE,
-    onCompleted
-  });
-
+  const { broadcast, data: broadcastData, loading: broadcastLoading } = useBroadcast({ onCompleted });
   const [createSetProfileMetadataTypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_SET_DISPATCHER_TYPED_DATA_MUTATION,
     {
@@ -103,9 +84,7 @@ const ToggleDispatcher: FC<Props> = ({ buttonSize = 'md' }) => {
           }
         } catch {}
       },
-      onError: (error) => {
-        toast.error(error.message ?? ERROR_MESSAGE);
-      }
+      onError
     }
   );
 

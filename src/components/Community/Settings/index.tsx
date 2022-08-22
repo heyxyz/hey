@@ -17,7 +17,7 @@ const Settings: FC<Props> = ({ community }) => {
   const { push } = useRouter();
   const [hidePost] = useMutation(HIDE_POST_MUTATION, {
     onCompleted: () => {
-      Mixpanel.track(COMMUNITY.SETTINGS.DELETE, { result: 'success' });
+      Mixpanel.track(COMMUNITY.SETTINGS.DELETE);
       push('/');
     }
   });

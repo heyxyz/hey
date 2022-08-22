@@ -11,10 +11,11 @@ import { CreateCollectBroadcastItemResult } from '@generated/types';
 import { CashIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
 import { Mixpanel } from '@lib/mixpanel';
+import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import React, { Dispatch, FC, useState } from 'react';
 import toast from 'react-hot-toast';
-import { CONNECT_WALLET, ERROR_MESSAGE, LENSHUB_PROXY, RELAY_ON } from 'src/constants';
+import { CONNECT_WALLET, LENSHUB_PROXY, RELAY_ON } from 'src/constants';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { CROWDFUND } from 'src/tracking';
 import { useAccount, useBalance, useContractWrite, useSignTypedData } from 'wagmi';
@@ -64,15 +65,7 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
   const isConnected = useAppPersistStore((state) => state.isConnected);
   const [allowed, setAllowed] = useState(true);
   const { address } = useAccount();
-  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
-    onError: (error) => {
-      toast.error(error?.message);
-      Mixpanel.track(CROWDFUND.FUND, {
-        result: 'typed_data_error',
-        error: error?.message
-      });
-    }
-  });
+  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
   const { data: balanceData, isLoading: balanceLoading } = useBalance({
     addressOrName: address,
     token: collectModule?.amount?.asset?.address,
@@ -105,7 +98,7 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
   const onCompleted = () => {
     setRevenue(revenue + parseFloat(collectModule?.amount?.value));
     toast.success('Transaction submitted successfully!');
-    Mixpanel.track(CROWDFUND.FUND, { result: 'success' });
+    Mixpanel.track(CROWDFUND.FUND);
   };
 
   const {
@@ -117,23 +110,11 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
     contractInterface: LensHubProxy,
     functionName: 'collectWithSig',
     mode: 'recklesslyUnprepared',
-    onSuccess: () => {
-      onCompleted();
-    },
-    onError: (error: any) => {
-      toast.error(error?.data?.message ?? error?.message);
-    }
+    onSuccess: onCompleted,
+    onError
   });
 
-  const {
-    broadcast,
-    data: broadcastData,
-    loading: broadcastLoading
-  } = useBroadcast({
-    trackingString: CROWDFUND.FUND,
-    onCompleted
-  });
-
+  const { broadcast, data: broadcastData, loading: broadcastLoading } = useBroadcast({ onCompleted });
   const [createCollectTypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_COLLECT_TYPED_DATA_MUTATION,
     {
@@ -170,9 +151,7 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
           }
         } catch {}
       },
-      onError: (error) => {
-        toast.error(error.message ?? ERROR_MESSAGE);
-      }
+      onError
     }
   );
 

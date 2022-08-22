@@ -20,6 +20,7 @@ import getSignature from '@lib/getSignature';
 import getTokenImage from '@lib/getTokenImage';
 import imagekitURL from '@lib/imagekitURL';
 import { Mixpanel } from '@lib/mixpanel';
+import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import uploadMediaToIPFS from '@lib/uploadMediaToIPFS';
 import uploadToArweave from '@lib/uploadToArweave';
@@ -30,7 +31,6 @@ import {
   ADDRESS_REGEX,
   APP_NAME,
   DEFAULT_COLLECT_TOKEN,
-  ERROR_MESSAGE,
   LENSHUB_PROXY,
   RELAY_ON,
   SIGN_WALLET
@@ -87,18 +87,10 @@ const NewCrowdfund: NextPage = () => {
   }, []);
 
   const onCompleted = () => {
-    Mixpanel.track(CROWDFUND.NEW, { result: 'success' });
+    Mixpanel.track(CROWDFUND.NEW);
   };
 
-  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
-    onError: (error) => {
-      toast.error(error?.message);
-      Mixpanel.track(CROWDFUND.NEW, {
-        result: 'typed_data_error',
-        error: error?.message
-      });
-    }
-  });
+  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
   const { data: currencyData, loading } = useQuery(MODULES_CURRENCY_QUERY);
 
   const {
@@ -110,12 +102,8 @@ const NewCrowdfund: NextPage = () => {
     contractInterface: LensHubProxy,
     functionName: 'postWithSig',
     mode: 'recklesslyUnprepared',
-    onSuccess: () => {
-      onCompleted();
-    },
-    onError: (error: any) => {
-      toast.error(error?.data?.message ?? error?.message);
-    }
+    onSuccess: onCompleted,
+    onError
   });
 
   const form = useZodForm({
@@ -139,15 +127,7 @@ const NewCrowdfund: NextPage = () => {
     }
   };
 
-  const {
-    broadcast,
-    data: broadcastData,
-    loading: broadcastLoading
-  } = useBroadcast({
-    trackingString: CROWDFUND.NEW,
-    onCompleted
-  });
-
+  const { broadcast, data: broadcastData, loading: broadcastLoading } = useBroadcast({ onCompleted });
   const [createPostTypedData, { loading: typedDataLoading }] = useMutation(CREATE_POST_TYPED_DATA_MUTATION, {
     onCompleted: async ({ createPostTypedData }: { createPostTypedData: CreatePostBroadcastItemResult }) => {
       try {
@@ -188,9 +168,7 @@ const NewCrowdfund: NextPage = () => {
         }
       } catch {}
     },
-    onError: (error) => {
-      toast.error(error.message ?? ERROR_MESSAGE);
-    }
+    onError
   });
 
   const createCrowdfund = async (

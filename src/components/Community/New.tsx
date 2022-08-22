@@ -17,13 +17,14 @@ import { CREATE_POST_TYPED_DATA_MUTATION } from '@gql/TypedAndDispatcherData/Cre
 import { PlusIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
 import { Mixpanel } from '@lib/mixpanel';
+import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import uploadMediaToIPFS from '@lib/uploadMediaToIPFS';
 import uploadToArweave from '@lib/uploadToArweave';
 import { NextPage } from 'next';
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import { APP_NAME, ERROR_MESSAGE, LENSHUB_PROXY, RELAY_ON, SIGN_WALLET } from 'src/constants';
+import { APP_NAME, LENSHUB_PROXY, RELAY_ON, SIGN_WALLET } from 'src/constants';
 import Custom404 from 'src/pages/404';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { COMMUNITY, PAGEVIEW } from 'src/tracking';
@@ -49,22 +50,14 @@ const NewCommunity: NextPage = () => {
   const [avatarType, setAvatarType] = useState('');
   const [isUploading, setIsUploading] = useState(false);
   const [uploading, setUploading] = useState(false);
-  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
-    onError: (error) => {
-      toast.error(error?.message);
-      Mixpanel.track(COMMUNITY.NEW, {
-        result: 'typed_data_error',
-        error: error?.message
-      });
-    }
-  });
+  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
 
   useEffect(() => {
     Mixpanel.track(PAGEVIEW.CREATE_COMMUNITY);
   }, []);
 
   const onCompleted = () => {
-    Mixpanel.track(COMMUNITY.NEW, { result: 'success' });
+    Mixpanel.track(COMMUNITY.NEW);
   };
 
   const {
@@ -76,12 +69,8 @@ const NewCommunity: NextPage = () => {
     contractInterface: LensHubProxy,
     functionName: 'postWithSig',
     mode: 'recklesslyUnprepared',
-    onSuccess: () => {
-      onCompleted();
-    },
-    onError: (error: any) => {
-      toast.error(error?.data?.message ?? error?.message);
-    }
+    onSuccess: onCompleted,
+    onError
   });
 
   const form = useZodForm({
@@ -102,15 +91,7 @@ const NewCommunity: NextPage = () => {
     }
   };
 
-  const {
-    broadcast,
-    data: broadcastData,
-    loading: broadcastLoading
-  } = useBroadcast({
-    trackingString: COMMUNITY.NEW,
-    onCompleted
-  });
-
+  const { broadcast, data: broadcastData, loading: broadcastLoading } = useBroadcast({ onCompleted });
   const [createPostTypedData, { loading: typedDataLoading }] = useMutation(CREATE_POST_TYPED_DATA_MUTATION, {
     onCompleted: async ({ createPostTypedData }: { createPostTypedData: CreatePostBroadcastItemResult }) => {
       try {
@@ -151,9 +132,7 @@ const NewCommunity: NextPage = () => {
         }
       } catch {}
     },
-    onError: (error) => {
-      toast.error(error.message ?? ERROR_MESSAGE);
-    }
+    onError
   });
 
   const createCommunity = async (name: string, description: string | null) => {

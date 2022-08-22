@@ -35,11 +35,12 @@ import getSignature from '@lib/getSignature';
 import getTokenImage from '@lib/getTokenImage';
 import humanize from '@lib/humanize';
 import { Mixpanel } from '@lib/mixpanel';
+import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import dayjs from 'dayjs';
 import React, { Dispatch, FC, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import { CONNECT_WALLET, ERROR_MESSAGE, LENSHUB_PROXY, POLYGONSCAN_URL, RELAY_ON } from 'src/constants';
+import { CONNECT_WALLET, LENSHUB_PROXY, POLYGONSCAN_URL, RELAY_ON } from 'src/constants';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { PUBLICATION } from 'src/tracking';
 import { useAccount, useBalance, useContractWrite, useSignTypedData } from 'wagmi';
@@ -114,16 +115,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
   const [showCollectorsModal, setShowCollectorsModal] = useState(false);
   const [allowed, setAllowed] = useState(true);
   const { address } = useAccount();
-
-  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
-    onError: (error) => {
-      toast.error(error?.message);
-      Mixpanel.track(PUBLICATION.COLLECT_MODULE.COLLECT, {
-        result: 'typed_data_error',
-        error: error?.message
-      });
-    }
-  });
+  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
 
   const { data, loading } = useQuery(COLLECT_QUERY, {
     variables: {
@@ -137,9 +129,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
     setRevenue(revenue + parseFloat(collectModule?.amount?.value));
     setCount(count + 1);
     toast.success('Transaction submitted successfully!');
-    Mixpanel.track(PUBLICATION.COLLECT_MODULE.COLLECT, {
-      result: 'success'
-    });
+    Mixpanel.track(PUBLICATION.COLLECT_MODULE.COLLECT);
   };
 
   const {
@@ -151,12 +141,8 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
     contractInterface: LensHubProxy,
     functionName: 'collectWithSig',
     mode: 'recklesslyUnprepared',
-    onSuccess: () => {
-      onCompleted();
-    },
-    onError: (error: any) => {
-      toast.error(error?.data?.message ?? error?.message);
-    }
+    onSuccess: onCompleted,
+    onError
   });
 
   const percentageCollected = (count / parseInt(collectModule?.collectLimit)) * 100;
@@ -203,15 +189,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
     hasAmount = true;
   }
 
-  const {
-    broadcast,
-    data: broadcastData,
-    loading: broadcastLoading
-  } = useBroadcast({
-    trackingString: PUBLICATION.COLLECT_MODULE.COLLECT,
-    onCompleted
-  });
-
+  const { broadcast, data: broadcastData, loading: broadcastLoading } = useBroadcast({ onCompleted });
   const [createCollectTypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_COLLECT_TYPED_DATA_MUTATION,
     {
@@ -248,21 +226,13 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
           }
         } catch {}
       },
-      onError: (error) => {
-        toast.error(error.message ?? ERROR_MESSAGE);
-      }
+      onError
     }
   );
 
   const [createCollectProxyAction, { loading: proxyActionLoading }] = useMutation(PROXY_ACTION_MUTATION, {
     onCompleted,
-    onError: (error) => {
-      toast.error(error.message ?? ERROR_MESSAGE);
-      Mixpanel.track(PUBLICATION.COLLECT_MODULE.COLLECT, {
-        result: 'proxy_action_error',
-        error: error?.message
-      });
-    }
+    onError
   });
 
   const createCollect = () => {

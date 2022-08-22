@@ -8,10 +8,11 @@ import { PROXY_ACTION_MUTATION } from '@gql/ProxyAction';
 import { UserAddIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
 import { Mixpanel } from '@lib/mixpanel';
+import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import { Dispatch, FC } from 'react';
 import toast from 'react-hot-toast';
-import { CONNECT_WALLET, ERROR_MESSAGE, LENSHUB_PROXY, RELAY_ON } from 'src/constants';
+import { CONNECT_WALLET, LENSHUB_PROXY, RELAY_ON } from 'src/constants';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { PROFILE } from 'src/tracking';
 import { useAccount, useContractWrite, useSignTypedData } from 'wagmi';
@@ -58,20 +59,12 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
   const isConnected = useAppPersistStore((state) => state.isConnected);
   const { address } = useAccount();
 
-  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
-    onError: (error) => {
-      toast.error(error?.message);
-      Mixpanel.track(PROFILE.FOLLOW, {
-        result: 'typed_data_error',
-        error: error?.message
-      });
-    }
-  });
+  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
 
   const onCompleted = () => {
     setFollowing(true);
     toast.success('Followed successfully!');
-    Mixpanel.track(PROFILE.FOLLOW, { result: 'success' });
+    Mixpanel.track(PROFILE.FOLLOW);
   };
 
   const { isLoading: writeLoading, write } = useContractWrite({
@@ -79,19 +72,11 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
     contractInterface: LensHubProxy,
     functionName: 'followWithSig',
     mode: 'recklesslyUnprepared',
-    onSuccess: () => {
-      onCompleted();
-    },
-    onError: (error: any) => {
-      toast.error(error?.data?.message ?? error?.message);
-    }
+    onSuccess: onCompleted,
+    onError
   });
 
-  const { broadcast, loading: broadcastLoading } = useBroadcast({
-    trackingString: PROFILE.FOLLOW,
-    onCompleted
-  });
-
+  const { broadcast, loading: broadcastLoading } = useBroadcast({ onCompleted });
   const [createFollowTypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_FOLLOW_TYPED_DATA_MUTATION,
     {
@@ -128,21 +113,13 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
           }
         } catch {}
       },
-      onError: (error) => {
-        toast.error(error.message ?? ERROR_MESSAGE);
-      }
+      onError
     }
   );
 
   const [createFollowProxyAction, { loading: proxyActionLoading }] = useMutation(PROXY_ACTION_MUTATION, {
     onCompleted,
-    onError: (error) => {
-      toast.error(error.message ?? ERROR_MESSAGE);
-      Mixpanel.track(PROFILE.FOLLOW, {
-        result: 'proxy_action_error',
-        error: error?.message
-      });
-    }
+    onError
   });
 
   const createFollow = () => {
