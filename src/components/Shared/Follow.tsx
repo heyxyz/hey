@@ -146,6 +146,10 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
     onCompleted,
     onError: (error) => {
       toast.error(error.message ?? ERROR_MESSAGE);
+      Mixpanel.track(PROFILE.FOLLOW, {
+        result: 'proxy_action_error',
+        error: error?.message
+      });
     }
   });
 
