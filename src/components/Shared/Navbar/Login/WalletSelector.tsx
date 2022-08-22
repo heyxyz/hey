@@ -7,6 +7,7 @@ import { Profile } from '@generated/types';
 import { XCircleIcon } from '@heroicons/react/solid';
 import getWalletLogo from '@lib/getWalletLogo';
 import { Mixpanel } from '@lib/mixpanel';
+import onError from '@lib/onError';
 import clsx from 'clsx';
 import Cookies from 'js-cookie';
 import React, { Dispatch, FC, useEffect, useState } from 'react';
@@ -50,11 +51,7 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
   const { chain } = useNetwork();
   const { connectors, error, connectAsync } = useConnect();
   const { address, connector: activeConnector } = useAccount();
-  const { signMessageAsync, isLoading: signLoading } = useSignMessage({
-    onError: (error) => {
-      toast.error(error?.message);
-    }
-  });
+  const { signMessageAsync, isLoading: signLoading } = useSignMessage({ onError });
   const [loadChallenge, { error: errorChallenge, loading: challengeLoading }] = useLazyQuery(
     CHALLENGE_QUERY,
     {
@@ -125,7 +122,7 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
         });
       }
       setIsConnected(true);
-      Mixpanel.track(USER.SIWL, { result: 'success' });
+      Mixpanel.track(USER.SIWL);
     } catch (error) {
       console.log(error);
     }

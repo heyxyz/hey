@@ -12,10 +12,11 @@ import { CREATE_SET_DEFAULT_PROFILE_DATA_MUTATION } from '@gql/TypedAndDispatche
 import { ExclamationIcon, PencilIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
 import { Mixpanel } from '@lib/mixpanel';
+import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import React, { FC, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import { APP_NAME, ERROR_MESSAGE, LENSHUB_PROXY, RELAY_ON, SIGN_WALLET } from 'src/constants';
+import { APP_NAME, LENSHUB_PROXY, RELAY_ON, SIGN_WALLET } from 'src/constants';
 import Custom404 from 'src/pages/404';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { SETTINGS } from 'src/tracking';
@@ -28,19 +29,11 @@ const SetProfile: FC = () => {
   const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
   const [selectedUser, setSelectedUser] = useState('');
   const { address } = useAccount();
-  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
-    onError: (error) => {
-      toast.error(error?.message);
-      Mixpanel.track(SETTINGS.ACCOUNT.SET_DEFAULT_PROFILE, {
-        result: 'typed_data_error',
-        error: error?.message
-      });
-    }
-  });
+  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
 
   const onCompleted = () => {
     toast.success('Default profile updated successfully!');
-    Mixpanel.track(SETTINGS.ACCOUNT.SET_DEFAULT_PROFILE, { result: 'success' });
+    Mixpanel.track(SETTINGS.ACCOUNT.SET_DEFAULT_PROFILE);
   };
 
   const {
@@ -53,12 +46,8 @@ const SetProfile: FC = () => {
     contractInterface: LensHubProxy,
     functionName: 'setDefaultProfileWithSig',
     mode: 'recklesslyUnprepared',
-    onSuccess: () => {
-      onCompleted();
-    },
-    onError: (error: any) => {
-      toast.error(error?.data?.message ?? error?.message);
-    }
+    onSuccess: onCompleted,
+    onError
   });
 
   const hasDefaultProfile = !!profiles.find((o) => o.isDefault);
@@ -71,15 +60,7 @@ const SetProfile: FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const {
-    broadcast,
-    data: broadcastData,
-    loading: broadcastLoading
-  } = useBroadcast({
-    trackingString: SETTINGS.ACCOUNT.SET_DEFAULT_PROFILE,
-    onCompleted
-  });
-
+  const { broadcast, data: broadcastData, loading: broadcastLoading } = useBroadcast({ onCompleted });
   const [createSetDefaultProfileTypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_SET_DEFAULT_PROFILE_DATA_MUTATION,
     {
@@ -115,9 +96,7 @@ const SetProfile: FC = () => {
           }
         } catch {}
       },
-      onError: (error) => {
-        toast.error(error.message ?? ERROR_MESSAGE);
-      }
+      onError
     }
   );
 

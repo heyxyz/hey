@@ -65,7 +65,7 @@ const Report: FC = () => {
     CREATE_REPORT_PUBLICATION_MUTATION,
     {
       onCompleted: () => {
-        Mixpanel.track(PUBLICATION.REPORT, { result: 'success' });
+        Mixpanel.track(PUBLICATION.REPORT);
       }
     }
   );

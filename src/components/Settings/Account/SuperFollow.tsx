@@ -12,17 +12,11 @@ import { StarIcon, XIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
 import getTokenImage from '@lib/getTokenImage';
 import { Mixpanel } from '@lib/mixpanel';
+import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import React, { FC, useState } from 'react';
 import toast from 'react-hot-toast';
-import {
-  ADDRESS_REGEX,
-  DEFAULT_COLLECT_TOKEN,
-  ERROR_MESSAGE,
-  LENSHUB_PROXY,
-  RELAY_ON,
-  SIGN_WALLET
-} from 'src/constants';
+import { ADDRESS_REGEX, DEFAULT_COLLECT_TOKEN, LENSHUB_PROXY, RELAY_ON, SIGN_WALLET } from 'src/constants';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { SETTINGS } from 'src/tracking';
 import { useContractWrite, useSignTypedData } from 'wagmi';
@@ -91,24 +85,14 @@ const SuperFollow: FC = () => {
   const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
   const [selectedCurrency, setSelectedCurrency] = useState(DEFAULT_COLLECT_TOKEN);
   const [selectedCurrencySymobol, setSelectedCurrencySymobol] = useState('WMATIC');
-  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
-    onError: (error) => {
-      toast.error(error?.message);
-      Mixpanel.track(SETTINGS.ACCOUNT.SET_SUPER_FOLLOW, {
-        result: 'typed_data_error',
-        error: error?.message
-      });
-    }
-  });
+  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
   const { data: currencyData, loading } = useQuery(MODULES_CURRENCY_QUERY, {
     variables: { request: { profileId: currentProfile?.id } },
     skip: !currentProfile?.id
   });
 
   const onCompleted = () => {
-    Mixpanel.track(SETTINGS.ACCOUNT.SET_SUPER_FOLLOW, {
-      result: 'success'
-    });
+    Mixpanel.track(SETTINGS.ACCOUNT.SET_SUPER_FOLLOW);
   };
 
   const {
@@ -120,12 +104,8 @@ const SuperFollow: FC = () => {
     contractInterface: LensHubProxy,
     functionName: 'setFollowModuleWithSig',
     mode: 'recklesslyUnprepared',
-    onSuccess: () => {
-      onCompleted();
-    },
-    onError: (error: any) => {
-      toast.error(error?.data?.message ?? error?.message);
-    }
+    onSuccess: onCompleted,
+    onError
   });
 
   const form = useZodForm({
@@ -135,15 +115,7 @@ const SuperFollow: FC = () => {
     }
   });
 
-  const {
-    broadcast,
-    data: broadcastData,
-    loading: broadcastLoading
-  } = useBroadcast({
-    trackingString: SETTINGS.ACCOUNT.SET_SUPER_FOLLOW,
-    onCompleted
-  });
-
+  const { broadcast, data: broadcastData, loading: broadcastLoading } = useBroadcast({ onCompleted });
   const [createSetFollowModuleTypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_SET_FOLLOW_MODULE_TYPED_DATA_MUTATION,
     {
@@ -179,9 +151,7 @@ const SuperFollow: FC = () => {
           }
         } catch {}
       },
-      onError: (error) => {
-        toast.error(error.message ?? ERROR_MESSAGE);
-      }
+      onError
     }
   );
 

@@ -12,11 +12,12 @@ import { CreateBurnProfileBroadcastItemResult } from '@generated/types';
 import { ExclamationIcon, TrashIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
 import { Mixpanel } from '@lib/mixpanel';
+import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import Cookies from 'js-cookie';
 import React, { FC, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import { APP_NAME, ERROR_MESSAGE, LENSHUB_PROXY, SIGN_WALLET } from 'src/constants';
+import { APP_NAME, LENSHUB_PROXY, SIGN_WALLET } from 'src/constants';
 import Custom404 from 'src/pages/404';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { PAGEVIEW, SETTINGS } from 'src/tracking';
@@ -68,15 +69,7 @@ const DeleteSettings: FC = () => {
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
 
   const { disconnect } = useDisconnect();
-  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
-    onError: (error) => {
-      toast.error(error?.message);
-      Mixpanel.track(SETTINGS.DELETE, {
-        result: 'typed_data_error',
-        error: error?.message
-      });
-    }
-  });
+  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
 
   const onCompleted = () => {
     Mixpanel.track(SETTINGS.DELETE);
@@ -96,12 +89,8 @@ const DeleteSettings: FC = () => {
     contractInterface: LensHubProxy,
     functionName: 'burnWithSig',
     mode: 'recklesslyUnprepared',
-    onSuccess: () => {
-      onCompleted();
-    },
-    onError: (error: any) => {
-      toast.error(error?.data?.message ?? error?.message);
-    }
+    onSuccess: onCompleted,
+    onError
   });
 
   const [createBurnProfileTypedData, { loading: typedDataLoading }] = useMutation(
@@ -123,9 +112,7 @@ const DeleteSettings: FC = () => {
           write?.({ recklesslySetUnpreparedArgs: [tokenId, sig] });
         } catch {}
       },
-      onError: (error) => {
-        toast.error(error.message ?? ERROR_MESSAGE);
-      }
+      onError
     }
   );
 

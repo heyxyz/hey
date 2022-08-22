@@ -8,10 +8,11 @@ import { CreateCollectBroadcastItemResult } from '@generated/types';
 import { PlusIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
 import { Mixpanel } from '@lib/mixpanel';
+import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import React, { Dispatch, FC } from 'react';
 import toast from 'react-hot-toast';
-import { ERROR_MESSAGE, LENSHUB_PROXY, RELAY_ON, SIGN_WALLET } from 'src/constants';
+import { LENSHUB_PROXY, RELAY_ON, SIGN_WALLET } from 'src/constants';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { COMMUNITY } from 'src/tracking';
 import { useAccount, useContractWrite, useSignTypedData } from 'wagmi';
@@ -57,20 +58,12 @@ const Join: FC<Props> = ({ community, setJoined, showJoin = true }) => {
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
   const { address } = useAccount();
-  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
-    onError: (error) => {
-      toast.error(error?.message);
-      Mixpanel.track(COMMUNITY.JOIN, {
-        result: 'typed_data_error',
-        error: error?.message
-      });
-    }
-  });
+  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
 
   const onCompleted = () => {
     setJoined(true);
     toast.success('Joined successfully!');
-    Mixpanel.track(COMMUNITY.JOIN, { result: 'success' });
+    Mixpanel.track(COMMUNITY.JOIN);
   };
 
   const { isLoading: writeLoading, write } = useContractWrite({
@@ -78,19 +71,11 @@ const Join: FC<Props> = ({ community, setJoined, showJoin = true }) => {
     contractInterface: LensHubProxy,
     functionName: 'collectWithSig',
     mode: 'recklesslyUnprepared',
-    onSuccess: () => {
-      onCompleted();
-    },
-    onError: (error: any) => {
-      toast.error(error?.data?.message ?? error?.message);
-    }
+    onSuccess: onCompleted,
+    onError
   });
 
-  const { broadcast, loading: broadcastLoading } = useBroadcast({
-    trackingString: COMMUNITY.JOIN,
-    onCompleted
-  });
-
+  const { broadcast, loading: broadcastLoading } = useBroadcast({ onCompleted });
   const [createCollectTypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_COLLECT_TYPED_DATA_MUTATION,
     {
@@ -127,9 +112,7 @@ const Join: FC<Props> = ({ community, setJoined, showJoin = true }) => {
           }
         } catch {}
       },
-      onError: (error) => {
-        toast.error(error.message ?? ERROR_MESSAGE);
-      }
+      onError
     }
   );
 

@@ -16,11 +16,12 @@ import getIPFSLink from '@lib/getIPFSLink';
 import getSignature from '@lib/getSignature';
 import imagekitURL from '@lib/imagekitURL';
 import { Mixpanel } from '@lib/mixpanel';
+import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import uploadMediaToIPFS from '@lib/uploadMediaToIPFS';
 import React, { ChangeEvent, FC, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import { ERROR_MESSAGE, LENSHUB_PROXY, RELAY_ON, SIGN_WALLET } from 'src/constants';
+import { LENSHUB_PROXY, RELAY_ON, SIGN_WALLET } from 'src/constants';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { SETTINGS } from 'src/tracking';
 import { useContractWrite, useSignTypedData } from 'wagmi';
@@ -36,21 +37,11 @@ const Picture: FC<Props> = ({ profile }) => {
   const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
   const [avatar, setAvatar] = useState('');
   const [uploading, setUploading] = useState(false);
-  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
-    onError: (error) => {
-      toast.error(error?.message);
-      Mixpanel.track(SETTINGS.PROFILE.SET_PICTURE, {
-        result: 'typed_data_error',
-        error: error?.message
-      });
-    }
-  });
+  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
 
   const onCompleted = () => {
     toast.success('Avatar updated successfully!');
-    Mixpanel.track(SETTINGS.PROFILE.SET_PICTURE, {
-      result: 'success'
-    });
+    Mixpanel.track(SETTINGS.PROFILE.SET_PICTURE);
   };
 
   const {
@@ -63,12 +54,8 @@ const Picture: FC<Props> = ({ profile }) => {
     contractInterface: LensHubProxy,
     functionName: 'setProfileImageURIWithSig',
     mode: 'recklesslyUnprepared',
-    onSuccess: () => {
-      onCompleted();
-    },
-    onError: (error: any) => {
-      toast.error(error?.data?.message ?? error?.message);
-    }
+    onSuccess: onCompleted,
+    onError
   });
 
   useEffect(() => {
@@ -78,15 +65,7 @@ const Picture: FC<Props> = ({ profile }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const {
-    broadcast,
-    data: broadcastData,
-    loading: broadcastLoading
-  } = useBroadcast({
-    trackingString: SETTINGS.PROFILE.SET_PICTURE,
-    onCompleted
-  });
-
+  const { broadcast, data: broadcastData, loading: broadcastLoading } = useBroadcast({ onCompleted });
   const [createSetProfileImageURITypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_SET_PROFILE_IMAGE_URI_TYPED_DATA_MUTATION,
     {
@@ -121,23 +100,12 @@ const Picture: FC<Props> = ({ profile }) => {
           }
         } catch {}
       },
-      onError: (error) => {
-        toast.error(error.message ?? ERROR_MESSAGE);
-      }
+      onError
     }
   );
 
   const [createSetProfileImageURIViaDispatcher, { data: dispatcherData, loading: dispatcherLoading }] =
-    useMutation(CREATE_SET_PROFILE_IMAGE_URI_VIA_DISPATHCER_MUTATION, {
-      onCompleted,
-      onError: (error) => {
-        toast.error(error.message ?? ERROR_MESSAGE);
-        Mixpanel.track(SETTINGS.PROFILE.SET_NFT_PICTURE, {
-          result: 'dispatcher_error',
-          error: error?.message
-        });
-      }
-    });
+    useMutation(CREATE_SET_PROFILE_IMAGE_URI_VIA_DISPATHCER_MUTATION, { onCompleted, onError });
 
   const handleUpload = async (evt: ChangeEvent<HTMLInputElement>) => {
     evt.preventDefault();

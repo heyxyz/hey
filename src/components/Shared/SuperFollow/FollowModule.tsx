@@ -13,10 +13,11 @@ import formatAddress from '@lib/formatAddress';
 import getSignature from '@lib/getSignature';
 import getTokenImage from '@lib/getTokenImage';
 import { Mixpanel } from '@lib/mixpanel';
+import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import { Dispatch, FC, useState } from 'react';
 import toast from 'react-hot-toast';
-import { ERROR_MESSAGE, LENSHUB_PROXY, POLYGONSCAN_URL, RELAY_ON, SIGN_WALLET } from 'src/constants';
+import { LENSHUB_PROXY, POLYGONSCAN_URL, RELAY_ON, SIGN_WALLET } from 'src/constants';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { PROFILE } from 'src/tracking';
 import { useAccount, useBalance, useContractWrite, useSignTypedData } from 'wagmi';
@@ -90,21 +91,13 @@ const FollowModule: FC<Props> = ({ profile, setFollowing, setShowFollowModal, ag
   const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
   const [allowed, setAllowed] = useState(true);
   const { address } = useAccount();
-  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
-    onError: (error) => {
-      toast.error(error?.message);
-      Mixpanel.track(PROFILE.SUPER_FOLLOW, {
-        result: 'typed_data_error',
-        error: error?.message
-      });
-    }
-  });
+  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
 
   const onCompleted = () => {
     setFollowing(true);
     setShowFollowModal(false);
     toast.success('Followed successfully!');
-    Mixpanel.track(PROFILE.SUPER_FOLLOW, { result: 'success' });
+    Mixpanel.track(PROFILE.SUPER_FOLLOW);
   };
 
   const { isLoading: writeLoading, write } = useContractWrite({
@@ -112,12 +105,8 @@ const FollowModule: FC<Props> = ({ profile, setFollowing, setShowFollowModal, ag
     contractInterface: LensHubProxy,
     functionName: 'followWithSig',
     mode: 'recklesslyUnprepared',
-    onSuccess: () => {
-      onCompleted();
-    },
-    onError: (error: any) => {
-      toast.error(error?.data?.message ?? error?.message);
-    }
+    onSuccess: onCompleted,
+    onError
   });
 
   const { data, loading } = useQuery(SUPER_FOLLOW_QUERY, {
@@ -156,11 +145,7 @@ const FollowModule: FC<Props> = ({ profile, setFollowing, setShowFollowModal, ag
     hasAmount = true;
   }
 
-  const { broadcast, loading: broadcastLoading } = useBroadcast({
-    trackingString: PROFILE.SUPER_FOLLOW,
-    onCompleted
-  });
-
+  const { broadcast, loading: broadcastLoading } = useBroadcast({ onCompleted });
   const [createFollowTypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_FOLLOW_TYPED_DATA_MUTATION,
     {
@@ -196,9 +181,7 @@ const FollowModule: FC<Props> = ({ profile, setFollowing, setShowFollowModal, ag
           }
         } catch {}
       },
-      onError: (error) => {
-        toast.error(error.message ?? ERROR_MESSAGE);
-      }
+      onError
     }
   );
 

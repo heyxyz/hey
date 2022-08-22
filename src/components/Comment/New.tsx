@@ -21,13 +21,14 @@ import { ChatAlt2Icon, PencilAltIcon } from '@heroicons/react/outline';
 import { defaultFeeData, defaultModuleData, getModule } from '@lib/getModule';
 import getSignature from '@lib/getSignature';
 import { Mixpanel } from '@lib/mixpanel';
+import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import trimify from '@lib/trimify';
 import uploadToArweave from '@lib/uploadToArweave';
 import dynamic from 'next/dynamic';
 import { Dispatch, FC, useState } from 'react';
 import toast from 'react-hot-toast';
-import { APP_NAME, ERROR_MESSAGE, LENSHUB_PROXY, RELAY_ON, SIGN_WALLET } from 'src/constants';
+import { APP_NAME, LENSHUB_PROXY, RELAY_ON, SIGN_WALLET } from 'src/constants';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { useCollectModuleStore } from 'src/store/collectmodule';
 import { usePublicationStore } from 'src/store/publication';
@@ -72,23 +73,17 @@ const NewComment: FC<Props> = ({ setShowModal, hideCard = false, publication, ty
   const [onlyFollowers, setOnlyFollowers] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const [attachments, setAttachments] = useState<LensterAttachment[]>([]);
-  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
-    onError: (error) => {
-      toast.error(error?.message);
-      Mixpanel.track(COMMENT.NEW, {
-        result: 'typed_data_error',
-        error: error?.message
-      });
-    }
-  });
+
   const onCompleted = () => {
     setPreviewPublication(false);
     setPublicationContent('');
     setAttachments([]);
     setSelectedModule(defaultModuleData);
     setFeeData(defaultFeeData);
-    Mixpanel.track(COMMENT.NEW, { result: 'success' });
+    Mixpanel.track(COMMENT.NEW);
   };
+
+  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
 
   const {
     data,
@@ -100,23 +95,11 @@ const NewComment: FC<Props> = ({ setShowModal, hideCard = false, publication, ty
     contractInterface: LensHubProxy,
     functionName: 'commentWithSig',
     mode: 'recklesslyUnprepared',
-    onSuccess: () => {
-      onCompleted();
-    },
-    onError: (error: any) => {
-      toast.error(error?.data?.message ?? error?.message);
-    }
+    onSuccess: onCompleted,
+    onError
   });
 
-  const {
-    broadcast,
-    data: broadcastData,
-    loading: broadcastLoading
-  } = useBroadcast({
-    trackingString: COMMENT.NEW,
-    onCompleted
-  });
-
+  const { broadcast, data: broadcastData, loading: broadcastLoading } = useBroadcast({ onCompleted });
   const [createCommentTypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_COMMENT_TYPED_DATA_MUTATION,
     {
@@ -169,9 +152,7 @@ const NewComment: FC<Props> = ({ setShowModal, hideCard = false, publication, ty
           }
         } catch {}
       },
-      onError: (error) => {
-        toast.error(error.message ?? ERROR_MESSAGE);
-      }
+      onError
     }
   );
 
@@ -179,13 +160,7 @@ const NewComment: FC<Props> = ({ setShowModal, hideCard = false, publication, ty
     CREATE_COMMENT_VIA_DISPATHCER_MUTATION,
     {
       onCompleted,
-      onError: (error) => {
-        toast.error(error.message ?? ERROR_MESSAGE);
-        Mixpanel.track(COMMENT.NEW, {
-          result: 'dispatcher_error',
-          error: error?.message
-        });
-      }
+      onError
     }
   );
 
@@ -194,7 +169,6 @@ const NewComment: FC<Props> = ({ setShowModal, hideCard = false, publication, ty
       return toast.error(SIGN_WALLET);
     }
     if (publicationContent.length === 0 && attachments.length === 0) {
-      Mixpanel.track(COMMENT.NEW, { result: 'empty' });
       return setCommentContentError('Comment should not be empty!');
     }
 
