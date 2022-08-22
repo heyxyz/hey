@@ -70,7 +70,7 @@ const Feed: FC = () => {
           profileId: currentProfile?.id ?? null
         }
       });
-      Mixpanel.track(PAGINATION.HOME_FEED, { pageInfo });
+      Mixpanel.track(PAGINATION.HOME_FEED);
     }
   });
 

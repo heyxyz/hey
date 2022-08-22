@@ -53,7 +53,7 @@ const Profiles: FC<Props> = ({ query }) => {
           }
         }
       });
-      Mixpanel.track(PAGINATION.PROFILE_SEARCH, { pageInfo });
+      Mixpanel.track(PAGINATION.PROFILE_SEARCH);
     }
   });
 

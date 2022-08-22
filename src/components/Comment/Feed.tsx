@@ -71,7 +71,7 @@ const Feed: FC<Props> = ({ publication, type = 'comment', onlyFollowers = false,
           profileId: currentProfile?.id ?? null
         }
       });
-      Mixpanel.track(type === 'comment' ? PAGINATION.COMMENT_FEED : PAGINATION.COMMUNITY_FEED, { pageInfo });
+      Mixpanel.track(type === 'comment' ? PAGINATION.COMMENT_FEED : PAGINATION.COMMUNITY_FEED);
     }
   });
 

@@ -71,7 +71,7 @@ const Publications: FC<Props> = ({ query }) => {
           profileId: currentProfile?.id ?? null
         }
       });
-      Mixpanel.track(PAGINATION.PUBLICATION_SEARCH, { pageInfo });
+      Mixpanel.track(PAGINATION.PUBLICATION_SEARCH);
     }
   });
 

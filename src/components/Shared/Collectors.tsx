@@ -55,7 +55,7 @@ const Collectors: FC<Props> = ({ pubId }) => {
           }
         }
       });
-      Mixpanel.track(PAGINATION.COLLECTORS, { pageInfo });
+      Mixpanel.track(PAGINATION.COLLECTORS);
     }
   });
 

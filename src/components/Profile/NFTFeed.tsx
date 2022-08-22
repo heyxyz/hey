@@ -64,7 +64,7 @@ const NFTFeed: FC<Props> = ({ profile }) => {
           }
         }
       });
-      Mixpanel.track(PAGINATION.NFT_FEED, { pageInfo });
+      Mixpanel.track(PAGINATION.NFT_FEED);
     }
   });
 
