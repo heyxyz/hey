@@ -1,8 +1,20 @@
-import { useMutation } from '@apollo/client';
-import { BROADCAST_MUTATION } from '@gql/Broadcast';
+import { gql, useMutation } from '@apollo/client';
 import { Mixpanel } from '@lib/mixpanel';
 import toast from 'react-hot-toast';
 import { ERRORS } from 'src/constants';
+
+const BROADCAST_MUTATION = gql`
+  mutation Broadcast($request: BroadcastRequest!) {
+    broadcast(request: $request) {
+      ... on RelayerResult {
+        txHash
+      }
+      ... on RelayError {
+        reason
+      }
+    }
+  }
+`;
 
 interface Props {
   trackingString: string;
