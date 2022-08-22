@@ -11,7 +11,7 @@ import { Spinner } from '@components/UI/Spinner';
 import { TextArea } from '@components/UI/TextArea';
 import { Toggle } from '@components/UI/Toggle';
 import { CreateSetProfileMetadataUriBroadcastItemResult, MediaSet, Profile } from '@generated/types';
-import { BROADCAST_MUTATION } from '@gql/BroadcastMutation';
+import { BROADCAST_MUTATION } from '@gql/Broadcast';
 import {
   CREATE_SET_PROFILE_METADATA_TYPED_DATA_MUTATION,
   CREATE_SET_PROFILE_METADATA_VIA_DISPATHCER_MUTATION

@@ -12,7 +12,7 @@ import { Spinner } from '@components/UI/Spinner';
 import { LensterAttachment, LensterPublication } from '@generated/lenstertypes';
 import { CreateCommentBroadcastItemResult } from '@generated/types';
 import { IGif } from '@giphy/js-types';
-import { BROADCAST_MUTATION } from '@gql/BroadcastMutation';
+import { BROADCAST_MUTATION } from '@gql/Broadcast';
 import {
   CREATE_COMMENT_TYPED_DATA_MUTATION,
   CREATE_COMMENT_VIA_DISPATHCER_MUTATION
