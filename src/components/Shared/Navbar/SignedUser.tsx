@@ -151,7 +151,6 @@ const SignedUser: FC<Props> = ({ pingData }) => {
                             setCurrentProfile(selectedProfile);
                             setProfileId(selectedProfile.id);
                             Mixpanel.track(PROFILE.SWITCH_PROFILE);
-                            Mixpanel.identify(selectedProfile.id);
                             Mixpanel.people.set({
                               address: currentProfile?.ownedBy,
                               $name: currentProfile?.handle
