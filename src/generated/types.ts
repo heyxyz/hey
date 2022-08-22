@@ -2147,7 +2147,7 @@ export type PublicationMetadataV1Input = {
   /** This is the mime type of the image. This is used if your uploading more advanced cover images as sometimes ipfs does not emit the content header so this solves that */
   imageMimeType?: InputMaybe<Scalars['MimeType']>;
   /**  This is lens supported attached media items to the publication */
-  media?: InputMaybe<PublicationMetadataMediaInput>;
+  media?: InputMaybe<Array<PublicationMetadataMediaInput>>;
   /** The metadata id can be anything but if your uploading to ipfs you will want it to be random.. using uuid could be an option! */
   metadata_id: Scalars['String'];
   /** Name of the item. */
@@ -2190,7 +2190,7 @@ export type PublicationMetadataV2Input = {
   /** Main content focus that for this publication */
   mainContentFocus: PublicationMainFocus;
   /**  This is lens supported attached media items to the publication */
-  media?: InputMaybe<PublicationMetadataMediaInput>;
+  media?: InputMaybe<Array<PublicationMetadataMediaInput>>;
   /** The metadata id can be anything but if your uploading to ipfs you will want it to be random.. using uuid could be an option! */
   metadata_id: Scalars['String'];
   /** Name of the item. */
