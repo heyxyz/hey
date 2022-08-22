@@ -12,7 +12,7 @@ export const Mixpanel = {
       mixpanel.identify(id);
     }
   },
-  track: (name: string, props?: Dict & { result?: string }) => {
+  track: (name: string, props?: Dict) => {
     if (enabled) {
       mixpanel.track(name, props);
     }

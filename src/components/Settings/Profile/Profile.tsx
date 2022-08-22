@@ -69,9 +69,7 @@ const Profile: FC<Props> = ({ profile }) => {
 
   const onCompleted = () => {
     toast.success('Profile updated successfully!');
-    Mixpanel.track(SETTINGS.PROFILE.UPDATE, {
-      result: 'success'
-    });
+    Mixpanel.track(SETTINGS.PROFILE.UPDATE);
   };
 
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });

@@ -22,7 +22,7 @@ const Delete: FC<Props> = ({ publication }) => {
   const { pathname, push } = useRouter();
   const [hidePost] = useMutation(HIDE_POST_MUTATION, {
     onCompleted: () => {
-      Mixpanel.track(PUBLICATION.DELETE, { result: 'success' });
+      Mixpanel.track(PUBLICATION.DELETE);
       pathname === '/posts/[id]' ? push('/') : location.reload();
     }
   });

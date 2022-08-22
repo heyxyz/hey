@@ -64,7 +64,7 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
   const onCompleted = () => {
     setFollowing(true);
     toast.success('Followed successfully!');
-    Mixpanel.track(PROFILE.FOLLOW, { result: 'success' });
+    Mixpanel.track(PROFILE.FOLLOW);
   };
 
   const { isLoading: writeLoading, write } = useContractWrite({

@@ -81,7 +81,7 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
     setAttachments([]);
     setSelectedModule(defaultModuleData);
     setFeeData(defaultFeeData);
-    Mixpanel.track(POST.NEW, { result: 'success' });
+    Mixpanel.track(POST.NEW);
   };
 
   const {
@@ -152,7 +152,6 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
       return toast.error(SIGN_WALLET);
     }
     if (publicationContent.length === 0 && attachments.length === 0) {
-      Mixpanel.track(POST.NEW, { result: 'empty' });
       return setPostContentError('Post should not be empty!');
     }
 

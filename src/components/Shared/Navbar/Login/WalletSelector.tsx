@@ -122,7 +122,7 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
         });
       }
       setIsConnected(true);
-      Mixpanel.track(USER.SIWL, { result: 'success' });
+      Mixpanel.track(USER.SIWL);
     } catch (error) {
       console.log(error);
     }

@@ -41,9 +41,7 @@ const Picture: FC<Props> = ({ profile }) => {
 
   const onCompleted = () => {
     toast.success('Avatar updated successfully!');
-    Mixpanel.track(SETTINGS.PROFILE.SET_PICTURE, {
-      result: 'success'
-    });
+    Mixpanel.track(SETTINGS.PROFILE.SET_PICTURE);
   };
 
   const {

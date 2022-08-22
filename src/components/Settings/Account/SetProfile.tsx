@@ -33,7 +33,7 @@ const SetProfile: FC = () => {
 
   const onCompleted = () => {
     toast.success('Default profile updated successfully!');
-    Mixpanel.track(SETTINGS.ACCOUNT.SET_DEFAULT_PROFILE, { result: 'success' });
+    Mixpanel.track(SETTINGS.ACCOUNT.SET_DEFAULT_PROFILE);
   };
 
   const {

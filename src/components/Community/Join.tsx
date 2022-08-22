@@ -63,7 +63,7 @@ const Join: FC<Props> = ({ community, setJoined, showJoin = true }) => {
   const onCompleted = () => {
     setJoined(true);
     toast.success('Joined successfully!');
-    Mixpanel.track(COMMUNITY.JOIN, { result: 'success' });
+    Mixpanel.track(COMMUNITY.JOIN);
   };
 
   const { isLoading: writeLoading, write } = useContractWrite({

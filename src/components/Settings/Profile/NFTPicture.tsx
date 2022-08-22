@@ -57,9 +57,7 @@ const NFTPicture: FC<Props> = ({ profile }) => {
 
   const onCompleted = () => {
     toast.success('Avatar updated successfully!');
-    Mixpanel.track(SETTINGS.PROFILE.SET_NFT_PICTURE, {
-      result: 'success'
-    });
+    Mixpanel.track(SETTINGS.PROFILE.SET_NFT_PICTURE);
   };
 
   const form = useZodForm({

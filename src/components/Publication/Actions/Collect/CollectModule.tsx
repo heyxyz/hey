@@ -129,9 +129,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
     setRevenue(revenue + parseFloat(collectModule?.amount?.value));
     setCount(count + 1);
     toast.success('Transaction submitted successfully!');
-    Mixpanel.track(PUBLICATION.COLLECT_MODULE.COLLECT, {
-      result: 'success'
-    });
+    Mixpanel.track(PUBLICATION.COLLECT_MODULE.COLLECT);
   };
 
   const {

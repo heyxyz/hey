@@ -87,7 +87,7 @@ const NewCrowdfund: NextPage = () => {
   }, []);
 
   const onCompleted = () => {
-    Mixpanel.track(CROWDFUND.NEW, { result: 'success' });
+    Mixpanel.track(CROWDFUND.NEW);
   };
 
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });

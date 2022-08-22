@@ -57,7 +57,7 @@ const NewCommunity: NextPage = () => {
   }, []);
 
   const onCompleted = () => {
-    Mixpanel.track(COMMUNITY.NEW, { result: 'success' });
+    Mixpanel.track(COMMUNITY.NEW);
   };
 
   const {

@@ -56,7 +56,7 @@ const Mirror: FC<Props> = ({ publication }) => {
     setCount(count + 1);
     setMirrored(true);
     toast.success('Post has been mirrored!');
-    Mixpanel.track(PUBLICATION.MIRROR, { result: 'success' });
+    Mixpanel.track(PUBLICATION.MIRROR);
   };
 
   const { isLoading: writeLoading, write } = useContractWrite({

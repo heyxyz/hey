@@ -84,7 +84,7 @@ const Unfollow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
               setFollowing(false);
             }
             toast.success('Unfollowed successfully!');
-            Mixpanel.track(PROFILE.UNFOLLOW, { result: 'success' });
+            Mixpanel.track(PROFILE.UNFOLLOW);
           } catch {
             toast.error('User rejected request');
           } finally {

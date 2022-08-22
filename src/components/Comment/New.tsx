@@ -80,7 +80,7 @@ const NewComment: FC<Props> = ({ setShowModal, hideCard = false, publication, ty
     setAttachments([]);
     setSelectedModule(defaultModuleData);
     setFeeData(defaultFeeData);
-    Mixpanel.track(COMMENT.NEW, { result: 'success' });
+    Mixpanel.track(COMMENT.NEW);
   };
 
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
@@ -169,7 +169,6 @@ const NewComment: FC<Props> = ({ setShowModal, hideCard = false, publication, ty
       return toast.error(SIGN_WALLET);
     }
     if (publicationContent.length === 0 && attachments.length === 0) {
-      Mixpanel.track(COMMENT.NEW, { result: 'empty' });
       return setCommentContentError('Comment should not be empty!');
     }
 

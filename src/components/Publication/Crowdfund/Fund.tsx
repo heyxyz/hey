@@ -98,7 +98,7 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
   const onCompleted = () => {
     setRevenue(revenue + parseFloat(collectModule?.amount?.value));
     toast.success('Transaction submitted successfully!');
-    Mixpanel.track(CROWDFUND.FUND, { result: 'success' });
+    Mixpanel.track(CROWDFUND.FUND);
   };
 
   const {

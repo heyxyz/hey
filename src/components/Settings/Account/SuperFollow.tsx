@@ -92,9 +92,7 @@ const SuperFollow: FC = () => {
   });
 
   const onCompleted = () => {
-    Mixpanel.track(SETTINGS.ACCOUNT.SET_SUPER_FOLLOW, {
-      result: 'success'
-    });
+    Mixpanel.track(SETTINGS.ACCOUNT.SET_SUPER_FOLLOW);
   };
 
   const {

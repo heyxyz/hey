@@ -52,7 +52,7 @@ const Like: FC<Props> = ({ publication }) => {
 
   const [addReaction] = useMutation(ADD_REACTION_MUTATION, {
     onCompleted: () => {
-      Mixpanel.track(PUBLICATION.LIKE, { result: 'success' });
+      Mixpanel.track(PUBLICATION.LIKE);
     },
     onError: (error) => {
       setLiked(!liked);
@@ -63,7 +63,7 @@ const Like: FC<Props> = ({ publication }) => {
 
   const [removeReaction] = useMutation(REMOVE_REACTION_MUTATION, {
     onCompleted: () => {
-      Mixpanel.track(PUBLICATION.DISLIKE, { result: 'success' });
+      Mixpanel.track(PUBLICATION.DISLIKE);
     },
     onError: (error) => {
       setLiked(!liked);
