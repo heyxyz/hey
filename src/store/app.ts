@@ -6,8 +6,8 @@ import { persist } from 'zustand/middleware';
 interface AppState {
   profiles: Profile[] | [];
   setProfiles: (profiles: Profile[]) => void;
-  currentProfile: Profile | undefined;
-  setCurrentProfile: (currentProfile: Profile | undefined) => void;
+  currentProfile: Profile | null;
+  setCurrentProfile: (currentProfile: Profile | null) => void;
   userSigNonce: number;
   setUserSigNonce: (userSigNonce: number) => void;
 }
@@ -15,7 +15,7 @@ interface AppState {
 export const useAppStore = create<AppState>((set) => ({
   profiles: [],
   setProfiles: (profiles) => set(() => ({ profiles })),
-  currentProfile: undefined,
+  currentProfile: null,
   setCurrentProfile: (currentProfile) => set(() => ({ currentProfile })),
   userSigNonce: 0,
   setUserSigNonce: (userSigNonce) => set(() => ({ userSigNonce }))

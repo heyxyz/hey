@@ -21,8 +21,8 @@ const Attachment: FC<Props> = ({ attachments, setAttachments }) => {
     let videos = 0;
     let images = 0;
 
-    for (let i = 0; i < files.length; i++) {
-      if (files[i].type === 'video/mp4') {
+    for (const file of files) {
+      if (file.type === 'video/mp4') {
         videos = videos + 1;
       } else {
         images = images + 1;
@@ -41,8 +41,8 @@ const Attachment: FC<Props> = ({ attachments, setAttachments }) => {
   };
 
   const isTypeAllowed = (files: any) => {
-    for (let i = 0; i < files.length; i++) {
-      if (ALLOWED_MEDIA_TYPES.includes(files[i].type)) {
+    for (const file of files) {
+      if (ALLOWED_MEDIA_TYPES.includes(file.type)) {
         return true;
       }
     }
