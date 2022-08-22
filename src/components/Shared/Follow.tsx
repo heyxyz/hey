@@ -1,9 +1,10 @@
 import { LensHubProxy } from '@abis/LensHubProxy';
-import { gql, useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
 import { CreateFollowBroadcastItemResult, Profile } from '@generated/types';
 import { BROADCAST_MUTATION } from '@gql/BroadcastMutation';
+import { CREATE_FOLLOW_TYPED_DATA_MUTATION } from '@gql/TypedAndDispatcherData/CreateFollow';
 import { UserAddIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
 import { Mixpanel } from '@lib/mixpanel';
@@ -14,35 +15,6 @@ import { CONNECT_WALLET, ERROR_MESSAGE, ERRORS, LENSHUB_PROXY, RELAY_ON } from '
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { PROFILE } from 'src/tracking';
 import { useAccount, useContractWrite, useSignTypedData } from 'wagmi';
-
-const CREATE_FOLLOW_TYPED_DATA_MUTATION = gql`
-  mutation CreateFollowTypedData($options: TypedDataOptions, $request: FollowRequest!) {
-    createFollowTypedData(options: $options, request: $request) {
-      id
-      expiresAt
-      typedData {
-        domain {
-          name
-          chainId
-          version
-          verifyingContract
-        }
-        types {
-          FollowWithSig {
-            name
-            type
-          }
-        }
-        value {
-          nonce
-          deadline
-          profileIds
-          datas
-        }
-      }
-    }
-  }
-`;
 
 interface Props {
   profile: Profile;
@@ -56,6 +28,7 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const isConnected = useAppPersistStore((state) => state.isConnected);
   const { address } = useAccount();
+
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError: (error) => {
       toast.error(error?.message);
@@ -97,6 +70,7 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
       });
     }
   });
+
   const [createFollowTypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_FOLLOW_TYPED_DATA_MUTATION,
     {
