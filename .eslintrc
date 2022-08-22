@@ -27,7 +27,8 @@
     "no-use-before-define": "error",
     "no-unexpected-multiline": "error",
     "react/self-closing-comp": "error",
-    "unicorn/better-regex": "error"
+    "unicorn/better-regex": "error",
+    "unicorn/catch-error-name": "error"
   },
   "ignorePatterns": ["/src/generated/types.ts"]
 }
