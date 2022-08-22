@@ -9,6 +9,7 @@ module.exports = withTM(
     {
       reactStrictMode: false,
       trailingSlash: false,
+      swcMinify: true,
       async rewrites() {
         return [
           {
