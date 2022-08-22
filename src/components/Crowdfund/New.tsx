@@ -11,9 +11,9 @@ import { Input } from '@components/UI/Input';
 import { PageLoading } from '@components/UI/PageLoading';
 import { Spinner } from '@components/UI/Spinner';
 import { TextArea } from '@components/UI/TextArea';
+import useBroadcast from '@components/utils/hooks/useBroadcast';
 import Seo from '@components/utils/Seo';
 import { CreatePostBroadcastItemResult, Erc20 } from '@generated/types';
-import { BROADCAST_MUTATION } from '@gql/Broadcast';
 import { CREATE_POST_TYPED_DATA_MUTATION } from '@gql/TypedAndDispatcherData/CreatePost';
 import { PlusIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
@@ -31,7 +31,6 @@ import {
   APP_NAME,
   DEFAULT_COLLECT_TOKEN,
   ERROR_MESSAGE,
-  ERRORS,
   LENSHUB_PROXY,
   RELAY_ON,
   SIGN_WALLET
@@ -140,18 +139,15 @@ const NewCrowdfund: NextPage = () => {
     }
   };
 
-  const [broadcast, { data: broadcastData, loading: broadcastLoading }] = useMutation(BROADCAST_MUTATION, {
-    onCompleted,
-    onError: (error) => {
-      if (error.message === ERRORS.notMined) {
-        toast.error(error.message);
-      }
-      Mixpanel.track(CROWDFUND.NEW, {
-        result: 'broadcast_error',
-        error: error?.message
-      });
-    }
+  const {
+    broadcast,
+    data: broadcastData,
+    loading: broadcastLoading
+  } = useBroadcast({
+    trackingString: CROWDFUND.NEW,
+    onCompleted
   });
+
   const [createPostTypedData, { loading: typedDataLoading }] = useMutation(CREATE_POST_TYPED_DATA_MUTATION, {
     onCompleted: async ({ createPostTypedData }: { createPostTypedData: CreatePostBroadcastItemResult }) => {
       try {
@@ -182,7 +178,7 @@ const NewCrowdfund: NextPage = () => {
         if (RELAY_ON) {
           const {
             data: { broadcast: result }
-          } = await broadcast({ variables: { request: { id, signature } } });
+          } = await broadcast({ request: { id, signature } });
 
           if ('reason' in result) {
             write?.({ recklesslySetUnpreparedArgs: inputStruct });

@@ -9,10 +9,10 @@ import { Card } from '@components/UI/Card';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { MentionTextArea } from '@components/UI/MentionTextArea';
 import { Spinner } from '@components/UI/Spinner';
+import useBroadcast from '@components/utils/hooks/useBroadcast';
 import { LensterAttachment, LensterPublication } from '@generated/lenstertypes';
 import { CreateCommentBroadcastItemResult } from '@generated/types';
 import { IGif } from '@giphy/js-types';
-import { BROADCAST_MUTATION } from '@gql/Broadcast';
 import {
   CREATE_COMMENT_TYPED_DATA_MUTATION,
   CREATE_COMMENT_VIA_DISPATHCER_MUTATION
@@ -27,7 +27,7 @@ import uploadToArweave from '@lib/uploadToArweave';
 import dynamic from 'next/dynamic';
 import { Dispatch, FC, useState } from 'react';
 import toast from 'react-hot-toast';
-import { APP_NAME, ERROR_MESSAGE, ERRORS, LENSHUB_PROXY, RELAY_ON, SIGN_WALLET } from 'src/constants';
+import { APP_NAME, ERROR_MESSAGE, LENSHUB_PROXY, RELAY_ON, SIGN_WALLET } from 'src/constants';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { useCollectModuleStore } from 'src/store/collectmodule';
 import { usePublicationStore } from 'src/store/publication';
@@ -108,17 +108,13 @@ const NewComment: FC<Props> = ({ setShowModal, hideCard = false, publication, ty
     }
   });
 
-  const [broadcast, { data: broadcastData, loading: broadcastLoading }] = useMutation(BROADCAST_MUTATION, {
-    onCompleted,
-    onError: (error) => {
-      if (error.message === ERRORS.notMined) {
-        toast.error(error.message);
-      }
-      Mixpanel.track(COMMENT.NEW, {
-        result: 'broadcast_error',
-        error: error?.message
-      });
-    }
+  const {
+    broadcast,
+    data: broadcastData,
+    loading: broadcastLoading
+  } = useBroadcast({
+    trackingString: COMMENT.NEW,
+    onCompleted
   });
 
   const [createCommentTypedData, { loading: typedDataLoading }] = useMutation(
@@ -163,7 +159,7 @@ const NewComment: FC<Props> = ({ setShowModal, hideCard = false, publication, ty
           if (RELAY_ON) {
             const {
               data: { broadcast: result }
-            } = await broadcast({ variables: { request: { id, signature } } });
+            } = await broadcast({ request: { id, signature } });
 
             if ('reason' in result) {
               write?.({ recklesslySetUnpreparedArgs: inputStruct });

@@ -2,8 +2,8 @@ import { LensHubProxy } from '@abis/LensHubProxy';
 import { gql, useMutation } from '@apollo/client';
 import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
+import useBroadcast from '@components/utils/hooks/useBroadcast';
 import { CreateFollowBroadcastItemResult, Profile } from '@generated/types';
-import { BROADCAST_MUTATION } from '@gql/Broadcast';
 import { PROXY_ACTION_MUTATION } from '@gql/ProxyAction';
 import { UserAddIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
@@ -11,7 +11,7 @@ import { Mixpanel } from '@lib/mixpanel';
 import splitSignature from '@lib/splitSignature';
 import { Dispatch, FC } from 'react';
 import toast from 'react-hot-toast';
-import { CONNECT_WALLET, ERROR_MESSAGE, ERRORS, LENSHUB_PROXY, RELAY_ON } from 'src/constants';
+import { CONNECT_WALLET, ERROR_MESSAGE, LENSHUB_PROXY, RELAY_ON } from 'src/constants';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { PROFILE } from 'src/tracking';
 import { useAccount, useContractWrite, useSignTypedData } from 'wagmi';
@@ -87,17 +87,9 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
     }
   });
 
-  const [broadcast, { loading: broadcastLoading }] = useMutation(BROADCAST_MUTATION, {
-    onCompleted,
-    onError: (error) => {
-      if (error.message === ERRORS.notMined) {
-        toast.error(error.message);
-      }
-      Mixpanel.track(PROFILE.FOLLOW, {
-        result: 'broadcast_error',
-        error: error?.message
-      });
-    }
+  const { broadcast, loading: broadcastLoading } = useBroadcast({
+    trackingString: PROFILE.FOLLOW,
+    onCompleted
   });
 
   const [createFollowTypedData, { loading: typedDataLoading }] = useMutation(
@@ -126,7 +118,7 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
           if (RELAY_ON) {
             const {
               data: { broadcast: result }
-            } = await broadcast({ variables: { request: { id, signature } } });
+            } = await broadcast({ request: { id, signature } });
 
             if ('reason' in result) {
               write?.({ recklesslySetUnpreparedArgs: inputStruct });

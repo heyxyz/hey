@@ -5,9 +5,9 @@ import AllowanceButton from '@components/Settings/Allowance/Button';
 import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
 import { WarningMessage } from '@components/UI/WarningMessage';
+import useBroadcast from '@components/utils/hooks/useBroadcast';
 import { LensterFollowModule } from '@generated/lenstertypes';
 import { CreateFollowBroadcastItemResult, FeeFollowModuleSettings, Profile } from '@generated/types';
-import { BROADCAST_MUTATION } from '@gql/Broadcast';
 import { StarIcon, UserIcon } from '@heroicons/react/outline';
 import formatAddress from '@lib/formatAddress';
 import getSignature from '@lib/getSignature';
@@ -16,7 +16,7 @@ import { Mixpanel } from '@lib/mixpanel';
 import splitSignature from '@lib/splitSignature';
 import { Dispatch, FC, useState } from 'react';
 import toast from 'react-hot-toast';
-import { ERROR_MESSAGE, ERRORS, LENSHUB_PROXY, POLYGONSCAN_URL, RELAY_ON, SIGN_WALLET } from 'src/constants';
+import { ERROR_MESSAGE, LENSHUB_PROXY, POLYGONSCAN_URL, RELAY_ON, SIGN_WALLET } from 'src/constants';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { PROFILE } from 'src/tracking';
 import { useAccount, useBalance, useContractWrite, useSignTypedData } from 'wagmi';
@@ -156,18 +156,11 @@ const FollowModule: FC<Props> = ({ profile, setFollowing, setShowFollowModal, ag
     hasAmount = true;
   }
 
-  const [broadcast, { loading: broadcastLoading }] = useMutation(BROADCAST_MUTATION, {
-    onCompleted,
-    onError: (error) => {
-      if (error.message === ERRORS.notMined) {
-        toast.error(error.message);
-      }
-      Mixpanel.track(PROFILE.SUPER_FOLLOW, {
-        result: 'broadcast_error',
-        error: error?.message
-      });
-    }
+  const { broadcast, loading: broadcastLoading } = useBroadcast({
+    trackingString: PROFILE.SUPER_FOLLOW,
+    onCompleted
   });
+
   const [createFollowTypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_FOLLOW_TYPED_DATA_MUTATION,
     {
@@ -192,11 +185,10 @@ const FollowModule: FC<Props> = ({ profile, setFollowing, setShowFollowModal, ag
           setUserSigNonce(userSigNonce + 1);
           if (RELAY_ON) {
             const {
-              data: { broadcast: result },
-              errors
-            } = await broadcast({ variables: { request: { id, signature } } });
+              data: { broadcast: result }
+            } = await broadcast({ request: { id, signature } });
 
-            if ('reason' in result || errors) {
+            if ('reason' in result) {
               write?.({ recklesslySetUnpreparedArgs: inputStruct });
             }
           } else {
