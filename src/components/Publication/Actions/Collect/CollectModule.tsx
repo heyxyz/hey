@@ -19,6 +19,7 @@ import { LensterPublication } from '@generated/lenstertypes';
 import { CreateCollectBroadcastItemResult } from '@generated/types';
 import { BROADCAST_MUTATION } from '@gql/Broadcast';
 import { CollectModuleFields } from '@gql/CollectModuleFields';
+import { PROXY_ACTION_MUTATION } from '@gql/ProxyAction';
 import {
   CashIcon,
   ClockIcon,
@@ -120,6 +121,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
   const [showCollectorsModal, setShowCollectorsModal] = useState(false);
   const [allowed, setAllowed] = useState(true);
   const { address } = useAccount();
+
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError: (error) => {
       toast.error(error?.message);
@@ -129,6 +131,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
       });
     }
   });
+
   const { data, loading } = useQuery(COLLECT_QUERY, {
     variables: {
       request: { publicationId: publication?.id }
@@ -219,6 +222,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
       });
     }
   });
+
   const [createCollectTypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_COLLECT_TYPED_DATA_MUTATION,
     {
@@ -261,22 +265,43 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
     }
   );
 
+  const [createCollectProxyAction, { loading: proxyActionLoading }] = useMutation(PROXY_ACTION_MUTATION, {
+    onCompleted,
+    onError: (error) => {
+      toast.error(error.message ?? ERROR_MESSAGE);
+      Mixpanel.track(PUBLICATION.COLLECT_MODULE.COLLECT, {
+        result: 'proxy_action_error',
+        error: error?.message
+      });
+    }
+  });
+
   const createCollect = () => {
     if (!isConnected) {
       return toast.error(CONNECT_WALLET);
     }
 
-    createCollectTypedData({
-      variables: {
-        options: { overrideSigNonce: userSigNonce },
-        request: { publicationId: publication?.id }
-      }
-    });
+    if (collectModule?.type === 'FreeCollectModule') {
+      createCollectProxyAction({
+        variables: {
+          request: { collect: { freeCollect: { publicationId: publication?.id } } }
+        }
+      });
+    } else {
+      createCollectTypedData({
+        variables: {
+          options: { overrideSigNonce: userSigNonce },
+          request: { publicationId: publication?.id }
+        }
+      });
+    }
   };
 
   if (loading || revenueLoading) {
     return <Loader message="Loading collect" />;
   }
+
+  const isLoading = typedDataLoading || proxyActionLoading || signLoading || writeLoading || broadcastLoading;
 
   return (
     <>
@@ -454,14 +479,8 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
               <Button
                 className="mt-5"
                 onClick={createCollect}
-                disabled={typedDataLoading || signLoading || writeLoading || broadcastLoading}
-                icon={
-                  typedDataLoading || signLoading || writeLoading || broadcastLoading ? (
-                    <Spinner size="xs" />
-                  ) : (
-                    <CollectionIcon className="w-4 h-4" />
-                  )
-                }
+                disabled={isLoading}
+                icon={isLoading ? <Spinner size="xs" /> : <CollectionIcon className="w-4 h-4" />}
               >
                 Collect now
               </Button>
