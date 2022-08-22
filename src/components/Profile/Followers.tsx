@@ -5,11 +5,11 @@ import WalletProfile from '@components/Shared/WalletProfile';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
-import { Follower, PaginatedResultInfo, Profile } from '@generated/types';
+import { Follower, Profile } from '@generated/types';
 import { ProfileFields } from '@gql/ProfileFields';
 import { UsersIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { PAGINATION } from 'src/tracking';
 
@@ -40,20 +40,15 @@ interface Props {
 }
 
 const Followers: FC<Props> = ({ profile }) => {
-  const [followers, setFollowers] = useState<Follower[]>([]);
-  const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>();
   const { data, loading, error, fetchMore } = useQuery(FOLLOWERS_QUERY, {
     variables: { request: { profileId: profile?.id, limit: 10 } },
-    skip: !profile?.id,
-    onCompleted: (data) => {
-      setPageInfo(data?.followers?.pageInfo);
-      setFollowers(data?.followers?.items);
-    }
+    skip: !profile?.id
   });
 
+  const pageInfo = data?.followers?.pageInfo;
   const { observe } = useInView({
-    onEnter: async () => {
-      const { data } = await fetchMore({
+    onEnter: () => {
+      fetchMore({
         variables: {
           request: {
             profileId: profile?.id,
@@ -62,8 +57,6 @@ const Followers: FC<Props> = ({ profile }) => {
           }
         }
       });
-      setPageInfo(data?.followers?.pageInfo);
-      setFollowers([...followers, ...data?.followers?.items]);
       Mixpanel.track(PAGINATION.FOLLOWERS, { pageInfo });
     }
   });
@@ -92,7 +85,7 @@ const Followers: FC<Props> = ({ profile }) => {
       <ErrorMessage className="m-5" title="Failed to load followers" error={error} />
       <div className="space-y-3">
         <div className="divide-y dark:divide-gray-700">
-          {followers?.map((follower: Follower) => (
+          {data?.followers?.items?.map((follower: Follower) => (
             <div className="p-5" key={follower?.wallet?.defaultProfile?.id}>
               {follower?.wallet?.defaultProfile ? (
                 <UserProfile
@@ -107,7 +100,7 @@ const Followers: FC<Props> = ({ profile }) => {
             </div>
           ))}
         </div>
-        {pageInfo?.next && followers.length !== pageInfo?.totalCount && (
+        {pageInfo?.next && data?.followers?.items?.length !== pageInfo?.totalCount && (
           <span ref={observe} className="flex justify-center p-5">
             <Spinner size="md" />
           </span>
