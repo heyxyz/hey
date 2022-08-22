@@ -10,9 +10,9 @@ import { Form, useZodForm } from '@components/UI/Form';
 import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
 import { TextArea } from '@components/UI/TextArea';
+import useBroadcast from '@components/utils/hooks/useBroadcast';
 import Seo from '@components/utils/Seo';
 import { CreatePostBroadcastItemResult } from '@generated/types';
-import { BROADCAST_MUTATION } from '@gql/Broadcast';
 import { CREATE_POST_TYPED_DATA_MUTATION } from '@gql/TypedAndDispatcherData/CreatePost';
 import { PlusIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
@@ -23,7 +23,7 @@ import uploadToArweave from '@lib/uploadToArweave';
 import { NextPage } from 'next';
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import { APP_NAME, ERROR_MESSAGE, ERRORS, LENSHUB_PROXY, RELAY_ON, SIGN_WALLET } from 'src/constants';
+import { APP_NAME, ERROR_MESSAGE, LENSHUB_PROXY, RELAY_ON, SIGN_WALLET } from 'src/constants';
 import Custom404 from 'src/pages/404';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { COMMUNITY, PAGEVIEW } from 'src/tracking';
@@ -102,18 +102,15 @@ const NewCommunity: NextPage = () => {
     }
   };
 
-  const [broadcast, { data: broadcastData, loading: broadcastLoading }] = useMutation(BROADCAST_MUTATION, {
-    onCompleted,
-    onError: (error) => {
-      if (error.message === ERRORS.notMined) {
-        toast.error(error.message);
-      }
-      Mixpanel.track(COMMUNITY.NEW, {
-        result: 'broadcast_error',
-        error: error?.message
-      });
-    }
+  const {
+    broadcast,
+    data: broadcastData,
+    loading: broadcastLoading
+  } = useBroadcast({
+    trackingString: COMMUNITY.NEW,
+    onCompleted
   });
+
   const [createPostTypedData, { loading: typedDataLoading }] = useMutation(CREATE_POST_TYPED_DATA_MUTATION, {
     onCompleted: async ({ createPostTypedData }: { createPostTypedData: CreatePostBroadcastItemResult }) => {
       try {
@@ -144,7 +141,7 @@ const NewCommunity: NextPage = () => {
         if (RELAY_ON) {
           const {
             data: { broadcast: result }
-          } = await broadcast({ variables: { request: { id, signature } } });
+          } = await broadcast({ request: { id, signature } });
 
           if ('reason' in result) {
             write?.({ recklesslySetUnpreparedArgs: inputStruct });

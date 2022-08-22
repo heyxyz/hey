@@ -15,9 +15,9 @@ import { Modal } from '@components/UI/Modal';
 import { Spinner } from '@components/UI/Spinner';
 import { Tooltip } from '@components/UI/Tooltip';
 import { WarningMessage } from '@components/UI/WarningMessage';
+import useBroadcast from '@components/utils/hooks/useBroadcast';
 import { LensterPublication } from '@generated/lenstertypes';
 import { CreateCollectBroadcastItemResult } from '@generated/types';
-import { BROADCAST_MUTATION } from '@gql/Broadcast';
 import { CollectModuleFields } from '@gql/CollectModuleFields';
 import { PROXY_ACTION_MUTATION } from '@gql/ProxyAction';
 import {
@@ -39,14 +39,7 @@ import splitSignature from '@lib/splitSignature';
 import dayjs from 'dayjs';
 import React, { Dispatch, FC, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import {
-  CONNECT_WALLET,
-  ERROR_MESSAGE,
-  ERRORS,
-  LENSHUB_PROXY,
-  POLYGONSCAN_URL,
-  RELAY_ON
-} from 'src/constants';
+import { CONNECT_WALLET, ERROR_MESSAGE, LENSHUB_PROXY, POLYGONSCAN_URL, RELAY_ON } from 'src/constants';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { PUBLICATION } from 'src/tracking';
 import { useAccount, useBalance, useContractWrite, useSignTypedData } from 'wagmi';
@@ -210,17 +203,13 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
     hasAmount = true;
   }
 
-  const [broadcast, { data: broadcastData, loading: broadcastLoading }] = useMutation(BROADCAST_MUTATION, {
-    onCompleted,
-    onError: (error) => {
-      if (error.message === ERRORS.notMined) {
-        toast.error(error.message);
-      }
-      Mixpanel.track(PUBLICATION.COLLECT_MODULE.COLLECT, {
-        result: 'broadcast_error',
-        error: error?.message
-      });
-    }
+  const {
+    broadcast,
+    data: broadcastData,
+    loading: broadcastLoading
+  } = useBroadcast({
+    trackingString: PUBLICATION.COLLECT_MODULE.COLLECT,
+    onCompleted
   });
 
   const [createCollectTypedData, { loading: typedDataLoading }] = useMutation(
@@ -249,7 +238,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
           if (RELAY_ON) {
             const {
               data: { broadcast: result }
-            } = await broadcast({ variables: { request: { id, signature } } });
+            } = await broadcast({ request: { id, signature } });
 
             if ('reason' in result) {
               write?.({ recklesslySetUnpreparedArgs: inputStruct });

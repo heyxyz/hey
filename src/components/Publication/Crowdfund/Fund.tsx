@@ -5,16 +5,16 @@ import AllowanceButton from '@components/Settings/Allowance/Button';
 import Uniswap from '@components/Shared/Uniswap';
 import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
+import useBroadcast from '@components/utils/hooks/useBroadcast';
 import { LensterCollectModule, LensterPublication } from '@generated/lenstertypes';
 import { CreateCollectBroadcastItemResult } from '@generated/types';
-import { BROADCAST_MUTATION } from '@gql/Broadcast';
 import { CashIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
 import { Mixpanel } from '@lib/mixpanel';
 import splitSignature from '@lib/splitSignature';
 import React, { Dispatch, FC, useState } from 'react';
 import toast from 'react-hot-toast';
-import { CONNECT_WALLET, ERROR_MESSAGE, ERRORS, LENSHUB_PROXY, RELAY_ON } from 'src/constants';
+import { CONNECT_WALLET, ERROR_MESSAGE, LENSHUB_PROXY, RELAY_ON } from 'src/constants';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { CROWDFUND } from 'src/tracking';
 import { useAccount, useBalance, useContractWrite, useSignTypedData } from 'wagmi';
@@ -125,18 +125,15 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
     }
   });
 
-  const [broadcast, { data: broadcastData, loading: broadcastLoading }] = useMutation(BROADCAST_MUTATION, {
-    onCompleted,
-    onError: (error) => {
-      if (error.message === ERRORS.notMined) {
-        toast.error(error.message);
-      }
-      Mixpanel.track(CROWDFUND.FUND, {
-        result: 'broadcast_error',
-        error: error?.message
-      });
-    }
+  const {
+    broadcast,
+    data: broadcastData,
+    loading: broadcastLoading
+  } = useBroadcast({
+    trackingString: CROWDFUND.FUND,
+    onCompleted
   });
+
   const [createCollectTypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_COLLECT_TYPED_DATA_MUTATION,
     {
@@ -163,7 +160,7 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
           if (RELAY_ON) {
             const {
               data: { broadcast: result }
-            } = await broadcast({ variables: { request: { id, signature } } });
+            } = await broadcast({ request: { id, signature } });
 
             if ('reason' in result) {
               write?.({ recklesslySetUnpreparedArgs: inputStruct });

@@ -2,9 +2,9 @@ import { LensHubProxy } from '@abis/LensHubProxy';
 import { useMutation } from '@apollo/client';
 import { Spinner } from '@components/UI/Spinner';
 import { Tooltip } from '@components/UI/Tooltip';
+import useBroadcast from '@components/utils/hooks/useBroadcast';
 import { LensterPublication } from '@generated/lenstertypes';
 import { CreateMirrorBroadcastItemResult } from '@generated/types';
-import { BROADCAST_MUTATION } from '@gql/Broadcast';
 import {
   CREATE_MIRROR_TYPED_DATA_MUTATION,
   CREATE_MIRROR_VIA_DISPATHCER_MUTATION
@@ -19,7 +19,7 @@ import clsx from 'clsx';
 import { motion } from 'framer-motion';
 import { FC, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import { ERROR_MESSAGE, ERRORS, LENSHUB_PROXY, RELAY_ON, SIGN_WALLET } from 'src/constants';
+import { ERROR_MESSAGE, LENSHUB_PROXY, RELAY_ON, SIGN_WALLET } from 'src/constants';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { PUBLICATION } from 'src/tracking';
 import { useContractWrite, useSignTypedData } from 'wagmi';
@@ -79,17 +79,9 @@ const Mirror: FC<Props> = ({ publication }) => {
     }
   });
 
-  const [broadcast, { loading: broadcastLoading }] = useMutation(BROADCAST_MUTATION, {
-    onCompleted,
-    onError: (error) => {
-      if (error.message === ERRORS.notMined) {
-        toast.error(error.message);
-      }
-      Mixpanel.track(PUBLICATION.MIRROR, {
-        result: 'broadcast_error',
-        error: error?.message
-      });
-    }
+  const { broadcast, loading: broadcastLoading } = useBroadcast({
+    trackingString: PUBLICATION.MIRROR,
+    onCompleted
   });
 
   const [createMirrorTypedData, { loading: typedDataLoading }] = useMutation(
@@ -128,7 +120,7 @@ const Mirror: FC<Props> = ({ publication }) => {
           if (RELAY_ON) {
             const {
               data: { broadcast: result }
-            } = await broadcast({ variables: { request: { id, signature } } });
+            } = await broadcast({ request: { id, signature } });
 
             if ('reason' in result) {
               write?.({ recklesslySetUnpreparedArgs: inputStruct });
