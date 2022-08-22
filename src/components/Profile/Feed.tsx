@@ -6,13 +6,13 @@ import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
 import { LensterPublication } from '@generated/lenstertypes';
-import { PaginatedResultInfo, Profile } from '@generated/types';
+import { Profile } from '@generated/types';
 import { CommentFields } from '@gql/CommentFields';
 import { MirrorFields } from '@gql/MirrorFields';
 import { PostFields } from '@gql/PostFields';
 import { CollectionIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { useAppStore } from 'src/store/app';
 import { PAGINATION } from 'src/tracking';
@@ -53,25 +53,19 @@ interface Props {
 
 const Feed: FC<Props> = ({ profile, type }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const [publications, setPublications] = useState<LensterPublication[]>([]);
-  const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>();
   const { data, loading, error, fetchMore } = useQuery(PROFILE_FEED_QUERY, {
     variables: {
       request: { publicationTypes: type, profileId: profile?.id, limit: 10 },
       reactionRequest: currentProfile ? { profileId: currentProfile?.id } : null,
       profileId: currentProfile?.id ?? null
     },
-    skip: !profile?.id,
-    fetchPolicy: 'no-cache',
-    onCompleted: (data) => {
-      setPageInfo(data?.publications?.pageInfo);
-      setPublications(data?.publications?.items);
-    }
+    skip: !profile?.id
   });
 
+  const pageInfo = data?.publications?.pageInfo;
   const { observe } = useInView({
-    onEnter: async () => {
-      const { data } = await fetchMore({
+    onEnter: () => {
+      fetchMore({
         variables: {
           request: {
             publicationTypes: type,
@@ -83,8 +77,6 @@ const Feed: FC<Props> = ({ profile, type }) => {
           profileId: currentProfile?.id ?? null
         }
       });
-      setPageInfo(data?.publications?.pageInfo);
-      setPublications([...publications, ...data?.publications?.items]);
       Mixpanel.track(PAGINATION.PROFILE_FEED, { pageInfo });
     }
   });
@@ -107,11 +99,11 @@ const Feed: FC<Props> = ({ profile, type }) => {
       {!error && !loading && data?.publications?.items?.length !== 0 && (
         <>
           <Card className="divide-y-[1px] dark:divide-gray-700/80">
-            {publications?.map((post: LensterPublication, index: number) => (
+            {data?.publications?.items?.map((post: LensterPublication, index: number) => (
               <SinglePublication key={`${post?.id}_${index}`} publication={post} />
             ))}
           </Card>
-          {pageInfo?.next && publications.length !== pageInfo?.totalCount && (
+          {pageInfo?.next && data?.publications?.items?.length !== pageInfo?.totalCount && (
             <span ref={observe} className="flex justify-center p-5">
               <Spinner size="sm" />
             </span>

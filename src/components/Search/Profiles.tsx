@@ -5,11 +5,11 @@ import { Card, CardBody } from '@components/UI/Card';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
-import { PaginatedResultInfo, Profile } from '@generated/types';
+import { Profile } from '@generated/types';
 import { ProfileFields } from '@gql/ProfileFields';
 import { UsersIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { PAGINATION } from 'src/tracking';
 
@@ -35,20 +35,15 @@ interface Props {
 }
 
 const Profiles: FC<Props> = ({ query }) => {
-  const [profiles, setProfiles] = useState<Profile[]>([]);
-  const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>();
   const { data, loading, error, fetchMore } = useQuery(SEARCH_PROFILES_QUERY, {
     variables: { request: { query, type: 'PROFILE', limit: 10 } },
-    skip: !query,
-    onCompleted: (data) => {
-      setPageInfo(data?.search?.pageInfo);
-      setProfiles(data?.search?.items);
-    }
+    skip: !query
   });
 
+  const pageInfo = data?.search?.pageInfo;
   const { observe } = useInView({
-    onEnter: async () => {
-      const { data } = await fetchMore({
+    onEnter: () => {
+      fetchMore({
         variables: {
           request: {
             query,
@@ -58,8 +53,6 @@ const Profiles: FC<Props> = ({ query }) => {
           }
         }
       });
-      setPageInfo(data?.search?.pageInfo);
-      setProfiles([...profiles, ...data?.search?.items]);
       Mixpanel.track(PAGINATION.PROFILE_SEARCH, { pageInfo });
     }
   });
@@ -81,7 +74,7 @@ const Profiles: FC<Props> = ({ query }) => {
       {!error && !loading && (
         <>
           <div className="space-y-3">
-            {profiles?.map((profile: Profile) => (
+            {data?.search?.items?.map((profile: Profile) => (
               <Card key={profile?.id}>
                 <CardBody>
                   <UserProfile profile={profile} showBio isBig />
@@ -89,7 +82,7 @@ const Profiles: FC<Props> = ({ query }) => {
               </Card>
             ))}
           </div>
-          {pageInfo?.next && profiles.length !== pageInfo?.totalCount && (
+          {pageInfo?.next && data?.search?.items?.length !== pageInfo?.totalCount && (
             <span ref={observe} className="flex justify-center p-5">
               <Spinner size="sm" />
             </span>

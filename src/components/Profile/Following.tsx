@@ -4,11 +4,11 @@ import UserProfile from '@components/Shared/UserProfile';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
-import { Following, PaginatedResultInfo, Profile } from '@generated/types';
+import { Following, Profile } from '@generated/types';
 import { ProfileFields } from '@gql/ProfileFields';
 import { UsersIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { PAGINATION } from 'src/tracking';
 
@@ -36,20 +36,15 @@ interface Props {
 }
 
 const Following: FC<Props> = ({ profile }) => {
-  const [following, setFollowing] = useState<Following[]>([]);
-  const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>();
   const { data, loading, error, fetchMore } = useQuery(FOLLOWING_QUERY, {
     variables: { request: { address: profile?.ownedBy, limit: 10 } },
-    skip: !profile?.id,
-    onCompleted: (data) => {
-      setPageInfo(data?.following?.pageInfo);
-      setFollowing(data?.following?.items);
-    }
+    skip: !profile?.id
   });
 
+  const pageInfo = data?.following?.pageInfo;
   const { observe } = useInView({
-    onEnter: async () => {
-      const { data } = await fetchMore({
+    onEnter: () => {
+      fetchMore({
         variables: {
           request: {
             address: profile?.ownedBy,
@@ -58,8 +53,6 @@ const Following: FC<Props> = ({ profile }) => {
           }
         }
       });
-      setPageInfo(data?.following?.pageInfo);
-      setFollowing([...following, ...data?.following?.items]);
       Mixpanel.track(PAGINATION.FOLLOWING, { pageInfo });
     }
   });
@@ -88,7 +81,7 @@ const Following: FC<Props> = ({ profile }) => {
       <ErrorMessage className="m-5" title="Failed to load following" error={error} />
       <div className="space-y-3">
         <div className="divide-y dark:divide-gray-700">
-          {following?.map((following: Following) => (
+          {data?.following?.items?.map((following: Following) => (
             <div className="p-5" key={following?.profile?.id}>
               <UserProfile
                 profile={following?.profile}
@@ -99,7 +92,7 @@ const Following: FC<Props> = ({ profile }) => {
             </div>
           ))}
         </div>
-        {pageInfo?.next && following.length !== pageInfo?.totalCount && (
+        {pageInfo?.next && data?.following?.items?.length !== pageInfo?.totalCount && (
           <span ref={observe} className="flex justify-center p-5">
             <Spinner size="md" />
           </span>

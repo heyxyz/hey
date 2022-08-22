@@ -6,11 +6,10 @@ import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
 import { LensterPublication } from '@generated/lenstertypes';
-import { PaginatedResultInfo } from '@generated/types';
 import { CommentFields } from '@gql/CommentFields';
 import { CollectionIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { useAppStore } from 'src/store/app';
 import { PAGINATION } from 'src/tracking';
@@ -49,25 +48,19 @@ interface Props {
 const Feed: FC<Props> = ({ publication, type = 'comment', onlyFollowers = false, isFollowing = true }) => {
   const pubId = publication?.__typename === 'Mirror' ? publication?.mirrorOf?.id : publication?.id;
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const [publications, setPublications] = useState<LensterPublication[]>([]);
-  const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>();
   const { data, loading, error, fetchMore } = useQuery(COMMENT_FEED_QUERY, {
     variables: {
       request: { commentsOf: pubId, limit: 10 },
       reactionRequest: currentProfile ? { profileId: currentProfile?.id } : null,
       profileId: currentProfile?.id ?? null
     },
-    skip: !pubId,
-    fetchPolicy: 'no-cache',
-    onCompleted: (data) => {
-      setPageInfo(data?.publications?.pageInfo);
-      setPublications(data?.publications?.items);
-    }
+    skip: !pubId
   });
 
+  const pageInfo = data?.publications?.pageInfo;
   const { observe } = useInView({
-    onEnter: async () => {
-      const { data } = await fetchMore({
+    onEnter: () => {
+      fetchMore({
         variables: {
           request: {
             commentsOf: pubId,
@@ -78,8 +71,6 @@ const Feed: FC<Props> = ({ publication, type = 'comment', onlyFollowers = false,
           profileId: currentProfile?.id ?? null
         }
       });
-      setPageInfo(data?.publications?.pageInfo);
-      setPublications([...publications, ...data?.publications?.items]);
       Mixpanel.track(type === 'comment' ? PAGINATION.COMMENT_FEED : PAGINATION.COMMUNITY_FEED, { pageInfo });
     }
   });
@@ -107,11 +98,11 @@ const Feed: FC<Props> = ({ publication, type = 'comment', onlyFollowers = false,
       {!error && !loading && data?.publications?.items?.length !== 0 && (
         <>
           <Card className="divide-y-[1px] dark:divide-gray-700/80">
-            {publications?.map((post: LensterPublication, index: number) => (
+            {data?.publications?.items?.map((post: LensterPublication, index: number) => (
               <SinglePublication key={`${pubId}_${index}`} publication={post} showType={false} />
             ))}
           </Card>
-          {pageInfo?.next && publications.length !== pageInfo?.totalCount && (
+          {pageInfo?.next && data?.publications?.items.length !== pageInfo?.totalCount && (
             <span ref={observe} className="flex justify-center p-5">
               <Spinner size="sm" />
             </span>
