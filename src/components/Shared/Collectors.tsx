@@ -4,11 +4,11 @@ import WalletProfile from '@components/Shared/WalletProfile';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
-import { PaginatedResultInfo, Wallet } from '@generated/types';
+import { Wallet } from '@generated/types';
 import { ProfileFields } from '@gql/ProfileFields';
 import { CollectionIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { PAGINATION } from 'src/tracking';
 
@@ -38,20 +38,15 @@ interface Props {
 }
 
 const Collectors: FC<Props> = ({ pubId }) => {
-  const [collectors, setCollectors] = useState<Wallet[]>([]);
-  const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>();
   const { data, loading, error, fetchMore } = useQuery(COLLECTORS_QUERY, {
     variables: { request: { publicationId: pubId, limit: 10 } },
-    skip: !pubId,
-    onCompleted: (data) => {
-      setPageInfo(data?.whoCollectedPublication?.pageInfo);
-      setCollectors(data?.whoCollectedPublication?.items);
-    }
+    skip: !pubId
   });
 
+  const pageInfo = data?.whoCollectedPublication?.pageInfo;
   const { observe } = useInView({
-    onEnter: async () => {
-      const { data } = await fetchMore({
+    onEnter: () => {
+      fetchMore({
         variables: {
           request: {
             publicationId: pubId,
@@ -60,8 +55,6 @@ const Collectors: FC<Props> = ({ pubId }) => {
           }
         }
       });
-      setPageInfo(data?.whoCollectedPublication?.pageInfo);
-      setCollectors([...collectors, ...data?.whoCollectedPublication?.items]);
       Mixpanel.track(PAGINATION.COLLECTORS, { pageInfo });
     }
   });
@@ -87,7 +80,7 @@ const Collectors: FC<Props> = ({ pubId }) => {
       <ErrorMessage className="m-5" title="Failed to load collectors" error={error} />
       <div className="space-y-3">
         <div className="divide-y dark:divide-gray-700">
-          {collectors?.map((wallet: Wallet) => (
+          {data?.whoCollectedPublication?.items?.map((wallet: Wallet) => (
             <div className="p-5" key={wallet?.address}>
               {wallet?.defaultProfile ? (
                 <UserProfile
@@ -102,7 +95,7 @@ const Collectors: FC<Props> = ({ pubId }) => {
             </div>
           ))}
         </div>
-        {pageInfo?.next && collectors.length !== pageInfo?.totalCount && (
+        {pageInfo?.next && data?.whoCollectedPublication?.items?.length !== pageInfo?.totalCount && (
           <span ref={observe} className="flex justify-center p-5">
             <Spinner size="md" />
           </span>
