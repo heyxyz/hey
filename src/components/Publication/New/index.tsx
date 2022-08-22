@@ -11,7 +11,7 @@ import { Spinner } from '@components/UI/Spinner';
 import { LensterAttachment } from '@generated/lenstertypes';
 import { CreatePostBroadcastItemResult } from '@generated/types';
 import { IGif } from '@giphy/js-types';
-import { BROADCAST_MUTATION } from '@gql/BroadcastMutation';
+import { BROADCAST_MUTATION } from '@gql/Broadcast';
 import {
   CREATE_POST_TYPED_DATA_MUTATION,
   CREATE_POST_VIA_DISPATHCER_MUTATION

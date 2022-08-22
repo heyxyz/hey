@@ -3,7 +3,8 @@ import { gql, useMutation } from '@apollo/client';
 import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
 import { CreateFollowBroadcastItemResult, Profile } from '@generated/types';
-import { BROADCAST_MUTATION } from '@gql/BroadcastMutation';
+import { BROADCAST_MUTATION } from '@gql/Broadcast';
+import { PROXY_ACTION_MUTATION } from '@gql/ProxyAction';
 import { UserAddIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
 import { Mixpanel } from '@lib/mixpanel';
@@ -56,6 +57,7 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const isConnected = useAppPersistStore((state) => state.isConnected);
   const { address } = useAccount();
+
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError: (error) => {
       toast.error(error?.message);
@@ -97,6 +99,7 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
       });
     }
   });
+
   const [createFollowTypedData, { loading: typedDataLoading }] = useMutation(
     CREATE_FOLLOW_TYPED_DATA_MUTATION,
     {
@@ -139,42 +142,59 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
     }
   );
 
+  const [createFollowProxyAction, { loading: proxyActionLoading }] = useMutation(PROXY_ACTION_MUTATION, {
+    onCompleted,
+    onError: (error) => {
+      toast.error(error.message ?? ERROR_MESSAGE);
+    }
+  });
+
   const createFollow = () => {
     if (!isConnected) {
       return toast.error(CONNECT_WALLET);
     }
 
-    createFollowTypedData({
-      variables: {
-        options: { overrideSigNonce: userSigNonce },
-        request: {
-          follow: {
-            profile: profile?.id,
-            followModule:
-              profile?.followModule?.__typename === 'ProfileFollowModuleSettings'
-                ? { profileFollowModule: { profileId: currentProfile?.id } }
-                : null
+    if (profile?.followModule) {
+      createFollowTypedData({
+        variables: {
+          options: { overrideSigNonce: userSigNonce },
+          request: {
+            follow: {
+              profile: profile?.id,
+              followModule:
+                profile?.followModule?.__typename === 'ProfileFollowModuleSettings'
+                  ? { profileFollowModule: { profileId: currentProfile?.id } }
+                  : null
+            }
           }
         }
-      }
-    });
+      });
+    } else {
+      createFollowProxyAction({
+        variables: {
+          request: {
+            follow: {
+              freeFollow: {
+                profileId: profile?.id
+              }
+            }
+          }
+        }
+      });
+    }
   };
+
+  const isLoading = typedDataLoading || proxyActionLoading || signLoading || writeLoading || broadcastLoading;
 
   return (
     <Button
       className="text-sm !px-3 !py-1.5"
       outline
       onClick={createFollow}
-      disabled={typedDataLoading || signLoading || writeLoading || broadcastLoading}
       variant="success"
       aria-label="Follow"
-      icon={
-        typedDataLoading || signLoading || writeLoading || broadcastLoading ? (
-          <Spinner variant="success" size="xs" />
-        ) : (
-          <UserAddIcon className="w-4 h-4" />
-        )
-      }
+      disabled={isLoading}
+      icon={isLoading ? <Spinner variant="success" size="xs" /> : <UserAddIcon className="w-4 h-4" />}
     >
       {showText && 'Follow'}
     </Button>

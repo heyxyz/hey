@@ -33,6 +33,7 @@ export type Scalars = {
   Nonce: any;
   NotificationId: any;
   ProfileId: any;
+  ProxyActionId: any;
   PublicationId: any;
   PublicationTag: any;
   PublicationUrl: any;
@@ -177,6 +178,10 @@ export enum CollectModules {
   RevertCollectModule = 'RevertCollectModule',
   TimedFeeCollectModule = 'TimedFeeCollectModule'
 }
+
+export type CollectProxyAction = {
+  freeCollect?: InputMaybe<FreeCollectProxyAction>;
+};
 
 /** The social comment */
 export type Comment = {
@@ -1000,6 +1005,10 @@ export type FollowOnlyReferenceModuleSettings = {
   type: ReferenceModules;
 };
 
+export type FollowProxyAction = {
+  freeFollow?: InputMaybe<FreeFollowProxyAction>;
+};
+
 export type FollowRequest = {
   follow: Array<Follow>;
 };
@@ -1063,6 +1072,14 @@ export type FreeCollectModuleSettings = {
   type: CollectModules;
 };
 
+export type FreeCollectProxyAction = {
+  publicationId: Scalars['InternalPublicationId'];
+};
+
+export type FreeFollowProxyAction = {
+  profileId: Scalars['ProfileId'];
+};
+
 export type GenerateModuleCurrencyApproval = {
   __typename?: 'GenerateModuleCurrencyApproval';
   data: Scalars['BlockchainData'];
@@ -1077,6 +1094,12 @@ export type GenerateModuleCurrencyApprovalDataRequest = {
   referenceModule?: InputMaybe<ReferenceModules>;
   /** Floating point number as string (e.g. 42.009837). The server will move its decimal places for you */
   value: Scalars['String'];
+};
+
+export type GetPublicationMetadataStatusRequest = {
+  publicationId?: InputMaybe<Scalars['InternalPublicationId']>;
+  txHash?: InputMaybe<Scalars['TxHash']>;
+  txId?: InputMaybe<Scalars['TxId']>;
 };
 
 export type GlobalProtocolStats = {
@@ -1226,6 +1249,16 @@ export type MediaSet = {
 
 export type MentionPublication = Comment | Post;
 
+/** The metadata attribute input */
+export type MetadataAttributeInput = {
+  /** The display type */
+  displayType?: InputMaybe<PublicationMetadataDisplayTypes>;
+  /** The trait type - can be anything its the name it will render so include spaces */
+  traitType: Scalars['String'];
+  /** The value */
+  value: Scalars['String'];
+};
+
 /** The metadata attribute output */
 export type MetadataAttributeOutput = {
   __typename?: 'MetadataAttributeOutput';
@@ -1351,6 +1384,7 @@ export type Mutation = {
   createToggleFollowTypedData: CreateToggleFollowBroadcastItemResult;
   createUnfollowTypedData: CreateUnfollowBroadcastItemResult;
   hidePublication?: Maybe<Scalars['Void']>;
+  proxyAction: Scalars['ProxyActionId'];
   refresh: AuthenticationResult;
   removeReaction?: Maybe<Scalars['Void']>;
   reportPublication?: Maybe<Scalars['Void']>;
@@ -1472,6 +1506,10 @@ export type MutationCreateUnfollowTypedDataArgs = {
 
 export type MutationHidePublicationArgs = {
   request: HidePublicationRequest;
+};
+
+export type MutationProxyActionArgs = {
+  request: ProxyActionRequest;
 };
 
 export type MutationRefreshArgs = {
@@ -1973,6 +2011,38 @@ export type ProfileStatsPublicationsTotalArgs = {
   forSources: Array<Scalars['Sources']>;
 };
 
+export type ProxyActionError = {
+  __typename?: 'ProxyActionError';
+  lastKnownTxId?: Maybe<Scalars['TxId']>;
+  reason: Scalars['String'];
+};
+
+export type ProxyActionQueued = {
+  __typename?: 'ProxyActionQueued';
+  queuedAt: Scalars['DateTime'];
+};
+
+export type ProxyActionRequest = {
+  collect?: InputMaybe<CollectProxyAction>;
+  follow?: InputMaybe<FollowProxyAction>;
+};
+
+export type ProxyActionStatusResult = {
+  __typename?: 'ProxyActionStatusResult';
+  status: ProxyActionStatusTypes;
+  txHash: Scalars['TxHash'];
+  txId: Scalars['TxId'];
+};
+
+export type ProxyActionStatusResultUnion = ProxyActionError | ProxyActionQueued | ProxyActionStatusResult;
+
+/** The proxy action status */
+export enum ProxyActionStatusTypes {
+  Complete = 'COMPLETE',
+  Minting = 'MINTING',
+  Transferring = 'TRANSFERRING'
+}
+
 export type Publication = Comment | Mirror | Post;
 
 /** The publication content warning */
@@ -2017,6 +2087,17 @@ export type PublicationMetadataFilters = {
   tags?: InputMaybe<PublicationMetadataTagsFilter>;
 };
 
+/** The metadata attribute output */
+export type PublicationMetadataMediaInput = {
+  /** The alt tags for accessibility */
+  altTag?: InputMaybe<Scalars['String']>;
+  /** The cover for any video or audio you attached */
+  cover?: InputMaybe<Scalars['String']>;
+  item: Scalars['Url'];
+  /** This is the mime type of media */
+  type?: InputMaybe<Scalars['MimeType']>;
+};
+
 export type PublicationMetadataStatus = {
   __typename?: 'PublicationMetadataStatus';
   /** If metadata validation failed it will put a reason why here */
@@ -2027,6 +2108,7 @@ export type PublicationMetadataStatus = {
 /** publication metadata status type */
 export enum PublicationMetadataStatusType {
   MetadataValidationFailed = 'METADATA_VALIDATION_FAILED',
+  NotFound = 'NOT_FOUND',
   Pending = 'PENDING',
   Success = 'SUCCESS'
 }
@@ -2037,6 +2119,88 @@ export type PublicationMetadataTagsFilter = {
   all?: InputMaybe<Array<Scalars['String']>>;
   /** Needs to only match one of */
   oneOf?: InputMaybe<Array<Scalars['String']>>;
+};
+
+export type PublicationMetadataV1Input = {
+  /**
+   * A URL to a multi-media attachment for the item. The file extensions GLTF, GLB, WEBM, MP4, M4V, OGV,
+   *       and OGG are supported, along with the audio-only extensions MP3, WAV, and OGA.
+   *       Animation_url also supports HTML pages, allowing you to build rich experiences and interactive NFTs using JavaScript canvas,
+   *       WebGL, and more. Scripts and relative paths within the HTML page are now supported. However, access to browser extensions is not supported.
+   */
+  animation_url?: InputMaybe<Scalars['Url']>;
+  /**  This is the appId the content belongs to */
+  appId?: InputMaybe<Scalars['Sources']>;
+  /**  These are the attributes for the item, which will show up on the OpenSea and others NFT trading websites on the item. */
+  attributes: Array<MetadataAttributeInput>;
+  /** The content of a publication. If this is blank `media` must be defined or its out of spec */
+  content?: InputMaybe<Scalars['Markdown']>;
+  /** A human-readable description of the item. */
+  description?: InputMaybe<Scalars['String']>;
+  /**
+   * This is the URL that will appear below the asset's image on OpenSea and others etc
+   *       and will allow users to leave OpenSea and view the item on the site.
+   */
+  external_url?: InputMaybe<Scalars['Url']>;
+  /** legacy to support OpenSea will store any NFT image here. */
+  image?: InputMaybe<Scalars['Url']>;
+  /** This is the mime type of the image. This is used if your uploading more advanced cover images as sometimes ipfs does not emit the content header so this solves that */
+  imageMimeType?: InputMaybe<Scalars['MimeType']>;
+  /**  This is lens supported attached media items to the publication */
+  media?: InputMaybe<PublicationMetadataMediaInput>;
+  /** The metadata id can be anything but if your uploading to ipfs you will want it to be random.. using uuid could be an option! */
+  metadata_id: Scalars['String'];
+  /** Name of the item. */
+  name: Scalars['String'];
+  /** Signed metadata to validate the owner */
+  signatureContext?: InputMaybe<PublicationSignatureContextInput>;
+  /** The metadata version. (1.0.0 | 2.0.0) */
+  version: Scalars['String'];
+};
+
+export type PublicationMetadataV2Input = {
+  /**
+   * A URL to a multi-media attachment for the item. The file extensions GLTF, GLB, WEBM, MP4, M4V, OGV,
+   *       and OGG are supported, along with the audio-only extensions MP3, WAV, and OGA.
+   *       Animation_url also supports HTML pages, allowing you to build rich experiences and interactive NFTs using JavaScript canvas,
+   *       WebGL, and more. Scripts and relative paths within the HTML page are now supported. However, access to browser extensions is not supported.
+   */
+  animation_url?: InputMaybe<Scalars['Url']>;
+  /**  This is the appId the content belongs to */
+  appId?: InputMaybe<Scalars['Sources']>;
+  /**  These are the attributes for the item, which will show up on the OpenSea and others NFT trading websites on the item. */
+  attributes: Array<MetadataAttributeInput>;
+  /** The content of a publication. If this is blank `media` must be defined or its out of spec */
+  content?: InputMaybe<Scalars['Markdown']>;
+  /** Ability to add a content warning */
+  contentWarning?: InputMaybe<PublicationContentWarning>;
+  /** A human-readable description of the item. */
+  description?: InputMaybe<Scalars['String']>;
+  /**
+   * This is the URL that will appear below the asset's image on OpenSea and others etc
+   *       and will allow users to leave OpenSea and view the item on the site.
+   */
+  external_url?: InputMaybe<Scalars['Url']>;
+  /** legacy to support OpenSea will store any NFT image here. */
+  image?: InputMaybe<Scalars['Url']>;
+  /** This is the mime type of the image. This is used if your uploading more advanced cover images as sometimes ipfs does not emit the content header so this solves that */
+  imageMimeType?: InputMaybe<Scalars['MimeType']>;
+  /** IOS 639-1 language code aka en or it and ISO 3166-1 alpha-2 region code aka US or IT aka en-US or it-IT */
+  locale: Scalars['Locale'];
+  /** Main content focus that for this publication */
+  mainContentFocus: PublicationMainFocus;
+  /**  This is lens supported attached media items to the publication */
+  media?: InputMaybe<PublicationMetadataMediaInput>;
+  /** The metadata id can be anything but if your uploading to ipfs you will want it to be random.. using uuid could be an option! */
+  metadata_id: Scalars['String'];
+  /** Name of the item. */
+  name: Scalars['String'];
+  /** Signed metadata to validate the owner */
+  signatureContext?: InputMaybe<PublicationSignatureContextInput>;
+  /** Ability to tag your publication */
+  tags?: InputMaybe<Array<Scalars['String']>>;
+  /** The metadata version. (1.0.0 | 2.0.0) */
+  version: Scalars['String'];
 };
 
 export type PublicationQueryRequest = {
@@ -2055,20 +2219,35 @@ export enum PublicationReportingFraudSubreason {
 /** Publication reporting illegal subreason */
 export enum PublicationReportingIllegalSubreason {
   AnimalAbuse = 'ANIMAL_ABUSE',
-  HumanAbuse = 'HUMAN_ABUSE'
+  DirectThreat = 'DIRECT_THREAT',
+  HumanAbuse = 'HUMAN_ABUSE',
+  ThreatIndividual = 'THREAT_INDIVIDUAL',
+  Violence = 'VIOLENCE'
 }
 
 /** Publication reporting reason */
 export enum PublicationReportingReason {
   Fraud = 'FRAUD',
   Illegal = 'ILLEGAL',
-  Sensitive = 'SENSITIVE'
+  Sensitive = 'SENSITIVE',
+  Spam = 'SPAM'
 }
 
 /** Publication reporting sensitive subreason */
 export enum PublicationReportingSensitiveSubreason {
   Nsfw = 'NSFW',
   Offensive = 'OFFENSIVE'
+}
+
+/** Publication reporting spam subreason */
+export enum PublicationReportingSpamSubreason {
+  FakeEngagement = 'FAKE_ENGAGEMENT',
+  ManipulationAlgo = 'MANIPULATION_ALGO',
+  Misleading = 'MISLEADING',
+  MisuseHashtags = 'MISUSE_HASHTAGS',
+  Repetitive = 'REPETITIVE',
+  SomethingElse = 'SOMETHING_ELSE',
+  Unrelated = 'UNRELATED'
 }
 
 /** The social comment */
@@ -2092,6 +2271,10 @@ export type PublicationSearchResult = {
 };
 
 export type PublicationSearchResultItem = Comment | Post;
+
+export type PublicationSignatureContextInput = {
+  signature: Scalars['String'];
+};
 
 /** Publication sort criteria */
 export enum PublicationSortCriteria {
@@ -2130,6 +2313,13 @@ export enum PublicationTypes {
   Mirror = 'MIRROR',
   Post = 'POST'
 }
+
+export type PublicationValidateMetadataResult = {
+  __typename?: 'PublicationValidateMetadataResult';
+  /** If `valid` is false it will put a reason why here */
+  reason?: Maybe<Scalars['String']>;
+  valid: Scalars['Boolean'];
+};
 
 export type PublicationsQueryRequest = {
   /** The ethereum address */
@@ -2180,7 +2370,9 @@ export type Query = {
   profilePublicationRevenue: ProfilePublicationRevenueResult;
   profilePublicationsForSale: PaginatedProfilePublicationsForSaleResult;
   profiles: PaginatedProfileResult;
+  proxyActionStatus: ProxyActionStatusResultUnion;
   publication?: Maybe<Publication>;
+  publicationMetadataStatus: PublicationMetadataStatus;
   publicationRevenue?: Maybe<PublicationRevenue>;
   publications: PaginatedPublicationResult;
   recommendedProfiles: Array<Profile>;
@@ -2189,6 +2381,7 @@ export type Query = {
   timeline: PaginatedTimelineResult;
   txIdToTxHash: Scalars['TxHash'];
   userSigNonces: UserSigNonces;
+  validatePublicationMetadata: PublicationValidateMetadataResult;
   verify: Scalars['Boolean'];
   whoCollectedPublication: PaginatedWhoCollectedResult;
 };
@@ -2289,8 +2482,16 @@ export type QueryProfilesArgs = {
   request: ProfileQueryRequest;
 };
 
+export type QueryProxyActionStatusArgs = {
+  proxyActionId: Scalars['ProxyActionId'];
+};
+
 export type QueryPublicationArgs = {
   request: PublicationQueryRequest;
+};
+
+export type QueryPublicationMetadataStatusArgs = {
+  request: GetPublicationMetadataStatusRequest;
 };
 
 export type QueryPublicationRevenueArgs = {
@@ -2315,6 +2516,10 @@ export type QueryTimelineArgs = {
 
 export type QueryTxIdToTxHashArgs = {
   txId: Scalars['TxId'];
+};
+
+export type QueryValidatePublicationMetadataArgs = {
+  request: ValidatePublicationMetadataRequest;
 };
 
 export type QueryVerifyArgs = {
@@ -2403,6 +2608,7 @@ export type ReportingReasonInputParams = {
   fraudReason?: InputMaybe<FraudReasonInputParams>;
   illegalReason?: InputMaybe<IllegalReasonInputParams>;
   sensitiveReason?: InputMaybe<SensitiveReasonInputParams>;
+  spamReason?: InputMaybe<SpamReasonInputParams>;
 };
 
 export type ReservedClaimableHandle = {
@@ -2514,6 +2720,11 @@ export type SingleProfileQueryRequest = {
   handle?: InputMaybe<Scalars['Handle']>;
   /** The profile id */
   profileId?: InputMaybe<Scalars['ProfileId']>;
+};
+
+export type SpamReasonInputParams = {
+  reason: PublicationReportingReason;
+  subreason: PublicationReportingSpamSubreason;
 };
 
 export type SybilDotOrgIdentity = {
@@ -2663,6 +2874,11 @@ export type UserSigNonces = {
   peripheryOnChainSigNonce: Scalars['Nonce'];
 };
 
+export type ValidatePublicationMetadataRequest = {
+  metadatav1?: InputMaybe<PublicationMetadataV1Input>;
+  metadatav2?: InputMaybe<PublicationMetadataV2Input>;
+};
+
 /** The access request */
 export type VerifyRequest = {
   /** The access token */
@@ -2716,6 +2932,7 @@ const result: PossibleTypesResultData = {
       'NewMirrorNotification'
     ],
     ProfileMedia: ['MediaSet', 'NftImage'],
+    ProxyActionStatusResultUnion: ['ProxyActionError', 'ProxyActionQueued', 'ProxyActionStatusResult'],
     Publication: ['Comment', 'Mirror', 'Post'],
     PublicationForSale: ['Comment', 'Post'],
     PublicationSearchResultItem: ['Comment', 'Post'],

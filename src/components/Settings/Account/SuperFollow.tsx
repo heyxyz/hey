@@ -7,7 +7,7 @@ import { Form, useZodForm } from '@components/UI/Form';
 import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
 import { CreateSetFollowModuleBroadcastItemResult, Erc20 } from '@generated/types';
-import { BROADCAST_MUTATION } from '@gql/BroadcastMutation';
+import { BROADCAST_MUTATION } from '@gql/Broadcast';
 import { StarIcon, XIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
 import getTokenImage from '@lib/getTokenImage';

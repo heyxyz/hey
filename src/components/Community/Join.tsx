@@ -4,7 +4,7 @@ import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
 import { Community } from '@generated/lenstertypes';
 import { CreateCollectBroadcastItemResult } from '@generated/types';
-import { BROADCAST_MUTATION } from '@gql/BroadcastMutation';
+import { BROADCAST_MUTATION } from '@gql/Broadcast';
 import { PlusIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
 import { Mixpanel } from '@lib/mixpanel';

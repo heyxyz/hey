@@ -4,7 +4,7 @@ import { Spinner } from '@components/UI/Spinner';
 import { Tooltip } from '@components/UI/Tooltip';
 import { LensterPublication } from '@generated/lenstertypes';
 import { CreateMirrorBroadcastItemResult } from '@generated/types';
-import { BROADCAST_MUTATION } from '@gql/BroadcastMutation';
+import { BROADCAST_MUTATION } from '@gql/Broadcast';
 import {
   CREATE_MIRROR_TYPED_DATA_MUTATION,
   CREATE_MIRROR_VIA_DISPATHCER_MUTATION

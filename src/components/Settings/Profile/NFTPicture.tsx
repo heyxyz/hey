@@ -7,7 +7,7 @@ import { Form, useZodForm } from '@components/UI/Form';
 import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
 import { CreateSetProfileImageUriBroadcastItemResult, NftImage, Profile } from '@generated/types';
-import { BROADCAST_MUTATION } from '@gql/BroadcastMutation';
+import { BROADCAST_MUTATION } from '@gql/Broadcast';
 import {
   CREATE_SET_PROFILE_IMAGE_URI_TYPED_DATA_MUTATION,
   CREATE_SET_PROFILE_IMAGE_URI_VIA_DISPATHCER_MUTATION

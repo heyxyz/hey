@@ -17,7 +17,7 @@ import { Tooltip } from '@components/UI/Tooltip';
 import { WarningMessage } from '@components/UI/WarningMessage';
 import { LensterPublication } from '@generated/lenstertypes';
 import { CreateCollectBroadcastItemResult } from '@generated/types';
-import { BROADCAST_MUTATION } from '@gql/BroadcastMutation';
+import { BROADCAST_MUTATION } from '@gql/Broadcast';
 import { CollectModuleFields } from '@gql/CollectModuleFields';
 import {
   CashIcon,

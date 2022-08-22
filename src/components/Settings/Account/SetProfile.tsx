@@ -7,7 +7,7 @@ import { Card, CardBody } from '@components/UI/Card';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
 import { Profile, SetDefaultProfileBroadcastItemResult } from '@generated/types';
-import { BROADCAST_MUTATION } from '@gql/BroadcastMutation';
+import { BROADCAST_MUTATION } from '@gql/Broadcast';
 import { CREATE_SET_DEFAULT_PROFILE_DATA_MUTATION } from '@gql/TypedAndDispatcherData/CreateSetDefaultProfile';
 import { ExclamationIcon, PencilIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
