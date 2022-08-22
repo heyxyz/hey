@@ -46,7 +46,7 @@ export function cursorBasedPagination<T extends CursorBasedPagination>(
 
       return {
         ...incoming,
-        items: existingItems.concat(incomingItems),
+        items: existingItems?.concat(incomingItems),
         pageInfo: incoming.pageInfo
       } as SafeReadonly<T>;
     }
