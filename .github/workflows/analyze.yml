@@ -33,6 +33,8 @@ jobs:
 
       - name: Build next.js app
         run: yarn build
+        env:
+          SENTRY_AUTH_TOKEN: $SENTRY_AUTH_TOKEN
 
       - name: Analyze bundle
         run: npx -p nextjs-bundle-analysis report
