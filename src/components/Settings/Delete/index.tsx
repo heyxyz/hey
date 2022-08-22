@@ -82,7 +82,7 @@ const DeleteSettings: FC = () => {
     Mixpanel.track(SETTINGS.DELETE);
     setIsAuthenticated(false);
     setIsConnected(false);
-    setCurrentProfile(undefined);
+    setCurrentProfile(null);
     setProfileId(null);
     Cookies.remove('accessToken');
     Cookies.remove('refreshToken');

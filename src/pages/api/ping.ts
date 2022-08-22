@@ -19,7 +19,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     return res
       .status(networkStatus === 7 ? 200 : 500)
       .json({ success: networkStatus === 7, ping: data?.ping });
-  } catch (e) {
+  } catch {
     return res.status(500).json({ success: false, message: ERROR_MESSAGE });
   }
 };

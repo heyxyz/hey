@@ -13,7 +13,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         network: IS_MAINNET ? 'mainnet' : 'testnet',
         profile_ids: IS_MAINNET ? mainnetVerified : testnetVerified
       });
-  } catch (e) {
+  } catch {
     return res.status(500).json({ success: false, message: ERROR_MESSAGE });
   }
 };

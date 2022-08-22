@@ -78,7 +78,7 @@ const Layout: FC<Props> = ({ children }) => {
       } else {
         const selectedUser = profiles.find((profile) => profile.id === profileId);
         setProfiles(profiles);
-        setCurrentProfile(selectedUser);
+        setCurrentProfile(selectedUser as Profile);
       }
     }
   });
@@ -99,23 +99,21 @@ const Layout: FC<Props> = ({ children }) => {
     }
 
     if (
-      hasSameAddress || // If the current address is not the same as the profile address
-      chain?.id !== CHAIN_ID || // If the user is not on the correct chain
-      isDisconnected || // If the user is disconnected from the wallet
-      !profileId || // If the user has no profile
-      !hasAuthTokens // If the user has no auth tokens
+      (hasSameAddress || // If the current address is not the same as the profile address
+        chain?.id !== CHAIN_ID || // If the user is not on the correct chain
+        isDisconnected || // If the user is disconnected from the wallet
+        !profileId || // If the user has no profile
+        !hasAuthTokens) && // If the user has no auth tokens
+      isAuthenticated // If the user is authenticated
     ) {
-      // Logout the user and profile
-      if (isAuthenticated) {
-        setIsAuthenticated(false);
-        setIsConnected(false);
-        setCurrentProfile(undefined);
-        setProfileId(null);
-        Cookies.remove('accessToken');
-        Cookies.remove('refreshToken');
-        localStorage.removeItem('lenster.store');
-        disconnect();
-      }
+      setIsAuthenticated(false);
+      setIsConnected(false);
+      setCurrentProfile(null);
+      setProfileId(null);
+      Cookies.remove('accessToken');
+      Cookies.remove('refreshToken');
+      localStorage.removeItem('lenster.store');
+      disconnect();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isDisconnected, address, chain, currentProfile, disconnect, setCurrentProfile]);

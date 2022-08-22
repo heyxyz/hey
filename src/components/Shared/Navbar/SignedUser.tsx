@@ -114,7 +114,7 @@ const SignedUser: FC<Props> = ({ pingData }) => {
                 as="a"
                 onClick={() => {
                   Mixpanel.track(PROFILE.LOGOUT);
-                  setCurrentProfile(undefined);
+                  setCurrentProfile(null);
                   setProfileId(null);
                   Cookies.remove('accessToken');
                   Cookies.remove('refreshToken');

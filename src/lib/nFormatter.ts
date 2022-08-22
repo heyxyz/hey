@@ -16,13 +16,10 @@ const nFormatter = (num: number, digits = 1): string => {
     { value: 1e15, symbol: 'P' },
     { value: 1e18, symbol: 'E' }
   ];
-  const rx = /\.0+$|(\.[0-9]*[1-9])0+$/;
-  const item = lookup
-    .slice()
-    .reverse()
-    .find(function (item) {
-      return num >= item.value;
-    });
+  const rx = /\.0+$|(\.\d*[1-9])0+$/;
+  const item = [...lookup].reverse().find(function (item) {
+    return num >= item.value;
+  });
 
   return item
     ? num < 10000

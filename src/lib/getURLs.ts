@@ -4,7 +4,7 @@
  * @returns urls
  */
 const getURLs = (text: string) => {
-  const urlRegex = /(((https?:\/\/)|(www\.))[^\s]+)/g;
+  const urlRegex = /(((https?:\/\/)|(www\.))\S+)/g;
   return text.match(urlRegex) ?? [];
 };
 
