@@ -11,12 +11,5 @@ export const Mixpanel = {
     if (enabled) {
       mixpanel.track(name, props);
     }
-  },
-  people: {
-    set: (props: Dict) => {
-      if (enabled) {
-        mixpanel.people.set(props);
-      }
-    }
   }
 };
