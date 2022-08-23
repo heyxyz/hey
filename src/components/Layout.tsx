@@ -89,9 +89,6 @@ const Layout: FC<Props> = ({ children }) => {
     const currentProfileAddress = currentProfile?.ownedBy;
     const hasSameAddress = currentProfileAddress !== undefined && currentProfileAddress !== address;
 
-    // Set mounted state to true after the first render
-    setMounted(true);
-
     if (
       (hasSameAddress || // If the current address is not the same as the profile address
         chain?.id !== CHAIN_ID || // If the user is not on the correct chain
@@ -109,6 +106,9 @@ const Layout: FC<Props> = ({ children }) => {
       localStorage.removeItem('lenster.store');
       disconnect();
     }
+
+    // Set mounted state to true after the first render
+    setMounted(true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isDisconnected, address, chain, currentProfile, disconnect, setCurrentProfile]);
 
