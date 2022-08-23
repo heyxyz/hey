@@ -18,7 +18,7 @@ const CommunityPublication: FC<Props> = ({ publication }) => {
         <Link href={`/communities/${commentOn?.id}`}>
           <a href={`/communities/${commentOn?.id}`}>
             <span>Posted on </span>
-            <Slug slug={publication?.commentOn?.metadata?.name} />
+            <Slug slug={publication?.commentOn?.metadata?.name as string} />
           </a>
         </Link>
       </div>

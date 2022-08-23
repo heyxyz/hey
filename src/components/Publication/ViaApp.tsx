@@ -2,13 +2,11 @@ import React, { FC } from 'react';
 import { STATIC_ASSETS } from 'src/constants';
 
 interface Props {
-  appConfig:
-    | {
-        id: string;
-        name: string;
-        logo: string;
-      }
-    | undefined;
+  appConfig?: {
+    id: string;
+    name: string;
+    logo: string;
+  };
 }
 
 const ViaApp: FC<Props> = ({ appConfig }) => {

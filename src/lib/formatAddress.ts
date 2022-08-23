@@ -5,7 +5,7 @@ import { ADDRESS_REGEX } from 'src/constants';
  * @param address - Complete ethereum address
  * @returns formatted ethereum address
  */
-const formatAddress = (address: string | null | undefined): string => {
+const formatAddress = (address: string | null): string => {
   if (!address) {
     return '';
   }
