@@ -6,7 +6,7 @@ import jwtDecode from 'jwt-decode';
 
 import { API_URL, ERROR_MESSAGE } from '../constants';
 import { cursorBasedPagination } from './lib/cursorBasedPagination';
-import dataIdFromObject from './lib/dataIdFromObject';
+import { publicationKeyFields } from './lib/keyFields';
 
 export const COOKIE_CONFIG: CookieAttributes = {
   sameSite: 'None',
@@ -77,8 +77,9 @@ const authLink = new ApolloLink((operation, forward) => {
 
 const cache = new InMemoryCache({
   possibleTypes: result.possibleTypes,
-  dataIdFromObject,
   typePolicies: {
+    Post: { keyFields: publicationKeyFields },
+    Comment: { keyFields: publicationKeyFields },
     Query: {
       fields: {
         timeline: cursorBasedPagination(['request', ['profileId']]),
