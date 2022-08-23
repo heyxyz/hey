@@ -1,6 +1,7 @@
 import { gql, useQuery } from '@apollo/client';
 import { Profile } from '@generated/types';
 import { ProfileFields } from '@gql/ProfileFields';
+import clearAuthData from '@lib/clearAuthData';
 import getToastOptions from '@lib/getToastOptions';
 import Cookies from 'js-cookie';
 import mixpanel from 'mixpanel-browser';
@@ -102,9 +103,7 @@ const Layout: FC<Props> = ({ children }) => {
       setIsConnected(false);
       setCurrentProfile(null);
       setProfileId(null);
-      Cookies.remove('accessToken');
-      Cookies.remove('refreshToken');
-      localStorage.removeItem('lenster.store');
+      clearAuthData();
       disconnect();
     }
 
