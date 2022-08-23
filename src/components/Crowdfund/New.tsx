@@ -16,6 +16,7 @@ import Seo from '@components/utils/Seo';
 import { CreatePostBroadcastItemResult, Erc20 } from '@generated/types';
 import { CREATE_POST_TYPED_DATA_MUTATION } from '@gql/TypedAndDispatcherData/CreatePost';
 import { PlusIcon } from '@heroicons/react/outline';
+import getIPFSLink from '@lib/getIPFSLink';
 import getSignature from '@lib/getSignature';
 import getTokenImage from '@lib/getTokenImage';
 import imagekitURL from '@lib/imagekitURL';
@@ -356,7 +357,7 @@ const NewCrowdfund: NextPage = () => {
                     <img
                       className="object-cover w-full h-60 rounded-lg"
                       height={240}
-                      src={imagekitURL(cover, 'attachment')}
+                      src={imagekitURL(getIPFSLink(cover), 'attachment')}
                       alt={cover}
                     />
                   )}
