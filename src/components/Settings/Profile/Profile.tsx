@@ -18,6 +18,7 @@ import {
 } from '@gql/TypedAndDispatcherData/CreateSetProfileMetadata';
 import { PencilIcon } from '@heroicons/react/outline';
 import getAttribute from '@lib/getAttribute';
+import getIPFSLink from '@lib/getIPFSLink';
 import getSignature from '@lib/getSignature';
 import hasPrideLogo from '@lib/hasPrideLogo';
 import imagekitURL from '@lib/imagekitURL';
@@ -269,7 +270,7 @@ const Profile: FC<Props> = ({ profile }) => {
                 <div>
                   <img
                     className="object-cover w-full h-60 rounded-lg"
-                    src={imagekitURL(cover, 'cover')}
+                    src={imagekitURL(getIPFSLink(cover), 'cover')}
                     alt={cover}
                   />
                 </div>

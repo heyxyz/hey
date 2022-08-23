@@ -9,6 +9,7 @@ import { Modal } from '@components/UI/Modal';
 import { Tooltip } from '@components/UI/Tooltip';
 import { LensterPublication } from '@generated/lenstertypes';
 import { CashIcon, CurrencyDollarIcon, UsersIcon } from '@heroicons/react/outline';
+import getIPFSLink from '@lib/getIPFSLink';
 import getTokenImage from '@lib/getTokenImage';
 import imagekitURL from '@lib/imagekitURL';
 import { Mixpanel } from '@lib/mixpanel';
@@ -85,7 +86,7 @@ const Crowdfund: FC<Props> = ({ fund }) => {
         className="h-40 rounded-t-xl border-b sm:h-52 dark:border-b-gray-700/80"
         style={{
           backgroundImage: `url(${
-            cover ? imagekitURL(cover, 'attachment') : `${STATIC_ASSETS}/patterns/2.svg`
+            cover ? imagekitURL(getIPFSLink(cover), 'attachment') : `${STATIC_ASSETS}/patterns/2.svg`
           })`,
           backgroundColor: '#8b5cf6',
           backgroundSize: cover ? 'cover' : '30%',
