@@ -230,10 +230,13 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
     }
   );
 
-  const [createCollectProxyAction, { loading: proxyActionLoading }] = useMutation(PROXY_ACTION_MUTATION, {
-    onCompleted,
-    onError
-  });
+  const [createCollectProxyAction, { loading: proxyActionLoading }] = useMutation<Mutation>(
+    PROXY_ACTION_MUTATION,
+    {
+      onCompleted,
+      onError
+    }
+  );
 
   const createCollect = () => {
     if (!isConnected) {

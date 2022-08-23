@@ -3,6 +3,7 @@ import { HIDE_POST_MUTATION } from '@components/Publication/Actions/Menu/Delete'
 import { Button } from '@components/UI/Button';
 import { WarningMessage } from '@components/UI/WarningMessage';
 import { Community } from '@generated/lenstertypes';
+import { Mutation } from '@generated/types';
 import { TrashIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import { useRouter } from 'next/router';
@@ -15,7 +16,7 @@ interface Props {
 
 const Settings: FC<Props> = ({ community }) => {
   const { push } = useRouter();
-  const [hidePost] = useMutation(HIDE_POST_MUTATION, {
+  const [hidePost] = useMutation<Mutation>(HIDE_POST_MUTATION, {
     onCompleted: () => {
       Mixpanel.track(COMMUNITY.SETTINGS.DELETE);
       push('/');
