@@ -49,7 +49,7 @@
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.34.2",
     "react-hot-toast": "^2.3.0",
-    "react-mentions": "4.4.7",
+    "react-mentions": "^4.4.7",
     "use-streak": "^1.0.4",
     "uuid": "^8.3.2",
     "wagmi": "^0.6.4",
