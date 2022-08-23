@@ -77,6 +77,9 @@ const authLink = new ApolloLink((operation, forward) => {
 const cache = new InMemoryCache({
   possibleTypes: result.possibleTypes,
   typePolicies: {
+    Post: { keyFields: false },
+    Comment: { keyFields: false },
+    Mirror: { keyFields: false },
     Query: {
       fields: {
         timeline: cursorBasedPagination(['request', ['profileId']]),
