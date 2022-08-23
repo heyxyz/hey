@@ -126,7 +126,7 @@ const Picture: FC<Props> = ({ profile }) => {
     }
   };
 
-  const editPicture = (avatar: string | undefined) => {
+  const editPicture = (avatar?: string) => {
     if (!isAuthenticated) {
       return toast.error(SIGN_WALLET);
     }

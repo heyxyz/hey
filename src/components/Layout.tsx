@@ -1,6 +1,7 @@
 import { gql, useQuery } from '@apollo/client';
 import { Profile } from '@generated/types';
 import { ProfileFields } from '@gql/ProfileFields';
+import getToastOptions from '@lib/getToastOptions';
 import Cookies from 'js-cookie';
 import mixpanel from 'mixpanel-browser';
 import Head from 'next/head';
@@ -112,28 +113,6 @@ const Layout: FC<Props> = ({ children }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isDisconnected, address, chain, currentProfile, disconnect, setCurrentProfile]);
 
-  const toastOptions = {
-    style: {
-      background: resolvedTheme === 'dark' ? '#18181B' : '',
-      color: resolvedTheme === 'dark' ? '#fff' : ''
-    },
-    success: {
-      className: 'border border-green-500',
-      iconTheme: {
-        primary: '#10B981',
-        secondary: 'white'
-      }
-    },
-    error: {
-      className: 'border border-red-500',
-      iconTheme: {
-        primary: '#EF4444',
-        secondary: 'white'
-      }
-    },
-    loading: { className: 'border border-gray-300' }
-  };
-
   if (loading || !mounted) {
     return <Loading />;
   }
@@ -143,7 +122,7 @@ const Layout: FC<Props> = ({ children }) => {
       <Head>
         <meta name="theme-color" content={resolvedTheme === 'dark' ? '#1b1b1d' : '#ffffff'} />
       </Head>
-      <Toaster position="bottom-right" toastOptions={toastOptions} />
+      <Toaster position="bottom-right" toastOptions={getToastOptions(resolvedTheme)} />
       <div className="flex flex-col min-h-screen">
         <Navbar />
         {children}

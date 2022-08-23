@@ -3,7 +3,7 @@
  * @param name - Name to format
  * @returns formatted name
  */
-export const getFollowModule = (name: string | undefined): { description: string } => {
+export const getFollowModule = (name?: string): { description: string } => {
   switch (name) {
     case 'ProfileFollowModuleSettings':
       return { description: 'Only Lens profiles can follow' };

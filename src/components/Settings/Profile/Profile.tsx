@@ -174,9 +174,9 @@ const Profile: FC<Props> = ({ profile }) => {
   const editProfile = async (
     name: string,
     location: string | null,
-    website: string | null | undefined,
-    twitter: string | null,
-    bio: string | null
+    website?: string | null,
+    twitter?: string | null,
+    bio?: string | null
   ) => {
     if (!isAuthenticated) {
       return toast.error(SIGN_WALLET);
