@@ -4,7 +4,7 @@ import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
 import { Community } from '@generated/lenstertypes';
-import { CreateCollectBroadcastItemResult } from '@generated/types';
+import { CreateCollectBroadcastItemResult, Mutation } from '@generated/types';
 import { PlusIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
 import { Mixpanel } from '@lib/mixpanel';
@@ -76,7 +76,7 @@ const Join: FC<Props> = ({ community, setJoined, showJoin = true }) => {
   });
 
   const { broadcast, loading: broadcastLoading } = useBroadcast({ onCompleted });
-  const [createCollectTypedData, { loading: typedDataLoading }] = useMutation(
+  const [createCollectTypedData, { loading: typedDataLoading }] = useMutation<Mutation>(
     CREATE_COLLECT_TYPED_DATA_MUTATION,
     {
       onCompleted: async ({

@@ -8,7 +8,7 @@ import { Modal } from '@components/UI/Modal';
 import { Spinner } from '@components/UI/Spinner';
 import { WarningMessage } from '@components/UI/WarningMessage';
 import Seo from '@components/utils/Seo';
-import { CreateBurnProfileBroadcastItemResult } from '@generated/types';
+import { CreateBurnProfileBroadcastItemResult, Mutation } from '@generated/types';
 import { ExclamationIcon, TrashIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
 import { Mixpanel } from '@lib/mixpanel';
@@ -93,7 +93,7 @@ const DeleteSettings: FC = () => {
     onError
   });
 
-  const [createBurnProfileTypedData, { loading: typedDataLoading }] = useMutation(
+  const [createBurnProfileTypedData, { loading: typedDataLoading }] = useMutation<Mutation>(
     CREATE_BURN_PROFILE_TYPED_DATA_MUTATION,
     {
       onCompleted: async ({

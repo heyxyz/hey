@@ -2,7 +2,7 @@ import { FollowNFT } from '@abis/FollowNFT';
 import { gql, useMutation } from '@apollo/client';
 import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
-import { CreateUnfollowBroadcastItemResult, Profile } from '@generated/types';
+import { CreateUnfollowBroadcastItemResult, Mutation, Profile } from '@generated/types';
 import { UserRemoveIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
 import { Mixpanel } from '@lib/mixpanel';
@@ -56,7 +56,7 @@ const Unfollow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
   const { data: signer } = useSigner();
 
-  const [createUnfollowTypedData, { loading: typedDataLoading }] = useMutation(
+  const [createUnfollowTypedData, { loading: typedDataLoading }] = useMutation<Mutation>(
     CREATE_UNFOLLOW_TYPED_DATA_MUTATION,
     {
       onCompleted: async ({

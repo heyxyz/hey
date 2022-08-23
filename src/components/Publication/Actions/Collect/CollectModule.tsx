@@ -17,7 +17,7 @@ import { Tooltip } from '@components/UI/Tooltip';
 import { WarningMessage } from '@components/UI/WarningMessage';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
 import { LensterPublication } from '@generated/lenstertypes';
-import { CreateCollectBroadcastItemResult } from '@generated/types';
+import { CreateCollectBroadcastItemResult, Mutation } from '@generated/types';
 import { CollectModuleFields } from '@gql/CollectModuleFields';
 import { PROXY_ACTION_MUTATION } from '@gql/ProxyAction';
 import {
@@ -190,7 +190,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
   }
 
   const { broadcast, data: broadcastData, loading: broadcastLoading } = useBroadcast({ onCompleted });
-  const [createCollectTypedData, { loading: typedDataLoading }] = useMutation(
+  const [createCollectTypedData, { loading: typedDataLoading }] = useMutation<Mutation>(
     CREATE_COLLECT_TYPED_DATA_MUTATION,
     {
       onCompleted: async ({
@@ -230,10 +230,13 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
     }
   );
 
-  const [createCollectProxyAction, { loading: proxyActionLoading }] = useMutation(PROXY_ACTION_MUTATION, {
-    onCompleted,
-    onError
-  });
+  const [createCollectProxyAction, { loading: proxyActionLoading }] = useMutation<Mutation>(
+    PROXY_ACTION_MUTATION,
+    {
+      onCompleted,
+      onError
+    }
+  );
 
   const createCollect = () => {
     if (!isConnected) {
