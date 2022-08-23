@@ -1,8 +1,8 @@
 import { Menu, Transition } from '@headlessui/react';
 import { LogoutIcon } from '@heroicons/react/outline';
+import clearAuthData from '@lib/clearAuthData';
 import { Mixpanel } from '@lib/mixpanel';
 import clsx from 'clsx';
-import Cookies from 'js-cookie';
 import { FC, Fragment } from 'react';
 import { useAppPersistStore } from 'src/store/app';
 import { USER } from 'src/tracking';
@@ -42,9 +42,7 @@ const UnsignedUser: FC = () => {
                 onClick={() => {
                   Mixpanel.track(USER.LOGOUT);
                   setIsConnected(false);
-                  Cookies.remove('accessToken');
-                  Cookies.remove('refreshToken');
-                  localStorage.removeItem('lenster.store');
+                  clearAuthData();
                   disconnect();
                 }}
                 className={({ active }: { active: boolean }) =>
