@@ -80,6 +80,7 @@ const cache = new InMemoryCache({
   typePolicies: {
     Post: { keyFields: publicationKeyFields },
     Comment: { keyFields: publicationKeyFields },
+    Mirror: { keyFields: publicationKeyFields },
     Query: {
       fields: {
         timeline: cursorBasedPagination(['request', ['profileId']]),
