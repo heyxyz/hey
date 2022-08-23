@@ -1,11 +1,12 @@
 import { ApolloClient, ApolloLink, HttpLink, InMemoryCache } from '@apollo/client';
 import result from '@generated/types';
-import { cursorBasedPagination } from '@lib/cursorBasedPagination';
 import axios from 'axios';
 import Cookies, { CookieAttributes } from 'js-cookie';
 import jwtDecode from 'jwt-decode';
 
-import { API_URL, ERROR_MESSAGE } from './constants';
+import { API_URL, ERROR_MESSAGE } from '../constants';
+import { cursorBasedPagination } from './lib/cursorBasedPagination';
+import dataIdFromObject from './lib/dataIdFromObject';
 
 export const COOKIE_CONFIG: CookieAttributes = {
   sameSite: 'None',
@@ -76,10 +77,8 @@ const authLink = new ApolloLink((operation, forward) => {
 
 const cache = new InMemoryCache({
   possibleTypes: result.possibleTypes,
+  dataIdFromObject,
   typePolicies: {
-    Post: { keyFields: false },
-    Comment: { keyFields: false },
-    Mirror: { keyFields: false },
     Query: {
       fields: {
         timeline: cursorBasedPagination(['request', ['profileId']]),
