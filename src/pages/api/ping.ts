@@ -6,7 +6,9 @@ import { ERROR_MESSAGE } from 'src/constants';
 
 const PING_QUERY = gql`
   query Ping {
-    ping
+    profile(request: { profileId: "0x0d" }) {
+      id
+    }
   }
 `;
 
@@ -18,7 +20,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     return res
       .status(networkStatus === 7 ? 200 : 500)
-      .json({ success: networkStatus === 7, ping: data?.ping });
+      .json({ success: networkStatus === 7, ping: data?.profile?.id === '0x0d' ? 'pong' : 'oops' });
   } catch {
     return res.status(500).json({ success: false, message: ERROR_MESSAGE });
   }
