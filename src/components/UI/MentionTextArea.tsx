@@ -4,6 +4,7 @@ import Slug from '@components/Shared/Slug';
 import { UserSuggestion } from '@generated/lenstertypes';
 import { MediaSet, NftImage, Profile } from '@generated/types';
 import { BadgeCheckIcon } from '@heroicons/react/solid';
+import getIPFSLink from '@lib/getIPFSLink';
 import imagekitURL from '@lib/imagekitURL';
 import isVerified from '@lib/isVerified';
 import clsx from 'clsx';
@@ -24,7 +25,7 @@ const User: FC<UserProps> = ({ suggestion, focused }) => (
       className="w-7 h-7 rounded-full"
       height={32}
       width={32}
-      src={imagekitURL(suggestion.picture, 'avatar')}
+      src={imagekitURL(getIPFSLink(suggestion.picture), 'avatar')}
       alt={suggestion.id}
     />
     <div className="flex flex-col truncate">
