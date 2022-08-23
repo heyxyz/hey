@@ -112,6 +112,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const isConnected = useAppPersistStore((state) => state.isConnected);
   const [revenue, setRevenue] = useState(0);
+  const [hasCollectedByMe, setHasCollectedByMe] = useState(publication?.hasCollectedByMe);
   const [showCollectorsModal, setShowCollectorsModal] = useState(false);
   const [allowed, setAllowed] = useState(true);
   const { address } = useAccount();
@@ -128,6 +129,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
   const onCompleted = () => {
     setRevenue(revenue + parseFloat(collectModule?.amount?.value));
     setCount(count + 1);
+    setHasCollectedByMe(true);
     toast.success('Transaction submitted successfully!');
     Mixpanel.track(PUBLICATION.COLLECT_MODULE.COLLECT);
   };
@@ -433,7 +435,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
             <IndexStatus txHash={writeData?.hash ? writeData?.hash : broadcastData?.broadcast?.txHash} />
           </div>
         ) : null}
-        {isConnected ? (
+        {isConnected && !hasCollectedByMe ? (
           allowanceLoading || balanceLoading ? (
             <div className="mt-5 w-28 rounded-lg h-[34px] shimmer" />
           ) : allowed || collectModule.type === 'FreeCollectModule' ? (
