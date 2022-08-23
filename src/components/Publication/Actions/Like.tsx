@@ -1,6 +1,7 @@
 import { gql, useMutation } from '@apollo/client';
 import { Tooltip } from '@components/UI/Tooltip';
 import { LensterPublication } from '@generated/lenstertypes';
+import { Mutation } from '@generated/types';
 import { HeartIcon } from '@heroicons/react/outline';
 import { HeartIcon as HeartIconSolid } from '@heroicons/react/solid';
 import humanize from '@lib/humanize';
@@ -50,7 +51,7 @@ const Like: FC<Props> = ({ publication }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const [addReaction] = useMutation(ADD_REACTION_MUTATION, {
+  const [addReaction] = useMutation<Mutation>(ADD_REACTION_MUTATION, {
     onCompleted: () => {
       Mixpanel.track(PUBLICATION.LIKE);
     },
@@ -61,7 +62,7 @@ const Like: FC<Props> = ({ publication }) => {
     }
   });
 
-  const [removeReaction] = useMutation(REMOVE_REACTION_MUTATION, {
+  const [removeReaction] = useMutation<Mutation>(REMOVE_REACTION_MUTATION, {
     onCompleted: () => {
       Mixpanel.track(PUBLICATION.DISLIKE);
     },

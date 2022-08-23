@@ -7,7 +7,7 @@ import { Form, useZodForm } from '@components/UI/Form';
 import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
-import { CreateSetProfileImageUriBroadcastItemResult, NftImage, Profile } from '@generated/types';
+import { CreateSetProfileImageUriBroadcastItemResult, Mutation, NftImage, Profile } from '@generated/types';
 import {
   CREATE_SET_PROFILE_IMAGE_URI_TYPED_DATA_MUTATION,
   CREATE_SET_PROFILE_IMAGE_URI_VIA_DISPATHCER_MUTATION
@@ -84,7 +84,7 @@ const NFTPicture: FC<Props> = ({ profile }) => {
 
   const [loadChallenge, { loading: challengeLoading }] = useLazyQuery(CHALLENGE_QUERY);
   const { broadcast, data: broadcastData, loading: broadcastLoading } = useBroadcast({ onCompleted });
-  const [createSetProfileImageURITypedData, { loading: typedDataLoading }] = useMutation(
+  const [createSetProfileImageURITypedData, { loading: typedDataLoading }] = useMutation<Mutation>(
     CREATE_SET_PROFILE_IMAGE_URI_TYPED_DATA_MUTATION,
     {
       onCompleted: async ({

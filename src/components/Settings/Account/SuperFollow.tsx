@@ -7,7 +7,7 @@ import { Form, useZodForm } from '@components/UI/Form';
 import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
-import { CreateSetFollowModuleBroadcastItemResult, Erc20 } from '@generated/types';
+import { CreateSetFollowModuleBroadcastItemResult, Erc20, Mutation } from '@generated/types';
 import { StarIcon, XIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
 import getTokenImage from '@lib/getTokenImage';
@@ -116,7 +116,7 @@ const SuperFollow: FC = () => {
   });
 
   const { broadcast, data: broadcastData, loading: broadcastLoading } = useBroadcast({ onCompleted });
-  const [createSetFollowModuleTypedData, { loading: typedDataLoading }] = useMutation(
+  const [createSetFollowModuleTypedData, { loading: typedDataLoading }] = useMutation<Mutation>(
     CREATE_SET_FOLLOW_MODULE_TYPED_DATA_MUTATION,
     {
       onCompleted: async ({
