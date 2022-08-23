@@ -10,7 +10,7 @@ import { MentionTextArea } from '@components/UI/MentionTextArea';
 import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
 import { LensterAttachment } from '@generated/lenstertypes';
-import { CreatePostBroadcastItemResult } from '@generated/types';
+import { CreatePostBroadcastItemResult, Mutation } from '@generated/types';
 import { IGif } from '@giphy/js-types';
 import {
   CREATE_POST_TYPED_DATA_MUTATION,
@@ -99,48 +99,55 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
   });
 
   const { broadcast, data: broadcastData, loading: broadcastLoading } = useBroadcast({ onCompleted });
-  const [createPostTypedData, { loading: typedDataLoading }] = useMutation(CREATE_POST_TYPED_DATA_MUTATION, {
-    onCompleted: async ({ createPostTypedData }: { createPostTypedData: CreatePostBroadcastItemResult }) => {
-      try {
-        const { id, typedData } = createPostTypedData;
-        const {
-          profileId,
-          contentURI,
-          collectModule,
-          collectModuleInitData,
-          referenceModule,
-          referenceModuleInitData,
-          deadline
-        } = typedData?.value;
-        const signature = await signTypedDataAsync(getSignature(typedData));
-        const { v, r, s } = splitSignature(signature);
-        const sig = { v, r, s, deadline };
-        const inputStruct = {
-          profileId,
-          contentURI,
-          collectModule,
-          collectModuleInitData,
-          referenceModule,
-          referenceModuleInitData,
-          sig
-        };
-
-        setUserSigNonce(userSigNonce + 1);
-        if (RELAY_ON) {
+  const [createPostTypedData, { loading: typedDataLoading }] = useMutation<Mutation>(
+    CREATE_POST_TYPED_DATA_MUTATION,
+    {
+      onCompleted: async ({
+        createPostTypedData
+      }: {
+        createPostTypedData: CreatePostBroadcastItemResult;
+      }) => {
+        try {
+          const { id, typedData } = createPostTypedData;
           const {
-            data: { broadcast: result }
-          } = await broadcast({ request: { id, signature } });
+            profileId,
+            contentURI,
+            collectModule,
+            collectModuleInitData,
+            referenceModule,
+            referenceModuleInitData,
+            deadline
+          } = typedData?.value;
+          const signature = await signTypedDataAsync(getSignature(typedData));
+          const { v, r, s } = splitSignature(signature);
+          const sig = { v, r, s, deadline };
+          const inputStruct = {
+            profileId,
+            contentURI,
+            collectModule,
+            collectModuleInitData,
+            referenceModule,
+            referenceModuleInitData,
+            sig
+          };
 
-          if ('reason' in result) {
+          setUserSigNonce(userSigNonce + 1);
+          if (RELAY_ON) {
+            const {
+              data: { broadcast: result }
+            } = await broadcast({ request: { id, signature } });
+
+            if ('reason' in result) {
+              write?.({ recklesslySetUnpreparedArgs: inputStruct });
+            }
+          } else {
             write?.({ recklesslySetUnpreparedArgs: inputStruct });
           }
-        } else {
-          write?.({ recklesslySetUnpreparedArgs: inputStruct });
-        }
-      } catch {}
-    },
-    onError
-  });
+        } catch {}
+      },
+      onError
+    }
+  );
 
   const [createPostViaDispatcher, { data: dispatcherData, loading: dispatcherLoading }] = useMutation(
     CREATE_POST_VIA_DISPATHCER_MUTATION,

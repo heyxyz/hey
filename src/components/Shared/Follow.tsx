@@ -3,7 +3,7 @@ import { gql, useMutation } from '@apollo/client';
 import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
-import { CreateFollowBroadcastItemResult, Profile } from '@generated/types';
+import { CreateFollowBroadcastItemResult, Mutation, Profile } from '@generated/types';
 import { PROXY_ACTION_MUTATION } from '@gql/ProxyAction';
 import { UserAddIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
@@ -77,7 +77,7 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
   });
 
   const { broadcast, loading: broadcastLoading } = useBroadcast({ onCompleted });
-  const [createFollowTypedData, { loading: typedDataLoading }] = useMutation(
+  const [createFollowTypedData, { loading: typedDataLoading }] = useMutation<Mutation>(
     CREATE_FOLLOW_TYPED_DATA_MUTATION,
     {
       onCompleted: async ({

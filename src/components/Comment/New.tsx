@@ -11,7 +11,7 @@ import { MentionTextArea } from '@components/UI/MentionTextArea';
 import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
 import { LensterAttachment, LensterPublication } from '@generated/lenstertypes';
-import { CreateCommentBroadcastItemResult } from '@generated/types';
+import { CreateCommentBroadcastItemResult, Mutation } from '@generated/types';
 import { IGif } from '@giphy/js-types';
 import {
   CREATE_COMMENT_TYPED_DATA_MUTATION,
@@ -100,7 +100,7 @@ const NewComment: FC<Props> = ({ setShowModal, hideCard = false, publication, ty
   });
 
   const { broadcast, data: broadcastData, loading: broadcastLoading } = useBroadcast({ onCompleted });
-  const [createCommentTypedData, { loading: typedDataLoading }] = useMutation(
+  const [createCommentTypedData, { loading: typedDataLoading }] = useMutation<Mutation>(
     CREATE_COMMENT_TYPED_DATA_MUTATION,
     {
       onCompleted: async ({

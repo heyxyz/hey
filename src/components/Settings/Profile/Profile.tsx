@@ -11,7 +11,12 @@ import { Spinner } from '@components/UI/Spinner';
 import { TextArea } from '@components/UI/TextArea';
 import { Toggle } from '@components/UI/Toggle';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
-import { CreateSetProfileMetadataUriBroadcastItemResult, MediaSet, Profile } from '@generated/types';
+import {
+  CreateSetProfileMetadataUriBroadcastItemResult,
+  MediaSet,
+  Mutation,
+  Profile
+} from '@generated/types';
 import {
   CREATE_SET_PROFILE_METADATA_TYPED_DATA_MUTATION,
   CREATE_SET_PROFILE_METADATA_VIA_DISPATHCER_MUTATION
@@ -90,7 +95,7 @@ const Profile: FC<Props> = ({ profile }) => {
   });
 
   const { broadcast, data: broadcastData, loading: broadcastLoading } = useBroadcast({ onCompleted });
-  const [createSetProfileMetadataTypedData, { loading: typedDataLoading }] = useMutation(
+  const [createSetProfileMetadataTypedData, { loading: typedDataLoading }] = useMutation<Mutation>(
     CREATE_SET_PROFILE_METADATA_TYPED_DATA_MUTATION,
     {
       onCompleted: async ({

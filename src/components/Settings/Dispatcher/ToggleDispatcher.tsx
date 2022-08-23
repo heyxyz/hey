@@ -4,7 +4,7 @@ import IndexStatus from '@components/Shared/IndexStatus';
 import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
-import { CreateSetDispatcherBroadcastItemResult } from '@generated/types';
+import { CreateSetDispatcherBroadcastItemResult, Mutation } from '@generated/types';
 import { CREATE_SET_DISPATCHER_TYPED_DATA_MUTATION } from '@gql/TypedAndDispatcherData/CreateSetDispatcher';
 import { CheckCircleIcon, XIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
@@ -50,7 +50,7 @@ const ToggleDispatcher: FC<Props> = ({ buttonSize = 'md' }) => {
   });
 
   const { broadcast, data: broadcastData, loading: broadcastLoading } = useBroadcast({ onCompleted });
-  const [createSetProfileMetadataTypedData, { loading: typedDataLoading }] = useMutation(
+  const [createSetProfileMetadataTypedData, { loading: typedDataLoading }] = useMutation<Mutation>(
     CREATE_SET_DISPATCHER_TYPED_DATA_MUTATION,
     {
       onCompleted: async ({

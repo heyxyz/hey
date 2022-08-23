@@ -4,7 +4,7 @@ import { Spinner } from '@components/UI/Spinner';
 import { Tooltip } from '@components/UI/Tooltip';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
 import { LensterPublication } from '@generated/lenstertypes';
-import { CreateMirrorBroadcastItemResult } from '@generated/types';
+import { CreateMirrorBroadcastItemResult, Mutation } from '@generated/types';
 import {
   CREATE_MIRROR_TYPED_DATA_MUTATION,
   CREATE_MIRROR_VIA_DISPATHCER_MUTATION
@@ -69,7 +69,7 @@ const Mirror: FC<Props> = ({ publication }) => {
   });
 
   const { broadcast, loading: broadcastLoading } = useBroadcast({ onCompleted });
-  const [createMirrorTypedData, { loading: typedDataLoading }] = useMutation(
+  const [createMirrorTypedData, { loading: typedDataLoading }] = useMutation<Mutation>(
     CREATE_MIRROR_TYPED_DATA_MUTATION,
     {
       onCompleted: async ({

@@ -7,7 +7,12 @@ import { Spinner } from '@components/UI/Spinner';
 import { WarningMessage } from '@components/UI/WarningMessage';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
 import { LensterFollowModule } from '@generated/lenstertypes';
-import { CreateFollowBroadcastItemResult, FeeFollowModuleSettings, Profile } from '@generated/types';
+import {
+  CreateFollowBroadcastItemResult,
+  FeeFollowModuleSettings,
+  Mutation,
+  Profile
+} from '@generated/types';
 import { StarIcon, UserIcon } from '@heroicons/react/outline';
 import formatAddress from '@lib/formatAddress';
 import getSignature from '@lib/getSignature';
@@ -146,7 +151,7 @@ const FollowModule: FC<Props> = ({ profile, setFollowing, setShowFollowModal, ag
   }
 
   const { broadcast, loading: broadcastLoading } = useBroadcast({ onCompleted });
-  const [createFollowTypedData, { loading: typedDataLoading }] = useMutation(
+  const [createFollowTypedData, { loading: typedDataLoading }] = useMutation<Mutation>(
     CREATE_FOLLOW_TYPED_DATA_MUTATION,
     {
       onCompleted: async ({

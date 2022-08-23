@@ -7,7 +7,7 @@ import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
 import { LensterCollectModule, LensterPublication } from '@generated/lenstertypes';
-import { CreateCollectBroadcastItemResult } from '@generated/types';
+import { CreateCollectBroadcastItemResult, Mutation } from '@generated/types';
 import { CashIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
 import { Mixpanel } from '@lib/mixpanel';
@@ -115,7 +115,7 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
   });
 
   const { broadcast, data: broadcastData, loading: broadcastLoading } = useBroadcast({ onCompleted });
-  const [createCollectTypedData, { loading: typedDataLoading }] = useMutation(
+  const [createCollectTypedData, { loading: typedDataLoading }] = useMutation<Mutation>(
     CREATE_COLLECT_TYPED_DATA_MUTATION,
     {
       onCompleted: async ({

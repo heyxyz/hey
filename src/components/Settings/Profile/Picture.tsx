@@ -6,7 +6,13 @@ import { Button } from '@components/UI/Button';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
-import { CreateSetProfileImageUriBroadcastItemResult, MediaSet, NftImage, Profile } from '@generated/types';
+import {
+  CreateSetProfileImageUriBroadcastItemResult,
+  MediaSet,
+  Mutation,
+  NftImage,
+  Profile
+} from '@generated/types';
 import {
   CREATE_SET_PROFILE_IMAGE_URI_TYPED_DATA_MUTATION,
   CREATE_SET_PROFILE_IMAGE_URI_VIA_DISPATHCER_MUTATION
@@ -66,7 +72,7 @@ const Picture: FC<Props> = ({ profile }) => {
   }, []);
 
   const { broadcast, data: broadcastData, loading: broadcastLoading } = useBroadcast({ onCompleted });
-  const [createSetProfileImageURITypedData, { loading: typedDataLoading }] = useMutation(
+  const [createSetProfileImageURITypedData, { loading: typedDataLoading }] = useMutation<Mutation>(
     CREATE_SET_PROFILE_IMAGE_URI_TYPED_DATA_MUTATION,
     {
       onCompleted: async ({
