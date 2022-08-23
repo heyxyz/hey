@@ -3,6 +3,7 @@ name: Analyze Bundle (Comment)
 on:
   workflow_run:
     workflows: ['Analyze Bundle']
+    branches-ignore: main
     types:
       - completed
 
