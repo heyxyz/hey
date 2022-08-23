@@ -12,12 +12,12 @@ import {
   SwitchHorizontalIcon,
   UserIcon
 } from '@heroicons/react/outline';
+import clearAuthData from '@lib/clearAuthData';
 import getAvatar from '@lib/getAvatar';
 import isBeta from '@lib/isBeta';
 import isStaff from '@lib/isStaff';
 import { Mixpanel } from '@lib/mixpanel';
 import clsx from 'clsx';
-import Cookies from 'js-cookie';
 import { useTheme } from 'next-themes';
 import { FC, Fragment } from 'react';
 import { GIT_COMMIT_SHA } from 'src/constants';
@@ -116,9 +116,7 @@ const SignedUser: FC<Props> = ({ pingData }) => {
                   Mixpanel.track(PROFILE.LOGOUT);
                   setCurrentProfile(null);
                   setProfileId(null);
-                  Cookies.remove('accessToken');
-                  Cookies.remove('refreshToken');
-                  localStorage.removeItem('lenster.store');
+                  clearAuthData();
                   disconnect();
                 }}
                 className={({ active }: { active: boolean }) =>
