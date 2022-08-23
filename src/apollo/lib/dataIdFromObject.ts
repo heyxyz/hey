@@ -1,14 +1,11 @@
 import { defaultDataIdFromObject } from '@apollo/client';
 
 const dataIdFromObject = (res: any) => {
-  const { id, collectedBy, mirrorOf }: any = res;
+  const { id, collectedBy, __typename }: any = res;
   switch (res.__typename) {
     case 'Post':
-      return `Post:${id}${collectedBy ? `:collect:${collectedBy?.address}` : ''}`;
     case 'Comment':
-      return `Comment:${id}${collectedBy ? `:collect:${collectedBy?.address}` : ''}`;
-    case 'Mirror':
-      return `Mirror:${id}:mirrorOf:${mirrorOf?.id}`;
+      return `${__typename}:${id}${collectedBy ? `:Collect:${collectedBy?.address}` : ''}`;
     default:
       return defaultDataIdFromObject(res);
   }

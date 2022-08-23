@@ -79,9 +79,6 @@ const cache = new InMemoryCache({
   possibleTypes: result.possibleTypes,
   dataIdFromObject,
   typePolicies: {
-    // Post: { keyFields: ['id', 'collectedBy', ['address']] },
-    // Comment: { keyFields: false },
-    // Mirror: { keyFields: false },
     Query: {
       fields: {
         timeline: cursorBasedPagination(['request', ['profileId']]),
