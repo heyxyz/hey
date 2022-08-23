@@ -22,7 +22,6 @@ import { CollectModuleFields } from '@gql/CollectModuleFields';
 import { PROXY_ACTION_MUTATION } from '@gql/ProxyAction';
 import {
   CashIcon,
-  CheckCircleIcon,
   ClockIcon,
   CollectionIcon,
   PhotographIcon,
@@ -31,6 +30,7 @@ import {
   UserIcon,
   UsersIcon
 } from '@heroicons/react/outline';
+import { CheckCircleIcon } from '@heroicons/react/solid';
 import formatAddress from '@lib/formatAddress';
 import getSignature from '@lib/getSignature';
 import getTokenImage from '@lib/getTokenImage';
@@ -463,10 +463,10 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
             </div>
           )
         ) : null}
-        {hasCollectedByMe && (
+        {publication?.hasCollectedByMe && (
           <div className="mt-3 font-bold text-green-500 flex items-center space-x-1.5">
             <CheckCircleIcon className="h-5 w-5" />
-            <div>You already collected this!</div>
+            <div>You already collected this</div>
           </div>
         )}
       </div>
