@@ -26,14 +26,13 @@ interface Props {
 const MenuItems: FC<Props> = ({ pingData }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const isConnected = useAppPersistStore((state) => state.isConnected);
-  const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
   const [showLoginModal, setShowLoginModal] = useState(false);
 
-  if (isConnected && isAuthenticated && currentProfile) {
+  if (isConnected && currentProfile) {
     return <SignedUser pingData={pingData} />;
   }
 
-  if (isConnected && !isAuthenticated && !currentProfile) {
+  if (isConnected && !currentProfile) {
     return <UnsignedUser />;
   }
 
