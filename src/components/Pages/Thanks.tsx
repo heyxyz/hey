@@ -66,10 +66,6 @@ const Thanks: FC = () => {
                 Vercel combines the best developer experience with an obsessive focus on end-user performance.
                 Vercel platform enables frontend teams to do their best work.
               </Brand>
-              <Brand name="Gitpod" logo="gitpod" url="https://gitpod.io" size={50}>
-                Gitpod streamlines developer workflows by providing prebuilt, collaborative developer
-                environments in your browser - powered by VS Code.
-              </Brand>
               <Brand name="Imagekit" logo="imagekit" url="https://imagekit.io" size={50}>
                 Image CDN with automatic optimization, real-time transformation, and storage that you can
                 integrate with existing setup in minutes.
