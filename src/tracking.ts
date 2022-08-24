@@ -13,6 +13,7 @@ export const PROFILE = {
   OPEN_SUPER_FOLLOW: 'Open super follow modal',
   OPEN_FOLLOWING: 'Open following list',
   OPEN_FOLLOWERS: 'Open followers list',
+  OPEN_MUTUAL_FOLLOWERS: 'Open mutual followers list',
   SWITCH_PROFILE: 'Switch profile',
   LOGOUT: 'Profile logout'
 };
@@ -123,6 +124,7 @@ export const PAGINATION = {
   MIRRORS: 'Paginate mirrors list',
   COLLECTORS: 'Paginate collectors list',
   LIKES: 'Paginate likes list',
+  MUTUAL_FOLLOWERS: 'Paginate mutual followers list',
   PROFILE_SEARCH: 'Paginate profile search list',
   PUBLICATION_SEARCH: 'Paginate publication search list'
 };
