@@ -28,9 +28,10 @@ const REMOVE_REACTION_MUTATION = gql`
 
 interface Props {
   publication: LensterPublication;
+  hideCount: boolean;
 }
 
-const Like: FC<Props> = ({ publication }) => {
+const Like: FC<Props> = ({ publication, hideCount }) => {
   const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [liked, setLiked] = useState(false);
@@ -110,7 +111,7 @@ const Like: FC<Props> = ({ publication }) => {
             )}
           </Tooltip>
         </div>
-        {count > 0 && <div className="text-[11px] sm:text-xs">{humanize(count)}</div>}
+        {count > 0 && !hideCount && <div className="text-[11px] sm:text-xs">{humanize(count)}</div>}
       </div>
     </motion.button>
   );

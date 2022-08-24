@@ -11,9 +11,10 @@ import { PUBLICATION } from 'src/tracking';
 
 interface Props {
   publication: LensterPublication;
+  hideCount: boolean;
 }
 
-const Comment: FC<Props> = ({ publication }) => {
+const Comment: FC<Props> = ({ publication, hideCount }) => {
   const setParentPub = usePublicationStore((state) => state.setParentPub);
   const setShowNewPostModal = usePublicationStore((state) => state.setShowNewPostModal);
 
@@ -38,7 +39,7 @@ const Comment: FC<Props> = ({ publication }) => {
             <ChatAlt2Icon className="w-[15px] sm:w-[18px]" />
           </Tooltip>
         </div>
-        {count > 0 && <div className="text-[11px] sm:text-xs">{nFormatter(count)}</div>}
+        {count > 0 && !hideCount && <div className="text-[11px] sm:text-xs">{nFormatter(count)}</div>}
       </div>
     </motion.button>
   );

@@ -27,9 +27,10 @@ import { useContractWrite, useSignTypedData } from 'wagmi';
 
 interface Props {
   publication: LensterPublication;
+  hideCount: boolean;
 }
 
-const Mirror: FC<Props> = ({ publication }) => {
+const Mirror: FC<Props> = ({ publication, hideCount }) => {
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -168,7 +169,7 @@ const Mirror: FC<Props> = ({ publication }) => {
             </Tooltip>
           )}
         </div>
-        {count > 0 && <div className="text-[11px] sm:text-xs">{nFormatter(count)}</div>}
+        {count > 0 && !hideCount && <div className="text-[11px] sm:text-xs">{nFormatter(count)}</div>}
       </div>
     </motion.button>
   );
