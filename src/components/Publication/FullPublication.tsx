@@ -22,6 +22,18 @@ const FullPublication: FC<Props> = ({ publication }) => {
   const profile = isMirror ? publication?.mirrorOf?.profile : publication?.profile;
   const timestamp = isMirror ? publication?.mirrorOf?.createdAt : publication?.createdAt;
 
+  // Count check to show the publication stats only if the publication has a comment, like or collect
+  const mirrorCount = isMirror
+    ? publication?.mirrorOf?.stats?.totalAmountOfMirrors
+    : publication?.stats?.totalAmountOfMirrors;
+  const reactionCount = isMirror
+    ? publication?.mirrorOf?.stats?.totalUpvotes
+    : publication?.stats?.totalUpvotes;
+  const collectCount = isMirror
+    ? publication?.mirrorOf?.stats?.totalAmountOfCollects
+    : publication?.stats?.totalAmountOfCollects;
+  const showStats = mirrorCount > 0 || reactionCount > 0 || collectCount > 0;
+
   return (
     <article className="p-5">
       <PublicationType publication={publication} showType />
@@ -41,9 +53,15 @@ const FullPublication: FC<Props> = ({ publication }) => {
           ) : (
             <>
               <PublicationBody publication={publication} />
-              <div className="text-[15px] text-gray-500 my-3">{dayjs(new Date(timestamp)).fromNow()}</div>
-              <div className="divider" />
-              <PublicationStats publication={publication} />
+              <div className="text-[15px] text-gray-500 my-3">
+                {dayjs(new Date(timestamp)).format('hh:mm A · MMM D, YYYY')}
+              </div>
+              {showStats && (
+                <>
+                  <div className="divider" />
+                  <PublicationStats publication={publication} />
+                </>
+              )}
               <div className="divider" />
               <PublicationActions publication={publication} isFullPublication />
             </>
