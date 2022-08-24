@@ -66,7 +66,7 @@ const PublicationStats: FC<Props> = ({ publication }) => {
             <b className="text-black dark:text-white">{nFormatter(collectCount)}</b> Collects
           </button>
           <Modal
-            title="Collectors"
+            title="Collected by"
             icon={<CollectionIcon className="w-5 h-5 text-brand" />}
             show={showCollectorsModal}
             onClose={() => setShowCollectorsModal(false)}
