@@ -9,7 +9,7 @@ interface Props {
 }
 
 const CommunityPublication: FC<Props> = ({ publication }) => {
-  const commentOn: any = publication?.commentOn;
+  const commentOn = publication?.commentOn;
 
   return (
     <div className="flex items-center pb-4 space-x-1 text-gray-500 text-[13px]">

@@ -1,10 +1,11 @@
 import { Card } from '@components/UI/Card';
+import { OG } from '@generated/lenstertypes';
 import { Mixpanel } from '@lib/mixpanel';
 import React, { FC } from 'react';
 import { PUBLICATION } from 'src/tracking';
 
 interface Props {
-  og: any;
+  og: OG;
 }
 
 const Embed: FC<Props> = ({ og }) => {
