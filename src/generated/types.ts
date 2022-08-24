@@ -1546,6 +1546,15 @@ export type MutationReportPublicationArgs = {
   request: ReportPublicationRequest;
 };
 
+export type MutualFollowersProfilesQueryRequest = {
+  cursor?: InputMaybe<Scalars['Cursor']>;
+  limit?: InputMaybe<Scalars['LimitScalar']>;
+  /** The profile id your viewing */
+  viewingProfileId: Scalars['ProfileId'];
+  /** The profile id you want the result to come back as your viewing from */
+  yourProfileId: Scalars['ProfileId'];
+};
+
 /** The nft type */
 export type Nft = {
   __typename?: 'NFT';
@@ -2386,6 +2395,7 @@ export type Query = {
   generateModuleCurrencyApprovalData: GenerateModuleCurrencyApproval;
   globalProtocolStats: GlobalProtocolStats;
   hasTxHashBeenIndexed: TransactionResult;
+  mutualFollowersProfiles: PaginatedProfileResult;
   nftOwnershipChallenge: NftOwnershipChallengeResult;
   nfts: NfTsResult;
   notifications: PaginatedNotificationResult;
@@ -2466,6 +2476,10 @@ export type QueryGlobalProtocolStatsArgs = {
 
 export type QueryHasTxHashBeenIndexedArgs = {
   request: HasTxHashBeenIndexedRequest;
+};
+
+export type QueryMutualFollowersProfilesArgs = {
+  request: MutualFollowersProfilesQueryRequest;
 };
 
 export type QueryNftOwnershipChallengeArgs = {
