@@ -7,6 +7,7 @@ import React, { FC } from 'react';
 import PublicationActions from './Actions';
 import HiddenPublication from './HiddenPublication';
 import PublicationBody from './PublicationBody';
+import PublicationStats from './PublicationStats';
 import PublicationType from './Type';
 
 dayjs.extend(relativeTime);
@@ -33,7 +34,6 @@ const FullPublication: FC<Props> = ({ publication }) => {
                 : profile
             }
           />
-          <span className="text-sm text-gray-500">{dayjs(new Date(timestamp)).fromNow()}</span>
         </div>
         <div className="ml-[53px]">
           {publication?.hidden ? (
@@ -41,7 +41,11 @@ const FullPublication: FC<Props> = ({ publication }) => {
           ) : (
             <>
               <PublicationBody publication={publication} />
-              <PublicationActions publication={publication} />
+              <div className="text-[15px] text-gray-500 my-3">{dayjs(new Date(timestamp)).fromNow()}</div>
+              <div className="divider" />
+              <PublicationStats publication={publication} />
+              <div className="divider" />
+              <PublicationActions publication={publication} isFullPublication />
             </>
           )}
         </div>
