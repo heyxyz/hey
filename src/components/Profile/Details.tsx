@@ -22,6 +22,7 @@ import { useAppPersistStore, useAppStore } from 'src/store/app';
 
 import Badges from './Badges';
 import Followerings from './Followerings';
+import MutualFollowers from './MutualFollowers';
 
 interface Props {
   profile: Profile;
@@ -108,6 +109,7 @@ const Details: FC<Props> = ({ profile }) => {
             <Markup>{profile?.bio}</Markup>
           </div>
         )}
+        {currentProfile?.id !== profile?.id && <MutualFollowers profile={profile} />}
         <div className="w-full divider" />
         <div className="space-y-2">
           <MetaDetails icon={<HashtagIcon className="w-4 h-4" />}>

@@ -33,7 +33,8 @@ export const PUBLICATION = {
   STATS: {
     MIRRORED_BY: 'Open mirrored by list',
     LIKED_BY: 'Open liked by list',
-    COLLECTED_BY: 'Open collected by list'
+    COLLECTED_BY: 'Open collected by list',
+    MUTUAL_FOLLOWERS: 'Open mutual followers list'
   },
   COLLECT_MODULE: {
     COLLECT: 'Collect publication',
@@ -123,6 +124,7 @@ export const PAGINATION = {
   MIRRORS: 'Paginate mirrors list',
   COLLECTORS: 'Paginate collectors list',
   LIKES: 'Paginate likes list',
+  MUTUAL_FOLLOWERS: 'Paginate mutual followers list',
   PROFILE_SEARCH: 'Paginate profile search list',
   PUBLICATION_SEARCH: 'Paginate publication search list'
 };
