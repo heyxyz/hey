@@ -163,11 +163,11 @@ const Profile: FC<Props> = ({ profile }) => {
   const form = useZodForm({
     schema: editProfileSchema,
     defaultValues: {
-      name: profile?.name as string,
-      location: getAttribute(profile?.attributes, 'location') as string,
-      website: getAttribute(profile?.attributes, 'website') as string,
-      twitter: getAttribute(profile?.attributes, 'twitter')?.replace('https://twitter.com/', '') as string,
-      bio: profile?.bio as string
+      name: profile?.name ?? '',
+      location: getAttribute(profile?.attributes, 'location'),
+      website: getAttribute(profile?.attributes, 'website'),
+      twitter: getAttribute(profile?.attributes, 'twitter')?.replace('https://twitter.com/', ''),
+      bio: profile?.bio ?? ''
     }
   });
 
