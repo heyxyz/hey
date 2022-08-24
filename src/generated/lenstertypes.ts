@@ -18,8 +18,8 @@ import {
 export type LensterPublication = Post & Mirror & Comment;
 export type LensterNotification = Notification & { profile: Profile };
 export type Community = Post;
-export type LensterCollectModule = FreeCollectModuleSettings &
-  FeeCollectModuleSettings &
+export type LensterCollectModule = FeeCollectModuleSettings &
+  FreeCollectModuleSettings &
   LimitedFeeCollectModuleSettings &
   LimitedTimedFeeCollectModuleSettings &
   RevertCollectModuleSettings &
@@ -34,4 +34,14 @@ export type UserSuggestion = {
   display: string;
   name: string;
   picture: string;
+};
+export type OG = {
+  title: string;
+  description: string;
+  site: string;
+  url: string;
+  favicon: string;
+  thumbnail: string;
+  isSquare: boolean;
+  html: string;
 };
