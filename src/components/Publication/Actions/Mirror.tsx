@@ -27,10 +27,10 @@ import { useContractWrite, useSignTypedData } from 'wagmi';
 
 interface Props {
   publication: LensterPublication;
-  hideCount: boolean;
+  isFullPublication: boolean;
 }
 
-const Mirror: FC<Props> = ({ publication, hideCount }) => {
+const Mirror: FC<Props> = ({ publication, isFullPublication }) => {
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -151,6 +151,7 @@ const Mirror: FC<Props> = ({ publication, hideCount }) => {
   };
 
   const isLoading = typedDataLoading || dispatcherLoading || signLoading || writeLoading || broadcastLoading;
+  const iconClassName = isFullPublication ? 'w-[17px] sm:w-[20px]' : 'w-[15px] sm:w-[18px]';
 
   return (
     <motion.button whileTap={{ scale: 0.9 }} onClick={createMirror} disabled={isLoading} aria-label="Mirror">
@@ -165,11 +166,11 @@ const Mirror: FC<Props> = ({ publication, hideCount }) => {
             <Spinner variant={mirrored ? 'success' : 'primary'} size="xs" />
           ) : (
             <Tooltip placement="top" content={count > 0 ? `${humanize(count)} Mirrors` : 'Mirror'} withDelay>
-              <SwitchHorizontalIcon className="w-[15px] sm:w-[18px]" />
+              <SwitchHorizontalIcon className={iconClassName} />
             </Tooltip>
           )}
         </div>
-        {count > 0 && !hideCount && <div className="text-[11px] sm:text-xs">{nFormatter(count)}</div>}
+        {count > 0 && !isFullPublication && <div className="text-[11px] sm:text-xs">{nFormatter(count)}</div>}
       </div>
     </motion.button>
   );

@@ -20,9 +20,10 @@ const CollectModule = dynamic(() => import('./CollectModule'), {
 
 interface Props {
   publication: LensterPublication;
+  isFullPublication: boolean;
 }
 
-const Collect: FC<Props> = ({ publication }) => {
+const Collect: FC<Props> = ({ publication, isFullPublication }) => {
   const [count, setCount] = useState(0);
   const [showCollectModal, setShowCollectModal] = useState(false);
   const isFreeCollect = publication?.collectModule?.__typename === 'FreeCollectModuleSettings';
@@ -37,8 +38,9 @@ const Collect: FC<Props> = ({ publication }) => {
           : publication?.stats?.totalAmountOfCollects
       );
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [publication]);
+
+  const iconClassName = isFullPublication ? 'w-[17px] sm:w-[20px]' : 'w-[15px] sm:w-[18px]';
 
   return (
     <>
@@ -58,9 +60,9 @@ const Collect: FC<Props> = ({ publication }) => {
               withDelay
             >
               {hasCollected ? (
-                <CollectionIconSolid className="w-[15px] sm:w-[18px]" />
+                <CollectionIconSolid className={iconClassName} />
               ) : (
-                <CollectionIcon className="w-[15px] sm:w-[18px]" />
+                <CollectionIcon className={iconClassName} />
               )}
             </Tooltip>
           </div>

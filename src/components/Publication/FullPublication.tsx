@@ -41,7 +41,7 @@ const FullPublication: FC<Props> = ({ publication }) => {
           ) : (
             <>
               <PublicationBody publication={publication} />
-              <PublicationActions publication={publication} hideCount />
+              <PublicationActions publication={publication} isFullPublication />
             </>
           )}
         </div>

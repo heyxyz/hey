@@ -28,10 +28,10 @@ const REMOVE_REACTION_MUTATION = gql`
 
 interface Props {
   publication: LensterPublication;
-  hideCount: boolean;
+  isFullPublication: boolean;
 }
 
-const Like: FC<Props> = ({ publication, hideCount }) => {
+const Like: FC<Props> = ({ publication, isFullPublication }) => {
   const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [liked, setLiked] = useState(false);
@@ -99,19 +99,17 @@ const Like: FC<Props> = ({ publication, hideCount }) => {
     }
   };
 
+  const iconClassName = isFullPublication ? 'w-[17px] sm:w-[20px]' : 'w-[15px] sm:w-[18px]';
+
   return (
     <motion.button whileTap={{ scale: 0.9 }} onClick={createLike} aria-label="Like">
       <div className="flex items-center space-x-1 text-pink-500">
         <div className="p-1.5 rounded-full hover:bg-pink-300 hover:bg-opacity-20">
           <Tooltip placement="top" content={liked ? 'Unlike' : 'Like'} withDelay>
-            {liked ? (
-              <HeartIconSolid className="w-[15px] sm:w-[18px]" />
-            ) : (
-              <HeartIcon className="w-[15px] sm:w-[18px]" />
-            )}
+            {liked ? <HeartIconSolid className={iconClassName} /> : <HeartIcon className={iconClassName} />}
           </Tooltip>
         </div>
-        {count > 0 && !hideCount && <div className="text-[11px] sm:text-xs">{humanize(count)}</div>}
+        {count > 0 && !isFullPublication && <div className="text-[11px] sm:text-xs">{humanize(count)}</div>}
       </div>
     </motion.button>
   );
