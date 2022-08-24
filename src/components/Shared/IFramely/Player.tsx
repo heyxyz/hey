@@ -1,7 +1,8 @@
+import { OG } from '@generated/lenstertypes';
 import React, { FC } from 'react';
 
 interface Props {
-  og: any;
+  og: OG;
 }
 
 const Player: FC<Props> = ({ og }) => {
