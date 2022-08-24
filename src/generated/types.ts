@@ -37,6 +37,7 @@ export type Scalars = {
   PublicationId: any;
   PublicationTag: any;
   PublicationUrl: any;
+  ReactionId: any;
   ReferenceModuleData: any;
   Search: any;
   Signature: any;
@@ -75,11 +76,14 @@ export type ApprovedAllowanceAmount = {
 };
 
 export type ApprovedModuleAllowanceAmountRequest = {
-  collectModules: Array<CollectModules>;
+  collectModules?: InputMaybe<Array<CollectModules>>;
   /** The contract addresses for the module approved currencies you want to find information on about the user */
   currencies: Array<Scalars['ContractAddress']>;
-  followModules: Array<FollowModules>;
-  referenceModules: Array<ReferenceModules>;
+  followModules?: InputMaybe<Array<FollowModules>>;
+  referenceModules?: InputMaybe<Array<ReferenceModules>>;
+  unknownCollectModules?: InputMaybe<Array<Scalars['ContractAddress']>>;
+  unknownFollowModules?: InputMaybe<Array<Scalars['ContractAddress']>>;
+  unknownReferenceModules?: InputMaybe<Array<Scalars['ContractAddress']>>;
 };
 
 /** The Profile */
@@ -152,7 +156,8 @@ export type CollectModule =
   | LimitedFeeCollectModuleSettings
   | LimitedTimedFeeCollectModuleSettings
   | RevertCollectModuleSettings
-  | TimedFeeCollectModuleSettings;
+  | TimedFeeCollectModuleSettings
+  | UnknownCollectModuleSettings;
 
 export type CollectModuleParams = {
   /** The collect fee collect module */
@@ -167,6 +172,8 @@ export type CollectModuleParams = {
   revertCollectModule?: InputMaybe<Scalars['Boolean']>;
   /** The collect timed fee collect module */
   timedFeeCollectModule?: InputMaybe<TimedFeeCollectModuleParams>;
+  /** A unknown collect module */
+  unknownCollectModule?: InputMaybe<UnknownCollectModuleParams>;
 };
 
 /** The collect module types */
@@ -176,7 +183,8 @@ export enum CollectModules {
   LimitedFeeCollectModule = 'LimitedFeeCollectModule',
   LimitedTimedFeeCollectModule = 'LimitedTimedFeeCollectModule',
   RevertCollectModule = 'RevertCollectModule',
-  TimedFeeCollectModule = 'TimedFeeCollectModule'
+  TimedFeeCollectModule = 'TimedFeeCollectModule',
+  UnknownCollectModule = 'UnknownCollectModule'
 }
 
 export type CollectProxyAction = {
@@ -307,6 +315,8 @@ export type CreateCollectEip712TypedDataValue = {
 
 export type CreateCollectRequest = {
   publicationId: Scalars['InternalPublicationId'];
+  /** The encoded data to collect with if using an unknown module */
+  unknownModuleData?: InputMaybe<Scalars['BlockchainData']>;
 };
 
 /** The broadcast item */
@@ -971,7 +981,11 @@ export type Follow = {
   profile: Scalars['ProfileId'];
 };
 
-export type FollowModule = FeeFollowModuleSettings | ProfileFollowModuleSettings | RevertFollowModuleSettings;
+export type FollowModule =
+  | FeeFollowModuleSettings
+  | ProfileFollowModuleSettings
+  | RevertFollowModuleSettings
+  | UnknownFollowModuleSettings;
 
 export type FollowModuleParams = {
   /** The follower fee follower module */
@@ -982,6 +996,8 @@ export type FollowModuleParams = {
   profileFollowModule?: InputMaybe<Scalars['Boolean']>;
   /** The revert follow module */
   revertFollowModule?: InputMaybe<Scalars['Boolean']>;
+  /** A unknown follow module */
+  unknownFollowModule?: InputMaybe<UnknownFollowModuleParams>;
 };
 
 export type FollowModuleRedeemParams = {
@@ -989,13 +1005,16 @@ export type FollowModuleRedeemParams = {
   feeFollowModule?: InputMaybe<FeeFollowModuleRedeemParams>;
   /** The profile follower module */
   profileFollowModule?: InputMaybe<ProfileFollowModuleRedeemParams>;
+  /** A unknown follow module */
+  unknownFollowModule?: InputMaybe<UnknownFollowModuleRedeemParams>;
 };
 
 /** The follow module types */
 export enum FollowModules {
   FeeFollowModule = 'FeeFollowModule',
   ProfileFollowModule = 'ProfileFollowModule',
-  RevertFollowModule = 'RevertFollowModule'
+  RevertFollowModule = 'RevertFollowModule',
+  UnknownFollowModule = 'UnknownFollowModule'
 }
 
 export type FollowOnlyReferenceModuleSettings = {
@@ -1092,6 +1111,9 @@ export type GenerateModuleCurrencyApprovalDataRequest = {
   currency: Scalars['ContractAddress'];
   followModule?: InputMaybe<FollowModules>;
   referenceModule?: InputMaybe<ReferenceModules>;
+  unknownCollectModule?: InputMaybe<Scalars['ContractAddress']>;
+  unknownFollowModule?: InputMaybe<Scalars['ContractAddress']>;
+  unknownReferenceModule?: InputMaybe<Scalars['ContractAddress']>;
   /** Floating point number as string (e.g. 42.009837). The server will move its decimal places for you */
   value: Scalars['String'];
 };
@@ -1781,6 +1803,12 @@ export type PaginatedWhoCollectedResult = {
   pageInfo: PaginatedResultInfo;
 };
 
+export type PaginatedWhoReactedResult = {
+  __typename?: 'PaginatedWhoReactedResult';
+  items: Array<WhoReactedResult>;
+  pageInfo: PaginatedResultInfo;
+};
+
 export type PendingApprovalFollowsRequest = {
   cursor?: InputMaybe<Scalars['Cursor']>;
   limit?: InputMaybe<Scalars['LimitScalar']>;
@@ -2380,10 +2408,12 @@ export type Query = {
   search: SearchResult;
   timeline: PaginatedTimelineResult;
   txIdToTxHash: Scalars['TxHash'];
+  unknownEnabledModules: EnabledModules;
   userSigNonces: UserSigNonces;
   validatePublicationMetadata: PublicationValidateMetadataResult;
   verify: Scalars['Boolean'];
   whoCollectedPublication: PaginatedWhoCollectedResult;
+  whoReactedPublication: PaginatedWhoReactedResult;
 };
 
 export type QueryAllPublicationsTagsArgs = {
@@ -2530,6 +2560,10 @@ export type QueryWhoCollectedPublicationArgs = {
   request: WhoCollectedPublicationRequest;
 };
 
+export type QueryWhoReactedPublicationArgs = {
+  request: WhoReactedPublicationRequest;
+};
+
 export type ReactionFieldResolverRequest = {
   /** Profile id */
   profileId?: InputMaybe<Scalars['ProfileId']>;
@@ -2550,16 +2584,19 @@ export enum ReactionTypes {
   Upvote = 'UPVOTE'
 }
 
-export type ReferenceModule = FollowOnlyReferenceModuleSettings;
+export type ReferenceModule = FollowOnlyReferenceModuleSettings | UnknownReferenceModuleSettings;
 
 export type ReferenceModuleParams = {
   /** The follower only reference module */
   followerOnlyReferenceModule?: InputMaybe<Scalars['Boolean']>;
+  /** A unknown reference module */
+  unknownReferenceModule?: InputMaybe<UnknownReferenceModuleParams>;
 };
 
 /** The reference module types */
 export enum ReferenceModules {
-  FollowerOnlyReferenceModule = 'FollowerOnlyReferenceModule'
+  FollowerOnlyReferenceModule = 'FollowerOnlyReferenceModule',
+  UnknownReferenceModule = 'UnknownReferenceModule'
 }
 
 /** The refresh request */
@@ -2860,6 +2897,56 @@ export type UnfollowRequest = {
   profile: Scalars['ProfileId'];
 };
 
+export type UnknownCollectModuleParams = {
+  contractAddress: Scalars['ContractAddress'];
+  /** The encoded data to submit with the module */
+  data: Scalars['BlockchainData'];
+};
+
+export type UnknownCollectModuleSettings = {
+  __typename?: 'UnknownCollectModuleSettings';
+  /** The data used to setup the module which you can decode with your known ABI  */
+  collectModuleReturnData: Scalars['CollectModuleData'];
+  contractAddress: Scalars['ContractAddress'];
+  /** The collect modules enum */
+  type: CollectModules;
+};
+
+export type UnknownFollowModuleParams = {
+  contractAddress: Scalars['ContractAddress'];
+  /** The encoded data to submit with the module */
+  data: Scalars['BlockchainData'];
+};
+
+export type UnknownFollowModuleRedeemParams = {
+  /** The encoded data to submit with the module */
+  data: Scalars['BlockchainData'];
+};
+
+export type UnknownFollowModuleSettings = {
+  __typename?: 'UnknownFollowModuleSettings';
+  contractAddress: Scalars['ContractAddress'];
+  /** The data used to setup the module which you can decode with your known ABI  */
+  followModuleReturnData: Scalars['FollowModuleData'];
+  /** The follow modules enum */
+  type: FollowModules;
+};
+
+export type UnknownReferenceModuleParams = {
+  contractAddress: Scalars['ContractAddress'];
+  /** The encoded data to submit with the module */
+  data: Scalars['BlockchainData'];
+};
+
+export type UnknownReferenceModuleSettings = {
+  __typename?: 'UnknownReferenceModuleSettings';
+  contractAddress: Scalars['ContractAddress'];
+  /** The data used to setup the module which you can decode with your known ABI  */
+  referenceModuleReturnData: Scalars['ReferenceModuleData'];
+  /** The reference modules enum */
+  type: ReferenceModules;
+};
+
 export type UpdateProfileImageRequest = {
   /** The nft data */
   nftData?: InputMaybe<NftData>;
@@ -2899,6 +2986,25 @@ export type WhoCollectedPublicationRequest = {
   publicationId: Scalars['InternalPublicationId'];
 };
 
+export type WhoReactedPublicationRequest = {
+  cursor?: InputMaybe<Scalars['Cursor']>;
+  limit?: InputMaybe<Scalars['LimitScalar']>;
+  /** Internal publication id */
+  publicationId: Scalars['InternalPublicationId'];
+};
+
+/** The Profile */
+export type WhoReactedResult = {
+  __typename?: 'WhoReactedResult';
+  profile: Profile;
+  /** The reaction */
+  reaction: ReactionTypes;
+  /** The reaction */
+  reactionAt: Scalars['DateTime'];
+  /** The reaction id */
+  reactionId: Scalars['ReactionId'];
+};
+
 export type WorldcoinIdentity = {
   __typename?: 'WorldcoinIdentity';
   /** If the profile has verified as a user */
@@ -2918,9 +3024,15 @@ const result: PossibleTypesResultData = {
       'LimitedFeeCollectModuleSettings',
       'LimitedTimedFeeCollectModuleSettings',
       'RevertCollectModuleSettings',
-      'TimedFeeCollectModuleSettings'
+      'TimedFeeCollectModuleSettings',
+      'UnknownCollectModuleSettings'
     ],
-    FollowModule: ['FeeFollowModuleSettings', 'ProfileFollowModuleSettings', 'RevertFollowModuleSettings'],
+    FollowModule: [
+      'FeeFollowModuleSettings',
+      'ProfileFollowModuleSettings',
+      'RevertFollowModuleSettings',
+      'UnknownFollowModuleSettings'
+    ],
     MainPostReference: ['Mirror', 'Post'],
     MentionPublication: ['Comment', 'Post'],
     MirrorablePublication: ['Comment', 'Post'],
@@ -2936,7 +3048,7 @@ const result: PossibleTypesResultData = {
     Publication: ['Comment', 'Mirror', 'Post'],
     PublicationForSale: ['Comment', 'Post'],
     PublicationSearchResultItem: ['Comment', 'Post'],
-    ReferenceModule: ['FollowOnlyReferenceModuleSettings'],
+    ReferenceModule: ['FollowOnlyReferenceModuleSettings', 'UnknownReferenceModuleSettings'],
     RelayResult: ['RelayError', 'RelayerResult'],
     SearchResult: ['ProfileSearchResult', 'PublicationSearchResult'],
     TransactionResult: ['TransactionError', 'TransactionIndexedResult']
