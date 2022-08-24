@@ -56,9 +56,7 @@ const MutualFollowers: FC<Props> = ({ profile }) => {
 
   const profiles = data?.mutualFollowersProfiles?.items;
   const totalCount = data?.mutualFollowersProfiles?.pageInfo?.totalCount;
-
-  const profileOne = profiles?.[0];
-  const profileTwo = profiles?.[1];
+  const removedCount = profiles?.length <= 3 ? totalCount - profiles?.length : totalCount - 3;
 
   if (totalCount === 0 || loading || error) {
     return null;
@@ -66,13 +64,13 @@ const MutualFollowers: FC<Props> = ({ profile }) => {
 
   return (
     <div
-      className="mr-0 sm:mr-10 text-sm text-gray-500 flex items-start space-x-2.5 cursor-pointer"
+      className="mr-0 sm:mr-10 text-sm text-gray-500 flex items-center space-x-2.5 cursor-pointer"
       onClick={() => {
         setShowMutualFollowersModal(true);
         Mixpanel.track(PROFILE.OPEN_MUTUAL_FOLLOWERS);
       }}
     >
-      <div className="flex -space-x-2">
+      <span className="contents -space-x-2">
         {profiles?.map((profile: Profile) => (
           <img
             key={profile?.id}
@@ -81,16 +79,22 @@ const MutualFollowers: FC<Props> = ({ profile }) => {
             alt={profile?.handle}
           />
         ))}
-      </div>
-      <div>
+      </span>
+      <span>
         <span>Followed by </span>
-        {profileOne ? <span>{profileOne.name ?? profileOne?.handle}</span> : null}
-        {profileTwo ? <span>, {profileTwo.name ?? profileOne?.handle}</span> : null}
-        <span>
-          {' '}
-          and {totalCount} {totalCount === 1 ? 'other' : 'others'}
-        </span>
-      </div>
+        {profiles?.map((profile: Profile) => (
+          <span key={profile?.id}>
+            {profile?.name ?? profile?.handle}
+            {removedCount > 0 && ','}{' '}
+          </span>
+        ))}
+        {removedCount > 0 && (
+          <span>
+            {' '}
+            and {removedCount} {removedCount === 1 ? 'other' : 'others'}
+          </span>
+        )}
+      </span>
       <Modal
         title="Followers you know"
         icon={<UsersIcon className="w-5 h-5 text-brand" />}
