@@ -30,6 +30,11 @@ export const PUBLICATION = {
   DELETE: 'Delete publication',
   REPORT: 'Report publication',
   OEMBED_CLICK: 'Click publication oemebed',
+  STATS: {
+    MIRRORED_BY: 'Open mirrored by list',
+    LIKED_BY: 'Open liked by list',
+    COLLECTED_BY: 'Open collected by list'
+  },
   COLLECT_MODULE: {
     COLLECT: 'Collect publication',
     OPEN_COLLECT: 'Open collect modal',
@@ -115,7 +120,9 @@ export const PAGINATION = {
   NFT_FEED: 'Paginate NFT feed',
   FOLLOWERS: 'Paginate followers list',
   FOLLOWING: 'Paginate following list',
+  MIRRORS: 'Paginate mirrors list',
   COLLECTORS: 'Paginate collectors list',
+  LIKES: 'Paginate likes list',
   PROFILE_SEARCH: 'Paginate profile search list',
   PUBLICATION_SEARCH: 'Paginate publication search list'
 };

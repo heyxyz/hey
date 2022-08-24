@@ -14,10 +14,12 @@ import Permalink from './Permalink';
 
 interface Props {
   publication: LensterPublication;
+  isFullPublication: boolean;
 }
 
-const PublicationMenu: FC<Props> = ({ publication }) => {
+const PublicationMenu: FC<Props> = ({ publication, isFullPublication }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const iconClassName = isFullPublication ? 'w-[17px] sm:w-[21px]' : 'w-[15px] sm:w-[18px]';
 
   return (
     <Menu as="div">
@@ -30,7 +32,7 @@ const PublicationMenu: FC<Props> = ({ publication }) => {
             }}
             aria-label="More"
           >
-            <DotsHorizontalIcon className="w-[15px] sm:w-[18px] text-gray-500 dark:text-gray-300" />
+            <DotsHorizontalIcon className={clsx('text-gray-500 dark:text-gray-300', iconClassName)} />
           </Menu.Button>
           <Transition
             show={open}
