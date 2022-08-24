@@ -66,7 +66,9 @@ const Collect: FC<Props> = ({ publication, isFullPublication }) => {
               )}
             </Tooltip>
           </div>
-          {count > 0 && <div className="text-[11px] sm:text-xs">{nFormatter(count)}</div>}
+          {count > 0 && !isFullPublication && (
+            <div className="text-[11px] sm:text-xs">{nFormatter(count)}</div>
+          )}
         </div>
       </motion.button>
       <Modal

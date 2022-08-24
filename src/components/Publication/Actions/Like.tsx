@@ -4,8 +4,8 @@ import { LensterPublication } from '@generated/lenstertypes';
 import { Mutation } from '@generated/types';
 import { HeartIcon } from '@heroicons/react/outline';
 import { HeartIcon as HeartIconSolid } from '@heroicons/react/solid';
-import humanize from '@lib/humanize';
 import { Mixpanel } from '@lib/mixpanel';
+import nFormatter from '@lib/nFormatter';
 import onError from '@lib/onError';
 import { motion } from 'framer-motion';
 import { FC, useEffect, useState } from 'react';
@@ -109,7 +109,7 @@ const Like: FC<Props> = ({ publication, isFullPublication }) => {
             {liked ? <HeartIconSolid className={iconClassName} /> : <HeartIcon className={iconClassName} />}
           </Tooltip>
         </div>
-        {count > 0 && !isFullPublication && <div className="text-[11px] sm:text-xs">{humanize(count)}</div>}
+        {count > 0 && !isFullPublication && <div className="text-[11px] sm:text-xs">{nFormatter(count)}</div>}
       </div>
     </motion.button>
   );
