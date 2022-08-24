@@ -13,6 +13,7 @@ export const PROFILE = {
   OPEN_SUPER_FOLLOW: 'Open super follow modal',
   OPEN_FOLLOWING: 'Open following list',
   OPEN_FOLLOWERS: 'Open followers list',
+  OPEN_MUTUAL_FOLLOWERS: 'Open mutual followers list',
   SWITCH_PROFILE: 'Switch profile',
   LOGOUT: 'Profile logout'
 };
@@ -33,8 +34,7 @@ export const PUBLICATION = {
   STATS: {
     MIRRORED_BY: 'Open mirrored by list',
     LIKED_BY: 'Open liked by list',
-    COLLECTED_BY: 'Open collected by list',
-    MUTUAL_FOLLOWERS: 'Open mutual followers list'
+    COLLECTED_BY: 'Open collected by list'
   },
   COLLECT_MODULE: {
     COLLECT: 'Collect publication',
