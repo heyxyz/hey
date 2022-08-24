@@ -30,6 +30,11 @@ export const PUBLICATION = {
   DELETE: 'Delete publication',
   REPORT: 'Report publication',
   OEMBED_CLICK: 'Click publication oemebed',
+  STATS: {
+    MIRRORED_BY: 'Open mirrored by list',
+    LIKED_BY: 'Open liked by list',
+    COLLECTED_BY: 'Open collected by list'
+  },
   COLLECT_MODULE: {
     COLLECT: 'Collect publication',
     OPEN_COLLECT: 'Open collect modal',

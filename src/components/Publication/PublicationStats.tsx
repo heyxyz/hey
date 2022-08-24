@@ -4,8 +4,10 @@ import Mirrors from '@components/Shared/Mirrors';
 import { Modal } from '@components/UI/Modal';
 import { LensterPublication } from '@generated/lenstertypes';
 import { CollectionIcon, HeartIcon, SwitchHorizontalIcon } from '@heroicons/react/outline';
+import { Mixpanel } from '@lib/mixpanel';
 import nFormatter from '@lib/nFormatter';
 import React, { FC, useState } from 'react';
+import { PUBLICATION } from 'src/tracking';
 
 interface Props {
   publication: LensterPublication;
@@ -32,7 +34,12 @@ const PublicationStats: FC<Props> = ({ publication }) => {
     <div className="flex flex-wrap gap-6 text-sm items-center py-3 text-gray-500 sm:gap-8">
       {mirrorCount > 0 && (
         <>
-          <button onClick={() => setShowMirrorsModal(true)}>
+          <button
+            onClick={() => {
+              setShowMirrorsModal(true);
+              Mixpanel.track(PUBLICATION.STATS.MIRRORED_BY);
+            }}
+          >
             <b className="text-black dark:text-white">{nFormatter(mirrorCount)}</b> Mirrors
           </button>
           <Modal
@@ -47,7 +54,12 @@ const PublicationStats: FC<Props> = ({ publication }) => {
       )}
       {reactionCount > 0 && (
         <>
-          <button onClick={() => setShowLikesModal(true)}>
+          <button
+            onClick={() => {
+              setShowLikesModal(true);
+              Mixpanel.track(PUBLICATION.STATS.LIKED_BY);
+            }}
+          >
             <b className="text-black dark:text-white">{nFormatter(reactionCount)}</b> Likes
           </button>
           <Modal
@@ -62,7 +74,12 @@ const PublicationStats: FC<Props> = ({ publication }) => {
       )}
       {collectCount > 0 && (
         <>
-          <button onClick={() => setShowCollectorsModal(true)}>
+          <button
+            onClick={() => {
+              setShowCollectorsModal(true);
+              Mixpanel.track(PUBLICATION.STATS.COLLECTED_BY);
+            }}
+          >
             <b className="text-black dark:text-white">{nFormatter(collectCount)}</b> Collects
           </button>
           <Modal
