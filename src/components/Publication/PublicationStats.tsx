@@ -1,8 +1,9 @@
 import Collectors from '@components/Shared/Collectors';
 import Likes from '@components/Shared/Likes';
+import Mirrors from '@components/Shared/Mirrors';
 import { Modal } from '@components/UI/Modal';
 import { LensterPublication } from '@generated/lenstertypes';
-import { CollectionIcon, HeartIcon } from '@heroicons/react/outline';
+import { CollectionIcon, HeartIcon, SwitchHorizontalIcon } from '@heroicons/react/outline';
 import nFormatter from '@lib/nFormatter';
 import React, { FC, useState } from 'react';
 
@@ -30,9 +31,19 @@ const PublicationStats: FC<Props> = ({ publication }) => {
   return (
     <div className="flex flex-wrap gap-6 text-sm items-center py-3 text-gray-500 sm:gap-8">
       {mirrorCount > 0 && (
-        <button onClick={() => setShowMirrorsModal(true)}>
-          <b className="text-black dark:text-white">{nFormatter(mirrorCount)}</b> Mirrors
-        </button>
+        <>
+          <button onClick={() => setShowMirrorsModal(true)}>
+            <b className="text-black dark:text-white">{nFormatter(mirrorCount)}</b> Mirrors
+          </button>
+          <Modal
+            title="Mirrored by"
+            icon={<SwitchHorizontalIcon className="w-5 h-5 text-brand" />}
+            show={showMirrorsModal}
+            onClose={() => setShowMirrorsModal(false)}
+          >
+            <Mirrors pubId={pubId} />
+          </Modal>
+        </>
       )}
       {reactionCount > 0 && (
         <>

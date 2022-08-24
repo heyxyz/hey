@@ -91,6 +91,10 @@ const cache = new InMemoryCache({
         followers: cursorBasedPagination(['request', ['profileId']]),
         following: cursorBasedPagination(['request', ['address']]),
         search: cursorBasedPagination(['request', ['query', 'type']]),
+        profiles: cursorBasedPagination([
+          'request',
+          ['profileIds', 'ownedBy', 'handles', 'whoMirroredPublicationId']
+        ]),
         whoCollectedPublication: cursorBasedPagination(['request', ['publicationId']]),
         whoReactedPublication: cursorBasedPagination(['request', ['publicationId']])
       }
