@@ -96,7 +96,8 @@ const cache = new InMemoryCache({
           ['profileIds', 'ownedBy', 'handles', 'whoMirroredPublicationId']
         ]),
         whoCollectedPublication: cursorBasedPagination(['request', ['publicationId']]),
-        whoReactedPublication: cursorBasedPagination(['request', ['publicationId']])
+        whoReactedPublication: cursorBasedPagination(['request', ['publicationId']]),
+        mutualFollowersProfiles: cursorBasedPagination(['request', ['viewingProfileId', 'yourProfileId']])
       }
     }
   }
