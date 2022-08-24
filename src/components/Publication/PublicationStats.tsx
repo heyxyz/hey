@@ -1,7 +1,8 @@
 import Collectors from '@components/Shared/Collectors';
+import Likes from '@components/Shared/Likes';
 import { Modal } from '@components/UI/Modal';
 import { LensterPublication } from '@generated/lenstertypes';
-import { CollectionIcon } from '@heroicons/react/outline';
+import { CollectionIcon, HeartIcon } from '@heroicons/react/outline';
 import nFormatter from '@lib/nFormatter';
 import React, { FC, useState } from 'react';
 
@@ -24,6 +25,7 @@ const PublicationStats: FC<Props> = ({ publication }) => {
   const collectCount = isMirror
     ? publication?.mirrorOf?.stats?.totalAmountOfCollects
     : publication?.stats?.totalAmountOfCollects;
+  const pubId = isMirror ? publication?.mirrorOf?.id : publication?.id;
 
   return (
     <div className="flex flex-wrap gap-6 text-sm items-center py-3 text-gray-500 sm:gap-8">
@@ -33,9 +35,19 @@ const PublicationStats: FC<Props> = ({ publication }) => {
         </button>
       )}
       {reactionCount > 0 && (
-        <button onClick={() => setShowLikesModal(true)}>
-          <b className="text-black dark:text-white">{nFormatter(reactionCount)}</b> Likes
-        </button>
+        <>
+          <button onClick={() => setShowLikesModal(true)}>
+            <b className="text-black dark:text-white">{nFormatter(reactionCount)}</b> Likes
+          </button>
+          <Modal
+            title="Liked by"
+            icon={<HeartIcon className="w-5 h-5 text-brand" />}
+            show={showLikesModal}
+            onClose={() => setShowLikesModal(false)}
+          >
+            <Likes pubId={pubId} />
+          </Modal>
+        </>
       )}
       {collectCount > 0 && (
         <>
@@ -48,9 +60,7 @@ const PublicationStats: FC<Props> = ({ publication }) => {
             show={showCollectorsModal}
             onClose={() => setShowCollectorsModal(false)}
           >
-            <Collectors
-              pubId={publication?.__typename === 'Mirror' ? publication?.mirrorOf?.id : publication?.id}
-            />
+            <Collectors pubId={pubId} />
           </Modal>
         </>
       )}

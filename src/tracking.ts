@@ -115,7 +115,9 @@ export const PAGINATION = {
   NFT_FEED: 'Paginate NFT feed',
   FOLLOWERS: 'Paginate followers list',
   FOLLOWING: 'Paginate following list',
+  MIRRORS: 'Paginate mirrors list',
   COLLECTORS: 'Paginate collectors list',
+  LIKES: 'Paginate likes list',
   PROFILE_SEARCH: 'Paginate profile search list',
   PUBLICATION_SEARCH: 'Paginate publication search list'
 };
