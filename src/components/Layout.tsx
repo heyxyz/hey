@@ -65,7 +65,7 @@ const Layout: FC<Props> = ({ children }) => {
   const { disconnect } = useDisconnect();
   const { loading } = useQuery(CURRENT_PROFILE_QUERY, {
     variables: { ownedBy: address },
-    skip: !isConnected && !isAuthenticated && !address,
+    skip: !isConnected && !isAuthenticated,
     onCompleted: (data) => {
       const profiles: Profile[] = data?.profiles?.items
         ?.slice()
