@@ -63,10 +63,6 @@ yarn dev
 
 and visit http://localhost:4783
 
-### Using Gitpod
-
-[<img src="https://gitpod.io/button/open-in-gitpod.svg" height="40">](https://gitpod.io/#https://github.com/lensterxyz/lenster)
-
 ## 🤝 Supporting Repos
 
 - [Lenster Assets](https://github.com/lensterxyz/assets) - Static assets hosted in Vercel edge CDN

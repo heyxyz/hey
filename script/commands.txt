@@ -1,8 +1,0 @@
-Command : yarn lint
-Description : Check for linting errors
-Command : yarn typecheck
-Description : Check for type errors
-Command : yarn prettier
-Description : Check for prettier errors
-Command : yarn codegen
-Description : Generate types from GraphQL
