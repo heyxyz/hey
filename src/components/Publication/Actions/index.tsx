@@ -16,7 +16,7 @@ interface Props {
 const PublicationActions: FC<Props> = ({ publication, isFullPublication = false }) => {
   const publicationType = publication?.metadata?.attributes[0]?.value;
 
-  return publicationType !== 'community' ? (
+  return (
     <div
       className={clsx(
         { 'justify-between': isFullPublication },
@@ -33,7 +33,7 @@ const PublicationActions: FC<Props> = ({ publication, isFullPublication = false 
         )}
       <PublicationMenu publication={publication} isFullPublication={isFullPublication} />
     </div>
-  ) : null;
+  );
 };
 
 export default PublicationActions;
