@@ -15,6 +15,7 @@ interface Props {
 
 const PublicationActions: FC<Props> = ({ publication, isFullPublication = false }) => {
   const publicationType = publication?.metadata?.attributes[0]?.value;
+  const collectModuleType = publication?.collectModule?.__typename;
 
   return (
     <div
@@ -27,7 +28,8 @@ const PublicationActions: FC<Props> = ({ publication, isFullPublication = false 
       <Comment publication={publication} isFullPublication={isFullPublication} />
       <Mirror publication={publication} isFullPublication={isFullPublication} />
       <Like publication={publication} isFullPublication={isFullPublication} />
-      {publication?.collectModule?.__typename !== 'RevertCollectModuleSettings' &&
+      {collectModuleType !== 'RevertCollectModuleSettings' &&
+        collectModuleType !== 'UnknownCollectModuleSettings' && // TODO: remove this check when we have a better way to handle unknown collect modules
         publicationType !== 'crowdfund' && (
           <Collect publication={publication} isFullPublication={isFullPublication} />
         )}
