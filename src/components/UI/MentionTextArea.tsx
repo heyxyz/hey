@@ -87,9 +87,8 @@ export const MentionTextArea: FC<Props> = ({ error, setError, placeholder = '' }
           trigger="@"
           displayTransform={(login) => `@${login} `}
           markup="@__id__ "
-          // @ts-ignore
-          renderSuggestion={(suggestion: UserSuggestion, search, highlightedDisplay, index, focused) => (
-            <User suggestion={suggestion} focused={focused} />
+          renderSuggestion={(suggestion, search, highlightedDisplay, index, focused) => (
+            <User suggestion={suggestion as UserSuggestion} focused={focused} />
           )}
           data={fetchUsers}
         />
