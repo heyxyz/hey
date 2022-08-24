@@ -1,4 +1,6 @@
-export const hashflags: any = {
+export const hashflags: {
+  [key: string]: string;
+} = {
   lenster: 'lenster',
   lenstube: 'lenstube',
   bitcoin: 'bitcoin',
