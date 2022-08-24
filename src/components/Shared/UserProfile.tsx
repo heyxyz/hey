@@ -1,5 +1,5 @@
 import { Profile } from '@generated/types';
-import { CheckBadgeIcon } from '@heroicons/react/20/solid';
+import { CheckBadgeIcon } from '@heroicons/react/24/solid';
 import getAvatar from '@lib/getAvatar';
 import isVerified from '@lib/isVerified';
 import clsx from 'clsx';

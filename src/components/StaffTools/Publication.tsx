@@ -1,7 +1,7 @@
 import { Card, CardBody } from '@components/UI/Card';
 import { LensterPublication } from '@generated/lenstertypes';
-import { ShieldCheckIcon } from '@heroicons/react/20/solid';
 import { GlobeAltIcon, HashtagIcon, LinkIcon, RectangleStackIcon } from '@heroicons/react/24/outline';
+import { ShieldCheckIcon } from '@heroicons/react/24/solid';
 import { getModule } from '@lib/getModule';
 import React, { FC } from 'react';
 

@@ -1,6 +1,6 @@
 import { LensterNotification } from '@generated/lenstertypes';
 import { NewFollowerNotification } from '@generated/types';
-import { UserPlusIcon } from '@heroicons/react/20/solid';
+import { UserPlusIcon } from '@heroicons/react/24/solid';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import React, { FC } from 'react';

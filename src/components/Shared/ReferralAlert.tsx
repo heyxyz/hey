@@ -1,6 +1,6 @@
 import Slug from '@components/Shared/Slug';
 import { Mirror } from '@generated/types';
-import { HeartIcon } from '@heroicons/react/20/solid';
+import { HeartIcon } from '@heroicons/react/24/solid';
 import React, { FC } from 'react';
 
 interface Props {

@@ -3,7 +3,7 @@ import { SEARCH_USERS_QUERY } from '@components/Shared/Navbar/Search';
 import Slug from '@components/Shared/Slug';
 import { UserSuggestion } from '@generated/lenstertypes';
 import { MediaSet, NftImage, Profile } from '@generated/types';
-import { CheckBadgeIcon } from '@heroicons/react/20/solid';
+import { CheckBadgeIcon } from '@heroicons/react/24/solid';
 import getIPFSLink from '@lib/getIPFSLink';
 import imagekitURL from '@lib/imagekitURL';
 import isVerified from '@lib/isVerified';

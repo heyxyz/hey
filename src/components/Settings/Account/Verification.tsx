@@ -1,5 +1,5 @@
 import { Card, CardBody } from '@components/UI/Card';
-import { CheckBadgeIcon } from '@heroicons/react/20/solid';
+import { CheckBadgeIcon } from '@heroicons/react/24/solid';
 import isVerified from '@lib/isVerified';
 import { Mixpanel } from '@lib/mixpanel';
 import React, { FC } from 'react';

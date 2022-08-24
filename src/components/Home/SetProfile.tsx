@@ -1,6 +1,6 @@
 import { Card, CardBody } from '@components/UI/Card';
-import { CheckCircleIcon } from '@heroicons/react/20/solid';
 import { MinusCircleIcon, PencilSquareIcon, PhotoIcon } from '@heroicons/react/24/outline';
+import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import clsx from 'clsx';
 import Link from 'next/link';
 import { FC } from 'react';

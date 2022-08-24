@@ -1,6 +1,6 @@
 import Markup from '@components/Shared/Markup';
 import { NewCommentNotification } from '@generated/types';
-import { ChatBubbleLeftRightIcon } from '@heroicons/react/20/solid';
+import { ChatBubbleLeftRightIcon } from '@heroicons/react/24/solid';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import Link from 'next/link';

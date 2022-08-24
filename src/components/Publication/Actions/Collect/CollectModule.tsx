@@ -20,7 +20,6 @@ import { LensterPublication } from '@generated/lenstertypes';
 import { CreateCollectBroadcastItemResult, Mutation } from '@generated/types';
 import { CollectModuleFields } from '@gql/CollectModuleFields';
 import { PROXY_ACTION_MUTATION } from '@gql/ProxyAction';
-import { CheckCircleIcon } from '@heroicons/react/20/solid';
 import {
   ArrowsRightLeftIcon,
   BanknotesIcon,
@@ -31,6 +30,7 @@ import {
   UserIcon,
   UsersIcon
 } from '@heroicons/react/24/outline';
+import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import formatAddress from '@lib/formatAddress';
 import getSignature from '@lib/getSignature';
 import getTokenImage from '@lib/getTokenImage';

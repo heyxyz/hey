@@ -1,6 +1,5 @@
 import { Card, CardBody } from '@components/UI/Card';
 import { Profile } from '@generated/types';
-import { ShieldCheckIcon } from '@heroicons/react/20/solid';
 import {
   AtSymbolIcon,
   BanknotesIcon,
@@ -11,6 +10,7 @@ import {
   LinkIcon,
   PhotoIcon
 } from '@heroicons/react/24/outline';
+import { ShieldCheckIcon } from '@heroicons/react/24/solid';
 import formatAddress from '@lib/formatAddress';
 import getAttribute from '@lib/getAttribute';
 import { getFollowModule } from '@lib/getFollowModule';

@@ -1,7 +1,7 @@
 import { Modal } from '@components/UI/Modal';
 import { Tooltip } from '@components/UI/Tooltip';
-import { CheckCircleIcon } from '@heroicons/react/20/solid';
 import { ChatBubbleLeftRightIcon, GlobeAltIcon, UsersIcon } from '@heroicons/react/24/outline';
+import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { Mixpanel } from '@lib/mixpanel';
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
