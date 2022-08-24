@@ -1,5 +1,5 @@
 import { ProfileStats } from '@generated/types';
-import { ChatAlt2Icon, PencilAltIcon, PhotographIcon, SwitchHorizontalIcon } from '@heroicons/react/outline';
+import { ChatAlt2Icon, PencilAltIcon, PhotographIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import nFormatter from '@lib/nFormatter';
 import clsx from 'clsx';
@@ -47,22 +47,16 @@ const FeedType: FC<Props> = ({ stats, setFeedType, feedType }) => {
   return (
     <div className="flex overflow-x-auto gap-3 px-5 pb-2 mt-3 sm:px-0 sm:mt-0 md:pb-0">
       <FeedLink
-        name="Posts"
+        name="Feed"
         icon={<PencilAltIcon className="w-4 h-4" />}
-        type="POST"
-        count={stats?.totalPosts}
+        type="FEED"
+        count={stats?.totalPosts + stats?.totalMirrors}
       />
       <FeedLink
-        name="Comments"
+        name="Replies"
         icon={<ChatAlt2Icon className="w-4 h-4" />}
-        type="COMMENT"
+        type="REPLIES"
         count={stats?.totalComments}
-      />
-      <FeedLink
-        name="Mirrors"
-        icon={<SwitchHorizontalIcon className="w-4 h-4" />}
-        type="MIRROR"
-        count={stats?.totalMirrors}
       />
       <FeedLink name="NFTs" icon={<PhotographIcon className="w-4 h-4" />} type="NFT" />
     </div>
