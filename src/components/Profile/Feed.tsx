@@ -69,7 +69,7 @@ const Feed: FC<Props> = ({ profile, type }) => {
       fetchMore({
         variables: {
           request: {
-            publicationTypes: type,
+            publicationTypes,
             profileId: profile?.id,
             cursor: pageInfo?.next,
             limit: 10
