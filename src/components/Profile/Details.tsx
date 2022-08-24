@@ -7,8 +7,8 @@ import ProfileStaffTool from '@components/StaffTools/Profile';
 import { Button } from '@components/UI/Button';
 import { Tooltip } from '@components/UI/Tooltip';
 import { Profile } from '@generated/types';
-import { CogIcon, HashtagIcon, LocationMarkerIcon } from '@heroicons/react/outline';
-import { BadgeCheckIcon, ShieldCheckIcon } from '@heroicons/react/solid';
+import { CheckBadgeIcon, ShieldCheckIcon } from '@heroicons/react/20/solid';
+import { CogIcon, HashtagIcon, MapPinIcon } from '@heroicons/react/24/outline';
 import formatAddress from '@lib/formatAddress';
 import getAttribute from '@lib/getAttribute';
 import getAvatar from '@lib/getAvatar';
@@ -58,7 +58,7 @@ const Details: FC<Props> = ({ profile }) => {
           <div className="truncate">{profile?.name ?? profile?.handle}</div>
           {isVerified(profile?.id) && (
             <Tooltip content="Verified">
-              <BadgeCheckIcon className="w-6 h-6 text-brand" />
+              <CheckBadgeIcon className="w-6 h-6 text-brand" />
             </Tooltip>
           )}
           {isStaff(profile?.id) && (
@@ -114,7 +114,7 @@ const Details: FC<Props> = ({ profile }) => {
             <Tooltip content={`#${parseInt(profile?.id)}`}>{profile?.id}</Tooltip>
           </MetaDetails>
           {getAttribute(profile?.attributes, 'location') && (
-            <MetaDetails icon={<LocationMarkerIcon className="w-4 h-4" />}>
+            <MetaDetails icon={<MapPinIcon className="w-4 h-4" />}>
               {getAttribute(profile?.attributes, 'location') as any}
             </MetaDetails>
           )}

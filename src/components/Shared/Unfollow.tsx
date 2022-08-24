@@ -3,7 +3,7 @@ import { gql, useMutation } from '@apollo/client';
 import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
 import { CreateUnfollowBroadcastItemResult, Mutation, Profile } from '@generated/types';
-import { UserRemoveIcon } from '@heroicons/react/outline';
+import { MinusCircleIcon } from '@heroicons/react/24/outline';
 import getSignature from '@lib/getSignature';
 import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
@@ -120,7 +120,7 @@ const Unfollow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
         typedDataLoading || signLoading || writeLoading ? (
           <Spinner variant="danger" size="xs" />
         ) : (
-          <UserRemoveIcon className="w-4 h-4" />
+          <MinusCircleIcon className="w-4 h-4" />
         )
       }
     >

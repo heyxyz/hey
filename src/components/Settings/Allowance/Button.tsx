@@ -4,7 +4,7 @@ import { Modal } from '@components/UI/Modal';
 import { Spinner } from '@components/UI/Spinner';
 import { WarningMessage } from '@components/UI/WarningMessage';
 import { ApprovedAllowanceAmount } from '@generated/types';
-import { ExclamationIcon, MinusIcon, PlusIcon } from '@heroicons/react/outline';
+import { ExclaimationTriangleIcon, MinusIcon, PlusIcon } from '@heroicons/react/24/outline';
 import { getModule } from '@lib/getModule';
 import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
@@ -104,7 +104,7 @@ const AllowanceButton: FC<Props> = ({ title = 'Allow', module, allowed, setAllow
       </Button>
       <Modal
         title="Warning"
-        icon={<ExclamationIcon className="w-5 h-5 text-yellow-500" />}
+        icon={<ExclaimationTriangleIcon className="w-5 h-5 text-yellow-500" />}
         show={showWarningModal}
         onClose={() => setShowWarninModal(false)}
       >

@@ -3,7 +3,7 @@ import IFramely from '@components/Shared/IFramely';
 import Markup from '@components/Shared/Markup';
 import CrowdfundShimmer from '@components/Shared/Shimmer/CrowdfundShimmer';
 import { LensterPublication } from '@generated/lenstertypes';
-import { EyeIcon, UserAddIcon, UsersIcon } from '@heroicons/react/outline';
+import { EyeIcon, UserPlusIcon, UsersIcon } from '@heroicons/react/24/outline';
 import getIPFSLink from '@lib/getIPFSLink';
 import getURLs from '@lib/getURLs';
 import imagekitURL from '@lib/imagekitURL';
@@ -32,7 +32,7 @@ const PublicationBody: FC<Props> = ({ publication }) => {
         <div className="block items-center space-y-2 space-x-0 sm:flex sm:space-y-0 sm:space-x-2 linkify">
           <span className="flex items-center space-x-1.5">
             {publication?.collectedBy ? (
-              <UserAddIcon className="w-4 h-4 text-brand" />
+              <UserPlusIcon className="w-4 h-4 text-brand" />
             ) : (
               <UsersIcon className="w-4 h-4 text-brand" />
             )}

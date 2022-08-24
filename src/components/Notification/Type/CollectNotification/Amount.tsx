@@ -1,5 +1,5 @@
 import { NewCollectNotification } from '@generated/types';
-import { CurrencyDollarIcon, HandIcon } from '@heroicons/react/outline';
+import { BanknotesIcon, HandRaisedIcon } from '@heroicons/react/24/outline';
 import getTokenImage from '@lib/getTokenImage';
 import humanize from '@lib/humanize';
 import React, { FC } from 'react';
@@ -17,9 +17,9 @@ const CollectedAmount: FC<Props> = ({ notification }) => {
   return (
     <div className="flex items-center mt-2 space-x-1">
       {publicationType === 'crowdfund' ? (
-        <HandIcon className="text-green-500 h-[15px]" />
+        <HandRaisedIcon className="text-green-500 h-[15px]" />
       ) : (
-        <CurrencyDollarIcon className="text-green-500 h-[15px]" />
+        <BanknotesIcon className="text-green-500 h-[15px]" />
       )}
       {collectModule?.__typename === 'FreeCollectModuleSettings' ? (
         <div className="text-[12px]">Collected for free</div>

@@ -6,7 +6,7 @@ import { Form, useZodForm } from '@components/UI/Form';
 import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
 import { RelayerResultFields } from '@gql/RelayerResultFields';
-import { PlusIcon } from '@heroicons/react/outline';
+import { PlusIcon } from '@heroicons/react/24/outline';
 import uploadMediaToIPFS from '@lib/uploadMediaToIPFS';
 import React, { ChangeEvent, FC, useState } from 'react';
 import { APP_NAME, HANDLE_REGEX } from 'src/constants';

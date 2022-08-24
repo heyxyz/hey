@@ -3,7 +3,7 @@ import Markup from '@components/Shared/Markup';
 import { Button } from '@components/UI/Button';
 import { Modal } from '@components/UI/Modal';
 import { LensterPublication } from '@generated/lenstertypes';
-import { ClockIcon, CogIcon, HashtagIcon, PencilAltIcon, UsersIcon } from '@heroicons/react/outline';
+import { ClockIcon, CogIcon, HashtagIcon, PencilSquareIcon, UsersIcon } from '@heroicons/react/24/outline';
 import getIPFSLink from '@lib/getIPFSLink';
 import imagekitURL from '@lib/imagekitURL';
 import { Mixpanel } from '@lib/mixpanel';
@@ -80,7 +80,7 @@ const Details: FC<Props> = ({ community }) => {
               <Button
                 variant="secondary"
                 className="!py-1.5"
-                icon={<PencilAltIcon className="w-5 h-5" />}
+                icon={<PencilSquareIcon className="w-5 h-5" />}
                 onClick={() => {
                   setShowSettingsModal(!showSettingsModal);
                   Mixpanel.track(COMMUNITY.SETTINGS.DELETE);

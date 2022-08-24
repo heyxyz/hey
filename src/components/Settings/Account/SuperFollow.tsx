@@ -8,7 +8,7 @@ import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
 import { CreateSetFollowModuleBroadcastItemResult, Erc20, Mutation } from '@generated/types';
-import { StarIcon, XIcon } from '@heroicons/react/outline';
+import { StarIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import getSignature from '@lib/getSignature';
 import getTokenImage from '@lib/getTokenImage';
 import { Mixpanel } from '@lib/mixpanel';
@@ -262,7 +262,7 @@ const SuperFollow: FC = () => {
                   setSuperFollow(null, null);
                 }}
                 disabled={typedDataLoading || signLoading || writeLoading || broadcastLoading}
-                icon={<XIcon className="w-4 h-4" />}
+                icon={<XMarkIcon className="w-4 h-4" />}
               >
                 Disable Super follow
               </Button>

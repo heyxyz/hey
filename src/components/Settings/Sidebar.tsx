@@ -1,6 +1,12 @@
 import UserProfile from '@components/Shared/UserProfile';
 import { Profile } from '@generated/types';
-import { ChipIcon, ExclamationIcon, FingerPrintIcon, ShareIcon, UserIcon } from '@heroicons/react/outline';
+import {
+  CpuChipIcon,
+  ExclaimationTriangleIcon,
+  FingerPrintIcon,
+  ShareIcon,
+  UserIcon
+} from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -41,7 +47,7 @@ const Sidebar: FC = () => {
         <div>Profile</div>
       </Menu>
       <Menu current={pathname == '/settings/account'} url="/settings/account">
-        <ChipIcon className="w-4 h-4" />
+        <CpuChipIcon className="w-4 h-4" />
         <div>Account</div>
       </Menu>
       <Menu current={pathname == '/settings/dispatcher'} url="/settings/dispatcher">
@@ -53,7 +59,7 @@ const Sidebar: FC = () => {
         <div>Allowance</div>
       </Menu>
       <Menu current={pathname == '/settings/delete'} url="/settings/delete">
-        <ExclamationIcon className="w-4 h-4 text-red-500" />
+        <ExclaimationTriangleIcon className="w-4 h-4 text-red-500" />
         <div className="text-red-500">Danger Zone</div>
       </Menu>
     </div>

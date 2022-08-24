@@ -7,7 +7,7 @@ import { Notification } from '@generated/types';
 import { CollectModuleFields } from '@gql/CollectModuleFields';
 import { MetadataFields } from '@gql/MetadataFields';
 import { ProfileFields } from '@gql/ProfileFields';
-import { MailIcon } from '@heroicons/react/outline';
+import { InboxStackIcon } from '@heroicons/react/24/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import { FC } from 'react';
 import { useInView } from 'react-cool-inview';
@@ -200,7 +200,7 @@ const List: FC = () => {
             <span>Inbox zero!</span>
           </div>
         }
-        icon={<MailIcon className="w-8 h-8 text-brand" />}
+        icon={<InboxStackIcon className="w-8 h-8 text-brand" />}
         hideCard
       />
     );

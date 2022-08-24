@@ -8,7 +8,7 @@ import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
 import { LensterCollectModule, LensterPublication } from '@generated/lenstertypes';
 import { CreateCollectBroadcastItemResult, Mutation } from '@generated/types';
-import { CashIcon } from '@heroicons/react/outline';
+import { BanknotesIcon } from '@heroicons/react/24/outline';
 import getSignature from '@lib/getSignature';
 import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
@@ -183,7 +183,7 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
               typedDataLoading || signLoading || writeLoading || broadcastLoading ? (
                 <Spinner variant="success" size="xs" />
               ) : (
-                <CashIcon className="w-4 h-4" />
+                <BanknotesIcon className="w-4 h-4" />
               )
             }
           >

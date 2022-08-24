@@ -1,5 +1,5 @@
 import { Menu, Transition } from '@headlessui/react';
-import { CashIcon, SupportIcon, UserIcon, UsersIcon } from '@heroicons/react/outline';
+import { BanknotesIcon, UserIcon, UsersIcon, WrenchScrewdriverIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import { FC, Fragment } from 'react';
 import { IS_MAINNET } from 'src/constants';
@@ -62,7 +62,7 @@ const MoreNavItems: FC = () => {
                     }
                   >
                     <div className="flex items-center space-x-1.5">
-                      <CashIcon className="w-4 h-4" />
+                      <BanknotesIcon className="w-4 h-4" />
                       <div>New Crowdfund</div>
                     </div>
                   </Menu.Item>
@@ -91,7 +91,7 @@ const MoreNavItems: FC = () => {
                 }
               >
                 <div className="flex items-center space-x-1.5">
-                  <SupportIcon className="w-4 h-4" />
+                  <WrenchScrewdriverIcon className="w-4 h-4" />
                   <div>Contact</div>
                 </div>
               </Menu.Item>

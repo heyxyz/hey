@@ -1,5 +1,10 @@
 import { ProfileStats } from '@generated/types';
-import { ChatAlt2Icon, PencilAltIcon, PhotographIcon, SwitchHorizontalIcon } from '@heroicons/react/outline';
+import {
+  ArrowsRightLeftIcon,
+  ChatBubbleLeftRightIcon,
+  PencilSquareIcon,
+  PhotoIcon
+} from '@heroicons/react/24/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import nFormatter from '@lib/nFormatter';
 import clsx from 'clsx';
@@ -48,23 +53,23 @@ const FeedType: FC<Props> = ({ stats, setFeedType, feedType }) => {
     <div className="flex overflow-x-auto gap-3 px-5 pb-2 mt-3 sm:px-0 sm:mt-0 md:pb-0">
       <FeedLink
         name="Posts"
-        icon={<PencilAltIcon className="w-4 h-4" />}
+        icon={<PencilSquareIcon className="w-4 h-4" />}
         type="POST"
         count={stats?.totalPosts}
       />
       <FeedLink
         name="Comments"
-        icon={<ChatAlt2Icon className="w-4 h-4" />}
+        icon={<ChatBubbleLeftRightIcon className="w-4 h-4" />}
         type="COMMENT"
         count={stats?.totalComments}
       />
       <FeedLink
         name="Mirrors"
-        icon={<SwitchHorizontalIcon className="w-4 h-4" />}
+        icon={<ArrowsRightLeftIcon className="w-4 h-4" />}
         type="MIRROR"
         count={stats?.totalMirrors}
       />
-      <FeedLink name="NFTs" icon={<PhotographIcon className="w-4 h-4" />} type="NFT" />
+      <FeedLink name="NFTs" icon={<PhotoIcon className="w-4 h-4" />} type="NFT" />
     </div>
   );
 };

@@ -1,5 +1,5 @@
 import { Profile } from '@generated/types';
-import { BadgeCheckIcon } from '@heroicons/react/solid';
+import { CheckBadgeIcon } from '@heroicons/react/20/solid';
 import getAvatar from '@lib/getAvatar';
 import isVerified from '@lib/isVerified';
 import clsx from 'clsx';
@@ -52,7 +52,7 @@ const UserProfile: FC<Props> = ({
                 <div className={clsx(isBig ? 'font-bold' : 'text-md')}>
                   {profile?.name ?? profile?.handle}
                 </div>
-                {isVerified(profile?.id) && <BadgeCheckIcon className="w-4 h-4 text-brand" />}
+                {isVerified(profile?.id) && <CheckBadgeIcon className="w-4 h-4 text-brand" />}
               </div>
               <Slug className="text-sm" slug={profile?.handle} prefix="@" />
               {showBio && profile?.bio && (

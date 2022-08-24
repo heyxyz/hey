@@ -1,5 +1,5 @@
 import { Menu, Transition } from '@headlessui/react';
-import { ChartPieIcon, GlobeAltIcon, HashtagIcon } from '@heroicons/react/outline';
+import { ChartPieIcon, GlobeAltIcon, HashtagIcon } from '@heroicons/react/24/outline';
 import React, { FC, Fragment, ReactNode } from 'react';
 import { GIT_COMMIT_SHA, IS_MAINNET, IS_PRODUCTION } from 'src/constants';
 

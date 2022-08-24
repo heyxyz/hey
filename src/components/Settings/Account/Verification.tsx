@@ -1,5 +1,5 @@
 import { Card, CardBody } from '@components/UI/Card';
-import { BadgeCheckIcon } from '@heroicons/react/solid';
+import { CheckBadgeIcon } from '@heroicons/react/20/solid';
 import isVerified from '@lib/isVerified';
 import { Mixpanel } from '@lib/mixpanel';
 import React, { FC } from 'react';
@@ -16,7 +16,7 @@ const Verification: FC = () => {
         {isVerified(currentProfile?.id) ? (
           <div className="flex items-center space-x-1.5">
             <span>Believe it. Yes, you're really verified.</span>
-            <BadgeCheckIcon className="w-5 h-5 text-brand" />
+            <CheckBadgeIcon className="w-5 h-5 text-brand" />
           </div>
         ) : (
           <div>

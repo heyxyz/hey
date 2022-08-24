@@ -9,7 +9,7 @@ import {
   CREATE_MIRROR_TYPED_DATA_MUTATION,
   CREATE_MIRROR_VIA_DISPATHCER_MUTATION
 } from '@gql/TypedAndDispatcherData/CreateMirror';
-import { SwitchHorizontalIcon } from '@heroicons/react/outline';
+import { ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
 import getSignature from '@lib/getSignature';
 import humanize from '@lib/humanize';
 import { Mixpanel } from '@lib/mixpanel';
@@ -164,7 +164,7 @@ const Mirror: FC<Props> = ({ publication }) => {
             <Spinner variant={mirrored ? 'success' : 'primary'} size="xs" />
           ) : (
             <Tooltip placement="top" content={count > 0 ? `${humanize(count)} Mirrors` : 'Mirror'} withDelay>
-              <SwitchHorizontalIcon className="w-[15px] sm:w-[18px]" />
+              <ArrowsRightLeftIcon className="w-[15px] sm:w-[18px]" />
             </Tooltip>
           )}
         </div>

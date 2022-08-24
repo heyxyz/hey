@@ -1,6 +1,6 @@
 import Footer from '@components/Shared/Footer';
 import Seo from '@components/utils/Seo';
-import { HeartIcon } from '@heroicons/react/outline';
+import { HeartIcon } from '@heroicons/react/24/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import { useTheme } from 'next-themes';
 import React, { FC, Fragment, ReactNode, useEffect } from 'react';

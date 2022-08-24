@@ -1,6 +1,6 @@
 import Slug from '@components/Shared/Slug';
 import { LensterPublication } from '@generated/lenstertypes';
-import { ChatAlt2Icon } from '@heroicons/react/outline';
+import { ChatBubbleLeftRightIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import React, { FC } from 'react';
 
@@ -16,7 +16,7 @@ const CommentedPublication: FC<Props> = ({ publication }) => {
 
   return (
     <div className="flex items-center pb-4 space-x-1 text-gray-500 text-[13px]">
-      <ChatAlt2Icon className="w-4 h-4" />
+      <ChatBubbleLeftRightIcon className="w-4 h-4" />
       <div className="flex items-center space-x-1">
         <Link href={`/posts/${sourceId}`}>
           <a href={`/posts/${sourceId}`}>

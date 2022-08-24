@@ -8,7 +8,7 @@ import { Card } from '@components/UI/Card';
 import { Modal } from '@components/UI/Modal';
 import { Tooltip } from '@components/UI/Tooltip';
 import { LensterPublication } from '@generated/lenstertypes';
-import { CashIcon, CurrencyDollarIcon, UsersIcon } from '@heroicons/react/outline';
+import { BanknotesIcon, UsersIcon } from '@heroicons/react/24/outline';
 import getIPFSLink from '@lib/getIPFSLink';
 import getTokenImage from '@lib/getTokenImage';
 import imagekitURL from '@lib/imagekitURL';
@@ -124,7 +124,7 @@ const Crowdfund: FC<Props> = ({ fund }) => {
                   </button>
                   <Modal
                     title="Funders"
-                    icon={<CashIcon className="w-5 h-5 text-brand" />}
+                    icon={<BanknotesIcon className="w-5 h-5 text-brand" />}
                     show={showFundersModal}
                     onClose={() => setShowFundersModal(false)}
                   >
@@ -135,7 +135,7 @@ const Crowdfund: FC<Props> = ({ fund }) => {
               <Badge
                 title={
                   <div className="flex items-center space-x-1">
-                    <CurrencyDollarIcon className="w-3 h-3" />
+                    <BanknotesIcon className="w-3 h-3" />
                     <div>Price</div>
                   </div>
                 }

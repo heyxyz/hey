@@ -1,5 +1,5 @@
 import { Community } from '@generated/lenstertypes';
-import { UsersIcon } from '@heroicons/react/outline';
+import { UsersIcon } from '@heroicons/react/24/outline';
 import getIPFSLink from '@lib/getIPFSLink';
 import imagekitURL from '@lib/imagekitURL';
 import nFormatter from '@lib/nFormatter';

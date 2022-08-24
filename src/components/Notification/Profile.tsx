@@ -1,5 +1,5 @@
 import { Profile } from '@generated/types';
-import { BadgeCheckIcon } from '@heroicons/react/solid';
+import { CheckBadgeIcon } from '@heroicons/react/20/solid';
 import getAvatar from '@lib/getAvatar';
 import isVerified from '@lib/isVerified';
 import Link from 'next/link';
@@ -30,7 +30,7 @@ export const NotificationProfileName: FC<Props> = ({ profile }) => {
     <Link href={`/u/${profile?.handle}`}>
       <a href={`/u/${profile?.handle}`} className="inline-flex items-center space-x-1 font-bold">
         <div>{profile?.name ?? profile?.handle}</div>
-        {isVerified(profile?.id) && <BadgeCheckIcon className="w-4 h-4 text-brand" />}
+        {isVerified(profile?.id) && <CheckBadgeIcon className="w-4 h-4 text-brand" />}
       </a>
     </Link>
   );

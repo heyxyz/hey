@@ -1,6 +1,6 @@
 import { gql, useQuery } from '@apollo/client';
 import { Spinner } from '@components/UI/Spinner';
-import { CheckCircleIcon } from '@heroicons/react/solid';
+import { CheckCircleIcon } from '@heroicons/react/20/solid';
 import { useRouter } from 'next/router';
 import React, { Dispatch, FC, useState } from 'react';
 import { POLYGONSCAN_URL } from 'src/constants';

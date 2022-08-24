@@ -8,7 +8,7 @@ import { Spinner } from '@components/UI/Spinner';
 import { LensterPublication } from '@generated/lenstertypes';
 import { CommentFields } from '@gql/CommentFields';
 import { PostFields } from '@gql/PostFields';
-import { CollectionIcon } from '@heroicons/react/outline';
+import { RectangleStackIcon } from '@heroicons/react/24/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import React, { FC } from 'react';
 import { useInView } from 'react-cool-inview';
@@ -85,7 +85,7 @@ const Publications: FC<Props> = ({ query }) => {
               No publications for <b>&ldquo;{query}&rdquo;</b>
             </div>
           }
-          icon={<CollectionIcon className="w-8 h-8 text-brand" />}
+          icon={<RectangleStackIcon className="w-8 h-8 text-brand" />}
         />
       )}
       <ErrorMessage title="Failed to load publications list" error={error} />

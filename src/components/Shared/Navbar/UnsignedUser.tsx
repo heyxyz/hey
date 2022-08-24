@@ -1,5 +1,5 @@
 import { Menu, Transition } from '@headlessui/react';
-import { LogoutIcon } from '@heroicons/react/outline';
+import { ArrowRightOnRectangleIcon } from '@heroicons/react/24/outline';
 import clearAuthData from '@lib/clearAuthData';
 import { Mixpanel } from '@lib/mixpanel';
 import clsx from 'clsx';
@@ -50,7 +50,7 @@ const UnsignedUser: FC = () => {
                 }
               >
                 <div className="flex items-center space-x-1.5">
-                  <LogoutIcon className="w-4 h-4" />
+                  <ArrowRightOnRectangleIcon className="w-4 h-4" />
                   <div>Logout</div>
                 </div>
               </Menu.Item>

@@ -1,7 +1,7 @@
 import { Modal } from '@components/UI/Modal';
 import { Tooltip } from '@components/UI/Tooltip';
 import GetModuleIcon from '@components/utils/GetModuleIcon';
-import { CashIcon } from '@heroicons/react/outline';
+import { BanknotesIcon } from '@heroicons/react/24/outline';
 import { getModule } from '@lib/getModule';
 import { Mixpanel } from '@lib/mixpanel';
 import { motion } from 'framer-motion';
@@ -34,7 +34,7 @@ const SelectCollectModule: FC = () => {
       </Tooltip>
       <Modal
         title="Select collect module"
-        icon={<CashIcon className="w-5 h-5 text-brand" />}
+        icon={<BanknotesIcon className="w-5 h-5 text-brand" />}
         show={showModal}
         onClose={() => setShowModal(false)}
       >

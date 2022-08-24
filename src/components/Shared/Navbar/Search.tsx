@@ -5,7 +5,7 @@ import { Spinner } from '@components/UI/Spinner';
 import useOnClickOutside from '@components/utils/hooks/useOnClickOutside';
 import { Profile } from '@generated/types';
 import { ProfileFields } from '@gql/ProfileFields';
-import { SearchIcon, XIcon } from '@heroicons/react/outline';
+import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import clsx from 'clsx';
 import Link from 'next/link';
@@ -71,9 +71,9 @@ const Search: FC<Props> = ({ hideDropdown = false }) => {
             className="py-2 px-3 text-sm"
             placeholder="Search..."
             value={searchText}
-            iconLeft={<SearchIcon />}
+            iconLeft={<MagnifyingGlassIcon />}
             iconRight={
-              <XIcon
+              <XMarkIcon
                 className={clsx('cursor-pointer', searchText ? 'visible' : 'invisible')}
                 onClick={() => {
                   setSearchText('');

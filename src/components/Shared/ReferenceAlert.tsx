@@ -1,6 +1,6 @@
 import Slug from '@components/Shared/Slug';
 import { Card, CardBody } from '@components/UI/Card';
-import { StarIcon, UsersIcon } from '@heroicons/react/outline';
+import { StarIcon, UsersIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import React, { FC } from 'react';
 

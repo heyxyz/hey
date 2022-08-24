@@ -1,6 +1,6 @@
 import Slug from '@components/Shared/Slug';
 import { LensterPublication } from '@generated/lenstertypes';
-import { UsersIcon } from '@heroicons/react/outline';
+import { UsersIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import React, { FC } from 'react';
 

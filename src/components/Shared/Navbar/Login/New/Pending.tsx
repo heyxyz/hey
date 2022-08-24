@@ -2,7 +2,7 @@ import { useQuery } from '@apollo/client';
 import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
 import { TX_STATUS_QUERY } from '@gql/HasTxHashBeenIndexed';
-import { ArrowRightIcon } from '@heroicons/react/outline';
+import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import React, { FC } from 'react';
 import { IS_MAINNET } from 'src/constants';
 

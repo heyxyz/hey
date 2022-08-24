@@ -1,7 +1,7 @@
 import { gql, useQuery } from '@apollo/client';
 import NotificationIcon from '@components/Notification/Icon';
 import { Disclosure } from '@headlessui/react';
-import { MenuIcon, XIcon } from '@heroicons/react/outline';
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import hasPrideLogo from '@lib/hasPrideLogo';
 import isStaff from '@lib/isStaff';
 import clsx from 'clsx';
@@ -88,9 +88,9 @@ const Navbar: FC = () => {
                 <Disclosure.Button className="inline-flex justify-center items-center mr-4 text-gray-500 rounded-md sm:hidden focus:outline-none">
                   <span className="sr-only">Open main menu</span>
                   {open ? (
-                    <XIcon className="block w-6 h-6" aria-hidden="true" />
+                    <XMarkIcon className="block w-6 h-6" aria-hidden="true" />
                   ) : (
-                    <MenuIcon className="block w-6 h-6" aria-hidden="true" />
+                    <Bars3Icon className="block w-6 h-6" aria-hidden="true" />
                   )}
                 </Disclosure.Button>
                 <Link href="/">

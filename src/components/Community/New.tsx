@@ -14,7 +14,7 @@ import useBroadcast from '@components/utils/hooks/useBroadcast';
 import Seo from '@components/utils/Seo';
 import { CreatePostBroadcastItemResult, Mutation } from '@generated/types';
 import { CREATE_POST_TYPED_DATA_MUTATION } from '@gql/TypedAndDispatcherData/CreatePost';
-import { PlusIcon } from '@heroicons/react/outline';
+import { PlusIcon } from '@heroicons/react/24/outline';
 import getSignature from '@lib/getSignature';
 import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';

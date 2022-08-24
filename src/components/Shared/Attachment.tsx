@@ -1,7 +1,7 @@
 import { Spinner } from '@components/UI/Spinner';
 import { Tooltip } from '@components/UI/Tooltip';
 import { LensterAttachment } from '@generated/lenstertypes';
-import { PhotographIcon } from '@heroicons/react/outline';
+import { PhotoIcon } from '@heroicons/react/24/outline';
 import uploadMediaToIPFS from '@lib/uploadMediaToIPFS';
 import { motion } from 'framer-motion';
 import { ChangeEvent, Dispatch, FC, useId, useState } from 'react';
@@ -82,7 +82,7 @@ const Attachment: FC<Props> = ({ attachments, setAttachments }) => {
             <Spinner size="sm" />
           ) : (
             <Tooltip placement="top" content="Media">
-              <PhotographIcon className="w-5 h-5 text-brand" />
+              <PhotoIcon className="w-5 h-5 text-brand" />
             </Tooltip>
           )}
           <input

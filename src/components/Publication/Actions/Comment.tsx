@@ -1,6 +1,6 @@
 import { Tooltip } from '@components/UI/Tooltip';
 import { LensterPublication } from '@generated/lenstertypes';
-import { ChatAlt2Icon } from '@heroicons/react/outline';
+import { ChatBubbleLeftRightIcon } from '@heroicons/react/24/outline';
 import humanize from '@lib/humanize';
 import { Mixpanel } from '@lib/mixpanel';
 import nFormatter from '@lib/nFormatter';
@@ -35,7 +35,7 @@ const Comment: FC<Props> = ({ publication }) => {
       <div className="flex items-center space-x-1 text-blue-500 hover:text-blue-400">
         <div className="p-1.5 rounded-full hover:bg-blue-300 hover:bg-opacity-20">
           <Tooltip placement="top" content={count > 0 ? `${humanize(count)} Comments` : 'Comment'} withDelay>
-            <ChatAlt2Icon className="w-[15px] sm:w-[18px]" />
+            <ChatBubbleLeftRightIcon className="w-[15px] sm:w-[18px]" />
           </Tooltip>
         </div>
         {count > 0 && <div className="text-[11px] sm:text-xs">{nFormatter(count)}</div>}

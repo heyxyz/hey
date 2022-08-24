@@ -2,16 +2,16 @@ import { Tooltip } from '@components/UI/Tooltip';
 import { Profile } from '@generated/types';
 import { Menu, Transition } from '@headlessui/react';
 import {
+  ArrowRightOnRectangleIcon,
+  ArrowsRightLeftIcon,
   CheckCircleIcon,
   CogIcon,
-  LogoutIcon,
   MoonIcon,
   ShieldCheckIcon,
   ShieldExclamationIcon,
   SunIcon,
-  SwitchHorizontalIcon,
   UserIcon
-} from '@heroicons/react/outline';
+} from '@heroicons/react/24/outline';
 import clearAuthData from '@lib/clearAuthData';
 import getAvatar from '@lib/getAvatar';
 import isBeta from '@lib/isBeta';
@@ -124,7 +124,7 @@ const SignedUser: FC<Props> = ({ pingData }) => {
                 }
               >
                 <div className="flex items-center space-x-1.5">
-                  <LogoutIcon className="w-4 h-4" />
+                  <ArrowRightOnRectangleIcon className="w-4 h-4" />
                   <div>Logout</div>
                 </div>
               </Menu.Item>
@@ -133,7 +133,7 @@ const SignedUser: FC<Props> = ({ pingData }) => {
                   <div className="divider" />
                   <div className="overflow-auto m-2 max-h-36 no-scrollbar">
                     <div className="flex items-center px-4 pt-1 pb-2 space-x-1.5 text-sm font-bold text-gray-500">
-                      <SwitchHorizontalIcon className="w-4 h-4" />
+                      <ArrowsRightLeftIcon className="w-4 h-4" />
                       <div>Switch to</div>
                     </div>
                     {profiles.map((profile: Profile, index: number) => (

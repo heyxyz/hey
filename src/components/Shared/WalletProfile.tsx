@@ -1,5 +1,5 @@
 import { Wallet } from '@generated/types';
-import { ExternalLinkIcon } from '@heroicons/react/outline';
+import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
 import formatAddress from '@lib/formatAddress';
 import imagekitURL from '@lib/imagekitURL';
 import React, { FC } from 'react';
@@ -30,7 +30,7 @@ const WalletProfile: FC<Props> = ({ wallet }) => {
         <div>
           <div className="flex gap-1.5 items-center">
             <div>{formatAddress(wallet?.address)}</div>
-            <ExternalLinkIcon className="w-4 h-4" />
+            <ArrowTopRightOnSquareIcon className="w-4 h-4" />
           </div>
           <Slug className="text-sm" slug={formatAddress(wallet?.address)} />
         </div>

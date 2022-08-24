@@ -1,6 +1,6 @@
 import { LensterAttachment } from '@generated/lenstertypes';
 import { MediaSet } from '@generated/types';
-import { XIcon } from '@heroicons/react/outline';
+import { XMarkIcon } from '@heroicons/react/24/outline';
 import getIPFSLink from '@lib/getIPFSLink';
 import imagekitURL from '@lib/imagekitURL';
 import clsx from 'clsx';
@@ -84,7 +84,7 @@ const Attachments: FC<Props> = ({ attachments, setAttachments, isNew = false }) 
                   className="p-1.5 bg-gray-900 rounded-full opacity-75"
                   onClick={() => removeAttachment(attachment)}
                 >
-                  <XIcon className="w-4 h-4 text-white" />
+                  <XMarkIcon className="w-4 h-4 text-white" />
                 </button>
               </div>
             )}

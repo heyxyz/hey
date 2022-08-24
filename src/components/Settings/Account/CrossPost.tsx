@@ -1,6 +1,6 @@
 import Beta from '@components/Shared/Beta';
 import { Card, CardBody } from '@components/UI/Card';
-import { ExternalLinkIcon } from '@heroicons/react/outline';
+import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import React, { FC } from 'react';
 import { APP_NAME } from 'src/constants';
@@ -27,7 +27,7 @@ const CrossPost: FC = () => {
           rel="noreferrer noopener"
         >
           <span>Setup now</span>
-          <ExternalLinkIcon className="w-4 h-4" />
+          <ArrowTopRightOnSquareIcon className="w-4 h-4" />
         </a>
       </CardBody>
     </Card>

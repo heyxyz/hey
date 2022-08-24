@@ -2,7 +2,7 @@ import CommunityProfile from '@components/Shared/CommunityProfile';
 import { Card, CardBody } from '@components/UI/Card';
 import { EmptyState } from '@components/UI/EmptyState';
 import { Community } from '@generated/lenstertypes';
-import { UsersIcon } from '@heroicons/react/outline';
+import { UsersIcon } from '@heroicons/react/24/outline';
 import React, { FC } from 'react';
 
 interface Props {

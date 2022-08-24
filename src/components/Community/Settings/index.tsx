@@ -4,7 +4,7 @@ import { Button } from '@components/UI/Button';
 import { WarningMessage } from '@components/UI/WarningMessage';
 import { Community } from '@generated/lenstertypes';
 import { Mutation } from '@generated/types';
-import { TrashIcon } from '@heroicons/react/outline';
+import { TrashIcon } from '@heroicons/react/24/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import { useRouter } from 'next/router';
 import React, { FC } from 'react';

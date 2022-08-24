@@ -1,6 +1,6 @@
 import { Button } from '@components/UI/Button';
 import Seo from '@components/utils/Seo';
-import { HomeIcon } from '@heroicons/react/outline';
+import { HomeIcon } from '@heroicons/react/24/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import Link from 'next/link';
 import { useEffect } from 'react';

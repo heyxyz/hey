@@ -2,7 +2,7 @@ import NewComment from '@components/Comment/New';
 import SinglePublication from '@components/Publication/SinglePublication';
 import { Card } from '@components/UI/Card';
 import { Modal } from '@components/UI/Modal';
-import { PencilAltIcon } from '@heroicons/react/outline';
+import { PencilSquareIcon } from '@heroicons/react/24/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import { useRouter } from 'next/router';
 import { FC, useEffect } from 'react';
@@ -54,11 +54,11 @@ const NewPostModal: FC = () => {
           Mixpanel.track(PUBLICATION.OPEN_NEW);
         }}
       >
-        <PencilAltIcon className="w-5 h-5 sm:w-6 sm:h-6" />
+        <PencilSquareIcon className="w-5 h-5 sm:w-6 sm:h-6" />
       </button>
       <Modal
         title="New Post"
-        icon={<PencilAltIcon className="w-5 h-5 text-brand" />}
+        icon={<PencilSquareIcon className="w-5 h-5 text-brand" />}
         size="md"
         show={showNewPostModal}
         onClose={() => setShowNewPostModal(false)}

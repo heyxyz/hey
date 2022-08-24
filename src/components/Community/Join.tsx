@@ -5,7 +5,7 @@ import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
 import { Community } from '@generated/lenstertypes';
 import { CreateCollectBroadcastItemResult, Mutation } from '@generated/types';
-import { PlusIcon } from '@heroicons/react/outline';
+import { PlusIcon } from '@heroicons/react/24/outline';
 import getSignature from '@lib/getSignature';
 import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';

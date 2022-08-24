@@ -1,4 +1,9 @@
-import { ChatAlt2Icon, ClockIcon, CollectionIcon, SwitchHorizontalIcon } from '@heroicons/react/outline';
+import {
+  ArrowsRightLeftIcon,
+  ChatBubbleLeftRightIcon,
+  ClockIcon,
+  RectangleStackIcon
+} from '@heroicons/react/24/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import clsx from 'clsx';
 import { useRouter } from 'next/router';
@@ -41,9 +46,13 @@ const FeedType: FC<Props> = ({ setFeedType, feedType }) => {
 
   return (
     <div className="flex gap-3 px-5 mt-3 sm:px-0 sm:mt-0">
-      <FeedLink name="Top Commented" icon={<ChatAlt2Icon className="w-4 h-4" />} type="TOP_COMMENTED" />
-      <FeedLink name="Top Collected" icon={<CollectionIcon className="w-4 h-4" />} type="TOP_COLLECTED" />
-      <FeedLink name="Top Mirrored" icon={<SwitchHorizontalIcon className="w-4 h-4" />} type="TOP_MIRRORED" />
+      <FeedLink
+        name="Top Commented"
+        icon={<ChatBubbleLeftRightIcon className="w-4 h-4" />}
+        type="TOP_COMMENTED"
+      />
+      <FeedLink name="Top Collected" icon={<RectangleStackIcon className="w-4 h-4" />} type="TOP_COLLECTED" />
+      <FeedLink name="Top Mirrored" icon={<ArrowsRightLeftIcon className="w-4 h-4" />} type="TOP_MIRRORED" />
       <FeedLink name="Latest" icon={<ClockIcon className="w-4 h-4" />} type="LATEST" />
     </div>
   );

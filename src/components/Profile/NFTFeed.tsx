@@ -5,7 +5,7 @@ import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
 import { Nft, Profile } from '@generated/types';
-import { CollectionIcon } from '@heroicons/react/outline';
+import { RectangleStackIcon } from '@heroicons/react/24/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import React, { FC } from 'react';
 import { useInView } from 'react-cool-inview';
@@ -79,7 +79,7 @@ const NFTFeed: FC<Props> = ({ profile }) => {
               <span>doesn’t have any NFTs!</span>
             </div>
           }
-          icon={<CollectionIcon className="w-8 h-8 text-brand" />}
+          icon={<RectangleStackIcon className="w-8 h-8 text-brand" />}
         />
       )}
       <ErrorMessage title="Failed to load nft feed" error={error} />

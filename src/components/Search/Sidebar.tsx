@@ -1,4 +1,4 @@
-import { PencilAltIcon, UsersIcon } from '@heroicons/react/outline';
+import { PencilSquareIcon, UsersIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -30,7 +30,7 @@ const Sidebar: FC = () => {
   return (
     <div className="sticky px-3 mb-4 space-y-1.5 sm:px-0 top-[128px]">
       <Menu current={query.type == 'pubs'} url={`/search?q=${query.q}&type=pubs`}>
-        <PencilAltIcon className="w-4 h-4" />
+        <PencilSquareIcon className="w-4 h-4" />
         <div>Publications</div>
       </Menu>
       <Menu current={query.type == 'profiles'} url={`/search?q=${query.q}&type=profiles`}>

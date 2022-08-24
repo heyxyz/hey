@@ -9,7 +9,7 @@ import { Spinner } from '@components/UI/Spinner';
 import { WarningMessage } from '@components/UI/WarningMessage';
 import Seo from '@components/utils/Seo';
 import { CreateBurnProfileBroadcastItemResult, Mutation } from '@generated/types';
-import { ExclamationIcon, TrashIcon } from '@heroicons/react/outline';
+import { ExclaimationTriangleIcon, TrashIcon } from '@heroicons/react/24/outline';
 import clearAuthData from '@lib/clearAuthData';
 import getSignature from '@lib/getSignature';
 import { Mixpanel } from '@lib/mixpanel';
@@ -168,7 +168,7 @@ const DeleteSettings: FC = () => {
             </Button>
             <Modal
               title="Danger Zone"
-              icon={<ExclamationIcon className="w-5 h-5 text-red-500" />}
+              icon={<ExclaimationTriangleIcon className="w-5 h-5 text-red-500" />}
               show={showWarningModal}
               onClose={() => setShowWarningModal(false)}
             >

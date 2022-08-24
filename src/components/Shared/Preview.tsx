@@ -1,5 +1,5 @@
 import { Tooltip } from '@components/UI/Tooltip';
-import { EyeIcon } from '@heroicons/react/outline';
+import { EyeIcon } from '@heroicons/react/24/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import { motion } from 'framer-motion';
 import { FC } from 'react';

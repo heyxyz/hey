@@ -2,15 +2,15 @@ import { gql, useQuery } from '@apollo/client';
 import { Erc20Amount, GlobalProtocolStats } from '@generated/types';
 import { Disclosure, Menu } from '@headlessui/react';
 import {
-  CashIcon,
-  ChatAlt2Icon,
-  CollectionIcon,
+  ArrowsRightLeftIcon,
+  BanknotesIcon,
+  ChatBubbleLeftRightIcon,
   FireIcon,
-  PencilAltIcon,
-  SwitchHorizontalIcon,
-  UserAddIcon,
+  PencilSquareIcon,
+  RectangleStackIcon,
+  UserPlusIcon,
   UsersIcon
-} from '@heroicons/react/outline';
+} from '@heroicons/react/24/outline';
 import getTokenImage from '@lib/getTokenImage';
 import humanize from '@lib/humanize';
 import { FC, ReactNode } from 'react';
@@ -102,7 +102,7 @@ const Stats: FC = () => {
         }
       />
       <MenuItem
-        icon={<PencilAltIcon className="w-4 h-4" />}
+        icon={<PencilSquareIcon className="w-4 h-4" />}
         title={
           <span>
             <b>{humanize(stats?.totalPosts)}</b> total posts
@@ -111,7 +111,7 @@ const Stats: FC = () => {
         isLenster
       />
       <MenuItem
-        icon={<SwitchHorizontalIcon className="w-4 h-4" />}
+        icon={<ArrowsRightLeftIcon className="w-4 h-4" />}
         title={
           <span>
             <b>{humanize(stats?.totalMirrors)}</b> total mirrors
@@ -120,7 +120,7 @@ const Stats: FC = () => {
         isLenster
       />
       <MenuItem
-        icon={<ChatAlt2Icon className="w-4 h-4" />}
+        icon={<ChatBubbleLeftRightIcon className="w-4 h-4" />}
         title={
           <span>
             <b>{humanize(stats?.totalComments)}</b> total comments
@@ -138,7 +138,7 @@ const Stats: FC = () => {
         isLenster
       />
       <MenuItem
-        icon={<CashIcon className="w-4 h-4" />}
+        icon={<BanknotesIcon className="w-4 h-4" />}
         title={
           <span>
             <b>{humanize(crowdfundStats?.totalPosts)}</b> total crowdfunds
@@ -147,7 +147,7 @@ const Stats: FC = () => {
         isLenster
       />
       <MenuItem
-        icon={<CollectionIcon className="w-4 h-4" />}
+        icon={<RectangleStackIcon className="w-4 h-4" />}
         title={
           <span>
             <b>{humanize(stats?.totalCollects)}</b> total collects
@@ -155,7 +155,7 @@ const Stats: FC = () => {
         }
       />
       <MenuItem
-        icon={<UserAddIcon className="w-4 h-4" />}
+        icon={<UserPlusIcon className="w-4 h-4" />}
         title={
           <span>
             <b>{humanize(stats?.totalFollows)}</b> total follows
@@ -167,7 +167,7 @@ const Stats: FC = () => {
         <>
           <Disclosure.Button className="menu-item">
             <div className="flex items-center space-x-2">
-              <CashIcon className="w-4 h-4" />
+              <BanknotesIcon className="w-4 h-4" />
               <div>Total Revenue</div>
             </div>
           </Disclosure.Button>
