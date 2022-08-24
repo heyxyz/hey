@@ -3,7 +3,7 @@ import { mainnetVerified, testnetVerified } from 'data/verified';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { ERROR_MESSAGE, IS_MAINNET } from 'src/constants';
 
-const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+const handler = (req: NextApiRequest, res: NextApiResponse) => {
   try {
     return res
       .status(200)
