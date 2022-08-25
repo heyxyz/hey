@@ -68,6 +68,7 @@ const Layout: FC<Props> = ({ children }) => {
     variables: { ownedBy: address },
     skip: !isConnected,
     onCompleted: (data) => {
+      console.log('USER_PROFILES_QUERY', data);
       const profiles: Profile[] = data?.profiles?.items
         ?.slice()
         ?.sort((a: Profile, b: Profile) => Number(a.id) - Number(b.id))
@@ -82,6 +83,9 @@ const Layout: FC<Props> = ({ children }) => {
         setCurrentProfile(selectedUser as Profile);
       }
       setLoading(false);
+    },
+    onError: () => {
+      setIsConnected(false);
     }
   });
 
