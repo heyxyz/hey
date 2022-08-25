@@ -118,6 +118,17 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
   );
 
   const [createFollowProxyAction, { loading: proxyActionLoading }] = useMutation(PROXY_ACTION_MUTATION, {
+    update: (cache) => {
+      cache.modify({
+        id: `Profile:${profile?.id}`,
+        fields: {
+          stats: (stats) => ({
+            ...stats,
+            totalFollowers: stats.totalFollowers + 1
+          })
+        }
+      });
+    },
     onCompleted,
     onError
   });
