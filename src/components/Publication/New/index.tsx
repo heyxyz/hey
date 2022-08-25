@@ -28,7 +28,7 @@ import dynamic from 'next/dynamic';
 import { Dispatch, FC, useState } from 'react';
 import toast from 'react-hot-toast';
 import { APP_NAME, LENSHUB_PROXY, RELAY_ON, SIGN_WALLET } from 'src/constants';
-import { useAppPersistStore, useAppStore } from 'src/store/app';
+import { useAppStore } from 'src/store/app';
 import { useCollectModuleStore } from 'src/store/collectmodule';
 import { usePublicationStore } from 'src/store/publication';
 import { POST } from 'src/tracking';
@@ -60,7 +60,6 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
   const publicationContent = usePublicationStore((state) => state.publicationContent);
   const setPublicationContent = usePublicationStore((state) => state.setPublicationContent);
   const previewPublication = usePublicationStore((state) => state.previewPublication);
@@ -155,7 +154,7 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
   );
 
   const createPost = async () => {
-    if (!isAuthenticated) {
+    if (!currentProfile) {
       return toast.error(SIGN_WALLET);
     }
     if (publicationContent.length === 0 && attachments.length === 0) {

@@ -32,12 +32,11 @@ const Home: NextPage = () => {
 
   const currentProfile = useAppStore((state) => state.currentProfile);
   const isConnected = useAppPersistStore((state) => state.isConnected);
-  const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
 
   return (
     <>
       <Seo />
-      {isConnected && !isAuthenticated && <ProfileWarning />}
+      {isConnected && !currentProfile && <ProfileWarning />}
       {!isConnected && <Hero />}
       <GridLayout>
         <GridItemEight className="space-y-5">{currentProfile ? <HomeFeed /> : <ExploreFeed />}</GridItemEight>

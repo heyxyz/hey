@@ -26,7 +26,6 @@ const PING_QUERY = gql`
 
 const Navbar: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
   const staffMode = useAppPersistStore((state) => state.staffMode);
 
   const { data: pingData } = useQuery(PING_QUERY, {
@@ -116,8 +115,8 @@ const Navbar: FC = () => {
                 </div>
               </div>
               <div className="flex gap-8 items-center">
-                {isAuthenticated && currentProfile && <NewPostModal />}
-                {isAuthenticated && currentProfile && <NotificationIcon />}
+                {currentProfile && <NewPostModal />}
+                {currentProfile && <NotificationIcon />}
                 <MenuItems pingData={pingData} />
               </div>
             </div>

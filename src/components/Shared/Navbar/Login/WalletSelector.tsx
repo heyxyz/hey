@@ -44,7 +44,6 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
   const setProfiles = useAppStore((state) => state.setProfiles);
   const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
   const setIsConnected = useAppPersistStore((state) => state.setIsConnected);
-  const setIsAuthenticated = useAppPersistStore((state) => state.setIsAuthenticated);
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
 
   const [mounted, setMounted] = useState(false);
@@ -111,7 +110,6 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
           ?.sort((a: Profile, b: Profile) => Number(a.id) - Number(b.id))
           ?.sort((a: Profile, b: Profile) => (!(a.isDefault !== b.isDefault) ? 0 : a.isDefault ? -1 : 1));
         const currentProfile = profiles[0];
-        setIsAuthenticated(true);
         setProfiles(profiles);
         setCurrentProfile(currentProfile);
         setProfileId(currentProfile.id);

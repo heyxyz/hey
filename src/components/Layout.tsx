@@ -54,8 +54,6 @@ const Layout: FC<Props> = ({ children }) => {
   const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
   const isConnected = useAppPersistStore((state) => state.isConnected);
   const setIsConnected = useAppPersistStore((state) => state.setIsConnected);
-  const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
-  const setIsAuthenticated = useAppPersistStore((state) => state.setIsAuthenticated);
   const profileId = useAppPersistStore((state) => state.profileId);
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
 
@@ -65,7 +63,7 @@ const Layout: FC<Props> = ({ children }) => {
   const { disconnect } = useDisconnect();
   const { loading } = useQuery(CURRENT_PROFILE_QUERY, {
     variables: { ownedBy: address },
-    skip: !isConnected && !isAuthenticated,
+    skip: !isConnected,
     onCompleted: (data) => {
       const profiles: Profile[] = data?.profiles?.items
         ?.slice()
@@ -97,9 +95,8 @@ const Layout: FC<Props> = ({ children }) => {
         isDisconnected || // If the user is disconnected from the wallet
         !profileId || // If the user has no profile
         !hasAuthTokens) && // If the user has no auth tokens
-      isAuthenticated // If the user is authenticated
+      currentProfile // If the user is authenticated
     ) {
-      setIsAuthenticated(false);
       setIsConnected(false);
       setCurrentProfile(null);
       setProfileId(null);
