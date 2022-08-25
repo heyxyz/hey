@@ -11,7 +11,7 @@ import { MentionTextArea } from '@components/UI/MentionTextArea';
 import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
 import { LensterAttachment, LensterPublication } from '@generated/lenstertypes';
-import { CreateCommentBroadcastItemResult, Mutation } from '@generated/types';
+import { CreateCommentBroadcastItemResult, Mutation, PublicationMainFocus } from '@generated/types';
 import { IGif } from '@giphy/js-types';
 import {
   CREATE_COMMENT_TYPED_DATA_MUTATION,
@@ -184,7 +184,11 @@ const NewComment: FC<Props> = ({ setShowModal, hideCard = false, publication, ty
       imageMimeType: attachments.length > 0 ? attachments[0]?.type : null,
       name: `Comment by @${currentProfile?.handle}`,
       mainContentFocus:
-        attachments.length > 0 ? (attachments[0]?.type === 'video/mp4' ? 'VIDEO' : 'IMAGE') : 'TEXT_ONLY',
+        attachments.length > 0
+          ? attachments[0]?.type === 'video/mp4'
+            ? PublicationMainFocus.Video
+            : PublicationMainFocus.Image
+          : PublicationMainFocus.TextOnly,
       contentWarning: null, // TODO
       attributes: [
         {

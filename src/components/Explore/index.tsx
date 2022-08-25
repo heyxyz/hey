@@ -3,6 +3,7 @@ import RecommendedProfiles from '@components/Home/RecommendedProfiles';
 import Footer from '@components/Shared/Footer';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
 import Seo from '@components/utils/Seo';
+import { PublicationSortCriteria } from '@generated/types';
 import { Mixpanel } from '@lib/mixpanel';
 import { NextPage } from 'next';
 import dynamic from 'next/dynamic';
@@ -24,7 +25,7 @@ const Explore: NextPage = () => {
   const [feedType, setFeedType] = useState(
     type && ['top_commented', 'top_collected', 'top_mirrored', 'latest'].includes(type as string)
       ? type.toString().toUpperCase()
-      : 'TOP_COMMENTED'
+      : PublicationSortCriteria.TopCommented
   );
 
   useEffect(() => {
