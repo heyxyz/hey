@@ -6,7 +6,7 @@ import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
 import { LensterPublication } from '@generated/lenstertypes';
-import { Profile } from '@generated/types';
+import { Profile, PublicationMainFocus, PublicationTypes } from '@generated/types';
 import { CommentFields } from '@gql/CommentFields';
 import { MirrorFields } from '@gql/MirrorFields';
 import { PostFields } from '@gql/PostFields';
@@ -54,13 +54,26 @@ interface Props {
 const Feed: FC<Props> = ({ profile, type }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const publicationTypes =
-    type === 'FEED' ? ['POST', 'MIRROR'] : type === 'MEDIA' ? ['POST', 'COMMENT'] : ['COMMENT'];
+    type === 'FEED'
+      ? [PublicationTypes.Post, PublicationTypes.Mirror]
+      : type === 'MEDIA'
+      ? [PublicationTypes.Post, PublicationTypes.Comment]
+      : [PublicationTypes.Comment];
   const { data, loading, error, fetchMore } = useQuery(PROFILE_FEED_QUERY, {
     variables: {
       request: {
         publicationTypes,
         profileId: profile?.id,
-        metadata: type === 'MEDIA' ? { mainContentFocus: ['VIDEO', 'IMAGE', 'AUDIO'] } : null,
+        metadata:
+          type === 'MEDIA'
+            ? {
+                mainContentFocus: [
+                  PublicationMainFocus.Video,
+                  PublicationMainFocus.Image,
+                  PublicationMainFocus.Audio
+                ]
+              }
+            : null,
         limit: 10
       },
       reactionRequest: currentProfile ? { profileId: currentProfile?.id } : null,

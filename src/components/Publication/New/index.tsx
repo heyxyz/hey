@@ -10,7 +10,7 @@ import { MentionTextArea } from '@components/UI/MentionTextArea';
 import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
 import { LensterAttachment } from '@generated/lenstertypes';
-import { CreatePostBroadcastItemResult, Mutation } from '@generated/types';
+import { CreatePostBroadcastItemResult, Mutation, PublicationMainFocus } from '@generated/types';
 import { IGif } from '@giphy/js-types';
 import {
   CREATE_POST_TYPED_DATA_MUTATION,
@@ -174,7 +174,11 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
       imageMimeType: attachments.length > 0 ? attachments[0]?.type : null,
       name: `Post by @${currentProfile?.handle}`,
       mainContentFocus:
-        attachments.length > 0 ? (attachments[0]?.type === 'video/mp4' ? 'VIDEO' : 'IMAGE') : 'TEXT_ONLY',
+        attachments.length > 0
+          ? attachments[0]?.type === 'video/mp4'
+            ? PublicationMainFocus.Video
+            : PublicationMainFocus.Image
+          : PublicationMainFocus.TextOnly,
       contentWarning: null, // TODO
       attributes: [
         {
