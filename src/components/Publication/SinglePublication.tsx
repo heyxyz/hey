@@ -18,9 +18,15 @@ interface Props {
   publication: LensterPublication;
   showType?: boolean;
   showActions?: boolean;
+  showThread?: boolean;
 }
 
-const SinglePublication: FC<Props> = ({ publication, showType = true, showActions = true }) => {
+const SinglePublication: FC<Props> = ({
+  publication,
+  showType = true,
+  showActions = true,
+  showThread = true
+}) => {
   const publicationType = publication?.metadata?.attributes[0]?.value;
   const isMirror = publication?.__typename === 'Mirror';
   const profile = isMirror ? publication?.mirrorOf?.profile : publication?.profile;
@@ -34,7 +40,7 @@ const SinglePublication: FC<Props> = ({ publication, showType = true, showAction
           Mixpanel.track(PUBLICATION.OPEN);
         }}
       >
-        <PublicationType publication={publication} showType={showType} showThread />
+        <PublicationType publication={publication} showType={showType} showThread={showThread} />
         <div>
           <div className="flex justify-between pb-4 space-x-1.5">
             <UserProfile
