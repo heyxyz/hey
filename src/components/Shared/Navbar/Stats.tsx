@@ -33,11 +33,6 @@ const LENSTER_STATS_QUERY = gql`
         value
       }
     }
-    communityStats: globalProtocolStats(
-      request: { sources: "${APP_NAME} Community" }
-    ) {
-      totalPosts
-    }
     crowdfundStats: globalProtocolStats(
       request: { sources: "${APP_NAME} Crowdfund" }
     ) {
@@ -80,7 +75,6 @@ const Stats: FC = () => {
   }
 
   const stats: GlobalProtocolStats = data?.globalProtocolStats;
-  const communityStats: GlobalProtocolStats = data?.communityStats;
   const crowdfundStats: GlobalProtocolStats = data?.crowdfundStats;
 
   return (
@@ -124,15 +118,6 @@ const Stats: FC = () => {
         title={
           <span>
             <b>{humanize(stats?.totalComments)}</b> total comments
-          </span>
-        }
-        isLenster
-      />
-      <MenuItem
-        icon={<UsersIcon className="w-4 h-4" />}
-        title={
-          <span>
-            <b>{humanize(communityStats?.totalPosts)}</b> total communities
           </span>
         }
         isLenster

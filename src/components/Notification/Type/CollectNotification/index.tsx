@@ -5,7 +5,7 @@ import {
 } from '@components/Notification/WalletProfile';
 import { LensterNotification } from '@generated/lenstertypes';
 import { NewCollectNotification } from '@generated/types';
-import { CashIcon, CollectionIcon, UsersIcon } from '@heroicons/react/solid';
+import { CashIcon, CollectionIcon } from '@heroicons/react/solid';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import Link from 'next/link';
@@ -29,9 +29,7 @@ const CollectNotification: FC<Props> = ({ notification }) => {
     <div className="flex justify-between items-start">
       <div className="space-y-2 w-4/5">
         <div className="flex items-center space-x-3">
-          {publicationType === 'community' ? (
-            <UsersIcon className="h-6 w-6 text-pink-500/70" />
-          ) : publicationType === 'crowdfund' ? (
+          {publicationType === 'crowdfund' ? (
             <CashIcon className="h-6 w-6 text-pink-500/70" />
           ) : (
             <CollectionIcon className="h-6 w-6 text-pink-500/70" />
@@ -49,32 +47,15 @@ const CollectNotification: FC<Props> = ({ notification }) => {
             <NotificationWalletProfileName wallet={notification?.wallet} />
           )}{' '}
           <span className="text-gray-600 dark:text-gray-400">
-            {publicationType === 'community'
-              ? 'joined your'
-              : publicationType === 'crowdfund'
-              ? 'funded your'
-              : 'collected your'}{' '}
+            {publicationType === 'crowdfund' ? 'funded your' : 'collected your'}{' '}
           </span>
-          <Link
-            href={
-              publicationType === 'community'
-                ? `/communities/${notification?.collectedPublication?.id}`
-                : `/posts/${notification?.collectedPublication?.id}`
-            }
-          >
-            <a
-              href={
-                publicationType === 'community'
-                  ? `/communities/${notification?.collectedPublication?.id}`
-                  : `/posts/${notification?.collectedPublication?.id}`
-              }
-              className="font-bold"
-            >
+          <Link href={`/posts/${notification?.collectedPublication?.id}`}>
+            <a href={`/posts/${notification?.collectedPublication?.id}`} className="font-bold">
               {publicationType}
             </a>
           </Link>
           <CollectedContent notification={notification} />
-          {publicationType !== 'community' && <CollectedAmount notification={notification} />}
+          <CollectedAmount notification={notification} />
         </div>
       </div>
       <div className="text-gray-400 text-[12px]">{dayjs(new Date(notification?.createdAt)).fromNow()}</div>

@@ -17,7 +17,7 @@ import {
   CREATE_COMMENT_TYPED_DATA_MUTATION,
   CREATE_COMMENT_VIA_DISPATHCER_MUTATION
 } from '@gql/TypedAndDispatcherData/CreateComment';
-import { ChatAlt2Icon, PencilAltIcon } from '@heroicons/react/outline';
+import { ChatAlt2Icon } from '@heroicons/react/outline';
 import { defaultFeeData, defaultModuleData, getModule } from '@lib/getModule';
 import getSignature from '@lib/getSignature';
 import { Mixpanel } from '@lib/mixpanel';
@@ -53,10 +53,9 @@ interface Props {
   setShowModal?: Dispatch<boolean>;
   hideCard?: boolean;
   publication: LensterPublication;
-  type: 'comment' | 'community post';
 }
 
-const NewComment: FC<Props> = ({ setShowModal, hideCard = false, publication, type }) => {
+const NewComment: FC<Props> = ({ setShowModal, hideCard = false, publication }) => {
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -189,14 +188,7 @@ const NewComment: FC<Props> = ({ setShowModal, hideCard = false, publication, ty
             ? PublicationMainFocus.Video
             : PublicationMainFocus.Image
           : PublicationMainFocus.TextOnly,
-      contentWarning: null, // TODO
-      attributes: [
-        {
-          traitType: 'string',
-          key: 'type',
-          value: type
-        }
-      ],
+      contentWarning: null,
       media: attachments,
       locale: 'en',
       createdOn: new Date(),
@@ -271,7 +263,7 @@ const NewComment: FC<Props> = ({ setShowModal, hideCard = false, publication, ty
               dispatcherData?.createCommentViaDispatcher?.txHash ? (
                 <PubIndexStatus
                   setShowModal={setShowModal}
-                  type={type === 'comment' ? 'Comment' : 'Post'}
+                  type="Comment"
                   txHash={
                     data?.hash ??
                     broadcastData?.broadcast?.txHash ??
@@ -282,28 +274,18 @@ const NewComment: FC<Props> = ({ setShowModal, hideCard = false, publication, ty
               <Button
                 className="ml-auto"
                 disabled={isLoading}
-                icon={
-                  isLoading ? (
-                    <Spinner size="xs" />
-                  ) : type === 'community post' ? (
-                    <PencilAltIcon className="w-4 h-4" />
-                  ) : (
-                    <ChatAlt2Icon className="w-4 h-4" />
-                  )
-                }
+                icon={isLoading ? <Spinner size="xs" /> : <ChatAlt2Icon className="w-4 h-4" />}
                 onClick={createComment}
               >
                 {isUploading
                   ? 'Uploading to Arweave'
                   : typedDataLoading
-                  ? `Generating ${type === 'comment' ? 'Comment' : 'Post'}`
+                  ? 'Generating Comment'
                   : signLoading
                   ? 'Sign'
                   : writeLoading || broadcastLoading
                   ? 'Send'
-                  : type === 'comment'
-                  ? 'Comment'
-                  : 'Post'}
+                  : 'Comment'}
               </Button>
             </div>
           </div>

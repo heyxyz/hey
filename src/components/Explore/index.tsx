@@ -36,7 +36,7 @@ const Explore: NextPage = () => {
     <GridLayout>
       <Seo
         title={`Explore • ${APP_NAME}`}
-        description={`Explore top commented, collected and latest publications in the ${APP_NAME} community.`}
+        description={`Explore top commented, collected and latest publications in the ${APP_NAME}.`}
       />
       <GridItemEight className="space-y-5">
         <FeedType setFeedType={setFeedType} feedType={feedType} />
