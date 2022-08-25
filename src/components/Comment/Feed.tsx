@@ -40,12 +40,11 @@ const COMMENT_FEED_QUERY = gql`
 
 interface Props {
   publication: LensterPublication;
-  type?: 'comment' | 'community post';
   onlyFollowers?: boolean;
   isFollowing?: boolean;
 }
 
-const Feed: FC<Props> = ({ publication, type = 'comment', onlyFollowers = false, isFollowing = true }) => {
+const Feed: FC<Props> = ({ publication, onlyFollowers = false, isFollowing = true }) => {
   const pubId = publication?.__typename === 'Mirror' ? publication?.mirrorOf?.id : publication?.id;
   const currentProfile = useAppStore((state) => state.currentProfile);
   const { data, loading, error, fetchMore } = useQuery(COMMENT_FEED_QUERY, {
@@ -71,7 +70,7 @@ const Feed: FC<Props> = ({ publication, type = 'comment', onlyFollowers = false,
           profileId: currentProfile?.id ?? null
         }
       });
-      Mixpanel.track(type === 'comment' ? PAGINATION.COMMENT_FEED : PAGINATION.COMMUNITY_FEED);
+      Mixpanel.track(PAGINATION.COMMENT_FEED);
     }
   });
 
@@ -79,7 +78,7 @@ const Feed: FC<Props> = ({ publication, type = 'comment', onlyFollowers = false,
     <>
       {currentProfile &&
         (isFollowing || !onlyFollowers ? (
-          <NewComment publication={publication} type={type} />
+          <NewComment publication={publication} />
         ) : (
           <ReferenceAlert
             handle={publication?.profile?.handle}

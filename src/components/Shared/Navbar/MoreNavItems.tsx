@@ -1,5 +1,5 @@
 import { Menu, Transition } from '@headlessui/react';
-import { CashIcon, SupportIcon, UserIcon, UsersIcon } from '@heroicons/react/outline';
+import { CashIcon, SupportIcon, UserIcon } from '@heroicons/react/outline';
 import clsx from 'clsx';
 import { FC, Fragment } from 'react';
 import { IS_MAINNET } from 'src/constants';
@@ -42,18 +42,6 @@ const MoreNavItems: FC = () => {
             >
               {currentProfile && (
                 <>
-                  <Menu.Item
-                    as={NextLink}
-                    href="/new/community"
-                    className={({ active }: { active: boolean }) =>
-                      clsx({ 'dropdown-active': active }, 'menu-item')
-                    }
-                  >
-                    <div className="flex items-center space-x-1.5">
-                      <UsersIcon className="w-4 h-4" />
-                      <div>New Community</div>
-                    </div>
-                  </Menu.Item>
                   <Menu.Item
                     as={NextLink}
                     href="/new/crowdfund"

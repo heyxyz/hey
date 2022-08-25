@@ -68,7 +68,7 @@ const NewPostModal: FC = () => {
             <Card className="mx-5 mt-5">
               <SinglePublication publication={parentPub} showType={false} showActions={false} />
             </Card>
-            <NewComment setShowModal={setShowNewPostModal} hideCard publication={parentPub} type="comment" />
+            <NewComment setShowModal={setShowNewPostModal} hideCard publication={parentPub} />
           </>
         ) : (
           <NewPost setShowModal={setShowNewPostModal} hideCard />

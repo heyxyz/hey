@@ -9,7 +9,6 @@ interface Props {
 }
 
 const CommentedPublication: FC<Props> = ({ publication }) => {
-  const sourceIsCommunity = publication?.commentOn?.metadata?.attributes[0]?.value === 'community post';
   const sourceId = publication?.commentOn?.id;
   const sourceProfileHandle = publication?.commentOn?.profile?.handle;
 
@@ -19,7 +18,7 @@ const CommentedPublication: FC<Props> = ({ publication }) => {
       <div className="flex items-center space-x-1">
         <Link href={`/posts/${sourceId}`}>
           <a href={`/posts/${sourceId}`}>
-            Commented on {sourceIsCommunity ? 'post' : publication?.commentOn?.__typename?.toLowerCase()} by
+            Commented on {publication?.commentOn?.__typename?.toLowerCase()} by
           </a>
         </Link>
         <Link href={`/u/${sourceProfileHandle}`}>
