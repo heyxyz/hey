@@ -48,6 +48,7 @@ interface Props {
 
 const Layout: FC<Props> = ({ children }) => {
   const { resolvedTheme } = useTheme();
+  const [loading, setLoading] = useState(true);
   const setProfiles = useAppStore((state) => state.setProfiles);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -61,7 +62,9 @@ const Layout: FC<Props> = ({ children }) => {
   const { address, isDisconnected } = useAccount();
   const { chain } = useNetwork();
   const { disconnect } = useDisconnect();
-  const { loading } = useQuery(CURRENT_PROFILE_QUERY, {
+
+  // Fethc current profiles and sig nonce owned by the wallet address
+  useQuery(CURRENT_PROFILE_QUERY, {
     variables: { ownedBy: address },
     skip: !isConnected,
     onCompleted: (data) => {
@@ -71,7 +74,6 @@ const Layout: FC<Props> = ({ children }) => {
         ?.sort((a: Profile, b: Profile) => (!(a.isDefault !== b.isDefault) ? 0 : a.isDefault ? -1 : 1));
 
       setUserSigNonce(data?.userSigNonces?.lensHubOnChainSigNonce);
-
       if (profiles.length === 0) {
         setProfileId(null);
       } else {
@@ -79,6 +81,7 @@ const Layout: FC<Props> = ({ children }) => {
         setProfiles(profiles);
         setCurrentProfile(selectedUser as Profile);
       }
+      setLoading(false);
     }
   });
 
@@ -107,9 +110,11 @@ const Layout: FC<Props> = ({ children }) => {
     // Set mounted state to true after the first render
     setMounted(true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isDisconnected, address, chain, currentProfile, disconnect, setCurrentProfile]);
+  }, [isDisconnected, address, chain, currentProfile, disconnect]);
 
-  if (loading || !mounted) {
+  const userNotMounted = isConnected ? loading : false;
+
+  if (!mounted || userNotMounted) {
     return <Loading />;
   }
 
