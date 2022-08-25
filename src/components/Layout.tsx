@@ -63,7 +63,7 @@ const Layout: FC<Props> = ({ children }) => {
   const { chain } = useNetwork();
   const { disconnect } = useDisconnect();
 
-  // Fethc current profiles and sig nonce owned by the wallet address
+  // Fetch current profiles and sig nonce owned by the wallet address
   useQuery(CURRENT_PROFILE_QUERY, {
     variables: { ownedBy: address },
     skip: !isConnected,
