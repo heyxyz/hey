@@ -33,6 +33,8 @@ const Home: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const isConnected = useAppPersistStore((state) => state.isConnected);
 
+  console.log('gm', currentProfile);
+
   return (
     <>
       <Seo />
