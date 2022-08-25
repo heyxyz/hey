@@ -12,7 +12,6 @@ import { MirrorFields } from '@gql/MirrorFields';
 import { PostFields } from '@gql/PostFields';
 import isStaff from '@lib/isStaff';
 import { Mixpanel } from '@lib/mixpanel';
-import { apps } from 'data/apps';
 import { NextPage } from 'next';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
@@ -27,7 +26,6 @@ import FullPublication from './FullPublication';
 import OnchainMeta from './OnchainMeta';
 import RelevantPeople from './RelevantPeople';
 import PublicationPageShimmer from './Shimmer';
-import ViaApp from './ViaApp';
 
 const Feed = dynamic(() => import('@components/Comment/Feed'), {
   loading: () => <PublicationsShimmer />
@@ -121,7 +119,6 @@ const ViewPublication: NextPage = () => {
   }
 
   const publication: LensterPublication = data.publication;
-  const appConfig = apps.find((e) => e.id === publication?.appId);
 
   return (
     <GridLayout>
@@ -152,7 +149,6 @@ const ViewPublication: NextPage = () => {
               showBio
             />
           </CardBody>
-          <ViaApp appConfig={appConfig} />
         </Card>
         <RelevantPeople publication={publication} />
         <OnchainMeta publication={publication} />
