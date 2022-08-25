@@ -10,11 +10,10 @@ interface Props {
 const Commented: FC<Props> = ({ publication }) => {
   const commentOn: LensterPublication | any = publication?.commentOn;
   const mainPost = commentOn?.mainPost;
-  const publicationType = mainPost?.metadata?.attributes[0]?.value;
 
   return (
     <div>
-      {mainPost && publicationType !== 'community' ? <ThreadBody publication={mainPost} /> : null}
+      {mainPost ? <ThreadBody publication={mainPost} /> : null}
       <ThreadBody publication={commentOn} />
     </div>
   );

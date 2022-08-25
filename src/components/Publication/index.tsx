@@ -79,7 +79,6 @@ export const PUBLICATION_QUERY = gql`
 `;
 
 const ViewPublication: NextPage = () => {
-  const { push } = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const staffMode = useAppPersistStore((state) => state.staffMode);
 
@@ -97,13 +96,7 @@ const ViewPublication: NextPage = () => {
       reactionRequest: currentProfile ? { profileId: currentProfile?.id } : null,
       profileId: currentProfile?.id ?? null
     },
-    skip: !id,
-    onCompleted: (data) => {
-      const isCommunity = data?.publication?.metadata?.attributes[0]?.value === 'community';
-      if (isCommunity) {
-        push(`/communities/${data.publication?.id}`);
-      }
-    }
+    skip: !id
   });
 
   if (error) {

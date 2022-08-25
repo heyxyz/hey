@@ -18,7 +18,6 @@ interface Props {
 }
 
 const FullPublication: FC<Props> = ({ publication }) => {
-  const publicationType = publication?.metadata?.attributes[0]?.value;
   const isMirror = publication?.__typename === 'Mirror';
   const profile = isMirror ? publication?.mirrorOf?.profile : publication?.profile;
   const timestamp = isMirror ? publication?.mirrorOf?.createdAt : publication?.createdAt;
@@ -40,13 +39,7 @@ const FullPublication: FC<Props> = ({ publication }) => {
       <PublicationType publication={publication} showType />
       <div>
         <div className="flex justify-between pb-4 space-x-1.5">
-          <UserProfile
-            profile={
-              publicationType === 'community' && !!publication?.collectedBy?.defaultProfile
-                ? publication?.collectedBy?.defaultProfile
-                : profile
-            }
-          />
+          <UserProfile profile={publication?.collectedBy?.defaultProfile ?? profile} />
         </div>
         <div className="ml-[53px]">
           {publication?.hidden ? (

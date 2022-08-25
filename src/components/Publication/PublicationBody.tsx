@@ -3,13 +3,10 @@ import IFramely from '@components/Shared/IFramely';
 import Markup from '@components/Shared/Markup';
 import CrowdfundShimmer from '@components/Shared/Shimmer/CrowdfundShimmer';
 import { LensterPublication } from '@generated/lenstertypes';
-import { EyeIcon, UserAddIcon, UsersIcon } from '@heroicons/react/outline';
-import getIPFSLink from '@lib/getIPFSLink';
+import { EyeIcon } from '@heroicons/react/outline';
 import getURLs from '@lib/getURLs';
-import imagekitURL from '@lib/imagekitURL';
 import clsx from 'clsx';
 import dynamic from 'next/dynamic';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { FC } from 'react';
 
@@ -28,37 +25,7 @@ const PublicationBody: FC<Props> = ({ publication }) => {
 
   return (
     <div className="break-words">
-      {publicationType === 'community' ? (
-        <div className="block items-center space-y-2 space-x-0 sm:flex sm:space-y-0 sm:space-x-2 linkify">
-          <span className="flex items-center space-x-1.5">
-            {publication?.collectedBy ? (
-              <UserAddIcon className="w-4 h-4 text-brand" />
-            ) : (
-              <UsersIcon className="w-4 h-4 text-brand" />
-            )}
-            {publication?.collectedBy ? <span>Joined</span> : <span>Launched a new community</span>}
-          </span>
-          <Link href={`/communities/${publication?.id}`}>
-            <a href={`/communities/${publication?.id}`} className="flex items-center space-x-1.5 font-bold">
-              <img
-                src={imagekitURL(
-                  getIPFSLink(
-                    publication?.metadata?.cover?.original?.url
-                      ? publication?.metadata?.cover?.original?.url
-                      : `https://avatar.tobi.sh/${publication?.id}.png`
-                  ),
-                  'avatar'
-                )}
-                className="bg-gray-200 rounded ring-2 ring-gray-50 dark:bg-gray-700 dark:ring-black w-[19px] h-[19px]"
-                height={19}
-                width={19}
-                alt={publication?.id}
-              />
-              <div>{publication?.metadata?.name}</div>
-            </a>
-          </Link>
-        </div>
-      ) : publicationType === 'crowdfund' ? (
+      {publicationType === 'crowdfund' ? (
         <Crowdfund fund={publication} />
       ) : (
         <>
@@ -84,7 +51,6 @@ const PublicationBody: FC<Props> = ({ publication }) => {
       ) : (
         publication?.metadata?.content &&
         publicationType !== 'crowdfund' &&
-        publicationType !== 'community' &&
         getURLs(publication?.metadata?.content)?.length > 0 && (
           <IFramely url={getURLs(publication?.metadata?.content)[0]} />
         )

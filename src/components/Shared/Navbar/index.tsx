@@ -67,7 +67,6 @@ const Navbar: FC = () => {
       <>
         <NavItem url="/" name="Home" current={pathname == '/'} />
         <NavItem url="/explore" name="Explore" current={pathname == '/explore'} />
-        <NavItem url="/communities" name="Communities" current={pathname == '/communities'} />
         <MoreNavItems />
       </>
     );
