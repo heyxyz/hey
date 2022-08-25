@@ -24,8 +24,6 @@ export const useAppStore = create<AppState>((set) => ({
 interface AppPersistState {
   isConnected: boolean;
   setIsConnected: (isConnected: boolean) => void;
-  isAuthenticated: boolean;
-  setIsAuthenticated: (isAuthenticated: boolean) => void;
   profileId: string | null;
   setProfileId: (profileId: string | null) => void;
   staffMode: boolean;
@@ -39,8 +37,6 @@ export const useAppPersistStore = create(
     (set) => ({
       isConnected: false,
       setIsConnected: (isConnected) => set(() => ({ isConnected })),
-      isAuthenticated: false,
-      setIsAuthenticated: (isAuthenticated) => set(() => ({ isAuthenticated })),
       profileId: null,
       setProfileId: (profileId) => set(() => ({ profileId })),
       staffMode: false,

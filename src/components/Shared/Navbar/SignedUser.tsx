@@ -38,6 +38,7 @@ const SignedUser: FC<Props> = ({ pingData }) => {
   const profiles = useAppStore((state) => state.profiles);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
+  const setIsConnected = useAppPersistStore((state) => state.setIsConnected);
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
   const staffMode = useAppPersistStore((state) => state.staffMode);
   const setStaffMode = useAppPersistStore((state) => state.setStaffMode);
@@ -114,6 +115,7 @@ const SignedUser: FC<Props> = ({ pingData }) => {
                 as="a"
                 onClick={() => {
                   Mixpanel.track(PROFILE.LOGOUT);
+                  setIsConnected(false);
                   setCurrentProfile(null);
                   setProfileId(null);
                   clearAuthData();

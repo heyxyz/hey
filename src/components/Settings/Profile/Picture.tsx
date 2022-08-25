@@ -28,7 +28,7 @@ import uploadMediaToIPFS from '@lib/uploadMediaToIPFS';
 import React, { ChangeEvent, FC, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { LENSHUB_PROXY, RELAY_ON, SIGN_WALLET } from 'src/constants';
-import { useAppPersistStore, useAppStore } from 'src/store/app';
+import { useAppStore } from 'src/store/app';
 import { SETTINGS } from 'src/tracking';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
@@ -40,7 +40,6 @@ const Picture: FC<Props> = ({ profile }) => {
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
   const [avatar, setAvatar] = useState('');
   const [uploading, setUploading] = useState(false);
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
@@ -127,7 +126,7 @@ const Picture: FC<Props> = ({ profile }) => {
   };
 
   const editPicture = (avatar?: string) => {
-    if (!isAuthenticated) {
+    if (!currentProfile) {
       return toast.error(SIGN_WALLET);
     }
 

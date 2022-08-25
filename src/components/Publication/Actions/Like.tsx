@@ -11,7 +11,7 @@ import { motion } from 'framer-motion';
 import { FC, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { SIGN_WALLET } from 'src/constants';
-import { useAppPersistStore, useAppStore } from 'src/store/app';
+import { useAppStore } from 'src/store/app';
 import { PUBLICATION } from 'src/tracking';
 
 const ADD_REACTION_MUTATION = gql`
@@ -32,7 +32,6 @@ interface Props {
 }
 
 const Like: FC<Props> = ({ publication, isFullPublication }) => {
-  const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [liked, setLiked] = useState(false);
   const [count, setCount] = useState(0);
@@ -74,7 +73,7 @@ const Like: FC<Props> = ({ publication, isFullPublication }) => {
   });
 
   const createLike = () => {
-    if (!isAuthenticated) {
+    if (!currentProfile) {
       return toast.error(SIGN_WALLET);
     }
 

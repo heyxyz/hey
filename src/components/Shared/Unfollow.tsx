@@ -12,7 +12,7 @@ import { Contract, Signer } from 'ethers';
 import { Dispatch, FC, useState } from 'react';
 import toast from 'react-hot-toast';
 import { SIGN_WALLET } from 'src/constants';
-import { useAppPersistStore } from 'src/store/app';
+import { useAppStore } from 'src/store/app';
 import { PROFILE } from 'src/tracking';
 import { useSigner, useSignTypedData } from 'wagmi';
 
@@ -51,7 +51,7 @@ interface Props {
 }
 
 const Unfollow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
-  const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
+  const currentProfile = useAppStore((state) => state.currentProfile);
   const [writeLoading, setWriteLoading] = useState(false);
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
   const { data: signer } = useSigner();
@@ -97,7 +97,7 @@ const Unfollow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
   );
 
   const createUnfollow = () => {
-    if (!isAuthenticated) {
+    if (!currentProfile) {
       return toast.error(SIGN_WALLET);
     }
 

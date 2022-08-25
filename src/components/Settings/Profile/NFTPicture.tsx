@@ -21,7 +21,7 @@ import gql from 'graphql-tag';
 import React, { FC, useState } from 'react';
 import toast from 'react-hot-toast';
 import { ADDRESS_REGEX, IS_MAINNET, LENSHUB_PROXY, RELAY_ON, SIGN_WALLET } from 'src/constants';
-import { useAppPersistStore, useAppStore } from 'src/store/app';
+import { useAppStore } from 'src/store/app';
 import { SETTINGS } from 'src/tracking';
 import { chain, useContractWrite, useSignMessage, useSignTypedData } from 'wagmi';
 import { object, string } from 'zod';
@@ -50,7 +50,6 @@ const NFTPicture: FC<Props> = ({ profile }) => {
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
   const [chainId, setChainId] = useState(IS_MAINNET ? chain.mainnet.id : chain.kovan.id);
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
   const { signMessageAsync } = useSignMessage();
@@ -126,7 +125,7 @@ const NFTPicture: FC<Props> = ({ profile }) => {
     useMutation(CREATE_SET_PROFILE_IMAGE_URI_VIA_DISPATHCER_MUTATION, { onCompleted, onError });
 
   const setAvatar = async (contractAddress: string, tokenId: string) => {
-    if (!isAuthenticated) {
+    if (!currentProfile) {
       return toast.error(SIGN_WALLET);
     }
 
