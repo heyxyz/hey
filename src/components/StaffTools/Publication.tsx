@@ -2,6 +2,7 @@ import { Card, CardBody } from '@components/UI/Card';
 import { LensterPublication } from '@generated/lenstertypes';
 import { CollectionIcon, GlobeAltIcon, HashtagIcon, LinkIcon } from '@heroicons/react/outline';
 import { ShieldCheckIcon } from '@heroicons/react/solid';
+import getIPFSLink from '@lib/getIPFSLink';
 import { getModule } from '@lib/getModule';
 import React, { FC } from 'react';
 
@@ -52,10 +53,10 @@ const PublicationStaffTool: FC<Props> = ({ publication }) => {
           </MetaDetails>
           <MetaDetails
             icon={<LinkIcon className="w-4 h-4 text-gray-500" />}
-            value={publication?.onChainContentURI}
+            value={getIPFSLink(publication?.onChainContentURI)}
             title="On-chain content URI"
           >
-            <a href={publication?.onChainContentURI} target="_blank" rel="noreferrer">
+            <a href={getIPFSLink(publication?.onChainContentURI)} target="_blank" rel="noreferrer">
               Open
             </a>
           </MetaDetails>
