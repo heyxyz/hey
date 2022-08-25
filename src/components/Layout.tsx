@@ -24,7 +24,7 @@ if (MIXPANEL_TOKEN) {
   });
 }
 
-export const CURRENT_PROFILE_QUERY = gql`
+export const USER_PROFILES_QUERY = gql`
   query CurrentProfile($ownedBy: [EthereumAddress!]) {
     profiles(request: { ownedBy: $ownedBy }) {
       items {
@@ -64,7 +64,7 @@ const Layout: FC<Props> = ({ children }) => {
   const { disconnect } = useDisconnect();
 
   // Fetch current profiles and sig nonce owned by the wallet address
-  useQuery(CURRENT_PROFILE_QUERY, {
+  useQuery(USER_PROFILES_QUERY, {
     variables: { ownedBy: address },
     skip: !isConnected,
     onCompleted: (data) => {
