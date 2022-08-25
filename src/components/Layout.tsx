@@ -24,7 +24,7 @@ if (MIXPANEL_TOKEN) {
   });
 }
 
-export const CURRENT_PROFILE_QUERY = gql`
+export const USER_PROFILES_QUERY = gql`
   query CurrentProfile($ownedBy: [EthereumAddress!]) {
     profiles(request: { ownedBy: $ownedBy }) {
       items {
@@ -48,14 +48,13 @@ interface Props {
 
 const Layout: FC<Props> = ({ children }) => {
   const { resolvedTheme } = useTheme();
+  const [loading, setLoading] = useState(true);
   const setProfiles = useAppStore((state) => state.setProfiles);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
   const isConnected = useAppPersistStore((state) => state.isConnected);
   const setIsConnected = useAppPersistStore((state) => state.setIsConnected);
-  const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
-  const setIsAuthenticated = useAppPersistStore((state) => state.setIsAuthenticated);
   const profileId = useAppPersistStore((state) => state.profileId);
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
 
@@ -63,9 +62,11 @@ const Layout: FC<Props> = ({ children }) => {
   const { address, isDisconnected } = useAccount();
   const { chain } = useNetwork();
   const { disconnect } = useDisconnect();
-  const { loading } = useQuery(CURRENT_PROFILE_QUERY, {
+
+  // Fetch current profiles and sig nonce owned by the wallet address
+  useQuery(USER_PROFILES_QUERY, {
     variables: { ownedBy: address },
-    skip: !isConnected && !isAuthenticated,
+    skip: !isConnected,
     onCompleted: (data) => {
       const profiles: Profile[] = data?.profiles?.items
         ?.slice()
@@ -73,7 +74,6 @@ const Layout: FC<Props> = ({ children }) => {
         ?.sort((a: Profile, b: Profile) => (!(a.isDefault !== b.isDefault) ? 0 : a.isDefault ? -1 : 1));
 
       setUserSigNonce(data?.userSigNonces?.lensHubOnChainSigNonce);
-
       if (profiles.length === 0) {
         setProfileId(null);
       } else {
@@ -81,6 +81,7 @@ const Layout: FC<Props> = ({ children }) => {
         setProfiles(profiles);
         setCurrentProfile(selectedUser as Profile);
       }
+      setLoading(false);
     }
   });
 
@@ -97,9 +98,8 @@ const Layout: FC<Props> = ({ children }) => {
         isDisconnected || // If the user is disconnected from the wallet
         !profileId || // If the user has no profile
         !hasAuthTokens) && // If the user has no auth tokens
-      isAuthenticated // If the user is authenticated
+      currentProfile // If the user is authenticated
     ) {
-      setIsAuthenticated(false);
       setIsConnected(false);
       setCurrentProfile(null);
       setProfileId(null);
@@ -110,9 +110,11 @@ const Layout: FC<Props> = ({ children }) => {
     // Set mounted state to true after the first render
     setMounted(true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isDisconnected, address, chain, currentProfile, disconnect, setCurrentProfile]);
+  }, [isDisconnected, address, chain, currentProfile, disconnect]);
 
-  if (loading || !mounted) {
+  const userNotMounted = isConnected ? loading : false;
+
+  if (!mounted || userNotMounted) {
     return <Loading />;
   }
 

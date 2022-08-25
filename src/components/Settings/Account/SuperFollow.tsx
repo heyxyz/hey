@@ -17,7 +17,7 @@ import splitSignature from '@lib/splitSignature';
 import React, { FC, useState } from 'react';
 import toast from 'react-hot-toast';
 import { ADDRESS_REGEX, DEFAULT_COLLECT_TOKEN, LENSHUB_PROXY, RELAY_ON, SIGN_WALLET } from 'src/constants';
-import { useAppPersistStore, useAppStore } from 'src/store/app';
+import { useAppStore } from 'src/store/app';
 import { SETTINGS } from 'src/tracking';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 import { object, string } from 'zod';
@@ -82,7 +82,6 @@ const SuperFollow: FC = () => {
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
   const [selectedCurrency, setSelectedCurrency] = useState(DEFAULT_COLLECT_TOKEN);
   const [selectedCurrencySymobol, setSelectedCurrencySymobol] = useState('WMATIC');
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
@@ -156,7 +155,7 @@ const SuperFollow: FC = () => {
   );
 
   const setSuperFollow = (amount: string | null, recipient: string | null) => {
-    if (!isAuthenticated) {
+    if (!currentProfile) {
       return toast.error(SIGN_WALLET);
     }
 

@@ -64,8 +64,6 @@ const DeleteSettings: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
   const setIsConnected = useAppPersistStore((state) => state.setIsConnected);
-  const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
-  const setIsAuthenticated = useAppPersistStore((state) => state.setIsAuthenticated);
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
 
   const { disconnect } = useDisconnect();
@@ -73,7 +71,6 @@ const DeleteSettings: FC = () => {
 
   const onCompleted = () => {
     Mixpanel.track(SETTINGS.DELETE);
-    setIsAuthenticated(false);
     setIsConnected(false);
     setCurrentProfile(null);
     setProfileId(null);
@@ -115,7 +112,7 @@ const DeleteSettings: FC = () => {
   );
 
   const handleDelete = () => {
-    if (!isAuthenticated) {
+    if (!currentProfile) {
       return toast.error(SIGN_WALLET);
     }
 

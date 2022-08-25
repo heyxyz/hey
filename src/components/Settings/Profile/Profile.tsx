@@ -36,7 +36,7 @@ import uploadToArweave from '@lib/uploadToArweave';
 import React, { ChangeEvent, FC, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { APP_NAME, LENS_PERIPHERY, RELAY_ON, SIGN_WALLET, URL_REGEX } from 'src/constants';
-import { useAppPersistStore, useAppStore } from 'src/store/app';
+import { useAppStore } from 'src/store/app';
 import { SETTINGS } from 'src/tracking';
 import { v4 as uuid } from 'uuid';
 import { useContractWrite, useSignTypedData } from 'wagmi';
@@ -66,7 +66,6 @@ const Profile: FC<Props> = ({ profile }) => {
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
   const [beta, setBeta] = useState(isBeta(profile));
   const [pride, setPride] = useState(hasPrideLogo(profile));
   const [cover, setCover] = useState('');
@@ -178,7 +177,7 @@ const Profile: FC<Props> = ({ profile }) => {
     twitter?: string | null,
     bio?: string | null
   ) => {
-    if (!isAuthenticated) {
+    if (!currentProfile) {
       return toast.error(SIGN_WALLET);
     }
 

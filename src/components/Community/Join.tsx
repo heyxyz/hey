@@ -13,7 +13,7 @@ import splitSignature from '@lib/splitSignature';
 import React, { Dispatch, FC } from 'react';
 import toast from 'react-hot-toast';
 import { LENSHUB_PROXY, RELAY_ON, SIGN_WALLET } from 'src/constants';
-import { useAppPersistStore, useAppStore } from 'src/store/app';
+import { useAppStore } from 'src/store/app';
 import { COMMUNITY } from 'src/tracking';
 import { useAccount, useContractWrite, useSignTypedData } from 'wagmi';
 
@@ -56,7 +56,7 @@ interface Props {
 const Join: FC<Props> = ({ community, setJoined, showJoin = true }) => {
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
-  const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
+  const currentProfile = useAppStore((state) => state.currentProfile);
   const { address } = useAccount();
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
 
@@ -117,7 +117,7 @@ const Join: FC<Props> = ({ community, setJoined, showJoin = true }) => {
   );
 
   const createCollect = () => {
-    if (!isAuthenticated) {
+    if (!currentProfile) {
       return toast.error(SIGN_WALLET);
     }
 

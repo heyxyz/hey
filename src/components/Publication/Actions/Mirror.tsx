@@ -21,7 +21,7 @@ import { motion } from 'framer-motion';
 import { FC, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { LENSHUB_PROXY, RELAY_ON, SIGN_WALLET } from 'src/constants';
-import { useAppPersistStore, useAppStore } from 'src/store/app';
+import { useAppStore } from 'src/store/app';
 import { PUBLICATION } from 'src/tracking';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
@@ -34,7 +34,6 @@ const Mirror: FC<Props> = ({ publication, isFullPublication }) => {
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
   const [count, setCount] = useState(0);
   const [mirrored, setMirrored] = useState(
     publication?.mirrors?.length > 0 || publication?.mirrorOf?.mirrors?.length > 0
@@ -125,7 +124,7 @@ const Mirror: FC<Props> = ({ publication, isFullPublication }) => {
   );
 
   const createMirror = () => {
-    if (!isAuthenticated) {
+    if (!currentProfile) {
       return toast.error(SIGN_WALLET);
     }
 
