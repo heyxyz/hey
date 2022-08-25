@@ -341,7 +341,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
                 {humanize(count)} collectors
               </button>
               <Modal
-                title="Collectors"
+                title="Collected by"
                 icon={<CollectionIcon className="w-5 h-5 text-brand" />}
                 show={showCollectorsModal}
                 onClose={() => setShowCollectorsModal(false)}
