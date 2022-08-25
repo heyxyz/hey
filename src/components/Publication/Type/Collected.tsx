@@ -45,7 +45,7 @@ const Collected: FC<Props> = ({ publication, type }) => {
                 ? publicationType === 'crowdfund'
                   ? 'crowdfund'
                   : (publication?.__typename as string)?.toLowerCase()
-                : (publication?.__typename as any)?.toLowerCase()}
+                : (publication?.__typename as unknown as string)?.toLowerCase()}
             </b>
           </a>
         </Link>

@@ -304,7 +304,11 @@ const NewComment: FC<Props> = ({ setShowModal, hideCard = false, publication, ty
               </Button>
             </div>
           </div>
-          <Attachments attachments={attachments} setAttachments={setAttachments} isNew />
+          <Attachments
+            attachments={attachments}
+            setAttachments={(attachments) => setAttachments(attachments as LensterAttachment[])}
+            isNew
+          />
         </div>
       </div>
     </Card>

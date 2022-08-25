@@ -117,7 +117,7 @@ const Details: FC<Props> = ({ profile }) => {
           </MetaDetails>
           {getAttribute(profile?.attributes, 'location') && (
             <MetaDetails icon={<LocationMarkerIcon className="w-4 h-4" />}>
-              {getAttribute(profile?.attributes, 'location') as any}
+              <>{getAttribute(profile?.attributes, 'location')}</>
             </MetaDetails>
           )}
           {profile?.onChainIdentity?.ens?.name && (

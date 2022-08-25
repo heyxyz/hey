@@ -58,7 +58,7 @@ const Crowdfund: FC<Props> = ({ fund }) => {
     variables: { request: { publicationId: fund?.id } }
   });
 
-  const collectModule: any = data?.publication?.collectModule;
+  const collectModule = data?.publication?.collectModule;
 
   const { data: revenueData, loading: revenueLoading } = useQuery(PUBLICATION_REVENUE_QUERY, {
     variables: {

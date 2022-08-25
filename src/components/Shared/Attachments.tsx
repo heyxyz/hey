@@ -30,25 +30,28 @@ const getClass = (attachments: number) => {
   }
 };
 
+type Attachment = LensterAttachment | MediaSet;
 interface Props {
-  attachments: any;
-  setAttachments?: any;
+  attachments: Attachment[];
+  setAttachments?: (attachments: Attachment[]) => void;
   isNew?: boolean;
 }
 
 const Attachments: FC<Props> = ({ attachments, setAttachments, isNew = false }) => {
-  const removeAttachment = (attachment: any) => {
+  const removeAttachment = (attachment: Attachment) => {
     const arr = attachments;
-    setAttachments(
-      arr.filter(function (ele: any) {
-        return ele != attachment;
-      })
-    );
+    if (typeof setAttachments === 'function') {
+      setAttachments(
+        arr.filter(function (ele: Attachment) {
+          return ele != attachment;
+        })
+      );
+    }
   };
 
   const slicedAttachments = isNew
     ? attachments?.slice(0, 4)
-    : attachments?.some((e: any) => e.original.mimeType === 'video/mp4')
+    : attachments?.some((e: Attachment) => (e as MediaSet).original.mimeType === 'video/mp4')
     ? attachments?.slice(0, 1)
     : attachments?.slice(0, 4);
 
@@ -57,9 +60,13 @@ const Attachments: FC<Props> = ({ attachments, setAttachments, isNew = false }) 
       className={clsx(getClass(slicedAttachments?.length)?.row, 'grid grid-flow-col gap-2 pt-3')}
       onClick={(event: MouseEvent<HTMLDivElement>) => event.stopPropagation()}
     >
-      {slicedAttachments?.map((attachment: LensterAttachment & MediaSet) => {
-        const type = isNew ? attachment.type : attachment.original.mimeType;
-        const url = isNew ? getIPFSLink(attachment.item) : getIPFSLink(attachment.original.url);
+      {slicedAttachments?.map((attachment: Attachment) => {
+        const type = isNew
+          ? (attachment as LensterAttachment).type
+          : (attachment as MediaSet).original.mimeType;
+        const url = isNew
+          ? getIPFSLink((attachment as LensterAttachment).item)
+          : getIPFSLink((attachment as MediaSet).original.url);
 
         return (
           <div

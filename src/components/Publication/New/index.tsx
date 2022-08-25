@@ -285,7 +285,11 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
               </Button>
             </div>
           </div>
-          <Attachments attachments={attachments} setAttachments={setAttachments} isNew />
+          <Attachments
+            attachments={attachments}
+            setAttachments={(attachments) => setAttachments(attachments as LensterAttachment[])}
+            isNew
+          />
         </div>
       </div>
     </Card>

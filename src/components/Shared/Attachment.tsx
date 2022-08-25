@@ -17,7 +17,11 @@ const Attachment: FC<Props> = ({ attachments, setAttachments }) => {
   const [loading, setLoading] = useState(false);
   const id = useId();
 
-  const hasVideos = (files: any) => {
+  const hasVideos = (files: FileList | null) => {
+    if (!files) {
+      return false;
+    }
+
     let videos = 0;
     let images = 0;
 
@@ -40,7 +44,10 @@ const Attachment: FC<Props> = ({ attachments, setAttachments }) => {
     return false;
   };
 
-  const isTypeAllowed = (files: any) => {
+  const isTypeAllowed = (files: FileList | null) => {
+    if (!files) {
+      return false;
+    }
     for (const file of files) {
       if (ALLOWED_MEDIA_TYPES.includes(file.type)) {
         return true;

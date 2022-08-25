@@ -12,7 +12,8 @@ const CollectedAmount: FC<Props> = ({ notification }) => {
   const publicationType =
     notification?.collectedPublication?.metadata?.attributes[0]?.value ??
     notification?.collectedPublication?.__typename?.toLowerCase();
-  const collectModule: any = notification?.collectedPublication?.collectModule;
+  const collectModule = notification?.collectedPublication?.collectModule;
+  const hasAmount = 'amount' in collectModule;
 
   return (
     <div className="flex items-center mt-2 space-x-1">
@@ -23,11 +24,12 @@ const CollectedAmount: FC<Props> = ({ notification }) => {
       )}
       {collectModule?.__typename === 'FreeCollectModuleSettings' ? (
         <div className="text-[12px]">Collected for free</div>
-      ) : (
+      ) : null}
+      {hasAmount ? (
         <>
           <div className="text-[12px]">
             {publicationType === 'crowdfund' ? 'Funded' : 'Collected for'}{' '}
-            {humanize(collectModule?.amount?.value)} {collectModule?.amount?.asset?.symbol}
+            {humanize(Number(collectModule?.amount?.value))} {collectModule?.amount?.asset?.symbol}
           </div>
           <img
             className="w-5 h-5"
@@ -37,7 +39,7 @@ const CollectedAmount: FC<Props> = ({ notification }) => {
             alt={collectModule?.amount?.asset?.symbol}
           />
         </>
-      )}
+      ) : null}
     </div>
   );
 };

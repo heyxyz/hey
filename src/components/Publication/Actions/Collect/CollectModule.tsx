@@ -125,7 +125,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
     }
   });
 
-  const collectModule: any = data?.publication?.collectModule;
+  const collectModule = data?.publication?.collectModule;
 
   const onCompleted = () => {
     setRevenue(revenue + parseFloat(collectModule?.amount?.value));

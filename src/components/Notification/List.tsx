@@ -211,10 +211,10 @@ const List: FC = () => {
       {data?.notifications?.items?.map((notification: Notification) => (
         <div key={notification?.notificationId} className="p-5">
           {notification?.__typename === 'NewFollowerNotification' && (
-            <FollowerNotification notification={notification as any} />
+            <FollowerNotification notification={notification} />
           )}
           {notification?.__typename === 'NewMentionNotification' && (
-            <MentionNotification notification={notification as any} />
+            <MentionNotification notification={notification} />
           )}
           {notification?.__typename === 'NewCommentNotification' && (
             <CommentNotification notification={notification} />
@@ -223,7 +223,7 @@ const List: FC = () => {
             <MirrorNotification notification={notification} />
           )}
           {notification?.__typename === 'NewCollectNotification' && (
-            <CollectNotification notification={notification as any} />
+            <CollectNotification notification={notification} />
           )}
         </div>
       ))}
