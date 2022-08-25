@@ -34,7 +34,7 @@ export const SIGN_ERROR = 'Failed to sign data';
 
 // URLs
 export const STATIC_ASSETS = 'https://assets.lenster.xyz/images';
-export const API_URL = IS_MAINNET ? 'https://api.lens.dev' : 'https://api-mumbai.lens.dev';
+export const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'https://api.lens.dev';
 export const POLYGONSCAN_URL = IS_MAINNET ? 'https://polygonscan.com' : 'https://mumbai.polygonscan.com';
 export const RARIBLE_URL = IS_MAINNET ? 'https://rarible.com' : 'https://rinkeby.rarible.com';
 export const IMAGEKIT_URL_PROD = 'https://ik.imagekit.io/lensterimg';
