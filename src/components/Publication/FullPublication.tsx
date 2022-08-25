@@ -54,9 +54,9 @@ const FullPublication: FC<Props> = ({ publication }) => {
           ) : (
             <>
               <PublicationBody publication={publication} />
-              <div className="text-sm text-gray-500 flex items-center space-x-2 my-3">
+              <div className="text-sm text-gray-500 my-3">
                 <span>{dayjs(new Date(timestamp)).format('hh:mm A · MMM D, YYYY')}</span>
-                <div>Posted via {getAppName(publication?.appId)}</div>
+                <span> · Posted via {getAppName(publication?.appId)}</span>
               </div>
               {showStats && (
                 <>
