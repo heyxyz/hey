@@ -27,7 +27,6 @@ const SinglePublication: FC<Props> = ({
   showActions = true,
   showThread = true
 }) => {
-  const publicationType = publication?.metadata?.attributes[0]?.value;
   const isMirror = publication?.__typename === 'Mirror';
   const profile = isMirror ? publication?.mirrorOf?.profile : publication?.profile;
   const timestamp = isMirror ? publication?.mirrorOf?.createdAt : publication?.createdAt;
@@ -43,13 +42,7 @@ const SinglePublication: FC<Props> = ({
         <PublicationType publication={publication} showType={showType} showThread={showThread} />
         <div>
           <div className="flex justify-between pb-4 space-x-1.5">
-            <UserProfile
-              profile={
-                publicationType === 'community' && !!publication?.collectedBy?.defaultProfile
-                  ? publication?.collectedBy?.defaultProfile
-                  : profile
-              }
-            />
+            <UserProfile profile={publication?.collectedBy?.defaultProfile ?? profile} />
             <span className="text-sm text-gray-500">{dayjs(new Date(timestamp)).fromNow()}</span>
           </div>
           <div className="ml-[53px]">

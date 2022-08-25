@@ -65,16 +65,6 @@ export const COMMENT = {
   NEW: 'New comment'
 };
 
-export const COMMUNITY = {
-  NEW: 'New community',
-  JOIN: 'Join community',
-  OPEN_MEMBERS: 'Open members list',
-  SETTINGS: {
-    OPEN: 'Open settings modal',
-    DELETE: 'Delete community'
-  }
-};
-
 export const CROWDFUND = {
   NEW: 'New crowdfund',
   FUND: 'Fund a crowdfund',
@@ -114,7 +104,6 @@ export const SEARCH = {
 export const PAGINATION = {
   HOME_FEED: 'Paginate home feed',
   COMMENT_FEED: 'Paginate comment feed',
-  COMMUNITY_FEED: 'Paginate community feed',
   EXPLORE_FEED: 'Paginate explore feed',
   PROFILE_FEED: 'Paginate profile feed',
   NOTIFICATION_FEED: 'Paginate notification feed',
@@ -146,7 +135,6 @@ export const PAGEVIEW = {
   THANKS: 'Thanks page',
   PRIVACY: 'Privacy page',
   CONTACT: 'Contact page',
-  CREATE_COMMUNITY: 'Create community page',
   CREATE_CROWDFUND: 'Create crowdfund page',
   CREATE_PROFILE: 'Create profile page',
   COMMUNITIES: 'Communities page',
