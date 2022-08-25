@@ -1,12 +1,12 @@
 import { ApolloClient, ApolloLink, HttpLink, InMemoryCache } from '@apollo/client';
 import result from '@generated/types';
+import { cursorBasedPagination } from '@lib/cursorBasedPagination';
+import { publicationKeyFields } from '@lib/keyFields';
 import axios from 'axios';
 import Cookies, { CookieAttributes } from 'js-cookie';
 import jwtDecode from 'jwt-decode';
 
-import { API_URL, ERROR_MESSAGE } from '../constants';
-import { cursorBasedPagination } from './lib/cursorBasedPagination';
-import { publicationKeyFields } from './lib/keyFields';
+import { API_URL, ERROR_MESSAGE } from './constants';
 
 export const COOKIE_CONFIG: CookieAttributes = {
   sameSite: 'None',
