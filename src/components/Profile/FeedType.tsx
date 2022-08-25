@@ -1,5 +1,5 @@
 import { ProfileStats } from '@generated/types';
-import { ChatAlt2Icon, PencilAltIcon, PhotographIcon } from '@heroicons/react/outline';
+import { ChatAlt2Icon, FilmIcon, PencilAltIcon, PhotographIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import nFormatter from '@lib/nFormatter';
 import clsx from 'clsx';
@@ -58,6 +58,7 @@ const FeedType: FC<Props> = ({ stats, setFeedType, feedType }) => {
         type="REPLIES"
         count={stats?.totalComments}
       />
+      <FeedLink name="Media" icon={<FilmIcon className="w-4 h-4" />} type="MEDIA" />
       <FeedLink name="NFTs" icon={<PhotographIcon className="w-4 h-4" />} type="NFT" />
     </div>
   );

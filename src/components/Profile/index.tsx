@@ -99,7 +99,9 @@ const ViewProfile: NextPage = () => {
   } = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [feedType, setFeedType] = useState(
-    type && ['feed', 'replies', 'nft'].includes(type as string) ? type.toString().toUpperCase() : 'FEED'
+    type && ['feed', 'replies', 'media', 'nft'].includes(type as string)
+      ? type.toString().toUpperCase()
+      : 'FEED'
   );
 
   useEffect(() => {
@@ -139,7 +141,9 @@ const ViewProfile: NextPage = () => {
         </GridItemFour>
         <GridItemEight className="space-y-5">
           <FeedType stats={profile?.stats} setFeedType={setFeedType} feedType={feedType} />
-          {(feedType === 'FEED' || feedType === 'REPLIES') && <Feed profile={profile} type={feedType} />}
+          {(feedType === 'FEED' || feedType === 'REPLIES' || feedType === 'MEDIA') && (
+            <Feed profile={profile} type={feedType} />
+          )}
           {feedType === 'NFT' && <NFTFeed profile={profile} />}
         </GridItemEight>
       </GridLayout>
