@@ -48,15 +48,21 @@ const PROFILE_FEED_QUERY = gql`
 
 interface Props {
   profile: Profile;
-  type: 'FEED' | 'REPLIES';
+  type: 'FEED' | 'REPLIES' | 'MEDIA';
 }
 
 const Feed: FC<Props> = ({ profile, type }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const publicationTypes = type === 'FEED' ? ['POST', 'MIRROR'] : ['COMMENT'];
+  const publicationTypes =
+    type === 'FEED' ? ['POST', 'MIRROR'] : type === 'MEDIA' ? ['POST', 'COMMENT'] : ['COMMENT'];
   const { data, loading, error, fetchMore } = useQuery(PROFILE_FEED_QUERY, {
     variables: {
-      request: { publicationTypes, profileId: profile?.id, limit: 10 },
+      request: {
+        publicationTypes,
+        profileId: profile?.id,
+        metadata: type === 'MEDIA' ? { mainContentFocus: ['VIDEO', 'IMAGE', 'AUDIO'] } : null,
+        limit: 10
+      },
       reactionRequest: currentProfile ? { profileId: currentProfile?.id } : null,
       profileId: currentProfile?.id ?? null
     },
