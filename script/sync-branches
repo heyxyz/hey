@@ -3,12 +3,14 @@
 #/ Usage: script/sync-branches
 #/ Sync testnet and sandbox branch with main branch.
 
-echo "Sync testnet branch with main branch 🔄"
+echo "Syncing testnet branch with main branch 🔄"
 git pull origin main
 git checkout testnet
 git merge main
 git push origin testnet
 git checkout main
+echo "Syncing sandbox branch with main branch 🔄"
+git pull origin main >> /dev/null
 git checkout sandbox
 git merge main
 git push origin sandbox
