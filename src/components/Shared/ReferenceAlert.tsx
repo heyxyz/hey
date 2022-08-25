@@ -27,7 +27,7 @@ const ReferenceAlert: FC<Props> = ({ handle, isSuperFollow = false, action }) =>
             <UsersIcon className="w-4 h-4 text-brand" />
             <span>Only </span>
             <Slug slug={`${handle}'s`} prefix="@" />
-            <span> followers can comment</span>
+            <span> followers can {action}</span>
           </>
         )}
       </CardBody>
