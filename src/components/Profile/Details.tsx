@@ -98,9 +98,7 @@ const Details: FC<Props> = ({ profile }) => {
           ) : null}
           {currentProfile?.id === profile?.id && (
             <Link href="/settings">
-              <a href="/settings">
-                <Button variant="secondary" className="!py-1.5" icon={<CogIcon className="w-5 h-5" />} />
-              </a>
+              <Button variant="secondary" className="!py-1.5" icon={<CogIcon className="w-5 h-5" />} />
             </Link>
           )}
         </div>

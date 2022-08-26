@@ -17,14 +17,10 @@ const CommentedPublication: FC<Props> = ({ publication }) => {
       <ChatAlt2Icon className="w-4 h-4" />
       <div className="flex items-center space-x-1">
         <Link href={`/posts/${sourceId}`}>
-          <a href={`/posts/${sourceId}`}>
-            Commented on {publication?.commentOn?.__typename?.toLowerCase()} by
-          </a>
+          Commented on {publication?.commentOn?.__typename?.toLowerCase()} by
         </Link>
         <Link href={`/u/${sourceProfileHandle}`}>
-          <a href={`/u/${sourceProfileHandle}`}>
-            <Slug slug={sourceProfileHandle} prefix="@" />
-          </a>
+          <Slug slug={sourceProfileHandle} prefix="@" />
         </Link>
       </div>
     </div>

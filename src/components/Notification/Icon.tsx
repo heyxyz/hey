@@ -35,19 +35,17 @@ const NotificationIcon: FC = () => {
   }, [data]);
 
   return (
-    <Link href="/notifications">
-      <a
-        className="flex items-start"
-        href="/notifications"
-        onClick={() => {
-          setNotificationCount(data?.notifications?.pageInfo?.totalCount);
-          setShowBadge(false);
-          Mixpanel.track(NOTIFICATION.OPEN);
-        }}
-      >
-        <LightningBoltIcon className="w-5 h-5 sm:w-6 sm:h-6" />
-        {showBadge && <div className="w-2 h-2 bg-red-500 rounded-full" />}
-      </a>
+    <Link
+      href="/notifications"
+      className="flex items-start"
+      onClick={() => {
+        setNotificationCount(data?.notifications?.pageInfo?.totalCount);
+        setShowBadge(false);
+        Mixpanel.track(NOTIFICATION.OPEN);
+      }}
+    >
+      <LightningBoltIcon className="w-5 h-5 sm:w-6 sm:h-6" />
+      {showBadge && <div className="w-2 h-2 bg-red-500 rounded-full" />}
     </Link>
   );
 };

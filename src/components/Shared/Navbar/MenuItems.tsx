@@ -11,8 +11,8 @@ import Login from './Login';
 import SignedUser from './SignedUser';
 
 export const NextLink = ({ href, children, ...rest }: Record<string, any>) => (
-  <Link href={href}>
-    <a {...rest}>{children}</a>
+  <Link href={href} {...rest}>
+    {children}
   </Link>
 );
 
