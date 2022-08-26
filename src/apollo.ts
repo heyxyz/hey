@@ -1,4 +1,4 @@
-import { ApolloClient, ApolloLink, concat, HttpLink, InMemoryCache } from '@apollo/client';
+import { ApolloClient, ApolloLink, from, HttpLink, InMemoryCache } from '@apollo/client';
 import { RetryLink } from '@apollo/client/link/retry';
 import result from '@generated/types';
 import { cursorBasedPagination } from '@lib/cursorBasedPagination';
@@ -110,7 +110,7 @@ const cache = new InMemoryCache({
 });
 
 const client = new ApolloClient({
-  link: concat(authLink.concat(httpLink), retryLink),
+  link: from([authLink, httpLink, retryLink]),
   cache
 });
 
