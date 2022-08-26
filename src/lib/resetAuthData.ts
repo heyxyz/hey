@@ -1,10 +1,10 @@
 import Cookies from 'js-cookie';
 
-const clearAuthData = () => {
+const resetAuthData = () => {
   Cookies.remove('accessToken');
   Cookies.remove('refreshToken');
   localStorage.removeItem('lenster.store');
   localStorage.removeItem('streak');
 };
 
-export default clearAuthData;
+export default resetAuthData;

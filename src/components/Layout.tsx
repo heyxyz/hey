@@ -1,8 +1,8 @@
 import { gql, useQuery } from '@apollo/client';
 import { Profile } from '@generated/types';
 import { ProfileFields } from '@gql/ProfileFields';
-import clearAuthData from '@lib/clearAuthData';
 import getToastOptions from '@lib/getToastOptions';
+import resetAuthData from '@lib/resetAuthData';
 import Cookies from 'js-cookie';
 import mixpanel from 'mixpanel-browser';
 import Head from 'next/head';
@@ -62,6 +62,12 @@ const Layout: FC<Props> = ({ children }) => {
   const { chain } = useNetwork();
   const { disconnect } = useDisconnect();
 
+  const resetAuthState = () => {
+    setProfileId(null);
+    setCurrentProfile(null);
+    setIsAuthenticated(false);
+  };
+
   // Fetch current profiles and sig nonce owned by the wallet address
   const { loading } = useQuery(USER_PROFILES_QUERY, {
     variables: { ownedBy: address },
@@ -73,12 +79,12 @@ const Layout: FC<Props> = ({ children }) => {
         ?.sort((a: Profile, b: Profile) => (!(a.isDefault !== b.isDefault) ? 0 : a.isDefault ? -1 : 1));
 
       setUserSigNonce(data?.userSigNonces?.lensHubOnChainSigNonce);
-      if (profiles.length === 0) {
-        setProfileId(null);
-      } else {
+      if (profiles.length) {
         const selectedUser = profiles.find((profile) => profile.id === profileId);
         setProfiles(profiles);
         setCurrentProfile(selectedUser as Profile);
+      } else {
+        resetAuthState();
       }
     }
   });
@@ -99,10 +105,8 @@ const Layout: FC<Props> = ({ children }) => {
         !hasAuthTokens) && // If the user has no auth tokens
       isAuthenticated // If the user is authenticated
     ) {
-      setIsAuthenticated(false);
-      setCurrentProfile(null);
-      setProfileId(null);
-      clearAuthData();
+      resetAuthState();
+      resetAuthData();
       disconnect();
     }
 

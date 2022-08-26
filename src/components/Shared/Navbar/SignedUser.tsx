@@ -12,11 +12,11 @@ import {
   SwitchHorizontalIcon,
   UserIcon
 } from '@heroicons/react/outline';
-import clearAuthData from '@lib/clearAuthData';
 import getAvatar from '@lib/getAvatar';
 import isBeta from '@lib/isBeta';
 import isStaff from '@lib/isStaff';
 import { Mixpanel } from '@lib/mixpanel';
+import resetAuthData from '@lib/resetAuthData';
 import clsx from 'clsx';
 import { useTheme } from 'next-themes';
 import { FC, Fragment } from 'react';
@@ -118,7 +118,7 @@ const SignedUser: FC<Props> = ({ pingData }) => {
                   setIsAuthenticated(false);
                   setCurrentProfile(null);
                   setProfileId(null);
-                  clearAuthData();
+                  resetAuthData();
                   disconnect();
                 }}
                 className={({ active }: { active: boolean }) =>
