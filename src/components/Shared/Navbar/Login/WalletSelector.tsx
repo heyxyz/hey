@@ -118,14 +118,16 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
     } catch {}
   };
 
+  const isLoading = signLoading || challengeLoading || authLoading || profilesLoading;
+
   return activeConnector?.id ? (
     <div className="space-y-3">
       {chain?.id === CHAIN_ID ? (
         <Button
           size="lg"
-          disabled={signLoading || challengeLoading || authLoading || profilesLoading}
+          disabled={isLoading}
           icon={
-            signLoading || challengeLoading || authLoading || profilesLoading ? (
+            isLoading ? (
               <Spinner className="mr-0.5" size="xs" />
             ) : (
               <img className="mr-1 w-5 h-5" height={20} width={20} src="/lens.png" alt="Lens Logo" />
