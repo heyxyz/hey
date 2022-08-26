@@ -16,10 +16,7 @@ export const GIT_COMMIT_SHA = process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA?.sli
 // Misc
 export const CONTACT_EMAIL = 'support@lenster.xyz';
 export const PUBLIC_URL = process.env.NEXT_PUBLIC_URL;
-export const RELAY_ON =
-  PUBLIC_URL === 'https://lenster.xyz' || PUBLIC_URL === 'http://localhost:4783'
-    ? process.env.NEXT_PUBLIC_RELAY_ON === 'true'
-    : false;
+export const RELAY_ON = process.env.NEXT_PUBLIC_RELAY_ON === 'true';
 export const MIXPANEL_TOKEN = process.env.NEXT_PUBLIC_MIXPANEL_TOKEN ?? '';
 export const MIXPANEL_API_HOST = 'https://utils.lenster.xyz/collect';
 
