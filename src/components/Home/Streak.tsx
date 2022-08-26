@@ -26,7 +26,7 @@ const Streak = () => {
   }
 
   return (
-    <Card className="mb-4">
+    <Card as="aside" className="mb-4">
       <CardBody className="flex justify-between items-center space-y-2">
         <div>
           <div>You&rsquo;re on a</div>

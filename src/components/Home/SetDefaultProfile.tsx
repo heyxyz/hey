@@ -15,7 +15,7 @@ const SetDefaultProfile: FC = () => {
   }
 
   return (
-    <Card className="mb-4 bg-green-50 dark:bg-green-900 !border-green-600">
+    <Card as="aside" className="mb-4 bg-green-50 dark:bg-green-900 !border-green-600">
       <CardBody className="space-y-2.5 text-green-600">
         <div className="flex items-center space-x-2 font-bold">
           <UserCircleIcon className="w-5 h-5" />

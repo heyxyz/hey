@@ -13,7 +13,7 @@ const EnableDispatcher: FC = () => {
   }
 
   return (
-    <Card className="mb-4 bg-brand-50 dark:bg-brand-900 !border-brand-600">
+    <Card as="aside" className="mb-4 bg-brand-50 dark:bg-brand-900 !border-brand-600">
       <CardBody className="space-y-2.5 text-brand-600">
         <div className="flex items-center space-x-2 font-bold">
           <HandIcon className="w-5 h-5" />

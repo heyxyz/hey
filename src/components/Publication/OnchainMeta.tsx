@@ -36,7 +36,7 @@ const OnchainMeta: FC<Props> = ({ publication }) => {
   }
 
   return (
-    <Card>
+    <Card as="aside">
       <div className="text-gray-500 divide-y dark:divide-gray-700">
         {isArweaveHash ? (
           <Meta name="ARWEAVE TRANSACTION" uri={`https://v2.viewblock.io/arweave/tx/${hash}`} hash={hash} />

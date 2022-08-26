@@ -27,7 +27,7 @@ interface Props {
 
 const ProfileStaffTool: FC<Props> = ({ profile }) => {
   return (
-    <Card className="mt-5 border-yellow-400 !bg-yellow-300 !bg-opacity-20">
+    <Card as="aside" className="mt-5 border-yellow-400 !bg-yellow-300 !bg-opacity-20">
       <CardBody>
         <div className="flex items-center space-x-2 text-yellow-600">
           <ShieldCheckIcon className="h-5 w-5" />
