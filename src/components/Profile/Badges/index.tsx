@@ -14,7 +14,8 @@ const Badges: FC<Props> = ({ profile }) => {
   const hasOnChainIdentity =
     profile?.onChainIdentity?.proofOfHumanity ||
     profile?.onChainIdentity?.sybilDotOrg?.verified ||
-    profile?.onChainIdentity?.ens?.name;
+    profile?.onChainIdentity?.ens?.name ||
+    profile?.onChainIdentity?.worldcoin?.isHuman;
 
   if (!hasOnChainIdentity) {
     return null;
