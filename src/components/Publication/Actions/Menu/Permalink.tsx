@@ -6,7 +6,6 @@ import clsx from 'clsx';
 import React, { FC } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import toast from 'react-hot-toast';
-import { PUBLIC_URL } from 'src/constants';
 import { PUBLICATION } from 'src/tracking';
 
 interface Props {
@@ -16,7 +15,7 @@ interface Props {
 const Permalink: FC<Props> = ({ publication }) => {
   return (
     <CopyToClipboard
-      text={`${PUBLIC_URL}/posts/${publication?.id}`}
+      text={`${location.origin}/posts/${publication?.id}`}
       onCopy={() => {
         toast.success('Copied to clipboard!');
         Mixpanel.track(PUBLICATION.PERMALINK);
