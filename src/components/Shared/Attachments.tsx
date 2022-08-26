@@ -5,7 +5,7 @@ import getIPFSLink from '@lib/getIPFSLink';
 import imagekitURL from '@lib/imagekitURL';
 import clsx from 'clsx';
 import dynamic from 'next/dynamic';
-import React, { FC, MouseEvent } from 'react';
+import React, { FC } from 'react';
 
 const Video = dynamic(() => import('./Video'), {
   loading: () => <div className="rounded-lg aspect-w-16 aspect-h-12 shimmer" />
@@ -53,10 +53,7 @@ const Attachments: FC<Props> = ({ attachments, setAttachments, isNew = false }) 
     : attachments?.slice(0, 4);
 
   return slicedAttachments?.length !== 0 ? (
-    <div
-      className={clsx(getClass(slicedAttachments?.length)?.row, 'grid grid-flow-col gap-2 pt-3')}
-      onClick={(event: MouseEvent<HTMLDivElement>) => event.stopPropagation()}
-    >
+    <div className={clsx(getClass(slicedAttachments?.length)?.row, 'grid grid-flow-col gap-2 pt-3')}>
       {slicedAttachments?.map((attachment: LensterAttachment & MediaSet) => {
         const type = isNew ? attachment.type : attachment.original.mimeType;
         const url = isNew ? getIPFSLink(attachment.item) : getIPFSLink(attachment.original.url);

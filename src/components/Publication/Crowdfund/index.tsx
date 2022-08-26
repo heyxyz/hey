@@ -14,7 +14,7 @@ import getTokenImage from '@lib/getTokenImage';
 import imagekitURL from '@lib/imagekitURL';
 import { Mixpanel } from '@lib/mixpanel';
 import clsx from 'clsx';
-import React, { FC, MouseEvent, ReactNode, useEffect, useState } from 'react';
+import React, { FC, ReactNode, useEffect, useState } from 'react';
 import { STATIC_ASSETS } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { CROWDFUND } from 'src/tracking';
@@ -81,7 +81,7 @@ const Crowdfund: FC<Props> = ({ fund }) => {
   }
 
   return (
-    <Card forceRounded onClick={(event: MouseEvent<HTMLDivElement>) => event.stopPropagation()}>
+    <Card forceRounded>
       <div
         className="h-40 rounded-t-xl border-b sm:h-52 dark:border-b-gray-700/80"
         style={{
