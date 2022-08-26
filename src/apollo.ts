@@ -31,9 +31,7 @@ const httpLink = new HttpLink({
 });
 
 const retryLink = new RetryLink({
-  attempts: {
-    max: 3
-  }
+  attempts: { max: 3 }
 });
 
 const authLink = new ApolloLink((operation, forward) => {
