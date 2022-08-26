@@ -5,18 +5,16 @@ import { MenuIcon, XIcon } from '@heroicons/react/outline';
 import hasPrideLogo from '@lib/hasPrideLogo';
 import isStaff from '@lib/isStaff';
 import clsx from 'clsx';
-import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { FC } from 'react';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 
+import NewPostModal from '../../Publication/New/NewPostModal';
 import MenuItems from './MenuItems';
 import MoreNavItems from './MoreNavItems';
 import Search from './Search';
-
-const StaffBar = dynamic(() => import('./StaffBar'));
-const NewPostModal = dynamic(() => import('../../Publication/New/NewPostModal'));
+import StaffBar from './StaffBar';
 
 const PING_QUERY = gql`
   query Ping {
