@@ -1,6 +1,6 @@
 # Contributing to Lenster 🌸
 
-👍🎉 Thank you for your interest in contributing to the Lenster! 🎉👍
+👍🎉 Thank you for your interest in contributing to Lenster! 🎉👍
 
 Lenster is an open-source project maintained by [Lenster team](https://github.com/lensterxyz). We appreciate your interest and efforts to contribute to Lenster.
 
@@ -11,7 +11,7 @@ All efforts to contribute are highly appreciated, we recommend you talk to a mai
 ## Values
 
 - **Be the change** - Don't wait for anything, if you want something ship it but make sure it is sustainable for the long term.
-- **Pride in product** - We ask ourselves that will we use the feature if it's live before making it.
+- **Pride in product** - We ask ourselves whether we will use the feature if it goes live before creating it.
 - **Diversity** - We welcome differences, and listen before we speak. It proportionally leads to extraordinary results and experiences.
 
 ## Open Development & Community Driven
@@ -22,7 +22,7 @@ The maintainers and the contributors send merge requests which go through the sa
 
 ## Feature Requests
 
-Feature Requests by the community are highly encouraged. Please feel free to create a [issue](https://github.com/lensterxyz/lenster/issues/new) or to upvote 👍 [an existing issues](https://github.com/lensterxyz/lenster/issues) in the GitHub.
+Feature Requests by the community are highly encouraged. Please feel free to create an [issue](https://github.com/lensterxyz/lenster/issues/new) or to upvote 👍 [an existing issue](https://github.com/lensterxyz/lenster/issues) in the GitHub.
 
 ## Code of Conduct
 
