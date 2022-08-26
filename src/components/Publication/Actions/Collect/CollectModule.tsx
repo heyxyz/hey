@@ -41,8 +41,8 @@ import splitSignature from '@lib/splitSignature';
 import dayjs from 'dayjs';
 import React, { Dispatch, FC, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import { CONNECT_WALLET, LENSHUB_PROXY, POLYGONSCAN_URL, RELAY_ON } from 'src/constants';
-import { useAppPersistStore, useAppStore } from 'src/store/app';
+import { LENSHUB_PROXY, POLYGONSCAN_URL, RELAY_ON, SIGN_WALLET } from 'src/constants';
+import { useAppStore } from 'src/store/app';
 import { PUBLICATION } from 'src/tracking';
 import { useAccount, useBalance, useContractWrite, useSignTypedData } from 'wagmi';
 
@@ -111,7 +111,7 @@ interface Props {
 const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
-  const isConnected = useAppPersistStore((state) => state.isConnected);
+  const currentProfile = useAppStore((state) => state.currentProfile);
   const [revenue, setRevenue] = useState(0);
   const [hasCollectedByMe, setHasCollectedByMe] = useState(publication?.hasCollectedByMe);
   const [showCollectorsModal, setShowCollectorsModal] = useState(false);
@@ -159,7 +159,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
         referenceModules: []
       }
     },
-    skip: !collectModule?.amount?.asset?.address || !isConnected,
+    skip: !collectModule?.amount?.asset?.address || !currentProfile,
     onCompleted: (data) => {
       setAllowed(data?.approvedModuleAllowanceAmount[0]?.allowance !== '0x00');
     }
@@ -242,8 +242,8 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
   );
 
   const createCollect = () => {
-    if (!isConnected) {
-      return toast.error(CONNECT_WALLET);
+    if (!currentProfile) {
+      return toast.error(SIGN_WALLET);
     }
 
     if (collectModule?.type === 'FreeCollectModule') {
@@ -436,7 +436,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
             <IndexStatus txHash={writeData?.hash ? writeData?.hash : broadcastData?.broadcast?.txHash} />
           </div>
         ) : null}
-        {isConnected && !hasCollectedByMe ? (
+        {currentProfile && !hasCollectedByMe ? (
           allowanceLoading || balanceLoading ? (
             <div className="mt-5 w-28 rounded-lg h-[34px] shimmer" />
           ) : allowed || collectModule.type === 'FreeCollectModule' ? (

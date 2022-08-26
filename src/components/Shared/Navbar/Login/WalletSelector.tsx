@@ -43,7 +43,7 @@ interface Props {
 const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
   const setProfiles = useAppStore((state) => state.setProfiles);
   const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
-  const setIsConnected = useAppPersistStore((state) => state.setIsConnected);
+  const setIsAuthenticated = useAppPersistStore((state) => state.setIsAuthenticated);
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
 
   const [mounted, setMounted] = useState(false);
@@ -112,22 +112,22 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
         setProfiles(profiles);
         setCurrentProfile(currentProfile);
         setProfileId(currentProfile.id);
+        setIsAuthenticated(true);
       }
-      setIsConnected(true);
       Mixpanel.track(USER.SIWL);
-    } catch (error) {
-      console.log(error);
-    }
+    } catch {}
   };
+
+  const isLoading = signLoading || challengeLoading || authLoading || profilesLoading;
 
   return activeConnector?.id ? (
     <div className="space-y-3">
       {chain?.id === CHAIN_ID ? (
         <Button
           size="lg"
-          disabled={signLoading || challengeLoading || authLoading || profilesLoading}
+          disabled={isLoading}
           icon={
-            signLoading || challengeLoading || authLoading || profilesLoading ? (
+            isLoading ? (
               <Spinner className="mr-0.5" size="xs" />
             ) : (
               <img className="mr-1 w-5 h-5" height={20} width={20} src="/lens.png" alt="Lens Logo" />

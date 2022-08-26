@@ -7,12 +7,11 @@ import { Mixpanel } from '@lib/mixpanel';
 import { NextPage } from 'next';
 import dynamic from 'next/dynamic';
 import React, { useEffect } from 'react';
-import { useAppPersistStore, useAppStore } from 'src/store/app';
+import { useAppStore } from 'src/store/app';
 import { PAGEVIEW } from 'src/tracking';
 
 import EnableDispatcher from './EnableDispatcher';
 import Hero from './Hero';
-import ProfileWarning from './ProfileWarning';
 import RecommendedProfiles from './RecommendedProfiles';
 import SetDefaultProfile from './SetDefaultProfile';
 import SetProfile from './SetProfile';
@@ -31,13 +30,11 @@ const Home: NextPage = () => {
   }, []);
 
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const isConnected = useAppPersistStore((state) => state.isConnected);
 
   return (
     <>
       <Seo />
-      {isConnected && !currentProfile && <ProfileWarning />}
-      {!isConnected && <Hero />}
+      {!currentProfile && <Hero />}
       <GridLayout>
         <GridItemEight className="space-y-5">{currentProfile ? <HomeFeed /> : <ExploreFeed />}</GridItemEight>
         <GridItemFour>
