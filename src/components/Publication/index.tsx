@@ -128,7 +128,7 @@ const ViewPublication: NextPage = () => {
         />
       </GridItemEight>
       <GridItemFour className="space-y-5">
-        <Card>
+        <Card as="aside">
           <CardBody>
             <UserProfile
               profile={
