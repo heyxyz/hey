@@ -1,12 +1,13 @@
-import { ApolloClient, ApolloLink, HttpLink, InMemoryCache } from '@apollo/client';
+import { ApolloClient, ApolloLink, concat, HttpLink, InMemoryCache } from '@apollo/client';
+import { RetryLink } from '@apollo/client/link/retry';
 import result from '@generated/types';
+import { cursorBasedPagination } from '@lib/cursorBasedPagination';
+import { publicationKeyFields } from '@lib/keyFields';
 import axios from 'axios';
 import Cookies, { CookieAttributes } from 'js-cookie';
 import jwtDecode from 'jwt-decode';
 
-import { API_URL, ERROR_MESSAGE } from '../constants';
-import { cursorBasedPagination } from './lib/cursorBasedPagination';
-import { publicationKeyFields } from './lib/keyFields';
+import { API_URL, ERROR_MESSAGE } from './constants';
 
 export const COOKIE_CONFIG: CookieAttributes = {
   sameSite: 'None',
@@ -27,6 +28,12 @@ const httpLink = new HttpLink({
   uri: API_URL,
   fetchOptions: 'no-cors',
   fetch
+});
+
+const retryLink = new RetryLink({
+  attempts: {
+    max: 3
+  }
 });
 
 const authLink = new ApolloLink((operation, forward) => {
@@ -104,12 +111,7 @@ const cache = new InMemoryCache({
 });
 
 const client = new ApolloClient({
-  link: authLink.concat(httpLink),
-  cache
-});
-
-export const nodeClient = new ApolloClient({
-  link: httpLink,
+  link: concat(authLink.concat(httpLink), retryLink),
   cache
 });
 
