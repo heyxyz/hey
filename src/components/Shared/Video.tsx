@@ -15,7 +15,6 @@ const Video: FC<Props> = ({ src }) => {
   useEffect(() => {
     const handlePlay = (entries: any) => {
       for (const entry of entries) {
-        console.log('here');
         if (!entry.isIntersecting) {
           (videoRef.current?.plyr as Plyr)?.pause();
         }
