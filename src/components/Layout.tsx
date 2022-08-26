@@ -1,4 +1,4 @@
-import { gql, useQuery } from '@apollo/client';
+import { gql, useLazyQuery } from '@apollo/client';
 import { Profile } from '@generated/types';
 import { ProfileFields } from '@gql/ProfileFields';
 import getToastOptions from '@lib/getToastOptions';
@@ -57,7 +57,7 @@ const Layout: FC<Props> = ({ children }) => {
   const profileId = useAppPersistStore((state) => state.profileId);
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
 
-  const [mounted, setMounted] = useState(false);
+  const [loading, setLoading] = useState(true);
   const { address, isDisconnected } = useAccount();
   const { chain } = useNetwork();
   const { disconnect } = useDisconnect();
@@ -69,9 +69,8 @@ const Layout: FC<Props> = ({ children }) => {
   };
 
   // Fetch current profiles and sig nonce owned by the wallet address
-  const { loading } = useQuery(USER_PROFILES_QUERY, {
+  const [loadProfiles] = useLazyQuery(USER_PROFILES_QUERY, {
     variables: { ownedBy: address },
-    skip: !isAuthenticated,
     onCompleted: (data) => {
       const profiles: Profile[] = data?.profiles?.items
         ?.slice()
@@ -88,6 +87,15 @@ const Layout: FC<Props> = ({ children }) => {
       }
     }
   });
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      loadProfiles().finally(() => setLoading(false));
+    } else {
+      setLoading(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     const accessToken = Cookies.get('accessToken');
@@ -109,13 +117,10 @@ const Layout: FC<Props> = ({ children }) => {
       resetAuthData();
       disconnect();
     }
-
-    // Set mounted state to true after the first render
-    setMounted(true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isDisconnected, address, chain, currentProfile, disconnect]);
 
-  if (!mounted || loading) {
+  if (loading) {
     return <Loading />;
   }
 
