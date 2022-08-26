@@ -1,16 +1,38 @@
 import 'plyr-react/plyr.css';
 
-import Plyr from 'plyr-react';
-import React, { FC } from 'react';
+import Plyr, { APITypes } from 'plyr-react';
+import React, { FC, useEffect, useRef } from 'react';
 
 interface Props {
   src: string;
 }
 
 const Video: FC<Props> = ({ src }) => {
+  const videoRef = useRef<APITypes>(null);
+  const wrapperRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    let handlePlay = (entries: any) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) {
+          (videoRef.current?.plyr as Plyr)?.pause();
+        }
+      }
+    };
+
+    let observer = new IntersectionObserver(handlePlay, {
+      threshold: [0.25, 0.75]
+    });
+
+    if (wrapperRef.current) {
+      observer.observe(wrapperRef?.current);
+    }
+  }, []);
+
   return (
-    <div className="rounded-lg">
+    <div ref={wrapperRef} className="rounded-lg">
       <Plyr
+        ref={videoRef}
         source={{
           type: 'video',
           sources: [{ src, provider: 'html5' }],
