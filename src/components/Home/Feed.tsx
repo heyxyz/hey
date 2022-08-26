@@ -1,5 +1,4 @@
 import { gql, useQuery } from '@apollo/client';
-import NewPost from '@components/Publication/New';
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
 import { Card } from '@components/UI/Card';
@@ -76,7 +75,6 @@ const Feed: FC = () => {
 
   return (
     <>
-      {currentProfile && <NewPost />}
       {loading && <PublicationsShimmer />}
       {data?.timeline?.items?.length === 0 && (
         <EmptyState
