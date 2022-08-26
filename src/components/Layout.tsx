@@ -90,6 +90,7 @@ const Layout: FC<Props> = ({ children }) => {
     const currentProfileAddress = currentProfile?.ownedBy;
     const hasSameAddress = currentProfileAddress !== undefined && currentProfileAddress !== address;
 
+    // If there are no auth data, clear and logout
     if (
       (hasSameAddress || // If the current address is not the same as the profile address
         chain?.id !== CHAIN_ID || // If the user is not on the correct chain
