@@ -18,8 +18,8 @@ const CrossPost: FC = () => {
           Reflect will auto-tweet new {APP_NAME} posts, so you can finally escape the bird site.
         </div>
         <a
+          href="https://reflect.withlens.app"
           className="flex items-center space-x-1.5"
-          href="https://reflect.withlens.app/"
           onClick={() => {
             Mixpanel.track(SETTINGS.ACCOUNT.OPEN_REFLECT);
           }}

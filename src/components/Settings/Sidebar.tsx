@@ -14,16 +14,14 @@ interface MenuProps {
 }
 
 const Menu: FC<MenuProps> = ({ children, current, url }) => (
-  <Link href={url}>
-    <a
-      href={url}
-      className={clsx(
-        'flex items-center space-x-2 rounded-lg px-3 py-2 hover:bg-brand-100 hover:text-brand dark:hover:bg-opacity-20 dark:bg-opacity-20 hover:bg-opacity-100',
-        { 'bg-brand-100 text-brand font-bold': current }
-      )}
-    >
-      {children}
-    </a>
+  <Link
+    href={url}
+    className={clsx(
+      'flex items-center space-x-2 rounded-lg px-3 py-2 hover:bg-brand-100 hover:text-brand dark:hover:bg-opacity-20 dark:bg-opacity-20 hover:bg-opacity-100',
+      { 'bg-brand-100 text-brand font-bold': current }
+    )}
+  >
+    {children}
   </Link>
 );
 

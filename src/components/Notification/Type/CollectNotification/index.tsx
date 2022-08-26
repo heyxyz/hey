@@ -49,10 +49,8 @@ const CollectNotification: FC<Props> = ({ notification }) => {
           <span className="text-gray-600 dark:text-gray-400">
             {publicationType === 'crowdfund' ? 'funded your' : 'collected your'}{' '}
           </span>
-          <Link href={`/posts/${notification?.collectedPublication?.id}`}>
-            <a href={`/posts/${notification?.collectedPublication?.id}`} className="font-bold">
-              {publicationType}
-            </a>
+          <Link href={`/posts/${notification?.collectedPublication?.id}`} className="font-bold">
+            {publicationType}
           </Link>
           <CollectedContent notification={notification} />
           <CollectedAmount notification={notification} />

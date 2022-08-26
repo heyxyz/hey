@@ -20,13 +20,11 @@ const Collected: FC<Props> = ({ publication, type }) => {
       <div className="space-x-1">
         {publication?.collectedBy?.defaultProfile ? (
           <Link href={`/u/${publication?.collectedBy?.defaultProfile?.handle}`}>
-            <a href={`/u/${publication?.collectedBy?.defaultProfile?.handle}`}>
-              {publication?.collectedBy?.defaultProfile?.name ? (
-                <b>{publication?.collectedBy?.defaultProfile?.name}</b>
-              ) : (
-                <Slug slug={publication?.collectedBy?.defaultProfile?.handle} prefix="@" />
-              )}
-            </a>
+            {publication?.collectedBy?.defaultProfile?.name ? (
+              <b>{publication?.collectedBy?.defaultProfile?.name}</b>
+            ) : (
+              <Slug slug={publication?.collectedBy?.defaultProfile?.handle} prefix="@" />
+            )}
           </Link>
         ) : (
           <a
@@ -38,16 +36,14 @@ const Collected: FC<Props> = ({ publication, type }) => {
           </a>
         )}
         <Link href={`/posts/${publication?.id}`}>
-          <a href={`/posts/${publication?.id}`}>
-            <span>{type} the </span>
-            <b>
-              {publication?.__typename === 'Post'
-                ? publicationType === 'crowdfund'
-                  ? 'crowdfund'
-                  : (publication?.__typename as string)?.toLowerCase()
-                : (publication?.__typename as any)?.toLowerCase()}
-            </b>
-          </a>
+          <span>{type} the </span>
+          <b>
+            {publication?.__typename === 'Post'
+              ? publicationType === 'crowdfund'
+                ? 'crowdfund'
+                : (publication?.__typename as string)?.toLowerCase()
+              : (publication?.__typename as any)?.toLowerCase()}
+          </b>
         </Link>
       </div>
     </div>

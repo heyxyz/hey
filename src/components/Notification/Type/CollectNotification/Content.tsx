@@ -16,15 +16,11 @@ const CollectedContent: FC<Props> = ({ notification }) => {
     <div className="text-gray-500 line-clamp-2 mt-2">
       {publicationType === 'crowdfund' ? (
         <Link href={`/posts/${notification?.collectedPublication?.id}`}>
-          <a href={`/posts/${notification?.collectedPublication?.id}`}>
-            {notification?.collectedPublication?.metadata?.name}
-          </a>
+          {notification?.collectedPublication?.metadata?.name}
         </Link>
       ) : (
-        <Link href={`/posts/${notification?.collectedPublication?.id}`}>
-          <a className="linkify" href={`/posts/${notification?.collectedPublication?.id}`}>
-            <Markup>{notification?.collectedPublication?.metadata?.content}</Markup>
-          </a>
+        <Link href={`/posts/${notification?.collectedPublication?.id}`} className="linkify">
+          <Markup>{notification?.collectedPublication?.metadata?.content}</Markup>
         </Link>
       )}
     </div>

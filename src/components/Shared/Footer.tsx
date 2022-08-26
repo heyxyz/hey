@@ -15,9 +15,7 @@ const Footer: FC = () => {
       <span className="font-bold text-gray-500 dark:text-gray-300">
         &copy; {new Date().getFullYear()} {APP_NAME}
       </span>
-      <Link href="/privacy">
-        <a href="/privacy">Privacy</a>
-      </Link>
+      <Link href="/privacy">Privacy</Link>
       <a href="https://lenster.xyz/discord" target="_blank" rel="noreferrer noopener">
         Discord
       </a>
@@ -30,9 +28,7 @@ const Footer: FC = () => {
       <a href="https://vote.lenster.xyz" target="_blank" rel="noreferrer noopener">
         Vote
       </a>
-      <Link href="/thanks">
-        <a href="/thanks">Thanks</a>
-      </Link>
+      <Link href="/thanks">Thanks</Link>
       <a href="https://github.com/lensterxyz/lenster" target="_blank" rel="noreferrer noopener">
         GitHub
       </a>
