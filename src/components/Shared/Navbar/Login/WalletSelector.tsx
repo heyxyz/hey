@@ -112,8 +112,8 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
         setProfiles(profiles);
         setCurrentProfile(currentProfile);
         setProfileId(currentProfile.id);
+        setIsConnected(true);
       }
-      setIsConnected(true);
       Mixpanel.track(USER.SIWL);
     } catch (error) {
       console.log(error);

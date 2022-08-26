@@ -25,7 +25,6 @@ export const MIXPANEL_API_HOST = 'https://utils.lenster.xyz/collect';
 
 // Messages
 export const ERROR_MESSAGE = 'Something went wrong!';
-export const CONNECT_WALLET = 'Please connect your wallet.';
 export const SIGN_WALLET = 'Please sign in your wallet.';
 export const WRONG_NETWORK = IS_MAINNET
   ? 'Please change network to Polygon mainnet.'
