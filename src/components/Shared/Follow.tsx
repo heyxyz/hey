@@ -12,8 +12,8 @@ import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import { Dispatch, FC } from 'react';
 import toast from 'react-hot-toast';
-import { CONNECT_WALLET, LENSHUB_PROXY, RELAY_ON } from 'src/constants';
-import { useAppPersistStore, useAppStore } from 'src/store/app';
+import { LENSHUB_PROXY, RELAY_ON, SIGN_WALLET } from 'src/constants';
+import { useAppStore } from 'src/store/app';
 import { PROFILE } from 'src/tracking';
 import { useAccount, useContractWrite, useSignTypedData } from 'wagmi';
 
@@ -56,7 +56,6 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const isConnected = useAppPersistStore((state) => state.isConnected);
   const { address } = useAccount();
 
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
@@ -123,8 +122,8 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
   });
 
   const createFollow = () => {
-    if (!isConnected) {
-      return toast.error(CONNECT_WALLET);
+    if (!currentProfile) {
+      return toast.error(SIGN_WALLET);
     }
 
     if (profile?.followModule) {

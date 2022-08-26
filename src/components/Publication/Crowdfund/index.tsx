@@ -16,7 +16,7 @@ import { Mixpanel } from '@lib/mixpanel';
 import clsx from 'clsx';
 import React, { FC, MouseEvent, ReactNode, useEffect, useState } from 'react';
 import { STATIC_ASSETS } from 'src/constants';
-import { useAppPersistStore } from 'src/store/app';
+import { useAppStore } from 'src/store/app';
 import { CROWDFUND } from 'src/tracking';
 
 import { COLLECT_QUERY } from '../Actions/Collect/CollectModule';
@@ -51,7 +51,7 @@ interface Props {
 }
 
 const Crowdfund: FC<Props> = ({ fund }) => {
-  const isConnected = useAppPersistStore((state) => state.isConnected);
+  const currentProfile = useAppStore((state) => state.currentProfile);
   const [showFundersModal, setShowFundersModal] = useState(false);
   const [revenue, setRevenue] = useState(0);
   const { data, loading } = useQuery(COLLECT_QUERY, {
@@ -144,7 +144,7 @@ const Crowdfund: FC<Props> = ({ fund }) => {
             </div>
             <ReferralAlert mirror={fund} referralFee={collectModule?.referralFee} />
           </div>
-          {isConnected && (
+          {currentProfile && (
             <div className="pt-3 sm:pt-0">
               <Fund fund={fund} collectModule={collectModule} revenue={revenue} setRevenue={setRevenue} />
             </div>

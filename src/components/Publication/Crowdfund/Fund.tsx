@@ -15,8 +15,8 @@ import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import React, { Dispatch, FC, useState } from 'react';
 import toast from 'react-hot-toast';
-import { CONNECT_WALLET, LENSHUB_PROXY, RELAY_ON } from 'src/constants';
-import { useAppPersistStore, useAppStore } from 'src/store/app';
+import { LENSHUB_PROXY, RELAY_ON, SIGN_WALLET } from 'src/constants';
+import { useAppStore } from 'src/store/app';
 import { CROWDFUND } from 'src/tracking';
 import { useAccount, useBalance, useContractWrite, useSignTypedData } from 'wagmi';
 
@@ -62,7 +62,7 @@ interface Props {
 const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
-  const isConnected = useAppPersistStore((state) => state.isConnected);
+  const currentProfile = useAppStore((state) => state.currentProfile);
   const [allowed, setAllowed] = useState(true);
   const { address } = useAccount();
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
@@ -89,7 +89,7 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
         referenceModules: []
       }
     },
-    skip: !collectModule?.amount?.asset?.address || !isConnected,
+    skip: !collectModule?.amount?.asset?.address || !currentProfile,
     onCompleted: (data) => {
       setAllowed(data?.approvedModuleAllowanceAmount[0]?.allowance !== '0x00');
     }
@@ -156,8 +156,8 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
   );
 
   const createCollect = () => {
-    if (!isConnected) {
-      return toast.error(CONNECT_WALLET);
+    if (!currentProfile) {
+      return toast.error(SIGN_WALLET);
     }
 
     createCollectTypedData({
