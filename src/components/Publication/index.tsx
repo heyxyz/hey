@@ -1,7 +1,7 @@
 import { gql, useQuery } from '@apollo/client';
+import Feed from '@components/Comment/Feed';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout';
 import Footer from '@components/Shared/Footer';
-import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
 import UserProfile from '@components/Shared/UserProfile';
 import PublicationStaffTool from '@components/StaffTools/Publication';
 import { Card, CardBody } from '@components/UI/Card';
@@ -13,7 +13,6 @@ import { PostFields } from '@gql/PostFields';
 import isStaff from '@lib/isStaff';
 import { Mixpanel } from '@lib/mixpanel';
 import { NextPage } from 'next';
-import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
 import { APP_NAME } from 'src/constants';
@@ -26,10 +25,6 @@ import FullPublication from './FullPublication';
 import OnchainMeta from './OnchainMeta';
 import RelevantPeople from './RelevantPeople';
 import PublicationPageShimmer from './Shimmer';
-
-const Feed = dynamic(() => import('@components/Comment/Feed'), {
-  loading: () => <PublicationsShimmer />
-});
 
 export const PUBLICATION_QUERY = gql`
   query Publication(
