@@ -52,8 +52,8 @@ const Layout: FC<Props> = ({ children }) => {
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
-  const isConnected = useAppPersistStore((state) => state.isConnected);
-  const setIsConnected = useAppPersistStore((state) => state.setIsConnected);
+  const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
+  const setIsAuthenticated = useAppPersistStore((state) => state.setIsAuthenticated);
   const profileId = useAppPersistStore((state) => state.profileId);
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
 
@@ -65,7 +65,7 @@ const Layout: FC<Props> = ({ children }) => {
   // Fetch current profiles and sig nonce owned by the wallet address
   const { loading } = useQuery(USER_PROFILES_QUERY, {
     variables: { ownedBy: address },
-    skip: !isConnected,
+    skip: !isAuthenticated,
     onCompleted: (data) => {
       const profiles: Profile[] = data?.profiles?.items
         ?.slice()
@@ -96,9 +96,9 @@ const Layout: FC<Props> = ({ children }) => {
         isDisconnected || // If the user is disconnected from the wallet
         !profileId || // If the user has no profile
         !hasAuthTokens) && // If the user has no auth tokens
-      isConnected // If the user is authenticated
+      isAuthenticated // If the user is authenticated
     ) {
-      setIsConnected(false);
+      setIsAuthenticated(false);
       setCurrentProfile(null);
       setProfileId(null);
       clearAuthData();
