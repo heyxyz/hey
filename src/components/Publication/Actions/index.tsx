@@ -1,6 +1,6 @@
 import { LensterPublication } from '@generated/lenstertypes';
 import clsx from 'clsx';
-import React, { FC, MouseEvent } from 'react';
+import React, { FC } from 'react';
 
 import Collect from './Collect';
 import Comment from './Comment';
@@ -23,7 +23,6 @@ const PublicationActions: FC<Props> = ({ publication, isFullPublication = false 
         { 'justify-between': isFullPublication },
         'flex gap-6 items-center pt-3 -ml-2 text-gray-500 sm:gap-8'
       )}
-      onClick={(event: MouseEvent<HTMLDivElement>) => event.stopPropagation()}
     >
       <Comment publication={publication} isFullPublication={isFullPublication} />
       <Mirror publication={publication} isFullPublication={isFullPublication} />

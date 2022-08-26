@@ -22,11 +22,9 @@ export default function Custom500() {
           meantime, try refreshing.
         </div>
         <Link href="/">
-          <a href="/">
-            <Button className="flex mx-auto item-center" size="lg" icon={<HomeIcon className="w-4 h-4" />}>
-              <div>Go to home</div>
-            </Button>
-          </a>
+          <Button className="flex mx-auto item-center" size="lg" icon={<HomeIcon className="w-4 h-4" />}>
+            <div>Go to home</div>
+          </Button>
         </Link>
       </div>
     </div>

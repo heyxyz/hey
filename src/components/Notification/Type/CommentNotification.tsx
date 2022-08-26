@@ -25,18 +25,14 @@ const CommentNotification: FC<Props> = ({ notification }) => {
         <div className="ml-9">
           <NotificationProfileName profile={notification?.profile} />{' '}
           <span className="text-gray-600 dark:text-gray-400">commented on your </span>
-          <Link href={`/posts/${notification?.comment?.commentOn?.id}`}>
-            <a href={`/posts/${notification?.comment?.commentOn?.id}`} className="font-bold">
-              {notification?.comment?.commentOn?.__typename?.toLowerCase()}
-            </a>
+          <Link href={`/posts/${notification?.comment?.commentOn?.id}`} className="font-bold">
+            {notification?.comment?.commentOn?.__typename?.toLowerCase()}
           </Link>
-          <Link href={`/posts/${notification?.comment.id}`}>
-            <a
-              href={`/posts/${notification?.comment.id}`}
-              className="text-gray-500 line-clamp-2 linkify mt-2"
-            >
-              <Markup>{notification?.comment?.metadata?.content}</Markup>
-            </a>
+          <Link
+            href={`/posts/${notification?.comment.id}`}
+            className="text-gray-500 line-clamp-2 linkify mt-2"
+          >
+            <Markup>{notification?.comment?.metadata?.content}</Markup>
           </Link>
         </div>
       </div>

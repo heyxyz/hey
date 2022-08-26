@@ -34,35 +34,31 @@ const UserProfile: FC<Props> = ({
   return (
     <div className="flex justify-between items-center">
       <Link href={`/u/${profile?.handle}`}>
-        <a href={`/u/${profile?.handle}`}>
-          <div className="flex items-center space-x-3">
-            <img
-              src={getAvatar(profile)}
-              loading="lazy"
-              className={clsx(
-                isBig ? 'w-14 h-14' : 'w-10 h-10',
-                'bg-gray-200 rounded-full border dark:border-gray-700/80'
-              )}
-              height={isBig ? 56 : 40}
-              width={isBig ? 56 : 40}
-              alt={profile?.handle}
-            />
-            <div>
-              <div className="flex gap-1 items-center max-w-sm truncate">
-                <div className={clsx(isBig ? 'font-bold' : 'text-md')}>
-                  {profile?.name ?? profile?.handle}
-                </div>
-                {isVerified(profile?.id) && <BadgeCheckIcon className="w-4 h-4 text-brand" />}
-              </div>
-              <Slug className="text-sm" slug={profile?.handle} prefix="@" />
-              {showBio && profile?.bio && (
-                <div className={clsx(isBig ? 'text-base' : 'text-sm', 'mt-2', 'linkify leading-6')}>
-                  <Markup>{profile?.bio}</Markup>
-                </div>
-              )}
+        <div className="flex items-center space-x-3">
+          <img
+            src={getAvatar(profile)}
+            loading="lazy"
+            className={clsx(
+              isBig ? 'w-14 h-14' : 'w-10 h-10',
+              'bg-gray-200 rounded-full border dark:border-gray-700/80'
+            )}
+            height={isBig ? 56 : 40}
+            width={isBig ? 56 : 40}
+            alt={profile?.handle}
+          />
+          <div>
+            <div className="flex gap-1 items-center max-w-sm truncate">
+              <div className={clsx(isBig ? 'font-bold' : 'text-md')}>{profile?.name ?? profile?.handle}</div>
+              {isVerified(profile?.id) && <BadgeCheckIcon className="w-4 h-4 text-brand" />}
             </div>
+            <Slug className="text-sm" slug={profile?.handle} prefix="@" />
+            {showBio && profile?.bio && (
+              <div className={clsx(isBig ? 'text-base' : 'text-sm', 'mt-2', 'linkify leading-6')}>
+                <Markup>{profile?.bio}</Markup>
+              </div>
+            )}
           </div>
-        </a>
+        </div>
       </Link>
       {showFollow &&
         (followStatusLoading ? (

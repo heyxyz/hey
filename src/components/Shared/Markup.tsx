@@ -8,7 +8,7 @@ import { SpoilerMatcher } from '@components/utils/matchers/SpoilerMatcher';
 import trimify from '@lib/trimify';
 import { Interweave } from 'interweave';
 import { UrlMatcher } from 'interweave-autolink';
-import React, { FC, MouseEvent } from 'react';
+import React, { FC } from 'react';
 
 interface Props {
   children: string;
@@ -21,7 +21,6 @@ const Markup: FC<Props> = ({ children }) => {
       escapeHtml
       allowList={['b', 'i', 'a', 'br', 'code', 'span']}
       newWindow
-      onClick={(event: MouseEvent<HTMLDivElement>) => event.stopPropagation()}
       matchers={[
         new HashtagMatcher('hashtag'),
         new MentionMatcher('mention'),

@@ -39,21 +39,19 @@ const Navbar: FC = () => {
 
   const NavItem = ({ url, name, current }: NavItemProps) => {
     return (
-      <Link href={url}>
-        <a href={url} aria-current={current ? 'page' : undefined}>
-          <Disclosure.Button
-            className={clsx(
-              'w-full text-left px-2 md:px-3 py-1 rounded-md font-black cursor-pointer text-sm tracking-wide',
-              {
-                'text-black dark:text-white bg-gray-200 dark:bg-gray-800': current,
-                'text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white hover:bg-gray-200 dark:hover:bg-gray-800':
-                  !current
-              }
-            )}
-          >
-            {name}
-          </Disclosure.Button>
-        </a>
+      <Link href={url} aria-current={current ? 'page' : undefined}>
+        <Disclosure.Button
+          className={clsx(
+            'w-full text-left px-2 md:px-3 py-1 rounded-md font-black cursor-pointer text-sm tracking-wide',
+            {
+              'text-black dark:text-white bg-gray-200 dark:bg-gray-800': current,
+              'text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white hover:bg-gray-200 dark:hover:bg-gray-800':
+                !current
+            }
+          )}
+        >
+          {name}
+        </Disclosure.Button>
       </Link>
     );
   };
@@ -89,18 +87,14 @@ const Navbar: FC = () => {
                     <MenuIcon className="block w-6 h-6" aria-hidden="true" />
                   )}
                 </Disclosure.Button>
-                <Link href="/">
-                  <a href="/">
-                    <div className="text-3xl font-black">
-                      <img
-                        className="w-8 h-8"
-                        height={32}
-                        width={32}
-                        src={currentProfile && hasPrideLogo(currentProfile) ? '/pride.svg' : '/logo.svg'}
-                        alt="Logo"
-                      />
-                    </div>
-                  </a>
+                <Link href="/" className="text-3xl font-black">
+                  <img
+                    className="w-8 h-8"
+                    height={32}
+                    width={32}
+                    src={currentProfile && hasPrideLogo(currentProfile) ? '/pride.svg' : '/logo.svg'}
+                    alt="Logo"
+                  />
                 </Link>
                 <div className="hidden sm:block sm:ml-6">
                   <div className="flex items-center space-x-4">
