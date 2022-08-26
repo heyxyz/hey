@@ -11,16 +11,18 @@ const Video: FC<Props> = ({ src }) => {
   const videoRef = useRef<APITypes>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
 
+  // Pause the video when not in view
   useEffect(() => {
-    let handlePlay = (entries: any) => {
+    const handlePlay = (entries: any) => {
       for (const entry of entries) {
+        console.log('here');
         if (!entry.isIntersecting) {
           (videoRef.current?.plyr as Plyr)?.pause();
         }
       }
     };
 
-    let observer = new IntersectionObserver(handlePlay, {
+    const observer = new IntersectionObserver(handlePlay, {
       threshold: [0.25, 0.75]
     });
 
