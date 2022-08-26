@@ -1,5 +1,5 @@
 import { LensHubProxy } from '@abis/LensHubProxy';
-import { useMutation } from '@apollo/client';
+import { ApolloCache, useMutation } from '@apollo/client';
 import { Spinner } from '@components/UI/Spinner';
 import { Tooltip } from '@components/UI/Tooltip';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
@@ -12,13 +12,14 @@ import {
 import { SwitchHorizontalIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
 import humanize from '@lib/humanize';
+import { publicationKeyFields } from '@lib/keyFields';
 import { Mixpanel } from '@lib/mixpanel';
 import nFormatter from '@lib/nFormatter';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
-import { FC, useEffect, useState } from 'react';
+import { FC, useState } from 'react';
 import toast from 'react-hot-toast';
 import { LENSHUB_PROXY, RELAY_ON, SIGN_WALLET } from 'src/constants';
 import { useAppStore } from 'src/store/app';
@@ -31,28 +32,32 @@ interface Props {
 }
 
 const Mirror: FC<Props> = ({ publication, isFullPublication }) => {
+  const isMirror = publication.__typename === 'Mirror';
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const [count, setCount] = useState(0);
+  const count = isMirror
+    ? publication?.mirrorOf?.stats?.totalAmountOfMirrors
+    : publication?.stats?.totalAmountOfMirrors;
   const [mirrored, setMirrored] = useState(
     publication?.mirrors?.length > 0 || publication?.mirrorOf?.mirrors?.length > 0
   );
 
-  useEffect(() => {
-    if (publication?.mirrorOf?.stats?.totalAmountOfMirrors || publication?.stats?.totalAmountOfMirrors) {
-      setCount(
-        publication.__typename === 'Mirror'
-          ? publication?.mirrorOf?.stats?.totalAmountOfMirrors
-          : publication?.stats?.totalAmountOfMirrors
-      );
-    }
-  }, [publication]);
-
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
 
+  const updateCache = (cache: ApolloCache<any>) => {
+    cache.modify({
+      id: publicationKeyFields(isMirror ? publication?.mirrorOf : publication),
+      fields: {
+        stats: (stats) => ({
+          ...stats,
+          totalAmountOfMirrors: stats.totalAmountOfMirrors + 1
+        })
+      }
+    });
+  };
+
   const onCompleted = () => {
-    setCount(count + 1);
     setMirrored(true);
     toast.success('Post has been mirrored!');
     Mixpanel.track(PUBLICATION.MIRROR);
@@ -67,7 +72,7 @@ const Mirror: FC<Props> = ({ publication, isFullPublication }) => {
     onError
   });
 
-  const { broadcast, loading: broadcastLoading } = useBroadcast({ onCompleted });
+  const { broadcast, loading: broadcastLoading } = useBroadcast({ onCompleted, update: updateCache });
   const [createMirrorTypedData, { loading: typedDataLoading }] = useMutation<Mutation>(
     CREATE_MIRROR_TYPED_DATA_MUTATION,
     {
@@ -120,7 +125,7 @@ const Mirror: FC<Props> = ({ publication, isFullPublication }) => {
 
   const [createMirrorViaDispatcher, { loading: dispatcherLoading }] = useMutation(
     CREATE_MIRROR_VIA_DISPATHCER_MUTATION,
-    { onCompleted, onError }
+    { onCompleted, onError, update: updateCache }
   );
 
   const createMirror = () => {
