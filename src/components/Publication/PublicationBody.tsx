@@ -7,6 +7,7 @@ import { EyeIcon } from '@heroicons/react/outline';
 import getURLs from '@lib/getURLs';
 import clsx from 'clsx';
 import dynamic from 'next/dynamic';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { FC } from 'react';
 
@@ -41,7 +42,7 @@ const PublicationBody: FC<Props> = ({ publication }) => {
           {showMore && (
             <div className="mt-4 text-sm text-gray-500 font-bold flex items-center space-x-1">
               <EyeIcon className="h-4 w-4" />
-              <span>Show more</span>
+              <Link href={`/posts/${publication?.id}`}>Show more</Link>
             </div>
           )}
         </>
