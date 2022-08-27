@@ -5,7 +5,9 @@ import humanize from '@lib/humanize';
 import { Mixpanel } from '@lib/mixpanel';
 import nFormatter from '@lib/nFormatter';
 import { motion } from 'framer-motion';
+import { useRouter } from 'next/router';
 import { FC } from 'react';
+import { useAppStore } from 'src/store/app';
 import { usePublicationStore } from 'src/store/publication';
 import { PUBLICATION } from 'src/tracking';
 
@@ -15,6 +17,8 @@ interface Props {
 }
 
 const Comment: FC<Props> = ({ publication, isFullPublication }) => {
+  const { push } = useRouter();
+  const currentProfile = useAppStore((state) => state.currentProfile);
   const setParentPub = usePublicationStore((state) => state.setParentPub);
   const setShowNewPostModal = usePublicationStore((state) => state.setShowNewPostModal);
   const count =
@@ -27,9 +31,13 @@ const Comment: FC<Props> = ({ publication, isFullPublication }) => {
     <motion.button
       whileTap={{ scale: 0.9 }}
       onClick={() => {
-        setParentPub(publication);
-        setShowNewPostModal(true);
-        Mixpanel.track(PUBLICATION.OPEN_COMMENT);
+        if (currentProfile) {
+          setParentPub(publication);
+          setShowNewPostModal(true);
+          Mixpanel.track(PUBLICATION.OPEN_COMMENT);
+        } else {
+          push(`/posts/${publication.id}`);
+        }
       }}
       aria-label="Like"
     >
