@@ -3,7 +3,7 @@ import Feed from '@components/Comment/Feed';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout';
 import Footer from '@components/Shared/Footer';
 import UserProfile from '@components/Shared/UserProfile';
-import PublicationStaffTool from '@components/StaffTools/Publication';
+import PublicationStaffTool from '@components/StaffTools/Panels/Publication';
 import { Card, CardBody } from '@components/UI/Card';
 import Seo from '@components/utils/Seo';
 import { LensterPublication } from '@generated/lenstertypes';
