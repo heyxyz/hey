@@ -90,7 +90,7 @@ const Layout: FC<Props> = ({ children }) => {
   });
 
   useEffect(() => {
-    if (isAuthenticated || store.hasHydrated()) {
+    if (isAuthenticated && store.hasHydrated()) {
       loadProfiles().finally(() => setLoading(false));
     } else {
       setLoading(false);
