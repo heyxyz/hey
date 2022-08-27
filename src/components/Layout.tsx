@@ -48,6 +48,7 @@ interface Props {
 
 const Layout: FC<Props> = ({ children }) => {
   const { resolvedTheme } = useTheme();
+  const store = useAppPersistStore.persist;
   const setProfiles = useAppStore((state) => state.setProfiles);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -89,7 +90,7 @@ const Layout: FC<Props> = ({ children }) => {
   });
 
   useEffect(() => {
-    if (isAuthenticated) {
+    if (isAuthenticated || store.hasHydrated()) {
       loadProfiles().finally(() => setLoading(false));
     } else {
       setLoading(false);
