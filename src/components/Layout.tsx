@@ -89,14 +89,11 @@ const Layout: FC<Props> = ({ children }) => {
   });
 
   useEffect(() => {
-    // Fake loading for the screen to avoid flashing
-    setTimeout(() => {
-      if (isAuthenticated) {
-        loadProfiles().finally(() => setLoading(false));
-      } else {
-        setLoading(false);
-      }
-    }, 500);
+    if (isAuthenticated) {
+      loadProfiles().finally(() => setLoading(false));
+    } else {
+      setLoading(false);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
