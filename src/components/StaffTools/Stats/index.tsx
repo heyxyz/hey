@@ -13,8 +13,9 @@ import Sidebar from '../Sidebar';
 const Stats: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const staffMode = useAppPersistStore((state) => state.staffMode);
+  const notAllowed = !currentProfile || !isStaff(currentProfile?.id) || !staffMode;
 
-  if (!currentProfile || !isStaff(currentProfile?.id) || !staffMode) {
+  if (notAllowed) {
     return <Custom404 />;
   }
 
