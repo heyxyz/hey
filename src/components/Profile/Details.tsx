@@ -3,7 +3,7 @@ import Markup from '@components/Shared/Markup';
 import Slug from '@components/Shared/Slug';
 import SuperFollow from '@components/Shared/SuperFollow';
 import Unfollow from '@components/Shared/Unfollow';
-import ProfileStaffTool from '@components/StaffTools/Profile';
+import ProfileStaffTool from '@components/StaffTools/Panels/Profile';
 import { Button } from '@components/UI/Button';
 import { Tooltip } from '@components/UI/Tooltip';
 import { Profile } from '@generated/types';
