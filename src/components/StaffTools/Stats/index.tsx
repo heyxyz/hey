@@ -1,23 +1,85 @@
+import { gql, useQuery } from '@apollo/client';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout';
-import { Card, CardBody } from '@components/UI/Card';
+import { Card } from '@components/UI/Card';
 import Seo from '@components/utils/Seo';
+import { Erc20Amount, GlobalProtocolStats } from '@generated/types';
+import {
+  CashIcon,
+  ChatAlt2Icon,
+  CollectionIcon,
+  FireIcon,
+  SwitchHorizontalIcon,
+  UserAddIcon,
+  UsersIcon
+} from '@heroicons/react/outline';
+import { PencilAltIcon } from '@heroicons/react/solid';
+import getTokenImage from '@lib/getTokenImage';
+import humanize from '@lib/humanize';
 import isStaff from '@lib/isStaff';
 import { NextPage } from 'next';
-import React from 'react';
-import { APP_NAME } from 'src/constants';
+import React, { FC, ReactNode } from 'react';
+import { APP_NAME, ERROR_MESSAGE } from 'src/constants';
 import Custom404 from 'src/pages/404';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 
 import Sidebar from '../Sidebar';
+
+const LENSTER_STATS_QUERY = gql`
+  query LensterStats {
+    globalProtocolStats(request: { sources: ${APP_NAME} }) {
+      totalProfiles
+      totalPosts
+      totalBurntProfiles
+      totalMirrors
+      totalComments
+      totalCollects
+      totalFollows
+      totalRevenue {
+        asset {
+          symbol
+        }
+        value
+      }
+    }
+    crowdfundStats: globalProtocolStats(
+      request: { sources: "${APP_NAME} Crowdfund" }
+    ) {
+      totalPosts
+    }
+  }
+`;
+
+interface StatBoxProps {
+  icon: ReactNode;
+  value: number;
+  title: string;
+}
+
+const StatBox: FC<StatBoxProps> = ({ icon, value, title }) => (
+  <Card className="px-7 py-4 w-full" forceRounded>
+    <div className="flex items-center space-x-2">
+      {icon}
+      <b className="text-lg">{humanize(value)}</b>
+    </div>
+    <div className="text-gray-500">{title}</div>
+  </Card>
+);
 
 const Stats: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const staffMode = useAppPersistStore((state) => state.staffMode);
   const notAllowed = !currentProfile || !isStaff(currentProfile?.id) || !staffMode;
 
+  const { data, loading, error } = useQuery(LENSTER_STATS_QUERY, {
+    pollInterval: 1000
+  });
+
   if (notAllowed) {
     return <Custom404 />;
   }
+
+  const stats: GlobalProtocolStats = data?.globalProtocolStats;
+  const crowdfundStats: GlobalProtocolStats = data?.crowdfundStats;
 
   return (
     <GridLayout>
@@ -26,8 +88,87 @@ const Stats: NextPage = () => {
         <Sidebar />
       </GridItemFour>
       <GridItemEight className="space-y-5">
-        <Card>
-          <CardBody className="space-y-5">GM</CardBody>
+        <Card className="p-5">
+          {error ? (
+            <b className="text-red-500">{ERROR_MESSAGE}</b>
+          ) : loading ? (
+            <div>Loading...</div>
+          ) : (
+            <>
+              <section className="space-y-3">
+                <h1 className="text-xl font-bold mb-4">Stats</h1>
+                <div className="block sm:flex space-y-3 sm:space-y-0 sm:space-x-3 justify-between">
+                  <StatBox
+                    icon={<UsersIcon className="w-4 h-4" />}
+                    value={stats?.totalProfiles}
+                    title="total profiles"
+                  />
+                  <StatBox
+                    icon={<FireIcon className="w-4 h-4" />}
+                    value={stats?.totalBurntProfiles}
+                    title="profiles burnt"
+                  />
+                  <StatBox
+                    icon={<PencilAltIcon className="w-4 h-4" />}
+                    value={stats?.totalPosts}
+                    title="total posts"
+                  />
+                </div>
+                <div className="block sm:flex space-y-3 sm:space-y-0 sm:space-x-3 justify-between">
+                  <StatBox
+                    icon={<SwitchHorizontalIcon className="w-4 h-4" />}
+                    value={stats?.totalMirrors}
+                    title="total mirrors"
+                  />
+                  <StatBox
+                    icon={<ChatAlt2Icon className="w-4 h-4" />}
+                    value={stats?.totalComments}
+                    title="total comments"
+                  />
+                  <StatBox
+                    icon={<CashIcon className="w-4 h-4" />}
+                    value={crowdfundStats?.totalPosts}
+                    title="total crowdfunds"
+                  />
+                </div>
+                <div className="block sm:flex space-y-3 sm:space-y-0 sm:space-x-3 justify-between">
+                  <StatBox
+                    icon={<CollectionIcon className="w-4 h-4" />}
+                    value={stats?.totalCollects}
+                    title="total collects"
+                  />
+                  <StatBox
+                    icon={<UserAddIcon className="w-4 h-4" />}
+                    value={stats?.totalFollows}
+                    title="total follows"
+                  />
+                  <StatBox
+                    icon={<CashIcon className="w-4 h-4" />}
+                    value={crowdfundStats?.totalPosts}
+                    title="total crowdfunds"
+                  />
+                </div>
+              </section>
+              <section className="mt-5">
+                <h1 className="text-xl font-bold mb-4">Revenue stats</h1>
+                <div className="space-y-2">
+                  {stats?.totalRevenue.map((revenue: Erc20Amount) => (
+                    <div key={revenue?.asset?.address} className="flex items-center space-x-1">
+                      <img
+                        className="w-5 h-5"
+                        src={getTokenImage(revenue?.asset?.symbol)}
+                        alt="revenue?.asset?.symbol"
+                      />
+                      <span>
+                        <b>{parseFloat(revenue?.value).toFixed(2)}</b> {revenue?.asset?.symbol}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </section>
+            </>
+          )}
+          <div />
         </Card>
       </GridItemEight>
     </GridLayout>
