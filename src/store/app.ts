@@ -22,8 +22,6 @@ export const useAppStore = create<AppState>((set) => ({
 }));
 
 interface AppPersistState {
-  isAuthenticated: boolean;
-  setIsAuthenticated: (isAuthenticated: boolean) => void;
   profileId: string | null;
   setProfileId: (profileId: string | null) => void;
   staffMode: boolean;
@@ -35,8 +33,6 @@ interface AppPersistState {
 export const useAppPersistStore = create(
   persist<AppPersistState>(
     (set) => ({
-      isAuthenticated: false,
-      setIsAuthenticated: (isAuthenticated) => set(() => ({ isAuthenticated })),
       profileId: null,
       setProfileId: (profileId) => set(() => ({ profileId })),
       staffMode: false,
