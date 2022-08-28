@@ -142,11 +142,6 @@ const Stats: NextPage = () => {
                     value={stats?.totalFollows}
                     title="total follows"
                   />
-                  <StatBox
-                    icon={<CashIcon className="w-4 h-4" />}
-                    value={crowdfundStats?.totalPosts}
-                    title="total crowdfunds"
-                  />
                 </div>
               </section>
               <section className="mt-5">
