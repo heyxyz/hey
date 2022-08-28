@@ -1,4 +1,4 @@
-import { gql, useLazyQuery } from '@apollo/client';
+import { gql, useQuery } from '@apollo/client';
 import { Profile } from '@generated/types';
 import { ProfileFields } from '@gql/ProfileFields';
 import getToastOptions from '@lib/getToastOptions';
@@ -7,7 +7,7 @@ import Cookies from 'js-cookie';
 import mixpanel from 'mixpanel-browser';
 import Head from 'next/head';
 import { useTheme } from 'next-themes';
-import { FC, ReactNode, useEffect, useState } from 'react';
+import { FC, ReactNode, useEffect } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { CHAIN_ID, MIXPANEL_API_HOST, MIXPANEL_TOKEN } from 'src/constants';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
@@ -15,6 +15,7 @@ import { useAccount, useDisconnect, useNetwork } from 'wagmi';
 
 import Loading from './Loading';
 import Navbar from './Shared/Navbar';
+import useIsMounted from './utils/hooks/useIsMounted';
 
 if (MIXPANEL_TOKEN) {
   mixpanel.init(MIXPANEL_TOKEN, {
@@ -57,8 +58,8 @@ const Layout: FC<Props> = ({ children }) => {
   const profileId = useAppPersistStore((state) => state.profileId);
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
 
-  const [loading, setLoading] = useState(true);
   const { address, isDisconnected } = useAccount();
+  const { mounted } = useIsMounted();
   const { chain } = useNetwork();
   const { disconnect } = useDisconnect();
 
@@ -69,33 +70,25 @@ const Layout: FC<Props> = ({ children }) => {
   };
 
   // Fetch current profiles and sig nonce owned by the wallet address
-  const [loadProfiles] = useLazyQuery(USER_PROFILES_QUERY, {
+  const { loading } = useQuery(USER_PROFILES_QUERY, {
     variables: { ownedBy: address },
+    skip: !isAuthenticated,
     onCompleted: (data) => {
       const profiles: Profile[] = data?.profiles?.items
         ?.slice()
         ?.sort((a: Profile, b: Profile) => Number(a.id) - Number(b.id))
         ?.sort((a: Profile, b: Profile) => (!(a.isDefault !== b.isDefault) ? 0 : a.isDefault ? -1 : 1));
 
-      setUserSigNonce(data?.userSigNonces?.lensHubOnChainSigNonce);
-      if (profiles.length) {
-        const selectedUser = profiles.find((profile) => profile.id === profileId);
-        setProfiles(profiles);
-        setCurrentProfile(selectedUser as Profile);
-      } else {
+      if (!profiles.length) {
         resetAuthState();
       }
+
+      const selectedUser = profiles.find((profile) => profile.id === profileId);
+      setProfiles(profiles);
+      setCurrentProfile(selectedUser as Profile);
+      setUserSigNonce(data?.userSigNonces?.lensHubOnChainSigNonce);
     }
   });
-
-  useEffect(() => {
-    if (isAuthenticated) {
-      loadProfiles().finally(() => setLoading(false));
-    } else {
-      setLoading(false);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   useEffect(() => {
     const accessToken = Cookies.get('accessToken');
@@ -103,24 +96,23 @@ const Layout: FC<Props> = ({ children }) => {
     const hasAuthTokens = accessToken !== 'undefined' && refreshToken !== 'undefined';
     const currentProfileAddress = currentProfile?.ownedBy;
     const hasSameAddress = currentProfileAddress !== undefined && currentProfileAddress !== address;
+    const shouldLogout =
+      hasSameAddress || // If the current address is not the same as the profile address
+      chain?.id !== CHAIN_ID || // If the user is not on the correct chain
+      isDisconnected || // If the user is disconnected from the wallet
+      !profileId || // If the user has no profile
+      !hasAuthTokens;
 
     // If there are no auth data, clear and logout
-    if (
-      (hasSameAddress || // If the current address is not the same as the profile address
-        chain?.id !== CHAIN_ID || // If the user is not on the correct chain
-        isDisconnected || // If the user is disconnected from the wallet
-        !profileId || // If the user has no profile
-        !hasAuthTokens) && // If the user has no auth tokens
-      isAuthenticated // If the user is authenticated
-    ) {
+    if (shouldLogout && isAuthenticated) {
       resetAuthState();
       resetAuthData();
       disconnect();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isDisconnected, address, chain, currentProfile, disconnect]);
+  }, [isDisconnected, isAuthenticated, address, chain, disconnect]);
 
-  if (loading) {
+  if (loading || !mounted) {
     return <Loading />;
   }
 

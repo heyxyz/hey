@@ -3,6 +3,7 @@ import { USER_PROFILES_QUERY } from '@components/Layout';
 import SwitchNetwork from '@components/Shared/SwitchNetwork';
 import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
+import useIsMounted from '@components/utils/hooks/useIsMounted';
 import { Profile } from '@generated/types';
 import { XCircleIcon } from '@heroicons/react/solid';
 import getWalletLogo from '@lib/getWalletLogo';
@@ -10,7 +11,7 @@ import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import clsx from 'clsx';
 import Cookies from 'js-cookie';
-import React, { Dispatch, FC, useEffect, useState } from 'react';
+import React, { Dispatch, FC } from 'react';
 import toast from 'react-hot-toast';
 import { COOKIE_CONFIG } from 'src/apollo';
 import { CHAIN_ID, ERROR_MESSAGE } from 'src/constants';
@@ -46,7 +47,7 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
   const setIsAuthenticated = useAppPersistStore((state) => state.setIsAuthenticated);
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
 
-  const [mounted, setMounted] = useState(false);
+  const { mounted } = useIsMounted();
   const { chain } = useNetwork();
   const { connectors, error, connectAsync } = useConnect();
   const { address, connector: activeConnector } = useAccount();
@@ -60,8 +61,6 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
   const [authenticate, { error: errorAuthenticate, loading: authLoading }] =
     useMutation(AUTHENTICATE_MUTATION);
   const [getProfiles, { error: errorProfiles, loading: profilesLoading }] = useLazyQuery(USER_PROFILES_QUERY);
-
-  useEffect(() => setMounted(true), []);
 
   const onConnect = async (connector: Connector) => {
     try {
