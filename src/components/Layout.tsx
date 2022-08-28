@@ -53,8 +53,6 @@ const Layout: FC<Props> = ({ children }) => {
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
-  const isAuthenticated = useAppPersistStore((state) => state.isAuthenticated);
-  const setIsAuthenticated = useAppPersistStore((state) => state.setIsAuthenticated);
   const profileId = useAppPersistStore((state) => state.profileId);
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
 
@@ -63,16 +61,20 @@ const Layout: FC<Props> = ({ children }) => {
   const { chain } = useNetwork();
   const { disconnect } = useDisconnect();
 
+  const accessToken = Cookies.get('accessToken');
+  const refreshToken = Cookies.get('refreshToken');
+  const hasAuthTokens =
+    accessToken && refreshToken && accessToken !== 'undefined' && refreshToken !== 'undefined';
+
   const resetAuthState = () => {
     setProfileId(null);
     setCurrentProfile(null);
-    setIsAuthenticated(false);
   };
 
   // Fetch current profiles and sig nonce owned by the wallet address
   const { loading } = useQuery(USER_PROFILES_QUERY, {
     variables: { ownedBy: address },
-    skip: !isAuthenticated,
+    skip: !hasAuthTokens && !profileId,
     onCompleted: (data) => {
       const profiles: Profile[] = data?.profiles?.items
         ?.slice()
@@ -91,26 +93,22 @@ const Layout: FC<Props> = ({ children }) => {
   });
 
   useEffect(() => {
-    const accessToken = Cookies.get('accessToken');
-    const refreshToken = Cookies.get('refreshToken');
-    const hasAuthTokens = accessToken !== 'undefined' && refreshToken !== 'undefined';
     const currentProfileAddress = currentProfile?.ownedBy;
     const hasSameAddress = currentProfileAddress !== undefined && currentProfileAddress !== address;
     const shouldLogout =
       hasSameAddress || // If the current address is not the same as the profile address
       chain?.id !== CHAIN_ID || // If the user is not on the correct chain
       isDisconnected || // If the user is disconnected from the wallet
-      !profileId || // If the user has no profile
-      !hasAuthTokens;
+      !hasAuthTokens; // If the user has no auth tokens
 
     // If there are no auth data, clear and logout
-    if (shouldLogout && isAuthenticated) {
+    if (shouldLogout && profileId) {
       resetAuthState();
       resetAuthData();
       disconnect();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isDisconnected, isAuthenticated, address, chain, disconnect]);
+  }, [isDisconnected, address, chain, disconnect]);
 
   if (loading || !mounted) {
     return <Loading />;

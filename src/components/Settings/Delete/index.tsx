@@ -63,7 +63,6 @@ const DeleteSettings: FC = () => {
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
-  const setIsAuthenticated = useAppPersistStore((state) => state.setIsAuthenticated);
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
 
   const { disconnect } = useDisconnect();
@@ -71,7 +70,6 @@ const DeleteSettings: FC = () => {
 
   const onCompleted = () => {
     Mixpanel.track(SETTINGS.DELETE);
-    setIsAuthenticated(false);
     setCurrentProfile(null);
     setProfileId(null);
     resetAuthData();
