@@ -117,7 +117,7 @@ const SignedUser: FC<Props> = ({ pingData }) => {
                   setCurrentProfile(null);
                   setProfileId(null);
                   resetAuthData();
-                  disconnect();
+                  disconnect?.();
                 }}
                 className={({ active }: { active: boolean }) =>
                   clsx({ 'dropdown-active': active }, 'menu-item')

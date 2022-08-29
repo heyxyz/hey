@@ -106,7 +106,7 @@ const Layout: FC<Props> = ({ children }) => {
     if (shouldLogout && profileId) {
       resetAuthState();
       resetAuthData();
-      disconnect();
+      disconnect?.();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isDisconnected, address, chain, disconnect]);
