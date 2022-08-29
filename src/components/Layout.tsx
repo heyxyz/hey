@@ -1,4 +1,4 @@
-import { gql, useLazyQuery } from '@apollo/client';
+import { gql, useQuery } from '@apollo/client';
 import { Profile } from '@generated/types';
 import { ProfileFields } from '@gql/ProfileFields';
 import getIsAuthTokensAvailable from '@lib/getIsAuthTokensAvailable';
@@ -7,7 +7,7 @@ import resetAuthData from '@lib/resetAuthData';
 import mixpanel from 'mixpanel-browser';
 import Head from 'next/head';
 import { useTheme } from 'next-themes';
-import { FC, ReactNode, useEffect, useState } from 'react';
+import { FC, ReactNode, useEffect } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { CHAIN_ID, MIXPANEL_API_HOST, MIXPANEL_TOKEN } from 'src/constants';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
@@ -15,6 +15,7 @@ import { useAccount, useDisconnect, useNetwork } from 'wagmi';
 
 import Loading from './Loading';
 import Navbar from './Shared/Navbar';
+import useIsMounted from './utils/hooks/useIsMounted';
 
 if (MIXPANEL_TOKEN) {
   mixpanel.init(MIXPANEL_TOKEN, {
@@ -55,7 +56,7 @@ const Layout: FC<Props> = ({ children }) => {
   const profileId = useAppPersistStore((state) => state.profileId);
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
 
-  const [loading, setLoading] = useState(true);
+  const { mounted } = useIsMounted();
   const { address, isDisconnected } = useAccount();
   const { chain } = useNetwork();
   const { disconnect } = useDisconnect();
@@ -63,12 +64,12 @@ const Layout: FC<Props> = ({ children }) => {
   const resetAuthState = () => {
     setProfileId(null);
     setCurrentProfile(null);
-    setLoading(false);
   };
 
   // Fetch current profiles and sig nonce owned by the wallet address
-  const [loadProfiles] = useLazyQuery(USER_PROFILES_QUERY, {
+  const { loading } = useQuery(USER_PROFILES_QUERY, {
     variables: { ownedBy: address },
+    skip: !profileId,
     onCompleted: (data) => {
       const profiles: Profile[] = data?.profiles?.items
         ?.slice()
@@ -83,10 +84,6 @@ const Layout: FC<Props> = ({ children }) => {
       setProfiles(profiles);
       setCurrentProfile(selectedUser as Profile);
       setUserSigNonce(data?.userSigNonces?.lensHubOnChainSigNonce);
-      setLoading(false);
-    },
-    onError: () => {
-      setLoading(false);
     }
   });
 
@@ -106,20 +103,11 @@ const Layout: FC<Props> = ({ children }) => {
   };
 
   useEffect(() => {
-    if (!profileId || !getIsAuthTokensAvailable()) {
-      return setLoading(false);
-    }
-
-    loadProfiles();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
     validateAuthentication();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isDisconnected, address, chain, disconnect]);
+  }, [isDisconnected, address, chain, disconnect, profileId]);
 
-  if (loading) {
+  if (loading || !mounted) {
     return <Loading />;
   }
 
