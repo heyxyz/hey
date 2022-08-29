@@ -10,10 +10,8 @@ import getWalletLogo from '@lib/getWalletLogo';
 import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import clsx from 'clsx';
-import Cookies from 'js-cookie';
 import React, { Dispatch, FC } from 'react';
 import toast from 'react-hot-toast';
-import { COOKIE_CONFIG } from 'src/apollo';
 import { CHAIN_ID, ERROR_MESSAGE } from 'src/constants';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { USER } from 'src/tracking';
@@ -91,8 +89,8 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
       const auth = await authenticate({
         variables: { request: { address, signature } }
       });
-      Cookies.set('accessToken', auth.data.authenticate.accessToken, COOKIE_CONFIG);
-      Cookies.set('refreshToken', auth.data.authenticate.refreshToken, COOKIE_CONFIG);
+      localStorage.setItem('accessToken', auth.data.authenticate.accessToken);
+      localStorage.setItem('refreshToken', auth.data.authenticate.refreshToken);
 
       // Get authed profiles
       const { data: profilesData } = await getProfiles({
