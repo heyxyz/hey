@@ -1,5 +1,4 @@
-import { gql, useQuery } from '@apollo/client';
-import useIsMounted from '@components/utils/hooks/useIsMounted';
+import { gql, useLazyQuery } from '@apollo/client';
 import { Profile } from '@generated/types';
 import { ProfileFields } from '@gql/ProfileFields';
 import getIsAuthTokensAvailable from '@lib/getIsAuthTokensAvailable';
@@ -8,7 +7,7 @@ import resetAuthData from '@lib/resetAuthData';
 import mixpanel from 'mixpanel-browser';
 import Head from 'next/head';
 import { useTheme } from 'next-themes';
-import { FC, ReactNode, useEffect } from 'react';
+import { FC, ReactNode, useEffect, useState } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { CHAIN_ID, MIXPANEL_API_HOST, MIXPANEL_TOKEN } from 'src/constants';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
@@ -26,7 +25,7 @@ if (MIXPANEL_TOKEN) {
 }
 
 export const USER_PROFILES_QUERY = gql`
-  query CurrentProfile($ownedBy: [EthereumAddress!]) {
+  query UserProfiles($ownedBy: [EthereumAddress!]) {
     profiles(request: { ownedBy: $ownedBy }) {
       items {
         ...ProfileFields
@@ -56,7 +55,7 @@ const Layout: FC<Props> = ({ children }) => {
   const profileId = useAppPersistStore((state) => state.profileId);
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
 
-  const { mounted } = useIsMounted();
+  const [loading, setLoading] = useState(true);
   const { address, isDisconnected } = useAccount();
   const { chain } = useNetwork();
   const { disconnect } = useDisconnect();
@@ -67,9 +66,8 @@ const Layout: FC<Props> = ({ children }) => {
   };
 
   // Fetch current profiles and sig nonce owned by the wallet address
-  const { loading } = useQuery(USER_PROFILES_QUERY, {
+  const [loadProfiles] = useLazyQuery(USER_PROFILES_QUERY, {
     variables: { ownedBy: address },
-    skip: !profileId,
     onCompleted: (data) => {
       const profiles: Profile[] = data?.profiles?.items
         ?.slice()
@@ -103,11 +101,20 @@ const Layout: FC<Props> = ({ children }) => {
   };
 
   useEffect(() => {
+    if (!profileId || !getIsAuthTokensAvailable()) {
+      return setLoading(false);
+    }
+
+    loadProfiles().finally(() => setLoading(false));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
     validateAuthentication();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isDisconnected, address, chain, disconnect]);
 
-  if (loading || !mounted) {
+  if (loading) {
     return <Loading />;
   }
 
