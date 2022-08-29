@@ -63,6 +63,7 @@ const Layout: FC<Props> = ({ children }) => {
   const resetAuthState = () => {
     setProfileId(null);
     setCurrentProfile(null);
+    setLoading(false);
   };
 
   // Fetch current profiles and sig nonce owned by the wallet address
@@ -75,13 +76,17 @@ const Layout: FC<Props> = ({ children }) => {
         ?.sort((a: Profile, b: Profile) => (!(a.isDefault !== b.isDefault) ? 0 : a.isDefault ? -1 : 1));
 
       if (!profiles.length) {
-        resetAuthState();
+        return resetAuthState();
       }
 
       const selectedUser = profiles.find((profile) => profile.id === profileId);
       setProfiles(profiles);
       setCurrentProfile(selectedUser as Profile);
       setUserSigNonce(data?.userSigNonces?.lensHubOnChainSigNonce);
+      setLoading(false);
+    },
+    onError: () => {
+      setLoading(false);
     }
   });
 
@@ -105,7 +110,7 @@ const Layout: FC<Props> = ({ children }) => {
       return setLoading(false);
     }
 
-    loadProfiles().finally(() => setLoading(false));
+    loadProfiles();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
