@@ -2,8 +2,12 @@ import { chain } from 'wagmi';
 
 // Environments
 export const IS_PRODUCTION = process.env.NODE_ENV === 'production';
-export const IS_MAINNET = process.env.NEXT_PUBLIC_IS_MAINNET === 'true';
 
+// Blockchain Network
+export const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'https://api.lens.dev';
+export const IS_MAINNET = API_URL === 'https://api.lens.dev';
+
+// Application
 export const APP_NAME = 'Lenster';
 export const DESCRIPTION =
   'Lenster is a composable, decentralized, and permissionless social media web app built with Lens Protocol 🌿';
@@ -28,7 +32,6 @@ export const SIGN_ERROR = 'Failed to sign data';
 
 // URLs
 export const STATIC_ASSETS = 'https://assets.lenster.xyz/images';
-export const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'https://api.lens.dev';
 export const POLYGONSCAN_URL = IS_MAINNET ? 'https://polygonscan.com' : 'https://mumbai.polygonscan.com';
 export const RARIBLE_URL = IS_MAINNET ? 'https://rarible.com' : 'https://rinkeby.rarible.com';
 export const IMAGEKIT_URL_PROD = 'https://ik.imagekit.io/lensterimg';
