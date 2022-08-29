@@ -112,7 +112,6 @@ const Layout: FC<Props> = ({ children }) => {
   }, [isDisconnected, address, chain, disconnect]);
 
   const profileLoading = hasAuthTokens ? !data?.profiles?.items?.length : loading;
-  console.log('profileLoading', profileLoading);
 
   if (profileLoading || !mounted) {
     return <Loading />;
