@@ -2,7 +2,7 @@ import { Card } from '@components/UI/Card';
 import { LensterPublication } from '@generated/lenstertypes';
 import { ExternalLinkIcon } from '@heroicons/react/outline';
 import React, { FC } from 'react';
-import { POLYGONSCAN_URL } from 'src/constants';
+import { IPFS_GATEWAY, POLYGONSCAN_URL } from 'src/constants';
 
 interface MetaProps {
   name: string;
@@ -41,9 +41,7 @@ const OnchainMeta: FC<Props> = ({ publication }) => {
         {isArweaveHash ? (
           <Meta name="ARWEAVE TRANSACTION" uri={`https://v2.viewblock.io/arweave/tx/${hash}`} hash={hash} />
         ) : null}
-        {isIPFSHash ? (
-          <Meta name="IPFS TRANSACTION" uri={`https://cf-ipfs.com/ipfs/${hash}`} hash={hash} />
-        ) : null}
+        {isIPFSHash ? <Meta name="IPFS TRANSACTION" uri={`${IPFS_GATEWAY}/${hash}`} hash={hash} /> : null}
         {publication?.collectNftAddress ? (
           <Meta
             name="NFT ADDRESS"
