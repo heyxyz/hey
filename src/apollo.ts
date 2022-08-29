@@ -25,53 +25,73 @@ const httpLink = new HttpLink({
 
 // RetryLink is a link that retries requests based on the status code returned.
 const retryLink = new RetryLink({
-  attempts: { max: 3 }
+  delay: {
+    initial: 100
+  },
+  attempts: {
+    max: 2,
+    retryIf: (error) => !!error
+  }
 });
+
+const clearStorage = () => {
+  localStorage.removeItem('accessToken');
+  localStorage.removeItem('refreshToken');
+  localStorage.removeItem('lenster.store');
+};
 
 const authLink = new ApolloLink((operation, forward) => {
   const accessToken = localStorage.getItem('accessToken');
 
   if (accessToken === 'undefined' || !accessToken) {
-    localStorage.removeItem('accessToken');
-    localStorage.removeItem('refreshToken');
+    clearStorage();
+    return forward(operation);
+  } else {
+    const { exp }: { exp: number } = parseJwt(accessToken);
+    if (Date.now() >= exp * 1000) {
+      axios(API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        data: JSON.stringify({
+          operationName: 'Refresh',
+          query: REFRESH_AUTHENTICATION_MUTATION,
+          variables: {
+            request: { refreshToken: localStorage.getItem('refreshToken') }
+          }
+        })
+      })
+        .then(({ data }) => {
+          const accessToken = data?.data?.refresh?.accessToken;
+          const refreshToken = data?.data?.refresh?.refreshToken;
+          operation.setContext({
+            headers: {
+              'x-access-token': `Bearer ${accessToken}`
+            }
+          });
+
+          if (!accessToken || !refreshToken) {
+            clearStorage();
+            window.location.reload();
+          }
+
+          localStorage.setItem('accessToken', accessToken);
+          localStorage.setItem('refreshToken', refreshToken);
+        })
+        .catch(() => {
+          clearStorage();
+          window.location.reload();
+          console.log(ERROR_MESSAGE);
+        });
+    }
+
+    operation.setContext({
+      headers: {
+        'x-access-token': accessToken ? `Bearer ${accessToken}` : ''
+      }
+    });
 
     return forward(operation);
   }
-
-  operation.setContext({
-    headers: {
-      'x-access-token': accessToken ? `Bearer ${accessToken}` : ''
-    }
-  });
-
-  const { exp }: { exp: number } = parseJwt(accessToken);
-
-  if (Date.now() >= exp * 1000) {
-    axios(API_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      data: JSON.stringify({
-        operationName: 'Refresh',
-        query: REFRESH_AUTHENTICATION_MUTATION,
-        variables: {
-          request: { refreshToken: localStorage.getItem('refreshToken') }
-        }
-      })
-    })
-      .then(({ data }) => {
-        const refresh = data?.data?.refresh;
-        operation.setContext({
-          headers: {
-            'x-access-token': accessToken ? `Bearer ${refresh?.accessToken}` : ''
-          }
-        });
-        localStorage.setItem('accessToken', refresh?.accessToken);
-        localStorage.setItem('refreshToken', refresh?.refreshToken);
-      })
-      .catch(() => console.log(ERROR_MESSAGE));
-  }
-
-  return forward(operation);
 });
 
 const cache = new InMemoryCache({
