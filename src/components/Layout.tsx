@@ -63,8 +63,9 @@ const Layout: FC<Props> = ({ children }) => {
 
   const accessToken = Cookies.get('accessToken');
   const refreshToken = Cookies.get('refreshToken');
-  const hasAuthTokens =
-    accessToken && refreshToken && accessToken !== 'undefined' && refreshToken !== 'undefined';
+  const hasAuthTokens = Boolean(
+    accessToken && refreshToken && accessToken !== 'undefined' && refreshToken !== 'undefined'
+  );
 
   const resetAuthState = () => {
     setProfileId(null);
@@ -72,7 +73,7 @@ const Layout: FC<Props> = ({ children }) => {
   };
 
   // Fetch current profiles and sig nonce owned by the wallet address
-  const { loading } = useQuery(USER_PROFILES_QUERY, {
+  const { data, loading } = useQuery(USER_PROFILES_QUERY, {
     variables: { ownedBy: address },
     skip: !hasAuthTokens && !profileId,
     onCompleted: (data) => {
@@ -110,7 +111,10 @@ const Layout: FC<Props> = ({ children }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isDisconnected, address, chain, disconnect]);
 
-  if (loading || !mounted) {
+  const profileLoading = hasAuthTokens ? !data?.profiles?.items?.length : loading;
+  console.log('profileLoading', profileLoading);
+
+  if (profileLoading || !mounted) {
     return <Loading />;
   }
 
