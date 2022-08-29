@@ -73,7 +73,7 @@ export const DEFAULT_COLLECT_TOKEN = IS_MAINNET
 
 // Regex
 export const URL_REGEX =
-  /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[\da-z]+([.\-][\da-z]+)*\.[a-z]{2,5}(:\d{1,5})?(\/.*)?$/;
+  /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[\da-z]+([.\-][\da-z]+)*\.[a-z]{2,63}(:\d{1,5})?(\/.*)?$/;
 export const ADDRESS_REGEX = /^(0x)?[\da-f]{40}$/i;
 export const HANDLE_REGEX = /^[\da-z]+$/;
 export const ALL_HANDLES_REGEX = /([\s+])@(\S+)/g;
