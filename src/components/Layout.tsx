@@ -73,7 +73,7 @@ const Layout: FC<Props> = ({ children }) => {
   };
 
   // Fetch current profiles and sig nonce owned by the wallet address
-  const { data, loading } = useQuery(USER_PROFILES_QUERY, {
+  const { loading } = useQuery(USER_PROFILES_QUERY, {
     variables: { ownedBy: address },
     skip: !hasAuthTokens && !profileId,
     onCompleted: (data) => {
@@ -111,9 +111,7 @@ const Layout: FC<Props> = ({ children }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isDisconnected, address, chain, disconnect]);
 
-  const profileLoading = hasAuthTokens ? !data?.profiles?.items?.length : loading;
-
-  if (profileLoading || !mounted) {
+  if (loading || !mounted) {
     return <Loading />;
   }
 
