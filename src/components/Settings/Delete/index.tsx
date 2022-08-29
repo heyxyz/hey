@@ -73,7 +73,7 @@ const DeleteSettings: FC = () => {
     setCurrentProfile(null);
     setProfileId(null);
     resetAuthData();
-    disconnect();
+    disconnect?.();
     location.href = '/';
   };
 
