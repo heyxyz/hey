@@ -5,15 +5,8 @@ import { cursorBasedPagination } from '@lib/cursorBasedPagination';
 import { publicationKeyFields } from '@lib/keyFields';
 import parseJwt from '@lib/parseJwt';
 import axios from 'axios';
-import Cookies, { CookieAttributes } from 'js-cookie';
 
 import { API_URL, ERROR_MESSAGE } from './constants';
-
-export const COOKIE_CONFIG: CookieAttributes = {
-  sameSite: 'None',
-  secure: true,
-  expires: 360
-};
 
 const REFRESH_AUTHENTICATION_MUTATION = `
   mutation Refresh($request: RefreshRequest!) {
@@ -36,11 +29,11 @@ const retryLink = new RetryLink({
 });
 
 const authLink = new ApolloLink((operation, forward) => {
-  const accessToken = Cookies.get('accessToken');
+  const accessToken = localStorage.getItem('accessToken');
 
   if (accessToken === 'undefined' || !accessToken) {
-    Cookies.remove('accessToken');
-    Cookies.remove('refreshToken');
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
 
     return forward(operation);
   }
@@ -61,7 +54,7 @@ const authLink = new ApolloLink((operation, forward) => {
         operationName: 'Refresh',
         query: REFRESH_AUTHENTICATION_MUTATION,
         variables: {
-          request: { refreshToken: Cookies.get('refreshToken') }
+          request: { refreshToken: localStorage.getItem('refreshToken') }
         }
       })
     })
@@ -72,8 +65,8 @@ const authLink = new ApolloLink((operation, forward) => {
             'x-access-token': accessToken ? `Bearer ${refresh?.accessToken}` : ''
           }
         });
-        Cookies.set('accessToken', refresh?.accessToken, COOKIE_CONFIG);
-        Cookies.set('refreshToken', refresh?.refreshToken, COOKIE_CONFIG);
+        localStorage.setItem('accessToken', refresh?.accessToken);
+        localStorage.setItem('refreshToken', refresh?.refreshToken);
       })
       .catch(() => console.log(ERROR_MESSAGE));
   }
