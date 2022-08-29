@@ -106,10 +106,6 @@ const Layout: FC<Props> = ({ children }) => {
   };
 
   useEffect(() => {
-    if (!profileId || !getIsAuthTokensAvailable()) {
-      return setLoading(false);
-    }
-
     loadProfiles();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
