@@ -2,9 +2,9 @@ import { gql, useQuery } from '@apollo/client';
 import useIsMounted from '@components/utils/hooks/useIsMounted';
 import { Profile } from '@generated/types';
 import { ProfileFields } from '@gql/ProfileFields';
+import getIsAuthTokensAvailable from '@lib/getIsAuthTokensAvailable';
 import getToastOptions from '@lib/getToastOptions';
 import resetAuthData from '@lib/resetAuthData';
-import Cookies from 'js-cookie';
 import mixpanel from 'mixpanel-browser';
 import Head from 'next/head';
 import { useTheme } from 'next-themes';
@@ -61,12 +61,6 @@ const Layout: FC<Props> = ({ children }) => {
   const { chain } = useNetwork();
   const { disconnect } = useDisconnect();
 
-  const accessToken = Cookies.get('accessToken');
-  const refreshToken = Cookies.get('refreshToken');
-  const hasAuthTokens = Boolean(
-    accessToken && refreshToken && accessToken !== 'undefined' && refreshToken !== 'undefined'
-  );
-
   const resetAuthState = () => {
     setProfileId(null);
     setCurrentProfile(null);
@@ -75,7 +69,7 @@ const Layout: FC<Props> = ({ children }) => {
   // Fetch current profiles and sig nonce owned by the wallet address
   const { loading } = useQuery(USER_PROFILES_QUERY, {
     variables: { ownedBy: address },
-    skip: !hasAuthTokens && !profileId,
+    skip: !profileId,
     onCompleted: (data) => {
       const profiles: Profile[] = data?.profiles?.items
         ?.slice()
@@ -93,21 +87,23 @@ const Layout: FC<Props> = ({ children }) => {
     }
   });
 
-  useEffect(() => {
+  const validateAuthentication = () => {
     const currentProfileAddress = currentProfile?.ownedBy;
-    const hasSameAddress = currentProfileAddress !== undefined && currentProfileAddress !== address;
+    const isSwitchedAccount = currentProfileAddress !== undefined && currentProfileAddress !== address;
+    const isWrongNetworkChain = chain?.id !== CHAIN_ID;
     const shouldLogout =
-      hasSameAddress || // If the current address is not the same as the profile address
-      chain?.id !== CHAIN_ID || // If the user is not on the correct chain
-      isDisconnected || // If the user is disconnected from the wallet
-      !hasAuthTokens; // If the user has no auth tokens
+      !getIsAuthTokensAvailable() || isWrongNetworkChain || isDisconnected || isSwitchedAccount;
 
     // If there are no auth data, clear and logout
     if (shouldLogout && profileId) {
       resetAuthState();
       resetAuthData();
-      disconnect();
+      disconnect?.();
     }
+  };
+
+  useEffect(() => {
+    validateAuthentication();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isDisconnected, address, chain, disconnect]);
 
