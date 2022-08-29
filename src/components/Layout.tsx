@@ -93,7 +93,7 @@ const Layout: FC<Props> = ({ children }) => {
     }
   });
 
-  useEffect(() => {
+  const validateAuthentication = () => {
     const currentProfileAddress = currentProfile?.ownedBy;
     const hasSameAddress = currentProfileAddress !== undefined && currentProfileAddress !== address;
     const shouldLogout =
@@ -108,6 +108,10 @@ const Layout: FC<Props> = ({ children }) => {
       resetAuthData();
       disconnect?.();
     }
+  };
+
+  useEffect(() => {
+    validateAuthentication();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isDisconnected, address, chain, disconnect]);
 
