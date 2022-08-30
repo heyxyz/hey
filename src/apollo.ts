@@ -6,7 +6,7 @@ import { publicationKeyFields } from '@lib/keyFields';
 import parseJwt from '@lib/parseJwt';
 import axios from 'axios';
 
-import { API_URL, ERROR_MESSAGE } from './constants';
+import { API_URL } from './constants';
 
 const REFRESH_AUTHENTICATION_MUTATION = `
   mutation Refresh($request: RefreshRequest!) {
@@ -69,18 +69,12 @@ const authLink = new ApolloLink((operation, forward) => {
             }
           });
 
-          if (!accessToken || !refreshToken) {
-            clearStorage();
-            window.location.reload();
-          }
-
           localStorage.setItem('accessToken', accessToken);
           localStorage.setItem('refreshToken', refreshToken);
         })
         .catch(() => {
           clearStorage();
-          window.location.reload();
-          console.log(ERROR_MESSAGE);
+          location.reload();
         });
     }
 
