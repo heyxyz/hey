@@ -1,0 +1,26 @@
+{
+  "short_name": "Lenster",
+  "name": "Lenster.xyz",
+  "iconPath": "./favicon.svg",
+  "description": "Lenster is a decentralized, and permissionless social media app built with Lens Protocol",
+  "orientation": "portrait",
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "https://assets.lenster.xyz/images/icons/apple-touch-icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "https://assets.lenster.xyz/images/icons/192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://assets.lenster.xyz/images/icons/512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/"
+}
