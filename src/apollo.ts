@@ -47,7 +47,7 @@ const authLink = new ApolloLink((operation, forward) => {
     clearStorage();
     return forward(operation);
   } else {
-    const isExpireSoon = Date.now() >= parseJwt(accessToken)?.exp * 999;
+    const isExpireSoon = Date.now() >= parseJwt(accessToken)?.exp * 1000;
     if (isExpireSoon) {
       axios(API_URL, {
         method: 'POST',
