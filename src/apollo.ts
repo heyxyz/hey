@@ -84,7 +84,6 @@ const authLink = new ApolloLink((operation, forward) => {
         });
     }
 
-    console.log('gm', accessToken);
     operation.setContext({
       headers: {
         'x-access-token': accessToken ? `Bearer ${accessToken}` : ''
