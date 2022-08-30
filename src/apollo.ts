@@ -43,12 +43,12 @@ const clearStorage = () => {
 const authLink = new ApolloLink((operation, forward) => {
   const accessToken = localStorage.getItem('accessToken');
 
-  if (accessToken === 'undefined' || !accessToken) {
+  if (!accessToken || accessToken === 'undefined') {
     clearStorage();
     return forward(operation);
   } else {
-    const { exp }: { exp: number } = parseJwt(accessToken);
-    if (Date.now() >= exp * 1000) {
+    const isExpireSoon = Date.now() >= parseJwt(accessToken)?.exp * 999;
+    if (isExpireSoon) {
       axios(API_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -84,6 +84,7 @@ const authLink = new ApolloLink((operation, forward) => {
         });
     }
 
+    console.log('gm', accessToken);
     operation.setContext({
       headers: {
         'x-access-token': accessToken ? `Bearer ${accessToken}` : ''
