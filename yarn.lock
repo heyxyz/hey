@@ -622,10 +622,10 @@
     "@babel/helper-validator-identifier" "^7.18.6"
     to-fast-properties "^2.0.0"
 
-"@bundlr-network/client@^0.8.2":
-  version "0.8.2"
-  resolved "https://registry.yarnpkg.com/@bundlr-network/client/-/client-0.8.2.tgz#2eceee13547bf94cd59ce23b5aabf7b8276bb62f"
-  integrity sha512-2LcF31Y7U8pUcg2pamQ0qju+uSmO6D2uVUJ1bwmRIK5egdmZZeK3uA/H7ZvkJJSUEZfgJ6q9mlM+mvwOyJgyJg==
+"@bundlr-network/client@^0.8.3":
+  version "0.8.3"
+  resolved "https://registry.yarnpkg.com/@bundlr-network/client/-/client-0.8.3.tgz#9cbb0354466a05886312a0e857324b90ab48ae53"
+  integrity sha512-+iRkMvpQ4JFDO2JjGY7djpOvzeYEdb1BoNMFKvANKW4zA4gdt+VW55CEVAoAnmBuSzihtKf6QP9GWXwluUHj5g==
   dependencies:
     "@solana/wallet-adapter-base" "^0.9.2"
     "@solana/web3.js" "^1.36.0"
