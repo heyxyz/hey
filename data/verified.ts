@@ -2,6 +2,7 @@ export const mainnetVerified = [
   '0x7901' /** @klima.lens */,
   '0x0c67' /** @toucanprotocol.lens */,
   '0x1c5f' /** @allmylovezoe.lens */,
+  '0x20e7' /** @reecej.lens */,
   '0xe06b' /** @operacrypto.lens */,
   '0x250e' /** @alexatallah.lens */,
   '0xdf7a' /** @cms_intern.lens */,
