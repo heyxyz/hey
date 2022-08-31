@@ -23,11 +23,7 @@ const ThreadBody: FC<Props> = ({ publication }) => {
   return (
     <>
       <div className="flex justify-between space-x-1.5">
-        <UserProfile
-          profile={
-            publication?.collectedBy?.defaultProfile ? publication?.collectedBy?.defaultProfile : profile
-          }
-        />
+        <UserProfile profile={profile ?? publication?.collectedBy?.defaultProfile} />
         <Link href={`/posts/${publication?.id}`} className="text-sm text-gray-500">
           {dayjs(new Date(timestamp)).fromNow()}
         </Link>

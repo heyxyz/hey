@@ -41,7 +41,7 @@ const SinglePublication: FC<Props> = ({
       <PublicationType publication={publication} showType={showType} showThread={showThread} />
       <div>
         <div className="flex justify-between pb-4 space-x-1.5">
-          <UserProfile profile={publication?.collectedBy?.defaultProfile ?? profile} />
+          <UserProfile profile={profile ?? publication?.collectedBy?.defaultProfile} />
           <Link href={`/posts/${publication?.id}`} className="text-sm text-gray-500">
             <span>{dayjs(new Date(timestamp)).fromNow()}</span>
           </Link>

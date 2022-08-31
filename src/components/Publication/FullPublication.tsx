@@ -39,7 +39,7 @@ const FullPublication: FC<Props> = ({ publication }) => {
       <PublicationType publication={publication} showType />
       <div>
         <div className="flex justify-between pb-4 space-x-1.5">
-          <UserProfile profile={publication?.collectedBy?.defaultProfile ?? profile} />
+          <UserProfile profile={profile ?? publication?.collectedBy?.defaultProfile} />
         </div>
         <div className="ml-[53px]">
           {publication?.hidden ? (
