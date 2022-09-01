@@ -1,7 +1,7 @@
 import isStaff from '@lib/isStaff';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 
-const useStaffRoute = () => {
+const useStaffMode = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const staffMode = useAppPersistStore((state) => state.staffMode);
   const allowed = currentProfile ? isStaff(currentProfile?.id) && staffMode : false;
@@ -9,4 +9,4 @@ const useStaffRoute = () => {
   return { allowed };
 };
 
-export default useStaffRoute;
+export default useStaffMode;

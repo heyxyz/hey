@@ -1,12 +1,12 @@
+import useStaffMode from '@components/utils/hooks/useStaffMode';
 import { Mixpanel } from '@lib/mixpanel';
 import Link from 'next/link';
 import { FC } from 'react';
 import { APP_NAME } from 'src/constants';
-import { useAppPersistStore } from 'src/store/app';
 import { FOOTER } from 'src/tracking';
 
 const Footer: FC = () => {
-  const staffMode = useAppPersistStore((state) => state.staffMode);
+  const { allowed: staffMode } = useStaffMode();
 
   return (
     <footer

@@ -5,6 +5,7 @@ import Footer from '@components/Shared/Footer';
 import UserProfile from '@components/Shared/UserProfile';
 import PublicationStaffTool from '@components/StaffTools/Panels/Publication';
 import { Card, CardBody } from '@components/UI/Card';
+import useStaffMode from '@components/utils/hooks/useStaffMode';
 import Seo from '@components/utils/Seo';
 import { LensterPublication } from '@generated/lenstertypes';
 import { CommentFields } from '@gql/CommentFields';
@@ -18,7 +19,7 @@ import React, { useEffect } from 'react';
 import { APP_NAME } from 'src/constants';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
-import { useAppPersistStore, useAppStore } from 'src/store/app';
+import { useAppStore } from 'src/store/app';
 import { PAGEVIEW } from 'src/tracking';
 
 import FullPublication from './FullPublication';
@@ -75,7 +76,7 @@ export const PUBLICATION_QUERY = gql`
 
 const ViewPublication: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const staffMode = useAppPersistStore((state) => state.staffMode);
+  const { allowed: staffMode } = useStaffMode();
 
   useEffect(() => {
     Mixpanel.track(PAGEVIEW.PUBLICATION);
