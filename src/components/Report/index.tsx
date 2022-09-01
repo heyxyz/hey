@@ -12,7 +12,7 @@ import { Form, useZodForm } from '@components/UI/Form';
 import { Spinner } from '@components/UI/Spinner';
 import { TextArea } from '@components/UI/TextArea';
 import Seo from '@components/utils/Seo';
-import { PencilSquareIcon } from '@heroicons/react/24/outline';
+import { ArrowRightCircleIcon } from '@heroicons/react/24/outline';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { Mixpanel } from '@lib/mixpanel';
 import { useRouter } from 'next/router';
@@ -149,7 +149,11 @@ const Report: FC = () => {
                           type="submit"
                           disabled={submitLoading}
                           icon={
-                            submitLoading ? <Spinner size="xs" /> : <PencilSquareIcon className="w-4 h-4" />
+                            submitLoading ? (
+                              <Spinner size="xs" />
+                            ) : (
+                              <ArrowRightCircleIcon className="w-4 h-4" />
+                            )
                           }
                         >
                           Report

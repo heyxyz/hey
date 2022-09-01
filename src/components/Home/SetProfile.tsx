@@ -1,5 +1,5 @@
 import { Card, CardBody } from '@components/UI/Card';
-import { MinusCircleIcon, PencilSquareIcon, PhotoIcon } from '@heroicons/react/24/outline';
+import { ArrowRightCircleIcon, MinusCircleIcon, PhotoIcon } from '@heroicons/react/24/outline';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import clsx from 'clsx';
 import Link from 'next/link';
@@ -46,7 +46,7 @@ const SetProfile: FC = () => {
           <Status finished={!!currentProfile?.picture} title="Set your avatar" />
         </div>
         <div className="flex items-center space-x-1.5 text-sm font-bold">
-          <PencilSquareIcon className="w-4 h-4" />
+          <ArrowRightCircleIcon className="w-4 h-4" />
           <Link href="/settings">Update profile here</Link>
         </div>
       </CardBody>

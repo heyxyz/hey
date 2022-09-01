@@ -7,12 +7,12 @@ import {
   ArrowsRightLeftIcon,
   BanknotesIcon,
   ChatBubbleLeftRightIcon,
+  DocumentTextIcon,
   FireIcon,
   RectangleStackIcon,
   UserPlusIcon,
   UsersIcon
 } from '@heroicons/react/24/outline';
-import { PencilSquareIcon } from '@heroicons/react/24/solid';
 import getTokenImage from '@lib/getTokenImage';
 import humanize from '@lib/humanize';
 import isStaff from '@lib/isStaff';
@@ -109,7 +109,7 @@ const Stats: NextPage = () => {
                     title="profiles burnt"
                   />
                   <StatBox
-                    icon={<PencilSquareIcon className="w-4 h-4" />}
+                    icon={<DocumentTextIcon className="w-4 h-4" />}
                     value={stats?.totalPosts}
                     title="total posts"
                   />

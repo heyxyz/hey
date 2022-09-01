@@ -16,7 +16,7 @@ import {
   CREATE_POST_TYPED_DATA_MUTATION,
   CREATE_POST_VIA_DISPATHCER_MUTATION
 } from '@gql/TypedAndDispatcherData/CreatePost';
-import { PencilSquareIcon } from '@heroicons/react/24/outline';
+import { PlusCircleIcon } from '@heroicons/react/24/outline';
 import { defaultFeeData, defaultModuleData, getModule } from '@lib/getModule';
 import getSignature from '@lib/getSignature';
 import { Mixpanel } from '@lib/mixpanel';
@@ -273,7 +273,7 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
               <Button
                 className="ml-auto"
                 disabled={isLoading}
-                icon={isLoading ? <Spinner size="xs" /> : <PencilSquareIcon className="w-4 h-4" />}
+                icon={isLoading ? <Spinner size="xs" /> : <PlusCircleIcon className="w-4 h-4" />}
                 onClick={createPost}
               >
                 {isUploading

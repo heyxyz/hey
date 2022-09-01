@@ -1,5 +1,5 @@
 import { ProfileStats } from '@generated/types';
-import { ChatBubbleLeftRightIcon, FilmIcon, PencilSquareIcon, PhotoIcon } from '@heroicons/react/24/outline';
+import { ChatBubbleLeftRightIcon, DocumentTextIcon, FilmIcon, PhotoIcon } from '@heroicons/react/24/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import nFormatter from '@lib/nFormatter';
 import clsx from 'clsx';
@@ -48,7 +48,7 @@ const FeedType: FC<Props> = ({ stats, setFeedType, feedType }) => {
     <div className="flex overflow-x-auto gap-3 px-5 pb-2 mt-3 sm:px-0 sm:mt-0 md:pb-0">
       <FeedLink
         name="Feed"
-        icon={<PencilSquareIcon className="w-4 h-4" />}
+        icon={<DocumentTextIcon className="w-4 h-4" />}
         type="FEED"
         count={stats?.totalPosts + stats?.totalMirrors}
       />

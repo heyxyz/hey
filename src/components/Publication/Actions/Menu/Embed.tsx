@@ -1,6 +1,6 @@
 import { LensterPublication } from '@generated/lenstertypes';
 import { Menu } from '@headlessui/react';
-import { CodeBracketSquareIcon } from '@heroicons/react/24/outline';
+import { CodeBracketIcon } from '@heroicons/react/24/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import clsx from 'clsx';
 import React, { FC } from 'react';
@@ -24,7 +24,7 @@ const Embed: FC<Props> = ({ publication }) => {
       target="_blank"
     >
       <div className="flex items-center space-x-2">
-        <CodeBracketSquareIcon className="w-4 h-4" />
+        <CodeBracketIcon className="w-4 h-4" />
         <div>Embed</div>
       </div>
     </Menu.Item>
