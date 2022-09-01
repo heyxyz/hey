@@ -9,7 +9,10 @@ export function Mention({ ...props }: any) {
   return (
     <Link
       href={`/u/${props.display.slice(1)}`}
-      onClick={() => Mixpanel.track(PUBLICATION.MENTION_CLICK, { username: `@${props.display}` })}
+      onClick={(event) => {
+        event.stopPropagation();
+        Mixpanel.track(PUBLICATION.MENTION_CLICK, { username: `@${props.display}` });
+      }}
     >
       <Slug className="text-md" slug={props.display} />
     </Link>
