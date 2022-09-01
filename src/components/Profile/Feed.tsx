@@ -90,7 +90,6 @@ const Feed: FC<Props> = ({ profile, type }) => {
         variables: {
           request: {
             publicationTypes,
-            metadata,
             profileId: profile?.id,
             cursor: pageInfo?.next,
             limit: 10
