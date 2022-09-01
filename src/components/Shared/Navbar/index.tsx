@@ -1,4 +1,5 @@
 import NotificationIcon from '@components/Notification/Icon';
+import useStaffMode from '@components/utils/hooks/useStaffMode';
 import { Disclosure } from '@headlessui/react';
 import { MenuIcon, XIcon } from '@heroicons/react/outline';
 import hasPrideLogo from '@lib/hasPrideLogo';
@@ -7,7 +8,7 @@ import clsx from 'clsx';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { FC } from 'react';
-import { useAppPersistStore, useAppStore } from 'src/store/app';
+import { useAppStore } from 'src/store/app';
 
 import NewPostModal from '../../Publication/New/NewPostModal';
 import MenuItems from './MenuItems';
@@ -17,7 +18,7 @@ import StaffBar from './StaffBar';
 
 const Navbar: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const staffMode = useAppPersistStore((state) => state.staffMode);
+  const { allowed: staffMode } = useStaffMode();
 
   interface NavItemProps {
     url: string;

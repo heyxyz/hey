@@ -1,3 +1,4 @@
+import useStaffMode from '@components/utils/hooks/useStaffMode';
 import { Profile } from '@generated/types';
 import { Menu, Transition } from '@headlessui/react';
 import {
@@ -32,8 +33,8 @@ const SignedUser: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
-  const staffMode = useAppPersistStore((state) => state.staffMode);
   const setStaffMode = useAppPersistStore((state) => state.setStaffMode);
+  const { allowed: staffMode } = useStaffMode();
   const { theme, setTheme } = useTheme();
   const { disconnect } = useDisconnect();
 

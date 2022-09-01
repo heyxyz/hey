@@ -1,7 +1,7 @@
 import { gql, useQuery } from '@apollo/client';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout';
 import { Card } from '@components/UI/Card';
-import useStaffRoute from '@components/utils/hooks/useStaffRoute';
+import useStaffMode from '@components/utils/hooks/useStaffMode';
 import Seo from '@components/utils/Seo';
 import { Erc20Amount, GlobalProtocolStats } from '@generated/types';
 import {
@@ -67,7 +67,7 @@ const StatBox: FC<StatBoxProps> = ({ icon, value, title }) => (
 );
 
 const Stats: NextPage = () => {
-  const { allowed } = useStaffRoute();
+  const { allowed } = useStaffMode();
 
   useEffect(() => {
     Mixpanel.track(PAGEVIEW.STAFFTOOLS.STATS);

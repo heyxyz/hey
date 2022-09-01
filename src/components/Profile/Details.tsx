@@ -6,6 +6,7 @@ import Unfollow from '@components/Shared/Unfollow';
 import ProfileStaffTool from '@components/StaffTools/Panels/Profile';
 import { Button } from '@components/UI/Button';
 import { Tooltip } from '@components/UI/Tooltip';
+import useStaffMode from '@components/utils/hooks/useStaffMode';
 import { Profile } from '@generated/types';
 import { CogIcon, HashtagIcon, LocationMarkerIcon } from '@heroicons/react/outline';
 import { BadgeCheckIcon, ShieldCheckIcon } from '@heroicons/react/solid';
@@ -18,7 +19,7 @@ import Link from 'next/link';
 import { useTheme } from 'next-themes';
 import React, { FC, ReactElement, useState } from 'react';
 import { STATIC_ASSETS } from 'src/constants';
-import { useAppPersistStore, useAppStore } from 'src/store/app';
+import { useAppStore } from 'src/store/app';
 
 import Badges from './Badges';
 import Followerings from './Followerings';
@@ -30,8 +31,8 @@ interface Props {
 
 const Details: FC<Props> = ({ profile }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const staffMode = useAppPersistStore((state) => state.staffMode);
   const [following, setFollowing] = useState(profile?.isFollowedByMe);
+  const { allowed: staffMode } = useStaffMode();
   const { resolvedTheme } = useTheme();
 
   const MetaDetails = ({ children, icon }: { children: ReactElement; icon: ReactElement }) => (
