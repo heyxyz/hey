@@ -16,11 +16,13 @@ import { PencilAltIcon } from '@heroicons/react/solid';
 import getTokenImage from '@lib/getTokenImage';
 import humanize from '@lib/humanize';
 import isStaff from '@lib/isStaff';
+import { Mixpanel } from '@lib/mixpanel';
 import { NextPage } from 'next';
-import React, { FC, ReactNode } from 'react';
+import React, { FC, ReactNode, useEffect } from 'react';
 import { APP_NAME, ERROR_MESSAGE } from 'src/constants';
 import Custom404 from 'src/pages/404';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
+import { PAGEVIEW } from 'src/tracking';
 
 import Sidebar from '../Sidebar';
 
@@ -69,6 +71,10 @@ const Stats: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const staffMode = useAppPersistStore((state) => state.staffMode);
   const notAllowed = !currentProfile || !isStaff(currentProfile?.id) || !staffMode;
+
+  useEffect(() => {
+    Mixpanel.track(PAGEVIEW.STAFFTOOLS.STATS);
+  }, []);
 
   const { data, loading, error } = useQuery(LENSTER_STATS_QUERY, {
     pollInterval: 1000

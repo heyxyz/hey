@@ -93,11 +93,12 @@ export const SETTINGS = {
   DELETE: 'Delete profile'
 };
 
-export const STAFF = {
+export const STAFFTOOLS = {
   TOGGLE_MODE: 'Toggle staff mode'
 };
 
 export const SEARCH = {
+  FOCUS: 'Focus search input',
   CLEAR: 'Clear search text'
 };
 
@@ -148,5 +149,8 @@ export const PAGEVIEW = {
     ALLOWANCE: 'Allowance settings page',
     DATA: 'Data settings page',
     DELETE: 'Delete settings page'
+  },
+  STAFFTOOLS: {
+    STATS: 'Staff stats page'
   }
 };
