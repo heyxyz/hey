@@ -18,7 +18,10 @@ const PublicationActions: FC<Props> = ({ publication, isFullPublication = false 
   const collectModuleType = publication?.collectModule?.__typename;
 
   return (
-    <div
+    <span
+      onClick={(event) => {
+        event.stopPropagation();
+      }}
       className={clsx(
         { 'justify-between': isFullPublication },
         'flex gap-6 items-center pt-3 -ml-2 text-gray-500 sm:gap-8'
@@ -33,7 +36,7 @@ const PublicationActions: FC<Props> = ({ publication, isFullPublication = false 
           <Collect publication={publication} isFullPublication={isFullPublication} />
         )}
       <PublicationMenu publication={publication} isFullPublication={isFullPublication} />
-    </div>
+    </span>
   );
 };
 
