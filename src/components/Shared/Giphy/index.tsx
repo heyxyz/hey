@@ -1,7 +1,7 @@
 import { Modal } from '@components/UI/Modal';
 import { Tooltip } from '@components/UI/Tooltip';
 import { IGif } from '@giphy/js-types';
-import { GifIcon, PhotoIcon } from '@heroicons/react/24/outline';
+import { GifIcon } from '@heroicons/react/24/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
@@ -41,7 +41,7 @@ const Giphy: FC<Props> = ({ setGifAttachment }) => {
       </Tooltip>
       <Modal
         title="Select GIF"
-        icon={<PhotoIcon className="w-5 h-5 text-brand" />}
+        icon={<GifIcon className="w-5 h-5 text-brand" />}
         show={showModal}
         onClose={() => setShowModal(false)}
       >

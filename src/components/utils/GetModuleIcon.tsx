@@ -5,7 +5,7 @@ import {
   PlusCircleIcon,
   ReceiptRefundIcon,
   ShareIcon,
-  StopIcon
+  Squares2X2Icon
 } from '@heroicons/react/24/outline';
 import React, { FC } from 'react';
 
@@ -21,14 +21,14 @@ const GetModuleIcon: FC<Props> = ({ module, size }) => {
     case 'LimitedFeeCollectModule':
       return (
         <div className="flex gap-1 items-center">
-          <StopIcon className={`h-${size}`} />
+          <Squares2X2Icon className={`h-${size}`} />
           <BanknotesIcon className={`h-${size}`} />
         </div>
       );
     case 'LimitedTimedFeeCollectModule':
       return (
         <div className="flex gap-1 items-center">
-          <StopIcon className={`h-${size}`} />
+          <Squares2X2Icon className={`h-${size}`} />
           <ClockIcon className={`h-${size}`} />
           <BanknotesIcon className={`h-${size}`} />
         </div>
