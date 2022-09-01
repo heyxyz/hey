@@ -3,7 +3,6 @@ import useStaffMode from '@components/utils/hooks/useStaffMode';
 import { Disclosure } from '@headlessui/react';
 import { MenuIcon, XIcon } from '@heroicons/react/outline';
 import hasPrideLogo from '@lib/hasPrideLogo';
-import isStaff from '@lib/isStaff';
 import clsx from 'clsx';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -64,7 +63,7 @@ const Navbar: FC = () => {
     >
       {({ open }) => (
         <>
-          {isStaff(currentProfile?.id) && staffMode && <StaffBar />}
+          {staffMode && <StaffBar />}
           <div className="container px-5 mx-auto max-w-screen-xl">
             <div className="flex relative justify-between items-center h-14 sm:h-16">
               <div className="flex justify-start items-center">

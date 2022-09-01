@@ -9,7 +9,7 @@ import { Tooltip } from '@components/UI/Tooltip';
 import useStaffMode from '@components/utils/hooks/useStaffMode';
 import { Profile } from '@generated/types';
 import { CogIcon, HashtagIcon, LocationMarkerIcon } from '@heroicons/react/outline';
-import { BadgeCheckIcon, ShieldCheckIcon } from '@heroicons/react/solid';
+import { BadgeCheckIcon } from '@heroicons/react/solid';
 import formatAddress from '@lib/formatAddress';
 import getAttribute from '@lib/getAttribute';
 import getAvatar from '@lib/getAvatar';
@@ -61,11 +61,6 @@ const Details: FC<Props> = ({ profile }) => {
           {isVerified(profile?.id) && (
             <Tooltip content="Verified">
               <BadgeCheckIcon className="w-6 h-6 text-brand" />
-            </Tooltip>
-          )}
-          {isStaff(profile?.id) && (
-            <Tooltip content="Staff">
-              <ShieldCheckIcon className="w-6 h-6 text-green-500" />
             </Tooltip>
           )}
         </div>

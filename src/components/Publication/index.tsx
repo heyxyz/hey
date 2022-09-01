@@ -11,7 +11,6 @@ import { LensterPublication } from '@generated/lenstertypes';
 import { CommentFields } from '@gql/CommentFields';
 import { MirrorFields } from '@gql/MirrorFields';
 import { PostFields } from '@gql/PostFields';
-import isStaff from '@lib/isStaff';
 import { Mixpanel } from '@lib/mixpanel';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
@@ -141,7 +140,7 @@ const ViewPublication: NextPage = () => {
         </Card>
         <RelevantPeople publication={publication} />
         <OnchainMeta publication={publication} />
-        {isStaff(currentProfile?.id) && staffMode && <PublicationStaffTool publication={publication} />}
+        {staffMode && <PublicationStaffTool publication={publication} />}
         <Footer />
       </GridItemFour>
     </GridLayout>
