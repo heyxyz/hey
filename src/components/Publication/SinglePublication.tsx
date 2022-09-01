@@ -3,7 +3,7 @@ import { LensterPublication } from '@generated/lenstertypes';
 import { Mixpanel } from '@lib/mixpanel';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import Link from 'next/link';
+import { useRouter } from 'next/router';
 import React, { FC } from 'react';
 import { PUBLICATION } from 'src/tracking';
 
@@ -27,14 +27,16 @@ const SinglePublication: FC<Props> = ({
   showActions = true,
   showThread = true
 }) => {
+  const { push } = useRouter();
   const isMirror = publication?.__typename === 'Mirror';
   const profile = isMirror ? publication?.mirrorOf?.profile : publication?.profile;
   const timestamp = isMirror ? publication?.mirrorOf?.createdAt : publication?.createdAt;
 
   return (
     <article
-      className="first:rounded-t-xl last:rounded-b-xl p-5"
+      className="first:rounded-t-xl last:rounded-b-xl p-5 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer"
       onClick={() => {
+        push(`/posts/${publication?.id}`);
         Mixpanel.track(PUBLICATION.OPEN);
       }}
     >
@@ -42,9 +44,7 @@ const SinglePublication: FC<Props> = ({
       <div>
         <div className="flex justify-between pb-4 space-x-1.5">
           <UserProfile profile={profile ?? publication?.collectedBy?.defaultProfile} />
-          <Link href={`/posts/${publication?.id}`} className="text-sm text-gray-500">
-            <span>{dayjs(new Date(timestamp)).fromNow()}</span>
-          </Link>
+          <span className="text-xs text-gray-500">{dayjs(new Date(timestamp)).fromNow()}</span>
         </div>
         <div className="ml-[53px]">
           {publication?.hidden ? (
