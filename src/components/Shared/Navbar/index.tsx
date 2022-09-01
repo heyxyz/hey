@@ -27,7 +27,7 @@ const Navbar: FC = () => {
   const staffMode = useAppPersistStore((state) => state.staffMode);
 
   const { data: pingData } = useQuery(PING_QUERY, {
-    pollInterval: 3000,
+    pollInterval: 10000,
     skip: !currentProfile
   });
 

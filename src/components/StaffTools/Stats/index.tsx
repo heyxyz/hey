@@ -1,6 +1,7 @@
 import { gql, useQuery } from '@apollo/client';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout';
 import { Card } from '@components/UI/Card';
+import useStaffRoute from '@components/utils/hooks/useStaffRoute';
 import Seo from '@components/utils/Seo';
 import { Erc20Amount, GlobalProtocolStats } from '@generated/types';
 import {
@@ -15,13 +16,11 @@ import {
 import { PencilAltIcon } from '@heroicons/react/solid';
 import getTokenImage from '@lib/getTokenImage';
 import humanize from '@lib/humanize';
-import isStaff from '@lib/isStaff';
 import { Mixpanel } from '@lib/mixpanel';
 import { NextPage } from 'next';
 import React, { FC, ReactNode, useEffect } from 'react';
 import { APP_NAME, ERROR_MESSAGE } from 'src/constants';
 import Custom404 from 'src/pages/404';
-import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { PAGEVIEW } from 'src/tracking';
 
 import Sidebar from '../Sidebar';
@@ -68,9 +67,7 @@ const StatBox: FC<StatBoxProps> = ({ icon, value, title }) => (
 );
 
 const Stats: NextPage = () => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
-  const staffMode = useAppPersistStore((state) => state.staffMode);
-  const notAllowed = !currentProfile || !isStaff(currentProfile?.id) || !staffMode;
+  const { allowed } = useStaffRoute();
 
   useEffect(() => {
     Mixpanel.track(PAGEVIEW.STAFFTOOLS.STATS);
@@ -80,7 +77,7 @@ const Stats: NextPage = () => {
     pollInterval: 1000
   });
 
-  if (notAllowed) {
+  if (!allowed) {
     return <Custom404 />;
   }
 
