@@ -15,7 +15,10 @@ export function Hashtag({ ...props }: any) {
       <span>
         <Link
           href={`/search?q=${props.display.slice(1)}&type=pubs&src=link_click`}
-          onClick={() => Mixpanel.track(PUBLICATION.HASHTAG_CLICK, { hashtag: `#${props.display}` })}
+          onClick={(event) => {
+            event.stopPropagation();
+            Mixpanel.track(PUBLICATION.HASHTAG_CLICK, { hashtag: `#${props.display}` });
+          }}
         >
           {props.display}
         </Link>
