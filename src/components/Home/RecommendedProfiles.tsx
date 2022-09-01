@@ -4,14 +4,17 @@ import UserProfile from '@components/Shared/UserProfile';
 import { Card, CardBody } from '@components/UI/Card';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
+import { Modal } from '@components/UI/Modal';
 import { Profile } from '@generated/types';
 import { ProfileFields } from '@gql/ProfileFields';
-import { UsersIcon } from '@heroicons/react/outline';
+import { DotsCircleHorizontalIcon, UsersIcon } from '@heroicons/react/outline';
 import { LightningBoltIcon, SparklesIcon } from '@heroicons/react/solid';
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { useAppStore } from 'src/store/app';
 
-const RECOMMENDED_PROFILES_QUERY = gql`
+import Suggested from './Suggested';
+
+export const RECOMMENDED_PROFILES_QUERY = gql`
   query RecommendedProfiles {
     recommendedProfiles {
       ...ProfileFields
@@ -43,6 +46,7 @@ const Title = () => {
 
 const RecommendedProfiles: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const [showSuggestedModal, setShowSuggestedModal] = useState(false);
   const { data, loading, error } = useQuery(RECOMMENDED_PROFILES_QUERY, {
     variables: { profileId: currentProfile?.id ?? null }, // TODO: remove this fake variable
     fetchPolicy: 'no-cache'
@@ -93,7 +97,22 @@ const RecommendedProfiles: FC = () => {
             </div>
           ))}
         </CardBody>
+        <button
+          className="bg-gray-100 dark:bg-gray-900 hover:bg-gray-200 dark:hover:bg-gray-800 border-t dark:border-t-gray-700/80 text-sm w-full rounded-b-xl text-left px-5 py-3 flex items-center space-x-2 text-gray-600 dark:text-gray-300"
+          onClick={() => setShowSuggestedModal(true)}
+        >
+          <DotsCircleHorizontalIcon className="h-4 w-4" />
+          <span>Show more</span>
+        </button>
       </Card>
+      <Modal
+        title="Suggested for you"
+        icon={<UsersIcon className="w-5 h-5 text-brand" />}
+        show={showSuggestedModal}
+        onClose={() => setShowSuggestedModal(false)}
+      >
+        <Suggested />
+      </Modal>
     </>
   );
 };
