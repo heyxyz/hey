@@ -160,3 +160,13 @@ export const PAGEVIEW = {
 export const MISCELLANEOUS = {
   NAVIGATE_UPDATE_PROFILE: 'Navigate to update profile from onboarding'
 };
+
+export const FOOTER = {
+  DISCORD: 'Open discord',
+  DONATE: 'Open donate',
+  STATUS: 'Open status',
+  VOTE: 'Open vote',
+  FEEDBACK: 'Open feedback',
+  GITHUB: 'Open GitHub',
+  VERCEL: 'Open Vercel'
+};
