@@ -31,6 +31,8 @@ export const PUBLICATION = {
   DELETE: 'Delete publication',
   REPORT: 'Report publication',
   OEMBED_CLICK: 'Click publication oemebed',
+  MENTION_CLICK: 'Click publication mention',
+  HASHTAG_CLICK: 'Click publication hashtag',
   STATS: {
     MIRRORED_BY: 'Open mirrored by list',
     LIKED_BY: 'Open liked by list',
