@@ -1,4 +1,3 @@
-import { gql, useQuery } from '@apollo/client';
 import NotificationIcon from '@components/Notification/Icon';
 import { Disclosure } from '@headlessui/react';
 import { MenuIcon, XIcon } from '@heroicons/react/outline';
@@ -16,20 +15,9 @@ import MoreNavItems from './MoreNavItems';
 import Search from './Search';
 import StaffBar from './StaffBar';
 
-const PING_QUERY = gql`
-  query Ping {
-    ping
-  }
-`;
-
 const Navbar: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const staffMode = useAppPersistStore((state) => state.staffMode);
-
-  const { data: pingData } = useQuery(PING_QUERY, {
-    pollInterval: 10000,
-    skip: !currentProfile
-  });
 
   interface NavItemProps {
     url: string;
@@ -108,7 +96,7 @@ const Navbar: FC = () => {
               <div className="flex gap-8 items-center">
                 {currentProfile && <NewPostModal />}
                 {currentProfile && <NotificationIcon />}
-                <MenuItems pingData={pingData} />
+                <MenuItems />
               </div>
             </div>
           </div>

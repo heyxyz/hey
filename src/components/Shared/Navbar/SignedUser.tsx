@@ -1,4 +1,3 @@
-import { Tooltip } from '@components/UI/Tooltip';
 import { Profile } from '@generated/types';
 import { Menu, Transition } from '@headlessui/react';
 import {
@@ -28,13 +27,7 @@ import { useDisconnect } from 'wagmi';
 import Slug from '../Slug';
 import { NextLink } from './MenuItems';
 
-interface Props {
-  pingData: {
-    ping: string;
-  };
-}
-
-const SignedUser: FC<Props> = ({ pingData }) => {
+const SignedUser: FC = () => {
   const profiles = useAppStore((state) => state.profiles);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
@@ -196,18 +189,7 @@ const SignedUser: FC<Props> = ({ pingData }) => {
               {currentProfile && GIT_COMMIT_SHA && (
                 <>
                   <div className="divider" />
-                  <div className="py-3 px-6 text-xs flex items-center space-x-2">
-                    {pingData && (
-                      <Tooltip content="Indexer Status" placement="top">
-                        <div
-                          className={clsx(
-                            { 'bg-green-500': pingData?.ping === 'pong' },
-                            { 'bg-red-500': pingData?.ping !== 'pong' },
-                            'p-[4.5px] rounded-full animate-pulse'
-                          )}
-                        />
-                      </Tooltip>
-                    )}
+                  <div className="py-3 px-6 text-xs">
                     <a
                       href={`https://github.com/lensterxyz/lenster/commit/${GIT_COMMIT_SHA}`}
                       className="font-mono"
