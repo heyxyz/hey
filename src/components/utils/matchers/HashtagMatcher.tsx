@@ -1,8 +1,10 @@
+import { Mixpanel } from '@lib/mixpanel';
 import { hashflags } from 'data/hashflags';
 import { Matcher } from 'interweave';
 import Link from 'next/link';
 import React from 'react';
 import { STATIC_ASSETS } from 'src/constants';
+import { PUBLICATION } from 'src/tracking';
 
 export function Hashtag({ ...props }: any) {
   const hashflag = props.display.slice(1).toLowerCase();
@@ -11,7 +13,12 @@ export function Hashtag({ ...props }: any) {
   return (
     <span className="inline-flex items-center space-x-1">
       <span>
-        <Link href={`/search?q=${props.display.slice(1)}&type=pubs&src=link_click`}>{props.display}</Link>
+        <Link
+          href={`/search?q=${props.display.slice(1)}&type=pubs&src=link_click`}
+          onClick={() => Mixpanel.track(PUBLICATION.HASHTAG_CLICK, { hashtag: `#${props.display}` })}
+        >
+          {props.display}
+        </Link>
       </span>
       {hasHashflag && (
         <img

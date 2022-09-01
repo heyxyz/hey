@@ -1,11 +1,16 @@
 import Slug from '@components/Shared/Slug';
+import { Mixpanel } from '@lib/mixpanel';
 import { Matcher } from 'interweave';
 import Link from 'next/link';
 import React from 'react';
+import { PUBLICATION } from 'src/tracking';
 
 export function Mention({ ...props }: any) {
   return (
-    <Link href={`/u/${props.display.slice(1)}`}>
+    <Link
+      href={`/u/${props.display.slice(1)}`}
+      onClick={() => Mixpanel.track(PUBLICATION.MENTION_CLICK, { username: `@${props.display}` })}
+    >
       <Slug className="text-md" slug={props.display} />
     </Link>
   );
