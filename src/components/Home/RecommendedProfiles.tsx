@@ -8,7 +8,6 @@ import { Profile } from '@generated/types';
 import { ProfileFields } from '@gql/ProfileFields';
 import { UsersIcon } from '@heroicons/react/outline';
 import { LightningBoltIcon, SparklesIcon } from '@heroicons/react/solid';
-import randomizeArray from '@lib/randomizeArray';
 import React, { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 
@@ -88,13 +87,11 @@ const RecommendedProfiles: FC = () => {
       <Card as="aside">
         <CardBody className="space-y-4">
           <ErrorMessage title="Failed to load recommendations" error={error} />
-          {randomizeArray(data?.recommendedProfiles)
-            ?.slice(0, 5)
-            ?.map((profile: Profile) => (
-              <div key={profile?.id} className="truncate">
-                <UserProfile profile={profile} isFollowing={profile.isFollowedByMe} showFollow />
-              </div>
-            ))}
+          {data?.recommendedProfiles?.slice(0, 5)?.map((profile: Profile) => (
+            <div key={profile?.id} className="truncate">
+              <UserProfile profile={profile} isFollowing={profile.isFollowedByMe} showFollow />
+            </div>
+          ))}
         </CardBody>
       </Card>
     </>
