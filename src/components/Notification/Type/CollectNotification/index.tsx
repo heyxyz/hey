@@ -5,7 +5,7 @@ import {
 } from '@components/Notification/WalletProfile';
 import { LensterNotification } from '@generated/lenstertypes';
 import { NewCollectNotification } from '@generated/types';
-import { CashIcon, CollectionIcon } from '@heroicons/react/solid';
+import { BanknotesIcon, RectangleStackIcon } from '@heroicons/react/24/solid';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import Link from 'next/link';
@@ -30,9 +30,9 @@ const CollectNotification: FC<Props> = ({ notification }) => {
       <div className="space-y-2 w-4/5">
         <div className="flex items-center space-x-3">
           {publicationType === 'crowdfund' ? (
-            <CashIcon className="h-6 w-6 text-pink-500/70" />
+            <BanknotesIcon className="h-6 w-6 text-pink-500/70" />
           ) : (
-            <CollectionIcon className="h-6 w-6 text-pink-500/70" />
+            <RectangleStackIcon className="h-6 w-6 text-pink-500/70" />
           )}
           {notification?.wallet?.defaultProfile ? (
             <NotificationProfileAvatar profile={notification?.wallet?.defaultProfile} />

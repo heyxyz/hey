@@ -2,7 +2,7 @@ import { Button } from '@components/UI/Button';
 import { Form, useZodForm } from '@components/UI/Form';
 import { Input } from '@components/UI/Input';
 import { Erc20 } from '@generated/types';
-import { ArrowLeftIcon } from '@heroicons/react/outline';
+import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 import { defaultModuleData } from '@lib/getModule';
 import { Mixpanel } from '@lib/mixpanel';
 import { Dispatch, FC, useState } from 'react';

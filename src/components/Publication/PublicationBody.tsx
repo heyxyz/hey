@@ -3,7 +3,7 @@ import IFramely from '@components/Shared/IFramely';
 import Markup from '@components/Shared/Markup';
 import CrowdfundShimmer from '@components/Shared/Shimmer/CrowdfundShimmer';
 import { LensterPublication } from '@generated/lenstertypes';
-import { EyeIcon } from '@heroicons/react/outline';
+import { EyeIcon } from '@heroicons/react/24/outline';
 import getURLs from '@lib/getURLs';
 import clsx from 'clsx';
 import dynamic from 'next/dynamic';

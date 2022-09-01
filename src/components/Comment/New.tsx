@@ -17,7 +17,7 @@ import {
   CREATE_COMMENT_TYPED_DATA_MUTATION,
   CREATE_COMMENT_VIA_DISPATHCER_MUTATION
 } from '@gql/TypedAndDispatcherData/CreateComment';
-import { ChatAlt2Icon } from '@heroicons/react/outline';
+import { ChatBubbleLeftRightIcon } from '@heroicons/react/24/outline';
 import { defaultFeeData, defaultModuleData, getModule } from '@lib/getModule';
 import getSignature from '@lib/getSignature';
 import { Mixpanel } from '@lib/mixpanel';
@@ -274,7 +274,7 @@ const NewComment: FC<Props> = ({ setShowModal, hideCard = false, publication }) 
               <Button
                 className="ml-auto"
                 disabled={isLoading}
-                icon={isLoading ? <Spinner size="xs" /> : <ChatAlt2Icon className="w-4 h-4" />}
+                icon={isLoading ? <Spinner size="xs" /> : <ChatBubbleLeftRightIcon className="w-4 h-4" />}
                 onClick={createComment}
               >
                 {isUploading

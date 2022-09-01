@@ -1,7 +1,7 @@
 import { gql, useQuery } from '@apollo/client';
 import { Modal } from '@components/UI/Modal';
 import { Profile } from '@generated/types';
-import { UsersIcon } from '@heroicons/react/outline';
+import { UsersIcon } from '@heroicons/react/24/outline';
 import getAvatar from '@lib/getAvatar';
 import { Mixpanel } from '@lib/mixpanel';
 import React, { FC, ReactNode, useState } from 'react';

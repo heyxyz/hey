@@ -13,7 +13,7 @@ import {
   Mutation,
   Profile
 } from '@generated/types';
-import { StarIcon, UserIcon } from '@heroicons/react/outline';
+import { StarIcon, UserIcon } from '@heroicons/react/24/outline';
 import formatAddress from '@lib/formatAddress';
 import getSignature from '@lib/getSignature';
 import getTokenImage from '@lib/getTokenImage';

@@ -1,6 +1,6 @@
 import { Modal } from '@components/UI/Modal';
 import { Profile } from '@generated/types';
-import { UsersIcon } from '@heroicons/react/outline';
+import { UsersIcon } from '@heroicons/react/24/outline';
 import humanize from '@lib/humanize';
 import { Mixpanel } from '@lib/mixpanel';
 import React, { FC, useState } from 'react';

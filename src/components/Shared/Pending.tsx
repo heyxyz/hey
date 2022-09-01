@@ -1,7 +1,7 @@
 import { gql, useQuery } from '@apollo/client';
 import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
-import { ArrowRightIcon } from '@heroicons/react/outline';
+import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import React, { FC } from 'react';
 

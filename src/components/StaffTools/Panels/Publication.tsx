@@ -1,7 +1,7 @@
 import { Card, CardBody } from '@components/UI/Card';
 import { LensterPublication } from '@generated/lenstertypes';
-import { CollectionIcon, GlobeAltIcon, HashtagIcon, LinkIcon } from '@heroicons/react/outline';
-import { ShieldCheckIcon } from '@heroicons/react/solid';
+import { GlobeAltIcon, HashtagIcon, LinkIcon, RectangleStackIcon } from '@heroicons/react/24/outline';
+import { ShieldCheckIcon } from '@heroicons/react/24/solid';
 import getIPFSLink from '@lib/getIPFSLink';
 import { getModule } from '@lib/getModule';
 import React, { FC } from 'react';
@@ -38,7 +38,7 @@ const PublicationStaffTool: FC<Props> = ({ publication }) => {
             </MetaDetails>
           ) : null}
           <MetaDetails
-            icon={<CollectionIcon className="w-4 h-4 text-gray-500" />}
+            icon={<RectangleStackIcon className="w-4 h-4 text-gray-500" />}
             value={publication?.commentOn?.id}
             title="Collect module"
           >

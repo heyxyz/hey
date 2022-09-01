@@ -2,7 +2,7 @@ import { gql, useMutation } from '@apollo/client';
 import { LensterPublication } from '@generated/lenstertypes';
 import { Mutation } from '@generated/types';
 import { Menu } from '@headlessui/react';
-import { TrashIcon } from '@heroicons/react/outline';
+import { TrashIcon } from '@heroicons/react/24/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import clsx from 'clsx';
 import { useRouter } from 'next/router';

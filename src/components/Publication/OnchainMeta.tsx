@@ -1,6 +1,6 @@
 import { Card } from '@components/UI/Card';
 import { LensterPublication } from '@generated/lenstertypes';
-import { ExternalLinkIcon } from '@heroicons/react/outline';
+import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
 import React, { FC } from 'react';
 import { IPFS_GATEWAY, POLYGONSCAN_URL } from 'src/constants';
 
@@ -15,7 +15,7 @@ const Meta: FC<MetaProps> = ({ name, uri, hash }) => (
     <a href={uri} className="space-y-1" target="_blank" rel="noreferrer noopener">
       <div className="flex items-center space-x-1">
         <div className="text-[10px]">{name}</div>
-        <ExternalLinkIcon className="w-4 h-4" />
+        <ArrowTopRightOnSquareIcon className="w-4 h-4" />
       </div>
       <div className="truncate text-xs">{hash}</div>
     </a>

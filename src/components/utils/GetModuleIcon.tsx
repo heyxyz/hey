@@ -1,12 +1,12 @@
 import {
-  CashIcon,
+  BanknotesIcon,
   ClockIcon,
-  DocumentAddIcon,
+  DocumentPlusIcon,
   PlusCircleIcon,
   ReceiptRefundIcon,
   ShareIcon,
   StopIcon
-} from '@heroicons/react/outline';
+} from '@heroicons/react/24/outline';
 import React, { FC } from 'react';
 
 interface Props {
@@ -17,12 +17,12 @@ interface Props {
 const GetModuleIcon: FC<Props> = ({ module, size }) => {
   switch (module) {
     case 'FeeCollectModule':
-      return <CashIcon className={`h-${size}`} />;
+      return <BanknotesIcon className={`h-${size}`} />;
     case 'LimitedFeeCollectModule':
       return (
         <div className="flex gap-1 items-center">
           <StopIcon className={`h-${size}`} />
-          <CashIcon className={`h-${size}`} />
+          <BanknotesIcon className={`h-${size}`} />
         </div>
       );
     case 'LimitedTimedFeeCollectModule':
@@ -30,24 +30,24 @@ const GetModuleIcon: FC<Props> = ({ module, size }) => {
         <div className="flex gap-1 items-center">
           <StopIcon className={`h-${size}`} />
           <ClockIcon className={`h-${size}`} />
-          <CashIcon className={`h-${size}`} />
+          <BanknotesIcon className={`h-${size}`} />
         </div>
       );
     case 'TimedFeeCollectModule':
       return (
         <div className="flex gap-1 items-center">
           <ClockIcon className={`h-${size}`} />
-          <CashIcon className={`h-${size}`} />
+          <BanknotesIcon className={`h-${size}`} />
         </div>
       );
     case 'RevertCollectModule':
       return <ReceiptRefundIcon className={`h-${size}`} />;
     case 'FreeCollectModule':
-      return <DocumentAddIcon className={`h-${size}`} />;
+      return <DocumentPlusIcon className={`h-${size}`} />;
     case 'FeeFollowModule':
       return (
         <div className="flex gap-1 items-center">
-          <CashIcon className={`h-${size}`} />
+          <BanknotesIcon className={`h-${size}`} />
           <PlusCircleIcon className={`h-${size}`} />
         </div>
       );
@@ -59,7 +59,7 @@ const GetModuleIcon: FC<Props> = ({ module, size }) => {
         </div>
       );
     default:
-      return <CashIcon className={`h-${size}`} />;
+      return <BanknotesIcon className={`h-${size}`} />;
   }
 };
 

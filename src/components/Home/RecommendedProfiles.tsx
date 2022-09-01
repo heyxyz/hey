@@ -6,8 +6,8 @@ import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Profile } from '@generated/types';
 import { ProfileFields } from '@gql/ProfileFields';
-import { UsersIcon } from '@heroicons/react/outline';
-import { LightningBoltIcon, SparklesIcon } from '@heroicons/react/solid';
+import { UsersIcon } from '@heroicons/react/24/outline';
+import { BoltIcon, SparklesIcon } from '@heroicons/react/24/solid';
 import randomizeArray from '@lib/randomizeArray';
 import React, { FC } from 'react';
 import { useAppStore } from 'src/store/app';
@@ -34,7 +34,7 @@ const Title = () => {
         </>
       ) : (
         <>
-          <LightningBoltIcon className="w-4 h-4 text-yellow-500" />
+          <BoltIcon className="w-4 h-4 text-yellow-500" />
           <div>Recommended users</div>
         </>
       )}

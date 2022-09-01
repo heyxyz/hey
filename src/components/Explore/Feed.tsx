@@ -10,7 +10,7 @@ import { PublicationSortCriteria } from '@generated/types';
 import { CommentFields } from '@gql/CommentFields';
 import { MirrorFields } from '@gql/MirrorFields';
 import { PostFields } from '@gql/PostFields';
-import { CollectionIcon } from '@heroicons/react/outline';
+import { RectangleStackIcon } from '@heroicons/react/24/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import React, { FC } from 'react';
 import { useInView } from 'react-cool-inview';
@@ -89,7 +89,7 @@ const Feed: FC<Props> = ({ feedType = PublicationSortCriteria.TopCommented }) =>
       {data?.explorePublications?.items?.length === 0 && (
         <EmptyState
           message={<div>No posts yet!</div>}
-          icon={<CollectionIcon className="w-8 h-8 text-brand" />}
+          icon={<RectangleStackIcon className="w-8 h-8 text-brand" />}
         />
       )}
       <ErrorMessage title="Failed to load explore feed" error={error} />

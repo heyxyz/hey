@@ -5,7 +5,7 @@ import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
 import useIsMounted from '@components/utils/hooks/useIsMounted';
 import { Profile } from '@generated/types';
-import { XCircleIcon } from '@heroicons/react/solid';
+import { XCircleIcon } from '@heroicons/react/24/solid';
 import getWalletLogo from '@lib/getWalletLogo';
 import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';

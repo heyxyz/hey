@@ -1,6 +1,6 @@
 import Markup from '@components/Shared/Markup';
 import { NewMirrorNotification } from '@generated/types';
-import { SwitchHorizontalIcon } from '@heroicons/react/solid';
+import { ArrowsRightLeftIcon } from '@heroicons/react/24/solid';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import Link from 'next/link';
@@ -21,7 +21,7 @@ const MirrorNotification: FC<Props> = ({ notification }) => {
     <div className="flex justify-between items-start">
       <div className="space-y-2 w-4/5">
         <div className="flex items-center space-x-3">
-          <SwitchHorizontalIcon className="h-6 w-6 text-brand-500/70" />
+          <ArrowsRightLeftIcon className="h-6 w-6 text-brand-500/70" />
           <NotificationProfileAvatar profile={notification?.profile} />
         </div>
         <div className="ml-9">

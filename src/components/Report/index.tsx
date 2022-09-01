@@ -12,8 +12,8 @@ import { Form, useZodForm } from '@components/UI/Form';
 import { Spinner } from '@components/UI/Spinner';
 import { TextArea } from '@components/UI/TextArea';
 import Seo from '@components/utils/Seo';
-import { PencilAltIcon } from '@heroicons/react/outline';
-import { CheckCircleIcon } from '@heroicons/react/solid';
+import { PencilSquareIcon } from '@heroicons/react/24/outline';
+import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { Mixpanel } from '@lib/mixpanel';
 import { useRouter } from 'next/router';
 import React, { FC, useEffect, useState } from 'react';
@@ -148,7 +148,9 @@ const Report: FC = () => {
                         <Button
                           type="submit"
                           disabled={submitLoading}
-                          icon={submitLoading ? <Spinner size="xs" /> : <PencilAltIcon className="w-4 h-4" />}
+                          icon={
+                            submitLoading ? <Spinner size="xs" /> : <PencilSquareIcon className="w-4 h-4" />
+                          }
                         >
                           Report
                         </Button>

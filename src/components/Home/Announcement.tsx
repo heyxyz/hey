@@ -1,5 +1,5 @@
 import { Card, CardBody } from '@components/UI/Card';
-import { BeakerIcon, CurrencyDollarIcon } from '@heroicons/react/outline';
+import { BeakerIcon, CurrencyDollarIcon } from '@heroicons/react/24/outline';
 import { FC } from 'react';
 import { APP_NAME, IS_MAINNET } from 'src/constants';
 

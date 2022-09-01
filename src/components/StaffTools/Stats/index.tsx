@@ -4,15 +4,15 @@ import { Card } from '@components/UI/Card';
 import Seo from '@components/utils/Seo';
 import { Erc20Amount, GlobalProtocolStats } from '@generated/types';
 import {
-  CashIcon,
-  ChatAlt2Icon,
-  CollectionIcon,
+  ArrowsRightLeftIcon,
+  BanknotesIcon,
+  ChatBubbleLeftRightIcon,
   FireIcon,
-  SwitchHorizontalIcon,
-  UserAddIcon,
+  RectangleStackIcon,
+  UserPlusIcon,
   UsersIcon
-} from '@heroicons/react/outline';
-import { PencilAltIcon } from '@heroicons/react/solid';
+} from '@heroicons/react/24/outline';
+import { PencilSquareIcon } from '@heroicons/react/24/solid';
 import getTokenImage from '@lib/getTokenImage';
 import humanize from '@lib/humanize';
 import isStaff from '@lib/isStaff';
@@ -109,36 +109,36 @@ const Stats: NextPage = () => {
                     title="profiles burnt"
                   />
                   <StatBox
-                    icon={<PencilAltIcon className="w-4 h-4" />}
+                    icon={<PencilSquareIcon className="w-4 h-4" />}
                     value={stats?.totalPosts}
                     title="total posts"
                   />
                 </div>
                 <div className="block sm:flex space-y-3 sm:space-y-0 sm:space-x-3 justify-between">
                   <StatBox
-                    icon={<SwitchHorizontalIcon className="w-4 h-4" />}
+                    icon={<ArrowsRightLeftIcon className="w-4 h-4" />}
                     value={stats?.totalMirrors}
                     title="total mirrors"
                   />
                   <StatBox
-                    icon={<ChatAlt2Icon className="w-4 h-4" />}
+                    icon={<ChatBubbleLeftRightIcon className="w-4 h-4" />}
                     value={stats?.totalComments}
                     title="total comments"
                   />
                   <StatBox
-                    icon={<CashIcon className="w-4 h-4" />}
+                    icon={<BanknotesIcon className="w-4 h-4" />}
                     value={crowdfundStats?.totalPosts}
                     title="total crowdfunds"
                   />
                 </div>
                 <div className="block sm:flex space-y-3 sm:space-y-0 sm:space-x-3 justify-between">
                   <StatBox
-                    icon={<CollectionIcon className="w-4 h-4" />}
+                    icon={<RectangleStackIcon className="w-4 h-4" />}
                     value={stats?.totalCollects}
                     title="total collects"
                   />
                   <StatBox
-                    icon={<UserAddIcon className="w-4 h-4" />}
+                    icon={<UserPlusIcon className="w-4 h-4" />}
                     value={stats?.totalFollows}
                     title="total follows"
                   />

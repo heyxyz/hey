@@ -1,5 +1,5 @@
 import { gql, useQuery } from '@apollo/client';
-import { LightningBoltIcon } from '@heroicons/react/outline';
+import { BoltIcon } from '@heroicons/react/24/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import Link from 'next/link';
 import { FC, useEffect, useState } from 'react';
@@ -44,7 +44,7 @@ const NotificationIcon: FC = () => {
         Mixpanel.track(NOTIFICATION.OPEN);
       }}
     >
-      <LightningBoltIcon className="w-5 h-5 sm:w-6 sm:h-6" />
+      <BoltIcon className="w-5 h-5 sm:w-6 sm:h-6" />
       {showBadge && <div className="w-2 h-2 bg-red-500 rounded-full" />}
     </Link>
   );

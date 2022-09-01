@@ -15,7 +15,7 @@ import useBroadcast from '@components/utils/hooks/useBroadcast';
 import Seo from '@components/utils/Seo';
 import { CreatePostBroadcastItemResult, Erc20, Mutation } from '@generated/types';
 import { CREATE_POST_TYPED_DATA_MUTATION } from '@gql/TypedAndDispatcherData/CreatePost';
-import { PlusIcon } from '@heroicons/react/outline';
+import { PlusIcon } from '@heroicons/react/24/outline';
 import getIPFSLink from '@lib/getIPFSLink';
 import getSignature from '@lib/getSignature';
 import getTokenImage from '@lib/getTokenImage';

@@ -6,7 +6,7 @@ import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
 import { CreateSetDispatcherBroadcastItemResult, Mutation } from '@generated/types';
 import { CREATE_SET_DISPATCHER_TYPED_DATA_MUTATION } from '@gql/TypedAndDispatcherData/CreateSetDispatcher';
-import { CheckCircleIcon, XIcon } from '@heroicons/react/outline';
+import { CheckCircleIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import getSignature from '@lib/getSignature';
 import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
@@ -103,7 +103,7 @@ const ToggleDispatcher: FC<Props> = ({ buttonSize = 'md' }) => {
         isLoading ? (
           <Spinner variant={canUseRelay ? 'danger' : 'primary'} size="xs" />
         ) : canUseRelay ? (
-          <XIcon className="w-4 h-4" />
+          <XMarkIcon className="w-4 h-4" />
         ) : (
           <CheckCircleIcon className="w-4 h-4" />
         )

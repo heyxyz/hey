@@ -7,8 +7,8 @@ import ProfileStaffTool from '@components/StaffTools/Panels/Profile';
 import { Button } from '@components/UI/Button';
 import { Tooltip } from '@components/UI/Tooltip';
 import { Profile } from '@generated/types';
-import { CogIcon, HashtagIcon, LocationMarkerIcon } from '@heroicons/react/outline';
-import { BadgeCheckIcon, ShieldCheckIcon } from '@heroicons/react/solid';
+import { Cog6ToothIcon, HashtagIcon, MapPinIcon } from '@heroicons/react/24/outline';
+import { CheckBadgeIcon, ShieldCheckIcon } from '@heroicons/react/24/solid';
 import formatAddress from '@lib/formatAddress';
 import getAttribute from '@lib/getAttribute';
 import getAvatar from '@lib/getAvatar';
@@ -59,7 +59,7 @@ const Details: FC<Props> = ({ profile }) => {
           <div className="truncate">{profile?.name ?? profile?.handle}</div>
           {isVerified(profile?.id) && (
             <Tooltip content="Verified">
-              <BadgeCheckIcon className="w-6 h-6 text-brand" />
+              <CheckBadgeIcon className="w-6 h-6 text-brand" />
             </Tooltip>
           )}
           {isStaff(profile?.id) && (
@@ -98,7 +98,7 @@ const Details: FC<Props> = ({ profile }) => {
           ) : null}
           {currentProfile?.id === profile?.id && (
             <Link href="/settings">
-              <Button variant="secondary" className="!py-1.5" icon={<CogIcon className="w-5 h-5" />} />
+              <Button variant="secondary" className="!py-1.5" icon={<Cog6ToothIcon className="w-5 h-5" />} />
             </Link>
           )}
         </div>
@@ -114,7 +114,7 @@ const Details: FC<Props> = ({ profile }) => {
             <Tooltip content={`#${parseInt(profile?.id)}`}>{profile?.id}</Tooltip>
           </MetaDetails>
           {getAttribute(profile?.attributes, 'location') && (
-            <MetaDetails icon={<LocationMarkerIcon className="w-4 h-4" />}>
+            <MetaDetails icon={<MapPinIcon className="w-4 h-4" />}>
               {getAttribute(profile?.attributes, 'location') as any}
             </MetaDetails>
           )}

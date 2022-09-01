@@ -1,5 +1,5 @@
 import { Button } from '@components/UI/Button';
-import { SwitchHorizontalIcon } from '@heroicons/react/outline';
+import { ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import { FC } from 'react';
 import toast from 'react-hot-toast';
@@ -19,7 +19,7 @@ const SwitchNetwork: FC<Props> = ({ className = '' }) => {
       className={className}
       type="button"
       variant="danger"
-      icon={<SwitchHorizontalIcon className="w-4 h-4" />}
+      icon={<ArrowsRightLeftIcon className="w-4 h-4" />}
       onClick={() => {
         if (switchNetwork) {
           switchNetwork(CHAIN_ID);

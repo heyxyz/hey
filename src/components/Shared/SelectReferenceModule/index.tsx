@@ -1,7 +1,7 @@
 import { Modal } from '@components/UI/Modal';
 import { Tooltip } from '@components/UI/Tooltip';
-import { ChatAlt2Icon, GlobeAltIcon, UsersIcon } from '@heroicons/react/outline';
-import { CheckCircleIcon } from '@heroicons/react/solid';
+import { ChatBubbleLeftRightIcon, GlobeAltIcon, UsersIcon } from '@heroicons/react/24/outline';
+import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { Mixpanel } from '@lib/mixpanel';
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
@@ -37,7 +37,7 @@ const SelectReferenceModule: FC<Props> = ({ setOnlyFollowers, onlyFollowers }) =
       </Tooltip>
       <Modal
         title="Select who to comment or mirror"
-        icon={<ChatAlt2Icon className="w-5 h-5 text-brand" />}
+        icon={<ChatBubbleLeftRightIcon className="w-5 h-5 text-brand" />}
         show={showModal}
         onClose={() => setShowModal(false)}
       >

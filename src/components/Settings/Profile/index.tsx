@@ -3,7 +3,7 @@ import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout'
 import { Card, CardBody } from '@components/UI/Card';
 import { PageLoading } from '@components/UI/PageLoading';
 import Seo from '@components/utils/Seo';
-import { PhotographIcon } from '@heroicons/react/outline';
+import { PhotoIcon } from '@heroicons/react/24/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import clsx from 'clsx';
 import { NextPage } from 'next';
@@ -117,8 +117,8 @@ const ProfileSettings: NextPage = () => {
         <Card>
           <CardBody className="space-y-5">
             <div className="flex items-center space-x-2">
-              <TypeButton icon={<PhotographIcon className="w-5 h-5" />} type="AVATAR" name="Upload avatar" />
-              <TypeButton icon={<PhotographIcon className="w-5 h-5" />} type="NFT" name="NFT Avatar" />
+              <TypeButton icon={<PhotoIcon className="w-5 h-5" />} type="AVATAR" name="Upload avatar" />
+              <TypeButton icon={<PhotoIcon className="w-5 h-5" />} type="NFT" name="NFT Avatar" />
             </div>
             {settingsType === 'NFT' ? <NFTPicture profile={profile} /> : <Picture profile={profile} />}
           </CardBody>

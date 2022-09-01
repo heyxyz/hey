@@ -1,6 +1,6 @@
 import { Button } from '@components/UI/Button';
 import { Modal } from '@components/UI/Modal';
-import { ArrowCircleRightIcon } from '@heroicons/react/outline';
+import { ArrowRightCircleIcon } from '@heroicons/react/24/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import Link from 'next/link';
 import { FC, useState } from 'react';
@@ -31,7 +31,7 @@ const MenuItems: FC<Props> = ({ pingData }) => {
       <>
         <Modal
           title="Login"
-          icon={<ArrowCircleRightIcon className="w-5 h-5 text-brand" />}
+          icon={<ArrowRightCircleIcon className="w-5 h-5 text-brand" />}
           show={showLoginModal}
           onClose={() => setShowLoginModal(false)}
         >

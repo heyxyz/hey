@@ -1,5 +1,5 @@
 import Seo from '@components/utils/Seo';
-import { LightningBoltIcon } from '@heroicons/react/outline';
+import { BoltIcon } from '@heroicons/react/24/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import { FC, useEffect } from 'react';
 import { APP_NAME } from 'src/constants';
@@ -25,7 +25,7 @@ const Notification: FC = () => {
       <Seo title={`Notifications • ${APP_NAME}`} />
       <div className="max-w-4xl w-full space-y-3">
         <div className="flex items-center space-x-2 px-5 sm:px-0">
-          <LightningBoltIcon className="h-5 w-5" />
+          <BoltIcon className="h-5 w-5" />
           <div className="font-bold">Notification</div>
         </div>
         <List />

@@ -5,7 +5,7 @@ import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
 import { Profile } from '@generated/types';
 import { ProfileFields } from '@gql/ProfileFields';
-import { SwitchHorizontalIcon } from '@heroicons/react/outline';
+import { ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import { FC } from 'react';
 import { useInView } from 'react-cool-inview';
@@ -64,7 +64,7 @@ const Mirrors: FC<Props> = ({ pubId }) => {
       <div className="p-5">
         <EmptyState
           message={<span>No mirrors.</span>}
-          icon={<SwitchHorizontalIcon className="w-8 h-8 text-brand" />}
+          icon={<ArrowsRightLeftIcon className="w-8 h-8 text-brand" />}
           hideCard
         />
       </div>

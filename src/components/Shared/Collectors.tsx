@@ -6,7 +6,7 @@ import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
 import { Wallet } from '@generated/types';
 import { ProfileFields } from '@gql/ProfileFields';
-import { CollectionIcon } from '@heroicons/react/outline';
+import { RectangleStackIcon } from '@heroicons/react/24/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import { FC } from 'react';
 import { useInView } from 'react-cool-inview';
@@ -68,7 +68,7 @@ const Collectors: FC<Props> = ({ pubId }) => {
       <div className="p-5">
         <EmptyState
           message={<span>No collectors.</span>}
-          icon={<CollectionIcon className="w-8 h-8 text-brand" />}
+          icon={<RectangleStackIcon className="w-8 h-8 text-brand" />}
           hideCard
         />
       </div>

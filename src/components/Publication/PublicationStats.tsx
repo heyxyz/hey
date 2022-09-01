@@ -3,7 +3,7 @@ import Likes from '@components/Shared/Likes';
 import Mirrors from '@components/Shared/Mirrors';
 import { Modal } from '@components/UI/Modal';
 import { LensterPublication } from '@generated/lenstertypes';
-import { CollectionIcon, HeartIcon, SwitchHorizontalIcon } from '@heroicons/react/outline';
+import { ArrowsRightLeftIcon, HeartIcon, RectangleStackIcon } from '@heroicons/react/24/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import nFormatter from '@lib/nFormatter';
 import React, { FC, useState } from 'react';
@@ -44,7 +44,7 @@ const PublicationStats: FC<Props> = ({ publication }) => {
           </button>
           <Modal
             title="Mirrored by"
-            icon={<SwitchHorizontalIcon className="w-5 h-5 text-brand" />}
+            icon={<ArrowsRightLeftIcon className="w-5 h-5 text-brand" />}
             show={showMirrorsModal}
             onClose={() => setShowMirrorsModal(false)}
           >
@@ -84,7 +84,7 @@ const PublicationStats: FC<Props> = ({ publication }) => {
           </button>
           <Modal
             title="Collected by"
-            icon={<CollectionIcon className="w-5 h-5 text-brand" />}
+            icon={<RectangleStackIcon className="w-5 h-5 text-brand" />}
             show={showCollectorsModal}
             onClose={() => setShowCollectorsModal(false)}
           >

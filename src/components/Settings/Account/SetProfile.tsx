@@ -9,7 +9,7 @@ import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
 import { Mutation, Profile, SetDefaultProfileBroadcastItemResult } from '@generated/types';
 import { CREATE_SET_DEFAULT_PROFILE_DATA_MUTATION } from '@gql/TypedAndDispatcherData/CreateSetDefaultProfile';
-import { ExclamationIcon, PencilIcon } from '@heroicons/react/outline';
+import { ExclamationTriangleIcon, PencilIcon } from '@heroicons/react/24/outline';
 import getSignature from '@lib/getSignature';
 import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
@@ -131,7 +131,7 @@ const SetProfile: FC = () => {
           </>
         ) : (
           <div className="flex items-center space-x-1.5 font-bold text-yellow-500">
-            <ExclamationIcon className="w-5 h-5" />
+            <ExclamationTriangleIcon className="w-5 h-5" />
             <div>You don&rsquo;t have any default profile set!</div>
           </div>
         )}

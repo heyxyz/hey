@@ -5,7 +5,7 @@ import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
 import { WhoReactedResult } from '@generated/types';
 import { ProfileFields } from '@gql/ProfileFields';
-import { HeartIcon } from '@heroicons/react/outline';
+import { HeartIcon } from '@heroicons/react/24/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import { FC } from 'react';
 import { useInView } from 'react-cool-inview';

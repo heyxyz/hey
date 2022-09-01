@@ -12,7 +12,7 @@ import {
   CREATE_SET_PROFILE_IMAGE_URI_TYPED_DATA_MUTATION,
   CREATE_SET_PROFILE_IMAGE_URI_VIA_DISPATHCER_MUTATION
 } from '@gql/TypedAndDispatcherData/CreateSetProfileImageURI';
-import { PencilIcon } from '@heroicons/react/outline';
+import { PencilIcon } from '@heroicons/react/24/outline';
 import getSignature from '@lib/getSignature';
 import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';

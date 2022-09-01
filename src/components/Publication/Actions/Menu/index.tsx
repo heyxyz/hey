@@ -1,7 +1,7 @@
 import { NextLink } from '@components/Shared/Navbar/MenuItems';
 import { LensterPublication } from '@generated/lenstertypes';
 import { Menu, Transition } from '@headlessui/react';
-import { DotsHorizontalIcon, ShieldExclamationIcon } from '@heroicons/react/outline';
+import { EllipsisHorizontalIcon, ShieldExclamationIcon } from '@heroicons/react/24/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import clsx from 'clsx';
 import { FC, Fragment } from 'react';
@@ -32,7 +32,7 @@ const PublicationMenu: FC<Props> = ({ publication, isFullPublication }) => {
             }}
             aria-label="More"
           >
-            <DotsHorizontalIcon className={clsx('text-gray-500 dark:text-gray-300', iconClassName)} />
+            <EllipsisHorizontalIcon className={clsx('text-gray-500 dark:text-gray-300', iconClassName)} />
           </Menu.Button>
           <Transition
             show={open}

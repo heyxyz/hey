@@ -1,6 +1,6 @@
 import { LensterPublication } from '@generated/lenstertypes';
 import { Menu } from '@headlessui/react';
-import { ClipboardCopyIcon } from '@heroicons/react/outline';
+import { ClipboardDocumentIcon } from '@heroicons/react/24/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import clsx from 'clsx';
 import React, { FC } from 'react';
@@ -28,7 +28,7 @@ const Permalink: FC<Props> = ({ publication }) => {
         }
       >
         <div className="flex items-center space-x-2">
-          <ClipboardCopyIcon className="w-4 h-4" />
+          <ClipboardDocumentIcon className="w-4 h-4" />
           <div>Permalink</div>
         </div>
       </Menu.Item>

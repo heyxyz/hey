@@ -7,8 +7,8 @@ import { Form, useZodForm } from '@components/UI/Form';
 import { Input } from '@components/UI/Input';
 import { TextArea } from '@components/UI/TextArea';
 import Seo from '@components/utils/Seo';
-import { PencilAltIcon } from '@heroicons/react/outline';
-import { CheckCircleIcon } from '@heroicons/react/solid';
+import { PencilSquareIcon } from '@heroicons/react/24/outline';
+import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { Mixpanel } from '@lib/mixpanel';
 import { useRouter } from 'next/router';
 import React, { FC, useEffect } from 'react';
@@ -66,7 +66,7 @@ const Contact: FC = () => {
               <Input label="Subject" placeholder="What happened?" {...form.register('subject')} />
               <TextArea label="Message" placeholder="How can we help?" {...form.register('message')} />
               <div className="ml-auto">
-                <Button type="submit" icon={<PencilAltIcon className="w-4 h-4" />}>
+                <Button type="submit" icon={<PencilSquareIcon className="w-4 h-4" />}>
                   Submit
                 </Button>
               </div>

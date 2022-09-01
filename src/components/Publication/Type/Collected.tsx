@@ -1,6 +1,6 @@
 import Slug from '@components/Shared/Slug';
 import { LensterPublication } from '@generated/lenstertypes';
-import { CollectionIcon } from '@heroicons/react/outline';
+import { RectangleStackIcon } from '@heroicons/react/24/outline';
 import formatAddress from '@lib/formatAddress';
 import Link from 'next/link';
 import React, { FC } from 'react';
@@ -16,7 +16,7 @@ const Collected: FC<Props> = ({ publication, type }) => {
 
   return (
     <div className="flex items-center pb-4 space-x-1 text-gray-500 text-[13px]">
-      <CollectionIcon className="w-4 h-4" />
+      <RectangleStackIcon className="w-4 h-4" />
       <div className="space-x-1">
         {publication?.collectedBy?.defaultProfile ? (
           <Link href={`/u/${publication?.collectedBy?.defaultProfile?.handle}`}>

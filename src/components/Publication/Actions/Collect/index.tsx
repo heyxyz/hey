@@ -3,8 +3,8 @@ import { Modal } from '@components/UI/Modal';
 import { Tooltip } from '@components/UI/Tooltip';
 import GetModuleIcon from '@components/utils/GetModuleIcon';
 import { LensterPublication } from '@generated/lenstertypes';
-import { CollectionIcon } from '@heroicons/react/outline';
-import { CollectionIcon as CollectionIconSolid } from '@heroicons/react/solid';
+import { RectangleStackIcon } from '@heroicons/react/24/outline';
+import { RectangleStackIcon as CollectionIconSolid } from '@heroicons/react/24/solid';
 import { getModule } from '@lib/getModule';
 import humanize from '@lib/humanize';
 import { Mixpanel } from '@lib/mixpanel';
@@ -62,7 +62,7 @@ const Collect: FC<Props> = ({ publication, isFullPublication }) => {
               {hasCollected ? (
                 <CollectionIconSolid className={iconClassName} />
               ) : (
-                <CollectionIcon className={iconClassName} />
+                <RectangleStackIcon className={iconClassName} />
               )}
             </Tooltip>
           </div>

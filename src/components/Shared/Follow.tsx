@@ -5,7 +5,7 @@ import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
 import { CreateFollowBroadcastItemResult, Mutation, Profile } from '@generated/types';
 import { PROXY_ACTION_MUTATION } from '@gql/ProxyAction';
-import { UserAddIcon } from '@heroicons/react/outline';
+import { UserPlusIcon } from '@heroicons/react/24/outline';
 import getSignature from '@lib/getSignature';
 import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
@@ -166,7 +166,7 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
       variant="success"
       aria-label="Follow"
       disabled={isLoading}
-      icon={isLoading ? <Spinner variant="success" size="xs" /> : <UserAddIcon className="w-4 h-4" />}
+      icon={isLoading ? <Spinner variant="success" size="xs" /> : <UserPlusIcon className="w-4 h-4" />}
     >
       {showText && 'Follow'}
     </Button>

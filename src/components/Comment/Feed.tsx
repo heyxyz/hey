@@ -7,7 +7,7 @@ import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
 import { LensterPublication } from '@generated/lenstertypes';
 import { CommentFields } from '@gql/CommentFields';
-import { CollectionIcon } from '@heroicons/react/outline';
+import { RectangleStackIcon } from '@heroicons/react/24/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import React, { FC } from 'react';
 import { useInView } from 'react-cool-inview';
@@ -90,7 +90,7 @@ const Feed: FC<Props> = ({ publication, onlyFollowers = false, isFollowing = tru
       {data?.publications?.items?.length === 0 && (
         <EmptyState
           message={<span>Be the first one to comment!</span>}
-          icon={<CollectionIcon className="w-8 h-8 text-brand" />}
+          icon={<RectangleStackIcon className="w-8 h-8 text-brand" />}
         />
       )}
       <ErrorMessage title="Failed to load comment feed" error={error} />

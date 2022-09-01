@@ -21,16 +21,16 @@ import { CreateCollectBroadcastItemResult, Mutation } from '@generated/types';
 import { CollectModuleFields } from '@gql/CollectModuleFields';
 import { PROXY_ACTION_MUTATION } from '@gql/ProxyAction';
 import {
-  CashIcon,
+  ArrowsRightLeftIcon,
+  BanknotesIcon,
   ClockIcon,
-  CollectionIcon,
-  PhotographIcon,
-  PuzzleIcon,
-  SwitchHorizontalIcon,
+  PhotoIcon,
+  PuzzlePieceIcon,
+  RectangleStackIcon,
   UserIcon,
   UsersIcon
-} from '@heroicons/react/outline';
-import { CheckCircleIcon } from '@heroicons/react/solid';
+} from '@heroicons/react/24/outline';
+import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import formatAddress from '@lib/formatAddress';
 import getSignature from '@lib/getSignature';
 import getTokenImage from '@lib/getTokenImage';
@@ -296,7 +296,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
                   publication?.mirrorOf?.profile?.handle
                 }`}
               >
-                <SwitchHorizontalIcon className="w-5 h-5 text-brand" />
+                <ArrowsRightLeftIcon className="w-5 h-5 text-brand" />
               </Tooltip>
             )}
             {publication?.metadata?.name && (
@@ -342,7 +342,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
               </button>
               <Modal
                 title="Collected by"
-                icon={<CollectionIcon className="w-5 h-5 text-brand" />}
+                icon={<RectangleStackIcon className="w-5 h-5 text-brand" />}
                 show={showCollectorsModal}
                 onClose={() => setShowCollectorsModal(false)}
               >
@@ -353,20 +353,20 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
             </div>
             {collectModule?.collectLimit && (
               <div className="flex items-center space-x-2">
-                <PhotographIcon className="w-4 h-4 text-gray-500" />
+                <PhotoIcon className="w-4 h-4 text-gray-500" />
                 <div className="font-bold">{parseInt(collectModule?.collectLimit) - count} available</div>
               </div>
             )}
             {collectModule?.referralFee ? (
               <div className="flex items-center space-x-2">
-                <CashIcon className="w-4 h-4 text-gray-500" />
+                <BanknotesIcon className="w-4 h-4 text-gray-500" />
                 <div className="font-bold">{collectModule.referralFee}% referral fee</div>
               </div>
             ) : null}
           </div>
           {revenueData?.publicationRevenue && (
             <div className="flex items-center space-x-2">
-              <CashIcon className="w-4 h-4 text-gray-500" />
+              <BanknotesIcon className="w-4 h-4 text-gray-500" />
               <div className="flex items-center space-x-1.5">
                 <span>Revenue:</span>
                 <span className="flex items-center space-x-1">
@@ -416,7 +416,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
           )}
           {data?.publication?.collectNftAddress && (
             <div className="flex items-center space-x-2">
-              <PuzzleIcon className="w-4 h-4 text-gray-500" />
+              <PuzzlePieceIcon className="w-4 h-4 text-gray-500" />
               <div className="space-x-1.5">
                 <span>Token:</span>
                 <a
@@ -445,7 +445,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
                 className="mt-5"
                 onClick={createCollect}
                 disabled={isLoading}
-                icon={isLoading ? <Spinner size="xs" /> : <CollectionIcon className="w-4 h-4" />}
+                icon={isLoading ? <Spinner size="xs" /> : <RectangleStackIcon className="w-4 h-4" />}
               >
                 Collect now
               </Button>

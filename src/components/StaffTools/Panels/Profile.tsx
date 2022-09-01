@@ -2,15 +2,15 @@ import { Card, CardBody } from '@components/UI/Card';
 import { Profile } from '@generated/types';
 import {
   AtSymbolIcon,
+  BanknotesIcon,
   BeakerIcon,
-  CashIcon,
-  HandIcon,
+  HandRaisedIcon,
   HashtagIcon,
   IdentificationIcon,
   LinkIcon,
-  PhotographIcon
-} from '@heroicons/react/outline';
-import { ShieldCheckIcon } from '@heroicons/react/solid';
+  PhotoIcon
+} from '@heroicons/react/24/outline';
+import { ShieldCheckIcon } from '@heroicons/react/24/solid';
 import formatAddress from '@lib/formatAddress';
 import getAttribute from '@lib/getAttribute';
 import { getFollowModule } from '@lib/getFollowModule';
@@ -58,14 +58,14 @@ const ProfileStaffTool: FC<Props> = ({ profile }) => {
             {profile?.id}
           </MetaDetails>
           <MetaDetails
-            icon={<CashIcon className="w-4 h-4 text-gray-500" />}
+            icon={<BanknotesIcon className="w-4 h-4 text-gray-500" />}
             value={profile?.ownedBy}
             title="Address"
           >
             {formatAddress(profile?.ownedBy)}
           </MetaDetails>
           <MetaDetails
-            icon={<HandIcon className="w-4 h-4 text-gray-500" />}
+            icon={<HandRaisedIcon className="w-4 h-4 text-gray-500" />}
             value={profile?.dispatcher?.canUseRelay ? 'Yes' : 'No'}
             title="Dispatcher enabled"
           >
@@ -73,7 +73,7 @@ const ProfileStaffTool: FC<Props> = ({ profile }) => {
           </MetaDetails>
           {profile?.followNftAddress ? (
             <MetaDetails
-              icon={<PhotographIcon className="w-4 h-4 text-gray-500" />}
+              icon={<PhotoIcon className="w-4 h-4 text-gray-500" />}
               value={profile?.ownedBy}
               title="NFT address"
             >

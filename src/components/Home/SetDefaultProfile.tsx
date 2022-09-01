@@ -1,5 +1,5 @@
 import { Card, CardBody } from '@components/UI/Card';
-import { CurrencyDollarIcon, UserCircleIcon } from '@heroicons/react/outline';
+import { CurrencyDollarIcon, UserCircleIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { FC } from 'react';
 import { useAppStore } from 'src/store/app';

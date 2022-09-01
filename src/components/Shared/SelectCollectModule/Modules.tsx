@@ -4,7 +4,7 @@ import HelpTooltip from '@components/UI/HelpTooltip';
 import { Spinner } from '@components/UI/Spinner';
 import GetModuleIcon from '@components/utils/GetModuleIcon';
 import { EnabledModule } from '@generated/types';
-import { CheckCircleIcon } from '@heroicons/react/solid';
+import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { getModule } from '@lib/getModule';
 import { Mixpanel } from '@lib/mixpanel';
 import clsx from 'clsx';
