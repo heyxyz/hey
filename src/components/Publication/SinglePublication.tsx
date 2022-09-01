@@ -33,15 +33,14 @@ const SinglePublication: FC<Props> = ({
   const timestamp = isMirror ? publication?.mirrorOf?.createdAt : publication?.createdAt;
 
   return (
-    <article
-      className="first:rounded-t-xl last:rounded-b-xl p-5 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer"
-      onClick={() => {
-        push(`/posts/${publication?.id}`);
-        Mixpanel.track(PUBLICATION.OPEN);
-      }}
-    >
+    <article className="first:rounded-t-xl last:rounded-b-xl p-5 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer">
       <PublicationType publication={publication} showType={showType} showThread={showThread} />
-      <div>
+      <div
+        onClick={() => {
+          push(`/posts/${publication?.id}`);
+          Mixpanel.track(PUBLICATION.OPEN);
+        }}
+      >
         <div className="flex justify-between pb-4 space-x-1.5">
           <UserProfile profile={profile ?? publication?.collectedBy?.defaultProfile} />
           <span className="text-xs text-gray-500">{dayjs(new Date(timestamp)).fromNow()}</span>
