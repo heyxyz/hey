@@ -62,6 +62,9 @@ const Attachments: FC<Props> = ({ attachments, setAttachments, isNew = false }) 
           <div
             className={clsx(type === 'video/mp4' ? '' : getClass(slicedAttachments?.length)?.aspect)}
             key={url}
+            onClick={(event) => {
+              event.stopPropagation();
+            }}
           >
             {type === 'video/mp4' ? (
               <Video src={url} />
