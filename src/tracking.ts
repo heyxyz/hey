@@ -154,3 +154,7 @@ export const PAGEVIEW = {
     STATS: 'Staff stats page'
   }
 };
+
+export const MISCELLANEOUS = {
+  NAVIGATE_UPDATE_PROFILE: 'Navigate to update profile from onboarding'
+};
