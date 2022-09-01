@@ -28,6 +28,9 @@ const Footer: FC = () => {
       <a href="https://vote.lenster.xyz" target="_blank" rel="noreferrer noopener">
         Vote
       </a>
+      <a href="https://feedback.lenster.xyz" target="_blank" rel="noreferrer noopener">
+        Feedback
+      </a>
       <Link href="/thanks">Thanks</Link>
       <a href="https://github.com/lensterxyz/lenster" target="_blank" rel="noreferrer noopener">
         GitHub
