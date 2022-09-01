@@ -13,7 +13,8 @@ const Embed: FC<Props> = ({ og }) => {
     <div className="mt-4 text-sm sm:w-4/6">
       <a
         href={og.url}
-        onClick={() => {
+        onClick={(event) => {
+          event.stopPropagation();
           Mixpanel.track(PUBLICATION.OEMBED_CLICK);
         }}
         target="_blank"
