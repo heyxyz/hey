@@ -99,7 +99,7 @@ const RecommendedProfiles: FC = () => {
         </CardBody>
         {currentProfile ? (
           <button
-            className="bg-gray-100 dark:bg-gray-900 hover:bg-gray-200 dark:hover:bg-gray-800 border-t dark:border-t-gray-700/80 text-sm w-full rounded-b-xl text-left px-5 py-3 flex items-center space-x-2 text-gray-600 dark:text-gray-300"
+            className="bg-gray-50 dark:bg-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 border-t dark:border-t-gray-700/80 text-sm w-full rounded-b-xl text-left px-5 py-3 flex items-center space-x-2 text-gray-600 dark:text-gray-300"
             onClick={() => setShowSuggestedModal(true)}
           >
             <DotsCircleHorizontalIcon className="h-4 w-4" />
