@@ -59,21 +59,22 @@ const Feed: FC<Props> = ({ profile, type }) => {
       : type === 'MEDIA'
       ? [PublicationTypes.Post, PublicationTypes.Comment]
       : [PublicationTypes.Comment];
+  const metadata =
+    type === 'MEDIA'
+      ? {
+          mainContentFocus: [
+            PublicationMainFocus.Video,
+            PublicationMainFocus.Image,
+            PublicationMainFocus.Audio
+          ]
+        }
+      : null;
   const { data, loading, error, fetchMore } = useQuery(PROFILE_FEED_QUERY, {
     variables: {
       request: {
         publicationTypes,
+        metadata,
         profileId: profile?.id,
-        metadata:
-          type === 'MEDIA'
-            ? {
-                mainContentFocus: [
-                  PublicationMainFocus.Video,
-                  PublicationMainFocus.Image,
-                  PublicationMainFocus.Audio
-                ]
-              }
-            : null,
         limit: 10
       },
       reactionRequest: currentProfile ? { profileId: currentProfile?.id } : null,
@@ -89,6 +90,7 @@ const Feed: FC<Props> = ({ profile, type }) => {
         variables: {
           request: {
             publicationTypes,
+            metadata,
             profileId: profile?.id,
             cursor: pageInfo?.next,
             limit: 10
