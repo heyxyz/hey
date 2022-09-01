@@ -42,7 +42,9 @@ const SinglePublication: FC<Props> = ({
         }}
       >
         <div className="flex justify-between pb-4 space-x-1.5">
-          <UserProfile profile={profile ?? publication?.collectedBy?.defaultProfile} />
+          <span onClick={(event) => event.stopPropagation()}>
+            <UserProfile profile={profile ?? publication?.collectedBy?.defaultProfile} />
+          </span>
           <span className="text-xs text-gray-500">{dayjs(new Date(timestamp)).fromNow()}</span>
         </div>
         <div className="ml-[53px]">
