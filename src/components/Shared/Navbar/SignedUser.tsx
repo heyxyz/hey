@@ -22,7 +22,7 @@ import { useTheme } from 'next-themes';
 import { FC, Fragment } from 'react';
 import { GIT_COMMIT_SHA } from 'src/constants';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
-import { PROFILE, STAFF, SYSTEM } from 'src/tracking';
+import { PROFILE, STAFFTOOLS, SYSTEM } from 'src/tracking';
 import { useDisconnect } from 'wagmi';
 
 import Slug from '../Slug';
@@ -46,7 +46,7 @@ const SignedUser: FC<Props> = ({ pingData }) => {
 
   const toggleStaffMode = () => {
     setStaffMode(!staffMode);
-    Mixpanel.track(STAFF.TOGGLE_MODE);
+    Mixpanel.track(STAFFTOOLS.TOGGLE_MODE);
   };
 
   return (

@@ -71,6 +71,7 @@ const Search: FC<Props> = ({ hideDropdown = false }) => {
             className="py-2 px-3 text-sm"
             placeholder="Search..."
             value={searchText}
+            onFocus={() => Mixpanel.track(SEARCH.FOCUS)}
             iconLeft={<SearchIcon />}
             iconRight={
               <XIcon
