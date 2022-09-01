@@ -16,13 +16,7 @@ export const NextLink = ({ href, children, ...rest }: Record<string, any>) => (
   </Link>
 );
 
-interface Props {
-  pingData: {
-    ping: string;
-  };
-}
-
-const MenuItems: FC<Props> = ({ pingData }) => {
+const MenuItems: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [showLoginModal, setShowLoginModal] = useState(false);
 
@@ -50,7 +44,7 @@ const MenuItems: FC<Props> = ({ pingData }) => {
     );
   }
 
-  return <SignedUser pingData={pingData} />;
+  return <SignedUser />;
 };
 
 export default MenuItems;
