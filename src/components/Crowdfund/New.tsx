@@ -13,7 +13,7 @@ import { Spinner } from '@components/UI/Spinner';
 import { TextArea } from '@components/UI/TextArea';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
 import Seo from '@components/utils/Seo';
-import { CreatePostBroadcastItemResult, Erc20, Mutation } from '@generated/types';
+import { CreatePostBroadcastItemResult, Erc20, Mutation, PublicationMainFocus } from '@generated/types';
 import { CREATE_POST_TYPED_DATA_MUTATION } from '@gql/TypedAndDispatcherData/CreatePost';
 import { PlusIcon } from '@heroicons/react/outline';
 import getIPFSLink from '@lib/getIPFSLink';
@@ -200,6 +200,7 @@ const NewCrowdfund: NextPage = () => {
       image: cover ? cover : `https://avatar.tobi.sh/${uuid()}.png`,
       imageMimeType: coverType,
       name: title,
+      mainContentFocus: PublicationMainFocus.Article,
       contentWarning: null, // TODO
       attributes: [
         {
