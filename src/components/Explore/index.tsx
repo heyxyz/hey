@@ -2,7 +2,6 @@ import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout'
 import RecommendedProfiles from '@components/Home/RecommendedProfiles';
 import Trending from '@components/Home/Trending';
 import Footer from '@components/Shared/Footer';
-import useStaffMode from '@components/utils/hooks/useStaffMode';
 import Seo from '@components/utils/Seo';
 import { PublicationSortCriteria } from '@generated/types';
 import { Mixpanel } from '@lib/mixpanel';
@@ -21,7 +20,6 @@ const Explore: NextPage = () => {
     query: { type }
   } = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const { allowed: staffMode } = useStaffMode();
   const [feedType, setFeedType] = useState(
     type && ['top_commented', 'top_collected', 'top_mirrored', 'latest'].includes(type as string)
       ? type.toString().toUpperCase()
@@ -43,7 +41,7 @@ const Explore: NextPage = () => {
         <Feed feedType={feedType} />
       </GridItemEight>
       <GridItemFour>
-        {staffMode && <Trending />}
+        <Trending />
         {currentProfile ? <RecommendedProfiles /> : null}
         <Footer />
       </GridItemFour>
