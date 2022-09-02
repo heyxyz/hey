@@ -56,7 +56,8 @@ const Trending: FC = () => {
   const { data, loading, error } = useQuery(TRENDING_QUERY, {
     variables: {
       request: { limit: 7, sort: TagSortCriteria.MostPopular }
-    }
+    },
+    pollInterval: 10000
   });
 
   if (loading) {
