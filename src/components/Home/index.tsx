@@ -3,7 +3,6 @@ import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout'
 import Announcement from '@components/Home/Announcement';
 import NewPost from '@components/Publication/New';
 import Footer from '@components/Shared/Footer';
-import useStaffMode from '@components/utils/hooks/useStaffMode';
 import Seo from '@components/utils/Seo';
 import { Mixpanel } from '@lib/mixpanel';
 import { NextPage } from 'next';
@@ -25,7 +24,6 @@ const Home: NextPage = () => {
   }, []);
 
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const { allowed: staffMode } = useStaffMode();
 
   return (
     <>
@@ -45,7 +43,7 @@ const Home: NextPage = () => {
         <GridItemFour>
           {currentProfile ? <EnableDispatcher /> : null}
           <Announcement />
-          {staffMode && <Trending />}
+          <Trending />
           {currentProfile ? (
             <>
               <SetDefaultProfile />
