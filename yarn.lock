@@ -2509,10 +2509,10 @@
   dependencies:
     tslib "^2.4.0"
 
-"@tailwindcss/aspect-ratio@^0.4.1":
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/@tailwindcss/aspect-ratio/-/aspect-ratio-0.4.1.tgz#60886cada7a1fac2ba9f12bfdc31567fbb06f589"
-  integrity sha512-1wN2Znrh064KfaULmW+UVgnMCk+LUbYnupH4syF9I9Qx7JLfUlGyPYd0oMXFwqkpNv5aiHu4j+0uSbjSY9tNvA==
+"@tailwindcss/aspect-ratio@^0.4.2":
+  version "0.4.2"
+  resolved "https://registry.yarnpkg.com/@tailwindcss/aspect-ratio/-/aspect-ratio-0.4.2.tgz#9ffd52fee8e3c8b20623ff0dcb29e5c21fb0a9ba"
+  integrity sha512-8QPrypskfBa7QIMuKHg2TA7BqES6vhBrDLOv8Unb6FcFyd3TjKbc6lcmb9UPQHxfl24sXoJ41ux/H7qQQvfaSQ==
 
 "@tailwindcss/forms@^0.5.2":
   version "0.5.2"
