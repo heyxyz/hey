@@ -47,10 +47,7 @@ const Title = () => {
 const RecommendedProfiles: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [showSuggestedModal, setShowSuggestedModal] = useState(false);
-  const { data, loading, error } = useQuery(RECOMMENDED_PROFILES_QUERY, {
-    variables: { profileId: currentProfile?.id ?? null }, // TODO: remove this fake variable
-    fetchPolicy: 'no-cache'
-  });
+  const { data, loading, error } = useQuery(RECOMMENDED_PROFILES_QUERY);
 
   if (loading) {
     return (

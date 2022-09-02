@@ -48,9 +48,9 @@ const Home: NextPage = () => {
               <SetDefaultProfile />
               <SetProfile />
               <Streak />
+              <RecommendedProfiles />
             </>
           ) : null}
-          <RecommendedProfiles />
           <Footer />
         </GridItemFour>
       </GridLayout>
