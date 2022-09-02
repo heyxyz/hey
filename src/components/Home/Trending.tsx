@@ -1,5 +1,5 @@
 import { gql, useQuery } from '@apollo/client';
-import UserProfileShimmer from '@components/Shared/Shimmer/UserProfileShimmer';
+import TrendingTagShimmer from '@components/Shared/Shimmer/TrendingTagShimmer';
 import { Card, CardBody } from '@components/UI/Card';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { TagResult, TagSortCriteria } from '@generated/types';
@@ -41,11 +41,13 @@ const Trending: FC = () => {
         <Title />
         <Card className="mb-4">
           <CardBody className="space-y-4">
-            <UserProfileShimmer showFollow />
-            <UserProfileShimmer showFollow />
-            <UserProfileShimmer showFollow />
-            <UserProfileShimmer showFollow />
-            <UserProfileShimmer showFollow />
+            <TrendingTagShimmer />
+            <TrendingTagShimmer />
+            <TrendingTagShimmer />
+            <TrendingTagShimmer />
+            <TrendingTagShimmer />
+            <TrendingTagShimmer />
+            <TrendingTagShimmer />
           </CardBody>
         </Card>
       </>
