@@ -22,7 +22,7 @@
     "@headlessui/react": "^1.6.6",
     "@heroicons/react": "v1",
     "@hookform/resolvers": "^2.9.6",
-    "@sentry/nextjs": "^7.11.1",
+    "@sentry/nextjs": "^7.12.0",
     "@tailwindcss/aspect-ratio": "^0.4.1",
     "@tippyjs/react": "^4.2.6",
     "@types/react-mentions": "^4.1.6",
