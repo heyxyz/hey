@@ -16,7 +16,7 @@ const Suggested: FC = () => {
     return <Loader message="Loading suggested" />;
   }
 
-  if (data?.following?.items?.length === 0) {
+  if (data?.recommendedProfiles?.length === 0) {
     return (
       <EmptyState message="Nothing to suggest" icon={<UsersIcon className="w-8 h-8 text-brand" />} hideCard />
     );
