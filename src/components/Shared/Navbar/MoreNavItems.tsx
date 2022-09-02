@@ -40,7 +40,7 @@ const MoreNavItems: FC = () => {
               static
               className="absolute py-1 mt-2 w-52 bg-white rounded-xl border shadow-sm dark:bg-gray-900 focus:outline-none dark:border-gray-700/80"
             >
-              {currentProfile && (
+              {currentProfile ? (
                 <>
                   <Menu.Item
                     as={NextLink}
@@ -70,7 +70,7 @@ const MoreNavItems: FC = () => {
                   )}
                   <div className="divider" />
                 </>
-              )}
+              ) : null}
               <Menu.Item
                 as={NextLink}
                 href="/contact"

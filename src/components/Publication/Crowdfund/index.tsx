@@ -1,7 +1,7 @@
 import { gql, useQuery } from '@apollo/client';
 import { GridItemSix, GridLayout } from '@components/GridLayout';
-import Collectors from '@components/Shared/Collectors';
 import Markup from '@components/Shared/Markup';
+import Collectors from '@components/Shared/Modal/Collectors';
 import ReferralAlert from '@components/Shared/ReferralAlert';
 import CrowdfundShimmer from '@components/Shared/Shimmer/CrowdfundShimmer';
 import { Card } from '@components/UI/Card';
@@ -144,11 +144,11 @@ const Crowdfund: FC<Props> = ({ fund }) => {
             </div>
             <ReferralAlert mirror={fund} referralFee={collectModule?.referralFee} />
           </div>
-          {currentProfile && (
+          {currentProfile ? (
             <div className="pt-3 sm:pt-0">
               <Fund fund={fund} collectModule={collectModule} revenue={revenue} setRevenue={setRevenue} />
             </div>
-          )}
+          ) : null}
         </div>
         {revenueLoading ? (
           <div className="w-full h-[13px] !mt-5 rounded-full shimmer" />

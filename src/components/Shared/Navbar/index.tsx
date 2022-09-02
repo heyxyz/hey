@@ -94,8 +94,12 @@ const Navbar: FC = () => {
                 </div>
               </div>
               <div className="flex gap-8 items-center">
-                {currentProfile && <NewPostModal />}
-                {currentProfile && <NotificationIcon />}
+                {currentProfile ? (
+                  <>
+                    <NewPostModal />
+                    <NotificationIcon />
+                  </>
+                ) : null}
                 <MenuItems />
               </div>
             </div>

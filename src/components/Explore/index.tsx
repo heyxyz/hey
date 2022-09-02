@@ -8,6 +8,7 @@ import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { APP_NAME } from 'src/constants';
+import { useAppStore } from 'src/store/app';
 import { PAGEVIEW } from 'src/tracking';
 
 import Feed from './Feed';
@@ -17,6 +18,7 @@ const Explore: NextPage = () => {
   const {
     query: { type }
   } = useRouter();
+  const currentProfile = useAppStore((state) => state.currentProfile);
   const [feedType, setFeedType] = useState(
     type && ['top_commented', 'top_collected', 'top_mirrored', 'latest'].includes(type as string)
       ? type.toString().toUpperCase()
@@ -38,7 +40,7 @@ const Explore: NextPage = () => {
         <Feed feedType={feedType} />
       </GridItemEight>
       <GridItemFour>
-        <RecommendedProfiles />
+        {currentProfile ? <RecommendedProfiles /> : null}
         <Footer />
       </GridItemFour>
     </GridLayout>
