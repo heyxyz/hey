@@ -13,8 +13,11 @@ import { Spinner } from '@components/UI/Spinner';
 import { TextArea } from '@components/UI/TextArea';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
 import Seo from '@components/utils/Seo';
-import { CreatePostBroadcastItemResult, Erc20, Mutation } from '@generated/types';
-import { CREATE_POST_TYPED_DATA_MUTATION } from '@gql/TypedAndDispatcherData/CreatePost';
+import { CreatePostBroadcastItemResult, Erc20, Mutation, PublicationMainFocus } from '@generated/types';
+import {
+  CREATE_POST_TYPED_DATA_MUTATION,
+  CREATE_POST_VIA_DISPATHCER_MUTATION
+} from '@gql/TypedAndDispatcherData/CreatePost';
 import { PlusIcon } from '@heroicons/react/outline';
 import getIPFSLink from '@lib/getIPFSLink';
 import getSignature from '@lib/getSignature';
@@ -128,7 +131,7 @@ const NewCrowdfund: NextPage = () => {
   };
 
   const { broadcast, data: broadcastData, loading: broadcastLoading } = useBroadcast({ onCompleted });
-  const [createPostTypedData, { loading: typedDataLoading }] = useMutation<Mutation>(
+  const [createCrowdfundTypedData, { loading: typedDataLoading }] = useMutation<Mutation>(
     CREATE_POST_TYPED_DATA_MUTATION,
     {
       onCompleted: async ({
@@ -178,6 +181,11 @@ const NewCrowdfund: NextPage = () => {
     }
   );
 
+  const [createCrowdfundViaDispatcher, { data: dispatcherData, loading: dispatcherLoading }] = useMutation(
+    CREATE_POST_VIA_DISPATHCER_MUTATION,
+    { onCompleted, onError }
+  );
+
   const createCrowdfund = async (
     title: string,
     amount: string,
@@ -194,13 +202,14 @@ const NewCrowdfund: NextPage = () => {
     const id = await uploadToArweave({
       version: '2.0.0',
       metadata_id: uuid(),
-      description: description,
-      content: description,
-      external_url: null,
+      description: description ? description : title,
+      content: description ? description : title,
+      external_url: `https://lenster.xyz/u/${currentProfile?.handle}`,
       image: cover ? cover : `https://avatar.tobi.sh/${uuid()}.png`,
       imageMimeType: coverType,
       name: title,
-      contentWarning: null, // TODO
+      mainContentFocus: PublicationMainFocus.Article,
+      contentWarning: null,
       attributes: [
         {
           traitType: 'string',
@@ -219,29 +228,35 @@ const NewCrowdfund: NextPage = () => {
       appId: `${APP_NAME} Crowdfund`
     }).finally(() => setIsUploading(false));
 
-    createPostTypedData({
-      variables: {
-        options: { overrideSigNonce: userSigNonce },
-        request: {
-          profileId: currentProfile?.id,
-          contentURI: `https://arweave.net/${id}`,
-          collectModule: {
-            feeCollectModule: {
-              amount: {
-                currency: selectedCurrency,
-                value: amount
-              },
-              recipient,
-              referralFee: parseInt(referralFee),
-              followerOnly: false
-            }
+    const request = {
+      profileId: currentProfile?.id,
+      contentURI: `https://arweave.net/${id}`,
+      collectModule: {
+        feeCollectModule: {
+          amount: {
+            currency: selectedCurrency,
+            value: amount
           },
-          referenceModule: {
-            followerOnlyReferenceModule: false
-          }
+          recipient,
+          referralFee: parseInt(referralFee),
+          followerOnly: false
         }
+      },
+      referenceModule: {
+        followerOnlyReferenceModule: false
       }
-    });
+    };
+
+    if (currentProfile?.dispatcher?.canUseRelay) {
+      createCrowdfundViaDispatcher({ variables: { request } });
+    } else {
+      createCrowdfundTypedData({
+        variables: {
+          options: { overrideSigNonce: userSigNonce },
+          request
+        }
+      });
+    }
   };
 
   if (loading) {
@@ -252,6 +267,9 @@ const NewCrowdfund: NextPage = () => {
     return <Custom404 />;
   }
 
+  const isLoading =
+    typedDataLoading || dispatcherLoading || isUploading || signLoading || writeLoading || broadcastLoading;
+
   return (
     <GridLayout>
       <Seo title={`Create Crowdfund • ${APP_NAME}`} />
@@ -260,9 +278,15 @@ const NewCrowdfund: NextPage = () => {
       </GridItemFour>
       <GridItemEight>
         <Card>
-          {data?.hash ?? broadcastData?.broadcast?.txHash ? (
+          {data?.hash ??
+          broadcastData?.broadcast?.txHash ??
+          dispatcherData?.createPostViaDispatcher?.txHash ? (
             <Pending
-              txHash={data?.hash ? data?.hash : broadcastData?.broadcast?.txHash}
+              txHash={
+                data?.hash ??
+                broadcastData?.broadcast?.txHash ??
+                dispatcherData?.createPostViaDispatcher?.txHash
+              }
               indexing="Crowdfund creation in progress, please wait!"
               indexed="Crowdfund created successfully"
               type="crowdfund"
@@ -376,14 +400,8 @@ const NewCrowdfund: NextPage = () => {
               <Button
                 className="ml-auto"
                 type="submit"
-                disabled={typedDataLoading || isUploading || signLoading || writeLoading || broadcastLoading}
-                icon={
-                  typedDataLoading || isUploading || signLoading || writeLoading || broadcastLoading ? (
-                    <Spinner size="xs" />
-                  ) : (
-                    <PlusIcon className="w-4 h-4" />
-                  )
-                }
+                disabled={isLoading}
+                icon={isLoading ? <Spinner size="xs" /> : <PlusIcon className="w-4 h-4" />}
               >
                 Create
               </Button>

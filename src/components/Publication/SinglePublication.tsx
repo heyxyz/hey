@@ -1,6 +1,7 @@
 import UserProfile from '@components/Shared/UserProfile';
 import { LensterPublication } from '@generated/lenstertypes';
 import { Mixpanel } from '@lib/mixpanel';
+import clsx from 'clsx';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { useRouter } from 'next/router';
@@ -29,16 +30,24 @@ const SinglePublication: FC<Props> = ({
 }) => {
   const { push } = useRouter();
   const isMirror = publication?.__typename === 'Mirror';
+  const isCrowdfund = publication?.metadata?.attributes[0]?.value === 'crowdfund';
   const profile = isMirror ? publication?.mirrorOf?.profile : publication?.profile;
   const timestamp = isMirror ? publication?.mirrorOf?.createdAt : publication?.createdAt;
 
   return (
-    <article className="first:rounded-t-xl last:rounded-b-xl p-5 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer">
+    <article
+      className={clsx(
+        { 'hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer': !isCrowdfund },
+        'first:rounded-t-xl last:rounded-b-xl p-5'
+      )}
+    >
       <PublicationType publication={publication} showType={showType} showThread={showThread} />
       <div
         onClick={() => {
-          push(`/posts/${publication?.id}`);
-          Mixpanel.track(PUBLICATION.OPEN);
+          if (!isCrowdfund) {
+            push(`/posts/${publication?.id}`);
+            Mixpanel.track(PUBLICATION.OPEN);
+          }
         }}
       >
         <div className="flex justify-between pb-4 space-x-1.5">
