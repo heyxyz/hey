@@ -1594,13 +1594,13 @@
     react-use "17.4.0"
     throttle-debounce "^3.0.1"
 
-"@graphql-codegen/cli@^2.11.8":
-  version "2.11.8"
-  resolved "https://registry.yarnpkg.com/@graphql-codegen/cli/-/cli-2.11.8.tgz#6dfe2efe701f6f35eba8a817f13aa79d64fc5af7"
-  integrity sha512-LFEgDk+ShNsuy8GVR8bkLcfvvq6ugq3NmDsHYzCtJO/NW/8InQeqoH2X4e+7YhS/4M9iA2vdzSk0hSsv610Oww==
+"@graphql-codegen/cli@^2.12.0":
+  version "2.12.0"
+  resolved "https://registry.yarnpkg.com/@graphql-codegen/cli/-/cli-2.12.0.tgz#ae57ca66fac7b0b5b8cba5b26ca9ccb5885ae2d4"
+  integrity sha512-esaMiiuypAtJNiZUhGdFmG0gTMEF5dYkqP/7I04egxSragwbIETU8gOl6/gHdLSAV5su7dgfIEZNdWmGCOWAbg==
   dependencies:
     "@graphql-codegen/core" "2.6.2"
-    "@graphql-codegen/plugin-helpers" "^2.6.2"
+    "@graphql-codegen/plugin-helpers" "^2.7.0"
     "@graphql-tools/apollo-engine-loader" "^7.3.6"
     "@graphql-tools/code-file-loader" "^7.3.1"
     "@graphql-tools/git-loader" "^7.2.1"
@@ -1616,9 +1616,10 @@
     chalk "^4.1.0"
     chokidar "^3.5.2"
     cosmiconfig "^7.0.0"
+    cosmiconfig-typescript-loader "^4.0.0"
     debounce "^1.2.0"
     detect-indent "^6.0.0"
-    graphql-config "^4.3.4"
+    graphql-config "^4.3.5"
     inquirer "^8.0.0"
     is-glob "^4.0.1"
     json-to-pretty-yaml "^1.2.2"
@@ -1649,10 +1650,10 @@
     "@graphql-codegen/plugin-helpers" "^2.6.2"
     tslib "~2.4.0"
 
-"@graphql-codegen/plugin-helpers@^2.6.2":
-  version "2.6.2"
-  resolved "https://registry.yarnpkg.com/@graphql-codegen/plugin-helpers/-/plugin-helpers-2.6.2.tgz#3c65d89fc9b61914235fc7cb14f1d48492d27944"
-  integrity sha512-bt5PNix0MwzWP53UdaYm6URrVMWU8RlQhrTSLFjxQ8ShS5zoTlQtpZJGZc5ONqFgKa83qbUmzXUtP8oRVVn8zw==
+"@graphql-codegen/plugin-helpers@^2.6.2", "@graphql-codegen/plugin-helpers@^2.7.0":
+  version "2.7.0"
+  resolved "https://registry.yarnpkg.com/@graphql-codegen/plugin-helpers/-/plugin-helpers-2.7.0.tgz#54ba1d5fb3ddad8a3634bc2e09b023eb183e574c"
+  integrity sha512-+a2VP/4Ob0fwP8YLrQ/hhYlAA9UZUdDFNqwS543DmyiGFUkNIsa7TnTsE/mBDKJSMsCVWLw78949fCpzjyw/9Q==
   dependencies:
     "@graphql-tools/utils" "^8.8.0"
     change-case-all "1.0.14"
@@ -5952,7 +5953,7 @@ grapheme-splitter@^1.0.4:
   resolved "https://registry.yarnpkg.com/grapheme-splitter/-/grapheme-splitter-1.0.4.tgz#9cf3a665c6247479896834af35cf1dbb4400767e"
   integrity sha512-bzh50DW9kTPM00T8y4o8vQg89Di9oLJVLW/KaOGIXJWP/iqCN6WKYkbNOF04vFLJhwcpYUh9ydh/+5vpOqV4YQ==
 
-graphql-config@^4.3.4:
+graphql-config@^4.3.5:
   version "4.3.5"
   resolved "https://registry.yarnpkg.com/graphql-config/-/graphql-config-4.3.5.tgz#bd197ec9c1e86d2696c61332be35b920ba7be700"
   integrity sha512-B4jXhHL7j3llCem+ACeo48wvVYhtJxRyt5SfSnvywbRlVYyUzt5ibZV6WJU2Yii2/rcVRIGi7BHDgcAPWdWdJg==
