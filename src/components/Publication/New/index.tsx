@@ -19,6 +19,7 @@ import {
 import { PencilAltIcon } from '@heroicons/react/outline';
 import { defaultFeeData, defaultModuleData, getModule } from '@lib/getModule';
 import getSignature from '@lib/getSignature';
+import getTags from '@lib/getTags';
 import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
@@ -173,6 +174,7 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
       image: attachments.length > 0 ? attachments[0]?.item : null,
       imageMimeType: attachments.length > 0 ? attachments[0]?.type : null,
       name: `Post by @${currentProfile?.handle}`,
+      tags: getTags(publicationContent),
       mainContentFocus:
         attachments.length > 0
           ? attachments[0]?.type === 'video/mp4'
