@@ -10,7 +10,6 @@ import Follow from './Follow';
 import Markup from './Markup';
 import Slug from './Slug';
 import SuperFollow from './SuperFollow';
-import Unfollow from './Unfollow';
 
 interface Props {
   profile: Profile;
@@ -63,9 +62,7 @@ const UserProfile: FC<Props> = ({
       {showFollow &&
         (followStatusLoading ? (
           <div className="w-10 h-8 rounded-lg shimmer" />
-        ) : following ? (
-          <Unfollow profile={profile} setFollowing={setFollowing} />
-        ) : profile?.followModule?.__typename === 'FeeFollowModuleSettings' ? (
+        ) : following ? null : profile?.followModule?.__typename === 'FeeFollowModuleSettings' ? (
           <SuperFollow profile={profile} setFollowing={setFollowing} />
         ) : (
           <Follow profile={profile} setFollowing={setFollowing} />

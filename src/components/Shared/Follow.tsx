@@ -1,5 +1,5 @@
 import { LensHubProxy } from '@abis/LensHubProxy';
-import { gql, useMutation } from '@apollo/client';
+import { ApolloCache, gql, useMutation } from '@apollo/client';
 import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
@@ -66,6 +66,15 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
     Mixpanel.track(PROFILE.FOLLOW);
   };
 
+  const updateCache = (cache: ApolloCache<any>) => {
+    cache.modify({
+      id: `Profile:${profile?.id}`,
+      fields: {
+        isFollowedByMe: () => true
+      }
+    });
+  };
+
   const { isLoading: writeLoading, write } = useContractWrite({
     addressOrName: LENSHUB_PROXY,
     contractInterface: LensHubProxy,
@@ -112,13 +121,15 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
           }
         } catch {}
       },
-      onError
+      onError,
+      update: updateCache
     }
   );
 
   const [createFollowProxyAction, { loading: proxyActionLoading }] = useMutation(PROXY_ACTION_MUTATION, {
     onCompleted,
-    onError
+    onError,
+    update: updateCache
   });
 
   const createFollow = () => {
