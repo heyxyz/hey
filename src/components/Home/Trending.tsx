@@ -5,8 +5,10 @@ import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { TagResult, TagSortCriteria } from '@generated/types';
 import { TrendingUpIcon } from '@heroicons/react/solid';
 import nFormatter from '@lib/nFormatter';
+import { hashflags } from 'data/hashflags';
 import Link from 'next/link';
 import React, { FC } from 'react';
+import { STATIC_ASSETS } from 'src/constants';
 
 export const TRENDING_QUERY = gql`
   query Trending($request: AllPublicationsTagsRequest!) {
@@ -25,6 +27,28 @@ const Title = () => {
       <TrendingUpIcon className="w-4 h-4 text-green-500" />
       <div>Trending</div>
     </div>
+  );
+};
+
+interface HashflagProps {
+  tag: string;
+}
+
+const Hashflag: FC<HashflagProps> = ({ tag }) => {
+  const hashflag = tag.toLowerCase();
+  const hasHashflag = hashflags.hasOwnProperty(hashflag);
+
+  if (!hasHashflag) {
+    return null;
+  }
+
+  return (
+    <img
+      className="h-4 !mr-0.5"
+      height={16}
+      src={`${STATIC_ASSETS}/hashflags/${hashflags[hashflag]}.png`}
+      alt={hashflag}
+    />
   );
 };
 
@@ -63,7 +87,10 @@ const Trending: FC = () => {
           {data?.allPublicationsTags?.items?.map((tag: TagResult) => (
             <div key={tag?.tag}>
               <Link href={`/search?q=${tag?.tag}&type=pubs`}>
-                <div className="font-bold">#{tag?.tag}</div>
+                <div className="font-bold flex items-center space-x-1.5">
+                  <span>#{tag?.tag}</span>
+                  <Hashflag tag={tag?.tag} />
+                </div>
                 <div className="text-[12px] text-gray-500">{nFormatter(tag?.total)} Publications</div>
               </Link>
             </div>
