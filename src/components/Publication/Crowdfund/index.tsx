@@ -1,7 +1,7 @@
 import { gql, useQuery } from '@apollo/client';
 import { GridItemSix, GridLayout } from '@components/GridLayout';
-import Collectors from '@components/Shared/Collectors';
 import Markup from '@components/Shared/Markup';
+import Collectors from '@components/Shared/Modal/Collectors';
 import ReferralAlert from '@components/Shared/ReferralAlert';
 import CrowdfundShimmer from '@components/Shared/Shimmer/CrowdfundShimmer';
 import { Card } from '@components/UI/Card';

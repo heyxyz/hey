@@ -1,25 +1,24 @@
 import { gql, useQuery } from '@apollo/client';
 import UserProfile from '@components/Shared/UserProfile';
-import WalletProfile from '@components/Shared/WalletProfile';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
-import { Wallet } from '@generated/types';
+import { WhoReactedResult } from '@generated/types';
 import { ProfileFields } from '@gql/ProfileFields';
-import { CollectionIcon } from '@heroicons/react/outline';
+import { HeartIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import { FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { PAGINATION } from 'src/tracking';
 
-import Loader from './Loader';
+import Loader from '../Loader';
 
-const COLLECTORS_QUERY = gql`
-  query Collectors($request: WhoCollectedPublicationRequest!) {
-    whoCollectedPublication(request: $request) {
+const LIKES_QUERY = gql`
+  query Likes($request: WhoReactedPublicationRequest!) {
+    whoReactedPublication(request: $request) {
       items {
-        address
-        defaultProfile {
+        reactionId
+        profile {
           ...ProfileFields
           isFollowedByMe
         }
@@ -37,13 +36,13 @@ interface Props {
   pubId: string;
 }
 
-const Collectors: FC<Props> = ({ pubId }) => {
-  const { data, loading, error, fetchMore } = useQuery(COLLECTORS_QUERY, {
+const Likes: FC<Props> = ({ pubId }) => {
+  const { data, loading, error, fetchMore } = useQuery(LIKES_QUERY, {
     variables: { request: { publicationId: pubId, limit: 10 } },
     skip: !pubId
   });
 
-  const pageInfo = data?.whoCollectedPublication?.pageInfo;
+  const pageInfo = data?.whoReactedPublication?.pageInfo;
   const { observe } = useInView({
     onEnter: () => {
       fetchMore({
@@ -55,20 +54,20 @@ const Collectors: FC<Props> = ({ pubId }) => {
           }
         }
       });
-      Mixpanel.track(PAGINATION.COLLECTORS);
+      Mixpanel.track(PAGINATION.LIKES);
     }
   });
 
   if (loading) {
-    return <Loader message="Loading collectors" />;
+    return <Loader message="Loading likes" />;
   }
 
-  if (data?.whoCollectedPublication?.items?.length === 0) {
+  if (data?.whoReactedPublication?.items?.length === 0) {
     return (
       <div className="p-5">
         <EmptyState
-          message={<span>No collectors.</span>}
-          icon={<CollectionIcon className="w-8 h-8 text-brand" />}
+          message={<span>No likes.</span>}
+          icon={<HeartIcon className="w-8 h-8 text-brand" />}
           hideCard
         />
       </div>
@@ -77,25 +76,21 @@ const Collectors: FC<Props> = ({ pubId }) => {
 
   return (
     <div className="overflow-y-auto max-h-[80vh]">
-      <ErrorMessage className="m-5" title="Failed to load collectors" error={error} />
+      <ErrorMessage className="m-5" title="Failed to load likes" error={error} />
       <div className="space-y-3">
         <div className="divide-y dark:divide-gray-700">
-          {data?.whoCollectedPublication?.items?.map((wallet: Wallet) => (
-            <div className="p-5" key={wallet?.address}>
-              {wallet?.defaultProfile ? (
-                <UserProfile
-                  profile={wallet?.defaultProfile}
-                  showBio
-                  showFollow
-                  isFollowing={wallet?.defaultProfile?.isFollowedByMe}
-                />
-              ) : (
-                <WalletProfile wallet={wallet} />
-              )}
+          {data?.whoReactedPublication?.items?.map((like: WhoReactedResult) => (
+            <div className="p-5" key={like?.reactionId}>
+              <UserProfile
+                profile={like?.profile}
+                showBio
+                showFollow
+                isFollowing={like?.profile?.isFollowedByMe}
+              />
             </div>
           ))}
         </div>
-        {pageInfo?.next && data?.whoCollectedPublication?.items?.length !== pageInfo?.totalCount && (
+        {pageInfo?.next && data?.whoReactedPublication?.items?.length !== pageInfo?.totalCount && (
           <span ref={observe} className="flex justify-center p-5">
             <Spinner size="md" />
           </span>
@@ -105,4 +100,4 @@ const Collectors: FC<Props> = ({ pubId }) => {
   );
 };
 
-export default Collectors;
+export default Likes;
