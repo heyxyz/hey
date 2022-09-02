@@ -15,5 +15,6 @@ export const hashflags: {
   bhm: 'blm',
   pride: 'pride',
   lgbt: 'pride',
-  voted: 'voted'
+  voted: 'voted',
+  hashtag: 'hashtag'
 };
