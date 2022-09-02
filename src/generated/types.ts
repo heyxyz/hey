@@ -2389,7 +2389,7 @@ export type Query = {
   enabledModules: EnabledModules;
   exploreProfiles: ExploreProfileResult;
   explorePublications: ExplorePublicationResult;
-  followerNftOwnedTokenIds: FollowerNftOwnedTokenIds;
+  followerNftOwnedTokenIds?: Maybe<FollowerNftOwnedTokenIds>;
   followers: PaginatedFollowersResult;
   following: PaginatedFollowingResult;
   generateModuleCurrencyApprovalData: GenerateModuleCurrencyApproval;
@@ -2546,6 +2546,10 @@ export type QueryPublicationsArgs = {
   request: PublicationsQueryRequest;
 };
 
+export type QueryRecommendedProfilesArgs = {
+  recommendedProfileOptions?: InputMaybe<RecommendedProfileOptions>;
+};
+
 export type QueryRelArgs = {
   request: RelRequest;
 };
@@ -2597,6 +2601,11 @@ export enum ReactionTypes {
   Downvote = 'DOWNVOTE',
   Upvote = 'UPVOTE'
 }
+
+export type RecommendedProfileOptions = {
+  /** If you wish to turn ML off */
+  disableML?: InputMaybe<Scalars['Boolean']>;
+};
 
 export type ReferenceModule = FollowOnlyReferenceModuleSettings | UnknownReferenceModuleSettings;
 
