@@ -1,6 +1,6 @@
-import Collectors from '@components/Shared/Collectors';
-import Likes from '@components/Shared/Likes';
-import Mirrors from '@components/Shared/Mirrors';
+import Collectors from '@components/Shared/Modal/Collectors';
+import Likes from '@components/Shared/Modal/Likes';
+import Mirrors from '@components/Shared/Modal/Mirrors';
 import { Modal } from '@components/UI/Modal';
 import { LensterPublication } from '@generated/lenstertypes';
 import { CollectionIcon, HeartIcon, SwitchHorizontalIcon } from '@heroicons/react/outline';

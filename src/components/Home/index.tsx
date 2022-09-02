@@ -16,7 +16,6 @@ import Hero from './Hero';
 import RecommendedProfiles from './RecommendedProfiles';
 import SetDefaultProfile from './SetDefaultProfile';
 import SetProfile from './SetProfile';
-import Streak from './Streak';
 
 const Home: NextPage = () => {
   useEffect(() => {
@@ -47,10 +46,9 @@ const Home: NextPage = () => {
             <>
               <SetDefaultProfile />
               <SetProfile />
-              <Streak />
+              <RecommendedProfiles />
             </>
           ) : null}
-          <RecommendedProfiles />
           <Footer />
         </GridItemFour>
       </GridLayout>

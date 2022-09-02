@@ -8,9 +8,8 @@ import { Modal } from '@components/UI/Modal';
 import { Profile } from '@generated/types';
 import { ProfileFields } from '@gql/ProfileFields';
 import { DotsCircleHorizontalIcon, UsersIcon } from '@heroicons/react/outline';
-import { LightningBoltIcon, SparklesIcon } from '@heroicons/react/solid';
+import { SparklesIcon } from '@heroicons/react/solid';
 import React, { FC, useState } from 'react';
-import { useAppStore } from 'src/store/app';
 
 import Suggested from './Suggested';
 
@@ -25,32 +24,17 @@ export const RECOMMENDED_PROFILES_QUERY = gql`
 `;
 
 const Title = () => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
-
   return (
     <div className="flex gap-2 items-center px-5 mb-2 sm:px-0">
-      {currentProfile ? (
-        <>
-          <SparklesIcon className="w-4 h-4 text-yellow-500" />
-          <div>Who to follow</div>
-        </>
-      ) : (
-        <>
-          <LightningBoltIcon className="w-4 h-4 text-yellow-500" />
-          <div>Recommended users</div>
-        </>
-      )}
+      <SparklesIcon className="w-4 h-4 text-yellow-500" />
+      <div>Who to follow</div>
     </div>
   );
 };
 
 const RecommendedProfiles: FC = () => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
   const [showSuggestedModal, setShowSuggestedModal] = useState(false);
-  const { data, loading, error } = useQuery(RECOMMENDED_PROFILES_QUERY, {
-    variables: { profileId: currentProfile?.id ?? null }, // TODO: remove this fake variable
-    fetchPolicy: 'no-cache'
-  });
+  const { data, loading, error } = useQuery(RECOMMENDED_PROFILES_QUERY);
 
   if (loading) {
     return (
@@ -97,15 +81,13 @@ const RecommendedProfiles: FC = () => {
             </div>
           ))}
         </CardBody>
-        {currentProfile ? (
-          <button
-            className="bg-gray-50 dark:bg-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 border-t dark:border-t-gray-700/80 text-sm w-full rounded-b-xl text-left px-5 py-3 flex items-center space-x-2 text-gray-600 dark:text-gray-300"
-            onClick={() => setShowSuggestedModal(true)}
-          >
-            <DotsCircleHorizontalIcon className="h-4 w-4" />
-            <span>Show more</span>
-          </button>
-        ) : null}
+        <button
+          className="bg-gray-50 dark:bg-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 border-t dark:border-t-gray-700/80 text-sm w-full rounded-b-xl text-left px-5 py-3 flex items-center space-x-2 text-gray-600 dark:text-gray-300"
+          onClick={() => setShowSuggestedModal(true)}
+        >
+          <DotsCircleHorizontalIcon className="h-4 w-4" />
+          <span>Show more</span>
+        </button>
       </Card>
       <Modal
         title="Suggested for you"
