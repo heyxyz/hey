@@ -154,8 +154,7 @@ export const PAGEVIEW = {
   },
   STAFFTOOLS: {
     STATS: 'Staff stats page',
-    FLAGS: 'Staff flags page',
-    EVENTS: 'Staff events page'
+    FLAGS: 'Staff flags page'
   }
 };
 
