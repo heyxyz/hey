@@ -77,7 +77,12 @@ const Flags: NextPage = () => {
                 <div className="flex items-center justify-between">
                   <div className="space-y-2">
                     <div>
-                      <a className="font-bold" href={`${HOG_ENDPOINT}/feature_flags/${flag?.id}`}>
+                      <a
+                        className="font-bold"
+                        href={`${HOG_ENDPOINT}/feature_flags/${flag?.id}`}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
                         {flag?.key}
                       </a>
                       <div className="text-sm">{flag?.name}</div>
