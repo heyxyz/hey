@@ -1,8 +1,8 @@
 import { Dict } from 'mixpanel-browser';
 import posthog from 'posthog-js';
-import { HOG_ENDPOINT, POSTHOG_TOKEN } from 'src/constants';
+import { HOG_ENDPOINT, IS_PRODUCTION, POSTHOG_TOKEN } from 'src/constants';
 
-const enabled = POSTHOG_TOKEN && true && typeof window !== 'undefined';
+const enabled = POSTHOG_TOKEN && IS_PRODUCTION && typeof window !== 'undefined';
 
 /**
  * Posthog analytics
