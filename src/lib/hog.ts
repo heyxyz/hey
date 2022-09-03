@@ -8,11 +8,6 @@ const enabled = POSTHOG_TOKEN && IS_PRODUCTION;
  * Posthog analytics
  */
 export const Hog = {
-  identify: (id: string, props?: Dict) => {
-    if (enabled) {
-      posthog.identify(id, props);
-    }
-  },
   track: (name: string, props?: Dict) => {
     if (enabled) {
       posthog.capture(name, props);

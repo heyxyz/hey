@@ -3,7 +3,7 @@ import { Profile } from '@generated/types';
 import { ProfileFields } from '@gql/ProfileFields';
 import getIsAuthTokensAvailable from '@lib/getIsAuthTokensAvailable';
 import getToastOptions from '@lib/getToastOptions';
-import { Hog, posthogInit } from '@lib/hog';
+import { posthogInit } from '@lib/hog';
 import resetAuthData from '@lib/resetAuthData';
 import Head from 'next/head';
 import { useTheme } from 'next-themes';
@@ -100,10 +100,6 @@ const Layout: FC<Props> = ({ children }) => {
     validateAuthentication();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isDisconnected, address, chain, disconnect, profileId]);
-
-  useEffect(() => {
-    Hog.identify(currentProfile?.id ?? '0x00');
-  }, [currentProfile]);
 
   if (loading || !mounted) {
     return <Loading />;
