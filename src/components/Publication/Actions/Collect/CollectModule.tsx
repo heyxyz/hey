@@ -34,8 +34,8 @@ import { CheckCircleIcon } from '@heroicons/react/solid';
 import formatAddress from '@lib/formatAddress';
 import getSignature from '@lib/getSignature';
 import getTokenImage from '@lib/getTokenImage';
-import { Hog } from '@lib/hog';
 import humanize from '@lib/humanize';
+import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import dayjs from 'dayjs';
@@ -132,7 +132,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
     setCount(count + 1);
     setHasCollectedByMe(true);
     toast.success('Transaction submitted successfully!');
-    Hog.track(PUBLICATION.COLLECT_MODULE.COLLECT);
+    Mixpanel.track(PUBLICATION.COLLECT_MODULE.COLLECT);
   };
 
   const {
@@ -335,7 +335,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
                 type="button"
                 onClick={() => {
                   setShowCollectorsModal(!showCollectorsModal);
-                  Hog.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECTORS);
+                  Mixpanel.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECTORS);
                 }}
               >
                 {humanize(count)} collectors

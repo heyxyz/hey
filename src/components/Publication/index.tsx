@@ -11,7 +11,7 @@ import { LensterPublication } from '@generated/lenstertypes';
 import { CommentFields } from '@gql/CommentFields';
 import { MirrorFields } from '@gql/MirrorFields';
 import { PostFields } from '@gql/PostFields';
-import { Hog } from '@lib/hog';
+import { Mixpanel } from '@lib/mixpanel';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
@@ -78,7 +78,7 @@ const ViewPublication: NextPage = () => {
   const { allowed: staffMode } = useStaffMode();
 
   useEffect(() => {
-    Hog.track('Pageview', { path: PAGEVIEW.PUBLICATION });
+    Mixpanel.track('Pageview', { path: PAGEVIEW.PUBLICATION });
   }, []);
 
   const {

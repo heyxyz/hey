@@ -1,7 +1,7 @@
 import { gql, useQuery } from '@apollo/client';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout';
 import Seo from '@components/utils/Seo';
-import { Hog } from '@lib/hog';
+import { Mixpanel } from '@lib/mixpanel';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
@@ -97,7 +97,7 @@ const ViewProfile: NextPage = () => {
   );
 
   useEffect(() => {
-    Hog.track('Pageview', { path: PAGEVIEW.PROFILE });
+    Mixpanel.track('Pageview', { path: PAGEVIEW.PROFILE });
   }, []);
 
   const { data, loading, error } = useQuery(PROFILE_QUERY, {
