@@ -20,15 +20,22 @@ export const Hog = {
   }
 };
 
+export const featureEnabled = (feature: string) => {
+  if (POSTHOG_TOKEN && typeof window !== 'undefined') {
+    return posthog.isFeatureEnabled(feature);
+  } else {
+    return true;
+  }
+};
+
 export const posthogInit = () => {
-  if (enabled && typeof window !== 'undefined') {
+  if (POSTHOG_TOKEN && typeof window !== 'undefined') {
     posthog.init(POSTHOG_TOKEN, {
       api_host: 'https://hog.lenster.xyz',
       capture_pageview: false,
       request_batching: false,
       autocapture: false,
-      cookie_name: 'lenster_hog',
-      debug: true
+      cookie_name: 'lenster_hog'
     });
   }
 };

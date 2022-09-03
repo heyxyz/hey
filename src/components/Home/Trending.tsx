@@ -4,6 +4,7 @@ import { Card, CardBody } from '@components/UI/Card';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { TagResult, TagSortCriteria } from '@generated/types';
 import { TrendingUpIcon } from '@heroicons/react/solid';
+import { featureEnabled } from '@lib/hog';
 import nFormatter from '@lib/nFormatter';
 import Link from 'next/link';
 import React, { FC } from 'react';
@@ -29,12 +30,18 @@ const Title = () => {
 };
 
 const Trending: FC = () => {
+  const isFeatureEnabled = featureEnabled('trending-widget');
   const { data, loading, error } = useQuery(TRENDING_QUERY, {
     variables: {
       request: { limit: 7, sort: TagSortCriteria.MostPopular }
     },
+    skip: !isFeatureEnabled,
     pollInterval: 10000
   });
+
+  if (!isFeatureEnabled) {
+    return null;
+  }
 
   if (loading) {
     return (
