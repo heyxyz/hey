@@ -8,6 +8,11 @@ const enabled = POSTHOG_TOKEN && IS_PRODUCTION;
  * Posthog analytics
  */
 export const Hog = {
+  identify: (id: string, props?: Dict) => {
+    if (enabled) {
+      posthog.identify(id, props);
+    }
+  },
   track: (name: string, props?: Dict) => {
     if (enabled) {
       posthog.capture(name, props);
@@ -22,7 +27,8 @@ export const posthogInit = () => {
       capture_pageview: false,
       request_batching: false,
       autocapture: false,
-      cookie_name: 'lenster_hog'
+      cookie_name: 'lenster_hog',
+      debug: true
     });
   }
 };
