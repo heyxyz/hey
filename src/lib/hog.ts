@@ -2,7 +2,7 @@ import { Dict } from 'mixpanel-browser';
 import posthog from 'posthog-js';
 import { IS_PRODUCTION, POSTHOG_TOKEN } from 'src/constants';
 
-const enabled = POSTHOG_TOKEN && IS_PRODUCTION;
+const enabled = POSTHOG_TOKEN && IS_PRODUCTION && typeof window !== 'undefined';
 
 /**
  * Posthog analytics
@@ -16,7 +16,7 @@ export const Hog = {
 };
 
 export const featureEnabled = (feature: string) => {
-  if (POSTHOG_TOKEN && typeof window !== 'undefined') {
+  if (enabled) {
     return posthog.isFeatureEnabled(feature);
   } else {
     return true;
@@ -24,7 +24,7 @@ export const featureEnabled = (feature: string) => {
 };
 
 export const posthogInit = () => {
-  if (POSTHOG_TOKEN && typeof window !== 'undefined') {
+  if (enabled) {
     posthog.init(POSTHOG_TOKEN, {
       api_host: 'https://hog.lenster.xyz',
       capture_pageview: false,
