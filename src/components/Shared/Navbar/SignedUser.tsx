@@ -14,7 +14,6 @@ import {
 } from '@heroicons/react/outline';
 import getAvatar from '@lib/getAvatar';
 import { Hog } from '@lib/hog';
-import isBeta from '@lib/isBeta';
 import isStaff from '@lib/isStaff';
 import resetAuthData from '@lib/resetAuthData';
 import clsx from 'clsx';
@@ -198,7 +197,7 @@ const SignedUser: FC = () => {
                       target="_blank"
                       rel="noreferrer noopener"
                     >
-                      {GIT_COMMIT_SHA} {isBeta(currentProfile) && '(beta)'}
+                      {GIT_COMMIT_SHA}
                     </a>
                   </div>
                 </>
