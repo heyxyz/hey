@@ -31,7 +31,7 @@ export const posthogInit = () => {
       request_batching: false,
       autocapture: false,
       cookie_name: 'lenster_hog',
-      persistence: 'cookie',
+      persistence: 'localStorage',
       persistence_name: 'lenster_features'
     });
   }
