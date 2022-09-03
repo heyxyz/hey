@@ -3,7 +3,7 @@ import { Tooltip } from '@components/UI/Tooltip';
 import GetModuleIcon from '@components/utils/GetModuleIcon';
 import { CashIcon } from '@heroicons/react/outline';
 import { getModule } from '@lib/getModule';
-import { Hog } from '@lib/hog';
+import { Mixpanel } from '@lib/mixpanel';
 import { motion } from 'framer-motion';
 import { FC, useState } from 'react';
 import { useCollectModuleStore } from 'src/store/collectmodule';
@@ -23,7 +23,7 @@ const SelectCollectModule: FC = () => {
           type="button"
           onClick={() => {
             setShowModal(!showModal);
-            Hog.track(PUBLICATION.NEW.COLLECT_MODULE.OPEN_COLLECT_CONFIG);
+            Mixpanel.track(PUBLICATION.NEW.COLLECT_MODULE.OPEN_COLLECT_CONFIG);
           }}
           aria-label="Choose Collect Module"
         >

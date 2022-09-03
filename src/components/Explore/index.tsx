@@ -4,7 +4,7 @@ import Trending from '@components/Home/Trending';
 import Footer from '@components/Shared/Footer';
 import Seo from '@components/utils/Seo';
 import { PublicationSortCriteria } from '@generated/types';
-import { Hog } from '@lib/hog';
+import { Mixpanel } from '@lib/mixpanel';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
@@ -27,7 +27,7 @@ const Explore: NextPage = () => {
   );
 
   useEffect(() => {
-    Hog.track('Pageview', { path: PAGEVIEW.EXPLORE });
+    Mixpanel.track('Pageview', { path: PAGEVIEW.EXPLORE });
   }, []);
 
   return (

@@ -11,8 +11,8 @@ import { LensterPublication } from '@generated/lenstertypes';
 import { CashIcon, CurrencyDollarIcon, UsersIcon } from '@heroicons/react/outline';
 import getIPFSLink from '@lib/getIPFSLink';
 import getTokenImage from '@lib/getTokenImage';
-import { Hog } from '@lib/hog';
 import imagekitURL from '@lib/imagekitURL';
+import { Mixpanel } from '@lib/mixpanel';
 import clsx from 'clsx';
 import React, { FC, ReactNode, useEffect, useState } from 'react';
 import { STATIC_ASSETS } from 'src/constants';
@@ -109,7 +109,7 @@ const Crowdfund: FC<Props> = ({ fund }) => {
                     className="text-sm"
                     onClick={() => {
                       setShowFundersModal(!showFundersModal);
-                      Hog.track(CROWDFUND.OPEN_FUNDERS);
+                      Mixpanel.track(CROWDFUND.OPEN_FUNDERS);
                     }}
                   >
                     <Badge

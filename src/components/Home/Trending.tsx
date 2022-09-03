@@ -4,7 +4,7 @@ import { Card, CardBody } from '@components/UI/Card';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { TagResult, TagSortCriteria } from '@generated/types';
 import { TrendingUpIcon } from '@heroicons/react/solid';
-import { featureEnabled, Hog } from '@lib/hog';
+import { Mixpanel } from '@lib/mixpanel';
 import nFormatter from '@lib/nFormatter';
 import Link from 'next/link';
 import React, { FC } from 'react';
@@ -31,18 +31,12 @@ const Title = () => {
 };
 
 const Trending: FC = () => {
-  const isFeatureEnabled = featureEnabled('trending-widget');
   const { data, loading, error } = useQuery(TRENDING_QUERY, {
     variables: {
       request: { limit: 7, sort: TagSortCriteria.MostPopular }
     },
-    skip: !isFeatureEnabled,
     pollInterval: 10000
   });
-
-  if (!isFeatureEnabled) {
-    return null;
-  }
 
   if (loading) {
     return (
@@ -73,7 +67,7 @@ const Trending: FC = () => {
               <div key={tag?.tag}>
                 <Link
                   href={`/search?q=${tag?.tag}&type=pubs`}
-                  onClick={() => Hog.track(MISCELLANEOUS.OPEN_TRENDING_TAG)}
+                  onClick={() => Mixpanel.track(MISCELLANEOUS.OPEN_TRENDING_TAG)}
                 >
                   <div className="font-bold">{tag?.tag}</div>
                   <div className="text-[12px] text-gray-500">{nFormatter(tag?.total)} Publications</div>

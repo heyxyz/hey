@@ -10,7 +10,7 @@ import { CommentFields } from '@gql/CommentFields';
 import { MirrorFields } from '@gql/MirrorFields';
 import { PostFields } from '@gql/PostFields';
 import { CollectionIcon } from '@heroicons/react/outline';
-import { Hog } from '@lib/hog';
+import { Mixpanel } from '@lib/mixpanel';
 import React, { FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { useAppStore } from 'src/store/app';
@@ -69,7 +69,7 @@ const Feed: FC = () => {
           profileId: currentProfile?.id ?? null
         }
       });
-      Hog.track(PAGINATION.HOME_FEED);
+      Mixpanel.track(PAGINATION.HOME_FEED);
     }
   });
 

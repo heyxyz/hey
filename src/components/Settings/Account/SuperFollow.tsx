@@ -11,7 +11,7 @@ import { CreateSetFollowModuleBroadcastItemResult, Erc20, Mutation } from '@gene
 import { StarIcon, XIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
 import getTokenImage from '@lib/getTokenImage';
-import { Hog } from '@lib/hog';
+import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import React, { FC, useState } from 'react';
@@ -91,7 +91,7 @@ const SuperFollow: FC = () => {
   });
 
   const onCompleted = () => {
-    Hog.track(SETTINGS.ACCOUNT.SET_SUPER_FOLLOW);
+    Mixpanel.track(SETTINGS.ACCOUNT.SET_SUPER_FOLLOW);
   };
 
   const {
