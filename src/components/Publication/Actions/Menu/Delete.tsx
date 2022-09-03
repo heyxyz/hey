@@ -3,7 +3,7 @@ import { LensterPublication } from '@generated/lenstertypes';
 import { Mutation } from '@generated/types';
 import { Menu } from '@headlessui/react';
 import { TrashIcon } from '@heroicons/react/outline';
-import { Mixpanel } from '@lib/mixpanel';
+import { Hog } from '@lib/hog';
 import clsx from 'clsx';
 import { useRouter } from 'next/router';
 import React, { FC } from 'react';
@@ -23,7 +23,7 @@ const Delete: FC<Props> = ({ publication }) => {
   const { pathname, push } = useRouter();
   const [hidePost] = useMutation<Mutation>(HIDE_POST_MUTATION, {
     onCompleted: () => {
-      Mixpanel.track(PUBLICATION.DELETE);
+      Hog.track(PUBLICATION.DELETE);
       pathname === '/posts/[id]' ? push('/') : location.reload();
     }
   });

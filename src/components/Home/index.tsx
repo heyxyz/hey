@@ -4,7 +4,7 @@ import Announcement from '@components/Home/Announcement';
 import NewPost from '@components/Publication/New';
 import Footer from '@components/Shared/Footer';
 import Seo from '@components/utils/Seo';
-import { Mixpanel } from '@lib/mixpanel';
+import { Hog } from '@lib/hog';
 import { NextPage } from 'next';
 import React, { useEffect } from 'react';
 import { useAppStore } from 'src/store/app';
@@ -20,7 +20,7 @@ import Trending from './Trending';
 
 const Home: NextPage = () => {
   useEffect(() => {
-    Mixpanel.track('Pageview', { path: PAGEVIEW.HOME });
+    Hog.track('Pageview', { path: PAGEVIEW.HOME });
   }, []);
 
   const currentProfile = useAppStore((state) => state.currentProfile);

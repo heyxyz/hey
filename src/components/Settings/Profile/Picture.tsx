@@ -20,8 +20,8 @@ import {
 import { PencilIcon } from '@heroicons/react/outline';
 import getIPFSLink from '@lib/getIPFSLink';
 import getSignature from '@lib/getSignature';
+import { Hog } from '@lib/hog';
 import imagekitURL from '@lib/imagekitURL';
-import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import uploadMediaToIPFS from '@lib/uploadMediaToIPFS';
@@ -46,7 +46,7 @@ const Picture: FC<Props> = ({ profile }) => {
 
   const onCompleted = () => {
     toast.success('Avatar updated successfully!');
-    Mixpanel.track(SETTINGS.PROFILE.SET_PICTURE);
+    Hog.track(SETTINGS.PROFILE.SET_PICTURE);
   };
 
   const {

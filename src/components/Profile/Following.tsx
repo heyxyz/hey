@@ -7,7 +7,7 @@ import { Spinner } from '@components/UI/Spinner';
 import { Following, Profile } from '@generated/types';
 import { ProfileFields } from '@gql/ProfileFields';
 import { UsersIcon } from '@heroicons/react/outline';
-import { Mixpanel } from '@lib/mixpanel';
+import { Hog } from '@lib/hog';
 import { FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { PAGINATION } from 'src/tracking';
@@ -53,7 +53,7 @@ const Following: FC<Props> = ({ profile }) => {
           }
         }
       });
-      Mixpanel.track(PAGINATION.FOLLOWING);
+      Hog.track(PAGINATION.FOLLOWING);
     }
   });
 

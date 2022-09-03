@@ -1,6 +1,6 @@
 import Seo from '@components/utils/Seo';
 import { LightningBoltIcon } from '@heroicons/react/outline';
-import { Mixpanel } from '@lib/mixpanel';
+import { Hog } from '@lib/hog';
 import { FC, useEffect } from 'react';
 import { APP_NAME } from 'src/constants';
 import Custom404 from 'src/pages/404';
@@ -13,7 +13,7 @@ const Notification: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   useEffect(() => {
-    Mixpanel.track('Pageview', { path: PAGEVIEW.NOTIFICATION });
+    Hog.track('Pageview', { path: PAGEVIEW.NOTIFICATION });
   }, []);
 
   if (!currentProfile) {

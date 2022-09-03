@@ -7,7 +7,7 @@ import { CreateFollowBroadcastItemResult, Mutation, Profile } from '@generated/t
 import { PROXY_ACTION_MUTATION } from '@gql/ProxyAction';
 import { UserAddIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
-import { Mixpanel } from '@lib/mixpanel';
+import { Hog } from '@lib/hog';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import { Dispatch, FC } from 'react';
@@ -63,7 +63,7 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
   const onCompleted = () => {
     setFollowing(true);
     toast.success('Followed successfully!');
-    Mixpanel.track(PROFILE.FOLLOW);
+    Hog.track(PROFILE.FOLLOW);
   };
 
   const updateCache = (cache: ApolloCache<any>) => {

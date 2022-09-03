@@ -8,7 +8,7 @@ import { Spinner } from '@components/UI/Spinner';
 import { LensterPublication } from '@generated/lenstertypes';
 import { CommentFields } from '@gql/CommentFields';
 import { CollectionIcon } from '@heroicons/react/outline';
-import { Mixpanel } from '@lib/mixpanel';
+import { Hog } from '@lib/hog';
 import React, { FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { useAppStore } from 'src/store/app';
@@ -70,7 +70,7 @@ const Feed: FC<Props> = ({ publication, onlyFollowers = false, isFollowing = tru
           profileId: currentProfile?.id ?? null
         }
       });
-      Mixpanel.track(PAGINATION.COMMENT_FEED);
+      Hog.track(PAGINATION.COMMENT_FEED);
     }
   });
 
