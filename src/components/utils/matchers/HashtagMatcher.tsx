@@ -1,4 +1,4 @@
-import { Mixpanel } from '@lib/mixpanel';
+import { Hog } from '@lib/hog';
 import { hashflags } from 'data/hashflags';
 import { Matcher } from 'interweave';
 import Link from 'next/link';
@@ -17,7 +17,7 @@ export function Hashtag({ ...props }: any) {
           href={`/search?q=${props.display.slice(1)}&type=pubs&src=link_click`}
           onClick={(event) => {
             event.stopPropagation();
-            Mixpanel.track(PUBLICATION.HASHTAG_CLICK, { hashtag: props.display });
+            Hog.track(PUBLICATION.HASHTAG_CLICK, { hashtag: props.display });
           }}
         >
           {props.display}

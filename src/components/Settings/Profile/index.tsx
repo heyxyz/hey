@@ -4,7 +4,7 @@ import { Card, CardBody } from '@components/UI/Card';
 import { PageLoading } from '@components/UI/PageLoading';
 import Seo from '@components/utils/Seo';
 import { PhotographIcon } from '@heroicons/react/outline';
-import { Mixpanel } from '@lib/mixpanel';
+import { Hog } from '@lib/hog';
 import clsx from 'clsx';
 import { NextPage } from 'next';
 import React, { FC, ReactNode, useEffect, useState } from 'react';
@@ -57,7 +57,7 @@ const ProfileSettings: NextPage = () => {
   const [settingsType, setSettingsType] = useState<'NFT' | 'AVATAR'>('AVATAR');
 
   useEffect(() => {
-    Mixpanel.track('Pageview', { path: PAGEVIEW.SETTINGS.PROFILE });
+    Hog.track('Pageview', { path: PAGEVIEW.SETTINGS.PROFILE });
   }, []);
 
   const { data, loading, error } = useQuery(PROFILE_SETTINGS_QUERY, {

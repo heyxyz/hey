@@ -6,8 +6,8 @@ import { LensterPublication } from '@generated/lenstertypes';
 import { CollectionIcon } from '@heroicons/react/outline';
 import { CollectionIcon as CollectionIconSolid } from '@heroicons/react/solid';
 import { getModule } from '@lib/getModule';
+import { Hog } from '@lib/hog';
 import humanize from '@lib/humanize';
-import { Mixpanel } from '@lib/mixpanel';
 import nFormatter from '@lib/nFormatter';
 import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
@@ -48,7 +48,7 @@ const Collect: FC<Props> = ({ publication, isFullPublication }) => {
         whileTap={{ scale: 0.9 }}
         onClick={() => {
           setShowCollectModal(true);
-          Mixpanel.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECT);
+          Hog.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECT);
         }}
         aria-label="Collect"
       >

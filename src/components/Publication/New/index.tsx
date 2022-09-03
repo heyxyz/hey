@@ -20,7 +20,7 @@ import { PencilAltIcon } from '@heroicons/react/outline';
 import { defaultFeeData, defaultModuleData, getModule } from '@lib/getModule';
 import getSignature from '@lib/getSignature';
 import getTags from '@lib/getTags';
-import { Mixpanel } from '@lib/mixpanel';
+import { Hog } from '@lib/hog';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import trimify from '@lib/trimify';
@@ -81,7 +81,7 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
     setAttachments([]);
     setSelectedModule(defaultModuleData);
     setFeeData(defaultFeeData);
-    Mixpanel.track(POST.NEW);
+    Hog.track(POST.NEW);
   };
 
   const {
