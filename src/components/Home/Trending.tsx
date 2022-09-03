@@ -68,14 +68,16 @@ const Trending: FC = () => {
       <Card as="aside" className="mb-4">
         <CardBody className="space-y-4">
           <ErrorMessage title="Failed to load recommendations" error={error} />
-          {data?.allPublicationsTags?.items?.map((tag: TagResult) => (
-            <div key={tag?.tag}>
-              <Link href={`/search?q=${tag?.tag}&type=pubs`}>
-                <div className="font-bold">{tag?.tag}</div>
-                <div className="text-[12px] text-gray-500">{nFormatter(tag?.total)} Publications</div>
-              </Link>
-            </div>
-          ))}
+          {data?.allPublicationsTags?.items?.map((tag: TagResult) =>
+            tag?.tag !== '{}' ? (
+              <div key={tag?.tag}>
+                <Link href={`/search?q=${tag?.tag}&type=pubs`}>
+                  <div className="font-bold">{tag?.tag}</div>
+                  <div className="text-[12px] text-gray-500">{nFormatter(tag?.total)} Publications</div>
+                </Link>
+              </div>
+            ) : null
+          )}
         </CardBody>
       </Card>
     </>
