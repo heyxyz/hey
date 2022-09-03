@@ -6,7 +6,7 @@ import GetModuleIcon from '@components/utils/GetModuleIcon';
 import { EnabledModule } from '@generated/types';
 import { CheckCircleIcon } from '@heroicons/react/solid';
 import { getModule } from '@lib/getModule';
-import { Mixpanel } from '@lib/mixpanel';
+import { Hog } from '@lib/hog';
 import clsx from 'clsx';
 import { Dispatch, FC, useState } from 'react';
 import { useCollectModuleStore } from 'src/store/collectmodule';
@@ -48,7 +48,7 @@ const Modules: FC<Props> = ({ setShowModal }) => {
     } else {
       setShowModal(false);
     }
-    Mixpanel.track(`Select ${module?.moduleName.toLowerCase()} for new publication`);
+    Hog.track(`Select ${module?.moduleName.toLowerCase()} for new publication`);
   };
 
   if (loading) {

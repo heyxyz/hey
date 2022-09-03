@@ -1,13 +1,13 @@
 import Footer from '@components/Shared/Footer';
 import Seo from '@components/utils/Seo';
-import { Mixpanel } from '@lib/mixpanel';
+import { Hog } from '@lib/hog';
 import React, { FC, useEffect } from 'react';
 import { APP_NAME } from 'src/constants';
 import { PAGEVIEW } from 'src/tracking';
 
 const Privacy: FC = () => {
   useEffect(() => {
-    Mixpanel.track(PAGEVIEW.PRIVACY);
+    Hog.track(PAGEVIEW.PRIVACY);
   }, []);
 
   return (

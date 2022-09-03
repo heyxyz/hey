@@ -6,7 +6,7 @@ import { Spinner } from '@components/UI/Spinner';
 import { Profile } from '@generated/types';
 import { ProfileFields } from '@gql/ProfileFields';
 import { SwitchHorizontalIcon } from '@heroicons/react/outline';
-import { Mixpanel } from '@lib/mixpanel';
+import { Hog } from '@lib/hog';
 import { FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { PAGINATION } from 'src/tracking';
@@ -51,7 +51,7 @@ const Mirrors: FC<Props> = ({ pubId }) => {
           }
         }
       });
-      Mixpanel.track(PAGINATION.MIRRORS);
+      Hog.track(PAGINATION.MIRRORS);
     }
   });
 

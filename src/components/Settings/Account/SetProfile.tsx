@@ -11,7 +11,7 @@ import { Mutation, Profile, SetDefaultProfileBroadcastItemResult } from '@genera
 import { CREATE_SET_DEFAULT_PROFILE_DATA_MUTATION } from '@gql/TypedAndDispatcherData/CreateSetDefaultProfile';
 import { ExclamationIcon, PencilIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
-import { Mixpanel } from '@lib/mixpanel';
+import { Hog } from '@lib/hog';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import React, { FC, useEffect, useState } from 'react';
@@ -33,7 +33,7 @@ const SetProfile: FC = () => {
 
   const onCompleted = () => {
     toast.success('Default profile updated successfully!');
-    Mixpanel.track(SETTINGS.ACCOUNT.SET_DEFAULT_PROFILE);
+    Hog.track(SETTINGS.ACCOUNT.SET_DEFAULT_PROFILE);
   };
 
   const {

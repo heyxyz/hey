@@ -3,7 +3,7 @@ import { Modal } from '@components/UI/Modal';
 import { Profile } from '@generated/types';
 import { UsersIcon } from '@heroicons/react/outline';
 import getAvatar from '@lib/getAvatar';
-import { Mixpanel } from '@lib/mixpanel';
+import { Hog } from '@lib/hog';
 import React, { FC, ReactNode, useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { PROFILE } from 'src/tracking';
@@ -62,7 +62,7 @@ const MutualFollowers: FC<Props> = ({ profile }) => {
       className="mr-0 sm:mr-10 text-sm text-gray-500 flex items-center space-x-2.5 cursor-pointer"
       onClick={() => {
         setShowMutualFollowersModal(true);
-        Mixpanel.track(PROFILE.OPEN_MUTUAL_FOLLOWERS);
+        Hog.track(PROFILE.OPEN_MUTUAL_FOLLOWERS);
       }}
     >
       <div className="contents -space-x-2">
