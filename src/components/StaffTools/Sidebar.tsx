@@ -1,4 +1,4 @@
-import { AdjustmentsIcon, ChartPieIcon } from '@heroicons/react/outline';
+import { AdjustmentsIcon, ChartPieIcon, CursorClickIcon } from '@heroicons/react/outline';
 import clsx from 'clsx';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -34,6 +34,10 @@ const Sidebar: FC = () => {
       <Menu current={pathname == '/stafftools/flags'} url="/stafftools/flags">
         <AdjustmentsIcon className="w-4 h-4" />
         <div>Flags</div>
+      </Menu>
+      <Menu current={pathname == '/stafftools/events'} url="/stafftools/events">
+        <CursorClickIcon className="w-4 h-4" />
+        <div>Events</div>
       </Menu>
     </div>
   );
