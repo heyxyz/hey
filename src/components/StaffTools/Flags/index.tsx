@@ -17,7 +17,7 @@ import Sidebar from '../Sidebar';
 const Flags: NextPage = () => {
   const { allowed } = useStaffMode();
   const [flags, setFlags] = useState([]);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState(null);
 
   const getFlags = () => {
     axios
@@ -29,8 +29,8 @@ const Flags: NextPage = () => {
       .then((res) => {
         setFlags(res?.data?.results);
       })
-      .catch(() => {
-        setError(true);
+      .catch((error) => {
+        setError(error);
       });
   };
 
@@ -68,7 +68,7 @@ const Flags: NextPage = () => {
       <GridItemEight className="space-y-5">
         <Card className="divide-y">
           {error ? (
-            <ErrorMessage title={ERROR_MESSAGE} />
+            <ErrorMessage className="m-5" title={ERROR_MESSAGE} error={error} />
           ) : flags.length === 0 ? (
             <div className="p-5">Loading...</div>
           ) : (
