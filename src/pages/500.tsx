@@ -9,7 +9,7 @@ import { PAGEVIEW } from 'src/tracking';
 
 export default function Custom500() {
   useEffect(() => {
-    Hog.track(PAGEVIEW.ERROR_500);
+    Hog.track('Pageview', { page: PAGEVIEW.ERROR_500 });
   }, []);
 
   return (

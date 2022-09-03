@@ -38,7 +38,7 @@ const Brand: FC<Props> = ({ name, logo, url, size, children }) => {
 
 const Thanks: FC = () => {
   useEffect(() => {
-    Hog.track(PAGEVIEW.THANKS);
+    Hog.track('Pageview', { page: PAGEVIEW.THANKS });
   }, []);
 
   return (
