@@ -3,7 +3,7 @@ import { Profile } from '@generated/types';
 import { ProfileFields } from '@gql/ProfileFields';
 import getIsAuthTokensAvailable from '@lib/getIsAuthTokensAvailable';
 import getToastOptions from '@lib/getToastOptions';
-import posthogInit from '@lib/posthogInit';
+import { posthogInit } from '@lib/hog';
 import resetAuthData from '@lib/resetAuthData';
 import Head from 'next/head';
 import { useTheme } from 'next-themes';
