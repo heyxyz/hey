@@ -1,6 +1,6 @@
 import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout';
 import Seo from '@components/utils/Seo';
-import { Mixpanel } from '@lib/mixpanel';
+import { Hog } from '@lib/hog';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
@@ -13,7 +13,7 @@ import Sidebar from './Sidebar';
 
 const Search: NextPage = () => {
   useEffect(() => {
-    Mixpanel.track('Pageview', { path: PAGEVIEW.SEARCH });
+    Hog.track('Pageview', { path: PAGEVIEW.SEARCH });
   }, []);
 
   const { query } = useRouter();

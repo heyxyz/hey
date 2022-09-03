@@ -1,8 +1,8 @@
 import { Tooltip } from '@components/UI/Tooltip';
 import { LensterPublication } from '@generated/lenstertypes';
 import { ChatAlt2Icon } from '@heroicons/react/outline';
+import { Hog } from '@lib/hog';
 import humanize from '@lib/humanize';
-import { Mixpanel } from '@lib/mixpanel';
 import nFormatter from '@lib/nFormatter';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
@@ -34,7 +34,7 @@ const Comment: FC<Props> = ({ publication, isFullPublication }) => {
         if (currentProfile) {
           setParentPub(publication);
           setShowNewPostModal(true);
-          Mixpanel.track(PUBLICATION.OPEN_COMMENT);
+          Hog.track(PUBLICATION.OPEN_COMMENT);
         } else {
           push(`/posts/${publication.id}`);
         }

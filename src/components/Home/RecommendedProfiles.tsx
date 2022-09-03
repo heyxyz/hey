@@ -9,7 +9,7 @@ import { Profile } from '@generated/types';
 import { ProfileFields } from '@gql/ProfileFields';
 import { DotsCircleHorizontalIcon, UsersIcon } from '@heroicons/react/outline';
 import { SparklesIcon } from '@heroicons/react/solid';
-import { Mixpanel } from '@lib/mixpanel';
+import { Hog } from '@lib/hog';
 import React, { FC, useState } from 'react';
 import { MISCELLANEOUS } from 'src/tracking';
 
@@ -87,7 +87,7 @@ const RecommendedProfiles: FC = () => {
           className="bg-gray-50 dark:bg-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 border-t dark:border-t-gray-700/80 text-sm w-full rounded-b-xl text-left px-5 py-3 flex items-center space-x-2 text-gray-600 dark:text-gray-300"
           onClick={() => {
             setShowSuggestedModal(true);
-            Mixpanel.track(MISCELLANEOUS.OPEN_RECOMMENDED_PROFILES);
+            Hog.track(MISCELLANEOUS.OPEN_RECOMMENDED_PROFILES);
           }}
         >
           <DotsCircleHorizontalIcon className="h-4 w-4" />

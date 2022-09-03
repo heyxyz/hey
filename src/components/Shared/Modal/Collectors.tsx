@@ -7,7 +7,7 @@ import { Spinner } from '@components/UI/Spinner';
 import { Wallet } from '@generated/types';
 import { ProfileFields } from '@gql/ProfileFields';
 import { CollectionIcon } from '@heroicons/react/outline';
-import { Mixpanel } from '@lib/mixpanel';
+import { Hog } from '@lib/hog';
 import { FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { PAGINATION } from 'src/tracking';
@@ -55,7 +55,7 @@ const Collectors: FC<Props> = ({ pubId }) => {
           }
         }
       });
-      Mixpanel.track(PAGINATION.COLLECTORS);
+      Hog.track(PAGINATION.COLLECTORS);
     }
   });
 

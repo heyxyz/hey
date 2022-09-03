@@ -10,7 +10,7 @@ import { LensterCollectModule, LensterPublication } from '@generated/lenstertype
 import { CreateCollectBroadcastItemResult, Mutation } from '@generated/types';
 import { CashIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
-import { Mixpanel } from '@lib/mixpanel';
+import { Hog } from '@lib/hog';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import React, { Dispatch, FC, useState } from 'react';
@@ -98,7 +98,7 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
   const onCompleted = () => {
     setRevenue(revenue + parseFloat(collectModule?.amount?.value));
     toast.success('Transaction submitted successfully!');
-    Mixpanel.track(CROWDFUND.FUND);
+    Hog.track(CROWDFUND.FUND);
   };
 
   const {

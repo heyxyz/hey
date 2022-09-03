@@ -4,8 +4,8 @@ import { LensterPublication } from '@generated/lenstertypes';
 import { Mutation, ReactionTypes } from '@generated/types';
 import { HeartIcon } from '@heroicons/react/outline';
 import { HeartIcon as HeartIconSolid } from '@heroicons/react/solid';
+import { Hog } from '@lib/hog';
 import { publicationKeyFields } from '@lib/keyFields';
-import { Mixpanel } from '@lib/mixpanel';
 import nFormatter from '@lib/nFormatter';
 import onError from '@lib/onError';
 import { motion } from 'framer-motion';
@@ -57,7 +57,7 @@ const Like: FC<Props> = ({ publication, isFullPublication }) => {
 
   const [addReaction] = useMutation<Mutation>(ADD_REACTION_MUTATION, {
     onCompleted: () => {
-      Mixpanel.track(PUBLICATION.LIKE);
+      Hog.track(PUBLICATION.LIKE);
     },
     onError: (error) => {
       setLiked(!liked);
@@ -69,7 +69,7 @@ const Like: FC<Props> = ({ publication, isFullPublication }) => {
 
   const [removeReaction] = useMutation<Mutation>(REMOVE_REACTION_MUTATION, {
     onCompleted: () => {
-      Mixpanel.track(PUBLICATION.DISLIKE);
+      Hog.track(PUBLICATION.DISLIKE);
     },
     onError: (error) => {
       setLiked(!liked);
