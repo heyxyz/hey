@@ -20,7 +20,7 @@ import Trending from './Trending';
 
 const Home: NextPage = () => {
   useEffect(() => {
-    Hog.track('Pageview', { page: PAGEVIEW.HOME });
+    Hog.track('Pageview', { path: PAGEVIEW.HOME });
   }, []);
 
   const currentProfile = useAppStore((state) => state.currentProfile);
