@@ -1,7 +1,7 @@
 import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout';
 import SuperFollow from '@components/Settings/Account/SuperFollow';
 import Seo from '@components/utils/Seo';
-import { Mixpanel } from '@lib/mixpanel';
+import { Hog } from '@lib/hog';
 import { NextPage } from 'next';
 import React, { useEffect } from 'react';
 import { APP_NAME } from 'src/constants';
@@ -18,7 +18,7 @@ const AccountSettings: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   useEffect(() => {
-    Mixpanel.track(PAGEVIEW.SETTINGS.ACCOUNT);
+    Hog.track(PAGEVIEW.SETTINGS.ACCOUNT);
   }, []);
 
   if (!currentProfile) {

@@ -26,9 +26,9 @@ import getAttribute from '@lib/getAttribute';
 import getIPFSLink from '@lib/getIPFSLink';
 import getSignature from '@lib/getSignature';
 import hasPrideLogo from '@lib/hasPrideLogo';
+import { Hog } from '@lib/hog';
 import imagekitURL from '@lib/imagekitURL';
 import isBeta from '@lib/isBeta';
-import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import uploadMediaToIPFS from '@lib/uploadMediaToIPFS';
@@ -74,7 +74,7 @@ const Profile: FC<Props> = ({ profile }) => {
 
   const onCompleted = () => {
     toast.success('Profile updated successfully!');
-    Mixpanel.track(SETTINGS.PROFILE.UPDATE);
+    Hog.track(SETTINGS.PROFILE.UPDATE);
   };
 
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });

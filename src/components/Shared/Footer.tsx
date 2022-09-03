@@ -1,5 +1,5 @@
 import useStaffMode from '@components/utils/hooks/useStaffMode';
-import { Mixpanel } from '@lib/mixpanel';
+import { Hog } from '@lib/hog';
 import Link from 'next/link';
 import { FC } from 'react';
 import { APP_NAME } from 'src/constants';
@@ -22,7 +22,7 @@ const Footer: FC = () => {
         href="https://lenster.xyz/discord"
         target="_blank"
         rel="noreferrer noopener"
-        onClick={() => Mixpanel.track(FOOTER.DISCORD)}
+        onClick={() => Hog.track(FOOTER.DISCORD)}
       >
         Discord
       </a>
@@ -30,7 +30,7 @@ const Footer: FC = () => {
         href="https://lenster.xyz/donate"
         target="_blank"
         rel="noreferrer noopener"
-        onClick={() => Mixpanel.track(FOOTER.DONATE)}
+        onClick={() => Hog.track(FOOTER.DONATE)}
       >
         Donate
       </a>
@@ -38,7 +38,7 @@ const Footer: FC = () => {
         href="https://status.lenster.xyz"
         target="_blank"
         rel="noreferrer noopener"
-        onClick={() => Mixpanel.track(FOOTER.STATUS)}
+        onClick={() => Hog.track(FOOTER.STATUS)}
       >
         Status
       </a>
@@ -46,7 +46,7 @@ const Footer: FC = () => {
         href="https://vote.lenster.xyz"
         target="_blank"
         rel="noreferrer noopener"
-        onClick={() => Mixpanel.track(FOOTER.VOTE)}
+        onClick={() => Hog.track(FOOTER.VOTE)}
       >
         Vote
       </a>
@@ -54,7 +54,7 @@ const Footer: FC = () => {
         href="https://feedback.lenster.xyz"
         target="_blank"
         rel="noreferrer noopener"
-        onClick={() => Mixpanel.track(FOOTER.FEEDBACK)}
+        onClick={() => Hog.track(FOOTER.FEEDBACK)}
       >
         Feedback
       </a>
@@ -63,7 +63,7 @@ const Footer: FC = () => {
         href="https://github.com/lensterxyz/lenster"
         target="_blank"
         rel="noreferrer noopener"
-        onClick={() => Mixpanel.track(FOOTER.GITHUB)}
+        onClick={() => Hog.track(FOOTER.GITHUB)}
       >
         GitHub
       </a>
@@ -72,7 +72,7 @@ const Footer: FC = () => {
         href={`https://vercel.com/?utm_source=${APP_NAME}&utm_campaign=oss`}
         target="_blank"
         rel="noreferrer noopener"
-        onClick={() => Mixpanel.track(FOOTER.VERCEL)}
+        onClick={() => Hog.track(FOOTER.VERCEL)}
       >
         ▲ Powered by Vercel
       </a>
