@@ -1,7 +1,7 @@
 import Footer from '@components/Shared/Footer';
 import Seo from '@components/utils/Seo';
 import { HeartIcon } from '@heroicons/react/outline';
-import { Hog } from '@lib/hog';
+import { Mixpanel } from '@lib/mixpanel';
 import { useTheme } from 'next-themes';
 import React, { FC, Fragment, ReactNode, useEffect } from 'react';
 import { APP_NAME, STATIC_ASSETS } from 'src/constants';
@@ -38,7 +38,7 @@ const Brand: FC<Props> = ({ name, logo, url, size, children }) => {
 
 const Thanks: FC = () => {
   useEffect(() => {
-    Hog.track('Pageview', { path: PAGEVIEW.THANKS });
+    Mixpanel.track('Pageview', { path: PAGEVIEW.THANKS });
   }, []);
 
   return (

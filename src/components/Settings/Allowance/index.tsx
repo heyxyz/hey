@@ -5,7 +5,7 @@ import { PageLoading } from '@components/UI/PageLoading';
 import { Spinner } from '@components/UI/Spinner';
 import Seo from '@components/utils/Seo';
 import { Erc20 } from '@generated/types';
-import { Hog } from '@lib/hog';
+import { Mixpanel } from '@lib/mixpanel';
 import { NextPage } from 'next';
 import React, { useEffect, useState } from 'react';
 import { APP_NAME, DEFAULT_COLLECT_TOKEN } from 'src/constants';
@@ -52,7 +52,7 @@ const getAllowancePayload = (currency: string) => {
 
 const AllowanceSettings: NextPage = () => {
   useEffect(() => {
-    Hog.track('Pageview', { path: PAGEVIEW.SETTINGS.ALLOWANCE });
+    Mixpanel.track('Pageview', { path: PAGEVIEW.SETTINGS.ALLOWANCE });
   }, []);
 
   const currentProfile = useAppStore((state) => state.currentProfile);

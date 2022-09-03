@@ -11,7 +11,7 @@ import Seo from '@components/utils/Seo';
 import { CreateBurnProfileBroadcastItemResult, Mutation } from '@generated/types';
 import { ExclamationIcon, TrashIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
-import { Hog } from '@lib/hog';
+import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import resetAuthData from '@lib/resetAuthData';
 import splitSignature from '@lib/splitSignature';
@@ -55,7 +55,7 @@ const CREATE_BURN_PROFILE_TYPED_DATA_MUTATION = gql`
 
 const DeleteSettings: FC = () => {
   useEffect(() => {
-    Hog.track('Pageview', { path: PAGEVIEW.SETTINGS.DELETE });
+    Mixpanel.track('Pageview', { path: PAGEVIEW.SETTINGS.DELETE });
   }, []);
 
   const [showWarningModal, setShowWarningModal] = useState(false);
@@ -69,7 +69,7 @@ const DeleteSettings: FC = () => {
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
 
   const onCompleted = () => {
-    Hog.track(SETTINGS.DELETE);
+    Mixpanel.track(SETTINGS.DELETE);
     setCurrentProfile(null);
     setProfileId(null);
     resetAuthData();
