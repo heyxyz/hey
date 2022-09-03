@@ -2,7 +2,6 @@ import { Card, CardBody } from '@components/UI/Card';
 import { Profile } from '@generated/types';
 import {
   AtSymbolIcon,
-  BeakerIcon,
   CashIcon,
   HandIcon,
   HashtagIcon,
@@ -15,7 +14,6 @@ import formatAddress from '@lib/formatAddress';
 import getAttribute from '@lib/getAttribute';
 import { getFollowModule } from '@lib/getFollowModule';
 import hasPrideLogo from '@lib/hasPrideLogo';
-import isBeta from '@lib/isBeta';
 import React, { FC } from 'react';
 import { APP_NAME } from 'src/constants';
 
@@ -102,9 +100,6 @@ const ProfileStaffTool: FC<Props> = ({ profile }) => {
             <a href={profile?.metadata} target="_blank" rel="noreferrer">
               Open
             </a>
-          </MetaDetails>
-          <MetaDetails icon={<BeakerIcon className="w-4 h-4 text-gray-500" />} value={profile?.handle}>
-            {isBeta(profile) ? 'Beta user' : 'Non-beta user'}
           </MetaDetails>
         </div>
       </CardBody>

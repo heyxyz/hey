@@ -28,7 +28,6 @@ import getSignature from '@lib/getSignature';
 import hasPrideLogo from '@lib/hasPrideLogo';
 import { Hog } from '@lib/hog';
 import imagekitURL from '@lib/imagekitURL';
-import isBeta from '@lib/isBeta';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import uploadMediaToIPFS from '@lib/uploadMediaToIPFS';
@@ -66,7 +65,6 @@ const Profile: FC<Props> = ({ profile }) => {
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const [beta, setBeta] = useState(isBeta(profile));
   const [pride, setPride] = useState(hasPrideLogo(profile));
   const [cover, setCover] = useState('');
   const [isUploading, setIsUploading] = useState(false);
@@ -204,11 +202,6 @@ const Profile: FC<Props> = ({ profile }) => {
         },
         {
           traitType: 'boolean',
-          key: 'isBeta',
-          value: beta
-        },
-        {
-          traitType: 'boolean',
           key: 'hasPrideLogo',
           value: pride
         },
@@ -283,13 +276,6 @@ const Profile: FC<Props> = ({ profile }) => {
                 <ChooseFile onChange={(evt: ChangeEvent<HTMLInputElement>) => handleUpload(evt)} />
                 {uploading && <Spinner size="sm" />}
               </div>
-            </div>
-          </div>
-          <div className="space-y-2">
-            <div className="label">Beta</div>
-            <div className="flex items-center space-x-2">
-              <Toggle on={beta} setOn={setBeta} />
-              <div>Enroll to {APP_NAME} Beta</div>
             </div>
           </div>
           <div className="pt-4 space-y-2">
