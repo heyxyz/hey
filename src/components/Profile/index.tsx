@@ -97,7 +97,7 @@ const ViewProfile: NextPage = () => {
   );
 
   useEffect(() => {
-    Hog.track(PAGEVIEW.PROFILE);
+    Hog.track('Pageview', { page: PAGEVIEW.PROFILE });
   }, []);
 
   const { data, loading, error } = useQuery(PROFILE_QUERY, {

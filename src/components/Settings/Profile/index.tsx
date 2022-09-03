@@ -57,7 +57,7 @@ const ProfileSettings: NextPage = () => {
   const [settingsType, setSettingsType] = useState<'NFT' | 'AVATAR'>('AVATAR');
 
   useEffect(() => {
-    Hog.track(PAGEVIEW.SETTINGS.PROFILE);
+    Hog.track('Pageview', { page: PAGEVIEW.SETTINGS.PROFILE });
   }, []);
 
   const { data, loading, error } = useQuery(PROFILE_SETTINGS_QUERY, {

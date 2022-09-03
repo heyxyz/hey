@@ -13,7 +13,7 @@ const Notification: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   useEffect(() => {
-    Hog.track(PAGEVIEW.NOTIFICATION);
+    Hog.track('Pageview', { page: PAGEVIEW.NOTIFICATION });
   }, []);
 
   if (!currentProfile) {

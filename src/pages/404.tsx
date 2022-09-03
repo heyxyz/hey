@@ -9,7 +9,7 @@ import { PAGEVIEW } from 'src/tracking';
 
 export default function Custom404() {
   useEffect(() => {
-    Hog.track(PAGEVIEW.ERROR_404);
+    Hog.track('Pageview', { page: PAGEVIEW.ERROR_404 });
   }, []);
 
   return (

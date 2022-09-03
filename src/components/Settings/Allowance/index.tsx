@@ -52,7 +52,7 @@ const getAllowancePayload = (currency: string) => {
 
 const AllowanceSettings: NextPage = () => {
   useEffect(() => {
-    Hog.track(PAGEVIEW.SETTINGS.ALLOWANCE);
+    Hog.track('Pageview', { page: PAGEVIEW.SETTINGS.ALLOWANCE });
   }, []);
 
   const currentProfile = useAppStore((state) => state.currentProfile);

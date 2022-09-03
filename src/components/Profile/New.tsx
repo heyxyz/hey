@@ -15,7 +15,7 @@ const NewProfile: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   useEffect(() => {
-    Hog.track(PAGEVIEW.CREATE_PROFILE);
+    Hog.track('Pageview', { page: PAGEVIEW.CREATE_PROFILE });
   }, []);
 
   if (!currentProfile) {
