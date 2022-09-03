@@ -46,7 +46,7 @@ const Report: FC = () => {
   const [subReason, setSubReason] = useState('');
 
   useEffect(() => {
-    Hog.track('Pageview', { page: PAGEVIEW.REPORT });
+    Hog.track('Pageview', { path: PAGEVIEW.REPORT });
   }, []);
 
   const { data, loading, error } = useQuery(PUBLICATION_QUERY, {

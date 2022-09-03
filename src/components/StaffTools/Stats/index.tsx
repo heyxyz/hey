@@ -70,7 +70,7 @@ const Stats: NextPage = () => {
   const { allowed } = useStaffMode();
 
   useEffect(() => {
-    Hog.track('Pageview', { page: PAGEVIEW.STAFFTOOLS.STATS });
+    Hog.track('Pageview', { path: PAGEVIEW.STAFFTOOLS.STATS });
   }, []);
 
   const { data, loading, error } = useQuery(LENSTER_STATS_QUERY, {

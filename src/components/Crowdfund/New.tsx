@@ -86,7 +86,7 @@ const NewCrowdfund: NextPage = () => {
   const [selectedCurrencySymobol, setSelectedCurrencySymobol] = useState('WMATIC');
 
   useEffect(() => {
-    Hog.track('Pageview', { page: PAGEVIEW.CREATE_CROWDFUND });
+    Hog.track('Pageview', { path: PAGEVIEW.CREATE_CROWDFUND });
   }, []);
 
   const onCompleted = () => {

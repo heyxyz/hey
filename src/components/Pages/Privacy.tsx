@@ -7,7 +7,7 @@ import { PAGEVIEW } from 'src/tracking';
 
 const Privacy: FC = () => {
   useEffect(() => {
-    Hog.track('Pageview', { page: PAGEVIEW.PRIVACY });
+    Hog.track('Pageview', { path: PAGEVIEW.PRIVACY });
   }, []);
 
   return (

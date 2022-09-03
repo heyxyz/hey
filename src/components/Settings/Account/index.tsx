@@ -18,7 +18,7 @@ const AccountSettings: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   useEffect(() => {
-    Hog.track('Pageview', { page: PAGEVIEW.SETTINGS.ACCOUNT });
+    Hog.track('Pageview', { path: PAGEVIEW.SETTINGS.ACCOUNT });
   }, []);
 
   if (!currentProfile) {

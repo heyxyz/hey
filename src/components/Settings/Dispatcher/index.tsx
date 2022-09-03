@@ -15,7 +15,7 @@ const DispatcherSettings: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   useEffect(() => {
-    Hog.track('Pageview', { page: PAGEVIEW.SETTINGS.DISPATCHER });
+    Hog.track('Pageview', { path: PAGEVIEW.SETTINGS.DISPATCHER });
   }, []);
 
   if (!currentProfile) {
