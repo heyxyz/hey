@@ -55,7 +55,6 @@ const Trending: FC = () => {
             <TrendingTagShimmer />
             <TrendingTagShimmer />
             <TrendingTagShimmer />
-            <TrendingTagShimmer />
           </CardBody>
         </Card>
       </>
