@@ -6,7 +6,7 @@ import { Spinner } from '@components/UI/Spinner';
 import { WhoReactedResult } from '@generated/types';
 import { ProfileFields } from '@gql/ProfileFields';
 import { HeartIcon } from '@heroicons/react/outline';
-import { Mixpanel } from '@lib/mixpanel';
+import { Hog } from '@lib/hog';
 import { FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { PAGINATION } from 'src/tracking';
@@ -54,7 +54,7 @@ const Likes: FC<Props> = ({ pubId }) => {
           }
         }
       });
-      Mixpanel.track(PAGINATION.LIKES);
+      Hog.track(PAGINATION.LIKES);
     }
   });
 

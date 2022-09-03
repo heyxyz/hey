@@ -6,7 +6,7 @@ import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
 import { Nft, Profile } from '@generated/types';
 import { CollectionIcon } from '@heroicons/react/outline';
-import { Mixpanel } from '@lib/mixpanel';
+import { Hog } from '@lib/hog';
 import React, { FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { CHAIN_ID, IS_MAINNET } from 'src/constants';
@@ -64,7 +64,7 @@ const NFTFeed: FC<Props> = ({ profile }) => {
           }
         }
       });
-      Mixpanel.track(PAGINATION.NFT_FEED);
+      Hog.track(PAGINATION.NFT_FEED);
     }
   });
 

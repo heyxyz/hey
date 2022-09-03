@@ -1,7 +1,7 @@
 import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout';
 import { Card, CardBody } from '@components/UI/Card';
 import Seo from '@components/utils/Seo';
-import { Mixpanel } from '@lib/mixpanel';
+import { Hog } from '@lib/hog';
 import React, { FC, useEffect } from 'react';
 import { APP_NAME } from 'src/constants';
 import Custom404 from 'src/pages/404';
@@ -15,7 +15,7 @@ const DispatcherSettings: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   useEffect(() => {
-    Mixpanel.track('Pageview', { path: PAGEVIEW.SETTINGS.DISPATCHER });
+    Hog.track('Pageview', { path: PAGEVIEW.SETTINGS.DISPATCHER });
   }, []);
 
   if (!currentProfile) {

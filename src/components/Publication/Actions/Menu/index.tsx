@@ -2,7 +2,7 @@ import { NextLink } from '@components/Shared/Navbar/MenuItems';
 import { LensterPublication } from '@generated/lenstertypes';
 import { Menu, Transition } from '@headlessui/react';
 import { DotsHorizontalIcon, ShieldExclamationIcon } from '@heroicons/react/outline';
-import { Mixpanel } from '@lib/mixpanel';
+import { Hog } from '@lib/hog';
 import clsx from 'clsx';
 import { FC, Fragment } from 'react';
 import { useAppStore } from 'src/store/app';
@@ -28,7 +28,7 @@ const PublicationMenu: FC<Props> = ({ publication, isFullPublication }) => {
           <Menu.Button
             className="p-1.5 rounded-full hover:bg-gray-300 hover:bg-opacity-20"
             onClick={() => {
-              Mixpanel.track(PUBLICATION.MORE);
+              Hog.track(PUBLICATION.MORE);
             }}
             aria-label="More"
           >

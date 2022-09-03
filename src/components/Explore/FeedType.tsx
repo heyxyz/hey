@@ -1,7 +1,7 @@
 import useStaffMode from '@components/utils/hooks/useStaffMode';
 import { PublicationSortCriteria } from '@generated/types';
 import { ChatAlt2Icon, ClockIcon, CollectionIcon, SwitchHorizontalIcon } from '@heroicons/react/outline';
-import { Mixpanel } from '@lib/mixpanel';
+import { Hog } from '@lib/hog';
 import clsx from 'clsx';
 import { useRouter } from 'next/router';
 import React, { Dispatch, FC, ReactNode } from 'react';
@@ -27,7 +27,7 @@ const FeedType: FC<Props> = ({ setFeedType, feedType }) => {
       onClick={() => {
         push({ query: { type: type.toLowerCase() } });
         setFeedType(type);
-        Mixpanel.track(`Switch to ${type.toLowerCase()} type in explore`);
+        Hog.track(`Switch to ${type.toLowerCase()} type in explore`);
       }}
       className={clsx(
         {
