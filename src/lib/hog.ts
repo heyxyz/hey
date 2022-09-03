@@ -1,6 +1,6 @@
 import { Dict } from 'mixpanel-browser';
 import posthog from 'posthog-js';
-import { IS_PRODUCTION, POSTHOG_TOKEN } from 'src/constants';
+import { HOG_ENDPOINT, IS_PRODUCTION, POSTHOG_TOKEN } from 'src/constants';
 
 const enabled = POSTHOG_TOKEN && IS_PRODUCTION && typeof window !== 'undefined';
 
@@ -26,7 +26,7 @@ export const featureEnabled = (feature: string) => {
 export const posthogInit = () => {
   if (enabled) {
     posthog.init(POSTHOG_TOKEN, {
-      api_host: 'https://hog.lenster.xyz',
+      api_host: HOG_ENDPOINT,
       capture_pageview: false,
       request_batching: false,
       autocapture: false,
