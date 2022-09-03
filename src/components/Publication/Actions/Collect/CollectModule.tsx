@@ -433,7 +433,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
         </div>
         {writeData?.hash ?? broadcastData?.broadcast?.txHash ? (
           <div className="mt-5">
-            <IndexStatus txHash={writeData?.hash ? writeData?.hash : broadcastData?.broadcast?.txHash} />
+            <IndexStatus txHash={writeData?.hash ?? broadcastData?.broadcast?.txHash} />
           </div>
         ) : null}
         {currentProfile && !hasCollectedByMe ? (
