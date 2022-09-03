@@ -159,7 +159,8 @@ export const PAGEVIEW = {
 };
 
 export const MISCELLANEOUS = {
-  NAVIGATE_UPDATE_PROFILE: 'Navigate to update profile from onboarding'
+  NAVIGATE_UPDATE_PROFILE: 'Navigate to update profile from onboarding',
+  OPEN_RECOMMENDED_PROFILES: 'Open recommended profiles modal'
 };
 
 export const FOOTER = {
