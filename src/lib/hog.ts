@@ -30,7 +30,9 @@ export const posthogInit = () => {
       capture_pageview: false,
       request_batching: false,
       autocapture: false,
-      cookie_name: 'lenster_hog'
+      cookie_name: 'lenster_hog',
+      persistence: 'cookie',
+      persistence_name: 'lenster_features'
     });
   }
 };
