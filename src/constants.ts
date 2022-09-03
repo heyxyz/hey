@@ -20,6 +20,7 @@ export const GIT_COMMIT_SHA = process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA?.sli
 export const CONTACT_EMAIL = 'support@lenster.xyz';
 export const RELAY_ON = process.env.NEXT_PUBLIC_RELAY_ON === 'true';
 export const POSTHOG_TOKEN = process.env.NEXT_PUBLIC_POSTHOG_TOKEN ?? '';
+export const HOG_ENDPOINT = 'https://hog.lenster.xyz';
 
 // Messages
 export const ERROR_MESSAGE = 'Something went wrong!';
