@@ -27,7 +27,7 @@ const newContactSchema = object({
 
 const Contact: FC = () => {
   useEffect(() => {
-    Hog.track(PAGEVIEW.CONTACT);
+    Hog.track('Pageview', { page: PAGEVIEW.CONTACT });
   }, []);
 
   const { push } = useRouter();

@@ -78,7 +78,7 @@ const ViewPublication: NextPage = () => {
   const { allowed: staffMode } = useStaffMode();
 
   useEffect(() => {
-    Hog.track(PAGEVIEW.PUBLICATION);
+    Hog.track('Pageview', { page: PAGEVIEW.PUBLICATION });
   }, []);
 
   const {

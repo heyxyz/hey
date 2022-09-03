@@ -13,7 +13,7 @@ import Sidebar from './Sidebar';
 
 const Search: NextPage = () => {
   useEffect(() => {
-    Hog.track(PAGEVIEW.SEARCH);
+    Hog.track('Pageview', { page: PAGEVIEW.SEARCH });
   }, []);
 
   const { query } = useRouter();

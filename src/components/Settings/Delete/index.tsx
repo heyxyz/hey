@@ -55,7 +55,7 @@ const CREATE_BURN_PROFILE_TYPED_DATA_MUTATION = gql`
 
 const DeleteSettings: FC = () => {
   useEffect(() => {
-    Hog.track(PAGEVIEW.SETTINGS.DELETE);
+    Hog.track('Pageview', { page: PAGEVIEW.SETTINGS.DELETE });
   }, []);
 
   const [showWarningModal, setShowWarningModal] = useState(false);

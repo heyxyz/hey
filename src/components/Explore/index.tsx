@@ -27,7 +27,7 @@ const Explore: NextPage = () => {
   );
 
   useEffect(() => {
-    Hog.track(PAGEVIEW.EXPLORE);
+    Hog.track('Pageview', { page: PAGEVIEW.EXPLORE });
   }, []);
 
   return (
