@@ -13,9 +13,9 @@ import {
   UserIcon
 } from '@heroicons/react/outline';
 import getAvatar from '@lib/getAvatar';
+import { Hog } from '@lib/hog';
 import isBeta from '@lib/isBeta';
 import isStaff from '@lib/isStaff';
-import { Mixpanel } from '@lib/mixpanel';
 import resetAuthData from '@lib/resetAuthData';
 import clsx from 'clsx';
 import { useTheme } from 'next-themes';
@@ -40,7 +40,7 @@ const SignedUser: FC = () => {
 
   const toggleStaffMode = () => {
     setStaffMode(!staffMode);
-    Mixpanel.track(STAFFTOOLS.TOGGLE_MODE);
+    Hog.track(STAFFTOOLS.TOGGLE_MODE);
   };
 
   return (
@@ -107,7 +107,7 @@ const SignedUser: FC = () => {
               <Menu.Item
                 as="a"
                 onClick={() => {
-                  Mixpanel.track(PROFILE.LOGOUT);
+                  Hog.track(PROFILE.LOGOUT);
                   setCurrentProfile(null);
                   setProfileId(null);
                   resetAuthData();
@@ -142,7 +142,7 @@ const SignedUser: FC = () => {
                             const selectedProfile = profiles[index];
                             setCurrentProfile(selectedProfile);
                             setProfileId(selectedProfile.id);
-                            Mixpanel.track(PROFILE.SWITCH_PROFILE);
+                            Hog.track(PROFILE.SWITCH_PROFILE);
                           }}
                         >
                           {currentProfile?.id === profile?.id && (
@@ -167,7 +167,7 @@ const SignedUser: FC = () => {
                 as="a"
                 onClick={() => {
                   setTheme(theme === 'light' ? 'dark' : 'light');
-                  Mixpanel.track(theme === 'light' ? SYSTEM.SWITCH_DARK_THEME : SYSTEM.SWITCH_LIGHT_THEME);
+                  Hog.track(theme === 'light' ? SYSTEM.SWITCH_DARK_THEME : SYSTEM.SWITCH_LIGHT_THEME);
                 }}
                 className={({ active }: { active: boolean }) =>
                   clsx({ 'dropdown-active': active }, 'menu-item')

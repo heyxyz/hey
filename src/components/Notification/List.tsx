@@ -8,7 +8,7 @@ import { CollectModuleFields } from '@gql/CollectModuleFields';
 import { MetadataFields } from '@gql/MetadataFields';
 import { ProfileFields } from '@gql/ProfileFields';
 import { MailIcon } from '@heroicons/react/outline';
-import { Mixpanel } from '@lib/mixpanel';
+import { Hog } from '@lib/hog';
 import { FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { useAppStore } from 'src/store/app';
@@ -173,7 +173,7 @@ const List: FC = () => {
           }
         }
       });
-      Mixpanel.track(PAGINATION.NOTIFICATION_FEED);
+      Hog.track(PAGINATION.NOTIFICATION_FEED);
     }
   });
 

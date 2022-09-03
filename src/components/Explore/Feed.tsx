@@ -11,7 +11,7 @@ import { CommentFields } from '@gql/CommentFields';
 import { MirrorFields } from '@gql/MirrorFields';
 import { PostFields } from '@gql/PostFields';
 import { CollectionIcon } from '@heroicons/react/outline';
-import { Mixpanel } from '@lib/mixpanel';
+import { Hog } from '@lib/hog';
 import React, { FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { useAppStore } from 'src/store/app';
@@ -79,7 +79,7 @@ const Feed: FC<Props> = ({ feedType = PublicationSortCriteria.TopCommented }) =>
           profileId: currentProfile?.id ?? null
         }
       });
-      Mixpanel.track(PAGINATION.EXPLORE_FEED);
+      Hog.track(PAGINATION.EXPLORE_FEED);
     }
   });
 
