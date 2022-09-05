@@ -1,7 +1,7 @@
 import { Button } from '@components/UI/Button';
 import Seo from '@components/utils/Seo';
 import { HomeIcon } from '@heroicons/react/outline';
-import { Hog } from '@lib/hog';
+import { Mixpanel } from '@lib/mixpanel';
 import Link from 'next/link';
 import { useEffect } from 'react';
 import { APP_NAME } from 'src/constants';
@@ -9,7 +9,7 @@ import { PAGEVIEW } from 'src/tracking';
 
 export default function Custom500() {
   useEffect(() => {
-    Hog.track('Pageview', { path: PAGEVIEW.ERROR_500 });
+    Mixpanel.track('Pageview', { path: PAGEVIEW.ERROR_500 });
   }, []);
 
   return (
