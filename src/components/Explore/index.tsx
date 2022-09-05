@@ -21,9 +21,12 @@ const Explore: NextPage = () => {
   } = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [feedType, setFeedType] = useState(
-    type && ['top_commented', 'top_collected', 'top_mirrored', 'latest'].includes(type as string)
+    type &&
+      ['curated_profiles', 'top_commented', 'top_collected', 'top_mirrored', 'latest'].includes(
+        type as string
+      )
       ? type.toString().toUpperCase()
-      : PublicationSortCriteria.TopCommented
+      : PublicationSortCriteria.CuratedProfiles
   );
 
   useEffect(() => {
