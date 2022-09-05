@@ -5,7 +5,7 @@ import { Spinner } from '@components/UI/Spinner';
 import { CreateUnfollowBroadcastItemResult, Mutation, Profile } from '@generated/types';
 import { UserRemoveIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
-import { Hog } from '@lib/hog';
+import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import { Contract, Signer } from 'ethers';
@@ -84,7 +84,7 @@ const Unfollow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
               setFollowing(false);
             }
             toast.success('Unfollowed successfully!');
-            Hog.track(PROFILE.UNFOLLOW);
+            Mixpanel.track(PROFILE.UNFOLLOW);
           } catch {
             toast.error('User rejected request');
           } finally {

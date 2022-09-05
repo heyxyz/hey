@@ -17,7 +17,7 @@ import { StarIcon, UserIcon } from '@heroicons/react/outline';
 import formatAddress from '@lib/formatAddress';
 import getSignature from '@lib/getSignature';
 import getTokenImage from '@lib/getTokenImage';
-import { Hog } from '@lib/hog';
+import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import { Dispatch, FC, useState } from 'react';
@@ -101,7 +101,7 @@ const FollowModule: FC<Props> = ({ profile, setFollowing, setShowFollowModal, ag
     setFollowing(true);
     setShowFollowModal(false);
     toast.success('Followed successfully!');
-    Hog.track(PROFILE.SUPER_FOLLOW);
+    Mixpanel.track(PROFILE.SUPER_FOLLOW);
   };
 
   const { isLoading: writeLoading, write } = useContractWrite({

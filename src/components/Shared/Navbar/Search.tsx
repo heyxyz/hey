@@ -6,7 +6,7 @@ import useOnClickOutside from '@components/utils/hooks/useOnClickOutside';
 import { Profile } from '@generated/types';
 import { ProfileFields } from '@gql/ProfileFields';
 import { SearchIcon, XIcon } from '@heroicons/react/outline';
-import { Hog } from '@lib/hog';
+import { Mixpanel } from '@lib/mixpanel';
 import clsx from 'clsx';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -71,14 +71,14 @@ const Search: FC<Props> = ({ hideDropdown = false }) => {
             className="py-2 px-3 text-sm"
             placeholder="Search..."
             value={searchText}
-            onFocus={() => Hog.track(SEARCH.FOCUS)}
+            onFocus={() => Mixpanel.track(SEARCH.FOCUS)}
             iconLeft={<SearchIcon />}
             iconRight={
               <XIcon
                 className={clsx('cursor-pointer', searchText ? 'visible' : 'invisible')}
                 onClick={() => {
                   setSearchText('');
-                  Hog.track(SEARCH.CLEAR);
+                  Mixpanel.track(SEARCH.CLEAR);
                 }}
               />
             }

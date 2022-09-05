@@ -22,8 +22,8 @@ import { PlusIcon } from '@heroicons/react/outline';
 import getIPFSLink from '@lib/getIPFSLink';
 import getSignature from '@lib/getSignature';
 import getTokenImage from '@lib/getTokenImage';
-import { Hog } from '@lib/hog';
 import imagekitURL from '@lib/imagekitURL';
+import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import uploadMediaToIPFS from '@lib/uploadMediaToIPFS';
@@ -86,11 +86,11 @@ const NewCrowdfund: NextPage = () => {
   const [selectedCurrencySymobol, setSelectedCurrencySymobol] = useState('WMATIC');
 
   useEffect(() => {
-    Hog.track('Pageview', { path: PAGEVIEW.CREATE_CROWDFUND });
+    Mixpanel.track('Pageview', { path: PAGEVIEW.CREATE_CROWDFUND });
   }, []);
 
   const onCompleted = () => {
-    Hog.track(CROWDFUND.NEW);
+    Mixpanel.track(CROWDFUND.NEW);
   };
 
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });

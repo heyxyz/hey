@@ -6,7 +6,7 @@ import { WarningMessage } from '@components/UI/WarningMessage';
 import { ApprovedAllowanceAmount } from '@generated/types';
 import { ExclamationIcon, MinusIcon, PlusIcon } from '@heroicons/react/outline';
 import { getModule } from '@lib/getModule';
-import { Hog } from '@lib/hog';
+import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import React, { Dispatch, FC, useState } from 'react';
 import toast from 'react-hot-toast';
@@ -53,7 +53,7 @@ const AllowanceButton: FC<Props> = ({ title = 'Allow', module, allowed, setAllow
       toast.success(`Module ${allowed ? 'disabled' : 'enabled'} successfully!`);
       setShowWarninModal(false);
       setAllowed(!allowed);
-      Hog.track(`Module ${allowed ? 'disabled' : 'enabled'}`);
+      Mixpanel.track(`Module ${allowed ? 'disabled' : 'enabled'}`);
     },
     onError
   });

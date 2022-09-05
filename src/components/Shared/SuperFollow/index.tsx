@@ -2,7 +2,7 @@ import { Button } from '@components/UI/Button';
 import { Modal } from '@components/UI/Modal';
 import { Profile } from '@generated/types';
 import { StarIcon } from '@heroicons/react/outline';
-import { Hog } from '@lib/hog';
+import { Mixpanel } from '@lib/mixpanel';
 import dynamic from 'next/dynamic';
 import { Dispatch, FC, useState } from 'react';
 import { PROFILE } from 'src/tracking';
@@ -32,7 +32,7 @@ const SuperFollow: FC<Props> = ({ profile, setFollowing, showText = false, again
         outline
         onClick={() => {
           setShowFollowModal(!showFollowModal);
-          Hog.track(PROFILE.OPEN_SUPER_FOLLOW);
+          Mixpanel.track(PROFILE.OPEN_SUPER_FOLLOW);
         }}
         aria-label="Super Follow"
         icon={<StarIcon className="w-4 h-4" />}

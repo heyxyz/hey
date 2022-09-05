@@ -9,7 +9,7 @@ import { LensterPublication } from '@generated/lenstertypes';
 import { CommentFields } from '@gql/CommentFields';
 import { PostFields } from '@gql/PostFields';
 import { CollectionIcon } from '@heroicons/react/outline';
-import { Hog } from '@lib/hog';
+import { Mixpanel } from '@lib/mixpanel';
 import React, { FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { useAppStore } from 'src/store/app';
@@ -71,7 +71,7 @@ const Publications: FC<Props> = ({ query }) => {
           profileId: currentProfile?.id ?? null
         }
       });
-      Hog.track(PAGINATION.PUBLICATION_SEARCH);
+      Mixpanel.track(PAGINATION.PUBLICATION_SEARCH);
     }
   });
 
