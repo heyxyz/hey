@@ -7,7 +7,7 @@ import {
   SparklesIcon,
   SwitchHorizontalIcon
 } from '@heroicons/react/outline';
-import { Hog } from '@lib/hog';
+import { Mixpanel } from '@lib/mixpanel';
 import clsx from 'clsx';
 import { useRouter } from 'next/router';
 import React, { Dispatch, FC, ReactNode } from 'react';
@@ -33,7 +33,7 @@ const FeedType: FC<Props> = ({ setFeedType, feedType }) => {
       onClick={() => {
         push({ query: { type: type.toLowerCase() } });
         setFeedType(type);
-        Hog.track(`Switch to ${type.toLowerCase()} type in explore`);
+        Mixpanel.track(`Switch to ${type.toLowerCase()} type in explore`);
       }}
       className={clsx(
         {

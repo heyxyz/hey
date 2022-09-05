@@ -15,8 +15,8 @@ import {
 } from '@heroicons/react/outline';
 import { PencilAltIcon } from '@heroicons/react/solid';
 import getTokenImage from '@lib/getTokenImage';
-import { Hog } from '@lib/hog';
 import humanize from '@lib/humanize';
+import { Mixpanel } from '@lib/mixpanel';
 import { NextPage } from 'next';
 import React, { FC, ReactNode, useEffect } from 'react';
 import { APP_NAME, ERROR_MESSAGE } from 'src/constants';
@@ -70,7 +70,7 @@ const Stats: NextPage = () => {
   const { allowed } = useStaffMode();
 
   useEffect(() => {
-    Hog.track('Pageview', { path: PAGEVIEW.STAFFTOOLS.STATS });
+    Mixpanel.track('Pageview', { path: PAGEVIEW.STAFFTOOLS.STATS });
   }, []);
 
   const { data, loading, error } = useQuery(LENSTER_STATS_QUERY, {

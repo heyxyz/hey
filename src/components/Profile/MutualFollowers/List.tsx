@@ -5,7 +5,7 @@ import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
 import { Profile } from '@generated/types';
 import { ProfileFields } from '@gql/ProfileFields';
-import { Hog } from '@lib/hog';
+import { Mixpanel } from '@lib/mixpanel';
 import { FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { useAppStore } from 'src/store/app';
@@ -58,7 +58,7 @@ const MutualFollowersList: FC<Props> = ({ profileId }) => {
           }
         }
       });
-      Hog.track(PAGINATION.MUTUAL_FOLLOWERS);
+      Mixpanel.track(PAGINATION.MUTUAL_FOLLOWERS);
     }
   });
 

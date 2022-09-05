@@ -1,6 +1,6 @@
 import UserProfile from '@components/Shared/UserProfile';
 import { LensterPublication } from '@generated/lenstertypes';
-import { Hog } from '@lib/hog';
+import { Mixpanel } from '@lib/mixpanel';
 import clsx from 'clsx';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
@@ -46,7 +46,7 @@ const SinglePublication: FC<Props> = ({
         onClick={() => {
           if (!isCrowdfund) {
             push(`/posts/${publication?.id}`);
-            Hog.track(PUBLICATION.OPEN);
+            Mixpanel.track(PUBLICATION.OPEN);
           }
         }}
       >

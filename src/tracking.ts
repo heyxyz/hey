@@ -153,8 +153,7 @@ export const PAGEVIEW = {
     DELETE: 'Delete settings page'
   },
   STAFFTOOLS: {
-    STATS: 'Staff stats page',
-    FLAGS: 'Staff flags page'
+    STATS: 'Staff stats page'
   }
 };
 
