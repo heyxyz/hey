@@ -1,6 +1,12 @@
 import useStaffMode from '@components/utils/hooks/useStaffMode';
 import { PublicationSortCriteria } from '@generated/types';
-import { ChatAlt2Icon, ClockIcon, CollectionIcon, SwitchHorizontalIcon } from '@heroicons/react/outline';
+import {
+  ChatAlt2Icon,
+  ClockIcon,
+  CollectionIcon,
+  SparklesIcon,
+  SwitchHorizontalIcon
+} from '@heroicons/react/outline';
 import { Hog } from '@lib/hog';
 import clsx from 'clsx';
 import { useRouter } from 'next/router';
@@ -44,6 +50,11 @@ const FeedType: FC<Props> = ({ setFeedType, feedType }) => {
 
   return (
     <div className="flex gap-3 px-5 mt-3 sm:px-0 sm:mt-0">
+      <FeedLink
+        name="Curated"
+        icon={<SparklesIcon className="w-4 h-4" />}
+        type={PublicationSortCriteria.CuratedProfiles}
+      />
       <FeedLink
         name="Top Commented"
         icon={<ChatAlt2Icon className="w-4 h-4" />}

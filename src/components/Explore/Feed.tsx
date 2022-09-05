@@ -50,7 +50,7 @@ interface Props {
   feedType?: string;
 }
 
-const Feed: FC<Props> = ({ feedType = PublicationSortCriteria.TopCommented }) => {
+const Feed: FC<Props> = ({ feedType = PublicationSortCriteria.CuratedProfiles }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const { data, loading, error, fetchMore } = useQuery(EXPLORE_FEED_QUERY, {
     variables: {
