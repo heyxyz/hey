@@ -21,7 +21,6 @@ export const PROFILE = {
 export const PUBLICATION = {
   OPEN: 'Open publication',
   OPEN_NEW: 'Open new Publication modal',
-  OPEN_COMMENT: 'Open comment modal',
   LIKE: 'Like publication',
   DISLIKE: 'Dislike publication',
   MIRROR: 'Mirror publication',
