@@ -16,7 +16,7 @@ export const mainnetVerified = [
   '0x5881' /** @nilesh.lens */,
   '0x2d44' /** @coderdan.lens */,
   '0x14f5' /** @jierlich.lens */,
-  '0x7d'  /** @liquidfire.lens */,
+  '0x7d' /** @liquidfire.lens */,
   '0xada1' /** @katya.lens */,
   '0xf857' /** @masknetworkofficial.lens */,
   '0xf1b1' /** @millionrecords.lens */,
