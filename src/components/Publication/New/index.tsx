@@ -263,7 +263,6 @@ const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
               broadcastData?.broadcast?.txHash ??
               dispatcherData?.createPostViaDispatcher?.txHash ? (
                 <PubIndexStatus
-                  setShowModal={setShowModal}
                   type="Post"
                   txHash={
                     data?.hash ??

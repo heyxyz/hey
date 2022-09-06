@@ -1,6 +1,3 @@
-import NewComment from '@components/Comment/New';
-import SinglePublication from '@components/Publication/SinglePublication';
-import { Card } from '@components/UI/Card';
 import { Modal } from '@components/UI/Modal';
 import { PencilAltIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
@@ -17,8 +14,6 @@ const NewPostModal: FC = () => {
   const setShowNewPostModal = usePublicationStore((state) => state.setShowNewPostModal);
   const setPublicationContent = usePublicationStore((state) => state.setPublicationContent);
   const setPreviewPublication = usePublicationStore((state) => state.setPreviewPublication);
-  const parentPub = usePublicationStore((state) => state.parentPub);
-  const setParentPub = usePublicationStore((state) => state.setParentPub);
 
   useEffect(() => {
     if (isReady && query.text) {
@@ -49,7 +44,6 @@ const NewPostModal: FC = () => {
         type="button"
         className="flex items-start"
         onClick={() => {
-          setParentPub(null);
           setShowNewPostModal(!showNewPostModal);
           Mixpanel.track(PUBLICATION.OPEN_NEW);
         }}
@@ -63,16 +57,7 @@ const NewPostModal: FC = () => {
         show={showNewPostModal}
         onClose={() => setShowNewPostModal(false)}
       >
-        {parentPub ? (
-          <>
-            <Card className="mx-5 mt-5">
-              <SinglePublication publication={parentPub} showType={false} showActions={false} />
-            </Card>
-            <NewComment setShowModal={setShowNewPostModal} hideCard publication={parentPub} />
-          </>
-        ) : (
-          <NewPost setShowModal={setShowNewPostModal} hideCard />
-        )}
+        <NewPost setShowModal={setShowNewPostModal} hideCard />
       </Modal>
     </>
   );

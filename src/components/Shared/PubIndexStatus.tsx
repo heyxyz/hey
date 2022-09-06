@@ -2,7 +2,7 @@ import { gql, useQuery } from '@apollo/client';
 import { Spinner } from '@components/UI/Spinner';
 import { CheckCircleIcon } from '@heroicons/react/solid';
 import { useRouter } from 'next/router';
-import React, { Dispatch, FC, useState } from 'react';
+import React, { FC, useState } from 'react';
 import { POLYGONSCAN_URL } from 'src/constants';
 
 export const TX_STATUS_QUERY = gql`
@@ -19,12 +19,11 @@ export const TX_STATUS_QUERY = gql`
 `;
 
 interface Props {
-  setShowModal?: Dispatch<boolean>;
   type: string;
   txHash: string;
 }
 
-const PubIndexStatus: FC<Props> = ({ setShowModal, type, txHash }) => {
+const PubIndexStatus: FC<Props> = ({ type, txHash }) => {
   const { push } = useRouter();
   const [pollInterval, setPollInterval] = useState(500);
   const { data, loading } = useQuery(TX_STATUS_QUERY, {
@@ -35,9 +34,6 @@ const PubIndexStatus: FC<Props> = ({ setShowModal, type, txHash }) => {
     onCompleted: (data) => {
       if (data?.publication) {
         setPollInterval(0);
-        if (setShowModal) {
-          setShowModal(false);
-        }
         push(`/posts/${data?.publication?.id}`);
       }
     }

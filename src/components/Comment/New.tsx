@@ -27,7 +27,7 @@ import splitSignature from '@lib/splitSignature';
 import trimify from '@lib/trimify';
 import uploadToArweave from '@lib/uploadToArweave';
 import dynamic from 'next/dynamic';
-import { Dispatch, FC, useState } from 'react';
+import { FC, useState } from 'react';
 import toast from 'react-hot-toast';
 import { APP_NAME, LENSHUB_PROXY, RELAY_ON, SIGN_WALLET } from 'src/constants';
 import { useAppStore } from 'src/store/app';
@@ -51,12 +51,11 @@ const SelectReferenceModule = dynamic(() => import('../Shared/SelectReferenceMod
 });
 
 interface Props {
-  setShowModal?: Dispatch<boolean>;
   hideCard?: boolean;
   publication: LensterPublication;
 }
 
-const NewComment: FC<Props> = ({ setShowModal, hideCard = false, publication }) => {
+const NewComment: FC<Props> = ({ hideCard = false, publication }) => {
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -264,7 +263,6 @@ const NewComment: FC<Props> = ({ setShowModal, hideCard = false, publication }) 
               broadcastData?.broadcast?.txHash ??
               dispatcherData?.createCommentViaDispatcher?.txHash ? (
                 <PubIndexStatus
-                  setShowModal={setShowModal}
                   type="Comment"
                   txHash={
                     data?.hash ??
