@@ -1,10 +1,13 @@
+import { useQuery } from '@apollo/client';
 import Markup from '@components/Shared/Markup';
 import UserProfile from '@components/Shared/UserProfile';
 import { Profile } from '@generated/types';
+import { TX_STATUS_QUERY } from '@gql/HasTxHashBeenIndexed';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import React, { FC } from 'react';
 import { useAppStore } from 'src/store/app';
+import { usePublicationPersistStore } from 'src/store/publication';
 
 dayjs.extend(relativeTime);
 
@@ -14,6 +17,22 @@ interface Props {
 
 const QueuedPublication: FC<Props> = ({ txn }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const txnQueue = usePublicationPersistStore((state) => state.txnQueue);
+  const setTxnQueue = usePublicationPersistStore((state) => state.setTxnQueue);
+
+  const { data, loading } = useQuery(TX_STATUS_QUERY, {
+    variables: {
+      request: { txHash: txn?.txnHash }
+    },
+    pollInterval: 1000,
+    onCompleted: (data) => {
+      if (data?.hasTxHashBeenIndexed?.indexed) {
+        console.log('tx indexed');
+        // remove from queue
+        setTxnQueue(txnQueue.filter((o) => o.txnHash !== txn?.txnHash));
+      }
+    }
+  });
 
   return (
     <article className="p-5">
