@@ -26,7 +26,7 @@ import splitSignature from '@lib/splitSignature';
 import trimify from '@lib/trimify';
 import uploadToArweave from '@lib/uploadToArweave';
 import dynamic from 'next/dynamic';
-import { Dispatch, FC, useState } from 'react';
+import { FC, useState } from 'react';
 import toast from 'react-hot-toast';
 import { APP_NAME, LENSHUB_PROXY, RELAY_ON, SIGN_WALLET } from 'src/constants';
 import { useAppStore } from 'src/store/app';
@@ -53,11 +53,10 @@ const Preview = dynamic(() => import('../../Shared/Preview'), {
 });
 
 interface Props {
-  setShowModal?: Dispatch<boolean>;
   hideCard?: boolean;
 }
 
-const NewPost: FC<Props> = ({ setShowModal, hideCard = false }) => {
+const NewPost: FC<Props> = ({ hideCard = false }) => {
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);

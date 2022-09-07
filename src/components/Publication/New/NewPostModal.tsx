@@ -57,7 +57,7 @@ const NewPostModal: FC = () => {
         show={showNewPostModal}
         onClose={() => setShowNewPostModal(false)}
       >
-        <NewPost setShowModal={setShowNewPostModal} hideCard />
+        <NewPost hideCard />
       </Modal>
     </>
   );
