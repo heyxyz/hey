@@ -25,7 +25,7 @@ interface PublicationPersistState {
   setTxnQueue: (txnQueue: any[]) => void;
 }
 
-export const useAppPersistStore = create(
+export const usePublicationPersistStore = create(
   persist<PublicationPersistState>(
     (set) => ({
       txnQueue: [],

@@ -14,6 +14,7 @@ import { Mixpanel } from '@lib/mixpanel';
 import React, { FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { useAppStore } from 'src/store/app';
+import { usePublicationPersistStore } from 'src/store/publication';
 import { PAGINATION } from 'src/tracking';
 
 const HOME_FEED_QUERY = gql`
@@ -47,6 +48,8 @@ const HOME_FEED_QUERY = gql`
 
 const Feed: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const txnQueue = usePublicationPersistStore((state) => state.txnQueue);
+
   const { data, loading, error, fetchMore } = useQuery(HOME_FEED_QUERY, {
     variables: {
       request: { profileId: currentProfile?.id, limit: 10 },
@@ -86,6 +89,9 @@ const Feed: FC = () => {
       {!error && !loading && data?.timeline?.items?.length !== 0 && (
         <>
           <Card className="divide-y-[1px] dark:divide-gray-700/80">
+            {txnQueue.map((txn) => (
+              <div key={txn.id}>{txn.content}</div>
+            ))}
             {data?.timeline?.items?.map((post: LensterPublication, index: number) => (
               <SinglePublication key={`${post?.id}_${index}`} publication={post} />
             ))}

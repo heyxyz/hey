@@ -2,7 +2,6 @@ import { LensHubProxy } from '@abis/LensHubProxy';
 import { useMutation } from '@apollo/client';
 import Attachments from '@components/Shared/Attachments';
 import Markup from '@components/Shared/Markup';
-import PubIndexStatus from '@components/Shared/PubIndexStatus';
 import { Button } from '@components/UI/Button';
 import { Card } from '@components/UI/Card';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
@@ -31,7 +30,7 @@ import toast from 'react-hot-toast';
 import { APP_NAME, LENSHUB_PROXY, RELAY_ON, SIGN_WALLET } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { useCollectModuleStore } from 'src/store/collectmodule';
-import { usePublicationStore } from 'src/store/publication';
+import { usePublicationPersistStore, usePublicationStore } from 'src/store/publication';
 import { POST } from 'src/tracking';
 import { v4 as uuid } from 'uuid';
 import { useContractWrite, useSignTypedData } from 'wagmi';
@@ -64,6 +63,8 @@ const NewPost: FC<Props> = ({ hideCard = false }) => {
   const setPublicationContent = usePublicationStore((state) => state.setPublicationContent);
   const previewPublication = usePublicationStore((state) => state.previewPublication);
   const setPreviewPublication = usePublicationStore((state) => state.setPreviewPublication);
+  const txnQueue = usePublicationPersistStore((state) => state.txnQueue);
+  const setTxnQueue = usePublicationPersistStore((state) => state.setTxnQueue);
   const selectedModule = useCollectModuleStore((state) => state.selectedModule);
   const setSelectedModule = useCollectModuleStore((state) => state.setSelectedModule);
   const feeData = useCollectModuleStore((state) => state.feeData);
@@ -84,7 +85,6 @@ const NewPost: FC<Props> = ({ hideCard = false }) => {
   };
 
   const {
-    data,
     error,
     isLoading: writeLoading,
     write
@@ -97,7 +97,7 @@ const NewPost: FC<Props> = ({ hideCard = false }) => {
     onError
   });
 
-  const { broadcast, data: broadcastData, loading: broadcastLoading } = useBroadcast({ onCompleted });
+  const { broadcast, loading: broadcastLoading } = useBroadcast({ onCompleted });
   const [createPostTypedData, { loading: typedDataLoading }] = useMutation<Mutation>(
     CREATE_POST_TYPED_DATA_MUTATION,
     {
@@ -148,9 +148,22 @@ const NewPost: FC<Props> = ({ hideCard = false }) => {
     }
   );
 
-  const [createPostViaDispatcher, { data: dispatcherData, loading: dispatcherLoading }] = useMutation(
+  const [createPostViaDispatcher, { loading: dispatcherLoading }] = useMutation(
     CREATE_POST_VIA_DISPATHCER_MUTATION,
-    { onCompleted, onError }
+    {
+      onCompleted: (data) => {
+        onCompleted();
+        const newComment = {
+          id: uuid(),
+          type: 'NEW_POST',
+          txnHash: data?.createPostViaDispatcher?.txHash,
+          content: publicationContent
+        };
+
+        setTxnQueue([newComment, ...txnQueue]);
+      },
+      onError
+    }
   );
 
   const createPost = async () => {
@@ -258,18 +271,6 @@ const NewPost: FC<Props> = ({ hideCard = false }) => {
               {publicationContent && <Preview />}
             </div>
             <div className="flex items-center pt-2 ml-auto space-x-2 sm:pt-0">
-              {data?.hash ??
-              broadcastData?.broadcast?.txHash ??
-              dispatcherData?.createPostViaDispatcher?.txHash ? (
-                <PubIndexStatus
-                  type="Post"
-                  txHash={
-                    data?.hash ??
-                    broadcastData?.broadcast?.txHash ??
-                    dispatcherData?.createPostViaDispatcher?.txHash
-                  }
-                />
-              ) : null}
               <Button
                 className="ml-auto"
                 disabled={isLoading}
