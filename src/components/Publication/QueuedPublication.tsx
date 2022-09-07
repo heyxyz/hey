@@ -24,7 +24,7 @@ const QueuedPublication: FC<Props> = ({ txn }) => {
   const txnQueue = usePublicationPersistStore((state) => state.txnQueue);
   const setTxnQueue = usePublicationPersistStore((state) => state.setTxnQueue);
   const { cache } = useApolloClient();
-  const txHash = txn?.txnHash;
+  const txHash = txn?.txHash;
 
   useQuery(PUBLICATION_QUERY, {
     variables: {
@@ -36,7 +36,7 @@ const QueuedPublication: FC<Props> = ({ txn }) => {
     onCompleted: (data) => {
       console.log(data);
       if (data?.publication) {
-        setTxnQueue(txnQueue.filter((o) => o.txnHash !== txHash));
+        setTxnQueue(txnQueue.filter((o) => o.txHash !== txHash));
         cache.modify({
           fields: {
             timeline() {

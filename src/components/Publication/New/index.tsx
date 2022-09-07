@@ -84,6 +84,15 @@ const NewPost: FC<Props> = ({ hideCard = false }) => {
     Mixpanel.track(POST.NEW);
   };
 
+  const generateOptimisticPost = (txHash: string) => {
+    return {
+      id: uuid(),
+      type: 'NEW_POST',
+      txHash,
+      content: publicationContent
+    };
+  };
+
   const {
     error,
     isLoading: writeLoading,
@@ -93,11 +102,19 @@ const NewPost: FC<Props> = ({ hideCard = false }) => {
     contractInterface: LensHubProxy,
     functionName: 'postWithSig',
     mode: 'recklesslyUnprepared',
-    onSuccess: onCompleted,
+    onSuccess: ({ hash }) => {
+      onCompleted();
+      setTxnQueue([generateOptimisticPost(hash), ...txnQueue]);
+    },
     onError
   });
 
-  const { broadcast, loading: broadcastLoading } = useBroadcast({ onCompleted });
+  const { broadcast, loading: broadcastLoading } = useBroadcast({
+    onCompleted: (data) => {
+      onCompleted();
+      setTxnQueue([generateOptimisticPost(data?.broadcast?.txHash), ...txnQueue]);
+    }
+  });
   const [createPostTypedData, { loading: typedDataLoading }] = useMutation<Mutation>(
     CREATE_POST_TYPED_DATA_MUTATION,
     {
@@ -153,13 +170,7 @@ const NewPost: FC<Props> = ({ hideCard = false }) => {
     {
       onCompleted: (data) => {
         onCompleted();
-        const newPost = {
-          id: uuid(),
-          type: 'NEW_POST',
-          txnHash: data?.createPostViaDispatcher?.txHash,
-          content: publicationContent
-        };
-        setTxnQueue([newPost, ...txnQueue]);
+        setTxnQueue([generateOptimisticPost(data?.createPostViaDispatcher?.txHash), ...txnQueue]);
       },
       onError
     }
