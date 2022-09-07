@@ -1,10 +1,13 @@
 import { useApolloClient, useQuery } from '@apollo/client';
 import Markup from '@components/Shared/Markup';
 import UserProfile from '@components/Shared/UserProfile';
+import { Spinner } from '@components/UI/Spinner';
+import { Tooltip } from '@components/UI/Tooltip';
 import { Profile } from '@generated/types';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import React, { FC } from 'react';
+import { POLYGONSCAN_URL } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { usePublicationPersistStore } from 'src/store/publication';
 
@@ -21,10 +24,11 @@ const QueuedPublication: FC<Props> = ({ txn }) => {
   const txnQueue = usePublicationPersistStore((state) => state.txnQueue);
   const setTxnQueue = usePublicationPersistStore((state) => state.setTxnQueue);
   const { cache } = useApolloClient();
+  const txHash = txn?.txnHash;
 
-  const { data } = useQuery(PUBLICATION_QUERY, {
+  useQuery(PUBLICATION_QUERY, {
     variables: {
-      request: { txHash: txn?.txnHash },
+      request: { txHash },
       reactionRequest: currentProfile ? { profileId: currentProfile?.id } : null,
       profileId: currentProfile?.id ?? null
     },
@@ -32,7 +36,7 @@ const QueuedPublication: FC<Props> = ({ txn }) => {
     onCompleted: (data) => {
       console.log(data);
       if (data?.publication) {
-        setTxnQueue(txnQueue.filter((o) => o.txnHash !== txn?.txnHash));
+        setTxnQueue(txnQueue.filter((o) => o.txnHash !== txHash));
         cache.modify({
           fields: {
             timeline() {
@@ -49,8 +53,13 @@ const QueuedPublication: FC<Props> = ({ txn }) => {
 
   return (
     <article className="p-5">
-      <div className="pb-4">
+      <div className="pb-4 flex items-start justify-between">
         <UserProfile profile={currentProfile as Profile} />
+        <Tooltip content="Indexing" placement="top">
+          <a href={`${POLYGONSCAN_URL}/tx/${txHash}`} target="_blank" rel="noreferrer noopener">
+            <Spinner size="xs" />
+          </a>
+        </Tooltip>
       </div>
       <div className="ml-[53px] break-words">
         <div className="whitespace-pre-wrap break-words leading-md linkify text-md">

@@ -153,14 +153,13 @@ const NewPost: FC<Props> = ({ hideCard = false }) => {
     {
       onCompleted: (data) => {
         onCompleted();
-        const newComment = {
+        const newPost = {
           id: uuid(),
           type: 'NEW_POST',
           txnHash: data?.createPostViaDispatcher?.txHash,
           content: publicationContent
         };
-
-        setTxnQueue([newComment, ...txnQueue]);
+        setTxnQueue([newPost, ...txnQueue]);
       },
       onError
     }
