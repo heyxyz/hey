@@ -1,9 +1,12 @@
 import { useApolloClient, useQuery } from '@apollo/client';
+import Attachments from '@components/Shared/Attachments';
+import IFramely from '@components/Shared/IFramely';
 import Markup from '@components/Shared/Markup';
 import UserProfile from '@components/Shared/UserProfile';
 import { Spinner } from '@components/UI/Spinner';
 import { Tooltip } from '@components/UI/Tooltip';
 import { Profile } from '@generated/types';
+import getURLs from '@lib/getURLs';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import React, { FC } from 'react';
@@ -34,7 +37,6 @@ const QueuedPublication: FC<Props> = ({ txn }) => {
     },
     pollInterval: 1000,
     onCompleted: (data) => {
-      console.log(data);
       if (data?.publication) {
         setTxnQueue(txnQueue.filter((o) => o.txHash !== txHash));
         cache.modify({
@@ -65,6 +67,11 @@ const QueuedPublication: FC<Props> = ({ txn }) => {
         <div className="whitespace-pre-wrap break-words leading-md linkify text-md">
           <Markup>{txn?.content}</Markup>
         </div>
+        {txn?.attachments?.length > 0 ? (
+          <Attachments attachments={txn?.attachments} isNew hideDelete />
+        ) : (
+          txn?.attachments && getURLs(txn?.content)?.length > 0 && <IFramely url={getURLs(txn?.content)[0]} />
+        )}
       </div>
     </article>
   );

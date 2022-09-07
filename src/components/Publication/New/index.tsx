@@ -89,7 +89,8 @@ const NewPost: FC<Props> = ({ hideCard = false }) => {
       id: uuid(),
       type: 'NEW_POST',
       txHash,
-      content: publicationContent
+      content: publicationContent,
+      attachments
     };
   };
 
