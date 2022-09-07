@@ -3,7 +3,6 @@ import { useMutation } from '@apollo/client';
 import Attachments from '@components/Shared/Attachments';
 import Markup from '@components/Shared/Markup';
 import Preview from '@components/Shared/Preview';
-import PubIndexStatus from '@components/Shared/PubIndexStatus';
 import { Button } from '@components/UI/Button';
 import { Card } from '@components/UI/Card';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
@@ -13,6 +12,7 @@ import useBroadcast from '@components/utils/hooks/useBroadcast';
 import { LensterAttachment, LensterPublication } from '@generated/lenstertypes';
 import { CreateCommentBroadcastItemResult, Mutation, PublicationMainFocus } from '@generated/types';
 import { IGif } from '@giphy/js-types';
+import { NewCommentFields } from '@gql/CommentFields';
 import {
   CREATE_COMMENT_TYPED_DATA_MUTATION,
   CREATE_COMMENT_VIA_DISPATHCER_MUTATION
@@ -158,7 +158,58 @@ const NewComment: FC<Props> = ({ hideCard = false, publication }) => {
     CREATE_COMMENT_VIA_DISPATHCER_MUTATION,
     {
       onCompleted,
-      onError
+      onError,
+      update: (cache, { data }) => {
+        if (!data?.createCommentViaDispatcher?.txHash) {
+          return;
+        }
+
+        const newComment = {
+          id: Math.random().toString(36).substr(2, 9),
+          profile: { __ref: `Profile:${currentProfile?.id}` },
+          reaction: null,
+          mirrors: [],
+          hasCollectedByMe: false,
+          collectedBy: null,
+          collectModule: {
+            type: 'FreeCollectModule',
+            __typename: 'FreeCollectModuleSettings'
+          },
+          stats: null,
+          metadata: {
+            name: 'Comment by @yoginth.test',
+            description: publicationContent,
+            content: publicationContent,
+            cover: null,
+            media: [],
+            attributes: [],
+            __typename: 'MetadataOutput'
+          },
+          hidden: false,
+          createdAt: '2022-09-08T05:37:01.000Z',
+          appId: null,
+          __typename: 'Comment',
+          onChainContentURI: 'https://arweave.net/vw1Ok6Q2HvGyFf2G9uEDGIiATeqX-A3-R8Vx8ejh0r8',
+          collectNftAddress: null,
+          referenceModule: null
+        };
+
+        cache.modify({
+          fields: {
+            publications(existingCommentRefs = []) {
+              const newCommentRef = cache.writeFragment({
+                data: newComment,
+                fragment: NewCommentFields
+              });
+
+              let clone = structuredClone(existingCommentRefs);
+              clone.items = [newCommentRef, ...clone.items];
+
+              return clone;
+            }
+          }
+        });
+      }
     }
   );
 
@@ -259,7 +310,7 @@ const NewComment: FC<Props> = ({ hideCard = false, publication }) => {
               {publicationContent && <Preview />}
             </div>
             <div className="flex items-center pt-2 ml-auto space-x-2 sm:pt-0">
-              {data?.hash ??
+              {/* {data?.hash ??
               broadcastData?.broadcast?.txHash ??
               dispatcherData?.createCommentViaDispatcher?.txHash ? (
                 <PubIndexStatus
@@ -270,7 +321,7 @@ const NewComment: FC<Props> = ({ hideCard = false, publication }) => {
                     dispatcherData?.createCommentViaDispatcher?.txHash
                   }
                 />
-              ) : null}
+              ) : null} */}
               <Button
                 className="ml-auto"
                 disabled={isLoading}

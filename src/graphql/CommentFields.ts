@@ -84,3 +84,14 @@ export const CommentFields = gql`
   ${MetadataFields}
   ${StatsFields}
 `;
+
+export const NewCommentFields = gql`
+  fragment NewCommentFields on Comment {
+    id
+    metadata {
+      name
+      description
+      content
+    }
+  }
+`;
