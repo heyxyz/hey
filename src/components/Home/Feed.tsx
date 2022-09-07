@@ -1,4 +1,5 @@
 import { gql, useQuery } from '@apollo/client';
+import QueuedPublication from '@components/Publication/QueuedPublication';
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
 import { Card } from '@components/UI/Card';
@@ -90,7 +91,9 @@ const Feed: FC = () => {
         <>
           <Card className="divide-y-[1px] dark:divide-gray-700/80">
             {txnQueue.map((txn) => (
-              <div key={txn.id}>{txn.content}</div>
+              <div key={txn.id}>
+                <QueuedPublication txn={txn} />
+              </div>
             ))}
             {data?.timeline?.items?.map((post: LensterPublication, index: number) => (
               <SinglePublication key={`${post?.id}_${index}`} publication={post} />
