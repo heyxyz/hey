@@ -34,9 +34,10 @@ interface Props {
   attachments: any;
   setAttachments?: any;
   isNew?: boolean;
+  hideDelete?: boolean;
 }
 
-const Attachments: FC<Props> = ({ attachments, setAttachments, isNew = false }) => {
+const Attachments: FC<Props> = ({ attachments, setAttachments, isNew = false, hideDelete = false }) => {
   const removeAttachment = (attachment: any) => {
     const arr = attachments;
     setAttachments(
@@ -77,7 +78,7 @@ const Attachments: FC<Props> = ({ attachments, setAttachments, isNew = false }) 
                 alt={imagekitURL(url, 'attachment')}
               />
             )}
-            {isNew && (
+            {isNew && !hideDelete && (
               <div className="m-3">
                 <button
                   type="button"

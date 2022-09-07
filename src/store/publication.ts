@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import create from 'zustand';
+import { persist } from 'zustand/middleware';
 
 interface PublicationState {
   showNewPostModal: boolean;
@@ -18,3 +19,18 @@ export const usePublicationStore = create<PublicationState>((set) => ({
   previewPublication: false,
   setPreviewPublication: (previewPublication) => set(() => ({ previewPublication }))
 }));
+
+interface PublicationPersistState {
+  txnQueue: any[];
+  setTxnQueue: (txnQueue: any[]) => void;
+}
+
+export const usePublicationPersistStore = create(
+  persist<PublicationPersistState>(
+    (set) => ({
+      txnQueue: [],
+      setTxnQueue: (txnQueue) => set(() => ({ txnQueue }))
+    }),
+    { name: 'publication.store' }
+  )
+);
