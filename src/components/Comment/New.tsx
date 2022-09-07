@@ -277,15 +277,7 @@ const NewComment: FC<Props> = ({ hideCard = false, publication }) => {
                 icon={isLoading ? <Spinner size="xs" /> : <ChatAlt2Icon className="w-4 h-4" />}
                 onClick={createComment}
               >
-                {isUploading
-                  ? 'Uploading to Arweave'
-                  : typedDataLoading
-                  ? 'Generating Comment'
-                  : signLoading
-                  ? 'Sign'
-                  : writeLoading || broadcastLoading
-                  ? 'Send'
-                  : 'Comment'}
+                Comment
               </Button>
             </div>
           </div>

@@ -277,15 +277,7 @@ const NewPost: FC<Props> = ({ hideCard = false }) => {
                 icon={isLoading ? <Spinner size="xs" /> : <PencilAltIcon className="w-4 h-4" />}
                 onClick={createPost}
               >
-                {isUploading
-                  ? 'Uploading to Arweave'
-                  : typedDataLoading
-                  ? 'Generating Post'
-                  : signLoading
-                  ? 'Sign'
-                  : writeLoading || broadcastLoading
-                  ? 'Send'
-                  : 'Post'}
+                Post
               </Button>
             </div>
           </div>
