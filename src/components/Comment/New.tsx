@@ -3,7 +3,6 @@ import { useMutation } from '@apollo/client';
 import Attachments from '@components/Shared/Attachments';
 import Markup from '@components/Shared/Markup';
 import Preview from '@components/Shared/Preview';
-import PubIndexStatus from '@components/Shared/PubIndexStatus';
 import { Button } from '@components/UI/Button';
 import { Card } from '@components/UI/Card';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
@@ -32,7 +31,7 @@ import toast from 'react-hot-toast';
 import { APP_NAME, LENSHUB_PROXY, RELAY_ON, SIGN_WALLET } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { useCollectModuleStore } from 'src/store/collectmodule';
-import { usePublicationStore } from 'src/store/publication';
+import { usePublicationPersistStore, usePublicationStore } from 'src/store/publication';
 import { COMMENT } from 'src/tracking';
 import { v4 as uuid } from 'uuid';
 import { useContractWrite, useSignTypedData } from 'wagmi';
@@ -63,6 +62,8 @@ const NewComment: FC<Props> = ({ hideCard = false, publication }) => {
   const setPublicationContent = usePublicationStore((state) => state.setPublicationContent);
   const previewPublication = usePublicationStore((state) => state.previewPublication);
   const setPreviewPublication = usePublicationStore((state) => state.setPreviewPublication);
+  const txnQueue = usePublicationPersistStore((state) => state.txnQueue);
+  const setTxnQueue = usePublicationPersistStore((state) => state.setTxnQueue);
   const selectedModule = useCollectModuleStore((state) => state.selectedModule);
   const setSelectedModule = useCollectModuleStore((state) => state.setSelectedModule);
   const feeData = useCollectModuleStore((state) => state.feeData);
@@ -81,10 +82,21 @@ const NewComment: FC<Props> = ({ hideCard = false, publication }) => {
     Mixpanel.track(COMMENT.NEW);
   };
 
+  const generateOptimisticComment = (txHash: string) => {
+    console.log(txHash);
+    return {
+      id: uuid(),
+      parent: publication.id,
+      type: 'NEW_COMMENT',
+      txHash,
+      content: publicationContent,
+      attachments
+    };
+  };
+
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
 
   const {
-    data,
     error,
     isLoading: writeLoading,
     write
@@ -93,11 +105,19 @@ const NewComment: FC<Props> = ({ hideCard = false, publication }) => {
     contractInterface: LensHubProxy,
     functionName: 'commentWithSig',
     mode: 'recklesslyUnprepared',
-    onSuccess: onCompleted,
+    onSuccess: ({ hash }) => {
+      onCompleted();
+      setTxnQueue([generateOptimisticComment(hash), ...txnQueue]);
+    },
     onError
   });
 
-  const { broadcast, data: broadcastData, loading: broadcastLoading } = useBroadcast({ onCompleted });
+  const { broadcast, loading: broadcastLoading } = useBroadcast({
+    onCompleted: (data) => {
+      onCompleted();
+      setTxnQueue([generateOptimisticComment(data?.broadcast?.txHash), ...txnQueue]);
+    }
+  });
   const [createCommentTypedData, { loading: typedDataLoading }] = useMutation<Mutation>(
     CREATE_COMMENT_TYPED_DATA_MUTATION,
     {
@@ -154,10 +174,13 @@ const NewComment: FC<Props> = ({ hideCard = false, publication }) => {
     }
   );
 
-  const [createCommentViaDispatcher, { data: dispatcherData, loading: dispatcherLoading }] = useMutation(
+  const [createCommentViaDispatcher, { loading: dispatcherLoading }] = useMutation(
     CREATE_COMMENT_VIA_DISPATHCER_MUTATION,
     {
-      onCompleted,
+      onCompleted: (data) => {
+        onCompleted();
+        setTxnQueue([generateOptimisticComment(data?.createCommentViaDispatcher?.txHash), ...txnQueue]);
+      },
       onError
     }
   );
@@ -258,21 +281,8 @@ const NewComment: FC<Props> = ({ hideCard = false, publication }) => {
               <SelectReferenceModule onlyFollowers={onlyFollowers} setOnlyFollowers={setOnlyFollowers} />
               {publicationContent && <Preview />}
             </div>
-            <div className="flex items-center pt-2 ml-auto space-x-2 sm:pt-0">
-              {data?.hash ??
-              broadcastData?.broadcast?.txHash ??
-              dispatcherData?.createCommentViaDispatcher?.txHash ? (
-                <PubIndexStatus
-                  type="Comment"
-                  txHash={
-                    data?.hash ??
-                    broadcastData?.broadcast?.txHash ??
-                    dispatcherData?.createCommentViaDispatcher?.txHash
-                  }
-                />
-              ) : null}
+            <div className="ml-auto pt-2 sm:pt-0">
               <Button
-                className="ml-auto"
                 disabled={isLoading}
                 icon={isLoading ? <Spinner size="xs" /> : <ChatAlt2Icon className="w-4 h-4" />}
                 onClick={createComment}

@@ -281,9 +281,8 @@ const NewPost: FC<Props> = ({ hideCard = false }) => {
               <SelectReferenceModule onlyFollowers={onlyFollowers} setOnlyFollowers={setOnlyFollowers} />
               {publicationContent && <Preview />}
             </div>
-            <div className="flex items-center pt-2 ml-auto space-x-2 sm:pt-0">
+            <div className="ml-auto pt-2 sm:pt-0">
               <Button
-                className="ml-auto"
                 disabled={isLoading}
                 icon={isLoading ? <Spinner size="xs" /> : <PencilAltIcon className="w-4 h-4" />}
                 onClick={createPost}
