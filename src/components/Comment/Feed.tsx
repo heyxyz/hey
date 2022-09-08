@@ -1,4 +1,5 @@
 import { gql, useQuery } from '@apollo/client';
+import QueuedPublication from '@components/Publication/QueuedPublication';
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
 import { Card } from '@components/UI/Card';
@@ -12,6 +13,7 @@ import { Mixpanel } from '@lib/mixpanel';
 import React, { FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { useAppStore } from 'src/store/app';
+import { usePublicationPersistStore } from 'src/store/publication';
 import { PAGINATION } from 'src/tracking';
 
 import ReferenceAlert from '../Shared/ReferenceAlert';
@@ -47,6 +49,8 @@ interface Props {
 const Feed: FC<Props> = ({ publication, onlyFollowers = false, isFollowing = true }) => {
   const pubId = publication?.__typename === 'Mirror' ? publication?.mirrorOf?.id : publication?.id;
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const txnQueue = usePublicationPersistStore((state) => state.txnQueue);
+
   const { data, loading, error, fetchMore } = useQuery(COMMENT_FEED_QUERY, {
     variables: {
       request: { commentsOf: pubId, limit: 10 },
@@ -74,6 +78,9 @@ const Feed: FC<Props> = ({ publication, onlyFollowers = false, isFollowing = tru
     }
   });
 
+  const queuedCount = txnQueue.filter((o) => o.type === 'NEW_COMMENT').length;
+  const totalComments = data?.publications?.items?.length + queuedCount;
+
   return (
     <>
       {currentProfile ? (
@@ -88,16 +95,25 @@ const Feed: FC<Props> = ({ publication, onlyFollowers = false, isFollowing = tru
         )
       ) : null}
       {loading && <PublicationsShimmer />}
-      {data?.publications?.items?.length === 0 && (
+      {totalComments === 0 && (
         <EmptyState
           message={<span>Be the first one to comment!</span>}
           icon={<CollectionIcon className="w-8 h-8 text-brand" />}
         />
       )}
       <ErrorMessage title="Failed to load comment feed" error={error} />
-      {!error && !loading && data?.publications?.items?.length !== 0 && (
+      {!error && !loading && totalComments !== 0 && (
         <>
           <Card className="divide-y-[1px] dark:divide-gray-700/80">
+            {txnQueue.map(
+              (txn) =>
+                txn?.type === 'NEW_COMMENT' &&
+                txn?.parent === publication?.id && (
+                  <div key={txn.id}>
+                    <QueuedPublication txn={txn} />
+                  </div>
+                )
+            )}
             {data?.publications?.items?.map((post: LensterPublication, index: number) => (
               <SinglePublication key={`${pubId}_${index}`} publication={post} showType={false} />
             ))}

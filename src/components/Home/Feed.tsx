@@ -90,11 +90,14 @@ const Feed: FC = () => {
       {!error && !loading && data?.timeline?.items?.length !== 0 && (
         <>
           <Card className="divide-y-[1px] dark:divide-gray-700/80">
-            {txnQueue.map((txn) => (
-              <div key={txn.id}>
-                <QueuedPublication txn={txn} />
-              </div>
-            ))}
+            {txnQueue.map(
+              (txn) =>
+                txn?.type === 'NEW_POST' && (
+                  <div key={txn.id}>
+                    <QueuedPublication txn={txn} />
+                  </div>
+                )
+            )}
             {data?.timeline?.items?.map((post: LensterPublication, index: number) => (
               <SinglePublication key={`${post?.id}_${index}`} publication={post} />
             ))}

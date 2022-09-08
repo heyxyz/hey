@@ -41,7 +41,7 @@ const QueuedPublication: FC<Props> = ({ txn }) => {
         setTxnQueue(txnQueue.filter((o) => o.txHash !== txHash));
         cache.modify({
           fields: {
-            timeline() {
+            [txn?.type === 'NEW_POST' ? 'timeline' : 'publications']() {
               cache.writeQuery({
                 data: data?.publication,
                 query: PUBLICATION_QUERY
