@@ -1,6 +1,6 @@
 import { LensterAttachment } from '@generated/lenstertypes';
 import { MediaSet } from '@generated/types';
-import { XIcon } from '@heroicons/react/outline';
+import { ExternalLinkIcon, XIcon } from '@heroicons/react/outline';
 import getIPFSLink from '@lib/getIPFSLink';
 import imagekitURL from '@lib/imagekitURL';
 import clsx from 'clsx';
@@ -67,7 +67,17 @@ const Attachments: FC<Props> = ({ attachments, setAttachments, isNew = false, hi
               event.stopPropagation();
             }}
           >
-            {type === 'video/mp4' ? (
+            {type === 'image/svg+xml' ? (
+              <a
+                className="flex items-center space-x-1 text-brand"
+                href={url}
+                target="_blank"
+                rel="noreferrer"
+              >
+                <ExternalLinkIcon className="h-4 w-4" />
+                <span>Open SVG in new tab</span>
+              </a>
+            ) : type === 'video/mp4' ? (
               <Video src={url} />
             ) : (
               <img
