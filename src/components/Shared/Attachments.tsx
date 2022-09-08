@@ -1,3 +1,4 @@
+import { Button } from '@components/UI/Button';
 import { LensterAttachment } from '@generated/lenstertypes';
 import { MediaSet } from '@generated/types';
 import { ExternalLinkIcon, XIcon } from '@heroicons/react/outline';
@@ -68,15 +69,16 @@ const Attachments: FC<Props> = ({ attachments, setAttachments, isNew = false, hi
             }}
           >
             {type === 'image/svg+xml' ? (
-              <a
-                className="flex items-center space-x-1 text-brand"
-                href={url}
-                target="_blank"
-                rel="noreferrer"
+              <Button
+                className="text-sm"
+                variant="primary"
+                icon={<ExternalLinkIcon className="h-4 w-4" />}
+                onClick={() => {
+                  window.open(url, '_blank');
+                }}
               >
-                <ExternalLinkIcon className="h-4 w-4" />
-                <span>Open SVG in new tab</span>
-              </a>
+                <span>Open Image in new tab</span>
+              </Button>
             ) : type === 'video/mp4' ? (
               <Video src={url} />
             ) : (
