@@ -78,7 +78,7 @@ const Details: FC<Props> = ({ profile }) => {
       <div className="space-y-5">
         <Followerings profile={profile} />
         <div className="flex items-center space-x-2">
-          {followType !== 'RevertFollowModuleSettings' ? (
+          {profile?.id === currentProfile?.id ? null : followType !== 'RevertFollowModuleSettings' ? (
             following ? (
               <div className="flex space-x-2">
                 <Unfollow profile={profile} setFollowing={setFollowing} showText />
@@ -94,7 +94,9 @@ const Details: FC<Props> = ({ profile }) => {
           ) : null}
           {currentProfile?.id === profile?.id && (
             <Link href="/settings">
-              <Button variant="secondary" className="!py-1.5" icon={<CogIcon className="w-5 h-5" />} />
+              <Button variant="secondary" icon={<CogIcon className="w-5 h-5" />} outline>
+                Edit Profile
+              </Button>
             </Link>
           )}
         </div>
