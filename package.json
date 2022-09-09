@@ -69,7 +69,7 @@
     "@typescript-eslint/eslint-plugin": "^5.36.2",
     "autoprefixer": "^10.4.8",
     "eslint": "^8.23.0",
-    "eslint-config-next": "^12.2.5",
+    "eslint-config-next": "^12.3.0",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-simple-import-sort": "^8.0.0",
     "eslint-plugin-unicorn": "^43.0.2",
