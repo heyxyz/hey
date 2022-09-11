@@ -1,4 +1,5 @@
 import getIPFSLink from './getIPFSLink';
+import getStampFyiURL from './getStampFyiURL';
 import imagekitURL from './imagekitURL';
 
 /**
@@ -8,11 +9,7 @@ import imagekitURL from './imagekitURL';
  */
 const getAvatar = (profile: any): string => {
   return imagekitURL(
-    getIPFSLink(
-      profile?.picture?.original?.url ??
-        profile?.picture?.uri ??
-        `https://avatar.tobi.sh/${profile?.ownedBy}_${profile?.handle}.png`
-    ),
+    getIPFSLink(profile?.picture?.original?.url ?? profile?.picture?.uri ?? getStampFyiURL(profile?.ownedBy)),
     'avatar'
   );
 };

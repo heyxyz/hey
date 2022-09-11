@@ -5,6 +5,7 @@ import { UserSuggestion } from '@generated/lenstertypes';
 import { MediaSet, NftImage, Profile } from '@generated/types';
 import { BadgeCheckIcon } from '@heroicons/react/solid';
 import getIPFSLink from '@lib/getIPFSLink';
+import getStampFyiURL from '@lib/getStampFyiURL';
 import imagekitURL from '@lib/imagekitURL';
 import isVerified from '@lib/isVerified';
 import clsx from 'clsx';
@@ -63,10 +64,7 @@ export const MentionTextArea: FC<Props> = ({ error, setError, placeholder = '' }
           id: user.handle,
           display: user.handle,
           name: user?.name ?? user?.handle,
-          picture:
-            user?.picture?.original?.url ??
-            user?.picture?.uri ??
-            `https://avatar.tobi.sh/${user?.id}_${user?.handle}.png`
+          picture: user?.picture?.original?.url ?? user?.picture?.uri ?? getStampFyiURL(user?.ownedBy)
         }))
       )
       .then(callback);

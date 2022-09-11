@@ -7,9 +7,10 @@ import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
 import { RelayerResultFields } from '@gql/RelayerResultFields';
 import { PlusIcon } from '@heroicons/react/outline';
+import getStampFyiURL from '@lib/getStampFyiURL';
 import uploadMediaToIPFS from '@lib/uploadMediaToIPFS';
 import React, { ChangeEvent, FC, useState } from 'react';
-import { APP_NAME, HANDLE_REGEX } from 'src/constants';
+import { APP_NAME, HANDLE_REGEX, ZERO_ADDRESS } from 'src/constants';
 import { useAccount } from 'wagmi';
 import { object, string } from 'zod';
 
@@ -72,7 +73,7 @@ const NewProfile: FC<Props> = ({ isModal = false }) => {
           variables: {
             request: {
               handle: username,
-              profilePictureUri: avatar ? avatar : `https://avatar.tobi.sh/${address}_${username}.png`
+              profilePictureUri: avatar ? avatar : getStampFyiURL(address ?? ZERO_ADDRESS)
             }
           }
         });
