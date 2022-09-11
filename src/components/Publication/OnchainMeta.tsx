@@ -29,7 +29,7 @@ interface Props {
 const OnchainMeta: FC<Props> = ({ publication }) => {
   const hash = publication.onChainContentURI.split('/').pop();
   const isArweaveHash = hash?.length === 43;
-  const isIPFSHash = hash?.length === 46;
+  const isIPFSHash = hash?.length === 46 || hash?.length === 59;
 
   if (!isArweaveHash && !isIPFSHash && !publication?.collectNftAddress) {
     return null;
