@@ -1,6 +1,7 @@
 import { Wallet } from '@generated/types';
 import { ExternalLinkIcon } from '@heroicons/react/outline';
 import formatAddress from '@lib/formatAddress';
+import getStampFyiURL from '@lib/getStampFyiURL';
 import imagekitURL from '@lib/imagekitURL';
 import React, { FC } from 'react';
 import { POLYGONSCAN_URL } from 'src/constants';
@@ -21,7 +22,7 @@ const WalletProfile: FC<Props> = ({ wallet }) => {
         rel="noreferrer noopener"
       >
         <img
-          src={imagekitURL(`https://avatar.tobi.sh/${wallet?.address}.png`, 'avatar')}
+          src={imagekitURL(getStampFyiURL(wallet?.address), 'avatar')}
           className="w-10 h-10 bg-gray-200 rounded-full border"
           height={40}
           width={40}
