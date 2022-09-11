@@ -34,10 +34,8 @@ export const SIGN_ERROR = 'Failed to sign data';
 export const STATIC_ASSETS = 'https://assets.lenster.xyz/images';
 export const POLYGONSCAN_URL = IS_MAINNET ? 'https://polygonscan.com' : 'https://mumbai.polygonscan.com';
 export const RARIBLE_URL = IS_MAINNET ? 'https://rarible.com' : 'https://rinkeby.rarible.com';
-export const IMAGEKIT_URL_PROD = 'https://ik.imagekit.io/lensterimg';
-export const IMAGEKIT_URL_DEV = 'https://ik.imagekit.io/lensterdev';
 export const ARWEAVE_GATEWAY = 'https://arweave.net';
-export const IMAGEKIT_URL = IS_PRODUCTION ? IMAGEKIT_URL_PROD : IMAGEKIT_URL_DEV;
+export const IMAGEKIT_URL = `https://ik.imagekit.io/${process.env.NEXT_PUBLIC_IMAGEKIT_ID}`;
 export const IPFS_GATEWAY = 'https://lens.infura-ipfs.io/ipfs/';
 
 // Web3
