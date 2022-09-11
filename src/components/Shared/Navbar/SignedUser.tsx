@@ -19,11 +19,11 @@ import resetAuthData from '@lib/resetAuthData';
 import clsx from 'clsx';
 import { useTheme } from 'next-themes';
 import { FC, Fragment } from 'react';
-import { GIT_COMMIT_SHA } from 'src/constants';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { PROFILE, STAFFTOOLS, SYSTEM } from 'src/tracking';
 import { useDisconnect } from 'wagmi';
 
+import pkg from '../../../../package.json';
 import Slug from '../Slug';
 import { NextLink } from './MenuItems';
 
@@ -186,18 +186,17 @@ const SignedUser: FC = () => {
                   )}
                 </div>
               </Menu.Item>
-              {currentProfile && GIT_COMMIT_SHA && (
+              {currentProfile && (
                 <>
                   <div className="divider" />
                   <div className="py-3 px-6 text-xs">
                     <a
-                      href={`https://github.com/lensterxyz/lenster/commit/${GIT_COMMIT_SHA}`}
+                      href={`https://github.com/lensterxyz/lenster/releases/tag/v${pkg.version}`}
                       className="font-mono"
-                      title="Git commit SHA"
                       target="_blank"
                       rel="noreferrer noopener"
                     >
-                      {GIT_COMMIT_SHA}
+                      v{pkg.version}
                     </a>
                   </div>
                 </>
