@@ -3,7 +3,6 @@ import Attachments from '@components/Shared/Attachments';
 import IFramely from '@components/Shared/IFramely';
 import Markup from '@components/Shared/Markup';
 import UserProfile from '@components/Shared/UserProfile';
-import { Spinner } from '@components/UI/Spinner';
 import { Tooltip } from '@components/UI/Tooltip';
 import { Profile } from '@generated/types';
 import getURLs from '@lib/getURLs';
@@ -58,8 +57,13 @@ const QueuedPublication: FC<Props> = ({ txn }) => {
       <div className="pb-4 flex items-start justify-between">
         <UserProfile profile={currentProfile as Profile} />
         <Tooltip content="Indexing" placement="top">
-          <a href={`${POLYGONSCAN_URL}/tx/${txHash}`} target="_blank" rel="noreferrer noopener">
-            <Spinner size="xs" />
+          <a
+            className="bg-brand-200 rounded-full h-4 w-4 flex items-center justify-center"
+            href={`${POLYGONSCAN_URL}/tx/${txHash}`}
+            target="_blank"
+            rel="noreferrer noopener"
+          >
+            <div className="animate-pulse bg-brand-500 rounded-full h-2 w-2" />
           </a>
         </Tooltip>
       </div>
