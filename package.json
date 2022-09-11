@@ -64,7 +64,6 @@
     "@types/react": "^18.0.19",
     "@types/react-copy-to-clipboard": "^5.0.4",
     "@types/react-dom": "^18.0.6",
-    "@types/ua-parser-js": "^0.7.36",
     "@types/uuid": "^8.3.4",
     "@typescript-eslint/eslint-plugin": "^5.36.2",
     "autoprefixer": "^10.4.8",
