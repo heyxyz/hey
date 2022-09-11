@@ -1,10 +1,10 @@
 /**
  *
- * @param addresses - Addresses to get stamp.fyi URLs from
+ * @param address - The address to get the cdn.stamp.fyi url for
  * @returns url
  */
-const getStampFyiURL = (addresses: string) => {
-  return `https://cdn.stamp.fyi/avatar/eth:${addresses.toLowerCase()}?s=250`;
+const getStampFyiURL = (address: string) => {
+  return `https://cdn.stamp.fyi/avatar/eth:${address.toLowerCase()}?s=250`;
 };
 
 export default getStampFyiURL;
