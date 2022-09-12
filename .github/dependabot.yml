@@ -3,5 +3,8 @@ updates:
   - package-ecosystem: 'npm'
     directory: '/'
     target-branch: 'main'
+    reviewers:
+      - bigint
+    rebase-strategy: auto
     schedule:
       interval: 'daily'
