@@ -208,8 +208,8 @@ const List: FC = () => {
 
   return (
     <Card className="divide-y dark:divide-gray-700">
-      {data?.notifications?.items?.map((notification: Notification) => (
-        <div key={notification?.notificationId} className="p-5">
+      {data?.notifications?.items?.map((notification: Notification, index: number) => (
+        <div key={`${notification?.notificationId}_${index}`} className="p-5">
           {notification?.__typename === 'NewFollowerNotification' && (
             <FollowerNotification notification={notification as any} />
           )}
