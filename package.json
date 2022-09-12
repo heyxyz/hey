@@ -1,99 +1,24 @@
 {
   "name": "lenster",
-  "version": "1.0.1-beta",
+  "version": "0.0.0",
   "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "scripts": {
-    "dev": "next dev --port 4783",
-    "build": "next build",
-    "start": "next start",
-    "export": "next export",
-    "lint": "eslint . --ext .js,.ts,.tsx",
-    "typecheck": "tsc --noEmit",
-    "prettier": "prettier --write \"./{data,src}/**/*.{ts,tsx}\"",
-    "prettier:check": "prettier --check \"./{data,src}/**/*.{ts,tsx}\"",
-    "codegen": "graphql-codegen",
-    "prepare": "husky install"
-  },
-  "dependencies": {
-    "@apollo/client": "^3.6.9",
-    "@bundlr-network/client": "^0.8.5",
-    "@giphy/js-fetch-api": "^4.3.1",
-    "@giphy/react-components": "^6.1.1",
-    "@headlessui/react": "^1.7.0",
-    "@heroicons/react": "v1",
-    "@hookform/resolvers": "^2.9.6",
-    "@sentry/nextjs": "^7.12.1",
-    "@tailwindcss/aspect-ratio": "^0.4.2",
-    "@tippyjs/react": "^4.2.6",
-    "@types/react-mentions": "^4.1.6",
-    "axios": "^0.27.2",
-    "clsx": "^1.2.1",
-    "dayjs": "^1.11.5",
-    "dotenv": "^16.0.2",
-    "ethers": "5.6.0",
-    "framer-motion": "^7.3.2",
-    "graphql": "^16.6.0",
-    "interweave": "^13.0.0",
-    "interweave-autolink": "^5.1.0",
-    "jwt-decode": "^3.1.2",
-    "mixpanel-browser": "^2.45.0",
-    "next": "^12.3.0",
-    "next-themes": "^0.2.1",
-    "next-transpile-modules": "^9.0.0",
-    "plyr-react": "^5.1.0",
-    "react": "^18.2.0",
-    "react-cool-inview": "^3.0.1",
-    "react-copy-to-clipboard": "^5.1.0",
-    "react-dom": "^18.2.0",
-    "react-hook-form": "^7.35.0",
-    "react-hot-toast": "^2.3.0",
-    "react-mentions": "^4.4.7",
-    "uuid": "^9.0.0",
-    "wagmi": "^0.6.5",
-    "zod": "^3.19.0",
-    "zustand": "^4.1.1"
+    "build": "turbo run build",
+    "dev": "turbo run dev --parallel",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^2.12.0",
-    "@graphql-codegen/fragment-matcher": "^3.3.1",
-    "@graphql-codegen/typescript": "^2.7.3",
-    "@tailwindcss/forms": "^0.5.3",
-    "@tailwindcss/line-clamp": "^0.4.2",
-    "@types/mixpanel-browser": "^2.38.0",
-    "@types/node": "^18.7.16",
-    "@types/react": "^18.0.19",
-    "@types/react-copy-to-clipboard": "^5.0.4",
-    "@types/react-dom": "^18.0.6",
-    "@types/uuid": "^8.3.4",
-    "@typescript-eslint/eslint-plugin": "^5.36.2",
-    "autoprefixer": "^10.4.8",
-    "eslint": "^8.23.0",
-    "eslint-config-next": "^12.3.0",
-    "eslint-plugin-prettier": "^4.2.1",
-    "eslint-plugin-simple-import-sort": "^8.0.0",
-    "eslint-plugin-unicorn": "^43.0.2",
-    "eslint-plugin-unused-imports": "^2.0.0",
-    "husky": "^8.0.1",
-    "lint-staged": "^13.0.3",
-    "postcss": "^8.4.16",
-    "prettier": "^2.7.1",
-    "tailwindcss": "^3.1.8",
-    "ts-node": "^10.9.1",
-    "tsconfig-paths": "^4.1.0",
-    "typescript": "^4.8.3"
+    "prettier": "latest",
+    "turbo": "latest"
   },
-  "nextBundleAnalysis": {
-    "budget": null,
-    "budgetPercentIncreaseRed": 10,
-    "showDetails": true
+  "engines": {
+    "node": ">=14.0.0"
   },
-  "lint-staged": {
-    "*.{js,ts,tsx}": [
-      "prettier --write",
-      "eslint --cache --fix"
-    ],
-    "*.json": [
-      "prettier --write"
-    ]
-  }
+  "dependencies": {},
+  "packageManager": "yarn@1.22.10"
 }

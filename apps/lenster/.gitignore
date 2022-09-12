@@ -1,0 +1,33 @@
+.DS_Store
+
+# Private files:
+config/certs/
+*.db
+
+# Coverage directory used by tools like istanbul
+coverage
+*.lcov
+
+# Deps:
+node_modules/
+
+# Builds:
+.next/
+build/
+out/
+.vercel/
+.eslintcache
+tsconfig.tsbuildinfo
+
+# Environment Variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Sentry
+.sentryclirc
+
+# IDE settings
+.idea/
