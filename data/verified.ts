@@ -1,4 +1,4 @@
-export const mainnetVerified = 
+export const mainnetVerified = [
   '0x1bdd' /** arnauramio.lens */,
   '0x1f28' /** @0xmaki.lens */,
   '0x40' /** @tamrat.lens */,
