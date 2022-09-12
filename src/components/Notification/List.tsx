@@ -90,7 +90,7 @@ const NOTIFICATIONS_QUERY = gql`
           }
           publication {
             ... on Post {
-              id
+              pubId: id
               metadata {
                 name
                 content
@@ -100,7 +100,7 @@ const NOTIFICATIONS_QUERY = gql`
               }
             }
             ... on Comment {
-              id
+              pubId: id
               metadata {
                 name
                 content
