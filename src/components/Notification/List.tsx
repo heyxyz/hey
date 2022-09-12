@@ -18,6 +18,7 @@ import NotificationShimmer from './Shimmer';
 import CollectNotification from './Type/CollectNotification';
 import CommentNotification from './Type/CommentNotification';
 import FollowerNotification from './Type/FollowerNotification';
+import LikeNotification from './Type/LikeNotification';
 import MentionNotification from './Type/MentionNotification';
 import MirrorNotification from './Type/MirrorNotification';
 
@@ -215,6 +216,9 @@ const List: FC = () => {
           )}
           {notification?.__typename === 'NewMentionNotification' && (
             <MentionNotification notification={notification as any} />
+          )}
+          {notification?.__typename === 'NewLikeNotification' && (
+            <LikeNotification notification={notification} />
           )}
           {notification?.__typename === 'NewCommentNotification' && (
             <CommentNotification notification={notification} />
