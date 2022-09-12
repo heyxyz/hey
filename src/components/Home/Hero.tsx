@@ -9,7 +9,8 @@ const Hero: FC = () => {
           <div className="flex-1 flex-shrink-0 space-y-3">
             <div className="text-2xl font-extrabold sm:text-4xl">Welcome to {APP_NAME} 👋</div>
             <div className="leading-7 text-gray-700 dark:text-gray-300">
-              {APP_NAME} is a decentralized, and permissionless social media app built with Lens Protocol 🌿
+              {APP_NAME} is a decentralized, platform allowing creators to own and curator their content built
+              with Lens Protocol 🌿
             </div>
           </div>
           <div className="hidden flex-1 flex-shrink-0 w-full sm:block" />

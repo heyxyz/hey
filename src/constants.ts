@@ -8,7 +8,7 @@ export const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'https://api.lens.dev'
 export const IS_MAINNET = API_URL === 'https://api.lens.dev';
 
 // Application
-export const APP_NAME = 'Lenster';
+export const APP_NAME = 'Broadcast';
 export const DESCRIPTION =
   'Lenster is a composable, decentralized, and permissionless social media web app built with Lens Protocol 🌿';
 export const DEFAULT_OG = 'https://assets.lenster.xyz/images/og/logo.jpeg';
