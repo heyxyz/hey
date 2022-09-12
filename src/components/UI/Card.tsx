@@ -31,15 +31,6 @@ export const Card: FC<CardProps> = ({
   );
 };
 
-interface CardHeaderProps {
-  children: ReactNode;
-  className?: string;
-}
-
-export const CardHeader: FC<CardHeaderProps> = ({ children, className = '' }) => {
-  return <div className={`border-b p-3 ${className}`}>{children}</div>;
-};
-
 interface CardBodyProps {
   children?: ReactNode;
   className?: string;
