@@ -1162,6 +1162,19 @@ export type IllegalReasonInputParams = {
   subreason: PublicationReportingIllegalSubreason;
 };
 
+export type InternalPublicationsFilterRequest = {
+  cursor?: InputMaybe<Scalars['Cursor']>;
+  /** must be DD/MM/YYYY */
+  fromDate: Scalars['String'];
+  limit?: InputMaybe<Scalars['LimitScalar']>;
+  /** The shared secret */
+  secret: Scalars['String'];
+  /** The App Id */
+  source: Scalars['Sources'];
+  /** must be DD/MM/YYYY */
+  toDate: Scalars['String'];
+};
+
 export type LimitedFeeCollectModuleParams = {
   /** The collect module amount info */
   amount: ModuleFeeAmountParams;
@@ -1261,11 +1274,17 @@ export type Media = {
 /** The Media Set */
 export type MediaSet = {
   __typename?: 'MediaSet';
-  /** Medium media - will always be null on the public API */
+  /**
+   * Medium media - will always be null on the public API
+   * @deprecated should not be used will always be null
+   */
   medium?: Maybe<Media>;
   /** Original media */
   original: Media;
-  /** Small media - will always be null on the public API */
+  /**
+   * Small media - will always be null on the public API
+   * @deprecated should not be used will always be null
+   */
   small?: Maybe<Media>;
 };
 
@@ -2173,7 +2192,7 @@ export type PublicationMetadataV1Input = {
   /** The content of a publication. If this is blank `media` must be defined or its out of spec */
   content?: InputMaybe<Scalars['Markdown']>;
   /** A human-readable description of the item. */
-  description?: InputMaybe<Scalars['String']>;
+  description?: InputMaybe<Scalars['Markdown']>;
   /**
    * This is the URL that will appear below the asset's image on OpenSea and others etc
    *       and will allow users to leave OpenSea and view the item on the site.
@@ -2212,7 +2231,7 @@ export type PublicationMetadataV2Input = {
   /** Ability to add a content warning */
   contentWarning?: InputMaybe<PublicationContentWarning>;
   /** A human-readable description of the item. */
-  description?: InputMaybe<Scalars['String']>;
+  description?: InputMaybe<Scalars['Markdown']>;
   /**
    * This is the URL that will appear below the asset's image on OpenSea and others etc
    *       and will allow users to leave OpenSea and view the item on the site.
@@ -2396,6 +2415,7 @@ export type Query = {
   generateModuleCurrencyApprovalData: GenerateModuleCurrencyApproval;
   globalProtocolStats: GlobalProtocolStats;
   hasTxHashBeenIndexed: TransactionResult;
+  internalPublicationFilter: PaginatedPublicationResult;
   mutualFollowersProfiles: PaginatedProfileResult;
   nftOwnershipChallenge: NftOwnershipChallengeResult;
   nfts: NfTsResult;
@@ -2477,6 +2497,10 @@ export type QueryGlobalProtocolStatsArgs = {
 
 export type QueryHasTxHashBeenIndexedArgs = {
   request: HasTxHashBeenIndexedRequest;
+};
+
+export type QueryInternalPublicationFilterArgs = {
+  request: InternalPublicationsFilterRequest;
 };
 
 export type QueryMutualFollowersProfilesArgs = {
