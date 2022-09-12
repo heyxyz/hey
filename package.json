@@ -21,7 +21,7 @@
     "@giphy/react-components": "^6.1.1",
     "@headlessui/react": "^1.7.0",
     "@heroicons/react": "v1",
-    "@hookform/resolvers": "^2.9.6",
+    "@hookform/resolvers": "^2.9.8",
     "@sentry/nextjs": "^7.12.1",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tippyjs/react": "^4.2.6",
