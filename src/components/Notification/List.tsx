@@ -60,6 +60,33 @@ const NOTIFICATIONS_QUERY = gql`
           }
           createdAt
         }
+        ... on NewReactionNotification {
+          notificationId
+          profile {
+            ...ProfileFields
+          }
+          publication {
+            ... on Post {
+              id
+              metadata {
+                content
+              }
+            }
+            ... on Comment {
+              id
+              metadata {
+                content
+              }
+            }
+            ... on Mirror {
+              id
+              metadata {
+                content
+              }
+            }
+          }
+          createdAt
+        }
         ... on NewCommentNotification {
           notificationId
           profile {
@@ -217,7 +244,7 @@ const List: FC = () => {
           {notification?.__typename === 'NewMentionNotification' && (
             <MentionNotification notification={notification as any} />
           )}
-          {notification?.__typename === 'NewLikeNotification' && (
+          {notification?.__typename === 'NewReactionNotification' && (
             <LikeNotification notification={notification} />
           )}
           {notification?.__typename === 'NewCommentNotification' && (

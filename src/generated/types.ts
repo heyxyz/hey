@@ -1314,6 +1314,8 @@ export type MetadataAttributeOutput = {
 /** The metadata output */
 export type MetadataOutput = {
   __typename?: 'MetadataOutput';
+  /** The main focus of the publication */
+  animatedUrl?: Maybe<Scalars['Url']>;
   /** The attributes */
   attributes: Array<MetadataAttributeOutput>;
   /** This is the metadata content for the publication, should be markdown */
@@ -1680,6 +1682,16 @@ export type NewMirrorNotification = {
   publication: MirrorablePublication;
 };
 
+export type NewReactionNotification = {
+  __typename?: 'NewReactionNotification';
+  createdAt: Scalars['DateTime'];
+  notificationId: Scalars['NotificationId'];
+  /** The profile */
+  profile: Profile;
+  publication: Publication;
+  reaction: ReactionTypes;
+};
+
 /** The NFT image */
 export type NftImage = {
   __typename?: 'NftImage';
@@ -1725,7 +1737,8 @@ export type Notification =
   | NewCommentNotification
   | NewFollowerNotification
   | NewMentionNotification
-  | NewMirrorNotification;
+  | NewMirrorNotification
+  | NewReactionNotification;
 
 export type NotificationRequest = {
   cursor?: InputMaybe<Scalars['Cursor']>;
@@ -3089,7 +3102,8 @@ const result: PossibleTypesResultData = {
       'NewCommentNotification',
       'NewFollowerNotification',
       'NewMentionNotification',
-      'NewMirrorNotification'
+      'NewMirrorNotification',
+      'NewReactionNotification'
     ],
     ProfileMedia: ['MediaSet', 'NftImage'],
     ProxyActionStatusResultUnion: ['ProxyActionError', 'ProxyActionQueued', 'ProxyActionStatusResult'],
