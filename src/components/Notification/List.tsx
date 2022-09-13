@@ -18,6 +18,7 @@ import NotificationShimmer from './Shimmer';
 import CollectNotification from './Type/CollectNotification';
 import CommentNotification from './Type/CommentNotification';
 import FollowerNotification from './Type/FollowerNotification';
+import LikeNotification from './Type/LikeNotification';
 import MentionNotification from './Type/MentionNotification';
 import MirrorNotification from './Type/MirrorNotification';
 
@@ -52,6 +53,33 @@ const NOTIFICATIONS_QUERY = gql`
               profile {
                 ...ProfileFields
               }
+              metadata {
+                content
+              }
+            }
+          }
+          createdAt
+        }
+        ... on NewReactionNotification {
+          notificationId
+          profile {
+            ...ProfileFields
+          }
+          publication {
+            ... on Post {
+              id
+              metadata {
+                content
+              }
+            }
+            ... on Comment {
+              id
+              metadata {
+                content
+              }
+            }
+            ... on Mirror {
+              id
               metadata {
                 content
               }
@@ -215,6 +243,9 @@ const List: FC = () => {
           )}
           {notification?.__typename === 'NewMentionNotification' && (
             <MentionNotification notification={notification as any} />
+          )}
+          {notification?.__typename === 'NewReactionNotification' && (
+            <LikeNotification notification={notification} />
           )}
           {notification?.__typename === 'NewCommentNotification' && (
             <CommentNotification notification={notification} />
