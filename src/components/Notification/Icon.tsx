@@ -22,7 +22,7 @@ const NotificationIcon: FC = () => {
   const setNotificationCount = useAppPersistStore((state) => state.setNotificationCount);
   const [showBadge, setShowBadge] = useState(false);
   const { data } = useQuery(NOTIFICATION_COUNT_QUERY, {
-    variables: { request: { profileId: currentProfile?.id } },
+    variables: { request: { profileId: currentProfile?.id, customFilters: ['GARDENERS'] } },
     skip: !currentProfile?.id
   });
 

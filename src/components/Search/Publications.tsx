@@ -53,7 +53,7 @@ const Publications: FC<Props> = ({ query }) => {
   const request = {
     query,
     type: 'PUBLICATION',
-    // customFilters: ['GARDENERS'],
+    customFilters: ['GARDENERS'],
     limit: 10
   };
   const reactionRequest = currentProfile ? { profileId: currentProfile?.id } : null;

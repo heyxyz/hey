@@ -47,7 +47,14 @@ const Search: FC<Props> = ({ hideDropdown = false }) => {
     setSearchText(keyword);
     if (pathname !== '/search' && !hideDropdown) {
       searchUsers({
-        variables: { request: { type: 'PROFILE', query: keyword, limit: 8 } }
+        variables: {
+          request: {
+            type: 'PROFILE',
+            query: keyword,
+            customFilters: ['GARDENERS'],
+            limit: 8
+          }
+        }
       });
     }
   };

@@ -57,7 +57,7 @@ const Feed: FC<Props> = ({ feedType = PublicationSortCriteria.CuratedProfiles })
   const request = {
     sortCriteria: feedType,
     noRandomize: feedType === 'LATEST',
-    // customFilters: ['GARDENERS'],
+    customFilters: ['GARDENERS'],
     limit: 10
   };
 

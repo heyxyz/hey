@@ -187,7 +187,7 @@ const List: FC = () => {
   // Variables
   const request = {
     profileId: currentProfile?.id,
-    // customFilters: ['GARDENERS'],
+    customFilters: ['GARDENERS'],
     limit: 10
   };
 

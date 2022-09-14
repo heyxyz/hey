@@ -52,7 +52,7 @@ const Feed: FC<Props> = ({ publication, onlyFollowers = false, isFollowing = tru
   const txnQueue = usePublicationPersistStore((state) => state.txnQueue);
 
   // Variables
-  const request = { commentsOf: pubId, limit: 10 };
+  const request = { commentsOf: pubId, customFilters: ['GARDENERS'], limit: 10 };
   const reactionRequest = currentProfile ? { profileId: currentProfile?.id } : null;
   const profileId = currentProfile?.id ?? null;
 

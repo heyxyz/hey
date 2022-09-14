@@ -36,7 +36,7 @@ interface Props {
 
 const Profiles: FC<Props> = ({ query }) => {
   // Variables
-  const request = { query, type: 'PROFILE', limit: 10 };
+  const request = { query, type: 'PROFILE', customFilters: ['GARDENERS'], limit: 10 };
 
   const { data, loading, error, fetchMore } = useQuery(SEARCH_PROFILES_QUERY, {
     variables: { request },
