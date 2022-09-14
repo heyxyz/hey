@@ -3,7 +3,7 @@ import { Card } from '@components/UI/Card';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
-import { Notification } from '@generated/types';
+import { CustomFiltersTypes, Notification } from '@generated/types';
 import { CollectModuleFields } from '@gql/CollectModuleFields';
 import { MetadataFields } from '@gql/MetadataFields';
 import { ProfileFields } from '@gql/ProfileFields';
@@ -187,7 +187,7 @@ const List: FC = () => {
   // Variables
   const request = {
     profileId: currentProfile?.id,
-    customFilters: ['GARDENERS'],
+    customFilters: [CustomFiltersTypes.Gardeners],
     limit: 10
   };
 

@@ -6,7 +6,7 @@ import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
 import { LensterPublication } from '@generated/lenstertypes';
-import { PublicationSortCriteria } from '@generated/types';
+import { CustomFiltersTypes, PublicationSortCriteria } from '@generated/types';
 import { CommentFields } from '@gql/CommentFields';
 import { MirrorFields } from '@gql/MirrorFields';
 import { PostFields } from '@gql/PostFields';
@@ -57,7 +57,7 @@ const Feed: FC<Props> = ({ feedType = PublicationSortCriteria.CuratedProfiles })
   const request = {
     sortCriteria: feedType,
     noRandomize: feedType === 'LATEST',
-    customFilters: ['GARDENERS'],
+    customFilters: [CustomFiltersTypes.Gardeners],
     limit: 10
   };
 

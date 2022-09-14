@@ -6,6 +6,7 @@ import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
 import { LensterPublication } from '@generated/lenstertypes';
+import { CustomFiltersTypes } from '@generated/types';
 import { CommentFields } from '@gql/CommentFields';
 import { PostFields } from '@gql/PostFields';
 import { CollectionIcon } from '@heroicons/react/outline';
@@ -53,7 +54,7 @@ const Publications: FC<Props> = ({ query }) => {
   const request = {
     query,
     type: 'PUBLICATION',
-    customFilters: ['GARDENERS'],
+    customFilters: [CustomFiltersTypes.Gardeners],
     limit: 10
   };
   const reactionRequest = currentProfile ? { profileId: currentProfile?.id } : null;
