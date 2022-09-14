@@ -134,7 +134,6 @@ export const PAGEVIEW = {
   EXPLORE: 'Explore page',
   NOTIFICATION: 'Notification page',
   SEARCH: 'Search page',
-  REPORT: 'Report page',
   THANKS: 'Thanks page',
   PRIVACY: 'Privacy page',
   CONTACT: 'Contact page',

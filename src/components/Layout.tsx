@@ -14,6 +14,7 @@ import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { useAccount, useDisconnect, useNetwork } from 'wagmi';
 
 import Loading from './Loading';
+import GlobalModals from './Shared/GlobalModals';
 import Navbar from './Shared/Navbar';
 import useIsMounted from './utils/hooks/useIsMounted';
 
@@ -117,6 +118,7 @@ const Layout: FC<Props> = ({ children }) => {
         <meta name="theme-color" content={resolvedTheme === 'dark' ? '#1b1b1d' : '#ffffff'} />
       </Head>
       <Toaster position="bottom-right" toastOptions={getToastOptions(resolvedTheme)} />
+      <GlobalModals />
       <div className="flex flex-col min-h-screen">
         <Navbar />
         {children}
