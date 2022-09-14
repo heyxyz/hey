@@ -1,4 +1,4 @@
-import { useQuery } from '@apollo/client';
+import { NetworkStatus, useQuery } from '@apollo/client';
 import { EXPLORE_FEED_QUERY } from '@components/Explore/Feed';
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
@@ -8,8 +8,9 @@ import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
 import { LensterPublication } from '@generated/lenstertypes';
 import { PublicationSortCriteria } from '@generated/types';
-import { CollectionIcon } from '@heroicons/react/outline';
+import { CollectionIcon, RefreshIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
+import clsx from 'clsx';
 import React, { FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { useAppStore } from 'src/store/app';
@@ -27,8 +28,9 @@ const Feed: FC = () => {
   const reactionRequest = currentProfile ? { profileId: currentProfile?.id } : null;
   const profileId = currentProfile?.id ?? null;
 
-  const { data, loading, error, fetchMore } = useQuery(EXPLORE_FEED_QUERY, {
-    variables: { request, reactionRequest, profileId }
+  const { data, loading, error, fetchMore, refetch, networkStatus } = useQuery(EXPLORE_FEED_QUERY, {
+    variables: { request, reactionRequest, profileId },
+    notifyOnNetworkStatusChange: true
   });
 
   const pageInfo = data?.explorePublications?.pageInfo;
@@ -43,6 +45,14 @@ const Feed: FC = () => {
 
   return (
     <>
+      <div className="flex items-center justify-between">
+        <div className="font-bold text-lg">All Publications</div>
+        <button onClick={() => refetch()}>
+          <RefreshIcon
+            className={clsx({ 'animate-spin': networkStatus === NetworkStatus.refetch }, 'h-5 w-5')}
+          />
+        </button>
+      </div>
       {loading && <PublicationsShimmer />}
       {data?.explorePublications?.items?.length === 0 && (
         <EmptyState
