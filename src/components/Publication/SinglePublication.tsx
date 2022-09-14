@@ -9,7 +9,7 @@ import React, { FC } from 'react';
 import { PUBLICATION } from 'src/tracking';
 
 import PublicationActions from './Actions';
-import ModActions from './Actions/ModAction';
+import ModAction from './Actions/ModAction';
 import HiddenPublication from './HiddenPublication';
 import PublicationBody from './PublicationBody';
 import PublicationType from './Type';
@@ -66,7 +66,7 @@ const SinglePublication: FC<Props> = ({
             <>
               <PublicationBody publication={publication} />
               {showActions && <PublicationActions publication={publication} />}
-              {showModActions && <ModActions publication={publication} />}
+              {showModActions && <ModAction publication={publication} />}
             </>
           )}
         </div>

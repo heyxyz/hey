@@ -1,43 +1,24 @@
+import { Button } from '@components/UI/Button';
 import { LensterPublication } from '@generated/lenstertypes';
-import clsx from 'clsx';
+import { ShieldCheckIcon } from '@heroicons/react/outline';
 import React, { FC } from 'react';
-
-import Collect from './Collect';
-import Comment from './Comment';
-import Like from './Like';
-import PublicationMenu from './Menu';
-import Mirror from './Mirror';
 
 interface Props {
   publication: LensterPublication;
-  isFullPublication?: boolean;
 }
 
-const ModActions: FC<Props> = ({ publication, isFullPublication = false }) => {
-  const publicationType = publication?.metadata?.attributes[0]?.value;
-  const collectModuleType = publication?.collectModule?.__typename;
-
+const ModAction: FC<Props> = ({ publication }) => {
   return (
-    <span
+    <Button
       onClick={(event) => {
         event.stopPropagation();
       }}
-      className={clsx(
-        { 'justify-between': isFullPublication },
-        'flex gap-6 items-center pt-3 -ml-2 text-gray-500 sm:gap-8'
-      )}
+      icon={<ShieldCheckIcon className="h-4 w-4" />}
+      className="text-sm mt-3"
     >
-      <Comment publication={publication} isFullPublication={isFullPublication} />
-      <Mirror publication={publication} isFullPublication={isFullPublication} />
-      <Like publication={publication} isFullPublication={isFullPublication} />
-      {collectModuleType !== 'RevertCollectModuleSettings' &&
-        collectModuleType !== 'UnknownCollectModuleSettings' && // TODO: remove this check when we have a better way to handle unknown collect modules
-        publicationType !== 'crowdfund' && (
-          <Collect publication={publication} isFullPublication={isFullPublication} />
-        )}
-      <PublicationMenu publication={publication} isFullPublication={isFullPublication} />
-    </span>
+      Report
+    </Button>
   );
 };
 
-export default ModActions;
+export default ModAction;

@@ -58,8 +58,9 @@ const Feed: FC = () => {
               <SinglePublication
                 key={`${post?.id}_${index}`}
                 publication={post}
-                showModActions
+                showThread={false}
                 showActions={false}
+                showModActions
               />
             ))}
           </Card>
