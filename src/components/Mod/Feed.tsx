@@ -7,7 +7,7 @@ import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
 import { LensterPublication } from '@generated/lenstertypes';
-import { PublicationSortCriteria } from '@generated/types';
+import { PublicationSortCriteria, PublicationTypes } from '@generated/types';
 import { CollectionIcon, RefreshIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import React, { FC } from 'react';
@@ -23,6 +23,7 @@ const Feed: FC = () => {
   // Variables
   const request = {
     sortCriteria: PublicationSortCriteria.Latest,
+    publicationTypes: [PublicationTypes.Post, PublicationTypes.Comment],
     noRandomize: true,
     limit: 10
   };
