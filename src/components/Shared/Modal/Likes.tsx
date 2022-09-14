@@ -37,8 +37,11 @@ interface Props {
 }
 
 const Likes: FC<Props> = ({ pubId }) => {
+  // Variables
+  const request = { publicationId: pubId, limit: 10 };
+
   const { data, loading, error, fetchMore } = useQuery(LIKES_QUERY, {
-    variables: { request: { publicationId: pubId, limit: 10 } },
+    variables: { request },
     skip: !pubId
   });
 
@@ -46,13 +49,7 @@ const Likes: FC<Props> = ({ pubId }) => {
   const { observe } = useInView({
     onEnter: () => {
       fetchMore({
-        variables: {
-          request: {
-            publicationId: pubId,
-            cursor: pageInfo?.next,
-            limit: 10
-          }
-        }
+        variables: { request: { ...request, cursor: pageInfo?.next } }
       });
       Mixpanel.track(PAGINATION.LIKES);
     }

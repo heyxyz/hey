@@ -51,27 +51,20 @@ const Feed: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const txnQueue = usePublicationPersistStore((state) => state.txnQueue);
 
+  // Variables
+  const request = { profileId: currentProfile?.id, limit: 10 };
+  const reactionRequest = currentProfile ? { profileId: currentProfile?.id } : null;
+  const profileId = currentProfile?.id ?? null;
+
   const { data, loading, error, fetchMore } = useQuery(HOME_FEED_QUERY, {
-    variables: {
-      request: { profileId: currentProfile?.id, limit: 10 },
-      reactionRequest: currentProfile ? { profileId: currentProfile?.id } : null,
-      profileId: currentProfile?.id ?? null
-    }
+    variables: { request, reactionRequest, profileId }
   });
 
   const pageInfo = data?.timeline?.pageInfo;
   const { observe } = useInView({
     onEnter: () => {
       fetchMore({
-        variables: {
-          request: {
-            profileId: currentProfile?.id,
-            cursor: pageInfo?.next,
-            limit: 10
-          },
-          reactionRequest: currentProfile ? { profileId: currentProfile?.id } : null,
-          profileId: currentProfile?.id ?? null
-        }
+        variables: { request: { ...request, cursor: pageInfo?.next }, reactionRequest, profileId }
       });
       Mixpanel.track(PAGINATION.HOME_FEED);
     }

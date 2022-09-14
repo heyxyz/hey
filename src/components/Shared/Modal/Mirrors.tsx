@@ -34,8 +34,11 @@ interface Props {
 }
 
 const Mirrors: FC<Props> = ({ pubId }) => {
+  // Variables
+  const request = { whoMirroredPublicationId: pubId, limit: 10 };
+
   const { data, loading, error, fetchMore } = useQuery(MIRRORS_QUERY, {
-    variables: { request: { whoMirroredPublicationId: pubId, limit: 10 } },
+    variables: { request },
     skip: !pubId
   });
 
@@ -43,13 +46,7 @@ const Mirrors: FC<Props> = ({ pubId }) => {
   const { observe } = useInView({
     onEnter: () => {
       fetchMore({
-        variables: {
-          request: {
-            whoMirroredPublicationId: pubId,
-            cursor: pageInfo?.next,
-            limit: 10
-          }
-        }
+        variables: { request: { ...request, cursor: pageInfo?.next } }
       });
       Mixpanel.track(PAGINATION.MIRRORS);
     }
