@@ -13,6 +13,7 @@ import { Mixpanel } from '@lib/mixpanel';
 import React, { FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import toast from 'react-hot-toast';
+import { ERROR_MESSAGE } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { PAGINATION } from 'src/tracking';
 
@@ -47,9 +48,10 @@ const Feed: FC = () => {
       <div className="flex items-center justify-between">
         <div className="font-bold text-lg">All Publications</div>
         <button
-          onClick={async () => {
-            await refetch();
-            toast.success('Refreshed successfully');
+          onClick={() => {
+            refetch()
+              .catch(() => toast.error(ERROR_MESSAGE))
+              .finally(() => toast.success('Refreshed successfully'));
           }}
         >
           <RefreshIcon className="h-5 w-5" />
