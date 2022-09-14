@@ -5,12 +5,18 @@ import create from 'zustand';
 interface GlobalModalState {
   showReportModal: boolean;
   reportPublication: LensterPublication | null;
-  setShowReportModal: (showReportModal: boolean, reportPublication: LensterPublication | null) => void;
+  reportConfig: any;
+  setShowReportModal: (
+    showReportModal: boolean,
+    reportPublication: LensterPublication | null,
+    reportConfig?: any
+  ) => void;
 }
 
 export const useGlobalModalStateStore = create<GlobalModalState>((set) => ({
   showReportModal: false,
   reportPublication: null,
-  setShowReportModal: (showReportModal, reportPublication) =>
-    set(() => ({ showReportModal, reportPublication }))
+  reportConfig: null,
+  setShowReportModal: (showReportModal, reportPublication, reportConfig) =>
+    set(() => ({ showReportModal, reportPublication, reportConfig }))
 }));

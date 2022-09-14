@@ -11,6 +11,7 @@ import { PencilAltIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
 import { Mixpanel } from '@lib/mixpanel';
 import React, { FC, useState } from 'react';
+import { useGlobalModalStateStore } from 'src/store/modals';
 import { PUBLICATION } from 'src/tracking';
 import { object, string } from 'zod';
 
@@ -33,8 +34,10 @@ interface Props {
 }
 
 const Report: FC<Props> = ({ publication }) => {
-  const [type, setType] = useState('');
-  const [subReason, setSubReason] = useState('');
+  const reportConfig = useGlobalModalStateStore((state) => state.reportConfig);
+  console.log(reportConfig);
+  const [type, setType] = useState(reportConfig?.type ?? '');
+  const [subReason, setSubReason] = useState(reportConfig?.subReason ?? '');
 
   const [createReport, { data: submitData, loading: submitLoading, error: submitError }] = useMutation(
     CREATE_REPORT_PUBLICATION_MUTATION,
@@ -84,7 +87,7 @@ const Report: FC<Props> = ({ publication }) => {
             }}
           >
             {submitError && <ErrorMessage title="Failed to report" error={submitError} />}
-            <Reason setType={setType} setSubReason={setSubReason} type={type} />
+            <Reason setType={setType} setSubReason={setSubReason} type={type} subReason={subReason} />
             {subReason && (
               <>
                 <TextArea
