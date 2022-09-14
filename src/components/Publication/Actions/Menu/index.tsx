@@ -1,7 +1,6 @@
-import { NextLink } from '@components/Shared/Navbar/MenuItems';
 import { LensterPublication } from '@generated/lenstertypes';
 import { Menu, Transition } from '@headlessui/react';
-import { DotsHorizontalIcon, ShieldExclamationIcon } from '@heroicons/react/outline';
+import { DotsHorizontalIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import clsx from 'clsx';
 import { FC, Fragment } from 'react';
@@ -11,6 +10,7 @@ import { PUBLICATION } from 'src/tracking';
 import Delete from './Delete';
 import Embed from './Embed';
 import Permalink from './Permalink';
+import Report from './Report';
 
 interface Props {
   publication: LensterPublication;
@@ -51,21 +51,7 @@ const PublicationMenu: FC<Props> = ({ publication, isFullPublication }) => {
               {currentProfile?.id === publication?.profile?.id ? (
                 <Delete publication={publication} />
               ) : (
-                <Menu.Item
-                  as={NextLink}
-                  href={`/report/${publication?.id}`}
-                  className={({ active }: { active: boolean }) =>
-                    clsx(
-                      { 'dropdown-active': active },
-                      'block px-4 py-1.5 text-sm text-red-500 m-2 rounded-lg cursor-pointer'
-                    )
-                  }
-                >
-                  <div className="flex items-center space-x-2">
-                    <ShieldExclamationIcon className="w-4 h-4" />
-                    <div>Report Post</div>
-                  </div>
-                </Menu.Item>
+                <Report publication={publication} />
               )}
               <Embed publication={publication} />
               <Permalink publication={publication} />
