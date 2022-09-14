@@ -1,4 +1,4 @@
-import { NetworkStatus, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import { EXPLORE_FEED_QUERY } from '@components/Explore/Feed';
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
@@ -10,9 +10,9 @@ import { LensterPublication } from '@generated/lenstertypes';
 import { PublicationSortCriteria } from '@generated/types';
 import { CollectionIcon, RefreshIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
-import clsx from 'clsx';
 import React, { FC } from 'react';
 import { useInView } from 'react-cool-inview';
+import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { PAGINATION } from 'src/tracking';
 
@@ -28,9 +28,8 @@ const Feed: FC = () => {
   const reactionRequest = currentProfile ? { profileId: currentProfile?.id } : null;
   const profileId = currentProfile?.id ?? null;
 
-  const { data, loading, error, fetchMore, refetch, networkStatus } = useQuery(EXPLORE_FEED_QUERY, {
-    variables: { request, reactionRequest, profileId },
-    notifyOnNetworkStatusChange: true
+  const { data, loading, error, fetchMore, refetch } = useQuery(EXPLORE_FEED_QUERY, {
+    variables: { request, reactionRequest, profileId }
   });
 
   const pageInfo = data?.explorePublications?.pageInfo;
@@ -47,10 +46,13 @@ const Feed: FC = () => {
     <>
       <div className="flex items-center justify-between">
         <div className="font-bold text-lg">All Publications</div>
-        <button onClick={() => refetch()}>
-          <RefreshIcon
-            className={clsx({ 'animate-spin': networkStatus === NetworkStatus.refetch }, 'h-5 w-5')}
-          />
+        <button
+          onClick={async () => {
+            await refetch();
+            toast.success('Refreshed successfully');
+          }}
+        >
+          <RefreshIcon className="h-5 w-5" />
         </button>
       </div>
       {loading && <PublicationsShimmer />}
