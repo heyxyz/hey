@@ -6,7 +6,7 @@ import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
 import { LensterPublication } from '@generated/lenstertypes';
-import { PublicationSortCriteria } from '@generated/types';
+import { CustomFiltersTypes, PublicationSortCriteria } from '@generated/types';
 import { CommentFields } from '@gql/CommentFields';
 import { MirrorFields } from '@gql/MirrorFields';
 import { PostFields } from '@gql/PostFields';
@@ -52,13 +52,18 @@ interface Props {
 
 const Feed: FC<Props> = ({ feedType = PublicationSortCriteria.CuratedProfiles }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
+
+  // Variables
+  const request = {
+    sortCriteria: feedType,
+    noRandomize: feedType === 'LATEST',
+    customFilters: [CustomFiltersTypes.Gardeners],
+    limit: 10
+  };
+
   const { data, loading, error, fetchMore } = useQuery(EXPLORE_FEED_QUERY, {
     variables: {
-      request: {
-        sortCriteria: feedType,
-        limit: 10,
-        noRandomize: feedType === 'LATEST'
-      },
+      request,
       reactionRequest: currentProfile ? { profileId: currentProfile?.id } : null,
       profileId: currentProfile?.id ?? null
     }
@@ -70,10 +75,8 @@ const Feed: FC<Props> = ({ feedType = PublicationSortCriteria.CuratedProfiles })
       fetchMore({
         variables: {
           request: {
-            sortCriteria: feedType,
-            cursor: pageInfo?.next,
-            limit: 10,
-            noRandomize: feedType === 'LATEST'
+            ...request,
+            cursor: pageInfo?.next
           },
           reactionRequest: currentProfile ? { profileId: currentProfile?.id } : null,
           profileId: currentProfile?.id ?? null

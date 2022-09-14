@@ -40,14 +40,15 @@ interface Props {
 }
 
 const NFTFeed: FC<Props> = ({ profile }) => {
+  // Variables
+  const request = {
+    chainIds: [CHAIN_ID, IS_MAINNET ? chain.mainnet.id : chain.kovan.id],
+    ownerAddress: profile?.ownedBy,
+    limit: 10
+  };
+
   const { data, loading, error, fetchMore } = useQuery(PROFILE_NFT_FEED_QUERY, {
-    variables: {
-      request: {
-        chainIds: [CHAIN_ID, IS_MAINNET ? chain.mainnet.id : chain.kovan.id],
-        ownerAddress: profile?.ownedBy,
-        limit: 10
-      }
-    },
+    variables: { request },
     skip: !profile?.ownedBy
   });
 
@@ -55,14 +56,7 @@ const NFTFeed: FC<Props> = ({ profile }) => {
   const { observe } = useInView({
     onEnter: () => {
       fetchMore({
-        variables: {
-          request: {
-            chainIds: [CHAIN_ID, IS_MAINNET ? chain.mainnet.id : chain.kovan.id],
-            ownerAddress: profile?.ownedBy,
-            cursor: pageInfo?.next,
-            limit: 10
-          }
-        }
+        variables: { request: { ...request, cursor: pageInfo?.next } }
       });
       Mixpanel.track(PAGINATION.NFT_FEED);
     }

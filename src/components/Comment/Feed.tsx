@@ -7,6 +7,7 @@ import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
 import { LensterPublication } from '@generated/lenstertypes';
+import { CustomFiltersTypes } from '@generated/types';
 import { CommentFields } from '@gql/CommentFields';
 import { CollectionIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
@@ -51,12 +52,13 @@ const Feed: FC<Props> = ({ publication, onlyFollowers = false, isFollowing = tru
   const currentProfile = useAppStore((state) => state.currentProfile);
   const txnQueue = usePublicationPersistStore((state) => state.txnQueue);
 
+  // Variables
+  const request = { commentsOf: pubId, customFilters: [CustomFiltersTypes.Gardeners], limit: 10 };
+  const reactionRequest = currentProfile ? { profileId: currentProfile?.id } : null;
+  const profileId = currentProfile?.id ?? null;
+
   const { data, loading, error, fetchMore } = useQuery(COMMENT_FEED_QUERY, {
-    variables: {
-      request: { commentsOf: pubId, limit: 10 },
-      reactionRequest: currentProfile ? { profileId: currentProfile?.id } : null,
-      profileId: currentProfile?.id ?? null
-    },
+    variables: { request, reactionRequest, profileId },
     skip: !pubId
   });
 
@@ -64,15 +66,7 @@ const Feed: FC<Props> = ({ publication, onlyFollowers = false, isFollowing = tru
   const { observe } = useInView({
     onEnter: () => {
       fetchMore({
-        variables: {
-          request: {
-            commentsOf: pubId,
-            cursor: pageInfo?.next,
-            limit: 10
-          },
-          reactionRequest: currentProfile ? { profileId: currentProfile?.id } : null,
-          profileId: currentProfile?.id ?? null
-        }
+        variables: { request: { ...request, cursor: pageInfo?.next }, reactionRequest, profileId }
       });
       Mixpanel.track(PAGINATION.COMMENT_FEED);
     }

@@ -5,7 +5,7 @@ import { Card, CardBody } from '@components/UI/Card';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
-import { Profile } from '@generated/types';
+import { CustomFiltersTypes, Profile } from '@generated/types';
 import { ProfileFields } from '@gql/ProfileFields';
 import { UsersIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
@@ -35,8 +35,11 @@ interface Props {
 }
 
 const Profiles: FC<Props> = ({ query }) => {
+  // Variables
+  const request = { query, type: 'PROFILE', customFilters: [CustomFiltersTypes.Gardeners], limit: 10 };
+
   const { data, loading, error, fetchMore } = useQuery(SEARCH_PROFILES_QUERY, {
-    variables: { request: { query, type: 'PROFILE', limit: 10 } },
+    variables: { request },
     skip: !query
   });
 
@@ -44,14 +47,7 @@ const Profiles: FC<Props> = ({ query }) => {
   const { observe } = useInView({
     onEnter: () => {
       fetchMore({
-        variables: {
-          request: {
-            query,
-            type: 'PROFILE',
-            cursor: pageInfo?.next,
-            limit: 10
-          }
-        }
+        variables: { request: { ...request, cursor: pageInfo?.next } }
       });
       Mixpanel.track(PAGINATION.PROFILE_SEARCH);
     }

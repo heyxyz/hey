@@ -40,8 +40,11 @@ interface Props {
 }
 
 const Followers: FC<Props> = ({ profile }) => {
+  // Variables
+  const request = { profileId: profile?.id, limit: 10 };
+
   const { data, loading, error, fetchMore } = useQuery(FOLLOWERS_QUERY, {
-    variables: { request: { profileId: profile?.id, limit: 10 } },
+    variables: { request },
     skip: !profile?.id
   });
 
@@ -49,13 +52,7 @@ const Followers: FC<Props> = ({ profile }) => {
   const { observe } = useInView({
     onEnter: () => {
       fetchMore({
-        variables: {
-          request: {
-            profileId: profile?.id,
-            cursor: pageInfo?.next,
-            limit: 10
-          }
-        }
+        variables: { request: { ...request, cursor: pageInfo?.next } }
       });
       Mixpanel.track(PAGINATION.FOLLOWERS);
     }

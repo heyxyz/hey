@@ -1,4 +1,5 @@
 import { gql, useQuery } from '@apollo/client';
+import { CustomFiltersTypes } from '@generated/types';
 import { LightningBoltIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import Link from 'next/link';
@@ -22,7 +23,7 @@ const NotificationIcon: FC = () => {
   const setNotificationCount = useAppPersistStore((state) => state.setNotificationCount);
   const [showBadge, setShowBadge] = useState(false);
   const { data } = useQuery(NOTIFICATION_COUNT_QUERY, {
-    variables: { request: { profileId: currentProfile?.id } },
+    variables: { request: { profileId: currentProfile?.id, customFilters: [CustomFiltersTypes.Gardeners] } },
     skip: !currentProfile?.id
   });
 
