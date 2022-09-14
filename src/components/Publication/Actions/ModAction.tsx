@@ -17,6 +17,7 @@ const ModAction: FC<Props> = ({ publication }) => {
         event.stopPropagation();
         setShowReportModal(true, publication);
       }}
+      variant="warning"
       icon={<ShieldCheckIcon className="h-4 w-4" />}
       className="text-sm mt-3"
     >
