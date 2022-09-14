@@ -35,7 +35,6 @@ interface Props {
 
 const Report: FC<Props> = ({ publication }) => {
   const reportConfig = useGlobalModalStateStore((state) => state.reportConfig);
-  console.log(reportConfig);
   const [type, setType] = useState(reportConfig?.type ?? '');
   const [subReason, setSubReason] = useState(reportConfig?.subReason ?? '');
 

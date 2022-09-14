@@ -94,6 +94,11 @@ export const SETTINGS = {
   DELETE: 'Delete profile'
 };
 
+export const MOD = {
+  SPAM: 'Mod spam report',
+  OTHER: 'Mod report'
+};
+
 export const STAFFTOOLS = {
   TOGGLE_MODE: 'Toggle staff mode'
 };
