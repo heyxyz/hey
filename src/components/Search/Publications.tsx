@@ -48,28 +48,21 @@ interface Props {
 
 const Publications: FC<Props> = ({ query }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
+
+  // Variables
+  const request = { query, type: 'PUBLICATION', limit: 10 };
+  const reactionRequest = currentProfile ? { profileId: currentProfile?.id } : null;
+  const profileId = currentProfile?.id ?? null;
+
   const { data, loading, error, fetchMore } = useQuery(SEARCH_PUBLICATIONS_QUERY, {
-    variables: {
-      request: { query, type: 'PUBLICATION', limit: 10 },
-      reactionRequest: currentProfile ? { profileId: currentProfile?.id } : null,
-      profileId: currentProfile?.id ?? null
-    }
+    variables: { request, reactionRequest, profileId }
   });
 
   const pageInfo = data?.search?.pageInfo;
   const { observe } = useInView({
     onEnter: () => {
       fetchMore({
-        variables: {
-          request: {
-            query,
-            type: 'PUBLICATION',
-            cursor: pageInfo?.next,
-            limit: 10
-          },
-          reactionRequest: currentProfile ? { profileId: currentProfile?.id } : null,
-          profileId: currentProfile?.id ?? null
-        }
+        variables: { request: { ...request, cursor: pageInfo?.next }, reactionRequest, profileId }
       });
       Mixpanel.track(PAGINATION.PUBLICATION_SEARCH);
     }

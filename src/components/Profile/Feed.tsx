@@ -53,6 +53,8 @@ interface Props {
 
 const Feed: FC<Props> = ({ profile, type }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
+
+  // Variables
   const publicationTypes =
     type === 'FEED'
       ? [PublicationTypes.Post, PublicationTypes.Mirror]
@@ -69,17 +71,12 @@ const Feed: FC<Props> = ({ profile, type }) => {
           ]
         }
       : null;
+  const request = { publicationTypes, metadata, profileId: profile?.id, limit: 10 };
+  const reactionRequest = currentProfile ? { profileId: currentProfile?.id } : null;
+  const profileId = currentProfile?.id ?? null;
+
   const { data, loading, error, fetchMore } = useQuery(PROFILE_FEED_QUERY, {
-    variables: {
-      request: {
-        publicationTypes,
-        metadata,
-        profileId: profile?.id,
-        limit: 10
-      },
-      reactionRequest: currentProfile ? { profileId: currentProfile?.id } : null,
-      profileId: currentProfile?.id ?? null
-    },
+    variables: { request, reactionRequest, profileId },
     skip: !profile?.id
   });
 
@@ -87,16 +84,7 @@ const Feed: FC<Props> = ({ profile, type }) => {
   const { observe } = useInView({
     onEnter: () => {
       fetchMore({
-        variables: {
-          request: {
-            publicationTypes,
-            profileId: profile?.id,
-            cursor: pageInfo?.next,
-            limit: 10
-          },
-          reactionRequest: currentProfile ? { profileId: currentProfile?.id } : null,
-          profileId: currentProfile?.id ?? null
-        }
+        variables: { request: { ...request, cursor: pageInfo?.next }, reactionRequest, profileId }
       });
       Mixpanel.track(PAGINATION.PROFILE_FEED);
     }

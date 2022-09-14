@@ -34,14 +34,15 @@ interface Props {
 const MutualFollowersList: FC<Props> = ({ profileId }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
+  // Variables
+  const request = {
+    viewingProfileId: profileId,
+    yourProfileId: currentProfile?.id,
+    limit: 10
+  };
+
   const { data, loading, error, fetchMore } = useQuery(MUTUAL_FOLLOWERS_QUERY, {
-    variables: {
-      request: {
-        viewingProfileId: profileId,
-        yourProfileId: currentProfile?.id,
-        limit: 10
-      }
-    },
+    variables: { request },
     skip: !profileId
   });
 
@@ -49,14 +50,7 @@ const MutualFollowersList: FC<Props> = ({ profileId }) => {
   const { observe } = useInView({
     onEnter: () => {
       fetchMore({
-        variables: {
-          request: {
-            viewingProfileId: profileId,
-            yourProfileId: currentProfile?.id,
-            cursor: pageInfo?.next,
-            limit: 10
-          }
-        }
+        variables: { request: { ...request, cursor: pageInfo?.next } }
       });
       Mixpanel.track(PAGINATION.MUTUAL_FOLLOWERS);
     }

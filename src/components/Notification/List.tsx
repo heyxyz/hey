@@ -183,23 +183,23 @@ const NOTIFICATIONS_QUERY = gql`
 
 const List: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
+
+  // Variables
+  const request = {
+    profileId: currentProfile?.id,
+    limit: 10,
+    customFilters: ['GARDENERS']
+  };
+
   const { data, loading, error, fetchMore } = useQuery(NOTIFICATIONS_QUERY, {
-    variables: {
-      request: { profileId: currentProfile?.id, limit: 10 }
-    }
+    variables: { request }
   });
 
   const pageInfo = data?.notifications?.pageInfo;
   const { observe } = useInView({
     onEnter: () => {
       fetchMore({
-        variables: {
-          request: {
-            profileId: currentProfile?.id,
-            cursor: pageInfo?.next,
-            limit: 10
-          }
-        }
+        variables: { request: { ...request, cursor: pageInfo?.next } }
       });
       Mixpanel.track(PAGINATION.NOTIFICATION_FEED);
     }
