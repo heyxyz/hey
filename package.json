@@ -30,7 +30,7 @@
     "clsx": "^1.2.1",
     "dayjs": "^1.11.5",
     "dotenv": "^16.0.2",
-    "ethers": "5.6.0",
+    "ethers": "5.7.1",
     "framer-motion": "^7.3.4",
     "graphql": "^16.6.0",
     "interweave": "^13.0.0",
