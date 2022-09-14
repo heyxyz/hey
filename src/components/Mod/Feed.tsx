@@ -55,7 +55,12 @@ const Feed: FC = () => {
         <>
           <Card className="divide-y-[1px] dark:divide-gray-700/80">
             {data?.explorePublications?.items?.map((post: LensterPublication, index: number) => (
-              <SinglePublication key={`${post?.id}_${index}`} publication={post} />
+              <SinglePublication
+                key={`${post?.id}_${index}`}
+                publication={post}
+                showModActions
+                showActions={false}
+              />
             ))}
           </Card>
           {pageInfo?.next && data?.explorePublications?.items.length !== pageInfo?.totalCount && (
