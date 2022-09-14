@@ -1,4 +1,5 @@
-import { gql, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
+import { EXPLORE_FEED_QUERY } from '@components/Explore/Feed';
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
 import { Card } from '@components/UI/Card';
@@ -6,10 +7,7 @@ import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
 import { LensterPublication } from '@generated/lenstertypes';
-import { CustomFiltersTypes, PublicationSortCriteria } from '@generated/types';
-import { CommentFields } from '@gql/CommentFields';
-import { MirrorFields } from '@gql/MirrorFields';
-import { PostFields } from '@gql/PostFields';
+import { PublicationSortCriteria } from '@generated/types';
 import { CollectionIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import React, { FC } from 'react';
@@ -17,47 +15,13 @@ import { useInView } from 'react-cool-inview';
 import { useAppStore } from 'src/store/app';
 import { PAGINATION } from 'src/tracking';
 
-export const EXPLORE_FEED_QUERY = gql`
-  query ExploreFeed(
-    $request: ExplorePublicationRequest!
-    $reactionRequest: ReactionFieldResolverRequest
-    $profileId: ProfileId
-  ) {
-    explorePublications(request: $request) {
-      items {
-        ... on Post {
-          ...PostFields
-        }
-        ... on Comment {
-          ...CommentFields
-        }
-        ... on Mirror {
-          ...MirrorFields
-        }
-      }
-      pageInfo {
-        totalCount
-        next
-      }
-    }
-  }
-  ${PostFields}
-  ${CommentFields}
-  ${MirrorFields}
-`;
-
-interface Props {
-  feedType?: string;
-}
-
-const Feed: FC<Props> = ({ feedType = PublicationSortCriteria.CuratedProfiles }) => {
+const Feed: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   // Variables
   const request = {
-    sortCriteria: feedType,
-    noRandomize: feedType === 'LATEST',
-    customFilters: [CustomFiltersTypes.Gardeners],
+    sortCriteria: PublicationSortCriteria.Latest,
+    noRandomize: true,
     limit: 10
   };
   const reactionRequest = currentProfile ? { profileId: currentProfile?.id } : null;
@@ -73,7 +37,7 @@ const Feed: FC<Props> = ({ feedType = PublicationSortCriteria.CuratedProfiles })
       fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next }, reactionRequest, profileId }
       });
-      Mixpanel.track(PAGINATION.EXPLORE_FEED);
+      Mixpanel.track(PAGINATION.MOD_FEED);
     }
   });
 
@@ -91,7 +55,13 @@ const Feed: FC<Props> = ({ feedType = PublicationSortCriteria.CuratedProfiles })
         <>
           <Card className="divide-y-[1px] dark:divide-gray-700/80">
             {data?.explorePublications?.items?.map((post: LensterPublication, index: number) => (
-              <SinglePublication key={`${post?.id}_${index}`} publication={post} />
+              <SinglePublication
+                key={`${post?.id}_${index}`}
+                publication={post}
+                showThread={false}
+                showActions={false}
+                showModActions
+              />
             ))}
           </Card>
           {pageInfo?.next && data?.explorePublications?.items.length !== pageInfo?.totalCount && (

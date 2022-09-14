@@ -9,6 +9,7 @@ import React, { FC } from 'react';
 import { PUBLICATION } from 'src/tracking';
 
 import PublicationActions from './Actions';
+import ModAction from './Actions/ModAction';
 import HiddenPublication from './HiddenPublication';
 import PublicationBody from './PublicationBody';
 import PublicationType from './Type';
@@ -19,6 +20,7 @@ interface Props {
   publication: LensterPublication;
   showType?: boolean;
   showActions?: boolean;
+  showModActions?: boolean;
   showThread?: boolean;
 }
 
@@ -26,6 +28,7 @@ const SinglePublication: FC<Props> = ({
   publication,
   showType = true,
   showActions = true,
+  showModActions = false,
   showThread = true
 }) => {
   const { push } = useRouter();
@@ -63,6 +66,7 @@ const SinglePublication: FC<Props> = ({
             <>
               <PublicationBody publication={publication} />
               {showActions && <PublicationActions publication={publication} />}
+              {showModActions && <ModAction publication={publication} />}
             </>
           )}
         </div>
