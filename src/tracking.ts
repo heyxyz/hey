@@ -110,6 +110,7 @@ export const PAGINATION = {
   PROFILE_FEED: 'Paginate profile feed',
   NOTIFICATION_FEED: 'Paginate notification feed',
   NFT_FEED: 'Paginate NFT feed',
+  MOD_FEED: 'Paginate mod feed',
   FOLLOWERS: 'Paginate followers list',
   FOLLOWING: 'Paginate following list',
   MIRRORS: 'Paginate mirrors list',
@@ -139,8 +140,7 @@ export const PAGEVIEW = {
   CONTACT: 'Contact page',
   CREATE_CROWDFUND: 'Create crowdfund page',
   CREATE_PROFILE: 'Create profile page',
-  COMMUNITIES: 'Communities page',
-  COMMUNITY: 'Community page',
+  MOD: 'Mod page',
   ERROR_500: 'Error 500 page',
   ERROR_404: 'Error 404 page',
   SETTINGS: {
