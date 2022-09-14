@@ -187,8 +187,8 @@ const List: FC = () => {
   // Variables
   const request = {
     profileId: currentProfile?.id,
-    limit: 10,
-    customFilters: ['GARDENERS']
+    // customFilters: ['GARDENERS'],
+    limit: 10
   };
 
   const { data, loading, error, fetchMore } = useQuery(NOTIFICATIONS_QUERY, {

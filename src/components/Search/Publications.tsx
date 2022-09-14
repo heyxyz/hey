@@ -50,7 +50,12 @@ const Publications: FC<Props> = ({ query }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   // Variables
-  const request = { query, type: 'PUBLICATION', limit: 10 };
+  const request = {
+    query,
+    type: 'PUBLICATION',
+    // customFilters: ['GARDENERS'],
+    limit: 10
+  };
   const reactionRequest = currentProfile ? { profileId: currentProfile?.id } : null;
   const profileId = currentProfile?.id ?? null;
 

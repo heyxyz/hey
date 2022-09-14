@@ -56,9 +56,9 @@ const Feed: FC<Props> = ({ feedType = PublicationSortCriteria.CuratedProfiles })
   // Variables
   const request = {
     sortCriteria: feedType,
-    limit: 10,
     noRandomize: feedType === 'LATEST',
-    customFilters: ['GARDENERS']
+    // customFilters: ['GARDENERS'],
+    limit: 10
   };
 
   const { data, loading, error, fetchMore } = useQuery(EXPLORE_FEED_QUERY, {
