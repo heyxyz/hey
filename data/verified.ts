@@ -1,4 +1,5 @@
 export const mainnetVerified = [
+  '0xf9f4', // @grocery.lens
   '0x0ac7', // @hayden.lens
   '0x1bdd', // @arnauramio.lens
   '0x1f28', // @0xmaki.lens
