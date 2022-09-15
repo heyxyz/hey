@@ -164,15 +164,15 @@ const NewCrowdfund: NextPage = () => {
           };
 
           setUserSigNonce(userSigNonce + 1);
-          if (RELAY_ON) {
-            const {
-              data: { broadcast: result }
-            } = await broadcast({ request: { id, signature } });
+          if (!RELAY_ON) {
+            return write?.({ recklesslySetUnpreparedArgs: inputStruct });
+          }
 
-            if ('reason' in result) {
-              write?.({ recklesslySetUnpreparedArgs: inputStruct });
-            }
-          } else {
+          const {
+            data: { broadcast: result }
+          } = await broadcast({ request: { id, signature } });
+
+          if ('reason' in result) {
             write?.({ recklesslySetUnpreparedArgs: inputStruct });
           }
         } catch {}

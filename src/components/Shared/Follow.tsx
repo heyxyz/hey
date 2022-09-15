@@ -108,15 +108,15 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
             datas: followData,
             sig
           };
-          if (RELAY_ON) {
-            const {
-              data: { broadcast: result }
-            } = await broadcast({ request: { id, signature } });
+          if (!RELAY_ON) {
+            return write?.({ recklesslySetUnpreparedArgs: inputStruct });
+          }
 
-            if ('reason' in result) {
-              write?.({ recklesslySetUnpreparedArgs: inputStruct });
-            }
-          } else {
+          const {
+            data: { broadcast: result }
+          } = await broadcast({ request: { id, signature } });
+
+          if ('reason' in result) {
             write?.({ recklesslySetUnpreparedArgs: inputStruct });
           }
         } catch {}
