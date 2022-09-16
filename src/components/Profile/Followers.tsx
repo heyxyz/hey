@@ -11,7 +11,6 @@ import { UsersIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import { FC } from 'react';
 import { useInView } from 'react-cool-inview';
-import { PAGINATION_ROOT_MARGIN } from 'src/constants';
 import { PAGINATION } from 'src/tracking';
 
 const FOLLOWERS_QUERY = gql`
@@ -56,8 +55,7 @@ const Followers: FC<Props> = ({ profile }) => {
         variables: { request: { ...request, cursor: pageInfo?.next } }
       });
       Mixpanel.track(PAGINATION.FOLLOWERS);
-    },
-    rootMargin: PAGINATION_ROOT_MARGIN
+    }
   });
 
   if (loading) {
