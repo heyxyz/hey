@@ -9,7 +9,7 @@ import { CollectionIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import React, { FC } from 'react';
 import { useInView } from 'react-cool-inview';
-import { CHAIN_ID, IS_MAINNET } from 'src/constants';
+import { CHAIN_ID, IS_MAINNET, PAGINATION_ROOT_MARGIN } from 'src/constants';
 import { PAGINATION } from 'src/tracking';
 import { chain } from 'wagmi';
 
@@ -59,7 +59,8 @@ const NFTFeed: FC<Props> = ({ profile }) => {
         variables: { request: { ...request, cursor: pageInfo?.next } }
       });
       Mixpanel.track(PAGINATION.NFT_FEED);
-    }
+    },
+    rootMargin: PAGINATION_ROOT_MARGIN
   });
 
   return (

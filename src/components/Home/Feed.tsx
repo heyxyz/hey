@@ -14,6 +14,7 @@ import { CollectionIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import React, { FC } from 'react';
 import { useInView } from 'react-cool-inview';
+import { PAGINATION_ROOT_MARGIN } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { usePublicationPersistStore } from 'src/store/publication';
 import { PAGINATION } from 'src/tracking';
@@ -67,7 +68,8 @@ const Feed: FC = () => {
         variables: { request: { ...request, cursor: pageInfo?.next }, reactionRequest, profileId }
       });
       Mixpanel.track(PAGINATION.HOME_FEED);
-    }
+    },
+    rootMargin: PAGINATION_ROOT_MARGIN
   });
 
   return (

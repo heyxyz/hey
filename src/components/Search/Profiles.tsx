@@ -11,6 +11,7 @@ import { UsersIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import React, { FC } from 'react';
 import { useInView } from 'react-cool-inview';
+import { PAGINATION_ROOT_MARGIN } from 'src/constants';
 import { PAGINATION } from 'src/tracking';
 
 const SEARCH_PROFILES_QUERY = gql`
@@ -50,7 +51,8 @@ const Profiles: FC<Props> = ({ query }) => {
         variables: { request: { ...request, cursor: pageInfo?.next } }
       });
       Mixpanel.track(PAGINATION.PROFILE_SEARCH);
-    }
+    },
+    rootMargin: PAGINATION_ROOT_MARGIN
   });
 
   return (

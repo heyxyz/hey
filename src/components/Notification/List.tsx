@@ -11,6 +11,7 @@ import { MailIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import { FC } from 'react';
 import { useInView } from 'react-cool-inview';
+import { PAGINATION_ROOT_MARGIN } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { PAGINATION } from 'src/tracking';
 
@@ -202,7 +203,8 @@ const List: FC = () => {
         variables: { request: { ...request, cursor: pageInfo?.next } }
       });
       Mixpanel.track(PAGINATION.NOTIFICATION_FEED);
-    }
+    },
+    rootMargin: PAGINATION_ROOT_MARGIN
   });
 
   if (loading) {
