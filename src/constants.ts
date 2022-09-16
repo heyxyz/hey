@@ -101,4 +101,4 @@ export const BUNDLR_CURRENCY = 'matic';
 export const BUNDLR_NODE_URL = 'https://node2.bundlr.network';
 
 // UI
-export const PAGINATION_ROOT_MARGIN = '1000%';
+export const PAGINATION_ROOT_MARGIN = '1000% 0px';
