@@ -13,7 +13,7 @@ import { Mixpanel } from '@lib/mixpanel';
 import React, { FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import toast from 'react-hot-toast';
-import { ERROR_MESSAGE, PAGINATION_ROOT_MARGIN } from 'src/constants';
+import { ERROR_MESSAGE } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { PAGINATION } from 'src/tracking';
 
@@ -41,8 +41,7 @@ const Feed: FC = () => {
         variables: { request: { ...request, cursor: pageInfo?.next }, reactionRequest, profileId }
       });
       Mixpanel.track(PAGINATION.MOD_FEED);
-    },
-    rootMargin: PAGINATION_ROOT_MARGIN
+    }
   });
 
   return (
