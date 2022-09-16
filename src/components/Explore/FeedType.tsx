@@ -1,12 +1,5 @@
-import useStaffMode from '@components/utils/hooks/useStaffMode';
 import { PublicationSortCriteria } from '@generated/types';
-import {
-  ChatAlt2Icon,
-  ClockIcon,
-  CollectionIcon,
-  SparklesIcon,
-  SwitchHorizontalIcon
-} from '@heroicons/react/outline';
+import { ChatAlt2Icon, CollectionIcon, SparklesIcon, SwitchHorizontalIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import clsx from 'clsx';
 import { useRouter } from 'next/router';
@@ -19,7 +12,6 @@ interface Props {
 
 const FeedType: FC<Props> = ({ setFeedType, feedType }) => {
   const { push } = useRouter();
-  const { allowed } = useStaffMode();
 
   interface FeedLinkProps {
     name: string;
@@ -70,7 +62,6 @@ const FeedType: FC<Props> = ({ setFeedType, feedType }) => {
         icon={<SwitchHorizontalIcon className="w-4 h-4" />}
         type={PublicationSortCriteria.TopMirrored}
       />
-      {allowed && <FeedLink name="Latest" icon={<ClockIcon className="w-4 h-4" />} type="LATEST" />}
     </div>
   );
 };
