@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.6.9",
-    "@bundlr-network/client": "^0.8.5",
+    "@bundlr-network/client": "^0.8.6",
     "@giphy/js-fetch-api": "^4.3.1",
     "@giphy/react-components": "^6.1.1",
     "@headlessui/react": "^1.7.2",
