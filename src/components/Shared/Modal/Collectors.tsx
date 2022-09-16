@@ -10,6 +10,7 @@ import { CollectionIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import { FC } from 'react';
 import { useInView } from 'react-cool-inview';
+import { PAGINATION_ROOT_MARGIN } from 'src/constants';
 import { PAGINATION } from 'src/tracking';
 
 import Loader from '../Loader';
@@ -53,7 +54,8 @@ const Collectors: FC<Props> = ({ pubId }) => {
         variables: { request: { ...request, cursor: pageInfo?.next } }
       });
       Mixpanel.track(PAGINATION.COLLECTORS);
-    }
+    },
+    rootMargin: PAGINATION_ROOT_MARGIN
   });
 
   if (loading) {
