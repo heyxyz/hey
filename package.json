@@ -65,7 +65,7 @@
     "@types/react-copy-to-clipboard": "^5.0.4",
     "@types/react-dom": "^18.0.6",
     "@types/uuid": "^8.3.4",
-    "@typescript-eslint/eslint-plugin": "^5.37.0",
+    "@typescript-eslint/eslint-plugin": "^5.38.0",
     "autoprefixer": "^10.4.11",
     "eslint": "^8.23.1",
     "eslint-config-next": "^12.3.0",
