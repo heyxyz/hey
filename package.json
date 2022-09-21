@@ -31,7 +31,7 @@
     "dayjs": "^1.11.5",
     "dotenv": "^16.0.2",
     "ethers": "5.6.0",
-    "framer-motion": "^7.3.5",
+    "framer-motion": "^7.3.6",
     "graphql": "^16.6.0",
     "interweave": "^13.0.0",
     "interweave-autolink": "^5.1.0",
