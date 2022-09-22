@@ -8,6 +8,7 @@ import { ProfileFields } from '@gql/ProfileFields';
 import { Mixpanel } from '@lib/mixpanel';
 import { FC } from 'react';
 import { useInView } from 'react-cool-inview';
+import { PAGINATION_ROOT_MARGIN } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { PAGINATION } from 'src/tracking';
 
@@ -53,7 +54,8 @@ const MutualFollowersList: FC<Props> = ({ profileId }) => {
         variables: { request: { ...request, cursor: pageInfo?.next } }
       });
       Mixpanel.track(PAGINATION.MUTUAL_FOLLOWERS);
-    }
+    },
+    rootMargin: PAGINATION_ROOT_MARGIN
   });
 
   if (loading) {
