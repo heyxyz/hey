@@ -41,12 +41,16 @@ export function cursorBasedPagination<T extends CursorBasedPagination>(
         return incoming;
       }
 
-      const existingItems = existing.items;
-      const incomingItems = incoming.items;
+      // there is always a chance (for .e.g notification total count) that `items` was not queried
+      // if that's the case assume empty array
+      const existingItems = existing.items ?? [];
+      const incomingItems = incoming.items ?? [];
 
       return {
         ...incoming,
-        items: existingItems?.concat(incomingItems),
+        items: existingItems.concat(incomingItems),
+        // TODO: Seems to be broken at least for notifications where count query requests
+        // only `totalCount` and list query get's only `next`
         pageInfo: incoming?.pageInfo
       } as SafeReadonly<T>;
     }

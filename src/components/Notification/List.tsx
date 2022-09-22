@@ -203,9 +203,10 @@ const List: FC = () => {
         return;
       }
 
-      fetchMore({
+      await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next } }
       });
+
       Mixpanel.track(PAGINATION.NOTIFICATION_FEED);
     },
     rootMargin: PAGINATION_ROOT_MARGIN
