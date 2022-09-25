@@ -78,8 +78,9 @@ const Feed: FC<Props> = ({ publication, onlyFollowers = false, isFollowing = tru
     rootMargin: PAGINATION_ROOT_MARGIN
   });
 
+  const comments = data?.publications?.items;
   const queuedCount = txnQueue.filter((o) => o.type === 'NEW_COMMENT').length;
-  const totalComments = data?.publications?.items?.length + queuedCount;
+  const totalComments = comments?.length + queuedCount;
 
   return (
     <>
@@ -114,12 +115,21 @@ const Feed: FC<Props> = ({ publication, onlyFollowers = false, isFollowing = tru
                   </div>
                 )
             )}
-            {data?.publications?.items?.map((post: LensterPublication, index: number) => (
-              <SinglePublication key={`${pubId}_${index}`} publication={post} showType={false} />
-            ))}
+            {comments?.map((post: LensterPublication, index: number) => {
+              const isLast = index === comments?.length - 1;
+
+              return (
+                <SinglePublication
+                  key={`${pubId}_${index}`}
+                  fwdRef={isLast ? observe : null}
+                  publication={post}
+                  showType={false}
+                />
+              );
+            })}
           </Card>
-          {pageInfo?.next && data?.publications?.items.length !== pageInfo?.totalCount && (
-            <span ref={observe} className="flex justify-center p-5">
+          {pageInfo?.next && comments?.length !== pageInfo?.totalCount && (
+            <span className="flex justify-center p-5">
               <Spinner size="sm" />
             </span>
           )}
