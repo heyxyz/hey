@@ -6,6 +6,7 @@ interface CardProps {
   as?: ElementType;
   className?: string;
   forceRounded?: boolean;
+  fwdRef?: any;
   // eslint-disable-next-line no-unused-vars
   onClick?: (event: MouseEvent<HTMLDivElement>) => void;
 }
@@ -15,6 +16,7 @@ export const Card: FC<CardProps> = ({
   as: Tag = 'div',
   className = '',
   forceRounded = false,
+  fwdRef = null,
   onClick
 }) => {
   return (
@@ -24,6 +26,7 @@ export const Card: FC<CardProps> = ({
         'border dark:border-gray-700/80 bg-white dark:bg-gray-900',
         className
       )}
+      ref={fwdRef}
       onClick={onClick}
     >
       {children}

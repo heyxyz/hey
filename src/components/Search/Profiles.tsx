@@ -44,7 +44,9 @@ const Profiles: FC<Props> = ({ query }) => {
     skip: !query
   });
 
+  const profiles = data?.search?.items;
   const pageInfo = data?.search?.pageInfo;
+
   const { observe } = useInView({
     onChange: async ({ inView }) => {
       if (!inView) {
@@ -62,7 +64,7 @@ const Profiles: FC<Props> = ({ query }) => {
   return (
     <>
       {loading && <UserProfilesShimmer isBig />}
-      {data?.search?.items?.length === 0 && (
+      {profiles?.length === 0 && (
         <EmptyState
           message={
             <div>
@@ -76,16 +78,20 @@ const Profiles: FC<Props> = ({ query }) => {
       {!error && !loading && (
         <>
           <div className="space-y-3">
-            {data?.search?.items?.map((profile: Profile) => (
-              <Card key={profile?.id}>
-                <CardBody>
-                  <UserProfile profile={profile} showBio isBig />
-                </CardBody>
-              </Card>
-            ))}
+            {profiles?.map((profile: Profile, index: number) => {
+              const isLast = index === profiles?.length - 1;
+
+              return (
+                <Card key={profile?.id} fwdRef={isLast ? observe : null}>
+                  <CardBody>
+                    <UserProfile profile={profile} showBio isBig />
+                  </CardBody>
+                </Card>
+              );
+            })}
           </div>
-          {pageInfo?.next && data?.search?.items?.length !== pageInfo?.totalCount && (
-            <span ref={observe} className="flex justify-center p-5">
+          {pageInfo?.next && profiles?.length !== pageInfo?.totalCount && (
+            <span className="flex justify-center p-5">
               <Spinner size="sm" />
             </span>
           )}
