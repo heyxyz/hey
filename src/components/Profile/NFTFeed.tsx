@@ -54,7 +54,11 @@ const NFTFeed: FC<Props> = ({ profile }) => {
 
   const pageInfo = data?.nfts?.pageInfo;
   const { observe } = useInView({
-    onEnter: async () => {
+    onChange: async ({ inView }) => {
+      if (!inView) {
+        return;
+      }
+
       await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next } }
       });

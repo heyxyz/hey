@@ -83,7 +83,11 @@ const Feed: FC<Props> = ({ profile, type }) => {
 
   const pageInfo = data?.publications?.pageInfo;
   const { observe } = useInView({
-    onEnter: async () => {
+    onChange: async ({ inView }) => {
+      if (!inView) {
+        return;
+      }
+
       await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next }, reactionRequest, profileId }
       });
