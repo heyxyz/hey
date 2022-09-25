@@ -247,11 +247,7 @@ const List: FC = () => {
         const isLast = index === items.length - 1;
 
         return (
-          <div
-            key={`${notification?.notificationId}_${index}`}
-            className="p-5"
-            ref={isLast ? observe : undefined}
-          >
+          <div key={`${notification?.notificationId}_${index}`} className="p-5" ref={isLast ? observe : null}>
             {notification?.__typename === 'NewFollowerNotification' && (
               <FollowerNotification notification={notification as any} />
             )}
