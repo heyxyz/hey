@@ -47,8 +47,8 @@ const Following: FC<Props> = ({ profile }) => {
 
   const pageInfo = data?.following?.pageInfo;
   const { observe } = useInView({
-    onEnter: () => {
-      fetchMore({
+    onEnter: async () => {
+      await fetchMore({
         variables: {
           request: { ...request, cursor: pageInfo?.next }
         }

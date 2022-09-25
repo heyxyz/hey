@@ -67,8 +67,8 @@ const Publications: FC<Props> = ({ query }) => {
 
   const pageInfo = data?.search?.pageInfo;
   const { observe } = useInView({
-    onEnter: () => {
-      fetchMore({
+    onEnter: async () => {
+      await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next }, reactionRequest, profileId }
       });
       Mixpanel.track(PAGINATION.PUBLICATION_SEARCH);

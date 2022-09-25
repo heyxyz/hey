@@ -48,8 +48,8 @@ const Likes: FC<Props> = ({ pubId }) => {
 
   const pageInfo = data?.whoReactedPublication?.pageInfo;
   const { observe } = useInView({
-    onEnter: () => {
-      fetchMore({
+    onEnter: async () => {
+      await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next } }
       });
       Mixpanel.track(PAGINATION.LIKES);

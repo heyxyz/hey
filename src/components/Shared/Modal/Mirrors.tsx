@@ -45,8 +45,8 @@ const Mirrors: FC<Props> = ({ pubId }) => {
 
   const pageInfo = data?.profiles?.pageInfo;
   const { observe } = useInView({
-    onEnter: () => {
-      fetchMore({
+    onEnter: async () => {
+      await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next } }
       });
       Mixpanel.track(PAGINATION.MIRRORS);
