@@ -65,7 +65,9 @@ const Publications: FC<Props> = ({ query }) => {
     variables: { request, reactionRequest, profileId }
   });
 
+  const publications = data?.search?.items;
   const pageInfo = data?.search?.pageInfo;
+
   const { observe } = useInView({
     onChange: async ({ inView }) => {
       if (!inView) {
@@ -83,7 +85,7 @@ const Publications: FC<Props> = ({ query }) => {
   return (
     <>
       {loading && <PublicationsShimmer />}
-      {data?.search?.items?.length === 0 && (
+      {publications?.length === 0 && (
         <EmptyState
           message={
             <div>
@@ -97,12 +99,20 @@ const Publications: FC<Props> = ({ query }) => {
       {!error && !loading && (
         <>
           <Card className="divide-y-[1px] dark:divide-gray-700/80">
-            {data?.search?.items?.map((post: LensterPublication, index: number) => (
-              <SinglePublication key={`${post?.id}_${index}`} publication={post} />
-            ))}
+            {publications?.map((post: LensterPublication, index: number) => {
+              const isLast = index === publications?.length - 1;
+
+              return (
+                <SinglePublication
+                  key={`${post?.id}_${index}`}
+                  fwdRef={isLast ? observe : null}
+                  publication={post}
+                />
+              );
+            })}
           </Card>
-          {pageInfo?.next && data?.search?.items?.length !== pageInfo?.totalCount && (
-            <span ref={observe} className="flex justify-center p-5">
+          {pageInfo?.next && publications?.length !== pageInfo?.totalCount && (
+            <span className="flex justify-center p-5">
               <Spinner size="sm" />
             </span>
           )}
