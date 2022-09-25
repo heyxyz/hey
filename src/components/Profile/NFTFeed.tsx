@@ -87,21 +87,14 @@ const NFTFeed: FC<Props> = ({ profile }) => {
       {!error && (
         <>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            {nfts?.map((nft: Nft, index: number) => {
-              const isLast = index === nfts?.length - 1;
-
-              return (
-                <div
-                  key={`${nft?.chainId}_${nft?.contractAddress}_${nft?.tokenId}`}
-                  ref={isLast ? observe : null}
-                >
-                  <SingleNFT nft={nft} />
-                </div>
-              );
-            })}
+            {nfts?.map((nft: Nft) => (
+              <div key={`${nft?.chainId}_${nft?.contractAddress}_${nft?.tokenId}`}>
+                <SingleNFT nft={nft} />
+              </div>
+            ))}
           </div>
           {pageInfo?.next && nfts?.length !== pageInfo?.totalCount && (
-            <span className="flex justify-center p-5">
+            <span ref={observe} className="flex justify-center p-5">
               <Spinner size="sm" />
             </span>
           )}

@@ -98,20 +98,12 @@ const Feed: FC<Props> = ({ feedType = PublicationSortCriteria.CuratedProfiles })
       {!error && !loading && publications?.length !== 0 && (
         <>
           <Card className="divide-y-[1px] dark:divide-gray-700/80">
-            {publications?.map((post: LensterPublication, index: number) => {
-              const isLast = index === publications?.length - 1;
-
-              return (
-                <SinglePublication
-                  key={`${post?.id}_${index}`}
-                  fwdRef={isLast ? observe : null}
-                  publication={post}
-                />
-              );
-            })}
+            {publications?.map((post: LensterPublication, index: number) => (
+              <SinglePublication key={`${post?.id}_${index}`} publication={post} />
+            ))}
           </Card>
           {pageInfo?.next && publications?.length !== pageInfo?.totalCount && (
-            <span className="flex justify-center p-5">
+            <span ref={observe} className="flex justify-center p-5">
               <Spinner size="sm" />
             </span>
           )}

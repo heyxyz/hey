@@ -85,27 +85,23 @@ const Collectors: FC<Props> = ({ pubId }) => {
       <ErrorMessage className="m-5" title="Failed to load collectors" error={error} />
       <div className="space-y-3">
         <div className="divide-y dark:divide-gray-700">
-          {profiles?.map((wallet: Wallet, index: number) => {
-            const isLast = index === profiles?.length - 1;
-
-            return (
-              <div className="p-5" key={wallet?.address} ref={isLast ? observe : null}>
-                {wallet?.defaultProfile ? (
-                  <UserProfile
-                    profile={wallet?.defaultProfile}
-                    showBio
-                    showFollow
-                    isFollowing={wallet?.defaultProfile?.isFollowedByMe}
-                  />
-                ) : (
-                  <WalletProfile wallet={wallet} />
-                )}
-              </div>
-            );
-          })}
+          {profiles?.map((wallet: Wallet) => (
+            <div className="p-5" key={wallet?.address}>
+              {wallet?.defaultProfile ? (
+                <UserProfile
+                  profile={wallet?.defaultProfile}
+                  showBio
+                  showFollow
+                  isFollowing={wallet?.defaultProfile?.isFollowedByMe}
+                />
+              ) : (
+                <WalletProfile wallet={wallet} />
+              )}
+            </div>
+          ))}
         </div>
         {pageInfo?.next && profiles?.length !== pageInfo?.totalCount && (
-          <span className="flex justify-center p-5">
+          <span ref={observe} className="flex justify-center p-5">
             <Spinner size="md" />
           </span>
         )}

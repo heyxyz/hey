@@ -244,34 +244,30 @@ const List: FC = () => {
 
   return (
     <Card className="divide-y dark:divide-gray-700">
-      {notifications?.map((notification: Notification, index: number) => {
-        const isLast = index === notifications?.length - 1;
-
-        return (
-          <div key={`${notification?.notificationId}_${index}`} className="p-5" ref={isLast ? observe : null}>
-            {notification?.__typename === 'NewFollowerNotification' && (
-              <FollowerNotification notification={notification as any} />
-            )}
-            {notification?.__typename === 'NewMentionNotification' && (
-              <MentionNotification notification={notification as any} />
-            )}
-            {notification?.__typename === 'NewReactionNotification' && (
-              <LikeNotification notification={notification} />
-            )}
-            {notification?.__typename === 'NewCommentNotification' && (
-              <CommentNotification notification={notification} />
-            )}
-            {notification?.__typename === 'NewMirrorNotification' && (
-              <MirrorNotification notification={notification} />
-            )}
-            {notification?.__typename === 'NewCollectNotification' && (
-              <CollectNotification notification={notification as any} />
-            )}
-          </div>
-        );
-      })}
+      {notifications?.map((notification: Notification, index: number) => (
+        <div key={`${notification?.notificationId}_${index}`} className="p-5">
+          {notification?.__typename === 'NewFollowerNotification' && (
+            <FollowerNotification notification={notification as any} />
+          )}
+          {notification?.__typename === 'NewMentionNotification' && (
+            <MentionNotification notification={notification as any} />
+          )}
+          {notification?.__typename === 'NewReactionNotification' && (
+            <LikeNotification notification={notification} />
+          )}
+          {notification?.__typename === 'NewCommentNotification' && (
+            <CommentNotification notification={notification} />
+          )}
+          {notification?.__typename === 'NewMirrorNotification' && (
+            <MirrorNotification notification={notification} />
+          )}
+          {notification?.__typename === 'NewCollectNotification' && (
+            <CollectNotification notification={notification as any} />
+          )}
+        </div>
+      ))}
       {pageInfo?.next && (
-        <span className="flex justify-center p-5">
+        <span ref={observe} className="flex justify-center p-5">
           <Spinner size="sm" />
         </span>
       )}

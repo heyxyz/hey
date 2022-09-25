@@ -76,23 +76,18 @@ const Feed: FC = () => {
       {!error && !loading && publications?.items?.length !== 0 && (
         <>
           <Card className="divide-y-[1px] dark:divide-gray-700/80">
-            {publications?.items?.map((post: LensterPublication, index: number) => {
-              const isLast = index === publications?.length - 1;
-
-              return (
-                <SinglePublication
-                  key={`${post?.id}_${index}`}
-                  fwdRef={isLast ? observe : null}
-                  publication={post}
-                  showThread={false}
-                  showActions={false}
-                  showModActions
-                />
-              );
-            })}
+            {publications?.items?.map((post: LensterPublication, index: number) => (
+              <SinglePublication
+                key={`${post?.id}_${index}`}
+                publication={post}
+                showThread={false}
+                showActions={false}
+                showModActions
+              />
+            ))}
           </Card>
           {pageInfo?.next && publications?.length !== pageInfo?.totalCount && (
-            <span className="flex justify-center p-5">
+            <span ref={observe} className="flex justify-center p-5">
               <Spinner size="sm" />
             </span>
           )}
