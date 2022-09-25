@@ -48,7 +48,11 @@ const Likes: FC<Props> = ({ pubId }) => {
 
   const pageInfo = data?.whoReactedPublication?.pageInfo;
   const { observe } = useInView({
-    onEnter: async () => {
+    onChange: async ({ inView }) => {
+      if (!inView) {
+        return;
+      }
+
       await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next } }
       });

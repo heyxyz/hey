@@ -70,7 +70,11 @@ const Feed: FC<Props> = ({ feedType = PublicationSortCriteria.CuratedProfiles })
 
   const pageInfo = data?.explorePublications?.pageInfo;
   const { observe } = useInView({
-    onEnter: async () => {
+    onChange: async ({ inView }) => {
+      if (!inView) {
+        return;
+      }
+
       await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next }, reactionRequest, profileId }
       });
