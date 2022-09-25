@@ -47,6 +47,7 @@ const MutualFollowersList: FC<Props> = ({ profileId }) => {
     skip: !profileId
   });
 
+  const profiles = data?.mutualFollowersProfiles?.items;
   const pageInfo = data?.mutualFollowersProfiles?.pageInfo;
   const { observe } = useInView({
     onChange: async ({ inView }) => {
@@ -71,14 +72,18 @@ const MutualFollowersList: FC<Props> = ({ profileId }) => {
       <ErrorMessage className="m-5" title="Failed to load mutual followers" error={error} />
       <div className="space-y-3">
         <div className="divide-y dark:divide-gray-700">
-          {data?.mutualFollowersProfiles?.items?.map((profile: Profile) => (
-            <div className="p-5" key={profile?.id}>
-              <UserProfile profile={profile} showBio showFollow isFollowing={profile?.isFollowedByMe} />
-            </div>
-          ))}
+          {profiles?.map((profile: Profile, index: number) => {
+            const isLast = index === profiles?.length - 1;
+
+            return (
+              <div className="p-5" key={profile?.id} ref={isLast ? observe : null}>
+                <UserProfile profile={profile} showBio showFollow isFollowing={profile?.isFollowedByMe} />
+              </div>
+            );
+          })}
         </div>
-        {pageInfo?.next && data?.mutualFollowersProfiles?.items?.length !== pageInfo?.totalCount && (
-          <span ref={observe} className="flex justify-center p-5">
+        {pageInfo?.next && profiles?.length !== pageInfo?.totalCount && (
+          <span className="flex justify-center p-5">
             <Spinner size="md" />
           </span>
         )}
