@@ -52,6 +52,7 @@ const NFTFeed: FC<Props> = ({ profile }) => {
     skip: !profile?.ownedBy
   });
 
+  const nfts = data?.nfts?.items;
   const pageInfo = data?.nfts?.pageInfo;
   const { observe } = useInView({
     onChange: async ({ inView }) => {
@@ -70,7 +71,7 @@ const NFTFeed: FC<Props> = ({ profile }) => {
   return (
     <>
       {loading && <NFTSShimmer />}
-      {data?.nfts?.items?.length === 0 && (
+      {nfts?.length === 0 && (
         <EmptyState
           message={
             <div>
@@ -85,12 +86,21 @@ const NFTFeed: FC<Props> = ({ profile }) => {
       {!error && (
         <>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            {data?.nfts?.items?.map((nft: Nft) => (
-              <SingleNFT key={`${nft?.chainId}_${nft?.contractAddress}_${nft?.tokenId}`} nft={nft} />
-            ))}
+            {nfts?.map((nft: Nft, index: number) => {
+              const isLast = index === nfts?.length - 1;
+
+              return (
+                <div
+                  key={`${nft?.chainId}_${nft?.contractAddress}_${nft?.tokenId}`}
+                  ref={isLast ? observe : null}
+                >
+                  <SingleNFT nft={nft} />
+                </div>
+              );
+            })}
           </div>
-          {pageInfo?.next && data?.nfts?.items?.length !== pageInfo?.totalCount && (
-            <span ref={observe} className="flex justify-center p-5">
+          {pageInfo?.next && nfts?.length !== pageInfo?.totalCount && (
+            <span className="flex justify-center p-5">
               <Spinner size="sm" />
             </span>
           )}
