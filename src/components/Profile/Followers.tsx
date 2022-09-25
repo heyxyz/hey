@@ -51,6 +51,7 @@ const Followers: FC<Props> = ({ profile }) => {
 
   const followers = data?.followers?.items;
   const pageInfo = data?.followers?.pageInfo;
+
   const { observe } = useInView({
     onChange: async ({ inView }) => {
       if (!inView) {

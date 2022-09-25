@@ -49,6 +49,7 @@ const MutualFollowersList: FC<Props> = ({ profileId }) => {
 
   const profiles = data?.mutualFollowersProfiles?.items;
   const pageInfo = data?.mutualFollowersProfiles?.pageInfo;
+
   const { observe } = useInView({
     onChange: async ({ inView }) => {
       if (!inView) {

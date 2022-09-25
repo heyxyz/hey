@@ -62,6 +62,8 @@ const Feed: FC = () => {
   });
 
   const pageInfo = data?.timeline?.pageInfo;
+  const publications = data?.timeline?.items;
+
   const { observe } = useInView({
     onChange: async ({ inView }) => {
       if (!inView) {
@@ -75,8 +77,6 @@ const Feed: FC = () => {
     },
     rootMargin: PAGINATION_ROOT_MARGIN
   });
-
-  const publications = data?.timeline?.items;
 
   return (
     <>

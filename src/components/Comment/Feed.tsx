@@ -63,7 +63,9 @@ const Feed: FC<Props> = ({ publication, onlyFollowers = false, isFollowing = tru
     skip: !pubId
   });
 
+  const comments = data?.publications?.items;
   const pageInfo = data?.publications?.pageInfo;
+
   const { observe } = useInView({
     onChange: async ({ inView }) => {
       if (!inView) {
@@ -78,7 +80,6 @@ const Feed: FC<Props> = ({ publication, onlyFollowers = false, isFollowing = tru
     rootMargin: PAGINATION_ROOT_MARGIN
   });
 
-  const comments = data?.publications?.items;
   const queuedCount = txnQueue.filter((o) => o.type === 'NEW_COMMENT').length;
   const totalComments = comments?.length + queuedCount;
 
