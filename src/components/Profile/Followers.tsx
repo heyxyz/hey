@@ -49,6 +49,7 @@ const Followers: FC<Props> = ({ profile }) => {
     skip: !profile?.id
   });
 
+  const followers = data?.followers?.items;
   const pageInfo = data?.followers?.pageInfo;
   const { observe } = useInView({
     onChange: async ({ inView }) => {
@@ -68,7 +69,7 @@ const Followers: FC<Props> = ({ profile }) => {
     return <Loader message="Loading followers" />;
   }
 
-  if (data?.followers?.items?.length === 0) {
+  if (followers?.length === 0) {
     return (
       <EmptyState
         message={
@@ -82,8 +83,6 @@ const Followers: FC<Props> = ({ profile }) => {
       />
     );
   }
-
-  const followers = data?.followers?.items;
 
   return (
     <div className="overflow-y-auto max-h-[80vh]">
