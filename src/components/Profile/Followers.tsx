@@ -91,7 +91,7 @@ const Followers: FC<Props> = ({ profile }) => {
       <div className="space-y-3">
         <div className="divide-y dark:divide-gray-700">
           {followers?.map((follower: Follower, index: number) => {
-            const isLast = index === followers.length - 1;
+            const isLast = index === followers?.length - 1;
 
             return (
               <div className="p-5" key={follower?.wallet?.defaultProfile?.id} ref={isLast ? observe : null}>

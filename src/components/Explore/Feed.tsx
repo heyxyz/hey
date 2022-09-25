@@ -99,7 +99,7 @@ const Feed: FC<Props> = ({ feedType = PublicationSortCriteria.CuratedProfiles })
         <>
           <Card className="divide-y-[1px] dark:divide-gray-700/80">
             {publications?.map((post: LensterPublication, index: number) => {
-              const isLast = index === publications.length - 1;
+              const isLast = index === publications?.length - 1;
 
               return (
                 <SinglePublication
