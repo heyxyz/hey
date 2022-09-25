@@ -45,6 +45,7 @@ const Following: FC<Props> = ({ profile }) => {
     skip: !profile?.id
   });
 
+  const followings = data?.following?.items;
   const pageInfo = data?.following?.pageInfo;
   const { observe } = useInView({
     onChange: async ({ inView }) => {
@@ -66,7 +67,7 @@ const Following: FC<Props> = ({ profile }) => {
     return <Loader message="Loading following" />;
   }
 
-  if (data?.following?.items?.length === 0) {
+  if (followings?.length === 0) {
     return (
       <EmptyState
         message={
@@ -86,19 +87,23 @@ const Following: FC<Props> = ({ profile }) => {
       <ErrorMessage className="m-5" title="Failed to load following" error={error} />
       <div className="space-y-3">
         <div className="divide-y dark:divide-gray-700">
-          {data?.following?.items?.map((following: Following) => (
-            <div className="p-5" key={following?.profile?.id}>
-              <UserProfile
-                profile={following?.profile}
-                showBio
-                showFollow
-                isFollowing={following?.profile?.isFollowedByMe}
-              />
-            </div>
-          ))}
+          {followings?.map((following: Following, index: number) => {
+            const isLast = index === followings?.length - 1;
+
+            return (
+              <div className="p-5" key={following?.profile?.id} ref={isLast ? observe : null}>
+                <UserProfile
+                  profile={following?.profile}
+                  showBio
+                  showFollow
+                  isFollowing={following?.profile?.isFollowedByMe}
+                />
+              </div>
+            );
+          })}
         </div>
-        {pageInfo?.next && data?.following?.items?.length !== pageInfo?.totalCount && (
-          <span ref={observe} className="flex justify-center p-5">
+        {pageInfo?.next && followings?.length !== pageInfo?.totalCount && (
+          <span className="flex justify-center p-5">
             <Spinner size="md" />
           </span>
         )}
