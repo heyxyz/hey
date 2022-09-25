@@ -83,28 +83,34 @@ const Followers: FC<Props> = ({ profile }) => {
     );
   }
 
+  const followers = data?.followers?.items;
+
   return (
     <div className="overflow-y-auto max-h-[80vh]">
       <ErrorMessage className="m-5" title="Failed to load followers" error={error} />
       <div className="space-y-3">
         <div className="divide-y dark:divide-gray-700">
-          {data?.followers?.items?.map((follower: Follower) => (
-            <div className="p-5" key={follower?.wallet?.defaultProfile?.id}>
-              {follower?.wallet?.defaultProfile ? (
-                <UserProfile
-                  profile={follower?.wallet?.defaultProfile}
-                  showBio
-                  showFollow
-                  isFollowing={follower?.wallet?.defaultProfile?.isFollowedByMe}
-                />
-              ) : (
-                <WalletProfile wallet={follower?.wallet} />
-              )}
-            </div>
-          ))}
+          {followers?.map((follower: Follower, index: number) => {
+            const isLast = index === followers.length - 1;
+
+            return (
+              <div className="p-5" key={follower?.wallet?.defaultProfile?.id} ref={isLast ? observe : null}>
+                {follower?.wallet?.defaultProfile ? (
+                  <UserProfile
+                    profile={follower?.wallet?.defaultProfile}
+                    showBio
+                    showFollow
+                    isFollowing={follower?.wallet?.defaultProfile?.isFollowedByMe}
+                  />
+                ) : (
+                  <WalletProfile wallet={follower?.wallet} />
+                )}
+              </div>
+            );
+          })}
         </div>
-        {pageInfo?.next && data?.followers?.items?.length !== pageInfo?.totalCount && (
-          <span ref={observe} className="flex justify-center p-5">
+        {pageInfo?.next && followers?.length !== pageInfo?.totalCount && (
+          <span className="flex justify-center p-5">
             <Spinner size="md" />
           </span>
         )}
