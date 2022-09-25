@@ -49,6 +49,8 @@ const Feed: FC = () => {
     rootMargin: PAGINATION_ROOT_MARGIN
   });
 
+  const publications = data?.explorePublications?.items;
+
   return (
     <>
       <div className="flex items-center justify-between">
@@ -64,28 +66,33 @@ const Feed: FC = () => {
         </button>
       </div>
       {loading && <PublicationsShimmer />}
-      {data?.explorePublications?.items?.length === 0 && (
+      {publications?.length === 0 && (
         <EmptyState
           message={<div>No posts yet!</div>}
           icon={<CollectionIcon className="w-8 h-8 text-brand" />}
         />
       )}
       <ErrorMessage title="Failed to load explore feed" error={error} />
-      {!error && !loading && data?.explorePublications?.items?.length !== 0 && (
+      {!error && !loading && publications?.items?.length !== 0 && (
         <>
           <Card className="divide-y-[1px] dark:divide-gray-700/80">
-            {data?.explorePublications?.items?.map((post: LensterPublication, index: number) => (
-              <SinglePublication
-                key={`${post?.id}_${index}`}
-                publication={post}
-                showThread={false}
-                showActions={false}
-                showModActions
-              />
-            ))}
+            {publications?.items?.map((post: LensterPublication, index: number) => {
+              const isLast = index === publications?.items?.length - 1;
+
+              return (
+                <SinglePublication
+                  key={`${post?.id}_${index}`}
+                  fwdRef={isLast ? observe : null}
+                  publication={post}
+                  showThread={false}
+                  showActions={false}
+                  showModActions
+                />
+              );
+            })}
           </Card>
-          {pageInfo?.next && data?.explorePublications?.items.length !== pageInfo?.totalCount && (
-            <span ref={observe} className="flex justify-center p-5">
+          {pageInfo?.next && publications?.length !== pageInfo?.totalCount && (
+            <span className="flex justify-center p-5">
               <Spinner size="sm" />
             </span>
           )}
