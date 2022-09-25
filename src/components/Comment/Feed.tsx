@@ -65,8 +65,8 @@ const Feed: FC<Props> = ({ publication, onlyFollowers = false, isFollowing = tru
 
   const pageInfo = data?.publications?.pageInfo;
   const { observe } = useInView({
-    onEnter: () => {
-      fetchMore({
+    onEnter: async () => {
+      await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next }, reactionRequest, profileId }
       });
       Mixpanel.track(PAGINATION.COMMENT_FEED);

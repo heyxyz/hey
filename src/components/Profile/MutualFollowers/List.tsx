@@ -49,8 +49,8 @@ const MutualFollowersList: FC<Props> = ({ profileId }) => {
 
   const pageInfo = data?.mutualFollowersProfiles?.pageInfo;
   const { observe } = useInView({
-    onEnter: () => {
-      fetchMore({
+    onEnter: async () => {
+      await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next } }
       });
       Mixpanel.track(PAGINATION.MUTUAL_FOLLOWERS);

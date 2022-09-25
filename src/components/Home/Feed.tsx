@@ -63,8 +63,8 @@ const Feed: FC = () => {
 
   const pageInfo = data?.timeline?.pageInfo;
   const { observe } = useInView({
-    onEnter: () => {
-      fetchMore({
+    onEnter: async () => {
+      await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next }, reactionRequest, profileId }
       });
       Mixpanel.track(PAGINATION.HOME_FEED);

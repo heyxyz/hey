@@ -83,8 +83,8 @@ const Feed: FC<Props> = ({ profile, type }) => {
 
   const pageInfo = data?.publications?.pageInfo;
   const { observe } = useInView({
-    onEnter: () => {
-      fetchMore({
+    onEnter: async () => {
+      await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next }, reactionRequest, profileId }
       });
       Mixpanel.track(PAGINATION.PROFILE_FEED);
