@@ -116,21 +116,12 @@ const Feed: FC<Props> = ({ publication, onlyFollowers = false, isFollowing = tru
                   </div>
                 )
             )}
-            {comments?.map((post: LensterPublication, index: number) => {
-              const isLast = index === comments?.length - 1;
-
-              return (
-                <SinglePublication
-                  key={`${pubId}_${index}`}
-                  fwdRef={isLast ? observe : null}
-                  publication={post}
-                  showType={false}
-                />
-              );
-            })}
+            {comments?.map((post: LensterPublication, index: number) => (
+              <SinglePublication key={`${pubId}_${index}`} publication={post} showType={false} />
+            ))}
           </Card>
           {pageInfo?.next && comments?.length !== pageInfo?.totalCount && (
-            <span className="flex justify-center p-5">
+            <span ref={observe} className="flex justify-center p-5">
               <Spinner size="sm" />
             </span>
           )}

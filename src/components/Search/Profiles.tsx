@@ -78,20 +78,16 @@ const Profiles: FC<Props> = ({ query }) => {
       {!error && !loading && (
         <>
           <div className="space-y-3">
-            {profiles?.map((profile: Profile, index: number) => {
-              const isLast = index === profiles?.length - 1;
-
-              return (
-                <Card key={profile?.id} fwdRef={isLast ? observe : null}>
-                  <CardBody>
-                    <UserProfile profile={profile} showBio isBig />
-                  </CardBody>
-                </Card>
-              );
-            })}
+            {profiles?.map((profile: Profile) => (
+              <Card key={profile?.id}>
+                <CardBody>
+                  <UserProfile profile={profile} showBio isBig />
+                </CardBody>
+              </Card>
+            ))}
           </div>
           {pageInfo?.next && profiles?.length !== pageInfo?.totalCount && (
-            <span className="flex justify-center p-5">
+            <span ref={observe} className="flex justify-center p-5">
               <Spinner size="sm" />
             </span>
           )}
