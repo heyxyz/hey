@@ -245,8 +245,8 @@ const List: FC = () => {
 
   return (
     <Card className="divide-y dark:divide-gray-700">
-      {notifications?.map((notification: Notification, index: number, items: Notification[]) => {
-        const isLast = index === items.length - 1;
+      {notifications?.map((notification: Notification, index: number) => {
+        const isLast = index === notifications?.length - 1;
 
         return (
           <div key={`${notification?.notificationId}_${index}`} className="p-5" ref={isLast ? observe : null}>
