@@ -43,7 +43,9 @@ const Mirrors: FC<Props> = ({ pubId }) => {
     skip: !pubId
   });
 
+  const profiles = data?.profiles?.items;
   const pageInfo = data?.profiles?.pageInfo;
+
   const { observe } = useInView({
     onChange: async ({ inView }) => {
       if (!inView) {
@@ -62,7 +64,7 @@ const Mirrors: FC<Props> = ({ pubId }) => {
     return <Loader message="Loading mirrors" />;
   }
 
-  if (data?.profiles?.items?.length === 0) {
+  if (profiles?.length === 0) {
     return (
       <div className="p-5">
         <EmptyState
@@ -79,14 +81,18 @@ const Mirrors: FC<Props> = ({ pubId }) => {
       <ErrorMessage className="m-5" title="Failed to load mirrors" error={error} />
       <div className="space-y-3">
         <div className="divide-y dark:divide-gray-700">
-          {data?.profiles?.items?.map((profile: Profile) => (
-            <div className="p-5" key={profile?.id}>
-              <UserProfile profile={profile} showBio showFollow isFollowing={profile?.isFollowedByMe} />
-            </div>
-          ))}
+          {profiles?.map((profile: Profile, index: number) => {
+            const isLast = index === profiles?.length - 1;
+
+            return (
+              <div className="p-5" key={profile?.id} ref={isLast ? observe : null}>
+                <UserProfile profile={profile} showBio showFollow isFollowing={profile?.isFollowedByMe} />
+              </div>
+            );
+          })}
         </div>
-        {pageInfo?.next && data?.profiles?.items?.length !== pageInfo?.totalCount && (
-          <span ref={observe} className="flex justify-center p-5">
+        {pageInfo?.next && profiles?.length !== pageInfo?.totalCount && (
+          <span className="flex justify-center p-5">
             <Spinner size="md" />
           </span>
         )}
