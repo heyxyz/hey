@@ -46,7 +46,9 @@ const Likes: FC<Props> = ({ pubId }) => {
     skip: !pubId
   });
 
+  const profiles = data?.whoReactedPublication?.items;
   const pageInfo = data?.whoReactedPublication?.pageInfo;
+
   const { observe } = useInView({
     onChange: async ({ inView }) => {
       if (!inView) {
@@ -65,7 +67,7 @@ const Likes: FC<Props> = ({ pubId }) => {
     return <Loader message="Loading likes" />;
   }
 
-  if (data?.whoReactedPublication?.items?.length === 0) {
+  if (profiles?.length === 0) {
     return (
       <div className="p-5">
         <EmptyState
@@ -82,19 +84,23 @@ const Likes: FC<Props> = ({ pubId }) => {
       <ErrorMessage className="m-5" title="Failed to load likes" error={error} />
       <div className="space-y-3">
         <div className="divide-y dark:divide-gray-700">
-          {data?.whoReactedPublication?.items?.map((like: WhoReactedResult) => (
-            <div className="p-5" key={like?.reactionId}>
-              <UserProfile
-                profile={like?.profile}
-                showBio
-                showFollow
-                isFollowing={like?.profile?.isFollowedByMe}
-              />
-            </div>
-          ))}
+          {profiles?.map((like: WhoReactedResult, index: number) => {
+            const isLast = index === profiles?.length - 1;
+
+            return (
+              <div className="p-5" key={like?.reactionId} ref={isLast ? observe : null}>
+                <UserProfile
+                  profile={like?.profile}
+                  showBio
+                  showFollow
+                  isFollowing={like?.profile?.isFollowedByMe}
+                />
+              </div>
+            );
+          })}
         </div>
-        {pageInfo?.next && data?.whoReactedPublication?.items?.length !== pageInfo?.totalCount && (
-          <span ref={observe} className="flex justify-center p-5">
+        {pageInfo?.next && profiles?.length !== pageInfo?.totalCount && (
+          <span className="flex justify-center p-5">
             <Spinner size="md" />
           </span>
         )}
