@@ -22,6 +22,7 @@ interface Props {
   showActions?: boolean;
   showModActions?: boolean;
   showThread?: boolean;
+  fwdRef?: any;
 }
 
 const SinglePublication: FC<Props> = ({
@@ -29,7 +30,8 @@ const SinglePublication: FC<Props> = ({
   showType = true,
   showActions = true,
   showModActions = false,
-  showThread = true
+  showThread = true,
+  fwdRef = null
 }) => {
   const { push } = useRouter();
   const isMirror = publication?.__typename === 'Mirror';
@@ -43,6 +45,7 @@ const SinglePublication: FC<Props> = ({
         { 'hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer': !isCrowdfund },
         'first:rounded-t-xl last:rounded-b-xl p-5'
       )}
+      ref={fwdRef}
     >
       <PublicationType publication={publication} showType={showType} showThread={showThread} />
       <div
