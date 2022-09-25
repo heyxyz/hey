@@ -47,7 +47,9 @@ const Collectors: FC<Props> = ({ pubId }) => {
     skip: !pubId
   });
 
+  const profiles = data?.whoCollectedPublication?.items;
   const pageInfo = data?.whoCollectedPublication?.pageInfo;
+
   const { observe } = useInView({
     onChange: async ({ inView }) => {
       if (!inView) {
@@ -66,7 +68,7 @@ const Collectors: FC<Props> = ({ pubId }) => {
     return <Loader message="Loading collectors" />;
   }
 
-  if (data?.whoCollectedPublication?.items?.length === 0) {
+  if (profiles?.length === 0) {
     return (
       <div className="p-5">
         <EmptyState
@@ -83,23 +85,27 @@ const Collectors: FC<Props> = ({ pubId }) => {
       <ErrorMessage className="m-5" title="Failed to load collectors" error={error} />
       <div className="space-y-3">
         <div className="divide-y dark:divide-gray-700">
-          {data?.whoCollectedPublication?.items?.map((wallet: Wallet) => (
-            <div className="p-5" key={wallet?.address}>
-              {wallet?.defaultProfile ? (
-                <UserProfile
-                  profile={wallet?.defaultProfile}
-                  showBio
-                  showFollow
-                  isFollowing={wallet?.defaultProfile?.isFollowedByMe}
-                />
-              ) : (
-                <WalletProfile wallet={wallet} />
-              )}
-            </div>
-          ))}
+          {profiles?.map((wallet: Wallet, index: number) => {
+            const isLast = index === profiles?.length - 1;
+
+            return (
+              <div className="p-5" key={wallet?.address} ref={isLast ? observe : null}>
+                {wallet?.defaultProfile ? (
+                  <UserProfile
+                    profile={wallet?.defaultProfile}
+                    showBio
+                    showFollow
+                    isFollowing={wallet?.defaultProfile?.isFollowedByMe}
+                  />
+                ) : (
+                  <WalletProfile wallet={wallet} />
+                )}
+              </div>
+            );
+          })}
         </div>
-        {pageInfo?.next && data?.whoCollectedPublication?.items?.length !== pageInfo?.totalCount && (
-          <span ref={observe} className="flex justify-center p-5">
+        {pageInfo?.next && profiles?.length !== pageInfo?.totalCount && (
+          <span className="flex justify-center p-5">
             <Spinner size="md" />
           </span>
         )}
