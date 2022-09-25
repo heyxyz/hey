@@ -196,7 +196,9 @@ const List: FC = () => {
     variables: { request }
   });
 
+  const notifications = data?.notifications?.items;
   const pageInfo = data?.notifications?.pageInfo;
+
   const { observe } = useInView({
     onChange: async ({ inView }) => {
       if (!inView) {
@@ -227,7 +229,7 @@ const List: FC = () => {
     return <ErrorMessage className="m-3" title="Failed to load notifications" error={error} />;
   }
 
-  if (data?.notifications?.items?.length === 0) {
+  if (notifications?.length === 0) {
     return (
       <EmptyState
         message={
@@ -243,7 +245,7 @@ const List: FC = () => {
 
   return (
     <Card className="divide-y dark:divide-gray-700">
-      {data?.notifications?.items?.map((notification: Notification, index: number, items: Notification[]) => {
+      {notifications?.map((notification: Notification, index: number, items: Notification[]) => {
         const isLast = index === items.length - 1;
 
         return (

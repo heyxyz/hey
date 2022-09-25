@@ -54,6 +54,7 @@ const NFTFeed: FC<Props> = ({ profile }) => {
 
   const nfts = data?.nfts?.items;
   const pageInfo = data?.nfts?.pageInfo;
+
   const { observe } = useInView({
     onChange: async ({ inView }) => {
       if (!inView) {

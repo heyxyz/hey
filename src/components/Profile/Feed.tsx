@@ -82,6 +82,8 @@ const Feed: FC<Props> = ({ profile, type }) => {
   });
 
   const pageInfo = data?.publications?.pageInfo;
+  const publications = data?.publications?.items;
+
   const { observe } = useInView({
     onChange: async ({ inView }) => {
       if (!inView) {
@@ -95,8 +97,6 @@ const Feed: FC<Props> = ({ profile, type }) => {
     },
     rootMargin: PAGINATION_ROOT_MARGIN
   });
-
-  const publications = data?.publications?.items;
 
   return (
     <>

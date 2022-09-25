@@ -69,6 +69,8 @@ const Feed: FC<Props> = ({ feedType = PublicationSortCriteria.CuratedProfiles })
   });
 
   const pageInfo = data?.explorePublications?.pageInfo;
+  const publications = data?.explorePublications?.items;
+
   const { observe } = useInView({
     onChange: async ({ inView }) => {
       if (!inView) {
@@ -82,8 +84,6 @@ const Feed: FC<Props> = ({ feedType = PublicationSortCriteria.CuratedProfiles })
     },
     rootMargin: PAGINATION_ROOT_MARGIN
   });
-
-  const publications = data?.explorePublications?.items;
 
   return (
     <>
