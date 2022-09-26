@@ -73,10 +73,10 @@ const Feed: FC = () => {
         />
       )}
       <ErrorMessage title="Failed to load explore feed" error={error} />
-      {!error && !loading && publications?.items?.length !== 0 && (
+      {!error && !loading && publications?.length !== 0 && (
         <>
           <Card className="divide-y-[1px] dark:divide-gray-700/80">
-            {publications?.items?.map((post: LensterPublication, index: number) => (
+            {publications?.map((post: LensterPublication, index: number) => (
               <SinglePublication
                 key={`${post?.id}_${index}`}
                 publication={post}
