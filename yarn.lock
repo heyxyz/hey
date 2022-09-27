@@ -1519,10 +1519,10 @@
     react-use "17.4.0"
     throttle-debounce "^3.0.1"
 
-"@graphql-codegen/cli@^2.12.1":
-  version "2.12.1"
-  resolved "https://registry.yarnpkg.com/@graphql-codegen/cli/-/cli-2.12.1.tgz#0a8533015c16cfe5626611f836321dd281a2b382"
-  integrity sha512-kBYArVrIceKmNy2qZeiqoAHuNFUVRuVL3f0XX3VproXNmCGjLzcYosPmzV8+2H9mjjDU+vq5mLddAc8oVNGz9g==
+"@graphql-codegen/cli@^2.12.2":
+  version "2.12.2"
+  resolved "https://registry.yarnpkg.com/@graphql-codegen/cli/-/cli-2.12.2.tgz#6122fbaca462b788ad7811135b3fc251b46cf6c4"
+  integrity sha512-cM2BS1FDWiZKpCFxdmhKsUzlNFs8X54yJm9djsPdz36yzXV5Sa4t6HQzr0vAX8cpc9RneBBi3rCkozRuRbBtjA==
   dependencies:
     "@graphql-codegen/core" "2.6.2"
     "@graphql-codegen/plugin-helpers" "^2.7.1"
