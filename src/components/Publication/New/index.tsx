@@ -263,7 +263,7 @@ const NewPost: FC<Props> = ({ hideCard = false }) => {
         <div className="space-y-1">
           {error && <ErrorMessage className="mb-3" title="Transaction failed!" error={error} />}
           {previewPublication ? (
-            <div className="pb-3 mb-2 border-b linkify dark:border-b-gray-700/80">
+            <div className="pb-3 mb-2 border-b linkify dark:border-b-gray-700/80 break-words">
               <Markup>{publicationContent}</Markup>
             </div>
           ) : (
