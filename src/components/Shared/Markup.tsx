@@ -8,7 +8,7 @@ import { SpoilerMatcher } from '@components/utils/matchers/SpoilerMatcher';
 import trimify from '@lib/trimify';
 import { Interweave } from 'interweave';
 import { UrlMatcher } from 'interweave-autolink';
-import React, { FC } from 'react';
+import React, { FC, MouseEvent } from 'react';
 
 interface Props {
   children: string;
@@ -32,6 +32,7 @@ const Markup: FC<Props> = ({ children }) => {
         new SpoilerMatcher('spoiler'),
         new UrlMatcher('url', { validateTLD: false })
       ]}
+      onClick={(event: MouseEvent<HTMLDivElement>) => event.stopPropagation()}
     />
   );
 };
