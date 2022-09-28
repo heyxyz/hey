@@ -1,6 +1,7 @@
 import { LensterPublication } from '@generated/lenstertypes';
 import clsx from 'clsx';
 import React, { FC } from 'react';
+import { useAppStore } from 'src/store/app';
 
 import Collect from './Collect';
 import Comment from './Comment';
@@ -14,8 +15,10 @@ interface Props {
 }
 
 const PublicationActions: FC<Props> = ({ publication, isFullPublication = false }) => {
+  const currentProfile = useAppStore((state) => state.currentProfile);
   const publicationType = publication?.metadata?.attributes[0]?.value;
   const collectModuleType = publication?.collectModule?.__typename;
+  const canMirror = currentProfile ? publication?.canMirror?.result : true;
 
   return (
     <span
@@ -28,7 +31,7 @@ const PublicationActions: FC<Props> = ({ publication, isFullPublication = false 
       )}
     >
       <Comment publication={publication} isFullPublication={isFullPublication} />
-      <Mirror publication={publication} isFullPublication={isFullPublication} />
+      {canMirror && <Mirror publication={publication} isFullPublication={isFullPublication} />}
       <Like publication={publication} isFullPublication={isFullPublication} />
       {collectModuleType !== 'RevertCollectModuleSettings' &&
         collectModuleType !== 'UnknownCollectModuleSettings' && // TODO: remove this check when we have a better way to handle unknown collect modules
