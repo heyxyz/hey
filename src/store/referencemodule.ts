@@ -1,5 +1,4 @@
 /* eslint-disable no-unused-vars */
-import { DegreesOfSeparationConfig } from '@generated/lenstertypes';
 import { ReferenceModules } from '@generated/types';
 import create from 'zustand';
 
@@ -8,8 +7,12 @@ interface ReferenceModuleState {
   setSelectedModule: (selectedModule: ReferenceModules) => void;
   onlyFollowers: boolean;
   setOnlyFollowers: (onlyFollowers: boolean) => void;
-  degreesOfSeparationConfig: DegreesOfSeparationConfig;
-  setDegreesOfSeparationConfig: (degreesOfSeparationConfig: DegreesOfSeparationConfig) => void;
+  commentsRestricted: boolean;
+  setCommentsRestricted: (commentsRestricted: boolean) => void;
+  mirrorsRestricted: boolean;
+  setMirrorsRestricted: (mirrorsRestricted: boolean) => void;
+  degreesOfSeparation: number;
+  setDegreesOfSeparation: (degreesOfSeparation: number) => void;
 }
 
 export const useReferenceModuleStore = create<ReferenceModuleState>((set) => ({
@@ -17,10 +20,10 @@ export const useReferenceModuleStore = create<ReferenceModuleState>((set) => ({
   setSelectedModule: (selectedModule) => set(() => ({ selectedModule })),
   onlyFollowers: false,
   setOnlyFollowers: (onlyFollowers) => set(() => ({ onlyFollowers })),
-  degreesOfSeparationConfig: {
-    commentsRestricted: true,
-    mirrorsRestricted: false,
-    degreesOfSeparation: 2
-  },
-  setDegreesOfSeparationConfig: (degreesOfSeparationConfig) => set(() => ({ degreesOfSeparationConfig }))
+  commentsRestricted: true,
+  setCommentsRestricted: (commentsRestricted) => set(() => ({ commentsRestricted })),
+  mirrorsRestricted: false,
+  setMirrorsRestricted: (mirrorsRestricted) => set(() => ({ mirrorsRestricted })),
+  degreesOfSeparation: 2,
+  setDegreesOfSeparation: (degreesOfSeparation) => set(() => ({ degreesOfSeparation }))
 }));

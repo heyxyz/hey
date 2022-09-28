@@ -77,7 +77,7 @@ const NewPost: FC<Props> = ({ hideCard = false }) => {
   const setFeeData = useCollectModuleStore((state) => state.setFeeData);
   const selectedReferenceModule = useReferenceModuleStore((state) => state.selectedModule);
   const onlyFollowers = useReferenceModuleStore((state) => state.onlyFollowers);
-  const degreesOfSeparationConfig = useReferenceModuleStore((state) => state.degreesOfSeparationConfig);
+  const { commentsRestricted, mirrorsRestricted, degreesOfSeparation } = useReferenceModuleStore();
   const [postContentError, setPostContentError] = useState('');
   const [isUploading, setIsUploading] = useState(false);
   const [attachments, setAttachments] = useState<LensterAttachment[]>([]);
@@ -237,7 +237,13 @@ const NewPost: FC<Props> = ({ hideCard = false }) => {
       referenceModule:
         selectedReferenceModule === ReferenceModules.FollowerOnlyReferenceModule
           ? { followerOnlyReferenceModule: onlyFollowers ? true : false }
-          : { degreesOfSeparationReferenceModule: degreesOfSeparationConfig }
+          : {
+              degreesOfSeparationReferenceModule: {
+                commentsRestricted,
+                mirrorsRestricted,
+                degreesOfSeparation
+              }
+            }
     };
 
     if (currentProfile?.dispatcher?.canUseRelay) {
