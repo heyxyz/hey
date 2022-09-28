@@ -9,7 +9,12 @@ import { MentionTextArea } from '@components/UI/MentionTextArea';
 import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
 import { LensterAttachment } from '@generated/lenstertypes';
-import { CreatePostBroadcastItemResult, Mutation, PublicationMainFocus } from '@generated/types';
+import {
+  CreatePostBroadcastItemResult,
+  Mutation,
+  PublicationMainFocus,
+  ReferenceModules
+} from '@generated/types';
 import { IGif } from '@giphy/js-types';
 import {
   CREATE_POST_TYPED_DATA_MUTATION,
@@ -31,6 +36,7 @@ import { APP_NAME, LENSHUB_PROXY, RELAY_ON, SIGN_WALLET } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { useCollectModuleStore } from 'src/store/collectmodule';
 import { usePublicationPersistStore, usePublicationStore } from 'src/store/publication';
+import { useReferenceModuleStore } from 'src/store/referencemodule';
 import { POST } from 'src/tracking';
 import { v4 as uuid } from 'uuid';
 import { useContractWrite, useSignTypedData } from 'wagmi';
@@ -69,8 +75,10 @@ const NewPost: FC<Props> = ({ hideCard = false }) => {
   const setSelectedModule = useCollectModuleStore((state) => state.setSelectedModule);
   const feeData = useCollectModuleStore((state) => state.feeData);
   const setFeeData = useCollectModuleStore((state) => state.setFeeData);
+  const selectedReferenceModule = useReferenceModuleStore((state) => state.selectedModule);
+  const onlyFollowers = useReferenceModuleStore((state) => state.onlyFollowers);
+  const { commentsRestricted, mirrorsRestricted, degreesOfSeparation } = useReferenceModuleStore();
   const [postContentError, setPostContentError] = useState('');
-  const [onlyFollowers, setOnlyFollowers] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const [attachments, setAttachments] = useState<LensterAttachment[]>([]);
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
@@ -226,9 +234,16 @@ const NewPost: FC<Props> = ({ hideCard = false }) => {
             [getModule(selectedModule.moduleName).config]: feeData
           }
         : getModule(selectedModule.moduleName).config,
-      referenceModule: {
-        followerOnlyReferenceModule: onlyFollowers ? true : false
-      }
+      referenceModule:
+        selectedReferenceModule === ReferenceModules.FollowerOnlyReferenceModule
+          ? { followerOnlyReferenceModule: onlyFollowers ? true : false }
+          : {
+              degreesOfSeparationReferenceModule: {
+                commentsRestricted,
+                mirrorsRestricted,
+                degreesOfSeparation
+              }
+            }
     };
 
     if (currentProfile?.dispatcher?.canUseRelay) {
@@ -278,7 +293,7 @@ const NewPost: FC<Props> = ({ hideCard = false }) => {
               <Attachment attachments={attachments} setAttachments={setAttachments} />
               <Giphy setGifAttachment={(gif: IGif) => setGifAttachment(gif)} />
               <SelectCollectModule />
-              <SelectReferenceModule onlyFollowers={onlyFollowers} setOnlyFollowers={setOnlyFollowers} />
+              <SelectReferenceModule />
               {publicationContent && <Preview />}
             </div>
             <div className="ml-auto pt-2 sm:pt-0">
