@@ -45,3 +45,8 @@ export type OG = {
   isSquare: boolean;
   html: string;
 };
+export type DegreesOfSeparationConfig = {
+  commentsRestricted: boolean;
+  mirrorsRestricted: boolean;
+  degreesOfSeparation: number;
+};
