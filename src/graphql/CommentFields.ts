@@ -15,6 +15,9 @@ export const CommentFields = gql`
     }
     reaction(request: $reactionRequest)
     mirrors(by: $profileId)
+    canMirror(profileId: $profileId) {
+      result
+    }
     hasCollectedByMe
     collectedBy {
       address
