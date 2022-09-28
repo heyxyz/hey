@@ -20,6 +20,9 @@ const SelectReferenceModule: FC = () => {
   const { setCommentsRestricted, setMirrorsRestricted, setDegreesOfSeparation } = useReferenceModuleStore();
   const ONLY_FOLLOWERS = 'Only followers can comment or mirror';
   const EVERYONE = 'Everyone can comment or mirror';
+  const RESTRICTED = `Restricted to ${
+    commentsRestricted ? 'comments' : 'mirrors'
+  } upto ${degreesOfSeparation} degrees`;
 
   const isFollowerOnlyReferenceModule = selectedModule === ReferenceModules.FollowerOnlyReferenceModule;
   const isDegreesOfSeparationReferenceModule =
@@ -27,7 +30,12 @@ const SelectReferenceModule: FC = () => {
 
   return (
     <>
-      <Tooltip placement="top" content={onlyFollowers ? ONLY_FOLLOWERS : EVERYONE}>
+      <Tooltip
+        placement="top"
+        content={
+          isDegreesOfSeparationReferenceModule ? RESTRICTED : onlyFollowers ? ONLY_FOLLOWERS : EVERYONE
+        }
+      >
         <motion.button
           whileTap={{ scale: 0.9 }}
           type="button"
