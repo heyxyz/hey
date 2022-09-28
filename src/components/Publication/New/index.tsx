@@ -9,7 +9,12 @@ import { MentionTextArea } from '@components/UI/MentionTextArea';
 import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
 import { LensterAttachment } from '@generated/lenstertypes';
-import { CreatePostBroadcastItemResult, Mutation, PublicationMainFocus } from '@generated/types';
+import {
+  CreatePostBroadcastItemResult,
+  Mutation,
+  PublicationMainFocus,
+  ReferenceModules
+} from '@generated/types';
 import { IGif } from '@giphy/js-types';
 import {
   CREATE_POST_TYPED_DATA_MUTATION,
@@ -70,6 +75,7 @@ const NewPost: FC<Props> = ({ hideCard = false }) => {
   const setSelectedModule = useCollectModuleStore((state) => state.setSelectedModule);
   const feeData = useCollectModuleStore((state) => state.feeData);
   const setFeeData = useCollectModuleStore((state) => state.setFeeData);
+  const selectedReferenceModule = useReferenceModuleStore((state) => state.selectedModule);
   const onlyFollowers = useReferenceModuleStore((state) => state.onlyFollowers);
   const [postContentError, setPostContentError] = useState('');
   const [isUploading, setIsUploading] = useState(false);
@@ -227,9 +233,18 @@ const NewPost: FC<Props> = ({ hideCard = false }) => {
             [getModule(selectedModule.moduleName).config]: feeData
           }
         : getModule(selectedModule.moduleName).config,
-      referenceModule: {
-        followerOnlyReferenceModule: onlyFollowers ? true : false
-      }
+      referenceModule:
+        selectedReferenceModule === ReferenceModules.FollowerOnlyReferenceModule
+          ? {
+              followerOnlyReferenceModule: onlyFollowers ? true : false
+            }
+          : {
+              degreesOfSeparationReferenceModule: {
+                commentsRestricted: true,
+                mirrorsRestricted: true,
+                degreesOfSeparation: 4
+              }
+            }
     };
 
     if (currentProfile?.dispatcher?.canUseRelay) {
