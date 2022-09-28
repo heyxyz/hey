@@ -53,7 +53,8 @@ export const PUBLICATION = {
     REFERENCE_MODULE: {
       OPEN_COLLECT_CONFIG: 'Open reference modal',
       EVERYONE: 'Select everyone reference',
-      ONLY_FOLLOWERS: 'Select only followers reference'
+      ONLY_FOLLOWERS: 'Select only followers reference',
+      DEGREES: 'Select degrees reference'
     }
   }
 };
