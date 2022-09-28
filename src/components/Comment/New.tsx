@@ -32,6 +32,7 @@ import { APP_NAME, LENSHUB_PROXY, RELAY_ON, SIGN_WALLET } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { useCollectModuleStore } from 'src/store/collectmodule';
 import { usePublicationPersistStore, usePublicationStore } from 'src/store/publication';
+import { useReferenceModuleStore } from 'src/store/referencemodule';
 import { COMMENT } from 'src/tracking';
 import { v4 as uuid } from 'uuid';
 import { useContractWrite, useSignTypedData } from 'wagmi';
@@ -68,8 +69,8 @@ const NewComment: FC<Props> = ({ hideCard = false, publication }) => {
   const setSelectedModule = useCollectModuleStore((state) => state.setSelectedModule);
   const feeData = useCollectModuleStore((state) => state.feeData);
   const setFeeData = useCollectModuleStore((state) => state.setFeeData);
+  const onlyFollowers = useReferenceModuleStore((state) => state.onlyFollowers);
   const [commentContentError, setCommentContentError] = useState('');
-  const [onlyFollowers, setOnlyFollowers] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const [attachments, setAttachments] = useState<LensterAttachment[]>([]);
 
@@ -278,7 +279,7 @@ const NewComment: FC<Props> = ({ hideCard = false, publication }) => {
               <Attachment attachments={attachments} setAttachments={setAttachments} />
               <Giphy setGifAttachment={(gif: IGif) => setGifAttachment(gif)} />
               <SelectCollectModule />
-              <SelectReferenceModule onlyFollowers={onlyFollowers} setOnlyFollowers={setOnlyFollowers} />
+              <SelectReferenceModule />
               {publicationContent && <Preview />}
             </div>
             <div className="ml-auto pt-2 sm:pt-0">

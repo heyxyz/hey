@@ -5,16 +5,14 @@ import { CheckCircleIcon } from '@heroicons/react/solid';
 import { Mixpanel } from '@lib/mixpanel';
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
-import { Dispatch, FC, useState } from 'react';
+import { FC, useState } from 'react';
+import { useReferenceModuleStore } from 'src/store/referencemodule';
 import { PUBLICATION } from 'src/tracking';
 
-interface Props {
-  setOnlyFollowers: Dispatch<boolean>;
-  onlyFollowers: boolean;
-}
-
-const SelectReferenceModule: FC<Props> = ({ setOnlyFollowers, onlyFollowers }) => {
+const SelectReferenceModule: FC = () => {
   const [showModal, setShowModal] = useState(false);
+  const onlyFollowers = useReferenceModuleStore((state) => state.onlyFollowers);
+  const setOnlyFollowers = useReferenceModuleStore((state) => state.setOnlyFollowers);
   const ONLY_FOLLOWERS = 'Only followers can comment or mirror';
   const EVERYONE = 'Everyone can comment or mirror';
 
@@ -36,7 +34,7 @@ const SelectReferenceModule: FC<Props> = ({ setOnlyFollowers, onlyFollowers }) =
         </motion.button>
       </Tooltip>
       <Modal
-        title="Select who to comment or mirror"
+        title="Who can comment or mirror"
         icon={<ChatAlt2Icon className="w-5 h-5 text-brand" />}
         show={showModal}
         onClose={() => setShowModal(false)}
