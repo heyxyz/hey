@@ -114,7 +114,7 @@ const SelectReferenceModule: FC = () => {
             onClick={() => {
               setSelectedModule(ReferenceModules.DegreesOfSeparationReferenceModule);
               setOnlyFollowers(false);
-              Mixpanel.track(PUBLICATION.NEW.REFERENCE_MODULE.EVERYONE);
+              Mixpanel.track(PUBLICATION.NEW.REFERENCE_MODULE.DEGREES);
             }}
           >
             <div className="flex items-center space-x-3 text-left">
