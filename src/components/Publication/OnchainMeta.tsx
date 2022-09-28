@@ -39,7 +39,7 @@ const OnchainMeta: FC<Props> = ({ publication }) => {
     <Card as="aside">
       <div className="text-gray-500 divide-y dark:divide-gray-700">
         {isArweaveHash ? (
-          <Meta name="ARWEAVE TRANSACTION" uri={`https://v2.viewblock.io/arweave/tx/${hash}`} hash={hash} />
+          <Meta name="ARWEAVE TRANSACTION" uri={`https://arweave.app/tx/${hash}`} hash={hash} />
         ) : null}
         {isIPFSHash ? <Meta name="IPFS TRANSACTION" uri={`${IPFS_GATEWAY}${hash}`} hash={hash} /> : null}
         {publication?.collectNftAddress ? (
