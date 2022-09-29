@@ -82,11 +82,6 @@
     "tsconfig-paths": "^4.1.0",
     "typescript": "^4.8.4"
   },
-  "nextBundleAnalysis": {
-    "budget": null,
-    "budgetPercentIncreaseRed": 10,
-    "showDetails": true
-  },
   "lint-staged": {
     "*.{js,ts,tsx}": [
       "prettier --write",
