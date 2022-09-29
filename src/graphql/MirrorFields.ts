@@ -13,6 +13,9 @@ export const MirrorFields = gql`
       ...ProfileFields
     }
     reaction(request: $reactionRequest)
+    canMirror(profileId: $profileId) {
+      result
+    }
     collectModule {
       ...MinimalCollectModuleFields
     }
