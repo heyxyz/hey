@@ -121,11 +121,7 @@ const ViewPublication: NextPage = () => {
         <Card>
           <FullPublication publication={publication} />
         </Card>
-        <Feed
-          publication={publication}
-          onlyFollowers={publication?.referenceModule?.__typename === 'FollowOnlyReferenceModuleSettings'}
-          isFollowing={publication?.profile?.isFollowedByMe}
-        />
+        <Feed publication={publication} />
       </GridItemEight>
       <GridItemFour className="space-y-5">
         <Card as="aside">

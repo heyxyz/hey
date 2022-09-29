@@ -3,11 +3,11 @@ import { gql, useMutation, useQuery } from '@apollo/client';
 import { PUBLICATION_REVENUE_QUERY } from '@components/Publication/Crowdfund';
 import { ALLOWANCE_SETTINGS_QUERY } from '@components/Settings/Allowance';
 import AllowanceButton from '@components/Settings/Allowance/Button';
+import CollectWarning from '@components/Shared/CollectWarning';
 import IndexStatus from '@components/Shared/IndexStatus';
 import Loader from '@components/Shared/Loader';
 import Markup from '@components/Shared/Markup';
 import Collectors from '@components/Shared/Modal/Collectors';
-import ReferenceAlert from '@components/Shared/ReferenceAlert';
 import ReferralAlert from '@components/Shared/ReferralAlert';
 import Uniswap from '@components/Shared/Uniswap';
 import { Button } from '@components/UI/Button';
@@ -281,10 +281,9 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
       <div className="p-5">
         {collectModule?.followerOnly && (
           <div className="pb-5">
-            <ReferenceAlert
+            <CollectWarning
               handle={publication?.profile?.handle}
               isSuperFollow={publication?.profile?.followModule?.__typename === 'FeeFollowModuleSettings'}
-              action="collect"
             />
           </div>
         )}

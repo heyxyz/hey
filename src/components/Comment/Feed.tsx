@@ -18,7 +18,7 @@ import { useAppStore } from 'src/store/app';
 import { useTransactionPersistStore } from 'src/store/transaction';
 import { PAGINATION } from 'src/tracking';
 
-import ReferenceAlert from '../Shared/ReferenceAlert';
+import CommentWarning from '../Shared/CommentWarning';
 import NewComment from './New';
 
 const COMMENT_FEED_QUERY = gql`
@@ -44,11 +44,9 @@ const COMMENT_FEED_QUERY = gql`
 
 interface Props {
   publication: LensterPublication;
-  onlyFollowers?: boolean;
-  isFollowing?: boolean;
 }
 
-const Feed: FC<Props> = ({ publication, onlyFollowers = false, isFollowing = true }) => {
+const Feed: FC<Props> = ({ publication }) => {
   const pubId = publication?.__typename === 'Mirror' ? publication?.mirrorOf?.id : publication?.id;
   const currentProfile = useAppStore((state) => state.currentProfile);
   const txnQueue = useTransactionPersistStore((state) => state.txnQueue);
@@ -82,20 +80,11 @@ const Feed: FC<Props> = ({ publication, onlyFollowers = false, isFollowing = tru
 
   const queuedCount = txnQueue.filter((o) => o.type === 'NEW_COMMENT').length;
   const totalComments = comments?.length + queuedCount;
+  const canComment = publication?.canComment?.result;
 
   return (
     <>
-      {currentProfile ? (
-        isFollowing || !onlyFollowers ? (
-          <NewComment publication={publication} />
-        ) : (
-          <ReferenceAlert
-            handle={publication?.profile?.handle}
-            isSuperFollow={publication?.profile?.followModule?.__typename === 'FeeFollowModuleSettings'}
-            action="comment"
-          />
-        )
-      ) : null}
+      {currentProfile ? canComment ? <NewComment publication={publication} /> : <CommentWarning /> : null}
       {loading && <PublicationsShimmer />}
       {totalComments === 0 && (
         <EmptyState
