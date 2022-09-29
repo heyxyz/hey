@@ -11,7 +11,7 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import React, { FC } from 'react';
 import { POLYGONSCAN_URL } from 'src/constants';
 import { useAppStore } from 'src/store/app';
-import { usePublicationPersistStore } from 'src/store/publication';
+import { useTransactionPersistStore } from 'src/store/transaction';
 
 import { PUBLICATION_QUERY } from '.';
 
@@ -23,8 +23,8 @@ interface Props {
 
 const QueuedPublication: FC<Props> = ({ txn }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const txnQueue = usePublicationPersistStore((state) => state.txnQueue);
-  const setTxnQueue = usePublicationPersistStore((state) => state.setTxnQueue);
+  const txnQueue = useTransactionPersistStore((state) => state.txnQueue);
+  const setTxnQueue = useTransactionPersistStore((state) => state.setTxnQueue);
   const { cache } = useApolloClient();
   const txHash = txn?.txHash;
 
