@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import React, { FC } from 'react';
-import { APP_NAME, DEFAULT_OG, DESCRIPTION, STATIC_ASSETS } from 'src/constants';
+import { APP_NAME, DEFAULT_OG, DESCRIPTION } from 'src/constants';
 
 interface Props {
   title?: string;
@@ -18,12 +18,6 @@ const Seo: FC<Props> = ({ title = APP_NAME, description = DESCRIPTION }) => {
       <link rel="dns-prefetch" href="https://ik.imagekit.io" />
       <link rel="preconnect" href="https://assets.lenster.xyz" />
       <link rel="dns-prefetch" href="https://assets.lenster.xyz" />
-
-      <link
-        rel="apple-touch-icon"
-        sizes="192x192"
-        href={`${STATIC_ASSETS}/images/icons/apple-touch-icon.png`}
-      />
 
       <meta property="og:url" content="https://lenster.xyz" />
       <meta property="og:site_name" content={APP_NAME} />
