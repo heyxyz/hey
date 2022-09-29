@@ -7,10 +7,10 @@
     "build": "next build",
     "start": "next start",
     "export": "next export",
-    "lint": "eslint . --ext .js,.ts,.tsx",
     "typecheck": "tsc --noEmit",
-    "prettier": "prettier --write \"./{data,src}/**/*.{ts,tsx}\"",
+    "lint": "eslint . --ext .js,.ts,.tsx",
     "prettier:check": "prettier --check \"./{data,src}/**/*.{ts,tsx}\"",
+    "prettier:write": "prettier --write \"./{data,src}/**/*.{ts,tsx}\"",
     "codegen": "graphql-codegen",
     "prepare": "husky install"
   },
