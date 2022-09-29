@@ -6,11 +6,10 @@
     "dev": "next dev --port 4783",
     "build": "next build",
     "start": "next start",
-    "export": "next export",
-    "lint": "eslint . --ext .js,.ts,.tsx",
     "typecheck": "tsc --noEmit",
-    "prettier": "prettier --write \"./{data,src}/**/*.{ts,tsx}\"",
+    "lint": "eslint . --ext .js,.ts,.tsx",
     "prettier:check": "prettier --check \"./{data,src}/**/*.{ts,tsx}\"",
+    "prettier:write": "prettier --write \"./{data,src}/**/*.{ts,tsx}\"",
     "codegen": "graphql-codegen",
     "prepare": "husky install"
   },
@@ -23,7 +22,6 @@
     "@heroicons/react": "v1",
     "@hookform/resolvers": "^2.9.8",
     "@sentry/nextjs": "^7.14.0",
-    "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tippyjs/react": "^4.2.6",
     "@types/react-mentions": "^4.1.6",
     "axios": "^0.27.2",
@@ -57,6 +55,7 @@
     "@graphql-codegen/cli": "^2.13.1",
     "@graphql-codegen/fragment-matcher": "^3.3.1",
     "@graphql-codegen/typescript": "^2.7.3",
+    "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/forms": "^0.5.3",
     "@tailwindcss/line-clamp": "^0.4.2",
     "@types/mixpanel-browser": "^2.38.0",
@@ -81,11 +80,6 @@
     "ts-node": "^10.9.1",
     "tsconfig-paths": "^4.1.0",
     "typescript": "^4.8.4"
-  },
-  "nextBundleAnalysis": {
-    "budget": null,
-    "budgetPercentIncreaseRed": 10,
-    "showDetails": true
   },
   "lint-staged": {
     "*.{js,ts,tsx}": [

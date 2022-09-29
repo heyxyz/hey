@@ -16,7 +16,7 @@ import React, { FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { PAGINATION_ROOT_MARGIN } from 'src/constants';
 import { useAppStore } from 'src/store/app';
-import { usePublicationPersistStore } from 'src/store/publication';
+import { useTransactionPersistStore } from 'src/store/transaction';
 import { PAGINATION } from 'src/tracking';
 
 const HOME_FEED_QUERY = gql`
@@ -50,7 +50,7 @@ const HOME_FEED_QUERY = gql`
 
 const Feed: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const txnQueue = usePublicationPersistStore((state) => state.txnQueue);
+  const txnQueue = useTransactionPersistStore((state) => state.txnQueue);
 
   // Variables
   const request = { profileId: currentProfile?.id, limit: 10 };
