@@ -7,7 +7,9 @@ const headers = [{ key: 'Cache-Control', value: 'public, max-age=3600' }];
 module.exports = withTM(
   withSentryConfig(
     {
-      sentry: { hideSourceMaps: true },
+      sentry: {
+        hideSourceMaps: true
+      },
       reactStrictMode: false,
       trailingSlash: false,
       swcMinify: true,

@@ -3,6 +3,6 @@
 #/ Usage: script/clean-branches
 #/ Delete all branches except main and testnet.
 
-echo "Deleting all branches except 'main' and 'testnet' 🗑"
-git branch | grep -v "main" | grep -v "testnet" | xargs git branch -D
+echo "Deleting all branches except 'main', 'testnet' and 'sandbox' 🗑"
+git branch | grep -v "main" | grep -v "testnet" | grep -v "sandbox" | xargs git branch -D
 echo "Branches deleted 🎉"

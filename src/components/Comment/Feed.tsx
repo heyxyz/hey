@@ -15,7 +15,7 @@ import React, { FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { PAGINATION_ROOT_MARGIN } from 'src/constants';
 import { useAppStore } from 'src/store/app';
-import { usePublicationPersistStore } from 'src/store/publication';
+import { useTransactionPersistStore } from 'src/store/transaction';
 import { PAGINATION } from 'src/tracking';
 
 import ReferenceAlert from '../Shared/ReferenceAlert';
@@ -51,7 +51,7 @@ interface Props {
 const Feed: FC<Props> = ({ publication, onlyFollowers = false, isFollowing = true }) => {
   const pubId = publication?.__typename === 'Mirror' ? publication?.mirrorOf?.id : publication?.id;
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const txnQueue = usePublicationPersistStore((state) => state.txnQueue);
+  const txnQueue = useTransactionPersistStore((state) => state.txnQueue);
 
   // Variables
   const request = { commentsOf: pubId, customFilters: [CustomFiltersTypes.Gardeners], limit: 10 };

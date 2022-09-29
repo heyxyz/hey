@@ -14,7 +14,7 @@ import { publicationKeyFields } from '@lib/keyFields';
 import parseJwt from '@lib/parseJwt';
 import axios from 'axios';
 
-import { API_URL, ERROR_MESSAGE } from './constants';
+import { API_URL } from './constants';
 
 const REFRESH_AUTHENTICATION_MUTATION = `
   mutation Refresh($request: RefreshRequest!) {
@@ -46,6 +46,7 @@ const clearStorage = () => {
   localStorage.removeItem('accessToken');
   localStorage.removeItem('refreshToken');
   localStorage.removeItem('lenster.store');
+  localStorage.removeItem('transaction.store');
 };
 
 const authLink = new ApolloLink((operation, forward) => {
@@ -95,8 +96,6 @@ const authLink = new ApolloLink((operation, forward) => {
         return toPromise(forward(operation));
       })
       .catch(() => {
-        console.log(ERROR_MESSAGE);
-
         return toPromise(forward(operation));
       })
   );
