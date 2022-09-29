@@ -14,7 +14,7 @@ import { publicationKeyFields } from '@lib/keyFields';
 import parseJwt from '@lib/parseJwt';
 import axios from 'axios';
 
-import { API_URL, ERROR_MESSAGE } from './constants';
+import { API_URL } from './constants';
 
 const REFRESH_AUTHENTICATION_MUTATION = `
   mutation Refresh($request: RefreshRequest!) {
@@ -96,8 +96,6 @@ const authLink = new ApolloLink((operation, forward) => {
         return toPromise(forward(operation));
       })
       .catch(() => {
-        console.log(ERROR_MESSAGE);
-
         return toPromise(forward(operation));
       })
   );
