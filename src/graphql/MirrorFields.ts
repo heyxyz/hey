@@ -13,6 +13,9 @@ export const MirrorFields = gql`
       ...ProfileFields
     }
     reaction(request: $reactionRequest)
+    canComment(profileId: $profileId) {
+      result
+    }
     canMirror(profileId: $profileId) {
       result
     }
