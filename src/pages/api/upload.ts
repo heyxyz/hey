@@ -21,8 +21,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       { name: 'App-Name', value: APP_NAME }
     ];
 
-    const uploader = bundlr.uploader.chunkedUploader;
-    const { data } = await uploader.uploadData(Buffer.from(payload), { tags });
+    const { data } = await bundlr.upload(Buffer.from(payload), { tags });
 
     return res.status(200).json({ success: true, id: data.id });
   } catch {
