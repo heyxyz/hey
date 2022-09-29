@@ -46,6 +46,7 @@ const clearStorage = () => {
   localStorage.removeItem('accessToken');
   localStorage.removeItem('refreshToken');
   localStorage.removeItem('lenster.store');
+  localStorage.removeItem('publication.store');
 };
 
 const authLink = new ApolloLink((operation, forward) => {
