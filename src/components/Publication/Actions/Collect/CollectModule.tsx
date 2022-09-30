@@ -168,7 +168,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
   const { data: revenueData, loading: revenueLoading } = useQuery(PUBLICATION_REVENUE_QUERY, {
     variables: {
       request: {
-        publicationId: publication?.__typename === 'Mirror' ? publication?.mirrorOf?.id : publication?.id
+        publicationId: publication.__typename === 'Mirror' ? publication?.mirrorOf?.id : publication?.id
       }
     },
     skip: !publication?.id
@@ -289,9 +289,9 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
         )}
         <div className="pb-2 space-y-1.5">
           <div className="flex items-center space-x-2">
-            {publication?.__typename === 'Mirror' && (
+            {publication.__typename === 'Mirror' && (
               <Tooltip
-                content={`Mirror of ${publication?.mirrorOf?.__typename?.toLowerCase()} by ${
+                content={`Mirror of ${publication?.mirrorOf.__typename?.toLowerCase()} by ${
                   publication?.mirrorOf?.profile?.handle
                 }`}
               >
@@ -346,7 +346,9 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
                 onClose={() => setShowCollectorsModal(false)}
               >
                 <Collectors
-                  pubId={publication?.__typename === 'Mirror' ? publication?.mirrorOf?.id : publication?.id}
+                  publicationId={
+                    publication.__typename === 'Mirror' ? publication?.mirrorOf?.id : publication?.id
+                  }
                 />
               </Modal>
             </div>

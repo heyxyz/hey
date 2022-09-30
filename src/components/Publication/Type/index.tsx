@@ -13,7 +13,7 @@ interface Props {
 }
 
 const PublicationType: FC<Props> = ({ publication, showType, showThread = false }) => {
-  const type = publication?.__typename;
+  const type = publication.__typename;
   const publicationType = publication?.metadata?.attributes[0]?.value;
   const isCollected = !!publication?.collectedBy;
 

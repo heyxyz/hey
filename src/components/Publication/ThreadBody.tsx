@@ -19,7 +19,7 @@ interface Props {
 
 const ThreadBody: FC<Props> = ({ publication }) => {
   const { push } = useRouter();
-  const isMirror = publication?.__typename === 'Mirror';
+  const isMirror = publication.__typename === 'Mirror';
   const isCrowdfund = publication?.metadata?.attributes[0]?.value === 'crowdfund';
   const profile = isMirror ? publication?.mirrorOf?.profile : publication?.profile;
   const timestamp = isMirror ? publication?.mirrorOf?.createdAt : publication?.createdAt;
@@ -43,7 +43,7 @@ const ThreadBody: FC<Props> = ({ publication }) => {
         <div className="mr-8 ml-5 bg-gray-300 border-gray-300 dark:bg-gray-700 dark:border-gray-700 border-[0.8px] -my-[4px]" />
         <div className="pt-4 pb-5 w-full">
           {publication?.hidden ? (
-            <HiddenPublication type={publication?.__typename} />
+            <HiddenPublication type={publication.__typename} />
           ) : (
             <>
               <PublicationBody publication={publication} />

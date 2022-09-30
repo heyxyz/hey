@@ -31,16 +31,16 @@ const MIRRORS_QUERY = gql`
 `;
 
 interface Props {
-  pubId: string;
+  publicationId: string;
 }
 
-const Mirrors: FC<Props> = ({ pubId }) => {
+const Mirrors: FC<Props> = ({ publicationId }) => {
   // Variables
-  const request = { whoMirroredPublicationId: pubId, limit: 10 };
+  const request = { whoMirroredPublicationId: publicationId, limit: 10 };
 
   const { data, loading, error, fetchMore } = useQuery(MIRRORS_QUERY, {
     variables: { request },
-    skip: !pubId
+    skip: !publicationId
   });
 
   const profiles = data?.profiles?.items;

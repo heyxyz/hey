@@ -246,22 +246,22 @@ const List: FC = () => {
     <Card className="divide-y dark:divide-gray-700">
       {notifications?.map((notification: Notification, index: number) => (
         <div key={`${notification?.notificationId}_${index}`} className="p-5">
-          {notification?.__typename === 'NewFollowerNotification' && (
+          {notification.__typename === 'NewFollowerNotification' && (
             <FollowerNotification notification={notification as any} />
           )}
-          {notification?.__typename === 'NewMentionNotification' && (
+          {notification.__typename === 'NewMentionNotification' && (
             <MentionNotification notification={notification as any} />
           )}
-          {notification?.__typename === 'NewReactionNotification' && (
+          {notification.__typename === 'NewReactionNotification' && (
             <LikeNotification notification={notification} />
           )}
-          {notification?.__typename === 'NewCommentNotification' && (
+          {notification.__typename === 'NewCommentNotification' && (
             <CommentNotification notification={notification} />
           )}
-          {notification?.__typename === 'NewMirrorNotification' && (
+          {notification.__typename === 'NewMirrorNotification' && (
             <MirrorNotification notification={notification} />
           )}
-          {notification?.__typename === 'NewCollectNotification' && (
+          {notification.__typename === 'NewCollectNotification' && (
             <CollectNotification notification={notification as any} />
           )}
         </div>

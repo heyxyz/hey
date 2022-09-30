@@ -10,7 +10,7 @@ interface Props {
 const CollectedContent: FC<Props> = ({ notification }) => {
   const publicationType =
     notification?.collectedPublication?.metadata?.attributes[0]?.value ??
-    notification?.collectedPublication?.__typename?.toLowerCase();
+    notification?.collectedPublication.__typename?.toLowerCase();
 
   return (
     <div className="text-gray-500 line-clamp-2 mt-2">

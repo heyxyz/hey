@@ -112,7 +112,7 @@ const ViewPublication: NextPage = () => {
     <GridLayout>
       <Seo
         title={
-          publication?.__typename && publication?.profile?.handle
+          publication.__typename && publication?.profile?.handle
             ? `${publication.__typename} by @${publication.profile.handle} • ${APP_NAME}`
             : APP_NAME
         }
@@ -128,7 +128,7 @@ const ViewPublication: NextPage = () => {
           <CardBody>
             <UserProfile
               profile={
-                publication?.__typename === 'Mirror' ? publication?.mirrorOf?.profile : publication?.profile
+                publication.__typename === 'Mirror' ? publication?.mirrorOf?.profile : publication?.profile
               }
               showBio
             />

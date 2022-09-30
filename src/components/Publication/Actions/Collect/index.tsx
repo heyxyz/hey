@@ -26,8 +26,8 @@ interface Props {
 const Collect: FC<Props> = ({ publication, isFullPublication }) => {
   const [count, setCount] = useState(0);
   const [showCollectModal, setShowCollectModal] = useState(false);
-  const isFreeCollect = publication?.collectModule?.__typename === 'FreeCollectModuleSettings';
-  const isMirror = publication?.__typename === 'Mirror';
+  const isFreeCollect = publication?.collectModule.__typename === 'FreeCollectModuleSettings';
+  const isMirror = publication.__typename === 'Mirror';
   const hasCollected = isMirror ? publication?.mirrorOf?.hasCollectedByMe : publication?.hasCollectedByMe;
 
   useEffect(() => {

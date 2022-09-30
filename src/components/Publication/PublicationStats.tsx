@@ -18,7 +18,7 @@ const PublicationStats: FC<Props> = ({ publication }) => {
   const [showLikesModal, setShowLikesModal] = useState(false);
   const [showCollectorsModal, setShowCollectorsModal] = useState(false);
 
-  const isMirror = publication?.__typename === 'Mirror';
+  const isMirror = publication.__typename === 'Mirror';
   const mirrorCount = isMirror
     ? publication?.mirrorOf?.stats?.totalAmountOfMirrors
     : publication?.stats?.totalAmountOfMirrors;
@@ -28,7 +28,7 @@ const PublicationStats: FC<Props> = ({ publication }) => {
   const collectCount = isMirror
     ? publication?.mirrorOf?.stats?.totalAmountOfCollects
     : publication?.stats?.totalAmountOfCollects;
-  const pubId = isMirror ? publication?.mirrorOf?.id : publication?.id;
+  const publicationId = isMirror ? publication?.mirrorOf?.id : publication?.id;
 
   return (
     <div className="flex flex-wrap gap-6 text-sm items-center py-3 text-gray-500 sm:gap-8">
@@ -48,7 +48,7 @@ const PublicationStats: FC<Props> = ({ publication }) => {
             show={showMirrorsModal}
             onClose={() => setShowMirrorsModal(false)}
           >
-            <Mirrors pubId={pubId} />
+            <Mirrors publicationId={publicationId} />
           </Modal>
         </>
       )}
@@ -68,7 +68,7 @@ const PublicationStats: FC<Props> = ({ publication }) => {
             show={showLikesModal}
             onClose={() => setShowLikesModal(false)}
           >
-            <Likes pubId={pubId} />
+            <Likes publicationId={publicationId} />
           </Modal>
         </>
       )}
@@ -88,7 +88,7 @@ const PublicationStats: FC<Props> = ({ publication }) => {
             show={showCollectorsModal}
             onClose={() => setShowCollectorsModal(false)}
           >
-            <Collectors pubId={pubId} />
+            <Collectors publicationId={publicationId} />
           </Modal>
         </>
       )}
