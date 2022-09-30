@@ -3,8 +3,8 @@ import { ReferenceModules } from '@generated/types';
 import create from 'zustand';
 
 interface ReferenceModuleState {
-  selectedModule: ReferenceModules;
-  setSelectedModule: (selectedModule: ReferenceModules) => void;
+  selectedReferenceModule: ReferenceModules;
+  setSelectedReferenceModule: (selectedModule: ReferenceModules) => void;
   onlyFollowers: boolean;
   setOnlyFollowers: (onlyFollowers: boolean) => void;
   commentsRestricted: boolean;
@@ -16,8 +16,8 @@ interface ReferenceModuleState {
 }
 
 export const useReferenceModuleStore = create<ReferenceModuleState>((set) => ({
-  selectedModule: ReferenceModules.FollowerOnlyReferenceModule,
-  setSelectedModule: (selectedModule) => set(() => ({ selectedModule })),
+  selectedReferenceModule: ReferenceModules.FollowerOnlyReferenceModule,
+  setSelectedReferenceModule: (selectedReferenceModule) => set(() => ({ selectedReferenceModule })),
   onlyFollowers: false,
   setOnlyFollowers: (onlyFollowers) => set(() => ({ onlyFollowers })),
   commentsRestricted: true,
