@@ -1,6 +1,6 @@
 {
   "name": "lenster",
-  "version": "1.0.1-beta",
+  "version": "1.0.2-beta",
   "private": true,
   "scripts": {
     "dev": "next dev --port 4783",
