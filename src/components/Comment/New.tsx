@@ -71,11 +71,11 @@ const NewComment: FC<Props> = ({ hideCard = false, publication }) => {
   const setPreviewPublication = usePublicationStore((state) => state.setPreviewPublication);
   const txnQueue = useTransactionPersistStore((state) => state.txnQueue);
   const setTxnQueue = useTransactionPersistStore((state) => state.setTxnQueue);
-  const selectedModule = useCollectModuleStore((state) => state.selectedModule);
-  const setSelectedModule = useCollectModuleStore((state) => state.setSelectedModule);
+  const selectedCollectModule = useCollectModuleStore((state) => state.selectedCollectModule);
+  const setSelectedCollectModule = useCollectModuleStore((state) => state.setSelectedCollectModule);
   const feeData = useCollectModuleStore((state) => state.feeData);
   const setFeeData = useCollectModuleStore((state) => state.setFeeData);
-  const selectedReferenceModule = useReferenceModuleStore((state) => state.selectedModule);
+  const selectedReferenceModule = useReferenceModuleStore((state) => state.selectedReferenceModule);
   const onlyFollowers = useReferenceModuleStore((state) => state.onlyFollowers);
   const { commentsRestricted, mirrorsRestricted, degreesOfSeparation } = useReferenceModuleStore();
   const [commentContentError, setCommentContentError] = useState('');
@@ -86,7 +86,7 @@ const NewComment: FC<Props> = ({ hideCard = false, publication }) => {
     setPreviewPublication(false);
     setPublicationContent('');
     setAttachments([]);
-    setSelectedModule(defaultModuleData);
+    setSelectedCollectModule(defaultModuleData);
     setFeeData(defaultFeeData);
     Mixpanel.track(COMMENT.NEW);
   };
@@ -232,8 +232,8 @@ const NewComment: FC<Props> = ({ hideCard = false, publication }) => {
       publicationId: publication.__typename === 'Mirror' ? publication?.mirrorOf?.id : publication?.id,
       contentURI: `https://arweave.net/${id}`,
       collectModule: feeData.recipient
-        ? { [getModule(selectedModule.moduleName).config]: feeData }
-        : getModule(selectedModule.moduleName).config,
+        ? { [getModule(selectedCollectModule.moduleName).config]: feeData }
+        : getModule(selectedCollectModule.moduleName).config,
       referenceModule:
         selectedReferenceModule === ReferenceModules.FollowerOnlyReferenceModule
           ? { followerOnlyReferenceModule: onlyFollowers ? true : false }

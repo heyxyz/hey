@@ -28,8 +28,8 @@ interface Props {
 
 const FeeEntry: FC<Props> = ({ enabledModuleCurrencies, setShowFeeEntry, setShowModal }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const selectedModule = useCollectModuleStore((state) => state.selectedModule);
-  const setSelectedModule = useCollectModuleStore((state) => state.setSelectedModule);
+  const selectedCollectModule = useCollectModuleStore((state) => state.selectedCollectModule);
+  const setSelectedCollectModule = useCollectModuleStore((state) => state.setSelectedCollectModule);
   const feeData = useCollectModuleStore((state) => state.feeData);
   const setFeeData = useCollectModuleStore((state) => state.setFeeData);
   const [followerOnly, setFollowerOnly] = useState(false);
@@ -44,8 +44,8 @@ const FeeEntry: FC<Props> = ({ enabledModuleCurrencies, setShowFeeEntry, setShow
   });
 
   const showCollect =
-    selectedModule.moduleName === 'LimitedFeeCollectModule' ||
-    selectedModule.moduleName === 'LimitedTimedFeeCollectModule';
+    selectedCollectModule.moduleName === 'LimitedFeeCollectModule' ||
+    selectedCollectModule.moduleName === 'LimitedTimedFeeCollectModule';
 
   return (
     <div className="space-y-5">
@@ -53,7 +53,7 @@ const FeeEntry: FC<Props> = ({ enabledModuleCurrencies, setShowFeeEntry, setShow
         type="button"
         className="flex items-center space-x-1.5 font-bold text-gray-500"
         onClick={() => {
-          setSelectedModule(defaultModuleData);
+          setSelectedCollectModule(defaultModuleData);
           setShowFeeEntry(false);
           Mixpanel.track(PUBLICATION.NEW.COLLECT_MODULE.BACK_FEE_ENTRY);
         }}

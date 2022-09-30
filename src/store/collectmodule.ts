@@ -4,15 +4,15 @@ import { defaultFeeData, defaultModuleData, FEE_DATA_TYPE } from '@lib/getModule
 import create from 'zustand';
 
 interface CollectModuleState {
-  selectedModule: EnabledModule;
-  setSelectedModule: (selectedModule: EnabledModule) => void;
+  selectedCollectModule: EnabledModule;
+  setSelectedCollectModule: (selectedModule: EnabledModule) => void;
   feeData: FEE_DATA_TYPE;
   setFeeData: (feeData: FEE_DATA_TYPE) => void;
 }
 
 export const useCollectModuleStore = create<CollectModuleState>((set) => ({
-  selectedModule: defaultModuleData,
-  setSelectedModule: (selectedModule) => set(() => ({ selectedModule })),
+  selectedCollectModule: defaultModuleData,
+  setSelectedCollectModule: (selectedCollectModule) => set(() => ({ selectedCollectModule })),
   feeData: defaultFeeData,
   setFeeData: (feeData) => set(() => ({ feeData }))
 }));
