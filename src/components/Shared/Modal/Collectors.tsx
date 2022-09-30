@@ -35,16 +35,16 @@ const COLLECTORS_QUERY = gql`
 `;
 
 interface Props {
-  pubId: string;
+  publicationId: string;
 }
 
-const Collectors: FC<Props> = ({ pubId }) => {
+const Collectors: FC<Props> = ({ publicationId }) => {
   // Variables
-  const request = { publicationId: pubId, limit: 10 };
+  const request = { publicationId: publicationId, limit: 10 };
 
   const { data, loading, error, fetchMore } = useQuery(COLLECTORS_QUERY, {
     variables: { request },
-    skip: !pubId
+    skip: !publicationId
   });
 
   const profiles = data?.whoCollectedPublication?.items;

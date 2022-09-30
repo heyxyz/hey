@@ -92,7 +92,6 @@ const NewComment: FC<Props> = ({ hideCard = false, publication }) => {
   };
 
   const generateOptimisticComment = (txHash: string) => {
-    console.log(txHash);
     return {
       id: uuid(),
       parent: publication.id,
@@ -230,12 +229,10 @@ const NewComment: FC<Props> = ({ hideCard = false, publication }) => {
 
     const request = {
       profileId: currentProfile?.id,
-      publicationId: publication?.__typename === 'Mirror' ? publication?.mirrorOf?.id : publication?.id,
+      publicationId: publication.__typename === 'Mirror' ? publication?.mirrorOf?.id : publication?.id,
       contentURI: `https://arweave.net/${id}`,
       collectModule: feeData.recipient
-        ? {
-            [getModule(selectedModule.moduleName).config]: feeData
-          }
+        ? { [getModule(selectedModule.moduleName).config]: feeData }
         : getModule(selectedModule.moduleName).config,
       referenceModule:
         selectedReferenceModule === ReferenceModules.FollowerOnlyReferenceModule

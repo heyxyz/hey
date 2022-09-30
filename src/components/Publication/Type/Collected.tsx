@@ -38,11 +38,11 @@ const Collected: FC<Props> = ({ publication, type }) => {
         <Link href={`/posts/${publication?.id}`}>
           <span>{type} the </span>
           <b>
-            {publication?.__typename === 'Post'
+            {publication.__typename === 'Post'
               ? publicationType === 'crowdfund'
                 ? 'crowdfund'
-                : (publication?.__typename as string)?.toLowerCase()
-              : (publication?.__typename as any)?.toLowerCase()}
+                : (publication.__typename as string)?.toLowerCase()
+              : (publication.__typename as any)?.toLowerCase()}
           </b>
         </Link>
       </div>

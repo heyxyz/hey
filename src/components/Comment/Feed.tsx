@@ -47,18 +47,18 @@ interface Props {
 }
 
 const Feed: FC<Props> = ({ publication }) => {
-  const pubId = publication?.__typename === 'Mirror' ? publication?.mirrorOf?.id : publication?.id;
+  const publicationId = publication.__typename === 'Mirror' ? publication?.mirrorOf?.id : publication?.id;
   const currentProfile = useAppStore((state) => state.currentProfile);
   const txnQueue = useTransactionPersistStore((state) => state.txnQueue);
 
   // Variables
-  const request = { commentsOf: pubId, customFilters: [CustomFiltersTypes.Gardeners], limit: 10 };
+  const request = { commentsOf: publicationId, customFilters: [CustomFiltersTypes.Gardeners], limit: 10 };
   const reactionRequest = currentProfile ? { profileId: currentProfile?.id } : null;
   const profileId = currentProfile?.id ?? null;
 
   const { data, loading, error, fetchMore } = useQuery(COMMENT_FEED_QUERY, {
     variables: { request, reactionRequest, profileId },
-    skip: !pubId
+    skip: !publicationId
   });
 
   const comments = data?.publications?.items;
@@ -105,8 +105,8 @@ const Feed: FC<Props> = ({ publication }) => {
                   </div>
                 )
             )}
-            {comments?.map((post: LensterPublication, index: number) => (
-              <SinglePublication key={`${pubId}_${index}`} publication={post} showType={false} />
+            {comments?.map((comment: LensterPublication, index: number) => (
+              <SinglePublication key={`${publicationId}_${index}`} publication={comment} showType={false} />
             ))}
           </Card>
           {pageInfo?.next && comments?.length !== pageInfo?.totalCount && (

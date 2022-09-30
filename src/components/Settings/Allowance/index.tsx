@@ -4,7 +4,7 @@ import { Card } from '@components/UI/Card';
 import { PageLoading } from '@components/UI/PageLoading';
 import { Spinner } from '@components/UI/Spinner';
 import Seo from '@components/utils/Seo';
-import { Erc20 } from '@generated/types';
+import { CollectModules, Erc20, FollowModules, ReferenceModules } from '@generated/types';
 import { Mixpanel } from '@lib/mixpanel';
 import { NextPage } from 'next';
 import React, { useEffect, useState } from 'react';
@@ -38,15 +38,15 @@ const getAllowancePayload = (currency: string) => {
   return {
     currencies: [currency],
     collectModules: [
-      'LimitedFeeCollectModule',
-      'FeeCollectModule',
-      'LimitedTimedFeeCollectModule',
-      'TimedFeeCollectModule',
-      'FreeCollectModule',
-      'RevertCollectModule'
+      CollectModules.LimitedFeeCollectModule,
+      CollectModules.FeeCollectModule,
+      CollectModules.LimitedTimedFeeCollectModule,
+      CollectModules.TimedFeeCollectModule,
+      CollectModules.FreeCollectModule,
+      CollectModules.RevertCollectModule
     ],
-    followModules: ['FeeFollowModule'],
-    referenceModules: ['FollowerOnlyReferenceModule']
+    followModules: [FollowModules.FeeFollowModule],
+    referenceModules: [ReferenceModules.FollowerOnlyReferenceModule]
   };
 };
 

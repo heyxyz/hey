@@ -22,7 +22,6 @@ interface Props {
   showActions?: boolean;
   showModActions?: boolean;
   showThread?: boolean;
-  fwdRef?: any;
 }
 
 const SinglePublication: FC<Props> = ({
@@ -30,11 +29,10 @@ const SinglePublication: FC<Props> = ({
   showType = true,
   showActions = true,
   showModActions = false,
-  showThread = true,
-  fwdRef = null
+  showThread = true
 }) => {
   const { push } = useRouter();
-  const isMirror = publication?.__typename === 'Mirror';
+  const isMirror = publication.__typename === 'Mirror';
   const isCrowdfund = publication?.metadata?.attributes[0]?.value === 'crowdfund';
   const profile = isMirror ? publication?.mirrorOf?.profile : publication?.profile;
   const timestamp = isMirror ? publication?.mirrorOf?.createdAt : publication?.createdAt;
@@ -45,7 +43,6 @@ const SinglePublication: FC<Props> = ({
         { 'hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer': !isCrowdfund },
         'first:rounded-t-xl last:rounded-b-xl p-5'
       )}
-      ref={fwdRef}
     >
       <PublicationType publication={publication} showType={showType} showThread={showThread} />
       <div
@@ -64,7 +61,7 @@ const SinglePublication: FC<Props> = ({
         </div>
         <div className="ml-[53px]">
           {publication?.hidden ? (
-            <HiddenPublication type={publication?.__typename} />
+            <HiddenPublication type={publication.__typename} />
           ) : (
             <>
               <PublicationBody publication={publication} />
