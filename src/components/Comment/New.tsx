@@ -92,7 +92,6 @@ const NewComment: FC<Props> = ({ hideCard = false, publication }) => {
   };
 
   const generateOptimisticComment = (txHash: string) => {
-    console.log(txHash);
     return {
       id: uuid(),
       parent: publication.id,
