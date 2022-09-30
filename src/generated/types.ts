@@ -7757,6 +7757,413 @@ export type HomeFeedQuery = {
   };
 };
 
+export type NotificationsQueryVariables = Exact<{
+  request: NotificationRequest;
+}>;
+
+export type NotificationsQuery = {
+  __typename?: 'Query';
+  notifications: {
+    __typename?: 'PaginatedNotificationResult';
+    items: Array<
+      | {
+          __typename?: 'NewCollectNotification';
+          notificationId: any;
+          createdAt: any;
+          wallet: {
+            __typename?: 'Wallet';
+            address: any;
+            defaultProfile?: {
+              __typename?: 'Profile';
+              id: any;
+              name?: string | null;
+              handle: any;
+              bio?: string | null;
+              ownedBy: any;
+              attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
+              picture?:
+                | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
+                | { __typename?: 'NftImage'; uri: any }
+                | null;
+              followModule?:
+                | { __typename: 'FeeFollowModuleSettings' }
+                | { __typename: 'ProfileFollowModuleSettings' }
+                | { __typename: 'RevertFollowModuleSettings' }
+                | { __typename: 'UnknownFollowModuleSettings' }
+                | null;
+            } | null;
+          };
+          collectedPublication:
+            | {
+                __typename?: 'Comment';
+                id: any;
+                metadata: {
+                  __typename?: 'MetadataOutput';
+                  name?: string | null;
+                  description?: any | null;
+                  content?: any | null;
+                  cover?: { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } } | null;
+                  media: Array<{
+                    __typename?: 'MediaSet';
+                    original: { __typename?: 'Media'; url: any; mimeType?: any | null };
+                  }>;
+                  attributes: Array<{ __typename?: 'MetadataAttributeOutput'; value?: string | null }>;
+                };
+                collectModule:
+                  | {
+                      __typename?: 'FeeCollectModuleSettings';
+                      type: CollectModules;
+                      recipient: any;
+                      referralFee: number;
+                      contractAddress: any;
+                      followerOnly: boolean;
+                      amount: {
+                        __typename?: 'ModuleFeeAmount';
+                        value: string;
+                        asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+                      };
+                    }
+                  | {
+                      __typename?: 'FreeCollectModuleSettings';
+                      type: CollectModules;
+                      contractAddress: any;
+                      followerOnly: boolean;
+                    }
+                  | {
+                      __typename?: 'LimitedFeeCollectModuleSettings';
+                      type: CollectModules;
+                      collectLimit: string;
+                      recipient: any;
+                      referralFee: number;
+                      contractAddress: any;
+                      followerOnly: boolean;
+                      amount: {
+                        __typename?: 'ModuleFeeAmount';
+                        value: string;
+                        asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+                      };
+                    }
+                  | {
+                      __typename?: 'LimitedTimedFeeCollectModuleSettings';
+                      type: CollectModules;
+                      collectLimit: string;
+                      recipient: any;
+                      endTimestamp: any;
+                      referralFee: number;
+                      contractAddress: any;
+                      followerOnly: boolean;
+                      amount: {
+                        __typename?: 'ModuleFeeAmount';
+                        value: string;
+                        asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+                      };
+                    }
+                  | { __typename?: 'RevertCollectModuleSettings' }
+                  | {
+                      __typename?: 'TimedFeeCollectModuleSettings';
+                      type: CollectModules;
+                      recipient: any;
+                      endTimestamp: any;
+                      referralFee: number;
+                      contractAddress: any;
+                      followerOnly: boolean;
+                      amount: {
+                        __typename?: 'ModuleFeeAmount';
+                        value: string;
+                        asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+                      };
+                    }
+                  | { __typename?: 'UnknownCollectModuleSettings' };
+              }
+            | { __typename?: 'Mirror' }
+            | {
+                __typename?: 'Post';
+                id: any;
+                metadata: {
+                  __typename?: 'MetadataOutput';
+                  name?: string | null;
+                  description?: any | null;
+                  content?: any | null;
+                  cover?: { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } } | null;
+                  media: Array<{
+                    __typename?: 'MediaSet';
+                    original: { __typename?: 'Media'; url: any; mimeType?: any | null };
+                  }>;
+                  attributes: Array<{ __typename?: 'MetadataAttributeOutput'; value?: string | null }>;
+                };
+                collectModule:
+                  | {
+                      __typename?: 'FeeCollectModuleSettings';
+                      type: CollectModules;
+                      recipient: any;
+                      referralFee: number;
+                      contractAddress: any;
+                      followerOnly: boolean;
+                      amount: {
+                        __typename?: 'ModuleFeeAmount';
+                        value: string;
+                        asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+                      };
+                    }
+                  | {
+                      __typename?: 'FreeCollectModuleSettings';
+                      type: CollectModules;
+                      contractAddress: any;
+                      followerOnly: boolean;
+                    }
+                  | {
+                      __typename?: 'LimitedFeeCollectModuleSettings';
+                      type: CollectModules;
+                      collectLimit: string;
+                      recipient: any;
+                      referralFee: number;
+                      contractAddress: any;
+                      followerOnly: boolean;
+                      amount: {
+                        __typename?: 'ModuleFeeAmount';
+                        value: string;
+                        asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+                      };
+                    }
+                  | {
+                      __typename?: 'LimitedTimedFeeCollectModuleSettings';
+                      type: CollectModules;
+                      collectLimit: string;
+                      recipient: any;
+                      endTimestamp: any;
+                      referralFee: number;
+                      contractAddress: any;
+                      followerOnly: boolean;
+                      amount: {
+                        __typename?: 'ModuleFeeAmount';
+                        value: string;
+                        asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+                      };
+                    }
+                  | { __typename?: 'RevertCollectModuleSettings' }
+                  | {
+                      __typename?: 'TimedFeeCollectModuleSettings';
+                      type: CollectModules;
+                      recipient: any;
+                      endTimestamp: any;
+                      referralFee: number;
+                      contractAddress: any;
+                      followerOnly: boolean;
+                      amount: {
+                        __typename?: 'ModuleFeeAmount';
+                        value: string;
+                        asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+                      };
+                    }
+                  | { __typename?: 'UnknownCollectModuleSettings' };
+              };
+        }
+      | {
+          __typename?: 'NewCommentNotification';
+          notificationId: any;
+          createdAt: any;
+          profile: {
+            __typename?: 'Profile';
+            id: any;
+            name?: string | null;
+            handle: any;
+            bio?: string | null;
+            ownedBy: any;
+            attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
+            picture?:
+              | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
+              | { __typename?: 'NftImage'; uri: any }
+              | null;
+            followModule?:
+              | { __typename: 'FeeFollowModuleSettings' }
+              | { __typename: 'ProfileFollowModuleSettings' }
+              | { __typename: 'RevertFollowModuleSettings' }
+              | { __typename: 'UnknownFollowModuleSettings' }
+              | null;
+          };
+          comment: {
+            __typename?: 'Comment';
+            id: any;
+            metadata: { __typename?: 'MetadataOutput'; content?: any | null };
+            commentOn?:
+              | { __typename?: 'Comment'; id: any }
+              | { __typename?: 'Mirror'; id: any }
+              | { __typename?: 'Post'; id: any }
+              | null;
+          };
+        }
+      | {
+          __typename?: 'NewFollowerNotification';
+          notificationId: any;
+          createdAt: any;
+          wallet: {
+            __typename?: 'Wallet';
+            address: any;
+            defaultProfile?: {
+              __typename?: 'Profile';
+              id: any;
+              name?: string | null;
+              handle: any;
+              bio?: string | null;
+              ownedBy: any;
+              attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
+              picture?:
+                | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
+                | { __typename?: 'NftImage'; uri: any }
+                | null;
+              followModule?:
+                | { __typename: 'FeeFollowModuleSettings' }
+                | { __typename: 'ProfileFollowModuleSettings' }
+                | { __typename: 'RevertFollowModuleSettings' }
+                | { __typename: 'UnknownFollowModuleSettings' }
+                | null;
+            } | null;
+          };
+        }
+      | {
+          __typename?: 'NewMentionNotification';
+          notificationId: any;
+          createdAt: any;
+          mentionPublication:
+            | {
+                __typename?: 'Comment';
+                id: any;
+                profile: {
+                  __typename?: 'Profile';
+                  id: any;
+                  name?: string | null;
+                  handle: any;
+                  bio?: string | null;
+                  ownedBy: any;
+                  attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
+                  picture?:
+                    | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
+                    | { __typename?: 'NftImage'; uri: any }
+                    | null;
+                  followModule?:
+                    | { __typename: 'FeeFollowModuleSettings' }
+                    | { __typename: 'ProfileFollowModuleSettings' }
+                    | { __typename: 'RevertFollowModuleSettings' }
+                    | { __typename: 'UnknownFollowModuleSettings' }
+                    | null;
+                };
+                metadata: { __typename?: 'MetadataOutput'; content?: any | null };
+              }
+            | {
+                __typename?: 'Post';
+                id: any;
+                profile: {
+                  __typename?: 'Profile';
+                  id: any;
+                  name?: string | null;
+                  handle: any;
+                  bio?: string | null;
+                  ownedBy: any;
+                  attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
+                  picture?:
+                    | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
+                    | { __typename?: 'NftImage'; uri: any }
+                    | null;
+                  followModule?:
+                    | { __typename: 'FeeFollowModuleSettings' }
+                    | { __typename: 'ProfileFollowModuleSettings' }
+                    | { __typename: 'RevertFollowModuleSettings' }
+                    | { __typename: 'UnknownFollowModuleSettings' }
+                    | null;
+                };
+                metadata: { __typename?: 'MetadataOutput'; content?: any | null };
+              };
+        }
+      | {
+          __typename?: 'NewMirrorNotification';
+          notificationId: any;
+          createdAt: any;
+          profile: {
+            __typename?: 'Profile';
+            id: any;
+            name?: string | null;
+            handle: any;
+            bio?: string | null;
+            ownedBy: any;
+            attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
+            picture?:
+              | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
+              | { __typename?: 'NftImage'; uri: any }
+              | null;
+            followModule?:
+              | { __typename: 'FeeFollowModuleSettings' }
+              | { __typename: 'ProfileFollowModuleSettings' }
+              | { __typename: 'RevertFollowModuleSettings' }
+              | { __typename: 'UnknownFollowModuleSettings' }
+              | null;
+          };
+          publication:
+            | {
+                __typename?: 'Comment';
+                id: any;
+                metadata: {
+                  __typename?: 'MetadataOutput';
+                  name?: string | null;
+                  content?: any | null;
+                  attributes: Array<{ __typename?: 'MetadataAttributeOutput'; value?: string | null }>;
+                };
+              }
+            | {
+                __typename?: 'Post';
+                id: any;
+                metadata: {
+                  __typename?: 'MetadataOutput';
+                  name?: string | null;
+                  content?: any | null;
+                  attributes: Array<{ __typename?: 'MetadataAttributeOutput'; value?: string | null }>;
+                };
+              };
+        }
+      | {
+          __typename?: 'NewReactionNotification';
+          notificationId: any;
+          createdAt: any;
+          profile: {
+            __typename?: 'Profile';
+            id: any;
+            name?: string | null;
+            handle: any;
+            bio?: string | null;
+            ownedBy: any;
+            attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
+            picture?:
+              | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
+              | { __typename?: 'NftImage'; uri: any }
+              | null;
+            followModule?:
+              | { __typename: 'FeeFollowModuleSettings' }
+              | { __typename: 'ProfileFollowModuleSettings' }
+              | { __typename: 'RevertFollowModuleSettings' }
+              | { __typename: 'UnknownFollowModuleSettings' }
+              | null;
+          };
+          publication:
+            | {
+                __typename?: 'Comment';
+                id: any;
+                metadata: { __typename?: 'MetadataOutput'; content?: any | null };
+              }
+            | {
+                __typename?: 'Mirror';
+                id: any;
+                metadata: { __typename?: 'MetadataOutput'; content?: any | null };
+              }
+            | {
+                __typename?: 'Post';
+                id: any;
+                metadata: { __typename?: 'MetadataOutput'; content?: any | null };
+              };
+        }
+    >;
+    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null };
+  };
+};
+
 export type ProfileFeedQueryVariables = Exact<{
   request: PublicationsQueryRequest;
   reactionRequest?: InputMaybe<ReactionFieldResolverRequest>;
@@ -10362,6 +10769,618 @@ export const HomeFeedDocument = {
     ...MirrorFieldsFragmentDoc.definitions
   ]
 } as unknown as DocumentNode<HomeFeedQuery, HomeFeedQueryVariables>;
+export const NotificationsDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'Notifications' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'request' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'NotificationRequest' } }
+          }
+        }
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'notifications' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'request' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'request' } }
+              }
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'items' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'InlineFragment',
+                        typeCondition: {
+                          kind: 'NamedType',
+                          name: { kind: 'Name', value: 'NewFollowerNotification' }
+                        },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            { kind: 'Field', name: { kind: 'Name', value: 'notificationId' } },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'wallet' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  { kind: 'Field', name: { kind: 'Name', value: 'address' } },
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'defaultProfile' },
+                                    selectionSet: {
+                                      kind: 'SelectionSet',
+                                      selections: [
+                                        {
+                                          kind: 'FragmentSpread',
+                                          name: { kind: 'Name', value: 'ProfileFields' }
+                                        }
+                                      ]
+                                    }
+                                  }
+                                ]
+                              }
+                            },
+                            { kind: 'Field', name: { kind: 'Name', value: 'createdAt' } }
+                          ]
+                        }
+                      },
+                      {
+                        kind: 'InlineFragment',
+                        typeCondition: {
+                          kind: 'NamedType',
+                          name: { kind: 'Name', value: 'NewMentionNotification' }
+                        },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            { kind: 'Field', name: { kind: 'Name', value: 'notificationId' } },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'mentionPublication' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'InlineFragment',
+                                    typeCondition: {
+                                      kind: 'NamedType',
+                                      name: { kind: 'Name', value: 'Post' }
+                                    },
+                                    selectionSet: {
+                                      kind: 'SelectionSet',
+                                      selections: [
+                                        { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                                        {
+                                          kind: 'Field',
+                                          name: { kind: 'Name', value: 'profile' },
+                                          selectionSet: {
+                                            kind: 'SelectionSet',
+                                            selections: [
+                                              {
+                                                kind: 'FragmentSpread',
+                                                name: { kind: 'Name', value: 'ProfileFields' }
+                                              }
+                                            ]
+                                          }
+                                        },
+                                        {
+                                          kind: 'Field',
+                                          name: { kind: 'Name', value: 'metadata' },
+                                          selectionSet: {
+                                            kind: 'SelectionSet',
+                                            selections: [
+                                              { kind: 'Field', name: { kind: 'Name', value: 'content' } }
+                                            ]
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  {
+                                    kind: 'InlineFragment',
+                                    typeCondition: {
+                                      kind: 'NamedType',
+                                      name: { kind: 'Name', value: 'Comment' }
+                                    },
+                                    selectionSet: {
+                                      kind: 'SelectionSet',
+                                      selections: [
+                                        { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                                        {
+                                          kind: 'Field',
+                                          name: { kind: 'Name', value: 'profile' },
+                                          selectionSet: {
+                                            kind: 'SelectionSet',
+                                            selections: [
+                                              {
+                                                kind: 'FragmentSpread',
+                                                name: { kind: 'Name', value: 'ProfileFields' }
+                                              }
+                                            ]
+                                          }
+                                        },
+                                        {
+                                          kind: 'Field',
+                                          name: { kind: 'Name', value: 'metadata' },
+                                          selectionSet: {
+                                            kind: 'SelectionSet',
+                                            selections: [
+                                              { kind: 'Field', name: { kind: 'Name', value: 'content' } }
+                                            ]
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  }
+                                ]
+                              }
+                            },
+                            { kind: 'Field', name: { kind: 'Name', value: 'createdAt' } }
+                          ]
+                        }
+                      },
+                      {
+                        kind: 'InlineFragment',
+                        typeCondition: {
+                          kind: 'NamedType',
+                          name: { kind: 'Name', value: 'NewReactionNotification' }
+                        },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            { kind: 'Field', name: { kind: 'Name', value: 'notificationId' } },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'profile' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  { kind: 'FragmentSpread', name: { kind: 'Name', value: 'ProfileFields' } }
+                                ]
+                              }
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'publication' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'InlineFragment',
+                                    typeCondition: {
+                                      kind: 'NamedType',
+                                      name: { kind: 'Name', value: 'Post' }
+                                    },
+                                    selectionSet: {
+                                      kind: 'SelectionSet',
+                                      selections: [
+                                        { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                                        {
+                                          kind: 'Field',
+                                          name: { kind: 'Name', value: 'metadata' },
+                                          selectionSet: {
+                                            kind: 'SelectionSet',
+                                            selections: [
+                                              { kind: 'Field', name: { kind: 'Name', value: 'content' } }
+                                            ]
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  {
+                                    kind: 'InlineFragment',
+                                    typeCondition: {
+                                      kind: 'NamedType',
+                                      name: { kind: 'Name', value: 'Comment' }
+                                    },
+                                    selectionSet: {
+                                      kind: 'SelectionSet',
+                                      selections: [
+                                        { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                                        {
+                                          kind: 'Field',
+                                          name: { kind: 'Name', value: 'metadata' },
+                                          selectionSet: {
+                                            kind: 'SelectionSet',
+                                            selections: [
+                                              { kind: 'Field', name: { kind: 'Name', value: 'content' } }
+                                            ]
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  {
+                                    kind: 'InlineFragment',
+                                    typeCondition: {
+                                      kind: 'NamedType',
+                                      name: { kind: 'Name', value: 'Mirror' }
+                                    },
+                                    selectionSet: {
+                                      kind: 'SelectionSet',
+                                      selections: [
+                                        { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                                        {
+                                          kind: 'Field',
+                                          name: { kind: 'Name', value: 'metadata' },
+                                          selectionSet: {
+                                            kind: 'SelectionSet',
+                                            selections: [
+                                              { kind: 'Field', name: { kind: 'Name', value: 'content' } }
+                                            ]
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  }
+                                ]
+                              }
+                            },
+                            { kind: 'Field', name: { kind: 'Name', value: 'createdAt' } }
+                          ]
+                        }
+                      },
+                      {
+                        kind: 'InlineFragment',
+                        typeCondition: {
+                          kind: 'NamedType',
+                          name: { kind: 'Name', value: 'NewCommentNotification' }
+                        },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            { kind: 'Field', name: { kind: 'Name', value: 'notificationId' } },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'profile' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  { kind: 'FragmentSpread', name: { kind: 'Name', value: 'ProfileFields' } }
+                                ]
+                              }
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'comment' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'metadata' },
+                                    selectionSet: {
+                                      kind: 'SelectionSet',
+                                      selections: [
+                                        { kind: 'Field', name: { kind: 'Name', value: 'content' } }
+                                      ]
+                                    }
+                                  },
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'commentOn' },
+                                    selectionSet: {
+                                      kind: 'SelectionSet',
+                                      selections: [
+                                        {
+                                          kind: 'InlineFragment',
+                                          typeCondition: {
+                                            kind: 'NamedType',
+                                            name: { kind: 'Name', value: 'Post' }
+                                          },
+                                          selectionSet: {
+                                            kind: 'SelectionSet',
+                                            selections: [
+                                              { kind: 'Field', name: { kind: 'Name', value: 'id' } }
+                                            ]
+                                          }
+                                        },
+                                        {
+                                          kind: 'InlineFragment',
+                                          typeCondition: {
+                                            kind: 'NamedType',
+                                            name: { kind: 'Name', value: 'Comment' }
+                                          },
+                                          selectionSet: {
+                                            kind: 'SelectionSet',
+                                            selections: [
+                                              { kind: 'Field', name: { kind: 'Name', value: 'id' } }
+                                            ]
+                                          }
+                                        },
+                                        {
+                                          kind: 'InlineFragment',
+                                          typeCondition: {
+                                            kind: 'NamedType',
+                                            name: { kind: 'Name', value: 'Mirror' }
+                                          },
+                                          selectionSet: {
+                                            kind: 'SelectionSet',
+                                            selections: [
+                                              { kind: 'Field', name: { kind: 'Name', value: 'id' } }
+                                            ]
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  }
+                                ]
+                              }
+                            },
+                            { kind: 'Field', name: { kind: 'Name', value: 'createdAt' } }
+                          ]
+                        }
+                      },
+                      {
+                        kind: 'InlineFragment',
+                        typeCondition: {
+                          kind: 'NamedType',
+                          name: { kind: 'Name', value: 'NewMirrorNotification' }
+                        },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            { kind: 'Field', name: { kind: 'Name', value: 'notificationId' } },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'profile' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  { kind: 'FragmentSpread', name: { kind: 'Name', value: 'ProfileFields' } }
+                                ]
+                              }
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'publication' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'InlineFragment',
+                                    typeCondition: {
+                                      kind: 'NamedType',
+                                      name: { kind: 'Name', value: 'Post' }
+                                    },
+                                    selectionSet: {
+                                      kind: 'SelectionSet',
+                                      selections: [
+                                        { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                                        {
+                                          kind: 'Field',
+                                          name: { kind: 'Name', value: 'metadata' },
+                                          selectionSet: {
+                                            kind: 'SelectionSet',
+                                            selections: [
+                                              { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                                              { kind: 'Field', name: { kind: 'Name', value: 'content' } },
+                                              {
+                                                kind: 'Field',
+                                                name: { kind: 'Name', value: 'attributes' },
+                                                selectionSet: {
+                                                  kind: 'SelectionSet',
+                                                  selections: [
+                                                    { kind: 'Field', name: { kind: 'Name', value: 'value' } }
+                                                  ]
+                                                }
+                                              }
+                                            ]
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  {
+                                    kind: 'InlineFragment',
+                                    typeCondition: {
+                                      kind: 'NamedType',
+                                      name: { kind: 'Name', value: 'Comment' }
+                                    },
+                                    selectionSet: {
+                                      kind: 'SelectionSet',
+                                      selections: [
+                                        { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                                        {
+                                          kind: 'Field',
+                                          name: { kind: 'Name', value: 'metadata' },
+                                          selectionSet: {
+                                            kind: 'SelectionSet',
+                                            selections: [
+                                              { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                                              { kind: 'Field', name: { kind: 'Name', value: 'content' } },
+                                              {
+                                                kind: 'Field',
+                                                name: { kind: 'Name', value: 'attributes' },
+                                                selectionSet: {
+                                                  kind: 'SelectionSet',
+                                                  selections: [
+                                                    { kind: 'Field', name: { kind: 'Name', value: 'value' } }
+                                                  ]
+                                                }
+                                              }
+                                            ]
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  }
+                                ]
+                              }
+                            },
+                            { kind: 'Field', name: { kind: 'Name', value: 'createdAt' } }
+                          ]
+                        }
+                      },
+                      {
+                        kind: 'InlineFragment',
+                        typeCondition: {
+                          kind: 'NamedType',
+                          name: { kind: 'Name', value: 'NewCollectNotification' }
+                        },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            { kind: 'Field', name: { kind: 'Name', value: 'notificationId' } },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'wallet' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  { kind: 'Field', name: { kind: 'Name', value: 'address' } },
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'defaultProfile' },
+                                    selectionSet: {
+                                      kind: 'SelectionSet',
+                                      selections: [
+                                        {
+                                          kind: 'FragmentSpread',
+                                          name: { kind: 'Name', value: 'ProfileFields' }
+                                        }
+                                      ]
+                                    }
+                                  }
+                                ]
+                              }
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'collectedPublication' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'InlineFragment',
+                                    typeCondition: {
+                                      kind: 'NamedType',
+                                      name: { kind: 'Name', value: 'Post' }
+                                    },
+                                    selectionSet: {
+                                      kind: 'SelectionSet',
+                                      selections: [
+                                        { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                                        {
+                                          kind: 'Field',
+                                          name: { kind: 'Name', value: 'metadata' },
+                                          selectionSet: {
+                                            kind: 'SelectionSet',
+                                            selections: [
+                                              {
+                                                kind: 'FragmentSpread',
+                                                name: { kind: 'Name', value: 'MetadataFields' }
+                                              }
+                                            ]
+                                          }
+                                        },
+                                        {
+                                          kind: 'Field',
+                                          name: { kind: 'Name', value: 'collectModule' },
+                                          selectionSet: {
+                                            kind: 'SelectionSet',
+                                            selections: [
+                                              {
+                                                kind: 'FragmentSpread',
+                                                name: { kind: 'Name', value: 'CollectModuleFields' }
+                                              }
+                                            ]
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  {
+                                    kind: 'InlineFragment',
+                                    typeCondition: {
+                                      kind: 'NamedType',
+                                      name: { kind: 'Name', value: 'Comment' }
+                                    },
+                                    selectionSet: {
+                                      kind: 'SelectionSet',
+                                      selections: [
+                                        { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                                        {
+                                          kind: 'Field',
+                                          name: { kind: 'Name', value: 'metadata' },
+                                          selectionSet: {
+                                            kind: 'SelectionSet',
+                                            selections: [
+                                              {
+                                                kind: 'FragmentSpread',
+                                                name: { kind: 'Name', value: 'MetadataFields' }
+                                              }
+                                            ]
+                                          }
+                                        },
+                                        {
+                                          kind: 'Field',
+                                          name: { kind: 'Name', value: 'collectModule' },
+                                          selectionSet: {
+                                            kind: 'SelectionSet',
+                                            selections: [
+                                              {
+                                                kind: 'FragmentSpread',
+                                                name: { kind: 'Name', value: 'CollectModuleFields' }
+                                              }
+                                            ]
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  }
+                                ]
+                              }
+                            },
+                            { kind: 'Field', name: { kind: 'Name', value: 'createdAt' } }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'pageInfo' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [{ kind: 'Field', name: { kind: 'Name', value: 'next' } }]
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    ...ProfileFieldsFragmentDoc.definitions,
+    ...MetadataFieldsFragmentDoc.definitions,
+    ...CollectModuleFieldsFragmentDoc.definitions
+  ]
+} as unknown as DocumentNode<NotificationsQuery, NotificationsQueryVariables>;
 export const ProfileFeedDocument = {
   kind: 'Document',
   definitions: [
