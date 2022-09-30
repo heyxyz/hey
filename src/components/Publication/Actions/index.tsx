@@ -17,7 +17,7 @@ interface Props {
 const PublicationActions: FC<Props> = ({ publication, isFullPublication = false }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const publicationType = publication?.metadata?.attributes[0]?.value;
-  const collectModuleType = publication?.collectModule?.__typename;
+  const collectModuleType = publication?.collectModule.__typename;
   const canMirror = currentProfile ? publication?.canMirror?.result : true;
 
   return (

@@ -11,7 +11,7 @@ interface Props {
 const CollectedAmount: FC<Props> = ({ notification }) => {
   const publicationType =
     notification?.collectedPublication?.metadata?.attributes[0]?.value ??
-    notification?.collectedPublication?.__typename?.toLowerCase();
+    notification?.collectedPublication.__typename?.toLowerCase();
   const collectModule: any = notification?.collectedPublication?.collectModule;
 
   return (
@@ -21,7 +21,7 @@ const CollectedAmount: FC<Props> = ({ notification }) => {
       ) : (
         <CurrencyDollarIcon className="text-green-500 h-[15px]" />
       )}
-      {collectModule?.__typename === 'FreeCollectModuleSettings' ? (
+      {collectModule.__typename === 'FreeCollectModuleSettings' ? (
         <div className="text-[12px]">Collected for free</div>
       ) : (
         <>

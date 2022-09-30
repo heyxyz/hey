@@ -32,7 +32,7 @@ const SinglePublication: FC<Props> = ({
   showThread = true
 }) => {
   const { push } = useRouter();
-  const isMirror = publication?.__typename === 'Mirror';
+  const isMirror = publication.__typename === 'Mirror';
   const isCrowdfund = publication?.metadata?.attributes[0]?.value === 'crowdfund';
   const profile = isMirror ? publication?.mirrorOf?.profile : publication?.profile;
   const timestamp = isMirror ? publication?.mirrorOf?.createdAt : publication?.createdAt;
@@ -61,7 +61,7 @@ const SinglePublication: FC<Props> = ({
         </div>
         <div className="ml-[53px]">
           {publication?.hidden ? (
-            <HiddenPublication type={publication?.__typename} />
+            <HiddenPublication type={publication.__typename} />
           ) : (
             <>
               <PublicationBody publication={publication} />

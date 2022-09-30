@@ -193,7 +193,7 @@ const SuperFollow: FC = () => {
     );
   }
 
-  const followType = currencyData?.profile?.followModule?.__typename;
+  const followType = currencyData?.profile?.followModule.__typename;
 
   return (
     <Card>

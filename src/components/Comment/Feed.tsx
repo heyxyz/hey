@@ -47,7 +47,7 @@ interface Props {
 }
 
 const Feed: FC<Props> = ({ publication }) => {
-  const publicationId = publication?.__typename === 'Mirror' ? publication?.mirrorOf?.id : publication?.id;
+  const publicationId = publication.__typename === 'Mirror' ? publication?.mirrorOf?.id : publication?.id;
   const currentProfile = useAppStore((state) => state.currentProfile);
   const txnQueue = useTransactionPersistStore((state) => state.txnQueue);
 

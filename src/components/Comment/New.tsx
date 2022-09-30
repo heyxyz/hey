@@ -230,7 +230,7 @@ const NewComment: FC<Props> = ({ hideCard = false, publication }) => {
 
     const request = {
       profileId: currentProfile?.id,
-      publicationId: publication?.__typename === 'Mirror' ? publication?.mirrorOf?.id : publication?.id,
+      publicationId: publication.__typename === 'Mirror' ? publication?.mirrorOf?.id : publication?.id,
       contentURI: `https://arweave.net/${id}`,
       collectModule: feeData.recipient
         ? {
