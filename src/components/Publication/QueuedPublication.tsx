@@ -52,13 +52,17 @@ const QueuedPublication: FC<Props> = ({ txn }) => {
     pollInterval: 1000,
     onCompleted: (data) => {
       const status = data.hasTxHashBeenIndexed?.metadataStatus?.status;
+      const hasFailReason = 'reason' in data.hasTxHashBeenIndexed;
+
+      if (
+        status === PublicationMetadataStatusType.MetadataValidationFailed ||
+        status === PublicationMetadataStatusType.NotFound ||
+        hasFailReason
+      ) {
+        return setTxnQueue(txnQueue.filter((o) => o.txHash !== txHash));
+      }
+
       if (data.hasTxHashBeenIndexed?.indexed) {
-        if (
-          status === PublicationMetadataStatusType.MetadataValidationFailed ||
-          status === PublicationMetadataStatusType.NotFound
-        ) {
-          return setTxnQueue(txnQueue.filter((o) => o.txHash !== txHash));
-        }
         getPublication({
           variables: {
             request: { txHash },
