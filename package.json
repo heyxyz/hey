@@ -75,7 +75,7 @@
     "eslint-plugin-unused-imports": "^2.0.0",
     "husky": "^8.0.1",
     "lint-staged": "^13.0.3",
-    "postcss": "^8.4.16",
+    "postcss": "^8.4.17",
     "prettier": "^2.7.1",
     "tailwindcss": "^3.1.8",
     "ts-node": "^10.9.1",
