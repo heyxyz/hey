@@ -12,8 +12,8 @@ import { PUBLICATION } from 'src/tracking';
 
 const SelectReferenceModule: FC = () => {
   const [showModal, setShowModal] = useState(false);
-  const selectedModule = useReferenceModuleStore((state) => state.selectedModule);
-  const setSelectedModule = useReferenceModuleStore((state) => state.setSelectedModule);
+  const selectedReferenceModule = useReferenceModuleStore((state) => state.selectedReferenceModule);
+  const setSelectedReferenceModule = useReferenceModuleStore((state) => state.setSelectedReferenceModule);
   const onlyFollowers = useReferenceModuleStore((state) => state.onlyFollowers);
   const setOnlyFollowers = useReferenceModuleStore((state) => state.setOnlyFollowers);
   const { commentsRestricted, mirrorsRestricted, degreesOfSeparation } = useReferenceModuleStore();
@@ -24,9 +24,10 @@ const SelectReferenceModule: FC = () => {
     commentsRestricted ? 'comments' : 'mirrors'
   } upto ${degreesOfSeparation} degrees`;
 
-  const isFollowerOnlyReferenceModule = selectedModule === ReferenceModules.FollowerOnlyReferenceModule;
+  const isFollowerOnlyReferenceModule =
+    selectedReferenceModule === ReferenceModules.FollowerOnlyReferenceModule;
   const isDegreesOfSeparationReferenceModule =
-    selectedModule === ReferenceModules.DegreesOfSeparationReferenceModule;
+    selectedReferenceModule === ReferenceModules.DegreesOfSeparationReferenceModule;
 
   return (
     <>
@@ -70,7 +71,7 @@ const SelectReferenceModule: FC = () => {
               'w-full p-3 border rounded-xl dark:border-gray-700/80 flex justify-between items-center'
             )}
             onClick={() => {
-              setSelectedModule(ReferenceModules.FollowerOnlyReferenceModule);
+              setSelectedReferenceModule(ReferenceModules.FollowerOnlyReferenceModule);
               setOnlyFollowers(false);
               setShowModal(false);
               Mixpanel.track(PUBLICATION.NEW.REFERENCE_MODULE.EVERYONE);
@@ -91,7 +92,7 @@ const SelectReferenceModule: FC = () => {
               'w-full p-3 border rounded-xl dark:border-gray-700/80 flex justify-between items-center'
             )}
             onClick={() => {
-              setSelectedModule(ReferenceModules.FollowerOnlyReferenceModule);
+              setSelectedReferenceModule(ReferenceModules.FollowerOnlyReferenceModule);
               setOnlyFollowers(true);
               setShowModal(false);
               Mixpanel.track(PUBLICATION.NEW.REFERENCE_MODULE.ONLY_FOLLOWERS);
@@ -112,7 +113,7 @@ const SelectReferenceModule: FC = () => {
               'w-full p-3 border rounded-xl dark:border-gray-700/80 flex justify-between items-center'
             )}
             onClick={() => {
-              setSelectedModule(ReferenceModules.DegreesOfSeparationReferenceModule);
+              setSelectedReferenceModule(ReferenceModules.DegreesOfSeparationReferenceModule);
               setOnlyFollowers(false);
               Mixpanel.track(PUBLICATION.NEW.REFERENCE_MODULE.DEGREES);
             }}

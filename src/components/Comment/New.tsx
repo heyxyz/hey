@@ -75,7 +75,7 @@ const NewComment: FC<Props> = ({ hideCard = false, publication }) => {
   const setSelectedModule = useCollectModuleStore((state) => state.setSelectedModule);
   const feeData = useCollectModuleStore((state) => state.feeData);
   const setFeeData = useCollectModuleStore((state) => state.setFeeData);
-  const selectedReferenceModule = useReferenceModuleStore((state) => state.selectedModule);
+  const selectedReferenceModule = useReferenceModuleStore((state) => state.selectedReferenceModule);
   const onlyFollowers = useReferenceModuleStore((state) => state.onlyFollowers);
   const { commentsRestricted, mirrorsRestricted, degreesOfSeparation } = useReferenceModuleStore();
   const [commentContentError, setCommentContentError] = useState('');
