@@ -8972,6 +8972,18 @@ export type ProfileFeedQuery = {
   };
 };
 
+export type TrendingQueryVariables = Exact<{
+  request: AllPublicationsTagsRequest;
+}>;
+
+export type TrendingQuery = {
+  __typename?: 'Query';
+  allPublicationsTags: {
+    __typename?: 'PaginatedAllPublicationsTagsResult';
+    items: Array<{ __typename?: 'TagResult'; tag: any; total: number }>;
+  };
+};
+
 export type UserProfilesQueryVariables = Exact<{
   ownedBy?: InputMaybe<Array<Scalars['EthereumAddress']> | Scalars['EthereumAddress']>;
 }>;
@@ -10458,6 +10470,58 @@ export const ProfileFeedDocument = {
     ...MirrorFieldsFragmentDoc.definitions
   ]
 } as unknown as DocumentNode<ProfileFeedQuery, ProfileFeedQueryVariables>;
+export const TrendingDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'Trending' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'request' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'AllPublicationsTagsRequest' } }
+          }
+        }
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'allPublicationsTags' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'request' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'request' } }
+              }
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'items' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'tag' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'total' } }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+} as unknown as DocumentNode<TrendingQuery, TrendingQueryVariables>;
 export const UserProfilesDocument = {
   kind: 'Document',
   definitions: [
