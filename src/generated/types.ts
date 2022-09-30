@@ -6542,6 +6542,1221 @@ export type HomeFeedQuery = {
   };
 };
 
+export type ExploreFeedQueryVariables = Exact<{
+  request: ExplorePublicationRequest;
+  reactionRequest?: InputMaybe<ReactionFieldResolverRequest>;
+  profileId?: InputMaybe<Scalars['ProfileId']>;
+}>;
+
+export type ExploreFeedQuery = {
+  __typename?: 'Query';
+  explorePublications: {
+    __typename?: 'ExplorePublicationResult';
+    items: Array<
+      | {
+          __typename?: 'Comment';
+          id: any;
+          reaction?: ReactionTypes | null;
+          mirrors: Array<any>;
+          hasCollectedByMe: boolean;
+          hidden: boolean;
+          createdAt: any;
+          appId?: any | null;
+          profile: {
+            __typename?: 'Profile';
+            id: any;
+            name?: string | null;
+            handle: any;
+            bio?: string | null;
+            ownedBy: any;
+            attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
+            picture?:
+              | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
+              | { __typename?: 'NftImage'; uri: any }
+              | null;
+            followModule?:
+              | { __typename: 'FeeFollowModuleSettings' }
+              | { __typename: 'ProfileFollowModuleSettings' }
+              | { __typename: 'RevertFollowModuleSettings' }
+              | { __typename: 'UnknownFollowModuleSettings' }
+              | null;
+          };
+          canComment: { __typename?: 'CanCommentResponse'; result: boolean };
+          canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+          collectedBy?: {
+            __typename?: 'Wallet';
+            address: any;
+            defaultProfile?: {
+              __typename?: 'Profile';
+              id: any;
+              name?: string | null;
+              handle: any;
+              bio?: string | null;
+              ownedBy: any;
+              attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
+              picture?:
+                | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
+                | { __typename?: 'NftImage'; uri: any }
+                | null;
+              followModule?:
+                | { __typename: 'FeeFollowModuleSettings' }
+                | { __typename: 'ProfileFollowModuleSettings' }
+                | { __typename: 'RevertFollowModuleSettings' }
+                | { __typename: 'UnknownFollowModuleSettings' }
+                | null;
+            } | null;
+          } | null;
+          collectModule:
+            | {
+                __typename?: 'FeeCollectModuleSettings';
+                type: CollectModules;
+                amount: { __typename?: 'ModuleFeeAmount'; asset: { __typename?: 'Erc20'; address: any } };
+              }
+            | { __typename?: 'FreeCollectModuleSettings'; type: CollectModules }
+            | {
+                __typename?: 'LimitedFeeCollectModuleSettings';
+                type: CollectModules;
+                amount: { __typename?: 'ModuleFeeAmount'; asset: { __typename?: 'Erc20'; address: any } };
+              }
+            | {
+                __typename?: 'LimitedTimedFeeCollectModuleSettings';
+                type: CollectModules;
+                amount: { __typename?: 'ModuleFeeAmount'; asset: { __typename?: 'Erc20'; address: any } };
+              }
+            | { __typename?: 'RevertCollectModuleSettings' }
+            | {
+                __typename?: 'TimedFeeCollectModuleSettings';
+                type: CollectModules;
+                amount: { __typename?: 'ModuleFeeAmount'; asset: { __typename?: 'Erc20'; address: any } };
+              }
+            | { __typename?: 'UnknownCollectModuleSettings' };
+          stats: {
+            __typename?: 'PublicationStats';
+            totalUpvotes: number;
+            totalAmountOfMirrors: number;
+            totalAmountOfCollects: number;
+            totalAmountOfComments: number;
+          };
+          metadata: {
+            __typename?: 'MetadataOutput';
+            name?: string | null;
+            description?: any | null;
+            content?: any | null;
+            cover?: { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } } | null;
+            media: Array<{
+              __typename?: 'MediaSet';
+              original: { __typename?: 'Media'; url: any; mimeType?: any | null };
+            }>;
+            attributes: Array<{ __typename?: 'MetadataAttributeOutput'; value?: string | null }>;
+          };
+          commentOn?:
+            | {
+                __typename?: 'Comment';
+                id: any;
+                reaction?: ReactionTypes | null;
+                mirrors: Array<any>;
+                hasCollectedByMe: boolean;
+                hidden: boolean;
+                createdAt: any;
+                profile: {
+                  __typename?: 'Profile';
+                  id: any;
+                  name?: string | null;
+                  handle: any;
+                  bio?: string | null;
+                  ownedBy: any;
+                  attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
+                  picture?:
+                    | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
+                    | { __typename?: 'NftImage'; uri: any }
+                    | null;
+                  followModule?:
+                    | { __typename: 'FeeFollowModuleSettings' }
+                    | { __typename: 'ProfileFollowModuleSettings' }
+                    | { __typename: 'RevertFollowModuleSettings' }
+                    | { __typename: 'UnknownFollowModuleSettings' }
+                    | null;
+                };
+                collectedBy?: {
+                  __typename?: 'Wallet';
+                  address: any;
+                  defaultProfile?: { __typename?: 'Profile'; handle: any } | null;
+                } | null;
+                collectModule:
+                  | {
+                      __typename?: 'FeeCollectModuleSettings';
+                      type: CollectModules;
+                      amount: {
+                        __typename?: 'ModuleFeeAmount';
+                        asset: { __typename?: 'Erc20'; address: any };
+                      };
+                    }
+                  | { __typename?: 'FreeCollectModuleSettings'; type: CollectModules }
+                  | {
+                      __typename?: 'LimitedFeeCollectModuleSettings';
+                      type: CollectModules;
+                      amount: {
+                        __typename?: 'ModuleFeeAmount';
+                        asset: { __typename?: 'Erc20'; address: any };
+                      };
+                    }
+                  | {
+                      __typename?: 'LimitedTimedFeeCollectModuleSettings';
+                      type: CollectModules;
+                      amount: {
+                        __typename?: 'ModuleFeeAmount';
+                        asset: { __typename?: 'Erc20'; address: any };
+                      };
+                    }
+                  | { __typename?: 'RevertCollectModuleSettings' }
+                  | {
+                      __typename?: 'TimedFeeCollectModuleSettings';
+                      type: CollectModules;
+                      amount: {
+                        __typename?: 'ModuleFeeAmount';
+                        asset: { __typename?: 'Erc20'; address: any };
+                      };
+                    }
+                  | { __typename?: 'UnknownCollectModuleSettings' };
+                metadata: {
+                  __typename?: 'MetadataOutput';
+                  name?: string | null;
+                  description?: any | null;
+                  content?: any | null;
+                  cover?: { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } } | null;
+                  media: Array<{
+                    __typename?: 'MediaSet';
+                    original: { __typename?: 'Media'; url: any; mimeType?: any | null };
+                  }>;
+                  attributes: Array<{ __typename?: 'MetadataAttributeOutput'; value?: string | null }>;
+                };
+                stats: {
+                  __typename?: 'PublicationStats';
+                  totalUpvotes: number;
+                  totalAmountOfMirrors: number;
+                  totalAmountOfCollects: number;
+                  totalAmountOfComments: number;
+                };
+                mainPost:
+                  | {
+                      __typename?: 'Mirror';
+                      id: any;
+                      reaction?: ReactionTypes | null;
+                      hidden: boolean;
+                      createdAt: any;
+                      appId?: any | null;
+                      profile: {
+                        __typename?: 'Profile';
+                        id: any;
+                        name?: string | null;
+                        handle: any;
+                        bio?: string | null;
+                        ownedBy: any;
+                        attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
+                        picture?:
+                          | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
+                          | { __typename?: 'NftImage'; uri: any }
+                          | null;
+                        followModule?:
+                          | { __typename: 'FeeFollowModuleSettings' }
+                          | { __typename: 'ProfileFollowModuleSettings' }
+                          | { __typename: 'RevertFollowModuleSettings' }
+                          | { __typename: 'UnknownFollowModuleSettings' }
+                          | null;
+                      };
+                      canComment: { __typename?: 'CanCommentResponse'; result: boolean };
+                      canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                      collectModule:
+                        | {
+                            __typename?: 'FeeCollectModuleSettings';
+                            type: CollectModules;
+                            amount: {
+                              __typename?: 'ModuleFeeAmount';
+                              asset: { __typename?: 'Erc20'; address: any };
+                            };
+                          }
+                        | { __typename?: 'FreeCollectModuleSettings'; type: CollectModules }
+                        | {
+                            __typename?: 'LimitedFeeCollectModuleSettings';
+                            type: CollectModules;
+                            amount: {
+                              __typename?: 'ModuleFeeAmount';
+                              asset: { __typename?: 'Erc20'; address: any };
+                            };
+                          }
+                        | {
+                            __typename?: 'LimitedTimedFeeCollectModuleSettings';
+                            type: CollectModules;
+                            amount: {
+                              __typename?: 'ModuleFeeAmount';
+                              asset: { __typename?: 'Erc20'; address: any };
+                            };
+                          }
+                        | { __typename?: 'RevertCollectModuleSettings' }
+                        | {
+                            __typename?: 'TimedFeeCollectModuleSettings';
+                            type: CollectModules;
+                            amount: {
+                              __typename?: 'ModuleFeeAmount';
+                              asset: { __typename?: 'Erc20'; address: any };
+                            };
+                          }
+                        | { __typename?: 'UnknownCollectModuleSettings' };
+                      stats: {
+                        __typename?: 'PublicationStats';
+                        totalUpvotes: number;
+                        totalAmountOfMirrors: number;
+                        totalAmountOfCollects: number;
+                        totalAmountOfComments: number;
+                      };
+                      metadata: {
+                        __typename?: 'MetadataOutput';
+                        name?: string | null;
+                        description?: any | null;
+                        content?: any | null;
+                        cover?: {
+                          __typename?: 'MediaSet';
+                          original: { __typename?: 'Media'; url: any };
+                        } | null;
+                        media: Array<{
+                          __typename?: 'MediaSet';
+                          original: { __typename?: 'Media'; url: any; mimeType?: any | null };
+                        }>;
+                        attributes: Array<{ __typename?: 'MetadataAttributeOutput'; value?: string | null }>;
+                      };
+                      mirrorOf:
+                        | {
+                            __typename?: 'Comment';
+                            id: any;
+                            reaction?: ReactionTypes | null;
+                            mirrors: Array<any>;
+                            createdAt: any;
+                            profile: {
+                              __typename?: 'Profile';
+                              id: any;
+                              name?: string | null;
+                              handle: any;
+                              bio?: string | null;
+                              ownedBy: any;
+                              attributes?: Array<{
+                                __typename?: 'Attribute';
+                                key: string;
+                                value: string;
+                              }> | null;
+                              picture?:
+                                | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
+                                | { __typename?: 'NftImage'; uri: any }
+                                | null;
+                              followModule?:
+                                | { __typename: 'FeeFollowModuleSettings' }
+                                | { __typename: 'ProfileFollowModuleSettings' }
+                                | { __typename: 'RevertFollowModuleSettings' }
+                                | { __typename: 'UnknownFollowModuleSettings' }
+                                | null;
+                            };
+                            stats: {
+                              __typename?: 'PublicationStats';
+                              totalUpvotes: number;
+                              totalAmountOfMirrors: number;
+                              totalAmountOfCollects: number;
+                              totalAmountOfComments: number;
+                            };
+                          }
+                        | {
+                            __typename?: 'Post';
+                            id: any;
+                            reaction?: ReactionTypes | null;
+                            mirrors: Array<any>;
+                            hasCollectedByMe: boolean;
+                            hidden: boolean;
+                            createdAt: any;
+                            appId?: any | null;
+                            profile: {
+                              __typename?: 'Profile';
+                              id: any;
+                              name?: string | null;
+                              handle: any;
+                              bio?: string | null;
+                              ownedBy: any;
+                              attributes?: Array<{
+                                __typename?: 'Attribute';
+                                key: string;
+                                value: string;
+                              }> | null;
+                              picture?:
+                                | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
+                                | { __typename?: 'NftImage'; uri: any }
+                                | null;
+                              followModule?:
+                                | { __typename: 'FeeFollowModuleSettings' }
+                                | { __typename: 'ProfileFollowModuleSettings' }
+                                | { __typename: 'RevertFollowModuleSettings' }
+                                | { __typename: 'UnknownFollowModuleSettings' }
+                                | null;
+                            };
+                            canComment: { __typename?: 'CanCommentResponse'; result: boolean };
+                            canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                            collectedBy?: {
+                              __typename?: 'Wallet';
+                              address: any;
+                              defaultProfile?: {
+                                __typename?: 'Profile';
+                                id: any;
+                                name?: string | null;
+                                handle: any;
+                                bio?: string | null;
+                                ownedBy: any;
+                                attributes?: Array<{
+                                  __typename?: 'Attribute';
+                                  key: string;
+                                  value: string;
+                                }> | null;
+                                picture?:
+                                  | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
+                                  | { __typename?: 'NftImage'; uri: any }
+                                  | null;
+                                followModule?:
+                                  | { __typename: 'FeeFollowModuleSettings' }
+                                  | { __typename: 'ProfileFollowModuleSettings' }
+                                  | { __typename: 'RevertFollowModuleSettings' }
+                                  | { __typename: 'UnknownFollowModuleSettings' }
+                                  | null;
+                              } | null;
+                            } | null;
+                            collectModule:
+                              | {
+                                  __typename?: 'FeeCollectModuleSettings';
+                                  type: CollectModules;
+                                  amount: {
+                                    __typename?: 'ModuleFeeAmount';
+                                    asset: { __typename?: 'Erc20'; address: any };
+                                  };
+                                }
+                              | { __typename?: 'FreeCollectModuleSettings'; type: CollectModules }
+                              | {
+                                  __typename?: 'LimitedFeeCollectModuleSettings';
+                                  type: CollectModules;
+                                  amount: {
+                                    __typename?: 'ModuleFeeAmount';
+                                    asset: { __typename?: 'Erc20'; address: any };
+                                  };
+                                }
+                              | {
+                                  __typename?: 'LimitedTimedFeeCollectModuleSettings';
+                                  type: CollectModules;
+                                  amount: {
+                                    __typename?: 'ModuleFeeAmount';
+                                    asset: { __typename?: 'Erc20'; address: any };
+                                  };
+                                }
+                              | { __typename?: 'RevertCollectModuleSettings' }
+                              | {
+                                  __typename?: 'TimedFeeCollectModuleSettings';
+                                  type: CollectModules;
+                                  amount: {
+                                    __typename?: 'ModuleFeeAmount';
+                                    asset: { __typename?: 'Erc20'; address: any };
+                                  };
+                                }
+                              | { __typename?: 'UnknownCollectModuleSettings' };
+                            stats: {
+                              __typename?: 'PublicationStats';
+                              totalUpvotes: number;
+                              totalAmountOfMirrors: number;
+                              totalAmountOfCollects: number;
+                              totalAmountOfComments: number;
+                            };
+                            metadata: {
+                              __typename?: 'MetadataOutput';
+                              name?: string | null;
+                              description?: any | null;
+                              content?: any | null;
+                              cover?: {
+                                __typename?: 'MediaSet';
+                                original: { __typename?: 'Media'; url: any };
+                              } | null;
+                              media: Array<{
+                                __typename?: 'MediaSet';
+                                original: { __typename?: 'Media'; url: any; mimeType?: any | null };
+                              }>;
+                              attributes: Array<{
+                                __typename?: 'MetadataAttributeOutput';
+                                value?: string | null;
+                              }>;
+                            };
+                          };
+                    }
+                  | {
+                      __typename?: 'Post';
+                      id: any;
+                      reaction?: ReactionTypes | null;
+                      mirrors: Array<any>;
+                      hasCollectedByMe: boolean;
+                      hidden: boolean;
+                      createdAt: any;
+                      appId?: any | null;
+                      profile: {
+                        __typename?: 'Profile';
+                        id: any;
+                        name?: string | null;
+                        handle: any;
+                        bio?: string | null;
+                        ownedBy: any;
+                        attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
+                        picture?:
+                          | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
+                          | { __typename?: 'NftImage'; uri: any }
+                          | null;
+                        followModule?:
+                          | { __typename: 'FeeFollowModuleSettings' }
+                          | { __typename: 'ProfileFollowModuleSettings' }
+                          | { __typename: 'RevertFollowModuleSettings' }
+                          | { __typename: 'UnknownFollowModuleSettings' }
+                          | null;
+                      };
+                      canComment: { __typename?: 'CanCommentResponse'; result: boolean };
+                      canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                      collectedBy?: {
+                        __typename?: 'Wallet';
+                        address: any;
+                        defaultProfile?: {
+                          __typename?: 'Profile';
+                          id: any;
+                          name?: string | null;
+                          handle: any;
+                          bio?: string | null;
+                          ownedBy: any;
+                          attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
+                          picture?:
+                            | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
+                            | { __typename?: 'NftImage'; uri: any }
+                            | null;
+                          followModule?:
+                            | { __typename: 'FeeFollowModuleSettings' }
+                            | { __typename: 'ProfileFollowModuleSettings' }
+                            | { __typename: 'RevertFollowModuleSettings' }
+                            | { __typename: 'UnknownFollowModuleSettings' }
+                            | null;
+                        } | null;
+                      } | null;
+                      collectModule:
+                        | {
+                            __typename?: 'FeeCollectModuleSettings';
+                            type: CollectModules;
+                            amount: {
+                              __typename?: 'ModuleFeeAmount';
+                              asset: { __typename?: 'Erc20'; address: any };
+                            };
+                          }
+                        | { __typename?: 'FreeCollectModuleSettings'; type: CollectModules }
+                        | {
+                            __typename?: 'LimitedFeeCollectModuleSettings';
+                            type: CollectModules;
+                            amount: {
+                              __typename?: 'ModuleFeeAmount';
+                              asset: { __typename?: 'Erc20'; address: any };
+                            };
+                          }
+                        | {
+                            __typename?: 'LimitedTimedFeeCollectModuleSettings';
+                            type: CollectModules;
+                            amount: {
+                              __typename?: 'ModuleFeeAmount';
+                              asset: { __typename?: 'Erc20'; address: any };
+                            };
+                          }
+                        | { __typename?: 'RevertCollectModuleSettings' }
+                        | {
+                            __typename?: 'TimedFeeCollectModuleSettings';
+                            type: CollectModules;
+                            amount: {
+                              __typename?: 'ModuleFeeAmount';
+                              asset: { __typename?: 'Erc20'; address: any };
+                            };
+                          }
+                        | { __typename?: 'UnknownCollectModuleSettings' };
+                      stats: {
+                        __typename?: 'PublicationStats';
+                        totalUpvotes: number;
+                        totalAmountOfMirrors: number;
+                        totalAmountOfCollects: number;
+                        totalAmountOfComments: number;
+                      };
+                      metadata: {
+                        __typename?: 'MetadataOutput';
+                        name?: string | null;
+                        description?: any | null;
+                        content?: any | null;
+                        cover?: {
+                          __typename?: 'MediaSet';
+                          original: { __typename?: 'Media'; url: any };
+                        } | null;
+                        media: Array<{
+                          __typename?: 'MediaSet';
+                          original: { __typename?: 'Media'; url: any; mimeType?: any | null };
+                        }>;
+                        attributes: Array<{ __typename?: 'MetadataAttributeOutput'; value?: string | null }>;
+                      };
+                    };
+              }
+            | {
+                __typename?: 'Mirror';
+                id: any;
+                reaction?: ReactionTypes | null;
+                hidden: boolean;
+                createdAt: any;
+                appId?: any | null;
+                profile: {
+                  __typename?: 'Profile';
+                  id: any;
+                  name?: string | null;
+                  handle: any;
+                  bio?: string | null;
+                  ownedBy: any;
+                  attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
+                  picture?:
+                    | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
+                    | { __typename?: 'NftImage'; uri: any }
+                    | null;
+                  followModule?:
+                    | { __typename: 'FeeFollowModuleSettings' }
+                    | { __typename: 'ProfileFollowModuleSettings' }
+                    | { __typename: 'RevertFollowModuleSettings' }
+                    | { __typename: 'UnknownFollowModuleSettings' }
+                    | null;
+                };
+                canComment: { __typename?: 'CanCommentResponse'; result: boolean };
+                canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                collectModule:
+                  | {
+                      __typename?: 'FeeCollectModuleSettings';
+                      type: CollectModules;
+                      amount: {
+                        __typename?: 'ModuleFeeAmount';
+                        asset: { __typename?: 'Erc20'; address: any };
+                      };
+                    }
+                  | { __typename?: 'FreeCollectModuleSettings'; type: CollectModules }
+                  | {
+                      __typename?: 'LimitedFeeCollectModuleSettings';
+                      type: CollectModules;
+                      amount: {
+                        __typename?: 'ModuleFeeAmount';
+                        asset: { __typename?: 'Erc20'; address: any };
+                      };
+                    }
+                  | {
+                      __typename?: 'LimitedTimedFeeCollectModuleSettings';
+                      type: CollectModules;
+                      amount: {
+                        __typename?: 'ModuleFeeAmount';
+                        asset: { __typename?: 'Erc20'; address: any };
+                      };
+                    }
+                  | { __typename?: 'RevertCollectModuleSettings' }
+                  | {
+                      __typename?: 'TimedFeeCollectModuleSettings';
+                      type: CollectModules;
+                      amount: {
+                        __typename?: 'ModuleFeeAmount';
+                        asset: { __typename?: 'Erc20'; address: any };
+                      };
+                    }
+                  | { __typename?: 'UnknownCollectModuleSettings' };
+                stats: {
+                  __typename?: 'PublicationStats';
+                  totalUpvotes: number;
+                  totalAmountOfMirrors: number;
+                  totalAmountOfCollects: number;
+                  totalAmountOfComments: number;
+                };
+                metadata: {
+                  __typename?: 'MetadataOutput';
+                  name?: string | null;
+                  description?: any | null;
+                  content?: any | null;
+                  cover?: { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } } | null;
+                  media: Array<{
+                    __typename?: 'MediaSet';
+                    original: { __typename?: 'Media'; url: any; mimeType?: any | null };
+                  }>;
+                  attributes: Array<{ __typename?: 'MetadataAttributeOutput'; value?: string | null }>;
+                };
+                mirrorOf:
+                  | {
+                      __typename?: 'Comment';
+                      id: any;
+                      reaction?: ReactionTypes | null;
+                      mirrors: Array<any>;
+                      createdAt: any;
+                      profile: {
+                        __typename?: 'Profile';
+                        id: any;
+                        name?: string | null;
+                        handle: any;
+                        bio?: string | null;
+                        ownedBy: any;
+                        attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
+                        picture?:
+                          | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
+                          | { __typename?: 'NftImage'; uri: any }
+                          | null;
+                        followModule?:
+                          | { __typename: 'FeeFollowModuleSettings' }
+                          | { __typename: 'ProfileFollowModuleSettings' }
+                          | { __typename: 'RevertFollowModuleSettings' }
+                          | { __typename: 'UnknownFollowModuleSettings' }
+                          | null;
+                      };
+                      stats: {
+                        __typename?: 'PublicationStats';
+                        totalUpvotes: number;
+                        totalAmountOfMirrors: number;
+                        totalAmountOfCollects: number;
+                        totalAmountOfComments: number;
+                      };
+                    }
+                  | {
+                      __typename?: 'Post';
+                      id: any;
+                      reaction?: ReactionTypes | null;
+                      mirrors: Array<any>;
+                      hasCollectedByMe: boolean;
+                      hidden: boolean;
+                      createdAt: any;
+                      appId?: any | null;
+                      profile: {
+                        __typename?: 'Profile';
+                        id: any;
+                        name?: string | null;
+                        handle: any;
+                        bio?: string | null;
+                        ownedBy: any;
+                        attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
+                        picture?:
+                          | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
+                          | { __typename?: 'NftImage'; uri: any }
+                          | null;
+                        followModule?:
+                          | { __typename: 'FeeFollowModuleSettings' }
+                          | { __typename: 'ProfileFollowModuleSettings' }
+                          | { __typename: 'RevertFollowModuleSettings' }
+                          | { __typename: 'UnknownFollowModuleSettings' }
+                          | null;
+                      };
+                      canComment: { __typename?: 'CanCommentResponse'; result: boolean };
+                      canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                      collectedBy?: {
+                        __typename?: 'Wallet';
+                        address: any;
+                        defaultProfile?: {
+                          __typename?: 'Profile';
+                          id: any;
+                          name?: string | null;
+                          handle: any;
+                          bio?: string | null;
+                          ownedBy: any;
+                          attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
+                          picture?:
+                            | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
+                            | { __typename?: 'NftImage'; uri: any }
+                            | null;
+                          followModule?:
+                            | { __typename: 'FeeFollowModuleSettings' }
+                            | { __typename: 'ProfileFollowModuleSettings' }
+                            | { __typename: 'RevertFollowModuleSettings' }
+                            | { __typename: 'UnknownFollowModuleSettings' }
+                            | null;
+                        } | null;
+                      } | null;
+                      collectModule:
+                        | {
+                            __typename?: 'FeeCollectModuleSettings';
+                            type: CollectModules;
+                            amount: {
+                              __typename?: 'ModuleFeeAmount';
+                              asset: { __typename?: 'Erc20'; address: any };
+                            };
+                          }
+                        | { __typename?: 'FreeCollectModuleSettings'; type: CollectModules }
+                        | {
+                            __typename?: 'LimitedFeeCollectModuleSettings';
+                            type: CollectModules;
+                            amount: {
+                              __typename?: 'ModuleFeeAmount';
+                              asset: { __typename?: 'Erc20'; address: any };
+                            };
+                          }
+                        | {
+                            __typename?: 'LimitedTimedFeeCollectModuleSettings';
+                            type: CollectModules;
+                            amount: {
+                              __typename?: 'ModuleFeeAmount';
+                              asset: { __typename?: 'Erc20'; address: any };
+                            };
+                          }
+                        | { __typename?: 'RevertCollectModuleSettings' }
+                        | {
+                            __typename?: 'TimedFeeCollectModuleSettings';
+                            type: CollectModules;
+                            amount: {
+                              __typename?: 'ModuleFeeAmount';
+                              asset: { __typename?: 'Erc20'; address: any };
+                            };
+                          }
+                        | { __typename?: 'UnknownCollectModuleSettings' };
+                      stats: {
+                        __typename?: 'PublicationStats';
+                        totalUpvotes: number;
+                        totalAmountOfMirrors: number;
+                        totalAmountOfCollects: number;
+                        totalAmountOfComments: number;
+                      };
+                      metadata: {
+                        __typename?: 'MetadataOutput';
+                        name?: string | null;
+                        description?: any | null;
+                        content?: any | null;
+                        cover?: {
+                          __typename?: 'MediaSet';
+                          original: { __typename?: 'Media'; url: any };
+                        } | null;
+                        media: Array<{
+                          __typename?: 'MediaSet';
+                          original: { __typename?: 'Media'; url: any; mimeType?: any | null };
+                        }>;
+                        attributes: Array<{ __typename?: 'MetadataAttributeOutput'; value?: string | null }>;
+                      };
+                    };
+              }
+            | {
+                __typename?: 'Post';
+                id: any;
+                reaction?: ReactionTypes | null;
+                mirrors: Array<any>;
+                hasCollectedByMe: boolean;
+                hidden: boolean;
+                createdAt: any;
+                appId?: any | null;
+                profile: {
+                  __typename?: 'Profile';
+                  id: any;
+                  name?: string | null;
+                  handle: any;
+                  bio?: string | null;
+                  ownedBy: any;
+                  attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
+                  picture?:
+                    | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
+                    | { __typename?: 'NftImage'; uri: any }
+                    | null;
+                  followModule?:
+                    | { __typename: 'FeeFollowModuleSettings' }
+                    | { __typename: 'ProfileFollowModuleSettings' }
+                    | { __typename: 'RevertFollowModuleSettings' }
+                    | { __typename: 'UnknownFollowModuleSettings' }
+                    | null;
+                };
+                canComment: { __typename?: 'CanCommentResponse'; result: boolean };
+                canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                collectedBy?: {
+                  __typename?: 'Wallet';
+                  address: any;
+                  defaultProfile?: {
+                    __typename?: 'Profile';
+                    id: any;
+                    name?: string | null;
+                    handle: any;
+                    bio?: string | null;
+                    ownedBy: any;
+                    attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
+                    picture?:
+                      | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
+                      | { __typename?: 'NftImage'; uri: any }
+                      | null;
+                    followModule?:
+                      | { __typename: 'FeeFollowModuleSettings' }
+                      | { __typename: 'ProfileFollowModuleSettings' }
+                      | { __typename: 'RevertFollowModuleSettings' }
+                      | { __typename: 'UnknownFollowModuleSettings' }
+                      | null;
+                  } | null;
+                } | null;
+                collectModule:
+                  | {
+                      __typename?: 'FeeCollectModuleSettings';
+                      type: CollectModules;
+                      amount: {
+                        __typename?: 'ModuleFeeAmount';
+                        asset: { __typename?: 'Erc20'; address: any };
+                      };
+                    }
+                  | { __typename?: 'FreeCollectModuleSettings'; type: CollectModules }
+                  | {
+                      __typename?: 'LimitedFeeCollectModuleSettings';
+                      type: CollectModules;
+                      amount: {
+                        __typename?: 'ModuleFeeAmount';
+                        asset: { __typename?: 'Erc20'; address: any };
+                      };
+                    }
+                  | {
+                      __typename?: 'LimitedTimedFeeCollectModuleSettings';
+                      type: CollectModules;
+                      amount: {
+                        __typename?: 'ModuleFeeAmount';
+                        asset: { __typename?: 'Erc20'; address: any };
+                      };
+                    }
+                  | { __typename?: 'RevertCollectModuleSettings' }
+                  | {
+                      __typename?: 'TimedFeeCollectModuleSettings';
+                      type: CollectModules;
+                      amount: {
+                        __typename?: 'ModuleFeeAmount';
+                        asset: { __typename?: 'Erc20'; address: any };
+                      };
+                    }
+                  | { __typename?: 'UnknownCollectModuleSettings' };
+                stats: {
+                  __typename?: 'PublicationStats';
+                  totalUpvotes: number;
+                  totalAmountOfMirrors: number;
+                  totalAmountOfCollects: number;
+                  totalAmountOfComments: number;
+                };
+                metadata: {
+                  __typename?: 'MetadataOutput';
+                  name?: string | null;
+                  description?: any | null;
+                  content?: any | null;
+                  cover?: { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } } | null;
+                  media: Array<{
+                    __typename?: 'MediaSet';
+                    original: { __typename?: 'Media'; url: any; mimeType?: any | null };
+                  }>;
+                  attributes: Array<{ __typename?: 'MetadataAttributeOutput'; value?: string | null }>;
+                };
+              }
+            | null;
+        }
+      | {
+          __typename?: 'Mirror';
+          id: any;
+          reaction?: ReactionTypes | null;
+          hidden: boolean;
+          createdAt: any;
+          appId?: any | null;
+          profile: {
+            __typename?: 'Profile';
+            id: any;
+            name?: string | null;
+            handle: any;
+            bio?: string | null;
+            ownedBy: any;
+            attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
+            picture?:
+              | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
+              | { __typename?: 'NftImage'; uri: any }
+              | null;
+            followModule?:
+              | { __typename: 'FeeFollowModuleSettings' }
+              | { __typename: 'ProfileFollowModuleSettings' }
+              | { __typename: 'RevertFollowModuleSettings' }
+              | { __typename: 'UnknownFollowModuleSettings' }
+              | null;
+          };
+          canComment: { __typename?: 'CanCommentResponse'; result: boolean };
+          canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+          collectModule:
+            | {
+                __typename?: 'FeeCollectModuleSettings';
+                type: CollectModules;
+                amount: { __typename?: 'ModuleFeeAmount'; asset: { __typename?: 'Erc20'; address: any } };
+              }
+            | { __typename?: 'FreeCollectModuleSettings'; type: CollectModules }
+            | {
+                __typename?: 'LimitedFeeCollectModuleSettings';
+                type: CollectModules;
+                amount: { __typename?: 'ModuleFeeAmount'; asset: { __typename?: 'Erc20'; address: any } };
+              }
+            | {
+                __typename?: 'LimitedTimedFeeCollectModuleSettings';
+                type: CollectModules;
+                amount: { __typename?: 'ModuleFeeAmount'; asset: { __typename?: 'Erc20'; address: any } };
+              }
+            | { __typename?: 'RevertCollectModuleSettings' }
+            | {
+                __typename?: 'TimedFeeCollectModuleSettings';
+                type: CollectModules;
+                amount: { __typename?: 'ModuleFeeAmount'; asset: { __typename?: 'Erc20'; address: any } };
+              }
+            | { __typename?: 'UnknownCollectModuleSettings' };
+          stats: {
+            __typename?: 'PublicationStats';
+            totalUpvotes: number;
+            totalAmountOfMirrors: number;
+            totalAmountOfCollects: number;
+            totalAmountOfComments: number;
+          };
+          metadata: {
+            __typename?: 'MetadataOutput';
+            name?: string | null;
+            description?: any | null;
+            content?: any | null;
+            cover?: { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } } | null;
+            media: Array<{
+              __typename?: 'MediaSet';
+              original: { __typename?: 'Media'; url: any; mimeType?: any | null };
+            }>;
+            attributes: Array<{ __typename?: 'MetadataAttributeOutput'; value?: string | null }>;
+          };
+          mirrorOf:
+            | {
+                __typename?: 'Comment';
+                id: any;
+                reaction?: ReactionTypes | null;
+                mirrors: Array<any>;
+                createdAt: any;
+                profile: {
+                  __typename?: 'Profile';
+                  id: any;
+                  name?: string | null;
+                  handle: any;
+                  bio?: string | null;
+                  ownedBy: any;
+                  attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
+                  picture?:
+                    | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
+                    | { __typename?: 'NftImage'; uri: any }
+                    | null;
+                  followModule?:
+                    | { __typename: 'FeeFollowModuleSettings' }
+                    | { __typename: 'ProfileFollowModuleSettings' }
+                    | { __typename: 'RevertFollowModuleSettings' }
+                    | { __typename: 'UnknownFollowModuleSettings' }
+                    | null;
+                };
+                stats: {
+                  __typename?: 'PublicationStats';
+                  totalUpvotes: number;
+                  totalAmountOfMirrors: number;
+                  totalAmountOfCollects: number;
+                  totalAmountOfComments: number;
+                };
+              }
+            | {
+                __typename?: 'Post';
+                id: any;
+                reaction?: ReactionTypes | null;
+                mirrors: Array<any>;
+                hasCollectedByMe: boolean;
+                hidden: boolean;
+                createdAt: any;
+                appId?: any | null;
+                profile: {
+                  __typename?: 'Profile';
+                  id: any;
+                  name?: string | null;
+                  handle: any;
+                  bio?: string | null;
+                  ownedBy: any;
+                  attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
+                  picture?:
+                    | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
+                    | { __typename?: 'NftImage'; uri: any }
+                    | null;
+                  followModule?:
+                    | { __typename: 'FeeFollowModuleSettings' }
+                    | { __typename: 'ProfileFollowModuleSettings' }
+                    | { __typename: 'RevertFollowModuleSettings' }
+                    | { __typename: 'UnknownFollowModuleSettings' }
+                    | null;
+                };
+                canComment: { __typename?: 'CanCommentResponse'; result: boolean };
+                canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                collectedBy?: {
+                  __typename?: 'Wallet';
+                  address: any;
+                  defaultProfile?: {
+                    __typename?: 'Profile';
+                    id: any;
+                    name?: string | null;
+                    handle: any;
+                    bio?: string | null;
+                    ownedBy: any;
+                    attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
+                    picture?:
+                      | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
+                      | { __typename?: 'NftImage'; uri: any }
+                      | null;
+                    followModule?:
+                      | { __typename: 'FeeFollowModuleSettings' }
+                      | { __typename: 'ProfileFollowModuleSettings' }
+                      | { __typename: 'RevertFollowModuleSettings' }
+                      | { __typename: 'UnknownFollowModuleSettings' }
+                      | null;
+                  } | null;
+                } | null;
+                collectModule:
+                  | {
+                      __typename?: 'FeeCollectModuleSettings';
+                      type: CollectModules;
+                      amount: {
+                        __typename?: 'ModuleFeeAmount';
+                        asset: { __typename?: 'Erc20'; address: any };
+                      };
+                    }
+                  | { __typename?: 'FreeCollectModuleSettings'; type: CollectModules }
+                  | {
+                      __typename?: 'LimitedFeeCollectModuleSettings';
+                      type: CollectModules;
+                      amount: {
+                        __typename?: 'ModuleFeeAmount';
+                        asset: { __typename?: 'Erc20'; address: any };
+                      };
+                    }
+                  | {
+                      __typename?: 'LimitedTimedFeeCollectModuleSettings';
+                      type: CollectModules;
+                      amount: {
+                        __typename?: 'ModuleFeeAmount';
+                        asset: { __typename?: 'Erc20'; address: any };
+                      };
+                    }
+                  | { __typename?: 'RevertCollectModuleSettings' }
+                  | {
+                      __typename?: 'TimedFeeCollectModuleSettings';
+                      type: CollectModules;
+                      amount: {
+                        __typename?: 'ModuleFeeAmount';
+                        asset: { __typename?: 'Erc20'; address: any };
+                      };
+                    }
+                  | { __typename?: 'UnknownCollectModuleSettings' };
+                stats: {
+                  __typename?: 'PublicationStats';
+                  totalUpvotes: number;
+                  totalAmountOfMirrors: number;
+                  totalAmountOfCollects: number;
+                  totalAmountOfComments: number;
+                };
+                metadata: {
+                  __typename?: 'MetadataOutput';
+                  name?: string | null;
+                  description?: any | null;
+                  content?: any | null;
+                  cover?: { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } } | null;
+                  media: Array<{
+                    __typename?: 'MediaSet';
+                    original: { __typename?: 'Media'; url: any; mimeType?: any | null };
+                  }>;
+                  attributes: Array<{ __typename?: 'MetadataAttributeOutput'; value?: string | null }>;
+                };
+              };
+        }
+      | {
+          __typename?: 'Post';
+          id: any;
+          reaction?: ReactionTypes | null;
+          mirrors: Array<any>;
+          hasCollectedByMe: boolean;
+          hidden: boolean;
+          createdAt: any;
+          appId?: any | null;
+          profile: {
+            __typename?: 'Profile';
+            id: any;
+            name?: string | null;
+            handle: any;
+            bio?: string | null;
+            ownedBy: any;
+            attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
+            picture?:
+              | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
+              | { __typename?: 'NftImage'; uri: any }
+              | null;
+            followModule?:
+              | { __typename: 'FeeFollowModuleSettings' }
+              | { __typename: 'ProfileFollowModuleSettings' }
+              | { __typename: 'RevertFollowModuleSettings' }
+              | { __typename: 'UnknownFollowModuleSettings' }
+              | null;
+          };
+          canComment: { __typename?: 'CanCommentResponse'; result: boolean };
+          canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+          collectedBy?: {
+            __typename?: 'Wallet';
+            address: any;
+            defaultProfile?: {
+              __typename?: 'Profile';
+              id: any;
+              name?: string | null;
+              handle: any;
+              bio?: string | null;
+              ownedBy: any;
+              attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
+              picture?:
+                | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
+                | { __typename?: 'NftImage'; uri: any }
+                | null;
+              followModule?:
+                | { __typename: 'FeeFollowModuleSettings' }
+                | { __typename: 'ProfileFollowModuleSettings' }
+                | { __typename: 'RevertFollowModuleSettings' }
+                | { __typename: 'UnknownFollowModuleSettings' }
+                | null;
+            } | null;
+          } | null;
+          collectModule:
+            | {
+                __typename?: 'FeeCollectModuleSettings';
+                type: CollectModules;
+                amount: { __typename?: 'ModuleFeeAmount'; asset: { __typename?: 'Erc20'; address: any } };
+              }
+            | { __typename?: 'FreeCollectModuleSettings'; type: CollectModules }
+            | {
+                __typename?: 'LimitedFeeCollectModuleSettings';
+                type: CollectModules;
+                amount: { __typename?: 'ModuleFeeAmount'; asset: { __typename?: 'Erc20'; address: any } };
+              }
+            | {
+                __typename?: 'LimitedTimedFeeCollectModuleSettings';
+                type: CollectModules;
+                amount: { __typename?: 'ModuleFeeAmount'; asset: { __typename?: 'Erc20'; address: any } };
+              }
+            | { __typename?: 'RevertCollectModuleSettings' }
+            | {
+                __typename?: 'TimedFeeCollectModuleSettings';
+                type: CollectModules;
+                amount: { __typename?: 'ModuleFeeAmount'; asset: { __typename?: 'Erc20'; address: any } };
+              }
+            | { __typename?: 'UnknownCollectModuleSettings' };
+          stats: {
+            __typename?: 'PublicationStats';
+            totalUpvotes: number;
+            totalAmountOfMirrors: number;
+            totalAmountOfCollects: number;
+            totalAmountOfComments: number;
+          };
+          metadata: {
+            __typename?: 'MetadataOutput';
+            name?: string | null;
+            description?: any | null;
+            content?: any | null;
+            cover?: { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } } | null;
+            media: Array<{
+              __typename?: 'MediaSet';
+              original: { __typename?: 'Media'; url: any; mimeType?: any | null };
+            }>;
+            attributes: Array<{ __typename?: 'MetadataAttributeOutput'; value?: string | null }>;
+          };
+        }
+    >;
+    pageInfo: { __typename?: 'PaginatedResultInfo'; totalCount: number; next?: any | null };
+  };
+};
+
 export type UserProfilesQueryVariables = Exact<{
   ownedBy?: InputMaybe<Array<Scalars['EthereumAddress']> | Scalars['EthereumAddress']>;
 }>;
@@ -7812,6 +9027,114 @@ export const HomeFeedDocument = {
     ...MirrorFieldsFragmentDoc.definitions
   ]
 } as unknown as DocumentNode<HomeFeedQuery, HomeFeedQueryVariables>;
+export const ExploreFeedDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'ExploreFeed' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'request' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'ExplorePublicationRequest' } }
+          }
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'reactionRequest' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'ReactionFieldResolverRequest' } }
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'profileId' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'ProfileId' } }
+        }
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'explorePublications' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'request' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'request' } }
+              }
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'items' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'InlineFragment',
+                        typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Post' } },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            { kind: 'FragmentSpread', name: { kind: 'Name', value: 'PostFields' } }
+                          ]
+                        }
+                      },
+                      {
+                        kind: 'InlineFragment',
+                        typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Comment' } },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            { kind: 'FragmentSpread', name: { kind: 'Name', value: 'CommentFields' } }
+                          ]
+                        }
+                      },
+                      {
+                        kind: 'InlineFragment',
+                        typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Mirror' } },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            { kind: 'FragmentSpread', name: { kind: 'Name', value: 'MirrorFields' } }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'pageInfo' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'totalCount' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'next' } }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    ...PostFieldsFragmentDoc.definitions,
+    ...ProfileFieldsFragmentDoc.definitions,
+    ...MinimalCollectModuleFieldsFragmentDoc.definitions,
+    ...StatsFieldsFragmentDoc.definitions,
+    ...MetadataFieldsFragmentDoc.definitions,
+    ...CommentFieldsFragmentDoc.definitions,
+    ...MirrorFieldsFragmentDoc.definitions
+  ]
+} as unknown as DocumentNode<ExploreFeedQuery, ExploreFeedQueryVariables>;
 export const UserProfilesDocument = {
   kind: 'Document',
   definitions: [
