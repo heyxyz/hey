@@ -5,7 +5,7 @@ import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
 import { FollowingDocument } from '@generated/documents';
-import { Following, Profile } from '@generated/types';
+import { Profile } from '@generated/types';
 import { UsersIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import { FC } from 'react';
