@@ -1,10 +1,11 @@
-import { useApolloClient, useQuery } from '@apollo/client';
+import { useApolloClient, useLazyQuery, useQuery } from '@apollo/client';
 import Attachments from '@components/Shared/Attachments';
 import IFramely from '@components/Shared/IFramely';
 import Markup from '@components/Shared/Markup';
 import UserProfile from '@components/Shared/UserProfile';
 import { Tooltip } from '@components/UI/Tooltip';
-import { Profile } from '@generated/types';
+import { Profile, PublicationMetadataStatusType } from '@generated/types';
+import { TX_STATUS_QUERY } from '@gql/HasTxHashBeenIndexed';
 import getURLs from '@lib/getURLs';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
@@ -28,16 +29,9 @@ const QueuedPublication: FC<Props> = ({ txn }) => {
   const { cache } = useApolloClient();
   const txHash = txn?.txHash;
 
-  useQuery(PUBLICATION_QUERY, {
-    variables: {
-      request: { txHash },
-      reactionRequest: currentProfile ? { profileId: currentProfile?.id } : null,
-      profileId: currentProfile?.id ?? null
-    },
-    pollInterval: 1000,
+  const [getPublication] = useLazyQuery(PUBLICATION_QUERY, {
     onCompleted: (data) => {
       if (data?.publication) {
-        setTxnQueue(txnQueue.filter((o) => o.txHash !== txHash));
         cache.modify({
           fields: {
             [txn?.type === 'NEW_POST' ? 'timeline' : 'publications']() {
@@ -46,6 +40,34 @@ const QueuedPublication: FC<Props> = ({ txn }) => {
                 query: PUBLICATION_QUERY
               });
             }
+          }
+        });
+        setTxnQueue(txnQueue.filter((o) => o.txHash !== txHash));
+      }
+    }
+  });
+
+  useQuery(TX_STATUS_QUERY, {
+    variables: { request: { txHash } },
+    pollInterval: 1000,
+    onCompleted: (data) => {
+      const status = data.hasTxHashBeenIndexed?.metadataStatus?.status;
+      const hasFailReason = 'reason' in data.hasTxHashBeenIndexed;
+
+      if (
+        status === PublicationMetadataStatusType.MetadataValidationFailed ||
+        status === PublicationMetadataStatusType.NotFound ||
+        hasFailReason
+      ) {
+        return setTxnQueue(txnQueue.filter((o) => o.txHash !== txHash));
+      }
+
+      if (data.hasTxHashBeenIndexed?.indexed) {
+        getPublication({
+          variables: {
+            request: { txHash },
+            reactionRequest: currentProfile ? { profileId: currentProfile?.id } : null,
+            profileId: currentProfile?.id ?? null
           }
         });
       }
