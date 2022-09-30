@@ -232,9 +232,7 @@ const NewComment: FC<Props> = ({ hideCard = false, publication }) => {
       publicationId: publication.__typename === 'Mirror' ? publication?.mirrorOf?.id : publication?.id,
       contentURI: `https://arweave.net/${id}`,
       collectModule: feeData.recipient
-        ? {
-            [getModule(selectedModule.moduleName).config]: feeData
-          }
+        ? { [getModule(selectedModule.moduleName).config]: feeData }
         : getModule(selectedModule.moduleName).config,
       referenceModule:
         selectedReferenceModule === ReferenceModules.FollowerOnlyReferenceModule
