@@ -1,10 +1,9 @@
 import { gql, useLazyQuery, useMutation } from '@apollo/client';
-import { USER_PROFILES_QUERY } from '@components/Layout';
 import SwitchNetwork from '@components/Shared/SwitchNetwork';
 import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
 import useIsMounted from '@components/utils/hooks/useIsMounted';
-import { Profile } from '@generated/types';
+import { UserProfilesDocument } from '@generated/types';
 import { XCircleIcon } from '@heroicons/react/solid';
 import getWalletLogo from '@lib/getWalletLogo';
 import { Mixpanel } from '@lib/mixpanel';
@@ -57,7 +56,8 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
   );
   const [authenticate, { error: errorAuthenticate, loading: authLoading }] =
     useMutation(AUTHENTICATE_MUTATION);
-  const [getProfiles, { error: errorProfiles, loading: profilesLoading }] = useLazyQuery(USER_PROFILES_QUERY);
+  const [getProfiles, { error: errorProfiles, loading: profilesLoading }] =
+    useLazyQuery(UserProfilesDocument);
 
   const onConnect = async (connector: Connector) => {
     try {
@@ -100,10 +100,10 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
       if (profilesData?.profiles?.items?.length === 0) {
         setHasProfile(false);
       } else {
-        const profiles: Profile[] = profilesData?.profiles?.items
+        const profiles: any = profilesData?.profiles?.items
           ?.slice()
-          ?.sort((a: Profile, b: Profile) => Number(a.id) - Number(b.id))
-          ?.sort((a: Profile, b: Profile) => (!(a.isDefault !== b.isDefault) ? 0 : a.isDefault ? -1 : 1));
+          ?.sort((a, b) => Number(a.id) - Number(b.id))
+          ?.sort((a, b) => (!(a.isDefault !== b.isDefault) ? 0 : a.isDefault ? -1 : 1));
         const currentProfile = profiles[0];
         setProfiles(profiles);
         setCurrentProfile(currentProfile);

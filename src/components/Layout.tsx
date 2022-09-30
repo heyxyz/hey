@@ -1,6 +1,5 @@
-import { gql, useQuery } from '@apollo/client';
-import { Profile } from '@generated/types';
-import { ProfileFields } from '@gql/ProfileFields';
+import { useQuery } from '@apollo/client';
+import { Profile, UserProfilesDocument } from '@generated/types';
 import getIsAuthTokensAvailable from '@lib/getIsAuthTokensAvailable';
 import getToastOptions from '@lib/getToastOptions';
 import resetAuthData from '@lib/resetAuthData';
@@ -26,24 +25,6 @@ if (MIXPANEL_TOKEN) {
   });
 }
 
-export const USER_PROFILES_QUERY = gql`
-  query UserProfiles($ownedBy: [EthereumAddress!]) {
-    profiles(request: { ownedBy: $ownedBy }) {
-      items {
-        ...ProfileFields
-        isDefault
-        dispatcher {
-          canUseRelay
-        }
-      }
-    }
-    userSigNonces {
-      lensHubOnChainSigNonce
-    }
-  }
-  ${ProfileFields}
-`;
-
 interface Props {
   children: ReactNode;
 }
@@ -68,20 +49,20 @@ const Layout: FC<Props> = ({ children }) => {
   };
 
   // Fetch current profiles and sig nonce owned by the wallet address
-  const { loading } = useQuery(USER_PROFILES_QUERY, {
+  const { loading } = useQuery(UserProfilesDocument, {
     variables: { ownedBy: address },
     skip: !profileId,
     onCompleted: (data) => {
-      const profiles: Profile[] = data?.profiles?.items
+      const profiles: any = data?.profiles?.items
         ?.slice()
-        ?.sort((a: Profile, b: Profile) => Number(a.id) - Number(b.id))
-        ?.sort((a: Profile, b: Profile) => (!(a.isDefault !== b.isDefault) ? 0 : a.isDefault ? -1 : 1));
+        ?.sort((a, b) => Number(a.id) - Number(b.id))
+        ?.sort((a, b) => (!(a.isDefault !== b.isDefault) ? 0 : a.isDefault ? -1 : 1));
 
       if (!profiles.length) {
         return resetAuthState();
       }
 
-      const selectedUser = profiles.find((profile) => profile.id === profileId);
+      const selectedUser = profiles.find((profile: any) => profile.id === profileId);
       setProfiles(profiles);
       setCurrentProfile(selectedUser as Profile);
       setUserSigNonce(data?.userSigNonces?.lensHubOnChainSigNonce);

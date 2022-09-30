@@ -1,0 +1,314 @@
+fragment PostFields on Post {
+  id
+  profile {
+    ...ProfileFields
+  }
+  reaction(request: $reactionRequest)
+  mirrors(by: $profileId)
+  canComment(profileId: $profileId) {
+    result
+  }
+  canMirror(profileId: $profileId) {
+    result
+  }
+  hasCollectedByMe
+  collectedBy {
+    address
+    defaultProfile {
+      ...ProfileFields
+    }
+  }
+  collectModule {
+    ...MinimalCollectModuleFields
+  }
+  stats {
+    ...StatsFields
+  }
+  metadata {
+    ...MetadataFields
+  }
+  hidden
+  createdAt
+  appId
+}
+
+fragment CommentFields on Comment {
+  id
+  profile {
+    ...ProfileFields
+  }
+  reaction(request: $reactionRequest)
+  mirrors(by: $profileId)
+  canComment(profileId: $profileId) {
+    result
+  }
+  canMirror(profileId: $profileId) {
+    result
+  }
+  hasCollectedByMe
+  collectedBy {
+    address
+    defaultProfile {
+      ...ProfileFields
+    }
+  }
+  collectModule {
+    ...MinimalCollectModuleFields
+  }
+  stats {
+    ...StatsFields
+  }
+  metadata {
+    ...MetadataFields
+  }
+  hidden
+  createdAt
+  appId
+  commentOn {
+    ... on Post {
+      ...PostFields
+    }
+    ... on Comment {
+      id
+      profile {
+        ...ProfileFields
+      }
+      reaction(request: $reactionRequest)
+      mirrors(by: $profileId)
+      hasCollectedByMe
+      collectedBy {
+        address
+        defaultProfile {
+          handle
+        }
+      }
+      collectModule {
+        ...MinimalCollectModuleFields
+      }
+      metadata {
+        ...MetadataFields
+      }
+      stats {
+        ...StatsFields
+      }
+      mainPost {
+        ... on Post {
+          ...PostFields
+        }
+        ... on Mirror {
+          ...MirrorFields
+        }
+      }
+      hidden
+      createdAt
+    }
+    ... on Mirror {
+      ...MirrorFields
+    }
+  }
+}
+
+fragment MirrorFields on Mirror {
+  id
+  profile {
+    ...ProfileFields
+  }
+  reaction(request: $reactionRequest)
+  canComment(profileId: $profileId) {
+    result
+  }
+  canMirror(profileId: $profileId) {
+    result
+  }
+  collectModule {
+    ...MinimalCollectModuleFields
+  }
+  stats {
+    ...StatsFields
+  }
+  metadata {
+    ...MetadataFields
+  }
+  hidden
+  mirrorOf {
+    ... on Post {
+      ...PostFields
+    }
+    ... on Comment {
+      id
+      profile {
+        ...ProfileFields
+      }
+      reaction(request: $reactionRequest)
+      mirrors(by: $profileId)
+      stats {
+        ...StatsFields
+      }
+      createdAt
+    }
+  }
+  createdAt
+  appId
+}
+
+fragment ProfileFields on Profile {
+  id
+  name
+  handle
+  bio
+  ownedBy
+  attributes {
+    key
+    value
+  }
+  picture {
+    ... on MediaSet {
+      original {
+        url
+      }
+    }
+    ... on NftImage {
+      uri
+    }
+  }
+  followModule {
+    __typename
+  }
+}
+
+fragment MinimalCollectModuleFields on CollectModule {
+  ... on FreeCollectModuleSettings {
+    type
+  }
+  ... on FeeCollectModuleSettings {
+    type
+    amount {
+      asset {
+        address
+      }
+    }
+  }
+  ... on LimitedFeeCollectModuleSettings {
+    type
+    amount {
+      asset {
+        address
+      }
+    }
+  }
+  ... on LimitedTimedFeeCollectModuleSettings {
+    type
+    amount {
+      asset {
+        address
+      }
+    }
+  }
+  ... on TimedFeeCollectModuleSettings {
+    type
+    amount {
+      asset {
+        address
+      }
+    }
+  }
+}
+
+fragment CollectModuleFields on CollectModule {
+  ... on FreeCollectModuleSettings {
+    type
+    contractAddress
+    followerOnly
+  }
+  ... on FeeCollectModuleSettings {
+    type
+    recipient
+    referralFee
+    contractAddress
+    followerOnly
+    amount {
+      asset {
+        symbol
+        decimals
+        address
+      }
+      value
+    }
+  }
+  ... on LimitedFeeCollectModuleSettings {
+    type
+    collectLimit
+    recipient
+    referralFee
+    contractAddress
+    followerOnly
+    amount {
+      asset {
+        symbol
+        decimals
+        address
+      }
+      value
+    }
+  }
+  ... on LimitedTimedFeeCollectModuleSettings {
+    type
+    collectLimit
+    recipient
+    endTimestamp
+    referralFee
+    contractAddress
+    followerOnly
+    amount {
+      asset {
+        symbol
+        decimals
+        address
+      }
+      value
+    }
+  }
+  ... on TimedFeeCollectModuleSettings {
+    type
+    recipient
+    endTimestamp
+    referralFee
+    contractAddress
+    followerOnly
+    amount {
+      asset {
+        symbol
+        decimals
+        address
+      }
+      value
+    }
+  }
+}
+
+fragment MetadataFields on MetadataOutput {
+  name
+  description
+  content
+  cover {
+    original {
+      url
+    }
+  }
+  media {
+    original {
+      url
+      mimeType
+    }
+  }
+  attributes {
+    value
+  }
+}
+
+fragment StatsFields on PublicationStats {
+  totalUpvotes
+  totalAmountOfMirrors
+  totalAmountOfCollects
+  totalAmountOfComments
+}
