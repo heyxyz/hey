@@ -1,4 +1,5 @@
 export const mainnetVerified = [
+  '0x012ba5', // pooltogether.lens
   '0xfcc1', // cultivatordao.lens
   '0xb17c', // perpetual.lens
   '0xf9f4', // grocery.lens
