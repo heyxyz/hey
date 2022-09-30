@@ -35,14 +35,14 @@ interface Props {
 }
 
 const Modules: FC<Props> = ({ setShowModal }) => {
-  const selectedModule = useCollectModuleStore((state) => state.selectedModule);
-  const setSelectedModule = useCollectModuleStore((state) => state.setSelectedModule);
+  const selectedCollectModule = useCollectModuleStore((state) => state.selectedCollectModule);
+  const setSelectedCollectModule = useCollectModuleStore((state) => state.setSelectedCollectModule);
   const [showFeeEntry, setShowFeeEntry] = useState(false);
 
   const { error, data, loading } = useQuery(MODULES_QUERY);
 
   const handleSelectModule = (module: EnabledModule) => {
-    setSelectedModule(module);
+    setSelectedCollectModule(module);
     if (getModule(module?.moduleName).hasParam) {
       setShowFeeEntry(true);
     } else {
@@ -78,7 +78,7 @@ const Modules: FC<Props> = ({ setShowModal }) => {
                   type="button"
                   className={clsx(
                     {
-                      'border-green-500': module?.moduleName === selectedModule.moduleName
+                      'border-green-500': module?.moduleName === selectedCollectModule.moduleName
                     },
                     'w-full p-3 text-left border dark:border-gray-700/80 rounded-xl flex items-center justify-between'
                   )}
@@ -94,7 +94,7 @@ const Modules: FC<Props> = ({ setShowModal }) => {
                     </div>
                     <div className="text-xs text-gray-500">{module?.contractAddress}</div>
                   </div>
-                  {module?.moduleName === selectedModule.moduleName && (
+                  {module?.moduleName === selectedCollectModule.moduleName && (
                     <CheckCircleIcon className="w-7 h-7 text-green-500" />
                   )}
                 </button>
