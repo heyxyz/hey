@@ -7846,6 +7846,18 @@ export type HomeFeedQuery = {
   };
 };
 
+export type NotificationCountQueryVariables = Exact<{
+  request: NotificationRequest;
+}>;
+
+export type NotificationCountQuery = {
+  __typename?: 'Query';
+  notifications: {
+    __typename?: 'PaginatedNotificationResult';
+    pageInfo: { __typename?: 'PaginatedResultInfo'; totalCount: number };
+  };
+};
+
 export type NotificationsQueryVariables = Exact<{
   request: NotificationRequest;
 }>;
@@ -11070,6 +11082,55 @@ export const HomeFeedDocument = {
     ...MirrorFieldsFragmentDoc.definitions
   ]
 } as unknown as DocumentNode<HomeFeedQuery, HomeFeedQueryVariables>;
+export const NotificationCountDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'NotificationCount' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'request' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'NotificationRequest' } }
+          }
+        }
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'notifications' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'request' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'request' } }
+              }
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'pageInfo' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [{ kind: 'Field', name: { kind: 'Name', value: 'totalCount' } }]
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+} as unknown as DocumentNode<NotificationCountQuery, NotificationCountQueryVariables>;
 export const NotificationsDocument = {
   kind: 'Document',
   definitions: [
