@@ -4,7 +4,7 @@ import IFramely from '@components/Shared/IFramely';
 import Markup from '@components/Shared/Markup';
 import UserProfile from '@components/Shared/UserProfile';
 import { Tooltip } from '@components/UI/Tooltip';
-import { Profile } from '@generated/types';
+import { Profile, PublicationMetadataStatusType } from '@generated/types';
 import { TX_STATUS_QUERY } from '@gql/HasTxHashBeenIndexed';
 import getURLs from '@lib/getURLs';
 import dayjs from 'dayjs';
@@ -48,12 +48,17 @@ const QueuedPublication: FC<Props> = ({ txn }) => {
   });
 
   useQuery(TX_STATUS_QUERY, {
-    variables: {
-      request: { txHash }
-    },
+    variables: { request: { txHash } },
     pollInterval: 1000,
     onCompleted: (data) => {
+      const status = data.hasTxHashBeenIndexed?.metadataStatus?.status;
       if (data.hasTxHashBeenIndexed?.indexed) {
+        if (
+          status === PublicationMetadataStatusType.MetadataValidationFailed ||
+          status === PublicationMetadataStatusType.NotFound
+        ) {
+          return setTxnQueue(txnQueue.filter((o) => o.txHash !== txHash));
+        }
         getPublication({
           variables: {
             request: { txHash },

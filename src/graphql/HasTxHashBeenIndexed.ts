@@ -9,9 +9,6 @@ export const TX_STATUS_QUERY = gql`
         }
         indexed
       }
-      ... on TransactionError {
-        reason
-      }
     }
   }
 `;
