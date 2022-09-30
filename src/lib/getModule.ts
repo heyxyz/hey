@@ -1,3 +1,4 @@
+import { CollectModules, FollowModules, ReferenceModules } from '@generated/types';
 import { FREE_COLLECT_MODULE } from 'src/constants';
 
 /**
@@ -16,7 +17,7 @@ export const getModule = (
 } => {
   switch (name) {
     // Collect Modules
-    case 'FeeCollectModule':
+    case CollectModules.FeeCollectModule:
       return {
         name: 'Fee Collect',
         hasParam: true,
@@ -25,7 +26,7 @@ export const getModule = (
         helper:
           'The Fee Collect Module allows for any follower to collect the associated publication provided they pay a fee set by the poster.'
       };
-    case 'LimitedFeeCollectModule':
+    case CollectModules.LimitedFeeCollectModule:
       return {
         name: 'Limited Fee Collect',
         hasParam: true,
@@ -34,7 +35,7 @@ export const getModule = (
         helper:
           'The Limited Fee Collect Module allows for any follower to collect the associated publication, provided they pay a fee, up to a specific limit of mints.'
       };
-    case 'TimedFeeCollectModule':
+    case CollectModules.TimedFeeCollectModule:
       return {
         name: 'Timed Fee Collect',
         hasParam: true,
@@ -43,7 +44,7 @@ export const getModule = (
         helper:
           'The Timed Fee Collect Module allows for any follower to collect the associated publication, provided they pay a fee, up to a specific time limit. The present whitelisted Timed Fee Collect module only has a 24-hour time limit to reduce gas usage and optimize efficiency.'
       };
-    case 'LimitedTimedFeeCollectModule':
+    case CollectModules.LimitedTimedFeeCollectModule:
       return {
         name: 'Limited Time Fee Collect',
         hasParam: true,
@@ -52,7 +53,7 @@ export const getModule = (
         helper:
           'The Limited Timed Fee Collect Module allows for any follower to collect the associate publication, provided they pay a fee, up to a specific time limit and mint cap. It is essentially a combination of the Timed Fee Collect Module and the Limited Fee Collect Module.'
       };
-    case 'FreeCollectModule':
+    case CollectModules.FreeCollectModule:
       return {
         name: 'Free Collect',
         hasParam: false,
@@ -63,7 +64,7 @@ export const getModule = (
         helper:
           'The Free Collect Module allows any profile to collect the publication this module is attached to.'
       };
-    case 'RevertCollectModule':
+    case CollectModules.RevertCollectModule:
       return {
         name: 'Revert Collect',
         hasParam: false,
@@ -76,7 +77,7 @@ export const getModule = (
       };
 
     // Follow modules
-    case 'FeeFollowModule':
+    case FollowModules.FeeFollowModule:
       return {
         name: 'Fee Follow',
         type: 'followModule',
@@ -85,7 +86,7 @@ export const getModule = (
       };
 
     // Reference modules
-    case 'FollowerOnlyReferenceModule':
+    case ReferenceModules.FollowerOnlyReferenceModule:
       return {
         name: 'Follower Only Reference',
         type: 'referenceModule',
