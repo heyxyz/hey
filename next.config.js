@@ -12,7 +12,6 @@ module.exports = withTM(
       },
       reactStrictMode: false,
       trailingSlash: false,
-      swcMinify: true,
       experimental: {
         newNextLinkBehavior: true
       },
