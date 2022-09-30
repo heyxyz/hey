@@ -34,16 +34,16 @@ const LIKES_QUERY = gql`
 `;
 
 interface Props {
-  pubId: string;
+  publicationId: string;
 }
 
-const Likes: FC<Props> = ({ pubId }) => {
+const Likes: FC<Props> = ({ publicationId }) => {
   // Variables
-  const request = { publicationId: pubId, limit: 10 };
+  const request = { publicationId: publicationId, limit: 10 };
 
   const { data, loading, error, fetchMore } = useQuery(LIKES_QUERY, {
     variables: { request },
-    skip: !pubId
+    skip: !publicationId
   });
 
   const profiles = data?.whoReactedPublication?.items;

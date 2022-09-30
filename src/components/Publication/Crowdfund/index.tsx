@@ -128,7 +128,7 @@ const Crowdfund: FC<Props> = ({ fund }) => {
                     show={showFundersModal}
                     onClose={() => setShowFundersModal(false)}
                   >
-                    <Collectors pubId={fund?.id} />
+                    <Collectors publicationId={fund?.id} />
                   </Modal>
                 </>
               )}

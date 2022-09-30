@@ -346,7 +346,9 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
                 onClose={() => setShowCollectorsModal(false)}
               >
                 <Collectors
-                  pubId={publication?.__typename === 'Mirror' ? publication?.mirrorOf?.id : publication?.id}
+                  publicationId={
+                    publication?.__typename === 'Mirror' ? publication?.mirrorOf?.id : publication?.id
+                  }
                 />
               </Modal>
             </div>
