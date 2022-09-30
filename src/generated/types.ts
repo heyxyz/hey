@@ -9455,6 +9455,32 @@ export type ProfileFeedQuery = {
   };
 };
 
+export type RecommendedProfilesQueryVariables = Exact<{ [key: string]: never }>;
+
+export type RecommendedProfilesQuery = {
+  __typename?: 'Query';
+  recommendedProfiles: Array<{
+    __typename?: 'Profile';
+    isFollowedByMe: boolean;
+    id: any;
+    name?: string | null;
+    handle: any;
+    bio?: string | null;
+    ownedBy: any;
+    attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
+    picture?:
+      | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
+      | { __typename?: 'NftImage'; uri: any }
+      | null;
+    followModule?:
+      | { __typename: 'FeeFollowModuleSettings' }
+      | { __typename: 'ProfileFollowModuleSettings' }
+      | { __typename: 'RevertFollowModuleSettings' }
+      | { __typename: 'UnknownFollowModuleSettings' }
+      | null;
+  }>;
+};
+
 export type TrendingQueryVariables = Exact<{
   request: AllPublicationsTagsRequest;
 }>;
@@ -11723,6 +11749,33 @@ export const ProfileFeedDocument = {
     ...MirrorFieldsFragmentDoc.definitions
   ]
 } as unknown as DocumentNode<ProfileFeedQuery, ProfileFeedQueryVariables>;
+export const RecommendedProfilesDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'RecommendedProfiles' },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'recommendedProfiles' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'ProfileFields' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'isFollowedByMe' } }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    ...ProfileFieldsFragmentDoc.definitions
+  ]
+} as unknown as DocumentNode<RecommendedProfilesQuery, RecommendedProfilesQueryVariables>;
 export const TrendingDocument = {
   kind: 'Document',
   definitions: [

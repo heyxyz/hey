@@ -1,0 +1,6 @@
+query RecommendedProfiles {
+  recommendedProfiles {
+    ...ProfileFields
+    isFollowedByMe
+  }
+}
