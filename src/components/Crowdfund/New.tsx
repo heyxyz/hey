@@ -1,5 +1,5 @@
 import { LensHubProxy } from '@abis/LensHubProxy';
-import { gql, useMutation, useQuery } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout';
 import ChooseFile from '@components/Shared/ChooseFile';
 import Pending from '@components/Shared/Pending';
@@ -13,7 +13,13 @@ import { Spinner } from '@components/UI/Spinner';
 import { TextArea } from '@components/UI/TextArea';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
 import Seo from '@components/utils/Seo';
-import { CreatePostBroadcastItemResult, Erc20, Mutation, PublicationMainFocus } from '@generated/types';
+import {
+  CreatePostBroadcastItemResult,
+  EnabledCurrencyModulesDocument,
+  Erc20,
+  Mutation,
+  PublicationMainFocus
+} from '@generated/types';
 import {
   CREATE_POST_TYPED_DATA_MUTATION,
   CREATE_POST_VIA_DISPATHCER_MUTATION
@@ -45,17 +51,6 @@ import { CROWDFUND, PAGEVIEW } from 'src/tracking';
 import { v4 as uuid } from 'uuid';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 import { object, string } from 'zod';
-
-const MODULES_CURRENCY_QUERY = gql`
-  query EnabledCurrencyModules {
-    enabledModuleCurrencies {
-      name
-      symbol
-      decimals
-      address
-    }
-  }
-`;
 
 const newCrowdfundSchema = object({
   title: string()
@@ -94,7 +89,7 @@ const NewCrowdfund: NextPage = () => {
   };
 
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
-  const { data: currencyData, loading } = useQuery(MODULES_CURRENCY_QUERY);
+  const { data: currencyData, loading } = useQuery(EnabledCurrencyModulesDocument);
 
   const {
     data,

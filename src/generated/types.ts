@@ -5327,6 +5327,19 @@ export type StatsFieldsFragment = {
   totalAmountOfComments: number;
 };
 
+export type EnabledCurrencyModulesQueryVariables = Exact<{ [key: string]: never }>;
+
+export type EnabledCurrencyModulesQuery = {
+  __typename?: 'Query';
+  enabledModuleCurrencies: Array<{
+    __typename?: 'Erc20';
+    name: string;
+    symbol: string;
+    decimals: number;
+    address: any;
+  }>;
+};
+
 export type ExploreFeedQueryVariables = Exact<{
   request: ExplorePublicationRequest;
   reactionRequest?: InputMaybe<ReactionFieldResolverRequest>;
@@ -10655,6 +10668,34 @@ export const CommentFeedDocument = {
     ...MirrorFieldsFragmentDoc.definitions
   ]
 } as unknown as DocumentNode<CommentFeedQuery, CommentFeedQueryVariables>;
+export const EnabledCurrencyModulesDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'EnabledCurrencyModules' },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'enabledModuleCurrencies' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'symbol' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'decimals' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'address' } }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+} as unknown as DocumentNode<EnabledCurrencyModulesQuery, EnabledCurrencyModulesQueryVariables>;
 export const ExploreFeedDocument = {
   kind: 'Document',
   definitions: [
