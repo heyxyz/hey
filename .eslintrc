@@ -36,5 +36,5 @@
     "unicorn/no-useless-undefined": "error",
     "unicorn/prefer-array-find": "error"
   },
-  "ignorePatterns": ["/src/generated/types.ts"]
+  "ignorePatterns": ["/src/generated/types.ts", "/src/generated/documents.ts"]
 }

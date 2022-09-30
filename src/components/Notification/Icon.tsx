@@ -1,5 +1,6 @@
 import { useQuery } from '@apollo/client';
-import { CustomFiltersTypes, NotificationCountDocument } from '@generated/types';
+import { NotificationCountDocument } from '@generated/documents';
+import { CustomFiltersTypes } from '@generated/types';
 import { LightningBoltIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import Link from 'next/link';

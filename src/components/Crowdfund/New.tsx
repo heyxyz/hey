@@ -13,13 +13,8 @@ import { Spinner } from '@components/UI/Spinner';
 import { TextArea } from '@components/UI/TextArea';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
 import Seo from '@components/utils/Seo';
-import {
-  CreatePostBroadcastItemResult,
-  EnabledCurrencyModulesDocument,
-  Erc20,
-  Mutation,
-  PublicationMainFocus
-} from '@generated/types';
+import { EnabledCurrencyModulesDocument } from '@generated/documents';
+import { CreatePostBroadcastItemResult, Erc20, Mutation, PublicationMainFocus } from '@generated/types';
 import {
   CREATE_POST_TYPED_DATA_MUTATION,
   CREATE_POST_VIA_DISPATHCER_MUTATION
