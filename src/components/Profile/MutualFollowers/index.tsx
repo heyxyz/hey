@@ -1,7 +1,6 @@
 import { useQuery } from '@apollo/client';
 import { Modal } from '@components/UI/Modal';
-import { MutualFollowersDocument } from '@generated/documents';
-import { Profile } from '@generated/types';
+import { MutualFollowersDocument, Profile } from '@generated/types';
 import { UsersIcon } from '@heroicons/react/outline';
 import getAvatar from '@lib/getAvatar';
 import { Mixpanel } from '@lib/mixpanel';

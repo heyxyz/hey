@@ -2,8 +2,12 @@ import { FollowNFT } from '@abis/FollowNFT';
 import { useMutation } from '@apollo/client';
 import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
-import { CreateUnfollowTypedDataDocument } from '@generated/documents';
-import { CreateUnfollowBroadcastItemResult, Mutation, Profile } from '@generated/types';
+import {
+  CreateUnfollowBroadcastItemResult,
+  CreateUnfollowTypedDataDocument,
+  Mutation,
+  Profile
+} from '@generated/types';
 import { UserRemoveIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
 import { Mixpanel } from '@lib/mixpanel';

@@ -7,11 +7,9 @@ import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
 import {
-  CreateSetProfileImageUriTypedDataDocument,
-  CreateSetProfileImageUriViaDispatcherDocument
-} from '@generated/documents';
-import {
   CreateSetProfileImageUriBroadcastItemResult,
+  CreateSetProfileImageUriTypedDataDocument,
+  CreateSetProfileImageUriViaDispatcherDocument,
   MediaSet,
   Mutation,
   NftImage,

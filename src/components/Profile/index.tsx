@@ -1,7 +1,7 @@
 import { useQuery } from '@apollo/client';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import Seo from '@components/utils/Seo';
-import { ProfileDocument } from '@generated/documents';
+import { ProfileDocument } from '@generated/types';
 import { Mixpanel } from '@lib/mixpanel';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';

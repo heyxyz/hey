@@ -3,7 +3,7 @@ import { Card, CardBody } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import { PageLoading } from '@components/UI/PageLoading';
 import Seo from '@components/utils/Seo';
-import { ProfileSettingsDocument } from '@generated/documents';
+import { ProfileSettingsDocument } from '@generated/types';
 import { PhotographIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import clsx from 'clsx';

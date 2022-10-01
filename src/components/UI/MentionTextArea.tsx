@@ -1,8 +1,7 @@
 import { useLazyQuery } from '@apollo/client';
 import Slug from '@components/Shared/Slug';
-import { SearchProfilesDocument } from '@generated/documents';
 import { UserSuggestion } from '@generated/lenstertypes';
-import { MediaSet, NftImage, Profile, SearchRequestTypes } from '@generated/types';
+import { MediaSet, NftImage, Profile, SearchProfilesDocument, SearchRequestTypes } from '@generated/types';
 import { BadgeCheckIcon } from '@heroicons/react/solid';
 import getIPFSLink from '@lib/getIPFSLink';
 import getStampFyiURL from '@lib/getStampFyiURL';

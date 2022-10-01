@@ -4,8 +4,13 @@ import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayo
 import { PageLoading } from '@components/UI/PageLoading';
 import { Spinner } from '@components/UI/Spinner';
 import Seo from '@components/utils/Seo';
-import { ApprovedModuleAllowanceAmountDocument } from '@generated/documents';
-import { CollectModules, Erc20, FollowModules, ReferenceModules } from '@generated/types';
+import {
+  ApprovedModuleAllowanceAmountDocument,
+  CollectModules,
+  Erc20,
+  FollowModules,
+  ReferenceModules
+} from '@generated/types';
 import { Mixpanel } from '@lib/mixpanel';
 import { NextPage } from 'next';
 import React, { useEffect, useState } from 'react';

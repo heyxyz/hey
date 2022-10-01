@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client';
 import { Spinner } from '@components/UI/Spinner';
-import { HasTxHashBeenIndexedDocument } from '@generated/documents';
+import { HasTxHashBeenIndexedDocument } from '@generated/types';
 import { CheckCircleIcon } from '@heroicons/react/solid';
 import clsx from 'clsx';
 import React, { FC, useState } from 'react';

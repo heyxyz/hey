@@ -3,8 +3,7 @@ import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import useStaffMode from '@components/utils/hooks/useStaffMode';
 import Seo from '@components/utils/Seo';
-import { LensterStatsDocument } from '@generated/documents';
-import { Erc20Amount } from '@generated/types';
+import { Erc20Amount, LensterStatsDocument } from '@generated/types';
 import {
   ChatAlt2Icon,
   CollectionIcon,

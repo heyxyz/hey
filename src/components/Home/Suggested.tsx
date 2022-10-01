@@ -3,7 +3,7 @@ import Loader from '@components/Shared/Loader';
 import UserProfile from '@components/Shared/UserProfile';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
-import { RecommendedProfilesDocument } from '@generated/documents';
+import { RecommendedProfilesDocument } from '@generated/types';
 import { UsersIcon } from '@heroicons/react/outline';
 import { FC } from 'react';
 

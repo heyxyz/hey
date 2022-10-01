@@ -9,10 +9,11 @@ import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { MentionTextArea } from '@components/UI/MentionTextArea';
 import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
-import { CreateCommentTypedDataDocument, CreateCommentViaDispatcherDocument } from '@generated/documents';
 import { LensterAttachment, LensterPublication } from '@generated/lenstertypes';
 import {
   CreateCommentBroadcastItemResult,
+  CreateCommentTypedDataDocument,
+  CreateCommentViaDispatcherDocument,
   Mutation,
   PublicationMainFocus,
   ReferenceModules

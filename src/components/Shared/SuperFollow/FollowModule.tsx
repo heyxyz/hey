@@ -5,13 +5,16 @@ import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
 import { WarningMessage } from '@components/UI/WarningMessage';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
+import { LensterFollowModule } from '@generated/lenstertypes';
 import {
   ApprovedModuleAllowanceAmountDocument,
+  CreateFollowBroadcastItemResult,
   CreateFollowTypedDataDocument,
+  FollowModules,
+  Mutation,
+  Profile,
   SuperFollowDocument
-} from '@generated/documents';
-import { LensterFollowModule } from '@generated/lenstertypes';
-import { CreateFollowBroadcastItemResult, FollowModules, Mutation, Profile } from '@generated/types';
+} from '@generated/types';
 import { StarIcon, UserIcon } from '@heroicons/react/outline';
 import formatAddress from '@lib/formatAddress';
 import getSignature from '@lib/getSignature';

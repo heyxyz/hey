@@ -8,10 +8,11 @@ import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { MentionTextArea } from '@components/UI/MentionTextArea';
 import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
-import { CreatePostTypedDataDocument, CreatePostViaDispatcherDocument } from '@generated/documents';
 import { LensterAttachment } from '@generated/lenstertypes';
 import {
   CreatePostBroadcastItemResult,
+  CreatePostTypedDataDocument,
+  CreatePostViaDispatcherDocument,
   Mutation,
   PublicationMainFocus,
   ReferenceModules

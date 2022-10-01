@@ -1,6 +1,5 @@
 import { useQuery } from '@apollo/client';
-import { UserProfilesDocument } from '@generated/documents';
-import { Profile } from '@generated/types';
+import { Profile, UserProfilesDocument } from '@generated/types';
 import getIsAuthTokensAvailable from '@lib/getIsAuthTokensAvailable';
 import getToastOptions from '@lib/getToastOptions';
 import resetAuthData from '@lib/resetAuthData';
