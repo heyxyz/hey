@@ -1,0 +1,19 @@
+query NFTFeed($request: NFTsRequest!) {
+  nfts(request: $request) {
+    items {
+      name
+      collectionName
+      contractAddress
+      tokenId
+      chainId
+      originalContent {
+        uri
+        animatedUrl
+      }
+    }
+    pageInfo {
+      next
+      totalCount
+    }
+  }
+}

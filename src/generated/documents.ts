@@ -7846,6 +7846,27 @@ export type HomeFeedQuery = {
   };
 };
 
+export type NftFeedQueryVariables = Exact<{
+  request: NfTsRequest;
+}>;
+
+export type NftFeedQuery = {
+  __typename?: 'Query';
+  nfts: {
+    __typename?: 'NFTsResult';
+    items: Array<{
+      __typename?: 'NFT';
+      name: string;
+      collectionName: string;
+      contractAddress: any;
+      tokenId: string;
+      chainId: any;
+      originalContent: { __typename?: 'NFTContent'; uri: string; animatedUrl?: string | null };
+    }>;
+    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null; totalCount: number };
+  };
+};
+
 export type NotificationCountQueryVariables = Exact<{
   request: NotificationRequest;
 }>;
@@ -11141,6 +11162,83 @@ export const HomeFeedDocument = {
     ...MirrorFieldsFragmentDoc.definitions
   ]
 } as unknown as DocumentNode<HomeFeedQuery, HomeFeedQueryVariables>;
+export const NftFeedDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'NFTFeed' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'request' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'NFTsRequest' } }
+          }
+        }
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'nfts' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'request' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'request' } }
+              }
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'items' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'collectionName' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'contractAddress' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'tokenId' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'chainId' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'originalContent' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            { kind: 'Field', name: { kind: 'Name', value: 'uri' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'animatedUrl' } }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'pageInfo' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'next' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'totalCount' } }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+} as unknown as DocumentNode<NftFeedQuery, NftFeedQueryVariables>;
 export const NotificationCountDocument = {
   kind: 'Document',
   definitions: [
