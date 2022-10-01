@@ -7,12 +7,7 @@ import { Card, CardBody } from '@components/UI/Card';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
-import {
-  CreateSetDefaultProfileTypedDataDocument,
-  Mutation,
-  Profile,
-  SetDefaultProfileBroadcastItemResult
-} from '@generated/types';
+import { CreateSetDefaultProfileTypedDataDocument, Mutation, Profile } from '@generated/types';
 import { ExclamationIcon, PencilIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
 import { Mixpanel } from '@lib/mixpanel';
@@ -68,14 +63,10 @@ const SetProfile: FC = () => {
   const [createSetDefaultProfileTypedData, { loading: typedDataLoading }] = useMutation<Mutation>(
     CreateSetDefaultProfileTypedDataDocument,
     {
-      onCompleted: async ({
-        createSetDefaultProfileTypedData
-      }: {
-        createSetDefaultProfileTypedData: SetDefaultProfileBroadcastItemResult;
-      }) => {
+      onCompleted: async ({ createSetDefaultProfileTypedData }) => {
         try {
           const { id, typedData } = createSetDefaultProfileTypedData;
-          const { wallet, profileId, deadline } = typedData?.value;
+          const { wallet, profileId, deadline } = typedData.value;
           const signature = await signTypedDataAsync(getSignature(typedData));
           const { v, r, s } = splitSignature(signature);
           const sig = { v, r, s, deadline };

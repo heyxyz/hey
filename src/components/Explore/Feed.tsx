@@ -5,6 +5,7 @@ import { Card } from '@components/UI/Card';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
+import { LensterPublication } from '@generated/lenstertypes';
 import { CustomFiltersTypes, ExploreFeedDocument, PublicationSortCriteria } from '@generated/types';
 import { CollectionIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
@@ -65,8 +66,11 @@ const Feed: FC<Props> = ({ feedType = PublicationSortCriteria.CuratedProfiles })
       {!error && !loading && publications?.length !== 0 && (
         <>
           <Card className="divide-y-[1px] dark:divide-gray-700/80">
-            {publications?.map((post: any, index: number) => (
-              <SinglePublication key={`${post?.id}_${index}`} publication={post} />
+            {publications?.map((publication, index: number) => (
+              <SinglePublication
+                key={`${publication.id}_${index}`}
+                publication={publication as LensterPublication}
+              />
             ))}
           </Card>
           {pageInfo?.next && publications?.length !== pageInfo.totalCount && (

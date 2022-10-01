@@ -2,12 +2,7 @@ import { FollowNFT } from '@abis/FollowNFT';
 import { useMutation } from '@apollo/client';
 import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
-import {
-  CreateUnfollowBroadcastItemResult,
-  CreateUnfollowTypedDataDocument,
-  Mutation,
-  Profile
-} from '@generated/types';
+import { CreateUnfollowTypedDataDocument, Mutation, Profile } from '@generated/types';
 import { UserRemoveIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
 import { Mixpanel } from '@lib/mixpanel';
@@ -36,14 +31,10 @@ const Unfollow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
   const [createUnfollowTypedData, { loading: typedDataLoading }] = useMutation<Mutation>(
     CreateUnfollowTypedDataDocument,
     {
-      onCompleted: async ({
-        createUnfollowTypedData
-      }: {
-        createUnfollowTypedData: CreateUnfollowBroadcastItemResult;
-      }) => {
+      onCompleted: async ({ createUnfollowTypedData }) => {
         try {
           const { typedData } = createUnfollowTypedData;
-          const { tokenId, deadline } = typedData?.value;
+          const { tokenId, deadline } = typedData.value;
           const signature = await signTypedDataAsync(getSignature(typedData));
           const { v, r, s } = splitSignature(signature);
           const sig = { v, r, s, deadline };

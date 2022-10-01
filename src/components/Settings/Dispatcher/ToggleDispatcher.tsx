@@ -4,11 +4,7 @@ import IndexStatus from '@components/Shared/IndexStatus';
 import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
-import {
-  CreateSetDispatcherBroadcastItemResult,
-  CreateSetDispatcherTypedDataDocument,
-  Mutation
-} from '@generated/types';
+import { CreateSetDispatcherTypedDataDocument, Mutation } from '@generated/types';
 import { CheckCircleIcon, XIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
 import { Mixpanel } from '@lib/mixpanel';
@@ -56,14 +52,10 @@ const ToggleDispatcher: FC<Props> = ({ buttonSize = 'md' }) => {
   const [createSetProfileMetadataTypedData, { loading: typedDataLoading }] = useMutation<Mutation>(
     CreateSetDispatcherTypedDataDocument,
     {
-      onCompleted: async ({
-        createSetDispatcherTypedData
-      }: {
-        createSetDispatcherTypedData: CreateSetDispatcherBroadcastItemResult;
-      }) => {
+      onCompleted: async ({ createSetDispatcherTypedData }) => {
         try {
           const { id, typedData } = createSetDispatcherTypedData;
-          const { profileId, dispatcher, deadline } = typedData?.value;
+          const { profileId, dispatcher, deadline } = typedData.value;
           const signature = await signTypedDataAsync(getSignature(typedData));
           const { v, r, s } = splitSignature(signature);
           const sig = { v, r, s, deadline };

@@ -8,7 +8,6 @@ import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
 import {
-  CreateSetFollowModuleBroadcastItemResult,
   CreateSetFollowModuleTypedDataDocument,
   EnabledCurrencyModulesWithProfileDocument,
   Erc20,
@@ -75,14 +74,10 @@ const SuperFollow: FC = () => {
   const [createSetFollowModuleTypedData, { loading: typedDataLoading }] = useMutation<Mutation>(
     CreateSetFollowModuleTypedDataDocument,
     {
-      onCompleted: async ({
-        createSetFollowModuleTypedData
-      }: {
-        createSetFollowModuleTypedData: CreateSetFollowModuleBroadcastItemResult;
-      }) => {
+      onCompleted: async ({ createSetFollowModuleTypedData }) => {
         try {
           const { id, typedData } = createSetFollowModuleTypedData;
-          const { profileId, followModule, followModuleInitData, deadline } = typedData?.value;
+          const { profileId, followModule, followModuleInitData, deadline } = typedData.value;
           const signature = await signTypedDataAsync(getSignature(typedData));
           const { v, r, s } = splitSignature(signature);
           const sig = { v, r, s, deadline };

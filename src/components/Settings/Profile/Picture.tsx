@@ -7,7 +7,6 @@ import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
 import {
-  CreateSetProfileImageUriBroadcastItemResult,
   CreateSetProfileImageUriTypedDataDocument,
   CreateSetProfileImageUriViaDispatcherDocument,
   MediaSet,
@@ -72,14 +71,10 @@ const Picture: FC<Props> = ({ profile }) => {
   const [createSetProfileImageURITypedData, { loading: typedDataLoading }] = useMutation<Mutation>(
     CreateSetProfileImageUriTypedDataDocument,
     {
-      onCompleted: async ({
-        createSetProfileImageURITypedData
-      }: {
-        createSetProfileImageURITypedData: CreateSetProfileImageUriBroadcastItemResult;
-      }) => {
+      onCompleted: async ({ createSetProfileImageURITypedData }) => {
         try {
           const { id, typedData } = createSetProfileImageURITypedData;
-          const { profileId, imageURI, deadline } = typedData?.value;
+          const { profileId, imageURI, deadline } = typedData.value;
           const signature = await signTypedDataAsync(getSignature(typedData));
           const { v, r, s } = splitSignature(signature);
           const sig = { v, r, s, deadline };
