@@ -13,7 +13,6 @@ import { Toggle } from '@components/UI/Toggle';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
 import {
   CreateSetProfileMetadataTypedDataDocument,
-  CreateSetProfileMetadataUriBroadcastItemResult,
   CreateSetProfileMetadataViaDispatcherDocument,
   MediaSet,
   Mutation,
@@ -93,14 +92,10 @@ const Profile: FC<Props> = ({ profile }) => {
   const [createSetProfileMetadataTypedData, { loading: typedDataLoading }] = useMutation<Mutation>(
     CreateSetProfileMetadataTypedDataDocument,
     {
-      onCompleted: async ({
-        createSetProfileMetadataTypedData
-      }: {
-        createSetProfileMetadataTypedData: CreateSetProfileMetadataUriBroadcastItemResult;
-      }) => {
+      onCompleted: async ({ createSetProfileMetadataTypedData }) => {
         try {
           const { id, typedData } = createSetProfileMetadataTypedData;
-          const { profileId, metadata, deadline } = typedData?.value;
+          const { profileId, metadata, deadline } = typedData.value;
           const signature = await signTypedDataAsync(getSignature(typedData));
           const { v, r, s } = splitSignature(signature);
           const sig = { v, r, s, deadline };

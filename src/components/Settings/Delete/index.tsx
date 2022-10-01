@@ -8,11 +8,7 @@ import { Modal } from '@components/UI/Modal';
 import { Spinner } from '@components/UI/Spinner';
 import { WarningMessage } from '@components/UI/WarningMessage';
 import Seo from '@components/utils/Seo';
-import {
-  CreateBurnProfileBroadcastItemResult,
-  CreateBurnProfileTypedDataDocument,
-  Mutation
-} from '@generated/types';
+import { CreateBurnProfileTypedDataDocument, Mutation } from '@generated/types';
 import { ExclamationIcon, TrashIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
 import { Mixpanel } from '@lib/mixpanel';
@@ -65,14 +61,10 @@ const DeleteSettings: FC = () => {
   const [createBurnProfileTypedData, { loading: typedDataLoading }] = useMutation<Mutation>(
     CreateBurnProfileTypedDataDocument,
     {
-      onCompleted: async ({
-        createBurnProfileTypedData
-      }: {
-        createBurnProfileTypedData: CreateBurnProfileBroadcastItemResult;
-      }) => {
+      onCompleted: async ({ createBurnProfileTypedData }) => {
         try {
           const { typedData } = createBurnProfileTypedData;
-          const { tokenId, deadline } = typedData?.value;
+          const { tokenId, deadline } = typedData.value;
           const signature = await signTypedDataAsync(getSignature(typedData));
           const { v, r, s } = splitSignature(signature);
           const sig = { v, r, s, deadline };

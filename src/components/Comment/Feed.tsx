@@ -83,8 +83,12 @@ const Feed: FC<Props> = ({ publication }) => {
                   </div>
                 )
             )}
-            {comments?.map((comment: any, index: number) => (
-              <SinglePublication key={`${publicationId}_${index}`} publication={comment} showType={false} />
+            {comments?.map((comment, index: number) => (
+              <SinglePublication
+                key={`${publicationId}_${index}`}
+                publication={comment as LensterPublication}
+                showType={false}
+              />
             ))}
           </Card>
           {pageInfo?.next && comments?.length !== pageInfo.totalCount && (

@@ -11,7 +11,6 @@ import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
 import { LensterAttachment, LensterPublication } from '@generated/lenstertypes';
 import {
-  CreateCommentBroadcastItemResult,
   CreateCommentTypedDataDocument,
   CreateCommentViaDispatcherDocument,
   Mutation,
@@ -127,11 +126,7 @@ const NewComment: FC<Props> = ({ hideCard = false, publication }) => {
   const [createCommentTypedData, { loading: typedDataLoading }] = useMutation<Mutation>(
     CreateCommentTypedDataDocument,
     {
-      onCompleted: async ({
-        createCommentTypedData
-      }: {
-        createCommentTypedData: CreateCommentBroadcastItemResult;
-      }) => {
+      onCompleted: async ({ createCommentTypedData }) => {
         try {
           const { id, typedData } = createCommentTypedData;
           const {
@@ -145,7 +140,7 @@ const NewComment: FC<Props> = ({ hideCard = false, publication }) => {
             referenceModuleData,
             referenceModuleInitData,
             deadline
-          } = typedData?.value;
+          } = typedData.value;
           const signature = await signTypedDataAsync(getSignature(typedData));
           const { v, r, s } = splitSignature(signature);
           const sig = { v, r, s, deadline };

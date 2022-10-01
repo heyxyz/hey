@@ -8,7 +8,6 @@ import useBroadcast from '@components/utils/hooks/useBroadcast';
 import { LensterFollowModule } from '@generated/lenstertypes';
 import {
   ApprovedModuleAllowanceAmountDocument,
-  CreateFollowBroadcastItemResult,
   CreateFollowTypedDataDocument,
   FollowModules,
   Mutation,
@@ -104,14 +103,10 @@ const FollowModule: FC<Props> = ({ profile, setFollowing, setShowFollowModal, ag
   const [createFollowTypedData, { loading: typedDataLoading }] = useMutation<Mutation>(
     CreateFollowTypedDataDocument,
     {
-      onCompleted: async ({
-        createFollowTypedData
-      }: {
-        createFollowTypedData: CreateFollowBroadcastItemResult;
-      }) => {
+      onCompleted: async ({ createFollowTypedData }) => {
         try {
           const { id, typedData } = createFollowTypedData;
-          const { profileIds, datas: followData, deadline } = typedData?.value;
+          const { profileIds, datas: followData, deadline } = typedData.value;
           const signature = await signTypedDataAsync(getSignature(typedData));
           const { v, r, s } = splitSignature(signature);
           const sig = { v, r, s, deadline };

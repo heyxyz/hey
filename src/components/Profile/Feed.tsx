@@ -5,6 +5,7 @@ import { Card } from '@components/UI/Card';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
+import { LensterPublication } from '@generated/lenstertypes';
 import { Profile, ProfileFeedDocument, PublicationMainFocus, PublicationTypes } from '@generated/types';
 import { CollectionIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
@@ -83,10 +84,10 @@ const Feed: FC<Props> = ({ profile, type }) => {
       {!error && !loading && publications?.length !== 0 && (
         <>
           <Card className="divide-y-[1px] dark:divide-gray-700/80">
-            {publications?.map((post: any, index: number) => (
+            {publications?.map((publication, index: number) => (
               <SinglePublication
-                key={`${post?.id}_${index}`}
-                publication={post}
+                key={`${publication.id}_${index}`}
+                publication={publication as LensterPublication}
                 showThread={type !== 'MEDIA'}
               />
             ))}
