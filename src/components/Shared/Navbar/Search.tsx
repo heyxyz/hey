@@ -7,9 +7,10 @@ import { CustomFiltersTypes, Profile, SearchProfilesDocument, SearchRequestTypes
 import { SearchIcon, XIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import clsx from 'clsx';
+import debounce from 'lodash.debounce';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { ChangeEvent, FC, useRef, useState } from 'react';
+import { ChangeEvent, FC, useEffect, useRef, useState } from 'react';
 import { SEARCH } from 'src/tracking';
 
 import UserProfile from '../UserProfile';
@@ -20,7 +21,7 @@ interface Props {
 
 const Search: FC<Props> = ({ hideDropdown = false }) => {
   const { push, pathname, query } = useRouter();
-  const [searchText, setSearchText] = useState('');
+  const [searchText, setSearchText] = useState<string>('');
   const dropdownRef = useRef(null);
 
   useOnClickOutside(dropdownRef, () => setSearchText(''));
@@ -28,22 +29,29 @@ const Search: FC<Props> = ({ hideDropdown = false }) => {
   const [searchUsers, { data: searchUsersData, loading: searchUsersLoading }] =
     useLazyQuery(SearchProfilesDocument);
 
-  const handleSearch = (evt: ChangeEvent<HTMLInputElement>) => {
-    const keyword = evt.target.value;
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const keyword = event.target.value;
     setSearchText(keyword);
+  };
+
+  const handleSearch = debounce(() => {
     if (pathname !== '/search' && !hideDropdown) {
       searchUsers({
         variables: {
           request: {
             type: SearchRequestTypes.Profile,
-            query: keyword,
+            query: searchText,
             customFilters: [CustomFiltersTypes.Gardeners],
             limit: 8
           }
         }
       });
     }
-  };
+  }, 500);
+
+  useEffect(() => {
+    handleSearch();
+  }, [handleSearch, searchText]);
 
   const handleKeyDown = (evt: ChangeEvent<HTMLFormElement>) => {
     evt.preventDefault();
@@ -78,11 +86,11 @@ const Search: FC<Props> = ({ hideDropdown = false }) => {
                 }}
               />
             }
-            onChange={handleSearch}
+            onChange={handleChange}
           />
         </form>
       </div>
-      {pathname !== '/search' && !hideDropdown && searchText.length > 0 && (
+      {pathname !== '/search' && !hideDropdown && searchText.length > 0 && profiles.length !== 0 && (
         <div className="flex absolute flex-col mt-2 w-full sm:max-w-md" ref={dropdownRef}>
           <Card className="overflow-y-auto py-2 max-h-[80vh]">
             {searchUsersLoading ? (
