@@ -1,7 +1,11 @@
 export const featureFlags = [
   {
-    key: 'xmtp-chat',
-    name: 'XMTP Chat',
-    enabledFor: ['0x0d']
+    key: 'messages',
+    name: 'Messages',
+    enabledFor: [
+      '0x0d', // yoginth.lens
+      '0x05', // stani.lens
+      '0x06' // wagmi.lens
+    ]
   }
 ];

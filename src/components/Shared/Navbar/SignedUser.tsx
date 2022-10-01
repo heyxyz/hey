@@ -13,6 +13,7 @@ import {
   UserIcon
 } from '@heroicons/react/outline';
 import getAvatar from '@lib/getAvatar';
+import isGardener from '@lib/isGardener';
 import isStaff from '@lib/isStaff';
 import { Mixpanel } from '@lib/mixpanel';
 import resetAuthData from '@lib/resetAuthData';
@@ -103,6 +104,20 @@ const SignedUser: FC = () => {
                   <div>Settings</div>
                 </div>
               </Menu.Item>
+              {isGardener(currentProfile?.id) && (
+                <Menu.Item
+                  as={NextLink}
+                  href="/mod"
+                  className={({ active }: { active: boolean }) =>
+                    clsx({ 'dropdown-active': active }, 'menu-item')
+                  }
+                >
+                  <div className="flex items-center space-x-1.5">
+                    <ShieldCheckIcon className="w-4 h-4" />
+                    <div>Moderation</div>
+                  </div>
+                </Menu.Item>
+              )}
               <Menu.Item
                 as="a"
                 onClick={() => {
