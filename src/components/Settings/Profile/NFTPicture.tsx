@@ -125,6 +125,7 @@ const NFTPicture: FC<Props> = ({ profile }) => {
         request: {
           ethereumAddress: currentProfile?.ownedBy,
           nfts: {
+            // @ts-ignore
             contractAddress,
             tokenId,
             chainId
@@ -134,7 +135,7 @@ const NFTPicture: FC<Props> = ({ profile }) => {
     });
 
     const signature = await signMessageAsync({
-      message: challengeRes?.data?.nftOwnershipChallenge?.text
+      message: challengeRes?.data?.nftOwnershipChallenge?.text as string
     });
 
     const request = {
@@ -164,6 +165,11 @@ const NFTPicture: FC<Props> = ({ profile }) => {
     signLoading ||
     writeLoading ||
     broadcastLoading;
+  const txHash =
+    writeData?.hash ??
+    broadcastData?.broadcast?.txHash ??
+    (dispatcherData?.createSetProfileImageURIViaDispatcher.__typename === 'RelayerResult' &&
+      dispatcherData?.createSetProfileImageURIViaDispatcher.txHash);
 
   return (
     <Form
@@ -208,17 +214,7 @@ const NFTPicture: FC<Props> = ({ profile }) => {
         >
           Save
         </Button>
-        {writeData?.hash ??
-        broadcastData?.broadcast?.txHash ??
-        dispatcherData?.createSetProfileImageURIViaDispatcher?.txHash ? (
-          <IndexStatus
-            txHash={
-              writeData?.hash ??
-              broadcastData?.broadcast?.txHash ??
-              dispatcherData?.createSetProfileImageURIViaDispatcher?.txHash
-            }
-          />
-        ) : null}
+        {txHash ? <IndexStatus txHash={txHash} /> : null}
       </div>
     </Form>
   );

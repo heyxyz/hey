@@ -177,7 +177,9 @@ const NewPost: FC<Props> = ({ hideCard = false }) => {
     {
       onCompleted: (data) => {
         onCompleted();
-        setTxnQueue([generateOptimisticPost(data?.createPostViaDispatcher?.txHash), ...txnQueue]);
+        if (data.createPostViaDispatcher.__typename === 'RelayerResult') {
+          setTxnQueue([generateOptimisticPost(data.createPostViaDispatcher.txHash), ...txnQueue]);
+        }
       },
       onError
     }

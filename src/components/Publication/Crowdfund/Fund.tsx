@@ -6,7 +6,7 @@ import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
 import { ApprovedModuleAllowanceAmountDocument, CreateCollectTypedDataDocument } from '@generated/documents';
-import { LensterCollectModule, LensterPublication } from '@generated/lenstertypes';
+import { LensterPublication } from '@generated/lenstertypes';
 import { CreateCollectBroadcastItemResult, Mutation } from '@generated/types';
 import { CashIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
@@ -24,7 +24,7 @@ import IndexStatus from '../../Shared/IndexStatus';
 
 interface Props {
   fund: LensterPublication;
-  collectModule: LensterCollectModule;
+  collectModule: any;
   setRevenue: Dispatch<number>;
   revenue: number;
 }

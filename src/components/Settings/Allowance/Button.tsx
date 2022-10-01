@@ -4,7 +4,6 @@ import { Modal } from '@components/UI/Modal';
 import { Spinner } from '@components/UI/Spinner';
 import { WarningMessage } from '@components/UI/WarningMessage';
 import { GenerateModuleCurrencyApprovalDataDocument } from '@generated/documents';
-import { ApprovedAllowanceAmount } from '@generated/types';
 import { ExclamationIcon, MinusIcon, PlusIcon } from '@heroicons/react/outline';
 import { getModule } from '@lib/getModule';
 import { Mixpanel } from '@lib/mixpanel';
@@ -15,7 +14,7 @@ import { usePrepareSendTransaction, useSendTransaction, useWaitForTransaction } 
 
 interface Props {
   title?: string;
-  module: ApprovedAllowanceAmount;
+  module: any;
   allowed: boolean;
   setAllowed: Dispatch<boolean>;
 }

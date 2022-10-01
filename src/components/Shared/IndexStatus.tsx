@@ -21,7 +21,10 @@ const IndexStatus: FC<Props> = ({ type = 'Transaction', txHash, reload = false }
     },
     pollInterval,
     onCompleted: (data) => {
-      if (data?.hasTxHashBeenIndexed?.indexed) {
+      if (
+        data.hasTxHashBeenIndexed.__typename === 'TransactionIndexedResult' &&
+        data?.hasTxHashBeenIndexed?.indexed
+      ) {
         setPollInterval(0);
         if (reload) {
           location.reload();
@@ -40,7 +43,9 @@ const IndexStatus: FC<Props> = ({ type = 'Transaction', txHash, reload = false }
       target="_blank"
       rel="noreferrer noopener"
     >
-      {loading || !data?.hasTxHashBeenIndexed?.indexed ? (
+      {loading ||
+      (data?.hasTxHashBeenIndexed.__typename === 'TransactionIndexedResult' &&
+        !data?.hasTxHashBeenIndexed.indexed) ? (
         <div className="flex items-center space-x-1.5">
           <Spinner size="xs" />
           <div>{type} Indexing</div>

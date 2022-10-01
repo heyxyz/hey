@@ -4,7 +4,7 @@ import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
 import useOnClickOutside from '@components/utils/hooks/useOnClickOutside';
 import { SearchProfilesDocument } from '@generated/documents';
-import { CustomFiltersTypes, Profile } from '@generated/types';
+import { CustomFiltersTypes, Profile, SearchRequestTypes } from '@generated/types';
 import { SearchIcon, XIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import clsx from 'clsx';
@@ -36,7 +36,7 @@ const Search: FC<Props> = ({ hideDropdown = false }) => {
       searchUsers({
         variables: {
           request: {
-            type: 'PROFILE',
+            type: SearchRequestTypes.Profile,
             query: keyword,
             customFilters: [CustomFiltersTypes.Gardeners],
             limit: 8
@@ -55,6 +55,9 @@ const Search: FC<Props> = ({ hideDropdown = false }) => {
     }
     setSearchText('');
   };
+
+  // @ts-ignore
+  const profiles = searchUsersData?.search?.items ?? [];
 
   return (
     <>
@@ -90,16 +93,14 @@ const Search: FC<Props> = ({ hideDropdown = false }) => {
               </div>
             ) : (
               <>
-                {searchUsersData?.search?.items?.map((profile: Profile) => (
+                {profiles.map((profile: Profile) => (
                   <div key={profile?.handle} className="py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-800">
                     <Link href={`/u/${profile?.handle}`} onClick={() => setSearchText('')}>
                       <UserProfile profile={profile} />
                     </Link>
                   </div>
                 ))}
-                {searchUsersData?.search?.items?.length === 0 && (
-                  <div className="py-2 px-4">No matching users</div>
-                )}
+                {profiles.length === 0 && <div className="py-2 px-4">No matching users</div>}
               </>
             )}
           </Card>

@@ -7,7 +7,7 @@ import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
 import { SearchPublicationsDocument } from '@generated/documents';
 import { LensterPublication } from '@generated/lenstertypes';
-import { CustomFiltersTypes } from '@generated/types';
+import { CustomFiltersTypes, SearchRequestTypes } from '@generated/types';
 import { CollectionIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import React, { FC } from 'react';
@@ -26,7 +26,7 @@ const Publications: FC<Props> = ({ query }) => {
   // Variables
   const request = {
     query,
-    type: 'PUBLICATION',
+    type: SearchRequestTypes.Publication,
     customFilters: [CustomFiltersTypes.Gardeners],
     limit: 10
   };
@@ -37,7 +37,9 @@ const Publications: FC<Props> = ({ query }) => {
     variables: { request, reactionRequest, profileId }
   });
 
+  // @ts-ignore
   const publications = data?.search?.items;
+  // @ts-ignore
   const pageInfo = data?.search?.pageInfo;
 
   const { observe } = useInView({

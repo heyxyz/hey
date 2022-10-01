@@ -4,7 +4,7 @@ import { Card } from '@components/UI/Card';
 import useStaffMode from '@components/utils/hooks/useStaffMode';
 import Seo from '@components/utils/Seo';
 import { LensterStatsDocument } from '@generated/documents';
-import { Erc20Amount, GlobalProtocolStats } from '@generated/types';
+import { Erc20Amount } from '@generated/types';
 import {
   CashIcon,
   ChatAlt2Icon,
@@ -57,8 +57,8 @@ const Stats: NextPage = () => {
     return <Custom404 />;
   }
 
-  const stats: GlobalProtocolStats = data?.globalProtocolStats;
-  const crowdfundStats: GlobalProtocolStats = data?.crowdfundStats;
+  const stats: any = data?.globalProtocolStats;
+  const crowdfundStats: any = data?.crowdfundStats;
 
   return (
     <GridLayout>

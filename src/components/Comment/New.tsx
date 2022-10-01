@@ -185,7 +185,7 @@ const NewComment: FC<Props> = ({ hideCard = false, publication }) => {
       onCompleted: (data) => {
         onCompleted();
         if (data.createCommentViaDispatcher.__typename === 'RelayerResult') {
-          setTxnQueue([generateOptimisticComment(data?.createCommentViaDispatcher?.txHash), ...txnQueue]);
+          setTxnQueue([generateOptimisticComment(data.createCommentViaDispatcher.txHash), ...txnQueue]);
         }
       },
       onError

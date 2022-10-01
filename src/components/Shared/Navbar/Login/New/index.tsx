@@ -52,7 +52,7 @@ const NewProfile: FC<Props> = ({ isModal = false }) => {
     }
   };
 
-  return data?.createProfile?.txHash ? (
+  return data?.createProfile.__typename === 'RelayerResult' && data?.createProfile.txHash ? (
     <Pending handle={form.getValues('handle')} txHash={data?.createProfile?.txHash} />
   ) : (
     <Form
@@ -70,7 +70,7 @@ const NewProfile: FC<Props> = ({ isModal = false }) => {
         });
       }}
     >
-      {data?.createProfile?.reason && (
+      {data?.createProfile.__typename === 'RelayError' && data?.createProfile.reason && (
         <ErrorMessage
           className="mb-3"
           title="Create profile failed!"

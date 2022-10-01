@@ -49,25 +49,29 @@ const QueuedPublication: FC<Props> = ({ txn }) => {
     variables: { request: { txHash } },
     pollInterval: 1000,
     onCompleted: (data) => {
-      const status = data.hasTxHashBeenIndexed?.metadataStatus?.status;
-      const hasFailReason = 'reason' in data.hasTxHashBeenIndexed;
-
-      if (
-        status === PublicationMetadataStatusType.MetadataValidationFailed ||
-        status === PublicationMetadataStatusType.NotFound ||
-        hasFailReason
-      ) {
+      if (data.hasTxHashBeenIndexed.__typename === 'TransactionError') {
         return setTxnQueue(txnQueue.filter((o) => o.txHash !== txHash));
       }
 
-      if (data.hasTxHashBeenIndexed?.indexed) {
-        getPublication({
-          variables: {
-            request: { txHash },
-            reactionRequest: currentProfile ? { profileId: currentProfile?.id } : null,
-            profileId: currentProfile?.id ?? null
-          }
-        });
+      if (data.hasTxHashBeenIndexed.__typename === 'TransactionIndexedResult') {
+        const status = data.hasTxHashBeenIndexed.metadataStatus?.status;
+
+        if (
+          status === PublicationMetadataStatusType.MetadataValidationFailed ||
+          status === PublicationMetadataStatusType.NotFound
+        ) {
+          return setTxnQueue(txnQueue.filter((o) => o.txHash !== txHash));
+        }
+
+        if (data.hasTxHashBeenIndexed.indexed) {
+          getPublication({
+            variables: {
+              request: { txHash },
+              reactionRequest: currentProfile ? { profileId: currentProfile?.id } : null,
+              profileId: currentProfile?.id ?? null
+            }
+          });
+        }
       }
     }
   });

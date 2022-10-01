@@ -21,7 +21,9 @@ const Pending: FC<Props> = ({ handle, txHash }) => {
 
   return (
     <div className="p-5 font-bold text-center">
-      {loading || !data?.hasTxHashBeenIndexed?.indexed ? (
+      {loading ||
+      (data?.hasTxHashBeenIndexed.__typename === 'TransactionIndexedResult' &&
+        !data?.hasTxHashBeenIndexed.indexed) ? (
         <div className="space-y-3">
           <Spinner className="mx-auto" />
           <div>Account creation in progress, please wait!</div>

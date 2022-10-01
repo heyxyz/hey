@@ -11,12 +11,7 @@ import {
   SuperFollowDocument
 } from '@generated/documents';
 import { LensterFollowModule } from '@generated/lenstertypes';
-import {
-  CreateFollowBroadcastItemResult,
-  FeeFollowModuleSettings,
-  Mutation,
-  Profile
-} from '@generated/types';
+import { CreateFollowBroadcastItemResult, FollowModules, Mutation, Profile } from '@generated/types';
 import { StarIcon, UserIcon } from '@heroicons/react/outline';
 import formatAddress from '@lib/formatAddress';
 import getSignature from '@lib/getSignature';
@@ -71,13 +66,13 @@ const FollowModule: FC<Props> = ({ profile, setFollowing, setShowFollowModal, ag
     skip: !profile?.id
   });
 
-  const followModule: FeeFollowModuleSettings = data?.profile?.followModule;
+  const followModule: any = data?.profile?.followModule;
 
   const { data: allowanceData, loading: allowanceLoading } = useQuery(ApprovedModuleAllowanceAmountDocument, {
     variables: {
       request: {
         currencies: followModule?.amount?.asset?.address,
-        followModules: 'FeeFollowModule',
+        followModules: [FollowModules.FeeFollowModule],
         collectModules: [],
         referenceModules: []
       }

@@ -6,7 +6,7 @@ import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
 import { SearchProfilesDocument } from '@generated/documents';
-import { CustomFiltersTypes, Profile } from '@generated/types';
+import { CustomFiltersTypes, Profile, SearchRequestTypes } from '@generated/types';
 import { UsersIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import React, { FC } from 'react';
@@ -20,14 +20,21 @@ interface Props {
 
 const Profiles: FC<Props> = ({ query }) => {
   // Variables
-  const request = { query, type: 'PROFILE', customFilters: [CustomFiltersTypes.Gardeners], limit: 10 };
+  const request = {
+    query,
+    type: SearchRequestTypes.Profile,
+    customFilters: [CustomFiltersTypes.Gardeners],
+    limit: 10
+  };
 
   const { data, loading, error, fetchMore } = useQuery(SearchProfilesDocument, {
     variables: { request },
     skip: !query
   });
 
+  // @ts-ignore
   const profiles = data?.search?.items;
+  // @ts-ignore
   const pageInfo = data?.search?.pageInfo;
 
   const { observe } = useInView({

@@ -70,8 +70,8 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
       const auth = await authenticate({
         variables: { request: { address, signature } }
       });
-      localStorage.setItem('accessToken', auth.data.authenticate.accessToken);
-      localStorage.setItem('refreshToken', auth.data.authenticate.refreshToken);
+      localStorage.setItem('accessToken', auth.data?.authenticate.accessToken);
+      localStorage.setItem('refreshToken', auth.data?.authenticate.refreshToken);
 
       // Get authed profiles
       const { data: profilesData } = await getProfiles({

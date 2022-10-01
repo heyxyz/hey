@@ -236,6 +236,11 @@ const Profile: FC<Props> = ({ profile }) => {
 
   const isLoading =
     isUploading || typedDataLoading || dispatcherLoading || signLoading || writeLoading || broadcastLoading;
+  const txHash =
+    writeData?.hash ??
+    broadcastData?.broadcast?.txHash ??
+    (dispatcherData?.createSetProfileMetadataViaDispatcher.__typename === 'RelayerResult' &&
+      dispatcherData?.createSetProfileMetadataViaDispatcher.txHash);
 
   return (
     <Card>
@@ -297,17 +302,7 @@ const Profile: FC<Props> = ({ profile }) => {
             >
               Save
             </Button>
-            {writeData?.hash ??
-            broadcastData?.broadcast?.txHash ??
-            dispatcherData?.createSetProfileMetadataViaDispatcher?.txHash ? (
-              <IndexStatus
-                txHash={
-                  writeData?.hash ??
-                  broadcastData?.broadcast?.txHash ??
-                  dispatcherData?.createSetProfileMetadataViaDispatcher?.txHash
-                }
-              />
-            ) : null}
+            {txHash ? <IndexStatus txHash={txHash} /> : null}
           </div>
         </Form>
       </CardBody>

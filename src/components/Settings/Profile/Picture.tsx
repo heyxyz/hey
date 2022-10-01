@@ -152,6 +152,11 @@ const Picture: FC<Props> = ({ profile }) => {
   };
 
   const isLoading = typedDataLoading || dispatcherLoading || signLoading || writeLoading || broadcastLoading;
+  const txHash =
+    writeData?.hash ??
+    broadcastData?.broadcast?.txHash ??
+    (dispatcherData?.createSetProfileImageURIViaDispatcher.__typename === 'RelayerResult' &&
+      dispatcherData?.createSetProfileImageURIViaDispatcher.txHash);
 
   return (
     <>
@@ -185,17 +190,7 @@ const Picture: FC<Props> = ({ profile }) => {
         >
           Save
         </Button>
-        {writeData?.hash ??
-        broadcastData?.broadcast?.txHash ??
-        dispatcherData?.createSetProfileImageURIViaDispatcher?.txHash ? (
-          <IndexStatus
-            txHash={
-              writeData?.hash ??
-              broadcastData?.broadcast?.txHash ??
-              dispatcherData?.createSetProfileImageURIViaDispatcher?.txHash
-            }
-          />
-        ) : null}
+        {txHash ? <IndexStatus txHash={txHash} /> : null}
       </div>
     </>
   );

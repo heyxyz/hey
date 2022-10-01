@@ -57,6 +57,7 @@ const Crowdfund: FC<Props> = ({ fund }) => {
   });
 
   useEffect(() => {
+    // @ts-ignore
     setRevenue(parseFloat(revenueData?.publicationRevenue?.earnings?.value ?? 0));
   }, [revenueData]);
 
