@@ -34,7 +34,7 @@ const Collected: FC<Props> = ({ publication }) => {
         )}
         <Link href={`/posts/${publication?.id}`}>
           <span>collected the </span>
-          <b>{(publication.__typename as any).toLowerCase()}</b>
+          <b>{publication.__typename?.toLowerCase()}</b>
         </Link>
       </div>
     </div>
