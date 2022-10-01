@@ -42,9 +42,9 @@ const MutualFollowers: FC<Props> = ({ profile }) => {
       }}
     >
       <div className="contents -space-x-2">
-        {profiles?.map((profile: any) => (
+        {profiles?.map((profile) => (
           <img
-            key={profile?.id}
+            key={profile.handle}
             className="w-5 h-5 rounded-full border dark:border-gray-700/80"
             src={getAvatar(profile)}
             alt={profile?.handle}

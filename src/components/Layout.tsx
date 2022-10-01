@@ -53,7 +53,7 @@ const Layout: FC<Props> = ({ children }) => {
     variables: { ownedBy: address },
     skip: !profileId,
     onCompleted: (data) => {
-      const profiles: any = data?.profiles?.items
+      const profiles = data?.profiles?.items
         ?.slice()
         ?.sort((a, b) => Number(a.id) - Number(b.id))
         ?.sort((a, b) => (!(a.isDefault !== b.isDefault) ? 0 : a.isDefault ? -1 : 1));
@@ -62,8 +62,8 @@ const Layout: FC<Props> = ({ children }) => {
         return resetAuthState();
       }
 
-      const selectedUser = profiles.find((profile: any) => profile.id === profileId);
-      setProfiles(profiles);
+      const selectedUser = profiles.find((profile) => profile.id === profileId);
+      setProfiles(profiles as Profile[]);
       setCurrentProfile(selectedUser as Profile);
       setUserSigNonce(data?.userSigNonces?.lensHubOnChainSigNonce);
     }

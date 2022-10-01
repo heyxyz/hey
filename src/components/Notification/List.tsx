@@ -3,7 +3,16 @@ import { Card } from '@components/UI/Card';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
-import { CustomFiltersTypes, NotificationsDocument } from '@generated/types';
+import {
+  CustomFiltersTypes,
+  NewCollectNotification,
+  NewCommentNotification,
+  NewFollowerNotification,
+  NewMentionNotification,
+  NewMirrorNotification,
+  NewReactionNotification,
+  NotificationsDocument
+} from '@generated/types';
 import { MailIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import { FC } from 'react';
@@ -82,25 +91,25 @@ const List: FC = () => {
 
   return (
     <Card className="divide-y dark:divide-gray-700">
-      {notifications?.map((notification: any, index: number) => (
+      {notifications?.map((notification, index: number) => (
         <div key={`${notification?.notificationId}_${index}`} className="p-5">
           {notification.__typename === 'NewFollowerNotification' && (
-            <FollowerNotification notification={notification as any} />
+            <FollowerNotification notification={notification as NewFollowerNotification} />
           )}
           {notification.__typename === 'NewMentionNotification' && (
-            <MentionNotification notification={notification as any} />
+            <MentionNotification notification={notification as NewMentionNotification} />
           )}
           {notification.__typename === 'NewReactionNotification' && (
-            <LikeNotification notification={notification} />
+            <LikeNotification notification={notification as NewReactionNotification} />
           )}
           {notification.__typename === 'NewCommentNotification' && (
-            <CommentNotification notification={notification} />
+            <CommentNotification notification={notification as NewCommentNotification} />
           )}
           {notification.__typename === 'NewMirrorNotification' && (
-            <MirrorNotification notification={notification} />
+            <MirrorNotification notification={notification as NewMirrorNotification} />
           )}
           {notification.__typename === 'NewCollectNotification' && (
-            <CollectNotification notification={notification as any} />
+            <CollectNotification notification={notification as NewCollectNotification} />
           )}
         </div>
       ))}

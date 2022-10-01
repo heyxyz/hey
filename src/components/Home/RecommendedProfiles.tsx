@@ -5,7 +5,7 @@ import { Card, CardBody } from '@components/UI/Card';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Modal } from '@components/UI/Modal';
-import { RecommendedProfilesDocument } from '@generated/types';
+import { Profile, RecommendedProfilesDocument } from '@generated/types';
 import { DotsCircleHorizontalIcon, UsersIcon } from '@heroicons/react/outline';
 import { SparklesIcon } from '@heroicons/react/solid';
 import { Mixpanel } from '@lib/mixpanel';
@@ -66,9 +66,9 @@ const RecommendedProfiles: FC = () => {
       <Card as="aside">
         <CardBody className="space-y-4">
           <ErrorMessage title="Failed to load recommendations" error={error} />
-          {data?.recommendedProfiles?.slice(0, 5)?.map((profile: any) => (
+          {data?.recommendedProfiles?.slice(0, 5)?.map((profile) => (
             <div key={profile?.id} className="truncate">
-              <UserProfile profile={profile} isFollowing={profile.isFollowedByMe} showFollow />
+              <UserProfile profile={profile as Profile} isFollowing={profile.isFollowedByMe} showFollow />
             </div>
           ))}
         </CardBody>

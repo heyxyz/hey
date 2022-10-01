@@ -3,7 +3,7 @@ import Loader from '@components/Shared/Loader';
 import UserProfile from '@components/Shared/UserProfile';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
-import { RecommendedProfilesDocument } from '@generated/types';
+import { Profile, RecommendedProfilesDocument } from '@generated/types';
 import { UsersIcon } from '@heroicons/react/outline';
 import { FC } from 'react';
 
@@ -25,9 +25,14 @@ const Suggested: FC = () => {
       <ErrorMessage className="m-5" title="Failed to load following" error={error} />
       <div className="space-y-3">
         <div className="divide-y dark:divide-gray-700">
-          {data?.recommendedProfiles?.map((profile: any) => (
+          {data?.recommendedProfiles?.map((profile) => (
             <div className="p-5" key={profile?.id}>
-              <UserProfile profile={profile} showBio showFollow isFollowing={profile?.isFollowedByMe} />
+              <UserProfile
+                profile={profile as Profile}
+                showBio
+                showFollow
+                isFollowing={profile?.isFollowedByMe}
+              />
             </div>
           ))}
         </div>

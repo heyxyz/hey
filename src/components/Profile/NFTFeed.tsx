@@ -4,7 +4,7 @@ import NFTSShimmer from '@components/Shared/Shimmer/NFTSShimmer';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
-import { NftFeedDocument, Profile } from '@generated/types';
+import { Nft, NftFeedDocument, Profile } from '@generated/types';
 import { CollectionIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import React, { FC } from 'react';
@@ -65,9 +65,9 @@ const NFTFeed: FC<Props> = ({ profile }) => {
       {!error && (
         <>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            {nfts?.map((nft: any) => (
+            {nfts?.map((nft) => (
               <div key={`${nft?.chainId}_${nft?.contractAddress}_${nft?.tokenId}`}>
-                <SingleNFT nft={nft} />
+                <SingleNFT nft={nft as Nft} />
               </div>
             ))}
           </div>

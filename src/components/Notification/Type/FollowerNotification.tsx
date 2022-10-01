@@ -1,4 +1,3 @@
-import { LensterNotification } from '@generated/lenstertypes';
 import { NewFollowerNotification } from '@generated/types';
 import { UserAddIcon } from '@heroicons/react/solid';
 import dayjs from 'dayjs';
@@ -12,7 +11,7 @@ import { NotificationWalletProfileAvatar, NotificationWalletProfileName } from '
 dayjs.extend(relativeTime);
 
 interface Props {
-  notification: NewFollowerNotification & LensterNotification;
+  notification: NewFollowerNotification;
 }
 
 const FollowerNotification: FC<Props> = ({ notification }) => {

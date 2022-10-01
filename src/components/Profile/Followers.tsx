@@ -5,7 +5,7 @@ import WalletProfile from '@components/Shared/WalletProfile';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
-import { FollowersDocument, Profile } from '@generated/types';
+import { FollowersDocument, Profile, Wallet } from '@generated/types';
 import { UsersIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import { FC } from 'react';
@@ -67,17 +67,17 @@ const Followers: FC<Props> = ({ profile }) => {
       <ErrorMessage className="m-5" title="Failed to load followers" error={error} />
       <div className="space-y-3">
         <div className="divide-y dark:divide-gray-700">
-          {followers?.map((follower: any) => (
+          {followers?.map((follower) => (
             <div className="p-5" key={follower?.wallet?.defaultProfile?.id}>
               {follower?.wallet?.defaultProfile ? (
                 <UserProfile
-                  profile={follower?.wallet?.defaultProfile}
+                  profile={follower?.wallet?.defaultProfile as Profile}
                   showBio
                   showFollow
                   isFollowing={follower?.wallet?.defaultProfile?.isFollowedByMe}
                 />
               ) : (
-                <WalletProfile wallet={follower?.wallet} />
+                <WalletProfile wallet={follower?.wallet as Wallet} />
               )}
             </div>
           ))}

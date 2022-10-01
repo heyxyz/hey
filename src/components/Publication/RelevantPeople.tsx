@@ -4,7 +4,7 @@ import UserProfile from '@components/Shared/UserProfile';
 import { Card, CardBody } from '@components/UI/Card';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { LensterPublication } from '@generated/lenstertypes';
-import { RelevantPeopleDocument } from '@generated/types';
+import { Profile, RelevantPeopleDocument } from '@generated/types';
 import React, { FC } from 'react';
 import { ALL_HANDLES_REGEX, HANDLE_SANITIZE_REGEX } from 'src/constants';
 
@@ -57,9 +57,9 @@ const RelevantPeople: FC<Props> = ({ publication }) => {
     <Card as="aside">
       <CardBody className="space-y-4">
         <ErrorMessage title="Failed to load relevant people" error={error} />
-        {data?.profiles?.items?.map((profile: any) => (
+        {data?.profiles?.items?.map((profile) => (
           <div key={profile?.id} className="truncate">
-            <UserProfile profile={profile} isFollowing={profile.isFollowedByMe} showFollow />
+            <UserProfile profile={profile as Profile} isFollowing={profile.isFollowedByMe} showFollow />
           </div>
         ))}
       </CardBody>
