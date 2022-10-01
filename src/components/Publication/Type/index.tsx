@@ -14,7 +14,6 @@ interface Props {
 
 const PublicationType: FC<Props> = ({ publication, showType, showThread = false }) => {
   const type = publication.__typename;
-  const publicationType = publication?.metadata?.attributes[0]?.value;
   const isCollected = !!publication?.collectedBy;
 
   if (!showType) {
@@ -26,12 +25,7 @@ const PublicationType: FC<Props> = ({ publication, showType, showThread = false 
       {type === 'Mirror' && <Mirrored publication={publication} />}
       {type === 'Comment' && !showThread && <CommentedPublication publication={publication} />}
       {type === 'Comment' && showThread && !isCollected && <Commented publication={publication} />}
-      {isCollected && publicationType !== 'crowdfund' && (
-        <Collected publication={publication} type="collected" />
-      )}
-      {isCollected && publicationType === 'crowdfund' && (
-        <Collected publication={publication} type="funded" />
-      )}
+      {isCollected && <Collected publication={publication} />}
     </>
   );
 };

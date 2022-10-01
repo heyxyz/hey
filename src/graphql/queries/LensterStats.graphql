@@ -14,7 +14,4 @@ query LensterStats {
       value
     }
   }
-  crowdfundStats: globalProtocolStats(request: { sources: "Lenster Crowdfund" }) {
-    totalPosts
-  }
 }

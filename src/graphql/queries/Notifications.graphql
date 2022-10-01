@@ -95,21 +95,13 @@ query Notifications($request: NotificationRequest!) {
           ... on Post {
             id
             metadata {
-              name
               content
-              attributes {
-                value
-              }
             }
           }
           ... on Comment {
             id
             metadata {
-              name
               content
-              attributes {
-                value
-              }
             }
           }
         }
@@ -127,7 +119,7 @@ query Notifications($request: NotificationRequest!) {
           ... on Post {
             id
             metadata {
-              ...MetadataFields
+              content
             }
             collectModule {
               ...CollectModuleFields
@@ -136,7 +128,7 @@ query Notifications($request: NotificationRequest!) {
           ... on Comment {
             id
             metadata {
-              ...MetadataFields
+              content
             }
             collectModule {
               ...CollectModuleFields
@@ -147,6 +139,7 @@ query Notifications($request: NotificationRequest!) {
       }
     }
     pageInfo {
+      totalCount
       next
     }
   }

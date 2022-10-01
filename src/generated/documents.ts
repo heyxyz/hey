@@ -10180,7 +10180,6 @@ export type LensterStatsQuery = {
       asset: { __typename?: 'Erc20'; symbol: string };
     }>;
   };
-  crowdfundStats: { __typename?: 'GlobalProtocolStats'; totalPosts: number };
 };
 
 export type LikesQueryVariables = Exact<{
@@ -10386,18 +10385,7 @@ export type NotificationsQuery = {
             | {
                 __typename?: 'Comment';
                 id: any;
-                metadata: {
-                  __typename?: 'MetadataOutput';
-                  name?: string | null;
-                  description?: any | null;
-                  content?: any | null;
-                  cover?: { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } } | null;
-                  media: Array<{
-                    __typename?: 'MediaSet';
-                    original: { __typename?: 'Media'; url: any; mimeType?: any | null };
-                  }>;
-                  attributes: Array<{ __typename?: 'MetadataAttributeOutput'; value?: string | null }>;
-                };
+                metadata: { __typename?: 'MetadataOutput'; content?: any | null };
                 collectModule:
                   | {
                       __typename?: 'FeeCollectModuleSettings';
@@ -10468,18 +10456,7 @@ export type NotificationsQuery = {
             | {
                 __typename?: 'Post';
                 id: any;
-                metadata: {
-                  __typename?: 'MetadataOutput';
-                  name?: string | null;
-                  description?: any | null;
-                  content?: any | null;
-                  cover?: { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } } | null;
-                  media: Array<{
-                    __typename?: 'MediaSet';
-                    original: { __typename?: 'Media'; url: any; mimeType?: any | null };
-                  }>;
-                  attributes: Array<{ __typename?: 'MetadataAttributeOutput'; value?: string | null }>;
-                };
+                metadata: { __typename?: 'MetadataOutput'; content?: any | null };
                 collectModule:
                   | {
                       __typename?: 'FeeCollectModuleSettings';
@@ -10690,22 +10667,12 @@ export type NotificationsQuery = {
             | {
                 __typename?: 'Comment';
                 id: any;
-                metadata: {
-                  __typename?: 'MetadataOutput';
-                  name?: string | null;
-                  content?: any | null;
-                  attributes: Array<{ __typename?: 'MetadataAttributeOutput'; value?: string | null }>;
-                };
+                metadata: { __typename?: 'MetadataOutput'; content?: any | null };
               }
             | {
                 __typename?: 'Post';
                 id: any;
-                metadata: {
-                  __typename?: 'MetadataOutput';
-                  name?: string | null;
-                  content?: any | null;
-                  attributes: Array<{ __typename?: 'MetadataAttributeOutput'; value?: string | null }>;
-                };
+                metadata: { __typename?: 'MetadataOutput'; content?: any | null };
               };
         }
       | {
@@ -10749,7 +10716,7 @@ export type NotificationsQuery = {
               };
         }
     >;
-    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null };
+    pageInfo: { __typename?: 'PaginatedResultInfo'; totalCount: number; next?: any | null };
   };
 };
 
@@ -19449,31 +19416,6 @@ export const LensterStatsDocument = {
                 }
               ]
             }
-          },
-          {
-            kind: 'Field',
-            alias: { kind: 'Name', value: 'crowdfundStats' },
-            name: { kind: 'Name', value: 'globalProtocolStats' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'request' },
-                value: {
-                  kind: 'ObjectValue',
-                  fields: [
-                    {
-                      kind: 'ObjectField',
-                      name: { kind: 'Name', value: 'sources' },
-                      value: { kind: 'StringValue', value: 'Lenster Crowdfund', block: false }
-                    }
-                  ]
-                }
-              }
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'totalPosts' } }]
-            }
           }
         ]
       }
@@ -20352,18 +20294,7 @@ export const NotificationsDocument = {
                                           selectionSet: {
                                             kind: 'SelectionSet',
                                             selections: [
-                                              { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-                                              { kind: 'Field', name: { kind: 'Name', value: 'content' } },
-                                              {
-                                                kind: 'Field',
-                                                name: { kind: 'Name', value: 'attributes' },
-                                                selectionSet: {
-                                                  kind: 'SelectionSet',
-                                                  selections: [
-                                                    { kind: 'Field', name: { kind: 'Name', value: 'value' } }
-                                                  ]
-                                                }
-                                              }
+                                              { kind: 'Field', name: { kind: 'Name', value: 'content' } }
                                             ]
                                           }
                                         }
@@ -20386,18 +20317,7 @@ export const NotificationsDocument = {
                                           selectionSet: {
                                             kind: 'SelectionSet',
                                             selections: [
-                                              { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-                                              { kind: 'Field', name: { kind: 'Name', value: 'content' } },
-                                              {
-                                                kind: 'Field',
-                                                name: { kind: 'Name', value: 'attributes' },
-                                                selectionSet: {
-                                                  kind: 'SelectionSet',
-                                                  selections: [
-                                                    { kind: 'Field', name: { kind: 'Name', value: 'value' } }
-                                                  ]
-                                                }
-                                              }
+                                              { kind: 'Field', name: { kind: 'Name', value: 'content' } }
                                             ]
                                           }
                                         }
@@ -20466,10 +20386,7 @@ export const NotificationsDocument = {
                                           selectionSet: {
                                             kind: 'SelectionSet',
                                             selections: [
-                                              {
-                                                kind: 'FragmentSpread',
-                                                name: { kind: 'Name', value: 'MetadataFields' }
-                                              }
+                                              { kind: 'Field', name: { kind: 'Name', value: 'content' } }
                                             ]
                                           }
                                         },
@@ -20505,10 +20422,7 @@ export const NotificationsDocument = {
                                           selectionSet: {
                                             kind: 'SelectionSet',
                                             selections: [
-                                              {
-                                                kind: 'FragmentSpread',
-                                                name: { kind: 'Name', value: 'MetadataFields' }
-                                              }
+                                              { kind: 'Field', name: { kind: 'Name', value: 'content' } }
                                             ]
                                           }
                                         },
@@ -20543,7 +20457,10 @@ export const NotificationsDocument = {
                   name: { kind: 'Name', value: 'pageInfo' },
                   selectionSet: {
                     kind: 'SelectionSet',
-                    selections: [{ kind: 'Field', name: { kind: 'Name', value: 'next' } }]
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'totalCount' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'next' } }
+                    ]
                   }
                 }
               ]
@@ -20553,7 +20470,6 @@ export const NotificationsDocument = {
       }
     },
     ...ProfileFieldsFragmentDoc.definitions,
-    ...MetadataFieldsFragmentDoc.definitions,
     ...CollectModuleFieldsFragmentDoc.definitions
   ]
 } as unknown as DocumentNode<NotificationsQuery, NotificationsQueryVariables>;

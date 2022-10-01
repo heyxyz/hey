@@ -106,7 +106,7 @@ const AllowanceButton: FC<Props> = ({ title = 'Allow', module, allowed, setAllow
             message={
               <div className="leading-6">
                 Please be aware that by allowing this module, the amount indicated will be automatically
-                deducted when you <b>collect</b>,<b> fund</b> and <b>super follow</b>.
+                deducted when you <b>collect</b> and <b>super follow</b>.
               </div>
             }
           />

@@ -5,7 +5,7 @@ import {
 } from '@components/Notification/WalletProfile';
 import { LensterNotification } from '@generated/lenstertypes';
 import { NewCollectNotification } from '@generated/types';
-import { CashIcon, CollectionIcon } from '@heroicons/react/solid';
+import { CollectionIcon } from '@heroicons/react/solid';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import Link from 'next/link';
@@ -21,19 +21,11 @@ interface Props {
 }
 
 const CollectNotification: FC<Props> = ({ notification }) => {
-  const publicationType =
-    notification?.collectedPublication?.metadata?.attributes[0]?.value ??
-    notification?.collectedPublication.__typename?.toLowerCase();
-
   return (
     <div className="flex justify-between items-start">
       <div className="space-y-2 w-4/5">
         <div className="flex items-center space-x-3">
-          {publicationType === 'crowdfund' ? (
-            <CashIcon className="h-6 w-6 text-pink-500/70" />
-          ) : (
-            <CollectionIcon className="h-6 w-6 text-pink-500/70" />
-          )}
+          <CollectionIcon className="h-6 w-6 text-pink-500/70" />
           {notification?.wallet?.defaultProfile ? (
             <NotificationProfileAvatar profile={notification?.wallet?.defaultProfile} />
           ) : (
@@ -46,11 +38,9 @@ const CollectNotification: FC<Props> = ({ notification }) => {
           ) : (
             <NotificationWalletProfileName wallet={notification?.wallet} />
           )}{' '}
-          <span className="text-gray-600 dark:text-gray-400">
-            {publicationType === 'crowdfund' ? 'funded your' : 'collected your'}{' '}
-          </span>
+          <span className="text-gray-600 dark:text-gray-400">collected your </span>
           <Link href={`/posts/${notification?.collectedPublication?.id}`} className="font-bold">
-            {publicationType}
+            {notification?.collectedPublication.__typename?.toLowerCase()}
           </Link>
           <CollectedContent notification={notification} />
           <CollectedAmount notification={notification} />

@@ -70,7 +70,7 @@ const Mirrors: FC<Props> = ({ publicationId }) => {
             </div>
           ))}
         </div>
-        {pageInfo?.next && profiles?.length !== pageInfo?.totalCount && (
+        {pageInfo?.next && profiles?.length !== pageInfo.totalCount && (
           <span ref={observe} className="flex justify-center p-5">
             <Spinner size="md" />
           </span>

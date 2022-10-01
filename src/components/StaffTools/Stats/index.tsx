@@ -6,7 +6,6 @@ import Seo from '@components/utils/Seo';
 import { LensterStatsDocument } from '@generated/documents';
 import { Erc20Amount } from '@generated/types';
 import {
-  CashIcon,
   ChatAlt2Icon,
   CollectionIcon,
   FireIcon,
@@ -58,7 +57,6 @@ const Stats: NextPage = () => {
   }
 
   const stats: any = data?.globalProtocolStats;
-  const crowdfundStats: any = data?.crowdfundStats;
 
   return (
     <GridLayout>
@@ -103,11 +101,6 @@ const Stats: NextPage = () => {
                     icon={<ChatAlt2Icon className="w-4 h-4" />}
                     value={stats?.totalComments}
                     title="total comments"
-                  />
-                  <StatBox
-                    icon={<CashIcon className="w-4 h-4" />}
-                    value={crowdfundStats?.totalPosts}
-                    title="total crowdfunds"
                   />
                 </div>
                 <div className="block sm:flex space-y-3 sm:space-y-0 sm:space-x-3 justify-between">
