@@ -1,7 +1,5 @@
 import { LensHubProxy } from '@abis/LensHubProxy';
-import { gql, useMutation, useQuery } from '@apollo/client';
-import { PUBLICATION_REVENUE_QUERY } from '@components/Publication/Crowdfund';
-import { ALLOWANCE_SETTINGS_QUERY } from '@components/Settings/Allowance';
+import { useMutation, useQuery } from '@apollo/client';
 import AllowanceButton from '@components/Settings/Allowance/Button';
 import CollectWarning from '@components/Shared/CollectWarning';
 import IndexStatus from '@components/Shared/IndexStatus';
@@ -16,10 +14,15 @@ import { Spinner } from '@components/UI/Spinner';
 import { Tooltip } from '@components/UI/Tooltip';
 import { WarningMessage } from '@components/UI/WarningMessage';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
+import {
+  ApprovedModuleAllowanceAmountDocument,
+  CollectModuleDocument,
+  CreateCollectTypedDataDocument,
+  ProxyActionDocument,
+  PublicationRevenueDocument
+} from '@generated/documents';
 import { LensterPublication } from '@generated/lenstertypes';
 import { CreateCollectBroadcastItemResult, Mutation } from '@generated/types';
-import { CollectModuleFields } from '@gql/CollectModuleFields';
-import { PROXY_ACTION_MUTATION } from '@gql/ProxyAction';
 import {
   CashIcon,
   ClockIcon,
@@ -46,62 +49,6 @@ import { useAppStore } from 'src/store/app';
 import { PUBLICATION } from 'src/tracking';
 import { useAccount, useBalance, useContractWrite, useSignTypedData } from 'wagmi';
 
-export const COLLECT_QUERY = gql`
-  query CollectModule($request: PublicationQueryRequest!) {
-    publication(request: $request) {
-      ... on Post {
-        collectNftAddress
-        collectModule {
-          ...CollectModuleFields
-        }
-      }
-      ... on Comment {
-        collectNftAddress
-        collectModule {
-          ...CollectModuleFields
-        }
-      }
-      ... on Mirror {
-        collectNftAddress
-        collectModule {
-          ...CollectModuleFields
-        }
-      }
-    }
-  }
-  ${CollectModuleFields}
-`;
-
-const CREATE_COLLECT_TYPED_DATA_MUTATION = gql`
-  mutation CreateCollectTypedData($options: TypedDataOptions, $request: CreateCollectRequest!) {
-    createCollectTypedData(options: $options, request: $request) {
-      id
-      expiresAt
-      typedData {
-        types {
-          CollectWithSig {
-            name
-            type
-          }
-        }
-        domain {
-          name
-          chainId
-          version
-          verifyingContract
-        }
-        value {
-          nonce
-          deadline
-          profileId
-          pubId
-          data
-        }
-      }
-    }
-  }
-`;
-
 interface Props {
   count: number;
   setCount: Dispatch<number>;
@@ -119,7 +66,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
   const { address } = useAccount();
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
 
-  const { data, loading } = useQuery(COLLECT_QUERY, {
+  const { data, loading } = useQuery(CollectModuleDocument, {
     variables: {
       request: { publicationId: publication?.id }
     }
@@ -150,7 +97,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
 
   const percentageCollected = (count / parseInt(collectModule?.collectLimit)) * 100;
 
-  const { data: allowanceData, loading: allowanceLoading } = useQuery(ALLOWANCE_SETTINGS_QUERY, {
+  const { data: allowanceData, loading: allowanceLoading } = useQuery(ApprovedModuleAllowanceAmountDocument, {
     variables: {
       request: {
         currencies: collectModule?.amount?.asset?.address,
@@ -165,7 +112,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
     }
   });
 
-  const { data: revenueData, loading: revenueLoading } = useQuery(PUBLICATION_REVENUE_QUERY, {
+  const { data: revenueData, loading: revenueLoading } = useQuery(PublicationRevenueDocument, {
     variables: {
       request: {
         publicationId: publication.__typename === 'Mirror' ? publication?.mirrorOf?.id : publication?.id
@@ -175,7 +122,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
   });
 
   useEffect(() => {
-    setRevenue(parseFloat(revenueData?.publicationRevenue?.revenue?.total?.value ?? 0));
+    setRevenue(parseFloat((revenueData?.publicationRevenue?.revenue?.total?.value as any) ?? 0));
   }, [revenueData]);
 
   const { data: balanceData, isLoading: balanceLoading } = useBalance({
@@ -194,7 +141,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
 
   const { broadcast, data: broadcastData, loading: broadcastLoading } = useBroadcast({ onCompleted });
   const [createCollectTypedData, { loading: typedDataLoading }] = useMutation<Mutation>(
-    CREATE_COLLECT_TYPED_DATA_MUTATION,
+    CreateCollectTypedDataDocument,
     {
       onCompleted: async ({
         createCollectTypedData
@@ -234,7 +181,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
   );
 
   const [createCollectProxyAction, { loading: proxyActionLoading }] = useMutation<Mutation>(
-    PROXY_ACTION_MUTATION,
+    ProxyActionDocument,
     {
       onCompleted,
       onError

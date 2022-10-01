@@ -1,10 +1,9 @@
-import { gql, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import UserProfile from '@components/Shared/UserProfile';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
-import { Profile } from '@generated/types';
-import { ProfileFields } from '@gql/ProfileFields';
+import { MirrorsDocument } from '@generated/documents';
 import { SwitchHorizontalIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import { FC } from 'react';
@@ -14,22 +13,6 @@ import { PAGINATION } from 'src/tracking';
 
 import Loader from '../Loader';
 
-const MIRRORS_QUERY = gql`
-  query Mirrors($request: ProfileQueryRequest!) {
-    profiles(request: $request) {
-      items {
-        ...ProfileFields
-        isFollowedByMe
-      }
-      pageInfo {
-        next
-        totalCount
-      }
-    }
-  }
-  ${ProfileFields}
-`;
-
 interface Props {
   publicationId: string;
 }
@@ -38,7 +21,7 @@ const Mirrors: FC<Props> = ({ publicationId }) => {
   // Variables
   const request = { whoMirroredPublicationId: publicationId, limit: 10 };
 
-  const { data, loading, error, fetchMore } = useQuery(MIRRORS_QUERY, {
+  const { data, loading, error, fetchMore } = useQuery(MirrorsDocument, {
     variables: { request },
     skip: !publicationId
   });
@@ -81,7 +64,7 @@ const Mirrors: FC<Props> = ({ publicationId }) => {
       <ErrorMessage className="m-5" title="Failed to load mirrors" error={error} />
       <div className="space-y-3">
         <div className="divide-y dark:divide-gray-700">
-          {profiles?.map((profile: Profile) => (
+          {profiles?.map((profile: any) => (
             <div className="p-5" key={profile?.id}>
               <UserProfile profile={profile} showBio showFollow isFollowing={profile?.isFollowedByMe} />
             </div>

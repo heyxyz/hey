@@ -1,0 +1,20 @@
+query LensterStats {
+  globalProtocolStats(request: { sources: "Lenster" }) {
+    totalProfiles
+    totalPosts
+    totalBurntProfiles
+    totalMirrors
+    totalComments
+    totalCollects
+    totalFollows
+    totalRevenue {
+      asset {
+        symbol
+      }
+      value
+    }
+  }
+  crowdfundStats: globalProtocolStats(request: { sources: "Lenster Crowdfund" }) {
+    totalPosts
+  }
+}

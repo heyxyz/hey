@@ -9,6 +9,7 @@ import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { MentionTextArea } from '@components/UI/MentionTextArea';
 import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
+import { CreateCommentTypedDataDocument, CreateCommentViaDispatcherDocument } from '@generated/documents';
 import { LensterAttachment, LensterPublication } from '@generated/lenstertypes';
 import {
   CreateCommentBroadcastItemResult,
@@ -17,10 +18,6 @@ import {
   ReferenceModules
 } from '@generated/types';
 import { IGif } from '@giphy/js-types';
-import {
-  CREATE_COMMENT_TYPED_DATA_MUTATION,
-  CREATE_COMMENT_VIA_DISPATHCER_MUTATION
-} from '@gql/TypedAndDispatcherData/CreateComment';
 import { ChatAlt2Icon } from '@heroicons/react/outline';
 import { defaultFeeData, defaultModuleData, getModule } from '@lib/getModule';
 import getSignature from '@lib/getSignature';
@@ -127,7 +124,7 @@ const NewComment: FC<Props> = ({ hideCard = false, publication }) => {
     }
   });
   const [createCommentTypedData, { loading: typedDataLoading }] = useMutation<Mutation>(
-    CREATE_COMMENT_TYPED_DATA_MUTATION,
+    CreateCommentTypedDataDocument,
     {
       onCompleted: async ({
         createCommentTypedData
@@ -183,11 +180,13 @@ const NewComment: FC<Props> = ({ hideCard = false, publication }) => {
   );
 
   const [createCommentViaDispatcher, { loading: dispatcherLoading }] = useMutation(
-    CREATE_COMMENT_VIA_DISPATHCER_MUTATION,
+    CreateCommentViaDispatcherDocument,
     {
       onCompleted: (data) => {
         onCompleted();
-        setTxnQueue([generateOptimisticComment(data?.createCommentViaDispatcher?.txHash), ...txnQueue]);
+        if (data.createCommentViaDispatcher.__typename === 'RelayerResult') {
+          setTxnQueue([generateOptimisticComment(data.createCommentViaDispatcher.txHash), ...txnQueue]);
+        }
       },
       onError
     }

@@ -38,7 +38,7 @@ const Explore: NextPage = () => {
       />
       <GridItemEight className="space-y-5">
         <FeedType setFeedType={setFeedType} feedType={feedType} />
-        <Feed feedType={feedType} />
+        <Feed feedType={feedType as PublicationSortCriteria} />
       </GridItemEight>
       <GridItemFour>
         <Trending />

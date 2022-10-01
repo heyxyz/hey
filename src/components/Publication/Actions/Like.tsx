@@ -1,5 +1,6 @@
-import { ApolloCache, gql, useMutation } from '@apollo/client';
+import { ApolloCache, useMutation } from '@apollo/client';
 import { Tooltip } from '@components/UI/Tooltip';
+import { AddReactionDocument, RemoveReactionDocument } from '@generated/documents';
 import { LensterPublication } from '@generated/lenstertypes';
 import { Mutation, ReactionTypes } from '@generated/types';
 import { HeartIcon } from '@heroicons/react/outline';
@@ -14,18 +15,6 @@ import toast from 'react-hot-toast';
 import { SIGN_WALLET } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { PUBLICATION } from 'src/tracking';
-
-const ADD_REACTION_MUTATION = gql`
-  mutation AddReaction($request: ReactionRequest!) {
-    addReaction(request: $request)
-  }
-`;
-
-const REMOVE_REACTION_MUTATION = gql`
-  mutation RemoveReaction($request: ReactionRequest!) {
-    removeReaction(request: $request)
-  }
-`;
 
 interface Props {
   publication: LensterPublication;
@@ -55,7 +44,7 @@ const Like: FC<Props> = ({ publication, isFullPublication }) => {
     });
   };
 
-  const [addReaction] = useMutation<Mutation>(ADD_REACTION_MUTATION, {
+  const [addReaction] = useMutation<Mutation>(AddReactionDocument, {
     onCompleted: () => {
       Mixpanel.track(PUBLICATION.LIKE);
     },
@@ -67,7 +56,7 @@ const Like: FC<Props> = ({ publication, isFullPublication }) => {
     update: (cache) => updateCache(cache, ReactionTypes.Upvote)
   });
 
-  const [removeReaction] = useMutation<Mutation>(REMOVE_REACTION_MUTATION, {
+  const [removeReaction] = useMutation<Mutation>(RemoveReactionDocument, {
     onCompleted: () => {
       Mixpanel.track(PUBLICATION.DISLIKE);
     },

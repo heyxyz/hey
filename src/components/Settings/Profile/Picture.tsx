@@ -7,16 +7,16 @@ import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
 import {
+  CreateSetProfileImageUriTypedDataDocument,
+  CreateSetProfileImageUriViaDispatcherDocument
+} from '@generated/documents';
+import {
   CreateSetProfileImageUriBroadcastItemResult,
   MediaSet,
   Mutation,
   NftImage,
   Profile
 } from '@generated/types';
-import {
-  CREATE_SET_PROFILE_IMAGE_URI_TYPED_DATA_MUTATION,
-  CREATE_SET_PROFILE_IMAGE_URI_VIA_DISPATHCER_MUTATION
-} from '@gql/TypedAndDispatcherData/CreateSetProfileImageURI';
 import { PencilIcon } from '@heroicons/react/outline';
 import getIPFSLink from '@lib/getIPFSLink';
 import getSignature from '@lib/getSignature';
@@ -72,7 +72,7 @@ const Picture: FC<Props> = ({ profile }) => {
 
   const { broadcast, data: broadcastData, loading: broadcastLoading } = useBroadcast({ onCompleted });
   const [createSetProfileImageURITypedData, { loading: typedDataLoading }] = useMutation<Mutation>(
-    CREATE_SET_PROFILE_IMAGE_URI_TYPED_DATA_MUTATION,
+    CreateSetProfileImageUriTypedDataDocument,
     {
       onCompleted: async ({
         createSetProfileImageURITypedData
@@ -110,7 +110,7 @@ const Picture: FC<Props> = ({ profile }) => {
   );
 
   const [createSetProfileImageURIViaDispatcher, { data: dispatcherData, loading: dispatcherLoading }] =
-    useMutation(CREATE_SET_PROFILE_IMAGE_URI_VIA_DISPATHCER_MUTATION, { onCompleted, onError });
+    useMutation(CreateSetProfileImageUriViaDispatcherDocument, { onCompleted, onError });
 
   const handleUpload = async (evt: ChangeEvent<HTMLInputElement>) => {
     evt.preventDefault();
@@ -152,6 +152,11 @@ const Picture: FC<Props> = ({ profile }) => {
   };
 
   const isLoading = typedDataLoading || dispatcherLoading || signLoading || writeLoading || broadcastLoading;
+  const txHash =
+    writeData?.hash ??
+    broadcastData?.broadcast?.txHash ??
+    (dispatcherData?.createSetProfileImageURIViaDispatcher.__typename === 'RelayerResult' &&
+      dispatcherData?.createSetProfileImageURIViaDispatcher.txHash);
 
   return (
     <>
@@ -185,17 +190,7 @@ const Picture: FC<Props> = ({ profile }) => {
         >
           Save
         </Button>
-        {writeData?.hash ??
-        broadcastData?.broadcast?.txHash ??
-        dispatcherData?.createSetProfileImageURIViaDispatcher?.txHash ? (
-          <IndexStatus
-            txHash={
-              writeData?.hash ??
-              broadcastData?.broadcast?.txHash ??
-              dispatcherData?.createSetProfileImageURIViaDispatcher?.txHash
-            }
-          />
-        ) : null}
+        {txHash ? <IndexStatus txHash={txHash} /> : null}
       </div>
     </>
   );

@@ -1,15 +1,12 @@
-import { gql, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
 import { Card } from '@components/UI/Card';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
-import { LensterPublication } from '@generated/lenstertypes';
+import { ExploreFeedDocument } from '@generated/documents';
 import { CustomFiltersTypes, PublicationSortCriteria } from '@generated/types';
-import { CommentFields } from '@gql/CommentFields';
-import { MirrorFields } from '@gql/MirrorFields';
-import { PostFields } from '@gql/PostFields';
 import { CollectionIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import React, { FC } from 'react';
@@ -18,37 +15,8 @@ import { PAGINATION_ROOT_MARGIN } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { PAGINATION } from 'src/tracking';
 
-export const EXPLORE_FEED_QUERY = gql`
-  query ExploreFeed(
-    $request: ExplorePublicationRequest!
-    $reactionRequest: ReactionFieldResolverRequest
-    $profileId: ProfileId
-  ) {
-    explorePublications(request: $request) {
-      items {
-        ... on Post {
-          ...PostFields
-        }
-        ... on Comment {
-          ...CommentFields
-        }
-        ... on Mirror {
-          ...MirrorFields
-        }
-      }
-      pageInfo {
-        totalCount
-        next
-      }
-    }
-  }
-  ${PostFields}
-  ${CommentFields}
-  ${MirrorFields}
-`;
-
 interface Props {
-  feedType?: string;
+  feedType?: PublicationSortCriteria;
 }
 
 const Feed: FC<Props> = ({ feedType = PublicationSortCriteria.CuratedProfiles }) => {
@@ -64,7 +32,7 @@ const Feed: FC<Props> = ({ feedType = PublicationSortCriteria.CuratedProfiles })
   const reactionRequest = currentProfile ? { profileId: currentProfile?.id } : null;
   const profileId = currentProfile?.id ?? null;
 
-  const { data, loading, error, fetchMore } = useQuery(EXPLORE_FEED_QUERY, {
+  const { data, loading, error, fetchMore } = useQuery(ExploreFeedDocument, {
     variables: { request, reactionRequest, profileId }
   });
 
@@ -98,7 +66,7 @@ const Feed: FC<Props> = ({ feedType = PublicationSortCriteria.CuratedProfiles })
       {!error && !loading && publications?.length !== 0 && (
         <>
           <Card className="divide-y-[1px] dark:divide-gray-700/80">
-            {publications?.map((post: LensterPublication, index: number) => (
+            {publications?.map((post: any, index: number) => (
               <SinglePublication key={`${post?.id}_${index}`} publication={post} />
             ))}
           </Card>

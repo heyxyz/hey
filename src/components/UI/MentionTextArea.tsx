@@ -1,8 +1,8 @@
 import { useLazyQuery } from '@apollo/client';
-import { SEARCH_USERS_QUERY } from '@components/Shared/Navbar/Search';
 import Slug from '@components/Shared/Slug';
+import { SearchProfilesDocument } from '@generated/documents';
 import { UserSuggestion } from '@generated/lenstertypes';
-import { MediaSet, NftImage, Profile } from '@generated/types';
+import { MediaSet, NftImage, Profile, SearchRequestTypes } from '@generated/types';
 import { BadgeCheckIcon } from '@heroicons/react/solid';
 import getIPFSLink from '@lib/getIPFSLink';
 import getStampFyiURL from '@lib/getStampFyiURL';
@@ -48,7 +48,7 @@ interface Props {
 export const MentionTextArea: FC<Props> = ({ error, setError, placeholder = '' }) => {
   const publicationContent = usePublicationStore((state) => state.publicationContent);
   const setPublicationContent = usePublicationStore((state) => state.setPublicationContent);
-  const [searchUsers] = useLazyQuery(SEARCH_USERS_QUERY);
+  const [searchUsers] = useLazyQuery(SearchProfilesDocument);
 
   const fetchUsers = (query: string, callback: any) => {
     if (!query) {
@@ -56,17 +56,19 @@ export const MentionTextArea: FC<Props> = ({ error, setError, placeholder = '' }
     }
 
     searchUsers({
-      variables: { request: { type: 'PROFILE', query, limit: 5 } }
+      variables: { request: { type: SearchRequestTypes.Profile, query, limit: 5 } }
     })
-      .then(({ data }) =>
-        data?.search?.items?.map((user: Profile & { picture: MediaSet & NftImage }) => ({
+      .then(({ data }) => {
+        // @ts-ignore
+        const profiles = data?.search?.items ?? [];
+        return profiles.map((user: Profile & { picture: MediaSet & NftImage }) => ({
           uid: user.id,
           id: user.handle,
           display: user.handle,
           name: user?.name ?? user?.handle,
           picture: user?.picture?.original?.url ?? user?.picture?.uri ?? getStampFyiURL(user?.ownedBy)
-        }))
-      )
+        }));
+      })
       .then(callback);
   };
 

@@ -1,4 +1,4 @@
-import { gql, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import QueuedPublication from '@components/Publication/QueuedPublication';
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
@@ -6,9 +6,9 @@ import { Card } from '@components/UI/Card';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
+import { CommentFeedDocument } from '@generated/documents';
 import { LensterPublication } from '@generated/lenstertypes';
 import { CustomFiltersTypes } from '@generated/types';
-import { CommentFields } from '@gql/CommentFields';
 import { CollectionIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import React, { FC } from 'react';
@@ -20,27 +20,6 @@ import { PAGINATION } from 'src/tracking';
 
 import CommentWarning from '../Shared/CommentWarning';
 import NewComment from './New';
-
-const COMMENT_FEED_QUERY = gql`
-  query CommentFeed(
-    $request: PublicationsQueryRequest!
-    $reactionRequest: ReactionFieldResolverRequest
-    $profileId: ProfileId
-  ) {
-    publications(request: $request) {
-      items {
-        ... on Comment {
-          ...CommentFields
-        }
-      }
-      pageInfo {
-        totalCount
-        next
-      }
-    }
-  }
-  ${CommentFields}
-`;
 
 interface Props {
   publication: LensterPublication;
@@ -56,12 +35,12 @@ const Feed: FC<Props> = ({ publication }) => {
   const reactionRequest = currentProfile ? { profileId: currentProfile?.id } : null;
   const profileId = currentProfile?.id ?? null;
 
-  const { data, loading, error, fetchMore } = useQuery(COMMENT_FEED_QUERY, {
+  const { data, loading, error, fetchMore } = useQuery(CommentFeedDocument, {
     variables: { request, reactionRequest, profileId },
     skip: !publicationId
   });
 
-  const comments = data?.publications?.items;
+  const comments = data?.publications?.items ?? [];
   const pageInfo = data?.publications?.pageInfo;
 
   const { observe } = useInView({
@@ -105,7 +84,7 @@ const Feed: FC<Props> = ({ publication }) => {
                   </div>
                 )
             )}
-            {comments?.map((comment: LensterPublication, index: number) => (
+            {comments?.map((comment: any, index: number) => (
               <SinglePublication key={`${publicationId}_${index}`} publication={comment} showType={false} />
             ))}
           </Card>

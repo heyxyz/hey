@@ -1,9 +1,10 @@
-import { gql, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout';
 import { Card } from '@components/UI/Card';
 import useStaffMode from '@components/utils/hooks/useStaffMode';
 import Seo from '@components/utils/Seo';
-import { Erc20Amount, GlobalProtocolStats } from '@generated/types';
+import { LensterStatsDocument } from '@generated/documents';
+import { Erc20Amount } from '@generated/types';
 import {
   CashIcon,
   ChatAlt2Icon,
@@ -24,31 +25,6 @@ import Custom404 from 'src/pages/404';
 import { PAGEVIEW } from 'src/tracking';
 
 import Sidebar from '../Sidebar';
-
-const LENSTER_STATS_QUERY = gql`
-  query LensterStats {
-    globalProtocolStats(request: { sources: ${APP_NAME} }) {
-      totalProfiles
-      totalPosts
-      totalBurntProfiles
-      totalMirrors
-      totalComments
-      totalCollects
-      totalFollows
-      totalRevenue {
-        asset {
-          symbol
-        }
-        value
-      }
-    }
-    crowdfundStats: globalProtocolStats(
-      request: { sources: "${APP_NAME} Crowdfund" }
-    ) {
-      totalPosts
-    }
-  }
-`;
 
 interface StatBoxProps {
   icon: ReactNode;
@@ -73,7 +49,7 @@ const Stats: NextPage = () => {
     Mixpanel.track('Pageview', { path: PAGEVIEW.STAFFTOOLS.STATS });
   }, []);
 
-  const { data, loading, error } = useQuery(LENSTER_STATS_QUERY, {
+  const { data, loading, error } = useQuery(LensterStatsDocument, {
     pollInterval: 1000
   });
 
@@ -81,8 +57,8 @@ const Stats: NextPage = () => {
     return <Custom404 />;
   }
 
-  const stats: GlobalProtocolStats = data?.globalProtocolStats;
-  const crowdfundStats: GlobalProtocolStats = data?.crowdfundStats;
+  const stats: any = data?.globalProtocolStats;
+  const crowdfundStats: any = data?.crowdfundStats;
 
   return (
     <GridLayout>

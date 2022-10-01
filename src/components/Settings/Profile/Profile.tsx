@@ -12,15 +12,15 @@ import { TextArea } from '@components/UI/TextArea';
 import { Toggle } from '@components/UI/Toggle';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
 import {
+  CreateSetProfileMetadataTypedDataDocument,
+  CreateSetProfileMetadataViaDispatcherDocument
+} from '@generated/documents';
+import {
   CreateSetProfileMetadataUriBroadcastItemResult,
   MediaSet,
   Mutation,
   Profile
 } from '@generated/types';
-import {
-  CREATE_SET_PROFILE_METADATA_TYPED_DATA_MUTATION,
-  CREATE_SET_PROFILE_METADATA_VIA_DISPATHCER_MUTATION
-} from '@gql/TypedAndDispatcherData/CreateSetProfileMetadata';
 import { PencilIcon } from '@heroicons/react/outline';
 import getAttribute from '@lib/getAttribute';
 import getIPFSLink from '@lib/getIPFSLink';
@@ -93,7 +93,7 @@ const Profile: FC<Props> = ({ profile }) => {
 
   const { broadcast, data: broadcastData, loading: broadcastLoading } = useBroadcast({ onCompleted });
   const [createSetProfileMetadataTypedData, { loading: typedDataLoading }] = useMutation<Mutation>(
-    CREATE_SET_PROFILE_METADATA_TYPED_DATA_MUTATION,
+    CreateSetProfileMetadataTypedDataDocument,
     {
       onCompleted: async ({
         createSetProfileMetadataTypedData
@@ -132,7 +132,7 @@ const Profile: FC<Props> = ({ profile }) => {
   );
 
   const [createSetProfileMetadataViaDispatcher, { data: dispatcherData, loading: dispatcherLoading }] =
-    useMutation(CREATE_SET_PROFILE_METADATA_VIA_DISPATHCER_MUTATION, {
+    useMutation(CreateSetProfileMetadataViaDispatcherDocument, {
       onCompleted,
       onError
     });
@@ -236,6 +236,11 @@ const Profile: FC<Props> = ({ profile }) => {
 
   const isLoading =
     isUploading || typedDataLoading || dispatcherLoading || signLoading || writeLoading || broadcastLoading;
+  const txHash =
+    writeData?.hash ??
+    broadcastData?.broadcast?.txHash ??
+    (dispatcherData?.createSetProfileMetadataViaDispatcher.__typename === 'RelayerResult' &&
+      dispatcherData?.createSetProfileMetadataViaDispatcher.txHash);
 
   return (
     <Card>
@@ -297,17 +302,7 @@ const Profile: FC<Props> = ({ profile }) => {
             >
               Save
             </Button>
-            {writeData?.hash ??
-            broadcastData?.broadcast?.txHash ??
-            dispatcherData?.createSetProfileMetadataViaDispatcher?.txHash ? (
-              <IndexStatus
-                txHash={
-                  writeData?.hash ??
-                  broadcastData?.broadcast?.txHash ??
-                  dispatcherData?.createSetProfileMetadataViaDispatcher?.txHash
-                }
-              />
-            ) : null}
+            {txHash ? <IndexStatus txHash={txHash} /> : null}
           </div>
         </Form>
       </CardBody>

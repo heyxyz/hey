@@ -7,8 +7,8 @@ import { Card, CardBody } from '@components/UI/Card';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
+import { CreateSetDefaultProfileTypedDataDocument } from '@generated/documents';
 import { Mutation, Profile, SetDefaultProfileBroadcastItemResult } from '@generated/types';
-import { CREATE_SET_DEFAULT_PROFILE_DATA_MUTATION } from '@gql/TypedAndDispatcherData/CreateSetDefaultProfile';
 import { ExclamationIcon, PencilIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
 import { Mixpanel } from '@lib/mixpanel';
@@ -62,7 +62,7 @@ const SetProfile: FC = () => {
 
   const { broadcast, data: broadcastData, loading: broadcastLoading } = useBroadcast({ onCompleted });
   const [createSetDefaultProfileTypedData, { loading: typedDataLoading }] = useMutation<Mutation>(
-    CREATE_SET_DEFAULT_PROFILE_DATA_MUTATION,
+    CreateSetDefaultProfileTypedDataDocument,
     {
       onCompleted: async ({
         createSetDefaultProfileTypedData

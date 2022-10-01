@@ -1,4 +1,10 @@
 schema: https://api-mumbai.lens.dev
+documents:
+  [
+    './src/graphql/queries/*.graphql',
+    './src/graphql/mutations/*.graphql',
+    './src/graphql/fragments/*.graphql'
+  ]
 
 hooks:
   afterOneFileWrite:
@@ -10,3 +16,15 @@ generates:
     plugins:
       - typescript
       - fragment-matcher
+    config:
+      fetcher: fetch
+      dedupeFragments: true
+
+  src/generated/documents.ts:
+    plugins:
+      - typescript
+      - typescript-operations
+      - typed-document-node
+    config:
+      fetcher: fetch
+      dedupeFragments: true

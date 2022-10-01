@@ -1,5 +1,6 @@
-import { gql, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import { Modal } from '@components/UI/Modal';
+import { MutualFollowersDocument } from '@generated/documents';
 import { Profile } from '@generated/types';
 import { UsersIcon } from '@heroicons/react/outline';
 import getAvatar from '@lib/getAvatar';
@@ -10,30 +11,6 @@ import { PROFILE } from 'src/tracking';
 
 import MutualFollowersList from './List';
 
-export const MUTUAL_FOLLOWERS_QUERY = gql`
-  query MutualFollowersProfiles($request: MutualFollowersProfilesQueryRequest!) {
-    mutualFollowersProfiles(request: $request) {
-      items {
-        handle
-        name
-        picture {
-          ... on MediaSet {
-            original {
-              url
-            }
-          }
-          ... on NftImage {
-            uri
-          }
-        }
-      }
-      pageInfo {
-        totalCount
-      }
-    }
-  }
-`;
-
 interface Props {
   profile: Profile;
 }
@@ -42,7 +19,7 @@ const MutualFollowers: FC<Props> = ({ profile }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [showMutualFollowersModal, setShowMutualFollowersModal] = useState(false);
 
-  const { data, loading, error } = useQuery(MUTUAL_FOLLOWERS_QUERY, {
+  const { data, loading, error } = useQuery(MutualFollowersDocument, {
     variables: {
       request: {
         viewingProfileId: profile?.id,
@@ -54,8 +31,8 @@ const MutualFollowers: FC<Props> = ({ profile }) => {
     fetchPolicy: 'no-cache'
   });
 
-  const profiles = data?.mutualFollowersProfiles?.items;
-  const totalCount = data?.mutualFollowersProfiles?.pageInfo?.totalCount;
+  const profiles = data?.mutualFollowersProfiles?.items ?? [];
+  const totalCount = data?.mutualFollowersProfiles?.pageInfo?.totalCount ?? 0;
 
   const Wrapper = ({ children }: { children: ReactNode }) => (
     <div
@@ -66,7 +43,7 @@ const MutualFollowers: FC<Props> = ({ profile }) => {
       }}
     >
       <div className="contents -space-x-2">
-        {profiles?.map((profile: Profile) => (
+        {profiles?.map((profile: any) => (
           <img
             key={profile?.id}
             className="w-5 h-5 rounded-full border dark:border-gray-700/80"

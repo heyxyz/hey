@@ -1,16 +1,9 @@
-import { gql } from '@apollo/client';
 import { LensterPublication } from '@generated/lenstertypes';
 import { Menu } from '@headlessui/react';
 import { ShieldExclamationIcon } from '@heroicons/react/outline';
 import clsx from 'clsx';
 import React, { FC } from 'react';
 import { useGlobalModalStateStore } from 'src/store/modals';
-
-export const HIDE_POST_MUTATION = gql`
-  mutation HidePublication($request: HidePublicationRequest!) {
-    hidePublication(request: $request)
-  }
-`;
 
 interface Props {
   publication: LensterPublication;

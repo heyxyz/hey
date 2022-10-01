@@ -1,10 +1,11 @@
-import { gql, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import SingleNFT from '@components/NFT/SingleNFT';
 import NFTSShimmer from '@components/Shared/Shimmer/NFTSShimmer';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
-import { Nft, Profile } from '@generated/types';
+import { NftFeedDocument } from '@generated/documents';
+import { Profile } from '@generated/types';
 import { CollectionIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import React, { FC } from 'react';
@@ -12,28 +13,6 @@ import { useInView } from 'react-cool-inview';
 import { CHAIN_ID, IS_MAINNET, PAGINATION_ROOT_MARGIN } from 'src/constants';
 import { PAGINATION } from 'src/tracking';
 import { chain } from 'wagmi';
-
-const PROFILE_NFT_FEED_QUERY = gql`
-  query ProfileNFTFeed($request: NFTsRequest!) {
-    nfts(request: $request) {
-      items {
-        name
-        collectionName
-        contractAddress
-        tokenId
-        chainId
-        originalContent {
-          uri
-          animatedUrl
-        }
-      }
-      pageInfo {
-        next
-        totalCount
-      }
-    }
-  }
-`;
 
 interface Props {
   profile: Profile;
@@ -47,7 +26,7 @@ const NFTFeed: FC<Props> = ({ profile }) => {
     limit: 10
   };
 
-  const { data, loading, error, fetchMore } = useQuery(PROFILE_NFT_FEED_QUERY, {
+  const { data, loading, error, fetchMore } = useQuery(NftFeedDocument, {
     variables: { request },
     skip: !profile?.ownedBy
   });
@@ -87,7 +66,7 @@ const NFTFeed: FC<Props> = ({ profile }) => {
       {!error && (
         <>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            {nfts?.map((nft: Nft) => (
+            {nfts?.map((nft: any) => (
               <div key={`${nft?.chainId}_${nft?.contractAddress}_${nft?.tokenId}`}>
                 <SingleNFT nft={nft} />
               </div>

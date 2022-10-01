@@ -4,8 +4,8 @@ import IFramely from '@components/Shared/IFramely';
 import Markup from '@components/Shared/Markup';
 import UserProfile from '@components/Shared/UserProfile';
 import { Tooltip } from '@components/UI/Tooltip';
+import { HasTxHashBeenIndexedDocument, PublicationDocument } from '@generated/documents';
 import { Profile, PublicationMetadataStatusType } from '@generated/types';
-import { TX_STATUS_QUERY } from '@gql/HasTxHashBeenIndexed';
 import getURLs from '@lib/getURLs';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
@@ -13,8 +13,6 @@ import React, { FC } from 'react';
 import { POLYGONSCAN_URL } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { useTransactionPersistStore } from 'src/store/transaction';
-
-import { PUBLICATION_QUERY } from '.';
 
 dayjs.extend(relativeTime);
 
@@ -29,15 +27,15 @@ const QueuedPublication: FC<Props> = ({ txn }) => {
   const { cache } = useApolloClient();
   const txHash = txn?.txHash;
 
-  const [getPublication] = useLazyQuery(PUBLICATION_QUERY, {
+  const [getPublication] = useLazyQuery(PublicationDocument, {
     onCompleted: (data) => {
       if (data?.publication) {
         cache.modify({
           fields: {
             [txn?.type === 'NEW_POST' ? 'timeline' : 'publications']() {
               cache.writeQuery({
-                data: data?.publication,
-                query: PUBLICATION_QUERY
+                data: data?.publication as any,
+                query: PublicationDocument
               });
             }
           }
@@ -47,29 +45,33 @@ const QueuedPublication: FC<Props> = ({ txn }) => {
     }
   });
 
-  useQuery(TX_STATUS_QUERY, {
+  useQuery(HasTxHashBeenIndexedDocument, {
     variables: { request: { txHash } },
     pollInterval: 1000,
     onCompleted: (data) => {
-      const status = data.hasTxHashBeenIndexed?.metadataStatus?.status;
-      const hasFailReason = 'reason' in data.hasTxHashBeenIndexed;
-
-      if (
-        status === PublicationMetadataStatusType.MetadataValidationFailed ||
-        status === PublicationMetadataStatusType.NotFound ||
-        hasFailReason
-      ) {
+      if (data.hasTxHashBeenIndexed.__typename === 'TransactionError') {
         return setTxnQueue(txnQueue.filter((o) => o.txHash !== txHash));
       }
 
-      if (data.hasTxHashBeenIndexed?.indexed) {
-        getPublication({
-          variables: {
-            request: { txHash },
-            reactionRequest: currentProfile ? { profileId: currentProfile?.id } : null,
-            profileId: currentProfile?.id ?? null
-          }
-        });
+      if (data.hasTxHashBeenIndexed.__typename === 'TransactionIndexedResult') {
+        const status = data.hasTxHashBeenIndexed.metadataStatus?.status;
+
+        if (
+          status === PublicationMetadataStatusType.MetadataValidationFailed ||
+          status === PublicationMetadataStatusType.NotFound
+        ) {
+          return setTxnQueue(txnQueue.filter((o) => o.txHash !== txHash));
+        }
+
+        if (data.hasTxHashBeenIndexed.indexed) {
+          getPublication({
+            variables: {
+              request: { txHash },
+              reactionRequest: currentProfile ? { profileId: currentProfile?.id } : null,
+              profileId: currentProfile?.id ?? null
+            }
+          });
+        }
       }
     }
   });

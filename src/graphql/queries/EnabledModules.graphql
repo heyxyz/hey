@@ -1,0 +1,14 @@
+query EnabledModules {
+  enabledModules {
+    collectModules {
+      moduleName
+      contractAddress
+    }
+  }
+  enabledModuleCurrencies {
+    name
+    symbol
+    decimals
+    address
+  }
+}

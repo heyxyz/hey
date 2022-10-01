@@ -1,0 +1,13 @@
+query SearchProfiles($request: SearchQueryRequest!) {
+  search(request: $request) {
+    ... on ProfileSearchResult {
+      items {
+        ...ProfileFields
+      }
+      pageInfo {
+        next
+        totalCount
+      }
+    }
+  }
+}

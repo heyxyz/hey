@@ -1,0 +1,15 @@
+query Following($request: FollowingRequest!) {
+  following(request: $request) {
+    items {
+      profile {
+        ...ProfileFields
+        isFollowedByMe
+      }
+      totalAmountOfTimesFollowing
+    }
+    pageInfo {
+      next
+      totalCount
+    }
+  }
+}

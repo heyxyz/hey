@@ -1,0 +1,15 @@
+query Likes($request: WhoReactedPublicationRequest!) {
+  whoReactedPublication(request: $request) {
+    items {
+      reactionId
+      profile {
+        ...ProfileFields
+        isFollowedByMe
+      }
+    }
+    pageInfo {
+      next
+      totalCount
+    }
+  }
+}

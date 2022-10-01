@@ -1,8 +1,9 @@
-import { gql, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout';
 import { Card, CardBody } from '@components/UI/Card';
 import { PageLoading } from '@components/UI/PageLoading';
 import Seo from '@components/utils/Seo';
+import { ProfileSettingsDocument } from '@generated/documents';
 import { PhotographIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import clsx from 'clsx';
@@ -19,39 +20,6 @@ import NFTPicture from './NFTPicture';
 import Picture from './Picture';
 import Profile from './Profile';
 
-const PROFILE_SETTINGS_QUERY = gql`
-  query ProfileSettings($request: SingleProfileQueryRequest!) {
-    profile(request: $request) {
-      id
-      name
-      bio
-      attributes {
-        key
-        value
-      }
-      coverPicture {
-        ... on MediaSet {
-          original {
-            url
-          }
-        }
-      }
-      picture {
-        ... on MediaSet {
-          original {
-            url
-          }
-        }
-        ... on NftImage {
-          uri
-          tokenId
-          contractAddress
-        }
-      }
-    }
-  }
-`;
-
 const ProfileSettings: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [settingsType, setSettingsType] = useState<'NFT' | 'AVATAR'>('AVATAR');
@@ -60,10 +28,11 @@ const ProfileSettings: NextPage = () => {
     Mixpanel.track('Pageview', { path: PAGEVIEW.SETTINGS.PROFILE });
   }, []);
 
-  const { data, loading, error } = useQuery(PROFILE_SETTINGS_QUERY, {
+  const { data, loading, error } = useQuery(ProfileSettingsDocument, {
     variables: { request: { profileId: currentProfile?.id } },
     skip: !currentProfile?.id,
     onCompleted: (data) => {
+      // @ts-ignore
       setSettingsType(data?.profile?.picture?.uri ? 'NFT' : 'AVATAR');
     }
   });
@@ -113,14 +82,18 @@ const ProfileSettings: NextPage = () => {
         <Sidebar />
       </GridItemFour>
       <GridItemEight className="space-y-5">
-        <Profile profile={profile} />
+        <Profile profile={profile as any} />
         <Card>
           <CardBody className="space-y-5">
             <div className="flex items-center space-x-2">
               <TypeButton icon={<PhotographIcon className="w-5 h-5" />} type="AVATAR" name="Upload avatar" />
               <TypeButton icon={<PhotographIcon className="w-5 h-5" />} type="NFT" name="NFT Avatar" />
             </div>
-            {settingsType === 'NFT' ? <NFTPicture profile={profile} /> : <Picture profile={profile} />}
+            {settingsType === 'NFT' ? (
+              <NFTPicture profile={profile as any} />
+            ) : (
+              <Picture profile={profile as any} />
+            )}
           </CardBody>
         </Card>
       </GridItemEight>

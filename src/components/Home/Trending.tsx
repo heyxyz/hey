@@ -1,7 +1,8 @@
-import { gql, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import TrendingTagShimmer from '@components/Shared/Shimmer/TrendingTagShimmer';
 import { Card, CardBody } from '@components/UI/Card';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
+import { TrendingDocument } from '@generated/documents';
 import { TagResult, TagSortCriteria } from '@generated/types';
 import { TrendingUpIcon } from '@heroicons/react/solid';
 import { Mixpanel } from '@lib/mixpanel';
@@ -9,17 +10,6 @@ import nFormatter from '@lib/nFormatter';
 import Link from 'next/link';
 import React, { FC } from 'react';
 import { MISCELLANEOUS } from 'src/tracking';
-
-export const TRENDING_QUERY = gql`
-  query Trending($request: AllPublicationsTagsRequest!) {
-    allPublicationsTags(request: $request) {
-      items {
-        tag
-        total
-      }
-    }
-  }
-`;
 
 const Title = () => {
   return (
@@ -31,7 +21,7 @@ const Title = () => {
 };
 
 const Trending: FC = () => {
-  const { data, loading, error } = useQuery(TRENDING_QUERY, {
+  const { data, loading, error } = useQuery(TrendingDocument, {
     variables: {
       request: { limit: 7, sort: TagSortCriteria.MostPopular }
     },
