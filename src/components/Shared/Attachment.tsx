@@ -1,103 +1,138 @@
-import { Spinner } from '@components/UI/Spinner';
-import { Tooltip } from '@components/UI/Tooltip';
+import { Button } from '@components/UI/Button';
 import { LensterAttachment } from '@generated/lenstertypes';
-import { PhotographIcon } from '@heroicons/react/outline';
-import uploadMediaToIPFS from '@lib/uploadMediaToIPFS';
-import { motion } from 'framer-motion';
-import { ChangeEvent, Dispatch, FC, useId, useState } from 'react';
-import toast from 'react-hot-toast';
-import { ALLOWED_MEDIA_TYPES } from 'src/constants';
+import { MediaSet } from '@generated/types';
+import { ExternalLinkIcon, XIcon } from '@heroicons/react/outline';
+import getIPFSLink from '@lib/getIPFSLink';
+import imagekitURL from '@lib/imagekitURL';
+import clsx from 'clsx';
+import disableScroll from 'disable-scroll';
+import dynamic from 'next/dynamic';
+import React, { FC, useState } from 'react';
+// @ts-ignore
+import { Lightbox } from 'react-modal-image';
 
-interface Props {
-  attachments: LensterAttachment[];
-  setAttachments: Dispatch<LensterAttachment[]>;
-}
+const Video = dynamic(() => import('./Video'), {
+  loading: () => <div className="rounded-lg aspect-w-16 aspect-h-12 shimmer" />
+});
 
-const Attachment: FC<Props> = ({ attachments, setAttachments }) => {
-  const [loading, setLoading] = useState(false);
-  const id = useId();
-
-  const hasVideos = (files: any) => {
-    let videos = 0;
-    let images = 0;
-
-    for (const file of files) {
-      if (file.type === 'video/mp4') {
-        videos = videos + 1;
-      } else {
-        images = images + 1;
-      }
-    }
-
-    if (videos > 0) {
-      if (videos > 1) {
-        return true;
-      }
-
-      return images > 0 ? true : false;
-    }
-
-    return false;
-  };
-
-  const isTypeAllowed = (files: any) => {
-    for (const file of files) {
-      if (ALLOWED_MEDIA_TYPES.includes(file.type)) {
-        return true;
-      }
-    }
-
-    return false;
-  };
-
-  const handleAttachment = async (evt: ChangeEvent<HTMLInputElement>) => {
-    evt.preventDefault();
-    setLoading(true);
-
-    try {
-      // Count check
-      if (evt.target.files && (hasVideos(evt.target.files) || evt.target.files.length > 4)) {
-        return toast.error('Please choose either 1 video or up to 4 photos.');
-      }
-
-      // Type check
-      if (isTypeAllowed(evt.target.files)) {
-        const attachment = await uploadMediaToIPFS(evt.target.files);
-        if (attachment) {
-          setAttachments(attachment);
-        }
-      } else {
-        return toast.error('File format not allowed.');
-      }
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  return (
-    <div>
-      <motion.button whileTap={{ scale: 0.9 }} type="button" aria-label="Choose Attachment">
-        <label className="flex gap-1 items-center cursor-pointer" htmlFor={id}>
-          {loading ? (
-            <Spinner size="sm" />
-          ) : (
-            <Tooltip placement="top" content="Media">
-              <PhotographIcon className="w-5 h-5 text-brand" />
-            </Tooltip>
-          )}
-          <input
-            id={id}
-            type="file"
-            multiple
-            accept="image/*, video/*"
-            className="hidden"
-            onChange={handleAttachment}
-            disabled={attachments.length >= 4}
-          />
-        </label>
-      </motion.button>
-    </div>
-  );
+const getClass = (attachments: number) => {
+  if (attachments === 1) {
+    return {
+      aspect: '',
+      row: 'grid-cols-1 grid-rows-1 w-2/3'
+    };
+  } else if (attachments === 2) {
+    return {
+      aspect: 'aspect-w-16 aspect-h-12',
+      row: 'grid-cols-2 grid-rows-1'
+    };
+  } else if (attachments > 2) {
+    return {
+      aspect: 'aspect-w-16 aspect-h-12',
+      row: 'grid-cols-2 grid-rows-2'
+    };
+  }
 };
 
-export default Attachment;
+interface Props {
+  attachments: any;
+  setAttachments?: any;
+  isNew?: boolean;
+  hideDelete?: boolean;
+}
+
+const Attachments: FC<Props> = ({ attachments, setAttachments, isNew = false, hideDelete = false }) => {
+  const [isImageExpanded, setIsImageExpanded] = useState<boolean>(false);
+
+  const removeAttachment = (attachment: any) => {
+    const arr = attachments;
+    setAttachments(
+      arr.filter(function (ele: any) {
+        return ele != attachment;
+      })
+    );
+  };
+
+  const handleExpand = () => {
+    setIsImageExpanded(true);
+    disableScroll.on();
+  };
+
+  const handleCollapse = () => {
+    setIsImageExpanded(false);
+    disableScroll.off();
+  };
+
+  const slicedAttachments = isNew
+    ? attachments?.slice(0, 4)
+    : attachments?.some((e: any) => e.original.mimeType === 'video/mp4')
+    ? attachments?.slice(0, 1)
+    : attachments?.slice(0, 4);
+
+  return slicedAttachments?.length !== 0 ? (
+    <div className={clsx(getClass(slicedAttachments?.length)?.row, 'grid grid-flow-col gap-2 pt-3')}>
+      {slicedAttachments?.map((attachment: LensterAttachment & MediaSet) => {
+        const type = isNew ? attachment.type : attachment.original.mimeType;
+        const url = isNew ? getIPFSLink(attachment.item) : getIPFSLink(attachment.original.url);
+
+        return (
+          <div
+            className={clsx(type === 'video/mp4' ? '' : getClass(slicedAttachments?.length)?.aspect)}
+            key={url}
+            onClick={(event) => {
+              event.stopPropagation();
+            }}
+          >
+            {type === 'image/svg+xml' ? (
+              <Button
+                className="text-sm"
+                variant="primary"
+                icon={<ExternalLinkIcon className="h-4 w-4" />}
+                onClick={() => {
+                  window.open(url, '_blank');
+                }}
+              >
+                <span>Open Image in new tab</span>
+              </Button>
+            ) : type === 'video/mp4' ? (
+              <Video src={url} />
+            ) : (
+              <>
+                {isImageExpanded && (
+                  <Lightbox
+                    small={url}
+                    large={url}
+                    hideDownload
+                    hideZoom
+                    alt={imagekitURL(url, 'attachment')}
+                    onClose={() => handleCollapse()}
+                  />
+                )}
+                <img
+                  className="object-cover bg-gray-100 rounded-lg border cursor-pointer dark:bg-gray-800 dark:border-gray-700/80"
+                  loading="lazy"
+                  onClick={() => handleExpand()}
+                  src={imagekitURL(url, 'attachment')}
+                  alt={imagekitURL(url, 'attachment')}
+                />
+              </>
+            )}
+            {isNew && !hideDelete && (
+              <div className="m-3">
+                <button
+                  type="button"
+                  className="p-1.5 bg-gray-900 rounded-full opacity-75"
+                  onClick={() => removeAttachment(attachment)}
+                >
+                  <XIcon className="w-4 h-4 text-white" />
+                </button>
+              </div>
+            )}
+          </div>
+        );
+      })}
+    </div>
+  ) : null;
+};
+
+export default Attachments;

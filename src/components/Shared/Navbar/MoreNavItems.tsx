@@ -2,13 +2,10 @@ import { Menu, Transition } from '@headlessui/react';
 import { SupportIcon } from '@heroicons/react/outline';
 import clsx from 'clsx';
 import { FC, Fragment } from 'react';
-import { useAppStore } from 'src/store/app';
 
 import { NextLink } from './MenuItems';
 
 const MoreNavItems: FC = () => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
-
   return (
     <Menu as="div">
       {({ open }) => (
