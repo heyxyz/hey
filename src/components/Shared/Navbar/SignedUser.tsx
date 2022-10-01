@@ -1,6 +1,5 @@
-import { useQuery } from '@apollo/client';
 import useStaffMode from '@components/utils/hooks/useStaffMode';
-import { Profile, RecommendedProfilesDocument } from '@generated/types';
+import { Profile } from '@generated/types';
 import { Menu, Transition } from '@headlessui/react';
 import {
   CheckCircleIcon,
@@ -37,7 +36,6 @@ const SignedUser: FC = () => {
   const { allowed: staffMode } = useStaffMode();
   const { theme, setTheme } = useTheme();
   const { disconnect } = useDisconnect();
-  const { refetch } = useQuery(RecommendedProfilesDocument);
 
   const toggleStaffMode = () => {
     setStaffMode(!staffMode);
@@ -143,7 +141,6 @@ const SignedUser: FC = () => {
                             const selectedProfile = profiles[index];
                             setCurrentProfile(selectedProfile);
                             setProfileId(selectedProfile.id);
-                            refetch();
                             Mixpanel.track(PROFILE.SWITCH_PROFILE);
                           }}
                         >
