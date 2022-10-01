@@ -28,7 +28,7 @@ const List: FC = () => {
   const request = {
     profileId: currentProfile?.id,
     customFilters: [CustomFiltersTypes.Gardeners],
-    limit: 10
+    limit: 20
   };
 
   const { data, loading, error, fetchMore } = useQuery(NotificationsDocument, {
@@ -105,7 +105,7 @@ const List: FC = () => {
           )}
         </div>
       ))}
-      {pageInfo?.next && (
+      {pageInfo?.next && notifications?.length !== pageInfo.totalCount && (
         <span ref={observe} className="flex justify-center p-5">
           <Spinner size="sm" />
         </span>

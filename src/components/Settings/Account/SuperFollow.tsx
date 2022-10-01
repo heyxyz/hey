@@ -26,7 +26,7 @@ import { SETTINGS } from 'src/tracking';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 import { object, string } from 'zod';
 
-const newCrowdfundSchema = object({
+const newSuperFollowSchema = object({
   amount: string().min(1, { message: 'Invalid amount' }),
   recipient: string()
     .max(42, { message: 'Ethereum address should be within 42 characters' })
@@ -63,7 +63,7 @@ const SuperFollow: FC = () => {
   });
 
   const form = useZodForm({
-    schema: newCrowdfundSchema,
+    schema: newSuperFollowSchema,
     defaultValues: {
       recipient: currentProfile?.ownedBy
     }

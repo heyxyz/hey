@@ -20,17 +20,14 @@ interface Props {
 const ThreadBody: FC<Props> = ({ publication }) => {
   const { push } = useRouter();
   const isMirror = publication.__typename === 'Mirror';
-  const isCrowdfund = publication?.metadata?.attributes[0]?.value === 'crowdfund';
   const profile = isMirror ? publication?.mirrorOf?.profile : publication?.profile;
   const timestamp = isMirror ? publication?.mirrorOf?.createdAt : publication?.createdAt;
 
   return (
     <article
       onClick={() => {
-        if (!isCrowdfund) {
-          push(`/posts/${publication?.id}`);
-          Mixpanel.track(PUBLICATION.OPEN);
-        }
+        push(`/posts/${publication?.id}`);
+        Mixpanel.track(PUBLICATION.OPEN);
       }}
     >
       <div className="flex justify-between space-x-1.5">

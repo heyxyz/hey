@@ -33,8 +33,8 @@ const Feed: FC = () => {
     variables: { request, reactionRequest, profileId }
   });
 
-  const pageInfo = data?.explorePublications?.pageInfo;
   const publications = data?.explorePublications?.items;
+  const pageInfo = data?.explorePublications?.pageInfo;
 
   const { observe } = useInView({
     onChange: async ({ inView }) => {
@@ -85,7 +85,7 @@ const Feed: FC = () => {
               />
             ))}
           </Card>
-          {pageInfo?.next && publications?.length !== pageInfo?.totalCount && (
+          {pageInfo?.next && publications?.length !== pageInfo.totalCount && (
             <span ref={observe} className="flex justify-center p-5">
               <Spinner size="sm" />
             </span>

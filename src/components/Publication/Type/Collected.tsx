@@ -1,5 +1,5 @@
 import Slug from '@components/Shared/Slug';
-import { LensterPublication } from '@generated/lenstertypes';
+import { Comment, Post } from '@generated/types';
 import { CollectionIcon } from '@heroicons/react/outline';
 import formatAddress from '@lib/formatAddress';
 import Link from 'next/link';
@@ -7,13 +7,10 @@ import React, { FC } from 'react';
 import { POLYGONSCAN_URL } from 'src/constants';
 
 interface Props {
-  publication: LensterPublication;
-  type: string;
+  publication: Post | Comment;
 }
 
-const Collected: FC<Props> = ({ publication, type }) => {
-  const publicationType = publication?.metadata?.attributes[0]?.value;
-
+const Collected: FC<Props> = ({ publication }) => {
   return (
     <div className="flex items-center pb-4 space-x-1 text-gray-500 text-[13px]">
       <CollectionIcon className="w-4 h-4" />
@@ -36,14 +33,8 @@ const Collected: FC<Props> = ({ publication, type }) => {
           </a>
         )}
         <Link href={`/posts/${publication?.id}`}>
-          <span>{type} the </span>
-          <b>
-            {publication.__typename === 'Post'
-              ? publicationType === 'crowdfund'
-                ? 'crowdfund'
-                : (publication.__typename as string)?.toLowerCase()
-              : (publication.__typename as any)?.toLowerCase()}
-          </b>
+          <span>collected the </span>
+          <b>{publication.__typename?.toLowerCase()}</b>
         </Link>
       </div>
     </div>

@@ -80,7 +80,7 @@ const Following: FC<Props> = ({ profile }) => {
             </div>
           ))}
         </div>
-        {pageInfo?.next && followings?.length !== pageInfo?.totalCount && (
+        {pageInfo?.next && followings?.length !== pageInfo.totalCount && (
           <span ref={observe} className="flex justify-center p-5">
             <Spinner size="md" />
           </span>
