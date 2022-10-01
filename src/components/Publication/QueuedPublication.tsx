@@ -4,9 +4,8 @@ import IFramely from '@components/Shared/IFramely';
 import Markup from '@components/Shared/Markup';
 import UserProfile from '@components/Shared/UserProfile';
 import { Tooltip } from '@components/UI/Tooltip';
-import { PublicationDocument } from '@generated/documents';
+import { HasTxHashBeenIndexedDocument, PublicationDocument } from '@generated/documents';
 import { Profile, PublicationMetadataStatusType } from '@generated/types';
-import { TX_STATUS_QUERY } from '@gql/HasTxHashBeenIndexed';
 import getURLs from '@lib/getURLs';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
@@ -46,7 +45,7 @@ const QueuedPublication: FC<Props> = ({ txn }) => {
     }
   });
 
-  useQuery(TX_STATUS_QUERY, {
+  useQuery(HasTxHashBeenIndexedDocument, {
     variables: { request: { txHash } },
     pollInterval: 1000,
     onCompleted: (data) => {

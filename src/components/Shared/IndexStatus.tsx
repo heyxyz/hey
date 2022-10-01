@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client';
 import { Spinner } from '@components/UI/Spinner';
-import { TX_STATUS_QUERY } from '@gql/HasTxHashBeenIndexed';
+import { HasTxHashBeenIndexedDocument } from '@generated/documents';
 import { CheckCircleIcon } from '@heroicons/react/solid';
 import clsx from 'clsx';
 import React, { FC, useState } from 'react';
@@ -15,7 +15,7 @@ interface Props {
 const IndexStatus: FC<Props> = ({ type = 'Transaction', txHash, reload = false }) => {
   const [hide, setHide] = useState(false);
   const [pollInterval, setPollInterval] = useState(500);
-  const { data, loading } = useQuery(TX_STATUS_QUERY, {
+  const { data, loading } = useQuery(HasTxHashBeenIndexedDocument, {
     variables: {
       request: { txHash }
     },

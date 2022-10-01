@@ -1,7 +1,7 @@
 import { useQuery } from '@apollo/client';
 import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
-import { TX_STATUS_QUERY } from '@gql/HasTxHashBeenIndexed';
+import { HasTxHashBeenIndexedDocument } from '@generated/documents';
 import { ArrowRightIcon } from '@heroicons/react/outline';
 import React, { FC } from 'react';
 import { IS_MAINNET } from 'src/constants';
@@ -12,7 +12,7 @@ interface Props {
 }
 
 const Pending: FC<Props> = ({ handle, txHash }) => {
-  const { data, loading } = useQuery(TX_STATUS_QUERY, {
+  const { data, loading } = useQuery(HasTxHashBeenIndexedDocument, {
     variables: {
       request: { txHash }
     },

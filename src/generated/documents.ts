@@ -6953,6 +6953,24 @@ export type GenerateModuleCurrencyApprovalDataQuery = {
   };
 };
 
+export type HasTxHashBeenIndexedQueryVariables = Exact<{
+  request: HasTxHashBeenIndexedRequest;
+}>;
+
+export type HasTxHashBeenIndexedQuery = {
+  __typename?: 'Query';
+  hasTxHashBeenIndexed:
+    | { __typename?: 'TransactionError'; reason: TransactionErrorReasons }
+    | {
+        __typename?: 'TransactionIndexedResult';
+        indexed: boolean;
+        metadataStatus?: {
+          __typename?: 'PublicationMetadataStatus';
+          status: PublicationMetadataStatusType;
+        } | null;
+      };
+};
+
 export type HomeFeedQueryVariables = Exact<{
   request: TimelineRequest;
   reactionRequest?: InputMaybe<ReactionFieldResolverRequest>;
@@ -14254,6 +14272,76 @@ export const GenerateModuleCurrencyApprovalDataDocument = {
   GenerateModuleCurrencyApprovalDataQuery,
   GenerateModuleCurrencyApprovalDataQueryVariables
 >;
+export const HasTxHashBeenIndexedDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'HasTxHashBeenIndexed' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'request' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'HasTxHashBeenIndexedRequest' } }
+          }
+        }
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'hasTxHashBeenIndexed' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'request' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'request' } }
+              }
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'InlineFragment',
+                  typeCondition: {
+                    kind: 'NamedType',
+                    name: { kind: 'Name', value: 'TransactionIndexedResult' }
+                  },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'metadataStatus' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [{ kind: 'Field', name: { kind: 'Name', value: 'status' } }]
+                        }
+                      },
+                      { kind: 'Field', name: { kind: 'Name', value: 'indexed' } }
+                    ]
+                  }
+                },
+                {
+                  kind: 'InlineFragment',
+                  typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'TransactionError' } },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [{ kind: 'Field', name: { kind: 'Name', value: 'reason' } }]
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+} as unknown as DocumentNode<HasTxHashBeenIndexedQuery, HasTxHashBeenIndexedQueryVariables>;
 export const HomeFeedDocument = {
   kind: 'Document',
   definitions: [
