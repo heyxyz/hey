@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/client';
-import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout';
+import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import Seo from '@components/utils/Seo';
 import { ProfileDocument } from '@generated/documents';
 import { Mixpanel } from '@lib/mixpanel';

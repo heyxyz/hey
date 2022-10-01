@@ -1,7 +1,7 @@
-import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout';
 import RecommendedProfiles from '@components/Home/RecommendedProfiles';
 import Trending from '@components/Home/Trending';
 import Footer from '@components/Shared/Footer';
+import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import Seo from '@components/utils/Seo';
 import { PublicationSortCriteria } from '@generated/types';
 import { Mixpanel } from '@lib/mixpanel';

@@ -1,5 +1,5 @@
-import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout';
 import SuperFollow from '@components/Settings/Account/SuperFollow';
+import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import Seo from '@components/utils/Seo';
 import { Mixpanel } from '@lib/mixpanel';
 import { NextPage } from 'next';

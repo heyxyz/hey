@@ -1,10 +1,10 @@
 import { useQuery } from '@apollo/client';
 import Feed from '@components/Comment/Feed';
-import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout';
 import Footer from '@components/Shared/Footer';
 import UserProfile from '@components/Shared/UserProfile';
 import PublicationStaffTool from '@components/StaffTools/Panels/Publication';
 import { Card, CardBody } from '@components/UI/Card';
+import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import useStaffMode from '@components/utils/hooks/useStaffMode';
 import Seo from '@components/utils/Seo';
 import { PublicationDocument } from '@generated/documents';

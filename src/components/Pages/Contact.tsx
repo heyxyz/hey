@@ -1,9 +1,9 @@
-import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout';
 import SettingsHelper from '@components/Shared/SettingsHelper';
 import { Button } from '@components/UI/Button';
 import { Card } from '@components/UI/Card';
 import { EmptyState } from '@components/UI/EmptyState';
 import { Form, useZodForm } from '@components/UI/Form';
+import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import { Input } from '@components/UI/Input';
 import { TextArea } from '@components/UI/TextArea';
 import Seo from '@components/utils/Seo';
