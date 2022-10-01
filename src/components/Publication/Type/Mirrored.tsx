@@ -24,13 +24,7 @@ const Mirrored: FC<Props> = ({ publication }) => {
         </Link>
         <Link href={`/posts/${publication?.mirrorOf?.id}`}>
           <span>mirrored the </span>
-          <b>
-            {publication?.mirrorOf.__typename === 'Post'
-              ? publicationType === 'crowdfund'
-                ? 'crowdfund'
-                : publication?.mirrorOf.__typename?.toLowerCase()
-              : publication?.mirrorOf.__typename?.toLowerCase()}
-          </b>
+          <b>{publication?.mirrorOf.__typename?.toLowerCase()}</b>
         </Link>
       </div>
     </div>

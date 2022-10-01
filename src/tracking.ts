@@ -67,12 +67,6 @@ export const COMMENT = {
   NEW: 'New comment'
 };
 
-export const CROWDFUND = {
-  NEW: 'New crowdfund',
-  FUND: 'Fund a crowdfund',
-  OPEN_FUNDERS: 'Open funders list'
-};
-
 export const NOTIFICATION = {
   OPEN: 'Open notifications'
 };
@@ -143,7 +137,6 @@ export const PAGEVIEW = {
   THANKS: 'Thanks page',
   PRIVACY: 'Privacy page',
   CONTACT: 'Contact page',
-  CREATE_CROWDFUND: 'Create crowdfund page',
   CREATE_PROFILE: 'Create profile page',
   MOD: 'Mod page',
   ERROR_500: 'Error 500 page',

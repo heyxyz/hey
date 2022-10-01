@@ -26,12 +26,7 @@ const PublicationType: FC<Props> = ({ publication, showType, showThread = false 
       {type === 'Mirror' && <Mirrored publication={publication} />}
       {type === 'Comment' && !showThread && <CommentedPublication publication={publication} />}
       {type === 'Comment' && showThread && !isCollected && <Commented publication={publication} />}
-      {isCollected && publicationType !== 'crowdfund' && (
-        <Collected publication={publication} type="collected" />
-      )}
-      {isCollected && publicationType === 'crowdfund' && (
-        <Collected publication={publication} type="funded" />
-      )}
+      {isCollected && <Collected publication={publication} />}
     </>
   );
 };

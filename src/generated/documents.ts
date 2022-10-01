@@ -10180,7 +10180,6 @@ export type LensterStatsQuery = {
       asset: { __typename?: 'Erc20'; symbol: string };
     }>;
   };
-  crowdfundStats: { __typename?: 'GlobalProtocolStats'; totalPosts: number };
 };
 
 export type LikesQueryVariables = Exact<{
@@ -19448,31 +19447,6 @@ export const LensterStatsDocument = {
                   }
                 }
               ]
-            }
-          },
-          {
-            kind: 'Field',
-            alias: { kind: 'Name', value: 'crowdfundStats' },
-            name: { kind: 'Name', value: 'globalProtocolStats' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'request' },
-                value: {
-                  kind: 'ObjectValue',
-                  fields: [
-                    {
-                      kind: 'ObjectField',
-                      name: { kind: 'Name', value: 'sources' },
-                      value: { kind: 'StringValue', value: 'Lenster Crowdfund', block: false }
-                    }
-                  ]
-                }
-              }
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'totalPosts' } }]
             }
           }
         ]
