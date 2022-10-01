@@ -6,6 +6,7 @@ import { Card } from '@components/UI/Card';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
+import { LensterPublication } from '@generated/lenstertypes';
 import { HomeFeedDocument } from '@generated/types';
 import { CollectionIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
@@ -67,8 +68,11 @@ const Feed: FC = () => {
                   </div>
                 )
             )}
-            {publications?.map((publication: any, index: number) => (
-              <SinglePublication key={`${publication?.id}_${index}`} publication={publication} />
+            {publications?.map((publication, index: number) => (
+              <SinglePublication
+                key={`${publication?.id}_${index}`}
+                publication={publication as LensterPublication}
+              />
             ))}
           </Card>
           {pageInfo?.next && publications?.length !== pageInfo.totalCount && (
