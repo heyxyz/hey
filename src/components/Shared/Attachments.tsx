@@ -1,15 +1,13 @@
 import { Button } from '@components/UI/Button';
+import { LightBox } from '@components/UI/LightBox';
 import { LensterAttachment } from '@generated/lenstertypes';
 import { MediaSet } from '@generated/types';
 import { ExternalLinkIcon, XIcon } from '@heroicons/react/outline';
 import getIPFSLink from '@lib/getIPFSLink';
 import imagekitURL from '@lib/imagekitURL';
 import clsx from 'clsx';
-import disableScroll from 'disable-scroll';
 import dynamic from 'next/dynamic';
 import React, { FC, useState } from 'react';
-// @ts-ignore
-import { Lightbox } from 'react-modal-image';
 
 const Video = dynamic(() => import('./Video'), {
   loading: () => <div className="rounded-lg aspect-w-16 aspect-h-12 shimmer" />
@@ -42,7 +40,7 @@ interface Props {
 }
 
 const Attachments: FC<Props> = ({ attachments, setAttachments, isNew = false, hideDelete = false }) => {
-  const [isImageExpanded, setIsImageExpanded] = useState<boolean>(false);
+  const [isImageExpanded, setIsImageExpanded] = useState(false);
 
   const removeAttachment = (attachment: any) => {
     const arr = attachments;
@@ -58,16 +56,6 @@ const Attachments: FC<Props> = ({ attachments, setAttachments, isNew = false, hi
     : attachments?.some((e: any) => e.original.mimeType === 'video/mp4')
     ? attachments?.slice(0, 1)
     : attachments?.slice(0, 4);
-
-  const handleExpand = () => {
-    setIsImageExpanded(true);
-    disableScroll.on();
-  };
-
-  const handleCollapse = () => {
-    setIsImageExpanded(false);
-    disableScroll.off();
-  };
 
   return slicedAttachments?.length !== 0 ? (
     <div className={clsx(getClass(slicedAttachments?.length)?.row, 'grid grid-flow-col gap-2 pt-3')}>
@@ -99,19 +87,12 @@ const Attachments: FC<Props> = ({ attachments, setAttachments, isNew = false, hi
             ) : (
               <>
                 {isImageExpanded && (
-                  <Lightbox
-                    small={url}
-                    large={url}
-                    hideDownload
-                    hideZoom
-                    alt={imagekitURL(url, 'attachment')}
-                    onClose={() => handleCollapse()}
-                  />
+                  <LightBox url={url} show={isImageExpanded} onClose={() => setIsImageExpanded(false)} />
                 )}
                 <img
                   className="object-cover bg-gray-100 rounded-lg border cursor-pointer dark:bg-gray-800 dark:border-gray-700/80"
                   loading="lazy"
-                  onClick={() => handleExpand()}
+                  onClick={() => setIsImageExpanded(true)}
                   src={imagekitURL(url, 'attachment')}
                   alt={imagekitURL(url, 'attachment')}
                 />
