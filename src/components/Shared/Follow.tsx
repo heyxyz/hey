@@ -116,7 +116,7 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
             follow: {
               profile: profile?.id,
               followModule:
-                profile?.followModule.__typename === 'ProfileFollowModuleSettings'
+                profile?.followModule?.__typename === 'ProfileFollowModuleSettings'
                   ? { profileFollowModule: { profileId: currentProfile?.id } }
                   : null
             }
