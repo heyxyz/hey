@@ -1,6 +1,6 @@
 import Beta from '@components/Shared/Beta';
 import { Card, CardBody } from '@components/UI/Card';
-import { ExternalLinkIcon, FireIcon } from '@heroicons/react/outline';
+import { CheckCircleIcon, ExternalLinkIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import axios from 'axios';
 import React, { FC, useEffect, useState } from 'react';
@@ -26,6 +26,7 @@ const CrossPost: FC = () => {
       .catch(() => {
         setIsReposting(false);
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -40,8 +41,10 @@ const CrossPost: FC = () => {
         </div>
         {isReposting ? (
           <div className="flex items-center space-x-1.5">
-            <span>Already reposting to {repostingTo}</span>
-            <FireIcon className="w-5 h-5 text-brand" />
+            <span>
+              Already reposting to <b>@{repostingTo}</b>
+            </span>
+            <CheckCircleIcon className="w-5 h-5 text-brand" />
           </div>
         ) : (
           <a
