@@ -77,7 +77,7 @@ const Publications: FC<Props> = ({ query }) => {
               <SinglePublication key={`${post?.id}_${index}`} publication={post} />
             ))}
           </Card>
-          {pageInfo?.next && publications?.length !== pageInfo?.totalCount && (
+          {pageInfo?.next && publications?.length !== pageInfo.totalCount && (
             <span ref={observe} className="flex justify-center p-5">
               <Spinner size="sm" />
             </span>

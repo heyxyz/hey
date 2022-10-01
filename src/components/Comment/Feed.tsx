@@ -88,7 +88,7 @@ const Feed: FC<Props> = ({ publication }) => {
               <SinglePublication key={`${publicationId}_${index}`} publication={comment} showType={false} />
             ))}
           </Card>
-          {pageInfo?.next && comments?.length !== pageInfo?.totalCount && (
+          {pageInfo?.next && comments?.length !== pageInfo.totalCount && (
             <span ref={observe} className="flex justify-center p-5">
               <Spinner size="sm" />
             </span>
