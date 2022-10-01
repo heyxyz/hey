@@ -13,7 +13,4 @@ fragment MetadataFields on MetadataOutput {
       mimeType
     }
   }
-  attributes {
-    value
-  }
 }
