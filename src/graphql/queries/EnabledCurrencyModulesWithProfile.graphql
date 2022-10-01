@@ -1,0 +1,13 @@
+query EnabledCurrencyModulesWithProfile($request: SingleProfileQueryRequest!) {
+  enabledModuleCurrencies {
+    name
+    symbol
+    decimals
+    address
+  }
+  profile(request: $request) {
+    followModule {
+      __typename
+    }
+  }
+}

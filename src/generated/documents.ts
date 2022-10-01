@@ -5557,6 +5557,30 @@ export type EnabledCurrencyModulesQuery = {
   }>;
 };
 
+export type EnabledCurrencyModulesWithProfileQueryVariables = Exact<{
+  request: SingleProfileQueryRequest;
+}>;
+
+export type EnabledCurrencyModulesWithProfileQuery = {
+  __typename?: 'Query';
+  enabledModuleCurrencies: Array<{
+    __typename?: 'Erc20';
+    name: string;
+    symbol: string;
+    decimals: number;
+    address: any;
+  }>;
+  profile?: {
+    __typename?: 'Profile';
+    followModule?:
+      | { __typename: 'FeeFollowModuleSettings' }
+      | { __typename: 'ProfileFollowModuleSettings' }
+      | { __typename: 'RevertFollowModuleSettings' }
+      | { __typename: 'UnknownFollowModuleSettings' }
+      | null;
+  } | null;
+};
+
 export type ExploreFeedQueryVariables = Exact<{
   request: ExplorePublicationRequest;
   reactionRequest?: InputMaybe<ReactionFieldResolverRequest>;
@@ -13464,6 +13488,71 @@ export const EnabledCurrencyModulesDocument = {
     }
   ]
 } as unknown as DocumentNode<EnabledCurrencyModulesQuery, EnabledCurrencyModulesQueryVariables>;
+export const EnabledCurrencyModulesWithProfileDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'EnabledCurrencyModulesWithProfile' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'request' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'SingleProfileQueryRequest' } }
+          }
+        }
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'enabledModuleCurrencies' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'symbol' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'decimals' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'address' } }
+              ]
+            }
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'profile' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'request' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'request' } }
+              }
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'followModule' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [{ kind: 'Field', name: { kind: 'Name', value: '__typename' } }]
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+} as unknown as DocumentNode<
+  EnabledCurrencyModulesWithProfileQuery,
+  EnabledCurrencyModulesWithProfileQueryVariables
+>;
 export const ExploreFeedDocument = {
   kind: 'Document',
   definitions: [

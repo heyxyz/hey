@@ -7,6 +7,7 @@ import { Form, useZodForm } from '@components/UI/Form';
 import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
+import { EnabledCurrencyModulesWithProfileDocument } from '@generated/documents';
 import { CreateSetFollowModuleBroadcastItemResult, Erc20, Mutation } from '@generated/types';
 import { StarIcon, XIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
@@ -28,22 +29,6 @@ const newCrowdfundSchema = object({
     .max(42, { message: 'Ethereum address should be within 42 characters' })
     .regex(ADDRESS_REGEX, { message: 'Invalid Ethereum address' })
 });
-
-const MODULES_CURRENCY_QUERY = gql`
-  query EnabledCurrencyModules($request: SingleProfileQueryRequest!) {
-    enabledModuleCurrencies {
-      name
-      symbol
-      decimals
-      address
-    }
-    profile(request: $request) {
-      followModule {
-        __typename
-      }
-    }
-  }
-`;
 
 export const CREATE_SET_FOLLOW_MODULE_TYPED_DATA_MUTATION = gql`
   mutation CreateSetFollowModuleTypedData(
@@ -85,7 +70,7 @@ const SuperFollow: FC = () => {
   const [selectedCurrency, setSelectedCurrency] = useState(DEFAULT_COLLECT_TOKEN);
   const [selectedCurrencySymobol, setSelectedCurrencySymobol] = useState('WMATIC');
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
-  const { data: currencyData, loading } = useQuery(MODULES_CURRENCY_QUERY, {
+  const { data: currencyData, loading } = useQuery(EnabledCurrencyModulesWithProfileDocument, {
     variables: { request: { profileId: currentProfile?.id } },
     skip: !currentProfile?.id
   });
