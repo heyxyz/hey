@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client';
-import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout';
 import { Card, CardBody } from '@components/UI/Card';
+import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import { PageLoading } from '@components/UI/PageLoading';
 import Seo from '@components/utils/Seo';
 import { ProfileSettingsDocument } from '@generated/documents';

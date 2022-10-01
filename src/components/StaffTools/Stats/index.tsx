@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client';
-import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout';
 import { Card } from '@components/UI/Card';
+import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import useStaffMode from '@components/utils/hooks/useStaffMode';
 import Seo from '@components/utils/Seo';
 import { LensterStatsDocument } from '@generated/documents';

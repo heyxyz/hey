@@ -1,9 +1,9 @@
 import { LensHubProxy } from '@abis/LensHubProxy';
 import { useMutation } from '@apollo/client';
-import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout';
 import UserProfile from '@components/Shared/UserProfile';
 import { Button } from '@components/UI/Button';
 import { Card, CardBody } from '@components/UI/Card';
+import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import { Modal } from '@components/UI/Modal';
 import { Spinner } from '@components/UI/Spinner';
 import { WarningMessage } from '@components/UI/WarningMessage';

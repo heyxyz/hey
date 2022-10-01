@@ -1,6 +1,6 @@
-import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout';
 import Footer from '@components/Shared/Footer';
 import { Card, CardBody } from '@components/UI/Card';
+import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import Seo from '@components/utils/Seo';
 import isGardener from '@lib/isGardener';
 import { Mixpanel } from '@lib/mixpanel';
