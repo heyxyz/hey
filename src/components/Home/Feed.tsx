@@ -67,8 +67,8 @@ const Feed: FC = () => {
                   </div>
                 )
             )}
-            {publications?.map((post: any, index: number) => (
-              <SinglePublication key={`${post?.id}_${index}`} publication={post} />
+            {publications?.map((publication: any, index: number) => (
+              <SinglePublication key={`${publication?.id}_${index}`} publication={publication} />
             ))}
           </Card>
           {pageInfo?.next && publications?.length !== pageInfo.totalCount && (
