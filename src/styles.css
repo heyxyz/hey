@@ -141,3 +141,12 @@ body {
 iframe {
   @apply rounded-xl;
 }
+
+.__react_modal_image__caption,
+.__react_modal_image__icon_menu {
+  display: none !important;
+}
+
+.__react_modal_image__medium_img {
+  @apply rounded-xl;
+}
