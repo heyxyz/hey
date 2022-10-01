@@ -8,6 +8,7 @@ import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { MentionTextArea } from '@components/UI/MentionTextArea';
 import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
+import { CreatePostTypedDataDocument, CreatePostViaDispatcherDocument } from '@generated/documents';
 import { LensterAttachment } from '@generated/lenstertypes';
 import {
   CreatePostBroadcastItemResult,
@@ -16,10 +17,6 @@ import {
   ReferenceModules
 } from '@generated/types';
 import { IGif } from '@giphy/js-types';
-import {
-  CREATE_POST_TYPED_DATA_MUTATION,
-  CREATE_POST_VIA_DISPATHCER_MUTATION
-} from '@gql/TypedAndDispatcherData/CreatePost';
 import { PencilAltIcon } from '@heroicons/react/outline';
 import { defaultFeeData, defaultModuleData, getModule } from '@lib/getModule';
 import getSignature from '@lib/getSignature';
@@ -126,7 +123,7 @@ const NewPost: FC<Props> = ({ hideCard = false }) => {
     }
   });
   const [createPostTypedData, { loading: typedDataLoading }] = useMutation<Mutation>(
-    CREATE_POST_TYPED_DATA_MUTATION,
+    CreatePostTypedDataDocument,
     {
       onCompleted: async ({
         createPostTypedData
@@ -176,7 +173,7 @@ const NewPost: FC<Props> = ({ hideCard = false }) => {
   );
 
   const [createPostViaDispatcher, { loading: dispatcherLoading }] = useMutation(
-    CREATE_POST_VIA_DISPATHCER_MUTATION,
+    CreatePostViaDispatcherDocument,
     {
       onCompleted: (data) => {
         onCompleted();

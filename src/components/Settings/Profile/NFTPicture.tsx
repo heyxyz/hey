@@ -7,12 +7,12 @@ import { Form, useZodForm } from '@components/UI/Form';
 import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
-import { ChallengeDocument } from '@generated/documents';
-import { CreateSetProfileImageUriBroadcastItemResult, Mutation, NftImage, Profile } from '@generated/types';
 import {
-  CREATE_SET_PROFILE_IMAGE_URI_TYPED_DATA_MUTATION,
-  CREATE_SET_PROFILE_IMAGE_URI_VIA_DISPATHCER_MUTATION
-} from '@gql/TypedAndDispatcherData/CreateSetProfileImageURI';
+  CreateSetProfileImageUriTypedDataDocument,
+  CreateSetProfileImageUriViaDispatcherDocument,
+  NftChallengeDocument
+} from '@generated/documents';
+import { CreateSetProfileImageUriBroadcastItemResult, Mutation, NftImage, Profile } from '@generated/types';
 import { PencilIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
 import { Mixpanel } from '@lib/mixpanel';
@@ -72,10 +72,10 @@ const NFTPicture: FC<Props> = ({ profile }) => {
     onError
   });
 
-  const [loadChallenge, { loading: challengeLoading }] = useLazyQuery(ChallengeDocument);
+  const [loadChallenge, { loading: challengeLoading }] = useLazyQuery(NftChallengeDocument);
   const { broadcast, data: broadcastData, loading: broadcastLoading } = useBroadcast({ onCompleted });
   const [createSetProfileImageURITypedData, { loading: typedDataLoading }] = useMutation<Mutation>(
-    CREATE_SET_PROFILE_IMAGE_URI_TYPED_DATA_MUTATION,
+    CreateSetProfileImageUriTypedDataDocument,
     {
       onCompleted: async ({
         createSetProfileImageURITypedData
@@ -113,7 +113,7 @@ const NFTPicture: FC<Props> = ({ profile }) => {
   );
 
   const [createSetProfileImageURIViaDispatcher, { data: dispatcherData, loading: dispatcherLoading }] =
-    useMutation(CREATE_SET_PROFILE_IMAGE_URI_VIA_DISPATHCER_MUTATION, { onCompleted, onError });
+    useMutation(CreateSetProfileImageUriViaDispatcherDocument, { onCompleted, onError });
 
   const setAvatar = async (contractAddress: string, tokenId: string) => {
     if (!currentProfile) {

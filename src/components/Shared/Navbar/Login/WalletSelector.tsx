@@ -3,7 +3,7 @@ import SwitchNetwork from '@components/Shared/SwitchNetwork';
 import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
 import useIsMounted from '@components/utils/hooks/useIsMounted';
-import { UserProfilesDocument } from '@generated/documents';
+import { ChallengeDocument, UserProfilesDocument } from '@generated/documents';
 import { XCircleIcon } from '@heroicons/react/solid';
 import getWalletLogo from '@lib/getWalletLogo';
 import { Mixpanel } from '@lib/mixpanel';
@@ -15,14 +15,6 @@ import { CHAIN_ID, ERROR_MESSAGE } from 'src/constants';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { USER } from 'src/tracking';
 import { Connector, useAccount, useConnect, useNetwork, useSignMessage } from 'wagmi';
-
-const CHALLENGE_QUERY = gql`
-  query Challenge($request: ChallengeRequest!) {
-    challenge(request: $request) {
-      text
-    }
-  }
-`;
 
 export const AUTHENTICATE_MUTATION = gql`
   mutation Authenticate($request: SignedAuthChallenge!) {
@@ -49,10 +41,8 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
   const { address, connector: activeConnector } = useAccount();
   const { signMessageAsync, isLoading: signLoading } = useSignMessage({ onError });
   const [loadChallenge, { error: errorChallenge, loading: challengeLoading }] = useLazyQuery(
-    CHALLENGE_QUERY,
-    {
-      fetchPolicy: 'no-cache'
-    }
+    ChallengeDocument,
+    { fetchPolicy: 'no-cache' }
   );
   const [authenticate, { error: errorAuthenticate, loading: authLoading }] =
     useMutation(AUTHENTICATE_MUTATION);

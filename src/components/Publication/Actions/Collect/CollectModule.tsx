@@ -1,7 +1,5 @@
 import { LensHubProxy } from '@abis/LensHubProxy';
 import { gql, useMutation, useQuery } from '@apollo/client';
-import { PUBLICATION_REVENUE_QUERY } from '@components/Publication/Crowdfund';
-import { ALLOWANCE_SETTINGS_QUERY } from '@components/Settings/Allowance';
 import AllowanceButton from '@components/Settings/Allowance/Button';
 import CollectWarning from '@components/Shared/CollectWarning';
 import IndexStatus from '@components/Shared/IndexStatus';
@@ -16,10 +14,14 @@ import { Spinner } from '@components/UI/Spinner';
 import { Tooltip } from '@components/UI/Tooltip';
 import { WarningMessage } from '@components/UI/WarningMessage';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
-import { CollectModuleDocument } from '@generated/documents';
+import {
+  ApprovedModuleAllowanceAmountDocument,
+  CollectModuleDocument,
+  ProxyActionDocument,
+  PublicationRevenueDocument
+} from '@generated/documents';
 import { LensterPublication } from '@generated/lenstertypes';
 import { CreateCollectBroadcastItemResult, Mutation } from '@generated/types';
-import { PROXY_ACTION_MUTATION } from '@gql/ProxyAction';
 import {
   CashIcon,
   ClockIcon,
@@ -124,7 +126,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
 
   const percentageCollected = (count / parseInt(collectModule?.collectLimit)) * 100;
 
-  const { data: allowanceData, loading: allowanceLoading } = useQuery(ALLOWANCE_SETTINGS_QUERY, {
+  const { data: allowanceData, loading: allowanceLoading } = useQuery(ApprovedModuleAllowanceAmountDocument, {
     variables: {
       request: {
         currencies: collectModule?.amount?.asset?.address,
@@ -139,7 +141,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
     }
   });
 
-  const { data: revenueData, loading: revenueLoading } = useQuery(PUBLICATION_REVENUE_QUERY, {
+  const { data: revenueData, loading: revenueLoading } = useQuery(PublicationRevenueDocument, {
     variables: {
       request: {
         publicationId: publication.__typename === 'Mirror' ? publication?.mirrorOf?.id : publication?.id
@@ -208,7 +210,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
   );
 
   const [createCollectProxyAction, { loading: proxyActionLoading }] = useMutation<Mutation>(
-    PROXY_ACTION_MUTATION,
+    ProxyActionDocument,
     {
       onCompleted,
       onError

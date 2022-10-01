@@ -3,8 +3,8 @@ import { ApolloCache, gql, useMutation } from '@apollo/client';
 import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
+import { ProxyActionDocument } from '@generated/documents';
 import { CreateFollowBroadcastItemResult, Mutation, Profile } from '@generated/types';
-import { PROXY_ACTION_MUTATION } from '@gql/ProxyAction';
 import { UserAddIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
 import { Mixpanel } from '@lib/mixpanel';
@@ -126,7 +126,7 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
     }
   );
 
-  const [createFollowProxyAction, { loading: proxyActionLoading }] = useMutation(PROXY_ACTION_MUTATION, {
+  const [createFollowProxyAction, { loading: proxyActionLoading }] = useMutation(ProxyActionDocument, {
     onCompleted,
     onError,
     update: updateCache

@@ -13,12 +13,12 @@ import { Spinner } from '@components/UI/Spinner';
 import { TextArea } from '@components/UI/TextArea';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
 import Seo from '@components/utils/Seo';
-import { EnabledCurrencyModulesDocument } from '@generated/documents';
-import { CreatePostBroadcastItemResult, Erc20, Mutation, PublicationMainFocus } from '@generated/types';
 import {
-  CREATE_POST_TYPED_DATA_MUTATION,
-  CREATE_POST_VIA_DISPATHCER_MUTATION
-} from '@gql/TypedAndDispatcherData/CreatePost';
+  CreatePostTypedDataDocument,
+  CreatePostViaDispatcherDocument,
+  EnabledCurrencyModulesDocument
+} from '@generated/documents';
+import { CreatePostBroadcastItemResult, Erc20, Mutation, PublicationMainFocus } from '@generated/types';
 import { PlusIcon } from '@heroicons/react/outline';
 import getIPFSLink from '@lib/getIPFSLink';
 import getSignature from '@lib/getSignature';
@@ -122,7 +122,7 @@ const NewCrowdfund: NextPage = () => {
 
   const { broadcast, data: broadcastData, loading: broadcastLoading } = useBroadcast({ onCompleted });
   const [createCrowdfundTypedData, { loading: typedDataLoading }] = useMutation<Mutation>(
-    CREATE_POST_TYPED_DATA_MUTATION,
+    CreatePostTypedDataDocument,
     {
       onCompleted: async ({
         createPostTypedData
@@ -172,7 +172,7 @@ const NewCrowdfund: NextPage = () => {
   );
 
   const [createCrowdfundViaDispatcher, { data: dispatcherData, loading: dispatcherLoading }] = useMutation(
-    CREATE_POST_VIA_DISPATHCER_MUTATION,
+    CreatePostViaDispatcherDocument,
     { onCompleted, onError }
   );
 
