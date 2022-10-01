@@ -1,6 +1,7 @@
-import { gql, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout';
 import Seo from '@components/utils/Seo';
+import { ProfileDocument } from '@generated/documents';
 import { Mixpanel } from '@lib/mixpanel';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
@@ -18,73 +19,6 @@ import FeedType from './FeedType';
 import NFTFeed from './NFTFeed';
 import ProfilePageShimmer from './Shimmer';
 
-export const PROFILE_QUERY = gql`
-  query Profile($request: SingleProfileQueryRequest!, $who: ProfileId) {
-    profile(request: $request) {
-      id
-      handle
-      ownedBy
-      name
-      bio
-      metadata
-      followNftAddress
-      isFollowedByMe
-      isFollowing(who: $who)
-      attributes {
-        key
-        value
-      }
-      dispatcher {
-        canUseRelay
-      }
-      onChainIdentity {
-        proofOfHumanity
-        sybilDotOrg {
-          verified
-          source {
-            twitter {
-              handle
-            }
-          }
-        }
-        ens {
-          name
-        }
-        worldcoin {
-          isHuman
-        }
-      }
-      stats {
-        totalFollowers
-        totalFollowing
-        totalPosts
-        totalComments
-        totalMirrors
-      }
-      picture {
-        ... on MediaSet {
-          original {
-            url
-          }
-        }
-        ... on NftImage {
-          uri
-        }
-      }
-      coverPicture {
-        ... on MediaSet {
-          original {
-            url
-          }
-        }
-      }
-      followModule {
-        __typename
-      }
-    }
-  }
-`;
-
 const ViewProfile: NextPage = () => {
   const {
     query: { username, type }
@@ -100,7 +34,7 @@ const ViewProfile: NextPage = () => {
     Mixpanel.track('Pageview', { path: PAGEVIEW.PROFILE });
   }, []);
 
-  const { data, loading, error } = useQuery(PROFILE_QUERY, {
+  const { data, loading, error } = useQuery(ProfileDocument, {
     variables: { request: { handle: username }, who: currentProfile?.id ?? null },
     skip: !username
   });
