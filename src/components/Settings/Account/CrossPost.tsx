@@ -1,12 +1,33 @@
 import Beta from '@components/Shared/Beta';
 import { Card, CardBody } from '@components/UI/Card';
-import { ExternalLinkIcon } from '@heroicons/react/outline';
+import { CheckCircleIcon, ExternalLinkIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
-import React, { FC } from 'react';
+import axios from 'axios';
+import React, { FC, useEffect, useState } from 'react';
 import { APP_NAME } from 'src/constants';
+import { useAppStore } from 'src/store/app';
 import { SETTINGS } from 'src/tracking';
 
+const REFLECT_URL = 'https://reflect.withlens.app';
+
 const CrossPost: FC = () => {
+  const currentProfile = useAppStore((state) => state.currentProfile);
+  const [repostingTo, setRepostingTo] = useState<string | null>(null);
+
+  useEffect(() => {
+    axios
+      .get('https://reflect.withlens.app/api/profile/' + currentProfile?.id)
+      .then((response) => {
+        if (response.data?.active) {
+          setRepostingTo(response.data?.twitter_handle);
+        }
+      })
+      .catch(() => {
+        setRepostingTo(null);
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <Card>
       <CardBody className="space-y-2 linkify">
@@ -17,18 +38,45 @@ const CrossPost: FC = () => {
         <div className="pb-3">
           Reflect will auto-tweet new {APP_NAME} posts, so you can finally escape the bird site.
         </div>
-        <a
-          href="https://reflect.withlens.app"
-          className="flex items-center space-x-1.5"
-          onClick={() => {
-            Mixpanel.track(SETTINGS.ACCOUNT.OPEN_REFLECT);
-          }}
-          target="_blank"
-          rel="noreferrer noopener"
-        >
-          <span>Setup now</span>
-          <ExternalLinkIcon className="w-4 h-4" />
-        </a>
+        {repostingTo ? (
+          <>
+            <div className="flex items-center space-x-1.5">
+              <span>
+                Already reposting to <b>@{repostingTo}</b>
+              </span>
+              <CheckCircleIcon className="w-5 h-5 text-brand" />
+            </div>
+            <a
+              href={REFLECT_URL}
+              className="flex items-center space-x-1.5"
+              onClick={() => {
+                Mixpanel.track(SETTINGS.ACCOUNT.OPEN_REFLECT, {
+                  purpose: 'disable'
+                });
+              }}
+              target="_blank"
+              rel="noreferrer noopener"
+            >
+              <span>Disable now</span>
+              <ExternalLinkIcon className="w-4 h-4" />
+            </a>
+          </>
+        ) : (
+          <a
+            href={REFLECT_URL}
+            className="flex items-center space-x-1.5"
+            onClick={() => {
+              Mixpanel.track(SETTINGS.ACCOUNT.OPEN_REFLECT, {
+                purpose: 'enable'
+              });
+            }}
+            target="_blank"
+            rel="noreferrer noopener"
+          >
+            <span>Setup now</span>
+            <ExternalLinkIcon className="w-4 h-4" />
+          </a>
+        )}
       </CardBody>
     </Card>
   );
