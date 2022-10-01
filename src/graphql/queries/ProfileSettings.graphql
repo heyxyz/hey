@@ -1,0 +1,30 @@
+query ProfileSettings($request: SingleProfileQueryRequest!) {
+  profile(request: $request) {
+    id
+    name
+    bio
+    attributes {
+      key
+      value
+    }
+    coverPicture {
+      ... on MediaSet {
+        original {
+          url
+        }
+      }
+    }
+    picture {
+      ... on MediaSet {
+        original {
+          url
+        }
+      }
+      ... on NftImage {
+        uri
+        tokenId
+        contractAddress
+      }
+    }
+  }
+}
