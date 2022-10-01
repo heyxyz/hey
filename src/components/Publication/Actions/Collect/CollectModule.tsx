@@ -16,9 +16,9 @@ import { Spinner } from '@components/UI/Spinner';
 import { Tooltip } from '@components/UI/Tooltip';
 import { WarningMessage } from '@components/UI/WarningMessage';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
+import { CollectModuleDocument } from '@generated/documents';
 import { LensterPublication } from '@generated/lenstertypes';
 import { CreateCollectBroadcastItemResult, Mutation } from '@generated/types';
-import { CollectModuleFields } from '@gql/CollectModuleFields';
 import { PROXY_ACTION_MUTATION } from '@gql/ProxyAction';
 import {
   CashIcon,
@@ -45,32 +45,6 @@ import { LENSHUB_PROXY, POLYGONSCAN_URL, RELAY_ON, SIGN_WALLET } from 'src/const
 import { useAppStore } from 'src/store/app';
 import { PUBLICATION } from 'src/tracking';
 import { useAccount, useBalance, useContractWrite, useSignTypedData } from 'wagmi';
-
-export const COLLECT_QUERY = gql`
-  query CollectModule($request: PublicationQueryRequest!) {
-    publication(request: $request) {
-      ... on Post {
-        collectNftAddress
-        collectModule {
-          ...CollectModuleFields
-        }
-      }
-      ... on Comment {
-        collectNftAddress
-        collectModule {
-          ...CollectModuleFields
-        }
-      }
-      ... on Mirror {
-        collectNftAddress
-        collectModule {
-          ...CollectModuleFields
-        }
-      }
-    }
-  }
-  ${CollectModuleFields}
-`;
 
 const CREATE_COLLECT_TYPED_DATA_MUTATION = gql`
   mutation CreateCollectTypedData($options: TypedDataOptions, $request: CreateCollectRequest!) {
@@ -119,7 +93,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
   const { address } = useAccount();
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
 
-  const { data, loading } = useQuery(COLLECT_QUERY, {
+  const { data, loading } = useQuery(CollectModuleDocument, {
     variables: {
       request: { publicationId: publication?.id }
     }

@@ -1,35 +1,18 @@
-import { gql, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import UserProfilesShimmer from '@components/Shared/Shimmer/UserProfilesShimmer';
 import UserProfile from '@components/Shared/UserProfile';
 import { Card, CardBody } from '@components/UI/Card';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
+import { SearchProfilesDocument } from '@generated/documents';
 import { CustomFiltersTypes, Profile } from '@generated/types';
-import { ProfileFields } from '@gql/ProfileFields';
 import { UsersIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import React, { FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { PAGINATION_ROOT_MARGIN } from 'src/constants';
 import { PAGINATION } from 'src/tracking';
-
-const SEARCH_PROFILES_QUERY = gql`
-  query SearchProfiles($request: SearchQueryRequest!) {
-    search(request: $request) {
-      ... on ProfileSearchResult {
-        items {
-          ...ProfileFields
-        }
-        pageInfo {
-          next
-          totalCount
-        }
-      }
-    }
-  }
-  ${ProfileFields}
-`;
 
 interface Props {
   query: string | string[];
@@ -39,7 +22,7 @@ const Profiles: FC<Props> = ({ query }) => {
   // Variables
   const request = { query, type: 'PROFILE', customFilters: [CustomFiltersTypes.Gardeners], limit: 10 };
 
-  const { data, loading, error, fetchMore } = useQuery(SEARCH_PROFILES_QUERY, {
+  const { data, loading, error, fetchMore } = useQuery(SearchProfilesDocument, {
     variables: { request },
     skip: !query
   });

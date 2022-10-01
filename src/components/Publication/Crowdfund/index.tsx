@@ -7,6 +7,7 @@ import CrowdfundShimmer from '@components/Shared/Shimmer/CrowdfundShimmer';
 import { Card } from '@components/UI/Card';
 import { Modal } from '@components/UI/Modal';
 import { Tooltip } from '@components/UI/Tooltip';
+import { CollectModuleDocument } from '@generated/documents';
 import { LensterPublication } from '@generated/lenstertypes';
 import { CashIcon, CurrencyDollarIcon, UsersIcon } from '@heroicons/react/outline';
 import getIPFSLink from '@lib/getIPFSLink';
@@ -19,7 +20,6 @@ import { STATIC_ASSETS } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { CROWDFUND } from 'src/tracking';
 
-import { COLLECT_QUERY } from '../Actions/Collect/CollectModule';
 import Fund from './Fund';
 
 export const PUBLICATION_REVENUE_QUERY = gql`
@@ -54,7 +54,7 @@ const Crowdfund: FC<Props> = ({ fund }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [showFundersModal, setShowFundersModal] = useState(false);
   const [revenue, setRevenue] = useState(0);
-  const { data, loading } = useQuery(COLLECT_QUERY, {
+  const { data, loading } = useQuery(CollectModuleDocument, {
     variables: { request: { publicationId: fund?.id } }
   });
 

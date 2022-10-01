@@ -4,6 +4,7 @@ import IFramely from '@components/Shared/IFramely';
 import Markup from '@components/Shared/Markup';
 import UserProfile from '@components/Shared/UserProfile';
 import { Tooltip } from '@components/UI/Tooltip';
+import { PublicationDocument } from '@generated/documents';
 import { Profile, PublicationMetadataStatusType } from '@generated/types';
 import { TX_STATUS_QUERY } from '@gql/HasTxHashBeenIndexed';
 import getURLs from '@lib/getURLs';
@@ -13,8 +14,6 @@ import React, { FC } from 'react';
 import { POLYGONSCAN_URL } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { useTransactionPersistStore } from 'src/store/transaction';
-
-import { PUBLICATION_QUERY } from '.';
 
 dayjs.extend(relativeTime);
 
@@ -29,15 +28,15 @@ const QueuedPublication: FC<Props> = ({ txn }) => {
   const { cache } = useApolloClient();
   const txHash = txn?.txHash;
 
-  const [getPublication] = useLazyQuery(PUBLICATION_QUERY, {
+  const [getPublication] = useLazyQuery(PublicationDocument, {
     onCompleted: (data) => {
       if (data?.publication) {
         cache.modify({
           fields: {
             [txn?.type === 'NEW_POST' ? 'timeline' : 'publications']() {
               cache.writeQuery({
-                data: data?.publication,
-                query: PUBLICATION_QUERY
+                data: data?.publication as any,
+                query: PublicationDocument
               });
             }
           }
