@@ -1,25 +1,12 @@
-import { gql, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import UserProfileShimmer from '@components/Shared/Shimmer/UserProfileShimmer';
 import UserProfile from '@components/Shared/UserProfile';
 import { Card, CardBody } from '@components/UI/Card';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
+import { RelevantPeopleDocument } from '@generated/documents';
 import { LensterPublication } from '@generated/lenstertypes';
-import { Profile } from '@generated/types';
-import { ProfileFields } from '@gql/ProfileFields';
 import React, { FC } from 'react';
 import { ALL_HANDLES_REGEX, HANDLE_SANITIZE_REGEX } from 'src/constants';
-
-const RELEVANT_PEOPLE_QUERY = gql`
-  query RelevantPeople($request: ProfileQueryRequest!) {
-    profiles(request: $request) {
-      items {
-        ...ProfileFields
-        isFollowedByMe
-      }
-    }
-  }
-  ${ProfileFields}
-`;
 
 interface Props {
   publication: LensterPublication;
@@ -44,7 +31,7 @@ const RelevantPeople: FC<Props> = ({ publication }) => {
 
   const cleanedMentions = [...new Set(processedMentions)];
 
-  const { data, loading, error } = useQuery(RELEVANT_PEOPLE_QUERY, {
+  const { data, loading, error } = useQuery(RelevantPeopleDocument, {
     variables: { request: { handles: cleanedMentions.slice(0, 5) } }
   });
 
@@ -70,7 +57,7 @@ const RelevantPeople: FC<Props> = ({ publication }) => {
     <Card as="aside">
       <CardBody className="space-y-4">
         <ErrorMessage title="Failed to load relevant people" error={error} />
-        {data?.profiles?.items?.map((profile: Profile) => (
+        {data?.profiles?.items?.map((profile: any) => (
           <div key={profile?.id} className="truncate">
             <UserProfile profile={profile} isFollowing={profile.isFollowedByMe} showFollow />
           </div>

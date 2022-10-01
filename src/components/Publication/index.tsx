@@ -8,7 +8,6 @@ import { Card, CardBody } from '@components/UI/Card';
 import useStaffMode from '@components/utils/hooks/useStaffMode';
 import Seo from '@components/utils/Seo';
 import { PublicationDocument } from '@generated/documents';
-import { LensterPublication } from '@generated/lenstertypes';
 import { Mixpanel } from '@lib/mixpanel';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
@@ -57,7 +56,7 @@ const ViewPublication: NextPage = () => {
     return <Custom404 />;
   }
 
-  const publication: LensterPublication = data.publication;
+  const publication: any = data.publication;
 
   return (
     <GridLayout>
