@@ -107,7 +107,6 @@ const Search: FC<Props> = ({ hideDropdown = false }) => {
                     </Link>
                   </div>
                 ))}
-                {profiles.length === 0 && <div className="py-2 px-4">No matching users</div>}
               </>
             )}
           </Card>
