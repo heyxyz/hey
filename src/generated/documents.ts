@@ -3376,7 +3376,6 @@ export type CommentFieldsFragment = {
       __typename?: 'MediaSet';
       original: { __typename?: 'Media'; url: any; mimeType?: any | null };
     }>;
-    attributes: Array<{ __typename?: 'MetadataAttributeOutput'; value?: string | null }>;
   };
   commentOn?:
     | {
@@ -3486,7 +3485,6 @@ export type CommentFieldsFragment = {
             __typename?: 'MediaSet';
             original: { __typename?: 'Media'; url: any; mimeType?: any | null };
           }>;
-          attributes: Array<{ __typename?: 'MetadataAttributeOutput'; value?: string | null }>;
         };
         stats: {
           __typename?: 'PublicationStats';
@@ -3606,7 +3604,6 @@ export type CommentFieldsFragment = {
                   __typename?: 'MediaSet';
                   original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                 }>;
-                attributes: Array<{ __typename?: 'MetadataAttributeOutput'; value?: string | null }>;
               };
               mirrorOf:
                 | {
@@ -3780,7 +3777,6 @@ export type CommentFieldsFragment = {
                         __typename?: 'MediaSet';
                         original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                       }>;
-                      attributes: Array<{ __typename?: 'MetadataAttributeOutput'; value?: string | null }>;
                     };
                   };
             }
@@ -3919,7 +3915,6 @@ export type CommentFieldsFragment = {
                   __typename?: 'MediaSet';
                   original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                 }>;
-                attributes: Array<{ __typename?: 'MetadataAttributeOutput'; value?: string | null }>;
               };
             };
       }
@@ -4033,7 +4028,6 @@ export type CommentFieldsFragment = {
             __typename?: 'MediaSet';
             original: { __typename?: 'Media'; url: any; mimeType?: any | null };
           }>;
-          attributes: Array<{ __typename?: 'MetadataAttributeOutput'; value?: string | null }>;
         };
         mirrorOf:
           | {
@@ -4204,7 +4198,6 @@ export type CommentFieldsFragment = {
                   __typename?: 'MediaSet';
                   original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                 }>;
-                attributes: Array<{ __typename?: 'MetadataAttributeOutput'; value?: string | null }>;
               };
             };
       }
@@ -4343,7 +4336,6 @@ export type CommentFieldsFragment = {
             __typename?: 'MediaSet';
             original: { __typename?: 'Media'; url: any; mimeType?: any | null };
           }>;
-          attributes: Array<{ __typename?: 'MetadataAttributeOutput'; value?: string | null }>;
         };
       }
     | null;
@@ -4359,7 +4351,6 @@ export type MetadataFieldsFragment = {
     __typename?: 'MediaSet';
     original: { __typename?: 'Media'; url: any; mimeType?: any | null };
   }>;
-  attributes: Array<{ __typename?: 'MetadataAttributeOutput'; value?: string | null }>;
 };
 
 export type MirrorFieldsFragment = {
@@ -4472,7 +4463,6 @@ export type MirrorFieldsFragment = {
       __typename?: 'MediaSet';
       original: { __typename?: 'Media'; url: any; mimeType?: any | null };
     }>;
-    attributes: Array<{ __typename?: 'MetadataAttributeOutput'; value?: string | null }>;
   };
   mirrorOf:
     | {
@@ -4643,7 +4633,6 @@ export type MirrorFieldsFragment = {
             __typename?: 'MediaSet';
             original: { __typename?: 'Media'; url: any; mimeType?: any | null };
           }>;
-          attributes: Array<{ __typename?: 'MetadataAttributeOutput'; value?: string | null }>;
         };
       };
 };
@@ -4783,7 +4772,6 @@ export type PostFieldsFragment = {
       __typename?: 'MediaSet';
       original: { __typename?: 'Media'; url: any; mimeType?: any | null };
     }>;
-    attributes: Array<{ __typename?: 'MetadataAttributeOutput'; value?: string | null }>;
   };
 };
 
@@ -5796,7 +5784,6 @@ export type CommentFeedQuery = {
               __typename?: 'MediaSet';
               original: { __typename?: 'Media'; url: any; mimeType?: any | null };
             }>;
-            attributes: Array<{ __typename?: 'MetadataAttributeOutput'; value?: string | null }>;
           };
           commentOn?:
             | {
@@ -5906,7 +5893,6 @@ export type CommentFeedQuery = {
                     __typename?: 'MediaSet';
                     original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                   }>;
-                  attributes: Array<{ __typename?: 'MetadataAttributeOutput'; value?: string | null }>;
                 };
                 stats: {
                   __typename?: 'PublicationStats';
@@ -6029,7 +6015,6 @@ export type CommentFeedQuery = {
                           __typename?: 'MediaSet';
                           original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                         }>;
-                        attributes: Array<{ __typename?: 'MetadataAttributeOutput'; value?: string | null }>;
                       };
                       mirrorOf:
                         | {
@@ -6235,10 +6220,6 @@ export type CommentFeedQuery = {
                                 __typename?: 'MediaSet';
                                 original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                               }>;
-                              attributes: Array<{
-                                __typename?: 'MetadataAttributeOutput';
-                                value?: string | null;
-                              }>;
                             };
                           };
                     }
@@ -6380,7 +6361,6 @@ export type CommentFeedQuery = {
                           __typename?: 'MediaSet';
                           original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                         }>;
-                        attributes: Array<{ __typename?: 'MetadataAttributeOutput'; value?: string | null }>;
                       };
                     };
               }
@@ -6494,7 +6474,6 @@ export type CommentFeedQuery = {
                     __typename?: 'MediaSet';
                     original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                   }>;
-                  attributes: Array<{ __typename?: 'MetadataAttributeOutput'; value?: string | null }>;
                 };
                 mirrorOf:
                   | {
@@ -6668,7 +6647,6 @@ export type CommentFeedQuery = {
                           __typename?: 'MediaSet';
                           original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                         }>;
-                        attributes: Array<{ __typename?: 'MetadataAttributeOutput'; value?: string | null }>;
                       };
                     };
               }
@@ -6807,7 +6785,6 @@ export type CommentFeedQuery = {
                     __typename?: 'MediaSet';
                     original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                   }>;
-                  attributes: Array<{ __typename?: 'MetadataAttributeOutput'; value?: string | null }>;
                 };
               }
             | null;
@@ -7019,7 +6996,6 @@ export type ExploreFeedQuery = {
               __typename?: 'MediaSet';
               original: { __typename?: 'Media'; url: any; mimeType?: any | null };
             }>;
-            attributes: Array<{ __typename?: 'MetadataAttributeOutput'; value?: string | null }>;
           };
           commentOn?:
             | {
@@ -7129,7 +7105,6 @@ export type ExploreFeedQuery = {
                     __typename?: 'MediaSet';
                     original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                   }>;
-                  attributes: Array<{ __typename?: 'MetadataAttributeOutput'; value?: string | null }>;
                 };
                 stats: {
                   __typename?: 'PublicationStats';
@@ -7252,7 +7227,6 @@ export type ExploreFeedQuery = {
                           __typename?: 'MediaSet';
                           original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                         }>;
-                        attributes: Array<{ __typename?: 'MetadataAttributeOutput'; value?: string | null }>;
                       };
                       mirrorOf:
                         | {
@@ -7458,10 +7432,6 @@ export type ExploreFeedQuery = {
                                 __typename?: 'MediaSet';
                                 original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                               }>;
-                              attributes: Array<{
-                                __typename?: 'MetadataAttributeOutput';
-                                value?: string | null;
-                              }>;
                             };
                           };
                     }
@@ -7603,7 +7573,6 @@ export type ExploreFeedQuery = {
                           __typename?: 'MediaSet';
                           original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                         }>;
-                        attributes: Array<{ __typename?: 'MetadataAttributeOutput'; value?: string | null }>;
                       };
                     };
               }
@@ -7717,7 +7686,6 @@ export type ExploreFeedQuery = {
                     __typename?: 'MediaSet';
                     original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                   }>;
-                  attributes: Array<{ __typename?: 'MetadataAttributeOutput'; value?: string | null }>;
                 };
                 mirrorOf:
                   | {
@@ -7891,7 +7859,6 @@ export type ExploreFeedQuery = {
                           __typename?: 'MediaSet';
                           original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                         }>;
-                        attributes: Array<{ __typename?: 'MetadataAttributeOutput'; value?: string | null }>;
                       };
                     };
               }
@@ -8030,7 +7997,6 @@ export type ExploreFeedQuery = {
                     __typename?: 'MediaSet';
                     original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                   }>;
-                  attributes: Array<{ __typename?: 'MetadataAttributeOutput'; value?: string | null }>;
                 };
               }
             | null;
@@ -8145,7 +8111,6 @@ export type ExploreFeedQuery = {
               __typename?: 'MediaSet';
               original: { __typename?: 'Media'; url: any; mimeType?: any | null };
             }>;
-            attributes: Array<{ __typename?: 'MetadataAttributeOutput'; value?: string | null }>;
           };
           mirrorOf:
             | {
@@ -8316,7 +8281,6 @@ export type ExploreFeedQuery = {
                     __typename?: 'MediaSet';
                     original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                   }>;
-                  attributes: Array<{ __typename?: 'MetadataAttributeOutput'; value?: string | null }>;
                 };
               };
         }
@@ -8455,7 +8419,6 @@ export type ExploreFeedQuery = {
               __typename?: 'MediaSet';
               original: { __typename?: 'Media'; url: any; mimeType?: any | null };
             }>;
-            attributes: Array<{ __typename?: 'MetadataAttributeOutput'; value?: string | null }>;
           };
         }
     >;
@@ -8717,7 +8680,6 @@ export type HomeFeedQuery = {
               __typename?: 'MediaSet';
               original: { __typename?: 'Media'; url: any; mimeType?: any | null };
             }>;
-            attributes: Array<{ __typename?: 'MetadataAttributeOutput'; value?: string | null }>;
           };
           commentOn?:
             | {
@@ -8827,7 +8789,6 @@ export type HomeFeedQuery = {
                     __typename?: 'MediaSet';
                     original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                   }>;
-                  attributes: Array<{ __typename?: 'MetadataAttributeOutput'; value?: string | null }>;
                 };
                 stats: {
                   __typename?: 'PublicationStats';
@@ -8950,7 +8911,6 @@ export type HomeFeedQuery = {
                           __typename?: 'MediaSet';
                           original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                         }>;
-                        attributes: Array<{ __typename?: 'MetadataAttributeOutput'; value?: string | null }>;
                       };
                       mirrorOf:
                         | {
@@ -9156,10 +9116,6 @@ export type HomeFeedQuery = {
                                 __typename?: 'MediaSet';
                                 original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                               }>;
-                              attributes: Array<{
-                                __typename?: 'MetadataAttributeOutput';
-                                value?: string | null;
-                              }>;
                             };
                           };
                     }
@@ -9301,7 +9257,6 @@ export type HomeFeedQuery = {
                           __typename?: 'MediaSet';
                           original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                         }>;
-                        attributes: Array<{ __typename?: 'MetadataAttributeOutput'; value?: string | null }>;
                       };
                     };
               }
@@ -9415,7 +9370,6 @@ export type HomeFeedQuery = {
                     __typename?: 'MediaSet';
                     original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                   }>;
-                  attributes: Array<{ __typename?: 'MetadataAttributeOutput'; value?: string | null }>;
                 };
                 mirrorOf:
                   | {
@@ -9589,7 +9543,6 @@ export type HomeFeedQuery = {
                           __typename?: 'MediaSet';
                           original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                         }>;
-                        attributes: Array<{ __typename?: 'MetadataAttributeOutput'; value?: string | null }>;
                       };
                     };
               }
@@ -9728,7 +9681,6 @@ export type HomeFeedQuery = {
                     __typename?: 'MediaSet';
                     original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                   }>;
-                  attributes: Array<{ __typename?: 'MetadataAttributeOutput'; value?: string | null }>;
                 };
               }
             | null;
@@ -9843,7 +9795,6 @@ export type HomeFeedQuery = {
               __typename?: 'MediaSet';
               original: { __typename?: 'Media'; url: any; mimeType?: any | null };
             }>;
-            attributes: Array<{ __typename?: 'MetadataAttributeOutput'; value?: string | null }>;
           };
           mirrorOf:
             | {
@@ -10014,7 +9965,6 @@ export type HomeFeedQuery = {
                     __typename?: 'MediaSet';
                     original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                   }>;
-                  attributes: Array<{ __typename?: 'MetadataAttributeOutput'; value?: string | null }>;
                 };
               };
         }
@@ -10153,7 +10103,6 @@ export type HomeFeedQuery = {
               __typename?: 'MediaSet';
               original: { __typename?: 'Media'; url: any; mimeType?: any | null };
             }>;
-            attributes: Array<{ __typename?: 'MetadataAttributeOutput'; value?: string | null }>;
           };
         }
     >;
@@ -10925,7 +10874,6 @@ export type ProfileFeedQuery = {
               __typename?: 'MediaSet';
               original: { __typename?: 'Media'; url: any; mimeType?: any | null };
             }>;
-            attributes: Array<{ __typename?: 'MetadataAttributeOutput'; value?: string | null }>;
           };
           commentOn?:
             | {
@@ -11035,7 +10983,6 @@ export type ProfileFeedQuery = {
                     __typename?: 'MediaSet';
                     original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                   }>;
-                  attributes: Array<{ __typename?: 'MetadataAttributeOutput'; value?: string | null }>;
                 };
                 stats: {
                   __typename?: 'PublicationStats';
@@ -11158,7 +11105,6 @@ export type ProfileFeedQuery = {
                           __typename?: 'MediaSet';
                           original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                         }>;
-                        attributes: Array<{ __typename?: 'MetadataAttributeOutput'; value?: string | null }>;
                       };
                       mirrorOf:
                         | {
@@ -11364,10 +11310,6 @@ export type ProfileFeedQuery = {
                                 __typename?: 'MediaSet';
                                 original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                               }>;
-                              attributes: Array<{
-                                __typename?: 'MetadataAttributeOutput';
-                                value?: string | null;
-                              }>;
                             };
                           };
                     }
@@ -11509,7 +11451,6 @@ export type ProfileFeedQuery = {
                           __typename?: 'MediaSet';
                           original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                         }>;
-                        attributes: Array<{ __typename?: 'MetadataAttributeOutput'; value?: string | null }>;
                       };
                     };
               }
@@ -11623,7 +11564,6 @@ export type ProfileFeedQuery = {
                     __typename?: 'MediaSet';
                     original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                   }>;
-                  attributes: Array<{ __typename?: 'MetadataAttributeOutput'; value?: string | null }>;
                 };
                 mirrorOf:
                   | {
@@ -11797,7 +11737,6 @@ export type ProfileFeedQuery = {
                           __typename?: 'MediaSet';
                           original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                         }>;
-                        attributes: Array<{ __typename?: 'MetadataAttributeOutput'; value?: string | null }>;
                       };
                     };
               }
@@ -11936,7 +11875,6 @@ export type ProfileFeedQuery = {
                     __typename?: 'MediaSet';
                     original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                   }>;
-                  attributes: Array<{ __typename?: 'MetadataAttributeOutput'; value?: string | null }>;
                 };
               }
             | null;
@@ -12051,7 +11989,6 @@ export type ProfileFeedQuery = {
               __typename?: 'MediaSet';
               original: { __typename?: 'Media'; url: any; mimeType?: any | null };
             }>;
-            attributes: Array<{ __typename?: 'MetadataAttributeOutput'; value?: string | null }>;
           };
           mirrorOf:
             | {
@@ -12222,7 +12159,6 @@ export type ProfileFeedQuery = {
                     __typename?: 'MediaSet';
                     original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                   }>;
-                  attributes: Array<{ __typename?: 'MetadataAttributeOutput'; value?: string | null }>;
                 };
               };
         }
@@ -12361,7 +12297,6 @@ export type ProfileFeedQuery = {
               __typename?: 'MediaSet';
               original: { __typename?: 'Media'; url: any; mimeType?: any | null };
             }>;
-            attributes: Array<{ __typename?: 'MetadataAttributeOutput'; value?: string | null }>;
           };
         }
     >;
@@ -12544,7 +12479,6 @@ export type PublicationQuery = {
             __typename?: 'MediaSet';
             original: { __typename?: 'Media'; url: any; mimeType?: any | null };
           }>;
-          attributes: Array<{ __typename?: 'MetadataAttributeOutput'; value?: string | null }>;
         };
         commentOn?:
           | {
@@ -12654,7 +12588,6 @@ export type PublicationQuery = {
                   __typename?: 'MediaSet';
                   original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                 }>;
-                attributes: Array<{ __typename?: 'MetadataAttributeOutput'; value?: string | null }>;
               };
               stats: {
                 __typename?: 'PublicationStats';
@@ -12777,7 +12710,6 @@ export type PublicationQuery = {
                         __typename?: 'MediaSet';
                         original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                       }>;
-                      attributes: Array<{ __typename?: 'MetadataAttributeOutput'; value?: string | null }>;
                     };
                     mirrorOf:
                       | {
@@ -12983,10 +12915,6 @@ export type PublicationQuery = {
                               __typename?: 'MediaSet';
                               original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                             }>;
-                            attributes: Array<{
-                              __typename?: 'MetadataAttributeOutput';
-                              value?: string | null;
-                            }>;
                           };
                         };
                   }
@@ -13128,7 +13056,6 @@ export type PublicationQuery = {
                         __typename?: 'MediaSet';
                         original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                       }>;
-                      attributes: Array<{ __typename?: 'MetadataAttributeOutput'; value?: string | null }>;
                     };
                   };
             }
@@ -13242,7 +13169,6 @@ export type PublicationQuery = {
                   __typename?: 'MediaSet';
                   original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                 }>;
-                attributes: Array<{ __typename?: 'MetadataAttributeOutput'; value?: string | null }>;
               };
               mirrorOf:
                 | {
@@ -13416,7 +13342,6 @@ export type PublicationQuery = {
                         __typename?: 'MediaSet';
                         original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                       }>;
-                      attributes: Array<{ __typename?: 'MetadataAttributeOutput'; value?: string | null }>;
                     };
                   };
             }
@@ -13555,7 +13480,6 @@ export type PublicationQuery = {
                   __typename?: 'MediaSet';
                   original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                 }>;
-                attributes: Array<{ __typename?: 'MetadataAttributeOutput'; value?: string | null }>;
               };
             }
           | null;
@@ -13678,7 +13602,6 @@ export type PublicationQuery = {
             __typename?: 'MediaSet';
             original: { __typename?: 'Media'; url: any; mimeType?: any | null };
           }>;
-          attributes: Array<{ __typename?: 'MetadataAttributeOutput'; value?: string | null }>;
         };
         mirrorOf:
           | {
@@ -13849,7 +13772,6 @@ export type PublicationQuery = {
                   __typename?: 'MediaSet';
                   original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                 }>;
-                attributes: Array<{ __typename?: 'MetadataAttributeOutput'; value?: string | null }>;
               };
             };
       }
@@ -13996,7 +13918,6 @@ export type PublicationQuery = {
             __typename?: 'MediaSet';
             original: { __typename?: 'Media'; url: any; mimeType?: any | null };
           }>;
-          attributes: Array<{ __typename?: 'MetadataAttributeOutput'; value?: string | null }>;
         };
       }
     | null;
@@ -14252,7 +14173,6 @@ export type SearchPublicationsQuery = {
                   __typename?: 'MediaSet';
                   original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                 }>;
-                attributes: Array<{ __typename?: 'MetadataAttributeOutput'; value?: string | null }>;
               };
               commentOn?:
                 | {
@@ -14365,7 +14285,6 @@ export type SearchPublicationsQuery = {
                         __typename?: 'MediaSet';
                         original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                       }>;
-                      attributes: Array<{ __typename?: 'MetadataAttributeOutput'; value?: string | null }>;
                     };
                     stats: {
                       __typename?: 'PublicationStats';
@@ -14511,10 +14430,6 @@ export type SearchPublicationsQuery = {
                             media: Array<{
                               __typename?: 'MediaSet';
                               original: { __typename?: 'Media'; url: any; mimeType?: any | null };
-                            }>;
-                            attributes: Array<{
-                              __typename?: 'MetadataAttributeOutput';
-                              value?: string | null;
                             }>;
                           };
                           mirrorOf:
@@ -14730,10 +14645,6 @@ export type SearchPublicationsQuery = {
                                     __typename?: 'MediaSet';
                                     original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                                   }>;
-                                  attributes: Array<{
-                                    __typename?: 'MetadataAttributeOutput';
-                                    value?: string | null;
-                                  }>;
                                 };
                               };
                         }
@@ -14903,10 +14814,6 @@ export type SearchPublicationsQuery = {
                               __typename?: 'MediaSet';
                               original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                             }>;
-                            attributes: Array<{
-                              __typename?: 'MetadataAttributeOutput';
-                              value?: string | null;
-                            }>;
                           };
                         };
                   }
@@ -15023,7 +14930,6 @@ export type SearchPublicationsQuery = {
                         __typename?: 'MediaSet';
                         original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                       }>;
-                      attributes: Array<{ __typename?: 'MetadataAttributeOutput'; value?: string | null }>;
                     };
                     mirrorOf:
                       | {
@@ -15229,10 +15135,6 @@ export type SearchPublicationsQuery = {
                               __typename?: 'MediaSet';
                               original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                             }>;
-                            attributes: Array<{
-                              __typename?: 'MetadataAttributeOutput';
-                              value?: string | null;
-                            }>;
                           };
                         };
                   }
@@ -15374,7 +15276,6 @@ export type SearchPublicationsQuery = {
                         __typename?: 'MediaSet';
                         original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                       }>;
-                      attributes: Array<{ __typename?: 'MetadataAttributeOutput'; value?: string | null }>;
                     };
                   }
                 | null;
@@ -15514,7 +15415,6 @@ export type SearchPublicationsQuery = {
                   __typename?: 'MediaSet';
                   original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                 }>;
-                attributes: Array<{ __typename?: 'MetadataAttributeOutput'; value?: string | null }>;
               };
             }
         >;
@@ -15917,14 +15817,6 @@ export const MetadataFieldsFragmentDoc = {
                   }
                 }
               ]
-            }
-          },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'attributes' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'value' } }]
             }
           }
         ]
