@@ -1,7 +1,8 @@
 import { FollowNFT } from '@abis/FollowNFT';
-import { gql, useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
+import { CreateUnfollowTypedDataDocument } from '@generated/documents';
 import { CreateUnfollowBroadcastItemResult, Mutation, Profile } from '@generated/types';
 import { UserRemoveIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
@@ -16,34 +17,6 @@ import { useAppStore } from 'src/store/app';
 import { PROFILE } from 'src/tracking';
 import { useSigner, useSignTypedData } from 'wagmi';
 
-const CREATE_UNFOLLOW_TYPED_DATA_MUTATION = gql`
-  mutation CreateUnfollowTypedData($request: UnfollowRequest!) {
-    createUnfollowTypedData(request: $request) {
-      id
-      expiresAt
-      typedData {
-        domain {
-          name
-          chainId
-          version
-          verifyingContract
-        }
-        types {
-          BurnWithSig {
-            name
-            type
-          }
-        }
-        value {
-          nonce
-          deadline
-          tokenId
-        }
-      }
-    }
-  }
-`;
-
 interface Props {
   profile: Profile;
   setFollowing: Dispatch<boolean>;
@@ -57,7 +30,7 @@ const Unfollow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
   const { data: signer } = useSigner();
 
   const [createUnfollowTypedData, { loading: typedDataLoading }] = useMutation<Mutation>(
-    CREATE_UNFOLLOW_TYPED_DATA_MUTATION,
+    CreateUnfollowTypedDataDocument,
     {
       onCompleted: async ({
         createUnfollowTypedData

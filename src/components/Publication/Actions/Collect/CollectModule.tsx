@@ -1,5 +1,5 @@
 import { LensHubProxy } from '@abis/LensHubProxy';
-import { gql, useMutation, useQuery } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import AllowanceButton from '@components/Settings/Allowance/Button';
 import CollectWarning from '@components/Shared/CollectWarning';
 import IndexStatus from '@components/Shared/IndexStatus';
@@ -17,6 +17,7 @@ import useBroadcast from '@components/utils/hooks/useBroadcast';
 import {
   ApprovedModuleAllowanceAmountDocument,
   CollectModuleDocument,
+  CreateCollectTypedDataDocument,
   ProxyActionDocument,
   PublicationRevenueDocument
 } from '@generated/documents';
@@ -47,36 +48,6 @@ import { LENSHUB_PROXY, POLYGONSCAN_URL, RELAY_ON, SIGN_WALLET } from 'src/const
 import { useAppStore } from 'src/store/app';
 import { PUBLICATION } from 'src/tracking';
 import { useAccount, useBalance, useContractWrite, useSignTypedData } from 'wagmi';
-
-const CREATE_COLLECT_TYPED_DATA_MUTATION = gql`
-  mutation CreateCollectTypedData($options: TypedDataOptions, $request: CreateCollectRequest!) {
-    createCollectTypedData(options: $options, request: $request) {
-      id
-      expiresAt
-      typedData {
-        types {
-          CollectWithSig {
-            name
-            type
-          }
-        }
-        domain {
-          name
-          chainId
-          version
-          verifyingContract
-        }
-        value {
-          nonce
-          deadline
-          profileId
-          pubId
-          data
-        }
-      }
-    }
-  }
-`;
 
 interface Props {
   count: number;
@@ -170,7 +141,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
 
   const { broadcast, data: broadcastData, loading: broadcastLoading } = useBroadcast({ onCompleted });
   const [createCollectTypedData, { loading: typedDataLoading }] = useMutation<Mutation>(
-    CREATE_COLLECT_TYPED_DATA_MUTATION,
+    CreateCollectTypedDataDocument,
     {
       onCompleted: async ({
         createCollectTypedData

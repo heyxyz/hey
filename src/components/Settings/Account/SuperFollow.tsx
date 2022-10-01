@@ -1,5 +1,5 @@
 import { LensHubProxy } from '@abis/LensHubProxy';
-import { gql, useMutation, useQuery } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import IndexStatus from '@components/Shared/IndexStatus';
 import { Button } from '@components/UI/Button';
 import { Card } from '@components/UI/Card';
@@ -7,7 +7,10 @@ import { Form, useZodForm } from '@components/UI/Form';
 import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
-import { EnabledCurrencyModulesWithProfileDocument } from '@generated/documents';
+import {
+  CreateSetFollowModuleTypedDataDocument,
+  EnabledCurrencyModulesWithProfileDocument
+} from '@generated/documents';
 import { CreateSetFollowModuleBroadcastItemResult, Erc20, Mutation } from '@generated/types';
 import { StarIcon, XIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
@@ -29,39 +32,6 @@ const newCrowdfundSchema = object({
     .max(42, { message: 'Ethereum address should be within 42 characters' })
     .regex(ADDRESS_REGEX, { message: 'Invalid Ethereum address' })
 });
-
-export const CREATE_SET_FOLLOW_MODULE_TYPED_DATA_MUTATION = gql`
-  mutation CreateSetFollowModuleTypedData(
-    $options: TypedDataOptions
-    $request: CreateSetFollowModuleRequest!
-  ) {
-    createSetFollowModuleTypedData(options: $options, request: $request) {
-      id
-      expiresAt
-      typedData {
-        types {
-          SetFollowModuleWithSig {
-            name
-            type
-          }
-        }
-        domain {
-          name
-          chainId
-          version
-          verifyingContract
-        }
-        value {
-          nonce
-          deadline
-          profileId
-          followModule
-          followModuleInitData
-        }
-      }
-    }
-  }
-`;
 
 const SuperFollow: FC = () => {
   const userSigNonce = useAppStore((state) => state.userSigNonce);
@@ -101,7 +71,7 @@ const SuperFollow: FC = () => {
 
   const { broadcast, data: broadcastData, loading: broadcastLoading } = useBroadcast({ onCompleted });
   const [createSetFollowModuleTypedData, { loading: typedDataLoading }] = useMutation<Mutation>(
-    CREATE_SET_FOLLOW_MODULE_TYPED_DATA_MUTATION,
+    CreateSetFollowModuleTypedDataDocument,
     {
       onCompleted: async ({
         createSetFollowModuleTypedData

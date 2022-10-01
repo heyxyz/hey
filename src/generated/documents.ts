@@ -4430,6 +4430,86 @@ export type RelayerResultFieldsFragment =
   | RelayerResultFields_RelayError_Fragment
   | RelayerResultFields_RelayerResult_Fragment;
 
+export type AddReactionMutationVariables = Exact<{
+  request: ReactionRequest;
+}>;
+
+export type AddReactionMutation = { __typename?: 'Mutation'; addReaction?: any | null };
+
+export type AuthenticateMutationVariables = Exact<{
+  request: SignedAuthChallenge;
+}>;
+
+export type AuthenticateMutation = {
+  __typename?: 'Mutation';
+  authenticate: { __typename?: 'AuthenticationResult'; accessToken: any; refreshToken: any };
+};
+
+export type CreateBurnProfileTypedDataMutationVariables = Exact<{
+  options?: InputMaybe<TypedDataOptions>;
+  request: BurnProfileRequest;
+}>;
+
+export type CreateBurnProfileTypedDataMutation = {
+  __typename?: 'Mutation';
+  createBurnProfileTypedData: {
+    __typename?: 'CreateBurnProfileBroadcastItemResult';
+    id: any;
+    expiresAt: any;
+    typedData: {
+      __typename?: 'CreateBurnEIP712TypedData';
+      domain: {
+        __typename?: 'EIP712TypedDataDomain';
+        name: string;
+        chainId: any;
+        version: string;
+        verifyingContract: any;
+      };
+      types: {
+        __typename?: 'CreateBurnEIP712TypedDataTypes';
+        BurnWithSig: Array<{ __typename?: 'EIP712TypedDataField'; name: string; type: string }>;
+      };
+      value: { __typename?: 'CreateBurnEIP712TypedDataValue'; nonce: any; deadline: any; tokenId: string };
+    };
+  };
+};
+
+export type CreateCollectTypedDataMutationVariables = Exact<{
+  options?: InputMaybe<TypedDataOptions>;
+  request: CreateCollectRequest;
+}>;
+
+export type CreateCollectTypedDataMutation = {
+  __typename?: 'Mutation';
+  createCollectTypedData: {
+    __typename?: 'CreateCollectBroadcastItemResult';
+    id: any;
+    expiresAt: any;
+    typedData: {
+      __typename?: 'CreateCollectEIP712TypedData';
+      types: {
+        __typename?: 'CreateCollectEIP712TypedDataTypes';
+        CollectWithSig: Array<{ __typename?: 'EIP712TypedDataField'; name: string; type: string }>;
+      };
+      domain: {
+        __typename?: 'EIP712TypedDataDomain';
+        name: string;
+        chainId: any;
+        version: string;
+        verifyingContract: any;
+      };
+      value: {
+        __typename?: 'CreateCollectEIP712TypedDataValue';
+        nonce: any;
+        deadline: any;
+        profileId: any;
+        pubId: any;
+        data: any;
+      };
+    };
+  };
+};
+
 export type CreateCommentTypedDataMutationVariables = Exact<{
   options?: InputMaybe<TypedDataOptions>;
   request: CreatePublicCommentRequest;
@@ -4481,6 +4561,41 @@ export type CreateCommentViaDispatcherMutation = {
   createCommentViaDispatcher:
     | { __typename?: 'RelayError'; reason: RelayErrorReasons }
     | { __typename?: 'RelayerResult'; txHash: any };
+};
+
+export type CreateFollowTypedDataMutationVariables = Exact<{
+  options?: InputMaybe<TypedDataOptions>;
+  request: FollowRequest;
+}>;
+
+export type CreateFollowTypedDataMutation = {
+  __typename?: 'Mutation';
+  createFollowTypedData: {
+    __typename?: 'CreateFollowBroadcastItemResult';
+    id: any;
+    expiresAt: any;
+    typedData: {
+      __typename?: 'CreateFollowEIP712TypedData';
+      domain: {
+        __typename?: 'EIP712TypedDataDomain';
+        name: string;
+        chainId: any;
+        version: string;
+        verifyingContract: any;
+      };
+      types: {
+        __typename?: 'CreateFollowEIP712TypedDataTypes';
+        FollowWithSig: Array<{ __typename?: 'EIP712TypedDataField'; name: string; type: string }>;
+      };
+      value: {
+        __typename?: 'CreateFollowEIP712TypedDataValue';
+        nonce: any;
+        deadline: any;
+        profileIds: Array<any>;
+        datas: Array<any>;
+      };
+    };
+  };
 };
 
 export type CreateMirrorTypedDataMutationVariables = Exact<{
@@ -4653,6 +4768,42 @@ export type CreateSetDispatcherTypedDataMutation = {
   };
 };
 
+export type CreateSetFollowModuleTypedDataMutationVariables = Exact<{
+  options?: InputMaybe<TypedDataOptions>;
+  request: CreateSetFollowModuleRequest;
+}>;
+
+export type CreateSetFollowModuleTypedDataMutation = {
+  __typename?: 'Mutation';
+  createSetFollowModuleTypedData: {
+    __typename?: 'CreateSetFollowModuleBroadcastItemResult';
+    id: any;
+    expiresAt: any;
+    typedData: {
+      __typename?: 'CreateSetFollowModuleEIP712TypedData';
+      types: {
+        __typename?: 'CreateSetFollowModuleEIP712TypedDataTypes';
+        SetFollowModuleWithSig: Array<{ __typename?: 'EIP712TypedDataField'; name: string; type: string }>;
+      };
+      domain: {
+        __typename?: 'EIP712TypedDataDomain';
+        name: string;
+        chainId: any;
+        version: string;
+        verifyingContract: any;
+      };
+      value: {
+        __typename?: 'CreateSetFollowModuleEIP712TypedDataValue';
+        nonce: any;
+        deadline: any;
+        profileId: any;
+        followModule: any;
+        followModuleInitData: any;
+      };
+    };
+  };
+};
+
 export type CreateSetProfileImageUriTypedDataMutationVariables = Exact<{
   options?: InputMaybe<TypedDataOptions>;
   request: UpdateProfileImageRequest;
@@ -4748,11 +4899,57 @@ export type CreateSetProfileMetadataViaDispatcherMutation = {
     | { __typename?: 'RelayerResult'; txHash: any };
 };
 
+export type CreateUnfollowTypedDataMutationVariables = Exact<{
+  request: UnfollowRequest;
+}>;
+
+export type CreateUnfollowTypedDataMutation = {
+  __typename?: 'Mutation';
+  createUnfollowTypedData: {
+    __typename?: 'CreateUnfollowBroadcastItemResult';
+    id: any;
+    expiresAt: any;
+    typedData: {
+      __typename?: 'CreateBurnEIP712TypedData';
+      domain: {
+        __typename?: 'EIP712TypedDataDomain';
+        name: string;
+        chainId: any;
+        version: string;
+        verifyingContract: any;
+      };
+      types: {
+        __typename?: 'CreateBurnEIP712TypedDataTypes';
+        BurnWithSig: Array<{ __typename?: 'EIP712TypedDataField'; name: string; type: string }>;
+      };
+      value: { __typename?: 'CreateBurnEIP712TypedDataValue'; nonce: any; deadline: any; tokenId: string };
+    };
+  };
+};
+
+export type HidePublicationMutationVariables = Exact<{
+  request: HidePublicationRequest;
+}>;
+
+export type HidePublicationMutation = { __typename?: 'Mutation'; hidePublication?: any | null };
+
 export type ProxyActionMutationVariables = Exact<{
   request: ProxyActionRequest;
 }>;
 
 export type ProxyActionMutation = { __typename?: 'Mutation'; proxyAction: any };
+
+export type RemoveReactionMutationVariables = Exact<{
+  request: ReactionRequest;
+}>;
+
+export type RemoveReactionMutation = { __typename?: 'Mutation'; removeReaction?: any | null };
+
+export type ReportPublicationMutationVariables = Exact<{
+  request: ReportPublicationRequest;
+}>;
+
+export type ReportPublicationMutation = { __typename?: 'Mutation'; reportPublication?: any | null };
 
 export type ApprovedModuleAllowanceAmountQueryVariables = Exact<{
   request: ApprovedModuleAllowanceAmountRequest;
@@ -13909,6 +14106,301 @@ export const RelayerResultFieldsFragmentDoc = {
     }
   ]
 } as unknown as DocumentNode<RelayerResultFieldsFragment, unknown>;
+export const AddReactionDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'mutation',
+      name: { kind: 'Name', value: 'AddReaction' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'request' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'ReactionRequest' } }
+          }
+        }
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'addReaction' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'request' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'request' } }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+} as unknown as DocumentNode<AddReactionMutation, AddReactionMutationVariables>;
+export const AuthenticateDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'mutation',
+      name: { kind: 'Name', value: 'Authenticate' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'request' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'SignedAuthChallenge' } }
+          }
+        }
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'authenticate' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'request' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'request' } }
+              }
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'accessToken' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'refreshToken' } }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+} as unknown as DocumentNode<AuthenticateMutation, AuthenticateMutationVariables>;
+export const CreateBurnProfileTypedDataDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'mutation',
+      name: { kind: 'Name', value: 'CreateBurnProfileTypedData' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'options' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'TypedDataOptions' } }
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'request' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'BurnProfileRequest' } }
+          }
+        }
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'createBurnProfileTypedData' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'options' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'options' } }
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'request' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'request' } }
+              }
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'expiresAt' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'typedData' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'domain' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'chainId' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'version' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'verifyingContract' } }
+                          ]
+                        }
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'types' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'BurnWithSig' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                                  { kind: 'Field', name: { kind: 'Name', value: 'type' } }
+                                ]
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'value' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            { kind: 'Field', name: { kind: 'Name', value: 'nonce' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'deadline' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'tokenId' } }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+} as unknown as DocumentNode<CreateBurnProfileTypedDataMutation, CreateBurnProfileTypedDataMutationVariables>;
+export const CreateCollectTypedDataDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'mutation',
+      name: { kind: 'Name', value: 'CreateCollectTypedData' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'options' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'TypedDataOptions' } }
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'request' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'CreateCollectRequest' } }
+          }
+        }
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'createCollectTypedData' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'options' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'options' } }
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'request' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'request' } }
+              }
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'expiresAt' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'typedData' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'types' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'CollectWithSig' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                                  { kind: 'Field', name: { kind: 'Name', value: 'type' } }
+                                ]
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'domain' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'chainId' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'version' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'verifyingContract' } }
+                          ]
+                        }
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'value' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            { kind: 'Field', name: { kind: 'Name', value: 'nonce' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'deadline' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'profileId' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'pubId' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'data' } }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+} as unknown as DocumentNode<CreateCollectTypedDataMutation, CreateCollectTypedDataMutationVariables>;
 export const CreateCommentTypedDataDocument = {
   kind: 'Document',
   definitions: [
@@ -14065,6 +14557,114 @@ export const CreateCommentViaDispatcherDocument = {
     ...RelayerResultFieldsFragmentDoc.definitions
   ]
 } as unknown as DocumentNode<CreateCommentViaDispatcherMutation, CreateCommentViaDispatcherMutationVariables>;
+export const CreateFollowTypedDataDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'mutation',
+      name: { kind: 'Name', value: 'CreateFollowTypedData' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'options' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'TypedDataOptions' } }
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'request' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'FollowRequest' } }
+          }
+        }
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'createFollowTypedData' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'options' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'options' } }
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'request' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'request' } }
+              }
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'expiresAt' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'typedData' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'domain' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'chainId' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'version' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'verifyingContract' } }
+                          ]
+                        }
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'types' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'FollowWithSig' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                                  { kind: 'Field', name: { kind: 'Name', value: 'type' } }
+                                ]
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'value' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            { kind: 'Field', name: { kind: 'Name', value: 'nonce' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'deadline' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'profileIds' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'datas' } }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+} as unknown as DocumentNode<CreateFollowTypedDataMutation, CreateFollowTypedDataMutationVariables>;
 export const CreateMirrorTypedDataDocument = {
   kind: 'Document',
   definitions: [
@@ -14593,6 +15193,118 @@ export const CreateSetDispatcherTypedDataDocument = {
   CreateSetDispatcherTypedDataMutation,
   CreateSetDispatcherTypedDataMutationVariables
 >;
+export const CreateSetFollowModuleTypedDataDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'mutation',
+      name: { kind: 'Name', value: 'CreateSetFollowModuleTypedData' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'options' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'TypedDataOptions' } }
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'request' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'CreateSetFollowModuleRequest' } }
+          }
+        }
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'createSetFollowModuleTypedData' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'options' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'options' } }
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'request' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'request' } }
+              }
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'expiresAt' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'typedData' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'types' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'SetFollowModuleWithSig' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                                  { kind: 'Field', name: { kind: 'Name', value: 'type' } }
+                                ]
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'domain' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'chainId' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'version' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'verifyingContract' } }
+                          ]
+                        }
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'value' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            { kind: 'Field', name: { kind: 'Name', value: 'nonce' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'deadline' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'profileId' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'followModule' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'followModuleInitData' } }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+} as unknown as DocumentNode<
+  CreateSetFollowModuleTypedDataMutation,
+  CreateSetFollowModuleTypedDataMutationVariables
+>;
 export const CreateSetProfileImageUriTypedDataDocument = {
   kind: 'Document',
   definitions: [
@@ -14899,6 +15611,139 @@ export const CreateSetProfileMetadataViaDispatcherDocument = {
   CreateSetProfileMetadataViaDispatcherMutation,
   CreateSetProfileMetadataViaDispatcherMutationVariables
 >;
+export const CreateUnfollowTypedDataDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'mutation',
+      name: { kind: 'Name', value: 'CreateUnfollowTypedData' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'request' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'UnfollowRequest' } }
+          }
+        }
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'createUnfollowTypedData' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'request' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'request' } }
+              }
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'expiresAt' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'typedData' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'domain' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'chainId' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'version' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'verifyingContract' } }
+                          ]
+                        }
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'types' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'BurnWithSig' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                                  { kind: 'Field', name: { kind: 'Name', value: 'type' } }
+                                ]
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'value' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            { kind: 'Field', name: { kind: 'Name', value: 'nonce' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'deadline' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'tokenId' } }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+} as unknown as DocumentNode<CreateUnfollowTypedDataMutation, CreateUnfollowTypedDataMutationVariables>;
+export const HidePublicationDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'mutation',
+      name: { kind: 'Name', value: 'HidePublication' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'request' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'HidePublicationRequest' } }
+          }
+        }
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'hidePublication' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'request' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'request' } }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+} as unknown as DocumentNode<HidePublicationMutation, HidePublicationMutationVariables>;
 export const ProxyActionDocument = {
   kind: 'Document',
   definitions: [
@@ -14935,6 +15780,78 @@ export const ProxyActionDocument = {
     }
   ]
 } as unknown as DocumentNode<ProxyActionMutation, ProxyActionMutationVariables>;
+export const RemoveReactionDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'mutation',
+      name: { kind: 'Name', value: 'RemoveReaction' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'request' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'ReactionRequest' } }
+          }
+        }
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'removeReaction' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'request' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'request' } }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+} as unknown as DocumentNode<RemoveReactionMutation, RemoveReactionMutationVariables>;
+export const ReportPublicationDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'mutation',
+      name: { kind: 'Name', value: 'ReportPublication' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'request' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'ReportPublicationRequest' } }
+          }
+        }
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'reportPublication' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'request' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'request' } }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+} as unknown as DocumentNode<ReportPublicationMutation, ReportPublicationMutationVariables>;
 export const ApprovedModuleAllowanceAmountDocument = {
   kind: 'Document',
   definitions: [

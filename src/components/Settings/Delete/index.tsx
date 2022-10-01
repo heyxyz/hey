@@ -1,5 +1,5 @@
 import { LensHubProxy } from '@abis/LensHubProxy';
-import { gql, useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout';
 import UserProfile from '@components/Shared/UserProfile';
 import { Button } from '@components/UI/Button';
@@ -8,6 +8,7 @@ import { Modal } from '@components/UI/Modal';
 import { Spinner } from '@components/UI/Spinner';
 import { WarningMessage } from '@components/UI/WarningMessage';
 import Seo from '@components/utils/Seo';
+import { CreateBurnProfileTypedDataDocument } from '@generated/documents';
 import { CreateBurnProfileBroadcastItemResult, Mutation } from '@generated/types';
 import { ExclamationIcon, TrashIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
@@ -24,34 +25,6 @@ import { PAGEVIEW, SETTINGS } from 'src/tracking';
 import { useContractWrite, useDisconnect, useSignTypedData } from 'wagmi';
 
 import Sidebar from '../Sidebar';
-
-const CREATE_BURN_PROFILE_TYPED_DATA_MUTATION = gql`
-  mutation CreateBurnProfileTypedData($options: TypedDataOptions, $request: BurnProfileRequest!) {
-    createBurnProfileTypedData(options: $options, request: $request) {
-      id
-      expiresAt
-      typedData {
-        domain {
-          name
-          chainId
-          version
-          verifyingContract
-        }
-        types {
-          BurnWithSig {
-            name
-            type
-          }
-        }
-        value {
-          nonce
-          deadline
-          tokenId
-        }
-      }
-    }
-  }
-`;
 
 const DeleteSettings: FC = () => {
   useEffect(() => {
@@ -87,7 +60,7 @@ const DeleteSettings: FC = () => {
   });
 
   const [createBurnProfileTypedData, { loading: typedDataLoading }] = useMutation<Mutation>(
-    CREATE_BURN_PROFILE_TYPED_DATA_MUTATION,
+    CreateBurnProfileTypedDataDocument,
     {
       onCompleted: async ({
         createBurnProfileTypedData
