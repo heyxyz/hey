@@ -1,4 +1,4 @@
-import { gql, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import Feed from '@components/Comment/Feed';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout';
 import Footer from '@components/Shared/Footer';
@@ -7,10 +7,8 @@ import PublicationStaffTool from '@components/StaffTools/Panels/Publication';
 import { Card, CardBody } from '@components/UI/Card';
 import useStaffMode from '@components/utils/hooks/useStaffMode';
 import Seo from '@components/utils/Seo';
+import { PublicationDocument } from '@generated/documents';
 import { LensterPublication } from '@generated/lenstertypes';
-import { CommentFields } from '@gql/CommentFields';
-import { MirrorFields } from '@gql/MirrorFields';
-import { PostFields } from '@gql/PostFields';
 import { Mixpanel } from '@lib/mixpanel';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
@@ -26,53 +24,6 @@ import OnchainMeta from './OnchainMeta';
 import RelevantPeople from './RelevantPeople';
 import PublicationPageShimmer from './Shimmer';
 
-export const PUBLICATION_QUERY = gql`
-  query Publication(
-    $request: PublicationQueryRequest!
-    $reactionRequest: ReactionFieldResolverRequest
-    $profileId: ProfileId
-  ) {
-    publication(request: $request) {
-      ... on Post {
-        ...PostFields
-        onChainContentURI
-        collectNftAddress
-        profile {
-          isFollowedByMe
-        }
-        referenceModule {
-          __typename
-        }
-      }
-      ... on Comment {
-        ...CommentFields
-        onChainContentURI
-        collectNftAddress
-        profile {
-          isFollowedByMe
-        }
-        referenceModule {
-          __typename
-        }
-      }
-      ... on Mirror {
-        ...MirrorFields
-        onChainContentURI
-        collectNftAddress
-        profile {
-          isFollowedByMe
-        }
-        referenceModule {
-          __typename
-        }
-      }
-    }
-  }
-  ${PostFields}
-  ${CommentFields}
-  ${MirrorFields}
-`;
-
 const ViewPublication: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const { allowed: staffMode } = useStaffMode();
@@ -85,7 +36,7 @@ const ViewPublication: NextPage = () => {
     query: { id }
   } = useRouter();
 
-  const { data, loading, error } = useQuery(PUBLICATION_QUERY, {
+  const { data, loading, error } = useQuery(PublicationDocument, {
     variables: {
       request: { publicationId: id },
       reactionRequest: currentProfile ? { profileId: currentProfile?.id } : null,
