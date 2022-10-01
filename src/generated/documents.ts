@@ -4445,6 +4445,17 @@ export type AuthenticateMutation = {
   authenticate: { __typename?: 'AuthenticationResult'; accessToken: any; refreshToken: any };
 };
 
+export type BroadcastMutationVariables = Exact<{
+  request: BroadcastRequest;
+}>;
+
+export type BroadcastMutation = {
+  __typename?: 'Mutation';
+  broadcast:
+    | { __typename?: 'RelayError'; reason: RelayErrorReasons }
+    | { __typename?: 'RelayerResult'; txHash: any };
+};
+
 export type CreateBurnProfileTypedDataMutationVariables = Exact<{
   options?: InputMaybe<TypedDataOptions>;
   request: BurnProfileRequest;
@@ -4694,6 +4705,17 @@ export type CreatePostViaDispatcherMutationVariables = Exact<{
 export type CreatePostViaDispatcherMutation = {
   __typename?: 'Mutation';
   createPostViaDispatcher:
+    | { __typename?: 'RelayError'; reason: RelayErrorReasons }
+    | { __typename?: 'RelayerResult'; txHash: any };
+};
+
+export type CreateProfileMutationVariables = Exact<{
+  request: CreateProfileRequest;
+}>;
+
+export type CreateProfileMutation = {
+  __typename?: 'Mutation';
+  createProfile:
     | { __typename?: 'RelayError'; reason: RelayErrorReasons }
     | { __typename?: 'RelayerResult'; txHash: any };
 };
@@ -14185,6 +14207,63 @@ export const AuthenticateDocument = {
     }
   ]
 } as unknown as DocumentNode<AuthenticateMutation, AuthenticateMutationVariables>;
+export const BroadcastDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'mutation',
+      name: { kind: 'Name', value: 'Broadcast' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'request' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'BroadcastRequest' } }
+          }
+        }
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'broadcast' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'request' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'request' } }
+              }
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'InlineFragment',
+                  typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'RelayerResult' } },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [{ kind: 'Field', name: { kind: 'Name', value: 'txHash' } }]
+                  }
+                },
+                {
+                  kind: 'InlineFragment',
+                  typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'RelayError' } },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [{ kind: 'Field', name: { kind: 'Name', value: 'reason' } }]
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+} as unknown as DocumentNode<BroadcastMutation, BroadcastMutationVariables>;
 export const CreateBurnProfileTypedDataDocument = {
   kind: 'Document',
   definitions: [
@@ -14971,6 +15050,47 @@ export const CreatePostViaDispatcherDocument = {
     ...RelayerResultFieldsFragmentDoc.definitions
   ]
 } as unknown as DocumentNode<CreatePostViaDispatcherMutation, CreatePostViaDispatcherMutationVariables>;
+export const CreateProfileDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'mutation',
+      name: { kind: 'Name', value: 'CreateProfile' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'request' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'CreateProfileRequest' } }
+          }
+        }
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'createProfile' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'request' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'request' } }
+              }
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'RelayerResultFields' } }]
+            }
+          }
+        ]
+      }
+    },
+    ...RelayerResultFieldsFragmentDoc.definitions
+  ]
+} as unknown as DocumentNode<CreateProfileMutation, CreateProfileMutationVariables>;
 export const CreateSetDefaultProfileTypedDataDocument = {
   kind: 'Document',
   definitions: [

@@ -1,19 +1,7 @@
-import { ApolloCache, gql, useMutation } from '@apollo/client';
+import { ApolloCache, useMutation } from '@apollo/client';
+import { BroadcastDocument } from '@generated/documents';
 import toast from 'react-hot-toast';
 import { ERRORS } from 'src/constants';
-
-const BROADCAST_MUTATION = gql`
-  mutation Broadcast($request: BroadcastRequest!) {
-    broadcast(request: $request) {
-      ... on RelayerResult {
-        txHash
-      }
-      ... on RelayError {
-        reason
-      }
-    }
-  }
-`;
 
 interface Props {
   // eslint-disable-next-line no-unused-vars
@@ -23,7 +11,7 @@ interface Props {
 }
 
 const useBroadcast = ({ onCompleted, update }: Props) => {
-  const [broadcast, { data, loading }] = useMutation(BROADCAST_MUTATION, {
+  const [broadcast, { data, loading }] = useMutation(BroadcastDocument, {
     onCompleted,
     update,
     onError: (error) => {

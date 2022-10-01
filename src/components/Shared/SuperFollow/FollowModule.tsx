@@ -1,11 +1,15 @@
 import { LensHubProxy } from '@abis/LensHubProxy';
-import { gql, useMutation, useQuery } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import AllowanceButton from '@components/Settings/Allowance/Button';
 import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
 import { WarningMessage } from '@components/UI/WarningMessage';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
-import { ApprovedModuleAllowanceAmountDocument, SuperFollowDocument } from '@generated/documents';
+import {
+  ApprovedModuleAllowanceAmountDocument,
+  CreateFollowTypedDataDocument,
+  SuperFollowDocument
+} from '@generated/documents';
 import { LensterFollowModule } from '@generated/lenstertypes';
 import {
   CreateFollowBroadcastItemResult,
@@ -30,35 +34,6 @@ import { useAccount, useBalance, useContractWrite, useSignTypedData } from 'wagm
 import Loader from '../Loader';
 import Slug from '../Slug';
 import Uniswap from '../Uniswap';
-
-const CREATE_FOLLOW_TYPED_DATA_MUTATION = gql`
-  mutation CreateFollowTypedData($request: FollowRequest!) {
-    createFollowTypedData(request: $request) {
-      id
-      expiresAt
-      typedData {
-        domain {
-          name
-          chainId
-          version
-          verifyingContract
-        }
-        types {
-          FollowWithSig {
-            name
-            type
-          }
-        }
-        value {
-          nonce
-          deadline
-          profileIds
-          datas
-        }
-      }
-    }
-  }
-`;
 
 interface Props {
   profile: Profile;
@@ -129,7 +104,7 @@ const FollowModule: FC<Props> = ({ profile, setFollowing, setShowFollowModal, ag
 
   const { broadcast, loading: broadcastLoading } = useBroadcast({ onCompleted });
   const [createFollowTypedData, { loading: typedDataLoading }] = useMutation<Mutation>(
-    CREATE_FOLLOW_TYPED_DATA_MUTATION,
+    CreateFollowTypedDataDocument,
     {
       onCompleted: async ({
         createFollowTypedData
