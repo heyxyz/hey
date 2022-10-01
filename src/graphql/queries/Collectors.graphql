@@ -1,0 +1,15 @@
+query Collectors($request: WhoCollectedPublicationRequest!) {
+  whoCollectedPublication(request: $request) {
+    items {
+      address
+      defaultProfile {
+        ...ProfileFields
+        isFollowedByMe
+      }
+    }
+    pageInfo {
+      next
+      totalCount
+    }
+  }
+}

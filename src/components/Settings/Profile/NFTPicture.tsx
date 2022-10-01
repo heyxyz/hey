@@ -7,17 +7,17 @@ import { Form, useZodForm } from '@components/UI/Form';
 import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
-import { CreateSetProfileImageUriBroadcastItemResult, Mutation, NftImage, Profile } from '@generated/types';
 import {
-  CREATE_SET_PROFILE_IMAGE_URI_TYPED_DATA_MUTATION,
-  CREATE_SET_PROFILE_IMAGE_URI_VIA_DISPATHCER_MUTATION
-} from '@gql/TypedAndDispatcherData/CreateSetProfileImageURI';
+  CreateSetProfileImageUriTypedDataDocument,
+  CreateSetProfileImageUriViaDispatcherDocument,
+  NftChallengeDocument
+} from '@generated/documents';
+import { CreateSetProfileImageUriBroadcastItemResult, Mutation, NftImage, Profile } from '@generated/types';
 import { PencilIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
 import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
-import gql from 'graphql-tag';
 import React, { FC, useState } from 'react';
 import toast from 'react-hot-toast';
 import { ADDRESS_REGEX, IS_MAINNET, LENSHUB_PROXY, RELAY_ON, SIGN_WALLET } from 'src/constants';
@@ -32,15 +32,6 @@ const editNftPictureSchema = object({
     .regex(ADDRESS_REGEX, { message: 'Invalid Contract address' }),
   tokenId: string()
 });
-
-const CHALLENGE_QUERY = gql`
-  query Challenge($request: NftOwnershipChallengeRequest!) {
-    nftOwnershipChallenge(request: $request) {
-      id
-      text
-    }
-  }
-`;
 
 interface Props {
   profile: Profile & { picture: NftImage };
@@ -81,10 +72,10 @@ const NFTPicture: FC<Props> = ({ profile }) => {
     onError
   });
 
-  const [loadChallenge, { loading: challengeLoading }] = useLazyQuery(CHALLENGE_QUERY);
+  const [loadChallenge, { loading: challengeLoading }] = useLazyQuery(NftChallengeDocument);
   const { broadcast, data: broadcastData, loading: broadcastLoading } = useBroadcast({ onCompleted });
   const [createSetProfileImageURITypedData, { loading: typedDataLoading }] = useMutation<Mutation>(
-    CREATE_SET_PROFILE_IMAGE_URI_TYPED_DATA_MUTATION,
+    CreateSetProfileImageUriTypedDataDocument,
     {
       onCompleted: async ({
         createSetProfileImageURITypedData
@@ -122,7 +113,7 @@ const NFTPicture: FC<Props> = ({ profile }) => {
   );
 
   const [createSetProfileImageURIViaDispatcher, { data: dispatcherData, loading: dispatcherLoading }] =
-    useMutation(CREATE_SET_PROFILE_IMAGE_URI_VIA_DISPATHCER_MUTATION, { onCompleted, onError });
+    useMutation(CreateSetProfileImageUriViaDispatcherDocument, { onCompleted, onError });
 
   const setAvatar = async (contractAddress: string, tokenId: string) => {
     if (!currentProfile) {
@@ -134,6 +125,7 @@ const NFTPicture: FC<Props> = ({ profile }) => {
         request: {
           ethereumAddress: currentProfile?.ownedBy,
           nfts: {
+            // @ts-ignore
             contractAddress,
             tokenId,
             chainId
@@ -143,7 +135,7 @@ const NFTPicture: FC<Props> = ({ profile }) => {
     });
 
     const signature = await signMessageAsync({
-      message: challengeRes?.data?.nftOwnershipChallenge?.text
+      message: challengeRes?.data?.nftOwnershipChallenge?.text as string
     });
 
     const request = {
@@ -173,6 +165,11 @@ const NFTPicture: FC<Props> = ({ profile }) => {
     signLoading ||
     writeLoading ||
     broadcastLoading;
+  const txHash =
+    writeData?.hash ??
+    broadcastData?.broadcast?.txHash ??
+    (dispatcherData?.createSetProfileImageURIViaDispatcher.__typename === 'RelayerResult' &&
+      dispatcherData?.createSetProfileImageURIViaDispatcher.txHash);
 
   return (
     <Form
@@ -217,17 +214,7 @@ const NFTPicture: FC<Props> = ({ profile }) => {
         >
           Save
         </Button>
-        {writeData?.hash ??
-        broadcastData?.broadcast?.txHash ??
-        dispatcherData?.createSetProfileImageURIViaDispatcher?.txHash ? (
-          <IndexStatus
-            txHash={
-              writeData?.hash ??
-              broadcastData?.broadcast?.txHash ??
-              dispatcherData?.createSetProfileImageURIViaDispatcher?.txHash
-            }
-          />
-        ) : null}
+        {txHash ? <IndexStatus txHash={txHash} /> : null}
       </div>
     </Form>
   );

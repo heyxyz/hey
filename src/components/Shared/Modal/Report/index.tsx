@@ -1,4 +1,4 @@
-import { gql, useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import { Button } from '@components/UI/Button';
 import { CardBody } from '@components/UI/Card';
 import { EmptyState } from '@components/UI/EmptyState';
@@ -6,6 +6,7 @@ import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Form, useZodForm } from '@components/UI/Form';
 import { Spinner } from '@components/UI/Spinner';
 import { TextArea } from '@components/UI/TextArea';
+import { ReportPublicationDocument } from '@generated/documents';
 import { LensterPublication } from '@generated/lenstertypes';
 import { PencilAltIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
@@ -16,12 +17,6 @@ import { PUBLICATION } from 'src/tracking';
 import { object, string } from 'zod';
 
 import Reason from './Reason';
-
-export const CREATE_REPORT_PUBLICATION_MUTATION = gql`
-  mutation ReportPublication($request: ReportPublicationRequest!) {
-    reportPublication(request: $request)
-  }
-`;
 
 const newReportSchema = object({
   additionalComments: string().max(260, {
@@ -39,7 +34,7 @@ const Report: FC<Props> = ({ publication }) => {
   const [subReason, setSubReason] = useState(reportConfig?.subReason ?? '');
 
   const [createReport, { data: submitData, loading: submitLoading, error: submitError }] = useMutation(
-    CREATE_REPORT_PUBLICATION_MUTATION,
+    ReportPublicationDocument,
     {
       onCompleted: () => {
         Mixpanel.track(PUBLICATION.REPORT);

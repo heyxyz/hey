@@ -1,0 +1,22 @@
+query CollectModule($request: PublicationQueryRequest!) {
+  publication(request: $request) {
+    ... on Post {
+      collectNftAddress
+      collectModule {
+        ...CollectModuleFields
+      }
+    }
+    ... on Comment {
+      collectNftAddress
+      collectModule {
+        ...CollectModuleFields
+      }
+    }
+    ... on Mirror {
+      collectNftAddress
+      collectModule {
+        ...CollectModuleFields
+      }
+    }
+  }
+}

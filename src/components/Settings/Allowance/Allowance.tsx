@@ -1,11 +1,11 @@
 import { CardBody } from '@components/UI/Card';
-import { ApprovedAllowanceAmount, Query } from '@generated/types';
+import { ApprovedAllowanceAmount } from '@generated/types';
 import React, { FC } from 'react';
 
 import Module from './Module';
 
 interface Props {
-  allowance: Query;
+  allowance: any;
 }
 
 const Allowance: FC<Props> = ({ allowance }) => {

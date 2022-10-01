@@ -1,12 +1,11 @@
-import { gql, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import UserProfileShimmer from '@components/Shared/Shimmer/UserProfileShimmer';
 import UserProfile from '@components/Shared/UserProfile';
 import { Card, CardBody } from '@components/UI/Card';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Modal } from '@components/UI/Modal';
-import { Profile } from '@generated/types';
-import { ProfileFields } from '@gql/ProfileFields';
+import { RecommendedProfilesDocument } from '@generated/documents';
 import { DotsCircleHorizontalIcon, UsersIcon } from '@heroicons/react/outline';
 import { SparklesIcon } from '@heroicons/react/solid';
 import { Mixpanel } from '@lib/mixpanel';
@@ -14,16 +13,6 @@ import React, { FC, useState } from 'react';
 import { MISCELLANEOUS } from 'src/tracking';
 
 import Suggested from './Suggested';
-
-export const RECOMMENDED_PROFILES_QUERY = gql`
-  query RecommendedProfiles {
-    recommendedProfiles {
-      ...ProfileFields
-      isFollowedByMe
-    }
-  }
-  ${ProfileFields}
-`;
 
 const Title = () => {
   return (
@@ -36,7 +25,7 @@ const Title = () => {
 
 const RecommendedProfiles: FC = () => {
   const [showSuggestedModal, setShowSuggestedModal] = useState(false);
-  const { data, loading, error } = useQuery(RECOMMENDED_PROFILES_QUERY);
+  const { data, loading, error } = useQuery(RecommendedProfilesDocument);
 
   if (loading) {
     return (
@@ -77,7 +66,7 @@ const RecommendedProfiles: FC = () => {
       <Card as="aside">
         <CardBody className="space-y-4">
           <ErrorMessage title="Failed to load recommendations" error={error} />
-          {data?.recommendedProfiles?.slice(0, 5)?.map((profile: Profile) => (
+          {data?.recommendedProfiles?.slice(0, 5)?.map((profile: any) => (
             <div key={profile?.id} className="truncate">
               <UserProfile profile={profile} isFollowing={profile.isFollowedByMe} showFollow />
             </div>

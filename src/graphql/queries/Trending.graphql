@@ -1,0 +1,8 @@
+query Trending($request: AllPublicationsTagsRequest!) {
+  allPublicationsTags(request: $request) {
+    items {
+      tag
+      total
+    }
+  }
+}

@@ -1,4 +1,5 @@
-import { gql, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
+import { NotificationCountDocument } from '@generated/documents';
 import { CustomFiltersTypes } from '@generated/types';
 import { LightningBoltIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
@@ -7,22 +8,12 @@ import { FC, useEffect, useState } from 'react';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { NOTIFICATION } from 'src/tracking';
 
-const NOTIFICATION_COUNT_QUERY = gql`
-  query NotificationCount($request: NotificationRequest!) {
-    notifications(request: $request) {
-      pageInfo {
-        totalCount
-      }
-    }
-  }
-`;
-
 const NotificationIcon: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const notificationCount = useAppPersistStore((state) => state.notificationCount);
   const setNotificationCount = useAppPersistStore((state) => state.setNotificationCount);
   const [showBadge, setShowBadge] = useState(false);
-  const { data } = useQuery(NOTIFICATION_COUNT_QUERY, {
+  const { data } = useQuery(NotificationCountDocument, {
     variables: { request: { profileId: currentProfile?.id, customFilters: [CustomFiltersTypes.Gardeners] } },
     skip: !currentProfile?.id
   });
@@ -40,7 +31,7 @@ const NotificationIcon: FC = () => {
       href="/notifications"
       className="flex items-start"
       onClick={() => {
-        setNotificationCount(data?.notifications?.pageInfo?.totalCount);
+        setNotificationCount(data?.notifications?.pageInfo?.totalCount || 0);
         setShowBadge(false);
         Mixpanel.track(NOTIFICATION.OPEN);
       }}

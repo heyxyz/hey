@@ -1,11 +1,12 @@
-import { gql, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout';
 import Seo from '@components/utils/Seo';
+import { ProfileDocument } from '@generated/documents';
 import { Mixpanel } from '@lib/mixpanel';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
-import { APP_NAME } from 'src/constants';
+import { APP_NAME, STATIC_ASSETS } from 'src/constants';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
 import { useAppStore } from 'src/store/app';
@@ -17,73 +18,6 @@ import Feed from './Feed';
 import FeedType from './FeedType';
 import NFTFeed from './NFTFeed';
 import ProfilePageShimmer from './Shimmer';
-
-export const PROFILE_QUERY = gql`
-  query Profile($request: SingleProfileQueryRequest!, $who: ProfileId) {
-    profile(request: $request) {
-      id
-      handle
-      ownedBy
-      name
-      bio
-      metadata
-      followNftAddress
-      isFollowedByMe
-      isFollowing(who: $who)
-      attributes {
-        key
-        value
-      }
-      dispatcher {
-        canUseRelay
-      }
-      onChainIdentity {
-        proofOfHumanity
-        sybilDotOrg {
-          verified
-          source {
-            twitter {
-              handle
-            }
-          }
-        }
-        ens {
-          name
-        }
-        worldcoin {
-          isHuman
-        }
-      }
-      stats {
-        totalFollowers
-        totalFollowing
-        totalPosts
-        totalComments
-        totalMirrors
-      }
-      picture {
-        ... on MediaSet {
-          original {
-            url
-          }
-        }
-        ... on NftImage {
-          uri
-        }
-      }
-      coverPicture {
-        ... on MediaSet {
-          original {
-            url
-          }
-        }
-      }
-      followModule {
-        __typename
-      }
-    }
-  }
-`;
 
 const ViewProfile: NextPage = () => {
   const {
@@ -100,7 +34,7 @@ const ViewProfile: NextPage = () => {
     Mixpanel.track('Pageview', { path: PAGEVIEW.PROFILE });
   }, []);
 
-  const { data, loading, error } = useQuery(PROFILE_QUERY, {
+  const { data, loading, error } = useQuery(ProfileDocument, {
     variables: { request: { handle: username }, who: currentProfile?.id ?? null },
     skip: !username
   });
@@ -126,17 +60,23 @@ const ViewProfile: NextPage = () => {
       ) : (
         <Seo title={`@${profile?.handle} • ${APP_NAME}`} />
       )}
-      <Cover cover={profile?.coverPicture?.original?.url} />
+      <Cover
+        cover={
+          profile?.coverPicture?.__typename === 'MediaSet'
+            ? profile?.coverPicture?.original?.url
+            : `${STATIC_ASSETS}/patterns/2.svg`
+        }
+      />
       <GridLayout className="pt-6">
         <GridItemFour>
-          <Details profile={profile} />
+          <Details profile={profile as any} />
         </GridItemFour>
         <GridItemEight className="space-y-5">
-          <FeedType stats={profile?.stats} setFeedType={setFeedType} feedType={feedType} />
+          <FeedType stats={profile?.stats as any} setFeedType={setFeedType} feedType={feedType} />
           {(feedType === 'FEED' || feedType === 'REPLIES' || feedType === 'MEDIA') && (
-            <Feed profile={profile} type={feedType} />
+            <Feed profile={profile as any} type={feedType} />
           )}
-          {feedType === 'NFT' && <NFTFeed profile={profile} />}
+          {feedType === 'NFT' && <NFTFeed profile={profile as any} />}
         </GridItemEight>
       </GridLayout>
     </>

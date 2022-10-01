@@ -1,4 +1,5 @@
-import { gql, useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client';
+import { HidePublicationDocument } from '@generated/documents';
 import { LensterPublication } from '@generated/lenstertypes';
 import { Mutation } from '@generated/types';
 import { Menu } from '@headlessui/react';
@@ -9,19 +10,13 @@ import { useRouter } from 'next/router';
 import React, { FC } from 'react';
 import { PUBLICATION } from 'src/tracking';
 
-export const HIDE_POST_MUTATION = gql`
-  mutation HidePublication($request: HidePublicationRequest!) {
-    hidePublication(request: $request)
-  }
-`;
-
 interface Props {
   publication: LensterPublication;
 }
 
 const Delete: FC<Props> = ({ publication }) => {
   const { pathname, push } = useRouter();
-  const [hidePost] = useMutation<Mutation>(HIDE_POST_MUTATION, {
+  const [hidePost] = useMutation<Mutation>(HidePublicationDocument, {
     onCompleted: () => {
       Mixpanel.track(PUBLICATION.DELETE);
       pathname === '/posts/[id]' ? push('/') : location.reload();

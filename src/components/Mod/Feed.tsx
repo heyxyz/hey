@@ -1,12 +1,11 @@
 import { useQuery } from '@apollo/client';
-import { EXPLORE_FEED_QUERY } from '@components/Explore/Feed';
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
 import { Card } from '@components/UI/Card';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
-import { LensterPublication } from '@generated/lenstertypes';
+import { ExploreFeedDocument } from '@generated/documents';
 import { PublicationSortCriteria, PublicationTypes } from '@generated/types';
 import { CollectionIcon, RefreshIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
@@ -30,7 +29,7 @@ const Feed: FC = () => {
   const reactionRequest = currentProfile ? { profileId: currentProfile?.id } : null;
   const profileId = currentProfile?.id ?? null;
 
-  const { data, loading, error, fetchMore, refetch } = useQuery(EXPLORE_FEED_QUERY, {
+  const { data, loading, error, fetchMore, refetch } = useQuery(ExploreFeedDocument, {
     variables: { request, reactionRequest, profileId }
   });
 
@@ -76,7 +75,7 @@ const Feed: FC = () => {
       {!error && !loading && publications?.length !== 0 && (
         <>
           <Card className="divide-y-[1px] dark:divide-gray-700/80">
-            {publications?.map((post: LensterPublication, index: number) => (
+            {publications?.map((post: any, index: number) => (
               <SinglePublication
                 key={`${post?.id}_${index}`}
                 publication={post}

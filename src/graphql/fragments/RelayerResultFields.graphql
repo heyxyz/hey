@@ -1,0 +1,8 @@
+fragment RelayerResultFields on RelayResult {
+  ... on RelayerResult {
+    txHash
+  }
+  ... on RelayError {
+    reason
+  }
+}

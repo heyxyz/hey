@@ -21,7 +21,7 @@ const feeDataSchema = object({
 });
 
 interface Props {
-  enabledModuleCurrencies: Erc20[];
+  enabledModuleCurrencies: any;
   setShowFeeEntry: Dispatch<boolean>;
   setShowModal: Dispatch<boolean>;
 }

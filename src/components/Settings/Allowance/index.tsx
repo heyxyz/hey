@@ -1,9 +1,10 @@
-import { gql, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/GridLayout';
 import { Card } from '@components/UI/Card';
 import { PageLoading } from '@components/UI/PageLoading';
 import { Spinner } from '@components/UI/Spinner';
 import Seo from '@components/utils/Seo';
+import { ApprovedModuleAllowanceAmountDocument } from '@generated/documents';
 import { CollectModules, Erc20, FollowModules, ReferenceModules } from '@generated/types';
 import { Mixpanel } from '@lib/mixpanel';
 import { NextPage } from 'next';
@@ -16,23 +17,6 @@ import { PAGEVIEW } from 'src/tracking';
 
 import Sidebar from '../Sidebar';
 import Allowance from './Allowance';
-
-export const ALLOWANCE_SETTINGS_QUERY = gql`
-  query ApprovedModuleAllowanceAmount($request: ApprovedModuleAllowanceAmountRequest!) {
-    approvedModuleAllowanceAmount(request: $request) {
-      currency
-      module
-      allowance
-      contractAddress
-    }
-    enabledModuleCurrencies {
-      name
-      symbol
-      decimals
-      address
-    }
-  }
-`;
 
 const getAllowancePayload = (currency: string) => {
   return {
@@ -57,7 +41,7 @@ const AllowanceSettings: NextPage = () => {
 
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [currencyLoading, setCurrencyLoading] = useState(false);
-  const { data, loading, error, refetch } = useQuery(ALLOWANCE_SETTINGS_QUERY, {
+  const { data, loading, error, refetch } = useQuery(ApprovedModuleAllowanceAmountDocument, {
     variables: {
       request: getAllowancePayload(DEFAULT_COLLECT_TOKEN)
     },

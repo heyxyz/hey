@@ -1,12 +1,12 @@
 import { LensHubProxy } from '@abis/LensHubProxy';
-import { gql, useMutation, useQuery } from '@apollo/client';
-import { ALLOWANCE_SETTINGS_QUERY } from '@components/Settings/Allowance';
+import { useMutation, useQuery } from '@apollo/client';
 import AllowanceButton from '@components/Settings/Allowance/Button';
 import Uniswap from '@components/Shared/Uniswap';
 import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
-import { LensterCollectModule, LensterPublication } from '@generated/lenstertypes';
+import { ApprovedModuleAllowanceAmountDocument, CreateCollectTypedDataDocument } from '@generated/documents';
+import { LensterPublication } from '@generated/lenstertypes';
 import { CreateCollectBroadcastItemResult, Mutation } from '@generated/types';
 import { CashIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
@@ -22,39 +22,9 @@ import { useAccount, useBalance, useContractWrite, useSignTypedData } from 'wagm
 
 import IndexStatus from '../../Shared/IndexStatus';
 
-const CREATE_COLLECT_TYPED_DATA_MUTATION = gql`
-  mutation CreateCollectTypedData($options: TypedDataOptions, $request: CreateCollectRequest!) {
-    createCollectTypedData(options: $options, request: $request) {
-      id
-      expiresAt
-      typedData {
-        types {
-          CollectWithSig {
-            name
-            type
-          }
-        }
-        domain {
-          name
-          chainId
-          version
-          verifyingContract
-        }
-        value {
-          nonce
-          deadline
-          profileId
-          pubId
-          data
-        }
-      }
-    }
-  }
-`;
-
 interface Props {
   fund: LensterPublication;
-  collectModule: LensterCollectModule;
+  collectModule: any;
   setRevenue: Dispatch<number>;
   revenue: number;
 }
@@ -80,7 +50,7 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
     hasAmount = true;
   }
 
-  const { data: allowanceData, loading: allowanceLoading } = useQuery(ALLOWANCE_SETTINGS_QUERY, {
+  const { data: allowanceData, loading: allowanceLoading } = useQuery(ApprovedModuleAllowanceAmountDocument, {
     variables: {
       request: {
         currencies: collectModule?.amount?.asset?.address,
@@ -116,7 +86,7 @@ const Fund: FC<Props> = ({ fund, collectModule, setRevenue, revenue }) => {
 
   const { broadcast, data: broadcastData, loading: broadcastLoading } = useBroadcast({ onCompleted });
   const [createCollectTypedData, { loading: typedDataLoading }] = useMutation<Mutation>(
-    CREATE_COLLECT_TYPED_DATA_MUTATION,
+    CreateCollectTypedDataDocument,
     {
       onCompleted: async ({
         createCollectTypedData

@@ -1,0 +1,3 @@
+mutation RemoveReaction($request: ReactionRequest!) {
+  removeReaction(request: $request)
+}

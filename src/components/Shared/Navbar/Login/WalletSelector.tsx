@@ -1,10 +1,9 @@
-import { gql, useLazyQuery, useMutation } from '@apollo/client';
-import { USER_PROFILES_QUERY } from '@components/Layout';
+import { useLazyQuery, useMutation } from '@apollo/client';
 import SwitchNetwork from '@components/Shared/SwitchNetwork';
 import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
 import useIsMounted from '@components/utils/hooks/useIsMounted';
-import { Profile } from '@generated/types';
+import { AuthenticateDocument, ChallengeDocument, UserProfilesDocument } from '@generated/documents';
 import { XCircleIcon } from '@heroicons/react/solid';
 import getWalletLogo from '@lib/getWalletLogo';
 import { Mixpanel } from '@lib/mixpanel';
@@ -16,23 +15,6 @@ import { CHAIN_ID, ERROR_MESSAGE } from 'src/constants';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { USER } from 'src/tracking';
 import { Connector, useAccount, useConnect, useNetwork, useSignMessage } from 'wagmi';
-
-const CHALLENGE_QUERY = gql`
-  query Challenge($request: ChallengeRequest!) {
-    challenge(request: $request) {
-      text
-    }
-  }
-`;
-
-export const AUTHENTICATE_MUTATION = gql`
-  mutation Authenticate($request: SignedAuthChallenge!) {
-    authenticate(request: $request) {
-      accessToken
-      refreshToken
-    }
-  }
-`;
 
 interface Props {
   setHasConnected: Dispatch<boolean>;
@@ -50,14 +32,13 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
   const { address, connector: activeConnector } = useAccount();
   const { signMessageAsync, isLoading: signLoading } = useSignMessage({ onError });
   const [loadChallenge, { error: errorChallenge, loading: challengeLoading }] = useLazyQuery(
-    CHALLENGE_QUERY,
-    {
-      fetchPolicy: 'no-cache'
-    }
+    ChallengeDocument,
+    { fetchPolicy: 'no-cache' }
   );
   const [authenticate, { error: errorAuthenticate, loading: authLoading }] =
-    useMutation(AUTHENTICATE_MUTATION);
-  const [getProfiles, { error: errorProfiles, loading: profilesLoading }] = useLazyQuery(USER_PROFILES_QUERY);
+    useMutation(AuthenticateDocument);
+  const [getProfiles, { error: errorProfiles, loading: profilesLoading }] =
+    useLazyQuery(UserProfilesDocument);
 
   const onConnect = async (connector: Connector) => {
     try {
@@ -89,8 +70,8 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
       const auth = await authenticate({
         variables: { request: { address, signature } }
       });
-      localStorage.setItem('accessToken', auth.data.authenticate.accessToken);
-      localStorage.setItem('refreshToken', auth.data.authenticate.refreshToken);
+      localStorage.setItem('accessToken', auth.data?.authenticate.accessToken);
+      localStorage.setItem('refreshToken', auth.data?.authenticate.refreshToken);
 
       // Get authed profiles
       const { data: profilesData } = await getProfiles({
@@ -100,10 +81,10 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
       if (profilesData?.profiles?.items?.length === 0) {
         setHasProfile(false);
       } else {
-        const profiles: Profile[] = profilesData?.profiles?.items
+        const profiles: any = profilesData?.profiles?.items
           ?.slice()
-          ?.sort((a: Profile, b: Profile) => Number(a.id) - Number(b.id))
-          ?.sort((a: Profile, b: Profile) => (!(a.isDefault !== b.isDefault) ? 0 : a.isDefault ? -1 : 1));
+          ?.sort((a, b) => Number(a.id) - Number(b.id))
+          ?.sort((a, b) => (!(a.isDefault !== b.isDefault) ? 0 : a.isDefault ? -1 : 1));
         const currentProfile = profiles[0];
         setProfiles(profiles);
         setCurrentProfile(currentProfile);

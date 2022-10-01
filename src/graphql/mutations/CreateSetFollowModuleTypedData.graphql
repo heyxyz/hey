@@ -1,0 +1,27 @@
+mutation CreateSetFollowModuleTypedData($options: TypedDataOptions, $request: CreateSetFollowModuleRequest!) {
+  createSetFollowModuleTypedData(options: $options, request: $request) {
+    id
+    expiresAt
+    typedData {
+      types {
+        SetFollowModuleWithSig {
+          name
+          type
+        }
+      }
+      domain {
+        name
+        chainId
+        version
+        verifyingContract
+      }
+      value {
+        nonce
+        deadline
+        profileId
+        followModule
+        followModuleInitData
+      }
+    }
+  }
+}

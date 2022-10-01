@@ -1,10 +1,9 @@
-import { gql, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import UserProfile from '@components/Shared/UserProfile';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
-import { WhoReactedResult } from '@generated/types';
-import { ProfileFields } from '@gql/ProfileFields';
+import { LikesDocument } from '@generated/documents';
 import { HeartIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import { FC } from 'react';
@@ -14,25 +13,6 @@ import { PAGINATION } from 'src/tracking';
 
 import Loader from '../Loader';
 
-const LIKES_QUERY = gql`
-  query Likes($request: WhoReactedPublicationRequest!) {
-    whoReactedPublication(request: $request) {
-      items {
-        reactionId
-        profile {
-          ...ProfileFields
-          isFollowedByMe
-        }
-      }
-      pageInfo {
-        next
-        totalCount
-      }
-    }
-  }
-  ${ProfileFields}
-`;
-
 interface Props {
   publicationId: string;
 }
@@ -41,7 +21,7 @@ const Likes: FC<Props> = ({ publicationId }) => {
   // Variables
   const request = { publicationId: publicationId, limit: 10 };
 
-  const { data, loading, error, fetchMore } = useQuery(LIKES_QUERY, {
+  const { data, loading, error, fetchMore } = useQuery(LikesDocument, {
     variables: { request },
     skip: !publicationId
   });
@@ -84,7 +64,7 @@ const Likes: FC<Props> = ({ publicationId }) => {
       <ErrorMessage className="m-5" title="Failed to load likes" error={error} />
       <div className="space-y-3">
         <div className="divide-y dark:divide-gray-700">
-          {profiles?.map((like: WhoReactedResult) => (
+          {profiles?.map((like: any) => (
             <div className="p-5" key={like?.reactionId}>
               <UserProfile
                 profile={like?.profile}

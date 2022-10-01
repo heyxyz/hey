@@ -1,8 +1,9 @@
-import { gql, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import HelpTooltip from '@components/UI/HelpTooltip';
 import { Spinner } from '@components/UI/Spinner';
 import GetModuleIcon from '@components/utils/GetModuleIcon';
+import { EnabledModulesDocument } from '@generated/documents';
 import { EnabledModule } from '@generated/types';
 import { CheckCircleIcon } from '@heroicons/react/solid';
 import { getModule } from '@lib/getModule';
@@ -12,24 +13,6 @@ import { Dispatch, FC, useState } from 'react';
 import { useCollectModuleStore } from 'src/store/collectmodule';
 
 import FeeEntry from './FeeEntry';
-
-export const MODULES_QUERY = gql`
-  query EnabledModules {
-    enabledModules {
-      collectModules {
-        moduleName
-        contractAddress
-      }
-    }
-    enabledModuleCurrencies {
-      name
-      symbol
-      decimals
-      address
-    }
-  }
-`;
-
 interface Props {
   setShowModal: Dispatch<boolean>;
 }
@@ -39,7 +22,7 @@ const Modules: FC<Props> = ({ setShowModal }) => {
   const setSelectedCollectModule = useCollectModuleStore((state) => state.setSelectedCollectModule);
   const [showFeeEntry, setShowFeeEntry] = useState(false);
 
-  const { error, data, loading } = useQuery(MODULES_QUERY);
+  const { error, data, loading } = useQuery(EnabledModulesDocument);
 
   const handleSelectModule = (module: EnabledModule) => {
     setSelectedCollectModule(module);
@@ -71,7 +54,7 @@ const Modules: FC<Props> = ({ setShowModal }) => {
         />
       ) : (
         data?.enabledModules?.collectModules?.map(
-          (module: EnabledModule) =>
+          (module: any) =>
             getModule(module?.moduleName).name !== 'none' && (
               <div key={module?.contractAddress}>
                 <button

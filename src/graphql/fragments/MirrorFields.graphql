@@ -1,0 +1,42 @@
+fragment MirrorFields on Mirror {
+  id
+  profile {
+    ...ProfileFields
+  }
+  reaction(request: $reactionRequest)
+  canComment(profileId: $profileId) {
+    result
+  }
+  canMirror(profileId: $profileId) {
+    result
+  }
+  collectModule {
+    ...CollectModuleFields
+  }
+  stats {
+    ...StatsFields
+  }
+  metadata {
+    ...MetadataFields
+  }
+  hidden
+  mirrorOf {
+    ... on Post {
+      ...PostFields
+    }
+    ... on Comment {
+      id
+      profile {
+        ...ProfileFields
+      }
+      reaction(request: $reactionRequest)
+      mirrors(by: $profileId)
+      stats {
+        ...StatsFields
+      }
+      createdAt
+    }
+  }
+  createdAt
+  appId
+}

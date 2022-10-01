@@ -3,12 +3,9 @@ import { ApolloCache, useMutation } from '@apollo/client';
 import { Spinner } from '@components/UI/Spinner';
 import { Tooltip } from '@components/UI/Tooltip';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
+import { CreateMirrorTypedDataDocument } from '@generated/documents';
 import { LensterPublication } from '@generated/lenstertypes';
 import { CreateMirrorBroadcastItemResult, Mutation } from '@generated/types';
-import {
-  CREATE_MIRROR_TYPED_DATA_MUTATION,
-  CREATE_MIRROR_VIA_DISPATHCER_MUTATION
-} from '@gql/TypedAndDispatcherData/CreateMirror';
 import { SwitchHorizontalIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
 import humanize from '@lib/humanize';
@@ -74,7 +71,7 @@ const Mirror: FC<Props> = ({ publication, isFullPublication }) => {
 
   const { broadcast, loading: broadcastLoading } = useBroadcast({ onCompleted, update: updateCache });
   const [createMirrorTypedData, { loading: typedDataLoading }] = useMutation<Mutation>(
-    CREATE_MIRROR_TYPED_DATA_MUTATION,
+    CreateMirrorTypedDataDocument,
     {
       onCompleted: async ({
         createMirrorTypedData
@@ -124,7 +121,7 @@ const Mirror: FC<Props> = ({ publication, isFullPublication }) => {
   );
 
   const [createMirrorViaDispatcher, { loading: dispatcherLoading }] = useMutation(
-    CREATE_MIRROR_VIA_DISPATHCER_MUTATION,
+    CreateMirrorTypedDataDocument,
     { onCompleted, onError, update: updateCache }
   );
 

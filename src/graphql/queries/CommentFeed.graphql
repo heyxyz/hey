@@ -1,0 +1,17 @@
+query CommentFeed(
+  $request: PublicationsQueryRequest!
+  $reactionRequest: ReactionFieldResolverRequest
+  $profileId: ProfileId
+) {
+  publications(request: $request) {
+    items {
+      ... on Comment {
+        ...CommentFields
+      }
+    }
+    pageInfo {
+      totalCount
+      next
+    }
+  }
+}

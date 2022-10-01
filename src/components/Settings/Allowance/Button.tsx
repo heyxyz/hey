@@ -1,9 +1,9 @@
-import { gql, useLazyQuery } from '@apollo/client';
+import { useLazyQuery } from '@apollo/client';
 import { Button } from '@components/UI/Button';
 import { Modal } from '@components/UI/Modal';
 import { Spinner } from '@components/UI/Spinner';
 import { WarningMessage } from '@components/UI/WarningMessage';
-import { ApprovedAllowanceAmount } from '@generated/types';
+import { GenerateModuleCurrencyApprovalDataDocument } from '@generated/documents';
 import { ExclamationIcon, MinusIcon, PlusIcon } from '@heroicons/react/outline';
 import { getModule } from '@lib/getModule';
 import { Mixpanel } from '@lib/mixpanel';
@@ -12,26 +12,18 @@ import React, { Dispatch, FC, useState } from 'react';
 import toast from 'react-hot-toast';
 import { usePrepareSendTransaction, useSendTransaction, useWaitForTransaction } from 'wagmi';
 
-const GENERATE_ALLOWANCE_QUERY = gql`
-  query GenerateModuleCurrencyApprovalData($request: GenerateModuleCurrencyApprovalDataRequest!) {
-    generateModuleCurrencyApprovalData(request: $request) {
-      to
-      from
-      data
-    }
-  }
-`;
-
 interface Props {
   title?: string;
-  module: ApprovedAllowanceAmount;
+  module: any;
   allowed: boolean;
   setAllowed: Dispatch<boolean>;
 }
 
 const AllowanceButton: FC<Props> = ({ title = 'Allow', module, allowed, setAllowed }) => {
   const [showWarningModal, setShowWarninModal] = useState(false);
-  const [generateAllowanceQuery, { loading: queryLoading }] = useLazyQuery(GENERATE_ALLOWANCE_QUERY);
+  const [generateAllowanceQuery, { loading: queryLoading }] = useLazyQuery(
+    GenerateModuleCurrencyApprovalDataDocument
+  );
 
   const { config } = usePrepareSendTransaction({
     request: {}
