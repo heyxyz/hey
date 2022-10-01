@@ -8,23 +8,22 @@ import { APP_NAME } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { SETTINGS } from 'src/tracking';
 
-const CrossPost: FC = () => {
-  const [isReposting, setIsReposting] = useState<boolean>(false);
-  const [repostingTo, setRepostingTo] = useState<string>('');
+const REFLECT_URL = 'https://reflect.withlens.app';
 
+const CrossPost: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const [repostingTo, setRepostingTo] = useState<string | null>(null);
 
   useEffect(() => {
     axios
       .get('https://reflect.withlens.app/api/profile/' + currentProfile?.id)
       .then((response) => {
         if (response.data?.active) {
-          setIsReposting(true);
           setRepostingTo(response.data?.twitter_handle);
         }
       })
       .catch(() => {
-        setIsReposting(false);
+        setRepostingTo(null);
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -39,19 +38,37 @@ const CrossPost: FC = () => {
         <div className="pb-3">
           Reflect will auto-tweet new {APP_NAME} posts, so you can finally escape the bird site.
         </div>
-        {isReposting ? (
-          <div className="flex items-center space-x-1.5">
-            <span>
-              Already reposting to <b>@{repostingTo}</b>
-            </span>
-            <CheckCircleIcon className="w-5 h-5 text-brand" />
-          </div>
+        {repostingTo ? (
+          <>
+            <div className="flex items-center space-x-1.5">
+              <span>
+                Already reposting to <b>@{repostingTo}</b>
+              </span>
+              <CheckCircleIcon className="w-5 h-5 text-brand" />
+            </div>
+            <a
+              href={REFLECT_URL}
+              className="flex items-center space-x-1.5"
+              onClick={() => {
+                Mixpanel.track(SETTINGS.ACCOUNT.OPEN_REFLECT, {
+                  purpose: 'disable'
+                });
+              }}
+              target="_blank"
+              rel="noreferrer noopener"
+            >
+              <span>Disable now</span>
+              <ExternalLinkIcon className="w-4 h-4" />
+            </a>
+          </>
         ) : (
           <a
-            href="https://reflect.withlens.app"
+            href={REFLECT_URL}
             className="flex items-center space-x-1.5"
             onClick={() => {
-              Mixpanel.track(SETTINGS.ACCOUNT.OPEN_REFLECT);
+              Mixpanel.track(SETTINGS.ACCOUNT.OPEN_REFLECT, {
+                purpose: 'enable'
+              });
             }}
             target="_blank"
             rel="noreferrer noopener"
