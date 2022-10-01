@@ -1,10 +1,10 @@
-import { gql, useLazyQuery } from '@apollo/client';
+import { useLazyQuery } from '@apollo/client';
 import { Card } from '@components/UI/Card';
 import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
 import useOnClickOutside from '@components/utils/hooks/useOnClickOutside';
+import { SearchProfilesDocument } from '@generated/documents';
 import { CustomFiltersTypes, Profile } from '@generated/types';
-import { ProfileFields } from '@gql/ProfileFields';
 import { SearchIcon, XIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import clsx from 'clsx';
@@ -14,19 +14,6 @@ import { ChangeEvent, FC, useRef, useState } from 'react';
 import { SEARCH } from 'src/tracking';
 
 import UserProfile from '../UserProfile';
-
-export const SEARCH_USERS_QUERY = gql`
-  query SearchUsers($request: SearchQueryRequest!) {
-    search(request: $request) {
-      ... on ProfileSearchResult {
-        items {
-          ...ProfileFields
-        }
-      }
-    }
-  }
-  ${ProfileFields}
-`;
 
 interface Props {
   hideDropdown?: boolean;
@@ -40,7 +27,7 @@ const Search: FC<Props> = ({ hideDropdown = false }) => {
   useOnClickOutside(dropdownRef, () => setSearchText(''));
 
   const [searchUsers, { data: searchUsersData, loading: searchUsersLoading }] =
-    useLazyQuery(SEARCH_USERS_QUERY);
+    useLazyQuery(SearchProfilesDocument);
 
   const handleSearch = (evt: ChangeEvent<HTMLInputElement>) => {
     const keyword = evt.target.value;
