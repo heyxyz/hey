@@ -4422,6 +4422,14 @@ export type StatsFieldsFragment = {
   totalAmountOfComments: number;
 };
 
+type RelayerResultFields_RelayError_Fragment = { __typename?: 'RelayError'; reason: RelayErrorReasons };
+
+type RelayerResultFields_RelayerResult_Fragment = { __typename?: 'RelayerResult'; txHash: any };
+
+export type RelayerResultFieldsFragment =
+  | RelayerResultFields_RelayError_Fragment
+  | RelayerResultFields_RelayerResult_Fragment;
+
 export type ApprovedModuleAllowanceAmountQueryVariables = Exact<{
   request: ApprovedModuleAllowanceAmountRequest;
 }>;
@@ -8184,6 +8192,28 @@ export type HomeFeedQuery = {
     >;
     pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null; totalCount: number };
   };
+};
+
+export type LensterStatsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type LensterStatsQuery = {
+  __typename?: 'Query';
+  globalProtocolStats: {
+    __typename?: 'GlobalProtocolStats';
+    totalProfiles: number;
+    totalPosts: number;
+    totalBurntProfiles: number;
+    totalMirrors: number;
+    totalComments: number;
+    totalCollects: number;
+    totalFollows: number;
+    totalRevenue: Array<{
+      __typename?: 'Erc20Amount';
+      value: string;
+      asset: { __typename?: 'Erc20'; symbol: string };
+    }>;
+  };
+  crowdfundStats: { __typename?: 'GlobalProtocolStats'; totalPosts: number };
 };
 
 export type LikesQueryVariables = Exact<{
@@ -13498,6 +13528,37 @@ export const CollectModuleFieldsFragmentDoc = {
     }
   ]
 } as unknown as DocumentNode<CollectModuleFieldsFragment, unknown>;
+export const RelayerResultFieldsFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'RelayerResultFields' },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'RelayResult' } },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'InlineFragment',
+            typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'RelayerResult' } },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'txHash' } }]
+            }
+          },
+          {
+            kind: 'InlineFragment',
+            typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'RelayError' } },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'reason' } }]
+            }
+          }
+        ]
+      }
+    }
+  ]
+} as unknown as DocumentNode<RelayerResultFieldsFragment, unknown>;
 export const ApprovedModuleAllowanceAmountDocument = {
   kind: 'Document',
   definitions: [
@@ -14450,6 +14511,96 @@ export const HomeFeedDocument = {
     ...MirrorFieldsFragmentDoc.definitions
   ]
 } as unknown as DocumentNode<HomeFeedQuery, HomeFeedQueryVariables>;
+export const LensterStatsDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'LensterStats' },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'globalProtocolStats' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'request' },
+                value: {
+                  kind: 'ObjectValue',
+                  fields: [
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'sources' },
+                      value: { kind: 'StringValue', value: 'Lenster', block: false }
+                    }
+                  ]
+                }
+              }
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'totalProfiles' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'totalPosts' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'totalBurntProfiles' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'totalMirrors' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'totalComments' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'totalCollects' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'totalFollows' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'totalRevenue' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'asset' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [{ kind: 'Field', name: { kind: 'Name', value: 'symbol' } }]
+                        }
+                      },
+                      { kind: 'Field', name: { kind: 'Name', value: 'value' } }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          {
+            kind: 'Field',
+            alias: { kind: 'Name', value: 'crowdfundStats' },
+            name: { kind: 'Name', value: 'globalProtocolStats' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'request' },
+                value: {
+                  kind: 'ObjectValue',
+                  fields: [
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'sources' },
+                      value: { kind: 'StringValue', value: 'Lenster Crowdfund', block: false }
+                    }
+                  ]
+                }
+              }
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'totalPosts' } }]
+            }
+          }
+        ]
+      }
+    }
+  ]
+} as unknown as DocumentNode<LensterStatsQuery, LensterStatsQueryVariables>;
 export const LikesDocument = {
   kind: 'Document',
   definitions: [

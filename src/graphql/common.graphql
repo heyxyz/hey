@@ -312,3 +312,12 @@ fragment StatsFields on PublicationStats {
   totalAmountOfCollects
   totalAmountOfComments
 }
+
+fragment RelayerResultFields on RelayResult {
+  ... on RelayerResult {
+    txHash
+  }
+  ... on RelayError {
+    reason
+  }
+}
