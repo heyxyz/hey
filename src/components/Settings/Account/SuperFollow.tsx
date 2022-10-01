@@ -8,10 +8,12 @@ import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
 import {
+  CreateSetFollowModuleBroadcastItemResult,
   CreateSetFollowModuleTypedDataDocument,
-  EnabledCurrencyModulesWithProfileDocument
-} from '@generated/documents';
-import { CreateSetFollowModuleBroadcastItemResult, Erc20, Mutation } from '@generated/types';
+  EnabledCurrencyModulesWithProfileDocument,
+  Erc20,
+  Mutation
+} from '@generated/types';
 import { StarIcon, XIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
 import getTokenImage from '@lib/getTokenImage';

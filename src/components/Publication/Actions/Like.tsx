@@ -1,8 +1,7 @@
 import { ApolloCache, useMutation } from '@apollo/client';
 import { Tooltip } from '@components/UI/Tooltip';
-import { AddReactionDocument, RemoveReactionDocument } from '@generated/documents';
 import { LensterPublication } from '@generated/lenstertypes';
-import { Mutation, ReactionTypes } from '@generated/types';
+import { AddReactionDocument, Mutation, ReactionTypes, RemoveReactionDocument } from '@generated/types';
 import { HeartIcon } from '@heroicons/react/outline';
 import { HeartIcon as HeartIconSolid } from '@heroicons/react/solid';
 import { publicationKeyFields } from '@lib/keyFields';

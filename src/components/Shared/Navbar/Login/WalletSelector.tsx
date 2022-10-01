@@ -3,7 +3,7 @@ import SwitchNetwork from '@components/Shared/SwitchNetwork';
 import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
 import useIsMounted from '@components/utils/hooks/useIsMounted';
-import { AuthenticateDocument, ChallengeDocument, UserProfilesDocument } from '@generated/documents';
+import { AuthenticateDocument, ChallengeDocument, UserProfilesDocument } from '@generated/types';
 import { XCircleIcon } from '@heroicons/react/solid';
 import getWalletLogo from '@lib/getWalletLogo';
 import { Mixpanel } from '@lib/mixpanel';

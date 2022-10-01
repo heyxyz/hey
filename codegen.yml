@@ -15,16 +15,9 @@ generates:
   src/generated/types.ts:
     plugins:
       - typescript
-      - fragment-matcher
-    config:
-      fetcher: fetch
-      dedupeFragments: true
-
-  src/generated/documents.ts:
-    plugins:
-      - typescript
       - typescript-operations
       - typed-document-node
+      - fragment-matcher
     config:
       fetcher: fetch
       dedupeFragments: true

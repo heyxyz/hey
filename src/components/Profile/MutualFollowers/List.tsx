@@ -3,7 +3,7 @@ import Loader from '@components/Shared/Loader';
 import UserProfile from '@components/Shared/UserProfile';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
-import { MutualFollowersListDocument } from '@generated/documents';
+import { MutualFollowersListDocument } from '@generated/types';
 import { Mixpanel } from '@lib/mixpanel';
 import { FC } from 'react';
 import { useInView } from 'react-cool-inview';

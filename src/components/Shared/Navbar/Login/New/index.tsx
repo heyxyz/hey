@@ -5,7 +5,7 @@ import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Form, useZodForm } from '@components/UI/Form';
 import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
-import { CreateProfileDocument } from '@generated/documents';
+import { CreateProfileDocument } from '@generated/types';
 import { PlusIcon } from '@heroicons/react/outline';
 import getStampFyiURL from '@lib/getStampFyiURL';
 import uploadMediaToIPFS from '@lib/uploadMediaToIPFS';

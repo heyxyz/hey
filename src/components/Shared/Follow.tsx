@@ -3,8 +3,13 @@ import { ApolloCache, useMutation } from '@apollo/client';
 import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
-import { CreateFollowTypedDataDocument, ProxyActionDocument } from '@generated/documents';
-import { CreateFollowBroadcastItemResult, Mutation, Profile } from '@generated/types';
+import {
+  CreateFollowBroadcastItemResult,
+  CreateFollowTypedDataDocument,
+  Mutation,
+  Profile,
+  ProxyActionDocument
+} from '@generated/types';
 import { UserAddIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
 import { Mixpanel } from '@lib/mixpanel';

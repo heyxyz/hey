@@ -8,8 +8,11 @@ import { Modal } from '@components/UI/Modal';
 import { Spinner } from '@components/UI/Spinner';
 import { WarningMessage } from '@components/UI/WarningMessage';
 import Seo from '@components/utils/Seo';
-import { CreateBurnProfileTypedDataDocument } from '@generated/documents';
-import { CreateBurnProfileBroadcastItemResult, Mutation } from '@generated/types';
+import {
+  CreateBurnProfileBroadcastItemResult,
+  CreateBurnProfileTypedDataDocument,
+  Mutation
+} from '@generated/types';
 import { ExclamationIcon, TrashIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
 import { Mixpanel } from '@lib/mixpanel';

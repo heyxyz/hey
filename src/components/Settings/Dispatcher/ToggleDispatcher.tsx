@@ -4,8 +4,11 @@ import IndexStatus from '@components/Shared/IndexStatus';
 import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
-import { CreateSetDispatcherTypedDataDocument } from '@generated/documents';
-import { CreateSetDispatcherBroadcastItemResult, Mutation } from '@generated/types';
+import {
+  CreateSetDispatcherBroadcastItemResult,
+  CreateSetDispatcherTypedDataDocument,
+  Mutation
+} from '@generated/types';
 import { CheckCircleIcon, XIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
 import { Mixpanel } from '@lib/mixpanel';

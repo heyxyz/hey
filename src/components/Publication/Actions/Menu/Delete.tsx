@@ -1,7 +1,6 @@
 import { useMutation } from '@apollo/client';
-import { HidePublicationDocument } from '@generated/documents';
 import { LensterPublication } from '@generated/lenstertypes';
-import { Mutation } from '@generated/types';
+import { HidePublicationDocument, Mutation } from '@generated/types';
 import { Menu } from '@headlessui/react';
 import { TrashIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';

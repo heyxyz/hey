@@ -13,10 +13,8 @@ import { Toggle } from '@components/UI/Toggle';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
 import {
   CreateSetProfileMetadataTypedDataDocument,
-  CreateSetProfileMetadataViaDispatcherDocument
-} from '@generated/documents';
-import {
   CreateSetProfileMetadataUriBroadcastItemResult,
+  CreateSetProfileMetadataViaDispatcherDocument,
   MediaSet,
   Mutation,
   Profile

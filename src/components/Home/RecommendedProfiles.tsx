@@ -5,7 +5,7 @@ import { Card, CardBody } from '@components/UI/Card';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Modal } from '@components/UI/Modal';
-import { RecommendedProfilesDocument } from '@generated/documents';
+import { RecommendedProfilesDocument } from '@generated/types';
 import { DotsCircleHorizontalIcon, UsersIcon } from '@heroicons/react/outline';
 import { SparklesIcon } from '@heroicons/react/solid';
 import { Mixpanel } from '@lib/mixpanel';

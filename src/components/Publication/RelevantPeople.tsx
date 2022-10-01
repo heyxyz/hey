@@ -3,8 +3,8 @@ import UserProfileShimmer from '@components/Shared/Shimmer/UserProfileShimmer';
 import UserProfile from '@components/Shared/UserProfile';
 import { Card, CardBody } from '@components/UI/Card';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
-import { RelevantPeopleDocument } from '@generated/documents';
 import { LensterPublication } from '@generated/lenstertypes';
+import { RelevantPeopleDocument } from '@generated/types';
 import React, { FC } from 'react';
 import { ALL_HANDLES_REGEX, HANDLE_SANITIZE_REGEX } from 'src/constants';
 

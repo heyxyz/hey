@@ -7,8 +7,12 @@ import { Card, CardBody } from '@components/UI/Card';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
-import { CreateSetDefaultProfileTypedDataDocument } from '@generated/documents';
-import { Mutation, Profile, SetDefaultProfileBroadcastItemResult } from '@generated/types';
+import {
+  CreateSetDefaultProfileTypedDataDocument,
+  Mutation,
+  Profile,
+  SetDefaultProfileBroadcastItemResult
+} from '@generated/types';
 import { ExclamationIcon, PencilIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
 import { Mixpanel } from '@lib/mixpanel';

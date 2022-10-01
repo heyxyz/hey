@@ -14,15 +14,16 @@ import { Spinner } from '@components/UI/Spinner';
 import { Tooltip } from '@components/UI/Tooltip';
 import { WarningMessage } from '@components/UI/WarningMessage';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
+import { LensterPublication } from '@generated/lenstertypes';
 import {
   ApprovedModuleAllowanceAmountDocument,
   CollectModuleDocument,
+  CreateCollectBroadcastItemResult,
   CreateCollectTypedDataDocument,
+  Mutation,
   ProxyActionDocument,
   PublicationRevenueDocument
-} from '@generated/documents';
-import { LensterPublication } from '@generated/lenstertypes';
-import { CreateCollectBroadcastItemResult, Mutation } from '@generated/types';
+} from '@generated/types';
 import {
   CashIcon,
   ClockIcon,
