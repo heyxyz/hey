@@ -9,8 +9,6 @@ interface Props {
 }
 
 const Mirrored: FC<Props> = ({ publication }) => {
-  const publicationType = publication?.metadata?.attributes[0]?.value;
-
   return (
     <div className="flex items-center pb-4 space-x-1 text-gray-500 text-[13px]">
       <SwitchHorizontalIcon className="w-4 h-4" />

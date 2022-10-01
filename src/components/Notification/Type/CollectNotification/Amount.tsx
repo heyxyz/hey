@@ -9,9 +9,6 @@ interface Props {
 }
 
 const CollectedAmount: FC<Props> = ({ notification }) => {
-  const publicationType =
-    notification?.collectedPublication?.metadata?.attributes[0]?.value ??
-    notification?.collectedPublication.__typename?.toLowerCase();
   const collectModule: any = notification?.collectedPublication?.collectModule;
 
   return (
