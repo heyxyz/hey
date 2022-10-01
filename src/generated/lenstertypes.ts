@@ -6,9 +6,7 @@ import {
   LimitedFeeCollectModuleSettings,
   LimitedTimedFeeCollectModuleSettings,
   Mirror,
-  Notification,
   Post,
-  Profile,
   ProfileFollowModuleSettings,
   RevertCollectModuleSettings,
   RevertFollowModuleSettings,
@@ -16,7 +14,6 @@ import {
 } from './types';
 
 export type LensterPublication = Post & Mirror & Comment;
-export type LensterNotification = Notification & { profile: Profile };
 export type Community = Post;
 export type LensterCollectModule = FeeCollectModuleSettings &
   FreeCollectModuleSettings &
