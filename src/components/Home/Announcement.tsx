@@ -5,7 +5,7 @@ import { APP_NAME, IS_MAINNET } from 'src/constants';
 
 const Announcement: FC = () => {
   return (
-    <Card as="aside" className="mb-4 bg-yellow-50 dark:bg-yellow-900 !border-yellow-600">
+    <Card as="aside" className="mb-4 border-yellow-400 !bg-yellow-300 !bg-opacity-20">
       <CardBody className="space-y-2.5 text-yellow-600">
         <div className="flex items-center space-x-2 font-bold">
           <BeakerIcon className="w-5 h-5" />
