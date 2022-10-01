@@ -1,8 +1,7 @@
 import { Menu, Transition } from '@headlessui/react';
-import { SupportIcon, UserIcon } from '@heroicons/react/outline';
+import { SupportIcon } from '@heroicons/react/outline';
 import clsx from 'clsx';
 import { FC, Fragment } from 'react';
-import { IS_MAINNET } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 
 import { NextLink } from './MenuItems';
@@ -40,25 +39,6 @@ const MoreNavItems: FC = () => {
               static
               className="absolute py-1 mt-2 w-52 bg-white rounded-xl border shadow-sm dark:bg-gray-900 focus:outline-none dark:border-gray-700/80"
             >
-              {currentProfile ? (
-                <>
-                  {!IS_MAINNET && (
-                    <Menu.Item
-                      as={NextLink}
-                      href="/new/profile"
-                      className={({ active }: { active: boolean }) =>
-                        clsx({ 'dropdown-active': active }, 'menu-item')
-                      }
-                    >
-                      <div className="flex items-center space-x-1.5">
-                        <UserIcon className="w-4 h-4" />
-                        <div>New Profile</div>
-                      </div>
-                    </Menu.Item>
-                  )}
-                  <div className="divider" />
-                </>
-              ) : null}
               <Menu.Item
                 as={NextLink}
                 href="/contact"
