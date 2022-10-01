@@ -53,7 +53,7 @@ const Modules: FC<Props> = ({ setShowModal }) => {
         />
       ) : (
         data?.enabledModules?.collectModules?.map(
-          (module: any) =>
+          (module) =>
             getModule(module?.moduleName).name !== 'none' && (
               <div key={module?.contractAddress}>
                 <button
@@ -64,7 +64,7 @@ const Modules: FC<Props> = ({ setShowModal }) => {
                     },
                     'w-full p-3 text-left border dark:border-gray-700/80 rounded-xl flex items-center justify-between'
                   )}
-                  onClick={() => handleSelectModule(module)}
+                  onClick={() => handleSelectModule(module as EnabledModule)}
                 >
                   <div>
                     <div className="flex items-center space-x-2">

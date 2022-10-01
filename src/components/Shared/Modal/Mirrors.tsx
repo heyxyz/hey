@@ -3,7 +3,7 @@ import UserProfile from '@components/Shared/UserProfile';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
-import { MirrorsDocument } from '@generated/types';
+import { MirrorsDocument, Profile } from '@generated/types';
 import { SwitchHorizontalIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import { FC } from 'react';
@@ -64,9 +64,14 @@ const Mirrors: FC<Props> = ({ publicationId }) => {
       <ErrorMessage className="m-5" title="Failed to load mirrors" error={error} />
       <div className="space-y-3">
         <div className="divide-y dark:divide-gray-700">
-          {profiles?.map((profile: any) => (
+          {profiles?.map((profile) => (
             <div className="p-5" key={profile?.id}>
-              <UserProfile profile={profile} showBio showFollow isFollowing={profile?.isFollowedByMe} />
+              <UserProfile
+                profile={profile as Profile}
+                showBio
+                showFollow
+                isFollowing={profile?.isFollowedByMe}
+              />
             </div>
           ))}
         </div>
