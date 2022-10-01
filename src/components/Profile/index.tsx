@@ -6,7 +6,7 @@ import { Mixpanel } from '@lib/mixpanel';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
-import { APP_NAME } from 'src/constants';
+import { APP_NAME, STATIC_ASSETS } from 'src/constants';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
 import { useAppStore } from 'src/store/app';
@@ -60,17 +60,23 @@ const ViewProfile: NextPage = () => {
       ) : (
         <Seo title={`@${profile?.handle} • ${APP_NAME}`} />
       )}
-      <Cover cover={profile?.coverPicture?.original?.url} />
+      <Cover
+        cover={
+          profile?.coverPicture?.__typename === 'MediaSet'
+            ? profile?.coverPicture?.original?.url
+            : `${STATIC_ASSETS}/patterns/2.svg`
+        }
+      />
       <GridLayout className="pt-6">
         <GridItemFour>
-          <Details profile={profile} />
+          <Details profile={profile as any} />
         </GridItemFour>
         <GridItemEight className="space-y-5">
-          <FeedType stats={profile?.stats} setFeedType={setFeedType} feedType={feedType} />
+          <FeedType stats={profile?.stats as any} setFeedType={setFeedType} feedType={feedType} />
           {(feedType === 'FEED' || feedType === 'REPLIES' || feedType === 'MEDIA') && (
-            <Feed profile={profile} type={feedType} />
+            <Feed profile={profile as any} type={feedType} />
           )}
-          {feedType === 'NFT' && <NFTFeed profile={profile} />}
+          {feedType === 'NFT' && <NFTFeed profile={profile as any} />}
         </GridItemEight>
       </GridLayout>
     </>

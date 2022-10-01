@@ -259,6 +259,11 @@ const NewCrowdfund: NextPage = () => {
 
   const isLoading =
     typedDataLoading || dispatcherLoading || isUploading || signLoading || writeLoading || broadcastLoading;
+  const txHash =
+    data?.hash ??
+    broadcastData?.broadcast?.txHash ??
+    (dispatcherData?.createPostViaDispatcher.__typename === 'RelayerResult' &&
+      dispatcherData?.createPostViaDispatcher.txHash);
 
   return (
     <GridLayout>
@@ -268,15 +273,9 @@ const NewCrowdfund: NextPage = () => {
       </GridItemFour>
       <GridItemEight>
         <Card>
-          {data?.hash ??
-          broadcastData?.broadcast?.txHash ??
-          dispatcherData?.createPostViaDispatcher?.txHash ? (
+          {txHash ? (
             <Pending
-              txHash={
-                data?.hash ??
-                broadcastData?.broadcast?.txHash ??
-                dispatcherData?.createPostViaDispatcher?.txHash
-              }
+              txHash={txHash}
               indexing="Crowdfund creation in progress, please wait!"
               indexed="Crowdfund created successfully"
               type="crowdfund"
