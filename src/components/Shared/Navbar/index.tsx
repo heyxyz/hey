@@ -1,9 +1,9 @@
 import NotificationIcon from '@components/Notification/Icon';
 import useStaffMode from '@components/utils/hooks/useStaffMode';
 import { Disclosure } from '@headlessui/react';
-import { MenuIcon, ShieldCheckIcon, XIcon } from '@heroicons/react/outline';
+import { MailIcon, MenuIcon, XIcon } from '@heroicons/react/outline';
+import getFeatureEnabled from '@lib/getFeatureEnabled';
 import hasPrideLogo from '@lib/hasPrideLogo';
-import isGardener from '@lib/isGardener';
 import clsx from 'clsx';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -97,12 +97,12 @@ const Navbar: FC = () => {
               <div className="flex gap-8 items-center">
                 {currentProfile ? (
                   <>
-                    {isGardener(currentProfile?.id) && (
-                      <Link href="/mod">
-                        <ShieldCheckIcon className="w-5 h-5 sm:w-6 sm:h-6" />
+                    <NewPostModal />
+                    {getFeatureEnabled('messages', currentProfile?.id) && (
+                      <Link href="/messages">
+                        <MailIcon className="w-5 h-5 sm:w-6 sm:h-6" />
                       </Link>
                     )}
-                    <NewPostModal />
                     <NotificationIcon />
                   </>
                 ) : null}
