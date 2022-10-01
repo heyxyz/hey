@@ -7,6 +7,7 @@ import { Form, useZodForm } from '@components/UI/Form';
 import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
+import { ChallengeDocument } from '@generated/documents';
 import { CreateSetProfileImageUriBroadcastItemResult, Mutation, NftImage, Profile } from '@generated/types';
 import {
   CREATE_SET_PROFILE_IMAGE_URI_TYPED_DATA_MUTATION,
@@ -17,7 +18,6 @@ import getSignature from '@lib/getSignature';
 import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
-import gql from 'graphql-tag';
 import React, { FC, useState } from 'react';
 import toast from 'react-hot-toast';
 import { ADDRESS_REGEX, IS_MAINNET, LENSHUB_PROXY, RELAY_ON, SIGN_WALLET } from 'src/constants';
@@ -32,15 +32,6 @@ const editNftPictureSchema = object({
     .regex(ADDRESS_REGEX, { message: 'Invalid Contract address' }),
   tokenId: string()
 });
-
-const CHALLENGE_QUERY = gql`
-  query Challenge($request: NftOwnershipChallengeRequest!) {
-    nftOwnershipChallenge(request: $request) {
-      id
-      text
-    }
-  }
-`;
 
 interface Props {
   profile: Profile & { picture: NftImage };
@@ -81,7 +72,7 @@ const NFTPicture: FC<Props> = ({ profile }) => {
     onError
   });
 
-  const [loadChallenge, { loading: challengeLoading }] = useLazyQuery(CHALLENGE_QUERY);
+  const [loadChallenge, { loading: challengeLoading }] = useLazyQuery(ChallengeDocument);
   const { broadcast, data: broadcastData, loading: broadcastLoading } = useBroadcast({ onCompleted });
   const [createSetProfileImageURITypedData, { loading: typedDataLoading }] = useMutation<Mutation>(
     CREATE_SET_PROFILE_IMAGE_URI_TYPED_DATA_MUTATION,
