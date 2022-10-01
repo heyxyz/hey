@@ -4422,6 +4422,28 @@ export type StatsFieldsFragment = {
   totalAmountOfComments: number;
 };
 
+export type ApprovedModuleAllowanceAmountQueryVariables = Exact<{
+  request: ApprovedModuleAllowanceAmountRequest;
+}>;
+
+export type ApprovedModuleAllowanceAmountQuery = {
+  __typename?: 'Query';
+  approvedModuleAllowanceAmount: Array<{
+    __typename?: 'ApprovedAllowanceAmount';
+    currency: any;
+    module: string;
+    allowance: string;
+    contractAddress: any;
+  }>;
+  enabledModuleCurrencies: Array<{
+    __typename?: 'Erc20';
+    name: string;
+    symbol: string;
+    decimals: number;
+    address: any;
+  }>;
+};
+
 export type CollectModuleQueryVariables = Exact<{
   request: PublicationQueryRequest;
 }>;
@@ -6869,6 +6891,20 @@ export type FollowingQuery = {
       };
     }>;
     pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null; totalCount: number };
+  };
+};
+
+export type GenerateModuleCurrencyApprovalDataQueryVariables = Exact<{
+  request: GenerateModuleCurrencyApprovalDataRequest;
+}>;
+
+export type GenerateModuleCurrencyApprovalDataQuery = {
+  __typename?: 'Query';
+  generateModuleCurrencyApprovalData: {
+    __typename?: 'GenerateModuleCurrencyApproval';
+    to: any;
+    from: any;
+    data: any;
   };
 };
 
@@ -11041,6 +11077,18 @@ export type PublicationQuery = {
     | null;
 };
 
+export type PublicationRevenueQueryVariables = Exact<{
+  request: PublicationRevenueQueryRequest;
+}>;
+
+export type PublicationRevenueQuery = {
+  __typename?: 'Query';
+  publicationRevenue?: {
+    __typename?: 'PublicationRevenue';
+    revenue: { __typename?: 'RevenueAggregate'; total: { __typename?: 'Erc20Amount'; value: string } };
+  } | null;
+};
+
 export type RecommendedProfilesQueryVariables = Exact<{ [key: string]: never }>;
 
 export type RecommendedProfilesQuery = {
@@ -13270,6 +13318,64 @@ export const CollectModuleFieldsFragmentDoc = {
     }
   ]
 } as unknown as DocumentNode<CollectModuleFieldsFragment, unknown>;
+export const ApprovedModuleAllowanceAmountDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'ApprovedModuleAllowanceAmount' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'request' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'ApprovedModuleAllowanceAmountRequest' } }
+          }
+        }
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'approvedModuleAllowanceAmount' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'request' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'request' } }
+              }
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'currency' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'module' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'allowance' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'contractAddress' } }
+              ]
+            }
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'enabledModuleCurrencies' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'symbol' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'decimals' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'address' } }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+} as unknown as DocumentNode<ApprovedModuleAllowanceAmountQuery, ApprovedModuleAllowanceAmountQueryVariables>;
 export const CollectModuleDocument = {
   kind: 'Document',
   definitions: [
@@ -13819,6 +13925,56 @@ export const FollowingDocument = {
     ...ProfileFieldsFragmentDoc.definitions
   ]
 } as unknown as DocumentNode<FollowingQuery, FollowingQueryVariables>;
+export const GenerateModuleCurrencyApprovalDataDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'GenerateModuleCurrencyApprovalData' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'request' } },
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'GenerateModuleCurrencyApprovalDataRequest' }
+            }
+          }
+        }
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'generateModuleCurrencyApprovalData' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'request' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'request' } }
+              }
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'to' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'from' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'data' } }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+} as unknown as DocumentNode<
+  GenerateModuleCurrencyApprovalDataQuery,
+  GenerateModuleCurrencyApprovalDataQueryVariables
+>;
 export const HomeFeedDocument = {
   kind: 'Document',
   definitions: [
@@ -15292,6 +15448,64 @@ export const PublicationDocument = {
     ...MirrorFieldsFragmentDoc.definitions
   ]
 } as unknown as DocumentNode<PublicationQuery, PublicationQueryVariables>;
+export const PublicationRevenueDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'PublicationRevenue' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'request' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'PublicationRevenueQueryRequest' } }
+          }
+        }
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'publicationRevenue' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'request' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'request' } }
+              }
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'revenue' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'total' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [{ kind: 'Field', name: { kind: 'Name', value: 'value' } }]
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+} as unknown as DocumentNode<PublicationRevenueQuery, PublicationRevenueQueryVariables>;
 export const RecommendedProfilesDocument = {
   kind: 'Document',
   definitions: [

@@ -1,4 +1,4 @@
-import { gql, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import { GridItemSix, GridLayout } from '@components/GridLayout';
 import Markup from '@components/Shared/Markup';
 import Collectors from '@components/Shared/Modal/Collectors';
@@ -7,7 +7,7 @@ import CrowdfundShimmer from '@components/Shared/Shimmer/CrowdfundShimmer';
 import { Card } from '@components/UI/Card';
 import { Modal } from '@components/UI/Modal';
 import { Tooltip } from '@components/UI/Tooltip';
-import { CollectModuleDocument } from '@generated/documents';
+import { CollectModuleDocument, PublicationRevenueDocument } from '@generated/documents';
 import { LensterPublication } from '@generated/lenstertypes';
 import { CashIcon, CurrencyDollarIcon, UsersIcon } from '@heroicons/react/outline';
 import getIPFSLink from '@lib/getIPFSLink';
@@ -21,18 +21,6 @@ import { useAppStore } from 'src/store/app';
 import { CROWDFUND } from 'src/tracking';
 
 import Fund from './Fund';
-
-export const PUBLICATION_REVENUE_QUERY = gql`
-  query PublicationRevenue($request: PublicationRevenueQueryRequest!) {
-    publicationRevenue(request: $request) {
-      revenue {
-        total {
-          value
-        }
-      }
-    }
-  }
-`;
 
 interface BadgeProps {
   title: ReactNode;
@@ -60,7 +48,7 @@ const Crowdfund: FC<Props> = ({ fund }) => {
 
   const collectModule: any = data?.publication?.collectModule;
 
-  const { data: revenueData, loading: revenueLoading } = useQuery(PUBLICATION_REVENUE_QUERY, {
+  const { data: revenueData, loading: revenueLoading } = useQuery(PublicationRevenueDocument, {
     variables: {
       request: {
         publicationId: fund.__typename === 'Mirror' ? fund?.mirrorOf?.id : fund?.id
