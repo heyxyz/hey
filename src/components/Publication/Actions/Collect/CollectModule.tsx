@@ -122,7 +122,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
   });
 
   useEffect(() => {
-    setRevenue(parseFloat(revenueData?.publicationRevenue?.revenue?.total?.value ?? 0));
+    setRevenue(parseFloat((revenueData?.publicationRevenue?.revenue?.total?.value as any) ?? 0));
   }, [revenueData]);
 
   const { data: balanceData, isLoading: balanceLoading } = useBalance({

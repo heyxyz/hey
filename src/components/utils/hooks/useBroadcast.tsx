@@ -10,7 +10,7 @@ interface Props {
   update?: (cache: ApolloCache<any>) => void;
 }
 
-const useBroadcast = ({ onCompleted, update }: Props) => {
+const useBroadcast = ({ onCompleted, update }: Props): { broadcast: any; data: any; loading: boolean } => {
   const [broadcast, { data, loading }] = useMutation(BroadcastDocument, {
     onCompleted,
     update,

@@ -31,8 +31,8 @@ const MutualFollowers: FC<Props> = ({ profile }) => {
     fetchPolicy: 'no-cache'
   });
 
-  const profiles = data?.mutualFollowersProfiles?.items;
-  const totalCount = data?.mutualFollowersProfiles?.pageInfo?.totalCount;
+  const profiles = data?.mutualFollowersProfiles?.items ?? [];
+  const totalCount = data?.mutualFollowersProfiles?.pageInfo?.totalCount ?? 0;
 
   const Wrapper = ({ children }: { children: ReactNode }) => (
     <div
