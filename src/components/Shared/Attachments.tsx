@@ -1,4 +1,5 @@
 import { Button } from '@components/UI/Button';
+import { LightBox } from '@components/UI/LightBox';
 import { LensterAttachment } from '@generated/lenstertypes';
 import { MediaSet } from '@generated/types';
 import { ExternalLinkIcon, XIcon } from '@heroicons/react/outline';
@@ -6,7 +7,7 @@ import getIPFSLink from '@lib/getIPFSLink';
 import imagekitURL from '@lib/imagekitURL';
 import clsx from 'clsx';
 import dynamic from 'next/dynamic';
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 
 const Video = dynamic(() => import('./Video'), {
   loading: () => <div className="rounded-lg aspect-w-16 aspect-h-12 shimmer" />
@@ -39,6 +40,8 @@ interface Props {
 }
 
 const Attachments: FC<Props> = ({ attachments, setAttachments, isNew = false, hideDelete = false }) => {
+  const [isImageExpanded, setIsImageExpanded] = useState(false);
+
   const removeAttachment = (attachment: any) => {
     const arr = attachments;
     setAttachments(
@@ -82,13 +85,18 @@ const Attachments: FC<Props> = ({ attachments, setAttachments, isNew = false, hi
             ) : type === 'video/mp4' ? (
               <Video src={url} />
             ) : (
-              <img
-                className="object-cover bg-gray-100 rounded-lg border cursor-pointer dark:bg-gray-800 dark:border-gray-700/80"
-                loading="lazy"
-                onClick={() => window.open(url, '_blank')}
-                src={imagekitURL(url, 'attachment')}
-                alt={imagekitURL(url, 'attachment')}
-              />
+              <>
+                {isImageExpanded && (
+                  <LightBox url={url} show={isImageExpanded} onClose={() => setIsImageExpanded(false)} />
+                )}
+                <img
+                  className="object-cover bg-gray-100 rounded-lg border cursor-pointer dark:bg-gray-800 dark:border-gray-700/80"
+                  loading="lazy"
+                  onClick={() => setIsImageExpanded(true)}
+                  src={imagekitURL(url, 'attachment')}
+                  alt={imagekitURL(url, 'attachment')}
+                />
+              </>
             )}
             {isNew && !hideDelete && (
               <div className="m-3">
