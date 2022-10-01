@@ -3,7 +3,7 @@ import UserProfile from '@components/Shared/UserProfile';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
-import { LikesDocument } from '@generated/types';
+import { LikesDocument, Profile } from '@generated/types';
 import { HeartIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import { FC } from 'react';
@@ -64,10 +64,10 @@ const Likes: FC<Props> = ({ publicationId }) => {
       <ErrorMessage className="m-5" title="Failed to load likes" error={error} />
       <div className="space-y-3">
         <div className="divide-y dark:divide-gray-700">
-          {profiles?.map((like: any) => (
+          {profiles?.map((like) => (
             <div className="p-5" key={like?.reactionId}>
               <UserProfile
-                profile={like?.profile}
+                profile={like?.profile as Profile}
                 showBio
                 showFollow
                 isFollowing={like?.profile?.isFollowedByMe}

@@ -68,10 +68,10 @@ const Following: FC<Props> = ({ profile }) => {
       <ErrorMessage className="m-5" title="Failed to load following" error={error} />
       <div className="space-y-3">
         <div className="divide-y dark:divide-gray-700">
-          {followings?.map((following: any) => (
+          {followings?.map((following) => (
             <div className="p-5" key={following?.profile?.id}>
               <UserProfile
-                profile={following?.profile}
+                profile={following?.profile as Profile}
                 showBio
                 showFollow
                 isFollowing={following?.profile?.isFollowedByMe}
