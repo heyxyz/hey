@@ -1,11 +1,11 @@
 import { LensHubProxy } from '@abis/LensHubProxy';
 import { gql, useMutation, useQuery } from '@apollo/client';
-import { ALLOWANCE_SETTINGS_QUERY } from '@components/Settings/Allowance';
 import AllowanceButton from '@components/Settings/Allowance/Button';
 import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
 import { WarningMessage } from '@components/UI/WarningMessage';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
+import { ApprovedModuleAllowanceAmountDocument, SuperFollowDocument } from '@generated/documents';
 import { LensterFollowModule } from '@generated/lenstertypes';
 import {
   CreateFollowBroadcastItemResult,
@@ -30,28 +30,6 @@ import { useAccount, useBalance, useContractWrite, useSignTypedData } from 'wagm
 import Loader from '../Loader';
 import Slug from '../Slug';
 import Uniswap from '../Uniswap';
-
-const SUPER_FOLLOW_QUERY = gql`
-  query SuperFollow($request: SingleProfileQueryRequest!) {
-    profile(request: $request) {
-      id
-      followModule {
-        ... on FeeFollowModuleSettings {
-          amount {
-            asset {
-              name
-              symbol
-              decimals
-              address
-            }
-            value
-          }
-          recipient
-        }
-      }
-    }
-  }
-`;
 
 const CREATE_FOLLOW_TYPED_DATA_MUTATION = gql`
   mutation CreateFollowTypedData($request: FollowRequest!) {
@@ -113,14 +91,14 @@ const FollowModule: FC<Props> = ({ profile, setFollowing, setShowFollowModal, ag
     onError
   });
 
-  const { data, loading } = useQuery(SUPER_FOLLOW_QUERY, {
+  const { data, loading } = useQuery(SuperFollowDocument, {
     variables: { request: { profileId: profile?.id } },
     skip: !profile?.id
   });
 
   const followModule: FeeFollowModuleSettings = data?.profile?.followModule;
 
-  const { data: allowanceData, loading: allowanceLoading } = useQuery(ALLOWANCE_SETTINGS_QUERY, {
+  const { data: allowanceData, loading: allowanceLoading } = useQuery(ApprovedModuleAllowanceAmountDocument, {
     variables: {
       request: {
         currencies: followModule?.amount?.asset?.address,

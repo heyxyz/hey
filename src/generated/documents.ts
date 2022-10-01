@@ -12368,6 +12368,32 @@ export type SearchPublicationsQuery = {
       };
 };
 
+export type SuperFollowQueryVariables = Exact<{
+  request: SingleProfileQueryRequest;
+}>;
+
+export type SuperFollowQuery = {
+  __typename?: 'Query';
+  profile?: {
+    __typename?: 'Profile';
+    id: any;
+    followModule?:
+      | {
+          __typename?: 'FeeFollowModuleSettings';
+          recipient: any;
+          amount: {
+            __typename?: 'ModuleFeeAmount';
+            value: string;
+            asset: { __typename?: 'Erc20'; name: string; symbol: string; decimals: number; address: any };
+          };
+        }
+      | { __typename?: 'ProfileFollowModuleSettings' }
+      | { __typename?: 'RevertFollowModuleSettings' }
+      | { __typename?: 'UnknownFollowModuleSettings' }
+      | null;
+  } | null;
+};
+
 export type TrendingQueryVariables = Exact<{
   request: AllPublicationsTagsRequest;
 }>;
@@ -16278,6 +16304,93 @@ export const SearchPublicationsDocument = {
     ...MirrorFieldsFragmentDoc.definitions
   ]
 } as unknown as DocumentNode<SearchPublicationsQuery, SearchPublicationsQueryVariables>;
+export const SuperFollowDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'SuperFollow' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'request' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'SingleProfileQueryRequest' } }
+          }
+        }
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'profile' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'request' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'request' } }
+              }
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'followModule' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'InlineFragment',
+                        typeCondition: {
+                          kind: 'NamedType',
+                          name: { kind: 'Name', value: 'FeeFollowModuleSettings' }
+                        },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'amount' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'asset' },
+                                    selectionSet: {
+                                      kind: 'SelectionSet',
+                                      selections: [
+                                        { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                                        { kind: 'Field', name: { kind: 'Name', value: 'symbol' } },
+                                        { kind: 'Field', name: { kind: 'Name', value: 'decimals' } },
+                                        { kind: 'Field', name: { kind: 'Name', value: 'address' } }
+                                      ]
+                                    }
+                                  },
+                                  { kind: 'Field', name: { kind: 'Name', value: 'value' } }
+                                ]
+                              }
+                            },
+                            { kind: 'Field', name: { kind: 'Name', value: 'recipient' } }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+} as unknown as DocumentNode<SuperFollowQuery, SuperFollowQueryVariables>;
 export const TrendingDocument = {
   kind: 'Document',
   definitions: [

@@ -1,6 +1,6 @@
 import { useLazyQuery } from '@apollo/client';
-import { SEARCH_USERS_QUERY } from '@components/Shared/Navbar/Search';
 import Slug from '@components/Shared/Slug';
+import { SearchProfilesDocument } from '@generated/documents';
 import { UserSuggestion } from '@generated/lenstertypes';
 import { MediaSet, NftImage, Profile } from '@generated/types';
 import { BadgeCheckIcon } from '@heroicons/react/solid';
@@ -48,7 +48,7 @@ interface Props {
 export const MentionTextArea: FC<Props> = ({ error, setError, placeholder = '' }) => {
   const publicationContent = usePublicationStore((state) => state.publicationContent);
   const setPublicationContent = usePublicationStore((state) => state.setPublicationContent);
-  const [searchUsers] = useLazyQuery(SEARCH_USERS_QUERY);
+  const [searchUsers] = useLazyQuery(SearchProfilesDocument);
 
   const fetchUsers = (query: string, callback: any) => {
     if (!query) {
