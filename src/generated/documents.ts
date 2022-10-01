@@ -5656,6 +5656,23 @@ export type EnabledCurrencyModulesWithProfileQuery = {
   } | null;
 };
 
+export type EnabledModulesQueryVariables = Exact<{ [key: string]: never }>;
+
+export type EnabledModulesQuery = {
+  __typename?: 'Query';
+  enabledModules: {
+    __typename?: 'EnabledModules';
+    collectModules: Array<{ __typename?: 'EnabledModule'; moduleName: string; contractAddress: any }>;
+  };
+  enabledModuleCurrencies: Array<{
+    __typename?: 'Erc20';
+    name: string;
+    symbol: string;
+    decimals: number;
+    address: any;
+  }>;
+};
+
 export type ExploreFeedQueryVariables = Exact<{
   request: ExplorePublicationRequest;
   reactionRequest?: InputMaybe<ReactionFieldResolverRequest>;
@@ -14017,6 +14034,54 @@ export const EnabledCurrencyModulesWithProfileDocument = {
   EnabledCurrencyModulesWithProfileQuery,
   EnabledCurrencyModulesWithProfileQueryVariables
 >;
+export const EnabledModulesDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'EnabledModules' },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'enabledModules' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'collectModules' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'moduleName' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'contractAddress' } }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'enabledModuleCurrencies' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'symbol' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'decimals' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'address' } }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+} as unknown as DocumentNode<EnabledModulesQuery, EnabledModulesQueryVariables>;
 export const ExploreFeedDocument = {
   kind: 'Document',
   definitions: [
