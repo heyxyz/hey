@@ -10,7 +10,6 @@ import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
 import { LensterAttachment } from '@generated/lenstertypes';
 import {
-  CreatePostBroadcastItemResult,
   CreatePostTypedDataDocument,
   CreatePostViaDispatcherDocument,
   Mutation,
@@ -126,11 +125,7 @@ const NewPost: FC<Props> = ({ hideCard = false }) => {
   const [createPostTypedData, { loading: typedDataLoading }] = useMutation<Mutation>(
     CreatePostTypedDataDocument,
     {
-      onCompleted: async ({
-        createPostTypedData
-      }: {
-        createPostTypedData: CreatePostBroadcastItemResult;
-      }) => {
+      onCompleted: async ({ createPostTypedData }) => {
         try {
           const { id, typedData } = createPostTypedData;
           const {
@@ -141,7 +136,7 @@ const NewPost: FC<Props> = ({ hideCard = false }) => {
             referenceModule,
             referenceModuleInitData,
             deadline
-          } = typedData?.value;
+          } = typedData.value;
           const signature = await signTypedDataAsync(getSignature(typedData));
           const { v, r, s } = splitSignature(signature);
           const sig = { v, r, s, deadline };

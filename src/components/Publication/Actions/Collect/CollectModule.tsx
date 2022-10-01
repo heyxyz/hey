@@ -18,7 +18,6 @@ import { LensterPublication } from '@generated/lenstertypes';
 import {
   ApprovedModuleAllowanceAmountDocument,
   CollectModuleDocument,
-  CreateCollectBroadcastItemResult,
   CreateCollectTypedDataDocument,
   Mutation,
   ProxyActionDocument,
@@ -144,14 +143,10 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
   const [createCollectTypedData, { loading: typedDataLoading }] = useMutation<Mutation>(
     CreateCollectTypedDataDocument,
     {
-      onCompleted: async ({
-        createCollectTypedData
-      }: {
-        createCollectTypedData: CreateCollectBroadcastItemResult;
-      }) => {
+      onCompleted: async ({ createCollectTypedData }) => {
         try {
           const { id, typedData } = createCollectTypedData;
-          const { profileId, pubId, data: collectData, deadline } = typedData?.value;
+          const { profileId, pubId, data: collectData, deadline } = typedData.value;
           const signature = await signTypedDataAsync(getSignature(typedData));
           const { v, r, s } = splitSignature(signature);
           const sig = { v, r, s, deadline };
