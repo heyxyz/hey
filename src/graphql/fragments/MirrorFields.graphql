@@ -31,6 +31,12 @@ fragment MirrorFields on Mirror {
       }
       reaction(request: $reactionRequest)
       mirrors(by: $profileId)
+      canComment(profileId: $profileId) {
+        result
+      }
+      canMirror(profileId: $profileId) {
+        result
+      }
       stats {
         ...StatsFields
       }
