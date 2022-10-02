@@ -10,6 +10,6 @@
     }
   },
   "forwardPorts": [4783],
-  "postCreateCommand": ["cp .env.example .env", "yarn install", "yarn codegen"],
+  "postCreateCommand": "cp .env.example .env; yarn install; yarn codegen",
   "remoteUser": "node"
 }
