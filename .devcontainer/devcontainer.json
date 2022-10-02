@@ -1,0 +1,21 @@
+{
+	"name": "Lenster",
+	"build": {
+		"dockerfile": "Dockerfile",
+		"args": { "VARIANT": "18" }
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"dbaeumer.vscode-eslint"
+			]
+		}
+	},
+	"forwardPorts": [4783],
+	"postCreateCommand": [
+		"cp .env.example .env",
+		"yarn install",
+		"yarn codegen"
+	],
+	"remoteUser": "node"
+}
