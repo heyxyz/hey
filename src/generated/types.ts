@@ -3405,6 +3405,8 @@ export type CommentFieldsFragment = {
             | { __typename: 'UnknownFollowModuleSettings' }
             | null;
         };
+        canComment: { __typename?: 'CanCommentResponse'; result: boolean };
+        canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
         collectedBy?: {
           __typename?: 'Wallet';
           address: any;
@@ -3631,6 +3633,8 @@ export type CommentFieldsFragment = {
                         | { __typename: 'UnknownFollowModuleSettings' }
                         | null;
                     };
+                    canComment: { __typename?: 'CanCommentResponse'; result: boolean };
+                    canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
                     stats: {
                       __typename?: 'PublicationStats';
                       totalUpvotes: number;
@@ -4055,6 +4059,8 @@ export type CommentFieldsFragment = {
                   | { __typename: 'UnknownFollowModuleSettings' }
                   | null;
               };
+              canComment: { __typename?: 'CanCommentResponse'; result: boolean };
+              canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
               stats: {
                 __typename?: 'PublicationStats';
                 totalUpvotes: number;
@@ -4490,6 +4496,8 @@ export type MirrorFieldsFragment = {
             | { __typename: 'UnknownFollowModuleSettings' }
             | null;
         };
+        canComment: { __typename?: 'CanCommentResponse'; result: boolean };
+        canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
         stats: {
           __typename?: 'PublicationStats';
           totalUpvotes: number;
@@ -5813,6 +5821,8 @@ export type CommentFeedQuery = {
                     | { __typename: 'UnknownFollowModuleSettings' }
                     | null;
                 };
+                canComment: { __typename?: 'CanCommentResponse'; result: boolean };
+                canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
                 collectedBy?: {
                   __typename?: 'Wallet';
                   address: any;
@@ -6046,6 +6056,8 @@ export type CommentFeedQuery = {
                                 | { __typename: 'UnknownFollowModuleSettings' }
                                 | null;
                             };
+                            canComment: { __typename?: 'CanCommentResponse'; result: boolean };
+                            canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
                             stats: {
                               __typename?: 'PublicationStats';
                               totalUpvotes: number;
@@ -6501,6 +6513,8 @@ export type CommentFeedQuery = {
                           | { __typename: 'UnknownFollowModuleSettings' }
                           | null;
                       };
+                      canComment: { __typename?: 'CanCommentResponse'; result: boolean };
+                      canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
                       stats: {
                         __typename?: 'PublicationStats';
                         totalUpvotes: number;
@@ -7025,6 +7039,8 @@ export type ExploreFeedQuery = {
                     | { __typename: 'UnknownFollowModuleSettings' }
                     | null;
                 };
+                canComment: { __typename?: 'CanCommentResponse'; result: boolean };
+                canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
                 collectedBy?: {
                   __typename?: 'Wallet';
                   address: any;
@@ -7258,6 +7274,8 @@ export type ExploreFeedQuery = {
                                 | { __typename: 'UnknownFollowModuleSettings' }
                                 | null;
                             };
+                            canComment: { __typename?: 'CanCommentResponse'; result: boolean };
+                            canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
                             stats: {
                               __typename?: 'PublicationStats';
                               totalUpvotes: number;
@@ -7713,6 +7731,8 @@ export type ExploreFeedQuery = {
                           | { __typename: 'UnknownFollowModuleSettings' }
                           | null;
                       };
+                      canComment: { __typename?: 'CanCommentResponse'; result: boolean };
+                      canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
                       stats: {
                         __typename?: 'PublicationStats';
                         totalUpvotes: number;
@@ -8138,6 +8158,8 @@ export type ExploreFeedQuery = {
                     | { __typename: 'UnknownFollowModuleSettings' }
                     | null;
                 };
+                canComment: { __typename?: 'CanCommentResponse'; result: boolean };
+                canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
                 stats: {
                   __typename?: 'PublicationStats';
                   totalUpvotes: number;
@@ -8709,6 +8731,8 @@ export type HomeFeedQuery = {
                     | { __typename: 'UnknownFollowModuleSettings' }
                     | null;
                 };
+                canComment: { __typename?: 'CanCommentResponse'; result: boolean };
+                canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
                 collectedBy?: {
                   __typename?: 'Wallet';
                   address: any;
@@ -8942,6 +8966,8 @@ export type HomeFeedQuery = {
                                 | { __typename: 'UnknownFollowModuleSettings' }
                                 | null;
                             };
+                            canComment: { __typename?: 'CanCommentResponse'; result: boolean };
+                            canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
                             stats: {
                               __typename?: 'PublicationStats';
                               totalUpvotes: number;
@@ -9397,6 +9423,8 @@ export type HomeFeedQuery = {
                           | { __typename: 'UnknownFollowModuleSettings' }
                           | null;
                       };
+                      canComment: { __typename?: 'CanCommentResponse'; result: boolean };
+                      canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
                       stats: {
                         __typename?: 'PublicationStats';
                         totalUpvotes: number;
@@ -9822,6 +9850,8 @@ export type HomeFeedQuery = {
                     | { __typename: 'UnknownFollowModuleSettings' }
                     | null;
                 };
+                canComment: { __typename?: 'CanCommentResponse'; result: boolean };
+                canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
                 stats: {
                   __typename?: 'PublicationStats';
                   totalUpvotes: number;
@@ -10903,6 +10933,8 @@ export type ProfileFeedQuery = {
                     | { __typename: 'UnknownFollowModuleSettings' }
                     | null;
                 };
+                canComment: { __typename?: 'CanCommentResponse'; result: boolean };
+                canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
                 collectedBy?: {
                   __typename?: 'Wallet';
                   address: any;
@@ -11136,6 +11168,8 @@ export type ProfileFeedQuery = {
                                 | { __typename: 'UnknownFollowModuleSettings' }
                                 | null;
                             };
+                            canComment: { __typename?: 'CanCommentResponse'; result: boolean };
+                            canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
                             stats: {
                               __typename?: 'PublicationStats';
                               totalUpvotes: number;
@@ -11591,6 +11625,8 @@ export type ProfileFeedQuery = {
                           | { __typename: 'UnknownFollowModuleSettings' }
                           | null;
                       };
+                      canComment: { __typename?: 'CanCommentResponse'; result: boolean };
+                      canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
                       stats: {
                         __typename?: 'PublicationStats';
                         totalUpvotes: number;
@@ -12016,6 +12052,8 @@ export type ProfileFeedQuery = {
                     | { __typename: 'UnknownFollowModuleSettings' }
                     | null;
                 };
+                canComment: { __typename?: 'CanCommentResponse'; result: boolean };
+                canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
                 stats: {
                   __typename?: 'PublicationStats';
                   totalUpvotes: number;
@@ -12508,6 +12546,8 @@ export type PublicationQuery = {
                   | { __typename: 'UnknownFollowModuleSettings' }
                   | null;
               };
+              canComment: { __typename?: 'CanCommentResponse'; result: boolean };
+              canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
               collectedBy?: {
                 __typename?: 'Wallet';
                 address: any;
@@ -12741,6 +12781,8 @@ export type PublicationQuery = {
                               | { __typename: 'UnknownFollowModuleSettings' }
                               | null;
                           };
+                          canComment: { __typename?: 'CanCommentResponse'; result: boolean };
+                          canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
                           stats: {
                             __typename?: 'PublicationStats';
                             totalUpvotes: number;
@@ -13196,6 +13238,8 @@ export type PublicationQuery = {
                         | { __typename: 'UnknownFollowModuleSettings' }
                         | null;
                     };
+                    canComment: { __typename?: 'CanCommentResponse'; result: boolean };
+                    canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
                     stats: {
                       __typename?: 'PublicationStats';
                       totalUpvotes: number;
@@ -13629,6 +13673,8 @@ export type PublicationQuery = {
                   | { __typename: 'UnknownFollowModuleSettings' }
                   | null;
               };
+              canComment: { __typename?: 'CanCommentResponse'; result: boolean };
+              canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
               stats: {
                 __typename?: 'PublicationStats';
                 totalUpvotes: number;
@@ -14202,6 +14248,8 @@ export type SearchPublicationsQuery = {
                         | { __typename: 'UnknownFollowModuleSettings' }
                         | null;
                     };
+                    canComment: { __typename?: 'CanCommentResponse'; result: boolean };
+                    canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
                     collectedBy?: {
                       __typename?: 'Wallet';
                       address: any;
@@ -14465,6 +14513,8 @@ export type SearchPublicationsQuery = {
                                     | { __typename: 'UnknownFollowModuleSettings' }
                                     | null;
                                 };
+                                canComment: { __typename?: 'CanCommentResponse'; result: boolean };
+                                canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
                                 stats: {
                                   __typename?: 'PublicationStats';
                                   totalUpvotes: number;
@@ -14961,6 +15011,8 @@ export type SearchPublicationsQuery = {
                               | { __typename: 'UnknownFollowModuleSettings' }
                               | null;
                           };
+                          canComment: { __typename?: 'CanCommentResponse'; result: boolean };
+                          canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
                           stats: {
                             __typename?: 'PublicationStats';
                             totalUpvotes: number;
@@ -16086,6 +16138,36 @@ export const MirrorFieldsFragmentDoc = {
                       },
                       {
                         kind: 'Field',
+                        name: { kind: 'Name', value: 'canComment' },
+                        arguments: [
+                          {
+                            kind: 'Argument',
+                            name: { kind: 'Name', value: 'profileId' },
+                            value: { kind: 'Variable', name: { kind: 'Name', value: 'profileId' } }
+                          }
+                        ],
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [{ kind: 'Field', name: { kind: 'Name', value: 'result' } }]
+                        }
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'canMirror' },
+                        arguments: [
+                          {
+                            kind: 'Argument',
+                            name: { kind: 'Name', value: 'profileId' },
+                            value: { kind: 'Variable', name: { kind: 'Name', value: 'profileId' } }
+                          }
+                        ],
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [{ kind: 'Field', name: { kind: 'Name', value: 'result' } }]
+                        }
+                      },
+                      {
+                        kind: 'Field',
                         name: { kind: 'Name', value: 'stats' },
                         selectionSet: {
                           kind: 'SelectionSet',
@@ -16277,6 +16359,36 @@ export const CommentFieldsFragmentDoc = {
                             value: { kind: 'Variable', name: { kind: 'Name', value: 'profileId' } }
                           }
                         ]
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'canComment' },
+                        arguments: [
+                          {
+                            kind: 'Argument',
+                            name: { kind: 'Name', value: 'profileId' },
+                            value: { kind: 'Variable', name: { kind: 'Name', value: 'profileId' } }
+                          }
+                        ],
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [{ kind: 'Field', name: { kind: 'Name', value: 'result' } }]
+                        }
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'canMirror' },
+                        arguments: [
+                          {
+                            kind: 'Argument',
+                            name: { kind: 'Name', value: 'profileId' },
+                            value: { kind: 'Variable', name: { kind: 'Name', value: 'profileId' } }
+                          }
+                        ],
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [{ kind: 'Field', name: { kind: 'Name', value: 'result' } }]
+                        }
                       },
                       { kind: 'Field', name: { kind: 'Name', value: 'hasCollectedByMe' } },
                       {
