@@ -10,6 +10,7 @@
     }
   },
   "forwardPorts": [4783],
-  "postCreateCommand": "cp .env.example .env; yarn install; yarn codegen",
+  "onCreateCommand": "script/bootstrap",
+  "postCreateCommand": "yarn dev",
   "remoteUser": "node"
 }
