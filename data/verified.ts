@@ -4,11 +4,9 @@ import { lensterMembers } from './lenster-members';
 export const mainnetVerified = [
   '0x012ba5', // pooltogether.lens
   '0xb17c', // perpetual.lens
-  '0xf9f4', // grocery.lens
   '0x0ac7', // hayden.lens
   '0x1bdd', // arnauramio.lens
   '0x1f28', // 0xmaki.lens
-  '0x40', // tamrat.lens
   '0x1d58', // guild.lens
   '0x2c66', // alexadelman.lens
   '0xdd33', // zkjew.lens
@@ -28,14 +26,12 @@ export const mainnetVerified = [
   '0x2d44', // coderdan.lens
   '0x14f5', // jierlich.lens
   '0x7d', // liquidfire.lens
-  '0xada1', // katya.lens
   '0xf857', // masknetworkofficial.lens
   '0xf1b1', // millionrecords.lens
   '0xc4c2', // arachnid.lens
   '0x7901', // klima.lens
   '0x0c67', // toucanprotocol.lens
   '0x1c5f', // allmylovezoe.lens
-  '0x20e7', // reecej.lens
   '0xe06b', // operacrypto.lens
   '0x250e', // alexatallah.lens
   '0xdf7a', // cms_intern.lens
@@ -51,7 +47,6 @@ export const mainnetVerified = [
   '0x2e1b', // alwaysonline.lens
   '0x2d0d', // asian.lens
   '0x1f9e', // ellie.lens
-  '0x3a', // cesare.lens
   '0x8dec', // thisisvoya.lens
   '0x010a', // penryn.lens
   '0x0749', // superphiz.lens
@@ -60,10 +55,7 @@ export const mainnetVerified = [
   '0x0ace', // rehash.lens
   '0x0ce1', // levychain.lens
   '0x0e01', // shl0ms.lens
-  '0x2ee4', // essah.lens
   '0x0870', // gcr__.lens
-  '0x0a', // jouni.lens
-  '0x12', // zannis.lens
   '0x07c7', // moongotchi.lens
   '0xad5d', // zerion.lens
   '0xc0dc', // yearn.lens
@@ -83,13 +75,8 @@ export const mainnetVerified = [
   '0x2816', // cryptoguicci.lens
   '0x2c6d', // shefi.lens
   '0x2e09', // defidad.lens
-  '0x27', // 0xjim.lens
-  '0x25b7', // stefan.lens
-  '0x1966', // hazbobo.lens
   '0x1ef0', // lefteris.lens
-  '0x03f9', // ilyab.lens
   '0x0f30', // thewayloveworks.lens
-  '0x31', // mariariivari.lens
   '0x30fb', // debridge.lens
   '0x8d94', // josephdelong.lens
   '0x0d31', // irisapp.lens
@@ -98,7 +85,6 @@ export const mainnetVerified = [
   '0x2057', // refraction.lens
   '0x1ed2', // dcbuilder.lens
   '0x0f83', // ddwchen.lens
-  '0x45', // keeks.lens
   '0x0dcf', // santi.lens
   '0x8635', // teaparty.lens
   '0x1053', // finematics.lens
