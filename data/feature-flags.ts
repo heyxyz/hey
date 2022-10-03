@@ -1,11 +1,10 @@
+import { aaveMembers } from './aave-members';
+import { lensterMembers } from './lenster-members';
+
 export const featureFlags = [
   {
     key: 'messages',
     name: 'Messages',
-    enabledFor: [
-      '0x0d', // yoginth.lens
-      '0x05', // stani.lens
-      '0x06' // wagmi.lens
-    ]
+    enabledFor: [...lensterMembers, ...aaveMembers]
   }
 ];
