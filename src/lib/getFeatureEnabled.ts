@@ -1,4 +1,4 @@
-import { featureFlags } from 'data/featureFlags';
+import { featureFlags } from 'data/feature-flags';
 import { IS_MAINNET } from 'src/constants';
 
 const getFeatureEnabled = (featureKey: string, profileId: string): boolean => {
