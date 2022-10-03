@@ -1,6 +1,8 @@
+import { aaveMembers } from './aave-members';
+import { lensterMembers } from './lenster-members';
+
 export const mainnetVerified = [
   '0x012ba5', // pooltogether.lens
-  '0xfcc1', // cultivatordao.lens
   '0xb17c', // perpetual.lens
   '0xf9f4', // grocery.lens
   '0x0ac7', // hayden.lens
@@ -60,7 +62,6 @@ export const mainnetVerified = [
   '0x0e01', // shl0ms.lens
   '0x2ee4', // essah.lens
   '0x0870', // gcr__.lens
-  '0x0580', // josepbove.lens
   '0x0a', // jouni.lens
   '0x12', // zannis.lens
   '0x07c7', // moongotchi.lens
@@ -79,7 +80,6 @@ export const mainnetVerified = [
   '0xb821', // boyfriend.lens
   '0x0c7e', // corbin.lens
   '0x25f1', // gelato.lens
-  '0x07', // wassim.lens
   '0x2816', // cryptoguicci.lens
   '0x2c6d', // shefi.lens
   '0x2e09', // defidad.lens
@@ -108,7 +108,6 @@ export const mainnetVerified = [
   '0x011d', // aavechan.lens
   '0x8b61', // bankless.lens
   '0x8690', // pussyriotxyz.lens
-  '0x7b38', // lensapi.lens
   '0x6417', // blockworks.lens
   '0x1eb8', // kartik.lens
   '0x5138', // fabien.lens
@@ -117,15 +116,12 @@ export const mainnetVerified = [
   '0x3479', // aavegotchi.lens
   '0x2f70', // owocki.lens
   '0x20c6', // coopahtroopa.lens
-  '0xa1', // pealco.lens
-  '0x24', // bradorbradley.lens
   '0x2e0a', // sandeep.lens
   '0x228d', // wongmjane.lens
   '0x28a2', // nader.lens
   '0x266b', // ryansadams.lens
   '0x25f3', // opensea.lens
   '0x26e5', // sismo.lens
-  '0x16', // davidev.lens
   '0x23ac', // devpillme.lens
   '0xf5', // m1guelpf.lens
   '0xcc', // indexcoop.lens
@@ -133,19 +129,8 @@ export const mainnetVerified = [
   '0x38', // cashmere.lens
   '0x0210', // paris.lens
   '0x0160', // ethglobal.lens
-  '0x8e', // christina.lens
-  '0x0b', // zer0dot.lens
-  '0x10', // damarnez.lens
-  '0x09', // nicolo.lens
-  '0x08', // donosonaumczuk.lens
-  '0x06', // wagmi.lens
-  '0x05', // stani.lens
-  '0x04', // letsraave.lens
-  '0x03', // aavegrants.lens
-  '0x02', // aaveaave.lens
-  '0x0c', // lenster.lens
-  '0x0d', // yoginth.lens
-  '0x01' // lensprotocol
+  ...aaveMembers,
+  ...lensterMembers
 ];
 
 export const testnetVerified = [
