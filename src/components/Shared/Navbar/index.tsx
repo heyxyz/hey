@@ -10,7 +10,7 @@ import { useRouter } from 'next/router';
 import { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 
-import NewPostModal from '../../Publication/New/NewPostModal';
+import NewPostModal from '../../Composer/Post/NewPostModal';
 import MenuItems from './MenuItems';
 import MoreNavItems from './MoreNavItems';
 import Search from './Search';

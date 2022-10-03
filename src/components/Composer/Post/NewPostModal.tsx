@@ -6,7 +6,7 @@ import { FC, useEffect } from 'react';
 import { usePublicationStore } from 'src/store/publication';
 import { PUBLICATION } from 'src/tracking';
 
-import NewPost from '.';
+import NewPost from './New';
 
 const NewPostModal: FC = () => {
   const { query, isReady } = useRouter();

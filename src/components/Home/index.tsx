@@ -1,6 +1,6 @@
+import NewPost from '@components/Composer/Post/New';
 import ExploreFeed from '@components/Explore/Feed';
 import Announcement from '@components/Home/Announcement';
-import NewPost from '@components/Publication/New';
 import Footer from '@components/Shared/Footer';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import Seo from '@components/utils/Seo';
