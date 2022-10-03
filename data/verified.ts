@@ -85,7 +85,6 @@ export const mainnetVerified = [
   '0x2e09', // defidad.lens
   '0x27', // 0xjim.lens
   '0x25b7', // stefan.lens
-  '0x2d', // sasicodes.lens
   '0x1966', // hazbobo.lens
   '0x1ef0', // lefteris.lens
   '0x03f9', // ilyab.lens

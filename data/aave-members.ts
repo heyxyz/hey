@@ -16,5 +16,6 @@ export const aaveMembers = [
   '0x7b38', // lensapi.lens
   '0x07', // wassim.lens
   '0x0580', // josepbove.lens
-  '0xfcc1' // cultivatordao.lens
+  '0xfcc1', // cultivatordao.lens
+  '0x2d' // sasicodes.lens
 ];
