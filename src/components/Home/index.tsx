@@ -35,8 +35,7 @@ const Home: NextPage = () => {
         <GridItemEight className="space-y-5">
           {currentProfile ? (
             <>
-              {getFeatureEnabled('composer-v2', currentProfile?.id) && <NewPostV2 />}
-              <NewPost />
+              {getFeatureEnabled('composer-v2', currentProfile?.id) ? <NewPostV2 /> : <NewPost />}
               <HomeFeed />
             </>
           ) : (
