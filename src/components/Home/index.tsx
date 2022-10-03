@@ -1,9 +1,11 @@
+import NewPost from '@components/Composer/Post/New';
+import NewPostV2 from '@components/Composer/PostV2/New';
 import ExploreFeed from '@components/Explore/Feed';
 import Announcement from '@components/Home/Announcement';
-import NewPost from '@components/Publication/New';
 import Footer from '@components/Shared/Footer';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import Seo from '@components/utils/Seo';
+import getFeatureEnabled from '@lib/getFeatureEnabled';
 import { Mixpanel } from '@lib/mixpanel';
 import { NextPage } from 'next';
 import React, { useEffect } from 'react';
@@ -33,6 +35,7 @@ const Home: NextPage = () => {
         <GridItemEight className="space-y-5">
           {currentProfile ? (
             <>
+              {getFeatureEnabled('composer-v2', currentProfile?.id) && <NewPostV2 />}
               <NewPost />
               <HomeFeed />
             </>

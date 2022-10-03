@@ -17,8 +17,8 @@ import { useAppStore } from 'src/store/app';
 import { useTransactionPersistStore } from 'src/store/transaction';
 import { PAGINATION } from 'src/tracking';
 
+import NewComment from '../Composer/Comment/New';
 import CommentWarning from '../Shared/CommentWarning';
-import NewComment from './New';
 
 interface Props {
   publication: LensterPublication;
