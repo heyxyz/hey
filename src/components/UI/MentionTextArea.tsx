@@ -8,7 +8,7 @@ import getStampFyiURL from '@lib/getStampFyiURL';
 import imagekitURL from '@lib/imagekitURL';
 import isVerified from '@lib/isVerified';
 import clsx from 'clsx';
-import { Dispatch, FC } from 'react';
+import { Dispatch, FC, useEffect, useRef } from 'react';
 import { Mention, MentionsInput } from 'react-mentions';
 import { usePublicationStore } from 'src/store/publication';
 
@@ -42,12 +42,21 @@ interface Props {
   error: string;
   setError: Dispatch<string>;
   placeholder?: string;
+  autoFocus?: boolean;
 }
 
-export const MentionTextArea: FC<Props> = ({ error, setError, placeholder = '' }) => {
+export const MentionTextArea: FC<Props> = ({ error, setError, placeholder = '', autoFocus = false }) => {
   const publicationContent = usePublicationStore((state) => state.publicationContent);
   const setPublicationContent = usePublicationStore((state) => state.setPublicationContent);
   const [searchUsers] = useLazyQuery(SearchProfilesDocument);
+  const inputRef = useRef<HTMLTextAreaElement>(null);
+
+  useEffect(() => {
+    if (autoFocus && inputRef?.current) {
+      inputRef.current?.focus();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const fetchUsers = (query: string, callback: any) => {
     if (!query) {
@@ -77,6 +86,7 @@ export const MentionTextArea: FC<Props> = ({ error, setError, placeholder = '' }
         className="mention-input"
         value={publicationContent}
         placeholder={placeholder}
+        inputRef={inputRef}
         onChange={(e) => {
           setPublicationContent(e.target.value);
           setError('');
