@@ -4,7 +4,7 @@ import { ChatAlt2Icon } from '@heroicons/react/solid';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import Link from 'next/link';
-import React, { FC } from 'react';
+import { FC } from 'react';
 
 import { NotificationProfileAvatar, NotificationProfileName } from '../Profile';
 

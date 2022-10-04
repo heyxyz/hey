@@ -13,7 +13,7 @@ import {
 } from '@generated/types';
 import { Mixpanel } from '@lib/mixpanel';
 import { NextPage } from 'next';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { APP_NAME, DEFAULT_COLLECT_TOKEN } from 'src/constants';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';

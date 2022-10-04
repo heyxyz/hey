@@ -56,7 +56,7 @@ const Layout: FC<Props> = ({ children }) => {
       const profiles = data?.profiles?.items
         ?.slice()
         ?.sort((a, b) => Number(a.id) - Number(b.id))
-        ?.sort((a, b) => (!(a.isDefault !== b.isDefault) ? 0 : a.isDefault ? -1 : 1));
+        ?.sort((a, b) => (a.isDefault === b.isDefault ? 0 : a.isDefault ? -1 : 1));
 
       if (!profiles.length) {
         return resetAuthState();

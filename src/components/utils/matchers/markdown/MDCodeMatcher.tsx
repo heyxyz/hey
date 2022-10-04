@@ -1,5 +1,4 @@
 import { ChildrenNode, Matcher } from 'interweave';
-import React from 'react';
 
 export class MDCodeMatcher extends Matcher {
   replaceWith(children: ChildrenNode) {

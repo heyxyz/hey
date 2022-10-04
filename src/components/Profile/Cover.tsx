@@ -1,6 +1,6 @@
 import getIPFSLink from '@lib/getIPFSLink';
 import imagekitURL from '@lib/imagekitURL';
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { STATIC_ASSETS } from 'src/constants';
 
 interface Props {

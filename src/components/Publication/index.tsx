@@ -3,7 +3,7 @@ import Feed from '@components/Comment/Feed';
 import Footer from '@components/Shared/Footer';
 import UserProfile from '@components/Shared/UserProfile';
 import PublicationStaffTool from '@components/StaffTools/Panels/Publication';
-import { Card, CardBody } from '@components/UI/Card';
+import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import useStaffMode from '@components/utils/hooks/useStaffMode';
 import Seo from '@components/utils/Seo';
@@ -11,7 +11,7 @@ import { PublicationDocument } from '@generated/types';
 import { Mixpanel } from '@lib/mixpanel';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { APP_NAME } from 'src/constants';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
@@ -74,15 +74,13 @@ const ViewPublication: NextPage = () => {
         <Feed publication={publication} />
       </GridItemEight>
       <GridItemFour className="space-y-5">
-        <Card as="aside">
-          <CardBody>
-            <UserProfile
-              profile={
-                publication.__typename === 'Mirror' ? publication?.mirrorOf?.profile : publication?.profile
-              }
-              showBio
-            />
-          </CardBody>
+        <Card as="aside" className="p-5">
+          <UserProfile
+            profile={
+              publication.__typename === 'Mirror' ? publication?.mirrorOf?.profile : publication?.profile
+            }
+            showBio
+          />
         </Card>
         <RelevantPeople publication={publication} />
         <OnchainMeta publication={publication} />

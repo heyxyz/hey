@@ -2,7 +2,7 @@ import { Button } from '@components/UI/Button';
 import { LensterPublication } from '@generated/lenstertypes';
 import { ExclamationCircleIcon, ExternalLinkIcon, ShieldCheckIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { useGlobalModalStateStore } from 'src/store/modals';
 import { MOD } from 'src/tracking';
 

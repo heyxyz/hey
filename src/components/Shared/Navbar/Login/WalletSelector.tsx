@@ -9,7 +9,7 @@ import getWalletLogo from '@lib/getWalletLogo';
 import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import clsx from 'clsx';
-import React, { Dispatch, FC } from 'react';
+import { Dispatch, FC } from 'react';
 import toast from 'react-hot-toast';
 import { CHAIN_ID, ERROR_MESSAGE } from 'src/constants';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
@@ -84,7 +84,7 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
         const profiles: any = profilesData?.profiles?.items
           ?.slice()
           ?.sort((a, b) => Number(a.id) - Number(b.id))
-          ?.sort((a, b) => (!(a.isDefault !== b.isDefault) ? 0 : a.isDefault ? -1 : 1));
+          ?.sort((a, b) => (a.isDefault === b.isDefault ? 0 : a.isDefault ? -1 : 1));
         const currentProfile = profiles[0];
         setProfiles(profiles);
         setCurrentProfile(currentProfile);

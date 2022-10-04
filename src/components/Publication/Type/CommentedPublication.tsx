@@ -2,7 +2,7 @@ import Slug from '@components/Shared/Slug';
 import { LensterPublication } from '@generated/lenstertypes';
 import { ChatAlt2Icon } from '@heroicons/react/outline';
 import Link from 'next/link';
-import React, { FC } from 'react';
+import { FC } from 'react';
 
 interface Props {
   publication: LensterPublication;

@@ -3,7 +3,7 @@ import { BadgeCheckIcon } from '@heroicons/react/solid';
 import getAvatar from '@lib/getAvatar';
 import isVerified from '@lib/isVerified';
 import Link from 'next/link';
-import React, { FC } from 'react';
+import { FC } from 'react';
 
 interface Props {
   profile: Profile;

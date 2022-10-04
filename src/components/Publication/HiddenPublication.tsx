@@ -1,5 +1,5 @@
 import { Card } from '@components/UI/Card';
-import React, { FC } from 'react';
+import { FC } from 'react';
 
 interface Props {
   type?: string;

@@ -9,7 +9,7 @@ import { CreateProfileDocument } from '@generated/types';
 import { PlusIcon } from '@heroicons/react/outline';
 import getStampFyiURL from '@lib/getStampFyiURL';
 import uploadMediaToIPFS from '@lib/uploadMediaToIPFS';
-import React, { ChangeEvent, FC, useState } from 'react';
+import { ChangeEvent, FC, useState } from 'react';
 import { APP_NAME, HANDLE_REGEX, ZERO_ADDRESS } from 'src/constants';
 import { useAccount } from 'wagmi';
 import { object, string } from 'zod';
