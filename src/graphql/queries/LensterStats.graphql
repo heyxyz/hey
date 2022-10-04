@@ -7,11 +7,5 @@ query LensterStats {
     totalComments
     totalCollects
     totalFollows
-    totalRevenue {
-      asset {
-        symbol
-      }
-      value
-    }
   }
 }
