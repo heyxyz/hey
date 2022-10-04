@@ -3,7 +3,7 @@ import { ChatAlt2Icon, FilmIcon, PencilAltIcon, PhotographIcon } from '@heroicon
 import { Mixpanel } from '@lib/mixpanel';
 import nFormatter from '@lib/nFormatter';
 import clsx from 'clsx';
-import React, { Dispatch, FC, ReactNode } from 'react';
+import { Dispatch, FC, ReactNode } from 'react';
 
 interface Props {
   stats: ProfileStats;

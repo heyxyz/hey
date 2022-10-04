@@ -3,7 +3,7 @@ import Seo from '@components/utils/Seo';
 import { HeartIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import { useTheme } from 'next-themes';
-import React, { FC, Fragment, ReactNode, useEffect } from 'react';
+import { FC, Fragment, ReactNode, useEffect } from 'react';
 import { APP_NAME, STATIC_ASSETS } from 'src/constants';
 import { PAGEVIEW } from 'src/tracking';
 

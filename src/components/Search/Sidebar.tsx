@@ -2,7 +2,7 @@ import { PencilAltIcon, UsersIcon } from '@heroicons/react/outline';
 import clsx from 'clsx';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { FC, ReactNode } from 'react';
+import { FC, ReactNode } from 'react';
 
 interface MenuProps {
   children: ReactNode;

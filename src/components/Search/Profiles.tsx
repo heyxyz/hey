@@ -8,7 +8,7 @@ import { Spinner } from '@components/UI/Spinner';
 import { CustomFiltersTypes, Profile, SearchProfilesDocument, SearchRequestTypes } from '@generated/types';
 import { UsersIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { PAGINATION_ROOT_MARGIN } from 'src/constants';
 import { PAGINATION } from 'src/tracking';

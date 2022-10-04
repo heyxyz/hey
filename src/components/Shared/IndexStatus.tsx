@@ -3,7 +3,7 @@ import { Spinner } from '@components/UI/Spinner';
 import { HasTxHashBeenIndexedDocument } from '@generated/types';
 import { CheckCircleIcon } from '@heroicons/react/solid';
 import clsx from 'clsx';
-import React, { FC, useState } from 'react';
+import { FC, useState } from 'react';
 import { POLYGONSCAN_URL } from 'src/constants';
 
 interface Props {

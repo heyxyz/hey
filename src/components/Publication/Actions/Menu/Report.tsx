@@ -2,7 +2,7 @@ import { LensterPublication } from '@generated/lenstertypes';
 import { Menu } from '@headlessui/react';
 import { ShieldExclamationIcon } from '@heroicons/react/outline';
 import clsx from 'clsx';
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { useGlobalModalStateStore } from 'src/store/modals';
 
 interface Props {

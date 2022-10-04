@@ -1,7 +1,7 @@
 import { Card } from '@components/UI/Card';
 import { LensterPublication } from '@generated/lenstertypes';
 import { ExternalLinkIcon } from '@heroicons/react/outline';
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { IPFS_GATEWAY, POLYGONSCAN_URL } from 'src/constants';
 
 interface MetaProps {

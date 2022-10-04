@@ -2,7 +2,7 @@ import { Wallet } from '@generated/types';
 import formatAddress from '@lib/formatAddress';
 import getStampFyiURL from '@lib/getStampFyiURL';
 import imagekitURL from '@lib/imagekitURL';
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { POLYGONSCAN_URL } from 'src/constants';
 
 interface Props {

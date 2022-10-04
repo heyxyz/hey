@@ -2,7 +2,7 @@ import Report from '@components/Shared/Modal/Report';
 import { Modal } from '@components/UI/Modal';
 import { LensterPublication } from '@generated/lenstertypes';
 import { ShieldCheckIcon } from '@heroicons/react/outline';
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { useGlobalModalStateStore } from 'src/store/modals';
 
 const GlobalModals: FC = () => {

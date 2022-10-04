@@ -14,7 +14,7 @@ import formatAddress from '@lib/formatAddress';
 import getAttribute from '@lib/getAttribute';
 import { getFollowModule } from '@lib/getFollowModule';
 import hasPrideLogo from '@lib/hasPrideLogo';
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { APP_NAME } from 'src/constants';
 
 import MetaDetails from './MetaDetails';

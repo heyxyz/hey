@@ -9,7 +9,7 @@ import { LensterPublication } from '@generated/lenstertypes';
 import { Profile, ProfileFeedDocument, PublicationMainFocus, PublicationTypes } from '@generated/types';
 import { CollectionIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { PAGINATION_ROOT_MARGIN } from 'src/constants';
 import { useAppStore } from 'src/store/app';

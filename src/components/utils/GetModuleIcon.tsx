@@ -8,7 +8,7 @@ import {
   ShareIcon,
   StopIcon
 } from '@heroicons/react/outline';
-import React, { FC } from 'react';
+import { FC } from 'react';
 
 interface Props {
   module: string;

@@ -9,7 +9,7 @@ import { Profile, RecommendedProfilesDocument } from '@generated/types';
 import { DotsCircleHorizontalIcon, UsersIcon } from '@heroicons/react/outline';
 import { SparklesIcon } from '@heroicons/react/solid';
 import { Mixpanel } from '@lib/mixpanel';
-import React, { FC, useState } from 'react';
+import { FC, useState } from 'react';
 import { MISCELLANEOUS } from 'src/tracking';
 
 import Suggested from './Suggested';

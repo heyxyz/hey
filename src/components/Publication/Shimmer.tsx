@@ -4,7 +4,7 @@ import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer'
 import UserProfileShimmer from '@components/Shared/Shimmer/UserProfileShimmer';
 import { Card, CardBody } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
-import React, { FC } from 'react';
+import { FC } from 'react';
 
 const PublicationPageShimmer: FC = () => {
   return (

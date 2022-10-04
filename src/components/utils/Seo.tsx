@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { APP_NAME, DEFAULT_OG, DESCRIPTION } from 'src/constants';
 
 interface Props {

@@ -4,7 +4,7 @@ import { CollectionIcon, GlobeAltIcon, HashtagIcon, LinkIcon } from '@heroicons/
 import { ShieldCheckIcon } from '@heroicons/react/solid';
 import getIPFSLink from '@lib/getIPFSLink';
 import { getModule } from '@lib/getModule';
-import React, { FC } from 'react';
+import { FC } from 'react';
 
 import MetaDetails from './MetaDetails';
 
