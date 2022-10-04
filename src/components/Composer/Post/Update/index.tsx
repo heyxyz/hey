@@ -20,6 +20,7 @@ import { PencilAltIcon } from '@heroicons/react/outline';
 import { defaultFeeData, defaultModuleData, getModule } from '@lib/getModule';
 import getSignature from '@lib/getSignature';
 import getTags from '@lib/getTags';
+import getUserLocale from '@lib/getUserLocale';
 import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
@@ -224,7 +225,7 @@ const NewUpdate: FC = () => {
         }
       ],
       media: attachments,
-      locale: 'en',
+      locale: getUserLocale(),
       createdOn: new Date(),
       appId: APP_NAME
     }).finally(() => setIsUploading(false));
