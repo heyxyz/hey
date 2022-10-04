@@ -1,4 +1,3 @@
-import { CardBody } from '@components/UI/Card';
 import { ApprovedAllowanceAmount } from '@generated/types';
 import { FC } from 'react';
 
@@ -10,7 +9,7 @@ interface Props {
 
 const Allowance: FC<Props> = ({ allowance }) => {
   return (
-    <CardBody className="space-y-4">
+    <div className="space-y-4 p-5">
       {allowance?.approvedModuleAllowanceAmount?.map((item: ApprovedAllowanceAmount) =>
         item?.module === 'RevertCollectModule' || item?.module === 'FreeCollectModule' ? (
           ''
@@ -18,7 +17,7 @@ const Allowance: FC<Props> = ({ allowance }) => {
           <Module key={item?.contractAddress} module={item} />
         )
       )}
-    </CardBody>
+    </div>
   );
 };
 

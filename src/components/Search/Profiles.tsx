@@ -1,7 +1,7 @@
 import { useQuery } from '@apollo/client';
 import UserProfilesShimmer from '@components/Shared/Shimmer/UserProfilesShimmer';
 import UserProfile from '@components/Shared/UserProfile';
-import { Card, CardBody } from '@components/UI/Card';
+import { Card } from '@components/UI/Card';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
@@ -68,10 +68,8 @@ const Profiles: FC<Props> = ({ query }) => {
         <>
           <div className="space-y-3">
             {profiles?.map((profile: Profile) => (
-              <Card key={profile?.id}>
-                <CardBody>
-                  <UserProfile profile={profile} showBio isBig />
-                </CardBody>
+              <Card key={profile?.id} className="p-5">
+                <UserProfile profile={profile} showBio isBig />
               </Card>
             ))}
           </div>

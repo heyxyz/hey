@@ -1,5 +1,5 @@
 import Beta from '@components/Shared/Beta';
-import { Card, CardBody } from '@components/UI/Card';
+import { Card } from '@components/UI/Card';
 import { CheckCircleIcon, ExternalLinkIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import axios from 'axios';
@@ -29,55 +29,53 @@ const CrossPost: FC = () => {
   }, []);
 
   return (
-    <Card>
-      <CardBody className="space-y-2 linkify">
-        <div className="flex items-center space-x-2">
-          <div className="text-lg font-bold">Cross post to Twitter</div>
-          <Beta />
-        </div>
-        <div className="pb-3">
-          Reflect will auto-tweet new {APP_NAME} posts, so you can finally escape the bird site.
-        </div>
-        {repostingTo ? (
-          <>
-            <div className="flex items-center space-x-1.5">
-              <span>
-                Already reposting to <b>@{repostingTo}</b>
-              </span>
-              <CheckCircleIcon className="w-5 h-5 text-brand" />
-            </div>
-            <a
-              href={REFLECT_URL}
-              className="flex items-center space-x-1.5"
-              onClick={() => {
-                Mixpanel.track(SETTINGS.ACCOUNT.OPEN_REFLECT, {
-                  purpose: 'disable'
-                });
-              }}
-              target="_blank"
-              rel="noreferrer noopener"
-            >
-              <span>Disable now</span>
-              <ExternalLinkIcon className="w-4 h-4" />
-            </a>
-          </>
-        ) : (
+    <Card className="space-y-2 linkify p-5">
+      <div className="flex items-center space-x-2">
+        <div className="text-lg font-bold">Cross post to Twitter</div>
+        <Beta />
+      </div>
+      <div className="pb-3">
+        Reflect will auto-tweet new {APP_NAME} posts, so you can finally escape the bird site.
+      </div>
+      {repostingTo ? (
+        <>
+          <div className="flex items-center space-x-1.5">
+            <span>
+              Already reposting to <b>@{repostingTo}</b>
+            </span>
+            <CheckCircleIcon className="w-5 h-5 text-brand" />
+          </div>
           <a
             href={REFLECT_URL}
             className="flex items-center space-x-1.5"
             onClick={() => {
               Mixpanel.track(SETTINGS.ACCOUNT.OPEN_REFLECT, {
-                purpose: 'enable'
+                purpose: 'disable'
               });
             }}
             target="_blank"
             rel="noreferrer noopener"
           >
-            <span>Setup now</span>
+            <span>Disable now</span>
             <ExternalLinkIcon className="w-4 h-4" />
           </a>
-        )}
-      </CardBody>
+        </>
+      ) : (
+        <a
+          href={REFLECT_URL}
+          className="flex items-center space-x-1.5"
+          onClick={() => {
+            Mixpanel.track(SETTINGS.ACCOUNT.OPEN_REFLECT, {
+              purpose: 'enable'
+            });
+          }}
+          target="_blank"
+          rel="noreferrer noopener"
+        >
+          <span>Setup now</span>
+          <ExternalLinkIcon className="w-4 h-4" />
+        </a>
+      )}
     </Card>
   );
 };
