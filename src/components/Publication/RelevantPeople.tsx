@@ -1,7 +1,7 @@
 import { useQuery } from '@apollo/client';
 import UserProfileShimmer from '@components/Shared/Shimmer/UserProfileShimmer';
 import UserProfile from '@components/Shared/UserProfile';
-import { Card, CardBody } from '@components/UI/Card';
+import { Card } from '@components/UI/Card';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { LensterPublication } from '@generated/lenstertypes';
 import { Profile, RelevantPeopleDocument } from '@generated/types';
@@ -37,14 +37,12 @@ const RelevantPeople: FC<Props> = ({ publication }) => {
 
   if (loading) {
     return (
-      <Card as="aside">
-        <CardBody className="space-y-4">
-          <UserProfileShimmer showFollow />
-          <UserProfileShimmer showFollow />
-          <UserProfileShimmer showFollow />
-          <UserProfileShimmer showFollow />
-          <UserProfileShimmer showFollow />
-        </CardBody>
+      <Card as="aside" className="space-y-4 p-5">
+        <UserProfileShimmer showFollow />
+        <UserProfileShimmer showFollow />
+        <UserProfileShimmer showFollow />
+        <UserProfileShimmer showFollow />
+        <UserProfileShimmer showFollow />
       </Card>
     );
   }
@@ -54,15 +52,13 @@ const RelevantPeople: FC<Props> = ({ publication }) => {
   }
 
   return (
-    <Card as="aside">
-      <CardBody className="space-y-4">
-        <ErrorMessage title="Failed to load relevant people" error={error} />
-        {data?.profiles?.items?.map((profile) => (
-          <div key={profile?.id} className="truncate">
-            <UserProfile profile={profile as Profile} isFollowing={profile.isFollowedByMe} showFollow />
-          </div>
-        ))}
-      </CardBody>
+    <Card as="aside" className="space-y-4 p-5">
+      <ErrorMessage title="Failed to load relevant people" error={error} />
+      {data?.profiles?.items?.map((profile) => (
+        <div key={profile?.id} className="truncate">
+          <UserProfile profile={profile as Profile} isFollowing={profile.isFollowedByMe} showFollow />
+        </div>
+      ))}
     </Card>
   );
 };

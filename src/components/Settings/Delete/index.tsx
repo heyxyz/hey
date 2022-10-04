@@ -2,7 +2,7 @@ import { LensHubProxy } from '@abis/LensHubProxy';
 import { useMutation } from '@apollo/client';
 import UserProfile from '@components/Shared/UserProfile';
 import { Button } from '@components/UI/Button';
-import { Card, CardBody } from '@components/UI/Card';
+import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import { Modal } from '@components/UI/Modal';
 import { Spinner } from '@components/UI/Spinner';
@@ -103,60 +103,58 @@ const DeleteSettings: FC = () => {
         <Sidebar />
       </GridItemFour>
       <GridItemEight>
-        <Card>
-          <CardBody className="space-y-5">
-            <UserProfile profile={currentProfile} />
-            <div className="text-lg font-bold text-red-500">This will deactivate your account</div>
-            <p>
-              Deleting your account is permanent. All your data will be wiped out immediately and you
-              won&rsquo;t be able to get it back.
+        <Card className="space-y-5 p-5">
+          <UserProfile profile={currentProfile} />
+          <div className="text-lg font-bold text-red-500">This will deactivate your account</div>
+          <p>
+            Deleting your account is permanent. All your data will be wiped out immediately and you
+            won&rsquo;t be able to get it back.
+          </p>
+          <div className="text-lg font-bold">What else you should know</div>
+          <div className="text-sm text-gray-500 divide-y dark:divide-gray-700">
+            <p className="pb-3">
+              You cannot restore your {APP_NAME} account if it was accidentally or wrongfully deleted.
             </p>
-            <div className="text-lg font-bold">What else you should know</div>
-            <div className="text-sm text-gray-500 divide-y dark:divide-gray-700">
-              <p className="pb-3">
-                You cannot restore your {APP_NAME} account if it was accidentally or wrongfully deleted.
-              </p>
-              <p className="py-3">
-                Some account information may still be available in search engines, such as Google or Bing.
-              </p>
-              <p className="py-3">Your @handle will be released immediately after deleting the account.</p>
+            <p className="py-3">
+              Some account information may still be available in search engines, such as Google or Bing.
+            </p>
+            <p className="py-3">Your @handle will be released immediately after deleting the account.</p>
+          </div>
+          <Button
+            variant="danger"
+            icon={isDeleting ? <Spinner variant="danger" size="xs" /> : <TrashIcon className="w-5 h-5" />}
+            disabled={isDeleting}
+            onClick={() => setShowWarningModal(true)}
+          >
+            {isDeleting ? 'Deleting...' : 'Delete your account'}
+          </Button>
+          <Modal
+            title="Danger Zone"
+            icon={<ExclamationIcon className="w-5 h-5 text-red-500" />}
+            show={showWarningModal}
+            onClose={() => setShowWarningModal(false)}
+          >
+            <div className="p-5 space-y-3">
+              <WarningMessage
+                title="Are you sure?"
+                message={
+                  <div className="leading-6">
+                    Confirm that you have read all consequences and want to delete your account anyway
+                  </div>
+                }
+              />
+              <Button
+                variant="danger"
+                icon={<TrashIcon className="w-5 h-5" />}
+                onClick={() => {
+                  setShowWarningModal(false);
+                  handleDelete();
+                }}
+              >
+                Yes, delete my account
+              </Button>
             </div>
-            <Button
-              variant="danger"
-              icon={isDeleting ? <Spinner variant="danger" size="xs" /> : <TrashIcon className="w-5 h-5" />}
-              disabled={isDeleting}
-              onClick={() => setShowWarningModal(true)}
-            >
-              {isDeleting ? 'Deleting...' : 'Delete your account'}
-            </Button>
-            <Modal
-              title="Danger Zone"
-              icon={<ExclamationIcon className="w-5 h-5 text-red-500" />}
-              show={showWarningModal}
-              onClose={() => setShowWarningModal(false)}
-            >
-              <div className="p-5 space-y-3">
-                <WarningMessage
-                  title="Are you sure?"
-                  message={
-                    <div className="leading-6">
-                      Confirm that you have read all consequences and want to delete your account anyway
-                    </div>
-                  }
-                />
-                <Button
-                  variant="danger"
-                  icon={<TrashIcon className="w-5 h-5" />}
-                  onClick={() => {
-                    setShowWarningModal(false);
-                    handleDelete();
-                  }}
-                >
-                  Yes, delete my account
-                </Button>
-              </div>
-            </Modal>
-          </CardBody>
+          </Modal>
         </Card>
       </GridItemEight>
     </GridLayout>
