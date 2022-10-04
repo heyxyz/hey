@@ -58,22 +58,33 @@ interface Props {
 }
 
 const NewComment: FC<Props> = ({ publication }) => {
+  // App store
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
+
+  // Publication store
   const publicationContent = usePublicationStore((state) => state.publicationContent);
   const setPublicationContent = usePublicationStore((state) => state.setPublicationContent);
   const previewPublication = usePublicationStore((state) => state.previewPublication);
   const setPreviewPublication = usePublicationStore((state) => state.setPreviewPublication);
+
+  // Transaction persist store
   const txnQueue = useTransactionPersistStore((state) => state.txnQueue);
   const setTxnQueue = useTransactionPersistStore((state) => state.setTxnQueue);
+
+  // Collect module store
   const selectedCollectModule = useCollectModuleStore((state) => state.selectedCollectModule);
   const setSelectedCollectModule = useCollectModuleStore((state) => state.setSelectedCollectModule);
   const feeData = useCollectModuleStore((state) => state.feeData);
   const setFeeData = useCollectModuleStore((state) => state.setFeeData);
+
+  // Reference module store
   const selectedReferenceModule = useReferenceModuleStore((state) => state.selectedReferenceModule);
   const onlyFollowers = useReferenceModuleStore((state) => state.onlyFollowers);
   const { commentsRestricted, mirrorsRestricted, degreesOfSeparation } = useReferenceModuleStore();
+
+  // States
   const [commentContentError, setCommentContentError] = useState('');
   const [isUploading, setIsUploading] = useState(false);
   const [attachments, setAttachments] = useState<LensterAttachment[]>([]);
