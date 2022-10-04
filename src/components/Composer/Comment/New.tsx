@@ -22,6 +22,7 @@ import { ChatAlt2Icon } from '@heroicons/react/outline';
 import { defaultFeeData, defaultModuleData, getModule } from '@lib/getModule';
 import getSignature from '@lib/getSignature';
 import getTags from '@lib/getTags';
+import getUserLocale from '@lib/getUserLocale';
 import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
@@ -58,22 +59,33 @@ interface Props {
 }
 
 const NewComment: FC<Props> = ({ publication }) => {
+  // App store
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
+
+  // Publication store
   const publicationContent = usePublicationStore((state) => state.publicationContent);
   const setPublicationContent = usePublicationStore((state) => state.setPublicationContent);
   const previewPublication = usePublicationStore((state) => state.previewPublication);
   const setPreviewPublication = usePublicationStore((state) => state.setPreviewPublication);
+
+  // Transaction persist store
   const txnQueue = useTransactionPersistStore((state) => state.txnQueue);
   const setTxnQueue = useTransactionPersistStore((state) => state.setTxnQueue);
+
+  // Collect module store
   const selectedCollectModule = useCollectModuleStore((state) => state.selectedCollectModule);
   const setSelectedCollectModule = useCollectModuleStore((state) => state.setSelectedCollectModule);
   const feeData = useCollectModuleStore((state) => state.feeData);
   const setFeeData = useCollectModuleStore((state) => state.setFeeData);
+
+  // Reference module store
   const selectedReferenceModule = useReferenceModuleStore((state) => state.selectedReferenceModule);
   const onlyFollowers = useReferenceModuleStore((state) => state.onlyFollowers);
   const { commentsRestricted, mirrorsRestricted, degreesOfSeparation } = useReferenceModuleStore();
+
+  // States
   const [commentContentError, setCommentContentError] = useState('');
   const [isUploading, setIsUploading] = useState(false);
   const [attachments, setAttachments] = useState<LensterAttachment[]>([]);
@@ -197,7 +209,6 @@ const NewComment: FC<Props> = ({ publication }) => {
 
     setCommentContentError('');
     setIsUploading(true);
-    // TODO: Add animated_url support
     const id = await uploadToArweave({
       version: '2.0.0',
       metadata_id: uuid(),
@@ -216,7 +227,7 @@ const NewComment: FC<Props> = ({ publication }) => {
           : PublicationMainFocus.TextOnly,
       contentWarning: null,
       media: attachments,
-      locale: 'en',
+      locale: getUserLocale(),
       createdOn: new Date(),
       appId: APP_NAME
     }).finally(() => setIsUploading(false));
@@ -256,7 +267,7 @@ const NewComment: FC<Props> = ({ publication }) => {
     const attachment = {
       item: gif.images.original.url,
       type: 'image/gif',
-      altTag: ''
+      altTag: gif.title
     };
     setAttachments([...attachments, attachment]);
   };
@@ -265,42 +276,38 @@ const NewComment: FC<Props> = ({ publication }) => {
     isUploading || typedDataLoading || dispatcherLoading || signLoading || writeLoading || broadcastLoading;
 
   return (
-    <Card>
-      <div className="px-5 pt-5 pb-3">
-        <div className="space-y-1">
-          {error && <ErrorMessage className="mb-3" title="Transaction failed!" error={error} />}
-          {previewPublication ? (
-            <div className="pb-3 mb-2 border-b linkify dark:border-b-gray-700/80">
-              <Markup>{publicationContent}</Markup>
-            </div>
-          ) : (
-            <MentionTextArea
-              error={commentContentError}
-              setError={setCommentContentError}
-              placeholder="Tell something cool!"
-            />
-          )}
-          <div className="block items-center sm:flex">
-            <div className="flex items-center space-x-4">
-              <Attachment attachments={attachments} setAttachments={setAttachments} />
-              <Giphy setGifAttachment={(gif: IGif) => setGifAttachment(gif)} />
-              <SelectCollectModule />
-              <SelectReferenceModule />
-              {publicationContent && <Preview />}
-            </div>
-            <div className="ml-auto pt-2 sm:pt-0">
-              <Button
-                disabled={isLoading}
-                icon={isLoading ? <Spinner size="xs" /> : <ChatAlt2Icon className="w-4 h-4" />}
-                onClick={createComment}
-              >
-                Comment
-              </Button>
-            </div>
-          </div>
-          <Attachments attachments={attachments} setAttachments={setAttachments} isNew />
+    <Card className="px-5 pt-5 pb-3">
+      {error && <ErrorMessage className="mb-3" title="Transaction failed!" error={error} />}
+      {previewPublication ? (
+        <div className="pb-3 mb-2 border-b linkify dark:border-b-gray-700/80">
+          <Markup>{publicationContent}</Markup>
+        </div>
+      ) : (
+        <MentionTextArea
+          error={commentContentError}
+          setError={setCommentContentError}
+          placeholder="Tell something cool!"
+        />
+      )}
+      <div className="block items-center sm:flex">
+        <div className="flex items-center space-x-4">
+          <Attachment attachments={attachments} setAttachments={setAttachments} />
+          <Giphy setGifAttachment={(gif: IGif) => setGifAttachment(gif)} />
+          <SelectCollectModule />
+          <SelectReferenceModule />
+          {publicationContent && <Preview />}
+        </div>
+        <div className="ml-auto pt-2 sm:pt-0">
+          <Button
+            disabled={isLoading}
+            icon={isLoading ? <Spinner size="xs" /> : <ChatAlt2Icon className="w-4 h-4" />}
+            onClick={createComment}
+          >
+            Comment
+          </Button>
         </div>
       </div>
+      <Attachments attachments={attachments} setAttachments={setAttachments} isNew />
     </Card>
   );
 };

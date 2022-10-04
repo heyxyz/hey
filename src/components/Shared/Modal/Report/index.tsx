@@ -1,6 +1,5 @@
 import { useMutation } from '@apollo/client';
 import { Button } from '@components/UI/Button';
-import { CardBody } from '@components/UI/Card';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Form, useZodForm } from '@components/UI/Form';
@@ -72,7 +71,7 @@ const Report: FC<Props> = ({ publication }) => {
           hideCard
         />
       ) : publication ? (
-        <CardBody>
+        <div className="p-5">
           <Form
             form={form}
             className="space-y-4"
@@ -101,7 +100,7 @@ const Report: FC<Props> = ({ publication }) => {
               </>
             )}
           </Form>
-        </CardBody>
+        </div>
       ) : null}
     </div>
   );

@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/client';
-import { Card, CardBody } from '@components/UI/Card';
+import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import { PageLoading } from '@components/UI/PageLoading';
 import Seo from '@components/utils/Seo';
@@ -83,18 +83,16 @@ const ProfileSettings: NextPage = () => {
       </GridItemFour>
       <GridItemEight className="space-y-5">
         <Profile profile={profile as any} />
-        <Card>
-          <CardBody className="space-y-5">
-            <div className="flex items-center space-x-2">
-              <TypeButton icon={<PhotographIcon className="w-5 h-5" />} type="AVATAR" name="Upload avatar" />
-              <TypeButton icon={<PhotographIcon className="w-5 h-5" />} type="NFT" name="NFT Avatar" />
-            </div>
-            {settingsType === 'NFT' ? (
-              <NFTPicture profile={profile as any} />
-            ) : (
-              <Picture profile={profile as any} />
-            )}
-          </CardBody>
+        <Card className="space-y-5 p-5">
+          <div className="flex items-center space-x-2">
+            <TypeButton icon={<PhotographIcon className="w-5 h-5" />} type="AVATAR" name="Upload avatar" />
+            <TypeButton icon={<PhotographIcon className="w-5 h-5" />} type="NFT" name="NFT Avatar" />
+          </div>
+          {settingsType === 'NFT' ? (
+            <NFTPicture profile={profile as any} />
+          ) : (
+            <Picture profile={profile as any} />
+          )}
         </Card>
       </GridItemEight>
     </GridLayout>

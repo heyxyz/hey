@@ -30,11 +30,3 @@ export const Card: FC<CardProps> = ({
     </Tag>
   );
 };
-
-interface CardBodyProps {
-  children?: ReactNode;
-  className?: string;
-}
-export const CardBody: FC<CardBodyProps> = ({ children, className = '' }) => {
-  return <div className={`p-5 ${className}`}>{children}</div>;
-};
