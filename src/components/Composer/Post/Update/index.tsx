@@ -62,6 +62,7 @@ const NewUpdate: FC = () => {
   const setPublicationContent = usePublicationStore((state) => state.setPublicationContent);
   const previewPublication = usePublicationStore((state) => state.previewPublication);
   const setPreviewPublication = usePublicationStore((state) => state.setPreviewPublication);
+  const setShowNewPostModal = usePublicationStore((state) => state.setShowNewPostModal);
   const txnQueue = useTransactionPersistStore((state) => state.txnQueue);
   const setTxnQueue = useTransactionPersistStore((state) => state.setTxnQueue);
   const selectedCollectModule = useCollectModuleStore((state) => state.selectedCollectModule);
@@ -78,6 +79,7 @@ const NewUpdate: FC = () => {
 
   const onCompleted = () => {
     setPreviewPublication(false);
+    setShowNewPostModal(false);
     setPublicationContent('');
     setAttachments([]);
     setSelectedCollectModule(defaultModuleData);
@@ -276,6 +278,7 @@ const NewUpdate: FC = () => {
             error={postContentError}
             setError={setPostContentError}
             placeholder="What's happening?"
+            autoFocus
           />
         )}
         <div className="block items-center sm:flex">

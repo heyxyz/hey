@@ -12,6 +12,7 @@ import getAvatar from '@lib/getAvatar';
 import getFeatureEnabled from '@lib/getFeatureEnabled';
 import { FC, ReactNode, useState } from 'react';
 import { useAppStore } from 'src/store/app';
+import { usePublicationStore } from 'src/store/publication';
 
 import NewUpdate from './Update';
 
@@ -33,12 +34,13 @@ type Action = 'update' | 'image' | 'video' | 'audio' | 'article';
 
 const NewPost: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const [modalOpen, setModalOpen] = useState(false);
+  const showNewPostModal = usePublicationStore((state) => state.showNewPostModal);
+  const setShowNewPostModal = usePublicationStore((state) => state.setShowNewPostModal);
   const [selectedAction, setSelectedAction] = useState<Action>('update');
 
   const openModal = (action: Action) => {
     setSelectedAction(action);
-    setModalOpen(true);
+    setShowNewPostModal(true);
   };
 
   return (
@@ -84,8 +86,8 @@ const NewPost: FC = () => {
           title="Create new post"
           icon={<PencilAltIcon className="w-5 h-5 text-brand" />}
           size="md"
-          show={modalOpen}
-          onClose={() => setModalOpen(false)}
+          show={showNewPostModal}
+          onClose={() => setShowNewPostModal(false)}
         >
           {selectedAction === 'update' && <NewUpdate />}
         </Modal>
