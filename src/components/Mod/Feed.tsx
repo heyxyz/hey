@@ -9,7 +9,7 @@ import { LensterPublication } from '@generated/lenstertypes';
 import { ExploreFeedDocument, PublicationSortCriteria, PublicationTypes } from '@generated/types';
 import { CollectionIcon, RefreshIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import toast from 'react-hot-toast';
 import { ERROR_MESSAGE, PAGINATION_ROOT_MARGIN } from 'src/constants';

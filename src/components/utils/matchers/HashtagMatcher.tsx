@@ -2,7 +2,7 @@ import { Mixpanel } from '@lib/mixpanel';
 import { hashflags } from 'data/hashflags';
 import { Matcher } from 'interweave';
 import Link from 'next/link';
-import React, { createElement } from 'react';
+import { createElement } from 'react';
 import { STATIC_ASSETS } from 'src/constants';
 import { PUBLICATION } from 'src/tracking';
 

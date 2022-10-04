@@ -2,7 +2,7 @@ import { NewCollectNotification } from '@generated/types';
 import { CurrencyDollarIcon } from '@heroicons/react/outline';
 import getTokenImage from '@lib/getTokenImage';
 import humanize from '@lib/humanize';
-import React, { FC } from 'react';
+import { FC } from 'react';
 
 interface Props {
   notification: NewCollectNotification;

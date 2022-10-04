@@ -9,7 +9,7 @@ import getWalletLogo from '@lib/getWalletLogo';
 import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import clsx from 'clsx';
-import React, { Dispatch, FC } from 'react';
+import { Dispatch, FC } from 'react';
 import toast from 'react-hot-toast';
 import { CHAIN_ID, ERROR_MESSAGE } from 'src/constants';
 import { useAppPersistStore, useAppStore } from 'src/store/app';

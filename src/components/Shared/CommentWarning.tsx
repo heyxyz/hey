@@ -1,6 +1,6 @@
 import { Card, CardBody } from '@components/UI/Card';
 import { ChatAlt2Icon } from '@heroicons/react/outline';
-import React, { FC } from 'react';
+import { FC } from 'react';
 
 const CommentWarning: FC = () => {
   return (

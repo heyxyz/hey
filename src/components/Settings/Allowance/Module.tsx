@@ -3,7 +3,7 @@ import HelpTooltip from '@components/UI/HelpTooltip';
 import GetModuleIcon from '@components/utils/GetModuleIcon';
 import { ApprovedAllowanceAmount } from '@generated/types';
 import { getModule } from '@lib/getModule';
-import React, { FC, useState } from 'react';
+import { FC, useState } from 'react';
 import { POLYGONSCAN_URL } from 'src/constants';
 
 import AllowanceButton from './Button';

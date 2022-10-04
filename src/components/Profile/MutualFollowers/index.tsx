@@ -4,7 +4,7 @@ import { MutualFollowersDocument, Profile } from '@generated/types';
 import { UsersIcon } from '@heroicons/react/outline';
 import getAvatar from '@lib/getAvatar';
 import { Mixpanel } from '@lib/mixpanel';
-import React, { FC, ReactNode, useState } from 'react';
+import { FC, ReactNode, useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { PROFILE } from 'src/tracking';
 

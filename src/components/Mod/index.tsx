@@ -5,7 +5,7 @@ import Seo from '@components/utils/Seo';
 import isGardener from '@lib/isGardener';
 import { Mixpanel } from '@lib/mixpanel';
 import { NextPage } from 'next';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { APP_NAME } from 'src/constants';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';

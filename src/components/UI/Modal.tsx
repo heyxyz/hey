@@ -1,7 +1,7 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { XIcon } from '@heroicons/react/outline';
 import clsx from 'clsx';
-import React, { FC, Fragment, ReactNode } from 'react';
+import { FC, Fragment, ReactNode } from 'react';
 
 interface Props {
   icon?: ReactNode;

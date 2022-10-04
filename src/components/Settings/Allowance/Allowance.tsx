@@ -1,6 +1,6 @@
 import { CardBody } from '@components/UI/Card';
 import { ApprovedAllowanceAmount } from '@generated/types';
-import React, { FC } from 'react';
+import { FC } from 'react';
 
 import Module from './Module';
 

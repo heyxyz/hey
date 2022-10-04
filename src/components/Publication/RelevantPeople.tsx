@@ -5,7 +5,7 @@ import { Card, CardBody } from '@components/UI/Card';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { LensterPublication } from '@generated/lenstertypes';
 import { Profile, RelevantPeopleDocument } from '@generated/types';
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { ALL_HANDLES_REGEX, HANDLE_SANITIZE_REGEX } from 'src/constants';
 
 interface Props {

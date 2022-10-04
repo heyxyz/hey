@@ -4,7 +4,7 @@ import getAvatar from '@lib/getAvatar';
 import isVerified from '@lib/isVerified';
 import clsx from 'clsx';
 import Link from 'next/link';
-import React, { FC, useState } from 'react';
+import { FC, useState } from 'react';
 
 import Follow from './Follow';
 import Markup from './Markup';

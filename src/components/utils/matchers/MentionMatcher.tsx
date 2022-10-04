@@ -2,7 +2,7 @@ import Slug from '@components/Shared/Slug';
 import { Mixpanel } from '@lib/mixpanel';
 import { Matcher } from 'interweave';
 import Link from 'next/link';
-import React, { createElement } from 'react';
+import { createElement } from 'react';
 import { PUBLICATION } from 'src/tracking';
 
 export function Mention({ ...props }: any) {

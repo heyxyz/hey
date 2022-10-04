@@ -1,6 +1,6 @@
 import { Tooltip } from '@components/UI/Tooltip';
 import { Profile } from '@generated/types';
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { STATIC_ASSETS } from 'src/constants';
 
 interface Props {

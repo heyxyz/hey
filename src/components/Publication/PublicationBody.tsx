@@ -7,7 +7,7 @@ import getURLs from '@lib/getURLs';
 import clsx from 'clsx';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { FC } from 'react';
+import { FC } from 'react';
 
 interface Props {
   publication: LensterPublication;

@@ -8,7 +8,7 @@ import Seo from '@components/utils/Seo';
 import getFeatureEnabled from '@lib/getFeatureEnabled';
 import { Mixpanel } from '@lib/mixpanel';
 import { NextPage } from 'next';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useAppStore } from 'src/store/app';
 import { PAGEVIEW } from 'src/tracking';
 

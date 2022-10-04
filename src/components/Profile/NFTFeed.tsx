@@ -7,7 +7,7 @@ import { Spinner } from '@components/UI/Spinner';
 import { Nft, NftFeedDocument, Profile } from '@generated/types';
 import { CollectionIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { CHAIN_ID, IS_MAINNET, PAGINATION_ROOT_MARGIN } from 'src/constants';
 import { PAGINATION } from 'src/tracking';

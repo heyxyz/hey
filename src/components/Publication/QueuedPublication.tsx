@@ -13,7 +13,7 @@ import {
 import getURLs from '@lib/getURLs';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { POLYGONSCAN_URL } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { useTransactionPersistStore } from 'src/store/transaction';

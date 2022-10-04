@@ -2,7 +2,6 @@ import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayo
 import Seo from '@components/utils/Seo';
 import getFeatureEnabled from '@lib/getFeatureEnabled';
 import { NextPage } from 'next';
-import React from 'react';
 import { APP_NAME } from 'src/constants';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';

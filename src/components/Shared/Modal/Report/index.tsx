@@ -11,7 +11,7 @@ import { ReportPublicationDocument } from '@generated/types';
 import { PencilAltIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
 import { Mixpanel } from '@lib/mixpanel';
-import React, { FC, useState } from 'react';
+import { FC, useState } from 'react';
 import { useGlobalModalStateStore } from 'src/store/modals';
 import { PUBLICATION } from 'src/tracking';
 import { object, string } from 'zod';
