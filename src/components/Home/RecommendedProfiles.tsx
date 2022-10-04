@@ -31,14 +31,12 @@ const RecommendedProfiles: FC = () => {
     return (
       <>
         <Title />
-        <Card>
-          <CardBody className="space-y-4">
-            <UserProfileShimmer showFollow />
-            <UserProfileShimmer showFollow />
-            <UserProfileShimmer showFollow />
-            <UserProfileShimmer showFollow />
-            <UserProfileShimmer showFollow />
-          </CardBody>
+        <Card className="space-y-4 p-5">
+          <UserProfileShimmer showFollow />
+          <UserProfileShimmer showFollow />
+          <UserProfileShimmer showFollow />
+          <UserProfileShimmer showFollow />
+          <UserProfileShimmer showFollow />
         </Card>
       </>
     );
