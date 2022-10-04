@@ -199,7 +199,6 @@ const NewUpdate: FC = () => {
 
     setPostContentError('');
     setIsUploading(true);
-    // TODO: Add animated_url support
     const id = await uploadToArweave({
       version: '2.0.0',
       metadata_id: uuid(),
