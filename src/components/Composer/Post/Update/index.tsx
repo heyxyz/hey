@@ -2,23 +2,21 @@ import { LensHubProxy } from '@abis/LensHubProxy';
 import { useMutation } from '@apollo/client';
 import Attachments from '@components/Shared/Attachments';
 import Markup from '@components/Shared/Markup';
-import Preview from '@components/Shared/Preview';
 import { Button } from '@components/UI/Button';
-import { Card } from '@components/UI/Card';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { MentionTextArea } from '@components/UI/MentionTextArea';
 import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
-import { LensterAttachment, LensterPublication } from '@generated/lenstertypes';
+import { LensterAttachment } from '@generated/lenstertypes';
 import {
-  CreateCommentTypedDataDocument,
-  CreateCommentViaDispatcherDocument,
+  CreatePostTypedDataDocument,
+  CreatePostViaDispatcherDocument,
   Mutation,
   PublicationMainFocus,
   ReferenceModules
 } from '@generated/types';
 import { IGif } from '@giphy/js-types';
-import { ChatAlt2Icon } from '@heroicons/react/outline';
+import { PencilAltIcon } from '@heroicons/react/outline';
 import { defaultFeeData, defaultModuleData, getModule } from '@lib/getModule';
 import getSignature from '@lib/getSignature';
 import getTags from '@lib/getTags';
@@ -37,28 +35,27 @@ import { useCollectModuleStore } from 'src/store/collectmodule';
 import { usePublicationStore } from 'src/store/publication';
 import { useReferenceModuleStore } from 'src/store/referencemodule';
 import { useTransactionPersistStore } from 'src/store/transaction';
-import { COMMENT } from 'src/tracking';
+import { POST } from 'src/tracking';
 import { v4 as uuid } from 'uuid';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
-const Attachment = dynamic(() => import('../../Shared/Attachment'), {
+const Attachment = dynamic(() => import('@components/Shared/Attachment'), {
   loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
 });
-const Giphy = dynamic(() => import('../../Shared/Giphy'), {
+const Giphy = dynamic(() => import('@components/Shared/Giphy'), {
   loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
 });
-const SelectCollectModule = dynamic(() => import('../../Shared/SelectCollectModule'), {
+const SelectCollectModule = dynamic(() => import('@components/Shared/SelectCollectModule'), {
   loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
 });
-const SelectReferenceModule = dynamic(() => import('../../Shared/SelectReferenceModule'), {
+const SelectReferenceModule = dynamic(() => import('@components/Shared/SelectReferenceModule'), {
+  loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
+});
+const Preview = dynamic(() => import('@components/Shared/Preview'), {
   loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
 });
 
-interface Props {
-  publication: LensterPublication;
-}
-
-const NewComment: FC<Props> = ({ publication }) => {
+const NewUpdate: FC = () => {
   // App store
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
@@ -69,6 +66,7 @@ const NewComment: FC<Props> = ({ publication }) => {
   const setPublicationContent = usePublicationStore((state) => state.setPublicationContent);
   const previewPublication = usePublicationStore((state) => state.previewPublication);
   const setPreviewPublication = usePublicationStore((state) => state.setPreviewPublication);
+  const setShowNewPostModal = usePublicationStore((state) => state.setShowNewPostModal);
 
   // Transaction persist store
   const txnQueue = useTransactionPersistStore((state) => state.txnQueue);
@@ -86,31 +84,30 @@ const NewComment: FC<Props> = ({ publication }) => {
   const { commentsRestricted, mirrorsRestricted, degreesOfSeparation } = useReferenceModuleStore();
 
   // States
-  const [commentContentError, setCommentContentError] = useState('');
+  const [postContentError, setPostContentError] = useState('');
   const [isUploading, setIsUploading] = useState(false);
   const [attachments, setAttachments] = useState<LensterAttachment[]>([]);
+  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
 
   const onCompleted = () => {
     setPreviewPublication(false);
+    setShowNewPostModal(false);
     setPublicationContent('');
     setAttachments([]);
     setSelectedCollectModule(defaultModuleData);
     setFeeData(defaultFeeData);
-    Mixpanel.track(COMMENT.NEW);
+    Mixpanel.track(POST.NEW);
   };
 
-  const generateOptimisticComment = (txHash: string) => {
+  const generateOptimisticPost = (txHash: string) => {
     return {
       id: uuid(),
-      parent: publication.id,
-      type: 'NEW_COMMENT',
+      type: 'NEW_POST',
       txHash,
       content: publicationContent,
       attachments
     };
   };
-
-  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
 
   const {
     error,
@@ -119,11 +116,11 @@ const NewComment: FC<Props> = ({ publication }) => {
   } = useContractWrite({
     addressOrName: LENSHUB_PROXY,
     contractInterface: LensHubProxy,
-    functionName: 'commentWithSig',
+    functionName: 'postWithSig',
     mode: 'recklesslyUnprepared',
     onSuccess: ({ hash }) => {
       onCompleted();
-      setTxnQueue([generateOptimisticComment(hash), ...txnQueue]);
+      setTxnQueue([generateOptimisticPost(hash), ...txnQueue]);
     },
     onError
   });
@@ -131,24 +128,21 @@ const NewComment: FC<Props> = ({ publication }) => {
   const { broadcast, loading: broadcastLoading } = useBroadcast({
     onCompleted: (data) => {
       onCompleted();
-      setTxnQueue([generateOptimisticComment(data?.broadcast?.txHash), ...txnQueue]);
+      setTxnQueue([generateOptimisticPost(data?.broadcast?.txHash), ...txnQueue]);
     }
   });
-  const [createCommentTypedData, { loading: typedDataLoading }] = useMutation<Mutation>(
-    CreateCommentTypedDataDocument,
+  const [createPostTypedData, { loading: typedDataLoading }] = useMutation<Mutation>(
+    CreatePostTypedDataDocument,
     {
-      onCompleted: async ({ createCommentTypedData }) => {
+      onCompleted: async ({ createPostTypedData }) => {
         try {
-          const { id, typedData } = createCommentTypedData;
+          const { id, typedData } = createPostTypedData;
           const {
             profileId,
-            profileIdPointed,
-            pubIdPointed,
             contentURI,
             collectModule,
             collectModuleInitData,
             referenceModule,
-            referenceModuleData,
             referenceModuleInitData,
             deadline
           } = typedData.value;
@@ -157,13 +151,10 @@ const NewComment: FC<Props> = ({ publication }) => {
           const sig = { v, r, s, deadline };
           const inputStruct = {
             profileId,
-            profileIdPointed,
-            pubIdPointed,
             contentURI,
             collectModule,
             collectModuleInitData,
             referenceModule,
-            referenceModuleData,
             referenceModuleInitData,
             sig
           };
@@ -186,28 +177,28 @@ const NewComment: FC<Props> = ({ publication }) => {
     }
   );
 
-  const [createCommentViaDispatcher, { loading: dispatcherLoading }] = useMutation(
-    CreateCommentViaDispatcherDocument,
+  const [createPostViaDispatcher, { loading: dispatcherLoading }] = useMutation(
+    CreatePostViaDispatcherDocument,
     {
       onCompleted: (data) => {
         onCompleted();
-        if (data.createCommentViaDispatcher.__typename === 'RelayerResult') {
-          setTxnQueue([generateOptimisticComment(data.createCommentViaDispatcher.txHash), ...txnQueue]);
+        if (data.createPostViaDispatcher.__typename === 'RelayerResult') {
+          setTxnQueue([generateOptimisticPost(data.createPostViaDispatcher.txHash), ...txnQueue]);
         }
       },
       onError
     }
   );
 
-  const createComment = async () => {
+  const createPost = async () => {
     if (!currentProfile) {
       return toast.error(SIGN_WALLET);
     }
     if (publicationContent.length === 0 && attachments.length === 0) {
-      return setCommentContentError('Comment should not be empty!');
+      return setPostContentError('Post should not be empty!');
     }
 
-    setCommentContentError('');
+    setPostContentError('');
     setIsUploading(true);
     const id = await uploadToArweave({
       version: '2.0.0',
@@ -217,7 +208,7 @@ const NewComment: FC<Props> = ({ publication }) => {
       external_url: `https://lenster.xyz/u/${currentProfile?.handle}`,
       image: attachments.length > 0 ? attachments[0]?.item : null,
       imageMimeType: attachments.length > 0 ? attachments[0]?.type : null,
-      name: `Comment by @${currentProfile?.handle}`,
+      name: `Post by @${currentProfile?.handle}`,
       tags: getTags(publicationContent),
       mainContentFocus:
         attachments.length > 0
@@ -225,7 +216,14 @@ const NewComment: FC<Props> = ({ publication }) => {
             ? PublicationMainFocus.Video
             : PublicationMainFocus.Image
           : PublicationMainFocus.TextOnly,
-      contentWarning: null,
+      contentWarning: null, // TODO
+      attributes: [
+        {
+          traitType: 'string',
+          key: 'type',
+          value: 'post'
+        }
+      ],
       media: attachments,
       locale: getUserLocale(),
       createdOn: new Date(),
@@ -234,10 +232,11 @@ const NewComment: FC<Props> = ({ publication }) => {
 
     const request = {
       profileId: currentProfile?.id,
-      publicationId: publication.__typename === 'Mirror' ? publication?.mirrorOf?.id : publication?.id,
       contentURI: `https://arweave.net/${id}`,
       collectModule: feeData.recipient
-        ? { [getModule(selectedCollectModule.moduleName).config]: feeData }
+        ? {
+            [getModule(selectedCollectModule.moduleName).config]: feeData
+          }
         : getModule(selectedCollectModule.moduleName).config,
       referenceModule:
         selectedReferenceModule === ReferenceModules.FollowerOnlyReferenceModule
@@ -252,9 +251,11 @@ const NewComment: FC<Props> = ({ publication }) => {
     };
 
     if (currentProfile?.dispatcher?.canUseRelay) {
-      createCommentViaDispatcher({ variables: { request } });
+      createPostViaDispatcher({
+        variables: { request }
+      });
     } else {
-      createCommentTypedData({
+      createPostTypedData({
         variables: {
           options: { overrideSigNonce: userSigNonce },
           request
@@ -276,17 +277,18 @@ const NewComment: FC<Props> = ({ publication }) => {
     isUploading || typedDataLoading || dispatcherLoading || signLoading || writeLoading || broadcastLoading;
 
   return (
-    <Card className="px-5 pt-5 pb-3">
+    <div className="px-5 pt-5 pb-3">
       {error && <ErrorMessage className="mb-3" title="Transaction failed!" error={error} />}
       {previewPublication ? (
-        <div className="pb-3 mb-2 border-b linkify dark:border-b-gray-700/80">
+        <div className="pb-3 mb-2 border-b linkify dark:border-b-gray-700/80 break-words">
           <Markup>{publicationContent}</Markup>
         </div>
       ) : (
         <MentionTextArea
-          error={commentContentError}
-          setError={setCommentContentError}
-          placeholder="Tell something cool!"
+          error={postContentError}
+          setError={setPostContentError}
+          placeholder="What's happening?"
+          autoFocus
         />
       )}
       <div className="block items-center sm:flex">
@@ -300,16 +302,16 @@ const NewComment: FC<Props> = ({ publication }) => {
         <div className="ml-auto pt-2 sm:pt-0">
           <Button
             disabled={isLoading}
-            icon={isLoading ? <Spinner size="xs" /> : <ChatAlt2Icon className="w-4 h-4" />}
-            onClick={createComment}
+            icon={isLoading ? <Spinner size="xs" /> : <PencilAltIcon className="w-4 h-4" />}
+            onClick={createPost}
           >
-            Comment
+            Post
           </Button>
         </div>
       </div>
       <Attachments attachments={attachments} setAttachments={setAttachments} isNew />
-    </Card>
+    </div>
   );
 };
 
-export default NewComment;
+export default NewUpdate;

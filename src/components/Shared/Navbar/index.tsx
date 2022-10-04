@@ -10,7 +10,6 @@ import { useRouter } from 'next/router';
 import { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 
-import NewPostModal from '../../Composer/Post/NewPostModal';
 import MenuItems from './MenuItems';
 import MoreNavItems from './MoreNavItems';
 import Search from './Search';
@@ -97,7 +96,6 @@ const Navbar: FC = () => {
               <div className="flex gap-8 items-center">
                 {currentProfile ? (
                   <>
-                    <NewPostModal />
                     {getFeatureEnabled('messages', currentProfile?.id) && (
                       <Link href="/messages">
                         <MailIcon className="w-5 h-5 sm:w-6 sm:h-6" />

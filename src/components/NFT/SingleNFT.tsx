@@ -1,7 +1,7 @@
-import { Card, CardBody } from '@components/UI/Card';
+import { Card } from '@components/UI/Card';
 import { Nft } from '@generated/types';
 import getIPFSLink from '@lib/getIPFSLink';
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { CHAIN_ID, RARIBLE_URL, STATIC_ASSETS } from 'src/constants';
 
 interface Props {
@@ -55,14 +55,14 @@ const SingleNFT: FC<Props> = ({ nft }) => {
           />
         </a>
       )}
-      <CardBody className="space-y-1">
+      <div className="space-y-1 p-5">
         {nft.collectionName && <div className="text-sm text-gray-500 truncate">{nft.collectionName}</div>}
         <div className="truncate">
           <a className="font-bold" href={nftURL} target="_blank" rel="noreferrer noopener">
             {nft.name ? nft.name : `#${nft.tokenId}`}
           </a>
         </div>
-      </CardBody>
+      </div>
     </Card>
   );
 };

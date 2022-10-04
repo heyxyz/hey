@@ -1,6 +1,6 @@
 import imagekitURL from '@lib/imagekitURL';
 import axios from 'axios';
-import React, { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 
 import Embed from './Embed';
 import Player from './Player';

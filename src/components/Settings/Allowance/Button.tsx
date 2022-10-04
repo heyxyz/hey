@@ -8,7 +8,7 @@ import { ExclamationIcon, MinusIcon, PlusIcon } from '@heroicons/react/outline';
 import { getModule } from '@lib/getModule';
 import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
-import React, { Dispatch, FC, useState } from 'react';
+import { Dispatch, FC, useState } from 'react';
 import toast from 'react-hot-toast';
 import { usePrepareSendTransaction, useSendTransaction, useWaitForTransaction } from 'wagmi';
 

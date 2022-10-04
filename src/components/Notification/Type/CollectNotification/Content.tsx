@@ -1,7 +1,7 @@
 import Markup from '@components/Shared/Markup';
 import { NewCollectNotification } from '@generated/types';
 import Link from 'next/link';
-import React, { FC } from 'react';
+import { FC } from 'react';
 
 interface Props {
   notification: NewCollectNotification;

@@ -4,7 +4,7 @@ import { Mixpanel } from '@lib/mixpanel';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { useRouter } from 'next/router';
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { PUBLICATION } from 'src/tracking';
 
 import PublicationActions from './Actions';

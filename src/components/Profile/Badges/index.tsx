@@ -1,5 +1,5 @@
 import { Profile } from '@generated/types';
-import React, { FC } from 'react';
+import { FC } from 'react';
 
 import Ens from './Ens';
 import ProofOfHumanity from './ProofOfHumanity';

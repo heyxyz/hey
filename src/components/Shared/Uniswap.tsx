@@ -1,7 +1,7 @@
 import { LensterCollectModule, LensterFollowModule } from '@generated/lenstertypes';
 import getUniswapURL from '@lib/getUniswapURL';
 import { Mixpanel } from '@lib/mixpanel';
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { STATIC_ASSETS } from 'src/constants';
 import { PUBLICATION } from 'src/tracking';
 

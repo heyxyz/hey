@@ -3,7 +3,7 @@ import { Menu } from '@headlessui/react';
 import { ClipboardCopyIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import clsx from 'clsx';
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import toast from 'react-hot-toast';
 import { PUBLICATION } from 'src/tracking';

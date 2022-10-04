@@ -6,7 +6,7 @@ import { LensterPublication } from '@generated/lenstertypes';
 import { CollectionIcon, HeartIcon, SwitchHorizontalIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import nFormatter from '@lib/nFormatter';
-import React, { FC, useState } from 'react';
+import { FC, useState } from 'react';
 import { PUBLICATION } from 'src/tracking';
 
 interface Props {

@@ -7,7 +7,7 @@ import getIPFSLink from '@lib/getIPFSLink';
 import imagekitURL from '@lib/imagekitURL';
 import clsx from 'clsx';
 import dynamic from 'next/dynamic';
-import React, { FC, useState } from 'react';
+import { FC, useState } from 'react';
 
 const Video = dynamic(() => import('./Video'), {
   loading: () => <div className="rounded-lg aspect-w-16 aspect-h-12 shimmer" />

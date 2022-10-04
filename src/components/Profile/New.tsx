@@ -1,11 +1,11 @@
 import Signup from '@components/Shared/Navbar/Login/New';
 import SettingsHelper from '@components/Shared/SettingsHelper';
-import { Card, CardBody } from '@components/UI/Card';
+import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import Seo from '@components/utils/Seo';
 import { Mixpanel } from '@lib/mixpanel';
 import { NextPage } from 'next';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { APP_NAME } from 'src/constants';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
@@ -29,10 +29,8 @@ const NewProfile: NextPage = () => {
         <SettingsHelper heading="Create profile" description="Create new decentralized profile" />
       </GridItemFour>
       <GridItemEight>
-        <Card>
-          <CardBody>
-            <Signup />
-          </CardBody>
+        <Card className="p-5">
+          <Signup />
         </Card>
       </GridItemEight>
     </GridLayout>
