@@ -54,11 +54,10 @@ const SelectReferenceModule = dynamic(() => import('../../Shared/SelectReference
 });
 
 interface Props {
-  hideCard?: boolean;
   publication: LensterPublication;
 }
 
-const NewComment: FC<Props> = ({ hideCard = false, publication }) => {
+const NewComment: FC<Props> = ({ publication }) => {
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -266,7 +265,7 @@ const NewComment: FC<Props> = ({ hideCard = false, publication }) => {
     isUploading || typedDataLoading || dispatcherLoading || signLoading || writeLoading || broadcastLoading;
 
   return (
-    <Card className={hideCard ? 'border-0 !shadow-none !bg-transparent' : ''}>
+    <Card>
       <div className="px-5 pt-5 pb-3">
         <div className="space-y-1">
           {error && <ErrorMessage className="mb-3" title="Transaction failed!" error={error} />}
