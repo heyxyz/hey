@@ -10153,11 +10153,6 @@ export type LensterStatsQuery = {
     totalComments: number;
     totalCollects: number;
     totalFollows: number;
-    totalRevenue: Array<{
-      __typename?: 'Erc20Amount';
-      value: string;
-      asset: { __typename?: 'Erc20'; symbol: string };
-    }>;
   };
 };
 
@@ -19399,25 +19394,7 @@ export const LensterStatsDocument = {
                 { kind: 'Field', name: { kind: 'Name', value: 'totalMirrors' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'totalComments' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'totalCollects' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'totalFollows' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'totalRevenue' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'asset' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [{ kind: 'Field', name: { kind: 'Name', value: 'symbol' } }]
-                        }
-                      },
-                      { kind: 'Field', name: { kind: 'Name', value: 'value' } }
-                    ]
-                  }
-                }
+                { kind: 'Field', name: { kind: 'Name', value: 'totalFollows' } }
               ]
             }
           }
