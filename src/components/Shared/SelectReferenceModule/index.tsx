@@ -29,6 +29,9 @@ const SelectReferenceModule: FC = () => {
   const isDegreesOfSeparationReferenceModule =
     selectedReferenceModule === ReferenceModules.DegreesOfSeparationReferenceModule;
 
+  const buttonClass =
+    'w-full p-3 border rounded-xl dark:border-gray-700/80 flex justify-between items-center';
+
   return (
     <>
       <Tooltip
@@ -68,7 +71,7 @@ const SelectReferenceModule: FC = () => {
             type="button"
             className={clsx(
               { 'border-green-500': isFollowerOnlyReferenceModule && !onlyFollowers },
-              'w-full p-3 border rounded-xl dark:border-gray-700/80 flex justify-between items-center'
+              buttonClass
             )}
             onClick={() => {
               setSelectedReferenceModule(ReferenceModules.FollowerOnlyReferenceModule);
@@ -89,7 +92,7 @@ const SelectReferenceModule: FC = () => {
             type="button"
             className={clsx(
               { 'border-green-500': isFollowerOnlyReferenceModule && onlyFollowers },
-              'w-full p-3 border rounded-xl dark:border-gray-700/80 flex justify-between items-center'
+              buttonClass
             )}
             onClick={() => {
               setSelectedReferenceModule(ReferenceModules.FollowerOnlyReferenceModule);
@@ -108,10 +111,7 @@ const SelectReferenceModule: FC = () => {
           </button>
           <button
             type="button"
-            className={clsx(
-              { 'border-green-500': isDegreesOfSeparationReferenceModule },
-              'w-full p-3 border rounded-xl dark:border-gray-700/80 flex justify-between items-center'
-            )}
+            className={clsx({ 'border-green-500': isDegreesOfSeparationReferenceModule }, buttonClass)}
             onClick={() => {
               setSelectedReferenceModule(ReferenceModules.DegreesOfSeparationReferenceModule);
               setOnlyFollowers(false);
