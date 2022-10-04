@@ -2,7 +2,7 @@ import Slug from '@components/Shared/Slug';
 import { Mixpanel } from '@lib/mixpanel';
 import { Matcher } from 'interweave';
 import Link from 'next/link';
-import React from 'react';
+import React, { createElement } from 'react';
 import { PUBLICATION } from 'src/tracking';
 
 export function Mention({ ...props }: any) {
@@ -21,7 +21,7 @@ export function Mention({ ...props }: any) {
 
 export class MentionMatcher extends Matcher {
   replaceWith(match: string, props: any) {
-    return React.createElement(Mention, props, match);
+    return createElement(Mention, props, match);
   }
 
   asTag(): string {

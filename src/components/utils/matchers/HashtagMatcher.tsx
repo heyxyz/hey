@@ -2,7 +2,7 @@ import { Mixpanel } from '@lib/mixpanel';
 import { hashflags } from 'data/hashflags';
 import { Matcher } from 'interweave';
 import Link from 'next/link';
-import React from 'react';
+import React, { createElement } from 'react';
 import { STATIC_ASSETS } from 'src/constants';
 import { PUBLICATION } from 'src/tracking';
 
@@ -37,7 +37,7 @@ export function Hashtag({ ...props }: any) {
 
 export class HashtagMatcher extends Matcher {
   replaceWith(match: string, props: any) {
-    return React.createElement(Hashtag, props, match);
+    return createElement(Hashtag, props, match);
   }
 
   asTag(): string {
