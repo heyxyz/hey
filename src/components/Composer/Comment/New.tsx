@@ -267,7 +267,7 @@ const NewComment: FC<Props> = ({ publication }) => {
     const attachment = {
       item: gif.images.original.url,
       type: 'image/gif',
-      altTag: ''
+      altTag: gif.title
     };
     setAttachments([...attachments, attachment]);
   };
@@ -276,42 +276,38 @@ const NewComment: FC<Props> = ({ publication }) => {
     isUploading || typedDataLoading || dispatcherLoading || signLoading || writeLoading || broadcastLoading;
 
   return (
-    <Card>
-      <div className="px-5 pt-5 pb-3">
-        <div className="space-y-1">
-          {error && <ErrorMessage className="mb-3" title="Transaction failed!" error={error} />}
-          {previewPublication ? (
-            <div className="pb-3 mb-2 border-b linkify dark:border-b-gray-700/80">
-              <Markup>{publicationContent}</Markup>
-            </div>
-          ) : (
-            <MentionTextArea
-              error={commentContentError}
-              setError={setCommentContentError}
-              placeholder="Tell something cool!"
-            />
-          )}
-          <div className="block items-center sm:flex">
-            <div className="flex items-center space-x-4">
-              <Attachment attachments={attachments} setAttachments={setAttachments} />
-              <Giphy setGifAttachment={(gif: IGif) => setGifAttachment(gif)} />
-              <SelectCollectModule />
-              <SelectReferenceModule />
-              {publicationContent && <Preview />}
-            </div>
-            <div className="ml-auto pt-2 sm:pt-0">
-              <Button
-                disabled={isLoading}
-                icon={isLoading ? <Spinner size="xs" /> : <ChatAlt2Icon className="w-4 h-4" />}
-                onClick={createComment}
-              >
-                Comment
-              </Button>
-            </div>
-          </div>
-          <Attachments attachments={attachments} setAttachments={setAttachments} isNew />
+    <Card className="px-5 pt-5 pb-3">
+      {error && <ErrorMessage className="mb-3" title="Transaction failed!" error={error} />}
+      {previewPublication ? (
+        <div className="pb-3 mb-2 border-b linkify dark:border-b-gray-700/80">
+          <Markup>{publicationContent}</Markup>
+        </div>
+      ) : (
+        <MentionTextArea
+          error={commentContentError}
+          setError={setCommentContentError}
+          placeholder="Tell something cool!"
+        />
+      )}
+      <div className="block items-center sm:flex">
+        <div className="flex items-center space-x-4">
+          <Attachment attachments={attachments} setAttachments={setAttachments} />
+          <Giphy setGifAttachment={(gif: IGif) => setGifAttachment(gif)} />
+          <SelectCollectModule />
+          <SelectReferenceModule />
+          {publicationContent && <Preview />}
+        </div>
+        <div className="ml-auto pt-2 sm:pt-0">
+          <Button
+            disabled={isLoading}
+            icon={isLoading ? <Spinner size="xs" /> : <ChatAlt2Icon className="w-4 h-4" />}
+            onClick={createComment}
+          >
+            Comment
+          </Button>
         </div>
       </div>
+      <Attachments attachments={attachments} setAttachments={setAttachments} isNew />
     </Card>
   );
 };

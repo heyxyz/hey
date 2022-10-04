@@ -268,7 +268,7 @@ const NewUpdate: FC = () => {
     const attachment = {
       item: gif.images.original.url,
       type: 'image/gif',
-      altTag: ''
+      altTag: gif.title
     };
     setAttachments([...attachments, attachment]);
   };
@@ -278,40 +278,38 @@ const NewUpdate: FC = () => {
 
   return (
     <div className="px-5 pt-5 pb-3">
-      <div className="space-y-1">
-        {error && <ErrorMessage className="mb-3" title="Transaction failed!" error={error} />}
-        {previewPublication ? (
-          <div className="pb-3 mb-2 border-b linkify dark:border-b-gray-700/80 break-words">
-            <Markup>{publicationContent}</Markup>
-          </div>
-        ) : (
-          <MentionTextArea
-            error={postContentError}
-            setError={setPostContentError}
-            placeholder="What's happening?"
-            autoFocus
-          />
-        )}
-        <div className="block items-center sm:flex">
-          <div className="flex items-center space-x-4">
-            <Attachment attachments={attachments} setAttachments={setAttachments} />
-            <Giphy setGifAttachment={(gif: IGif) => setGifAttachment(gif)} />
-            <SelectCollectModule />
-            <SelectReferenceModule />
-            {publicationContent && <Preview />}
-          </div>
-          <div className="ml-auto pt-2 sm:pt-0">
-            <Button
-              disabled={isLoading}
-              icon={isLoading ? <Spinner size="xs" /> : <PencilAltIcon className="w-4 h-4" />}
-              onClick={createPost}
-            >
-              Post
-            </Button>
-          </div>
+      {error && <ErrorMessage className="mb-3" title="Transaction failed!" error={error} />}
+      {previewPublication ? (
+        <div className="pb-3 mb-2 border-b linkify dark:border-b-gray-700/80 break-words">
+          <Markup>{publicationContent}</Markup>
         </div>
-        <Attachments attachments={attachments} setAttachments={setAttachments} isNew />
+      ) : (
+        <MentionTextArea
+          error={postContentError}
+          setError={setPostContentError}
+          placeholder="What's happening?"
+          autoFocus
+        />
+      )}
+      <div className="block items-center sm:flex">
+        <div className="flex items-center space-x-4">
+          <Attachment attachments={attachments} setAttachments={setAttachments} />
+          <Giphy setGifAttachment={(gif: IGif) => setGifAttachment(gif)} />
+          <SelectCollectModule />
+          <SelectReferenceModule />
+          {publicationContent && <Preview />}
+        </div>
+        <div className="ml-auto pt-2 sm:pt-0">
+          <Button
+            disabled={isLoading}
+            icon={isLoading ? <Spinner size="xs" /> : <PencilAltIcon className="w-4 h-4" />}
+            onClick={createPost}
+          >
+            Post
+          </Button>
+        </div>
       </div>
+      <Attachments attachments={attachments} setAttachments={setAttachments} isNew />
     </div>
   );
 };
