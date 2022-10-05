@@ -1,9 +1,12 @@
 import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import { Profile } from '@generated/types';
+import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { Message } from '@xmtp/xmtp-js';
 import { useRouter } from 'next/router';
 import { FC } from 'react';
+import Custom404 from 'src/pages/404';
+import { useAppStore } from 'src/store/app';
 import { useXmtpStore } from 'src/store/xmtp';
 
 interface Props {
@@ -15,10 +18,15 @@ const Conversation: FC<Props> = () => {
   const address = router.query.address as string;
   const xmtpState = useXmtpStore((state) => state);
   const { messages, conversations } = xmtpState;
+  const currentProfile = useAppStore((state) => state.currentProfile);
 
   const onConversationSelected = (address: string) => {
     router.push(address ? `/messages/${address}` : '/messages/');
   };
+
+  if (!isFeatureEnabled('messages', currentProfile?.id)) {
+    return <Custom404 />;
+  }
 
   return (
     <GridLayout>

@@ -1,9 +1,12 @@
 import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import { Profile } from '@generated/types';
+import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { Client, Conversation, Stream } from '@xmtp/xmtp-js';
 import { useRouter } from 'next/router';
 import { FC, useEffect, useState } from 'react';
+import Custom404 from 'src/pages/404';
+import { useAppStore } from 'src/store/app';
 import { useXmtpStore } from 'src/store/xmtp';
 import { useAccount, useSigner } from 'wagmi';
 
@@ -14,6 +17,7 @@ interface Props {
 const Messages: FC<Props> = () => {
   const { data: signer } = useSigner();
   const { address } = useAccount();
+  const currentProfile = useAppStore((state) => state.currentProfile);
   const [stream, setStrem] = useState<Stream<Conversation>>();
   const xmtpState = useXmtpStore((state) => state);
   const { client, setClient, conversations, setConversations, messages, setMessages, setLoading } = xmtpState;
@@ -26,11 +30,13 @@ const Messages: FC<Props> = () => {
         setClient(xmtp);
       }
     };
-    initXmtpClient();
+    if (isFeatureEnabled('messages', currentProfile?.id)) {
+      initXmtpClient();
+    }
   }, [signer]);
 
   useEffect(() => {
-    if (!client) {
+    if (!client || !isFeatureEnabled('messages', currentProfile?.id)) {
       return;
     }
 
@@ -80,6 +86,10 @@ const Messages: FC<Props> = () => {
   const onConversationSelected = (address: string) => {
     router.push(address ? `/messages/${address}` : '/messages/');
   };
+
+  if (!isFeatureEnabled('messages', currentProfile?.id)) {
+    return <Custom404 />;
+  }
 
   return (
     <GridLayout>
