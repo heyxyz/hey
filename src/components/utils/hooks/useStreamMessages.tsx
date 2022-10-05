@@ -1,20 +1,20 @@
 import { Conversation, Message, Stream } from '@xmtp/xmtp-js';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useXmtpStore } from 'src/store/xmtp';
-
-let stream: Stream<Message>;
 
 const useStreamMessages = (conversation: Conversation, onMessageCallback: () => void) => {
   const xmtpState = useXmtpStore((state) => state);
   const { messages, setMessages } = xmtpState;
+  const [stream, setStream] = useState<Stream<Message>>();
 
   useEffect(() => {
     if (!conversation) {
       return;
     }
     const streamMessages = async () => {
-      stream = await conversation.streamMessages();
-      for await (const msg of stream) {
+      const newStream = await conversation.streamMessages();
+      setStream(newStream);
+      for await (const msg of newStream) {
         if (setMessages) {
           const newMessages = messages.get(conversation.peerAddress) ?? [];
           newMessages.push(msg);
