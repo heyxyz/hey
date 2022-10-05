@@ -39,7 +39,7 @@ const useStreamMessages = (conversation: Conversation, onMessageCallback: () => 
       };
       closeStream();
     };
-  }, [conversation, messages, onMessageCallback, setMessages, stream]);
+  }, [conversation]);
 
   const sendMessage = async (message: string) => {
     if (!conversation) {

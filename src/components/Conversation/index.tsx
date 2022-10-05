@@ -1,6 +1,6 @@
 import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
-import MetaTags from '@components/utils/MetaTags';
+import Seo from '@components/utils/Seo';
 import { Profile } from '@generated/types';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { Message } from '@xmtp/xmtp-js';
@@ -32,7 +32,7 @@ const Conversation: FC<Props> = () => {
 
   return (
     <GridLayout>
-      <MetaTags title={`Conversation • ${APP_NAME}`} />
+      <Seo title={`Conversation • ${APP_NAME}`} />
       <GridItemFour>
         <Card className="h-[86vh] px-2 pt-3">
           <div className="flex justify-between">
