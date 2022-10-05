@@ -9,7 +9,7 @@ import {
   VideoCameraIcon
 } from '@heroicons/react/outline';
 import getAvatar from '@lib/getAvatar';
-import getFeatureEnabled from '@lib/getFeatureEnabled';
+import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { FC, ReactNode, useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { usePublicationStore } from 'src/store/publication';
@@ -58,7 +58,7 @@ const NewPost: FC = () => {
           <PencilAltIcon className="h-5 w-5" />
           <span>What's happening?</span>
         </button>
-        {getFeatureEnabled('composer-v2', currentProfile?.id) && (
+        {isFeatureEnabled('composer-v2', currentProfile?.id) && (
           <div className="flex items-center space-x-5">
             <Action
               icon={<PhotographIcon className="h-5 w-5" />}
