@@ -2,7 +2,7 @@ import RecommendedProfiles from '@components/Home/RecommendedProfiles';
 import Trending from '@components/Home/Trending';
 import Footer from '@components/Shared/Footer';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
-import Seo from '@components/utils/Seo';
+import MetaTags from '@components/utils/MetaTags';
 import { PublicationSortCriteria } from '@generated/types';
 import { Mixpanel } from '@lib/mixpanel';
 import { NextPage } from 'next';
@@ -32,7 +32,7 @@ const Explore: NextPage = () => {
 
   return (
     <GridLayout>
-      <Seo
+      <MetaTags
         title={`Explore • ${APP_NAME}`}
         description={`Explore top commented, collected and latest publications in the ${APP_NAME}.`}
       />
