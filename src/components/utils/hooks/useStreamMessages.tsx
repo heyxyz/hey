@@ -39,6 +39,7 @@ const useStreamMessages = (conversation: Conversation, onMessageCallback: () => 
       };
       closeStream();
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [conversation]);
 
   const sendMessage = async (message: string) => {

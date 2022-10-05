@@ -1,6 +1,6 @@
 import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
-import Seo from '@components/utils/Seo';
+import MetaTags from '@components/utils/MetaTags';
 import { Profile } from '@generated/types';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { Client, Conversation, Stream } from '@xmtp/xmtp-js';
@@ -20,7 +20,7 @@ const Messages: FC<Props> = () => {
   const { data: signer } = useSigner();
   const { address } = useAccount();
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const [stream, setStrem] = useState<Stream<Conversation>>();
+  const [stream, setStream] = useState<Stream<Conversation>>();
   const xmtpState = useXmtpStore((state) => state);
   const { client, setClient, conversations, setConversations, messages, setMessages, setLoading } = xmtpState;
   const router = useRouter();
@@ -35,6 +35,7 @@ const Messages: FC<Props> = () => {
     if (isFeatureEnabled('messages', currentProfile?.id)) {
       initXmtpClient();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [signer]);
 
   useEffect(() => {
@@ -61,7 +62,7 @@ const Messages: FC<Props> = () => {
     }
     const streamConversations = async () => {
       const newStream = (await client?.conversations?.stream()) || [];
-      setStrem(newStream);
+      setStream(newStream);
       for await (const convo of newStream) {
         if (convo.peerAddress !== address) {
           const newMessages = await convo.messages();
@@ -83,6 +84,7 @@ const Messages: FC<Props> = () => {
       };
       closeStream();
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [client]);
 
   const onConversationSelected = (address: string) => {
@@ -95,7 +97,7 @@ const Messages: FC<Props> = () => {
 
   return (
     <GridLayout>
-      <Seo title={`Messages • ${APP_NAME}`} />
+      <MetaTags title={`Messages • ${APP_NAME}`} />
       <GridItemFour>
         <Card className="h-[86vh] px-2 pt-3">
           <div className="flex justify-between">
