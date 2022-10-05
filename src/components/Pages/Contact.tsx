@@ -6,7 +6,7 @@ import { Form, useZodForm } from '@components/UI/Form';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import { Input } from '@components/UI/Input';
 import { TextArea } from '@components/UI/TextArea';
-import Seo from '@components/utils/Seo';
+import MetaTags from '@components/utils/MetaTags';
 import { PencilAltIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
 import { Mixpanel } from '@lib/mixpanel';
@@ -37,7 +37,7 @@ const Contact: FC = () => {
 
   return (
     <GridLayout>
-      <Seo title={`Contact • ${APP_NAME}`} />
+      <MetaTags title={`Contact • ${APP_NAME}`} />
       <GridItemFour>
         <SettingsHelper
           heading={`Contact ${APP_NAME}`}

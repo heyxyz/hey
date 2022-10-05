@@ -10,7 +10,7 @@ import { LensterPublication } from '@generated/lenstertypes';
 import { CommentFeedDocument, CustomFiltersTypes } from '@generated/types';
 import { CollectionIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 import { useInView } from 'react-cool-inview';
 import { PAGINATION_ROOT_MARGIN } from 'src/constants';
 import { useAppStore } from 'src/store/app';
@@ -60,45 +60,66 @@ const Feed: FC<Props> = ({ publication }) => {
   const totalComments = comments?.length + queuedCount;
   const canComment = publication?.canComment?.result;
 
-  return (
+  const NewCommentWrapper = ({ children }: { children: ReactNode }) => (
     <>
       {currentProfile ? canComment ? <NewComment publication={publication} /> : <CommentWarning /> : null}
-      {loading && <PublicationsShimmer />}
-      {totalComments === 0 && (
+      {children}
+    </>
+  );
+
+  if (loading) {
+    return (
+      <NewCommentWrapper>
+        <PublicationsShimmer />
+      </NewCommentWrapper>
+    );
+  }
+
+  if (totalComments === 0) {
+    return (
+      <NewCommentWrapper>
         <EmptyState
           message={<span>Be the first one to comment!</span>}
           icon={<CollectionIcon className="w-8 h-8 text-brand" />}
         />
+      </NewCommentWrapper>
+    );
+  }
+
+  if (error) {
+    return (
+      <NewCommentWrapper>
+        <ErrorMessage title="Failed to load comment feed" error={error} />
+      </NewCommentWrapper>
+    );
+  }
+
+  return (
+    <NewCommentWrapper>
+      <Card className="divide-y-[1px] dark:divide-gray-700/80">
+        {txnQueue.map(
+          (txn) =>
+            txn?.type === 'NEW_COMMENT' &&
+            txn?.parent === publication?.id && (
+              <div key={txn.id}>
+                <QueuedPublication txn={txn} />
+              </div>
+            )
+        )}
+        {comments?.map((comment, index: number) => (
+          <SinglePublication
+            key={`${publicationId}_${index}`}
+            publication={comment as LensterPublication}
+            showType={false}
+          />
+        ))}
+      </Card>
+      {pageInfo?.next && comments?.length !== pageInfo.totalCount && (
+        <span ref={observe} className="flex justify-center p-5">
+          <Spinner size="sm" />
+        </span>
       )}
-      <ErrorMessage title="Failed to load comment feed" error={error} />
-      {!error && !loading && totalComments !== 0 && (
-        <>
-          <Card className="divide-y-[1px] dark:divide-gray-700/80">
-            {txnQueue.map(
-              (txn) =>
-                txn?.type === 'NEW_COMMENT' &&
-                txn?.parent === publication?.id && (
-                  <div key={txn.id}>
-                    <QueuedPublication txn={txn} />
-                  </div>
-                )
-            )}
-            {comments?.map((comment, index: number) => (
-              <SinglePublication
-                key={`${publicationId}_${index}`}
-                publication={comment as LensterPublication}
-                showType={false}
-              />
-            ))}
-          </Card>
-          {pageInfo?.next && comments?.length !== pageInfo.totalCount && (
-            <span ref={observe} className="flex justify-center p-5">
-              <Spinner size="sm" />
-            </span>
-          )}
-        </>
-      )}
-    </>
+    </NewCommentWrapper>
   );
 };
 

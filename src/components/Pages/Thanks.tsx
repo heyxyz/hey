@@ -1,5 +1,5 @@
 import Footer from '@components/Shared/Footer';
-import Seo from '@components/utils/Seo';
+import MetaTags from '@components/utils/MetaTags';
 import { HeartIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import { useTheme } from 'next-themes';
@@ -43,7 +43,7 @@ const Thanks: FC = () => {
 
   return (
     <>
-      <Seo title={`Thanks • ${APP_NAME}`} />
+      <MetaTags title={`Thanks • ${APP_NAME}`} />
       <div className="flex justify-center items-center w-full h-48 bg-brand-400">
         <div className="relative text-center">
           <div className="flex items-center space-x-2 text-3xl font-semibold text-white md:text-4xl">

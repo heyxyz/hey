@@ -55,33 +55,38 @@ const Publications: FC<Props> = ({ query }) => {
     rootMargin: PAGINATION_ROOT_MARGIN
   });
 
+  if (loading) {
+    return <PublicationsShimmer />;
+  }
+
+  if (publications?.length === 0) {
+    return (
+      <EmptyState
+        message={
+          <div>
+            No publications for <b>&ldquo;{query}&rdquo;</b>
+          </div>
+        }
+        icon={<CollectionIcon className="w-8 h-8 text-brand" />}
+      />
+    );
+  }
+
+  if (error) {
+    return <ErrorMessage title="Failed to load publications list" error={error} />;
+  }
+
   return (
     <>
-      {loading && <PublicationsShimmer />}
-      {publications?.length === 0 && (
-        <EmptyState
-          message={
-            <div>
-              No publications for <b>&ldquo;{query}&rdquo;</b>
-            </div>
-          }
-          icon={<CollectionIcon className="w-8 h-8 text-brand" />}
-        />
-      )}
-      <ErrorMessage title="Failed to load publications list" error={error} />
-      {!error && !loading && (
-        <>
-          <Card className="divide-y-[1px] dark:divide-gray-700/80">
-            {publications?.map((post: LensterPublication, index: number) => (
-              <SinglePublication key={`${post?.id}_${index}`} publication={post} />
-            ))}
-          </Card>
-          {pageInfo?.next && publications?.length !== pageInfo.totalCount && (
-            <span ref={observe} className="flex justify-center p-5">
-              <Spinner size="sm" />
-            </span>
-          )}
-        </>
+      <Card className="divide-y-[1px] dark:divide-gray-700/80">
+        {publications?.map((post: LensterPublication, index: number) => (
+          <SinglePublication key={`${post?.id}_${index}`} publication={post} />
+        ))}
+      </Card>
+      {pageInfo?.next && publications?.length !== pageInfo.totalCount && (
+        <span ref={observe} className="flex justify-center p-5">
+          <Spinner size="sm" />
+        </span>
       )}
     </>
   );

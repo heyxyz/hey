@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
-import Seo from '@components/utils/Seo';
+import MetaTags from '@components/utils/MetaTags';
 import { ProfileDocument } from '@generated/types';
 import { Mixpanel } from '@lib/mixpanel';
 import { NextPage } from 'next';
@@ -56,9 +56,9 @@ const ViewProfile: NextPage = () => {
   return (
     <>
       {profile?.name ? (
-        <Seo title={`${profile?.name} (@${profile?.handle}) • ${APP_NAME}`} />
+        <MetaTags title={`${profile?.name} (@${profile?.handle}) • ${APP_NAME}`} />
       ) : (
-        <Seo title={`@${profile?.handle} • ${APP_NAME}`} />
+        <MetaTags title={`@${profile?.handle} • ${APP_NAME}`} />
       )}
       <Cover
         cover={
