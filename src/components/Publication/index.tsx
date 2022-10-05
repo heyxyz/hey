@@ -6,7 +6,7 @@ import PublicationStaffTool from '@components/StaffTools/Panels/Publication';
 import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import useStaffMode from '@components/utils/hooks/useStaffMode';
-import Seo from '@components/utils/Seo';
+import MetaTags from '@components/utils/MetaTags';
 import { PublicationDocument } from '@generated/types';
 import { Mixpanel } from '@lib/mixpanel';
 import { NextPage } from 'next';
@@ -60,7 +60,7 @@ const ViewPublication: NextPage = () => {
 
   return (
     <GridLayout>
-      <Seo
+      <MetaTags
         title={
           publication.__typename && publication?.profile?.handle
             ? `${publication.__typename} by @${publication.profile.handle} • ${APP_NAME}`

@@ -1,5 +1,5 @@
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
-import Seo from '@components/utils/Seo';
+import MetaTags from '@components/utils/MetaTags';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { NextPage } from 'next';
 import { APP_NAME } from 'src/constants';
@@ -15,7 +15,7 @@ const Messages: NextPage = () => {
 
   return (
     <GridLayout>
-      <Seo title={`Messages • ${APP_NAME}`} />
+      <MetaTags title={`Messages • ${APP_NAME}`} />
       <GridItemFour>
         <div>gm</div>
       </GridItemFour>

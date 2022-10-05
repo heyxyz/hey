@@ -1,5 +1,5 @@
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
-import Seo from '@components/utils/Seo';
+import MetaTags from '@components/utils/MetaTags';
 import { Mixpanel } from '@lib/mixpanel';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
@@ -24,7 +24,7 @@ const Search: NextPage = () => {
 
   return (
     <>
-      <Seo />
+      <MetaTags />
       <GridLayout>
         <GridItemFour>
           <Sidebar />

@@ -3,7 +3,7 @@ import ExploreFeed from '@components/Explore/Feed';
 import Announcement from '@components/Home/Announcement';
 import Footer from '@components/Shared/Footer';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
-import Seo from '@components/utils/Seo';
+import MetaTags from '@components/utils/MetaTags';
 import { Mixpanel } from '@lib/mixpanel';
 import { NextPage } from 'next';
 import { useEffect } from 'react';
@@ -27,7 +27,7 @@ const Home: NextPage = () => {
 
   return (
     <>
-      <Seo />
+      <MetaTags />
       {!currentProfile && <Hero />}
       <GridLayout>
         <GridItemEight className="space-y-5">
