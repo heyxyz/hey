@@ -73,7 +73,7 @@ const Publications: FC<Props> = ({ query }) => {
   }
 
   if (error) {
-    return <ErrorMessage title="Failed to load publications list" error={error} />;
+    return <ErrorMessage title="Failed to load publications" error={error} />;
   }
 
   return (

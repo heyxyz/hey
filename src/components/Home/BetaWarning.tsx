@@ -3,7 +3,7 @@ import { BeakerIcon, CurrencyDollarIcon } from '@heroicons/react/outline';
 import { FC } from 'react';
 import { APP_NAME, IS_MAINNET } from 'src/constants';
 
-const Announcement: FC = () => {
+const BetaWarning: FC = () => {
   return (
     <Card
       as="aside"
@@ -28,4 +28,4 @@ const Announcement: FC = () => {
   );
 };
 
-export default Announcement;
+export default BetaWarning;
