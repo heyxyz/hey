@@ -36,7 +36,7 @@ const FeedType: FC<Props> = ({ setFeedType, feedType }) => {
       aria-label={name}
     >
       {icon}
-      <div className="hidden sm:block">{name}</div>
+      <span className="hidden sm:block">{name}</span>
     </button>
   );
 

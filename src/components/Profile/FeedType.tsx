@@ -35,11 +35,11 @@ const FeedType: FC<Props> = ({ stats, setFeedType, feedType }) => {
       aria-label={name}
     >
       {icon}
-      <div className="hidden sm:block">{name}</div>
+      <span className="hidden sm:block">{name}</span>
       {count ? (
-        <div className="px-2 text-xs font-medium rounded-full bg-brand-200 dark:bg-brand-800">
+        <span className="px-2 text-xs font-medium rounded-full bg-brand-200 dark:bg-brand-800">
           {nFormatter(count)}
-        </div>
+        </span>
       ) : null}
     </button>
   );
