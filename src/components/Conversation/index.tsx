@@ -1,10 +1,12 @@
 import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
+import Seo from '@components/utils/Seo';
 import { Profile } from '@generated/types';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { Message } from '@xmtp/xmtp-js';
 import { useRouter } from 'next/router';
 import { FC } from 'react';
+import { APP_NAME } from 'src/constants';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
 import { useXmtpStore } from 'src/store/xmtp';
@@ -30,6 +32,7 @@ const Conversation: FC<Props> = () => {
 
   return (
     <GridLayout>
+      <Seo title={`Conversation • ${APP_NAME}`} />
       <GridItemFour>
         <Card className="h-[86vh] px-2 pt-3">
           <div className="flex justify-between">
