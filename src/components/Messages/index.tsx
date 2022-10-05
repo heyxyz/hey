@@ -1,8 +1,8 @@
-import ConversationList from '@components/Shared/ConversationList';
 import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import { Profile } from '@generated/types';
 import { Client, Conversation, Stream } from '@xmtp/xmtp-js';
+import { useRouter } from 'next/router';
 import { FC, useEffect, useState } from 'react';
 import { useXmtpStore } from 'src/store/xmtp';
 import { useAccount, useSigner } from 'wagmi';
@@ -17,6 +17,7 @@ const Messages: FC<Props> = () => {
   const [stream, setStrem] = useState<Stream<Conversation>>();
   const xmtpState = useXmtpStore((state) => state);
   const { client, setClient, conversations, setConversations, messages, setMessages, setLoading } = xmtpState;
+  const router = useRouter();
 
   useEffect(() => {
     const initXmtpClient = async () => {
@@ -76,6 +77,10 @@ const Messages: FC<Props> = () => {
     };
   }, [client]);
 
+  const onConversationSelected = (address: string) => {
+    router.push(address ? `/messages/${address}` : '/messages/');
+  };
+
   return (
     <GridLayout>
       <GridItemFour>
@@ -91,7 +96,17 @@ const Messages: FC<Props> = () => {
             <div className="text-xs">All messages</div>
           </div>
           <div>
-            <ConversationList />
+            {Array.from(conversations.keys()).map((convo: string) => {
+              return (
+                <div
+                  onClick={() => onConversationSelected(convo)}
+                  key={`convo_${convo}`}
+                  className="border p-5 text-xs"
+                >
+                  {convo}
+                </div>
+              );
+            })}
           </div>
         </Card>
       </GridItemFour>
