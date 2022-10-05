@@ -47,7 +47,7 @@ const Trending: FC = () => {
     <>
       <Title />
       <Card as="aside" className="mb-4 space-y-4 p-5">
-        <ErrorMessage title="Failed to load recommendations" error={error} />
+        <ErrorMessage title="Failed to load trending" error={error} />
         {data?.allPublicationsTags?.items?.map((tag: TagResult) =>
           tag?.tag !== '{}' ? (
             <div key={tag?.tag}>

@@ -3056,9 +3056,9 @@
     undici "^5.8.1"
 
 "@xmtp/xmtp-js@^6.6.1":
-  version "6.6.2"
-  resolved "https://registry.yarnpkg.com/@xmtp/xmtp-js/-/xmtp-js-6.6.2.tgz#e470abb74b5e31f3a447c958f0ba478fb6f7458b"
-  integrity sha512-E+pz1NUWRQFekGYLRqw1Swk118bQJk7NmWnYnMT2OsjtrsmTsmDQaYUHmONssSayiiHFalWoTi60NMymo53Tpw==
+  version "6.7.0"
+  resolved "https://registry.yarnpkg.com/@xmtp/xmtp-js/-/xmtp-js-6.7.0.tgz#1d0e3983ff63f520d9ab6bac40025ba6ef9c1fea"
+  integrity sha512-SK8glWQ5kEb4v3/ScKUnrsOhXsKxdBfZ+LBCTR/ia32yw2H9QX+qYi3EI8DAOAmJ1tF/v+QkJCG2TZowURqzGQ==
   dependencies:
     "@noble/secp256k1" "^1.5.2"
     "@stardazed/streams-polyfill" "^2.4.0"
@@ -8860,9 +8860,9 @@ unixify@^1.0.0:
     normalize-path "^2.1.1"
 
 update-browserslist-db@^1.0.9:
-  version "1.0.9"
-  resolved "https://registry.yarnpkg.com/update-browserslist-db/-/update-browserslist-db-1.0.9.tgz#2924d3927367a38d5c555413a7ce138fc95fcb18"
-  integrity sha512-/xsqn21EGVdXI3EXSum1Yckj3ZVZugqyOZQ/CxYPBD/R+ko9NSUScf8tFF4dOKY+2pvSSJA/S+5B8s4Zr4kyvg==
+  version "1.0.10"
+  resolved "https://registry.yarnpkg.com/update-browserslist-db/-/update-browserslist-db-1.0.10.tgz#0f54b876545726f17d00cd9a2561e6dade943ff3"
+  integrity sha512-OztqDenkfFkbSG+tRxBeAnCVPckDBcvibKd35yDONx6OU8N7sqgwc7rCbkJ/WcYtVRZ4ba68d6byhC21GFh7sQ==
   dependencies:
     escalade "^3.1.1"
     picocolors "^1.0.0"

@@ -1,5 +1,6 @@
 import { Button } from '@components/UI/Button';
 import { Profile } from '@generated/types';
+import { MailIcon } from '@heroicons/react/outline';
 import { Client } from '@xmtp/xmtp-js';
 import { FC } from 'react';
 import toast from 'react-hot-toast';
@@ -34,14 +35,13 @@ const Message: FC<Props> = ({ profile }) => {
   return (
     <Button
       className="text-sm !px-3 !py-1.5"
+      icon={<MailIcon className="h-5 w-5" />}
       outline
       onClick={sendGm}
       variant="success"
       aria-label="Message"
       disabled={isLoading}
-    >
-      Message
-    </Button>
+    />
   );
 };
 
