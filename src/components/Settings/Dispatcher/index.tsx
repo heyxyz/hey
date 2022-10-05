@@ -1,6 +1,6 @@
 import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
-import Seo from '@components/utils/Seo';
+import MetaTags from '@components/utils/MetaTags';
 import { Mixpanel } from '@lib/mixpanel';
 import { FC, useEffect } from 'react';
 import { APP_NAME } from 'src/constants';
@@ -24,7 +24,7 @@ const DispatcherSettings: FC = () => {
 
   return (
     <GridLayout>
-      <Seo title={`Dispatcher • ${APP_NAME}`} />
+      <MetaTags title={`Dispatcher • ${APP_NAME}`} />
       <GridItemFour>
         <Sidebar />
       </GridItemFour>

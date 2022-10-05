@@ -2,7 +2,7 @@ import Signup from '@components/Shared/Navbar/Login/New';
 import SettingsHelper from '@components/Shared/SettingsHelper';
 import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
-import Seo from '@components/utils/Seo';
+import MetaTags from '@components/utils/MetaTags';
 import { Mixpanel } from '@lib/mixpanel';
 import { NextPage } from 'next';
 import { useEffect } from 'react';
@@ -24,7 +24,7 @@ const NewProfile: NextPage = () => {
 
   return (
     <GridLayout>
-      <Seo title={`Create Profile • ${APP_NAME}`} />
+      <MetaTags title={`Create Profile • ${APP_NAME}`} />
       <GridItemFour>
         <SettingsHelper heading="Create profile" description="Create new decentralized profile" />
       </GridItemFour>

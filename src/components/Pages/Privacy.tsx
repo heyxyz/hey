@@ -1,5 +1,5 @@
 import Footer from '@components/Shared/Footer';
-import Seo from '@components/utils/Seo';
+import MetaTags from '@components/utils/MetaTags';
 import { Mixpanel } from '@lib/mixpanel';
 import { FC, useEffect } from 'react';
 import { APP_NAME } from 'src/constants';
@@ -12,7 +12,7 @@ const Privacy: FC = () => {
 
   return (
     <>
-      <Seo title={`Privacy • ${APP_NAME}`} />
+      <MetaTags title={`Privacy • ${APP_NAME}`} />
       <div className="flex justify-center items-center w-full h-48 bg-brand-400">
         <div className="relative text-center">
           <h1 className="text-3xl font-semibold text-white md:text-4xl">Privacy Policy</h1>

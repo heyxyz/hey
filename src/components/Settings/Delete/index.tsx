@@ -7,7 +7,7 @@ import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayo
 import { Modal } from '@components/UI/Modal';
 import { Spinner } from '@components/UI/Spinner';
 import { WarningMessage } from '@components/UI/WarningMessage';
-import Seo from '@components/utils/Seo';
+import MetaTags from '@components/utils/MetaTags';
 import { CreateBurnProfileTypedDataDocument, Mutation } from '@generated/types';
 import { ExclamationIcon, TrashIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
@@ -98,7 +98,7 @@ const DeleteSettings: FC = () => {
 
   return (
     <GridLayout>
-      <Seo title={`Delete Profile • ${APP_NAME}`} />
+      <MetaTags title={`Delete Profile • ${APP_NAME}`} />
       <GridItemFour>
         <Sidebar />
       </GridItemFour>

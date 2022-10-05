@@ -2,7 +2,7 @@ import { useQuery } from '@apollo/client';
 import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import useStaffMode from '@components/utils/hooks/useStaffMode';
-import Seo from '@components/utils/Seo';
+import MetaTags from '@components/utils/MetaTags';
 import { LensterStatsDocument } from '@generated/types';
 import {
   ChatAlt2Icon,
@@ -58,7 +58,7 @@ const Stats: NextPage = () => {
 
   return (
     <GridLayout>
-      <Seo title={`Stafftools • ${APP_NAME}`} />
+      <MetaTags title={`Stafftools • ${APP_NAME}`} />
       <GridItemFour>
         <Sidebar />
       </GridItemFour>
