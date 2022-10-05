@@ -68,7 +68,7 @@ const Profiles: FC<Props> = ({ query }) => {
   }
 
   if (error) {
-    return <ErrorMessage title="Failed to load profiles list" error={error} />;
+    return <ErrorMessage title="Failed to load profiles" error={error} />;
   }
 
   return (
