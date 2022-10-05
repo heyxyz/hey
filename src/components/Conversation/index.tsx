@@ -17,7 +17,7 @@ const Conversation: FC<Props> = () => {
   const { messages, conversations } = xmtpState;
 
   const onConversationSelected = (address: string) => {
-    router.push(address ? `/conversations/${address}` : '/conversations/');
+    router.push(address ? `/messages/${address}` : '/messages/');
   };
 
   return (
@@ -35,14 +35,14 @@ const Conversation: FC<Props> = () => {
             <div className="text-xs">All messages</div>
           </div>
           <div>
-            {Array.from(conversations.keys()).map((convo: string) => {
+            {Array.from(conversations.keys()).map((address: string) => {
               return (
                 <div
-                  onClick={() => onConversationSelected(convo)}
-                  key={`convo_${convo}`}
+                  onClick={() => onConversationSelected(address)}
+                  key={`convo_${address}`}
                   className="border p-5 text-xs"
                 >
-                  {convo}
+                  {address}
                 </div>
               );
             })}
@@ -50,11 +50,13 @@ const Conversation: FC<Props> = () => {
         </Card>
       </GridItemFour>
       <GridItemEight>
-        <Card className="h-[86vh]">
+        <Card className="h-[86vh] overflow-y-auto">
           {Array.from(messages.get(address) || []).map((msg: Message) => {
             return (
               <div key={`convo_${msg.id}`} className="border p-5 text-xs">
-                {msg.content}
+                From - {msg.senderAddress}
+                <br />
+                Msg - {msg.content}
               </div>
             );
           })}
