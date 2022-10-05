@@ -28,7 +28,7 @@ const Feed: FC = () => {
   const reactionRequest = currentProfile ? { profileId: currentProfile?.id } : null;
   const profileId = currentProfile?.id ?? null;
 
-  const { data, loading, error, fetchMore, refetch } = useQuery(ExploreFeedDocument, {
+  const { data, loading, error, fetchMore } = useQuery(ExploreFeedDocument, {
     variables: { request, reactionRequest, profileId }
   });
 
