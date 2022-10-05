@@ -1,4 +1,3 @@
-import ConversationList from '@components/Shared/ConversationList';
 import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import { Profile } from '@generated/types';
@@ -15,7 +14,11 @@ const Conversation: FC<Props> = () => {
   const router = useRouter();
   const address = router.query.address as string;
   const xmtpState = useXmtpStore((state) => state);
-  const { messages } = xmtpState;
+  const { messages, conversations } = xmtpState;
+
+  const onConversationSelected = (address: string) => {
+    router.push(address ? `/messages/${address}` : '/messages/');
+  };
 
   return (
     <GridLayout>
@@ -32,7 +35,17 @@ const Conversation: FC<Props> = () => {
             <div className="text-xs">All messages</div>
           </div>
           <div>
-            <ConversationList />
+            {Array.from(conversations.keys()).map((address: string) => {
+              return (
+                <div
+                  onClick={() => onConversationSelected(address)}
+                  key={`convo_${address}`}
+                  className="border p-5 text-xs"
+                >
+                  {address}
+                </div>
+              );
+            })}
           </div>
         </Card>
       </GridItemFour>
