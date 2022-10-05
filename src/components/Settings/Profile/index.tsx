@@ -2,7 +2,7 @@ import { useQuery } from '@apollo/client';
 import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import { PageLoading } from '@components/UI/PageLoading';
-import Seo from '@components/utils/Seo';
+import MetaTags from '@components/utils/MetaTags';
 import { ProfileSettingsDocument } from '@generated/types';
 import { PhotographIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
@@ -77,7 +77,7 @@ const ProfileSettings: NextPage = () => {
 
   return (
     <GridLayout>
-      <Seo title={`Profile settings • ${APP_NAME}`} />
+      <MetaTags title={`Profile settings • ${APP_NAME}`} />
       <GridItemFour>
         <Sidebar />
       </GridItemFour>

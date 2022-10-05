@@ -3,7 +3,7 @@ import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import { PageLoading } from '@components/UI/PageLoading';
 import { Spinner } from '@components/UI/Spinner';
-import Seo from '@components/utils/Seo';
+import MetaTags from '@components/utils/MetaTags';
 import {
   ApprovedModuleAllowanceAmountDocument,
   CollectModules,
@@ -67,7 +67,7 @@ const AllowanceSettings: NextPage = () => {
 
   return (
     <GridLayout>
-      <Seo title={`Allowance settings • ${APP_NAME}`} />
+      <MetaTags title={`Allowance settings • ${APP_NAME}`} />
       <GridItemFour>
         <Sidebar />
       </GridItemFour>

@@ -14,7 +14,7 @@ import { BadgeCheckIcon } from '@heroicons/react/solid';
 import formatAddress from '@lib/formatAddress';
 import getAttribute from '@lib/getAttribute';
 import getAvatar from '@lib/getAvatar';
-import getFeatureEnabled from '@lib/getFeatureEnabled';
+import isFeatureEnabled from '@lib/isFeatureEnabled';
 import isStaff from '@lib/isStaff';
 import isVerified from '@lib/isVerified';
 import Link from 'next/link';
@@ -93,17 +93,17 @@ const Details: FC<Props> = ({ profile }) => {
                 {followType === 'FeeFollowModuleSettings' && (
                   <SuperFollow profile={profile} setFollowing={setFollowing} again />
                 )}
-                {getFeatureEnabled('messages', currentProfile?.id) && <Message profile={profile} />}
+                {isFeatureEnabled('messages', currentProfile?.id) && <Message profile={profile} />}
               </div>
             ) : followType === 'FeeFollowModuleSettings' ? (
               <div className="flex space-x-2">
                 <SuperFollow profile={profile} setFollowing={setFollowing} showText />
-                {getFeatureEnabled('messages', currentProfile?.id) && <Message profile={profile} />}
+                {isFeatureEnabled('messages', currentProfile?.id) && <Message profile={profile} />}
               </div>
             ) : (
               <div className="flex space-x-2">
                 <Follow profile={profile} setFollowing={setFollowing} showText />
-                {getFeatureEnabled('messages', currentProfile?.id) && <Message profile={profile} />}
+                {isFeatureEnabled('messages', currentProfile?.id) && <Message profile={profile} />}
               </div>
             )
           ) : null}

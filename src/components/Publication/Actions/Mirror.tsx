@@ -4,7 +4,7 @@ import { Spinner } from '@components/UI/Spinner';
 import { Tooltip } from '@components/UI/Tooltip';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
 import { LensterPublication } from '@generated/lenstertypes';
-import { CreateMirrorTypedDataDocument, Mutation } from '@generated/types';
+import { CreateMirrorTypedDataDocument, CreateMirrorViaDispatcherDocument, Mutation } from '@generated/types';
 import { SwitchHorizontalIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
 import humanize from '@lib/humanize';
@@ -116,7 +116,7 @@ const Mirror: FC<Props> = ({ publication, isFullPublication }) => {
   );
 
   const [createMirrorViaDispatcher, { loading: dispatcherLoading }] = useMutation(
-    CreateMirrorTypedDataDocument,
+    CreateMirrorViaDispatcherDocument,
     { onCompleted, onError, update: updateCache }
   );
 
