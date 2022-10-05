@@ -50,35 +50,40 @@ const Profiles: FC<Props> = ({ query }) => {
     rootMargin: PAGINATION_ROOT_MARGIN
   });
 
+  if (loading) {
+    return <UserProfilesShimmer isBig />;
+  }
+
+  if (profiles?.length === 0) {
+    return (
+      <EmptyState
+        message={
+          <div>
+            No profiles for <b>&ldquo;{query}&rdquo;</b>
+          </div>
+        }
+        icon={<UsersIcon className="w-8 h-8 text-brand" />}
+      />
+    );
+  }
+
+  if (error) {
+    return <ErrorMessage title="Failed to load profiles list" error={error} />;
+  }
+
   return (
     <>
-      {loading && <UserProfilesShimmer isBig />}
-      {profiles?.length === 0 && (
-        <EmptyState
-          message={
-            <div>
-              No profiles for <b>&ldquo;{query}&rdquo;</b>
-            </div>
-          }
-          icon={<UsersIcon className="w-8 h-8 text-brand" />}
-        />
-      )}
-      <ErrorMessage title="Failed to load profiles list" error={error} />
-      {!error && !loading && (
-        <>
-          <div className="space-y-3">
-            {profiles?.map((profile: Profile) => (
-              <Card key={profile?.id} className="p-5">
-                <UserProfile profile={profile} showBio isBig />
-              </Card>
-            ))}
-          </div>
-          {pageInfo?.next && profiles?.length !== pageInfo.totalCount && (
-            <span ref={observe} className="flex justify-center p-5">
-              <Spinner size="sm" />
-            </span>
-          )}
-        </>
+      <div className="space-y-3">
+        {profiles?.map((profile: Profile) => (
+          <Card key={profile?.id} className="p-5">
+            <UserProfile profile={profile} showBio isBig />
+          </Card>
+        ))}
+      </div>
+      {pageInfo?.next && profiles?.length !== pageInfo.totalCount && (
+        <span ref={observe} className="flex justify-center p-5">
+          <Spinner size="sm" />
+        </span>
       )}
     </>
   );
