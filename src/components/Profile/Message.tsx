@@ -15,13 +15,13 @@ const Message: FC<Props> = ({ profile }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const { data: signer, isError, isLoading } = useSigner();
 
-  async function sendGm(): Promise<void> {
+  const sendGm = async () => {
     if (!currentProfile || isError || !signer) {
       toast.error(SIGN_WALLET);
       return;
     }
 
-    //TODO(elise): Swap this out with opening the inbox. This is just a prototype.
+    // TODO(elise): Swap this out with opening the inbox. This is just a prototype.
     try {
       const xmtp = await Client.create(signer);
       const message = await xmtp.sendMessage(profile.ownedBy, 'gm');
@@ -29,7 +29,7 @@ const Message: FC<Props> = ({ profile }) => {
     } catch (error) {
       toast.error('Error sending message');
     }
-  }
+  };
 
   return (
     <Button
