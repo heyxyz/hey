@@ -7,7 +7,7 @@ import { PublicationSortCriteria } from '@generated/types';
 import { Mixpanel } from '@lib/mixpanel';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { APP_NAME } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { PAGEVIEW } from 'src/tracking';

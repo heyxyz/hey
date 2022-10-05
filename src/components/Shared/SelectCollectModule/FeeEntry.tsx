@@ -13,7 +13,7 @@ import { PUBLICATION } from 'src/tracking';
 import { object, string } from 'zod';
 
 const feeDataSchema = object({
-  collectLimit: string().min(1, { message: 'Invalid value' }).max(20, { message: 'Invalid value' }),
+  collectLimit: string().min(1, { message: 'Invalid limit' }).max(20, { message: 'Invalid limit' }),
   value: string().min(1, { message: 'Invalid value' }).max(20, { message: 'Invalid value' }),
   referralFee: string()
     .min(1, { message: 'Invalid Referral fee' })

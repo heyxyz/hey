@@ -1,7 +1,7 @@
 import Footer from '@components/Shared/Footer';
 import Seo from '@components/utils/Seo';
 import { Mixpanel } from '@lib/mixpanel';
-import React, { FC, useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import { APP_NAME } from 'src/constants';
 import { PAGEVIEW } from 'src/tracking';
 

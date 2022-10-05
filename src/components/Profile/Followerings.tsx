@@ -3,7 +3,7 @@ import { Profile } from '@generated/types';
 import { UsersIcon } from '@heroicons/react/outline';
 import humanize from '@lib/humanize';
 import { Mixpanel } from '@lib/mixpanel';
-import React, { FC, useState } from 'react';
+import { FC, useState } from 'react';
 import { PROFILE } from 'src/tracking';
 
 import Followers from './Followers';
