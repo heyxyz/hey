@@ -1,8 +1,8 @@
 import ConversationList from '@components/Shared/ConversationList';
-import MessagesList from '@components/Shared/MessagesList';
 import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import { Profile } from '@generated/types';
+import { Message } from '@xmtp/xmtp-js';
 import { useRouter } from 'next/router';
 import { FC } from 'react';
 import { useXmtpStore } from 'src/store/xmtp';
@@ -38,9 +38,15 @@ const Conversation: FC<Props> = () => {
       </GridItemFour>
       <GridItemEight>
         <Card className="h-[86vh] overflow-y-auto">
-          <div className="flex p-2 justify-center flex-1">Message Header</div>
-          <MessagesList messages={messages.get(address) ?? []} />
-          <div className="flex p-2 justify-center flex-1">Message Footer</div>
+          {Array.from(messages.get(address) || []).map((msg: Message) => {
+            return (
+              <div key={`convo_${msg.id}`} className="border p-5 text-xs">
+                From - {msg.senderAddress}
+                <br />
+                Msg - {msg.content}
+              </div>
+            );
+          })}
         </Card>
       </GridItemEight>
     </GridLayout>
