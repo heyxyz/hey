@@ -1,6 +1,6 @@
+import Message from '@components/Profile/Message';
 import Follow from '@components/Shared/Follow';
 import Markup from '@components/Shared/Markup';
-import Message from '@components/Shared/Message';
 import Slug from '@components/Shared/Slug';
 import SuperFollow from '@components/Shared/SuperFollow';
 import Unfollow from '@components/Shared/Unfollow';
