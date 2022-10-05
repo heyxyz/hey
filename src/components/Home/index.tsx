@@ -1,6 +1,6 @@
 import NewPost from '@components/Composer/Post/New';
 import ExploreFeed from '@components/Explore/Feed';
-import Announcement from '@components/Home/Announcement';
+import BetaWarning from '@components/Home/BetaWarning';
 import Footer from '@components/Shared/Footer';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import MetaTags from '@components/utils/MetaTags';
@@ -42,7 +42,7 @@ const Home: NextPage = () => {
         </GridItemEight>
         <GridItemFour>
           {currentProfile ? <EnableDispatcher /> : null}
-          <Announcement />
+          <BetaWarning />
           <Trending />
           {currentProfile ? (
             <>
