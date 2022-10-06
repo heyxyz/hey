@@ -8,7 +8,6 @@ import { ChangeEvent, Dispatch, FC, useEffect, useState } from 'react';
 const giphyFetch = new GiphyFetch('sXpGFDGZs0Dv1mmNFvYaGUvYwKX0PWIh');
 
 interface Props {
-  // eslint-disable-next-line no-unused-vars
   setGifAttachment: (gif: IGif) => void;
   setShowModal: Dispatch<boolean>;
 }

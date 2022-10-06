@@ -1,12 +1,17 @@
-import { aaveMembers } from './aave-members';
 import { lensterMembers } from './lenster-members';
-import { xmtpMembers } from './xmtp-members';
 
 export const featureFlags = [
   {
     key: 'messages',
     name: 'Messages',
-    enabledFor: [...lensterMembers, ...aaveMembers, ...xmtpMembers]
+    enabledFor: [
+      ...lensterMembers,
+      '0x06', // wagmi.lens
+      '0xe248', // nick-molnar.lens
+      '0x010e04', // elisealix22.lens
+      '0x5cce', // saulmc.lens
+      '0x014309' // iambhavya.lens
+    ]
   },
   {
     key: 'composer-v2',

@@ -42,10 +42,17 @@ interface Props {
   error: string;
   setError: Dispatch<string>;
   placeholder?: string;
+  hideBorder?: boolean;
   autoFocus?: boolean;
 }
 
-export const MentionTextArea: FC<Props> = ({ error, setError, placeholder = '', autoFocus = false }) => {
+export const MentionTextArea: FC<Props> = ({
+  error,
+  setError,
+  placeholder = '',
+  hideBorder = false,
+  autoFocus = false
+}) => {
   const publicationContent = usePublicationStore((state) => state.publicationContent);
   const setPublicationContent = usePublicationStore((state) => state.setPublicationContent);
   const [searchUsers] = useLazyQuery(SearchProfilesDocument);
@@ -83,7 +90,7 @@ export const MentionTextArea: FC<Props> = ({ error, setError, placeholder = '', 
   return (
     <div className="mb-2">
       <MentionsInput
-        className="mention-input"
+        className={clsx(hideBorder ? 'mention-input-borderless' : 'mention-input')}
         value={publicationContent}
         placeholder={placeholder}
         inputRef={inputRef}
