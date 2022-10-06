@@ -15,7 +15,7 @@ interface Props {
   profile: Profile;
 }
 
-const Conversation: FC<Props> = () => {
+const Message: FC<Props> = () => {
   const router = useRouter();
   const address = router.query.address as string;
   const xmtpState = useMessageStore((state) => state);
@@ -77,4 +77,4 @@ const Conversation: FC<Props> = () => {
   );
 };
 
-export default Conversation;
+export default Message;
