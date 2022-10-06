@@ -1,3 +1,3 @@
-import Conversation from '@components/Conversation';
+import Message from '@components/Messages/message';
 
-export default Conversation;
+export default Message;

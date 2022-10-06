@@ -11,14 +11,15 @@
   "extends": ["next", "next/core-web-vitals"],
   "rules": {
     "curly": "error",
+    "no-unused-vars": "off",
     "prettier/prettier": "error",
     "react/prop-types": "off",
     "react/no-unescaped-entities": "off",
     "react/no-unknown-property": "off",
     "react/jsx-no-useless-fragment": "error",
-    "no-unused-vars": "warn",
     "unused-imports/no-unused-imports": "error",
     "@next/next/no-html-link-for-pages": "off",
+    "@typescript-eslint/no-unused-vars": "warn",
     "@typescript-eslint/ban-ts-comment": "off", // turn warn
     "@typescript-eslint/explicit-module-boundary-types": "off",
     "@next/next/no-img-element": "off",

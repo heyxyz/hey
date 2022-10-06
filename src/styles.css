@@ -105,6 +105,22 @@ body {
   @apply divide-y dark:divide-gray-700/80;
 }
 
+.mention-input-borderless {
+  @apply pt-7 min-h-[6rem] max-h-[20rem];
+}
+
+.mention-input-borderless textarea {
+  @apply px-5 w-full !text-lg !bg-white border-none dark:!bg-gray-800 disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 focus:border-none focus:ring-0;
+}
+
+.mention-input-borderless__suggestions {
+  @apply !bg-white dark:!bg-gray-900 !mt-8 !border dark:border-gray-700/80 rounded-xl shadow-sm w-52;
+}
+
+.mention-input-borderless__suggestions__list {
+  @apply divide-y dark:divide-gray-700/80;
+}
+
 .dropdown-active {
   @apply bg-gray-100 dark:bg-gray-800;
 }

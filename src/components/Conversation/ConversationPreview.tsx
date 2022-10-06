@@ -1,5 +1,3 @@
-import { useQuery } from '@apollo/client';
-import { UserProfilesDocument } from '@generated/types';
 import { Conversation } from '@xmtp/xmtp-js';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
@@ -16,19 +14,19 @@ interface Props {
 const ConversationPreview: FC<Props> = ({ address, conversation }) => {
   const router = useRouter();
 
-  const { data, loading } = useQuery(UserProfilesDocument, {
-    variables: { ownedBy: address },
-    onCompleted: (data) => {
-      const profiles = data?.profiles?.items;
-      if (!profiles.length) {
-        return;
-      }
+  // const { data, loading } = useQuery(ProfileQueryRequest, {
+  //   variables: { ownedBy: address },
+  //   onCompleted: (data) => {
+  //     const profiles = data?.profiles?.items;
+  //     if (!profiles.length) {
+  //       return;
+  //     }
 
-      const defaultProfile = profiles.find((profile) => profile.isDefault === true);
-      const selectedProfile = defaultProfile || profiles[0];
-      // TODO(elise): Update the profile!
-    }
-  });
+  //     const defaultProfile = profiles.find((profile) => profile.isDefault === true);
+  //     const selectedProfile = defaultProfile || profiles[0];
+  //     // TODO(elise): Update the profile!
+  //   }
+  // });
 
   const onConversationSelected = (address: string) => {
     router.push(address ? `/messages/${address}` : '/messages/');

@@ -9,21 +9,18 @@ import { FC, useEffect, useState } from 'react';
 import { APP_NAME } from 'src/constants';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
-import { useXmtpStore } from 'src/store/xmtp';
-import { useAccount, useSigner } from 'wagmi';
+import { useMessageStore } from 'src/store/message';
+import { useSigner } from 'wagmi';
 
-interface Props {
-  profile: Profile;
-}
-
-const Messages: FC<Props> = () => {
+const Messages: FC = () => {
   const { data: signer } = useSigner();
-  const { address } = useAccount();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [profiles, setProfiles] = useState<Profile[]>();
   const [stream, setStream] = useState<Stream<Conversation>>();
-  const xmtpState = useXmtpStore((state) => state);
-  const { client, setClient, conversations, setConversations, messages, setMessages, setLoading } = xmtpState;
+  const messageState = useMessageStore((state) => state);
+  const { client, setClient, conversations, setConversations, messages, setMessages, setLoading } =
+    messageState;
+  const isMessagesEnabled = isFeatureEnabled('messages', currentProfile?.id);
 
   useEffect(() => {
     const initXmtpClient = async () => {
@@ -32,14 +29,14 @@ const Messages: FC<Props> = () => {
         setClient(xmtp);
       }
     };
-    if (isFeatureEnabled('messages', currentProfile?.id)) {
+    if (isMessagesEnabled) {
       initXmtpClient();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [signer]);
 
   useEffect(() => {
-    if (!client || !isFeatureEnabled('messages', currentProfile?.id)) {
+    if (!client || !isMessagesEnabled) {
       return;
     }
 
@@ -52,7 +49,7 @@ const Messages: FC<Props> = () => {
     // }
 
     const updateMessageStore = async (convo: Conversation) => {
-      if (convo.peerAddress !== address) {
+      if (convo.peerAddress !== currentProfile?.ownedBy) {
         const newMessages = await convo.messages({ limit: 1 });
         messages.set(convo.peerAddress, newMessages);
         setMessages(new Map(messages));

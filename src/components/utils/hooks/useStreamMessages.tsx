@@ -1,10 +1,10 @@
 import { Conversation, Message, Stream } from '@xmtp/xmtp-js';
 import { useEffect, useState } from 'react';
-import { useXmtpStore } from 'src/store/xmtp';
+import { useMessageStore } from 'src/store/message';
 
 const useStreamMessages = (conversation: Conversation, onMessageCallback: () => void) => {
-  const xmtpState = useXmtpStore((state) => state);
-  const { messages, setMessages } = xmtpState;
+  const messageState = useMessageStore((state) => state);
+  const { messages, setMessages } = messageState;
   const [stream, setStream] = useState<Stream<Message>>();
 
   useEffect(() => {
