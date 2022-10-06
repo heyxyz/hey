@@ -53,7 +53,7 @@ const Conversation: FC<Props> = () => {
                   key={`convo_${address}`}
                   className="border p-5 text-xs"
                 >
-                  {address}
+                  {address} hi
                 </div>
               );
             })}

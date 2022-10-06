@@ -1,10 +1,10 @@
+import ConversationPreview from '@components/Conversation/ConversationPreview';
 import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import MetaTags from '@components/utils/MetaTags';
 import { Profile } from '@generated/types';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { Client, Conversation, Stream } from '@xmtp/xmtp-js';
-import { useRouter } from 'next/router';
 import { FC, useEffect, useState } from 'react';
 import { APP_NAME } from 'src/constants';
 import Custom404 from 'src/pages/404';
@@ -20,10 +20,10 @@ const Messages: FC<Props> = () => {
   const { data: signer } = useSigner();
   const { address } = useAccount();
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const [profiles, setProfiles] = useState<Profile[]>();
   const [stream, setStream] = useState<Stream<Conversation>>();
   const xmtpState = useXmtpStore((state) => state);
   const { client, setClient, conversations, setConversations, messages, setMessages, setLoading } = xmtpState;
-  const router = useRouter();
 
   useEffect(() => {
     const initXmtpClient = async () => {
@@ -43,34 +43,40 @@ const Messages: FC<Props> = () => {
       return;
     }
 
-    async function listConversations() {
+    // const { data, loading, error } = useQuery(Profiles, {
+    //   variables: { request: { ownedBy: }, who: currentProfile?.id ?? null },
+    //   skip: !username
+    // });
+    // const fetchProfiles = async (peerAddress: string) => {
+    //   useQuery(ProfilesDocument)
+    // }
+
+    const updateMessageStore = async (convo: Conversation) => {
+      if (convo.peerAddress !== address) {
+        const newMessages = await convo.messages({ limit: 1 });
+        messages.set(convo.peerAddress, newMessages);
+        setMessages(new Map(messages));
+        conversations.set(convo.peerAddress, convo);
+        setConversations(new Map(conversations));
+      }
+    };
+
+    const listConversations = async () => {
       setLoading(true);
       const convos = (await client?.conversations?.list()) || [];
       Promise.all(
         convos.map(async (convo) => {
-          if (convo.peerAddress !== address) {
-            const newMessages = await convo.messages();
-            messages.set(convo.peerAddress, newMessages);
-            setMessages(new Map(messages));
-            conversations.set(convo.peerAddress, convo);
-            setConversations(new Map(conversations));
-          }
+          updateMessageStore(convo);
         })
       ).then(() => {
         setLoading(false);
       });
-    }
+    };
     const streamConversations = async () => {
       const newStream = (await client?.conversations?.stream()) || [];
       setStream(newStream);
       for await (const convo of newStream) {
-        if (convo.peerAddress !== address) {
-          const newMessages = await convo.messages();
-          messages.set(convo.peerAddress, newMessages);
-          setMessages(new Map(messages));
-          conversations.set(convo.peerAddress, convo);
-          setConversations(new Map(conversations));
-        }
+        updateMessageStore(convo);
       }
     };
     listConversations();
@@ -86,10 +92,6 @@ const Messages: FC<Props> = () => {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [client]);
-
-  const onConversationSelected = (address: string) => {
-    router.push(address ? `/messages/${address}` : '/messages/');
-  };
 
   if (!isFeatureEnabled('messages', currentProfile?.id)) {
     return <Custom404 />;
@@ -111,17 +113,13 @@ const Messages: FC<Props> = () => {
             <div className="text-xs">All messages</div>
           </div>
           <div>
-            {Array.from(conversations.keys()).map((convo: string) => {
-              return (
-                <div
-                  onClick={() => onConversationSelected(convo)}
-                  key={`convo_${convo}`}
-                  className="border p-5 text-xs"
-                >
-                  {convo}
-                </div>
-              );
-            })}
+            {Object.entries(conversations).map(([address, conversation], index: number) => (
+              <ConversationPreview
+                key={`${address}_${index}`}
+                address={address}
+                conversation={conversation}
+              />
+            ))}
           </div>
         </Card>
       </GridItemFour>

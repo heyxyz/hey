@@ -1,0 +1,7 @@
+query Profiles($request: ProfileQueryRequest) {
+  profiles(request: $request) {
+    items {
+      ...ProfileFields
+    }
+  }
+}
