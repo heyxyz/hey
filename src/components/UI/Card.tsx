@@ -6,7 +6,6 @@ interface CardProps {
   as?: ElementType;
   className?: string;
   forceRounded?: boolean;
-  // eslint-disable-next-line no-unused-vars
   onClick?: (event: MouseEvent<HTMLDivElement>) => void;
 }
 
