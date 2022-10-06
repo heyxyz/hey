@@ -83,7 +83,7 @@ const NewComment: FC<Props> = ({ publication }) => {
   // Reference module store
   const selectedReferenceModule = useReferenceModuleStore((state) => state.selectedReferenceModule);
   const onlyFollowers = useReferenceModuleStore((state) => state.onlyFollowers);
-  const { commentsRestricted, mirrorsRestricted, degreesOfSeparation } = useReferenceModuleStore();
+  const degreesOfSeparation = useReferenceModuleStore((state) => state.degreesOfSeparation);
 
   // States
   const [commentContentError, setCommentContentError] = useState('');
@@ -244,8 +244,8 @@ const NewComment: FC<Props> = ({ publication }) => {
           ? { followerOnlyReferenceModule: onlyFollowers ? true : false }
           : {
               degreesOfSeparationReferenceModule: {
-                commentsRestricted,
-                mirrorsRestricted,
+                commentsRestricted: true,
+                mirrorsRestricted: true,
                 degreesOfSeparation
               }
             }
