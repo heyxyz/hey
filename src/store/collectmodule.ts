@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { EnabledModule } from '@generated/types';
 import { defaultFeeData, defaultModuleData, FEE_DATA_TYPE } from '@lib/getModule';
 import create from 'zustand';

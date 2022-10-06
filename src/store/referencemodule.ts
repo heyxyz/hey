@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { ReferenceModules } from '@generated/types';
 import create from 'zustand';
 
