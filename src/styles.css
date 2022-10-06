@@ -106,7 +106,7 @@ body {
 }
 
 .mention-input-borderless {
-  @apply pt-7 min-h-[6rem];
+  @apply pt-7 min-h-[6rem] max-h-[20rem];
 }
 
 .mention-input-borderless textarea {
