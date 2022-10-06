@@ -5,12 +5,11 @@ import { CheckCircleIcon } from '@heroicons/react/solid';
 import { Mixpanel } from '@lib/mixpanel';
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
-import { FC, Fragment, ReactNode, useState } from 'react';
+import { FC, Fragment, ReactNode } from 'react';
 import { useReferenceModuleStore } from 'src/store/referencemodule';
 import { PUBLICATION } from 'src/tracking';
 
 const SelectReferenceModule: FC = () => {
-  const [showModal, setShowModal] = useState(false);
   const selectedReferenceModule = useReferenceModuleStore((state) => state.selectedReferenceModule);
   const setSelectedReferenceModule = useReferenceModuleStore((state) => state.setSelectedReferenceModule);
   const onlyFollowers = useReferenceModuleStore((state) => state.onlyFollowers);
@@ -59,7 +58,7 @@ const SelectReferenceModule: FC = () => {
             as={motion.button}
             whileTap={{ scale: 0.9 }}
             onClick={() => {
-              Mixpanel.track(PUBLICATION.NEW.REFERENCE_MODULE.OPEN_COLLECT_CONFIG);
+              Mixpanel.track(PUBLICATION.NEW.REFERENCE_MODULE.OPEN_REFERENCE_CONFIG);
             }}
           >
             <div className="text-brand">
@@ -90,7 +89,6 @@ const SelectReferenceModule: FC = () => {
                 onClick={() => {
                   setSelectedReferenceModule(ReferenceModules.FollowerOnlyReferenceModule);
                   setOnlyFollowers(false);
-                  setShowModal(false);
                   Mixpanel.track(PUBLICATION.NEW.REFERENCE_MODULE.EVERYONE);
                 }}
               />
@@ -101,8 +99,7 @@ const SelectReferenceModule: FC = () => {
                 onClick={() => {
                   setSelectedReferenceModule(ReferenceModules.FollowerOnlyReferenceModule);
                   setOnlyFollowers(true);
-                  setShowModal(false);
-                  Mixpanel.track(PUBLICATION.NEW.REFERENCE_MODULE.ONLY_FOLLOWERS);
+                  Mixpanel.track(PUBLICATION.NEW.REFERENCE_MODULE.MY_FOLLOWERS);
                 }}
               />
               <Module
@@ -112,8 +109,7 @@ const SelectReferenceModule: FC = () => {
                 onClick={() => {
                   setSelectedReferenceModule(ReferenceModules.DegreesOfSeparationReferenceModule);
                   setDegreesOfSeparation(1);
-                  setShowModal(false);
-                  Mixpanel.track(PUBLICATION.NEW.REFERENCE_MODULE.EVERYONE);
+                  Mixpanel.track(PUBLICATION.NEW.REFERENCE_MODULE.MY_FOLLOWS);
                 }}
               />
               <Module
@@ -123,8 +119,7 @@ const SelectReferenceModule: FC = () => {
                 onClick={() => {
                   setSelectedReferenceModule(ReferenceModules.DegreesOfSeparationReferenceModule);
                   setDegreesOfSeparation(2);
-                  setShowModal(false);
-                  Mixpanel.track(PUBLICATION.NEW.REFERENCE_MODULE.EVERYONE);
+                  Mixpanel.track(PUBLICATION.NEW.REFERENCE_MODULE.FRIENDS_OF_FRIENDS);
                 }}
               />
             </Menu.Items>
