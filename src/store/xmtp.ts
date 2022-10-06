@@ -13,7 +13,7 @@ interface XmtpState {
   setLoading: (loading: boolean) => void;
 }
 
-export const useXmtpStore = create<XmtpState>((set) => ({
+export const useMessageStore = create<XmtpState>((set) => ({
   client: undefined,
   setClient: (client) => set(() => ({ client })),
   conversations: new Map(),

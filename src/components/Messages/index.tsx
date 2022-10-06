@@ -9,19 +9,15 @@ import { FC, useEffect, useState } from 'react';
 import { APP_NAME } from 'src/constants';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
-import { useXmtpStore } from 'src/store/xmtp';
-import { useAccount, useSigner } from 'wagmi';
+import { useMessageStore } from 'src/store/xmtp';
+import { useSigner } from 'wagmi';
 
-interface Props {
-  profile: Profile;
-}
 
-const Messages: FC<Props> = () => {
+const Messages: FC = () => {
   const { data: signer } = useSigner();
-  const { address } = useAccount();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [stream, setStream] = useState<Stream<Conversation>>();
-  const xmtpState = useXmtpStore((state) => state);
+  const xmtpState = useMessageStore((state) => state);
   const { client, setClient, conversations, setConversations, messages, setMessages, setLoading } = xmtpState;
   const router = useRouter();
 
@@ -48,7 +44,7 @@ const Messages: FC<Props> = () => {
       const convos = (await client?.conversations?.list()) || [];
       Promise.all(
         convos.map(async (convo) => {
-          if (convo.peerAddress !== address) {
+          if (convo.peerAddress !== currentProfile?.ownedBy) {
             const newMessages = await convo.messages();
             messages.set(convo.peerAddress, newMessages);
             setMessages(new Map(messages));
@@ -75,6 +71,7 @@ const Messages: FC<Props> = () => {
     };
     listConversations();
     streamConversations();
+
     return () => {
       const closeStream = async () => {
         if (!stream) {

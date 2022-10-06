@@ -9,7 +9,7 @@ import { FC } from 'react';
 import { APP_NAME } from 'src/constants';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
-import { useXmtpStore } from 'src/store/xmtp';
+import { useMessageStore } from 'src/store/xmtp';
 
 interface Props {
   profile: Profile;
@@ -18,7 +18,7 @@ interface Props {
 const Conversation: FC<Props> = () => {
   const router = useRouter();
   const address = router.query.address as string;
-  const xmtpState = useXmtpStore((state) => state);
+  const xmtpState = useMessageStore((state) => state);
   const { messages, conversations } = xmtpState;
   const currentProfile = useAppStore((state) => state.currentProfile);
 
