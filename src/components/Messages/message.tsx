@@ -1,8 +1,8 @@
+import MessagesList from '@components/Shared/MessagesList';
 import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import MetaTags from '@components/utils/MetaTags';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
-import { Message as MessageType } from '@xmtp/xmtp-js';
 import { useRouter } from 'next/router';
 import { FC } from 'react';
 import { APP_NAME } from 'src/constants';
@@ -57,15 +57,7 @@ const Message: FC = () => {
       </GridItemFour>
       <GridItemEight>
         <Card className="h-[86vh] overflow-y-auto">
-          {Array.from(messages.get(address) || []).map((msg: MessageType) => {
-            return (
-              <div key={`convo_${msg.id}`} className="border p-5 text-xs">
-                From - {msg.senderAddress}
-                <br />
-                Msg - {msg.content}
-              </div>
-            );
-          })}
+          <MessagesList address={address} messages={messages.get(address) ?? []} />
         </Card>
       </GridItemEight>
     </GridLayout>
