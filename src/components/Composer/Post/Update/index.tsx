@@ -277,7 +277,7 @@ const NewUpdate: FC = () => {
     isUploading || typedDataLoading || dispatcherLoading || signLoading || writeLoading || broadcastLoading;
 
   return (
-    <div className="px-5 pt-5 pb-3">
+    <div className="py-3">
       {error && <ErrorMessage className="mb-3" title="Transaction failed!" error={error} />}
       {previewPublication ? (
         <div className="pb-3 mb-2 border-b linkify dark:border-b-gray-700/80 break-words">
@@ -288,10 +288,11 @@ const NewUpdate: FC = () => {
           error={postContentError}
           setError={setPostContentError}
           placeholder="What's happening?"
+          hideBorder
           autoFocus
         />
       )}
-      <div className="block items-center sm:flex">
+      <div className="block items-center sm:flex px-5">
         <div className="flex items-center space-x-4">
           <Attachment attachments={attachments} setAttachments={setAttachments} />
           <Giphy setGifAttachment={(gif: IGif) => setGifAttachment(gif)} />
