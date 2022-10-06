@@ -81,7 +81,7 @@ const NewUpdate: FC = () => {
   // Reference module store
   const selectedReferenceModule = useReferenceModuleStore((state) => state.selectedReferenceModule);
   const onlyFollowers = useReferenceModuleStore((state) => state.onlyFollowers);
-  const { commentsRestricted, mirrorsRestricted, degreesOfSeparation } = useReferenceModuleStore();
+  const degreesOfSeparation = useReferenceModuleStore((state) => state.degreesOfSeparation);
 
   // States
   const [postContentError, setPostContentError] = useState('');
@@ -243,8 +243,8 @@ const NewUpdate: FC = () => {
           ? { followerOnlyReferenceModule: onlyFollowers ? true : false }
           : {
               degreesOfSeparationReferenceModule: {
-                commentsRestricted,
-                mirrorsRestricted,
+                commentsRestricted: true,
+                mirrorsRestricted: true,
                 degreesOfSeparation
               }
             }

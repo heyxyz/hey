@@ -1,174 +1,132 @@
-import { Modal } from '@components/UI/Modal';
-import { Tooltip } from '@components/UI/Tooltip';
 import { ReferenceModules } from '@generated/types';
-import { ChatAlt2Icon, GlobeAltIcon, UserIcon, UsersIcon } from '@heroicons/react/outline';
+import { Menu, Transition } from '@headlessui/react';
+import { GlobeAltIcon, UserAddIcon, UserGroupIcon, UsersIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
 import { Mixpanel } from '@lib/mixpanel';
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
-import { FC, useState } from 'react';
+import { FC, Fragment, ReactNode } from 'react';
 import { useReferenceModuleStore } from 'src/store/referencemodule';
 import { PUBLICATION } from 'src/tracking';
 
 const SelectReferenceModule: FC = () => {
-  const [showModal, setShowModal] = useState(false);
   const selectedReferenceModule = useReferenceModuleStore((state) => state.selectedReferenceModule);
   const setSelectedReferenceModule = useReferenceModuleStore((state) => state.setSelectedReferenceModule);
   const onlyFollowers = useReferenceModuleStore((state) => state.onlyFollowers);
   const setOnlyFollowers = useReferenceModuleStore((state) => state.setOnlyFollowers);
-  const { commentsRestricted, mirrorsRestricted, degreesOfSeparation } = useReferenceModuleStore();
-  const { setCommentsRestricted, setMirrorsRestricted, setDegreesOfSeparation } = useReferenceModuleStore();
-  const ONLY_FOLLOWERS = 'Only followers can comment or mirror';
-  const EVERYONE = 'Everyone can comment or mirror';
-  const RESTRICTED = `Restricted to ${
-    commentsRestricted ? 'comments' : 'mirrors'
-  } upto ${degreesOfSeparation} degrees`;
+  const degreesOfSeparation = useReferenceModuleStore((state) => state.degreesOfSeparation);
+  const setDegreesOfSeparation = useReferenceModuleStore((state) => state.setDegreesOfSeparation);
+  const MY_FOLLOWS = 'My follows';
+  const MY_FOLLOWERS = 'My followers';
+  const FRIENDS_OF_FRIENDS = 'Friends of friends';
+  const EVERYONE = 'Everyone';
 
   const isFollowerOnlyReferenceModule =
     selectedReferenceModule === ReferenceModules.FollowerOnlyReferenceModule;
   const isDegreesOfSeparationReferenceModule =
     selectedReferenceModule === ReferenceModules.DegreesOfSeparationReferenceModule;
 
-  const buttonClass =
-    'w-full p-3 border rounded-xl dark:border-gray-700/80 flex justify-between items-center';
+  const isEveryone = isFollowerOnlyReferenceModule && !onlyFollowers;
+  const isMyFollowers = isFollowerOnlyReferenceModule && onlyFollowers;
+  const isMyFollows = isDegreesOfSeparationReferenceModule && degreesOfSeparation === 1;
+  const isFriendsOfFriends = isDegreesOfSeparationReferenceModule && degreesOfSeparation === 2;
+
+  interface ModuleProps {
+    title: string;
+    icon: ReactNode;
+    onClick: () => void;
+    selected: boolean;
+  }
+
+  const Module: FC<ModuleProps> = ({ title, icon, onClick, selected }) => (
+    <Menu.Item as="a" className={clsx({ 'dropdown-active': selected }, 'menu-item')} onClick={onClick}>
+      <div className="flex items-center justify-between">
+        <div className="flex items-center space-x-1.5">
+          <div className="text-brand-500">{icon}</div>
+          <div>{title}</div>
+        </div>
+        {selected && <CheckCircleIcon className="w-5 text-green-500" />}
+      </div>
+    </Menu.Item>
+  );
 
   return (
-    <>
-      <Tooltip
-        placement="top"
-        content={
-          isDegreesOfSeparationReferenceModule ? RESTRICTED : onlyFollowers ? ONLY_FOLLOWERS : EVERYONE
-        }
-      >
-        <motion.button
-          whileTap={{ scale: 0.9 }}
-          type="button"
-          onClick={() => {
-            setShowModal(!showModal);
-            Mixpanel.track(PUBLICATION.NEW.REFERENCE_MODULE.OPEN_COLLECT_CONFIG);
-          }}
-          aria-label="Choose Reference Module"
-        >
-          <div className="text-brand">
-            {isDegreesOfSeparationReferenceModule ? (
-              <UsersIcon className="w-5 h-5" />
-            ) : onlyFollowers ? (
-              <UserIcon className="w-5 h-5" />
-            ) : (
-              <GlobeAltIcon className="w-5 h-5" />
-            )}
-          </div>
-        </motion.button>
-      </Tooltip>
-      <Modal
-        title="Who can comment or mirror"
-        icon={<ChatAlt2Icon className="w-5 h-5 text-brand" />}
-        show={showModal}
-        onClose={() => setShowModal(false)}
-      >
-        <div className="py-3.5 px-5 space-y-3">
-          <button
-            type="button"
-            className={clsx(
-              { 'border-green-500': isFollowerOnlyReferenceModule && !onlyFollowers },
-              buttonClass
-            )}
+    <Menu as="div">
+      {({ open }) => (
+        <>
+          <Menu.Button
+            as={motion.button}
+            whileTap={{ scale: 0.9 }}
             onClick={() => {
-              setSelectedReferenceModule(ReferenceModules.FollowerOnlyReferenceModule);
-              setOnlyFollowers(false);
-              setShowModal(false);
-              Mixpanel.track(PUBLICATION.NEW.REFERENCE_MODULE.EVERYONE);
+              Mixpanel.track(PUBLICATION.NEW.REFERENCE_MODULE.OPEN_REFERENCE_CONFIG);
             }}
           >
-            <div className="flex items-center space-x-3">
-              <GlobeAltIcon className="w-5 h-5 text-brand" />
-              <div>{EVERYONE}</div>
+            <div className="text-brand">
+              {isEveryone && <GlobeAltIcon className="w-5" />}
+              {isMyFollowers && <UsersIcon className="w-5" />}
+              {isMyFollows && <UserAddIcon className="w-5" />}
+              {isFriendsOfFriends && <UserGroupIcon className="w-5" />}
             </div>
-            {isFollowerOnlyReferenceModule && !onlyFollowers && (
-              <CheckCircleIcon className="w-7 text-green-500" />
-            )}
-          </button>
-          <button
-            type="button"
-            className={clsx(
-              { 'border-green-500': isFollowerOnlyReferenceModule && onlyFollowers },
-              buttonClass
-            )}
-            onClick={() => {
-              setSelectedReferenceModule(ReferenceModules.FollowerOnlyReferenceModule);
-              setOnlyFollowers(true);
-              setShowModal(false);
-              Mixpanel.track(PUBLICATION.NEW.REFERENCE_MODULE.ONLY_FOLLOWERS);
-            }}
+          </Menu.Button>
+          <Transition
+            show={open}
+            as={Fragment}
+            enter="transition ease-out duration-100"
+            enterFrom="transform opacity-0 scale-95"
+            enterTo="transform opacity-100 scale-100"
+            leave="transition ease-in duration-75"
+            leaveFrom="transform opacity-100 scale-100"
+            leaveTo="transform opacity-0 scale-95"
           >
-            <div className="flex items-center space-x-3">
-              <UserIcon className="w-5 h-5 text-brand" />
-              <div>{ONLY_FOLLOWERS}</div>
-            </div>
-            {isFollowerOnlyReferenceModule && onlyFollowers && (
-              <CheckCircleIcon className="w-7 h-7 text-green-500" />
-            )}
-          </button>
-          <button
-            type="button"
-            className={clsx({ 'border-green-500': isDegreesOfSeparationReferenceModule }, buttonClass)}
-            onClick={() => {
-              setSelectedReferenceModule(ReferenceModules.DegreesOfSeparationReferenceModule);
-              setOnlyFollowers(false);
-              Mixpanel.track(PUBLICATION.NEW.REFERENCE_MODULE.DEGREES);
-            }}
-          >
-            <div className="flex items-center space-x-3 text-left">
-              <UsersIcon className="w-5 h-5 text-brand" />
-              <div className="max-w-[90%]">
-                Restrict{' '}
-                <select
-                  className="py-0.5 mx-1 rounded-lg text-sm"
-                  onChange={(event) => {
-                    // @ts-ignore
-                    const value = event.target.value;
-
-                    setCommentsRestricted(value === 'comments');
-                    setMirrorsRestricted(value === 'mirrors');
-                  }}
-                >
-                  <option value="comments" selected={commentsRestricted}>
-                    comments
-                  </option>
-                  <option value="mirrors" selected={mirrorsRestricted}>
-                    mirrors
-                  </option>
-                </select>
-                to people up to{' '}
-                <select
-                  className="py-0.5 mx-1 rounded-lg text-sm mt-1"
-                  onChange={(event) => {
-                    // @ts-ignore
-                    const value = event.target.value;
-                    setDegreesOfSeparation(parseInt(value));
-                  }}
-                >
-                  <option value={1} selected={degreesOfSeparation === 1}>
-                    1 degree
-                  </option>
-                  <option value={2} selected={degreesOfSeparation === 2}>
-                    2 degrees
-                  </option>
-                  <option value={3} selected={degreesOfSeparation === 3}>
-                    3 degrees
-                  </option>
-                  <option value={4} selected={degreesOfSeparation === 4}>
-                    4 degrees
-                  </option>
-                </select>{' '}
-                away from me in my network
-              </div>
-            </div>
-            {isDegreesOfSeparationReferenceModule && <CheckCircleIcon className="w-7 text-green-500" />}
-          </button>
-        </div>
-      </Modal>
-    </>
+            <Menu.Items
+              static
+              className="absolute py-1 mt-2 w-52 bg-white rounded-xl border shadow-sm dark:bg-gray-900 focus:outline-none dark:border-gray-700/80"
+            >
+              <Module
+                title={EVERYONE}
+                selected={isEveryone}
+                icon={<GlobeAltIcon className="w-4 h-4" />}
+                onClick={() => {
+                  setSelectedReferenceModule(ReferenceModules.FollowerOnlyReferenceModule);
+                  setOnlyFollowers(false);
+                  Mixpanel.track(PUBLICATION.NEW.REFERENCE_MODULE.EVERYONE);
+                }}
+              />
+              <Module
+                title={MY_FOLLOWERS}
+                selected={isMyFollowers}
+                icon={<UsersIcon className="w-4 h-4" />}
+                onClick={() => {
+                  setSelectedReferenceModule(ReferenceModules.FollowerOnlyReferenceModule);
+                  setOnlyFollowers(true);
+                  Mixpanel.track(PUBLICATION.NEW.REFERENCE_MODULE.MY_FOLLOWERS);
+                }}
+              />
+              <Module
+                title={MY_FOLLOWS}
+                selected={isMyFollows}
+                icon={<UserAddIcon className="w-4 h-4" />}
+                onClick={() => {
+                  setSelectedReferenceModule(ReferenceModules.DegreesOfSeparationReferenceModule);
+                  setDegreesOfSeparation(1);
+                  Mixpanel.track(PUBLICATION.NEW.REFERENCE_MODULE.MY_FOLLOWS);
+                }}
+              />
+              <Module
+                title={FRIENDS_OF_FRIENDS}
+                selected={isFriendsOfFriends}
+                icon={<UserGroupIcon className="w-4 h-4" />}
+                onClick={() => {
+                  setSelectedReferenceModule(ReferenceModules.DegreesOfSeparationReferenceModule);
+                  setDegreesOfSeparation(2);
+                  Mixpanel.track(PUBLICATION.NEW.REFERENCE_MODULE.FRIENDS_OF_FRIENDS);
+                }}
+              />
+            </Menu.Items>
+          </Transition>
+        </>
+      )}
+    </Menu>
   );
 };
 
