@@ -11,13 +11,13 @@ import { useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
 import { useSigner } from 'wagmi';
 
-
 const Messages: FC = () => {
   const { data: signer } = useSigner();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [stream, setStream] = useState<Stream<Conversation>>();
   const messageState = useMessageStore((state) => state);
-  const { client, setClient, conversations, setConversations, messages, setMessages, setLoading } = messageState;
+  const { client, setClient, conversations, setConversations, messages, setMessages, setLoading } =
+    messageState;
   const router = useRouter();
 
   useEffect(() => {

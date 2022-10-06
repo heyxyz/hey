@@ -10,7 +10,6 @@ import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
 
-
 const Message: FC = () => {
   const router = useRouter();
   const address = router.query.address as string;
