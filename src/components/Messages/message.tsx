@@ -1,25 +1,21 @@
 import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import MetaTags from '@components/utils/MetaTags';
-import { Profile } from '@generated/types';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
-import { Message } from '@xmtp/xmtp-js';
+import { Message as MessageType } from '@xmtp/xmtp-js';
 import { useRouter } from 'next/router';
 import { FC } from 'react';
 import { APP_NAME } from 'src/constants';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
-import { useMessageStore } from 'src/store/xmtp';
+import { useMessageStore } from 'src/store/message';
 
-interface Props {
-  profile: Profile;
-}
 
-const Message: FC<Props> = () => {
+const Message: FC = () => {
   const router = useRouter();
   const address = router.query.address as string;
-  const xmtpState = useMessageStore((state) => state);
-  const { messages, conversations } = xmtpState;
+  const messageState = useMessageStore((state) => state);
+  const { messages, conversations } = messageState;
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   const onConversationSelected = (address: string) => {
@@ -62,7 +58,7 @@ const Message: FC<Props> = () => {
       </GridItemFour>
       <GridItemEight>
         <Card className="h-[86vh] overflow-y-auto">
-          {Array.from(messages.get(address) || []).map((msg: Message) => {
+          {Array.from(messages.get(address) || []).map((msg: MessageType) => {
             return (
               <div key={`convo_${msg.id}`} className="border p-5 text-xs">
                 From - {msg.senderAddress}

@@ -1,7 +1,6 @@
 import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import MetaTags from '@components/utils/MetaTags';
-import { Profile } from '@generated/types';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { Client, Conversation, Stream } from '@xmtp/xmtp-js';
 import { useRouter } from 'next/router';
@@ -9,7 +8,7 @@ import { FC, useEffect, useState } from 'react';
 import { APP_NAME } from 'src/constants';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
-import { useMessageStore } from 'src/store/xmtp';
+import { useMessageStore } from 'src/store/message';
 import { useSigner } from 'wagmi';
 
 
@@ -17,8 +16,8 @@ const Messages: FC = () => {
   const { data: signer } = useSigner();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [stream, setStream] = useState<Stream<Conversation>>();
-  const xmtpState = useMessageStore((state) => state);
-  const { client, setClient, conversations, setConversations, messages, setMessages, setLoading } = xmtpState;
+  const messageState = useMessageStore((state) => state);
+  const { client, setClient, conversations, setConversations, messages, setMessages, setLoading } = messageState;
   const router = useRouter();
 
   useEffect(() => {
@@ -60,7 +59,7 @@ const Messages: FC = () => {
       const newStream = (await client?.conversations?.stream()) || [];
       setStream(newStream);
       for await (const convo of newStream) {
-        if (convo.peerAddress !== address) {
+        if (convo.peerAddress !== currentProfile?.ownedBy) {
           const newMessages = await convo.messages();
           messages.set(convo.peerAddress, newMessages);
           setMessages(new Map(messages));

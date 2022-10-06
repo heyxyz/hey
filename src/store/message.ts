@@ -2,7 +2,7 @@
 import { Client, Conversation, Message } from '@xmtp/xmtp-js';
 import create from 'zustand';
 
-interface XmtpState {
+interface MessageState {
   client: Client | undefined;
   setClient: (client: Client) => void;
   conversations: Map<string, Conversation>;
@@ -13,7 +13,7 @@ interface XmtpState {
   setLoading: (loading: boolean) => void;
 }
 
-export const useMessageStore = create<XmtpState>((set) => ({
+export const useMessageStore = create<MessageState>((set) => ({
   client: undefined,
   setClient: (client) => set(() => ({ client })),
   conversations: new Map(),
