@@ -3472,10 +3472,10 @@ axios@^0.27.2:
     follow-redirects "^1.14.9"
     form-data "^4.0.0"
 
-axios@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/axios/-/axios-1.0.0.tgz#16ded6096c1d37650db9f6a8d48a2f7c1bb58622"
-  integrity sha512-SsHsGFN1qNPFT5QhSoSD37SHDfGyLSW5AESmyLk2JeCMHv5g0I9g0Hz/zQHx2KNe0jGXh2q2hAm7OdkXm360CA==
+axios@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-1.1.0.tgz#94d25e6524743c7fc33954dd536687bbb957793a"
+  integrity sha512-hsJgcqz4JY7f+HZ4cWTrPZ6tZNCNFPTRx1MjRqu/hbpgpHdSCUpLVuplc+jE/h7dOvyANtw/ERA3HC2Rz/QoMg==
   dependencies:
     follow-redirects "^1.15.0"
     form-data "^4.0.0"
