@@ -15,7 +15,6 @@ const GifSelector = dynamic(() => import('./GifSelector'), {
 });
 
 interface Props {
-  // eslint-disable-next-line no-unused-vars
   setGifAttachment: (gif: IGif) => void;
 }
 
