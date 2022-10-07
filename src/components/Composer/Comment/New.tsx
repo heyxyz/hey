@@ -41,16 +41,16 @@ import { COMMENT } from 'src/tracking';
 import { v4 as uuid } from 'uuid';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
-const Attachment = dynamic(() => import('../../Shared/Attachment'), {
+const Attachment = dynamic(() => import('@components/Shared/Attachment'), {
   loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
 });
-const Giphy = dynamic(() => import('../../Shared/Giphy'), {
+const Giphy = dynamic(() => import('@components/Shared/Giphy'), {
   loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
 });
-const SelectCollectModule = dynamic(() => import('../../Shared/SelectCollectModule'), {
+const CollectSettings = dynamic(() => import('@components/Shared/CollectSettings'), {
   loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
 });
-const SelectReferenceModule = dynamic(() => import('../../Shared/SelectReferenceModule'), {
+const SelectReferenceModule = dynamic(() => import('@components/Shared/SelectReferenceModule'), {
   loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
 });
 
@@ -293,7 +293,7 @@ const NewComment: FC<Props> = ({ publication }) => {
         <div className="flex items-center space-x-4">
           <Attachment attachments={attachments} setAttachments={setAttachments} />
           <Giphy setGifAttachment={(gif: IGif) => setGifAttachment(gif)} />
-          <SelectCollectModule />
+          <CollectSettings />
           <SelectReferenceModule />
           {publicationContent && <Preview />}
         </div>

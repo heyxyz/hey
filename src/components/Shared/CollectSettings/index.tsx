@@ -9,9 +9,9 @@ import { FC, useState } from 'react';
 import { useCollectModuleStore } from 'src/store/collectmodule';
 import { PUBLICATION } from 'src/tracking';
 
-import Modules from './Modules';
+import CollectForm from './CollectForm';
 
-const SelectCollectModule: FC = () => {
+const CollectSettings: FC = () => {
   const selectedCollectModule = useCollectModuleStore((state) => state.selectedCollectModule);
   const [showModal, setShowModal] = useState(false);
 
@@ -33,15 +33,15 @@ const SelectCollectModule: FC = () => {
         </motion.button>
       </Tooltip>
       <Modal
-        title="Select collect module"
+        title="Collect settings"
         icon={<CashIcon className="w-5 h-5 text-brand" />}
         show={showModal}
         onClose={() => setShowModal(false)}
       >
-        <Modules setShowModal={setShowModal} />
+        <CollectForm setShowModal={setShowModal} />
       </Modal>
     </>
   );
 };
 
-export default SelectCollectModule;
+export default CollectSettings;

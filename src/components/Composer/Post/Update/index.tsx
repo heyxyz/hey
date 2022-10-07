@@ -45,7 +45,7 @@ const Attachment = dynamic(() => import('@components/Shared/Attachment'), {
 const Giphy = dynamic(() => import('@components/Shared/Giphy'), {
   loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
 });
-const SelectCollectModule = dynamic(() => import('@components/Shared/SelectCollectModule'), {
+const CollectSettings = dynamic(() => import('@components/Shared/CollectSettings'), {
   loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
 });
 const SelectReferenceModule = dynamic(() => import('@components/Shared/SelectReferenceModule'), {
@@ -296,7 +296,7 @@ const NewUpdate: FC = () => {
         <div className="flex items-center space-x-4">
           <Attachment attachments={attachments} setAttachments={setAttachments} />
           <Giphy setGifAttachment={(gif: IGif) => setGifAttachment(gif)} />
-          <SelectCollectModule />
+          <CollectSettings />
           <SelectReferenceModule />
           {publicationContent && <Preview />}
         </div>
