@@ -54,7 +54,7 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
         setPayload({ revertCollectModule: true });
         break;
       case FreeCollectModule:
-        setPayload({ freeCollectModule: { followerOnly: true } });
+        setPayload({ freeCollectModule: { followerOnly: false } });
         break;
       case FeeCollectModule:
         setPayload({
