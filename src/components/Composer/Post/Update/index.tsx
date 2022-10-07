@@ -47,7 +47,7 @@ const Giphy = dynamic(() => import('@components/Shared/Giphy'), {
 const CollectSettings = dynamic(() => import('@components/Shared/CollectSettings'), {
   loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
 });
-const SelectReferenceModule = dynamic(() => import('@components/Shared/SelectReferenceModule'), {
+const ReferenceSettings = dynamic(() => import('@components/Shared/ReferenceSettings'), {
   loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
 });
 const Preview = dynamic(() => import('@components/Shared/Preview'), {
@@ -289,7 +289,7 @@ const NewUpdate: FC = () => {
           <Attachment attachments={attachments} setAttachments={setAttachments} />
           <Giphy setGifAttachment={(gif: IGif) => setGifAttachment(gif)} />
           <CollectSettings />
-          <SelectReferenceModule />
+          <ReferenceSettings />
           {publicationContent && <Preview />}
         </div>
         <div className="ml-auto pt-2 sm:pt-0">
