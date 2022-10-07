@@ -1,4 +1,5 @@
 import { CollectModules } from '@generated/types';
+import { DEFAULT_COLLECT_TOKEN } from 'src/constants';
 import create from 'zustand';
 
 interface CollectModuleState {
@@ -14,6 +15,8 @@ interface CollectModuleState {
   setCollectLimit: (collectLimit: null | string) => void;
   hasTimeLimit: boolean;
   setHasTimeLimit: (hasTimeLimit: boolean) => void;
+  payload: any;
+  setPayload: (payload: any) => void;
 }
 
 export const useCollectModuleStore = create<CollectModuleState>((set) => ({
@@ -21,12 +24,18 @@ export const useCollectModuleStore = create<CollectModuleState>((set) => ({
   setSelectedCollectModule: (selectedCollectModule) => set(() => ({ selectedCollectModule })),
   amount: null,
   setAmount: (amount) => set(() => ({ amount })),
-  selectedCurrency: null,
+  selectedCurrency: DEFAULT_COLLECT_TOKEN,
   setSelectedCurrency: (selectedCurrency) => set(() => ({ selectedCurrency })),
   referralFee: null,
   setReferralFee: (referralFee) => set(() => ({ referralFee })),
   collectLimit: null,
   setCollectLimit: (collectLimit) => set(() => ({ collectLimit })),
   hasTimeLimit: false,
-  setHasTimeLimit: (hasTimeLimit) => set(() => ({ hasTimeLimit }))
+  setHasTimeLimit: (hasTimeLimit) => set(() => ({ hasTimeLimit })),
+  payload: {
+    freeCollectModule: {
+      followerOnly: true
+    }
+  },
+  setPayload: (payload) => set(() => ({ payload }))
 }));

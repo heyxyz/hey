@@ -7,6 +7,7 @@ import { Toggle } from '@components/UI/Toggle';
 import { CollectModules, EnabledModulesDocument, Erc20 } from '@generated/types';
 import { ClockIcon, CollectionIcon, StarIcon, SwitchHorizontalIcon } from '@heroicons/react/outline';
 import { Dispatch, FC, useEffect } from 'react';
+import { useAppStore } from 'src/store/app';
 import { useCollectModuleStore } from 'src/store/collectmodule';
 
 interface Props {
@@ -14,10 +15,12 @@ interface Props {
 }
 
 const CollectForm: FC<Props> = ({ setShowModal }) => {
+  const currentProfile = useAppStore((state) => state.currentProfile);
   const selectedCollectModule = useCollectModuleStore((state) => state.selectedCollectModule);
   const setSelectedCollectModule = useCollectModuleStore((state) => state.setSelectedCollectModule);
   const amount = useCollectModuleStore((state) => state.amount);
   const setAmount = useCollectModuleStore((state) => state.setAmount);
+  const selectedCurrency = useCollectModuleStore((state) => state.selectedCurrency);
   const setSelectedCurrency = useCollectModuleStore((state) => state.setSelectedCurrency);
   const referralFee = useCollectModuleStore((state) => state.referralFee);
   const setReferralFee = useCollectModuleStore((state) => state.setReferralFee);
@@ -25,6 +28,7 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
   const setCollectLimit = useCollectModuleStore((state) => state.setCollectLimit);
   const hasTimeLimit = useCollectModuleStore((state) => state.hasTimeLimit);
   const setHasTimeLimit = useCollectModuleStore((state) => state.setHasTimeLimit);
+  const setPayload = useCollectModuleStore((state) => state.setPayload);
 
   const RevertCollectModule = CollectModules.RevertCollectModule;
   const FreeCollectModule = CollectModules.FreeCollectModule;
@@ -32,6 +36,51 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
   const LimitedFeeCollectModule = CollectModules.LimitedFeeCollectModule;
   const LimitedTimedFeeCollectModule = CollectModules.LimitedTimedFeeCollectModule;
   const TimedFeeCollectModule = CollectModules.TimedFeeCollectModule;
+
+  useEffect(() => {
+    const baseFeeData = {
+      amount: {
+        currency: selectedCurrency,
+        value: amount
+      },
+      recipient: currentProfile?.ownedBy,
+      referralFee: parseFloat(referralFee ?? '0'),
+      followerOnly: false
+    };
+
+    switch (selectedCollectModule) {
+      case RevertCollectModule:
+        setPayload({ revertCollectModule: true });
+        break;
+      case FreeCollectModule:
+        setPayload({ freeCollectModule: { followerOnly: true } });
+        break;
+      case FeeCollectModule:
+        setPayload({
+          feeCollectModule: { ...baseFeeData }
+        });
+        break;
+      case LimitedFeeCollectModule:
+      case LimitedTimedFeeCollectModule:
+        setPayload({
+          [selectedCollectModule === LimitedFeeCollectModule
+            ? 'limitedFeeCollectModule'
+            : 'limitedTimedFeeCollectModule']: {
+            ...baseFeeData,
+            collectLimit
+          }
+        });
+        break;
+      case TimedFeeCollectModule:
+        setPayload({
+          timedFeeCollectModule: { ...baseFeeData }
+        });
+        break;
+      default:
+        setPayload({ revertCollectModule: true });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [amount, referralFee, collectLimit, hasTimeLimit, selectedCollectModule]);
 
   useEffect(() => {
     if (hasTimeLimit) {
@@ -44,6 +93,7 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
       if (amount) {
         setSelectedCollectModule(collectLimit ? LimitedFeeCollectModule : FeeCollectModule);
       } else {
+        setCollectLimit(null);
         setSelectedCollectModule(collectLimit ? LimitedFeeCollectModule : FreeCollectModule);
       }
     }
@@ -171,7 +221,7 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
               </div>
             ) : null}
           </div>
-          {selectedCollectModule !== FreeCollectModule && (
+          {selectedCollectModule !== FreeCollectModule && amount && (
             <>
               <div className="space-y-2 pt-5">
                 <div className="flex items-center space-x-2">

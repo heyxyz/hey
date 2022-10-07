@@ -9,6 +9,7 @@ import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
 import { LensterAttachment } from '@generated/lenstertypes';
 import {
+  CollectModules,
   CreatePostTypedDataDocument,
   CreatePostViaDispatcherDocument,
   Mutation,
@@ -17,7 +18,6 @@ import {
 } from '@generated/types';
 import { IGif } from '@giphy/js-types';
 import { PencilAltIcon } from '@heroicons/react/outline';
-import { defaultFeeData, defaultModuleData, getModule } from '@lib/getModule';
 import getSignature from '@lib/getSignature';
 import getTags from '@lib/getTags';
 import getUserLocale from '@lib/getUserLocale';
@@ -73,10 +73,8 @@ const NewUpdate: FC = () => {
   const setTxnQueue = useTransactionPersistStore((state) => state.setTxnQueue);
 
   // Collect module store
-  const selectedCollectModule = useCollectModuleStore((state) => state.selectedCollectModule);
   const setSelectedCollectModule = useCollectModuleStore((state) => state.setSelectedCollectModule);
-  const feeData = useCollectModuleStore((state) => state.feeData);
-  const setFeeData = useCollectModuleStore((state) => state.setFeeData);
+  const payload = useCollectModuleStore((state) => state.payload);
 
   // Reference module store
   const selectedReferenceModule = useReferenceModuleStore((state) => state.selectedReferenceModule);
@@ -94,8 +92,7 @@ const NewUpdate: FC = () => {
     setShowNewPostModal(false);
     setPublicationContent('');
     setAttachments([]);
-    setSelectedCollectModule(defaultModuleData);
-    setFeeData(defaultFeeData);
+    setSelectedCollectModule(CollectModules.FreeCollectModule);
     Mixpanel.track(POST.NEW);
   };
 
@@ -233,11 +230,7 @@ const NewUpdate: FC = () => {
     const request = {
       profileId: currentProfile?.id,
       contentURI: `https://arweave.net/${id}`,
-      collectModule: feeData.recipient
-        ? {
-            [getModule(selectedCollectModule.moduleName).config]: feeData
-          }
-        : getModule(selectedCollectModule.moduleName).config,
+      collectModule: payload,
       referenceModule:
         selectedReferenceModule === ReferenceModules.FollowerOnlyReferenceModule
           ? { followerOnlyReferenceModule: onlyFollowers ? true : false }

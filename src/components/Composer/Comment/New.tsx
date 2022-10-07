@@ -75,8 +75,8 @@ const NewComment: FC<Props> = ({ publication }) => {
   const setTxnQueue = useTransactionPersistStore((state) => state.setTxnQueue);
 
   // Collect module store
-  const selectedCollectModule = useCollectModuleStore((state) => state.selectedCollectModule);
   const setSelectedCollectModule = useCollectModuleStore((state) => state.setSelectedCollectModule);
+  const payload = useCollectModuleStore((state) => state.payload);
 
   // Reference module store
   const selectedReferenceModule = useReferenceModuleStore((state) => state.selectedReferenceModule);
@@ -233,10 +233,7 @@ const NewComment: FC<Props> = ({ publication }) => {
       profileId: currentProfile?.id,
       publicationId: publication.__typename === 'Mirror' ? publication?.mirrorOf?.id : publication?.id,
       contentURI: `https://arweave.net/${id}`,
-      collectModule: null,
-      // collectModule: feeData.recipient
-      //   ? { [getModule(selectedCollectModule.moduleName).config]: feeData }
-      //   : getModule(selectedCollectModule.moduleName).config,
+      collectModule: payload,
       referenceModule:
         selectedReferenceModule === ReferenceModules.FollowerOnlyReferenceModule
           ? { followerOnlyReferenceModule: onlyFollowers ? true : false }
