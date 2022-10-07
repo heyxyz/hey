@@ -60,7 +60,7 @@ const Message: FC = () => {
       </GridItemFour>
       <GridItemEight>
         <Card className="h-[86vh] overflow-y-auto">
-          <MessagesList address={address} messages={messages.get(address) ?? []} />
+          <MessagesList messages={messages.get(address) ?? []} />
         </Card>
       </GridItemEight>
     </GridLayout>

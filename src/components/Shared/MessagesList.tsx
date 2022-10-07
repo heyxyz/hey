@@ -1,14 +1,14 @@
+import getAvatar from '@lib/getAvatar';
 import { Message } from '@xmtp/xmtp-js';
 import React, { ReactNode } from 'react';
+import { useAppStore } from 'src/store/app';
 
 export type MessageListProps = {
   messages: Message[];
-  address: string;
 };
 
 type MessageTileProps = {
   message: Message;
-  address: string;
 };
 
 interface Props {
@@ -17,11 +17,11 @@ interface Props {
 
 const formatTime = (d: Date | undefined): string =>
   d
-    ? d.toLocaleTimeString(undefined, {
+    ? `${d.toLocaleTimeString(undefined, {
         hour12: true,
         hour: 'numeric',
         minute: '2-digit'
-      })
+      })} - ${d.toLocaleDateString()}`
     : '';
 
 const isOnSameDay = (d1?: Date, d2?: Date): boolean => {
@@ -31,33 +31,46 @@ const isOnSameDay = (d1?: Date, d2?: Date): boolean => {
 const formatDate = (d?: Date) =>
   d?.toLocaleString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 
-const MessageTile = ({ message, address }: MessageTileProps): JSX.Element => (
-  <div
-    className={`flex flex-col ${
-      address === message.senderAddress ? 'items-end' : 'items-start'
-    } mx-auto mb-4`}
-  >
-    {/* <Avatar peerAddress={message.senderAddress as string} /> */}
+const MessageTile = ({ message }: MessageTileProps): JSX.Element => {
+  const currentProfile = useAppStore((state) => state.currentProfile);
+  const address = currentProfile?.ownedBy;
+
+  return (
     <div
-      className={`px-4 py-2 rounded-lg ${
-        address === message.senderAddress ? 'bg-brand-500' : 'bg-gray-100'
-      } `}
+      className={`flex flex-col ${
+        address === message.senderAddress ? 'items-end' : 'items-start'
+      } mx-auto mb-4`}
     >
-      <span
-        className={`block text-md font-normal ${
-          address === message.senderAddress ? 'text-white' : 'text-black'
-        } `}
-      >
-        {message.error ? `Error: ${message.error?.message}` : message.content ?? ''}
-      </span>
+      <div className="flex">
+        {address !== message.senderAddress && (
+          <img
+            src={getAvatar(currentProfile)}
+            className="h-10 w-10 bg-gray-200 rounded-full border dark:border-gray-700/80 mr-2"
+            alt={currentProfile?.handle}
+          />
+        )}
+        <div
+          className={`px-4 py-2 rounded-lg ${
+            address === message.senderAddress ? 'bg-brand-500' : 'bg-gray-100'
+          } `}
+        >
+          <span
+            className={`block text-md font-normal ${
+              address === message.senderAddress ? 'text-white' : 'text-black'
+            } `}
+          >
+            {message.error ? `Error: ${message.error?.message}` : message.content ?? ''}
+          </span>
+        </div>
+      </div>
+      <div className={`${address !== message.senderAddress ? 'ml-12' : ''}`}>
+        <span className="text-xs font-normal place-self-end text-gray-400 uppercase">
+          {formatTime(message.sent)}
+        </span>
+      </div>
     </div>
-    <div>
-      <span className="text-xs font-normal place-self-end text-gray-400 uppercase">
-        {formatTime(message.sent)}
-      </span>
-    </div>
-  </div>
-);
+  );
+};
 
 const DateDividerBorder: React.FC<Props> = ({ children }) => (
   <>
@@ -81,7 +94,7 @@ const ConversationBeginningNotice = (): JSX.Element => (
   </div>
 );
 
-const MessagesList = ({ messages, address }: MessageListProps): JSX.Element => {
+const MessagesList = ({ messages }: MessageListProps): JSX.Element => {
   let lastMessageDate: Date | undefined;
 
   return (
@@ -96,7 +109,7 @@ const MessagesList = ({ messages, address }: MessageListProps): JSX.Element => {
               return (
                 <>
                   {dateHasChanged ? <DateDivider key={msg.id + 'divider'} date={msg.sent} /> : null}
-                  <MessageTile address={address} message={msg} key={msg.id} />
+                  <MessageTile message={msg} key={msg.id} />
                 </>
               );
             })}
