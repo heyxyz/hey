@@ -18,6 +18,8 @@ const Message: FC = () => {
   const { conversations } = messageState;
   const selectedConversation = conversations.get(address);
   const { messages } = useGetMessages(selectedConversation);
+  // To be used when we make the component to send messages
+  // const { handleSend } = useStreamMessages(selectedConversation);
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   const onConversationSelected = (address: string) => {
