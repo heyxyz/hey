@@ -1,7 +1,9 @@
+import MessageComposer from '@components/Shared/MessageComposer';
 import MessagesList from '@components/Shared/MessagesList';
 import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import useGetMessages from '@components/utils/hooks/useGetMessages';
+import useStreamMessages from '@components/utils/hooks/useStreamMessages';
 import MetaTags from '@components/utils/MetaTags';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { useRouter } from 'next/router';
@@ -18,8 +20,7 @@ const Message: FC = () => {
   const { conversations } = messageState;
   const selectedConversation = conversations.get(address);
   const { messages } = useGetMessages(selectedConversation);
-  // To be used when we make the component to send messages
-  // const { handleSend } = useStreamMessages(selectedConversation);
+  const { sendMessage } = useStreamMessages(selectedConversation);
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   const onConversationSelected = (address: string) => {
@@ -61,8 +62,12 @@ const Message: FC = () => {
         </Card>
       </GridItemFour>
       <GridItemEight>
-        <Card className="h-[86vh] overflow-y-auto">
-          <MessagesList messages={messages.get(address) ?? []} />
+        <Card className="h-[86vh]">
+          <div className="flex justify-center flex-1 p-5 border-b-[1px]">Header</div>
+          <div className="h-[82%] overflow-y-auto">
+            <MessagesList messages={messages.get(address) ?? []} />
+          </div>
+          <MessageComposer sendMessage={sendMessage} />
         </Card>
       </GridItemEight>
     </GridLayout>
