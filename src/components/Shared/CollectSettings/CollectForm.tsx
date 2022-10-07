@@ -120,7 +120,8 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
     if (selectedCollectModule === RevertCollectModule) {
       return setSelectedCollectModule(FreeCollectModule);
     } else {
-      return reset();
+      reset();
+      return setSelectedCollectModule(RevertCollectModule);
     }
   };
 
@@ -252,22 +253,22 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
               </div>
             </>
           )}
-          <div className="pt-5 flex space-x-2">
-            <Button
-              className="ml-auto"
-              variant="danger"
-              outline
-              onClick={() => {
-                reset();
-                setShowModal(false);
-              }}
-            >
-              Cancel
-            </Button>
-            <Button onClick={validateAndAssign}>Save</Button>
-          </div>
         </div>
       )}
+      <div className="pt-5 flex space-x-2">
+        <Button
+          className="ml-auto"
+          variant="danger"
+          outline
+          onClick={() => {
+            reset();
+            setShowModal(false);
+          }}
+        >
+          Cancel
+        </Button>
+        <Button onClick={validateAndAssign}>Save</Button>
+      </div>
     </div>
   );
 };
