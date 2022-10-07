@@ -1,0 +1,44 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🚪
+        uses: actions/checkout@v3
+
+      - name: Setup node 🍀
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
+
+      - name: Install 📦
+        uses: borales/actions-yarn@v3.0.0
+        with:
+          cmd: install
+
+      - name: GraphQL Codegen 🕸
+        uses: borales/actions-yarn@v3.0.0
+        with:
+          cmd: codegen
+
+      - name: Typecheck 🔡
+        uses: borales/actions-yarn@v3.0.0
+        with:
+          cmd: typecheck
+
+      - name: Lint 🪩
+        uses: borales/actions-yarn@v3.0.0
+        with:
+          cmd: lint
+
+      - name: Prettier ✨
+        uses: borales/actions-yarn@v3.0.0
+        with:
+          cmd: prettier:check
