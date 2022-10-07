@@ -41,7 +41,7 @@ const MessageTile = ({ message }: MessageTileProps): JSX.Element => {
         address === message.senderAddress ? 'items-end' : 'items-start'
       } mx-auto mb-4`}
     >
-      <div className="flex">
+      <div className="flex max-w-[60%]">
         {address !== message.senderAddress && (
           <img
             src={getAvatar(currentProfile)}
