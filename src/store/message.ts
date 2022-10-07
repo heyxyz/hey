@@ -8,8 +8,8 @@ interface MessageState {
   setConversations: (conversations: Map<string, Conversation>) => void;
   messages: Map<string, Message[]>;
   setMessages: (messages: Map<string, Message[]>) => void;
-  loading: boolean;
-  setLoading: (loading: boolean) => void;
+  loadingMessages: boolean;
+  setLoadingMessages: (loading: boolean) => void;
 }
 
 export const useMessageStore = create<MessageState>((set) => ({
@@ -19,6 +19,6 @@ export const useMessageStore = create<MessageState>((set) => ({
   setConversations: (conversations) => set(() => ({ conversations })),
   messages: new Map(),
   setMessages: (messages) => set(() => ({ messages })),
-  loading: false,
-  setLoading: (loading) => set(() => ({ loading }))
+  loadingMessages: false,
+  setLoadingMessages: (loadingMessages) => set(() => ({ loadingMessages }))
 }));
