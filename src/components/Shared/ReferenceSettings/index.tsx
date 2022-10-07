@@ -9,7 +9,7 @@ import { FC, Fragment, ReactNode } from 'react';
 import { useReferenceModuleStore } from 'src/store/referencemodule';
 import { PUBLICATION } from 'src/tracking';
 
-const SelectReferenceModule: FC = () => {
+const ReferenceSettings: FC = () => {
   const selectedReferenceModule = useReferenceModuleStore((state) => state.selectedReferenceModule);
   const setSelectedReferenceModule = useReferenceModuleStore((state) => state.setSelectedReferenceModule);
   const onlyFollowers = useReferenceModuleStore((state) => state.onlyFollowers);
@@ -130,4 +130,4 @@ const SelectReferenceModule: FC = () => {
   );
 };
 
-export default SelectReferenceModule;
+export default ReferenceSettings;
