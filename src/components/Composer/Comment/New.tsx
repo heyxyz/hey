@@ -11,6 +11,7 @@ import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
 import { LensterAttachment, LensterPublication } from '@generated/lenstertypes';
 import {
+  CollectModules,
   CreateCommentTypedDataDocument,
   CreateCommentViaDispatcherDocument,
   Mutation,
@@ -19,7 +20,6 @@ import {
 } from '@generated/types';
 import { IGif } from '@giphy/js-types';
 import { ChatAlt2Icon } from '@heroicons/react/outline';
-import { defaultFeeData, defaultModuleData, getModule } from '@lib/getModule';
 import getSignature from '@lib/getSignature';
 import getTags from '@lib/getTags';
 import getUserLocale from '@lib/getUserLocale';
@@ -77,8 +77,6 @@ const NewComment: FC<Props> = ({ publication }) => {
   // Collect module store
   const selectedCollectModule = useCollectModuleStore((state) => state.selectedCollectModule);
   const setSelectedCollectModule = useCollectModuleStore((state) => state.setSelectedCollectModule);
-  const feeData = useCollectModuleStore((state) => state.feeData);
-  const setFeeData = useCollectModuleStore((state) => state.setFeeData);
 
   // Reference module store
   const selectedReferenceModule = useReferenceModuleStore((state) => state.selectedReferenceModule);
@@ -94,8 +92,7 @@ const NewComment: FC<Props> = ({ publication }) => {
     setPreviewPublication(false);
     setPublicationContent('');
     setAttachments([]);
-    setSelectedCollectModule(defaultModuleData);
-    setFeeData(defaultFeeData);
+    setSelectedCollectModule(CollectModules.FreeCollectModule);
     Mixpanel.track(COMMENT.NEW);
   };
 
@@ -236,9 +233,10 @@ const NewComment: FC<Props> = ({ publication }) => {
       profileId: currentProfile?.id,
       publicationId: publication.__typename === 'Mirror' ? publication?.mirrorOf?.id : publication?.id,
       contentURI: `https://arweave.net/${id}`,
-      collectModule: feeData.recipient
-        ? { [getModule(selectedCollectModule.moduleName).config]: feeData }
-        : getModule(selectedCollectModule.moduleName).config,
+      collectModule: null,
+      // collectModule: feeData.recipient
+      //   ? { [getModule(selectedCollectModule.moduleName).config]: feeData }
+      //   : getModule(selectedCollectModule.moduleName).config,
       referenceModule:
         selectedReferenceModule === ReferenceModules.FollowerOnlyReferenceModule
           ? { followerOnlyReferenceModule: onlyFollowers ? true : false }
