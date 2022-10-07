@@ -1,6 +1,7 @@
 import MessagesList from '@components/Shared/MessagesList';
 import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
+import useGetMessages from '@components/utils/hooks/useGetMessages';
 import MetaTags from '@components/utils/MetaTags';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { useRouter } from 'next/router';
@@ -14,7 +15,9 @@ const Message: FC = () => {
   const router = useRouter();
   const address = router.query.address as string;
   const messageState = useMessageStore((state) => state);
-  const { messages, conversations } = messageState;
+  const { conversations } = messageState;
+  const selectedConversation = conversations.get(address);
+  const { messages } = useGetMessages(selectedConversation);
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   const onConversationSelected = (address: string) => {
