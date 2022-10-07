@@ -11,7 +11,6 @@ import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
 import { LensterAttachment, LensterPublication } from '@generated/lenstertypes';
 import {
-  CollectModules,
   CreateCommentTypedDataDocument,
   CreateCommentViaDispatcherDocument,
   Mutation,
@@ -75,8 +74,8 @@ const NewComment: FC<Props> = ({ publication }) => {
   const setTxnQueue = useTransactionPersistStore((state) => state.setTxnQueue);
 
   // Collect module store
-  const setSelectedCollectModule = useCollectModuleStore((state) => state.setSelectedCollectModule);
   const payload = useCollectModuleStore((state) => state.payload);
+  const resetCollectSettings = useCollectModuleStore((state) => state.reset);
 
   // Reference module store
   const selectedReferenceModule = useReferenceModuleStore((state) => state.selectedReferenceModule);
@@ -92,7 +91,7 @@ const NewComment: FC<Props> = ({ publication }) => {
     setPreviewPublication(false);
     setPublicationContent('');
     setAttachments([]);
-    setSelectedCollectModule(CollectModules.FreeCollectModule);
+    resetCollectSettings();
     Mixpanel.track(COMMENT.NEW);
   };
 

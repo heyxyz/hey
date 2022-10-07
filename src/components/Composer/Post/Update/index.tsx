@@ -9,7 +9,6 @@ import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
 import { LensterAttachment } from '@generated/lenstertypes';
 import {
-  CollectModules,
   CreatePostTypedDataDocument,
   CreatePostViaDispatcherDocument,
   Mutation,
@@ -73,7 +72,7 @@ const NewUpdate: FC = () => {
   const setTxnQueue = useTransactionPersistStore((state) => state.setTxnQueue);
 
   // Collect module store
-  const setSelectedCollectModule = useCollectModuleStore((state) => state.setSelectedCollectModule);
+  const resetCollectSettings = useCollectModuleStore((state) => state.reset);
   const payload = useCollectModuleStore((state) => state.payload);
 
   // Reference module store
@@ -92,7 +91,7 @@ const NewUpdate: FC = () => {
     setShowNewPostModal(false);
     setPublicationContent('');
     setAttachments([]);
-    setSelectedCollectModule(CollectModules.FreeCollectModule);
+    resetCollectSettings();
     Mixpanel.track(POST.NEW);
   };
 

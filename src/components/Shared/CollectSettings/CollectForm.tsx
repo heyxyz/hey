@@ -29,6 +29,7 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
   const hasTimeLimit = useCollectModuleStore((state) => state.hasTimeLimit);
   const setHasTimeLimit = useCollectModuleStore((state) => state.setHasTimeLimit);
   const setPayload = useCollectModuleStore((state) => state.setPayload);
+  const reset = useCollectModuleStore((state) => state.reset);
 
   const RevertCollectModule = CollectModules.RevertCollectModule;
   const FreeCollectModule = CollectModules.FreeCollectModule;
@@ -115,19 +116,11 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
     return <ErrorMessage className="p-5" title="Failed to load modules" error={error} />;
   }
 
-  const resetConfig = () => {
-    setSelectedCollectModule(RevertCollectModule);
-    setAmount(null);
-    setReferralFee(null);
-    setCollectLimit(null);
-    setHasTimeLimit(false);
-  };
-
   const toggleCollect = () => {
     if (selectedCollectModule === RevertCollectModule) {
       return setSelectedCollectModule(FreeCollectModule);
     } else {
-      return resetConfig();
+      return reset();
     }
   };
 
@@ -136,7 +129,7 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
   };
 
   const toggleLimitedFeeCollect = () => {
-    setCollectLimit(collectLimit ? null : '0');
+    setCollectLimit(collectLimit ? null : '1');
   };
 
   const toggleLimitedTimeFeeCollect = () => {
@@ -237,11 +230,11 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
                       label="Collect limit"
                       type="number"
                       placeholder="5"
-                      min="0"
+                      min="1"
                       max="100000"
                       value={parseFloat(collectLimit)}
                       onChange={(event) => {
-                        setCollectLimit(event.target.value ? event.target.value : '0');
+                        setCollectLimit(event.target.value ? event.target.value : '1');
                       }}
                     />
                   </div>
@@ -265,7 +258,7 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
               variant="danger"
               outline
               onClick={() => {
-                resetConfig();
+                reset();
                 setShowModal(false);
               }}
             >

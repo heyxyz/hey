@@ -17,6 +17,7 @@ interface CollectModuleState {
   setHasTimeLimit: (hasTimeLimit: boolean) => void;
   payload: any;
   setPayload: (payload: any) => void;
+  reset: () => void;
 }
 
 export const useCollectModuleStore = create<CollectModuleState>((set) => ({
@@ -37,5 +38,19 @@ export const useCollectModuleStore = create<CollectModuleState>((set) => ({
       followerOnly: true
     }
   },
-  setPayload: (payload) => set(() => ({ payload }))
+  setPayload: (payload) => set(() => ({ payload })),
+  reset: () =>
+    set(() => ({
+      selectedCollectModule: CollectModules.FreeCollectModule,
+      amount: null,
+      selectedCurrency: DEFAULT_COLLECT_TOKEN,
+      referralFee: null,
+      collectLimit: null,
+      hasTimeLimit: false,
+      payload: {
+        freeCollectModule: {
+          followerOnly: true
+        }
+      }
+    }))
 }));
