@@ -23,7 +23,7 @@ const CollectSettings: FC = () => {
           type="button"
           onClick={() => {
             setShowModal(!showModal);
-            Mixpanel.track(PUBLICATION.NEW.COLLECT_MODULE.OPEN_COLLECT_CONFIG);
+            Mixpanel.track(PUBLICATION.NEW.COLLECT_MODULE.OPEN_COLLECT_SETTINGS);
           }}
           aria-label="Choose Collect Module"
         >

@@ -56,7 +56,7 @@ const AllowanceButton: FC<Props> = ({ title = 'Allow', module, allowed, setAllow
         request: {
           currency: currencies,
           value: value,
-          [getModule(module.module).type]: selectedModule
+          [getModule(module.module).field]: selectedModule
         }
       }
     }).then((res) => {

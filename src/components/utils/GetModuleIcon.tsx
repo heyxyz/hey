@@ -1,4 +1,4 @@
-import { CollectModules, ReferenceModules } from '@generated/types';
+import { CollectModules, FollowModules, ReferenceModules } from '@generated/types';
 import {
   CashIcon,
   ClockIcon,
@@ -6,7 +6,7 @@ import {
   PlusCircleIcon,
   ReceiptRefundIcon,
   ShareIcon,
-  StopIcon
+  StarIcon
 } from '@heroicons/react/outline';
 import { FC } from 'react';
 
@@ -19,17 +19,17 @@ const GetModuleIcon: FC<Props> = ({ module, size }) => {
   switch (module) {
     case CollectModules.FeeCollectModule:
       return <CashIcon className={`h-${size}`} />;
-    case 'LimitedFeeCollectModule':
+    case CollectModules.LimitedFeeCollectModule:
       return (
         <div className="flex gap-1 items-center">
-          <StopIcon className={`h-${size}`} />
+          <StarIcon className={`h-${size}`} />
           <CashIcon className={`h-${size}`} />
         </div>
       );
     case CollectModules.LimitedTimedFeeCollectModule:
       return (
         <div className="flex gap-1 items-center">
-          <StopIcon className={`h-${size}`} />
+          <StarIcon className={`h-${size}`} />
           <ClockIcon className={`h-${size}`} />
           <CashIcon className={`h-${size}`} />
         </div>
@@ -43,9 +43,9 @@ const GetModuleIcon: FC<Props> = ({ module, size }) => {
       );
     case CollectModules.RevertCollectModule:
       return <ReceiptRefundIcon className={`h-${size}`} />;
-    case 'FreeCollectModule':
+    case CollectModules.FreeCollectModule:
       return <DocumentAddIcon className={`h-${size}`} />;
-    case 'FeeFollowModule':
+    case FollowModules.FeeFollowModule:
       return (
         <div className="flex gap-1 items-center">
           <CashIcon className={`h-${size}`} />
