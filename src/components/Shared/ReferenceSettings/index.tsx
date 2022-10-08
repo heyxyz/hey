@@ -58,7 +58,7 @@ const ReferenceSettings: FC = () => {
             as={motion.button}
             whileTap={{ scale: 0.9 }}
             onClick={() => {
-              Mixpanel.track(PUBLICATION.NEW.REFERENCE_MODULE.OPEN_REFERENCE_CONFIG);
+              Mixpanel.track(PUBLICATION.NEW.REFERENCE_MODULE.OPEN_REFERENCE_SETTINGS);
             }}
           >
             <div className="text-brand">
