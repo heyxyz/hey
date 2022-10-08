@@ -33,11 +33,7 @@ export const useCollectModuleStore = create<CollectModuleState>((set) => ({
   setCollectLimit: (collectLimit) => set(() => ({ collectLimit })),
   hasTimeLimit: false,
   setHasTimeLimit: (hasTimeLimit) => set(() => ({ hasTimeLimit })),
-  payload: {
-    freeCollectModule: {
-      followerOnly: true
-    }
-  },
+  payload: { freeCollectModule: { followerOnly: false } },
   setPayload: (payload) => set(() => ({ payload })),
   reset: () =>
     set(() => ({
@@ -47,10 +43,6 @@ export const useCollectModuleStore = create<CollectModuleState>((set) => ({
       referralFee: null,
       collectLimit: null,
       hasTimeLimit: false,
-      payload: {
-        freeCollectModule: {
-          followerOnly: true
-        }
-      }
+      payload: { freeCollectModule: { followerOnly: false } }
     }))
 }));
