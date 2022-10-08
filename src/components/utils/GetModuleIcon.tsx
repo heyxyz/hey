@@ -19,7 +19,7 @@ const GetModuleIcon: FC<Props> = ({ module, size }) => {
   switch (module) {
     case CollectModules.FeeCollectModule:
       return <CashIcon className={`h-${size}`} />;
-    case 'LimitedFeeCollectModule':
+    case CollectModules.LimitedFeeCollectModule:
       return (
         <div className="flex gap-1 items-center">
           <StopIcon className={`h-${size}`} />
