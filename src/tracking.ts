@@ -46,14 +46,14 @@ export const PUBLICATION = {
     MARKDOWN_PREVIEW: 'Preview markdown',
     OPEN_GIF: 'Open GIF modal',
     COLLECT_MODULE: {
-      OPEN_COLLECT_CONFIG: 'Open collect module config',
-      BACK_FEE_ENTRY: 'Back from fee entry'
+      OPEN_COLLECT_CONFIG: 'Open collect module config'
     },
     REFERENCE_MODULE: {
-      OPEN_COLLECT_CONFIG: 'Open reference modal',
+      OPEN_REFERENCE_CONFIG: 'Open reference config',
       EVERYONE: 'Select everyone reference',
-      ONLY_FOLLOWERS: 'Select only followers reference',
-      DEGREES: 'Select degrees reference'
+      MY_FOLLOWERS: 'Select my followers reference',
+      MY_FOLLOWS: 'Select my follows reference',
+      FRIENDS_OF_FRIENDS: 'Select friends of friends reference'
     }
   }
 };

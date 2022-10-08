@@ -4,6 +4,7 @@ import Footer from '@components/Shared/Footer';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import MetaTags from '@components/utils/MetaTags';
 import { PublicationSortCriteria } from '@generated/types';
+import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { Mixpanel } from '@lib/mixpanel';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
@@ -41,7 +42,7 @@ const Explore: NextPage = () => {
         <Feed feedType={feedType as PublicationSortCriteria} />
       </GridItemEight>
       <GridItemFour>
-        <Trending />
+        {isFeatureEnabled('trending-widget', currentProfile?.id) && <Trending />}
         {currentProfile ? <RecommendedProfiles /> : null}
         <Footer />
       </GridItemFour>

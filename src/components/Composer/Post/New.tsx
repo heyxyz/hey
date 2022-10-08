@@ -16,6 +16,8 @@ import { usePublicationStore } from 'src/store/publication';
 
 import NewUpdate from './Update';
 
+type Action = 'update' | 'image' | 'video' | 'audio' | 'article';
+
 interface ActionProps {
   icon: ReactNode;
   text: string;
@@ -29,8 +31,6 @@ const Action: FC<ActionProps> = ({ icon, text, onClick }) => (
     </button>
   </Tooltip>
 );
-
-type Action = 'update' | 'image' | 'video' | 'audio' | 'article';
 
 const NewPost: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -83,8 +83,7 @@ const NewPost: FC = () => {
           </div>
         )}
         <Modal
-          title="Create new post"
-          icon={<PencilAltIcon className="w-5 h-5 text-brand" />}
+          title="Create post"
           size="md"
           show={showNewPostModal}
           onClose={() => setShowNewPostModal(false)}

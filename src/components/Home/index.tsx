@@ -4,6 +4,7 @@ import BetaWarning from '@components/Home/BetaWarning';
 import Footer from '@components/Shared/Footer';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import MetaTags from '@components/utils/MetaTags';
+import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { Mixpanel } from '@lib/mixpanel';
 import { NextPage } from 'next';
 import { useEffect } from 'react';
@@ -43,7 +44,7 @@ const Home: NextPage = () => {
         <GridItemFour>
           {currentProfile ? <EnableDispatcher /> : null}
           <BetaWarning />
-          <Trending />
+          {isFeatureEnabled('trending-widget', currentProfile?.id) && <Trending />}
           {currentProfile ? (
             <>
               <SetDefaultProfile />

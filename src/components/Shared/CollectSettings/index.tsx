@@ -9,15 +9,15 @@ import { FC, useState } from 'react';
 import { useCollectModuleStore } from 'src/store/collectmodule';
 import { PUBLICATION } from 'src/tracking';
 
-import Modules from './Modules';
+import CollectForm from './CollectForm';
 
-const SelectCollectModule: FC = () => {
+const CollectSettings: FC = () => {
   const selectedCollectModule = useCollectModuleStore((state) => state.selectedCollectModule);
   const [showModal, setShowModal] = useState(false);
 
   return (
     <>
-      <Tooltip placement="top" content={getModule(selectedCollectModule.moduleName).name}>
+      <Tooltip placement="top" content={getModule(selectedCollectModule).name}>
         <motion.button
           whileTap={{ scale: 0.9 }}
           type="button"
@@ -28,20 +28,20 @@ const SelectCollectModule: FC = () => {
           aria-label="Choose Collect Module"
         >
           <div className="text-brand">
-            <GetModuleIcon module={selectedCollectModule.moduleName} size={5} />
+            <GetModuleIcon module={selectedCollectModule} size={5} />
           </div>
         </motion.button>
       </Tooltip>
       <Modal
-        title="Select collect module"
+        title="Collect settings"
         icon={<CashIcon className="w-5 h-5 text-brand" />}
         show={showModal}
         onClose={() => setShowModal(false)}
       >
-        <Modules setShowModal={setShowModal} />
+        <CollectForm setShowModal={setShowModal} />
       </Modal>
     </>
   );
 };
 
-export default SelectCollectModule;
+export default CollectSettings;

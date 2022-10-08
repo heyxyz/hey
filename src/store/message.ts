@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { Client, Conversation, Message } from '@xmtp/xmtp-js';
 import create from 'zustand';
 
