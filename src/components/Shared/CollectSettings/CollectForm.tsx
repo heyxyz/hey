@@ -137,10 +137,6 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
     setHasTimeLimit(!hasTimeLimit);
   };
 
-  const validateAndAssign = () => {
-    setShowModal(false);
-  };
-
   return (
     <div className="p-5 space-y-3">
       <div className="flex items-center space-x-2">
@@ -267,7 +263,7 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
         >
           Cancel
         </Button>
-        <Button onClick={validateAndAssign}>Save</Button>
+        <Button onClick={() => setShowModal(false)}>Save</Button>
       </div>
     </div>
   );
