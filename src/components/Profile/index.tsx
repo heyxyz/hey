@@ -30,14 +30,19 @@ const ViewProfile: NextPage = () => {
       : 'FEED'
   );
 
-  useEffect(() => {
-    Mixpanel.track('Pageview', { path: PAGEVIEW.PROFILE });
-  }, []);
-
   const { data, loading, error } = useQuery(ProfileDocument, {
     variables: { request: { handle: username }, who: currentProfile?.id ?? null },
     skip: !username
   });
+
+  useEffect(() => {
+    if (data?.profile?.id) {
+      Mixpanel.track('Pageview', {
+        path: PAGEVIEW.PROFILE,
+        id: data.profile.id
+      });
+    }
+  }, [data]);
 
   if (error) {
     return <Custom500 />;
