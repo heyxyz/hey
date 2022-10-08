@@ -26,7 +26,7 @@
     "@tippyjs/react": "^4.2.6",
     "@types/react-mentions": "^4.1.6",
     "@xmtp/xmtp-js": "^6.8.0",
-    "axios": "^1.1.0",
+    "axios": "^1.1.2",
     "clsx": "^1.2.1",
     "dayjs": "^1.11.5",
     "dotenv": "^16.0.3",
