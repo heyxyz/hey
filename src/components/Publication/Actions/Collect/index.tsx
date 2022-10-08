@@ -3,6 +3,7 @@ import { Modal } from '@components/UI/Modal';
 import { Tooltip } from '@components/UI/Tooltip';
 import GetModuleIcon from '@components/utils/GetModuleIcon';
 import { LensterPublication } from '@generated/lenstertypes';
+import { CollectModules } from '@generated/types';
 import { CollectionIcon } from '@heroicons/react/outline';
 import { CollectionIcon as CollectionIconSolid } from '@heroicons/react/solid';
 import { getModule } from '@lib/getModule';
@@ -76,7 +77,7 @@ const Collect: FC<Props> = ({ publication, isFullPublication }) => {
         icon={
           <div className="text-brand">
             <GetModuleIcon
-              module={isFreeCollect ? 'FreeCollectModule' : publication?.collectModule?.type}
+              module={isFreeCollect ? CollectModules.FreeCollectModule : publication?.collectModule?.type}
               size={5}
             />
           </div>

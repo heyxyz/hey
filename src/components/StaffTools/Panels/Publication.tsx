@@ -3,7 +3,6 @@ import { LensterPublication } from '@generated/lenstertypes';
 import { CollectionIcon, GlobeAltIcon, HashtagIcon, LinkIcon } from '@heroicons/react/outline';
 import { ShieldCheckIcon } from '@heroicons/react/solid';
 import getIPFSLink from '@lib/getIPFSLink';
-import { getModule } from '@lib/getModule';
 import { FC } from 'react';
 
 import MetaDetails from './MetaDetails';
@@ -41,7 +40,7 @@ const PublicationStaffTool: FC<Props> = ({ publication }) => {
           value={publication?.commentOn?.id}
           title="Collect module"
         >
-          {getModule(publication?.collectModule?.type).name}
+          {publication?.collectModule?.type}
         </MetaDetails>
         <MetaDetails
           icon={<GlobeAltIcon className="w-4 h-4 text-gray-500" />}

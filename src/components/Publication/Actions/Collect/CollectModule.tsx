@@ -18,6 +18,7 @@ import { LensterPublication } from '@generated/lenstertypes';
 import {
   ApprovedModuleAllowanceAmountDocument,
   CollectModuleDocument,
+  CollectModules,
   CreateCollectTypedDataDocument,
   Mutation,
   ProxyActionDocument,
@@ -189,7 +190,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
       return toast.error(SIGN_WALLET);
     }
 
-    if (collectModule?.type === 'FreeCollectModule') {
+    if (collectModule?.type === CollectModules.FreeCollectModule) {
       createCollectProxyAction({
         variables: {
           request: { collect: { freeCollect: { publicationId: publication?.id } } }
@@ -213,8 +214,8 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
 
   return (
     <>
-      {(collectModule?.type === 'LimitedFeeCollectModule' ||
-        collectModule?.type === 'LimitedTimedFeeCollectModule') && (
+      {(collectModule?.type === CollectModules.LimitedFeeCollectModule ||
+        collectModule?.type === CollectModules.LimitedTimedFeeCollectModule) && (
         <Tooltip placement="top" content={`${percentageCollected.toFixed(0)}% Collected`}>
           <div className="w-full h-2.5 bg-gray-200 dark:bg-gray-700">
             <div className="h-2.5 bg-brand-500" style={{ width: `${percentageCollected}%` }} />
@@ -383,7 +384,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
         {currentProfile && !hasCollectedByMe ? (
           allowanceLoading || balanceLoading ? (
             <div className="mt-5 w-28 rounded-lg h-[34px] shimmer" />
-          ) : allowed || collectModule.type === 'FreeCollectModule' ? (
+          ) : allowed || collectModule.type === CollectModules.FreeCollectModule ? (
             hasAmount ? (
               <Button
                 className="mt-5"
