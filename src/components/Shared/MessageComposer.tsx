@@ -16,21 +16,16 @@ const MessageComposer: FC<Props> = ({ sendMessage }) => {
   };
 
   return (
-    <div className="flex p-4">
+    <div className="flex space-x-4 p-4">
       <Input
-        value={message}
-        onChange={(e) => setMessage(e.target.value)}
         type="text"
         placeholder="Type Something"
+        value={message}
+        onChange={(event) => setMessage(event.target.value)}
       />
-      <Button
-        onClick={handleSend}
-        className="text-md ml-2 !px-4 !py-1.5 min-w-max"
-        variant="primary"
-        aria-label="Send message"
-      >
+      <Button onClick={handleSend} variant="primary" aria-label="Send message">
         <div className="flex items-center">
-          Send
+          <span>Send</span>
           <ArrowRightIcon className="h-5 w-5 ml-2" />
         </div>
       </Button>

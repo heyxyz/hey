@@ -14,17 +14,17 @@ import { useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
 
 const Message: FC = () => {
-  const router = useRouter();
-  const address = router.query.address as string;
+  const { push, query } = useRouter();
+  const address = query.address as string;
+  const currentProfile = useAppStore((state) => state.currentProfile);
   const messageState = useMessageStore((state) => state);
   const { conversations } = messageState;
   const selectedConversation = conversations.get(address);
   const { messages } = useGetMessages(selectedConversation);
   const { sendMessage } = useStreamMessages(selectedConversation);
-  const currentProfile = useAppStore((state) => state.currentProfile);
 
   const onConversationSelected = (address: string) => {
-    router.push(address ? `/messages/${address}` : '/messages/');
+    push(address ? `/messages/${address}` : '/messages/');
   };
 
   if (!isFeatureEnabled('messages', currentProfile?.id)) {
@@ -33,7 +33,7 @@ const Message: FC = () => {
 
   return (
     <GridLayout>
-      <MetaTags title={`Conversation • ${APP_NAME}`} />
+      <MetaTags title={`Message • ${APP_NAME}`} />
       <GridItemFour>
         <Card className="h-[86vh] px-2 pt-3">
           <div className="flex justify-between">
