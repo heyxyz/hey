@@ -1,45 +1,39 @@
 import getAvatar from '@lib/getAvatar';
 import { Message } from '@xmtp/xmtp-js';
-import React, { ReactNode } from 'react';
+import clsx from 'clsx';
+import dayjs from 'dayjs';
+import React, { FC, ReactNode } from 'react';
 import { useAppStore } from 'src/store/app';
-
-export type MessageListProps = {
+interface MessageListProps {
   messages: Message[];
-};
+}
 
-type MessageTileProps = {
+interface MessageTileProps {
   message: Message;
-};
+}
 
 interface Props {
   children: ReactNode;
 }
 
-const formatTime = (d: Date | undefined): string =>
-  d
-    ? `${d.toLocaleTimeString(undefined, {
-        hour12: true,
-        hour: 'numeric',
-        minute: '2-digit'
-      })} - ${d.toLocaleDateString()}`
-    : '';
+const formatTime = (d: Date | undefined): string => (d ? dayjs(d).format('hh:mm a - MM/DD/YY') : '');
 
 const isOnSameDay = (d1?: Date, d2?: Date): boolean => {
   return d1?.toDateString() === d2?.toDateString();
 };
 
-const formatDate = (d?: Date) =>
-  d?.toLocaleString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+const formatDate = (d?: Date) => dayjs(d).format('MMMM D, YYYY');
 
-const MessageTile = ({ message }: MessageTileProps): JSX.Element => {
+const MessageTile: FC<MessageTileProps> = ({ message }): JSX.Element => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const address = currentProfile?.ownedBy;
 
   return (
     <div
-      className={`flex flex-col ${
-        address === message.senderAddress ? 'items-end' : 'items-start'
-      } mx-auto mb-4`}
+      className={clsx(
+        address === message.senderAddress ? 'items-end' : 'items-start',
+        'flex flex-col  mx-auto mb-4'
+      )}
     >
       <div className="flex max-w-[60%]">
         {address !== message.senderAddress && (
@@ -55,15 +49,16 @@ const MessageTile = ({ message }: MessageTileProps): JSX.Element => {
           } `}
         >
           <span
-            className={`block text-md font-normal ${
-              address === message.senderAddress ? 'text-white' : 'text-black'
-            } `}
+            className={clsx(
+              address === message.senderAddress ? 'text-white' : 'text-black',
+              'block text-md font-normal'
+            )}
           >
             {message.error ? `Error: ${message.error?.message}` : message.content ?? ''}
           </span>
         </div>
       </div>
-      <div className={`${address !== message.senderAddress ? 'ml-12' : ''}`}>
+      <div className={clsx(address !== message.senderAddress ? 'ml-12' : '')}>
         <span className="text-xs font-normal place-self-end text-gray-400 uppercase">
           {formatTime(message.sent)}
         </span>
@@ -72,7 +67,7 @@ const MessageTile = ({ message }: MessageTileProps): JSX.Element => {
   );
 };
 
-const DateDividerBorder: React.FC<Props> = ({ children }) => (
+const DateDividerBorder: FC<Props> = ({ children }) => (
   <>
     <div className="grow h-0.5 bg-gray-300/25" />
     {children}
@@ -94,7 +89,7 @@ const ConversationBeginningNotice = (): JSX.Element => (
   </div>
 );
 
-const MessagesList = ({ messages }: MessageListProps): JSX.Element => {
+const MessagesList: FC<MessageListProps> = ({ messages }): JSX.Element => {
   let lastMessageDate: Date | undefined;
 
   return (

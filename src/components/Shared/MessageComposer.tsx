@@ -4,7 +4,6 @@ import { ArrowRightIcon } from '@heroicons/react/outline';
 import { FC, useState } from 'react';
 
 interface Props {
-  // eslint-disable-next-line no-unused-vars
   sendMessage: (message: string) => void;
 }
 
@@ -27,7 +26,7 @@ const MessageComposer: FC<Props> = ({ sendMessage }) => {
       <Button
         onClick={handleSend}
         className="text-md ml-2 !px-4 !py-1.5 min-w-max"
-        variant="success"
+        variant="primary"
         aria-label="Send message"
       >
         <div className="flex items-center">
