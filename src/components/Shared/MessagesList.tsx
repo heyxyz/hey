@@ -2,19 +2,8 @@ import getAvatar from '@lib/getAvatar';
 import { Message } from '@xmtp/xmtp-js';
 import clsx from 'clsx';
 import dayjs from 'dayjs';
-import React, { FC, ReactNode } from 'react';
+import React, { FC, memo, ReactNode } from 'react';
 import { useAppStore } from 'src/store/app';
-interface MessageListProps {
-  messages: Message[];
-}
-
-interface MessageTileProps {
-  message: Message;
-}
-
-interface Props {
-  children: ReactNode;
-}
 
 const formatTime = (d: Date | undefined): string => (d ? dayjs(d).format('hh:mm a - MM/DD/YY') : '');
 
@@ -24,7 +13,11 @@ const isOnSameDay = (d1?: Date, d2?: Date): boolean => {
 
 const formatDate = (d?: Date) => dayjs(d).format('MMMM D, YYYY');
 
-const MessageTile: FC<MessageTileProps> = ({ message }): JSX.Element => {
+interface MessageTileProps {
+  message: Message;
+}
+
+const MessageTile: FC<MessageTileProps> = ({ message }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const address = currentProfile?.ownedBy;
 
@@ -32,7 +25,7 @@ const MessageTile: FC<MessageTileProps> = ({ message }): JSX.Element => {
     <div
       className={clsx(
         address === message.senderAddress ? 'items-end' : 'items-start',
-        'flex flex-col  mx-auto mb-4'
+        'flex flex-col mx-auto mb-4'
       )}
     >
       <div className="flex max-w-[60%]">
@@ -44,9 +37,10 @@ const MessageTile: FC<MessageTileProps> = ({ message }): JSX.Element => {
           />
         )}
         <div
-          className={`px-4 py-2 rounded-lg ${
-            address === message.senderAddress ? 'bg-brand-500' : 'bg-gray-100'
-          } `}
+          className={clsx(
+            address === message.senderAddress ? 'bg-brand-500' : 'bg-gray-100',
+            'px-4 py-2 rounded-lg'
+          )}
         >
           <span
             className={clsx(
@@ -67,6 +61,10 @@ const MessageTile: FC<MessageTileProps> = ({ message }): JSX.Element => {
   );
 };
 
+interface Props {
+  children: ReactNode;
+}
+
 const DateDividerBorder: FC<Props> = ({ children }) => (
   <>
     <div className="grow h-0.5 bg-gray-300/25" />
@@ -75,7 +73,7 @@ const DateDividerBorder: FC<Props> = ({ children }) => (
   </>
 );
 
-const DateDivider = ({ date }: { date?: Date }): JSX.Element => (
+const DateDivider: FC<{ date?: Date }> = ({ date }) => (
   <div className="flex align-items-center items-center pb-8 pt-4">
     <DateDividerBorder>
       <span className="mx-11 flex-none text-gray-300 text-sm font-bold">{formatDate(date)}</span>
@@ -83,13 +81,17 @@ const DateDivider = ({ date }: { date?: Date }): JSX.Element => (
   </div>
 );
 
-const ConversationBeginningNotice = (): JSX.Element => (
+const ConversationBeginningNotice: FC = () => (
   <div className="flex align-items-center justify-center pb-4">
     <span className="text-gray-300 text-sm font-semibold">This is the beginning of the conversation</span>
   </div>
 );
 
-const MessagesList: FC<MessageListProps> = ({ messages }): JSX.Element => {
+interface MessageListProps {
+  messages: Message[];
+}
+
+const MessagesList: FC<MessageListProps> = ({ messages }) => {
   let lastMessageDate: Date | undefined;
 
   return (
@@ -115,4 +117,4 @@ const MessagesList: FC<MessageListProps> = ({ messages }): JSX.Element => {
   );
 };
 
-export default React.memo(MessagesList);
+export default memo(MessagesList);
