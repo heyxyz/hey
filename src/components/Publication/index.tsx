@@ -27,10 +27,6 @@ const ViewPublication: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const { allowed: staffMode } = useStaffMode();
 
-  useEffect(() => {
-    Mixpanel.track('Pageview', { path: PAGEVIEW.PUBLICATION });
-  }, []);
-
   const {
     query: { id }
   } = useRouter();
@@ -43,6 +39,15 @@ const ViewPublication: NextPage = () => {
     },
     skip: !id
   });
+
+  useEffect(() => {
+    if (data?.publication?.id) {
+      Mixpanel.track('Pageview', {
+        path: PAGEVIEW.PUBLICATION,
+        id: data.publication.id
+      });
+    }
+  }, [data]);
 
   if (error) {
     return <Custom500 />;
