@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/client';
-import { Profile, UserProfilesDocument } from '@generated/types';
+import { Profile, ReferenceModules, UserProfilesDocument } from '@generated/types';
 import getIsAuthTokensAvailable from '@lib/getIsAuthTokensAvailable';
 import getToastOptions from '@lib/getToastOptions';
 import resetAuthData from '@lib/resetAuthData';
@@ -10,6 +10,7 @@ import { FC, ReactNode, useEffect } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { CHAIN_ID, MIXPANEL_API_HOST, MIXPANEL_TOKEN } from 'src/constants';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
+import { useReferenceModuleStore } from 'src/store/referencemodule';
 import { useAccount, useDisconnect, useNetwork } from 'wagmi';
 
 import Loading from './Loading';
@@ -37,6 +38,7 @@ const Layout: FC<Props> = ({ children }) => {
   const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
   const profileId = useAppPersistStore((state) => state.profileId);
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
+  const setSelectedReferenceModule = useReferenceModuleStore((state) => state.setSelectedReferenceModule);
 
   const { mounted } = useIsMounted();
   const { address, isDisconnected } = useAccount();
@@ -63,6 +65,12 @@ const Layout: FC<Props> = ({ children }) => {
       }
 
       const selectedUser = profiles.find((profile) => profile.id === profileId);
+      const totalFollowing = selectedUser?.stats?.totalFollowing || 0;
+      setSelectedReferenceModule(
+        totalFollowing > 20
+          ? ReferenceModules.DegreesOfSeparationReferenceModule
+          : ReferenceModules.FollowerOnlyReferenceModule
+      );
       setProfiles(profiles as Profile[]);
       setCurrentProfile(selectedUser as Profile);
       setUserSigNonce(data?.userSigNonces?.lensHubOnChainSigNonce);
