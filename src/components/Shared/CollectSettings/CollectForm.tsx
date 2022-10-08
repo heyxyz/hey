@@ -125,18 +125,6 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
     }
   };
 
-  const toggleFeeCollect = () => {
-    setAmount(amount ? null : '0');
-  };
-
-  const toggleLimitedFeeCollect = () => {
-    setCollectLimit(collectLimit ? null : '1');
-  };
-
-  const toggleLimitedTimeFeeCollect = () => {
-    setHasTimeLimit(!hasTimeLimit);
-  };
-
   return (
     <div className="p-5 space-y-3">
       <div className="flex items-center space-x-2">
@@ -151,7 +139,7 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
               <span>Charge for collecting</span>
             </div>
             <div className="flex items-center space-x-2">
-              <Toggle on={!!amount} setOn={toggleFeeCollect} />
+              <Toggle on={!!amount} setOn={() => setAmount(amount ? null : '0')} />
               <div className="text-gray-500 text-sm font-bold">
                 Get paid whenever someone collects your post
               </div>
@@ -218,7 +206,7 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
                   <span>Limited edition</span>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <Toggle on={!!collectLimit} setOn={toggleLimitedFeeCollect} />
+                  <Toggle on={!!collectLimit} setOn={() => setCollectLimit(collectLimit ? null : '1')} />
                   <div className="text-gray-500 text-sm font-bold">Make the collects exlusive</div>
                 </div>
                 {collectLimit ? (
@@ -243,7 +231,7 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
                   <span>Time limit</span>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <Toggle on={hasTimeLimit} setOn={toggleLimitedTimeFeeCollect} />
+                  <Toggle on={hasTimeLimit} setOn={() => setHasTimeLimit(!hasTimeLimit)} />
                   <div className="text-gray-500 text-sm font-bold">Limit collecting to the first 24h</div>
                 </div>
               </div>
