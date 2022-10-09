@@ -35,7 +35,8 @@
     "unicorn/no-for-loop": "error",
     "unicorn/no-lonely-if": "error",
     "unicorn/no-useless-undefined": "error",
-    "unicorn/prefer-array-find": "error"
+    "unicorn/prefer-array-find": "error",
+    "@typescript-eslint/consistent-indexed-object-style": "error"
   },
   "ignorePatterns": ["/src/generated/types.ts"]
 }

@@ -13,7 +13,7 @@ interface Props {
 }
 
 const GifSelector: FC<Props> = ({ setShowModal, setGifAttachment }) => {
-  const [categories, setCategories] = useState<Array<ICategory>>([]);
+  const [categories, setCategories] = useState<ICategory[]>([]);
   const [debouncedGifInput, setDebouncedGifInput] = useState('');
   const [searchText, setSearchText] = useState('');
 
