@@ -13,10 +13,11 @@ const Video = dynamic(() => import('./Video'), {
   loading: () => <div className="rounded-lg aspect-w-16 aspect-h-12 shimmer" />
 });
 
-const getClass = (attachments: number) => {
+const getClass = (attachments: number, isNew = false) => {
+  console.log(isNew);
   if (attachments === 1) {
     return {
-      aspect: '',
+      aspect: isNew ? 'aspect-w-16 aspect-h-12' : '',
       row: 'grid-cols-1 grid-rows-1 w-2/3'
     };
   } else if (attachments === 2) {
@@ -66,7 +67,7 @@ const Attachments: FC<Props> = ({ attachments, setAttachments, isNew = false, hi
 
           return (
             <div
-              className={clsx(type === 'video/mp4' ? '' : getClass(slicedAttachments?.length)?.aspect)}
+              className={clsx(type === 'video/mp4' ? '' : getClass(slicedAttachments?.length, isNew)?.aspect)}
               key={url}
               onClick={(event) => {
                 event.stopPropagation();

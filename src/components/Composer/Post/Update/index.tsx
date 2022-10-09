@@ -302,7 +302,9 @@ const NewUpdate: FC = () => {
           </Button>
         </div>
       </div>
-      <Attachments attachments={attachments} setAttachments={setAttachments} isNew />
+      <div className="px-5">
+        <Attachments attachments={attachments} setAttachments={setAttachments} isNew />
+      </div>
     </div>
   );
 };

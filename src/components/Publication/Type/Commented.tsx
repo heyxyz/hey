@@ -12,10 +12,10 @@ const Commented: FC<Props> = ({ publication }) => {
   const mainPost = commentOn?.mainPost;
 
   return (
-    <div>
+    <>
       {mainPost ? <ThreadBody publication={mainPost} /> : null}
       <ThreadBody publication={commentOn} />
-    </div>
+    </>
   );
 };
 
