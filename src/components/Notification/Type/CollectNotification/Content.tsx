@@ -9,11 +9,12 @@ interface Props {
 
 const CollectedContent: FC<Props> = ({ notification }) => {
   return (
-    <div className="text-gray-500 line-clamp-2 mt-2">
-      <Link href={`/posts/${notification?.collectedPublication?.id}`} className="linkify">
-        <Markup>{notification?.collectedPublication?.metadata?.content}</Markup>
-      </Link>
-    </div>
+    <Link
+      href={`/posts/${notification?.collectedPublication?.id}`}
+      className="linkify text-gray-500 line-clamp-2 mt-2"
+    >
+      <Markup>{notification?.collectedPublication?.metadata?.content}</Markup>
+    </Link>
   );
 };
 

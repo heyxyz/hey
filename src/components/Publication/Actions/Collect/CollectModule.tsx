@@ -247,9 +247,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
             )}
           </div>
           {publication?.metadata?.description && (
-            <div className="text-gray-500 line-clamp-2">
-              <Markup>{publication?.metadata?.description}</Markup>
-            </div>
+            <Markup className="text-gray-500 line-clamp-2">{publication?.metadata?.description}</Markup>
           )}
           <ReferralAlert mirror={publication} referralFee={collectModule?.referralFee} />
         </div>
