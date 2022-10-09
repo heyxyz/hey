@@ -150,8 +150,8 @@ const Mirror: FC<Props> = ({ publication, isFullPublication }) => {
 
   return (
     <motion.button whileTap={{ scale: 0.9 }} onClick={createMirror} disabled={isLoading} aria-label="Mirror">
-      <div className={clsx(mirrored ? 'text-green-500' : 'text-brand', 'flex items-center space-x-1')}>
-        <div
+      <span className={clsx(mirrored ? 'text-green-500' : 'text-brand', 'flex items-center space-x-1')}>
+        <span
           className={clsx(
             mirrored ? 'hover:bg-green-300' : 'hover:bg-brand-300',
             'p-1.5 rounded-full hover:bg-opacity-20'
@@ -164,9 +164,11 @@ const Mirror: FC<Props> = ({ publication, isFullPublication }) => {
               <SwitchHorizontalIcon className={iconClassName} />
             </Tooltip>
           )}
-        </div>
-        {count > 0 && !isFullPublication && <div className="text-[11px] sm:text-xs">{nFormatter(count)}</div>}
-      </div>
+        </span>
+        {count > 0 && !isFullPublication && (
+          <span className="text-[11px] sm:text-xs">{nFormatter(count)}</span>
+        )}
+      </span>
     </motion.button>
   );
 };

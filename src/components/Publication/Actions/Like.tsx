@@ -97,14 +97,16 @@ const Like: FC<Props> = ({ publication, isFullPublication }) => {
 
   return (
     <motion.button whileTap={{ scale: 0.9 }} onClick={createLike} aria-label="Like">
-      <div className="flex items-center space-x-1 text-pink-500">
-        <div className="p-1.5 rounded-full hover:bg-pink-300 hover:bg-opacity-20">
+      <span className="flex items-center space-x-1 text-pink-500">
+        <span className="p-1.5 rounded-full hover:bg-pink-300 hover:bg-opacity-20">
           <Tooltip placement="top" content={liked ? 'Unlike' : 'Like'} withDelay>
             {liked ? <HeartIconSolid className={iconClassName} /> : <HeartIcon className={iconClassName} />}
           </Tooltip>
-        </div>
-        {count > 0 && !isFullPublication && <div className="text-[11px] sm:text-xs">{nFormatter(count)}</div>}
-      </div>
+        </span>
+        {count > 0 && !isFullPublication && (
+          <span className="text-[11px] sm:text-xs">{nFormatter(count)}</span>
+        )}
+      </span>
     </motion.button>
   );
 };
