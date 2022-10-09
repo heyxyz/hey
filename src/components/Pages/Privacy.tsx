@@ -1,7 +1,8 @@
 import Footer from '@components/Shared/Footer';
 import MetaTags from '@components/utils/MetaTags';
 import { Mixpanel } from '@lib/mixpanel';
-import { FC, useEffect } from 'react';
+import type { FC } from 'react';
+import { useEffect } from 'react';
 import { APP_NAME } from 'src/constants';
 import { PAGEVIEW } from 'src/tracking';
 

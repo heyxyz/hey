@@ -1,11 +1,11 @@
 import { Tooltip } from '@components/UI/Tooltip';
-import { LensterPublication } from '@generated/lenstertypes';
+import type { LensterPublication } from '@generated/lenstertypes';
 import { ChatAlt2Icon } from '@heroicons/react/outline';
 import humanize from '@lib/humanize';
 import nFormatter from '@lib/nFormatter';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 interface Props {
   publication: LensterPublication;

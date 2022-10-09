@@ -1,9 +1,11 @@
 import { Input } from '@components/UI/Input';
 import { useDebounce } from '@components/utils/hooks/useDebounce';
-import { GiphyFetch, ICategory } from '@giphy/js-fetch-api';
-import { IGif } from '@giphy/js-types';
+import type { ICategory } from '@giphy/js-fetch-api';
+import { GiphyFetch } from '@giphy/js-fetch-api';
+import type { IGif } from '@giphy/js-types';
 import { Grid } from '@giphy/react-components';
-import { ChangeEvent, Dispatch, FC, useEffect, useState } from 'react';
+import type { ChangeEvent, Dispatch, FC } from 'react';
+import { useEffect, useState } from 'react';
 
 const giphyFetch = new GiphyFetch('sXpGFDGZs0Dv1mmNFvYaGUvYwKX0PWIh');
 
@@ -13,7 +15,7 @@ interface Props {
 }
 
 const GifSelector: FC<Props> = ({ setShowModal, setGifAttachment }) => {
-  const [categories, setCategories] = useState<Array<ICategory>>([]);
+  const [categories, setCategories] = useState<ICategory[]>([]);
   const [debouncedGifInput, setDebouncedGifInput] = useState('');
   const [searchText, setSearchText] = useState('');
 

@@ -1,8 +1,8 @@
-import { NewFollowerNotification } from '@generated/types';
+import type { NewFollowerNotification } from '@generated/types';
 import { UserAddIcon } from '@heroicons/react/solid';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import { FC } from 'react';
+import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 
 import { NotificationProfileAvatar, NotificationProfileName } from '../Profile';

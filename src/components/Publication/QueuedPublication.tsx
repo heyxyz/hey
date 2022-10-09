@@ -4,16 +4,16 @@ import IFramely from '@components/Shared/IFramely';
 import Markup from '@components/Shared/Markup';
 import UserProfile from '@components/Shared/UserProfile';
 import { Tooltip } from '@components/UI/Tooltip';
+import type { Profile } from '@generated/types';
 import {
   HasTxHashBeenIndexedDocument,
-  Profile,
   PublicationDocument,
   PublicationMetadataStatusType
 } from '@generated/types';
 import getURLs from '@lib/getURLs';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import { FC } from 'react';
+import type { FC } from 'react';
 import { POLYGONSCAN_URL } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { useTransactionPersistStore } from 'src/store/transaction';

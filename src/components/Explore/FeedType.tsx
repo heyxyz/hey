@@ -3,7 +3,7 @@ import { ChatAlt2Icon, CollectionIcon, SparklesIcon, SwitchHorizontalIcon } from
 import { Mixpanel } from '@lib/mixpanel';
 import clsx from 'clsx';
 import { useRouter } from 'next/router';
-import { Dispatch, FC, ReactNode } from 'react';
+import type { Dispatch, FC, ReactNode } from 'react';
 
 interface Props {
   setFeedType: Dispatch<string>;

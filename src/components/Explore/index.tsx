@@ -6,7 +6,7 @@ import MetaTags from '@components/utils/MetaTags';
 import { PublicationSortCriteria } from '@generated/types';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { Mixpanel } from '@lib/mixpanel';
-import { NextPage } from 'next';
+import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { APP_NAME } from 'src/constants';

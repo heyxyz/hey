@@ -2,7 +2,7 @@ import Loader from '@components/Shared/Loader';
 import { Modal } from '@components/UI/Modal';
 import { Tooltip } from '@components/UI/Tooltip';
 import GetModuleIcon from '@components/utils/GetModuleIcon';
-import { LensterPublication } from '@generated/lenstertypes';
+import type { LensterPublication } from '@generated/lenstertypes';
 import { CollectModules } from '@generated/types';
 import { CollectionIcon } from '@heroicons/react/outline';
 import { CollectionIcon as CollectionIconSolid } from '@heroicons/react/solid';
@@ -12,7 +12,8 @@ import { Mixpanel } from '@lib/mixpanel';
 import nFormatter from '@lib/nFormatter';
 import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
-import { FC, useEffect, useState } from 'react';
+import type { FC } from 'react';
+import { useEffect, useState } from 'react';
 import { PUBLICATION } from 'src/tracking';
 
 const CollectModule = dynamic(() => import('./CollectModule'), {

@@ -1,9 +1,9 @@
 import Slug from '@components/Shared/Slug';
-import { Comment, Post } from '@generated/types';
+import type { Comment, Post } from '@generated/types';
 import { CollectionIcon } from '@heroicons/react/outline';
 import formatAddress from '@lib/formatAddress';
 import Link from 'next/link';
-import { FC } from 'react';
+import type { FC } from 'react';
 import { POLYGONSCAN_URL } from 'src/constants';
 
 interface Props {

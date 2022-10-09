@@ -1,5 +1,5 @@
-import { LensterPublication } from '@generated/lenstertypes';
-import { FC } from 'react';
+import type { LensterPublication } from '@generated/lenstertypes';
+import type { FC } from 'react';
 
 import ThreadBody from '../ThreadBody';
 

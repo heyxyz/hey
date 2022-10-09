@@ -3,7 +3,8 @@ import MetaTags from '@components/utils/MetaTags';
 import { HeartIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import { useTheme } from 'next-themes';
-import { FC, Fragment, ReactNode, useEffect } from 'react';
+import type { FC, ReactNode } from 'react';
+import { Fragment, useEffect } from 'react';
 import { APP_NAME, STATIC_ASSETS } from 'src/constants';
 import { PAGEVIEW } from 'src/tracking';
 

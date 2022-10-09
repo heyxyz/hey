@@ -14,13 +14,13 @@ import { Spinner } from '@components/UI/Spinner';
 import { Tooltip } from '@components/UI/Tooltip';
 import { WarningMessage } from '@components/UI/WarningMessage';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
-import { LensterPublication } from '@generated/lenstertypes';
+import type { LensterPublication } from '@generated/lenstertypes';
+import type { Mutation } from '@generated/types';
 import {
   ApprovedModuleAllowanceAmountDocument,
   CollectModuleDocument,
   CollectModules,
   CreateCollectTypedDataDocument,
-  Mutation,
   ProxyActionDocument,
   PublicationRevenueDocument
 } from '@generated/types';
@@ -43,7 +43,8 @@ import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import dayjs from 'dayjs';
-import { Dispatch, FC, useEffect, useState } from 'react';
+import type { Dispatch, FC } from 'react';
+import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { LENSHUB_PROXY, POLYGONSCAN_URL, RELAY_ON, SIGN_WALLET } from 'src/constants';
 import { useAppStore } from 'src/store/app';

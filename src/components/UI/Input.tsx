@@ -1,6 +1,7 @@
 import clsx from 'clsx';
 import dynamic from 'next/dynamic';
-import { ComponentProps, forwardRef, ReactNode, useId } from 'react';
+import type { ComponentProps, ReactNode } from 'react';
+import { forwardRef, useId } from 'react';
 
 import { FieldError } from './Form';
 
