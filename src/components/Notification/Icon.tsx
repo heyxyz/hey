@@ -3,7 +3,8 @@ import { CustomFiltersTypes, NotificationCountDocument } from '@generated/types'
 import { LightningBoltIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import Link from 'next/link';
-import { FC, useEffect, useState } from 'react';
+import type { FC } from 'react';
+import { useEffect, useState } from 'react';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { NOTIFICATION } from 'src/tracking';
 

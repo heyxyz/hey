@@ -8,7 +8,7 @@ import {
   ShareIcon,
   StarIcon
 } from '@heroicons/react/outline';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 interface Props {
   module: string;

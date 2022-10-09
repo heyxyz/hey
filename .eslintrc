@@ -22,6 +22,7 @@
     "@typescript-eslint/no-unused-vars": "warn",
     "@typescript-eslint/ban-ts-comment": "off", // turn warn
     "@typescript-eslint/explicit-module-boundary-types": "off",
+    "@typescript-eslint/consistent-type-imports": "error",
     "@next/next/no-img-element": "off",
     "simple-import-sort/imports": "error",
     "simple-import-sort/exports": "error",
@@ -35,8 +36,7 @@
     "unicorn/no-for-loop": "error",
     "unicorn/no-lonely-if": "error",
     "unicorn/no-useless-undefined": "error",
-    "unicorn/prefer-array-find": "error",
-    "@typescript-eslint/consistent-indexed-object-style": "error"
+    "unicorn/prefer-array-find": "error"
   },
   "ignorePatterns": ["/src/generated/types.ts"]
 }

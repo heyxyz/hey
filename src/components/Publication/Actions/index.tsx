@@ -1,6 +1,6 @@
-import { LensterPublication } from '@generated/lenstertypes';
+import type { LensterPublication } from '@generated/lenstertypes';
 import clsx from 'clsx';
-import { FC } from 'react';
+import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 
 import Collect from './Collect';

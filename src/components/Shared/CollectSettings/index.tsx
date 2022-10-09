@@ -5,7 +5,8 @@ import { CashIcon } from '@heroicons/react/outline';
 import { getModule } from '@lib/getModule';
 import { Mixpanel } from '@lib/mixpanel';
 import { motion } from 'framer-motion';
-import { FC, useState } from 'react';
+import type { FC } from 'react';
+import { useState } from 'react';
 import { useCollectModuleStore } from 'src/store/collectmodule';
 import { PUBLICATION } from 'src/tracking';
 

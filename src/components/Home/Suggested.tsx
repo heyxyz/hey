@@ -3,9 +3,10 @@ import Loader from '@components/Shared/Loader';
 import UserProfile from '@components/Shared/UserProfile';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
-import { Profile, RecommendedProfilesDocument } from '@generated/types';
+import type { Profile } from '@generated/types';
+import { RecommendedProfilesDocument } from '@generated/types';
 import { UsersIcon } from '@heroicons/react/outline';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 const Suggested: FC = () => {
   const { data, loading, error } = useQuery(RecommendedProfilesDocument);

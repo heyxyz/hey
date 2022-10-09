@@ -9,12 +9,13 @@ import getWalletLogo from '@lib/getWalletLogo';
 import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import clsx from 'clsx';
-import { Dispatch, FC } from 'react';
+import type { Dispatch, FC } from 'react';
 import toast from 'react-hot-toast';
 import { CHAIN_ID, ERROR_MESSAGE } from 'src/constants';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { USER } from 'src/tracking';
-import { Connector, useAccount, useConnect, useNetwork, useSignMessage } from 'wagmi';
+import type { Connector } from 'wagmi';
+import { useAccount, useConnect, useNetwork, useSignMessage } from 'wagmi';
 
 interface Props {
   setHasConnected: Dispatch<boolean>;

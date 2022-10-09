@@ -1,10 +1,10 @@
 import Markup from '@components/Shared/Markup';
-import { NewReactionNotification } from '@generated/types';
+import type { NewReactionNotification } from '@generated/types';
 import { HeartIcon } from '@heroicons/react/solid';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import Link from 'next/link';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 import { NotificationProfileAvatar, NotificationProfileName } from '../Profile';
 

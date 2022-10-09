@@ -4,9 +4,11 @@ import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
 import { Toggle } from '@components/UI/Toggle';
-import { CollectModules, EnabledModulesDocument, Erc20 } from '@generated/types';
+import type { Erc20 } from '@generated/types';
+import { CollectModules, EnabledModulesDocument } from '@generated/types';
 import { ClockIcon, CollectionIcon, StarIcon, SwitchHorizontalIcon } from '@heroicons/react/outline';
-import { Dispatch, FC, useEffect } from 'react';
+import type { Dispatch, FC } from 'react';
+import { useEffect } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useCollectModuleStore } from 'src/store/collectmodule';
 

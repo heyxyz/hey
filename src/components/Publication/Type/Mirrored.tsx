@@ -1,8 +1,8 @@
 import Slug from '@components/Shared/Slug';
-import { Mirror } from '@generated/types';
+import type { Mirror } from '@generated/types';
 import { SwitchHorizontalIcon } from '@heroicons/react/outline';
 import Link from 'next/link';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 interface Props {
   publication: Mirror;

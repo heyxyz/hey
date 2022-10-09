@@ -7,15 +7,15 @@ import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { MentionTextArea } from '@components/UI/MentionTextArea';
 import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
-import { LensterAttachment } from '@generated/lenstertypes';
+import type { LensterAttachment } from '@generated/lenstertypes';
+import type { Mutation } from '@generated/types';
 import {
   CreatePostTypedDataDocument,
   CreatePostViaDispatcherDocument,
-  Mutation,
   PublicationMainFocus,
   ReferenceModules
 } from '@generated/types';
-import { IGif } from '@giphy/js-types';
+import type { IGif } from '@giphy/js-types';
 import { PencilAltIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
 import getTags from '@lib/getTags';
@@ -26,7 +26,8 @@ import splitSignature from '@lib/splitSignature';
 import trimify from '@lib/trimify';
 import uploadToArweave from '@lib/uploadToArweave';
 import dynamic from 'next/dynamic';
-import { FC, useState } from 'react';
+import type { FC } from 'react';
+import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { APP_NAME, LENSHUB_PROXY, RELAY_ON, SIGN_WALLET } from 'src/constants';
 import { useAppStore } from 'src/store/app';

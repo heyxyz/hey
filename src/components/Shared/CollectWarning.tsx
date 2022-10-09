@@ -2,7 +2,7 @@ import Slug from '@components/Shared/Slug';
 import { Card } from '@components/UI/Card';
 import { StarIcon, UsersIcon } from '@heroicons/react/outline';
 import clsx from 'clsx';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 interface Props {
   handle: string;
