@@ -1,8 +1,8 @@
-import { LensterPublication } from '@generated/lenstertypes';
+import type { LensterPublication } from '@generated/lenstertypes';
 import { Menu } from '@headlessui/react';
 import { ShieldExclamationIcon } from '@heroicons/react/outline';
 import clsx from 'clsx';
-import { FC } from 'react';
+import type { FC } from 'react';
 import { useGlobalModalStateStore } from 'src/store/modals';
 
 interface Props {

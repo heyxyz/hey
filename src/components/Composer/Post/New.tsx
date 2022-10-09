@@ -10,7 +10,8 @@ import {
 } from '@heroicons/react/outline';
 import getAvatar from '@lib/getAvatar';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
-import { FC, ReactNode, useState } from 'react';
+import type { FC, ReactNode } from 'react';
+import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { usePublicationStore } from 'src/store/publication';
 

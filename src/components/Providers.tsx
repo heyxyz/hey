@@ -1,6 +1,6 @@
 import { ApolloProvider } from '@apollo/client';
 import { ThemeProvider } from 'next-themes';
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { ALCHEMY_KEY, ALCHEMY_RPC, CHAIN_ID, IS_MAINNET } from 'src/constants';
 import { chain, configureChains, createClient, WagmiConfig } from 'wagmi';
 import { InjectedConnector } from 'wagmi/connectors/injected';

@@ -1,7 +1,8 @@
 import { Menu, Transition } from '@headlessui/react';
 import { SupportIcon } from '@heroicons/react/outline';
 import clsx from 'clsx';
-import { FC, Fragment } from 'react';
+import type { FC } from 'react';
+import { Fragment } from 'react';
 
 import { NextLink } from './MenuItems';
 

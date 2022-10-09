@@ -1,10 +1,11 @@
-import { Profile } from '@generated/types';
+import type { Profile } from '@generated/types';
 import { BadgeCheckIcon } from '@heroicons/react/solid';
 import getAvatar from '@lib/getAvatar';
 import isVerified from '@lib/isVerified';
 import clsx from 'clsx';
 import Link from 'next/link';
-import { FC, useState } from 'react';
+import type { FC } from 'react';
+import { useState } from 'react';
 
 import Follow from './Follow';
 import Markup from './Markup';

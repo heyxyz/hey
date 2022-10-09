@@ -1,7 +1,7 @@
 import { Card } from '@components/UI/Card';
-import { Nft } from '@generated/types';
+import type { Nft } from '@generated/types';
 import getIPFSLink from '@lib/getIPFSLink';
-import { FC } from 'react';
+import type { FC } from 'react';
 import { CHAIN_ID, RARIBLE_URL, STATIC_ASSETS } from 'src/constants';
 
 interface Props {

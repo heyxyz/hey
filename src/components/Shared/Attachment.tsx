@@ -1,10 +1,11 @@
 import { Spinner } from '@components/UI/Spinner';
 import { Tooltip } from '@components/UI/Tooltip';
-import { LensterAttachment } from '@generated/lenstertypes';
+import type { LensterAttachment } from '@generated/lenstertypes';
 import { PhotographIcon } from '@heroicons/react/outline';
 import uploadMediaToIPFS from '@lib/uploadMediaToIPFS';
 import { motion } from 'framer-motion';
-import { ChangeEvent, Dispatch, FC, useId, useState } from 'react';
+import type { ChangeEvent, Dispatch, FC } from 'react';
+import { useId, useState } from 'react';
 import toast from 'react-hot-toast';
 import { ALLOWED_MEDIA_TYPES } from 'src/constants';
 

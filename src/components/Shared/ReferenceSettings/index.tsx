@@ -5,7 +5,8 @@ import { CheckCircleIcon } from '@heroicons/react/solid';
 import { Mixpanel } from '@lib/mixpanel';
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
-import { FC, Fragment, ReactNode } from 'react';
+import type { FC, ReactNode } from 'react';
+import { Fragment } from 'react';
 import { useReferenceModuleStore } from 'src/store/referencemodule';
 import { PUBLICATION } from 'src/tracking';
 

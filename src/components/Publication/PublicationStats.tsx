@@ -2,11 +2,12 @@ import Collectors from '@components/Shared/Modal/Collectors';
 import Likes from '@components/Shared/Modal/Likes';
 import Mirrors from '@components/Shared/Modal/Mirrors';
 import { Modal } from '@components/UI/Modal';
-import { LensterPublication } from '@generated/lenstertypes';
+import type { LensterPublication } from '@generated/lenstertypes';
 import { CollectionIcon, HeartIcon, SwitchHorizontalIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import nFormatter from '@lib/nFormatter';
-import { FC, useState } from 'react';
+import type { FC } from 'react';
+import { useState } from 'react';
 import { PUBLICATION } from 'src/tracking';
 
 interface Props {

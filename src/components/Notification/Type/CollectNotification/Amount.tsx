@@ -1,8 +1,8 @@
-import { NewCollectNotification } from '@generated/types';
+import type { NewCollectNotification } from '@generated/types';
 import { CurrencyDollarIcon } from '@heroicons/react/outline';
 import getTokenImage from '@lib/getTokenImage';
 import humanize from '@lib/humanize';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 interface Props {
   notification: NewCollectNotification;

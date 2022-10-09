@@ -1,7 +1,7 @@
 import { Tooltip } from '@components/UI/Tooltip';
-import { Profile } from '@generated/types';
+import type { Profile } from '@generated/types';
 import { CheckCircleIcon } from '@heroicons/react/solid';
-import { FC } from 'react';
+import type { FC } from 'react';
 import { STATIC_ASSETS } from 'src/constants';
 
 interface Props {

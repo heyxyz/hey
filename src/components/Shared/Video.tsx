@@ -1,7 +1,7 @@
 import 'plyr-react/plyr.css';
 
 import Plyr from 'plyr-react';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 interface Props {
   src: string;

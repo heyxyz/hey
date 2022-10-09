@@ -1,6 +1,4 @@
-export const hashflags: {
-  [key: string]: string;
-} = {
+export const hashflags: Record<string, string> = {
   lenster: 'lenster',
   lenstube: 'lenstube',
   bitcoin: 'bitcoin',

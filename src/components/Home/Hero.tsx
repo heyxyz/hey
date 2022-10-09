@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import type { FC } from 'react';
 import { APP_NAME } from 'src/constants';
 
 const Hero: FC = () => {

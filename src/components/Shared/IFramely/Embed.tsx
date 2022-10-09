@@ -1,7 +1,7 @@
 import { Card } from '@components/UI/Card';
-import { OG } from '@generated/lenstertypes';
+import type { OG } from '@generated/lenstertypes';
 import { Mixpanel } from '@lib/mixpanel';
-import { FC } from 'react';
+import type { FC } from 'react';
 import { PUBLICATION } from 'src/tracking';
 
 interface Props {

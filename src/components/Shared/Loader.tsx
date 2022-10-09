@@ -1,5 +1,5 @@
 import { Spinner } from '@components/UI/Spinner';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 interface Props {
   message: string;

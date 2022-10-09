@@ -8,7 +8,7 @@ import ProfileStaffTool from '@components/StaffTools/Panels/Profile';
 import { Button } from '@components/UI/Button';
 import { Tooltip } from '@components/UI/Tooltip';
 import useStaffMode from '@components/utils/hooks/useStaffMode';
-import { Profile } from '@generated/types';
+import type { Profile } from '@generated/types';
 import { CogIcon, HashtagIcon, LocationMarkerIcon } from '@heroicons/react/outline';
 import { BadgeCheckIcon } from '@heroicons/react/solid';
 import formatAddress from '@lib/formatAddress';
@@ -19,7 +19,8 @@ import isStaff from '@lib/isStaff';
 import isVerified from '@lib/isVerified';
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
-import { FC, ReactElement, useState } from 'react';
+import type { FC, ReactElement } from 'react';
+import { useState } from 'react';
 import { STATIC_ASSETS } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 

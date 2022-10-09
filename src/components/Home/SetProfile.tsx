@@ -4,7 +4,7 @@ import { CheckCircleIcon } from '@heroicons/react/solid';
 import { Mixpanel } from '@lib/mixpanel';
 import clsx from 'clsx';
 import Link from 'next/link';
-import { FC } from 'react';
+import type { FC } from 'react';
 import { APP_NAME } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { MISCELLANEOUS } from 'src/tracking';

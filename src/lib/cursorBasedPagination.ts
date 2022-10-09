@@ -1,10 +1,10 @@
-import { FieldPolicy, StoreValue } from '@apollo/client/core';
-import { PaginatedResultInfo } from '@generated/types';
+import type { FieldPolicy, StoreValue } from '@apollo/client/core';
+import type { PaginatedResultInfo } from '@generated/types';
 
-type CursorBasedPagination<T = StoreValue> = {
+interface CursorBasedPagination<T = StoreValue> {
   items: T[];
   pageInfo: PaginatedResultInfo;
-};
+}
 
 type SafeReadonly<T> = T extends object ? Readonly<T> : T;
 

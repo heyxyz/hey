@@ -3,12 +3,12 @@ import {
   NotificationWalletProfileAvatar,
   NotificationWalletProfileName
 } from '@components/Notification/WalletProfile';
-import { NewCollectNotification } from '@generated/types';
+import type { NewCollectNotification } from '@generated/types';
 import { CollectionIcon } from '@heroicons/react/solid';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import Link from 'next/link';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 import CollectedAmount from './Amount';
 import CollectedContent from './Content';

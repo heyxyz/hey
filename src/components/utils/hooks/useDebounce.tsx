@@ -1,4 +1,5 @@
-import { DependencyList, EffectCallback, useEffect } from 'react';
+import type { DependencyList, EffectCallback } from 'react';
+import { useEffect } from 'react';
 
 export const useDebounce = (effect: EffectCallback, delay: number, deps?: DependencyList): void => {
   useEffect(() => {

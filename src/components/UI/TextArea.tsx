@@ -1,4 +1,5 @@
-import { ComponentProps, forwardRef, useId } from 'react';
+import type { ComponentProps } from 'react';
+import { forwardRef, useId } from 'react';
 
 import { FieldError } from './Form';
 

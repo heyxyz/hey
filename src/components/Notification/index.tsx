@@ -1,7 +1,8 @@
 import MetaTags from '@components/utils/MetaTags';
 import { LightningBoltIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
-import { FC, useEffect } from 'react';
+import type { FC } from 'react';
+import { useEffect } from 'react';
 import { APP_NAME } from 'src/constants';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
