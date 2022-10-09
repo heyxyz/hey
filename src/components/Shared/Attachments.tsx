@@ -15,7 +15,6 @@ const Video = dynamic(() => import('./Video'), {
 });
 
 const getClass = (attachments: number, isNew = false) => {
-  console.log(isNew);
   if (attachments === 1) {
     return {
       aspect: isNew ? 'aspect-w-16 aspect-h-12' : '',
