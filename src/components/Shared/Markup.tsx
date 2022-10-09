@@ -12,11 +12,13 @@ import { FC, MouseEvent } from 'react';
 
 interface Props {
   children: string;
+  className?: string;
 }
 
-const Markup: FC<Props> = ({ children }) => {
+const Markup: FC<Props> = ({ children, className = '' }) => {
   return (
     <Interweave
+      className={className}
       content={trimify(children)}
       escapeHtml
       allowList={['b', 'i', 'a', 'br', 'code', 'span']}
