@@ -41,8 +41,7 @@ const Messages: FC = () => {
 
   const peerAddresses = Array.from(messagePreviews.keys());
   const { error: profilesError } = useQuery(ProfilesDocument, {
-    // TODO(elise): Right now this isn't guaranteed to cover all profiles.
-    // We'll likely have to loop through all pages since peerAddresses contains all conversations.
+    // TODO(elise): Right now this is capped at 50 profiles. We'll want to paginate.
     variables: {
       request: { ownedBy: peerAddresses, limit: 50 }
     },
