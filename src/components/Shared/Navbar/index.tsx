@@ -51,9 +51,6 @@ const Navbar: FC = () => {
       <>
         <NavItem url="/" name="Home" current={pathname == '/'} />
         <NavItem url="/explore" name="Explore" current={pathname == '/explore'} />
-        {isFeatureEnabled('messages', currentProfile?.id) && (
-          <NavItem url="/messages" name="Messages" current={pathname == '/messages'} />
-        )}
         <MoreNavItems />
       </>
     );
