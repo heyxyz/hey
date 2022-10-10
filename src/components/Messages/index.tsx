@@ -46,9 +46,6 @@ const Messages: FC = () => {
       Promise.all(
         convos.map(async (convo) => {
           if (convo.peerAddress !== currentProfile?.ownedBy) {
-            const newMessages = await convo.messages();
-            messages.set(convo.peerAddress, newMessages);
-            setMessages(new Map(messages));
             conversations.set(convo.peerAddress, convo);
             setConversations(new Map(conversations));
           }
