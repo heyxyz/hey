@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.7.0",
-    "@bundlr-network/client": "^0.8.8",
+    "@bundlr-network/client": "^0.8.9",
     "@giphy/js-fetch-api": "^4.3.1",
     "@giphy/react-components": "^6.2.0",
     "@headlessui/react": "^1.7.3",
@@ -51,7 +51,7 @@
     "uuid": "^9.0.0",
     "wagmi": "^0.6.8",
     "zod": "^3.19.1",
-    "zustand": "^4.1.1"
+    "zustand": "^4.1.2"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^2.13.5",
