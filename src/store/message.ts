@@ -1,3 +1,4 @@
+import type { MessagePreview } from '@components/Messages';
 import type { Client, Conversation, Message } from '@xmtp/xmtp-js';
 import create from 'zustand';
 
@@ -10,6 +11,8 @@ interface MessageState {
   setMessages: (messages: Map<string, Message[]>) => void;
   loadingMessages: boolean;
   setLoadingMessages: (loading: boolean) => void;
+  messagePreviews: Map<string, MessagePreview>;
+  setMessagePreviews: (messagePreviews: Map<string, MessagePreview>) => void;
 }
 
 export const useMessageStore = create<MessageState>((set) => ({
@@ -20,5 +23,7 @@ export const useMessageStore = create<MessageState>((set) => ({
   messages: new Map(),
   setMessages: (messages) => set(() => ({ messages })),
   loadingMessages: false,
-  setLoadingMessages: (loadingMessages) => set(() => ({ loadingMessages }))
+  setLoadingMessages: (loadingMessages) => set(() => ({ loadingMessages })),
+  messagePreviews: new Map(),
+  setMessagePreviews: (messagePreviews) => set(() => ({ messagePreviews }))
 }));

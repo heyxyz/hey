@@ -17,8 +17,7 @@ const Message: FC = () => {
   const { push, query } = useRouter();
   const address = query.address as string;
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const messageState = useMessageStore((state) => state);
-  const { conversations } = messageState;
+  const conversations = useMessageStore((state) => state.conversations);
   const selectedConversation = conversations.get(address);
   const { messages } = useGetMessages(selectedConversation);
   const { sendMessage } = useSendMessage(selectedConversation);
