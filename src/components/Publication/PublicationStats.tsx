@@ -4,7 +4,7 @@ import Mirrors from '@components/Shared/Modal/Mirrors';
 import { Modal } from '@components/UI/Modal';
 import type { LensterPublication } from '@generated/lenstertypes';
 import { CollectionIcon, HeartIcon, SwitchHorizontalIcon } from '@heroicons/react/outline';
-import { Mixpanel } from '@lib/mixpanel';
+import { Dogstats } from '@lib/dogstats';
 import nFormatter from '@lib/nFormatter';
 import type { FC } from 'react';
 import { useState } from 'react';
@@ -38,7 +38,7 @@ const PublicationStats: FC<Props> = ({ publication }) => {
           <button
             onClick={() => {
               setShowMirrorsModal(true);
-              Mixpanel.track(PUBLICATION.STATS.MIRRORED_BY);
+              Dogstats.track(PUBLICATION.STATS.MIRRORED_BY);
             }}
           >
             <b className="text-black dark:text-white">{nFormatter(mirrorCount)}</b> Mirrors
@@ -58,7 +58,7 @@ const PublicationStats: FC<Props> = ({ publication }) => {
           <button
             onClick={() => {
               setShowLikesModal(true);
-              Mixpanel.track(PUBLICATION.STATS.LIKED_BY);
+              Dogstats.track(PUBLICATION.STATS.LIKED_BY);
             }}
           >
             <b className="text-black dark:text-white">{nFormatter(reactionCount)}</b> Likes
@@ -78,7 +78,7 @@ const PublicationStats: FC<Props> = ({ publication }) => {
           <button
             onClick={() => {
               setShowCollectorsModal(true);
-              Mixpanel.track(PUBLICATION.STATS.COLLECTED_BY);
+              Dogstats.track(PUBLICATION.STATS.COLLECTED_BY);
             }}
           >
             <b className="text-black dark:text-white">{nFormatter(collectCount)}</b> Collects
