@@ -14,10 +14,10 @@ import {
   SuperFollowDocument
 } from '@generated/types';
 import { StarIcon, UserIcon } from '@heroicons/react/outline';
+import { Dogstats } from '@lib/dogstats';
 import formatAddress from '@lib/formatAddress';
 import getSignature from '@lib/getSignature';
 import getTokenImage from '@lib/getTokenImage';
-import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import type { Dispatch, FC } from 'react';
@@ -51,7 +51,7 @@ const FollowModule: FC<Props> = ({ profile, setFollowing, setShowFollowModal, ag
     setFollowing(true);
     setShowFollowModal(false);
     toast.success('Followed successfully!');
-    Mixpanel.track(PROFILE.SUPER_FOLLOW);
+    Dogstats.track(PROFILE.SUPER_FOLLOW);
   };
 
   const { isLoading: writeLoading, write } = useContractWrite({

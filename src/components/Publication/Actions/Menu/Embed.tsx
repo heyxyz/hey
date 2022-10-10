@@ -1,7 +1,7 @@
 import type { LensterPublication } from '@generated/lenstertypes';
 import { Menu } from '@headlessui/react';
 import { CodeIcon } from '@heroicons/react/outline';
-import { Mixpanel } from '@lib/mixpanel';
+import { Dogstats } from '@lib/dogstats';
 import clsx from 'clsx';
 import type { FC } from 'react';
 import { PUBLICATION } from 'src/tracking';
@@ -18,7 +18,7 @@ const Embed: FC<Props> = ({ publication }) => {
         clsx({ 'dropdown-active': active }, 'block px-4 py-1.5 text-sm m-2 rounded-lg cursor-pointer')
       }
       onClick={() => {
-        Mixpanel.track(PUBLICATION.EMBED);
+        Dogstats.track(PUBLICATION.EMBED);
       }}
       href={`https://embed.withlens.app/?url=${publication?.id}`}
       target="_blank"
