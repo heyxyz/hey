@@ -1,9 +1,10 @@
 import { Modal } from '@components/UI/Modal';
-import { Profile } from '@generated/types';
+import type { Profile } from '@generated/types';
 import { UsersIcon } from '@heroicons/react/outline';
 import humanize from '@lib/humanize';
 import { Mixpanel } from '@lib/mixpanel';
-import { FC, useState } from 'react';
+import type { FC } from 'react';
+import { useState } from 'react';
 import { PROFILE } from 'src/tracking';
 
 import Followers from './Followers';

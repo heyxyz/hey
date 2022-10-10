@@ -1,6 +1,6 @@
-import { LensterPublication } from '@generated/lenstertypes';
+import type { LensterPublication } from '@generated/lenstertypes';
 import clsx from 'clsx';
-import { FC } from 'react';
+import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 
 import Collect from './Collect';
@@ -21,13 +21,13 @@ const PublicationActions: FC<Props> = ({ publication, isFullPublication = false 
 
   return (
     <span
-      onClick={(event) => {
-        event.stopPropagation();
-      }}
       className={clsx(
         { 'justify-between': isFullPublication },
         'flex gap-6 items-center pt-3 -ml-2 text-gray-500 sm:gap-8'
       )}
+      onClick={(event) => {
+        event.stopPropagation();
+      }}
     >
       <Comment publication={publication} isFullPublication={isFullPublication} />
       {canMirror && <Mirror publication={publication} isFullPublication={isFullPublication} />}

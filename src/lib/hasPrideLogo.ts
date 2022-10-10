@@ -1,4 +1,4 @@
-import { Profile } from '@generated/types';
+import type { Profile } from '@generated/types';
 
 import getAttribute from './getAttribute';
 

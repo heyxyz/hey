@@ -9,7 +9,7 @@ import useStaffMode from '@components/utils/hooks/useStaffMode';
 import MetaTags from '@components/utils/MetaTags';
 import { PublicationDocument } from '@generated/types';
 import { Mixpanel } from '@lib/mixpanel';
-import { NextPage } from 'next';
+import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { APP_NAME } from 'src/constants';

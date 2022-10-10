@@ -1,4 +1,4 @@
-import { Conversation, Message, Stream } from '@xmtp/xmtp-js';
+import type { Conversation, Message, Stream } from '@xmtp/xmtp-js';
 import { useEffect, useState } from 'react';
 import { useMessageStore } from 'src/store/message';
 

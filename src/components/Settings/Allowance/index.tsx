@@ -4,15 +4,15 @@ import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayo
 import { PageLoading } from '@components/UI/PageLoading';
 import { Spinner } from '@components/UI/Spinner';
 import MetaTags from '@components/utils/MetaTags';
+import type { Erc20 } from '@generated/types';
 import {
   ApprovedModuleAllowanceAmountDocument,
   CollectModules,
-  Erc20,
   FollowModules,
   ReferenceModules
 } from '@generated/types';
 import { Mixpanel } from '@lib/mixpanel';
-import { NextPage } from 'next';
+import type { NextPage } from 'next';
 import { useEffect, useState } from 'react';
 import { APP_NAME, DEFAULT_COLLECT_TOKEN } from 'src/constants';
 import Custom404 from 'src/pages/404';

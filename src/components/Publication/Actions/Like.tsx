@@ -1,7 +1,9 @@
-import { ApolloCache, useMutation } from '@apollo/client';
+import type { ApolloCache } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import { Tooltip } from '@components/UI/Tooltip';
-import { LensterPublication } from '@generated/lenstertypes';
-import { AddReactionDocument, Mutation, ReactionTypes, RemoveReactionDocument } from '@generated/types';
+import type { LensterPublication } from '@generated/lenstertypes';
+import type { Mutation } from '@generated/types';
+import { AddReactionDocument, ReactionTypes, RemoveReactionDocument } from '@generated/types';
 import { HeartIcon } from '@heroicons/react/outline';
 import { HeartIcon as HeartIconSolid } from '@heroicons/react/solid';
 import { publicationKeyFields } from '@lib/keyFields';
@@ -9,7 +11,8 @@ import { Mixpanel } from '@lib/mixpanel';
 import nFormatter from '@lib/nFormatter';
 import onError from '@lib/onError';
 import { motion } from 'framer-motion';
-import { FC, useState } from 'react';
+import type { FC } from 'react';
+import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { SIGN_WALLET } from 'src/constants';
 import { useAppStore } from 'src/store/app';
@@ -97,14 +100,16 @@ const Like: FC<Props> = ({ publication, isFullPublication }) => {
 
   return (
     <motion.button whileTap={{ scale: 0.9 }} onClick={createLike} aria-label="Like">
-      <div className="flex items-center space-x-1 text-pink-500">
-        <div className="p-1.5 rounded-full hover:bg-pink-300 hover:bg-opacity-20">
+      <span className="flex items-center space-x-1 text-pink-500">
+        <span className="p-1.5 rounded-full hover:bg-pink-300 hover:bg-opacity-20">
           <Tooltip placement="top" content={liked ? 'Unlike' : 'Like'} withDelay>
             {liked ? <HeartIconSolid className={iconClassName} /> : <HeartIcon className={iconClassName} />}
           </Tooltip>
-        </div>
-        {count > 0 && !isFullPublication && <div className="text-[11px] sm:text-xs">{nFormatter(count)}</div>}
-      </div>
+        </span>
+        {count > 0 && !isFullPublication && (
+          <span className="text-[11px] sm:text-xs">{nFormatter(count)}</span>
+        )}
+      </span>
     </motion.button>
   );
 };

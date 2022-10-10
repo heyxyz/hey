@@ -1,5 +1,5 @@
-import { OG } from '@generated/lenstertypes';
-import { FC } from 'react';
+import type { OG } from '@generated/lenstertypes';
+import type { FC } from 'react';
 
 interface Props {
   og: OG;

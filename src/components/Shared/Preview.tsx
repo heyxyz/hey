@@ -2,7 +2,7 @@ import { Tooltip } from '@components/UI/Tooltip';
 import { EyeIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import { motion } from 'framer-motion';
-import { FC } from 'react';
+import type { FC } from 'react';
 import { usePublicationStore } from 'src/store/publication';
 import { PUBLICATION } from 'src/tracking';
 

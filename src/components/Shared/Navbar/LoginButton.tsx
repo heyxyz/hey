@@ -2,7 +2,8 @@ import { Button } from '@components/UI/Button';
 import { Modal } from '@components/UI/Modal';
 import { ArrowCircleRightIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
-import { FC, useState } from 'react';
+import type { FC } from 'react';
+import { useState } from 'react';
 import { USER } from 'src/tracking';
 
 import Login from './Login';

@@ -1,8 +1,8 @@
-import { Wallet } from '@generated/types';
+import type { Wallet } from '@generated/types';
 import formatAddress from '@lib/formatAddress';
 import getStampFyiURL from '@lib/getStampFyiURL';
 import imagekitURL from '@lib/imagekitURL';
-import { FC } from 'react';
+import type { FC } from 'react';
 import { POLYGONSCAN_URL } from 'src/constants';
 
 interface Props {

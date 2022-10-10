@@ -1,13 +1,13 @@
 import Attachments from '@components/Shared/Attachments';
 import IFramely from '@components/Shared/IFramely';
 import Markup from '@components/Shared/Markup';
-import { LensterPublication } from '@generated/lenstertypes';
+import type { LensterPublication } from '@generated/lenstertypes';
 import { EyeIcon } from '@heroicons/react/outline';
 import getURLs from '@lib/getURLs';
 import clsx from 'clsx';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 interface Props {
   publication: LensterPublication;
@@ -19,15 +19,14 @@ const PublicationBody: FC<Props> = ({ publication }) => {
 
   return (
     <div className="break-words">
-      <div
-        className={clsx({
-          'line-clamp-5': showMore
-        })}
+      <Markup
+        className={clsx(
+          { 'line-clamp-5': showMore },
+          'whitespace-pre-wrap break-words leading-md linkify text-md'
+        )}
       >
-        <div className="whitespace-pre-wrap break-words leading-md linkify text-md">
-          <Markup>{publication?.metadata?.content}</Markup>
-        </div>
-      </div>
+        {publication?.metadata?.content}
+      </Markup>
       {showMore && (
         <div className="mt-4 text-sm text-gray-500 font-bold flex items-center space-x-1">
           <EyeIcon className="h-4 w-4" />

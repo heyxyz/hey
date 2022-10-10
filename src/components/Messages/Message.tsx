@@ -7,7 +7,7 @@ import useSendMessage from '@components/utils/hooks/useSendMessage';
 import MetaTags from '@components/utils/MetaTags';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { useRouter } from 'next/router';
-import { FC } from 'react';
+import type { FC } from 'react';
 import { APP_NAME } from 'src/constants';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';

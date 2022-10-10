@@ -1,8 +1,8 @@
 import { Button } from '@components/UI/Button';
-import { Profile } from '@generated/types';
+import type { Profile } from '@generated/types';
 import { MailIcon } from '@heroicons/react/outline';
 import { Client } from '@xmtp/xmtp-js';
-import { FC } from 'react';
+import type { FC } from 'react';
 import toast from 'react-hot-toast';
 import { SIGN_WALLET } from 'src/constants';
 import { useAppStore } from 'src/store/app';

@@ -1,10 +1,10 @@
 import UserProfile from '@components/Shared/UserProfile';
-import { LensterPublication } from '@generated/lenstertypes';
+import type { LensterPublication } from '@generated/lenstertypes';
 import { Mixpanel } from '@lib/mixpanel';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { useRouter } from 'next/router';
-import { FC } from 'react';
+import type { FC } from 'react';
 import { PUBLICATION } from 'src/tracking';
 
 import PublicationActions from './Actions';
@@ -38,29 +38,28 @@ const SinglePublication: FC<Props> = ({
   return (
     <article className="hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer first:rounded-t-xl last:rounded-b-xl p-5">
       <PublicationType publication={publication} showType={showType} showThread={showThread} />
+      <div className="flex justify-between pb-4 space-x-1.5">
+        <span onClick={(event) => event.stopPropagation()}>
+          <UserProfile profile={profile ?? publication?.collectedBy?.defaultProfile} />
+        </span>
+        <span className="text-xs text-gray-500">{dayjs(new Date(timestamp)).fromNow()}</span>
+      </div>
       <div
+        className="ml-[53px]"
         onClick={() => {
           push(`/posts/${publication?.id}`);
           Mixpanel.track(PUBLICATION.OPEN);
         }}
       >
-        <div className="flex justify-between pb-4 space-x-1.5">
-          <span onClick={(event) => event.stopPropagation()}>
-            <UserProfile profile={profile ?? publication?.collectedBy?.defaultProfile} />
-          </span>
-          <span className="text-xs text-gray-500">{dayjs(new Date(timestamp)).fromNow()}</span>
-        </div>
-        <div className="ml-[53px]">
-          {publication?.hidden ? (
-            <HiddenPublication type={publication.__typename} />
-          ) : (
-            <>
-              <PublicationBody publication={publication} />
-              {showActions && <PublicationActions publication={publication} />}
-              {showModActions && <ModAction publication={publication} />}
-            </>
-          )}
-        </div>
+        {publication?.hidden ? (
+          <HiddenPublication type={publication.__typename} />
+        ) : (
+          <>
+            <PublicationBody publication={publication} />
+            {showActions && <PublicationActions publication={publication} />}
+            {showModActions && <ModAction publication={publication} />}
+          </>
+        )}
       </div>
     </article>
   );

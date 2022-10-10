@@ -6,7 +6,7 @@ import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayo
 import MetaTags from '@components/utils/MetaTags';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { Mixpanel } from '@lib/mixpanel';
-import { NextPage } from 'next';
+import type { NextPage } from 'next';
 import { useEffect } from 'react';
 import { useAppStore } from 'src/store/app';
 import { PAGEVIEW } from 'src/tracking';

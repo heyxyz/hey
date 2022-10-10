@@ -3,13 +3,15 @@ import { Card } from '@components/UI/Card';
 import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
 import useOnClickOutside from '@components/utils/hooks/useOnClickOutside';
-import { CustomFiltersTypes, Profile, SearchProfilesDocument, SearchRequestTypes } from '@generated/types';
+import type { Profile } from '@generated/types';
+import { CustomFiltersTypes, SearchProfilesDocument, SearchRequestTypes } from '@generated/types';
 import { SearchIcon, XIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import clsx from 'clsx';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { ChangeEvent, FC, useRef, useState } from 'react';
+import type { ChangeEvent, FC } from 'react';
+import { useRef, useState } from 'react';
 import { SEARCH } from 'src/tracking';
 
 import UserProfile from '../UserProfile';

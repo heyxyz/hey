@@ -1,7 +1,7 @@
 import Slug from '@components/Shared/Slug';
-import { Mirror } from '@generated/types';
+import type { Mirror } from '@generated/types';
 import { HeartIcon } from '@heroicons/react/solid';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 interface Props {
   mirror: Mirror;

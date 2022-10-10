@@ -1,12 +1,14 @@
 import { useQuery } from '@apollo/client';
-import { Profile, ReferenceModules, UserProfilesDocument } from '@generated/types';
+import type { Profile } from '@generated/types';
+import { ReferenceModules, UserProfilesDocument } from '@generated/types';
 import getIsAuthTokensAvailable from '@lib/getIsAuthTokensAvailable';
 import getToastOptions from '@lib/getToastOptions';
 import resetAuthData from '@lib/resetAuthData';
 import mixpanel from 'mixpanel-browser';
 import Head from 'next/head';
 import { useTheme } from 'next-themes';
-import { FC, ReactNode, useEffect } from 'react';
+import type { FC, ReactNode } from 'react';
+import { useEffect } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { CHAIN_ID, MIXPANEL_API_HOST, MIXPANEL_TOKEN } from 'src/constants';
 import { useAppPersistStore, useAppStore } from 'src/store/app';

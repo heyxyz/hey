@@ -1,11 +1,11 @@
 import { Tooltip } from '@components/UI/Tooltip';
-import { LensterPublication } from '@generated/lenstertypes';
+import type { LensterPublication } from '@generated/lenstertypes';
 import { ChatAlt2Icon } from '@heroicons/react/outline';
 import humanize from '@lib/humanize';
 import nFormatter from '@lib/nFormatter';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 interface Props {
   publication: LensterPublication;
@@ -22,8 +22,8 @@ const Comment: FC<Props> = ({ publication, isFullPublication }) => {
   return (
     <motion.button whileTap={{ scale: 0.9 }} aria-label="Comment">
       <Link href={`/posts/${publication.id}`}>
-        <div className="flex items-center space-x-1 text-blue-500">
-          <div className="p-1.5 rounded-full hover:bg-blue-300 hover:bg-opacity-20">
+        <span className="flex items-center space-x-1 text-blue-500">
+          <span className="p-1.5 rounded-full hover:bg-blue-300 hover:bg-opacity-20">
             <Tooltip
               placement="top"
               content={count > 0 ? `${humanize(count)} Comments` : 'Comment'}
@@ -31,11 +31,11 @@ const Comment: FC<Props> = ({ publication, isFullPublication }) => {
             >
               <ChatAlt2Icon className={iconClassName} />
             </Tooltip>
-          </div>
+          </span>
           {count > 0 && !isFullPublication && (
-            <div className="text-[11px] sm:text-xs">{nFormatter(count)}</div>
+            <span className="text-[11px] sm:text-xs">{nFormatter(count)}</span>
           )}
-        </div>
+        </span>
       </Link>
     </motion.button>
   );

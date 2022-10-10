@@ -1,10 +1,12 @@
 import { useQuery } from '@apollo/client';
 import { Modal } from '@components/UI/Modal';
-import { MutualFollowersDocument, Profile } from '@generated/types';
+import type { Profile } from '@generated/types';
+import { MutualFollowersDocument } from '@generated/types';
 import { UsersIcon } from '@heroicons/react/outline';
 import getAvatar from '@lib/getAvatar';
 import { Mixpanel } from '@lib/mixpanel';
-import { FC, ReactNode, useState } from 'react';
+import type { FC, ReactNode } from 'react';
+import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { PROFILE } from 'src/tracking';
 

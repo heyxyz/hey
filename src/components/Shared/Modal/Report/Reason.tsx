@@ -4,7 +4,7 @@ import {
   PublicationReportingSensitiveSubreason,
   PublicationReportingSpamSubreason
 } from '@generated/types';
-import { Dispatch, FC } from 'react';
+import type { Dispatch, FC } from 'react';
 
 interface Props {
   setType: Dispatch<string>;

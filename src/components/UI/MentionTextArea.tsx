@@ -1,14 +1,16 @@
 import { useLazyQuery } from '@apollo/client';
 import Slug from '@components/Shared/Slug';
-import { UserSuggestion } from '@generated/lenstertypes';
-import { MediaSet, NftImage, Profile, SearchProfilesDocument, SearchRequestTypes } from '@generated/types';
+import type { UserSuggestion } from '@generated/lenstertypes';
+import type { MediaSet, NftImage, Profile } from '@generated/types';
+import { SearchProfilesDocument, SearchRequestTypes } from '@generated/types';
 import { BadgeCheckIcon } from '@heroicons/react/solid';
 import getIPFSLink from '@lib/getIPFSLink';
 import getStampFyiURL from '@lib/getStampFyiURL';
 import imagekitURL from '@lib/imagekitURL';
 import isVerified from '@lib/isVerified';
 import clsx from 'clsx';
-import { Dispatch, FC, useEffect, useRef } from 'react';
+import type { Dispatch, FC } from 'react';
+import { useEffect, useRef } from 'react';
 import { Mention, MentionsInput } from 'react-mentions';
 import { usePublicationStore } from 'src/store/publication';
 

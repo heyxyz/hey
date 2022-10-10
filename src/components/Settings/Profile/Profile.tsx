@@ -11,11 +11,10 @@ import { Spinner } from '@components/UI/Spinner';
 import { TextArea } from '@components/UI/TextArea';
 import { Toggle } from '@components/UI/Toggle';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
+import type { MediaSet, Mutation } from '@generated/types';
 import {
   CreateSetProfileMetadataTypedDataDocument,
   CreateSetProfileMetadataViaDispatcherDocument,
-  MediaSet,
-  Mutation,
   Profile
 } from '@generated/types';
 import { PencilIcon } from '@heroicons/react/outline';
@@ -29,7 +28,8 @@ import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import uploadMediaToIPFS from '@lib/uploadMediaToIPFS';
 import uploadToArweave from '@lib/uploadToArweave';
-import { ChangeEvent, FC, useEffect, useState } from 'react';
+import type { ChangeEvent, FC } from 'react';
+import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { APP_NAME, LENS_PERIPHERY, RELAY_ON, SIGN_WALLET, URL_REGEX } from 'src/constants';
 import { useAppStore } from 'src/store/app';
