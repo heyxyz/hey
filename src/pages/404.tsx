@@ -1,7 +1,7 @@
 import { Button } from '@components/UI/Button';
 import MetaTags from '@components/utils/MetaTags';
 import { HomeIcon } from '@heroicons/react/outline';
-import { Dogstats } from '@lib/dogstats';
+import { Mixpanel } from '@lib/mixpanel';
 import Link from 'next/link';
 import { useEffect } from 'react';
 import { APP_NAME, STATIC_ASSETS } from 'src/constants';
@@ -9,7 +9,7 @@ import { PAGEVIEW } from 'src/tracking';
 
 export default function Custom404() {
   useEffect(() => {
-    Dogstats.track('Pageview', { path: PAGEVIEW.ERROR_404 });
+    Mixpanel.track('Pageview', { path: PAGEVIEW.ERROR_404 });
   }, []);
 
   return (

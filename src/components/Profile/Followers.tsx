@@ -8,7 +8,7 @@ import { Spinner } from '@components/UI/Spinner';
 import type { Profile, Wallet } from '@generated/types';
 import { FollowersDocument } from '@generated/types';
 import { UsersIcon } from '@heroicons/react/outline';
-import { Dogstats } from '@lib/dogstats';
+import { Mixpanel } from '@lib/mixpanel';
 import type { FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { PAGINATION_ROOT_MARGIN } from 'src/constants';
@@ -39,7 +39,7 @@ const Followers: FC<Props> = ({ profile }) => {
       await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next } }
       });
-      Dogstats.track(PAGINATION.FOLLOWERS);
+      Mixpanel.track(PAGINATION.FOLLOWERS);
     },
     rootMargin: PAGINATION_ROOT_MARGIN
   });

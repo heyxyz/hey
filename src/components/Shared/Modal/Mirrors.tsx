@@ -6,7 +6,7 @@ import { Spinner } from '@components/UI/Spinner';
 import type { Profile } from '@generated/types';
 import { MirrorsDocument } from '@generated/types';
 import { SwitchHorizontalIcon } from '@heroicons/react/outline';
-import { Dogstats } from '@lib/dogstats';
+import { Mixpanel } from '@lib/mixpanel';
 import type { FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { PAGINATION_ROOT_MARGIN } from 'src/constants';
@@ -39,7 +39,7 @@ const Mirrors: FC<Props> = ({ publicationId }) => {
       await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next } }
       });
-      Dogstats.track(PAGINATION.MIRRORS);
+      Mixpanel.track(PAGINATION.MIRRORS);
     },
     rootMargin: PAGINATION_ROOT_MARGIN
   });
