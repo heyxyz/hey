@@ -24,7 +24,7 @@ const Preview: FC<Props> = ({ profile, message }) => {
   return (
     <div onClick={() => onConversationSelected(profile.ownedBy)}>
       <div className="flex justify-between pb-4 space-x-1.5">
-        {<UserProfile profile={profile} showHandle={false} messagePreview={message.content} />}
+        <UserProfile profile={profile} showHandle={false} messagePreview={message.content} />
         {message.sent && (
           <span className="text-xs text-gray-500">{dayjs(new Date(message.sent)).fromNow()}</span>
         )}
