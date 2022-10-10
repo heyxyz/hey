@@ -14,13 +14,9 @@ interface Props {
   message: Message;
 }
 
-// TODO(elise): pass messagepreview obj as prop
 const Preview: FC<Props> = ({ profile, message }) => {
   const router = useRouter();
 
-  console.log('preview alert');
-
-  // TODO(elise): I think we'll want to update this route to use lens handle instead of eth address.
   const onConversationSelected = (address: string) => {
     router.push(address ? `/messages/${address}` : '/messages/');
   };
@@ -28,7 +24,7 @@ const Preview: FC<Props> = ({ profile, message }) => {
   return (
     <div onClick={() => onConversationSelected(profile.ownedBy)}>
       <div className="flex justify-between pb-4 space-x-1.5">
-        <span onClick={(event) => event.stopPropagation()}>{<UserProfile profile={profile} />}</span>
+        {<UserProfile profile={profile} showHandle={false} messagePreview={message.content} />}
         {message.sent && (
           <span className="text-xs text-gray-500">{dayjs(new Date(message.sent)).fromNow()}</span>
         )}
