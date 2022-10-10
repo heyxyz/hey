@@ -9,17 +9,16 @@ import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { MentionTextArea } from '@components/UI/MentionTextArea';
 import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
-import { LensterAttachment, LensterPublication } from '@generated/lenstertypes';
+import type { LensterAttachment, LensterPublication } from '@generated/lenstertypes';
+import type { Mutation } from '@generated/types';
 import {
   CreateCommentTypedDataDocument,
   CreateCommentViaDispatcherDocument,
-  Mutation,
   PublicationMainFocus,
   ReferenceModules
 } from '@generated/types';
-import { IGif } from '@giphy/js-types';
+import type { IGif } from '@giphy/js-types';
 import { ChatAlt2Icon } from '@heroicons/react/outline';
-import { defaultFeeData, defaultModuleData, getModule } from '@lib/getModule';
 import getSignature from '@lib/getSignature';
 import getTags from '@lib/getTags';
 import getUserLocale from '@lib/getUserLocale';
@@ -29,7 +28,8 @@ import splitSignature from '@lib/splitSignature';
 import trimify from '@lib/trimify';
 import uploadToArweave from '@lib/uploadToArweave';
 import dynamic from 'next/dynamic';
-import { FC, useState } from 'react';
+import type { FC } from 'react';
+import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { APP_NAME, LENSHUB_PROXY, RELAY_ON, SIGN_WALLET } from 'src/constants';
 import { useAppStore } from 'src/store/app';
@@ -41,16 +41,16 @@ import { COMMENT } from 'src/tracking';
 import { v4 as uuid } from 'uuid';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
-const Attachment = dynamic(() => import('../../Shared/Attachment'), {
+const Attachment = dynamic(() => import('@components/Shared/Attachment'), {
   loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
 });
-const Giphy = dynamic(() => import('../../Shared/Giphy'), {
+const Giphy = dynamic(() => import('@components/Shared/Giphy'), {
   loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
 });
-const SelectCollectModule = dynamic(() => import('../../Shared/SelectCollectModule'), {
+const CollectSettings = dynamic(() => import('@components/Shared/CollectSettings'), {
   loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
 });
-const SelectReferenceModule = dynamic(() => import('../../Shared/SelectReferenceModule'), {
+const ReferenceSettings = dynamic(() => import('@components/Shared/ReferenceSettings'), {
   loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
 });
 
@@ -75,10 +75,8 @@ const NewComment: FC<Props> = ({ publication }) => {
   const setTxnQueue = useTransactionPersistStore((state) => state.setTxnQueue);
 
   // Collect module store
-  const selectedCollectModule = useCollectModuleStore((state) => state.selectedCollectModule);
-  const setSelectedCollectModule = useCollectModuleStore((state) => state.setSelectedCollectModule);
-  const feeData = useCollectModuleStore((state) => state.feeData);
-  const setFeeData = useCollectModuleStore((state) => state.setFeeData);
+  const payload = useCollectModuleStore((state) => state.payload);
+  const resetCollectSettings = useCollectModuleStore((state) => state.reset);
 
   // Reference module store
   const selectedReferenceModule = useReferenceModuleStore((state) => state.selectedReferenceModule);
@@ -94,8 +92,7 @@ const NewComment: FC<Props> = ({ publication }) => {
     setPreviewPublication(false);
     setPublicationContent('');
     setAttachments([]);
-    setSelectedCollectModule(defaultModuleData);
-    setFeeData(defaultFeeData);
+    resetCollectSettings();
     Mixpanel.track(COMMENT.NEW);
   };
 
@@ -236,9 +233,7 @@ const NewComment: FC<Props> = ({ publication }) => {
       profileId: currentProfile?.id,
       publicationId: publication.__typename === 'Mirror' ? publication?.mirrorOf?.id : publication?.id,
       contentURI: `https://arweave.net/${id}`,
-      collectModule: feeData.recipient
-        ? { [getModule(selectedCollectModule.moduleName).config]: feeData }
-        : getModule(selectedCollectModule.moduleName).config,
+      collectModule: payload,
       referenceModule:
         selectedReferenceModule === ReferenceModules.FollowerOnlyReferenceModule
           ? { followerOnlyReferenceModule: onlyFollowers ? true : false }
@@ -293,8 +288,8 @@ const NewComment: FC<Props> = ({ publication }) => {
         <div className="flex items-center space-x-4">
           <Attachment attachments={attachments} setAttachments={setAttachments} />
           <Giphy setGifAttachment={(gif: IGif) => setGifAttachment(gif)} />
-          <SelectCollectModule />
-          <SelectReferenceModule />
+          <CollectSettings />
+          <ReferenceSettings />
           {publicationContent && <Preview />}
         </div>
         <div className="ml-auto pt-2 sm:pt-0">

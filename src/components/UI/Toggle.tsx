@@ -1,6 +1,6 @@
 import { Switch } from '@headlessui/react';
 import clsx from 'clsx';
-import { Dispatch, FC } from 'react';
+import type { Dispatch, FC } from 'react';
 
 interface Props {
   on: boolean;

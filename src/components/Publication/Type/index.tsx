@@ -1,5 +1,5 @@
-import { LensterPublication } from '@generated/lenstertypes';
-import { FC } from 'react';
+import type { LensterPublication } from '@generated/lenstertypes';
+import type { FC } from 'react';
 
 import Collected from './Collected';
 import Commented from './Commented';

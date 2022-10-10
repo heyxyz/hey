@@ -3,7 +3,7 @@ import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayo
 import MetaTags from '@components/utils/MetaTags';
 import { ProfileDocument } from '@generated/types';
 import { Mixpanel } from '@lib/mixpanel';
-import { NextPage } from 'next';
+import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { APP_NAME, STATIC_ASSETS } from 'src/constants';
@@ -30,14 +30,19 @@ const ViewProfile: NextPage = () => {
       : 'FEED'
   );
 
-  useEffect(() => {
-    Mixpanel.track('Pageview', { path: PAGEVIEW.PROFILE });
-  }, []);
-
   const { data, loading, error } = useQuery(ProfileDocument, {
     variables: { request: { handle: username }, who: currentProfile?.id ?? null },
     skip: !username
   });
+
+  useEffect(() => {
+    if (data?.profile?.id) {
+      Mixpanel.track('Pageview', {
+        path: PAGEVIEW.PROFILE,
+        id: data.profile.id
+      });
+    }
+  }, [data]);
 
   if (error) {
     return <Custom500 />;

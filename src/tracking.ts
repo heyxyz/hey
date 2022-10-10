@@ -46,11 +46,10 @@ export const PUBLICATION = {
     MARKDOWN_PREVIEW: 'Preview markdown',
     OPEN_GIF: 'Open GIF modal',
     COLLECT_MODULE: {
-      OPEN_COLLECT_CONFIG: 'Open collect module config',
-      BACK_FEE_ENTRY: 'Back from fee entry'
+      OPEN_COLLECT_SETTINGS: 'Open collect module settings'
     },
     REFERENCE_MODULE: {
-      OPEN_REFERENCE_CONFIG: 'Open reference config',
+      OPEN_REFERENCE_SETTINGS: 'Open reference module settings',
       EVERYONE: 'Select everyone reference',
       MY_FOLLOWERS: 'Select my followers reference',
       MY_FOLLOWS: 'Select my follows reference',

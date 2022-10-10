@@ -15,8 +15,9 @@ import {
 import { PencilAltIcon } from '@heroicons/react/solid';
 import humanize from '@lib/humanize';
 import { Mixpanel } from '@lib/mixpanel';
-import { NextPage } from 'next';
-import { FC, ReactNode, useEffect } from 'react';
+import type { NextPage } from 'next';
+import type { FC, ReactNode } from 'react';
+import { useEffect } from 'react';
 import { APP_NAME, ERROR_MESSAGE } from 'src/constants';
 import Custom404 from 'src/pages/404';
 import { PAGEVIEW } from 'src/tracking';

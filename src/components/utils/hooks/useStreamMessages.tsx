@@ -1,10 +1,10 @@
-import { Conversation, Message, Stream } from '@xmtp/xmtp-js';
+import type { Conversation, Message, Stream } from '@xmtp/xmtp-js';
 import { useEffect, useState } from 'react';
 import { useMessageStore } from 'src/store/message';
 
-const useStreamMessages = (conversation: Conversation, onMessageCallback: () => void) => {
-  const messageState = useMessageStore((state) => state);
-  const { messages, setMessages } = messageState;
+const useStreamMessages = (conversation?: Conversation, onMessageCallback?: () => void) => {
+  const messages = useMessageStore((state) => state.messages);
+  const setMessages = useMessageStore((state) => state.setMessages);
   const [stream, setStream] = useState<Stream<Message>>();
 
   useEffect(() => {
@@ -41,17 +41,6 @@ const useStreamMessages = (conversation: Conversation, onMessageCallback: () => 
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [conversation]);
-
-  const sendMessage = async (message: string) => {
-    if (!conversation) {
-      return;
-    }
-    await conversation.send(message);
-  };
-
-  return {
-    sendMessage
-  };
 };
 
 export default useStreamMessages;

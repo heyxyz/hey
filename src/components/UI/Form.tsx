@@ -1,15 +1,8 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { ComponentProps, FC } from 'react';
-import {
-  FieldValues,
-  FormProvider,
-  SubmitHandler,
-  useForm,
-  useFormContext,
-  UseFormProps,
-  UseFormReturn
-} from 'react-hook-form';
-import { TypeOf, ZodSchema } from 'zod';
+import type { ComponentProps, FC } from 'react';
+import type { FieldValues, SubmitHandler, UseFormProps, UseFormReturn } from 'react-hook-form';
+import { FormProvider, useForm, useFormContext } from 'react-hook-form';
+import type { TypeOf, ZodSchema } from 'zod';
 
 interface UseZodFormProps<T extends ZodSchema<FieldValues>> extends UseFormProps<TypeOf<T>> {
   schema: T;

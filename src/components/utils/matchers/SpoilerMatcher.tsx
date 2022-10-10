@@ -1,4 +1,5 @@
-import { ChildrenNode, Matcher } from 'interweave';
+import type { ChildrenNode } from 'interweave';
+import { Matcher } from 'interweave';
 
 export class SpoilerMatcher extends Matcher {
   replaceWith(children: ChildrenNode) {

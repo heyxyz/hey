@@ -2,7 +2,8 @@ import Loader from '@components/Shared/Loader';
 import { Modal } from '@components/UI/Modal';
 import { Tooltip } from '@components/UI/Tooltip';
 import GetModuleIcon from '@components/utils/GetModuleIcon';
-import { LensterPublication } from '@generated/lenstertypes';
+import type { LensterPublication } from '@generated/lenstertypes';
+import { CollectModules } from '@generated/types';
 import { CollectionIcon } from '@heroicons/react/outline';
 import { CollectionIcon as CollectionIconSolid } from '@heroicons/react/solid';
 import { getModule } from '@lib/getModule';
@@ -11,7 +12,8 @@ import { Mixpanel } from '@lib/mixpanel';
 import nFormatter from '@lib/nFormatter';
 import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
-import { FC, useEffect, useState } from 'react';
+import type { FC } from 'react';
+import { useEffect, useState } from 'react';
 import { PUBLICATION } from 'src/tracking';
 
 const CollectModule = dynamic(() => import('./CollectModule'), {
@@ -52,8 +54,8 @@ const Collect: FC<Props> = ({ publication, isFullPublication }) => {
         }}
         aria-label="Collect"
       >
-        <div className="flex items-center space-x-1 text-red-500 hover:red-brand-400">
-          <div className="p-1.5 rounded-full hover:bg-red-300 hover:bg-opacity-20">
+        <span className="flex items-center space-x-1 text-red-500 hover:red-brand-400">
+          <span className="p-1.5 rounded-full hover:bg-red-300 hover:bg-opacity-20">
             <Tooltip
               placement="top"
               content={count > 0 ? `${humanize(count)} Collects` : 'Collect'}
@@ -65,18 +67,18 @@ const Collect: FC<Props> = ({ publication, isFullPublication }) => {
                 <CollectionIcon className={iconClassName} />
               )}
             </Tooltip>
-          </div>
+          </span>
           {count > 0 && !isFullPublication && (
-            <div className="text-[11px] sm:text-xs">{nFormatter(count)}</div>
+            <span className="text-[11px] sm:text-xs">{nFormatter(count)}</span>
           )}
-        </div>
+        </span>
       </motion.button>
       <Modal
         title={isFreeCollect ? 'Free Collect' : getModule(publication?.collectModule?.type).name}
         icon={
           <div className="text-brand">
             <GetModuleIcon
-              module={isFreeCollect ? 'FreeCollectModule' : publication?.collectModule?.type}
+              module={isFreeCollect ? CollectModules.FreeCollectModule : publication?.collectModule?.type}
               size={5}
             />
           </div>

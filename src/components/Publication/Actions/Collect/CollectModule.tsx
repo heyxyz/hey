@@ -14,12 +14,13 @@ import { Spinner } from '@components/UI/Spinner';
 import { Tooltip } from '@components/UI/Tooltip';
 import { WarningMessage } from '@components/UI/WarningMessage';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
-import { LensterPublication } from '@generated/lenstertypes';
+import type { LensterPublication } from '@generated/lenstertypes';
+import type { Mutation } from '@generated/types';
 import {
   ApprovedModuleAllowanceAmountDocument,
   CollectModuleDocument,
+  CollectModules,
   CreateCollectTypedDataDocument,
-  Mutation,
   ProxyActionDocument,
   PublicationRevenueDocument
 } from '@generated/types';
@@ -42,7 +43,8 @@ import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import dayjs from 'dayjs';
-import { Dispatch, FC, useEffect, useState } from 'react';
+import type { Dispatch, FC } from 'react';
+import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { LENSHUB_PROXY, POLYGONSCAN_URL, RELAY_ON, SIGN_WALLET } from 'src/constants';
 import { useAppStore } from 'src/store/app';
@@ -189,7 +191,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
       return toast.error(SIGN_WALLET);
     }
 
-    if (collectModule?.type === 'FreeCollectModule') {
+    if (collectModule?.type === CollectModules.FreeCollectModule) {
       createCollectProxyAction({
         variables: {
           request: { collect: { freeCollect: { publicationId: publication?.id } } }
@@ -213,8 +215,8 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
 
   return (
     <>
-      {(collectModule?.type === 'LimitedFeeCollectModule' ||
-        collectModule?.type === 'LimitedTimedFeeCollectModule') && (
+      {(collectModule?.type === CollectModules.LimitedFeeCollectModule ||
+        collectModule?.type === CollectModules.LimitedTimedFeeCollectModule) && (
         <Tooltip placement="top" content={`${percentageCollected.toFixed(0)}% Collected`}>
           <div className="w-full h-2.5 bg-gray-200 dark:bg-gray-700">
             <div className="h-2.5 bg-brand-500" style={{ width: `${percentageCollected}%` }} />
@@ -246,9 +248,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
             )}
           </div>
           {publication?.metadata?.description && (
-            <div className="text-gray-500 line-clamp-2">
-              <Markup>{publication?.metadata?.description}</Markup>
-            </div>
+            <Markup className="text-gray-500 line-clamp-2">{publication?.metadata?.description}</Markup>
           )}
           <ReferralAlert mirror={publication} referralFee={collectModule?.referralFee} />
         </div>
@@ -383,7 +383,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
         {currentProfile && !hasCollectedByMe ? (
           allowanceLoading || balanceLoading ? (
             <div className="mt-5 w-28 rounded-lg h-[34px] shimmer" />
-          ) : allowed || collectModule.type === 'FreeCollectModule' ? (
+          ) : allowed || collectModule.type === CollectModules.FreeCollectModule ? (
             hasAmount ? (
               <Button
                 className="mt-5"

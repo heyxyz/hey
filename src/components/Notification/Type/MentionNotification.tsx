@@ -1,10 +1,10 @@
 import Markup from '@components/Shared/Markup';
-import { NewMentionNotification } from '@generated/types';
+import type { NewMentionNotification } from '@generated/types';
 import { AtSymbolIcon } from '@heroicons/react/solid';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import Link from 'next/link';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 import { NotificationProfileAvatar, NotificationProfileName } from '../Profile';
 

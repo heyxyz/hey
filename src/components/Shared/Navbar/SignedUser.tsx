@@ -1,5 +1,5 @@
 import useStaffMode from '@components/utils/hooks/useStaffMode';
-import { Profile } from '@generated/types';
+import type { Profile } from '@generated/types';
 import { Menu, Transition } from '@headlessui/react';
 import {
   CheckCircleIcon,
@@ -19,7 +19,8 @@ import { Mixpanel } from '@lib/mixpanel';
 import resetAuthData from '@lib/resetAuthData';
 import clsx from 'clsx';
 import { useTheme } from 'next-themes';
-import { FC, Fragment } from 'react';
+import type { FC } from 'react';
+import { Fragment } from 'react';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { PROFILE, STAFFTOOLS, SYSTEM } from 'src/tracking';
 import { useDisconnect } from 'wagmi';

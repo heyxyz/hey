@@ -3,7 +3,7 @@ import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
 import { HasTxHashBeenIndexedDocument } from '@generated/types';
 import { ArrowRightIcon } from '@heroicons/react/outline';
-import { FC } from 'react';
+import type { FC } from 'react';
 import { IS_MAINNET } from 'src/constants';
 
 interface Props {

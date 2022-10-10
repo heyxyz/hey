@@ -15708,6 +15708,7 @@ export type UserProfilesQuery = {
       handle: any;
       bio?: string | null;
       ownedBy: any;
+      stats: { __typename?: 'ProfileStats'; totalFollowing: number };
       dispatcher?: { __typename?: 'Dispatcher'; canUseRelay: boolean } | null;
       attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
       picture?:
@@ -21789,6 +21790,14 @@ export const UserProfilesDocument = {
                     kind: 'SelectionSet',
                     selections: [
                       { kind: 'FragmentSpread', name: { kind: 'Name', value: 'ProfileFields' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'stats' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [{ kind: 'Field', name: { kind: 'Name', value: 'totalFollowing' } }]
+                        }
+                      },
                       { kind: 'Field', name: { kind: 'Name', value: 'isDefault' } },
                       {
                         kind: 'Field',

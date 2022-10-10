@@ -8,15 +8,17 @@ import { SpoilerMatcher } from '@components/utils/matchers/SpoilerMatcher';
 import trimify from '@lib/trimify';
 import { Interweave } from 'interweave';
 import { UrlMatcher } from 'interweave-autolink';
-import { FC, MouseEvent } from 'react';
+import type { FC, MouseEvent } from 'react';
 
 interface Props {
   children: string;
+  className?: string;
 }
 
-const Markup: FC<Props> = ({ children }) => {
+const Markup: FC<Props> = ({ children, className = '' }) => {
   return (
     <Interweave
+      className={className}
       content={trimify(children)}
       escapeHtml
       allowList={['b', 'i', 'a', 'br', 'code', 'span']}

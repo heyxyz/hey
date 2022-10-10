@@ -11,7 +11,7 @@ interface ReferenceModuleState {
 }
 
 export const useReferenceModuleStore = create<ReferenceModuleState>((set) => ({
-  selectedReferenceModule: ReferenceModules.FollowerOnlyReferenceModule,
+  selectedReferenceModule: ReferenceModules.DegreesOfSeparationReferenceModule,
   setSelectedReferenceModule: (selectedReferenceModule) => set(() => ({ selectedReferenceModule })),
   onlyFollowers: false,
   setOnlyFollowers: (onlyFollowers) => set(() => ({ onlyFollowers })),

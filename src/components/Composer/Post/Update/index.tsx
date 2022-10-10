@@ -7,17 +7,16 @@ import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { MentionTextArea } from '@components/UI/MentionTextArea';
 import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
-import { LensterAttachment } from '@generated/lenstertypes';
+import type { LensterAttachment } from '@generated/lenstertypes';
+import type { Mutation } from '@generated/types';
 import {
   CreatePostTypedDataDocument,
   CreatePostViaDispatcherDocument,
-  Mutation,
   PublicationMainFocus,
   ReferenceModules
 } from '@generated/types';
-import { IGif } from '@giphy/js-types';
+import type { IGif } from '@giphy/js-types';
 import { PencilAltIcon } from '@heroicons/react/outline';
-import { defaultFeeData, defaultModuleData, getModule } from '@lib/getModule';
 import getSignature from '@lib/getSignature';
 import getTags from '@lib/getTags';
 import getUserLocale from '@lib/getUserLocale';
@@ -27,7 +26,8 @@ import splitSignature from '@lib/splitSignature';
 import trimify from '@lib/trimify';
 import uploadToArweave from '@lib/uploadToArweave';
 import dynamic from 'next/dynamic';
-import { FC, useState } from 'react';
+import type { FC } from 'react';
+import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { APP_NAME, LENSHUB_PROXY, RELAY_ON, SIGN_WALLET } from 'src/constants';
 import { useAppStore } from 'src/store/app';
@@ -45,10 +45,10 @@ const Attachment = dynamic(() => import('@components/Shared/Attachment'), {
 const Giphy = dynamic(() => import('@components/Shared/Giphy'), {
   loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
 });
-const SelectCollectModule = dynamic(() => import('@components/Shared/SelectCollectModule'), {
+const CollectSettings = dynamic(() => import('@components/Shared/CollectSettings'), {
   loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
 });
-const SelectReferenceModule = dynamic(() => import('@components/Shared/SelectReferenceModule'), {
+const ReferenceSettings = dynamic(() => import('@components/Shared/ReferenceSettings'), {
   loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
 });
 const Preview = dynamic(() => import('@components/Shared/Preview'), {
@@ -73,10 +73,8 @@ const NewUpdate: FC = () => {
   const setTxnQueue = useTransactionPersistStore((state) => state.setTxnQueue);
 
   // Collect module store
-  const selectedCollectModule = useCollectModuleStore((state) => state.selectedCollectModule);
-  const setSelectedCollectModule = useCollectModuleStore((state) => state.setSelectedCollectModule);
-  const feeData = useCollectModuleStore((state) => state.feeData);
-  const setFeeData = useCollectModuleStore((state) => state.setFeeData);
+  const resetCollectSettings = useCollectModuleStore((state) => state.reset);
+  const payload = useCollectModuleStore((state) => state.payload);
 
   // Reference module store
   const selectedReferenceModule = useReferenceModuleStore((state) => state.selectedReferenceModule);
@@ -94,8 +92,7 @@ const NewUpdate: FC = () => {
     setShowNewPostModal(false);
     setPublicationContent('');
     setAttachments([]);
-    setSelectedCollectModule(defaultModuleData);
-    setFeeData(defaultFeeData);
+    resetCollectSettings();
     Mixpanel.track(POST.NEW);
   };
 
@@ -233,11 +230,7 @@ const NewUpdate: FC = () => {
     const request = {
       profileId: currentProfile?.id,
       contentURI: `https://arweave.net/${id}`,
-      collectModule: feeData.recipient
-        ? {
-            [getModule(selectedCollectModule.moduleName).config]: feeData
-          }
-        : getModule(selectedCollectModule.moduleName).config,
+      collectModule: payload,
       referenceModule:
         selectedReferenceModule === ReferenceModules.FollowerOnlyReferenceModule
           ? { followerOnlyReferenceModule: onlyFollowers ? true : false }
@@ -296,8 +289,8 @@ const NewUpdate: FC = () => {
         <div className="flex items-center space-x-4">
           <Attachment attachments={attachments} setAttachments={setAttachments} />
           <Giphy setGifAttachment={(gif: IGif) => setGifAttachment(gif)} />
-          <SelectCollectModule />
-          <SelectReferenceModule />
+          <CollectSettings />
+          <ReferenceSettings />
           {publicationContent && <Preview />}
         </div>
         <div className="ml-auto pt-2 sm:pt-0">
@@ -310,7 +303,9 @@ const NewUpdate: FC = () => {
           </Button>
         </div>
       </div>
-      <Attachments attachments={attachments} setAttachments={setAttachments} isNew />
+      <div className="px-5">
+        <Attachments attachments={attachments} setAttachments={setAttachments} isNew />
+      </div>
     </div>
   );
 };

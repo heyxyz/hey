@@ -5,13 +5,12 @@ import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
 import { WarningMessage } from '@components/UI/WarningMessage';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
-import { LensterFollowModule } from '@generated/lenstertypes';
+import type { LensterFollowModule } from '@generated/lenstertypes';
+import type { Mutation, Profile } from '@generated/types';
 import {
   ApprovedModuleAllowanceAmountDocument,
   CreateFollowTypedDataDocument,
   FollowModules,
-  Mutation,
-  Profile,
   SuperFollowDocument
 } from '@generated/types';
 import { StarIcon, UserIcon } from '@heroicons/react/outline';
@@ -21,7 +20,8 @@ import getTokenImage from '@lib/getTokenImage';
 import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
-import { Dispatch, FC, useState } from 'react';
+import type { Dispatch, FC } from 'react';
+import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { LENSHUB_PROXY, POLYGONSCAN_URL, RELAY_ON, SIGN_WALLET } from 'src/constants';
 import { useAppStore } from 'src/store/app';
