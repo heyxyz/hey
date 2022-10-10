@@ -1,6 +1,6 @@
 import type { ProfileStats } from '@generated/types';
 import { ChatAlt2Icon, FilmIcon, PencilAltIcon, PhotographIcon } from '@heroicons/react/outline';
-import { Dogstats } from '@lib/dogstats';
+import { Mixpanel } from '@lib/mixpanel';
 import nFormatter from '@lib/nFormatter';
 import clsx from 'clsx';
 import type { Dispatch, FC, ReactNode } from 'react';
@@ -24,7 +24,7 @@ const FeedType: FC<Props> = ({ stats, setFeedType, feedType }) => {
       type="button"
       onClick={() => {
         setFeedType(type);
-        Dogstats.track(`Switch to ${type.toLowerCase()} tab in profile`);
+        Mixpanel.track(`Switch to ${type.toLowerCase()} tab in profile`);
       }}
       className={clsx(
         {

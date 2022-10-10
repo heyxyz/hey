@@ -3,8 +3,8 @@ import { Modal } from '@components/UI/Modal';
 import type { Profile } from '@generated/types';
 import { MutualFollowersDocument } from '@generated/types';
 import { UsersIcon } from '@heroicons/react/outline';
-import { Dogstats } from '@lib/dogstats';
 import getAvatar from '@lib/getAvatar';
+import { Mixpanel } from '@lib/mixpanel';
 import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
@@ -40,7 +40,7 @@ const MutualFollowers: FC<Props> = ({ profile }) => {
       className="mr-0 sm:mr-10 text-sm text-gray-500 flex items-center space-x-2.5 cursor-pointer"
       onClick={() => {
         setShowMutualFollowersModal(true);
-        Dogstats.track(PROFILE.OPEN_MUTUAL_FOLLOWERS);
+        Mixpanel.track(PROFILE.OPEN_MUTUAL_FOLLOWERS);
       }}
     >
       <div className="contents -space-x-2">

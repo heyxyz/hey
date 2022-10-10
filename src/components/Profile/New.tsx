@@ -3,7 +3,7 @@ import SettingsHelper from '@components/Shared/SettingsHelper';
 import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import MetaTags from '@components/utils/MetaTags';
-import { Dogstats } from '@lib/dogstats';
+import { Mixpanel } from '@lib/mixpanel';
 import type { NextPage } from 'next';
 import { useEffect } from 'react';
 import { APP_NAME } from 'src/constants';
@@ -15,7 +15,7 @@ const NewProfile: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   useEffect(() => {
-    Dogstats.track('Pageview', { path: PAGEVIEW.CREATE_PROFILE });
+    Mixpanel.track('Pageview', { path: PAGEVIEW.CREATE_PROFILE });
   }, []);
 
   if (!currentProfile) {

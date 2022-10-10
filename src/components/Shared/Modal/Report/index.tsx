@@ -9,7 +9,7 @@ import type { LensterPublication } from '@generated/lenstertypes';
 import { ReportPublicationDocument } from '@generated/types';
 import { PencilAltIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
-import { Dogstats } from '@lib/dogstats';
+import { Mixpanel } from '@lib/mixpanel';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useGlobalModalStateStore } from 'src/store/modals';
@@ -37,7 +37,7 @@ const Report: FC<Props> = ({ publication }) => {
     ReportPublicationDocument,
     {
       onCompleted: () => {
-        Dogstats.track(PUBLICATION.REPORT);
+        Mixpanel.track(PUBLICATION.REPORT);
       }
     }
   );

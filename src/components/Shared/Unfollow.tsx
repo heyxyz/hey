@@ -5,8 +5,8 @@ import { Spinner } from '@components/UI/Spinner';
 import type { Mutation, Profile } from '@generated/types';
 import { CreateUnfollowTypedDataDocument } from '@generated/types';
 import { UserRemoveIcon } from '@heroicons/react/outline';
-import { Dogstats } from '@lib/dogstats';
 import getSignature from '@lib/getSignature';
+import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import type { Signer } from 'ethers';
@@ -55,7 +55,7 @@ const Unfollow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
               setFollowing(false);
             }
             toast.success('Unfollowed successfully!');
-            Dogstats.track(PROFILE.UNFOLLOW);
+            Mixpanel.track(PROFILE.UNFOLLOW);
           } catch {
             toast.error('User rejected request');
           } finally {

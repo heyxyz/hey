@@ -2,7 +2,7 @@ import { ReferenceModules } from '@generated/types';
 import { Menu, Transition } from '@headlessui/react';
 import { GlobeAltIcon, UserAddIcon, UserGroupIcon, UsersIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
-import { Dogstats } from '@lib/dogstats';
+import { Mixpanel } from '@lib/mixpanel';
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
 import type { FC, ReactNode } from 'react';
@@ -59,7 +59,7 @@ const ReferenceSettings: FC = () => {
             as={motion.button}
             whileTap={{ scale: 0.9 }}
             onClick={() => {
-              Dogstats.track(PUBLICATION.NEW.REFERENCE_MODULE.OPEN_REFERENCE_SETTINGS);
+              Mixpanel.track(PUBLICATION.NEW.REFERENCE_MODULE.OPEN_REFERENCE_SETTINGS);
             }}
           >
             <div className="text-brand">
@@ -90,7 +90,7 @@ const ReferenceSettings: FC = () => {
                 onClick={() => {
                   setSelectedReferenceModule(ReferenceModules.FollowerOnlyReferenceModule);
                   setOnlyFollowers(false);
-                  Dogstats.track(PUBLICATION.NEW.REFERENCE_MODULE.EVERYONE);
+                  Mixpanel.track(PUBLICATION.NEW.REFERENCE_MODULE.EVERYONE);
                 }}
               />
               <Module
@@ -100,7 +100,7 @@ const ReferenceSettings: FC = () => {
                 onClick={() => {
                   setSelectedReferenceModule(ReferenceModules.FollowerOnlyReferenceModule);
                   setOnlyFollowers(true);
-                  Dogstats.track(PUBLICATION.NEW.REFERENCE_MODULE.MY_FOLLOWERS);
+                  Mixpanel.track(PUBLICATION.NEW.REFERENCE_MODULE.MY_FOLLOWERS);
                 }}
               />
               <Module
@@ -110,7 +110,7 @@ const ReferenceSettings: FC = () => {
                 onClick={() => {
                   setSelectedReferenceModule(ReferenceModules.DegreesOfSeparationReferenceModule);
                   setDegreesOfSeparation(1);
-                  Dogstats.track(PUBLICATION.NEW.REFERENCE_MODULE.MY_FOLLOWS);
+                  Mixpanel.track(PUBLICATION.NEW.REFERENCE_MODULE.MY_FOLLOWS);
                 }}
               />
               <Module
@@ -120,7 +120,7 @@ const ReferenceSettings: FC = () => {
                 onClick={() => {
                   setSelectedReferenceModule(ReferenceModules.DegreesOfSeparationReferenceModule);
                   setDegreesOfSeparation(2);
-                  Dogstats.track(PUBLICATION.NEW.REFERENCE_MODULE.FRIENDS_OF_FRIENDS);
+                  Mixpanel.track(PUBLICATION.NEW.REFERENCE_MODULE.FRIENDS_OF_FRIENDS);
                 }}
               />
             </Menu.Items>

@@ -1,7 +1,7 @@
 import type { LensterPublication } from '@generated/lenstertypes';
 import { Menu, Transition } from '@headlessui/react';
 import { DotsHorizontalIcon } from '@heroicons/react/outline';
-import { Dogstats } from '@lib/dogstats';
+import { Mixpanel } from '@lib/mixpanel';
 import clsx from 'clsx';
 import type { FC } from 'react';
 import { Fragment } from 'react';
@@ -29,7 +29,7 @@ const PublicationMenu: FC<Props> = ({ publication, isFullPublication }) => {
           <Menu.Button
             className="p-1.5 rounded-full hover:bg-gray-300 hover:bg-opacity-20"
             onClick={() => {
-              Dogstats.track(PUBLICATION.MORE);
+              Mixpanel.track(PUBLICATION.MORE);
             }}
             aria-label="More"
           >
