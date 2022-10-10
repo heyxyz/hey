@@ -19,7 +19,6 @@ export const Dogstats = {
         data: {
           view: { url: location.href },
           message: name,
-          event: name,
           date: new Date(),
           props
         }
