@@ -1,4 +1,4 @@
-import { Conversation } from '@xmtp/xmtp-js';
+import type { Conversation } from '@xmtp/xmtp-js';
 import { useCallback } from 'react';
 
 const useSendMessage = (conversation?: Conversation) => {
