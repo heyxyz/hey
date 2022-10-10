@@ -1,6 +1,6 @@
 import MetaTags from '@components/utils/MetaTags';
 import { LightningBoltIcon } from '@heroicons/react/outline';
-import { Mixpanel } from '@lib/mixpanel';
+import { Dogstats } from '@lib/dogstats';
 import type { FC } from 'react';
 import { useEffect } from 'react';
 import { APP_NAME } from 'src/constants';
@@ -14,7 +14,7 @@ const Notification: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   useEffect(() => {
-    Mixpanel.track('Pageview', { path: PAGEVIEW.NOTIFICATION });
+    Dogstats.track('Pageview', { path: PAGEVIEW.NOTIFICATION });
   }, []);
 
   if (!currentProfile) {

@@ -7,7 +7,7 @@ import { Spinner } from '@components/UI/Spinner';
 import type { Profile, Wallet } from '@generated/types';
 import { CollectorsDocument } from '@generated/types';
 import { CollectionIcon } from '@heroicons/react/outline';
-import { Mixpanel } from '@lib/mixpanel';
+import { Dogstats } from '@lib/dogstats';
 import type { FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { PAGINATION_ROOT_MARGIN } from 'src/constants';
@@ -40,7 +40,7 @@ const Collectors: FC<Props> = ({ publicationId }) => {
       await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next } }
       });
-      Mixpanel.track(PAGINATION.COLLECTORS);
+      Dogstats.track(PAGINATION.COLLECTORS);
     },
     rootMargin: PAGINATION_ROOT_MARGIN
   });

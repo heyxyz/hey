@@ -13,7 +13,7 @@ import type {
 } from '@generated/types';
 import { CustomFiltersTypes, NotificationsDocument } from '@generated/types';
 import { MailIcon } from '@heroicons/react/outline';
-import { Mixpanel } from '@lib/mixpanel';
+import { Dogstats } from '@lib/dogstats';
 import type { FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { PAGINATION_ROOT_MARGIN } from 'src/constants';
@@ -54,7 +54,7 @@ const List: FC = () => {
       await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next } }
       });
-      Mixpanel.track(PAGINATION.NOTIFICATION_FEED);
+      Dogstats.track(PAGINATION.NOTIFICATION_FEED);
     },
     rootMargin: PAGINATION_ROOT_MARGIN
   });

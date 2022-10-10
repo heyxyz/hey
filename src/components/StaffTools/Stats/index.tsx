@@ -13,8 +13,8 @@ import {
   UsersIcon
 } from '@heroicons/react/outline';
 import { PencilAltIcon } from '@heroicons/react/solid';
+import { Dogstats } from '@lib/dogstats';
 import humanize from '@lib/humanize';
-import { Mixpanel } from '@lib/mixpanel';
 import type { NextPage } from 'next';
 import type { FC, ReactNode } from 'react';
 import { useEffect } from 'react';
@@ -44,7 +44,7 @@ const Stats: NextPage = () => {
   const { allowed } = useStaffMode();
 
   useEffect(() => {
-    Mixpanel.track('Pageview', { path: PAGEVIEW.STAFFTOOLS.STATS });
+    Dogstats.track('Pageview', { path: PAGEVIEW.STAFFTOOLS.STATS });
   }, []);
 
   const { data, loading, error } = useQuery(LensterStatsDocument, {
