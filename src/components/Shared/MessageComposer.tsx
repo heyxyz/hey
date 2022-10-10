@@ -1,7 +1,8 @@
 import { Button } from '@components/UI/Button';
 import { Input } from '@components/UI/Input';
 import { ArrowRightIcon } from '@heroicons/react/outline';
-import { FC, useState } from 'react';
+import type { FC } from 'react';
+import { useState } from 'react';
 
 interface Props {
   sendMessage: (message: string) => void;

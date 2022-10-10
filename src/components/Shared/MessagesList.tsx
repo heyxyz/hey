@@ -1,8 +1,9 @@
 import getAvatar from '@lib/getAvatar';
-import { Message } from '@xmtp/xmtp-js';
+import type { Message } from '@xmtp/xmtp-js';
 import clsx from 'clsx';
 import dayjs from 'dayjs';
-import React, { FC, memo, ReactNode } from 'react';
+import type { FC, ReactNode } from 'react';
+import React, { memo } from 'react';
 import { useAppStore } from 'src/store/app';
 
 const formatTime = (d: Date | undefined): string => (d ? dayjs(d).format('hh:mm a - MM/DD/YY') : '');
