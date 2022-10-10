@@ -2,7 +2,6 @@ import { useQuery } from '@apollo/client';
 import Preview from '@components/Messages/Preview';
 import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
-import { PageLoading } from '@components/UI/PageLoading';
 import MetaTags from '@components/utils/MetaTags';
 import type { Profile } from '@generated/types';
 import { ProfilesDocument } from '@generated/types';
@@ -33,43 +32,35 @@ const Messages: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const client = useMessageStore((state) => state.client);
   const setClient = useMessageStore((state) => state.setClient);
-  const conversations = useMessageStore((state) => state.conversations);
-  const setConversations = useMessageStore((state) => state.setConversations);
-  const loadingMessages = useMessageStore((state) => state.loadingMessages);
-  const setLoadingMessages = useMessageStore((state) => state.setLoadingMessages);
-  const messagePreviews = useMessageStore((state) => state.messagePreviews);
-  const setMessagePreviews = useMessageStore((state) => state.setMessagePreviews);
   const isMessagesEnabled = isFeatureEnabled('messages', currentProfile?.id);
 
-  const peerAddresses = Array.from(conversations.values()).map((convo) => convo.peerAddress);
-  console.log('PEER ADDRESSES: ' + peerAddresses);
-  console.log('MY ADDY: ' + currentProfile?.ownedBy);
-  peerAddresses.push(currentProfile?.ownedBy);
-  const { loading: loadingProfiles, error: profilesError } = useQuery(ProfilesDocument, {
+  const conversations = useMessageStore((state) => state.conversations);
+  const setConversations = useMessageStore((state) => state.setConversations);
+  const messagePreviews = useMessageStore((state) => state.messagePreviews);
+  const setMessagePreviews = useMessageStore((state) => state.setMessagePreviews);
+
+  const peerAddresses = Array.from(messagePreviews.keys());
+  const { error: profilesError } = useQuery(ProfilesDocument, {
     // TODO(elise): Right now this isn't guaranteed to cover all profiles.
     // We'll likely have to loop through all pages since peerAddresses contains all conversations.
     variables: {
       request: { ownedBy: peerAddresses, limit: 50 }
     },
-    skip: !currentProfile?.id,
+    skip: !currentProfile?.id || peerAddresses.length === 0,
     onCompleted: (data) => {
       if (!data?.profiles?.items?.length) {
         return;
       }
       const profiles = data.profiles.items as Profile[];
-      const newMessagePreviews = new Map<string, MessagePreview>();
-      console.log('NEW PROF: all mps: ' + Array.from(messagePreviews.keys()).map((addy) => addy));
+      const newMessagePreviews = new Map(messagePreviews);
       for (const profile of profiles) {
-        // TODO(elise): lowercase necessary?
-        const newAddress = (profile.ownedBy as string).toLowerCase();
-        console.log('NEW PROF: prof addy: ' + newAddress);
-        const messagePreview = new MessagePreview(newMessagePreviews.get(newAddress));
-        console.log('NEW PROF: existing mp msg: ' + messagePreview.message?.content);
+        const peerAddress = (profile.ownedBy as string).toLowerCase();
+        const messagePreview = new MessagePreview(messagePreviews.get(peerAddress));
         if (messagePreview.profile?.isDefault) {
           return;
         }
         messagePreview.profile = profile;
-        newMessagePreviews.set(newAddress, messagePreview);
+        newMessagePreviews.set(peerAddress, messagePreview);
       }
       setMessagePreviews(newMessagePreviews);
     }
@@ -96,23 +87,17 @@ const Messages: FC = () => {
     const fetchMostRecentMessage = async (
       convo: Conversation
     ): Promise<{ address: string; preview: MessagePreview }> => {
-      const newMessagePreview = new MessagePreview(messagePreviews.get(convo.peerAddress.toLowerCase()));
-      // if (convo.peerAddress !== currentProfile?.ownedBy) {
+      const peerAddress = convo.peerAddress.toLowerCase();
+      const newMessagePreview = new MessagePreview(messagePreviews.get(peerAddress));
       const newMessages = await convo.messages({ limit: 1 });
       if (newMessages.length === 0) {
-        return { address: convo.peerAddress, preview: newMessagePreview };
+        return { address: peerAddress, preview: newMessagePreview };
       }
-      // TODO(elise): lowercase?
-      console.log('NEW MSG: all mps: ' + Array.from(messagePreviews.keys()).map((addy) => addy));
-      console.log('NEW MSG: convo addy: ' + convo.peerAddress);
-      console.log('NEW MSG: existing mp prof: ' + newMessagePreview?.profile?.ownedBy);
       newMessagePreview.message = newMessages[0];
-      // }
-      return { address: convo.peerAddress, preview: newMessagePreview };
+      return { address: peerAddress, preview: newMessagePreview };
     };
 
     const listConversations = async () => {
-      setLoadingMessages(true);
       const newMessagePreviews = new Map(messagePreviews);
       const newConversations = new Map(conversations);
       const convos = (await client?.conversations?.list()) || [];
@@ -127,19 +112,6 @@ const Messages: FC = () => {
       }
       setMessagePreviews(newMessagePreviews);
       setConversations(newConversations);
-      setLoadingMessages(false);
-      // newMessagePreviews.set()
-      // // .then((result) => {
-      //   // const [previews] = result;
-      //   previews.map((preview) => {
-      //     newMessagePreviews.set(preview.)
-      //   });
-      //   console.log('THEN: before mps :' + Array.from(messagePreviews.keys()).map((addy) => addy));
-      //   setMessagePreviews(newMessagePreviews);
-      //   console.log('THEN: after mps :' + Array.from(messagePreviews.keys()).map((addy) => addy));
-      //   setConversations(newConversations);
-      //   setLoadingMessages(false);
-      // });
     };
 
     listConversations();
@@ -150,10 +122,6 @@ const Messages: FC = () => {
     return <Custom404 />;
   }
 
-  if (loadingMessages || loadingProfiles) {
-    return <PageLoading message="Loading messages" />;
-  }
-
   if (profilesError) {
     return <Custom500 />;
   }
@@ -162,15 +130,6 @@ const Messages: FC = () => {
     return null;
   }
 
-  // // TODO(elise): These aren't lining up yet!
-  // const addys = Array.from(messagePreviews.keys()).map((addy) => addy);
-  // const values = Array.from(messagePreviews.values()).map(
-  //   (value) => '\nprof: ' + value.profile?.handle + ' msg: ' + value.message?.content
-  // );
-  // console.log('PROFILEMESSAGE MAP ADDYS: ' + addys);
-  // console.log('PROFILEMESSAGE MAP VALUES: ' + values);
-
-  console.log('Rerender');
   return (
     <GridLayout>
       <MetaTags title={`Messages • ${APP_NAME}`} />
@@ -190,14 +149,7 @@ const Messages: FC = () => {
           <div>
             {Array.from(messagePreviews.values()).map((messagePreview, index) => {
               if (!messagePreview.profile || !messagePreview.message) {
-                console.log(
-                  'Missing: ' + messagePreview.profile?.handle + ' msg: ' + messagePreview.message?.content
-                );
                 return null;
-              } else {
-                console.log(
-                  'Match: ' + messagePreview.profile?.handle + ' msg: ' + messagePreview.message?.content
-                );
               }
               return (
                 <Preview
@@ -208,15 +160,6 @@ const Messages: FC = () => {
               );
             })}
           </div>
-          {/* <div>
-            {Object.entries(profileMessageMap).map(([address, profileMessage], index: number) => {
-              return <MessagePreview
-                key={`${address}_${index}`}
-                profile={profileMessage.profile}
-                message={profileMessage.message}
-              />
-            })}
-          </div> */}
         </Card>
       </GridItemFour>
       <GridItemEight>

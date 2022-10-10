@@ -9,8 +9,6 @@ interface MessageState {
   setConversations: (conversations: Map<string, Conversation>) => void;
   messages: Map<string, Message[]>;
   setMessages: (messages: Map<string, Message[]>) => void;
-  loadingMessages: boolean;
-  setLoadingMessages: (loading: boolean) => void;
   messagePreviews: Map<string, MessagePreview>;
   setMessagePreviews: (messagePreviews: Map<string, MessagePreview>) => void;
 }
@@ -22,8 +20,6 @@ export const useMessageStore = create<MessageState>((set) => ({
   setConversations: (conversations) => set(() => ({ conversations })),
   messages: new Map(),
   setMessages: (messages) => set(() => ({ messages })),
-  loadingMessages: false,
-  setLoadingMessages: (loadingMessages) => set(() => ({ loadingMessages })),
   messagePreviews: new Map(),
   setMessagePreviews: (messagePreviews) => set(() => ({ messagePreviews }))
 }));
