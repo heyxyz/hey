@@ -15,17 +15,29 @@ import { useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
 import { useSigner } from 'wagmi';
 
+class ProfileMessage {
+  profile?: Profile = undefined;
+  message?: Message = undefined;
+
+  constructor(profileMessage?: ProfileMessage) {
+    this.profile = profileMessage?.profile;
+    this.message = profileMessage?.message;
+  }
+}
+
 const Messages: FC = () => {
   const { data: signer } = useSigner();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [stream, setStream] = useState<Stream<Conversation>>();
-  const [profileMap, setProfileMap] = useState<Map<string, Profile>>();
-  const [messageMap, setMessageMap] = useState<Map<string, Message>>();
+  const [profileMessageMap, setProfileMessageMap] = useState<Map<string, ProfileMessage>>();
+  // const [profileMap, setProfileMap] = useState<Map<string, Profile>>();
+  // const [messageMap, setMessageMap] = useState<Map<string, Message>>();
   const messageState = useMessageStore((state) => state);
   const { client, setClient, conversations, setConversations, loadingMessages, setLoadingMessages } =
     messageState;
   const isMessagesEnabled = isFeatureEnabled('messages', currentProfile?.id);
 
+  console.log('Yo');
   const peerAddresses = Array.from(conversations.values()).map((convo) => convo.peerAddress);
   peerAddresses.push(currentProfile?.ownedBy);
   const { loading: loadingProfiles, error: profilesError } = useQuery(ProfilesDocument, {
@@ -39,15 +51,19 @@ const Messages: FC = () => {
       if (!data?.profiles?.items?.length) {
         return;
       }
+      console.log('Profiles exist');
       const profiles = data.profiles.items as Profile[];
-      const newProfileMap = new Map<string, Profile>();
+      const newProfileMessageMap = new Map<string, ProfileMessage>();
       for (const profile of profiles) {
-        if (newProfileMap.get(profile.ownedBy)?.isDefault) {
+        const newAddress = (profile.ownedBy as string).toLowerCase();
+        const profileMessage = new ProfileMessage(newProfileMessageMap.get(newAddress));
+        if (profileMessage.profile?.isDefault) {
           return;
         }
-        newProfileMap.set(profile.ownedBy, profile);
+        profileMessage.profile = profile;
+        newProfileMessageMap.set(newAddress, profileMessage);
       }
-      setProfileMap(newProfileMap);
+      setProfileMessageMap(newProfileMessageMap);
     }
   });
 
@@ -71,31 +87,35 @@ const Messages: FC = () => {
 
     const fetchMostRecentMessage = async (
       convo: Conversation,
-      messageMap: Map<string, Message>,
+      profileMessageMap: Map<string, ProfileMessage>,
       conversationMap: Map<string, Conversation>
-    ) => {
+    ): Promise<void> => {
+      // TODO(elise): does this have to be lowercase?
       if (convo.peerAddress !== currentProfile?.ownedBy) {
         const newMessages = await convo.messages({ limit: 1 });
         if (newMessages.length === 0) {
           return;
         }
-        console.log('NEW MESSAGE: ' + newMessages[0].senderAddress);
-        messageMap.set(convo.peerAddress, newMessages[0]);
+        console.log('NEW MESSAGE: ' + newMessages[0].content);
+        const profileMessage = new ProfileMessage(profileMessageMap.get(convo.peerAddress));
+        profileMessage.message = newMessages[0];
+        profileMessageMap.set(convo.peerAddress, profileMessage);
         conversationMap.set(convo.peerAddress, convo);
       }
     };
 
     const listConversations = async () => {
-      const tempConversations = new Map<string, Conversation>();
-      const tempMessage = new Map<string, Message>();
+      const tempProfileMessageMap = new Map(profileMessageMap);
+      const tempConversations = new Map(conversations);
       setLoadingMessages(true);
       const convos = (await client?.conversations?.list()) || [];
       Promise.all([
-        convos.map((convo) => {
-          fetchMostRecentMessage(convo, tempMessage, tempConversations);
+        convos.map(async (convo) => {
+          await fetchMostRecentMessage(convo, tempProfileMessageMap, tempConversations);
         })
       ]).then(() => {
-        setMessageMap(tempMessage);
+        console.log('MSG COMPLETE!');
+        setProfileMessageMap(tempProfileMessageMap);
         setConversations(tempConversations);
         setLoadingMessages(false);
       });
@@ -104,15 +124,16 @@ const Messages: FC = () => {
     const streamConversations = async () => {
       const newStream = (await client?.conversations?.stream()) || [];
       setStream(newStream);
-      const newMessageMap = messageMap || new Map<string, Message>();
+      const tempProfileMessageMap = new Map(profileMessageMap);
+      const tempConversations = new Map(conversations);
       for await (const convo of newStream) {
-        fetchMostRecentMessage(convo, newMessageMap, conversations);
-        setMessageMap(new Map(newMessageMap));
-        setConversations(new Map(conversations));
+        fetchMostRecentMessage(convo, tempProfileMessageMap, tempConversations);
+        setProfileMessageMap(tempProfileMessageMap);
+        setConversations(tempConversations);
       }
     };
     listConversations();
-    streamConversations();
+    // streamConversations();
     return () => {
       const closeStream = async () => {
         if (!stream) {
@@ -137,15 +158,17 @@ const Messages: FC = () => {
     return <Custom500 />;
   }
 
-  if (!profileMap || !messageMap) {
+  if (!profileMessageMap) {
     return null;
   }
 
   // TODO(elise): These aren't lining up yet!
-  const profileAddy = Array.from(profileMap.keys()).map((addy) => addy);
-  const messageAddy = Array.from(messageMap.keys()).map((addy) => addy);
-  console.log('PROFILE MAP ADDYS: ' + profileAddy);
-  console.log('MESSAGE MAP ADDYS: ' + messageAddy);
+  const addys = Array.from(profileMessageMap.keys()).map((addy) => addy);
+  const values = Array.from(profileMessageMap.values()).map(
+    (value) => '\nprof: ' + value.profile?.handle + ' msg: ' + value.message?.content
+  );
+  console.log('PROFILEMESSAGE MAP ADDYS: ' + addys);
+  console.log('PROFILEMESSAGE MAP VALUES: ' + values);
 
   return (
     <GridLayout>
@@ -162,19 +185,33 @@ const Messages: FC = () => {
             <div className="text-xs">Lens profiles</div>
             <div className="text-xs">All messages</div>
           </div>
+
           <div>
-            {Object.entries(profileMap).map(([address, profile], index: number) => (
-              <div className="p-5" key={profile?.id}>
-                {messageMap.get(address) !== null ? (
-                  <MessagePreview
-                    key={`${address}_${index}`}
-                    profile={profile}
-                    message={messageMap.get(address)!}
-                  />
-                ) : null}
-              </div>
-            ))}
+            {Array.from(profileMessageMap.values()).map((profileMessage, index) => {
+              if (!profileMessage.profile || !profileMessage.message) {
+                console.log(
+                  '\nprof2: ' + profileMessage.profile?.handle + ' msg2: ' + profileMessage.message?.content
+                );
+                return null;
+              }
+              return (
+                <MessagePreview
+                  key={`${profileMessage.profile.ownedBy}_${index}`}
+                  profile={profileMessage.profile}
+                  message={profileMessage.message}
+                />
+              );
+            })}
           </div>
+          {/* <div>
+            {Object.entries(profileMessageMap).map(([address, profileMessage], index: number) => {
+              return <MessagePreview
+                key={`${address}_${index}`}
+                profile={profileMessage.profile}
+                message={profileMessage.message}
+              />
+            })}
+          </div> */}
         </Card>
       </GridItemFour>
       <GridItemEight>

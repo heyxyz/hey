@@ -16,6 +16,8 @@ interface Props {
 const MessagePreview: FC<Props> = ({ profile, message }) => {
   const router = useRouter();
 
+  console.log('preview alert');
+
   // TODO(elise): I think we'll want to update this route to use lens handle instead of eth address.
   const onConversationSelected = (address: string) => {
     router.push(address ? `/messages/${address}` : '/messages/');
