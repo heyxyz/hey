@@ -1,10 +1,11 @@
 import UserProfile from '@components/Shared/UserProfile';
-import { Profile } from '@generated/types';
-import { Message } from '@xmtp/xmtp-js';
+import type { Profile } from '@generated/types';
+import type { Message } from '@xmtp/xmtp-js';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { useRouter } from 'next/router';
-import React, { FC } from 'react';
+import type { FC } from 'react';
+import React from 'react';
 
 dayjs.extend(relativeTime);
 
@@ -13,7 +14,8 @@ interface Props {
   message: Message;
 }
 
-const MessagePreview: FC<Props> = ({ profile, message }) => {
+// TODO(elise): pass messagepreview obj as prop
+const Preview: FC<Props> = ({ profile, message }) => {
   const router = useRouter();
 
   console.log('preview alert');
@@ -35,4 +37,4 @@ const MessagePreview: FC<Props> = ({ profile, message }) => {
   );
 };
 
-export default MessagePreview;
+export default Preview;

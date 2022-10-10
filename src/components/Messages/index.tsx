@@ -1,13 +1,16 @@
 import { useQuery } from '@apollo/client';
-import MessagePreview from '@components/Messages/MessagePreview';
+import Preview from '@components/Messages/Preview';
 import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import { PageLoading } from '@components/UI/PageLoading';
 import MetaTags from '@components/utils/MetaTags';
-import { Profile, ProfilesDocument } from '@generated/types';
+import type { Profile } from '@generated/types';
+import { ProfilesDocument } from '@generated/types';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
-import { Client, Conversation, Message, Stream } from '@xmtp/xmtp-js';
-import { FC, useEffect, useState } from 'react';
+import type { Conversation, Message } from '@xmtp/xmtp-js';
+import { Client } from '@xmtp/xmtp-js';
+import type { FC } from 'react';
+import { useEffect } from 'react';
 import { APP_NAME } from 'src/constants';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
@@ -15,30 +18,32 @@ import { useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
 import { useSigner } from 'wagmi';
 
-class ProfileMessage {
-  profile?: Profile = undefined;
-  message?: Message = undefined;
+export class MessagePreview {
+  profile?: Profile;
+  message?: Message;
 
-  constructor(profileMessage?: ProfileMessage) {
-    this.profile = profileMessage?.profile;
-    this.message = profileMessage?.message;
+  constructor(preview?: MessagePreview) {
+    this.profile = preview?.profile;
+    this.message = preview?.message;
   }
 }
 
 const Messages: FC = () => {
   const { data: signer } = useSigner();
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const [stream, setStream] = useState<Stream<Conversation>>();
-  const [profileMessageMap, setProfileMessageMap] = useState<Map<string, ProfileMessage>>();
-  // const [profileMap, setProfileMap] = useState<Map<string, Profile>>();
-  // const [messageMap, setMessageMap] = useState<Map<string, Message>>();
-  const messageState = useMessageStore((state) => state);
-  const { client, setClient, conversations, setConversations, loadingMessages, setLoadingMessages } =
-    messageState;
+  const client = useMessageStore((state) => state.client);
+  const setClient = useMessageStore((state) => state.setClient);
+  const conversations = useMessageStore((state) => state.conversations);
+  const setConversations = useMessageStore((state) => state.setConversations);
+  const loadingMessages = useMessageStore((state) => state.loadingMessages);
+  const setLoadingMessages = useMessageStore((state) => state.setLoadingMessages);
+  const messagePreviews = useMessageStore((state) => state.messagePreviews);
+  const setMessagePreviews = useMessageStore((state) => state.setMessagePreviews);
   const isMessagesEnabled = isFeatureEnabled('messages', currentProfile?.id);
 
-  console.log('Yo');
   const peerAddresses = Array.from(conversations.values()).map((convo) => convo.peerAddress);
+  console.log('PEER ADDRESSES: ' + peerAddresses);
+  console.log('MY ADDY: ' + currentProfile?.ownedBy);
   peerAddresses.push(currentProfile?.ownedBy);
   const { loading: loadingProfiles, error: profilesError } = useQuery(ProfilesDocument, {
     // TODO(elise): Right now this isn't guaranteed to cover all profiles.
@@ -51,19 +56,22 @@ const Messages: FC = () => {
       if (!data?.profiles?.items?.length) {
         return;
       }
-      console.log('Profiles exist');
       const profiles = data.profiles.items as Profile[];
-      const newProfileMessageMap = new Map<string, ProfileMessage>();
+      const newMessagePreviews = new Map<string, MessagePreview>();
+      console.log('NEW PROF: all mps: ' + Array.from(messagePreviews.keys()).map((addy) => addy));
       for (const profile of profiles) {
+        // TODO(elise): lowercase necessary?
         const newAddress = (profile.ownedBy as string).toLowerCase();
-        const profileMessage = new ProfileMessage(newProfileMessageMap.get(newAddress));
-        if (profileMessage.profile?.isDefault) {
+        console.log('NEW PROF: prof addy: ' + newAddress);
+        const messagePreview = new MessagePreview(newMessagePreviews.get(newAddress));
+        console.log('NEW PROF: existing mp msg: ' + messagePreview.message?.content);
+        if (messagePreview.profile?.isDefault) {
           return;
         }
-        profileMessage.profile = profile;
-        newProfileMessageMap.set(newAddress, profileMessage);
+        messagePreview.profile = profile;
+        newMessagePreviews.set(newAddress, messagePreview);
       }
-      setProfileMessageMap(newProfileMessageMap);
+      setMessagePreviews(newMessagePreviews);
     }
   });
 
@@ -86,63 +94,55 @@ const Messages: FC = () => {
     }
 
     const fetchMostRecentMessage = async (
-      convo: Conversation,
-      profileMessageMap: Map<string, ProfileMessage>,
-      conversationMap: Map<string, Conversation>
-    ): Promise<void> => {
-      // TODO(elise): does this have to be lowercase?
-      if (convo.peerAddress !== currentProfile?.ownedBy) {
-        const newMessages = await convo.messages({ limit: 1 });
-        if (newMessages.length === 0) {
-          return;
-        }
-        console.log('NEW MESSAGE: ' + newMessages[0].content);
-        const profileMessage = new ProfileMessage(profileMessageMap.get(convo.peerAddress));
-        profileMessage.message = newMessages[0];
-        profileMessageMap.set(convo.peerAddress, profileMessage);
-        conversationMap.set(convo.peerAddress, convo);
+      convo: Conversation
+    ): Promise<{ address: string; preview: MessagePreview }> => {
+      const newMessagePreview = new MessagePreview(messagePreviews.get(convo.peerAddress.toLowerCase()));
+      // if (convo.peerAddress !== currentProfile?.ownedBy) {
+      const newMessages = await convo.messages({ limit: 1 });
+      if (newMessages.length === 0) {
+        return { address: convo.peerAddress, preview: newMessagePreview };
       }
+      // TODO(elise): lowercase?
+      console.log('NEW MSG: all mps: ' + Array.from(messagePreviews.keys()).map((addy) => addy));
+      console.log('NEW MSG: convo addy: ' + convo.peerAddress);
+      console.log('NEW MSG: existing mp prof: ' + newMessagePreview?.profile?.ownedBy);
+      newMessagePreview.message = newMessages[0];
+      // }
+      return { address: convo.peerAddress, preview: newMessagePreview };
     };
 
     const listConversations = async () => {
-      const tempProfileMessageMap = new Map(profileMessageMap);
-      const tempConversations = new Map(conversations);
       setLoadingMessages(true);
+      const newMessagePreviews = new Map(messagePreviews);
+      const newConversations = new Map(conversations);
       const convos = (await client?.conversations?.list()) || [];
-      Promise.all([
+      const previews = await Promise.all(
         convos.map(async (convo) => {
-          await fetchMostRecentMessage(convo, tempProfileMessageMap, tempConversations);
+          newConversations.set(convo.peerAddress, convo);
+          return await fetchMostRecentMessage(convo);
         })
-      ]).then(() => {
-        console.log('MSG COMPLETE!');
-        setProfileMessageMap(tempProfileMessageMap);
-        setConversations(tempConversations);
-        setLoadingMessages(false);
-      });
+      );
+      for (const preview of previews) {
+        newMessagePreviews.set(preview.address, preview.preview);
+      }
+      setMessagePreviews(newMessagePreviews);
+      setConversations(newConversations);
+      setLoadingMessages(false);
+      // newMessagePreviews.set()
+      // // .then((result) => {
+      //   // const [previews] = result;
+      //   previews.map((preview) => {
+      //     newMessagePreviews.set(preview.)
+      //   });
+      //   console.log('THEN: before mps :' + Array.from(messagePreviews.keys()).map((addy) => addy));
+      //   setMessagePreviews(newMessagePreviews);
+      //   console.log('THEN: after mps :' + Array.from(messagePreviews.keys()).map((addy) => addy));
+      //   setConversations(newConversations);
+      //   setLoadingMessages(false);
+      // });
     };
 
-    const streamConversations = async () => {
-      const newStream = (await client?.conversations?.stream()) || [];
-      setStream(newStream);
-      const tempProfileMessageMap = new Map(profileMessageMap);
-      const tempConversations = new Map(conversations);
-      for await (const convo of newStream) {
-        fetchMostRecentMessage(convo, tempProfileMessageMap, tempConversations);
-        setProfileMessageMap(tempProfileMessageMap);
-        setConversations(tempConversations);
-      }
-    };
     listConversations();
-    // streamConversations();
-    return () => {
-      const closeStream = async () => {
-        if (!stream) {
-          return;
-        }
-        await stream.return();
-      };
-      closeStream();
-    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [client]);
 
@@ -158,18 +158,19 @@ const Messages: FC = () => {
     return <Custom500 />;
   }
 
-  if (!profileMessageMap) {
+  if (!messagePreviews) {
     return null;
   }
 
-  // TODO(elise): These aren't lining up yet!
-  const addys = Array.from(profileMessageMap.keys()).map((addy) => addy);
-  const values = Array.from(profileMessageMap.values()).map(
-    (value) => '\nprof: ' + value.profile?.handle + ' msg: ' + value.message?.content
-  );
-  console.log('PROFILEMESSAGE MAP ADDYS: ' + addys);
-  console.log('PROFILEMESSAGE MAP VALUES: ' + values);
+  // // TODO(elise): These aren't lining up yet!
+  // const addys = Array.from(messagePreviews.keys()).map((addy) => addy);
+  // const values = Array.from(messagePreviews.values()).map(
+  //   (value) => '\nprof: ' + value.profile?.handle + ' msg: ' + value.message?.content
+  // );
+  // console.log('PROFILEMESSAGE MAP ADDYS: ' + addys);
+  // console.log('PROFILEMESSAGE MAP VALUES: ' + values);
 
+  console.log('Rerender');
   return (
     <GridLayout>
       <MetaTags title={`Messages • ${APP_NAME}`} />
@@ -187,18 +188,22 @@ const Messages: FC = () => {
           </div>
 
           <div>
-            {Array.from(profileMessageMap.values()).map((profileMessage, index) => {
-              if (!profileMessage.profile || !profileMessage.message) {
+            {Array.from(messagePreviews.values()).map((messagePreview, index) => {
+              if (!messagePreview.profile || !messagePreview.message) {
                 console.log(
-                  '\nprof2: ' + profileMessage.profile?.handle + ' msg2: ' + profileMessage.message?.content
+                  'Missing: ' + messagePreview.profile?.handle + ' msg: ' + messagePreview.message?.content
                 );
                 return null;
+              } else {
+                console.log(
+                  'Match: ' + messagePreview.profile?.handle + ' msg: ' + messagePreview.message?.content
+                );
               }
               return (
-                <MessagePreview
-                  key={`${profileMessage.profile.ownedBy}_${index}`}
-                  profile={profileMessage.profile}
-                  message={profileMessage.message}
+                <Preview
+                  key={`${messagePreview.profile.ownedBy}_${index}`}
+                  profile={messagePreview.profile}
+                  message={messagePreview.message}
                 />
               );
             })}
