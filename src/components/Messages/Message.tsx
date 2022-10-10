@@ -3,7 +3,7 @@ import MessagesList from '@components/Shared/MessagesList';
 import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import useGetMessages from '@components/utils/hooks/useGetMessages';
-import useStreamMessages from '@components/utils/hooks/useStreamMessages';
+import useSendMessage from '@components/utils/hooks/useSendMessage';
 import MetaTags from '@components/utils/MetaTags';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { useRouter } from 'next/router';
@@ -21,7 +21,7 @@ const Message: FC = () => {
   const { conversations } = messageState;
   const selectedConversation = conversations.get(address);
   const { messages } = useGetMessages(selectedConversation);
-  const { sendMessage } = useStreamMessages(selectedConversation);
+  const { sendMessage } = useSendMessage(selectedConversation);
 
   const onConversationSelected = (address: string) => {
     push(address ? `/messages/${address}` : '/messages/');

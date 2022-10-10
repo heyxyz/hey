@@ -3,8 +3,8 @@ import { useEffect } from 'react';
 import { useMessageStore } from 'src/store/message';
 
 const useGetMessages = (conversation?: Conversation) => {
-  const messageState = useMessageStore((state) => state);
-  const { messages, setMessages } = messageState;
+  const messages = useMessageStore((state) => state.messages);
+  const setMessages = useMessageStore((state) => state.setMessages);
 
   useEffect(() => {
     if (!conversation) {
