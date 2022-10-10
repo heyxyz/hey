@@ -2,7 +2,7 @@ import { Card } from '@components/UI/Card';
 import { BadgeCheckIcon } from '@heroicons/react/solid';
 import isVerified from '@lib/isVerified';
 import { Mixpanel } from '@lib/mixpanel';
-import { FC } from 'react';
+import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 import { SETTINGS } from 'src/tracking';
 

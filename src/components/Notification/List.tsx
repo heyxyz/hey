@@ -3,19 +3,18 @@ import { Card } from '@components/UI/Card';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
-import {
-  CustomFiltersTypes,
+import type {
   NewCollectNotification,
   NewCommentNotification,
   NewFollowerNotification,
   NewMentionNotification,
   NewMirrorNotification,
-  NewReactionNotification,
-  NotificationsDocument
+  NewReactionNotification
 } from '@generated/types';
+import { CustomFiltersTypes, NotificationsDocument } from '@generated/types';
 import { MailIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
-import { FC } from 'react';
+import type { FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { PAGINATION_ROOT_MARGIN } from 'src/constants';
 import { useAppStore } from 'src/store/app';

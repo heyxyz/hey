@@ -1,5 +1,6 @@
 import clsx from 'clsx';
-import { ButtonHTMLAttributes, DetailedHTMLProps, forwardRef, ReactNode } from 'react';
+import type { ButtonHTMLAttributes, DetailedHTMLProps, ReactNode } from 'react';
+import { forwardRef } from 'react';
 
 interface Props extends DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> {
   size?: 'sm' | 'md' | 'lg';

@@ -1,9 +1,9 @@
-import { ProfileStats } from '@generated/types';
+import type { ProfileStats } from '@generated/types';
 import { ChatAlt2Icon, FilmIcon, PencilAltIcon, PhotographIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import nFormatter from '@lib/nFormatter';
 import clsx from 'clsx';
-import { Dispatch, FC, ReactNode } from 'react';
+import type { Dispatch, FC, ReactNode } from 'react';
 
 interface Props {
   stats: ProfileStats;

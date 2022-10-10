@@ -1,10 +1,12 @@
 import { LensHubProxy } from '@abis/LensHubProxy';
-import { ApolloCache, useMutation } from '@apollo/client';
+import type { ApolloCache } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import { Spinner } from '@components/UI/Spinner';
 import { Tooltip } from '@components/UI/Tooltip';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
-import { LensterPublication } from '@generated/lenstertypes';
-import { CreateMirrorTypedDataDocument, CreateMirrorViaDispatcherDocument, Mutation } from '@generated/types';
+import type { LensterPublication } from '@generated/lenstertypes';
+import type { Mutation } from '@generated/types';
+import { CreateMirrorTypedDataDocument, CreateMirrorViaDispatcherDocument } from '@generated/types';
 import { SwitchHorizontalIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
 import humanize from '@lib/humanize';
@@ -15,7 +17,8 @@ import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
-import { FC, useState } from 'react';
+import type { FC } from 'react';
+import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { LENSHUB_PROXY, RELAY_ON, SIGN_WALLET } from 'src/constants';
 import { useAppStore } from 'src/store/app';
@@ -150,8 +153,8 @@ const Mirror: FC<Props> = ({ publication, isFullPublication }) => {
 
   return (
     <motion.button whileTap={{ scale: 0.9 }} onClick={createMirror} disabled={isLoading} aria-label="Mirror">
-      <div className={clsx(mirrored ? 'text-green-500' : 'text-brand', 'flex items-center space-x-1')}>
-        <div
+      <span className={clsx(mirrored ? 'text-green-500' : 'text-brand', 'flex items-center space-x-1')}>
+        <span
           className={clsx(
             mirrored ? 'hover:bg-green-300' : 'hover:bg-brand-300',
             'p-1.5 rounded-full hover:bg-opacity-20'
@@ -164,9 +167,11 @@ const Mirror: FC<Props> = ({ publication, isFullPublication }) => {
               <SwitchHorizontalIcon className={iconClassName} />
             </Tooltip>
           )}
-        </div>
-        {count > 0 && !isFullPublication && <div className="text-[11px] sm:text-xs">{nFormatter(count)}</div>}
-      </div>
+        </span>
+        {count > 0 && !isFullPublication && (
+          <span className="text-[11px] sm:text-xs">{nFormatter(count)}</span>
+        )}
+      </span>
     </motion.button>
   );
 };

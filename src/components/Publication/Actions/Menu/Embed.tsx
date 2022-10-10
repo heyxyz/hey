@@ -1,9 +1,9 @@
-import { LensterPublication } from '@generated/lenstertypes';
+import type { LensterPublication } from '@generated/lenstertypes';
 import { Menu } from '@headlessui/react';
 import { CodeIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import clsx from 'clsx';
-import { FC } from 'react';
+import type { FC } from 'react';
 import { PUBLICATION } from 'src/tracking';
 
 interface Props {

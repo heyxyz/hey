@@ -5,11 +5,12 @@ import { CheckCircleIcon } from '@heroicons/react/solid';
 import { Mixpanel } from '@lib/mixpanel';
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
-import { FC, Fragment, ReactNode } from 'react';
+import type { FC, ReactNode } from 'react';
+import { Fragment } from 'react';
 import { useReferenceModuleStore } from 'src/store/referencemodule';
 import { PUBLICATION } from 'src/tracking';
 
-const SelectReferenceModule: FC = () => {
+const ReferenceSettings: FC = () => {
   const selectedReferenceModule = useReferenceModuleStore((state) => state.selectedReferenceModule);
   const setSelectedReferenceModule = useReferenceModuleStore((state) => state.setSelectedReferenceModule);
   const onlyFollowers = useReferenceModuleStore((state) => state.onlyFollowers);
@@ -58,7 +59,7 @@ const SelectReferenceModule: FC = () => {
             as={motion.button}
             whileTap={{ scale: 0.9 }}
             onClick={() => {
-              Mixpanel.track(PUBLICATION.NEW.REFERENCE_MODULE.OPEN_REFERENCE_CONFIG);
+              Mixpanel.track(PUBLICATION.NEW.REFERENCE_MODULE.OPEN_REFERENCE_SETTINGS);
             }}
           >
             <div className="text-brand">
@@ -130,4 +131,4 @@ const SelectReferenceModule: FC = () => {
   );
 };
 
-export default SelectReferenceModule;
+export default ReferenceSettings;

@@ -1,9 +1,9 @@
 import UserProfile from '@components/Shared/UserProfile';
-import { LensterPublication } from '@generated/lenstertypes';
+import type { LensterPublication } from '@generated/lenstertypes';
 import getAppName from '@lib/getAppName';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 import PublicationActions from './Actions';
 import HiddenPublication from './HiddenPublication';

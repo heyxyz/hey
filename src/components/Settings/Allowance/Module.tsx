@@ -1,9 +1,10 @@
 import { Card } from '@components/UI/Card';
 import HelpTooltip from '@components/UI/HelpTooltip';
 import GetModuleIcon from '@components/utils/GetModuleIcon';
-import { ApprovedAllowanceAmount } from '@generated/types';
+import type { ApprovedAllowanceAmount } from '@generated/types';
 import { getModule } from '@lib/getModule';
-import { FC, useState } from 'react';
+import type { FC } from 'react';
+import { useState } from 'react';
 import { POLYGONSCAN_URL } from 'src/constants';
 
 import AllowanceButton from './Button';

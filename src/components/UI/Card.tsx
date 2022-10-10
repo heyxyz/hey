@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { ElementType, FC, MouseEvent, ReactNode } from 'react';
+import type { ElementType, FC, MouseEvent, ReactNode } from 'react';
 
 interface CardProps {
   children: ReactNode;

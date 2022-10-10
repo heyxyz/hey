@@ -1,6 +1,6 @@
 import { GlobeAltIcon, HashtagIcon, TemplateIcon } from '@heroicons/react/outline';
 import Link from 'next/link';
-import { FC, ReactNode } from 'react';
+import type { FC, ReactNode } from 'react';
 import { GIT_COMMIT_SHA, IS_MAINNET, IS_PRODUCTION } from 'src/constants';
 
 interface Props {

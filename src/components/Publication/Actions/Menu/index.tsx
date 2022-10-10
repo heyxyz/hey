@@ -1,9 +1,10 @@
-import { LensterPublication } from '@generated/lenstertypes';
+import type { LensterPublication } from '@generated/lenstertypes';
 import { Menu, Transition } from '@headlessui/react';
 import { DotsHorizontalIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import clsx from 'clsx';
-import { FC, Fragment } from 'react';
+import type { FC } from 'react';
+import { Fragment } from 'react';
 import { useAppStore } from 'src/store/app';
 import { PUBLICATION } from 'src/tracking';
 

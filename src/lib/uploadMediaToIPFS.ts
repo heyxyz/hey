@@ -1,4 +1,4 @@
-import { LensterAttachment } from '@generated/lenstertypes';
+import type { LensterAttachment } from '@generated/lenstertypes';
 import axios from 'axios';
 import { v4 as uuid } from 'uuid';
 

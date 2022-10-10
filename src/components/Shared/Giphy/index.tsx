@@ -1,11 +1,12 @@
 import { Modal } from '@components/UI/Modal';
 import { Tooltip } from '@components/UI/Tooltip';
-import { IGif } from '@giphy/js-types';
+import type { IGif } from '@giphy/js-types';
 import { PhotographIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
-import { FC, useState } from 'react';
+import type { FC } from 'react';
+import { useState } from 'react';
 import { PUBLICATION } from 'src/tracking';
 
 import Loader from '../Loader';

@@ -1,4 +1,4 @@
-import { Client, Conversation, Message } from '@xmtp/xmtp-js';
+import type { Client, Conversation, Message } from '@xmtp/xmtp-js';
 import create from 'zustand';
 
 interface MessageState {

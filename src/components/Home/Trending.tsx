@@ -2,12 +2,13 @@ import { useQuery } from '@apollo/client';
 import TrendingTagShimmer from '@components/Shared/Shimmer/TrendingTagShimmer';
 import { Card } from '@components/UI/Card';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
-import { TagResult, TagSortCriteria, TrendingDocument } from '@generated/types';
+import type { TagResult } from '@generated/types';
+import { TagSortCriteria, TrendingDocument } from '@generated/types';
 import { TrendingUpIcon } from '@heroicons/react/solid';
 import { Mixpanel } from '@lib/mixpanel';
 import nFormatter from '@lib/nFormatter';
 import Link from 'next/link';
-import { FC } from 'react';
+import type { FC } from 'react';
 import { MISCELLANEOUS } from 'src/tracking';
 
 const Title = () => {

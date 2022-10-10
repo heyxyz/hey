@@ -1,10 +1,10 @@
 import UserProfile from '@components/Shared/UserProfile';
-import { LensterPublication } from '@generated/lenstertypes';
+import type { LensterPublication } from '@generated/lenstertypes';
 import { Mixpanel } from '@lib/mixpanel';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { useRouter } from 'next/router';
-import { FC } from 'react';
+import type { FC } from 'react';
 import { PUBLICATION } from 'src/tracking';
 
 import PublicationActions from './Actions';
@@ -24,12 +24,7 @@ const ThreadBody: FC<Props> = ({ publication }) => {
   const timestamp = isMirror ? publication?.mirrorOf?.createdAt : publication?.createdAt;
 
   return (
-    <article
-      onClick={() => {
-        push(`/posts/${publication?.id}`);
-        Mixpanel.track(PUBLICATION.OPEN);
-      }}
-    >
+    <article>
       <div className="flex justify-between space-x-1.5">
         <span onClick={(event) => event.stopPropagation()}>
           <UserProfile profile={profile ?? publication?.collectedBy?.defaultProfile} />
@@ -38,7 +33,13 @@ const ThreadBody: FC<Props> = ({ publication }) => {
       </div>
       <div className="flex">
         <div className="mr-8 ml-5 bg-gray-300 border-gray-300 dark:bg-gray-700 dark:border-gray-700 border-[0.8px] -my-[3px]" />
-        <div className="pt-4 pb-5 w-[85%] sm:w-full">
+        <div
+          className="pt-4 pb-5 w-[85%] sm:w-full"
+          onClick={() => {
+            push(`/posts/${publication?.id}`);
+            Mixpanel.track(PUBLICATION.OPEN);
+          }}
+        >
           {publication?.hidden ? (
             <HiddenPublication type={publication.__typename} />
           ) : (

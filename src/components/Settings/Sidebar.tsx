@@ -1,10 +1,10 @@
 import UserProfile from '@components/Shared/UserProfile';
-import { Profile } from '@generated/types';
+import type { Profile } from '@generated/types';
 import { ChipIcon, ExclamationIcon, FingerPrintIcon, ShareIcon, UserIcon } from '@heroicons/react/outline';
 import clsx from 'clsx';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { FC, ReactNode } from 'react';
+import type { FC, ReactNode } from 'react';
 import { useAppStore } from 'src/store/app';
 
 interface MenuProps {
