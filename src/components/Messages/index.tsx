@@ -56,9 +56,6 @@ const Messages: FC = () => {
       for (const profile of profiles) {
         const peerAddress = (profile.ownedBy as string).toLowerCase();
         const messagePreview = new MessagePreview(messagePreviews.get(peerAddress));
-        if (messagePreview.profile?.isDefault) {
-          return;
-        }
         messagePreview.profile = profile;
         newMessagePreviews.set(peerAddress, messagePreview);
       }
@@ -89,11 +86,11 @@ const Messages: FC = () => {
     ): Promise<{ address: string; preview: MessagePreview }> => {
       const peerAddress = convo.peerAddress.toLowerCase();
       const newMessagePreview = new MessagePreview(messagePreviews.get(peerAddress));
+      // TODO(elise): Add sort direction on XMTP's side so we can grab only the most recent message.
       const newMessages = await convo.messages({ limit: 1 });
-      if (newMessages.length === 0) {
-        return { address: peerAddress, preview: newMessagePreview };
+      if (newMessages.length >= 0) {
+        newMessagePreview.message = newMessages[0];
       }
-      newMessagePreview.message = newMessages[0];
       return { address: peerAddress, preview: newMessagePreview };
     };
 
