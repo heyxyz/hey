@@ -7,7 +7,7 @@ import { Spinner } from '@components/UI/Spinner';
 import type { Nft, Profile } from '@generated/types';
 import { NftFeedDocument } from '@generated/types';
 import { CollectionIcon } from '@heroicons/react/outline';
-import { Dogstats } from '@lib/dogstats';
+import { Mixpanel } from '@lib/mixpanel';
 import type { FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { CHAIN_ID, IS_MAINNET, PAGINATION_ROOT_MARGIN } from 'src/constants';
@@ -43,7 +43,7 @@ const NFTFeed: FC<Props> = ({ profile }) => {
       await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next } }
       });
-      Dogstats.track(PAGINATION.NFT_FEED);
+      Mixpanel.track(PAGINATION.NFT_FEED);
     },
     rootMargin: PAGINATION_ROOT_MARGIN
   });

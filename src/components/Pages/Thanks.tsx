@@ -1,7 +1,7 @@
 import Footer from '@components/Shared/Footer';
 import MetaTags from '@components/utils/MetaTags';
 import { HeartIcon } from '@heroicons/react/outline';
-import { Dogstats } from '@lib/dogstats';
+import { Mixpanel } from '@lib/mixpanel';
 import { useTheme } from 'next-themes';
 import type { FC, ReactNode } from 'react';
 import { Fragment, useEffect } from 'react';
@@ -39,7 +39,7 @@ const Brand: FC<Props> = ({ name, logo, url, size, children }) => {
 
 const Thanks: FC = () => {
   useEffect(() => {
-    Dogstats.track('Pageview', { path: PAGEVIEW.THANKS });
+    Mixpanel.track('Pageview', { path: PAGEVIEW.THANKS });
   }, []);
 
   return (

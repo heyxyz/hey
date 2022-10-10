@@ -1,6 +1,6 @@
 import Footer from '@components/Shared/Footer';
 import MetaTags from '@components/utils/MetaTags';
-import { Dogstats } from '@lib/dogstats';
+import { Mixpanel } from '@lib/mixpanel';
 import type { FC } from 'react';
 import { useEffect } from 'react';
 import { APP_NAME } from 'src/constants';
@@ -8,7 +8,7 @@ import { PAGEVIEW } from 'src/tracking';
 
 const Privacy: FC = () => {
   useEffect(() => {
-    Dogstats.track('Pageview', { path: PAGEVIEW.PRIVACY });
+    Mixpanel.track('Pageview', { path: PAGEVIEW.PRIVACY });
   }, []);
 
   return (

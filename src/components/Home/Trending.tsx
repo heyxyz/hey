@@ -5,7 +5,7 @@ import { ErrorMessage } from '@components/UI/ErrorMessage';
 import type { TagResult } from '@generated/types';
 import { TagSortCriteria, TrendingDocument } from '@generated/types';
 import { TrendingUpIcon } from '@heroicons/react/solid';
-import { Dogstats } from '@lib/dogstats';
+import { Mixpanel } from '@lib/mixpanel';
 import nFormatter from '@lib/nFormatter';
 import Link from 'next/link';
 import type { FC } from 'react';
@@ -54,7 +54,7 @@ const Trending: FC = () => {
             <div key={tag?.tag}>
               <Link
                 href={`/search?q=${tag?.tag}&type=pubs`}
-                onClick={() => Dogstats.track(MISCELLANEOUS.OPEN_TRENDING_TAG)}
+                onClick={() => Mixpanel.track(MISCELLANEOUS.OPEN_TRENDING_TAG)}
               >
                 <div className="font-bold">{tag?.tag}</div>
                 <div className="text-[12px] text-gray-500">{nFormatter(tag?.total)} Publications</div>

@@ -9,7 +9,7 @@ import { Spinner } from '@components/UI/Spinner';
 import type { LensterPublication } from '@generated/lenstertypes';
 import { HomeFeedDocument } from '@generated/types';
 import { CollectionIcon } from '@heroicons/react/outline';
-import { Dogstats } from '@lib/dogstats';
+import { Mixpanel } from '@lib/mixpanel';
 import type { FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { PAGINATION_ROOT_MARGIN } from 'src/constants';
@@ -42,7 +42,7 @@ const Feed: FC = () => {
       await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next }, reactionRequest, profileId }
       });
-      Dogstats.track(PAGINATION.HOME_FEED);
+      Mixpanel.track(PAGINATION.HOME_FEED);
     },
     rootMargin: PAGINATION_ROOT_MARGIN
   });
