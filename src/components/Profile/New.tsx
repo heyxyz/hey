@@ -3,7 +3,7 @@ import SettingsHelper from '@components/Shared/SettingsHelper';
 import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import MetaTags from '@components/utils/MetaTags';
-import { Mixpanel } from '@lib/mixpanel';
+import { BirdStats } from '@lib/birdstats';
 import type { NextPage } from 'next';
 import { useEffect } from 'react';
 import { APP_NAME } from 'src/constants';
@@ -15,7 +15,7 @@ const NewProfile: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   useEffect(() => {
-    Mixpanel.track('Pageview', { path: PAGEVIEW.CREATE_PROFILE });
+    BirdStats.track('Pageview', { path: PAGEVIEW.CREATE_PROFILE });
   }, []);
 
   if (!currentProfile) {

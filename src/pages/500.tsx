@@ -1,7 +1,7 @@
 import { Button } from '@components/UI/Button';
 import MetaTags from '@components/utils/MetaTags';
 import { HomeIcon } from '@heroicons/react/outline';
-import { Mixpanel } from '@lib/mixpanel';
+import { BirdStats } from '@lib/birdstats';
 import Link from 'next/link';
 import { useEffect } from 'react';
 import { APP_NAME } from 'src/constants';
@@ -9,7 +9,7 @@ import { PAGEVIEW } from 'src/tracking';
 
 export default function Custom500() {
   useEffect(() => {
-    Mixpanel.track('Pageview', { path: PAGEVIEW.ERROR_500 });
+    BirdStats.track('Pageview', { path: PAGEVIEW.ERROR_500 });
   }, []);
 
   return (

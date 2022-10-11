@@ -17,10 +17,10 @@ import {
 } from '@generated/types';
 import type { IGif } from '@giphy/js-types';
 import { PencilAltIcon } from '@heroicons/react/outline';
+import { BirdStats } from '@lib/birdstats';
 import getSignature from '@lib/getSignature';
 import getTags from '@lib/getTags';
 import getUserLocale from '@lib/getUserLocale';
-import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import trimify from '@lib/trimify';
@@ -93,7 +93,7 @@ const NewUpdate: FC = () => {
     setPublicationContent('');
     setAttachments([]);
     resetCollectSettings();
-    Mixpanel.track(POST.NEW);
+    BirdStats.track(POST.NEW);
   };
 
   const generateOptimisticPost = (txHash: string) => {
