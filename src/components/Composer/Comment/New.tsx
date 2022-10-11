@@ -19,7 +19,7 @@ import {
 } from '@generated/types';
 import type { IGif } from '@giphy/js-types';
 import { ChatAlt2Icon } from '@heroicons/react/outline';
-import { Dogstats } from '@lib/dogstats';
+import { BirdStats } from '@lib/birdstats';
 import getSignature from '@lib/getSignature';
 import getTags from '@lib/getTags';
 import getUserLocale from '@lib/getUserLocale';
@@ -93,7 +93,7 @@ const NewComment: FC<Props> = ({ publication }) => {
     setPublicationContent('');
     setAttachments([]);
     resetCollectSettings();
-    Dogstats.track(COMMENT.NEW);
+    BirdStats.track(COMMENT.NEW);
   };
 
   const generateOptimisticComment = (txHash: string) => {

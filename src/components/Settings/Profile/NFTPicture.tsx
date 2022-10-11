@@ -14,7 +14,7 @@ import {
   NftChallengeDocument
 } from '@generated/types';
 import { PencilIcon } from '@heroicons/react/outline';
-import { Dogstats } from '@lib/dogstats';
+import { BirdStats } from '@lib/birdstats';
 import getSignature from '@lib/getSignature';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
@@ -48,7 +48,7 @@ const NFTPicture: FC<Props> = ({ profile }) => {
 
   const onCompleted = () => {
     toast.success('Avatar updated successfully!');
-    Dogstats.track(SETTINGS.PROFILE.SET_NFT_PICTURE);
+    BirdStats.track(SETTINGS.PROFILE.SET_NFT_PICTURE);
   };
 
   const form = useZodForm({

@@ -8,7 +8,7 @@ import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayo
 import useStaffMode from '@components/utils/hooks/useStaffMode';
 import MetaTags from '@components/utils/MetaTags';
 import { PublicationDocument } from '@generated/types';
-import { Dogstats } from '@lib/dogstats';
+import { BirdStats } from '@lib/birdstats';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
@@ -42,7 +42,7 @@ const ViewPublication: NextPage = () => {
 
   useEffect(() => {
     if (data?.publication?.id) {
-      Dogstats.track('Pageview', {
+      BirdStats.track('Pageview', {
         path: PAGEVIEW.PUBLICATION,
         id: data.publication.id
       });

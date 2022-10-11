@@ -1,6 +1,6 @@
 import { Card } from '@components/UI/Card';
 import { BadgeCheckIcon } from '@heroicons/react/solid';
-import { Dogstats } from '@lib/dogstats';
+import { BirdStats } from '@lib/birdstats';
 import isVerified from '@lib/isVerified';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
@@ -23,7 +23,7 @@ const Verification: FC = () => {
           <a
             href="https://tally.so/r/wgDajK"
             onClick={() => {
-              Dogstats.track(SETTINGS.ACCOUNT.OPEN_VERIFICATION);
+              BirdStats.track(SETTINGS.ACCOUNT.OPEN_VERIFICATION);
             }}
             target="_blank"
             rel="noreferrer noopener"

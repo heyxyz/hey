@@ -1,7 +1,7 @@
 import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import MetaTags from '@components/utils/MetaTags';
-import { Dogstats } from '@lib/dogstats';
+import { BirdStats } from '@lib/birdstats';
 import type { FC } from 'react';
 import { useEffect } from 'react';
 import { APP_NAME } from 'src/constants';
@@ -16,7 +16,7 @@ const DispatcherSettings: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   useEffect(() => {
-    Dogstats.track('Pageview', { path: PAGEVIEW.SETTINGS.DISPATCHER });
+    BirdStats.track('Pageview', { path: PAGEVIEW.SETTINGS.DISPATCHER });
   }, []);
 
   if (!currentProfile) {

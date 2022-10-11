@@ -17,7 +17,7 @@ import {
 } from '@generated/types';
 import type { IGif } from '@giphy/js-types';
 import { PencilAltIcon } from '@heroicons/react/outline';
-import { Dogstats } from '@lib/dogstats';
+import { BirdStats } from '@lib/birdstats';
 import getSignature from '@lib/getSignature';
 import getTags from '@lib/getTags';
 import getUserLocale from '@lib/getUserLocale';
@@ -93,7 +93,7 @@ const NewUpdate: FC = () => {
     setPublicationContent('');
     setAttachments([]);
     resetCollectSettings();
-    Dogstats.track(POST.NEW);
+    BirdStats.track(POST.NEW);
   };
 
   const generateOptimisticPost = (txHash: string) => {

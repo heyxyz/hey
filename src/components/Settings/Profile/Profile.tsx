@@ -18,7 +18,7 @@ import {
   Profile
 } from '@generated/types';
 import { PencilIcon } from '@heroicons/react/outline';
-import { Dogstats } from '@lib/dogstats';
+import { BirdStats } from '@lib/birdstats';
 import getAttribute from '@lib/getAttribute';
 import getIPFSLink from '@lib/getIPFSLink';
 import getSignature from '@lib/getSignature';
@@ -69,7 +69,7 @@ const Profile: FC<Props> = ({ profile }) => {
 
   const onCompleted = () => {
     toast.success('Profile updated successfully!');
-    Dogstats.track(SETTINGS.PROFILE.UPDATE);
+    BirdStats.track(SETTINGS.PROFILE.UPDATE);
   };
 
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });

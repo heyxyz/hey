@@ -30,8 +30,8 @@ export const GIT_COMMIT_SHA = process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA?.sli
 // Misc
 export const CONTACT_EMAIL = 'support@lenster.xyz';
 export const RELAY_ON = process.env.NEXT_PUBLIC_RELAY_ON === 'true';
-export const DATADOG_TOKEN = process.env.NEXT_PUBLIC_DATADOG_TOKEN ?? '';
-export const DOGSTATS_HOST = 'https://utils.lenster.xyz/dogstats/';
+export const AXIOM_TOKEN = process.env.NEXT_PUBLIC_AXIOM_TOKEN ?? '';
+export const BIRDSTATS_HOST = 'https://cloud.axiom.co/api/v1/datasets/birdstats/ingest';
 export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
 
 // Messages

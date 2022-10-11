@@ -8,7 +8,7 @@ import type { LensterPublication } from '@generated/lenstertypes';
 import type { Mutation } from '@generated/types';
 import { CreateMirrorTypedDataDocument, CreateMirrorViaDispatcherDocument } from '@generated/types';
 import { SwitchHorizontalIcon } from '@heroicons/react/outline';
-import { Dogstats } from '@lib/dogstats';
+import { BirdStats } from '@lib/birdstats';
 import getSignature from '@lib/getSignature';
 import humanize from '@lib/humanize';
 import { publicationKeyFields } from '@lib/keyFields';
@@ -59,7 +59,7 @@ const Mirror: FC<Props> = ({ publication, isFullPublication }) => {
   const onCompleted = () => {
     setMirrored(true);
     toast.success('Post has been mirrored!');
-    Dogstats.track(PUBLICATION.MIRROR);
+    BirdStats.track(PUBLICATION.MIRROR);
   };
 
   const { isLoading: writeLoading, write } = useContractWrite({

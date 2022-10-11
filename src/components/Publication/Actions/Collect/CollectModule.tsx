@@ -35,7 +35,7 @@ import {
   UsersIcon
 } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
-import { Dogstats } from '@lib/dogstats';
+import { BirdStats } from '@lib/birdstats';
 import formatAddress from '@lib/formatAddress';
 import getSignature from '@lib/getSignature';
 import getTokenImage from '@lib/getTokenImage';
@@ -81,7 +81,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
     setCount(count + 1);
     setHasCollectedByMe(true);
     toast.success('Transaction submitted successfully!');
-    Dogstats.track(PUBLICATION.COLLECT_MODULE.COLLECT);
+    BirdStats.track(PUBLICATION.COLLECT_MODULE.COLLECT);
   };
 
   const {
@@ -277,7 +277,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
                 type="button"
                 onClick={() => {
                   setShowCollectorsModal(!showCollectorsModal);
-                  Dogstats.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECTORS);
+                  BirdStats.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECTORS);
                 }}
               >
                 {humanize(count)} collectors

@@ -1,5 +1,5 @@
 import type { LensterCollectModule, LensterFollowModule } from '@generated/lenstertypes';
-import { Dogstats } from '@lib/dogstats';
+import { BirdStats } from '@lib/birdstats';
 import getUniswapURL from '@lib/getUniswapURL';
 import type { FC } from 'react';
 import { STATIC_ASSETS } from 'src/constants';
@@ -18,7 +18,7 @@ const Uniswap: FC<Props> = ({ module }) => {
       <a
         href={getUniswapURL(parseFloat(module?.amount?.value), module?.amount?.asset?.address)}
         onClick={() => {
-          Dogstats.track(PUBLICATION.COLLECT_MODULE.OPEN_UNISWAP);
+          BirdStats.track(PUBLICATION.COLLECT_MODULE.OPEN_UNISWAP);
         }}
         className="flex items-center space-x-1.5 text-xs font-bold text-pink-500"
         target="_blank"

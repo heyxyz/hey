@@ -5,7 +5,7 @@ import { Spinner } from '@components/UI/Spinner';
 import { WarningMessage } from '@components/UI/WarningMessage';
 import { GenerateModuleCurrencyApprovalDataDocument } from '@generated/types';
 import { ExclamationIcon, MinusIcon, PlusIcon } from '@heroicons/react/outline';
-import { Dogstats } from '@lib/dogstats';
+import { BirdStats } from '@lib/birdstats';
 import { getModule } from '@lib/getModule';
 import onError from '@lib/onError';
 import type { Dispatch, FC } from 'react';
@@ -46,7 +46,7 @@ const AllowanceButton: FC<Props> = ({ title = 'Allow', module, allowed, setAllow
       toast.success(`Module ${allowed ? 'disabled' : 'enabled'} successfully!`);
       setShowWarninModal(false);
       setAllowed(!allowed);
-      Dogstats.track(`Module ${allowed ? 'disabled' : 'enabled'}`);
+      BirdStats.track(`Module ${allowed ? 'disabled' : 'enabled'}`);
     },
     onError
   });

@@ -5,7 +5,7 @@ import { Spinner } from '@components/UI/Spinner';
 import useIsMounted from '@components/utils/hooks/useIsMounted';
 import { AuthenticateDocument, ChallengeDocument, UserProfilesDocument } from '@generated/types';
 import { XCircleIcon } from '@heroicons/react/solid';
-import { Dogstats } from '@lib/dogstats';
+import { BirdStats } from '@lib/birdstats';
 import getWalletLogo from '@lib/getWalletLogo';
 import onError from '@lib/onError';
 import clsx from 'clsx';
@@ -47,7 +47,7 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
       if (account) {
         setHasConnected(true);
       }
-      Dogstats.track(`Connect with ${connector.name.toLowerCase()}`);
+      BirdStats.track(`Connect with ${connector.name.toLowerCase()}`);
     } catch {}
   };
 
@@ -91,7 +91,7 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
         setCurrentProfile(currentProfile);
         setProfileId(currentProfile.id);
       }
-      Dogstats.track(USER.SIWL);
+      BirdStats.track(USER.SIWL);
     } catch {}
   };
 

@@ -1,6 +1,6 @@
 import MetaTags from '@components/utils/MetaTags';
 import { LightningBoltIcon } from '@heroicons/react/outline';
-import { Dogstats } from '@lib/dogstats';
+import { BirdStats } from '@lib/birdstats';
 import type { FC } from 'react';
 import { useEffect } from 'react';
 import { APP_NAME } from 'src/constants';
@@ -14,7 +14,7 @@ const Notification: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   useEffect(() => {
-    Dogstats.track('Pageview', { path: PAGEVIEW.NOTIFICATION });
+    BirdStats.track('Pageview', { path: PAGEVIEW.NOTIFICATION });
   }, []);
 
   if (!currentProfile) {

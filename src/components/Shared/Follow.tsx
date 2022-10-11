@@ -7,7 +7,7 @@ import useBroadcast from '@components/utils/hooks/useBroadcast';
 import type { Mutation, Profile } from '@generated/types';
 import { CreateFollowTypedDataDocument, ProxyActionDocument } from '@generated/types';
 import { UserAddIcon } from '@heroicons/react/outline';
-import { Dogstats } from '@lib/dogstats';
+import { BirdStats } from '@lib/birdstats';
 import getSignature from '@lib/getSignature';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
@@ -35,7 +35,7 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
   const onCompleted = () => {
     setFollowing(true);
     toast.success('Followed successfully!');
-    Dogstats.track(PROFILE.FOLLOW);
+    BirdStats.track(PROFILE.FOLLOW);
   };
 
   const updateCache = (cache: ApolloCache<any>) => {

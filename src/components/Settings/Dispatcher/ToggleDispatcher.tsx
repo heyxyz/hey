@@ -7,7 +7,7 @@ import useBroadcast from '@components/utils/hooks/useBroadcast';
 import type { Mutation } from '@generated/types';
 import { CreateSetDispatcherTypedDataDocument } from '@generated/types';
 import { CheckCircleIcon, XIcon } from '@heroicons/react/outline';
-import { Dogstats } from '@lib/dogstats';
+import { BirdStats } from '@lib/birdstats';
 import getSignature from '@lib/getSignature';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
@@ -31,7 +31,7 @@ const ToggleDispatcher: FC<Props> = ({ buttonSize = 'md' }) => {
 
   const onCompleted = () => {
     toast.success('Profile updated successfully!');
-    Dogstats.track(SETTINGS.DISPATCHER.TOGGLE);
+    BirdStats.track(SETTINGS.DISPATCHER.TOGGLE);
   };
 
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });

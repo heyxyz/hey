@@ -13,7 +13,7 @@ import {
   EnabledCurrencyModulesWithProfileDocument
 } from '@generated/types';
 import { StarIcon, XIcon } from '@heroicons/react/outline';
-import { Dogstats } from '@lib/dogstats';
+import { BirdStats } from '@lib/birdstats';
 import getSignature from '@lib/getSignature';
 import getTokenImage from '@lib/getTokenImage';
 import onError from '@lib/onError';
@@ -47,7 +47,7 @@ const SuperFollow: FC = () => {
   });
 
   const onCompleted = () => {
-    Dogstats.track(SETTINGS.ACCOUNT.SET_SUPER_FOLLOW);
+    BirdStats.track(SETTINGS.ACCOUNT.SET_SUPER_FOLLOW);
   };
 
   const {

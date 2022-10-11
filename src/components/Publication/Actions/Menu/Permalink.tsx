@@ -1,7 +1,7 @@
 import type { LensterPublication } from '@generated/lenstertypes';
 import { Menu } from '@headlessui/react';
 import { ClipboardCopyIcon } from '@heroicons/react/outline';
-import { Dogstats } from '@lib/dogstats';
+import { BirdStats } from '@lib/birdstats';
 import clsx from 'clsx';
 import type { FC } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
@@ -18,7 +18,7 @@ const Permalink: FC<Props> = ({ publication }) => {
       text={`${location.origin}/posts/${publication?.id}`}
       onCopy={() => {
         toast.success('Copied to clipboard!');
-        Dogstats.track(PUBLICATION.PERMALINK);
+        BirdStats.track(PUBLICATION.PERMALINK);
       }}
     >
       <Menu.Item

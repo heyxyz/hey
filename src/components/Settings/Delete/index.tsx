@@ -11,7 +11,7 @@ import MetaTags from '@components/utils/MetaTags';
 import type { Mutation } from '@generated/types';
 import { CreateBurnProfileTypedDataDocument } from '@generated/types';
 import { ExclamationIcon, TrashIcon } from '@heroicons/react/outline';
-import { Dogstats } from '@lib/dogstats';
+import { BirdStats } from '@lib/birdstats';
 import getSignature from '@lib/getSignature';
 import onError from '@lib/onError';
 import resetAuthData from '@lib/resetAuthData';
@@ -29,7 +29,7 @@ import Sidebar from '../Sidebar';
 
 const DeleteSettings: FC = () => {
   useEffect(() => {
-    Dogstats.track('Pageview', { path: PAGEVIEW.SETTINGS.DELETE });
+    BirdStats.track('Pageview', { path: PAGEVIEW.SETTINGS.DELETE });
   }, []);
 
   const [showWarningModal, setShowWarningModal] = useState(false);
@@ -43,7 +43,7 @@ const DeleteSettings: FC = () => {
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
 
   const onCompleted = () => {
-    Dogstats.track(SETTINGS.DELETE);
+    BirdStats.track(SETTINGS.DELETE);
     setCurrentProfile(null);
     setProfileId(null);
     resetAuthData();

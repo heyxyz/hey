@@ -14,7 +14,7 @@ import {
   SuperFollowDocument
 } from '@generated/types';
 import { StarIcon, UserIcon } from '@heroicons/react/outline';
-import { Dogstats } from '@lib/dogstats';
+import { BirdStats } from '@lib/birdstats';
 import formatAddress from '@lib/formatAddress';
 import getSignature from '@lib/getSignature';
 import getTokenImage from '@lib/getTokenImage';
@@ -51,7 +51,7 @@ const FollowModule: FC<Props> = ({ profile, setFollowing, setShowFollowModal, ag
     setFollowing(true);
     setShowFollowModal(false);
     toast.success('Followed successfully!');
-    Dogstats.track(PROFILE.SUPER_FOLLOW);
+    BirdStats.track(PROFILE.SUPER_FOLLOW);
   };
 
   const { isLoading: writeLoading, write } = useContractWrite({

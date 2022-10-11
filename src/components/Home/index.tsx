@@ -4,7 +4,7 @@ import BetaWarning from '@components/Home/BetaWarning';
 import Footer from '@components/Shared/Footer';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import MetaTags from '@components/utils/MetaTags';
-import { Dogstats } from '@lib/dogstats';
+import { BirdStats } from '@lib/birdstats';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 import type { NextPage } from 'next';
 import { useEffect } from 'react';
@@ -21,7 +21,7 @@ import Trending from './Trending';
 
 const Home: NextPage = () => {
   useEffect(() => {
-    Dogstats.track('Pageview', { path: PAGEVIEW.HOME });
+    BirdStats.track('Pageview', { path: PAGEVIEW.HOME });
   }, []);
 
   const currentProfile = useAppStore((state) => state.currentProfile);

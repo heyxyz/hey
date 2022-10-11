@@ -10,7 +10,7 @@ import useBroadcast from '@components/utils/hooks/useBroadcast';
 import type { Mutation, Profile } from '@generated/types';
 import { CreateSetDefaultProfileTypedDataDocument } from '@generated/types';
 import { ExclamationIcon, PencilIcon } from '@heroicons/react/outline';
-import { Dogstats } from '@lib/dogstats';
+import { BirdStats } from '@lib/birdstats';
 import getSignature from '@lib/getSignature';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
@@ -34,7 +34,7 @@ const SetProfile: FC = () => {
 
   const onCompleted = () => {
     toast.success('Default profile updated successfully!');
-    Dogstats.track(SETTINGS.ACCOUNT.SET_DEFAULT_PROFILE);
+    BirdStats.track(SETTINGS.ACCOUNT.SET_DEFAULT_PROFILE);
   };
 
   const {

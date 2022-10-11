@@ -1,4 +1,4 @@
-// Strings used for dogstats tracking
+// Strings used for birdstats tracking
 
 export const USER = {
   LOGIN: 'User login',

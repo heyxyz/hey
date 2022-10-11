@@ -1,7 +1,7 @@
 import { Modal } from '@components/UI/Modal';
 import type { Profile } from '@generated/types';
 import { UsersIcon } from '@heroicons/react/outline';
-import { Dogstats } from '@lib/dogstats';
+import { BirdStats } from '@lib/birdstats';
 import humanize from '@lib/humanize';
 import type { FC } from 'react';
 import { useState } from 'react';
@@ -25,7 +25,7 @@ const Followerings: FC<Props> = ({ profile }) => {
         className="text-left"
         onClick={() => {
           setShowFollowingModal(!showFollowingModal);
-          Dogstats.track(PROFILE.OPEN_FOLLOWING);
+          BirdStats.track(PROFILE.OPEN_FOLLOWING);
         }}
       >
         <div className="text-xl">{humanize(profile?.stats?.totalFollowing)}</div>
@@ -36,7 +36,7 @@ const Followerings: FC<Props> = ({ profile }) => {
         className="text-left"
         onClick={() => {
           setShowFollowersModal(!showFollowersModal);
-          Dogstats.track(PROFILE.OPEN_FOLLOWERS);
+          BirdStats.track(PROFILE.OPEN_FOLLOWERS);
         }}
       >
         <div className="text-xl">{humanize(profile?.stats?.totalFollowers)}</div>
