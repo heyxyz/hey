@@ -6,8 +6,8 @@ import type { Mutation } from '@generated/types';
 import { AddReactionDocument, ReactionTypes, RemoveReactionDocument } from '@generated/types';
 import { HeartIcon } from '@heroicons/react/outline';
 import { HeartIcon as HeartIconSolid } from '@heroicons/react/solid';
+import { BirdStats } from '@lib/birdstats';
 import { publicationKeyFields } from '@lib/keyFields';
-import { Mixpanel } from '@lib/mixpanel';
 import nFormatter from '@lib/nFormatter';
 import onError from '@lib/onError';
 import { motion } from 'framer-motion';
@@ -48,7 +48,7 @@ const Like: FC<Props> = ({ publication, isFullPublication }) => {
 
   const [addReaction] = useMutation<Mutation>(AddReactionDocument, {
     onCompleted: () => {
-      Mixpanel.track(PUBLICATION.LIKE);
+      BirdStats.track(PUBLICATION.LIKE);
     },
     onError: (error) => {
       setLiked(!liked);
@@ -60,7 +60,7 @@ const Like: FC<Props> = ({ publication, isFullPublication }) => {
 
   const [removeReaction] = useMutation<Mutation>(RemoveReactionDocument, {
     onCompleted: () => {
-      Mixpanel.track(PUBLICATION.DISLIKE);
+      BirdStats.track(PUBLICATION.DISLIKE);
     },
     onError: (error) => {
       setLiked(!liked);

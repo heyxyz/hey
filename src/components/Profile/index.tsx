@@ -2,7 +2,7 @@ import { useQuery } from '@apollo/client';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import MetaTags from '@components/utils/MetaTags';
 import { ProfileDocument } from '@generated/types';
-import { Mixpanel } from '@lib/mixpanel';
+import { BirdStats } from '@lib/birdstats';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -37,7 +37,7 @@ const ViewProfile: NextPage = () => {
 
   useEffect(() => {
     if (data?.profile?.id) {
-      Mixpanel.track('Pageview', {
+      BirdStats.track('Pageview', {
         path: PAGEVIEW.PROFILE,
         id: data.profile.id
       });
