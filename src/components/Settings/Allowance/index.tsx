@@ -11,7 +11,7 @@ import {
   FollowModules,
   ReferenceModules
 } from '@generated/types';
-import { Mixpanel } from '@lib/mixpanel';
+import { BirdStats } from '@lib/birdstats';
 import type { NextPage } from 'next';
 import { useEffect, useState } from 'react';
 import { APP_NAME, DEFAULT_COLLECT_TOKEN } from 'src/constants';
@@ -41,7 +41,7 @@ const getAllowancePayload = (currency: string) => {
 
 const AllowanceSettings: NextPage = () => {
   useEffect(() => {
-    Mixpanel.track('Pageview', { path: PAGEVIEW.SETTINGS.ALLOWANCE });
+    BirdStats.track('Pageview', { path: PAGEVIEW.SETTINGS.ALLOWANCE });
   }, []);
 
   const currentProfile = useAppStore((state) => state.currentProfile);

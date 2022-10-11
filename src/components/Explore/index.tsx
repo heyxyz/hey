@@ -4,8 +4,8 @@ import Footer from '@components/Shared/Footer';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import MetaTags from '@components/utils/MetaTags';
 import { PublicationSortCriteria } from '@generated/types';
+import { BirdStats } from '@lib/birdstats';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
-import { Mixpanel } from '@lib/mixpanel';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -28,7 +28,7 @@ const Explore: NextPage = () => {
   );
 
   useEffect(() => {
-    Mixpanel.track('Pageview', { path: PAGEVIEW.EXPLORE });
+    BirdStats.track('Pageview', { path: PAGEVIEW.EXPLORE });
   }, []);
 
   return (
