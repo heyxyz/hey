@@ -1,7 +1,7 @@
 import { Button } from '@components/UI/Button';
 import type { LensterPublication } from '@generated/lenstertypes';
 import { ExclamationCircleIcon, ExternalLinkIcon, ShieldCheckIcon } from '@heroicons/react/outline';
-import { BirdStats } from '@lib/birdstats';
+import { Mixpanel } from '@lib/mixpanel';
 import type { FC } from 'react';
 import { useGlobalModalStateStore } from 'src/store/modals';
 import { MOD } from 'src/tracking';
@@ -19,7 +19,7 @@ const ModAction: FC<Props> = ({ publication }) => {
         onClick={(event) => {
           event.stopPropagation();
           setShowReportModal(true, publication, { type: 'spamReason', subReason: 'FAKE_ENGAGEMENT' });
-          BirdStats.track(MOD.SPAM);
+          Mixpanel.track(MOD.SPAM);
         }}
         variant="warning"
         icon={<ExclamationCircleIcon className="h-4 w-4" />}
@@ -31,7 +31,7 @@ const ModAction: FC<Props> = ({ publication }) => {
         onClick={(event) => {
           event.stopPropagation();
           setShowReportModal(true, publication);
-          BirdStats.track(MOD.OTHER);
+          Mixpanel.track(MOD.OTHER);
         }}
         icon={<ShieldCheckIcon className="h-4 w-4" />}
       >
