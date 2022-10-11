@@ -12,7 +12,7 @@ const useGetMessages = (conversation?: Conversation) => {
     }
     const loadMessages = async () => {
       const newMessages = await conversation.messages();
-      messages.set(conversation.peerAddress, newMessages);
+      messages.set(conversation.peerAddress.toLowerCase(), newMessages);
       setMessages(new Map(messages));
     };
     loadMessages();

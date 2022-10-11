@@ -17,16 +17,6 @@ import { useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
 import { useSigner } from 'wagmi';
 
-export class MessagePreview {
-  profile?: Profile;
-  message?: Message;
-
-  constructor(preview?: MessagePreview) {
-    this.profile = preview?.profile;
-    this.message = preview?.message;
-  }
-}
-
 const Messages: FC = () => {
   const { data: signer } = useSigner();
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -36,10 +26,12 @@ const Messages: FC = () => {
 
   const conversations = useMessageStore((state) => state.conversations);
   const setConversations = useMessageStore((state) => state.setConversations);
-  const messagePreviews = useMessageStore((state) => state.messagePreviews);
-  const setMessagePreviews = useMessageStore((state) => state.setMessagePreviews);
+  const messageProfiles = useMessageStore((state) => state.messageProfiles);
+  const setMessageProfiles = useMessageStore((state) => state.setMessageProfiles);
+  const previewMessages = useMessageStore((state) => state.previewMessages);
+  const setPreviewMessages = useMessageStore((state) => state.setPreviewMessages);
 
-  const peerAddresses = Array.from(messagePreviews.keys());
+  const peerAddresses = Array.from(conversations.keys());
   const { error: profilesError } = useQuery(ProfilesDocument, {
     // TODO(elise): Right now this is capped at 50 profiles. We'll want to paginate.
     variables: {
@@ -51,14 +43,12 @@ const Messages: FC = () => {
         return;
       }
       const profiles = data.profiles.items as Profile[];
-      const newMessagePreviews = new Map(messagePreviews);
+      const newMessageProfiles = new Map(messageProfiles);
       for (const profile of profiles) {
         const peerAddress = (profile.ownedBy as string).toLowerCase();
-        const messagePreview = new MessagePreview(messagePreviews.get(peerAddress));
-        messagePreview.profile = profile;
-        newMessagePreviews.set(peerAddress, messagePreview);
+        newMessageProfiles.set(peerAddress, profile);
       }
-      setMessagePreviews(newMessagePreviews);
+      setMessageProfiles(newMessageProfiles);
     }
   });
 
@@ -82,19 +72,18 @@ const Messages: FC = () => {
 
     const fetchMostRecentMessage = async (
       convo: Conversation
-    ): Promise<{ address: string; preview: MessagePreview }> => {
+    ): Promise<{ address: string; message?: Message }> => {
       const peerAddress = convo.peerAddress.toLowerCase();
-      const newMessagePreview = new MessagePreview(messagePreviews.get(peerAddress));
       // TODO(elise): Add sort direction on XMTP's side so we can grab only the most recent message.
       const newMessages = await convo.messages({ limit: 1 });
-      if (newMessages.length >= 0) {
-        newMessagePreview.message = newMessages[0];
+      if (newMessages.length <= 0) {
+        return { address: peerAddress };
       }
-      return { address: peerAddress, preview: newMessagePreview };
+      return { address: peerAddress, message: newMessages[0] };
     };
 
     const listConversations = async () => {
-      const newMessagePreviews = new Map(messagePreviews);
+      const newPreviewMessages = new Map(previewMessages);
       const newConversations = new Map(conversations);
       const convos = (await client?.conversations?.list()) || [];
       const previews = await Promise.all(
@@ -104,9 +93,11 @@ const Messages: FC = () => {
         })
       );
       for (const preview of previews) {
-        newMessagePreviews.set(preview.address, preview.preview);
+        if (preview.message) {
+          newPreviewMessages.set(preview.address, preview.message);
+        }
       }
-      setMessagePreviews(newMessagePreviews);
+      setPreviewMessages(newPreviewMessages);
       setConversations(newConversations);
     };
 
@@ -122,7 +113,7 @@ const Messages: FC = () => {
     return <Custom500 />;
   }
 
-  if (!messagePreviews) {
+  if (previewMessages?.size <= 0 || messageProfiles?.size <= 0) {
     return null;
   }
 
@@ -143,17 +134,12 @@ const Messages: FC = () => {
           </div>
 
           <div>
-            {Array.from(messagePreviews.values()).map((messagePreview, index) => {
-              if (!messagePreview.profile || !messagePreview.message) {
+            {Array.from(messageProfiles.values()).map((profile, index) => {
+              const message = previewMessages.get(profile.ownedBy.toLowerCase());
+              if (!message) {
                 return null;
               }
-              return (
-                <Preview
-                  key={`${messagePreview.profile.ownedBy}_${index}`}
-                  profile={messagePreview.profile}
-                  message={messagePreview.message}
-                />
-              );
+              return <Preview key={`${profile.ownedBy}_${index}`} profile={profile} message={message} />;
             })}
           </div>
         </Card>

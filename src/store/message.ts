@@ -1,4 +1,4 @@
-import type { MessagePreview } from '@components/Messages';
+import type { Profile } from '@generated/types';
 import type { Client, Conversation, Message } from '@xmtp/xmtp-js';
 import create from 'zustand';
 
@@ -9,8 +9,10 @@ interface MessageState {
   setConversations: (conversations: Map<string, Conversation>) => void;
   messages: Map<string, Message[]>;
   setMessages: (messages: Map<string, Message[]>) => void;
-  messagePreviews: Map<string, MessagePreview>;
-  setMessagePreviews: (messagePreviews: Map<string, MessagePreview>) => void;
+  messageProfiles: Map<string, Profile>;
+  setMessageProfiles: (messageProfiles: Map<string, Profile>) => void;
+  previewMessages: Map<string, Message>;
+  setPreviewMessages: (previewMessages: Map<string, Message>) => void;
 }
 
 export const useMessageStore = create<MessageState>((set) => ({
@@ -20,6 +22,8 @@ export const useMessageStore = create<MessageState>((set) => ({
   setConversations: (conversations) => set(() => ({ conversations })),
   messages: new Map(),
   setMessages: (messages) => set(() => ({ messages })),
-  messagePreviews: new Map(),
-  setMessagePreviews: (messagePreviews) => set(() => ({ messagePreviews }))
+  messageProfiles: new Map(),
+  setMessageProfiles: (messageProfiles) => set(() => ({ messageProfiles })),
+  previewMessages: new Map(),
+  setPreviewMessages: (previewMessages) => set(() => ({ previewMessages }))
 }));
