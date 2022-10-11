@@ -101,7 +101,9 @@ const Layout: FC<Props> = ({ children }) => {
   }, [isDisconnected, address, chain, disconnect, profileId]);
 
   useEffect(() => {
-    Mixpanel.identify(profileId ?? '0x00');
+    if (profileId) {
+      Mixpanel.identify(profileId);
+    }
   }, [profileId]);
 
   if (loading || !mounted) {
