@@ -1,6 +1,6 @@
 import { Card } from '@components/UI/Card';
 import type { OG } from '@generated/lenstertypes';
-import { BirdStats } from '@lib/birdstats';
+import { Mixpanel } from '@lib/mixpanel';
 import type { FC } from 'react';
 import { PUBLICATION } from 'src/tracking';
 
@@ -15,7 +15,7 @@ const Embed: FC<Props> = ({ og }) => {
         href={og.url}
         onClick={(event) => {
           event.stopPropagation();
-          BirdStats.track(PUBLICATION.OEMBED_CLICK);
+          Mixpanel.track(PUBLICATION.OEMBED_CLICK);
         }}
         target="_blank"
         rel="noreferrer noopener"

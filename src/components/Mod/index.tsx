@@ -2,8 +2,8 @@ import Footer from '@components/Shared/Footer';
 import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import MetaTags from '@components/utils/MetaTags';
-import { BirdStats } from '@lib/birdstats';
 import isGardener from '@lib/isGardener';
+import { Mixpanel } from '@lib/mixpanel';
 import type { NextPage } from 'next';
 import { useEffect } from 'react';
 import { APP_NAME } from 'src/constants';
@@ -17,7 +17,7 @@ const Mod: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   useEffect(() => {
-    BirdStats.track('Pageview', { path: PAGEVIEW.MOD });
+    Mixpanel.track('Pageview', { path: PAGEVIEW.MOD });
   }, []);
 
   if (!isGardener(currentProfile?.id)) {

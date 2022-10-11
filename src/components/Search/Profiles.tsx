@@ -8,7 +8,7 @@ import { Spinner } from '@components/UI/Spinner';
 import type { Profile } from '@generated/types';
 import { CustomFiltersTypes, SearchProfilesDocument, SearchRequestTypes } from '@generated/types';
 import { UsersIcon } from '@heroicons/react/outline';
-import { BirdStats } from '@lib/birdstats';
+import { Mixpanel } from '@lib/mixpanel';
 import type { FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { PAGINATION_ROOT_MARGIN } from 'src/constants';
@@ -46,7 +46,7 @@ const Profiles: FC<Props> = ({ query }) => {
       await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next } }
       });
-      BirdStats.track(PAGINATION.PROFILE_SEARCH);
+      Mixpanel.track(PAGINATION.PROFILE_SEARCH);
     },
     rootMargin: PAGINATION_ROOT_MARGIN
   });

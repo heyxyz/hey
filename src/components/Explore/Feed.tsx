@@ -8,7 +8,7 @@ import { Spinner } from '@components/UI/Spinner';
 import type { LensterPublication } from '@generated/lenstertypes';
 import { CustomFiltersTypes, ExploreFeedDocument, PublicationSortCriteria } from '@generated/types';
 import { CollectionIcon } from '@heroicons/react/outline';
-import { BirdStats } from '@lib/birdstats';
+import { Mixpanel } from '@lib/mixpanel';
 import type { FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { PAGINATION_ROOT_MARGIN } from 'src/constants';
@@ -48,7 +48,7 @@ const Feed: FC<Props> = ({ feedType = PublicationSortCriteria.CuratedProfiles })
       await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next }, reactionRequest, profileId }
       });
-      BirdStats.track(PAGINATION.EXPLORE_FEED);
+      Mixpanel.track(PAGINATION.EXPLORE_FEED);
     },
     rootMargin: PAGINATION_ROOT_MARGIN
   });

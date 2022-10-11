@@ -1,7 +1,7 @@
 import SuperFollow from '@components/Settings/Account/SuperFollow';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import MetaTags from '@components/utils/MetaTags';
-import { BirdStats } from '@lib/birdstats';
+import { Mixpanel } from '@lib/mixpanel';
 import type { NextPage } from 'next';
 import { useEffect } from 'react';
 import { APP_NAME } from 'src/constants';
@@ -18,7 +18,7 @@ const AccountSettings: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   useEffect(() => {
-    BirdStats.track('Pageview', { path: PAGEVIEW.SETTINGS.ACCOUNT });
+    Mixpanel.track('Pageview', { path: PAGEVIEW.SETTINGS.ACCOUNT });
   }, []);
 
   if (!currentProfile) {
