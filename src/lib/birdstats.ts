@@ -8,7 +8,7 @@ const enabled = AXIOM_TOKEN && IS_PRODUCTION;
  */
 export const BirdStats = {
   track: (name: string, props?: Record<string, any>) => {
-    if (true) {
+    if (enabled) {
       axios(BIRDSTATS_HOST, {
         method: 'POST',
         headers: {
