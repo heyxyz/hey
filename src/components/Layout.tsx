@@ -3,6 +3,7 @@ import type { Profile } from '@generated/types';
 import { ReferenceModules, UserProfilesDocument } from '@generated/types';
 import getIsAuthTokensAvailable from '@lib/getIsAuthTokensAvailable';
 import getToastOptions from '@lib/getToastOptions';
+import { Mixpanel } from '@lib/mixpanel';
 import resetAuthData from '@lib/resetAuthData';
 import mixpanel from 'mixpanel-browser';
 import Head from 'next/head';
@@ -98,6 +99,12 @@ const Layout: FC<Props> = ({ children }) => {
     validateAuthentication();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isDisconnected, address, chain, disconnect, profileId]);
+
+  useEffect(() => {
+    if (profileId) {
+      Mixpanel.identify(profileId);
+    }
+  }, [profileId]);
 
   if (loading || !mounted) {
     return <Loading />;
