@@ -3,5 +3,9 @@ query Profiles($request: ProfileQueryRequest!) {
     items {
       ...ProfileFields
     }
+    pageInfo {
+      next
+      totalCount
+    }
   }
 }
