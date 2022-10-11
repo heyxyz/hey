@@ -36,6 +36,7 @@ const PublicationStats: FC<Props> = ({ publication }) => {
       {mirrorCount > 0 && (
         <>
           <button
+            type="button"
             onClick={() => {
               setShowMirrorsModal(true);
               BirdStats.track(PUBLICATION.STATS.MIRRORED_BY);
@@ -56,6 +57,7 @@ const PublicationStats: FC<Props> = ({ publication }) => {
       {reactionCount > 0 && (
         <>
           <button
+            type="button"
             onClick={() => {
               setShowLikesModal(true);
               BirdStats.track(PUBLICATION.STATS.LIKED_BY);
@@ -76,6 +78,7 @@ const PublicationStats: FC<Props> = ({ publication }) => {
       {collectCount > 0 && (
         <>
           <button
+            type="button"
             onClick={() => {
               setShowCollectorsModal(true);
               BirdStats.track(PUBLICATION.STATS.COLLECTED_BY);
