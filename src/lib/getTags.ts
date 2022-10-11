@@ -1,7 +1,7 @@
 const getTags = (inputText: string) => {
   const regex = /(?:^|\s)#([\dA-Za-z]+)/gm;
   const matches: any = [];
-  var match;
+  let match;
 
   while ((match = regex.exec(inputText))) {
     matches.push(match[1]);
