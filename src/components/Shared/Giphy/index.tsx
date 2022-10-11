@@ -2,7 +2,7 @@ import { Modal } from '@components/UI/Modal';
 import { Tooltip } from '@components/UI/Tooltip';
 import type { IGif } from '@giphy/js-types';
 import { PhotographIcon } from '@heroicons/react/outline';
-import { Mixpanel } from '@lib/mixpanel';
+import { BirdStats } from '@lib/birdstats';
 import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
 import type { FC } from 'react';
@@ -30,7 +30,7 @@ const Giphy: FC<Props> = ({ setGifAttachment }) => {
           type="button"
           onClick={() => {
             setShowModal(!showModal);
-            Mixpanel.track(PUBLICATION.NEW.OPEN_GIF);
+            BirdStats.track(PUBLICATION.NEW.OPEN_GIF);
           }}
           aria-label="Choose GIFs"
         >

@@ -1,6 +1,6 @@
 import { PublicationSortCriteria } from '@generated/types';
 import { ChatAlt2Icon, CollectionIcon, SparklesIcon, SwitchHorizontalIcon } from '@heroicons/react/outline';
-import { Mixpanel } from '@lib/mixpanel';
+import { BirdStats } from '@lib/birdstats';
 import clsx from 'clsx';
 import { useRouter } from 'next/router';
 import type { Dispatch, FC, ReactNode } from 'react';
@@ -25,7 +25,7 @@ const FeedType: FC<Props> = ({ setFeedType, feedType }) => {
       onClick={() => {
         push({ query: { type: type.toLowerCase() } });
         setFeedType(type);
-        Mixpanel.track(`Switch to ${type.toLowerCase()} type in explore`);
+        BirdStats.track(`Switch to ${type.toLowerCase()} type in explore`);
       }}
       className={clsx(
         {

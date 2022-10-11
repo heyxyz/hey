@@ -1,6 +1,6 @@
 import { Button } from '@components/UI/Button';
 import { SwitchHorizontalIcon } from '@heroicons/react/outline';
-import { Mixpanel } from '@lib/mixpanel';
+import { BirdStats } from '@lib/birdstats';
 import type { FC } from 'react';
 import toast from 'react-hot-toast';
 import { CHAIN_ID } from 'src/constants';
@@ -26,7 +26,7 @@ const SwitchNetwork: FC<Props> = ({ className = '' }) => {
         } else {
           toast.error('Please change your network wallet!');
         }
-        Mixpanel.track(SYSTEM.SWITCH_NETWORK);
+        BirdStats.track(SYSTEM.SWITCH_NETWORK);
       }}
     >
       Switch Network

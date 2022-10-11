@@ -5,8 +5,8 @@ import { Spinner } from '@components/UI/Spinner';
 import useIsMounted from '@components/utils/hooks/useIsMounted';
 import { AuthenticateDocument, ChallengeDocument, UserProfilesDocument } from '@generated/types';
 import { XCircleIcon } from '@heroicons/react/solid';
+import { BirdStats } from '@lib/birdstats';
 import getWalletLogo from '@lib/getWalletLogo';
-import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import clsx from 'clsx';
 import type { Dispatch, FC } from 'react';
@@ -47,7 +47,7 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
       if (account) {
         setHasConnected(true);
       }
-      Mixpanel.track(`Connect with ${connector.name.toLowerCase()}`);
+      BirdStats.track(`Connect with ${connector.name.toLowerCase()}`);
     } catch {}
   };
 
@@ -91,7 +91,7 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
         setCurrentProfile(currentProfile);
         setProfileId(currentProfile.id);
       }
-      Mixpanel.track(USER.SIWL);
+      BirdStats.track(USER.SIWL);
     } catch {}
   };
 
