@@ -14,7 +14,7 @@ const IFramely: FC<Props> = ({ url }) => {
   const [error, setError] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const [data, setData] = useState<any>();
-  const allowedSites = ['YouTube'];
+  const allowedSites = ['YouTube', 'Spotify'];
 
   useEffect(() => {
     if (url) {
