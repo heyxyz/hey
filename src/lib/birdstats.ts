@@ -23,9 +23,7 @@ export const BirdStats = {
           event: name,
           profile: state.profileId,
           props: options,
-          userAgent: window.navigator.userAgent,
-          url: location.href,
-          time: new Date()
+          url: location.href
         }
       });
     }
