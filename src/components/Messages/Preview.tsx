@@ -18,7 +18,7 @@ const Preview: FC<Props> = ({ profile, message }) => {
   const router = useRouter();
 
   const onConversationSelected = (address: string) => {
-    router.push(address ? `/messages/${address}` : '/messages/');
+    router.push(address ? `/messages/${address}` : '/messages');
   };
 
   return (
