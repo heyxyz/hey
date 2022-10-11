@@ -4,8 +4,8 @@ import BetaWarning from '@components/Home/BetaWarning';
 import Footer from '@components/Shared/Footer';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import MetaTags from '@components/utils/MetaTags';
+import { Dogstats } from '@lib/dogstats';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
-import { Mixpanel } from '@lib/mixpanel';
 import type { NextPage } from 'next';
 import { useEffect } from 'react';
 import { useAppStore } from 'src/store/app';
@@ -21,7 +21,7 @@ import Trending from './Trending';
 
 const Home: NextPage = () => {
   useEffect(() => {
-    Mixpanel.track('Pageview', { path: PAGEVIEW.HOME });
+    Dogstats.track('Pageview', { path: PAGEVIEW.HOME });
   }, []);
 
   const currentProfile = useAppStore((state) => state.currentProfile);

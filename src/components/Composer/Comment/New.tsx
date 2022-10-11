@@ -19,10 +19,10 @@ import {
 } from '@generated/types';
 import type { IGif } from '@giphy/js-types';
 import { ChatAlt2Icon } from '@heroicons/react/outline';
+import { Dogstats } from '@lib/dogstats';
 import getSignature from '@lib/getSignature';
 import getTags from '@lib/getTags';
 import getUserLocale from '@lib/getUserLocale';
-import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import trimify from '@lib/trimify';
@@ -93,7 +93,7 @@ const NewComment: FC<Props> = ({ publication }) => {
     setPublicationContent('');
     setAttachments([]);
     resetCollectSettings();
-    Mixpanel.track(COMMENT.NEW);
+    Dogstats.track(COMMENT.NEW);
   };
 
   const generateOptimisticComment = (txHash: string) => {

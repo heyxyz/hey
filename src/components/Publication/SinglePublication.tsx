@@ -1,6 +1,6 @@
 import UserProfile from '@components/Shared/UserProfile';
 import type { LensterPublication } from '@generated/lenstertypes';
-import { Mixpanel } from '@lib/mixpanel';
+import { Dogstats } from '@lib/dogstats';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { useRouter } from 'next/router';
@@ -48,7 +48,7 @@ const SinglePublication: FC<Props> = ({
         className="ml-[53px]"
         onClick={() => {
           push(`/posts/${publication?.id}`);
-          Mixpanel.track(PUBLICATION.OPEN);
+          Dogstats.track(PUBLICATION.OPEN);
         }}
       >
         {publication?.hidden ? (

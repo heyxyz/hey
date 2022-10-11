@@ -1,4 +1,4 @@
-// Strings used for mixpanel tracking
+// Strings used for dogstats tracking
 
 export const USER = {
   LOGIN: 'User login',

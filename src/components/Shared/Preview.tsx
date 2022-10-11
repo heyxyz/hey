@@ -1,6 +1,6 @@
 import { Tooltip } from '@components/UI/Tooltip';
 import { EyeIcon } from '@heroicons/react/outline';
-import { Mixpanel } from '@lib/mixpanel';
+import { Dogstats } from '@lib/dogstats';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';
 import { usePublicationStore } from 'src/store/publication';
@@ -17,7 +17,7 @@ const Preview: FC = () => {
         type="button"
         onClick={() => {
           setPreviewPublication(!previewPublication);
-          Mixpanel.track(PUBLICATION.NEW.MARKDOWN_PREVIEW);
+          Dogstats.track(PUBLICATION.NEW.MARKDOWN_PREVIEW);
         }}
         aria-label="Choose Attachment"
       >

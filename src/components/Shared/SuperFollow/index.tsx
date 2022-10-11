@@ -2,7 +2,7 @@ import { Button } from '@components/UI/Button';
 import { Modal } from '@components/UI/Modal';
 import type { Profile } from '@generated/types';
 import { StarIcon } from '@heroicons/react/outline';
-import { Mixpanel } from '@lib/mixpanel';
+import { Dogstats } from '@lib/dogstats';
 import dynamic from 'next/dynamic';
 import type { Dispatch, FC } from 'react';
 import { useState } from 'react';
@@ -33,7 +33,7 @@ const SuperFollow: FC<Props> = ({ profile, setFollowing, showText = false, again
         outline
         onClick={() => {
           setShowFollowModal(!showFollowModal);
-          Mixpanel.track(PROFILE.OPEN_SUPER_FOLLOW);
+          Dogstats.track(PROFILE.OPEN_SUPER_FOLLOW);
         }}
         aria-label="Super Follow"
         icon={<StarIcon className="w-4 h-4" />}

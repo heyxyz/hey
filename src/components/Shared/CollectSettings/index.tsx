@@ -2,8 +2,8 @@ import { Modal } from '@components/UI/Modal';
 import { Tooltip } from '@components/UI/Tooltip';
 import GetModuleIcon from '@components/utils/GetModuleIcon';
 import { CashIcon } from '@heroicons/react/outline';
+import { Dogstats } from '@lib/dogstats';
 import { getModule } from '@lib/getModule';
-import { Mixpanel } from '@lib/mixpanel';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';
 import { useState } from 'react';
@@ -24,7 +24,7 @@ const CollectSettings: FC = () => {
           type="button"
           onClick={() => {
             setShowModal(!showModal);
-            Mixpanel.track(PUBLICATION.NEW.COLLECT_MODULE.OPEN_COLLECT_SETTINGS);
+            Dogstats.track(PUBLICATION.NEW.COLLECT_MODULE.OPEN_COLLECT_SETTINGS);
           }}
           aria-label="Choose Collect Module"
         >
