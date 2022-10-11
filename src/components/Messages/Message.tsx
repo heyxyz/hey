@@ -16,11 +16,13 @@ import { useMessageStore } from 'src/store/message';
 
 const Message: FC = () => {
   const { query } = useRouter();
-  const address = query.address as string;
+  const address = (query.address as string).toLowerCase();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const conversations = useMessageStore((state) => state.conversations);
   const selectedConversation = conversations.get(address);
-  const messagePreviews = useMessageStore((state) => state.messagePreviews);
+  // TODO(elise): Move messageProfiles and previewMessages to their own ConversationList component.
+  const messageProfiles = useMessageStore((state) => state.messageProfiles);
+  const previewMessages = useMessageStore((state) => state.previewMessages);
   const { messages } = useGetMessages(selectedConversation);
   const { sendMessage } = useSendMessage(selectedConversation);
 
@@ -44,17 +46,12 @@ const Message: FC = () => {
             <div className="text-xs">All messages</div>
           </div>
           <div>
-            {Array.from(messagePreviews.values()).map((messagePreview, index) => {
-              if (!messagePreview.profile || !messagePreview.message) {
+            {Array.from(messageProfiles.values()).map((profile, index) => {
+              const message = previewMessages.get(profile.ownedBy.toLowerCase());
+              if (!message) {
                 return null;
               }
-              return (
-                <Preview
-                  key={`${messagePreview.profile.ownedBy}_${index}`}
-                  profile={messagePreview.profile}
-                  message={messagePreview.message}
-                />
-              );
+              return <Preview key={`${profile.ownedBy}_${index}`} profile={profile} message={message} />;
             })}
           </div>
         </Card>
