@@ -38,7 +38,7 @@
     "jwt-decode": "^3.1.2",
     "next": "^12.3.1",
     "next-themes": "^0.2.1",
-    "next-transpile-modules": "^9.0.0",
+    "next-transpile-modules": "^9.1.0",
     "plyr-react": "^5.1.0",
     "react": "^18.2.0",
     "react-cool-inview": "^3.0.1",
