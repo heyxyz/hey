@@ -6,7 +6,7 @@ import { Spinner } from '@components/UI/Spinner';
 import type { Profile } from '@generated/types';
 import { LikesDocument } from '@generated/types';
 import { HeartIcon } from '@heroicons/react/outline';
-import { BirdStats } from '@lib/birdstats';
+import { Mixpanel } from '@lib/mixpanel';
 import type { FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { PAGINATION_ROOT_MARGIN } from 'src/constants';
@@ -39,7 +39,7 @@ const Likes: FC<Props> = ({ publicationId }) => {
       await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next } }
       });
-      BirdStats.track(PAGINATION.LIKES);
+      Mixpanel.track(PAGINATION.LIKES);
     },
     rootMargin: PAGINATION_ROOT_MARGIN
   });
