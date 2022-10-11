@@ -8,6 +8,9 @@ const enabled = AXIOM_TOKEN && IS_PRODUCTION;
  */
 export const BirdStats = {
   track: (name: string, props?: Record<string, any>) => {
+    const { state } = JSON.parse(
+      localStorage.getItem('lenster.store') || JSON.stringify({ state: { profileId: null } })
+    );
     if (enabled) {
       axios(BIRDSTATS_HOST, {
         method: 'POST',
@@ -18,6 +21,7 @@ export const BirdStats = {
         data: {
           url: location.href,
           event: name,
+          profile: state.profileId,
           time: new Date(),
           props
         }
