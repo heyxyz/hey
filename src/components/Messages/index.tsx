@@ -88,7 +88,7 @@ const Messages: FC = () => {
       const convos = (await client?.conversations?.list()) || [];
       const previews = await Promise.all(
         convos.map(async (convo) => {
-          newConversations.set(convo.peerAddress, convo);
+          newConversations.set(convo.peerAddress.toLowerCase(), convo);
           return await fetchMostRecentMessage(convo);
         })
       );
@@ -134,7 +134,6 @@ const Messages: FC = () => {
             <div className="text-xs">Lens profiles</div>
             <div className="text-xs">All messages</div>
           </div>
-
           <div>
             {Array.from(messageProfiles.values()).map((profile, index) => {
               const message = previewMessages.get(profile.ownedBy.toLowerCase());
