@@ -32,10 +32,9 @@ const PublicationActions: FC<Props> = ({ publication, isFullPublication = false 
       <Comment publication={publication} isFullPublication={isFullPublication} />
       {canMirror && <Mirror publication={publication} isFullPublication={isFullPublication} />}
       <Like publication={publication} isFullPublication={isFullPublication} />
-      {collectModuleType !== 'RevertCollectModuleSettings' &&
-        collectModuleType !== 'UnknownCollectModuleSettings' && (
-          <Collect publication={publication} isFullPublication={isFullPublication} />
-        )}
+      {collectModuleType !== 'RevertCollectModuleSettings' && (
+        <Collect publication={publication} isFullPublication={isFullPublication} />
+      )}
       <PublicationMenu publication={publication} isFullPublication={isFullPublication} />
     </span>
   );

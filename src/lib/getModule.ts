@@ -15,6 +15,12 @@ export const getModule = (
 } => {
   switch (name) {
     // Collect Modules
+    case CollectModules.UnknownCollectModule:
+      return {
+        name: 'Unknown Collect Module',
+        field: 'collectModule',
+        helper: ''
+      };
     case CollectModules.FeeCollectModule:
       return {
         name: 'Fee Collect',

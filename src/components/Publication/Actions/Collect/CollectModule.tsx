@@ -197,6 +197,12 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
           request: { collect: { freeCollect: { publicationId: publication?.id } } }
         }
       });
+    } else if (collectModule?.__typename === 'UnknownCollectModuleSettings') {
+      createCollectProxyAction({
+        variables: {
+          request: { collect: { unknownCollect: { publicationId: publication?.id } } }
+        }
+      });
     } else {
       createCollectTypedData({
         variables: {
