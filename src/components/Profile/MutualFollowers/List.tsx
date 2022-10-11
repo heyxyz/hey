@@ -5,7 +5,7 @@ import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
 import type { Profile } from '@generated/types';
 import { MutualFollowersListDocument } from '@generated/types';
-import { BirdStats } from '@lib/birdstats';
+import { Mixpanel } from '@lib/mixpanel';
 import type { FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { PAGINATION_ROOT_MARGIN } from 'src/constants';
@@ -43,7 +43,7 @@ const MutualFollowersList: FC<Props> = ({ profileId }) => {
       await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next } }
       });
-      BirdStats.track(PAGINATION.MUTUAL_FOLLOWERS);
+      Mixpanel.track(PAGINATION.MUTUAL_FOLLOWERS);
     },
     rootMargin: PAGINATION_ROOT_MARGIN
   });

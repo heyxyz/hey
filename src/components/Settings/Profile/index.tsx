@@ -5,7 +5,7 @@ import { PageLoading } from '@components/UI/PageLoading';
 import MetaTags from '@components/utils/MetaTags';
 import { ProfileSettingsDocument } from '@generated/types';
 import { PhotographIcon } from '@heroicons/react/outline';
-import { BirdStats } from '@lib/birdstats';
+import { Mixpanel } from '@lib/mixpanel';
 import clsx from 'clsx';
 import type { NextPage } from 'next';
 import type { FC, ReactNode } from 'react';
@@ -26,7 +26,7 @@ const ProfileSettings: NextPage = () => {
   const [settingsType, setSettingsType] = useState<'NFT' | 'AVATAR'>('AVATAR');
 
   useEffect(() => {
-    BirdStats.track('Pageview', { path: PAGEVIEW.SETTINGS.PROFILE });
+    Mixpanel.track('Pageview', { path: PAGEVIEW.SETTINGS.PROFILE });
   }, []);
 
   const { data, loading, error } = useQuery(ProfileSettingsDocument, {

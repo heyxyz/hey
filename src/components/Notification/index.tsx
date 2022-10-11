@@ -1,6 +1,6 @@
 import MetaTags from '@components/utils/MetaTags';
 import { LightningBoltIcon } from '@heroicons/react/outline';
-import { BirdStats } from '@lib/birdstats';
+import { Mixpanel } from '@lib/mixpanel';
 import type { FC } from 'react';
 import { useEffect } from 'react';
 import { APP_NAME } from 'src/constants';
@@ -14,7 +14,7 @@ const Notification: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   useEffect(() => {
-    BirdStats.track('Pageview', { path: PAGEVIEW.NOTIFICATION });
+    Mixpanel.track('Pageview', { path: PAGEVIEW.NOTIFICATION });
   }, []);
 
   if (!currentProfile) {

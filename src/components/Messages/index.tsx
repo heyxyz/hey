@@ -125,7 +125,9 @@ const Messages: FC = () => {
           <div className="flex justify-between">
             <div className="font-black text-lg">Messages</div>
             <div>
-              <button className="text-xs border border-p-100 p-1 rounded">New Message</button>
+              <button className="text-xs border border-p-100 p-1 rounded" type="button">
+                New Message
+              </button>
             </div>
           </div>
           <div className="flex justify-between p-4">

@@ -6,9 +6,9 @@ import type { LensterPublication } from '@generated/lenstertypes';
 import { CollectModules } from '@generated/types';
 import { CollectionIcon } from '@heroicons/react/outline';
 import { CollectionIcon as CollectionIconSolid } from '@heroicons/react/solid';
-import { BirdStats } from '@lib/birdstats';
 import { getModule } from '@lib/getModule';
 import humanize from '@lib/humanize';
+import { Mixpanel } from '@lib/mixpanel';
 import nFormatter from '@lib/nFormatter';
 import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
@@ -50,7 +50,7 @@ const Collect: FC<Props> = ({ publication, isFullPublication }) => {
         whileTap={{ scale: 0.9 }}
         onClick={() => {
           setShowCollectModal(true);
-          BirdStats.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECT);
+          Mixpanel.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECT);
         }}
         aria-label="Collect"
       >

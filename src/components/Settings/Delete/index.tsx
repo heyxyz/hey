@@ -11,8 +11,8 @@ import MetaTags from '@components/utils/MetaTags';
 import type { Mutation } from '@generated/types';
 import { CreateBurnProfileTypedDataDocument } from '@generated/types';
 import { ExclamationIcon, TrashIcon } from '@heroicons/react/outline';
-import { BirdStats } from '@lib/birdstats';
 import getSignature from '@lib/getSignature';
+import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import resetAuthData from '@lib/resetAuthData';
 import splitSignature from '@lib/splitSignature';
@@ -29,7 +29,7 @@ import Sidebar from '../Sidebar';
 
 const DeleteSettings: FC = () => {
   useEffect(() => {
-    BirdStats.track('Pageview', { path: PAGEVIEW.SETTINGS.DELETE });
+    Mixpanel.track('Pageview', { path: PAGEVIEW.SETTINGS.DELETE });
   }, []);
 
   const [showWarningModal, setShowWarningModal] = useState(false);
@@ -43,7 +43,7 @@ const DeleteSettings: FC = () => {
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
 
   const onCompleted = () => {
-    BirdStats.track(SETTINGS.DELETE);
+    Mixpanel.track(SETTINGS.DELETE);
     setCurrentProfile(null);
     setProfileId(null);
     resetAuthData();
