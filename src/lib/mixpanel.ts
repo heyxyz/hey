@@ -15,8 +15,7 @@ export const Mixpanel = {
   },
   identify: (id: string) => {
     if (enabled) {
-      mixpanel.identify(id);
-      mixpanel.people.set({ $name: id });
+      mixpanel.people.set({ $identified_id: id, $name: id });
     }
   }
 };
