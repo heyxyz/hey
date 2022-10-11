@@ -12,10 +12,10 @@ import {
   SwitchHorizontalIcon,
   UserIcon
 } from '@heroicons/react/outline';
+import { BirdStats } from '@lib/birdstats';
 import getAvatar from '@lib/getAvatar';
 import isGardener from '@lib/isGardener';
 import isStaff from '@lib/isStaff';
-import { Mixpanel } from '@lib/mixpanel';
 import resetAuthData from '@lib/resetAuthData';
 import clsx from 'clsx';
 import { useTheme } from 'next-themes';
@@ -41,7 +41,7 @@ const SignedUser: FC = () => {
 
   const toggleStaffMode = () => {
     setStaffMode(!staffMode);
-    Mixpanel.track(STAFFTOOLS.TOGGLE_MODE);
+    BirdStats.track(STAFFTOOLS.TOGGLE_MODE);
   };
 
   return (
@@ -122,7 +122,7 @@ const SignedUser: FC = () => {
               <Menu.Item
                 as="a"
                 onClick={() => {
-                  Mixpanel.track(PROFILE.LOGOUT);
+                  BirdStats.track(PROFILE.LOGOUT);
                   setCurrentProfile(null);
                   setProfileId(null);
                   resetAuthData();
@@ -157,7 +157,7 @@ const SignedUser: FC = () => {
                             const selectedProfile = profiles[index];
                             setCurrentProfile(selectedProfile);
                             setProfileId(selectedProfile.id);
-                            Mixpanel.track(PROFILE.SWITCH_PROFILE);
+                            BirdStats.track(PROFILE.SWITCH_PROFILE);
                           }}
                         >
                           {currentProfile?.id === profile?.id && (
@@ -182,7 +182,7 @@ const SignedUser: FC = () => {
                 as="a"
                 onClick={() => {
                   setTheme(theme === 'light' ? 'dark' : 'light');
-                  Mixpanel.track(theme === 'light' ? SYSTEM.SWITCH_DARK_THEME : SYSTEM.SWITCH_LIGHT_THEME);
+                  BirdStats.track(theme === 'light' ? SYSTEM.SWITCH_DARK_THEME : SYSTEM.SWITCH_LIGHT_THEME);
                 }}
                 className={({ active }: { active: boolean }) =>
                   clsx({ 'dropdown-active': active }, 'menu-item')

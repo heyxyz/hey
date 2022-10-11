@@ -13,9 +13,9 @@ import {
   EnabledCurrencyModulesWithProfileDocument
 } from '@generated/types';
 import { StarIcon, XIcon } from '@heroicons/react/outline';
+import { BirdStats } from '@lib/birdstats';
 import getSignature from '@lib/getSignature';
 import getTokenImage from '@lib/getTokenImage';
-import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import type { FC } from 'react';
@@ -47,7 +47,7 @@ const SuperFollow: FC = () => {
   });
 
   const onCompleted = () => {
-    Mixpanel.track(SETTINGS.ACCOUNT.SET_SUPER_FOLLOW);
+    BirdStats.track(SETTINGS.ACCOUNT.SET_SUPER_FOLLOW);
   };
 
   const {
