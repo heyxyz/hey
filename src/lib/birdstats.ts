@@ -4,13 +4,14 @@ import { AXIOM_TOKEN, BIRDSTATS_HOST, IS_PRODUCTION } from 'src/constants';
 const enabled = AXIOM_TOKEN && IS_PRODUCTION;
 
 /**
- * Axio analytics
+ * Axiom analytics
  */
 export const BirdStats = {
-  track: (name: string, props?: Record<string, any>) => {
+  track: (name: string, options?: Record<string, any>) => {
     const { state } = JSON.parse(
       localStorage.getItem('lenster.store') || JSON.stringify({ state: { profileId: null } })
     );
+
     if (enabled) {
       axios(BIRDSTATS_HOST, {
         method: 'POST',
@@ -19,11 +20,12 @@ export const BirdStats = {
           'Content-Type': 'application/x-ndjson'
         },
         data: {
-          url: location.href,
           event: name,
           profile: state.profileId,
-          time: new Date(),
-          props
+          props: options,
+          userAgent: window.navigator.userAgent,
+          url: location.href,
+          time: new Date()
         }
       });
     }
