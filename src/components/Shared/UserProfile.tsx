@@ -16,22 +16,18 @@ interface Props {
   profile: Profile;
   showBio?: boolean;
   showFollow?: boolean;
-  showHandle?: boolean;
   followStatusLoading?: boolean;
   isFollowing?: boolean;
   isBig?: boolean;
-  messagePreview?: string;
 }
 
 const UserProfile: FC<Props> = ({
   profile,
   showBio = false,
   showFollow = false,
-  showHandle = true,
   followStatusLoading = false,
   isFollowing = false,
-  isBig = false,
-  messagePreview = null
+  isBig = false
 }) => {
   const [following, setFollowing] = useState(isFollowing);
 
@@ -55,13 +51,12 @@ const UserProfile: FC<Props> = ({
               <div className={clsx(isBig ? 'font-bold' : 'text-md')}>{profile?.name ?? profile?.handle}</div>
               {isVerified(profile?.id) && <BadgeCheckIcon className="w-4 h-4 text-brand" />}
             </div>
-            {showHandle && <Slug className="text-sm" slug={profile?.handle} prefix="@" />}
+            <Slug className="text-sm" slug={profile?.handle} prefix="@" />
             {showBio && profile?.bio && (
               <div className={clsx(isBig ? 'text-base' : 'text-sm', 'mt-2', 'linkify leading-6')}>
                 <Markup>{profile?.bio}</Markup>
               </div>
             )}
-            {messagePreview && <span className="text-sm text-gray-500">{messagePreview}</span>}
           </div>
         </div>
       </Link>
