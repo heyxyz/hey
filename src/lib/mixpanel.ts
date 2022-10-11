@@ -12,5 +12,10 @@ export const Mixpanel = {
     if (enabled) {
       mixpanel.track(name, props);
     }
+  },
+  identify: (id: string) => {
+    if (enabled) {
+      mixpanel.identify(id);
+    }
   }
 };
