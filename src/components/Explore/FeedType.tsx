@@ -20,7 +20,7 @@ const FeedType: FC<Props> = ({ setFocus, focus }) => {
         setFocus(type);
       }}
       className={clsx(
-        { 'bg-brand-500 !text-white': focus === type },
+        { '!bg-brand-500 !text-white': focus === type },
         'text-xs bg-brand-100 rounded-full px-4 py-1.5 text-brand border border-brand-300'
       )}
       aria-label={name}
