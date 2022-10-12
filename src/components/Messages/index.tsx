@@ -96,7 +96,7 @@ const Messages: FC = () => {
       <GridItemFour>
         <Card className="h-[86vh] px-2 pt-3">
           <div className="flex justify-between">
-            <div className="font-black text-lg">Messages</div>
+            <div className="font-bold text-lg">Messages</div>
             <div>
               <button className="text-xs border border-p-100 p-1 rounded" type="button">
                 New Message

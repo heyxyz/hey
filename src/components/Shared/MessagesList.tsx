@@ -44,19 +44,14 @@ const MessageTile: FC<MessageTileProps> = ({ message }) => {
           )}
         >
           <span
-            className={clsx(
-              address === message.senderAddress ? 'text-white' : 'text-black',
-              'block text-md font-normal'
-            )}
+            className={clsx(address === message.senderAddress ? 'text-white' : 'text-black', 'block text-md')}
           >
             {message.error ? `Error: ${message.error?.message}` : message.content ?? ''}
           </span>
         </div>
       </div>
       <div className={clsx(address !== message.senderAddress ? 'ml-12' : '')}>
-        <span className="text-xs font-normal place-self-end text-gray-400 uppercase">
-          {formatTime(message.sent)}
-        </span>
+        <span className="text-xs place-self-end text-gray-400 uppercase">{formatTime(message.sent)}</span>
       </div>
     </div>
   );
@@ -84,7 +79,7 @@ const DateDivider: FC<{ date?: Date }> = ({ date }) => (
 
 const ConversationBeginningNotice: FC = () => (
   <div className="flex align-items-center justify-center pb-4">
-    <span className="text-gray-300 text-sm font-semibold">This is the beginning of the conversation</span>
+    <span className="text-gray-300 text-sm font-bold">This is the beginning of the conversation</span>
   </div>
 );
 
