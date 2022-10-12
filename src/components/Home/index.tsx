@@ -11,7 +11,7 @@ import { useEffect } from 'react';
 import { useAppStore } from 'src/store/app';
 import { PAGEVIEW } from 'src/tracking';
 
-import V2Timeline from '../TimelineV2';
+import Timeline from '../Timeline';
 import EnableDispatcher from './EnableDispatcher';
 import HomeFeed from './Feed';
 import Hero from './Hero';
@@ -36,7 +36,7 @@ const Home: NextPage = () => {
           {currentProfile ? (
             <>
               <NewPost />
-              {isFeatureEnabled('timeline-v2', currentProfile?.id) ? <V2Timeline /> : <HomeFeed />}
+              {isFeatureEnabled('timeline-v2', currentProfile?.id) ? <Timeline /> : <HomeFeed />}
             </>
           ) : (
             <ExploreFeed />

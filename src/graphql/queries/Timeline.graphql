@@ -1,4 +1,4 @@
-query V2HomeFeed(
+query Timeline(
   $request: FeedRequest!
   $reactionRequest: ReactionFieldResolverRequest
   $profileId: ProfileId
