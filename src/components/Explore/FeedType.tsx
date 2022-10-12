@@ -25,7 +25,7 @@ const FeedType: FC<Props> = ({ setFocus, focus }) => {
       )}
       aria-label={name}
     >
-      <span className="hidden sm:block">{name}</span>
+      {name}
     </button>
   );
 
