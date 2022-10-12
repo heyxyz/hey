@@ -3,7 +3,7 @@
   font-style: normal;
   font-weight: 450;
   src: local('CircularXXSub'),
-    url('https://assets.lenster.xyz/css/fonts/CircularXXSub-Book.woff2') format('woff');
+    url('https://assets.lenster.xyz/css/fonts/CircularXXSub-Book.woff') format('woff');
 }
 
 @font-face {
