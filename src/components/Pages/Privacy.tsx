@@ -16,7 +16,7 @@ const Privacy: FC = () => {
       <MetaTags title={`Privacy • ${APP_NAME}`} />
       <div className="flex justify-center items-center w-full h-48 bg-brand-400">
         <div className="relative text-center">
-          <h1 className="text-3xl font-semibold text-white md:text-4xl">Privacy Policy</h1>
+          <h1 className="text-3xl font-bold text-white md:text-4xl">Privacy Policy</h1>
           <div className="flex justify-center mt-4">
             <div className="py-0.5 px-2 text-xs text-white bg-gray-800 rounded-md">Updated May 18, 2022</div>
           </div>
