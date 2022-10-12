@@ -22,8 +22,11 @@ const Message: FC = () => {
   const messageState = useMessageStore((state) => state);
   const { conversations } = messageState;
   const selectedConversation = conversations.get(address);
-  const [endTime, setEndTime] = useState<Date>();
-  const { messages } = useGetMessages(selectedConversation, endTime);
+  const [endTime, setEndTime] = useState<Map<string, Date>>(new Map());
+  const { messages } = useGetMessages(
+    selectedConversation,
+    endTime.get(selectedConversation?.peerAddress ?? '')
+  );
   const { sendMessage } = useSendMessage(selectedConversation);
 
   const onConversationSelected = (address: string) => {
@@ -33,9 +36,13 @@ const Message: FC = () => {
   const fetchNextMessages = () => {
     if (selectedConversation?.peerAddress) {
       const currentMessages = messages.get(selectedConversation?.peerAddress);
-      currentMessages &&
-        currentMessages?.length > 0 &&
-        setEndTime(currentMessages[currentMessages?.length - 1]?.sent);
+      if (Array.isArray(currentMessages) && currentMessages?.length > 0) {
+        const lastMsgDate = currentMessages[currentMessages?.length ?? 1 - 1].sent;
+        if (lastMsgDate instanceof Date && isFinite(lastMsgDate.getTime())) {
+          endTime.set(selectedConversation.peerAddress, lastMsgDate);
+          setEndTime(new Map(endTime));
+        }
+      }
     }
   };
 
@@ -76,9 +83,7 @@ const Message: FC = () => {
       <GridItemEight>
         <Card className="h-[86vh]">
           <MessageHeader />
-          <div className="h-[82%] overflow-y-auto">
-            <MessagesList fetchNextMessages={fetchNextMessages} messages={messages.get(address) ?? []} />
-          </div>
+          <MessagesList fetchNextMessages={fetchNextMessages} messages={messages.get(address) ?? []} />
           <MessageComposer sendMessage={sendMessage} />
         </Card>
       </GridItemEight>

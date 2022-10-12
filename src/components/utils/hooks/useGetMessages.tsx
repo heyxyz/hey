@@ -12,14 +12,16 @@ const useGetMessages = (conversation?: Conversation, endTime?: Date) => {
       return;
     }
     const loadMessages = async () => {
-      console.log(endTime);
       const newMessages = await conversation.messages({
         direction: SortDirection.SORT_DIRECTION_DESCENDING,
-        limit: 5,
+        limit: 20,
         endTime
       });
       const msgObj = [...newMessages, ...(messages.get(conversation.peerAddress) ?? [])];
       const uniqueMessages = [...Array.from(new Map(msgObj.map((item) => [item['id'], item])).values())];
+      uniqueMessages.sort((a, b) => {
+        return (b.sent?.getTime() ?? 0) - (a.sent?.getTime() ?? 0);
+      });
       messages.set(conversation.peerAddress, uniqueMessages);
       setMessages(new Map(messages));
     };

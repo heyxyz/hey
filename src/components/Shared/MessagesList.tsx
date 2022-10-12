@@ -93,18 +93,20 @@ const MessagesList: FC<MessageListProps> = ({ messages, fetchNextMessages }) => 
   let lastMessageDate: Date | undefined;
 
   return (
-    <div className="flex-grow flex">
+    <div className="flex-grow flex h-[70vh]">
       <div className="pb-6 md:pb-0 w-full flex flex-col self-end">
         <div className="relative w-full bg-white px-4 pt-6 flex">
-          <div className="w-full">
+          <div id="scrollableDiv" className="flex flex-col-reverse h-[68vh] overflow-y-auto w-full">
             <InfiniteScroll
-              dataLength={500} //This is important field to render the next data
+              dataLength={messages.length}
               next={fetchNextMessages}
               hasMore={true}
-              loader={null}
+              style={{ display: 'flex', flexDirection: 'column-reverse' }}
+              loader={<div className="p-1 text-center text-gray-300 font-bold text-sm">Loading...</div>}
               endMessage={<ConversationBeginningNotice />}
+              inverse={true}
+              scrollableTarget="scrollableDiv"
             >
-              {/* {messages && messages.length ? <ConversationBeginningNotice /> : null} */}
               {messages?.map((msg: Message) => {
                 const dateHasChanged = !isOnSameDay(lastMessageDate, msg.sent);
                 lastMessageDate = msg.sent;
