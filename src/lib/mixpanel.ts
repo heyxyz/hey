@@ -12,10 +12,5 @@ export const Mixpanel = {
     if (enabled) {
       mixpanel.track(name, props);
     }
-  },
-  identify: (id: string) => {
-    if (enabled) {
-      mixpanel.people.set({ $identified_id: id, $name: id });
-    }
   }
 };
