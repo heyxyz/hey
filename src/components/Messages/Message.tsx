@@ -1,3 +1,4 @@
+import Preview from '@components/Messages/Preview';
 import MessageComposer from '@components/Shared/MessageComposer';
 import MessagesList from '@components/Shared/MessagesList';
 import { Card } from '@components/UI/Card';
@@ -14,18 +15,16 @@ import { useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
 
 const Message: FC = () => {
-  const { push, query } = useRouter();
-  const address = query.address as string;
+  const { query } = useRouter();
+  const address = (query.address as string).toLowerCase();
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const messageState = useMessageStore((state) => state);
-  const { conversations } = messageState;
+  const conversations = useMessageStore((state) => state.conversations);
   const selectedConversation = conversations.get(address);
+  // TODO(elise): Move messageProfiles and previewMessages to their own ConversationList component.
+  const messageProfiles = useMessageStore((state) => state.messageProfiles);
+  const previewMessages = useMessageStore((state) => state.previewMessages);
   const { messages } = useGetMessages(selectedConversation);
   const { sendMessage } = useSendMessage(selectedConversation);
-
-  const onConversationSelected = (address: string) => {
-    push(address ? `/messages/${address}` : '/messages/');
-  };
 
   if (!isFeatureEnabled('messages', currentProfile?.id)) {
     return <Custom404 />;
@@ -47,16 +46,12 @@ const Message: FC = () => {
             <div className="text-xs">All messages</div>
           </div>
           <div>
-            {Array.from(conversations.keys()).map((address: string) => {
-              return (
-                <div
-                  onClick={() => onConversationSelected(address)}
-                  key={`convo_${address}`}
-                  className="border p-5 text-xs"
-                >
-                  {address}
-                </div>
-              );
+            {Array.from(messageProfiles.values()).map((profile, index) => {
+              const message = previewMessages.get(profile.ownedBy.toLowerCase());
+              if (!message) {
+                return null;
+              }
+              return <Preview key={`${profile.ownedBy}_${index}`} profile={profile} message={message} />;
             })}
           </div>
         </Card>
