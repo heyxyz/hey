@@ -4,7 +4,7 @@ import { Card } from '@components/UI/Card';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
-import type { FeedItemRoot } from '@generated/types';
+import type { FeedItem } from '@generated/types';
 import { V2HomeFeedDocument } from '@generated/types';
 import { CollectionIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
@@ -23,7 +23,7 @@ const V2Feed: FC = () => {
   const txnQueue = useTransactionPersistStore((state) => state.txnQueue);
 
   // Variables
-  const request = { profileId: currentProfile?.id, limit: 10 };
+  const request = { profileId: currentProfile?.id, limit: 50 };
   const reactionRequest = currentProfile ? { profileId: currentProfile?.id } : null;
   const profileId = currentProfile?.id ?? null;
 
@@ -77,10 +77,7 @@ const V2Feed: FC = () => {
             )
         )}
         {publications?.map((publication, index: number) => (
-          <SinglePublication
-            key={`${publication?.root.id}_${index}`}
-            publication={publication.root as FeedItemRoot}
-          />
+          <SinglePublication key={`${publication?.root.id}_${index}`} feedItem={publication as FeedItem} />
         ))}
       </Card>
       {pageInfo?.next && publications?.length !== pageInfo.totalCount && (

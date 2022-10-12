@@ -1,3 +1,4 @@
+import PublicationType from '@components/Publication/Type';
 import UserProfile from '@components/Shared/UserProfile';
 import type { LensterPublication } from '@generated/lenstertypes';
 import getAppName from '@lib/getAppName';
@@ -9,7 +10,6 @@ import PublicationActions from './Actions';
 import HiddenPublication from './HiddenPublication';
 import PublicationBody from './PublicationBody';
 import PublicationStats from './PublicationStats';
-import PublicationType from './Type';
 
 dayjs.extend(relativeTime);
 

@@ -19,9 +19,8 @@ interface Props {
 
 const ThreadBody: FC<Props> = ({ publication }) => {
   const { push } = useRouter();
-  const isMirror = publication.__typename === 'Mirror';
-  const profile = isMirror ? publication?.mirrorOf?.profile : publication?.profile;
-  const timestamp = isMirror ? publication?.mirrorOf?.createdAt : publication?.createdAt;
+  const profile = publication?.profile;
+  const timestamp = publication?.createdAt;
 
   return (
     <article>

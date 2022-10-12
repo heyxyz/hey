@@ -11,7 +11,7 @@ import { useEffect } from 'react';
 import { useAppStore } from 'src/store/app';
 import { PAGEVIEW } from 'src/tracking';
 
-import V2Timeline from '../V2Timeline';
+import V2Timeline from '../TimelineV2';
 import EnableDispatcher from './EnableDispatcher';
 import HomeFeed from './Feed';
 import Hero from './Hero';

@@ -1,5 +1,6 @@
 import UserProfile from '@components/Shared/UserProfile';
-import type { FeedItemRoot } from '@generated/types';
+import type { LensterPublication } from '@generated/lenstertypes';
+import type { FeedItem } from '@generated/types';
 import { Mixpanel } from '@lib/mixpanel';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
@@ -8,6 +9,7 @@ import type { FC } from 'react';
 import { PUBLICATION } from 'src/tracking';
 
 import PublicationActions from './Actions';
+import ModAction from './Actions/ModAction';
 import HiddenPublication from './HiddenPublication';
 import PublicationBody from './PublicationBody';
 import PublicationType from './Type';
@@ -15,7 +17,7 @@ import PublicationType from './Type';
 dayjs.extend(relativeTime);
 
 interface Props {
-  publication: FeedItemRoot;
+  feedItem: FeedItem;
   showType?: boolean;
   showActions?: boolean;
   showModActions?: boolean;
@@ -23,19 +25,20 @@ interface Props {
 }
 
 const SinglePublication: FC<Props> = ({
-  publication,
+  feedItem,
   showType = true,
   showActions = true,
   showModActions = false,
   showThread = true
 }) => {
   const { push } = useRouter();
-  const profile = publication?.profile;
-  const timestamp = publication?.createdAt;
+  const profile = feedItem.root?.profile;
+  const timestamp = feedItem.root?.createdAt;
+  const publication = feedItem.root;
 
   return (
     <article className="hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer first:rounded-t-xl last:rounded-b-xl p-5">
-      <PublicationType publication={publication} showType={showType} showThread={showThread} />
+      <PublicationType feedItem={feedItem} showType={showType} showThread={showThread} />
       <div className="flex justify-between pb-4 space-x-1.5">
         <span onClick={(event) => event.stopPropagation()}>
           <UserProfile profile={profile ?? publication?.collectedBy?.defaultProfile} />
@@ -54,8 +57,8 @@ const SinglePublication: FC<Props> = ({
         ) : (
           <>
             <PublicationBody publication={publication} />
-            {showActions && <PublicationActions publication={publication} />}
-            {/* {showModActions && <ModAction publication={publication} />} */}
+            {showActions && <PublicationActions publication={publication as LensterPublication} />}
+            {showModActions && <ModAction publication={publication as LensterPublication} />}
           </>
         )}
       </div>

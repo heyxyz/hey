@@ -1,4 +1,4 @@
-import type { FeedItemRoot } from '@generated/types';
+import type { LensterPublication } from '@generated/lenstertypes';
 import { Menu, Transition } from '@headlessui/react';
 import { DotsHorizontalIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
@@ -8,8 +8,13 @@ import { Fragment } from 'react';
 import { useAppStore } from 'src/store/app';
 import { PUBLICATION } from 'src/tracking';
 
+import Delete from './Delete';
+import Embed from './Embed';
+import Permalink from './Permalink';
+import Report from './Report';
+
 interface Props {
-  publication: FeedItemRoot;
+  publication: LensterPublication;
   isFullPublication: boolean;
 }
 
@@ -44,13 +49,13 @@ const PublicationMenu: FC<Props> = ({ publication, isFullPublication }) => {
               static
               className="absolute py-1 w-max bg-white rounded-xl border shadow-sm dark:bg-gray-900 focus:outline-none z-[5] dark:border-gray-700/80"
             >
-              {/* {currentProfile?.id === publication?.profile?.id ? (
+              {currentProfile?.id === publication?.profile?.id ? (
                 <Delete publication={publication} />
               ) : (
                 <Report publication={publication} />
-              )} */}
-              {/* <Embed publication={publication} />
-              <Permalink publication={publication} /> */}
+              )}
+              <Embed publication={publication} />
+              <Permalink publication={publication} />
             </Menu.Items>
           </Transition>
         </>

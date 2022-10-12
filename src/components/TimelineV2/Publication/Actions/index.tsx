@@ -1,4 +1,4 @@
-import type { FeedItemRoot } from '@generated/types';
+import type { LensterPublication } from '@generated/lenstertypes';
 import clsx from 'clsx';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
@@ -10,7 +10,7 @@ import PublicationMenu from './Menu';
 import Mirror from './Mirror';
 
 interface Props {
-  publication: FeedItemRoot;
+  publication: LensterPublication;
   isFullPublication?: boolean;
 }
 
