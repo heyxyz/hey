@@ -54,10 +54,10 @@
     "zustand": "^4.1.2"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^2.13.5",
+    "@graphql-codegen/cli": "^2.13.6",
     "@graphql-codegen/fragment-matcher": "^3.3.1",
     "@graphql-codegen/typed-document-node": "^2.3.3",
-    "@graphql-codegen/typescript": "^2.7.3",
+    "@graphql-codegen/typescript": "^2.7.4",
     "@graphql-codegen/typescript-operations": "^2.5.3",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/forms": "^0.5.3",

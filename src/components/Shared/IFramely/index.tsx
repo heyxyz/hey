@@ -14,6 +14,7 @@ const IFramely: FC<Props> = ({ url }) => {
   const [error, setError] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const [data, setData] = useState<any>();
+  const allowedSites = ['YouTube', 'Spotify', 'SoundCloud'];
 
   useEffect(() => {
     if (url) {
@@ -60,7 +61,7 @@ const IFramely: FC<Props> = ({ url }) => {
     return null;
   }
 
-  return og.html ? <Player og={og} /> : <Embed og={og} />;
+  return og.html && allowedSites.includes(og.site) ? <Player og={og} /> : <Embed og={og} />;
 };
 
 export default IFramely;
