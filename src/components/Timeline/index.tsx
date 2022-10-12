@@ -5,7 +5,7 @@ import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
 import type { FeedItem } from '@generated/types';
-import { V2HomeFeedDocument } from '@generated/types';
+import { TimelineDocument } from '@generated/types';
 import { CollectionIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import type { FC } from 'react';
@@ -27,7 +27,7 @@ const V2Feed: FC = () => {
   const reactionRequest = currentProfile ? { profileId: currentProfile?.id } : null;
   const profileId = currentProfile?.id ?? null;
 
-  const { data, loading, error, fetchMore } = useQuery(V2HomeFeedDocument, {
+  const { data, loading, error, fetchMore } = useQuery(TimelineDocument, {
     variables: { request, reactionRequest, profileId }
   });
 

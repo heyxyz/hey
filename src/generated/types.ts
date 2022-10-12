@@ -15564,59 +15564,13 @@ export type SuperFollowQuery = {
   } | null;
 };
 
-export type TrendingQueryVariables = Exact<{
-  request: AllPublicationsTagsRequest;
-}>;
-
-export type TrendingQuery = {
-  __typename?: 'Query';
-  allPublicationsTags: {
-    __typename?: 'PaginatedAllPublicationsTagsResult';
-    items: Array<{ __typename?: 'TagResult'; tag: any; total: number }>;
-  };
-};
-
-export type UserProfilesQueryVariables = Exact<{
-  ownedBy?: InputMaybe<Array<Scalars['EthereumAddress']> | Scalars['EthereumAddress']>;
-}>;
-
-export type UserProfilesQuery = {
-  __typename?: 'Query';
-  profiles: {
-    __typename?: 'PaginatedProfileResult';
-    items: Array<{
-      __typename?: 'Profile';
-      isDefault: boolean;
-      id: any;
-      name?: string | null;
-      handle: any;
-      bio?: string | null;
-      ownedBy: any;
-      stats: { __typename?: 'ProfileStats'; totalFollowing: number };
-      dispatcher?: { __typename?: 'Dispatcher'; canUseRelay: boolean } | null;
-      attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
-      picture?:
-        | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
-        | { __typename?: 'NftImage'; uri: any }
-        | null;
-      followModule?:
-        | { __typename: 'FeeFollowModuleSettings' }
-        | { __typename: 'ProfileFollowModuleSettings' }
-        | { __typename: 'RevertFollowModuleSettings' }
-        | { __typename: 'UnknownFollowModuleSettings' }
-        | null;
-    }>;
-  };
-  userSigNonces: { __typename?: 'UserSigNonces'; lensHubOnChainSigNonce: any };
-};
-
-export type V2HomeFeedQueryVariables = Exact<{
+export type TimelineQueryVariables = Exact<{
   request: FeedRequest;
   reactionRequest?: InputMaybe<ReactionFieldResolverRequest>;
   profileId?: InputMaybe<Scalars['ProfileId']>;
 }>;
 
-export type V2HomeFeedQuery = {
+export type TimelineQuery = {
   __typename?: 'Query';
   feed: {
     __typename?: 'PaginatedFeedResult';
@@ -18148,6 +18102,52 @@ export type V2HomeFeedQuery = {
     }>;
     pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null; totalCount?: number | null };
   };
+};
+
+export type TrendingQueryVariables = Exact<{
+  request: AllPublicationsTagsRequest;
+}>;
+
+export type TrendingQuery = {
+  __typename?: 'Query';
+  allPublicationsTags: {
+    __typename?: 'PaginatedAllPublicationsTagsResult';
+    items: Array<{ __typename?: 'TagResult'; tag: any; total: number }>;
+  };
+};
+
+export type UserProfilesQueryVariables = Exact<{
+  ownedBy?: InputMaybe<Array<Scalars['EthereumAddress']> | Scalars['EthereumAddress']>;
+}>;
+
+export type UserProfilesQuery = {
+  __typename?: 'Query';
+  profiles: {
+    __typename?: 'PaginatedProfileResult';
+    items: Array<{
+      __typename?: 'Profile';
+      isDefault: boolean;
+      id: any;
+      name?: string | null;
+      handle: any;
+      bio?: string | null;
+      ownedBy: any;
+      stats: { __typename?: 'ProfileStats'; totalFollowing: number };
+      dispatcher?: { __typename?: 'Dispatcher'; canUseRelay: boolean } | null;
+      attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
+      picture?:
+        | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
+        | { __typename?: 'NftImage'; uri: any }
+        | null;
+      followModule?:
+        | { __typename: 'FeeFollowModuleSettings' }
+        | { __typename: 'ProfileFollowModuleSettings' }
+        | { __typename: 'RevertFollowModuleSettings' }
+        | { __typename: 'UnknownFollowModuleSettings' }
+        | null;
+    }>;
+  };
+  userSigNonces: { __typename?: 'UserSigNonces'; lensHubOnChainSigNonce: any };
 };
 
 export const ProfileFieldsFragmentDoc = {
@@ -24059,154 +24059,13 @@ export const SuperFollowDocument = {
     }
   ]
 } as unknown as DocumentNode<SuperFollowQuery, SuperFollowQueryVariables>;
-export const TrendingDocument = {
+export const TimelineDocument = {
   kind: 'Document',
   definitions: [
     {
       kind: 'OperationDefinition',
       operation: 'query',
-      name: { kind: 'Name', value: 'Trending' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: { kind: 'Variable', name: { kind: 'Name', value: 'request' } },
-          type: {
-            kind: 'NonNullType',
-            type: { kind: 'NamedType', name: { kind: 'Name', value: 'AllPublicationsTagsRequest' } }
-          }
-        }
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'allPublicationsTags' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'request' },
-                value: { kind: 'Variable', name: { kind: 'Name', value: 'request' } }
-              }
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'items' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      { kind: 'Field', name: { kind: 'Name', value: 'tag' } },
-                      { kind: 'Field', name: { kind: 'Name', value: 'total' } }
-                    ]
-                  }
-                }
-              ]
-            }
-          }
-        ]
-      }
-    }
-  ]
-} as unknown as DocumentNode<TrendingQuery, TrendingQueryVariables>;
-export const UserProfilesDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'query',
-      name: { kind: 'Name', value: 'UserProfiles' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: { kind: 'Variable', name: { kind: 'Name', value: 'ownedBy' } },
-          type: {
-            kind: 'ListType',
-            type: {
-              kind: 'NonNullType',
-              type: { kind: 'NamedType', name: { kind: 'Name', value: 'EthereumAddress' } }
-            }
-          }
-        }
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'profiles' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'request' },
-                value: {
-                  kind: 'ObjectValue',
-                  fields: [
-                    {
-                      kind: 'ObjectField',
-                      name: { kind: 'Name', value: 'ownedBy' },
-                      value: { kind: 'Variable', name: { kind: 'Name', value: 'ownedBy' } }
-                    }
-                  ]
-                }
-              }
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'items' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      { kind: 'FragmentSpread', name: { kind: 'Name', value: 'ProfileFields' } },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'stats' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [{ kind: 'Field', name: { kind: 'Name', value: 'totalFollowing' } }]
-                        }
-                      },
-                      { kind: 'Field', name: { kind: 'Name', value: 'isDefault' } },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'dispatcher' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [{ kind: 'Field', name: { kind: 'Name', value: 'canUseRelay' } }]
-                        }
-                      }
-                    ]
-                  }
-                }
-              ]
-            }
-          },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'userSigNonces' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'lensHubOnChainSigNonce' } }]
-            }
-          }
-        ]
-      }
-    },
-    ...ProfileFieldsFragmentDoc.definitions
-  ]
-} as unknown as DocumentNode<UserProfilesQuery, UserProfilesQueryVariables>;
-export const V2HomeFeedDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'query',
-      name: { kind: 'Name', value: 'V2HomeFeed' },
+      name: { kind: 'Name', value: 'Timeline' },
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
@@ -24402,7 +24261,148 @@ export const V2HomeFeedDocument = {
     ...CommentFieldsFragmentDoc.definitions,
     ...MirrorFieldsFragmentDoc.definitions
   ]
-} as unknown as DocumentNode<V2HomeFeedQuery, V2HomeFeedQueryVariables>;
+} as unknown as DocumentNode<TimelineQuery, TimelineQueryVariables>;
+export const TrendingDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'Trending' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'request' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'AllPublicationsTagsRequest' } }
+          }
+        }
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'allPublicationsTags' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'request' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'request' } }
+              }
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'items' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'tag' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'total' } }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+} as unknown as DocumentNode<TrendingQuery, TrendingQueryVariables>;
+export const UserProfilesDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'UserProfiles' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'ownedBy' } },
+          type: {
+            kind: 'ListType',
+            type: {
+              kind: 'NonNullType',
+              type: { kind: 'NamedType', name: { kind: 'Name', value: 'EthereumAddress' } }
+            }
+          }
+        }
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'profiles' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'request' },
+                value: {
+                  kind: 'ObjectValue',
+                  fields: [
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'ownedBy' },
+                      value: { kind: 'Variable', name: { kind: 'Name', value: 'ownedBy' } }
+                    }
+                  ]
+                }
+              }
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'items' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'FragmentSpread', name: { kind: 'Name', value: 'ProfileFields' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'stats' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [{ kind: 'Field', name: { kind: 'Name', value: 'totalFollowing' } }]
+                        }
+                      },
+                      { kind: 'Field', name: { kind: 'Name', value: 'isDefault' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'dispatcher' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [{ kind: 'Field', name: { kind: 'Name', value: 'canUseRelay' } }]
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'userSigNonces' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'lensHubOnChainSigNonce' } }]
+            }
+          }
+        ]
+      }
+    },
+    ...ProfileFieldsFragmentDoc.definitions
+  ]
+} as unknown as DocumentNode<UserProfilesQuery, UserProfilesQueryVariables>;
 
 export interface PossibleTypesResultData {
   possibleTypes: {
