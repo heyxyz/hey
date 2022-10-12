@@ -12370,6 +12370,7 @@ export type ProfilesQuery = {
     __typename?: 'PaginatedProfileResult';
     items: Array<{
       __typename?: 'Profile';
+      isDefault: boolean;
       id: any;
       name?: string | null;
       handle: any;
@@ -20970,7 +20971,10 @@ export const ProfilesDocument = {
                   name: { kind: 'Name', value: 'items' },
                   selectionSet: {
                     kind: 'SelectionSet',
-                    selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'ProfileFields' } }]
+                    selections: [
+                      { kind: 'FragmentSpread', name: { kind: 'Name', value: 'ProfileFields' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'isDefault' } }
+                    ]
                   }
                 },
                 {
