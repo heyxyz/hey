@@ -48,12 +48,12 @@ const Explore: NextPage = () => {
                 className={({ selected }) =>
                   clsx(
                     { 'border-b-2 border-brand-500 font-black': selected },
-                    'px-2 sm:px-4 pb-2 text-gray-500 outline-none font-medium text-xs sm:text-sm'
+                    'px-4 pb-2 text-gray-500 outline-none font-medium text-sm'
                   )
                 }
               >
                 <span className="flex items-center space-x-2">
-                  <span>{tab.name}</span>
+                  <span className="hidden sm:block">{tab.name}</span>
                   <img className="h-4" src={`${STATIC_ASSETS}/emojis/${tab.emoji}`} alt={tab.name} />
                 </span>
               </Tab>

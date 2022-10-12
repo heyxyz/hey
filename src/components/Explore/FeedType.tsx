@@ -21,7 +21,7 @@ const FeedType: FC<Props> = ({ setFocus, focus }) => {
       }}
       className={clsx(
         { '!bg-brand-500 !text-white': focus === type },
-        'text-xs bg-brand-100 rounded-full px-4 py-1.5 text-brand border border-brand-300'
+        'text-xs bg-brand-100 rounded-full px-3 sm:px-4 py-1.5 text-brand border border-brand-300'
       )}
       aria-label={name}
     >
@@ -30,7 +30,7 @@ const FeedType: FC<Props> = ({ setFocus, focus }) => {
   );
 
   return (
-    <div className="flex gap-3 px-5 mt-3 sm:px-0 sm:mt-0">
+    <div className="flex flex-wrap gap-3 px-5 mt-3 sm:px-0 sm:mt-0">
       <FeedLink name="All posts" />
       <FeedLink name="Text" type={PublicationMainFocus.TextOnly} />
       <FeedLink name="Videos" type={PublicationMainFocus.Video} />
