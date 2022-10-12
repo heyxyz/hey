@@ -1,4 +1,5 @@
 import MessageComposer from '@components/Shared/MessageComposer';
+import MessageHeader from '@components/Shared/MessageHeader';
 import MessagesList from '@components/Shared/MessagesList';
 import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
@@ -63,7 +64,7 @@ const Message: FC = () => {
       </GridItemFour>
       <GridItemEight>
         <Card className="h-[86vh]">
-          <div className="flex justify-center flex-1 p-5 border-b-[1px]">Header</div>
+          <MessageHeader />
           <div className="h-[82%] overflow-y-auto">
             <MessagesList messages={messages.get(address) ?? []} />
           </div>
