@@ -13,8 +13,9 @@ interface Props {
   showThread?: boolean;
 }
 
-const getCanCombined = (lengths: number[]) => {
-  return lengths.filter((n) => n > 0).length > 0;
+const getCanCombined = (aggregations: number[]) => {
+  // show combined reactions if more than 2 items in aggregations
+  return aggregations.filter((n) => n > 0).length > 1;
 };
 
 const PublicationType: FC<Props> = ({ feedItem, showType, showThread = false }) => {
