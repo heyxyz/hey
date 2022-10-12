@@ -4,12 +4,13 @@ import Footer from '@components/Shared/Footer';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import MetaTags from '@components/utils/MetaTags';
 import { PublicationSortCriteria } from '@generated/types';
+import { Tab } from '@headlessui/react';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { Mixpanel } from '@lib/mixpanel';
+import clsx from 'clsx';
 import type { NextPage } from 'next';
-import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { APP_NAME } from 'src/constants';
+import { APP_NAME, STATIC_ASSETS } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { PAGEVIEW } from 'src/tracking';
 
@@ -17,19 +18,19 @@ import Feed from './Feed';
 import FeedType from './FeedType';
 
 const Explore: NextPage = () => {
-  const {
-    query: { type }
-  } = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const [feedType, setFeedType] = useState(
-    type && ['curated_profiles', 'top_commented', 'top_collected', 'top_mirrored'].includes(type as string)
-      ? type.toString().toUpperCase()
-      : PublicationSortCriteria.CuratedProfiles
-  );
+  const [focus, setFocus] = useState<any>();
 
   useEffect(() => {
     Mixpanel.track('Pageview', { path: PAGEVIEW.EXPLORE });
   }, []);
+
+  const tabs = [
+    { name: 'For you', emoji: 'leaf-fluttering-in-wind.png', type: PublicationSortCriteria.CuratedProfiles },
+    { name: 'Popular', emoji: 'hundred-points.png', type: PublicationSortCriteria.TopCommented },
+    { name: 'Trending', emoji: 'heart-on-fire.png', type: PublicationSortCriteria.TopCollected },
+    { name: 'Interesting', emoji: 'hushed-face.png', type: PublicationSortCriteria.TopMirrored }
+  ];
 
   return (
     <GridLayout>
@@ -38,8 +39,35 @@ const Explore: NextPage = () => {
         description={`Explore top commented, collected and latest publications in the ${APP_NAME}.`}
       />
       <GridItemEight className="space-y-5">
-        <FeedType setFeedType={setFeedType} feedType={feedType} />
-        <Feed feedType={feedType as PublicationSortCriteria} />
+        <Tab.Group>
+          <Tab.List className="border-b space-x-8">
+            {tabs.map((tab, index) => (
+              <Tab
+                key={index}
+                defaultChecked={index === 1}
+                className={({ selected }) =>
+                  clsx(
+                    { 'border-b-2 border-brand-500 font-black': selected },
+                    'px-4 pb-2 text-gray-500 outline-none font-medium text-sm'
+                  )
+                }
+              >
+                <span className="flex items-center space-x-2">
+                  <span>{tab.name}</span>
+                  <img className="h-4" src={`${STATIC_ASSETS}/emojis/${tab.emoji}`} alt={tab.name} />
+                </span>
+              </Tab>
+            ))}
+          </Tab.List>
+          <FeedType setFocus={setFocus} focus={focus} />
+          <Tab.Panels>
+            {tabs.map((tab, index) => (
+              <Tab.Panel key={index}>
+                <Feed focus={focus} feedType={tab.type} />
+              </Tab.Panel>
+            ))}
+          </Tab.Panels>
+        </Tab.Group>
       </GridItemEight>
       <GridItemFour>
         {isFeatureEnabled('trending-widget', currentProfile?.id) && <Trending />}
