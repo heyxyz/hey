@@ -202,6 +202,12 @@ export type CollectProxyAction = {
   freeCollect?: InputMaybe<FreeCollectProxyAction>;
 };
 
+export type CollectedEvent = {
+  __typename?: 'CollectedEvent';
+  profile: Profile;
+  timestamp: Scalars['DateTime'];
+};
+
 /** The social comment */
 export type Comment = {
   __typename?: 'Comment';
@@ -896,6 +902,13 @@ export type Eip712TypedDataField = {
   type: Scalars['String'];
 };
 
+export type ElectedMirror = {
+  __typename?: 'ElectedMirror';
+  mirrorId: Scalars['InternalPublicationId'];
+  profile: Profile;
+  timestamp: Scalars['DateTime'];
+};
+
 export type EnabledModule = {
   __typename?: 'EnabledModule';
   contractAddress: Scalars['ContractAddress'];
@@ -1026,6 +1039,33 @@ export type FeeFollowModuleSettings = {
   recipient: Scalars['EthereumAddress'];
   /** The follow modules enum */
   type: FollowModules;
+};
+
+export type FeedItem = {
+  __typename?: 'FeedItem';
+  /** Sorted by most recent first. Resolves defaultProfile and if null omits the wallet collect event from the list. */
+  collects: Array<CollectedEvent>;
+  /** Sorted by most recent first. Up to page size - 1 comments. */
+  comments?: Maybe<Array<Comment>>;
+  /** The elected mirror will be the first Mirror publication within the page results set */
+  electedMirror?: Maybe<ElectedMirror>;
+  /** Sorted by most recent first. Up to page size - 1 mirrors */
+  mirrors: Array<MirrorEvent>;
+  /** Sorted by most recent first. Up to page size - 1 reactions */
+  reactions: Array<ReactionEvent>;
+  root: FeedItemRoot;
+};
+
+export type FeedItemRoot = Comment | Post;
+
+export type FeedRequest = {
+  cursor?: InputMaybe<Scalars['Cursor']>;
+  limit?: InputMaybe<Scalars['LimitScalar']>;
+  metadata?: InputMaybe<PublicationMetadataFilters>;
+  /** The profile id */
+  profileId: Scalars['ProfileId'];
+  /** The App Id */
+  sources?: InputMaybe<Array<Scalars['Sources']>>;
 };
 
 export type Follow = {
@@ -1440,6 +1480,12 @@ export type MirrorReactionArgs = {
   request?: InputMaybe<ReactionFieldResolverRequest>;
 };
 
+export type MirrorEvent = {
+  __typename?: 'MirrorEvent';
+  profile: Profile;
+  timestamp: Scalars['DateTime'];
+};
+
 export type MirrorablePublication = Comment | Post;
 
 export type ModuleFeeAmount = {
@@ -1843,6 +1889,13 @@ export type PaginatedAllPublicationsTagsResult = {
   pageInfo: PaginatedResultInfo;
 };
 
+/** The paginated feed result */
+export type PaginatedFeedResult = {
+  __typename?: 'PaginatedFeedResult';
+  items: Array<FeedItem>;
+  pageInfo: PaginatedResultInfo;
+};
+
 /** The paginated followers result */
 export type PaginatedFollowersResult = {
   __typename?: 'PaginatedFollowersResult';
@@ -1891,8 +1944,8 @@ export type PaginatedResultInfo = {
   next?: Maybe<Scalars['Cursor']>;
   /** Cursor to query the actual results */
   prev?: Maybe<Scalars['Cursor']>;
-  /** The total number of entities the pagination iterates over. e.g. For a query that requests all nfts with more than 10 likes, this field gives the total amount of nfts with more than 10 likes, not the total amount of nfts */
-  totalCount: Scalars['Int'];
+  /** The total number of entities the pagination iterates over. If null it means it can not work it out due to dynamic or aggregated query e.g. For a query that requests all nfts with more than 10 likes, this field gives the total amount of nfts with more than 10 likes, not the total amount of nfts */
+  totalCount?: Maybe<Scalars['Int']>;
 };
 
 /** The paginated timeline result */
@@ -1938,7 +1991,10 @@ export type Post = {
   collectModule: CollectModule;
   /** The contract address for the collect nft.. if its null it means nobody collected yet as it lazy deployed */
   collectNftAddress?: Maybe<Scalars['ContractAddress']>;
-  /** Who collected it, this is used for timeline results and like this for better caching for the client */
+  /**
+   * Who collected it, this is used for timeline results and like this for better caching for the client
+   * @deprecated use `feed` query, timeline query will be killed on the 15th November. This includes this field.
+   */
   collectedBy?: Maybe<Wallet>;
   /** The date the post was created on */
   createdAt: Scalars['DateTime'];
@@ -2500,6 +2556,7 @@ export type Query = {
   enabledModules: EnabledModules;
   exploreProfiles: ExploreProfileResult;
   explorePublications: ExplorePublicationResult;
+  feed: PaginatedFeedResult;
   followerNftOwnedTokenIds?: Maybe<FollowerNftOwnedTokenIds>;
   followers: PaginatedFollowersResult;
   following: PaginatedFollowingResult;
@@ -2528,6 +2585,7 @@ export type Query = {
   recommendedProfiles: Array<Profile>;
   rel?: Maybe<Scalars['Void']>;
   search: SearchResult;
+  /** @deprecated You should be using feed, this will not be supported after 15th November 2021, please migrate. */
   timeline: PaginatedTimelineResult;
   txIdToTxHash: Scalars['TxHash'];
   unknownEnabledModules: EnabledModules;
@@ -2564,6 +2622,10 @@ export type QueryExploreProfilesArgs = {
 
 export type QueryExplorePublicationsArgs = {
   request: ExplorePublicationRequest;
+};
+
+export type QueryFeedArgs = {
+  request: FeedRequest;
 };
 
 export type QueryFollowerNftOwnedTokenIdsArgs = {
@@ -2696,6 +2758,13 @@ export type QueryWhoCollectedPublicationArgs = {
 
 export type QueryWhoReactedPublicationArgs = {
   request: WhoReactedPublicationRequest;
+};
+
+export type ReactionEvent = {
+  __typename?: 'ReactionEvent';
+  profile: Profile;
+  reaction: ReactionTypes;
+  timestamp: Scalars['DateTime'];
 };
 
 export type ReactionFieldResolverRequest = {
@@ -5642,7 +5711,7 @@ export type CollectorsQuery = {
           | null;
       } | null;
     }>;
-    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null; totalCount: number };
+    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null; totalCount?: number | null };
   };
 };
 
@@ -6806,7 +6875,7 @@ export type CommentFeedQuery = {
       | { __typename?: 'Mirror' }
       | { __typename?: 'Post' }
     >;
-    pageInfo: { __typename?: 'PaginatedResultInfo'; totalCount: number; next?: any | null };
+    pageInfo: { __typename?: 'PaginatedResultInfo'; totalCount?: number | null; next?: any | null };
   };
 };
 
@@ -8444,7 +8513,7 @@ export type ExploreFeedQuery = {
           };
         }
     >;
-    pageInfo: { __typename?: 'PaginatedResultInfo'; totalCount: number; next?: any | null };
+    pageInfo: { __typename?: 'PaginatedResultInfo'; totalCount?: number | null; next?: any | null };
   };
 };
 
@@ -8484,7 +8553,7 @@ export type FollowersQuery = {
         } | null;
       };
     }>;
-    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null; totalCount: number };
+    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null; totalCount?: number | null };
   };
 };
 
@@ -8520,7 +8589,7 @@ export type FollowingQuery = {
           | null;
       };
     }>;
-    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null; totalCount: number };
+    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null; totalCount?: number | null };
   };
 };
 
@@ -10136,7 +10205,7 @@ export type HomeFeedQuery = {
           };
         }
     >;
-    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null; totalCount: number };
+    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null; totalCount?: number | null };
   };
 };
 
@@ -10188,7 +10257,7 @@ export type LikesQuery = {
           | null;
       };
     }>;
-    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null; totalCount: number };
+    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null; totalCount?: number | null };
   };
 };
 
@@ -10220,7 +10289,7 @@ export type MirrorsQuery = {
         | { __typename: 'UnknownFollowModuleSettings' }
         | null;
     }>;
-    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null; totalCount: number };
+    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null; totalCount?: number | null };
   };
 };
 
@@ -10241,7 +10310,7 @@ export type MutualFollowersQuery = {
         | { __typename?: 'NftImage'; uri: any }
         | null;
     }>;
-    pageInfo: { __typename?: 'PaginatedResultInfo'; totalCount: number };
+    pageInfo: { __typename?: 'PaginatedResultInfo'; totalCount?: number | null };
   };
 };
 
@@ -10273,7 +10342,7 @@ export type MutualFollowersListQuery = {
         | { __typename: 'UnknownFollowModuleSettings' }
         | null;
     }>;
-    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null; totalCount: number };
+    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null; totalCount?: number | null };
   };
 };
 
@@ -10303,7 +10372,7 @@ export type NftFeedQuery = {
       chainId: any;
       originalContent: { __typename?: 'NFTContent'; uri: string; animatedUrl?: string | null };
     }>;
-    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null; totalCount: number };
+    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null; totalCount?: number | null };
   };
 };
 
@@ -10315,7 +10384,7 @@ export type NotificationCountQuery = {
   __typename?: 'Query';
   notifications: {
     __typename?: 'PaginatedNotificationResult';
-    pageInfo: { __typename?: 'PaginatedResultInfo'; totalCount: number };
+    pageInfo: { __typename?: 'PaginatedResultInfo'; totalCount?: number | null };
   };
 };
 
@@ -10690,7 +10759,7 @@ export type NotificationsQuery = {
               };
         }
     >;
-    pageInfo: { __typename?: 'PaginatedResultInfo'; totalCount: number; next?: any | null };
+    pageInfo: { __typename?: 'PaginatedResultInfo'; totalCount?: number | null; next?: any | null };
   };
 };
 
@@ -12333,7 +12402,7 @@ export type ProfileFeedQuery = {
           };
         }
     >;
-    pageInfo: { __typename?: 'PaginatedResultInfo'; totalCount: number; next?: any | null };
+    pageInfo: { __typename?: 'PaginatedResultInfo'; totalCount?: number | null; next?: any | null };
   };
 };
 
@@ -14091,7 +14160,7 @@ export type SearchProfilesQuery = {
             | { __typename: 'UnknownFollowModuleSettings' }
             | null;
         }>;
-        pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null; totalCount: number };
+        pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null; totalCount?: number | null };
       }
     | { __typename?: 'PublicationSearchResult' };
 };
@@ -15495,7 +15564,7 @@ export type SearchPublicationsQuery = {
               };
             }
         >;
-        pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null; totalCount: number };
+        pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null; totalCount?: number | null };
       };
 };
 
@@ -21688,6 +21757,7 @@ const result: PossibleTypesResultData = {
       'TimedFeeCollectModuleSettings',
       'UnknownCollectModuleSettings'
     ],
+    FeedItemRoot: ['Comment', 'Post'],
     FollowModule: [
       'FeeFollowModuleSettings',
       'ProfileFollowModuleSettings',
