@@ -37,9 +37,7 @@ const FeedType: FC<Props> = ({ stats, setFeedType, feedType }) => {
       {icon}
       <span className="hidden sm:block">{name}</span>
       {count ? (
-        <span className="px-2 text-xs font-medium rounded-full bg-brand-200 dark:bg-brand-800">
-          {nFormatter(count)}
-        </span>
+        <span className="px-2 text-xs rounded-full bg-brand-200 dark:bg-brand-800">{nFormatter(count)}</span>
       ) : null}
     </button>
   );

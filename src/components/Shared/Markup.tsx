@@ -27,7 +27,6 @@ const Markup: FC<Props> = ({ children, className = '' }) => {
         new HashtagMatcher('hashtag'),
         new MentionMatcher('mention'),
         new MDBoldMatcher('mdBold'),
-        // new MDItalicMatcher('mdItalic'),
         new MDStrikeMatcher('mdStrike'),
         new MDQuoteMatcher('mdQuote'),
         new MDCodeMatcher('mdCode'),
