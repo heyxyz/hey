@@ -3257,7 +3257,6 @@ export type CommentFieldsFragment = {
     handle: any;
     bio?: string | null;
     ownedBy: any;
-    isDefault: boolean;
     attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
     picture?:
       | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -3282,7 +3281,6 @@ export type CommentFieldsFragment = {
       handle: any;
       bio?: string | null;
       ownedBy: any;
-      isDefault: boolean;
       attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
       picture?:
         | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -3395,7 +3393,6 @@ export type CommentFieldsFragment = {
           handle: any;
           bio?: string | null;
           ownedBy: any;
-          isDefault: boolean;
           attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
           picture?:
             | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -3513,7 +3510,6 @@ export type CommentFieldsFragment = {
                 handle: any;
                 bio?: string | null;
                 ownedBy: any;
-                isDefault: boolean;
                 attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
                 picture?:
                   | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -3625,7 +3621,6 @@ export type CommentFieldsFragment = {
                       handle: any;
                       bio?: string | null;
                       ownedBy: any;
-                      isDefault: boolean;
                       attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
                       picture?:
                         | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -3664,7 +3659,6 @@ export type CommentFieldsFragment = {
                       handle: any;
                       bio?: string | null;
                       ownedBy: any;
-                      isDefault: boolean;
                       attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
                       picture?:
                         | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -3689,7 +3683,6 @@ export type CommentFieldsFragment = {
                         handle: any;
                         bio?: string | null;
                         ownedBy: any;
-                        isDefault: boolean;
                         attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
                         picture?:
                           | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -3807,7 +3800,6 @@ export type CommentFieldsFragment = {
                 handle: any;
                 bio?: string | null;
                 ownedBy: any;
-                isDefault: boolean;
                 attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
                 picture?:
                   | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -3832,7 +3824,6 @@ export type CommentFieldsFragment = {
                   handle: any;
                   bio?: string | null;
                   ownedBy: any;
-                  isDefault: boolean;
                   attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
                   picture?:
                     | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -3945,7 +3936,6 @@ export type CommentFieldsFragment = {
           handle: any;
           bio?: string | null;
           ownedBy: any;
-          isDefault: boolean;
           attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
           picture?:
             | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -4057,7 +4047,6 @@ export type CommentFieldsFragment = {
                 handle: any;
                 bio?: string | null;
                 ownedBy: any;
-                isDefault: boolean;
                 attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
                 picture?:
                   | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -4096,7 +4085,6 @@ export type CommentFieldsFragment = {
                 handle: any;
                 bio?: string | null;
                 ownedBy: any;
-                isDefault: boolean;
                 attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
                 picture?:
                   | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -4121,7 +4109,6 @@ export type CommentFieldsFragment = {
                   handle: any;
                   bio?: string | null;
                   ownedBy: any;
-                  isDefault: boolean;
                   attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
                   picture?:
                     | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -4236,7 +4223,6 @@ export type CommentFieldsFragment = {
           handle: any;
           bio?: string | null;
           ownedBy: any;
-          isDefault: boolean;
           attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
           picture?:
             | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -4261,7 +4247,6 @@ export type CommentFieldsFragment = {
             handle: any;
             bio?: string | null;
             ownedBy: any;
-            isDefault: boolean;
             attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
             picture?:
               | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -4388,7 +4373,6 @@ export type MirrorFieldsFragment = {
     handle: any;
     bio?: string | null;
     ownedBy: any;
-    isDefault: boolean;
     attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
     picture?:
       | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -4500,7 +4484,6 @@ export type MirrorFieldsFragment = {
           handle: any;
           bio?: string | null;
           ownedBy: any;
-          isDefault: boolean;
           attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
           picture?:
             | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -4539,7 +4522,6 @@ export type MirrorFieldsFragment = {
           handle: any;
           bio?: string | null;
           ownedBy: any;
-          isDefault: boolean;
           attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
           picture?:
             | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -4564,7 +4546,6 @@ export type MirrorFieldsFragment = {
             handle: any;
             bio?: string | null;
             ownedBy: any;
-            isDefault: boolean;
             attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
             picture?:
               | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -4680,7 +4661,6 @@ export type PostFieldsFragment = {
     handle: any;
     bio?: string | null;
     ownedBy: any;
-    isDefault: boolean;
     attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
     picture?:
       | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -4705,7 +4685,6 @@ export type PostFieldsFragment = {
       handle: any;
       bio?: string | null;
       ownedBy: any;
-      isDefault: boolean;
       attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
       picture?:
         | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -4811,7 +4790,6 @@ export type ProfileFieldsFragment = {
   handle: any;
   bio?: string | null;
   ownedBy: any;
-  isDefault: boolean;
   attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
   picture?:
     | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -5651,7 +5629,6 @@ export type CollectorsQuery = {
         handle: any;
         bio?: string | null;
         ownedBy: any;
-        isDefault: boolean;
         attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
         picture?:
           | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -5696,7 +5673,6 @@ export type CommentFeedQuery = {
             handle: any;
             bio?: string | null;
             ownedBy: any;
-            isDefault: boolean;
             attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
             picture?:
               | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -5721,7 +5697,6 @@ export type CommentFeedQuery = {
               handle: any;
               bio?: string | null;
               ownedBy: any;
-              isDefault: boolean;
               attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
               picture?:
                 | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -5834,7 +5809,6 @@ export type CommentFeedQuery = {
                   handle: any;
                   bio?: string | null;
                   ownedBy: any;
-                  isDefault: boolean;
                   attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
                   picture?:
                     | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -5952,7 +5926,6 @@ export type CommentFeedQuery = {
                         handle: any;
                         bio?: string | null;
                         ownedBy: any;
-                        isDefault: boolean;
                         attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
                         picture?:
                           | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -6067,7 +6040,6 @@ export type CommentFeedQuery = {
                               handle: any;
                               bio?: string | null;
                               ownedBy: any;
-                              isDefault: boolean;
                               attributes?: Array<{
                                 __typename?: 'Attribute';
                                 key: string;
@@ -6110,7 +6082,6 @@ export type CommentFeedQuery = {
                               handle: any;
                               bio?: string | null;
                               ownedBy: any;
-                              isDefault: boolean;
                               attributes?: Array<{
                                 __typename?: 'Attribute';
                                 key: string;
@@ -6139,7 +6110,6 @@ export type CommentFeedQuery = {
                                 handle: any;
                                 bio?: string | null;
                                 ownedBy: any;
-                                isDefault: boolean;
                                 attributes?: Array<{
                                   __typename?: 'Attribute';
                                   key: string;
@@ -6281,7 +6251,6 @@ export type CommentFeedQuery = {
                         handle: any;
                         bio?: string | null;
                         ownedBy: any;
-                        isDefault: boolean;
                         attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
                         picture?:
                           | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -6306,7 +6275,6 @@ export type CommentFeedQuery = {
                           handle: any;
                           bio?: string | null;
                           ownedBy: any;
-                          isDefault: boolean;
                           attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
                           picture?:
                             | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -6422,7 +6390,6 @@ export type CommentFeedQuery = {
                   handle: any;
                   bio?: string | null;
                   ownedBy: any;
-                  isDefault: boolean;
                   attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
                   picture?:
                     | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -6534,7 +6501,6 @@ export type CommentFeedQuery = {
                         handle: any;
                         bio?: string | null;
                         ownedBy: any;
-                        isDefault: boolean;
                         attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
                         picture?:
                           | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -6573,7 +6539,6 @@ export type CommentFeedQuery = {
                         handle: any;
                         bio?: string | null;
                         ownedBy: any;
-                        isDefault: boolean;
                         attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
                         picture?:
                           | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -6598,7 +6563,6 @@ export type CommentFeedQuery = {
                           handle: any;
                           bio?: string | null;
                           ownedBy: any;
-                          isDefault: boolean;
                           attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
                           picture?:
                             | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -6716,7 +6680,6 @@ export type CommentFeedQuery = {
                   handle: any;
                   bio?: string | null;
                   ownedBy: any;
-                  isDefault: boolean;
                   attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
                   picture?:
                     | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -6741,7 +6704,6 @@ export type CommentFeedQuery = {
                     handle: any;
                     bio?: string | null;
                     ownedBy: any;
-                    isDefault: boolean;
                     attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
                     picture?:
                       | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -6929,7 +6891,6 @@ export type ExploreFeedQuery = {
             handle: any;
             bio?: string | null;
             ownedBy: any;
-            isDefault: boolean;
             attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
             picture?:
               | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -6954,7 +6915,6 @@ export type ExploreFeedQuery = {
               handle: any;
               bio?: string | null;
               ownedBy: any;
-              isDefault: boolean;
               attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
               picture?:
                 | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -7067,7 +7027,6 @@ export type ExploreFeedQuery = {
                   handle: any;
                   bio?: string | null;
                   ownedBy: any;
-                  isDefault: boolean;
                   attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
                   picture?:
                     | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -7185,7 +7144,6 @@ export type ExploreFeedQuery = {
                         handle: any;
                         bio?: string | null;
                         ownedBy: any;
-                        isDefault: boolean;
                         attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
                         picture?:
                           | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -7300,7 +7258,6 @@ export type ExploreFeedQuery = {
                               handle: any;
                               bio?: string | null;
                               ownedBy: any;
-                              isDefault: boolean;
                               attributes?: Array<{
                                 __typename?: 'Attribute';
                                 key: string;
@@ -7343,7 +7300,6 @@ export type ExploreFeedQuery = {
                               handle: any;
                               bio?: string | null;
                               ownedBy: any;
-                              isDefault: boolean;
                               attributes?: Array<{
                                 __typename?: 'Attribute';
                                 key: string;
@@ -7372,7 +7328,6 @@ export type ExploreFeedQuery = {
                                 handle: any;
                                 bio?: string | null;
                                 ownedBy: any;
-                                isDefault: boolean;
                                 attributes?: Array<{
                                   __typename?: 'Attribute';
                                   key: string;
@@ -7514,7 +7469,6 @@ export type ExploreFeedQuery = {
                         handle: any;
                         bio?: string | null;
                         ownedBy: any;
-                        isDefault: boolean;
                         attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
                         picture?:
                           | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -7539,7 +7493,6 @@ export type ExploreFeedQuery = {
                           handle: any;
                           bio?: string | null;
                           ownedBy: any;
-                          isDefault: boolean;
                           attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
                           picture?:
                             | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -7655,7 +7608,6 @@ export type ExploreFeedQuery = {
                   handle: any;
                   bio?: string | null;
                   ownedBy: any;
-                  isDefault: boolean;
                   attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
                   picture?:
                     | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -7767,7 +7719,6 @@ export type ExploreFeedQuery = {
                         handle: any;
                         bio?: string | null;
                         ownedBy: any;
-                        isDefault: boolean;
                         attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
                         picture?:
                           | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -7806,7 +7757,6 @@ export type ExploreFeedQuery = {
                         handle: any;
                         bio?: string | null;
                         ownedBy: any;
-                        isDefault: boolean;
                         attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
                         picture?:
                           | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -7831,7 +7781,6 @@ export type ExploreFeedQuery = {
                           handle: any;
                           bio?: string | null;
                           ownedBy: any;
-                          isDefault: boolean;
                           attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
                           picture?:
                             | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -7949,7 +7898,6 @@ export type ExploreFeedQuery = {
                   handle: any;
                   bio?: string | null;
                   ownedBy: any;
-                  isDefault: boolean;
                   attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
                   picture?:
                     | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -7974,7 +7922,6 @@ export type ExploreFeedQuery = {
                     handle: any;
                     bio?: string | null;
                     ownedBy: any;
-                    isDefault: boolean;
                     attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
                     picture?:
                       | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -8088,7 +8035,6 @@ export type ExploreFeedQuery = {
             handle: any;
             bio?: string | null;
             ownedBy: any;
-            isDefault: boolean;
             attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
             picture?:
               | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -8200,7 +8146,6 @@ export type ExploreFeedQuery = {
                   handle: any;
                   bio?: string | null;
                   ownedBy: any;
-                  isDefault: boolean;
                   attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
                   picture?:
                     | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -8239,7 +8184,6 @@ export type ExploreFeedQuery = {
                   handle: any;
                   bio?: string | null;
                   ownedBy: any;
-                  isDefault: boolean;
                   attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
                   picture?:
                     | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -8264,7 +8208,6 @@ export type ExploreFeedQuery = {
                     handle: any;
                     bio?: string | null;
                     ownedBy: any;
-                    isDefault: boolean;
                     attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
                     picture?:
                       | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -8379,7 +8322,6 @@ export type ExploreFeedQuery = {
             handle: any;
             bio?: string | null;
             ownedBy: any;
-            isDefault: boolean;
             attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
             picture?:
               | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -8404,7 +8346,6 @@ export type ExploreFeedQuery = {
               handle: any;
               bio?: string | null;
               ownedBy: any;
-              isDefault: boolean;
               attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
               picture?:
                 | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -8529,7 +8470,6 @@ export type FollowersQuery = {
           handle: any;
           bio?: string | null;
           ownedBy: any;
-          isDefault: boolean;
           attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
           picture?:
             | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -8567,7 +8507,6 @@ export type FollowingQuery = {
         handle: any;
         bio?: string | null;
         ownedBy: any;
-        isDefault: boolean;
         attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
         picture?:
           | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -8644,7 +8583,6 @@ export type HomeFeedQuery = {
             handle: any;
             bio?: string | null;
             ownedBy: any;
-            isDefault: boolean;
             attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
             picture?:
               | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -8669,7 +8607,6 @@ export type HomeFeedQuery = {
               handle: any;
               bio?: string | null;
               ownedBy: any;
-              isDefault: boolean;
               attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
               picture?:
                 | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -8782,7 +8719,6 @@ export type HomeFeedQuery = {
                   handle: any;
                   bio?: string | null;
                   ownedBy: any;
-                  isDefault: boolean;
                   attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
                   picture?:
                     | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -8900,7 +8836,6 @@ export type HomeFeedQuery = {
                         handle: any;
                         bio?: string | null;
                         ownedBy: any;
-                        isDefault: boolean;
                         attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
                         picture?:
                           | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -9015,7 +8950,6 @@ export type HomeFeedQuery = {
                               handle: any;
                               bio?: string | null;
                               ownedBy: any;
-                              isDefault: boolean;
                               attributes?: Array<{
                                 __typename?: 'Attribute';
                                 key: string;
@@ -9058,7 +8992,6 @@ export type HomeFeedQuery = {
                               handle: any;
                               bio?: string | null;
                               ownedBy: any;
-                              isDefault: boolean;
                               attributes?: Array<{
                                 __typename?: 'Attribute';
                                 key: string;
@@ -9087,7 +9020,6 @@ export type HomeFeedQuery = {
                                 handle: any;
                                 bio?: string | null;
                                 ownedBy: any;
-                                isDefault: boolean;
                                 attributes?: Array<{
                                   __typename?: 'Attribute';
                                   key: string;
@@ -9229,7 +9161,6 @@ export type HomeFeedQuery = {
                         handle: any;
                         bio?: string | null;
                         ownedBy: any;
-                        isDefault: boolean;
                         attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
                         picture?:
                           | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -9254,7 +9185,6 @@ export type HomeFeedQuery = {
                           handle: any;
                           bio?: string | null;
                           ownedBy: any;
-                          isDefault: boolean;
                           attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
                           picture?:
                             | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -9370,7 +9300,6 @@ export type HomeFeedQuery = {
                   handle: any;
                   bio?: string | null;
                   ownedBy: any;
-                  isDefault: boolean;
                   attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
                   picture?:
                     | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -9482,7 +9411,6 @@ export type HomeFeedQuery = {
                         handle: any;
                         bio?: string | null;
                         ownedBy: any;
-                        isDefault: boolean;
                         attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
                         picture?:
                           | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -9521,7 +9449,6 @@ export type HomeFeedQuery = {
                         handle: any;
                         bio?: string | null;
                         ownedBy: any;
-                        isDefault: boolean;
                         attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
                         picture?:
                           | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -9546,7 +9473,6 @@ export type HomeFeedQuery = {
                           handle: any;
                           bio?: string | null;
                           ownedBy: any;
-                          isDefault: boolean;
                           attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
                           picture?:
                             | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -9664,7 +9590,6 @@ export type HomeFeedQuery = {
                   handle: any;
                   bio?: string | null;
                   ownedBy: any;
-                  isDefault: boolean;
                   attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
                   picture?:
                     | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -9689,7 +9614,6 @@ export type HomeFeedQuery = {
                     handle: any;
                     bio?: string | null;
                     ownedBy: any;
-                    isDefault: boolean;
                     attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
                     picture?:
                       | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -9803,7 +9727,6 @@ export type HomeFeedQuery = {
             handle: any;
             bio?: string | null;
             ownedBy: any;
-            isDefault: boolean;
             attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
             picture?:
               | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -9915,7 +9838,6 @@ export type HomeFeedQuery = {
                   handle: any;
                   bio?: string | null;
                   ownedBy: any;
-                  isDefault: boolean;
                   attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
                   picture?:
                     | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -9954,7 +9876,6 @@ export type HomeFeedQuery = {
                   handle: any;
                   bio?: string | null;
                   ownedBy: any;
-                  isDefault: boolean;
                   attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
                   picture?:
                     | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -9979,7 +9900,6 @@ export type HomeFeedQuery = {
                     handle: any;
                     bio?: string | null;
                     ownedBy: any;
-                    isDefault: boolean;
                     attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
                     picture?:
                       | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -10094,7 +10014,6 @@ export type HomeFeedQuery = {
             handle: any;
             bio?: string | null;
             ownedBy: any;
-            isDefault: boolean;
             attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
             picture?:
               | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -10119,7 +10038,6 @@ export type HomeFeedQuery = {
               handle: any;
               bio?: string | null;
               ownedBy: any;
-              isDefault: boolean;
               attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
               picture?:
                 | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -10257,7 +10175,6 @@ export type LikesQuery = {
         handle: any;
         bio?: string | null;
         ownedBy: any;
-        isDefault: boolean;
         attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
         picture?:
           | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -10291,7 +10208,6 @@ export type MirrorsQuery = {
       handle: any;
       bio?: string | null;
       ownedBy: any;
-      isDefault: boolean;
       attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
       picture?:
         | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -10345,7 +10261,6 @@ export type MutualFollowersListQuery = {
       handle: any;
       bio?: string | null;
       ownedBy: any;
-      isDefault: boolean;
       attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
       picture?:
         | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -10427,7 +10342,6 @@ export type NotificationsQuery = {
               handle: any;
               bio?: string | null;
               ownedBy: any;
-              isDefault: boolean;
               attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
               picture?:
                 | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -10595,7 +10509,6 @@ export type NotificationsQuery = {
             handle: any;
             bio?: string | null;
             ownedBy: any;
-            isDefault: boolean;
             attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
             picture?:
               | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -10633,7 +10546,6 @@ export type NotificationsQuery = {
               handle: any;
               bio?: string | null;
               ownedBy: any;
-              isDefault: boolean;
               attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
               picture?:
                 | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -10663,7 +10575,6 @@ export type NotificationsQuery = {
                   handle: any;
                   bio?: string | null;
                   ownedBy: any;
-                  isDefault: boolean;
                   attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
                   picture?:
                     | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -10688,7 +10599,6 @@ export type NotificationsQuery = {
                   handle: any;
                   bio?: string | null;
                   ownedBy: any;
-                  isDefault: boolean;
                   attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
                   picture?:
                     | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -10715,7 +10625,6 @@ export type NotificationsQuery = {
             handle: any;
             bio?: string | null;
             ownedBy: any;
-            isDefault: boolean;
             attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
             picture?:
               | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -10751,7 +10660,6 @@ export type NotificationsQuery = {
             handle: any;
             bio?: string | null;
             ownedBy: any;
-            isDefault: boolean;
             attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
             picture?:
               | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -10872,7 +10780,6 @@ export type ProfileFeedQuery = {
             handle: any;
             bio?: string | null;
             ownedBy: any;
-            isDefault: boolean;
             attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
             picture?:
               | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -10897,7 +10804,6 @@ export type ProfileFeedQuery = {
               handle: any;
               bio?: string | null;
               ownedBy: any;
-              isDefault: boolean;
               attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
               picture?:
                 | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -11010,7 +10916,6 @@ export type ProfileFeedQuery = {
                   handle: any;
                   bio?: string | null;
                   ownedBy: any;
-                  isDefault: boolean;
                   attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
                   picture?:
                     | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -11128,7 +11033,6 @@ export type ProfileFeedQuery = {
                         handle: any;
                         bio?: string | null;
                         ownedBy: any;
-                        isDefault: boolean;
                         attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
                         picture?:
                           | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -11243,7 +11147,6 @@ export type ProfileFeedQuery = {
                               handle: any;
                               bio?: string | null;
                               ownedBy: any;
-                              isDefault: boolean;
                               attributes?: Array<{
                                 __typename?: 'Attribute';
                                 key: string;
@@ -11286,7 +11189,6 @@ export type ProfileFeedQuery = {
                               handle: any;
                               bio?: string | null;
                               ownedBy: any;
-                              isDefault: boolean;
                               attributes?: Array<{
                                 __typename?: 'Attribute';
                                 key: string;
@@ -11315,7 +11217,6 @@ export type ProfileFeedQuery = {
                                 handle: any;
                                 bio?: string | null;
                                 ownedBy: any;
-                                isDefault: boolean;
                                 attributes?: Array<{
                                   __typename?: 'Attribute';
                                   key: string;
@@ -11457,7 +11358,6 @@ export type ProfileFeedQuery = {
                         handle: any;
                         bio?: string | null;
                         ownedBy: any;
-                        isDefault: boolean;
                         attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
                         picture?:
                           | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -11482,7 +11382,6 @@ export type ProfileFeedQuery = {
                           handle: any;
                           bio?: string | null;
                           ownedBy: any;
-                          isDefault: boolean;
                           attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
                           picture?:
                             | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -11598,7 +11497,6 @@ export type ProfileFeedQuery = {
                   handle: any;
                   bio?: string | null;
                   ownedBy: any;
-                  isDefault: boolean;
                   attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
                   picture?:
                     | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -11710,7 +11608,6 @@ export type ProfileFeedQuery = {
                         handle: any;
                         bio?: string | null;
                         ownedBy: any;
-                        isDefault: boolean;
                         attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
                         picture?:
                           | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -11749,7 +11646,6 @@ export type ProfileFeedQuery = {
                         handle: any;
                         bio?: string | null;
                         ownedBy: any;
-                        isDefault: boolean;
                         attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
                         picture?:
                           | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -11774,7 +11670,6 @@ export type ProfileFeedQuery = {
                           handle: any;
                           bio?: string | null;
                           ownedBy: any;
-                          isDefault: boolean;
                           attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
                           picture?:
                             | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -11892,7 +11787,6 @@ export type ProfileFeedQuery = {
                   handle: any;
                   bio?: string | null;
                   ownedBy: any;
-                  isDefault: boolean;
                   attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
                   picture?:
                     | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -11917,7 +11811,6 @@ export type ProfileFeedQuery = {
                     handle: any;
                     bio?: string | null;
                     ownedBy: any;
-                    isDefault: boolean;
                     attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
                     picture?:
                       | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -12031,7 +11924,6 @@ export type ProfileFeedQuery = {
             handle: any;
             bio?: string | null;
             ownedBy: any;
-            isDefault: boolean;
             attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
             picture?:
               | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -12143,7 +12035,6 @@ export type ProfileFeedQuery = {
                   handle: any;
                   bio?: string | null;
                   ownedBy: any;
-                  isDefault: boolean;
                   attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
                   picture?:
                     | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -12182,7 +12073,6 @@ export type ProfileFeedQuery = {
                   handle: any;
                   bio?: string | null;
                   ownedBy: any;
-                  isDefault: boolean;
                   attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
                   picture?:
                     | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -12207,7 +12097,6 @@ export type ProfileFeedQuery = {
                     handle: any;
                     bio?: string | null;
                     ownedBy: any;
-                    isDefault: boolean;
                     attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
                     picture?:
                       | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -12322,7 +12211,6 @@ export type ProfileFeedQuery = {
             handle: any;
             bio?: string | null;
             ownedBy: any;
-            isDefault: boolean;
             attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
             picture?:
               | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -12347,7 +12235,6 @@ export type ProfileFeedQuery = {
               handle: any;
               bio?: string | null;
               ownedBy: any;
-              isDefault: boolean;
               attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
               picture?:
                 | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -12488,7 +12375,6 @@ export type ProfilesQuery = {
       handle: any;
       bio?: string | null;
       ownedBy: any;
-      isDefault: boolean;
       attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
       picture?:
         | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -12533,7 +12419,6 @@ export type PublicationQuery = {
           handle: any;
           bio?: string | null;
           ownedBy: any;
-          isDefault: boolean;
           attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
           picture?:
             | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -12563,7 +12448,6 @@ export type PublicationQuery = {
             handle: any;
             bio?: string | null;
             ownedBy: any;
-            isDefault: boolean;
             attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
             picture?:
               | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -12676,7 +12560,6 @@ export type PublicationQuery = {
                 handle: any;
                 bio?: string | null;
                 ownedBy: any;
-                isDefault: boolean;
                 attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
                 picture?:
                   | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -12794,7 +12677,6 @@ export type PublicationQuery = {
                       handle: any;
                       bio?: string | null;
                       ownedBy: any;
-                      isDefault: boolean;
                       attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
                       picture?:
                         | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -12909,7 +12791,6 @@ export type PublicationQuery = {
                             handle: any;
                             bio?: string | null;
                             ownedBy: any;
-                            isDefault: boolean;
                             attributes?: Array<{
                               __typename?: 'Attribute';
                               key: string;
@@ -12952,7 +12833,6 @@ export type PublicationQuery = {
                             handle: any;
                             bio?: string | null;
                             ownedBy: any;
-                            isDefault: boolean;
                             attributes?: Array<{
                               __typename?: 'Attribute';
                               key: string;
@@ -12981,7 +12861,6 @@ export type PublicationQuery = {
                               handle: any;
                               bio?: string | null;
                               ownedBy: any;
-                              isDefault: boolean;
                               attributes?: Array<{
                                 __typename?: 'Attribute';
                                 key: string;
@@ -13123,7 +13002,6 @@ export type PublicationQuery = {
                       handle: any;
                       bio?: string | null;
                       ownedBy: any;
-                      isDefault: boolean;
                       attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
                       picture?:
                         | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -13148,7 +13026,6 @@ export type PublicationQuery = {
                         handle: any;
                         bio?: string | null;
                         ownedBy: any;
-                        isDefault: boolean;
                         attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
                         picture?:
                           | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -13264,7 +13141,6 @@ export type PublicationQuery = {
                 handle: any;
                 bio?: string | null;
                 ownedBy: any;
-                isDefault: boolean;
                 attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
                 picture?:
                   | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -13376,7 +13252,6 @@ export type PublicationQuery = {
                       handle: any;
                       bio?: string | null;
                       ownedBy: any;
-                      isDefault: boolean;
                       attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
                       picture?:
                         | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -13415,7 +13290,6 @@ export type PublicationQuery = {
                       handle: any;
                       bio?: string | null;
                       ownedBy: any;
-                      isDefault: boolean;
                       attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
                       picture?:
                         | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -13440,7 +13314,6 @@ export type PublicationQuery = {
                         handle: any;
                         bio?: string | null;
                         ownedBy: any;
-                        isDefault: boolean;
                         attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
                         picture?:
                           | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -13558,7 +13431,6 @@ export type PublicationQuery = {
                 handle: any;
                 bio?: string | null;
                 ownedBy: any;
-                isDefault: boolean;
                 attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
                 picture?:
                   | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -13583,7 +13455,6 @@ export type PublicationQuery = {
                   handle: any;
                   bio?: string | null;
                   ownedBy: any;
-                  isDefault: boolean;
                   attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
                   picture?:
                     | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -13700,7 +13571,6 @@ export type PublicationQuery = {
           handle: any;
           bio?: string | null;
           ownedBy: any;
-          isDefault: boolean;
           attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
           picture?:
             | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -13817,7 +13687,6 @@ export type PublicationQuery = {
                 handle: any;
                 bio?: string | null;
                 ownedBy: any;
-                isDefault: boolean;
                 attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
                 picture?:
                   | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -13856,7 +13725,6 @@ export type PublicationQuery = {
                 handle: any;
                 bio?: string | null;
                 ownedBy: any;
-                isDefault: boolean;
                 attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
                 picture?:
                   | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -13881,7 +13749,6 @@ export type PublicationQuery = {
                   handle: any;
                   bio?: string | null;
                   ownedBy: any;
-                  isDefault: boolean;
                   attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
                   picture?:
                     | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -13999,7 +13866,6 @@ export type PublicationQuery = {
           handle: any;
           bio?: string | null;
           ownedBy: any;
-          isDefault: boolean;
           attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
           picture?:
             | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -14029,7 +13895,6 @@ export type PublicationQuery = {
             handle: any;
             bio?: string | null;
             ownedBy: any;
-            isDefault: boolean;
             attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
             picture?:
               | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -14154,7 +14019,6 @@ export type RecommendedProfilesQuery = {
     handle: any;
     bio?: string | null;
     ownedBy: any;
-    isDefault: boolean;
     attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
     picture?:
       | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -14185,7 +14049,6 @@ export type RelevantPeopleQuery = {
       handle: any;
       bio?: string | null;
       ownedBy: any;
-      isDefault: boolean;
       attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
       picture?:
         | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -14217,7 +14080,6 @@ export type SearchProfilesQuery = {
           handle: any;
           bio?: string | null;
           ownedBy: any;
-          isDefault: boolean;
           attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
           picture?:
             | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -14264,7 +14126,6 @@ export type SearchPublicationsQuery = {
                 handle: any;
                 bio?: string | null;
                 ownedBy: any;
-                isDefault: boolean;
                 attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
                 picture?:
                   | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -14289,7 +14150,6 @@ export type SearchPublicationsQuery = {
                   handle: any;
                   bio?: string | null;
                   ownedBy: any;
-                  isDefault: boolean;
                   attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
                   picture?:
                     | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -14402,7 +14262,6 @@ export type SearchPublicationsQuery = {
                       handle: any;
                       bio?: string | null;
                       ownedBy: any;
-                      isDefault: boolean;
                       attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
                       picture?:
                         | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -14523,7 +14382,6 @@ export type SearchPublicationsQuery = {
                             handle: any;
                             bio?: string | null;
                             ownedBy: any;
-                            isDefault: boolean;
                             attributes?: Array<{
                               __typename?: 'Attribute';
                               key: string;
@@ -14662,7 +14520,6 @@ export type SearchPublicationsQuery = {
                                   handle: any;
                                   bio?: string | null;
                                   ownedBy: any;
-                                  isDefault: boolean;
                                   attributes?: Array<{
                                     __typename?: 'Attribute';
                                     key: string;
@@ -14708,7 +14565,6 @@ export type SearchPublicationsQuery = {
                                   handle: any;
                                   bio?: string | null;
                                   ownedBy: any;
-                                  isDefault: boolean;
                                   attributes?: Array<{
                                     __typename?: 'Attribute';
                                     key: string;
@@ -14740,7 +14596,6 @@ export type SearchPublicationsQuery = {
                                     handle: any;
                                     bio?: string | null;
                                     ownedBy: any;
-                                    isDefault: boolean;
                                     attributes?: Array<{
                                       __typename?: 'Attribute';
                                       key: string;
@@ -14885,7 +14740,6 @@ export type SearchPublicationsQuery = {
                             handle: any;
                             bio?: string | null;
                             ownedBy: any;
-                            isDefault: boolean;
                             attributes?: Array<{
                               __typename?: 'Attribute';
                               key: string;
@@ -14914,7 +14768,6 @@ export type SearchPublicationsQuery = {
                               handle: any;
                               bio?: string | null;
                               ownedBy: any;
-                              isDefault: boolean;
                               attributes?: Array<{
                                 __typename?: 'Attribute';
                                 key: string;
@@ -15054,7 +14907,6 @@ export type SearchPublicationsQuery = {
                       handle: any;
                       bio?: string | null;
                       ownedBy: any;
-                      isDefault: boolean;
                       attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
                       picture?:
                         | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -15169,7 +15021,6 @@ export type SearchPublicationsQuery = {
                             handle: any;
                             bio?: string | null;
                             ownedBy: any;
-                            isDefault: boolean;
                             attributes?: Array<{
                               __typename?: 'Attribute';
                               key: string;
@@ -15212,7 +15063,6 @@ export type SearchPublicationsQuery = {
                             handle: any;
                             bio?: string | null;
                             ownedBy: any;
-                            isDefault: boolean;
                             attributes?: Array<{
                               __typename?: 'Attribute';
                               key: string;
@@ -15241,7 +15091,6 @@ export type SearchPublicationsQuery = {
                               handle: any;
                               bio?: string | null;
                               ownedBy: any;
-                              isDefault: boolean;
                               attributes?: Array<{
                                 __typename?: 'Attribute';
                                 key: string;
@@ -15383,7 +15232,6 @@ export type SearchPublicationsQuery = {
                       handle: any;
                       bio?: string | null;
                       ownedBy: any;
-                      isDefault: boolean;
                       attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
                       picture?:
                         | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -15408,7 +15256,6 @@ export type SearchPublicationsQuery = {
                         handle: any;
                         bio?: string | null;
                         ownedBy: any;
-                        isDefault: boolean;
                         attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
                         picture?:
                           | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -15527,7 +15374,6 @@ export type SearchPublicationsQuery = {
                 handle: any;
                 bio?: string | null;
                 ownedBy: any;
-                isDefault: boolean;
                 attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
                 picture?:
                   | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -15552,7 +15398,6 @@ export type SearchPublicationsQuery = {
                   handle: any;
                   bio?: string | null;
                   ownedBy: any;
-                  isDefault: boolean;
                   attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
                   picture?:
                     | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -15742,7 +15587,6 @@ export const ProfileFieldsFragmentDoc = {
           { kind: 'Field', name: { kind: 'Name', value: 'handle' } },
           { kind: 'Field', name: { kind: 'Name', value: 'bio' } },
           { kind: 'Field', name: { kind: 'Name', value: 'ownedBy' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'isDefault' } },
           {
             kind: 'Field',
             name: { kind: 'Name', value: 'attributes' },

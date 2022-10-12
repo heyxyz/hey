@@ -4,7 +4,6 @@ fragment ProfileFields on Profile {
   handle
   bio
   ownedBy
-  isDefault
   attributes {
     key
     value
