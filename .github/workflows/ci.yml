@@ -17,28 +17,19 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version-file: '.nvmrc'
+          cache: 'yarn'
 
       - name: Install 📦
-        uses: borales/actions-yarn@v3.0.0
-        with:
-          cmd: install
+        run: yarn install --frozen-lockfile
 
       - name: GraphQL Codegen 🕸
-        uses: borales/actions-yarn@v3.0.0
-        with:
-          cmd: codegen
+        run: yarn codegen
 
       - name: Typecheck 🔡
-        uses: borales/actions-yarn@v3.0.0
-        with:
-          cmd: typecheck
+        run: yarn typecheck
 
       - name: Lint 🪩
-        uses: borales/actions-yarn@v3.0.0
-        with:
-          cmd: lint
+        run: yarn lint
 
       - name: Prettier ✨
-        uses: borales/actions-yarn@v3.0.0
-        with:
-          cmd: prettier:check
+        run: yarn prettier:check
