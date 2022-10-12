@@ -1,20 +1,23 @@
 @font-face {
-  font-family: 'Lenster';
+  font-family: 'CircularXXSub';
   font-style: normal;
   font-weight: 450;
-  src: local('Lenster'), url('https://assets.lenster.xyz/css/fonts/Lenster-Normal.woff') format('woff');
+  src: local('CircularXXSub'),
+    url('https://assets.lenster.xyz/css/fonts/CircularXXSub-Book.woff2') format('woff');
 }
 
 @font-face {
-  font-family: 'Lenster';
+  font-family: 'CircularXXSub';
   font-style: medium;
   font-weight: 500;
-  src: local('Lenster'), url('https://assets.lenster.xyz/css/fonts/Lenster-Medium.woff') format('woff');
+  src: local('CircularXXSub'),
+    url('https://assets.lenster.xyz/css/fonts/CircularXXSub-Medium.woff') format('woff');
 }
 
 @font-face {
-  font-family: 'Lenster';
+  font-family: 'CircularXXSub';
   font-style: bold;
   font-weight: 700;
-  src: local('Lenster'), url('https://assets.lenster.xyz/css/fonts/Lenster-Bold.woff') format('woff');
+  src: local('CircularXXSub'),
+    url('https://assets.lenster.xyz/css/fonts/CircularXXSub-Bold.woff') format('woff');
 }
