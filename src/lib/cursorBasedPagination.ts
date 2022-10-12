@@ -22,7 +22,7 @@ export function cursorBasedPagination<T extends CursorBasedPagination>(
       const { items, pageInfo } = existing;
 
       // items that are not in the cache anymore (for .e.g deleted publication)
-      const danglingItems = items?.filter((item) => !canRead(item));
+      const danglingItems = items.filter((item) => !canRead(item));
 
       return {
         ...existing,
@@ -31,8 +31,7 @@ export function cursorBasedPagination<T extends CursorBasedPagination>(
           ...pageInfo,
           // reduce total count by excluding dangling items so it won't cause a new page query
           // after item was removed from the cache (for .e.g deleted publication)
-          totalCount:
-            pageInfo && danglingItems ? pageInfo.totalCount - danglingItems.length : pageInfo?.totalCount
+          totalCount: pageInfo.totalCount - danglingItems.length
         }
       } as SafeReadonly<T>;
     },
