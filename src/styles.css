@@ -9,7 +9,7 @@ html {
 }
 
 body {
-  font-family: 'Lenster', Helvetica, Arial, sans-serif;
+  font-family: 'CircularXXSub', sans-serif;
   @apply bg-gray-50;
   @apply dark:bg-black;
 }

@@ -47,7 +47,7 @@ const Thanks: FC = () => {
       <MetaTags title={`Thanks • ${APP_NAME}`} />
       <div className="flex justify-center items-center w-full h-48 bg-brand-400">
         <div className="relative text-center">
-          <div className="flex items-center space-x-2 text-3xl font-semibold text-white md:text-4xl">
+          <div className="flex items-center space-x-2 text-3xl font-bold text-white md:text-4xl">
             <div>Thank you!</div>
             <HeartIcon className="w-7 h-7 text-pink-600" />
           </div>
