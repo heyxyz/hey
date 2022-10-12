@@ -1,14 +1,18 @@
+import { useQuery } from '@apollo/client';
+import Preview from '@components/Messages/Preview';
 import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import MetaTags from '@components/utils/MetaTags';
+import type { Profile } from '@generated/types';
+import { ProfilesDocument } from '@generated/types';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
-import type { Conversation, Stream } from '@xmtp/xmtp-js';
+import type { Conversation, Message } from '@xmtp/xmtp-js';
 import { Client } from '@xmtp/xmtp-js';
-import { useRouter } from 'next/router';
 import type { FC } from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { APP_NAME } from 'src/constants';
 import Custom404 from 'src/pages/404';
+import Custom500 from 'src/pages/500';
 import { useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
 import { useSigner } from 'wagmi';
@@ -16,11 +20,37 @@ import { useSigner } from 'wagmi';
 const Messages: FC = () => {
   const { data: signer } = useSigner();
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const [stream, setStream] = useState<Stream<Conversation>>();
-  const messageState = useMessageStore((state) => state);
-  const { client, setClient, conversations, setConversations, messages, setMessages, setLoading } =
-    messageState;
-  const router = useRouter();
+  const client = useMessageStore((state) => state.client);
+  const setClient = useMessageStore((state) => state.setClient);
+  const isMessagesEnabled = isFeatureEnabled('messages', currentProfile?.id);
+
+  const conversations = useMessageStore((state) => state.conversations);
+  const setConversations = useMessageStore((state) => state.setConversations);
+  const messageProfiles = useMessageStore((state) => state.messageProfiles);
+  const setMessageProfiles = useMessageStore((state) => state.setMessageProfiles);
+  const previewMessages = useMessageStore((state) => state.previewMessages);
+  const setPreviewMessages = useMessageStore((state) => state.setPreviewMessages);
+
+  const peerAddresses = Array.from(conversations.keys());
+  const { error: profilesError } = useQuery(ProfilesDocument, {
+    // TODO(elise): Right now this is capped at 50 profiles. We'll want to paginate.
+    variables: {
+      request: { ownedBy: peerAddresses, limit: 50 }
+    },
+    skip: !currentProfile?.id || peerAddresses.length === 0,
+    onCompleted: (data) => {
+      if (!data?.profiles?.items?.length) {
+        return;
+      }
+      const profiles = data.profiles.items as Profile[];
+      const newMessageProfiles = new Map(messageProfiles);
+      for (const profile of profiles) {
+        const peerAddress = (profile.ownedBy as string).toLowerCase();
+        newMessageProfiles.set(peerAddress, profile);
+      }
+      setMessageProfiles(newMessageProfiles);
+    }
+  });
 
   useEffect(() => {
     const initXmtpClient = async () => {
@@ -29,65 +59,62 @@ const Messages: FC = () => {
         setClient(xmtp);
       }
     };
-    if (isFeatureEnabled('messages', currentProfile?.id)) {
+    if (isMessagesEnabled) {
       initXmtpClient();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [signer]);
 
   useEffect(() => {
-    if (!client || !isFeatureEnabled('messages', currentProfile?.id)) {
+    if (!isMessagesEnabled || !client) {
       return;
     }
 
-    async function listConversations() {
-      setLoading(true);
+    const fetchMostRecentMessage = async (
+      convo: Conversation
+    ): Promise<{ address: string; message?: Message }> => {
+      const peerAddress = convo.peerAddress.toLowerCase();
+      // TODO(elise): Add sort direction on XMTP's side so we can grab only the most recent message.
+      const newMessages = await convo.messages({ limit: 1 });
+      if (newMessages.length <= 0) {
+        return { address: peerAddress };
+      }
+      return { address: peerAddress, message: newMessages[0] };
+    };
+
+    const listConversations = async () => {
+      const newPreviewMessages = new Map(previewMessages);
+      const newConversations = new Map(conversations);
       const convos = (await client?.conversations?.list()) || [];
-      Promise.all(
+      const previews = await Promise.all(
         convos.map(async (convo) => {
-          if (convo.peerAddress !== currentProfile?.ownedBy) {
-            conversations.set(convo.peerAddress, convo);
-            setConversations(new Map(conversations));
-          }
+          newConversations.set(convo.peerAddress.toLowerCase(), convo);
+          return await fetchMostRecentMessage(convo);
         })
-      ).then(() => {
-        setLoading(false);
-      });
-    }
-    const streamConversations = async () => {
-      const newStream = (await client?.conversations?.stream()) || [];
-      setStream(newStream);
-      for await (const convo of newStream) {
-        if (convo.peerAddress !== currentProfile?.ownedBy) {
-          const newMessages = await convo.messages();
-          messages.set(convo.peerAddress, newMessages);
-          setMessages(new Map(messages));
-          conversations.set(convo.peerAddress, convo);
-          setConversations(new Map(conversations));
+      );
+      for (const preview of previews) {
+        if (preview.message) {
+          newPreviewMessages.set(preview.address, preview.message);
         }
       }
+      setPreviewMessages(newPreviewMessages);
+      setConversations(newConversations);
     };
-    listConversations();
-    streamConversations();
 
-    return () => {
-      const closeStream = async () => {
-        if (!stream) {
-          return;
-        }
-        await stream.return();
-      };
-      closeStream();
-    };
+    listConversations();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [client]);
 
-  const onConversationSelected = (address: string) => {
-    router.push(address ? `/messages/${address}` : '/messages/');
-  };
-
-  if (!isFeatureEnabled('messages', currentProfile?.id)) {
+  if (!isMessagesEnabled) {
     return <Custom404 />;
+  }
+
+  if (profilesError) {
+    return <Custom500 />;
+  }
+
+  if (previewMessages?.size <= 0 || messageProfiles?.size <= 0) {
+    return null;
   }
 
   return (
@@ -108,16 +135,12 @@ const Messages: FC = () => {
             <div className="text-xs">All messages</div>
           </div>
           <div>
-            {Array.from(conversations.keys()).map((convo: string) => {
-              return (
-                <div
-                  onClick={() => onConversationSelected(convo)}
-                  key={`convo_${convo}`}
-                  className="border p-5 text-xs"
-                >
-                  {convo}
-                </div>
-              );
+            {Array.from(messageProfiles.values()).map((profile, index) => {
+              const message = previewMessages.get(profile.ownedBy.toLowerCase());
+              if (!message) {
+                return null;
+              }
+              return <Preview key={`${profile.ownedBy}_${index}`} profile={profile} message={message} />;
             })}
           </div>
         </Card>

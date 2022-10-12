@@ -24,6 +24,7 @@ export function cursorBasedPagination<T extends CursorBasedPagination>(
       // items that are not in the cache anymore (for .e.g deleted publication)
       const danglingItems = items?.filter((item) => !canRead(item));
       const totalCount = pageInfo?.totalCount ?? 0;
+
       return {
         ...existing,
         items,
