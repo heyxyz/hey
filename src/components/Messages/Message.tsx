@@ -9,6 +9,7 @@ import MetaTags from '@components/utils/MetaTags';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
+import { useState } from 'react';
 import { APP_NAME } from 'src/constants';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
@@ -21,11 +22,21 @@ const Message: FC = () => {
   const messageState = useMessageStore((state) => state);
   const { conversations } = messageState;
   const selectedConversation = conversations.get(address);
-  const { messages } = useGetMessages(selectedConversation);
+  const [endTime, setEndTime] = useState<Date>();
+  const { messages } = useGetMessages(selectedConversation, endTime);
   const { sendMessage } = useSendMessage(selectedConversation);
 
   const onConversationSelected = (address: string) => {
     push(address ? `/messages/${address}` : '/messages/');
+  };
+
+  const fetchNextMessages = () => {
+    if (selectedConversation?.peerAddress) {
+      const currentMessages = messages.get(selectedConversation?.peerAddress);
+      currentMessages &&
+        currentMessages?.length > 0 &&
+        setEndTime(currentMessages[currentMessages?.length - 1]?.sent);
+    }
   };
 
   if (!isFeatureEnabled('messages', currentProfile?.id)) {
@@ -66,7 +77,7 @@ const Message: FC = () => {
         <Card className="h-[86vh]">
           <MessageHeader />
           <div className="h-[82%] overflow-y-auto">
-            <MessagesList messages={messages.get(address) ?? []} />
+            <MessagesList fetchNextMessages={fetchNextMessages} messages={messages.get(address) ?? []} />
           </div>
           <MessageComposer sendMessage={sendMessage} />
         </Card>

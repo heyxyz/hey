@@ -4,6 +4,7 @@ import clsx from 'clsx';
 import dayjs from 'dayjs';
 import type { FC, ReactNode } from 'react';
 import React, { memo } from 'react';
+import InfiniteScroll from 'react-infinite-scroll-component';
 import { useAppStore } from 'src/store/app';
 
 const formatTime = (d: Date | undefined): string => (d ? dayjs(d).format('hh:mm a - MM/DD/YY') : '');
@@ -85,9 +86,10 @@ const ConversationBeginningNotice: FC = () => (
 
 interface MessageListProps {
   messages: Message[];
+  fetchNextMessages: () => void;
 }
 
-const MessagesList: FC<MessageListProps> = ({ messages }) => {
+const MessagesList: FC<MessageListProps> = ({ messages, fetchNextMessages }) => {
   let lastMessageDate: Date | undefined;
 
   return (
@@ -95,17 +97,25 @@ const MessagesList: FC<MessageListProps> = ({ messages }) => {
       <div className="pb-6 md:pb-0 w-full flex flex-col self-end">
         <div className="relative w-full bg-white px-4 pt-6 flex">
           <div className="w-full">
-            {messages && messages.length ? <ConversationBeginningNotice /> : null}
-            {messages?.map((msg: Message) => {
-              const dateHasChanged = !isOnSameDay(lastMessageDate, msg.sent);
-              lastMessageDate = msg.sent;
-              return (
-                <>
-                  {dateHasChanged ? <DateDivider key={msg.id + 'divider'} date={msg.sent} /> : null}
-                  <MessageTile message={msg} key={msg.id} />
-                </>
-              );
-            })}
+            <InfiniteScroll
+              dataLength={500} //This is important field to render the next data
+              next={fetchNextMessages}
+              hasMore={true}
+              loader={null}
+              endMessage={<ConversationBeginningNotice />}
+            >
+              {/* {messages && messages.length ? <ConversationBeginningNotice /> : null} */}
+              {messages?.map((msg: Message) => {
+                const dateHasChanged = !isOnSameDay(lastMessageDate, msg.sent);
+                lastMessageDate = msg.sent;
+                return (
+                  <div key={msg.id}>
+                    {dateHasChanged ? <DateDivider date={msg.sent} /> : null}
+                    <MessageTile message={msg} />
+                  </div>
+                );
+              })}
+            </InfiniteScroll>
           </div>
         </div>
       </div>
