@@ -56,7 +56,7 @@
   "devDependencies": {
     "@graphql-codegen/cli": "^2.13.6",
     "@graphql-codegen/fragment-matcher": "^3.3.1",
-    "@graphql-codegen/typed-document-node": "^2.3.3",
+    "@graphql-codegen/typed-document-node": "^2.3.4",
     "@graphql-codegen/typescript": "^2.7.4",
     "@graphql-codegen/typescript-operations": "^2.5.3",
     "@tailwindcss/aspect-ratio": "^0.4.2",
