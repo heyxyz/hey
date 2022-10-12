@@ -10,16 +10,18 @@ import { CustomFiltersTypes, ExploreFeedDocument, PublicationSortCriteria } from
 import { CollectionIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import type { FC } from 'react';
+import { useEffect } from 'react';
 import { useInView } from 'react-cool-inview';
 import { PAGINATION_ROOT_MARGIN } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { PAGINATION } from 'src/tracking';
 
 interface Props {
+  focus?: any;
   feedType?: PublicationSortCriteria;
 }
 
-const Feed: FC<Props> = ({ feedType = PublicationSortCriteria.CuratedProfiles }) => {
+const Feed: FC<Props> = ({ focus, feedType = PublicationSortCriteria.CuratedProfiles }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   // Variables
@@ -27,14 +29,21 @@ const Feed: FC<Props> = ({ feedType = PublicationSortCriteria.CuratedProfiles })
     sortCriteria: feedType,
     noRandomize: feedType === 'LATEST',
     customFilters: [CustomFiltersTypes.Gardeners],
+    metadata: focus ? { mainContentFocus: focus } : null,
     limit: 10
   };
   const reactionRequest = currentProfile ? { profileId: currentProfile?.id } : null;
   const profileId = currentProfile?.id ?? null;
 
-  const { data, loading, error, fetchMore } = useQuery(ExploreFeedDocument, {
-    variables: { request, reactionRequest, profileId }
+  const { data, loading, error, fetchMore, refetch } = useQuery(ExploreFeedDocument, {
+    variables: { request, reactionRequest, profileId },
+    fetchPolicy: 'no-cache'
   });
+
+  useEffect(() => {
+    refetch();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [focus]);
 
   const publications = data?.explorePublications?.items;
   const pageInfo = data?.explorePublications?.pageInfo;
