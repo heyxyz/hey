@@ -1,20 +1,17 @@
 import { useQuery } from '@apollo/client';
+import useXmtpClient from '@components/utils/hooks/useXmtpClient';
 import type { Profile } from '@generated/types';
 import { ProfilesDocument } from '@generated/types';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 import type { Conversation, Message, Stream } from '@xmtp/xmtp-js';
 import { SortDirection } from '@xmtp/xmtp-js';
-import { Client } from '@xmtp/xmtp-js';
 import { useEffect, useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
-import { useSigner } from 'wagmi';
 
 const useMessagePreviews = () => {
-  const { data: signer } = useSigner();
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const client = useMessageStore((state) => state.client);
-  const setClient = useMessageStore((state) => state.setClient);
+  const { client } = useXmtpClient();
   const isMessagesEnabled = isFeatureEnabled('messages', currentProfile?.id);
 
   const [stream, setStream] = useState<Stream<Conversation>>();
@@ -61,19 +58,6 @@ const useMessagePreviews = () => {
       }
     }
   });
-
-  useEffect(() => {
-    const initXmtpClient = async () => {
-      if (signer && !client) {
-        const xmtp = await Client.create(signer);
-        setClient(xmtp);
-      }
-    };
-    if (isMessagesEnabled) {
-      initXmtpClient();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [signer]);
 
   useEffect(() => {
     if (!isMessagesEnabled || !client) {
