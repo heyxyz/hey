@@ -10,7 +10,6 @@ import { CustomFiltersTypes, ExploreFeedDocument, PublicationSortCriteria } from
 import { CollectionIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import type { FC } from 'react';
-import { useEffect } from 'react';
 import { useInView } from 'react-cool-inview';
 import { PAGINATION_ROOT_MARGIN } from 'src/constants';
 import { useAppStore } from 'src/store/app';
@@ -35,15 +34,10 @@ const Feed: FC<Props> = ({ focus, feedType = PublicationSortCriteria.CuratedProf
   const reactionRequest = currentProfile ? { profileId: currentProfile?.id } : null;
   const profileId = currentProfile?.id ?? null;
 
-  const { data, loading, error, fetchMore, refetch } = useQuery(ExploreFeedDocument, {
+  const { data, loading, error, fetchMore } = useQuery(ExploreFeedDocument, {
     variables: { request, reactionRequest, profileId },
     fetchPolicy: 'no-cache'
   });
-
-  useEffect(() => {
-    refetch();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [focus]);
 
   const publications = data?.explorePublications?.items;
   const pageInfo = data?.explorePublications?.pageInfo;
