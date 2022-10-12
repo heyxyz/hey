@@ -1,24 +1,19 @@
 import { useQuery } from '@apollo/client';
-import { Modal } from '@components/UI/Modal';
 import type { Profile } from '@generated/types';
 import { MutualFollowersDocument } from '@generated/types';
-import { UsersIcon } from '@heroicons/react/outline';
 import getAvatar from '@lib/getAvatar';
 import { Mixpanel } from '@lib/mixpanel';
-import type { FC, ReactNode } from 'react';
-import { useState } from 'react';
+import type { Dispatch, FC, ReactNode } from 'react';
 import { useAppStore } from 'src/store/app';
 import { PROFILE } from 'src/tracking';
 
-import MutualFollowersList from './List';
-
 interface Props {
+  setShowMutualFollowersModal: Dispatch<boolean>;
   profile: Profile;
 }
 
-const MutualFollowers: FC<Props> = ({ profile }) => {
+const MutualFollowers: FC<Props> = ({ setShowMutualFollowersModal, profile }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const [showMutualFollowersModal, setShowMutualFollowersModal] = useState(false);
 
   const { data, loading, error } = useQuery(MutualFollowersDocument, {
     variables: {
@@ -57,14 +52,6 @@ const MutualFollowers: FC<Props> = ({ profile }) => {
         <span>Followed by </span>
         {children}
       </div>
-      <Modal
-        title="Followers you know"
-        icon={<UsersIcon className="w-5 h-5 text-brand" />}
-        show={showMutualFollowersModal}
-        onClose={() => setShowMutualFollowersModal(false)}
-      >
-        <MutualFollowersList profileId={profile?.id} />
-      </Modal>
     </div>
   );
 
