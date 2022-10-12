@@ -1601,29 +1601,29 @@
     "@graphql-tools/utils" "^8.8.0"
     tslib "~2.4.0"
 
-"@graphql-codegen/typed-document-node@^2.3.3":
-  version "2.3.3"
-  resolved "https://registry.yarnpkg.com/@graphql-codegen/typed-document-node/-/typed-document-node-2.3.3.tgz#898b36738ee5377d83bd381460faf4c32013afe8"
-  integrity sha512-0zUPMr1pAqzMyPvtpnlfCbwQgS22t2kPhhfGQs2Yw32O+0+vn1ACcvxt0x1TfUwspYfFJa8AAXJ8NjwmDVAFMQ==
+"@graphql-codegen/typed-document-node@^2.3.4":
+  version "2.3.4"
+  resolved "https://registry.yarnpkg.com/@graphql-codegen/typed-document-node/-/typed-document-node-2.3.4.tgz#33d06c60f7e4e08ded8e9064f6871a42c3383af7"
+  integrity sha512-dIuyr//qNpaPbC1y8KGRMorhqzQ4Xmiry4OexOc/zDmUxpeQOnk+cmXNtBVk6bk2J6vTEZmhKdsfvXD8JoO7fA==
   dependencies:
     "@graphql-codegen/plugin-helpers" "^2.6.2"
-    "@graphql-codegen/visitor-plugin-common" "2.12.1"
+    "@graphql-codegen/visitor-plugin-common" "2.12.2"
     auto-bind "~4.0.0"
     change-case-all "1.0.14"
     tslib "~2.4.0"
 
-"@graphql-codegen/typescript-operations@^2.5.3":
-  version "2.5.3"
-  resolved "https://registry.yarnpkg.com/@graphql-codegen/typescript-operations/-/typescript-operations-2.5.3.tgz#c6fd3f209e3482b86b08050685af8fa45ab14297"
-  integrity sha512-s+pA+Erm0HeBb/D5cNrflwRM5KWhkiA5cbz4uA99l3fzFPveoQBPfRCBu0XAlJLP/kBDy64+o4B8Nfc7wdRtmA==
+"@graphql-codegen/typescript-operations@^2.5.4":
+  version "2.5.4"
+  resolved "https://registry.yarnpkg.com/@graphql-codegen/typescript-operations/-/typescript-operations-2.5.4.tgz#e0513b5529ebc6eec0acade7f9f0838bdee997aa"
+  integrity sha512-+IA0ouGC6GZiCyvWMyzLc6K8i+oG/DjWLY0q4kc9nqBPRi8rsiYzMq/VHVtXCWxNZiGQhkjwpqNaDsqoVhOiUg==
   dependencies:
     "@graphql-codegen/plugin-helpers" "^2.6.2"
-    "@graphql-codegen/typescript" "^2.7.3"
-    "@graphql-codegen/visitor-plugin-common" "2.12.1"
+    "@graphql-codegen/typescript" "^2.7.4"
+    "@graphql-codegen/visitor-plugin-common" "2.12.2"
     auto-bind "~4.0.0"
     tslib "~2.4.0"
 
-"@graphql-codegen/typescript@^2.7.3", "@graphql-codegen/typescript@^2.7.4":
+"@graphql-codegen/typescript@^2.7.4":
   version "2.7.4"
   resolved "https://registry.yarnpkg.com/@graphql-codegen/typescript/-/typescript-2.7.4.tgz#46c1fac63ae1b487efe73db6531f1db5e5198fe0"
   integrity sha512-mjoE3KqmAaBUSlCuKb2WDot3+CTfdJ9eKIcWsDFubPTNdZE0Z8mLoATmVryx8NOBjDtPU/ZziI0rYEGOR4qpAw==
