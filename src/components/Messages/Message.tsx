@@ -37,7 +37,7 @@ const Message: FC = () => {
     if (selectedConversation?.peerAddress) {
       const currentMessages = messages.get(selectedConversation?.peerAddress);
       if (Array.isArray(currentMessages) && currentMessages?.length > 0) {
-        const lastMsgDate = currentMessages[currentMessages?.length ?? 1 - 1].sent;
+        const lastMsgDate = currentMessages[currentMessages?.length - 1].sent;
         if (lastMsgDate instanceof Date && isFinite(lastMsgDate.getTime())) {
           endTime.set(selectedConversation.peerAddress, lastMsgDate);
           setEndTime(new Map(endTime));
