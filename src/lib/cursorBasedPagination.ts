@@ -31,7 +31,7 @@ export function cursorBasedPagination<T extends CursorBasedPagination>(
           ...pageInfo,
           // reduce total count by excluding dangling items so it won't cause a new page query
           // after item was removed from the cache (for .e.g deleted publication)
-          totalCount: pageInfo?.totalCount - danglingItems?.length
+          totalCount: pageInfo?.totalCount ?? 0 - danglingItems?.length
         }
       } as SafeReadonly<T>;
     },
