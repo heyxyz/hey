@@ -1,0 +1,55 @@
+query V2HomeFeed(
+  $request: FeedRequest!
+  $reactionRequest: ReactionFieldResolverRequest
+  $profileId: ProfileId
+) {
+  feed(request: $request) {
+    items {
+      root {
+        ... on Post {
+          ...PostFields
+        }
+        ... on Comment {
+          ...CommentFields
+        }
+      }
+      electedMirror {
+        mirrorId
+        profile {
+          id
+          handle
+        }
+        timestamp
+      }
+      mirrors {
+        profile {
+          id
+          handle
+        }
+        timestamp
+      }
+      collects {
+        profile {
+          id
+          handle
+        }
+        timestamp
+      }
+      reactions {
+        profile {
+          id
+          handle
+        }
+        reaction
+        timestamp
+      }
+      comments {
+        ...CommentFields
+      }
+    }
+    pageInfo {
+      next
+      totalCount
+    }
+  }
+}
