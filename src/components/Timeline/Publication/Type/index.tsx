@@ -4,6 +4,7 @@ import type { FC } from 'react';
 import Collected from './Collected';
 import Combined from './Combined';
 import Commented from './Commented';
+import CommentedPublication from './CommentedPublication';
 import Mirrored from './Mirrored';
 import Reacted from './Reacted';
 
@@ -21,6 +22,8 @@ const getCanCombined = (aggregations: number[]) => {
 const PublicationType: FC<Props> = ({ feedItem, showType, showThread = false }) => {
   const publication = feedItem.root;
   const type = publication.__typename;
+  const isComment = type === 'Comment';
+
   const canCombined = getCanCombined([
     feedItem.mirrors.length,
     feedItem.reactions.length,
@@ -37,10 +40,10 @@ const PublicationType: FC<Props> = ({ feedItem, showType, showThread = false }) 
   ) : (
     <>
       {feedItem.mirrors.length ? <Mirrored mirrors={feedItem.mirrors} /> : null}
-      {/* {feedItem.comments?.length ? <CommentedPublication comments={feedItem.comments} /> : null} */}
-      {type === 'Comment' && showThread && <Commented feedItem={feedItem} />}
-      {feedItem.collects.length ? <Collected collects={feedItem.collects} /> : null}
-      {feedItem.reactions.length ? <Reacted reactions={feedItem.reactions} /> : null}
+      {isComment && showThread && <Commented feedItem={feedItem} />}
+      {feedItem.comments?.length && isComment ? <CommentedPublication comments={feedItem.comments} /> : null}
+      {feedItem.collects.length ? <Collected isComment={isComment} collects={feedItem.collects} /> : null}
+      {feedItem.reactions.length ? <Reacted isComment={isComment} reactions={feedItem.reactions} /> : null}
     </>
   );
 };

@@ -13,7 +13,7 @@ const CommentedPublication: FC<Props> = ({ comments }) => {
   const showOthers = comments.length > 1;
 
   return (
-    <div className="flex items-center pb-4 space-x-1 text-gray-500 text-[13px]">
+    <div className="flex ml-[45px] items-center pb-4 space-x-1 text-gray-500 text-[13px]">
       <ChatAlt2Icon className="w-4 h-4" />
       <Link href={`/u/${profile?.handle}`} className="max-w-xs truncate">
         {profile?.name ? <b>{profile?.name}</b> : <Slug slug={profile?.handle} prefix="@" />}
