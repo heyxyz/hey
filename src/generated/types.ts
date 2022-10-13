@@ -1041,6 +1041,16 @@ export type FeeFollowModuleSettings = {
   type: FollowModules;
 };
 
+export type FeedHighlightsRequest = {
+  cursor?: InputMaybe<Scalars['Cursor']>;
+  limit?: InputMaybe<Scalars['LimitScalar']>;
+  metadata?: InputMaybe<PublicationMetadataFilters>;
+  /** The profile id */
+  profileId: Scalars['ProfileId'];
+  /** The App Id */
+  sources?: InputMaybe<Array<Scalars['Sources']>>;
+};
+
 export type FeedItem = {
   __typename?: 'FeedItem';
   /** Sorted by most recent first. Resolves defaultProfile and if null omits the wallet collect event from the list. */
@@ -1856,10 +1866,27 @@ export type NotificationRequest = {
   limit?: InputMaybe<Scalars['LimitScalar']>;
   metadata?: InputMaybe<PublicationMetadataFilters>;
   /** The profile id */
+  notificationTypes?: InputMaybe<Array<NotificationTypes>>;
+  /** The profile id */
   profileId: Scalars['ProfileId'];
   /** The App Id */
   sources?: InputMaybe<Array<Scalars['Sources']>>;
 };
+
+/** The notification filter types */
+export enum NotificationTypes {
+  CollectedComment = 'COLLECTED_COMMENT',
+  CollectedPost = 'COLLECTED_POST',
+  CommentedComment = 'COMMENTED_COMMENT',
+  CommentedPost = 'COMMENTED_POST',
+  Followed = 'FOLLOWED',
+  MentionComment = 'MENTION_COMMENT',
+  MentionPost = 'MENTION_POST',
+  MirroredComment = 'MIRRORED_COMMENT',
+  MirroredPost = 'MIRRORED_POST',
+  ReactionComment = 'REACTION_COMMENT',
+  ReactionPost = 'REACTION_POST'
+}
 
 export type OnChainIdentity = {
   __typename?: 'OnChainIdentity';
@@ -2535,6 +2562,8 @@ export type PublicationsQueryRequest = {
   metadata?: InputMaybe<PublicationMetadataFilters>;
   /** Profile id */
   profileId?: InputMaybe<Scalars['ProfileId']>;
+  /** Profile ids */
+  profileIds?: InputMaybe<Array<Scalars['ProfileId']>>;
   /** The publication id */
   publicationIds?: InputMaybe<Array<Scalars['InternalPublicationId']>>;
   /** The publication types you want to query */
@@ -2557,6 +2586,7 @@ export type Query = {
   exploreProfiles: ExploreProfileResult;
   explorePublications: ExplorePublicationResult;
   feed: PaginatedFeedResult;
+  feedHighlights: PaginatedTimelineResult;
   followerNftOwnedTokenIds?: Maybe<FollowerNftOwnedTokenIds>;
   followers: PaginatedFollowersResult;
   following: PaginatedFollowingResult;
@@ -2626,6 +2656,10 @@ export type QueryExplorePublicationsArgs = {
 
 export type QueryFeedArgs = {
   request: FeedRequest;
+};
+
+export type QueryFeedHighlightsArgs = {
+  request: FeedHighlightsRequest;
 };
 
 export type QueryFollowerNftOwnedTokenIdsArgs = {
