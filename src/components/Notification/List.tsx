@@ -11,6 +11,7 @@ import type {
   NewMirrorNotification,
   NewReactionNotification
 } from '@generated/types';
+import { NotificationTypes } from '@generated/types';
 import { CustomFiltersTypes, NotificationsDocument } from '@generated/types';
 import { MailIcon } from '@heroicons/react/outline';
 import { Leafwatch } from '@lib/leafwatch';
@@ -28,18 +29,25 @@ import LikeNotification from './Type/LikeNotification';
 import MentionNotification from './Type/MentionNotification';
 import MirrorNotification from './Type/MirrorNotification';
 
-const List: FC = () => {
+interface Props {
+  feedType: 'ALL' | 'MENTIONS';
+}
+
+const List: FC<Props> = ({ feedType }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   // Variables
   const request = {
     profileId: currentProfile?.id,
     customFilters: [CustomFiltersTypes.Gardeners],
+    notificationTypes:
+      feedType === 'MENTIONS' ? [NotificationTypes.MentionPost, NotificationTypes.MentionComment] : undefined,
     limit: 20
   };
 
   const { data, loading, error, fetchMore } = useQuery(NotificationsDocument, {
-    variables: { request }
+    variables: { request },
+    fetchPolicy: 'no-cache'
   });
 
   const notifications = data?.notifications?.items;
