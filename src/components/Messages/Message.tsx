@@ -1,8 +1,6 @@
-import Preview from '@components/Messages/Preview';
-import MessageComposer from '@components/Shared/MessageComposer';
-import MessagesList from '@components/Shared/MessagesList';
+import Composer from '@components/Messages/Composer';
 import { Card } from '@components/UI/Card';
-import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
+import { GridItemEight, GridLayout } from '@components/UI/GridLayout';
 import useGetMessages from '@components/utils/hooks/useGetMessages';
 import useSendMessage from '@components/utils/hooks/useSendMessage';
 import MetaTags from '@components/utils/MetaTags';
@@ -14,15 +12,15 @@ import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
 
+import MessagesList from './MessagesList';
+import PreviewList from './PreviewList';
+
 const Message: FC = () => {
   const { query } = useRouter();
   const address = (query.address as string).toLowerCase();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const conversations = useMessageStore((state) => state.conversations);
   const selectedConversation = conversations.get(address);
-  // TODO(elise): Move messageProfiles and previewMessages to their own ConversationList component.
-  const messageProfiles = useMessageStore((state) => state.messageProfiles);
-  const previewMessages = useMessageStore((state) => state.previewMessages);
   const { messages } = useGetMessages(selectedConversation);
   const { sendMessage } = useSendMessage(selectedConversation);
 
@@ -33,36 +31,14 @@ const Message: FC = () => {
   return (
     <GridLayout>
       <MetaTags title={`Message • ${APP_NAME}`} />
-      <GridItemFour>
-        <Card className="h-[86vh] px-2 pt-3">
-          <div className="flex justify-between">
-            <div className="font-bold text-lg">Messages</div>
-            <div>
-              <button className="text-xs border border-p-100 p-1 rounded">New Message</button>
-            </div>
-          </div>
-          <div className="flex justify-between p-4">
-            <div className="text-xs">Lens profiles</div>
-            <div className="text-xs">All messages</div>
-          </div>
-          <div>
-            {Array.from(messageProfiles.values()).map((profile, index) => {
-              const message = previewMessages.get(profile.ownedBy.toLowerCase());
-              if (!message) {
-                return null;
-              }
-              return <Preview key={`${profile.ownedBy}_${index}`} profile={profile} message={message} />;
-            })}
-          </div>
-        </Card>
-      </GridItemFour>
+      <PreviewList />
       <GridItemEight>
         <Card className="h-[86vh]">
           <div className="flex justify-center flex-1 p-5 border-b-[1px]">Header</div>
           <div className="h-[82%] overflow-y-auto">
             <MessagesList messages={messages.get(address) ?? []} />
           </div>
-          <MessageComposer sendMessage={sendMessage} />
+          <Composer sendMessage={sendMessage} />
         </Card>
       </GridItemEight>
     </GridLayout>

@@ -22,7 +22,7 @@ import { ChatAlt2Icon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
 import getTags from '@lib/getTags';
 import getUserLocale from '@lib/getUserLocale';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import trimify from '@lib/trimify';
@@ -93,7 +93,7 @@ const NewComment: FC<Props> = ({ publication }) => {
     setPublicationContent('');
     setAttachments([]);
     resetCollectSettings();
-    Mixpanel.track(COMMENT.NEW);
+    Leafwatch.track(COMMENT.NEW);
   };
 
   const generateOptimisticComment = (txHash: string) => {

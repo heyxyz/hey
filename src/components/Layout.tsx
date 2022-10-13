@@ -4,13 +4,12 @@ import { ReferenceModules, UserProfilesDocument } from '@generated/types';
 import getIsAuthTokensAvailable from '@lib/getIsAuthTokensAvailable';
 import getToastOptions from '@lib/getToastOptions';
 import resetAuthData from '@lib/resetAuthData';
-import mixpanel from 'mixpanel-browser';
 import Head from 'next/head';
 import { useTheme } from 'next-themes';
 import type { FC, ReactNode } from 'react';
 import { useEffect } from 'react';
 import { Toaster } from 'react-hot-toast';
-import { CHAIN_ID, MIXPANEL_API_HOST, MIXPANEL_TOKEN } from 'src/constants';
+import { CHAIN_ID } from 'src/constants';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { useReferenceModuleStore } from 'src/store/referencemodule';
 import { useAccount, useDisconnect, useNetwork } from 'wagmi';
@@ -19,14 +18,6 @@ import Loading from './Loading';
 import GlobalModals from './Shared/GlobalModals';
 import Navbar from './Shared/Navbar';
 import useIsMounted from './utils/hooks/useIsMounted';
-
-if (MIXPANEL_TOKEN) {
-  mixpanel.init(MIXPANEL_TOKEN, {
-    ignore_dnt: true,
-    api_host: MIXPANEL_API_HOST,
-    batch_requests: false
-  });
-}
 
 interface Props {
   children: ReactNode;
