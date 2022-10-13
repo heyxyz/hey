@@ -1,0 +1,23 @@
+query FeedHighlights(
+  $request: FeedHighlightsRequest!
+  $reactionRequest: ReactionFieldResolverRequest
+  $profileId: ProfileId
+) {
+  feedHighlights(request: $request) {
+    items {
+      ... on Post {
+        ...PostFields
+      }
+      ... on Comment {
+        ...CommentFields
+      }
+      ... on Mirror {
+        ...MirrorFields
+      }
+    }
+    pageInfo {
+      totalCount
+      next
+    }
+  }
+}

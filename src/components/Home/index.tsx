@@ -7,24 +7,28 @@ import MetaTags from '@components/utils/MetaTags';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { PAGEVIEW } from 'src/tracking';
 
 import EnableDispatcher from './EnableDispatcher';
 import HomeFeed from './Feed';
+import FeedType from './FeedType';
 import Hero from './Hero';
+import Highlights from './Highlights';
 import RecommendedProfiles from './RecommendedProfiles';
 import SetDefaultProfile from './SetDefaultProfile';
 import SetProfile from './SetProfile';
 import Trending from './Trending';
 
 const Home: NextPage = () => {
+  const currentProfile = useAppStore((state) => state.currentProfile);
+  const [feedType, setFeedType] = useState<'TIMELINE' | 'HIGHLIGHTS'>('TIMELINE');
+  const typeInitCase = feedType.charAt(0).toUpperCase() + feedType.slice(1).toLowerCase();
+
   useEffect(() => {
     Leafwatch.track('Pageview', { path: PAGEVIEW.HOME });
   }, []);
-
-  const currentProfile = useAppStore((state) => state.currentProfile);
 
   return (
     <>
@@ -35,7 +39,8 @@ const Home: NextPage = () => {
           {currentProfile ? (
             <>
               <NewPost />
-              <HomeFeed />
+              <FeedType feedType={feedType} setFeedType={setFeedType} />
+              {feedType === 'TIMELINE' ? <HomeFeed /> : <Highlights />}
             </>
           ) : (
             <ExploreFeed />
