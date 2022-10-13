@@ -32,14 +32,14 @@ const PreviewList: FC = () => {
 
   return (
     <GridItemFour>
-      <Card className="h-[86vh] p-5">
-        <div className="flex justify-between items-center mb-5">
-          <div className="font-bold text-lg">Messages</div>
+      <Card className="h-[86vh]">
+        <div className="flex justify-between items-center p-5 border-b">
+          <div className="font-bold">Messages</div>
           <button>
             <PlusCircleIcon className="h-6 w-6" />
           </button>
         </div>
-        <div className="space-y-5">
+        <div className="mt-2">
           {showLoading ? (
             <PageLoading message="Loading messages" />
           ) : (
