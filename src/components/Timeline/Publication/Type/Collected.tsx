@@ -17,7 +17,7 @@ const Collected: FC<Props> = ({ collects, isComment }) => {
   return (
     <div
       className={clsx('flex items-center pb-4 space-x-1 text-gray-500 text-[13px]', {
-        'ml-[45px]': isComment
+        'ml-[45px] !pb-2': isComment
       })}
     >
       <CollectionIcon className="w-4 h-4" />

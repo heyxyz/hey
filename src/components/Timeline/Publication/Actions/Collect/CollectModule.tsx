@@ -5,6 +5,7 @@ import CollectWarning from '@components/Shared/CollectWarning';
 import IndexStatus from '@components/Shared/IndexStatus';
 import Loader from '@components/Shared/Loader';
 import Markup from '@components/Shared/Markup';
+import Collectors from '@components/Shared/Modal/Collectors';
 import Uniswap from '@components/Shared/Uniswap';
 import { Button } from '@components/UI/Button';
 import { Modal } from '@components/UI/Modal';
@@ -292,11 +293,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
                 show={showCollectorsModal}
                 onClose={() => setShowCollectorsModal(false)}
               >
-                {/* <Collectors
-                  publicationId={
-                    publication.__typename === 'Mirror' ? publication?.mirrorOf?.id : publication?.id
-                  }
-                /> */}
+                <Collectors publicationId={publication?.id} />
               </Modal>
             </div>
             {collectModule?.collectLimit && (
