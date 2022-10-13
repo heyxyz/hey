@@ -42,7 +42,7 @@ const Highlights: FC = () => {
       await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next }, reactionRequest, profileId }
       });
-      Leafwatch.track(PAGINATION.HOME_FEED);
+      Leafwatch.track(PAGINATION.HIGHLIGHTS_FEED);
     },
     rootMargin: PAGINATION_ROOT_MARGIN
   });
