@@ -7,7 +7,7 @@ import { Spinner } from '@components/UI/Spinner';
 import type { FeedItem } from '@generated/types';
 import { TimelineDocument } from '@generated/types';
 import { CollectionIcon } from '@heroicons/react/outline';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import type { FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { PAGINATION_ROOT_MARGIN } from 'src/constants';
@@ -44,7 +44,7 @@ const Timeline: FC = () => {
       await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next }, reactionRequest, profileId }
       });
-      Mixpanel.track(PAGINATION.HOME_FEED);
+      Leafwatch.track(PAGINATION.HOME_FEED);
     },
     rootMargin: PAGINATION_ROOT_MARGIN
   });

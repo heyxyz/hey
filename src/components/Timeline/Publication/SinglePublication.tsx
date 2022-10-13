@@ -1,7 +1,7 @@
 import UserProfile from '@components/Shared/UserProfile';
 import type { LensterPublication } from '@generated/lenstertypes';
 import type { ElectedMirror, FeedItem } from '@generated/types';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { useRouter } from 'next/router';
@@ -49,7 +49,7 @@ const SinglePublication: FC<Props> = ({
         className="ml-[53px]"
         onClick={() => {
           push(`/posts/${publication?.id}`);
-          Mixpanel.track(PUBLICATION.OPEN);
+          Leafwatch.track(PUBLICATION.OPEN);
         }}
       >
         {publication?.hidden ? (

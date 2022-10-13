@@ -6,7 +6,7 @@ import { AddReactionDocument, ReactionTypes, RemoveReactionDocument } from '@gen
 import { HeartIcon } from '@heroicons/react/outline';
 import { HeartIcon as HeartIconSolid } from '@heroicons/react/solid';
 import { publicationKeyFields } from '@lib/keyFields';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import nFormatter from '@lib/nFormatter';
 import onError from '@lib/onError';
 import { motion } from 'framer-motion';
@@ -42,7 +42,7 @@ const Like: FC<Props> = ({ publication, isFullPublication }) => {
 
   const [addReaction] = useMutation<Mutation>(AddReactionDocument, {
     onCompleted: () => {
-      Mixpanel.track(PUBLICATION.LIKE);
+      Leafwatch.track(PUBLICATION.LIKE);
     },
     onError: (error) => {
       setLiked(!liked);
@@ -54,7 +54,7 @@ const Like: FC<Props> = ({ publication, isFullPublication }) => {
 
   const [removeReaction] = useMutation<Mutation>(RemoveReactionDocument, {
     onCompleted: () => {
-      Mixpanel.track(PUBLICATION.DISLIKE);
+      Leafwatch.track(PUBLICATION.DISLIKE);
     },
     onError: (error) => {
       setLiked(!liked);

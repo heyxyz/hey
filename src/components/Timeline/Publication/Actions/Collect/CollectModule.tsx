@@ -36,7 +36,7 @@ import formatAddress from '@lib/formatAddress';
 import getSignature from '@lib/getSignature';
 import getTokenImage from '@lib/getTokenImage';
 import humanize from '@lib/humanize';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import dayjs from 'dayjs';
@@ -81,7 +81,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
     setCount(count + 1);
     setHasCollectedByMe(true);
     toast.success('Transaction submitted successfully!');
-    Mixpanel.track(PUBLICATION.COLLECT_MODULE.COLLECT);
+    Leafwatch.track(PUBLICATION.COLLECT_MODULE.COLLECT);
   };
 
   const {
@@ -281,7 +281,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
                 type="button"
                 onClick={() => {
                   setShowCollectorsModal(!showCollectorsModal);
-                  Mixpanel.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECTORS);
+                  Leafwatch.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECTORS);
                 }}
               >
                 {humanize(count)} collectors

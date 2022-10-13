@@ -3,7 +3,7 @@ import type { FeedItemRoot, Mutation } from '@generated/types';
 import { HidePublicationDocument } from '@generated/types';
 import { Menu } from '@headlessui/react';
 import { TrashIcon } from '@heroicons/react/outline';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import clsx from 'clsx';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
@@ -17,7 +17,7 @@ const Delete: FC<Props> = ({ publication }) => {
   const { pathname, push } = useRouter();
   const [hidePost] = useMutation<Mutation>(HidePublicationDocument, {
     onCompleted: () => {
-      Mixpanel.track(PUBLICATION.DELETE);
+      Leafwatch.track(PUBLICATION.DELETE);
       pathname === '/posts/[id]' ? push('/') : location.reload();
     }
   });
