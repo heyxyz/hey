@@ -22,7 +22,7 @@ const useGetMessages = (conversation?: Conversation, endTime?: Date) => {
       uniqueMessages.sort((a, b) => {
         return (b.sent?.getTime() ?? 0) - (a.sent?.getTime() ?? 0);
       });
-      messages.set(conversation.peerAddress, uniqueMessages);
+      messages.set(conversation.peerAddress.toLowerCase(), uniqueMessages);
       setMessages(new Map(messages));
     };
     loadMessages();
