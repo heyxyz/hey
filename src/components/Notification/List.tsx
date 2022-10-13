@@ -9,8 +9,7 @@ import type {
   NewFollowerNotification,
   NewMentionNotification,
   NewMirrorNotification,
-  NewReactionNotification,
-  NotificationRequest
+  NewReactionNotification
 } from '@generated/types';
 import { NotificationTypes } from '@generated/types';
 import { CustomFiltersTypes, NotificationsDocument } from '@generated/types';
@@ -38,7 +37,7 @@ const List: FC<Props> = ({ feedType }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   // Variables
-  const request: NotificationRequest = {
+  const request = {
     profileId: currentProfile?.id,
     customFilters: [CustomFiltersTypes.Gardeners],
     notificationTypes:
