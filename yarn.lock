@@ -1520,10 +1520,10 @@
     react-use "17.4.0"
     throttle-debounce "^3.0.1"
 
-"@graphql-codegen/cli@^2.13.6":
-  version "2.13.6"
-  resolved "https://registry.yarnpkg.com/@graphql-codegen/cli/-/cli-2.13.6.tgz#70e2f93aa51f5350af821063368953a667b161de"
-  integrity sha512-3Q7/aRFPJnd7Zd+gMM/cymUYdaS8dHc+7D6kkEDhYo/rVDusnPMdBkYQ9XUT4UIqE7TZ+gX3yedBsqOeyJyg1Q==
+"@graphql-codegen/cli@^2.13.7":
+  version "2.13.7"
+  resolved "https://registry.yarnpkg.com/@graphql-codegen/cli/-/cli-2.13.7.tgz#53566cbba37e4c9d7e89d7c35a91e3fbf6bed988"
+  integrity sha512-Rpk4WWrDgkDoVELftBr7/74MPiYmCITEF2+AWmyZZ2xzaC9cO2PqzZ+OYDEBNWD6UEk0RrIfVSa+slDKjhY59w==
   dependencies:
     "@babel/generator" "^7.18.13"
     "@babel/template" "^7.18.10"
