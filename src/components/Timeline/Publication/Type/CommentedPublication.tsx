@@ -10,6 +10,7 @@ interface Props {
 
 const CommentedPublication: FC<Props> = ({ comments }) => {
   const profile = comments[0].profile;
+  const showOthers = comments.length > 1;
 
   return (
     <div className="flex items-center pb-4 space-x-1 text-gray-500 text-[13px]">
@@ -17,7 +18,7 @@ const CommentedPublication: FC<Props> = ({ comments }) => {
       <Link href={`/u/${profile?.handle}`} className="max-w-xs truncate">
         {profile?.name ? <b>{profile?.name}</b> : <Slug slug={profile?.handle} prefix="@" />}
       </Link>
-      <span> and {comments.length - 1} others commented</span>
+      <span>{showOthers && <span>and {comments.length - 1} others</span>} commented</span>
     </div>
   );
 };
