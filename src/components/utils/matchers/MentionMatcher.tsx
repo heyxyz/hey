@@ -1,5 +1,5 @@
 import Slug from '@components/Shared/Slug';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import { Matcher } from 'interweave';
 import Link from 'next/link';
 import { createElement } from 'react';
@@ -11,7 +11,7 @@ export function Mention({ ...props }: any) {
       href={`/u/${props.display.slice(1)}`}
       onClick={(event) => {
         event.stopPropagation();
-        Mixpanel.track(PUBLICATION.MENTION_CLICK, { username: props.display });
+        Leafwatch.track(PUBLICATION.MENTION_CLICK, { username: props.display });
       }}
     >
       <Slug className="text-md" slug={props.display} />

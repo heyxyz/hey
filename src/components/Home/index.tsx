@@ -5,7 +5,7 @@ import Footer from '@components/Shared/Footer';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import MetaTags from '@components/utils/MetaTags';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
 import { useEffect } from 'react';
 import { useAppStore } from 'src/store/app';
@@ -21,7 +21,7 @@ import Trending from './Trending';
 
 const Home: NextPage = () => {
   useEffect(() => {
-    Mixpanel.track('Pageview', { path: PAGEVIEW.HOME });
+    Leafwatch.track('Pageview', { path: PAGEVIEW.HOME });
   }, []);
 
   const currentProfile = useAppStore((state) => state.currentProfile);

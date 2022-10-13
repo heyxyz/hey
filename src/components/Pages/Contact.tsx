@@ -9,7 +9,7 @@ import { TextArea } from '@components/UI/TextArea';
 import MetaTags from '@components/utils/MetaTags';
 import { PencilAltIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useEffect } from 'react';
@@ -28,7 +28,7 @@ const newContactSchema = object({
 
 const Contact: FC = () => {
   useEffect(() => {
-    Mixpanel.track('Pageview', { path: PAGEVIEW.CONTACT });
+    Leafwatch.track('Pageview', { path: PAGEVIEW.CONTACT });
   }, []);
 
   const { push } = useRouter();
