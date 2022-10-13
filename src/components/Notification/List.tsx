@@ -45,8 +45,6 @@ const List: FC<Props> = ({ feedType }) => {
     limit: 20
   };
 
-  console.log();
-
   const { data, loading, error, fetchMore } = useQuery(NotificationsDocument, {
     variables: { request },
     fetchPolicy: 'no-cache'
