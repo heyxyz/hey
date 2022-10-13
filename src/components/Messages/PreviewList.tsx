@@ -39,7 +39,7 @@ const PreviewList: FC = () => {
             <PlusCircleIcon className="h-6 w-6" />
           </button>
         </div>
-        <div>
+        <div className="space-y-5">
           {showLoading ? (
             <PageLoading message="Loading messages" />
           ) : (
