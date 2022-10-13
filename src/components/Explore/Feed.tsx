@@ -16,10 +16,11 @@ import { useAppStore } from 'src/store/app';
 import { PAGINATION } from 'src/tracking';
 
 interface Props {
+  focus?: any;
   feedType?: PublicationSortCriteria;
 }
 
-const Feed: FC<Props> = ({ feedType = PublicationSortCriteria.CuratedProfiles }) => {
+const Feed: FC<Props> = ({ focus, feedType = PublicationSortCriteria.CuratedProfiles }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   // Variables
@@ -27,13 +28,15 @@ const Feed: FC<Props> = ({ feedType = PublicationSortCriteria.CuratedProfiles })
     sortCriteria: feedType,
     noRandomize: feedType === 'LATEST',
     customFilters: [CustomFiltersTypes.Gardeners],
+    metadata: focus ? { mainContentFocus: focus } : null,
     limit: 10
   };
   const reactionRequest = currentProfile ? { profileId: currentProfile?.id } : null;
   const profileId = currentProfile?.id ?? null;
 
   const { data, loading, error, fetchMore } = useQuery(ExploreFeedDocument, {
-    variables: { request, reactionRequest, profileId }
+    variables: { request, reactionRequest, profileId },
+    fetchPolicy: 'no-cache'
   });
 
   const publications = data?.explorePublications?.items;
