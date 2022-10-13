@@ -90,9 +90,16 @@ interface MessageListProps {
   fetchNextMessages: () => void;
   profile?: Profile;
   currentProfile?: Profile | null;
+  hasMore: boolean;
 }
 
-const MessagesList: FC<MessageListProps> = ({ messages, fetchNextMessages, profile, currentProfile }) => {
+const MessagesList: FC<MessageListProps> = ({
+  messages,
+  fetchNextMessages,
+  profile,
+  currentProfile,
+  hasMore
+}) => {
   let lastMessageDate: Date | undefined;
 
   return (
@@ -103,7 +110,7 @@ const MessagesList: FC<MessageListProps> = ({ messages, fetchNextMessages, profi
             <InfiniteScroll
               dataLength={messages.length}
               next={fetchNextMessages}
-              hasMore={true}
+              hasMore={hasMore}
               style={{ display: 'flex', flexDirection: 'column-reverse' }}
               loader={<div className="p-1 text-center text-gray-300 font-bold text-sm">Loading...</div>}
               endMessage={<ConversationBeginningNotice />}

@@ -18,7 +18,7 @@ const MessageHeader: FC<Props> = ({ profile }) => {
         <img
           src={getAvatar(profile)}
           loading="lazy"
-          className="w-10 h-10 bg-gray-200 rounded-full border dark:border-gray-700/80"
+          className="w-10 h-10 bg-gray-200 rounded-full border dark:border-gray-700/80 mr-2"
           height={40}
           width={40}
           alt={profile?.handle}

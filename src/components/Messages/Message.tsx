@@ -26,26 +26,23 @@ const Message: FC = () => {
   const conversations = useMessageStore((state) => state.conversations);
   const selectedConversation = conversations.get(address);
   const [endTime, setEndTime] = useState<Map<string, Date>>(new Map());
-  const { messages } = useGetMessages(
-    selectedConversation,
-    endTime.get(selectedConversation?.peerAddress ?? '')
-  );
+  const { messages, hasMore } = useGetMessages(selectedConversation, endTime.get(address ?? ''));
   const { sendMessage } = useSendMessage(selectedConversation);
   const { profiles } = useMessagePreviews();
   const profile = profiles.get(address);
 
   const fetchNextMessages = useCallback(() => {
-    if (selectedConversation?.peerAddress) {
-      const currentMessages = messages.get(selectedConversation?.peerAddress);
+    if (address) {
+      const currentMessages = messages.get(address);
       if (Array.isArray(currentMessages) && currentMessages?.length > 0) {
         const lastMsgDate = currentMessages[currentMessages?.length - 1].sent;
         if (lastMsgDate instanceof Date && isFinite(lastMsgDate.getTime())) {
-          endTime.set(selectedConversation.peerAddress, lastMsgDate);
+          endTime.set(address, lastMsgDate);
           setEndTime(new Map(endTime));
         }
       }
     }
-  }, [endTime, messages, selectedConversation?.peerAddress]);
+  }, [endTime, messages, address]);
 
   if (!isFeatureEnabled('messages', currentProfile?.id)) {
     return <Custom404 />;
@@ -63,6 +60,7 @@ const Message: FC = () => {
             profile={profile}
             fetchNextMessages={fetchNextMessages}
             messages={messages.get(address) ?? []}
+            hasMore={hasMore}
           />
           <Composer sendMessage={sendMessage} />
         </Card>
