@@ -1,6 +1,7 @@
 import MessageHeader from '@components/Shared/MessageHeader';
 import { Card } from '@components/UI/Card';
 import { GridItemEight, GridLayout } from '@components/UI/GridLayout';
+import { PageLoading } from '@components/UI/PageLoading';
 import useGetMessages from '@components/utils/hooks/useGetMessages';
 import useMessagePreviews from '@components/utils/hooks/useMessagePreviews';
 import useSendMessage from '@components/utils/hooks/useSendMessage';
@@ -48,21 +49,29 @@ const Message: FC = () => {
     return <Custom404 />;
   }
 
+  const showLoading = !profile || !currentProfile || !address || !selectedConversation;
+
   return (
     <GridLayout>
       <MetaTags title={`Message • ${APP_NAME}`} />
       <PreviewList />
       <GridItemEight>
         <Card className="h-[86vh]">
-          <MessageHeader profile={profile} />
-          <MessagesList
-            currentProfile={currentProfile}
-            profile={profile}
-            fetchNextMessages={fetchNextMessages}
-            messages={messages.get(address) ?? []}
-            hasMore={hasMore}
-          />
-          <Composer sendMessage={sendMessage} />
+          {showLoading ? (
+            <PageLoading message="Loading messages" />
+          ) : (
+            <>
+              <MessageHeader profile={profile} />
+              <MessagesList
+                currentProfile={currentProfile}
+                profile={profile}
+                fetchNextMessages={fetchNextMessages}
+                messages={messages.get(address) ?? []}
+                hasMore={hasMore}
+              />
+              <Composer sendMessage={sendMessage} />
+            </>
+          )}
         </Card>
       </GridItemEight>
     </GridLayout>

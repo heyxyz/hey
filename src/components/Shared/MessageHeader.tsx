@@ -1,6 +1,7 @@
 import type { Profile } from '@generated/types';
 import getAvatar from '@lib/getAvatar';
 import type { FC } from 'react';
+import { useEffect } from 'react';
 import { useState } from 'react';
 
 import Follow from './Follow';
@@ -10,7 +11,13 @@ interface Props {
 }
 
 const MessageHeader: FC<Props> = ({ profile }) => {
-  const [following, setFollowing] = useState(profile?.isFollowedByMe);
+  const [following, setFollowing] = useState(true);
+
+  useEffect(() => {
+    setFollowing(profile?.isFollowedByMe ?? false);
+  }, [profile?.isFollowedByMe]);
+
+  console.log(following);
 
   return (
     <div className="flex justify-between flex-1 p-4 border-b-[1px]">
@@ -25,7 +32,9 @@ const MessageHeader: FC<Props> = ({ profile }) => {
         />
         <div>{profile?.handle}</div>
       </div>
-      <div>{profile && !following && <Follow showText profile={profile} setFollowing={setFollowing} />}</div>
+      <div>
+        {profile && !following ? <Follow showText profile={profile} setFollowing={setFollowing} /> : null}
+      </div>
     </div>
   );
 };
