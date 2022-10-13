@@ -14,6 +14,10 @@ export const PROFILE = {
   OPEN_FOLLOWING: 'Open following list',
   OPEN_FOLLOWERS: 'Open followers list',
   OPEN_MUTUAL_FOLLOWERS: 'Open mutual followers list',
+  SWITCH_FEED: 'Switch to feed tab in profile',
+  SWITCH_REPLIES: 'Switch to replies tab in profile',
+  SWITCH_MEDIA: 'Switch to media tab in profile',
+  SWITCH_NFTS: 'Switch to nft tab in profile',
   SWITCH_PROFILE: 'Switch profile',
   LOGOUT: 'Profile logout'
 };
@@ -67,7 +71,9 @@ export const COMMENT = {
 };
 
 export const NOTIFICATION = {
-  OPEN: 'Open notifications'
+  OPEN: 'Open notifications',
+  SWITCH_ALL: 'Switch to all notifications',
+  SWITCH_MENTIONS: 'Switch to mentions notifications'
 };
 
 export const SETTINGS = {

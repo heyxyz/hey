@@ -8,7 +8,7 @@ import { useEffect } from 'react';
 import { APP_NAME } from 'src/constants';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
-import { PAGEVIEW } from 'src/tracking';
+import { NOTIFICATION, PAGEVIEW } from 'src/tracking';
 
 import List from './List';
 
@@ -35,7 +35,7 @@ const Notification: FC = () => {
             active={feedType === 'ALL'}
             onClick={() => {
               setFeedType('ALL');
-              // Leafwatch.track(`Switch to feed tab in profile`);
+              Leafwatch.track(NOTIFICATION.SWITCH_ALL);
             }}
           />
           <TabButton
@@ -44,7 +44,7 @@ const Notification: FC = () => {
             active={feedType === 'MENTIONS'}
             onClick={() => {
               setFeedType('MENTIONS');
-              // Leafwatch.track(`Switch to feed tab in profile`);
+              Leafwatch.track(NOTIFICATION.SWITCH_MENTIONS);
             }}
           />
         </div>

@@ -11,6 +11,7 @@ import type {
   NewMirrorNotification,
   NewReactionNotification
 } from '@generated/types';
+import { NotificationTypes } from '@generated/types';
 import { CustomFiltersTypes, NotificationsDocument } from '@generated/types';
 import { MailIcon } from '@heroicons/react/outline';
 import { Leafwatch } from '@lib/leafwatch';
@@ -39,9 +40,8 @@ const List: FC<Props> = ({ feedType }) => {
   const request = {
     profileId: currentProfile?.id,
     customFilters: [CustomFiltersTypes.Gardeners],
-    ...(feedType === 'MENTIONS' && {
-      notificationTypes: feedType === 'MENTIONS' ? ['MENTION_POST', 'MENTION_COMMENT'] : []
-    }),
+    notificationTypes:
+      feedType === 'MENTIONS' ? [NotificationTypes.MentionPost, NotificationTypes.MentionComment] : undefined,
     limit: 20
   };
 
