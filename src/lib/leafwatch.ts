@@ -11,7 +11,7 @@ export const Leafwatch = {
     const { state } = JSON.parse(
       localStorage.getItem('lenster.store') || JSON.stringify({ state: { profileId: null } })
     );
-
+    console.log(navigator.platform);
     if (enabled) {
       axios(LEAFWATCH_HOST, {
         method: 'POST',
@@ -20,6 +20,11 @@ export const Leafwatch = {
           'Content-Type': 'application/x-ndjson'
         },
         data: {
+          navigator: {
+            platform: navigator.platform,
+            laungauge: navigator.language,
+            userAgent: navigator.userAgent
+          },
           event: name,
           profile: state.profileId,
           props: options,
