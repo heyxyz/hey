@@ -18,7 +18,7 @@ import { PAGINATION } from 'src/tracking';
 import QueuedPublication from './Publication/QueuedPublication';
 import SinglePublication from './Publication/SinglePublication';
 
-const V2Feed: FC = () => {
+const Timeline: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const txnQueue = useTransactionPersistStore((state) => state.txnQueue);
 
@@ -90,4 +90,4 @@ const V2Feed: FC = () => {
   );
 };
 
-export default V2Feed;
+export default Timeline;
