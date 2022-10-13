@@ -6,7 +6,7 @@ import { WarningMessage } from '@components/UI/WarningMessage';
 import { GenerateModuleCurrencyApprovalDataDocument } from '@generated/types';
 import { ExclamationIcon, MinusIcon, PlusIcon } from '@heroicons/react/outline';
 import { getModule } from '@lib/getModule';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import onError from '@lib/onError';
 import type { Dispatch, FC } from 'react';
 import { useState } from 'react';
@@ -46,7 +46,7 @@ const AllowanceButton: FC<Props> = ({ title = 'Allow', module, allowed, setAllow
       toast.success(`Module ${allowed ? 'disabled' : 'enabled'} successfully!`);
       setShowWarninModal(false);
       setAllowed(!allowed);
-      Mixpanel.track(`Module ${allowed ? 'disabled' : 'enabled'}`);
+      Leafwatch.track(`Module ${allowed ? 'disabled' : 'enabled'}`);
     },
     onError
   });

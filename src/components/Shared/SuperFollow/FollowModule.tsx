@@ -17,7 +17,7 @@ import { StarIcon, UserIcon } from '@heroicons/react/outline';
 import formatAddress from '@lib/formatAddress';
 import getSignature from '@lib/getSignature';
 import getTokenImage from '@lib/getTokenImage';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import type { Dispatch, FC } from 'react';
@@ -51,7 +51,7 @@ const FollowModule: FC<Props> = ({ profile, setFollowing, setShowFollowModal, ag
     setFollowing(true);
     setShowFollowModal(false);
     toast.success('Followed successfully!');
-    Mixpanel.track(PROFILE.SUPER_FOLLOW);
+    Leafwatch.track(PROFILE.SUPER_FOLLOW);
   };
 
   const { isLoading: writeLoading, write } = useContractWrite({
