@@ -2,6 +2,11 @@ query Profiles($request: ProfileQueryRequest!) {
   profiles(request: $request) {
     items {
       ...ProfileFields
+      isDefault
+    }
+    pageInfo {
+      next
+      totalCount
     }
   }
 }
