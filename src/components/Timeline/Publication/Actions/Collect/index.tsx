@@ -2,7 +2,8 @@ import Loader from '@components/Shared/Loader';
 import { Modal } from '@components/UI/Modal';
 import { Tooltip } from '@components/UI/Tooltip';
 import GetModuleIcon from '@components/utils/GetModuleIcon';
-import type { FeedItemRoot } from '@generated/types';
+import type { LensterPublication } from '@generated/lenstertypes';
+import type { ElectedMirror } from '@generated/types';
 import { CollectModules } from '@generated/types';
 import { CollectionIcon } from '@heroicons/react/outline';
 import { CollectionIcon as CollectionIconSolid } from '@heroicons/react/solid';
@@ -13,6 +14,7 @@ import nFormatter from '@lib/nFormatter';
 import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
 import type { FC } from 'react';
+import { useEffect } from 'react';
 import { useState } from 'react';
 import { PUBLICATION } from 'src/tracking';
 
@@ -21,25 +23,22 @@ const CollectModule = dynamic(() => import('./CollectModule'), {
 });
 
 interface Props {
-  publication: FeedItemRoot;
+  publication: LensterPublication;
   isFullPublication: boolean;
+  electedMirror?: ElectedMirror;
 }
 
-const Collect: FC<Props> = ({ publication, isFullPublication }) => {
+const Collect: FC<Props> = ({ publication, isFullPublication, electedMirror }) => {
   const [count, setCount] = useState(0);
   const [showCollectModal, setShowCollectModal] = useState(false);
   const isFreeCollect = publication?.collectModule.__typename === 'FreeCollectModuleSettings';
   const hasCollected = publication?.hasCollectedByMe;
 
-  // useEffect(() => {
-  //   if (publication?.mirrorOf?.stats?.totalAmountOfCollects || publication?.stats?.totalAmountOfCollects) {
-  //     setCount(
-  //       publication.__typename === 'Mirror'
-  //         ? publication?.mirrorOf?.stats?.totalAmountOfCollects
-  //         : publication?.stats?.totalAmountOfCollects
-  //     );
-  //   }
-  // }, [publication]);
+  useEffect(() => {
+    if (publication?.stats?.totalAmountOfCollects) {
+      setCount(publication?.stats?.totalAmountOfCollects);
+    }
+  }, [publication]);
 
   const iconClassName = isFullPublication ? 'w-[17px] sm:w-[20px]' : 'w-[15px] sm:w-[18px]';
 
@@ -85,7 +84,12 @@ const Collect: FC<Props> = ({ publication, isFullPublication }) => {
         show={showCollectModal}
         onClose={() => setShowCollectModal(false)}
       >
-        <CollectModule publication={publication} count={count} setCount={setCount} />
+        <CollectModule
+          publication={publication}
+          electedMirror={electedMirror}
+          count={count}
+          setCount={setCount}
+        />
       </Modal>
     </>
   );

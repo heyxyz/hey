@@ -1,6 +1,6 @@
 import UserProfile from '@components/Shared/UserProfile';
 import type { LensterPublication } from '@generated/lenstertypes';
-import type { FeedItem } from '@generated/types';
+import type { ElectedMirror, FeedItem } from '@generated/types';
 import { Mixpanel } from '@lib/mixpanel';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
@@ -57,7 +57,12 @@ const SinglePublication: FC<Props> = ({
         ) : (
           <>
             <PublicationBody publication={publication} />
-            {showActions && <PublicationActions publication={publication as LensterPublication} />}
+            {showActions && (
+              <PublicationActions
+                publication={publication as LensterPublication}
+                electedMirror={feedItem.electedMirror as ElectedMirror}
+              />
+            )}
             {showModActions && <ModAction publication={publication as LensterPublication} />}
           </>
         )}

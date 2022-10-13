@@ -12,7 +12,7 @@ import { Spinner } from '@components/UI/Spinner';
 import { Tooltip } from '@components/UI/Tooltip';
 import { WarningMessage } from '@components/UI/WarningMessage';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
-import type { FeedItemRoot, Mutation } from '@generated/types';
+import type { ElectedMirror, FeedItemRoot, Mutation } from '@generated/types';
 import {
   ApprovedModuleAllowanceAmountDocument,
   CollectModuleDocument,
@@ -27,6 +27,7 @@ import {
   CollectionIcon,
   PhotographIcon,
   PuzzleIcon,
+  SwitchHorizontalIcon,
   UserIcon,
   UsersIcon
 } from '@heroicons/react/outline';
@@ -47,13 +48,16 @@ import { useAppStore } from 'src/store/app';
 import { PUBLICATION } from 'src/tracking';
 import { useAccount, useBalance, useContractWrite, useSignTypedData } from 'wagmi';
 
+import ReferralAlert from './ReferralAlert';
+
 interface Props {
   count: number;
   setCount: Dispatch<number>;
   publication: FeedItemRoot;
+  electedMirror?: ElectedMirror;
 }
 
-const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
+const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror }) => {
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -114,7 +118,6 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
     variables: {
       request: {
         publicationId: publication?.id
-        // publicationId: publication.__typename === 'Mirror' ? publication?.mirrorOf?.id : publication?.id
       }
     },
     skip: !publication?.id
@@ -198,7 +201,9 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
       createCollectTypedData({
         variables: {
           options: { overrideSigNonce: userSigNonce },
-          request: { publicationId: publication?.id }
+          request: {
+            publicationId: electedMirror ? electedMirror.mirrorId : publication?.id
+          }
         }
       });
     }
@@ -231,15 +236,15 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
         )}
         <div className="pb-2 space-y-1.5">
           <div className="flex items-center space-x-2">
-            {/* {publication.__typename === 'Mirror' && (
+            {electedMirror && (
               <Tooltip
-                content={`Mirror of ${publication?.mirrorOf.__typename?.toLowerCase()} by ${
-                  publication?.mirrorOf?.profile?.handle
+                content={`Mirror of ${publication.__typename?.toLowerCase()} by ${
+                  publication?.profile?.handle
                 }`}
               >
                 <SwitchHorizontalIcon className="w-5 h-5 text-brand" />
               </Tooltip>
-            )} */}
+            )}
             {publication?.metadata?.name && (
               <div className="text-xl font-bold">{publication?.metadata?.name}</div>
             )}
@@ -247,7 +252,9 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
           {publication?.metadata?.description && (
             <Markup className="text-gray-500 line-clamp-2">{publication?.metadata?.description}</Markup>
           )}
-          {/* <ReferralAlert mirror={publication} referralFee={collectModule?.referralFee} /> */}
+          {electedMirror && (
+            <ReferralAlert electedMirror={electedMirror} referralFee={collectModule?.referralFee} />
+          )}
         </div>
         {collectModule?.amount && (
           <div className="flex items-center py-2 space-x-1.5">

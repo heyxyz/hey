@@ -1,5 +1,6 @@
 import UserProfile from '@components/Shared/UserProfile';
 import type { LensterPublication } from '@generated/lenstertypes';
+import type { FeedItem } from '@generated/types';
 import { Mixpanel } from '@lib/mixpanel';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
@@ -15,9 +16,10 @@ dayjs.extend(relativeTime);
 
 interface Props {
   publication: LensterPublication;
+  feedItem: FeedItem;
 }
 
-const ThreadBody: FC<Props> = ({ publication }) => {
+const ThreadBody: FC<Props> = ({ publication, feedItem }) => {
   const { push } = useRouter();
   const profile = publication?.profile;
   const timestamp = publication?.createdAt;
