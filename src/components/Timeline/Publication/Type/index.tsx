@@ -24,8 +24,7 @@ const PublicationType: FC<Props> = ({ feedItem, showType, showThread = false }) 
   const canCombined = getCanCombined([
     feedItem.mirrors.length,
     feedItem.reactions.length,
-    feedItem.collects.length,
-    feedItem.comments?.length ?? 0
+    feedItem.collects.length
   ]);
 
   if (!showType) {
