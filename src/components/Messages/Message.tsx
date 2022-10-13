@@ -1,6 +1,4 @@
-import MessageComposer from '@components/Shared/MessageComposer';
-import MessagePreviewList from '@components/Shared/MessagePreviewList';
-import MessagesList from '@components/Shared/MessagesList';
+import Composer from '@components/Messages/Composer';
 import { Card } from '@components/UI/Card';
 import { GridItemEight, GridLayout } from '@components/UI/GridLayout';
 import useGetMessages from '@components/utils/hooks/useGetMessages';
@@ -13,6 +11,9 @@ import { APP_NAME } from 'src/constants';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
+
+import MessagesList from './MessagesList';
+import PreviewList from './PreviewList';
 
 const Message: FC = () => {
   const { query } = useRouter();
@@ -30,14 +31,14 @@ const Message: FC = () => {
   return (
     <GridLayout>
       <MetaTags title={`Message • ${APP_NAME}`} />
-      <MessagePreviewList />
+      <PreviewList />
       <GridItemEight>
         <Card className="h-[86vh]">
           <div className="flex justify-center flex-1 p-5 border-b-[1px]">Header</div>
           <div className="h-[82%] overflow-y-auto">
             <MessagesList messages={messages.get(address) ?? []} />
           </div>
-          <MessageComposer sendMessage={sendMessage} />
+          <Composer sendMessage={sendMessage} />
         </Card>
       </GridItemEight>
     </GridLayout>

@@ -3,15 +3,15 @@ import { Card } from '@components/UI/Card';
 import { GridItemFour } from '@components/UI/GridLayout';
 import { PageLoading } from '@components/UI/PageLoading';
 import useMessagePreviews from '@components/utils/hooks/useMessagePreviews';
+import { PlusCircleIcon } from '@heroicons/react/outline';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 import type { FC } from 'react';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
 import { useAppStore } from 'src/store/app';
 
-const Messages: FC = () => {
+const PreviewList: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-
   const { loading, messages, profiles, profilesError } = useMessagePreviews();
 
   if (!isFeatureEnabled('messages', currentProfile?.id)) {
@@ -32,20 +32,14 @@ const Messages: FC = () => {
 
   return (
     <GridItemFour>
-      <Card className="h-[86vh] px-2 pt-3">
-        <div className="flex justify-between">
-          <div className="font-black text-lg">Messages</div>
-          <div>
-            <button className="text-xs border border-p-100 p-1 rounded" type="button">
-              New Message
-            </button>
-          </div>
+      <Card className="h-[86vh]">
+        <div className="flex justify-between items-center p-5 border-b">
+          <div className="font-bold">Messages</div>
+          <button>
+            <PlusCircleIcon className="h-6 w-6" />
+          </button>
         </div>
-        <div className="flex justify-between p-4">
-          <div className="text-xs">Lens profiles</div>
-          <div className="text-xs">All messages</div>
-        </div>
-        <div>
+        <div className="mt-2">
           {showLoading ? (
             <PageLoading message="Loading messages" />
           ) : (
@@ -54,6 +48,7 @@ const Messages: FC = () => {
               if (!message) {
                 return null;
               }
+
               return <Preview key={`${profile.ownedBy}_${index}`} profile={profile} message={message} />;
             })
           )}
@@ -63,4 +58,4 @@ const Messages: FC = () => {
   );
 };
 
-export default Messages;
+export default PreviewList;
