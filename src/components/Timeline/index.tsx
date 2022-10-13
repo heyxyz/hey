@@ -28,7 +28,8 @@ const Timeline: FC = () => {
   const profileId = currentProfile?.id ?? null;
 
   const { data, loading, error, fetchMore } = useQuery(TimelineDocument, {
-    variables: { request, reactionRequest, profileId }
+    variables: { request, reactionRequest, profileId },
+    fetchPolicy: 'no-cache'
   });
 
   const publications = data?.feed?.items;
