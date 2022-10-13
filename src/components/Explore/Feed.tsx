@@ -8,7 +8,7 @@ import { Spinner } from '@components/UI/Spinner';
 import type { LensterPublication } from '@generated/lenstertypes';
 import { CustomFiltersTypes, ExploreFeedDocument, PublicationSortCriteria } from '@generated/types';
 import { CollectionIcon } from '@heroicons/react/outline';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import type { FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { PAGINATION_ROOT_MARGIN } from 'src/constants';
@@ -51,7 +51,7 @@ const Feed: FC<Props> = ({ focus, feedType = PublicationSortCriteria.CuratedProf
       await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next }, reactionRequest, profileId }
       });
-      Mixpanel.track(PAGINATION.EXPLORE_FEED);
+      Leafwatch.track(PAGINATION.EXPLORE_FEED);
     },
     rootMargin: PAGINATION_ROOT_MARGIN
   });

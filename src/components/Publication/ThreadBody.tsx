@@ -1,6 +1,6 @@
 import UserProfile from '@components/Shared/UserProfile';
 import type { LensterPublication } from '@generated/lenstertypes';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { useRouter } from 'next/router';
@@ -37,7 +37,7 @@ const ThreadBody: FC<Props> = ({ publication }) => {
           className="pt-4 pb-5 w-[85%] sm:w-full"
           onClick={() => {
             push(`/posts/${publication?.id}`);
-            Mixpanel.track(PUBLICATION.OPEN);
+            Leafwatch.track(PUBLICATION.OPEN);
           }}
         >
           {publication?.hidden ? (

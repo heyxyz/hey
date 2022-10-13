@@ -8,7 +8,7 @@ import type { Mutation, Profile } from '@generated/types';
 import { CreateFollowTypedDataDocument, ProxyActionDocument } from '@generated/types';
 import { UserAddIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import type { Dispatch, FC } from 'react';
@@ -35,7 +35,7 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
   const onCompleted = () => {
     setFollowing(true);
     toast.success('Followed successfully!');
-    Mixpanel.track(PROFILE.FOLLOW);
+    Leafwatch.track(PROFILE.FOLLOW);
   };
 
   const updateCache = (cache: ApolloCache<any>) => {
