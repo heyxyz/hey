@@ -1,6 +1,8 @@
 import TabButton from '@components/UI/TabButton';
 import { SparklesIcon, ViewListIcon } from '@heroicons/react/outline';
+import { Leafwatch } from '@lib/leafwatch';
 import type { Dispatch, FC } from 'react';
+import { MISCELLANEOUS } from 'src/tracking';
 
 interface Props {
   setFeedType: Dispatch<'TIMELINE' | 'HIGHLIGHTS'>;
@@ -17,7 +19,7 @@ const FeedType: FC<Props> = ({ setFeedType, feedType }) => {
         showOnSm
         onClick={() => {
           setFeedType('TIMELINE');
-          // Leafwatch.track(PROFILE.SWITCH_FEED);
+          Leafwatch.track(MISCELLANEOUS.SWITCH_TIMELINE);
         }}
       />
       <TabButton
@@ -27,7 +29,7 @@ const FeedType: FC<Props> = ({ setFeedType, feedType }) => {
         showOnSm
         onClick={() => {
           setFeedType('HIGHLIGHTS');
-          // Leafwatch.track(PROFILE.SWITCH_REPLIES);
+          Leafwatch.track(MISCELLANEOUS.SWITCH_HIGHLIGHTS);
         }}
       />
     </div>
