@@ -5,7 +5,7 @@ import clsx from 'clsx';
 import dayjs from 'dayjs';
 import type { FC, ReactNode } from 'react';
 import React, { memo } from 'react';
-import InfiniteScroll from 'react-infinite-scroll-component';
+import { useInView } from 'react-cool-inview';
 
 const formatTime = (d: Date | undefined): string => (d ? dayjs(d).format('hh:mm a - MM/DD/YY') : '');
 
@@ -102,32 +102,36 @@ const MessagesList: FC<MessageListProps> = ({
 }) => {
   let lastMessageDate: Date | undefined;
 
+  const { observe } = useInView({
+    onChange: async ({ inView }) => {
+      if (!inView) {
+        return;
+      }
+
+      fetchNextMessages();
+    }
+  });
+
   return (
-    <div className="flex-grow flex h-[70vh]">
+    <div className="flex-grow flex h-[71vh]">
       <div className="pb-6 md:pb-0 w-full flex flex-col self-end">
         <div className="relative w-full bg-white px-4 pt-6 flex">
-          <div id="scrollableDiv" className="flex flex-col-reverse h-[68vh] overflow-y-auto w-full">
-            <InfiniteScroll
-              dataLength={messages.length}
-              next={fetchNextMessages}
-              hasMore={hasMore}
-              style={{ display: 'flex', flexDirection: 'column-reverse' }}
-              loader={<div className="p-1 text-center text-gray-300 font-bold text-sm">Loading...</div>}
-              endMessage={<ConversationBeginningNotice />}
-              inverse={true}
-              scrollableTarget="scrollableDiv"
-            >
-              {messages?.map((msg: Message) => {
-                const dateHasChanged = !isOnSameDay(lastMessageDate, msg.sent);
-                lastMessageDate = msg.sent;
-                return (
-                  <div key={msg.id}>
-                    {dateHasChanged ? <DateDivider date={msg.sent} /> : null}
-                    <MessageTile currentProfile={currentProfile} profile={profile} message={msg} />
-                  </div>
-                );
-              })}
-            </InfiniteScroll>
+          <div className="flex flex-col-reverse h-[68vh] overflow-y-auto w-full">
+            {messages?.map((msg: Message, idx) => {
+              const dateHasChanged = !isOnSameDay(lastMessageDate, msg.sent);
+              lastMessageDate = msg.sent;
+              return (
+                <div ref={idx === messages.length - 1 ? observe : null} key={msg.id}>
+                  {dateHasChanged ? <DateDivider date={msg.sent} /> : null}
+                  <MessageTile currentProfile={currentProfile} profile={profile} message={msg} />
+                </div>
+              );
+            })}
+            {hasMore ? (
+              <div className="p-1 text-center text-gray-300 font-bold text-sm">Loading...</div>
+            ) : (
+              <ConversationBeginningNotice />
+            )}
           </div>
         </div>
       </div>

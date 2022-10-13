@@ -1,4 +1,4 @@
-import MessageHeader from '@components/Shared/MessageHeader';
+import MessageHeader from '@components/Messages/MessageHeader';
 import { Card } from '@components/UI/Card';
 import { GridItemEight, GridLayout } from '@components/UI/GridLayout';
 import { PageLoading } from '@components/UI/PageLoading';
@@ -33,7 +33,7 @@ const Message: FC = () => {
   const profile = profiles.get(address);
 
   const fetchNextMessages = useCallback(() => {
-    if (address) {
+    if (address && hasMore) {
       const currentMessages = messages.get(address);
       if (Array.isArray(currentMessages) && currentMessages?.length > 0) {
         const lastMsgDate = currentMessages[currentMessages?.length - 1].sent;
@@ -43,7 +43,7 @@ const Message: FC = () => {
         }
       }
     }
-  }, [endTime, messages, address]);
+  }, [address, hasMore, messages, endTime]);
 
   if (!isFeatureEnabled('messages', currentProfile?.id)) {
     return <Custom404 />;

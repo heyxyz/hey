@@ -4,7 +4,7 @@ import type { FC } from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 
-import Follow from './Follow';
+import Follow from '../Shared/Follow';
 
 interface Props {
   profile?: Profile;
@@ -17,10 +17,8 @@ const MessageHeader: FC<Props> = ({ profile }) => {
     setFollowing(profile?.isFollowedByMe ?? false);
   }, [profile?.isFollowedByMe]);
 
-  console.log(following);
-
   return (
-    <div className="flex justify-between flex-1 p-4 border-b-[1px]">
+    <div className="border-bottom dark:border-gray-700/80 flex justify-between flex-1 p-4 border-b-[1px]">
       <div className="flex items-center">
         <img
           src={getAvatar(profile)}
