@@ -1,3 +1,4 @@
+import type { Profile } from '@generated/types';
 import getAvatar from '@lib/getAvatar';
 import type { Message } from '@xmtp/xmtp-js';
 import clsx from 'clsx';
@@ -5,7 +6,6 @@ import dayjs from 'dayjs';
 import type { FC, ReactNode } from 'react';
 import React, { memo } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { useAppStore } from 'src/store/app';
 
 const formatTime = (d: Date | undefined): string => (d ? dayjs(d).format('hh:mm a - MM/DD/YY') : '');
 
@@ -17,10 +17,11 @@ const formatDate = (d?: Date) => dayjs(d).format('MMMM D, YYYY');
 
 interface MessageTileProps {
   message: Message;
+  profile?: Profile;
+  currentProfile?: Profile | null;
 }
 
-const MessageTile: FC<MessageTileProps> = ({ message }) => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
+const MessageTile: FC<MessageTileProps> = ({ message, profile, currentProfile }) => {
   const address = currentProfile?.ownedBy;
 
   return (
@@ -33,9 +34,9 @@ const MessageTile: FC<MessageTileProps> = ({ message }) => {
       <div className="flex max-w-[60%]">
         {address !== message.senderAddress && (
           <img
-            src={getAvatar(currentProfile)}
+            src={getAvatar(profile)}
             className="h-10 w-10 bg-gray-200 rounded-full border dark:border-gray-700/80 mr-2"
-            alt={currentProfile?.handle}
+            alt={profile?.handle}
           />
         )}
         <div
@@ -87,9 +88,11 @@ const ConversationBeginningNotice: FC = () => (
 interface MessageListProps {
   messages: Message[];
   fetchNextMessages: () => void;
+  profile?: Profile;
+  currentProfile?: Profile | null;
 }
 
-const MessagesList: FC<MessageListProps> = ({ messages, fetchNextMessages }) => {
+const MessagesList: FC<MessageListProps> = ({ messages, fetchNextMessages, profile, currentProfile }) => {
   let lastMessageDate: Date | undefined;
 
   return (
@@ -113,7 +116,7 @@ const MessagesList: FC<MessageListProps> = ({ messages, fetchNextMessages }) => 
                 return (
                   <div key={msg.id}>
                     {dateHasChanged ? <DateDivider date={msg.sent} /> : null}
-                    <MessageTile message={msg} />
+                    <MessageTile currentProfile={currentProfile} profile={profile} message={msg} />
                   </div>
                 );
               })}
