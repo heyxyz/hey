@@ -47,7 +47,7 @@ const Explore: NextPage = () => {
                 defaultChecked={index === 1}
                 className={({ selected }) =>
                   clsx(
-                    { 'border-b-2 border-brand-500 font-black': selected },
+                    { 'border-b-2 border-brand-500 !text-black': selected },
                     'px-4 pb-2 text-gray-500 outline-none font-medium text-sm'
                   )
                 }

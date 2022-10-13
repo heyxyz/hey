@@ -27,7 +27,7 @@ const Preview: FC<Props> = ({ profile, message }) => {
 
   return (
     <div onClick={() => onConversationSelected(profile.ownedBy)}>
-      <div className="flex justify-between pb-4 space-x-1.5">
+      <div className="flex justify-between space-x-1.5">
         <div className="flex justify-between items-center">
           <div className="flex items-center space-x-3">
             <Link href={`/u/${profile?.handle}`}>
