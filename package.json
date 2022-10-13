@@ -47,6 +47,7 @@
     "react-hook-form": "^7.36.1",
     "react-hot-toast": "^2.4.0",
     "react-mentions": "^4.4.7",
+    "react-virtuoso": "^2.19.1",
     "uuid": "^9.0.0",
     "wagmi": "^0.6.8",
     "zod": "^3.19.1",

@@ -157,3 +157,11 @@ body {
 iframe {
   @apply rounded-xl;
 }
+
+.virtual-list > div > div {
+  @apply divide-y-[1px] dark:divide-gray-700/80;
+}
+
+.virtual-list > div > div > div {
+  @apply hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer first:rounded-t-xl last:rounded-b-xl;
+}
