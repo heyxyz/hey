@@ -36,7 +36,7 @@ const SinglePublication: FC<Props> = ({
   const timestamp = isMirror ? publication?.mirrorOf?.createdAt : publication?.createdAt;
 
   return (
-    <article className="hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer first:rounded-t-xl last:rounded-b-xl p-5">
+    <article className="p-5">
       <PublicationType publication={publication} showType={showType} showThread={showThread} />
       <div className="flex justify-between pb-4 space-x-1.5">
         <span onClick={(event) => event.stopPropagation()}>
