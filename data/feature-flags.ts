@@ -28,7 +28,8 @@ export const featureFlags = [
     name: 'Timeline v2',
     enabledFor: [
       ...lensterMembers,
-      '0x2d' // sasicodes.lens
+      '0x2d', // sasicodes.lens
+      '0x06' // wagmi.lens
     ]
   }
 ];
