@@ -12,7 +12,7 @@ import type { Mutation } from '@generated/types';
 import { CreateBurnProfileTypedDataDocument } from '@generated/types';
 import { ExclamationIcon, TrashIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import onError from '@lib/onError';
 import resetAuthData from '@lib/resetAuthData';
 import splitSignature from '@lib/splitSignature';
@@ -29,7 +29,7 @@ import Sidebar from '../Sidebar';
 
 const DeleteSettings: FC = () => {
   useEffect(() => {
-    Mixpanel.track('Pageview', { path: PAGEVIEW.SETTINGS.DELETE });
+    Leafwatch.track('Pageview', { path: PAGEVIEW.SETTINGS.DELETE });
   }, []);
 
   const [showWarningModal, setShowWarningModal] = useState(false);
@@ -43,7 +43,7 @@ const DeleteSettings: FC = () => {
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
 
   const onCompleted = () => {
-    Mixpanel.track(SETTINGS.DELETE);
+    Leafwatch.track(SETTINGS.DELETE);
     setCurrentProfile(null);
     setProfileId(null);
     resetAuthData();

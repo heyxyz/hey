@@ -1,7 +1,7 @@
 import Beta from '@components/Shared/Beta';
 import { Card } from '@components/UI/Card';
 import { CheckCircleIcon, ExternalLinkIcon } from '@heroicons/react/outline';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import axios from 'axios';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
@@ -50,7 +50,7 @@ const CrossPost: FC = () => {
             href={REFLECT_URL}
             className="flex items-center space-x-1.5"
             onClick={() => {
-              Mixpanel.track(SETTINGS.ACCOUNT.OPEN_REFLECT, {
+              Leafwatch.track(SETTINGS.ACCOUNT.OPEN_REFLECT, {
                 purpose: 'disable'
               });
             }}
@@ -66,7 +66,7 @@ const CrossPost: FC = () => {
           href={REFLECT_URL}
           className="flex items-center space-x-1.5"
           onClick={() => {
-            Mixpanel.track(SETTINGS.ACCOUNT.OPEN_REFLECT, {
+            Leafwatch.track(SETTINGS.ACCOUNT.OPEN_REFLECT, {
               purpose: 'enable'
             });
           }}
