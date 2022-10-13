@@ -1,9 +1,8 @@
+import TabButton from '@components/UI/TabButton';
 import type { ProfileStats } from '@generated/types';
 import { ChatAlt2Icon, FilmIcon, PencilAltIcon, PhotographIcon } from '@heroicons/react/outline';
 import { Leafwatch } from '@lib/leafwatch';
-import nFormatter from '@lib/nFormatter';
-import clsx from 'clsx';
-import type { Dispatch, FC, ReactNode } from 'react';
+import type { Dispatch, FC } from 'react';
 
 interface Props {
   stats: ProfileStats;
@@ -12,52 +11,46 @@ interface Props {
 }
 
 const FeedType: FC<Props> = ({ stats, setFeedType, feedType }) => {
-  interface FeedLinkProps {
-    name: string;
-    icon: ReactNode;
-    type: string;
-    count?: number;
-  }
-
-  const FeedLink: FC<FeedLinkProps> = ({ name, icon, type, count = 0 }) => (
-    <button
-      type="button"
-      onClick={() => {
-        setFeedType(type);
-        Leafwatch.track(`Switch to ${type.toLowerCase()} tab in profile`);
-      }}
-      className={clsx(
-        {
-          'text-brand bg-brand-100 dark:bg-opacity-20 bg-opacity-100 font-bold': feedType === type
-        },
-        'flex items-center space-x-2 rounded-lg px-4 sm:px-3 py-2 sm:py-1 text-brand hover:bg-brand-100 dark:hover:bg-opacity-20 hover:bg-opacity-100'
-      )}
-      aria-label={name}
-    >
-      {icon}
-      <span className="hidden sm:block">{name}</span>
-      {count ? (
-        <span className="px-2 text-xs rounded-full bg-brand-200 dark:bg-brand-800">{nFormatter(count)}</span>
-      ) : null}
-    </button>
-  );
-
   return (
     <div className="flex overflow-x-auto gap-3 px-5 pb-2 mt-3 sm:px-0 sm:mt-0 md:pb-0">
-      <FeedLink
+      <TabButton
         name="Feed"
         icon={<PencilAltIcon className="w-4 h-4" />}
-        type="FEED"
+        active={feedType === 'FEED'}
         count={stats?.totalPosts + stats?.totalMirrors}
+        onClick={() => {
+          setFeedType('FEED');
+          Leafwatch.track(`Switch to feed tab in profile`);
+        }}
       />
-      <FeedLink
+      <TabButton
         name="Replies"
         icon={<ChatAlt2Icon className="w-4 h-4" />}
-        type="REPLIES"
+        active={feedType === 'REPLIES'}
         count={stats?.totalComments}
+        onClick={() => {
+          setFeedType('REPLIES');
+          Leafwatch.track(`Switch to replies tab in profile`);
+        }}
       />
-      <FeedLink name="Media" icon={<FilmIcon className="w-4 h-4" />} type="MEDIA" />
-      <FeedLink name="NFTs" icon={<PhotographIcon className="w-4 h-4" />} type="NFT" />
+      <TabButton
+        name="Media"
+        icon={<FilmIcon className="w-4 h-4" />}
+        active={feedType === 'MEDIA'}
+        onClick={() => {
+          setFeedType('MEDIA');
+          Leafwatch.track(`Switch to media tab in profile`);
+        }}
+      />
+      <TabButton
+        name="NFTs"
+        icon={<PhotographIcon className="w-4 h-4" />}
+        active={feedType === 'NFT'}
+        onClick={() => {
+          setFeedType('NFT');
+          Leafwatch.track(`Switch to nft tab in profile`);
+        }}
+      />
     </div>
   );
 };
