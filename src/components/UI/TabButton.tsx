@@ -7,24 +7,32 @@ interface Props {
   icon: ReactNode;
   active: boolean;
   count?: number;
+  showOnSm?: boolean;
   onClick: () => void;
 }
 
-const TabButton: FC<Props> = ({ name, icon, active, count, onClick }) => {
+const TabButton: FC<Props> = ({ name, icon, active, count, showOnSm = false, onClick }) => {
   return (
     <button
       type="button"
       onClick={onClick}
       className={clsx(
-        { 'text-brand bg-brand-100 dark:bg-opacity-20 bg-opacity-100 font-bold': active },
-        'flex items-center space-x-2 rounded-lg px-4 sm:px-3 py-2 sm:py-1 text-brand hover:bg-brand-100 dark:hover:bg-opacity-20 hover:bg-opacity-100'
+        { 'text-brand bg-brand-100 dark:bg-opacity-20 bg-opacity-100': active },
+        'flex items-center space-x-2 rounded-lg text-sm px-4 sm:px-3 font-medium py-2 sm:py-1.5 text-gray-500 hover:bg-brand-100 dark:hover:bg-opacity-20 hover:bg-opacity-100'
       )}
       aria-label={name}
     >
       {icon}
-      <span className="hidden sm:block">{name}</span>
+      <span className={clsx({ 'hidden sm:block': !showOnSm })}>{name}</span>
       {count ? (
-        <span className="px-2 text-xs rounded-full bg-brand-200 dark:bg-brand-800">{nFormatter(count)}</span>
+        <span
+          className={clsx(
+            { 'bg-brand-200 dark:bg-brand-800': active },
+            'px-2 text-xs rounded-full bg-gray-200 dark:bg-gray-800'
+          )}
+        >
+          {nFormatter(count)}
+        </span>
       ) : null}
     </button>
   );
