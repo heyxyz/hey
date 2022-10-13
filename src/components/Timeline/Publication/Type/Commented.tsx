@@ -16,8 +16,8 @@ const Commented: FC<Props> = ({ feedItem }) => {
 
   return (
     <>
-      {mainPost ? <ThreadBody feedItem={feedItem} publication={mainPost} /> : null}
-      {commentOn && <ThreadBody feedItem={feedItem} publication={commentOn} />}
+      {mainPost ? <ThreadBody publication={mainPost} /> : null}
+      {/* {commentOn && <ThreadBody publication={commentOn} />} */}
     </>
   );
 };

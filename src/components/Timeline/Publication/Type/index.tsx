@@ -4,7 +4,6 @@ import type { FC } from 'react';
 import Collected from './Collected';
 import Combined from './Combined';
 import Commented from './Commented';
-import CommentedPublication from './CommentedPublication';
 import Mirrored from './Mirrored';
 import Reacted from './Reacted';
 
@@ -38,7 +37,7 @@ const PublicationType: FC<Props> = ({ feedItem, showType, showThread = false }) 
   ) : (
     <>
       {feedItem.mirrors.length ? <Mirrored mirrors={feedItem.mirrors} /> : null}
-      {feedItem.comments?.length ? <CommentedPublication comments={feedItem.comments} /> : null}
+      {/* {feedItem.comments?.length ? <CommentedPublication comments={feedItem.comments} /> : null} */}
       {type === 'Comment' && showThread && <Commented feedItem={feedItem} />}
       {feedItem.collects.length ? <Collected collects={feedItem.collects} /> : null}
       {feedItem.reactions.length ? <Reacted reactions={feedItem.reactions} /> : null}
