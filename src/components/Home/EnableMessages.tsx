@@ -28,7 +28,7 @@ const EnableMessages: FC = () => {
     fetchCanMessage();
   }, [currentProfile]);
 
-  if (!currentProfile || (!loading && canMessage)) {
+  if (!currentProfile || loading || canMessage) {
     return null;
   }
 
