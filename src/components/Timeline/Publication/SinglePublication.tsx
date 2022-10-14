@@ -46,9 +46,6 @@ const SinglePublication: FC<Props> = ({
         </span>
         <span className="text-xs text-gray-500">{dayjs(new Date(timestamp)).fromNow()}</span>
       </div>
-      <button onClick={() => console.log(feedItem)} className="text-xs">
-        Log
-      </button>
       <div
         className="ml-[53px]"
         onClick={() => {
