@@ -13,5 +13,6 @@ export const ignoreErrors = [
   /.*Cancel rendering route*/gm,
   /.*currentTarget, detail, isTrusted, target*/gm,
   /.*Network Error*/gm,
-  /.*Failed to fetch*/gm
+  /.*Failed to fetch*/gm,
+  /.*User rejected request*/gm
 ];
