@@ -52,8 +52,8 @@ const DeleteSettings: FC = () => {
   };
 
   const { isLoading: writeLoading, write } = useContractWrite({
-    addressOrName: LENSHUB_PROXY,
-    contractInterface: LensHubProxy,
+    address: LENSHUB_PROXY,
+    abi: LensHubProxy,
     functionName: 'burnWithSig',
     mode: 'recklesslyUnprepared',
     onSuccess: onCompleted,

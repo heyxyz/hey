@@ -50,8 +50,8 @@ const Picture: FC<Props> = ({ profile }) => {
     error,
     write
   } = useContractWrite({
-    addressOrName: LENSHUB_PROXY,
-    contractInterface: LensHubProxy,
+    address: LENSHUB_PROXY,
+    abi: LensHubProxy,
     functionName: 'setProfileImageURIWithSig',
     mode: 'recklesslyUnprepared',
     onSuccess: onCompleted,
@@ -84,7 +84,7 @@ const Picture: FC<Props> = ({ profile }) => {
 
           setUserSigNonce(userSigNonce + 1);
           if (!RELAY_ON) {
-            return write?.({ recklesslySetUnpreparedArgs: inputStruct });
+            return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
           }
 
           const {
@@ -92,7 +92,7 @@ const Picture: FC<Props> = ({ profile }) => {
           } = await broadcast({ request: { id, signature } });
 
           if ('reason' in result) {
-            write?.({ recklesslySetUnpreparedArgs: inputStruct });
+            write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
           }
         } catch {}
       },

@@ -110,6 +110,7 @@ export const SEARCH = {
 
 export const PAGINATION = {
   HOME_FEED: 'Paginate home feed',
+  HIGHLIGHTS_FEED: 'Paginate highlights feed',
   COMMENT_FEED: 'Paginate comment feed',
   EXPLORE_FEED: 'Paginate explore feed',
   PROFILE_FEED: 'Paginate profile feed',
@@ -162,7 +163,9 @@ export const PAGEVIEW = {
 export const MISCELLANEOUS = {
   NAVIGATE_UPDATE_PROFILE: 'Navigate to update profile from onboarding',
   OPEN_RECOMMENDED_PROFILES: 'Open recommended profiles modal',
-  OPEN_TRENDING_TAG: 'Open trending tag'
+  OPEN_TRENDING_TAG: 'Open trending tag',
+  SWITCH_TIMELINE: 'Switch to timeline',
+  SWITCH_HIGHLIGHTS: 'Switch to highlights'
 };
 
 export const FOOTER = {
