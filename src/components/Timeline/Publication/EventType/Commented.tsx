@@ -1,8 +1,7 @@
+import ThreadBody from '@components/Publication/ThreadBody';
 import type { LensterPublication } from '@generated/lenstertypes';
 import type { Comment, FeedItem } from '@generated/types';
 import type { FC } from 'react';
-
-import ThreadBody from '../ThreadBody';
 
 interface Props {
   feedItem: FeedItem;
@@ -15,9 +14,9 @@ const Commented: FC<Props> = ({ feedItem }) => {
   return (
     <span>
       {firstComment ? (
-        <ThreadBody publication={publication as LensterPublication} />
+        <ThreadBody isMirror={false} publication={publication as LensterPublication} />
       ) : (
-        <ThreadBody publication={publication?.commentOn as LensterPublication} />
+        <ThreadBody isMirror={false} publication={publication?.commentOn as LensterPublication} />
       )}
     </span>
   );

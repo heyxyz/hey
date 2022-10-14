@@ -15,11 +15,11 @@ dayjs.extend(relativeTime);
 
 interface Props {
   publication: LensterPublication;
+  isMirror?: boolean;
 }
 
-const ThreadBody: FC<Props> = ({ publication }) => {
+const ThreadBody: FC<Props> = ({ publication, isMirror = publication.__typename === 'Mirror' }) => {
   const { push } = useRouter();
-  const isMirror = publication.__typename === 'Mirror';
   const profile = isMirror ? publication?.mirrorOf?.profile : publication?.profile;
   const timestamp = isMirror ? publication?.mirrorOf?.createdAt : publication?.createdAt;
 
@@ -45,7 +45,7 @@ const ThreadBody: FC<Props> = ({ publication }) => {
           ) : (
             <>
               <PublicationBody publication={publication} />
-              <PublicationActions publication={publication} />
+              {publication && <PublicationActions publication={publication} />}
             </>
           )}
         </div>
