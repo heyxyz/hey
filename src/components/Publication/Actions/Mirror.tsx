@@ -31,7 +31,7 @@ interface Props {
 }
 
 const Mirror: FC<Props> = ({ publication, isFullPublication }) => {
-  const isMirror = publication?.__typename === 'Mirror';
+  const isMirror = publication.__typename === 'Mirror';
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);

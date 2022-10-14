@@ -24,7 +24,7 @@ interface Props {
 }
 
 const Like: FC<Props> = ({ publication, isFullPublication }) => {
-  const isMirror = publication?.__typename === 'Mirror';
+  const isMirror = publication.__typename === 'Mirror';
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [liked, setLiked] = useState(
     (isMirror ? publication?.mirrorOf?.reaction : publication?.reaction) === 'UPVOTE'
