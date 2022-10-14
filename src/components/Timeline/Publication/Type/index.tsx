@@ -22,6 +22,7 @@ const PublicationType: FC<Props> = ({ feedItem, showType, showThread = false }) 
   const publication = feedItem.root;
   const type = publication.__typename;
   const isComment = type === 'Comment';
+  const commentsCount = feedItem.comments?.length ?? 0;
 
   const canCombined = getCanCombined([
     feedItem.mirrors.length,
@@ -39,7 +40,7 @@ const PublicationType: FC<Props> = ({ feedItem, showType, showThread = false }) 
   ) : (
     <>
       {feedItem.mirrors.length && !isComment ? <Mirrored mirrors={feedItem.mirrors} /> : null}
-      {isComment && showThread && <Commented feedItem={feedItem} />}
+      {(isComment || commentsCount > 0) && showThread && <Commented feedItem={feedItem} />}
       {/* {feedItem.comments?.length && isComment ? <CommentedPublication comments={feedItem.comments} /> : null} */}
       {feedItem.collects.length && !isComment ? (
         <Collected isComment={isComment} collects={feedItem.collects} />

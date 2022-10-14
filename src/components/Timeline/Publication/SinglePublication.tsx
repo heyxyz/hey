@@ -32,9 +32,10 @@ const SinglePublication: FC<Props> = ({
   showThread = true
 }) => {
   const { push } = useRouter();
-  const profile = feedItem.root?.profile;
-  const timestamp = feedItem.root?.createdAt;
-  const publication = feedItem.root;
+  const firstComment = feedItem.comments && feedItem.comments[0];
+  const publication = firstComment ? firstComment : feedItem.root;
+  const timestamp = publication?.createdAt;
+  const profile = publication.profile;
 
   return (
     <article className="hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer first:rounded-t-xl last:rounded-b-xl p-5">

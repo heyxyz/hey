@@ -17001,23 +17001,95 @@ export type TimelineQuery = {
         __typename?: 'ElectedMirror';
         mirrorId: any;
         timestamp: any;
-        profile: { __typename?: 'Profile'; id: any; handle: any };
+        profile: {
+          __typename?: 'Profile';
+          id: any;
+          name?: string | null;
+          handle: any;
+          bio?: string | null;
+          ownedBy: any;
+          attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
+          picture?:
+            | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
+            | { __typename?: 'NftImage'; uri: any }
+            | null;
+          followModule?:
+            | { __typename: 'FeeFollowModuleSettings' }
+            | { __typename: 'ProfileFollowModuleSettings' }
+            | { __typename: 'RevertFollowModuleSettings' }
+            | { __typename: 'UnknownFollowModuleSettings' }
+            | null;
+        };
       } | null;
       mirrors: Array<{
         __typename?: 'MirrorEvent';
         timestamp: any;
-        profile: { __typename?: 'Profile'; id: any; handle: any };
+        profile: {
+          __typename?: 'Profile';
+          id: any;
+          name?: string | null;
+          handle: any;
+          bio?: string | null;
+          ownedBy: any;
+          attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
+          picture?:
+            | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
+            | { __typename?: 'NftImage'; uri: any }
+            | null;
+          followModule?:
+            | { __typename: 'FeeFollowModuleSettings' }
+            | { __typename: 'ProfileFollowModuleSettings' }
+            | { __typename: 'RevertFollowModuleSettings' }
+            | { __typename: 'UnknownFollowModuleSettings' }
+            | null;
+        };
       }>;
       collects: Array<{
         __typename?: 'CollectedEvent';
         timestamp: any;
-        profile: { __typename?: 'Profile'; id: any; handle: any };
+        profile: {
+          __typename?: 'Profile';
+          id: any;
+          name?: string | null;
+          handle: any;
+          bio?: string | null;
+          ownedBy: any;
+          attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
+          picture?:
+            | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
+            | { __typename?: 'NftImage'; uri: any }
+            | null;
+          followModule?:
+            | { __typename: 'FeeFollowModuleSettings' }
+            | { __typename: 'ProfileFollowModuleSettings' }
+            | { __typename: 'RevertFollowModuleSettings' }
+            | { __typename: 'UnknownFollowModuleSettings' }
+            | null;
+        };
       }>;
       reactions: Array<{
         __typename?: 'ReactionEvent';
         reaction: ReactionTypes;
         timestamp: any;
-        profile: { __typename?: 'Profile'; id: any; handle: any };
+        profile: {
+          __typename?: 'Profile';
+          id: any;
+          name?: string | null;
+          handle: any;
+          bio?: string | null;
+          ownedBy: any;
+          attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
+          picture?:
+            | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
+            | { __typename?: 'NftImage'; uri: any }
+            | null;
+          followModule?:
+            | { __typename: 'FeeFollowModuleSettings' }
+            | { __typename: 'ProfileFollowModuleSettings' }
+            | { __typename: 'RevertFollowModuleSettings' }
+            | { __typename: 'UnknownFollowModuleSettings' }
+            | null;
+        };
       }>;
       comments?: Array<{
         __typename?: 'Comment';
@@ -24280,8 +24352,7 @@ export const TimelineDocument = {
                               selectionSet: {
                                 kind: 'SelectionSet',
                                 selections: [
-                                  { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                                  { kind: 'Field', name: { kind: 'Name', value: 'handle' } }
+                                  { kind: 'FragmentSpread', name: { kind: 'Name', value: 'ProfileFields' } }
                                 ]
                               }
                             },
@@ -24301,8 +24372,7 @@ export const TimelineDocument = {
                               selectionSet: {
                                 kind: 'SelectionSet',
                                 selections: [
-                                  { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                                  { kind: 'Field', name: { kind: 'Name', value: 'handle' } }
+                                  { kind: 'FragmentSpread', name: { kind: 'Name', value: 'ProfileFields' } }
                                 ]
                               }
                             },
@@ -24322,8 +24392,7 @@ export const TimelineDocument = {
                               selectionSet: {
                                 kind: 'SelectionSet',
                                 selections: [
-                                  { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                                  { kind: 'Field', name: { kind: 'Name', value: 'handle' } }
+                                  { kind: 'FragmentSpread', name: { kind: 'Name', value: 'ProfileFields' } }
                                 ]
                               }
                             },
@@ -24343,8 +24412,7 @@ export const TimelineDocument = {
                               selectionSet: {
                                 kind: 'SelectionSet',
                                 selections: [
-                                  { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                                  { kind: 'Field', name: { kind: 'Name', value: 'handle' } }
+                                  { kind: 'FragmentSpread', name: { kind: 'Name', value: 'ProfileFields' } }
                                 ]
                               }
                             },

@@ -1,8 +1,8 @@
-import Slug from '@components/Shared/Slug';
 import type { FeedItem } from '@generated/types';
 import { ChatAlt2Icon, CollectionIcon, HeartIcon, SwitchHorizontalIcon } from '@heroicons/react/outline';
-import Link from 'next/link';
 import type { FC } from 'react';
+
+import ProfileCircles from './ProfileCircles';
 
 interface Props {
   feedItem: FeedItem;
@@ -12,11 +12,19 @@ const Combined: FC<Props> = ({ feedItem }) => {
   const totalComments = feedItem.comments?.length ?? 0;
   const total =
     feedItem.mirrors.length + feedItem.collects.length + feedItem.reactions.length + totalComments;
-  const profile =
-    (feedItem.comments && feedItem.comments[0]?.profile) ??
-    feedItem.mirrors[0]?.profile ??
-    feedItem.collects[0]?.profile ??
-    feedItem.reactions[0]?.profile;
+  // const profile =
+  //   (feedItem.comments && feedItem.comments[0]?.profile) ??
+  //   feedItem.mirrors[0]?.profile ??
+  //   feedItem.collects[0]?.profile ??
+  //   feedItem.reactions[0]?.profile;
+
+  const getAllProfiles = () => {
+    const mirrors = feedItem.mirrors;
+    const collects = feedItem.collects;
+    const reactions = feedItem.reactions;
+    const comments = feedItem.comments ?? [];
+    return [...mirrors, ...collects, ...reactions, ...comments].map((event) => event.profile);
+  };
 
   return (
     <div className="flex items-center pb-4 space-x-1 text-gray-500 text-[13px]">
@@ -26,10 +34,12 @@ const Combined: FC<Props> = ({ feedItem }) => {
         {feedItem.collects?.length ? <CollectionIcon className="w-4 h-4" /> : null}
         {feedItem.reactions?.length ? <HeartIcon className="w-4 h-4" /> : null}
       </div>
-      <Link href={`/u/${profile?.handle}`} className="max-w-xs truncate">
+      <ProfileCircles profiles={getAllProfiles()} totalCount={total} />
+
+      {/* <Link href={`/u/${profile?.handle}`} className="max-w-xs truncate">
         {profile?.name ? <b>{profile?.name}</b> : <Slug slug={profile?.handle} prefix="@" />}
       </Link>
-      <span>and {total - 1} others</span>
+      <span>and {total - 1} others</span> */}
     </div>
   );
 };

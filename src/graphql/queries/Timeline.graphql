@@ -16,29 +16,25 @@ query Timeline(
       electedMirror {
         mirrorId
         profile {
-          id
-          handle
+          ...ProfileFields
         }
         timestamp
       }
       mirrors {
         profile {
-          id
-          handle
+          ...ProfileFields
         }
         timestamp
       }
       collects {
         profile {
-          id
-          handle
+          ...ProfileFields
         }
         timestamp
       }
       reactions {
         profile {
-          id
-          handle
+          ...ProfileFields
         }
         reaction
         timestamp
