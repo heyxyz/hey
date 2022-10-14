@@ -35,7 +35,6 @@ const Combined: FC<Props> = ({ feedItem }) => {
         {feedItem.reactions?.length ? <HeartIcon className="w-4 h-4" /> : null}
       </div>
       <ProfileCircles profiles={getAllProfiles()} totalCount={total} />
-
       {/* <Link href={`/u/${profile?.handle}`} className="max-w-xs truncate">
         {profile?.name ? <b>{profile?.name}</b> : <Slug slug={profile?.handle} prefix="@" />}
       </Link>

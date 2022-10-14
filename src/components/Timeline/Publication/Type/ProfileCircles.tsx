@@ -13,8 +13,8 @@ const ProfileCircles: FC<Props> = ({ profiles, totalCount, context }) => {
   const Wrapper = ({ children }: { children: ReactNode }) => (
     <div className="mr-0 sm:mr-10 text-sm text-gray-500 flex items-center space-x-1.5 cursor-pointer">
       <div className="contents -space-x-2">
-        {profiles?.map((profile) => (
-          <Link key={profile.handle} href={`/u/${profile?.handle}`}>
+        {profiles.slice(0, 3)?.map((profile, i) => (
+          <Link key={`${profile.handle}_${i}`} href={`/u/${profile?.handle}`}>
             <img
               className="w-5 h-5 rounded-full border dark:border-gray-700/80"
               src={getAvatar(profile)}
@@ -51,7 +51,7 @@ const ProfileCircles: FC<Props> = ({ profiles, totalCount, context }) => {
     );
   }
 
-  if (profiles?.length === 3) {
+  if (profiles?.length >= 3) {
     const calculatedCount = totalCount - 3;
     const isZero = calculatedCount === 0;
 
