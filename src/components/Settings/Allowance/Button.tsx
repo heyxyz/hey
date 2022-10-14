@@ -11,7 +11,7 @@ import onError from '@lib/onError';
 import type { Dispatch, FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import { usePrepareSendTransaction, useSendTransaction, useWaitForTransaction } from 'wagmi';
+import { useSendTransaction, useWaitForTransaction } from 'wagmi';
 
 interface Props {
   title?: string;
@@ -26,16 +26,12 @@ const AllowanceButton: FC<Props> = ({ title = 'Allow', module, allowed, setAllow
     GenerateModuleCurrencyApprovalDataDocument
   );
 
-  const { config } = usePrepareSendTransaction({
-    request: {}
-  });
-
   const {
     data: txData,
     isLoading: transactionLoading,
     sendTransaction
   } = useSendTransaction({
-    ...config,
+    request: {},
     mode: 'recklesslyUnprepared',
     onError
   });
