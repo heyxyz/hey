@@ -1,7 +1,9 @@
 import TabButton from '@components/UI/TabButton';
 import { SparklesIcon, ViewListIcon } from '@heroicons/react/outline';
+import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { Leafwatch } from '@lib/leafwatch';
 import type { Dispatch, FC } from 'react';
+import { useAppStore } from 'src/store/app';
 import { MISCELLANEOUS } from 'src/tracking';
 
 import FeedEventFilters from './FeedEventFilters';
@@ -12,6 +14,8 @@ interface Props {
 }
 
 const FeedType: FC<Props> = ({ setFeedType, feedType }) => {
+  const currentProfile = useAppStore((state) => state.currentProfile);
+
   return (
     <div className="flex items-center justify-between">
       <div className="flex overflow-x-auto gap-3 px-5 sm:px-0">
@@ -36,7 +40,7 @@ const FeedType: FC<Props> = ({ setFeedType, feedType }) => {
           }}
         />
       </div>
-      <FeedEventFilters />
+      {feedType === 'TIMELINE' && isFeatureEnabled('timeline-v2', currentProfile?.id) && <FeedEventFilters />}
     </div>
   );
 };
