@@ -16,7 +16,9 @@ const Reacted: FC<Props> = ({ reactions, isComment }) => {
 
   const getReactedProfiles = () => {
     let profiles = reactions.map((event) => event.profile);
-    profiles = profiles.filter((value, index, self) => index === self.findIndex((t) => t.id === value.id));
+    profiles = profiles.filter(
+      (profile, index, self) => index === self.findIndex((t) => t.id === profile.id)
+    );
     return profiles;
   };
 

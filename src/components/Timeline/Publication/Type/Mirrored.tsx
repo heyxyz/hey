@@ -16,7 +16,9 @@ const Mirrored: FC<Props> = ({ mirrors, isComment }) => {
 
   const getMirroredProfiles = () => {
     let profiles = mirrors.map((event) => event.profile);
-    profiles = profiles.filter((value, index, self) => index === self.findIndex((t) => t.id === value.id));
+    profiles = profiles.filter(
+      (profile, index, self) => index === self.findIndex((t) => t.id === profile.id)
+    );
     return profiles;
   };
 

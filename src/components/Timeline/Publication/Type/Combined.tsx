@@ -24,7 +24,9 @@ const Combined: FC<Props> = ({ feedItem }) => {
     const reactions = feedItem.reactions;
     const comments = feedItem.comments ?? [];
     let profiles = [...mirrors, ...collects, ...reactions, ...comments].map((event) => event.profile);
-    profiles = profiles.filter((value, index, self) => index === self.findIndex((t) => t.id === value.id));
+    profiles = profiles.filter(
+      (profile, index, self) => index === self.findIndex((t) => t.id === profile.id)
+    );
     return profiles;
   };
 
