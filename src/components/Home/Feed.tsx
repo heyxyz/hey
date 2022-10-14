@@ -12,7 +12,6 @@ import { CollectionIcon } from '@heroicons/react/outline';
 import { Leafwatch } from '@lib/leafwatch';
 import type { FC } from 'react';
 import { useInView } from 'react-cool-inview';
-import { Virtuoso } from 'react-virtuoso';
 import { PAGINATION_ROOT_MARGIN } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { useTransactionPersistStore } from 'src/store/transaction';
@@ -67,7 +66,7 @@ const Feed: FC = () => {
 
   return (
     <>
-      <Card>
+      <Card className="divide-y-[1px] dark:divide-gray-700/80">
         {txnQueue.map(
           (txn) =>
             txn?.type === 'NEW_POST' && (
@@ -76,15 +75,12 @@ const Feed: FC = () => {
               </div>
             )
         )}
-        <Virtuoso
-          useWindowScroll
-          className="virtual-list"
-          totalCount={publications?.length}
-          itemContent={(index) => {
-            const publication = publications?.[index] as LensterPublication;
-            return <SinglePublication publication={publication as LensterPublication} />;
-          }}
-        />
+        {publications?.map((publication, index: number) => (
+          <SinglePublication
+            key={`${publication?.id}_${index}`}
+            publication={publication as LensterPublication}
+          />
+        ))}
       </Card>
       {pageInfo?.next && publications?.length !== pageInfo.totalCount && (
         <span ref={observe} className="flex justify-center p-5">
