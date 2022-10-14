@@ -34,7 +34,7 @@ const Message: FC = () => {
   const { profiles } = useMessagePreviews();
   const profile = profiles.get(address);
 
-  const fetchNextMessages = useCallback(() => {
+  const fetchNextMessages = useCallback(async () => {
     if (address && hasMore) {
       const currentMessages = messages.get(address);
       if (Array.isArray(currentMessages) && currentMessages?.length > 0) {
