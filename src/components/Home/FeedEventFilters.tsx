@@ -12,7 +12,7 @@ const FeedEventFilters = () => {
   };
 
   return (
-    <div className="mt-2 flex justify-end">
+    <div className="flex justify-end">
       <div className="flex items-center space-x-4">
         <InputCheckbox onChange={handleChange} checked={feedEventFilters.posts} name="posts" label="Posts" />
         <InputCheckbox
@@ -21,12 +21,6 @@ const FeedEventFilters = () => {
           name="mirrors"
           label="Mirrors"
         />
-        {/* <InputCheckbox
-          onChange={handleChange}
-          checked={feedEventFilters.collects}
-          name="collects"
-          label="Collects"
-        /> */}
         <InputCheckbox
           onChange={handleChange}
           checked={feedEventFilters.reactions}
