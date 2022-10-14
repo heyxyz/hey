@@ -203,10 +203,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
       const decodedData = collectModuleSettings.data;
       return {
         amount: decodedData[1] as BigNumber,
-        currency: decodedData[2] as string,
-        recipient: decodedData[3] as string,
-        referralFee: decodedData[4] as number,
-        followerOnly: decodedData[5] as boolean
+        currency: decodedData[2] as string
       };
     }
   }, [collectModuleSettings]);
