@@ -41,8 +41,8 @@ const ToggleDispatcher: FC<Props> = ({ buttonSize = 'md' }) => {
     isLoading: writeLoading,
     write
   } = useContractWrite({
-    addressOrName: LENSHUB_PROXY,
-    contractInterface: LensHubProxy,
+    address: LENSHUB_PROXY,
+    abi: LensHubProxy,
     functionName: 'setDispatcherWithSig',
     mode: 'recklesslyUnprepared',
     onSuccess: onCompleted,

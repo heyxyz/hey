@@ -89,8 +89,8 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
     isLoading: writeLoading,
     write
   } = useContractWrite({
-    addressOrName: LENSHUB_PROXY,
-    contractInterface: LensHubProxy,
+    address: LENSHUB_PROXY,
+    abi: LensHubProxy,
     functionName: 'collectWithSig',
     mode: 'recklesslyUnprepared',
     onSuccess: onCompleted,

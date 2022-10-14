@@ -114,8 +114,8 @@ const NewComment: FC<Props> = ({ publication }) => {
     isLoading: writeLoading,
     write
   } = useContractWrite({
-    addressOrName: LENSHUB_PROXY,
-    contractInterface: LensHubProxy,
+    address: LENSHUB_PROXY,
+    abi: LensHubProxy,
     functionName: 'commentWithSig',
     mode: 'recklesslyUnprepared',
     onSuccess: ({ hash }) => {

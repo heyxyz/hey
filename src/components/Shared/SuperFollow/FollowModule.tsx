@@ -55,8 +55,8 @@ const FollowModule: FC<Props> = ({ profile, setFollowing, setShowFollowModal, ag
   };
 
   const { isLoading: writeLoading, write } = useContractWrite({
-    addressOrName: LENSHUB_PROXY,
-    contractInterface: LensHubProxy,
+    address: LENSHUB_PROXY,
+    abi: LensHubProxy,
     functionName: 'followWithSig',
     mode: 'recklesslyUnprepared',
     onSuccess: onCompleted,

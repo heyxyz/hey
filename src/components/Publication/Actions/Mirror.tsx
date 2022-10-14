@@ -63,8 +63,8 @@ const Mirror: FC<Props> = ({ publication, isFullPublication }) => {
   };
 
   const { isLoading: writeLoading, write } = useContractWrite({
-    addressOrName: LENSHUB_PROXY,
-    contractInterface: LensHubProxy,
+    address: LENSHUB_PROXY,
+    abi: LensHubProxy,
     functionName: 'mirrorWithSig',
     mode: 'recklesslyUnprepared',
     onSuccess: onCompleted,

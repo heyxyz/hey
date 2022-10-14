@@ -55,8 +55,8 @@ const SuperFollow: FC = () => {
     isLoading: writeLoading,
     write
   } = useContractWrite({
-    addressOrName: LENSHUB_PROXY,
-    contractInterface: LensHubProxy,
+    address: LENSHUB_PROXY,
+    abi: LensHubProxy,
     functionName: 'setFollowModuleWithSig',
     mode: 'recklesslyUnprepared',
     onSuccess: onCompleted,

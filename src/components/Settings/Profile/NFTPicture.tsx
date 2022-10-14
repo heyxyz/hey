@@ -65,8 +65,8 @@ const NFTPicture: FC<Props> = ({ profile }) => {
     error,
     write
   } = useContractWrite({
-    addressOrName: LENSHUB_PROXY,
-    contractInterface: LensHubProxy,
+    address: LENSHUB_PROXY,
+    abi: LensHubProxy,
     functionName: 'setProfileImageURIWithSig',
     mode: 'recklesslyUnprepared',
     onSuccess: onCompleted,

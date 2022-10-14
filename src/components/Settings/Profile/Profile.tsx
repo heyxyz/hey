@@ -80,8 +80,8 @@ const Profile: FC<Props> = ({ profile }) => {
     error,
     write
   } = useContractWrite({
-    addressOrName: LENS_PERIPHERY,
-    contractInterface: LensPeriphery,
+    address: LENS_PERIPHERY,
+    abi: LensPeriphery,
     functionName: 'setProfileMetadataURIWithSig',
     mode: 'recklesslyUnprepared',
     onSuccess: onCompleted,
