@@ -77,7 +77,7 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
             sig
           };
           if (!RELAY_ON) {
-            return write?.({ recklesslySetUnpreparedArgs: inputStruct });
+            return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
           }
 
           const {
@@ -85,7 +85,7 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
           } = await broadcast({ request: { id, signature } });
 
           if ('reason' in result) {
-            write?.({ recklesslySetUnpreparedArgs: inputStruct });
+            write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
           }
         } catch {}
       },
