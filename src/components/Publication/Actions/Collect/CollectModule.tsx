@@ -1,4 +1,5 @@
 import { LensHubProxy } from '@abis/LensHubProxy';
+import { UpdateOwnableFeeCollectModule } from '@abis/UpdateOwnableFeeCollectModule';
 import { useMutation, useQuery } from '@apollo/client';
 import AllowanceButton from '@components/Settings/Allowance/Button';
 import CollectWarning from '@components/Shared/CollectWarning';
@@ -36,6 +37,7 @@ import {
 } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
 import formatAddress from '@lib/formatAddress';
+import getEnvConfig from '@lib/getEnvConfig';
 import getSignature from '@lib/getSignature';
 import getTokenImage from '@lib/getTokenImage';
 import humanize from '@lib/humanize';
@@ -43,13 +45,16 @@ import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import dayjs from 'dayjs';
+import type { BigNumber } from 'ethers';
+import { defaultAbiCoder } from 'ethers/lib/utils';
 import type { Dispatch, FC } from 'react';
 import { useEffect, useState } from 'react';
+import { useMemo } from 'react';
 import toast from 'react-hot-toast';
 import { LENSHUB_PROXY, POLYGONSCAN_URL, RELAY_ON, SIGN_WALLET } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { PUBLICATION } from 'src/tracking';
-import { useAccount, useBalance, useContractWrite, useSignTypedData } from 'wagmi';
+import { useAccount, useBalance, useContractRead, useContractWrite, useSignTypedData } from 'wagmi';
 
 interface Props {
   count: number;
@@ -186,6 +191,26 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
     }
   );
 
+  const collectModuleSettings = useContractRead({
+    addressOrName: getEnvConfig().UpdateOwnableFeeCollectModuleAddress,
+    contractInterface: UpdateOwnableFeeCollectModule,
+    functionName: 'getPublicationData',
+    args: [parseInt(publication.profile?.id), parseInt(publication?.id)]
+  });
+
+  const initialModuleData = useMemo(() => {
+    if (collectModuleSettings.data) {
+      const decodedData = collectModuleSettings.data;
+      return {
+        amount: decodedData[1] as BigNumber,
+        currency: decodedData[2] as string,
+        recipient: decodedData[3] as string,
+        referralFee: decodedData[4] as number,
+        followerOnly: decodedData[5] as boolean
+      };
+    }
+  }, [collectModuleSettings]);
+
   const createCollect = () => {
     if (!currentProfile) {
       return toast.error(SIGN_WALLET);
@@ -197,17 +222,15 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
           request: { collect: { freeCollect: { publicationId: publication?.id } } }
         }
       });
-    } else if (collectModule?.__typename === 'UnknownCollectModuleSettings') {
-      createCollectProxyAction({
-        variables: {
-          request: { collect: { unknownCollect: { publicationId: publication?.id } } }
-        }
-      });
     } else {
+      const encodedData = defaultAbiCoder.encode(
+        ['address', 'uint256'],
+        [initialModuleData?.currency, initialModuleData?.amount]
+      );
       createCollectTypedData({
         variables: {
           options: { overrideSigNonce: userSigNonce },
-          request: { publicationId: publication?.id }
+          request: { publicationId: publication?.id, unknownModuleData: encodedData }
         }
       });
     }
