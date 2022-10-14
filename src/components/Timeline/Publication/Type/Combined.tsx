@@ -23,7 +23,9 @@ const Combined: FC<Props> = ({ feedItem }) => {
     const collects = feedItem.collects;
     const reactions = feedItem.reactions;
     const comments = feedItem.comments ?? [];
-    return [...mirrors, ...collects, ...reactions, ...comments].map((event) => event.profile);
+    let profiles = [...mirrors, ...collects, ...reactions, ...comments].map((event) => event.profile);
+    profiles = profiles.filter((value, index, self) => index === self.findIndex((t) => t.id === value.id));
+    return profiles;
   };
 
   return (
@@ -34,7 +36,7 @@ const Combined: FC<Props> = ({ feedItem }) => {
         {feedItem.collects?.length ? <CollectionIcon className="w-4 h-4" /> : null}
         {feedItem.reactions?.length ? <HeartIcon className="w-4 h-4" /> : null}
       </div>
-      <ProfileCircles profiles={getAllProfiles()} totalCount={total} />
+      <ProfileCircles profiles={getAllProfiles()} totalCount={getAllProfiles().length} />
       {/* <Link href={`/u/${profile?.handle}`} className="max-w-xs truncate">
         {profile?.name ? <b>{profile?.name}</b> : <Slug slug={profile?.handle} prefix="@" />}
       </Link>

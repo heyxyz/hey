@@ -15,7 +15,9 @@ const Collected: FC<Props> = ({ collects, isComment }) => {
   // const showOthers = collects.length > 1;
 
   const getCollectedProfiles = () => {
-    return collects.map((event) => event.profile);
+    let profiles = collects.map((event) => event.profile);
+    profiles = profiles.filter((value, index, self) => index === self.findIndex((t) => t.id === value.id));
+    return profiles;
   };
 
   return (
@@ -25,7 +27,11 @@ const Collected: FC<Props> = ({ collects, isComment }) => {
       })}
     >
       <CollectionIcon className="w-4 h-4" />
-      <ProfileCircles profiles={getCollectedProfiles()} context="collected" totalCount={collects.length} />
+      <ProfileCircles
+        profiles={getCollectedProfiles()}
+        context="collected"
+        totalCount={getCollectedProfiles().length}
+      />
       {/* <Link href={`/u/${profile?.handle}`} className="max-w-xs truncate">
         {profile?.name ? <b>{profile?.name}</b> : <Slug slug={profile?.handle} prefix="@" />}
       </Link>

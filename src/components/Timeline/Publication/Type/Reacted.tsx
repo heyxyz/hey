@@ -15,7 +15,9 @@ const Reacted: FC<Props> = ({ reactions, isComment }) => {
   // const showOthers = reactions.length > 1;
 
   const getReactedProfiles = () => {
-    return reactions.map((event) => event.profile);
+    let profiles = reactions.map((event) => event.profile);
+    profiles = profiles.filter((value, index, self) => index === self.findIndex((t) => t.id === value.id));
+    return profiles;
   };
 
   return (
@@ -25,7 +27,11 @@ const Reacted: FC<Props> = ({ reactions, isComment }) => {
       })}
     >
       <HeartIcon className="w-4 h-4" />
-      <ProfileCircles profiles={getReactedProfiles()} context="reacted" totalCount={reactions.length} />
+      <ProfileCircles
+        profiles={getReactedProfiles()}
+        context="reacted"
+        totalCount={getReactedProfiles().length}
+      />
 
       {/* <Link href={`/u/${profile?.handle}`} className="max-w-xs truncate">
         {profile?.name ? <b>{profile?.name}</b> : <Slug slug={profile?.handle} prefix="@" />}
