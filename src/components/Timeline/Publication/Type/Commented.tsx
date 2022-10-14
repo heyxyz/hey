@@ -12,12 +12,12 @@ const Commented: FC<Props> = ({ feedItem }) => {
   const publication = feedItem.root as Comment;
 
   const commentOn = publication?.commentOn as LensterPublication;
-  const mainPost = commentOn?.mainPost as LensterPublication;
+  // const mainPost = commentOn?.mainPost as LensterPublication;
 
   return (
     <>
-      {mainPost ? <ThreadBody publication={mainPost} /> : null}
-      {commentOn && commentOn.__typename !== 'Comment' && <ThreadBody publication={commentOn} />}
+      {/* {mainPost ? <ThreadBody publication={mainPost} /> : null} */}
+      {commentOn && <ThreadBody publication={commentOn} />}
     </>
   );
 };
