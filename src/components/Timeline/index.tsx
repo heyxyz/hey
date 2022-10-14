@@ -1,4 +1,5 @@
 import { useQuery } from '@apollo/client';
+import QueuedPublication from '@components/Publication/QueuedPublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
 import { Card } from '@components/UI/Card';
 import { EmptyState } from '@components/UI/EmptyState';
@@ -15,7 +16,6 @@ import { useAppStore } from 'src/store/app';
 import { useTransactionPersistStore } from 'src/store/transaction';
 import { PAGINATION } from 'src/tracking';
 
-import QueuedPublication from './Publication/QueuedPublication';
 import SinglePublication from './Publication/SinglePublication';
 
 const Timeline: FC = () => {

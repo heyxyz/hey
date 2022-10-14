@@ -1,3 +1,5 @@
+import HiddenPublication from '@components/Publication/HiddenPublication';
+import PublicationStats from '@components/Publication/PublicationStats';
 import PublicationType from '@components/Publication/Type';
 import UserProfile from '@components/Shared/UserProfile';
 import type { LensterPublication } from '@generated/lenstertypes';
@@ -7,9 +9,7 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import type { FC } from 'react';
 
 import PublicationActions from './Actions';
-import HiddenPublication from './HiddenPublication';
 import PublicationBody from './PublicationBody';
-import PublicationStats from './PublicationStats';
 
 dayjs.extend(relativeTime);
 

@@ -1,3 +1,5 @@
+import ModAction from '@components/Publication/Actions/ModAction';
+import HiddenPublication from '@components/Publication/HiddenPublication';
 import UserProfile from '@components/Shared/UserProfile';
 import type { LensterPublication } from '@generated/lenstertypes';
 import type { ElectedMirror, FeedItem } from '@generated/types';
@@ -9,8 +11,6 @@ import type { FC } from 'react';
 import { PUBLICATION } from 'src/tracking';
 
 import PublicationActions from './Actions';
-import ModAction from './Actions/ModAction';
-import HiddenPublication from './HiddenPublication';
 import PublicationBody from './PublicationBody';
 import PublicationType from './Type';
 

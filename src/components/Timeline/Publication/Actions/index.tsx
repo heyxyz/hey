@@ -1,3 +1,7 @@
+import Comment from '@components/Publication/Actions/Comment';
+import Like from '@components/Publication/Actions/Like';
+import PublicationMenu from '@components/Publication/Actions/Menu';
+import Mirror from '@components/Publication/Actions/Mirror';
 import type { LensterPublication } from '@generated/lenstertypes';
 import type { ElectedMirror } from '@generated/types';
 import clsx from 'clsx';
@@ -5,10 +9,6 @@ import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 
 import Collect from './Collect';
-import Comment from './Comment';
-import Like from './Like';
-import PublicationMenu from './Menu';
-import Mirror from './Mirror';
 
 interface Props {
   publication: LensterPublication;
