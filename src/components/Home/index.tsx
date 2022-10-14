@@ -46,8 +46,10 @@ const Home: NextPage = () => {
                   <Timeline />
                 </>
               ) : (
-                <FeedType feedType={feedType} setFeedType={setFeedType} />
-                {feedType === 'TIMELINE' ? <HomeFeed /> : <Highlights />}
+                <>
+                  <FeedType feedType={feedType} setFeedType={setFeedType} />
+                  {feedType === 'TIMELINE' ? <HomeFeed /> : <Highlights />}
+                </>
               )}
             </>
           ) : (

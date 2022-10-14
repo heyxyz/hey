@@ -1,4 +1,4 @@
-import { useQuery } from '@apollo/client';
+import { useLazyQuery } from '@apollo/client';
 import QueuedPublication from '@components/Publication/QueuedPublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
 import { Card } from '@components/UI/Card';
@@ -26,15 +26,6 @@ const Timeline: FC = () => {
   const txnQueue = useTransactionPersistStore((state) => state.txnQueue);
   const feedEventFilters = useTimelinePersistStore((state) => state.feedEventFilters);
 
-  // Variables
-  const request = { profileId: currentProfile?.id, limit: 50 };
-  const reactionRequest = currentProfile ? { profileId: currentProfile?.id } : null;
-  const profileId = currentProfile?.id ?? null;
-
-  const { data, loading, error, fetchMore, refetch } = useQuery(TimelineDocument, {
-    variables: { request, reactionRequest, profileId }
-  });
-
   const getFeedEventItems = () => {
     const filters: FeedEventItemType[] = [];
     if (feedEventFilters.posts) {
@@ -52,14 +43,21 @@ const Timeline: FC = () => {
     return filters;
   };
 
-  useEffect(() => {
-    if (!loading) {
-      refetch({
-        request: { ...request, feedEventItemTypes: getFeedEventItems() },
-        reactionRequest,
-        profileId
-      });
+  // Variables
+  const request = { profileId: currentProfile?.id, limit: 50, feedEventItemTypes: getFeedEventItems() };
+  const reactionRequest = currentProfile ? { profileId: currentProfile?.id } : null;
+  const profileId = currentProfile?.id ?? null;
+
+  const [fetchTimeline, { data, loading, error, fetchMore }] = useLazyQuery(TimelineDocument, {
+    variables: {
+      request,
+      reactionRequest,
+      profileId
     }
+  });
+
+  useEffect(() => {
+    fetchTimeline();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [feedEventFilters]);
 
