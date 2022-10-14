@@ -6,13 +6,16 @@ import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
 import type { FeedItem } from '@generated/types';
+import { FeedEventItemType } from '@generated/types';
 import { TimelineDocument } from '@generated/types';
 import { CollectionIcon } from '@heroicons/react/outline';
 import { Leafwatch } from '@lib/leafwatch';
 import type { FC } from 'react';
+import { useEffect } from 'react';
 import { useInView } from 'react-cool-inview';
 import { PAGINATION_ROOT_MARGIN } from 'src/constants';
 import { useAppStore } from 'src/store/app';
+import { useTimelinePersistStore } from 'src/store/timeline';
 import { useTransactionPersistStore } from 'src/store/transaction';
 import { PAGINATION } from 'src/tracking';
 
@@ -21,15 +24,44 @@ import SinglePublication from './Publication/SinglePublication';
 const Timeline: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const txnQueue = useTransactionPersistStore((state) => state.txnQueue);
+  const feedEventFilters = useTimelinePersistStore((state) => state.feedEventFilters);
 
   // Variables
   const request = { profileId: currentProfile?.id, limit: 50 };
   const reactionRequest = currentProfile ? { profileId: currentProfile?.id } : null;
   const profileId = currentProfile?.id ?? null;
 
-  const { data, loading, error, fetchMore } = useQuery(TimelineDocument, {
+  const { data, loading, error, fetchMore, refetch } = useQuery(TimelineDocument, {
     variables: { request, reactionRequest, profileId }
   });
+
+  const getFeedEventItems = () => {
+    const filters: FeedEventItemType[] = [];
+    if (feedEventFilters.posts) {
+      filters.push(...[FeedEventItemType.Post, FeedEventItemType.Comment]);
+    }
+    if (feedEventFilters.collects) {
+      filters.push(...[FeedEventItemType.CollectPost, FeedEventItemType.CollectComment]);
+    }
+    if (feedEventFilters.mirrors) {
+      filters.push(FeedEventItemType.Mirror);
+    }
+    if (feedEventFilters.reactions) {
+      filters.push(...[FeedEventItemType.ReactionPost, FeedEventItemType.ReactionPost]);
+    }
+    return filters;
+  };
+
+  useEffect(() => {
+    if (!loading) {
+      refetch({
+        request: { ...request, feedEventItemTypes: getFeedEventItems() },
+        reactionRequest,
+        profileId
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [feedEventFilters]);
 
   const publications = data?.feed?.items;
   const pageInfo = data?.feed?.pageInfo;

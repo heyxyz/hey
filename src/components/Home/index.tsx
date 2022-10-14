@@ -14,6 +14,7 @@ import { PAGEVIEW } from 'src/tracking';
 import Timeline from '../Timeline';
 import EnableDispatcher from './EnableDispatcher';
 import HomeFeed from './Feed';
+import FeedEventFilters from './FeedEventFilters';
 import Hero from './Hero';
 import RecommendedProfiles from './RecommendedProfiles';
 import SetDefaultProfile from './SetDefaultProfile';
@@ -36,7 +37,14 @@ const Home: NextPage = () => {
           {currentProfile ? (
             <>
               <NewPost />
-              {isFeatureEnabled('timeline-v2', currentProfile?.id) ? <Timeline /> : <HomeFeed />}
+              {isFeatureEnabled('timeline-v2', currentProfile?.id) ? (
+                <>
+                  <FeedEventFilters />
+                  <Timeline />
+                </>
+              ) : (
+                <HomeFeed />
+              )}
             </>
           ) : (
             <ExploreFeed />
