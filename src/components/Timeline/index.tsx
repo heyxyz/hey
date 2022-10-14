@@ -1,4 +1,4 @@
-import { useLazyQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import QueuedPublication from '@components/Publication/QueuedPublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
 import { Card } from '@components/UI/Card';
@@ -48,16 +48,14 @@ const Timeline: FC = () => {
   const reactionRequest = currentProfile ? { profileId: currentProfile?.id } : null;
   const profileId = currentProfile?.id ?? null;
 
-  const [fetchTimeline, { data, loading, error, fetchMore }] = useLazyQuery(TimelineDocument, {
-    variables: {
-      request,
-      reactionRequest,
-      profileId
-    }
+  const { data, loading, error, fetchMore, refetch } = useQuery(TimelineDocument, {
+    variables: { request, reactionRequest, profileId }
   });
 
   useEffect(() => {
-    fetchTimeline();
+    if (!loading) {
+      refetch();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [feedEventFilters]);
 
