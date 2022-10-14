@@ -1,5 +1,6 @@
 import { useQuery } from '@apollo/client';
 import Feed from '@components/Comment/Feed';
+import FullPublication from '@components/Publication/FullPublication';
 import OnchainMeta from '@components/Publication/OnchainMeta';
 import RelevantPeople from '@components/Publication/RelevantPeople';
 import PublicationPageShimmer from '@components/Publication/Shimmer';
@@ -20,8 +21,6 @@ import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
 import { useAppStore } from 'src/store/app';
 import { PAGEVIEW } from 'src/tracking';
-
-import FullPublication from './FullPublication';
 
 const ViewPublication: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
