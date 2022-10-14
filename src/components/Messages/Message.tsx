@@ -5,6 +5,7 @@ import { PageLoading } from '@components/UI/PageLoading';
 import useGetMessages from '@components/utils/hooks/useGetMessages';
 import useMessagePreviews from '@components/utils/hooks/useMessagePreviews';
 import useSendMessage from '@components/utils/hooks/useSendMessage';
+import useStreamMessages from '@components/utils/hooks/useStreamMessages';
 import MetaTags from '@components/utils/MetaTags';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { useRouter } from 'next/router';
@@ -28,6 +29,7 @@ const Message: FC = () => {
   const selectedConversation = conversations.get(address);
   const [endTime, setEndTime] = useState<Map<string, Date>>(new Map());
   const { messages, hasMore } = useGetMessages(selectedConversation, endTime.get(address ?? ''));
+  useStreamMessages(selectedConversation);
   const { sendMessage } = useSendMessage(selectedConversation);
   const { profiles } = useMessagePreviews();
   const profile = profiles.get(address);

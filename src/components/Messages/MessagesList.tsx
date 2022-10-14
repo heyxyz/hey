@@ -108,7 +108,7 @@ const MessagesList: FC<MessageListProps> = ({
         return;
       }
 
-      fetchNextMessages();
+      await fetchNextMessages();
     }
   });
 

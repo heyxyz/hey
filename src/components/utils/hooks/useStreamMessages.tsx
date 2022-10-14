@@ -1,3 +1,4 @@
+import getUniqueMessages from '@lib/getUniqueMessages';
 import type { Conversation, Message, Stream } from '@xmtp/xmtp-js';
 import { useEffect, useState } from 'react';
 import { useMessageStore } from 'src/store/message';
@@ -16,12 +17,11 @@ const useStreamMessages = (conversation?: Conversation, onMessageCallback?: () =
       setStream(newStream);
       for await (const msg of newStream) {
         if (setMessages) {
-          const newMessages = messages.get(conversation.peerAddress) ?? [];
-          newMessages.push(msg);
-          const uniqueMessages = [
-            ...Array.from(new Map(newMessages.map((item) => [item['id'], item])).values())
-          ];
-          messages.set(conversation.peerAddress, uniqueMessages);
+          const conversationAddress = conversation.peerAddress.toLowerCase();
+          const oldMessages = messages.get(conversationAddress) ?? [];
+          oldMessages.push(msg);
+          const uniqueMessages = getUniqueMessages(oldMessages);
+          messages.set(conversationAddress, uniqueMessages);
           setMessages(new Map(messages));
         }
         if (onMessageCallback) {

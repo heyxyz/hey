@@ -1,37 +1,41 @@
+import getUniqueMessages from '@lib/getUniqueMessages';
 import type { Conversation } from '@xmtp/xmtp-js';
 import { SortDirection } from '@xmtp/xmtp-js';
 import { useEffect, useState } from 'react';
+import { MESSAGE_PAGE_LIMIT } from 'src/constants';
 import { useMessageStore } from 'src/store/message';
 
 const useGetMessages = (conversation?: Conversation, endTime?: Date) => {
   const messages = useMessageStore((state) => state.messages);
   const setMessages = useMessageStore((state) => state.setMessages);
-  const [hasMore, setHasMore] = useState(true);
+  const [hasMore, setHasMore] = useState<Map<string, boolean>>(new Map());
+  const conversationAddress = conversation?.peerAddress.toLowerCase() ?? '';
 
   useEffect(() => {
     if (!conversation) {
       return;
     }
     const loadMessages = async () => {
+      hasMore.set(conversationAddress, true);
+      setHasMore(new Map(hasMore));
       const newMessages = await conversation.messages({
         direction: SortDirection.SORT_DIRECTION_DESCENDING,
-        limit: 20,
+        limit: MESSAGE_PAGE_LIMIT,
         endTime
       });
       if (newMessages.length > 0) {
-        const address = conversation.peerAddress.toLowerCase();
-        const msgObj = [...newMessages, ...(messages.get(address) ?? [])];
-        const uniqueMessages = [...Array.from(new Map(msgObj.map((item) => [item['id'], item])).values())];
-        uniqueMessages.sort((a, b) => {
-          return (b.sent?.getTime() ?? 0) - (a.sent?.getTime() ?? 0);
-        });
-        messages.set(address, uniqueMessages);
+        const oldMessages = messages.get(conversationAddress) ?? [];
+        const msgObj = [...newMessages, ...oldMessages];
+        const uniqueMessages = getUniqueMessages(msgObj);
+        messages.set(conversationAddress, uniqueMessages);
         setMessages(new Map(messages));
-        if (Array.isArray(messages.get(address)) && (messages.get(address)?.length ?? 0) < 20) {
-          setHasMore(false);
+        if (Array.isArray(oldMessages) && (uniqueMessages?.length ?? 0) < MESSAGE_PAGE_LIMIT) {
+          hasMore.set(conversationAddress, false);
+          setHasMore(new Map(hasMore));
         }
       } else {
-        setHasMore(false);
+        hasMore.set(conversationAddress, false);
+        setHasMore(new Map(hasMore));
       }
     };
     loadMessages();
@@ -40,7 +44,7 @@ const useGetMessages = (conversation?: Conversation, endTime?: Date) => {
 
   return {
     messages,
-    hasMore
+    hasMore: hasMore.get(conversationAddress) ?? false
   };
 };
 
