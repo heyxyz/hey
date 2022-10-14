@@ -40,16 +40,18 @@ const Home: NextPage = () => {
           {currentProfile ? (
             <>
               <NewPost />
-              {isFeatureEnabled('timeline-v2', currentProfile?.id) ? (
-                <>
-                  <FeedEventFilters />
-                  <Timeline />
-                </>
+              <FeedType feedType={feedType} setFeedType={setFeedType} />
+              {feedType === 'TIMELINE' ? (
+                isFeatureEnabled('timeline-v2', currentProfile?.id) ? (
+                  <>
+                    <FeedEventFilters />
+                    <Timeline />
+                  </>
+                ) : (
+                  <HomeFeed />
+                )
               ) : (
-                <>
-                  <FeedType feedType={feedType} setFeedType={setFeedType} />
-                  {feedType === 'TIMELINE' ? <HomeFeed /> : <Highlights />}
-                </>
+                <Highlights />
               )}
             </>
           ) : (
