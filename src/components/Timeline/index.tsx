@@ -23,9 +23,9 @@ const Timeline: FC = () => {
   const txnQueue = useTransactionPersistStore((state) => state.txnQueue);
 
   // Variables
-  const request = { profileId: currentProfile?.id, limit: 50 };
-  const reactionRequest = currentProfile ? { profileId: currentProfile?.id } : null;
-  const profileId = currentProfile?.id ?? null;
+  const request = { profileId: '0x05', limit: 50 };
+  const reactionRequest = currentProfile ? { profileId: '0x05' } : null;
+  const profileId = '0x05' ?? null;
 
   const { data, loading, error, fetchMore } = useQuery(TimelineDocument, {
     variables: { request, reactionRequest, profileId }

@@ -14,14 +14,14 @@ interface Props {
 
 const Comment: FC<Props> = ({ publication, isFullPublication }) => {
   const count =
-    publication.__typename === 'Mirror'
+    publication?.__typename === 'Mirror'
       ? publication?.mirrorOf?.stats?.totalAmountOfComments
       : publication?.stats?.totalAmountOfComments;
   const iconClassName = isFullPublication ? 'w-[17px] sm:w-[20px]' : 'w-[15px] sm:w-[18px]';
 
   return (
     <motion.button whileTap={{ scale: 0.9 }} aria-label="Comment">
-      <Link href={`/posts/${publication.id}`}>
+      <Link href={`/posts/${publication?.id}`}>
         <span className="flex items-center space-x-1 text-blue-500">
           <span className="p-1.5 rounded-full hover:bg-blue-300 hover:bg-opacity-20">
             <Tooltip
