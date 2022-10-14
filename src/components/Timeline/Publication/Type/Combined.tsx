@@ -9,9 +9,9 @@ interface Props {
 }
 
 const Combined: FC<Props> = ({ feedItem }) => {
-  const totalComments = feedItem.comments?.length ?? 0;
-  const total =
-    feedItem.mirrors.length + feedItem.collects.length + feedItem.reactions.length + totalComments;
+  // const totalComments = feedItem.comments?.length ?? 0;
+  // const total =
+  //   feedItem.mirrors.length + feedItem.collects.length + feedItem.reactions.length + totalComments;
   // const profile =
   //   (feedItem.comments && feedItem.comments[0]?.profile) ??
   //   feedItem.mirrors[0]?.profile ??
