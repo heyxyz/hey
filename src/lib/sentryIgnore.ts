@@ -7,3 +7,9 @@ export const denyUrls = [
   /^moz-extension:\/\//i,
   /^safari-web-extension:\/\//i
 ];
+
+export const ignoreErrors = [
+  /.*Loading chunk.*/gm,
+  /.*Cancel rendering route*/gm,
+  /.*currentTarget, detail, isTrusted, target*/gm
+];
