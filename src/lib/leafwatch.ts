@@ -25,7 +25,6 @@ export const Leafwatch = {
           props: options,
           url: location.href,
           browser: {
-            platform: navigator.platform,
             userAgent: navigator.userAgent,
             language: navigator.language
           }
