@@ -18,7 +18,7 @@ const getCanCombined = (aggregations: number[]) => {
   return aggregations.filter((n) => n > 0).length > 1;
 };
 
-const PublicationType: FC<Props> = ({ feedItem, showType, showThread = false }) => {
+const EventType: FC<Props> = ({ feedItem, showType, showThread = false }) => {
   const publication = feedItem.root;
   const type = publication.__typename;
   const isComment = type === 'Comment';
@@ -54,4 +54,4 @@ const PublicationType: FC<Props> = ({ feedItem, showType, showThread = false }) 
   );
 };
 
-export default PublicationType;
+export default EventType;

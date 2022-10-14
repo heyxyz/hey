@@ -12,7 +12,7 @@ import type { FC } from 'react';
 import { PUBLICATION } from 'src/tracking';
 
 import PublicationActions from './Actions';
-import PublicationType from './Type';
+import EventType from './EventType';
 
 dayjs.extend(relativeTime);
 
@@ -39,7 +39,7 @@ const SinglePublication: FC<Props> = ({
 
   return (
     <article className="hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer first:rounded-t-xl last:rounded-b-xl p-5">
-      <PublicationType feedItem={feedItem} showType={showType} showThread={showThread} />
+      <EventType feedItem={feedItem} showType={showType} showThread={showThread} />
       <div className="flex justify-between pb-4 space-x-1.5">
         <span onClick={(event) => event.stopPropagation()}>
           <UserProfile profile={profile ?? publication?.collectedBy?.defaultProfile} />
