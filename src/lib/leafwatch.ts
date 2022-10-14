@@ -23,7 +23,11 @@ export const Leafwatch = {
           event: name,
           profile: state.profileId,
           props: options,
-          url: location.href
+          url: location.href,
+          browser: {
+            userAgent: navigator.userAgent,
+            language: navigator.language
+          }
         }
       }).catch(() => {
         console.error('Error while sending analytics event to Leafwatch');
