@@ -6,7 +6,7 @@ import MetaTags from '@components/utils/MetaTags';
 import { PublicationSortCriteria } from '@generated/types';
 import { Tab } from '@headlessui/react';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import clsx from 'clsx';
 import type { NextPage } from 'next';
 import { useEffect, useState } from 'react';
@@ -22,7 +22,7 @@ const Explore: NextPage = () => {
   const [focus, setFocus] = useState<any>();
 
   useEffect(() => {
-    Mixpanel.track('Pageview', { path: PAGEVIEW.EXPLORE });
+    Leafwatch.track('Pageview', { path: PAGEVIEW.EXPLORE });
   }, []);
 
   const tabs = [
@@ -45,6 +45,9 @@ const Explore: NextPage = () => {
               <Tab
                 key={index}
                 defaultChecked={index === 1}
+                onClick={() => {
+                  Leafwatch.track(`Switch to ${tab.type?.toLowerCase()} tab in explore`);
+                }}
                 className={({ selected }) =>
                   clsx(
                     { 'border-b-2 border-brand-500 !text-black': selected },
