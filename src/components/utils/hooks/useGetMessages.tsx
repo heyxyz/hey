@@ -25,7 +25,7 @@ const useGetMessages = (conversation?: Conversation, endTime?: Date) => {
       });
       if (newMessages.length > 0) {
         const oldMessages = messages.get(conversationAddress) ?? [];
-        const msgObj = [...newMessages, ...oldMessages];
+        const msgObj = [...oldMessages, ...newMessages];
         const uniqueMessages = getUniqueMessages(msgObj);
         messages.set(conversationAddress, uniqueMessages);
         setMessages(new Map(messages));
