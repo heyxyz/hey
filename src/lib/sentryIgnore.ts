@@ -9,7 +9,9 @@ export const denyUrls = [
 ];
 
 export const ignoreErrors = [
-  /.*Loading chunk.*/gm,
+  /.*Loading chunk*/gm,
   /.*Cancel rendering route*/gm,
-  /.*currentTarget, detail, isTrusted, target*/gm
+  /.*currentTarget, detail, isTrusted, target*/gm,
+  /.*Network Error*/gm,
+  /.*Failed to fetch*/gm
 ];
