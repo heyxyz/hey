@@ -40,7 +40,7 @@ const Explore: NextPage = () => {
       />
       <GridItemEight className="space-y-5">
         <Tab.Group>
-          <Tab.List className="border-b space-x-8">
+          <Tab.List className="divider space-x-8">
             {tabs.map((tab, index) => (
               <Tab
                 key={index}
@@ -50,7 +50,7 @@ const Explore: NextPage = () => {
                 }}
                 className={({ selected }) =>
                   clsx(
-                    { 'border-b-2 border-brand-500 !text-black': selected },
+                    { 'border-b-2 border-brand-500 !text-black dark:!text-white': selected },
                     'px-4 pb-2 text-gray-500 outline-none font-medium text-sm'
                   )
                 }
