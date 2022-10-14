@@ -1,4 +1,4 @@
-import { CheckBox } from '@components/UI/CheckBox';
+import { InputCheckbox } from '@components/UI/InputCheckbox';
 import type { ChangeEvent } from 'react';
 import React from 'react';
 import { useTimelinePersistStore } from 'src/store/timeline';
@@ -14,15 +14,20 @@ const FeedEventFilters = () => {
   return (
     <div className="mt-2 flex justify-end">
       <div className="flex items-center space-x-4">
-        <CheckBox onChange={handleChange} checked={feedEventFilters.posts} name="posts" label="Posts" />
-        <CheckBox onChange={handleChange} checked={feedEventFilters.mirrors} name="mirrors" label="Mirrors" />
-        <CheckBox
+        <InputCheckbox onChange={handleChange} checked={feedEventFilters.posts} name="posts" label="Posts" />
+        <InputCheckbox
+          onChange={handleChange}
+          checked={feedEventFilters.mirrors}
+          name="mirrors"
+          label="Mirrors"
+        />
+        <InputCheckbox
           onChange={handleChange}
           checked={feedEventFilters.collects}
           name="collects"
           label="Collects"
         />
-        <CheckBox
+        <InputCheckbox
           onChange={handleChange}
           checked={feedEventFilters.reactions}
           name="reactions"
