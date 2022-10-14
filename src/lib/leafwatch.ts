@@ -25,6 +25,8 @@ export const Leafwatch = {
           props: options,
           url: location.href
         }
+      }).catch(() => {
+        console.error('Error while sending analytics event to Leafwatch');
       });
     }
   }

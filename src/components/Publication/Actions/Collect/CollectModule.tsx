@@ -89,8 +89,8 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
     isLoading: writeLoading,
     write
   } = useContractWrite({
-    addressOrName: LENSHUB_PROXY,
-    contractInterface: LensHubProxy,
+    address: LENSHUB_PROXY,
+    abi: LensHubProxy,
     functionName: 'collectWithSig',
     mode: 'recklesslyUnprepared',
     onSuccess: onCompleted,
@@ -162,7 +162,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
 
           setUserSigNonce(userSigNonce + 1);
           if (!RELAY_ON) {
-            return write?.({ recklesslySetUnpreparedArgs: inputStruct });
+            return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
           }
 
           const {
@@ -170,7 +170,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
           } = await broadcast({ request: { id, signature } });
 
           if ('reason' in result) {
-            write?.({ recklesslySetUnpreparedArgs: inputStruct });
+            write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
           }
         } catch {}
       },

@@ -55,8 +55,8 @@ const SuperFollow: FC = () => {
     isLoading: writeLoading,
     write
   } = useContractWrite({
-    addressOrName: LENSHUB_PROXY,
-    contractInterface: LensHubProxy,
+    address: LENSHUB_PROXY,
+    abi: LensHubProxy,
     functionName: 'setFollowModuleWithSig',
     mode: 'recklesslyUnprepared',
     onSuccess: onCompleted,
@@ -90,7 +90,7 @@ const SuperFollow: FC = () => {
 
           setUserSigNonce(userSigNonce + 1);
           if (!RELAY_ON) {
-            return write?.({ recklesslySetUnpreparedArgs: inputStruct });
+            return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
           }
 
           const {
@@ -98,7 +98,7 @@ const SuperFollow: FC = () => {
           } = await broadcast({ request: { id, signature } });
 
           if ('reason' in result) {
-            write?.({ recklesslySetUnpreparedArgs: inputStruct });
+            write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
           }
         } catch {}
       },
