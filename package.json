@@ -48,7 +48,7 @@
     "react-hot-toast": "^2.4.0",
     "react-mentions": "^4.4.7",
     "uuid": "^9.0.0",
-    "wagmi": "^0.6.8",
+    "wagmi": "^0.7.2",
     "zod": "^3.19.1",
     "zustand": "^4.1.2"
   },

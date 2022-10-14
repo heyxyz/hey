@@ -80,8 +80,8 @@ const Profile: FC<Props> = ({ profile }) => {
     error,
     write
   } = useContractWrite({
-    addressOrName: LENS_PERIPHERY,
-    contractInterface: LensPeriphery,
+    address: LENS_PERIPHERY,
+    abi: LensPeriphery,
     functionName: 'setProfileMetadataURIWithSig',
     mode: 'recklesslyUnprepared',
     onSuccess: onCompleted,
@@ -108,7 +108,7 @@ const Profile: FC<Props> = ({ profile }) => {
 
           setUserSigNonce(userSigNonce + 1);
           if (!RELAY_ON) {
-            return write?.({ recklesslySetUnpreparedArgs: inputStruct });
+            return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
           }
 
           const {
@@ -116,7 +116,7 @@ const Profile: FC<Props> = ({ profile }) => {
           } = await broadcast({ request: { id, signature } });
 
           if ('reason' in result) {
-            write?.({ recklesslySetUnpreparedArgs: inputStruct });
+            write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
           }
         } catch {}
       },
