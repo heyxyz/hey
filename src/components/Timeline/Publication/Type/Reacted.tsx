@@ -11,9 +11,6 @@ interface Props {
 }
 
 const Reacted: FC<Props> = ({ reactions, isComment }) => {
-  // const profile = reactions[0].profile;
-  // const showOthers = reactions.length > 1;
-
   const getReactedProfiles = () => {
     let profiles = reactions.map((event) => event.profile);
     profiles = profiles.filter(
@@ -34,11 +31,6 @@ const Reacted: FC<Props> = ({ reactions, isComment }) => {
         context="reacted"
         totalCount={getReactedProfiles().length}
       />
-
-      {/* <Link href={`/u/${profile?.handle}`} className="max-w-xs truncate">
-        {profile?.name ? <b>{profile?.name}</b> : <Slug slug={profile?.handle} prefix="@" />}
-      </Link>
-      <span>{showOthers && <span>and {reactions.length - 1} others</span>} reacted</span> */}
     </div>
   );
 };

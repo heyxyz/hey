@@ -11,9 +11,6 @@ interface Props {
 }
 
 const Collected: FC<Props> = ({ collects, isComment }) => {
-  // const profile = collects[0].profile;
-  // const showOthers = collects.length > 1;
-
   const getCollectedProfiles = () => {
     let profiles = collects.map((event) => event.profile);
     profiles = profiles.filter(
@@ -34,10 +31,6 @@ const Collected: FC<Props> = ({ collects, isComment }) => {
         context="collected"
         totalCount={getCollectedProfiles().length}
       />
-      {/* <Link href={`/u/${profile?.handle}`} className="max-w-xs truncate">
-        {profile?.name ? <b>{profile?.name}</b> : <Slug slug={profile?.handle} prefix="@" />}
-      </Link>
-      <span>{showOthers && <span>and {collects.length - 1} others</span>} collected</span> */}
     </div>
   );
 };

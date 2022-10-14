@@ -9,15 +9,6 @@ interface Props {
 }
 
 const Combined: FC<Props> = ({ feedItem }) => {
-  // const totalComments = feedItem.comments?.length ?? 0;
-  // const total =
-  //   feedItem.mirrors.length + feedItem.collects.length + feedItem.reactions.length + totalComments;
-  // const profile =
-  //   (feedItem.comments && feedItem.comments[0]?.profile) ??
-  //   feedItem.mirrors[0]?.profile ??
-  //   feedItem.collects[0]?.profile ??
-  //   feedItem.reactions[0]?.profile;
-
   const getAllProfiles = () => {
     const mirrors = feedItem.mirrors;
     const collects = feedItem.collects;
@@ -39,10 +30,6 @@ const Combined: FC<Props> = ({ feedItem }) => {
         {feedItem.reactions?.length ? <HeartIcon className="w-4 h-4" /> : null}
       </div>
       <ProfileCircles profiles={getAllProfiles()} totalCount={getAllProfiles().length} />
-      {/* <Link href={`/u/${profile?.handle}`} className="max-w-xs truncate">
-        {profile?.name ? <b>{profile?.name}</b> : <Slug slug={profile?.handle} prefix="@" />}
-      </Link>
-      <span>and {total - 1} others</span> */}
     </div>
   );
 };

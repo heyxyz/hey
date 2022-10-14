@@ -11,9 +11,6 @@ interface Props {
 }
 
 const Mirrored: FC<Props> = ({ mirrors, isComment }) => {
-  // const profile = mirrors[0].profile;
-  // const showOthers = mirrors.length > 1;
-
   const getMirroredProfiles = () => {
     let profiles = mirrors.map((event) => event.profile);
     profiles = profiles.filter(
@@ -34,10 +31,6 @@ const Mirrored: FC<Props> = ({ mirrors, isComment }) => {
         context="mirrored"
         totalCount={getMirroredProfiles().length}
       />
-      {/* <Link href={`/u/${profile?.handle}`} className="max-w-xs truncate">
-        {profile?.name ? <b>{profile?.name}</b> : <Slug slug={profile?.handle} prefix="@" />}
-      </Link>
-      <span>{showOthers && <span>and {mirrors.length - 1} others</span>} mirrored</span> */}
     </div>
   );
 };

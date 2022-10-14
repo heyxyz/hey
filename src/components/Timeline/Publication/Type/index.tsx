@@ -44,7 +44,6 @@ const PublicationType: FC<Props> = ({ feedItem, showType, showThread = false }) 
     <>
       {feedItem.mirrors.length && !isComment ? <Mirrored mirrors={feedItem.mirrors} /> : null}
       {(isComment || commentsCount > 0) && showThread && <Commented feedItem={feedItem} />}
-      {/* {feedItem.comments?.length && isComment ? <CommentedPublication comments={feedItem.comments} /> : null} */}
       {feedItem.collects.length && !isComment ? (
         <Collected isComment={isComment} collects={feedItem.collects} />
       ) : null}
