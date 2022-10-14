@@ -1,4 +1,5 @@
 import HiddenPublication from '@components/Publication/HiddenPublication';
+import PublicationBody from '@components/Publication/PublicationBody';
 import UserProfile from '@components/Shared/UserProfile';
 import type { LensterPublication } from '@generated/lenstertypes';
 import { Leafwatch } from '@lib/leafwatch';
@@ -9,7 +10,6 @@ import type { FC } from 'react';
 import { PUBLICATION } from 'src/tracking';
 
 import PublicationActions from './Actions';
-import PublicationBody from './PublicationBody';
 
 dayjs.extend(relativeTime);
 

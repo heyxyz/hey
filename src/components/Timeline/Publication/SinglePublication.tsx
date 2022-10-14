@@ -1,5 +1,6 @@
 import ModAction from '@components/Publication/Actions/ModAction';
 import HiddenPublication from '@components/Publication/HiddenPublication';
+import PublicationBody from '@components/Publication/PublicationBody';
 import UserProfile from '@components/Shared/UserProfile';
 import type { LensterPublication } from '@generated/lenstertypes';
 import type { ElectedMirror, FeedItem } from '@generated/types';
@@ -11,7 +12,6 @@ import type { FC } from 'react';
 import { PUBLICATION } from 'src/tracking';
 
 import PublicationActions from './Actions';
-import PublicationBody from './PublicationBody';
 import PublicationType from './Type';
 
 dayjs.extend(relativeTime);
@@ -57,7 +57,7 @@ const SinglePublication: FC<Props> = ({
           <HiddenPublication type={publication.__typename} />
         ) : (
           <>
-            <PublicationBody publication={publication} />
+            <PublicationBody publication={publication as LensterPublication} />
             {showActions && (
               <PublicationActions
                 publication={publication as LensterPublication}
