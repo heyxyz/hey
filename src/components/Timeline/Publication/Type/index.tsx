@@ -36,7 +36,10 @@ const PublicationType: FC<Props> = ({ feedItem, showType, showThread = false }) 
   }
 
   return canCombined ? (
-    <Combined feedItem={feedItem} />
+    <>
+      <Combined feedItem={feedItem} />
+      {(isComment || commentsCount > 0) && showThread && <Commented feedItem={feedItem} />}
+    </>
   ) : (
     <>
       {feedItem.mirrors.length && !isComment ? <Mirrored mirrors={feedItem.mirrors} /> : null}
