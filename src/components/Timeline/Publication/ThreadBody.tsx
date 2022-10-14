@@ -44,7 +44,7 @@ const ThreadBody: FC<Props> = ({ publication }) => {
           ) : (
             <>
               <PublicationBody publication={publication} />
-              <PublicationActions publication={publication} />
+              {publication && <PublicationActions publication={publication} />}
             </>
           )}
         </div>
