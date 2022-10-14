@@ -24,7 +24,6 @@ import Trending from './Trending';
 const Home: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [feedType, setFeedType] = useState<'TIMELINE' | 'HIGHLIGHTS'>('TIMELINE');
-  const typeInitCase = feedType.charAt(0).toUpperCase() + feedType.slice(1).toLowerCase();
 
   useEffect(() => {
     Leafwatch.track('Pageview', { path: PAGEVIEW.HOME });
