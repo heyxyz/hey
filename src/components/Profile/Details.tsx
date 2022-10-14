@@ -6,10 +6,11 @@ import SuperFollow from '@components/Shared/SuperFollow';
 import Unfollow from '@components/Shared/Unfollow';
 import ProfileStaffTool from '@components/StaffTools/Panels/Profile';
 import { Button } from '@components/UI/Button';
+import { Modal } from '@components/UI/Modal';
 import { Tooltip } from '@components/UI/Tooltip';
 import useStaffMode from '@components/utils/hooks/useStaffMode';
 import type { Profile } from '@generated/types';
-import { CogIcon, HashtagIcon, LocationMarkerIcon } from '@heroicons/react/outline';
+import { CogIcon, HashtagIcon, LocationMarkerIcon, UsersIcon } from '@heroicons/react/outline';
 import { BadgeCheckIcon } from '@heroicons/react/solid';
 import formatAddress from '@lib/formatAddress';
 import getAttribute from '@lib/getAttribute';
@@ -27,6 +28,7 @@ import { useAppStore } from 'src/store/app';
 import Badges from './Badges';
 import Followerings from './Followerings';
 import MutualFollowers from './MutualFollowers';
+import MutualFollowersList from './MutualFollowers/List';
 
 interface Props {
   profile: Profile;
@@ -35,6 +37,7 @@ interface Props {
 const Details: FC<Props> = ({ profile }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [following, setFollowing] = useState(profile?.isFollowedByMe);
+  const [showMutualFollowersModal, setShowMutualFollowersModal] = useState(false);
   const { allowed: staffMode } = useStaffMode();
   const { resolvedTheme } = useTheme();
 
@@ -114,7 +117,19 @@ const Details: FC<Props> = ({ profile }) => {
             <Markup>{profile?.bio}</Markup>
           </div>
         )}
-        {currentProfile?.id !== profile?.id && <MutualFollowers profile={profile} />}
+        {currentProfile?.id !== profile?.id && (
+          <>
+            <MutualFollowers setShowMutualFollowersModal={setShowMutualFollowersModal} profile={profile} />
+            <Modal
+              title="Followers you know"
+              icon={<UsersIcon className="w-5 h-5 text-brand" />}
+              show={showMutualFollowersModal}
+              onClose={() => setShowMutualFollowersModal(false)}
+            >
+              <MutualFollowersList profileId={profile?.id} />
+            </Modal>
+          </>
+        )}
         <div className="w-full divider" />
         <div className="space-y-2">
           <MetaDetails icon={<HashtagIcon className="w-4 h-4" />}>

@@ -1,7 +1,7 @@
 import { Card } from '@components/UI/Card';
 import { BadgeCheckIcon } from '@heroicons/react/solid';
 import isVerified from '@lib/isVerified';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 import { SETTINGS } from 'src/tracking';
@@ -23,7 +23,7 @@ const Verification: FC = () => {
           <a
             href="https://tally.so/r/wgDajK"
             onClick={() => {
-              Mixpanel.track(SETTINGS.ACCOUNT.OPEN_VERIFICATION);
+              Leafwatch.track(SETTINGS.ACCOUNT.OPEN_VERIFICATION);
             }}
             target="_blank"
             rel="noreferrer noopener"

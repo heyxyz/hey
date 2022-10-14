@@ -8,7 +8,7 @@ import { Spinner } from '@components/UI/Spinner';
 import type { LensterPublication } from '@generated/lenstertypes';
 import { CustomFiltersTypes, SearchPublicationsDocument, SearchRequestTypes } from '@generated/types';
 import { CollectionIcon } from '@heroicons/react/outline';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import type { FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { PAGINATION_ROOT_MARGIN } from 'src/constants';
@@ -50,7 +50,7 @@ const Publications: FC<Props> = ({ query }) => {
       await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next }, reactionRequest, profileId }
       });
-      Mixpanel.track(PAGINATION.PUBLICATION_SEARCH);
+      Leafwatch.track(PAGINATION.PUBLICATION_SEARCH);
     },
     rootMargin: PAGINATION_ROOT_MARGIN
   });

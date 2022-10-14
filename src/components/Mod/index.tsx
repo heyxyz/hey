@@ -3,7 +3,7 @@ import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import MetaTags from '@components/utils/MetaTags';
 import isGardener from '@lib/isGardener';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
 import { useEffect } from 'react';
 import { APP_NAME } from 'src/constants';
@@ -17,7 +17,7 @@ const Mod: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   useEffect(() => {
-    Mixpanel.track('Pageview', { path: PAGEVIEW.MOD });
+    Leafwatch.track('Pageview', { path: PAGEVIEW.MOD });
   }, []);
 
   if (!isGardener(currentProfile?.id)) {

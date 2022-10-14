@@ -11,7 +11,7 @@ import { SwitchHorizontalIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
 import humanize from '@lib/humanize';
 import { publicationKeyFields } from '@lib/keyFields';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import nFormatter from '@lib/nFormatter';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
@@ -59,12 +59,12 @@ const Mirror: FC<Props> = ({ publication, isFullPublication }) => {
   const onCompleted = () => {
     setMirrored(true);
     toast.success('Post has been mirrored!');
-    Mixpanel.track(PUBLICATION.MIRROR);
+    Leafwatch.track(PUBLICATION.MIRROR);
   };
 
   const { isLoading: writeLoading, write } = useContractWrite({
-    addressOrName: LENSHUB_PROXY,
-    contractInterface: LensHubProxy,
+    address: LENSHUB_PROXY,
+    abi: LensHubProxy,
     functionName: 'mirrorWithSig',
     mode: 'recklesslyUnprepared',
     onSuccess: onCompleted,
@@ -102,7 +102,7 @@ const Mirror: FC<Props> = ({ publication, isFullPublication }) => {
 
           setUserSigNonce(userSigNonce + 1);
           if (!RELAY_ON) {
-            return write?.({ recklesslySetUnpreparedArgs: inputStruct });
+            return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
           }
 
           const {
@@ -110,7 +110,7 @@ const Mirror: FC<Props> = ({ publication, isFullPublication }) => {
           } = await broadcast({ request: { id, signature } });
 
           if ('reason' in result) {
-            write?.({ recklesslySetUnpreparedArgs: inputStruct });
+            write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
           }
         } catch {}
       },
