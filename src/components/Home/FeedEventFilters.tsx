@@ -21,12 +21,12 @@ const FeedEventFilters = () => {
           name="mirrors"
           label="Mirrors"
         />
-        <InputCheckbox
+        {/* <InputCheckbox
           onChange={handleChange}
           checked={feedEventFilters.collects}
           name="collects"
           label="Collects"
-        />
+        /> */}
         <InputCheckbox
           onChange={handleChange}
           checked={feedEventFilters.reactions}
