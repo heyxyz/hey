@@ -94,7 +94,7 @@ const Timeline: FC = () => {
   }
 
   if (error) {
-    return <ErrorMessage title="Failed to load home feed" error={error} />;
+    return <ErrorMessage title="Failed to load timeline" error={error} />;
   }
 
   return (
