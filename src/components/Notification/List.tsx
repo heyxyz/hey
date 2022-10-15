@@ -44,8 +44,7 @@ const List: FC<Props> = ({ feedType }) => {
   };
 
   const { data, loading, error, fetchMore } = useQuery(NotificationsDocument, {
-    variables: { request },
-    fetchPolicy: 'cache-and-network'
+    variables: { request }
   });
 
   const notifications = data?.notifications?.items;
