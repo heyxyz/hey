@@ -7641,11 +7641,6 @@ react-aptor@^2.0.0-alpha.1:
   resolved "https://registry.yarnpkg.com/react-aptor/-/react-aptor-2.0.0-alpha.1.tgz#d3f228c67aaffaf7ac9425dbca0b98fb49d593cd"
   integrity sha512-FbvxQKsZMUZcLr2WdrQEmxH0kifsN4N+v6YdL1g3At03zouJCEcPXv+o+bhP3Ci3ya4QPvNHK/bpbrCzuKWOMw==
 
-react-cool-inview@^3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/react-cool-inview/-/react-cool-inview-3.0.1.tgz#345b0a36d124d9da4d8dfc354397d54c40bfd165"
-  integrity sha512-ly6i3Pv5p0fvm12NmJGfKS34eOhA+iU43Th+gZ6t3G6UwsxQsWoITHTHzA9pdkOc/3VmnReqvC/hJkQUDGhQFA==
-
 react-copy-to-clipboard@^5.1.0:
   version "5.1.0"
   resolved "https://registry.yarnpkg.com/react-copy-to-clipboard/-/react-copy-to-clipboard-5.1.0.tgz#09aae5ec4c62750ccb2e6421a58725eabc41255c"

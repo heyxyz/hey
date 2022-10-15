@@ -41,7 +41,6 @@
     "next-transpile-modules": "^9.1.0",
     "plyr-react": "^5.1.0",
     "react": "^18.2.0",
-    "react-cool-inview": "^3.0.1",
     "react-copy-to-clipboard": "^5.1.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.36.1",
