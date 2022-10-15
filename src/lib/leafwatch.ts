@@ -3,6 +3,8 @@ import { AXIOM_TOKEN, IS_PRODUCTION, LEAFWATCH_HOST } from 'src/constants';
 import parser from 'ua-parser-js';
 
 const enabled = AXIOM_TOKEN && IS_PRODUCTION;
+const isBrowser = typeof window !== 'undefined';
+export const vercelRegion = process.env.VERCEL_REGION || process.env.NEXT_PUBLIC_VERCEL_REGION;
 
 /**
  * Axiom analytics
@@ -14,7 +16,7 @@ export const Leafwatch = {
       localStorage.getItem('lenster.store') || JSON.stringify({ state: { profileId: null } })
     );
 
-    if (enabled) {
+    if (isBrowser && enabled) {
       axios(LEAFWATCH_HOST, {
         method: 'POST',
         headers: {
@@ -27,6 +29,7 @@ export const Leafwatch = {
           props: options,
           url: location.href,
           referrer: document.referrer,
+          vercelRegion: vercelRegion,
           browser: {
             name: ua.browser.name,
             version: ua.browser.version,
