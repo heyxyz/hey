@@ -34,7 +34,7 @@ const Feed: FC<Props> = ({ focus, feedType = PublicationSortCriteria.CuratedProf
 
   const { data, loading, error, fetchMore } = useQuery(ExploreFeedDocument, {
     variables: { request, reactionRequest, profileId },
-    fetchPolicy: 'no-cache'
+    fetchPolicy: 'cache-and-network'
   });
 
   const publications = data?.explorePublications?.items;

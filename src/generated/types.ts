@@ -1041,6 +1041,17 @@ export type FeeFollowModuleSettings = {
   type: FollowModules;
 };
 
+/** The feed event item filter types */
+export enum FeedEventItemType {
+  CollectComment = 'COLLECT_COMMENT',
+  CollectPost = 'COLLECT_POST',
+  Comment = 'COMMENT',
+  Mirror = 'MIRROR',
+  Post = 'POST',
+  ReactionComment = 'REACTION_COMMENT',
+  ReactionPost = 'REACTION_POST'
+}
+
 export type FeedHighlightsRequest = {
   cursor?: InputMaybe<Scalars['Cursor']>;
   limit?: InputMaybe<Scalars['LimitScalar']>;
@@ -1070,6 +1081,8 @@ export type FeedItemRoot = Comment | Post;
 
 export type FeedRequest = {
   cursor?: InputMaybe<Scalars['Cursor']>;
+  /** Filter your feed to whatever you wish */
+  feedEventItemTypes?: InputMaybe<Array<FeedEventItemType>>;
   limit?: InputMaybe<Scalars['LimitScalar']>;
   metadata?: InputMaybe<PublicationMetadataFilters>;
   /** The profile id */
