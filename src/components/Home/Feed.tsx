@@ -9,13 +9,11 @@ import { Spinner } from '@components/UI/Spinner';
 import type { LensterPublication } from '@generated/lenstertypes';
 import { HomeFeedDocument } from '@generated/types';
 import { CollectionIcon } from '@heroicons/react/outline';
-import { Leafwatch } from '@lib/leafwatch';
 import type { FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { PAGINATION_ROOT_MARGIN } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { useTransactionPersistStore } from 'src/store/transaction';
-import { PAGINATION } from 'src/tracking';
 
 const Feed: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -42,7 +40,6 @@ const Feed: FC = () => {
       await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next }, reactionRequest, profileId }
       });
-      Leafwatch.track(PAGINATION.HOME_FEED);
     },
     rootMargin: PAGINATION_ROOT_MARGIN
   });

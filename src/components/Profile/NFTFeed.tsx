@@ -7,11 +7,9 @@ import { Spinner } from '@components/UI/Spinner';
 import type { Nft, Profile } from '@generated/types';
 import { NftFeedDocument } from '@generated/types';
 import { CollectionIcon } from '@heroicons/react/outline';
-import { Leafwatch } from '@lib/leafwatch';
 import type { FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { CHAIN_ID, IS_MAINNET, PAGINATION_ROOT_MARGIN } from 'src/constants';
-import { PAGINATION } from 'src/tracking';
 import { chain } from 'wagmi';
 
 interface Props {
@@ -43,7 +41,6 @@ const NFTFeed: FC<Props> = ({ profile }) => {
       await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next } }
       });
-      Leafwatch.track(PAGINATION.NFT_FEED);
     },
     rootMargin: PAGINATION_ROOT_MARGIN
   });

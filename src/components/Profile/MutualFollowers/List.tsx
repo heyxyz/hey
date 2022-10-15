@@ -5,12 +5,10 @@ import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
 import type { Profile } from '@generated/types';
 import { MutualFollowersListDocument } from '@generated/types';
-import { Leafwatch } from '@lib/leafwatch';
 import type { FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { PAGINATION_ROOT_MARGIN } from 'src/constants';
 import { useAppStore } from 'src/store/app';
-import { PAGINATION } from 'src/tracking';
 
 interface Props {
   profileId: string;
@@ -43,7 +41,6 @@ const MutualFollowersList: FC<Props> = ({ profileId }) => {
       await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next } }
       });
-      Leafwatch.track(PAGINATION.MUTUAL_FOLLOWERS);
     },
     rootMargin: PAGINATION_ROOT_MARGIN
   });

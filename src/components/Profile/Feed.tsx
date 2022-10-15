@@ -9,12 +9,10 @@ import type { LensterPublication } from '@generated/lenstertypes';
 import type { Profile } from '@generated/types';
 import { ProfileFeedDocument, PublicationMainFocus, PublicationTypes } from '@generated/types';
 import { CollectionIcon } from '@heroicons/react/outline';
-import { Leafwatch } from '@lib/leafwatch';
 import type { FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { PAGINATION_ROOT_MARGIN } from 'src/constants';
 import { useAppStore } from 'src/store/app';
-import { PAGINATION } from 'src/tracking';
 
 interface Props {
   profile: Profile;
@@ -62,7 +60,6 @@ const Feed: FC<Props> = ({ profile, type }) => {
       await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next }, reactionRequest, profileId }
       });
-      Leafwatch.track(PAGINATION.PROFILE_FEED);
     },
     rootMargin: PAGINATION_ROOT_MARGIN
   });
