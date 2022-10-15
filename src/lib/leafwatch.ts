@@ -4,7 +4,6 @@ import parser from 'ua-parser-js';
 
 const enabled = AXIOM_TOKEN && IS_PRODUCTION;
 const isBrowser = typeof window !== 'undefined';
-export const vercelRegion = process.env.VERCEL_REGION || process.env.NEXT_PUBLIC_VERCEL_REGION;
 
 /**
  * Axiom analytics
@@ -29,7 +28,6 @@ export const Leafwatch = {
           props: options,
           url: location.href,
           referrer: document.referrer,
-          vercelRegion: vercelRegion,
           browser: {
             name: ua.browser.name,
             version: ua.browser.version,
