@@ -27,7 +27,7 @@ const MessageTile: FC<MessageTileProps> = ({ message, profile, currentProfile })
   return (
     <div
       className={clsx(
-        address === message.senderAddress ? 'items-end' : 'items-start',
+        address === message.senderAddress ? 'items-end mr-4' : 'items-start',
         'flex flex-col mx-auto mb-4'
       )}
     >
