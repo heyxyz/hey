@@ -25,7 +25,7 @@ const useStreamMessages = (conversation?: Conversation, onMessageCallback?: () =
         if (setMessages) {
           const conversationAddress = conversation.peerAddress.toLowerCase();
           const oldMessages = messages.get(conversationAddress) ?? [];
-          oldMessages.push(msg);
+          oldMessages.unshift(msg);
           messages.set(conversationAddress, oldMessages);
           setMessages(new Map(messages));
         }
