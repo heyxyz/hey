@@ -9,7 +9,13 @@ export const denyUrls = [
 ];
 
 export const ignoreErrors = [
+  // Wallets
+  /.*TrustWeb3Provider*/gm,
+  /.*trustwallet*/gm,
+  /.*solana*/gm,
+  // Known errors
   /.*Loading chunk*/gm,
+  /.*Load failed*/gm,
   /.*Cancel rendering route*/gm,
   /.*currentTarget, detail, isTrusted, target*/gm,
   /.*Network Error*/gm,
