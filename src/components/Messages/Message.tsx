@@ -75,7 +75,7 @@ const Message: FC = () => {
       <MetaTags title={`Message • ${APP_NAME}`} />
       <PreviewList />
       <GridItemEight>
-        <Card className="h-[86vh]">
+        <Card className="h-[86vh] flex justify-between flex-col">
           {showLoading ? (
             <PageLoading message="Loading messages" />
           ) : (

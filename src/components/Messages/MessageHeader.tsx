@@ -23,9 +23,9 @@ const MessageHeader: FC<Props> = ({ profile }) => {
   }
 
   return (
-    <div className="border-bottom dark:border-gray-700/80 flex justify-between flex-1 p-4 border-b-[1px]">
+    <div className="border-bottom dark:border-gray-700/80 flex justify-between flex-1 px-4 py-2 border-b-[1px]">
       <UserProfile profile={profile} />
-      <div>
+      <div className="flex items-center">
         {!following ? (
           <Follow showText profile={profile} setFollowing={setFollowing} />
         ) : (

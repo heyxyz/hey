@@ -27,7 +27,7 @@ const MessageTile: FC<MessageTileProps> = ({ message, profile, currentProfile })
   return (
     <div
       className={clsx(
-        address === message.senderAddress ? 'items-end mr-4' : 'items-start',
+        address === message.senderAddress ? 'items-end' : 'items-start',
         'flex flex-col mx-auto mb-4'
       )}
     >
@@ -113,10 +113,10 @@ const MessagesList: FC<MessageListProps> = ({
   });
 
   return (
-    <div className="flex-grow flex h-[71vh]">
-      <div className="pb-6 md:pb-0 w-full flex flex-col self-end">
+    <div className="flex-grow h-[75%] overflow-y-auto flex">
+      <div className="pb-6 md:pb-0 w-full h-full flex flex-col self-end">
         <div className="relative w-full bg-white px-4 pt-6 flex">
-          <div className="flex flex-col-reverse h-[68vh] overflow-y-auto w-full">
+          <div className="flex flex-col-reverse w-full">
             {messages?.map((msg: Message, idx) => {
               const dateHasChanged = !isOnSameDay(lastMessageDate, msg.sent);
               lastMessageDate = msg.sent;
