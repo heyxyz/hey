@@ -9,7 +9,7 @@ import { CollectorsDocument } from '@generated/types';
 import { CollectionIcon } from '@heroicons/react/outline';
 import type { FC } from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
-import { PAGINATION_ROOT_MARGIN } from 'src/constants';
+import { PAGINATION_THRESHOLD } from 'src/constants';
 
 import Loader from '../Loader';
 
@@ -57,7 +57,7 @@ const Collectors: FC<Props> = ({ publicationId }) => {
       <ErrorMessage className="m-5" title="Failed to load collectors" error={error} />
       <InfiniteScroll
         pageStart={0}
-        threshold={PAGINATION_ROOT_MARGIN}
+        threshold={PAGINATION_THRESHOLD}
         hasMore={hasMore}
         loadMore={loadMore}
         loader={<InfiniteLoader />}

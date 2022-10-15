@@ -7,7 +7,7 @@ import type { Profile } from '@generated/types';
 import { MutualFollowersListDocument } from '@generated/types';
 import type { FC } from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
-import { PAGINATION_ROOT_MARGIN } from 'src/constants';
+import { PAGINATION_THRESHOLD } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 
 interface Props {
@@ -48,7 +48,7 @@ const MutualFollowersList: FC<Props> = ({ profileId }) => {
       <ErrorMessage className="m-5" title="Failed to load mutual followers" error={error} />
       <InfiniteScroll
         pageStart={0}
-        threshold={PAGINATION_ROOT_MARGIN}
+        threshold={PAGINATION_THRESHOLD}
         hasMore={hasMore}
         loadMore={loadMore}
         loader={<InfiniteLoader />}

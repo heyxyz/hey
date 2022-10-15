@@ -10,7 +10,7 @@ import { CustomFiltersTypes, SearchProfilesDocument, SearchRequestTypes } from '
 import { UsersIcon } from '@heroicons/react/outline';
 import type { FC } from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
-import { PAGINATION_ROOT_MARGIN } from 'src/constants';
+import { PAGINATION_THRESHOLD } from 'src/constants';
 
 interface Props {
   query: string | string[];
@@ -66,7 +66,7 @@ const Profiles: FC<Props> = ({ query }) => {
   return (
     <InfiniteScroll
       pageStart={0}
-      threshold={PAGINATION_ROOT_MARGIN}
+      threshold={PAGINATION_THRESHOLD}
       hasMore={hasMore}
       loadMore={loadMore}
       loader={<InfiniteLoader />}

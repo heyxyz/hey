@@ -10,7 +10,7 @@ import { FollowersDocument } from '@generated/types';
 import { UsersIcon } from '@heroicons/react/outline';
 import type { FC } from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
-import { PAGINATION_ROOT_MARGIN } from 'src/constants';
+import { PAGINATION_THRESHOLD } from 'src/constants';
 
 interface Props {
   profile: Profile;
@@ -59,7 +59,7 @@ const Followers: FC<Props> = ({ profile }) => {
       <ErrorMessage className="m-5" title="Failed to load followers" error={error} />
       <InfiniteScroll
         pageStart={0}
-        threshold={PAGINATION_ROOT_MARGIN}
+        threshold={PAGINATION_THRESHOLD}
         hasMore={hasMore}
         loadMore={loadMore}
         loader={<InfiniteLoader />}
