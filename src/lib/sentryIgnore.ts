@@ -29,5 +29,6 @@ export const ignoreErrors = [
   /.*Invalid JSON RPC response*/gm,
   /.*Blocked a frame with origin*/gm,
   /.*User closed modal*/gm,
-  /.*Non-Error promise rejection captured with keys: code, message, stack*/gm
+  /.*Non-Error promise rejection captured with keys: code, message, stack*/gm,
+  /.*Something went wrong!*/gm
 ];
