@@ -4,12 +4,12 @@ import UserProfile from '@components/Shared/UserProfile';
 import { Card } from '@components/UI/Card';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
-import { Spinner } from '@components/UI/Spinner';
+import InfiniteLoader from '@components/UI/InfiniteLoader';
 import type { Profile } from '@generated/types';
 import { CustomFiltersTypes, SearchProfilesDocument, SearchRequestTypes } from '@generated/types';
 import { UsersIcon } from '@heroicons/react/outline';
 import type { FC } from 'react';
-import { useInView } from 'react-cool-inview';
+import InfiniteScroll from 'react-infinite-scroller';
 import { PAGINATION_ROOT_MARGIN } from 'src/constants';
 
 interface Props {
@@ -34,19 +34,13 @@ const Profiles: FC<Props> = ({ query }) => {
   const profiles = data?.search?.items;
   // @ts-ignore
   const pageInfo = data?.search?.pageInfo;
+  const hasMore = pageInfo?.next && profiles?.length !== pageInfo.totalCount;
 
-  const { observe } = useInView({
-    onChange: async ({ inView }) => {
-      if (!inView) {
-        return;
-      }
-
-      await fetchMore({
-        variables: { request: { ...request, cursor: pageInfo?.next } }
-      });
-    },
-    rootMargin: PAGINATION_ROOT_MARGIN
-  });
+  const loadMore = async () => {
+    await fetchMore({
+      variables: { request: { ...request, cursor: pageInfo?.next } }
+    });
+  };
 
   if (loading) {
     return <UserProfilesShimmer isBig />;
@@ -70,7 +64,13 @@ const Profiles: FC<Props> = ({ query }) => {
   }
 
   return (
-    <>
+    <InfiniteScroll
+      pageStart={0}
+      threshold={PAGINATION_ROOT_MARGIN}
+      hasMore={hasMore}
+      loadMore={loadMore}
+      loader={<InfiniteLoader />}
+    >
       <div className="space-y-3">
         {profiles?.map((profile: Profile) => (
           <Card key={profile?.id} className="p-5">
@@ -78,12 +78,7 @@ const Profiles: FC<Props> = ({ query }) => {
           </Card>
         ))}
       </div>
-      {pageInfo?.next && profiles?.length !== pageInfo.totalCount && (
-        <span ref={observe} className="flex justify-center p-5">
-          <Spinner size="sm" />
-        </span>
-      )}
-    </>
+    </InfiniteScroll>
   );
 };
 
