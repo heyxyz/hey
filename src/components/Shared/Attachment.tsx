@@ -66,6 +66,7 @@ const Attachment: FC<Props> = ({ attachments, setAttachments }) => {
         const attachment = await uploadMediaToIPFS(evt.target.files);
         if (attachment) {
           setAttachments(attachment);
+          evt.target.value = '';
         }
       } else {
         return toast.error('File format not allowed.');
