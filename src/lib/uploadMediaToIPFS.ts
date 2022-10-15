@@ -9,8 +9,9 @@ import { v4 as uuid } from 'uuid';
  */
 const uploadMediaToIPFS = async (data: any): Promise<LensterAttachment[]> => {
   try {
+    const files = Array.from(data);
     const attachments = await Promise.all(
-      data.map(async (_: any, i: number) => {
+      files.map(async (_: any, i: number) => {
         const file = data.item(i);
         const formData = new FormData();
         formData.append('data', file, uuid());
