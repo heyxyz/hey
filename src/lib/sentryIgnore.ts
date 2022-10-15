@@ -27,5 +27,8 @@ export const ignoreErrors = [
   /.*Cannot read properties of undefined (reading 'slice')*/gm,
   /.*INVALID_ARGUMENT*/gm,
   /.*Invalid JSON RPC response*/gm,
-  /.*Blocked a frame with origin*/gm
+  /.*Blocked a frame with origin*/gm,
+  /.*User closed modal*/gm,
+  /.*Non-Error promise rejection captured with keys: code, message, stack*/gm,
+  /.*Something went wrong!*/gm
 ];
