@@ -124,7 +124,10 @@ const cache = new InMemoryCache({
         ]),
         whoCollectedPublication: cursorBasedPagination(['request', ['publicationId']]),
         whoReactedPublication: cursorBasedPagination(['request', ['publicationId']]),
-        mutualFollowersProfiles: cursorBasedPagination(['request', ['viewingProfileId', 'yourProfileId']])
+        mutualFollowersProfiles: cursorBasedPagination([
+          'request',
+          ['viewingProfileId', 'yourProfileId', 'limit']
+        ])
       }
     }
   }
