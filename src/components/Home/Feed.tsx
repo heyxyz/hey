@@ -5,17 +5,15 @@ import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer'
 import { Card } from '@components/UI/Card';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
-import { Spinner } from '@components/UI/Spinner';
+import InfiniteLoader from '@components/UI/InfiniteLoader';
 import type { LensterPublication } from '@generated/lenstertypes';
 import { HomeFeedDocument } from '@generated/types';
 import { CollectionIcon } from '@heroicons/react/outline';
-import { Leafwatch } from '@lib/leafwatch';
 import type { FC } from 'react';
-import { useInView } from 'react-cool-inview';
+import InfiniteScroll from 'react-infinite-scroller';
 import { PAGINATION_ROOT_MARGIN } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { useTransactionPersistStore } from 'src/store/transaction';
-import { PAGINATION } from 'src/tracking';
 
 const Feed: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -32,20 +30,13 @@ const Feed: FC = () => {
 
   const publications = data?.timeline?.items;
   const pageInfo = data?.timeline?.pageInfo;
+  const hasMore = pageInfo?.next && publications?.length !== pageInfo.totalCount;
 
-  const { observe } = useInView({
-    onChange: async ({ inView }) => {
-      if (!inView) {
-        return;
-      }
-
-      await fetchMore({
-        variables: { request: { ...request, cursor: pageInfo?.next }, reactionRequest, profileId }
-      });
-      Leafwatch.track(PAGINATION.HOME_FEED);
-    },
-    rootMargin: PAGINATION_ROOT_MARGIN
-  });
+  const loadMore = async () => {
+    await fetchMore({
+      variables: { request: { ...request, cursor: pageInfo?.next }, reactionRequest, profileId }
+    });
+  };
 
   if (loading) {
     return <PublicationsShimmer />;
@@ -65,7 +56,13 @@ const Feed: FC = () => {
   }
 
   return (
-    <>
+    <InfiniteScroll
+      pageStart={0}
+      threshold={PAGINATION_ROOT_MARGIN}
+      hasMore={hasMore}
+      loadMore={loadMore}
+      loader={<InfiniteLoader />}
+    >
       <Card className="divide-y-[1px] dark:divide-gray-700/80">
         {txnQueue.map(
           (txn) =>
@@ -82,12 +79,7 @@ const Feed: FC = () => {
           />
         ))}
       </Card>
-      {pageInfo?.next && publications?.length !== pageInfo.totalCount && (
-        <span ref={observe} className="flex justify-center p-5">
-          <Spinner size="sm" />
-        </span>
-      )}
-    </>
+    </InfiniteScroll>
   );
 };
 

@@ -3,15 +3,13 @@ import UserProfile from '@components/Shared/UserProfile';
 import WalletProfile from '@components/Shared/WalletProfile';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
-import { Spinner } from '@components/UI/Spinner';
+import InfiniteLoader from '@components/UI/InfiniteLoader';
 import type { Profile, Wallet } from '@generated/types';
 import { CollectorsDocument } from '@generated/types';
 import { CollectionIcon } from '@heroicons/react/outline';
-import { Leafwatch } from '@lib/leafwatch';
 import type { FC } from 'react';
-import { useInView } from 'react-cool-inview';
+import InfiniteScroll from 'react-infinite-scroller';
 import { PAGINATION_ROOT_MARGIN } from 'src/constants';
-import { PAGINATION } from 'src/tracking';
 
 import Loader from '../Loader';
 
@@ -30,20 +28,13 @@ const Collectors: FC<Props> = ({ publicationId }) => {
 
   const profiles = data?.whoCollectedPublication?.items;
   const pageInfo = data?.whoCollectedPublication?.pageInfo;
+  const hasMore = pageInfo?.next && profiles?.length !== pageInfo.totalCount;
 
-  const { observe } = useInView({
-    onChange: async ({ inView }) => {
-      if (!inView) {
-        return;
-      }
-
-      await fetchMore({
-        variables: { request: { ...request, cursor: pageInfo?.next } }
-      });
-      Leafwatch.track(PAGINATION.COLLECTORS);
-    },
-    rootMargin: PAGINATION_ROOT_MARGIN
-  });
+  const loadMore = async () => {
+    await fetchMore({
+      variables: { request: { ...request, cursor: pageInfo?.next } }
+    });
+  };
 
   if (loading) {
     return <Loader message="Loading collectors" />;
@@ -64,7 +55,14 @@ const Collectors: FC<Props> = ({ publicationId }) => {
   return (
     <div className="overflow-y-auto max-h-[80vh]">
       <ErrorMessage className="m-5" title="Failed to load collectors" error={error} />
-      <div className="space-y-3">
+      <InfiniteScroll
+        pageStart={0}
+        threshold={PAGINATION_ROOT_MARGIN}
+        hasMore={hasMore}
+        loadMore={loadMore}
+        loader={<InfiniteLoader />}
+        useWindow={false}
+      >
         <div className="divide-y dark:divide-gray-700">
           {profiles?.map((wallet) => (
             <div className="p-5" key={wallet?.address}>
@@ -81,12 +79,7 @@ const Collectors: FC<Props> = ({ publicationId }) => {
             </div>
           ))}
         </div>
-        {pageInfo?.next && profiles?.length !== pageInfo.totalCount && (
-          <span ref={observe} className="flex justify-center p-5">
-            <Spinner size="md" />
-          </span>
-        )}
-      </div>
+      </InfiniteScroll>
     </div>
   );
 };

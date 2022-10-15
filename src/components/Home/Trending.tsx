@@ -22,10 +22,7 @@ const Title = () => {
 
 const Trending: FC = () => {
   const { data, loading, error } = useQuery(TrendingDocument, {
-    variables: {
-      request: { limit: 7, sort: TagSortCriteria.MostPopular }
-    },
-    pollInterval: 10000
+    variables: { request: { limit: 7, sort: TagSortCriteria.MostPopular } }
   });
 
   if (loading) {

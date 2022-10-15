@@ -90,7 +90,5 @@ export const BUNDLR_CURRENCY = 'matic';
 export const BUNDLR_NODE_URL = 'https://node2.bundlr.network';
 
 // UI
-export const PAGINATION_ROOT_MARGIN = '300% 0px';
-
-// Messages
 export const MESSAGE_PAGE_LIMIT = 20;
+export const PAGINATION_ROOT_MARGIN = 3000;

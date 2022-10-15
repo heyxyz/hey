@@ -3,15 +3,13 @@ import Loader from '@components/Shared/Loader';
 import UserProfile from '@components/Shared/UserProfile';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
-import { Spinner } from '@components/UI/Spinner';
+import InfiniteLoader from '@components/UI/InfiniteLoader';
 import type { Profile } from '@generated/types';
 import { FollowingDocument } from '@generated/types';
 import { UsersIcon } from '@heroicons/react/outline';
-import { Leafwatch } from '@lib/leafwatch';
 import type { FC } from 'react';
-import { useInView } from 'react-cool-inview';
+import InfiniteScroll from 'react-infinite-scroller';
 import { PAGINATION_ROOT_MARGIN } from 'src/constants';
-import { PAGINATION } from 'src/tracking';
 
 interface Props {
   profile: Profile;
@@ -28,22 +26,15 @@ const Following: FC<Props> = ({ profile }) => {
 
   const followings = data?.following?.items;
   const pageInfo = data?.following?.pageInfo;
+  const hasMore = pageInfo?.next && followings?.length !== pageInfo.totalCount;
 
-  const { observe } = useInView({
-    onChange: async ({ inView }) => {
-      if (!inView) {
-        return;
+  const loadMore = async () => {
+    await fetchMore({
+      variables: {
+        request: { ...request, cursor: pageInfo?.next }
       }
-
-      await fetchMore({
-        variables: {
-          request: { ...request, cursor: pageInfo?.next }
-        }
-      });
-      Leafwatch.track(PAGINATION.FOLLOWING);
-    },
-    rootMargin: PAGINATION_ROOT_MARGIN
-  });
+    });
+  };
 
   if (loading) {
     return <Loader message="Loading following" />;
@@ -67,7 +58,14 @@ const Following: FC<Props> = ({ profile }) => {
   return (
     <div className="overflow-y-auto max-h-[80vh]">
       <ErrorMessage className="m-5" title="Failed to load following" error={error} />
-      <div className="space-y-3">
+      <InfiniteScroll
+        pageStart={0}
+        threshold={PAGINATION_ROOT_MARGIN}
+        hasMore={hasMore}
+        loadMore={loadMore}
+        loader={<InfiniteLoader />}
+        useWindow={false}
+      >
         <div className="divide-y dark:divide-gray-700">
           {followings?.map((following) => (
             <div className="p-5" key={following?.profile?.id}>
@@ -80,12 +78,7 @@ const Following: FC<Props> = ({ profile }) => {
             </div>
           ))}
         </div>
-        {pageInfo?.next && followings?.length !== pageInfo.totalCount && (
-          <span ref={observe} className="flex justify-center p-5">
-            <Spinner size="md" />
-          </span>
-        )}
-      </div>
+      </InfiniteScroll>
     </div>
   );
 };
