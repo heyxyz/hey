@@ -108,25 +108,6 @@ export const SEARCH = {
   CLEAR: 'Clear search text'
 };
 
-export const PAGINATION = {
-  HOME_FEED: 'Paginate home feed',
-  HIGHLIGHTS_FEED: 'Paginate highlights feed',
-  COMMENT_FEED: 'Paginate comment feed',
-  EXPLORE_FEED: 'Paginate explore feed',
-  PROFILE_FEED: 'Paginate profile feed',
-  NOTIFICATION_FEED: 'Paginate notification feed',
-  NFT_FEED: 'Paginate NFT feed',
-  MOD_FEED: 'Paginate mod feed',
-  FOLLOWERS: 'Paginate followers list',
-  FOLLOWING: 'Paginate following list',
-  MIRRORS: 'Paginate mirrors list',
-  COLLECTORS: 'Paginate collectors list',
-  LIKES: 'Paginate likes list',
-  MUTUAL_FOLLOWERS: 'Paginate mutual followers list',
-  PROFILE_SEARCH: 'Paginate profile search list',
-  PUBLICATION_SEARCH: 'Paginate publication search list'
-};
-
 export const SYSTEM = {
   SWITCH_LIGHT_THEME: 'Switch light theme',
   SWITCH_DARK_THEME: 'Switch dark theme',

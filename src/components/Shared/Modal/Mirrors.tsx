@@ -6,11 +6,9 @@ import { Spinner } from '@components/UI/Spinner';
 import type { Profile } from '@generated/types';
 import { MirrorsDocument } from '@generated/types';
 import { SwitchHorizontalIcon } from '@heroicons/react/outline';
-import { Leafwatch } from '@lib/leafwatch';
 import type { FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { PAGINATION_ROOT_MARGIN } from 'src/constants';
-import { PAGINATION } from 'src/tracking';
 
 import Loader from '../Loader';
 
@@ -39,7 +37,6 @@ const Mirrors: FC<Props> = ({ publicationId }) => {
       await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next } }
       });
-      Leafwatch.track(PAGINATION.MIRRORS);
     },
     rootMargin: PAGINATION_ROOT_MARGIN
   });
