@@ -10,7 +10,7 @@ import { CustomFiltersTypes, ExploreFeedDocument, PublicationSortCriteria } from
 import { CollectionIcon } from '@heroicons/react/outline';
 import type { FC } from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
-import { PAGINATION_ROOT_MARGIN } from 'src/constants';
+import { PAGINATION_THRESHOLD } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 
 interface Props {
@@ -67,7 +67,7 @@ const Feed: FC<Props> = ({ focus, feedType = PublicationSortCriteria.CuratedProf
   return (
     <InfiniteScroll
       pageStart={0}
-      threshold={PAGINATION_ROOT_MARGIN}
+      threshold={PAGINATION_THRESHOLD}
       hasMore={hasMore}
       loadMore={loadMore}
       loader={<InfiniteLoader />}
