@@ -9,13 +9,11 @@ import { Spinner } from '@components/UI/Spinner';
 import type { LensterPublication } from '@generated/lenstertypes';
 import { CommentFeedDocument, CustomFiltersTypes } from '@generated/types';
 import { CollectionIcon } from '@heroicons/react/outline';
-import { Leafwatch } from '@lib/leafwatch';
 import type { FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { PAGINATION_ROOT_MARGIN } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { useTransactionPersistStore } from 'src/store/transaction';
-import { PAGINATION } from 'src/tracking';
 
 import NewComment from '../Composer/Comment/New';
 import CommentWarning from '../Shared/CommentWarning';
@@ -51,7 +49,6 @@ const Feed: FC<Props> = ({ publication }) => {
       await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next }, reactionRequest, profileId }
       });
-      Leafwatch.track(PAGINATION.COMMENT_FEED);
     },
     rootMargin: PAGINATION_ROOT_MARGIN
   });
@@ -64,7 +61,7 @@ const Feed: FC<Props> = ({ publication }) => {
     <>
       {currentProfile ? canComment ? <NewComment publication={publication} /> : <CommentWarning /> : null}
       {loading && <PublicationsShimmer />}
-      {totalComments === 0 && (
+      {!loading && totalComments === 0 && (
         <EmptyState
           message={<span>Be the first one to comment!</span>}
           icon={<CollectionIcon className="w-8 h-8 text-brand" />}
