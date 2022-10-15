@@ -25,6 +25,7 @@ export const ignoreErrors = [
   /.*Missing or invalid topic field*/gm,
   /.*AbortError: The user aborted a request*/gm,
   /.*Cannot read properties of undefined (reading 'slice')*/gm,
+  /.*INVALID_ARGUMENT*/gm,
   /.*Invalid JSON RPC response*/gm,
   /.*Blocked a frame with origin*/gm
 ];
