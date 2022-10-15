@@ -3,12 +3,12 @@ import SingleNFT from '@components/NFT/SingleNFT';
 import NFTSShimmer from '@components/Shared/Shimmer/NFTSShimmer';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
-import { Spinner } from '@components/UI/Spinner';
+import InfiniteLoader from '@components/UI/InfiniteLoader';
 import type { Nft, Profile } from '@generated/types';
 import { NftFeedDocument } from '@generated/types';
 import { CollectionIcon } from '@heroicons/react/outline';
 import type { FC } from 'react';
-import { useInView } from 'react-cool-inview';
+import InfiniteScroll from 'react-infinite-scroller';
 import { CHAIN_ID, IS_MAINNET, PAGINATION_ROOT_MARGIN } from 'src/constants';
 import { chain } from 'wagmi';
 
@@ -31,19 +31,13 @@ const NFTFeed: FC<Props> = ({ profile }) => {
 
   const nfts = data?.nfts?.items;
   const pageInfo = data?.nfts?.pageInfo;
+  const hasMore = pageInfo?.next && nfts?.length !== pageInfo.totalCount;
 
-  const { observe } = useInView({
-    onChange: async ({ inView }) => {
-      if (!inView) {
-        return;
-      }
-
-      await fetchMore({
-        variables: { request: { ...request, cursor: pageInfo?.next } }
-      });
-    },
-    rootMargin: PAGINATION_ROOT_MARGIN
-  });
+  const loadMore = async () => {
+    await fetchMore({
+      variables: { request: { ...request, cursor: pageInfo?.next } }
+    });
+  };
 
   if (loading) {
     return <NFTSShimmer />;
@@ -68,7 +62,13 @@ const NFTFeed: FC<Props> = ({ profile }) => {
   }
 
   return (
-    <>
+    <InfiniteScroll
+      pageStart={0}
+      threshold={PAGINATION_ROOT_MARGIN}
+      hasMore={hasMore}
+      loadMore={loadMore}
+      loader={<InfiniteLoader />}
+    >
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         {nfts?.map((nft) => (
           <div key={`${nft?.chainId}_${nft?.contractAddress}_${nft?.tokenId}`}>
@@ -76,12 +76,7 @@ const NFTFeed: FC<Props> = ({ profile }) => {
           </div>
         ))}
       </div>
-      {pageInfo?.next && nfts?.length !== pageInfo.totalCount && (
-        <span ref={observe} className="flex justify-center p-5">
-          <Spinner size="sm" />
-        </span>
-      )}
-    </>
+    </InfiniteScroll>
   );
 };
 

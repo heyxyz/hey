@@ -2,7 +2,7 @@ import { useQuery } from '@apollo/client';
 import { Card } from '@components/UI/Card';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
-import { Spinner } from '@components/UI/Spinner';
+import InfiniteLoader from '@components/UI/InfiniteLoader';
 import type {
   NewCollectNotification,
   NewCommentNotification,
@@ -15,7 +15,7 @@ import { NotificationTypes } from '@generated/types';
 import { CustomFiltersTypes, NotificationsDocument } from '@generated/types';
 import { MailIcon } from '@heroicons/react/outline';
 import type { FC } from 'react';
-import { useInView } from 'react-cool-inview';
+import InfiniteScroll from 'react-infinite-scroller';
 import { PAGINATION_ROOT_MARGIN } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 
@@ -50,19 +50,13 @@ const List: FC<Props> = ({ feedType }) => {
 
   const notifications = data?.notifications?.items;
   const pageInfo = data?.notifications?.pageInfo;
+  const hasMore = pageInfo?.next && notifications?.length !== pageInfo.totalCount;
 
-  const { observe } = useInView({
-    onChange: async ({ inView }) => {
-      if (!inView) {
-        return;
-      }
-
-      await fetchMore({
-        variables: { request: { ...request, cursor: pageInfo?.next } }
-      });
-    },
-    rootMargin: PAGINATION_ROOT_MARGIN
-  });
+  const loadMore = async () => {
+    await fetchMore({
+      variables: { request: { ...request, cursor: pageInfo?.next } }
+    });
+  };
 
   if (loading) {
     return (
@@ -94,35 +88,38 @@ const List: FC<Props> = ({ feedType }) => {
   }
 
   return (
-    <Card className="divide-y dark:divide-gray-700">
-      {notifications?.map((notification, index: number) => (
-        <div key={`${notification?.notificationId}_${index}`} className="p-5">
-          {notification.__typename === 'NewFollowerNotification' && (
-            <FollowerNotification notification={notification as NewFollowerNotification} />
-          )}
-          {notification.__typename === 'NewMentionNotification' && (
-            <MentionNotification notification={notification as NewMentionNotification} />
-          )}
-          {notification.__typename === 'NewReactionNotification' && (
-            <LikeNotification notification={notification as NewReactionNotification} />
-          )}
-          {notification.__typename === 'NewCommentNotification' && (
-            <CommentNotification notification={notification as NewCommentNotification} />
-          )}
-          {notification.__typename === 'NewMirrorNotification' && (
-            <MirrorNotification notification={notification as NewMirrorNotification} />
-          )}
-          {notification.__typename === 'NewCollectNotification' && (
-            <CollectNotification notification={notification as NewCollectNotification} />
-          )}
-        </div>
-      ))}
-      {pageInfo?.next && notifications?.length !== pageInfo.totalCount && (
-        <span ref={observe} className="flex justify-center p-5">
-          <Spinner size="sm" />
-        </span>
-      )}
-    </Card>
+    <InfiniteScroll
+      pageStart={0}
+      threshold={PAGINATION_ROOT_MARGIN}
+      hasMore={hasMore}
+      loadMore={loadMore}
+      loader={<InfiniteLoader />}
+    >
+      <Card className="divide-y dark:divide-gray-700">
+        {notifications?.map((notification, index: number) => (
+          <div key={`${notification?.notificationId}_${index}`} className="p-5">
+            {notification.__typename === 'NewFollowerNotification' && (
+              <FollowerNotification notification={notification as NewFollowerNotification} />
+            )}
+            {notification.__typename === 'NewMentionNotification' && (
+              <MentionNotification notification={notification as NewMentionNotification} />
+            )}
+            {notification.__typename === 'NewReactionNotification' && (
+              <LikeNotification notification={notification as NewReactionNotification} />
+            )}
+            {notification.__typename === 'NewCommentNotification' && (
+              <CommentNotification notification={notification as NewCommentNotification} />
+            )}
+            {notification.__typename === 'NewMirrorNotification' && (
+              <MirrorNotification notification={notification as NewMirrorNotification} />
+            )}
+            {notification.__typename === 'NewCollectNotification' && (
+              <CollectNotification notification={notification as NewCollectNotification} />
+            )}
+          </div>
+        ))}
+      </Card>
+    </InfiniteScroll>
   );
 };
 
