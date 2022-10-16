@@ -1,3 +1,4 @@
+import PublicationActions from '@components/Publication/Actions';
 import ModAction from '@components/Publication/Actions/ModAction';
 import HiddenPublication from '@components/Publication/HiddenPublication';
 import PublicationBody from '@components/Publication/PublicationBody';
@@ -11,7 +12,6 @@ import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { PUBLICATION } from 'src/tracking';
 
-import PublicationActions from './Actions';
 import EventType from './EventType';
 
 dayjs.extend(relativeTime);
