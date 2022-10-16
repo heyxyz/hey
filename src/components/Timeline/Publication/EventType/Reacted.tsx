@@ -28,7 +28,7 @@ const Reacted: FC<Props> = ({ reactions, isComment }) => {
       <HeartIcon className="w-4 h-4" />
       <ProfileCircles
         profiles={getReactedProfiles()}
-        context="reacted"
+        context="Reacted by"
         totalCount={getReactedProfiles().length}
       />
     </div>

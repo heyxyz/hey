@@ -28,7 +28,7 @@ const Collected: FC<Props> = ({ collects, isComment }) => {
       <CollectionIcon className="w-4 h-4" />
       <ProfileCircles
         profiles={getCollectedProfiles()}
-        context="collected"
+        context="Collected by"
         totalCount={getCollectedProfiles().length}
       />
     </div>
