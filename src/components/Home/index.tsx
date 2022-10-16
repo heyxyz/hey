@@ -13,6 +13,7 @@ import { PAGEVIEW } from 'src/tracking';
 
 import Timeline from '../Timeline';
 import EnableDispatcher from './EnableDispatcher';
+import EnableMessages from './EnableMessages';
 import HomeFeed from './Feed';
 import FeedType from './FeedType';
 import Hero from './Hero';
@@ -56,6 +57,7 @@ const Home: NextPage = () => {
         </GridItemEight>
         <GridItemFour>
           {currentProfile ? <EnableDispatcher /> : null}
+          {isFeatureEnabled('messages', currentProfile?.id) && <EnableMessages />}
           <BetaWarning />
           {isFeatureEnabled('trending-widget', currentProfile?.id) && <Trending />}
           {currentProfile ? (

@@ -3,6 +3,7 @@ import { AXIOM_TOKEN, IS_PRODUCTION, LEAFWATCH_HOST } from 'src/constants';
 import parser from 'ua-parser-js';
 
 const enabled = AXIOM_TOKEN && IS_PRODUCTION;
+const isBrowser = typeof window !== 'undefined';
 
 /**
  * Axiom analytics
@@ -14,7 +15,7 @@ export const Leafwatch = {
       localStorage.getItem('lenster.store') || JSON.stringify({ state: { profileId: null } })
     );
 
-    if (enabled) {
+    if (isBrowser && enabled) {
       axios(LEAFWATCH_HOST, {
         method: 'POST',
         headers: {

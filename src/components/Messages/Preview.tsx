@@ -20,15 +20,12 @@ interface Props {
 const Preview: FC<Props> = ({ profile, message }) => {
   const router = useRouter();
 
-  const onConversationSelected = (address: string) => {
-    router.push(address ? `/messages/${address}` : '/messages');
+  const onConversationSelected = (profileId: string) => {
+    router.push(profileId ? `/messages/${profileId}` : '/messages');
   };
 
   return (
-    <div
-      className="hover:bg-gray-100 py-3 cursor-pointer"
-      onClick={() => onConversationSelected(profile.ownedBy)}
-    >
+    <div className="hover:bg-gray-100 py-3 cursor-pointer" onClick={() => onConversationSelected(profile.id)}>
       <div className="flex justify-between space-x-1.5 px-5">
         <div className="flex items-center space-x-3">
           <img
@@ -44,11 +41,11 @@ const Preview: FC<Props> = ({ profile, message }) => {
               <div className={clsx('text-md')}>{profile?.name ?? profile.handle}</div>
               {isVerified(profile?.id) && <BadgeCheckIcon className="w-4 h-4 text-brand" />}
             </div>
-            <span className="text-sm text-gray-500">{message.content}</span>
+            <span className="text-sm text-gray-500 line-clamp-1">{message.content}</span>
           </div>
         </div>
         {message.sent && (
-          <span className="text-xs text-gray-500">{dayjs(new Date(message.sent)).fromNow()}</span>
+          <span className="min-w-fit text-xs text-gray-500">{dayjs(new Date(message.sent)).fromNow()}</span>
         )}
       </div>
     </div>

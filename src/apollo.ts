@@ -112,10 +112,10 @@ const cache = new InMemoryCache({
         timeline: cursorBasedPagination(['request', ['profileId']]),
         feed: cursorBasedPagination(['request', ['profileId']]),
         feedHighlights: cursorBasedPagination(['request', ['profileId']]),
-        explorePublications: cursorBasedPagination(['request', ['sortCriteria']]),
+        explorePublications: cursorBasedPagination(['request', ['sortCriteria', 'metadata']]),
         publications: cursorBasedPagination(['request', ['profileId', 'commentsOf', 'publicationTypes']]),
         nfts: cursorBasedPagination(['request', ['ownerAddress', 'chainIds']]),
-        notifications: cursorBasedPagination(['request', ['profileId']]),
+        notifications: cursorBasedPagination(['request', ['profileId', 'notificationTypes']]),
         followers: cursorBasedPagination(['request', ['profileId']]),
         following: cursorBasedPagination(['request', ['address']]),
         search: cursorBasedPagination(['request', ['query', 'type']]),
@@ -125,7 +125,10 @@ const cache = new InMemoryCache({
         ]),
         whoCollectedPublication: cursorBasedPagination(['request', ['publicationId']]),
         whoReactedPublication: cursorBasedPagination(['request', ['publicationId']]),
-        mutualFollowersProfiles: cursorBasedPagination(['request', ['viewingProfileId', 'yourProfileId']])
+        mutualFollowersProfiles: cursorBasedPagination([
+          'request',
+          ['viewingProfileId', 'yourProfileId', 'limit']
+        ])
       }
     }
   }
