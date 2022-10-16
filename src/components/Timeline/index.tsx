@@ -4,20 +4,18 @@ import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer'
 import { Card } from '@components/UI/Card';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
-import { Spinner } from '@components/UI/Spinner';
+import InfiniteLoader from '@components/UI/InfiniteLoader';
 import type { FeedItem } from '@generated/types';
 import { FeedEventItemType } from '@generated/types';
 import { TimelineDocument } from '@generated/types';
 import { CollectionIcon } from '@heroicons/react/outline';
-import { Leafwatch } from '@lib/leafwatch';
 import type { FC } from 'react';
 import { useEffect } from 'react';
-import { useInView } from 'react-cool-inview';
-import { PAGINATION_ROOT_MARGIN } from 'src/constants';
+import InfiniteScroll from 'react-infinite-scroller';
+import { PAGINATION_THRESHOLD } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { useTimelinePersistStore } from 'src/store/timeline';
 import { useTransactionPersistStore } from 'src/store/transaction';
-import { PAGINATION } from 'src/tracking';
 
 import SinglePublication from './Publication/SinglePublication';
 
@@ -61,20 +59,13 @@ const Timeline: FC = () => {
 
   const publications = data?.feed?.items;
   const pageInfo = data?.feed?.pageInfo;
+  const hasMore = pageInfo?.next && publications?.length !== pageInfo.totalCount;
 
-  const { observe } = useInView({
-    onChange: async ({ inView }) => {
-      if (!inView) {
-        return;
-      }
-
-      await fetchMore({
-        variables: { request: { ...request, cursor: pageInfo?.next }, reactionRequest, profileId }
-      });
-      Leafwatch.track(PAGINATION.HOME_FEED);
-    },
-    rootMargin: PAGINATION_ROOT_MARGIN
-  });
+  const loadMore = async () => {
+    await fetchMore({
+      variables: { request: { ...request, cursor: pageInfo?.next }, reactionRequest, profileId }
+    });
+  };
 
   if (loading) {
     return <PublicationsShimmer />;
@@ -94,7 +85,13 @@ const Timeline: FC = () => {
   }
 
   return (
-    <>
+    <InfiniteScroll
+      pageStart={0}
+      threshold={PAGINATION_THRESHOLD}
+      hasMore={hasMore}
+      loadMore={loadMore}
+      loader={<InfiniteLoader />}
+    >
       <Card className="divide-y-[1px] dark:divide-gray-700/80">
         {txnQueue.map(
           (txn) =>
@@ -108,12 +105,7 @@ const Timeline: FC = () => {
           <SinglePublication key={`${publication?.root.id}_${index}`} feedItem={publication as FeedItem} />
         ))}
       </Card>
-      {pageInfo?.next && publications?.length !== pageInfo.totalCount && (
-        <span ref={observe} className="flex justify-center p-5">
-          <Spinner size="sm" />
-        </span>
-      )}
-    </>
+    </InfiniteScroll>
   );
 };
 
