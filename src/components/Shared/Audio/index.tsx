@@ -1,21 +1,16 @@
-import { Spinner } from '@components/UI/Spinner';
 import type { LensterPublication } from '@generated/lenstertypes';
 import type { Attribute } from '@generated/types';
-import { PhotographIcon } from '@heroicons/react/outline';
 import getTimeFromSeconds from '@lib/formatSeconds';
 import getAttributeFromTrait from '@lib/getAttributeFromTrait';
-import getIPFSLink from '@lib/getIPFSLink';
 import getThumbnailUrl from '@lib/getThumbnailUrl';
-import uploadMediaToIPFS from '@lib/uploadMediaToIPFS';
-import clsx from 'clsx';
 import type { ChangeEvent, FC } from 'react';
 import { useId } from 'react';
 import { useCallback, useEffect } from 'react';
 import { useRef, useState } from 'react';
 import React from 'react';
-import toast from 'react-hot-toast';
-import { ERROR_MESSAGE } from 'src/constants';
 import { usePublicationStore } from 'src/store/publication';
+
+import CoverImage from './CoverImage';
 
 const getAudioPlayerOptions = (ref: HTMLDivElement) => ({
   container: ref,
@@ -23,13 +18,14 @@ const getAudioPlayerOptions = (ref: HTMLDivElement) => ({
   progressColor: '#8b5cf6',
   cursorColor: '#8b5cf6',
   cursorWidth: 1.5,
-  barWidth: 1.5,
+  barWidth: 2.5,
   barRadius: 3,
   hideScrollbar: true,
   responsive: true,
   height: 40,
   normalize: true,
-  partialRender: true
+  partialRender: true,
+  barGap: 4
 });
 
 interface Props {
@@ -38,61 +34,6 @@ interface Props {
   publication?: LensterPublication;
   txn: any;
 }
-
-type ThumbnailProps = { isNew: boolean; cover: string; setCover: (url: string, mimeType: string) => void };
-
-const Thumbnail: FC<ThumbnailProps> = ({ isNew = false, cover, setCover }) => {
-  const [loading, setLoading] = useState(false);
-
-  const onError = (error: any) => {
-    toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE);
-    setLoading(false);
-  };
-
-  const onPfpUpload = async (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files?.length) {
-      try {
-        setLoading(true);
-        const attachment = await uploadMediaToIPFS(e.target.files);
-        setCover(attachment[0].item, attachment[0].type);
-      } catch (error) {
-        onError(error);
-      }
-    }
-  };
-
-  return (
-    <div className="relative flex-none overflow-hidden group">
-      <img src={getIPFSLink(cover)} className="object-cover w-36 h-36" draggable={false} alt="cover" />
-      {isNew && (
-        <label
-          className={clsx(
-            'absolute top-0 grid w-36 h-36 bg-gray-100 dark:bg-gray-900 cursor-pointer place-items-center group-hover:visible backdrop-blur-lg',
-            {
-              visible: loading && !cover,
-              invisible: cover
-            }
-          )}
-        >
-          {loading && !cover ? (
-            <Spinner size="sm" />
-          ) : (
-            <div className="text-sm dark:text-white flex flex-col opacity-60 items-center">
-              <PhotographIcon className="w-5 h-5" />
-              <span>Add cover</span>
-            </div>
-          )}
-          <input
-            type="file"
-            accept=".png, .jpg, .jpeg, .svg"
-            className="hidden w-full"
-            onChange={onPfpUpload}
-          />
-        </label>
-      )}
-    </div>
-  );
-};
 
 const Audio: FC<Props> = ({ src, isNew = false, publication, txn }) => {
   const [playing, setPlaying] = useState(false);
@@ -140,7 +81,7 @@ const Audio: FC<Props> = ({ src, isNew = false, publication, txn }) => {
   return (
     <div className="border w-full overflow-hidden border-gray-200 dark:border-gray-800 rounded-xl">
       <div className="flex flex-1 space-x-2">
-        <Thumbnail
+        <CoverImage
           isNew={isNew && !txn}
           cover={isNew ? (txn ? txn.cover : audioPublication.cover) : getThumbnailUrl(publication)}
           setCover={(url, mimeType) =>
@@ -154,36 +95,32 @@ const Audio: FC<Props> = ({ src, isNew = false, publication, txn }) => {
                 <button
                   type="button"
                   onClick={handlePlayPause}
-                  className="p-2.5 bg-gray-500 text-white rounded-full"
+                  className="p-2.5 bg-gray-500 hover:bg-gray-600 text-white rounded-full"
                 >
                   {playing ? (
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
                       viewBox="0 0 24 24"
-                      strokeWidth={1.5}
-                      stroke="currentColor"
+                      fill="currentColor"
                       className="w-5 h-5"
                     >
                       <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M15.75 5.25v13.5m-7.5-13.5v13.5"
+                        fillRule="evenodd"
+                        d="M6.75 5.25a.75.75 0 01.75-.75H9a.75.75 0 01.75.75v13.5a.75.75 0 01-.75.75H7.5a.75.75 0 01-.75-.75V5.25zm7.5 0A.75.75 0 0115 4.5h1.5a.75.75 0 01.75.75v13.5a.75.75 0 01-.75.75H15a.75.75 0 01-.75-.75V5.25z"
+                        clipRule="evenodd"
                       />
                     </svg>
                   ) : (
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
                       viewBox="0 0 24 24"
-                      strokeWidth={1.5}
-                      stroke="currentColor"
+                      fill="currentColor"
                       className="w-5 h-5 pl-0.5"
                     >
                       <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z"
+                        fillRule="evenodd"
+                        d="M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.348c1.295.712 1.295 2.573 0 3.285L7.28 19.991c-1.25.687-2.779-.217-2.779-1.643V5.653z"
+                        clipRule="evenodd"
                       />
                     </svg>
                   )}
@@ -209,8 +146,8 @@ const Audio: FC<Props> = ({ src, isNew = false, publication, txn }) => {
                   </div>
                 ) : (
                   <>
-                    <h5>{publication?.metadata.name ?? txn.title}</h5>
-                    <h6 className="text-sm opacity-70">
+                    <h5 className="text-lg leading-5 truncate">{publication?.metadata.name ?? txn.title}</h5>
+                    <h6 className="opacity-50 leading-5">
                       {txn?.author ??
                         getAttributeFromTrait(publication?.metadata.attributes as Attribute[], 'author')}
                     </h6>
