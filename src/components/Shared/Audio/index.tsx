@@ -130,18 +130,20 @@ const Audio: FC<Props> = ({ src, isNew = false, publication, txn }) => {
                 {isNew && !txn ? (
                   <div className="flex flex-col w-full">
                     <input
-                      className="border-none w-full dark:text-white bg-transparent outline-none placeholder-gray-800 dark:placeholder-gray-200"
+                      className="border-none w-full text-lg leading-5 dark:text-white bg-transparent outline-none placeholder-gray-800 dark:placeholder-gray-200"
                       placeholder="Add title..."
                       name="title"
                       value={audioPublication.title}
+                      autoComplete="off"
                       onChange={handleChange}
                     />
                     <input
-                      className="border-none w-full dark:text-gray-300 text-gray-600 bg-transparent text-sm outline-none"
+                      className="border-none w-full dark:text-gray-300 text-gray-600 bg-transparent outline-none"
                       placeholder="Add author..."
                       name="author"
                       value={audioPublication.author}
                       onChange={handleChange}
+                      autoComplete="off"
                     />
                   </div>
                 ) : (
