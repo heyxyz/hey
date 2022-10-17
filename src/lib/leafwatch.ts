@@ -34,9 +34,7 @@ export const Leafwatch = {
             language: navigator.language
           },
           device: {
-            os: ua.os.name,
-            screen_height: screen.height,
-            screen_width: screen.width
+            os: ua.os.name
           }
         }
       }).catch(() => {
