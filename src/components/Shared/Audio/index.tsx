@@ -151,7 +151,8 @@ const Audio: FC<Props> = ({ src, isNew = false, publication, txn }) => {
                     <h5 className="text-lg leading-5 truncate">{publication?.metadata.name ?? txn.title}</h5>
                     <h6 className="opacity-50 leading-5">
                       {txn?.author ??
-                        getAttributeFromTrait(publication?.metadata.attributes as Attribute[], 'author')}
+                        getAttributeFromTrait(publication?.metadata.attributes as Attribute[], 'author') ??
+                        publication?.profile.name}
                     </h6>
                   </>
                 )}
