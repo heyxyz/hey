@@ -17,8 +17,8 @@ const FeedType: FC<Props> = ({ setFeedType, feedType }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   return (
-    <div className="flex items-center justify-between">
-      <div className="flex overflow-x-auto gap-3 px-5 sm:px-0">
+    <div className="flex flex-wrap items-center px-5 justify-between">
+      <div className="flex overflow-x-auto gap-3 sm:px-0">
         <TabButton
           name="Timeline"
           icon={<ViewListIcon className="w-4 h-4" />}
