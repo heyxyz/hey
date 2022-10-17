@@ -1,7 +1,7 @@
 import { Card } from '@components/UI/Card';
 import { MinusCircleIcon, PencilAltIcon, PhotographIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import clsx from 'clsx';
 import Link from 'next/link';
 import type { FC } from 'react';
@@ -51,7 +51,7 @@ const SetProfile: FC = () => {
       </div>
       <div className="flex items-center space-x-1.5 text-sm font-bold">
         <PencilAltIcon className="w-4 h-4" />
-        <Link href="/settings" onClick={() => Mixpanel.track(MISCELLANEOUS.NAVIGATE_UPDATE_PROFILE)}>
+        <Link href="/settings" onClick={() => Leafwatch.track(MISCELLANEOUS.NAVIGATE_UPDATE_PROFILE)}>
           Update profile here
         </Link>
       </div>

@@ -20,7 +20,7 @@ import { PencilAltIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
 import getTags from '@lib/getTags';
 import getUserLocale from '@lib/getUserLocale';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import trimify from '@lib/trimify';
@@ -93,7 +93,7 @@ const NewUpdate: FC = () => {
     setPublicationContent('');
     setAttachments([]);
     resetCollectSettings();
-    Mixpanel.track(POST.NEW);
+    Leafwatch.track(POST.NEW);
   };
 
   const generateOptimisticPost = (txHash: string) => {
@@ -111,8 +111,8 @@ const NewUpdate: FC = () => {
     isLoading: writeLoading,
     write
   } = useContractWrite({
-    addressOrName: LENSHUB_PROXY,
-    contractInterface: LensHubProxy,
+    address: LENSHUB_PROXY,
+    abi: LensHubProxy,
     functionName: 'postWithSig',
     mode: 'recklesslyUnprepared',
     onSuccess: ({ hash }) => {
@@ -158,7 +158,7 @@ const NewUpdate: FC = () => {
 
           setUserSigNonce(userSigNonce + 1);
           if (!RELAY_ON) {
-            return write?.({ recklesslySetUnpreparedArgs: inputStruct });
+            return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
           }
 
           const {
@@ -166,7 +166,7 @@ const NewUpdate: FC = () => {
           } = await broadcast({ request: { id, signature } });
 
           if ('reason' in result) {
-            write?.({ recklesslySetUnpreparedArgs: inputStruct });
+            write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
           }
         } catch {}
       },

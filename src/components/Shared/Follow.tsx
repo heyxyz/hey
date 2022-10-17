@@ -8,7 +8,7 @@ import type { Mutation, Profile } from '@generated/types';
 import { CreateFollowTypedDataDocument, ProxyActionDocument } from '@generated/types';
 import { UserAddIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import type { Dispatch, FC } from 'react';
@@ -35,7 +35,7 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
   const onCompleted = () => {
     setFollowing(true);
     toast.success('Followed successfully!');
-    Mixpanel.track(PROFILE.FOLLOW);
+    Leafwatch.track(PROFILE.FOLLOW);
   };
 
   const updateCache = (cache: ApolloCache<any>) => {
@@ -48,8 +48,8 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
   };
 
   const { isLoading: writeLoading, write } = useContractWrite({
-    addressOrName: LENSHUB_PROXY,
-    contractInterface: LensHubProxy,
+    address: LENSHUB_PROXY,
+    abi: LensHubProxy,
     functionName: 'followWithSig',
     mode: 'recklesslyUnprepared',
     onSuccess: onCompleted,
@@ -77,7 +77,7 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
             sig
           };
           if (!RELAY_ON) {
-            return write?.({ recklesslySetUnpreparedArgs: inputStruct });
+            return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
           }
 
           const {
@@ -85,7 +85,7 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
           } = await broadcast({ request: { id, signature } });
 
           if ('reason' in result) {
-            write?.({ recklesslySetUnpreparedArgs: inputStruct });
+            write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
           }
         } catch {}
       },

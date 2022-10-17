@@ -8,7 +8,7 @@ import type { Mutation } from '@generated/types';
 import { CreateSetDispatcherTypedDataDocument } from '@generated/types';
 import { CheckCircleIcon, XIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import clsx from 'clsx';
@@ -31,7 +31,7 @@ const ToggleDispatcher: FC<Props> = ({ buttonSize = 'md' }) => {
 
   const onCompleted = () => {
     toast.success('Profile updated successfully!');
-    Mixpanel.track(SETTINGS.DISPATCHER.TOGGLE);
+    Leafwatch.track(SETTINGS.DISPATCHER.TOGGLE);
   };
 
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
@@ -41,8 +41,8 @@ const ToggleDispatcher: FC<Props> = ({ buttonSize = 'md' }) => {
     isLoading: writeLoading,
     write
   } = useContractWrite({
-    addressOrName: LENSHUB_PROXY,
-    contractInterface: LensHubProxy,
+    address: LENSHUB_PROXY,
+    abi: LensHubProxy,
     functionName: 'setDispatcherWithSig',
     mode: 'recklesslyUnprepared',
     onSuccess: onCompleted,
@@ -68,7 +68,7 @@ const ToggleDispatcher: FC<Props> = ({ buttonSize = 'md' }) => {
 
           setUserSigNonce(userSigNonce + 1);
           if (!RELAY_ON) {
-            return write?.({ recklesslySetUnpreparedArgs: inputStruct });
+            return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
           }
 
           const {
@@ -76,7 +76,7 @@ const ToggleDispatcher: FC<Props> = ({ buttonSize = 'md' }) => {
           } = await broadcast({ request: { id, signature } });
 
           if ('reason' in result) {
-            write?.({ recklesslySetUnpreparedArgs: inputStruct });
+            write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
           }
         } catch {}
       },

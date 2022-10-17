@@ -8,7 +8,7 @@ interface Props {
   sendMessage: (message: string) => void;
 }
 
-const MessageComposer: FC<Props> = ({ sendMessage }) => {
+const Composer: FC<Props> = ({ sendMessage }) => {
   const [message, setMessage] = useState<string>('');
 
   const handleSend = () => {
@@ -34,4 +34,4 @@ const MessageComposer: FC<Props> = ({ sendMessage }) => {
   );
 };
 
-export default MessageComposer;
+export default Composer;

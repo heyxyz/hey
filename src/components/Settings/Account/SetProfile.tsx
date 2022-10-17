@@ -11,7 +11,7 @@ import type { Mutation, Profile } from '@generated/types';
 import { CreateSetDefaultProfileTypedDataDocument } from '@generated/types';
 import { ExclamationIcon, PencilIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import type { FC } from 'react';
@@ -34,7 +34,7 @@ const SetProfile: FC = () => {
 
   const onCompleted = () => {
     toast.success('Default profile updated successfully!');
-    Mixpanel.track(SETTINGS.ACCOUNT.SET_DEFAULT_PROFILE);
+    Leafwatch.track(SETTINGS.ACCOUNT.SET_DEFAULT_PROFILE);
   };
 
   const {
@@ -43,8 +43,8 @@ const SetProfile: FC = () => {
     error,
     write
   } = useContractWrite({
-    addressOrName: LENSHUB_PROXY,
-    contractInterface: LensHubProxy,
+    address: LENSHUB_PROXY,
+    abi: LensHubProxy,
     functionName: 'setDefaultProfileWithSig',
     mode: 'recklesslyUnprepared',
     onSuccess: onCompleted,
@@ -81,7 +81,7 @@ const SetProfile: FC = () => {
 
           setUserSigNonce(userSigNonce + 1);
           if (!RELAY_ON) {
-            return write?.({ recklesslySetUnpreparedArgs: inputStruct });
+            return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
           }
 
           const {
@@ -89,7 +89,7 @@ const SetProfile: FC = () => {
           } = await broadcast({ request: { id, signature } });
 
           if ('reason' in result) {
-            write?.({ recklesslySetUnpreparedArgs: inputStruct });
+            write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
           }
         } catch {}
       },

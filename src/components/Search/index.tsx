@@ -1,6 +1,6 @@
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import MetaTags from '@components/utils/MetaTags';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
@@ -13,7 +13,7 @@ import Sidebar from './Sidebar';
 
 const Search: NextPage = () => {
   useEffect(() => {
-    Mixpanel.track('Pageview', { path: PAGEVIEW.SEARCH });
+    Leafwatch.track('Pageview', { path: PAGEVIEW.SEARCH });
   }, []);
 
   const { query } = useRouter();

@@ -1,4 +1,4 @@
-// Strings used for mixpanel tracking
+// Strings used for leafwatch tracking
 
 export const USER = {
   LOGIN: 'User login',
@@ -14,6 +14,10 @@ export const PROFILE = {
   OPEN_FOLLOWING: 'Open following list',
   OPEN_FOLLOWERS: 'Open followers list',
   OPEN_MUTUAL_FOLLOWERS: 'Open mutual followers list',
+  SWITCH_FEED: 'Switch to feed tab in profile',
+  SWITCH_REPLIES: 'Switch to replies tab in profile',
+  SWITCH_MEDIA: 'Switch to media tab in profile',
+  SWITCH_NFTS: 'Switch to nft tab in profile',
   SWITCH_PROFILE: 'Switch profile',
   LOGOUT: 'Profile logout'
 };
@@ -67,7 +71,9 @@ export const COMMENT = {
 };
 
 export const NOTIFICATION = {
-  OPEN: 'Open notifications'
+  OPEN: 'Open notifications',
+  SWITCH_ALL: 'Switch to all notifications',
+  SWITCH_MENTIONS: 'Switch to mentions notifications'
 };
 
 export const SETTINGS = {
@@ -104,6 +110,7 @@ export const SEARCH = {
 
 export const PAGINATION = {
   HOME_FEED: 'Paginate home feed',
+  HIGHLIGHTS_FEED: 'Paginate highlights feed',
   COMMENT_FEED: 'Paginate comment feed',
   EXPLORE_FEED: 'Paginate explore feed',
   PROFILE_FEED: 'Paginate profile feed',
@@ -156,7 +163,9 @@ export const PAGEVIEW = {
 export const MISCELLANEOUS = {
   NAVIGATE_UPDATE_PROFILE: 'Navigate to update profile from onboarding',
   OPEN_RECOMMENDED_PROFILES: 'Open recommended profiles modal',
-  OPEN_TRENDING_TAG: 'Open trending tag'
+  OPEN_TRENDING_TAG: 'Open trending tag',
+  SWITCH_TIMELINE: 'Switch to timeline',
+  SWITCH_HIGHLIGHTS: 'Switch to highlights'
 };
 
 export const FOOTER = {
