@@ -1,21 +1,21 @@
 import { Spinner } from '@components/UI/Spinner';
+import type { LensterPublication } from '@generated/lenstertypes';
+import type { Attribute } from '@generated/types';
 import { PhotographIcon } from '@heroicons/react/outline';
 import getTimeFromSeconds from '@lib/formatSeconds';
+import getAttributeFromTrait from '@lib/getAttributeFromTrait';
 import getIPFSLink from '@lib/getIPFSLink';
+import getThumbnailUrl from '@lib/getThumbnailUrl';
 import uploadMediaToIPFS from '@lib/uploadMediaToIPFS';
 import clsx from 'clsx';
-import type { ChangeEvent, Dispatch, FC } from 'react';
+import type { ChangeEvent, FC } from 'react';
 import { useId } from 'react';
 import { useCallback, useEffect } from 'react';
 import { useRef, useState } from 'react';
 import React from 'react';
 import toast from 'react-hot-toast';
 import { ERROR_MESSAGE } from 'src/constants';
-
-interface Props {
-  src: string;
-  isEdit?: boolean;
-}
+import { usePublicationStore } from 'src/store/publication';
 
 const getAudioPlayerOptions = (ref: HTMLDivElement) => ({
   container: ref,
@@ -32,9 +32,16 @@ const getAudioPlayerOptions = (ref: HTMLDivElement) => ({
   partialRender: true
 });
 
-type ThumbnailProps = { isEdit: boolean; cover: string; setCover: Dispatch<string> };
+interface Props {
+  src: string;
+  isNew?: boolean;
+  publication?: LensterPublication;
+  txn: any;
+}
 
-const Thumbnail: FC<ThumbnailProps> = ({ isEdit = false, cover, setCover }) => {
+type ThumbnailProps = { isNew: boolean; cover: string; setCover: (url: string, mimeType: string) => void };
+
+const Thumbnail: FC<ThumbnailProps> = ({ isNew = false, cover, setCover }) => {
   const [loading, setLoading] = useState(false);
 
   const onError = (error: any) => {
@@ -47,7 +54,7 @@ const Thumbnail: FC<ThumbnailProps> = ({ isEdit = false, cover, setCover }) => {
       try {
         setLoading(true);
         const attachment = await uploadMediaToIPFS(e.target.files);
-        setCover(getIPFSLink(attachment[0].item));
+        setCover(attachment[0].item, attachment[0].type);
       } catch (error) {
         onError(error);
       }
@@ -56,8 +63,8 @@ const Thumbnail: FC<ThumbnailProps> = ({ isEdit = false, cover, setCover }) => {
 
   return (
     <div className="relative flex-none overflow-hidden group">
-      <img src={cover} className="object-cover w-36 h-36 border" draggable={false} alt="cover" />
-      {isEdit && (
+      <img src={getIPFSLink(cover)} className="object-cover w-36 h-36 border" draggable={false} alt="cover" />
+      {isNew && (
         <label
           className={clsx(
             'absolute top-0 grid w-36 h-36 bg-gray-100 dark:bg-gray-900 cursor-pointer place-items-center group-hover:visible backdrop-blur-lg',
@@ -75,7 +82,6 @@ const Thumbnail: FC<ThumbnailProps> = ({ isEdit = false, cover, setCover }) => {
               <span>Add cover</span>
             </div>
           )}
-
           <input
             type="file"
             accept=".png, .jpg, .jpeg, .svg"
@@ -88,14 +94,15 @@ const Thumbnail: FC<ThumbnailProps> = ({ isEdit = false, cover, setCover }) => {
   );
 };
 
-const Audio: FC<Props> = ({ src, isEdit = false }) => {
-  const waveformRef = useRef<HTMLDivElement>(null);
+const Audio: FC<Props> = ({ src, isNew = false, publication, txn }) => {
   const [playing, setPlaying] = useState(false);
-  const [cover, setCover] = useState('');
   const [duration, setDuration] = useState('00:00');
+  const audioPublication = usePublicationStore((state) => state.audioPublication);
+  const setAudioPublication = usePublicationStore((state) => state.setAudioPublication);
 
-  const waveSurfer = useRef<WaveSurfer>();
   const id = useId();
+  const waveformRef = useRef<HTMLDivElement>(null);
+  const waveSurfer = useRef<WaveSurfer>();
 
   const createPlayer = useCallback(async () => {
     const WaveSurfer = (await import('wavesurfer.js')).default;
@@ -116,20 +123,30 @@ const Audio: FC<Props> = ({ src, isEdit = false }) => {
     return () => {
       if (waveSurfer.current) {
         waveSurfer.current.destroy();
+        setAudioPublication({ author: '', cover: '', title: '', coverMimeType: '' });
       }
     };
-  }, [src, createPlayer]);
+  }, [src, createPlayer, setAudioPublication]);
 
   const handlePlayPause = () => {
     setPlaying(!playing);
     waveSurfer.current?.playPause();
   };
-  console.log('🚀 ~ file: Audio.tsx ~ line 122 ~ handlePlayPause ~ waveSurfer', waveSurfer);
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setAudioPublication({ ...audioPublication, [e.target.name]: e.target.value });
+  };
 
   return (
     <div className="border w-full overflow-hidden border-gray-200 dark:border-gray-800 rounded-xl">
       <div className="flex flex-1 space-x-2">
-        <Thumbnail isEdit={isEdit} cover={cover} setCover={setCover} />
+        <Thumbnail
+          isNew={isNew && !txn}
+          cover={isNew ? (txn ? txn.cover : audioPublication.cover) : getThumbnailUrl(publication)}
+          setCover={(url, mimeType) =>
+            setAudioPublication({ ...audioPublication, cover: url, coverMimeType: mimeType })
+          }
+        />
         <div className="flex py-5 px-3 flex-col justify-between w-full">
           <div className="flex justify-between">
             <div className="flex items-center space-x-3 w-full">
@@ -173,21 +190,30 @@ const Audio: FC<Props> = ({ src, isEdit = false }) => {
                 </button>
               </div>
               <div className="w-full pr-3">
-                {isEdit ? (
+                {isNew && !txn ? (
                   <div className="flex flex-col w-full">
                     <input
                       className="border-none w-full dark:text-white bg-transparent outline-none placeholder-gray-800 dark:placeholder-gray-200"
                       placeholder="Add title..."
+                      name="title"
+                      value={audioPublication.title}
+                      onChange={handleChange}
                     />
                     <input
-                      className="border-none w-full dark:text-gray-300 bg-transparent text-sm outline-none"
+                      className="border-none w-full dark:text-gray-300 text-gray-600 bg-transparent text-sm outline-none"
                       placeholder="Add author..."
+                      name="author"
+                      value={audioPublication.author}
+                      onChange={handleChange}
                     />
                   </div>
                 ) : (
                   <>
-                    <h5>Title</h5>
-                    <h6>Author</h6>
+                    <h5>{publication?.metadata.name ?? txn.title}</h5>
+                    <h6 className="text-sm opacity-70">
+                      {txn?.author ??
+                        getAttributeFromTrait(publication?.metadata.attributes as Attribute[], 'author')}
+                    </h6>
                   </>
                 )}
               </div>

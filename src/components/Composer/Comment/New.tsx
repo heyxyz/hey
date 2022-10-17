@@ -31,7 +31,7 @@ import dynamic from 'next/dynamic';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import { APP_NAME, LENSHUB_PROXY, RELAY_ON, SIGN_WALLET } from 'src/constants';
+import { ALLOWED_AUDIO_TYPES, APP_NAME, LENSHUB_PROXY, RELAY_ON, SIGN_WALLET } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { useCollectModuleStore } from 'src/store/collectmodule';
 import { usePublicationStore } from 'src/store/publication';
@@ -40,6 +40,7 @@ import { useTransactionPersistStore } from 'src/store/transaction';
 import { COMMENT } from 'src/tracking';
 import { v4 as uuid } from 'uuid';
 import { useContractWrite, useSignTypedData } from 'wagmi';
+import { z } from 'zod';
 
 const Attachment = dynamic(() => import('@components/Shared/Attachment'), {
   loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
@@ -69,6 +70,7 @@ const NewComment: FC<Props> = ({ publication }) => {
   const setPublicationContent = usePublicationStore((state) => state.setPublicationContent);
   const previewPublication = usePublicationStore((state) => state.previewPublication);
   const setPreviewPublication = usePublicationStore((state) => state.setPreviewPublication);
+  const audioPublication = usePublicationStore((state) => state.audioPublication);
 
   // Transaction persist store
   const txnQueue = useTransactionPersistStore((state) => state.txnQueue);
@@ -88,6 +90,8 @@ const NewComment: FC<Props> = ({ publication }) => {
   const [isUploading, setIsUploading] = useState(false);
   const [attachments, setAttachments] = useState<LensterAttachment[]>([]);
 
+  const isAudioComment = ALLOWED_AUDIO_TYPES.includes(attachments[0]?.type);
+
   const onCompleted = () => {
     setPreviewPublication(false);
     setPublicationContent('');
@@ -103,7 +107,10 @@ const NewComment: FC<Props> = ({ publication }) => {
       type: 'NEW_COMMENT',
       txHash,
       content: publicationContent,
-      attachments
+      attachments,
+      title: audioPublication.title,
+      cover: audioPublication.cover,
+      author: audioPublication.author
     };
   };
 
@@ -200,29 +207,62 @@ const NewComment: FC<Props> = ({ publication }) => {
     if (!currentProfile) {
       return toast.error(SIGN_WALLET);
     }
+
+    if (isAudioComment) {
+      setCommentContentError('');
+      const AudioPublicationSchema = z.object({
+        title: z.string().trim().min(1, { message: 'Invalid audio title' }),
+        author: z.string().trim().min(1, { message: 'Invalid author name' }),
+        cover: z.string().trim().min(1, { message: 'Invalid cover image' })
+      });
+      const parsedData = AudioPublicationSchema.safeParse(audioPublication);
+      if (!parsedData.success) {
+        const issue = parsedData.error.issues[0];
+        return setCommentContentError(issue.message);
+      }
+    }
+
     if (publicationContent.length === 0 && attachments.length === 0) {
       return setCommentContentError('Comment should not be empty!');
     }
 
     setCommentContentError('');
     setIsUploading(true);
+
+    const attributes = [];
+    if (isAudioComment) {
+      attributes.push({
+        traitType: 'author',
+        displayType: 'string',
+        value: audioPublication.author
+      });
+    }
+
     const id = await uploadToArweave({
       version: '2.0.0',
       metadata_id: uuid(),
       description: trimify(publicationContent),
       content: trimify(publicationContent),
       external_url: `https://lenster.xyz/u/${currentProfile?.handle}`,
-      image: attachments.length > 0 ? attachments[0]?.item : null,
-      imageMimeType: attachments.length > 0 ? attachments[0]?.type : null,
-      name: `Comment by @${currentProfile?.handle}`,
+      image: attachments.length > 0 ? (isAudioComment ? audioPublication.cover : attachments[0]?.item) : null,
+      imageMimeType:
+        attachments.length > 0
+          ? isAudioComment
+            ? audioPublication.coverMimeType
+            : attachments[0]?.type
+          : null,
+      name: isAudioComment ? audioPublication.title : `Comment by @${currentProfile?.handle}`,
       tags: getTags(publicationContent),
       mainContentFocus:
         attachments.length > 0
           ? attachments[0]?.type === 'video/mp4'
             ? PublicationMainFocus.Video
+            : isAudioComment
+            ? PublicationMainFocus.Audio
             : PublicationMainFocus.Image
           : PublicationMainFocus.TextOnly,
       contentWarning: null,
+      attributes,
       media: attachments,
       locale: getUserLocale(),
       createdOn: new Date(),
@@ -292,7 +332,21 @@ const NewComment: FC<Props> = ({ publication }) => {
           <ReferenceSettings />
           {publicationContent && <Preview />}
         </div>
-        <div className="ml-auto pt-2 sm:pt-0">
+        {!isAudioComment && (
+          <div className="ml-auto pt-2 sm:pt-0">
+            <Button
+              disabled={isLoading}
+              icon={isLoading ? <Spinner size="xs" /> : <ChatAlt2Icon className="w-4 h-4" />}
+              onClick={createComment}
+            >
+              Comment
+            </Button>
+          </div>
+        )}
+      </div>
+      <Attachments attachments={attachments} setAttachments={setAttachments} isNew />
+      {isAudioComment && (
+        <div className="flex justify-end mt-4">
           <Button
             disabled={isLoading}
             icon={isLoading ? <Spinner size="xs" /> : <ChatAlt2Icon className="w-4 h-4" />}
@@ -301,8 +355,7 @@ const NewComment: FC<Props> = ({ publication }) => {
             Comment
           </Button>
         </div>
-      </div>
-      <Attachments attachments={attachments} setAttachments={setAttachments} isNew />
+      )}
     </Card>
   );
 };

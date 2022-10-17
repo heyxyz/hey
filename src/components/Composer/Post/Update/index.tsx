@@ -27,9 +27,10 @@ import trimify from '@lib/trimify';
 import uploadToArweave from '@lib/uploadToArweave';
 import dynamic from 'next/dynamic';
 import type { FC } from 'react';
+import { useEffect } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import { APP_NAME, LENSHUB_PROXY, RELAY_ON, SIGN_WALLET } from 'src/constants';
+import { ALLOWED_AUDIO_TYPES, APP_NAME, LENSHUB_PROXY, RELAY_ON, SIGN_WALLET } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { useCollectModuleStore } from 'src/store/collectmodule';
 import { usePublicationStore } from 'src/store/publication';
@@ -38,6 +39,7 @@ import { useTransactionPersistStore } from 'src/store/transaction';
 import { POST } from 'src/tracking';
 import { v4 as uuid } from 'uuid';
 import { useContractWrite, useSignTypedData } from 'wagmi';
+import { z } from 'zod';
 
 const Attachment = dynamic(() => import('@components/Shared/Attachment'), {
   loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
@@ -65,6 +67,7 @@ const NewUpdate: FC = () => {
   const publicationContent = usePublicationStore((state) => state.publicationContent);
   const setPublicationContent = usePublicationStore((state) => state.setPublicationContent);
   const previewPublication = usePublicationStore((state) => state.previewPublication);
+  const audioPublication = usePublicationStore((state) => state.audioPublication);
   const setPreviewPublication = usePublicationStore((state) => state.setPreviewPublication);
   const setShowNewPostModal = usePublicationStore((state) => state.setShowNewPostModal);
 
@@ -87,6 +90,8 @@ const NewUpdate: FC = () => {
   const [attachments, setAttachments] = useState<LensterAttachment[]>([]);
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
 
+  const isAudioPost = ALLOWED_AUDIO_TYPES.includes(attachments[0]?.type);
+
   const onCompleted = () => {
     setPreviewPublication(false);
     setShowNewPostModal(false);
@@ -96,13 +101,20 @@ const NewUpdate: FC = () => {
     Leafwatch.track(POST.NEW);
   };
 
+  useEffect(() => {
+    setPostContentError('');
+  }, [audioPublication]);
+
   const generateOptimisticPost = (txHash: string) => {
     return {
       id: uuid(),
       type: 'NEW_POST',
       txHash,
       content: publicationContent,
-      attachments
+      attachments,
+      title: audioPublication.title,
+      cover: audioPublication.cover,
+      author: audioPublication.author
     };
   };
 
@@ -191,36 +203,62 @@ const NewUpdate: FC = () => {
     if (!currentProfile) {
       return toast.error(SIGN_WALLET);
     }
+
+    if (isAudioPost) {
+      setPostContentError('');
+      const AudioPublicationSchema = z.object({
+        title: z.string().trim().min(1, { message: 'Invalid audio title' }),
+        author: z.string().trim().min(1, { message: 'Invalid author name' }),
+        cover: z.string().trim().min(1, { message: 'Invalid cover image' })
+      });
+      const parsedData = AudioPublicationSchema.safeParse(audioPublication);
+      if (!parsedData.success) {
+        const issue = parsedData.error.issues[0];
+        return setPostContentError(issue.message);
+      }
+    }
+
     if (publicationContent.length === 0 && attachments.length === 0) {
       return setPostContentError('Post should not be empty!');
     }
 
     setPostContentError('');
     setIsUploading(true);
+    const attributes = [
+      {
+        traitType: 'type',
+        displayType: 'string',
+        value: 'post'
+      }
+    ];
+    if (isAudioPost) {
+      attributes.push({
+        traitType: 'author',
+        displayType: 'string',
+        value: audioPublication.author
+      });
+    }
     const id = await uploadToArweave({
       version: '2.0.0',
       metadata_id: uuid(),
       description: trimify(publicationContent),
       content: trimify(publicationContent),
       external_url: `https://lenster.xyz/u/${currentProfile?.handle}`,
-      image: attachments.length > 0 ? attachments[0]?.item : null,
-      imageMimeType: attachments.length > 0 ? attachments[0]?.type : null,
-      name: `Post by @${currentProfile?.handle}`,
+      image: attachments.length > 0 ? (isAudioPost ? audioPublication.cover : attachments[0]?.item) : null,
+      imageMimeType:
+        attachments.length > 0 ? (isAudioPost ? audioPublication.coverMimeType : attachments[0]?.type) : null,
+      name: isAudioPost ? audioPublication.title : `Post by @${currentProfile?.handle}`,
       tags: getTags(publicationContent),
       mainContentFocus:
         attachments.length > 0
           ? attachments[0]?.type === 'video/mp4'
             ? PublicationMainFocus.Video
+            : isAudioPost
+            ? PublicationMainFocus.Audio
             : PublicationMainFocus.Image
           : PublicationMainFocus.TextOnly,
       contentWarning: null, // TODO
-      attributes: [
-        {
-          traitType: 'string',
-          key: 'type',
-          value: 'post'
-        }
-      ],
+      attributes,
       media: attachments,
       locale: getUserLocale(),
       createdOn: new Date(),
@@ -293,18 +331,31 @@ const NewUpdate: FC = () => {
           <ReferenceSettings />
           {publicationContent && <Preview />}
         </div>
-        <div className="ml-auto pt-2 sm:pt-0">
-          <Button
-            disabled={isLoading}
-            icon={isLoading ? <Spinner size="xs" /> : <PencilAltIcon className="w-4 h-4" />}
-            onClick={createPost}
-          >
-            Post
-          </Button>
-        </div>
+        {!isAudioPost && (
+          <div className="ml-auto pt-2 sm:pt-0">
+            <Button
+              disabled={isLoading}
+              icon={isLoading ? <Spinner size="xs" /> : <PencilAltIcon className="w-4 h-4" />}
+              onClick={createPost}
+            >
+              Post
+            </Button>
+          </div>
+        )}
       </div>
       <div className="px-5">
         <Attachments attachments={attachments} setAttachments={setAttachments} isNew />
+        {isAudioPost && (
+          <div className="flex justify-end pt-4">
+            <Button
+              disabled={isLoading}
+              icon={isLoading ? <Spinner size="xs" /> : <PencilAltIcon className="w-4 h-4" />}
+              onClick={createPost}
+            >
+              Post
+            </Button>
+          </div>
+        )}
       </div>
     </div>
   );

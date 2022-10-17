@@ -1,6 +1,6 @@
 import { Button } from '@components/UI/Button';
 import { LightBox } from '@components/UI/LightBox';
-import type { LensterAttachment } from '@generated/lenstertypes';
+import type { LensterAttachment, LensterPublication } from '@generated/lenstertypes';
 import type { MediaSet } from '@generated/types';
 import { ExternalLinkIcon, XIcon } from '@heroicons/react/outline';
 import getIPFSLink from '@lib/getIPFSLink';
@@ -41,9 +41,18 @@ interface Props {
   setAttachments?: any;
   isNew?: boolean;
   hideDelete?: boolean;
+  publication?: LensterPublication;
+  txn?: any;
 }
 
-const Attachments: FC<Props> = ({ attachments, setAttachments, isNew = false, hideDelete = false }) => {
+const Attachments: FC<Props> = ({
+  attachments,
+  setAttachments,
+  isNew = false,
+  hideDelete = false,
+  publication,
+  txn
+}) => {
   const [expanedImage, setExpandedImage] = useState<string | null>(null);
 
   const removeAttachment = (attachment: any) => {
@@ -76,8 +85,11 @@ const Attachments: FC<Props> = ({ attachments, setAttachments, isNew = false, hi
                   : getClass(slicedAttachments?.length, isNew)?.aspect,
                 {
                   'w-full': ALLOWED_AUDIO_TYPES.includes(type),
-                  'w-2/3': type === 'video/mp4'
-                }
+                  'w-2/3':
+                    type === 'video/mp4' ||
+                    (slicedAttachments.length === 1 && !ALLOWED_AUDIO_TYPES.includes(type))
+                },
+                'relative'
               )}
               key={url}
               onClick={(event) => {
@@ -98,7 +110,7 @@ const Attachments: FC<Props> = ({ attachments, setAttachments, isNew = false, hi
               ) : type === 'video/mp4' ? (
                 <Video src={url} />
               ) : ALLOWED_AUDIO_TYPES.includes(type) ? (
-                <Audio src={url} isEdit={isNew} />
+                <Audio src={url} isNew={isNew} publication={publication} txn={txn} />
               ) : (
                 <img
                   className="object-cover bg-gray-100 rounded-lg border cursor-pointer dark:bg-gray-800 dark:border-gray-700/80"
@@ -109,7 +121,12 @@ const Attachments: FC<Props> = ({ attachments, setAttachments, isNew = false, hi
                 />
               )}
               {isNew && !hideDelete && (
-                <div className="m-3">
+                <div
+                  className={clsx({
+                    'absolute -top-2.5 -right-2': ALLOWED_AUDIO_TYPES.includes(type),
+                    'm-3': !ALLOWED_AUDIO_TYPES.includes(type)
+                  })}
+                >
                   <button
                     type="button"
                     className="p-1.5 bg-gray-900 rounded-full opacity-75"
