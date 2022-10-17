@@ -11,6 +11,9 @@
     "lint": "eslint . --ext .js,.ts,.tsx",
     "prettier:check": "prettier --check \"./{data,src}/**/*.{ts,tsx}\"",
     "prettier:write": "prettier --write \"./{data,src}/**/*.{ts,tsx}\"",
+    "api:dev": "cd api; yarn dev",
+    "api:build": "cd api; yarn build",
+    "api:start": "cd api; yarn start",
     "codegen": "graphql-codegen",
     "prepare": "husky install"
   },
