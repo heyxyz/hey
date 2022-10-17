@@ -2649,10 +2649,10 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react-mentions@^4.1.6":
-  version "4.1.6"
-  resolved "https://registry.yarnpkg.com/@types/react-mentions/-/react-mentions-4.1.6.tgz#0ecdb61785c22edbf9c7d6718505d4814ad3a65c"
-  integrity sha512-f4/BdnjlMxT47q+WqlcYYwFABbBMVQrDoFFeMeljtFC5nnR9/x8TOFmN18BJKgNuWMgivy9uE5EKtsjlay751w==
+"@types/react-mentions@^4.1.7":
+  version "4.1.7"
+  resolved "https://registry.yarnpkg.com/@types/react-mentions/-/react-mentions-4.1.7.tgz#9123397af5743c9739e92a8c91d74c1402b451f3"
+  integrity sha512-f9r5AAYZdF55E1kPVIFTlLgaXGCD26Pgq21Owd70s7LdPV5mY3v4tzklG33WpjSXnZ1SfpzUPbWc/jet9mcASQ==
   dependencies:
     "@types/react" "*"
 
