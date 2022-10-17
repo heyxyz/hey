@@ -9,6 +9,9 @@ import clsx from 'clsx';
 import dynamic from 'next/dynamic';
 import type { FC } from 'react';
 import { useState } from 'react';
+import { ALLOWED_AUDIO_TYPES } from 'src/constants';
+
+import Audio from './Audio';
 
 const Video = dynamic(() => import('./Video'), {
   loading: () => <div className="rounded-lg aspect-w-16 aspect-h-12 shimmer" />
@@ -17,8 +20,8 @@ const Video = dynamic(() => import('./Video'), {
 const getClass = (attachments: number, isNew = false) => {
   if (attachments === 1) {
     return {
-      aspect: isNew ? 'aspect-w-16 aspect-h-12' : '',
-      row: 'grid-cols-1 grid-rows-1 w-2/3'
+      aspect: isNew ? 'aspect-w-16 aspect-h-10' : '',
+      row: 'grid-cols-1 grid-rows-1'
     };
   } else if (attachments === 2) {
     return {
@@ -67,7 +70,15 @@ const Attachments: FC<Props> = ({ attachments, setAttachments, isNew = false, hi
 
           return (
             <div
-              className={clsx(type === 'video/mp4' ? '' : getClass(slicedAttachments?.length, isNew)?.aspect)}
+              className={clsx(
+                type === 'video/mp4' || ALLOWED_AUDIO_TYPES.includes(type)
+                  ? ''
+                  : getClass(slicedAttachments?.length, isNew)?.aspect,
+                {
+                  'w-full': ALLOWED_AUDIO_TYPES.includes(type),
+                  'w-2/3': type === 'video/mp4'
+                }
+              )}
               key={url}
               onClick={(event) => {
                 event.stopPropagation();
@@ -86,6 +97,8 @@ const Attachments: FC<Props> = ({ attachments, setAttachments, isNew = false, hi
                 </Button>
               ) : type === 'video/mp4' ? (
                 <Video src={url} />
+              ) : ALLOWED_AUDIO_TYPES.includes(type) ? (
+                <Audio src={url} isEdit={isNew} />
               ) : (
                 <img
                   className="object-cover bg-gray-100 rounded-lg border cursor-pointer dark:bg-gray-800 dark:border-gray-700/80"
