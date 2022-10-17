@@ -63,7 +63,7 @@ const Thumbnail: FC<ThumbnailProps> = ({ isNew = false, cover, setCover }) => {
 
   return (
     <div className="relative flex-none overflow-hidden group">
-      <img src={getIPFSLink(cover)} className="object-cover w-36 h-36 border" draggable={false} alt="cover" />
+      <img src={getIPFSLink(cover)} className="object-cover w-36 h-36" draggable={false} alt="cover" />
       {isNew && (
         <label
           className={clsx(
