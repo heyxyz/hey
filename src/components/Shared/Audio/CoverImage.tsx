@@ -1,6 +1,7 @@
 import { Spinner } from '@components/UI/Spinner';
 import { PhotographIcon } from '@heroicons/react/outline';
 import getIPFSLink from '@lib/getIPFSLink';
+import imagekitURL from '@lib/imagekitURL';
 import uploadMediaToIPFS from '@lib/uploadMediaToIPFS';
 import clsx from 'clsx';
 import type { ChangeEvent, FC } from 'react';
@@ -32,7 +33,12 @@ const CoverImage: FC<ThumbnailProps> = ({ isNew = false, cover, setCover }) => {
 
   return (
     <div className="relative flex-none overflow-hidden group">
-      <img src={getIPFSLink(cover)} className="object-cover w-36 h-36" draggable={false} alt="cover" />
+      <img
+        src={imagekitURL(getIPFSLink(cover))}
+        className="object-cover w-36 h-36"
+        draggable={false}
+        alt="cover"
+      />
       {isNew && (
         <label
           className={clsx(
