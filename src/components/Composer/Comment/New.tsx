@@ -1,6 +1,7 @@
 import { LensHubProxy } from '@abis/LensHubProxy';
 import { useMutation } from '@apollo/client';
 import Attachments from '@components/Shared/Attachments';
+import { AudioPublicationSchema } from '@components/Shared/Audio';
 import Markup from '@components/Shared/Markup';
 import Preview from '@components/Shared/Preview';
 import { Button } from '@components/UI/Button';
@@ -40,7 +41,6 @@ import { useTransactionPersistStore } from 'src/store/transaction';
 import { COMMENT } from 'src/tracking';
 import { v4 as uuid } from 'uuid';
 import { useContractWrite, useSignTypedData } from 'wagmi';
-import { z } from 'zod';
 
 const Attachment = dynamic(() => import('@components/Shared/Attachment'), {
   loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
@@ -210,11 +210,6 @@ const NewComment: FC<Props> = ({ publication }) => {
 
     if (isAudioComment) {
       setCommentContentError('');
-      const AudioPublicationSchema = z.object({
-        title: z.string().trim().min(1, { message: 'Invalid audio title' }),
-        author: z.string().trim().min(1, { message: 'Invalid author name' }),
-        cover: z.string().trim().min(1, { message: 'Invalid cover image' })
-      });
       const parsedData = AudioPublicationSchema.safeParse(audioPublication);
       if (!parsedData.success) {
         const issue = parsedData.error.issues[0];

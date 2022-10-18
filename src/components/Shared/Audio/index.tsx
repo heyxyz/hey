@@ -9,6 +9,7 @@ import { useCallback, useEffect } from 'react';
 import { useRef, useState } from 'react';
 import React from 'react';
 import { usePublicationStore } from 'src/store/publication';
+import { object, string } from 'zod';
 
 import CoverImage from './CoverImage';
 
@@ -34,6 +35,12 @@ interface Props {
   publication?: LensterPublication;
   txn: any;
 }
+
+export const AudioPublicationSchema = object({
+  title: string().trim().min(1, { message: 'Invalid audio title' }),
+  author: string().trim().min(1, { message: 'Invalid author name' }),
+  cover: string().trim().min(1, { message: 'Invalid cover image' })
+});
 
 const Audio: FC<Props> = ({ src, isNew = false, publication, txn }) => {
   const [playing, setPlaying] = useState(false);
