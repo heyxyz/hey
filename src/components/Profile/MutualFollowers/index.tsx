@@ -23,8 +23,7 @@ const MutualFollowers: FC<Props> = ({ setShowMutualFollowersModal, profile }) =>
         limit: 3
       }
     },
-    skip: !profile?.id,
-    fetchPolicy: 'no-cache'
+    skip: !profile?.id
   });
 
   const profiles = data?.mutualFollowersProfiles?.items ?? [];
