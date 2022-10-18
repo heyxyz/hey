@@ -14071,6 +14071,7 @@ export type ProfilesQuery = {
     items: Array<{
       __typename?: 'Profile';
       isDefault: boolean;
+      isFollowedByMe: boolean;
       id: any;
       name?: string | null;
       handle: any;
@@ -22781,7 +22782,8 @@ export const ProfilesDocument = {
                     kind: 'SelectionSet',
                     selections: [
                       { kind: 'FragmentSpread', name: { kind: 'Name', value: 'ProfileFields' } },
-                      { kind: 'Field', name: { kind: 'Name', value: 'isDefault' } }
+                      { kind: 'Field', name: { kind: 'Name', value: 'isDefault' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'isFollowedByMe' } }
                     ]
                   }
                 },
