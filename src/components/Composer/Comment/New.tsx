@@ -12,10 +12,10 @@ import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
 import type { LensterAttachment, LensterPublication } from '@generated/lenstertypes';
 import type { Mutation } from '@generated/types';
+import { PublicationMainFocus } from '@generated/types';
 import {
   CreateCommentTypedDataDocument,
   CreateCommentViaDispatcherDocument,
-  PublicationMainFocus,
   ReferenceModules
 } from '@generated/types';
 import type { IGif } from '@giphy/js-types';
@@ -32,7 +32,14 @@ import dynamic from 'next/dynamic';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import { ALLOWED_AUDIO_TYPES, APP_NAME, LENSHUB_PROXY, RELAY_ON, SIGN_WALLET } from 'src/constants';
+import {
+  ALLOWED_AUDIO_TYPES,
+  ALLOWED_IMAGE_TYPES,
+  APP_NAME,
+  LENSHUB_PROXY,
+  RELAY_ON,
+  SIGN_WALLET
+} from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { useCollectModuleStore } from 'src/store/collectmodule';
 import { usePublicationStore } from 'src/store/publication';
@@ -58,6 +65,16 @@ const ReferenceSettings = dynamic(() => import('@components/Shared/ReferenceSett
 interface Props {
   publication: LensterPublication;
 }
+
+const CommentButton = ({ isLoading, createComment }: { isLoading: boolean; createComment: () => void }) => (
+  <Button
+    disabled={isLoading}
+    icon={isLoading ? <Spinner size="xs" /> : <ChatAlt2Icon className="w-4 h-4" />}
+    onClick={createComment}
+  >
+    Comment
+  </Button>
+);
 
 const NewComment: FC<Props> = ({ publication }) => {
   // App store
@@ -203,6 +220,20 @@ const NewComment: FC<Props> = ({ publication }) => {
     }
   );
 
+  const getMainContentFocus = () => {
+    if (attachments.length > 0) {
+      if (isAudioComment) {
+        return PublicationMainFocus.Audio;
+      } else if (ALLOWED_IMAGE_TYPES.includes(attachments[0]?.type)) {
+        return PublicationMainFocus.Image;
+      } else if (attachments[0]?.type === 'video/mp4') {
+        return PublicationMainFocus.Video;
+      }
+    } else {
+      return PublicationMainFocus.TextOnly;
+    }
+  };
+
   const createComment = async () => {
     if (!currentProfile) {
       return toast.error(SIGN_WALLET);
@@ -248,14 +279,7 @@ const NewComment: FC<Props> = ({ publication }) => {
           : null,
       name: isAudioComment ? audioPublication.title : `Comment by @${currentProfile?.handle}`,
       tags: getTags(publicationContent),
-      mainContentFocus:
-        attachments.length > 0
-          ? attachments[0]?.type === 'video/mp4'
-            ? PublicationMainFocus.Video
-            : isAudioComment
-            ? PublicationMainFocus.Audio
-            : PublicationMainFocus.Image
-          : PublicationMainFocus.TextOnly,
+      mainContentFocus: getMainContentFocus(),
       contentWarning: null,
       attributes,
       media: attachments,
@@ -329,26 +353,14 @@ const NewComment: FC<Props> = ({ publication }) => {
         </div>
         {!isAudioComment && (
           <div className="ml-auto pt-2 sm:pt-0">
-            <Button
-              disabled={isLoading}
-              icon={isLoading ? <Spinner size="xs" /> : <ChatAlt2Icon className="w-4 h-4" />}
-              onClick={createComment}
-            >
-              Comment
-            </Button>
+            <CommentButton createComment={createComment} isLoading={isLoading} />
           </div>
         )}
       </div>
       <Attachments attachments={attachments} setAttachments={setAttachments} isNew />
       {isAudioComment && (
         <div className="flex justify-end mt-4">
-          <Button
-            disabled={isLoading}
-            icon={isLoading ? <Spinner size="xs" /> : <ChatAlt2Icon className="w-4 h-4" />}
-            onClick={createComment}
-          >
-            Comment
-          </Button>
+          <CommentButton createComment={createComment} isLoading={isLoading} />
         </div>
       )}
     </Card>

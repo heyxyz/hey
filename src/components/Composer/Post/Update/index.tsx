@@ -31,7 +31,14 @@ import type { FC } from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import { ALLOWED_AUDIO_TYPES, APP_NAME, LENSHUB_PROXY, RELAY_ON, SIGN_WALLET } from 'src/constants';
+import {
+  ALLOWED_AUDIO_TYPES,
+  ALLOWED_IMAGE_TYPES,
+  APP_NAME,
+  LENSHUB_PROXY,
+  RELAY_ON,
+  SIGN_WALLET
+} from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { useCollectModuleStore } from 'src/store/collectmodule';
 import { usePublicationStore } from 'src/store/publication';
@@ -56,6 +63,16 @@ const ReferenceSettings = dynamic(() => import('@components/Shared/ReferenceSett
 const Preview = dynamic(() => import('@components/Shared/Preview'), {
   loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
 });
+
+const PostButton = ({ isLoading, createPost }: { isLoading: boolean; createPost: () => void }) => (
+  <Button
+    disabled={isLoading}
+    icon={isLoading ? <Spinner size="xs" /> : <PencilAltIcon className="w-4 h-4" />}
+    onClick={createPost}
+  >
+    Post
+  </Button>
+);
 
 const NewUpdate: FC = () => {
   // App store
@@ -199,6 +216,20 @@ const NewUpdate: FC = () => {
     }
   );
 
+  const getMainContentFocus = () => {
+    if (attachments.length > 0) {
+      if (isAudioPost) {
+        return PublicationMainFocus.Audio;
+      } else if (ALLOWED_IMAGE_TYPES.includes(attachments[0]?.type)) {
+        return PublicationMainFocus.Image;
+      } else if (attachments[0]?.type === 'video/mp4') {
+        return PublicationMainFocus.Video;
+      }
+    } else {
+      return PublicationMainFocus.TextOnly;
+    }
+  };
+
   const createPost = async () => {
     if (!currentProfile) {
       return toast.error(SIGN_WALLET);
@@ -244,14 +275,7 @@ const NewUpdate: FC = () => {
         attachments.length > 0 ? (isAudioPost ? audioPublication.coverMimeType : attachments[0]?.type) : null,
       name: isAudioPost ? audioPublication.title : `Post by @${currentProfile?.handle}`,
       tags: getTags(publicationContent),
-      mainContentFocus:
-        attachments.length > 0
-          ? attachments[0]?.type === 'video/mp4'
-            ? PublicationMainFocus.Video
-            : isAudioPost
-            ? PublicationMainFocus.Audio
-            : PublicationMainFocus.Image
-          : PublicationMainFocus.TextOnly,
+      mainContentFocus: getMainContentFocus(),
       contentWarning: null, // TODO
       attributes,
       media: attachments,
@@ -328,13 +352,7 @@ const NewUpdate: FC = () => {
         </div>
         {!isAudioPost && (
           <div className="ml-auto pt-2 sm:pt-0">
-            <Button
-              disabled={isLoading}
-              icon={isLoading ? <Spinner size="xs" /> : <PencilAltIcon className="w-4 h-4" />}
-              onClick={createPost}
-            >
-              Post
-            </Button>
+            <PostButton isLoading={isLoading} createPost={createPost} />
           </div>
         )}
       </div>
@@ -342,13 +360,7 @@ const NewUpdate: FC = () => {
         <Attachments attachments={attachments} setAttachments={setAttachments} isNew />
         {isAudioPost && (
           <div className="flex justify-end pt-4">
-            <Button
-              disabled={isLoading}
-              icon={isLoading ? <Spinner size="xs" /> : <PencilAltIcon className="w-4 h-4" />}
-              onClick={createPost}
-            >
-              Post
-            </Button>
+            <PostButton isLoading={isLoading} createPost={createPost} />
           </div>
         )}
       </div>
