@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 const createHyperlink = (href: string | undefined, display: string | undefined) => {
   const keyId = '_' + href + '-' + uuidv4().slice(-7);
   return (
-    <a key={keyId} href={href} target="_blank">
+    <a key={keyId} href={href} target="_blank" rel="noopener/noreferrer">
       {display}
     </a>
   );
