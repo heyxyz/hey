@@ -2822,12 +2822,12 @@
     "@typescript-eslint/types" "5.40.1"
     eslint-visitor-keys "^3.3.0"
 
-"@wagmi/core@^0.6.3":
-  version "0.6.3"
-  resolved "https://registry.yarnpkg.com/@wagmi/core/-/core-0.6.3.tgz#2649894072840801f9c04204fcde46f9e1e90281"
-  integrity sha512-tvhYsGR4/Sgo4/E9iIuNJosPy/UZnjcylNdwk2CdXxjpf8vVbeQDsYa4Ue/We2RZlpFMt7CpPLVCVU8BKduOug==
+"@wagmi/core@^0.6.4":
+  version "0.6.4"
+  resolved "https://registry.yarnpkg.com/@wagmi/core/-/core-0.6.4.tgz#ff2059a8a1ad2a9a9e6b4324a70af8e8aeb3f3c1"
+  integrity sha512-ihb/U5B69FO4YtPgAuCgTonniCVysLjr8mzNNOWoLjwUOhNEpCdntA8S9Qii4Tj/XcwIKOApOMw9jgc52L5k3A==
   dependencies:
-    abitype "^0.1.6"
+    abitype "^0.1.7"
     eventemitter3 "^4.0.7"
     zustand "^4.1.1"
 
@@ -3113,10 +3113,10 @@ JSONStream@^1.3.5:
     jsonparse "^1.2.0"
     through ">=2.2.7 <3"
 
-abitype@^0.1.6:
-  version "0.1.6"
-  resolved "https://registry.yarnpkg.com/abitype/-/abitype-0.1.6.tgz#10d3a83ad6416ec45954e379795535c2beb01437"
-  integrity sha512-cdOzP4mi5pH/N3o5ly8wlw7HIqdFJVkS0RSw5p7BTvwB1gFXOqPlQJ/ZKTSCsGqd8EITJcpNuZ2h7hPX2mKECA==
+abitype@^0.1.7:
+  version "0.1.7"
+  resolved "https://registry.yarnpkg.com/abitype/-/abitype-0.1.7.tgz#8a42b1845629abed715bd4975532aca43e291eda"
+  integrity sha512-mNBIrA8xbkR0PrxXSO/7p3irNhyLKO6S4VfU3YrR37cqpJIq1D63Yg8KlovOZkCVAaQ+lJkGDkOhSpv1QmMXIg==
 
 abort-controller@^3.0.0:
   version "3.0.0"
@@ -8997,18 +8997,18 @@ vlq@^2.0.4:
   resolved "https://registry.yarnpkg.com/vlq/-/vlq-2.0.4.tgz#6057b85729245b9829e3cc7755f95b228d4fe041"
   integrity sha512-aodjPa2wPQFkra1G8CzJBTHXhgk3EVSwxSWXNPr1fgdFLUb8kvLV1iEb6rFgasIsjP82HWI6dsb5Io26DDnasA==
 
-wagmi@^0.7.4:
-  version "0.7.4"
-  resolved "https://registry.yarnpkg.com/wagmi/-/wagmi-0.7.4.tgz#aca7d60b68b6e274c69f6a42652ac26e93c11b1d"
-  integrity sha512-EeseLNIdOhiX6N9M+zbqgC3bOWfpUYvVAphXKZeIxY0kkkGWr8xfKbpOAF/CQzV7Qk2txK8yCTOyIePgikUgxA==
+wagmi@^0.7.5:
+  version "0.7.5"
+  resolved "https://registry.yarnpkg.com/wagmi/-/wagmi-0.7.5.tgz#b38ce836957c68449a55ae0f5e32f0410769a618"
+  integrity sha512-/HRzvunyd68Dt7QKiAsmbf7rO3rOmvr81/yNpig1pkUyadAgOhFop+4PMr6QoxgN0eJRSNOhpM4GgQxr0FTG/Q==
   dependencies:
     "@coinbase/wallet-sdk" "^3.5.3"
     "@tanstack/query-sync-storage-persister" "^4.10.1"
     "@tanstack/react-query" "^4.10.1"
     "@tanstack/react-query-persist-client" "^4.10.1"
-    "@wagmi/core" "^0.6.3"
+    "@wagmi/core" "^0.6.4"
     "@walletconnect/ethereum-provider" "^1.8.0"
-    abitype "^0.1.6"
+    abitype "^0.1.7"
     use-sync-external-store "^1.2.0"
 
 wcwidth@^1.0.1:
