@@ -19,9 +19,10 @@ import UserProfile from '../UserProfile';
 interface Props {
   hideDropdown?: boolean;
   isParentMessage?: boolean;
+  onProfileSelected?: (profile: Profile) => void;
 }
 
-const Search: FC<Props> = ({ hideDropdown = false, isParentMessage }) => {
+const Search: FC<Props> = ({ hideDropdown = false, isParentMessage, onProfileSelected }) => {
   const { push, pathname, query } = useRouter();
   const [searchText, setSearchText] = useState('');
   const dropdownRef = useRef(null);
@@ -98,8 +99,11 @@ const Search: FC<Props> = ({ hideDropdown = false, isParentMessage }) => {
                 {profiles.map((profile: Profile) => (
                   <div key={profile?.handle} className="py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-800">
                     <Link
-                      href={isParentMessage ? `/messages/${profile?.id}` : `/u/${profile?.handle}`}
-                      onClick={() => setSearchText('')}
+                      href={isParentMessage ? `` : `/u/${profile?.handle}`}
+                      onClick={() => {
+                        onProfileSelected && onProfileSelected(profile);
+                        setSearchText('');
+                      }}
                     >
                       <UserProfile linkToProfile={!isParentMessage} profile={profile} />
                     </Link>
