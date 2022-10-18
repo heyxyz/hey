@@ -5,14 +5,12 @@ import clsx from 'clsx';
 import dayjs from 'dayjs';
 import type { FC, ReactNode } from 'react';
 import React, { memo } from 'react';
-import InfiniteScroll from 'react-infinite-scroll-component';
 
 const formatTime = (d: Date | undefined): string => (d ? dayjs(d).format('hh:mm a - MM/DD/YY') : '');
 
-// Uncomment when trying to implement Date Divider
-// const isOnSameDay = (d1?: Date, d2?: Date): boolean => {
-//   return dayjs(d1).format('YYYYMMDD') === dayjs(d2).format('YYYYMMDD');
-// };
+const isOnSameDay = (d1?: Date, d2?: Date): boolean => {
+  return dayjs(d1).format('YYYYMMDD') === dayjs(d2).format('YYYYMMDD');
+};
 
 const formatDate = (d?: Date) => dayjs(d).format('MMMM D, YYYY');
 
@@ -94,13 +92,7 @@ interface MessageListProps {
   hasMore: boolean;
 }
 
-const MessagesList: FC<MessageListProps> = ({
-  messages,
-  fetchNextMessages,
-  profile,
-  currentProfile,
-  hasMore
-}) => {
+const MessagesList: FC<MessageListProps> = ({ messages, profile, currentProfile }) => {
   let lastMessageDate: Date | undefined;
 
   return (
@@ -108,7 +100,7 @@ const MessagesList: FC<MessageListProps> = ({
       <div className="pb-6 md:pb-0 w-full h-full flex flex-col self-end">
         <div className="relative w-full h-full bg-white px-4 pt-6 flex">
           <div id="scrollableDiv" className="flex flex-col h-full overflow-y-auto w-full">
-            <InfiniteScroll
+            {/* <InfiniteScroll
               dataLength={messages.length}
               next={fetchNextMessages}
               hasMore={hasMore}
@@ -117,19 +109,19 @@ const MessagesList: FC<MessageListProps> = ({
               endMessage={<ConversationBeginningNotice />}
               inverse={true}
               scrollableTarget="scrollableDiv"
-            >
-              {messages?.map((msg: Message) => {
-                // To Do - Causing Issues due to Col Reverse
-                // const dateHasChanged = lastMessageDate ? !isOnSameDay(lastMessageDate, msg.sent) : true;
-                lastMessageDate = msg.sent;
-                return (
-                  <div key={msg.id}>
-                    {/* {dateHasChanged ? <DateDivider date={msg.sent} /> : null} */}
-                    <MessageTile currentProfile={currentProfile} profile={profile} message={msg} />
-                  </div>
-                );
-              })}
-            </InfiniteScroll>
+            > */}
+            <ConversationBeginningNotice />
+            {messages?.map((msg: Message) => {
+              const dateHasChanged = lastMessageDate ? !isOnSameDay(lastMessageDate, msg.sent) : true;
+              lastMessageDate = msg.sent;
+              return (
+                <div key={msg.id}>
+                  {dateHasChanged ? <DateDivider date={msg.sent} /> : null}
+                  <MessageTile currentProfile={currentProfile} profile={profile} message={msg} />
+                </div>
+              );
+            })}
+            {/* </InfiniteScroll> */}
           </div>
         </div>
       </div>

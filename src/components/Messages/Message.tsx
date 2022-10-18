@@ -50,7 +50,11 @@ const Message: FC = () => {
       const currentMessages = messages.get(address);
       if (Array.isArray(currentMessages) && currentMessages?.length > 0) {
         const lastMsgDate = currentMessages[currentMessages?.length - 1].sent;
-        if (lastMsgDate instanceof Date && isFinite(lastMsgDate.getTime())) {
+        if (
+          lastMsgDate instanceof Date &&
+          isFinite(lastMsgDate.getTime()) &&
+          lastMsgDate !== endTime.get(address)
+        ) {
           endTime.set(address, lastMsgDate);
           setEndTime(new Map(endTime));
         }

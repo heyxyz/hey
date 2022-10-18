@@ -19,9 +19,8 @@ const useGetMessages = (conversation?: Conversation, endTime?: Date) => {
       hasMore.set(conversationAddress, true);
       setHasMore(new Map(hasMore));
       const newMessages = await conversation.messages({
-        direction: SortDirection.SORT_DIRECTION_DESCENDING,
-        limit: MESSAGE_PAGE_LIMIT,
-        endTime
+        direction: SortDirection.SORT_DIRECTION_DESCENDING
+        // endTime
       });
       if (newMessages.length > 0) {
         const oldMessages = messages.get(conversationAddress) ?? [];
