@@ -64,16 +64,6 @@ const Preview = dynamic(() => import('@components/Shared/Preview'), {
   loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
 });
 
-const PostButton = ({ isLoading, createPost }: { isLoading: boolean; createPost: () => void }) => (
-  <Button
-    disabled={isLoading}
-    icon={isLoading ? <Spinner size="xs" /> : <PencilAltIcon className="w-4 h-4" />}
-    onClick={createPost}
-  >
-    Post
-  </Button>
-);
-
 const NewUpdate: FC = () => {
   // App store
   const userSigNonce = useAppStore((state) => state.userSigNonce);
@@ -350,19 +340,18 @@ const NewUpdate: FC = () => {
           <ReferenceSettings />
           {publicationContent && <Preview />}
         </div>
-        {!isAudioPost && (
-          <div className="ml-auto pt-2 sm:pt-0">
-            <PostButton isLoading={isLoading} createPost={createPost} />
-          </div>
-        )}
+        <div className="ml-auto pt-2 sm:pt-0">
+          <Button
+            disabled={isLoading}
+            icon={isLoading ? <Spinner size="xs" /> : <PencilAltIcon className="w-4 h-4" />}
+            onClick={createPost}
+          >
+            Post
+          </Button>
+        </div>
       </div>
       <div className="px-5">
         <Attachments attachments={attachments} setAttachments={setAttachments} isNew />
-        {isAudioPost && (
-          <div className="flex justify-end pt-4">
-            <PostButton isLoading={isLoading} createPost={createPost} />
-          </div>
-        )}
       </div>
     </div>
   );

@@ -66,16 +66,6 @@ interface Props {
   publication: LensterPublication;
 }
 
-const CommentButton = ({ isLoading, createComment }: { isLoading: boolean; createComment: () => void }) => (
-  <Button
-    disabled={isLoading}
-    icon={isLoading ? <Spinner size="xs" /> : <ChatAlt2Icon className="w-4 h-4" />}
-    onClick={createComment}
-  >
-    Comment
-  </Button>
-);
-
 const NewComment: FC<Props> = ({ publication }) => {
   // App store
   const userSigNonce = useAppStore((state) => state.userSigNonce);
@@ -351,18 +341,17 @@ const NewComment: FC<Props> = ({ publication }) => {
           <ReferenceSettings />
           {publicationContent && <Preview />}
         </div>
-        {!isAudioComment && (
-          <div className="ml-auto pt-2 sm:pt-0">
-            <CommentButton createComment={createComment} isLoading={isLoading} />
-          </div>
-        )}
+        <div className="ml-auto pt-2 sm:pt-0">
+          <Button
+            disabled={isLoading}
+            icon={isLoading ? <Spinner size="xs" /> : <ChatAlt2Icon className="w-4 h-4" />}
+            onClick={createComment}
+          >
+            Comment
+          </Button>
+        </div>
       </div>
       <Attachments attachments={attachments} setAttachments={setAttachments} isNew />
-      {isAudioComment && (
-        <div className="flex justify-end mt-4">
-          <CommentButton createComment={createComment} isLoading={isLoading} />
-        </div>
-      )}
     </Card>
   );
 };
