@@ -85,7 +85,9 @@ const ConversationBeginningNotice: FC = () => (
   </div>
 );
 
-const Loading: FC = () => <div className="p-1 text-center text-gray-300 font-bold text-sm">Loading...</div>;
+const LoadingMore: FC = () => (
+  <div className="p-1 text-center text-gray-300 font-bold text-sm">Loading...</div>
+);
 
 interface MessageListProps {
   messages: Message[];
@@ -119,7 +121,7 @@ const MessagesList: FC<MessageListProps> = ({
             inverse={true}
             endMessage={<ConversationBeginningNotice />}
             hasMore={hasMore}
-            loader={<Loading />}
+            loader={<LoadingMore />}
             scrollableTarget="scrollableDiv"
           >
             {messages?.map((msg: Message, index: number) => {
