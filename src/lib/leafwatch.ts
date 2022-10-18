@@ -28,15 +28,14 @@ export const Leafwatch = {
           props: options,
           url: location.href,
           referrer: document.referrer,
+          sha: process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA,
           browser: {
             name: ua.browser.name,
             version: ua.browser.version,
             language: navigator.language
           },
           device: {
-            os: ua.os.name,
-            screen_height: screen.height,
-            screen_width: screen.width
+            os: ua.os.name
           }
         }
       }).catch(() => {

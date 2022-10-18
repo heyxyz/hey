@@ -8,7 +8,7 @@ interface Props {
 
 export const PageLoading: FC<Props> = ({ message }) => {
   return (
-    <div className="flex flex-grow justify-center items-center">
+    <div className="flex h-full flex-grow justify-center items-center">
       <div className="space-y-3">
         <Spinner className="mx-auto" />
         <div>{message}</div>

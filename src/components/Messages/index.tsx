@@ -21,7 +21,11 @@ const Messages: FC = () => {
       <MetaTags title={`Messages • ${APP_NAME}`} />
       <PreviewList />
       <GridItemEight>
-        <Card className="h-[86vh]">Hello</Card>
+        <Card className="h-[86vh]">
+          <div className="flex items-center justify-center pb-4 h-full">
+            <span className="text-gray-300 text-sm font-bold">No conversation selected</span>
+          </div>
+        </Card>
       </GridItemEight>
     </GridLayout>
   );

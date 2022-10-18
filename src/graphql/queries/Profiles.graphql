@@ -3,6 +3,7 @@ query Profiles($request: ProfileQueryRequest!) {
     items {
       ...ProfileFields
       isDefault
+      isFollowedByMe
     }
     pageInfo {
       next
