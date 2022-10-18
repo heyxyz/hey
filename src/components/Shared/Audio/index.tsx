@@ -20,13 +20,13 @@ const getAudioPlayerOptions = (ref: HTMLDivElement) => ({
   cursorColor: '#8b5cf6',
   cursorWidth: 1.5,
   barWidth: 2.5,
+  barGap: 2.5,
   barRadius: 3,
   hideScrollbar: true,
   responsive: true,
   height: 40,
   normalize: true,
-  partialRender: true,
-  barGap: 4
+  partialRender: true
 });
 
 interface Props {
