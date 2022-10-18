@@ -3045,7 +3045,7 @@
   dependencies:
     tslib "^2.3.0"
 
-"@xmtp/proto@^3.2.0":
+"@xmtp/proto@^3.4.0":
   version "3.4.0"
   resolved "https://registry.yarnpkg.com/@xmtp/proto/-/proto-3.4.0.tgz#cba61f89639bad6f61e63370a960141bd0dfc276"
   integrity sha512-DIXgEVTDV9nctUhxLqMzdInmIqShKaTNa0wv61qFvaH8SRN5o3gq9uIuQLFGwxWZLK75GAFa+0orsX1T4eAXiw==
@@ -3054,14 +3054,14 @@
     protobufjs "^7.0.0"
     undici "^5.8.1"
 
-"@xmtp/xmtp-js@^6.8.0":
-  version "6.8.0"
-  resolved "https://registry.yarnpkg.com/@xmtp/xmtp-js/-/xmtp-js-6.8.0.tgz#8c81c2797d6028914b0b6667410c30d1c2a0ccc8"
-  integrity sha512-mPpsz2CMjhVdeLV5P9xVAw1ZGseGHEi9u9lkafNbUY8MkBvfYcN/WoEPBX6Q4sUffv0EmPVxAlDNsfGfcpFD+w==
+"@xmtp/xmtp-js@7.0.0-beta.1":
+  version "7.0.0-beta.1"
+  resolved "https://registry.yarnpkg.com/@xmtp/xmtp-js/-/xmtp-js-7.0.0-beta.1.tgz#f81da7492d9f711d744929afc28775b6813758a0"
+  integrity sha512-wXmZCmGN5vuU2PRB+VqX9h5O1z89wP8hTOEiWjQuN9SQ8WYfrNR1b7r62aR0XCGaCzVfr5x6F9lhhrPV0N0Eew==
   dependencies:
     "@noble/secp256k1" "^1.5.2"
     "@stardazed/streams-polyfill" "^2.4.0"
-    "@xmtp/proto" "^3.2.0"
+    "@xmtp/proto" "^3.4.0"
     ethers "^5.5.3"
     long "^5.2.0"
     node-localstorage "^2.2.1"
