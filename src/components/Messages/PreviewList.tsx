@@ -41,7 +41,7 @@ const PreviewList: FC = () => {
         </div>
         <div className="mt-2">
           {showLoading ? (
-            <PageLoading message="Loading messages" />
+            <PageLoading message="Loading conversations" />
           ) : (
             Array.from(sortedProfiles.values()).map((profile, index) => {
               const message = messages.get(profile.ownedBy.toLowerCase());
