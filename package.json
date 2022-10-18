@@ -68,7 +68,7 @@
     "@types/react-infinite-scroller": "^1.2.3",
     "@types/ua-parser-js": "^0.7.36",
     "@types/uuid": "^8.3.4",
-    "@typescript-eslint/eslint-plugin": "^5.40.0",
+    "@typescript-eslint/eslint-plugin": "^5.40.1",
     "autoprefixer": "^10.4.12",
     "eslint": "^8.24.0",
     "eslint-config-next": "^12.3.1",
