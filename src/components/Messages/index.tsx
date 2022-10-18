@@ -1,16 +1,17 @@
 import Search from '@components/Shared/Navbar/Search';
 import { Card } from '@components/UI/Card';
 import { GridItemEight, GridLayout } from '@components/UI/GridLayout';
+import useXmtpClient from '@components/utils/hooks/useXmtpClient';
 import MetaTags from '@components/utils/MetaTags';
 import type { Profile } from '@generated/types';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
-import { Client } from '@xmtp/xmtp-js';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { APP_NAME } from 'src/constants';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
+import { useMessageStore } from 'src/store/message';
 
 import PreviewList from './PreviewList';
 
@@ -18,16 +19,28 @@ const Messages: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const router = useRouter();
   const [error, setError] = useState<string>('');
+  const messageProfiles = useMessageStore((state) => state.messageProfiles);
+  const setMessageProfiles = useMessageStore((state) => state.setMessageProfiles);
+  const conversations = useMessageStore((state) => state.conversations);
+  const setConversations = useMessageStore((state) => state.setConversations);
+  const { client } = useXmtpClient();
 
   if (!isFeatureEnabled('messages', currentProfile?.id)) {
     return <Custom404 />;
   }
 
   const onProfileSelected = async (profile: Profile) => {
-    const isMessagesEnabled = await Client.canMessage(profile?.ownedBy);
-    if (isMessagesEnabled) {
-      router.push(`/messages/${profile.id}`);
-      setError('');
+    if (client) {
+      const isMessagesEnabled = await client?.canMessage(profile?.ownedBy);
+      if (isMessagesEnabled) {
+        messageProfiles.set(profile.ownedBy, profile);
+        setMessageProfiles(new Map(messageProfiles));
+        const newConvo = await client?.conversations?.newConversation(profile.ownedBy);
+        conversations.set(profile.ownedBy.toLowerCase(), newConvo);
+        setConversations(new Map(conversations));
+        router.push(`/messages/${profile.id}`);
+        setError('');
+      }
     } else {
       setError('Selected Lens Profile is not on XMTP');
     }
