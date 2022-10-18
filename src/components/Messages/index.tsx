@@ -1,3 +1,4 @@
+import Search from '@components/Shared/Navbar/Search';
 import { Card } from '@components/UI/Card';
 import { GridItemEight, GridLayout } from '@components/UI/GridLayout';
 import MetaTags from '@components/utils/MetaTags';
@@ -22,8 +23,8 @@ const Messages: FC = () => {
       <PreviewList />
       <GridItemEight>
         <Card className="h-[86vh]">
-          <div className="flex items-center justify-center pb-4 h-full">
-            <span className="text-gray-300 text-sm font-bold">No conversation selected</span>
+          <div className="w-full p-4">
+            <Search isParentMessage={true} />
           </div>
         </Card>
       </GridItemEight>

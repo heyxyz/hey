@@ -18,9 +18,10 @@ import UserProfile from '../UserProfile';
 
 interface Props {
   hideDropdown?: boolean;
+  isParentMessage?: boolean;
 }
 
-const Search: FC<Props> = ({ hideDropdown = false }) => {
+const Search: FC<Props> = ({ hideDropdown = false, isParentMessage }) => {
   const { push, pathname, query } = useRouter();
   const [searchText, setSearchText] = useState('');
   const dropdownRef = useRef(null);
@@ -62,7 +63,7 @@ const Search: FC<Props> = ({ hideDropdown = false }) => {
 
   return (
     <>
-      <div aria-hidden="true">
+      <div aria-hidden="true" className="w-full">
         <form onSubmit={handleKeyDown}>
           <Input
             type="text"
@@ -96,8 +97,11 @@ const Search: FC<Props> = ({ hideDropdown = false }) => {
               <>
                 {profiles.map((profile: Profile) => (
                   <div key={profile?.handle} className="py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-800">
-                    <Link href={`/u/${profile?.handle}`} onClick={() => setSearchText('')}>
-                      <UserProfile profile={profile} />
+                    <Link
+                      href={isParentMessage ? `/messages/${profile?.id}` : `/u/${profile?.handle}`}
+                      onClick={() => setSearchText('')}
+                    >
+                      <UserProfile linkToProfile={!isParentMessage} profile={profile} />
                     </Link>
                   </div>
                 ))}
