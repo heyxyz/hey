@@ -24,23 +24,25 @@ const useMessagePreviews = () => {
   const setMessageProfiles = useMessageStore((state) => state.setMessageProfiles);
   const previewMessages = useMessageStore((state) => state.previewMessages);
   const setPreviewMessages = useMessageStore((state) => state.setPreviewMessages);
+  const [profileIds, setProfileIds] = useState<Set<string>>(new Set<string>());
   const [messagesLoading, setMessagesLoading] = useState<boolean>();
 
-  const profileIds = Array.from(conversations.keys())
-    .map((conversationKey: string) => {
-      const match = parseConversationKey(conversationKey);
-      return (
-        match && match.members.find((member) => member && currentProfile && member !== currentProfile.id)
-      );
-    })
-    .filter((profileId) => !!profileId);
+  const getProfileFromKey = (key: string): string | null => {
+    const parsed = parseConversationKey(key);
+    const userProfileId = currentProfile?.id;
+    if (!parsed || !userProfileId) {
+      return null;
+    }
 
-  const request = { profileIds: profileIds };
+    return parsed.members.find((member) => member !== userProfileId) ?? null;
+  };
+
+  const request = { profileIds: Array.from(profileIds.values()) };
   const { loading: profilesLoading, error: profilesError } = useQuery(ProfilesDocument, {
     variables: {
       request: request
     },
-    skip: !currentProfile?.id || profileIds.length === 0,
+    skip: !currentProfile?.id || profileIds.size === 0,
     onCompleted: async (data) => {
       if (!data?.profiles?.items.length) {
         return;
@@ -75,6 +77,7 @@ const useMessagePreviews = () => {
       convo: Conversation
     ): Promise<{ key: string; message?: Message }> => {
       const key = buildConversationKey(convo.peerAddress, convo.context?.conversationId as string);
+
       const newMessages = await convo.messages({
         limit: 1,
         direction: SortDirection.SORT_DIRECTION_DESCENDING
@@ -89,6 +92,7 @@ const useMessagePreviews = () => {
       setMessagesLoading(true);
       const newPreviewMessages = new Map(previewMessages);
       const newConversations = new Map(conversations);
+      const newProfileIds = new Set(profileIds);
       const convos = await client.conversations.list();
       const matcherRegex = conversationMatchesProfile(currentProfile.id);
       const previews = await Promise.all(
@@ -99,11 +103,16 @@ const useMessagePreviews = () => {
               buildConversationKey(convo.peerAddress, convo.context?.conversationId as string),
               convo
             );
+
             return await fetchMostRecentMessage(convo);
           })
       );
 
       for (const preview of previews) {
+        const profileId = getProfileFromKey(preview.key);
+        if (profileId) {
+          newProfileIds.add(profileId);
+        }
         if (preview.message) {
           newPreviewMessages.set(preview.key, preview.message);
         }
@@ -111,6 +120,9 @@ const useMessagePreviews = () => {
       setPreviewMessages(newPreviewMessages);
       setConversations(newConversations);
       setMessagesLoading(false);
+      if (newProfileIds.size > profileIds.size) {
+        setProfileIds(newProfileIds);
+      }
     };
 
     const closeStream = async () => {
@@ -131,7 +143,14 @@ const useMessagePreviews = () => {
         }
         const newPreviewMessages = new Map(previewMessages);
         const newConversations = new Map(conversations);
-        newConversations.set(buildConversationKey(convo.peerAddress, convo.context.conversationId), convo);
+        const newProfileIds = new Set(profileIds);
+        const key = buildConversationKey(convo.peerAddress, convo.context.conversationId);
+        newConversations.set(key, convo);
+        const profileId = getProfileFromKey(key);
+        if (profileId && !profileIds.has(profileId)) {
+          newProfileIds.add(profileId);
+          setProfileIds(newProfileIds);
+        }
         const preview = await fetchMostRecentMessage(convo);
         if (preview.message) {
           newPreviewMessages.set(preview.key, preview.message);
