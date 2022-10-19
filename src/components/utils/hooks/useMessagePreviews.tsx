@@ -59,6 +59,13 @@ const useMessagePreviews = () => {
     }
   });
 
+  const reset = () => {
+    setConversations(new Map());
+    setMessageProfiles(new Map());
+    setPreviewMessages(new Map());
+    setMessagesLoading(false);
+  };
+
   useEffect(() => {
     if (!isMessagesEnabled || !client || !currentProfile) {
       return;
@@ -142,6 +149,13 @@ const useMessagePreviews = () => {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [client, currentProfile?.id]);
+
+  useEffect(() => {
+    if (!currentProfile) {
+      reset();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentProfile]);
 
   return {
     loading: messagesLoading || profilesLoading,

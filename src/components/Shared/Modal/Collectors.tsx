@@ -8,8 +8,8 @@ import type { Profile, Wallet } from '@generated/types';
 import { CollectorsDocument } from '@generated/types';
 import { CollectionIcon } from '@heroicons/react/outline';
 import type { FC } from 'react';
-import InfiniteScroll from 'react-infinite-scroller';
-import { PAGINATION_THRESHOLD } from 'src/constants';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import { SCROLL_THRESHOLD } from 'src/constants';
 
 import Loader from '../Loader';
 
@@ -53,15 +53,15 @@ const Collectors: FC<Props> = ({ publicationId }) => {
   }
 
   return (
-    <div className="overflow-y-auto max-h-[80vh]">
+    <div className="overflow-y-auto max-h-[80vh]" id="scrollableDiv">
       <ErrorMessage className="m-5" title="Failed to load collectors" error={error} />
       <InfiniteScroll
-        pageStart={0}
-        threshold={PAGINATION_THRESHOLD}
+        dataLength={profiles?.length ?? 0}
+        scrollThreshold={SCROLL_THRESHOLD}
         hasMore={hasMore}
-        loadMore={loadMore}
+        next={loadMore}
         loader={<InfiniteLoader />}
-        useWindow={false}
+        scrollableTarget="scrollableDiv"
       >
         <div className="divide-y dark:divide-gray-700">
           {profiles?.map((wallet) => (

@@ -12453,6 +12453,15 @@ export type ProfileQuery = {
   } | null;
 };
 
+export type ProfileAddressQueryVariables = Exact<{
+  request: SingleProfileQueryRequest;
+}>;
+
+export type ProfileAddressQuery = {
+  __typename?: 'Query';
+  profile?: { __typename?: 'Profile'; id: any; ownedBy: any } | null;
+};
+
 export type ProfileFeedQueryVariables = Exact<{
   request: PublicationsQueryRequest;
   reactionRequest?: InputMaybe<ReactionFieldResolverRequest>;
@@ -22515,6 +22524,49 @@ export const ProfileDocument = {
     }
   ]
 } as unknown as DocumentNode<ProfileQuery, ProfileQueryVariables>;
+export const ProfileAddressDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'ProfileAddress' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'request' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'SingleProfileQueryRequest' } }
+          }
+        }
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'profile' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'request' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'request' } }
+              }
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'ownedBy' } }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+} as unknown as DocumentNode<ProfileAddressQuery, ProfileAddressQueryVariables>;
 export const ProfileFeedDocument = {
   kind: 'Document',
   definitions: [

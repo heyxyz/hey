@@ -44,7 +44,7 @@ const Message: FC<MessageProps> = ({ conversationKey, profileId }) => {
   const { sendMessage } = useSendMessage(selectedConversation);
 
   const { data, loading, error } = useQuery(ProfileDocument, {
-    variables: { request: { profileId: profileId }, who: currentProfile?.id ?? null },
+    variables: { request: { profileId: profileId } },
     skip: !profileId
   });
 
@@ -67,9 +67,9 @@ const Message: FC<MessageProps> = ({ conversationKey, profileId }) => {
     return <Custom500 />;
   }
 
-  const showLoading = loading || !currentProfile;
-
   const profile = (data?.profile as Profile) || undefined;
+
+  const showLoading = loading || !profile || !currentProfile || !selectedConversation;
 
   return (
     <GridLayout>
