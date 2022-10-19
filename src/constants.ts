@@ -90,4 +90,5 @@ export const BUNDLR_CURRENCY = 'matic';
 export const BUNDLR_NODE_URL = 'https://node2.bundlr.network';
 
 // UI
+export const MESSAGE_PAGE_LIMIT = 20;
 export const PAGINATION_THRESHOLD = 3000;

@@ -11,17 +11,22 @@ const useStreamMessages = (conversation?: Conversation, onMessageCallback?: () =
     if (!conversation) {
       return;
     }
+    const closeStream = async () => {
+      if (!stream) {
+        return;
+      }
+      await stream.return();
+    };
     const streamMessages = async () => {
+      closeStream();
       const newStream = await conversation.streamMessages();
       setStream(newStream);
       for await (const msg of newStream) {
         if (setMessages) {
-          const newMessages = messages.get(conversation.peerAddress) ?? [];
-          newMessages.push(msg);
-          const uniqueMessages = [
-            ...Array.from(new Map(newMessages.map((item) => [item['id'], item])).values())
-          ];
-          messages.set(conversation.peerAddress, uniqueMessages);
+          const conversationAddress = conversation.peerAddress.toLowerCase();
+          const oldMessages = messages.get(conversationAddress) ?? [];
+          oldMessages.unshift(msg);
+          messages.set(conversationAddress, oldMessages);
           setMessages(new Map(messages));
         }
         if (onMessageCallback) {
@@ -31,12 +36,6 @@ const useStreamMessages = (conversation?: Conversation, onMessageCallback?: () =
     };
     streamMessages();
     return () => {
-      const closeStream = async () => {
-        if (!stream) {
-          return;
-        }
-        await stream.return();
-      };
       closeStream();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
