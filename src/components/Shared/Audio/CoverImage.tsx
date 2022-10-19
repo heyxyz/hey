@@ -23,7 +23,7 @@ const CoverImage: FC<Props> = ({ isNew = false, cover, setCover }) => {
     setLoading(false);
   };
 
-  const onPfpUpload = async (e: ChangeEvent<HTMLInputElement>) => {
+  const onChange = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files?.length) {
       try {
         setLoading(true);
@@ -61,12 +61,7 @@ const CoverImage: FC<Props> = ({ isNew = false, cover, setCover }) => {
               <span>Add cover</span>
             </div>
           )}
-          <input
-            type="file"
-            accept=".png, .jpg, .jpeg, .svg"
-            className="hidden w-full"
-            onChange={onPfpUpload}
-          />
+          <input type="file" accept=".png, .jpg, .jpeg, .svg" className="hidden w-full" onChange={onChange} />
         </label>
       )}
     </div>
