@@ -42,7 +42,7 @@ const useMessagePreviews = () => {
     },
     skip: !currentProfile?.id || profileIds.length === 0,
     onCompleted: async (data) => {
-      if (!data?.profiles?.items) {
+      if (!data?.profiles?.items.length) {
         return;
       }
       const profiles = data.profiles.items as Profile[];
