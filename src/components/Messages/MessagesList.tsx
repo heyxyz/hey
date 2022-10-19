@@ -5,6 +5,7 @@ import clsx from 'clsx';
 import dayjs from 'dayjs';
 import type { FC, ReactNode } from 'react';
 import React, { memo } from 'react';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 const formatTime = (d: Date | undefined): string => (d ? dayjs(d).format('hh:mm a - MM/DD/YY') : '');
 
@@ -84,6 +85,10 @@ const ConversationBeginningNotice: FC = () => (
   </div>
 );
 
+const LoadingMore: FC = () => (
+  <div className="p-1 text-center text-gray-300 font-bold text-sm">Loading...</div>
+);
+
 interface MessageListProps {
   messages: Message[];
   fetchNextMessages: () => void;
@@ -92,37 +97,44 @@ interface MessageListProps {
   hasMore: boolean;
 }
 
-const MessagesList: FC<MessageListProps> = ({ messages, profile, currentProfile }) => {
+const MessagesList: FC<MessageListProps> = ({
+  messages,
+  fetchNextMessages,
+  profile,
+  currentProfile,
+  hasMore
+}) => {
   let lastMessageDate: Date | undefined;
 
   return (
     <div className="flex-grow flex h-[75%]">
-      <div className="pb-6 md:pb-0 w-full h-full flex flex-col self-end">
-        <div className="relative w-full h-full bg-white px-4 pt-6 flex">
-          <div id="scrollableDiv" className="flex flex-col h-full overflow-y-auto w-full">
-            {/* <InfiniteScroll
-              dataLength={messages.length}
-              next={fetchNextMessages}
-              hasMore={hasMore}
-              style={{ display: 'flex', flexDirection: 'column-reverse' }}
-              loader={<div className="p-1 text-center text-gray-300 font-bold text-sm">Loading...</div>}
-              endMessage={<ConversationBeginningNotice />}
-              inverse={true}
-              scrollableTarget="scrollableDiv"
-            > */}
-            <ConversationBeginningNotice />
-            {messages?.map((msg: Message) => {
-              const dateHasChanged = lastMessageDate ? !isOnSameDay(lastMessageDate, msg.sent) : true;
+      <div className="relative w-full h-full bg-white px-4 pt-6 flex">
+        <div
+          id="scrollableDiv"
+          className="flex flex-col h-full overflow-y-auto w-full"
+          style={{ flexDirection: 'column-reverse' }}
+        >
+          <InfiniteScroll
+            dataLength={messages.length}
+            next={fetchNextMessages}
+            style={{ display: 'flex', flexDirection: 'column-reverse' }}
+            inverse={true}
+            endMessage={<ConversationBeginningNotice />}
+            hasMore={hasMore}
+            loader={<LoadingMore />}
+            scrollableTarget="scrollableDiv"
+          >
+            {messages?.map((msg: Message, index: number) => {
+              const dateHasChanged = lastMessageDate ? !isOnSameDay(lastMessageDate, msg.sent) : false;
               lastMessageDate = msg.sent;
               return (
-                <div key={msg.id}>
-                  {dateHasChanged ? <DateDivider date={msg.sent} /> : null}
+                <div key={`${msg.id}_${index}`}>
                   <MessageTile currentProfile={currentProfile} profile={profile} message={msg} />
+                  {dateHasChanged ? <DateDivider date={msg.sent} /> : null}
                 </div>
               );
             })}
-            {/* </InfiniteScroll> */}
-          </div>
+          </InfiniteScroll>
         </div>
       </div>
     </div>
