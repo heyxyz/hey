@@ -31,6 +31,10 @@ export const useMessageStore = create<MessageState>((set) => ({
       const existing = state.messages.get(key) || [];
       const updated = getUniqueMessages([...existing, ...newMessages]);
       numAdded = updated.length - existing.length;
+      // If nothing has been added, return the old item to avoid unnecessary refresh
+      if (!numAdded) {
+        return { messages: state.messages };
+      }
       messages.set(key, updated);
       return { messages };
     });
