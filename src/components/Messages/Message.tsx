@@ -43,15 +43,12 @@ const Message: FC<MessageProps> = ({ conversationKey }) => {
   const profile = profiles.get(conversationKey);
 
   const fetchNextMessages = useCallback(async () => {
-    if (hasMore) {
-      const currentMessages = messages;
-      if (Array.isArray(currentMessages) && currentMessages.length > 0) {
-        const lastMsgDate = currentMessages[currentMessages.length - 1].sent;
-        const currentEndTime = endTime.get(conversationKey);
-        if (!currentEndTime || lastMsgDate <= currentEndTime) {
-          endTime.set(conversationKey, lastMsgDate);
-          setEndTime(new Map(endTime));
-        }
+    if (hasMore && Array.isArray(messages) && messages.length > 0) {
+      const lastMsgDate = messages[messages.length - 1].sent;
+      const currentEndTime = endTime.get(conversationKey);
+      if (!currentEndTime || lastMsgDate <= currentEndTime) {
+        endTime.set(conversationKey, lastMsgDate);
+        setEndTime(new Map(endTime));
       }
     }
   }, [conversationKey, hasMore, messages, endTime]);
