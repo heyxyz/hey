@@ -8,8 +8,8 @@ import type { Profile } from '@generated/types';
 import { FollowingDocument } from '@generated/types';
 import { UsersIcon } from '@heroicons/react/outline';
 import type { FC } from 'react';
-import InfiniteScroll from 'react-infinite-scroller';
-import { PAGINATION_THRESHOLD } from 'src/constants';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import { SCROLL_THRESHOLD } from 'src/constants';
 
 interface Props {
   profile: Profile;
@@ -56,15 +56,15 @@ const Following: FC<Props> = ({ profile }) => {
   }
 
   return (
-    <div className="overflow-y-auto max-h-[80vh]">
+    <div className="overflow-y-auto max-h-[80vh]" id="scrollableDiv">
       <ErrorMessage className="m-5" title="Failed to load following" error={error} />
       <InfiniteScroll
-        pageStart={0}
-        threshold={PAGINATION_THRESHOLD}
+        dataLength={followings?.length ?? 0}
+        scrollThreshold={SCROLL_THRESHOLD}
         hasMore={hasMore}
-        loadMore={loadMore}
+        next={loadMore}
         loader={<InfiniteLoader />}
-        useWindow={false}
+        scrollableTarget="scrollableDiv"
       >
         <div className="divide-y dark:divide-gray-700">
           {followings?.map((following) => (

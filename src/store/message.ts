@@ -4,7 +4,7 @@ import create from 'zustand';
 
 interface MessageState {
   client: Client | undefined;
-  setClient: (client: Client) => void;
+  setClient: (client: Client | undefined) => void;
   conversations: Map<string, Conversation>;
   setConversations: (conversations: Map<string, Conversation>) => void;
   messages: Map<string, Message[]>;

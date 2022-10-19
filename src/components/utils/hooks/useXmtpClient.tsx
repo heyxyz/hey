@@ -14,7 +14,7 @@ const useXmtpClient = () => {
 
   useEffect(() => {
     const initXmtpClient = async () => {
-      if (signer && !client) {
+      if (signer && !client && currentProfile) {
         const xmtp = await Client.create(signer);
         setClient(xmtp);
       }
@@ -22,8 +22,12 @@ const useXmtpClient = () => {
     if (isMessagesEnabled) {
       initXmtpClient();
     }
+    if (!signer || !currentProfile) {
+      // eslint-disable-next-line unicorn/no-useless-undefined
+      setClient(undefined);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [signer]);
+  }, [signer, currentProfile]);
 
   return {
     client: client
