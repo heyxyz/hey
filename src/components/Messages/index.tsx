@@ -4,6 +4,8 @@ import { GridItemEight, GridLayout } from '@components/UI/GridLayout';
 import useXmtpClient from '@components/utils/hooks/useXmtpClient';
 import MetaTags from '@components/utils/MetaTags';
 import type { Profile } from '@generated/types';
+import buildConversationId from '@lib/buildConversationId';
+import { buildConversationKey } from '@lib/conversationKey';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
@@ -41,10 +43,14 @@ const Messages: FC = () => {
     }
     messageProfiles.set(peerAddress.toLowerCase(), profile);
     setMessageProfiles(new Map(messageProfiles));
-    const newConvo = await client?.conversations?.newConversation(peerAddress);
+    const conversationId = buildConversationId(currentProfile?.id, profile.id);
+    const newConvo = await client?.conversations?.newConversation(peerAddress, {
+      conversationId,
+      metadata: {}
+    });
     conversations.set(peerAddress.toLowerCase(), newConvo);
     setConversations(new Map(conversations));
-    router.push(`/messages/${profile.id}`);
+    router.push(`/messages/${buildConversationKey(newConvo.peerAddress, conversationId)}`);
     setError('');
   };
 
