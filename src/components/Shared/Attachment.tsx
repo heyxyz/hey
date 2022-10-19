@@ -1,11 +1,13 @@
 import { Spinner } from '@components/UI/Spinner';
 import { Tooltip } from '@components/UI/Tooltip';
+import useOnClickOutside from '@components/utils/hooks/useOnClickOutside';
 import type { LensterAttachment } from '@generated/lenstertypes';
 import { Menu, Transition } from '@headlessui/react';
 import { MusicNoteIcon, PhotographIcon, VideoCameraIcon } from '@heroicons/react/outline';
 import uploadMediaToIPFS from '@lib/uploadMediaToIPFS';
 import clsx from 'clsx';
 import type { ChangeEvent, Dispatch, FC } from 'react';
+import { useRef } from 'react';
 import { Fragment } from 'react';
 import { useId, useState } from 'react';
 import toast from 'react-hot-toast';
@@ -20,6 +22,9 @@ const Attachment: FC<Props> = ({ attachments, setAttachments }) => {
   const [loading, setLoading] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
   const id = useId();
+  const dropdownRef = useRef(null);
+
+  useOnClickOutside(dropdownRef, () => setShowMenu(false));
 
   const hasVideos = (files: any) => {
     let videos = 0;
@@ -106,6 +111,7 @@ const Attachment: FC<Props> = ({ attachments, setAttachments }) => {
         leaveTo="transform opacity-0 scale-95"
       >
         <Menu.Items
+          ref={dropdownRef}
           static
           className="absolute w-max bg-white rounded-lg border shadow-sm dark:bg-gray-900 focus:outline-none z-[5] dark:border-gray-700/80"
         >
