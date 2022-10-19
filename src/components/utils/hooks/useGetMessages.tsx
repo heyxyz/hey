@@ -1,4 +1,3 @@
-import getUniqueMessages from '@lib/getUniqueMessages';
 import type { Conversation } from '@xmtp/xmtp-js';
 import { SortDirection } from '@xmtp/xmtp-js';
 import { useEffect, useState } from 'react';
@@ -7,7 +6,7 @@ import { useMessageStore } from 'src/store/message';
 
 const useGetMessages = (conversationKey: string, conversation?: Conversation, endTime?: Date) => {
   const messages = useMessageStore((state) => state.messages.get(conversationKey));
-  const setMessagesByKey = useMessageStore((state) => state.setMessagesByKey);
+  const addMessages = useMessageStore((state) => state.addMessages);
   const [hasMore, setHasMore] = useState<Map<string, boolean>>(new Map());
 
   useEffect(() => {
@@ -23,11 +22,8 @@ const useGetMessages = (conversationKey: string, conversation?: Conversation, en
         // endTime
       });
       if (newMessages.length > 0) {
-        const oldMessages = messages || [];
-        const msgObj = [...oldMessages, ...newMessages];
-        const uniqueMessages = getUniqueMessages(msgObj);
-        setMessagesByKey(conversationKey, uniqueMessages);
-        if (Array.isArray(oldMessages) && (uniqueMessages?.length ?? 0) < MESSAGE_PAGE_LIMIT) {
+        const numNew = addMessages(conversationKey, newMessages);
+        if (!numNew || newMessages.length < MESSAGE_PAGE_LIMIT) {
           hasMore.set(conversationKey, false);
           setHasMore(new Map(hasMore));
         }

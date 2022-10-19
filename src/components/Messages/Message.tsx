@@ -40,7 +40,7 @@ const Message: FC<MessageProps> = ({ conversationKey, profileId }) => {
     selectedConversation,
     endTime.get(conversationKey)
   );
-  useStreamMessages(selectedConversation);
+  useStreamMessages(conversationKey, selectedConversation);
   const { sendMessage } = useSendMessage(selectedConversation);
 
   const { data, loading, error } = useQuery(ProfileDocument, {

@@ -6,9 +6,12 @@ import { useMessageStore } from 'src/store/message';
 // Todo: Fix these types in XMTP-JS
 type MessageStream = Stream<MessageV1> | Stream<MessageV2>;
 
-const useStreamMessages = (conversation?: Conversation, onMessageCallback?: () => void) => {
-  const messages = useMessageStore((state) => state.messages);
-  const setMessages = useMessageStore((state) => state.setMessages);
+const useStreamMessages = (
+  conversationKey: string,
+  conversation?: Conversation,
+  onMessageCallback?: () => void
+) => {
+  const addMessages = useMessageStore((state) => state.addMessages);
   const [stream, setStream] = useState<MessageStream>();
 
   useEffect(() => {
@@ -26,14 +29,8 @@ const useStreamMessages = (conversation?: Conversation, onMessageCallback?: () =
       const newStream = await conversation.streamMessages();
       setStream(newStream);
       for await (const msg of newStream) {
-        if (setMessages) {
-          const conversationAddress = conversation.peerAddress.toLowerCase();
-          const oldMessages = messages.get(conversationAddress) ?? [];
-          oldMessages.unshift(msg);
-          messages.set(conversationAddress, oldMessages);
-          setMessages(new Map(messages));
-        }
-        if (onMessageCallback) {
+        const numAdded = addMessages(conversationKey, [msg]);
+        if (numAdded > 0 && onMessageCallback) {
           onMessageCallback();
         }
       }
