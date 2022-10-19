@@ -45,13 +45,10 @@ const Message: FC<MessageProps> = ({ conversationKey }) => {
   const fetchNextMessages = useCallback(async () => {
     if (hasMore) {
       const currentMessages = messages.get(conversationKey);
-      if (Array.isArray(currentMessages) && currentMessages?.length > 0) {
-        const lastMsgDate = currentMessages[currentMessages?.length - 1].sent;
-        if (
-          lastMsgDate instanceof Date &&
-          isFinite(lastMsgDate.getTime()) &&
-          lastMsgDate !== endTime.get(conversationKey)
-        ) {
+      if (Array.isArray(currentMessages) && currentMessages.length > 0) {
+        const lastMsgDate = currentMessages[currentMessages.length - 1].sent;
+        const currentEndTime = endTime.get(conversationKey);
+        if (!currentEndTime || lastMsgDate <= currentEndTime) {
           endTime.set(conversationKey, lastMsgDate);
           setEndTime(new Map(endTime));
         }
@@ -116,7 +113,7 @@ const MessagePage: FC = () => {
     return <Custom404 />;
   }
 
-  return <Message conversationKey={joinedConversationKey as string} profileId={profileId} />;
+  return <Message conversationKey={joinedConversationKey} profileId={profileId} />;
 };
 
 export default MessagePage;

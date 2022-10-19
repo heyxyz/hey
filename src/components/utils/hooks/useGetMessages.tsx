@@ -39,7 +39,7 @@ const useGetMessages = (conversationKey: string, conversation?: Conversation, en
     };
     loadMessages();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [conversation, endTime]);
+  }, [conversation, conversationKey, endTime]);
 
   return {
     messages,
