@@ -35,23 +35,17 @@ const useMessagePreviews = () => {
     })
     .filter((profileId) => !!profileId);
 
-  const request = { profileIds: profileIds, limit: 50 };
-  const {
-    loading: profilesLoading,
-    error: profilesError,
-    fetchMore
-  } = useQuery(ProfilesDocument, {
+  const request = { profileIds: profileIds };
+  const { loading: profilesLoading, error: profilesError } = useQuery(ProfilesDocument, {
     variables: {
       request: request
     },
     skip: !currentProfile?.id || profileIds.length === 0,
     onCompleted: async (data) => {
-      console.log('Got data', data);
       if (!data?.profiles?.items) {
         return;
       }
       const profiles = data.profiles.items as Profile[];
-      const pageInfo = data.profiles.pageInfo;
       const newMessageProfiles = new Map(messageProfiles);
       for (const profile of profiles) {
         const peerAddress = profile.ownedBy as string;
@@ -60,17 +54,13 @@ const useMessagePreviews = () => {
       }
       setMessageProfiles(newMessageProfiles);
 
-      // Paginate through all profiles for the existing conversations.
-      // if (pageInfo.next) {
-      //   await fetchMore({
-      //     variables: { request: { ...request, cursor: JSON.parse(pageInfo?.next) } }
-      //   });
-      // }
+      // TODO: Add pagination of results once Lens fixes an issue with their API where pagination and cursor
+      // are not respected when querying by profileIds.
     }
   });
 
   useEffect(() => {
-    if (!isMessagesEnabled || !client) {
+    if (!isMessagesEnabled || !client || !currentProfile) {
       return;
     }
 
@@ -92,8 +82,8 @@ const useMessagePreviews = () => {
       setMessagesLoading(true);
       const newPreviewMessages = new Map(previewMessages);
       const newConversations = new Map(conversations);
-      const convos = (await client?.conversations?.list()) || [];
-      const matcherRegex = conversationMatchesProfile(currentProfile?.id);
+      const convos = await client.conversations.list();
+      const matcherRegex = conversationMatchesProfile(currentProfile.id);
       const previews = await Promise.all(
         convos
           .filter((convo) => convo.context?.conversationId && matcherRegex.test(convo.context.conversationId))

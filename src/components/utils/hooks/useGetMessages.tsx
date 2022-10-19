@@ -23,7 +23,6 @@ const useGetMessages = (conversationKey: string, conversation?: Conversation, en
         // endTime
       });
       if (newMessages.length > 0) {
-        console.log('Found message');
         const oldMessages = messages.get(conversationKey) ?? [];
         const msgObj = [...oldMessages, ...newMessages];
         const uniqueMessages = getUniqueMessages(msgObj);
