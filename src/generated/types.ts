@@ -12459,7 +12459,7 @@ export type ProfileAddressQueryVariables = Exact<{
 
 export type ProfileAddressQuery = {
   __typename?: 'Query';
-  profile?: { __typename?: 'Profile'; ownedBy: any } | null;
+  profile?: { __typename?: 'Profile'; id: any; ownedBy: any } | null;
 };
 
 export type ProfileFeedQueryVariables = Exact<{
@@ -22556,7 +22556,10 @@ export const ProfileAddressDocument = {
             ],
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'ownedBy' } }]
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'ownedBy' } }
+              ]
             }
           }
         ]
