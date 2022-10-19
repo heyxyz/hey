@@ -1,5 +1,4 @@
 import { useQuery } from '@apollo/client';
-import MessageHeader from '@components/Messages/MessageHeader';
 import { Card } from '@components/UI/Card';
 import { GridItemEight, GridLayout } from '@components/UI/GridLayout';
 import { PageLoading } from '@components/UI/PageLoading';
@@ -21,14 +20,14 @@ import { useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
 
 import Composer from './Composer';
+import MessageHeader from './MessageHeader';
 import MessagesList from './MessagesList';
 import PreviewList from './PreviewList';
 
 const Message: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const {
-    query: { profileId }
-  } = useRouter();
+  const router = useRouter();
+  const profileId = router.query.profileId;
 
   const { data, loading, error } = useQuery(ProfileDocument, {
     variables: { request: { profileId: profileId }, who: currentProfile?.id ?? null },
@@ -62,10 +61,12 @@ const Message: FC = () => {
     }
   }, [address, hasMore, messages, endTime]);
 
+  const showLoading = !profile || !currentProfile || !address || !selectedConversation;
+
   if (!isFeatureEnabled('messages', currentProfile?.id)) {
     return <Custom404 />;
   }
-  const showLoading = !profile || !currentProfile || !address || !selectedConversation;
+
   if (error) {
     return <Custom500 />;
   }

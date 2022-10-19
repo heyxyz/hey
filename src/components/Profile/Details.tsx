@@ -18,7 +18,9 @@ import getAvatar from '@lib/getAvatar';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 import isStaff from '@lib/isStaff';
 import isVerified from '@lib/isVerified';
+import { Client } from '@xmtp/xmtp-js';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useTheme } from 'next-themes';
 import type { FC, ReactElement } from 'react';
 import { useState } from 'react';
@@ -40,6 +42,16 @@ const Details: FC<Props> = ({ profile }) => {
   const [showMutualFollowersModal, setShowMutualFollowersModal] = useState(false);
   const { allowed: staffMode } = useStaffMode();
   const { resolvedTheme } = useTheme();
+  const router = useRouter();
+
+  const onMessageClick = async () => {
+    const canMessage = await Client.canMessage(profile.ownedBy);
+    if (canMessage) {
+      router.push(`/messages/${profile.id}`);
+    } else {
+      router.push('/messages');
+    }
+  };
 
   const MetaDetails = ({ children, icon }: { children: ReactElement; icon: ReactElement }) => (
     <div className="flex gap-2 items-center">
@@ -97,17 +109,17 @@ const Details: FC<Props> = ({ profile }) => {
                 {followType === 'FeeFollowModuleSettings' && (
                   <SuperFollow profile={profile} setFollowing={setFollowing} again />
                 )}
-                {isFeatureEnabled('messages', currentProfile?.id) && <Message profile={profile} />}
+                {isFeatureEnabled('messages', currentProfile?.id) && <Message onClick={onMessageClick} />}
               </div>
             ) : followType === 'FeeFollowModuleSettings' ? (
               <div className="flex space-x-2">
                 <SuperFollow profile={profile} setFollowing={setFollowing} showText />
-                {isFeatureEnabled('messages', currentProfile?.id) && <Message profile={profile} />}
+                {isFeatureEnabled('messages', currentProfile?.id) && <Message onClick={onMessageClick} />}
               </div>
             ) : (
               <div className="flex space-x-2">
                 <Follow profile={profile} setFollowing={setFollowing} showText />
-                {isFeatureEnabled('messages', currentProfile?.id) && <Message profile={profile} />}
+                {isFeatureEnabled('messages', currentProfile?.id) && <Message onClick={onMessageClick} />}
               </div>
             )
           ) : null}
