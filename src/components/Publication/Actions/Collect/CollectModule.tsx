@@ -192,22 +192,21 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
   );
 
   const collectModuleSettings = useContractRead({
-    addressOrName: getEnvConfig().UpdateOwnableFeeCollectModuleAddress,
-    contractInterface: UpdateOwnableFeeCollectModule,
+    address: getEnvConfig().UpdateOwnableFeeCollectModuleAddress,
+    abi: UpdateOwnableFeeCollectModule,
     functionName: 'getPublicationData',
     args: [parseInt(publication.profile?.id), parseInt(publication?.id)]
   });
 
   const initialModuleData = useMemo(() => {
     if (collectModuleSettings.data) {
-      const decodedData = collectModuleSettings.data;
+      const decodedData: any = collectModuleSettings.data;
       return {
         amount: decodedData[1] as BigNumber,
         currency: decodedData[2] as string
       };
     }
   }, [collectModuleSettings]);
-
   const createCollect = () => {
     if (!currentProfile) {
       return toast.error(SIGN_WALLET);

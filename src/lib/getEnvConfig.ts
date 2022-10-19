@@ -3,7 +3,7 @@ import {
   MAINNET_FREE_COLLECT_MODULE,
   MAINNET_LENS_PERIPHERY,
   MAINNET_LENSHUB_PROXY,
-  MAINNET_NETUPDATEOWNABLEFEECOLLECTMODULEADDRESS,
+  MAINNET_UPDATE_OWNABLE_FEE_COLLECT_MODULE_ADDRESS,
   SANDBOX_FREE_COLLECT_MODULE,
   SANDBOX_LENS_PERIPHERY,
   SANDBOX_LENSHUB_PROXY,
@@ -11,7 +11,7 @@ import {
   TESTNET_FREE_COLLECT_MODULE,
   TESTNET_LENS_PERIPHERY,
   TESTNET_LENSHUB_PROXY,
-  TESTNET_UPDATEOWNABLEFEECOLLECTMODULEADDRESS
+  TESTNET_UPDATE_OWNABLE_FEE_COLLECT_MODULE_ADDRESS
 } from 'data/contracts';
 import { LENS_NETWORK, MAINNET_API_URL, SANDBOX_API_URL, TESTNET_API_URL } from 'src/constants';
 
@@ -24,7 +24,7 @@ const getEnvConfig = () => {
         lensPeripheryAddress: MAINNET_LENS_PERIPHERY,
         freeCollectModuleAddress: MAINNET_FREE_COLLECT_MODULE,
         defaultCollectToken: MAINNET_DEFAULT_TOKEN,
-        UpdateOwnableFeeCollectModuleAddress: MAINNET_NETUPDATEOWNABLEFEECOLLECTMODULEADDRESS
+        UpdateOwnableFeeCollectModuleAddress: MAINNET_UPDATE_OWNABLE_FEE_COLLECT_MODULE_ADDRESS
       };
     case 'testnet':
       return {
@@ -33,7 +33,7 @@ const getEnvConfig = () => {
         lensPeripheryAddress: TESTNET_LENS_PERIPHERY,
         freeCollectModuleAddress: TESTNET_FREE_COLLECT_MODULE,
         defaultCollectToken: TESTNET_DEFAULT_TOKEN,
-        UpdateOwnableFeeCollectModuleAddress: TESTNET_UPDATEOWNABLEFEECOLLECTMODULEADDRESS
+        UpdateOwnableFeeCollectModuleAddress: TESTNET_UPDATE_OWNABLE_FEE_COLLECT_MODULE_ADDRESS
       };
     case 'sandbox':
       return {
@@ -42,7 +42,7 @@ const getEnvConfig = () => {
         lensPeripheryAddress: SANDBOX_LENS_PERIPHERY,
         freeCollectModuleAddress: SANDBOX_FREE_COLLECT_MODULE,
         defaultCollectToken: TESTNET_DEFAULT_TOKEN,
-        UpdateOwnableFeeCollectModuleAddress: TESTNET_UPDATEOWNABLEFEECOLLECTMODULEADDRESS
+        UpdateOwnableFeeCollectModuleAddress: TESTNET_UPDATE_OWNABLE_FEE_COLLECT_MODULE_ADDRESS
       };
     default:
       return {
@@ -51,7 +51,7 @@ const getEnvConfig = () => {
         lensPeripheryAddress: MAINNET_LENS_PERIPHERY,
         freeCollectModuleAddress: MAINNET_FREE_COLLECT_MODULE,
         defaultCollectToken: MAINNET_DEFAULT_TOKEN,
-        UpdateOwnableFeeCollectModuleAddress: MAINNET_NETUPDATEOWNABLEFEECOLLECTMODULEADDRESS
+        UpdateOwnableFeeCollectModuleAddress: MAINNET_UPDATE_OWNABLE_FEE_COLLECT_MODULE_ADDRESS
       };
   }
 };
