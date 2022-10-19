@@ -31,8 +31,8 @@ const useGetMessages = (conversationKey: string, conversation?: Conversation, en
         endTime: endTime
       });
       if (newMessages.length > 0) {
-        const numNew = addMessages(conversationKey, newMessages);
-        if (!numNew || newMessages.length < MESSAGE_PAGE_LIMIT) {
+        addMessages(conversationKey, newMessages);
+        if (newMessages.length < MESSAGE_PAGE_LIMIT) {
           hasMore.set(conversationKey, false);
           setHasMore(new Map(hasMore));
         }
