@@ -5,6 +5,19 @@ import { useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
 import { useSigner } from 'wagmi';
 
+const ENCODING = 'binary';
+
+const buildLocalStorageKey = (walletAddress: string) => `xmtp:keys:${walletAddress}`;
+
+const loadKeys = (walletAddress: string): Uint8Array | null => {
+  const val = localStorage.getItem(buildLocalStorageKey(walletAddress));
+  return val ? Buffer.from(val, ENCODING) : null;
+};
+
+const storeKeys = (walletAddress: string, keys: Uint8Array) => {
+  localStorage.setItem(buildLocalStorageKey(walletAddress), Buffer.from(keys).toString(ENCODING));
+};
+
 const useXmtpClient = () => {
   const { data: signer } = useSigner();
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -15,7 +28,13 @@ const useXmtpClient = () => {
   useEffect(() => {
     const initXmtpClient = async () => {
       if (signer && !client && currentProfile) {
-        const xmtp = await Client.create(signer);
+        let keys = loadKeys(await signer.getAddress());
+        if (!keys) {
+          keys = await Client.getKeys(signer);
+          storeKeys(await signer.getAddress(), keys);
+        }
+
+        const xmtp = await Client.create(null, { privateKeyOverride: keys });
         setClient(xmtp);
       }
     };
