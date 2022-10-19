@@ -33,7 +33,7 @@ const PreviewList: FC = () => {
   });
 
   const newMessageClick = () => {
-    router.push('/messages/');
+    router.push('/messages');
   };
 
   return (
@@ -41,8 +41,8 @@ const PreviewList: FC = () => {
       <Card className="h-[86vh]">
         <div className="flex justify-between items-center p-5 border-b">
           <div className="font-bold">Messages</div>
-          <button>
-            <PlusCircleIcon onClick={newMessageClick} className="h-6 w-6" />
+          <button onClick={newMessageClick}>
+            <PlusCircleIcon className="h-6 w-6" />
           </button>
         </div>
         <div className="mt-2">

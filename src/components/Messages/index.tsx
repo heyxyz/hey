@@ -16,13 +16,13 @@ import { useMessageStore } from 'src/store/message';
 import PreviewList from './PreviewList';
 
 const Messages: FC = () => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
   const router = useRouter();
-  const [error, setError] = useState<string>('');
+  const currentProfile = useAppStore((state) => state.currentProfile);
   const messageProfiles = useMessageStore((state) => state.messageProfiles);
   const setMessageProfiles = useMessageStore((state) => state.setMessageProfiles);
   const conversations = useMessageStore((state) => state.conversations);
   const setConversations = useMessageStore((state) => state.setConversations);
+  const [error, setError] = useState<string>('');
   const { client } = useXmtpClient();
 
   if (!isFeatureEnabled('messages', currentProfile?.id)) {
@@ -30,17 +30,22 @@ const Messages: FC = () => {
   }
 
   const onProfileSelected = async (profile: Profile) => {
-    if (client) {
-      const isMessagesEnabled = await client?.canMessage(profile?.ownedBy);
-      if (isMessagesEnabled) {
-        messageProfiles.set(profile.ownedBy, profile);
-        setMessageProfiles(new Map(messageProfiles));
-        const newConvo = await client?.conversations?.newConversation(profile.ownedBy);
-        conversations.set(profile.ownedBy.toLowerCase(), newConvo);
-        setConversations(new Map(conversations));
-        router.push(`/messages/${profile.id}`);
-        setError('');
-      }
+    if (!client) {
+      return;
+    }
+    const peerAddress = profile.ownedBy;
+    const isMessagesEnabled = await client?.canMessage(peerAddress);
+    if (!isMessagesEnabled) {
+      setError('Selected Lens Profile is not on XMTP');
+    }
+    messageProfiles.set(peerAddress.toLowerCase(), profile);
+    setMessageProfiles(new Map(messageProfiles));
+    const newConvo = await client?.conversations?.newConversation(peerAddress);
+    if (newConvo) {
+      conversations.set(peerAddress.toLowerCase(), newConvo);
+      setConversations(new Map(conversations));
+      router.push(`/messages/${profile.id}`);
+      setError('');
     } else {
       setError('Selected Lens Profile is not on XMTP');
     }

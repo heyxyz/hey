@@ -12,8 +12,7 @@ export const featureFlags = [
       '0x5cce', // saulmc.lens
       '0x014309', // iambhavya.lens
       '0x8539', // petermdenton.lens
-      '0x013f9d', // shanemac.lens
-      '0x4cc3' // iambhavya2.lens
+      '0x013f9d' // shanemac.lens
     ]
   },
   {
