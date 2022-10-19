@@ -13,6 +13,7 @@ module.exports = withTM(
       reactStrictMode: false,
       trailingSlash: false,
       experimental: {
+        scrollRestoration: true,
         newNextLinkBehavior: true
       },
       async rewrites() {
