@@ -1,12 +1,14 @@
+import { useQuery } from '@apollo/client';
 import MessageHeader from '@components/Messages/MessageHeader';
 import { Card } from '@components/UI/Card';
 import { GridItemEight, GridLayout } from '@components/UI/GridLayout';
 import { PageLoading } from '@components/UI/PageLoading';
 import useGetMessages from '@components/utils/hooks/useGetMessages';
-import useMessagePreviews from '@components/utils/hooks/useMessagePreviews';
 import useSendMessage from '@components/utils/hooks/useSendMessage';
 import useStreamMessages from '@components/utils/hooks/useStreamMessages';
 import MetaTags from '@components/utils/MetaTags';
+import type { Profile } from '@generated/types';
+import { ProfileDocument } from '@generated/types';
 import { parseConversationKey } from '@lib/conversationKey';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { useRouter } from 'next/router';
@@ -15,6 +17,7 @@ import { useCallback } from 'react';
 import { useState } from 'react';
 import { APP_NAME } from 'src/constants';
 import Custom404 from 'src/pages/404';
+import Custom500 from 'src/pages/500';
 import { useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
 
@@ -27,7 +30,7 @@ type MessageProps = {
   profileId: string;
 };
 
-const Message: FC<MessageProps> = ({ conversationKey }) => {
+const Message: FC<MessageProps> = ({ conversationKey, profileId }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   const selectedConversation = useMessageStore((state) => state.conversations.get(conversationKey));
@@ -39,8 +42,11 @@ const Message: FC<MessageProps> = ({ conversationKey }) => {
   );
   useStreamMessages(selectedConversation);
   const { sendMessage } = useSendMessage(selectedConversation);
-  const { profiles } = useMessagePreviews();
-  const profile = profiles.get(conversationKey);
+
+  const { data, loading, error } = useQuery(ProfileDocument, {
+    variables: { request: { profileId: profileId }, who: currentProfile?.id ?? null },
+    skip: !profileId
+  });
 
   const fetchNextMessages = useCallback(async () => {
     if (hasMore && Array.isArray(messages) && messages.length > 0) {
@@ -56,7 +62,14 @@ const Message: FC<MessageProps> = ({ conversationKey }) => {
   if (!isFeatureEnabled('messages', currentProfile?.id)) {
     return <Custom404 />;
   }
-  const showLoading = !profile || !currentProfile || !selectedConversation;
+
+  if (error) {
+    return <Custom500 />;
+  }
+
+  const showLoading = loading || !currentProfile;
+
+  const profile = (data?.profile as Profile) || undefined;
 
   return (
     <GridLayout>
