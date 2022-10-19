@@ -6,8 +6,8 @@ import InfiniteLoader from '@components/UI/InfiniteLoader';
 import type { Profile } from '@generated/types';
 import { MutualFollowersListDocument } from '@generated/types';
 import type { FC } from 'react';
-import InfiniteScroll from 'react-infinite-scroller';
-import { PAGINATION_THRESHOLD } from 'src/constants';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import { SCROLL_THRESHOLD } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 
 interface Props {
@@ -44,15 +44,15 @@ const MutualFollowersList: FC<Props> = ({ profileId }) => {
   }
 
   return (
-    <div className="overflow-y-auto max-h-[80vh]">
+    <div className="overflow-y-auto max-h-[80vh]" id="scrollableDiv">
       <ErrorMessage className="m-5" title="Failed to load mutual followers" error={error} />
       <InfiniteScroll
-        pageStart={0}
-        threshold={PAGINATION_THRESHOLD}
+        dataLength={profiles?.length ?? 0}
+        scrollThreshold={SCROLL_THRESHOLD}
         hasMore={hasMore}
-        loadMore={loadMore}
+        next={loadMore}
         loader={<InfiniteLoader />}
-        useWindow={false}
+        scrollableTarget="scrollableDiv"
       >
         <div className="divide-y dark:divide-gray-700">
           {profiles?.map((profile) => (
