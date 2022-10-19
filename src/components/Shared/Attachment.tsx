@@ -116,67 +116,67 @@ const Attachment: FC<Props> = ({ attachments, setAttachments }) => {
           className="absolute w-max bg-white rounded-lg border shadow-sm dark:bg-gray-900 focus:outline-none z-[5] dark:border-gray-700/80"
         >
           <Menu.Item
-            as="div"
-            className={({ active }: { active: boolean }) => clsx({ 'dropdown-active': active }, 'menu-item')}
+            as="label"
+            className={({ active }: { active: boolean }) =>
+              clsx('!flex rounded-lg gap-1 space-x-1 items-center cursor-pointer menu-item', {
+                'dropdown-active': active
+              })
+            }
+            htmlFor={`image_${id}`}
           >
-            <label
-              className="flex rounded-lg gap-1 space-x-1 items-center cursor-pointer"
-              htmlFor={`image_${id}`}
-            >
-              <PhotographIcon className="w-4 h-4 text-brand" />
-              <span className="text-sm">Upload image(s)</span>
-              <input
-                id={`image_${id}`}
-                type="file"
-                multiple
-                accept="image/*"
-                className="hidden"
-                onChange={handleAttachment}
-                disabled={attachments.length >= 4}
-              />
-            </label>
+            <PhotographIcon className="w-4 h-4 text-brand" />
+            <span className="text-sm">Upload image(s)</span>
+            <input
+              id={`image_${id}`}
+              type="file"
+              multiple
+              accept="image/*"
+              className="hidden"
+              onChange={handleAttachment}
+              disabled={attachments.length >= 4}
+            />
           </Menu.Item>
           <Menu.Item
-            as="div"
-            className={({ active }: { active: boolean }) => clsx({ 'dropdown-active': active }, 'menu-item')}
+            as="label"
+            className={({ active }: { active: boolean }) =>
+              clsx('!flex rounded-lg gap-1 space-x-1 items-center cursor-pointer menu-item', {
+                'dropdown-active': active
+              })
+            }
+            htmlFor={`video_${id}`}
           >
-            <label
-              className="flex rounded-lg gap-1 space-x-1 items-center cursor-pointer"
-              htmlFor={`video_${id}`}
-            >
-              <VideoCameraIcon className="w-4 h-4 text-brand" />
-              <span className="text-sm">Upload video</span>
-              <input
-                id={`video_${id}`}
-                type="file"
-                multiple
-                accept="video/*"
-                className="hidden"
-                onChange={handleAttachment}
-                disabled={attachments.length >= 4}
-              />
-            </label>
+            <VideoCameraIcon className="w-4 h-4 text-brand" />
+            <span className="text-sm">Upload video</span>
+            <input
+              id={`video_${id}`}
+              type="file"
+              multiple
+              accept="video/*"
+              className="hidden"
+              onChange={handleAttachment}
+              disabled={attachments.length >= 4}
+            />
           </Menu.Item>
           <Menu.Item
-            as="div"
-            className={({ active }: { active: boolean }) => clsx({ 'dropdown-active': active }, 'menu-item')}
+            as="label"
+            className={({ active }: { active: boolean }) =>
+              clsx('!flex rounded-lg gap-1 space-x-1 items-center cursor-pointer menu-item', {
+                'dropdown-active': active
+              })
+            }
+            htmlFor={`audio_${id}`}
           >
-            <label
-              className="flex rounded-lg gap-1 space-x-1 items-center cursor-pointer"
-              htmlFor={`audio_${id}`}
-            >
-              <MusicNoteIcon className="w-4 h-4 text-brand" />
-              <span className="text-sm">Upload audio</span>
-              <input
-                id={`audio_${id}`}
-                type="file"
-                multiple
-                accept={ALLOWED_AUDIO_TYPES.join(',')}
-                className="hidden"
-                onChange={handleAttachment}
-                disabled={attachments.length >= 4}
-              />
-            </label>
+            <MusicNoteIcon className="w-4 h-4 text-brand" />
+            <span className="text-sm">Upload audio</span>
+            <input
+              id={`audio_${id}`}
+              type="file"
+              multiple
+              accept={ALLOWED_AUDIO_TYPES.join(',')}
+              className="hidden"
+              onChange={handleAttachment}
+              disabled={attachments.length >= 4}
+            />
           </Menu.Item>
         </Menu.Items>
       </Transition>
