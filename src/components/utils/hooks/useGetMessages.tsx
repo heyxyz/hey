@@ -26,8 +26,9 @@ const useGetMessages = (conversation?: Conversation, endTime?: Date) => {
       hasMore.set(conversationAddress, true);
       setHasMore(new Map(hasMore));
       const newMessages = await conversation.messages({
-        direction: SortDirection.SORT_DIRECTION_DESCENDING
-        // endTime
+        direction: SortDirection.SORT_DIRECTION_DESCENDING,
+        limit: MESSAGE_PAGE_LIMIT,
+        endTime: endTime
       });
       if (newMessages.length > 0) {
         const oldMessages = messages.get(conversationAddress) ?? [];
@@ -35,7 +36,7 @@ const useGetMessages = (conversation?: Conversation, endTime?: Date) => {
         const uniqueMessages = getUniqueMessages(msgObj);
         messages.set(conversationAddress, uniqueMessages);
         setMessages(new Map(messages));
-        if (Array.isArray(oldMessages) && (uniqueMessages?.length ?? 0) < MESSAGE_PAGE_LIMIT) {
+        if (newMessages.length < MESSAGE_PAGE_LIMIT) {
           hasMore.set(conversationAddress, false);
           setHasMore(new Map(hasMore));
         }

@@ -4,11 +4,10 @@ import { Card } from '@components/UI/Card';
 import { GridItemEight, GridLayout } from '@components/UI/GridLayout';
 import { PageLoading } from '@components/UI/PageLoading';
 import useGetMessages from '@components/utils/hooks/useGetMessages';
-import useMessagePreviews from '@components/utils/hooks/useMessagePreviews';
 import useSendMessage from '@components/utils/hooks/useSendMessage';
 import useStreamMessages from '@components/utils/hooks/useStreamMessages';
 import MetaTags from '@components/utils/MetaTags';
-import { ProfileDocument } from '@generated/types';
+import { ProfileAddressDocument } from '@generated/types';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
@@ -30,8 +29,8 @@ const Message: FC = () => {
     query: { profileId }
   } = useRouter();
 
-  const { data, loading, error } = useQuery(ProfileDocument, {
-    variables: { request: { profileId: profileId }, who: currentProfile?.id ?? null },
+  const { data, loading, error } = useQuery(ProfileAddressDocument, {
+    variables: { request: { profileId: profileId } },
     skip: !profileId
   });
 
@@ -42,7 +41,7 @@ const Message: FC = () => {
   const { messages, hasMore } = useGetMessages(selectedConversation, endTime.get(address ?? ''));
   useStreamMessages(selectedConversation);
   const { sendMessage } = useSendMessage(selectedConversation);
-  const { profiles } = useMessagePreviews();
+  const profiles = useMessageStore((state) => state.messageProfiles);
   const profile = profiles.get(address);
 
   const fetchNextMessages = useCallback(async () => {
@@ -65,7 +64,7 @@ const Message: FC = () => {
   if (!isFeatureEnabled('messages', currentProfile?.id)) {
     return <Custom404 />;
   }
-  const showLoading = !profile || !currentProfile || !address || !selectedConversation;
+
   if (error) {
     return <Custom500 />;
   }
@@ -73,6 +72,8 @@ const Message: FC = () => {
   if (!loading && !address) {
     return <Custom404 />;
   }
+
+  const showLoading = !profile || !currentProfile || !address || !selectedConversation;
 
   return (
     <GridLayout>
