@@ -9,9 +9,13 @@ import React, { useState } from 'react';
 import toast from 'react-hot-toast';
 import { ERROR_MESSAGE } from 'src/constants';
 
-type ThumbnailProps = { isNew: boolean; cover: string; setCover: (url: string, mimeType: string) => void };
+interface Props {
+  isNew: boolean;
+  cover: string;
+  setCover: (url: string, mimeType: string) => void;
+}
 
-const CoverImage: FC<ThumbnailProps> = ({ isNew = false, cover, setCover }) => {
+const CoverImage: FC<Props> = ({ isNew = false, cover, setCover }) => {
   const [loading, setLoading] = useState(false);
 
   const onError = (error: any) => {

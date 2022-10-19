@@ -122,10 +122,7 @@ const Attachments: FC<Props> = ({
               )}
               {isNew && !hideDelete && (
                 <div
-                  className={clsx({
-                    'absolute -top-2.5 -left-2': ALLOWED_AUDIO_TYPES.includes(type),
-                    'm-3': !ALLOWED_AUDIO_TYPES.includes(type)
-                  })}
+                  className={clsx(ALLOWED_AUDIO_TYPES.includes(type) ? 'absolute -top-2.5 -left-2' : 'm-3')}
                 >
                   <button
                     type="button"
