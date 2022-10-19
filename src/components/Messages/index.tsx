@@ -37,18 +37,15 @@ const Messages: FC = () => {
     const isMessagesEnabled = await client?.canMessage(peerAddress);
     if (!isMessagesEnabled) {
       setError('Selected Lens Profile is not on XMTP');
+      return;
     }
     messageProfiles.set(peerAddress.toLowerCase(), profile);
     setMessageProfiles(new Map(messageProfiles));
     const newConvo = await client?.conversations?.newConversation(peerAddress);
-    if (newConvo) {
-      conversations.set(peerAddress.toLowerCase(), newConvo);
-      setConversations(new Map(conversations));
-      router.push(`/messages/${profile.id}`);
-      setError('');
-    } else {
-      setError('Selected Lens Profile is not on XMTP');
-    }
+    conversations.set(peerAddress.toLowerCase(), newConvo);
+    setConversations(new Map(conversations));
+    router.push(`/messages/${profile.id}`);
+    setError('');
   };
 
   return (
