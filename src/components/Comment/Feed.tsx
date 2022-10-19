@@ -10,8 +10,8 @@ import type { LensterPublication } from '@generated/lenstertypes';
 import { CommentFeedDocument, CustomFiltersTypes } from '@generated/types';
 import { CollectionIcon } from '@heroicons/react/outline';
 import type { FC } from 'react';
-import InfiniteScroll from 'react-infinite-scroller';
-import { PAGINATION_THRESHOLD } from 'src/constants';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import { SCROLL_THRESHOLD } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { useTransactionPersistStore } from 'src/store/transaction';
 
@@ -64,10 +64,10 @@ const Feed: FC<Props> = ({ publication }) => {
       <ErrorMessage title="Failed to load comment feed" error={error} />
       {!error && !loading && totalComments !== 0 && (
         <InfiniteScroll
-          pageStart={0}
-          threshold={PAGINATION_THRESHOLD}
+          dataLength={totalComments}
+          scrollThreshold={SCROLL_THRESHOLD}
           hasMore={hasMore}
-          loadMore={loadMore}
+          next={loadMore}
           loader={<InfiniteLoader />}
         >
           <Card className="divide-y-[1px] dark:divide-gray-700/80">
