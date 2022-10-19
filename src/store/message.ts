@@ -17,7 +17,7 @@ interface MessageState {
   setPreviewMessages: (previewMessages: Map<string, Message>) => void;
 }
 
-export const useMessageStore = create<MessageState>((set, get) => ({
+export const useMessageStore = create<MessageState>((set) => ({
   client: undefined,
   setClient: (client) => set(() => ({ client })),
   conversations: new Map(),
