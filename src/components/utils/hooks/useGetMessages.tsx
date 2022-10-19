@@ -6,8 +6,8 @@ import { MESSAGE_PAGE_LIMIT } from 'src/constants';
 import { useMessageStore } from 'src/store/message';
 
 const useGetMessages = (conversationKey: string, conversation?: Conversation, endTime?: Date) => {
-  const messages = useMessageStore((state) => state.messages);
-  const setMessages = useMessageStore((state) => state.setMessages);
+  const messages = useMessageStore((state) => state.messages.get(conversationKey));
+  const setMessagesByKey = useMessageStore((state) => state.setMessagesByKey);
   const [hasMore, setHasMore] = useState<Map<string, boolean>>(new Map());
 
   useEffect(() => {
@@ -23,11 +23,10 @@ const useGetMessages = (conversationKey: string, conversation?: Conversation, en
         // endTime
       });
       if (newMessages.length > 0) {
-        const oldMessages = messages.get(conversationKey) ?? [];
+        const oldMessages = messages || [];
         const msgObj = [...oldMessages, ...newMessages];
         const uniqueMessages = getUniqueMessages(msgObj);
-        messages.set(conversationKey, uniqueMessages);
-        setMessages(new Map(messages));
+        setMessagesByKey(conversationKey, uniqueMessages);
         if (Array.isArray(oldMessages) && (uniqueMessages?.length ?? 0) < MESSAGE_PAGE_LIMIT) {
           hasMore.set(conversationKey, false);
           setHasMore(new Map(hasMore));

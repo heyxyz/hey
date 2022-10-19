@@ -9,6 +9,7 @@ interface MessageState {
   setConversations: (conversations: Map<string, Conversation>) => void;
   messages: Map<string, Message[]>;
   setMessages: (messages: Map<string, Message[]>) => void;
+  setMessagesByKey: (key: string, updatedMessages: Message[]) => void;
   messageProfiles: Map<string, Profile>;
   setMessageProfiles: (messageProfiles: Map<string, Profile>) => void;
   previewMessages: Map<string, Message>;
@@ -22,6 +23,12 @@ export const useMessageStore = create<MessageState>((set) => ({
   setConversations: (conversations) => set(() => ({ conversations })),
   messages: new Map(),
   setMessages: (messages) => set(() => ({ messages })),
+  setMessagesByKey: (key: string, updatedMessages: Message[]) =>
+    set((state) => {
+      const messages = new Map(state.messages);
+      messages.set(key, updatedMessages);
+      return { messages };
+    }),
   messageProfiles: new Map(),
   setMessageProfiles: (messageProfiles) => set(() => ({ messageProfiles })),
   previewMessages: new Map(),

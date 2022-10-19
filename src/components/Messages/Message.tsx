@@ -44,7 +44,7 @@ const Message: FC<MessageProps> = ({ conversationKey }) => {
 
   const fetchNextMessages = useCallback(async () => {
     if (hasMore) {
-      const currentMessages = messages.get(conversationKey);
+      const currentMessages = messages;
       if (Array.isArray(currentMessages) && currentMessages.length > 0) {
         const lastMsgDate = currentMessages[currentMessages.length - 1].sent;
         const currentEndTime = endTime.get(conversationKey);
@@ -76,7 +76,7 @@ const Message: FC<MessageProps> = ({ conversationKey }) => {
                 currentProfile={currentProfile}
                 profile={profile}
                 fetchNextMessages={fetchNextMessages}
-                messages={messages.get(conversationKey) ?? []}
+                messages={messages ?? []}
                 hasMore={hasMore}
               />
               <Composer sendMessage={sendMessage} />
