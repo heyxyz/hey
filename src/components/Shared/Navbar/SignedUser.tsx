@@ -131,9 +131,7 @@ const SignedUser: FC = () => {
                   resetAuthData();
                   disconnect?.();
                 }}
-                className={({ active }: { active: boolean }) =>
-                  clsx({ 'dropdown-active': active }, 'menu-item')
-                }
+                className={({ active }) => clsx({ 'dropdown-active': active }, 'menu-item')}
               >
                 <div className="flex items-center space-x-1.5">
                   <LogoutIcon className="w-4 h-4" />
@@ -187,9 +185,7 @@ const SignedUser: FC = () => {
                   setTheme(theme === 'light' ? 'dark' : 'light');
                   Leafwatch.track(theme === 'light' ? SYSTEM.SWITCH_DARK_THEME : SYSTEM.SWITCH_LIGHT_THEME);
                 }}
-                className={({ active }: { active: boolean }) =>
-                  clsx({ 'dropdown-active': active }, 'menu-item')
-                }
+                className={({ active }) => clsx({ 'dropdown-active': active }, 'menu-item')}
               >
                 <div className="flex items-center space-x-1.5">
                   {theme === 'light' ? (
@@ -226,7 +222,7 @@ const SignedUser: FC = () => {
                   <Menu.Item
                     as="div"
                     onClick={toggleStaffMode}
-                    className={({ active }: { active: boolean }) =>
+                    className={({ active }) =>
                       clsx({ 'bg-yellow-100 dark:bg-yellow-800': active }, 'menu-item')
                     }
                   >
