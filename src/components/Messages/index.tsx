@@ -4,6 +4,8 @@ import { GridItemEight, GridLayout } from '@components/UI/GridLayout';
 import useXmtpClient from '@components/utils/hooks/useXmtpClient';
 import MetaTags from '@components/utils/MetaTags';
 import type { Profile } from '@generated/types';
+import buildConversationId from '@lib/buildConversationId';
+import { buildConversationKey } from '@lib/conversationKey';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
@@ -39,12 +41,18 @@ const Messages: FC = () => {
       setError('Selected Lens Profile is not on XMTP');
       return;
     }
-    messageProfiles.set(peerAddress.toLowerCase(), profile);
+    const conversationId = buildConversationId(currentProfile?.id, profile.id);
+    const conversationKey = buildConversationKey(peerAddress, conversationId);
+
+    messageProfiles.set(conversationKey, profile);
     setMessageProfiles(new Map(messageProfiles));
-    const newConvo = await client?.conversations?.newConversation(peerAddress);
-    conversations.set(peerAddress.toLowerCase(), newConvo);
+    const newConvo = await client?.conversations?.newConversation(peerAddress, {
+      conversationId,
+      metadata: {}
+    });
+    conversations.set(conversationKey, newConvo);
     setConversations(new Map(conversations));
-    router.push(`/messages/${profile.id}`);
+    router.push(`/messages/${conversationKey}`);
     setError('');
   };
 
