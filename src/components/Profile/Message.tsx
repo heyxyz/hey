@@ -1,6 +1,7 @@
 import { Button } from '@components/UI/Button';
 import type { Profile } from '@generated/types';
 import { MailIcon } from '@heroicons/react/outline';
+import buildConversationId from '@lib/buildConversationId';
 import { Client } from '@xmtp/xmtp-js';
 import type { FC } from 'react';
 import toast from 'react-hot-toast';
@@ -22,10 +23,13 @@ const Message: FC<Props> = ({ profile }) => {
       return;
     }
 
-    // TODO(elise): Swap this out with opening the inbox. This is just a prototype.
     try {
-      const xmtp = await Client.create(signer);
-      const message = await xmtp.sendMessage(profile.ownedBy, 'gm');
+      const client = await Client.create(signer);
+      const conversation = await client.conversations.newConversation(profile.ownedBy, {
+        conversationId: buildConversationId(currentProfile.id, profile.id),
+        metadata: {}
+      });
+      const message = await conversation.send('gm');
       toast.success(`Messaged successfully! ${message.content}`);
     } catch (error) {
       toast.error('Error sending message');
