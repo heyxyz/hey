@@ -48,11 +48,8 @@ const CoverImage: FC<Props> = ({ isNew = false, cover, setCover, imageRef }) => 
       {isNew && (
         <label
           className={clsx(
-            'absolute top-0 grid w-40 h-40 bg-gray-100 dark:bg-gray-900 cursor-pointer place-items-center group-hover:visible backdrop-blur-lg',
-            {
-              visible: loading && !cover,
-              invisible: cover
-            }
+            { visible: loading && !cover, invisible: cover },
+            'absolute top-0 grid w-40 h-40 bg-gray-100 dark:bg-gray-900 cursor-pointer place-items-center group-hover:visible backdrop-blur-lg'
           )}
         >
           {loading && !cover ? (

@@ -52,7 +52,7 @@ const Audio: FC<Props> = ({ src, isNew = false, publication, txn }) => {
 
   return (
     <div className="border w-full overflow-hidden border-gray-200 dark:border-gray-800 rounded-xl">
-      <div className="flex flex-1 space-x-2 bg-[#845EEE] text-white">
+      <div className="flex space-x-2 bg-brand-500">
         <CoverImage
           isNew={isNew && !txn}
           cover={isNew ? (txn ? txn.cover : audioPublication.cover) : getThumbnailUrl(publication)}
@@ -75,16 +75,16 @@ const Audio: FC<Props> = ({ src, isNew = false, publication, txn }) => {
                 {isNew && !txn ? (
                   <div className="flex flex-col w-full">
                     <input
-                      className="border-none w-full text-lg leading-5 text-[#FFFFFF] bg-transparent outline-none placeholder-white"
-                      placeholder="Add title..."
+                      className="border-none w-full text-lg text-white placeholder-white bg-transparent outline-none"
+                      placeholder="Add title"
                       name="title"
                       value={audioPublication.title}
                       autoComplete="off"
                       onChange={handleChange}
                     />
                     <input
-                      className="border-none w-full text-[#FFFFFF]/70 placeholder-[#FFFFFF]/70 bg-transparent outline-none"
-                      placeholder="Add author..."
+                      className="border-none w-full text-white/70 placeholder-white/70 bg-transparent outline-none"
+                      placeholder="Add author"
                       name="author"
                       value={audioPublication.author}
                       onChange={handleChange}
@@ -93,10 +93,8 @@ const Audio: FC<Props> = ({ src, isNew = false, publication, txn }) => {
                   </div>
                 ) : (
                   <>
-                    <h5 className="text-lg leading-5 text-[#FFFFFF] truncate">
-                      {publication?.metadata.name ?? txn.title}
-                    </h5>
-                    <h6 className="text-[#FFFFFF]/70 leading-5">
+                    <h5 className="text-lg text-white truncate">{publication?.metadata.name ?? txn.title}</h5>
+                    <h6 className="text-white/70">
                       {txn?.author ??
                         getAttributeFromTrait(publication?.metadata.attributes as Attribute[], 'author') ??
                         publication?.profile.name}
