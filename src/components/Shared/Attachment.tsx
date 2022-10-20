@@ -4,6 +4,7 @@ import useOnClickOutside from '@components/utils/hooks/useOnClickOutside';
 import type { LensterAttachment } from '@generated/lenstertypes';
 import { Menu, Transition } from '@headlessui/react';
 import { MusicNoteIcon, PhotographIcon, VideoCameraIcon } from '@heroicons/react/outline';
+import { Leafwatch } from '@lib/leafwatch';
 import uploadMediaToIPFS from '@lib/uploadMediaToIPFS';
 import clsx from 'clsx';
 import type { ChangeEvent, Dispatch, FC } from 'react';
@@ -12,6 +13,7 @@ import { Fragment } from 'react';
 import { useId, useState } from 'react';
 import toast from 'react-hot-toast';
 import { ALLOWED_AUDIO_TYPES, ALLOWED_MEDIA_TYPES } from 'src/constants';
+import { PUBLICATION } from 'src/tracking';
 
 interface Props {
   attachments: LensterAttachment[];
@@ -133,6 +135,7 @@ const Attachment: FC<Props> = ({ attachments, setAttachments }) => {
               multiple
               accept="image/*"
               className="hidden"
+              onClick={() => Leafwatch.track(PUBLICATION.NEW.ATTACHMENT.UPLOAD_IMAGES)}
               onChange={handleAttachment}
               disabled={attachments.length >= 4}
             />
@@ -155,6 +158,7 @@ const Attachment: FC<Props> = ({ attachments, setAttachments }) => {
               multiple
               accept="video/*"
               className="hidden"
+              onClick={() => Leafwatch.track(PUBLICATION.NEW.ATTACHMENT.UPLOAD_VIDEO)}
               onChange={handleAttachment}
               disabled={attachments.length >= 4}
             />
@@ -177,6 +181,7 @@ const Attachment: FC<Props> = ({ attachments, setAttachments }) => {
               multiple
               accept={ALLOWED_AUDIO_TYPES.join(',')}
               className="hidden"
+              onClick={() => Leafwatch.track(PUBLICATION.NEW.ATTACHMENT.UPLOAD_AUDIO)}
               onChange={handleAttachment}
               disabled={attachments.length >= 4}
             />

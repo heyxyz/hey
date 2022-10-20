@@ -5,17 +5,15 @@ import type { MediaSet } from '@generated/types';
 import { ExternalLinkIcon, XIcon } from '@heroicons/react/outline';
 import getIPFSLink from '@lib/getIPFSLink';
 import imagekitURL from '@lib/imagekitURL';
+import { Leafwatch } from '@lib/leafwatch';
 import clsx from 'clsx';
-import dynamic from 'next/dynamic';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { ALLOWED_AUDIO_TYPES } from 'src/constants';
+import { PUBLICATION } from 'src/tracking';
 
 import Audio from './Audio';
-
-const Video = dynamic(() => import('./Video'), {
-  loading: () => <div className="rounded-lg aspect-w-16 aspect-h-12 shimmer" />
-});
+import Video from './Video';
 
 const getClass = (attachments: number, isNew = false) => {
   if (attachments === 1) {
@@ -115,7 +113,10 @@ const Attachments: FC<Props> = ({
                 <img
                   className="object-cover bg-gray-100 rounded-lg border cursor-pointer dark:bg-gray-800 dark:border-gray-700/80"
                   loading="lazy"
-                  onClick={() => setExpandedImage(url)}
+                  onClick={() => {
+                    setExpandedImage(url);
+                    Leafwatch.track(PUBLICATION.ATTACHEMENT.IMAGE.OPEN);
+                  }}
                   src={imagekitURL(url, 'attachment')}
                   alt={imagekitURL(url, 'attachment')}
                 />
