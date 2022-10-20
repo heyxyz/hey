@@ -113,14 +113,15 @@ const Attachment: FC<Props> = ({ attachments, setAttachments }) => {
         <Menu.Items
           ref={dropdownRef}
           static
-          className="absolute w-max bg-white rounded-lg border shadow-sm dark:bg-gray-900 focus:outline-none z-[5] dark:border-gray-700/80"
+          className="absolute py-1 z-[5] mt-2 bg-white rounded-xl border shadow-sm dark:bg-gray-900 focus:outline-none dark:border-gray-700/80"
         >
           <Menu.Item
             as="label"
-            className={({ active }: { active: boolean }) =>
-              clsx('!flex rounded-lg gap-1 space-x-1 items-center cursor-pointer menu-item', {
-                'dropdown-active': active
-              })
+            className={({ active }) =>
+              clsx(
+                { 'dropdown-active': active },
+                '!flex rounded-lg gap-1 space-x-1 items-center cursor-pointer menu-item'
+              )
             }
             htmlFor={`image_${id}`}
           >
@@ -138,10 +139,11 @@ const Attachment: FC<Props> = ({ attachments, setAttachments }) => {
           </Menu.Item>
           <Menu.Item
             as="label"
-            className={({ active }: { active: boolean }) =>
-              clsx('!flex rounded-lg gap-1 space-x-1 items-center cursor-pointer menu-item', {
-                'dropdown-active': active
-              })
+            className={({ active }) =>
+              clsx(
+                { 'dropdown-active': active },
+                '!flex rounded-lg gap-1 space-x-1 items-center cursor-pointer menu-item'
+              )
             }
             htmlFor={`video_${id}`}
           >
@@ -159,10 +161,11 @@ const Attachment: FC<Props> = ({ attachments, setAttachments }) => {
           </Menu.Item>
           <Menu.Item
             as="label"
-            className={({ active }: { active: boolean }) =>
-              clsx('!flex rounded-lg gap-1 space-x-1 items-center cursor-pointer menu-item', {
-                'dropdown-active': active
-              })
+            className={({ active }) =>
+              clsx(
+                { 'dropdown-active': active },
+                '!flex rounded-lg gap-1 space-x-1 items-center cursor-pointer menu-item'
+              )
             }
             htmlFor={`audio_${id}`}
           >

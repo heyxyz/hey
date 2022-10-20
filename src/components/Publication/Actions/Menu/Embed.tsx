@@ -14,7 +14,7 @@ const Embed: FC<Props> = ({ publication }) => {
   return (
     <Menu.Item
       as="a"
-      className={({ active }: { active: boolean }) =>
+      className={({ active }) =>
         clsx({ 'dropdown-active': active }, 'block px-4 py-1.5 text-sm m-2 rounded-lg cursor-pointer')
       }
       onClick={() => {
