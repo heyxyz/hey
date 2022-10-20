@@ -2,6 +2,11 @@ import type { LensterPublication } from '@generated/lenstertypes';
 
 import getIPFSLink from './getIPFSLink';
 
+/**
+ *
+ * @param publication - The publication to get the thumbnail url from
+ * @returns the thumbnail url from a publication
+ */
 const getThumbnailUrl = (publication: LensterPublication | undefined): string => {
   if (!publication) {
     return '';

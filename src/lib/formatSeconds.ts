@@ -1,3 +1,8 @@
+/**
+ *
+ * @param seconds - The number of seconds to format
+ * @returns seconds from a time
+ */
 const getTimeFromSeconds = (seconds: string | undefined) => {
   if (!seconds) {
     return '';
