@@ -1,6 +1,7 @@
 import { LensHubProxy } from '@abis/LensHubProxy';
 import { useMutation } from '@apollo/client';
 import Attachments from '@components/Shared/Attachments';
+import { AudioPublicationSchema } from '@components/Shared/Audio';
 import Markup from '@components/Shared/Markup';
 import Preview from '@components/Shared/Preview';
 import { Button } from '@components/UI/Button';
@@ -11,10 +12,10 @@ import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
 import type { LensterAttachment, LensterPublication } from '@generated/lenstertypes';
 import type { Mutation } from '@generated/types';
+import { PublicationMainFocus } from '@generated/types';
 import {
   CreateCommentTypedDataDocument,
   CreateCommentViaDispatcherDocument,
-  PublicationMainFocus,
   ReferenceModules
 } from '@generated/types';
 import type { IGif } from '@giphy/js-types';
@@ -31,7 +32,14 @@ import dynamic from 'next/dynamic';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import { APP_NAME, LENSHUB_PROXY, RELAY_ON, SIGN_WALLET } from 'src/constants';
+import {
+  ALLOWED_AUDIO_TYPES,
+  ALLOWED_IMAGE_TYPES,
+  APP_NAME,
+  LENSHUB_PROXY,
+  RELAY_ON,
+  SIGN_WALLET
+} from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { useCollectModuleStore } from 'src/store/collectmodule';
 import { usePublicationStore } from 'src/store/publication';
@@ -69,6 +77,7 @@ const NewComment: FC<Props> = ({ publication }) => {
   const setPublicationContent = usePublicationStore((state) => state.setPublicationContent);
   const previewPublication = usePublicationStore((state) => state.previewPublication);
   const setPreviewPublication = usePublicationStore((state) => state.setPreviewPublication);
+  const audioPublication = usePublicationStore((state) => state.audioPublication);
 
   // Transaction persist store
   const txnQueue = useTransactionPersistStore((state) => state.txnQueue);
@@ -88,6 +97,8 @@ const NewComment: FC<Props> = ({ publication }) => {
   const [isUploading, setIsUploading] = useState(false);
   const [attachments, setAttachments] = useState<LensterAttachment[]>([]);
 
+  const isAudioComment = ALLOWED_AUDIO_TYPES.includes(attachments[0]?.type);
+
   const onCompleted = () => {
     setPreviewPublication(false);
     setPublicationContent('');
@@ -103,7 +114,10 @@ const NewComment: FC<Props> = ({ publication }) => {
       type: 'NEW_COMMENT',
       txHash,
       content: publicationContent,
-      attachments
+      attachments,
+      title: audioPublication.title,
+      cover: audioPublication.cover,
+      author: audioPublication.author
     };
   };
 
@@ -196,33 +210,68 @@ const NewComment: FC<Props> = ({ publication }) => {
     }
   );
 
+  const getMainContentFocus = () => {
+    if (attachments.length > 0) {
+      if (isAudioComment) {
+        return PublicationMainFocus.Audio;
+      } else if (ALLOWED_IMAGE_TYPES.includes(attachments[0]?.type)) {
+        return PublicationMainFocus.Image;
+      } else if (attachments[0]?.type === 'video/mp4') {
+        return PublicationMainFocus.Video;
+      }
+    } else {
+      return PublicationMainFocus.TextOnly;
+    }
+  };
+
   const createComment = async () => {
     if (!currentProfile) {
       return toast.error(SIGN_WALLET);
     }
+
+    if (isAudioComment) {
+      setCommentContentError('');
+      const parsedData = AudioPublicationSchema.safeParse(audioPublication);
+      if (!parsedData.success) {
+        const issue = parsedData.error.issues[0];
+        return setCommentContentError(issue.message);
+      }
+    }
+
     if (publicationContent.length === 0 && attachments.length === 0) {
       return setCommentContentError('Comment should not be empty!');
     }
 
     setCommentContentError('');
     setIsUploading(true);
+
+    const attributes = [];
+    if (isAudioComment) {
+      attributes.push({
+        traitType: 'author',
+        displayType: 'string',
+        value: audioPublication.author
+      });
+    }
+
     const id = await uploadToArweave({
       version: '2.0.0',
       metadata_id: uuid(),
       description: trimify(publicationContent),
       content: trimify(publicationContent),
       external_url: `https://lenster.xyz/u/${currentProfile?.handle}`,
-      image: attachments.length > 0 ? attachments[0]?.item : null,
-      imageMimeType: attachments.length > 0 ? attachments[0]?.type : null,
-      name: `Comment by @${currentProfile?.handle}`,
-      tags: getTags(publicationContent),
-      mainContentFocus:
+      image: attachments.length > 0 ? (isAudioComment ? audioPublication.cover : attachments[0]?.item) : null,
+      imageMimeType:
         attachments.length > 0
-          ? attachments[0]?.type === 'video/mp4'
-            ? PublicationMainFocus.Video
-            : PublicationMainFocus.Image
-          : PublicationMainFocus.TextOnly,
+          ? isAudioComment
+            ? audioPublication.coverMimeType
+            : attachments[0]?.type
+          : null,
+      name: isAudioComment ? audioPublication.title : `Comment by @${currentProfile?.handle}`,
+      tags: getTags(publicationContent),
+      mainContentFocus: getMainContentFocus(),
       contentWarning: null,
+      attributes,
       media: attachments,
       locale: getUserLocale(),
       createdOn: new Date(),
