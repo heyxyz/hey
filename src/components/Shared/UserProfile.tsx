@@ -29,7 +29,7 @@ const UserProfile: FC<Props> = ({
   followStatusLoading = false,
   isFollowing = false,
   isBig = false,
-  linkToProfile = false
+  linkToProfile = true
 }) => {
   const [following, setFollowing] = useState(isFollowing);
 
