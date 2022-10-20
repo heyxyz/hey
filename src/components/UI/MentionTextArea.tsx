@@ -111,7 +111,7 @@ export const MentionTextArea: FC<Props> = ({
           data={fetchUsers}
         />
       </MentionsInput>
-      {error && <div className="mt-1 px-5 text-sm font-bold text-red-500">{error}</div>}
+      {error && <div className="mt-1 text-sm font-bold text-red-500">{error}</div>}
     </div>
   );
 };

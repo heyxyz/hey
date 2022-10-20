@@ -2559,11 +2559,6 @@
   dependencies:
     "@types/node" "*"
 
-"@types/debounce@*":
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/@types/debounce/-/debounce-1.2.1.tgz#79b65710bc8b6d44094d286aecf38e44f9627852"
-  integrity sha512-epMsEE85fi4lfmJUH/89/iV/LI+F5CvNIvmgs5g5jYFPfhO2S/ae8WSsLOKWdwtoaZw9Q2IhJ4tQ5tFCcS/4HA==
-
 "@types/js-cookie@^2.2.6":
   version "2.2.7"
   resolved "https://registry.yarnpkg.com/@types/js-cookie/-/js-cookie-2.2.7.tgz#226a9e31680835a6188e887f3988e60c04d3f6a3"
@@ -2689,13 +2684,6 @@
   version "8.3.4"
   resolved "https://registry.yarnpkg.com/@types/uuid/-/uuid-8.3.4.tgz#bd86a43617df0594787d38b735f55c805becf1bc"
   integrity sha512-c/I8ZRb51j+pYGAu5CrFMRxqZ2ke4y2grEBO5AUjgSkSk+qT2Ea+OdWElz/OiMf5MNpn2b17kuVBwZLQJXzihw==
-
-"@types/wavesurfer.js@^6.0.3":
-  version "6.0.3"
-  resolved "https://registry.yarnpkg.com/@types/wavesurfer.js/-/wavesurfer.js-6.0.3.tgz#92c26804700475d9273e91ee683a2ba17c50ac2d"
-  integrity sha512-5Sb5s3pEkOmDosaaP1DWp1Unnx8HhVorm5608TIVdT5jCMvJ6eqM19UD8n7DEbJ7rzreS9RqHmzR8TlcdQBvbA==
-  dependencies:
-    "@types/debounce" "*"
 
 "@types/ws@^7.4.4":
   version "7.4.7"
@@ -8985,11 +8973,6 @@ wagmi@^0.7.5:
     "@walletconnect/ethereum-provider" "^1.8.0"
     abitype "^0.1.7"
     use-sync-external-store "^1.2.0"
-
-wavesurfer.js@^6.3.0:
-  version "6.3.0"
-  resolved "https://registry.yarnpkg.com/wavesurfer.js/-/wavesurfer.js-6.3.0.tgz#b6ff4bafd537191989b2088ffc58c35ea3916608"
-  integrity sha512-x7efObHMHY3nwqWzIC0yeZTo0u/aC9T5Av6KhSdhTlsgtKdTG7JAE3mNqnYBXUjq0yGYfTB9F85/pks9830Vjw==
 
 wcwidth@^1.0.1:
   version "1.0.1"
