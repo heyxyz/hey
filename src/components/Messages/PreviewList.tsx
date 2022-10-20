@@ -26,7 +26,7 @@ const PreviewList: FC = () => {
 
   const showLoading = loading && (messages.size === 0 || profiles.size === 0);
 
-  const sortedProfiles = Array.from(profiles.values()).sort((a, b) => {
+  const sortedProfiles = Array.from(profiles).sort(([, a], [, b]) => {
     const messageA = messages.get(a.ownedBy.toLowerCase());
     const messageB = messages.get(b.ownedBy.toLowerCase());
     return (messageA?.sent?.getTime() || 0) >= (messageB?.sent?.getTime() || 0) ? -1 : 1;
@@ -49,13 +49,13 @@ const PreviewList: FC = () => {
           {showLoading ? (
             <PageLoading message="Loading conversations" />
           ) : (
-            Array.from(sortedProfiles.values()).map((profile, index) => {
-              const message = messages.get(profile.ownedBy.toLowerCase());
+            sortedProfiles.map(([key, profile]) => {
+              const message = messages.get(key);
               if (!message) {
                 return null;
               }
 
-              return <Preview key={`${profile.ownedBy}_${index}`} profile={profile} message={message} />;
+              return <Preview key={key} profile={profile} conversationKey={key} message={message} />;
             })
           )}
         </div>
