@@ -33,8 +33,6 @@ const Message: FC<MessageProps> = ({ conversationKey }) => {
   const profile = messageProfiles.get(conversationKey);
 
   const { selectedConversation, missingXmtpAuth } = useGetConversation(conversationKey, profile);
-  console.log('selected profile! ' + profile?.ownedBy);
-  console.log('selected convo! ' + selectedConversation?.peerAddress);
   const [endTime, setEndTime] = useState<Map<string, Date>>(new Map());
   const { messages, hasMore } = useGetMessages(
     conversationKey,
