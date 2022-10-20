@@ -27,8 +27,8 @@ import MessagesList from './MessagesList';
 import PreviewList from './PreviewList';
 
 const Message: FC = () => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
   const router = useRouter();
+  const currentProfile = useAppStore((state) => state.currentProfile);
   const client = useMessageStore((state) => state.client);
   const profileId = router.query.profileId;
 
