@@ -22,7 +22,8 @@ import { Client } from '@xmtp/xmtp-js';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useTheme } from 'next-themes';
-import type { FC, ReactElement } from 'react';
+import type react from 'react';
+import { useEffect } from 'react';
 import { useState } from 'react';
 import { STATIC_ASSETS } from 'src/constants';
 import { useAppStore } from 'src/store/app';
@@ -36,24 +37,20 @@ interface Props {
   profile: Profile;
 }
 
-const Details: FC<Props> = ({ profile }) => {
+const Details: react.FC<Props> = ({ profile }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [following, setFollowing] = useState(profile?.isFollowedByMe);
+  const [canMessage, setCanMessage] = useState<boolean>(false);
   const [showMutualFollowersModal, setShowMutualFollowersModal] = useState(false);
   const { allowed: staffMode } = useStaffMode();
   const { resolvedTheme } = useTheme();
   const router = useRouter();
 
   const onMessageClick = async () => {
-    const canMessage = await Client.canMessage(profile.ownedBy);
-    if (canMessage) {
-      router.push(`/messages/${profile.id}`);
-    } else {
-      router.push('/messages');
-    }
+    router.push(`/messages/${profile.id}`);
   };
 
-  const MetaDetails = ({ children, icon }: { children: ReactElement; icon: ReactElement }) => (
+  const MetaDetails = ({ children, icon }: { children: react.ReactElement; icon: react.ReactElement }) => (
     <div className="flex gap-2 items-center">
       {icon}
       <div className="truncate text-md">{children}</div>
@@ -61,6 +58,13 @@ const Details: FC<Props> = ({ profile }) => {
   );
 
   const followType = profile?.followModule?.__typename;
+
+  useEffect(() => {
+    const canMessageProfile = async () => {
+      setCanMessage(await Client.canMessage(profile.ownedBy));
+    };
+    canMessageProfile();
+  }, [profile]);
 
   return (
     <div className="px-5 mb-4 space-y-5 sm:px-0">
@@ -109,17 +113,23 @@ const Details: FC<Props> = ({ profile }) => {
                 {followType === 'FeeFollowModuleSettings' && (
                   <SuperFollow profile={profile} setFollowing={setFollowing} again />
                 )}
-                {isFeatureEnabled('messages', currentProfile?.id) && <Message onClick={onMessageClick} />}
+                {isFeatureEnabled('messages', currentProfile?.id) && canMessage && (
+                  <Message onClick={onMessageClick} />
+                )}
               </div>
             ) : followType === 'FeeFollowModuleSettings' ? (
               <div className="flex space-x-2">
                 <SuperFollow profile={profile} setFollowing={setFollowing} showText />
-                {isFeatureEnabled('messages', currentProfile?.id) && <Message onClick={onMessageClick} />}
+                {isFeatureEnabled('messages', currentProfile?.id) && canMessage && (
+                  <Message onClick={onMessageClick} />
+                )}
               </div>
             ) : (
               <div className="flex space-x-2">
                 <Follow profile={profile} setFollowing={setFollowing} showText />
-                {isFeatureEnabled('messages', currentProfile?.id) && <Message onClick={onMessageClick} />}
+                {isFeatureEnabled('messages', currentProfile?.id) && canMessage && (
+                  <Message onClick={onMessageClick} />
+                )}
               </div>
             )
           ) : null}
