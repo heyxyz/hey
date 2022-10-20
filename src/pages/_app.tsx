@@ -1,11 +1,10 @@
 import '../styles.css';
 
+import Layout from '@components/Layout';
 import Loading from '@components/Loading';
+import Providers from '@components/Providers';
 import type { AppProps } from 'next/app';
-import { lazy, Suspense } from 'react';
-
-const Providers = lazy(() => import('@components/Providers'));
-const Layout = lazy(() => import('@components/Layout'));
+import { Suspense } from 'react';
 
 const App = ({ Component, pageProps }: AppProps) => {
   return (
