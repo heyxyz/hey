@@ -30,6 +30,7 @@ import trimify from '@lib/trimify';
 import uploadToArweave from '@lib/uploadToArweave';
 import dynamic from 'next/dynamic';
 import type { FC } from 'react';
+import { useEffect } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import {
@@ -106,6 +107,10 @@ const NewComment: FC<Props> = ({ publication }) => {
     resetCollectSettings();
     Leafwatch.track(COMMENT.NEW);
   };
+
+  useEffect(() => {
+    setCommentContentError('');
+  }, [audioPublication]);
 
   const generateOptimisticComment = (txHash: string) => {
     return {
