@@ -40,7 +40,7 @@ const CoverImage: FC<Props> = ({ isNew = false, cover, setCover, imageRef }) => 
     <div className="relative flex-none overflow-hidden group">
       <img
         src={cover ? imagekitURL(getIPFSLink(cover)) : cover}
-        className="object-cover w-36 h-36"
+        className="object-cover w-40 h-40"
         draggable={false}
         alt="cover"
         ref={imageRef}
@@ -48,7 +48,7 @@ const CoverImage: FC<Props> = ({ isNew = false, cover, setCover, imageRef }) => 
       {isNew && (
         <label
           className={clsx(
-            'absolute top-0 grid w-36 h-36 bg-gray-100 dark:bg-gray-900 cursor-pointer place-items-center group-hover:visible backdrop-blur-lg',
+            'absolute top-0 grid w-40 h-4w-40 bg-gray-100 dark:bg-gray-900 cursor-pointer place-items-center group-hover:visible backdrop-blur-lg',
             {
               visible: loading && !cover,
               invisible: cover

@@ -62,7 +62,7 @@ const Audio: FC<Props> = ({ src, isNew = false, publication, txn }) => {
           imageRef={imageRef}
         />
         <div className="flex py-1 px-3 flex-col justify-between w-full">
-          <div className="flex justify-between mt-6">
+          <div className="flex justify-between mt-7">
             <div className="flex items-center space-x-2.5 w-full">
               <button type="button" onClick={handlePlayPause}>
                 {playing && !playerRef.current?.plyr.paused ? (
@@ -106,7 +106,9 @@ const Audio: FC<Props> = ({ src, isNew = false, publication, txn }) => {
               </div>
             </div>
           </div>
-          <Player src={src} playerRef={playerRef} />
+          <div className="pb-3">
+            <Player src={src} playerRef={playerRef} />
+          </div>
         </div>
       </div>
     </div>
