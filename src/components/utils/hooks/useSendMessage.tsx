@@ -3,11 +3,12 @@ import { useCallback } from 'react';
 
 const useSendMessage = (conversation?: Conversation) => {
   const sendMessage = useCallback(
-    async (message: string) => {
+    async (message: string): Promise<boolean> => {
       if (!conversation) {
-        return;
+        return false;
       }
-      await conversation.send(message);
+      const sent = await conversation.send(message);
+      return sent != null;
     },
     [conversation]
   );

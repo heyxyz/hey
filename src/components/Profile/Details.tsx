@@ -12,6 +12,8 @@ import useStaffMode from '@components/utils/hooks/useStaffMode';
 import type { Profile } from '@generated/types';
 import { CogIcon, HashtagIcon, LocationMarkerIcon, UsersIcon } from '@heroicons/react/outline';
 import { BadgeCheckIcon } from '@heroicons/react/solid';
+import buildConversationId from '@lib/buildConversationId';
+import { buildConversationKey } from '@lib/conversationKey';
 import formatAddress from '@lib/formatAddress';
 import getAttribute from '@lib/getAttribute';
 import getAvatar from '@lib/getAvatar';
@@ -46,7 +48,12 @@ const Details: FC<Props> = ({ profile }) => {
   const router = useRouter();
 
   const onMessageClick = async () => {
-    router.push(`/messages/${profile.id}`);
+    if (!currentProfile) {
+      return;
+    }
+    const conversationId = buildConversationId(currentProfile.id, profile.id);
+    const conversationKey = buildConversationKey(profile.ownedBy, conversationId);
+    router.push(`/messages/${conversationKey}`);
   };
 
   const MetaDetails = ({ children, icon }: { children: ReactElement; icon: ReactElement }) => (
