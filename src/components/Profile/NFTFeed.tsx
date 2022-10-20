@@ -8,8 +8,8 @@ import type { Nft, Profile } from '@generated/types';
 import { NftFeedDocument } from '@generated/types';
 import { CollectionIcon } from '@heroicons/react/outline';
 import type { FC } from 'react';
-import InfiniteScroll from 'react-infinite-scroller';
-import { CHAIN_ID, IS_MAINNET, PAGINATION_THRESHOLD } from 'src/constants';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import { CHAIN_ID, IS_MAINNET, SCROLL_THRESHOLD } from 'src/constants';
 import { chain } from 'wagmi';
 
 interface Props {
@@ -63,10 +63,10 @@ const NFTFeed: FC<Props> = ({ profile }) => {
 
   return (
     <InfiniteScroll
-      pageStart={0}
-      threshold={PAGINATION_THRESHOLD}
+      dataLength={nfts?.length ?? 0}
+      scrollThreshold={SCROLL_THRESHOLD}
       hasMore={hasMore}
-      loadMore={loadMore}
+      next={loadMore}
       loader={<InfiniteLoader />}
     >
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">

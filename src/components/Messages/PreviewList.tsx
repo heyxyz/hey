@@ -5,6 +5,7 @@ import { PageLoading } from '@components/UI/PageLoading';
 import useMessagePreviews from '@components/utils/hooks/useMessagePreviews';
 import { PlusCircleIcon } from '@heroicons/react/outline';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
+import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
@@ -13,6 +14,7 @@ import { useAppStore } from 'src/store/app';
 const PreviewList: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const { loading, messages, profiles, profilesError } = useMessagePreviews();
+  const router = useRouter();
 
   if (!isFeatureEnabled('messages', currentProfile?.id)) {
     return <Custom404 />;
@@ -24,18 +26,22 @@ const PreviewList: FC = () => {
 
   const showLoading = loading && (messages.size === 0 || profiles.size === 0);
 
-  const sortedProfiles = Array.from(profiles.values()).sort((a, b) => {
+  const sortedProfiles = Array.from(profiles).sort(([, a], [, b]) => {
     const messageA = messages.get(a.ownedBy.toLowerCase());
     const messageB = messages.get(b.ownedBy.toLowerCase());
     return (messageA?.sent?.getTime() || 0) >= (messageB?.sent?.getTime() || 0) ? -1 : 1;
   });
+
+  const newMessageClick = () => {
+    router.push('/messages');
+  };
 
   return (
     <GridItemFour>
       <Card className="h-[86vh]">
         <div className="flex justify-between items-center p-5 border-b">
           <div className="font-bold">Messages</div>
-          <button>
+          <button onClick={newMessageClick}>
             <PlusCircleIcon className="h-6 w-6" />
           </button>
         </div>
@@ -43,13 +49,13 @@ const PreviewList: FC = () => {
           {showLoading ? (
             <PageLoading message="Loading conversations" />
           ) : (
-            Array.from(sortedProfiles.values()).map((profile, index) => {
-              const message = messages.get(profile.ownedBy.toLowerCase());
+            sortedProfiles.map(([key, profile]) => {
+              const message = messages.get(key);
               if (!message) {
                 return null;
               }
 
-              return <Preview key={`${profile.ownedBy}_${index}`} profile={profile} message={message} />;
+              return <Preview key={key} profile={profile} conversationKey={key} message={message} />;
             })
           )}
         </div>

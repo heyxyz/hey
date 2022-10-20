@@ -7,8 +7,8 @@ import type { Profile } from '@generated/types';
 import { MirrorsDocument } from '@generated/types';
 import { SwitchHorizontalIcon } from '@heroicons/react/outline';
 import type { FC } from 'react';
-import InfiniteScroll from 'react-infinite-scroller';
-import { PAGINATION_THRESHOLD } from 'src/constants';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import { SCROLL_THRESHOLD } from 'src/constants';
 
 import Loader from '../Loader';
 
@@ -52,15 +52,15 @@ const Mirrors: FC<Props> = ({ publicationId }) => {
   }
 
   return (
-    <div className="overflow-y-auto max-h-[80vh]">
+    <div className="overflow-y-auto max-h-[80vh]" id="scrollableDiv">
       <ErrorMessage className="m-5" title="Failed to load mirrors" error={error} />
       <InfiniteScroll
-        pageStart={0}
-        threshold={PAGINATION_THRESHOLD}
+        dataLength={profiles?.length ?? 0}
+        scrollThreshold={SCROLL_THRESHOLD}
         hasMore={hasMore}
-        loadMore={loadMore}
+        next={loadMore}
         loader={<InfiniteLoader />}
-        useWindow={false}
+        scrollableTarget="scrollableDiv"
       >
         <div className="divide-y dark:divide-gray-700">
           {profiles?.map((profile) => (
