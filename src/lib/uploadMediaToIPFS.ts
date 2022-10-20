@@ -2,12 +2,6 @@ import type { LensterAttachment } from '@generated/lenstertypes';
 import axios from 'axios';
 import { v4 as uuid } from 'uuid';
 
-const infuraAuth =
-  'Basic ' +
-  Buffer.from(process.env.NEXT_PUBLIC_INFURA_PID + ':' + process.env.NEXT_PUBLIC_INFURA_KEY).toString(
-    'base64'
-  );
-
 /**
  *
  * @param data - Data to upload to IPFS
@@ -22,27 +16,18 @@ const uploadMediaToIPFS = async (data: any): Promise<LensterAttachment[]> => {
         const formData = new FormData();
         formData.append('data', file, uuid());
 
-        // const upload = await axios(`https://ipfs.infura.io:5001/api/v0/add`, {
-        //   method: 'POST',
-        //   data: formData,
-        //   headers: {
-        //     'Content-Type': 'multipart/form-data',
-        //     Authorization: `Bearer ${process.env.NEXT_PUBLIC_ESTUARY_KEY}`
-        //   }
-        // });
-        // const { cid }: { cid: string } = await upload.data;
-
-        const upload = await axios(`https://ipfs.infura.io:5001/api/v0/add`, {
+        const upload = await axios(`https://shuttle-4.estuary.tech/content/add`, {
           method: 'POST',
           data: formData,
           headers: {
             'Content-Type': 'multipart/form-data',
-            Authorization: infuraAuth
+            Authorization: `Bearer ${process.env.NEXT_PUBLIC_ESTUARY_KEY}`
           }
         });
-        const { Hash }: { Hash: string } = await upload.data;
+        const { cid }: { cid: string } = await upload.data;
+
         return {
-          item: `ipfs://${Hash}`,
+          item: `ipfs://${cid}`,
           type: file.type,
           altTag: ''
         };
