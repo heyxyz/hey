@@ -1,34 +1,18 @@
 import type { LensterPublication } from '@generated/lenstertypes';
 import type { Attribute } from '@generated/types';
 import { PauseIcon, PlayIcon } from '@heroicons/react/solid';
-import getTimeFromSeconds from '@lib/formatSeconds';
 import getAttributeFromTrait from '@lib/getAttributeFromTrait';
 import getThumbnailUrl from '@lib/getThumbnailUrl';
+import type { APITypes } from 'plyr-react';
 import type { ChangeEvent, FC } from 'react';
-import { useId } from 'react';
-import { useCallback, useEffect } from 'react';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
+import { useRef } from 'react';
 import React from 'react';
 import { usePublicationStore } from 'src/store/publication';
 import { object, string } from 'zod';
 
 import CoverImage from './CoverImage';
-
-const getAudioPlayerOptions = (ref: HTMLDivElement) => ({
-  container: ref,
-  waveColor: '#C7C7C7',
-  progressColor: '#8b5cf6',
-  cursorColor: '#8b5cf6',
-  cursorWidth: 1.5,
-  barWidth: 2.5,
-  barGap: 2.5,
-  barRadius: 3,
-  hideScrollbar: true,
-  responsive: true,
-  height: 40,
-  normalize: true,
-  partialRender: true
-});
+import Player from './Player';
 
 interface Props {
   src: string;
@@ -45,41 +29,21 @@ export const AudioPublicationSchema = object({
 
 const Audio: FC<Props> = ({ src, isNew = false, publication, txn }) => {
   const [playing, setPlaying] = useState(false);
-  const [duration, setDuration] = useState('00:00');
   const audioPublication = usePublicationStore((state) => state.audioPublication);
   const setAudioPublication = usePublicationStore((state) => state.setAudioPublication);
-
-  const id = useId();
-  const waveformRef = useRef<HTMLDivElement>(null);
-  const waveSurfer = useRef<WaveSurfer>();
-
-  const createPlayer = useCallback(async () => {
-    const WaveSurfer = (await import('wavesurfer.js')).default;
-    if (waveformRef.current) {
-      const options = getAudioPlayerOptions(waveformRef.current);
-      waveSurfer.current = WaveSurfer.create(options);
-      if (src) {
-        waveSurfer.current?.load(src);
-      }
-      waveSurfer.current.on('ready', () => {
-        setDuration(getTimeFromSeconds(waveSurfer.current?.getDuration().toString()));
-      });
-    }
-  }, [src]);
-
-  useEffect(() => {
-    createPlayer();
-    return () => {
-      if (waveSurfer.current) {
-        waveSurfer.current.destroy();
-        setAudioPublication({ author: '', cover: '', title: '', coverMimeType: '' });
-      }
-    };
-  }, [src, createPlayer, setAudioPublication]);
+  const playerRef = useRef<APITypes>(null);
+  const imageRef = useRef<HTMLImageElement>(null);
 
   const handlePlayPause = () => {
-    setPlaying(!playing);
-    waveSurfer.current?.playPause();
+    if (!playerRef.current) {
+      return;
+    }
+    if (playerRef.current?.plyr.paused && !playing) {
+      setPlaying(true);
+      return playerRef.current?.plyr.play();
+    }
+    playerRef.current?.plyr.pause();
+    setPlaying(false);
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -88,22 +52,23 @@ const Audio: FC<Props> = ({ src, isNew = false, publication, txn }) => {
 
   return (
     <div className="border w-full overflow-hidden border-gray-200 dark:border-gray-800 rounded-xl">
-      <div className="flex flex-1 space-x-2">
+      <div className="flex flex-1 space-x-2 bg-brand-400 text-white">
         <CoverImage
           isNew={isNew && !txn}
           cover={isNew ? (txn ? txn.cover : audioPublication.cover) : getThumbnailUrl(publication)}
           setCover={(url, mimeType) =>
             setAudioPublication({ ...audioPublication, cover: url, coverMimeType: mimeType })
           }
+          imageRef={imageRef}
         />
-        <div className="flex py-5 px-3 flex-col justify-between w-full">
-          <div className="flex justify-between">
+        <div className="flex py-1 px-3 flex-col justify-between w-full">
+          <div className="flex justify-between mt-4">
             <div className="flex items-center space-x-2.5 w-full">
               <button type="button" onClick={handlePlayPause}>
-                {playing ? (
-                  <PauseIcon className="w-[50px] h-[50px] text-gray-500 hover:text-gray-600" />
+                {playing && !playerRef.current?.plyr.paused ? (
+                  <PauseIcon className="w-[50px] h-[50px] text-gray-100 hover:text-white" />
                 ) : (
-                  <PlayIcon className="w-[50px] h-[50px] text-gray-500 hover:text-gray-600" />
+                  <PlayIcon className="w-[50px] h-[50px] text-gray-100 hover:text-white" />
                 )}
               </button>
               <div className="w-full pr-3">
@@ -138,9 +103,8 @@ const Audio: FC<Props> = ({ src, isNew = false, publication, txn }) => {
                 )}
               </div>
             </div>
-            <div className="text-sm opacity-60">{duration}</div>
           </div>
-          <div id={id} className="w-full" ref={waveformRef} />
+          <Player src={src} playerRef={playerRef} />
         </div>
       </div>
     </div>

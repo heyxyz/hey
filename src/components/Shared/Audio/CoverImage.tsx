@@ -4,7 +4,7 @@ import getIPFSLink from '@lib/getIPFSLink';
 import imagekitURL from '@lib/imagekitURL';
 import uploadMediaToIPFS from '@lib/uploadMediaToIPFS';
 import clsx from 'clsx';
-import type { ChangeEvent, FC } from 'react';
+import type { ChangeEvent, FC, Ref } from 'react';
 import React, { useState } from 'react';
 import toast from 'react-hot-toast';
 import { ERROR_MESSAGE } from 'src/constants';
@@ -13,9 +13,10 @@ interface Props {
   isNew: boolean;
   cover: string;
   setCover: (url: string, mimeType: string) => void;
+  imageRef: Ref<HTMLImageElement>;
 }
 
-const CoverImage: FC<Props> = ({ isNew = false, cover, setCover }) => {
+const CoverImage: FC<Props> = ({ isNew = false, cover, setCover, imageRef }) => {
   const [loading, setLoading] = useState(false);
 
   const onError = (error: any) => {
@@ -38,10 +39,11 @@ const CoverImage: FC<Props> = ({ isNew = false, cover, setCover }) => {
   return (
     <div className="relative flex-none overflow-hidden group">
       <img
-        src={imagekitURL(getIPFSLink(cover))}
+        src={cover ? imagekitURL(getIPFSLink(cover)) : cover}
         className="object-cover w-36 h-36"
         draggable={false}
         alt="cover"
+        ref={imageRef}
       />
       {isNew && (
         <label
