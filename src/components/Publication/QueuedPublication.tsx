@@ -100,7 +100,7 @@ const QueuedPublication: FC<Props> = ({ txn }) => {
           <Markup>{txn?.content}</Markup>
         </div>
         {txn?.attachments?.length > 0 ? (
-          <Attachments attachments={txn?.attachments} isNew hideDelete />
+          <Attachments attachments={txn?.attachments} txn={txn} isNew hideDelete />
         ) : (
           txn?.attachments && getURLs(txn?.content)?.length > 0 && <IFramely url={getURLs(txn?.content)[0]} />
         )}
