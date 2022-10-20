@@ -164,3 +164,6 @@ iframe {
 .plyr--audio .plyr__control {
   @apply hover:!bg-transparent;
 }
+.plyr--audio.plyr--full-ui input[type='range'] {
+  @apply !text-white;
+}
