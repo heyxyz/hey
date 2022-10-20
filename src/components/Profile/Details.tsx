@@ -45,9 +45,9 @@ const Details: FC<Props> = ({ profile }) => {
   const { allowed: staffMode } = useStaffMode();
   const { resolvedTheme } = useTheme();
   const router = useRouter();
-
   const messageProfiles = useMessageStore((state) => state.messageProfiles);
   const setMessageProfiles = useMessageStore((state) => state.setMessageProfiles);
+
   const onMessageClick = async () => {
     if (!currentProfile) {
       return;

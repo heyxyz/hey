@@ -29,8 +29,7 @@ type MessageProps = {
 
 const Message: FC<MessageProps> = ({ conversationKey }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const messageProfiles = useMessageStore((state) => state.messageProfiles);
-  const profile = messageProfiles.get(conversationKey);
+  const profile = useMessageStore((state) => state.messageProfiles.get(conversationKey));
 
   const { selectedConversation, missingXmtpAuth } = useGetConversation(conversationKey, profile);
   const [endTime, setEndTime] = useState<Map<string, Date>>(new Map());
