@@ -2,17 +2,15 @@ import MessageHeader from '@components/Messages/MessageHeader';
 import { Card } from '@components/UI/Card';
 import { GridItemEight, GridLayout } from '@components/UI/GridLayout';
 import { PageLoading } from '@components/UI/PageLoading';
+import useGetConversation from '@components/utils/hooks/useGetConversation';
 import useGetMessages from '@components/utils/hooks/useGetMessages';
 import useSendMessage from '@components/utils/hooks/useSendMessage';
 import useStreamMessages from '@components/utils/hooks/useStreamMessages';
 import MetaTags from '@components/utils/MetaTags';
-import buildConversationId from '@lib/buildConversationId';
-import { buildConversationKey, parseConversationKey } from '@lib/conversationKey';
+import { parseConversationKey } from '@lib/conversationKey';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
-import { Client } from '@xmtp/xmtp-js';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
-import { useEffect } from 'react';
 import { useCallback } from 'react';
 import { useState } from 'react';
 import { APP_NAME } from 'src/constants';
@@ -34,7 +32,9 @@ const Message: FC<MessageProps> = ({ conversationKey }) => {
   const messageProfiles = useMessageStore((state) => state.messageProfiles);
   const profile = messageProfiles.get(conversationKey);
 
-  const selectedConversation = useMessageStore((state) => state.conversations.get(conversationKey));
+  const { selectedConversation, missingXmtpAuth } = useGetConversation(conversationKey, profile);
+  console.log('selected profile! ' + profile?.ownedBy);
+  console.log('selected convo! ' + selectedConversation?.peerAddress);
   const [endTime, setEndTime] = useState<Map<string, Date>>(new Map());
   const { messages, hasMore } = useGetMessages(
     conversationKey,
@@ -55,41 +55,11 @@ const Message: FC<MessageProps> = ({ conversationKey }) => {
     }
   }, [conversationKey, hasMore, messages, endTime]);
 
-  const client = useMessageStore((state) => state.client);
-  const { push } = useRouter();
-  const setMessageProfiles = useMessageStore((state) => state.setMessageProfiles);
-  const conversations = useMessageStore((state) => state.conversations);
-  const setConversations = useMessageStore((state) => state.setConversations);
-  useEffect(() => {
-    const ensureConversation = async () => {
-      if (!currentProfile || !profile || !client) {
-        return;
-      }
-      const isMessagesEnabled = await Client?.canMessage(profile.ownedBy);
-      if (!isMessagesEnabled) {
-        push('/messages');
-        return;
-      }
-      const conversationId = buildConversationId(currentProfile.id, profile.id);
-      const conversationKey = buildConversationKey(profile.ownedBy, conversationId);
-      const conversation = await client.conversations.newConversation(profile.ownedBy, {
-        conversationId: conversationId,
-        metadata: {}
-      });
-      messageProfiles.set(conversationKey, profile);
-      setMessageProfiles(new Map(messageProfiles));
-      conversations.set(conversationKey, conversation);
-      setConversations(new Map(conversations));
-    };
-    ensureConversation();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [profile, client]);
-
   if (!isFeatureEnabled('messages', currentProfile?.id)) {
     return <Custom404 />;
   }
 
-  const showLoading = !profile || !currentProfile || !selectedConversation;
+  const showLoading = !missingXmtpAuth && (!profile || !currentProfile || !selectedConversation);
 
   return (
     <GridLayout>
@@ -108,6 +78,7 @@ const Message: FC<MessageProps> = ({ conversationKey }) => {
                 fetchNextMessages={fetchNextMessages}
                 messages={messages ?? []}
                 hasMore={hasMore}
+                missingXmtpAuth={missingXmtpAuth ?? false}
               />
               <Composer sendMessage={sendMessage} />
             </>

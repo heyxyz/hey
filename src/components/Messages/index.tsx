@@ -6,10 +6,8 @@ import type { Profile } from '@generated/types';
 import buildConversationId from '@lib/buildConversationId';
 import { buildConversationKey } from '@lib/conversationKey';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
-import { Client } from '@xmtp/xmtp-js';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
-import { useState } from 'react';
 import { APP_NAME } from 'src/constants';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
@@ -20,7 +18,6 @@ import PreviewList from './PreviewList';
 const Messages: FC = () => {
   const router = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const [error, setError] = useState<string>('');
   const messageProfiles = useMessageStore((state) => state.messageProfiles);
   const setMessageProfiles = useMessageStore((state) => state.setMessageProfiles);
 
@@ -28,19 +25,15 @@ const Messages: FC = () => {
     return <Custom404 />;
   }
 
-  const onProfileSelected = async (profile: Profile) => {
-    const peerAddress = profile.ownedBy;
-    const isMessagesEnabled = await Client?.canMessage(peerAddress);
-    if (!isMessagesEnabled) {
-      setError('Selected Lens Profile is not on XMTP');
+  const onProfileSelected = (profile: Profile) => {
+    if (!currentProfile) {
       return;
     }
-    const conversationId = buildConversationId(currentProfile?.id, profile.id);
-    const conversationKey = buildConversationKey(peerAddress, conversationId);
+    const conversationId = buildConversationId(currentProfile.id, profile.id);
+    const conversationKey = buildConversationKey(profile.ownedBy, conversationId);
     messageProfiles.set(conversationKey, profile);
     setMessageProfiles(new Map(messageProfiles));
     router.push(`/messages/${conversationKey}`);
-    setError('');
   };
 
   return (
@@ -50,12 +43,14 @@ const Messages: FC = () => {
       <GridItemEight>
         <Card className="h-[86vh]">
           <div className="w-full p-4">
-            <Search isParentMessage={true} onProfileSelected={onProfileSelected} />
-            {error ? (
-              <div className="text-sm font-medium text-red-800 dark:text-red-200 pt-2">{error}</div>
-            ) : (
-              <div className="text-sm font-medium pt-2">Select a Lens Profile to Message</div>
-            )}
+            <Search
+              placeholder="Search for a profile to message..."
+              isParentMessage={true}
+              onProfileSelected={onProfileSelected}
+            />
+          </div>
+          <div className="flex items-center justify-center pb-4 h-full">
+            <span className="text-gray-300 text-sm font-bold">No conversation selected</span>
           </div>
         </Card>
       </GridItemEight>

@@ -19,9 +19,15 @@ interface Props {
   hideDropdown?: boolean;
   isParentMessage?: boolean;
   onProfileSelected: (profile: Profile) => void;
+  placeholder?: string;
 }
 
-const Search: FC<Props> = ({ hideDropdown = false, isParentMessage, onProfileSelected }) => {
+const Search: FC<Props> = ({
+  hideDropdown = false,
+  isParentMessage,
+  onProfileSelected,
+  placeholder = 'Search...'
+}) => {
   const { push, pathname, query } = useRouter();
   const [searchText, setSearchText] = useState('');
   const dropdownRef = useRef(null);
@@ -68,7 +74,7 @@ const Search: FC<Props> = ({ hideDropdown = false, isParentMessage, onProfileSel
           <Input
             type="text"
             className="py-2 px-3 text-sm"
-            placeholder="Search..."
+            placeholder={placeholder}
             value={searchText}
             onFocus={() => Leafwatch.track(SEARCH.FOCUS)}
             iconLeft={<SearchIcon />}
