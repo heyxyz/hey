@@ -2,11 +2,6 @@ fragment MetadataFields on MetadataOutput {
   name
   description
   content
-  image
-  attributes {
-    traitType
-    value
-  }
   cover {
     original {
       url
