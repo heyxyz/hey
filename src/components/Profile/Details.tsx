@@ -22,9 +22,8 @@ import { Client } from '@xmtp/xmtp-js';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useTheme } from 'next-themes';
-import type react from 'react';
-import { useEffect } from 'react';
-import { useState } from 'react';
+import type { FC, ReactElement } from 'react';
+import { useEffect, useState } from 'react';
 import { STATIC_ASSETS } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 
@@ -37,7 +36,7 @@ interface Props {
   profile: Profile;
 }
 
-const Details: react.FC<Props> = ({ profile }) => {
+const Details: FC<Props> = ({ profile }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [following, setFollowing] = useState(profile?.isFollowedByMe);
   const [canMessage, setCanMessage] = useState<boolean>(false);
@@ -50,7 +49,7 @@ const Details: react.FC<Props> = ({ profile }) => {
     router.push(`/messages/${profile.id}`);
   };
 
-  const MetaDetails = ({ children, icon }: { children: react.ReactElement; icon: react.ReactElement }) => (
+  const MetaDetails = ({ children, icon }: { children: ReactElement; icon: ReactElement }) => (
     <div className="flex gap-2 items-center">
       {icon}
       <div className="truncate text-md">{children}</div>
