@@ -63,7 +63,6 @@ const useXmtpClient = () => {
 
 export const useDisconnectXmtp = () => {
   const { data: signer } = useSigner();
-  const currentProfile = useAppStore((state) => state.currentProfile);
   const client = useMessageStore((state) => state.client);
   const setClient = useMessageStore((state) => state.setClient);
   const disconnect = useCallback(async () => {
