@@ -34,7 +34,7 @@ const PublicationBody: FC<Props> = ({ publication }) => {
         </div>
       )}
       {publication?.metadata?.media?.length > 0 ? (
-        <Attachments attachments={publication?.metadata?.media} publication={publication} />
+        <Attachments attachments={publication?.metadata?.media} />
       ) : (
         publication?.metadata?.content &&
         getURLs(publication?.metadata?.content)?.length > 0 && (

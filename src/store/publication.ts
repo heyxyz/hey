@@ -7,13 +7,6 @@ interface PublicationState {
   setPublicationContent: (publicationContent: string) => void;
   previewPublication: boolean;
   setPreviewPublication: (previewPublication: boolean) => void;
-  audioPublication: { title: string; author: string; cover: string; coverMimeType: string };
-  setAudioPublication: (previewPublication: {
-    title: string;
-    author: string;
-    cover: string;
-    coverMimeType: string;
-  }) => void;
 }
 
 export const usePublicationStore = create<PublicationState>((set) => ({
@@ -22,7 +15,5 @@ export const usePublicationStore = create<PublicationState>((set) => ({
   publicationContent: '',
   setPublicationContent: (publicationContent) => set(() => ({ publicationContent })),
   previewPublication: false,
-  setPreviewPublication: (previewPublication) => set(() => ({ previewPublication })),
-  audioPublication: { title: '', author: '', cover: '', coverMimeType: 'image/jpeg' },
-  setAudioPublication: (audioPublication) => set(() => ({ audioPublication }))
+  setPreviewPublication: (previewPublication) => set(() => ({ previewPublication }))
 }));

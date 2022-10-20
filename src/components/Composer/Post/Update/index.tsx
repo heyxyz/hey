@@ -1,7 +1,6 @@
 import { LensHubProxy } from '@abis/LensHubProxy';
 import { useMutation } from '@apollo/client';
 import Attachments from '@components/Shared/Attachments';
-import { AudioPublicationSchema } from '@components/Shared/Audio';
 import Markup from '@components/Shared/Markup';
 import { Button } from '@components/UI/Button';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
@@ -28,17 +27,9 @@ import trimify from '@lib/trimify';
 import uploadToArweave from '@lib/uploadToArweave';
 import dynamic from 'next/dynamic';
 import type { FC } from 'react';
-import { useEffect } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import {
-  ALLOWED_AUDIO_TYPES,
-  ALLOWED_IMAGE_TYPES,
-  APP_NAME,
-  LENSHUB_PROXY,
-  RELAY_ON,
-  SIGN_WALLET
-} from 'src/constants';
+import { APP_NAME, LENSHUB_PROXY, RELAY_ON, SIGN_WALLET } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { useCollectModuleStore } from 'src/store/collectmodule';
 import { usePublicationStore } from 'src/store/publication';
@@ -74,7 +65,6 @@ const NewUpdate: FC = () => {
   const publicationContent = usePublicationStore((state) => state.publicationContent);
   const setPublicationContent = usePublicationStore((state) => state.setPublicationContent);
   const previewPublication = usePublicationStore((state) => state.previewPublication);
-  const audioPublication = usePublicationStore((state) => state.audioPublication);
   const setPreviewPublication = usePublicationStore((state) => state.setPreviewPublication);
   const setShowNewPostModal = usePublicationStore((state) => state.setShowNewPostModal);
 
@@ -97,8 +87,6 @@ const NewUpdate: FC = () => {
   const [attachments, setAttachments] = useState<LensterAttachment[]>([]);
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
 
-  const isAudioPost = ALLOWED_AUDIO_TYPES.includes(attachments[0]?.type);
-
   const onCompleted = () => {
     setPreviewPublication(false);
     setShowNewPostModal(false);
@@ -108,20 +96,13 @@ const NewUpdate: FC = () => {
     Leafwatch.track(POST.NEW);
   };
 
-  useEffect(() => {
-    setPostContentError('');
-  }, [audioPublication]);
-
   const generateOptimisticPost = (txHash: string) => {
     return {
       id: uuid(),
       type: 'NEW_POST',
       txHash,
       content: publicationContent,
-      attachments,
-      title: audioPublication.title,
-      cover: audioPublication.cover,
-      author: audioPublication.author
+      attachments
     };
   };
 
@@ -206,68 +187,40 @@ const NewUpdate: FC = () => {
     }
   );
 
-  const getMainContentFocus = () => {
-    if (attachments.length > 0) {
-      if (isAudioPost) {
-        return PublicationMainFocus.Audio;
-      } else if (ALLOWED_IMAGE_TYPES.includes(attachments[0]?.type)) {
-        return PublicationMainFocus.Image;
-      } else if (attachments[0]?.type === 'video/mp4') {
-        return PublicationMainFocus.Video;
-      }
-    } else {
-      return PublicationMainFocus.TextOnly;
-    }
-  };
-
   const createPost = async () => {
     if (!currentProfile) {
       return toast.error(SIGN_WALLET);
     }
-
-    if (isAudioPost) {
-      setPostContentError('');
-      const parsedData = AudioPublicationSchema.safeParse(audioPublication);
-      if (!parsedData.success) {
-        const issue = parsedData.error.issues[0];
-        return setPostContentError(issue.message);
-      }
-    }
-
     if (publicationContent.length === 0 && attachments.length === 0) {
       return setPostContentError('Post should not be empty!');
     }
 
     setPostContentError('');
     setIsUploading(true);
-    const attributes = [
-      {
-        traitType: 'type',
-        displayType: 'string',
-        value: 'post'
-      }
-    ];
-    if (isAudioPost) {
-      attributes.push({
-        traitType: 'author',
-        displayType: 'string',
-        value: audioPublication.author
-      });
-    }
     const id = await uploadToArweave({
       version: '2.0.0',
       metadata_id: uuid(),
       description: trimify(publicationContent),
       content: trimify(publicationContent),
       external_url: `https://lenster.xyz/u/${currentProfile?.handle}`,
-      image: attachments.length > 0 ? (isAudioPost ? audioPublication.cover : attachments[0]?.item) : null,
-      imageMimeType:
-        attachments.length > 0 ? (isAudioPost ? audioPublication.coverMimeType : attachments[0]?.type) : null,
-      name: isAudioPost ? audioPublication.title : `Post by @${currentProfile?.handle}`,
+      image: attachments.length > 0 ? attachments[0]?.item : null,
+      imageMimeType: attachments.length > 0 ? attachments[0]?.type : null,
+      name: `Post by @${currentProfile?.handle}`,
       tags: getTags(publicationContent),
-      mainContentFocus: getMainContentFocus(),
+      mainContentFocus:
+        attachments.length > 0
+          ? attachments[0]?.type === 'video/mp4'
+            ? PublicationMainFocus.Video
+            : PublicationMainFocus.Image
+          : PublicationMainFocus.TextOnly,
       contentWarning: null, // TODO
-      attributes,
+      attributes: [
+        {
+          traitType: 'string',
+          key: 'type',
+          value: 'post'
+        }
+      ],
       media: attachments,
       locale: getUserLocale(),
       createdOn: new Date(),
