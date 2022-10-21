@@ -2,9 +2,9 @@ import type { Wallet } from '@generated/types';
 import { ExternalLinkIcon } from '@heroicons/react/outline';
 import formatAddress from '@lib/formatAddress';
 import getStampFyiURL from '@lib/getStampFyiURL';
-import imagekitURL from '@lib/imagekitURL';
+import imageProxy from '@lib/imageProxy';
 import type { FC } from 'react';
-import { POLYGONSCAN_URL } from 'src/constants';
+import { AVATAR, POLYGONSCAN_URL } from 'src/constants';
 
 import Slug from './Slug';
 
@@ -22,7 +22,7 @@ const WalletProfile: FC<Props> = ({ wallet }) => {
         rel="noreferrer noopener"
       >
         <img
-          src={imagekitURL(getStampFyiURL(wallet?.address), 'avatar')}
+          src={imageProxy(getStampFyiURL(wallet?.address), AVATAR)}
           className="w-10 h-10 bg-gray-200 rounded-full border"
           height={40}
           width={40}
