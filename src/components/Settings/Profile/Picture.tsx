@@ -14,7 +14,7 @@ import {
 import { PencilIcon } from '@heroicons/react/outline';
 import getIPFSLink from '@lib/getIPFSLink';
 import getSignature from '@lib/getSignature';
-import imagekitURL from '@lib/imagekitURL';
+import imageProxy from '@lib/imageProxy';
 import { Leafwatch } from '@lib/leafwatch';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
@@ -22,7 +22,7 @@ import uploadMediaToIPFS from '@lib/uploadMediaToIPFS';
 import type { ChangeEvent, FC } from 'react';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import { LENSHUB_PROXY, RELAY_ON, SIGN_WALLET } from 'src/constants';
+import { AVATAR, LENSHUB_PROXY, RELAY_ON, SIGN_WALLET } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { SETTINGS } from 'src/tracking';
 import { useContractWrite, useSignTypedData } from 'wagmi';
@@ -160,7 +160,7 @@ const Picture: FC<Props> = ({ profile }) => {
                 className="w-60 h-60 rounded-lg"
                 height={240}
                 width={240}
-                src={imagekitURL(getIPFSLink(avatar), 'avatar')}
+                src={imageProxy(getIPFSLink(avatar), AVATAR)}
                 alt={avatar}
               />
             </div>

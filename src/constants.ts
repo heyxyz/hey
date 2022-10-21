@@ -47,7 +47,7 @@ export const STATIC_ASSETS = 'https://assets.lenster.xyz/images';
 export const POLYGONSCAN_URL = IS_MAINNET ? 'https://polygonscan.com' : 'https://mumbai.polygonscan.com';
 export const RARIBLE_URL = IS_MAINNET ? 'https://rarible.com' : 'https://rinkeby.rarible.com';
 export const ARWEAVE_GATEWAY = 'https://arweave.net';
-export const IMAGEKIT_URL = `https://ik.imagekit.io/${process.env.NEXT_PUBLIC_IMAGEKIT_ID}`;
+export const IMGPROXY_URL = 'https://lensterassets.xyz';
 export const IPFS_GATEWAY = 'https://lens.infura-ipfs.io/ipfs/';
 
 // Web3
@@ -94,3 +94,8 @@ export const BUNDLR_NODE_URL = 'https://node2.bundlr.network';
 // UI
 export const MESSAGE_PAGE_LIMIT = 15;
 export const SCROLL_THRESHOLD = 0.5;
+
+// Named transforms
+export const AVATAR = '250:250';
+export const COVER = '800';
+export const ATTACHMENT = '800';
