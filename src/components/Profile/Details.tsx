@@ -48,7 +48,7 @@ const Details: FC<Props> = ({ profile }) => {
   const messageProfiles = useMessageStore((state) => state.messageProfiles);
   const setMessageProfiles = useMessageStore((state) => state.setMessageProfiles);
 
-  const onMessageClick = async () => {
+  const onMessageClick = () => {
     if (!currentProfile) {
       return;
     }
