@@ -13,6 +13,7 @@ const loadKeys = (walletAddress: string): Uint8Array | null => {
   const val = localStorage.getItem(buildLocalStorageKey(walletAddress));
   return val ? Buffer.from(val, ENCODING) : null;
 };
+
 /**
  * Anyone copying this code will want to be careful about leakage of sensitive keys.
  * Make sure that there are no third party services, such as bug reporting SDKs or ad networks, exporting the contents
