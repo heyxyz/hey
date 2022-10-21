@@ -1,13 +1,13 @@
 import { Spinner } from '@components/UI/Spinner';
 import { PhotographIcon } from '@heroicons/react/outline';
 import getIPFSLink from '@lib/getIPFSLink';
-import imagekitURL from '@lib/imagekitURL';
+import imageProxy from '@lib/imageProxy';
 import uploadMediaToIPFS from '@lib/uploadMediaToIPFS';
 import clsx from 'clsx';
 import type { ChangeEvent, FC, Ref } from 'react';
 import React, { useState } from 'react';
 import toast from 'react-hot-toast';
-import { ERROR_MESSAGE } from 'src/constants';
+import { COVER, ERROR_MESSAGE } from 'src/constants';
 
 interface Props {
   isNew: boolean;
@@ -39,7 +39,7 @@ const CoverImage: FC<Props> = ({ isNew = false, cover, setCover, imageRef }) => 
   return (
     <div className="relative flex-none overflow-hidden group">
       <img
-        src={cover ? imagekitURL(getIPFSLink(cover)) : cover}
+        src={cover ? imageProxy(getIPFSLink(cover), COVER) : cover}
         className="object-cover w-40 h-40"
         draggable={false}
         alt="cover"
