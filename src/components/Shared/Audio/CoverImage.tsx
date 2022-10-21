@@ -40,7 +40,7 @@ const CoverImage: FC<Props> = ({ isNew = false, cover, setCover, imageRef }) => 
     <div className="relative flex-none overflow-hidden group">
       <img
         src={cover ? imageProxy(getIPFSLink(cover), COVER) : cover}
-        className="object-cover w-40 h-40"
+        className="object-cover md:w-40 md:h-40 h-24 w-24 rounded-xl md:rounded-none"
         draggable={false}
         alt="cover"
         ref={imageRef}
@@ -49,7 +49,7 @@ const CoverImage: FC<Props> = ({ isNew = false, cover, setCover, imageRef }) => 
         <label
           className={clsx(
             { visible: loading && !cover, invisible: cover },
-            'absolute top-0 grid w-40 h-40 bg-gray-100 dark:bg-gray-900 cursor-pointer place-items-center group-hover:visible backdrop-blur-lg'
+            'absolute top-0 grid md:w-40 md:h-40 h-24 w-24 bg-gray-100 dark:bg-gray-900 cursor-pointer place-items-center group-hover:visible backdrop-blur-lg'
           )}
         >
           {loading && !cover ? (
