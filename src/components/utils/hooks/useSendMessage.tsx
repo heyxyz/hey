@@ -7,8 +7,12 @@ const useSendMessage = (conversation?: Conversation) => {
       if (!conversation) {
         return false;
       }
-      const sent = await conversation.send(message);
-      return sent != null;
+      try {
+        await conversation.send(message);
+      } catch (error) {
+        return false;
+      }
+      return true;
     },
     [conversation]
   );
