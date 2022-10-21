@@ -207,6 +207,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
       };
     }
   }, [collectModuleSettings]);
+
   const createCollect = () => {
     if (!currentProfile) {
       return toast.error(SIGN_WALLET);
