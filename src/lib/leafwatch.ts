@@ -2,6 +2,8 @@ import axios from 'axios';
 import { AXIOM_TOKEN, IS_PRODUCTION, LEAFWATCH_HOST } from 'src/constants';
 import parser from 'ua-parser-js';
 
+import getUserLocale from './getUserLocale';
+
 const enabled = AXIOM_TOKEN && IS_PRODUCTION;
 const isBrowser = typeof window !== 'undefined';
 
@@ -32,7 +34,7 @@ export const Leafwatch = {
           browser: {
             name: ua.browser.name,
             version: ua.browser.version,
-            language: navigator.language
+            language: getUserLocale()
           },
           device: {
             os: ua.os.name
