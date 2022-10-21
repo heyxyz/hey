@@ -82,7 +82,6 @@ const useMessagePreviews = () => {
       if (!conversation.context || messageStreams.has(conversationKey)) {
         return;
       }
-      console.log('Streaming messages for', conversationKey);
       const stream = await conversation.streamMessages();
       messageStreams.set(conversationKey, stream);
       setMessageStreams(new Map(messageStreams));
@@ -150,7 +149,6 @@ const useMessagePreviews = () => {
     };
 
     const closeMessageStreams = async () => {
-      console.log('Closing all message streams');
       await Promise.allSettled(Array.from(messageStreams.values()).map((stream) => stream.return()));
       setMessageStreams(new Map());
     };
