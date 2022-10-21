@@ -40,7 +40,7 @@ const Message: FC<MessageProps> = ({ conversationKey }) => {
   useStreamMessages(conversationKey, selectedConversation);
   const { sendMessage } = useSendMessage(selectedConversation);
 
-  const fetchNextMessages = useCallback(async () => {
+  const fetchNextMessages = useCallback(() => {
     if (hasMore && Array.isArray(messages) && messages.length > 0) {
       const lastMsgDate = messages[messages.length - 1].sent;
       const currentEndTime = endTime.get(conversationKey);
@@ -51,11 +51,11 @@ const Message: FC<MessageProps> = ({ conversationKey }) => {
     }
   }, [conversationKey, hasMore, messages, endTime]);
 
+  const showLoading = !missingXmtpAuth && (!profile || !currentProfile || !selectedConversation);
+
   if (!isFeatureEnabled('messages', currentProfile?.id)) {
     return <Custom404 />;
   }
-
-  const showLoading = !missingXmtpAuth && (!profile || !currentProfile || !selectedConversation);
 
   return (
     <GridLayout>

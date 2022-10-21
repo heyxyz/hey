@@ -1,13 +1,16 @@
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { Client } from '@xmtp/xmtp-js';
 import { useCallback, useEffect } from 'react';
+import { IS_MAINNET } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
 import { useSigner } from 'wagmi';
 
 const ENCODING = 'binary';
 
-const buildLocalStorageKey = (walletAddress: string) => `xmtp:keys:${walletAddress}`;
+const XMTP_ENV = IS_MAINNET ? 'production' : 'dev';
+
+const buildLocalStorageKey = (walletAddress: string) => `xmtp:${XMTP_ENV}:keys:${walletAddress}`;
 
 const loadKeys = (walletAddress: string): Uint8Array | null => {
   const val = localStorage.getItem(buildLocalStorageKey(walletAddress));
@@ -43,7 +46,7 @@ const useXmtpClient = () => {
           storeKeys(await signer.getAddress(), keys);
         }
 
-        const xmtp = await Client.create(null, { privateKeyOverride: keys });
+        const xmtp = await Client.create(null, { env: XMTP_ENV, privateKeyOverride: keys });
         setClient(xmtp);
       }
     };

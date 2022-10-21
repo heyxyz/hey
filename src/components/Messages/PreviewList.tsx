@@ -26,9 +26,9 @@ const PreviewList: FC = () => {
 
   const showLoading = loading && (messages.size === 0 || profiles.size === 0);
 
-  const sortedProfiles = Array.from(profiles).sort(([, a], [, b]) => {
-    const messageA = messages.get(a.ownedBy.toLowerCase());
-    const messageB = messages.get(b.ownedBy.toLowerCase());
+  const sortedProfiles = Array.from(profiles).sort(([keyA], [keyB]) => {
+    const messageA = messages.get(keyA);
+    const messageB = messages.get(keyB);
     return (messageA?.sent?.getTime() || 0) >= (messageB?.sent?.getTime() || 0) ? -1 : 1;
   });
 
@@ -41,7 +41,7 @@ const PreviewList: FC = () => {
       <Card className="h-[86vh]">
         <div className="flex justify-between items-center p-5 border-b">
           <div className="font-bold">Messages</div>
-          <button onClick={newMessageClick}>
+          <button onClick={newMessageClick} type="button">
             <PlusCircleIcon className="h-6 w-6" />
           </button>
         </div>
