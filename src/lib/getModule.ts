@@ -17,7 +17,7 @@ export const getModule = (
     // Collect Modules
     case CollectModules.UnknownCollectModule:
       return {
-        name: 'Unknown Collect Module',
+        name: 'Unknown Collect',
         field: 'collectModule',
         helper: 'The Unkown Collect Module is unknown and not type supported in the API.'
       };
