@@ -2,6 +2,7 @@ import MessageHeader from '@components/Messages/MessageHeader';
 import { Card } from '@components/UI/Card';
 import { GridItemEight, GridLayout } from '@components/UI/GridLayout';
 import { PageLoading } from '@components/UI/PageLoading';
+import useGetConversation from '@components/utils/hooks/useGetConversation';
 import useGetMessages from '@components/utils/hooks/useGetMessages';
 import useSendMessage from '@components/utils/hooks/useSendMessage';
 import useStreamMessages from '@components/utils/hooks/useStreamMessages';
@@ -28,8 +29,9 @@ type MessageProps = {
 
 const Message: FC<MessageProps> = ({ conversationKey }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const profile = useMessageStore((state) => state.messageProfiles.get(conversationKey));
 
-  const selectedConversation = useMessageStore((state) => state.conversations.get(conversationKey));
+  const { selectedConversation, missingXmtpAuth } = useGetConversation(conversationKey, profile);
   const [endTime, setEndTime] = useState<Map<string, Date>>(new Map());
   const { messages, hasMore } = useGetMessages(
     conversationKey,
@@ -38,7 +40,6 @@ const Message: FC<MessageProps> = ({ conversationKey }) => {
   );
   useStreamMessages(conversationKey, selectedConversation);
   const { sendMessage } = useSendMessage(selectedConversation);
-  const profile = useMessageStore((state) => state.messageProfiles.get(conversationKey));
 
   const fetchNextMessages = useCallback(async () => {
     if (hasMore && Array.isArray(messages) && messages.length > 0) {
@@ -55,7 +56,7 @@ const Message: FC<MessageProps> = ({ conversationKey }) => {
     return <Custom404 />;
   }
 
-  const showLoading = !profile || !currentProfile || !selectedConversation;
+  const showLoading = !missingXmtpAuth && (!profile || !currentProfile || !selectedConversation);
 
   return (
     <GridLayout>
@@ -74,6 +75,7 @@ const Message: FC<MessageProps> = ({ conversationKey }) => {
                 fetchNextMessages={fetchNextMessages}
                 messages={messages ?? []}
                 hasMore={hasMore}
+                missingXmtpAuth={missingXmtpAuth ?? false}
               />
               <Composer sendMessage={sendMessage} />
             </>

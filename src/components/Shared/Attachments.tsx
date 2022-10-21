@@ -1,24 +1,25 @@
 import { Button } from '@components/UI/Button';
 import { LightBox } from '@components/UI/LightBox';
-import type { LensterAttachment } from '@generated/lenstertypes';
+import type { LensterAttachment, LensterPublication } from '@generated/lenstertypes';
 import type { MediaSet } from '@generated/types';
 import { ExternalLinkIcon, XIcon } from '@heroicons/react/outline';
 import getIPFSLink from '@lib/getIPFSLink';
 import imagekitURL from '@lib/imagekitURL';
+import { Leafwatch } from '@lib/leafwatch';
 import clsx from 'clsx';
-import dynamic from 'next/dynamic';
 import type { FC } from 'react';
 import { useState } from 'react';
+import { ALLOWED_AUDIO_TYPES } from 'src/constants';
+import { PUBLICATION } from 'src/tracking';
 
-const Video = dynamic(() => import('./Video'), {
-  loading: () => <div className="rounded-lg aspect-w-16 aspect-h-12 shimmer" />
-});
+import Audio from './Audio';
+import Video from './Video';
 
 const getClass = (attachments: number, isNew = false) => {
   if (attachments === 1) {
     return {
-      aspect: isNew ? 'aspect-w-16 aspect-h-12' : '',
-      row: 'grid-cols-1 grid-rows-1 w-2/3'
+      aspect: isNew ? 'aspect-w-16 aspect-h-10' : '',
+      row: 'grid-cols-1 grid-rows-1'
     };
   } else if (attachments === 2) {
     return {
@@ -38,9 +39,18 @@ interface Props {
   setAttachments?: any;
   isNew?: boolean;
   hideDelete?: boolean;
+  publication?: LensterPublication;
+  txn?: any;
 }
 
-const Attachments: FC<Props> = ({ attachments, setAttachments, isNew = false, hideDelete = false }) => {
+const Attachments: FC<Props> = ({
+  attachments,
+  setAttachments,
+  isNew = false,
+  hideDelete = false,
+  publication,
+  txn
+}) => {
   const [expanedImage, setExpandedImage] = useState<string | null>(null);
 
   const removeAttachment = (attachment: any) => {
@@ -67,7 +77,18 @@ const Attachments: FC<Props> = ({ attachments, setAttachments, isNew = false, hi
 
           return (
             <div
-              className={clsx(type === 'video/mp4' ? '' : getClass(slicedAttachments?.length, isNew)?.aspect)}
+              className={clsx(
+                type === 'video/mp4' || ALLOWED_AUDIO_TYPES.includes(type)
+                  ? ''
+                  : getClass(slicedAttachments?.length, isNew)?.aspect,
+                {
+                  'w-full': ALLOWED_AUDIO_TYPES.includes(type),
+                  'w-2/3':
+                    type === 'video/mp4' ||
+                    (slicedAttachments.length === 1 && !ALLOWED_AUDIO_TYPES.includes(type))
+                },
+                'relative'
+              )}
               key={url}
               onClick={(event) => {
                 event.stopPropagation();
@@ -86,17 +107,24 @@ const Attachments: FC<Props> = ({ attachments, setAttachments, isNew = false, hi
                 </Button>
               ) : type === 'video/mp4' ? (
                 <Video src={url} />
+              ) : ALLOWED_AUDIO_TYPES.includes(type) ? (
+                <Audio src={url} isNew={isNew} publication={publication} txn={txn} />
               ) : (
                 <img
                   className="object-cover bg-gray-100 rounded-lg border cursor-pointer dark:bg-gray-800 dark:border-gray-700/80"
                   loading="lazy"
-                  onClick={() => setExpandedImage(url)}
+                  onClick={() => {
+                    setExpandedImage(url);
+                    Leafwatch.track(PUBLICATION.ATTACHEMENT.IMAGE.OPEN);
+                  }}
                   src={imagekitURL(url, 'attachment')}
                   alt={imagekitURL(url, 'attachment')}
                 />
               )}
               {isNew && !hideDelete && (
-                <div className="m-3">
+                <div
+                  className={clsx(ALLOWED_AUDIO_TYPES.includes(type) ? 'absolute -top-2.5 -left-2' : 'm-3')}
+                >
                   <button
                     type="button"
                     className="p-1.5 bg-gray-900 rounded-full opacity-75"
