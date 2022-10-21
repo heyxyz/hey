@@ -8,9 +8,9 @@ import { useSigner } from 'wagmi';
 
 const ENCODING = 'binary';
 
-const xmtpEnv = IS_MAINNET ? 'production' : 'dev';
+const XMTP_ENV = IS_MAINNET ? 'production' : 'dev';
 
-const buildLocalStorageKey = (walletAddress: string) => `xmtp:${xmtpEnv}:keys:${walletAddress}`;
+const buildLocalStorageKey = (walletAddress: string) => `xmtp:${XMTP_ENV}:keys:${walletAddress}`;
 
 const loadKeys = (walletAddress: string): Uint8Array | null => {
   const val = localStorage.getItem(buildLocalStorageKey(walletAddress));
@@ -46,7 +46,7 @@ const useXmtpClient = () => {
           storeKeys(await signer.getAddress(), keys);
         }
 
-        const xmtp = await Client.create(null, { env: xmtpEnv, privateKeyOverride: keys });
+        const xmtp = await Client.create(null, { env: XMTP_ENV, privateKeyOverride: keys });
         setClient(xmtp);
       }
     };
