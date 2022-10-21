@@ -141,13 +141,14 @@ const MessagesList: FC<MessageListProps> = ({
           >
             {messages?.map((msg: Message, index: number) => {
               const dateHasChanged = lastMessageDate ? !isOnSameDay(lastMessageDate, msg.sent) : false;
-              lastMessageDate = msg.sent;
-              return (
+              const messageDiv = (
                 <div key={`${msg.id}_${index}`}>
                   <MessageTile currentProfile={currentProfile} profile={profile} message={msg} />
-                  {dateHasChanged ? <DateDivider date={msg.sent} /> : null}
+                  {dateHasChanged ? <DateDivider date={lastMessageDate} /> : null}
                 </div>
               );
+              lastMessageDate = msg.sent;
+              return messageDiv;
             })}
           </InfiniteScroll>
         </div>
