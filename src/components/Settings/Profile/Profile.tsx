@@ -22,7 +22,7 @@ import getAttribute from '@lib/getAttribute';
 import getIPFSLink from '@lib/getIPFSLink';
 import getSignature from '@lib/getSignature';
 import hasPrideLogo from '@lib/hasPrideLogo';
-import imagekitURL from '@lib/imagekitURL';
+import imageProxy from '@lib/imageProxy';
 import { Leafwatch } from '@lib/leafwatch';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
@@ -31,7 +31,7 @@ import uploadToArweave from '@lib/uploadToArweave';
 import type { ChangeEvent, FC } from 'react';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import { APP_NAME, LENS_PERIPHERY, RELAY_ON, SIGN_WALLET, URL_REGEX } from 'src/constants';
+import { APP_NAME, COVER, LENS_PERIPHERY, RELAY_ON, SIGN_WALLET, URL_REGEX } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { SETTINGS } from 'src/tracking';
 import { v4 as uuid } from 'uuid';
@@ -264,7 +264,7 @@ const Profile: FC<Props> = ({ profile }) => {
               <div>
                 <img
                   className="object-cover w-full h-60 rounded-lg"
-                  src={imagekitURL(getIPFSLink(cover), 'cover')}
+                  src={imageProxy(getIPFSLink(cover), COVER)}
                   alt={cover}
                 />
               </div>
