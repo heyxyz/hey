@@ -103,13 +103,13 @@ const MessagePage: FC = () => {
     return <Custom404 />;
   }
   
- const { members } = parsed;
-
+  const { members } = parsed;
+  
   const profileId = members.find((member) => member !== currentProfileId);
   if (!profileId) {
     return <Custom404 />;
   }
-
+  
   return <Message conversationKey={joinedConversationKey} />;
 };
 
