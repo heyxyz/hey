@@ -74,7 +74,7 @@ const DateDividerBorder: FC<Props> = ({ children }) => (
 );
 
 const DateDivider: FC<{ date?: Date }> = ({ date }) => (
-  <div className="flex align-items-center items-center pb-8 pt-4">
+  <div className="flex align-items-center items-center p-4 pt-0 pl-2">
     <DateDividerBorder>
       <span className="mx-11 flex-none text-gray-300 text-sm font-bold">{formatDate(date)}</span>
     </DateDividerBorder>
@@ -122,7 +122,7 @@ const MessagesList: FC<MessageListProps> = ({
 
   return (
     <div className="flex-grow flex h-[75%]">
-      <div className="relative w-full h-full bg-white px-4 pt-6 flex">
+      <div className="relative w-full h-full bg-white pl-4 pt-6 flex">
         <div
           id="scrollableDiv"
           className="flex flex-col h-full overflow-y-auto w-full"

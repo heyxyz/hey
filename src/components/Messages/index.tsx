@@ -21,10 +21,6 @@ const Messages: FC = () => {
   const messageProfiles = useMessageStore((state) => state.messageProfiles);
   const setMessageProfiles = useMessageStore((state) => state.setMessageProfiles);
 
-  if (!isFeatureEnabled('messages', currentProfile?.id)) {
-    return <Custom404 />;
-  }
-
   const onProfileSelected = (profile: Profile) => {
     if (!currentProfile) {
       return;
@@ -35,6 +31,10 @@ const Messages: FC = () => {
     setMessageProfiles(new Map(messageProfiles));
     router.push(`/messages/${conversationKey}`);
   };
+
+  if (!isFeatureEnabled('messages', currentProfile?.id)) {
+    return <Custom404 />;
+  }
 
   return (
     <GridLayout>
