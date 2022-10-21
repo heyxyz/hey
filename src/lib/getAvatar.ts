@@ -1,8 +1,8 @@
-import { ZERO_ADDRESS } from 'src/constants';
+import { AVATAR, ZERO_ADDRESS } from 'src/constants';
 
 import getIPFSLink from './getIPFSLink';
 import getStampFyiURL from './getStampFyiURL';
-import imagekitURL from './imagekitURL';
+import imageProxy from './imageProxy';
 
 /**
  *
@@ -10,13 +10,13 @@ import imagekitURL from './imagekitURL';
  * @returns avatar image url
  */
 const getAvatar = (profile: any): string => {
-  return imagekitURL(
+  return imageProxy(
     getIPFSLink(
       profile?.picture?.original?.url ??
         profile?.picture?.uri ??
         getStampFyiURL(profile?.ownedBy ?? ZERO_ADDRESS)
     ),
-    'avatar'
+    AVATAR
   );
 };
 
