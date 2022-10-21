@@ -1,6 +1,7 @@
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { Client } from '@xmtp/xmtp-js';
 import { useCallback, useEffect } from 'react';
+import { IS_MAINNET } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
 import { useSigner } from 'wagmi';
@@ -43,7 +44,8 @@ const useXmtpClient = () => {
           storeKeys(await signer.getAddress(), keys);
         }
 
-        const xmtp = await Client.create(null, { privateKeyOverride: keys });
+        const env = IS_MAINNET ? 'production' : 'dev';
+        const xmtp = await Client.create(null, { env: env, privateKeyOverride: keys });
         setClient(xmtp);
       }
     };
