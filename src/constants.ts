@@ -47,7 +47,7 @@ export const STATIC_ASSETS = 'https://assets.lenster.xyz/images';
 export const POLYGONSCAN_URL = IS_MAINNET ? 'https://polygonscan.com' : 'https://mumbai.polygonscan.com';
 export const RARIBLE_URL = IS_MAINNET ? 'https://rarible.com' : 'https://rinkeby.rarible.com';
 export const ARWEAVE_GATEWAY = 'https://arweave.net';
-export const IMGPROXY_URL = 'https://cdn.lenster.io';
+export const IMGPROXY_URL = 'https://img.lenster.io';
 export const IPFS_GATEWAY = 'https://lens.infura-ipfs.io/ipfs/';
 
 // Web3
