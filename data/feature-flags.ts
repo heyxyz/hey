@@ -1,3 +1,4 @@
+import { aaveMembers } from './aave-members';
 import { lensterMembers } from './lenster-members';
 
 export const featureFlags = [
@@ -6,6 +7,7 @@ export const featureFlags = [
     name: 'Messages',
     enabledFor: [
       ...lensterMembers,
+      ...aaveMembers,
       '0x06', // wagmi.lens
       '0x2d', // sasicodes.lens
       '0xe248', // nick-molnar.lens
