@@ -1,9 +1,31 @@
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { Client } from '@xmtp/xmtp-js';
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
 import { useSigner } from 'wagmi';
+
+const ENCODING = 'binary';
+
+const buildLocalStorageKey = (walletAddress: string) => `xmtp:keys:${walletAddress}`;
+
+const loadKeys = (walletAddress: string): Uint8Array | null => {
+  const val = localStorage.getItem(buildLocalStorageKey(walletAddress));
+  return val ? Buffer.from(val, ENCODING) : null;
+};
+
+/**
+ * Anyone copying this code will want to be careful about leakage of sensitive keys.
+ * Make sure that there are no third party services, such as bug reporting SDKs or ad networks, exporting the contents
+ * of your LocalStorage before implementing something like this.
+ */
+const storeKeys = (walletAddress: string, keys: Uint8Array) => {
+  localStorage.setItem(buildLocalStorageKey(walletAddress), Buffer.from(keys).toString(ENCODING));
+};
+
+const wipeKeys = (walletAddress: string) => {
+  localStorage.removeItem(buildLocalStorageKey(walletAddress));
+};
 
 const useXmtpClient = () => {
   const { data: signer } = useSigner();
@@ -15,7 +37,13 @@ const useXmtpClient = () => {
   useEffect(() => {
     const initXmtpClient = async () => {
       if (signer && !client && currentProfile) {
-        const xmtp = await Client.create(signer);
+        let keys = loadKeys(await signer.getAddress());
+        if (!keys) {
+          keys = await Client.getKeys(signer);
+          storeKeys(await signer.getAddress(), keys);
+        }
+
+        const xmtp = await Client.create(null, { privateKeyOverride: keys });
         setClient(xmtp);
       }
     };
@@ -32,6 +60,23 @@ const useXmtpClient = () => {
   return {
     client: client
   };
+};
+
+export const useDisconnectXmtp = () => {
+  const { data: signer } = useSigner();
+  const client = useMessageStore((state) => state.client);
+  const setClient = useMessageStore((state) => state.setClient);
+  const disconnect = useCallback(async () => {
+    if (signer) {
+      wipeKeys(await signer.getAddress());
+    }
+    if (client) {
+      // eslint-disable-next-line unicorn/no-useless-undefined
+      setClient(undefined);
+    }
+  }, [signer, client]);
+
+  return disconnect;
 };
 
 export default useXmtpClient;
