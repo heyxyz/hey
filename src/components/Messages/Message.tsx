@@ -24,7 +24,6 @@ import PreviewList from './PreviewList';
 
 type MessageProps = {
   conversationKey: string;
-  profileId: string;
 };
 
 const Message: FC<MessageProps> = ({ conversationKey }) => {
