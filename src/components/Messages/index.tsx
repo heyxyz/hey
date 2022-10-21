@@ -6,12 +6,15 @@ import type { Profile } from '@generated/types';
 import buildConversationId from '@lib/buildConversationId';
 import { buildConversationKey } from '@lib/conversationKey';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
+import { Leafwatch } from '@lib/leafwatch';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
+import { useEffect } from 'react';
 import { APP_NAME } from 'src/constants';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
+import { PAGEVIEW } from 'src/tracking';
 
 import PreviewList from './PreviewList';
 
@@ -20,10 +23,6 @@ const Messages: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const messageProfiles = useMessageStore((state) => state.messageProfiles);
   const setMessageProfiles = useMessageStore((state) => state.setMessageProfiles);
-
-  if (!isFeatureEnabled('messages', currentProfile?.id)) {
-    return <Custom404 />;
-  }
 
   const onProfileSelected = (profile: Profile) => {
     if (!currentProfile) {
@@ -35,6 +34,14 @@ const Messages: FC = () => {
     setMessageProfiles(new Map(messageProfiles));
     router.push(`/messages/${conversationKey}`);
   };
+
+  useEffect(() => {
+    Leafwatch.track('Pageview', { path: PAGEVIEW.MESSAGES });
+  }, []);
+
+  if (!isFeatureEnabled('messages', currentProfile?.id)) {
+    return <Custom404 />;
+  }
 
   return (
     <GridLayout>

@@ -138,6 +138,8 @@ export const PAGEVIEW = {
   THANKS: 'Thanks page',
   PRIVACY: 'Privacy page',
   CONTACT: 'Contact page',
+  MESSAGES: 'Messages Home page',
+  MESSAGE: 'Message User page',
   CREATE_PROFILE: 'Create profile page',
   MOD: 'Mod page',
   ERROR_500: 'Error 500 page',

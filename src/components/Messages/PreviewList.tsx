@@ -13,7 +13,7 @@ import { useAppStore } from 'src/store/app';
 
 const PreviewList: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const { loading, messages, profiles, profilesError } = useMessagePreviews();
+  const { loading, messages, profiles, profilesError, profileToKey } = useMessagePreviews();
   const router = useRouter();
 
   if (!isFeatureEnabled('messages', currentProfile?.id)) {
@@ -27,8 +27,8 @@ const PreviewList: FC = () => {
   const showLoading = loading && (messages.size === 0 || profiles.size === 0);
 
   const sortedProfiles = Array.from(profiles).sort(([, a], [, b]) => {
-    const messageA = messages.get(a.ownedBy.toLowerCase());
-    const messageB = messages.get(b.ownedBy.toLowerCase());
+    const messageA = messages.get(profileToKey.get(a.id) ?? '');
+    const messageB = messages.get(profileToKey.get(b.id) ?? '');
     return (messageA?.sent?.getTime() || 0) >= (messageB?.sent?.getTime() || 0) ? -1 : 1;
   });
 

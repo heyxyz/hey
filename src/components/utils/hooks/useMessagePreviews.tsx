@@ -25,6 +25,8 @@ const useMessagePreviews = () => {
   const previewMessages = useMessageStore((state) => state.previewMessages);
   const setPreviewMessages = useMessageStore((state) => state.setPreviewMessages);
   const setPreviewMessage = useMessageStore((state) => state.setPreviewMessage);
+  const profileToKey = useMessageStore((state) => state.profileToKey);
+  const setProfileToKey = useMessageStore((state) => state.setProfileToKey);
   const [profileIds, setProfileIds] = useState<Set<string>>(new Set<string>());
   const [conversationStream, setConversationStream] = useState<Stream<Conversation>>();
   // TODO: Remove this and replace with streamAllMessages. Just need to make some changes in xmtp-js first
@@ -69,6 +71,7 @@ const useMessagePreviews = () => {
     setConversations(new Map());
     setMessageProfiles(new Map());
     setPreviewMessages(new Map());
+    setProfileToKey(new Map());
     setMessagesLoading(false);
   };
 
@@ -108,6 +111,7 @@ const useMessagePreviews = () => {
     const listConversations = async () => {
       setMessagesLoading(true);
       const newPreviewMessages = new Map(previewMessages);
+      const newProfileToKey = new Map(profileToKey);
       const newConversations = new Map(conversations);
       const newProfileIds = new Set(profileIds);
       const convos = await client.conversations.list();
@@ -128,12 +132,14 @@ const useMessagePreviews = () => {
         const profileId = getProfileFromKey(preview.key);
         if (profileId) {
           newProfileIds.add(profileId);
+          newProfileToKey.set(profileId, preview.key);
         }
         if (preview.message) {
           newPreviewMessages.set(preview.key, preview.message);
         }
       }
       setPreviewMessages(newPreviewMessages);
+      setProfileToKey(newProfileToKey);
       setConversations(newConversations);
       setMessagesLoading(false);
       if (newProfileIds.size > profileIds.size) {
@@ -198,7 +204,8 @@ const useMessagePreviews = () => {
     loading: messagesLoading || profilesLoading,
     messages: previewMessages,
     profiles: messageProfiles,
-    profilesError: profilesError
+    profilesError: profilesError,
+    profileToKey: profileToKey
   };
 };
 
