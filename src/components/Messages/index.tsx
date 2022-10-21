@@ -40,8 +40,8 @@ const Messages: FC = () => {
     <GridLayout>
       <MetaTags title={`Messages • ${APP_NAME}`} />
       <PreviewList />
-      <GridItemEight>
-        <Card className="h-[86vh]">
+      <GridItemEight className="sm:h-[76vh] md:h-[80vh] xl:h-[84vh] mb-0">
+        <Card className="h-full">
           <div className="w-full p-4">
             <Search
               placeholder="Search for a profile to message..."

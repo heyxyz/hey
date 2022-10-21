@@ -71,7 +71,7 @@ const Navbar: FC = () => {
         <>
           {staffMode && <StaffBar />}
           <div className="container px-5 mx-auto max-w-screen-xl">
-            <div className="flex relative justify-between items-center h-14 sm:h-16">
+            <div className="flex relative justify-between items-center sm:h-[10vh] md:h-[9vh] lg:h-[8vh] xl:h-[7vh]">
               <div className="flex justify-start items-center">
                 <Disclosure.Button className="inline-flex justify-center items-center mr-4 text-gray-500 rounded-md sm:hidden focus:outline-none">
                   <span className="sr-only">Open main menu</span>
