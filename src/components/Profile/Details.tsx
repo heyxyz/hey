@@ -12,6 +12,8 @@ import useStaffMode from '@components/utils/hooks/useStaffMode';
 import type { Profile } from '@generated/types';
 import { CogIcon, HashtagIcon, LocationMarkerIcon, UsersIcon } from '@heroicons/react/outline';
 import { BadgeCheckIcon } from '@heroicons/react/solid';
+import buildConversationId from '@lib/buildConversationId';
+import { buildConversationKey } from '@lib/conversationKey';
 import formatAddress from '@lib/formatAddress';
 import getAttribute from '@lib/getAttribute';
 import getAvatar from '@lib/getAvatar';
@@ -19,11 +21,13 @@ import isFeatureEnabled from '@lib/isFeatureEnabled';
 import isStaff from '@lib/isStaff';
 import isVerified from '@lib/isVerified';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useTheme } from 'next-themes';
 import type { FC, ReactElement } from 'react';
 import { useState } from 'react';
 import { STATIC_ASSETS } from 'src/constants';
 import { useAppStore } from 'src/store/app';
+import { useMessageStore } from 'src/store/message';
 
 import Badges from './Badges';
 import Followerings from './Followerings';
@@ -40,6 +44,20 @@ const Details: FC<Props> = ({ profile }) => {
   const [showMutualFollowersModal, setShowMutualFollowersModal] = useState(false);
   const { allowed: staffMode } = useStaffMode();
   const { resolvedTheme } = useTheme();
+  const router = useRouter();
+  const messageProfiles = useMessageStore((state) => state.messageProfiles);
+  const setMessageProfiles = useMessageStore((state) => state.setMessageProfiles);
+
+  const onMessageClick = async () => {
+    if (!currentProfile) {
+      return;
+    }
+    const conversationId = buildConversationId(currentProfile.id, profile.id);
+    const conversationKey = buildConversationKey(profile.ownedBy, conversationId);
+    messageProfiles.set(conversationKey, profile);
+    setMessageProfiles(new Map(messageProfiles));
+    router.push(`/messages/${conversationKey}`);
+  };
 
   const MetaDetails = ({ children, icon }: { children: ReactElement; icon: ReactElement }) => (
     <div className="flex gap-2 items-center">
@@ -97,17 +115,17 @@ const Details: FC<Props> = ({ profile }) => {
                 {followType === 'FeeFollowModuleSettings' && (
                   <SuperFollow profile={profile} setFollowing={setFollowing} again />
                 )}
-                {isFeatureEnabled('messages', currentProfile?.id) && <Message profile={profile} />}
+                {isFeatureEnabled('messages', currentProfile?.id) && <Message onClick={onMessageClick} />}
               </div>
             ) : followType === 'FeeFollowModuleSettings' ? (
               <div className="flex space-x-2">
                 <SuperFollow profile={profile} setFollowing={setFollowing} showText />
-                {isFeatureEnabled('messages', currentProfile?.id) && <Message profile={profile} />}
+                {isFeatureEnabled('messages', currentProfile?.id) && <Message onClick={onMessageClick} />}
               </div>
             ) : (
               <div className="flex space-x-2">
                 <Follow profile={profile} setFollowing={setFollowing} showText />
-                {isFeatureEnabled('messages', currentProfile?.id) && <Message profile={profile} />}
+                {isFeatureEnabled('messages', currentProfile?.id) && <Message onClick={onMessageClick} />}
               </div>
             )
           ) : null}
