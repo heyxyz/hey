@@ -6,12 +6,13 @@ import { SearchProfilesDocument, SearchRequestTypes } from '@generated/types';
 import { BadgeCheckIcon } from '@heroicons/react/solid';
 import getIPFSLink from '@lib/getIPFSLink';
 import getStampFyiURL from '@lib/getStampFyiURL';
-import imagekitURL from '@lib/imagekitURL';
+import imageProxy from '@lib/imageProxy';
 import isVerified from '@lib/isVerified';
 import clsx from 'clsx';
 import type { Dispatch, FC } from 'react';
 import { useEffect, useRef } from 'react';
 import { Mention, MentionsInput } from 'react-mentions';
+import { AVATAR } from 'src/constants';
 import { usePublicationStore } from 'src/store/publication';
 
 interface UserProps {
@@ -27,7 +28,7 @@ const User: FC<UserProps> = ({ suggestion, focused }) => (
       className="w-7 h-7 rounded-full"
       height={32}
       width={32}
-      src={imagekitURL(getIPFSLink(suggestion.picture), 'avatar')}
+      src={imageProxy(getIPFSLink(suggestion.picture), AVATAR)}
       alt={suggestion.id}
     />
     <div className="flex flex-col truncate">

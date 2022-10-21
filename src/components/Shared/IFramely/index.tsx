@@ -1,7 +1,8 @@
-import imagekitURL from '@lib/imagekitURL';
+import imageProxy from '@lib/imageProxy';
 import axios from 'axios';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
+import { ATTACHMENT } from 'src/constants';
 
 import Embed from './Embed';
 import Player from './Player';
@@ -50,7 +51,7 @@ const IFramely: FC<Props> = ({ url }) => {
     site: data?.meta?.site,
     url: data?.url,
     favicon: `https://www.google.com/s2/favicons?domain=${url}`,
-    thumbnail: data?.links?.thumbnail && imagekitURL(data?.links?.thumbnail[0]?.href, 'attachment'),
+    thumbnail: data?.links?.thumbnail && imageProxy(data?.links?.thumbnail[0]?.href, ATTACHMENT),
     isSquare:
       data?.links?.thumbnail &&
       data?.links?.thumbnail[0]?.media?.width === data?.links?.thumbnail[0]?.media?.height,
