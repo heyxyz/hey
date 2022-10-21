@@ -16,8 +16,6 @@ interface MessageState {
   previewMessages: Map<string, Message>;
   setPreviewMessage: (key: string, message: Message) => void;
   setPreviewMessages: (previewMessages: Map<string, Message>) => void;
-  profileToKey: Map<string, string>;
-  setProfileToKey: (profileToKey: Map<string, string>) => void;
 }
 
 export const useMessageStore = create<MessageState>((set) => ({
@@ -52,7 +50,5 @@ export const useMessageStore = create<MessageState>((set) => ({
       newPreviewMessages.set(key, message);
       return { previewMessages: newPreviewMessages };
     }),
-  setPreviewMessages: (previewMessages) => set(() => ({ previewMessages })),
-  profileToKey: new Map(),
-  setProfileToKey: (profileToKey) => set(() => ({ profileToKey }))
+  setPreviewMessages: (previewMessages) => set(() => ({ previewMessages }))
 }));

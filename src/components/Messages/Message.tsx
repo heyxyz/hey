@@ -9,17 +9,14 @@ import useStreamMessages from '@components/utils/hooks/useStreamMessages';
 import MetaTags from '@components/utils/MetaTags';
 import { parseConversationKey } from '@lib/conversationKey';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
-import { Leafwatch } from '@lib/leafwatch';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
-import { useEffect } from 'react';
 import { useCallback } from 'react';
 import { useState } from 'react';
 import { APP_NAME } from 'src/constants';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
-import { PAGEVIEW } from 'src/tracking';
 
 import Composer from './Composer';
 import MessagesList from './MessagesList';
@@ -56,13 +53,6 @@ const Message: FC<MessageProps> = ({ conversationKey }) => {
   }, [conversationKey, hasMore, messages, endTime]);
 
   const showLoading = !missingXmtpAuth && (!profile || !currentProfile || !selectedConversation);
-
-  useEffect(() => {
-    if (profile) {
-      Leafwatch.track('Pageview', { path: PAGEVIEW.MESSAGE });
-      Leafwatch.track(`Conversation with ${profile.ownedBy}`);
-    }
-  }, [profile]);
 
   if (!isFeatureEnabled('messages', currentProfile?.id)) {
     return <Custom404 />;
