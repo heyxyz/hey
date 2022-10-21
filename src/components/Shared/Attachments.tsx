@@ -4,12 +4,12 @@ import type { LensterAttachment, LensterPublication } from '@generated/lensterty
 import type { MediaSet } from '@generated/types';
 import { ExternalLinkIcon, XIcon } from '@heroicons/react/outline';
 import getIPFSLink from '@lib/getIPFSLink';
-import imagekitURL from '@lib/imagekitURL';
+import imageProxy from '@lib/imageProxy';
 import { Leafwatch } from '@lib/leafwatch';
 import clsx from 'clsx';
 import type { FC } from 'react';
 import { useState } from 'react';
-import { ALLOWED_AUDIO_TYPES } from 'src/constants';
+import { ALLOWED_AUDIO_TYPES, ATTACHMENT } from 'src/constants';
 import { PUBLICATION } from 'src/tracking';
 
 import Audio from './Audio';
@@ -117,8 +117,8 @@ const Attachments: FC<Props> = ({
                     setExpandedImage(url);
                     Leafwatch.track(PUBLICATION.ATTACHEMENT.IMAGE.OPEN);
                   }}
-                  src={imagekitURL(url, 'attachment')}
-                  alt={imagekitURL(url, 'attachment')}
+                  src={imageProxy(url, ATTACHMENT)}
+                  alt={imageProxy(url, ATTACHMENT)}
                 />
               )}
               {isNew && !hideDelete && (

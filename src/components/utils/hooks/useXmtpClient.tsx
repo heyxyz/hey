@@ -74,6 +74,7 @@ export const useDisconnectXmtp = () => {
       // eslint-disable-next-line unicorn/no-useless-undefined
       setClient(undefined);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [signer, client]);
 
   return disconnect;

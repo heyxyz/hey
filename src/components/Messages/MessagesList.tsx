@@ -133,7 +133,7 @@ const MessagesList: FC<MessageListProps> = ({
             dataLength={messages.length}
             next={fetchNextMessages}
             style={{ display: 'flex', flexDirection: 'column-reverse' }}
-            inverse={true}
+            inverse
             endMessage={<ConversationBeginningNotice />}
             hasMore={hasMore}
             loader={<LoadingMore />}
