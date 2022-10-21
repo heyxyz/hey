@@ -45,7 +45,7 @@ const Messages: FC = () => {
           <div className="w-full p-4">
             <Search
               placeholder="Search for a profile to message..."
-              isParentMessage={true}
+              isParentMessage
               onProfileSelected={onProfileSelected}
             />
           </div>
