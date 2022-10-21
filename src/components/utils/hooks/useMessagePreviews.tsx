@@ -49,7 +49,7 @@ const useMessagePreviews = () => {
       request: request
     },
     skip: !currentProfile?.id || profileIds.size === 0,
-    onCompleted: async (data) => {
+    onCompleted: (data) => {
       if (!data?.profiles?.items.length) {
         return;
       }

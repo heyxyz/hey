@@ -41,7 +41,7 @@ const PreviewList: FC = () => {
       <Card className="h-[86vh]">
         <div className="flex justify-between items-center p-5 border-b">
           <div className="font-bold">Messages</div>
-          <button onClick={newMessageClick}>
+          <button onClick={newMessageClick} type="button">
             <PlusCircleIcon className="h-6 w-6" />
           </button>
         </div>
