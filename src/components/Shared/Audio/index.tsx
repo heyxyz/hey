@@ -55,7 +55,7 @@ const Audio: FC<Props> = ({ src, isNew = false, publication, txn }) => {
   };
 
   return (
-    <div className="border p-4 md:p-0 bg-brand-500 overflow-hidden border-gray-200 dark:border-gray-800 rounded-xl">
+    <div className="border px-4 pt-4 md:p-0 bg-brand-500 overflow-hidden border-gray-200 dark:border-gray-800 rounded-xl">
       <div className="flex flex-wrap md:flex-nowrap md:space-x-2">
         <CoverImage
           isNew={isNew && !txn}
