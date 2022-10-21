@@ -1,4 +1,5 @@
 import useStaffMode from '@components/utils/hooks/useStaffMode';
+import { useDisconnectXmtp } from '@components/utils/hooks/useXmtpClient';
 import type { Profile } from '@generated/types';
 import { Menu, Transition } from '@headlessui/react';
 import {
@@ -38,6 +39,7 @@ const SignedUser: FC = () => {
   const { allowed: staffMode } = useStaffMode();
   const { theme, setTheme } = useTheme();
   const { disconnect } = useDisconnect();
+  const disconnectXmtp = useDisconnectXmtp();
 
   const toggleStaffMode = () => {
     setStaffMode(!staffMode);
@@ -123,6 +125,7 @@ const SignedUser: FC = () => {
                 as="a"
                 onClick={() => {
                   Leafwatch.track(PROFILE.LOGOUT);
+                  disconnectXmtp();
                   setCurrentProfile(null);
                   setProfileId(null);
                   resetAuthData();
