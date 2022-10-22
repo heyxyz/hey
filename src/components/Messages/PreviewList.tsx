@@ -37,8 +37,8 @@ const PreviewList: FC = () => {
   };
 
   return (
-    <GridItemFour>
-      <Card className="h-[86vh]">
+    <GridItemFour className="sm:h-[76vh] md:h-[80vh] xl:h-[84vh]  ">
+      <Card className="h-full">
         <div className="flex justify-between items-center p-5 border-b">
           <div className="font-bold">Messages</div>
           <button onClick={newMessageClick} type="button">
