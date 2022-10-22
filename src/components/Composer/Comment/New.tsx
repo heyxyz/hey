@@ -229,6 +229,13 @@ const NewComment: FC<Props> = ({ publication }) => {
     }
   };
 
+  const getAnimationUrl = () => {
+    if (attachments.length > 0 && (isAudioComment || attachments[0]?.type === 'video/mp4')) {
+      return attachments[0]?.item;
+    }
+    return null;
+  };
+
   const createComment = async () => {
     if (!currentProfile) {
       return toast.error(SIGN_WALLET);
@@ -250,7 +257,13 @@ const NewComment: FC<Props> = ({ publication }) => {
     setCommentContentError('');
     setIsUploading(true);
 
-    const attributes = [];
+    const attributes = [
+      {
+        traitType: 'type',
+        displayType: 'string',
+        value: getMainContentFocus()?.toLowerCase()
+      }
+    ];
     if (isAudioComment) {
       attributes.push({
         traitType: 'author',
@@ -274,6 +287,7 @@ const NewComment: FC<Props> = ({ publication }) => {
           : null,
       name: isAudioComment ? audioPublication.title : `Comment by @${currentProfile?.handle}`,
       tags: getTags(publicationContent),
+      animation_url: getAnimationUrl(),
       mainContentFocus: getMainContentFocus(),
       contentWarning: null,
       attributes,
