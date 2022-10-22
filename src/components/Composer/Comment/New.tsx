@@ -257,7 +257,13 @@ const NewComment: FC<Props> = ({ publication }) => {
     setCommentContentError('');
     setIsUploading(true);
 
-    const attributes = [];
+    const attributes = [
+      {
+        traitType: 'type',
+        displayType: 'string',
+        value: getMainContentFocus()?.toLowerCase()
+      }
+    ];
     if (isAudioComment) {
       attributes.push({
         traitType: 'author',

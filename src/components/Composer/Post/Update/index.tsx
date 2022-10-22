@@ -251,7 +251,7 @@ const NewUpdate: FC = () => {
       {
         traitType: 'type',
         displayType: 'string',
-        value: 'post'
+        value: getMainContentFocus()?.toLowerCase()
       }
     ];
     if (isAudioPost) {
