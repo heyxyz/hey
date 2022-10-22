@@ -229,6 +229,13 @@ const NewComment: FC<Props> = ({ publication }) => {
     }
   };
 
+  const getAnimationUrl = () => {
+    if (attachments.length > 0 && (isAudioComment || attachments[0]?.type === 'video/mp4')) {
+      return attachments[0]?.item;
+    }
+    return null;
+  };
+
   const createComment = async () => {
     if (!currentProfile) {
       return toast.error(SIGN_WALLET);
@@ -274,7 +281,7 @@ const NewComment: FC<Props> = ({ publication }) => {
           : null,
       name: isAudioComment ? audioPublication.title : `Comment by @${currentProfile?.handle}`,
       tags: getTags(publicationContent),
-      animation_url: isAudioComment ? attachments[0]?.item : null,
+      animation_url: getAnimationUrl(),
       mainContentFocus: getMainContentFocus(),
       contentWarning: null,
       attributes,

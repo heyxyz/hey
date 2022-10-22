@@ -220,6 +220,13 @@ const NewUpdate: FC = () => {
     }
   };
 
+  const getAnimationUrl = () => {
+    if (attachments.length > 0 && (isAudioPost || attachments[0]?.type === 'video/mp4')) {
+      return attachments[0]?.item;
+    }
+    return null;
+  };
+
   const createPost = async () => {
     if (!currentProfile) {
       return toast.error(SIGN_WALLET);
@@ -265,7 +272,7 @@ const NewUpdate: FC = () => {
         attachments.length > 0 ? (isAudioPost ? audioPublication.coverMimeType : attachments[0]?.type) : null,
       name: isAudioPost ? audioPublication.title : `Post by @${currentProfile?.handle}`,
       tags: getTags(publicationContent),
-      animation_url: isAudioPost ? attachments[0]?.item : null,
+      animation_url: getAnimationUrl(),
       mainContentFocus: getMainContentFocus(),
       contentWarning: null, // TODO
       attributes,
