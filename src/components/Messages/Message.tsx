@@ -24,7 +24,6 @@ import PreviewList from './PreviewList';
 
 type MessageProps = {
   conversationKey: string;
-  profileId: string;
 };
 
 const Message: FC<MessageProps> = ({ conversationKey }) => {
@@ -111,7 +110,7 @@ const MessagePage: FC = () => {
     return <Custom404 />;
   }
 
-  return <Message conversationKey={joinedConversationKey} profileId={profileId} />;
+  return <Message conversationKey={joinedConversationKey} />;
 };
 
 export default MessagePage;
