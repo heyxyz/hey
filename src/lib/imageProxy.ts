@@ -2,9 +2,9 @@ import { IMGPROXY_URL } from 'src/constants';
 
 /**
  *
- * @param url - URL to be converted to ImageKit URL
+ * @param url - URL to be converted to imgproxy URL
  * @param name - Transformation name
- * @returns ImageKit URL
+ * @returns imgproxy URL
  */
 const imageProxy = (url: string, size?: string): string => {
   return size
