@@ -24,7 +24,6 @@ import PreviewList from './PreviewList';
 
 type MessageProps = {
   conversationKey: string;
-  profileId: string;
 };
 
 const Message: FC<MessageProps> = ({ conversationKey }) => {
@@ -62,8 +61,8 @@ const Message: FC<MessageProps> = ({ conversationKey }) => {
     <GridLayout>
       <MetaTags title={`Message • ${APP_NAME}`} />
       <PreviewList />
-      <GridItemEight>
-        <Card className="h-[86vh] flex justify-between flex-col">
+      <GridItemEight className="sm:h-[76vh] md:h-[80vh] xl:h-[84vh] mb-0">
+        <Card className="h-full flex justify-between flex-col">
           {showLoading ? (
             <PageLoading message="Loading messages" />
           ) : (
@@ -111,7 +110,7 @@ const MessagePage: FC = () => {
     return <Custom404 />;
   }
 
-  return <Message conversationKey={joinedConversationKey} profileId={profileId} />;
+  return <Message conversationKey={joinedConversationKey} />;
 };
 
 export default MessagePage;

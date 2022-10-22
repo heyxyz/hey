@@ -16,6 +16,8 @@ const MetaTags: FC<Props> = ({ title = APP_NAME, description = DESCRIPTION }) =>
 
       <link rel="preconnect" href="https://ik.imagekit.io" />
       <link rel="dns-prefetch" href="https://ik.imagekit.io" />
+      <link rel="preconnect" href="https://img.lenster.io" />
+      <link rel="dns-prefetch" href="https://img.lenster.io" />
       <link rel="preconnect" href="https://assets.lenster.xyz" />
       <link rel="dns-prefetch" href="https://assets.lenster.xyz" />
 
