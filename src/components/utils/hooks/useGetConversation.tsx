@@ -2,6 +2,7 @@ import type { Profile } from '@generated/types';
 import { parseConversationKey } from '@lib/conversationKey';
 import { Client } from '@xmtp/xmtp-js';
 import { useEffect, useState } from 'react';
+import { XMTP_ENV } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
 
@@ -28,7 +29,7 @@ const useGetConversation = (conversationKey: string, profile?: Profile) => {
     }
     const createNewConversation = async () => {
       const conversationId = parseConversationKey(conversationKey)?.conversationId;
-      const canMessage = await Client.canMessage(profile.ownedBy);
+      const canMessage = await Client.canMessage(profile.ownedBy, { env: XMTP_ENV });
       setMissingXmtpAuth(!canMessage);
 
       if (!canMessage || !conversationId) {

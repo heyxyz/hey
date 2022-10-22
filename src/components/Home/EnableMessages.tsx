@@ -6,6 +6,7 @@ import clsx from 'clsx';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
+import { XMTP_ENV } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 
 const EnableMessages: FC = () => {
@@ -21,7 +22,7 @@ const EnableMessages: FC = () => {
   useEffect(() => {
     const fetchCanMessage = async () => {
       setLoading(true);
-      const isMessagesEnabled = await Client.canMessage(currentProfile?.ownedBy);
+      const isMessagesEnabled = await Client.canMessage(currentProfile?.ownedBy, { env: XMTP_ENV });
       setCanMessage(isMessagesEnabled);
       setLoading(false);
     };
