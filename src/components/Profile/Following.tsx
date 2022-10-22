@@ -13,9 +13,10 @@ import { SCROLL_THRESHOLD } from 'src/constants';
 
 interface Props {
   profile: Profile;
+  onProfileSelected?: (profile: Profile) => void;
 }
 
-const Following: FC<Props> = ({ profile }) => {
+const Following: FC<Props> = ({ profile, onProfileSelected }) => {
   // Variables
   const request = { address: profile?.ownedBy, limit: 10 };
 
@@ -68,9 +69,20 @@ const Following: FC<Props> = ({ profile }) => {
       >
         <div className="divide-y dark:divide-gray-700">
           {followings?.map((following) => (
-            <div className="p-5" key={following?.profile?.id}>
+            <div
+              className={`p-5 ${onProfileSelected && 'hover:bg-gray-100 cursor-pointer'}`}
+              key={following?.profile?.id}
+              onClick={
+                onProfileSelected && following.profile
+                  ? () => {
+                      onProfileSelected(following.profile as Profile);
+                    }
+                  : undefined
+              }
+            >
               <UserProfile
                 profile={following?.profile as Profile}
+                linkToProfile={!onProfileSelected}
                 showBio
                 showFollow
                 isFollowing={following?.profile?.isFollowedByMe}
