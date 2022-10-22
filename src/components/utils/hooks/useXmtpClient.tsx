@@ -1,14 +1,12 @@
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { Client } from '@xmtp/xmtp-js';
 import { useCallback, useEffect } from 'react';
-import { IS_MAINNET } from 'src/constants';
+import { XMTP_ENV } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
 import { useSigner } from 'wagmi';
 
 const ENCODING = 'binary';
-
-const XMTP_ENV = IS_MAINNET ? 'production' : 'dev';
 
 const buildLocalStorageKey = (walletAddress: string) => `xmtp:${XMTP_ENV}:keys:${walletAddress}`;
 
