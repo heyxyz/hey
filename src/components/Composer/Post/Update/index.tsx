@@ -265,6 +265,7 @@ const NewUpdate: FC = () => {
         attachments.length > 0 ? (isAudioPost ? audioPublication.coverMimeType : attachments[0]?.type) : null,
       name: isAudioPost ? audioPublication.title : `Post by @${currentProfile?.handle}`,
       tags: getTags(publicationContent),
+      animation_url: isAudioPost ? attachments[0]?.item : null,
       mainContentFocus: getMainContentFocus(),
       contentWarning: null, // TODO
       attributes,

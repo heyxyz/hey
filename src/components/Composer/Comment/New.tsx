@@ -274,6 +274,7 @@ const NewComment: FC<Props> = ({ publication }) => {
           : null,
       name: isAudioComment ? audioPublication.title : `Comment by @${currentProfile?.handle}`,
       tags: getTags(publicationContent),
+      animation_url: isAudioComment ? attachments[0]?.item : null,
       mainContentFocus: getMainContentFocus(),
       contentWarning: null,
       attributes,
