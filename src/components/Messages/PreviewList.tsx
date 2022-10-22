@@ -8,7 +8,7 @@ import { PageLoading } from '@components/UI/PageLoading';
 import useMessagePreviews from '@components/utils/hooks/useMessagePreviews';
 import type { Profile } from '@generated/types';
 import { PlusCircleIcon } from '@heroicons/react/outline';
-import { MailIcon } from '@heroicons/react/solid';
+import { MailIcon } from '@heroicons/react/outline';
 import buildConversationId from '@lib/buildConversationId';
 import { buildConversationKey } from '@lib/conversationKey';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
