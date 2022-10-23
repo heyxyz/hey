@@ -35,21 +35,40 @@ const EventType: FC<Props> = ({ feedItem, showType, showThread = false }) => {
     return null;
   }
 
-  return canCombined ? (
+  // return canCombined ? (
+  //   <>
+  //     <Combined feedItem={feedItem} />
+  //     {(isComment || commentsCount > 0) && showThread && <Commented feedItem={feedItem} />}
+  //   </>
+  // ) : (
+  //   <>
+  //     {feedItem.mirrors.length && !isComment ? <Mirrored mirrors={feedItem.mirrors} /> : null}
+  //     {(isComment || commentsCount > 0) && showThread && <Commented feedItem={feedItem} />}
+  //     {feedItem.collects.length && !isComment ? (
+  //       <Collected isComment={isComment} collects={feedItem.collects} />
+  //     ) : null}
+  //     {feedItem.reactions.length && !isComment ? (
+  //       <Reacted isComment={isComment} reactions={feedItem.reactions} />
+  //     ) : null}
+  //   </>
+  // );
+
+  return (
     <>
-      <Combined feedItem={feedItem} />
+      {canCombined ? (
+        <Combined feedItem={feedItem} />
+      ) : (
+        <>
+          {feedItem.mirrors.length && !isComment ? <Mirrored mirrors={feedItem.mirrors} /> : null}
+          {feedItem.collects.length && !isComment ? (
+            <Collected isComment={isComment} collects={feedItem.collects} />
+          ) : null}
+          {feedItem.reactions.length && !isComment ? (
+            <Reacted isComment={isComment} reactions={feedItem.reactions} />
+          ) : null}
+        </>
+      )}
       {(isComment || commentsCount > 0) && showThread && <Commented feedItem={feedItem} />}
-    </>
-  ) : (
-    <>
-      {feedItem.mirrors.length && !isComment ? <Mirrored mirrors={feedItem.mirrors} /> : null}
-      {(isComment || commentsCount > 0) && showThread && <Commented feedItem={feedItem} />}
-      {feedItem.collects.length && !isComment ? (
-        <Collected isComment={isComment} collects={feedItem.collects} />
-      ) : null}
-      {feedItem.reactions.length && !isComment ? (
-        <Reacted isComment={isComment} reactions={feedItem.reactions} />
-      ) : null}
     </>
   );
 };
