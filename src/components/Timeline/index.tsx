@@ -10,7 +10,6 @@ import { FeedEventItemType } from '@generated/types';
 import { TimelineDocument } from '@generated/types';
 import { CollectionIcon } from '@heroicons/react/outline';
 import type { FC } from 'react';
-import { useEffect } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { SCROLL_THRESHOLD } from 'src/constants';
 import { useAppStore } from 'src/store/app';
@@ -46,16 +45,9 @@ const Timeline: FC = () => {
   const reactionRequest = currentProfile ? { profileId: currentProfile?.id } : null;
   const profileId = currentProfile?.id ?? null;
 
-  const { data, loading, error, fetchMore, refetch } = useQuery(TimelineDocument, {
+  const { data, loading, error, fetchMore } = useQuery(TimelineDocument, {
     variables: { request, reactionRequest, profileId }
   });
-
-  useEffect(() => {
-    if (!loading) {
-      refetch();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [feedEventFilters]);
 
   const publications = data?.feed?.items;
   const pageInfo = data?.feed?.pageInfo;
