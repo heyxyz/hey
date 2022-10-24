@@ -38,7 +38,8 @@ export const featureFlags = [
     enabledFor: [
       ...lensterMembers,
       '0x2d', // sasicodes.lens
-      '0x06' // wagmi.lens
+      '0x06', // wagmi.lens
+      '0x05' // stani.lens
     ]
   }
 ];
