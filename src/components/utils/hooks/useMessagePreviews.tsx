@@ -9,22 +9,26 @@ import isFeatureEnabled from '@lib/isFeatureEnabled';
 import type { Conversation, Message, Stream } from '@xmtp/xmtp-js';
 import { SortDirection } from '@xmtp/xmtp-js';
 import type { MessageV2 } from '@xmtp/xmtp-js/dist/types/src/Message';
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
 
 const useMessagePreviews = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const router = useRouter();
   const { client } = useXmtpClient();
   const isMessagesEnabled = isFeatureEnabled('messages', currentProfile?.id);
-
   const conversations = useMessageStore((state) => state.conversations);
   const setConversations = useMessageStore((state) => state.setConversations);
   const messageProfiles = useMessageStore((state) => state.messageProfiles);
   const setMessageProfiles = useMessageStore((state) => state.setMessageProfiles);
   const previewMessages = useMessageStore((state) => state.previewMessages);
   const setPreviewMessages = useMessageStore((state) => state.setPreviewMessages);
+  const selectedProfile = useMessageStore((state) => state.selectedProfile);
+  const setSelectedProfile = useMessageStore((state) => state.setSelectedProfile);
   const setPreviewMessage = useMessageStore((state) => state.setPreviewMessage);
+  const reset = useMessageStore((state) => state.reset);
   const [profileIds, setProfileIds] = useState<Set<string>>(new Set<string>());
   const [conversationStream, setConversationStream] = useState<Stream<Conversation>>();
   // TODO: Remove this and replace with streamAllMessages. Just need to make some changes in xmtp-js first
@@ -64,13 +68,6 @@ const useMessagePreviews = () => {
       // are not respected when querying by profileIds.
     }
   });
-
-  const reset = () => {
-    setConversations(new Map());
-    setMessageProfiles(new Map());
-    setPreviewMessages(new Map());
-    setMessagesLoading(false);
-  };
 
   useEffect(() => {
     if (!isMessagesEnabled || !client || !currentProfile) {
@@ -185,11 +182,13 @@ const useMessagePreviews = () => {
       closeMessageStreams();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [client, currentProfile?.id]);
+  }, [client, currentProfile?.id, selectedProfile]);
 
   useEffect(() => {
-    if (!currentProfile) {
+    if (currentProfile?.id !== selectedProfile) {
       reset();
+      setSelectedProfile(currentProfile?.id);
+      router.push('/messages');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentProfile]);
