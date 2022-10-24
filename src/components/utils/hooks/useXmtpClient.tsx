@@ -1,6 +1,6 @@
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { Client } from '@xmtp/xmtp-js';
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { XMTP_ENV } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
@@ -29,15 +29,17 @@ const wipeKeys = (walletAddress: string) => {
 };
 
 const useXmtpClient = () => {
-  const { data: signer } = useSigner();
+  const { data: signer, isLoading } = useSigner();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const client = useMessageStore((state) => state.client);
   const setClient = useMessageStore((state) => state.setClient);
+  const [awaitingXmtpAuth, setAwaitingXmtpAuth] = useState<boolean>();
   const isMessagesEnabled = isFeatureEnabled('messages', currentProfile?.id);
 
   useEffect(() => {
     const initXmtpClient = async () => {
       if (signer && !client && currentProfile) {
+        setAwaitingXmtpAuth(true);
         let keys = loadKeys(await signer.getAddress());
         if (!keys) {
           keys = await Client.getKeys(signer);
@@ -46,6 +48,9 @@ const useXmtpClient = () => {
 
         const xmtp = await Client.create(null, { env: XMTP_ENV, privateKeyOverride: keys });
         setClient(xmtp);
+        setAwaitingXmtpAuth(false);
+      } else {
+        setAwaitingXmtpAuth(false);
       }
     };
     if (isMessagesEnabled) {
@@ -59,7 +64,8 @@ const useXmtpClient = () => {
   }, [signer, currentProfile]);
 
   return {
-    client: client
+    client: client,
+    loading: isLoading || awaitingXmtpAuth
   };
 };
 

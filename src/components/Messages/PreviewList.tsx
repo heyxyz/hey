@@ -2,13 +2,13 @@ import Preview from '@components/Messages/Preview';
 import Following from '@components/Profile/Following';
 import Search from '@components/Shared/Navbar/Search';
 import { Card } from '@components/UI/Card';
+import { EmptyState } from '@components/UI/EmptyState';
 import { GridItemFour } from '@components/UI/GridLayout';
 import { Modal } from '@components/UI/Modal';
 import { PageLoading } from '@components/UI/PageLoading';
 import useMessagePreviews from '@components/utils/hooks/useMessagePreviews';
 import type { Profile } from '@generated/types';
-import { PlusCircleIcon } from '@heroicons/react/outline';
-import { MailIcon } from '@heroicons/react/outline';
+import { MailIcon, PlusCircleIcon } from '@heroicons/react/outline';
 import buildConversationId from '@lib/buildConversationId';
 import { buildConversationKey } from '@lib/conversationKey';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
@@ -22,7 +22,7 @@ import { useMessageStore } from 'src/store/message';
 
 const PreviewList: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const { loading, messages, profiles, profilesError } = useMessagePreviews();
+  const { authenticating, loading, messages, profiles, profilesError } = useMessagePreviews();
   const router = useRouter();
   const [showSearchModal, setShowSearchModal] = useState(false);
   const messageProfiles = useMessageStore((state) => state.messageProfiles);
@@ -32,13 +32,11 @@ const PreviewList: FC = () => {
     return <Custom404 />;
   }
 
-  if (!currentProfile) {
-    return <Custom404 />;
-  }
-
   if (profilesError) {
     return <Custom500 />;
   }
+
+  const showAuthenticating = currentProfile && authenticating;
 
   const showLoading = loading && (messages.size === 0 || profiles.size === 0);
 
@@ -53,6 +51,9 @@ const PreviewList: FC = () => {
   };
 
   const onProfileSelected = (profile: Profile) => {
+    if (!currentProfile) {
+      return;
+    }
     const conversationId = buildConversationId(currentProfile.id, profile.id);
     const conversationKey = buildConversationKey(profile.ownedBy, conversationId);
     messageProfiles.set(conversationKey, profile);
@@ -62,17 +63,33 @@ const PreviewList: FC = () => {
   };
 
   return (
-    <GridItemFour className="sm:h-[76vh] md:h-[80vh] xl:h-[84vh]  ">
+    <GridItemFour className="sm:h-[76vh] md:h-[80vh] xl:h-[84vh]">
       <Card className="h-full">
         <div className="flex justify-between items-center p-5 border-b">
           <div className="font-bold">Messages</div>
-          <button onClick={newMessageClick} type="button">
-            <PlusCircleIcon className="h-6 w-6" />
-          </button>
+          {!showAuthenticating && !showLoading && (
+            <button onClick={newMessageClick} type="button">
+              <PlusCircleIcon className="h-6 w-6" />
+            </button>
+          )}
         </div>
         <div className="mt-2">
-          {showLoading ? (
-            <PageLoading message="Loading conversations" />
+          {showAuthenticating ? (
+            <div className="mt-8">
+              <PageLoading message="Awaiting signature to enable DMs" />
+            </div>
+          ) : showLoading ? (
+            <div className="mt-8">
+              <PageLoading message="Loading conversations" />
+            </div>
+          ) : sortedProfiles.length === 0 ? (
+            <button className="w-full justify-items-center" onClick={newMessageClick} type="button">
+              <EmptyState
+                message={<div>Start messaging your Lens frens</div>}
+                icon={<MailIcon className="w-8 h-8 text-brand" />}
+                hideCard
+              />
+            </button>
           ) : (
             sortedProfiles.map(([key, profile]) => {
               const message = messages.get(key);
@@ -85,20 +102,22 @@ const PreviewList: FC = () => {
           )}
         </div>
       </Card>
-      <Modal
-        title="New message"
-        icon={<MailIcon className="w-5 h-5 text-brand" />}
-        size="sm"
-        show={showSearchModal}
-        onClose={() => setShowSearchModal(false)}
-      >
-        <div className="pb-2">
-          <div className="w-full pt-4 px-4">
-            <Search placeholder="Search for someone to message..." onProfileSelected={onProfileSelected} />
+      {currentProfile && (
+        <Modal
+          title="New message"
+          icon={<MailIcon className="w-5 h-5 text-brand" />}
+          size="sm"
+          show={showSearchModal}
+          onClose={() => setShowSearchModal(false)}
+        >
+          <div className="pb-2">
+            <div className="w-full pt-4 px-4">
+              <Search placeholder="Search for someone to message..." onProfileSelected={onProfileSelected} />
+            </div>
+            <Following profile={currentProfile} onProfileSelected={onProfileSelected} />
           </div>
-          <Following profile={currentProfile} onProfileSelected={onProfileSelected} />
-        </div>
-      </Modal>
+        </Modal>
+      )}
     </GridItemFour>
   );
 };
