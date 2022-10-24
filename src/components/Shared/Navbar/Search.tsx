@@ -17,17 +17,11 @@ import UserProfile from '../UserProfile';
 
 interface Props {
   hideDropdown?: boolean;
-  isParentMessage?: boolean;
-  onProfileSelected: (profile: Profile) => void;
+  onProfileSelected?: (profile: Profile) => void;
   placeholder?: string;
 }
 
-const Search: FC<Props> = ({
-  hideDropdown = false,
-  isParentMessage,
-  onProfileSelected,
-  placeholder = 'Search...'
-}) => {
+const Search: FC<Props> = ({ hideDropdown = false, onProfileSelected, placeholder = 'Search...' }) => {
   const { push, pathname, query } = useRouter();
   const [searchText, setSearchText] = useState('');
   const dropdownRef = useRef(null);
@@ -105,11 +99,13 @@ const Search: FC<Props> = ({
                   <div key={profile?.handle} className="py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-800">
                     <div
                       onClick={() => {
-                        onProfileSelected(profile);
+                        if (onProfileSelected) {
+                          onProfileSelected(profile);
+                        }
                         setSearchText('');
                       }}
                     >
-                      <UserProfile linkToProfile={!isParentMessage} profile={profile} />
+                      <UserProfile linkToProfile={!onProfileSelected} profile={profile} />
                     </div>
                   </div>
                 ))}
