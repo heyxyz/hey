@@ -14,9 +14,9 @@ const Commented: FC<Props> = ({ feedItem }) => {
   return (
     <span>
       {firstComment ? (
-        <ThreadBody isMirror={false} publication={publication as LensterPublication} />
+        <ThreadBody publication={publication as LensterPublication} />
       ) : (
-        <ThreadBody isMirror={false} publication={publication?.commentOn as LensterPublication} />
+        publication?.commentOn && <ThreadBody publication={publication?.commentOn as LensterPublication} />
       )}
     </span>
   );
