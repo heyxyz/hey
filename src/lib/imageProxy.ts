@@ -7,9 +7,10 @@ import { IMGPROXY_URL } from 'src/constants';
  * @returns imgproxy URL
  */
 const imageProxy = (url: string, size?: string): string => {
+  const base64ofUrl = Buffer.from(url, 'utf8').toString('base64');
   return size
-    ? `${IMGPROXY_URL}/sig/size:${size}/${btoa(url)}.webp`
-    : `${IMGPROXY_URL}/sig/${btoa(url)}.webp`;
+    ? `${IMGPROXY_URL}/sig/size:${size}/${base64ofUrl}.webp`
+    : `${IMGPROXY_URL}/sig/${base64ofUrl}.webp`;
 };
 
 export default imageProxy;
