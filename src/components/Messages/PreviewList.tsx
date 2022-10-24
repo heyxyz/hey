@@ -15,6 +15,8 @@ import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useState } from 'react';
+import toast from 'react-hot-toast';
+import { SIGN_WALLET } from 'src/constants';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
 import { useAppStore } from 'src/store/app';
@@ -52,7 +54,7 @@ const PreviewList: FC = () => {
 
   const onProfileSelected = (profile: Profile) => {
     if (!currentProfile) {
-      return;
+      return toast.error(SIGN_WALLET);
     }
     const conversationId = buildConversationId(currentProfile.id, profile.id);
     const conversationKey = buildConversationKey(profile.ownedBy, conversationId);
@@ -63,27 +65,35 @@ const PreviewList: FC = () => {
   };
 
   return (
-    <GridItemFour className="sm:h-[76vh] md:h-[80vh] xl:h-[84vh]">
-      <Card className="h-full">
+    <GridItemFour className="sm:h-[76vh] md:h-[80vh] xl:h-[84vh] mb-0">
+      <Card className="h-full flex justify-between flex-col">
         <div className="flex justify-between items-center p-5 border-b">
           <div className="font-bold">Messages</div>
-          {!showAuthenticating && !showLoading && (
+          {currentProfile && !showAuthenticating && !showLoading && (
             <button onClick={newMessageClick} type="button">
               <PlusCircleIcon className="h-6 w-6" />
             </button>
           )}
         </div>
-        <div className="mt-2">
+        <div className="h-full">
           {showAuthenticating ? (
-            <div className="mt-8">
+            <div className="flex h-full justify-center items-center">
               <PageLoading message="Awaiting signature to enable DMs" />
             </div>
           ) : showLoading ? (
-            <div className="mt-8">
+            <div className="flex h-full justify-center items-center">
               <PageLoading message="Loading conversations" />
             </div>
+          ) : !currentProfile ? (
+            <div className="flex h-full justify-center items-center">
+              <EmptyState
+                message={<div>Login to start messaging</div>}
+                icon={<MailIcon className="w-8 h-8 text-brand" />}
+                hideCard
+              />
+            </div>
           ) : sortedProfiles.length === 0 ? (
-            <button className="w-full justify-items-center" onClick={newMessageClick} type="button">
+            <button className="w-full h-full justify-items-center" onClick={newMessageClick} type="button">
               <EmptyState
                 message={<div>Start messaging your Lens frens</div>}
                 icon={<MailIcon className="w-8 h-8 text-brand" />}
