@@ -1,10 +1,12 @@
 import { useQuery } from '@apollo/client';
 import QueuedPublication from '@components/Publication/QueuedPublication';
+import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
 import { Card } from '@components/UI/Card';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import InfiniteLoader from '@components/UI/InfiniteLoader';
+import type { LensterPublication } from '@generated/lenstertypes';
 import type { FeedItem } from '@generated/types';
 import { FeedEventItemType } from '@generated/types';
 import { TimelineDocument } from '@generated/types';
@@ -15,8 +17,6 @@ import { SCROLL_THRESHOLD } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { useTimelinePersistStore } from 'src/store/timeline';
 import { useTransactionPersistStore } from 'src/store/transaction';
-
-import SinglePublication from './Publication/SinglePublication';
 
 const Timeline: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -94,7 +94,11 @@ const Timeline: FC = () => {
             )
         )}
         {publications?.map((publication, index: number) => (
-          <SinglePublication key={`${publication?.root.id}_${index}`} feedItem={publication as FeedItem} />
+          <SinglePublication
+            feedItem={publication as FeedItem}
+            publication={publication.root as LensterPublication}
+            key={`${publication?.root.id}_${index}`}
+          />
         ))}
       </Card>
     </InfiniteScroll>
