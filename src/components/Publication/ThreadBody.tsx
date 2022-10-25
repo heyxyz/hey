@@ -34,7 +34,7 @@ const ThreadBody: FC<Props> = ({ publication }) => {
       <div className="flex">
         <div className="mr-8 ml-5 bg-gray-300 border-gray-300 dark:bg-gray-700 dark:border-gray-700 border-[0.8px] -my-[3px]" />
         <div
-          className="pt-4 pb-5 w-[85%] sm:w-full"
+          className="pt-4 pb-5 !w-[85%] sm:w-full"
           onClick={() => {
             push(`/posts/${publication?.id}`);
             Leafwatch.track(PUBLICATION.OPEN);

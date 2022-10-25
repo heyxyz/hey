@@ -1,6 +1,6 @@
 import { Card } from '@components/UI/Card';
 import type { Profile } from '@generated/types';
-import { ExclamationIcon } from '@heroicons/react/solid';
+import { EmojiSadIcon } from '@heroicons/react/outline';
 import getAvatar from '@lib/getAvatar';
 import type { Message } from '@xmtp/xmtp-js';
 import clsx from 'clsx';
@@ -84,10 +84,10 @@ const DateDivider: FC<{ date?: Date }> = ({ date }) => (
 const MissingXmtpAuth: FC = () => (
   <Card as="aside" className="mb-4 border-gray-400 !bg-gray-300 !bg-opacity-20 space-y-2.5 p-5">
     <div className="flex items-center space-x-2 font-bold">
-      <ExclamationIcon className="w-5 h-5" />
-      <p>This profile has not enabled DMs yet</p>
+      <EmojiSadIcon className="w-5 h-5" />
+      <p>This fren hasn't enabled DMs yet</p>
     </div>
-    <p className="text-sm leading-[22px]">Messages can't be sent until they create their keys with XMTP.</p>
+    <p className="text-sm leading-[22px]">You can't send them a message until they enable DMs.</p>
   </Card>
 );
 
