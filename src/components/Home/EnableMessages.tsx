@@ -43,7 +43,7 @@ const EnableMessages: FC = () => {
         <p>Direct messages are here!</p>
       </div>
       <p className="text-sm leading-[22px]">
-        Start sending DMs to your frens. Create your keys and enable your identity with XMTP to get started!
+        Create an XMTP account to start using Lenster to send DMs to frens.
       </p>
       <Button
         variant="success"
