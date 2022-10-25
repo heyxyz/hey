@@ -11,15 +11,11 @@ const Commented: FC<Props> = ({ feedItem }) => {
   const publication = feedItem.root as Comment;
   const firstComment = feedItem.comments && feedItem.comments[0];
 
-  return (
-    <span>
-      {firstComment ? (
-        <ThreadBody publication={publication as LensterPublication} />
-      ) : (
-        publication?.commentOn && <ThreadBody publication={publication?.commentOn as LensterPublication} />
-      )}
-    </span>
-  );
+  return firstComment ? (
+    <ThreadBody publication={publication as LensterPublication} />
+  ) : publication?.commentOn ? (
+    <ThreadBody publication={publication?.commentOn as LensterPublication} />
+  ) : null;
 };
 
 export default Commented;

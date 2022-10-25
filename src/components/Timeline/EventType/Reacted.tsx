@@ -1,16 +1,14 @@
 import type { ReactionEvent } from '@generated/types';
 import { HeartIcon } from '@heroicons/react/outline';
-import clsx from 'clsx';
 import type { FC } from 'react';
 
 import ProfileCircles from './ProfileCircles';
 
 interface Props {
   reactions: Array<ReactionEvent>;
-  isComment?: boolean;
 }
 
-const Reacted: FC<Props> = ({ reactions, isComment }) => {
+const Reacted: FC<Props> = ({ reactions }) => {
   const getReactedProfiles = () => {
     let profiles = reactions.map((event) => event.profile);
     profiles = profiles.filter(
@@ -20,11 +18,7 @@ const Reacted: FC<Props> = ({ reactions, isComment }) => {
   };
 
   return (
-    <div
-      className={clsx('flex items-center pb-4 space-x-1 text-gray-500 text-[13px]', {
-        'ml-[45px] !pb-2': isComment
-      })}
-    >
+    <div className={'flex items-center pb-4 space-x-1 text-gray-500 text-[13px]'}>
       <HeartIcon className="w-4 h-4" />
       <ProfileCircles profiles={getReactedProfiles()} context="Reacted by" />
     </div>

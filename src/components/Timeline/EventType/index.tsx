@@ -42,12 +42,8 @@ const EventType: FC<Props> = ({ feedItem, showType, showThread = false }) => {
       ) : (
         <>
           {feedItem.mirrors.length && !isComment ? <Mirrored mirrors={feedItem.mirrors} /> : null}
-          {feedItem.collects.length && !isComment ? (
-            <Collected isComment={isComment} collects={feedItem.collects} />
-          ) : null}
-          {feedItem.reactions.length && !isComment ? (
-            <Reacted isComment={isComment} reactions={feedItem.reactions} />
-          ) : null}
+          {feedItem.collects.length && !isComment ? <Collected collects={feedItem.collects} /> : null}
+          {feedItem.reactions.length && !isComment ? <Reacted reactions={feedItem.reactions} /> : null}
         </>
       )}
       {(isComment || commentsCount > 0) && showThread && <Commented feedItem={feedItem} />}

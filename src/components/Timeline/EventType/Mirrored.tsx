@@ -1,16 +1,14 @@
 import type { MirrorEvent } from '@generated/types';
 import { SwitchHorizontalIcon } from '@heroicons/react/outline';
-import clsx from 'clsx';
 import type { FC } from 'react';
 
 import ProfileCircles from './ProfileCircles';
 
 interface Props {
   mirrors: Array<MirrorEvent>;
-  isComment?: boolean;
 }
 
-const Mirrored: FC<Props> = ({ mirrors, isComment }) => {
+const Mirrored: FC<Props> = ({ mirrors }) => {
   const getMirroredProfiles = () => {
     let profiles = mirrors.map((event) => event.profile);
     profiles = profiles.filter(
@@ -20,11 +18,7 @@ const Mirrored: FC<Props> = ({ mirrors, isComment }) => {
   };
 
   return (
-    <div
-      className={clsx('flex items-center pb-4 space-x-1 text-gray-500 text-[13px]', {
-        'ml-[45px] !pb-2': isComment
-      })}
-    >
+    <div className="flex items-center pb-4 space-x-1 text-gray-500 text-[13px]">
       <SwitchHorizontalIcon className="w-4 h-4" />
       <ProfileCircles profiles={getMirroredProfiles()} context="Mirrored by" />
     </div>
