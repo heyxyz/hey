@@ -7,7 +7,7 @@ interface Props extends Omit<ComponentProps<'input'>, 'prefix'> {
   className?: string;
 }
 
-export const InputCheckbox = forwardRef<HTMLInputElement, Props>(function CheckBox(
+export const Checkbox = forwardRef<HTMLInputElement, Props>(function CheckBox(
   { label, className = '', ...props },
   ref
 ) {

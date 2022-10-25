@@ -1,4 +1,4 @@
-import { InputCheckbox } from '@components/UI/InputCheckbox';
+import { Checkbox } from '@components/UI/Checkbox';
 import { Tooltip } from '@components/UI/Tooltip';
 import { Menu, Transition } from '@headlessui/react';
 import { AdjustmentsIcon } from '@heroicons/react/outline';
@@ -45,7 +45,7 @@ const FeedEventFilters = () => {
               )
             }
           >
-            <InputCheckbox
+            <Checkbox
               onChange={handleChange}
               checked={feedEventFilters.posts}
               name="posts"
@@ -61,7 +61,7 @@ const FeedEventFilters = () => {
               )
             }
           >
-            <InputCheckbox
+            <Checkbox
               onChange={handleChange}
               checked={feedEventFilters.mirrors}
               name="mirrors"
@@ -77,7 +77,7 @@ const FeedEventFilters = () => {
               )
             }
           >
-            <InputCheckbox
+            <Checkbox
               onChange={handleChange}
               checked={feedEventFilters.reactions}
               name="reactions"
