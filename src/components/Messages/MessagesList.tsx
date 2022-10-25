@@ -92,13 +92,13 @@ const MissingXmtpAuth: FC = () => (
 );
 
 const ConversationBeginningNotice: FC = () => (
-  <div className="flex align-items-center justify-center pb-4">
+  <div className="flex align-items-center justify-center mt-6 pb-4">
     <span className="text-gray-300 text-sm font-bold">This is the beginning of the conversation</span>
   </div>
 );
 
 const LoadingMore: FC = () => (
-  <div className="p-1 text-center text-gray-300 font-bold text-sm">Loading...</div>
+  <div className="p-1 mt-6 text-center text-gray-300 font-bold text-sm">Loading...</div>
 );
 
 interface MessageListProps {
@@ -122,7 +122,7 @@ const MessagesList: FC<MessageListProps> = ({
 
   return (
     <div className="flex-grow flex h-[75%]">
-      <div className="relative w-full h-full bg-white pl-4 pt-6 flex">
+      <div className="relative w-full h-full bg-white pl-4 flex">
         <div
           id="scrollableDiv"
           className="flex flex-col h-full overflow-y-auto w-full"
