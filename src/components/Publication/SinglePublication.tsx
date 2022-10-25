@@ -1,5 +1,5 @@
 import UserProfile from '@components/Shared/UserProfile';
-import EventType from '@components/Timeline/Publication/EventType';
+import EventType from '@components/Timeline/EventType';
 import type { LensterPublication } from '@generated/lenstertypes';
 import type { ElectedMirror, FeedItem } from '@generated/types';
 import { Leafwatch } from '@lib/leafwatch';
