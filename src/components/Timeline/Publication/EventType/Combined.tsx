@@ -29,7 +29,7 @@ const Combined: FC<Props> = ({ feedItem }) => {
         {feedItem.collects?.length ? <CollectionIcon className="w-4 h-4" /> : null}
         {feedItem.reactions?.length ? <HeartIcon className="w-4 h-4" /> : null}
       </div>
-      <ProfileCircles profiles={getAllProfiles()} context="by" totalCount={getAllProfiles().length} />
+      <ProfileCircles profiles={getAllProfiles()} context="by" />
     </div>
   );
 };

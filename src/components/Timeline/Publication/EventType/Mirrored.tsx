@@ -26,11 +26,7 @@ const Mirrored: FC<Props> = ({ mirrors, isComment }) => {
       })}
     >
       <SwitchHorizontalIcon className="w-4 h-4" />
-      <ProfileCircles
-        profiles={getMirroredProfiles()}
-        context="Mirrored by"
-        totalCount={getMirroredProfiles().length}
-      />
+      <ProfileCircles profiles={getMirroredProfiles()} context="Mirrored by" />
     </div>
   );
 };

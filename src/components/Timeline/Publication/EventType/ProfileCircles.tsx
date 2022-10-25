@@ -5,11 +5,10 @@ import type { FC, ReactNode } from 'react';
 
 interface Props {
   profiles: Profile[];
-  totalCount: number;
   context?: string;
 }
 
-const ProfileCircles: FC<Props> = ({ profiles, totalCount, context }) => {
+const ProfileCircles: FC<Props> = ({ profiles, context }) => {
   const Wrapper = ({ children }: { children: ReactNode }) => (
     <div className="mr-0 sm:mr-10 text-gray-500 flex items-center space-x-1.5 cursor-pointer">
       <span className="pr-1.5">{context}</span>
@@ -56,7 +55,7 @@ const ProfileCircles: FC<Props> = ({ profiles, totalCount, context }) => {
   }
 
   if (profiles?.length >= 3) {
-    const calculatedCount = totalCount - 3;
+    const calculatedCount = profiles.length - 3;
     const isZero = calculatedCount === 0;
 
     return (
