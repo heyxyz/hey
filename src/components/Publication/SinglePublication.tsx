@@ -57,6 +57,7 @@ const SinglePublication: FC<Props> = ({
       ) : (
         <PublicationType publication={publication} showType={showType} showThread={showThread} />
       )}
+      <button onClick={() => console.log(feedItem)}>Log</button>
       <div className="flex justify-between pb-4 space-x-1.5">
         <span onClick={(event) => event.stopPropagation()}>
           <UserProfile profile={profile ?? publication?.collectedBy?.defaultProfile} />
@@ -66,7 +67,7 @@ const SinglePublication: FC<Props> = ({
       <div
         className="ml-[53px]"
         onClick={() => {
-          push(`/posts/${publication?.id}`);
+          push(`/posts/${rootPublication?.id}`);
           Leafwatch.track(PUBLICATION.OPEN);
         }}
       >
