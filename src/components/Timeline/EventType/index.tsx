@@ -20,8 +20,7 @@ const getCanCombined = (aggregations: number[]) => {
 
 const EventType: FC<Props> = ({ feedItem, showType, showThread = false }) => {
   const publication = feedItem.root;
-  const type = publication.__typename;
-  const isComment = type === 'Comment';
+  const isComment = publication.__typename === 'Comment';
   const commentsCount = feedItem.comments?.length ?? 0;
 
   const canCombined = getCanCombined([
