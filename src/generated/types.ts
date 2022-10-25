@@ -17884,6 +17884,12 @@ export type TimelineQuery = {
               name?: string | null;
               description?: any | null;
               content?: any | null;
+              image?: any | null;
+              attributes: Array<{
+                __typename?: 'MetadataAttributeOutput';
+                traitType?: string | null;
+                value?: string | null;
+              }>;
               cover?: { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } } | null;
               media: Array<{
                 __typename?: 'MediaSet';
@@ -17995,6 +18001,12 @@ export type TimelineQuery = {
                     name?: string | null;
                     description?: any | null;
                     content?: any | null;
+                    image?: any | null;
+                    attributes: Array<{
+                      __typename?: 'MetadataAttributeOutput';
+                      traitType?: string | null;
+                      value?: string | null;
+                    }>;
                     cover?: { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } } | null;
                     media: Array<{
                       __typename?: 'MediaSet';
@@ -18134,6 +18146,12 @@ export type TimelineQuery = {
                           name?: string | null;
                           description?: any | null;
                           content?: any | null;
+                          image?: any | null;
+                          attributes: Array<{
+                            __typename?: 'MetadataAttributeOutput';
+                            traitType?: string | null;
+                            value?: string | null;
+                          }>;
                           cover?: {
                             __typename?: 'MediaSet';
                             original: { __typename?: 'Media'; url: any };
@@ -18344,6 +18362,12 @@ export type TimelineQuery = {
                                 name?: string | null;
                                 description?: any | null;
                                 content?: any | null;
+                                image?: any | null;
+                                attributes: Array<{
+                                  __typename?: 'MetadataAttributeOutput';
+                                  traitType?: string | null;
+                                  value?: string | null;
+                                }>;
                                 cover?: {
                                   __typename?: 'MediaSet';
                                   original: { __typename?: 'Media'; url: any };
@@ -18509,6 +18533,12 @@ export type TimelineQuery = {
                           name?: string | null;
                           description?: any | null;
                           content?: any | null;
+                          image?: any | null;
+                          attributes: Array<{
+                            __typename?: 'MetadataAttributeOutput';
+                            traitType?: string | null;
+                            value?: string | null;
+                          }>;
                           cover?: {
                             __typename?: 'MediaSet';
                             original: { __typename?: 'Media'; url: any };
@@ -18625,6 +18655,12 @@ export type TimelineQuery = {
                     name?: string | null;
                     description?: any | null;
                     content?: any | null;
+                    image?: any | null;
+                    attributes: Array<{
+                      __typename?: 'MetadataAttributeOutput';
+                      traitType?: string | null;
+                      value?: string | null;
+                    }>;
                     cover?: { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } } | null;
                     media: Array<{
                       __typename?: 'MediaSet';
@@ -18821,6 +18857,12 @@ export type TimelineQuery = {
                           name?: string | null;
                           description?: any | null;
                           content?: any | null;
+                          image?: any | null;
+                          attributes: Array<{
+                            __typename?: 'MetadataAttributeOutput';
+                            traitType?: string | null;
+                            value?: string | null;
+                          }>;
                           cover?: {
                             __typename?: 'MediaSet';
                             original: { __typename?: 'Media'; url: any };
@@ -18962,6 +19004,12 @@ export type TimelineQuery = {
                     name?: string | null;
                     description?: any | null;
                     content?: any | null;
+                    image?: any | null;
+                    attributes: Array<{
+                      __typename?: 'MetadataAttributeOutput';
+                      traitType?: string | null;
+                      value?: string | null;
+                    }>;
                     cover?: { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } } | null;
                     media: Array<{
                       __typename?: 'MediaSet';
@@ -19101,6 +19149,12 @@ export type TimelineQuery = {
               name?: string | null;
               description?: any | null;
               content?: any | null;
+              image?: any | null;
+              attributes: Array<{
+                __typename?: 'MetadataAttributeOutput';
+                traitType?: string | null;
+                value?: string | null;
+              }>;
               cover?: { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } } | null;
               media: Array<{
                 __typename?: 'MediaSet';
@@ -19332,6 +19386,12 @@ export type TimelineQuery = {
           name?: string | null;
           description?: any | null;
           content?: any | null;
+          image?: any | null;
+          attributes: Array<{
+            __typename?: 'MetadataAttributeOutput';
+            traitType?: string | null;
+            value?: string | null;
+          }>;
           cover?: { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } } | null;
           media: Array<{
             __typename?: 'MediaSet';
@@ -19443,6 +19503,12 @@ export type TimelineQuery = {
                 name?: string | null;
                 description?: any | null;
                 content?: any | null;
+                image?: any | null;
+                attributes: Array<{
+                  __typename?: 'MetadataAttributeOutput';
+                  traitType?: string | null;
+                  value?: string | null;
+                }>;
                 cover?: { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } } | null;
                 media: Array<{
                   __typename?: 'MediaSet';
@@ -19562,6 +19628,12 @@ export type TimelineQuery = {
                       name?: string | null;
                       description?: any | null;
                       content?: any | null;
+                      image?: any | null;
+                      attributes: Array<{
+                        __typename?: 'MetadataAttributeOutput';
+                        traitType?: string | null;
+                        value?: string | null;
+                      }>;
                       cover?: {
                         __typename?: 'MediaSet';
                         original: { __typename?: 'Media'; url: any };
@@ -19769,6 +19841,12 @@ export type TimelineQuery = {
                             name?: string | null;
                             description?: any | null;
                             content?: any | null;
+                            image?: any | null;
+                            attributes: Array<{
+                              __typename?: 'MetadataAttributeOutput';
+                              traitType?: string | null;
+                              value?: string | null;
+                            }>;
                             cover?: {
                               __typename?: 'MediaSet';
                               original: { __typename?: 'Media'; url: any };
@@ -19910,6 +19988,12 @@ export type TimelineQuery = {
                       name?: string | null;
                       description?: any | null;
                       content?: any | null;
+                      image?: any | null;
+                      attributes: Array<{
+                        __typename?: 'MetadataAttributeOutput';
+                        traitType?: string | null;
+                        value?: string | null;
+                      }>;
                       cover?: {
                         __typename?: 'MediaSet';
                         original: { __typename?: 'Media'; url: any };
@@ -20026,6 +20110,12 @@ export type TimelineQuery = {
                 name?: string | null;
                 description?: any | null;
                 content?: any | null;
+                image?: any | null;
+                attributes: Array<{
+                  __typename?: 'MetadataAttributeOutput';
+                  traitType?: string | null;
+                  value?: string | null;
+                }>;
                 cover?: { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } } | null;
                 media: Array<{
                   __typename?: 'MediaSet';
@@ -20198,6 +20288,12 @@ export type TimelineQuery = {
                       name?: string | null;
                       description?: any | null;
                       content?: any | null;
+                      image?: any | null;
+                      attributes: Array<{
+                        __typename?: 'MetadataAttributeOutput';
+                        traitType?: string | null;
+                        value?: string | null;
+                      }>;
                       cover?: {
                         __typename?: 'MediaSet';
                         original: { __typename?: 'Media'; url: any };
@@ -20339,6 +20435,12 @@ export type TimelineQuery = {
                 name?: string | null;
                 description?: any | null;
                 content?: any | null;
+                image?: any | null;
+                attributes: Array<{
+                  __typename?: 'MetadataAttributeOutput';
+                  traitType?: string | null;
+                  value?: string | null;
+                }>;
                 cover?: { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } } | null;
                 media: Array<{
                   __typename?: 'MediaSet';
