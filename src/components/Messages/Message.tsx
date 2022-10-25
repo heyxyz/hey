@@ -53,7 +53,7 @@ const Message: FC<MessageProps> = ({ conversationKey }) => {
 
   const showLoading = !missingXmtpAuth && (!profile || !currentProfile || !selectedConversation);
 
-  if (!isFeatureEnabled('messages', currentProfile?.id)) {
+  if (!currentProfile || !isFeatureEnabled('messages', currentProfile.id)) {
     return <Custom404 />;
   }
 
