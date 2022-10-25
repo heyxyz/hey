@@ -39,9 +39,9 @@ const useXmtpClient = () => {
   useEffect(() => {
     const initXmtpClient = async () => {
       if (signer && !client && currentProfile) {
-        setAwaitingXmtpAuth(true);
         let keys = loadKeys(await signer.getAddress());
         if (!keys) {
+          setAwaitingXmtpAuth(true);
           keys = await Client.getKeys(signer);
           storeKeys(await signer.getAddress(), keys);
         }
