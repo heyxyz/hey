@@ -34,16 +34,16 @@ const Combined: FC<Props> = ({ feedItem }) => {
   };
 
   return (
-    <div className="flex items-center pb-4 space-x-1 text-gray-500 text-[13px]">
+    <div className="flex flex-wrap items-center pb-4 space-x-1 text-gray-500 text-[13px]">
       <div className="flex items-center space-x-1">
         {mirrorsLength ? (
-          <span className="flex items-center">
+          <span className="flex whitespace-nowrap items-center">
             <SwitchHorizontalIcon className="w-3.5 h-3.5 mr-1" />
             Mirrored{totalActions < 3 ? (totalActions !== 1 ? ' and ' : '') : ', '}
           </span>
         ) : null}
         {commentsLength ? (
-          <span className="flex items-center">
+          <span className="flex whitespace-nowrap items-center">
             <ChatAlt2Icon className="w-3.5 h-3.5 mr-1" />
             Commented
             {totalActions < 3
@@ -57,14 +57,14 @@ const Combined: FC<Props> = ({ feedItem }) => {
           </span>
         ) : null}
         {collectsLength ? (
-          <span className="flex items-center">
+          <span className="flex whitespace-nowrap items-center">
             <CollectionIcon className="w-3.5 h-3.5 mr-1" />
             Collected
             {totalActions >= 3 && reactionsLength ? ' and ' : reactionsLength ? ' and ' : ''}
           </span>
         ) : null}
         {reactionsLength ? (
-          <span className="flex items-center">
+          <span className="flex whitespace-nowrap items-center">
             <HeartIcon className="w-3.5 h-3.5 mr-1" />
             Reacted
           </span>

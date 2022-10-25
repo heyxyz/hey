@@ -35,7 +35,7 @@ const ProfileCircles: FC<Props> = ({ profiles, context }) => {
     return (
       <Wrapper>
         <Link href={`/u/${profileOne?.handle}`}>
-          <span>{profileOne?.name ?? profileOne?.handle}</span>
+          <span className="whitespace-nowrap">{profileOne?.name ?? profileOne?.handle}</span>
         </Link>
       </Wrapper>
     );
@@ -45,10 +45,10 @@ const ProfileCircles: FC<Props> = ({ profiles, context }) => {
     return (
       <Wrapper>
         <Link href={`/u/${profileOne?.handle}`}>
-          <span>{profileOne?.name ?? profileOne?.handle} and </span>
+          <span className="whitespace-nowrap">{profileOne?.name ?? profileOne?.handle} and </span>
         </Link>
         <Link href={`/u/${profileTwo?.handle}`}>
-          <span>{profileTwo?.name ?? profileTwo?.handle}</span>
+          <span className="whitespace-nowrap">{profileTwo?.name ?? profileTwo?.handle}</span>
         </Link>
       </Wrapper>
     );
@@ -61,17 +61,17 @@ const ProfileCircles: FC<Props> = ({ profiles, context }) => {
     return (
       <Wrapper>
         <Link href={`/u/${profileOne?.handle}`}>
-          <span>{profileOne?.name ?? profileOne?.handle}, </span>
+          <span className="whitespace-nowrap">{profileOne?.name ?? profileOne?.handle}, </span>
         </Link>
-        <span>
+        <span className="whitespace-nowrap">
           <Link href={`/u/${profileTwo?.handle}`}>{profileTwo?.name ?? profileTwo?.handle}</Link>
           {isZero ? ' and ' : ', '}
         </span>
         <Link href={`/u/${profileThree?.handle}`}>
-          <span>{profileThree?.name ?? profileThree?.handle} </span>
+          <span className="whitespace-nowrap">{profileThree?.name ?? profileThree?.handle} </span>
         </Link>
         {!isZero && (
-          <span>
+          <span className="whitespace-nowrap">
             and {calculatedCount} {calculatedCount === 1 ? 'other' : 'others'}
           </span>
         )}
