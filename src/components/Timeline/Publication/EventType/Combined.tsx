@@ -1,4 +1,5 @@
 import type { FeedItem } from '@generated/types';
+import { ChatAlt2Icon, CollectionIcon, HeartIcon, SwitchHorizontalIcon } from '@heroicons/react/outline';
 import type { FC } from 'react';
 
 import ProfileCircles from './ProfileCircles';
@@ -36,10 +37,14 @@ const Combined: FC<Props> = ({ feedItem }) => {
     <div className="flex items-center pb-4 space-x-1 text-gray-500 text-[13px]">
       <div className="flex items-center space-x-1">
         {mirrorsLength ? (
-          <span>Mirrored{totalActions < 3 ? (totalActions !== 1 ? ' and ' : '') : ', '}</span>
+          <span className="flex items-center">
+            <SwitchHorizontalIcon className="w-3.5 h-3.5 mr-1" />
+            Mirrored{totalActions < 3 ? (totalActions !== 1 ? ' and ' : '') : ', '}
+          </span>
         ) : null}
         {commentsLength ? (
-          <span>
+          <span className="flex items-center">
+            <ChatAlt2Icon className="w-3.5 h-3.5 mr-1" />
             Commented
             {totalActions < 3
               ? collectsLength && reactionsLength
@@ -52,12 +57,18 @@ const Combined: FC<Props> = ({ feedItem }) => {
           </span>
         ) : null}
         {collectsLength ? (
-          <span>
+          <span className="flex items-center">
+            <CollectionIcon className="w-3.5 h-3.5 mr-1" />
             Collected
             {totalActions >= 3 && reactionsLength ? ' and ' : reactionsLength ? ' and ' : ''}
           </span>
         ) : null}
-        {reactionsLength ? <span>Reacted</span> : null}
+        {reactionsLength ? (
+          <span className="flex items-center">
+            <HeartIcon className="w-3.5 h-3.5 mr-1" />
+            Reacted
+          </span>
+        ) : null}
       </div>
       <ProfileCircles profiles={getAllProfiles()} context="by" />
     </div>
