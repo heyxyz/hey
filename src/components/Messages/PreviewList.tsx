@@ -15,8 +15,6 @@ import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useState } from 'react';
-import toast from 'react-hot-toast';
-import { SIGN_WALLET } from 'src/constants';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
 import { useAppStore } from 'src/store/app';
@@ -30,7 +28,7 @@ const PreviewList: FC = () => {
   const messageProfiles = useMessageStore((state) => state.messageProfiles);
   const setMessageProfiles = useMessageStore((state) => state.setMessageProfiles);
 
-  if (!isFeatureEnabled('messages', currentProfile?.id)) {
+  if (!currentProfile || !isFeatureEnabled('messages', currentProfile.id)) {
     return <Custom404 />;
   }
 
@@ -53,9 +51,6 @@ const PreviewList: FC = () => {
   };
 
   const onProfileSelected = (profile: Profile) => {
-    if (!currentProfile) {
-      return toast.error(SIGN_WALLET);
-    }
     const conversationId = buildConversationId(currentProfile.id, profile.id);
     const conversationKey = buildConversationKey(profile.ownedBy, conversationId);
     messageProfiles.set(conversationKey, profile);
@@ -84,14 +79,6 @@ const PreviewList: FC = () => {
             <div className="flex h-full justify-center items-center">
               <PageLoading message="Loading conversations" />
             </div>
-          ) : !currentProfile ? (
-            <div className="flex h-full justify-center items-center">
-              <EmptyState
-                message={<div>Login to start messaging</div>}
-                icon={<MailIcon className="w-8 h-8 text-brand" />}
-                hideCard
-              />
-            </div>
           ) : sortedProfiles.length === 0 ? (
             <button className="w-full h-full justify-items-center" onClick={newMessageClick} type="button">
               <EmptyState
@@ -112,22 +99,20 @@ const PreviewList: FC = () => {
           )}
         </div>
       </Card>
-      {currentProfile && (
-        <Modal
-          title="New message"
-          icon={<MailIcon className="w-5 h-5 text-brand" />}
-          size="sm"
-          show={showSearchModal}
-          onClose={() => setShowSearchModal(false)}
-        >
-          <div className="pb-2">
-            <div className="w-full pt-4 px-4">
-              <Search placeholder="Search for someone to message..." onProfileSelected={onProfileSelected} />
-            </div>
-            <Following profile={currentProfile} onProfileSelected={onProfileSelected} />
+      <Modal
+        title="New message"
+        icon={<MailIcon className="w-5 h-5 text-brand" />}
+        size="sm"
+        show={showSearchModal}
+        onClose={() => setShowSearchModal(false)}
+      >
+        <div className="pb-2">
+          <div className="w-full pt-4 px-4">
+            <Search placeholder="Search for someone to message..." onProfileSelected={onProfileSelected} />
           </div>
-        </Modal>
-      )}
+          <Following profile={currentProfile} onProfileSelected={onProfileSelected} />
+        </div>
+      </Modal>
     </GridItemFour>
   );
 };

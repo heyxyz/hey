@@ -12,7 +12,7 @@ import PreviewList from './PreviewList';
 const Messages: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
-  if (!isFeatureEnabled('messages', currentProfile?.id)) {
+  if (!currentProfile || !isFeatureEnabled('messages', currentProfile.id)) {
     return <Custom404 />;
   }
 
