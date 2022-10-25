@@ -12,7 +12,7 @@ import PreviewList from './PreviewList';
 const Messages: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
-  if (!isFeatureEnabled('messages', currentProfile?.id)) {
+  if (!currentProfile || !isFeatureEnabled('messages', currentProfile.id)) {
     return <Custom404 />;
   }
 
@@ -22,9 +22,7 @@ const Messages: FC = () => {
       <PreviewList />
       <GridItemEight className="sm:h-[76vh] md:h-[80vh] xl:h-[84vh] mb-0">
         <Card className="h-full">
-          <div className="flex items-center justify-center pb-4 h-full">
-            <span className="text-gray-300 text-sm font-bold">No conversation selected</span>
-          </div>
+          <div />
         </Card>
       </GridItemEight>
     </GridLayout>

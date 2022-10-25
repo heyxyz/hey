@@ -15,7 +15,7 @@ import { useMessageStore } from 'src/store/message';
 
 const useMessagePreviews = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const { client } = useXmtpClient();
+  const { client, loading: creatingXmtpClient } = useXmtpClient();
   const isMessagesEnabled = isFeatureEnabled('messages', currentProfile?.id);
 
   const conversations = useMessageStore((state) => state.conversations);
@@ -195,6 +195,7 @@ const useMessagePreviews = () => {
   }, [currentProfile]);
 
   return {
+    authenticating: creatingXmtpClient,
     loading: messagesLoading || profilesLoading,
     messages: previewMessages,
     profiles: messageProfiles,
