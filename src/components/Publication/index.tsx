@@ -64,7 +64,7 @@ const ViewPublication: NextPage = () => {
   const publication: any = data.publication;
 
   return (
-    <GridLayout>
+    <GridLayout className="!min-h-screen">
       <MetaTags
         title={
           publication.__typename && publication?.profile?.handle
@@ -72,13 +72,13 @@ const ViewPublication: NextPage = () => {
             : APP_NAME
         }
       />
-      <GridItemEight className="space-y-5">
-        <Card>
+      <GridItemEight className="space-y-5 !min-h-[200vh]">
+        <Card className="" forceRounded={false}>
           <FullPublication publication={publication} />
         </Card>
         <Feed publication={publication} />
       </GridItemEight>
-      <GridItemFour className="space-y-5">
+      <GridItemFour className="space-y-5 !max-h-screen !sticky !top-24">
         <Card as="aside" className="p-5">
           <UserProfile
             profile={
