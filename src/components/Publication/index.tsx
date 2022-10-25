@@ -73,7 +73,7 @@ const ViewPublication: NextPage = () => {
         }
       />
       <GridItemEight className="space-y-5 !min-h-[200vh]">
-        <Card className="" forceRounded={false}>
+        <Card>
           <FullPublication publication={publication} />
         </Card>
         <Feed publication={publication} />
