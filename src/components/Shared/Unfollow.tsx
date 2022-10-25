@@ -2,7 +2,8 @@ import { FollowNFT } from '@abis/FollowNFT';
 import { useMutation } from '@apollo/client';
 import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
-import type { Mutation, Profile } from '@generated/types';
+import useBroadcast from '@components/utils/hooks/useBroadcast';
+import type { CreateBurnEip712TypedData, Mutation, Profile } from '@generated/types';
 import { CreateUnfollowTypedDataDocument } from '@generated/types';
 import { UserRemoveIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
@@ -14,7 +15,7 @@ import { Contract } from 'ethers';
 import type { Dispatch, FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import { SIGN_WALLET } from 'src/constants';
+import { RELAY_ON, SIGN_WALLET } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { PROFILE } from 'src/tracking';
 import { useSigner, useSignTypedData } from 'wagmi';
@@ -31,28 +32,41 @@ const Unfollow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
   const { data: signer } = useSigner();
 
+  const burnWithSig = async (signature: string, typedData: CreateBurnEip712TypedData) => {
+    const { tokenId, deadline } = typedData.value;
+    const { v, r, s } = splitSignature(signature);
+    const sig = { v, r, s, deadline };
+
+    const followNftContract = new Contract(typedData.domain.verifyingContract, FollowNFT, signer as Signer);
+
+    const tx = await followNftContract.burnWithSig(tokenId, sig);
+    if (tx) {
+      setFollowing(false);
+    }
+  };
+
+  const { broadcast } = useBroadcast({
+    onCompleted: () => {
+      setFollowing(false);
+    }
+  });
+
   const [createUnfollowTypedData, { loading: typedDataLoading }] = useMutation<Mutation>(
     CreateUnfollowTypedDataDocument,
     {
       onCompleted: async ({ createUnfollowTypedData }) => {
         try {
-          const { typedData } = createUnfollowTypedData;
-          const { tokenId, deadline } = typedData.value;
+          const { typedData, id } = createUnfollowTypedData;
           const signature = await signTypedDataAsync(getSignature(typedData));
-          const { v, r, s } = splitSignature(signature);
-          const sig = { v, r, s, deadline };
 
           setWriteLoading(true);
           try {
-            const followNftContract = new Contract(
-              typedData.domain.verifyingContract,
-              FollowNFT,
-              signer as Signer
-            );
-
-            const tx = await followNftContract.burnWithSig(tokenId, sig);
-            if (tx) {
-              setFollowing(false);
+            if (!RELAY_ON) {
+              return await burnWithSig(signature, typedData);
+            }
+            const { data } = await broadcast({ request: { id, signature } });
+            if (data?.broadcast?.reason) {
+              await burnWithSig(signature, typedData);
             }
             toast.success('Unfollowed successfully!');
             Leafwatch.track(PROFILE.UNFOLLOW);
