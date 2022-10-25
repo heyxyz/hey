@@ -155,7 +155,6 @@ const Attachment: FC<Props> = ({ attachments, setAttachments }) => {
             <input
               id={`video_${id}`}
               type="file"
-              multiple
               accept="video/*"
               className="hidden"
               onClick={() => Leafwatch.track(PUBLICATION.NEW.ATTACHMENT.UPLOAD_VIDEO)}
@@ -178,7 +177,6 @@ const Attachment: FC<Props> = ({ attachments, setAttachments }) => {
             <input
               id={`audio_${id}`}
               type="file"
-              multiple
               accept={ALLOWED_AUDIO_TYPES.join(',')}
               className="hidden"
               onClick={() => Leafwatch.track(PUBLICATION.NEW.ATTACHMENT.UPLOAD_AUDIO)}
