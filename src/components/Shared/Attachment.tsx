@@ -38,7 +38,7 @@ const Attachment: FC<Props> = ({ attachments, setAttachments }) => {
     let images = 0;
 
     for (const file of files) {
-      if (ALLOWED_VIDEO_TYPES.includes(file?.type)) {
+      if (ALLOWED_VIDEO_TYPES.includes(file.type)) {
         videos = videos + 1;
       } else {
         images = images + 1;
