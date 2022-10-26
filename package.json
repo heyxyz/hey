@@ -39,7 +39,6 @@
     "jwt-decode": "^3.1.2",
     "next": "^13.0.0",
     "next-themes": "^0.2.1",
-    "omit-deep": "^0.3.0",
     "plyr-react": "^5.1.0",
     "react": "^18.2.0",
     "react-copy-to-clipboard": "^5.1.0",

@@ -1,6 +1,3 @@
-// @ts-ignore
-import omitDeep from 'omit-deep';
-
 /**
  *
  * @param object - Object to remove properties from
@@ -8,7 +5,8 @@ import omitDeep from 'omit-deep';
  * @returns object with property removed
  */
 const omit = (object: Record<string, any>, name: string) => {
-  return omitDeep(object, name);
+  delete object[name];
+  return object;
 };
 
 export default omit;
