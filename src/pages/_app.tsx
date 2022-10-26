@@ -12,8 +12,8 @@ const App = ({ Component, pageProps }: AppProps) => {
     <Suspense fallback={<Loading />}>
       <Providers>
         <Layout>
-          <Analytics />
           <Component {...pageProps} />
+          <Analytics />
         </Layout>
       </Providers>
     </Suspense>
