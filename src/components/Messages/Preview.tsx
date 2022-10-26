@@ -2,7 +2,7 @@ import type { Profile } from '@generated/types';
 import { BadgeCheckIcon } from '@heroicons/react/solid';
 import getAvatar from '@lib/getAvatar';
 import isVerified from '@lib/isVerified';
-import type { Message } from '@xmtp/xmtp-js';
+import type { DecodedMessage } from '@xmtp/xmtp-js';
 import clsx from 'clsx';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
@@ -14,7 +14,7 @@ dayjs.extend(relativeTime);
 
 interface Props {
   profile: Profile;
-  message: Message;
+  message: DecodedMessage;
   conversationKey: string;
 }
 
