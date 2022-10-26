@@ -48,7 +48,10 @@ const MessageTile: FC<MessageTileProps> = ({ message, profile, currentProfile })
           )}
         >
           <span
-            className={clsx(address === message.senderAddress ? 'text-white' : 'text-black', 'block text-md')}
+            className={clsx(
+              address === message.senderAddress ? 'text-white' : 'text-black',
+              'block text-md break-all'
+            )}
           >
             {message.error ? `Error: ${message.error?.message}` : message.content ?? ''}
           </span>
