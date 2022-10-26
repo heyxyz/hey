@@ -2,7 +2,7 @@ import { Card } from '@components/UI/Card';
 import type { Profile } from '@generated/types';
 import { EmojiSadIcon } from '@heroicons/react/outline';
 import getAvatar from '@lib/getAvatar';
-import type { Message } from '@xmtp/xmtp-js';
+import type { DecodedMessage } from '@xmtp/xmtp-js';
 import clsx from 'clsx';
 import dayjs from 'dayjs';
 import type { FC, ReactNode } from 'react';
@@ -18,7 +18,7 @@ const isOnSameDay = (d1?: Date, d2?: Date): boolean => {
 const formatDate = (d?: Date) => dayjs(d).format('MMMM D, YYYY');
 
 interface MessageTileProps {
-  message: Message;
+  message: DecodedMessage;
   profile?: Profile;
   currentProfile?: Profile | null;
 }
@@ -102,7 +102,7 @@ const LoadingMore: FC = () => (
 );
 
 interface MessageListProps {
-  messages: Message[];
+  messages: DecodedMessage[];
   fetchNextMessages: () => void;
   profile?: Profile;
   currentProfile?: Profile | null;
@@ -139,7 +139,7 @@ const MessagesList: FC<MessageListProps> = ({
             loader={<LoadingMore />}
             scrollableTarget="scrollableDiv"
           >
-            {messages?.map((msg: Message, index: number) => {
+            {messages?.map((msg: DecodedMessage, index: number) => {
               const dateHasChanged = lastMessageDate ? !isOnSameDay(lastMessageDate, msg.sent) : false;
               const messageDiv = (
                 <div key={`${msg.id}_${index}`}>

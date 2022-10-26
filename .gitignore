@@ -33,3 +33,5 @@ scratch/
 
 # IDE settings
 .idea/
+
+.vscode
