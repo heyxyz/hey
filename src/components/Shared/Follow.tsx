@@ -62,6 +62,7 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
         const { deadline } = typedData.value;
 
         try {
+          // TODO: Replace deep clone with right helper
           const signature = await signTypedDataAsync(getSignature(JSON.parse(JSON.stringify(typedData))));
           setUserSigNonce(userSigNonce + 1);
           const { profileIds, datas: followData } = typedData.value;
