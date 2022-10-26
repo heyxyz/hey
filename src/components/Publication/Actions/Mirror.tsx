@@ -5,7 +5,7 @@ import { Spinner } from '@components/UI/Spinner';
 import { Tooltip } from '@components/UI/Tooltip';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
 import type { LensterPublication } from '@generated/lenstertypes';
-import type { Mutation } from '@generated/types';
+import type { CreateMirrorRequest, Mutation } from '@generated/types';
 import { CreateMirrorTypedDataDocument, CreateMirrorViaDispatcherDocument } from '@generated/types';
 import { SwitchHorizontalIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
@@ -123,6 +123,20 @@ const Mirror: FC<Props> = ({ publication, isFullPublication }) => {
     { onCompleted, onError, update: updateCache }
   );
 
+  const createViaDispatcher = async (request: CreateMirrorRequest) => {
+    const { data } = await createMirrorViaDispatcher({
+      variables: { request }
+    });
+    if (data?.createMirrorViaDispatcher?.__typename === 'RelayError') {
+      createMirrorTypedData({
+        variables: {
+          options: { overrideSigNonce: userSigNonce },
+          request
+        }
+      });
+    }
+  };
+
   const createMirror = () => {
     if (!currentProfile) {
       return toast.error(SIGN_WALLET);
@@ -137,7 +151,7 @@ const Mirror: FC<Props> = ({ publication, isFullPublication }) => {
     };
 
     if (currentProfile?.dispatcher?.canUseRelay) {
-      createMirrorViaDispatcher({ variables: { request } });
+      createViaDispatcher(request);
     } else {
       createMirrorTypedData({
         variables: {
