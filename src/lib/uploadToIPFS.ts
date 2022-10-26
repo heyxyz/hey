@@ -1,5 +1,4 @@
 import { S3 } from '@aws-sdk/client-s3';
-import { Upload } from '@aws-sdk/lib-storage';
 import type { LensterAttachment } from '@generated/lenstertypes';
 import { v4 as uuid } from 'uuid';
 
@@ -9,7 +8,7 @@ const bucketName = process.env.NEXT_PUBLIC_EVER_BUCKET_NAME as string;
 const region = 'us-west-2';
 
 const client = new S3({
-  endpoint: 'https://endpoint.4everland.co',
+  endpoint: 'https://ipfs.lenster.io',
   credentials: { accessKeyId, secretAccessKey },
   region,
   maxAttempts: 3
@@ -32,12 +31,6 @@ const uploadToIPFS = async (data: any): Promise<LensterAttachment[]> => {
           Body: file,
           ContentType: file.type
         };
-        const task = new Upload({
-          client,
-          queueSize: 3, // 3 MiB
-          params
-        });
-        await task.done();
         const result = await client.headObject(params);
         const metadata = result.Metadata;
 
