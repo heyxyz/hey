@@ -100,6 +100,13 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
     update: updateCache
   });
 
+  const createViaDispatcher = async (request: any) => {
+    const { data } = await createFollowProxyAction(request);
+    if (!data?.proxyAction) {
+      createFollowTypedData(request);
+    }
+  };
+
   const createFollow = () => {
     if (!currentProfile) {
       return toast.error(SIGN_WALLET);
@@ -121,7 +128,7 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
         }
       });
     } else {
-      createFollowProxyAction({
+      createViaDispatcher({
         variables: {
           request: {
             follow: {
