@@ -15,7 +15,6 @@ import {
 import { StarIcon, XIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
 import getTokenImage from '@lib/getTokenImage';
-import { Leafwatch } from '@lib/leafwatch';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import type { FC } from 'react';
@@ -23,7 +22,6 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { ADDRESS_REGEX, DEFAULT_COLLECT_TOKEN, LENSHUB_PROXY, RELAY_ON, SIGN_WALLET } from 'src/constants';
 import { useAppStore } from 'src/store/app';
-import { SETTINGS } from 'src/tracking';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 import { object, string } from 'zod';
 
@@ -46,10 +44,6 @@ const SuperFollow: FC = () => {
     skip: !currentProfile?.id
   });
 
-  const onCompleted = () => {
-    Leafwatch.track(SETTINGS.ACCOUNT.SET_SUPER_FOLLOW);
-  };
-
   const {
     data: writeData,
     isLoading: writeLoading,
@@ -59,7 +53,6 @@ const SuperFollow: FC = () => {
     abi: LensHubProxy,
     functionName: 'setFollowModuleWithSig',
     mode: 'recklesslyUnprepared',
-    onSuccess: onCompleted,
     onError
   });
 
@@ -70,7 +63,7 @@ const SuperFollow: FC = () => {
     }
   });
 
-  const { broadcast, data: broadcastData, loading: broadcastLoading } = useBroadcast({ onCompleted });
+  const { broadcast, data: broadcastData, loading: broadcastLoading } = useBroadcast({});
   const [createSetFollowModuleTypedData, { loading: typedDataLoading }] = useMutation<Mutation>(
     CreateSetFollowModuleTypedDataDocument,
     {
@@ -209,9 +202,7 @@ const SuperFollow: FC = () => {
                 type="button"
                 variant="danger"
                 outline
-                onClick={() => {
-                  setSuperFollow(null, null);
-                }}
+                onClick={() => setSuperFollow(null, null)}
                 disabled={typedDataLoading || signLoading || writeLoading || broadcastLoading}
                 icon={<XIcon className="w-4 h-4" />}
               >

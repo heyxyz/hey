@@ -1,16 +1,9 @@
 import Footer from '@components/Shared/Footer';
 import MetaTags from '@components/utils/MetaTags';
-import { Leafwatch } from '@lib/leafwatch';
 import type { FC } from 'react';
-import { useEffect } from 'react';
 import { APP_NAME } from 'src/constants';
-import { PAGEVIEW } from 'src/tracking';
 
 const Privacy: FC = () => {
-  useEffect(() => {
-    Leafwatch.track('Pageview', { path: PAGEVIEW.PRIVACY });
-  }, []);
-
   return (
     <>
       <MetaTags title={`Privacy • ${APP_NAME}`} />
