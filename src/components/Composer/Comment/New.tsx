@@ -11,7 +11,7 @@ import { MentionTextArea } from '@components/UI/MentionTextArea';
 import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
 import type { LensterAttachment, LensterPublication } from '@generated/lenstertypes';
-import type { Mutation } from '@generated/types';
+import type { CreatePublicCommentRequest, Mutation } from '@generated/types';
 import { PublicationMainFocus } from '@generated/types';
 import {
   CreateCommentTypedDataDocument,
@@ -215,6 +215,20 @@ const NewComment: FC<Props> = ({ publication }) => {
     }
   );
 
+  const createViaDispatcher = async (request: CreatePublicCommentRequest) => {
+    const { data } = await createCommentViaDispatcher({
+      variables: { request }
+    });
+    if (data?.createCommentViaDispatcher?.__typename === 'RelayError') {
+      createCommentTypedData({
+        variables: {
+          options: { overrideSigNonce: userSigNonce },
+          request
+        }
+      });
+    }
+  };
+
   const getMainContentFocus = () => {
     if (attachments.length > 0) {
       if (isAudioComment) {
@@ -315,7 +329,7 @@ const NewComment: FC<Props> = ({ publication }) => {
     };
 
     if (currentProfile?.dispatcher?.canUseRelay) {
-      createCommentViaDispatcher({ variables: { request } });
+      createViaDispatcher(request);
     } else {
       createCommentTypedData({
         variables: {

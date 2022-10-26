@@ -7,7 +7,7 @@ import { Form, useZodForm } from '@components/UI/Form';
 import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
-import type { Mutation, NftImage, Profile } from '@generated/types';
+import type { Mutation, NftImage, Profile, UpdateProfileImageRequest } from '@generated/types';
 import {
   CreateSetProfileImageUriTypedDataDocument,
   CreateSetProfileImageUriViaDispatcherDocument,
@@ -112,6 +112,20 @@ const NFTPicture: FC<Props> = ({ profile }) => {
   const [createSetProfileImageURIViaDispatcher, { data: dispatcherData, loading: dispatcherLoading }] =
     useMutation(CreateSetProfileImageUriViaDispatcherDocument, { onCompleted, onError });
 
+  const createViaDispatcher = async (request: UpdateProfileImageRequest) => {
+    const { data } = await createSetProfileImageURIViaDispatcher({
+      variables: { request }
+    });
+    if (data?.createSetProfileImageURIViaDispatcher?.__typename === 'RelayError') {
+      createSetProfileImageURITypedData({
+        variables: {
+          options: { overrideSigNonce: userSigNonce },
+          request
+        }
+      });
+    }
+  };
+
   const setAvatar = async (contractAddress: string, tokenId: string) => {
     if (!currentProfile) {
       return toast.error(SIGN_WALLET);
@@ -144,7 +158,7 @@ const NFTPicture: FC<Props> = ({ profile }) => {
     };
 
     if (currentProfile?.dispatcher?.canUseRelay) {
-      createSetProfileImageURIViaDispatcher({ variables: { request } });
+      createViaDispatcher(request);
     } else {
       createSetProfileImageURITypedData({
         variables: {
