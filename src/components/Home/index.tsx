@@ -11,6 +11,7 @@ import { useEffect, useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { PAGEVIEW } from 'src/tracking';
 
+import Timeline from '../Timeline';
 import EnableDispatcher from './EnableDispatcher';
 import EnableMessages from './EnableMessages';
 import HomeFeed from './Feed';
@@ -40,7 +41,15 @@ const Home: NextPage = () => {
             <>
               <NewPost />
               <FeedType feedType={feedType} setFeedType={setFeedType} />
-              {feedType === 'TIMELINE' ? <HomeFeed /> : <Highlights />}
+              {feedType === 'TIMELINE' ? (
+                isFeatureEnabled('timeline-v2', currentProfile?.id) ? (
+                  <Timeline />
+                ) : (
+                  <HomeFeed />
+                )
+              ) : (
+                <Highlights />
+              )}
             </>
           ) : (
             <ExploreFeed />

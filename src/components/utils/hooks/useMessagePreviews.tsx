@@ -6,9 +6,9 @@ import buildConversationId from '@lib/buildConversationId';
 import { buildConversationKey, parseConversationKey } from '@lib/conversationKey';
 import conversationMatchesProfile from '@lib/conversationMatchesProfile';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
-import type { Conversation, Message, Stream } from '@xmtp/xmtp-js';
+import type { Conversation, Stream } from '@xmtp/xmtp-js';
 import { SortDirection } from '@xmtp/xmtp-js';
-import type { MessageV2 } from '@xmtp/xmtp-js/dist/types/src/Message';
+import type { DecodedMessage } from '@xmtp/xmtp-js/dist/types/src/Message';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useAppStore } from 'src/store/app';
@@ -17,8 +17,9 @@ import { useMessageStore } from 'src/store/message';
 const useMessagePreviews = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const router = useRouter();
-  const { client } = useXmtpClient();
+  const { client, loading: creatingXmtpClient } = useXmtpClient();
   const isMessagesEnabled = isFeatureEnabled('messages', currentProfile?.id);
+
   const conversations = useMessageStore((state) => state.conversations);
   const setConversations = useMessageStore((state) => state.setConversations);
   const messageProfiles = useMessageStore((state) => state.messageProfiles);
@@ -32,7 +33,7 @@ const useMessagePreviews = () => {
   const [profileIds, setProfileIds] = useState<Set<string>>(new Set<string>());
   const [conversationStream, setConversationStream] = useState<Stream<Conversation>>();
   // TODO: Remove this and replace with streamAllMessages. Just need to make some changes in xmtp-js first
-  const [messageStreams, setMessageStreams] = useState<Map<string, Stream<MessageV2>>>(new Map());
+  const [messageStreams, setMessageStreams] = useState<Map<string, Stream<DecodedMessage>>>(new Map());
   const [messagesLoading, setMessagesLoading] = useState<boolean>();
 
   const getProfileFromKey = (key: string): string | null => {
@@ -89,7 +90,7 @@ const useMessagePreviews = () => {
 
     const fetchMostRecentMessage = async (
       convo: Conversation
-    ): Promise<{ key: string; message?: Message }> => {
+    ): Promise<{ key: string; message?: DecodedMessage }> => {
       const key = buildConversationKey(convo.peerAddress, convo.context?.conversationId as string);
 
       const newMessages = await convo.messages({
@@ -194,6 +195,7 @@ const useMessagePreviews = () => {
   }, [currentProfile]);
 
   return {
+    authenticating: creatingXmtpClient,
     loading: messagesLoading || profilesLoading,
     messages: previewMessages,
     profiles: messageProfiles,

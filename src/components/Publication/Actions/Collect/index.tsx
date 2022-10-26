@@ -3,6 +3,7 @@ import { Modal } from '@components/UI/Modal';
 import { Tooltip } from '@components/UI/Tooltip';
 import GetModuleIcon from '@components/utils/GetModuleIcon';
 import type { LensterPublication } from '@generated/lenstertypes';
+import type { ElectedMirror } from '@generated/types';
 import { CollectModules } from '@generated/types';
 import { CollectionIcon } from '@heroicons/react/outline';
 import { CollectionIcon as CollectionIconSolid } from '@heroicons/react/solid';
@@ -23,9 +24,10 @@ const CollectModule = dynamic(() => import('./CollectModule'), {
 interface Props {
   publication: LensterPublication;
   isFullPublication: boolean;
+  electedMirror?: ElectedMirror;
 }
 
-const Collect: FC<Props> = ({ publication, isFullPublication }) => {
+const Collect: FC<Props> = ({ publication, isFullPublication, electedMirror }) => {
   const [count, setCount] = useState(0);
   const [showCollectModal, setShowCollectModal] = useState(false);
   const isFreeCollect = publication?.collectModule.__typename === 'FreeCollectModuleSettings';
@@ -86,7 +88,12 @@ const Collect: FC<Props> = ({ publication, isFullPublication }) => {
         show={showCollectModal}
         onClose={() => setShowCollectModal(false)}
       >
-        <CollectModule publication={publication} count={count} setCount={setCount} />
+        <CollectModule
+          electedMirror={electedMirror}
+          publication={publication}
+          count={count}
+          setCount={setCount}
+        />
       </Modal>
     </>
   );

@@ -2,7 +2,7 @@ import { Card } from '@components/UI/Card';
 import type { Profile } from '@generated/types';
 import { EmojiSadIcon } from '@heroicons/react/outline';
 import getAvatar from '@lib/getAvatar';
-import type { Message } from '@xmtp/xmtp-js';
+import type { DecodedMessage } from '@xmtp/xmtp-js';
 import clsx from 'clsx';
 import dayjs from 'dayjs';
 import type { FC, ReactNode } from 'react';
@@ -18,7 +18,7 @@ const isOnSameDay = (d1?: Date, d2?: Date): boolean => {
 const formatDate = (d?: Date) => dayjs(d).format('MMMM D, YYYY');
 
 interface MessageTileProps {
-  message: Message;
+  message: DecodedMessage;
   profile?: Profile;
   currentProfile?: Profile | null;
 }
@@ -92,17 +92,17 @@ const MissingXmtpAuth: FC = () => (
 );
 
 const ConversationBeginningNotice: FC = () => (
-  <div className="flex align-items-center justify-center pb-4">
+  <div className="flex align-items-center justify-center mt-6 pb-4">
     <span className="text-gray-300 text-sm font-bold">This is the beginning of the conversation</span>
   </div>
 );
 
 const LoadingMore: FC = () => (
-  <div className="p-1 text-center text-gray-300 font-bold text-sm">Loading...</div>
+  <div className="p-1 mt-6 text-center text-gray-300 font-bold text-sm">Loading...</div>
 );
 
 interface MessageListProps {
-  messages: Message[];
+  messages: DecodedMessage[];
   fetchNextMessages: () => void;
   profile?: Profile;
   currentProfile?: Profile | null;
@@ -122,7 +122,7 @@ const MessagesList: FC<MessageListProps> = ({
 
   return (
     <div className="flex-grow flex h-[75%]">
-      <div className="relative w-full h-full bg-white pl-4 pt-6 flex">
+      <div className="relative w-full h-full bg-white pl-4 flex">
         <div
           id="scrollableDiv"
           className="flex flex-col h-full overflow-y-auto w-full"
@@ -139,7 +139,7 @@ const MessagesList: FC<MessageListProps> = ({
             loader={<LoadingMore />}
             scrollableTarget="scrollableDiv"
           >
-            {messages?.map((msg: Message, index: number) => {
+            {messages?.map((msg: DecodedMessage, index: number) => {
               const dateHasChanged = lastMessageDate ? !isOnSameDay(lastMessageDate, msg.sent) : false;
               const messageDiv = (
                 <div key={`${msg.id}_${index}`}>
