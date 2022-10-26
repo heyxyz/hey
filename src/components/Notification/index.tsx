@@ -1,24 +1,17 @@
 import TabButton from '@components/UI/TabButton';
 import MetaTags from '@components/utils/MetaTags';
 import { AtSymbolIcon, LightningBoltIcon } from '@heroicons/react/outline';
-import { Leafwatch } from '@lib/leafwatch';
 import type { FC } from 'react';
 import { useState } from 'react';
-import { useEffect } from 'react';
 import { APP_NAME } from 'src/constants';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
-import { NOTIFICATION, PAGEVIEW } from 'src/tracking';
 
 import List from './List';
 
 const Notification: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [feedType, setFeedType] = useState<'ALL' | 'MENTIONS'>('ALL');
-
-  useEffect(() => {
-    Leafwatch.track('Pageview', { path: PAGEVIEW.NOTIFICATION });
-  }, []);
 
   if (!currentProfile) {
     return <Custom404 />;
@@ -33,19 +26,13 @@ const Notification: FC = () => {
             name="All notifications"
             icon={<LightningBoltIcon className="w-4 h-4" />}
             active={feedType === 'ALL'}
-            onClick={() => {
-              setFeedType('ALL');
-              Leafwatch.track(NOTIFICATION.SWITCH_ALL);
-            }}
+            onClick={() => setFeedType('ALL')}
           />
           <TabButton
             name="Mentions"
             icon={<AtSymbolIcon className="w-4 h-4" />}
             active={feedType === 'MENTIONS'}
-            onClick={() => {
-              setFeedType('MENTIONS');
-              Leafwatch.track(NOTIFICATION.SWITCH_MENTIONS);
-            }}
+            onClick={() => setFeedType('MENTIONS')}
           />
         </div>
         <List feedType={feedType} />

@@ -18,8 +18,9 @@ export const DEFAULT_COLLECT_TOKEN = getEnvConfig().defaultCollectToken;
 
 export const IS_MAINNET = API_URL === MAINNET_API_URL;
 
-// XMTP_NETWORK
+// XMTP
 export const XMTP_ENV = IS_MAINNET ? 'production' : 'dev';
+export const XMTP_PREFIX = 'lens.dev/dm';
 
 // Application
 export const APP_NAME = 'Lenster';
@@ -33,8 +34,6 @@ export const GIT_COMMIT_SHA = process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA?.sli
 // Misc
 export const CONTACT_EMAIL = 'support@lenster.xyz';
 export const RELAY_ON = process.env.NEXT_PUBLIC_RELAY_ON === 'true';
-export const AXIOM_TOKEN = process.env.NEXT_PUBLIC_AXIOM_TOKEN ?? '';
-export const LEAFWATCH_HOST = 'https://cloud.axiom.co/api/v1/datasets/leafwatch/ingest';
 export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
 
 // Messages
@@ -107,6 +106,7 @@ export const BUNDLR_NODE_URL = 'https://node2.bundlr.network';
 // UI
 export const MESSAGE_PAGE_LIMIT = 15;
 export const SCROLL_THRESHOLD = 0.5;
+export const MESSAGE_PREVIEW_LENGTH = 20;
 
 // Named transforms
 export const AVATAR = '250:250';

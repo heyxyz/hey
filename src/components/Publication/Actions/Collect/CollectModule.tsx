@@ -39,7 +39,6 @@ import formatAddress from '@lib/formatAddress';
 import getSignature from '@lib/getSignature';
 import getTokenImage from '@lib/getTokenImage';
 import humanize from '@lib/humanize';
-import { Leafwatch } from '@lib/leafwatch';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import dayjs from 'dayjs';
@@ -48,7 +47,6 @@ import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { LENSHUB_PROXY, POLYGONSCAN_URL, RELAY_ON, SIGN_WALLET } from 'src/constants';
 import { useAppStore } from 'src/store/app';
-import { PUBLICATION } from 'src/tracking';
 import { useAccount, useBalance, useContractWrite, useSignTypedData } from 'wagmi';
 
 interface Props {
@@ -83,7 +81,6 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
     setCount(count + 1);
     setHasCollectedByMe(true);
     toast.success('Transaction submitted successfully!');
-    Leafwatch.track(PUBLICATION.COLLECT_MODULE.COLLECT);
   };
 
   const {
@@ -188,16 +185,28 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
     }
   );
 
+  const createViaProxyAction = async (variables: any) => {
+    const { data } = await createCollectProxyAction({
+      variables
+    });
+    if (!data?.proxyAction) {
+      createCollectTypedData({
+        variables: {
+          request: { publicationId: publication?.id },
+          options: { overrideSigNonce: userSigNonce }
+        }
+      });
+    }
+  };
+
   const createCollect = () => {
     if (!currentProfile) {
       return toast.error(SIGN_WALLET);
     }
 
     if (collectModule?.type === CollectModules.FreeCollectModule) {
-      createCollectProxyAction({
-        variables: {
-          request: { collect: { freeCollect: { publicationId: publication?.id } } }
-        }
+      createViaProxyAction({
+        request: { collect: { freeCollect: { publicationId: publication?.id } } }
       });
     } else {
       createCollectTypedData({
@@ -281,10 +290,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
               <button
                 className="font-bold"
                 type="button"
-                onClick={() => {
-                  setShowCollectorsModal(!showCollectorsModal);
-                  Leafwatch.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECTORS);
-                }}
+                onClick={() => setShowCollectorsModal(!showCollectorsModal)}
               >
                 {humanize(count)} collectors
               </button>

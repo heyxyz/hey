@@ -5,7 +5,6 @@ import type { MediaSet } from '@generated/types';
 import { ExternalLinkIcon, XIcon } from '@heroicons/react/outline';
 import getIPFSLink from '@lib/getIPFSLink';
 import imageProxy from '@lib/imageProxy';
-import { Leafwatch } from '@lib/leafwatch';
 import clsx from 'clsx';
 import type { FC } from 'react';
 import { useState } from 'react';
@@ -99,9 +98,7 @@ const Attachments: FC<Props> = ({
                   className="text-sm"
                   variant="primary"
                   icon={<ExternalLinkIcon className="h-4 w-4" />}
-                  onClick={() => {
-                    window.open(url, '_blank');
-                  }}
+                  onClick={() => window.open(url, '_blank')}
                 >
                   <span>Open Image in new tab</span>
                 </Button>
@@ -113,10 +110,7 @@ const Attachments: FC<Props> = ({
                 <img
                   className="object-cover bg-gray-100 rounded-lg border cursor-pointer dark:bg-gray-800 dark:border-gray-700/80"
                   loading="lazy"
-                  onClick={() => {
-                    setExpandedImage(url);
-                    Leafwatch.track(PUBLICATION.ATTACHEMENT.IMAGE.OPEN);
-                  }}
+                  onClick={() => setExpandedImage(url)}
                   src={imageProxy(url, ATTACHMENT, type)}
                   alt={imageProxy(url, ATTACHMENT, type)}
                 />
