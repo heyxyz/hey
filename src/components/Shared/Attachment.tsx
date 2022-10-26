@@ -4,7 +4,7 @@ import useOnClickOutside from '@components/utils/hooks/useOnClickOutside';
 import type { LensterAttachment } from '@generated/lenstertypes';
 import { Menu, Transition } from '@headlessui/react';
 import { MusicNoteIcon, PhotographIcon, VideoCameraIcon } from '@heroicons/react/outline';
-import uploadMediaToIPFS from '@lib/uploadMediaToIPFS';
+import uploadToIPFS from '@lib/uploadToIPFS';
 import clsx from 'clsx';
 import type { ChangeEvent, Dispatch, FC } from 'react';
 import { useRef } from 'react';
@@ -77,7 +77,7 @@ const Attachment: FC<Props> = ({ attachments, setAttachments }) => {
 
       // Type check
       if (isTypeAllowed(evt.target.files)) {
-        const attachment = await uploadMediaToIPFS(evt.target.files);
+        const attachment = await uploadToIPFS(evt.target.files);
         if (attachment) {
           setAttachments(attachment);
           evt.target.value = '';

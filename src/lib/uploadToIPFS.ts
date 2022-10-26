@@ -7,7 +7,7 @@ import { v4 as uuid } from 'uuid';
  * @param data - Data to upload to IPFS
  * @returns attachment array
  */
-const uploadMediaToIPFS = async (data: any): Promise<LensterAttachment[]> => {
+const uploadToIPFS = async (data: any): Promise<LensterAttachment[]> => {
   try {
     const files = Array.from(data);
     const attachments = await Promise.all(
@@ -40,4 +40,4 @@ const uploadMediaToIPFS = async (data: any): Promise<LensterAttachment[]> => {
   }
 };
 
-export default uploadMediaToIPFS;
+export default uploadToIPFS;
