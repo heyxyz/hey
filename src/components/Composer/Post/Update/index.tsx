@@ -34,6 +34,7 @@ import toast from 'react-hot-toast';
 import {
   ALLOWED_AUDIO_TYPES,
   ALLOWED_IMAGE_TYPES,
+  ALLOWED_VIDEO_TYPES,
   APP_NAME,
   LENSHUB_PROXY,
   RELAY_ON,
@@ -212,7 +213,7 @@ const NewUpdate: FC = () => {
         return PublicationMainFocus.Audio;
       } else if (ALLOWED_IMAGE_TYPES.includes(attachments[0]?.type)) {
         return PublicationMainFocus.Image;
-      } else if (attachments[0]?.type === 'video/mp4') {
+      } else if (ALLOWED_VIDEO_TYPES.includes(attachments[0]?.type)) {
         return PublicationMainFocus.Video;
       }
     } else {
@@ -221,7 +222,7 @@ const NewUpdate: FC = () => {
   };
 
   const getAnimationUrl = () => {
-    if (attachments.length > 0 && (isAudioPost || attachments[0]?.type === 'video/mp4')) {
+    if (attachments.length > 0 && (isAudioPost || ALLOWED_VIDEO_TYPES.includes(attachments[0]?.type))) {
       return attachments[0]?.item;
     }
     return null;

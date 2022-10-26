@@ -12,7 +12,12 @@ import { useRef } from 'react';
 import { Fragment } from 'react';
 import { useId, useState } from 'react';
 import toast from 'react-hot-toast';
-import { ALLOWED_AUDIO_TYPES, ALLOWED_MEDIA_TYPES } from 'src/constants';
+import {
+  ALLOWED_AUDIO_TYPES,
+  ALLOWED_IMAGE_TYPES,
+  ALLOWED_MEDIA_TYPES,
+  ALLOWED_VIDEO_TYPES
+} from 'src/constants';
 import { PUBLICATION } from 'src/tracking';
 
 interface Props {
@@ -33,7 +38,7 @@ const Attachment: FC<Props> = ({ attachments, setAttachments }) => {
     let images = 0;
 
     for (const file of files) {
-      if (file.type === 'video/mp4') {
+      if (ALLOWED_VIDEO_TYPES.includes(file?.type)) {
         videos = videos + 1;
       } else {
         images = images + 1;
@@ -133,7 +138,7 @@ const Attachment: FC<Props> = ({ attachments, setAttachments }) => {
               id={`image_${id}`}
               type="file"
               multiple
-              accept="image/*"
+              accept={ALLOWED_IMAGE_TYPES.join(',')}
               className="hidden"
               onClick={() => Leafwatch.track(PUBLICATION.NEW.ATTACHMENT.UPLOAD_IMAGES)}
               onChange={handleAttachment}
@@ -155,7 +160,7 @@ const Attachment: FC<Props> = ({ attachments, setAttachments }) => {
             <input
               id={`video_${id}`}
               type="file"
-              accept="video/*"
+              accept={ALLOWED_VIDEO_TYPES.join(',')}
               className="hidden"
               onClick={() => Leafwatch.track(PUBLICATION.NEW.ATTACHMENT.UPLOAD_VIDEO)}
               onChange={handleAttachment}
