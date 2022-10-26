@@ -8,7 +8,7 @@ const bucketName = process.env.NEXT_PUBLIC_EVER_BUCKET_NAME as string;
 const region = 'us-west-2';
 
 const client = new S3({
-  endpoint: 'https://ipfs.lenster.io',
+  endpoint: 'https://endpoint.4everland.co',
   credentials: { accessKeyId, secretAccessKey },
   region,
   maxAttempts: 3
