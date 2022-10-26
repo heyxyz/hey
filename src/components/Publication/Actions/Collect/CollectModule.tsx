@@ -193,7 +193,12 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
       variables
     });
     if (!data?.proxyAction) {
-      createCollectTypedData({ ...variables, options: { overrideSigNonce: userSigNonce } });
+      createCollectTypedData({
+        variables: {
+          request: { publicationId: publication?.id },
+          options: { overrideSigNonce: userSigNonce }
+        }
+      });
     }
   };
 
