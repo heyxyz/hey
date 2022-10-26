@@ -62,7 +62,8 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
         const { deadline } = typedData.value;
 
         try {
-          const signature = await signTypedDataAsync(getSignature(typedData));
+          // TODO: Replace deep clone with right helper
+          const signature = await signTypedDataAsync(getSignature(JSON.parse(JSON.stringify(typedData))));
           setUserSigNonce(userSigNonce + 1);
           const { profileIds, datas: followData } = typedData.value;
           const { v, r, s } = splitSignature(signature);
@@ -97,6 +98,20 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
     update: updateCache
   });
 
+  const createViaProxyAction = async (variables: any) => {
+    const { data } = await createFollowProxyAction({
+      variables
+    });
+    if (!data?.proxyAction) {
+      createFollowTypedData({
+        variables: {
+          request: { follow: { profile: profile?.id } },
+          options: { overrideSigNonce: userSigNonce }
+        }
+      });
+    }
+  };
+
   const createFollow = () => {
     if (!currentProfile) {
       return toast.error(SIGN_WALLET);
@@ -118,13 +133,11 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
         }
       });
     } else {
-      createFollowProxyAction({
-        variables: {
-          request: {
-            follow: {
-              freeFollow: {
-                profileId: profile?.id
-              }
+      createViaProxyAction({
+        request: {
+          follow: {
+            freeFollow: {
+              profileId: profile?.id
             }
           }
         }

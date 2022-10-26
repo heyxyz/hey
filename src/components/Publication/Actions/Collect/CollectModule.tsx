@@ -185,16 +185,28 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
     }
   );
 
+  const createViaProxyAction = async (variables: any) => {
+    const { data } = await createCollectProxyAction({
+      variables
+    });
+    if (!data?.proxyAction) {
+      createCollectTypedData({
+        variables: {
+          request: { publicationId: publication?.id },
+          options: { overrideSigNonce: userSigNonce }
+        }
+      });
+    }
+  };
+
   const createCollect = () => {
     if (!currentProfile) {
       return toast.error(SIGN_WALLET);
     }
 
     if (collectModule?.type === CollectModules.FreeCollectModule) {
-      createCollectProxyAction({
-        variables: {
-          request: { collect: { freeCollect: { publicationId: publication?.id } } }
-        }
+      createViaProxyAction({
+        request: { collect: { freeCollect: { publicationId: publication?.id } } }
       });
     } else {
       createCollectTypedData({
