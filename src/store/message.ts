@@ -17,8 +17,8 @@ interface MessageState {
   setPreviewMessage: (key: string, message: Message) => void;
   setPreviewMessages: (previewMessages: Map<string, Message>) => void;
   reset: () => void;
-  selectedProfile: string;
-  setSelectedProfile: (selectedProfile: string) => void;
+  selectedProfileId: string;
+  setSelectedProfileId: (selectedProfileId: string) => void;
 }
 
 export const useMessageStore = create<MessageState>((set) => ({
@@ -54,8 +54,8 @@ export const useMessageStore = create<MessageState>((set) => ({
       return { previewMessages: newPreviewMessages };
     }),
   setPreviewMessages: (previewMessages) => set(() => ({ previewMessages })),
-  selectedProfile: '',
-  setSelectedProfile: (selectedProfile) => set(() => ({ selectedProfile })),
+  selectedProfileId: '',
+  setSelectedProfileId: (selectedProfileId) => set(() => ({ selectedProfileId })),
   reset: () =>
     set((state) => {
       return {

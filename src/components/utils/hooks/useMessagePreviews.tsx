@@ -25,8 +25,8 @@ const useMessagePreviews = () => {
   const setMessageProfiles = useMessageStore((state) => state.setMessageProfiles);
   const previewMessages = useMessageStore((state) => state.previewMessages);
   const setPreviewMessages = useMessageStore((state) => state.setPreviewMessages);
-  const selectedProfile = useMessageStore((state) => state.selectedProfile);
-  const setSelectedProfile = useMessageStore((state) => state.setSelectedProfile);
+  const selectedProfileId = useMessageStore((state) => state.selectedProfileId);
+  const setSelectedProfileId = useMessageStore((state) => state.setSelectedProfileId);
   const setPreviewMessage = useMessageStore((state) => state.setPreviewMessage);
   const reset = useMessageStore((state) => state.reset);
   const [profileIds, setProfileIds] = useState<Set<string>>(new Set<string>());
@@ -182,12 +182,12 @@ const useMessagePreviews = () => {
       closeMessageStreams();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [client, currentProfile?.id, selectedProfile]);
+  }, [client, currentProfile?.id, selectedProfileId]);
 
   useEffect(() => {
-    if (currentProfile?.id !== selectedProfile) {
+    if (currentProfile?.id !== selectedProfileId) {
       reset();
-      setSelectedProfile(currentProfile?.id);
+      setSelectedProfileId(currentProfile?.id);
       router.push('/messages');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
