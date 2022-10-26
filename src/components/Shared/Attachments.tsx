@@ -8,7 +8,7 @@ import imageProxy from '@lib/imageProxy';
 import clsx from 'clsx';
 import type { FC } from 'react';
 import { useState } from 'react';
-import { ALLOWED_AUDIO_TYPES, ATTACHMENT } from 'src/constants';
+import { ALLOWED_AUDIO_TYPES, ALLOWED_VIDEO_TYPES, ATTACHMENT } from 'src/constants';
 
 import Audio from './Audio';
 import Video from './Video';
@@ -62,7 +62,7 @@ const Attachments: FC<Props> = ({
 
   const slicedAttachments = isNew
     ? attachments?.slice(0, 4)
-    : attachments?.some((e: any) => e.original.mimeType === 'video/mp4')
+    : attachments?.some((e: any) => ALLOWED_VIDEO_TYPES.includes(e.original.mimeType))
     ? attachments?.slice(0, 1)
     : attachments?.slice(0, 4);
 
@@ -76,13 +76,13 @@ const Attachments: FC<Props> = ({
           return (
             <div
               className={clsx(
-                type === 'video/mp4' || ALLOWED_AUDIO_TYPES.includes(type)
+                ALLOWED_VIDEO_TYPES.includes(type) || ALLOWED_AUDIO_TYPES.includes(type)
                   ? ''
                   : getClass(slicedAttachments?.length, isNew)?.aspect,
                 {
                   'w-full': ALLOWED_AUDIO_TYPES.includes(type),
                   'w-2/3':
-                    type === 'video/mp4' ||
+                    ALLOWED_VIDEO_TYPES.includes(type) ||
                     (slicedAttachments.length === 1 && !ALLOWED_AUDIO_TYPES.includes(type))
                 },
                 'relative'
@@ -101,7 +101,7 @@ const Attachments: FC<Props> = ({
                 >
                   <span>Open Image in new tab</span>
                 </Button>
-              ) : type === 'video/mp4' ? (
+              ) : ALLOWED_VIDEO_TYPES.includes(type) ? (
                 <Video src={url} />
               ) : ALLOWED_AUDIO_TYPES.includes(type) ? (
                 <Audio src={url} isNew={isNew} publication={publication} txn={txn} />
