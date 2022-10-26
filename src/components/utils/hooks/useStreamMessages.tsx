@@ -1,10 +1,6 @@
-import type { Conversation, Stream } from '@xmtp/xmtp-js';
-import type { MessageV1, MessageV2 } from '@xmtp/xmtp-js/dist/types/src/Message';
+import type { Conversation, DecodedMessage, Stream } from '@xmtp/xmtp-js';
 import { useEffect, useState } from 'react';
 import { useMessageStore } from 'src/store/message';
-
-// Todo: Fix these types in XMTP-JS
-type MessageStream = Stream<MessageV1> | Stream<MessageV2>;
 
 const useStreamMessages = (
   conversationKey: string,
@@ -12,7 +8,7 @@ const useStreamMessages = (
   onMessageCallback?: () => void
 ) => {
   const addMessages = useMessageStore((state) => state.addMessages);
-  const [stream, setStream] = useState<MessageStream>();
+  const [stream, setStream] = useState<Stream<DecodedMessage>>();
 
   useEffect(() => {
     if (!conversation) {
