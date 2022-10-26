@@ -117,8 +117,8 @@ const Attachments: FC<Props> = ({
                     setExpandedImage(url);
                     Leafwatch.track(PUBLICATION.ATTACHEMENT.IMAGE.OPEN);
                   }}
-                  src={imageProxy(url, ATTACHMENT)}
-                  alt={imageProxy(url, ATTACHMENT)}
+                  src={imageProxy(url, ATTACHMENT, type)}
+                  alt={imageProxy(url, ATTACHMENT, type)}
                 />
               )}
               {isNew && !hideDelete && (
