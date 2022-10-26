@@ -11,7 +11,7 @@ import { Spinner } from '@components/UI/Spinner';
 import { TextArea } from '@components/UI/TextArea';
 import { Toggle } from '@components/UI/Toggle';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
-import type { MediaSet, Mutation } from '@generated/types';
+import type { CreatePublicSetProfileMetadataUriRequest, MediaSet, Mutation } from '@generated/types';
 import {
   CreateSetProfileMetadataTypedDataDocument,
   CreateSetProfileMetadataViaDispatcherDocument,
@@ -130,6 +130,20 @@ const Profile: FC<Props> = ({ profile }) => {
       onError
     });
 
+  const createViaDispatcher = async (request: CreatePublicSetProfileMetadataUriRequest) => {
+    const { data } = await createSetProfileMetadataViaDispatcher({
+      variables: { request }
+    });
+    if (data?.createSetProfileMetadataViaDispatcher?.__typename === 'RelayError') {
+      createSetProfileMetadataTypedData({
+        variables: {
+          options: { overrideSigNonce: userSigNonce },
+          request
+        }
+      });
+    }
+  };
+
   useEffect(() => {
     if (profile?.coverPicture?.original?.url) {
       setCover(profile?.coverPicture?.original?.url);
@@ -216,7 +230,7 @@ const Profile: FC<Props> = ({ profile }) => {
     };
 
     if (currentProfile?.dispatcher?.canUseRelay) {
-      createSetProfileMetadataViaDispatcher({ variables: { request } });
+      createViaDispatcher(request);
     } else {
       createSetProfileMetadataTypedData({
         variables: {
