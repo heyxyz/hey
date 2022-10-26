@@ -185,7 +185,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
     }
   );
 
-  const createViaDispatcher = async (variables: any) => {
+  const createViaProxyAction = async (variables: any) => {
     const { data } = await createCollectProxyAction({
       variables
     });
@@ -205,7 +205,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
     }
 
     if (collectModule?.type === CollectModules.FreeCollectModule) {
-      createViaDispatcher({
+      createViaProxyAction({
         request: { collect: { freeCollect: { publicationId: publication?.id } } }
       });
     } else {

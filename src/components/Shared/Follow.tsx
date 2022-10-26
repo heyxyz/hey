@@ -97,7 +97,7 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
     update: updateCache
   });
 
-  const createViaDispatcher = async (variables: any) => {
+  const createViaProxyAction = async (variables: any) => {
     const { data } = await createFollowProxyAction({
       variables
     });
@@ -132,7 +132,7 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
         }
       });
     } else {
-      createViaDispatcher({
+      createViaProxyAction({
         request: {
           follow: {
             freeFollow: {
