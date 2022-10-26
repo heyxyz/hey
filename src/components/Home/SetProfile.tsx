@@ -1,13 +1,11 @@
 import { Card } from '@components/UI/Card';
 import { MinusCircleIcon, PencilAltIcon, PhotographIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
-import { Leafwatch } from '@lib/leafwatch';
 import clsx from 'clsx';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { APP_NAME } from 'src/constants';
 import { useAppStore } from 'src/store/app';
-import { MISCELLANEOUS } from 'src/tracking';
 
 interface StatusProps {
   finished: boolean;
@@ -51,9 +49,7 @@ const SetProfile: FC = () => {
       </div>
       <div className="flex items-center space-x-1.5 text-sm font-bold">
         <PencilAltIcon className="w-4 h-4" />
-        <Link href="/settings" onClick={() => Leafwatch.track(MISCELLANEOUS.NAVIGATE_UPDATE_PROFILE)}>
-          Update profile here
-        </Link>
+        <Link href="/settings">Update profile here</Link>
       </div>
     </Card>
   );
