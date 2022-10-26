@@ -49,7 +49,6 @@ import type { BigNumber } from 'ethers';
 import { defaultAbiCoder } from 'ethers/lib/utils';
 import type { Dispatch, FC } from 'react';
 import { useEffect, useState } from 'react';
-import { useMemo } from 'react';
 import toast from 'react-hot-toast';
 import { LENSHUB_PROXY, POLYGONSCAN_URL, RELAY_ON, SIGN_WALLET } from 'src/constants';
 import { useAppStore } from 'src/store/app';
@@ -191,23 +190,15 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
     }
   );
 
-  const collectModuleSettings = useContractRead({
+  const { data: moduleData, refetch } = useContractRead({
     address: getEnvConfig().UpdateOwnableFeeCollectModuleAddress,
     abi: UpdateOwnableFeeCollectModule,
     functionName: 'getPublicationData',
-    args: [parseInt(publication.profile?.id), parseInt(publication?.id)]
+    args: [parseInt(publication.profile?.id), parseInt(publication?.id)],
+    enabled: false
   });
 
-  const initialModuleData = useMemo(() => {
-    if (collectModuleSettings.data) {
-      const decodedData: any = collectModuleSettings.data;
-      return {
-        amount: decodedData[1] as BigNumber,
-        currency: decodedData[2] as string
-      };
-    }
-  }, [collectModuleSettings]);
-  const createCollect = () => {
+  const createCollect = async () => {
     if (!currentProfile) {
       return toast.error(SIGN_WALLET);
     }
@@ -218,15 +209,26 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
           request: { collect: { freeCollect: { publicationId: publication?.id } } }
         }
       });
+    } else if (collectModule?.__typename === 'UnknownCollectModuleSettings') {
+      await refetch();
+      if (moduleData) {
+        const decodedData: any = moduleData;
+        const encodedData = defaultAbiCoder.encode(
+          ['address', 'uint256'],
+          [decodedData?.[2] as string, decodedData?.[1] as BigNumber]
+        );
+        createCollectTypedData({
+          variables: {
+            options: { overrideSigNonce: userSigNonce },
+            request: { publicationId: publication?.id, unknownModuleData: encodedData }
+          }
+        });
+      }
     } else {
-      const encodedData = defaultAbiCoder.encode(
-        ['address', 'uint256'],
-        [initialModuleData?.currency, initialModuleData?.amount]
-      );
       createCollectTypedData({
         variables: {
           options: { overrideSigNonce: userSigNonce },
-          request: { publicationId: publication?.id, unknownModuleData: encodedData }
+          request: { publicationId: publication?.id }
         }
       });
     }
