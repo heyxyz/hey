@@ -104,7 +104,7 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
     const { data } = await createFollowProxyAction({
       variables
     });
-    if (data?.proxyAction) {
+    if (!data?.proxyAction) {
       createFollowTypedData({
         variables: {
           request: { follow: { profile: profile?.id } },
