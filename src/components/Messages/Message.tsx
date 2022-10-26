@@ -24,7 +24,6 @@ import PreviewList from './PreviewList';
 
 type MessageProps = {
   conversationKey: string;
-  profileId: string;
 };
 
 const Message: FC<MessageProps> = ({ conversationKey }) => {
@@ -41,7 +40,7 @@ const Message: FC<MessageProps> = ({ conversationKey }) => {
   useStreamMessages(conversationKey, selectedConversation);
   const { sendMessage } = useSendMessage(selectedConversation);
 
-  const fetchNextMessages = useCallback(async () => {
+  const fetchNextMessages = useCallback(() => {
     if (hasMore && Array.isArray(messages) && messages.length > 0) {
       const lastMsgDate = messages[messages.length - 1].sent;
       const currentEndTime = endTime.get(conversationKey);
@@ -52,18 +51,18 @@ const Message: FC<MessageProps> = ({ conversationKey }) => {
     }
   }, [conversationKey, hasMore, messages, endTime]);
 
-  if (!isFeatureEnabled('messages', currentProfile?.id)) {
+  const showLoading = !missingXmtpAuth && (!profile || !currentProfile || !selectedConversation);
+
+  if (!currentProfile || !isFeatureEnabled('messages', currentProfile.id)) {
     return <Custom404 />;
   }
-
-  const showLoading = !missingXmtpAuth && (!profile || !currentProfile || !selectedConversation);
 
   return (
     <GridLayout>
       <MetaTags title={`Message • ${APP_NAME}`} />
       <PreviewList />
-      <GridItemEight>
-        <Card className="h-[86vh] flex justify-between flex-col">
+      <GridItemEight className="sm:h-[76vh] md:h-[80vh] xl:h-[84vh] mb-0">
+        <Card className="h-full flex justify-between flex-col">
           {showLoading ? (
             <PageLoading message="Loading messages" />
           ) : (
@@ -111,7 +110,7 @@ const MessagePage: FC = () => {
     return <Custom404 />;
   }
 
-  return <Message conversationKey={joinedConversationKey} profileId={profileId} />;
+  return <Message conversationKey={joinedConversationKey} />;
 };
 
 export default MessagePage;

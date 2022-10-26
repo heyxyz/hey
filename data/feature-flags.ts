@@ -35,9 +35,6 @@ export const featureFlags = [
   {
     key: 'timeline-v2',
     name: 'Timeline v2',
-    enabledFor: [
-      ...lensterMembers,
-      '0x2d' // sasicodes.lens
-    ]
+    enabledFor: [...lensterMembers, ...aaveMembers]
   }
 ];

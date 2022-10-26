@@ -18,6 +18,9 @@ export const DEFAULT_COLLECT_TOKEN = getEnvConfig().defaultCollectToken;
 
 export const IS_MAINNET = API_URL === MAINNET_API_URL;
 
+// XMTP_NETWORK
+export const XMTP_ENV = IS_MAINNET ? 'production' : 'dev';
+
 // Application
 export const APP_NAME = 'Lenster';
 export const DESCRIPTION =
@@ -47,6 +50,7 @@ export const STATIC_ASSETS = 'https://assets.lenster.xyz/images';
 export const POLYGONSCAN_URL = IS_MAINNET ? 'https://polygonscan.com' : 'https://mumbai.polygonscan.com';
 export const RARIBLE_URL = IS_MAINNET ? 'https://rarible.com' : 'https://rinkeby.rarible.com';
 export const ARWEAVE_GATEWAY = 'https://arweave.net';
+export const IMAGEKIT_URL = `https://ik.imagekit.io/lensterimg`;
 export const IMGPROXY_URL = 'https://img.lenster.io';
 export const IPFS_GATEWAY = 'https://lens.infura-ipfs.io/ipfs/';
 

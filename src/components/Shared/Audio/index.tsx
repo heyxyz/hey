@@ -55,8 +55,8 @@ const Audio: FC<Props> = ({ src, isNew = false, publication, txn }) => {
   };
 
   return (
-    <div className="border overflow-hidden border-gray-200 dark:border-gray-800 rounded-xl">
-      <div className="flex space-x-2 bg-brand-500">
+    <div className="border px-3.5 pt-3.5 md:p-0 bg-brand-500 overflow-hidden border-gray-200 dark:border-gray-800 rounded-xl">
+      <div className="flex flex-wrap md:flex-nowrap md:space-x-2">
         <CoverImage
           isNew={isNew && !txn}
           cover={isNew ? (txn ? txn.cover : audioPublication.cover) : getThumbnailUrl(publication)}
@@ -65,8 +65,8 @@ const Audio: FC<Props> = ({ src, isNew = false, publication, txn }) => {
           }
           imageRef={imageRef}
         />
-        <div className="flex py-1 px-3 flex-col justify-between w-full truncate">
-          <div className="flex justify-between mt-7">
+        <div className="flex py-1 md:px-3 flex-col justify-between w-full truncate">
+          <div className="flex justify-between mt-3 md:mt-7">
             <div className="flex items-center space-x-2.5 w-full truncate">
               <button type="button" onClick={handlePlayPause}>
                 {playing && !playerRef.current?.plyr.paused ? (
@@ -108,7 +108,7 @@ const Audio: FC<Props> = ({ src, isNew = false, publication, txn }) => {
               </div>
             </div>
           </div>
-          <div className="pb-3">
+          <div className="md:pb-3">
             <Player src={src} playerRef={playerRef} />
           </div>
         </div>

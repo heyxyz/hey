@@ -16,7 +16,7 @@ import { Tooltip } from '@components/UI/Tooltip';
 import { WarningMessage } from '@components/UI/WarningMessage';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
 import type { LensterPublication } from '@generated/lenstertypes';
-import type { Mutation } from '@generated/types';
+import type { ElectedMirror, Mutation } from '@generated/types';
 import {
   ApprovedModuleAllowanceAmountDocument,
   CollectModuleDocument,
@@ -59,9 +59,10 @@ interface Props {
   count: number;
   setCount: Dispatch<number>;
   publication: LensterPublication;
+  electedMirror?: ElectedMirror;
 }
 
-const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
+const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror }) => {
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -71,6 +72,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
   const [allowed, setAllowed] = useState(true);
   const { address } = useAccount();
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
+  const isMirror = electedMirror ? false : publication.__typename === 'Mirror';
 
   const { data, loading } = useQuery(CollectModuleDocument, {
     variables: {
@@ -228,7 +230,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
       createCollectTypedData({
         variables: {
           options: { overrideSigNonce: userSigNonce },
-          request: { publicationId: publication?.id }
+          request: { publicationId: electedMirror ? electedMirror.mirrorId : publication?.id }
         }
       });
     }
@@ -261,11 +263,11 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
         )}
         <div className="pb-2 space-y-1.5">
           <div className="flex items-center space-x-2">
-            {publication.__typename === 'Mirror' && (
+            {(electedMirror || isMirror) && (
               <Tooltip
-                content={`Mirror of ${publication?.mirrorOf.__typename?.toLowerCase()} by ${
-                  publication?.mirrorOf?.profile?.handle
-                }`}
+                content={`Mirror of ${
+                  electedMirror ? publication.__typename : publication?.mirrorOf.__typename?.toLowerCase()
+                } by ${isMirror ? publication?.mirrorOf?.profile?.handle : publication.profile.handle}`}
               >
                 <SwitchHorizontalIcon className="w-5 h-5 text-brand" />
               </Tooltip>
@@ -277,7 +279,11 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
           {publication?.metadata?.description && (
             <Markup className="text-gray-500 line-clamp-2">{publication?.metadata?.description}</Markup>
           )}
-          <ReferralAlert mirror={publication} referralFee={collectModule?.referralFee} />
+          <ReferralAlert
+            electedMirror={electedMirror}
+            mirror={publication}
+            referralFee={collectModule?.referralFee}
+          />
         </div>
         {collectModule?.amount && (
           <div className="flex items-center py-2 space-x-1.5">

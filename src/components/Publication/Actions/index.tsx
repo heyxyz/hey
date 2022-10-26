@@ -1,4 +1,5 @@
 import type { LensterPublication } from '@generated/lenstertypes';
+import type { ElectedMirror } from '@generated/types';
 import clsx from 'clsx';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
@@ -12,9 +13,10 @@ import Mirror from './Mirror';
 interface Props {
   publication: LensterPublication;
   isFullPublication?: boolean;
+  electedMirror?: ElectedMirror;
 }
 
-const PublicationActions: FC<Props> = ({ publication, isFullPublication = false }) => {
+const PublicationActions: FC<Props> = ({ publication, electedMirror, isFullPublication = false }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const collectModuleType = publication?.collectModule.__typename;
   const canMirror = currentProfile ? publication?.canMirror?.result : true;
@@ -33,8 +35,12 @@ const PublicationActions: FC<Props> = ({ publication, isFullPublication = false 
       {canMirror && <Mirror publication={publication} isFullPublication={isFullPublication} />}
       <Like publication={publication} isFullPublication={isFullPublication} />
       {collectModuleType !== 'RevertCollectModuleSettings' && (
-        <Collect publication={publication} isFullPublication={isFullPublication} />
-      )}
+          <Collect
+            electedMirror={electedMirror}
+            publication={publication}
+            isFullPublication={isFullPublication}
+          />
+        )}
       <PublicationMenu publication={publication} isFullPublication={isFullPublication} />
     </span>
   );

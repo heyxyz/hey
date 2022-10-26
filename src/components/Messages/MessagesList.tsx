@@ -1,8 +1,8 @@
 import { Card } from '@components/UI/Card';
 import type { Profile } from '@generated/types';
-import { ExclamationIcon } from '@heroicons/react/solid';
+import { EmojiSadIcon } from '@heroicons/react/outline';
 import getAvatar from '@lib/getAvatar';
-import type { Message } from '@xmtp/xmtp-js';
+import type { DecodedMessage } from '@xmtp/xmtp-js';
 import clsx from 'clsx';
 import dayjs from 'dayjs';
 import type { FC, ReactNode } from 'react';
@@ -18,7 +18,7 @@ const isOnSameDay = (d1?: Date, d2?: Date): boolean => {
 const formatDate = (d?: Date) => dayjs(d).format('MMMM D, YYYY');
 
 interface MessageTileProps {
-  message: Message;
+  message: DecodedMessage;
   profile?: Profile;
   currentProfile?: Profile | null;
 }
@@ -74,7 +74,7 @@ const DateDividerBorder: FC<Props> = ({ children }) => (
 );
 
 const DateDivider: FC<{ date?: Date }> = ({ date }) => (
-  <div className="flex align-items-center items-center pb-8 pt-4">
+  <div className="flex align-items-center items-center p-4 pt-0 pl-2">
     <DateDividerBorder>
       <span className="mx-11 flex-none text-gray-300 text-sm font-bold">{formatDate(date)}</span>
     </DateDividerBorder>
@@ -84,25 +84,25 @@ const DateDivider: FC<{ date?: Date }> = ({ date }) => (
 const MissingXmtpAuth: FC = () => (
   <Card as="aside" className="mb-4 border-gray-400 !bg-gray-300 !bg-opacity-20 space-y-2.5 p-5">
     <div className="flex items-center space-x-2 font-bold">
-      <ExclamationIcon className="w-5 h-5" />
-      <p>This profile has not enabled DMs yet</p>
+      <EmojiSadIcon className="w-5 h-5" />
+      <p>This fren hasn't enabled DMs yet</p>
     </div>
-    <p className="text-sm leading-[22px]">Messages can't be sent until they create their keys with XMTP.</p>
+    <p className="text-sm leading-[22px]">You can't send them a message until they enable DMs.</p>
   </Card>
 );
 
 const ConversationBeginningNotice: FC = () => (
-  <div className="flex align-items-center justify-center pb-4">
+  <div className="flex align-items-center justify-center mt-6 pb-4">
     <span className="text-gray-300 text-sm font-bold">This is the beginning of the conversation</span>
   </div>
 );
 
 const LoadingMore: FC = () => (
-  <div className="p-1 text-center text-gray-300 font-bold text-sm">Loading...</div>
+  <div className="p-1 mt-6 text-center text-gray-300 font-bold text-sm">Loading...</div>
 );
 
 interface MessageListProps {
-  messages: Message[];
+  messages: DecodedMessage[];
   fetchNextMessages: () => void;
   profile?: Profile;
   currentProfile?: Profile | null;
@@ -122,7 +122,7 @@ const MessagesList: FC<MessageListProps> = ({
 
   return (
     <div className="flex-grow flex h-[75%]">
-      <div className="relative w-full h-full bg-white px-4 pt-6 flex">
+      <div className="relative w-full h-full bg-white pl-4 flex">
         <div
           id="scrollableDiv"
           className="flex flex-col h-full overflow-y-auto w-full"
@@ -139,15 +139,16 @@ const MessagesList: FC<MessageListProps> = ({
             loader={<LoadingMore />}
             scrollableTarget="scrollableDiv"
           >
-            {messages?.map((msg: Message, index: number) => {
+            {messages?.map((msg: DecodedMessage, index: number) => {
               const dateHasChanged = lastMessageDate ? !isOnSameDay(lastMessageDate, msg.sent) : false;
-              lastMessageDate = msg.sent;
-              return (
+              const messageDiv = (
                 <div key={`${msg.id}_${index}`}>
                   <MessageTile currentProfile={currentProfile} profile={profile} message={msg} />
-                  {dateHasChanged ? <DateDivider date={msg.sent} /> : null}
+                  {dateHasChanged ? <DateDivider date={lastMessageDate} /> : null}
                 </div>
               );
+              lastMessageDate = msg.sent;
+              return messageDiv;
             })}
           </InfiniteScroll>
         </div>

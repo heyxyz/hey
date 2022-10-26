@@ -6,6 +6,7 @@ import clsx from 'clsx';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
+import { XMTP_ENV } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 
 const EnableMessages: FC = () => {
@@ -21,7 +22,7 @@ const EnableMessages: FC = () => {
   useEffect(() => {
     const fetchCanMessage = async () => {
       setLoading(true);
-      const isMessagesEnabled = await Client.canMessage(currentProfile?.ownedBy);
+      const isMessagesEnabled = await Client.canMessage(currentProfile?.ownedBy, { env: XMTP_ENV });
       setCanMessage(isMessagesEnabled);
       setLoading(false);
     };
@@ -42,7 +43,7 @@ const EnableMessages: FC = () => {
         <p>Direct messages are here!</p>
       </div>
       <p className="text-sm leading-[22px]">
-        Start sending DMs to your frens. Create your keys and enable your identity with XMTP to get started!
+        Create an XMTP account to start using Lenster to send DMs to frens.
       </p>
       <Button
         variant="success"
