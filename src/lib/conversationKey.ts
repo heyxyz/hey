@@ -1,3 +1,5 @@
+import { XMTP_PREFIX } from 'src/constants';
+
 const CONVERSATION_KEY_RE = /^(.*)\/lens\.dev\/dm\/(.*)-(.*)$/;
 
 export const buildConversationKey = (peerAddress: string, conversationId: string): string =>
@@ -13,5 +15,9 @@ export const parseConversationKey = (
 
   const [, peerAddress, memberA, memberB] = Array.from(matches);
 
-  return { peerAddress, members: [memberA, memberB], conversationId: `lens.dev/dm/${memberA}-${memberB}` };
+  return {
+    peerAddress,
+    members: [memberA, memberB],
+    conversationId: `${XMTP_PREFIX}/${memberA}-${memberB}`
+  };
 };

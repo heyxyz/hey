@@ -18,8 +18,9 @@ export const DEFAULT_COLLECT_TOKEN = getEnvConfig().defaultCollectToken;
 
 export const IS_MAINNET = API_URL === MAINNET_API_URL;
 
-// XMTP_NETWORK
+// XMTP
 export const XMTP_ENV = IS_MAINNET ? 'production' : 'dev';
+export const XMTP_PREFIX = 'lens.dev/dm';
 
 // Application
 export const APP_NAME = 'Lenster';
@@ -96,6 +97,7 @@ export const BUNDLR_NODE_URL = 'https://node2.bundlr.network';
 // UI
 export const MESSAGE_PAGE_LIMIT = 15;
 export const SCROLL_THRESHOLD = 0.5;
+export const MESSAGE_PREVIEW_LENGTH = 20;
 
 // Named transforms
 export const AVATAR = '250:250';

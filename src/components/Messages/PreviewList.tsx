@@ -20,13 +20,17 @@ import Custom500 from 'src/pages/500';
 import { useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
 
-const PreviewList: FC = () => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
-  const { authenticating, loading, messages, profiles, profilesError } = useMessagePreviews();
+interface Props {
+  className?: string;
+}
+
+const PreviewList: FC<Props> = ({ className }) => {
   const router = useRouter();
-  const [showSearchModal, setShowSearchModal] = useState(false);
+  const currentProfile = useAppStore((state) => state.currentProfile);
   const messageProfiles = useMessageStore((state) => state.messageProfiles);
   const setMessageProfiles = useMessageStore((state) => state.setMessageProfiles);
+  const [showSearchModal, setShowSearchModal] = useState(false);
+  const { authenticating, loading, messages, profiles, profilesError } = useMessagePreviews();
 
   if (!currentProfile || !isFeatureEnabled('messages', currentProfile.id)) {
     return <Custom404 />;
@@ -37,7 +41,6 @@ const PreviewList: FC = () => {
   }
 
   const showAuthenticating = currentProfile && authenticating;
-
   const showLoading = loading && (messages.size === 0 || profiles.size === 0);
 
   const sortedProfiles = Array.from(profiles).sort(([keyA], [keyB]) => {
@@ -60,7 +63,9 @@ const PreviewList: FC = () => {
   };
 
   return (
-    <GridItemFour className="sm:h-[76vh] md:h-[80vh] xl:h-[84vh] mb-0">
+    <GridItemFour
+      className={`xs:h-[85vh] sm:h-[76vh] md:h-[80vh] xl:h-[84vh] mb-0 md:col-span-4 sm:mx-2 xs:mx-2 ${className}`}
+    >
       <Card className="h-full flex justify-between flex-col">
         <div className="flex justify-between items-center p-5 border-b">
           <div className="font-bold">Messages</div>
