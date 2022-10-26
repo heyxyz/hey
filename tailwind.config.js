@@ -1,10 +1,15 @@
 /** @type {import('tailwindcss').Config} */
+const defaultTheme = require('tailwindcss/defaultTheme');
 const colors = require('tailwindcss/colors');
 
 module.exports = {
   content: ['./src/**/*.{ts,tsx}'],
   darkMode: 'class',
   theme: {
+    screens: {
+      xs: '300px',
+      ...defaultTheme.screens
+    },
     extend: {
       colors: {
         gray: colors.zinc,

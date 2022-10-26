@@ -17,10 +17,10 @@ const Messages: NextPage = () => {
   }
 
   return (
-    <GridLayout>
+    <GridLayout classNameChild="md:gap-8 sm:mx-1 xs:mx-1">
       <MetaTags title={`Messages • ${APP_NAME}`} />
       <PreviewList />
-      <GridItemEight className="sm:h-[76vh] md:h-[80vh] xl:h-[84vh] mb-0">
+      <GridItemEight className="sm:h-[76vh] md:h-[80vh] xl:h-[84vh] mb-0 md:col-span-8 md:block sm:hidden xs:hidden">
         <Card className="h-full">
           <div />
         </Card>
