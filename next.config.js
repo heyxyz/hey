@@ -11,7 +11,6 @@ module.exports = withSentryConfig(
     reactStrictMode: false,
     trailingSlash: false,
     experimental: {
-      appDir: true,
       scrollRestoration: true,
       newNextLinkBehavior: true
     },
