@@ -9,7 +9,7 @@ import { MentionTextArea } from '@components/UI/MentionTextArea';
 import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
 import type { LensterAttachment } from '@generated/lenstertypes';
-import type { Mutation } from '@generated/types';
+import type { CreatePublicPostRequest, Mutation } from '@generated/types';
 import {
   CreatePostTypedDataDocument,
   CreatePostViaDispatcherDocument,
@@ -228,6 +228,20 @@ const NewUpdate: FC = () => {
     return null;
   };
 
+  const createViaDispatcher = async (request: CreatePublicPostRequest) => {
+    const { data } = await createPostViaDispatcher({
+      variables: { request }
+    });
+    if (data?.createPostViaDispatcher?.__typename === 'RelayError') {
+      createPostTypedData({
+        variables: {
+          options: { overrideSigNonce: userSigNonce },
+          request
+        }
+      });
+    }
+  };
+
   const createPost = async () => {
     if (!currentProfile) {
       return toast.error(SIGN_WALLET);
@@ -300,9 +314,7 @@ const NewUpdate: FC = () => {
     };
 
     if (currentProfile?.dispatcher?.canUseRelay) {
-      createPostViaDispatcher({
-        variables: { request }
-      });
+      createViaDispatcher(request);
     } else {
       createPostTypedData({
         variables: {
