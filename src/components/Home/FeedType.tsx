@@ -1,10 +1,8 @@
 import TabButton from '@components/UI/TabButton';
 import { SparklesIcon, ViewListIcon } from '@heroicons/react/outline';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
-import { Leafwatch } from '@lib/leafwatch';
 import type { Dispatch, FC } from 'react';
 import { useAppStore } from 'src/store/app';
-import { MISCELLANEOUS } from 'src/tracking';
 
 import FeedEventFilters from './FeedEventFilters';
 
@@ -24,20 +22,14 @@ const FeedType: FC<Props> = ({ setFeedType, feedType }) => {
           icon={<ViewListIcon className="w-4 h-4" />}
           active={feedType === 'TIMELINE'}
           showOnSm
-          onClick={() => {
-            setFeedType('TIMELINE');
-            Leafwatch.track(MISCELLANEOUS.SWITCH_TIMELINE);
-          }}
+          onClick={() => setFeedType('TIMELINE')}
         />
         <TabButton
           name="Highlights"
           icon={<SparklesIcon className="w-4 h-4" />}
           active={feedType === 'HIGHLIGHTS'}
           showOnSm
-          onClick={() => {
-            setFeedType('HIGHLIGHTS');
-            Leafwatch.track(MISCELLANEOUS.SWITCH_HIGHLIGHTS);
-          }}
+          onClick={() => setFeedType('HIGHLIGHTS')}
         />
       </div>
       {feedType === 'TIMELINE' && isFeatureEnabled('timeline-v2', currentProfile?.id) && <FeedEventFilters />}

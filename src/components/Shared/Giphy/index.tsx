@@ -2,12 +2,10 @@ import { Modal } from '@components/UI/Modal';
 import { Tooltip } from '@components/UI/Tooltip';
 import type { IGif } from '@giphy/js-types';
 import { PhotographIcon } from '@heroicons/react/outline';
-import { Leafwatch } from '@lib/leafwatch';
 import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
 import type { FC } from 'react';
 import { useState } from 'react';
-import { PUBLICATION } from 'src/tracking';
 
 import Loader from '../Loader';
 
@@ -28,10 +26,7 @@ const Giphy: FC<Props> = ({ setGifAttachment }) => {
         <motion.button
           whileTap={{ scale: 0.9 }}
           type="button"
-          onClick={() => {
-            setShowModal(!showModal);
-            Leafwatch.track(PUBLICATION.NEW.OPEN_GIF);
-          }}
+          onClick={() => setShowModal(!showModal)}
           aria-label="Choose GIFs"
         >
           <div className="w-full fill-brand-500 dark:fill-brand-400">
