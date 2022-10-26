@@ -1,7 +1,6 @@
 import '../styles.css';
 
 import Loading from '@components/Loading';
-import { Analytics } from '@vercel/analytics/react';
 import type { AppProps } from 'next/app';
 import { lazy, Suspense } from 'react';
 const Providers = lazy(() => import('@components/Providers'));
@@ -13,7 +12,6 @@ const App = ({ Component, pageProps }: AppProps) => {
       <Providers>
         <Layout>
           <Component {...pageProps} />
-          <Analytics />
         </Layout>
       </Providers>
     </Suspense>
