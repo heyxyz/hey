@@ -9,7 +9,6 @@ import clsx from 'clsx';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { ALLOWED_AUDIO_TYPES, ALLOWED_VIDEO_TYPES, ATTACHMENT } from 'src/constants';
-import { PUBLICATION } from 'src/tracking';
 
 import Audio from './Audio';
 import Video from './Video';

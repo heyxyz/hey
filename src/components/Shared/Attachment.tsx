@@ -17,7 +17,6 @@ import {
   ALLOWED_MEDIA_TYPES,
   ALLOWED_VIDEO_TYPES
 } from 'src/constants';
-import { PUBLICATION } from 'src/tracking';
 
 interface Props {
   attachments: LensterAttachment[];
