@@ -19,7 +19,8 @@ export const featureFlags = [
       '0x015336', // jazzz.lens
       '0x010e75', // shash256.lens
       '0x010f89', // alohajha.lens
-      '0x21ad' // galligan.lens
+      '0x21ad', // galligan.lens
+      '0x77bd' // filiptronicek.lens
     ]
   },
   {
