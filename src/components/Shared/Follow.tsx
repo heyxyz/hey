@@ -62,7 +62,7 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
         const { deadline } = typedData.value;
 
         try {
-          const signature = await signTypedDataAsync(getSignature(typedData));
+          const signature = await signTypedDataAsync(getSignature(JSON.parse(JSON.stringify(typedData))));
           setUserSigNonce(userSigNonce + 1);
           const { profileIds, datas: followData } = typedData.value;
           const { v, r, s } = splitSignature(signature);
