@@ -100,10 +100,12 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
     update: updateCache
   });
 
-  const createViaDispatcher = async (request: any) => {
-    const { data } = await createFollowProxyAction(request);
+  const createViaDispatcher = async (variables: any) => {
+    const { data } = await createFollowProxyAction({
+      variables
+    });
     if (!data?.proxyAction) {
-      createFollowTypedData(request);
+      createFollowTypedData({ ...variables, options: { overrideSigNonce: userSigNonce } });
     }
   };
 
@@ -129,12 +131,10 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
       });
     } else {
       createViaDispatcher({
-        variables: {
-          request: {
-            follow: {
-              freeFollow: {
-                profileId: profile?.id
-              }
+        request: {
+          follow: {
+            freeFollow: {
+              profileId: profile?.id
             }
           }
         }
