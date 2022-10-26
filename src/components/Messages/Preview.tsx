@@ -15,13 +15,14 @@ dayjs.extend(relativeTime);
 interface Props {
   profile: Profile;
   message: Message;
+  conversationKey: string;
 }
 
-const Preview: FC<Props> = ({ profile, message }) => {
+const Preview: FC<Props> = ({ profile, message, conversationKey }) => {
   const router = useRouter();
 
   const onConversationSelected = (profileId: string) => {
-    router.push(profileId ? `/messages/${profileId}` : '/messages');
+    router.push(profileId ? `/messages/${conversationKey}` : '/messages');
   };
 
   return (

@@ -1,10 +1,13 @@
+import { Card } from '@components/UI/Card';
 import type { Profile } from '@generated/types';
+import { ExclamationIcon } from '@heroicons/react/solid';
 import getAvatar from '@lib/getAvatar';
 import type { Message } from '@xmtp/xmtp-js';
 import clsx from 'clsx';
 import dayjs from 'dayjs';
 import type { FC, ReactNode } from 'react';
 import React, { memo } from 'react';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 const formatTime = (d: Date | undefined): string => (d ? dayjs(d).format('hh:mm a - MM/DD/YY') : '');
 
@@ -78,10 +81,24 @@ const DateDivider: FC<{ date?: Date }> = ({ date }) => (
   </div>
 );
 
+const MissingXmtpAuth: FC = () => (
+  <Card as="aside" className="mb-4 border-gray-400 !bg-gray-300 !bg-opacity-20 space-y-2.5 p-5">
+    <div className="flex items-center space-x-2 font-bold">
+      <ExclamationIcon className="w-5 h-5" />
+      <p>This profile has not enabled DMs yet</p>
+    </div>
+    <p className="text-sm leading-[22px]">Messages can't be sent until they create their keys with XMTP.</p>
+  </Card>
+);
+
 const ConversationBeginningNotice: FC = () => (
   <div className="flex align-items-center justify-center pb-4">
     <span className="text-gray-300 text-sm font-bold">This is the beginning of the conversation</span>
   </div>
+);
+
+const LoadingMore: FC = () => (
+  <div className="p-1 text-center text-gray-300 font-bold text-sm">Loading...</div>
 );
 
 interface MessageListProps {
@@ -90,39 +107,49 @@ interface MessageListProps {
   profile?: Profile;
   currentProfile?: Profile | null;
   hasMore: boolean;
+  missingXmtpAuth: boolean;
 }
 
-const MessagesList: FC<MessageListProps> = ({ messages, profile, currentProfile }) => {
+const MessagesList: FC<MessageListProps> = ({
+  messages,
+  fetchNextMessages,
+  profile,
+  currentProfile,
+  hasMore,
+  missingXmtpAuth
+}) => {
   let lastMessageDate: Date | undefined;
 
   return (
     <div className="flex-grow flex h-[75%]">
-      <div className="pb-6 md:pb-0 w-full h-full flex flex-col self-end">
-        <div className="relative w-full h-full bg-white px-4 pt-6 flex">
-          <div id="scrollableDiv" className="flex flex-col h-full overflow-y-auto w-full">
-            {/* <InfiniteScroll
-              dataLength={messages.length}
-              next={fetchNextMessages}
-              hasMore={hasMore}
-              style={{ display: 'flex', flexDirection: 'column-reverse' }}
-              loader={<div className="p-1 text-center text-gray-300 font-bold text-sm">Loading...</div>}
-              endMessage={<ConversationBeginningNotice />}
-              inverse={true}
-              scrollableTarget="scrollableDiv"
-            > */}
-            <ConversationBeginningNotice />
-            {messages?.map((msg: Message) => {
-              const dateHasChanged = lastMessageDate ? !isOnSameDay(lastMessageDate, msg.sent) : true;
+      <div className="relative w-full h-full bg-white px-4 pt-6 flex">
+        <div
+          id="scrollableDiv"
+          className="flex flex-col h-full overflow-y-auto w-full"
+          style={{ flexDirection: 'column-reverse' }}
+        >
+          {missingXmtpAuth && <MissingXmtpAuth />}
+          <InfiniteScroll
+            dataLength={messages.length}
+            next={fetchNextMessages}
+            style={{ display: 'flex', flexDirection: 'column-reverse' }}
+            inverse
+            endMessage={<ConversationBeginningNotice />}
+            hasMore={hasMore}
+            loader={<LoadingMore />}
+            scrollableTarget="scrollableDiv"
+          >
+            {messages?.map((msg: Message, index: number) => {
+              const dateHasChanged = lastMessageDate ? !isOnSameDay(lastMessageDate, msg.sent) : false;
               lastMessageDate = msg.sent;
               return (
-                <div key={msg.id}>
-                  {dateHasChanged ? <DateDivider date={msg.sent} /> : null}
+                <div key={`${msg.id}_${index}`}>
                   <MessageTile currentProfile={currentProfile} profile={profile} message={msg} />
+                  {dateHasChanged ? <DateDivider date={msg.sent} /> : null}
                 </div>
               );
             })}
-            {/* </InfiniteScroll> */}
-          </div>
+          </InfiniteScroll>
         </div>
       </div>
     </div>

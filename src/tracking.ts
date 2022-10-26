@@ -40,6 +40,15 @@ export const PUBLICATION = {
     LIKED_BY: 'Open liked by list',
     COLLECTED_BY: 'Open collected by list'
   },
+  ATTACHEMENT: {
+    IMAGE: {
+      OPEN: 'Open image attachment'
+    },
+    AUDIO: {
+      PLAY: 'Play audio',
+      PAUSE: 'Pause audio'
+    }
+  },
   COLLECT_MODULE: {
     COLLECT: 'Collect publication',
     OPEN_COLLECT: 'Open collect modal',
@@ -51,6 +60,11 @@ export const PUBLICATION = {
     OPEN_GIF: 'Open GIF modal',
     COLLECT_MODULE: {
       OPEN_COLLECT_SETTINGS: 'Open collect module settings'
+    },
+    ATTACHMENT: {
+      UPLOAD_IMAGES: 'Select upload images',
+      UPLOAD_VIDEO: 'Select upload video',
+      UPLOAD_AUDIO: 'Select upload audio'
     },
     REFERENCE_MODULE: {
       OPEN_REFERENCE_SETTINGS: 'Open reference module settings',

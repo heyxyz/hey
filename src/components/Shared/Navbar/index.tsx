@@ -1,5 +1,6 @@
 import NotificationIcon from '@components/Notification/Icon';
 import useStaffMode from '@components/utils/hooks/useStaffMode';
+import type { Profile } from '@generated/types';
 import { Disclosure } from '@headlessui/react';
 import { MailIcon, MenuIcon, XIcon } from '@heroicons/react/outline';
 import hasPrideLogo from '@lib/hasPrideLogo';
@@ -18,6 +19,11 @@ import StaffBar from './StaffBar';
 const Navbar: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const { allowed: staffMode } = useStaffMode();
+  const router = useRouter();
+
+  const onProfileSelected = (profile: Profile) => {
+    router.push(`/u/${profile?.handle}`);
+  };
 
   interface NavItemProps {
     url: string;
@@ -87,7 +93,7 @@ const Navbar: FC = () => {
                 <div className="hidden sm:block sm:ml-6">
                   <div className="flex items-center space-x-4">
                     <div className="hidden lg:block">
-                      <Search />
+                      <Search onProfileSelected={onProfileSelected} />
                     </div>
                     <NavItems />
                   </div>
@@ -112,7 +118,7 @@ const Navbar: FC = () => {
           <Disclosure.Panel className="sm:hidden">
             <div className="flex flex-col p-3 space-y-2">
               <div className="mb-2">
-                <Search hideDropdown />
+                <Search hideDropdown onProfileSelected={onProfileSelected} />
               </div>
               <NavItems />
             </div>
