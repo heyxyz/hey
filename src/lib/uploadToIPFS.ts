@@ -5,12 +5,11 @@ import { v4 as uuid } from 'uuid';
 const accessKeyId = process.env.NEXT_PUBLIC_EVER_API_KEY as string;
 const secretAccessKey = process.env.NEXT_PUBLIC_EVER_API_SECRET as string;
 const bucketName = process.env.NEXT_PUBLIC_EVER_BUCKET_NAME as string;
-const region = 'us-west-2';
 
 const client = new S3({
   endpoint: 'https://endpoint.4everland.co',
   credentials: { accessKeyId, secretAccessKey },
-  region,
+  region: 'us-west-2',
   maxAttempts: 3
 });
 
