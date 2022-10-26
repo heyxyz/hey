@@ -70,7 +70,7 @@ const PreviewList: FC = () => {
             </button>
           )}
         </div>
-        <div className="h-full">
+        <div className="h-full overflow-y-auto">
           {showAuthenticating ? (
             <div className="flex h-full justify-center items-center">
               <PageLoading message="Awaiting signature to enable DMs" />
