@@ -6,7 +6,7 @@ import { Button } from '@components/UI/Button';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
-import type { MediaSet, Mutation, NftImage, Profile } from '@generated/types';
+import type { MediaSet, Mutation, NftImage, Profile, UpdateProfileImageRequest } from '@generated/types';
 import {
   CreateSetProfileImageUriTypedDataDocument,
   CreateSetProfileImageUriViaDispatcherDocument
@@ -103,6 +103,20 @@ const Picture: FC<Props> = ({ profile }) => {
   const [createSetProfileImageURIViaDispatcher, { data: dispatcherData, loading: dispatcherLoading }] =
     useMutation(CreateSetProfileImageUriViaDispatcherDocument, { onCompleted, onError });
 
+  const createViaDispatcher = async (request: UpdateProfileImageRequest) => {
+    const { data } = await createSetProfileImageURIViaDispatcher({
+      variables: { request }
+    });
+    if (data?.createSetProfileImageURIViaDispatcher?.__typename === 'RelayError') {
+      createSetProfileImageURITypedData({
+        variables: {
+          options: { overrideSigNonce: userSigNonce },
+          request
+        }
+      });
+    }
+  };
+
   const handleUpload = async (evt: ChangeEvent<HTMLInputElement>) => {
     evt.preventDefault();
     setUploading(true);
@@ -131,7 +145,7 @@ const Picture: FC<Props> = ({ profile }) => {
     };
 
     if (currentProfile?.dispatcher?.canUseRelay) {
-      createSetProfileImageURIViaDispatcher({ variables: { request } });
+      createViaDispatcher(request);
     } else {
       createSetProfileImageURITypedData({
         variables: {
