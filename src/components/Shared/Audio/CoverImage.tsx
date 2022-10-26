@@ -2,7 +2,7 @@ import { Spinner } from '@components/UI/Spinner';
 import { PhotographIcon } from '@heroicons/react/outline';
 import getIPFSLink from '@lib/getIPFSLink';
 import imageProxy from '@lib/imageProxy';
-import uploadMediaToIPFS from '@lib/uploadMediaToIPFS';
+import uploadToIPFS from '@lib/uploadToIPFS';
 import clsx from 'clsx';
 import type { ChangeEvent, FC, Ref } from 'react';
 import React, { useState } from 'react';
@@ -28,7 +28,7 @@ const CoverImage: FC<Props> = ({ isNew = false, cover, setCover, imageRef }) => 
     if (e.target.files?.length) {
       try {
         setLoading(true);
-        const attachment = await uploadMediaToIPFS(e.target.files);
+        const attachment = await uploadToIPFS(e.target.files);
         setCover(attachment[0].item, attachment[0].type);
       } catch (error) {
         onError(error);

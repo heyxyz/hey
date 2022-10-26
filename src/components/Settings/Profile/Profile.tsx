@@ -25,8 +25,8 @@ import hasPrideLogo from '@lib/hasPrideLogo';
 import imageProxy from '@lib/imageProxy';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
-import uploadMediaToIPFS from '@lib/uploadMediaToIPFS';
 import uploadToArweave from '@lib/uploadToArweave';
+import uploadToIPFS from '@lib/uploadToIPFS';
 import type { ChangeEvent, FC } from 'react';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
@@ -152,7 +152,7 @@ const Profile: FC<Props> = ({ profile }) => {
     evt.preventDefault();
     setUploading(true);
     try {
-      const attachment = await uploadMediaToIPFS(evt.target.files);
+      const attachment = await uploadToIPFS(evt.target.files);
       if (attachment[0]?.item) {
         setCover(attachment[0].item);
       }
