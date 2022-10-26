@@ -20,7 +20,11 @@ import Custom500 from 'src/pages/500';
 import { useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
 
-const PreviewList: FC = () => {
+interface Props {
+  className?: string;
+}
+
+const PreviewList: FC<Props> = ({ className }) => {
   const router = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const messageProfiles = useMessageStore((state) => state.messageProfiles);
@@ -59,7 +63,9 @@ const PreviewList: FC = () => {
   };
 
   return (
-    <GridItemFour className="sm:h-[76vh] md:h-[80vh] xl:h-[84vh] mb-0">
+    <GridItemFour
+      className={`xs:h-[85vh] sm:h-[76vh] md:h-[80vh] xl:h-[84vh] mb-0 md:col-span-4 sm:mx-2 xs:mx-2 ${className}`}
+    >
       <Card className="h-full flex justify-between flex-col">
         <div className="flex justify-between items-center p-5 border-b">
           <div className="font-bold">Messages</div>

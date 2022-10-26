@@ -58,11 +58,11 @@ const Message: FC<MessageProps> = ({ conversationKey }) => {
   const showLoading = !missingXmtpAuth && (!profile || !currentProfile || !selectedConversation);
 
   return (
-    <GridLayout>
+    <GridLayout classNameChild="md:gap-8">
       {/* TODO: Show user profile name/username */}
       <MetaTags title={`Message • ${APP_NAME}`} />
-      <PreviewList />
-      <GridItemEight className="sm:h-[76vh] md:h-[80vh] xl:h-[84vh] mb-0">
+      <PreviewList className="md:block sm:hidden xs:hidden" />
+      <GridItemEight className="xs:h-[85vh] sm:h-[76vh] md:h-[80vh] xl:h-[84vh] mb-0 md:col-span-8 sm:mx-2 xs:mx-2">
         <Card className="h-full flex justify-between flex-col">
           {showLoading ? (
             <PageLoading message="Loading messages" />
