@@ -25,12 +25,12 @@ interface Props {
 }
 
 const PreviewList: FC<Props> = ({ className }) => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
-  const { authenticating, loading, messages, profiles, profilesError } = useMessagePreviews();
   const router = useRouter();
-  const [showSearchModal, setShowSearchModal] = useState(false);
+  const currentProfile = useAppStore((state) => state.currentProfile);
   const messageProfiles = useMessageStore((state) => state.messageProfiles);
   const setMessageProfiles = useMessageStore((state) => state.setMessageProfiles);
+  const [showSearchModal, setShowSearchModal] = useState(false);
+  const { authenticating, loading, messages, profiles, profilesError } = useMessagePreviews();
 
   if (!currentProfile || !isFeatureEnabled('messages', currentProfile.id)) {
     return <Custom404 />;
@@ -41,7 +41,6 @@ const PreviewList: FC<Props> = ({ className }) => {
   }
 
   const showAuthenticating = currentProfile && authenticating;
-
   const showLoading = loading && (messages.size === 0 || profiles.size === 0);
 
   const sortedProfiles = Array.from(profiles).sort(([keyA], [keyB]) => {

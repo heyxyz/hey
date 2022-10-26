@@ -18,8 +18,9 @@ export const DEFAULT_COLLECT_TOKEN = getEnvConfig().defaultCollectToken;
 
 export const IS_MAINNET = API_URL === MAINNET_API_URL;
 
-// XMTP_NETWORK
+// XMTP
 export const XMTP_ENV = IS_MAINNET ? 'production' : 'dev';
+export const XMTP_PREFIX = 'lens.dev/dm';
 
 // Application
 export const APP_NAME = 'Lenster';
