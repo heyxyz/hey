@@ -1,8 +1,8 @@
+@import url('fonts.css');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@import url('fonts.css');
 
 html {
   @apply overflow-y-scroll;

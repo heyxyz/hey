@@ -5,13 +5,12 @@ import { Spinner } from '@components/UI/Spinner';
 import { Tooltip } from '@components/UI/Tooltip';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
 import type { LensterPublication } from '@generated/lenstertypes';
-import type { Mutation } from '@generated/types';
+import type { CreateMirrorRequest, Mutation } from '@generated/types';
 import { CreateMirrorTypedDataDocument, CreateMirrorViaDispatcherDocument } from '@generated/types';
 import { SwitchHorizontalIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
 import humanize from '@lib/humanize';
 import { publicationKeyFields } from '@lib/keyFields';
-import { Leafwatch } from '@lib/leafwatch';
 import nFormatter from '@lib/nFormatter';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
@@ -22,7 +21,6 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { LENSHUB_PROXY, RELAY_ON, SIGN_WALLET } from 'src/constants';
 import { useAppStore } from 'src/store/app';
-import { PUBLICATION } from 'src/tracking';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
 interface Props {
@@ -59,7 +57,6 @@ const Mirror: FC<Props> = ({ publication, isFullPublication }) => {
   const onCompleted = () => {
     setMirrored(true);
     toast.success('Post has been mirrored!');
-    Leafwatch.track(PUBLICATION.MIRROR);
   };
 
   const { isLoading: writeLoading, write } = useContractWrite({
@@ -123,6 +120,20 @@ const Mirror: FC<Props> = ({ publication, isFullPublication }) => {
     { onCompleted, onError, update: updateCache }
   );
 
+  const createViaDispatcher = async (request: CreateMirrorRequest) => {
+    const { data } = await createMirrorViaDispatcher({
+      variables: { request }
+    });
+    if (data?.createMirrorViaDispatcher?.__typename === 'RelayError') {
+      createMirrorTypedData({
+        variables: {
+          options: { overrideSigNonce: userSigNonce },
+          request
+        }
+      });
+    }
+  };
+
   const createMirror = () => {
     if (!currentProfile) {
       return toast.error(SIGN_WALLET);
@@ -137,7 +148,7 @@ const Mirror: FC<Props> = ({ publication, isFullPublication }) => {
     };
 
     if (currentProfile?.dispatcher?.canUseRelay) {
-      createMirrorViaDispatcher({ variables: { request } });
+      createViaDispatcher(request);
     } else {
       createMirrorTypedData({
         variables: {

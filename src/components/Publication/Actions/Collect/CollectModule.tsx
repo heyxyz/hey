@@ -15,7 +15,7 @@ import { Tooltip } from '@components/UI/Tooltip';
 import { WarningMessage } from '@components/UI/WarningMessage';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
 import type { LensterPublication } from '@generated/lenstertypes';
-import type { Mutation } from '@generated/types';
+import type { ElectedMirror, Mutation } from '@generated/types';
 import {
   ApprovedModuleAllowanceAmountDocument,
   CollectModuleDocument,
@@ -39,7 +39,6 @@ import formatAddress from '@lib/formatAddress';
 import getSignature from '@lib/getSignature';
 import getTokenImage from '@lib/getTokenImage';
 import humanize from '@lib/humanize';
-import { Leafwatch } from '@lib/leafwatch';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import dayjs from 'dayjs';
@@ -48,16 +47,16 @@ import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { LENSHUB_PROXY, POLYGONSCAN_URL, RELAY_ON, SIGN_WALLET } from 'src/constants';
 import { useAppStore } from 'src/store/app';
-import { PUBLICATION } from 'src/tracking';
 import { useAccount, useBalance, useContractWrite, useSignTypedData } from 'wagmi';
 
 interface Props {
   count: number;
   setCount: Dispatch<number>;
   publication: LensterPublication;
+  electedMirror?: ElectedMirror;
 }
 
-const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
+const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror }) => {
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -67,6 +66,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
   const [allowed, setAllowed] = useState(true);
   const { address } = useAccount();
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
+  const isMirror = electedMirror ? false : publication.__typename === 'Mirror';
 
   const { data, loading } = useQuery(CollectModuleDocument, {
     variables: {
@@ -81,7 +81,6 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
     setCount(count + 1);
     setHasCollectedByMe(true);
     toast.success('Transaction submitted successfully!');
-    Leafwatch.track(PUBLICATION.COLLECT_MODULE.COLLECT);
   };
 
   const {
@@ -186,22 +185,34 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
     }
   );
 
+  const createViaProxyAction = async (variables: any) => {
+    const { data } = await createCollectProxyAction({
+      variables
+    });
+    if (!data?.proxyAction) {
+      createCollectTypedData({
+        variables: {
+          request: { publicationId: publication?.id },
+          options: { overrideSigNonce: userSigNonce }
+        }
+      });
+    }
+  };
+
   const createCollect = () => {
     if (!currentProfile) {
       return toast.error(SIGN_WALLET);
     }
 
     if (collectModule?.type === CollectModules.FreeCollectModule) {
-      createCollectProxyAction({
-        variables: {
-          request: { collect: { freeCollect: { publicationId: publication?.id } } }
-        }
+      createViaProxyAction({
+        request: { collect: { freeCollect: { publicationId: publication?.id } } }
       });
     } else {
       createCollectTypedData({
         variables: {
           options: { overrideSigNonce: userSigNonce },
-          request: { publicationId: publication?.id }
+          request: { publicationId: electedMirror ? electedMirror.mirrorId : publication?.id }
         }
       });
     }
@@ -234,11 +245,11 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
         )}
         <div className="pb-2 space-y-1.5">
           <div className="flex items-center space-x-2">
-            {publication.__typename === 'Mirror' && (
+            {(electedMirror || isMirror) && (
               <Tooltip
-                content={`Mirror of ${publication?.mirrorOf.__typename?.toLowerCase()} by ${
-                  publication?.mirrorOf?.profile?.handle
-                }`}
+                content={`Mirror of ${
+                  electedMirror ? publication.__typename : publication?.mirrorOf.__typename?.toLowerCase()
+                } by ${isMirror ? publication?.mirrorOf?.profile?.handle : publication.profile.handle}`}
               >
                 <SwitchHorizontalIcon className="w-5 h-5 text-brand" />
               </Tooltip>
@@ -250,7 +261,11 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
           {publication?.metadata?.description && (
             <Markup className="text-gray-500 line-clamp-2">{publication?.metadata?.description}</Markup>
           )}
-          <ReferralAlert mirror={publication} referralFee={collectModule?.referralFee} />
+          <ReferralAlert
+            electedMirror={electedMirror}
+            mirror={publication}
+            referralFee={collectModule?.referralFee}
+          />
         </div>
         {collectModule?.amount && (
           <div className="flex items-center py-2 space-x-1.5">
@@ -275,10 +290,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication }) => {
               <button
                 className="font-bold"
                 type="button"
-                onClick={() => {
-                  setShowCollectorsModal(!showCollectorsModal);
-                  Leafwatch.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECTORS);
-                }}
+                onClick={() => setShowCollectorsModal(!showCollectorsModal)}
               >
                 {humanize(count)} collectors
               </button>

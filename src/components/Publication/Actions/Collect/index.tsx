@@ -3,18 +3,17 @@ import { Modal } from '@components/UI/Modal';
 import { Tooltip } from '@components/UI/Tooltip';
 import GetModuleIcon from '@components/utils/GetModuleIcon';
 import type { LensterPublication } from '@generated/lenstertypes';
+import type { ElectedMirror } from '@generated/types';
 import { CollectModules } from '@generated/types';
 import { CollectionIcon } from '@heroicons/react/outline';
 import { CollectionIcon as CollectionIconSolid } from '@heroicons/react/solid';
 import { getModule } from '@lib/getModule';
 import humanize from '@lib/humanize';
-import { Leafwatch } from '@lib/leafwatch';
 import nFormatter from '@lib/nFormatter';
 import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
-import { PUBLICATION } from 'src/tracking';
 
 const CollectModule = dynamic(() => import('./CollectModule'), {
   loading: () => <Loader message="Loading collect" />
@@ -23,9 +22,10 @@ const CollectModule = dynamic(() => import('./CollectModule'), {
 interface Props {
   publication: LensterPublication;
   isFullPublication: boolean;
+  electedMirror?: ElectedMirror;
 }
 
-const Collect: FC<Props> = ({ publication, isFullPublication }) => {
+const Collect: FC<Props> = ({ publication, isFullPublication, electedMirror }) => {
   const [count, setCount] = useState(0);
   const [showCollectModal, setShowCollectModal] = useState(false);
   const isFreeCollect = publication?.collectModule.__typename === 'FreeCollectModuleSettings';
@@ -46,14 +46,7 @@ const Collect: FC<Props> = ({ publication, isFullPublication }) => {
 
   return (
     <>
-      <motion.button
-        whileTap={{ scale: 0.9 }}
-        onClick={() => {
-          setShowCollectModal(true);
-          Leafwatch.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECT);
-        }}
-        aria-label="Collect"
-      >
+      <motion.button whileTap={{ scale: 0.9 }} onClick={() => setShowCollectModal(true)} aria-label="Collect">
         <span className="flex items-center space-x-1 text-red-500 hover:red-brand-400">
           <span className="p-1.5 rounded-full hover:bg-red-300 hover:bg-opacity-20">
             <Tooltip
@@ -86,7 +79,12 @@ const Collect: FC<Props> = ({ publication, isFullPublication }) => {
         show={showCollectModal}
         onClose={() => setShowCollectModal(false)}
       >
-        <CollectModule publication={publication} count={count} setCount={setCount} />
+        <CollectModule
+          electedMirror={electedMirror}
+          publication={publication}
+          count={count}
+          setCount={setCount}
+        />
       </Modal>
     </>
   );

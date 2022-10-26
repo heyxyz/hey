@@ -8,14 +8,12 @@ import type { Mutation, Profile } from '@generated/types';
 import { CreateFollowTypedDataDocument, ProxyActionDocument } from '@generated/types';
 import { UserAddIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
-import { Leafwatch } from '@lib/leafwatch';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import type { Dispatch, FC } from 'react';
 import toast from 'react-hot-toast';
 import { LENSHUB_PROXY, RELAY_ON, SIGN_WALLET } from 'src/constants';
 import { useAppStore } from 'src/store/app';
-import { PROFILE } from 'src/tracking';
 import { useAccount, useContractWrite, useSignTypedData } from 'wagmi';
 
 interface Props {
@@ -35,7 +33,6 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
   const onCompleted = () => {
     setFollowing(true);
     toast.success('Followed successfully!');
-    Leafwatch.track(PROFILE.FOLLOW);
   };
 
   const updateCache = (cache: ApolloCache<any>) => {
@@ -65,7 +62,8 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
         const { deadline } = typedData.value;
 
         try {
-          const signature = await signTypedDataAsync(getSignature(typedData));
+          // TODO: Replace deep clone with right helper
+          const signature = await signTypedDataAsync(getSignature(JSON.parse(JSON.stringify(typedData))));
           setUserSigNonce(userSigNonce + 1);
           const { profileIds, datas: followData } = typedData.value;
           const { v, r, s } = splitSignature(signature);
@@ -100,6 +98,20 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
     update: updateCache
   });
 
+  const createViaProxyAction = async (variables: any) => {
+    const { data } = await createFollowProxyAction({
+      variables
+    });
+    if (!data?.proxyAction) {
+      createFollowTypedData({
+        variables: {
+          request: { follow: { profile: profile?.id } },
+          options: { overrideSigNonce: userSigNonce }
+        }
+      });
+    }
+  };
+
   const createFollow = () => {
     if (!currentProfile) {
       return toast.error(SIGN_WALLET);
@@ -121,13 +133,11 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
         }
       });
     } else {
-      createFollowProxyAction({
-        variables: {
-          request: {
-            follow: {
-              freeFollow: {
-                profileId: profile?.id
-              }
+      createViaProxyAction({
+        request: {
+          follow: {
+            freeFollow: {
+              profileId: profile?.id
             }
           }
         }

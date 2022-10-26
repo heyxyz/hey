@@ -2,11 +2,9 @@ import { Button } from '@components/UI/Button';
 import { Modal } from '@components/UI/Modal';
 import type { Profile } from '@generated/types';
 import { StarIcon } from '@heroicons/react/outline';
-import { Leafwatch } from '@lib/leafwatch';
 import dynamic from 'next/dynamic';
 import type { Dispatch, FC } from 'react';
 import { useState } from 'react';
-import { PROFILE } from 'src/tracking';
 
 import Loader from '../Loader';
 import Slug from '../Slug';
@@ -31,10 +29,7 @@ const SuperFollow: FC<Props> = ({ profile, setFollowing, showText = false, again
         className="text-sm !px-3 !py-1.5"
         variant="super"
         outline
-        onClick={() => {
-          setShowFollowModal(!showFollowModal);
-          Leafwatch.track(PROFILE.OPEN_SUPER_FOLLOW);
-        }}
+        onClick={() => setShowFollowModal(!showFollowModal)}
         aria-label="Super Follow"
         icon={<StarIcon className="w-4 h-4" />}
       >

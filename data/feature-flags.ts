@@ -19,7 +19,8 @@ export const featureFlags = [
       '0x015336', // jazzz.lens
       '0x010e75', // shash256.lens
       '0x010f89', // alohajha.lens
-      '0x21ad' // galligan.lens
+      '0x21ad', // galligan.lens
+      '0x77bd' // filiptronicek.lens
     ]
   },
   {
@@ -35,9 +36,6 @@ export const featureFlags = [
   {
     key: 'timeline-v2',
     name: 'Timeline v2',
-    enabledFor: [
-      ...lensterMembers,
-      '0x2d' // sasicodes.lens
-    ]
+    enabledFor: [...lensterMembers, ...aaveMembers]
   }
 ];

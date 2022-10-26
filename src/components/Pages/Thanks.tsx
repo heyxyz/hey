@@ -1,12 +1,10 @@
 import Footer from '@components/Shared/Footer';
 import MetaTags from '@components/utils/MetaTags';
 import { HeartIcon } from '@heroicons/react/outline';
-import { Leafwatch } from '@lib/leafwatch';
 import { useTheme } from 'next-themes';
 import type { FC, ReactNode } from 'react';
-import { Fragment, useEffect } from 'react';
+import { Fragment } from 'react';
 import { APP_NAME, STATIC_ASSETS } from 'src/constants';
-import { PAGEVIEW } from 'src/tracking';
 
 interface Props {
   name: string;
@@ -38,10 +36,6 @@ const Brand: FC<Props> = ({ name, logo, url, size, children }) => {
 };
 
 const Thanks: FC = () => {
-  useEffect(() => {
-    Leafwatch.track('Pageview', { path: PAGEVIEW.THANKS });
-  }, []);
-
   return (
     <>
       <MetaTags title={`Thanks • ${APP_NAME}`} />

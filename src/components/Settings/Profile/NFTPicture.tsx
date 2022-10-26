@@ -7,7 +7,7 @@ import { Form, useZodForm } from '@components/UI/Form';
 import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
-import type { Mutation, NftImage, Profile } from '@generated/types';
+import type { Mutation, NftImage, Profile, UpdateProfileImageRequest } from '@generated/types';
 import {
   CreateSetProfileImageUriTypedDataDocument,
   CreateSetProfileImageUriViaDispatcherDocument,
@@ -15,7 +15,6 @@ import {
 } from '@generated/types';
 import { PencilIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
-import { Leafwatch } from '@lib/leafwatch';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import type { FC } from 'react';
@@ -23,7 +22,6 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { ADDRESS_REGEX, IS_MAINNET, LENSHUB_PROXY, RELAY_ON, SIGN_WALLET } from 'src/constants';
 import { useAppStore } from 'src/store/app';
-import { SETTINGS } from 'src/tracking';
 import { chain, useContractWrite, useSignMessage, useSignTypedData } from 'wagmi';
 import { object, string } from 'zod';
 
@@ -48,7 +46,6 @@ const NFTPicture: FC<Props> = ({ profile }) => {
 
   const onCompleted = () => {
     toast.success('Avatar updated successfully!');
-    Leafwatch.track(SETTINGS.PROFILE.SET_NFT_PICTURE);
   };
 
   const form = useZodForm({
@@ -112,6 +109,20 @@ const NFTPicture: FC<Props> = ({ profile }) => {
   const [createSetProfileImageURIViaDispatcher, { data: dispatcherData, loading: dispatcherLoading }] =
     useMutation(CreateSetProfileImageUriViaDispatcherDocument, { onCompleted, onError });
 
+  const createViaDispatcher = async (request: UpdateProfileImageRequest) => {
+    const { data } = await createSetProfileImageURIViaDispatcher({
+      variables: { request }
+    });
+    if (data?.createSetProfileImageURIViaDispatcher?.__typename === 'RelayError') {
+      createSetProfileImageURITypedData({
+        variables: {
+          options: { overrideSigNonce: userSigNonce },
+          request
+        }
+      });
+    }
+  };
+
   const setAvatar = async (contractAddress: string, tokenId: string) => {
     if (!currentProfile) {
       return toast.error(SIGN_WALLET);
@@ -144,7 +155,7 @@ const NFTPicture: FC<Props> = ({ profile }) => {
     };
 
     if (currentProfile?.dispatcher?.canUseRelay) {
-      createSetProfileImageURIViaDispatcher({ variables: { request } });
+      createViaDispatcher(request);
     } else {
       createSetProfileImageURITypedData({
         variables: {

@@ -5,12 +5,10 @@ import type { MediaSet } from '@generated/types';
 import { ExternalLinkIcon, XIcon } from '@heroicons/react/outline';
 import getIPFSLink from '@lib/getIPFSLink';
 import imageProxy from '@lib/imageProxy';
-import { Leafwatch } from '@lib/leafwatch';
 import clsx from 'clsx';
 import type { FC } from 'react';
 import { useState } from 'react';
-import { ALLOWED_AUDIO_TYPES, ATTACHMENT } from 'src/constants';
-import { PUBLICATION } from 'src/tracking';
+import { ALLOWED_AUDIO_TYPES, ALLOWED_VIDEO_TYPES, ATTACHMENT } from 'src/constants';
 
 import Audio from './Audio';
 import Video from './Video';
@@ -64,7 +62,7 @@ const Attachments: FC<Props> = ({
 
   const slicedAttachments = isNew
     ? attachments?.slice(0, 4)
-    : attachments?.some((e: any) => e.original.mimeType === 'video/mp4')
+    : attachments?.some((e: any) => ALLOWED_VIDEO_TYPES.includes(e.original.mimeType))
     ? attachments?.slice(0, 1)
     : attachments?.slice(0, 4);
 
@@ -78,13 +76,13 @@ const Attachments: FC<Props> = ({
           return (
             <div
               className={clsx(
-                type === 'video/mp4' || ALLOWED_AUDIO_TYPES.includes(type)
+                ALLOWED_VIDEO_TYPES.includes(type) || ALLOWED_AUDIO_TYPES.includes(type)
                   ? ''
                   : getClass(slicedAttachments?.length, isNew)?.aspect,
                 {
                   'w-full': ALLOWED_AUDIO_TYPES.includes(type),
                   'w-2/3':
-                    type === 'video/mp4' ||
+                    ALLOWED_VIDEO_TYPES.includes(type) ||
                     (slicedAttachments.length === 1 && !ALLOWED_AUDIO_TYPES.includes(type))
                 },
                 'relative'
@@ -99,13 +97,11 @@ const Attachments: FC<Props> = ({
                   className="text-sm"
                   variant="primary"
                   icon={<ExternalLinkIcon className="h-4 w-4" />}
-                  onClick={() => {
-                    window.open(url, '_blank');
-                  }}
+                  onClick={() => window.open(url, '_blank')}
                 >
                   <span>Open Image in new tab</span>
                 </Button>
-              ) : type === 'video/mp4' ? (
+              ) : ALLOWED_VIDEO_TYPES.includes(type) ? (
                 <Video src={url} />
               ) : ALLOWED_AUDIO_TYPES.includes(type) ? (
                 <Audio src={url} isNew={isNew} publication={publication} txn={txn} />
@@ -113,12 +109,9 @@ const Attachments: FC<Props> = ({
                 <img
                   className="object-cover bg-gray-100 rounded-lg border cursor-pointer dark:bg-gray-800 dark:border-gray-700/80"
                   loading="lazy"
-                  onClick={() => {
-                    setExpandedImage(url);
-                    Leafwatch.track(PUBLICATION.ATTACHEMENT.IMAGE.OPEN);
-                  }}
-                  src={imageProxy(url, ATTACHMENT)}
-                  alt={imageProxy(url, ATTACHMENT)}
+                  onClick={() => setExpandedImage(url)}
+                  src={imageProxy(url, ATTACHMENT, type)}
+                  alt={imageProxy(url, ATTACHMENT, type)}
                 />
               )}
               {isNew && !hideDelete && (

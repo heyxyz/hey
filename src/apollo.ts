@@ -110,6 +110,7 @@ const cache = new InMemoryCache({
     Query: {
       fields: {
         timeline: cursorBasedPagination(['request', ['profileId']]),
+        feed: cursorBasedPagination(['request', ['profileId', 'feedEventItemTypes']]),
         feedHighlights: cursorBasedPagination(['request', ['profileId']]),
         explorePublications: cursorBasedPagination(['request', ['sortCriteria', 'metadata']]),
         publications: cursorBasedPagination(['request', ['profileId', 'commentsOf', 'publicationTypes']]),

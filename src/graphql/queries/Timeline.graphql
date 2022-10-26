@@ -1,0 +1,51 @@
+query Timeline(
+  $request: FeedRequest!
+  $reactionRequest: ReactionFieldResolverRequest
+  $profileId: ProfileId
+) {
+  feed(request: $request) {
+    items {
+      root {
+        ... on Post {
+          ...PostFields
+        }
+        ... on Comment {
+          ...CommentFields
+        }
+      }
+      electedMirror {
+        mirrorId
+        profile {
+          ...ProfileFields
+        }
+        timestamp
+      }
+      mirrors {
+        profile {
+          ...ProfileFields
+        }
+        timestamp
+      }
+      collects {
+        profile {
+          ...ProfileFields
+        }
+        timestamp
+      }
+      reactions {
+        profile {
+          ...ProfileFields
+        }
+        reaction
+        timestamp
+      }
+      comments {
+        ...CommentFields
+      }
+    }
+    pageInfo {
+      next
+      totalCount
+    }
+  }
+}

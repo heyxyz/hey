@@ -9,6 +9,7 @@ import useStreamMessages from '@components/utils/hooks/useStreamMessages';
 import MetaTags from '@components/utils/MetaTags';
 import { parseConversationKey } from '@lib/conversationKey';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
+import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useCallback } from 'react';
@@ -22,14 +23,13 @@ import Composer from './Composer';
 import MessagesList from './MessagesList';
 import PreviewList from './PreviewList';
 
-type MessageProps = {
+interface MessageProps {
   conversationKey: string;
-};
+}
 
 const Message: FC<MessageProps> = ({ conversationKey }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const profile = useMessageStore((state) => state.messageProfiles.get(conversationKey));
-
   const { selectedConversation, missingXmtpAuth } = useGetConversation(conversationKey, profile);
   const [endTime, setEndTime] = useState<Map<string, Date>>(new Map());
   const { messages, hasMore } = useGetMessages(
@@ -51,17 +51,18 @@ const Message: FC<MessageProps> = ({ conversationKey }) => {
     }
   }, [conversationKey, hasMore, messages, endTime]);
 
-  const showLoading = !missingXmtpAuth && (!profile || !currentProfile || !selectedConversation);
-
-  if (!isFeatureEnabled('messages', currentProfile?.id)) {
+  if (!currentProfile || !isFeatureEnabled('messages', currentProfile.id)) {
     return <Custom404 />;
   }
 
+  const showLoading = !missingXmtpAuth && (!profile || !currentProfile || !selectedConversation);
+
   return (
-    <GridLayout>
+    <GridLayout classNameChild="md:gap-8">
+      {/* TODO: Show user profile name/username */}
       <MetaTags title={`Message • ${APP_NAME}`} />
-      <PreviewList />
-      <GridItemEight className="sm:h-[76vh] md:h-[80vh] xl:h-[84vh] mb-0">
+      <PreviewList className="md:block sm:hidden xs:hidden" />
+      <GridItemEight className="xs:h-[85vh] sm:h-[76vh] md:h-[80vh] xl:h-[84vh] mb-0 md:col-span-8 sm:mx-2 xs:mx-2">
         <Card className="h-full flex justify-between flex-col">
           {showLoading ? (
             <PageLoading message="Loading messages" />
@@ -85,7 +86,7 @@ const Message: FC<MessageProps> = ({ conversationKey }) => {
   );
 };
 
-const MessagePage: FC = () => {
+const MessagePage: NextPage = () => {
   const currentProfileId = useAppStore((state) => state.currentProfile?.id);
   const {
     query: { conversationKey }
@@ -97,15 +98,15 @@ const MessagePage: FC = () => {
   }
 
   const joinedConversationKey = conversationKey.join('/');
-
   const parsed = parseConversationKey(joinedConversationKey);
+
   if (!parsed) {
     return <Custom404 />;
   }
 
   const { members } = parsed;
-
   const profileId = members.find((member) => member !== currentProfileId);
+
   if (!profileId) {
     return <Custom404 />;
   }

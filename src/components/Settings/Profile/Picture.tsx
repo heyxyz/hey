@@ -6,7 +6,7 @@ import { Button } from '@components/UI/Button';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
-import type { MediaSet, Mutation, NftImage, Profile } from '@generated/types';
+import type { MediaSet, Mutation, NftImage, Profile, UpdateProfileImageRequest } from '@generated/types';
 import {
   CreateSetProfileImageUriTypedDataDocument,
   CreateSetProfileImageUriViaDispatcherDocument
@@ -15,7 +15,6 @@ import { PencilIcon } from '@heroicons/react/outline';
 import getIPFSLink from '@lib/getIPFSLink';
 import getSignature from '@lib/getSignature';
 import imageProxy from '@lib/imageProxy';
-import { Leafwatch } from '@lib/leafwatch';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import uploadMediaToIPFS from '@lib/uploadMediaToIPFS';
@@ -24,7 +23,6 @@ import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { AVATAR, LENSHUB_PROXY, RELAY_ON, SIGN_WALLET } from 'src/constants';
 import { useAppStore } from 'src/store/app';
-import { SETTINGS } from 'src/tracking';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
 interface Props {
@@ -41,7 +39,6 @@ const Picture: FC<Props> = ({ profile }) => {
 
   const onCompleted = () => {
     toast.success('Avatar updated successfully!');
-    Leafwatch.track(SETTINGS.PROFILE.SET_PICTURE);
   };
 
   const {
@@ -103,6 +100,20 @@ const Picture: FC<Props> = ({ profile }) => {
   const [createSetProfileImageURIViaDispatcher, { data: dispatcherData, loading: dispatcherLoading }] =
     useMutation(CreateSetProfileImageUriViaDispatcherDocument, { onCompleted, onError });
 
+  const createViaDispatcher = async (request: UpdateProfileImageRequest) => {
+    const { data } = await createSetProfileImageURIViaDispatcher({
+      variables: { request }
+    });
+    if (data?.createSetProfileImageURIViaDispatcher?.__typename === 'RelayError') {
+      createSetProfileImageURITypedData({
+        variables: {
+          options: { overrideSigNonce: userSigNonce },
+          request
+        }
+      });
+    }
+  };
+
   const handleUpload = async (evt: ChangeEvent<HTMLInputElement>) => {
     evt.preventDefault();
     setUploading(true);
@@ -131,7 +142,7 @@ const Picture: FC<Props> = ({ profile }) => {
     };
 
     if (currentProfile?.dispatcher?.canUseRelay) {
-      createSetProfileImageURIViaDispatcher({ variables: { request } });
+      createViaDispatcher(request);
     } else {
       createSetProfileImageURITypedData({
         variables: {
