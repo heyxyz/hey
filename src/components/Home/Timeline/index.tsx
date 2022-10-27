@@ -28,12 +28,16 @@ const Timeline: FC = () => {
     switch (!!feedEventFilters) {
       case feedEventFilters.posts:
         filters.push(...[FeedEventItemType.Post, FeedEventItemType.Comment]);
+        break;
       case feedEventFilters.collects:
         filters.push(...[FeedEventItemType.CollectPost, FeedEventItemType.CollectComment]);
+        break;
       case feedEventFilters.mirrors:
         filters.push(FeedEventItemType.Mirror);
+        break;
       case feedEventFilters.reactions:
         filters.push(...[FeedEventItemType.ReactionPost, FeedEventItemType.ReactionComment]);
+        break;
       default:
         break;
     }
