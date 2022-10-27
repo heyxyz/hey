@@ -1,6 +1,5 @@
 import TabButton from '@components/UI/TabButton';
 import { SparklesIcon, ViewListIcon } from '@heroicons/react/outline';
-import isFeatureEnabled from '@lib/isFeatureEnabled';
 import type { Dispatch, FC } from 'react';
 import { useAppStore } from 'src/store/app';
 
@@ -32,7 +31,7 @@ const FeedType: FC<Props> = ({ setFeedType, feedType }) => {
           onClick={() => setFeedType('HIGHLIGHTS')}
         />
       </div>
-      {feedType === 'TIMELINE' && isFeatureEnabled('timeline-v2', currentProfile?.id) && <FeedEventFilters />}
+      {feedType === 'TIMELINE' && <FeedEventFilters />}
     </div>
   );
 };
