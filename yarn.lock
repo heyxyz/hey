@@ -3691,10 +3691,10 @@
     "@typescript-eslint/types" "5.41.0"
     eslint-visitor-keys "^3.3.0"
 
-"@vercel/analytics@^0.1.1":
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/@vercel/analytics/-/analytics-0.1.1.tgz#ce036282d76f03417141b54830930f915f40504b"
-  integrity sha512-34on7YtVt/yT8+QX7c5K2bcKYXnax06sQiK2PUdlQ1ABg5699mPdLGOSpS1gF//kR1s9oig4MCJ+N9nOjpaS6g==
+"@vercel/analytics@^0.1.2":
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/@vercel/analytics/-/analytics-0.1.2.tgz#c5a71dfdb501a118013d66cf70175ab064bd4768"
+  integrity sha512-eV2XRMRQJzPcwAskfNicAwFr5+e/u76JcS2fJooWvaT9xAg/sX0RzkgRxDZXPjnRts2ErvjhoETmbnquAMBY9A==
 
 "@wagmi/core@^0.6.6":
   version "0.6.6"
