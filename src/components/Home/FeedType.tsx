@@ -1,7 +1,6 @@
 import TabButton from '@components/UI/TabButton';
 import { SparklesIcon, ViewListIcon } from '@heroicons/react/outline';
 import type { Dispatch, FC } from 'react';
-import { useAppStore } from 'src/store/app';
 
 import FeedEventFilters from './FeedEventFilters';
 
@@ -11,8 +10,6 @@ interface Props {
 }
 
 const FeedType: FC<Props> = ({ setFeedType, feedType }) => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
-
   return (
     <div className="flex flex-wrap items-center md:px-0 px-1 justify-between">
       <div className="flex overflow-x-auto gap-3 sm:px-0">
