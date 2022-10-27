@@ -38,13 +38,28 @@ const CleanupSettings: NextPage = () => {
             </p>
           </div>
           <div className="divider my-5" />
-          <div className="space-y-5">
+          <div className="space-y-6">
             <div className="flex items-center justify-between">
-              <b>Optimistic transactions</b>
+              <div className="space-y-1">
+                <b>Optimistic posts</b>
+                <div className="font-bold text-xs text-gray-500">
+                  Clean your posts or comments that are not indexed
+                </div>
+              </div>
               <Button onClick={() => cleanup(LS_KEYS.TRANSACTION_STORE)}>Cleanup</Button>
             </div>
             <div className="flex items-center justify-between">
-              <b>Timeline settings</b>
+              <div className="space-y-1">
+                <b>Timeline settings</b>
+                <div className="font-bold text-xs text-gray-500">Clean your timeline filter settings</div>
+              </div>
+              <Button onClick={() => cleanup(LS_KEYS.TIMELINE_STORE)}>Cleanup</Button>
+            </div>
+            <div className="flex items-center justify-between">
+              <div className="space-y-1">
+                <b>Direct message keys</b>
+                <div className="font-bold text-xs text-gray-500">Clean your DM encryption key</div>
+              </div>
               <Button onClick={() => cleanup(LS_KEYS.TIMELINE_STORE)}>Cleanup</Button>
             </div>
             <div className="flex items-center justify-between">
