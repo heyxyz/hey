@@ -1,6 +1,14 @@
 import UserProfile from '@components/Shared/UserProfile';
 import type { Profile } from '@generated/types';
-import { ChipIcon, ExclamationIcon, FingerPrintIcon, ShareIcon, UserIcon } from '@heroicons/react/outline';
+import {
+  ChipIcon,
+  ExclamationIcon,
+  FingerPrintIcon,
+  ShareIcon,
+  SparklesIcon,
+  UserIcon
+} from '@heroicons/react/outline';
+import isFeatureEnabled from '@lib/isFeatureEnabled';
 import clsx from 'clsx';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -50,6 +58,12 @@ const Sidebar: FC = () => {
         <ShareIcon className="w-4 h-4" />
         <div>Allowance</div>
       </Menu>
+      {isFeatureEnabled('cleanup-settings', currentProfile?.id) && (
+        <Menu current={pathname == '/settings/cleanup'} url="/settings/cleanup">
+          <SparklesIcon className="w-4 h-4" />
+          <div>Cleanup</div>
+        </Menu>
+      )}
       <Menu current={pathname == '/settings/delete'} url="/settings/delete">
         <ExclamationIcon className="w-4 h-4 text-red-500" />
         <div className="text-red-500">Danger Zone</div>
