@@ -36,7 +36,7 @@ const QueuedPublication: FC<Props> = ({ txn }) => {
       if (data?.publication) {
         cache.modify({
           fields: {
-            [txn?.type === 'NEW_POST' ? 'timeline' : 'publications']() {
+            publications() {
               cache.writeQuery({
                 data: data?.publication as any,
                 query: PublicationDocument
