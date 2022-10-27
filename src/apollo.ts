@@ -14,7 +14,7 @@ import { publicationKeyFields } from '@lib/keyFields';
 import parseJwt from '@lib/parseJwt';
 import axios from 'axios';
 
-import { API_URL } from './constants';
+import { API_URL, LS_KEYS } from './constants';
 
 const REFRESH_AUTHENTICATION_MUTATION = `
   mutation Refresh($request: RefreshRequest!) {
@@ -45,8 +45,8 @@ const retryLink = new RetryLink({
 const clearStorage = () => {
   localStorage.removeItem('accessToken');
   localStorage.removeItem('refreshToken');
-  localStorage.removeItem('lenster.store');
-  localStorage.removeItem('transaction.store');
+  localStorage.removeItem(LS_KEYS.LENSTER_STORE);
+  localStorage.removeItem(LS_KEYS.TRANSACTION_STORE);
 };
 
 const authLink = new ApolloLink((operation, forward) => {
