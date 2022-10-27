@@ -112,3 +112,10 @@ export const MESSAGE_PREVIEW_LENGTH = 20;
 export const AVATAR = '250:250';
 export const COVER = '800';
 export const ATTACHMENT = '800';
+
+// Localstorage keys
+export const LS_KEYS = {
+  LENSTER_STORE: 'lenster.store',
+  TRANSACTION_STORE: 'transaction.store',
+  TIMELINE_STORE: 'timeline.store'
+};
