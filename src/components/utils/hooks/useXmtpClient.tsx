@@ -42,7 +42,7 @@ const useXmtpClient = () => {
         let keys = loadKeys(await signer.getAddress());
         if (!keys) {
           setAwaitingXmtpAuth(true);
-          keys = await Client.getKeys(signer);
+          keys = await Client.getKeys(signer, { env: XMTP_ENV });
           storeKeys(await signer.getAddress(), keys);
         }
 
