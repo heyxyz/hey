@@ -32,10 +32,5 @@ export const featureFlags = [
     key: 'trending-widget',
     name: 'Trending widget',
     enabledFor: [...lensterMembers]
-  },
-  {
-    key: 'cleanup-settings',
-    name: 'Cleanup settings',
-    enabledFor: [...lensterMembers, ...aaveMembers]
   }
 ];
