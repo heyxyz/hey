@@ -10,11 +10,11 @@ interface Props {
 
 const ProfileCircles: FC<Props> = ({ profiles, context }) => {
   const Wrapper = ({ children }: { children: ReactNode }) => (
-    <div className="mr-0 sm:mr-10 text-gray-500 flex items-center space-x-1.5 cursor-pointer">
-      <span className="pr-1.5">{context}</span>
+    <>
+      {context && <span className="pr-1.5">{context}</span>}
       <div className="contents -space-x-2">
         {profiles.slice(0, 3)?.map((profile, i) => (
-          <Link key={`${profile.handle}_${i}`} href={`/u/${profile?.handle}`}>
+          <Link className="flex-none" key={`${profile.handle}_${i}`} href={`/u/${profile?.handle}`}>
             <img
               className="w-5 h-5 rounded-full border dark:border-gray-700/80"
               src={getAvatar(profile)}
@@ -24,7 +24,7 @@ const ProfileCircles: FC<Props> = ({ profiles, context }) => {
         ))}
       </div>
       {children}
-    </div>
+    </>
   );
 
   const profileOne = profiles[0];

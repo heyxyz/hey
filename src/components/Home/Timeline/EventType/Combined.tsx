@@ -1,5 +1,4 @@
 import type { FeedItem } from '@generated/types';
-import { ChatAlt2Icon, CollectionIcon, HeartIcon, SwitchHorizontalIcon } from '@heroicons/react/outline';
 import type { FC } from 'react';
 
 import ProfileCircles from './ProfileCircles';
@@ -34,18 +33,17 @@ const Combined: FC<Props> = ({ feedItem }) => {
   };
 
   return (
-    <div className="flex flex-wrap items-center pb-4 space-x-1 text-gray-500 text-[13px]">
+    <div className="flex flex-wrap leading-6 items-center pb-4 space-x-1 text-gray-500 text-[13px]">
+      <ProfileCircles profiles={getAllProfiles()} />
       <div className="flex items-center space-x-1">
         {mirrorsLength ? (
-          <span className="flex whitespace-nowrap items-center">
-            <SwitchHorizontalIcon className="w-3.5 h-3.5 mr-1" />
-            Mirrored{totalActions < 3 ? (totalActions !== 1 ? ' and ' : '') : ', '}
+          <span className="whitespace-nowrap">
+            mirrored{totalActions < 3 ? (totalActions !== 1 ? ' and ' : '') : ', '}
           </span>
         ) : null}
         {commentsLength ? (
-          <span className="flex whitespace-nowrap items-center">
-            <ChatAlt2Icon className="w-3.5 h-3.5 mr-1" />
-            Commented
+          <span className="whitespace-nowrap">
+            commented
             {totalActions < 3
               ? collectsLength && reactionsLength
                 ? ' and '
@@ -57,20 +55,13 @@ const Combined: FC<Props> = ({ feedItem }) => {
           </span>
         ) : null}
         {collectsLength ? (
-          <span className="flex whitespace-nowrap items-center">
-            <CollectionIcon className="w-3.5 h-3.5 mr-1" />
-            Collected
+          <span className="whitespace-nowrap">
+            collected
             {totalActions >= 3 && reactionsLength ? ' and ' : reactionsLength ? ' and ' : ''}
           </span>
         ) : null}
-        {reactionsLength ? (
-          <span className="flex whitespace-nowrap items-center">
-            <HeartIcon className="w-3.5 h-3.5 mr-1" />
-            Reacted
-          </span>
-        ) : null}
+        {reactionsLength ? <span className="whitespace-nowrap">liked</span> : null}
       </div>
-      <ProfileCircles profiles={getAllProfiles()} context="by" />
     </div>
   );
 };
