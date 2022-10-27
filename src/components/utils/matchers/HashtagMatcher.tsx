@@ -20,8 +20,9 @@ export function Hashtag({ ...props }: any) {
       </span>
       {hasHashflag && (
         <img
-          className="h-4 !mr-0.5"
+          className="h-4 w-4 !mr-0.5"
           height={16}
+          width={16}
           src={`${STATIC_ASSETS}/hashflags/${hashflags[hashflag]}.png`}
           alt={hashflag}
         />
