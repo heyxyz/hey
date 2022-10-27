@@ -14,7 +14,6 @@ import getURLs from '@lib/getURLs';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import type { FC } from 'react';
-import { POLYGONSCAN_URL } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { useTransactionPersistStore } from 'src/store/transaction';
 
@@ -30,6 +29,15 @@ const QueuedPublication: FC<Props> = ({ txn }) => {
   const setTxnQueue = useTransactionPersistStore((state) => state.setTxnQueue);
   const { cache } = useApolloClient();
   const txHash = txn?.txHash;
+  const txId = txn?.txId;
+
+  const removeTxn = () => {
+    if (txHash) {
+      setTxnQueue(txnQueue.filter((o) => o.txHash !== txHash));
+    } else {
+      setTxnQueue(txnQueue.filter((o) => o.txId !== txId));
+    }
+  };
 
   const [getPublication] = useLazyQuery(PublicationDocument, {
     onCompleted: (data) => {
@@ -44,17 +52,17 @@ const QueuedPublication: FC<Props> = ({ txn }) => {
             }
           }
         });
-        setTxnQueue(txnQueue.filter((o) => o.txHash !== txHash));
+        removeTxn();
       }
     }
   });
 
   useQuery(HasTxHashBeenIndexedDocument, {
-    variables: { request: { txHash } },
+    variables: { request: { txHash, txId } },
     pollInterval: 1000,
     onCompleted: (data) => {
       if (data.hasTxHashBeenIndexed.__typename === 'TransactionError') {
-        return setTxnQueue(txnQueue.filter((o) => o.txHash !== txHash));
+        return removeTxn();
       }
 
       if (data.hasTxHashBeenIndexed.__typename === 'TransactionIndexedResult') {
@@ -64,13 +72,13 @@ const QueuedPublication: FC<Props> = ({ txn }) => {
           status === PublicationMetadataStatusType.MetadataValidationFailed ||
           status === PublicationMetadataStatusType.NotFound
         ) {
-          return setTxnQueue(txnQueue.filter((o) => o.txHash !== txHash));
+          return removeTxn();
         }
 
         if (data.hasTxHashBeenIndexed.indexed) {
           getPublication({
             variables: {
-              request: { txHash },
+              request: { txHash: data.hasTxHashBeenIndexed.txHash },
               reactionRequest: currentProfile ? { profileId: currentProfile?.id } : null,
               profileId: currentProfile?.id ?? null
             }
@@ -85,14 +93,9 @@ const QueuedPublication: FC<Props> = ({ txn }) => {
       <div className="pb-4 flex items-start justify-between">
         <UserProfile profile={currentProfile as Profile} />
         <Tooltip content="Indexing" placement="top">
-          <a
-            className="bg-brand-200 rounded-full h-4 w-4 flex items-center justify-center"
-            href={`${POLYGONSCAN_URL}/tx/${txHash}`}
-            target="_blank"
-            rel="noreferrer noopener"
-          >
+          <div className="bg-brand-200 rounded-full h-4 w-4 flex items-center justify-center">
             <div className="animate-pulse bg-brand-500 rounded-full h-2 w-2" />
-          </a>
+          </div>
         </Tooltip>
       </div>
       <div className="ml-[53px] break-words">

@@ -110,11 +110,12 @@ const NewUpdate: FC = () => {
     setPostContentError('');
   }, [audioPublication]);
 
-  const generateOptimisticPost = (txHash: string) => {
+  const generateOptimisticPost = ({ txHash, txId }: { txHash?: string; txId?: string }) => {
     return {
       id: uuid(),
       type: 'NEW_POST',
       txHash,
+      txId,
       content: publicationContent,
       attachments,
       title: audioPublication.title,
@@ -134,7 +135,7 @@ const NewUpdate: FC = () => {
     mode: 'recklesslyUnprepared',
     onSuccess: ({ hash }) => {
       onCompleted();
-      setTxnQueue([generateOptimisticPost(hash), ...txnQueue]);
+      setTxnQueue([generateOptimisticPost({ txHash: hash }), ...txnQueue]);
     },
     onError
   });
@@ -142,7 +143,7 @@ const NewUpdate: FC = () => {
   const { broadcast, loading: broadcastLoading } = useBroadcast({
     onCompleted: (data) => {
       onCompleted();
-      setTxnQueue([generateOptimisticPost(data?.broadcast?.txHash), ...txnQueue]);
+      setTxnQueue([generateOptimisticPost({ txId: data?.broadcast?.txId }), ...txnQueue]);
     }
   });
   const [createPostTypedData, { loading: typedDataLoading }] = useMutation<Mutation>(
@@ -197,7 +198,7 @@ const NewUpdate: FC = () => {
       onCompleted: (data) => {
         onCompleted();
         if (data.createPostViaDispatcher.__typename === 'RelayerResult') {
-          setTxnQueue([generateOptimisticPost(data.createPostViaDispatcher.txHash), ...txnQueue]);
+          setTxnQueue([generateOptimisticPost({ txId: data.createPostViaDispatcher.txId }), ...txnQueue]);
         }
       },
       onError

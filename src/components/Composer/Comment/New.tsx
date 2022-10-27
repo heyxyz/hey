@@ -110,12 +110,13 @@ const NewComment: FC<Props> = ({ publication }) => {
     setCommentContentError('');
   }, [audioPublication]);
 
-  const generateOptimisticComment = (txHash: string) => {
+  const generateOptimisticComment = ({ txHash, txId }: { txHash?: string; txId?: string }) => {
     return {
       id: uuid(),
       parent: publication.id,
       type: 'NEW_COMMENT',
       txHash,
+      txId,
       content: publicationContent,
       attachments,
       title: audioPublication.title,
@@ -137,7 +138,7 @@ const NewComment: FC<Props> = ({ publication }) => {
     mode: 'recklesslyUnprepared',
     onSuccess: ({ hash }) => {
       onCompleted();
-      setTxnQueue([generateOptimisticComment(hash), ...txnQueue]);
+      setTxnQueue([generateOptimisticComment({ txHash: hash }), ...txnQueue]);
     },
     onError
   });
@@ -145,7 +146,7 @@ const NewComment: FC<Props> = ({ publication }) => {
   const { broadcast, loading: broadcastLoading } = useBroadcast({
     onCompleted: (data) => {
       onCompleted();
-      setTxnQueue([generateOptimisticComment(data?.broadcast?.txHash), ...txnQueue]);
+      setTxnQueue([generateOptimisticComment({ txId: data?.broadcast?.txId }), ...txnQueue]);
     }
   });
   const [createCommentTypedData, { loading: typedDataLoading }] = useMutation<Mutation>(
@@ -206,7 +207,10 @@ const NewComment: FC<Props> = ({ publication }) => {
       onCompleted: (data) => {
         onCompleted();
         if (data.createCommentViaDispatcher.__typename === 'RelayerResult') {
-          setTxnQueue([generateOptimisticComment(data.createCommentViaDispatcher.txHash), ...txnQueue]);
+          setTxnQueue([
+            generateOptimisticComment({ txId: data.createCommentViaDispatcher.txId }),
+            ...txnQueue
+          ]);
         }
       },
       onError
