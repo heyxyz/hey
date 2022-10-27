@@ -9,16 +9,15 @@ import type { NextPage } from 'next';
 import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
 
-import Timeline from '../Timeline';
 import EnableDispatcher from './EnableDispatcher';
 import EnableMessages from './EnableMessages';
-import HomeFeed from './Feed';
 import FeedType from './FeedType';
 import Hero from './Hero';
 import Highlights from './Highlights';
 import RecommendedProfiles from './RecommendedProfiles';
 import SetDefaultProfile from './SetDefaultProfile';
 import SetProfile from './SetProfile';
+import Timeline from './Timeline';
 import Trending from './Trending';
 
 const Home: NextPage = () => {
@@ -35,15 +34,7 @@ const Home: NextPage = () => {
             <>
               <NewPost />
               <FeedType feedType={feedType} setFeedType={setFeedType} />
-              {feedType === 'TIMELINE' ? (
-                isFeatureEnabled('timeline-v2', currentProfile?.id) ? (
-                  <Timeline />
-                ) : (
-                  <HomeFeed />
-                )
-              ) : (
-                <Highlights />
-              )}
+              {feedType === 'TIMELINE' ? <Timeline /> : <Highlights />}
             </>
           ) : (
             <ExploreFeed />

@@ -32,10 +32,5 @@ export const featureFlags = [
     key: 'trending-widget',
     name: 'Trending widget',
     enabledFor: [...lensterMembers]
-  },
-  {
-    key: 'timeline-v2',
-    name: 'Timeline v2',
-    enabledFor: [...lensterMembers, ...aaveMembers]
   }
 ];

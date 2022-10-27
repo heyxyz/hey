@@ -1,5 +1,5 @@
+import EventType from '@components/Home/Timeline/EventType';
 import UserProfile from '@components/Shared/UserProfile';
-import EventType from '@components/Timeline/EventType';
 import type { LensterPublication } from '@generated/lenstertypes';
 import type { ElectedMirror, FeedItem } from '@generated/types';
 import dayjs from 'dayjs';
