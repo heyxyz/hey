@@ -4995,7 +4995,7 @@ export type ProfileFieldsFragment = {
 
 type RelayerResultFields_RelayError_Fragment = { __typename?: 'RelayError'; reason: RelayErrorReasons };
 
-type RelayerResultFields_RelayerResult_Fragment = { __typename?: 'RelayerResult'; txHash: any };
+type RelayerResultFields_RelayerResult_Fragment = { __typename?: 'RelayerResult'; txHash: any; txId: any };
 
 export type RelayerResultFieldsFragment =
   | RelayerResultFields_RelayError_Fragment
@@ -5032,7 +5032,7 @@ export type BroadcastMutation = {
   __typename?: 'Mutation';
   broadcast:
     | { __typename?: 'RelayError'; reason: RelayErrorReasons }
-    | { __typename?: 'RelayerResult'; txHash: any };
+    | { __typename?: 'RelayerResult'; txHash: any; txId: any };
 };
 
 export type CreateBurnProfileTypedDataMutationVariables = Exact<{
@@ -5150,7 +5150,7 @@ export type CreateCommentViaDispatcherMutation = {
   __typename?: 'Mutation';
   createCommentViaDispatcher:
     | { __typename?: 'RelayError'; reason: RelayErrorReasons }
-    | { __typename?: 'RelayerResult'; txHash: any };
+    | { __typename?: 'RelayerResult'; txHash: any; txId: any };
 };
 
 export type CreateFollowTypedDataMutationVariables = Exact<{
@@ -5235,7 +5235,7 @@ export type CreateMirrorViaDispatcherMutation = {
   __typename?: 'Mutation';
   createMirrorViaDispatcher:
     | { __typename?: 'RelayError'; reason: RelayErrorReasons }
-    | { __typename?: 'RelayerResult'; txHash: any };
+    | { __typename?: 'RelayerResult'; txHash: any; txId: any };
 };
 
 export type CreatePostTypedDataMutationVariables = Exact<{
@@ -5285,7 +5285,7 @@ export type CreatePostViaDispatcherMutation = {
   __typename?: 'Mutation';
   createPostViaDispatcher:
     | { __typename?: 'RelayError'; reason: RelayErrorReasons }
-    | { __typename?: 'RelayerResult'; txHash: any };
+    | { __typename?: 'RelayerResult'; txHash: any; txId: any };
 };
 
 export type CreateProfileMutationVariables = Exact<{
@@ -5296,7 +5296,7 @@ export type CreateProfileMutation = {
   __typename?: 'Mutation';
   createProfile:
     | { __typename?: 'RelayError'; reason: RelayErrorReasons }
-    | { __typename?: 'RelayerResult'; txHash: any };
+    | { __typename?: 'RelayerResult'; txHash: any; txId: any };
 };
 
 export type CreateSetDefaultProfileTypedDataMutationVariables = Exact<{
@@ -5448,7 +5448,7 @@ export type CreateSetProfileImageUriViaDispatcherMutation = {
   __typename?: 'Mutation';
   createSetProfileImageURIViaDispatcher:
     | { __typename?: 'RelayError'; reason: RelayErrorReasons }
-    | { __typename?: 'RelayerResult'; txHash: any };
+    | { __typename?: 'RelayerResult'; txHash: any; txId: any };
 };
 
 export type CreateSetProfileMetadataTypedDataMutationVariables = Exact<{
@@ -5497,7 +5497,7 @@ export type CreateSetProfileMetadataViaDispatcherMutation = {
   __typename?: 'Mutation';
   createSetProfileMetadataViaDispatcher:
     | { __typename?: 'RelayError'; reason: RelayErrorReasons }
-    | { __typename?: 'RelayerResult'; txHash: any };
+    | { __typename?: 'RelayerResult'; txHash: any; txId: any };
 };
 
 export type CreateUnfollowTypedDataMutationVariables = Exact<{
@@ -10502,6 +10502,7 @@ export type HasTxHashBeenIndexedQuery = {
     | { __typename?: 'TransactionError'; reason: TransactionErrorReasons }
     | {
         __typename?: 'TransactionIndexedResult';
+        txHash: any;
         indexed: boolean;
         metadataStatus?: {
           __typename?: 'PublicationMetadataStatus';
@@ -19824,7 +19825,10 @@ export const RelayerResultFieldsFragmentDoc = {
             typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'RelayerResult' } },
             selectionSet: {
               kind: 'SelectionSet',
-              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'txHash' } }]
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'txHash' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'txId' } }
+              ]
             }
           },
           {
@@ -19957,7 +19961,10 @@ export const BroadcastDocument = {
                   typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'RelayerResult' } },
                   selectionSet: {
                     kind: 'SelectionSet',
-                    selections: [{ kind: 'Field', name: { kind: 'Name', value: 'txHash' } }]
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'txHash' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'txId' } }
+                    ]
                   }
                 },
                 {
@@ -22661,6 +22668,7 @@ export const HasTxHashBeenIndexedDocument = {
                           selections: [{ kind: 'Field', name: { kind: 'Name', value: 'status' } }]
                         }
                       },
+                      { kind: 'Field', name: { kind: 'Name', value: 'txHash' } },
                       { kind: 'Field', name: { kind: 'Name', value: 'indexed' } }
                     ]
                   }
