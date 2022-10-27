@@ -60,7 +60,7 @@ const Combined: FC<Props> = ({ feedItem }) => {
             {totalActions >= 3 && reactionsLength ? ' and ' : reactionsLength ? ' and ' : ''}
           </span>
         ) : null}
-        {reactionsLength ? <span className="whitespace-nowrap">reacted</span> : null}
+        {reactionsLength ? <span className="whitespace-nowrap">liked</span> : null}
       </div>
     </div>
   );

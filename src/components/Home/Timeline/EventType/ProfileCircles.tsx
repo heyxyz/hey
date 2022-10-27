@@ -14,7 +14,7 @@ const ProfileCircles: FC<Props> = ({ profiles, context }) => {
       <span className="pr-1.5">{context}</span>
       <div className="contents -space-x-2">
         {profiles.slice(0, 3)?.map((profile, i) => (
-          <Link key={`${profile.handle}_${i}`} href={`/u/${profile?.handle}`}>
+          <Link className="flex-none" key={`${profile.handle}_${i}`} href={`/u/${profile?.handle}`}>
             <img
               className="w-5 h-5 rounded-full border dark:border-gray-700/80"
               src={getAvatar(profile)}
