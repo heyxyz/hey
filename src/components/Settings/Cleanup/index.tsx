@@ -44,7 +44,7 @@ const CleanupSettings: NextPage = () => {
           <div className="space-y-6">
             <div className="flex items-center justify-between">
               <div className="space-y-1">
-                <b>Optimistic posts</b>
+                <b>Optimistic publications</b>
                 <div className="font-bold text-xs text-gray-500">
                   Clean your posts or comments that are not indexed
                 </div>
