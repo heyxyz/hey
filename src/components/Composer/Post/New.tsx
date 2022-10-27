@@ -10,7 +10,9 @@ import {
 } from '@heroicons/react/outline';
 import getAvatar from '@lib/getAvatar';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
+import { useRouter } from 'next/router';
 import type { FC, ReactNode } from 'react';
+import { useEffect } from 'react';
 import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { usePublicationStore } from 'src/store/publication';
@@ -38,15 +40,41 @@ const Action: FC<ActionProps> = ({ icon, text, onClick }) => (
 );
 
 const NewPost: FC = () => {
+  const { query, isReady } = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const showNewPostModal = usePublicationStore((state) => state.showNewPostModal);
   const setShowNewPostModal = usePublicationStore((state) => state.setShowNewPostModal);
+  const setPublicationContent = usePublicationStore((state) => state.setPublicationContent);
+  const setPreviewPublication = usePublicationStore((state) => state.setPreviewPublication);
   const [selectedAction, setSelectedAction] = useState<Action>('update');
 
   const openModal = (action: Action) => {
     setSelectedAction(action);
     setShowNewPostModal(true);
   };
+
+  useEffect(() => {
+    if (isReady && query.text) {
+      const { text, url, via, hashtags, preview } = query;
+      let processedHashtags;
+
+      if (hashtags) {
+        processedHashtags = (hashtags as string)
+          .split(',')
+          .map((tag) => `#${tag} `)
+          .join('');
+      }
+
+      setShowNewPostModal(true);
+      setPublicationContent(
+        `${text}${processedHashtags ? ` ${processedHashtags} ` : ''}${url ? `\n\n${url}` : ''}${
+          via ? `\n\nvia @${via}` : ''
+        }`
+      );
+      setPreviewPublication(preview ? true : false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Card className="p-5 space-y-3">

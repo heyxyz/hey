@@ -17,7 +17,7 @@ import getSignature from '@lib/getSignature';
 import imageProxy from '@lib/imageProxy';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
-import uploadMediaToIPFS from '@lib/uploadMediaToIPFS';
+import uploadToIPFS from '@lib/uploadToIPFS';
 import type { ChangeEvent, FC } from 'react';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
@@ -118,7 +118,7 @@ const Picture: FC<Props> = ({ profile }) => {
     evt.preventDefault();
     setUploading(true);
     try {
-      const attachment = await uploadMediaToIPFS(evt.target.files);
+      const attachment = await uploadToIPFS(evt.target.files);
       if (attachment[0]?.item) {
         setAvatar(attachment[0].item);
       }
