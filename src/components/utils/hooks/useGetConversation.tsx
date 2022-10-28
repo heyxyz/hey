@@ -44,7 +44,7 @@ const useGetConversation = (conversationKey: string, profile?: Profile) => {
     };
     createNewConversation();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [profile]);
+  }, [profile, conversations]);
 
   useEffect(() => {
     if (!currentProfile) {
