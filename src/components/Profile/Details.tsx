@@ -90,9 +90,9 @@ const Details: FC<Props> = ({ profile }) => {
         </div>
         <div className="flex items-center space-x-3">
           {profile?.name ? (
-            <Slug className="!text-sm sm:!text-base" slug={profile?.handle} prefix="@" />
+            <Slug className="text-sm sm:text-base" slug={profile?.handle} prefix="@" />
           ) : (
-            <Slug className="!text-sm sm:!text-base" slug={formatAddress(profile?.ownedBy)} />
+            <Slug className="text-sm sm:text-base" slug={formatAddress(profile?.ownedBy)} />
           )}
           {currentProfile && currentProfile?.id !== profile?.id && profile?.isFollowing && (
             <div className="py-0.5 px-2 text-xs bg-gray-200 rounded-full dark:bg-gray-700">Follows you</div>
