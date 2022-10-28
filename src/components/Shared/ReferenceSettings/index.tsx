@@ -39,7 +39,7 @@ const ReferenceSettings: FC = () => {
 
   const Module: FC<ModuleProps> = ({ title, icon, onClick, selected }) => (
     <Menu.Item as="a" className={clsx({ 'dropdown-active': selected }, 'menu-item')} onClick={onClick}>
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between space-x-2">
         <div className="flex items-center space-x-1.5">
           <div className="text-brand-500">{icon}</div>
           <div>{title}</div>
@@ -73,7 +73,7 @@ const ReferenceSettings: FC = () => {
           >
             <Menu.Items
               static
-              className="absolute py-1 z-[5] mt-2 w-52 bg-white rounded-xl border shadow-sm dark:bg-gray-900 focus:outline-none dark:border-gray-700/80"
+              className="absolute py-1 z-[5] mt-2 bg-white rounded-xl border shadow-sm dark:bg-gray-900 focus:outline-none dark:border-gray-700/80"
             >
               <Module
                 title={EVERYONE}
