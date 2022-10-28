@@ -38,9 +38,9 @@ const Preview: FC<Props> = ({ profile, message, conversationKey }) => {
         />
         <div className="w-full">
           <div className="flex w-full justify-between space-x-1">
-            <div className="flex gap-1 items-center max-w-sm line-clamp-1">
-              <div className={clsx('text-md')}>{profile?.name ?? profile.handle}</div>
-              {isVerified(profile?.id) && <BadgeCheckIcon className="w-4 h-4 text-brand" />}
+            <div className="flex gap-1 items-center max-w-sm">
+              <div className={`line-clamp-1 ${clsx('text-md')}`}>{profile?.name ?? profile.handle}</div>
+              {isVerified(profile?.id) && <BadgeCheckIcon className="min-w-fit w-4 h-4 text-brand" />}
             </div>
             {message.sent && (
               <span className="min-w-fit pt-0.5 text-xs text-gray-500">
