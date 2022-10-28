@@ -90,7 +90,10 @@ const Search: FC<Props> = ({ hideDropdown = false, onProfileSelected, placeholde
             ) : (
               <>
                 {profiles.map((profile: Profile) => (
-                  <div key={profile?.handle} className="py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-800">
+                  <div
+                    key={profile?.handle}
+                    className="py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer"
+                  >
                     <div
                       onClick={() => {
                         if (onProfileSelected) {
