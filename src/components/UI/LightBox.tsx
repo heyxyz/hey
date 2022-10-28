@@ -27,7 +27,7 @@ export const LightBox: FC<Props> = ({ show, url, onClose }) => {
           <span className="hidden sm:inline-block sm:h-screen sm:align-middle" aria-hidden="true" />
           <Transition.Child
             as="div"
-            className="sm:max-w-3xl inline-block transform transition-all align-middle"
+            className="sm:max-w-3xl inline-block transform transition-all align-middle p-8 text-left"
             enter="ease-out duration-100"
             enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             enterTo="opacity-100 translate-y-0 sm:scale-100"
@@ -35,7 +35,26 @@ export const LightBox: FC<Props> = ({ show, url, onClose }) => {
             leaveFrom="opacity-100 translate-y-0 sm:scale-100"
             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
           >
-            <img className="max-h-screen p-8" src={url ?? ''} alt={url ?? ''} onClick={onClose} />
+            <img
+              className="max-h-screen"
+              height={1000}
+              width={1000}
+              src={url ?? ''}
+              alt={url ?? ''}
+              onClick={onClose}
+            />
+            {url ? (
+              <div className="mt-1">
+                <a
+                  className="text-sm text-gray-200 hover:underline"
+                  href={url}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Open original
+                </a>
+              </div>
+            ) : null}
           </Transition.Child>
         </div>
       </Dialog>
