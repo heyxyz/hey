@@ -1,4 +1,4 @@
-import { IMAGEKIT_URL } from 'src/constants';
+import { IMGPROXY_URL } from 'src/constants';
 
 /**
  *
@@ -8,8 +8,8 @@ import { IMAGEKIT_URL } from 'src/constants';
  */
 const imageProxy = (url: string, name?: string): string => {
   return name
-    ? `${IMAGEKIT_URL}/tr:n-${name},tr:di-placeholder.webp/${url}`
-    : `${IMAGEKIT_URL}/tr:di-placeholder.webp/${url}`;
+    ? `${IMGPROXY_URL}/tr:n-${name},tr:di-placeholder.webp/${url}`
+    : `${IMGPROXY_URL}/tr:di-placeholder.webp/${url}`;
 };
 
 export default imageProxy;
