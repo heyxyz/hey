@@ -6,7 +6,7 @@ import { createElement } from 'react';
 export function Mention({ ...props }: any) {
   return (
     <Link href={`/u/${props.display.slice(1)}`} onClick={(event) => event.stopPropagation()}>
-      <Slug className="text-md" slug={props.display} />
+      <Slug slug={props.display} />
     </Link>
   );
 }
