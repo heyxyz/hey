@@ -2,6 +2,16 @@ import { aaveMembers } from './aave-members';
 import { lensterMembers } from './lenster-members';
 
 export const mainnetVerified = [
+  '0x2e2a', // dheerajshah.lens
+  '0xe5cc', // alarke.lens
+  '0x012d4e', // connectthecoast.lens
+  '0x8eaf', // leli_j.lens
+  '0x6871', // zombieshepherd.lens
+  '0xee8b', // waltz.lens
+  '0x0fa1', // ittai.lens
+  '0xe508', // noahnft.lens
+  '0xa68c', // juampi.lens
+  '0x011a73', // tropix.lens
   '0x016463', // romellhenry.lens
   '0x015e00', // dylanh.lens
   '0x016b43', // ethereum.lens
