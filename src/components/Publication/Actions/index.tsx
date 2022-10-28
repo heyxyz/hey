@@ -35,12 +35,12 @@ const PublicationActions: FC<Props> = ({ publication, electedMirror, isFullPubli
       {canMirror && <Mirror publication={publication} isFullPublication={isFullPublication} />}
       <Like publication={publication} isFullPublication={isFullPublication} />
       {collectModuleType !== 'RevertCollectModuleSettings' && (
-          <Collect
-            electedMirror={electedMirror}
-            publication={publication}
-            isFullPublication={isFullPublication}
-          />
-        )}
+        <Collect
+          electedMirror={electedMirror}
+          publication={publication}
+          isFullPublication={isFullPublication}
+        />
+      )}
       <PublicationMenu publication={publication} isFullPublication={isFullPublication} />
     </span>
   );
