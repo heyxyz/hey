@@ -15,7 +15,7 @@ export const Toggle: FC<Props> = ({ on, setOn }) => {
         setOn(!on);
       }}
       className={clsx(
-        on ? 'bg-brand-500' : 'bg-gray-200',
+        on ? 'bg-brand-500' : 'bg-gray-200 dark:bg-gray-700',
         'inline-flex h-[22px] w-[42.5px] border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none'
       )}
     >
