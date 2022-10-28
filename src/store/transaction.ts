@@ -1,3 +1,4 @@
+import { LS_KEYS } from 'src/constants';
 import create from 'zustand';
 import { persist } from 'zustand/middleware';
 
@@ -12,6 +13,6 @@ export const useTransactionPersistStore = create(
       txnQueue: [],
       setTxnQueue: (txnQueue) => set(() => ({ txnQueue }))
     }),
-    { name: 'transaction.store' }
+    { name: LS_KEYS.TRANSACTION_STORE }
   )
 );

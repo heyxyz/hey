@@ -16,14 +16,12 @@ import {
 import getAvatar from '@lib/getAvatar';
 import isGardener from '@lib/isGardener';
 import isStaff from '@lib/isStaff';
-import { Leafwatch } from '@lib/leafwatch';
 import resetAuthData from '@lib/resetAuthData';
 import clsx from 'clsx';
 import { useTheme } from 'next-themes';
 import type { FC } from 'react';
 import { Fragment } from 'react';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
-import { PROFILE, STAFFTOOLS, SYSTEM } from 'src/tracking';
 import { useDisconnect } from 'wagmi';
 
 import pkg from '../../../../package.json';
@@ -43,7 +41,6 @@ const SignedUser: FC = () => {
 
   const toggleStaffMode = () => {
     setStaffMode(!staffMode);
-    Leafwatch.track(STAFFTOOLS.TOGGLE_MODE);
   };
 
   return (
@@ -124,7 +121,6 @@ const SignedUser: FC = () => {
               <Menu.Item
                 as="a"
                 onClick={() => {
-                  Leafwatch.track(PROFILE.LOGOUT);
                   disconnectXmtp();
                   setCurrentProfile(null);
                   setProfileId(null);
@@ -158,7 +154,6 @@ const SignedUser: FC = () => {
                             const selectedProfile = profiles[index];
                             setCurrentProfile(selectedProfile);
                             setProfileId(selectedProfile.id);
-                            Leafwatch.track(PROFILE.SWITCH_PROFILE);
                           }}
                         >
                           {currentProfile?.id === profile?.id && (
@@ -181,10 +176,7 @@ const SignedUser: FC = () => {
               <div className="divider" />
               <Menu.Item
                 as="a"
-                onClick={() => {
-                  setTheme(theme === 'light' ? 'dark' : 'light');
-                  Leafwatch.track(theme === 'light' ? SYSTEM.SWITCH_DARK_THEME : SYSTEM.SWITCH_LIGHT_THEME);
-                }}
+                onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
                 className={({ active }) => clsx({ 'dropdown-active': active }, 'menu-item')}
               >
                 <div className="flex items-center space-x-1.5">

@@ -23,17 +23,15 @@ import getIPFSLink from '@lib/getIPFSLink';
 import getSignature from '@lib/getSignature';
 import hasPrideLogo from '@lib/hasPrideLogo';
 import imageProxy from '@lib/imageProxy';
-import { Leafwatch } from '@lib/leafwatch';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
-import uploadMediaToIPFS from '@lib/uploadMediaToIPFS';
 import uploadToArweave from '@lib/uploadToArweave';
+import uploadToIPFS from '@lib/uploadToIPFS';
 import type { ChangeEvent, FC } from 'react';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { APP_NAME, COVER, LENS_PERIPHERY, RELAY_ON, SIGN_WALLET, URL_REGEX } from 'src/constants';
 import { useAppStore } from 'src/store/app';
-import { SETTINGS } from 'src/tracking';
 import { v4 as uuid } from 'uuid';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 import { object, optional, string } from 'zod';
@@ -69,7 +67,6 @@ const Profile: FC<Props> = ({ profile }) => {
 
   const onCompleted = () => {
     toast.success('Profile updated successfully!');
-    Leafwatch.track(SETTINGS.PROFILE.UPDATE);
   };
 
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
@@ -155,7 +152,7 @@ const Profile: FC<Props> = ({ profile }) => {
     evt.preventDefault();
     setUploading(true);
     try {
-      const attachment = await uploadMediaToIPFS(evt.target.files);
+      const attachment = await uploadToIPFS(evt.target.files);
       if (attachment[0]?.item) {
         setCover(attachment[0].item);
       }

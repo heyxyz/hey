@@ -9,12 +9,9 @@ import { TextArea } from '@components/UI/TextArea';
 import MetaTags from '@components/utils/MetaTags';
 import { PencilAltIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
-import { Leafwatch } from '@lib/leafwatch';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
-import { useEffect } from 'react';
 import { APP_NAME, CONTACT_EMAIL } from 'src/constants';
-import { PAGEVIEW } from 'src/tracking';
 import { object, string } from 'zod';
 
 const newContactSchema = object({
@@ -27,10 +24,6 @@ const newContactSchema = object({
 });
 
 const Contact: FC = () => {
-  useEffect(() => {
-    Leafwatch.track('Pageview', { path: PAGEVIEW.CONTACT });
-  }, []);
-
   const { push } = useRouter();
   const form = useZodForm({
     schema: newContactSchema

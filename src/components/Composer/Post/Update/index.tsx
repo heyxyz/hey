@@ -21,7 +21,6 @@ import { PencilAltIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
 import getTags from '@lib/getTags';
 import getUserLocale from '@lib/getUserLocale';
-import { Leafwatch } from '@lib/leafwatch';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import trimify from '@lib/trimify';
@@ -34,6 +33,7 @@ import toast from 'react-hot-toast';
 import {
   ALLOWED_AUDIO_TYPES,
   ALLOWED_IMAGE_TYPES,
+  ALLOWED_VIDEO_TYPES,
   APP_NAME,
   LENSHUB_PROXY,
   RELAY_ON,
@@ -44,7 +44,6 @@ import { useCollectModuleStore } from 'src/store/collectmodule';
 import { usePublicationStore } from 'src/store/publication';
 import { useReferenceModuleStore } from 'src/store/referencemodule';
 import { useTransactionPersistStore } from 'src/store/transaction';
-import { POST } from 'src/tracking';
 import { v4 as uuid } from 'uuid';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
@@ -105,18 +104,18 @@ const NewUpdate: FC = () => {
     setPublicationContent('');
     setAttachments([]);
     resetCollectSettings();
-    Leafwatch.track(POST.NEW);
   };
 
   useEffect(() => {
     setPostContentError('');
   }, [audioPublication]);
 
-  const generateOptimisticPost = (txHash: string) => {
+  const generateOptimisticPost = ({ txHash, txId }: { txHash?: string; txId?: string }) => {
     return {
       id: uuid(),
       type: 'NEW_POST',
       txHash,
+      txId,
       content: publicationContent,
       attachments,
       title: audioPublication.title,
@@ -136,7 +135,7 @@ const NewUpdate: FC = () => {
     mode: 'recklesslyUnprepared',
     onSuccess: ({ hash }) => {
       onCompleted();
-      setTxnQueue([generateOptimisticPost(hash), ...txnQueue]);
+      setTxnQueue([generateOptimisticPost({ txHash: hash }), ...txnQueue]);
     },
     onError
   });
@@ -144,7 +143,7 @@ const NewUpdate: FC = () => {
   const { broadcast, loading: broadcastLoading } = useBroadcast({
     onCompleted: (data) => {
       onCompleted();
-      setTxnQueue([generateOptimisticPost(data?.broadcast?.txHash), ...txnQueue]);
+      setTxnQueue([generateOptimisticPost({ txId: data?.broadcast?.txId }), ...txnQueue]);
     }
   });
   const [createPostTypedData, { loading: typedDataLoading }] = useMutation<Mutation>(
@@ -199,7 +198,7 @@ const NewUpdate: FC = () => {
       onCompleted: (data) => {
         onCompleted();
         if (data.createPostViaDispatcher.__typename === 'RelayerResult') {
-          setTxnQueue([generateOptimisticPost(data.createPostViaDispatcher.txHash), ...txnQueue]);
+          setTxnQueue([generateOptimisticPost({ txId: data.createPostViaDispatcher.txId }), ...txnQueue]);
         }
       },
       onError
@@ -212,7 +211,7 @@ const NewUpdate: FC = () => {
         return PublicationMainFocus.Audio;
       } else if (ALLOWED_IMAGE_TYPES.includes(attachments[0]?.type)) {
         return PublicationMainFocus.Image;
-      } else if (attachments[0]?.type === 'video/mp4') {
+      } else if (ALLOWED_VIDEO_TYPES.includes(attachments[0]?.type)) {
         return PublicationMainFocus.Video;
       }
     } else {
@@ -221,7 +220,7 @@ const NewUpdate: FC = () => {
   };
 
   const getAnimationUrl = () => {
-    if (attachments.length > 0 && (isAudioPost || attachments[0]?.type === 'video/mp4')) {
+    if (attachments.length > 0 && (isAudioPost || ALLOWED_VIDEO_TYPES.includes(attachments[0]?.type))) {
       return attachments[0]?.item;
     }
     return null;

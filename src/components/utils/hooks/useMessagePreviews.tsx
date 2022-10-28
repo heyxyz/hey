@@ -51,7 +51,7 @@ const useMessagePreviews = () => {
     variables: {
       request: request
     },
-    skip: !currentProfile?.id || profileIds.size === 0,
+    skip: profileIds.size === 0 || currentProfile?.id !== selectedProfileId,
     onCompleted: (data) => {
       if (!data?.profiles?.items.length) {
         return;
@@ -186,10 +186,12 @@ const useMessagePreviews = () => {
   }, [client, currentProfile?.id, selectedProfileId]);
 
   useEffect(() => {
-    if (currentProfile?.id !== selectedProfileId) {
+    if (selectedProfileId && currentProfile?.id !== selectedProfileId) {
       reset();
       setSelectedProfileId(currentProfile?.id);
       router.push('/messages');
+    } else {
+      setSelectedProfileId(currentProfile?.id);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentProfile]);

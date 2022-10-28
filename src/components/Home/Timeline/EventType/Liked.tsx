@@ -8,8 +8,8 @@ interface Props {
   reactions: Array<ReactionEvent>;
 }
 
-const Reacted: FC<Props> = ({ reactions }) => {
-  const getReactedProfiles = () => {
+const Liked: FC<Props> = ({ reactions }) => {
+  const getLikedProfiles = () => {
     let profiles = reactions.map((event) => event.profile);
     profiles = profiles.filter(
       (profile, index, self) => index === self.findIndex((t) => t.id === profile.id)
@@ -20,9 +20,9 @@ const Reacted: FC<Props> = ({ reactions }) => {
   return (
     <div className={'flex items-center pb-4 space-x-1 text-gray-500 text-[13px]'}>
       <HeartIcon className="w-4 h-4" />
-      <ProfileCircles profiles={getReactedProfiles()} context="Reacted by" />
+      <ProfileCircles profiles={getLikedProfiles()} context="Liked by" />
     </div>
   );
 };
 
-export default Reacted;
+export default Liked;

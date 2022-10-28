@@ -7,16 +7,15 @@ import { AddReactionDocument, ReactionTypes, RemoveReactionDocument } from '@gen
 import { HeartIcon } from '@heroicons/react/outline';
 import { HeartIcon as HeartIconSolid } from '@heroicons/react/solid';
 import { publicationKeyFields } from '@lib/keyFields';
-import { Leafwatch } from '@lib/leafwatch';
 import nFormatter from '@lib/nFormatter';
 import onError from '@lib/onError';
 import { motion } from 'framer-motion';
+import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { SIGN_WALLET } from 'src/constants';
 import { useAppStore } from 'src/store/app';
-import { PUBLICATION } from 'src/tracking';
 
 interface Props {
   publication: LensterPublication;
@@ -24,6 +23,7 @@ interface Props {
 }
 
 const Like: FC<Props> = ({ publication, isFullPublication }) => {
+  const { pathname } = useRouter();
   const isMirror = publication.__typename === 'Mirror';
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [liked, setLiked] = useState(
@@ -34,22 +34,20 @@ const Like: FC<Props> = ({ publication, isFullPublication }) => {
   );
 
   const updateCache = (cache: ApolloCache<any>, type: ReactionTypes.Upvote | ReactionTypes.Downvote) => {
-    cache.modify({
-      id: publicationKeyFields(isMirror ? publication?.mirrorOf : publication),
-      fields: {
-        reaction: () => type,
-        stats: (stats) => ({
-          ...stats,
-          totalUpvotes: type === ReactionTypes.Upvote ? stats.totalUpvotes + 1 : stats.totalUpvotes - 1
-        })
-      }
-    });
+    if (pathname === '/posts/[id]') {
+      cache.modify({
+        id: publicationKeyFields(isMirror ? publication?.mirrorOf : publication),
+        fields: {
+          stats: (stats) => ({
+            ...stats,
+            totalUpvotes: type === ReactionTypes.Upvote ? stats.totalUpvotes + 1 : stats.totalUpvotes - 1
+          })
+        }
+      });
+    }
   };
 
   const [addReaction] = useMutation<Mutation>(AddReactionDocument, {
-    onCompleted: () => {
-      Leafwatch.track(PUBLICATION.LIKE);
-    },
     onError: (error) => {
       setLiked(!liked);
       setCount(count - 1);
@@ -59,9 +57,6 @@ const Like: FC<Props> = ({ publication, isFullPublication }) => {
   });
 
   const [removeReaction] = useMutation<Mutation>(RemoveReactionDocument, {
-    onCompleted: () => {
-      Leafwatch.track(PUBLICATION.DISLIKE);
-    },
     onError: (error) => {
       setLiked(!liked);
       setCount(count + 1);

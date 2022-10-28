@@ -4,16 +4,19 @@ import useOnClickOutside from '@components/utils/hooks/useOnClickOutside';
 import type { LensterAttachment } from '@generated/lenstertypes';
 import { Menu, Transition } from '@headlessui/react';
 import { MusicNoteIcon, PhotographIcon, VideoCameraIcon } from '@heroicons/react/outline';
-import { Leafwatch } from '@lib/leafwatch';
-import uploadMediaToIPFS from '@lib/uploadMediaToIPFS';
+import uploadToIPFS from '@lib/uploadToIPFS';
 import clsx from 'clsx';
 import type { ChangeEvent, Dispatch, FC } from 'react';
 import { useRef } from 'react';
 import { Fragment } from 'react';
 import { useId, useState } from 'react';
 import toast from 'react-hot-toast';
-import { ALLOWED_AUDIO_TYPES, ALLOWED_MEDIA_TYPES } from 'src/constants';
-import { PUBLICATION } from 'src/tracking';
+import {
+  ALLOWED_AUDIO_TYPES,
+  ALLOWED_IMAGE_TYPES,
+  ALLOWED_MEDIA_TYPES,
+  ALLOWED_VIDEO_TYPES
+} from 'src/constants';
 
 interface Props {
   attachments: LensterAttachment[];
@@ -33,7 +36,7 @@ const Attachment: FC<Props> = ({ attachments, setAttachments }) => {
     let images = 0;
 
     for (const file of files) {
-      if (file.type === 'video/mp4') {
+      if (ALLOWED_VIDEO_TYPES.includes(file.type)) {
         videos = videos + 1;
       } else {
         images = images + 1;
@@ -74,7 +77,7 @@ const Attachment: FC<Props> = ({ attachments, setAttachments }) => {
 
       // Type check
       if (isTypeAllowed(evt.target.files)) {
-        const attachment = await uploadMediaToIPFS(evt.target.files);
+        const attachment = await uploadToIPFS(evt.target.files);
         if (attachment) {
           setAttachments(attachment);
           evt.target.value = '';
@@ -133,9 +136,8 @@ const Attachment: FC<Props> = ({ attachments, setAttachments }) => {
               id={`image_${id}`}
               type="file"
               multiple
-              accept="image/*"
+              accept={ALLOWED_IMAGE_TYPES.join(',')}
               className="hidden"
-              onClick={() => Leafwatch.track(PUBLICATION.NEW.ATTACHMENT.UPLOAD_IMAGES)}
               onChange={handleAttachment}
               disabled={attachments.length >= 4}
             />
@@ -155,9 +157,8 @@ const Attachment: FC<Props> = ({ attachments, setAttachments }) => {
             <input
               id={`video_${id}`}
               type="file"
-              accept="video/*"
+              accept={ALLOWED_VIDEO_TYPES.join(',')}
               className="hidden"
-              onClick={() => Leafwatch.track(PUBLICATION.NEW.ATTACHMENT.UPLOAD_VIDEO)}
               onChange={handleAttachment}
               disabled={attachments.length >= 4}
             />
@@ -179,7 +180,6 @@ const Attachment: FC<Props> = ({ attachments, setAttachments }) => {
               type="file"
               accept={ALLOWED_AUDIO_TYPES.join(',')}
               className="hidden"
-              onClick={() => Leafwatch.track(PUBLICATION.NEW.ATTACHMENT.UPLOAD_AUDIO)}
               onChange={handleAttachment}
               disabled={attachments.length >= 4}
             />

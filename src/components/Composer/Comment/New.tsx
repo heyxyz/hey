@@ -23,7 +23,6 @@ import { ChatAlt2Icon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
 import getTags from '@lib/getTags';
 import getUserLocale from '@lib/getUserLocale';
-import { Leafwatch } from '@lib/leafwatch';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import trimify from '@lib/trimify';
@@ -36,6 +35,7 @@ import toast from 'react-hot-toast';
 import {
   ALLOWED_AUDIO_TYPES,
   ALLOWED_IMAGE_TYPES,
+  ALLOWED_VIDEO_TYPES,
   APP_NAME,
   LENSHUB_PROXY,
   RELAY_ON,
@@ -46,7 +46,6 @@ import { useCollectModuleStore } from 'src/store/collectmodule';
 import { usePublicationStore } from 'src/store/publication';
 import { useReferenceModuleStore } from 'src/store/referencemodule';
 import { useTransactionPersistStore } from 'src/store/transaction';
-import { COMMENT } from 'src/tracking';
 import { v4 as uuid } from 'uuid';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
@@ -105,19 +104,19 @@ const NewComment: FC<Props> = ({ publication }) => {
     setPublicationContent('');
     setAttachments([]);
     resetCollectSettings();
-    Leafwatch.track(COMMENT.NEW);
   };
 
   useEffect(() => {
     setCommentContentError('');
   }, [audioPublication]);
 
-  const generateOptimisticComment = (txHash: string) => {
+  const generateOptimisticComment = ({ txHash, txId }: { txHash?: string; txId?: string }) => {
     return {
       id: uuid(),
       parent: publication.id,
       type: 'NEW_COMMENT',
       txHash,
+      txId,
       content: publicationContent,
       attachments,
       title: audioPublication.title,
@@ -139,7 +138,7 @@ const NewComment: FC<Props> = ({ publication }) => {
     mode: 'recklesslyUnprepared',
     onSuccess: ({ hash }) => {
       onCompleted();
-      setTxnQueue([generateOptimisticComment(hash), ...txnQueue]);
+      setTxnQueue([generateOptimisticComment({ txHash: hash }), ...txnQueue]);
     },
     onError
   });
@@ -147,7 +146,7 @@ const NewComment: FC<Props> = ({ publication }) => {
   const { broadcast, loading: broadcastLoading } = useBroadcast({
     onCompleted: (data) => {
       onCompleted();
-      setTxnQueue([generateOptimisticComment(data?.broadcast?.txHash), ...txnQueue]);
+      setTxnQueue([generateOptimisticComment({ txId: data?.broadcast?.txId }), ...txnQueue]);
     }
   });
   const [createCommentTypedData, { loading: typedDataLoading }] = useMutation<Mutation>(
@@ -208,7 +207,10 @@ const NewComment: FC<Props> = ({ publication }) => {
       onCompleted: (data) => {
         onCompleted();
         if (data.createCommentViaDispatcher.__typename === 'RelayerResult') {
-          setTxnQueue([generateOptimisticComment(data.createCommentViaDispatcher.txHash), ...txnQueue]);
+          setTxnQueue([
+            generateOptimisticComment({ txId: data.createCommentViaDispatcher.txId }),
+            ...txnQueue
+          ]);
         }
       },
       onError
@@ -235,7 +237,7 @@ const NewComment: FC<Props> = ({ publication }) => {
         return PublicationMainFocus.Audio;
       } else if (ALLOWED_IMAGE_TYPES.includes(attachments[0]?.type)) {
         return PublicationMainFocus.Image;
-      } else if (attachments[0]?.type === 'video/mp4') {
+      } else if (ALLOWED_VIDEO_TYPES.includes(attachments[0]?.type)) {
         return PublicationMainFocus.Video;
       }
     } else {
@@ -244,7 +246,7 @@ const NewComment: FC<Props> = ({ publication }) => {
   };
 
   const getAnimationUrl = () => {
-    if (attachments.length > 0 && (isAudioComment || attachments[0]?.type === 'video/mp4')) {
+    if (attachments.length > 0 && (isAudioComment || ALLOWED_VIDEO_TYPES.includes(attachments[0]?.type))) {
       return attachments[0]?.item;
     }
     return null;

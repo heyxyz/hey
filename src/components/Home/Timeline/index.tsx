@@ -7,29 +7,50 @@ import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import InfiniteLoader from '@components/UI/InfiniteLoader';
 import type { LensterPublication } from '@generated/lenstertypes';
-import { HomeFeedDocument } from '@generated/types';
+import type { FeedItem } from '@generated/types';
+import { FeedEventItemType } from '@generated/types';
+import { TimelineDocument } from '@generated/types';
 import { CollectionIcon } from '@heroicons/react/outline';
 import type { FC } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { SCROLL_THRESHOLD } from 'src/constants';
 import { useAppStore } from 'src/store/app';
+import { useTimelinePersistStore } from 'src/store/timeline';
 import { useTransactionPersistStore } from 'src/store/transaction';
 
-const Feed: FC = () => {
+const Timeline: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const txnQueue = useTransactionPersistStore((state) => state.txnQueue);
+  const feedEventFilters = useTimelinePersistStore((state) => state.feedEventFilters);
+
+  const getFeedEventItems = () => {
+    const filters: FeedEventItemType[] = [];
+    if (feedEventFilters.posts) {
+      filters.push(FeedEventItemType.Post, FeedEventItemType.Comment);
+    }
+    if (feedEventFilters.collects) {
+      filters.push(FeedEventItemType.CollectPost, FeedEventItemType.CollectComment);
+    }
+    if (feedEventFilters.mirrors) {
+      filters.push(FeedEventItemType.Mirror);
+    }
+    if (feedEventFilters.likes) {
+      filters.push(FeedEventItemType.ReactionPost, FeedEventItemType.ReactionComment);
+    }
+    return filters;
+  };
 
   // Variables
-  const request = { profileId: currentProfile?.id, limit: 10 };
+  const request = { profileId: currentProfile?.id, limit: 50, feedEventItemTypes: getFeedEventItems() };
   const reactionRequest = currentProfile ? { profileId: currentProfile?.id } : null;
   const profileId = currentProfile?.id ?? null;
 
-  const { data, loading, error, fetchMore } = useQuery(HomeFeedDocument, {
+  const { data, loading, error, fetchMore } = useQuery(TimelineDocument, {
     variables: { request, reactionRequest, profileId }
   });
 
-  const publications = data?.timeline?.items;
-  const pageInfo = data?.timeline?.pageInfo;
+  const publications = data?.feed?.items;
+  const pageInfo = data?.feed?.pageInfo;
   const hasMore = pageInfo?.next && publications?.length !== pageInfo.totalCount;
 
   const loadMore = async () => {
@@ -52,7 +73,7 @@ const Feed: FC = () => {
   }
 
   if (error) {
-    return <ErrorMessage title="Failed to load home feed" error={error} />;
+    return <ErrorMessage title="Failed to load timeline" error={error} />;
   }
 
   return (
@@ -74,8 +95,9 @@ const Feed: FC = () => {
         )}
         {publications?.map((publication, index: number) => (
           <SinglePublication
-            key={`${publication?.id}_${index}`}
-            publication={publication as LensterPublication}
+            key={`${publication?.root.id}_${index}`}
+            feedItem={publication as FeedItem}
+            publication={publication.root as LensterPublication}
           />
         ))}
       </Card>
@@ -83,4 +105,4 @@ const Feed: FC = () => {
   );
 };
 
-export default Feed;
+export default Timeline;
