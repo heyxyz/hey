@@ -79,9 +79,9 @@ const FeedEventFilters = () => {
           >
             <Checkbox
               onChange={handleChange}
-              checked={feedEventFilters.reactions}
-              name="reactions"
-              label="Show Reactions"
+              checked={feedEventFilters.likes}
+              name="likes"
+              label="Show Likes"
             />
           </Menu.Item>
         </Menu.Items>
