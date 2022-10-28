@@ -59,8 +59,6 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
       followerOnly
     };
 
-    console.log(baseFeeData);
-
     switch (selectedCollectModule) {
       case RevertCollectModule:
         setPayload({ revertCollectModule: true });
