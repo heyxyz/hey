@@ -6,7 +6,13 @@ import { Spinner } from '@components/UI/Spinner';
 import { Toggle } from '@components/UI/Toggle';
 import type { Erc20 } from '@generated/types';
 import { CollectModules, EnabledModulesDocument } from '@generated/types';
-import { ClockIcon, CollectionIcon, StarIcon, SwitchHorizontalIcon } from '@heroicons/react/outline';
+import {
+  ClockIcon,
+  CollectionIcon,
+  StarIcon,
+  SwitchHorizontalIcon,
+  UserGroupIcon
+} from '@heroicons/react/outline';
 import type { Dispatch, FC } from 'react';
 import { useEffect } from 'react';
 import { useAppStore } from 'src/store/app';
@@ -30,6 +36,8 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
   const setCollectLimit = useCollectModuleStore((state) => state.setCollectLimit);
   const hasTimeLimit = useCollectModuleStore((state) => state.hasTimeLimit);
   const setHasTimeLimit = useCollectModuleStore((state) => state.setHasTimeLimit);
+  const followerOnly = useCollectModuleStore((state) => state.followerOnly);
+  const setFollowerOnly = useCollectModuleStore((state) => state.setFollowerOnly);
   const setPayload = useCollectModuleStore((state) => state.setPayload);
   const reset = useCollectModuleStore((state) => state.reset);
 
@@ -48,7 +56,7 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
       },
       recipient: currentProfile?.ownedBy,
       referralFee: parseFloat(referralFee ?? '0'),
-      followerOnly: false
+      followerOnly
     };
 
     switch (selectedCollectModule) {
@@ -56,7 +64,7 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
         setPayload({ revertCollectModule: true });
         break;
       case FreeCollectModule:
-        setPayload({ freeCollectModule: { followerOnly: false } });
+        setPayload({ freeCollectModule: { followerOnly } });
         break;
       case FeeCollectModule:
         setPayload({
@@ -75,15 +83,13 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
         });
         break;
       case TimedFeeCollectModule:
-        setPayload({
-          timedFeeCollectModule: { ...baseFeeData }
-        });
+        setPayload({ timedFeeCollectModule: { ...baseFeeData } });
         break;
       default:
         setPayload({ revertCollectModule: true });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [amount, referralFee, collectLimit, hasTimeLimit, selectedCollectModule]);
+  }, [amount, referralFee, collectLimit, hasTimeLimit, followerOnly, selectedCollectModule]);
 
   useEffect(() => {
     if (hasTimeLimit) {
@@ -131,7 +137,7 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
     <div className="p-5 space-y-3">
       <div className="flex items-center space-x-2">
         <Toggle on={selectedCollectModule !== RevertCollectModule} setOn={toggleCollect} />
-        <div className="text-gray-500 text-sm font-bold">This post can be collected</div>
+        <div className="text-gray-500 dark:text-gray-400 text-sm font-bold">This post can be collected</div>
       </div>
       {selectedCollectModule !== RevertCollectModule && (
         <div className="ml-5">
@@ -142,7 +148,7 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
             </div>
             <div className="flex items-center space-x-2">
               <Toggle on={!!amount} setOn={() => setAmount(amount ? null : '0')} />
-              <div className="text-gray-500 text-sm font-bold">
+              <div className="text-gray-500 dark:text-gray-400 text-sm font-bold">
                 Get paid whenever someone collects your post
               </div>
             </div>
@@ -179,7 +185,7 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
                     <SwitchHorizontalIcon className="h-4 w-4 text-brand-500" />
                     <span>Mirror referral reward</span>
                   </div>
-                  <div className="text-gray-500 text-sm font-bold">
+                  <div className="text-gray-500 dark:text-gray-400 text-sm font-bold">
                     Share your collect fee with people who amplify your content
                   </div>
                   <div className="text-sm pt-2 flex space-x-2">
@@ -209,7 +215,9 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
                 </div>
                 <div className="flex items-center space-x-2">
                   <Toggle on={!!collectLimit} setOn={() => setCollectLimit(collectLimit ? null : '1')} />
-                  <div className="text-gray-500 text-sm font-bold">Make the collects exlusive</div>
+                  <div className="text-gray-500 dark:text-gray-400 text-sm font-bold">
+                    Make the collects exlusive
+                  </div>
                 </div>
                 {collectLimit ? (
                   <div className="text-sm pt-2 flex space-x-2">
@@ -234,11 +242,25 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
                 </div>
                 <div className="flex items-center space-x-2">
                   <Toggle on={hasTimeLimit} setOn={() => setHasTimeLimit(!hasTimeLimit)} />
-                  <div className="text-gray-500 text-sm font-bold">Limit collecting to the first 24h</div>
+                  <div className="text-gray-500 dark:text-gray-400 text-sm font-bold">
+                    Limit collecting to the first 24h
+                  </div>
                 </div>
               </div>
             </>
           )}
+          <div className="space-y-2 pt-5">
+            <div className="flex items-center space-x-2">
+              <UserGroupIcon className="h-4 w-4 text-brand-500" />
+              <span>Who can collect</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <Toggle on={followerOnly} setOn={() => setFollowerOnly(!followerOnly)} />
+              <div className="text-gray-500 dark:text-gray-400 text-sm font-bold">
+                Only followers can collect
+              </div>
+            </div>
+          </div>
         </div>
       )}
       <div className="pt-5 flex space-x-2">
