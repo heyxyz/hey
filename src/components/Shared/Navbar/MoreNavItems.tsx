@@ -1,5 +1,5 @@
 import { Menu, Transition } from '@headlessui/react';
-import { SupportIcon } from '@heroicons/react/outline';
+import { HandIcon, SupportIcon } from '@heroicons/react/outline';
 import clsx from 'clsx';
 import type { FC } from 'react';
 import { Fragment } from 'react';
@@ -35,7 +35,7 @@ const MoreNavItems: FC = () => {
           >
             <Menu.Items
               static
-              className="absolute py-1 mt-2 w-52 bg-white rounded-xl border shadow-sm dark:bg-gray-900 focus:outline-none dark:border-gray-700/80"
+              className="absolute py-1 mt-2 bg-white rounded-xl border shadow-sm dark:bg-gray-900 focus:outline-none dark:border-gray-700/80"
             >
               <Menu.Item
                 as={NextLink}
@@ -47,6 +47,19 @@ const MoreNavItems: FC = () => {
                 <div className="flex items-center space-x-1.5">
                   <SupportIcon className="w-4 h-4" />
                   <div>Contact</div>
+                </div>
+              </Menu.Item>
+              <Menu.Item
+                as="a"
+                href="https://github.com/lensterxyz/lenster/issues/new?assignees=bigint&labels=needs+review&template=bug_report.yml"
+                target="_blank"
+                className={({ active }: { active: boolean }) =>
+                  clsx({ 'dropdown-active': active }, 'menu-item')
+                }
+              >
+                <div className="flex items-center space-x-1.5">
+                  <HandIcon className="w-4 h-4" />
+                  <div>Report a bug</div>
                 </div>
               </Menu.Item>
             </Menu.Items>
