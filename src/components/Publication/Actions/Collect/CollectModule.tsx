@@ -221,7 +221,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
         request: { collect: { freeCollect: { publicationId: publication?.id } } }
       });
     } else if (collectModule?.__typename === 'UnknownCollectModuleSettings') {
-      await refetch();
+      refetch();
       if (moduleData) {
         const decodedData: any = moduleData;
         const encodedData = defaultAbiCoder.encode(
