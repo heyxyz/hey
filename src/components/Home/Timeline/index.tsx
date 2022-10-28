@@ -25,17 +25,17 @@ const Timeline: FC = () => {
 
   const getFeedEventItems = () => {
     const filters: FeedEventItemType[] = [];
-    switch (!!feedEventFilters) {
-      case feedEventFilters.posts:
-        filters.push(...[FeedEventItemType.Post, FeedEventItemType.Comment]);
-      case feedEventFilters.collects:
-        filters.push(...[FeedEventItemType.CollectPost, FeedEventItemType.CollectComment]);
-      case feedEventFilters.mirrors:
-        filters.push(FeedEventItemType.Mirror);
-      case feedEventFilters.reactions:
-        filters.push(...[FeedEventItemType.ReactionPost, FeedEventItemType.ReactionComment]);
-      default:
-        break;
+    if (feedEventFilters.posts) {
+      filters.push(FeedEventItemType.Post, FeedEventItemType.Comment);
+    }
+    if (feedEventFilters.collects) {
+      filters.push(FeedEventItemType.CollectPost, FeedEventItemType.CollectComment);
+    }
+    if (feedEventFilters.mirrors) {
+      filters.push(FeedEventItemType.Mirror);
+    }
+    if (feedEventFilters.likes) {
+      filters.push(FeedEventItemType.ReactionPost, FeedEventItemType.ReactionComment);
     }
     return filters;
   };

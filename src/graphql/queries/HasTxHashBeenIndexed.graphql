@@ -4,6 +4,7 @@ query HasTxHashBeenIndexed($request: HasTxHashBeenIndexedRequest!) {
       metadataStatus {
         status
       }
+      txHash
       indexed
     }
     ... on TransactionError {
