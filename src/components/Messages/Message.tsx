@@ -55,7 +55,7 @@ const Message: FC<MessageProps> = ({ conversationKey }) => {
     return <Custom404 />;
   }
 
-  const showLoading = !missingXmtpAuth && (!profile || !selectedConversation);
+  const showLoading = !missingXmtpAuth && (!profile || !currentProfile || !selectedConversation);
 
   return (
     <GridLayout classNameChild="md:gap-8">
