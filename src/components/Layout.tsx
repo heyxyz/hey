@@ -18,6 +18,7 @@ import Loading from './Loading';
 import GlobalModals from './Shared/GlobalModals';
 import Navbar from './Shared/Navbar';
 import useIsMounted from './utils/hooks/useIsMounted';
+import { useDisconnectXmtp } from './utils/hooks/useXmtpClient';
 
 interface Props {
   children: ReactNode;
@@ -37,6 +38,7 @@ const Layout: FC<Props> = ({ children }) => {
   const { address, isDisconnected } = useAccount();
   const { chain } = useNetwork();
   const { disconnect } = useDisconnect();
+  const disconnectXmtp = useDisconnectXmtp();
 
   const resetAuthState = () => {
     setProfileId(null);
@@ -79,6 +81,7 @@ const Layout: FC<Props> = ({ children }) => {
 
     // If there are no auth data, clear and logout
     if (shouldLogout && profileId) {
+      disconnectXmtp();
       resetAuthState();
       resetAuthData();
       disconnect?.();
