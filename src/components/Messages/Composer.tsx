@@ -8,13 +8,14 @@ import toast from 'react-hot-toast';
 
 interface Props {
   sendMessage: (message: string) => Promise<boolean>;
+  missingXmtpAuth: boolean;
 }
 
-const Composer: FC<Props> = ({ sendMessage }) => {
+const Composer: FC<Props> = ({ sendMessage, missingXmtpAuth }) => {
   const [message, setMessage] = useState<string>('');
   const [sending, setSending] = useState<boolean>(false);
 
-  const canSendMessage = !sending && message.length > 0;
+  const canSendMessage = !missingXmtpAuth && !sending && message.length > 0;
 
   const handleSend = async () => {
     if (!canSendMessage) {
@@ -42,6 +43,7 @@ const Composer: FC<Props> = ({ sendMessage }) => {
         type="text"
         placeholder="Type Something"
         value={message}
+        disabled={missingXmtpAuth}
         onKeyDown={handleKeyDown}
         onChange={(event) => setMessage(event.target.value)}
       />
