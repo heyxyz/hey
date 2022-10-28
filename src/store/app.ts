@@ -1,4 +1,5 @@
 import type { Profile } from '@generated/types';
+import { LS_KEYS } from 'src/constants';
 import create from 'zustand';
 import { persist } from 'zustand/middleware';
 
@@ -39,6 +40,6 @@ export const useAppPersistStore = create(
       notificationCount: 0,
       setNotificationCount: (notificationCount) => set(() => ({ notificationCount }))
     }),
-    { name: 'lenster.store' }
+    { name: LS_KEYS.LENSTER_STORE }
   )
 );
