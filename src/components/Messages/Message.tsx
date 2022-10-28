@@ -51,11 +51,11 @@ const Message: FC<MessageProps> = ({ conversationKey }) => {
     }
   }, [conversationKey, hasMore, messages, endTime]);
 
-  if (!currentProfile || !isFeatureEnabled('messages', currentProfile.id)) {
+  if (!isFeatureEnabled('messages', currentProfile?.id)) {
     return <Custom404 />;
   }
 
-  const showLoading = !missingXmtpAuth && (!profile || !currentProfile || !selectedConversation);
+  const showLoading = !missingXmtpAuth && (!profile || !selectedConversation);
 
   return (
     <GridLayout classNameChild="md:gap-8">
