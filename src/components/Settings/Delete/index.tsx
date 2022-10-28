@@ -7,6 +7,7 @@ import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayo
 import { Modal } from '@components/UI/Modal';
 import { Spinner } from '@components/UI/Spinner';
 import { WarningMessage } from '@components/UI/WarningMessage';
+import { useDisconnectXmtp } from '@components/utils/hooks/useXmtpClient';
 import MetaTags from '@components/utils/MetaTags';
 import type { Mutation } from '@generated/types';
 import { CreateBurnProfileTypedDataDocument } from '@generated/types';
@@ -32,6 +33,7 @@ const DeleteSettings: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
+  const disconnectXmtp = useDisconnectXmtp();
 
   const { disconnect } = useDisconnect();
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
@@ -39,6 +41,7 @@ const DeleteSettings: FC = () => {
   const onCompleted = () => {
     setCurrentProfile(null);
     setProfileId(null);
+    disconnectXmtp();
     resetAuthData();
     disconnect?.();
     location.href = '/';
