@@ -3,7 +3,7 @@ import { Matcher } from 'interweave';
 import type { ComponentType } from 'react';
 import { createElement } from 'react';
 
-import { EMAIL_DISTINCT_PATTERN, TOP_LEVEL_TLDS, URL_PATTERN } from './constants';
+import { BLOCKED_TLDS, EMAIL_DISTINCT_PATTERN, URL_PATTERN } from './constants';
 import type { UrlMatcherOptions, UrlProps } from './types';
 
 const Url = ({ children, url }: UrlProps) => {
@@ -25,7 +25,7 @@ type UrlMatch = Pick<UrlProps, 'url' | 'urlParts'>;
 
 export class UrlMatcher extends Matcher<UrlProps, UrlMatcherOptions> {
   constructor(name: string, options?: UrlMatcherOptions, factory?: ComponentType<UrlProps> | null) {
-    super(name, { validateTLD: false, ...options }, factory);
+    super(name, { ...options }, factory);
   }
 
   replaceWith(children: ChildrenNode, props: UrlProps): Node {
@@ -44,11 +44,11 @@ export class UrlMatcher extends Matcher<UrlProps, UrlMatcherOptions> {
       response.valid = false;
     }
 
-    if (response?.valid && this.options.validateTLD) {
+    if (response?.valid) {
       const { host } = response.urlParts as unknown as UrlProps['urlParts'];
       const tld = host.slice(host.lastIndexOf('.') + 1).toLowerCase();
 
-      if (!TOP_LEVEL_TLDS.includes(tld)) {
+      if (BLOCKED_TLDS.includes(tld)) {
         return null;
       }
     }
