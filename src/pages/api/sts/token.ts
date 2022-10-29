@@ -1,4 +1,5 @@
 import { AssumeRoleCommand, STSClient } from '@aws-sdk/client-sts';
+import { withSentry } from '@sentry/nextjs';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { EVER_API } from 'src/constants';
 
@@ -63,4 +64,4 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   }
 };
 
-export default handler;
+export default withSentry(handler);
