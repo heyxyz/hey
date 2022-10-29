@@ -51,6 +51,7 @@ export const RARIBLE_URL = IS_MAINNET ? 'https://rarible.com' : 'https://rinkeby
 export const ARWEAVE_GATEWAY = 'https://arweave.net';
 export const IMGPROXY_URL = 'https://img.lenster.io';
 export const IPFS_GATEWAY = 'https://lens.infura-ipfs.io/ipfs/';
+export const EVER_API = 'https://endpoint.4everland.co';
 
 // Web3
 export const ALCHEMY_KEY = process.env.NEXT_PUBLIC_ALCHEMY_KEY;
