@@ -19,7 +19,7 @@ const Url = ({ children, url }: UrlProps) => {
 
   return (
     // eslint-disable-next-line react/jsx-no-target-blank
-    <a href={href} target="_blank">
+    <a href={href} target="_blank" onClick={(event) => event.stopPropagation()}>
       {children}
     </a>
   );
