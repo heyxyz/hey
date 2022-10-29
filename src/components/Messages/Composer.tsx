@@ -51,10 +51,10 @@ const Composer: FC<Props> = ({ sendMessage, conversationKey }) => {
         onChange={(event) => setMessage(event.target.value)}
       />
       <Button disabled={!canSendMessage} onClick={handleSend} variant="primary" aria-label="Send message">
-        <div className="flex items-center">
+        <div className="flex items-center space-x-2">
           <span>Send</span>
-          {!sending && <ArrowRightIcon className="h-5 w-5 ml-2" />}
-          {sending && <Spinner size="sm" className="h-5 w-5 ml-2" />}
+          {!sending && <ArrowRightIcon className="h-5 w-5" />}
+          {sending && <Spinner size="sm" className="h-5 w-5" />}
         </div>
       </Button>
     </div>
