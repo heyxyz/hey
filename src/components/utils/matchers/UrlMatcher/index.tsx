@@ -1,10 +1,14 @@
 import type { ChildrenNode, MatchResponse, Node } from 'interweave';
 import { Matcher } from 'interweave';
-import type { ComponentType } from 'react';
 import { createElement } from 'react';
 
 import { BLOCKED_TLDS, URL_PATTERN } from './constants';
-import type { UrlMatcherOptions, UrlProps } from './types';
+
+interface UrlProps {
+  children: ChildrenNode;
+  url: string;
+  host: string;
+}
 
 const Url = ({ children, url }: UrlProps) => {
   let href = url;
@@ -21,11 +25,11 @@ const Url = ({ children, url }: UrlProps) => {
   );
 };
 
-type UrlMatch = Pick<UrlProps, 'url' | 'urlParts'>;
+type UrlMatch = Pick<UrlProps, 'url' | 'host'>;
 
-export class UrlMatcher extends Matcher<UrlProps, UrlMatcherOptions> {
-  constructor(name: string, options?: UrlMatcherOptions, factory?: ComponentType<UrlProps> | null) {
-    super(name, { ...options }, factory);
+export class UrlMatcher extends Matcher<UrlProps> {
+  constructor(name: string) {
+    super(name);
   }
 
   replaceWith(children: ChildrenNode, props: UrlProps): Node {
@@ -40,7 +44,7 @@ export class UrlMatcher extends Matcher<UrlProps, UrlMatcherOptions> {
     const response = this.doMatch(string, URL_PATTERN, this.handleMatches);
 
     if (response?.valid) {
-      const { host } = response.urlParts as unknown as UrlProps['urlParts'];
+      const { host } = response;
       const tld = host.slice(host.lastIndexOf('.') + 1).toLowerCase();
 
       if (BLOCKED_TLDS.includes(tld)) {
@@ -51,21 +55,10 @@ export class UrlMatcher extends Matcher<UrlProps, UrlMatcherOptions> {
     return response;
   }
 
-  /**
-   * Package the matched response.
-   */
   handleMatches(matches: string[]): UrlMatch {
     return {
       url: matches[0],
-      urlParts: {
-        auth: matches[2] ? matches[2].slice(0, -1) : '',
-        fragment: matches[7] || '',
-        host: matches[3],
-        path: matches[5] || '',
-        port: matches[4] ? matches[4] : '',
-        query: matches[6] || '',
-        scheme: matches[1] ? matches[1].replace('://', '') : 'http'
-      }
+      host: matches[3]
     };
   }
 }
