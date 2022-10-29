@@ -99,17 +99,4 @@ export const URL_PATTERN = combinePatterns(
   { flags: 'i' }
 );
 
-const EMAIL_USERNAME_PART = /[.a-z0-9!#$%&?*+=_{|}~-]*/;
-
-const EMAIL_USERNAME = combinePatterns([VALID_ALNUM_CHARS, EMAIL_USERNAME_PART, VALID_ALNUM_CHARS], {
-  capture: true
-});
-
-const EMAIL_PATTERN = combinePatterns([EMAIL_USERNAME, URL_HOST], {
-  flags: 'i',
-  join: '@'
-});
-
-export const EMAIL_DISTINCT_PATTERN = new RegExp(`^${EMAIL_PATTERN.source}$`, EMAIL_PATTERN.flags);
-
 export const BLOCKED_TLDS = ['lens'];

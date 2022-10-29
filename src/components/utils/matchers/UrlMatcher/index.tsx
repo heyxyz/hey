@@ -3,7 +3,7 @@ import { Matcher } from 'interweave';
 import type { ComponentType } from 'react';
 import { createElement } from 'react';
 
-import { BLOCKED_TLDS, EMAIL_DISTINCT_PATTERN, URL_PATTERN } from './constants';
+import { BLOCKED_TLDS, URL_PATTERN } from './constants';
 import type { UrlMatcherOptions, UrlProps } from './types';
 
 const Url = ({ children, url }: UrlProps) => {
@@ -38,11 +38,6 @@ export class UrlMatcher extends Matcher<UrlProps, UrlMatcherOptions> {
 
   match(string: string): MatchResponse<UrlMatch> | null {
     const response = this.doMatch(string, URL_PATTERN, this.handleMatches);
-
-    // False positives with URL auth scheme
-    if (response?.match.match(EMAIL_DISTINCT_PATTERN)) {
-      response.valid = false;
-    }
 
     if (response?.valid) {
       const { host } = response.urlParts as unknown as UrlProps['urlParts'];
