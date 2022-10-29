@@ -3,12 +3,13 @@ import type { FC, ReactNode } from 'react';
 interface Props {
   children: ReactNode;
   className?: string;
+  classNameChild?: string;
 }
 
-export const GridLayout: FC<Props> = ({ children, className = '' }) => {
+export const GridLayout: FC<Props> = ({ children, className = '', classNameChild = '' }) => {
   return (
     <div className={`container mx-auto max-w-screen-xl flex-grow py-8 px-0 sm:px-5 ${className}`}>
-      <div className="grid grid-cols-12 lg:gap-8">{children}</div>
+      <div className={`grid grid-cols-12 lg:gap-8 ${classNameChild}`}>{children}</div>
     </div>
   );
 };

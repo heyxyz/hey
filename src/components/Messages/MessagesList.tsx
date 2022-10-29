@@ -15,7 +15,7 @@ const isOnSameDay = (d1?: Date, d2?: Date): boolean => {
   return dayjs(d1).format('YYYYMMDD') === dayjs(d2).format('YYYYMMDD');
 };
 
-const formatDate = (d?: Date) => dayjs(d).format('MMMM D, YYYY');
+const formatDate = (d?: Date) => dayjs(d).format('MMMM D, YY');
 
 interface MessageTileProps {
   message: DecodedMessage;
