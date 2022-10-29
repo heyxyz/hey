@@ -6971,11 +6971,6 @@ intersection-observer@^0.12.2:
   resolved "https://registry.yarnpkg.com/intersection-observer/-/intersection-observer-0.12.2.tgz#4a45349cc0cd91916682b1f44c28d7ec737dc375"
   integrity sha512-7m1vEcPCxXYI8HqnL8CKI6siDyD+eIWSwgB3DZA+ZTogxk9I4CDnj4wilt9x/+/QbHI4YG5YZNmC6458/e9Ktg==
 
-interweave-autolink@^5.1.0:
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/interweave-autolink/-/interweave-autolink-5.1.0.tgz#a5a5438c45c5e4d631838473845be1fdd38a664b"
-  integrity sha512-WOEakAdwqv/W2H85cLdigkpMM7o6qVg4CWM6iO5cHrFCywwUh+ILVmZgX1tHphEpa55sFdzpKNO2EHhAjbR4GA==
-
 interweave@^13.0.0:
   version "13.0.0"
   resolved "https://registry.yarnpkg.com/interweave/-/interweave-13.0.0.tgz#68fdaa6bde65cf296ba74829bb3746d2a5455a2b"
