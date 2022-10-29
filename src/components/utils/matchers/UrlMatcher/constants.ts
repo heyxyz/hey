@@ -1,5 +1,3 @@
-/* eslint-disable unicorn/better-regex, unicorn/no-unsafe-regex */
-
 interface CombinePatternsOptions {
   capture?: boolean;
   flags?: string;
@@ -28,13 +26,12 @@ const combinePatterns = (patterns: RegExp[], options: CombinePatternsOptions = {
 // https://blog.codinghorror.com/the-problem-with-urls/
 // http://www.regular-expressions.info/email.html
 
-const VALID_ALNUM_CHARS = /[a-z0-9]/;
-const VALID_PATH_CHARS = /(?:[a-zA-Z\u0400-\u04FF0-9\-_~!$&'()[\]\\/*+,;=.%]*)/;
+const VALID_PATH_CHARS = /[\w!$%&'()*+,./;=[\\\]~\u0400-\u04FF\-]*/;
 const URL_SCHEME = /(https?:\/\/)?/;
 
 const URL_AUTH = combinePatterns(
   [
-    /[a-z\u0400-\u04FF0-9\-_~!$&'()*+,;=.:]+/, // Includes colon
+    /[\d!$&'()*+,.:;=_a-z~\u0400-\u04FF\-]+/, // Includes colon
     /@/
   ],
   { capture: true, match: '?' }
@@ -42,9 +39,9 @@ const URL_AUTH = combinePatterns(
 
 const URL_HOST = combinePatterns(
   [
-    /(?:(?:[a-z0-9](?:[-a-z0-9_]*[a-z0-9])?)\.)*/, // Subdomain
-    /(?:(?:[a-z0-9](?:[-a-z0-9]*[a-z0-9])?)\.)/, // Domain
-    /(?:[a-z](?:[-a-z0-9]*[a-z0-9])?)/ // TLD
+    /(?:[\da-z](?:[\d_a-z-]*[\da-z])?\.)*/, // Subdomain
+    /(?:[\da-z](?:[\da-z-]*[\da-z])?\.)/, // Domain
+    /(?:[a-z](?:[\da-z-]*[\da-z])?)/ // TLD
   ],
   {
     capture: true
@@ -57,8 +54,8 @@ const URL_PATH = combinePatterns(
     /\//,
     combinePatterns(
       [
-        /[-+a-z0-9!*';:=,.$/%[\]_~@|&]*/,
-        /[-+a-z0-9/]/ // Valid ending chars
+        /[\d!$%&'*+,./:;=@[\]_a-z|~-]*/,
+        /[\d+/a-z-]/ // Valid ending chars
       ],
       { match: '*', nonCapture: true }
     )
@@ -72,7 +69,7 @@ const URL_QUERY = combinePatterns(
     combinePatterns(
       [
         VALID_PATH_CHARS,
-        /[a-z0-9_&=]/ // Valid ending chars
+        /[\d&=_a-z]/ // Valid ending chars
       ],
       { match: '?', nonCapture: true }
     )
@@ -86,7 +83,7 @@ const URL_FRAGMENT = combinePatterns(
     combinePatterns(
       [
         VALID_PATH_CHARS,
-        /[a-z0-9]/ // Valid ending chars
+        /[\da-z]/ // Valid ending chars
       ],
       { match: '?', nonCapture: true }
     )
