@@ -26,7 +26,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
       credentials: { accessKeyId, secretAccessKey }
     });
     const params = {
-      DurationSeconds: 3600,
+      DurationSeconds: 200,
       Policy: `{
         "Version": "2012-10-17",
         "Statement": [
