@@ -35,7 +35,6 @@ const uploadToIPFS = async (data: any): Promise<LensterAttachment[]> => {
         await client.putObject({ ...params, Body: file, ContentType: file.type });
         const result = await client.headObject(params);
         const metadata = result.Metadata;
-        console.log(result);
 
         return {
           item: `ipfs://${metadata?.['ipfs-hash']}`,
