@@ -22,12 +22,9 @@ const combinePatterns = (patterns: RegExp[], options: CombinePatternsOptions = {
   return new RegExp(regex, options.flags ?? '');
 };
 
-// https://www.ietf.org/rfc/rfc3986.txt
-// https://blog.codinghorror.com/the-problem-with-urls/
-// http://www.regular-expressions.info/email.html
-
 const VALID_PATH_CHARS = /[\w!$%&'()*+,./;=[\\\]~\u0400-\u04FF\-]*/;
 const URL_SCHEME = /(https?:\/\/)?/;
+const URL_PORT = /(?::(\d{1,5}))?/;
 
 const URL_AUTH = combinePatterns(
   [
@@ -48,7 +45,6 @@ const URL_HOST = combinePatterns(
   }
 );
 
-const URL_PORT = /(?::(\d{1,5}))?/;
 const URL_PATH = combinePatterns(
   [
     /\//,
