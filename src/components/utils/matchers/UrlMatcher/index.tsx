@@ -43,6 +43,8 @@ export class UrlMatcher extends Matcher<UrlProps> {
   match(string: string): MatchResponse<UrlMatch> | null {
     const response = this.doMatch(string, URL_PATTERN, this.handleMatches);
 
+    console.log(response);
+
     if (response?.valid) {
       const { host } = response;
       const tld = host.slice(host.lastIndexOf('.') + 1).toLowerCase();
