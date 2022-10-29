@@ -58,7 +58,7 @@ const Message: FC<MessageProps> = ({ conversationKey }) => {
   const showLoading = !missingXmtpAuth && (!profile || !currentProfile || !selectedConversation);
 
   return (
-    <GridLayout classNameChild="md:gap-8">
+    <GridLayout>
       {/* TODO: Show user profile name/username */}
       <MetaTags title={`Message • ${APP_NAME}`} />
       <PreviewList className="md:block sm:hidden xs:hidden" />
