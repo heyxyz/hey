@@ -31,8 +31,7 @@ const useMessagePreviews = () => {
   const setPreviewMessage = useMessageStore((state) => state.setPreviewMessage);
   const reset = useMessageStore((state) => state.reset);
   const [profileIds, setProfileIds] = useState<Set<string>>(new Set<string>());
-  // TODO: Remove this and replace with streamAllMessages. Just need to make some changes in xmtp-js first
-  const [messagesLoading, setMessagesLoading] = useState<boolean>();
+  const [messagesLoading, setMessagesLoading] = useState<boolean>(true);
 
   const getProfileFromKey = (key: string): string | null => {
     const parsed = parseConversationKey(key);
