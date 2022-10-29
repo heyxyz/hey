@@ -24,6 +24,7 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
   const setProfiles = useAppStore((state) => state.setProfiles);
   const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
+  const setHandle = useAppPersistStore((state) => state.setHandle);
 
   const { mounted } = useIsMounted();
   const { chain } = useNetwork();
@@ -87,6 +88,7 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
         setProfiles(profiles);
         setCurrentProfile(currentProfile);
         setProfileId(currentProfile.id);
+        setHandle(currentProfile.handle);
       }
     } catch {}
   };

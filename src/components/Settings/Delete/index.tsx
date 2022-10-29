@@ -33,6 +33,7 @@ const DeleteSettings: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
+  const setHandle = useAppPersistStore((state) => state.setHandle);
   const disconnectXmtp = useDisconnectXmtp();
 
   const { disconnect } = useDisconnect();
@@ -41,6 +42,7 @@ const DeleteSettings: FC = () => {
   const onCompleted = () => {
     setCurrentProfile(null);
     setProfileId(null);
+    setHandle(null);
     disconnectXmtp();
     resetAuthData();
     disconnect?.();
