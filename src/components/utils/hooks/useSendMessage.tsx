@@ -17,9 +17,7 @@ const useSendMessage = (conversation?: Conversation) => {
     [conversation]
   );
 
-  return {
-    sendMessage
-  };
+  return { sendMessage };
 };
 
 export default useSendMessage;

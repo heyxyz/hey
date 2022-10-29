@@ -15,11 +15,8 @@ import { useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
 
 const useMessagePreviews = () => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
   const router = useRouter();
-  const { client, loading: creatingXmtpClient } = useXmtpClient();
-  const isMessagesEnabled = isFeatureEnabled('messages', currentProfile?.id);
-
+  const currentProfile = useAppStore((state) => state.currentProfile);
   const conversations = useMessageStore((state) => state.conversations);
   const setConversations = useMessageStore((state) => state.setConversations);
   const messageProfiles = useMessageStore((state) => state.messageProfiles);
@@ -30,8 +27,10 @@ const useMessagePreviews = () => {
   const setSelectedProfileId = useMessageStore((state) => state.setSelectedProfileId);
   const setPreviewMessage = useMessageStore((state) => state.setPreviewMessage);
   const reset = useMessageStore((state) => state.reset);
+  const { client, loading: creatingXmtpClient } = useXmtpClient();
   const [profileIds, setProfileIds] = useState<Set<string>>(new Set<string>());
   const [messagesLoading, setMessagesLoading] = useState<boolean>(true);
+  const isMessagesEnabled = isFeatureEnabled('messages', currentProfile?.id);
 
   const getProfileFromKey = (key: string): string | null => {
     const parsed = parseConversationKey(key);
