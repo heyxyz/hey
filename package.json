@@ -37,7 +37,6 @@
     "framer-motion": "^7.6.1",
     "graphql": "^16.6.0",
     "interweave": "^13.0.0",
-    "interweave-autolink": "^5.1.0",
     "jwt-decode": "^3.1.2",
     "next": "^13.0.0",
     "next-themes": "^0.2.1",
