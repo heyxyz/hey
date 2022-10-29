@@ -28,10 +28,6 @@ const Url = ({ children, url }: UrlProps) => {
 type UrlMatch = Pick<UrlProps, 'url' | 'host'>;
 
 export class UrlMatcher extends Matcher<UrlProps> {
-  constructor(name: string) {
-    super(name);
-  }
-
   replaceWith(children: ChildrenNode, props: UrlProps): Node {
     return createElement(Url, props, children);
   }
