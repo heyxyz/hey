@@ -23,16 +23,7 @@ const combinePatterns = (patterns: RegExp[], options: CombinePatternsOptions = {
 };
 
 const VALID_PATH_CHARS = /[\w!$%&'()*+,./;=[\\\]~\u0400-\u04FF\-]*/;
-const URL_SCHEME = /(https?:\/\/)?/;
-const URL_PORT = /(?::(\d{1,5}))?/;
-
-const URL_AUTH = combinePatterns(
-  [
-    /[\d!$&'()*+,.:;=_a-z~\u0400-\u04FF\-]+/, // Includes colon
-    /@/
-  ],
-  { capture: true, match: '?' }
-);
+const URL_SCHEME = combinePatterns([/(https?:\/\/)?/], { capture: true });
 
 const URL_HOST = combinePatterns(
   [
@@ -40,9 +31,7 @@ const URL_HOST = combinePatterns(
     /(?:[\da-z](?:[\da-z-]*[\da-z])?\.)/, // Domain
     /(?:[a-z](?:[\da-z-]*[\da-z])?)/ // TLD
   ],
-  {
-    capture: true
-  }
+  { capture: true }
 );
 
 const URL_PATH = combinePatterns(
@@ -87,9 +76,8 @@ const URL_FRAGMENT = combinePatterns(
   { capture: true, match: '?' }
 );
 
-export const URL_PATTERN = combinePatterns(
-  [URL_SCHEME, URL_AUTH, URL_HOST, URL_PORT, URL_PATH, URL_QUERY, URL_FRAGMENT],
-  { flags: 'i' }
-);
+export const URL_PATTERN = combinePatterns([URL_SCHEME, URL_HOST, URL_PATH, URL_QUERY, URL_FRAGMENT], {
+  flags: 'i'
+});
 
 export const BLOCKED_TLDS = ['lens'];
