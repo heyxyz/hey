@@ -10,8 +10,8 @@ interface Data {
   success: boolean;
 }
 
-const accessKeyId = process.env.NEXT_PUBLIC_EVER_API_KEY as string;
-const secretAccessKey = process.env.NEXT_PUBLIC_EVER_API_SECRET as string;
+const accessKeyId = process.env.EVER_ACCESS_KEY as string;
+const secretAccessKey = process.env.EVER_ACCESS_SECRET as string;
 const bucketName = process.env.NEXT_PUBLIC_EVER_BUCKET_NAME as string;
 
 const handler = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
@@ -25,7 +25,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
       region: 'us-west-2',
       credentials: { accessKeyId, secretAccessKey }
     });
-
     const params = {
       DurationSeconds: 3600,
       Policy: `{
@@ -34,7 +33,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
           {
             "Effect": "Allow",
             "Action": [
-              "s3:PutObject"
+              "s3:PutObject",
+              "s3:GetObject"
             ],
             "Resource": [
               "arn:aws:s3:::${bucketName}/*"
