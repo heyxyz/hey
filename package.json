@@ -27,7 +27,7 @@
     "@sentry/nextjs": "^7.17.2",
     "@tippyjs/react": "^4.2.6",
     "@types/react-mentions": "^4.1.7",
-    "@vercel/analytics": "^0.1.2",
+    "@vercel/analytics": "^0.1.3",
     "@xmtp/xmtp-js": "7.0.0-beta.9",
     "axios": "^1.1.3",
     "clsx": "^1.2.1",
@@ -51,7 +51,7 @@
     "react-mentions": "^4.4.7",
     "ua-parser-js": "^1.0.32",
     "uuid": "^9.0.0",
-    "wagmi": "^0.7.5",
+    "wagmi": "^0.7.8",
     "zod": "^3.19.1",
     "zustand": "^4.1.3"
   },

@@ -3,14 +3,15 @@ import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
 import { ArrowRightIcon } from '@heroicons/react/outline';
 import type { FC } from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 
 interface Props {
   sendMessage: (message: string) => Promise<boolean>;
+  conversationKey: string;
 }
 
-const Composer: FC<Props> = ({ sendMessage }) => {
+const Composer: FC<Props> = ({ sendMessage, conversationKey }) => {
   const [message, setMessage] = useState<string>('');
   const [sending, setSending] = useState<boolean>(false);
 
@@ -29,6 +30,10 @@ const Composer: FC<Props> = ({ sendMessage }) => {
     }
     setSending(false);
   };
+
+  useEffect(() => {
+    setMessage('');
+  }, [conversationKey]);
 
   const handleKeyDown = (event: { key: string }) => {
     if (event.key === 'Enter') {
