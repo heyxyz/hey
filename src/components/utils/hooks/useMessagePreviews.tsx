@@ -31,9 +31,7 @@ const useMessagePreviews = () => {
   const setPreviewMessage = useMessageStore((state) => state.setPreviewMessage);
   const reset = useMessageStore((state) => state.reset);
   const [profileIds, setProfileIds] = useState<Set<string>>(new Set<string>());
-  const [conversationStream, setConversationStream] = useState<Stream<Conversation>>();
   // TODO: Remove this and replace with streamAllMessages. Just need to make some changes in xmtp-js first
-  const [messageStreams, setMessageStreams] = useState<Map<string, Stream<DecodedMessage>>>(new Map());
   const [messagesLoading, setMessagesLoading] = useState<boolean>();
 
   const getProfileFromKey = (key: string): string | null => {
@@ -74,17 +72,19 @@ const useMessagePreviews = () => {
     if (!isMessagesEnabled || !client || !currentProfile) {
       return;
     }
+    const matcherRegex = conversationMatchesProfile(currentProfile.id);
+    let messageStream: AsyncGenerator<DecodedMessage>;
+    let conversationStream: Stream<Conversation>;
 
-    // TODO: Remove me and replace with streamAllMessages
-    const streamMessages = async (conversationKey: string, conversation: Conversation) => {
-      if (!conversation.context || messageStreams.has(conversationKey)) {
-        return;
-      }
-      const stream = await conversation.streamMessages();
-      messageStreams.set(conversationKey, stream);
-      setMessageStreams(new Map(messageStreams));
-      for await (const message of stream) {
-        setPreviewMessage(conversationKey, message);
+    const streamAllMessages = async () => {
+      messageStream = await client.conversations.streamAllMessages();
+
+      for await (const message of messageStream) {
+        const conversationId = message.conversation.context?.conversationId;
+        if (conversationId && matcherRegex.test(conversationId)) {
+          const key = buildConversationKey(message.conversation.peerAddress, conversationId);
+          setPreviewMessage(key, message);
+        }
       }
     };
 
@@ -109,7 +109,6 @@ const useMessagePreviews = () => {
       const newConversations = new Map(conversations);
       const newProfileIds = new Set(profileIds);
       const convos = await client.conversations.list();
-      const matcherRegex = conversationMatchesProfile(currentProfile.id);
       const matchingConvos = convos.filter(
         (convo) => convo.context?.conversationId && matcherRegex.test(convo.context.conversationId)
       );
@@ -117,7 +116,6 @@ const useMessagePreviews = () => {
       for (const convo of matchingConvos) {
         const key = buildConversationKey(convo.peerAddress, convo.context?.conversationId as string);
         newConversations.set(key, convo);
-        streamMessages(key, convo);
       }
 
       const previews = await Promise.all(matchingConvos.map(fetchMostRecentMessage));
@@ -146,17 +144,17 @@ const useMessagePreviews = () => {
       await conversationStream.return();
     };
 
-    const closeMessageStreams = async () => {
-      await Promise.allSettled(Array.from(messageStreams.values()).map((stream) => stream.return()));
-      setMessageStreams(new Map());
+    const closeMessageStream = async () => {
+      if (messageStream) {
+        await messageStream.return(undefined); // eslint-disable-line unicorn/no-useless-undefined
+      }
     };
 
     const streamConversations = async () => {
       closeConversationStream();
-      const newStream = (await client?.conversations?.stream()) || [];
-      setConversationStream(newStream);
+      conversationStream = (await client?.conversations?.stream()) || [];
       const matcherRegex = conversationMatchesProfile(currentProfile?.id);
-      for await (const convo of newStream) {
+      for await (const convo of conversationStream) {
         // Ignore any new conversations not matching the current profile
         if (!convo.context?.conversationId || !matcherRegex.test(convo.context.conversationId)) {
           continue;
@@ -171,16 +169,16 @@ const useMessagePreviews = () => {
           setProfileIds(newProfileIds);
         }
         setConversations(newConversations);
-        streamMessages(key, convo);
       }
     };
 
     listConversations();
     streamConversations();
+    streamAllMessages();
 
     return () => {
       closeConversationStream();
-      closeMessageStreams();
+      closeMessageStream();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [client, currentProfile?.id, selectedProfileId]);
