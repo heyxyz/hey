@@ -1,13 +1,14 @@
 import { AssumeRoleCommand, STSClient } from '@aws-sdk/client-sts';
 import { withSentry } from '@sentry/nextjs';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { EVER_API } from 'src/constants';
+import { ERROR_MESSAGE, EVER_API } from 'src/constants';
 
 interface Data {
   accessKeyId?: string;
   secretAccessKey?: string;
   sessionToken?: string;
   bucketName?: string;
+  message?: string;
   success: boolean;
 }
 
@@ -17,7 +18,7 @@ const bucketName = process.env.NEXT_PUBLIC_EVER_BUCKET_NAME as string;
 
 const handler = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   if (req.method !== 'GET') {
-    return res.status(400).json({ success: false });
+    return res.status(405).json({ success: false, message: 'Invalid method!' });
   }
 
   try {
@@ -27,7 +28,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
       credentials: { accessKeyId, secretAccessKey }
     });
     const params = {
-      DurationSeconds: 200,
+      DurationSeconds: 900,
       Policy: `{
         "Version": "2012-10-17",
         "Statement": [
@@ -53,14 +54,14 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
       })
     );
 
-    return res.json({
+    return res.status(200).json({
       success: true,
       accessKeyId: data.Credentials?.AccessKeyId,
       secretAccessKey: data.Credentials?.SecretAccessKey,
       sessionToken: data.Credentials?.SessionToken
     });
-  } catch (error) {
-    return res.status(500).json({ success: false });
+  } catch {
+    return res.status(500).json({ success: false, message: ERROR_MESSAGE });
   }
 };
 
