@@ -27,7 +27,8 @@ export const featureFlags = [
       '0x016b25', // adamalix.lens
       '0x016b24', // bhavyam.lens
       '0x016b0b', // xmtplabs.lens
-      '0xf5ff' // anoopr.lens
+      '0xf5ff', // anoopr.lens
+      '0x0122d4' // darick.lens
     ]
   },
   {
