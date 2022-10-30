@@ -26,7 +26,10 @@ const Preview: FC<Props> = ({ profile, message, conversationKey }) => {
   };
 
   return (
-    <div className="hover:bg-gray-100 py-3 cursor-pointer" onClick={() => onConversationSelected(profile.id)}>
+    <div
+      className="hover:bg-gray-100 dark:hover:bg-gray-800 py-3 cursor-pointer"
+      onClick={() => onConversationSelected(profile.id)}
+    >
       <div className="flex justify-between space-x-3 px-5">
         <img
           src={getAvatar(profile)}
