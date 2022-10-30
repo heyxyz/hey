@@ -1,9 +1,14 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
+import type { NextRequest } from 'next/server';
+import { NextResponse } from 'next/server';
 import * as url from 'url';
 
-const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+export const config = {
+  runtime: 'experimental-edge'
+};
+
+const handler = async (req: NextRequest) => {
   try {
-    const envelope = req.body;
+    const envelope: any = req.body;
     const pieces = envelope.split('\n');
     const header = JSON.parse(pieces[0]);
     const { host, path } = url.parse(header.dsn);
@@ -11,9 +16,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const ingestUrl = `https://${host}/api${projectId}/envelope/`;
     await fetch(ingestUrl, { method: 'POST', body: envelope });
 
-    return res.status(200).json({ status: 'ok' });
+    return NextResponse.json({ status: 'ok' });
   } catch {
-    return res.status(400).json({ status: 'invalid request' });
+    return NextResponse.json({ status: 'invalid request' });
   }
 };
 
