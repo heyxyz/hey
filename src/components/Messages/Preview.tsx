@@ -9,6 +9,7 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import React from 'react';
+import { useAppStore } from 'src/store/app';
 
 dayjs.extend(relativeTime);
 
@@ -20,6 +21,8 @@ interface Props {
 
 const Preview: FC<Props> = ({ profile, message, conversationKey }) => {
   const router = useRouter();
+  const currentProfile = useAppStore((state) => state.currentProfile);
+  const address = currentProfile?.ownedBy;
 
   const onConversationSelected = (profileId: string) => {
     router.push(profileId ? `/messages/${conversationKey}` : '/messages');
@@ -51,7 +54,9 @@ const Preview: FC<Props> = ({ profile, message, conversationKey }) => {
               </span>
             )}
           </div>
-          <span className="text-sm text-gray-500 line-clamp-1">{message.content}</span>
+          <span className="text-sm text-gray-500 line-clamp-1">
+            {address === message.senderAddress && 'You: '} {message.content}
+          </span>
         </div>
       </div>
     </div>
