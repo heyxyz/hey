@@ -9,13 +9,14 @@ import toast from 'react-hot-toast';
 interface Props {
   sendMessage: (message: string) => Promise<boolean>;
   conversationKey: string;
+  disabledInput: boolean;
 }
 
-const Composer: FC<Props> = ({ sendMessage, conversationKey }) => {
+const Composer: FC<Props> = ({ sendMessage, conversationKey, disabledInput }) => {
   const [message, setMessage] = useState<string>('');
   const [sending, setSending] = useState<boolean>(false);
 
-  const canSendMessage = !sending && message.length > 0;
+  const canSendMessage = !disabledInput && !sending && message.length > 0;
 
   const handleSend = async () => {
     if (!canSendMessage) {
@@ -47,6 +48,7 @@ const Composer: FC<Props> = ({ sendMessage, conversationKey }) => {
         type="text"
         placeholder="Type Something"
         value={message}
+        disabled={disabledInput}
         onKeyDown={handleKeyDown}
         onChange={(event) => setMessage(event.target.value)}
       />
