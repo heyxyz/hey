@@ -76,7 +76,11 @@ const Message: FC<MessageProps> = ({ conversationKey }) => {
                 hasMore={hasMore}
                 missingXmtpAuth={missingXmtpAuth ?? false}
               />
-              <Composer sendMessage={sendMessage} conversationKey={conversationKey} />
+              <Composer
+                sendMessage={sendMessage}
+                conversationKey={conversationKey}
+                disabledInput={missingXmtpAuth ?? false}
+              />
             </>
           )}
         </Card>
