@@ -34,7 +34,9 @@ const Preview: FC<Props> = ({ profile, message, conversationKey, isSelected }) =
       className={clsx(
         'py-3',
         'cursor-pointer',
-        isSelected ? 'bg-purple-50' : ['hover:bg-gray-100', 'dark:hover:bg-gray-800']
+        'hover:bg-gray-100',
+        'dark:hover:bg-gray-800',
+        isSelected && 'bg-gray-50'
       )}
       onClick={() => onConversationSelected(profile.id)}
     >
