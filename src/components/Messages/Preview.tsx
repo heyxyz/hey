@@ -9,6 +9,7 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import React from 'react';
+import { useAppStore } from 'src/store/app';
 
 dayjs.extend(relativeTime);
 
@@ -20,13 +21,18 @@ interface Props {
 
 const Preview: FC<Props> = ({ profile, message, conversationKey }) => {
   const router = useRouter();
+  const currentProfile = useAppStore((state) => state.currentProfile);
+  const address = currentProfile?.ownedBy;
 
   const onConversationSelected = (profileId: string) => {
     router.push(profileId ? `/messages/${conversationKey}` : '/messages');
   };
 
   return (
-    <div className="hover:bg-gray-100 py-3 cursor-pointer" onClick={() => onConversationSelected(profile.id)}>
+    <div
+      className="hover:bg-gray-100 dark:hover:bg-gray-800 py-3 cursor-pointer"
+      onClick={() => onConversationSelected(profile.id)}
+    >
       <div className="flex justify-between space-x-3 px-5">
         <img
           src={getAvatar(profile)}
@@ -48,7 +54,9 @@ const Preview: FC<Props> = ({ profile, message, conversationKey }) => {
               </span>
             )}
           </div>
-          <span className="text-sm text-gray-500 line-clamp-1">{message.content}</span>
+          <span className="text-sm text-gray-500 line-clamp-1">
+            {address === message.senderAddress && 'You: '} {message.content}
+          </span>
         </div>
       </div>
     </div>
