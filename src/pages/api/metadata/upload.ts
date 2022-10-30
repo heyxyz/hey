@@ -1,5 +1,4 @@
 import Bundlr from '@bundlr-network/client';
-import { withSentry } from '@sentry/nextjs';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { APP_NAME, BUNDLR_CURRENCY, BUNDLR_NODE_URL, ERROR_MESSAGE } from 'src/constants';
 
@@ -30,4 +29,4 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
-export default withSentry(handler);
+export default handler;
