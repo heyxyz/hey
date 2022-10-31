@@ -51,7 +51,7 @@ const Message: FC<MessageProps> = ({ conversationKey }) => {
     }
   }, [conversationKey, hasMore, messages, endTime]);
 
-  if (!isFeatureEnabled('messages', currentProfile?.id)) {
+  if (!currentProfile || !isFeatureEnabled('messages', currentProfile?.id)) {
     return <Custom404 />;
   }
 
