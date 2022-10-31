@@ -57,8 +57,8 @@ const Message: FC<MessageProps> = ({ conversationKey }) => {
 
   const showLoading = !missingXmtpAuth && (!profile || !currentProfile || !selectedConversation);
 
-  const profileName = profile?.name ?? profile?.handle;
-  const title = profileName ? `${profileName} • ${APP_NAME}` : APP_NAME;
+  const userNameForTitle = profile?.name ?? profile?.handle;
+  const title = userNameForTitle ? `${userNameForTitle} • ${APP_NAME}` : APP_NAME;
 
   return (
     <GridLayout classNameChild="md:gap-8">
