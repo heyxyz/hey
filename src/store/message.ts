@@ -8,6 +8,7 @@ interface MessageState {
   setClient: (client: Client | undefined) => void;
   conversations: Map<string, Conversation>;
   setConversations: (conversations: Map<string, Conversation>) => void;
+  addConversation: (key: string, newConversation: Conversation) => void;
   messages: Map<string, DecodedMessage[]>;
   setMessages: (messages: Map<string, DecodedMessage[]>) => void;
   addMessages: (key: string, newMessages: DecodedMessage[]) => number;
@@ -26,6 +27,13 @@ export const useMessageStore = create<MessageState>((set) => ({
   setClient: (client) => set(() => ({ client })),
   conversations: new Map(),
   setConversations: (conversations) => set(() => ({ conversations })),
+  addConversation: (key: string, newConverstaion: Conversation) => {
+    set((state) => {
+      const conversations = new Map(state.conversations);
+      conversations.set(key, newConverstaion);
+      return { conversations };
+    });
+  },
   messages: new Map(),
   setMessages: (messages) => set(() => ({ messages })),
   addMessages: (key: string, newMessages: DecodedMessage[]) => {

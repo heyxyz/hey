@@ -1,6 +1,6 @@
 {
   "name": "lenster",
-  "version": "1.0.2-beta",
+  "version": "1.0.3-beta",
   "private": true,
   "scripts": {
     "dev": "next dev --port 4783",
@@ -17,6 +17,7 @@
   "dependencies": {
     "@apollo/client": "^3.7.1",
     "@aws-sdk/client-s3": "^3.198.0",
+    "@aws-sdk/client-sts": "^3.199.0",
     "@bundlr-network/client": "^0.8.9",
     "@giphy/js-fetch-api": "^4.3.1",
     "@giphy/react-components": "^6.2.0",
@@ -27,7 +28,6 @@
     "@sentry/nextjs": "^7.17.2",
     "@tippyjs/react": "^4.2.6",
     "@types/react-mentions": "^4.1.7",
-    "@vercel/analytics": "^0.1.2",
     "@xmtp/xmtp-js": "7.0.0-beta.9",
     "axios": "^1.1.3",
     "clsx": "^1.2.1",
@@ -37,7 +37,6 @@
     "framer-motion": "^7.6.1",
     "graphql": "^16.6.0",
     "interweave": "^13.0.0",
-    "interweave-autolink": "^5.1.0",
     "jwt-decode": "^3.1.2",
     "next": "^13.0.0",
     "next-themes": "^0.2.1",
@@ -51,7 +50,7 @@
     "react-mentions": "^4.4.7",
     "ua-parser-js": "^1.0.32",
     "uuid": "^9.0.0",
-    "wagmi": "^0.7.5",
+    "wagmi": "^0.7.8",
     "zod": "^3.19.1",
     "zustand": "^4.1.3"
   },

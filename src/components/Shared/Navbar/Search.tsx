@@ -93,17 +93,14 @@ const Search: FC<Props> = ({ hideDropdown = false, onProfileSelected, placeholde
                   <div
                     key={profile?.handle}
                     className="py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer"
+                    onClick={() => {
+                      if (onProfileSelected) {
+                        onProfileSelected(profile);
+                      }
+                      setSearchText('');
+                    }}
                   >
-                    <div
-                      onClick={() => {
-                        if (onProfileSelected) {
-                          onProfileSelected(profile);
-                        }
-                        setSearchText('');
-                      }}
-                    >
-                      <UserProfile linkToProfile={!onProfileSelected} profile={profile} />
-                    </div>
+                    <UserProfile linkToProfile={!onProfileSelected} profile={profile} />
                   </div>
                 ))}
                 {profiles.length === 0 && <div className="py-2 px-4">No matching users</div>}
