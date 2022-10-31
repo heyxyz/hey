@@ -28,7 +28,7 @@ const wipeKeys = (walletAddress: string) => {
   localStorage.removeItem(buildLocalStorageKey(walletAddress));
 };
 
-const useXmtpClient = () => {
+const useXmtpClient = (cacheOnly = false) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const client = useMessageStore((state) => state.client);
   const setClient = useMessageStore((state) => state.setClient);
@@ -41,6 +41,9 @@ const useXmtpClient = () => {
       if (signer && !client && currentProfile) {
         let keys = loadKeys(await signer.getAddress());
         if (!keys) {
+          if (cacheOnly) {
+            return;
+          }
           setAwaitingXmtpAuth(true);
           keys = await Client.getKeys(signer, { env: XMTP_ENV });
           storeKeys(await signer.getAddress(), keys);

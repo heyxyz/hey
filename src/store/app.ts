@@ -30,6 +30,10 @@ interface AppPersistState {
   setStaffMode: (staffMode: boolean) => void;
   notificationCount: number;
   setNotificationCount: (notificationCount: number) => void;
+  lastViewedMessagesAt: Date | null;
+  clearMessagesBadge: () => boolean;
+  showUnreadMessages: boolean;
+  setShowUnreadMessages: (show: boolean) => void;
 }
 
 export const useAppPersistStore = create(
@@ -42,7 +46,25 @@ export const useAppPersistStore = create(
       staffMode: false,
       setStaffMode: (staffMode) => set(() => ({ staffMode })),
       notificationCount: 0,
-      setNotificationCount: (notificationCount) => set(() => ({ notificationCount }))
+      setNotificationCount: (notificationCount) => set(() => ({ notificationCount })),
+      lastViewedMessagesAt: null,
+      clearMessagesBadge: () => {
+        let updated = false;
+        set((state) => {
+          if (state.showUnreadMessages) {
+            updated = true;
+            return { lastViewedMessagesAt: new Date(), showUnreadMessages: false };
+          } else {
+            return {
+              lastViewedMessagesAt: state.lastViewedMessagesAt,
+              showUnreadMessages: state.showUnreadMessages
+            };
+          }
+        });
+        return updated;
+      },
+      showUnreadMessages: false,
+      setShowUnreadMessages: (showUnreadMessages) => set(() => ({ showUnreadMessages }))
     }),
     { name: LS_KEYS.LENSTER_STORE }
   )

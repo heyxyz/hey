@@ -17,7 +17,7 @@ import type { FC } from 'react';
 import { useState } from 'react';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
-import { useAppStore } from 'src/store/app';
+import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
 
 interface Props {
@@ -31,6 +31,7 @@ const PreviewList: FC<Props> = ({ className }) => {
   const setMessageProfiles = useMessageStore((state) => state.setMessageProfiles);
   const [showSearchModal, setShowSearchModal] = useState(false);
   const { authenticating, loading, messages, profiles, profilesError } = useMessagePreviews();
+  const clearMessagesBadge = useAppPersistStore((state) => state.clearMessagesBadge);
 
   if (!currentProfile || !isFeatureEnabled('messages', currentProfile.id)) {
     return <Custom404 />;
@@ -43,11 +44,17 @@ const PreviewList: FC<Props> = ({ className }) => {
   const showAuthenticating = currentProfile && authenticating;
   const showLoading = loading && (messages.size === 0 || profiles.size === 0);
 
+  let hasMessages = false;
   const sortedProfiles = Array.from(profiles).sort(([keyA], [keyB]) => {
-    const messageA = messages.get(keyA);
-    const messageB = messages.get(keyB);
-    return (messageA?.sent?.getTime() || 0) >= (messageB?.sent?.getTime() || 0) ? -1 : 1;
+    const aTime = messages.get(keyA)?.sent.getTime() || 0;
+    const bTime = messages.get(keyB)?.sent.getTime() || 0;
+    hasMessages = hasMessages || aTime > 0 || bTime > 0;
+    return aTime >= bTime ? -1 : 1;
   });
+
+  if (hasMessages) {
+    clearMessagesBadge();
+  }
 
   const newMessageClick = () => {
     setShowSearchModal(true);

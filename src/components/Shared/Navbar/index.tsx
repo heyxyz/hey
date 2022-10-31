@@ -1,8 +1,9 @@
+import MessageIcon from '@components/Messages/MessageIcon';
 import NotificationIcon from '@components/Notification/Icon';
 import useStaffMode from '@components/utils/hooks/useStaffMode';
 import type { Profile } from '@generated/types';
 import { Disclosure } from '@headlessui/react';
-import { MailIcon, MenuIcon, XIcon } from '@heroicons/react/outline';
+import { MenuIcon, XIcon } from '@heroicons/react/outline';
 import hasPrideLogo from '@lib/hasPrideLogo';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 import clsx from 'clsx';
@@ -99,14 +100,10 @@ const Navbar: FC = () => {
                   </div>
                 </div>
               </div>
-              <div className="flex gap-8 items-center">
+              <div className="flex gap-6 items-center">
                 {currentProfile ? (
                   <>
-                    {isFeatureEnabled('messages', currentProfile?.id) && (
-                      <Link href="/messages">
-                        <MailIcon className="w-5 h-5 sm:w-6 sm:h-6" />
-                      </Link>
-                    )}
+                    {isFeatureEnabled('messages', currentProfile?.id) && <MessageIcon />}
                     <NotificationIcon />
                   </>
                 ) : null}
