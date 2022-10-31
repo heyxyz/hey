@@ -23,7 +23,6 @@ import PublicationPageShimmer from './Shimmer';
 
 const ViewPublication: NextPage = () => {
   const [adaptiveHeight, setAdaptiveHeight] = useState('');
-  console.log('🚀 ~ file: FullPublication.tsx ~ line 25 ~ postHeight', adaptiveHeight);
   const postContainerRef = useRef<HTMLDivElement>(null);
 
   const currentProfile = useAppStore((state) => state.currentProfile);
