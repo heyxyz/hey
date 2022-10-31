@@ -32,7 +32,7 @@ const PreviewList: FC<Props> = ({ className }) => {
   const [showSearchModal, setShowSearchModal] = useState(false);
   const { authenticating, loading, messages, profiles, profilesError } = useMessagePreviews();
 
-  if (!isFeatureEnabled('messages', currentProfile?.id)) {
+  if (!currentProfile || !isFeatureEnabled('messages', currentProfile?.id)) {
     return <Custom404 />;
   }
 
