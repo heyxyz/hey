@@ -51,7 +51,7 @@ const MessageTile: FC<MessageTileProps> = ({ message, profile, currentProfile })
           <span
             className={clsx(
               address === message.senderAddress ? 'text-white' : 'text-black',
-              'block text-md break-all linkify-message'
+              'block text-md break-words linkify-message'
             )}
           >
             {message.error
