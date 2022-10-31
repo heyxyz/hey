@@ -10,6 +10,7 @@ import MetaTags from '@components/utils/MetaTags';
 import { PublicationDocument } from '@generated/types';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
+import { useEffect, useRef, useState } from 'react';
 import { APP_NAME } from 'src/constants';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
@@ -21,6 +22,10 @@ import RelevantPeople from './RelevantPeople';
 import PublicationPageShimmer from './Shimmer';
 
 const ViewPublication: NextPage = () => {
+  const [adaptiveHeight, setAdaptiveHeight] = useState('');
+  console.log('🚀 ~ file: FullPublication.tsx ~ line 25 ~ postHeight', adaptiveHeight);
+  const postContainerRef = useRef<HTMLDivElement>(null);
+
   const currentProfile = useAppStore((state) => state.currentProfile);
   const { allowed: staffMode } = useStaffMode();
 
@@ -36,6 +41,14 @@ const ViewPublication: NextPage = () => {
     },
     skip: !id
   });
+
+  useEffect(() => {
+    const currentRef = postContainerRef.current;
+    if (!currentRef || !data?.publication) {
+      return;
+    }
+    setAdaptiveHeight(`calc(100vh + ${currentRef.clientHeight}px)`);
+  }, [postContainerRef, data]);
 
   if (error) {
     return <Custom500 />;
@@ -60,9 +73,9 @@ const ViewPublication: NextPage = () => {
             : APP_NAME
         }
       />
-      <GridItemEight className="space-y-5 !min-h-[200vh]">
+      <GridItemEight className="space-y-5" style={{ minHeight: adaptiveHeight }}>
         <Card>
-          <FullPublication publication={publication} />
+          <FullPublication postContainerRef={postContainerRef} publication={publication} />
         </Card>
         <Feed publication={publication} />
       </GridItemEight>

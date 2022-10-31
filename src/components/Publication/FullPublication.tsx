@@ -3,7 +3,7 @@ import type { LensterPublication } from '@generated/lenstertypes';
 import getAppName from '@lib/getAppName';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import type { FC } from 'react';
+import type { FC, Ref } from 'react';
 
 import PublicationActions from './Actions';
 import HiddenPublication from './HiddenPublication';
@@ -15,9 +15,10 @@ dayjs.extend(relativeTime);
 
 interface Props {
   publication: LensterPublication;
+  postContainerRef?: Ref<HTMLDivElement>;
 }
 
-const FullPublication: FC<Props> = ({ publication }) => {
+const FullPublication: FC<Props> = ({ publication, postContainerRef }) => {
   const isMirror = publication.__typename === 'Mirror';
   const profile = isMirror ? publication?.mirrorOf?.profile : publication?.profile;
   const timestamp = isMirror ? publication?.mirrorOf?.createdAt : publication?.createdAt;
@@ -45,10 +46,10 @@ const FullPublication: FC<Props> = ({ publication }) => {
   return (
     <article className="p-5">
       {publication.commentOn && (
-        <>
+        <div ref={postContainerRef}>
           {mainPost ? <ThreadBody publication={mainPost} /> : null}
           <ThreadBody publication={commentOn} />
-        </>
+        </div>
       )}
       {/* <PublicationType publication={publication} showType /> */}
       <div ref={scrollTo} className="scroll-mt-20">
