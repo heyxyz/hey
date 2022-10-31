@@ -51,7 +51,6 @@ const FullPublication: FC<Props> = ({ publication, postContainerRef }) => {
           <ThreadBody publication={commentOn} />
         </div>
       )}
-      {/* <PublicationType publication={publication} showType /> */}
       <div ref={scrollTo} className="scroll-mt-20">
         <div className="flex justify-between pb-4 space-x-1.5">
           <UserProfile profile={profile ?? publication?.collectedBy?.defaultProfile} />
