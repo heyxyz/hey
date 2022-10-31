@@ -8,13 +8,12 @@ import { useMessageStore } from 'src/store/message';
 
 const useGetConversation = (conversationKey: string, profile?: Profile) => {
   const client = useMessageStore((state) => state.client);
-  const conversations = useMessageStore((state) => state.conversations);
-  const setConversations = useMessageStore((state) => state.setConversations);
+  const selectedConversation = useMessageStore((state) => state.conversations.get(conversationKey));
+  const addConversation = useMessageStore((state) => state.addConversation);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [missingXmtpAuth, setMissingXmtpAuth] = useState<boolean>();
 
   const reset = () => {
-    setConversations(new Map());
     setMissingXmtpAuth(false);
   };
 
@@ -22,8 +21,7 @@ const useGetConversation = (conversationKey: string, profile?: Profile) => {
     if (!profile || !client) {
       return;
     }
-    const conversation = conversations.get(conversationKey);
-    if (conversation) {
+    if (selectedConversation) {
       setMissingXmtpAuth(false);
       return;
     }
@@ -39,12 +37,11 @@ const useGetConversation = (conversationKey: string, profile?: Profile) => {
         conversationId: conversationId,
         metadata: {}
       });
-      conversations.set(conversationKey, conversation);
-      setConversations(new Map(conversations));
+      addConversation(conversationKey, conversation);
     };
     createNewConversation();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [profile]);
+  }, [profile, selectedConversation]);
 
   useEffect(() => {
     if (!currentProfile) {
@@ -54,7 +51,7 @@ const useGetConversation = (conversationKey: string, profile?: Profile) => {
   }, [currentProfile]);
 
   return {
-    selectedConversation: conversations.get(conversationKey),
+    selectedConversation,
     missingXmtpAuth
   };
 };

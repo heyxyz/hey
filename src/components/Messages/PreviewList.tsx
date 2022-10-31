@@ -77,13 +77,9 @@ const PreviewList: FC<Props> = ({ className }) => {
         </div>
         <div className="h-full overflow-y-auto">
           {showAuthenticating ? (
-            <div className="flex h-full justify-center items-center">
-              <PageLoading message="Awaiting signature to enable DMs" />
-            </div>
+            <PageLoading message="Awaiting signature to enable DMs" />
           ) : showLoading ? (
-            <div className="flex h-full justify-center items-center">
-              <PageLoading message="Loading conversations" />
-            </div>
+            <PageLoading message="Loading conversations" />
           ) : sortedProfiles.length === 0 ? (
             <button className="w-full h-full justify-items-center" onClick={newMessageClick} type="button">
               <EmptyState
