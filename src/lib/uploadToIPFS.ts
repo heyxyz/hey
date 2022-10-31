@@ -1,17 +1,10 @@
 import { S3 } from '@aws-sdk/client-s3';
 import type { LensterAttachment } from '@generated/lenstertypes';
+import axios from 'axios';
+import { EVER_API } from 'src/constants';
 import { v4 as uuid } from 'uuid';
 
-const accessKeyId = process.env.NEXT_PUBLIC_EVER_API_KEY as string;
-const secretAccessKey = process.env.NEXT_PUBLIC_EVER_API_SECRET as string;
 const bucketName = process.env.NEXT_PUBLIC_EVER_BUCKET_NAME as string;
-
-const client = new S3({
-  endpoint: 'https://endpoint.4everland.co',
-  credentials: { accessKeyId, secretAccessKey },
-  region: 'us-west-2',
-  maxAttempts: 3
-});
 
 /**
  *
@@ -20,6 +13,17 @@ const client = new S3({
  */
 const uploadToIPFS = async (data: any): Promise<LensterAttachment[]> => {
   try {
+    const token = await axios.get('/api/sts/token');
+    const client = new S3({
+      endpoint: EVER_API,
+      credentials: {
+        accessKeyId: token.data?.accessKeyId,
+        secretAccessKey: token.data?.secretAccessKey,
+        sessionToken: token.data?.sessionToken
+      },
+      region: 'us-west-2',
+      maxAttempts: 3
+    });
     const files = Array.from(data);
     const attachments = await Promise.all(
       files.map(async (_: any, i: number) => {

@@ -33,6 +33,7 @@ const SignedUser: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
+  const setHandle = useAppPersistStore((state) => state.setHandle);
   const setStaffMode = useAppPersistStore((state) => state.setStaffMode);
   const { allowed: staffMode } = useStaffMode();
   const { theme, setTheme } = useTheme();
@@ -124,6 +125,7 @@ const SignedUser: FC = () => {
                   disconnectXmtp();
                   setCurrentProfile(null);
                   setProfileId(null);
+                  setHandle(null);
                   resetAuthData();
                   disconnect?.();
                 }}
@@ -154,6 +156,7 @@ const SignedUser: FC = () => {
                             const selectedProfile = profiles[index];
                             setCurrentProfile(selectedProfile);
                             setProfileId(selectedProfile.id);
+                            setHandle(selectedProfile.handle);
                           }}
                         >
                           {currentProfile?.id === profile?.id && (

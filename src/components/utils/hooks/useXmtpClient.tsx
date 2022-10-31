@@ -29,11 +29,11 @@ const wipeKeys = (walletAddress: string) => {
 };
 
 const useXmtpClient = () => {
-  const { data: signer, isLoading } = useSigner();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const client = useMessageStore((state) => state.client);
   const setClient = useMessageStore((state) => state.setClient);
   const [awaitingXmtpAuth, setAwaitingXmtpAuth] = useState<boolean>();
+  const { data: signer, isLoading } = useSigner();
   const isMessagesEnabled = isFeatureEnabled('messages', currentProfile?.id);
 
   useEffect(() => {
