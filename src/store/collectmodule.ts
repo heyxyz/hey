@@ -15,6 +15,8 @@ interface CollectModuleState {
   setCollectLimit: (collectLimit: null | string) => void;
   hasTimeLimit: boolean;
   setHasTimeLimit: (hasTimeLimit: boolean) => void;
+  followerOnly: boolean;
+  setFollowerOnly: (followerOnly: boolean) => void;
   payload: any;
   setPayload: (payload: any) => void;
   reset: () => void;
@@ -33,6 +35,8 @@ export const useCollectModuleStore = create<CollectModuleState>((set) => ({
   setCollectLimit: (collectLimit) => set(() => ({ collectLimit })),
   hasTimeLimit: false,
   setHasTimeLimit: (hasTimeLimit) => set(() => ({ hasTimeLimit })),
+  followerOnly: false,
+  setFollowerOnly: (followerOnly) => set(() => ({ followerOnly })),
   payload: { freeCollectModule: { followerOnly: false } },
   setPayload: (payload) => set(() => ({ payload })),
   reset: () =>
@@ -43,6 +47,7 @@ export const useCollectModuleStore = create<CollectModuleState>((set) => ({
       referralFee: null,
       collectLimit: null,
       hasTimeLimit: false,
+      followerOnly: false,
       payload: { freeCollectModule: { followerOnly: false } }
     }))
 }));

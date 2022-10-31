@@ -85,7 +85,7 @@ const DateDivider: FC<{ date?: Date }> = ({ date }) => (
 );
 
 const MissingXmtpAuth: FC = () => (
-  <Card as="aside" className="mb-4 border-gray-400 !bg-gray-300 !bg-opacity-20 space-y-2.5 p-5">
+  <Card as="aside" className="mb-2 mr-4 border-gray-400 !bg-gray-300 !bg-opacity-20 space-y-2.5 p-5">
     <div className="flex items-center space-x-2 font-bold">
       <EmojiSadIcon className="w-5 h-5" />
       <p>This fren hasn't enabled DMs yet</p>
@@ -125,7 +125,7 @@ const MessagesList: FC<MessageListProps> = ({
 
   return (
     <div className="flex-grow flex h-[75%]">
-      <div className="relative w-full h-full bg-white pl-4 flex">
+      <div className="relative w-full h-full pl-4 flex">
         <div
           id="scrollableDiv"
           className="flex flex-col h-full overflow-y-auto w-full"

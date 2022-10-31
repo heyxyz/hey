@@ -112,8 +112,8 @@ const Attachments: FC<Props> = ({
                   height={1000}
                   width={1000}
                   onClick={() => setExpandedImage(url)}
-                  src={imageProxy(url, ATTACHMENT, type)}
-                  alt={imageProxy(url, ATTACHMENT, type)}
+                  src={imageProxy(url, ATTACHMENT)}
+                  alt={imageProxy(url, ATTACHMENT)}
                 />
               )}
               {isNew && !hideDelete && (
