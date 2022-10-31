@@ -35,7 +35,11 @@ const SinglePublication: FC<Props> = ({
   const { push } = useRouter();
   const isMirror = publication.__typename === 'Mirror';
   const firstComment = feedItem?.comments && feedItem.comments[0];
-  const rootPublication = feedItem ? (firstComment ? firstComment : feedItem?.root) : publication;
+  const rootPublication = feedItem
+    ? firstComment && feedItem.root.__typename !== 'Comment'
+      ? firstComment
+      : feedItem?.root
+    : publication;
   const profile = feedItem
     ? rootPublication.profile
     : isMirror
@@ -60,6 +64,7 @@ const SinglePublication: FC<Props> = ({
         </span>
         <span className="text-xs text-gray-500">{dayjs(new Date(timestamp)).fromNow()}</span>
       </div>
+      <button onClick={() => console.log(feedItem)}>Log</button>
       <div className="ml-[53px]" onClick={() => push(`/posts/${rootPublication?.id}`)}>
         {publication?.hidden ? (
           <HiddenPublication type={publication.__typename} />
