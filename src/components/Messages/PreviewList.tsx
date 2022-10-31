@@ -56,7 +56,7 @@ const PreviewList: FC<Props> = ({ className }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sortedProfiles, router.pathname, width]);
 
-  if (!currentProfile || !isFeatureEnabled('messages', currentProfile.id)) {
+  if (!currentProfile || !isFeatureEnabled('messages', currentProfile?.id)) {
     return <Custom404 />;
   }
 
@@ -72,7 +72,7 @@ const PreviewList: FC<Props> = ({ className }) => {
   };
 
   const onProfileSelected = (profile: Profile) => {
-    const conversationId = buildConversationId(currentProfile.id, profile.id);
+    const conversationId = buildConversationId(currentProfile?.id, profile.id);
     const conversationKey = buildConversationKey(profile.ownedBy, conversationId);
     messageProfiles.set(conversationKey, profile);
     setMessageProfiles(new Map(messageProfiles));
@@ -129,7 +129,7 @@ const PreviewList: FC<Props> = ({ className }) => {
           <div className="w-full pt-4 px-4">
             <Search placeholder="Search for someone to message..." onProfileSelected={onProfileSelected} />
           </div>
-          <Following profile={currentProfile} onProfileSelected={onProfileSelected} />
+          {currentProfile && <Following profile={currentProfile} onProfileSelected={onProfileSelected} />}
         </div>
       </Modal>
     </GridItemFour>
