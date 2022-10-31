@@ -16,12 +16,11 @@ import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
+import { MIN_WIDTH_DESKTOP } from 'src/constants';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
 import { useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
-
-const MIN_WIDTH_FOR_TWO_PANELS = 1024;
 
 interface Props {
   className?: string;
@@ -44,7 +43,7 @@ const PreviewList: FC<Props> = ({ className }) => {
 
   useEffect(() => {
     // Ignore this hook on mobile, since we use the /messages route to show the conversation list
-    if (!width || width < MIN_WIDTH_FOR_TWO_PANELS) {
+    if (!width || width < MIN_WIDTH_DESKTOP) {
       return;
     }
     // If the user is on the /messages route and there are profiles, redirect to the top sorted one
