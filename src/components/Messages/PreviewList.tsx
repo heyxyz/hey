@@ -43,7 +43,6 @@ const PreviewList: FC<Props> = ({ className }) => {
   });
 
   useEffect(() => {
-    console.log(width);
     // Ignore this hook on mobile, since we use the /messages route to show the conversation list
     if (!width || width < MIN_WIDTH_FOR_TWO_PANELS) {
       return;
