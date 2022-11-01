@@ -57,9 +57,12 @@ const Message: FC<MessageProps> = ({ conversationKey }) => {
 
   const showLoading = !missingXmtpAuth && (!profile || !currentProfile || !selectedConversation);
 
+  const userNameForTitle = profile?.name ?? profile?.handle;
+  const title = userNameForTitle ? `${userNameForTitle} • ${APP_NAME}` : APP_NAME;
+
   return (
     <GridLayout classNameChild="md:gap-8">
-      <MetaTags title={`${profile?.name ?? profile?.handle} • ${APP_NAME}`} />
+      <MetaTags title={title} />
       <PreviewList className="md:block sm:hidden xs:hidden" selectedConversationKey={conversationKey} />
       <GridItemEight className="xs:h-[85vh] sm:h-[76vh] md:h-[80vh] xl:h-[84vh] mb-0 md:col-span-8 sm:mx-2 xs:mx-2">
         <Card className="h-full flex justify-between flex-col">
