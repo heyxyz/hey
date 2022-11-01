@@ -18,6 +18,7 @@ import isGardener from '@lib/isGardener';
 import isStaff from '@lib/isStaff';
 import resetAuthData from '@lib/resetAuthData';
 import clsx from 'clsx';
+import { useRouter } from 'next/router';
 import { useTheme } from 'next-themes';
 import type { FC } from 'react';
 import { Fragment } from 'react';
@@ -29,6 +30,7 @@ import Slug from '../Slug';
 import { NextLink } from './MenuItems';
 
 const SignedUser: FC = () => {
+  const router = useRouter();
   const profiles = useAppStore((state) => state.profiles);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
@@ -42,6 +44,16 @@ const SignedUser: FC = () => {
 
   const toggleStaffMode = () => {
     setStaffMode(!staffMode);
+  };
+
+  const logout = () => {
+    disconnectXmtp();
+    setCurrentProfile(null);
+    setProfileId(null);
+    resetAuthData();
+    setHandle(null);
+    disconnect?.();
+    router.push('/');
   };
 
   return (
@@ -121,14 +133,7 @@ const SignedUser: FC = () => {
               )}
               <Menu.Item
                 as="a"
-                onClick={() => {
-                  disconnectXmtp();
-                  setCurrentProfile(null);
-                  setProfileId(null);
-                  setHandle(null);
-                  resetAuthData();
-                  disconnect?.();
-                }}
+                onClick={logout}
                 className={({ active }) => clsx({ 'dropdown-active': active }, 'menu-item')}
               >
                 <div className="flex items-center space-x-1.5">
