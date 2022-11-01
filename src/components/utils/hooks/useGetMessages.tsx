@@ -15,8 +15,6 @@ const useGetMessages = (conversationKey: string, conversation?: Conversation, en
     }
 
     const loadMessages = async () => {
-      hasMore.set(conversationKey, true);
-      setHasMore(new Map(hasMore));
       const newMessages = await conversation.messages({
         direction: SortDirection.SORT_DIRECTION_DESCENDING,
         limit: MESSAGE_PAGE_LIMIT,
@@ -26,6 +24,9 @@ const useGetMessages = (conversationKey: string, conversation?: Conversation, en
         addMessages(conversationKey, newMessages);
         if (newMessages.length < MESSAGE_PAGE_LIMIT) {
           hasMore.set(conversationKey, false);
+          setHasMore(new Map(hasMore));
+        } else {
+          hasMore.set(conversationKey, true);
           setHasMore(new Map(hasMore));
         }
       } else {
