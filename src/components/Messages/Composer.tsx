@@ -52,7 +52,13 @@ const Composer: FC<Props> = ({ sendMessage, conversationKey, disabledInput }) =>
         onKeyDown={handleKeyDown}
         onChange={(event) => setMessage(event.target.value)}
       />
-      <Button disabled={!canSendMessage} onClick={handleSend} variant="primary" aria-label="Send message">
+      <Button
+        disabled={!canSendMessage}
+        onClick={handleSend}
+        variant="primary"
+        className="disabled:bg-brand-500"
+        aria-label="Send message"
+      >
         <div className="flex items-center space-x-2">
           <span>Send</span>
           {!sending && <ArrowRightIcon className="h-5 w-5" />}
