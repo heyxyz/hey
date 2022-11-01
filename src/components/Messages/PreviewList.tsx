@@ -14,6 +14,7 @@ import { buildConversationKey } from '@lib/conversationKey';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
+import { useEffect } from 'react';
 import { useState } from 'react';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
@@ -33,8 +34,26 @@ const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
   const [showSearchModal, setShowSearchModal] = useState(false);
   const { authenticating, loading, messages, profiles, profilesError } = useMessagePreviews();
   const clearMessagesBadge = useMessagePersistStore((state) => state.clearMessagesBadge);
+  const isMessagesEnabled = isFeatureEnabled('messages', currentProfile?.id);
 
-  if (!currentProfile || !isFeatureEnabled('messages', currentProfile?.id)) {
+  useEffect(() => {
+    if (!isMessagesEnabled) {
+      return;
+    }
+    if (!currentProfile || !profiles.size || !messages.size) {
+      clearMessagesBadge(currentProfile?.id);
+      return;
+    }
+    const profileKeys = Array.from(profiles.keys());
+    const messageKeys = Array.from(messages.keys());
+    const hasPreviews = profileKeys.some((item) => messageKeys.includes(item));
+    if (hasPreviews) {
+      clearMessagesBadge(currentProfile.id);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentProfile, profiles, messages]);
+
+  if (!currentProfile || !isMessagesEnabled) {
     return <Custom404 />;
   }
 
@@ -45,17 +64,11 @@ const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
   const showAuthenticating = currentProfile && authenticating;
   const showLoading = loading && (messages.size === 0 || profiles.size === 0);
 
-  let hasMessages = false;
   const sortedProfiles = Array.from(profiles).sort(([keyA], [keyB]) => {
-    const aTime = messages.get(keyA)?.sent.getTime() || 0;
-    const bTime = messages.get(keyB)?.sent.getTime() || 0;
-    hasMessages = hasMessages || aTime > 0 || bTime > 0;
-    return aTime >= bTime ? -1 : 1;
+    const messageA = messages.get(keyA);
+    const messageB = messages.get(keyB);
+    return (messageA?.sent?.getTime() || 0) >= (messageB?.sent?.getTime() || 0) ? -1 : 1;
   });
-
-  if (hasMessages) {
-    clearMessagesBadge(currentProfile.id);
-  }
 
   const newMessageClick = () => {
     setShowSearchModal(true);
