@@ -1,7 +1,10 @@
 import type { Profile } from '@generated/types';
 import getUniqueMessages from '@lib/getUniqueMessages';
 import type { Client, Conversation, DecodedMessage } from '@xmtp/xmtp-js';
+import { toNanoString } from '@xmtp/xmtp-js';
+import { LS_KEYS } from 'src/constants';
 import create from 'zustand';
+import { persist } from 'zustand/middleware';
 
 interface MessageState {
   client: Client | undefined;
@@ -75,3 +78,58 @@ export const useMessageStore = create<MessageState>((set) => ({
       };
     })
 }));
+
+// Each Map is storing a profileId as the key.
+interface MessagePersistState {
+  viewedMessagesAtNs: Map<string, string | undefined>;
+  showMessagesBadge: Map<string, boolean>;
+  setShowMessagesBadge: (showMessagesBadge: Map<string, boolean>) => void;
+  clearMessagesBadge: (profileId: string) => void;
+}
+
+export const useMessagePersistStore = create(
+  persist<MessagePersistState>(
+    (set) => ({
+      viewedMessagesAtNs: new Map(),
+      showMessagesBadge: new Map(),
+      setShowMessagesBadge: (showMessagesBadge) => set(() => ({ showMessagesBadge })),
+      clearMessagesBadge: (profileId: string) => {
+        set((state) => {
+          if (state.showMessagesBadge.get(profileId)) {
+            const viewedAt = new Map(state.viewedMessagesAtNs);
+            const show = new Map(state.showMessagesBadge);
+            viewedAt.set(profileId, toNanoString(new Date()));
+            show.set(profileId, false);
+            return { viewedMessagesAtNs: viewedAt, showMessagesBadge: show };
+          } else {
+            return {
+              viewedMessagesAtNs: state.viewedMessagesAtNs,
+              showMessagesBadge: state.showMessagesBadge
+            };
+          }
+        });
+      }
+    }),
+    {
+      name: LS_KEYS.MESSAGE_STORE,
+      // Persist storage doesn't work well with Map by default.
+      // Workaround from: https://github.com/pmndrs/zustand/issues/618#issuecomment-954806720.
+      serialize: (data) => {
+        return JSON.stringify({
+          ...data,
+          state: {
+            ...data.state,
+            viewedMessagesAtNs: Array.from(data.state.viewedMessagesAtNs),
+            showMessagesBadge: Array.from(data.state.showMessagesBadge)
+          }
+        });
+      },
+      deserialize: (value) => {
+        const data = JSON.parse(value);
+        data.state.viewedMessagesAtNs = new Map(data.state.viewedMessagesAtNs);
+        data.state.showMessagesBadge = new Map(data.state.showMessagesBadge);
+        return data;
+      }
+    }
+  )
+);
