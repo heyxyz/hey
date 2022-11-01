@@ -73,6 +73,7 @@ const MessageIcon: FC = () => {
         if (pathname.startsWith('/messages')) {
           // For v1 badging, only badge when not already viewing messages. Once we have
           // badging per-conversation, we can remove this.
+          clearMessagesBadge(currentProfile.id);
           return;
         }
         const conversationId = message.conversation.context?.conversationId;

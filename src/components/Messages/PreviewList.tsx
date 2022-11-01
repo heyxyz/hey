@@ -37,11 +37,7 @@ const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
   const isMessagesEnabled = isFeatureEnabled('messages', currentProfile?.id);
 
   useEffect(() => {
-    if (!isMessagesEnabled) {
-      return;
-    }
-    if (!currentProfile || !profiles.size || !messages.size) {
-      clearMessagesBadge(currentProfile?.id);
+    if (!isMessagesEnabled || !currentProfile || !profiles.size || !messages.size) {
       return;
     }
     const profileKeys = Array.from(profiles.keys());
