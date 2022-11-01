@@ -14,11 +14,12 @@ import { buildConversationKey } from '@lib/conversationKey';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
+import { useEffect } from 'react';
 import { useState } from 'react';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
 import { useAppStore } from 'src/store/app';
-import { useMessageStore } from 'src/store/message';
+import { useMessagePersistStore, useMessageStore } from 'src/store/message';
 
 interface Props {
   className?: string;
@@ -32,8 +33,27 @@ const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
   const setMessageProfiles = useMessageStore((state) => state.setMessageProfiles);
   const [showSearchModal, setShowSearchModal] = useState(false);
   const { authenticating, loading, messages, profiles, profilesError } = useMessagePreviews();
+  const clearMessagesBadge = useMessagePersistStore((state) => state.clearMessagesBadge);
+  const isMessagesEnabled = isFeatureEnabled('messages', currentProfile?.id);
 
-  if (!currentProfile || !isFeatureEnabled('messages', currentProfile?.id)) {
+  useEffect(() => {
+    if (!isMessagesEnabled) {
+      return;
+    }
+    if (!currentProfile || !profiles.size || !messages.size) {
+      clearMessagesBadge(currentProfile?.id);
+      return;
+    }
+    const profileKeys = Array.from(profiles.keys());
+    const messageKeys = Array.from(messages.keys());
+    const hasPreviews = profileKeys.some((item) => messageKeys.includes(item));
+    if (hasPreviews) {
+      clearMessagesBadge(currentProfile.id);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentProfile, profiles, messages]);
+
+  if (!currentProfile || !isMessagesEnabled) {
     return <Custom404 />;
   }
 

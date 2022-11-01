@@ -4529,10 +4529,10 @@
     protobufjs "^7.0.0"
     undici "^5.8.1"
 
-"@xmtp/xmtp-js@7.0.0-beta.9":
-  version "7.0.0-beta.9"
-  resolved "https://registry.yarnpkg.com/@xmtp/xmtp-js/-/xmtp-js-7.0.0-beta.9.tgz#80d2702e574acfa22412d9d5f4901b987b462e5e"
-  integrity sha512-sJpMYWrE7bcO5awbcJgRMC+Hq/6K7NUSaGO7K09zEI4ZXRuqDRnadcKw2ReFgg44xMXPRXzSi+L3ra7k29ourg==
+"@xmtp/xmtp-js@7.0.0-beta.10":
+  version "7.0.0-beta.10"
+  resolved "https://registry.yarnpkg.com/@xmtp/xmtp-js/-/xmtp-js-7.0.0-beta.10.tgz#da8acdd15ff24f85bc41f2cfe27a0c5cccf81617"
+  integrity sha512-alabtcqtwcg3Uece4o7qQae0ri/xopDTNPzvAqcLSQXFTofPnv2Z3+CcsLdvaped40wbu6gQY8oLuVnHGaNnJg==
   dependencies:
     "@noble/secp256k1" "^1.5.2"
     "@stardazed/streams-polyfill" "^2.4.0"
