@@ -1,5 +1,5 @@
 import MessageIcon from '@components/Messages/MessageIcon';
-import NotificationIcon from '@components/Notification/Icon';
+import NotificationIcon from '@components/Notification/NotificationIcon';
 import useStaffMode from '@components/utils/hooks/useStaffMode';
 import type { Profile } from '@generated/types';
 import { Disclosure } from '@headlessui/react';
