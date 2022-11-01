@@ -17,8 +17,8 @@ import type { FC } from 'react';
 import { useState } from 'react';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
-import { useAppPersistStore, useAppStore } from 'src/store/app';
-import { useMessageStore } from 'src/store/message';
+import { useAppStore } from 'src/store/app';
+import { useMessagePersistStore, useMessageStore } from 'src/store/message';
 
 interface Props {
   className?: string;
@@ -31,7 +31,7 @@ const PreviewList: FC<Props> = ({ className }) => {
   const setMessageProfiles = useMessageStore((state) => state.setMessageProfiles);
   const [showSearchModal, setShowSearchModal] = useState(false);
   const { authenticating, loading, messages, profiles, profilesError } = useMessagePreviews();
-  const clearMessagesBadge = useAppPersistStore((state) => state.clearMessagesBadge);
+  const clearMessagesBadge = useMessagePersistStore((state) => state.clearMessagesBadge);
 
   if (!currentProfile || !isFeatureEnabled('messages', currentProfile?.id)) {
     return <Custom404 />;
@@ -53,7 +53,7 @@ const PreviewList: FC<Props> = ({ className }) => {
   });
 
   if (hasMessages) {
-    clearMessagesBadge();
+    clearMessagesBadge(currentProfile.id);
   }
 
   const newMessageClick = () => {

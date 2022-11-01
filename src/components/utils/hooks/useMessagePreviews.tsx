@@ -166,6 +166,17 @@ const useMessagePreviews = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [client, currentProfile?.id, selectedProfileId]);
 
+  useEffect(() => {
+    if (selectedProfileId && currentProfile?.id !== selectedProfileId) {
+      reset();
+      setSelectedProfileId(currentProfile?.id);
+      router.push('/messages');
+    } else {
+      setSelectedProfileId(currentProfile?.id);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentProfile]);
+
   return {
     authenticating: creatingXmtpClient,
     loading: messagesLoading || profilesLoading,

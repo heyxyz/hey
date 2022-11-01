@@ -1,7 +1,7 @@
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { Client } from '@xmtp/xmtp-js';
 import { useCallback, useEffect, useState } from 'react';
-import { XMTP_ENV } from 'src/constants';
+import { LS_KEYS, XMTP_ENV } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
 import { useSigner } from 'wagmi';
@@ -84,6 +84,7 @@ export const useDisconnectXmtp = () => {
       // eslint-disable-next-line unicorn/no-useless-undefined
       setClient(undefined);
     }
+    localStorage.removeItem(LS_KEYS.MESSAGE_STORE);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [signer, client]);
 

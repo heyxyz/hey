@@ -4,24 +4,27 @@ import conversationMatchesProfile from '@lib/conversationMatchesProfile';
 import type { DecodedMessage } from '@xmtp/xmtp-js';
 import { fromNanoString, SortDirection } from '@xmtp/xmtp-js';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useEffect } from 'react';
-import { useAppPersistStore, useAppStore } from 'src/store/app';
+import { useAppStore } from 'src/store/app';
+import { useMessagePersistStore } from 'src/store/message';
 
 const MessageIcon: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const { client: cachedClient } = useXmtpClient(true);
-  const clearMessagesBadge = useAppPersistStore((state) => state.clearMessagesBadge);
-  const viewedMessagesAtNs = useAppPersistStore((state) => state.viewedMessagesAtNs);
-  const showMessagesBadge = useAppPersistStore((state) => state.showMessagesBadge);
-  const setShowMessagesBadge = useAppPersistStore((state) => state.setShowMessagesBadge);
+  const clearMessagesBadge = useMessagePersistStore((state) => state.clearMessagesBadge);
+  const viewedMessagesAtNs = useMessagePersistStore((state) => state.viewedMessagesAtNs);
+  const showMessagesBadge = useMessagePersistStore((state) => state.showMessagesBadge);
+  const setShowMessagesBadge = useMessagePersistStore((state) => state.setShowMessagesBadge);
+  const { pathname } = useRouter();
 
-  const shouldShowBadge = (messageSentAt: Date | undefined): boolean => {
+  const shouldShowBadge = (viewedAt: string | undefined, messageSentAt: Date | undefined): boolean => {
     if (!messageSentAt) {
       return false;
     }
 
-    const viewedMessagesAt = fromNanoString(viewedMessagesAtNs);
+    const viewedMessagesAt = fromNanoString(viewedAt);
     return (
       !viewedMessagesAt ||
       (viewedMessagesAt.getTime() < messageSentAt.getTime() && messageSentAt.getTime() < new Date().getTime())
@@ -51,7 +54,9 @@ const MessageIcon: FC = () => {
       });
       const mostRecentMessage = mostRecentMessages.length > 0 ? mostRecentMessages[0] : null;
       const sentAt = fromNanoString(mostRecentMessage?.timestampNs);
-      setShowMessagesBadge(shouldShowBadge(sentAt));
+      const showBadge = shouldShowBadge(viewedMessagesAtNs.get(currentProfile.id), sentAt);
+      showMessagesBadge.set(currentProfile.id, showBadge);
+      setShowMessagesBadge(new Map(showMessagesBadge));
     };
 
     let messageStream: AsyncGenerator<DecodedMessage>;
@@ -65,15 +70,21 @@ const MessageIcon: FC = () => {
       messageStream = await cachedClient.conversations.streamAllMessages();
 
       for await (const message of messageStream) {
+        if (pathname.startsWith('/messages')) {
+          // For v1 badging, only badge when not already viewing messages. Once we have
+          // badging per-conversation, we can remove this.
+          return;
+        }
         const conversationId = message.conversation.context?.conversationId;
         const isFromPeer = currentProfile.ownedBy !== message.senderAddress;
         if (isFromPeer && conversationId && matcherRegex.test(conversationId)) {
-          setShowMessagesBadge(shouldShowBadge(message.sent));
+          const showBadge = shouldShowBadge(viewedMessagesAtNs.get(currentProfile.id), message.sent);
+          showMessagesBadge.set(currentProfile.id, showBadge);
+          setShowMessagesBadge(new Map(showMessagesBadge));
         }
       }
     };
 
-    console.log('fetch home');
     fetchShowBadge();
     streamAllMessages();
 
@@ -82,18 +93,26 @@ const MessageIcon: FC = () => {
     };
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [cachedClient]);
+  }, [cachedClient, currentProfile?.id, pathname]);
+
+  if (!currentProfile) {
+    return null;
+  }
 
   return (
     <Link
       href="/messages"
       className="flex items-start rounded-md hover:bg-gray-300 p-1 hover:bg-opacity-20"
       onClick={() => {
-        clearMessagesBadge();
+        clearMessagesBadge(currentProfile.id);
       }}
     >
       <MailIcon className="w-5 h-5 sm:w-6 sm:h-6" />
-      <span className={`w-2 h-2 bg-red-500 rounded-full ${showMessagesBadge ? 'visible' : 'invisible'}`} />
+      <span
+        className={`w-2 h-2 bg-red-500 rounded-full ${
+          showMessagesBadge.get(currentProfile.id) ? 'visible' : 'invisible'
+        }`}
+      />
     </Link>
   );
 };
