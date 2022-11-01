@@ -84,7 +84,7 @@ const Search: FC<Props> = ({
         />
       </form>
       {pathname !== '/search' && !hideDropdown && searchText.length > 0 && (
-        <div className={`flex absolute flex-col mt-2 w-[94%] ${modalWidthClassName}`} ref={dropdownRef}>
+        <div className={clsx('flex absolute flex-col mt-2 w-[94%]', modalWidthClassName)} ref={dropdownRef}>
           <Card className="overflow-y-auto py-2 max-h-[80vh]">
             {searchUsersLoading ? (
               <div className="py-2 px-4 space-y-2 text-sm font-bold text-center">
