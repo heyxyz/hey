@@ -39,6 +39,12 @@ const MessageIcon: FC = () => {
     const matcherRegex = conversationMatchesProfile(currentProfile.id);
 
     const fetchShowBadge = async () => {
+      if (pathname.startsWith('/messages')) {
+        // For v1 badging, only badge when not already viewing messages. Once we have
+        // badging per-conversation, we can remove this.
+        clearMessagesBadge(currentProfile.id);
+        return;
+      }
       const convos = await cachedClient.conversations.list();
       const matchingConvos = convos.filter(
         (convo) => convo.context?.conversationId && matcherRegex.test(convo.context.conversationId)
