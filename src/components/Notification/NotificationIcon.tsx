@@ -18,7 +18,7 @@ const NotificationIcon: FC = () => {
 
   useEffect(() => {
     if (currentProfile && data) {
-      const currentCount = data?.notifications?.pageInfo?.totalCount;
+      const currentCount = data?.notifications?.pageInfo?.totalCount || 0;
       setShowBadge(notificationCount !== currentCount);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -27,7 +27,7 @@ const NotificationIcon: FC = () => {
   return (
     <Link
       href="/notifications"
-      className="flex items-start rounded-md hover:bg-gray-300 p-1 hover:bg-opacity-20"
+      className="flex items-start justify-center rounded-md hover:bg-gray-300 p-1 hover:bg-opacity-20 min-w-[40px]"
       onClick={() => {
         setNotificationCount(data?.notifications?.pageInfo?.totalCount || 0);
         setShowBadge(false);

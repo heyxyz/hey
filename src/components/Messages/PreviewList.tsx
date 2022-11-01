@@ -20,7 +20,7 @@ import { MIN_WIDTH_DESKTOP } from 'src/constants';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
 import { useAppStore } from 'src/store/app';
-import { useMessageStore } from 'src/store/message';
+import { useMessagePersistStore, useMessageStore } from 'src/store/message';
 
 interface Props {
   className?: string;
@@ -35,6 +35,8 @@ const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
   const [showSearchModal, setShowSearchModal] = useState(false);
   const { authenticating, loading, messages, profiles, profilesError } = useMessagePreviews();
   const { width } = useWindowSize();
+  const clearMessagesBadge = useMessagePersistStore((state) => state.clearMessagesBadge);
+  const isMessagesEnabled = isFeatureEnabled('messages', currentProfile?.id);
 
   const sortedProfiles = Array.from(profiles).sort(([keyA], [keyB]) => {
     const messageA = messages.get(keyA);
@@ -56,7 +58,24 @@ const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sortedProfiles, router.pathname, width]);
 
-  if (!currentProfile || !isFeatureEnabled('messages', currentProfile?.id)) {
+  useEffect(() => {
+    if (!isMessagesEnabled) {
+      return;
+    }
+    if (!currentProfile || !profiles.size || !messages.size) {
+      clearMessagesBadge(currentProfile?.id);
+      return;
+    }
+    const profileKeys = Array.from(profiles.keys());
+    const messageKeys = Array.from(messages.keys());
+    const hasPreviews = profileKeys.some((item) => messageKeys.includes(item));
+    if (hasPreviews) {
+      clearMessagesBadge(currentProfile.id);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentProfile, profiles, messages]);
+
+  if (!currentProfile || !isMessagesEnabled) {
     return <Custom404 />;
   }
 
