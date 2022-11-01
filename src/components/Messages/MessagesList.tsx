@@ -1,3 +1,4 @@
+import Markup from '@components/Shared/Markup';
 import { Card } from '@components/UI/Card';
 import type { Profile } from '@generated/types';
 import { EmojiSadIcon } from '@heroicons/react/outline';
@@ -50,10 +51,12 @@ const MessageTile: FC<MessageTileProps> = ({ message, profile, currentProfile })
           <span
             className={clsx(
               address === message.senderAddress ? 'text-white' : 'text-black',
-              'block text-md break-words'
+              'block text-md break-words linkify-message'
             )}
           >
-            {message.error ? `Error: ${message.error?.message}` : message.content ?? ''}
+            {message.error
+              ? `Error: ${message.error?.message}`
+              : <Markup matchOnlyUrl>{message.content}</Markup> ?? ''}
           </span>
         </div>
       </div>
