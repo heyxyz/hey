@@ -99,11 +99,11 @@ const Navbar: FC = () => {
                   </div>
                 </div>
               </div>
-              <div className="flex gap-8 items-center">
+              <div className="flex gap-6 items-center">
                 {currentProfile ? (
                   <>
                     {isFeatureEnabled('messages', currentProfile?.id) && (
-                      <Link href="/messages">
+                      <Link href="/messages" className="rounded-md hover:bg-gray-300 p-1 hover:bg-opacity-20">
                         <MailIcon className="w-5 h-5 sm:w-6 sm:h-6" />
                       </Link>
                     )}
