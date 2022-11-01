@@ -138,7 +138,11 @@ const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
       >
         <div className="pb-2">
           <div className="w-full pt-4 px-4">
-            <Search placeholder="Search for someone to message..." onProfileSelected={onProfileSelected} />
+            <Search
+              modalWidthClassName="max-w-lg"
+              placeholder="Search for someone to message..."
+              onProfileSelected={onProfileSelected}
+            />
           </div>
           {currentProfile && <Following profile={currentProfile} onProfileSelected={onProfileSelected} />}
         </div>
