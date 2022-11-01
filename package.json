@@ -17,7 +17,7 @@
   "dependencies": {
     "@apollo/client": "^3.7.1",
     "@aws-sdk/client-s3": "^3.198.0",
-    "@aws-sdk/client-sts": "^3.199.0",
+    "@aws-sdk/client-sts": "^3.200.0",
     "@bundlr-network/client": "^0.8.9",
     "@giphy/js-fetch-api": "^4.3.1",
     "@giphy/react-components": "^6.2.0",
@@ -25,7 +25,7 @@
     "@heroicons/react": "v1",
     "@hookform/resolvers": "^2.9.10",
     "@next/bundle-analyzer": "^13.0.0",
-    "@sentry/nextjs": "^7.17.2",
+    "@sentry/nextjs": "^7.17.3",
     "@tippyjs/react": "^4.2.6",
     "@types/react-mentions": "^4.1.7",
     "@xmtp/xmtp-js": "7.0.0-beta.9",
@@ -50,9 +50,9 @@
     "react-mentions": "^4.4.7",
     "ua-parser-js": "^1.0.32",
     "uuid": "^9.0.0",
-    "wagmi": "^0.7.8",
+    "wagmi": "^0.7.9",
     "zod": "^3.19.1",
-    "zustand": "^4.1.3"
+    "zustand": "^4.1.4"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^2.13.7",
@@ -68,7 +68,7 @@
     "@types/react-dom": "^18.0.7",
     "@types/ua-parser-js": "^0.7.36",
     "@types/uuid": "^8.3.4",
-    "@typescript-eslint/eslint-plugin": "^5.41.0",
+    "@typescript-eslint/eslint-plugin": "^5.42.0",
     "autoprefixer": "^10.4.13",
     "eslint": "^8.26.0",
     "eslint-config-next": "^13.0.0",
