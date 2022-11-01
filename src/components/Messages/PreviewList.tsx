@@ -22,9 +22,10 @@ import { useMessageStore } from 'src/store/message';
 
 interface Props {
   className?: string;
+  selectedConversationKey?: string;
 }
 
-const PreviewList: FC<Props> = ({ className }) => {
+const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
   const router = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const messageProfiles = useMessageStore((state) => state.messageProfiles);
@@ -95,7 +96,15 @@ const PreviewList: FC<Props> = ({ className }) => {
                 return null;
               }
 
-              return <Preview key={key} profile={profile} conversationKey={key} message={message} />;
+              return (
+                <Preview
+                  isSelected={key === selectedConversationKey}
+                  key={key}
+                  profile={profile}
+                  conversationKey={key}
+                  message={message}
+                />
+              );
             })
           )}
         </div>

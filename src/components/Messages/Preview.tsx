@@ -17,9 +17,10 @@ interface Props {
   profile: Profile;
   message: DecodedMessage;
   conversationKey: string;
+  isSelected: boolean;
 }
 
-const Preview: FC<Props> = ({ profile, message, conversationKey }) => {
+const Preview: FC<Props> = ({ profile, message, conversationKey, isSelected }) => {
   const router = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const address = currentProfile?.ownedBy;
@@ -30,7 +31,13 @@ const Preview: FC<Props> = ({ profile, message, conversationKey }) => {
 
   return (
     <div
-      className="hover:bg-gray-100 dark:hover:bg-gray-800 py-3 cursor-pointer"
+      className={clsx(
+        'py-3',
+        'cursor-pointer',
+        'hover:bg-gray-100',
+        'dark:hover:bg-gray-800',
+        isSelected && 'bg-gray-50'
+      )}
       onClick={() => onConversationSelected(profile.id)}
     >
       <div className="flex justify-between space-x-3 px-5">
