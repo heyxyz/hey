@@ -18,7 +18,7 @@ const NotificationIcon: FC = () => {
 
   useEffect(() => {
     if (currentProfile && data) {
-      const currentCount = data?.notifications?.pageInfo?.totalCount;
+      const currentCount = data?.notifications?.pageInfo?.totalCount || 0;
       setShowBadge(notificationCount !== currentCount);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
