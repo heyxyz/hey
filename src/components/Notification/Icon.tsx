@@ -27,14 +27,14 @@ const NotificationIcon: FC = () => {
   return (
     <Link
       href="/notifications"
-      className="flex items-start rounded-md hover:bg-gray-300 p-1 hover:bg-opacity-20"
+      className="flex items-start p-1 rounded-md hover:bg-gray-300 hover:bg-opacity-20"
       onClick={() => {
         setNotificationCount(data?.notifications?.pageInfo?.totalCount || 0);
         setShowBadge(false);
       }}
     >
       <LightningBoltIcon className="w-5 h-5 sm:w-6 sm:h-6" />
-      {showBadge ? <span className="w-2 h-2 bg-red-500 rounded-full" /> : null}
+      {showBadge && <span className="w-2 h-2 bg-red-500 rounded-full" />}
     </Link>
   );
 };
