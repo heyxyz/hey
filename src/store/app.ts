@@ -1,4 +1,5 @@
 import type { Profile } from '@generated/types';
+import { toNanoString } from '@xmtp/xmtp-js';
 import { LS_KEYS } from 'src/constants';
 import create from 'zustand';
 import { persist } from 'zustand/middleware';
@@ -30,10 +31,10 @@ interface AppPersistState {
   setStaffMode: (staffMode: boolean) => void;
   notificationCount: number;
   setNotificationCount: (notificationCount: number) => void;
-  lastViewedMessagesAt: Date | null;
+  viewedMessagesAtNs: string | undefined;
   clearMessagesBadge: () => boolean;
-  showUnreadMessages: boolean;
-  setShowUnreadMessages: (show: boolean) => void;
+  showMessagesBadge: boolean;
+  setShowMessagesBadge: (show: boolean) => void;
 }
 
 export const useAppPersistStore = create(
@@ -47,24 +48,24 @@ export const useAppPersistStore = create(
       setStaffMode: (staffMode) => set(() => ({ staffMode })),
       notificationCount: 0,
       setNotificationCount: (notificationCount) => set(() => ({ notificationCount })),
-      lastViewedMessagesAt: null,
+      viewedMessagesAtNs: undefined,
       clearMessagesBadge: () => {
         let updated = false;
         set((state) => {
-          if (state.showUnreadMessages) {
+          if (state.showMessagesBadge) {
             updated = true;
-            return { lastViewedMessagesAt: new Date(), showUnreadMessages: false };
+            return { viewedMessagesAtNs: toNanoString(new Date()), showMessagesBadge: false };
           } else {
             return {
-              lastViewedMessagesAt: state.lastViewedMessagesAt,
-              showUnreadMessages: state.showUnreadMessages
+              viewedMessagesAtNs: state.viewedMessagesAtNs,
+              showMessagesBadge: state.showMessagesBadge
             };
           }
         });
         return updated;
       },
-      showUnreadMessages: false,
-      setShowUnreadMessages: (showUnreadMessages) => set(() => ({ showUnreadMessages }))
+      showMessagesBadge: false,
+      setShowMessagesBadge: (showMessagesBadge) => set(() => ({ showMessagesBadge }))
     }),
     { name: LS_KEYS.LENSTER_STORE }
   )

@@ -1,8 +1,8 @@
 import useXmtpClient from '@components/utils/hooks/useXmtpClient';
 import { MailIcon } from '@heroicons/react/outline';
 import conversationMatchesProfile from '@lib/conversationMatchesProfile';
-import { fetchMostRecentMessage } from '@lib/fetchMostRecentMessage';
 import type { DecodedMessage } from '@xmtp/xmtp-js';
+import { fromNanoString, SortDirection } from '@xmtp/xmtp-js';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { useEffect } from 'react';
@@ -12,17 +12,20 @@ const MessageIcon: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const { client: cachedClient } = useXmtpClient(true);
   const clearMessagesBadge = useAppPersistStore((state) => state.clearMessagesBadge);
-  const lastViewedMessagesAt = useAppPersistStore((state) =>
-    state.lastViewedMessagesAt ? new Date(state.lastViewedMessagesAt) : null
-  );
-  const showUnreadMessages = useAppPersistStore((state) => state.showUnreadMessages);
-  const setShowUnreadMessages = useAppPersistStore((state) => state.setShowUnreadMessages);
+  const viewedMessagesAtNs = useAppPersistStore((state) => state.viewedMessagesAtNs);
+  const showMessagesBadge = useAppPersistStore((state) => state.showMessagesBadge);
+  const setShowMessagesBadge = useAppPersistStore((state) => state.setShowMessagesBadge);
 
-  const showBadge = (mostRecentMessage: DecodedMessage | undefined): boolean => {
-    if (!mostRecentMessage) {
+  const shouldShowBadge = (messageSentAt: Date | undefined): boolean => {
+    if (!messageSentAt) {
       return false;
     }
-    return !lastViewedMessagesAt || lastViewedMessagesAt.getTime() < mostRecentMessage.sent.getTime();
+
+    const viewedMessagesAt = fromNanoString(viewedMessagesAtNs);
+    return (
+      !viewedMessagesAt ||
+      (viewedMessagesAt.getTime() < messageSentAt.getTime() && messageSentAt.getTime() < new Date().getTime())
+    );
   };
 
   useEffect(() => {
@@ -41,10 +44,14 @@ const MessageIcon: FC = () => {
         return;
       }
 
-      const previews = await Promise.all(matchingConvos.map(fetchMostRecentMessage));
-      previews.sort((a, b) => (b.message?.sent?.getTime() || 0) - (a.message?.sent?.getTime() || 0));
-      const mostRecentMessage = previews.find((preview) => preview?.message?.sent)?.message;
-      setShowUnreadMessages(showBadge(mostRecentMessage));
+      const topics = matchingConvos.map((convo) => convo.topic);
+      const mostRecentMessages = await cachedClient.listEnvelopes(topics, async (e) => e, {
+        limit: 1,
+        direction: SortDirection.SORT_DIRECTION_DESCENDING
+      });
+      const mostRecentMessage = mostRecentMessages.length > 0 ? mostRecentMessages[0] : null;
+      const sentAt = fromNanoString(mostRecentMessage?.timestampNs);
+      setShowMessagesBadge(shouldShowBadge(sentAt));
     };
 
     let messageStream: AsyncGenerator<DecodedMessage>;
@@ -61,11 +68,12 @@ const MessageIcon: FC = () => {
         const conversationId = message.conversation.context?.conversationId;
         const isFromPeer = currentProfile.ownedBy !== message.senderAddress;
         if (isFromPeer && conversationId && matcherRegex.test(conversationId)) {
-          setShowUnreadMessages(showBadge(message));
+          setShowMessagesBadge(shouldShowBadge(message.sent));
         }
       }
     };
 
+    console.log('fetch home');
     fetchShowBadge();
     streamAllMessages();
 
@@ -85,7 +93,7 @@ const MessageIcon: FC = () => {
       }}
     >
       <MailIcon className="w-5 h-5 sm:w-6 sm:h-6" />
-      <span className={`w-2 h-2 bg-red-500 rounded-full ${showUnreadMessages ? 'visible' : 'invisible'}`} />
+      <span className={`w-2 h-2 bg-red-500 rounded-full ${showMessagesBadge ? 'visible' : 'invisible'}`} />
     </Link>
   );
 };
