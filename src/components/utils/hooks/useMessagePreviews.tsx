@@ -5,9 +5,9 @@ import { ProfilesDocument } from '@generated/types';
 import buildConversationId from '@lib/buildConversationId';
 import { buildConversationKey, parseConversationKey } from '@lib/conversationKey';
 import conversationMatchesProfile from '@lib/conversationMatchesProfile';
-import { fetchMostRecentMessage } from '@lib/fetchMostRecentMessage';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 import type { Conversation, Stream } from '@xmtp/xmtp-js';
+import { SortDirection } from '@xmtp/xmtp-js';
 import type { DecodedMessage } from '@xmtp/xmtp-js/dist/types/src/Message';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -84,6 +84,21 @@ const useMessagePreviews = () => {
           setPreviewMessage(key, message);
         }
       }
+    };
+
+    const fetchMostRecentMessage = async (
+      convo: Conversation
+    ): Promise<{ key: string; message?: DecodedMessage }> => {
+      const key = buildConversationKey(convo.peerAddress, convo.context?.conversationId as string);
+
+      const newMessages = await convo.messages({
+        limit: 1,
+        direction: SortDirection.SORT_DIRECTION_DESCENDING
+      });
+      if (newMessages.length <= 0) {
+        return { key };
+      }
+      return { key, message: newMessages[0] };
     };
 
     const listConversations = async () => {
