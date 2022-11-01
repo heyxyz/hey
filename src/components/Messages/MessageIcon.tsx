@@ -108,11 +108,7 @@ const MessageIcon: FC = () => {
       }}
     >
       <MailIcon className="w-5 h-5 sm:w-6 sm:h-6" />
-      <span
-        className={`w-2 h-2 bg-red-500 rounded-full ${
-          showMessagesBadge.get(currentProfile.id) ? 'visible' : 'invisible'
-        }`}
-      />
+      {showMessagesBadge.get(currentProfile.id) && <span className="w-2 h-2 bg-red-500 rounded-full" />}
     </Link>
   );
 };

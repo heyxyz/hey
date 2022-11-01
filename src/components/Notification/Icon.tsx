@@ -34,7 +34,7 @@ const NotificationIcon: FC = () => {
       }}
     >
       <LightningBoltIcon className="w-5 h-5 sm:w-6 sm:h-6" />
-      <span className={`w-2 h-2 bg-red-500 rounded-full ${showBadge ? 'visible' : 'invisible'}`} />
+      {showBadge && <span className="w-2 h-2 bg-red-500 rounded-full" />}
     </Link>
   );
 };
