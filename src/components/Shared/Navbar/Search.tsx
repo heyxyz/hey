@@ -17,9 +17,15 @@ interface Props {
   hideDropdown?: boolean;
   onProfileSelected?: (profile: Profile) => void;
   placeholder?: string;
+  modalWidthClassName?: string;
 }
 
-const Search: FC<Props> = ({ hideDropdown = false, onProfileSelected, placeholder = 'Search...' }) => {
+const Search: FC<Props> = ({
+  hideDropdown = false,
+  onProfileSelected,
+  placeholder = 'Search...',
+  modalWidthClassName = 'max-w-md'
+}) => {
   const { push, pathname, query } = useRouter();
   const [searchText, setSearchText] = useState('');
   const dropdownRef = useRef(null);
@@ -78,7 +84,7 @@ const Search: FC<Props> = ({ hideDropdown = false, onProfileSelected, placeholde
         />
       </form>
       {pathname !== '/search' && !hideDropdown && searchText.length > 0 && (
-        <div className="flex absolute flex-col mt-2 w-[94%] sm:max-w-lg" ref={dropdownRef}>
+        <div className={`flex absolute flex-col mt-2 w-[94%] ${modalWidthClassName}`} ref={dropdownRef}>
           <Card className="overflow-y-auto py-2 max-h-[80vh]">
             {searchUsersLoading ? (
               <div className="py-2 px-4 space-y-2 text-sm font-bold text-center">
