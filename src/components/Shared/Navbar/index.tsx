@@ -100,7 +100,7 @@ const Navbar: FC = () => {
                   </div>
                 </div>
               </div>
-              <div className="flex gap-6 items-center">
+              <div className="flex gap-4 items-center">
                 {currentProfile ? (
                   <>
                     {isFeatureEnabled('messages', currentProfile?.id) && <MessageIcon />}
