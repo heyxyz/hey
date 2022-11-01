@@ -27,7 +27,7 @@ const NotificationIcon: FC = () => {
   return (
     <Link
       href="/notifications"
-      className="flex items-start"
+      className="flex items-start rounded-md hover:bg-gray-300 p-1 hover:bg-opacity-20"
       onClick={() => {
         setNotificationCount(data?.notifications?.pageInfo?.totalCount || 0);
         setShowBadge(false);
