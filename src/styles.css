@@ -33,6 +33,10 @@ body {
   @apply hover:text-brand-600 dark:hover:text-brand-500;
 }
 
+.linkify-message a {
+  @apply hover:text-brand-600 dark:hover:text-brand-500;
+}
+
 .identicon {
   width: 100% !important;
   height: 100% !important;
