@@ -42,18 +42,23 @@ const SinglePublication: FC<Props> = ({
     }
     return firstComment && feedItem.root.__typename !== 'Comment' ? firstComment : feedItem?.root;
   };
-
   const rootPublication = getRootPublication();
-  const profile = feedItem
-    ? rootPublication.profile
-    : isMirror
-    ? publication?.mirrorOf?.profile
-    : publication?.profile;
-  const timestamp = feedItem
-    ? rootPublication.createdAt
-    : isMirror
-    ? publication?.mirrorOf?.createdAt
-    : publication?.createdAt;
+
+  const getProfile = () => {
+    if (feedItem) {
+      return rootPublication.profile;
+    }
+    return isMirror ? publication?.mirrorOf?.profile : publication?.profile;
+  };
+  const profile = getProfile();
+
+  const getTimestamp = () => {
+    if (feedItem) {
+      return rootPublication.createdAt;
+    }
+    return isMirror ? publication?.mirrorOf?.createdAt : publication?.createdAt;
+  };
+  const timestamp = getTimestamp();
 
   return (
     <article className="hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer first:rounded-t-xl last:rounded-b-xl p-5">
