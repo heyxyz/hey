@@ -108,7 +108,7 @@ const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
             </button>
           )}
         </div>
-        <div className="h-full overflow-y-auto">
+        <div className="h-full overflow-y-auto overflow-x-hidden">
           {showAuthenticating ? (
             <PageLoading message="Awaiting signature to enable DMs" />
           ) : showLoading ? (

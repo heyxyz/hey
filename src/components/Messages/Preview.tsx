@@ -40,7 +40,7 @@ const Preview: FC<Props> = ({ profile, message, conversationKey, isSelected }) =
       )}
       onClick={() => onConversationSelected(profile.id)}
     >
-      <div className="flex justify-between space-x-3 px-5">
+      <div className="flex justify-between space-x-3 px-3">
         <img
           src={getAvatar(profile)}
           loading="lazy"
@@ -49,21 +49,25 @@ const Preview: FC<Props> = ({ profile, message, conversationKey, isSelected }) =
           width={40}
           alt={profile?.handle}
         />
-        <div className="w-full">
-          <div className="flex w-full justify-between space-x-1">
-            <div className="flex gap-1 items-center max-w-sm">
-              <div className={`line-clamp-1 ${clsx('text-md')}`}>{profile?.name ?? profile.handle}</div>
-              {isVerified(profile?.id) && <BadgeCheckIcon className="min-w-fit w-4 h-4 text-brand" />}
+        <div className="w-full flex">
+          <div className="flex-col w-[65%]">
+            <div className="flex w-full justify-between space-x-1">
+              <div className="flex gap-1 items-center max-w-sm">
+                <div className={`line-clamp-1 ${clsx('text-md')}`}>{profile?.name ?? profile.handle}</div>
+                {isVerified(profile?.id) && <BadgeCheckIcon className="min-w-fit w-4 h-4 text-brand" />}
+              </div>
             </div>
+            <span className="text-sm text-gray-500 line-clamp-1 break-words">
+              {address === message.senderAddress && 'You: '} {message.content.substring(0, 16)}
+            </span>
+          </div>
+          <div className="flex ml-4 w-[35%]">
             {message.sent && (
-              <span className="min-w-fit pt-0.5 text-xs text-gray-500">
+              <span className="min-w-fit pt-0.5 text-xs text-gray-500 text-right w-full">
                 {dayjs(new Date(message.sent)).fromNow()}
               </span>
             )}
           </div>
-          <span className="text-sm text-gray-500 line-clamp-1">
-            {address === message.senderAddress && 'You: '} {message.content}
-          </span>
         </div>
       </div>
     </div>
