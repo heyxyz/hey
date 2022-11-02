@@ -4042,10 +4042,10 @@
     protobufjs "^7.0.0"
     undici "^5.8.1"
 
-"@xmtp/xmtp-js@7.0.0-beta.11":
-  version "7.0.0-beta.11"
-  resolved "https://registry.yarnpkg.com/@xmtp/xmtp-js/-/xmtp-js-7.0.0-beta.11.tgz#b30025aca8cf9670cf0a60091dd9bda87ce06a3f"
-  integrity sha512-kqRGoJVdlrcRSlyRE/nYhiB8Ciq7KkYmhzZsaD4NFsUOOivMGdGnn2vz3l+GYVd91OEuFFC3DXf+P47AMDWn6A==
+"@xmtp/xmtp-js@^7.0.0":
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/@xmtp/xmtp-js/-/xmtp-js-7.0.0.tgz#bac7018cbde649c69ae149bc29a1db5431f5508a"
+  integrity sha512-V9+geUqgdFbiDmOAhiPqkPh3oRBX92CDBMoKofo+KwT8kYyAju6ovquWE621T77WzwnznynK1YpucdKDcVgzOQ==
   dependencies:
     "@noble/secp256k1" "^1.5.2"
     "@stardazed/streams-polyfill" "^2.4.0"
