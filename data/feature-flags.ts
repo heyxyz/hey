@@ -1,4 +1,3 @@
-import { aaveMembers } from './aave-members';
 import { lensterMembers } from './lenster-members';
 
 export const featureFlags = [
