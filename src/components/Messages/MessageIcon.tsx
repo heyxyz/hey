@@ -6,7 +6,7 @@ import { fromNanoString, SortDirection } from '@xmtp/xmtp-js';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useMessagePersistStore } from 'src/store/message';
 
@@ -18,7 +18,8 @@ const MessageIcon: FC = () => {
   const showMessagesBadge = useMessagePersistStore((state) => state.showMessagesBadge);
   const setShowMessagesBadge = useMessagePersistStore((state) => state.setShowMessagesBadge);
   const { pathname } = useRouter();
-  const [isStreamClosing, setIsStreamClosing] = useState(false);
+  type PathValidator = (streamPath: string) => boolean;
+  // const [isStreamClosing, setIsStreamClosing] = useState(false);
 
   // useEffect(() => {
   //   console.log('new pathname: ' + pathname);
@@ -38,7 +39,7 @@ const MessageIcon: FC = () => {
   };
 
   useEffect(() => {
-    if (!cachedClient || !currentProfile || isStreamClosing) {
+    if (!cachedClient || !currentProfile) {
       return;
     }
 
@@ -76,21 +77,24 @@ const MessageIcon: FC = () => {
     let messageStream: AsyncGenerator<DecodedMessage>;
     const closeMessageStream = async () => {
       if (messageStream) {
-        setIsStreamClosing(true);
         console.log('close stream start');
         await messageStream.return(undefined); // eslint-disable-line unicorn/no-useless-undefined
         console.log('close stream end');
-        setIsStreamClosing(false);
       }
     };
 
-    const streamAllMessages = async () => {
+    const streamPathValidator = (streamPath: string): boolean => {
+      console.log('path: ' + pathname + ' sp: ' + streamPath);
+      return !window.location.pathname.startsWith('/messages') && pathname === streamPath;
+    };
+
+    const streamAllMessages = async (pathValidator: PathValidator) => {
       console.log('new stream for path: ' + pathname);
       messageStream = await cachedClient.conversations.streamAllMessages();
 
       for await (const message of messageStream) {
-        if (!isStreamClosing && !pathname.startsWith('/messages')) {
-          console.log('NEW MSG! from stream path: ' + pathname + ' ' + isStreamClosing);
+        if (pathValidator(pathname)) {
+          console.log('NEW MSG! from stream path: ' + pathname);
           const conversationId = message.conversation.context?.conversationId;
           const isFromPeer = currentProfile.ownedBy !== message.senderAddress;
           if (isFromPeer && conversationId && matcherRegex.test(conversationId)) {
@@ -100,6 +104,7 @@ const MessageIcon: FC = () => {
             setShowMessagesBadge(new Map(showMessagesBadge));
           }
         } else {
+          console.log('swallowed path: ' + pathname);
           // For v1 badging, only badge when not already viewing messages. Once we have
           // badging per-conversation, we can remove this.
           clearMessagesBadge(currentProfile.id);
@@ -109,14 +114,14 @@ const MessageIcon: FC = () => {
     };
 
     fetchShowBadge();
-    streamAllMessages();
+    streamAllMessages(streamPathValidator);
 
     return () => {
       closeMessageStream();
     };
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [cachedClient, currentProfile?.id, pathname, setIsStreamClosing]);
+  }, [cachedClient, currentProfile?.id, pathname]);
 
   // useEffect(() => {
   //   if (!currentProfile) {
