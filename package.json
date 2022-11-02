@@ -38,7 +38,7 @@
     "graphql": "^16.6.0",
     "interweave": "^13.0.0",
     "jwt-decode": "^3.1.2",
-    "next": "^13.0.0",
+    "next": "^13.0.1",
     "next-themes": "^0.2.1",
     "plyr-react": "^5.1.0",
     "react": "^18.2.0",
