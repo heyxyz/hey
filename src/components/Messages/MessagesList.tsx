@@ -45,7 +45,7 @@ const MessageTile: FC<MessageTileProps> = ({ message, profile, currentProfile })
         <div
           className={clsx(
             address === message.senderAddress ? 'bg-brand-500' : 'bg-gray-100',
-            'px-4 py-2 rounded-lg'
+            'px-4 py-2 rounded-lg w-full'
           )}
         >
           <span
@@ -138,7 +138,12 @@ const MessagesList: FC<MessageListProps> = ({
           <InfiniteScroll
             dataLength={messages.length}
             next={fetchNextMessages}
-            style={{ display: 'flex', flexDirection: 'column-reverse' }}
+            style={{
+              display: 'flex',
+              flexDirection: 'column-reverse',
+              overflowY: 'auto',
+              overflowX: 'hidden'
+            }}
             inverse
             endMessage={<ConversationBeginningNotice />}
             hasMore={hasMore}
