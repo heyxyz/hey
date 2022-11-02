@@ -13,7 +13,8 @@ const NotificationIcon: FC = () => {
   const [showBadge, setShowBadge] = useState(false);
   const { data } = useQuery(NotificationCountDocument, {
     variables: { request: { profileId: currentProfile?.id, customFilters: [CustomFiltersTypes.Gardeners] } },
-    skip: !currentProfile?.id
+    skip: !currentProfile?.id,
+    fetchPolicy: 'no-cache' // without no-cache the totalcount is NaN and returns the same.
   });
 
   useEffect(() => {
@@ -27,7 +28,7 @@ const NotificationIcon: FC = () => {
   return (
     <Link
       href="/notifications"
-      className="flex items-start rounded-md hover:bg-gray-300 p-1 hover:bg-opacity-20"
+      className="flex items-start justify-center rounded-md hover:bg-gray-300 p-1 hover:bg-opacity-20 min-w-[40px]"
       onClick={() => {
         setNotificationCount(data?.notifications?.pageInfo?.totalCount || 0);
         setShowBadge(false);
