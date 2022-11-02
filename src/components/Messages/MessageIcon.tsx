@@ -6,7 +6,7 @@ import { fromNanoString, SortDirection } from '@xmtp/xmtp-js';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useMessagePersistStore } from 'src/store/message';
 
@@ -18,6 +18,12 @@ const MessageIcon: FC = () => {
   const showMessagesBadge = useMessagePersistStore((state) => state.showMessagesBadge);
   const setShowMessagesBadge = useMessagePersistStore((state) => state.setShowMessagesBadge);
   const { pathname } = useRouter();
+  const [isStreamClosing, setIsStreamClosing] = useState(false);
+
+  // useEffect(() => {
+  //   console.log('new pathname: ' + pathname);
+  //   setCurrentPath(pathname);
+  // }, [pathname]);
 
   const shouldShowBadge = (viewedAt: string | undefined, messageSentAt: Date | undefined): boolean => {
     if (!messageSentAt) {
@@ -32,7 +38,7 @@ const MessageIcon: FC = () => {
   };
 
   useEffect(() => {
-    if (!cachedClient || !currentProfile) {
+    if (!cachedClient || !currentProfile || isStreamClosing) {
       return;
     }
 
@@ -43,6 +49,7 @@ const MessageIcon: FC = () => {
         // For v1 badging, only badge when not already viewing messages. Once we have
         // badging per-conversation, we can remove this.
         clearMessagesBadge(currentProfile.id);
+        // console.log('cleared messages tab fetch');
         return;
       }
       const convos = await cachedClient.conversations.list();
@@ -62,32 +69,41 @@ const MessageIcon: FC = () => {
       const sentAt = fromNanoString(mostRecentMessage?.timestampNs);
       const showBadge = shouldShowBadge(viewedMessagesAtNs.get(currentProfile.id), sentAt);
       showMessagesBadge.set(currentProfile.id, showBadge);
+      // console.log('fetch show badge ' + showBadge);
       setShowMessagesBadge(new Map(showMessagesBadge));
     };
 
     let messageStream: AsyncGenerator<DecodedMessage>;
     const closeMessageStream = async () => {
       if (messageStream) {
+        setIsStreamClosing(true);
+        console.log('close stream start');
         await messageStream.return(undefined); // eslint-disable-line unicorn/no-useless-undefined
+        console.log('close stream end');
+        setIsStreamClosing(false);
       }
     };
 
     const streamAllMessages = async () => {
+      console.log('new stream for path: ' + pathname);
       messageStream = await cachedClient.conversations.streamAllMessages();
 
       for await (const message of messageStream) {
-        if (pathname.startsWith('/messages')) {
+        if (!isStreamClosing && !pathname.startsWith('/messages')) {
+          console.log('NEW MSG! from stream path: ' + pathname + ' ' + isStreamClosing);
+          const conversationId = message.conversation.context?.conversationId;
+          const isFromPeer = currentProfile.ownedBy !== message.senderAddress;
+          if (isFromPeer && conversationId && matcherRegex.test(conversationId)) {
+            const showBadge = shouldShowBadge(viewedMessagesAtNs.get(currentProfile.id), message.sent);
+            showMessagesBadge.set(currentProfile.id, showBadge);
+            // console.log('stream show badge: ' + currentProfile.handle + ' : ' + showBadge);
+            setShowMessagesBadge(new Map(showMessagesBadge));
+          }
+        } else {
           // For v1 badging, only badge when not already viewing messages. Once we have
           // badging per-conversation, we can remove this.
           clearMessagesBadge(currentProfile.id);
-          return;
-        }
-        const conversationId = message.conversation.context?.conversationId;
-        const isFromPeer = currentProfile.ownedBy !== message.senderAddress;
-        if (isFromPeer && conversationId && matcherRegex.test(conversationId)) {
-          const showBadge = shouldShowBadge(viewedMessagesAtNs.get(currentProfile.id), message.sent);
-          showMessagesBadge.set(currentProfile.id, showBadge);
-          setShowMessagesBadge(new Map(showMessagesBadge));
+          // console.log('cleared messages tab stream ' + currentProfile.handle);
         }
       }
     };
@@ -100,22 +116,32 @@ const MessageIcon: FC = () => {
     };
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [cachedClient, currentProfile?.id, pathname]);
+  }, [cachedClient, currentProfile?.id, pathname, setIsStreamClosing]);
 
-  if (!currentProfile) {
-    return null;
-  }
+  // useEffect(() => {
+  //   if (!currentProfile) {
+  //     return;
+  //   }
+
+  //   console.log('show for prof: ' + currentProfile.handle + showMessagesBadge.get(currentProfile.id));
+  //   setBadgeForProfile(showMessagesBadge.get(currentProfile.id) || false);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [currentProfile, showMessagesBadge]);
+
+  // console.log(
+  //   'show badge: ' + showMessagesBadge.get(currentProfile?.id) + ' ' + currentProfile?.handle
+  // );
 
   return (
     <Link
       href="/messages"
       className="flex items-start justify-center rounded-md hover:bg-gray-300 p-1 hover:bg-opacity-20 min-w-[40px]"
       onClick={() => {
-        clearMessagesBadge(currentProfile.id);
+        currentProfile && clearMessagesBadge(currentProfile.id);
       }}
     >
       <MailIcon className="w-5 h-5 sm:w-6 sm:h-6" />
-      {showMessagesBadge.get(currentProfile.id) && <span className="w-2 h-2 bg-red-500 rounded-full" />}
+      {showMessagesBadge.get(currentProfile?.id) && <span className="w-2 h-2 bg-red-500 rounded-full" />}
     </Link>
   );
 };

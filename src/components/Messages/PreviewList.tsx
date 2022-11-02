@@ -37,17 +37,18 @@ const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
   const isMessagesEnabled = isFeatureEnabled('messages', currentProfile?.id);
 
   useEffect(() => {
-    if (!isMessagesEnabled || !currentProfile || !profiles.size || !messages.size) {
+    if (!isMessagesEnabled || !currentProfile) {
       return;
     }
-    const profileKeys = Array.from(profiles.keys());
-    const messageKeys = Array.from(messages.keys());
-    const hasPreviews = profileKeys.some((item) => messageKeys.includes(item));
-    if (hasPreviews) {
-      clearMessagesBadge(currentProfile.id);
-    }
+    // const profileKeys = Array.from(profiles.keys());
+    // const messageKeys = Array.from(messages.keys());
+    // const hasPreviews = profileKeys.some((item) => messageKeys.includes(item));
+    // if (hasPreviews) {
+    console.log('clear previews');
+    clearMessagesBadge(currentProfile.id);
+    // }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentProfile, profiles, messages]);
+  }, [currentProfile]);
 
   if (!currentProfile || !isMessagesEnabled) {
     return <Custom404 />;
