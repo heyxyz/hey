@@ -35,11 +35,15 @@ const SinglePublication: FC<Props> = ({
   const { push } = useRouter();
   const isMirror = publication.__typename === 'Mirror';
   const firstComment = feedItem?.comments && feedItem.comments[0];
-  const rootPublication = feedItem
-    ? firstComment && feedItem.root.__typename !== 'Comment'
-      ? firstComment
-      : feedItem?.root
-    : publication;
+
+  const getRootPublication = () => {
+    if (!feedItem) {
+      return publication;
+    }
+    return firstComment && feedItem.root.__typename !== 'Comment' ? firstComment : feedItem?.root;
+  };
+
+  const rootPublication = getRootPublication();
   const profile = feedItem
     ? rootPublication.profile
     : isMirror
