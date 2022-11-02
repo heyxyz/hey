@@ -45,7 +45,7 @@ const MessageTile: FC<MessageTileProps> = ({ message, profile, currentProfile })
         <div
           className={clsx(
             address === message.senderAddress ? 'bg-brand-500' : 'bg-gray-100',
-            'px-4 py-2 rounded-lg'
+            'px-4 py-2 rounded-lg w-full'
           )}
         >
           <span
@@ -129,16 +129,12 @@ const MessagesList: FC<MessageListProps> = ({
   return (
     <div className="flex-grow flex h-[75%]">
       <div className="relative w-full h-full pl-4 flex">
-        <div
-          id="scrollableDiv"
-          className="flex flex-col h-full overflow-y-auto w-full"
-          style={{ flexDirection: 'column-reverse' }}
-        >
+        <div id="scrollableDiv" className="flex flex-col-reverse h-full overflow-y-auto w-full">
           {missingXmtpAuth && <MissingXmtpAuth />}
           <InfiniteScroll
             dataLength={messages.length}
             next={fetchNextMessages}
-            style={{ display: 'flex', flexDirection: 'column-reverse' }}
+            className="flex flex-col-reverse overflow-y-auto overflow-x-hidden"
             inverse
             endMessage={<ConversationBeginningNotice />}
             hasMore={hasMore}
