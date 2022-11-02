@@ -13,7 +13,7 @@ const NoConversationSelected = () => {
   return (
     <div className="text-center flex flex-col h-full">
       <div className="m-auto">
-        <span className="text-5xl text-center">👋🏻</span>
+        <span className="text-5xl text-center">👋</span>
         <h3 className="text-lg mt-3 mb-2">Select a conversation</h3>
         <p className="max-w-xs text-md text-gray-500">
           Choose an existing conversation or create a new one to start messaging
