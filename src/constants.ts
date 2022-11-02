@@ -106,6 +106,7 @@ export const BUNDLR_NODE_URL = 'https://node2.bundlr.network';
 // UI
 export const MESSAGE_PAGE_LIMIT = 15;
 export const SCROLL_THRESHOLD = 0.5;
+export const MIN_WIDTH_DESKTOP = 1024;
 
 // Named transforms
 export const AVATAR = 'avatar';
