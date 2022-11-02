@@ -13,7 +13,8 @@ const NotificationIcon: FC = () => {
   const [showBadge, setShowBadge] = useState(false);
   const { data } = useQuery(NotificationCountDocument, {
     variables: { request: { profileId: currentProfile?.id, customFilters: [CustomFiltersTypes.Gardeners] } },
-    skip: !currentProfile?.id
+    skip: !currentProfile?.id,
+    fetchPolicy: 'no-cache' // without no-cache the totalcount is NaN and returns the same.
   });
 
   useEffect(() => {
