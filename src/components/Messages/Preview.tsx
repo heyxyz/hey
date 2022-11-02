@@ -61,7 +61,7 @@ const Preview: FC<Props> = ({ profile, message, conversationKey, isSelected }) =
               </span>
             )}
           </div>
-          <span className="text-sm text-gray-500 line-clamp-1">
+          <span className="text-sm text-gray-500 line-clamp-1 break-all">
             {address === message.senderAddress && 'You: '} {message.content}
           </span>
         </div>
