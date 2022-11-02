@@ -55,7 +55,7 @@
     "zustand": "^4.1.4"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^2.13.7",
+    "@graphql-codegen/cli": "^2.13.10",
     "@graphql-codegen/fragment-matcher": "^3.3.1",
     "@graphql-codegen/typed-document-node": "^2.3.5",
     "@graphql-codegen/typescript": "^2.8.0",
