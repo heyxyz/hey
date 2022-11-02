@@ -129,21 +129,12 @@ const MessagesList: FC<MessageListProps> = ({
   return (
     <div className="flex-grow flex h-[75%]">
       <div className="relative w-full h-full pl-4 flex">
-        <div
-          id="scrollableDiv"
-          className="flex flex-col h-full overflow-y-auto w-full"
-          style={{ flexDirection: 'column-reverse' }}
-        >
+        <div id="scrollableDiv" className="flex flex-col-reverse h-full overflow-y-auto w-full">
           {missingXmtpAuth && <MissingXmtpAuth />}
           <InfiniteScroll
             dataLength={messages.length}
             next={fetchNextMessages}
-            style={{
-              display: 'flex',
-              flexDirection: 'column-reverse',
-              overflowY: 'auto',
-              overflowX: 'hidden'
-            }}
+            className="flex flex-col-reverse overflow-y-auto overflow-x-hidden"
             inverse
             endMessage={<ConversationBeginningNotice />}
             hasMore={hasMore}
