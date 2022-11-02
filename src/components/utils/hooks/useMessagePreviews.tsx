@@ -60,9 +60,6 @@ const useMessagePreviews = () => {
         newMessageProfiles.set(key, profile);
       }
       setMessageProfiles(newMessageProfiles);
-
-      // TODO: Add pagination of results once Lens fixes an issue with their API where pagination and cursor
-      // are not respected when querying by profileIds.
     }
   });
 

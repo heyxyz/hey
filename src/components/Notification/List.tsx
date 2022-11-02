@@ -13,7 +13,7 @@ import type {
 } from '@generated/types';
 import { NotificationTypes } from '@generated/types';
 import { CustomFiltersTypes, NotificationsDocument } from '@generated/types';
-import { MailIcon } from '@heroicons/react/outline';
+import { LightningBoltIcon } from '@heroicons/react/outline';
 import type { FC } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { SCROLL_THRESHOLD } from 'src/constants';
@@ -80,7 +80,7 @@ const List: FC<Props> = ({ feedType }) => {
             <span>Inbox zero!</span>
           </div>
         }
-        icon={<MailIcon className="w-8 h-8 text-brand" />}
+        icon={<LightningBoltIcon className="w-8 h-8 text-brand" />}
         hideCard
       />
     );
