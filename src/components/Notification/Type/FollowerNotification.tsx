@@ -1,14 +1,12 @@
 import type { NewFollowerNotification } from '@generated/types';
 import { UserAddIcon } from '@heroicons/react/solid';
-import dayjs from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime';
 import type { FC } from 'react';
+import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
 
 import { NotificationProfileAvatar, NotificationProfileName } from '../Profile';
 import { NotificationWalletProfileAvatar, NotificationWalletProfileName } from '../WalletProfile';
-
-dayjs.extend(relativeTime);
+import Actions from './Actions';
 
 interface Props {
   notification: NewFollowerNotification;
@@ -16,6 +14,7 @@ interface Props {
 
 const FollowerNotification: FC<Props> = ({ notification }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const [following, setFollowing] = useState(notification?.wallet?.defaultProfile?.isFollowedByMe);
   const isSuperFollow = currentProfile?.followModule?.__typename === 'FeeFollowModuleSettings';
 
   return (
@@ -44,7 +43,9 @@ const FollowerNotification: FC<Props> = ({ notification }) => {
           </span>
         </div>
       </div>
-      <div className="text-gray-400 text-[12px]">{dayjs(new Date(notification?.createdAt)).fromNow()}</div>
+      {notification?.wallet?.defaultProfile && (
+        <Actions profile={notification?.wallet?.defaultProfile} notification={notification} />
+      )}
     </div>
   );
 };

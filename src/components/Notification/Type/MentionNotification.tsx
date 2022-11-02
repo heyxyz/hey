@@ -7,6 +7,7 @@ import Link from 'next/link';
 import type { FC } from 'react';
 
 import { NotificationProfileAvatar, NotificationProfileName } from '../Profile';
+import Actions from './Actions';
 
 dayjs.extend(relativeTime);
 
@@ -38,7 +39,7 @@ const MentionNotification: FC<Props> = ({ notification }) => {
           </Link>
         </div>
       </div>
-      <div className="text-gray-400 text-[12px]">{dayjs(new Date(notification?.createdAt)).fromNow()}</div>
+      {profile && <Actions profile={profile} notification={notification} />}
     </div>
   );
 };
