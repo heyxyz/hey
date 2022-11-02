@@ -47,7 +47,7 @@ const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
       clearMessagesBadge(currentProfile.id);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentProfile]);
+  }, [currentProfile, profiles, messages]);
 
   if (!currentProfile || !isMessagesEnabled) {
     return <Custom404 />;
