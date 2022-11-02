@@ -42,7 +42,7 @@ const Home: NextPage = () => {
         </GridItemEight>
         <GridItemFour>
           {currentProfile ? <EnableDispatcher /> : null}
-          {isFeatureEnabled('messages', currentProfile?.id) && <EnableMessages />}
+          {currentProfile ? <EnableMessages /> : null}
           <BetaWarning />
           {isFeatureEnabled('trending-widget', currentProfile?.id) && <Trending />}
           {currentProfile ? (

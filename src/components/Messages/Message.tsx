@@ -8,7 +8,6 @@ import useSendMessage from '@components/utils/hooks/useSendMessage';
 import useStreamMessages from '@components/utils/hooks/useStreamMessages';
 import MetaTags from '@components/utils/MetaTags';
 import { parseConversationKey } from '@lib/conversationKey';
-import isFeatureEnabled from '@lib/isFeatureEnabled';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
@@ -51,7 +50,7 @@ const Message: FC<MessageProps> = ({ conversationKey }) => {
     }
   }, [conversationKey, hasMore, messages, endTime]);
 
-  if (!currentProfile || !isFeatureEnabled('messages', currentProfile?.id)) {
+  if (!currentProfile) {
     return <Custom404 />;
   }
 
