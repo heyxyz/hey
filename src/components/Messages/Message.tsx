@@ -63,7 +63,10 @@ const Message: FC<MessageProps> = ({ conversationKey }) => {
   return (
     <GridLayout classNameChild="md:gap-8">
       <MetaTags title={title} />
-      <PreviewList className="md:block sm:hidden xs:hidden" selectedConversationKey={conversationKey} />
+      <PreviewList
+        className="lg:block md:hidden sm:hidden xs:hidden"
+        selectedConversationKey={conversationKey}
+      />
       <GridItemEight className="xs:h-[85vh] sm:h-[76vh] md:h-[80vh] xl:h-[84vh] mb-0 md:col-span-8 sm:mx-2 xs:mx-2">
         <Card className="h-full flex justify-between flex-col">
           {showLoading ? (
