@@ -12,6 +12,7 @@ import type { Profile } from '@generated/types';
 import { MailIcon, PlusCircleIcon } from '@heroicons/react/outline';
 import buildConversationId from '@lib/buildConversationId';
 import { buildConversationKey } from '@lib/conversationKey';
+import clsx from 'clsx';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
@@ -95,7 +96,10 @@ const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
 
   return (
     <GridItemFour
-      className={`xs:h-[85vh] sm:h-[76vh] md:h-[80vh] xl:h-[84vh] mb-0 md:col-span-4 sm:mx-2 xs:mx-2 ${className}`}
+      className={clsx(
+        'xs:h-[85vh] sm:h-[76vh] md:h-[80vh] xl:h-[84vh] mb-0 md:col-span-4 sm:mx-2 xs:mx-2',
+        className
+      )}
     >
       <Card className="h-full flex justify-between flex-col">
         <div className="flex justify-between items-center p-5 border-b">
@@ -146,16 +150,14 @@ const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
         show={showSearchModal}
         onClose={() => setShowSearchModal(false)}
       >
-        <div className="pb-2">
-          <div className="w-full pt-4 px-4">
-            <Search
-              modalWidthClassName="max-w-lg"
-              placeholder="Search for someone to message..."
-              onProfileSelected={onProfileSelected}
-            />
-          </div>
-          {currentProfile && <Following profile={currentProfile} onProfileSelected={onProfileSelected} />}
+        <div className="w-full pt-4 px-4">
+          <Search
+            modalWidthClassName="max-w-lg"
+            placeholder="Search for someone to message..."
+            onProfileSelected={onProfileSelected}
+          />
         </div>
+        {currentProfile && <Following profile={currentProfile} onProfileSelected={onProfileSelected} />}
       </Modal>
     </GridItemFour>
   );
