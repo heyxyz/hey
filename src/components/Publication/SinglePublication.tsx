@@ -39,24 +39,33 @@ const SinglePublication: FC<Props> = ({
   const getRootPublication = () => {
     if (!feedItem) {
       return publication;
+    } else if (firstComment && feedItem.root.__typename !== 'Comment') {
+      return firstComment;
+    } else {
+      return feedItem?.root;
     }
-    return firstComment && feedItem.root.__typename !== 'Comment' ? firstComment : feedItem?.root;
   };
   const rootPublication = getRootPublication();
 
   const getProfile = () => {
     if (feedItem) {
       return rootPublication.profile;
+    } else if (isMirror) {
+      return publication?.mirrorOf?.profile;
+    } else {
+      return publication?.profile;
     }
-    return isMirror ? publication?.mirrorOf?.profile : publication?.profile;
   };
   const profile = getProfile();
 
   const getTimestamp = () => {
     if (feedItem) {
       return rootPublication.createdAt;
+    } else if (isMirror) {
+      return publication?.mirrorOf?.createdAt;
+    } else {
+      return publication?.createdAt;
     }
-    return isMirror ? publication?.mirrorOf?.createdAt : publication?.createdAt;
   };
   const timestamp = getTimestamp();
 
