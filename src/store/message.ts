@@ -95,18 +95,14 @@ export const useMessagePersistStore = create(
       setShowMessagesBadge: (showMessagesBadge) => set(() => ({ showMessagesBadge })),
       clearMessagesBadge: (profileId: string) => {
         set((state) => {
-          if (state.showMessagesBadge.get(profileId)) {
-            const viewedAt = new Map(state.viewedMessagesAtNs);
-            const show = new Map(state.showMessagesBadge);
-            viewedAt.set(profileId, toNanoString(new Date()));
-            show.set(profileId, false);
-            return { viewedMessagesAtNs: viewedAt, showMessagesBadge: show };
-          } else {
-            return {
-              viewedMessagesAtNs: state.viewedMessagesAtNs,
-              showMessagesBadge: state.showMessagesBadge
-            };
+          const viewedAt = new Map(state.viewedMessagesAtNs);
+          viewedAt.set(profileId, toNanoString(new Date()));
+          if (!state.showMessagesBadge.get(profileId)) {
+            return { viewedMessagesAtNs: viewedAt };
           }
+          const show = new Map(state.showMessagesBadge);
+          show.set(profileId, false);
+          return { viewedMessagesAtNs: viewedAt, showMessagesBadge: show };
         });
       }
     }),

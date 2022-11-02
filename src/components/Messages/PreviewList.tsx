@@ -59,11 +59,7 @@ const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
   }, [sortedProfiles, router.pathname, width]);
 
   useEffect(() => {
-    if (!isMessagesEnabled) {
-      return;
-    }
-    if (!currentProfile || !profiles.size || !messages.size) {
-      clearMessagesBadge(currentProfile?.id);
+    if (!isMessagesEnabled || !currentProfile) {
       return;
     }
     const profileKeys = Array.from(profiles.keys());
