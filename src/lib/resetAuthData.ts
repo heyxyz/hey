@@ -6,6 +6,7 @@ const resetAuthData = () => {
   localStorage.removeItem(LS_KEYS.LENSTER_STORE);
   localStorage.removeItem(LS_KEYS.TRANSACTION_STORE);
   localStorage.removeItem(LS_KEYS.TIMELINE_STORE);
+  localStorage.removeItem(LS_KEYS.MESSAGE_STORE);
 };
 
 export default resetAuthData;

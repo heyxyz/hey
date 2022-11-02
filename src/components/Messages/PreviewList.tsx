@@ -7,6 +7,7 @@ import { GridItemFour } from '@components/UI/GridLayout';
 import { Modal } from '@components/UI/Modal';
 import { PageLoading } from '@components/UI/PageLoading';
 import useMessagePreviews from '@components/utils/hooks/useMessagePreviews';
+import useWindowSize from '@components/utils/hooks/useWindowSize';
 import type { Profile } from '@generated/types';
 import { MailIcon, PlusCircleIcon } from '@heroicons/react/outline';
 import buildConversationId from '@lib/buildConversationId';
@@ -14,25 +15,63 @@ import { buildConversationKey } from '@lib/conversationKey';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { MIN_WIDTH_DESKTOP } from 'src/constants';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
 import { useAppStore } from 'src/store/app';
-import { useMessageStore } from 'src/store/message';
+import { useMessagePersistStore, useMessageStore } from 'src/store/message';
 
 interface Props {
   className?: string;
+  selectedConversationKey?: string;
 }
 
-const PreviewList: FC<Props> = ({ className }) => {
+const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
   const router = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const messageProfiles = useMessageStore((state) => state.messageProfiles);
   const setMessageProfiles = useMessageStore((state) => state.setMessageProfiles);
   const [showSearchModal, setShowSearchModal] = useState(false);
   const { authenticating, loading, messages, profiles, profilesError } = useMessagePreviews();
+  const { width } = useWindowSize();
+  const clearMessagesBadge = useMessagePersistStore((state) => state.clearMessagesBadge);
+  const isMessagesEnabled = isFeatureEnabled('messages', currentProfile?.id);
 
-  if (!currentProfile || !isFeatureEnabled('messages', currentProfile.id)) {
+  const sortedProfiles = Array.from(profiles).sort(([keyA], [keyB]) => {
+    const messageA = messages.get(keyA);
+    const messageB = messages.get(keyB);
+    return (messageA?.sent?.getTime() || 0) >= (messageB?.sent?.getTime() || 0) ? -1 : 1;
+  });
+
+  useEffect(() => {
+    // Ignore this hook on mobile, since we use the /messages route to show the conversation list
+    if (!width || width < MIN_WIDTH_DESKTOP) {
+      return;
+    }
+    // If the user is on the /messages route and there are profiles, redirect to the top sorted one
+    // TODO: Move this to a higher component once we merge Message.tsx and index.tsx into a single view
+    if (router.pathname === '/messages' && sortedProfiles.length) {
+      const [conversationKey] = sortedProfiles[0];
+      router.push(`/messages/${conversationKey}`);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sortedProfiles, router.pathname, width]);
+
+  useEffect(() => {
+    if (!isMessagesEnabled || !currentProfile) {
+      return;
+    }
+    const profileKeys = Array.from(profiles.keys());
+    const messageKeys = Array.from(messages.keys());
+    const hasPreviews = profileKeys.some((item) => messageKeys.includes(item));
+    if (hasPreviews) {
+      clearMessagesBadge(currentProfile.id);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentProfile, profiles, messages]);
+
+  if (!currentProfile || !isMessagesEnabled) {
     return <Custom404 />;
   }
 
@@ -43,18 +82,12 @@ const PreviewList: FC<Props> = ({ className }) => {
   const showAuthenticating = currentProfile && authenticating;
   const showLoading = loading && (messages.size === 0 || profiles.size === 0);
 
-  const sortedProfiles = Array.from(profiles).sort(([keyA], [keyB]) => {
-    const messageA = messages.get(keyA);
-    const messageB = messages.get(keyB);
-    return (messageA?.sent?.getTime() || 0) >= (messageB?.sent?.getTime() || 0) ? -1 : 1;
-  });
-
   const newMessageClick = () => {
     setShowSearchModal(true);
   };
 
   const onProfileSelected = (profile: Profile) => {
-    const conversationId = buildConversationId(currentProfile.id, profile.id);
+    const conversationId = buildConversationId(currentProfile?.id, profile.id);
     const conversationKey = buildConversationKey(profile.ownedBy, conversationId);
     messageProfiles.set(conversationKey, profile);
     setMessageProfiles(new Map(messageProfiles));
@@ -95,7 +128,15 @@ const PreviewList: FC<Props> = ({ className }) => {
                 return null;
               }
 
-              return <Preview key={key} profile={profile} conversationKey={key} message={message} />;
+              return (
+                <Preview
+                  isSelected={key === selectedConversationKey}
+                  key={key}
+                  profile={profile}
+                  conversationKey={key}
+                  message={message}
+                />
+              );
             })
           )}
         </div>
@@ -109,9 +150,13 @@ const PreviewList: FC<Props> = ({ className }) => {
       >
         <div className="pb-2">
           <div className="w-full pt-4 px-4">
-            <Search placeholder="Search for someone to message..." onProfileSelected={onProfileSelected} />
+            <Search
+              modalWidthClassName="max-w-lg"
+              placeholder="Search for someone to message..."
+              onProfileSelected={onProfileSelected}
+            />
           </div>
-          <Following profile={currentProfile} onProfileSelected={onProfileSelected} />
+          {currentProfile && <Following profile={currentProfile} onProfileSelected={onProfileSelected} />}
         </div>
       </Modal>
     </GridItemFour>

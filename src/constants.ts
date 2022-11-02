@@ -106,6 +106,7 @@ export const BUNDLR_NODE_URL = 'https://node2.bundlr.network';
 // UI
 export const MESSAGE_PAGE_LIMIT = 15;
 export const SCROLL_THRESHOLD = 0.5;
+export const MIN_WIDTH_DESKTOP = 1024;
 
 // Named transforms
 export const AVATAR = 'avatar';
@@ -116,5 +117,6 @@ export const ATTACHMENT = 'attachment';
 export const LS_KEYS = {
   LENSTER_STORE: 'lenster.store',
   TRANSACTION_STORE: 'transaction.store',
-  TIMELINE_STORE: 'timeline.store'
+  TIMELINE_STORE: 'timeline.store',
+  MESSAGE_STORE: 'message.store'
 };

@@ -17,9 +17,15 @@ interface Props {
   hideDropdown?: boolean;
   onProfileSelected?: (profile: Profile) => void;
   placeholder?: string;
+  modalWidthClassName?: string;
 }
 
-const Search: FC<Props> = ({ hideDropdown = false, onProfileSelected, placeholder = 'Search...' }) => {
+const Search: FC<Props> = ({
+  hideDropdown = false,
+  onProfileSelected,
+  placeholder = 'Search...',
+  modalWidthClassName = 'max-w-md'
+}) => {
   const { push, pathname, query } = useRouter();
   const [searchText, setSearchText] = useState('');
   const dropdownRef = useRef(null);
@@ -60,27 +66,25 @@ const Search: FC<Props> = ({ hideDropdown = false, onProfileSelected, placeholde
   const profiles = searchUsersData?.search?.items ?? [];
 
   return (
-    <>
-      <div aria-hidden="true" className="w-full">
-        <form onSubmit={handleKeyDown}>
-          <Input
-            type="text"
-            className="py-2 px-3 text-sm"
-            placeholder={placeholder}
-            value={searchText}
-            iconLeft={<SearchIcon />}
-            iconRight={
-              <XIcon
-                className={clsx('cursor-pointer', searchText ? 'visible' : 'invisible')}
-                onClick={() => setSearchText('')}
-              />
-            }
-            onChange={handleSearch}
-          />
-        </form>
-      </div>
+    <div aria-hidden="true" className="w-full">
+      <form onSubmit={handleKeyDown}>
+        <Input
+          type="text"
+          className="py-2 px-3 text-sm"
+          placeholder={placeholder}
+          value={searchText}
+          iconLeft={<SearchIcon />}
+          iconRight={
+            <XIcon
+              className={clsx('cursor-pointer', searchText ? 'visible' : 'invisible')}
+              onClick={() => setSearchText('')}
+            />
+          }
+          onChange={handleSearch}
+        />
+      </form>
       {pathname !== '/search' && !hideDropdown && searchText.length > 0 && (
-        <div className="flex absolute flex-col mt-2 w-full sm:max-w-md" ref={dropdownRef}>
+        <div className={clsx('flex absolute flex-col mt-2 w-[94%]', modalWidthClassName)} ref={dropdownRef}>
           <Card className="overflow-y-auto py-2 max-h-[80vh]">
             {searchUsersLoading ? (
               <div className="py-2 px-4 space-y-2 text-sm font-bold text-center">
@@ -109,7 +113,7 @@ const Search: FC<Props> = ({ hideDropdown = false, onProfileSelected, placeholde
           </Card>
         </div>
       )}
-    </>
+    </div>
   );
 };
 
