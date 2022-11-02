@@ -35,7 +35,7 @@ body {
 
 .linkify-message a {
   @apply hover:decoration-2;
-  @apply underline
+  @apply underline;
 }
 
 .identicon {
