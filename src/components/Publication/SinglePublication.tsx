@@ -64,7 +64,6 @@ const SinglePublication: FC<Props> = ({
         </span>
         <span className="text-xs text-gray-500">{dayjs(new Date(timestamp)).fromNow()}</span>
       </div>
-      <button onClick={() => console.log(feedItem)}>Log</button>
       <div className="ml-[53px]" onClick={() => push(`/posts/${rootPublication?.id}`)}>
         {publication?.hidden ? (
           <HiddenPublication type={publication.__typename} />
