@@ -17,7 +17,6 @@ import { buildConversationKey } from '@lib/conversationKey';
 import formatAddress from '@lib/formatAddress';
 import getAttribute from '@lib/getAttribute';
 import getAvatar from '@lib/getAvatar';
-import isFeatureEnabled from '@lib/isFeatureEnabled';
 import isStaff from '@lib/isStaff';
 import isVerified from '@lib/isVerified';
 import Link from 'next/link';
@@ -115,17 +114,17 @@ const Details: FC<Props> = ({ profile }) => {
                 {followType === 'FeeFollowModuleSettings' && (
                   <SuperFollow profile={profile} setFollowing={setFollowing} again />
                 )}
-                {isFeatureEnabled('messages', currentProfile?.id) && <Message onClick={onMessageClick} />}
+                {currentProfile && <Message onClick={onMessageClick} />}
               </div>
             ) : followType === 'FeeFollowModuleSettings' ? (
               <div className="flex space-x-2">
                 <SuperFollow profile={profile} setFollowing={setFollowing} showText />
-                {isFeatureEnabled('messages', currentProfile?.id) && <Message onClick={onMessageClick} />}
+                {currentProfile && <Message onClick={onMessageClick} />}
               </div>
             ) : (
               <div className="flex space-x-2">
                 <Follow profile={profile} setFollowing={setFollowing} showText />
-                {isFeatureEnabled('messages', currentProfile?.id) && <Message onClick={onMessageClick} />}
+                {currentProfile && <Message onClick={onMessageClick} />}
               </div>
             )
           ) : null}

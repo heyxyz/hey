@@ -1,7 +1,6 @@
 import { Card } from '@components/UI/Card';
 import { GridItemEight, GridLayout } from '@components/UI/GridLayout';
 import MetaTags from '@components/utils/MetaTags';
-import isFeatureEnabled from '@lib/isFeatureEnabled';
 import type { NextPage } from 'next';
 import { APP_NAME } from 'src/constants';
 import Custom404 from 'src/pages/404';
@@ -12,7 +11,7 @@ import PreviewList from './PreviewList';
 const Messages: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
-  if (!currentProfile || !isFeatureEnabled('messages', currentProfile?.id)) {
+  if (!currentProfile) {
     return <Custom404 />;
   }
 
