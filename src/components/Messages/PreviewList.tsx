@@ -40,13 +40,12 @@ const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
     if (!isMessagesEnabled || !currentProfile) {
       return;
     }
-    // const profileKeys = Array.from(profiles.keys());
-    // const messageKeys = Array.from(messages.keys());
-    // const hasPreviews = profileKeys.some((item) => messageKeys.includes(item));
-    // if (hasPreviews) {
-    console.log('clear previews');
-    clearMessagesBadge(currentProfile.id);
-    // }
+    const profileKeys = Array.from(profiles.keys());
+    const messageKeys = Array.from(messages.keys());
+    const hasPreviews = profileKeys.some((item) => messageKeys.includes(item));
+    if (hasPreviews) {
+      clearMessagesBadge(currentProfile.id);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentProfile]);
 

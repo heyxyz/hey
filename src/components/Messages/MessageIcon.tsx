@@ -4,7 +4,6 @@ import conversationMatchesProfile from '@lib/conversationMatchesProfile';
 import type { DecodedMessage } from '@xmtp/xmtp-js';
 import { fromNanoString, SortDirection } from '@xmtp/xmtp-js';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useEffect } from 'react';
 import { useAppStore } from 'src/store/app';
@@ -17,14 +16,6 @@ const MessageIcon: FC = () => {
   const viewedMessagesAtNs = useMessagePersistStore((state) => state.viewedMessagesAtNs);
   const showMessagesBadge = useMessagePersistStore((state) => state.showMessagesBadge);
   const setShowMessagesBadge = useMessagePersistStore((state) => state.setShowMessagesBadge);
-  const { pathname } = useRouter();
-  type PathValidator = (streamPath: string) => boolean;
-  // const [isStreamClosing, setIsStreamClosing] = useState(false);
-
-  // useEffect(() => {
-  //   console.log('new pathname: ' + pathname);
-  //   setCurrentPath(pathname);
-  // }, [pathname]);
 
   const shouldShowBadge = (viewedAt: string | undefined, messageSentAt: Date | undefined): boolean => {
     if (!messageSentAt) {
@@ -46,13 +37,6 @@ const MessageIcon: FC = () => {
     const matcherRegex = conversationMatchesProfile(currentProfile.id);
 
     const fetchShowBadge = async () => {
-      if (pathname.startsWith('/messages')) {
-        // For v1 badging, only badge when not already viewing messages. Once we have
-        // badging per-conversation, we can remove this.
-        clearMessagesBadge(currentProfile.id);
-        // console.log('cleared messages tab fetch');
-        return;
-      }
       const convos = await cachedClient.conversations.list();
       const matchingConvos = convos.filter(
         (convo) => convo.context?.conversationId && matcherRegex.test(convo.context.conversationId)
@@ -70,72 +54,47 @@ const MessageIcon: FC = () => {
       const sentAt = fromNanoString(mostRecentMessage?.timestampNs);
       const showBadge = shouldShowBadge(viewedMessagesAtNs.get(currentProfile.id), sentAt);
       showMessagesBadge.set(currentProfile.id, showBadge);
-      // console.log('fetch show badge ' + showBadge);
       setShowMessagesBadge(new Map(showMessagesBadge));
     };
 
     let messageStream: AsyncGenerator<DecodedMessage>;
     const closeMessageStream = async () => {
       if (messageStream) {
-        console.log('close stream start');
         await messageStream.return(undefined); // eslint-disable-line unicorn/no-useless-undefined
-        console.log('close stream end');
       }
     };
 
-    const streamPathValidator = (streamPath: string): boolean => {
-      console.log('path: ' + pathname + ' sp: ' + streamPath);
-      return !window.location.pathname.startsWith('/messages') && pathname === streamPath;
+    // For v1 badging, only badge when not already viewing messages. Once we have
+    // badging per-conversation, we can remove this.
+    const newMessageValidator = (profileId: string): boolean => {
+      return !window.location.pathname.startsWith('/messages') && currentProfile.id === profileId;
     };
 
-    const streamAllMessages = async (pathValidator: PathValidator) => {
-      console.log('new stream for path: ' + pathname);
+    const streamAllMessages = async (messageValidator: (profileId: string) => boolean) => {
       messageStream = await cachedClient.conversations.streamAllMessages();
 
       for await (const message of messageStream) {
-        if (pathValidator(pathname)) {
-          console.log('NEW MSG! from stream path: ' + pathname);
+        if (messageValidator(currentProfile.id)) {
           const conversationId = message.conversation.context?.conversationId;
           const isFromPeer = currentProfile.ownedBy !== message.senderAddress;
           if (isFromPeer && conversationId && matcherRegex.test(conversationId)) {
             const showBadge = shouldShowBadge(viewedMessagesAtNs.get(currentProfile.id), message.sent);
             showMessagesBadge.set(currentProfile.id, showBadge);
-            // console.log('stream show badge: ' + currentProfile.handle + ' : ' + showBadge);
             setShowMessagesBadge(new Map(showMessagesBadge));
           }
-        } else {
-          console.log('swallowed path: ' + pathname);
-          // For v1 badging, only badge when not already viewing messages. Once we have
-          // badging per-conversation, we can remove this.
-          clearMessagesBadge(currentProfile.id);
-          // console.log('cleared messages tab stream ' + currentProfile.handle);
         }
       }
     };
 
     fetchShowBadge();
-    streamAllMessages(streamPathValidator);
+    streamAllMessages(newMessageValidator);
 
     return () => {
       closeMessageStream();
     };
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [cachedClient, currentProfile?.id, pathname]);
-
-  // useEffect(() => {
-  //   if (!currentProfile) {
-  //     return;
-  //   }
-
-  //   console.log('show for prof: ' + currentProfile.handle + showMessagesBadge.get(currentProfile.id));
-  //   setBadgeForProfile(showMessagesBadge.get(currentProfile.id) || false);
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [currentProfile, showMessagesBadge]);
-
-  // console.log(
-  //   'show badge: ' + showMessagesBadge.get(currentProfile?.id) + ' ' + currentProfile?.handle
-  // );
+  }, [cachedClient, currentProfile?.id]);
 
   return (
     <Link
