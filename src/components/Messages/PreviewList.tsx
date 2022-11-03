@@ -85,7 +85,7 @@ const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
       )}
     >
       <Card className="h-full flex justify-between flex-col">
-        <div className="flex justify-between items-center p-5 border-b">
+        <div className="flex justify-between items-center p-5 border-b dark:border-gray-700">
           <div className="font-bold">Messages</div>
           {currentProfile && !showAuthenticating && !showLoading && (
             <button onClick={newMessageClick} type="button">
