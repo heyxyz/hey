@@ -34,7 +34,8 @@ body {
 }
 
 .linkify-message a {
-  @apply hover:text-brand-600 dark:hover:text-brand-500;
+  @apply hover:decoration-2;
+  @apply underline;
 }
 
 .identicon {
