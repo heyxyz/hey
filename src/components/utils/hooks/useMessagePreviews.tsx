@@ -3,6 +3,7 @@ import useXmtpClient from '@components/utils/hooks/useXmtpClient';
 import type { Profile } from '@generated/types';
 import { ProfilesDocument } from '@generated/types';
 import buildConversationId from '@lib/buildConversationId';
+import chunkArray from '@lib/chunkArray';
 import { buildConversationKey, parseConversationKey } from '@lib/conversationKey';
 import conversationMatchesProfile from '@lib/conversationMatchesProfile';
 import type { Conversation, Stream } from '@xmtp/xmtp-js';
@@ -13,7 +14,7 @@ import { useEffect, useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
 
-const MAX_PROFILES_TO_LOAD_CONCURRENTLY = 3;
+const MAX_PROFILES_TO_LOAD_CONCURRENTLY = 50;
 
 const useMessagePreviews = () => {
   const router = useRouter();
@@ -63,18 +64,22 @@ const useMessagePreviews = () => {
     const loadLatest = async () => {
       setProfilesLoading(true);
       const newMessageProfiles = new Map(messageProfiles);
-      while (toQuery.length) {
-        try {
-          // Remove 50 items at a time from the list
-          const batch = toQuery.splice(0, MAX_PROFILES_TO_LOAD_CONCURRENTLY);
-          const result = await apolloClient.query({
-            query: ProfilesDocument,
-            variables: { request: { profileIds: batch } }
-          });
+      const chunks = chunkArray(toQuery, MAX_PROFILES_TO_LOAD_CONCURRENTLY);
+      try {
+        const results = await Promise.all(
+          chunks.map((profileIdChunk) =>
+            apolloClient.query({
+              query: ProfilesDocument,
+              variables: { request: { profileIds: profileIdChunk } }
+            })
+          )
+        );
 
+        for (const result of results) {
           if (!result.data?.profiles.items) {
-            break;
+            continue;
           }
+
           const profiles = result.data.profiles.items as Profile[];
           for (const profile of profiles) {
             const peerAddress = profile.ownedBy as string;
@@ -84,11 +89,11 @@ const useMessagePreviews = () => {
             );
             newMessageProfiles.set(key, profile);
           }
-        } catch (error: unknown) {
-          setProfilesError(error as Error);
-          break;
         }
+      } catch (error: unknown) {
+        setProfilesError(error as Error);
       }
+
       setMessageProfiles(newMessageProfiles);
       setProfilesLoading(false);
     };
