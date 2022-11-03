@@ -44,7 +44,7 @@ const MessageTile: FC<MessageTileProps> = ({ message, profile, currentProfile })
         )}
         <div
           className={clsx(
-            address === message.senderAddress ? 'bg-brand-500' : 'bg-gray-100',
+            address === message.senderAddress ? 'bg-brand-500' : 'bg-gray-100 dark:bg-gray-700',
             'px-4 py-2 rounded-lg w-full'
           )}
         >

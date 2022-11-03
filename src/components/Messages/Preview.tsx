@@ -36,7 +36,7 @@ const Preview: FC<Props> = ({ profile, message, conversationKey, isSelected }) =
         'cursor-pointer',
         'hover:bg-gray-100',
         'dark:hover:bg-gray-800',
-        isSelected && 'bg-gray-50'
+        isSelected && 'bg-gray-50 dark:bg-gray-800'
       )}
       onClick={() => onConversationSelected(profile.id)}
     >
