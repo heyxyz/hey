@@ -13,7 +13,7 @@ import { useEffect, useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
 
-const MAX_PREVIEWS_TO_LOAD = 50;
+const MAX_PROFILES_TO_LOAD_CONCURRENTLY = 3;
 
 const useMessagePreviews = () => {
   const router = useRouter();
@@ -66,7 +66,7 @@ const useMessagePreviews = () => {
       while (toQuery.length) {
         try {
           // Remove 50 items at a time from the list
-          const batch = toQuery.splice(0, MAX_PREVIEWS_TO_LOAD);
+          const batch = toQuery.splice(0, MAX_PROFILES_TO_LOAD_CONCURRENTLY);
           const result = await apolloClient.query({
             query: ProfilesDocument,
             variables: { request: { profileIds: batch } }
@@ -75,7 +75,6 @@ const useMessagePreviews = () => {
           if (!result.data?.profiles.items) {
             break;
           }
-
           const profiles = result.data.profiles.items as Profile[];
           for (const profile of profiles) {
             const peerAddress = profile.ownedBy as string;
