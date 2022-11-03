@@ -50,21 +50,20 @@ const useMessagePreviews = () => {
     if (profilesLoading) {
       return;
     }
-    const allProfileIds = new Set(profileIds);
+    const toQuery = new Set(profileIds);
     // Don't both querying for already seen profiles
     for (const profile of messageProfiles.values()) {
-      allProfileIds.delete(profile.id);
+      toQuery.delete(profile.id);
     }
 
-    const toQuery = Array.from(allProfileIds);
-    if (!toQuery.length) {
+    if (!toQuery.size) {
       return;
     }
 
     const loadLatest = async () => {
       setProfilesLoading(true);
       const newMessageProfiles = new Map(messageProfiles);
-      const chunks = chunkArray(toQuery, MAX_PROFILES_PER_REQUEST);
+      const chunks = chunkArray(Array.from(toQuery), MAX_PROFILES_PER_REQUEST);
       try {
         const results = await Promise.all(
           chunks.map((profileIdChunk) =>
