@@ -30,6 +30,7 @@ import {
   CollectionIcon,
   PhotographIcon,
   PuzzleIcon,
+  ShoppingBagIcon,
   SwitchHorizontalIcon,
   UserIcon,
   UsersIcon
@@ -218,6 +219,26 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
     }
   };
 
+  const shopCollects = () => {
+    if (!publication) {
+      return;
+    }
+    var pubId = '';
+    if (publication.__typename === 'Mirror') {
+      if (!publication.mirrorOf) {
+        return;
+      }
+      pubId = publication.mirrorOf.id;
+    } else {
+      pubId = publication.id;
+    }
+    const decimalProfileId = parseInt(pubId.split('-')[0], 16);
+    const decimalPubId = parseInt(pubId.split('-')[1], 16);
+    const marketplacePublicationId = decimalProfileId + '_' + decimalPubId;
+    const marketplaceUrl = 'http://lensport.io/p/' + marketplacePublicationId;
+    window.open(marketplaceUrl);
+  };
+
   if (loading || revenueLoading) {
     return <Loader message="Loading collect" />;
   }
@@ -392,33 +413,43 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
             <IndexStatus txHash={writeData?.hash ?? broadcastData?.broadcast?.txHash} />
           </div>
         ) : null}
-        {currentProfile && !hasCollectedByMe ? (
-          allowanceLoading || balanceLoading ? (
-            <div className="mt-5 w-28 rounded-lg h-[34px] shimmer" />
-          ) : allowed || collectModule.type === CollectModules.FreeCollectModule ? (
-            hasAmount ? (
-              <Button
-                className="mt-5"
-                onClick={createCollect}
-                disabled={isLoading}
-                icon={isLoading ? <Spinner size="xs" /> : <CollectionIcon className="w-4 h-4" />}
-              >
-                Collect now
-              </Button>
+        <div className="flex items-center space-x-2">
+          {currentProfile && !hasCollectedByMe ? (
+            allowanceLoading || balanceLoading ? (
+              <div className="mt-5 w-28 rounded-lg h-[34px] shimmer" />
+            ) : allowed || collectModule.type === CollectModules.FreeCollectModule ? (
+              hasAmount ? (
+                <Button
+                  className="mt-5"
+                  onClick={createCollect}
+                  disabled={isLoading}
+                  icon={isLoading ? <Spinner size="xs" /> : <CollectionIcon className="w-4 h-4" />}
+                >
+                  Collect now
+                </Button>
+              ) : (
+                <WarningMessage className="mt-5" message={<Uniswap module={collectModule} />} />
+              )
             ) : (
-              <WarningMessage className="mt-5" message={<Uniswap module={collectModule} />} />
+              <div className="mt-5">
+                <AllowanceButton
+                  title="Allow collect module"
+                  module={allowanceData?.approvedModuleAllowanceAmount[0]}
+                  allowed={allowed}
+                  setAllowed={setAllowed}
+                />
+              </div>
             )
-          ) : (
-            <div className="mt-5">
-              <AllowanceButton
-                title="Allow collect module"
-                module={allowanceData?.approvedModuleAllowanceAmount[0]}
-                allowed={allowed}
-                setAllowed={setAllowed}
-              />
-            </div>
-          )
-        ) : null}
+          ) : null}
+          <Button
+            className="mt-5"
+            onClick={shopCollects}
+            disabled={isLoading}
+            icon={isLoading ? <Spinner size="xs" /> : <ShoppingBagIcon className="w-4 h-4" />}
+          >
+            Shop Collects
+          </Button>
+        </div>
         {publication?.hasCollectedByMe && (
           <div className="mt-3 font-bold text-green-500 flex items-center space-x-1.5">
             <CheckCircleIcon className="h-5 w-5" />
