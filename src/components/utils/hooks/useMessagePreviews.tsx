@@ -40,7 +40,7 @@ const useMessagePreviews = () => {
     return parsed.members.find((member) => member !== userAddress) ?? null;
   };
 
-  const request = { ownedBy: Array.from(peerAddresses.values()) };
+  const request = { ownedBy: Array.from(peerAddresses.values()), limit: 50 };
   const {
     loading: profilesLoading,
     error: profilesError,
