@@ -76,7 +76,7 @@ const useMessagePreviews = () => {
         );
 
         for (const result of results) {
-          if (!result.data?.profiles.items) {
+          if (!result.data?.profiles.items.length) {
             continue;
           }
 
