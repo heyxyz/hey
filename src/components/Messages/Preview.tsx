@@ -32,32 +32,40 @@ const Preview: FC<Props> = ({ profile, message, conversationKey, isSelected }) =
   return (
     <div
       className={clsx(
-        { 'bg-gray-50': isSelected },
-        'flex justify-between p-3 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800'
+        'py-3',
+        'cursor-pointer',
+        'hover:bg-gray-100',
+        'dark:hover:bg-gray-800',
+        isSelected && 'bg-gray-50'
       )}
       onClick={() => onConversationSelected(profile.id)}
     >
-      <div className="flex items-center space-x-3">
+      <div className="flex justify-between space-x-3 px-5">
         <img
           src={getAvatar(profile)}
+          loading="lazy"
           className="w-10 h-10 bg-gray-200 rounded-full border dark:border-gray-700/80"
           height={40}
           width={40}
           alt={profile?.handle}
         />
-        <div>
-          <div className="flex items-center">
-            <div className="line-clamp-1 text-md">{profile?.name ?? profile.handle}</div>
-            {isVerified(profile?.id) && <BadgeCheckIcon className="min-w-fit w-4 h-4 text-brand" />}
+        <div className="w-full">
+          <div className="flex w-full justify-between space-x-1">
+            <div className="flex gap-1 items-center max-w-sm">
+              <div className="line-clamp-1 text-md">{profile?.name ?? profile.handle}</div>
+              {isVerified(profile?.id) && <BadgeCheckIcon className="min-w-fit w-4 h-4 text-brand" />}
+            </div>
+            {message.sent && (
+              <span className="min-w-fit pt-0.5 text-xs text-gray-500">
+                {dayjs(new Date(message.sent)).fromNow()}
+              </span>
+            )}
           </div>
-          <span className="text-sm text-gray-500 line-clamp-1 break-words">
-            {address === message.senderAddress && 'You: '} {message.content.substring(0, 16)}
+          <span className="text-sm text-gray-500 line-clamp-1 break-all">
+            {address === message.senderAddress && 'You: '} {message.content}
           </span>
         </div>
       </div>
-      {message.sent && (
-        <span className="ml-4 text-xs text-gray-500">{dayjs(new Date(message.sent)).fromNow()}</span>
-      )}
     </div>
   );
 };

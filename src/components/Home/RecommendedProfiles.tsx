@@ -25,7 +25,9 @@ const Title = () => {
 
 const RecommendedProfiles: FC = () => {
   const [showSuggestedModal, setShowSuggestedModal] = useState(false);
-  const { data, loading, error } = useQuery(RecommendedProfilesDocument);
+  const { data, loading, error } = useQuery(RecommendedProfilesDocument, {
+    variables: { options: { shuffle: true } }
+  });
 
   if (loading) {
     return (
