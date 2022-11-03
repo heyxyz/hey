@@ -1,4 +1,5 @@
 import { LensHubProxy } from '@abis/LensHubProxy';
+import { UpdateOwnableFeeCollectModule } from '@abis/UpdateOwnableFeeCollectModule';
 import { useMutation, useQuery } from '@apollo/client';
 import AllowanceButton from '@components/Settings/Allowance/Button';
 import CollectWarning from '@components/Shared/CollectWarning';
@@ -36,18 +37,21 @@ import {
 } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
 import formatAddress from '@lib/formatAddress';
+import getEnvConfig from '@lib/getEnvConfig';
 import getSignature from '@lib/getSignature';
 import getTokenImage from '@lib/getTokenImage';
 import humanize from '@lib/humanize';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import dayjs from 'dayjs';
+import type { BigNumber } from 'ethers';
+import { defaultAbiCoder } from 'ethers/lib/utils';
 import type { Dispatch, FC } from 'react';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { LENSHUB_PROXY, POLYGONSCAN_URL, RELAY_ON, SIGN_WALLET } from 'src/constants';
 import { useAppStore } from 'src/store/app';
-import { useAccount, useBalance, useContractWrite, useSignTypedData } from 'wagmi';
+import { useAccount, useBalance, useContractRead, useContractWrite, useSignTypedData } from 'wagmi';
 
 interface Props {
   count: number;
@@ -185,6 +189,18 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
     }
   );
 
+  const parsePubId = (publicationId: string, profileId: string) => {
+    return publicationId.replace(profileId + '-', '');
+  };
+
+  const { isFetching, refetch } = useContractRead({
+    address: getEnvConfig().UpdateOwnableFeeCollectModuleAddress,
+    abi: UpdateOwnableFeeCollectModule,
+    functionName: 'getPublicationData',
+    args: [parseInt(publication.profile?.id), parseInt(parsePubId(publication?.id, publication.profile?.id))],
+    enabled: false
+  });
+
   const createViaProxyAction = async (variables: any) => {
     const { data } = await createCollectProxyAction({
       variables
@@ -208,6 +224,22 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
       createViaProxyAction({
         request: { collect: { freeCollect: { publicationId: publication?.id } } }
       });
+    } else if (collectModule?.__typename === 'UnknownCollectModuleSettings') {
+      refetch().then(({ data }) => {
+        if (data) {
+          const decodedData: any = data;
+          const encodedData = defaultAbiCoder.encode(
+            ['address', 'uint256'],
+            [decodedData?.[2] as string, decodedData?.[1] as BigNumber]
+          );
+          createCollectTypedData({
+            variables: {
+              options: { overrideSigNonce: userSigNonce },
+              request: { publicationId: publication?.id, unknownModuleData: encodedData }
+            }
+          });
+        }
+      });
     } else {
       createCollectTypedData({
         variables: {
@@ -222,7 +254,8 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
     return <Loader message="Loading collect" />;
   }
 
-  const isLoading = typedDataLoading || proxyActionLoading || signLoading || writeLoading || broadcastLoading;
+  const isLoading =
+    typedDataLoading || proxyActionLoading || signLoading || isFetching || writeLoading || broadcastLoading;
 
   return (
     <>

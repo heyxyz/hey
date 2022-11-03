@@ -29,6 +29,7 @@ const Collect: FC<Props> = ({ publication, isFullPublication, electedMirror }) =
   const [count, setCount] = useState(0);
   const [showCollectModal, setShowCollectModal] = useState(false);
   const isFreeCollect = publication?.collectModule.__typename === 'FreeCollectModuleSettings';
+  const isUnknownCollect = publication?.collectModule.__typename === 'UnknownCollectModuleSettings';
   const isMirror = publication.__typename === 'Mirror';
   const hasCollected = isMirror ? publication?.mirrorOf?.hasCollectedByMe : publication?.hasCollectedByMe;
 
@@ -67,7 +68,13 @@ const Collect: FC<Props> = ({ publication, isFullPublication, electedMirror }) =
         </span>
       </motion.button>
       <Modal
-        title={isFreeCollect ? 'Free Collect' : getModule(publication?.collectModule?.type).name}
+        title={
+          isFreeCollect
+            ? 'Free Collect'
+            : isUnknownCollect
+            ? 'Unknown Collect'
+            : getModule(publication?.collectModule?.type).name
+        }
         icon={
           <div className="text-brand">
             <GetModuleIcon
