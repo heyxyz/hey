@@ -5,7 +5,6 @@ import { ProfilesDocument } from '@generated/types';
 import buildConversationId from '@lib/buildConversationId';
 import { buildConversationKey, parseConversationKey } from '@lib/conversationKey';
 import conversationMatchesProfile from '@lib/conversationMatchesProfile';
-import isFeatureEnabled from '@lib/isFeatureEnabled';
 import type { Conversation, Stream } from '@xmtp/xmtp-js';
 import { SortDirection } from '@xmtp/xmtp-js';
 import type { DecodedMessage } from '@xmtp/xmtp-js/dist/types/src/Message';
@@ -30,7 +29,6 @@ const useMessagePreviews = () => {
   const { client, loading: creatingXmtpClient } = useXmtpClient();
   const [profileIds, setProfileIds] = useState<Set<string>>(new Set<string>());
   const [messagesLoading, setMessagesLoading] = useState<boolean>(true);
-  const isMessagesEnabled = isFeatureEnabled('messages', currentProfile?.id);
 
   const getProfileFromKey = (key: string): string | null => {
     const parsed = parseConversationKey(key);
@@ -64,7 +62,7 @@ const useMessagePreviews = () => {
   });
 
   useEffect(() => {
-    if (!isMessagesEnabled || !client || !currentProfile) {
+    if (!client || !currentProfile) {
       return;
     }
     const matcherRegex = conversationMatchesProfile(currentProfile.id);

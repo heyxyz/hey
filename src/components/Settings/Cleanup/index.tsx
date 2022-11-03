@@ -3,7 +3,6 @@ import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import { useDisconnectXmtp } from '@components/utils/hooks/useXmtpClient';
 import MetaTags from '@components/utils/MetaTags';
-import isFeatureEnabled from '@lib/isFeatureEnabled';
 import type { NextPage } from 'next';
 import toast from 'react-hot-toast';
 import { APP_NAME, LS_KEYS } from 'src/constants';
@@ -58,22 +57,20 @@ const CleanupSettings: NextPage = () => {
               </div>
               <Button onClick={() => cleanup(LS_KEYS.TIMELINE_STORE)}>Cleanup</Button>
             </div>
-            {isFeatureEnabled('messages', currentProfile?.id) && (
-              <div className="flex items-center justify-between">
-                <div className="space-y-1">
-                  <b>Direct message keys</b>
-                  <div className="font-bold text-xs text-gray-500">Clean your DM encryption key</div>
-                </div>
-                <Button
-                  onClick={() => {
-                    disconnectXmtp();
-                    toast.success('Cleared DM keys');
-                  }}
-                >
-                  Cleanup
-                </Button>
+            <div className="flex items-center justify-between">
+              <div className="space-y-1">
+                <b>Direct message keys</b>
+                <div className="font-bold text-xs text-gray-500">Clean your DM encryption key</div>
               </div>
-            )}
+              <Button
+                onClick={() => {
+                  disconnectXmtp();
+                  toast.success('Cleared DM keys');
+                }}
+              >
+                Cleanup
+              </Button>
+            </div>
             <div className="flex items-center justify-between">
               <div className="space-y-1">
                 <b className="text-red-500">App settings</b>
