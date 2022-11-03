@@ -11,7 +11,6 @@ import type { Profile } from '@generated/types';
 import { MailIcon, PlusCircleIcon } from '@heroicons/react/outline';
 import buildConversationId from '@lib/buildConversationId';
 import { buildConversationKey } from '@lib/conversationKey';
-import isFeatureEnabled from '@lib/isFeatureEnabled';
 import clsx from 'clsx';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
@@ -34,7 +33,6 @@ const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
   const [showSearchModal, setShowSearchModal] = useState(false);
   const { authenticating, loading, messages, profiles, profilesError } = useMessagePreviews();
   const clearMessagesBadge = useMessagePersistStore((state) => state.clearMessagesBadge);
-  const isMessagesEnabled = isFeatureEnabled('messages', currentProfile?.id);
 
   const sortedProfiles = Array.from(profiles).sort(([keyA], [keyB]) => {
     const messageA = messages.get(keyA);
@@ -43,7 +41,7 @@ const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
   });
 
   useEffect(() => {
-    if (!isMessagesEnabled || !currentProfile) {
+    if (!currentProfile) {
       return;
     }
     const profileKeys = Array.from(profiles.keys());
@@ -55,7 +53,7 @@ const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentProfile, profiles, messages]);
 
-  if (!currentProfile || !isMessagesEnabled) {
+  if (!currentProfile) {
     return <Custom404 />;
   }
 

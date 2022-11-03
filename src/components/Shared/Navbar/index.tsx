@@ -5,7 +5,6 @@ import type { Profile } from '@generated/types';
 import { Disclosure } from '@headlessui/react';
 import { MenuIcon, XIcon } from '@heroicons/react/outline';
 import hasPrideLogo from '@lib/hasPrideLogo';
-import isFeatureEnabled from '@lib/isFeatureEnabled';
 import clsx from 'clsx';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -103,7 +102,7 @@ const Navbar: FC = () => {
               <div className="flex gap-4 items-center">
                 {currentProfile ? (
                   <>
-                    {isFeatureEnabled('messages', currentProfile?.id) && <MessageIcon />}
+                    <MessageIcon />
                     <NotificationIcon />
                   </>
                 ) : null}
