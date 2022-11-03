@@ -37,7 +37,7 @@ const useMessagePreviews = () => {
       return null;
     }
 
-    return parsed.members.find((member) => member !== userAddress) ?? null;
+    return parsed.peerAddress;
   };
 
   const request = { ownedBy: Array.from(peerAddresses.values()), limit: 50 };
