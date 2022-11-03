@@ -7,16 +7,15 @@ import { GridItemFour } from '@components/UI/GridLayout';
 import { Modal } from '@components/UI/Modal';
 import { PageLoading } from '@components/UI/PageLoading';
 import useMessagePreviews from '@components/utils/hooks/useMessagePreviews';
-import useWindowSize from '@components/utils/hooks/useWindowSize';
 import type { Profile } from '@generated/types';
 import { MailIcon, PlusCircleIcon } from '@heroicons/react/outline';
 import buildConversationId from '@lib/buildConversationId';
 import { buildConversationKey } from '@lib/conversationKey';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
+import clsx from 'clsx';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
-import { MIN_WIDTH_DESKTOP } from 'src/constants';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
 import { useAppStore } from 'src/store/app';
@@ -34,7 +33,6 @@ const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
   const setMessageProfiles = useMessageStore((state) => state.setMessageProfiles);
   const [showSearchModal, setShowSearchModal] = useState(false);
   const { authenticating, loading, messages, profiles, profilesError } = useMessagePreviews();
-  const { width } = useWindowSize();
   const clearMessagesBadge = useMessagePersistStore((state) => state.clearMessagesBadge);
   const isMessagesEnabled = isFeatureEnabled('messages', currentProfile?.id);
 
@@ -43,20 +41,6 @@ const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
     const messageB = messages.get(keyB);
     return (messageA?.sent?.getTime() || 0) >= (messageB?.sent?.getTime() || 0) ? -1 : 1;
   });
-
-  useEffect(() => {
-    // Ignore this hook on mobile, since we use the /messages route to show the conversation list
-    if (!width || width < MIN_WIDTH_DESKTOP) {
-      return;
-    }
-    // If the user is on the /messages route and there are profiles, redirect to the top sorted one
-    // TODO: Move this to a higher component once we merge Message.tsx and index.tsx into a single view
-    if (router.pathname === '/messages' && sortedProfiles.length) {
-      const [conversationKey] = sortedProfiles[0];
-      router.push(`/messages/${conversationKey}`);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sortedProfiles, router.pathname, width]);
 
   useEffect(() => {
     if (!isMessagesEnabled || !currentProfile) {
@@ -97,7 +81,10 @@ const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
 
   return (
     <GridItemFour
-      className={`xs:h-[85vh] sm:h-[76vh] md:h-[80vh] xl:h-[84vh] mb-0 md:col-span-4 sm:mx-2 xs:mx-2 ${className}`}
+      className={clsx(
+        'xs:h-[85vh] sm:h-[76vh] md:h-[80vh] xl:h-[84vh] mb-0 md:col-span-4 sm:mx-2 xs:mx-2',
+        className
+      )}
     >
       <Card className="h-full flex justify-between flex-col">
         <div className="flex justify-between items-center p-5 border-b">
@@ -108,7 +95,7 @@ const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
             </button>
           )}
         </div>
-        <div className="h-full overflow-y-auto">
+        <div className="h-full overflow-y-auto overflow-x-hidden">
           {showAuthenticating ? (
             <PageLoading message="Awaiting signature to enable DMs" />
           ) : showLoading ? (
@@ -148,16 +135,14 @@ const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
         show={showSearchModal}
         onClose={() => setShowSearchModal(false)}
       >
-        <div className="pb-2">
-          <div className="w-full pt-4 px-4">
-            <Search
-              modalWidthClassName="max-w-lg"
-              placeholder="Search for someone to message..."
-              onProfileSelected={onProfileSelected}
-            />
-          </div>
-          {currentProfile && <Following profile={currentProfile} onProfileSelected={onProfileSelected} />}
+        <div className="w-full pt-4 px-4">
+          <Search
+            modalWidthClassName="max-w-lg"
+            placeholder="Search for someone to message..."
+            onProfileSelected={onProfileSelected}
+          />
         </div>
+        {currentProfile && <Following profile={currentProfile} onProfileSelected={onProfileSelected} />}
       </Modal>
     </GridItemFour>
   );

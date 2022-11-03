@@ -1,5 +1,5 @@
-query RecommendedProfiles {
-  recommendedProfiles {
+query RecommendedProfiles($options: RecommendedProfileOptions) {
+  recommendedProfiles(options: $options) {
     ...ProfileFields
     isFollowedByMe
   }

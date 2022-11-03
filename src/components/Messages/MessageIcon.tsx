@@ -11,11 +11,11 @@ import { useMessagePersistStore } from 'src/store/message';
 
 const MessageIcon: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const { client: cachedClient } = useXmtpClient(true);
   const clearMessagesBadge = useMessagePersistStore((state) => state.clearMessagesBadge);
   const viewedMessagesAtNs = useMessagePersistStore((state) => state.viewedMessagesAtNs);
   const showMessagesBadge = useMessagePersistStore((state) => state.showMessagesBadge);
   const setShowMessagesBadge = useMessagePersistStore((state) => state.setShowMessagesBadge);
+  const { client: cachedClient } = useXmtpClient(true);
 
   const shouldShowBadge = (viewedAt: string | undefined, messageSentAt: Date | undefined): boolean => {
     if (!messageSentAt) {
@@ -23,6 +23,7 @@ const MessageIcon: FC = () => {
     }
 
     const viewedMessagesAt = fromNanoString(viewedAt);
+
     return (
       !viewedMessagesAt ||
       (viewedMessagesAt.getTime() < messageSentAt.getTime() && messageSentAt.getTime() < new Date().getTime())
@@ -41,6 +42,7 @@ const MessageIcon: FC = () => {
       const matchingConvos = convos.filter(
         (convo) => convo.context?.conversationId && matcherRegex.test(convo.context.conversationId)
       );
+
       if (matchingConvos.length <= 0) {
         return;
       }
@@ -105,7 +107,9 @@ const MessageIcon: FC = () => {
       }}
     >
       <MailIcon className="w-5 h-5 sm:w-6 sm:h-6" />
-      {showMessagesBadge.get(currentProfile?.id) && <span className="w-2 h-2 bg-red-500 rounded-full" />}
+      {showMessagesBadge.get(currentProfile?.id) ? (
+        <span className="w-2 h-2 bg-red-500 rounded-full" />
+      ) : null}
     </Link>
   );
 };
