@@ -1,4 +1,3 @@
-import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { Client } from '@xmtp/xmtp-js';
 import { useCallback, useEffect, useState } from 'react';
 import { LS_KEYS, XMTP_ENV } from 'src/constants';
@@ -34,7 +33,6 @@ const useXmtpClient = (cacheOnly = false) => {
   const setClient = useMessageStore((state) => state.setClient);
   const [awaitingXmtpAuth, setAwaitingXmtpAuth] = useState<boolean>();
   const { data: signer, isLoading } = useSigner();
-  const isMessagesEnabled = isFeatureEnabled('messages', currentProfile?.id);
 
   useEffect(() => {
     const initXmtpClient = async () => {
@@ -56,9 +54,7 @@ const useXmtpClient = (cacheOnly = false) => {
         setAwaitingXmtpAuth(false);
       }
     };
-    if (isMessagesEnabled) {
-      initXmtpClient();
-    }
+    initXmtpClient();
     if (!signer || !currentProfile) {
       // eslint-disable-next-line unicorn/no-useless-undefined
       setClient(undefined);
