@@ -35,17 +35,39 @@ const SinglePublication: FC<Props> = ({
   const { push } = useRouter();
   const isMirror = publication.__typename === 'Mirror';
   const firstComment = feedItem?.comments && feedItem.comments[0];
-  const rootPublication = feedItem ? (firstComment ? firstComment : feedItem?.root) : publication;
-  const profile = feedItem
-    ? rootPublication.profile
-    : isMirror
-    ? publication?.mirrorOf?.profile
-    : publication?.profile;
-  const timestamp = feedItem
-    ? rootPublication.createdAt
-    : isMirror
-    ? publication?.mirrorOf?.createdAt
-    : publication?.createdAt;
+
+  const getRootPublication = () => {
+    if (!feedItem) {
+      return publication;
+    } else if (firstComment && feedItem.root.__typename !== 'Comment') {
+      return firstComment;
+    } else {
+      return feedItem?.root;
+    }
+  };
+  const rootPublication = getRootPublication();
+
+  const getProfile = () => {
+    if (feedItem) {
+      return rootPublication.profile;
+    } else if (isMirror) {
+      return publication?.mirrorOf?.profile;
+    } else {
+      return publication?.profile;
+    }
+  };
+  const profile = getProfile();
+
+  const getTimestamp = () => {
+    if (feedItem) {
+      return rootPublication.createdAt;
+    } else if (isMirror) {
+      return publication?.mirrorOf?.createdAt;
+    } else {
+      return publication?.createdAt;
+    }
+  };
+  const timestamp = getTimestamp();
 
   return (
     <article className="hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer first:rounded-t-xl last:rounded-b-xl p-5">
