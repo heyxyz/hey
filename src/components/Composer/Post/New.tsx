@@ -17,6 +17,7 @@ import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { usePublicationStore } from 'src/store/publication';
 
+import Editor from '../Editor';
 import NewUpdate from './Update';
 
 type Action = 'update' | 'image' | 'video' | 'audio' | 'article';
@@ -122,6 +123,7 @@ const NewPost: FC = () => {
           show={showNewPostModal}
           onClose={() => setShowNewPostModal(false)}
         >
+          <Editor />
           {selectedAction === 'update' && <NewUpdate />}
         </Modal>
       </div>
