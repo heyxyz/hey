@@ -21,7 +21,7 @@ export class MentionMatcher extends Matcher {
   }
 
   match(value: string) {
-    return this.doMatch(value, /@[\w._-]+/, (matches) => {
+    return this.doMatch(value, /@[\w.-]+/, (matches) => {
       return {
         display: matches[0]
       };
