@@ -189,7 +189,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
     }
   );
 
-  const { data: moduleData, refetch } = useContractRead({
+  const { isFetching, refetch } = useContractRead({
     address: getEnvConfig().UpdateOwnableFeeCollectModuleAddress,
     abi: UpdateOwnableFeeCollectModule,
     functionName: 'getPublicationData',
@@ -221,20 +221,21 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
         request: { collect: { freeCollect: { publicationId: publication?.id } } }
       });
     } else if (collectModule?.__typename === 'UnknownCollectModuleSettings') {
-      refetch();
-      if (moduleData) {
-        const decodedData: any = moduleData;
-        const encodedData = defaultAbiCoder.encode(
-          ['address', 'uint256'],
-          [decodedData?.[2] as string, decodedData?.[1] as BigNumber]
-        );
-        createCollectTypedData({
-          variables: {
-            options: { overrideSigNonce: userSigNonce },
-            request: { publicationId: publication?.id, unknownModuleData: encodedData }
-          }
-        });
-      }
+      refetch().then(({ data }) => {
+        if (data) {
+          const decodedData: any = data;
+          const encodedData = defaultAbiCoder.encode(
+            ['address', 'uint256'],
+            [decodedData?.[2] as string, decodedData?.[1] as BigNumber]
+          );
+          createCollectTypedData({
+            variables: {
+              options: { overrideSigNonce: userSigNonce },
+              request: { publicationId: publication?.id, unknownModuleData: encodedData }
+            }
+          });
+        }
+      });
     } else {
       createCollectTypedData({
         variables: {
@@ -249,7 +250,8 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
     return <Loader message="Loading collect" />;
   }
 
-  const isLoading = typedDataLoading || proxyActionLoading || signLoading || writeLoading || broadcastLoading;
+  const isLoading =
+    typedDataLoading || proxyActionLoading || signLoading || isFetching || writeLoading || broadcastLoading;
 
   return (
     <>
