@@ -14,7 +14,7 @@ import { useEffect, useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
 
-const MAX_PROFILES_TO_LOAD_CONCURRENTLY = 50;
+const MAX_PROFILES_PER_REQUEST = 50;
 
 const useMessagePreviews = () => {
   const router = useRouter();
@@ -64,7 +64,7 @@ const useMessagePreviews = () => {
     const loadLatest = async () => {
       setProfilesLoading(true);
       const newMessageProfiles = new Map(messageProfiles);
-      const chunks = chunkArray(toQuery, MAX_PROFILES_TO_LOAD_CONCURRENTLY);
+      const chunks = chunkArray(toQuery, MAX_PROFILES_PER_REQUEST);
       try {
         const results = await Promise.all(
           chunks.map((profileIdChunk) =>
