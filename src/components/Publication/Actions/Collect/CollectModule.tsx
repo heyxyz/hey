@@ -189,11 +189,15 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
     }
   );
 
+  const parsePubId = (publicationId: string, profileId: string) => {
+    return publicationId.replace(profileId + '-', '');
+  };
+
   const { isFetching, refetch } = useContractRead({
     address: getEnvConfig().UpdateOwnableFeeCollectModuleAddress,
     abi: UpdateOwnableFeeCollectModule,
     functionName: 'getPublicationData',
-    args: [parseInt(publication.profile?.id), parseInt(publication?.id)],
+    args: [parseInt(publication.profile?.id), parseInt(parsePubId(publication?.id, publication.profile?.id))],
     enabled: false
   });
 
@@ -228,6 +232,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
             ['address', 'uint256'],
             [decodedData?.[2] as string, decodedData?.[1] as BigNumber]
           );
+          console.log(decodedData);
           createCollectTypedData({
             variables: {
               options: { overrideSigNonce: userSigNonce },
