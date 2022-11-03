@@ -27,29 +27,34 @@ const useMessagePreviews = () => {
   const setPreviewMessage = useMessageStore((state) => state.setPreviewMessage);
   const reset = useMessageStore((state) => state.reset);
   const { client, loading: creatingXmtpClient } = useXmtpClient();
-  const [profileIds, setProfileIds] = useState<Set<string>>(new Set<string>());
+  const [peerAddresses, setPeerAddresses] = useState<Set<string>>(new Set<string>());
   const [messagesLoading, setMessagesLoading] = useState<boolean>(true);
 
-  const getProfileFromKey = (key: string): string | null => {
+  const getAddressFromKey = (key: string): string | null => {
     const parsed = parseConversationKey(key);
-    const userProfileId = currentProfile?.id;
-    if (!parsed || !userProfileId) {
+    const userAddress = currentProfile?.ownedBy;
+    if (!parsed || !userAddress) {
       return null;
     }
 
-    return parsed.members.find((member) => member !== userProfileId) ?? null;
+    return parsed.members.find((member) => member !== userAddress) ?? null;
   };
 
-  const request = { profileIds: Array.from(profileIds.values()) };
-  const { loading: profilesLoading, error: profilesError } = useQuery(ProfilesDocument, {
+  const request = { ownedBy: Array.from(peerAddresses.values()) };
+  const {
+    loading: profilesLoading,
+    error: profilesError,
+    fetchMore
+  } = useQuery(ProfilesDocument, {
     variables: {
       request: request
     },
-    skip: profileIds.size === 0 || currentProfile?.id !== selectedProfileId,
-    onCompleted: (data) => {
+    skip: peerAddresses.size === 0 || currentProfile?.id !== selectedProfileId,
+    onCompleted: async (data) => {
       if (!data?.profiles?.items.length) {
         return;
       }
+
       const profiles = data.profiles.items as Profile[];
       const newMessageProfiles = new Map(messageProfiles);
       for (const profile of profiles) {
@@ -58,6 +63,14 @@ const useMessagePreviews = () => {
         newMessageProfiles.set(key, profile);
       }
       setMessageProfiles(newMessageProfiles);
+
+      // Paginate through all profiles for the existing conversations.
+      const pageInfo = data.profiles.pageInfo;
+      if (pageInfo.next) {
+        await fetchMore({
+          variables: { request: { ...request, cursor: pageInfo?.next } }
+        });
+      }
     }
   });
 
@@ -100,7 +113,7 @@ const useMessagePreviews = () => {
       setMessagesLoading(true);
       const newPreviewMessages = new Map(previewMessages);
       const newConversations = new Map(conversations);
-      const newProfileIds = new Set(profileIds);
+      const newPeerAddresses = new Set(peerAddresses);
       const convos = await client.conversations.list();
       const matchingConvos = convos.filter(
         (convo) => convo.context?.conversationId && matcherRegex.test(convo.context.conversationId)
@@ -114,9 +127,9 @@ const useMessagePreviews = () => {
       const previews = await Promise.all(matchingConvos.map(fetchMostRecentMessage));
 
       for (const preview of previews) {
-        const profileId = getProfileFromKey(preview.key);
-        if (profileId) {
-          newProfileIds.add(profileId);
+        const peerAddress = getAddressFromKey(preview.key);
+        if (peerAddress) {
+          newPeerAddresses.add(peerAddress);
         }
         if (preview.message) {
           newPreviewMessages.set(preview.key, preview.message);
@@ -125,8 +138,8 @@ const useMessagePreviews = () => {
       setPreviewMessages(newPreviewMessages);
       setConversations(newConversations);
       setMessagesLoading(false);
-      if (newProfileIds.size > profileIds.size) {
-        setProfileIds(newProfileIds);
+      if (newPeerAddresses.size > peerAddresses.size) {
+        setPeerAddresses(newPeerAddresses);
       }
     };
 
@@ -153,13 +166,12 @@ const useMessagePreviews = () => {
           continue;
         }
         const newConversations = new Map(conversations);
-        const newProfileIds = new Set(profileIds);
+        const newPeerAddresses = new Set(peerAddresses);
         const key = buildConversationKey(convo.peerAddress, convo.context.conversationId);
         newConversations.set(key, convo);
-        const profileId = getProfileFromKey(key);
-        if (profileId && !profileIds.has(profileId)) {
-          newProfileIds.add(profileId);
-          setProfileIds(newProfileIds);
+        if (convo.peerAddress && !peerAddresses.has(convo.peerAddress)) {
+          newPeerAddresses.add(convo.peerAddress);
+          setPeerAddresses(newPeerAddresses);
         }
         setConversations(newConversations);
       }
