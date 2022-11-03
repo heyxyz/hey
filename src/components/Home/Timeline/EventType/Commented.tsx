@@ -10,16 +10,11 @@ interface Props {
 const Commented: FC<Props> = ({ feedItem }) => {
   const publication = feedItem.root as Comment;
   const firstComment = feedItem.comments && feedItem.comments[0];
-  const commentOn: LensterPublication | any = publication?.commentOn;
-  const mainPost = commentOn?.mainPost;
 
-  return firstComment && !commentOn ? (
+  return firstComment ? (
     <ThreadBody publication={publication as LensterPublication} />
-  ) : commentOn ? (
-    <>
-      {mainPost ? <ThreadBody publication={mainPost} /> : null}
-      <ThreadBody publication={commentOn as LensterPublication} />
-    </>
+  ) : publication?.commentOn ? (
+    <ThreadBody publication={publication?.commentOn as LensterPublication} />
   ) : null;
 };
 
