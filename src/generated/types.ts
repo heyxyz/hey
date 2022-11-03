@@ -14521,7 +14521,9 @@ export type PublicationRevenueQuery = {
   } | null;
 };
 
-export type RecommendedProfilesQueryVariables = Exact<{ [key: string]: never }>;
+export type RecommendedProfilesQueryVariables = Exact<{
+  options?: InputMaybe<RecommendedProfileOptions>;
+}>;
 
 export type RecommendedProfilesQuery = {
   __typename?: 'Query';
@@ -24548,12 +24550,26 @@ export const RecommendedProfilesDocument = {
       kind: 'OperationDefinition',
       operation: 'query',
       name: { kind: 'Name', value: 'RecommendedProfiles' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'options' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'RecommendedProfileOptions' } }
+        }
+      ],
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
           {
             kind: 'Field',
             name: { kind: 'Name', value: 'recommendedProfiles' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'options' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'options' } }
+              }
+            ],
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
