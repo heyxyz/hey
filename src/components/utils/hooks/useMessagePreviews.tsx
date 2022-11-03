@@ -1,4 +1,4 @@
-import { useQuery } from '@apollo/client';
+import { useApolloClient } from '@apollo/client';
 import useXmtpClient from '@components/utils/hooks/useXmtpClient';
 import type { Profile } from '@generated/types';
 import { ProfilesDocument } from '@generated/types';
@@ -12,6 +12,8 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
+
+const MAX_PREVIEWS_TO_LOAD = 50;
 
 const useMessagePreviews = () => {
   const router = useRouter();
@@ -29,6 +31,9 @@ const useMessagePreviews = () => {
   const { client, loading: creatingXmtpClient } = useXmtpClient();
   const [profileIds, setProfileIds] = useState<Set<string>>(new Set<string>());
   const [messagesLoading, setMessagesLoading] = useState<boolean>(true);
+  const apolloClient = useApolloClient();
+  const [profilesLoading, setProfilesLoading] = useState<boolean>(false);
+  const [profilesError, setProfilesError] = useState<Error | undefined>();
 
   const getProfileFromKey = (key: string): string | null => {
     const parsed = parseConversationKey(key);
@@ -40,26 +45,57 @@ const useMessagePreviews = () => {
     return parsed.members.find((member) => member !== userProfileId) ?? null;
   };
 
-  const request = { profileIds: Array.from(profileIds.values()) };
-  const { loading: profilesLoading, error: profilesError } = useQuery(ProfilesDocument, {
-    variables: {
-      request: request
-    },
-    skip: profileIds.size === 0 || currentProfile?.id !== selectedProfileId,
-    onCompleted: (data) => {
-      if (!data?.profiles?.items.length) {
-        return;
-      }
-      const profiles = data.profiles.items as Profile[];
+  useEffect(() => {
+    if (profilesLoading) {
+      return;
+    }
+    const allProfileIds = new Set(profileIds);
+    // Don't both querying for already seen profiles
+    for (const profile of messageProfiles.values()) {
+      allProfileIds.delete(profile.id);
+    }
+
+    const toQuery = Array.from(allProfileIds);
+    if (!toQuery.length) {
+      return;
+    }
+
+    const loadLatest = async () => {
+      setProfilesLoading(true);
       const newMessageProfiles = new Map(messageProfiles);
-      for (const profile of profiles) {
-        const peerAddress = profile.ownedBy as string;
-        const key = buildConversationKey(peerAddress, buildConversationId(currentProfile?.id, profile.id));
-        newMessageProfiles.set(key, profile);
+      while (toQuery.length) {
+        try {
+          // Remove 50 items at a time from the list
+          const batch = toQuery.splice(0, MAX_PREVIEWS_TO_LOAD);
+          const result = await apolloClient.query({
+            query: ProfilesDocument,
+            variables: { request: { profileIds: batch } }
+          });
+
+          if (!result.data?.profiles.items) {
+            break;
+          }
+
+          const profiles = result.data.profiles.items as Profile[];
+          for (const profile of profiles) {
+            const peerAddress = profile.ownedBy as string;
+            const key = buildConversationKey(
+              peerAddress,
+              buildConversationId(currentProfile?.id, profile.id)
+            );
+            newMessageProfiles.set(key, profile);
+          }
+        } catch (error: unknown) {
+          setProfilesError(error as Error);
+          break;
+        }
       }
       setMessageProfiles(newMessageProfiles);
-    }
-  });
+      setProfilesLoading(false);
+    };
+    loadLatest();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [profileIds, apolloClient]);
 
   useEffect(() => {
     if (!client || !currentProfile) {
