@@ -232,7 +232,6 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
             ['address', 'uint256'],
             [decodedData?.[2] as string, decodedData?.[1] as BigNumber]
           );
-          console.log(decodedData);
           createCollectTypedData({
             variables: {
               options: { overrideSigNonce: userSigNonce },
