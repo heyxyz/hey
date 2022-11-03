@@ -173,8 +173,7 @@ iframe {
   @apply !text-white;
 }
 
-
-.toolbar-icons button { 
+.toolbar-icons button {
   @apply hover:bg-brand-100 flex justify-center text-brand items-center h-8 w-8 rounded-lg;
 }
 
@@ -188,25 +187,24 @@ iframe {
   background-repeat: no-repeat;
 }
 
-
-i.bold { 
+i.bold {
   background-image: url(/assets/type-bold.svg);
 }
-i.italic { 
+i.italic {
   background-image: url(/assets/type-italic.svg);
 }
-i.superscript { 
+i.superscript {
   background-image: url(/assets/type-superscript.svg);
 }
-i.subscript { 
+i.subscript {
   background-image: url(/assets/type-subscript.svg);
 }
-i.quote { 
+i.quote {
   margin-top: 5px;
   height: 17px;
   width: 17px;
   background-image: url(/assets/type-quote.svg);
 }
-div[data-lexical-editor="true"]{ 
-  outline: none ;
+div[data-lexical-editor='true'] {
+  outline: none;
 }
