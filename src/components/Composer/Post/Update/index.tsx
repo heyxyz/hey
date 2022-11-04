@@ -254,15 +254,6 @@ const NewUpdate: FC = () => {
       return toast.error(SIGN_WALLET);
     }
 
-    let textNftImageUrl = null;
-    if (!attachments.length) {
-      textNftImageUrl = await getTextNftUrl(
-        publicationContent,
-        currentProfile.handle,
-        new Date().toLocaleString()
-      );
-    }
-
     if (isAudioPost) {
       setPostContentError('');
       const parsedData = AudioPublicationSchema.safeParse(audioPublication);
@@ -277,7 +268,17 @@ const NewUpdate: FC = () => {
     }
 
     setPostContentError('');
+
     setIsUploading(true);
+    let textNftImageUrl = null;
+    if (!attachments.length) {
+      textNftImageUrl = await getTextNftUrl(
+        publicationContent,
+        currentProfile.handle,
+        new Date().toLocaleString()
+      );
+    }
+
     const attributes = [
       {
         traitType: 'type',

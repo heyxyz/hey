@@ -266,15 +266,6 @@ const NewComment: FC<Props> = ({ publication }) => {
       return toast.error(SIGN_WALLET);
     }
 
-    let textNftImageUrl = null;
-    if (!attachments.length) {
-      textNftImageUrl = await getTextNftUrl(
-        publicationContent,
-        currentProfile.handle,
-        new Date().toLocaleString()
-      );
-    }
-
     if (isAudioComment) {
       setCommentContentError('');
       const parsedData = AudioPublicationSchema.safeParse(audioPublication);
@@ -290,6 +281,15 @@ const NewComment: FC<Props> = ({ publication }) => {
 
     setCommentContentError('');
     setIsUploading(true);
+
+    let textNftImageUrl = null;
+    if (!attachments.length) {
+      textNftImageUrl = await getTextNftUrl(
+        publicationContent,
+        currentProfile.handle,
+        new Date().toLocaleString()
+      );
+    }
 
     const attributes = [
       {
