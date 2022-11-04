@@ -28,18 +28,30 @@ import MentionNotification from './Type/MentionNotification';
 import MirrorNotification from './Type/MirrorNotification';
 
 interface Props {
-  feedType: 'ALL' | 'MENTIONS';
+  feedType: 'ALL' | 'MENTIONS' | 'COMMENTS';
 }
 
 const List: FC<Props> = ({ feedType }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
+  const getNotificationType = () => {
+    switch (feedType) {
+      case 'ALL':
+        return;
+      case 'MENTIONS':
+        return [NotificationTypes.MentionPost, NotificationTypes.MentionComment];
+      case 'COMMENTS':
+        return [NotificationTypes.CommentedComment, NotificationTypes.CommentedPost];
+      default:
+        return;
+    }
+  };
+
   // Variables
   const request = {
     profileId: currentProfile?.id,
     customFilters: [CustomFiltersTypes.Gardeners],
-    notificationTypes:
-      feedType === 'MENTIONS' ? [NotificationTypes.MentionPost, NotificationTypes.MentionComment] : undefined,
+    notificationTypes: getNotificationType(),
     limit: 20
   };
 
