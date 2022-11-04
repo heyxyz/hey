@@ -18,7 +18,13 @@ const getS3Client = async () => {
     region: 'us-west-2',
     maxAttempts: 3
   });
+
   return client;
+};
+
+const params = {
+  Bucket: bucketName,
+  Key: uuid()
 };
 
 /**
@@ -33,10 +39,6 @@ const uploadToIPFS = async (data: any): Promise<LensterAttachment[]> => {
     const attachments = await Promise.all(
       files.map(async (_: any, i: number) => {
         const file = data.item(i);
-        const params = {
-          Bucket: bucketName,
-          Key: uuid()
-        };
         await client.putObject({ ...params, Body: file, ContentType: file.type });
         const result = await client.headObject(params);
         const metadata = result.Metadata;
@@ -63,10 +65,6 @@ const uploadToIPFS = async (data: any): Promise<LensterAttachment[]> => {
 export const uploadFileToIPFS = async (file: File): Promise<LensterAttachment | null> => {
   try {
     const client = await getS3Client();
-    const params = {
-      Bucket: bucketName,
-      Key: uuid()
-    };
     await client.putObject({ ...params, Body: file, ContentType: file.type });
     const result = await client.headObject(params);
     const metadata = result.Metadata;
