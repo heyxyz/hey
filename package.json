@@ -21,7 +21,7 @@
     "@bundlr-network/client": "^0.9.0",
     "@giphy/js-fetch-api": "^4.3.1",
     "@giphy/react-components": "^6.2.0",
-    "@headlessui/react": "^1.7.3",
+    "@headlessui/react": "^1.7.4",
     "@heroicons/react": "v1",
     "@hookform/resolvers": "^2.9.10",
     "@next/bundle-analyzer": "^13.0.2",
