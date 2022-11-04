@@ -22,7 +22,7 @@ import type { IGif } from '@giphy/js-types';
 import { ChatAlt2Icon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
 import getTags from '@lib/getTags';
-import getTextNftSvg from '@lib/getTextNftSvg';
+import getTextNftUrl from '@lib/getTextNftUrl';
 import getUserLocale from '@lib/getUserLocale';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
@@ -268,7 +268,7 @@ const NewComment: FC<Props> = ({ publication }) => {
 
     let textNftImageUrl = null;
     if (!attachments.length) {
-      textNftImageUrl = await getTextNftSvg(
+      textNftImageUrl = await getTextNftUrl(
         publicationContent,
         currentProfile.handle,
         new Date().toLocaleString()
