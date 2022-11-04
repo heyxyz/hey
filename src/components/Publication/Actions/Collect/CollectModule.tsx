@@ -31,7 +31,6 @@ import {
   CollectionIcon,
   PhotographIcon,
   PuzzleIcon,
-  ShoppingBagIcon,
   SwitchHorizontalIcon,
   UserIcon,
   UsersIcon
@@ -454,13 +453,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
               />
             )
           ) : null}
-          <Button
-            onClick={shopCollects}
-            disabled={isLoading}
-            icon={isLoading ? <Spinner size="xs" /> : <ShoppingBagIcon className="w-4 h-4" />}
-          >
-            Shop Collects
-          </Button>
+          <Button onClick={shopCollects}>Shop collects</Button>
         </div>
         {publication?.hasCollectedByMe && (
           <div className="mt-3 font-bold text-green-500 flex items-center space-x-1.5">
