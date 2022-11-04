@@ -1,8 +1,9 @@
-import { useQuery } from '@apollo/client';
+import { useApolloClient } from '@apollo/client';
 import useXmtpClient from '@components/utils/hooks/useXmtpClient';
 import type { Profile } from '@generated/types';
 import { ProfilesDocument } from '@generated/types';
 import buildConversationId from '@lib/buildConversationId';
+import chunkArray from '@lib/chunkArray';
 import { buildConversationKey, parseConversationKey } from '@lib/conversationKey';
 import conversationMatchesProfile from '@lib/conversationMatchesProfile';
 import type { Conversation, Stream } from '@xmtp/xmtp-js';
@@ -12,6 +13,8 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
+
+const MAX_PROFILES_PER_REQUEST = 50;
 
 const useMessagePreviews = () => {
   const router = useRouter();
@@ -29,6 +32,9 @@ const useMessagePreviews = () => {
   const { client, loading: creatingXmtpClient } = useXmtpClient();
   const [profileIds, setProfileIds] = useState<Set<string>>(new Set<string>());
   const [messagesLoading, setMessagesLoading] = useState<boolean>(true);
+  const apolloClient = useApolloClient();
+  const [profilesLoading, setProfilesLoading] = useState<boolean>(false);
+  const [profilesError, setProfilesError] = useState<Error | undefined>();
 
   const getProfileFromKey = (key: string): string | null => {
     const parsed = parseConversationKey(key);
@@ -40,26 +46,59 @@ const useMessagePreviews = () => {
     return parsed.members.find((member) => member !== userProfileId) ?? null;
   };
 
-  const request = { profileIds: Array.from(profileIds.values()) };
-  const { loading: profilesLoading, error: profilesError } = useQuery(ProfilesDocument, {
-    variables: {
-      request: request
-    },
-    skip: profileIds.size === 0 || currentProfile?.id !== selectedProfileId,
-    onCompleted: (data) => {
-      if (!data?.profiles?.items.length) {
-        return;
-      }
-      const profiles = data.profiles.items as Profile[];
-      const newMessageProfiles = new Map(messageProfiles);
-      for (const profile of profiles) {
-        const peerAddress = profile.ownedBy as string;
-        const key = buildConversationKey(peerAddress, buildConversationId(currentProfile?.id, profile.id));
-        newMessageProfiles.set(key, profile);
-      }
-      setMessageProfiles(newMessageProfiles);
+  useEffect(() => {
+    if (profilesLoading) {
+      return;
     }
-  });
+    const toQuery = new Set(profileIds);
+    // Don't both querying for already seen profiles
+    for (const profile of messageProfiles.values()) {
+      toQuery.delete(profile.id);
+    }
+
+    if (!toQuery.size) {
+      return;
+    }
+
+    const loadLatest = async () => {
+      setProfilesLoading(true);
+      const newMessageProfiles = new Map(messageProfiles);
+      const chunks = chunkArray(Array.from(toQuery), MAX_PROFILES_PER_REQUEST);
+      try {
+        const results = await Promise.all(
+          chunks.map((profileIdChunk) =>
+            apolloClient.query({
+              query: ProfilesDocument,
+              variables: { request: { profileIds: profileIdChunk } }
+            })
+          )
+        );
+
+        for (const result of results) {
+          if (!result.data?.profiles.items.length) {
+            continue;
+          }
+
+          const profiles = result.data.profiles.items as Profile[];
+          for (const profile of profiles) {
+            const peerAddress = profile.ownedBy as string;
+            const key = buildConversationKey(
+              peerAddress,
+              buildConversationId(currentProfile?.id, profile.id)
+            );
+            newMessageProfiles.set(key, profile);
+          }
+        }
+      } catch (error: unknown) {
+        setProfilesError(error as Error);
+      }
+
+      setMessageProfiles(newMessageProfiles);
+      setProfilesLoading(false);
+    };
+    loadLatest();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [profileIds, apolloClient]);
 
   useEffect(() => {
     if (!client || !currentProfile) {
