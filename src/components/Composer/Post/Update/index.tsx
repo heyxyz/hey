@@ -10,11 +10,11 @@ import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
 import type { LensterAttachment } from '@generated/lenstertypes';
 import type { CreatePublicPostRequest, Mutation } from '@generated/types';
-import { ReferenceModules } from '@generated/types';
 import {
   CreatePostTypedDataDocument,
   CreatePostViaDispatcherDocument,
-  PublicationMainFocus
+  PublicationMainFocus,
+  ReferenceModules
 } from '@generated/types';
 import type { IGif } from '@giphy/js-types';
 import { PencilAltIcon } from '@heroicons/react/outline';
