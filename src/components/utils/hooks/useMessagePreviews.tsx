@@ -1,4 +1,4 @@
-import { useApolloClient } from '@apollo/client';
+import { useLazyQuery } from '@apollo/client';
 import useXmtpClient from '@components/utils/hooks/useXmtpClient';
 import type { Profile } from '@generated/types';
 import { ProfilesDocument } from '@generated/types';
@@ -32,9 +32,9 @@ const useMessagePreviews = () => {
   const { client, loading: creatingXmtpClient } = useXmtpClient();
   const [profileIds, setProfileIds] = useState<Set<string>>(new Set<string>());
   const [messagesLoading, setMessagesLoading] = useState<boolean>(true);
-  const apolloClient = useApolloClient();
   const [profilesLoading, setProfilesLoading] = useState<boolean>(false);
   const [profilesError, setProfilesError] = useState<Error | undefined>();
+  const [loadProfiles] = useLazyQuery(ProfilesDocument);
 
   const getProfileFromKey = (key: string): string | null => {
     const parsed = parseConversationKey(key);
@@ -67,10 +67,7 @@ const useMessagePreviews = () => {
       try {
         const results = await Promise.all(
           chunks.map((profileIdChunk) =>
-            apolloClient.query({
-              query: ProfilesDocument,
-              variables: { request: { profileIds: profileIdChunk } }
-            })
+            loadProfiles({ variables: { request: { profileIds: profileIdChunk } } })
           )
         );
 
@@ -98,7 +95,7 @@ const useMessagePreviews = () => {
     };
     loadLatest();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [profileIds, apolloClient]);
+  }, [profileIds]);
 
   useEffect(() => {
     if (!client || !currentProfile) {
