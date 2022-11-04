@@ -5,6 +5,10 @@ import { EVER_API } from 'src/constants';
 import { v4 as uuid } from 'uuid';
 
 const bucketName = process.env.NEXT_PUBLIC_EVER_BUCKET_NAME as string;
+const params = {
+  Bucket: bucketName,
+  Key: uuid()
+};
 
 const getS3Client = async () => {
   const token = await axios.get('/api/sts/token');
@@ -20,11 +24,6 @@ const getS3Client = async () => {
   });
 
   return client;
-};
-
-const params = {
-  Bucket: bucketName,
-  Key: uuid()
 };
 
 /**
