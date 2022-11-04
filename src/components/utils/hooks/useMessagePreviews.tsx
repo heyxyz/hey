@@ -34,7 +34,6 @@ const useMessagePreviews = () => {
   const [messagesLoading, setMessagesLoading] = useState<boolean>(true);
   const [profilesLoading, setProfilesLoading] = useState<boolean>(false);
   const [profilesError, setProfilesError] = useState<Error | undefined>();
-
   const [loadProfiles] = useLazyQuery(ProfilesDocument);
 
   const getProfileFromKey = (key: string): string | null => {
