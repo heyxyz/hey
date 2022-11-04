@@ -26,7 +26,6 @@ import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import trimify from '@lib/trimify';
 import uploadToArweave from '@lib/uploadToArweave';
-import { uploadFileToIPFS } from '@lib/uploadToIPFS';
 import dynamic from 'next/dynamic';
 import type { FC } from 'react';
 import { useEffect } from 'react';
@@ -257,11 +256,11 @@ const NewUpdate: FC = () => {
 
     let textNftImageUrl = null;
     if (!attachments.length) {
-      const svg = getTextNftSvg(publicationContent, currentProfile.handle, new Date().toLocaleString());
-      const blob = new Blob([svg], { type: 'image/svg+xml' });
-      const file = new File([blob], 'post.svg', { lastModified: new Date().getTime(), type: blob.type });
-      const result = await uploadFileToIPFS(file);
-      textNftImageUrl = result?.item ?? null;
+      textNftImageUrl = textNftImageUrl = await getTextNftSvg(
+        publicationContent,
+        currentProfile.handle,
+        new Date().toLocaleString()
+      );
     }
 
     if (isAudioPost) {

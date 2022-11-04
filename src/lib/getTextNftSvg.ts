@@ -1,5 +1,7 @@
-const getTextNftSvg = (content: string, username: string, timestamp: string) =>
-  `<svg width="500" height="500" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+import { uploadFileToIPFS } from './uploadToIPFS';
+
+const getTextNftSvg = async (content: string, username: string, timestamp: string) => {
+  const svg = `<svg width="500" height="500" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
     <style>
       .content {
         font: normal 14px sans-serif;
@@ -41,5 +43,10 @@ const getTextNftSvg = (content: string, username: string, timestamp: string) =>
     </defs>
 </svg>
 `;
+  const blob = new Blob([svg], { type: 'image/svg+xml' });
+  const file = new File([blob], 'post.svg', { lastModified: new Date().getTime(), type: blob.type });
+  const result = await uploadFileToIPFS(file);
+  return result?.item ?? null;
+};
 
 export default getTextNftSvg;
