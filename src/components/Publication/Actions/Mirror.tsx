@@ -6,6 +6,7 @@ import { Tooltip } from '@components/UI/Tooltip';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
 import type { LensterPublication } from '@generated/lenstertypes';
 import type { CreateMirrorRequest, Mutation } from '@generated/types';
+import { HidePublicationDocument } from '@generated/types';
 import { CreateMirrorTypedDataDocument, CreateMirrorViaDispatcherDocument } from '@generated/types';
 import { SwitchHorizontalIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
@@ -119,6 +120,7 @@ const Mirror: FC<Props> = ({ publication, isFullPublication }) => {
     CreateMirrorViaDispatcherDocument,
     { onCompleted, onError, update: updateCache }
   );
+  const [unMirror] = useMutation<Mutation>(HidePublicationDocument);
 
   const createViaDispatcher = async (request: CreateMirrorRequest) => {
     const { data } = await createMirrorViaDispatcher({
@@ -146,6 +148,10 @@ const Mirror: FC<Props> = ({ publication, isFullPublication }) => {
         followerOnlyReferenceModule: false
       }
     };
+
+    if (mirrored) {
+      return unMirror({ variables: { request: { publicationId: publication?.mirrors[0] } } });
+    }
 
     if (currentProfile?.dispatcher?.canUseRelay) {
       createViaDispatcher(request);
