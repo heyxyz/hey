@@ -6,6 +6,21 @@ import { v4 as uuid } from 'uuid';
 
 const bucketName = process.env.NEXT_PUBLIC_EVER_BUCKET_NAME as string;
 
+const getS3Client = async () => {
+  const token = await axios.get('/api/sts/token');
+  const client = new S3({
+    endpoint: EVER_API,
+    credentials: {
+      accessKeyId: token.data?.accessKeyId,
+      secretAccessKey: token.data?.secretAccessKey,
+      sessionToken: token.data?.sessionToken
+    },
+    region: 'us-west-2',
+    maxAttempts: 3
+  });
+  return client;
+};
+
 /**
  *
  * @param data - Data to upload to IPFS
@@ -13,17 +28,7 @@ const bucketName = process.env.NEXT_PUBLIC_EVER_BUCKET_NAME as string;
  */
 const uploadToIPFS = async (data: any): Promise<LensterAttachment[]> => {
   try {
-    const token = await axios.get('/api/sts/token');
-    const client = new S3({
-      endpoint: EVER_API,
-      credentials: {
-        accessKeyId: token.data?.accessKeyId,
-        secretAccessKey: token.data?.secretAccessKey,
-        sessionToken: token.data?.sessionToken
-      },
-      region: 'us-west-2',
-      maxAttempts: 3
-    });
+    const client = await getS3Client();
     const files = Array.from(data);
     const attachments = await Promise.all(
       files.map(async (_: any, i: number) => {
@@ -57,17 +62,7 @@ const uploadToIPFS = async (data: any): Promise<LensterAttachment[]> => {
  */
 export const uploadFileToIPFS = async (file: File): Promise<LensterAttachment | null> => {
   try {
-    const token = await axios.get('/api/sts/token');
-    const client = new S3({
-      endpoint: EVER_API,
-      credentials: {
-        accessKeyId: token.data?.accessKeyId,
-        secretAccessKey: token.data?.secretAccessKey,
-        sessionToken: token.data?.sessionToken
-      },
-      region: 'us-west-2',
-      maxAttempts: 3
-    });
+    const client = await getS3Client();
     const params = {
       Bucket: bucketName,
       Key: uuid()
