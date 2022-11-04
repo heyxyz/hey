@@ -190,22 +190,16 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
     }
   );
 
-  const parsePubId = (publicationId: string, profileId: string) => {
-    return publicationId.replace(profileId + '-', '');
-  };
-
   const { isFetching, refetch } = useContractRead({
     address: getEnvConfig().UpdateOwnableFeeCollectModuleAddress,
     abi: UpdateOwnableFeeCollectModule,
     functionName: 'getPublicationData',
-    args: [parseInt(publication.profile?.id), parseInt(parsePubId(publication?.id, publication.profile?.id))],
+    args: [parseInt(publication.profile?.id), parseInt(publication?.id.split('-')[1])],
     enabled: false
   });
 
   const createViaProxyAction = async (variables: any) => {
-    const { data } = await createCollectProxyAction({
-      variables
-    });
+    const { data } = await createCollectProxyAction({ variables });
     if (!data?.proxyAction) {
       createCollectTypedData({
         variables: {
@@ -252,18 +246,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
   };
 
   const shopCollects = () => {
-    if (!publication) {
-      return;
-    }
-    var pubId = '';
-    if (publication.__typename === 'Mirror') {
-      if (!publication.mirrorOf) {
-        return;
-      }
-      pubId = publication.mirrorOf.id;
-    } else {
-      pubId = publication.id;
-    }
+    const pubId = publication.id ?? publication.mirrorOf.id;
     const decimalProfileId = parseInt(pubId.split('-')[0], 16);
     const decimalPubId = parseInt(pubId.split('-')[1], 16);
     const marketplacePublicationId = decimalProfileId + '_' + decimalPubId;
