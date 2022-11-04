@@ -3,6 +3,7 @@ import Following from '@components/Profile/Following';
 import Search from '@components/Shared/Navbar/Search';
 import { Card } from '@components/UI/Card';
 import { EmptyState } from '@components/UI/EmptyState';
+import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { GridItemFour } from '@components/UI/GridLayout';
 import { Modal } from '@components/UI/Modal';
 import { PageLoading } from '@components/UI/PageLoading';
@@ -15,8 +16,7 @@ import clsx from 'clsx';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
-import Custom404 from 'src/pages/404';
-import Custom500 from 'src/pages/500';
+import { ERROR_MESSAGE } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { useMessagePersistStore, useMessageStore } from 'src/store/message';
 
@@ -52,14 +52,6 @@ const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentProfile, profiles, messages]);
-
-  if (!currentProfile) {
-    return <Custom404 />;
-  }
-
-  if (profilesError) {
-    return <Custom500 />;
-  }
 
   const showAuthenticating = currentProfile && authenticating;
   const showLoading = loading && (messages.size === 0 || profiles.size === 0);
@@ -98,6 +90,12 @@ const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
             <PageLoading message="Awaiting signature to enable DMs" />
           ) : showLoading ? (
             <PageLoading message="Loading conversations" />
+          ) : profilesError ? (
+            <ErrorMessage
+              className="m-5"
+              title="Failed to load messages"
+              error={{ message: ERROR_MESSAGE, name: ERROR_MESSAGE }}
+            />
           ) : sortedProfiles.length === 0 ? (
             <button className="w-full h-full justify-items-center" onClick={newMessageClick} type="button">
               <EmptyState
