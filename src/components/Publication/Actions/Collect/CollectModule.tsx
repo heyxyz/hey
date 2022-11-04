@@ -446,14 +446,13 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
             <IndexStatus txHash={writeData?.hash ?? broadcastData?.broadcast?.txHash} />
           </div>
         ) : null}
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center space-x-2 mt-5">
           {currentProfile && !hasCollectedByMe ? (
             allowanceLoading || balanceLoading ? (
-              <div className="mt-5 w-28 rounded-lg h-[34px] shimmer" />
+              <div className="w-28 rounded-lg h-[34px] shimmer" />
             ) : allowed || collectModule.type === CollectModules.FreeCollectModule ? (
               hasAmount ? (
                 <Button
-                  className="mt-5"
                   onClick={createCollect}
                   disabled={isLoading}
                   icon={isLoading ? <Spinner size="xs" /> : <CollectionIcon className="w-4 h-4" />}
@@ -461,21 +460,18 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
                   Collect now
                 </Button>
               ) : (
-                <WarningMessage className="mt-5" message={<Uniswap module={collectModule} />} />
+                <WarningMessage message={<Uniswap module={collectModule} />} />
               )
             ) : (
-              <div className="mt-5">
-                <AllowanceButton
-                  title="Allow collect module"
-                  module={allowanceData?.approvedModuleAllowanceAmount[0]}
-                  allowed={allowed}
-                  setAllowed={setAllowed}
-                />
-              </div>
+              <AllowanceButton
+                title="Allow collect module"
+                module={allowanceData?.approvedModuleAllowanceAmount[0]}
+                allowed={allowed}
+                setAllowed={setAllowed}
+              />
             )
           ) : null}
           <Button
-            className="mt-5"
             onClick={shopCollects}
             disabled={isLoading}
             icon={isLoading ? <Spinner size="xs" /> : <ShoppingBagIcon className="w-4 h-4" />}
