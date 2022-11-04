@@ -50,4 +50,40 @@ const uploadToIPFS = async (data: any): Promise<LensterAttachment[]> => {
   }
 };
 
+/**
+ *
+ * @param file - File object
+ * @returns attachment or null
+ */
+export const uploadFileToIPFS = async (file: File): Promise<LensterAttachment | null> => {
+  try {
+    const token = await axios.get('/api/sts/token');
+    const client = new S3({
+      endpoint: EVER_API,
+      credentials: {
+        accessKeyId: token.data?.accessKeyId,
+        secretAccessKey: token.data?.secretAccessKey,
+        sessionToken: token.data?.sessionToken
+      },
+      region: 'us-west-2',
+      maxAttempts: 3
+    });
+    const params = {
+      Bucket: bucketName,
+      Key: uuid()
+    };
+    await client.putObject({ ...params, Body: file, ContentType: file.type });
+    const result = await client.headObject(params);
+    const metadata = result.Metadata;
+
+    return {
+      item: `ipfs://${metadata?.['ipfs-hash']}`,
+      type: file.type || 'image/jpeg',
+      altTag: ''
+    };
+  } catch {
+    return null;
+  }
+};
+
 export default uploadToIPFS;

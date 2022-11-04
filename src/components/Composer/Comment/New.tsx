@@ -22,11 +22,13 @@ import type { IGif } from '@giphy/js-types';
 import { ChatAlt2Icon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
 import getTags from '@lib/getTags';
+import getTextNftSvg from '@lib/getTextNftSvg';
 import getUserLocale from '@lib/getUserLocale';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import trimify from '@lib/trimify';
 import uploadToArweave from '@lib/uploadToArweave';
+import { uploadFileToIPFS } from '@lib/uploadToIPFS';
 import dynamic from 'next/dynamic';
 import type { FC } from 'react';
 import { useEffect } from 'react';
@@ -252,9 +254,26 @@ const NewComment: FC<Props> = ({ publication }) => {
     return null;
   };
 
+  const getAttachmentImage = () => {
+    return isAudioComment ? audioPublication.cover : attachments[0]?.item;
+  };
+
+  const getAttachmentImageMimeType = () => {
+    return isAudioComment ? audioPublication.coverMimeType : attachments[0]?.type;
+  };
+
   const createComment = async () => {
     if (!currentProfile) {
       return toast.error(SIGN_WALLET);
+    }
+
+    let textNftImageUrl = null;
+    if (!attachments.length) {
+      const svg = getTextNftSvg(publicationContent, currentProfile.handle, new Date().toLocaleString());
+      const blob = new Blob([svg], { type: 'image/svg+xml' });
+      const file = new File([blob], 'post.svg', { lastModified: new Date().getTime(), type: blob.type });
+      const result = await uploadFileToIPFS(file);
+      textNftImageUrl = result?.item ?? null;
     }
 
     if (isAudioComment) {
@@ -294,13 +313,8 @@ const NewComment: FC<Props> = ({ publication }) => {
       description: trimify(publicationContent),
       content: trimify(publicationContent),
       external_url: `https://lenster.xyz/u/${currentProfile?.handle}`,
-      image: attachments.length > 0 ? (isAudioComment ? audioPublication.cover : attachments[0]?.item) : null,
-      imageMimeType:
-        attachments.length > 0
-          ? isAudioComment
-            ? audioPublication.coverMimeType
-            : attachments[0]?.type
-          : null,
+      image: attachments.length > 0 ? getAttachmentImage() : textNftImageUrl,
+      imageMimeType: attachments.length > 0 ? getAttachmentImageMimeType() : 'image/svg+xml',
       name: isAudioComment ? audioPublication.title : `Comment by @${currentProfile?.handle}`,
       tags: getTags(publicationContent),
       animation_url: getAnimationUrl(),

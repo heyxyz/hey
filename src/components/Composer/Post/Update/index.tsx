@@ -10,21 +10,23 @@ import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
 import type { LensterAttachment } from '@generated/lenstertypes';
 import type { CreatePublicPostRequest, Mutation } from '@generated/types';
+import { ReferenceModules } from '@generated/types';
 import {
   CreatePostTypedDataDocument,
   CreatePostViaDispatcherDocument,
-  PublicationMainFocus,
-  ReferenceModules
+  PublicationMainFocus
 } from '@generated/types';
 import type { IGif } from '@giphy/js-types';
 import { PencilAltIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
 import getTags from '@lib/getTags';
+import getTextNftSvg from '@lib/getTextNftSvg';
 import getUserLocale from '@lib/getUserLocale';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import trimify from '@lib/trimify';
 import uploadToArweave from '@lib/uploadToArweave';
+import { uploadFileToIPFS } from '@lib/uploadToIPFS';
 import dynamic from 'next/dynamic';
 import type { FC } from 'react';
 import { useEffect } from 'react';
@@ -240,9 +242,26 @@ const NewUpdate: FC = () => {
     }
   };
 
+  const getAttachmentImage = () => {
+    return isAudioPost ? audioPublication.cover : attachments[0]?.item;
+  };
+
+  const getAttachmentImageMimeType = () => {
+    return isAudioPost ? audioPublication.coverMimeType : attachments[0]?.type;
+  };
+
   const createPost = async () => {
     if (!currentProfile) {
       return toast.error(SIGN_WALLET);
+    }
+
+    let textNftImageUrl = null;
+    if (!attachments.length) {
+      const svg = getTextNftSvg(publicationContent, currentProfile.handle, new Date().toLocaleString());
+      const blob = new Blob([svg], { type: 'image/svg+xml' });
+      const file = new File([blob], 'post.svg', { lastModified: new Date().getTime(), type: blob.type });
+      const result = await uploadFileToIPFS(file);
+      textNftImageUrl = result?.item ?? null;
     }
 
     if (isAudioPost) {
@@ -280,9 +299,8 @@ const NewUpdate: FC = () => {
       description: trimify(publicationContent),
       content: trimify(publicationContent),
       external_url: `https://lenster.xyz/u/${currentProfile?.handle}`,
-      image: attachments.length > 0 ? (isAudioPost ? audioPublication.cover : attachments[0]?.item) : null,
-      imageMimeType:
-        attachments.length > 0 ? (isAudioPost ? audioPublication.coverMimeType : attachments[0]?.type) : null,
+      image: attachments.length > 0 ? getAttachmentImage() : textNftImageUrl,
+      imageMimeType: attachments.length > 0 ? getAttachmentImageMimeType() : 'image/svg+xml',
       name: isAudioPost ? audioPublication.title : `Post by @${currentProfile?.handle}`,
       tags: getTags(publicationContent),
       animation_url: getAnimationUrl(),
