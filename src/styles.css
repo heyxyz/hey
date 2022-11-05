@@ -172,3 +172,11 @@ iframe {
 .plyr--audio.plyr--full-ui input[type='range'] {
   @apply !text-white;
 }
+
+.post-button {
+  border-radius: 25px;
+}
+
+.post-button:focus {
+  --tw-ring-inset: 0px;
+}
