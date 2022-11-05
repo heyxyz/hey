@@ -8,6 +8,7 @@ export const IS_PRODUCTION = process.env.NODE_ENV === 'production';
 export const LENS_NETWORK = process.env.NEXT_PUBLIC_LENS_NETWORK ?? 'mainnet';
 export const MAINNET_API_URL = 'https://api.lens.dev';
 export const TESTNET_API_URL = 'https://api-mumbai.lens.dev';
+export const STAGING_API_URL = 'https://staging-api-social-mumbai.lens.crtlkey.com';
 export const SANDBOX_API_URL = 'https://api-sandbox-mumbai.lens.dev';
 
 export const API_URL = getEnvConfig().apiEndpoint;
