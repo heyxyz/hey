@@ -54,6 +54,7 @@ function MyCustomAutoFocusPlugin() {
 
   return null;
 }
+
 export default function Editor() {
   const initialConfig = {
     namespace: 'composer',

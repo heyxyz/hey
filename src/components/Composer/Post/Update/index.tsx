@@ -1,5 +1,6 @@
 import { LensHubProxy } from '@abis/LensHubProxy';
 import { useMutation } from '@apollo/client';
+import Editor from '@components/Composer/Editor';
 import Attachments from '@components/Shared/Attachments';
 import { AudioPublicationSchema } from '@components/Shared/Audio';
 import Markup from '@components/Shared/Markup';
@@ -361,13 +362,16 @@ const NewUpdate: FC = () => {
           <Markup>{publicationContent}</Markup>
         </div>
       ) : (
-        <MentionTextArea
-          error={postContentError}
-          setError={setPostContentError}
-          placeholder="What's happening?"
-          hideBorder
-          autoFocus
-        />
+        <>
+          <Editor />
+          <MentionTextArea
+            error={postContentError}
+            setError={setPostContentError}
+            placeholder="What's happening?"
+            hideBorder
+            autoFocus
+          />
+        </>
       )}
       <div className="block items-center sm:flex px-5">
         <div className="flex items-center space-x-4">
