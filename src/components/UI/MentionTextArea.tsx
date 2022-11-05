@@ -25,14 +25,14 @@ const User: FC<UserProps> = ({ suggestion, focused }) => (
     className={clsx({ 'dropdown-active': focused }, 'flex items-center space-x-2 m-1.5 px-3 py-1 rounded-xl')}
   >
     <img
-      className="w-7 h-7 rounded-full"
+      className="rounded-full w-7 h-7"
       height={32}
       width={32}
       src={imageProxy(getIPFSLink(suggestion.picture), AVATAR)}
       alt={suggestion.id}
     />
     <div className="flex flex-col truncate">
-      <div className="flex gap-1 items-center">
+      <div className="flex items-center gap-1">
         <div className="text-sm truncate">{suggestion.name}</div>
         {isVerified(suggestion.uid) && <BadgeCheckIcon className="w-3 h-3 text-brand" />}
       </div>
@@ -112,7 +112,7 @@ export const MentionTextArea: FC<Props> = ({
           data={fetchUsers}
         />
       </MentionsInput>
-      {error && <div className="mt-1 px-5 text-sm font-bold text-red-500">{error}</div>}
+      {error && <div className="px-5 mt-1 text-sm font-bold text-red-500">{error}</div>}
     </div>
   );
 };

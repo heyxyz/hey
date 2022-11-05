@@ -13,7 +13,10 @@ import { HeadingNode, QuoteNode } from '@lexical/rich-text';
 import type { EditorState } from 'lexical';
 import { useEffect } from 'react';
 
+import MentionsPlugin from './atMentionsPlugin';
+import ErrorBoundary from './errorBoundary';
 import { PLAYGROUND_TRANSFORMERS } from './markdownTransformers';
+import { MentionNode } from './mentionsNode';
 import ToolbarPlugin from './toolbarPlugin';
 import { useList } from './useList';
 
@@ -83,7 +86,17 @@ export default function Editor() {
       },
       quote: ' mb-5 ml-10 border-brand-500 border-l-4 pl-4'
     },
-    nodes: [HeadingNode, QuoteNode, CodeNode, LinkNode, HeadingNode, QuoteNode, ListNode, ListItemNode],
+    nodes: [
+      HeadingNode,
+      QuoteNode,
+      CodeNode,
+      LinkNode,
+      HeadingNode,
+      QuoteNode,
+      ListNode,
+      ListItemNode,
+      MentionNode
+    ],
     editorState: null,
     onError
   };
@@ -100,16 +113,16 @@ export default function Editor() {
             />
           }
           placeholder={
-            <p className=" select-text text-gray-400  absolute top-12 left-4 right-3 whitespace-nowrap z-0">
+            <div className="absolute z-0 text-gray-400 pointer-events-none select-text top-12 left-4 right-3 whitespace-nowrap">
               What's happening?
-            </p>
+            </div>
           }
-          // @ts-ignore @strek
-          initialEditorState={null}
+          ErrorBoundary={ErrorBoundary}
         />
         <OnChangePlugin onChange={onChange} />
         <HistoryPlugin />
         <ListPlugin />
+        <MentionsPlugin />
         <MyCustomAutoFocusPlugin />
         <MarkdownShortcutPlugin transformers={PLAYGROUND_TRANSFORMERS} />
       </LexicalComposer>
