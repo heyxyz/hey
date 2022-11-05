@@ -191,7 +191,7 @@ export default function NewMentionsPlugin(): JSX.Element | null {
       results
         .map(({ name, picture, handle }) => {
           return new MentionTypeaheadOption(
-            name,
+            name ?? handle,
             <img className="rounded-full w-7 h-7" height="32" width="32" src={picture} alt={name} />,
             handle
           );
