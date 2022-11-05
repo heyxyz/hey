@@ -6,7 +6,6 @@ import { AudioPublicationSchema } from '@components/Shared/Audio';
 import Markup from '@components/Shared/Markup';
 import { Button } from '@components/UI/Button';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
-import { MentionTextArea } from '@components/UI/MentionTextArea';
 import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
 import type { LensterAttachment } from '@generated/lenstertypes';
@@ -364,13 +363,7 @@ const NewUpdate: FC = () => {
       ) : (
         <>
           <Editor />
-          <MentionTextArea
-            error={postContentError}
-            setError={setPostContentError}
-            placeholder="What's happening?"
-            hideBorder
-            autoFocus
-          />
+          {postContentError}
         </>
       )}
       <div className="block items-center sm:flex px-5">

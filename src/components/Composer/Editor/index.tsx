@@ -10,8 +10,8 @@ import { MarkdownShortcutPlugin } from '@lexical/react/LexicalMarkdownShortcutPl
 import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
 import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
 import { HeadingNode, QuoteNode } from '@lexical/rich-text';
-import type { EditorState } from 'lexical';
 import { useEffect } from 'react';
+import { usePublicationStore } from 'src/store/publication';
 
 import MentionsPlugin from './atMentionsPlugin';
 import ErrorBoundary from './errorBoundary';
@@ -34,12 +34,6 @@ const ListPlugin = (): null => {
   return null;
 };
 
-function onChange(editorState: EditorState) {
-  editorState.read(() => {
-    const markdown = $convertToMarkdownString(TRANSFORMERS);
-    console.log(markdown);
-  });
-}
 function onError(error: any) {
   console.error(error);
 }
@@ -56,6 +50,8 @@ function MyCustomAutoFocusPlugin() {
 }
 
 export default function Editor() {
+  const setPublicationContent = usePublicationStore((state) => state.setPublicationContent);
+
   const initialConfig = {
     namespace: 'composer',
     theme: {
@@ -120,7 +116,14 @@ export default function Editor() {
           }
           ErrorBoundary={ErrorBoundary}
         />
-        <OnChangePlugin onChange={onChange} />
+        <OnChangePlugin
+          onChange={(editorState) => {
+            editorState.read(() => {
+              const markdown = $convertToMarkdownString(TRANSFORMERS);
+              setPublicationContent(markdown);
+            });
+          }}
+        />
         <HistoryPlugin />
         <ListPlugin />
         <MentionsPlugin />
