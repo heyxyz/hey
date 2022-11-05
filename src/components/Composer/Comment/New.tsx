@@ -391,6 +391,7 @@ const NewComment: FC<Props> = ({ publication }) => {
         </div>
         <div className="ml-auto pt-2 sm:pt-0">
           <Button
+            className="post-action-button"
             disabled={isLoading}
             icon={isLoading ? <Spinner size="xs" /> : <ChatAlt2Icon className="w-4 h-4" />}
             onClick={createComment}

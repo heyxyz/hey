@@ -173,10 +173,10 @@ iframe {
   @apply !text-white;
 }
 
-.post-button {
+.post-action-button {
   border-radius: 25px;
 }
 
-.post-button:focus {
+.post-action-button:focus {
   --tw-ring-inset: 0px;
 }

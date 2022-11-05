@@ -379,7 +379,7 @@ const NewUpdate: FC = () => {
         </div>
         <div className="ml-auto pt-2 sm:pt-0">
           <Button
-            className="post-button"
+            className="post-action-button"
             disabled={isLoading}
             icon={isLoading ? <Spinner size="xs" /> : <PencilAltIcon className="w-4 h-4" />}
             onClick={createPost}
