@@ -38,6 +38,7 @@ export class MentionNode extends TextNode {
     node.setDetail(serializedNode.detail);
     node.setMode(serializedNode.mode);
     node.setStyle(serializedNode.style);
+
     return node;
   }
 
@@ -60,12 +61,14 @@ export class MentionNode extends TextNode {
     dom.style.cssText = mentionStyle;
     dom.className =
       'text-transparent bg-clip-text bg-gradient-to-r from-brand-600 dark:from-brand-400 to-pink-600 dark:to-pink-400';
+
     return dom;
   }
 
   exportDOM(): DOMExportOutput {
     const element = document.createElement('span');
     element.textContent = this.__text;
+
     return { element };
   }
 
@@ -75,6 +78,7 @@ export class MentionNode extends TextNode {
         if (!domNode.hasAttribute('data-lexical-mention')) {
           return null;
         }
+
         return {
           // eslint-disable-next-line no-use-before-define
           conversion: convertMentionElement,
@@ -92,6 +96,7 @@ export class MentionNode extends TextNode {
 export function $createMentionNode(mentionName: string): MentionNode {
   const mentionNode = new MentionNode(mentionName);
   mentionNode.setMode('segmented').toggleDirectionless();
+
   return mentionNode;
 }
 
@@ -100,9 +105,8 @@ function convertMentionElement(domNode: HTMLElement): DOMConversionOutput | null
 
   if (textContent !== null) {
     const node = $createMentionNode(textContent);
-    return {
-      node
-    };
+
+    return { node };
   }
 
   return null;
