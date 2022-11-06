@@ -48,7 +48,7 @@ const NFTPicture: FC<Props> = ({ profile }) => {
 
   const onCompleted = () => {
     toast.success('Avatar updated successfully!');
-    Leafwatch.track(SETTINGS.PROFILE.SET_NFT_PICTURE);
+    Leafwatch.track(SETTINGS.PROFILE.SET_NFT_PICTURE, { type: 'NFT' });
   };
 
   const form = useZodForm({
