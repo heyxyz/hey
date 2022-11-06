@@ -2,11 +2,13 @@ import { ReferenceModules } from '@generated/types';
 import { Menu, Transition } from '@headlessui/react';
 import { GlobeAltIcon, UserAddIcon, UserGroupIcon, UsersIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
+import { Leafwatch } from '@lib/leafwatch';
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
 import type { FC, ReactNode } from 'react';
 import { Fragment } from 'react';
 import { useReferenceModuleStore } from 'src/store/referencemodule';
+import { PUBLICATION } from 'src/tracking';
 
 const ReferenceSettings: FC = () => {
   const selectedReferenceModule = useReferenceModuleStore((state) => state.selectedReferenceModule);
@@ -53,7 +55,13 @@ const ReferenceSettings: FC = () => {
     <Menu as="div">
       {({ open }) => (
         <>
-          <Menu.Button as={motion.button} whileTap={{ scale: 0.9 }}>
+          <Menu.Button
+            as={motion.button}
+            whileTap={{ scale: 0.9 }}
+            onClick={() => {
+              Leafwatch.track(PUBLICATION.NEW.REFERENCE_MODULE.OPEN_REFERENCE_SETTINGS);
+            }}
+          >
             <div className="text-brand">
               {isEveryone && <GlobeAltIcon className="w-5" />}
               {isMyFollowers && <UsersIcon className="w-5" />}
@@ -82,6 +90,7 @@ const ReferenceSettings: FC = () => {
                 onClick={() => {
                   setSelectedReferenceModule(ReferenceModules.FollowerOnlyReferenceModule);
                   setOnlyFollowers(false);
+                  Leafwatch.track(PUBLICATION.NEW.REFERENCE_MODULE.EVERYONE);
                 }}
               />
               <Module
@@ -91,6 +100,7 @@ const ReferenceSettings: FC = () => {
                 onClick={() => {
                   setSelectedReferenceModule(ReferenceModules.FollowerOnlyReferenceModule);
                   setOnlyFollowers(true);
+                  Leafwatch.track(PUBLICATION.NEW.REFERENCE_MODULE.MY_FOLLOWERS);
                 }}
               />
               <Module
@@ -100,6 +110,7 @@ const ReferenceSettings: FC = () => {
                 onClick={() => {
                   setSelectedReferenceModule(ReferenceModules.DegreesOfSeparationReferenceModule);
                   setDegreesOfSeparation(1);
+                  Leafwatch.track(PUBLICATION.NEW.REFERENCE_MODULE.MY_FOLLOWS);
                 }}
               />
               <Module
@@ -109,6 +120,7 @@ const ReferenceSettings: FC = () => {
                 onClick={() => {
                   setSelectedReferenceModule(ReferenceModules.DegreesOfSeparationReferenceModule);
                   setDegreesOfSeparation(2);
+                  Leafwatch.track(PUBLICATION.NEW.REFERENCE_MODULE.FRIENDS_OF_FRIENDS);
                 }}
               />
             </Menu.Items>

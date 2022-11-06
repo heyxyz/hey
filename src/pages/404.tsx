@@ -1,10 +1,17 @@
 import { Button } from '@components/UI/Button';
 import MetaTags from '@components/utils/MetaTags';
 import { HomeIcon } from '@heroicons/react/outline';
+import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
+import { useEffect } from 'react';
 import { APP_NAME, STATIC_ASSETS } from 'src/constants';
+import { PAGEVIEW } from 'src/tracking';
 
 export default function Custom404() {
+  useEffect(() => {
+    Leafwatch.track('Pageview', { path: PAGEVIEW.ERROR_404 });
+  }, []);
+
   return (
     <div className="flex-col page-center">
       <MetaTags title={`404 • ${APP_NAME}`} />
