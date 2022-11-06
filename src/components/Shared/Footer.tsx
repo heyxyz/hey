@@ -1,7 +1,9 @@
 import useStaffMode from '@components/utils/hooks/useStaffMode';
+import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { APP_NAME } from 'src/constants';
+import { FOOTER } from 'src/tracking';
 
 const Footer: FC = () => {
   const { allowed: staffMode } = useStaffMode();
@@ -16,23 +18,53 @@ const Footer: FC = () => {
         &copy; {new Date().getFullYear()} {APP_NAME}
       </span>
       <Link href="/privacy">Privacy</Link>
-      <a href="https://lenster.xyz/discord" target="_blank" rel="noreferrer noopener">
+      <a
+        href="https://lenster.xyz/discord"
+        target="_blank"
+        rel="noreferrer noopener"
+        onClick={() => Leafwatch.track(FOOTER.DISCORD)}
+      >
         Discord
       </a>
-      <a href="https://lenster.xyz/donate" target="_blank" rel="noreferrer noopener">
+      <a
+        href="https://lenster.xyz/donate"
+        target="_blank"
+        rel="noreferrer noopener"
+        onClick={() => Leafwatch.track(FOOTER.DONATE)}
+      >
         Donate
       </a>
-      <a href="https://status.lenster.xyz" target="_blank" rel="noreferrer noopener">
+      <a
+        href="https://status.lenster.xyz"
+        target="_blank"
+        rel="noreferrer noopener"
+        onClick={() => Leafwatch.track(FOOTER.STATUS)}
+      >
         Status
       </a>
-      <a href="https://vote.lenster.xyz" target="_blank" rel="noreferrer noopener">
+      <a
+        href="https://vote.lenster.xyz"
+        target="_blank"
+        rel="noreferrer noopener"
+        onClick={() => Leafwatch.track(FOOTER.VOTE)}
+      >
         Vote
       </a>
-      <a href="https://feedback.lenster.xyz" target="_blank" rel="noreferrer noopener">
+      <a
+        href="https://feedback.lenster.xyz"
+        target="_blank"
+        rel="noreferrer noopener"
+        onClick={() => Leafwatch.track(FOOTER.FEEDBACK)}
+      >
         Feedback
       </a>
       <Link href="/thanks">Thanks</Link>
-      <a href="https://github.com/lensterxyz/lenster" target="_blank" rel="noreferrer noopener">
+      <a
+        href="https://github.com/lensterxyz/lenster"
+        target="_blank"
+        rel="noreferrer noopener"
+        onClick={() => Leafwatch.track(FOOTER.GITHUB)}
+      >
         GitHub
       </a>
       <a
@@ -40,6 +72,7 @@ const Footer: FC = () => {
         href={`https://vercel.com/?utm_source=${APP_NAME}&utm_campaign=oss`}
         target="_blank"
         rel="noreferrer noopener"
+        onClick={() => Leafwatch.track(FOOTER.VERCEL)}
       >
         ▲ Powered by Vercel
       </a>
