@@ -1,4 +1,5 @@
 import { PublicationMainFocus } from '@generated/types';
+import { Leafwatch } from '@lib/leafwatch';
 import clsx from 'clsx';
 import type { Dispatch, FC } from 'react';
 
@@ -16,7 +17,10 @@ const FeedType: FC<Props> = ({ setFocus, focus }) => {
   const FeedLink: FC<FeedLinkProps> = ({ name, type }) => (
     <button
       type="button"
-      onClick={() => setFocus(type)}
+      onClick={() => {
+        setFocus(type);
+        Leafwatch.track(`Select ${(type ?? 'all_posts')?.toLowerCase()} filter in explore`);
+      }}
       className={clsx(
         { '!bg-brand-500 !text-white': focus === type },
         'text-xs bg-brand-100 dark:bg-opacity-20 rounded-full px-3 sm:px-4 py-1.5 text-brand border border-brand-300 dark:border-brand-500'
