@@ -8,7 +8,6 @@ import type { Mutation } from '@generated/types';
 import { CreateSetDispatcherTypedDataDocument } from '@generated/types';
 import { CheckCircleIcon, XIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
-import { Leafwatch } from '@lib/leafwatch';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import clsx from 'clsx';
@@ -16,7 +15,6 @@ import type { FC } from 'react';
 import toast from 'react-hot-toast';
 import { LENSHUB_PROXY, RELAY_ON } from 'src/constants';
 import { useAppStore } from 'src/store/app';
-import { SETTINGS } from 'src/tracking';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
 interface Props {
@@ -31,7 +29,6 @@ const ToggleDispatcher: FC<Props> = ({ buttonSize = 'md' }) => {
 
   const onCompleted = () => {
     toast.success('Profile updated successfully!');
-    Leafwatch.track(SETTINGS.DISPATCHER.TOGGLE);
   };
 
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });

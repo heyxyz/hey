@@ -11,7 +11,6 @@ import type { Mutation, Profile } from '@generated/types';
 import { CreateSetDefaultProfileTypedDataDocument } from '@generated/types';
 import { ExclamationIcon, PencilIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
-import { Leafwatch } from '@lib/leafwatch';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import type { FC } from 'react';
@@ -20,7 +19,6 @@ import toast from 'react-hot-toast';
 import { APP_NAME, LENSHUB_PROXY, RELAY_ON, SIGN_WALLET } from 'src/constants';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
-import { SETTINGS } from 'src/tracking';
 import { useAccount, useContractWrite, useSignTypedData } from 'wagmi';
 
 const SetProfile: FC = () => {
@@ -34,7 +32,6 @@ const SetProfile: FC = () => {
 
   const onCompleted = () => {
     toast.success('Default profile updated successfully!');
-    Leafwatch.track(SETTINGS.ACCOUNT.SET_DEFAULT_PROFILE);
   };
 
   const {
