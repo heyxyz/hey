@@ -5,11 +5,9 @@ import Footer from '@components/Shared/Footer';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import MetaTags from '@components/utils/MetaTags';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
-import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
-import { PAGEVIEW } from 'src/tracking';
 
 import EnableDispatcher from './EnableDispatcher';
 import EnableMessages from './EnableMessages';
@@ -25,10 +23,6 @@ import Trending from './Trending';
 const Home: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [feedType, setFeedType] = useState<'TIMELINE' | 'HIGHLIGHTS'>('TIMELINE');
-
-  useEffect(() => {
-    Leafwatch.track('Pageview', { path: PAGEVIEW.HOME });
-  }, []);
 
   return (
     <>
