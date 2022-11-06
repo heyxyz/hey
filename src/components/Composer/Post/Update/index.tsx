@@ -363,7 +363,9 @@ const NewUpdate: FC = () => {
       ) : (
         <div className="px-5">
           <Editor />
-          {postContentError}
+          {postContentError && (
+            <div className="mt-1 pb-3 text-sm font-bold text-red-500">{postContentError}</div>
+          )}
         </div>
       )}
       <div className="block items-center sm:flex px-5">
