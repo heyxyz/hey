@@ -173,7 +173,6 @@ export default function NewMentionsPlugin(): JSX.Element | null {
         handle: user?.handle,
         picture: user?.picture?.original?.url ?? user?.picture?.uri ?? getStampFyiURL(user?.ownedBy)
       }));
-      console.log(profiles);
       setResults(profiles);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
