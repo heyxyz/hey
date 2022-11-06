@@ -1,4 +1,5 @@
 import { useLazyQuery } from '@apollo/client';
+import Slug from '@components/Shared/Slug';
 import type { MediaSet, NftImage, Profile } from '@generated/types';
 import { SearchProfilesDocument, SearchRequestTypes } from '@generated/types';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
@@ -14,7 +15,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
-import { $createMentionNode } from './mentionsNode';
+import { $createMentionNode } from './MMentionsNode';
 
 const PUNCTUATION = '\\.,\\+\\*\\?\\$\\@\\|#{}\\(\\)\\^\\-\\[\\]\\\\/!%\'"~=<>_:;';
 const NAME = '\\b[A-Z][^\\s' + PUNCTUATION + ']';
@@ -143,11 +144,9 @@ function MentionsTypeaheadMenuItem({
       <div className="hover:bg-slate-100 flex items-center space-x-2 m-1.5 px-3 py-1 rounded-xl">
         {option.picture}
         <div className="flex flex-col truncate">
-          <div className="flex items-center gap-1">
-            <div className="text-sm truncate">{option.name}</div>
-          </div>
-          <span className="text-xs text-transparent bg-clip-text bg-gradient-to-r from-brand-600 dark:from-brand-400 to-pink-600 dark:to-pink-400">
-            {option.handle}
+          <div className="text-sm truncate">{option.name}</div>
+          <span className="text-xs">
+            <Slug prefix="@" slug={option.handle} />
           </span>
         </div>
       </div>
@@ -171,6 +170,7 @@ export default function NewMentionsPlugin(): JSX.Element | null {
 
       profiles = profiles.map((user: Profile & { picture: MediaSet & NftImage }) => ({
         name: user?.name,
+        handle: user?.handle,
         picture: user?.picture?.original?.url ?? user?.picture?.uri ?? getStampFyiURL(user?.ownedBy)
       }));
       console.log(profiles);
@@ -200,7 +200,7 @@ export default function NewMentionsPlugin(): JSX.Element | null {
   const onSelectOption = useCallback(
     (selectedOption: MentionTypeaheadOption, nodeToReplace: TextNode | null, closeMenu: () => void) => {
       editor.update(() => {
-        const mentionNode = $createMentionNode(selectedOption.name);
+        const mentionNode = $createMentionNode(selectedOption.handle);
         if (nodeToReplace) {
           nodeToReplace.replace(mentionNode);
         }
