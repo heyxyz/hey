@@ -13,10 +13,10 @@ import type { FC } from 'react';
 import { ERROR_MESSAGE } from 'src/constants';
 import { usePublicationStore } from 'src/store/publication';
 
-import MentionsPlugin from './AAtMentionsPlugin';
-import { PLAYGROUND_TRANSFORMERS } from './MMarkdownTransformers';
-import { MentionNode } from './MMentionsNode';
-import ToolbarPlugin from './TToolbarPlugin';
+import MentionsPlugin from './AtMentionsPlugin';
+import { PLAYGROUND_TRANSFORMERS } from './MarkdownTransformers';
+import { MentionNode } from './MentionsNode';
+import ToolbarPlugin from './ToolbarPlugin';
 
 const onError = (error: any) => {
   console.error(error);
