@@ -3,14 +3,13 @@ import { LinkNode } from '@lexical/link';
 import { ListItemNode, ListNode } from '@lexical/list';
 import { $convertToMarkdownString, TRANSFORMERS } from '@lexical/markdown';
 import { LexicalComposer } from '@lexical/react/LexicalComposer';
-import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import { ContentEditable } from '@lexical/react/LexicalContentEditable';
 import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
 import { MarkdownShortcutPlugin } from '@lexical/react/LexicalMarkdownShortcutPlugin';
 import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
 import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
 import { HeadingNode, QuoteNode } from '@lexical/rich-text';
-import { useEffect } from 'react';
+import type { FC } from 'react';
 import { usePublicationStore } from 'src/store/publication';
 
 import MentionsPlugin from './atMentionsPlugin';
@@ -18,38 +17,12 @@ import ErrorBoundary from './errorBoundary';
 import { PLAYGROUND_TRANSFORMERS } from './markdownTransformers';
 import { MentionNode } from './mentionsNode';
 import ToolbarPlugin from './toolbarPlugin';
-import { useList } from './useList';
 
-const ListPlugin = (): null => {
-  const [editor] = useLexicalComposerContext();
-
-  useEffect(() => {
-    if (!editor.hasNodes([ListNode, ListItemNode])) {
-      throw new Error('ListPlugin: ListNode and/or ListItemNode not registered on editor');
-    }
-  }, [editor]);
-
-  useList(editor);
-
-  return null;
+const onError = (error: any) => {
+  console.error(error);
 };
 
-function onError(error: any) {
-  console.error(error);
-}
-
-function MyCustomAutoFocusPlugin() {
-  const [editor] = useLexicalComposerContext();
-
-  useEffect(() => {
-    // Focus the editor when the effect fires!
-    editor.focus();
-  }, [editor]);
-
-  return null;
-}
-
-export default function Editor() {
+const Editor: FC = () => {
   const setPublicationContent = usePublicationStore((state) => state.setPublicationContent);
 
   const initialConfig = {
@@ -104,13 +77,10 @@ export default function Editor() {
         <ToolbarPlugin />
         <RichTextPlugin
           contentEditable={
-            <ContentEditable
-              className="
-          block w-[97%] m-4 box-border h-20 z-10 overflow-auto"
-            />
+            <ContentEditable className="block text-lg mt-4 box-border h-20 z-10 overflow-auto" />
           }
           placeholder={
-            <div className="absolute z-0 text-gray-400 pointer-events-none select-text top-12 left-4 right-3 whitespace-nowrap">
+            <div className="absolute z-0 text-gray-400 text-lg pointer-events-none top-12 whitespace-nowrap">
               What's happening?
             </div>
           }
@@ -125,11 +95,11 @@ export default function Editor() {
           }}
         />
         <HistoryPlugin />
-        <ListPlugin />
         <MentionsPlugin />
-        <MyCustomAutoFocusPlugin />
         <MarkdownShortcutPlugin transformers={PLAYGROUND_TRANSFORMERS} />
       </LexicalComposer>
     </div>
   );
-}
+};
+
+export default Editor;

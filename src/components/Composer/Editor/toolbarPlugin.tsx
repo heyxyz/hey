@@ -1,4 +1,3 @@
-import { $isCodeNode } from '@lexical/code';
 import { $isListNode, ListNode } from '@lexical/list';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import { $createQuoteNode, $isHeadingNode } from '@lexical/rich-text';
@@ -16,7 +15,6 @@ import { useCallback, useEffect, useState } from 'react';
 export default function ToolbarPlugin() {
   const [editor] = useLexicalComposerContext();
   const [activeEditor, setActiveEditor] = useState(editor);
-  const [selectedElementKey, setSelectedElementKey] = useState('null');
 
   const [isBold, setIsBold] = useState(false);
   const [isItalic, setIsItalic] = useState(false);
@@ -51,7 +49,6 @@ export default function ToolbarPlugin() {
       const elementDOM = activeEditor.getElementByKey(elementKey);
 
       if (elementDOM !== null) {
-        setSelectedElementKey(elementKey);
         if ($isListNode(element)) {
           const parentList = $getNearestNodeOfType<ListNode>(anchorNode, ListNode);
           const type = parentList ? parentList.getListType() : element.getListType();
@@ -59,11 +56,6 @@ export default function ToolbarPlugin() {
         } else {
           const type = $isHeadingNode(element) ? element.getTag() : element.getType();
           setBlockType(type);
-          if ($isCodeNode(element)) {
-            const language = element.getLanguage();
-            // setCodeLanguage(language ? CODE_LANGUAGE_MAP[language] || language : '');
-            return;
-          }
         }
       }
     }
