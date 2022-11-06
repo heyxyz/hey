@@ -361,10 +361,10 @@ const NewUpdate: FC = () => {
           <Markup>{publicationContent}</Markup>
         </div>
       ) : (
-        <>
+        <div className="px-5">
           <Editor />
           {postContentError}
-        </>
+        </div>
       )}
       <div className="block items-center sm:flex px-5">
         <div className="flex items-center space-x-4">
