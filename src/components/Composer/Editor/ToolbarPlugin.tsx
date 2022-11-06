@@ -36,7 +36,7 @@ const ToolbarPlugin: FC = () => {
   }, [editor, updateToolbar]);
 
   return (
-    <div className="h-8 w-full bg flex toolbar-icons">
+    <div className="w-full px-5 py-2 flex toolbar-icons border-b">
       <button
         onClick={() => {
           activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, 'bold');

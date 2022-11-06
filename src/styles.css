@@ -190,21 +190,11 @@ iframe {
 i.bold {
   background-image: url(/assets/type-bold.svg);
 }
+
 i.italic {
   background-image: url(/assets/type-italic.svg);
 }
-i.superscript {
-  background-image: url(/assets/type-superscript.svg);
-}
-i.subscript {
-  background-image: url(/assets/type-subscript.svg);
-}
-i.quote {
-  margin-top: 5px;
-  height: 17px;
-  width: 17px;
-  background-image: url(/assets/type-quote.svg);
-}
+
 div[data-lexical-editor='true'] {
   outline: none;
 }

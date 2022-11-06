@@ -3,6 +3,7 @@ import { LinkNode } from '@lexical/link';
 import { ListItemNode, ListNode } from '@lexical/list';
 import { $convertToMarkdownString, TRANSFORMERS } from '@lexical/markdown';
 import { LexicalComposer } from '@lexical/react/LexicalComposer';
+import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import { ContentEditable } from '@lexical/react/LexicalContentEditable';
 import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
 import { MarkdownShortcutPlugin } from '@lexical/react/LexicalMarkdownShortcutPlugin';
@@ -10,6 +11,7 @@ import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
 import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
 import { HeadingNode, QuoteNode } from '@lexical/rich-text';
 import type { FC } from 'react';
+import { useEffect } from 'react';
 import { ERROR_MESSAGE } from 'src/constants';
 import { usePublicationStore } from 'src/store/publication';
 
@@ -17,6 +19,21 @@ import MentionsPlugin from './AtMentionsPlugin';
 import { PLAYGROUND_TRANSFORMERS } from './MarkdownTransformers';
 import { MentionNode } from './MentionsNode';
 import ToolbarPlugin from './ToolbarPlugin';
+import { useList } from './useList';
+
+const ListPlugin = (): null => {
+  const [editor] = useLexicalComposerContext();
+
+  useEffect(() => {
+    if (!editor.hasNodes([ListNode, ListItemNode])) {
+      throw new Error('ListPlugin: ListNode and/or ListItemNode not registered on editor');
+    }
+  }, [editor]);
+
+  useList(editor);
+
+  return null;
+};
 
 const onError = (error: any) => {
   console.error(error);
@@ -77,10 +94,10 @@ const Editor: FC = () => {
         <ToolbarPlugin />
         <RichTextPlugin
           contentEditable={
-            <ContentEditable className="block text-lg mt-4 box-border h-20 z-10 overflow-auto" />
+            <ContentEditable className="px-5 block text-lg mt-4 box-border h-20 z-10 overflow-auto" />
           }
           placeholder={
-            <div className="absolute z-0 text-gray-400 text-lg pointer-events-none top-12 whitespace-nowrap">
+            <div className="px-5 absolute top-16 z-0 text-gray-400 text-lg pointer-events-none whitespace-nowrap">
               What's happening?
             </div>
           }
@@ -95,6 +112,7 @@ const Editor: FC = () => {
           }}
         />
         <HistoryPlugin />
+        <ListPlugin />
         <MentionsPlugin />
         <MarkdownShortcutPlugin transformers={PLAYGROUND_TRANSFORMERS} />
       </LexicalComposer>

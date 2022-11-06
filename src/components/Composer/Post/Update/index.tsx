@@ -3,7 +3,6 @@ import { useMutation } from '@apollo/client';
 import Editor from '@components/Composer/Editor';
 import Attachments from '@components/Shared/Attachments';
 import { AudioPublicationSchema } from '@components/Shared/Audio';
-import Markup from '@components/Shared/Markup';
 import { Button } from '@components/UI/Button';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
@@ -58,9 +57,6 @@ const CollectSettings = dynamic(() => import('@components/Shared/CollectSettings
   loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
 });
 const ReferenceSettings = dynamic(() => import('@components/Shared/ReferenceSettings'), {
-  loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
-});
-const Preview = dynamic(() => import('@components/Shared/Preview'), {
   loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
 });
 
@@ -354,19 +350,12 @@ const NewUpdate: FC = () => {
     isUploading || typedDataLoading || dispatcherLoading || signLoading || writeLoading || broadcastLoading;
 
   return (
-    <div className="py-3">
+    <div className="pb-3">
       {error && <ErrorMessage className="mb-3" title="Transaction failed!" error={error} />}
-      {previewPublication ? (
-        <div className="pb-3 mb-2 border-b linkify dark:border-b-gray-700/80 break-words px-5">
-          <Markup>{publicationContent}</Markup>
-        </div>
-      ) : (
-        <div className="px-5">
-          <Editor />
-          {postContentError && (
-            <div className="mt-1 pb-3 text-sm font-bold text-red-500">{postContentError}</div>
-          )}
-        </div>
+
+      <Editor />
+      {postContentError && (
+        <div className="px-5 pb-3 mt-1 text-sm font-bold text-red-500">{postContentError}</div>
       )}
       <div className="block items-center sm:flex px-5">
         <div className="flex items-center space-x-4">
@@ -374,7 +363,6 @@ const NewUpdate: FC = () => {
           <Giphy setGifAttachment={(gif: IGif) => setGifAttachment(gif)} />
           <CollectSettings />
           <ReferenceSettings />
-          {publicationContent && <Preview />}
         </div>
         <div className="ml-auto pt-2 sm:pt-0">
           <Button
