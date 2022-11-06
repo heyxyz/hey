@@ -10,10 +10,10 @@ import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
 import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
 import { HeadingNode, QuoteNode } from '@lexical/rich-text';
 import type { FC } from 'react';
+import { ERROR_MESSAGE } from 'src/constants';
 import { usePublicationStore } from 'src/store/publication';
 
 import MentionsPlugin from './atMentionsPlugin';
-import ErrorBoundary from './errorBoundary';
 import { PLAYGROUND_TRANSFORMERS } from './markdownTransformers';
 import { MentionNode } from './mentionsNode';
 import ToolbarPlugin from './toolbarPlugin';
@@ -84,7 +84,7 @@ const Editor: FC = () => {
               What's happening?
             </div>
           }
-          ErrorBoundary={ErrorBoundary}
+          ErrorBoundary={() => <div>{ERROR_MESSAGE}</div>}
         />
         <OnChangePlugin
           onChange={(editorState) => {

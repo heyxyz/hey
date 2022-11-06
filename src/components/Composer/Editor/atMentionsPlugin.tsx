@@ -29,13 +29,9 @@ const CapitalizedNameMentionsRegex = new RegExp(
 );
 
 const PUNC = DocumentMentionsRegex.PUNCTUATION;
-
 const TRIGGERS = ['@'].join('');
-
 const VALID_CHARS = '[^' + TRIGGERS + PUNC + '\\s]';
-
 const VALID_JOINS = '(?:' + '\\.[ |$]|' + ' |' + '[' + PUNC + ']|' + ')';
-
 const LENGTH_LIMIT = 75;
 
 const AtSignMentionsRegex = new RegExp(
@@ -180,6 +176,7 @@ export default function NewMentionsPlugin(): JSX.Element | null {
       console.log(profiles);
       setResults(profiles);
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [queryString]);
 
   const checkForSlashTriggerMatch = useBasicTypeaheadTriggerMatch('/', {

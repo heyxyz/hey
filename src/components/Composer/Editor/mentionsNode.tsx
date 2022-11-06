@@ -88,6 +88,7 @@ export class MentionNode extends TextNode {
     return true;
   }
 }
+
 export function $createMentionNode(mentionName: string): MentionNode {
   const mentionNode = new MentionNode(mentionName);
   mentionNode.setMode('segmented').toggleDirectionless();
@@ -106,6 +107,7 @@ function convertMentionElement(domNode: HTMLElement): DOMConversionOutput | null
 
   return null;
 }
+
 export function $isMentionNode(node: LexicalNode | null | undefined): node is MentionNode {
   return node instanceof MentionNode;
 }

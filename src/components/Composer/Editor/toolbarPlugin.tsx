@@ -10,18 +10,18 @@ import {
   FORMAT_TEXT_COMMAND,
   SELECTION_CHANGE_COMMAND
 } from 'lexical';
+import type { FC } from 'react';
 import { useCallback, useEffect, useState } from 'react';
 
-export default function ToolbarPlugin() {
+const ToolbarPlugin: FC = () => {
   const [editor] = useLexicalComposerContext();
   const [activeEditor, setActiveEditor] = useState(editor);
-
   const [isBold, setIsBold] = useState(false);
   const [isItalic, setIsItalic] = useState(false);
   const [isSuperScript, setIsSuperScript] = useState(false);
   const [isSubScript, setIsSubScript] = useState(false);
-
   const [blockType, setBlockType] = useState('paragraph');
+
   const formatQuote = () => {
     if (blockType !== 'quote') {
       editor.update(() => {
@@ -95,17 +95,6 @@ export default function ToolbarPlugin() {
       >
         <i className="toolbar-icon italic" />
       </button>
-      {/* underline is not supported in markdown */}
-      {/* <button
-        onClick={() => {
-          activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, 'underline');
-        }}
-        className={'spaced ' + (isBold ? 'active' : '')}
-        title={'Bold'}
-        aria-label={`Format text as bold.`}
-      >
-        U
-      </button> */}
       <button
         onClick={() => {
           activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, 'superscript');
@@ -131,4 +120,6 @@ export default function ToolbarPlugin() {
       </button>
     </div>
   );
-}
+};
+
+export default ToolbarPlugin;
