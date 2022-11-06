@@ -162,13 +162,16 @@ body {
 iframe {
   @apply rounded-xl;
 }
+
 /** CSS overrides for plyr audio **/
 .plyr--audio .plyr__controls {
   @apply !bg-transparent !text-white;
 }
+
 .plyr--audio .plyr__control {
   @apply hover:!bg-transparent;
 }
+
 .plyr--audio.plyr--full-ui input[type='range'] {
   @apply !text-white;
 }
