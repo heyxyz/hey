@@ -9,6 +9,7 @@ import useStaffMode from '@components/utils/hooks/useStaffMode';
 import MetaTags from '@components/utils/MetaTags';
 import { PublicationDocument } from '@generated/types';
 import { Leafwatch } from '@lib/leafwatch';
+import clsx from 'clsx';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
@@ -72,7 +73,7 @@ const ViewPublication: NextPage = () => {
   const publication: any = data.publication;
 
   return (
-    <GridLayout className="!min-h-screen">
+    <GridLayout className={clsx(publication.commentOn && '!min-h-screen')}>
       <MetaTags
         title={
           publication.__typename && publication?.profile?.handle
