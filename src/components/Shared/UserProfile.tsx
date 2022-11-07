@@ -9,6 +9,7 @@ import type { FC } from 'react';
 import { useEffect } from 'react';
 import { useRef } from 'react';
 import { useState } from 'react';
+import { useAppStore } from 'src/store/app';
 
 import Follow from './Follow';
 import Markup from './Markup';
@@ -38,6 +39,7 @@ const UserProfile: FC<Props> = ({
 }) => {
   const [following, setFollowing] = useState(isFollowing);
   const [showPreview, setShowPreview] = useState(false);
+  const currentProfile = useAppStore((state) => state.currentProfile);
 
   const UserImage = () => (
     <img
@@ -78,7 +80,7 @@ const UserProfile: FC<Props> = ({
             ))}
         </div>
       </div>
-      <div className="p-1">
+      <div className="p-1 space-y-3">
         <UserName />
         <div>
           {profile?.bio && (
@@ -87,7 +89,7 @@ const UserProfile: FC<Props> = ({
             </div>
           )}
         </div>
-        <div className="flex space-x-3 items-center my-2">
+        <div className="flex space-x-3 items-center">
           <div className="flex items-center space-x-1">
             <div className="text-base">{profile?.stats?.totalFollowing}</div>
             <div className="text-gray-500 text-sm">Following</div>
@@ -97,7 +99,7 @@ const UserProfile: FC<Props> = ({
             <div className="text-gray-500 text-sm">Followers</div>
           </div>
         </div>
-        <MutualFollowers profile={profile} variant="xs" />
+        {currentProfile && <MutualFollowers profile={profile} variant="xs" />}
       </div>
     </div>
   );

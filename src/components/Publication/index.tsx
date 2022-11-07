@@ -11,7 +11,7 @@ import { PublicationDocument } from '@generated/types';
 import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect } from 'react';
 import { APP_NAME } from 'src/constants';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
@@ -24,9 +24,6 @@ import RelevantPeople from './RelevantPeople';
 import PublicationPageShimmer from './Shimmer';
 
 const ViewPublication: NextPage = () => {
-  const [adaptiveHeight, setAdaptiveHeight] = useState('');
-  const postContainerRef = useRef<HTMLDivElement>(null);
-
   const currentProfile = useAppStore((state) => state.currentProfile);
   const { allowed: staffMode } = useStaffMode();
 
@@ -44,18 +41,13 @@ const ViewPublication: NextPage = () => {
   });
 
   useEffect(() => {
-    const currentRef = postContainerRef.current;
-    if (!currentRef || !data?.publication) {
-      return;
-    }
-    setAdaptiveHeight(`calc(100vh + ${currentRef.clientHeight}px)`);
     if (data?.publication?.id) {
       Leafwatch.track('Pageview', {
         path: PAGEVIEW.PUBLICATION,
         id: data.publication.id
       });
     }
-  }, [postContainerRef, data]);
+  }, [data]);
 
   if (error) {
     return <Custom500 />;
@@ -72,7 +64,7 @@ const ViewPublication: NextPage = () => {
   const publication: any = data.publication;
 
   return (
-    <GridLayout className="!min-h-screen">
+    <GridLayout>
       <MetaTags
         title={
           publication.__typename && publication?.profile?.handle
@@ -80,13 +72,13 @@ const ViewPublication: NextPage = () => {
             : APP_NAME
         }
       />
-      <GridItemEight className="space-y-5" style={{ minHeight: adaptiveHeight }}>
+      <GridItemEight className="space-y-5">
         <Card>
-          <FullPublication postContainerRef={postContainerRef} publication={publication} />
+          <FullPublication publication={publication} />
         </Card>
         <Feed publication={publication} />
       </GridItemEight>
-      <GridItemFour className="space-y-5 !max-h-screen !sticky !top-24">
+      <GridItemFour className="space-y-5">
         <Card as="aside" className="p-5">
           <UserProfile
             profile={
