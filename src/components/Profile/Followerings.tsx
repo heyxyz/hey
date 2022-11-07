@@ -2,8 +2,10 @@ import { Modal } from '@components/UI/Modal';
 import type { Profile } from '@generated/types';
 import { UsersIcon } from '@heroicons/react/outline';
 import humanize from '@lib/humanize';
+import { Leafwatch } from '@lib/leafwatch';
 import type { FC } from 'react';
 import { useState } from 'react';
+import { PROFILE } from 'src/tracking';
 
 import Followers from './Followers';
 import Following from './Following';
@@ -18,11 +20,25 @@ const Followerings: FC<Props> = ({ profile }) => {
 
   return (
     <div className="flex gap-8">
-      <button type="button" className="text-left" onClick={() => setShowFollowingModal(!showFollowingModal)}>
+      <button
+        type="button"
+        className="text-left"
+        onClick={() => {
+          setShowFollowingModal(!showFollowingModal);
+          Leafwatch.track(PROFILE.OPEN_FOLLOWING);
+        }}
+      >
         <div className="text-xl">{humanize(profile?.stats?.totalFollowing)}</div>
         <div className="text-gray-500">Following</div>
       </button>
-      <button type="button" className="text-left" onClick={() => setShowFollowersModal(!showFollowersModal)}>
+      <button
+        type="button"
+        className="text-left"
+        onClick={() => {
+          setShowFollowersModal(!showFollowersModal);
+          Leafwatch.track(PROFILE.OPEN_FOLLOWERS);
+        }}
+      >
         <div className="text-xl">{humanize(profile?.stats?.totalFollowers)}</div>
         <div className="text-gray-500">Followers</div>
       </button>

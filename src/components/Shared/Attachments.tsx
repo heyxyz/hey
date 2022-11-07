@@ -5,10 +5,12 @@ import type { MediaSet } from '@generated/types';
 import { ExternalLinkIcon, XIcon } from '@heroicons/react/outline';
 import getIPFSLink from '@lib/getIPFSLink';
 import imageProxy from '@lib/imageProxy';
+import { Leafwatch } from '@lib/leafwatch';
 import clsx from 'clsx';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { ALLOWED_AUDIO_TYPES, ALLOWED_VIDEO_TYPES, ATTACHMENT } from 'src/constants';
+import { PUBLICATION } from 'src/tracking';
 
 import Audio from './Audio';
 import Video from './Video';
@@ -111,7 +113,10 @@ const Attachments: FC<Props> = ({
                   loading="lazy"
                   height={1000}
                   width={1000}
-                  onClick={() => setExpandedImage(url)}
+                  onClick={() => {
+                    setExpandedImage(url);
+                    Leafwatch.track(PUBLICATION.ATTACHEMENT.IMAGE.OPEN);
+                  }}
                   src={imageProxy(url, ATTACHMENT)}
                   alt={imageProxy(url, ATTACHMENT)}
                 />

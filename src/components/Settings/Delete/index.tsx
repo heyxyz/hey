@@ -13,15 +13,18 @@ import type { Mutation } from '@generated/types';
 import { CreateBurnProfileTypedDataDocument } from '@generated/types';
 import { ExclamationIcon, TrashIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
+import { Leafwatch } from '@lib/leafwatch';
 import onError from '@lib/onError';
 import resetAuthData from '@lib/resetAuthData';
 import splitSignature from '@lib/splitSignature';
 import type { FC } from 'react';
+import { useEffect } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { APP_NAME, LENSHUB_PROXY, SIGN_WALLET } from 'src/constants';
 import Custom404 from 'src/pages/404';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
+import { PAGEVIEW } from 'src/tracking';
 import { useContractWrite, useDisconnect, useSignTypedData } from 'wagmi';
 
 import Sidebar from '../Sidebar';
@@ -34,10 +37,13 @@ const DeleteSettings: FC = () => {
   const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
   const setHandle = useAppPersistStore((state) => state.setHandle);
-  const disconnectXmtp = useDisconnectXmtp();
-
-  const { disconnect } = useDisconnect();
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
+  const disconnectXmtp = useDisconnectXmtp();
+  const { disconnect } = useDisconnect();
+
+  useEffect(() => {
+    Leafwatch.track('Pageview', { path: PAGEVIEW.SETTINGS.DELETE });
+  }, []);
 
   const onCompleted = () => {
     setCurrentProfile(null);
