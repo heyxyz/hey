@@ -1,8 +1,10 @@
 import { Button } from '@components/UI/Button';
 import type { LensterPublication } from '@generated/lenstertypes';
 import { ExclamationCircleIcon, ExternalLinkIcon, ShieldCheckIcon } from '@heroicons/react/outline';
+import { Leafwatch } from '@lib/leafwatch';
 import type { FC } from 'react';
 import { useGlobalModalStateStore } from 'src/store/modals';
+import { MOD } from 'src/tracking';
 
 interface Props {
   publication: LensterPublication;
@@ -17,6 +19,7 @@ const ModAction: FC<Props> = ({ publication }) => {
         onClick={(event) => {
           event.stopPropagation();
           setShowReportModal(true, publication, { type: 'spamReason', subReason: 'FAKE_ENGAGEMENT' });
+          Leafwatch.track(MOD.SPAM);
         }}
         variant="warning"
         icon={<ExclamationCircleIcon className="h-4 w-4" />}
@@ -28,6 +31,7 @@ const ModAction: FC<Props> = ({ publication }) => {
         onClick={(event) => {
           event.stopPropagation();
           setShowReportModal(true, publication);
+          Leafwatch.track(MOD.OTHER);
         }}
         icon={<ShieldCheckIcon className="h-4 w-4" />}
       >

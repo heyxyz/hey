@@ -17,6 +17,7 @@ import { StarIcon, UserIcon } from '@heroicons/react/outline';
 import formatAddress from '@lib/formatAddress';
 import getSignature from '@lib/getSignature';
 import getTokenImage from '@lib/getTokenImage';
+import { Leafwatch } from '@lib/leafwatch';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import type { Dispatch, FC } from 'react';
@@ -24,6 +25,7 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { LENSHUB_PROXY, POLYGONSCAN_URL, RELAY_ON, SIGN_WALLET } from 'src/constants';
 import { useAppStore } from 'src/store/app';
+import { PROFILE } from 'src/tracking';
 import { useAccount, useBalance, useContractWrite, useSignTypedData } from 'wagmi';
 
 import Loader from '../Loader';
@@ -49,6 +51,7 @@ const FollowModule: FC<Props> = ({ profile, setFollowing, setShowFollowModal, ag
     setFollowing(true);
     setShowFollowModal(false);
     toast.success('Followed successfully!');
+    Leafwatch.track(PROFILE.SUPER_FOLLOW);
   };
 
   const { isLoading: writeLoading, write } = useContractWrite({
