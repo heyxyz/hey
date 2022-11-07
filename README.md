@@ -64,7 +64,7 @@ yarn install
 yarn dev
 ```
 
-and visit http://localhost:4783
+and visit https://localhost:4783
 
 ## 🤝 Supporting Repos
 
