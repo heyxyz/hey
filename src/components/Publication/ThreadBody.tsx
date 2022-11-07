@@ -1,9 +1,11 @@
 import UserProfile from '@components/Shared/UserProfile';
 import type { LensterPublication } from '@generated/lenstertypes';
+import { Leafwatch } from '@lib/leafwatch';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
+import { PUBLICATION } from 'src/tracking';
 
 import PublicationActions from './Actions';
 import HiddenPublication from './HiddenPublication';
@@ -31,7 +33,13 @@ const ThreadBody: FC<Props> = ({ publication }) => {
       </div>
       <div className="flex">
         <div className="mr-8 ml-5 bg-gray-300 border-gray-300 dark:bg-gray-700 dark:border-gray-700 border-[0.8px] -my-[3px]" />
-        <div className="pt-4 pb-5 !w-[85%] sm:w-full" onClick={() => push(`/posts/${publication?.id}`)}>
+        <div
+          className="pt-4 pb-5 !w-[85%] sm:w-full"
+          onClick={() => {
+            Leafwatch.track(PUBLICATION.OPEN);
+            push(`/posts/${publication?.id}`);
+          }}
+        >
           {publication?.hidden ? (
             <HiddenPublication type={publication.__typename} />
           ) : (

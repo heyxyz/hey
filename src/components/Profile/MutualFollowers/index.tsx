@@ -3,8 +3,10 @@ import type { Profile } from '@generated/types';
 import { MutualFollowersDocument } from '@generated/types';
 import getAvatar from '@lib/getAvatar';
 import clsx from 'clsx';
+import { Leafwatch } from '@lib/leafwatch';
 import type { Dispatch, FC, ReactNode } from 'react';
 import { useAppStore } from 'src/store/app';
+import { PROFILE } from 'src/tracking';
 
 interface Props {
   setShowMutualFollowersModal?: Dispatch<boolean>;
@@ -35,7 +37,10 @@ const MutualFollowers: FC<Props> = ({ setShowMutualFollowersModal, profile, vari
         'text-sm': variant === 'sm',
         'text-xs': variant === 'xs'
       })}
-      onClick={() => setShowMutualFollowersModal?.(true)}
+      onClick={() => {
+        setShowMutualFollowersModal?.(true);
+        Leafwatch.track(PROFILE.OPEN_MUTUAL_FOLLOWERS);
+      }}
     >
       <div className="contents -space-x-2">
         {profiles?.map((profile) => (

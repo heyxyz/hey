@@ -7,6 +7,7 @@ import type { CreateBurnEip712TypedData, Mutation, Profile } from '@generated/ty
 import { CreateUnfollowTypedDataDocument } from '@generated/types';
 import { UserRemoveIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
+import { Leafwatch } from '@lib/leafwatch';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import type { Signer } from 'ethers';
@@ -16,6 +17,7 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { RELAY_ON, SIGN_WALLET } from 'src/constants';
 import { useAppStore } from 'src/store/app';
+import { PROFILE } from 'src/tracking';
 import { useSigner, useSignTypedData } from 'wagmi';
 
 interface Props {
@@ -67,6 +69,7 @@ const Unfollow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
               await burnWithSig(signature, typedData);
             }
             toast.success('Unfollowed successfully!');
+            Leafwatch.track(PROFILE.UNFOLLOW);
           } catch {
             toast.error('User rejected request');
           } finally {
