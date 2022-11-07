@@ -30,12 +30,17 @@ interface Props {
 const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
   const router = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const messageProfiles = useMessageStore((state) => state.messageProfiles);
-  const setMessageProfiles = useMessageStore((state) => state.setMessageProfiles);
+  // const followingProfiles = useMessageStore((state) => state.followingProfiles);
+  // const setFollowingProfiles = useMessageStore((state) => state.setFollowingProfiles);
+  const requestedProfiles = useMessageStore((state) => state.requestedProfiles);
+  // const setRequestedProfiles = useMessageStore((state) => state.setRequestedProfiles);
+  const addProfile = useMessageStore((state) => state.addProfile);
   const selectedTab = useMessageStore((state) => state.selectedTab);
   const setSelectedTab = useMessageStore((state) => state.setSelectedTab);
   const [showSearchModal, setShowSearchModal] = useState(false);
+  // const [profilesToShow, setProfilesToShow] = useState<Profile[]>();
   const { authenticating, loading, messages, profiles, profilesError } = useMessagePreviews();
+  console.log('selected: ' + selectedTab);
   const clearMessagesBadge = useMessagePersistStore((state) => state.clearMessagesBadge);
 
   const sortedProfiles = Array.from(profiles).sort(([keyA], [keyB]) => {
@@ -44,34 +49,34 @@ const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
     return (messageA?.sent?.getTime() || 0) >= (messageB?.sent?.getTime() || 0) ? -1 : 1;
   });
 
-  const followedProfiles = Array.from(sortedProfiles).filter(([, value]) => {
-    if (value.isFollowedByMe) {
-      return true;
-    }
-    return false;
-  });
+  console.log('profiles: ' + profiles.size + ' tab: ' + selectedTab);
 
-  const requestedProfiles = Array.from(sortedProfiles).filter(([, value]) => {
-    if (!value.isFollowedByMe) {
-      return true;
-    }
-    return false;
-  });
+  // const followedProfiles = Array.from(sortedProfiles).filter(([, value]) => {
+  //   if (value.isFollowedByMe) {
+  //     return true;
+  //   }
+  //   return false;
+  // });
 
-  const profilesToShow = selectedTab === 'Following' ? followedProfiles : requestedProfiles;
+  // const requestedProfiles = Array.from(sortedProfiles).filter(([, value]) => {
+  //   if (!value.isFollowedByMe) {
+  //     return true;
+  //   }
+  //   return false;
+  // });
 
+  // const profilesToShow = selectedTab === 'Following' ? followedProfiles : requestedProfiles;
+
+  // useEffect(() => {
+
+  // }, [selectedTab]);
   useEffect(() => {
     if (!currentProfile) {
       return;
     }
-    const profileKeys = Array.from(profiles.keys());
-    const messageKeys = Array.from(messages.keys());
-    const hasPreviews = profileKeys.some((item) => messageKeys.includes(item));
-    if (hasPreviews) {
-      clearMessagesBadge(currentProfile.id);
-    }
+    clearMessagesBadge(currentProfile.id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentProfile, profiles, messages]);
+  }, [currentProfile]);
 
   const showAuthenticating = currentProfile && authenticating;
   const showLoading = loading && (messages.size === 0 || profiles.size === 0);
@@ -84,8 +89,7 @@ const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
   const onProfileSelected = (profile: Profile) => {
     const conversationId = buildConversationId(currentProfile?.id, profile.id);
     const conversationKey = buildConversationKey(profile.ownedBy, conversationId);
-    messageProfiles.set(conversationKey, profile);
-    setMessageProfiles(new Map(messageProfiles));
+    addProfile(conversationKey, profile);
     router.push(`/messages/${conversationKey}`);
     setShowSearchModal(false);
   };
@@ -157,7 +161,7 @@ const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
               />
             </button>
           ) : (
-            profilesToShow?.map(([key, profile]) => {
+            sortedProfiles?.map(([key, profile]) => {
               const message = messages.get(key);
               if (!message) {
                 return null;

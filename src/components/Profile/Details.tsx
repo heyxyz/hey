@@ -44,9 +44,7 @@ const Details: FC<Props> = ({ profile }) => {
   const { allowed: staffMode } = useStaffMode();
   const { resolvedTheme } = useTheme();
   const router = useRouter();
-  const messageProfiles = useMessageStore((state) => state.messageProfiles);
-  const setMessageProfiles = useMessageStore((state) => state.setMessageProfiles);
-  const setSelectedTab = useMessageStore((state) => state.setSelectedTab);
+  const addProfile = useMessageStore((state) => state.addProfile);
 
   const onMessageClick = () => {
     if (!currentProfile) {
@@ -54,13 +52,7 @@ const Details: FC<Props> = ({ profile }) => {
     }
     const conversationId = buildConversationId(currentProfile.id, profile.id);
     const conversationKey = buildConversationKey(profile.ownedBy, conversationId);
-    messageProfiles.set(conversationKey, profile);
-    setMessageProfiles(new Map(messageProfiles));
-    if (profile.isFollowedByMe) {
-      setSelectedTab('Following');
-    } else {
-      setSelectedTab('Requested');
-    }
+    addProfile(conversationKey, profile);
     router.push(`/messages/${conversationKey}`);
   };
 

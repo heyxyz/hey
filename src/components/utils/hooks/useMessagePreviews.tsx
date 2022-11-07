@@ -21,8 +21,10 @@ const useMessagePreviews = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const conversations = useMessageStore((state) => state.conversations);
   const setConversations = useMessageStore((state) => state.setConversations);
-  const messageProfiles = useMessageStore((state) => state.messageProfiles);
-  const setMessageProfiles = useMessageStore((state) => state.setMessageProfiles);
+  const followingProfiles = useMessageStore((state) => state.followingProfiles);
+  const setFollowingProfiles = useMessageStore((state) => state.setFollowingProfiles);
+  const requestedProfiles = useMessageStore((state) => state.requestedProfiles);
+  const setRequestedProfiles = useMessageStore((state) => state.setRequestedProfiles);
   const previewMessages = useMessageStore((state) => state.previewMessages);
   const setPreviewMessages = useMessageStore((state) => state.setPreviewMessages);
   const selectedProfileId = useMessageStore((state) => state.selectedProfileId);
@@ -35,6 +37,7 @@ const useMessagePreviews = () => {
   const [profilesLoading, setProfilesLoading] = useState<boolean>(false);
   const [profilesError, setProfilesError] = useState<Error | undefined>();
   const [loadProfiles] = useLazyQuery(ProfilesDocument);
+  const selectedTab = useMessageStore((state) => state.selectedTab);
 
   const getProfileFromKey = (key: string): string | null => {
     const parsed = parseConversationKey(key);
@@ -50,9 +53,11 @@ const useMessagePreviews = () => {
     if (profilesLoading) {
       return;
     }
+    const followingOnly = selectedTab === 'Following';
+    const cachedProfiles = followingOnly ? followingProfiles : requestedProfiles;
     const toQuery = new Set(profileIds);
     // Don't both querying for already seen profiles
-    for (const profile of messageProfiles.values()) {
+    for (const profile of cachedProfiles.values()) {
       toQuery.delete(profile.id);
     }
 
@@ -62,7 +67,8 @@ const useMessagePreviews = () => {
 
     const loadLatest = async () => {
       setProfilesLoading(true);
-      const newMessageProfiles = new Map(messageProfiles);
+      const newFollowingProfiles = new Map(followingProfiles);
+      const newRequestedProfiles = new Map(requestedProfiles);
       const chunks = chunkArray(Array.from(toQuery), MAX_PROFILES_PER_REQUEST);
       try {
         const results = await Promise.all(
@@ -83,19 +89,30 @@ const useMessagePreviews = () => {
               peerAddress,
               buildConversationId(currentProfile?.id, profile.id)
             );
-            newMessageProfiles.set(key, profile);
+            if (profile.isFollowedByMe) {
+              console.log('follow: ' + profile.handle);
+              newFollowingProfiles.set(key, profile);
+            } else {
+              console.log('request: ' + profile.handle);
+              newRequestedProfiles.set(key, profile);
+            }
           }
         }
       } catch (error: unknown) {
         setProfilesError(error as Error);
       }
 
-      setMessageProfiles(newMessageProfiles);
+      // TODO(elise): Only update the visible tab?
+      if (followingOnly) {
+        setFollowingProfiles(newFollowingProfiles);
+      } else {
+        setRequestedProfiles(newRequestedProfiles);
+      }
       setProfilesLoading(false);
     };
     loadLatest();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [profileIds]);
+  }, [profileIds, selectedTab]);
 
   useEffect(() => {
     if (!client || !currentProfile) {
@@ -127,6 +144,7 @@ const useMessagePreviews = () => {
         direction: SortDirection.SORT_DIRECTION_DESCENDING
       });
       if (newMessages.length <= 0) {
+        console.log('missing message from: ' + getProfileFromKey(key));
         return { key };
       }
       return { key, message: newMessages[0] };
@@ -223,11 +241,12 @@ const useMessagePreviews = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentProfile]);
 
+  const profiles = selectedTab === 'Following' ? followingProfiles : requestedProfiles;
   return {
     authenticating: creatingXmtpClient,
     loading: messagesLoading || profilesLoading,
     messages: previewMessages,
-    profiles: messageProfiles,
+    profiles: profiles,
     profilesError: profilesError
   };
 };
