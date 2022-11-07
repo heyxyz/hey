@@ -1,10 +1,11 @@
 import axios from 'axios';
-import { AXIOM_TOKEN, IS_PRODUCTION, LEAFWATCH_HOST } from 'src/constants';
+import { DATADOG_TOKEN, IS_PRODUCTION, LEAFWATCH_HOST } from 'src/constants';
 import parser from 'ua-parser-js';
+import { v4 as uuid } from 'uuid';
 
 import getUserLocale from './getUserLocale';
 
-const enabled = AXIOM_TOKEN && IS_PRODUCTION;
+const enabled = DATADOG_TOKEN && IS_PRODUCTION;
 const isBrowser = typeof window !== 'undefined';
 
 /**
@@ -20,9 +21,9 @@ export const Leafwatch = {
     if (isBrowser && enabled) {
       axios(LEAFWATCH_HOST, {
         method: 'POST',
-        headers: {
-          Authorization: `Bearer ${AXIOM_TOKEN}`,
-          'Content-Type': 'application/x-ndjson'
+        params: {
+          'dd-api-key': DATADOG_TOKEN,
+          'dd-request-id': uuid()
         },
         data: {
           event: name,
