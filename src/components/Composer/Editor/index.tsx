@@ -16,7 +16,8 @@ import { ERROR_MESSAGE } from 'src/constants';
 import { usePublicationStore } from 'src/store/publication';
 
 import MentionsPlugin from './AtMentionsPlugin';
-import { PLAYGROUND_TRANSFORMERS } from './MarkdownTransformers';
+import AutoLinkPlugin from './AutoLinkPlugin';
+import { LENSTER_TRANSFORMERS } from './MarkdownTransformers';
 import { MentionNode } from './MentionsNode';
 import ToolbarPlugin from './ToolbarPlugin';
 import { useList } from './useList';
@@ -111,10 +112,11 @@ const Editor: FC = () => {
             });
           }}
         />
+        <AutoLinkPlugin />
         <HistoryPlugin />
         <ListPlugin />
         <MentionsPlugin />
-        <MarkdownShortcutPlugin transformers={PLAYGROUND_TRANSFORMERS} />
+        <MarkdownShortcutPlugin transformers={LENSTER_TRANSFORMERS} />
       </LexicalComposer>
     </div>
   );

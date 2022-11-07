@@ -1,5 +1,4 @@
 import { useLazyQuery } from '@apollo/client';
-import Slug from '@components/Shared/Slug';
 import type { MediaSet, NftImage, Profile } from '@generated/types';
 import { SearchProfilesDocument, SearchRequestTypes } from '@generated/types';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
@@ -30,9 +29,13 @@ const CapitalizedNameMentionsRegex = new RegExp(
 );
 
 const PUNC = DocumentMentionsRegex.PUNCTUATION;
+
 const TRIGGERS = ['@'].join('');
+
 const VALID_CHARS = '[^' + TRIGGERS + PUNC + '\\s]';
+
 const VALID_JOINS = '(?:' + '\\.[ |$]|' + ' |' + '[' + PUNC + ']|' + ')';
+
 const LENGTH_LIMIT = 75;
 
 const AtSignMentionsRegex = new RegExp(
@@ -145,9 +148,7 @@ function MentionsTypeaheadMenuItem({
         {option.picture}
         <div className="flex flex-col truncate">
           <div className="text-sm truncate">{option.name}</div>
-          <span className="text-xs">
-            <Slug prefix="@" slug={option.handle} />
-          </span>
+          <span className="text-xs">{option.handle}</span>
         </div>
       </div>
     </li>
