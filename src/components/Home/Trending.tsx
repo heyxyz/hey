@@ -5,9 +5,11 @@ import { ErrorMessage } from '@components/UI/ErrorMessage';
 import type { TagResult } from '@generated/types';
 import { TagSortCriteria, TrendingDocument } from '@generated/types';
 import { TrendingUpIcon } from '@heroicons/react/solid';
+import { Leafwatch } from '@lib/leafwatch';
 import nFormatter from '@lib/nFormatter';
 import Link from 'next/link';
 import type { FC } from 'react';
+import { MISCELLANEOUS } from 'src/tracking';
 
 const Title = () => {
   return (
@@ -47,7 +49,10 @@ const Trending: FC = () => {
         {data?.allPublicationsTags?.items?.map((tag: TagResult) =>
           tag?.tag !== '{}' ? (
             <div key={tag?.tag}>
-              <Link href={`/search?q=${tag?.tag}&type=pubs`}>
+              <Link
+                href={`/search?q=${tag?.tag}&type=pubs`}
+                onClick={() => Leafwatch.track(MISCELLANEOUS.OPEN_TRENDING_TAG)}
+              >
                 <div className="font-bold">{tag?.tag}</div>
                 <div className="text-[12px] text-gray-500">{nFormatter(tag?.total)} Publications</div>
               </Link>

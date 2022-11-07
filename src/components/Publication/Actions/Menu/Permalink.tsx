@@ -1,10 +1,12 @@
 import type { LensterPublication } from '@generated/lenstertypes';
 import { Menu } from '@headlessui/react';
 import { ClipboardCopyIcon } from '@heroicons/react/outline';
+import { Leafwatch } from '@lib/leafwatch';
 import clsx from 'clsx';
 import type { FC } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import toast from 'react-hot-toast';
+import { PUBLICATION } from 'src/tracking';
 
 interface Props {
   publication: LensterPublication;
@@ -14,7 +16,10 @@ const Permalink: FC<Props> = ({ publication }) => {
   return (
     <CopyToClipboard
       text={`${location.origin}/posts/${publication?.id}`}
-      onCopy={() => toast.success('Copied to clipboard!')}
+      onCopy={() => {
+        toast.success('Copied to clipboard!');
+        Leafwatch.track(PUBLICATION.PERMALINK);
+      }}
     >
       <Menu.Item
         as="div"
