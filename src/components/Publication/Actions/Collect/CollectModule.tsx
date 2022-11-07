@@ -41,6 +41,7 @@ import getEnvConfig from '@lib/getEnvConfig';
 import getSignature from '@lib/getSignature';
 import getTokenImage from '@lib/getTokenImage';
 import humanize from '@lib/humanize';
+import { Leafwatch } from '@lib/leafwatch';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import dayjs from 'dayjs';
@@ -51,6 +52,7 @@ import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { LENSHUB_PROXY, POLYGONSCAN_URL, RELAY_ON, SIGN_WALLET } from 'src/constants';
 import { useAppStore } from 'src/store/app';
+import { PUBLICATION } from 'src/tracking';
 import { useAccount, useBalance, useContractRead, useContractWrite, useSignTypedData } from 'wagmi';
 
 interface Props {
@@ -85,6 +87,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
     setCount(count + 1);
     setHasCollectedByMe(true);
     toast.success('Transaction submitted successfully!');
+    Leafwatch.track(PUBLICATION.COLLECT_MODULE.COLLECT);
   };
 
   const {
@@ -326,7 +329,10 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
               <button
                 className="font-bold"
                 type="button"
-                onClick={() => setShowCollectorsModal(!showCollectorsModal)}
+                onClick={() => {
+                  setShowCollectorsModal(!showCollectorsModal);
+                  Leafwatch.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECTORS);
+                }}
               >
                 {humanize(count)} collectors
               </button>
