@@ -12,6 +12,7 @@ import type { Profile } from '@generated/types';
 import { MailIcon, PlusCircleIcon } from '@heroicons/react/outline';
 import buildConversationId from '@lib/buildConversationId';
 import { buildConversationKey } from '@lib/conversationKey';
+import { Leafwatch } from '@lib/leafwatch';
 import clsx from 'clsx';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
@@ -19,6 +20,7 @@ import { useEffect, useState } from 'react';
 import { ERROR_MESSAGE } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { useMessagePersistStore, useMessageStore } from 'src/store/message';
+import { MESSAGES } from 'src/tracking';
 
 interface Props {
   className?: string;
@@ -58,6 +60,7 @@ const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
 
   const newMessageClick = () => {
     setShowSearchModal(true);
+    Leafwatch.track(MESSAGES.OPEN_NEW_CONVERSATION);
   };
 
   const onProfileSelected = (profile: Profile) => {

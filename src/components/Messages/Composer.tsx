@@ -3,10 +3,12 @@ import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
 import useWindowSize from '@components/utils/hooks/useWindowSize';
 import { ArrowRightIcon } from '@heroicons/react/outline';
+import { Leafwatch } from '@lib/leafwatch';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { MIN_WIDTH_DESKTOP } from 'src/constants';
+import { MESSAGES } from 'src/tracking';
 
 interface Props {
   sendMessage: (message: string) => Promise<boolean>;
@@ -29,6 +31,7 @@ const Composer: FC<Props> = ({ sendMessage, conversationKey, disabledInput }) =>
     const sent = await sendMessage(message);
     if (sent) {
       setMessage('');
+      Leafwatch.track(MESSAGES.SEND);
     } else {
       toast.error('Error sending message');
     }
