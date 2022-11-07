@@ -3,15 +3,22 @@ import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import MetaTags from '@components/utils/MetaTags';
 import isGardener from '@lib/isGardener';
+import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
+import { useEffect } from 'react';
 import { APP_NAME } from 'src/constants';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
+import { PAGEVIEW } from 'src/tracking';
 
 import Feed from './Feed';
 
 const Mod: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
+
+  useEffect(() => {
+    Leafwatch.track('Pageview', { path: PAGEVIEW.MOD });
+  }, []);
 
   if (!isGardener(currentProfile?.id)) {
     return <Custom404 />;
