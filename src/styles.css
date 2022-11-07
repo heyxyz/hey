@@ -38,6 +38,14 @@ body {
   @apply underline;
 }
 
+.tab-bg {
+  @apply hover:bg-gray-200
+}
+
+.tab-bg:hover > span {
+  @apply bg-gray-300
+}
+
 .identicon {
   width: 100% !important;
   height: 100% !important;

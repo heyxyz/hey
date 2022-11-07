@@ -30,6 +30,8 @@ const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const messageProfiles = useMessageStore((state) => state.messageProfiles);
   const setMessageProfiles = useMessageStore((state) => state.setMessageProfiles);
+  const selectedTab = useMessageStore((state) => state.selectedTab);
+  const setSelectedTab = useMessageStore((state) => state.setSelectedTab);
   const [showSearchModal, setShowSearchModal] = useState(false);
   const { authenticating, loading, messages, profiles, profilesError } = useMessagePreviews();
   const clearMessagesBadge = useMessagePersistStore((state) => state.clearMessagesBadge);
@@ -39,6 +41,22 @@ const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
     const messageB = messages.get(keyB);
     return (messageA?.sent?.getTime() || 0) >= (messageB?.sent?.getTime() || 0) ? -1 : 1;
   });
+
+  const followedProfiles = Array.from(sortedProfiles).filter(([, value]) => {
+    if (value.isFollowedByMe) {
+      return true;
+    }
+    return false;
+  });
+
+  const requestedProfiles = Array.from(sortedProfiles).filter(([, value]) => {
+    if (!value.isFollowedByMe) {
+      return true;
+    }
+    return false;
+  });
+
+  const profilesToShow = selectedTab === 'Following' ? followedProfiles : requestedProfiles;
 
   useEffect(() => {
     if (!currentProfile) {
@@ -85,6 +103,36 @@ const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
             </button>
           )}
         </div>
+        <div className="flex">
+          <div
+            onClick={() => setSelectedTab('Following')}
+            className={clsx(
+              'flex flex-1 justify-center items-center p-2 m-2 rounded text-brand-500 tab-bg cursor-pointer',
+              selectedTab === 'Following' ? 'bg-gray-100' : ''
+            )}
+          >
+            Following
+          </div>
+          <div
+            onClick={() => setSelectedTab('Requested')}
+            className={clsx(
+              'flex flex-1 justify-center items-center p-2 m-2 rounded text-brand-500 tab-bg cursor-pointer',
+              selectedTab === 'Requested' ? 'bg-gray-100' : ''
+            )}
+          >
+            Requested
+            <span className="text-sm font-bold ml-2 bg-gray-200 px-3 py-0.5 rounded-2xl">
+              {Array.from(requestedProfiles.values()).length > 99
+                ? '99+'
+                : Array.from(requestedProfiles.values()).length}
+            </span>
+          </div>
+        </div>
+        {selectedTab === 'Requested' ? (
+          <div className="p-2 mt-1 text-sm bg-yellow-100 text-yellow-800">
+            These conversations are from Lenster profiles that you don't currently follow.
+          </div>
+        ) : null}
         <div className="h-full overflow-y-auto overflow-x-hidden">
           {showAuthenticating ? (
             <PageLoading message="Awaiting signature to enable DMs" />
@@ -105,7 +153,7 @@ const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
               />
             </button>
           ) : (
-            sortedProfiles.map(([key, profile]) => {
+            profilesToShow?.map(([key, profile]) => {
               const message = messages.get(key);
               if (!message) {
                 return null;

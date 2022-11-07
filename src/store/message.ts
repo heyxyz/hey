@@ -6,6 +6,8 @@ import { LS_KEYS } from 'src/constants';
 import create from 'zustand';
 import { persist } from 'zustand/middleware';
 
+type tabValues = 'Following' | 'Requested';
+
 interface MessageState {
   client: Client | undefined;
   setClient: (client: Client | undefined) => void;
@@ -23,6 +25,8 @@ interface MessageState {
   reset: () => void;
   selectedProfileId: string;
   setSelectedProfileId: (selectedProfileId: string) => void;
+  selectedTab: tabValues;
+  setSelectedTab: (selectedTab: tabValues) => void;
 }
 
 export const useMessageStore = create<MessageState>((set) => ({
@@ -67,6 +71,8 @@ export const useMessageStore = create<MessageState>((set) => ({
   setPreviewMessages: (previewMessages) => set(() => ({ previewMessages })),
   selectedProfileId: '',
   setSelectedProfileId: (selectedProfileId) => set(() => ({ selectedProfileId })),
+  selectedTab: 'Following',
+  setSelectedTab: (selectedTab) => set(() => ({ selectedTab })),
   reset: () =>
     set((state) => {
       return {
@@ -74,7 +80,8 @@ export const useMessageStore = create<MessageState>((set) => ({
         conversations: new Map(),
         messages: new Map(),
         messageProfiles: new Map(),
-        previewMessages: new Map()
+        previewMessages: new Map(),
+        selectedTab: 'Following'
       };
     })
 }));
