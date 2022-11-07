@@ -5,17 +5,14 @@ import { PageLoading } from '@components/UI/PageLoading';
 import MetaTags from '@components/utils/MetaTags';
 import { ProfileSettingsDocument } from '@generated/types';
 import { PhotographIcon } from '@heroicons/react/outline';
-import { Leafwatch } from '@lib/leafwatch';
 import clsx from 'clsx';
 import type { NextPage } from 'next';
 import type { FC, ReactNode } from 'react';
-import { useEffect } from 'react';
 import { useState } from 'react';
 import { APP_NAME } from 'src/constants';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
 import { useAppStore } from 'src/store/app';
-import { PAGEVIEW } from 'src/tracking';
 
 import Sidebar from '../Sidebar';
 import NFTPicture from './NFTPicture';
@@ -25,10 +22,6 @@ import Profile from './Profile';
 const ProfileSettings: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [settingsType, setSettingsType] = useState<'NFT' | 'AVATAR'>('AVATAR');
-
-  useEffect(() => {
-    Leafwatch.track('Pageview', { path: PAGEVIEW.SETTINGS.PROFILE });
-  }, []);
 
   const { data, loading, error } = useQuery(ProfileSettingsDocument, {
     variables: { request: { profileId: currentProfile?.id } },

@@ -37,10 +37,6 @@ export const CONTACT_EMAIL = 'support@lenster.xyz';
 export const RELAY_ON = process.env.NEXT_PUBLIC_RELAY_ON === 'true';
 export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
 
-// Leafwatch
-export const AXIOM_TOKEN = process.env.NEXT_PUBLIC_AXIOM_TOKEN ?? '';
-export const LEAFWATCH_HOST = 'https://cloud.axiom.co/api/v1/datasets/leafwatch/ingest';
-
 // Messages
 export const ERROR_MESSAGE = 'Something went wrong!';
 export const SIGN_WALLET = 'Please sign in your wallet.';
