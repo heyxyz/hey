@@ -1,11 +1,19 @@
 import Slug from '@components/Shared/Slug';
+import { Leafwatch } from '@lib/leafwatch';
 import { Matcher } from 'interweave';
 import Link from 'next/link';
 import { createElement } from 'react';
+import { PUBLICATION } from 'src/tracking';
 
 export function Mention({ ...props }: any) {
   return (
-    <Link href={`/u/${props.display.slice(1)}`} onClick={(event) => event.stopPropagation()}>
+    <Link
+      href={`/u/${props.display.slice(1)}`}
+      onClick={(event) => {
+        event.stopPropagation();
+        Leafwatch.track(PUBLICATION.MENTION_CLICK, { username: props.display });
+      }}
+    >
       <Slug slug={props.display} />
     </Link>
   );

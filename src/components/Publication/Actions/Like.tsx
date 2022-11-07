@@ -7,6 +7,7 @@ import { AddReactionDocument, ReactionTypes, RemoveReactionDocument } from '@gen
 import { HeartIcon } from '@heroicons/react/outline';
 import { HeartIcon as HeartIconSolid } from '@heroicons/react/solid';
 import { publicationKeyFields } from '@lib/keyFields';
+import { Leafwatch } from '@lib/leafwatch';
 import nFormatter from '@lib/nFormatter';
 import onError from '@lib/onError';
 import { motion } from 'framer-motion';
@@ -16,6 +17,7 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { SIGN_WALLET } from 'src/constants';
 import { useAppStore } from 'src/store/app';
+import { PUBLICATION } from 'src/tracking';
 
 interface Props {
   publication: LensterPublication;
@@ -48,6 +50,9 @@ const Like: FC<Props> = ({ publication, isFullPublication }) => {
   };
 
   const [addReaction] = useMutation<Mutation>(AddReactionDocument, {
+    onCompleted: () => {
+      Leafwatch.track(PUBLICATION.LIKE);
+    },
     onError: (error) => {
       setLiked(!liked);
       setCount(count - 1);
@@ -57,6 +62,9 @@ const Like: FC<Props> = ({ publication, isFullPublication }) => {
   });
 
   const [removeReaction] = useMutation<Mutation>(RemoveReactionDocument, {
+    onCompleted: () => {
+      Leafwatch.track(PUBLICATION.DISLIKE);
+    },
     onError: (error) => {
       setLiked(!liked);
       setCount(count + 1);
