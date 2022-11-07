@@ -7,7 +7,6 @@ import useGetMessages from '@components/utils/hooks/useGetMessages';
 import useSendMessage from '@components/utils/hooks/useSendMessage';
 import useStreamMessages from '@components/utils/hooks/useStreamMessages';
 import MetaTags from '@components/utils/MetaTags';
-import type { Profile } from '@generated/types';
 import { parseConversationKey } from '@lib/conversationKey';
 import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
@@ -32,22 +31,7 @@ interface MessageProps {
 
 const Message: FC<MessageProps> = ({ conversationKey }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const followingProfile = useMessageStore((state) => state.followingProfiles.get(conversationKey));
-  const requestedProfile = useMessageStore((state) => state.requestedProfiles.get(conversationKey));
-  const selectedTab = useMessageStore((state) => state.selectedTab);
-  const setSelectedTab = useMessageStore((state) => state.setSelectedTab);
-  let profile: Profile | undefined;
-  if (followingProfile) {
-    profile = followingProfile;
-    if (selectedTab !== 'Following') {
-      setSelectedTab('Following');
-    }
-  } else {
-    profile = requestedProfile;
-    if (selectedTab !== 'Requested') {
-      setSelectedTab('Requested');
-    }
-  }
+  const profile = useMessageStore((state) => state.messageProfiles.get(conversationKey));
   const { selectedConversation, missingXmtpAuth } = useGetConversation(conversationKey, profile);
   const [endTime, setEndTime] = useState<Map<string, Date>>(new Map());
   const { messages, hasMore } = useGetMessages(

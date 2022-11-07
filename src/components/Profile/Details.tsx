@@ -44,7 +44,7 @@ const Details: FC<Props> = ({ profile }) => {
   const { allowed: staffMode } = useStaffMode();
   const { resolvedTheme } = useTheme();
   const router = useRouter();
-  const addProfile = useMessageStore((state) => state.addProfile);
+  const addProfileAndSelectTab = useMessageStore((state) => state.addProfileAndSelectTab);
 
   const onMessageClick = () => {
     if (!currentProfile) {
@@ -52,7 +52,7 @@ const Details: FC<Props> = ({ profile }) => {
     }
     const conversationId = buildConversationId(currentProfile.id, profile.id);
     const conversationKey = buildConversationKey(profile.ownedBy, conversationId);
-    addProfile(conversationKey, profile);
+    addProfileAndSelectTab(conversationKey, profile);
     router.push(`/messages/${conversationKey}`);
   };
 
