@@ -65,7 +65,7 @@ const useMessagePreviews = () => {
 
     const loadLatest = async () => {
       setProfilesLoading(true);
-      const newProfiles = new Map(messageProfiles);
+      const newMessageProfiles = new Map(messageProfiles);
       const chunks = chunkArray(Array.from(toQuery), MAX_PROFILES_PER_REQUEST);
       try {
         const results = await Promise.all(
@@ -86,14 +86,14 @@ const useMessagePreviews = () => {
               peerAddress,
               buildConversationId(currentProfile?.id, profile.id)
             );
-            newProfiles.set(key, profile);
+            newMessageProfiles.set(key, profile);
           }
         }
       } catch (error: unknown) {
         setProfilesError(error as Error);
       }
 
-      setMessageProfiles(newProfiles);
+      setMessageProfiles(newMessageProfiles);
       setProfilesLoading(false);
     };
     loadLatest();

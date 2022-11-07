@@ -86,9 +86,7 @@ const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
         </div>
         <div className="flex">
           <div
-            onClick={() => {
-              setSelectedTab('Following');
-            }}
+            onClick={() => setSelectedTab('Following')}
             className={clsx(
               'flex flex-1 justify-center items-center p-2 m-2 rounded text-brand-500 tab-bg cursor-pointer',
               selectedTab === 'Following' ? 'bg-gray-100' : ''
