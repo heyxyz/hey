@@ -3,7 +3,7 @@ import type { LensterPublication } from '@generated/lenstertypes';
 import getAppName from '@lib/getAppName';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import type { FC, Ref } from 'react';
+import type { FC } from 'react';
 
 import PublicationActions from './Actions';
 import HiddenPublication from './HiddenPublication';
@@ -15,7 +15,6 @@ dayjs.extend(relativeTime);
 
 interface Props {
   publication: LensterPublication;
-  postContainerRef?: Ref<HTMLDivElement>;
 }
 
 const FullPublication: FC<Props> = ({ publication }) => {
