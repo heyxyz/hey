@@ -3,12 +3,10 @@ import { Tooltip } from '@components/UI/Tooltip';
 import GetModuleIcon from '@components/utils/GetModuleIcon';
 import { CashIcon } from '@heroicons/react/outline';
 import { getModule } from '@lib/getModule';
-import { Leafwatch } from '@lib/leafwatch';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useCollectModuleStore } from 'src/store/collectmodule';
-import { PUBLICATION } from 'src/tracking';
 
 import CollectForm from './CollectForm';
 
@@ -22,10 +20,7 @@ const CollectSettings: FC = () => {
         <motion.button
           whileTap={{ scale: 0.9 }}
           type="button"
-          onClick={() => {
-            setShowModal(!showModal);
-            Leafwatch.track(PUBLICATION.NEW.COLLECT_MODULE.OPEN_COLLECT_SETTINGS);
-          }}
+          onClick={() => setShowModal(!showModal)}
           aria-label="Choose Collect Module"
         >
           <div className="text-brand">
