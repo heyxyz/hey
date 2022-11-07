@@ -4,7 +4,6 @@ import { ReferenceModules, UserProfilesDocument } from '@generated/types';
 import getIsAuthTokensAvailable from '@lib/getIsAuthTokensAvailable';
 import getToastOptions from '@lib/getToastOptions';
 import resetAuthData from '@lib/resetAuthData';
-import { setUser } from '@sentry/nextjs';
 import Head from 'next/head';
 import { useTheme } from 'next-themes';
 import type { FC, ReactNode } from 'react';
@@ -98,16 +97,6 @@ const Layout: FC<Props> = ({ children }) => {
     validateAuthentication();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isDisconnected, address, chain, disconnect, profileId]);
-
-  // Set Sentry user
-  useEffect(() => {
-    if (profileId && handle) {
-      setUser({ id: profileId, username: handle });
-    } else {
-      setUser(null);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [profileId]);
 
   if (loading || !mounted) {
     return <Loading />;
