@@ -3,6 +3,7 @@ import Following from '@components/Profile/Following';
 import Search from '@components/Shared/Navbar/Search';
 import { Card } from '@components/UI/Card';
 import { EmptyState } from '@components/UI/EmptyState';
+import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { GridItemFour } from '@components/UI/GridLayout';
 import { Modal } from '@components/UI/Modal';
 import { PageLoading } from '@components/UI/PageLoading';
@@ -11,13 +12,11 @@ import type { Profile } from '@generated/types';
 import { MailIcon, PlusCircleIcon } from '@heroicons/react/outline';
 import buildConversationId from '@lib/buildConversationId';
 import { buildConversationKey } from '@lib/conversationKey';
-import isFeatureEnabled from '@lib/isFeatureEnabled';
 import clsx from 'clsx';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
-import Custom404 from 'src/pages/404';
-import Custom500 from 'src/pages/500';
+import { ERROR_MESSAGE } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { useMessagePersistStore, useMessageStore } from 'src/store/message';
 
@@ -34,7 +33,6 @@ const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
   const [showSearchModal, setShowSearchModal] = useState(false);
   const { authenticating, loading, messages, profiles, profilesError } = useMessagePreviews();
   const clearMessagesBadge = useMessagePersistStore((state) => state.clearMessagesBadge);
-  const isMessagesEnabled = isFeatureEnabled('messages', currentProfile?.id);
 
   const sortedProfiles = Array.from(profiles).sort(([keyA], [keyB]) => {
     const messageA = messages.get(keyA);
@@ -43,7 +41,7 @@ const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
   });
 
   useEffect(() => {
-    if (!isMessagesEnabled || !currentProfile) {
+    if (!currentProfile) {
       return;
     }
     const profileKeys = Array.from(profiles.keys());
@@ -54,14 +52,6 @@ const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentProfile, profiles, messages]);
-
-  if (!currentProfile || !isMessagesEnabled) {
-    return <Custom404 />;
-  }
-
-  if (profilesError) {
-    return <Custom500 />;
-  }
 
   const showAuthenticating = currentProfile && authenticating;
   const showLoading = loading && (messages.size === 0 || profiles.size === 0);
@@ -87,7 +77,7 @@ const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
       )}
     >
       <Card className="h-full flex justify-between flex-col">
-        <div className="flex justify-between items-center p-5 border-b">
+        <div className="flex justify-between items-center p-5 border-b dark:border-gray-700">
           <div className="font-bold">Messages</div>
           {currentProfile && !showAuthenticating && !showLoading && (
             <button onClick={newMessageClick} type="button">
@@ -100,6 +90,12 @@ const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
             <PageLoading message="Awaiting signature to enable DMs" />
           ) : showLoading ? (
             <PageLoading message="Loading conversations" />
+          ) : profilesError ? (
+            <ErrorMessage
+              className="m-5"
+              title="Failed to load messages"
+              error={{ message: ERROR_MESSAGE, name: ERROR_MESSAGE }}
+            />
           ) : sortedProfiles.length === 0 ? (
             <button className="w-full h-full justify-items-center" onClick={newMessageClick} type="button">
               <EmptyState
