@@ -4,7 +4,6 @@ interface Props {
   children: ReactNode;
   className?: string;
   classNameChild?: string;
-  style?: React.CSSProperties;
 }
 
 export const GridLayout: FC<Props> = ({ children, className = '', classNameChild = '' }) => {
