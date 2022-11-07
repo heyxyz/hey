@@ -9,7 +9,7 @@ import { Modal } from '@components/UI/Modal';
 import { PageLoading } from '@components/UI/PageLoading';
 import useMessagePreviews from '@components/utils/hooks/useMessagePreviews';
 import type { Profile } from '@generated/types';
-import { MailIcon, PlusCircleIcon } from '@heroicons/react/outline';
+import { MailIcon, PlusCircleIcon, UsersIcon } from '@heroicons/react/outline';
 import buildConversationId from '@lib/buildConversationId';
 import { buildConversationKey } from '@lib/conversationKey';
 import clsx from 'clsx';
@@ -111,6 +111,7 @@ const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
               selectedTab === 'Following' ? 'bg-gray-100' : ''
             )}
           >
+            <UsersIcon className="mr-2 h-4 w-4" />
             Following
           </div>
           <div
