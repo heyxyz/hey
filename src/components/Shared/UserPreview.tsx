@@ -37,7 +37,7 @@ const UserPreview: FC<Props> = ({
   const [showPreview, setShowPreview] = useState(false);
   const currentProfile = useAppStore((state) => state.currentProfile);
 
-  const UserImage = () => (
+  const UserAvatar = () => (
     <img
       src={getAvatar(profile)}
       loading="lazy"
@@ -64,7 +64,7 @@ const UserPreview: FC<Props> = ({
   const Preview = () => (
     <>
       <div className="flex justify-between items-center">
-        <UserImage />
+        <UserAvatar />
         <div onClick={(e) => e.preventDefault()}>
           {!profile.isFollowedByMe &&
             (followStatusLoading ? (
@@ -102,7 +102,7 @@ const UserPreview: FC<Props> = ({
 
   const Trigger = () => (
     <div className="relative flex items-center space-x-3">
-      <UserImage />
+      <UserAvatar />
       <div>
         <UserName />
         {showBio && profile?.bio && (
@@ -147,7 +147,6 @@ const UserPreview: FC<Props> = ({
           zIndex={1000}
           className="!bg-white !-my-2 !text-black !px-1.5 !py-3 dark:!text-white !w-64 dark:!bg-black !border dark:!border-gray-700 !rounded-xl"
         >
-          {/* the span tag required to trigger the tooltip */}
           <span>
             <Trigger />
           </span>
