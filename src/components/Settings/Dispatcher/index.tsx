@@ -1,16 +1,23 @@
 import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import MetaTags from '@components/utils/MetaTags';
+import { Leafwatch } from '@lib/leafwatch';
 import type { FC } from 'react';
+import { useEffect } from 'react';
 import { APP_NAME } from 'src/constants';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
+import { PAGEVIEW } from 'src/tracking';
 
 import Sidebar from '../Sidebar';
 import ToggleDispatcher from './ToggleDispatcher';
 
 const DispatcherSettings: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
+
+  useEffect(() => {
+    Leafwatch.track('Pageview', { path: PAGEVIEW.SETTINGS.DISPATCHER });
+  }, []);
 
   if (!currentProfile) {
     return <Custom404 />;
