@@ -147,6 +147,7 @@ const UserPreview: FC<Props> = ({
           zIndex={1000}
           className="!bg-white !-my-2 !text-black !px-1.5 !py-3 dark:!text-white !w-64 dark:!bg-black !border dark:!border-gray-700 !rounded-xl"
         >
+          {/* the span tag required to trigger the tooltip */}
           <span>
             <Trigger />
           </span>
