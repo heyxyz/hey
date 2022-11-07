@@ -204,7 +204,7 @@ export default function NewMentionsPlugin(): JSX.Element | null {
         if (nodeToReplace) {
           nodeToReplace.replace(mentionNode);
         }
-        mentionNode.select();
+        mentionNode.select().insertText(' ');
         closeMenu();
       });
     },

@@ -1,5 +1,5 @@
 import { CodeNode } from '@lexical/code';
-import { LinkNode } from '@lexical/link';
+import { AutoLinkNode, LinkNode } from '@lexical/link';
 import { ListItemNode, ListNode } from '@lexical/list';
 import { $convertToMarkdownString, TRANSFORMERS } from '@lexical/markdown';
 import { LexicalComposer } from '@lexical/react/LexicalComposer';
@@ -62,6 +62,7 @@ const Editor: FC = () => {
         ],
         ul: 'list-disc list-inside'
       },
+      link: '@apply text-brand hover:text-brand-600 dark:hover:text-brand-500',
       text: {
         bold: 'text-bold text-bold',
         code: 'text-code',
@@ -78,12 +79,13 @@ const Editor: FC = () => {
       HeadingNode,
       QuoteNode,
       CodeNode,
-      LinkNode,
       HeadingNode,
       QuoteNode,
       ListNode,
       ListItemNode,
-      MentionNode
+      MentionNode,
+      AutoLinkNode,
+      LinkNode
     ],
     editorState: null,
     onError

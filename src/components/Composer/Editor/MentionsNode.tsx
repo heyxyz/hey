@@ -59,8 +59,7 @@ export class MentionNode extends TextNode {
   createDOM(config: EditorConfig): HTMLElement {
     const dom = super.createDOM(config);
     dom.style.cssText = mentionStyle;
-    dom.className =
-      'text-transparent bg-clip-text bg-gradient-to-r from-brand-600 dark:from-brand-400 to-pink-600 dark:to-pink-400';
+    dom.className = '';
 
     return dom;
   }
