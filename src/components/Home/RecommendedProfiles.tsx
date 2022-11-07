@@ -70,12 +70,7 @@ const RecommendedProfiles: FC = () => {
           <ErrorMessage title="Failed to load recommendations" error={error} />
           {data?.recommendedProfiles?.slice(0, 5)?.map((profile) => (
             <div key={profile?.id}>
-              <UserProfile
-                profile={profile as Profile}
-                isFollowing={profile.isFollowedByMe}
-                showFollow
-                showPreviewCard
-              />
+              <UserProfile profile={profile as Profile} isFollowing={profile.isFollowedByMe} showFollow />
             </div>
           ))}
         </div>
