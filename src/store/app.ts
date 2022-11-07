@@ -24,8 +24,6 @@ export const useAppStore = create<AppState>((set) => ({
 interface AppPersistState {
   profileId: string | null;
   setProfileId: (profileId: string | null) => void;
-  handle: string | null;
-  setHandle: (handle: string | null) => void;
   staffMode: boolean;
   setStaffMode: (staffMode: boolean) => void;
   notificationCount: number;
@@ -37,8 +35,6 @@ export const useAppPersistStore = create(
     (set) => ({
       profileId: null,
       setProfileId: (profileId) => set(() => ({ profileId })),
-      handle: null,
-      setHandle: (handle) => set(() => ({ handle })),
       staffMode: false,
       setStaffMode: (staffMode) => set(() => ({ staffMode })),
       notificationCount: 0,
