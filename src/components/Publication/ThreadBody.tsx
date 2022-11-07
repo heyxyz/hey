@@ -25,7 +25,7 @@ const ThreadBody: FC<Props> = ({ publication }) => {
     <article>
       <div className="flex justify-between space-x-1.5">
         <span onClick={(event) => event.stopPropagation()}>
-          <UserProfile profile={profile ?? publication?.collectedBy?.defaultProfile} />
+          <UserProfile profile={profile ?? publication?.collectedBy?.defaultProfile} showPreviewCard />
         </span>
         <span className="text-xs text-gray-500">{dayjs(new Date(timestamp)).fromNow()}</span>
       </div>

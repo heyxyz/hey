@@ -67,8 +67,13 @@ const RecommendedProfiles: FC = () => {
         <div className="space-y-4 p-5">
           <ErrorMessage title="Failed to load recommendations" error={error} />
           {data?.recommendedProfiles?.slice(0, 5)?.map((profile) => (
-            <div key={profile?.id} className="truncate">
-              <UserProfile profile={profile as Profile} isFollowing={profile.isFollowedByMe} showFollow />
+            <div key={profile?.id}>
+              <UserProfile
+                profile={profile as Profile}
+                isFollowing={profile.isFollowedByMe}
+                showFollow
+                showPreviewCard
+              />
             </div>
           ))}
         </div>

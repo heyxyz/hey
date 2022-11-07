@@ -85,6 +85,7 @@ const ViewPublication: NextPage = () => {
               publication.__typename === 'Mirror' ? publication?.mirrorOf?.profile : publication?.profile
             }
             showBio
+            showPreviewCard
           />
         </Card>
         <RelevantPeople publication={publication} />

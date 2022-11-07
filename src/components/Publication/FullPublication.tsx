@@ -57,7 +57,7 @@ const FullPublication: FC<Props> = ({ publication, postContainerRef }) => {
       )}
       <div ref={threadRef} className="scroll-mt-20">
         <div className="flex justify-between pb-4 space-x-1.5">
-          <UserProfile profile={profile ?? publication?.collectedBy?.defaultProfile} />
+          <UserProfile profile={profile ?? publication?.collectedBy?.defaultProfile} showPreviewCard />
         </div>
         <div className="ml-[53px]">
           {publication?.hidden ? (

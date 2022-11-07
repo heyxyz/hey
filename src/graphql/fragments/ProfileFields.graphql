@@ -4,6 +4,11 @@ fragment ProfileFields on Profile {
   handle
   bio
   ownedBy
+  isFollowedByMe
+  stats {
+    totalFollowers
+    totalFollowing
+  }
   attributes {
     key
     value
