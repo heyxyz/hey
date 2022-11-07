@@ -64,7 +64,7 @@ const UserProfile: FC<Props> = ({
   );
 
   const Preview = () => (
-    <div className="absolute w-64 p-3 top-12 bg-white border rounded-xl z-[1]">
+    <div className="absolute w-64 p-3 top-12 bg-white dark:bg-black border dark:border-gray-700 rounded-xl z-[1]">
       <div className="flex justify-between items-center">
         <UserImage />
         <div onClick={(e) => e.preventDefault()}>
@@ -87,7 +87,7 @@ const UserProfile: FC<Props> = ({
             </div>
           )}
         </div>
-        <div className="flex space-x-3 items-center my-1.5">
+        <div className="flex space-x-3 items-center my-2">
           <div className="flex items-center space-x-1">
             <div className="text-base">{profile?.stats?.totalFollowing}</div>
             <div className="text-gray-500 text-sm">Following</div>
