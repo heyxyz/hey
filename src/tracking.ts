@@ -91,6 +91,13 @@ export const NOTIFICATION = {
   SWITCH_COMMENTS: 'Switch to comments notifications'
 };
 
+export const MESSAGES = {
+  OPEN: 'Open messages',
+  OPEN_CONVERSATION: 'Open conversation',
+  SEND: 'Send message',
+  OPEN_NEW_CONVERSATION: 'Open new conversation modal'
+};
+
 export const SETTINGS = {
   ACCOUNT: {
     OPEN_REFLECT: 'Open reflect',
