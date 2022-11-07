@@ -1,10 +1,8 @@
-import { Leafwatch } from '@lib/leafwatch';
 import { hashflags } from 'data/hashflags';
 import { Matcher } from 'interweave';
 import Link from 'next/link';
 import { createElement } from 'react';
 import { STATIC_ASSETS } from 'src/constants';
-import { PUBLICATION } from 'src/tracking';
 
 export function Hashtag({ ...props }: any) {
   const hashflag = props.display.slice(1).toLowerCase();
@@ -15,10 +13,7 @@ export function Hashtag({ ...props }: any) {
       <span>
         <Link
           href={`/search?q=${props.display.slice(1)}&type=pubs&src=link_click`}
-          onClick={(event) => {
-            event.stopPropagation();
-            Leafwatch.track(PUBLICATION.HASHTAG_CLICK, { hashtag: props.display });
-          }}
+          onClick={(event) => event.stopPropagation()}
         >
           {props.display}
         </Link>

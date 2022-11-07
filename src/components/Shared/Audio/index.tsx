@@ -3,14 +3,12 @@ import type { Attribute } from '@generated/types';
 import { PauseIcon, PlayIcon } from '@heroicons/react/solid';
 import getAttributeFromTrait from '@lib/getAttributeFromTrait';
 import getThumbnailUrl from '@lib/getThumbnailUrl';
-import { Leafwatch } from '@lib/leafwatch';
 import type { APITypes } from 'plyr-react';
 import type { ChangeEvent, FC } from 'react';
 import { useState } from 'react';
 import { useRef } from 'react';
 import React from 'react';
 import { usePublicationStore } from 'src/store/publication';
-import { PUBLICATION } from 'src/tracking';
 import { object, string } from 'zod';
 
 import CoverImage from './CoverImage';
@@ -42,13 +40,10 @@ const Audio: FC<Props> = ({ src, isNew = false, publication, txn }) => {
     }
     if (playerRef.current?.plyr.paused && !playing) {
       setPlaying(true);
-      Leafwatch.track(PUBLICATION.ATTACHEMENT.AUDIO.PLAY);
-
       return playerRef.current?.plyr.play();
     }
     setPlaying(false);
     playerRef.current?.plyr.pause();
-    Leafwatch.track(PUBLICATION.ATTACHEMENT.AUDIO.PAUSE);
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
