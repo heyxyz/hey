@@ -1,8 +1,10 @@
 import type { LensterPublication } from '@generated/lenstertypes';
 import { Menu } from '@headlessui/react';
 import { CodeIcon } from '@heroicons/react/outline';
+import { Leafwatch } from '@lib/leafwatch';
 import clsx from 'clsx';
 import type { FC } from 'react';
+import { PUBLICATION } from 'src/tracking';
 
 interface Props {
   publication: LensterPublication;
@@ -15,6 +17,9 @@ const Embed: FC<Props> = ({ publication }) => {
       className={({ active }) =>
         clsx({ 'dropdown-active': active }, 'block px-4 py-1.5 text-sm m-2 rounded-lg cursor-pointer')
       }
+      onClick={() => {
+        Leafwatch.track(PUBLICATION.EMBED);
+      }}
       href={`https://embed.withlens.app/?url=${publication?.id}`}
       target="_blank"
     >
