@@ -24,8 +24,6 @@
     "@headlessui/react": "^1.7.4",
     "@heroicons/react": "v1",
     "@hookform/resolvers": "^2.9.10",
-    "@next/bundle-analyzer": "^13.0.2",
-    "@sentry/nextjs": "^7.17.4",
     "@tippyjs/react": "^4.2.6",
     "@types/react-mentions": "^4.1.7",
     "@xmtp/xmtp-js": "^7.0.1",
