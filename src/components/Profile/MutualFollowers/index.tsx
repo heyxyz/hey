@@ -3,16 +3,18 @@ import type { Profile } from '@generated/types';
 import { MutualFollowersDocument } from '@generated/types';
 import getAvatar from '@lib/getAvatar';
 import { Leafwatch } from '@lib/leafwatch';
+import clsx from 'clsx';
 import type { Dispatch, FC, ReactNode } from 'react';
 import { useAppStore } from 'src/store/app';
 import { PROFILE } from 'src/tracking';
 
 interface Props {
-  setShowMutualFollowersModal: Dispatch<boolean>;
+  setShowMutualFollowersModal?: Dispatch<boolean>;
   profile: Profile;
+  variant?: 'xs' | 'sm';
 }
 
-const MutualFollowers: FC<Props> = ({ setShowMutualFollowersModal, profile }) => {
+const MutualFollowers: FC<Props> = ({ setShowMutualFollowersModal, profile, variant = 'sm' }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   const { data, loading, error } = useQuery(MutualFollowersDocument, {
@@ -31,9 +33,12 @@ const MutualFollowers: FC<Props> = ({ setShowMutualFollowersModal, profile }) =>
 
   const Wrapper = ({ children }: { children: ReactNode }) => (
     <div
-      className="mr-0 sm:mr-10 text-sm text-gray-500 flex items-center space-x-2.5 cursor-pointer"
+      className={clsx('mr-0 sm:mr-10 text-gray-500 flex items-center space-x-2.5 cursor-pointer', {
+        'text-sm': variant === 'sm',
+        'text-xs': variant === 'xs'
+      })}
       onClick={() => {
-        setShowMutualFollowersModal(true);
+        setShowMutualFollowersModal?.(true);
         Leafwatch.track(PROFILE.OPEN_MUTUAL_FOLLOWERS);
       }}
     >
