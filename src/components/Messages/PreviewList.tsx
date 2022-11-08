@@ -30,51 +30,30 @@ interface Props {
 const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
   const router = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const messageProfiles = useMessageStore((state) => state.messageProfiles);
-  const setMessageProfiles = useMessageStore((state) => state.setMessageProfiles);
+  const addProfileAndSelectTab = useMessageStore((state) => state.addProfileAndSelectTab);
   const selectedTab = useMessageStore((state) => state.selectedTab);
   const setSelectedTab = useMessageStore((state) => state.setSelectedTab);
   const [showSearchModal, setShowSearchModal] = useState(false);
-  const { authenticating, loading, messages, profiles, profilesError } = useMessagePreviews();
+  const { authenticating, loading, messages, profilesToShow, requestedCount, profilesError } =
+    useMessagePreviews();
   const clearMessagesBadge = useMessagePersistStore((state) => state.clearMessagesBadge);
 
-  const sortedProfiles = Array.from(profiles).sort(([keyA], [keyB]) => {
+  const sortedProfiles = Array.from(profilesToShow).sort(([keyA], [keyB]) => {
     const messageA = messages.get(keyA);
     const messageB = messages.get(keyB);
     return (messageA?.sent?.getTime() || 0) >= (messageB?.sent?.getTime() || 0) ? -1 : 1;
   });
 
-  const followedProfiles = Array.from(sortedProfiles).filter(([, value]) => {
-    if (value.isFollowedByMe) {
-      return true;
-    }
-    return false;
-  });
-
-  const requestedProfiles = Array.from(sortedProfiles).filter(([, value]) => {
-    if (!value.isFollowedByMe) {
-      return true;
-    }
-    return false;
-  });
-
-  const profilesToShow = selectedTab === 'Following' ? followedProfiles : requestedProfiles;
-
   useEffect(() => {
     if (!currentProfile) {
       return;
     }
-    const profileKeys = Array.from(profiles.keys());
-    const messageKeys = Array.from(messages.keys());
-    const hasPreviews = profileKeys.some((item) => messageKeys.includes(item));
-    if (hasPreviews) {
-      clearMessagesBadge(currentProfile.id);
-    }
+    clearMessagesBadge(currentProfile.id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentProfile, profiles, messages]);
+  }, [currentProfile]);
 
   const showAuthenticating = currentProfile && authenticating;
-  const showLoading = loading && (messages.size === 0 || profiles.size === 0);
+  const showLoading = loading && (messages.size === 0 || profilesToShow.size === 0);
 
   const newMessageClick = () => {
     setShowSearchModal(true);
@@ -84,8 +63,7 @@ const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
   const onProfileSelected = (profile: Profile) => {
     const conversationId = buildConversationId(currentProfile?.id, profile.id);
     const conversationKey = buildConversationKey(profile.ownedBy, conversationId);
-    messageProfiles.set(conversationKey, profile);
-    setMessageProfiles(new Map(messageProfiles));
+    addProfileAndSelectTab(conversationKey, profile);
     router.push(`/messages/${conversationKey}`);
     setShowSearchModal(false);
   };
@@ -110,8 +88,8 @@ const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
           <div
             onClick={() => setSelectedTab('Following')}
             className={clsx(
-              'flex flex-1 justify-center items-center p-2 m-2 rounded text-brand-500 tab-bg cursor-pointer',
-              selectedTab === 'Following' ? 'bg-gray-100' : ''
+              'flex flex-1 justify-center font-bold items-center p-2 m-2 ml-4 rounded text-brand-500 tab-bg cursor-pointer',
+              selectedTab === 'Following' ? 'bg-brand-100' : ''
             )}
           >
             <UsersIcon className="mr-2 h-4 w-4" />
@@ -120,21 +98,21 @@ const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
           <div
             onClick={() => setSelectedTab('Requested')}
             className={clsx(
-              'flex flex-1 justify-center items-center p-2 m-2 rounded text-brand-500 tab-bg cursor-pointer',
-              selectedTab === 'Requested' ? 'bg-gray-100' : ''
+              'flex flex-1 justify-center font-bold items-center p-2 m-2 mr-4 rounded text-brand-500 tab-bg cursor-pointer',
+              selectedTab === 'Requested' ? 'bg-brand-100' : ''
             )}
           >
             Requested
-            <span className="text-sm font-bold ml-2 bg-gray-200 px-3 py-0.5 rounded-2xl">
-              {Array.from(requestedProfiles.values()).length > 99
-                ? '99+'
-                : Array.from(requestedProfiles.values()).length}
-            </span>
+            {requestedCount > 0 && (
+              <span className="text-sm font-bold ml-2 bg-brand-200 px-3 py-0.5 rounded-2xl">
+                {requestedCount > 99 ? '99+' : requestedCount}
+              </span>
+            )}
           </div>
         </div>
         {selectedTab === 'Requested' ? (
           <div className="p-2 mt-1 text-sm bg-yellow-100 text-yellow-800">
-            These conversations are from Lenster profiles that you don't currently follow.
+            These conversations are from Lens profiles that you don't currently follow.
           </div>
         ) : null}
         <div className="h-full overflow-y-auto overflow-x-hidden">
@@ -157,7 +135,7 @@ const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
               />
             </button>
           ) : (
-            profilesToShow?.map(([key, profile]) => {
+            sortedProfiles?.map(([key, profile]) => {
               const message = messages.get(key);
               if (!message) {
                 return null;
