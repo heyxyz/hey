@@ -1,9 +1,6 @@
 import axios from 'axios';
 import { DATADOG_TOKEN, IS_PRODUCTION, LEAFWATCH_HOST } from 'src/constants';
-import parser from 'ua-parser-js';
 import { v4 as uuid } from 'uuid';
-
-import getUserLocale from './getUserLocale';
 
 const enabled = DATADOG_TOKEN && IS_PRODUCTION;
 const isBrowser = typeof window !== 'undefined';
@@ -13,12 +10,12 @@ const isBrowser = typeof window !== 'undefined';
  */
 export const Leafwatch = {
   track: (name: string, options?: Record<string, any>) => {
-    const ua = parser(navigator.userAgent);
     const { state } = JSON.parse(
       localStorage.getItem('lenster.store') || JSON.stringify({ state: { profileId: null } })
     );
+    const ip = sessionStorage.getItem('ip');
 
-    if (isBrowser && enabled) {
+    if (isBrowser && enabled && ip) {
       axios(LEAFWATCH_HOST, {
         method: 'POST',
         params: {
@@ -26,18 +23,15 @@ export const Leafwatch = {
           'dd-request-id': uuid()
         },
         data: {
+          ddsource: 'browser',
           event: name,
           profile: state.profileId,
           props: options,
           url: location.href,
           referrer: document.referrer,
           sha: process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA,
-          browser: {
-            name: ua.browser.name,
-            version: ua.browser.version,
-            language: getUserLocale()
-          },
-          device: { os: ua.os.name }
+          useragent: navigator.userAgent,
+          ip
         }
       }).catch(() => {
         console.error('Error while sending analytics event to Leafwatch');

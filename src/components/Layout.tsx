@@ -4,6 +4,7 @@ import { ReferenceModules, UserProfilesDocument } from '@generated/types';
 import getIsAuthTokensAvailable from '@lib/getIsAuthTokensAvailable';
 import getToastOptions from '@lib/getToastOptions';
 import resetAuthData from '@lib/resetAuthData';
+import storeIp from '@lib/storeIp';
 import Head from 'next/head';
 import { useTheme } from 'next-themes';
 import type { FC, ReactNode } from 'react';
@@ -19,6 +20,8 @@ import GlobalModals from './Shared/GlobalModals';
 import Navbar from './Shared/Navbar';
 import useIsMounted from './utils/hooks/useIsMounted';
 import { useDisconnectXmtp } from './utils/hooks/useXmtpClient';
+
+storeIp();
 
 interface Props {
   children: ReactNode;
