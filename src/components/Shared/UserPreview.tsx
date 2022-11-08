@@ -80,7 +80,7 @@ const UserPreview: FC<Props> = ({
         <UserName />
         <div>
           {profile?.bio && (
-            <div className={clsx(isBig ? 'text-base' : 'text-sm', 'mt-2', 'linkify leading-6')}>
+            <div className={clsx(isBig ? 'text-base' : 'text-sm', 'mt-2', 'linkify break-words leading-6')}>
               <Markup>{profile?.bio}</Markup>
             </div>
           )}
@@ -145,7 +145,7 @@ const UserPreview: FC<Props> = ({
           arrow={false}
           interactive
           zIndex={1000}
-          className="!bg-white !-my-2 !text-black !px-1.5 !py-3 dark:!text-white !w-64 dark:!bg-black !border dark:!border-gray-700 !rounded-xl"
+          className="!bg-white hidden md:block !-my-2 !text-black !px-1.5 !py-3 dark:!text-white !w-64 dark:!bg-black !border dark:!border-gray-700 !rounded-xl"
         >
           <span>
             <Trigger />
