@@ -1,4 +1,5 @@
 import Markup from '@components/Shared/Markup';
+import UserPreview from '@components/Shared/UserPreview';
 import type { NewMirrorNotification } from '@generated/types';
 import { SwitchHorizontalIcon } from '@heroicons/react/solid';
 import dayjs from 'dayjs';
@@ -20,7 +21,9 @@ const MirrorNotification: FC<Props> = ({ notification }) => {
       <div className="space-y-2 w-4/5">
         <div className="flex items-center space-x-3">
           <SwitchHorizontalIcon className="h-6 w-6 text-brand-500/70" />
-          <NotificationProfileAvatar profile={notification?.profile} />
+          <UserPreview profile={notification?.profile}>
+            <NotificationProfileAvatar profile={notification?.profile} />
+          </UserPreview>
         </div>
         <div className="ml-9">
           <NotificationProfileName profile={notification?.profile} />{' '}
