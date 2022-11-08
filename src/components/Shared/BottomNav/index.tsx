@@ -1,6 +1,5 @@
 import MessageIcon from '@components/Messages/MessageIcon';
 import NotificationIcon from '@components/Notification/NotificationIcon';
-import useStaffMode from '@components/utils/hooks/useStaffMode';
 import { Disclosure } from '@headlessui/react';
 import { GlobeIcon, HomeIcon } from '@heroicons/react/outline';
 import clsx from 'clsx';
@@ -9,11 +8,8 @@ import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 
-import StaffBar from '../Navbar/StaffBar';
-
 const BottomNav: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const { allowed: staffMode } = useStaffMode();
 
   interface NavItemProps {
     url: string;
@@ -63,22 +59,22 @@ const BottomNav: FC = () => {
   };
 
   return (
+    //shows when users login and hidden above lg width
     <Disclosure
       as="div"
       className="lg:hidden sticky bottom-0 z-10 w-full bg-white border-b dark:bg-gray-900 dark:border-b-gray-700/80"
     >
-      {staffMode && <StaffBar />}
-      <div className="container px-5 mx-auto max-w-screen-xl">
-        <div className="flex relative justify-between items-center h-14 sm:h-16">
-          {currentProfile ? (
-            <>
-              <NavItems />
-              <MessageIcon />
-              <NotificationIcon />
-            </>
-          ) : null}
+      {currentProfile ? (
+        <div className="container px-5 mx-auto max-w-screen-xl">
+          <div className="flex relative justify-between items-center h-14 sm:h-16">
+            <NavItems />
+            <MessageIcon />
+            <NotificationIcon />
+          </div>
         </div>
-      </div>
+      ) : (
+        <div />
+      )}
     </Disclosure>
   );
 };
