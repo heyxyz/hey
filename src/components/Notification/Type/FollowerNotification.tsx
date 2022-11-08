@@ -1,3 +1,4 @@
+import UserPreview from '@components/Shared/UserPreview';
 import type { NewFollowerNotification } from '@generated/types';
 import { UserAddIcon } from '@heroicons/react/solid';
 import dayjs from 'dayjs';
@@ -28,7 +29,9 @@ const FollowerNotification: FC<Props> = ({ notification }) => {
             <UserAddIcon className="h-6 w-6 text-green-500/70" />
           )}
           {notification?.wallet?.defaultProfile ? (
-            <NotificationProfileAvatar profile={notification?.wallet?.defaultProfile} />
+            <UserPreview profile={notification?.wallet?.defaultProfile}>
+              <NotificationProfileAvatar profile={notification?.wallet?.defaultProfile} />
+            </UserPreview>
           ) : (
             <NotificationWalletProfileAvatar wallet={notification?.wallet} />
           )}

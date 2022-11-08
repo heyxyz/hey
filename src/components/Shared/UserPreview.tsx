@@ -5,7 +5,7 @@ import getAvatar from '@lib/getAvatar';
 import isVerified from '@lib/isVerified';
 import Tippy from '@tippyjs/react';
 import clsx from 'clsx';
-import type { Dispatch, FC } from 'react';
+import type { FC } from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import React, { Fragment, useRef } from 'react';
@@ -17,25 +17,17 @@ import Slug from './Slug';
 import SuperFollow from './SuperFollow';
 
 type Props = {
-  isBig: boolean;
   profile: Profile;
-  followStatusLoading: boolean;
-  showBio: boolean;
-  following: boolean;
-  setFollowing: Dispatch<boolean>;
+  children: React.ReactNode;
+  isBig?: boolean;
+  followStatusLoading?: boolean;
 };
 
-const UserPreview: FC<Props> = ({
-  profile,
-  isBig,
-  followStatusLoading,
-  showBio,
-  following,
-  setFollowing
-}) => {
+const UserPreview: FC<Props> = ({ profile, isBig, followStatusLoading, children }) => {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const [showPreview, setShowPreview] = useState(false);
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const [following, setFollowing] = useState(profile?.isFollowedByMe);
 
   const UserAvatar = () => (
     <img
@@ -100,20 +92,6 @@ const UserPreview: FC<Props> = ({
     </>
   );
 
-  const Trigger = () => (
-    <div className="relative flex items-center space-x-3">
-      <UserAvatar />
-      <div>
-        <UserName />
-        {showBio && profile?.bio && (
-          <div className={clsx(isBig ? 'text-base' : 'text-sm', 'mt-2', 'linkify leading-6')}>
-            <Markup>{profile?.bio}</Markup>
-          </div>
-        )}
-      </div>
-    </div>
-  );
-
   const onPreviewEnd = () => {
     setShowPreview(false);
   };
@@ -147,12 +125,10 @@ const UserPreview: FC<Props> = ({
           zIndex={1000}
           className="!bg-white hidden md:block !-my-2 !text-black !px-1.5 !py-3 dark:!text-white !w-64 dark:!bg-black !border dark:!border-gray-700 !rounded-xl"
         >
-          <span>
-            <Trigger />
-          </span>
+          <span>{children}</span>
         </Tippy>
       ) : (
-        <Trigger />
+        <span>{children}</span>
       )}
     </div>
   );

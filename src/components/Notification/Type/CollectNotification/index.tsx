@@ -3,6 +3,7 @@ import {
   NotificationWalletProfileAvatar,
   NotificationWalletProfileName
 } from '@components/Notification/WalletProfile';
+import UserPreview from '@components/Shared/UserPreview';
 import type { NewCollectNotification } from '@generated/types';
 import { CollectionIcon } from '@heroicons/react/solid';
 import dayjs from 'dayjs';
@@ -26,7 +27,9 @@ const CollectNotification: FC<Props> = ({ notification }) => {
         <div className="flex items-center space-x-3">
           <CollectionIcon className="h-6 w-6 text-pink-500/70" />
           {notification?.wallet?.defaultProfile ? (
-            <NotificationProfileAvatar profile={notification?.wallet?.defaultProfile} />
+            <UserPreview isBig={false} profile={notification?.wallet?.defaultProfile}>
+              <NotificationProfileAvatar profile={notification?.wallet?.defaultProfile} />
+            </UserPreview>
           ) : (
             <NotificationWalletProfileAvatar wallet={notification?.wallet} />
           )}
