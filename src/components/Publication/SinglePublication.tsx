@@ -2,10 +2,12 @@ import EventType from '@components/Home/Timeline/EventType';
 import UserProfile from '@components/Shared/UserProfile';
 import type { LensterPublication } from '@generated/lenstertypes';
 import type { ElectedMirror, FeedItem } from '@generated/types';
+import { Leafwatch } from '@lib/leafwatch';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
+import { PUBLICATION } from 'src/tracking';
 
 import PublicationActions from './Actions';
 import ModAction from './Actions/ModAction';
@@ -60,7 +62,13 @@ const SinglePublication: FC<Props> = ({
         </span>
         <span className="text-xs text-gray-500">{dayjs(new Date(timestamp)).fromNow()}</span>
       </div>
-      <div className="ml-[53px]" onClick={() => push(`/posts/${rootPublication?.id}`)}>
+      <div
+        className="ml-[53px]"
+        onClick={() => {
+          Leafwatch.track(PUBLICATION.OPEN);
+          push(`/posts/${rootPublication?.id}`);
+        }}
+      >
         {publication?.hidden ? (
           <HiddenPublication type={publication.__typename} />
         ) : (

@@ -22,7 +22,9 @@ import type { IGif } from '@giphy/js-types';
 import { ChatAlt2Icon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
 import getTags from '@lib/getTags';
+import getTextNftUrl from '@lib/getTextNftUrl';
 import getUserLocale from '@lib/getUserLocale';
+import { Leafwatch } from '@lib/leafwatch';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import trimify from '@lib/trimify';
@@ -46,6 +48,7 @@ import { useCollectModuleStore } from 'src/store/collectmodule';
 import { usePublicationStore } from 'src/store/publication';
 import { useReferenceModuleStore } from 'src/store/referencemodule';
 import { useTransactionPersistStore } from 'src/store/transaction';
+import { COMMENT } from 'src/tracking';
 import { v4 as uuid } from 'uuid';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
@@ -104,6 +107,7 @@ const NewComment: FC<Props> = ({ publication }) => {
     setPublicationContent('');
     setAttachments([]);
     resetCollectSettings();
+    Leafwatch.track(COMMENT.NEW);
   };
 
   useEffect(() => {
@@ -252,6 +256,14 @@ const NewComment: FC<Props> = ({ publication }) => {
     return null;
   };
 
+  const getAttachmentImage = () => {
+    return isAudioComment ? audioPublication.cover : attachments[0]?.item;
+  };
+
+  const getAttachmentImageMimeType = () => {
+    return isAudioComment ? audioPublication.coverMimeType : attachments[0]?.type;
+  };
+
   const createComment = async () => {
     if (!currentProfile) {
       return toast.error(SIGN_WALLET);
@@ -272,6 +284,15 @@ const NewComment: FC<Props> = ({ publication }) => {
 
     setCommentContentError('');
     setIsUploading(true);
+
+    let textNftImageUrl = null;
+    if (!attachments.length) {
+      textNftImageUrl = await getTextNftUrl(
+        publicationContent,
+        currentProfile.handle,
+        new Date().toLocaleString()
+      );
+    }
 
     const attributes = [
       {
@@ -294,13 +315,8 @@ const NewComment: FC<Props> = ({ publication }) => {
       description: trimify(publicationContent),
       content: trimify(publicationContent),
       external_url: `https://lenster.xyz/u/${currentProfile?.handle}`,
-      image: attachments.length > 0 ? (isAudioComment ? audioPublication.cover : attachments[0]?.item) : null,
-      imageMimeType:
-        attachments.length > 0
-          ? isAudioComment
-            ? audioPublication.coverMimeType
-            : attachments[0]?.type
-          : null,
+      image: attachments.length > 0 ? getAttachmentImage() : textNftImageUrl,
+      imageMimeType: attachments.length > 0 ? getAttachmentImageMimeType() : 'image/svg+xml',
       name: isAudioComment ? audioPublication.title : `Comment by @${currentProfile?.handle}`,
       tags: getTags(publicationContent),
       animation_url: getAnimationUrl(),

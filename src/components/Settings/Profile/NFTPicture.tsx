@@ -15,6 +15,7 @@ import {
 } from '@generated/types';
 import { PencilIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
+import { Leafwatch } from '@lib/leafwatch';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import type { FC } from 'react';
@@ -22,6 +23,7 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { ADDRESS_REGEX, IS_MAINNET, LENSHUB_PROXY, RELAY_ON, SIGN_WALLET } from 'src/constants';
 import { useAppStore } from 'src/store/app';
+import { SETTINGS } from 'src/tracking';
 import { chain, useContractWrite, useSignMessage, useSignTypedData } from 'wagmi';
 import { object, string } from 'zod';
 
@@ -46,6 +48,7 @@ const NFTPicture: FC<Props> = ({ profile }) => {
 
   const onCompleted = () => {
     toast.success('Avatar updated successfully!');
+    Leafwatch.track(SETTINGS.PROFILE.SET_NFT_PICTURE, { type: 'NFT' });
   };
 
   const form = useZodForm({
