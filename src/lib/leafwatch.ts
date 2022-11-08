@@ -29,7 +29,8 @@ export const Leafwatch = {
           url: location.href,
           referrer: document.referrer,
           sha: process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA,
-          useragent: navigator.userAgent
+          useragent: navigator.userAgent,
+          ip: sessionStorage.getItem('ip')
         }
       }).catch(() => {
         console.error('Error while sending analytics event to Leafwatch');
