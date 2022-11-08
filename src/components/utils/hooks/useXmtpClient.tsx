@@ -1,6 +1,6 @@
 import { Client } from '@xmtp/xmtp-js';
 import { useCallback, useEffect, useState } from 'react';
-import { LS_KEYS, XMTP_ENV } from 'src/constants';
+import { APP_NAME, APP_VERSION, LS_KEYS, XMTP_ENV } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
 import { useSigner } from 'wagmi';
@@ -43,11 +43,18 @@ const useXmtpClient = (cacheOnly = false) => {
             return;
           }
           setAwaitingXmtpAuth(true);
-          keys = await Client.getKeys(signer, { env: XMTP_ENV });
+          keys = await Client.getKeys(signer, {
+            env: XMTP_ENV,
+            appVersion: APP_NAME + '/' + APP_VERSION
+          });
           storeKeys(await signer.getAddress(), keys);
         }
 
-        const xmtp = await Client.create(null, { env: XMTP_ENV, privateKeyOverride: keys });
+        const xmtp = await Client.create(null, {
+          env: XMTP_ENV,
+          appVersion: APP_NAME + '/' + APP_VERSION,
+          privateKeyOverride: keys
+        });
         setClient(xmtp);
         setAwaitingXmtpAuth(false);
       } else {
