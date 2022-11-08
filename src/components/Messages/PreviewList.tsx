@@ -111,7 +111,7 @@ const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
           </div>
         </div>
         {selectedTab === 'Requested' ? (
-          <div className="p-2 mt-1 text-sm bg-yellow-100 text-yellow-800">
+          <div className="p-2 px-5 mt-1 text-sm bg-yellow-100 text-yellow-800">
             These conversations are from Lens profiles that you don't currently follow.
           </div>
         ) : null}
