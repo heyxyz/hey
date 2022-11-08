@@ -1,6 +1,7 @@
 import getEnvConfig from '@lib/getEnvConfig';
-import packageJson from 'package.json';
 import { chain } from 'wagmi';
+
+import packageJson from '../package.json';
 
 // Environments
 export const IS_PRODUCTION = process.env.NODE_ENV === 'production';
