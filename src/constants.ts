@@ -1,4 +1,5 @@
 import getEnvConfig from '@lib/getEnvConfig';
+import packageJson from 'package.json';
 import { chain } from 'wagmi';
 
 // Environments
@@ -25,6 +26,7 @@ export const XMTP_PREFIX = 'lens.dev/dm';
 
 // Application
 export const APP_NAME = 'Lenster';
+export const APP_VERSION = packageJson.version;
 export const DESCRIPTION =
   'Lenster is a composable, decentralized, and permissionless social media web app built with Lens Protocol 🌿';
 export const DEFAULT_OG = 'https://assets.lenster.xyz/images/og/logo.jpeg';
