@@ -16,6 +16,7 @@ import { useReferenceModuleStore } from 'src/store/referencemodule';
 import { useAccount, useDisconnect, useNetwork } from 'wagmi';
 
 import Loading from './Loading';
+import BottomNav from './Shared/BottomNav';
 import GlobalModals from './Shared/GlobalModals';
 import Navbar from './Shared/Navbar';
 import useIsMounted from './utils/hooks/useIsMounted';
@@ -111,6 +112,7 @@ const Layout: FC<Props> = ({ children }) => {
       <div className="flex flex-col min-h-screen">
         <Navbar />
         {children}
+        <BottomNav />
       </div>
     </>
   );
