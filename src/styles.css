@@ -39,11 +39,11 @@ body {
 }
 
 .tab-bg {
-  @apply hover:bg-gray-200;
+  @apply hover:bg-brand-200;
 }
 
 .tab-bg:hover > span {
-  @apply bg-gray-300;
+  @apply bg-brand-300;
 }
 
 .identicon {

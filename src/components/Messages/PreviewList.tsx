@@ -88,8 +88,8 @@ const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
           <div
             onClick={() => setSelectedTab('Following')}
             className={clsx(
-              'flex flex-1 justify-center items-center p-2 m-2 rounded text-brand-500 tab-bg cursor-pointer',
-              selectedTab === 'Following' ? 'bg-gray-100' : ''
+              'flex flex-1 justify-center font-bold items-center p-2 m-2 ml-4 rounded text-brand-500 tab-bg cursor-pointer',
+              selectedTab === 'Following' ? 'bg-brand-100' : ''
             )}
           >
             <UsersIcon className="mr-2 h-4 w-4" />
@@ -98,13 +98,13 @@ const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
           <div
             onClick={() => setSelectedTab('Requested')}
             className={clsx(
-              'flex flex-1 justify-center items-center p-2 m-2 rounded text-brand-500 tab-bg cursor-pointer',
-              selectedTab === 'Requested' ? 'bg-gray-100' : ''
+              'flex flex-1 justify-center font-bold items-center p-2 m-2 mr-4 rounded text-brand-500 tab-bg cursor-pointer',
+              selectedTab === 'Requested' ? 'bg-brand-100' : ''
             )}
           >
             Requested
             {requestedCount > 0 && (
-              <span className="text-sm font-bold ml-2 bg-gray-200 px-3 py-0.5 rounded-2xl">
+              <span className="text-sm font-bold ml-2 bg-brand-200 px-3 py-0.5 rounded-2xl">
                 {requestedCount > 99 ? '99+' : requestedCount}
               </span>
             )}
