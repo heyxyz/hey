@@ -13,8 +13,9 @@ export const Leafwatch = {
     const { state } = JSON.parse(
       localStorage.getItem('lenster.store') || JSON.stringify({ state: { profileId: null } })
     );
+    const ip = sessionStorage.getItem('ip');
 
-    if (isBrowser && enabled) {
+    if (isBrowser && enabled && ip) {
       axios(LEAFWATCH_HOST, {
         method: 'POST',
         params: {
@@ -30,7 +31,7 @@ export const Leafwatch = {
           referrer: document.referrer,
           sha: process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA,
           useragent: navigator.userAgent,
-          ip: sessionStorage.getItem('ip')
+          ip
         }
       }).catch(() => {
         console.error('Error while sending analytics event to Leafwatch');
