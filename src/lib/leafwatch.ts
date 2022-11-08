@@ -23,7 +23,7 @@ export const Leafwatch = {
         method: 'POST',
         params: {
           'dd-api-key': DATADOG_TOKEN,
-          'dd-evp-origin': 'browser',
+          // 'dd-evp-origin': 'browser',
           'dd-request-id': uuid()
         },
         data: {
