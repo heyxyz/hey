@@ -61,7 +61,9 @@ const MessageTile: FC<MessageTileProps> = ({ message, profile, currentProfile })
         </div>
       </div>
       <div className={clsx(address !== message.senderAddress ? 'ml-12' : '')}>
-        <span className="text-xs place-self-end text-gray-400 uppercase">{formatTime(message.sent)}</span>
+        <span className="text-xs place-self-end text-gray-400" title={formatTime(message.sent)}>
+          {dayjs(message.sent).fromNow()}
+        </span>
       </div>
     </div>
   );
