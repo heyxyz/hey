@@ -33,5 +33,7 @@ export const aaveMembers = [
   '0x40', // tamrat.lens
   '0xf9f4', // grocery.lens
   '0x28a2', // nader.lens
-  '0x84ed' // bensparks.lens
+  '0x84ed', // bensparks.lens
+  '0x35', // superproduct.lens
+  '0x6b46' // 0xgraham.lens
 ];
