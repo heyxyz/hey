@@ -42,6 +42,7 @@ export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
 
 // Leafwatch
 export const DATADOG_TOKEN = process.env.NEXT_PUBLIC_DATADOG_TOKEN ?? '';
+export const DATADOG_APPLICATION_KEY = 'acd8b525fff85370d7a924b74ca9916e9e5021c9';
 export const LEAFWATCH_HOST = 'https://logs.browser-intake-datadoghq.eu/api/v2/logs';
 
 // Messages
