@@ -142,8 +142,6 @@ export const mainnetVerified = [
   '0x38', // cashmere.lens
   '0x0210', // paris.lens
   '0x0160', // ethglobal.lens
-  '0x35', // superproduct.lens
-  '0x6b46', //0xgraham.lens
   ...aaveMembers,
   ...lensterMembers
 ];
