@@ -36,18 +36,14 @@ import { useAppStore } from 'src/store/app';
 import { SETTINGS } from 'src/tracking';
 import { v4 as uuid } from 'uuid';
 import { useContractWrite, useSignTypedData } from 'wagmi';
-import { object, optional, string } from 'zod';
+import { object, string, union } from 'zod';
 
 const editProfileSchema = object({
   name: string().max(100, { message: 'Name should not exceed 100 characters' }),
   location: string().max(100, {
     message: 'Location should not exceed 100 characters'
   }),
-  website: optional(
-    string()
-      .regex(URL_REGEX, { message: 'Invalid website' })
-      .max(100, { message: 'Website should not exceed 100 characters' })
-  ),
+  website: union([string().regex(URL_REGEX, { message: 'Invalid website' }), string().max(0)]),
   twitter: string().max(100, {
     message: 'Twitter should not exceed 100 characters'
   }),
