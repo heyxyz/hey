@@ -9,7 +9,7 @@ import { Modal } from '@components/UI/Modal';
 import { PageLoading } from '@components/UI/PageLoading';
 import useMessagePreviews from '@components/utils/hooks/useMessagePreviews';
 import type { Profile } from '@generated/types';
-import { MailIcon, PlusCircleIcon } from '@heroicons/react/outline';
+import { MailIcon, PlusCircleIcon, UsersIcon } from '@heroicons/react/outline';
 import buildConversationId from '@lib/buildConversationId';
 import { buildConversationKey } from '@lib/conversationKey';
 import { Leafwatch } from '@lib/leafwatch';
@@ -30,13 +30,15 @@ interface Props {
 const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
   const router = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const messageProfiles = useMessageStore((state) => state.messageProfiles);
-  const setMessageProfiles = useMessageStore((state) => state.setMessageProfiles);
+  const addProfileAndSelectTab = useMessageStore((state) => state.addProfileAndSelectTab);
+  const selectedTab = useMessageStore((state) => state.selectedTab);
+  const setSelectedTab = useMessageStore((state) => state.setSelectedTab);
   const [showSearchModal, setShowSearchModal] = useState(false);
-  const { authenticating, loading, messages, profiles, profilesError } = useMessagePreviews();
+  const { authenticating, loading, messages, profilesToShow, requestedCount, profilesError } =
+    useMessagePreviews();
   const clearMessagesBadge = useMessagePersistStore((state) => state.clearMessagesBadge);
 
-  const sortedProfiles = Array.from(profiles).sort(([keyA], [keyB]) => {
+  const sortedProfiles = Array.from(profilesToShow).sort(([keyA], [keyB]) => {
     const messageA = messages.get(keyA);
     const messageB = messages.get(keyB);
     return (messageA?.sent?.getTime() || 0) >= (messageB?.sent?.getTime() || 0) ? -1 : 1;
@@ -46,17 +48,12 @@ const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
     if (!currentProfile) {
       return;
     }
-    const profileKeys = Array.from(profiles.keys());
-    const messageKeys = Array.from(messages.keys());
-    const hasPreviews = profileKeys.some((item) => messageKeys.includes(item));
-    if (hasPreviews) {
-      clearMessagesBadge(currentProfile.id);
-    }
+    clearMessagesBadge(currentProfile.id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentProfile, profiles, messages]);
+  }, [currentProfile]);
 
   const showAuthenticating = currentProfile && authenticating;
-  const showLoading = loading && (messages.size === 0 || profiles.size === 0);
+  const showLoading = loading && (messages.size === 0 || profilesToShow.size === 0);
 
   const newMessageClick = () => {
     setShowSearchModal(true);
@@ -66,8 +63,7 @@ const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
   const onProfileSelected = (profile: Profile) => {
     const conversationId = buildConversationId(currentProfile?.id, profile.id);
     const conversationKey = buildConversationKey(profile.ownedBy, conversationId);
-    messageProfiles.set(conversationKey, profile);
-    setMessageProfiles(new Map(messageProfiles));
+    addProfileAndSelectTab(conversationKey, profile);
     router.push(`/messages/${conversationKey}`);
     setShowSearchModal(false);
   };
@@ -88,6 +84,37 @@ const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
             </button>
           )}
         </div>
+        <div className="flex">
+          <div
+            onClick={() => setSelectedTab('Following')}
+            className={clsx(
+              'flex flex-1 justify-center font-bold items-center p-2 m-2 ml-4 rounded text-brand-500 tab-bg cursor-pointer',
+              selectedTab === 'Following' ? 'bg-brand-100' : ''
+            )}
+          >
+            <UsersIcon className="mr-2 h-4 w-4" />
+            Following
+          </div>
+          <div
+            onClick={() => setSelectedTab('Requested')}
+            className={clsx(
+              'flex flex-1 justify-center font-bold items-center p-2 m-2 mr-4 rounded text-brand-500 tab-bg cursor-pointer',
+              selectedTab === 'Requested' ? 'bg-brand-100' : ''
+            )}
+          >
+            Requested
+            {requestedCount > 0 && (
+              <span className="text-sm font-bold ml-2 bg-brand-200 px-3 py-0.5 rounded-2xl">
+                {requestedCount > 99 ? '99+' : requestedCount}
+              </span>
+            )}
+          </div>
+        </div>
+        {selectedTab === 'Requested' ? (
+          <div className="p-2 px-5 mt-1 text-sm bg-yellow-100 text-yellow-800">
+            These conversations are from Lens profiles that you don't currently follow.
+          </div>
+        ) : null}
         <div className="h-full overflow-y-auto overflow-x-hidden">
           {showAuthenticating ? (
             <PageLoading message="Awaiting signature to enable DMs" />
@@ -108,7 +135,7 @@ const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
               />
             </button>
           ) : (
-            sortedProfiles.map(([key, profile]) => {
+            sortedProfiles?.map(([key, profile]) => {
               const message = messages.get(key);
               if (!message) {
                 return null;

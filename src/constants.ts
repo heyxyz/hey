@@ -43,7 +43,7 @@ export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
 // Leafwatch
 export const DATADOG_TOKEN = process.env.NEXT_PUBLIC_DATADOG_API_KEY ?? '';
 export const DATADOG_APPLICATION_KEY = process.env.NEXT_PUBLIC_DATADOG_APPLICATION_KEY ?? '';
-export const LEAFWATCH_HOST = 'https://utils.lenster.xyz/leafwatch/';
+export const LEAFWATCH_HOST = 'https://logs.browser-intake-datadoghq.eu/api/v2/logs';
 
 // Messages
 export const ERROR_MESSAGE = 'Something went wrong!';
