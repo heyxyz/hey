@@ -13,6 +13,7 @@ import type { FC } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { SCROLL_THRESHOLD } from 'src/constants';
 import { useAppStore } from 'src/store/app';
+import { useProfileFeedStore } from 'src/store/profile-feed';
 
 interface Props {
   profile: Profile;
@@ -21,6 +22,21 @@ interface Props {
 
 const Feed: FC<Props> = ({ profile, type }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const mediaFeedFilters = useProfileFeedStore((state) => state.mediaFeedFilters);
+
+  const getMediaFilters = () => {
+    let filters: PublicationMainFocus[] = [];
+    if (mediaFeedFilters.images) {
+      filters.push(PublicationMainFocus.Image);
+    }
+    if (mediaFeedFilters.video) {
+      filters.push(PublicationMainFocus.Video);
+    }
+    if (mediaFeedFilters.audio) {
+      filters.push(PublicationMainFocus.Audio);
+    }
+    return filters;
+  };
 
   // Variables
   const publicationTypes =
@@ -32,11 +48,7 @@ const Feed: FC<Props> = ({ profile, type }) => {
   const metadata =
     type === 'MEDIA'
       ? {
-          mainContentFocus: [
-            PublicationMainFocus.Video,
-            PublicationMainFocus.Image,
-            PublicationMainFocus.Audio
-          ]
+          mainContentFocus: getMediaFilters()
         }
       : null;
   const request = { publicationTypes, metadata, profileId: profile?.id, limit: 10 };
