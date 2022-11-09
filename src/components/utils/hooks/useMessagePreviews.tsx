@@ -35,6 +35,9 @@ const useMessagePreviews = () => {
   const [profilesLoading, setProfilesLoading] = useState<boolean>(false);
   const [profilesError, setProfilesError] = useState<Error | undefined>();
   const [loadProfiles] = useLazyQuery(ProfilesDocument);
+  const selectedTab = useMessageStore((state) => state.selectedTab);
+  const [profilesToShow, setProfilesToShow] = useState<Map<string, Profile>>(new Map());
+  const [requestedCount, setRequestedCount] = useState(0);
 
   const getProfileFromKey = (key: string): string | null => {
     const parsed = parseConversationKey(key);
@@ -223,11 +226,32 @@ const useMessagePreviews = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentProfile]);
 
+  useEffect(() => {
+    const partitionedProfiles = Array.from(messageProfiles).reduce(
+      (result, [key, profile]) => {
+        const message = previewMessages.get(key);
+        if (message) {
+          if (profile.isFollowedByMe) {
+            result[0].set(key, profile);
+          } else {
+            result[1].set(key, profile);
+          }
+        }
+        return result;
+      },
+      [new Map<string, Profile>(), new Map<string, Profile>()]
+    );
+    setProfilesToShow(selectedTab === 'Following' ? partitionedProfiles[0] : partitionedProfiles[1]);
+    setRequestedCount(partitionedProfiles[1].size);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [previewMessages, messageProfiles, selectedTab]);
+
   return {
     authenticating: creatingXmtpClient,
     loading: messagesLoading || profilesLoading,
     messages: previewMessages,
-    profiles: messageProfiles,
+    profilesToShow,
+    requestedCount,
     profilesError: profilesError
   };
 };

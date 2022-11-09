@@ -6,6 +6,8 @@ import { LS_KEYS } from 'src/constants';
 import create from 'zustand';
 import { persist } from 'zustand/middleware';
 
+type TabValues = 'Following' | 'Requested';
+
 interface MessageState {
   client: Client | undefined;
   setClient: (client: Client | undefined) => void;
@@ -17,12 +19,15 @@ interface MessageState {
   addMessages: (key: string, newMessages: DecodedMessage[]) => number;
   messageProfiles: Map<string, Profile>;
   setMessageProfiles: (messageProfiles: Map<string, Profile>) => void;
+  addProfileAndSelectTab: (key: string, profile: Profile) => void;
   previewMessages: Map<string, DecodedMessage>;
   setPreviewMessage: (key: string, message: DecodedMessage) => void;
   setPreviewMessages: (previewMessages: Map<string, DecodedMessage>) => void;
   reset: () => void;
   selectedProfileId: string;
   setSelectedProfileId: (selectedProfileId: string) => void;
+  selectedTab: TabValues;
+  setSelectedTab: (selectedTab: TabValues) => void;
 }
 
 export const useMessageStore = create<MessageState>((set) => ({
@@ -57,6 +62,18 @@ export const useMessageStore = create<MessageState>((set) => ({
   },
   messageProfiles: new Map(),
   setMessageProfiles: (messageProfiles) => set(() => ({ messageProfiles })),
+  addProfileAndSelectTab: (key, profile) =>
+    set((state) => {
+      let profiles: Map<string, Profile>;
+      if (!state.messageProfiles.get(key)) {
+        profiles = new Map(state.messageProfiles);
+        profiles.set(key, profile);
+      } else {
+        profiles = state.messageProfiles;
+      }
+      const selectedTab: TabValues = profile.isFollowedByMe ? 'Following' : 'Requested';
+      return { messageProfiles: profiles, selectedTab: selectedTab };
+    }),
   previewMessages: new Map(),
   setPreviewMessage: (key: string, message: DecodedMessage) =>
     set((state) => {
@@ -67,6 +84,8 @@ export const useMessageStore = create<MessageState>((set) => ({
   setPreviewMessages: (previewMessages) => set(() => ({ previewMessages })),
   selectedProfileId: '',
   setSelectedProfileId: (selectedProfileId) => set(() => ({ selectedProfileId })),
+  selectedTab: 'Following',
+  setSelectedTab: (selectedTab) => set(() => ({ selectedTab })),
   reset: () =>
     set((state) => {
       return {
@@ -74,7 +93,8 @@ export const useMessageStore = create<MessageState>((set) => ({
         conversations: new Map(),
         messages: new Map(),
         messageProfiles: new Map(),
-        previewMessages: new Map()
+        previewMessages: new Map(),
+        selectedTab: 'Following'
       };
     })
 }));

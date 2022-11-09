@@ -1,6 +1,8 @@
 import getEnvConfig from '@lib/getEnvConfig';
 import { chain } from 'wagmi';
 
+import packageJson from '../package.json';
+
 // Environments
 export const IS_PRODUCTION = process.env.NODE_ENV === 'production';
 
@@ -25,6 +27,7 @@ export const XMTP_PREFIX = 'lens.dev/dm';
 
 // Application
 export const APP_NAME = 'Lenster';
+export const APP_VERSION = packageJson.version;
 export const DESCRIPTION =
   'Lenster is a composable, decentralized, and permissionless social media web app built with Lens Protocol 🌿';
 export const DEFAULT_OG = 'https://assets.lenster.xyz/images/og/logo.jpeg';
@@ -38,8 +41,9 @@ export const RELAY_ON = process.env.NEXT_PUBLIC_RELAY_ON === 'true';
 export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
 
 // Leafwatch
-export const AXIOM_TOKEN = process.env.NEXT_PUBLIC_AXIOM_TOKEN ?? '';
-export const LEAFWATCH_HOST = 'https://cloud.axiom.co/api/v1/datasets/leafwatch/ingest';
+export const DATADOG_TOKEN = process.env.NEXT_PUBLIC_DATADOG_API_KEY ?? '';
+export const DATADOG_APPLICATION_KEY = process.env.NEXT_PUBLIC_DATADOG_APPLICATION_KEY ?? '';
+export const LEAFWATCH_HOST = 'https://logs.browser-intake-datadoghq.eu/api/v2/logs';
 
 // Messages
 export const ERROR_MESSAGE = 'Something went wrong!';
