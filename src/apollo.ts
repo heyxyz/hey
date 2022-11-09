@@ -114,7 +114,10 @@ const cache = new InMemoryCache({
         feed: cursorBasedPagination(['request', ['profileId', 'feedEventItemTypes']]),
         feedHighlights: cursorBasedPagination(['request', ['profileId']]),
         explorePublications: cursorBasedPagination(['request', ['sortCriteria', 'metadata']]),
-        publications: cursorBasedPagination(['request', ['profileId', 'commentsOf', 'publicationTypes']]),
+        publications: cursorBasedPagination([
+          'request',
+          ['profileId', 'commentsOf', 'publicationTypes', 'metadata']
+        ]),
         nfts: cursorBasedPagination(['request', ['ownerAddress', 'chainIds']]),
         notifications: cursorBasedPagination(['request', ['profileId', 'notificationTypes']]),
         followers: cursorBasedPagination(['request', ['profileId']]),
