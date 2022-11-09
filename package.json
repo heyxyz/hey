@@ -65,7 +65,7 @@
     "@types/react-dom": "^18.0.7",
     "@types/ua-parser-js": "^0.7.36",
     "@types/uuid": "^8.3.4",
-    "@typescript-eslint/eslint-plugin": "^5.42.0",
+    "@typescript-eslint/eslint-plugin": "^5.42.1",
     "autoprefixer": "^10.4.13",
     "eslint": "^8.26.0",
     "eslint-config-next": "^13.0.2",
