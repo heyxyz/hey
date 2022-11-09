@@ -1,13 +1,17 @@
+import Loader from '@components/Shared/Loader';
 import { Modal } from '@components/UI/Modal';
 import { Tooltip } from '@components/UI/Tooltip';
 import type { LensterPublication } from '@generated/lenstertypes';
 import { ChartBarIcon } from '@heroicons/react/outline';
 import { motion } from 'framer-motion';
+import dynamic from 'next/dynamic';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
 
-import Stats from './Stats';
+const Stats = dynamic(() => import('./Stats'), {
+  loading: () => <Loader message="Loading analytics" />
+});
 
 interface Props {
   publication: LensterPublication;
