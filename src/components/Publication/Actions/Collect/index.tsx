@@ -57,7 +57,7 @@ const Collect: FC<Props> = ({ publication, isFullPublication, electedMirror }) =
         }}
         aria-label="Collect"
       >
-        <span className="flex items-center space-x-1 text-red-500 hover:red-brand-400">
+        <span className="flex items-center space-x-1 text-red-500">
           <span className="p-1.5 rounded-full hover:bg-red-300 hover:bg-opacity-20">
             <Tooltip
               placement="top"

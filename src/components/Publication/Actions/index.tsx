@@ -4,6 +4,7 @@ import clsx from 'clsx';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 
+import Analytics from './Analytics';
 import Collect from './Collect';
 import Comment from './Comment';
 import Like from './Like';
@@ -41,6 +42,7 @@ const PublicationActions: FC<Props> = ({ publication, electedMirror, isFullPubli
           isFullPublication={isFullPublication}
         />
       )}
+      <Analytics publication={publication} isFullPublication={isFullPublication} />
       <PublicationMenu publication={publication} isFullPublication={isFullPublication} />
     </span>
   );
