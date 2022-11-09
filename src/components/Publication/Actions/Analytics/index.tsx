@@ -1,6 +1,7 @@
 import Loader from '@components/Shared/Loader';
 import { Modal } from '@components/UI/Modal';
 import { Tooltip } from '@components/UI/Tooltip';
+import useStaffMode from '@components/utils/hooks/useStaffMode';
 import type { LensterPublication } from '@generated/lenstertypes';
 import { ChartBarIcon } from '@heroicons/react/outline';
 import { motion } from 'framer-motion';
@@ -21,11 +22,12 @@ interface Props {
 const Analytics: FC<Props> = ({ publication, isFullPublication }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [showCollectModal, setShowCollectModal] = useState(false);
+  const { allowed: staffMode } = useStaffMode();
 
   const profileIdFromPublication = publication?.id.split('-')[0];
   const showAnalytics = currentProfile?.id === profileIdFromPublication;
 
-  if (!showAnalytics || publication.__typename === 'Mirror') {
+  if (!staffMode && (!showAnalytics || publication.__typename === 'Mirror')) {
     return null;
   }
 
