@@ -1,4 +1,5 @@
 import Markup from '@components/Shared/Markup';
+import UserPreview from '@components/Shared/UserPreview';
 import type { NewMentionNotification } from '@generated/types';
 import { AtSymbolIcon } from '@heroicons/react/solid';
 import dayjs from 'dayjs';
@@ -22,7 +23,9 @@ const MentionNotification: FC<Props> = ({ notification }) => {
       <div className="space-y-2 w-4/5">
         <div className="flex items-center space-x-3">
           <AtSymbolIcon className="h-6 w-6 text-orange-500/70" />
-          <NotificationProfileAvatar profile={profile} />
+          <UserPreview profile={profile}>
+            <NotificationProfileAvatar profile={profile} />
+          </UserPreview>
         </div>
         <div className="ml-9">
           <NotificationProfileName profile={profile} />{' '}
