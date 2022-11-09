@@ -33,12 +33,15 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const { data } = response?.data;
 
-    return res.status(200).json({
-      success: true,
-      response: {
-        views: data?.buckets[0]?.computes?.c0
-      }
-    });
+    return res
+      .setHeader('Cache-Control', 's-maxage=900')
+      .status(200)
+      .json({
+        success: true,
+        response: {
+          views: data?.buckets[0]?.computes?.c0
+        }
+      });
   } catch (error: any) {
     if (error.response.status === 429) {
       return res.status(429).json({ success: false, message: 'Rate limited' });
