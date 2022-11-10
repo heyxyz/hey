@@ -10,6 +10,7 @@ import { Leafwatch } from '@lib/leafwatch';
 import onError from '@lib/onError';
 import clsx from 'clsx';
 import type { Dispatch, FC } from 'react';
+import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { CHAIN_ID, ERROR_MESSAGE } from 'src/constants';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
@@ -26,20 +27,18 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
   const setProfiles = useAppStore((state) => state.setProfiles);
   const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
+  const [loading, setLoading] = useState(false);
 
   const { mounted } = useIsMounted();
   const { chain } = useNetwork();
   const { connectors, error, connectAsync } = useConnect();
   const { address, connector: activeConnector } = useAccount();
-  const { signMessageAsync, isLoading: signLoading } = useSignMessage({ onError });
-  const [loadChallenge, { error: errorChallenge, loading: challengeLoading }] = useLazyQuery(
-    ChallengeDocument,
-    { fetchPolicy: 'no-cache' }
-  );
-  const [authenticate, { error: errorAuthenticate, loading: authLoading }] =
-    useMutation(AuthenticateDocument);
-  const [getProfiles, { error: errorProfiles, loading: profilesLoading }] =
-    useLazyQuery(UserProfilesDocument);
+  const { signMessageAsync } = useSignMessage({ onError });
+  const [loadChallenge, { error: errorChallenge }] = useLazyQuery(ChallengeDocument, {
+    fetchPolicy: 'no-cache'
+  });
+  const [authenticate, { error: errorAuthenticate }] = useMutation(AuthenticateDocument);
+  const [getProfiles, { error: errorProfiles }] = useLazyQuery(UserProfilesDocument);
 
   const onConnect = async (connector: Connector) => {
     try {
@@ -48,11 +47,14 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
         setHasConnected(true);
       }
       Leafwatch.track(`Connect with ${connector.name.toLowerCase()}`);
-    } catch {}
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleSign = async () => {
     try {
+      setLoading(true);
       // Get challenge
       const challenge = await loadChallenge({
         variables: { request: { address } }
@@ -92,22 +94,23 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
         setProfileId(currentProfile.id);
       }
       Leafwatch.track(USER.SIWL);
-    } catch {}
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
   };
-
-  const isLoading = signLoading || challengeLoading || authLoading || profilesLoading;
 
   return activeConnector?.id ? (
     <div className="space-y-3">
       {chain?.id === CHAIN_ID ? (
         <Button
-          size="lg"
-          disabled={isLoading}
+          disabled={loading}
           icon={
-            isLoading ? (
+            loading ? (
               <Spinner className="mr-0.5" size="xs" />
             ) : (
-              <img className="mr-1 w-5 h-5" height={20} width={20} src="/lens.png" alt="Lens Logo" />
+              <img className="mr-0.5 w-4 h-4" height={16} width={16} src="/lens.png" alt="Lens Logo" />
             )
           }
           onClick={handleSign}
@@ -132,15 +135,13 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
             type="button"
             key={connector.id}
             className={clsx(
-              {
-                'hover:bg-gray-100 dark:hover:bg-gray-700': connector.id !== activeConnector?.id
-              },
-              'w-full flex items-center space-x-2.5 justify-center px-4 py-3 overflow-hidden rounded-xl border dark:border-gray-700/80 outline-none'
+              { 'hover:bg-gray-100 dark:hover:bg-gray-700': connector.id !== activeConnector?.id },
+              'w-full flex items-center justify-between space-x-2.5 px-4 py-3 overflow-hidden rounded-xl border dark:border-gray-700/80 outline-none'
             )}
             onClick={() => onConnect(connector)}
             disabled={mounted ? !connector.ready || connector.id === activeConnector?.id : false}
           >
-            <span className="flex justify-between items-center w-full">
+            <span>
               {mounted ? (connector.id === 'injected' ? 'Browser Wallet' : connector.name) : connector.name}
               {mounted ? !connector.ready && ' (unsupported)' : ''}
             </span>
