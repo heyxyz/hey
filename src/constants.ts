@@ -64,9 +64,6 @@ export const EVER_API = 'https://endpoint.4everland.co';
 
 // Web3
 export const ALCHEMY_KEY = process.env.NEXT_PUBLIC_ALCHEMY_KEY;
-export const ALCHEMY_RPC = IS_MAINNET
-  ? `https://polygon-mainnet.g.alchemy.com/v2/${ALCHEMY_KEY}`
-  : `https://polygon-mumbai.g.alchemy.com/v2/${ALCHEMY_KEY}`;
 
 export const POLYGON_MAINNET = {
   ...chain.polygon,

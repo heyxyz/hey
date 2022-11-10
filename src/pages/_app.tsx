@@ -1,4 +1,5 @@
 import '../styles.css';
+import '@rainbow-me/rainbowkit/styles.css';
 
 import Loading from '@components/Loading';
 import type { AppProps } from 'next/app';

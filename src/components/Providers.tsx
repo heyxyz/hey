@@ -1,10 +1,15 @@
 import { ApolloProvider } from '@apollo/client';
-import { ThemeProvider } from 'next-themes';
+import { connectorsForWallets, darkTheme, lightTheme, RainbowKitProvider } from '@rainbow-me/rainbowkit';
+import {
+  injectedWallet,
+  metaMaskWallet,
+  rainbowWallet,
+  walletConnectWallet
+} from '@rainbow-me/rainbowkit/wallets';
+import { ThemeProvider, useTheme } from 'next-themes';
 import type { ReactNode } from 'react';
-import { ALCHEMY_KEY, ALCHEMY_RPC, CHAIN_ID, IS_MAINNET } from 'src/constants';
+import { ALCHEMY_KEY, IS_MAINNET } from 'src/constants';
 import { chain, configureChains, createClient, WagmiConfig } from 'wagmi';
-import { InjectedConnector } from 'wagmi/connectors/injected';
-import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 import { alchemyProvider } from 'wagmi/providers/alchemy';
 
 import client from '../apollo';
@@ -14,17 +19,29 @@ const { chains, provider } = configureChains(
   [alchemyProvider({ apiKey: ALCHEMY_KEY })]
 );
 
-const connectors = () => {
-  return [
-    new InjectedConnector({
-      chains,
-      options: { shimDisconnect: true }
-    }),
-    new WalletConnectConnector({
-      chains,
-      options: { rpc: { [CHAIN_ID]: ALCHEMY_RPC } }
-    })
-  ];
+const connectors = connectorsForWallets([
+  {
+    groupName: 'Recommended',
+    wallets: [
+      injectedWallet({ chains, shimDisconnect: true }),
+      metaMaskWallet({ chains, shimDisconnect: true }),
+      rainbowWallet({ chains }),
+      walletConnectWallet({ chains })
+    ]
+  }
+]);
+
+const RainbowKitProviderWrapper = ({ children }: { children: ReactNode }) => {
+  const { theme } = useTheme();
+  return (
+    <RainbowKitProvider
+      modalSize="compact"
+      chains={chains}
+      theme={theme === 'dark' ? darkTheme() : lightTheme()}
+    >
+      {children}
+    </RainbowKitProvider>
+  );
 };
 
 const wagmiClient = createClient({
@@ -36,11 +53,11 @@ const wagmiClient = createClient({
 const Providers = ({ children }: { children: ReactNode }) => {
   return (
     <WagmiConfig client={wagmiClient}>
-      <ApolloProvider client={client}>
-        <ThemeProvider defaultTheme="light" attribute="class">
-          {children}
-        </ThemeProvider>
-      </ApolloProvider>
+      <ThemeProvider defaultTheme="light" attribute="class">
+        <RainbowKitProviderWrapper>
+          <ApolloProvider client={client}>{children}</ApolloProvider>
+        </RainbowKitProviderWrapper>
+      </ThemeProvider>
     </WagmiConfig>
   );
 };

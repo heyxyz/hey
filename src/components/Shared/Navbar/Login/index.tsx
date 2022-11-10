@@ -1,4 +1,3 @@
-import WalletSelector from '@components/Shared/Navbar/Login/WalletSelector';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { APP_NAME, IS_MAINNET, STATIC_ASSETS } from 'src/constants';
@@ -28,7 +27,6 @@ const Login: FC = () => {
               </div>
             </div>
           )}
-          <WalletSelector setHasConnected={setHasConnected} setHasProfile={setHasProfile} />
         </div>
       ) : IS_MAINNET ? (
         <div>

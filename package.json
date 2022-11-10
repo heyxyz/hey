@@ -24,6 +24,7 @@
     "@headlessui/react": "^1.7.4",
     "@heroicons/react": "v1",
     "@hookform/resolvers": "^2.9.10",
+    "@rainbow-me/rainbowkit": "^0.7.4",
     "@tippyjs/react": "^4.2.6",
     "@types/react-mentions": "^4.1.7",
     "@xmtp/xmtp-js": "^7.0.1",
