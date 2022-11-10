@@ -1,6 +1,8 @@
 import { useLazyQuery, useMutation } from '@apollo/client';
+import { Modal } from '@components/UI/Modal';
 import { ProfilesDocument } from '@generated/types';
 import { AuthenticateDocument, ChallengeDocument } from '@generated/types';
+import { ArrowCircleRightIcon } from '@heroicons/react/outline';
 import { Leafwatch } from '@lib/leafwatch';
 import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
@@ -9,6 +11,7 @@ import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { USER } from 'src/tracking';
 import { useAccount, useSignMessage } from 'wagmi';
 
+import AuthModal from './AuthModal';
 import LoginButton from './LoginButton';
 
 const Login = () => {
@@ -16,6 +19,7 @@ const Login = () => {
   const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
   const [loading, setLoading] = useState(false);
+  const [hasProfile, setHasProfile] = useState(true);
 
   const { address } = useAccount();
 
@@ -63,7 +67,7 @@ const Login = () => {
         variables: { request: { ownedBy: [address] } }
       });
       if (profilesData?.profiles?.items?.length === 0) {
-        // setHasProfile(false);
+        setHasProfile(false);
       } else {
         const profiles: any = profilesData?.profiles?.items
           ?.slice()
@@ -82,7 +86,19 @@ const Login = () => {
     }
   };
 
-  return <LoginButton handleSign={handleSign} signing={loading} />;
+  return (
+    <>
+      <LoginButton handleSign={handleSign} signing={loading} />
+      <Modal
+        title="Login"
+        icon={<ArrowCircleRightIcon className="h-5 w-5 text-brand" />}
+        onClose={() => setHasProfile(true)}
+        show={!hasProfile}
+      >
+        <AuthModal />
+      </Modal>
+    </>
+  );
 };
 
 export default Login;

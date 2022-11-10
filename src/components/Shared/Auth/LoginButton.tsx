@@ -16,9 +16,7 @@ interface Props {
   signing?: boolean;
 }
 
-const LoginButton: FC<Props> = (props) => {
-  console.log(props);
-  const { handleSign, signing } = props;
+const LoginButton: FC<Props> = ({ handleSign, signing }) => {
   const profileId = useAppPersistStore((state) => state.profileId);
   const currentProfile = useAppStore((state) => state.currentProfile);
 
