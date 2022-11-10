@@ -10,6 +10,7 @@ import { Leafwatch } from '@lib/leafwatch';
 import onError from '@lib/onError';
 import clsx from 'clsx';
 import type { Dispatch, FC } from 'react';
+import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { CHAIN_ID, ERROR_MESSAGE } from 'src/constants';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
@@ -26,20 +27,18 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
   const setProfiles = useAppStore((state) => state.setProfiles);
   const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
+  const [loading, setLoading] = useState(false);
 
   const { mounted } = useIsMounted();
   const { chain } = useNetwork();
   const { connectors, error, connectAsync } = useConnect();
   const { address, connector: activeConnector } = useAccount();
-  const { signMessageAsync, isLoading: signLoading } = useSignMessage({ onError });
-  const [loadChallenge, { error: errorChallenge, loading: challengeLoading }] = useLazyQuery(
-    ChallengeDocument,
-    { fetchPolicy: 'no-cache' }
-  );
-  const [authenticate, { error: errorAuthenticate, loading: authLoading }] =
-    useMutation(AuthenticateDocument);
-  const [getProfiles, { error: errorProfiles, loading: profilesLoading }] =
-    useLazyQuery(UserProfilesDocument);
+  const { signMessageAsync } = useSignMessage({ onError });
+  const [loadChallenge, { error: errorChallenge }] = useLazyQuery(ChallengeDocument, {
+    fetchPolicy: 'no-cache'
+  });
+  const [authenticate, { error: errorAuthenticate }] = useMutation(AuthenticateDocument);
+  const [getProfiles, { error: errorProfiles }] = useLazyQuery(UserProfilesDocument);
 
   const onConnect = async (connector: Connector) => {
     try {
@@ -48,11 +47,14 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
         setHasConnected(true);
       }
       Leafwatch.track(`Connect with ${connector.name.toLowerCase()}`);
-    } catch {}
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleSign = async () => {
     try {
+      setLoading(true);
       // Get challenge
       const challenge = await loadChallenge({
         variables: { request: { address } }
@@ -92,18 +94,20 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
         setProfileId(currentProfile.id);
       }
       Leafwatch.track(USER.SIWL);
-    } catch {}
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
   };
-
-  const isLoading = signLoading || challengeLoading || authLoading || profilesLoading;
 
   return activeConnector?.id ? (
     <div className="space-y-3">
       {chain?.id === CHAIN_ID ? (
         <Button
-          disabled={isLoading}
+          disabled={loading}
           icon={
-            isLoading ? (
+            loading ? (
               <Spinner className="mr-0.5" size="xs" />
             ) : (
               <img className="mr-0.5 w-4 h-4" height={16} width={16} src="/lens.png" alt="Lens Logo" />
