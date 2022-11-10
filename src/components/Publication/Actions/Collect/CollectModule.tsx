@@ -438,7 +438,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
           {currentProfile && !hasCollectedByMe ? (
             allowanceLoading || balanceLoading ? (
               <div className="w-28 rounded-lg h-[34px] shimmer" />
-            ) : allowed || collectModule.type === CollectModules.FreeCollectModule ? (
+            ) : allowed ? (
               hasAmount ? (
                 <Button
                   onClick={createCollect}
