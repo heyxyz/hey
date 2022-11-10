@@ -135,15 +135,13 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
             type="button"
             key={connector.id}
             className={clsx(
-              {
-                'hover:bg-gray-100 dark:hover:bg-gray-700': connector.id !== activeConnector?.id
-              },
-              'w-full flex items-center space-x-2.5 justify-center px-4 py-3 overflow-hidden rounded-xl border dark:border-gray-700/80 outline-none'
+              { 'hover:bg-gray-100 dark:hover:bg-gray-700': connector.id !== activeConnector?.id },
+              'w-full flex items-center justify-between space-x-2.5 px-4 py-3 overflow-hidden rounded-xl border dark:border-gray-700/80 outline-none'
             )}
             onClick={() => onConnect(connector)}
             disabled={mounted ? !connector.ready || connector.id === activeConnector?.id : false}
           >
-            <span className="flex justify-between items-center w-full">
+            <span>
               {mounted ? (connector.id === 'injected' ? 'Browser Wallet' : connector.name) : connector.name}
               {mounted ? !connector.ready && ' (unsupported)' : ''}
             </span>
