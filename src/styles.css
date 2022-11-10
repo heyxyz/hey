@@ -4,12 +4,9 @@
 @tailwind components;
 @tailwind utilities;
 
-html {
-  @apply overflow-y-scroll;
-}
-
 body {
   font-family: 'CircularXXSub', sans-serif;
+  @apply overflow-y-scroll;
   @apply bg-gray-50;
   @apply dark:bg-black;
 }
