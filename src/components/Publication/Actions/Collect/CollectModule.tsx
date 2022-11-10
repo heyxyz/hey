@@ -134,7 +134,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
   }, [revenueData]);
 
   const { data: balanceData, isLoading: balanceLoading } = useBalance({
-    addressOrName: address,
+    address,
     token: collectModule?.amount?.asset?.address,
     formatUnits: collectModule?.amount?.asset?.decimals,
     watch: true

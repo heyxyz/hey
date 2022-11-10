@@ -47,7 +47,7 @@
     "react-infinite-scroll-component": "^6.1.0",
     "react-mentions": "^4.4.7",
     "uuid": "^9.0.0",
-    "wagmi": "^0.7.13",
+    "wagmi": "^0.8.1",
     "zod": "^3.19.1",
     "zustand": "^4.1.4"
   },
