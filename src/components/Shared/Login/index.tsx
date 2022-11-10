@@ -1,4 +1,4 @@
-import WalletSelector from '@components/Shared/Navbar/Login/WalletSelector';
+import WalletSelector from '@components/Shared/Login/WalletSelector';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { APP_NAME, IS_MAINNET, STATIC_ASSETS } from 'src/constants';
