@@ -12,7 +12,8 @@
     "prettier:check": "prettier --check \"./{data,src}/**/*.{ts,tsx}\"",
     "prettier:write": "prettier --write \"./{data,src}/**/*.{ts,tsx}\"",
     "codegen": "graphql-codegen",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "test:e2e": "npx playwright test"
   },
   "dependencies": {
     "@apollo/client": "^3.7.1",
@@ -57,6 +58,7 @@
     "@graphql-codegen/typed-document-node": "^2.3.5",
     "@graphql-codegen/typescript": "^2.8.1",
     "@graphql-codegen/typescript-operations": "^2.5.5",
+    "@playwright/test": "^1.27.1",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/forms": "^0.5.3",
     "@tailwindcss/line-clamp": "^0.4.2",
