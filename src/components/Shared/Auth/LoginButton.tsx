@@ -1,12 +1,13 @@
 import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
+import { SwitchHorizontalIcon } from '@heroicons/react/outline';
 import { Leafwatch } from '@lib/leafwatch';
 import { useConnectModal } from '@rainbow-me/rainbowkit';
 import type { FC } from 'react';
 import toast from 'react-hot-toast';
 import { CHAIN_ID } from 'src/constants';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
-import { USER } from 'src/tracking';
+import { SYSTEM, USER } from 'src/tracking';
 import { useAccount, useNetwork, useSwitchNetwork } from 'wagmi';
 
 import SignedUser from '../Navbar/SignedUser';
@@ -49,7 +50,15 @@ const LoginButton: FC<Props> = ({ handleSign, signing }) => {
         </Button>
       )
     ) : (
-      <Button onClick={() => switchNetwork && switchNetwork(CHAIN_ID)} variant="danger">
+      <Button
+        type="button"
+        variant="danger"
+        icon={<SwitchHorizontalIcon className="w-4 h-4" />}
+        onClick={() => {
+          switchNetwork && switchNetwork(CHAIN_ID);
+          Leafwatch.track(SYSTEM.SWITCH_NETWORK);
+        }}
+      >
         <span className="text-white">Switch network</span>
       </Button>
     )
