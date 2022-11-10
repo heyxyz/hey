@@ -6,7 +6,7 @@ import type { FC } from 'react';
 import { useState } from 'react';
 import { USER } from 'src/tracking';
 
-import Login from './Login';
+import Login from '../Login';
 
 const LoginButton: FC = () => {
   const [showLoginModal, setShowLoginModal] = useState(false);
