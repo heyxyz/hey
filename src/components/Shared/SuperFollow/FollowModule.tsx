@@ -86,7 +86,7 @@ const FollowModule: FC<Props> = ({ profile, setFollowing, setShowFollowModal, ag
   });
 
   const { data: balanceData } = useBalance({
-    addressOrName: currentProfile?.ownedBy,
+    address: currentProfile?.ownedBy,
     token: followModule?.amount?.asset?.address,
     formatUnits: followModule?.amount?.asset?.decimals,
     watch: true
