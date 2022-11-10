@@ -1,3 +1,4 @@
+import { AggregatorV3Interface } from '@abis/AggregatorV3Interface';
 import { LensHubProxy } from '@abis/LensHubProxy';
 import { UpdateOwnableFeeCollectModule } from '@abis/UpdateOwnableFeeCollectModule';
 import { useMutation, useQuery } from '@apollo/client';
@@ -53,7 +54,7 @@ import toast from 'react-hot-toast';
 import { LENSHUB_PROXY, POLYGONSCAN_URL, RELAY_ON, SIGN_WALLET } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { PUBLICATION } from 'src/tracking';
-import { useAccount, useBalance, useContractRead, useContractWrite, useSignTypedData } from 'wagmi';
+import { chain, useAccount, useBalance, useContractRead, useContractWrite, useSignTypedData } from 'wagmi';
 
 interface Props {
   count: number;
@@ -75,9 +76,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
   const isMirror = electedMirror ? false : publication.__typename === 'Mirror';
 
   const { data, loading } = useQuery(CollectModuleDocument, {
-    variables: {
-      request: { publicationId: publication?.id }
-    }
+    variables: { request: { publicationId: publication?.id } }
   });
 
   const collectModule: any = data?.publication?.collectModule;
@@ -89,6 +88,22 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
     toast.success('Transaction submitted successfully!');
     Leafwatch.track(PUBLICATION.COLLECT_MODULE.COLLECT);
   };
+
+  const { refetch: fetchChainlinkData } = useContractRead({
+    address: '0xAB594600376Ec9fD91F8e885dADF0CE036862dE0',
+    chainId: chain.polygon.id,
+    abi: AggregatorV3Interface,
+    functionName: 'latestRoundData',
+    enabled: false
+  });
+
+  const { isFetching, refetch } = useContractRead({
+    address: getEnvConfig().UpdateOwnableFeeCollectModuleAddress,
+    abi: UpdateOwnableFeeCollectModule,
+    functionName: 'getPublicationData',
+    args: [parseInt(publication.profile?.id), parseInt(publication?.id.split('-')[1])],
+    enabled: false
+  });
 
   const {
     data: writeData,
@@ -131,6 +146,13 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
 
   useEffect(() => {
     setRevenue(parseFloat((revenueData?.publicationRevenue?.revenue?.total?.value as any) ?? 0));
+    if (revenueData?.publicationRevenue?.revenue?.total?.value) {
+      fetchChainlinkData().then(({ data }) => {
+        const { answer }: any = data;
+        console.log(parseInt(answer) / 10 ** 8);
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [revenueData]);
 
   const { data: balanceData, isLoading: balanceLoading } = useBalance({
@@ -186,19 +208,8 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
 
   const [createCollectProxyAction, { loading: proxyActionLoading }] = useMutation<Mutation>(
     ProxyActionDocument,
-    {
-      onCompleted,
-      onError
-    }
+    { onCompleted, onError }
   );
-
-  const { isFetching, refetch } = useContractRead({
-    address: getEnvConfig().UpdateOwnableFeeCollectModuleAddress,
-    abi: UpdateOwnableFeeCollectModule,
-    functionName: 'getPublicationData',
-    args: [parseInt(publication.profile?.id), parseInt(publication?.id.split('-')[1])],
-    enabled: false
-  });
 
   const createViaProxyAction = async (variables: any) => {
     const { data } = await createCollectProxyAction({ variables });
