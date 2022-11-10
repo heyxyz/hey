@@ -101,13 +101,12 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
     <div className="space-y-3">
       {chain?.id === CHAIN_ID ? (
         <Button
-          size="lg"
           disabled={isLoading}
           icon={
             isLoading ? (
               <Spinner className="mr-0.5" size="xs" />
             ) : (
-              <img className="mr-1 w-5 h-5" height={20} width={20} src="/lens.png" alt="Lens Logo" />
+              <img className="mr-0.5 w-4 h-4" height={16} width={16} src="/lens.png" alt="Lens Logo" />
             )
           }
           onClick={handleSign}
