@@ -37,6 +37,7 @@ import {
 } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
 import formatAddress from '@lib/formatAddress';
+import getChainlinkAddress from '@lib/getChainlinkAddress';
 import getEnvConfig from '@lib/getEnvConfig';
 import getSignature from '@lib/getSignature';
 import getTokenImage from '@lib/getTokenImage';
@@ -90,7 +91,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
   };
 
   const { refetch: fetchChainlinkData } = useContractRead({
-    address: '0xAB594600376Ec9fD91F8e885dADF0CE036862dE0',
+    address: getChainlinkAddress(collectModule?.amount?.asset?.symbol).address,
     chainId: chain.polygon.id,
     abi: AggregatorV3Interface,
     functionName: 'latestRoundData',
@@ -146,10 +147,10 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
 
   useEffect(() => {
     setRevenue(parseFloat((revenueData?.publicationRevenue?.revenue?.total?.value as any) ?? 0));
-    if (revenueData?.publicationRevenue?.revenue?.total?.value) {
+    if (collectModule?.amount) {
       fetchChainlinkData().then(({ data }) => {
         const { answer }: any = data;
-        setUsdPrice(parseInt(answer) / 10 ** 8);
+        setUsdPrice(parseInt(answer) / getChainlinkAddress(collectModule?.amount?.asset?.symbol).decimals);
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -331,9 +332,12 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
               <span className="text-2xl font-bold">{collectModule.amount.value}</span>
               <span className="text-xs">{collectModule?.amount?.asset?.symbol}</span>
               {usdPrice ? (
-                <span className="text-xs pl-1 text-gray-500">
-                  ${(collectModule.amount.value * usdPrice).toFixed(2)}
-                </span>
+                <>
+                  <span className="text-gray-500 px-0.5">·</span>
+                  <span className="text-xs font-bold text-gray-500">
+                    ${(collectModule.amount.value * usdPrice).toFixed(2)}
+                  </span>
+                </>
               ) : null}
             </span>
           </div>
@@ -396,7 +400,12 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
                     <div className="font-bold">{revenue}</div>
                     <div className="text-[10px]">{collectModule?.amount?.asset?.symbol}</div>
                     {usdPrice ? (
-                      <span className="text-xs pl-1 text-gray-500">${(revenue * usdPrice).toFixed(2)}</span>
+                      <>
+                        <span className="text-gray-500">·</span>
+                        <span className="text-xs font-bold text-gray-500">
+                          ${(revenue * usdPrice).toFixed(2)}
+                        </span>
+                      </>
                     ) : null}
                   </div>
                 </span>

@@ -63,7 +63,7 @@ export const IPFS_GATEWAY = 'https://lens.infura-ipfs.io/ipfs/';
 export const EVER_API = 'https://endpoint.4everland.co';
 
 // Web3
-export const RPC_URL = IS_MAINNET ? 'https://rpc.ankr.com/polygon' : 'https://rpc.ankr.com/polygon_mumbai';
+export const RPC_URL = IS_MAINNET ? 'https://rpc.ankr.com/polygon' : 'https://rpc.ankr.com/polygon';
 
 export const POLYGON_MAINNET = {
   ...chain.polygon,
