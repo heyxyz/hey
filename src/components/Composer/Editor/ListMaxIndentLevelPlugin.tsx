@@ -14,7 +14,7 @@ type Props = Readonly<{
   maxDepth: number | null | undefined;
 }>;
 
-function getElementNodesInSelection(selection: RangeSelection): Set<ElementNode> {
+const getElementNodesInSelection = (selection: RangeSelection): Set<ElementNode> => {
   const nodesInSelection = selection.getNodes();
 
   if (nodesInSelection.length === 0) {
@@ -25,9 +25,9 @@ function getElementNodesInSelection(selection: RangeSelection): Set<ElementNode>
   }
 
   return new Set(nodesInSelection.map((n) => ($isElementNode(n) ? n : n.getParentOrThrow())));
-}
+};
 
-function isIndentPermitted(maxDepth: number): boolean {
+const isIndentPermitted = (maxDepth: number): boolean => {
   const selection = $getSelection();
 
   if (!$isRangeSelection(selection)) {
@@ -53,9 +53,9 @@ function isIndentPermitted(maxDepth: number): boolean {
   }
 
   return totalDepth <= maxDepth;
-}
+};
 
-export default function ListMaxIndentLevelPlugin({ maxDepth }: Props): null {
+const ListMaxIndentLevelPlugin = ({ maxDepth }: Props): null => {
   const [editor] = useLexicalComposerContext();
 
   useEffect(() => {
@@ -65,5 +65,8 @@ export default function ListMaxIndentLevelPlugin({ maxDepth }: Props): null {
       COMMAND_PRIORITY_CRITICAL
     );
   }, [editor, maxDepth]);
+
   return null;
-}
+};
+
+export default ListMaxIndentLevelPlugin;

@@ -18,7 +18,7 @@ import {
 } from 'lexical';
 import { useEffect } from 'react';
 
-export function useList(editor: LexicalEditor): void {
+export const useList = (editor: LexicalEditor): void => {
   useEffect(() => {
     return mergeRegister(
       editor.registerCommand(
@@ -76,4 +76,4 @@ export function useList(editor: LexicalEditor): void {
       )
     );
   }, [editor]);
-}
+};

@@ -92,25 +92,24 @@ export class MentionNode extends TextNode {
   }
 }
 
-export function $createMentionNode(mentionName: string): MentionNode {
+export const $createMentionNode = (mentionName: string): MentionNode => {
   const mentionNode = new MentionNode(mentionName);
   mentionNode.setMode('segmented').toggleDirectionless();
 
   return mentionNode;
-}
+};
 
-function convertMentionElement(domNode: HTMLElement): DOMConversionOutput | null {
+const convertMentionElement = (domNode: HTMLElement): DOMConversionOutput | null => {
   const textContent = domNode.textContent;
 
   if (textContent !== null) {
     const node = $createMentionNode(textContent);
-
     return { node };
   }
 
   return null;
-}
+};
 
-export function $isMentionNode(node: LexicalNode | null | undefined): node is MentionNode {
+export const $isMentionNode = (node: LexicalNode | null | undefined): node is MentionNode => {
   return node instanceof MentionNode;
-}
+};

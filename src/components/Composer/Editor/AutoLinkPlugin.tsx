@@ -1,5 +1,5 @@
 import { AutoLinkPlugin } from '@lexical/react/LexicalAutoLinkPlugin';
-import * as React from 'react';
+import type { FC } from 'react';
 
 const URL_MATCHER =
   /((https?:\/\/(www\.)?)|(www\.))[\w#%+.:=@~-]{1,256}\.[\d()A-Za-z]{1,6}\b([\w#%&()+./:=?@~-]*)/;
@@ -34,6 +34,8 @@ const MATCHERS = [
   }
 ];
 
-export default function LexicalAutoLinkPlugin(): JSX.Element {
+const LexicalAutoLinkPlugin: FC = () => {
   return <AutoLinkPlugin matchers={MATCHERS} />;
-}
+};
+
+export default LexicalAutoLinkPlugin;

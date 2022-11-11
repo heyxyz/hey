@@ -8,11 +8,14 @@ import {
   TypeaheadOption,
   useBasicTypeaheadTriggerMatch
 } from '@lexical/react/LexicalTypeaheadMenuPlugin';
+import getIPFSLink from '@lib/getIPFSLink';
 import getStampFyiURL from '@lib/getStampFyiURL';
+import imageProxy from '@lib/imageProxy';
 import type { TextNode } from 'lexical';
+import type { FC } from 'react';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import * as React from 'react';
 import * as ReactDOM from 'react-dom';
+import { AVATAR } from 'src/constants';
 
 import { $createMentionNode } from './MentionsNode';
 
@@ -59,7 +62,7 @@ const AtSignMentionsRegexAliasRegex = new RegExp(
 );
 
 const SUGGESTION_LIST_LENGTH_LIMIT = 5;
-function checkForCapitalizedNameMentions(text: string, minMatchLength: number): QueryMatch | null {
+const checkForCapitalizedNameMentions = (text: string, minMatchLength: number): QueryMatch | null => {
   const match = CapitalizedNameMentionsRegex.exec(text);
   if (match !== null) {
     const maybeLeadingWhitespace = match[1];
@@ -74,9 +77,9 @@ function checkForCapitalizedNameMentions(text: string, minMatchLength: number): 
     }
   }
   return null;
-}
+};
 
-function checkForAtSignMentions(text: string, minMatchLength: number): QueryMatch | null {
+const checkForAtSignMentions = (text: string, minMatchLength: number): QueryMatch | null => {
   let match = AtSignMentionsRegex.exec(text);
 
   if (match === null) {
@@ -95,12 +98,12 @@ function checkForAtSignMentions(text: string, minMatchLength: number): QueryMatc
     }
   }
   return null;
-}
+};
 
-function getPossibleQueryMatch(text: string): QueryMatch | null {
+const getPossibleQueryMatch = (text: string): QueryMatch | null => {
   const match = checkForAtSignMentions(text, 1);
   return match === null ? checkForCapitalizedNameMentions(text, 3) : match;
-}
+};
 
 class MentionTypeaheadOption extends TypeaheadOption {
   name: string;
@@ -115,19 +118,13 @@ class MentionTypeaheadOption extends TypeaheadOption {
   }
 }
 
-function MentionsTypeaheadMenuItem({
-  index,
-  isSelected,
-  onClick,
-  onMouseEnter,
-  option
-}: {
+const MentionsTypeaheadMenuItem: FC<{
   index: number;
   isSelected: boolean;
   onClick: () => void;
   onMouseEnter: () => void;
   option: MentionTypeaheadOption;
-}) {
+}> = ({ index, isSelected, onClick, onMouseEnter, option }) => {
   let className = '';
   if (isSelected) {
     className += ' selected';
@@ -144,7 +141,7 @@ function MentionsTypeaheadMenuItem({
       onMouseEnter={onMouseEnter}
       onClick={onClick}
     >
-      <div className="hover:bg-slate-100 flex items-center space-x-2 m-1.5 px-3 py-1 rounded-xl">
+      <div className="hover:bg-gray-100 flex items-center space-x-2 m-1.5 px-3 py-1 rounded-xl">
         {option.picture}
         <div className="flex flex-col truncate">
           <div className="text-sm truncate">{option.name}</div>
@@ -153,22 +150,20 @@ function MentionsTypeaheadMenuItem({
       </div>
     </li>
   );
-}
+};
 
-export default function NewMentionsPlugin(): JSX.Element | null {
-  const [editor] = useLexicalComposerContext();
-
+const NewMentionsPlugin: FC = () => {
   const [queryString, setQueryString] = useState<string | null>(null);
-
-  const [searchUsers] = useLazyQuery(SearchProfilesDocument);
   const [results, setResults] = useState<Array<Record<string, string>>>([]);
+  const [editor] = useLexicalComposerContext();
+  const [searchUsers] = useLazyQuery(SearchProfilesDocument);
+
   useEffect(() => {
     searchUsers({
       variables: { request: { type: SearchRequestTypes.Profile, query: queryString, limit: 5 } }
     }).then(({ data }) => {
       // @ts-ignore
       let profiles = data?.search?.items ?? [];
-
       profiles = profiles.map((user: Profile & { picture: MediaSet & NftImage }) => ({
         name: user?.name,
         handle: user?.handle,
@@ -189,7 +184,15 @@ export default function NewMentionsPlugin(): JSX.Element | null {
         .map(({ name, picture, handle }) => {
           return new MentionTypeaheadOption(
             name ?? handle,
-            <img className="rounded-full w-7 h-7" height="32" width="32" src={picture} alt={name} />,
+            (
+              <img
+                className="rounded-full w-7 h-7"
+                height="32"
+                width="32"
+                src={imageProxy(getIPFSLink(picture), AVATAR)}
+                alt={name}
+              />
+            ),
             handle
           );
         })
@@ -229,8 +232,8 @@ export default function NewMentionsPlugin(): JSX.Element | null {
       menuRenderFn={(anchorElementRef, { selectedIndex, selectOptionAndCleanUp, setHighlightedIndex }) =>
         anchorElementRef.current && results.length
           ? ReactDOM.createPortal(
-              <div className="mention-input-borderless__suggestions typeahead-popover absolute left-[44px] top-1 z-40 bg-brand rounded-md mt-4 min-w-full">
-                <ul className="mention-input-borderless__suggestions__list">
+              <div className="cursor-pointer bg-white dark:bg-gray-900 mt-8 border dark:border-gray-700/80 rounded-xl shadow-sm w-52 typeahead-popover absolute left-[44px] top-1 z-40 bg-brand min-w-full">
+                <ul className="divide-y dark:divide-gray-700/80">
                   {options.map((option, i: number) => (
                     <MentionsTypeaheadMenuItem
                       index={i}
@@ -254,4 +257,6 @@ export default function NewMentionsPlugin(): JSX.Element | null {
       }
     />
   );
-}
+};
+
+export default NewMentionsPlugin;
