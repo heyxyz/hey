@@ -5,15 +5,13 @@ import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer'
 import { Card } from '@components/UI/Card';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
-import InfiniteLoader from '@components/UI/InfiniteLoader';
 import type { LensterPublication } from '@generated/lenstertypes';
 import type { FeedItem } from '@generated/types';
 import { FeedEventItemType } from '@generated/types';
 import { TimelineDocument } from '@generated/types';
 import { CollectionIcon } from '@heroicons/react/outline';
 import type { FC } from 'react';
-import InfiniteScroll from 'react-infinite-scroll-component';
-import { SCROLL_THRESHOLD } from 'src/constants';
+import { Virtuoso } from 'react-virtuoso';
 import { useAppStore } from 'src/store/app';
 import { useTimelinePersistStore } from 'src/store/timeline';
 import { useTransactionPersistStore } from 'src/store/transaction';
@@ -59,10 +57,6 @@ const Timeline: FC = () => {
     });
   };
 
-  if (loading) {
-    return <PublicationsShimmer />;
-  }
-
   if (publications?.length === 0) {
     return (
       <EmptyState
@@ -77,31 +71,33 @@ const Timeline: FC = () => {
   }
 
   return (
-    <InfiniteScroll
-      dataLength={publications?.length ?? 0}
-      scrollThreshold={SCROLL_THRESHOLD}
-      hasMore={hasMore}
-      next={loadMore}
-      loader={<InfiniteLoader />}
-    >
-      <Card className="divide-y-[1px] dark:divide-gray-700/80">
-        {txnQueue.map(
-          (txn) =>
-            txn?.type === 'NEW_POST' && (
-              <div key={txn.id}>
-                <QueuedPublication txn={txn} />
-              </div>
-            )
-        )}
-        {publications?.map((publication, index: number) => (
-          <SinglePublication
-            key={`${publication?.root.id}_${index}`}
-            feedItem={publication as FeedItem}
-            publication={publication.root as LensterPublication}
-          />
-        ))}
-      </Card>
-    </InfiniteScroll>
+    <Virtuoso
+      data={publications}
+      endReached={loadMore}
+      overscan={200}
+      itemContent={(index, user) => {
+        return (
+          <Card className="divide-y-[1px] dark:divide-gray-700/80">
+            {txnQueue.map(
+              (txn) =>
+                txn?.type === 'NEW_POST' && (
+                  <div key={txn.id}>
+                    <QueuedPublication txn={txn} />
+                  </div>
+                )
+            )}
+            {publications?.map((publication, index: number) => (
+              <SinglePublication
+                key={`${publication?.root.id}_${index}`}
+                feedItem={publication as FeedItem}
+                publication={publication.root as LensterPublication}
+              />
+            ))}
+          </Card>
+        );
+      }}
+      components={{ Footer: () => <PublicationsShimmer /> }}
+    />
   );
 };
 
