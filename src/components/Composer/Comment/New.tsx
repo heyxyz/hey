@@ -51,22 +51,22 @@ import { COMMENT } from 'src/tracking';
 import { v4 as uuid } from 'uuid';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
-const Attachment = dynamic(() => import('@components/Shared/Attachment'), {
+const Attachment = dynamic(() => import('@components/Composer/Actions/Attachment'), {
   loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
 });
-const Giphy = dynamic(() => import('@components/Composer/Giphy'), {
+const Giphy = dynamic(() => import('@components/Composer/Actions/Giphy'), {
   loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
 });
-const CollectSettings = dynamic(() => import('@components/Composer/CollectSettings'), {
+const CollectSettings = dynamic(() => import('@components/Composer/Actions/CollectSettings'), {
   loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
 });
-const ReferenceSettings = dynamic(() => import('@components/Composer/ReferenceSettings'), {
+const ReferenceSettings = dynamic(() => import('@components/Composer/Actions/ReferenceSettings'), {
   loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
 });
-const AccessSettings = dynamic(() => import('@components/Composer/AccessSettings'), {
+const AccessSettings = dynamic(() => import('@components/Composer/Actions/AccessSettings'), {
   loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
 });
-const Preview = dynamic(() => import('@components/Preview'), {
+const Preview = dynamic(() => import('@components/Composer/Actions/Preview'), {
   loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
 });
 
