@@ -7,7 +7,7 @@ import { Leafwatch } from '@lib/leafwatch';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';
 import { useState } from 'react';
-import { useCollectModuleStore } from 'src/store/collectmodule';
+import { useCollectModuleStore } from 'src/store/collect-module';
 import { PUBLICATION } from 'src/tracking';
 
 import CollectForm from './CollectForm';

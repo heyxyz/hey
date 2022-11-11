@@ -43,9 +43,9 @@ import {
   SIGN_WALLET
 } from 'src/constants';
 import { useAppStore } from 'src/store/app';
-import { useCollectModuleStore } from 'src/store/collectmodule';
+import { useCollectModuleStore } from 'src/store/collect-module';
 import { usePublicationStore } from 'src/store/publication';
-import { useReferenceModuleStore } from 'src/store/referencemodule';
+import { useReferenceModuleStore } from 'src/store/reference-module';
 import { useTransactionPersistStore } from 'src/store/transaction';
 import { COMMENT } from 'src/tracking';
 import { v4 as uuid } from 'uuid';
