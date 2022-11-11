@@ -41,7 +41,8 @@ export const RELAY_ON = process.env.NEXT_PUBLIC_RELAY_ON === 'true';
 export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
 
 // Leafwatch
-export const DATADOG_TOKEN = process.env.NEXT_PUBLIC_DATADOG_TOKEN ?? '';
+export const DATADOG_TOKEN = process.env.NEXT_PUBLIC_DATADOG_API_KEY ?? '';
+export const DATADOG_APPLICATION_KEY = process.env.NEXT_PUBLIC_DATADOG_APPLICATION_KEY ?? '';
 export const LEAFWATCH_HOST = 'https://logs.browser-intake-datadoghq.eu/api/v2/logs';
 
 // Messages
@@ -62,10 +63,7 @@ export const IPFS_GATEWAY = 'https://lens.infura-ipfs.io/ipfs/';
 export const EVER_API = 'https://endpoint.4everland.co';
 
 // Web3
-export const ALCHEMY_KEY = process.env.NEXT_PUBLIC_ALCHEMY_KEY;
-export const ALCHEMY_RPC = IS_MAINNET
-  ? `https://polygon-mainnet.g.alchemy.com/v2/${ALCHEMY_KEY}`
-  : `https://polygon-mumbai.g.alchemy.com/v2/${ALCHEMY_KEY}`;
+export const RPC_URL = IS_MAINNET ? 'https://rpc.ankr.com/polygon' : 'https://rpc.ankr.com/polygon_mumbai';
 
 export const POLYGON_MAINNET = {
   ...chain.polygon,

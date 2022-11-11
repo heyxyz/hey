@@ -6,7 +6,6 @@ fragment CollectModuleFields on CollectModule {
   }
   ... on FeeCollectModuleSettings {
     type
-    recipient
     referralFee
     contractAddress
     followerOnly
@@ -22,7 +21,6 @@ fragment CollectModuleFields on CollectModule {
   ... on LimitedFeeCollectModuleSettings {
     type
     collectLimit
-    recipient
     referralFee
     contractAddress
     followerOnly
@@ -38,7 +36,6 @@ fragment CollectModuleFields on CollectModule {
   ... on LimitedTimedFeeCollectModuleSettings {
     type
     collectLimit
-    recipient
     endTimestamp
     referralFee
     contractAddress
@@ -54,7 +51,6 @@ fragment CollectModuleFields on CollectModule {
   }
   ... on TimedFeeCollectModuleSettings {
     type
-    recipient
     endTimestamp
     referralFee
     contractAddress
