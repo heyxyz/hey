@@ -9,7 +9,7 @@ import type { FC } from 'react';
 import { useState } from 'react';
 import { PUBLICATION } from 'src/tracking';
 
-import Loader from '../Loader';
+import Loader from '../../Shared/Loader';
 
 const GifSelector = dynamic(() => import('./GifSelector'), {
   loading: () => <Loader message="Loading GIFs" />

@@ -55,13 +55,13 @@ import { useContractWrite, useSignTypedData } from 'wagmi';
 const Attachment = dynamic(() => import('@components/Shared/Attachment'), {
   loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
 });
-const Giphy = dynamic(() => import('@components/Shared/Giphy'), {
+const Giphy = dynamic(() => import('@components/Composer/Giphy'), {
   loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
 });
-const CollectSettings = dynamic(() => import('@components/Shared/CollectSettings'), {
+const CollectSettings = dynamic(() => import('@components/Composer/CollectSettings'), {
   loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
 });
-const ReferenceSettings = dynamic(() => import('@components/Shared/ReferenceSettings'), {
+const ReferenceSettings = dynamic(() => import('@components/Composer/ReferenceSettings'), {
   loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
 });
 
