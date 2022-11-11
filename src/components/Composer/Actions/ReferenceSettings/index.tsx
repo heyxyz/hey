@@ -7,7 +7,7 @@ import clsx from 'clsx';
 import { motion } from 'framer-motion';
 import type { FC, ReactNode } from 'react';
 import { Fragment } from 'react';
-import { useReferenceModuleStore } from 'src/store/referencemodule';
+import { useReferenceModuleStore } from 'src/store/reference-module';
 import { PUBLICATION } from 'src/tracking';
 
 const ReferenceSettings: FC = () => {
