@@ -134,6 +134,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
         publicationId: publication.__typename === 'Mirror' ? publication?.mirrorOf?.id : publication?.id
       }
     },
+    pollInterval: 5000,
     skip: !publication?.id
   });
 
