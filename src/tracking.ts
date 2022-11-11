@@ -58,13 +58,13 @@ export const PUBLICATION = {
   NEW: {
     MARKDOWN_PREVIEW: 'Preview markdown',
     OPEN_GIF: 'Open GIF modal',
-    COLLECT_MODULE: {
-      OPEN_COLLECT_SETTINGS: 'Open collect module settings'
-    },
     ATTACHMENT: {
       UPLOAD_IMAGES: 'Select upload images',
       UPLOAD_VIDEO: 'Select upload video',
       UPLOAD_AUDIO: 'Select upload audio'
+    },
+    COLLECT_MODULE: {
+      OPEN_COLLECT_SETTINGS: 'Open collect module settings'
     },
     REFERENCE_MODULE: {
       OPEN_REFERENCE_SETTINGS: 'Open reference module settings',
@@ -72,6 +72,9 @@ export const PUBLICATION = {
       MY_FOLLOWERS: 'Select my followers reference',
       MY_FOLLOWS: 'Select my follows reference',
       FRIENDS_OF_FRIENDS: 'Select friends of friends reference'
+    },
+    ACCESS: {
+      OPEN_ACCESS_SETTINGS: 'Open access settings'
     }
   }
 };
