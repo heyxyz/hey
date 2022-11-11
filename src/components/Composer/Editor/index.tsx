@@ -17,6 +17,7 @@ import { usePublicationStore } from 'src/store/publication';
 
 import MentionsPlugin from './AtMentionsPlugin';
 import AutoLinkPlugin from './AutoLinkPlugin';
+import ListMaxIndentLevelPlugin from './ListMaxIndentLevelPlugin';
 import { LENSTER_TRANSFORMERS } from './MarkdownTransformers';
 import { MentionNode } from './MentionsNode';
 import ToolbarPlugin from './ToolbarPlugin';
@@ -48,8 +49,6 @@ const Editor: FC = () => {
     theme: {
       list: {
         listitem: 'ml-2',
-        listitemChecked: 'line-through',
-        listitemUnchecked: 'PlaygroundEditorTheme__listItemUnchecked',
         nested: {
           listitem: 'list-none ml-8'
         },
@@ -117,6 +116,7 @@ const Editor: FC = () => {
         <AutoLinkPlugin />
         <HistoryPlugin />
         <ListPlugin />
+        <ListMaxIndentLevelPlugin maxDepth={7} />
         <MentionsPlugin />
         <MarkdownShortcutPlugin transformers={LENSTER_TRANSFORMERS} />
       </LexicalComposer>
