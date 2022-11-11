@@ -12,8 +12,8 @@ export const featureFlags = [
     enabledFor: [...lensterMembers]
   },
   {
-    key: 'access-control',
-    name: 'Access control',
+    key: 'access-settings',
+    name: 'Access settings',
     enabledFor: [...lensterMembers]
   }
 ];
