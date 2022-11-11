@@ -33,7 +33,6 @@ import {
   PhotographIcon,
   PuzzleIcon,
   SwitchHorizontalIcon,
-  UserIcon,
   UsersIcon
 } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
@@ -71,6 +70,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
   const [hasCollectedByMe, setHasCollectedByMe] = useState(publication?.hasCollectedByMe);
   const [showCollectorsModal, setShowCollectorsModal] = useState(false);
   const [allowed, setAllowed] = useState(true);
+  const [usdPrice, setUsdPrice] = useState(0);
   const { address } = useAccount();
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
   const isMirror = electedMirror ? false : publication.__typename === 'Mirror';
@@ -149,7 +149,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
     if (revenueData?.publicationRevenue?.revenue?.total?.value) {
       fetchChainlinkData().then(({ data }) => {
         const { answer }: any = data;
-        console.log(parseInt(answer) / 10 ** 8);
+        setUsdPrice(parseInt(answer) / 10 ** 8);
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -330,6 +330,11 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
             <span className="space-x-1">
               <span className="text-2xl font-bold">{collectModule.amount.value}</span>
               <span className="text-xs">{collectModule?.amount?.asset?.symbol}</span>
+              {usdPrice ? (
+                <span className="text-xs pl-1 text-gray-500">
+                  ${(collectModule.amount.value * usdPrice).toFixed(2)}
+                </span>
+              ) : null}
             </span>
           </div>
         )}
@@ -390,6 +395,9 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
                   <div className="flex items-baseline space-x-1.5">
                     <div className="font-bold">{revenue}</div>
                     <div className="text-[10px]">{collectModule?.amount?.asset?.symbol}</div>
+                    {usdPrice ? (
+                      <span className="text-xs pl-1 text-gray-500">${(revenue * usdPrice).toFixed(2)}</span>
+                    ) : null}
                   </div>
                 </span>
               </div>
@@ -404,22 +412,6 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
                   {dayjs(collectModule.endTimestamp).format('MMMM DD, YYYY')} at{' '}
                   {dayjs(collectModule.endTimestamp).format('hh:mm a')}
                 </span>
-              </div>
-            </div>
-          )}
-          {collectModule?.recipient && (
-            <div className="flex items-center space-x-2">
-              <UserIcon className="w-4 h-4 text-gray-500" />
-              <div className="space-x-1.5">
-                <span>Recipient:</span>
-                <a
-                  href={`${POLYGONSCAN_URL}/address/${collectModule.recipient}`}
-                  target="_blank"
-                  className="font-bold text-gray-600"
-                  rel="noreferrer noopener"
-                >
-                  {formatAddress(collectModule.recipient)}
-                </a>
               </div>
             </div>
           )}
