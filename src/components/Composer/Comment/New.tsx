@@ -370,13 +370,13 @@ const NewComment: FC<Props> = ({ publication }) => {
     isUploading || typedDataLoading || dispatcherLoading || signLoading || writeLoading || broadcastLoading;
 
   return (
-    <Card className="px-5 pt-5 pb-3">
+    <Card className="pb-3">
       {error && <ErrorMessage className="mb-3" title="Transaction failed!" error={error} />}
       <Editor />
       {commentContentError && (
         <div className="px-5 pb-3 mt-1 text-sm font-bold text-red-500">{commentContentError}</div>
       )}
-      <div className="block items-center sm:flex">
+      <div className="block items-center sm:flex px-5">
         <div className="flex items-center space-x-4">
           <Attachment attachments={attachments} setAttachments={setAttachments} />
           <Giphy setGifAttachment={(gif: IGif) => setGifAttachment(gif)} />
