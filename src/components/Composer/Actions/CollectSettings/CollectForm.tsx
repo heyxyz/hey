@@ -16,7 +16,7 @@ import {
 import type { Dispatch, FC } from 'react';
 import { useEffect } from 'react';
 import { useAppStore } from 'src/store/app';
-import { useCollectModuleStore } from 'src/store/collectmodule';
+import { useCollectModuleStore } from 'src/store/collect-module';
 
 interface Props {
   setShowModal: Dispatch<boolean>;
