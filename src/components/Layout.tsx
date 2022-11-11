@@ -12,7 +12,7 @@ import { useEffect } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { CHAIN_ID } from 'src/constants';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
-import { useReferenceModuleStore } from 'src/store/referencemodule';
+import { useReferenceModuleStore } from 'src/store/reference-module';
 import { useAccount, useDisconnect, useNetwork } from 'wagmi';
 
 import Loading from './Loading';

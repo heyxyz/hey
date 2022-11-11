@@ -42,7 +42,7 @@ const NFTPicture: FC<Props> = ({ profile }) => {
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const [chainId, setChainId] = useState(IS_MAINNET ? chain.mainnet.id : chain.kovan.id);
+  const [chainId, setChainId] = useState(chain.mainnet.id);
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
   const { signMessageAsync } = useSignMessage();
 
@@ -199,9 +199,7 @@ const NFTPicture: FC<Props> = ({ profile }) => {
             onChange={(e) => setChainId(parseInt(e.target.value))}
             value={chainId}
           >
-            <option value={IS_MAINNET ? chain.mainnet.id : chain.kovan.id}>
-              {IS_MAINNET ? 'Ethereum' : 'Kovan'}
-            </option>
+            {IS_MAINNET && <option value={chain.mainnet.id}>Ethereum</option>}
             <option value={IS_MAINNET ? chain.polygon.id : chain.polygonMumbai.id}>
               {IS_MAINNET ? 'Polygon' : 'Mumbai'}
             </option>

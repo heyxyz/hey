@@ -49,7 +49,7 @@ export const LightBox: FC<Props> = ({ show, url, onClose }) => {
                   className="text-sm text-gray-200 hover:underline"
                   href={url}
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                 >
                   Open original
                 </a>
