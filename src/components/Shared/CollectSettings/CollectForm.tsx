@@ -173,7 +173,11 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
                       onChange={(e) => setSelectedCurrency(e.target.value)}
                     >
                       {data?.enabledModuleCurrencies.map((currency: Erc20) => (
-                        <option key={currency.address} value={currency.address}>
+                        <option
+                          key={currency.address}
+                          value={currency.address}
+                          selected={currency?.address === selectedCurrency}
+                        >
                           {currency.name}
                         </option>
                       ))}

@@ -3280,7 +3280,6 @@ export type WorldcoinIdentity = {
 type CollectModuleFields_FeeCollectModuleSettings_Fragment = {
   __typename?: 'FeeCollectModuleSettings';
   type: CollectModules;
-  recipient: any;
   referralFee: number;
   contractAddress: any;
   followerOnly: boolean;
@@ -3302,7 +3301,6 @@ type CollectModuleFields_LimitedFeeCollectModuleSettings_Fragment = {
   __typename?: 'LimitedFeeCollectModuleSettings';
   type: CollectModules;
   collectLimit: string;
-  recipient: any;
   referralFee: number;
   contractAddress: any;
   followerOnly: boolean;
@@ -3317,7 +3315,6 @@ type CollectModuleFields_LimitedTimedFeeCollectModuleSettings_Fragment = {
   __typename?: 'LimitedTimedFeeCollectModuleSettings';
   type: CollectModules;
   collectLimit: string;
-  recipient: any;
   endTimestamp: any;
   referralFee: number;
   contractAddress: any;
@@ -3336,7 +3333,6 @@ type CollectModuleFields_RevertCollectModuleSettings_Fragment = {
 type CollectModuleFields_TimedFeeCollectModuleSettings_Fragment = {
   __typename?: 'TimedFeeCollectModuleSettings';
   type: CollectModules;
-  recipient: any;
   endTimestamp: any;
   referralFee: number;
   contractAddress: any;
@@ -3422,7 +3418,6 @@ export type CommentFieldsFragment = {
     | {
         __typename?: 'FeeCollectModuleSettings';
         type: CollectModules;
-        recipient: any;
         referralFee: number;
         contractAddress: any;
         followerOnly: boolean;
@@ -3442,7 +3437,6 @@ export type CommentFieldsFragment = {
         __typename?: 'LimitedFeeCollectModuleSettings';
         type: CollectModules;
         collectLimit: string;
-        recipient: any;
         referralFee: number;
         contractAddress: any;
         followerOnly: boolean;
@@ -3456,7 +3450,6 @@ export type CommentFieldsFragment = {
         __typename?: 'LimitedTimedFeeCollectModuleSettings';
         type: CollectModules;
         collectLimit: string;
-        recipient: any;
         endTimestamp: any;
         referralFee: number;
         contractAddress: any;
@@ -3471,7 +3464,6 @@ export type CommentFieldsFragment = {
     | {
         __typename?: 'TimedFeeCollectModuleSettings';
         type: CollectModules;
-        recipient: any;
         endTimestamp: any;
         referralFee: number;
         contractAddress: any;
@@ -3548,7 +3540,6 @@ export type CommentFieldsFragment = {
           | {
               __typename?: 'FeeCollectModuleSettings';
               type: CollectModules;
-              recipient: any;
               referralFee: number;
               contractAddress: any;
               followerOnly: boolean;
@@ -3568,7 +3559,6 @@ export type CommentFieldsFragment = {
               __typename?: 'LimitedFeeCollectModuleSettings';
               type: CollectModules;
               collectLimit: string;
-              recipient: any;
               referralFee: number;
               contractAddress: any;
               followerOnly: boolean;
@@ -3582,7 +3572,6 @@ export type CommentFieldsFragment = {
               __typename?: 'LimitedTimedFeeCollectModuleSettings';
               type: CollectModules;
               collectLimit: string;
-              recipient: any;
               endTimestamp: any;
               referralFee: number;
               contractAddress: any;
@@ -3597,7 +3586,6 @@ export type CommentFieldsFragment = {
           | {
               __typename?: 'TimedFeeCollectModuleSettings';
               type: CollectModules;
-              recipient: any;
               endTimestamp: any;
               referralFee: number;
               contractAddress: any;
@@ -3668,7 +3656,6 @@ export type CommentFieldsFragment = {
                 | {
                     __typename?: 'FeeCollectModuleSettings';
                     type: CollectModules;
-                    recipient: any;
                     referralFee: number;
                     contractAddress: any;
                     followerOnly: boolean;
@@ -3688,7 +3675,6 @@ export type CommentFieldsFragment = {
                     __typename?: 'LimitedFeeCollectModuleSettings';
                     type: CollectModules;
                     collectLimit: string;
-                    recipient: any;
                     referralFee: number;
                     contractAddress: any;
                     followerOnly: boolean;
@@ -3702,7 +3688,6 @@ export type CommentFieldsFragment = {
                     __typename?: 'LimitedTimedFeeCollectModuleSettings';
                     type: CollectModules;
                     collectLimit: string;
-                    recipient: any;
                     endTimestamp: any;
                     referralFee: number;
                     contractAddress: any;
@@ -3717,7 +3702,6 @@ export type CommentFieldsFragment = {
                 | {
                     __typename?: 'TimedFeeCollectModuleSettings';
                     type: CollectModules;
-                    recipient: any;
                     endTimestamp: any;
                     referralFee: number;
                     contractAddress: any;
@@ -3856,7 +3840,6 @@ export type CommentFieldsFragment = {
                       | {
                           __typename?: 'FeeCollectModuleSettings';
                           type: CollectModules;
-                          recipient: any;
                           referralFee: number;
                           contractAddress: any;
                           followerOnly: boolean;
@@ -3876,7 +3859,6 @@ export type CommentFieldsFragment = {
                           __typename?: 'LimitedFeeCollectModuleSettings';
                           type: CollectModules;
                           collectLimit: string;
-                          recipient: any;
                           referralFee: number;
                           contractAddress: any;
                           followerOnly: boolean;
@@ -3890,7 +3872,6 @@ export type CommentFieldsFragment = {
                           __typename?: 'LimitedTimedFeeCollectModuleSettings';
                           type: CollectModules;
                           collectLimit: string;
-                          recipient: any;
                           endTimestamp: any;
                           referralFee: number;
                           contractAddress: any;
@@ -3905,7 +3886,6 @@ export type CommentFieldsFragment = {
                       | {
                           __typename?: 'TimedFeeCollectModuleSettings';
                           type: CollectModules;
-                          recipient: any;
                           endTimestamp: any;
                           referralFee: number;
                           contractAddress: any;
@@ -4007,7 +3987,6 @@ export type CommentFieldsFragment = {
                 | {
                     __typename?: 'FeeCollectModuleSettings';
                     type: CollectModules;
-                    recipient: any;
                     referralFee: number;
                     contractAddress: any;
                     followerOnly: boolean;
@@ -4027,7 +4006,6 @@ export type CommentFieldsFragment = {
                     __typename?: 'LimitedFeeCollectModuleSettings';
                     type: CollectModules;
                     collectLimit: string;
-                    recipient: any;
                     referralFee: number;
                     contractAddress: any;
                     followerOnly: boolean;
@@ -4041,7 +4019,6 @@ export type CommentFieldsFragment = {
                     __typename?: 'LimitedTimedFeeCollectModuleSettings';
                     type: CollectModules;
                     collectLimit: string;
-                    recipient: any;
                     endTimestamp: any;
                     referralFee: number;
                     contractAddress: any;
@@ -4056,7 +4033,6 @@ export type CommentFieldsFragment = {
                 | {
                     __typename?: 'TimedFeeCollectModuleSettings';
                     type: CollectModules;
-                    recipient: any;
                     endTimestamp: any;
                     referralFee: number;
                     contractAddress: any;
@@ -4128,7 +4104,6 @@ export type CommentFieldsFragment = {
           | {
               __typename?: 'FeeCollectModuleSettings';
               type: CollectModules;
-              recipient: any;
               referralFee: number;
               contractAddress: any;
               followerOnly: boolean;
@@ -4148,7 +4123,6 @@ export type CommentFieldsFragment = {
               __typename?: 'LimitedFeeCollectModuleSettings';
               type: CollectModules;
               collectLimit: string;
-              recipient: any;
               referralFee: number;
               contractAddress: any;
               followerOnly: boolean;
@@ -4162,7 +4136,6 @@ export type CommentFieldsFragment = {
               __typename?: 'LimitedTimedFeeCollectModuleSettings';
               type: CollectModules;
               collectLimit: string;
-              recipient: any;
               endTimestamp: any;
               referralFee: number;
               contractAddress: any;
@@ -4177,7 +4150,6 @@ export type CommentFieldsFragment = {
           | {
               __typename?: 'TimedFeeCollectModuleSettings';
               type: CollectModules;
-              recipient: any;
               endTimestamp: any;
               referralFee: number;
               contractAddress: any;
@@ -4312,7 +4284,6 @@ export type CommentFieldsFragment = {
                 | {
                     __typename?: 'FeeCollectModuleSettings';
                     type: CollectModules;
-                    recipient: any;
                     referralFee: number;
                     contractAddress: any;
                     followerOnly: boolean;
@@ -4332,7 +4303,6 @@ export type CommentFieldsFragment = {
                     __typename?: 'LimitedFeeCollectModuleSettings';
                     type: CollectModules;
                     collectLimit: string;
-                    recipient: any;
                     referralFee: number;
                     contractAddress: any;
                     followerOnly: boolean;
@@ -4346,7 +4316,6 @@ export type CommentFieldsFragment = {
                     __typename?: 'LimitedTimedFeeCollectModuleSettings';
                     type: CollectModules;
                     collectLimit: string;
-                    recipient: any;
                     endTimestamp: any;
                     referralFee: number;
                     contractAddress: any;
@@ -4361,7 +4330,6 @@ export type CommentFieldsFragment = {
                 | {
                     __typename?: 'TimedFeeCollectModuleSettings';
                     type: CollectModules;
-                    recipient: any;
                     endTimestamp: any;
                     referralFee: number;
                     contractAddress: any;
@@ -4460,7 +4428,6 @@ export type CommentFieldsFragment = {
           | {
               __typename?: 'FeeCollectModuleSettings';
               type: CollectModules;
-              recipient: any;
               referralFee: number;
               contractAddress: any;
               followerOnly: boolean;
@@ -4480,7 +4447,6 @@ export type CommentFieldsFragment = {
               __typename?: 'LimitedFeeCollectModuleSettings';
               type: CollectModules;
               collectLimit: string;
-              recipient: any;
               referralFee: number;
               contractAddress: any;
               followerOnly: boolean;
@@ -4494,7 +4460,6 @@ export type CommentFieldsFragment = {
               __typename?: 'LimitedTimedFeeCollectModuleSettings';
               type: CollectModules;
               collectLimit: string;
-              recipient: any;
               endTimestamp: any;
               referralFee: number;
               contractAddress: any;
@@ -4509,7 +4474,6 @@ export type CommentFieldsFragment = {
           | {
               __typename?: 'TimedFeeCollectModuleSettings';
               type: CollectModules;
-              recipient: any;
               endTimestamp: any;
               referralFee: number;
               contractAddress: any;
@@ -4601,7 +4565,6 @@ export type MirrorFieldsFragment = {
     | {
         __typename?: 'FeeCollectModuleSettings';
         type: CollectModules;
-        recipient: any;
         referralFee: number;
         contractAddress: any;
         followerOnly: boolean;
@@ -4621,7 +4584,6 @@ export type MirrorFieldsFragment = {
         __typename?: 'LimitedFeeCollectModuleSettings';
         type: CollectModules;
         collectLimit: string;
-        recipient: any;
         referralFee: number;
         contractAddress: any;
         followerOnly: boolean;
@@ -4635,7 +4597,6 @@ export type MirrorFieldsFragment = {
         __typename?: 'LimitedTimedFeeCollectModuleSettings';
         type: CollectModules;
         collectLimit: string;
-        recipient: any;
         endTimestamp: any;
         referralFee: number;
         contractAddress: any;
@@ -4650,7 +4611,6 @@ export type MirrorFieldsFragment = {
     | {
         __typename?: 'TimedFeeCollectModuleSettings';
         type: CollectModules;
-        recipient: any;
         endTimestamp: any;
         referralFee: number;
         contractAddress: any;
@@ -4785,7 +4745,6 @@ export type MirrorFieldsFragment = {
           | {
               __typename?: 'FeeCollectModuleSettings';
               type: CollectModules;
-              recipient: any;
               referralFee: number;
               contractAddress: any;
               followerOnly: boolean;
@@ -4805,7 +4764,6 @@ export type MirrorFieldsFragment = {
               __typename?: 'LimitedFeeCollectModuleSettings';
               type: CollectModules;
               collectLimit: string;
-              recipient: any;
               referralFee: number;
               contractAddress: any;
               followerOnly: boolean;
@@ -4819,7 +4777,6 @@ export type MirrorFieldsFragment = {
               __typename?: 'LimitedTimedFeeCollectModuleSettings';
               type: CollectModules;
               collectLimit: string;
-              recipient: any;
               endTimestamp: any;
               referralFee: number;
               contractAddress: any;
@@ -4834,7 +4791,6 @@ export type MirrorFieldsFragment = {
           | {
               __typename?: 'TimedFeeCollectModuleSettings';
               type: CollectModules;
-              recipient: any;
               endTimestamp: any;
               referralFee: number;
               contractAddress: any;
@@ -4934,7 +4890,6 @@ export type PostFieldsFragment = {
     | {
         __typename?: 'FeeCollectModuleSettings';
         type: CollectModules;
-        recipient: any;
         referralFee: number;
         contractAddress: any;
         followerOnly: boolean;
@@ -4954,7 +4909,6 @@ export type PostFieldsFragment = {
         __typename?: 'LimitedFeeCollectModuleSettings';
         type: CollectModules;
         collectLimit: string;
-        recipient: any;
         referralFee: number;
         contractAddress: any;
         followerOnly: boolean;
@@ -4968,7 +4922,6 @@ export type PostFieldsFragment = {
         __typename?: 'LimitedTimedFeeCollectModuleSettings';
         type: CollectModules;
         collectLimit: string;
-        recipient: any;
         endTimestamp: any;
         referralFee: number;
         contractAddress: any;
@@ -4983,7 +4936,6 @@ export type PostFieldsFragment = {
     | {
         __typename?: 'TimedFeeCollectModuleSettings';
         type: CollectModules;
-        recipient: any;
         endTimestamp: any;
         referralFee: number;
         contractAddress: any;
@@ -5647,7 +5599,6 @@ export type CollectModuleQuery = {
           | {
               __typename?: 'FeeCollectModuleSettings';
               type: CollectModules;
-              recipient: any;
               referralFee: number;
               contractAddress: any;
               followerOnly: boolean;
@@ -5667,7 +5618,6 @@ export type CollectModuleQuery = {
               __typename?: 'LimitedFeeCollectModuleSettings';
               type: CollectModules;
               collectLimit: string;
-              recipient: any;
               referralFee: number;
               contractAddress: any;
               followerOnly: boolean;
@@ -5681,7 +5631,6 @@ export type CollectModuleQuery = {
               __typename?: 'LimitedTimedFeeCollectModuleSettings';
               type: CollectModules;
               collectLimit: string;
-              recipient: any;
               endTimestamp: any;
               referralFee: number;
               contractAddress: any;
@@ -5696,7 +5645,6 @@ export type CollectModuleQuery = {
           | {
               __typename?: 'TimedFeeCollectModuleSettings';
               type: CollectModules;
-              recipient: any;
               endTimestamp: any;
               referralFee: number;
               contractAddress: any;
@@ -5716,7 +5664,6 @@ export type CollectModuleQuery = {
           | {
               __typename?: 'FeeCollectModuleSettings';
               type: CollectModules;
-              recipient: any;
               referralFee: number;
               contractAddress: any;
               followerOnly: boolean;
@@ -5736,7 +5683,6 @@ export type CollectModuleQuery = {
               __typename?: 'LimitedFeeCollectModuleSettings';
               type: CollectModules;
               collectLimit: string;
-              recipient: any;
               referralFee: number;
               contractAddress: any;
               followerOnly: boolean;
@@ -5750,7 +5696,6 @@ export type CollectModuleQuery = {
               __typename?: 'LimitedTimedFeeCollectModuleSettings';
               type: CollectModules;
               collectLimit: string;
-              recipient: any;
               endTimestamp: any;
               referralFee: number;
               contractAddress: any;
@@ -5765,7 +5710,6 @@ export type CollectModuleQuery = {
           | {
               __typename?: 'TimedFeeCollectModuleSettings';
               type: CollectModules;
-              recipient: any;
               endTimestamp: any;
               referralFee: number;
               contractAddress: any;
@@ -5785,7 +5729,6 @@ export type CollectModuleQuery = {
           | {
               __typename?: 'FeeCollectModuleSettings';
               type: CollectModules;
-              recipient: any;
               referralFee: number;
               contractAddress: any;
               followerOnly: boolean;
@@ -5805,7 +5748,6 @@ export type CollectModuleQuery = {
               __typename?: 'LimitedFeeCollectModuleSettings';
               type: CollectModules;
               collectLimit: string;
-              recipient: any;
               referralFee: number;
               contractAddress: any;
               followerOnly: boolean;
@@ -5819,7 +5761,6 @@ export type CollectModuleQuery = {
               __typename?: 'LimitedTimedFeeCollectModuleSettings';
               type: CollectModules;
               collectLimit: string;
-              recipient: any;
               endTimestamp: any;
               referralFee: number;
               contractAddress: any;
@@ -5834,7 +5775,6 @@ export type CollectModuleQuery = {
           | {
               __typename?: 'TimedFeeCollectModuleSettings';
               type: CollectModules;
-              recipient: any;
               endTimestamp: any;
               referralFee: number;
               contractAddress: any;
@@ -5959,7 +5899,6 @@ export type CommentFeedQuery = {
             | {
                 __typename?: 'FeeCollectModuleSettings';
                 type: CollectModules;
-                recipient: any;
                 referralFee: number;
                 contractAddress: any;
                 followerOnly: boolean;
@@ -5979,7 +5918,6 @@ export type CommentFeedQuery = {
                 __typename?: 'LimitedFeeCollectModuleSettings';
                 type: CollectModules;
                 collectLimit: string;
-                recipient: any;
                 referralFee: number;
                 contractAddress: any;
                 followerOnly: boolean;
@@ -5993,7 +5931,6 @@ export type CommentFeedQuery = {
                 __typename?: 'LimitedTimedFeeCollectModuleSettings';
                 type: CollectModules;
                 collectLimit: string;
-                recipient: any;
                 endTimestamp: any;
                 referralFee: number;
                 contractAddress: any;
@@ -6008,7 +5945,6 @@ export type CommentFeedQuery = {
             | {
                 __typename?: 'TimedFeeCollectModuleSettings';
                 type: CollectModules;
-                recipient: any;
                 endTimestamp: any;
                 referralFee: number;
                 contractAddress: any;
@@ -6085,7 +6021,6 @@ export type CommentFeedQuery = {
                   | {
                       __typename?: 'FeeCollectModuleSettings';
                       type: CollectModules;
-                      recipient: any;
                       referralFee: number;
                       contractAddress: any;
                       followerOnly: boolean;
@@ -6105,7 +6040,6 @@ export type CommentFeedQuery = {
                       __typename?: 'LimitedFeeCollectModuleSettings';
                       type: CollectModules;
                       collectLimit: string;
-                      recipient: any;
                       referralFee: number;
                       contractAddress: any;
                       followerOnly: boolean;
@@ -6119,7 +6053,6 @@ export type CommentFeedQuery = {
                       __typename?: 'LimitedTimedFeeCollectModuleSettings';
                       type: CollectModules;
                       collectLimit: string;
-                      recipient: any;
                       endTimestamp: any;
                       referralFee: number;
                       contractAddress: any;
@@ -6134,7 +6067,6 @@ export type CommentFeedQuery = {
                   | {
                       __typename?: 'TimedFeeCollectModuleSettings';
                       type: CollectModules;
-                      recipient: any;
                       endTimestamp: any;
                       referralFee: number;
                       contractAddress: any;
@@ -6209,7 +6141,6 @@ export type CommentFeedQuery = {
                         | {
                             __typename?: 'FeeCollectModuleSettings';
                             type: CollectModules;
-                            recipient: any;
                             referralFee: number;
                             contractAddress: any;
                             followerOnly: boolean;
@@ -6229,7 +6160,6 @@ export type CommentFeedQuery = {
                             __typename?: 'LimitedFeeCollectModuleSettings';
                             type: CollectModules;
                             collectLimit: string;
-                            recipient: any;
                             referralFee: number;
                             contractAddress: any;
                             followerOnly: boolean;
@@ -6243,7 +6173,6 @@ export type CommentFeedQuery = {
                             __typename?: 'LimitedTimedFeeCollectModuleSettings';
                             type: CollectModules;
                             collectLimit: string;
-                            recipient: any;
                             endTimestamp: any;
                             referralFee: number;
                             contractAddress: any;
@@ -6258,7 +6187,6 @@ export type CommentFeedQuery = {
                         | {
                             __typename?: 'TimedFeeCollectModuleSettings';
                             type: CollectModules;
-                            recipient: any;
                             endTimestamp: any;
                             referralFee: number;
                             contractAddress: any;
@@ -6420,7 +6348,6 @@ export type CommentFeedQuery = {
                               | {
                                   __typename?: 'FeeCollectModuleSettings';
                                   type: CollectModules;
-                                  recipient: any;
                                   referralFee: number;
                                   contractAddress: any;
                                   followerOnly: boolean;
@@ -6445,7 +6372,6 @@ export type CommentFeedQuery = {
                                   __typename?: 'LimitedFeeCollectModuleSettings';
                                   type: CollectModules;
                                   collectLimit: string;
-                                  recipient: any;
                                   referralFee: number;
                                   contractAddress: any;
                                   followerOnly: boolean;
@@ -6464,7 +6390,6 @@ export type CommentFeedQuery = {
                                   __typename?: 'LimitedTimedFeeCollectModuleSettings';
                                   type: CollectModules;
                                   collectLimit: string;
-                                  recipient: any;
                                   endTimestamp: any;
                                   referralFee: number;
                                   contractAddress: any;
@@ -6484,7 +6409,6 @@ export type CommentFeedQuery = {
                               | {
                                   __typename?: 'TimedFeeCollectModuleSettings';
                                   type: CollectModules;
-                                  recipient: any;
                                   endTimestamp: any;
                                   referralFee: number;
                                   contractAddress: any;
@@ -6599,7 +6523,6 @@ export type CommentFeedQuery = {
                         | {
                             __typename?: 'FeeCollectModuleSettings';
                             type: CollectModules;
-                            recipient: any;
                             referralFee: number;
                             contractAddress: any;
                             followerOnly: boolean;
@@ -6619,7 +6542,6 @@ export type CommentFeedQuery = {
                             __typename?: 'LimitedFeeCollectModuleSettings';
                             type: CollectModules;
                             collectLimit: string;
-                            recipient: any;
                             referralFee: number;
                             contractAddress: any;
                             followerOnly: boolean;
@@ -6633,7 +6555,6 @@ export type CommentFeedQuery = {
                             __typename?: 'LimitedTimedFeeCollectModuleSettings';
                             type: CollectModules;
                             collectLimit: string;
-                            recipient: any;
                             endTimestamp: any;
                             referralFee: number;
                             contractAddress: any;
@@ -6648,7 +6569,6 @@ export type CommentFeedQuery = {
                         | {
                             __typename?: 'TimedFeeCollectModuleSettings';
                             type: CollectModules;
-                            recipient: any;
                             endTimestamp: any;
                             referralFee: number;
                             contractAddress: any;
@@ -6723,7 +6643,6 @@ export type CommentFeedQuery = {
                   | {
                       __typename?: 'FeeCollectModuleSettings';
                       type: CollectModules;
-                      recipient: any;
                       referralFee: number;
                       contractAddress: any;
                       followerOnly: boolean;
@@ -6743,7 +6662,6 @@ export type CommentFeedQuery = {
                       __typename?: 'LimitedFeeCollectModuleSettings';
                       type: CollectModules;
                       collectLimit: string;
-                      recipient: any;
                       referralFee: number;
                       contractAddress: any;
                       followerOnly: boolean;
@@ -6757,7 +6675,6 @@ export type CommentFeedQuery = {
                       __typename?: 'LimitedTimedFeeCollectModuleSettings';
                       type: CollectModules;
                       collectLimit: string;
-                      recipient: any;
                       endTimestamp: any;
                       referralFee: number;
                       contractAddress: any;
@@ -6772,7 +6689,6 @@ export type CommentFeedQuery = {
                   | {
                       __typename?: 'TimedFeeCollectModuleSettings';
                       type: CollectModules;
-                      recipient: any;
                       endTimestamp: any;
                       referralFee: number;
                       contractAddress: any;
@@ -6919,7 +6835,6 @@ export type CommentFeedQuery = {
                         | {
                             __typename?: 'FeeCollectModuleSettings';
                             type: CollectModules;
-                            recipient: any;
                             referralFee: number;
                             contractAddress: any;
                             followerOnly: boolean;
@@ -6939,7 +6854,6 @@ export type CommentFeedQuery = {
                             __typename?: 'LimitedFeeCollectModuleSettings';
                             type: CollectModules;
                             collectLimit: string;
-                            recipient: any;
                             referralFee: number;
                             contractAddress: any;
                             followerOnly: boolean;
@@ -6953,7 +6867,6 @@ export type CommentFeedQuery = {
                             __typename?: 'LimitedTimedFeeCollectModuleSettings';
                             type: CollectModules;
                             collectLimit: string;
-                            recipient: any;
                             endTimestamp: any;
                             referralFee: number;
                             contractAddress: any;
@@ -6968,7 +6881,6 @@ export type CommentFeedQuery = {
                         | {
                             __typename?: 'TimedFeeCollectModuleSettings';
                             type: CollectModules;
-                            recipient: any;
                             endTimestamp: any;
                             referralFee: number;
                             contractAddress: any;
@@ -7070,7 +6982,6 @@ export type CommentFeedQuery = {
                   | {
                       __typename?: 'FeeCollectModuleSettings';
                       type: CollectModules;
-                      recipient: any;
                       referralFee: number;
                       contractAddress: any;
                       followerOnly: boolean;
@@ -7090,7 +7001,6 @@ export type CommentFeedQuery = {
                       __typename?: 'LimitedFeeCollectModuleSettings';
                       type: CollectModules;
                       collectLimit: string;
-                      recipient: any;
                       referralFee: number;
                       contractAddress: any;
                       followerOnly: boolean;
@@ -7104,7 +7014,6 @@ export type CommentFeedQuery = {
                       __typename?: 'LimitedTimedFeeCollectModuleSettings';
                       type: CollectModules;
                       collectLimit: string;
-                      recipient: any;
                       endTimestamp: any;
                       referralFee: number;
                       contractAddress: any;
@@ -7119,7 +7028,6 @@ export type CommentFeedQuery = {
                   | {
                       __typename?: 'TimedFeeCollectModuleSettings';
                       type: CollectModules;
-                      recipient: any;
                       endTimestamp: any;
                       referralFee: number;
                       contractAddress: any;
@@ -7291,7 +7199,6 @@ export type ExploreFeedQuery = {
             | {
                 __typename?: 'FeeCollectModuleSettings';
                 type: CollectModules;
-                recipient: any;
                 referralFee: number;
                 contractAddress: any;
                 followerOnly: boolean;
@@ -7311,7 +7218,6 @@ export type ExploreFeedQuery = {
                 __typename?: 'LimitedFeeCollectModuleSettings';
                 type: CollectModules;
                 collectLimit: string;
-                recipient: any;
                 referralFee: number;
                 contractAddress: any;
                 followerOnly: boolean;
@@ -7325,7 +7231,6 @@ export type ExploreFeedQuery = {
                 __typename?: 'LimitedTimedFeeCollectModuleSettings';
                 type: CollectModules;
                 collectLimit: string;
-                recipient: any;
                 endTimestamp: any;
                 referralFee: number;
                 contractAddress: any;
@@ -7340,7 +7245,6 @@ export type ExploreFeedQuery = {
             | {
                 __typename?: 'TimedFeeCollectModuleSettings';
                 type: CollectModules;
-                recipient: any;
                 endTimestamp: any;
                 referralFee: number;
                 contractAddress: any;
@@ -7417,7 +7321,6 @@ export type ExploreFeedQuery = {
                   | {
                       __typename?: 'FeeCollectModuleSettings';
                       type: CollectModules;
-                      recipient: any;
                       referralFee: number;
                       contractAddress: any;
                       followerOnly: boolean;
@@ -7437,7 +7340,6 @@ export type ExploreFeedQuery = {
                       __typename?: 'LimitedFeeCollectModuleSettings';
                       type: CollectModules;
                       collectLimit: string;
-                      recipient: any;
                       referralFee: number;
                       contractAddress: any;
                       followerOnly: boolean;
@@ -7451,7 +7353,6 @@ export type ExploreFeedQuery = {
                       __typename?: 'LimitedTimedFeeCollectModuleSettings';
                       type: CollectModules;
                       collectLimit: string;
-                      recipient: any;
                       endTimestamp: any;
                       referralFee: number;
                       contractAddress: any;
@@ -7466,7 +7367,6 @@ export type ExploreFeedQuery = {
                   | {
                       __typename?: 'TimedFeeCollectModuleSettings';
                       type: CollectModules;
-                      recipient: any;
                       endTimestamp: any;
                       referralFee: number;
                       contractAddress: any;
@@ -7541,7 +7441,6 @@ export type ExploreFeedQuery = {
                         | {
                             __typename?: 'FeeCollectModuleSettings';
                             type: CollectModules;
-                            recipient: any;
                             referralFee: number;
                             contractAddress: any;
                             followerOnly: boolean;
@@ -7561,7 +7460,6 @@ export type ExploreFeedQuery = {
                             __typename?: 'LimitedFeeCollectModuleSettings';
                             type: CollectModules;
                             collectLimit: string;
-                            recipient: any;
                             referralFee: number;
                             contractAddress: any;
                             followerOnly: boolean;
@@ -7575,7 +7473,6 @@ export type ExploreFeedQuery = {
                             __typename?: 'LimitedTimedFeeCollectModuleSettings';
                             type: CollectModules;
                             collectLimit: string;
-                            recipient: any;
                             endTimestamp: any;
                             referralFee: number;
                             contractAddress: any;
@@ -7590,7 +7487,6 @@ export type ExploreFeedQuery = {
                         | {
                             __typename?: 'TimedFeeCollectModuleSettings';
                             type: CollectModules;
-                            recipient: any;
                             endTimestamp: any;
                             referralFee: number;
                             contractAddress: any;
@@ -7752,7 +7648,6 @@ export type ExploreFeedQuery = {
                               | {
                                   __typename?: 'FeeCollectModuleSettings';
                                   type: CollectModules;
-                                  recipient: any;
                                   referralFee: number;
                                   contractAddress: any;
                                   followerOnly: boolean;
@@ -7777,7 +7672,6 @@ export type ExploreFeedQuery = {
                                   __typename?: 'LimitedFeeCollectModuleSettings';
                                   type: CollectModules;
                                   collectLimit: string;
-                                  recipient: any;
                                   referralFee: number;
                                   contractAddress: any;
                                   followerOnly: boolean;
@@ -7796,7 +7690,6 @@ export type ExploreFeedQuery = {
                                   __typename?: 'LimitedTimedFeeCollectModuleSettings';
                                   type: CollectModules;
                                   collectLimit: string;
-                                  recipient: any;
                                   endTimestamp: any;
                                   referralFee: number;
                                   contractAddress: any;
@@ -7816,7 +7709,6 @@ export type ExploreFeedQuery = {
                               | {
                                   __typename?: 'TimedFeeCollectModuleSettings';
                                   type: CollectModules;
-                                  recipient: any;
                                   endTimestamp: any;
                                   referralFee: number;
                                   contractAddress: any;
@@ -7931,7 +7823,6 @@ export type ExploreFeedQuery = {
                         | {
                             __typename?: 'FeeCollectModuleSettings';
                             type: CollectModules;
-                            recipient: any;
                             referralFee: number;
                             contractAddress: any;
                             followerOnly: boolean;
@@ -7951,7 +7842,6 @@ export type ExploreFeedQuery = {
                             __typename?: 'LimitedFeeCollectModuleSettings';
                             type: CollectModules;
                             collectLimit: string;
-                            recipient: any;
                             referralFee: number;
                             contractAddress: any;
                             followerOnly: boolean;
@@ -7965,7 +7855,6 @@ export type ExploreFeedQuery = {
                             __typename?: 'LimitedTimedFeeCollectModuleSettings';
                             type: CollectModules;
                             collectLimit: string;
-                            recipient: any;
                             endTimestamp: any;
                             referralFee: number;
                             contractAddress: any;
@@ -7980,7 +7869,6 @@ export type ExploreFeedQuery = {
                         | {
                             __typename?: 'TimedFeeCollectModuleSettings';
                             type: CollectModules;
-                            recipient: any;
                             endTimestamp: any;
                             referralFee: number;
                             contractAddress: any;
@@ -8055,7 +7943,6 @@ export type ExploreFeedQuery = {
                   | {
                       __typename?: 'FeeCollectModuleSettings';
                       type: CollectModules;
-                      recipient: any;
                       referralFee: number;
                       contractAddress: any;
                       followerOnly: boolean;
@@ -8075,7 +7962,6 @@ export type ExploreFeedQuery = {
                       __typename?: 'LimitedFeeCollectModuleSettings';
                       type: CollectModules;
                       collectLimit: string;
-                      recipient: any;
                       referralFee: number;
                       contractAddress: any;
                       followerOnly: boolean;
@@ -8089,7 +7975,6 @@ export type ExploreFeedQuery = {
                       __typename?: 'LimitedTimedFeeCollectModuleSettings';
                       type: CollectModules;
                       collectLimit: string;
-                      recipient: any;
                       endTimestamp: any;
                       referralFee: number;
                       contractAddress: any;
@@ -8104,7 +7989,6 @@ export type ExploreFeedQuery = {
                   | {
                       __typename?: 'TimedFeeCollectModuleSettings';
                       type: CollectModules;
-                      recipient: any;
                       endTimestamp: any;
                       referralFee: number;
                       contractAddress: any;
@@ -8251,7 +8135,6 @@ export type ExploreFeedQuery = {
                         | {
                             __typename?: 'FeeCollectModuleSettings';
                             type: CollectModules;
-                            recipient: any;
                             referralFee: number;
                             contractAddress: any;
                             followerOnly: boolean;
@@ -8271,7 +8154,6 @@ export type ExploreFeedQuery = {
                             __typename?: 'LimitedFeeCollectModuleSettings';
                             type: CollectModules;
                             collectLimit: string;
-                            recipient: any;
                             referralFee: number;
                             contractAddress: any;
                             followerOnly: boolean;
@@ -8285,7 +8167,6 @@ export type ExploreFeedQuery = {
                             __typename?: 'LimitedTimedFeeCollectModuleSettings';
                             type: CollectModules;
                             collectLimit: string;
-                            recipient: any;
                             endTimestamp: any;
                             referralFee: number;
                             contractAddress: any;
@@ -8300,7 +8181,6 @@ export type ExploreFeedQuery = {
                         | {
                             __typename?: 'TimedFeeCollectModuleSettings';
                             type: CollectModules;
-                            recipient: any;
                             endTimestamp: any;
                             referralFee: number;
                             contractAddress: any;
@@ -8402,7 +8282,6 @@ export type ExploreFeedQuery = {
                   | {
                       __typename?: 'FeeCollectModuleSettings';
                       type: CollectModules;
-                      recipient: any;
                       referralFee: number;
                       contractAddress: any;
                       followerOnly: boolean;
@@ -8422,7 +8301,6 @@ export type ExploreFeedQuery = {
                       __typename?: 'LimitedFeeCollectModuleSettings';
                       type: CollectModules;
                       collectLimit: string;
-                      recipient: any;
                       referralFee: number;
                       contractAddress: any;
                       followerOnly: boolean;
@@ -8436,7 +8314,6 @@ export type ExploreFeedQuery = {
                       __typename?: 'LimitedTimedFeeCollectModuleSettings';
                       type: CollectModules;
                       collectLimit: string;
-                      recipient: any;
                       endTimestamp: any;
                       referralFee: number;
                       contractAddress: any;
@@ -8451,7 +8328,6 @@ export type ExploreFeedQuery = {
                   | {
                       __typename?: 'TimedFeeCollectModuleSettings';
                       type: CollectModules;
-                      recipient: any;
                       endTimestamp: any;
                       referralFee: number;
                       contractAddress: any;
@@ -8524,7 +8400,6 @@ export type ExploreFeedQuery = {
             | {
                 __typename?: 'FeeCollectModuleSettings';
                 type: CollectModules;
-                recipient: any;
                 referralFee: number;
                 contractAddress: any;
                 followerOnly: boolean;
@@ -8544,7 +8419,6 @@ export type ExploreFeedQuery = {
                 __typename?: 'LimitedFeeCollectModuleSettings';
                 type: CollectModules;
                 collectLimit: string;
-                recipient: any;
                 referralFee: number;
                 contractAddress: any;
                 followerOnly: boolean;
@@ -8558,7 +8432,6 @@ export type ExploreFeedQuery = {
                 __typename?: 'LimitedTimedFeeCollectModuleSettings';
                 type: CollectModules;
                 collectLimit: string;
-                recipient: any;
                 endTimestamp: any;
                 referralFee: number;
                 contractAddress: any;
@@ -8573,7 +8446,6 @@ export type ExploreFeedQuery = {
             | {
                 __typename?: 'TimedFeeCollectModuleSettings';
                 type: CollectModules;
-                recipient: any;
                 endTimestamp: any;
                 referralFee: number;
                 contractAddress: any;
@@ -8708,7 +8580,6 @@ export type ExploreFeedQuery = {
                   | {
                       __typename?: 'FeeCollectModuleSettings';
                       type: CollectModules;
-                      recipient: any;
                       referralFee: number;
                       contractAddress: any;
                       followerOnly: boolean;
@@ -8728,7 +8599,6 @@ export type ExploreFeedQuery = {
                       __typename?: 'LimitedFeeCollectModuleSettings';
                       type: CollectModules;
                       collectLimit: string;
-                      recipient: any;
                       referralFee: number;
                       contractAddress: any;
                       followerOnly: boolean;
@@ -8742,7 +8612,6 @@ export type ExploreFeedQuery = {
                       __typename?: 'LimitedTimedFeeCollectModuleSettings';
                       type: CollectModules;
                       collectLimit: string;
-                      recipient: any;
                       endTimestamp: any;
                       referralFee: number;
                       contractAddress: any;
@@ -8757,7 +8626,6 @@ export type ExploreFeedQuery = {
                   | {
                       __typename?: 'TimedFeeCollectModuleSettings';
                       type: CollectModules;
-                      recipient: any;
                       endTimestamp: any;
                       referralFee: number;
                       contractAddress: any;
@@ -8856,7 +8724,6 @@ export type ExploreFeedQuery = {
             | {
                 __typename?: 'FeeCollectModuleSettings';
                 type: CollectModules;
-                recipient: any;
                 referralFee: number;
                 contractAddress: any;
                 followerOnly: boolean;
@@ -8876,7 +8743,6 @@ export type ExploreFeedQuery = {
                 __typename?: 'LimitedFeeCollectModuleSettings';
                 type: CollectModules;
                 collectLimit: string;
-                recipient: any;
                 referralFee: number;
                 contractAddress: any;
                 followerOnly: boolean;
@@ -8890,7 +8756,6 @@ export type ExploreFeedQuery = {
                 __typename?: 'LimitedTimedFeeCollectModuleSettings';
                 type: CollectModules;
                 collectLimit: string;
-                recipient: any;
                 endTimestamp: any;
                 referralFee: number;
                 contractAddress: any;
@@ -8905,7 +8770,6 @@ export type ExploreFeedQuery = {
             | {
                 __typename?: 'TimedFeeCollectModuleSettings';
                 type: CollectModules;
-                recipient: any;
                 endTimestamp: any;
                 referralFee: number;
                 contractAddress: any;
@@ -9019,7 +8883,6 @@ export type FeedHighlightsQuery = {
             | {
                 __typename?: 'FeeCollectModuleSettings';
                 type: CollectModules;
-                recipient: any;
                 referralFee: number;
                 contractAddress: any;
                 followerOnly: boolean;
@@ -9039,7 +8902,6 @@ export type FeedHighlightsQuery = {
                 __typename?: 'LimitedFeeCollectModuleSettings';
                 type: CollectModules;
                 collectLimit: string;
-                recipient: any;
                 referralFee: number;
                 contractAddress: any;
                 followerOnly: boolean;
@@ -9053,7 +8915,6 @@ export type FeedHighlightsQuery = {
                 __typename?: 'LimitedTimedFeeCollectModuleSettings';
                 type: CollectModules;
                 collectLimit: string;
-                recipient: any;
                 endTimestamp: any;
                 referralFee: number;
                 contractAddress: any;
@@ -9068,7 +8929,6 @@ export type FeedHighlightsQuery = {
             | {
                 __typename?: 'TimedFeeCollectModuleSettings';
                 type: CollectModules;
-                recipient: any;
                 endTimestamp: any;
                 referralFee: number;
                 contractAddress: any;
@@ -9145,7 +9005,6 @@ export type FeedHighlightsQuery = {
                   | {
                       __typename?: 'FeeCollectModuleSettings';
                       type: CollectModules;
-                      recipient: any;
                       referralFee: number;
                       contractAddress: any;
                       followerOnly: boolean;
@@ -9165,7 +9024,6 @@ export type FeedHighlightsQuery = {
                       __typename?: 'LimitedFeeCollectModuleSettings';
                       type: CollectModules;
                       collectLimit: string;
-                      recipient: any;
                       referralFee: number;
                       contractAddress: any;
                       followerOnly: boolean;
@@ -9179,7 +9037,6 @@ export type FeedHighlightsQuery = {
                       __typename?: 'LimitedTimedFeeCollectModuleSettings';
                       type: CollectModules;
                       collectLimit: string;
-                      recipient: any;
                       endTimestamp: any;
                       referralFee: number;
                       contractAddress: any;
@@ -9194,7 +9051,6 @@ export type FeedHighlightsQuery = {
                   | {
                       __typename?: 'TimedFeeCollectModuleSettings';
                       type: CollectModules;
-                      recipient: any;
                       endTimestamp: any;
                       referralFee: number;
                       contractAddress: any;
@@ -9269,7 +9125,6 @@ export type FeedHighlightsQuery = {
                         | {
                             __typename?: 'FeeCollectModuleSettings';
                             type: CollectModules;
-                            recipient: any;
                             referralFee: number;
                             contractAddress: any;
                             followerOnly: boolean;
@@ -9289,7 +9144,6 @@ export type FeedHighlightsQuery = {
                             __typename?: 'LimitedFeeCollectModuleSettings';
                             type: CollectModules;
                             collectLimit: string;
-                            recipient: any;
                             referralFee: number;
                             contractAddress: any;
                             followerOnly: boolean;
@@ -9303,7 +9157,6 @@ export type FeedHighlightsQuery = {
                             __typename?: 'LimitedTimedFeeCollectModuleSettings';
                             type: CollectModules;
                             collectLimit: string;
-                            recipient: any;
                             endTimestamp: any;
                             referralFee: number;
                             contractAddress: any;
@@ -9318,7 +9171,6 @@ export type FeedHighlightsQuery = {
                         | {
                             __typename?: 'TimedFeeCollectModuleSettings';
                             type: CollectModules;
-                            recipient: any;
                             endTimestamp: any;
                             referralFee: number;
                             contractAddress: any;
@@ -9480,7 +9332,6 @@ export type FeedHighlightsQuery = {
                               | {
                                   __typename?: 'FeeCollectModuleSettings';
                                   type: CollectModules;
-                                  recipient: any;
                                   referralFee: number;
                                   contractAddress: any;
                                   followerOnly: boolean;
@@ -9505,7 +9356,6 @@ export type FeedHighlightsQuery = {
                                   __typename?: 'LimitedFeeCollectModuleSettings';
                                   type: CollectModules;
                                   collectLimit: string;
-                                  recipient: any;
                                   referralFee: number;
                                   contractAddress: any;
                                   followerOnly: boolean;
@@ -9524,7 +9374,6 @@ export type FeedHighlightsQuery = {
                                   __typename?: 'LimitedTimedFeeCollectModuleSettings';
                                   type: CollectModules;
                                   collectLimit: string;
-                                  recipient: any;
                                   endTimestamp: any;
                                   referralFee: number;
                                   contractAddress: any;
@@ -9544,7 +9393,6 @@ export type FeedHighlightsQuery = {
                               | {
                                   __typename?: 'TimedFeeCollectModuleSettings';
                                   type: CollectModules;
-                                  recipient: any;
                                   endTimestamp: any;
                                   referralFee: number;
                                   contractAddress: any;
@@ -9659,7 +9507,6 @@ export type FeedHighlightsQuery = {
                         | {
                             __typename?: 'FeeCollectModuleSettings';
                             type: CollectModules;
-                            recipient: any;
                             referralFee: number;
                             contractAddress: any;
                             followerOnly: boolean;
@@ -9679,7 +9526,6 @@ export type FeedHighlightsQuery = {
                             __typename?: 'LimitedFeeCollectModuleSettings';
                             type: CollectModules;
                             collectLimit: string;
-                            recipient: any;
                             referralFee: number;
                             contractAddress: any;
                             followerOnly: boolean;
@@ -9693,7 +9539,6 @@ export type FeedHighlightsQuery = {
                             __typename?: 'LimitedTimedFeeCollectModuleSettings';
                             type: CollectModules;
                             collectLimit: string;
-                            recipient: any;
                             endTimestamp: any;
                             referralFee: number;
                             contractAddress: any;
@@ -9708,7 +9553,6 @@ export type FeedHighlightsQuery = {
                         | {
                             __typename?: 'TimedFeeCollectModuleSettings';
                             type: CollectModules;
-                            recipient: any;
                             endTimestamp: any;
                             referralFee: number;
                             contractAddress: any;
@@ -9783,7 +9627,6 @@ export type FeedHighlightsQuery = {
                   | {
                       __typename?: 'FeeCollectModuleSettings';
                       type: CollectModules;
-                      recipient: any;
                       referralFee: number;
                       contractAddress: any;
                       followerOnly: boolean;
@@ -9803,7 +9646,6 @@ export type FeedHighlightsQuery = {
                       __typename?: 'LimitedFeeCollectModuleSettings';
                       type: CollectModules;
                       collectLimit: string;
-                      recipient: any;
                       referralFee: number;
                       contractAddress: any;
                       followerOnly: boolean;
@@ -9817,7 +9659,6 @@ export type FeedHighlightsQuery = {
                       __typename?: 'LimitedTimedFeeCollectModuleSettings';
                       type: CollectModules;
                       collectLimit: string;
-                      recipient: any;
                       endTimestamp: any;
                       referralFee: number;
                       contractAddress: any;
@@ -9832,7 +9673,6 @@ export type FeedHighlightsQuery = {
                   | {
                       __typename?: 'TimedFeeCollectModuleSettings';
                       type: CollectModules;
-                      recipient: any;
                       endTimestamp: any;
                       referralFee: number;
                       contractAddress: any;
@@ -9979,7 +9819,6 @@ export type FeedHighlightsQuery = {
                         | {
                             __typename?: 'FeeCollectModuleSettings';
                             type: CollectModules;
-                            recipient: any;
                             referralFee: number;
                             contractAddress: any;
                             followerOnly: boolean;
@@ -9999,7 +9838,6 @@ export type FeedHighlightsQuery = {
                             __typename?: 'LimitedFeeCollectModuleSettings';
                             type: CollectModules;
                             collectLimit: string;
-                            recipient: any;
                             referralFee: number;
                             contractAddress: any;
                             followerOnly: boolean;
@@ -10013,7 +9851,6 @@ export type FeedHighlightsQuery = {
                             __typename?: 'LimitedTimedFeeCollectModuleSettings';
                             type: CollectModules;
                             collectLimit: string;
-                            recipient: any;
                             endTimestamp: any;
                             referralFee: number;
                             contractAddress: any;
@@ -10028,7 +9865,6 @@ export type FeedHighlightsQuery = {
                         | {
                             __typename?: 'TimedFeeCollectModuleSettings';
                             type: CollectModules;
-                            recipient: any;
                             endTimestamp: any;
                             referralFee: number;
                             contractAddress: any;
@@ -10130,7 +9966,6 @@ export type FeedHighlightsQuery = {
                   | {
                       __typename?: 'FeeCollectModuleSettings';
                       type: CollectModules;
-                      recipient: any;
                       referralFee: number;
                       contractAddress: any;
                       followerOnly: boolean;
@@ -10150,7 +9985,6 @@ export type FeedHighlightsQuery = {
                       __typename?: 'LimitedFeeCollectModuleSettings';
                       type: CollectModules;
                       collectLimit: string;
-                      recipient: any;
                       referralFee: number;
                       contractAddress: any;
                       followerOnly: boolean;
@@ -10164,7 +9998,6 @@ export type FeedHighlightsQuery = {
                       __typename?: 'LimitedTimedFeeCollectModuleSettings';
                       type: CollectModules;
                       collectLimit: string;
-                      recipient: any;
                       endTimestamp: any;
                       referralFee: number;
                       contractAddress: any;
@@ -10179,7 +10012,6 @@ export type FeedHighlightsQuery = {
                   | {
                       __typename?: 'TimedFeeCollectModuleSettings';
                       type: CollectModules;
-                      recipient: any;
                       endTimestamp: any;
                       referralFee: number;
                       contractAddress: any;
@@ -10252,7 +10084,6 @@ export type FeedHighlightsQuery = {
             | {
                 __typename?: 'FeeCollectModuleSettings';
                 type: CollectModules;
-                recipient: any;
                 referralFee: number;
                 contractAddress: any;
                 followerOnly: boolean;
@@ -10272,7 +10103,6 @@ export type FeedHighlightsQuery = {
                 __typename?: 'LimitedFeeCollectModuleSettings';
                 type: CollectModules;
                 collectLimit: string;
-                recipient: any;
                 referralFee: number;
                 contractAddress: any;
                 followerOnly: boolean;
@@ -10286,7 +10116,6 @@ export type FeedHighlightsQuery = {
                 __typename?: 'LimitedTimedFeeCollectModuleSettings';
                 type: CollectModules;
                 collectLimit: string;
-                recipient: any;
                 endTimestamp: any;
                 referralFee: number;
                 contractAddress: any;
@@ -10301,7 +10130,6 @@ export type FeedHighlightsQuery = {
             | {
                 __typename?: 'TimedFeeCollectModuleSettings';
                 type: CollectModules;
-                recipient: any;
                 endTimestamp: any;
                 referralFee: number;
                 contractAddress: any;
@@ -10436,7 +10264,6 @@ export type FeedHighlightsQuery = {
                   | {
                       __typename?: 'FeeCollectModuleSettings';
                       type: CollectModules;
-                      recipient: any;
                       referralFee: number;
                       contractAddress: any;
                       followerOnly: boolean;
@@ -10456,7 +10283,6 @@ export type FeedHighlightsQuery = {
                       __typename?: 'LimitedFeeCollectModuleSettings';
                       type: CollectModules;
                       collectLimit: string;
-                      recipient: any;
                       referralFee: number;
                       contractAddress: any;
                       followerOnly: boolean;
@@ -10470,7 +10296,6 @@ export type FeedHighlightsQuery = {
                       __typename?: 'LimitedTimedFeeCollectModuleSettings';
                       type: CollectModules;
                       collectLimit: string;
-                      recipient: any;
                       endTimestamp: any;
                       referralFee: number;
                       contractAddress: any;
@@ -10485,7 +10310,6 @@ export type FeedHighlightsQuery = {
                   | {
                       __typename?: 'TimedFeeCollectModuleSettings';
                       type: CollectModules;
-                      recipient: any;
                       endTimestamp: any;
                       referralFee: number;
                       contractAddress: any;
@@ -10584,7 +10408,6 @@ export type FeedHighlightsQuery = {
             | {
                 __typename?: 'FeeCollectModuleSettings';
                 type: CollectModules;
-                recipient: any;
                 referralFee: number;
                 contractAddress: any;
                 followerOnly: boolean;
@@ -10604,7 +10427,6 @@ export type FeedHighlightsQuery = {
                 __typename?: 'LimitedFeeCollectModuleSettings';
                 type: CollectModules;
                 collectLimit: string;
-                recipient: any;
                 referralFee: number;
                 contractAddress: any;
                 followerOnly: boolean;
@@ -10618,7 +10440,6 @@ export type FeedHighlightsQuery = {
                 __typename?: 'LimitedTimedFeeCollectModuleSettings';
                 type: CollectModules;
                 collectLimit: string;
-                recipient: any;
                 endTimestamp: any;
                 referralFee: number;
                 contractAddress: any;
@@ -10633,7 +10454,6 @@ export type FeedHighlightsQuery = {
             | {
                 __typename?: 'TimedFeeCollectModuleSettings';
                 type: CollectModules;
-                recipient: any;
                 endTimestamp: any;
                 referralFee: number;
                 contractAddress: any;
@@ -11015,7 +10835,6 @@ export type NotificationsQuery = {
                   | {
                       __typename?: 'FeeCollectModuleSettings';
                       type: CollectModules;
-                      recipient: any;
                       referralFee: number;
                       contractAddress: any;
                       followerOnly: boolean;
@@ -11035,7 +10854,6 @@ export type NotificationsQuery = {
                       __typename?: 'LimitedFeeCollectModuleSettings';
                       type: CollectModules;
                       collectLimit: string;
-                      recipient: any;
                       referralFee: number;
                       contractAddress: any;
                       followerOnly: boolean;
@@ -11049,7 +10867,6 @@ export type NotificationsQuery = {
                       __typename?: 'LimitedTimedFeeCollectModuleSettings';
                       type: CollectModules;
                       collectLimit: string;
-                      recipient: any;
                       endTimestamp: any;
                       referralFee: number;
                       contractAddress: any;
@@ -11064,7 +10881,6 @@ export type NotificationsQuery = {
                   | {
                       __typename?: 'TimedFeeCollectModuleSettings';
                       type: CollectModules;
-                      recipient: any;
                       endTimestamp: any;
                       referralFee: number;
                       contractAddress: any;
@@ -11086,7 +10902,6 @@ export type NotificationsQuery = {
                   | {
                       __typename?: 'FeeCollectModuleSettings';
                       type: CollectModules;
-                      recipient: any;
                       referralFee: number;
                       contractAddress: any;
                       followerOnly: boolean;
@@ -11106,7 +10921,6 @@ export type NotificationsQuery = {
                       __typename?: 'LimitedFeeCollectModuleSettings';
                       type: CollectModules;
                       collectLimit: string;
-                      recipient: any;
                       referralFee: number;
                       contractAddress: any;
                       followerOnly: boolean;
@@ -11120,7 +10934,6 @@ export type NotificationsQuery = {
                       __typename?: 'LimitedTimedFeeCollectModuleSettings';
                       type: CollectModules;
                       collectLimit: string;
-                      recipient: any;
                       endTimestamp: any;
                       referralFee: number;
                       contractAddress: any;
@@ -11135,7 +10948,6 @@ export type NotificationsQuery = {
                   | {
                       __typename?: 'TimedFeeCollectModuleSettings';
                       type: CollectModules;
-                      recipient: any;
                       endTimestamp: any;
                       referralFee: number;
                       contractAddress: any;
@@ -11497,7 +11309,6 @@ export type ProfileFeedQuery = {
             | {
                 __typename?: 'FeeCollectModuleSettings';
                 type: CollectModules;
-                recipient: any;
                 referralFee: number;
                 contractAddress: any;
                 followerOnly: boolean;
@@ -11517,7 +11328,6 @@ export type ProfileFeedQuery = {
                 __typename?: 'LimitedFeeCollectModuleSettings';
                 type: CollectModules;
                 collectLimit: string;
-                recipient: any;
                 referralFee: number;
                 contractAddress: any;
                 followerOnly: boolean;
@@ -11531,7 +11341,6 @@ export type ProfileFeedQuery = {
                 __typename?: 'LimitedTimedFeeCollectModuleSettings';
                 type: CollectModules;
                 collectLimit: string;
-                recipient: any;
                 endTimestamp: any;
                 referralFee: number;
                 contractAddress: any;
@@ -11546,7 +11355,6 @@ export type ProfileFeedQuery = {
             | {
                 __typename?: 'TimedFeeCollectModuleSettings';
                 type: CollectModules;
-                recipient: any;
                 endTimestamp: any;
                 referralFee: number;
                 contractAddress: any;
@@ -11623,7 +11431,6 @@ export type ProfileFeedQuery = {
                   | {
                       __typename?: 'FeeCollectModuleSettings';
                       type: CollectModules;
-                      recipient: any;
                       referralFee: number;
                       contractAddress: any;
                       followerOnly: boolean;
@@ -11643,7 +11450,6 @@ export type ProfileFeedQuery = {
                       __typename?: 'LimitedFeeCollectModuleSettings';
                       type: CollectModules;
                       collectLimit: string;
-                      recipient: any;
                       referralFee: number;
                       contractAddress: any;
                       followerOnly: boolean;
@@ -11657,7 +11463,6 @@ export type ProfileFeedQuery = {
                       __typename?: 'LimitedTimedFeeCollectModuleSettings';
                       type: CollectModules;
                       collectLimit: string;
-                      recipient: any;
                       endTimestamp: any;
                       referralFee: number;
                       contractAddress: any;
@@ -11672,7 +11477,6 @@ export type ProfileFeedQuery = {
                   | {
                       __typename?: 'TimedFeeCollectModuleSettings';
                       type: CollectModules;
-                      recipient: any;
                       endTimestamp: any;
                       referralFee: number;
                       contractAddress: any;
@@ -11747,7 +11551,6 @@ export type ProfileFeedQuery = {
                         | {
                             __typename?: 'FeeCollectModuleSettings';
                             type: CollectModules;
-                            recipient: any;
                             referralFee: number;
                             contractAddress: any;
                             followerOnly: boolean;
@@ -11767,7 +11570,6 @@ export type ProfileFeedQuery = {
                             __typename?: 'LimitedFeeCollectModuleSettings';
                             type: CollectModules;
                             collectLimit: string;
-                            recipient: any;
                             referralFee: number;
                             contractAddress: any;
                             followerOnly: boolean;
@@ -11781,7 +11583,6 @@ export type ProfileFeedQuery = {
                             __typename?: 'LimitedTimedFeeCollectModuleSettings';
                             type: CollectModules;
                             collectLimit: string;
-                            recipient: any;
                             endTimestamp: any;
                             referralFee: number;
                             contractAddress: any;
@@ -11796,7 +11597,6 @@ export type ProfileFeedQuery = {
                         | {
                             __typename?: 'TimedFeeCollectModuleSettings';
                             type: CollectModules;
-                            recipient: any;
                             endTimestamp: any;
                             referralFee: number;
                             contractAddress: any;
@@ -11958,7 +11758,6 @@ export type ProfileFeedQuery = {
                               | {
                                   __typename?: 'FeeCollectModuleSettings';
                                   type: CollectModules;
-                                  recipient: any;
                                   referralFee: number;
                                   contractAddress: any;
                                   followerOnly: boolean;
@@ -11983,7 +11782,6 @@ export type ProfileFeedQuery = {
                                   __typename?: 'LimitedFeeCollectModuleSettings';
                                   type: CollectModules;
                                   collectLimit: string;
-                                  recipient: any;
                                   referralFee: number;
                                   contractAddress: any;
                                   followerOnly: boolean;
@@ -12002,7 +11800,6 @@ export type ProfileFeedQuery = {
                                   __typename?: 'LimitedTimedFeeCollectModuleSettings';
                                   type: CollectModules;
                                   collectLimit: string;
-                                  recipient: any;
                                   endTimestamp: any;
                                   referralFee: number;
                                   contractAddress: any;
@@ -12022,7 +11819,6 @@ export type ProfileFeedQuery = {
                               | {
                                   __typename?: 'TimedFeeCollectModuleSettings';
                                   type: CollectModules;
-                                  recipient: any;
                                   endTimestamp: any;
                                   referralFee: number;
                                   contractAddress: any;
@@ -12137,7 +11933,6 @@ export type ProfileFeedQuery = {
                         | {
                             __typename?: 'FeeCollectModuleSettings';
                             type: CollectModules;
-                            recipient: any;
                             referralFee: number;
                             contractAddress: any;
                             followerOnly: boolean;
@@ -12157,7 +11952,6 @@ export type ProfileFeedQuery = {
                             __typename?: 'LimitedFeeCollectModuleSettings';
                             type: CollectModules;
                             collectLimit: string;
-                            recipient: any;
                             referralFee: number;
                             contractAddress: any;
                             followerOnly: boolean;
@@ -12171,7 +11965,6 @@ export type ProfileFeedQuery = {
                             __typename?: 'LimitedTimedFeeCollectModuleSettings';
                             type: CollectModules;
                             collectLimit: string;
-                            recipient: any;
                             endTimestamp: any;
                             referralFee: number;
                             contractAddress: any;
@@ -12186,7 +11979,6 @@ export type ProfileFeedQuery = {
                         | {
                             __typename?: 'TimedFeeCollectModuleSettings';
                             type: CollectModules;
-                            recipient: any;
                             endTimestamp: any;
                             referralFee: number;
                             contractAddress: any;
@@ -12261,7 +12053,6 @@ export type ProfileFeedQuery = {
                   | {
                       __typename?: 'FeeCollectModuleSettings';
                       type: CollectModules;
-                      recipient: any;
                       referralFee: number;
                       contractAddress: any;
                       followerOnly: boolean;
@@ -12281,7 +12072,6 @@ export type ProfileFeedQuery = {
                       __typename?: 'LimitedFeeCollectModuleSettings';
                       type: CollectModules;
                       collectLimit: string;
-                      recipient: any;
                       referralFee: number;
                       contractAddress: any;
                       followerOnly: boolean;
@@ -12295,7 +12085,6 @@ export type ProfileFeedQuery = {
                       __typename?: 'LimitedTimedFeeCollectModuleSettings';
                       type: CollectModules;
                       collectLimit: string;
-                      recipient: any;
                       endTimestamp: any;
                       referralFee: number;
                       contractAddress: any;
@@ -12310,7 +12099,6 @@ export type ProfileFeedQuery = {
                   | {
                       __typename?: 'TimedFeeCollectModuleSettings';
                       type: CollectModules;
-                      recipient: any;
                       endTimestamp: any;
                       referralFee: number;
                       contractAddress: any;
@@ -12457,7 +12245,6 @@ export type ProfileFeedQuery = {
                         | {
                             __typename?: 'FeeCollectModuleSettings';
                             type: CollectModules;
-                            recipient: any;
                             referralFee: number;
                             contractAddress: any;
                             followerOnly: boolean;
@@ -12477,7 +12264,6 @@ export type ProfileFeedQuery = {
                             __typename?: 'LimitedFeeCollectModuleSettings';
                             type: CollectModules;
                             collectLimit: string;
-                            recipient: any;
                             referralFee: number;
                             contractAddress: any;
                             followerOnly: boolean;
@@ -12491,7 +12277,6 @@ export type ProfileFeedQuery = {
                             __typename?: 'LimitedTimedFeeCollectModuleSettings';
                             type: CollectModules;
                             collectLimit: string;
-                            recipient: any;
                             endTimestamp: any;
                             referralFee: number;
                             contractAddress: any;
@@ -12506,7 +12291,6 @@ export type ProfileFeedQuery = {
                         | {
                             __typename?: 'TimedFeeCollectModuleSettings';
                             type: CollectModules;
-                            recipient: any;
                             endTimestamp: any;
                             referralFee: number;
                             contractAddress: any;
@@ -12608,7 +12392,6 @@ export type ProfileFeedQuery = {
                   | {
                       __typename?: 'FeeCollectModuleSettings';
                       type: CollectModules;
-                      recipient: any;
                       referralFee: number;
                       contractAddress: any;
                       followerOnly: boolean;
@@ -12628,7 +12411,6 @@ export type ProfileFeedQuery = {
                       __typename?: 'LimitedFeeCollectModuleSettings';
                       type: CollectModules;
                       collectLimit: string;
-                      recipient: any;
                       referralFee: number;
                       contractAddress: any;
                       followerOnly: boolean;
@@ -12642,7 +12424,6 @@ export type ProfileFeedQuery = {
                       __typename?: 'LimitedTimedFeeCollectModuleSettings';
                       type: CollectModules;
                       collectLimit: string;
-                      recipient: any;
                       endTimestamp: any;
                       referralFee: number;
                       contractAddress: any;
@@ -12657,7 +12438,6 @@ export type ProfileFeedQuery = {
                   | {
                       __typename?: 'TimedFeeCollectModuleSettings';
                       type: CollectModules;
-                      recipient: any;
                       endTimestamp: any;
                       referralFee: number;
                       contractAddress: any;
@@ -12730,7 +12510,6 @@ export type ProfileFeedQuery = {
             | {
                 __typename?: 'FeeCollectModuleSettings';
                 type: CollectModules;
-                recipient: any;
                 referralFee: number;
                 contractAddress: any;
                 followerOnly: boolean;
@@ -12750,7 +12529,6 @@ export type ProfileFeedQuery = {
                 __typename?: 'LimitedFeeCollectModuleSettings';
                 type: CollectModules;
                 collectLimit: string;
-                recipient: any;
                 referralFee: number;
                 contractAddress: any;
                 followerOnly: boolean;
@@ -12764,7 +12542,6 @@ export type ProfileFeedQuery = {
                 __typename?: 'LimitedTimedFeeCollectModuleSettings';
                 type: CollectModules;
                 collectLimit: string;
-                recipient: any;
                 endTimestamp: any;
                 referralFee: number;
                 contractAddress: any;
@@ -12779,7 +12556,6 @@ export type ProfileFeedQuery = {
             | {
                 __typename?: 'TimedFeeCollectModuleSettings';
                 type: CollectModules;
-                recipient: any;
                 endTimestamp: any;
                 referralFee: number;
                 contractAddress: any;
@@ -12914,7 +12690,6 @@ export type ProfileFeedQuery = {
                   | {
                       __typename?: 'FeeCollectModuleSettings';
                       type: CollectModules;
-                      recipient: any;
                       referralFee: number;
                       contractAddress: any;
                       followerOnly: boolean;
@@ -12934,7 +12709,6 @@ export type ProfileFeedQuery = {
                       __typename?: 'LimitedFeeCollectModuleSettings';
                       type: CollectModules;
                       collectLimit: string;
-                      recipient: any;
                       referralFee: number;
                       contractAddress: any;
                       followerOnly: boolean;
@@ -12948,7 +12722,6 @@ export type ProfileFeedQuery = {
                       __typename?: 'LimitedTimedFeeCollectModuleSettings';
                       type: CollectModules;
                       collectLimit: string;
-                      recipient: any;
                       endTimestamp: any;
                       referralFee: number;
                       contractAddress: any;
@@ -12963,7 +12736,6 @@ export type ProfileFeedQuery = {
                   | {
                       __typename?: 'TimedFeeCollectModuleSettings';
                       type: CollectModules;
-                      recipient: any;
                       endTimestamp: any;
                       referralFee: number;
                       contractAddress: any;
@@ -13062,7 +12834,6 @@ export type ProfileFeedQuery = {
             | {
                 __typename?: 'FeeCollectModuleSettings';
                 type: CollectModules;
-                recipient: any;
                 referralFee: number;
                 contractAddress: any;
                 followerOnly: boolean;
@@ -13082,7 +12853,6 @@ export type ProfileFeedQuery = {
                 __typename?: 'LimitedFeeCollectModuleSettings';
                 type: CollectModules;
                 collectLimit: string;
-                recipient: any;
                 referralFee: number;
                 contractAddress: any;
                 followerOnly: boolean;
@@ -13096,7 +12866,6 @@ export type ProfileFeedQuery = {
                 __typename?: 'LimitedTimedFeeCollectModuleSettings';
                 type: CollectModules;
                 collectLimit: string;
-                recipient: any;
                 endTimestamp: any;
                 referralFee: number;
                 contractAddress: any;
@@ -13111,7 +12880,6 @@ export type ProfileFeedQuery = {
             | {
                 __typename?: 'TimedFeeCollectModuleSettings';
                 type: CollectModules;
-                recipient: any;
                 endTimestamp: any;
                 referralFee: number;
                 contractAddress: any;
@@ -13287,7 +13055,6 @@ export type PublicationQuery = {
           | {
               __typename?: 'FeeCollectModuleSettings';
               type: CollectModules;
-              recipient: any;
               referralFee: number;
               contractAddress: any;
               followerOnly: boolean;
@@ -13307,7 +13074,6 @@ export type PublicationQuery = {
               __typename?: 'LimitedFeeCollectModuleSettings';
               type: CollectModules;
               collectLimit: string;
-              recipient: any;
               referralFee: number;
               contractAddress: any;
               followerOnly: boolean;
@@ -13321,7 +13087,6 @@ export type PublicationQuery = {
               __typename?: 'LimitedTimedFeeCollectModuleSettings';
               type: CollectModules;
               collectLimit: string;
-              recipient: any;
               endTimestamp: any;
               referralFee: number;
               contractAddress: any;
@@ -13336,7 +13101,6 @@ export type PublicationQuery = {
           | {
               __typename?: 'TimedFeeCollectModuleSettings';
               type: CollectModules;
-              recipient: any;
               endTimestamp: any;
               referralFee: number;
               contractAddress: any;
@@ -13413,7 +13177,6 @@ export type PublicationQuery = {
                 | {
                     __typename?: 'FeeCollectModuleSettings';
                     type: CollectModules;
-                    recipient: any;
                     referralFee: number;
                     contractAddress: any;
                     followerOnly: boolean;
@@ -13433,7 +13196,6 @@ export type PublicationQuery = {
                     __typename?: 'LimitedFeeCollectModuleSettings';
                     type: CollectModules;
                     collectLimit: string;
-                    recipient: any;
                     referralFee: number;
                     contractAddress: any;
                     followerOnly: boolean;
@@ -13447,7 +13209,6 @@ export type PublicationQuery = {
                     __typename?: 'LimitedTimedFeeCollectModuleSettings';
                     type: CollectModules;
                     collectLimit: string;
-                    recipient: any;
                     endTimestamp: any;
                     referralFee: number;
                     contractAddress: any;
@@ -13462,7 +13223,6 @@ export type PublicationQuery = {
                 | {
                     __typename?: 'TimedFeeCollectModuleSettings';
                     type: CollectModules;
-                    recipient: any;
                     endTimestamp: any;
                     referralFee: number;
                     contractAddress: any;
@@ -13533,7 +13293,6 @@ export type PublicationQuery = {
                       | {
                           __typename?: 'FeeCollectModuleSettings';
                           type: CollectModules;
-                          recipient: any;
                           referralFee: number;
                           contractAddress: any;
                           followerOnly: boolean;
@@ -13553,7 +13312,6 @@ export type PublicationQuery = {
                           __typename?: 'LimitedFeeCollectModuleSettings';
                           type: CollectModules;
                           collectLimit: string;
-                          recipient: any;
                           referralFee: number;
                           contractAddress: any;
                           followerOnly: boolean;
@@ -13567,7 +13325,6 @@ export type PublicationQuery = {
                           __typename?: 'LimitedTimedFeeCollectModuleSettings';
                           type: CollectModules;
                           collectLimit: string;
-                          recipient: any;
                           endTimestamp: any;
                           referralFee: number;
                           contractAddress: any;
@@ -13582,7 +13339,6 @@ export type PublicationQuery = {
                       | {
                           __typename?: 'TimedFeeCollectModuleSettings';
                           type: CollectModules;
-                          recipient: any;
                           endTimestamp: any;
                           referralFee: number;
                           contractAddress: any;
@@ -13744,7 +13500,6 @@ export type PublicationQuery = {
                             | {
                                 __typename?: 'FeeCollectModuleSettings';
                                 type: CollectModules;
-                                recipient: any;
                                 referralFee: number;
                                 contractAddress: any;
                                 followerOnly: boolean;
@@ -13769,7 +13524,6 @@ export type PublicationQuery = {
                                 __typename?: 'LimitedFeeCollectModuleSettings';
                                 type: CollectModules;
                                 collectLimit: string;
-                                recipient: any;
                                 referralFee: number;
                                 contractAddress: any;
                                 followerOnly: boolean;
@@ -13788,7 +13542,6 @@ export type PublicationQuery = {
                                 __typename?: 'LimitedTimedFeeCollectModuleSettings';
                                 type: CollectModules;
                                 collectLimit: string;
-                                recipient: any;
                                 endTimestamp: any;
                                 referralFee: number;
                                 contractAddress: any;
@@ -13808,7 +13561,6 @@ export type PublicationQuery = {
                             | {
                                 __typename?: 'TimedFeeCollectModuleSettings';
                                 type: CollectModules;
-                                recipient: any;
                                 endTimestamp: any;
                                 referralFee: number;
                                 contractAddress: any;
@@ -13919,7 +13671,6 @@ export type PublicationQuery = {
                       | {
                           __typename?: 'FeeCollectModuleSettings';
                           type: CollectModules;
-                          recipient: any;
                           referralFee: number;
                           contractAddress: any;
                           followerOnly: boolean;
@@ -13939,7 +13690,6 @@ export type PublicationQuery = {
                           __typename?: 'LimitedFeeCollectModuleSettings';
                           type: CollectModules;
                           collectLimit: string;
-                          recipient: any;
                           referralFee: number;
                           contractAddress: any;
                           followerOnly: boolean;
@@ -13953,7 +13703,6 @@ export type PublicationQuery = {
                           __typename?: 'LimitedTimedFeeCollectModuleSettings';
                           type: CollectModules;
                           collectLimit: string;
-                          recipient: any;
                           endTimestamp: any;
                           referralFee: number;
                           contractAddress: any;
@@ -13968,7 +13717,6 @@ export type PublicationQuery = {
                       | {
                           __typename?: 'TimedFeeCollectModuleSettings';
                           type: CollectModules;
-                          recipient: any;
                           endTimestamp: any;
                           referralFee: number;
                           contractAddress: any;
@@ -14043,7 +13791,6 @@ export type PublicationQuery = {
                 | {
                     __typename?: 'FeeCollectModuleSettings';
                     type: CollectModules;
-                    recipient: any;
                     referralFee: number;
                     contractAddress: any;
                     followerOnly: boolean;
@@ -14063,7 +13810,6 @@ export type PublicationQuery = {
                     __typename?: 'LimitedFeeCollectModuleSettings';
                     type: CollectModules;
                     collectLimit: string;
-                    recipient: any;
                     referralFee: number;
                     contractAddress: any;
                     followerOnly: boolean;
@@ -14077,7 +13823,6 @@ export type PublicationQuery = {
                     __typename?: 'LimitedTimedFeeCollectModuleSettings';
                     type: CollectModules;
                     collectLimit: string;
-                    recipient: any;
                     endTimestamp: any;
                     referralFee: number;
                     contractAddress: any;
@@ -14092,7 +13837,6 @@ export type PublicationQuery = {
                 | {
                     __typename?: 'TimedFeeCollectModuleSettings';
                     type: CollectModules;
-                    recipient: any;
                     endTimestamp: any;
                     referralFee: number;
                     contractAddress: any;
@@ -14231,7 +13975,6 @@ export type PublicationQuery = {
                       | {
                           __typename?: 'FeeCollectModuleSettings';
                           type: CollectModules;
-                          recipient: any;
                           referralFee: number;
                           contractAddress: any;
                           followerOnly: boolean;
@@ -14251,7 +13994,6 @@ export type PublicationQuery = {
                           __typename?: 'LimitedFeeCollectModuleSettings';
                           type: CollectModules;
                           collectLimit: string;
-                          recipient: any;
                           referralFee: number;
                           contractAddress: any;
                           followerOnly: boolean;
@@ -14265,7 +14007,6 @@ export type PublicationQuery = {
                           __typename?: 'LimitedTimedFeeCollectModuleSettings';
                           type: CollectModules;
                           collectLimit: string;
-                          recipient: any;
                           endTimestamp: any;
                           referralFee: number;
                           contractAddress: any;
@@ -14280,7 +14021,6 @@ export type PublicationQuery = {
                       | {
                           __typename?: 'TimedFeeCollectModuleSettings';
                           type: CollectModules;
-                          recipient: any;
                           endTimestamp: any;
                           referralFee: number;
                           contractAddress: any;
@@ -14382,7 +14122,6 @@ export type PublicationQuery = {
                 | {
                     __typename?: 'FeeCollectModuleSettings';
                     type: CollectModules;
-                    recipient: any;
                     referralFee: number;
                     contractAddress: any;
                     followerOnly: boolean;
@@ -14402,7 +14141,6 @@ export type PublicationQuery = {
                     __typename?: 'LimitedFeeCollectModuleSettings';
                     type: CollectModules;
                     collectLimit: string;
-                    recipient: any;
                     referralFee: number;
                     contractAddress: any;
                     followerOnly: boolean;
@@ -14416,7 +14154,6 @@ export type PublicationQuery = {
                     __typename?: 'LimitedTimedFeeCollectModuleSettings';
                     type: CollectModules;
                     collectLimit: string;
-                    recipient: any;
                     endTimestamp: any;
                     referralFee: number;
                     contractAddress: any;
@@ -14431,7 +14168,6 @@ export type PublicationQuery = {
                 | {
                     __typename?: 'TimedFeeCollectModuleSettings';
                     type: CollectModules;
-                    recipient: any;
                     endTimestamp: any;
                     referralFee: number;
                     contractAddress: any;
@@ -14511,7 +14247,6 @@ export type PublicationQuery = {
           | {
               __typename?: 'FeeCollectModuleSettings';
               type: CollectModules;
-              recipient: any;
               referralFee: number;
               contractAddress: any;
               followerOnly: boolean;
@@ -14531,7 +14266,6 @@ export type PublicationQuery = {
               __typename?: 'LimitedFeeCollectModuleSettings';
               type: CollectModules;
               collectLimit: string;
-              recipient: any;
               referralFee: number;
               contractAddress: any;
               followerOnly: boolean;
@@ -14545,7 +14279,6 @@ export type PublicationQuery = {
               __typename?: 'LimitedTimedFeeCollectModuleSettings';
               type: CollectModules;
               collectLimit: string;
-              recipient: any;
               endTimestamp: any;
               referralFee: number;
               contractAddress: any;
@@ -14560,7 +14293,6 @@ export type PublicationQuery = {
           | {
               __typename?: 'TimedFeeCollectModuleSettings';
               type: CollectModules;
-              recipient: any;
               endTimestamp: any;
               referralFee: number;
               contractAddress: any;
@@ -14695,7 +14427,6 @@ export type PublicationQuery = {
                 | {
                     __typename?: 'FeeCollectModuleSettings';
                     type: CollectModules;
-                    recipient: any;
                     referralFee: number;
                     contractAddress: any;
                     followerOnly: boolean;
@@ -14715,7 +14446,6 @@ export type PublicationQuery = {
                     __typename?: 'LimitedFeeCollectModuleSettings';
                     type: CollectModules;
                     collectLimit: string;
-                    recipient: any;
                     referralFee: number;
                     contractAddress: any;
                     followerOnly: boolean;
@@ -14729,7 +14459,6 @@ export type PublicationQuery = {
                     __typename?: 'LimitedTimedFeeCollectModuleSettings';
                     type: CollectModules;
                     collectLimit: string;
-                    recipient: any;
                     endTimestamp: any;
                     referralFee: number;
                     contractAddress: any;
@@ -14744,7 +14473,6 @@ export type PublicationQuery = {
                 | {
                     __typename?: 'TimedFeeCollectModuleSettings';
                     type: CollectModules;
-                    recipient: any;
                     endTimestamp: any;
                     referralFee: number;
                     contractAddress: any;
@@ -14850,7 +14578,6 @@ export type PublicationQuery = {
           | {
               __typename?: 'FeeCollectModuleSettings';
               type: CollectModules;
-              recipient: any;
               referralFee: number;
               contractAddress: any;
               followerOnly: boolean;
@@ -14870,7 +14597,6 @@ export type PublicationQuery = {
               __typename?: 'LimitedFeeCollectModuleSettings';
               type: CollectModules;
               collectLimit: string;
-              recipient: any;
               referralFee: number;
               contractAddress: any;
               followerOnly: boolean;
@@ -14884,7 +14610,6 @@ export type PublicationQuery = {
               __typename?: 'LimitedTimedFeeCollectModuleSettings';
               type: CollectModules;
               collectLimit: string;
-              recipient: any;
               endTimestamp: any;
               referralFee: number;
               contractAddress: any;
@@ -14899,7 +14624,6 @@ export type PublicationQuery = {
           | {
               __typename?: 'TimedFeeCollectModuleSettings';
               type: CollectModules;
-              recipient: any;
               endTimestamp: any;
               referralFee: number;
               contractAddress: any;
@@ -15121,7 +14845,6 @@ export type SearchPublicationsQuery = {
                 | {
                     __typename?: 'FeeCollectModuleSettings';
                     type: CollectModules;
-                    recipient: any;
                     referralFee: number;
                     contractAddress: any;
                     followerOnly: boolean;
@@ -15141,7 +14864,6 @@ export type SearchPublicationsQuery = {
                     __typename?: 'LimitedFeeCollectModuleSettings';
                     type: CollectModules;
                     collectLimit: string;
-                    recipient: any;
                     referralFee: number;
                     contractAddress: any;
                     followerOnly: boolean;
@@ -15155,7 +14877,6 @@ export type SearchPublicationsQuery = {
                     __typename?: 'LimitedTimedFeeCollectModuleSettings';
                     type: CollectModules;
                     collectLimit: string;
-                    recipient: any;
                     endTimestamp: any;
                     referralFee: number;
                     contractAddress: any;
@@ -15170,7 +14891,6 @@ export type SearchPublicationsQuery = {
                 | {
                     __typename?: 'TimedFeeCollectModuleSettings';
                     type: CollectModules;
-                    recipient: any;
                     endTimestamp: any;
                     referralFee: number;
                     contractAddress: any;
@@ -15247,7 +14967,6 @@ export type SearchPublicationsQuery = {
                       | {
                           __typename?: 'FeeCollectModuleSettings';
                           type: CollectModules;
-                          recipient: any;
                           referralFee: number;
                           contractAddress: any;
                           followerOnly: boolean;
@@ -15267,7 +14986,6 @@ export type SearchPublicationsQuery = {
                           __typename?: 'LimitedFeeCollectModuleSettings';
                           type: CollectModules;
                           collectLimit: string;
-                          recipient: any;
                           referralFee: number;
                           contractAddress: any;
                           followerOnly: boolean;
@@ -15281,7 +14999,6 @@ export type SearchPublicationsQuery = {
                           __typename?: 'LimitedTimedFeeCollectModuleSettings';
                           type: CollectModules;
                           collectLimit: string;
-                          recipient: any;
                           endTimestamp: any;
                           referralFee: number;
                           contractAddress: any;
@@ -15296,7 +15013,6 @@ export type SearchPublicationsQuery = {
                       | {
                           __typename?: 'TimedFeeCollectModuleSettings';
                           type: CollectModules;
-                          recipient: any;
                           endTimestamp: any;
                           referralFee: number;
                           contractAddress: any;
@@ -15378,7 +15094,6 @@ export type SearchPublicationsQuery = {
                             | {
                                 __typename?: 'FeeCollectModuleSettings';
                                 type: CollectModules;
-                                recipient: any;
                                 referralFee: number;
                                 contractAddress: any;
                                 followerOnly: boolean;
@@ -15403,7 +15118,6 @@ export type SearchPublicationsQuery = {
                                 __typename?: 'LimitedFeeCollectModuleSettings';
                                 type: CollectModules;
                                 collectLimit: string;
-                                recipient: any;
                                 referralFee: number;
                                 contractAddress: any;
                                 followerOnly: boolean;
@@ -15422,7 +15136,6 @@ export type SearchPublicationsQuery = {
                                 __typename?: 'LimitedTimedFeeCollectModuleSettings';
                                 type: CollectModules;
                                 collectLimit: string;
-                                recipient: any;
                                 endTimestamp: any;
                                 referralFee: number;
                                 contractAddress: any;
@@ -15442,7 +15155,6 @@ export type SearchPublicationsQuery = {
                             | {
                                 __typename?: 'TimedFeeCollectModuleSettings';
                                 type: CollectModules;
-                                recipient: any;
                                 endTimestamp: any;
                                 referralFee: number;
                                 contractAddress: any;
@@ -15618,7 +15330,6 @@ export type SearchPublicationsQuery = {
                                   | {
                                       __typename?: 'FeeCollectModuleSettings';
                                       type: CollectModules;
-                                      recipient: any;
                                       referralFee: number;
                                       contractAddress: any;
                                       followerOnly: boolean;
@@ -15643,7 +15354,6 @@ export type SearchPublicationsQuery = {
                                       __typename?: 'LimitedFeeCollectModuleSettings';
                                       type: CollectModules;
                                       collectLimit: string;
-                                      recipient: any;
                                       referralFee: number;
                                       contractAddress: any;
                                       followerOnly: boolean;
@@ -15662,7 +15372,6 @@ export type SearchPublicationsQuery = {
                                       __typename?: 'LimitedTimedFeeCollectModuleSettings';
                                       type: CollectModules;
                                       collectLimit: string;
-                                      recipient: any;
                                       endTimestamp: any;
                                       referralFee: number;
                                       contractAddress: any;
@@ -15682,7 +15391,6 @@ export type SearchPublicationsQuery = {
                                   | {
                                       __typename?: 'TimedFeeCollectModuleSettings';
                                       type: CollectModules;
-                                      recipient: any;
                                       endTimestamp: any;
                                       referralFee: number;
                                       contractAddress: any;
@@ -15805,7 +15513,6 @@ export type SearchPublicationsQuery = {
                             | {
                                 __typename?: 'FeeCollectModuleSettings';
                                 type: CollectModules;
-                                recipient: any;
                                 referralFee: number;
                                 contractAddress: any;
                                 followerOnly: boolean;
@@ -15830,7 +15537,6 @@ export type SearchPublicationsQuery = {
                                 __typename?: 'LimitedFeeCollectModuleSettings';
                                 type: CollectModules;
                                 collectLimit: string;
-                                recipient: any;
                                 referralFee: number;
                                 contractAddress: any;
                                 followerOnly: boolean;
@@ -15849,7 +15555,6 @@ export type SearchPublicationsQuery = {
                                 __typename?: 'LimitedTimedFeeCollectModuleSettings';
                                 type: CollectModules;
                                 collectLimit: string;
-                                recipient: any;
                                 endTimestamp: any;
                                 referralFee: number;
                                 contractAddress: any;
@@ -15869,7 +15574,6 @@ export type SearchPublicationsQuery = {
                             | {
                                 __typename?: 'TimedFeeCollectModuleSettings';
                                 type: CollectModules;
-                                recipient: any;
                                 endTimestamp: any;
                                 referralFee: number;
                                 contractAddress: any;
@@ -15949,7 +15653,6 @@ export type SearchPublicationsQuery = {
                       | {
                           __typename?: 'FeeCollectModuleSettings';
                           type: CollectModules;
-                          recipient: any;
                           referralFee: number;
                           contractAddress: any;
                           followerOnly: boolean;
@@ -15969,7 +15672,6 @@ export type SearchPublicationsQuery = {
                           __typename?: 'LimitedFeeCollectModuleSettings';
                           type: CollectModules;
                           collectLimit: string;
-                          recipient: any;
                           referralFee: number;
                           contractAddress: any;
                           followerOnly: boolean;
@@ -15983,7 +15685,6 @@ export type SearchPublicationsQuery = {
                           __typename?: 'LimitedTimedFeeCollectModuleSettings';
                           type: CollectModules;
                           collectLimit: string;
-                          recipient: any;
                           endTimestamp: any;
                           referralFee: number;
                           contractAddress: any;
@@ -15998,7 +15699,6 @@ export type SearchPublicationsQuery = {
                       | {
                           __typename?: 'TimedFeeCollectModuleSettings';
                           type: CollectModules;
-                          recipient: any;
                           endTimestamp: any;
                           referralFee: number;
                           contractAddress: any;
@@ -16160,7 +15860,6 @@ export type SearchPublicationsQuery = {
                             | {
                                 __typename?: 'FeeCollectModuleSettings';
                                 type: CollectModules;
-                                recipient: any;
                                 referralFee: number;
                                 contractAddress: any;
                                 followerOnly: boolean;
@@ -16185,7 +15884,6 @@ export type SearchPublicationsQuery = {
                                 __typename?: 'LimitedFeeCollectModuleSettings';
                                 type: CollectModules;
                                 collectLimit: string;
-                                recipient: any;
                                 referralFee: number;
                                 contractAddress: any;
                                 followerOnly: boolean;
@@ -16204,7 +15902,6 @@ export type SearchPublicationsQuery = {
                                 __typename?: 'LimitedTimedFeeCollectModuleSettings';
                                 type: CollectModules;
                                 collectLimit: string;
-                                recipient: any;
                                 endTimestamp: any;
                                 referralFee: number;
                                 contractAddress: any;
@@ -16224,7 +15921,6 @@ export type SearchPublicationsQuery = {
                             | {
                                 __typename?: 'TimedFeeCollectModuleSettings';
                                 type: CollectModules;
-                                recipient: any;
                                 endTimestamp: any;
                                 referralFee: number;
                                 contractAddress: any;
@@ -16335,7 +16031,6 @@ export type SearchPublicationsQuery = {
                       | {
                           __typename?: 'FeeCollectModuleSettings';
                           type: CollectModules;
-                          recipient: any;
                           referralFee: number;
                           contractAddress: any;
                           followerOnly: boolean;
@@ -16355,7 +16050,6 @@ export type SearchPublicationsQuery = {
                           __typename?: 'LimitedFeeCollectModuleSettings';
                           type: CollectModules;
                           collectLimit: string;
-                          recipient: any;
                           referralFee: number;
                           contractAddress: any;
                           followerOnly: boolean;
@@ -16369,7 +16063,6 @@ export type SearchPublicationsQuery = {
                           __typename?: 'LimitedTimedFeeCollectModuleSettings';
                           type: CollectModules;
                           collectLimit: string;
-                          recipient: any;
                           endTimestamp: any;
                           referralFee: number;
                           contractAddress: any;
@@ -16384,7 +16077,6 @@ export type SearchPublicationsQuery = {
                       | {
                           __typename?: 'TimedFeeCollectModuleSettings';
                           type: CollectModules;
-                          recipient: any;
                           endTimestamp: any;
                           referralFee: number;
                           contractAddress: any;
@@ -16487,7 +16179,6 @@ export type SearchPublicationsQuery = {
                 | {
                     __typename?: 'FeeCollectModuleSettings';
                     type: CollectModules;
-                    recipient: any;
                     referralFee: number;
                     contractAddress: any;
                     followerOnly: boolean;
@@ -16507,7 +16198,6 @@ export type SearchPublicationsQuery = {
                     __typename?: 'LimitedFeeCollectModuleSettings';
                     type: CollectModules;
                     collectLimit: string;
-                    recipient: any;
                     referralFee: number;
                     contractAddress: any;
                     followerOnly: boolean;
@@ -16521,7 +16211,6 @@ export type SearchPublicationsQuery = {
                     __typename?: 'LimitedTimedFeeCollectModuleSettings';
                     type: CollectModules;
                     collectLimit: string;
-                    recipient: any;
                     endTimestamp: any;
                     referralFee: number;
                     contractAddress: any;
@@ -16536,7 +16225,6 @@ export type SearchPublicationsQuery = {
                 | {
                     __typename?: 'TimedFeeCollectModuleSettings';
                     type: CollectModules;
-                    recipient: any;
                     endTimestamp: any;
                     referralFee: number;
                     contractAddress: any;
@@ -16678,7 +16366,6 @@ export type TimelineQuery = {
               | {
                   __typename?: 'FeeCollectModuleSettings';
                   type: CollectModules;
-                  recipient: any;
                   referralFee: number;
                   contractAddress: any;
                   followerOnly: boolean;
@@ -16698,7 +16385,6 @@ export type TimelineQuery = {
                   __typename?: 'LimitedFeeCollectModuleSettings';
                   type: CollectModules;
                   collectLimit: string;
-                  recipient: any;
                   referralFee: number;
                   contractAddress: any;
                   followerOnly: boolean;
@@ -16712,7 +16398,6 @@ export type TimelineQuery = {
                   __typename?: 'LimitedTimedFeeCollectModuleSettings';
                   type: CollectModules;
                   collectLimit: string;
-                  recipient: any;
                   endTimestamp: any;
                   referralFee: number;
                   contractAddress: any;
@@ -16727,7 +16412,6 @@ export type TimelineQuery = {
               | {
                   __typename?: 'TimedFeeCollectModuleSettings';
                   type: CollectModules;
-                  recipient: any;
                   endTimestamp: any;
                   referralFee: number;
                   contractAddress: any;
@@ -16804,7 +16488,6 @@ export type TimelineQuery = {
                     | {
                         __typename?: 'FeeCollectModuleSettings';
                         type: CollectModules;
-                        recipient: any;
                         referralFee: number;
                         contractAddress: any;
                         followerOnly: boolean;
@@ -16824,7 +16507,6 @@ export type TimelineQuery = {
                         __typename?: 'LimitedFeeCollectModuleSettings';
                         type: CollectModules;
                         collectLimit: string;
-                        recipient: any;
                         referralFee: number;
                         contractAddress: any;
                         followerOnly: boolean;
@@ -16838,7 +16520,6 @@ export type TimelineQuery = {
                         __typename?: 'LimitedTimedFeeCollectModuleSettings';
                         type: CollectModules;
                         collectLimit: string;
-                        recipient: any;
                         endTimestamp: any;
                         referralFee: number;
                         contractAddress: any;
@@ -16853,7 +16534,6 @@ export type TimelineQuery = {
                     | {
                         __typename?: 'TimedFeeCollectModuleSettings';
                         type: CollectModules;
-                        recipient: any;
                         endTimestamp: any;
                         referralFee: number;
                         contractAddress: any;
@@ -16928,7 +16608,6 @@ export type TimelineQuery = {
                           | {
                               __typename?: 'FeeCollectModuleSettings';
                               type: CollectModules;
-                              recipient: any;
                               referralFee: number;
                               contractAddress: any;
                               followerOnly: boolean;
@@ -16953,7 +16632,6 @@ export type TimelineQuery = {
                               __typename?: 'LimitedFeeCollectModuleSettings';
                               type: CollectModules;
                               collectLimit: string;
-                              recipient: any;
                               referralFee: number;
                               contractAddress: any;
                               followerOnly: boolean;
@@ -16972,7 +16650,6 @@ export type TimelineQuery = {
                               __typename?: 'LimitedTimedFeeCollectModuleSettings';
                               type: CollectModules;
                               collectLimit: string;
-                              recipient: any;
                               endTimestamp: any;
                               referralFee: number;
                               contractAddress: any;
@@ -16992,7 +16669,6 @@ export type TimelineQuery = {
                           | {
                               __typename?: 'TimedFeeCollectModuleSettings';
                               type: CollectModules;
-                              recipient: any;
                               endTimestamp: any;
                               referralFee: number;
                               contractAddress: any;
@@ -17162,7 +16838,6 @@ export type TimelineQuery = {
                                 | {
                                     __typename?: 'FeeCollectModuleSettings';
                                     type: CollectModules;
-                                    recipient: any;
                                     referralFee: number;
                                     contractAddress: any;
                                     followerOnly: boolean;
@@ -17187,7 +16862,6 @@ export type TimelineQuery = {
                                     __typename?: 'LimitedFeeCollectModuleSettings';
                                     type: CollectModules;
                                     collectLimit: string;
-                                    recipient: any;
                                     referralFee: number;
                                     contractAddress: any;
                                     followerOnly: boolean;
@@ -17206,7 +16880,6 @@ export type TimelineQuery = {
                                     __typename?: 'LimitedTimedFeeCollectModuleSettings';
                                     type: CollectModules;
                                     collectLimit: string;
-                                    recipient: any;
                                     endTimestamp: any;
                                     referralFee: number;
                                     contractAddress: any;
@@ -17226,7 +16899,6 @@ export type TimelineQuery = {
                                 | {
                                     __typename?: 'TimedFeeCollectModuleSettings';
                                     type: CollectModules;
-                                    recipient: any;
                                     endTimestamp: any;
                                     referralFee: number;
                                     contractAddress: any;
@@ -17345,7 +17017,6 @@ export type TimelineQuery = {
                           | {
                               __typename?: 'FeeCollectModuleSettings';
                               type: CollectModules;
-                              recipient: any;
                               referralFee: number;
                               contractAddress: any;
                               followerOnly: boolean;
@@ -17370,7 +17041,6 @@ export type TimelineQuery = {
                               __typename?: 'LimitedFeeCollectModuleSettings';
                               type: CollectModules;
                               collectLimit: string;
-                              recipient: any;
                               referralFee: number;
                               contractAddress: any;
                               followerOnly: boolean;
@@ -17389,7 +17059,6 @@ export type TimelineQuery = {
                               __typename?: 'LimitedTimedFeeCollectModuleSettings';
                               type: CollectModules;
                               collectLimit: string;
-                              recipient: any;
                               endTimestamp: any;
                               referralFee: number;
                               contractAddress: any;
@@ -17409,7 +17078,6 @@ export type TimelineQuery = {
                           | {
                               __typename?: 'TimedFeeCollectModuleSettings';
                               type: CollectModules;
-                              recipient: any;
                               endTimestamp: any;
                               referralFee: number;
                               contractAddress: any;
@@ -17489,7 +17157,6 @@ export type TimelineQuery = {
                     | {
                         __typename?: 'FeeCollectModuleSettings';
                         type: CollectModules;
-                        recipient: any;
                         referralFee: number;
                         contractAddress: any;
                         followerOnly: boolean;
@@ -17509,7 +17176,6 @@ export type TimelineQuery = {
                         __typename?: 'LimitedFeeCollectModuleSettings';
                         type: CollectModules;
                         collectLimit: string;
-                        recipient: any;
                         referralFee: number;
                         contractAddress: any;
                         followerOnly: boolean;
@@ -17523,7 +17189,6 @@ export type TimelineQuery = {
                         __typename?: 'LimitedTimedFeeCollectModuleSettings';
                         type: CollectModules;
                         collectLimit: string;
-                        recipient: any;
                         endTimestamp: any;
                         referralFee: number;
                         contractAddress: any;
@@ -17538,7 +17203,6 @@ export type TimelineQuery = {
                     | {
                         __typename?: 'TimedFeeCollectModuleSettings';
                         type: CollectModules;
-                        recipient: any;
                         endTimestamp: any;
                         referralFee: number;
                         contractAddress: any;
@@ -17689,7 +17353,6 @@ export type TimelineQuery = {
                           | {
                               __typename?: 'FeeCollectModuleSettings';
                               type: CollectModules;
-                              recipient: any;
                               referralFee: number;
                               contractAddress: any;
                               followerOnly: boolean;
@@ -17714,7 +17377,6 @@ export type TimelineQuery = {
                               __typename?: 'LimitedFeeCollectModuleSettings';
                               type: CollectModules;
                               collectLimit: string;
-                              recipient: any;
                               referralFee: number;
                               contractAddress: any;
                               followerOnly: boolean;
@@ -17733,7 +17395,6 @@ export type TimelineQuery = {
                               __typename?: 'LimitedTimedFeeCollectModuleSettings';
                               type: CollectModules;
                               collectLimit: string;
-                              recipient: any;
                               endTimestamp: any;
                               referralFee: number;
                               contractAddress: any;
@@ -17753,7 +17414,6 @@ export type TimelineQuery = {
                           | {
                               __typename?: 'TimedFeeCollectModuleSettings';
                               type: CollectModules;
-                              recipient: any;
                               endTimestamp: any;
                               referralFee: number;
                               contractAddress: any;
@@ -17860,7 +17520,6 @@ export type TimelineQuery = {
                     | {
                         __typename?: 'FeeCollectModuleSettings';
                         type: CollectModules;
-                        recipient: any;
                         referralFee: number;
                         contractAddress: any;
                         followerOnly: boolean;
@@ -17880,7 +17539,6 @@ export type TimelineQuery = {
                         __typename?: 'LimitedFeeCollectModuleSettings';
                         type: CollectModules;
                         collectLimit: string;
-                        recipient: any;
                         referralFee: number;
                         contractAddress: any;
                         followerOnly: boolean;
@@ -17894,7 +17552,6 @@ export type TimelineQuery = {
                         __typename?: 'LimitedTimedFeeCollectModuleSettings';
                         type: CollectModules;
                         collectLimit: string;
-                        recipient: any;
                         endTimestamp: any;
                         referralFee: number;
                         contractAddress: any;
@@ -17909,7 +17566,6 @@ export type TimelineQuery = {
                     | {
                         __typename?: 'TimedFeeCollectModuleSettings';
                         type: CollectModules;
-                        recipient: any;
                         endTimestamp: any;
                         referralFee: number;
                         contractAddress: any;
@@ -18009,7 +17665,6 @@ export type TimelineQuery = {
               | {
                   __typename?: 'FeeCollectModuleSettings';
                   type: CollectModules;
-                  recipient: any;
                   referralFee: number;
                   contractAddress: any;
                   followerOnly: boolean;
@@ -18029,7 +17684,6 @@ export type TimelineQuery = {
                   __typename?: 'LimitedFeeCollectModuleSettings';
                   type: CollectModules;
                   collectLimit: string;
-                  recipient: any;
                   referralFee: number;
                   contractAddress: any;
                   followerOnly: boolean;
@@ -18043,7 +17697,6 @@ export type TimelineQuery = {
                   __typename?: 'LimitedTimedFeeCollectModuleSettings';
                   type: CollectModules;
                   collectLimit: string;
-                  recipient: any;
                   endTimestamp: any;
                   referralFee: number;
                   contractAddress: any;
@@ -18058,7 +17711,6 @@ export type TimelineQuery = {
               | {
                   __typename?: 'TimedFeeCollectModuleSettings';
                   type: CollectModules;
-                  recipient: any;
                   endTimestamp: any;
                   referralFee: number;
                   contractAddress: any;
@@ -18258,7 +17910,6 @@ export type TimelineQuery = {
           | {
               __typename?: 'FeeCollectModuleSettings';
               type: CollectModules;
-              recipient: any;
               referralFee: number;
               contractAddress: any;
               followerOnly: boolean;
@@ -18278,7 +17929,6 @@ export type TimelineQuery = {
               __typename?: 'LimitedFeeCollectModuleSettings';
               type: CollectModules;
               collectLimit: string;
-              recipient: any;
               referralFee: number;
               contractAddress: any;
               followerOnly: boolean;
@@ -18292,7 +17942,6 @@ export type TimelineQuery = {
               __typename?: 'LimitedTimedFeeCollectModuleSettings';
               type: CollectModules;
               collectLimit: string;
-              recipient: any;
               endTimestamp: any;
               referralFee: number;
               contractAddress: any;
@@ -18307,7 +17956,6 @@ export type TimelineQuery = {
           | {
               __typename?: 'TimedFeeCollectModuleSettings';
               type: CollectModules;
-              recipient: any;
               endTimestamp: any;
               referralFee: number;
               contractAddress: any;
@@ -18384,7 +18032,6 @@ export type TimelineQuery = {
                 | {
                     __typename?: 'FeeCollectModuleSettings';
                     type: CollectModules;
-                    recipient: any;
                     referralFee: number;
                     contractAddress: any;
                     followerOnly: boolean;
@@ -18404,7 +18051,6 @@ export type TimelineQuery = {
                     __typename?: 'LimitedFeeCollectModuleSettings';
                     type: CollectModules;
                     collectLimit: string;
-                    recipient: any;
                     referralFee: number;
                     contractAddress: any;
                     followerOnly: boolean;
@@ -18418,7 +18064,6 @@ export type TimelineQuery = {
                     __typename?: 'LimitedTimedFeeCollectModuleSettings';
                     type: CollectModules;
                     collectLimit: string;
-                    recipient: any;
                     endTimestamp: any;
                     referralFee: number;
                     contractAddress: any;
@@ -18433,7 +18078,6 @@ export type TimelineQuery = {
                 | {
                     __typename?: 'TimedFeeCollectModuleSettings';
                     type: CollectModules;
-                    recipient: any;
                     endTimestamp: any;
                     referralFee: number;
                     contractAddress: any;
@@ -18504,7 +18148,6 @@ export type TimelineQuery = {
                       | {
                           __typename?: 'FeeCollectModuleSettings';
                           type: CollectModules;
-                          recipient: any;
                           referralFee: number;
                           contractAddress: any;
                           followerOnly: boolean;
@@ -18524,7 +18167,6 @@ export type TimelineQuery = {
                           __typename?: 'LimitedFeeCollectModuleSettings';
                           type: CollectModules;
                           collectLimit: string;
-                          recipient: any;
                           referralFee: number;
                           contractAddress: any;
                           followerOnly: boolean;
@@ -18538,7 +18180,6 @@ export type TimelineQuery = {
                           __typename?: 'LimitedTimedFeeCollectModuleSettings';
                           type: CollectModules;
                           collectLimit: string;
-                          recipient: any;
                           endTimestamp: any;
                           referralFee: number;
                           contractAddress: any;
@@ -18553,7 +18194,6 @@ export type TimelineQuery = {
                       | {
                           __typename?: 'TimedFeeCollectModuleSettings';
                           type: CollectModules;
-                          recipient: any;
                           endTimestamp: any;
                           referralFee: number;
                           contractAddress: any;
@@ -18715,7 +18355,6 @@ export type TimelineQuery = {
                             | {
                                 __typename?: 'FeeCollectModuleSettings';
                                 type: CollectModules;
-                                recipient: any;
                                 referralFee: number;
                                 contractAddress: any;
                                 followerOnly: boolean;
@@ -18740,7 +18379,6 @@ export type TimelineQuery = {
                                 __typename?: 'LimitedFeeCollectModuleSettings';
                                 type: CollectModules;
                                 collectLimit: string;
-                                recipient: any;
                                 referralFee: number;
                                 contractAddress: any;
                                 followerOnly: boolean;
@@ -18759,7 +18397,6 @@ export type TimelineQuery = {
                                 __typename?: 'LimitedTimedFeeCollectModuleSettings';
                                 type: CollectModules;
                                 collectLimit: string;
-                                recipient: any;
                                 endTimestamp: any;
                                 referralFee: number;
                                 contractAddress: any;
@@ -18779,7 +18416,6 @@ export type TimelineQuery = {
                             | {
                                 __typename?: 'TimedFeeCollectModuleSettings';
                                 type: CollectModules;
-                                recipient: any;
                                 endTimestamp: any;
                                 referralFee: number;
                                 contractAddress: any;
@@ -18890,7 +18526,6 @@ export type TimelineQuery = {
                       | {
                           __typename?: 'FeeCollectModuleSettings';
                           type: CollectModules;
-                          recipient: any;
                           referralFee: number;
                           contractAddress: any;
                           followerOnly: boolean;
@@ -18910,7 +18545,6 @@ export type TimelineQuery = {
                           __typename?: 'LimitedFeeCollectModuleSettings';
                           type: CollectModules;
                           collectLimit: string;
-                          recipient: any;
                           referralFee: number;
                           contractAddress: any;
                           followerOnly: boolean;
@@ -18924,7 +18558,6 @@ export type TimelineQuery = {
                           __typename?: 'LimitedTimedFeeCollectModuleSettings';
                           type: CollectModules;
                           collectLimit: string;
-                          recipient: any;
                           endTimestamp: any;
                           referralFee: number;
                           contractAddress: any;
@@ -18939,7 +18572,6 @@ export type TimelineQuery = {
                       | {
                           __typename?: 'TimedFeeCollectModuleSettings';
                           type: CollectModules;
-                          recipient: any;
                           endTimestamp: any;
                           referralFee: number;
                           contractAddress: any;
@@ -19014,7 +18646,6 @@ export type TimelineQuery = {
                 | {
                     __typename?: 'FeeCollectModuleSettings';
                     type: CollectModules;
-                    recipient: any;
                     referralFee: number;
                     contractAddress: any;
                     followerOnly: boolean;
@@ -19034,7 +18665,6 @@ export type TimelineQuery = {
                     __typename?: 'LimitedFeeCollectModuleSettings';
                     type: CollectModules;
                     collectLimit: string;
-                    recipient: any;
                     referralFee: number;
                     contractAddress: any;
                     followerOnly: boolean;
@@ -19048,7 +18678,6 @@ export type TimelineQuery = {
                     __typename?: 'LimitedTimedFeeCollectModuleSettings';
                     type: CollectModules;
                     collectLimit: string;
-                    recipient: any;
                     endTimestamp: any;
                     referralFee: number;
                     contractAddress: any;
@@ -19063,7 +18692,6 @@ export type TimelineQuery = {
                 | {
                     __typename?: 'TimedFeeCollectModuleSettings';
                     type: CollectModules;
-                    recipient: any;
                     endTimestamp: any;
                     referralFee: number;
                     contractAddress: any;
@@ -19202,7 +18830,6 @@ export type TimelineQuery = {
                       | {
                           __typename?: 'FeeCollectModuleSettings';
                           type: CollectModules;
-                          recipient: any;
                           referralFee: number;
                           contractAddress: any;
                           followerOnly: boolean;
@@ -19222,7 +18849,6 @@ export type TimelineQuery = {
                           __typename?: 'LimitedFeeCollectModuleSettings';
                           type: CollectModules;
                           collectLimit: string;
-                          recipient: any;
                           referralFee: number;
                           contractAddress: any;
                           followerOnly: boolean;
@@ -19236,7 +18862,6 @@ export type TimelineQuery = {
                           __typename?: 'LimitedTimedFeeCollectModuleSettings';
                           type: CollectModules;
                           collectLimit: string;
-                          recipient: any;
                           endTimestamp: any;
                           referralFee: number;
                           contractAddress: any;
@@ -19251,7 +18876,6 @@ export type TimelineQuery = {
                       | {
                           __typename?: 'TimedFeeCollectModuleSettings';
                           type: CollectModules;
-                          recipient: any;
                           endTimestamp: any;
                           referralFee: number;
                           contractAddress: any;
@@ -19353,7 +18977,6 @@ export type TimelineQuery = {
                 | {
                     __typename?: 'FeeCollectModuleSettings';
                     type: CollectModules;
-                    recipient: any;
                     referralFee: number;
                     contractAddress: any;
                     followerOnly: boolean;
@@ -19373,7 +18996,6 @@ export type TimelineQuery = {
                     __typename?: 'LimitedFeeCollectModuleSettings';
                     type: CollectModules;
                     collectLimit: string;
-                    recipient: any;
                     referralFee: number;
                     contractAddress: any;
                     followerOnly: boolean;
@@ -19387,7 +19009,6 @@ export type TimelineQuery = {
                     __typename?: 'LimitedTimedFeeCollectModuleSettings';
                     type: CollectModules;
                     collectLimit: string;
-                    recipient: any;
                     endTimestamp: any;
                     referralFee: number;
                     contractAddress: any;
@@ -19402,7 +19023,6 @@ export type TimelineQuery = {
                 | {
                     __typename?: 'TimedFeeCollectModuleSettings';
                     type: CollectModules;
-                    recipient: any;
                     endTimestamp: any;
                     referralFee: number;
                     contractAddress: any;
@@ -19607,7 +19227,6 @@ export const CollectModuleFieldsFragmentDoc = {
               kind: 'SelectionSet',
               selections: [
                 { kind: 'Field', name: { kind: 'Name', value: 'type' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'recipient' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'referralFee' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'contractAddress' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'followerOnly' } },
@@ -19647,7 +19266,6 @@ export const CollectModuleFieldsFragmentDoc = {
               selections: [
                 { kind: 'Field', name: { kind: 'Name', value: 'type' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'collectLimit' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'recipient' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'referralFee' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'contractAddress' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'followerOnly' } },
@@ -19687,7 +19305,6 @@ export const CollectModuleFieldsFragmentDoc = {
               selections: [
                 { kind: 'Field', name: { kind: 'Name', value: 'type' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'collectLimit' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'recipient' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'endTimestamp' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'referralFee' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'contractAddress' } },
@@ -19727,7 +19344,6 @@ export const CollectModuleFieldsFragmentDoc = {
               kind: 'SelectionSet',
               selections: [
                 { kind: 'Field', name: { kind: 'Name', value: 'type' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'recipient' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'endTimestamp' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'referralFee' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'contractAddress' } },

@@ -32,11 +32,12 @@ import {
   PhotographIcon,
   PuzzleIcon,
   SwitchHorizontalIcon,
-  UserIcon,
   UsersIcon
 } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
 import formatAddress from '@lib/formatAddress';
+import getAssetAddress from '@lib/getAssetAddress';
+import getCoingeckoPrice from '@lib/getCoingeckoPrice';
 import getEnvConfig from '@lib/getEnvConfig';
 import getSignature from '@lib/getSignature';
 import getTokenImage from '@lib/getTokenImage';
@@ -70,14 +71,13 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
   const [hasCollectedByMe, setHasCollectedByMe] = useState(publication?.hasCollectedByMe);
   const [showCollectorsModal, setShowCollectorsModal] = useState(false);
   const [allowed, setAllowed] = useState(true);
+  const [usdPrice, setUsdPrice] = useState(0);
   const { address } = useAccount();
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
   const isMirror = electedMirror ? false : publication.__typename === 'Mirror';
 
   const { data, loading } = useQuery(CollectModuleDocument, {
-    variables: {
-      request: { publicationId: publication?.id }
-    }
+    variables: { request: { publicationId: publication?.id } }
   });
 
   const collectModule: any = data?.publication?.collectModule;
@@ -89,6 +89,14 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
     toast.success('Transaction submitted successfully!');
     Leafwatch.track(PUBLICATION.COLLECT_MODULE.COLLECT);
   };
+
+  const { isFetching, refetch } = useContractRead({
+    address: getEnvConfig().UpdateOwnableFeeCollectModuleAddress,
+    abi: UpdateOwnableFeeCollectModule,
+    functionName: 'getPublicationData',
+    args: [parseInt(publication.profile?.id), parseInt(publication?.id.split('-')[1])],
+    enabled: false
+  });
 
   const {
     data: writeData,
@@ -131,6 +139,12 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
 
   useEffect(() => {
     setRevenue(parseFloat((revenueData?.publicationRevenue?.revenue?.total?.value as any) ?? 0));
+    if (collectModule?.amount) {
+      getCoingeckoPrice(getAssetAddress(collectModule?.amount?.asset?.symbol)).then((data) => {
+        setUsdPrice(data);
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [revenueData]);
 
   const { data: balanceData, isLoading: balanceLoading } = useBalance({
@@ -139,8 +153,8 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
     formatUnits: collectModule?.amount?.asset?.decimals,
     watch: true
   });
-  let hasAmount = false;
 
+  let hasAmount = false;
   if (balanceData && parseFloat(balanceData?.formatted) < parseFloat(collectModule?.amount?.value)) {
     hasAmount = false;
   } else {
@@ -186,19 +200,8 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
 
   const [createCollectProxyAction, { loading: proxyActionLoading }] = useMutation<Mutation>(
     ProxyActionDocument,
-    {
-      onCompleted,
-      onError
-    }
+    { onCompleted, onError }
   );
-
-  const { isFetching, refetch } = useContractRead({
-    address: getEnvConfig().UpdateOwnableFeeCollectModuleAddress,
-    abi: UpdateOwnableFeeCollectModule,
-    functionName: 'getPublicationData',
-    args: [parseInt(publication.profile?.id), parseInt(publication?.id.split('-')[1])],
-    enabled: false
-  });
 
   const createViaProxyAction = async (variables: any) => {
     const { data } = await createCollectProxyAction({ variables });
@@ -319,6 +322,14 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
             <span className="space-x-1">
               <span className="text-2xl font-bold">{collectModule.amount.value}</span>
               <span className="text-xs">{collectModule?.amount?.asset?.symbol}</span>
+              {usdPrice ? (
+                <>
+                  <span className="text-gray-500 px-0.5">·</span>
+                  <span className="text-xs font-bold text-gray-500">
+                    ${(collectModule.amount.value * usdPrice).toFixed(2)}
+                  </span>
+                </>
+              ) : null}
             </span>
           </div>
         )}
@@ -379,6 +390,14 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
                   <div className="flex items-baseline space-x-1.5">
                     <div className="font-bold">{revenue}</div>
                     <div className="text-[10px]">{collectModule?.amount?.asset?.symbol}</div>
+                    {usdPrice ? (
+                      <>
+                        <span className="text-gray-500">·</span>
+                        <span className="text-xs font-bold text-gray-500">
+                          ${(revenue * usdPrice).toFixed(2)}
+                        </span>
+                      </>
+                    ) : null}
                   </div>
                 </span>
               </div>
@@ -393,22 +412,6 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
                   {dayjs(collectModule.endTimestamp).format('MMMM DD, YYYY')} at{' '}
                   {dayjs(collectModule.endTimestamp).format('hh:mm a')}
                 </span>
-              </div>
-            </div>
-          )}
-          {collectModule?.recipient && (
-            <div className="flex items-center space-x-2">
-              <UserIcon className="w-4 h-4 text-gray-500" />
-              <div className="space-x-1.5">
-                <span>Recipient:</span>
-                <a
-                  href={`${POLYGONSCAN_URL}/address/${collectModule.recipient}`}
-                  target="_blank"
-                  className="font-bold text-gray-600"
-                  rel="noreferrer noopener"
-                >
-                  {formatAddress(collectModule.recipient)}
-                </a>
               </div>
             </div>
           )}
