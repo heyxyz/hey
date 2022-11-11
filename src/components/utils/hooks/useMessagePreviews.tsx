@@ -68,13 +68,9 @@ const useMessagePreviews = () => {
       const newMessageProfiles = new Map(messageProfiles);
       const chunks = chunkArray(Array.from(toQuery), MAX_PROFILES_PER_REQUEST);
       try {
-        const results = await Promise.all(
-          chunks.map((profileIdChunk) =>
-            loadProfiles({ variables: { request: { profileIds: profileIdChunk } } })
-          )
-        );
-
-        for (const result of results) {
+        for (const chunk of chunks) {
+          const result = await loadProfiles({ variables: { request: { profileIds: chunk } } });
+          console.log(result.data?.profiles.items.map((item) => item.id));
           if (!result.data?.profiles.items.length) {
             continue;
           }
