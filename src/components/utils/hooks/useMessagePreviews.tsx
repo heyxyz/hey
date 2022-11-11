@@ -70,7 +70,6 @@ const useMessagePreviews = () => {
       try {
         for (const chunk of chunks) {
           const result = await loadProfiles({ variables: { request: { profileIds: chunk } } });
-          console.log(result.data?.profiles.items.map((item) => item.id));
           if (!result.data?.profiles.items.length) {
             continue;
           }
