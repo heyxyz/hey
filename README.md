@@ -76,8 +76,8 @@ and visit http://localhost:4783
 
 We love contributors! Feel free to contribute to this project but please read the [Contributing Guidelines](CONTRIBUTING.md) before opening an issue or PR so you understand the branching strategy and local development environment.
 
-<a href="https://github.com/lenstube-xyz/lenstube/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=lenstube-xyz/lenstube" />
+<a href="https://github.com/lensterxyz/lenster/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=lensterxyz/lenster" />
 </a>
 
 ## ⚖️ License
