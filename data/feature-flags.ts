@@ -10,5 +10,10 @@ export const featureFlags = [
     key: 'trending-widget',
     name: 'Trending widget',
     enabledFor: [...lensterMembers]
+  },
+  {
+    key: 'access-control',
+    name: 'Access control',
+    enabledFor: [...lensterMembers]
   }
 ];
