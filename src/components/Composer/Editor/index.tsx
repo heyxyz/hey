@@ -32,28 +32,11 @@ const Editor: FC = () => {
       link: 'text-brand hover:text-brand-600 dark:hover:text-brand-500',
       text: {
         bold: 'text-bold text-bold',
-        code: 'text-code',
-        italic: 'text-italic italic',
-        strikethrough: 'text-strikethrough strikethrough',
-        subscript: 'text-subscript subscript',
-        superscript: 'text-superscript superscript',
-        underline: 'text-underline underline',
-        underlineStrikethrough: 'text-underline-strike-through underline line-through'
-      },
-      quote: 'mb-5 ml-10 border-brand-500 border-l-4 pl-4'
+        code: 'font-mono',
+        italic: 'text-italic italic'
+      }
     },
-    nodes: [
-      HeadingNode,
-      QuoteNode,
-      CodeNode,
-      HeadingNode,
-      QuoteNode,
-      ListNode,
-      ListItemNode,
-      MentionNode,
-      AutoLinkNode,
-      LinkNode
-    ],
+    nodes: [QuoteNode, CodeNode, HeadingNode, ListNode, ListItemNode, MentionNode, AutoLinkNode, LinkNode],
     editorState: null,
     onError
   };
