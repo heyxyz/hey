@@ -206,6 +206,10 @@ i.italic {
   background-image: url(/assets/type-italic.svg);
 }
 
+i.code {
+  background-image: url(/assets/type-code.svg);
+}
+
 div[data-lexical-editor='true'] {
   outline: none;
 }

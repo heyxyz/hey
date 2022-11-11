@@ -14,12 +14,14 @@ const ToolbarPlugin: FC = () => {
   const [activeEditor, setActiveEditor] = useState(editor);
   const [isBold, setIsBold] = useState(false);
   const [isItalic, setIsItalic] = useState(false);
+  const [isCode, setIsCode] = useState(false);
 
   const updateToolbar = useCallback(() => {
     const selection = $getSelection();
     if ($isRangeSelection(selection)) {
       setIsBold(selection.hasFormat('bold'));
       setIsItalic(selection.hasFormat('italic'));
+      setIsCode(selection.hasFormat('code'));
     }
   }, []);
 
@@ -38,24 +40,31 @@ const ToolbarPlugin: FC = () => {
   return (
     <div className="w-full px-5 py-2 flex toolbar-icons border-b">
       <button
+        className={isBold ? 'bg-brand-100' : ''}
+        title="Bold"
         onClick={() => {
           activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, 'bold');
         }}
-        className={'spaced ' + (isBold ? 'bg-brand-100' : '')}
-        title={'Bold'}
-        aria-label={`Format text as bold.`}
       >
         <i className="toolbar-icon bold text-brand-500" />
       </button>
       <button
+        className={isItalic ? 'bg-brand-100' : ''}
+        title="Italic"
         onClick={() => {
           activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, 'italic');
         }}
-        className={'spaced ' + (isItalic ? 'bg-brand-100' : '')}
-        title={'Italic'}
-        aria-label={`Format text as italic.`}
       >
         <i className="toolbar-icon italic" />
+      </button>
+      <button
+        className={isCode ? 'bg-brand-100' : ''}
+        title="Code"
+        onClick={() => {
+          activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, 'code');
+        }}
+      >
+        <i className="toolbar-icon code" />
       </button>
     </div>
   );
