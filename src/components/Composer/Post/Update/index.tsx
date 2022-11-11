@@ -64,9 +64,6 @@ const ReferenceSettings = dynamic(() => import('@components/Composer/Actions/Ref
 const AccessSettings = dynamic(() => import('@components/Composer/Actions/AccessSettings'), {
   loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
 });
-const Preview = dynamic(() => import('@components/Composer/Actions/Preview'), {
-  loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
-});
 
 const NewUpdate: FC = () => {
   // App store
@@ -77,9 +74,7 @@ const NewUpdate: FC = () => {
   // Publication store
   const publicationContent = usePublicationStore((state) => state.publicationContent);
   const setPublicationContent = usePublicationStore((state) => state.setPublicationContent);
-  const previewPublication = usePublicationStore((state) => state.previewPublication);
   const audioPublication = usePublicationStore((state) => state.audioPublication);
-  const setPreviewPublication = usePublicationStore((state) => state.setPreviewPublication);
   const setShowNewPostModal = usePublicationStore((state) => state.setShowNewPostModal);
 
   // Transaction persist store
@@ -104,7 +99,6 @@ const NewUpdate: FC = () => {
   const isAudioPost = ALLOWED_AUDIO_TYPES.includes(attachments[0]?.type);
 
   const onCompleted = () => {
-    setPreviewPublication(false);
     setShowNewPostModal(false);
     setPublicationContent('');
     setAttachments([]);
@@ -361,7 +355,6 @@ const NewUpdate: FC = () => {
   return (
     <div className="pb-3">
       {error && <ErrorMessage className="mb-3" title="Transaction failed!" error={error} />}
-
       <Editor />
       {postContentError && (
         <div className="px-5 pb-3 mt-1 text-sm font-bold text-red-500">{postContentError}</div>
@@ -373,7 +366,6 @@ const NewUpdate: FC = () => {
           <CollectSettings />
           <ReferenceSettings />
           <AccessSettings />
-          {publicationContent && <Preview />}
         </div>
         <div className="ml-auto pt-2 sm:pt-0">
           <Button
