@@ -45,7 +45,6 @@ const NewPost: FC = () => {
   const showNewPostModal = usePublicationStore((state) => state.showNewPostModal);
   const setShowNewPostModal = usePublicationStore((state) => state.setShowNewPostModal);
   const setPublicationContent = usePublicationStore((state) => state.setPublicationContent);
-  const setPreviewPublication = usePublicationStore((state) => state.setPreviewPublication);
   const [selectedAction, setSelectedAction] = useState<Action>('update');
 
   const openModal = (action: Action) => {
@@ -71,7 +70,6 @@ const NewPost: FC = () => {
           via ? `\n\nvia @${via}` : ''
         }`
       );
-      setPreviewPublication(preview ? true : false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
