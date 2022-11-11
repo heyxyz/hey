@@ -7,6 +7,10 @@ import { useAccessSettingsStore } from 'src/store/access-settings';
 const BasicSettings: FC = () => {
   const restricted = useAccessSettingsStore((state) => state.restricted);
   const setRestricted = useAccessSettingsStore((state) => state.setRestricted);
+  const collectToView = useAccessSettingsStore((state) => state.collectToView);
+  const setCollectToView = useAccessSettingsStore((state) => state.setCollectToView);
+  const followToView = useAccessSettingsStore((state) => state.followToView);
+  const setFollowToView = useAccessSettingsStore((state) => state.setFollowToView);
 
   return (
     <div className="p-5">
@@ -24,8 +28,8 @@ const BasicSettings: FC = () => {
                 <span>Collectors can view</span>
               </div>
               <ToggleWithHelper
-                on={false}
-                setOn={() => {}}
+                on={collectToView}
+                setOn={() => setCollectToView(!collectToView)}
                 label="People need to collect it first to be able to view it"
               />
             </div>
@@ -37,8 +41,8 @@ const BasicSettings: FC = () => {
                 <span>Followers can view</span>
               </div>
               <ToggleWithHelper
-                on={false}
-                setOn={() => {}}
+                on={followToView}
+                setOn={() => setFollowToView(!followToView)}
                 label="People need to follow you to be able to view it"
               />
             </div>
