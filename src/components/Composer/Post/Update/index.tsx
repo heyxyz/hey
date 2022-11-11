@@ -62,7 +62,10 @@ const CollectSettings = dynamic(() => import('@components/Composer/CollectSettin
 const ReferenceSettings = dynamic(() => import('@components/Composer/ReferenceSettings'), {
   loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
 });
-const Preview = dynamic(() => import('@components/Shared/Preview'), {
+const AccessSettings = dynamic(() => import('@components/Composer/AccessSettings'), {
+  loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
+});
+const Preview = dynamic(() => import('@components/Preview'), {
   loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
 });
 
@@ -378,6 +381,7 @@ const NewUpdate: FC = () => {
           <Giphy setGifAttachment={(gif: IGif) => setGifAttachment(gif)} />
           <CollectSettings />
           <ReferenceSettings />
+          <AccessSettings />
           {publicationContent && <Preview />}
         </div>
         <div className="ml-auto pt-2 sm:pt-0">

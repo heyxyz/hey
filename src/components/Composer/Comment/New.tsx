@@ -3,7 +3,6 @@ import { useMutation } from '@apollo/client';
 import Attachments from '@components/Shared/Attachments';
 import { AudioPublicationSchema } from '@components/Shared/Audio';
 import Markup from '@components/Shared/Markup';
-import Preview from '@components/Shared/Preview';
 import { Button } from '@components/UI/Button';
 import { Card } from '@components/UI/Card';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
@@ -62,6 +61,12 @@ const CollectSettings = dynamic(() => import('@components/Composer/CollectSettin
   loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
 });
 const ReferenceSettings = dynamic(() => import('@components/Composer/ReferenceSettings'), {
+  loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
+});
+const AccessSettings = dynamic(() => import('@components/Composer/AccessSettings'), {
+  loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
+});
+const Preview = dynamic(() => import('@components/Preview'), {
   loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
 });
 
@@ -390,6 +395,7 @@ const NewComment: FC<Props> = ({ publication }) => {
           <Giphy setGifAttachment={(gif: IGif) => setGifAttachment(gif)} />
           <CollectSettings />
           <ReferenceSettings />
+          <AccessSettings />
           {publicationContent && <Preview />}
         </div>
         <div className="ml-auto pt-2 sm:pt-0">
