@@ -1,4 +1,3 @@
-import { AggregatorV3Interface } from '@abis/AggregatorV3Interface';
 import { LensHubProxy } from '@abis/LensHubProxy';
 import { UpdateOwnableFeeCollectModule } from '@abis/UpdateOwnableFeeCollectModule';
 import { useMutation, useQuery } from '@apollo/client';
@@ -37,7 +36,8 @@ import {
 } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
 import formatAddress from '@lib/formatAddress';
-import getChainlinkAddress from '@lib/getChainlinkAddress';
+import getAssetAddress from '@lib/getAssetAddress';
+import getCoingeckoPrice from '@lib/getCoingeckoPrice';
 import getEnvConfig from '@lib/getEnvConfig';
 import getSignature from '@lib/getSignature';
 import getTokenImage from '@lib/getTokenImage';
@@ -54,7 +54,7 @@ import toast from 'react-hot-toast';
 import { LENSHUB_PROXY, POLYGONSCAN_URL, RELAY_ON, SIGN_WALLET } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { PUBLICATION } from 'src/tracking';
-import { chain, useAccount, useBalance, useContractRead, useContractWrite, useSignTypedData } from 'wagmi';
+import { useAccount, useBalance, useContractRead, useContractWrite, useSignTypedData } from 'wagmi';
 
 interface Props {
   count: number;
@@ -89,14 +89,6 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
     toast.success('Transaction submitted successfully!');
     Leafwatch.track(PUBLICATION.COLLECT_MODULE.COLLECT);
   };
-
-  const { refetch: fetchChainlinkData } = useContractRead({
-    address: getChainlinkAddress(collectModule?.amount?.asset?.symbol).address,
-    chainId: chain.polygon.id,
-    abi: AggregatorV3Interface,
-    functionName: 'latestRoundData',
-    enabled: false
-  });
 
   const { isFetching, refetch } = useContractRead({
     address: getEnvConfig().UpdateOwnableFeeCollectModuleAddress,
@@ -148,9 +140,8 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
   useEffect(() => {
     setRevenue(parseFloat((revenueData?.publicationRevenue?.revenue?.total?.value as any) ?? 0));
     if (collectModule?.amount) {
-      fetchChainlinkData().then(({ data }) => {
-        const { answer }: any = data;
-        setUsdPrice(parseInt(answer) / getChainlinkAddress(collectModule?.amount?.asset?.symbol).decimals);
+      getCoingeckoPrice(getAssetAddress(collectModule?.amount?.asset?.symbol)).then((data) => {
+        setUsdPrice(data);
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -162,8 +153,8 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
     formatUnits: collectModule?.amount?.asset?.decimals,
     watch: true
   });
-  let hasAmount = false;
 
+  let hasAmount = false;
   if (balanceData && parseFloat(balanceData?.formatted) < parseFloat(collectModule?.amount?.value)) {
     hasAmount = false;
   } else {
