@@ -17,6 +17,7 @@ import {
 } from '@generated/types';
 import type { IGif } from '@giphy/js-types';
 import { ChatAlt2Icon } from '@heroicons/react/outline';
+import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import getSignature from '@lib/getSignature';
 import getTags from '@lib/getTags';
 import getTextNftUrl from '@lib/getTextNftUrl';
@@ -26,6 +27,7 @@ import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import trimify from '@lib/trimify';
 import uploadToArweave from '@lib/uploadToArweave';
+import { $getRoot } from 'lexical';
 import dynamic from 'next/dynamic';
 import type { FC } from 'react';
 import { useEffect } from 'react';
@@ -50,6 +52,7 @@ import { v4 as uuid } from 'uuid';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
 import Editor from '../Editor';
+import EditorContextProvider from '../EditorContextProvider';
 
 const Attachment = dynamic(() => import('@components/Composer/Actions/Attachment'), {
   loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
@@ -101,9 +104,13 @@ const NewComment: FC<Props> = ({ publication }) => {
   const [attachments, setAttachments] = useState<LensterAttachment[]>([]);
 
   const isAudioComment = ALLOWED_AUDIO_TYPES.includes(attachments[0]?.type);
+  const [editor] = useLexicalComposerContext();
 
   const onCompleted = () => {
-    setPublicationContent('');
+    // eslint-disable-next-line unicorn/no-useless-undefined
+    editor.update(() => {
+      $getRoot().clear();
+    });
     setAttachments([]);
     resetCollectSettings();
     Leafwatch.track(COMMENT.NEW);
@@ -399,4 +406,9 @@ const NewComment: FC<Props> = ({ publication }) => {
   );
 };
 
-export default NewComment;
+const WrappedComment: FC<Props> = (props) => (
+  <EditorContextProvider>
+    <NewComment {...props} />
+  </EditorContextProvider>
+);
+export default WrappedComment;

@@ -1,7 +1,6 @@
 import { CodeNode } from '@lexical/code';
 import { AutoLinkNode, LinkNode } from '@lexical/link';
 import { $convertToMarkdownString, TRANSFORMERS } from '@lexical/markdown';
-import { LexicalComposer } from '@lexical/react/LexicalComposer';
 import { ContentEditable } from '@lexical/react/LexicalContentEditable';
 import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
 import { MarkdownShortcutPlugin } from '@lexical/react/LexicalMarkdownShortcutPlugin';
@@ -41,32 +40,30 @@ const Editor: FC = () => {
 
   return (
     <div className="relative">
-      <LexicalComposer initialConfig={initialConfig}>
-        <ToolbarPlugin />
-        <RichTextPlugin
-          contentEditable={
-            <ContentEditable className="px-5 block text-lg mt-4 box-border h-20 z-10 overflow-auto" />
-          }
-          placeholder={
-            <div className="px-5 absolute top-16 z-0 text-gray-400 text-lg pointer-events-none whitespace-nowrap">
-              What's happening?
-            </div>
-          }
-          ErrorBoundary={() => <div>{ERROR_MESSAGE}</div>}
-        />
-        <OnChangePlugin
-          onChange={(editorState) => {
-            editorState.read(() => {
-              const markdown = $convertToMarkdownString(TRANSFORMERS);
-              setPublicationContent(markdown);
-            });
-          }}
-        />
-        <AutoLinkPlugin />
-        <HistoryPlugin />
-        <MentionsPlugin />
-        <MarkdownShortcutPlugin transformers={LENSTER_TRANSFORMERS} />
-      </LexicalComposer>
+      <ToolbarPlugin />
+      <RichTextPlugin
+        contentEditable={
+          <ContentEditable className="px-5 block text-lg mt-4 box-border h-20 z-10 overflow-auto" />
+        }
+        placeholder={
+          <div className="px-5 absolute top-16 z-0 text-gray-400 text-lg pointer-events-none whitespace-nowrap">
+            What's happening?
+          </div>
+        }
+        ErrorBoundary={() => <div>{ERROR_MESSAGE}</div>}
+      />
+      <OnChangePlugin
+        onChange={(editorState) => {
+          editorState.read(() => {
+            const markdown = $convertToMarkdownString(TRANSFORMERS);
+            setPublicationContent(markdown);
+          });
+        }}
+      />
+      <AutoLinkPlugin />
+      <HistoryPlugin />
+      <MentionsPlugin />
+      <MarkdownShortcutPlugin transformers={LENSTER_TRANSFORMERS} />
     </div>
   );
 };
