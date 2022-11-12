@@ -8,6 +8,8 @@ import {
   PhotographIcon,
   VideoCameraIcon
 } from '@heroicons/react/outline';
+import { $convertFromMarkdownString } from '@lexical/markdown';
+import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import getAvatar from '@lib/getAvatar';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { useRouter } from 'next/router';
@@ -17,6 +19,7 @@ import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { usePublicationStore } from 'src/store/publication';
 
+import withEditorContext from '../Editor/withEditorContext';
 import NewUpdate from './Update';
 
 type Action = 'update' | 'image' | 'video' | 'audio' | 'article';
@@ -45,8 +48,8 @@ const NewPost: FC = () => {
   const showNewPostModal = usePublicationStore((state) => state.showNewPostModal);
   const setShowNewPostModal = usePublicationStore((state) => state.setShowNewPostModal);
   const setPublicationContent = usePublicationStore((state) => state.setPublicationContent);
-  const setPreviewPublication = usePublicationStore((state) => state.setPreviewPublication);
   const [selectedAction, setSelectedAction] = useState<Action>('update');
+  const [editor] = useLexicalComposerContext();
 
   const openModal = (action: Action) => {
     setSelectedAction(action);
@@ -55,7 +58,7 @@ const NewPost: FC = () => {
 
   useEffect(() => {
     if (isReady && query.text) {
-      const { text, url, via, hashtags, preview } = query;
+      const { text, url, via, hashtags } = query;
       let processedHashtags;
 
       if (hashtags) {
@@ -65,13 +68,15 @@ const NewPost: FC = () => {
           .join('');
       }
 
+      const content = `${text}${processedHashtags ? ` ${processedHashtags} ` : ''}${url ? `\n\n${url}` : ''}${
+        via ? `\n\nvia @${via}` : ''
+      }`;
+
       setShowNewPostModal(true);
-      setPublicationContent(
-        `${text}${processedHashtags ? ` ${processedHashtags} ` : ''}${url ? `\n\n${url}` : ''}${
-          via ? `\n\nvia @${via}` : ''
-        }`
-      );
-      setPreviewPublication(preview ? true : false);
+      setPublicationContent(content);
+      editor.update(() => {
+        $convertFromMarkdownString(content);
+      });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -129,4 +134,4 @@ const NewPost: FC = () => {
   );
 };
 
-export default NewPost;
+export default withEditorContext(NewPost);
