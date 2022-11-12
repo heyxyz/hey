@@ -1,5 +1,3 @@
-import { CodeNode } from '@lexical/code';
-import { AutoLinkNode, LinkNode } from '@lexical/link';
 import { $convertToMarkdownString, TRANSFORMERS } from '@lexical/markdown';
 import { ContentEditable } from '@lexical/react/LexicalContentEditable';
 import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
@@ -13,7 +11,6 @@ import { usePublicationStore } from 'src/store/publication';
 import MentionsPlugin from './AtMentionsPlugin';
 import AutoLinkPlugin from './AutoLinkPlugin';
 import { LENSTER_TRANSFORMERS } from './MarkdownTransformers';
-import { MentionNode } from './MentionsNode';
 import ToolbarPlugin from './ToolbarPlugin';
 
 const onError = (error: any) => {
@@ -22,21 +19,6 @@ const onError = (error: any) => {
 
 const Editor: FC = () => {
   const setPublicationContent = usePublicationStore((state) => state.setPublicationContent);
-
-  const initialConfig = {
-    namespace: 'composer',
-    theme: {
-      link: 'text-brand hover:text-brand-600 dark:hover:text-brand-500',
-      text: {
-        bold: 'text-bold text-bold',
-        code: 'text-sm bg-gray-300 rounded-lg dark:bg-gray-700 px-[5px] py-[2px]',
-        italic: 'text-italic italic'
-      }
-    },
-    nodes: [CodeNode, MentionNode, AutoLinkNode, LinkNode],
-    editorState: null,
-    onError
-  };
 
   return (
     <div className="relative">
