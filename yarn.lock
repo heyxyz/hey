@@ -2406,7 +2406,7 @@
   dependencies:
     "@lexical/utils" "0.6.0"
 
-"@lexical/list@0.6.0", "@lexical/list@^0.6.0":
+"@lexical/list@0.6.0":
   version "0.6.0"
   resolved "https://registry.yarnpkg.com/@lexical/list/-/list-0.6.0.tgz#0b37879e8d10fd00f7ee7b42415d4207943ed308"
   dependencies:
@@ -2464,11 +2464,11 @@
     "@lexical/yjs" "0.6.0"
     react-error-boundary "^3.1.4"
 
-"@lexical/rich-text@0.6.0", "@lexical/rich-text@^0.6.0":
+"@lexical/rich-text@0.6.0":
   version "0.6.0"
   resolved "https://registry.yarnpkg.com/@lexical/rich-text/-/rich-text-0.6.0.tgz#b4c2391bdd2d062cd3e0faa11d1ded82a1096224"
 
-"@lexical/selection@0.6.0", "@lexical/selection@^0.6.0":
+"@lexical/selection@0.6.0":
   version "0.6.0"
   resolved "https://registry.yarnpkg.com/@lexical/selection/-/selection-0.6.0.tgz#e36acb49983ab78168eb070898f193b0417dbab7"
 
@@ -2482,7 +2482,7 @@
   version "0.6.0"
   resolved "https://registry.yarnpkg.com/@lexical/text/-/text-0.6.0.tgz#9b8728beabf2e1c437d0aafc98450628c2972d73"
 
-"@lexical/utils@0.6.0", "@lexical/utils@^0.6.0":
+"@lexical/utils@0.6.0":
   version "0.6.0"
   resolved "https://registry.yarnpkg.com/@lexical/utils/-/utils-0.6.0.tgz#992a1052d833e407ee797dfbd66a455c07659125"
   dependencies:
