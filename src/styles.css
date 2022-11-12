@@ -157,13 +157,7 @@ iframe {
 }
 
 .toolbar-icon {
-  display: flex;
-  width: 20px;
-  height: 20px;
-  user-select: none;
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
+  @apply flex bg-contain bg-center bg-no-repeat w-[20px] h-[20px];
 }
 
 i.bold {
@@ -179,5 +173,5 @@ i.code {
 }
 
 div[data-lexical-editor='true'] {
-  outline: none;
+  @apply outline-none;
 }
