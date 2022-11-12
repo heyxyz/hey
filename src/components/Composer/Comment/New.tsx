@@ -82,6 +82,7 @@ const NewComment: FC<Props> = ({ publication }) => {
 
   // Publication store
   const publicationContent = usePublicationStore((state) => state.publicationContent);
+  const setPublicationContent = usePublicationStore((state) => state.setPublicationContent);
   const audioPublication = usePublicationStore((state) => state.audioPublication);
 
   // Transaction persist store
@@ -101,15 +102,15 @@ const NewComment: FC<Props> = ({ publication }) => {
   const [commentContentError, setCommentContentError] = useState('');
   const [isUploading, setIsUploading] = useState(false);
   const [attachments, setAttachments] = useState<LensterAttachment[]>([]);
-
-  const isAudioComment = ALLOWED_AUDIO_TYPES.includes(attachments[0]?.type);
   const [editor] = useLexicalComposerContext();
 
+  const isAudioComment = ALLOWED_AUDIO_TYPES.includes(attachments[0]?.type);
+
   const onCompleted = () => {
-    // eslint-disable-next-line unicorn/no-useless-undefined
     editor.update(() => {
       $getRoot().clear();
     });
+    setPublicationContent('');
     setAttachments([]);
     resetCollectSettings();
     Leafwatch.track(COMMENT.NEW);

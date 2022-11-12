@@ -1,7 +1,6 @@
 import { LensHubProxy } from '@abis/LensHubProxy';
 import { useMutation } from '@apollo/client';
 import Editor from '@components/Composer/Editor';
-import withEditorContext from '@components/Composer/Editor/withEditorContext';
 import Attachments from '@components/Shared/Attachments';
 import { AudioPublicationSchema } from '@components/Shared/Audio';
 import { Button } from '@components/UI/Button';
@@ -18,6 +17,7 @@ import {
 } from '@generated/types';
 import type { IGif } from '@giphy/js-types';
 import { PencilAltIcon } from '@heroicons/react/outline';
+import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import getSignature from '@lib/getSignature';
 import getTags from '@lib/getTags';
 import getTextNftUrl from '@lib/getTextNftUrl';
@@ -27,6 +27,7 @@ import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import trimify from '@lib/trimify';
 import uploadToArweave from '@lib/uploadToArweave';
+import { $getRoot } from 'lexical';
 import dynamic from 'next/dynamic';
 import type { FC } from 'react';
 import { useEffect } from 'react';
@@ -96,10 +97,14 @@ const NewUpdate: FC = () => {
   const [isUploading, setIsUploading] = useState(false);
   const [attachments, setAttachments] = useState<LensterAttachment[]>([]);
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
+  const [editor] = useLexicalComposerContext();
 
   const isAudioPost = ALLOWED_AUDIO_TYPES.includes(attachments[0]?.type);
 
   const onCompleted = () => {
+    editor.update(() => {
+      $getRoot().clear();
+    });
     setShowNewPostModal(false);
     setPublicationContent('');
     setAttachments([]);
@@ -385,4 +390,4 @@ const NewUpdate: FC = () => {
   );
 };
 
-export default withEditorContext(NewUpdate);
+export default NewUpdate;

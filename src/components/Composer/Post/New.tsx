@@ -8,6 +8,8 @@ import {
   PhotographIcon,
   VideoCameraIcon
 } from '@heroicons/react/outline';
+import { $convertFromMarkdownString } from '@lexical/markdown';
+import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import getAvatar from '@lib/getAvatar';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { useRouter } from 'next/router';
@@ -17,6 +19,7 @@ import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { usePublicationStore } from 'src/store/publication';
 
+import withEditorContext from '../Editor/withEditorContext';
 import NewUpdate from './Update';
 
 type Action = 'update' | 'image' | 'video' | 'audio' | 'article';
@@ -46,6 +49,7 @@ const NewPost: FC = () => {
   const setShowNewPostModal = usePublicationStore((state) => state.setShowNewPostModal);
   const setPublicationContent = usePublicationStore((state) => state.setPublicationContent);
   const [selectedAction, setSelectedAction] = useState<Action>('update');
+  const [editor] = useLexicalComposerContext();
 
   const openModal = (action: Action) => {
     setSelectedAction(action);
@@ -55,7 +59,7 @@ const NewPost: FC = () => {
   useEffect(() => {
     if (isReady && query.text) {
       const { text, url, via, hashtags } = query;
-      let processedHashtags;
+      let processedHashtags: any;
 
       if (hashtags) {
         processedHashtags = (hashtags as string)
@@ -65,11 +69,13 @@ const NewPost: FC = () => {
       }
 
       setShowNewPostModal(true);
-      setPublicationContent(
-        `${text}${processedHashtags ? ` ${processedHashtags} ` : ''}${url ? `\n\n${url}` : ''}${
-          via ? `\n\nvia @${via}` : ''
-        }`
-      );
+      editor.update(() => {
+        $convertFromMarkdownString(
+          `${text}${processedHashtags ? ` ${processedHashtags} ` : ''}${url ? `\n\n${url}` : ''}${
+            via ? `\n\nvia @${via}` : ''
+          }`
+        );
+      });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -127,4 +133,4 @@ const NewPost: FC = () => {
   );
 };
 
-export default NewPost;
+export default withEditorContext(NewPost);
