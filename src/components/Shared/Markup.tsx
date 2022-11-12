@@ -1,6 +1,7 @@
 import { HashtagMatcher } from '@components/utils/matchers/HashtagMatcher';
 import { MDBoldMatcher } from '@components/utils/matchers/markdown/MDBoldMatcher';
 import { MDCodeMatcher } from '@components/utils/matchers/markdown/MDCodeMatcher';
+import { MDItalicMatcher } from '@components/utils/matchers/markdown/MDItalicMatcher';
 import { MDLinkMatcher } from '@components/utils/matchers/markdown/MDLinkMatcher';
 import { MDQuoteMatcher } from '@components/utils/matchers/markdown/MDQuoteMatcher';
 import { MDStrikeMatcher } from '@components/utils/matchers/markdown/MDStrikeMatcher';
@@ -23,6 +24,7 @@ const Markup: FC<Props> = ({ children, className = '', matchOnlyUrl }) => {
     new HashtagMatcher('hashtag'),
     new MentionMatcher('mention'),
     new MDBoldMatcher('mdBold'),
+    new MDItalicMatcher('mdItalic'),
     new MDLinkMatcher('mdLink'),
     new MDStrikeMatcher('mdStrike'),
     new MDQuoteMatcher('mdQuote'),
