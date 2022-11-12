@@ -29,8 +29,6 @@
     "@lexical/link": "^0.6.0",
     "@lexical/markdown": "^0.6.0",
     "@lexical/react": "0.6.0",
-    "@next/bundle-analyzer": "^13.0.2",
-    "@sentry/nextjs": "^7.17.4",
     "@tippyjs/react": "^4.2.6",
     "@xmtp/xmtp-js": "^7.1.1",
     "axios": "^1.1.3",

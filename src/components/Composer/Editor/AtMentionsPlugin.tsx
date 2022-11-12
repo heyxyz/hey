@@ -32,14 +32,12 @@ const CapitalizedNameMentionsRegex = new RegExp(
 );
 
 const PUNC = DocumentMentionsRegex.PUNCTUATION;
-
 const TRIGGERS = ['@'].join('');
-
 const VALID_CHARS = '[^' + TRIGGERS + PUNC + '\\s]';
-
 const VALID_JOINS = '(?:' + '\\.[ |$]|' + ' |' + '[' + PUNC + ']|' + ')';
-
 const LENGTH_LIMIT = 75;
+const ALIAS_LENGTH_LIMIT = 50;
+const SUGGESTION_LIST_LENGTH_LIMIT = 5;
 
 const AtSignMentionsRegex = new RegExp(
   '(^|\\s|\\()(' +
@@ -55,18 +53,14 @@ const AtSignMentionsRegex = new RegExp(
     ')$'
 );
 
-const ALIAS_LENGTH_LIMIT = 50;
-
 const AtSignMentionsRegexAliasRegex = new RegExp(
   '(^|\\s|\\()(' + '[' + TRIGGERS + ']' + '((?:' + VALID_CHARS + '){0,' + ALIAS_LENGTH_LIMIT + '})' + ')$'
 );
 
-const SUGGESTION_LIST_LENGTH_LIMIT = 5;
 const checkForCapitalizedNameMentions = (text: string, minMatchLength: number): QueryMatch | null => {
   const match = CapitalizedNameMentionsRegex.exec(text);
   if (match !== null) {
     const maybeLeadingWhitespace = match[1];
-
     const matchingString = match[2];
     if (matchingString != null && matchingString.length >= minMatchLength) {
       return {
@@ -85,9 +79,9 @@ const checkForAtSignMentions = (text: string, minMatchLength: number): QueryMatc
   if (match === null) {
     match = AtSignMentionsRegexAliasRegex.exec(text);
   }
+
   if (match !== null) {
     const maybeLeadingWhitespace = match[1];
-
     const matchingString = match[3];
     if (matchingString.length >= minMatchLength) {
       return {
@@ -97,6 +91,7 @@ const checkForAtSignMentions = (text: string, minMatchLength: number): QueryMatc
       };
     }
   }
+
   return null;
 };
 
@@ -118,17 +113,20 @@ class MentionTypeaheadOption extends TypeaheadOption {
   }
 }
 
-const MentionsTypeaheadMenuItem: FC<{
+interface Props {
   index: number;
   isSelected: boolean;
   onClick: () => void;
   onMouseEnter: () => void;
   option: MentionTypeaheadOption;
-}> = ({ index, isSelected, onClick, onMouseEnter, option }) => {
+}
+
+const MentionsTypeaheadMenuItem: FC<Props> = ({ index, isSelected, onClick, onMouseEnter, option }) => {
   let className = '';
   if (isSelected) {
     className += ' selected';
   }
+
   return (
     <li
       key={option.key}
@@ -137,7 +135,6 @@ const MentionsTypeaheadMenuItem: FC<{
       ref={option.setRefElement}
       role="option"
       aria-selected={isSelected}
-      id={'typeahead-item-' + index}
       onMouseEnter={onMouseEnter}
       onClick={onClick}
     >
