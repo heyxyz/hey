@@ -153,7 +153,7 @@ iframe {
 }
 
 .toolbar-icons button {
-  @apply hover:bg-brand-100 flex justify-center text-brand items-center h-8 w-8 rounded-lg;
+  @apply hover:bg-brand-100 text-brand p-1.5 rounded-lg;
 }
 
 .toolbar-icon {
