@@ -1,5 +1,6 @@
 import { $convertToMarkdownString, TRANSFORMERS } from '@lexical/markdown';
 import { ContentEditable } from '@lexical/react/LexicalContentEditable';
+import { HashtagPlugin } from '@lexical/react/LexicalHashtagPlugin';
 import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
 import { MarkdownShortcutPlugin } from '@lexical/react/LexicalMarkdownShortcutPlugin';
 import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
@@ -12,10 +13,6 @@ import MentionsPlugin from './AtMentionsPlugin';
 import AutoLinkPlugin from './AutoLinkPlugin';
 import { LENSTER_TRANSFORMERS } from './MarkdownTransformers';
 import ToolbarPlugin from './ToolbarPlugin';
-
-const onError = (error: any) => {
-  console.error(error);
-};
 
 const Editor: FC = () => {
   const setPublicationContent = usePublicationStore((state) => state.setPublicationContent);
@@ -44,6 +41,7 @@ const Editor: FC = () => {
       />
       <AutoLinkPlugin />
       <HistoryPlugin />
+      <HashtagPlugin />
       <MentionsPlugin />
       <MarkdownShortcutPlugin transformers={LENSTER_TRANSFORMERS} />
     </div>

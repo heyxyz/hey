@@ -1,4 +1,5 @@
 import { CodeNode } from '@lexical/code';
+import { HashtagNode } from '@lexical/hashtag';
 import { AutoLinkNode, LinkNode } from '@lexical/link';
 import { LexicalComposer } from '@lexical/react/LexicalComposer';
 
@@ -15,9 +16,10 @@ const initialConfig = {
       bold: 'text-bold text-bold',
       code: 'text-sm bg-gray-300 rounded-lg dark:bg-gray-700 px-[5px] py-[2px]',
       italic: 'text-italic italic'
-    }
+    },
+    hashtag: 'text-brand'
   },
-  nodes: [CodeNode, MentionNode, AutoLinkNode, LinkNode],
+  nodes: [CodeNode, MentionNode, AutoLinkNode, LinkNode, HashtagNode],
   editorState: null,
   onError
 };
