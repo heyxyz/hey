@@ -37,14 +37,14 @@ export class UrlMatcher extends Matcher<UrlProps> {
   }
 
   match(string: string): MatchResponse<UrlMatch> | null {
-    const response = this.doMatch(string, URL_PATTERN, this.handleMatches);
+    const response = this.doMatch(string, URL_PATTERN, this.handleMatches, true);
 
     if (response?.valid) {
       const { host } = response;
       const tld = host.slice(host.lastIndexOf('.') + 1).toLowerCase();
 
       if (BLOCKED_TLDS.includes(tld)) {
-        return null;
+        response.valid = false;
       }
     }
 
