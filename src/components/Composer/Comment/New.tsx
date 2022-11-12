@@ -2,11 +2,9 @@ import { LensHubProxy } from '@abis/LensHubProxy';
 import { useMutation } from '@apollo/client';
 import Attachments from '@components/Shared/Attachments';
 import { AudioPublicationSchema } from '@components/Shared/Audio';
-import Markup from '@components/Shared/Markup';
 import { Button } from '@components/UI/Button';
 import { Card } from '@components/UI/Card';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
-import { MentionTextArea } from '@components/UI/MentionTextArea';
 import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
 import type { LensterAttachment, LensterPublication } from '@generated/lenstertypes';
@@ -19,6 +17,7 @@ import {
 } from '@generated/types';
 import type { IGif } from '@giphy/js-types';
 import { ChatAlt2Icon } from '@heroicons/react/outline';
+import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import getSignature from '@lib/getSignature';
 import getTags from '@lib/getTags';
 import getTextNftUrl from '@lib/getTextNftUrl';
@@ -28,6 +27,7 @@ import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import trimify from '@lib/trimify';
 import uploadToArweave from '@lib/uploadToArweave';
+import { $getRoot } from 'lexical';
 import dynamic from 'next/dynamic';
 import type { FC } from 'react';
 import { useEffect } from 'react';
@@ -51,6 +51,9 @@ import { COMMENT } from 'src/tracking';
 import { v4 as uuid } from 'uuid';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
+import Editor from '../Editor';
+import withEditorContext from '../Editor/withEditorContext';
+
 const Attachment = dynamic(() => import('@components/Composer/Actions/Attachment'), {
   loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
 });
@@ -64,9 +67,6 @@ const ReferenceSettings = dynamic(() => import('@components/Composer/Actions/Ref
   loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
 });
 const AccessSettings = dynamic(() => import('@components/Composer/Actions/AccessSettings'), {
-  loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
-});
-const Preview = dynamic(() => import('@components/Composer/Actions/Preview'), {
   loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
 });
 
@@ -83,8 +83,6 @@ const NewComment: FC<Props> = ({ publication }) => {
   // Publication store
   const publicationContent = usePublicationStore((state) => state.publicationContent);
   const setPublicationContent = usePublicationStore((state) => state.setPublicationContent);
-  const previewPublication = usePublicationStore((state) => state.previewPublication);
-  const setPreviewPublication = usePublicationStore((state) => state.setPreviewPublication);
   const audioPublication = usePublicationStore((state) => state.audioPublication);
 
   // Transaction persist store
@@ -104,11 +102,14 @@ const NewComment: FC<Props> = ({ publication }) => {
   const [commentContentError, setCommentContentError] = useState('');
   const [isUploading, setIsUploading] = useState(false);
   const [attachments, setAttachments] = useState<LensterAttachment[]>([]);
+  const [editor] = useLexicalComposerContext();
 
   const isAudioComment = ALLOWED_AUDIO_TYPES.includes(attachments[0]?.type);
 
   const onCompleted = () => {
-    setPreviewPublication(false);
+    editor.update(() => {
+      $getRoot().clear();
+    });
     setPublicationContent('');
     setAttachments([]);
     resetCollectSettings();
@@ -376,27 +377,19 @@ const NewComment: FC<Props> = ({ publication }) => {
     isUploading || typedDataLoading || dispatcherLoading || signLoading || writeLoading || broadcastLoading;
 
   return (
-    <Card className="px-5 pt-5 pb-3">
+    <Card className="pb-3">
       {error && <ErrorMessage className="mb-3" title="Transaction failed!" error={error} />}
-      {previewPublication ? (
-        <div className="pb-3 mb-2 border-b linkify dark:border-b-gray-700/80">
-          <Markup>{publicationContent}</Markup>
-        </div>
-      ) : (
-        <MentionTextArea
-          error={commentContentError}
-          setError={setCommentContentError}
-          placeholder="Tell something cool!"
-        />
+      <Editor />
+      {commentContentError && (
+        <div className="px-5 pb-3 mt-1 text-sm font-bold text-red-500">{commentContentError}</div>
       )}
-      <div className="block items-center sm:flex">
+      <div className="block items-center sm:flex px-5">
         <div className="flex items-center space-x-4">
           <Attachment attachments={attachments} setAttachments={setAttachments} />
           <Giphy setGifAttachment={(gif: IGif) => setGifAttachment(gif)} />
           <CollectSettings />
           <ReferenceSettings />
           <AccessSettings />
-          {publicationContent && <Preview />}
         </div>
         <div className="ml-auto pt-2 sm:pt-0">
           <Button
@@ -408,9 +401,11 @@ const NewComment: FC<Props> = ({ publication }) => {
           </Button>
         </div>
       </div>
-      <Attachments attachments={attachments} setAttachments={setAttachments} isNew />
+      <div className="px-5">
+        <Attachments attachments={attachments} setAttachments={setAttachments} isNew />
+      </div>
     </Card>
   );
 };
 
-export default NewComment;
+export default withEditorContext(NewComment);
