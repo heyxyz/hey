@@ -35,6 +35,7 @@ const Editor: FC = () => {
         onChange={(editorState) => {
           editorState.read(() => {
             const markdown = $convertToMarkdownString(TRANSFORMERS);
+            console.log(markdown);
             setPublicationContent(markdown);
           });
         }}

@@ -11,11 +11,7 @@ import type {
 import { TextNode } from 'lexical';
 
 export type SerializedMentionNode = Spread<
-  {
-    mentionName: string;
-    type: 'mention';
-    version: 1;
-  },
+  { mentionName: string; type: 'mention'; version: 1 },
   SerializedTextNode
 >;
 

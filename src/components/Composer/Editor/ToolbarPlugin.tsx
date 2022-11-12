@@ -38,7 +38,7 @@ const ToolbarPlugin: FC = () => {
   }, [editor, updateToolbar]);
 
   return (
-    <div className="w-full px-5 py-2 flex toolbar-icons border-b">
+    <div className="w-full px-5 py-2 flex toolbar-icons border-b space-x-1">
       <button
         className={isBold ? 'bg-brand-100' : ''}
         title="Bold"
