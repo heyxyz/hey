@@ -52,7 +52,7 @@ import { v4 as uuid } from 'uuid';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
 import Editor from '../Editor';
-import EditorContextProvider from '../EditorContextProvider';
+import withEditorContext from '../Editor/withEditorContext';
 
 const Attachment = dynamic(() => import('@components/Composer/Actions/Attachment'), {
   loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
@@ -408,9 +408,4 @@ const NewComment: FC<Props> = ({ publication }) => {
   );
 };
 
-const WrappedComment: FC<Props> = (props) => (
-  <EditorContextProvider>
-    <NewComment {...props} />
-  </EditorContextProvider>
-);
-export default WrappedComment;
+export default withEditorContext(NewComment);

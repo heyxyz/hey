@@ -1,6 +1,7 @@
 import { LensHubProxy } from '@abis/LensHubProxy';
 import { useMutation } from '@apollo/client';
 import Editor from '@components/Composer/Editor';
+import withEditorContext from '@components/Composer/Editor/withEditorContext';
 import Attachments from '@components/Shared/Attachments';
 import { AudioPublicationSchema } from '@components/Shared/Audio';
 import { Button } from '@components/UI/Button';
@@ -384,4 +385,4 @@ const NewUpdate: FC = () => {
   );
 };
 
-export default NewUpdate;
+export default withEditorContext(NewUpdate);
