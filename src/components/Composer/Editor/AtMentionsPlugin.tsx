@@ -102,10 +102,10 @@ const getPossibleQueryMatch = (text: string): QueryMatch | null => {
 
 class MentionTypeaheadOption extends TypeaheadOption {
   name: string;
-  picture: JSX.Element;
+  picture: string;
   handle: string;
 
-  constructor(name: string, picture: JSX.Element, handle: string) {
+  constructor(name: string, picture: string, handle: string) {
     super(name);
     this.name = name;
     this.handle = handle;
@@ -121,17 +121,12 @@ interface Props {
   option: MentionTypeaheadOption;
 }
 
-const MentionsTypeaheadMenuItem: FC<Props> = ({ index, isSelected, onClick, onMouseEnter, option }) => {
-  let className = '';
-  if (isSelected) {
-    className += ' selected';
-  }
-
+const MentionsTypeaheadMenuItem: FC<Props> = ({ isSelected, onClick, onMouseEnter, option }) => {
   return (
     <li
       key={option.key}
       tabIndex={-1}
-      className={className}
+      className="cursor-pointer"
       ref={option.setRefElement}
       role="option"
       aria-selected={isSelected}
@@ -139,7 +134,13 @@ const MentionsTypeaheadMenuItem: FC<Props> = ({ index, isSelected, onClick, onMo
       onClick={onClick}
     >
       <div className="hover:bg-gray-100 flex items-center space-x-2 m-1.5 px-3 py-1 rounded-xl">
-        {option.picture}
+        <img
+          className="rounded-full w-7 h-7"
+          height="32"
+          width="32"
+          src={option.picture}
+          alt={option.handle}
+        />
         <div className="flex flex-col truncate">
           <div className="text-sm truncate">{option.name}</div>
           <span className="text-xs">{option.handle}</span>
@@ -179,19 +180,7 @@ const NewMentionsPlugin: FC = () => {
     () =>
       results
         .map(({ name, picture, handle }) => {
-          return new MentionTypeaheadOption(
-            name ?? handle,
-            (
-              <img
-                className="rounded-full w-7 h-7"
-                height="32"
-                width="32"
-                src={imageProxy(getIPFSLink(picture), AVATAR)}
-                alt={name}
-              />
-            ),
-            handle
-          );
+          return new MentionTypeaheadOption(name ?? handle, imageProxy(getIPFSLink(picture), AVATAR), handle);
         })
         .slice(0, SUGGESTION_LIST_LENGTH_LIMIT),
     [results]
@@ -229,7 +218,7 @@ const NewMentionsPlugin: FC = () => {
       menuRenderFn={(anchorElementRef, { selectedIndex, selectOptionAndCleanUp, setHighlightedIndex }) =>
         anchorElementRef.current && results.length
           ? ReactDOM.createPortal(
-              <div className="cursor-pointer bg-white dark:bg-gray-900 mt-8 border dark:border-gray-700/80 rounded-xl shadow-sm w-52 typeahead-popover absolute left-[44px] top-1 z-40 bg-brand min-w-full">
+              <div className="bg-white dark:bg-gray-900 mt-8 border dark:border-gray-700/80 rounded-xl shadow-sm w-52 sticky z-40 bg-brand min-w-full">
                 <ul className="divide-y dark:divide-gray-700/80">
                   {options.map((option, i: number) => (
                     <MentionsTypeaheadMenuItem
