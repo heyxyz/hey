@@ -59,7 +59,7 @@ const NewPost: FC = () => {
   useEffect(() => {
     if (isReady && query.text) {
       const { text, url, via, hashtags } = query;
-      let processedHashtags: any;
+      let processedHashtags;
 
       if (hashtags) {
         processedHashtags = (hashtags as string)
@@ -68,13 +68,14 @@ const NewPost: FC = () => {
           .join('');
       }
 
+      const content = `${text}${processedHashtags ? ` ${processedHashtags} ` : ''}${url ? `\n\n${url}` : ''}${
+        via ? `\n\nvia @${via}` : ''
+      }`;
+
       setShowNewPostModal(true);
+      setPublicationContent(content);
       editor.update(() => {
-        $convertFromMarkdownString(
-          `${text}${processedHashtags ? ` ${processedHashtags} ` : ''}${url ? `\n\n${url}` : ''}${
-            via ? `\n\nvia @${via}` : ''
-          }`
-        );
+        $convertFromMarkdownString(content);
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
