@@ -1,6 +1,5 @@
 import { CodeNode } from '@lexical/code';
 import { AutoLinkNode, LinkNode } from '@lexical/link';
-import { ListItemNode, ListNode } from '@lexical/list';
 import { $convertToMarkdownString, TRANSFORMERS } from '@lexical/markdown';
 import { LexicalComposer } from '@lexical/react/LexicalComposer';
 import { ContentEditable } from '@lexical/react/LexicalContentEditable';
@@ -8,7 +7,6 @@ import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
 import { MarkdownShortcutPlugin } from '@lexical/react/LexicalMarkdownShortcutPlugin';
 import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
 import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
-import { HeadingNode, QuoteNode } from '@lexical/rich-text';
 import type { FC } from 'react';
 import { ERROR_MESSAGE } from 'src/constants';
 import { usePublicationStore } from 'src/store/publication';
@@ -32,11 +30,11 @@ const Editor: FC = () => {
       link: 'text-brand hover:text-brand-600 dark:hover:text-brand-500',
       text: {
         bold: 'text-bold text-bold',
-        code: 'font-mono',
+        code: 'text-sm bg-gray-300 rounded-lg dark:bg-gray-700 px-[5px] py-[2px]',
         italic: 'text-italic italic'
       }
     },
-    nodes: [QuoteNode, CodeNode, HeadingNode, ListNode, ListItemNode, MentionNode, AutoLinkNode, LinkNode],
+    nodes: [CodeNode, MentionNode, AutoLinkNode, LinkNode],
     editorState: null,
     onError
   };

@@ -3847,13 +3847,6 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react-mentions@^4.1.7":
-  version "4.1.8"
-  resolved "https://registry.yarnpkg.com/@types/react-mentions/-/react-mentions-4.1.8.tgz#4bebe54c5c74181d8eedf1e613a208d03b4a8d7e"
-  integrity sha512-Go86ozdnh0FTNbiGiDPAcNqYqtab9iGzLOgZPYUKrnhI4539jGzfJtP6rFHcXgi9Koe58yhkeyKYib6Ucul/sQ==
-  dependencies:
-    "@types/react" "*"
-
 "@types/react@*", "@types/react@^18.0.23":
   version "18.0.25"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-18.0.25.tgz#8b1dcd7e56fe7315535a4af25435e0bb55c8ae44"
