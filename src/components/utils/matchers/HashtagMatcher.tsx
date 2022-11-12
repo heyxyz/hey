@@ -46,7 +46,7 @@ export class HashtagMatcher extends Matcher {
   }
 
   match(value: string) {
-    return this.doMatch(value, /\B(#[A-Za-z]+\b)(?!;)/, (matches) => {
+    return this.doMatch(value, /\B(#\w*[A-Za-z]+\w*\b)(?!;)/, (matches) => {
       return {
         display: matches[0]
       };
