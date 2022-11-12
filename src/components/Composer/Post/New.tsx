@@ -54,7 +54,7 @@ const NewPost: FC = () => {
 
   useEffect(() => {
     if (isReady && query.text) {
-      const { text, url, via, hashtags, preview } = query;
+      const { text, url, via, hashtags } = query;
       let processedHashtags;
 
       if (hashtags) {

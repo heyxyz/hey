@@ -82,7 +82,6 @@ const NewComment: FC<Props> = ({ publication }) => {
 
   // Publication store
   const publicationContent = usePublicationStore((state) => state.publicationContent);
-  const setPublicationContent = usePublicationStore((state) => state.setPublicationContent);
   const audioPublication = usePublicationStore((state) => state.audioPublication);
 
   // Transaction persist store
