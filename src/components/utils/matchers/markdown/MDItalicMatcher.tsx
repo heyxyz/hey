@@ -11,7 +11,7 @@ export class MDItalicMatcher extends Matcher {
   }
 
   match(value: string) {
-    return this.doMatch(value, /\*(.*?)\*/u, (matches) => ({
+    return this.doMatch(value, /\*([^**]*?)\*/u, (matches) => ({
       match: matches[1]
     }));
   }
