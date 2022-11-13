@@ -1,5 +1,7 @@
+import withEditorContext from '@components/Composer/Editor/withEditorContext';
 import Attachments from '@components/Shared/Attachments';
 import IFramely from '@components/Shared/IFramely';
+import Markdown from '@components/Shared/Markdown';
 import Markup from '@components/Shared/Markup';
 import type { LensterPublication } from '@generated/lenstertypes';
 import { EyeIcon } from '@heroicons/react/outline';
@@ -27,6 +29,7 @@ const PublicationBody: FC<Props> = ({ publication }) => {
       >
         {publication?.metadata?.content}
       </Markup>
+      <Markdown publication={publication} />
       {showMore && (
         <div className="mt-4 text-sm text-gray-500 font-bold flex items-center space-x-1">
           <EyeIcon className="h-4 w-4" />
@@ -45,4 +48,4 @@ const PublicationBody: FC<Props> = ({ publication }) => {
   );
 };
 
-export default PublicationBody;
+export default withEditorContext(PublicationBody);
