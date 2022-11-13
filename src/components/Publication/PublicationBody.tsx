@@ -48,4 +48,4 @@ const PublicationBody: FC<Props> = ({ publication }) => {
   );
 };
 
-export default withEditorContext(PublicationBody);
+export default withEditorContext(PublicationBody, false);

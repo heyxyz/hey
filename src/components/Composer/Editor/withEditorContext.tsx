@@ -24,9 +24,9 @@ const initialConfig = {
   }
 };
 
-const withEditorContext = (Component: FC<any>) => {
+const withEditorContext = (Component: FC<any>, editable = true) => {
   const EditorContext = (props: any) => (
-    <LexicalComposer initialConfig={initialConfig}>
+    <LexicalComposer initialConfig={{ ...initialConfig, editable }}>
       <Component {...props} />
     </LexicalComposer>
   );
