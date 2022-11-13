@@ -39,7 +39,7 @@ const LENGTH_LIMIT = 75;
 const ALIAS_LENGTH_LIMIT = 50;
 const SUGGESTION_LIST_LENGTH_LIMIT = 5;
 
-const AtSignMentionsRegex = new RegExp(
+export const AtSignMentionsRegex = new RegExp(
   '(^|\\s|\\()(' +
     '[' +
     TRIGGERS +
