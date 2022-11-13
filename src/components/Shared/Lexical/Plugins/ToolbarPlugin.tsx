@@ -1,3 +1,4 @@
+import Beta from '@components/Shared/Beta';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import {
   $getSelection,
@@ -38,34 +39,37 @@ const ToolbarPlugin: FC = () => {
   }, [editor, updateToolbar]);
 
   return (
-    <div className="w-full px-5 py-2 flex toolbar-icons border-b space-x-1">
-      <button
-        className={isBold ? 'bg-brand-100' : ''}
-        title="Bold"
-        onClick={() => {
-          activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, 'bold');
-        }}
-      >
-        <i className="toolbar-icon bold text-brand-500" />
-      </button>
-      <button
-        className={isItalic ? 'bg-brand-100' : ''}
-        title="Italic"
-        onClick={() => {
-          activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, 'italic');
-        }}
-      >
-        <i className="toolbar-icon italic" />
-      </button>
-      <button
-        className={isCode ? 'bg-brand-100' : ''}
-        title="Code"
-        onClick={() => {
-          activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, 'code');
-        }}
-      >
-        <i className="toolbar-icon code" />
-      </button>
+    <div className="flex items-center justify-between border-b px-5 py-2">
+      <div className="w-full flex toolbar-icons space-x-1">
+        <button
+          className={isBold ? 'bg-brand-100' : ''}
+          title="Bold"
+          onClick={() => {
+            activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, 'bold');
+          }}
+        >
+          <i className="toolbar-icon bold text-brand-500" />
+        </button>
+        <button
+          className={isItalic ? 'bg-brand-100' : ''}
+          title="Italic"
+          onClick={() => {
+            activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, 'italic');
+          }}
+        >
+          <i className="toolbar-icon italic" />
+        </button>
+        <button
+          className={isCode ? 'bg-brand-100' : ''}
+          title="Code"
+          onClick={() => {
+            activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, 'code');
+          }}
+        >
+          <i className="toolbar-icon code" />
+        </button>
+      </div>
+      <Beta />
     </div>
   );
 };
