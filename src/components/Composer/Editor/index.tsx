@@ -1,3 +1,5 @@
+import LexicalAutoLinkPlugin from '@components/Shared/Lexical/Plugins/AutoLinkPlugin';
+import ToolbarPlugin from '@components/Shared/Lexical/Plugins/ToolbarPlugin';
 import { $convertToMarkdownString, TEXT_FORMAT_TRANSFORMERS } from '@lexical/markdown';
 import { ContentEditable } from '@lexical/react/LexicalContentEditable';
 import { HashtagPlugin } from '@lexical/react/LexicalHashtagPlugin';
@@ -9,9 +11,7 @@ import type { FC } from 'react';
 import { ERROR_MESSAGE } from 'src/constants';
 import { usePublicationStore } from 'src/store/publication';
 
-import MentionsPlugin from './AtMentionsPlugin';
-import AutoLinkPlugin from './AutoLinkPlugin';
-import ToolbarPlugin from './ToolbarPlugin';
+import MentionsPlugin from '../../Shared/Lexical/Plugins/AtMentionsPlugin';
 
 const TRANSFORMERS = [...TEXT_FORMAT_TRANSFORMERS];
 
@@ -38,7 +38,7 @@ const Editor: FC = () => {
           });
         }}
       />
-      <AutoLinkPlugin />
+      <LexicalAutoLinkPlugin />
       <HistoryPlugin />
       <HashtagPlugin />
       <MentionsPlugin />

@@ -1,10 +1,8 @@
+import { MentionNode } from '@components/Shared/Lexical/Nodes/MentionsNode';
 import { CodeNode } from '@lexical/code';
 import { HashtagNode } from '@lexical/hashtag';
 import { AutoLinkNode, LinkNode } from '@lexical/link';
-import { LexicalComposer } from '@lexical/react/LexicalComposer';
 import type { FC } from 'react';
-
-import { MentionNode } from '../../Shared/Lexical/Nodes/MentionsNode';
 
 const initialConfig = {
   namespace: 'composer',
@@ -24,15 +22,15 @@ const initialConfig = {
   }
 };
 
-const withEditorContext = (Component: FC<any>) => {
-  const EditorContext = (props: any) => (
-    <LexicalComposer initialConfig={initialConfig}>
+const withMarkdownContext = (Component: FC<any>) => {
+  const MarkdownContext = (props: any) => (
+    <MarkdownContext initialConfig={initialConfig}>
       <Component {...props} />
-    </LexicalComposer>
+    </MarkdownContext>
   );
 
-  EditorContext.displayName = 'EditorContext';
-  return EditorContext;
+  MarkdownContext.displayName = 'MarkdownContext';
+  return MarkdownContext;
 };
 
-export default withEditorContext;
+export default withMarkdownContext;
