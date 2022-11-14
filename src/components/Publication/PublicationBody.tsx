@@ -1,6 +1,6 @@
-import withEditorContext from '@components/Composer/Editor/withEditorContext';
 import Attachments from '@components/Shared/Attachments';
 import IFramely from '@components/Shared/IFramely';
+import withLexicalContext from '@components/Shared/Lexical/withLexicalContext';
 import Markdown from '@components/Shared/Markdown';
 import Markup from '@components/Shared/Markup';
 import type { LensterPublication } from '@generated/lenstertypes';
@@ -48,4 +48,4 @@ const PublicationBody: FC<Props> = ({ publication }) => {
   );
 };
 
-export default withEditorContext(PublicationBody, false);
+export default withLexicalContext(PublicationBody, false);
