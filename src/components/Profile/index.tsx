@@ -5,7 +5,7 @@ import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { APP_NAME, STATIC_ASSETS } from 'src/constants';
+import { APP_NAME, STATIC_IMAGES_URL } from 'src/constants';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
 import { useAppStore } from 'src/store/app';
@@ -68,7 +68,7 @@ const ViewProfile: NextPage = () => {
         cover={
           profile?.coverPicture?.__typename === 'MediaSet'
             ? profile?.coverPicture?.original?.url
-            : `${STATIC_ASSETS}/patterns/2.svg`
+            : `${STATIC_IMAGES_URL}/patterns/2.svg`
         }
       />
       <GridLayout className="pt-6">

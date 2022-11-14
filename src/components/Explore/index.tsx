@@ -10,7 +10,7 @@ import { Leafwatch } from '@lib/leafwatch';
 import clsx from 'clsx';
 import type { NextPage } from 'next';
 import { useEffect, useState } from 'react';
-import { APP_NAME, STATIC_ASSETS } from 'src/constants';
+import { APP_NAME, STATIC_IMAGES_URL } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { PAGEVIEW } from 'src/tracking';
 
@@ -57,7 +57,7 @@ const Explore: NextPage = () => {
               >
                 <span className="flex items-center space-x-2">
                   <span className="hidden sm:block">{tab.name}</span>
-                  <img className="h-4" src={`${STATIC_ASSETS}/emojis/${tab.emoji}`} alt={tab.name} />
+                  <img className="h-4" src={`${STATIC_IMAGES_URL}/emojis/${tab.emoji}`} alt={tab.name} />
                 </span>
               </Tab>
             ))}

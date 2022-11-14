@@ -1,7 +1,7 @@
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import type { FC } from 'react';
 import React, { useEffect, useState } from 'react';
-import { ERROR_MESSAGE } from 'src/constants';
+import { ERROR_MESSAGE, STATIC_ASSETS_URL } from 'src/constants';
 
 import Loader from '../Loader';
 
@@ -17,7 +17,7 @@ const List: FC<Props> = ({ setEmoji }) => {
   const getEmojisList = async () => {
     try {
       setLoading(true);
-      const res = await fetch('https://assets.lenster.xyz/emoji.json');
+      const res = await fetch(`${STATIC_ASSETS_URL}/emoji.json`);
       const data = await res.json();
       setLoading(false);
       setEmojis(data);
@@ -29,7 +29,6 @@ const List: FC<Props> = ({ setEmoji }) => {
   };
 
   useEffect(() => {
-    console.log('useEffect');
     getEmojisList();
   }, []);
 
