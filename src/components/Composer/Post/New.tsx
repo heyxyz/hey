@@ -1,3 +1,4 @@
+import withLexicalContext from '@components/Shared/Lexical/withLexicalContext';
 import { Card } from '@components/UI/Card';
 import { Modal } from '@components/UI/Modal';
 import { Tooltip } from '@components/UI/Tooltip';
@@ -19,7 +20,6 @@ import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { usePublicationStore } from 'src/store/publication';
 
-import withEditorContext from '../Editor/withEditorContext';
 import NewUpdate from './Update';
 
 type Action = 'update' | 'image' | 'video' | 'audio' | 'article';
@@ -134,4 +134,4 @@ const NewPost: FC = () => {
   );
 };
 
-export default withEditorContext(NewPost);
+export default withLexicalContext(NewPost);
