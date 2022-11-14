@@ -51,7 +51,7 @@
     "react-hot-toast": "^2.4.0",
     "react-infinite-scroll-component": "^6.1.0",
     "uuid": "^9.0.0",
-    "wagmi": "^0.8.1",
+    "wagmi": "^0.8.3",
     "zod": "^3.19.1",
     "zustand": "^4.1.4"
   },
