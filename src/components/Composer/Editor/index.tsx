@@ -1,6 +1,6 @@
 import LexicalAutoLinkPlugin from '@components/Shared/Lexical/Plugins/AutoLinkPlugin';
 import ToolbarPlugin from '@components/Shared/Lexical/Plugins/ToolbarPlugin';
-import { $convertToMarkdownString, TEXT_FORMAT_TRANSFORMERS } from '@lexical/markdown';
+import { $convertToMarkdownString, LINK, TEXT_FORMAT_TRANSFORMERS } from '@lexical/markdown';
 import { ContentEditable } from '@lexical/react/LexicalContentEditable';
 import { HashtagPlugin } from '@lexical/react/LexicalHashtagPlugin';
 import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
@@ -13,7 +13,7 @@ import { usePublicationStore } from 'src/store/publication';
 
 import MentionsPlugin from '../../Shared/Lexical/Plugins/AtMentionsPlugin';
 
-const TRANSFORMERS = [...TEXT_FORMAT_TRANSFORMERS];
+const TRANSFORMERS = [...TEXT_FORMAT_TRANSFORMERS, LINK];
 
 const Editor: FC = () => {
   const setPublicationContent = usePublicationStore((state) => state.setPublicationContent);

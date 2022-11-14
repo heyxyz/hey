@@ -1,7 +1,7 @@
 import { AutoLinkPlugin } from '@lexical/react/LexicalAutoLinkPlugin';
 import type { FC } from 'react';
 
-const URL_MATCHER =
+export const URL_MATCHER =
   /((https?:\/\/(www\.)?)|(www\.))[\w#%+.:=@~-]{1,256}\.[\d()A-Za-z]{1,6}\b([\w#%&()+./:=?@~-]*)/;
 
 const EMAIL_MATCHER =
