@@ -7,31 +7,15 @@ import { ContentEditable } from '@lexical/react/LexicalContentEditable';
 import { HashtagPlugin } from '@lexical/react/LexicalHashtagPlugin';
 import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
 import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
-import type { ElementNode, LexicalNode } from 'lexical';
+import type { ElementNode } from 'lexical';
 import { $createTextNode } from 'lexical';
 import type { FC } from 'react';
 import { ERROR_MESSAGE } from 'src/constants';
 
-import MentionsPlugin, { AtSignMentionsRegex } from '../../Shared/Lexical/Plugins/AtMentionsPlugin';
-import { $createReadOnlyMentionNode, MentionNode } from '../Lexical/Nodes/MentionsNode';
+import { PreviewMentionPlugin } from './PreviewMentionPlugin';
 
 const TRANSFORMERS = [
   ...TEXT_FORMAT_TRANSFORMERS,
-  {
-    dependencies: [MentionNode],
-    export: () => {
-      return null;
-    },
-    regExp: AtSignMentionsRegex,
-    replace: (parentNode: ElementNode, children: Array<LexicalNode>, match: Array<String>) => {
-      // we have to check if the match is a valid mention and then convert it to mentionNode
-      const node = $createReadOnlyMentionNode(match[0].split('@')[1]);
-      parentNode.replace(node);
-      node.select(0, 0);
-      return;
-    },
-    type: 'element'
-  },
   {
     dependencies: [LinkNode],
     export: () => {
@@ -77,7 +61,7 @@ const Markdown: FC<Props> = ({ publication }) => {
       <LexicalAutoLinkPlugin />
       <HistoryPlugin />
       <HashtagPlugin />
-      <MentionsPlugin />
+      <PreviewMentionPlugin />
     </div>
   );
 };
