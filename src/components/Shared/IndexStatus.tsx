@@ -1,6 +1,5 @@
-import { useQuery } from '@apollo/client';
 import { Spinner } from '@components/UI/Spinner';
-import { HasTxHashBeenIndexedDocument } from '@generated/types';
+import { useHasTxHashBeenIndexedQuery } from '@generated/types';
 import { CheckCircleIcon } from '@heroicons/react/solid';
 import clsx from 'clsx';
 import type { FC } from 'react';
@@ -16,7 +15,7 @@ interface Props {
 const IndexStatus: FC<Props> = ({ type = 'Transaction', txHash, reload = false }) => {
   const [hide, setHide] = useState(false);
   const [pollInterval, setPollInterval] = useState(500);
-  const { data, loading } = useQuery(HasTxHashBeenIndexedDocument, {
+  const { data, loading } = useHasTxHashBeenIndexedQuery({
     variables: {
       request: { txHash }
     },

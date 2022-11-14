@@ -1,4 +1,3 @@
-import { useQuery } from '@apollo/client';
 import { Card } from '@components/UI/Card';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
@@ -11,8 +10,7 @@ import type {
   NewMirrorNotification,
   NewReactionNotification
 } from '@generated/types';
-import { NotificationTypes } from '@generated/types';
-import { CustomFiltersTypes, NotificationsDocument } from '@generated/types';
+import { CustomFiltersTypes, NotificationTypes, useNotificationsQuery } from '@generated/types';
 import { LightningBoltIcon } from '@heroicons/react/outline';
 import type { FC } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -55,7 +53,7 @@ const List: FC<Props> = ({ feedType }) => {
     limit: 20
   };
 
-  const { data, loading, error, fetchMore } = useQuery(NotificationsDocument, {
+  const { data, loading, error, fetchMore } = useNotificationsQuery({
     variables: { request }
   });
 

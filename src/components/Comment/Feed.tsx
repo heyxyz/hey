@@ -1,4 +1,3 @@
-import { useQuery } from '@apollo/client';
 import QueuedPublication from '@components/Publication/QueuedPublication';
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
@@ -7,7 +6,7 @@ import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import InfiniteLoader from '@components/UI/InfiniteLoader';
 import type { LensterPublication } from '@generated/lenstertypes';
-import { CommentFeedDocument, CustomFiltersTypes } from '@generated/types';
+import { CustomFiltersTypes, useCommentFeedQuery } from '@generated/types';
 import { CollectionIcon } from '@heroicons/react/outline';
 import type { FC } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -32,7 +31,7 @@ const Feed: FC<Props> = ({ publication }) => {
   const reactionRequest = currentProfile ? { profileId: currentProfile?.id } : null;
   const profileId = currentProfile?.id ?? null;
 
-  const { data, loading, error, fetchMore } = useQuery(CommentFeedDocument, {
+  const { data, loading, error, fetchMore } = useCommentFeedQuery({
     variables: { request, reactionRequest, profileId },
     skip: !publicationId
   });

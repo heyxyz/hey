@@ -1,5 +1,4 @@
 import { LensPeriphery } from '@abis/LensPeriphery';
-import { useMutation } from '@apollo/client';
 import ChooseFile from '@components/Shared/ChooseFile';
 import IndexStatus from '@components/Shared/IndexStatus';
 import { Button } from '@components/UI/Button';
@@ -11,12 +10,12 @@ import { Spinner } from '@components/UI/Spinner';
 import { TextArea } from '@components/UI/TextArea';
 import { Toggle } from '@components/UI/Toggle';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
-import type { CreatePublicSetProfileMetadataUriRequest, MediaSet, Mutation } from '@generated/types';
+import type { CreatePublicSetProfileMetadataUriRequest, MediaSet } from '@generated/types';
 import {
-  CreateSetProfileMetadataTypedDataDocument,
-  CreateSetProfileMetadataViaDispatcherDocument,
-  Profile
+  useCreateSetProfileMetadataTypedDataMutation,
+  useCreateSetProfileMetadataViaDispatcherMutation
 } from '@generated/types';
+import { Profile } from '@generated/types';
 import { PencilIcon } from '@heroicons/react/outline';
 import getAttribute from '@lib/getAttribute';
 import getIPFSLink from '@lib/getIPFSLink';
@@ -85,9 +84,8 @@ const Profile: FC<Props> = ({ profile }) => {
   });
 
   const { broadcast, data: broadcastData, loading: broadcastLoading } = useBroadcast({ onCompleted });
-  const [createSetProfileMetadataTypedData, { loading: typedDataLoading }] = useMutation<Mutation>(
-    CreateSetProfileMetadataTypedDataDocument,
-    {
+  const [createSetProfileMetadataTypedData, { loading: typedDataLoading }] =
+    useCreateSetProfileMetadataTypedDataMutation({
       onCompleted: async ({ createSetProfileMetadataTypedData }) => {
         try {
           const { id, typedData } = createSetProfileMetadataTypedData;
@@ -117,14 +115,10 @@ const Profile: FC<Props> = ({ profile }) => {
         } catch {}
       },
       onError
-    }
-  );
+    });
 
   const [createSetProfileMetadataViaDispatcher, { data: dispatcherData, loading: dispatcherLoading }] =
-    useMutation(CreateSetProfileMetadataViaDispatcherDocument, {
-      onCompleted,
-      onError
-    });
+    useCreateSetProfileMetadataViaDispatcherMutation({ onCompleted, onError });
 
   const createViaDispatcher = async (request: CreatePublicSetProfileMetadataUriRequest) => {
     const { data } = await createSetProfileMetadataViaDispatcher({

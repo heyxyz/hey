@@ -16,8 +16,5 @@ generates:
     plugins:
       - typescript
       - typescript-operations
-      - typed-document-node
       - fragment-matcher
-    config:
-      fetcher: fetch
-      dedupeFragments: true
+      - typescript-react-apollo

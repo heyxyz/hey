@@ -1,4 +1,3 @@
-import { useQuery } from '@apollo/client';
 import UserProfileShimmer from '@components/Shared/Shimmer/UserProfileShimmer';
 import UserProfile from '@components/Shared/UserProfile';
 import { Card } from '@components/UI/Card';
@@ -6,7 +5,7 @@ import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Modal } from '@components/UI/Modal';
 import type { Profile } from '@generated/types';
-import { RecommendedProfilesDocument } from '@generated/types';
+import { useRecommendedProfilesQuery } from '@generated/types';
 import { DotsCircleHorizontalIcon, UsersIcon } from '@heroicons/react/outline';
 import { SparklesIcon } from '@heroicons/react/solid';
 import { Leafwatch } from '@lib/leafwatch';
@@ -27,7 +26,7 @@ const Title = () => {
 
 const RecommendedProfiles: FC = () => {
   const [showSuggestedModal, setShowSuggestedModal] = useState(false);
-  const { data, loading, error } = useQuery(RecommendedProfilesDocument, {
+  const { data, loading, error } = useRecommendedProfilesQuery({
     variables: { options: { shuffle: false } }
   });
 

@@ -1,4 +1,3 @@
-import { useQuery } from '@apollo/client';
 import UserProfilesShimmer from '@components/Shared/Shimmer/UserProfilesShimmer';
 import UserProfile from '@components/Shared/UserProfile';
 import { Card } from '@components/UI/Card';
@@ -6,7 +5,7 @@ import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import InfiniteLoader from '@components/UI/InfiniteLoader';
 import type { Profile } from '@generated/types';
-import { CustomFiltersTypes, SearchProfilesDocument, SearchRequestTypes } from '@generated/types';
+import { CustomFiltersTypes, SearchRequestTypes, useSearchProfilesQuery } from '@generated/types';
 import { UsersIcon } from '@heroicons/react/outline';
 import type { FC } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -25,7 +24,7 @@ const Profiles: FC<Props> = ({ query }) => {
     limit: 10
   };
 
-  const { data, loading, error, fetchMore } = useQuery(SearchProfilesDocument, {
+  const { data, loading, error, fetchMore } = useSearchProfilesQuery({
     variables: { request },
     skip: !query
   });
