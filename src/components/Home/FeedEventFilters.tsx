@@ -3,11 +3,11 @@ import { Tooltip } from '@components/UI/Tooltip';
 import { Menu, Transition } from '@headlessui/react';
 import { AdjustmentsIcon } from '@heroicons/react/outline';
 import clsx from 'clsx';
-import type { ChangeEvent } from 'react';
+import type { ChangeEvent, FC } from 'react';
 import React, { Fragment } from 'react';
 import { useTimelinePersistStore } from 'src/store/timeline';
 
-const FeedEventFilters = () => {
+const FeedEventFilters: FC = () => {
   const feedEventFilters = useTimelinePersistStore((state) => state.feedEventFilters);
   const setFeedEventFilters = useTimelinePersistStore((state) => state.setFeedEventFilters);
 

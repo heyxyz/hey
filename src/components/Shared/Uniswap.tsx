@@ -2,7 +2,7 @@ import type { LensterCollectModule, LensterFollowModule } from '@generated/lenst
 import getUniswapURL from '@lib/getUniswapURL';
 import { Leafwatch } from '@lib/leafwatch';
 import type { FC } from 'react';
-import { STATIC_ASSETS } from 'src/constants';
+import { STATIC_IMAGES_URL } from 'src/constants';
 import { PUBLICATION } from 'src/tracking';
 
 interface Props {
@@ -25,7 +25,7 @@ const Uniswap: FC<Props> = ({ module }) => {
         rel="noreferrer noopener"
       >
         <img
-          src={`${STATIC_ASSETS}/brands/uniswap.png`}
+          src={`${STATIC_IMAGES_URL}/brands/uniswap.png`}
           className="w-5 h-5"
           height={20}
           width={20}
