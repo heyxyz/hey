@@ -29,6 +29,7 @@ const List: FC<Props> = ({ setEmoji }) => {
   };
 
   useEffect(() => {
+    console.log('useEffect');
     getEmojisList();
   }, []);
 
@@ -43,11 +44,7 @@ const List: FC<Props> = ({ setEmoji }) => {
   }
 
   if (loading) {
-    return (
-      <div className="m-5">
-        <Loader message="Loading emojis" />
-      </div>
-    );
+    return <Loader message="Loading emojis" />;
   }
 
   return (
