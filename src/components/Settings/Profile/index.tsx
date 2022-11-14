@@ -1,9 +1,8 @@
-import { useQuery } from '@apollo/client';
 import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import { PageLoading } from '@components/UI/PageLoading';
 import MetaTags from '@components/utils/MetaTags';
-import { ProfileSettingsDocument } from '@generated/types';
+import { useProfileSettingsQuery } from '@generated/types';
 import { PhotographIcon } from '@heroicons/react/outline';
 import { Leafwatch } from '@lib/leafwatch';
 import clsx from 'clsx';
@@ -30,7 +29,7 @@ const ProfileSettings: NextPage = () => {
     Leafwatch.track('Pageview', { path: PAGEVIEW.SETTINGS.PROFILE });
   }, []);
 
-  const { data, loading, error } = useQuery(ProfileSettingsDocument, {
+  const { data, loading, error } = useProfileSettingsQuery({
     variables: { request: { profileId: currentProfile?.id } },
     skip: !currentProfile?.id,
     onCompleted: (data) => {

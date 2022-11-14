@@ -1,7 +1,6 @@
-import { useLazyQuery } from '@apollo/client';
 import useXmtpClient from '@components/utils/hooks/useXmtpClient';
 import type { Profile } from '@generated/types';
-import { ProfilesDocument } from '@generated/types';
+import { useProfilesLazyQuery } from '@generated/types';
 import buildConversationId from '@lib/buildConversationId';
 import chunkArray from '@lib/chunkArray';
 import { buildConversationKey, parseConversationKey } from '@lib/conversationKey';
@@ -34,7 +33,7 @@ const useMessagePreviews = () => {
   const [messagesLoading, setMessagesLoading] = useState<boolean>(true);
   const [profilesLoading, setProfilesLoading] = useState<boolean>(false);
   const [profilesError, setProfilesError] = useState<Error | undefined>();
-  const [loadProfiles] = useLazyQuery(ProfilesDocument);
+  const [loadProfiles] = useProfilesLazyQuery();
   const selectedTab = useMessageStore((state) => state.selectedTab);
   const [profilesToShow, setProfilesToShow] = useState<Map<string, Profile>>(new Map());
   const [requestedCount, setRequestedCount] = useState(0);

@@ -1,16 +1,11 @@
-import { useQuery } from '@apollo/client';
 import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import { PageLoading } from '@components/UI/PageLoading';
 import { Spinner } from '@components/UI/Spinner';
 import MetaTags from '@components/utils/MetaTags';
 import type { Erc20 } from '@generated/types';
-import {
-  ApprovedModuleAllowanceAmountDocument,
-  CollectModules,
-  FollowModules,
-  ReferenceModules
-} from '@generated/types';
+import { useApprovedModuleAllowanceAmountQuery } from '@generated/types';
+import { CollectModules, FollowModules, ReferenceModules } from '@generated/types';
 import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
 import { useEffect, useState } from 'react';
@@ -42,7 +37,7 @@ const getAllowancePayload = (currency: string) => {
 const AllowanceSettings: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [currencyLoading, setCurrencyLoading] = useState(false);
-  const { data, loading, error, refetch } = useQuery(ApprovedModuleAllowanceAmountDocument, {
+  const { data, loading, error, refetch } = useApprovedModuleAllowanceAmountQuery({
     variables: {
       request: getAllowancePayload(DEFAULT_COLLECT_TOKEN)
     },

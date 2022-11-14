@@ -1,5 +1,4 @@
 import { LensHubProxy } from '@abis/LensHubProxy';
-import { useMutation } from '@apollo/client';
 import Editor from '@components/Composer/Editor';
 import Attachments from '@components/Shared/Attachments';
 import { AudioPublicationSchema } from '@components/Shared/Audio';
@@ -8,13 +7,10 @@ import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
 import type { LensterAttachment } from '@generated/lenstertypes';
-import type { CreatePublicPostRequest, Mutation } from '@generated/types';
-import {
-  CreatePostTypedDataDocument,
-  CreatePostViaDispatcherDocument,
-  PublicationMainFocus,
-  ReferenceModules
-} from '@generated/types';
+import type { CreatePublicPostRequest } from '@generated/types';
+import { useCreatePostViaDispatcherMutation } from '@generated/types';
+import { useCreatePostTypedDataMutation } from '@generated/types';
+import { PublicationMainFocus, ReferenceModules } from '@generated/types';
 import type { IGif } from '@giphy/js-types';
 import { PencilAltIcon } from '@heroicons/react/outline';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
@@ -152,64 +148,58 @@ const NewUpdate: FC = () => {
       setTxnQueue([generateOptimisticPost({ txId: data?.broadcast?.txId }), ...txnQueue]);
     }
   });
-  const [createPostTypedData, { loading: typedDataLoading }] = useMutation<Mutation>(
-    CreatePostTypedDataDocument,
-    {
-      onCompleted: async ({ createPostTypedData }) => {
-        try {
-          const { id, typedData } = createPostTypedData;
-          const {
-            profileId,
-            contentURI,
-            collectModule,
-            collectModuleInitData,
-            referenceModule,
-            referenceModuleInitData,
-            deadline
-          } = typedData.value;
-          const signature = await signTypedDataAsync(getSignature(typedData));
-          const { v, r, s } = splitSignature(signature);
-          const sig = { v, r, s, deadline };
-          const inputStruct = {
-            profileId,
-            contentURI,
-            collectModule,
-            collectModuleInitData,
-            referenceModule,
-            referenceModuleInitData,
-            sig
-          };
+  const [createPostTypedData, { loading: typedDataLoading }] = useCreatePostTypedDataMutation({
+    onCompleted: async ({ createPostTypedData }) => {
+      try {
+        const { id, typedData } = createPostTypedData;
+        const {
+          profileId,
+          contentURI,
+          collectModule,
+          collectModuleInitData,
+          referenceModule,
+          referenceModuleInitData,
+          deadline
+        } = typedData.value;
+        const signature = await signTypedDataAsync(getSignature(typedData));
+        const { v, r, s } = splitSignature(signature);
+        const sig = { v, r, s, deadline };
+        const inputStruct = {
+          profileId,
+          contentURI,
+          collectModule,
+          collectModuleInitData,
+          referenceModule,
+          referenceModuleInitData,
+          sig
+        };
 
-          setUserSigNonce(userSigNonce + 1);
-          if (!RELAY_ON) {
-            return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
-          }
-
-          const {
-            data: { broadcast: result }
-          } = await broadcast({ request: { id, signature } });
-
-          if ('reason' in result) {
-            write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
-          }
-        } catch {}
-      },
-      onError
-    }
-  );
-
-  const [createPostViaDispatcher, { loading: dispatcherLoading }] = useMutation(
-    CreatePostViaDispatcherDocument,
-    {
-      onCompleted: (data) => {
-        onCompleted();
-        if (data.createPostViaDispatcher.__typename === 'RelayerResult') {
-          setTxnQueue([generateOptimisticPost({ txId: data.createPostViaDispatcher.txId }), ...txnQueue]);
+        setUserSigNonce(userSigNonce + 1);
+        if (!RELAY_ON) {
+          return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
         }
-      },
-      onError
-    }
-  );
+
+        const {
+          data: { broadcast: result }
+        } = await broadcast({ request: { id, signature } });
+
+        if ('reason' in result) {
+          write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
+        }
+      } catch {}
+    },
+    onError
+  });
+
+  const [createPostViaDispatcher, { loading: dispatcherLoading }] = useCreatePostViaDispatcherMutation({
+    onCompleted: (data) => {
+      onCompleted();
+      if (data.createPostViaDispatcher.__typename === 'RelayerResult') {
+        setTxnQueue([generateOptimisticPost({ txId: data.createPostViaDispatcher.txId }), ...txnQueue]);
+      }
+    },
+    onError
+  });
 
   const getMainContentFocus = () => {
     if (attachments.length > 0) {

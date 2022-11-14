@@ -1,5 +1,4 @@
 import { LensHubProxy } from '@abis/LensHubProxy';
-import { useMutation, useQuery } from '@apollo/client';
 import IndexStatus from '@components/Shared/IndexStatus';
 import { Button } from '@components/UI/Button';
 import { Card } from '@components/UI/Card';
@@ -7,11 +6,9 @@ import { Form, useZodForm } from '@components/UI/Form';
 import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
-import type { Erc20, Mutation } from '@generated/types';
-import {
-  CreateSetFollowModuleTypedDataDocument,
-  EnabledCurrencyModulesWithProfileDocument
-} from '@generated/types';
+import type { Erc20 } from '@generated/types';
+import { useCreateSetFollowModuleTypedDataMutation } from '@generated/types';
+import { useEnabledCurrencyModulesWithProfileQuery } from '@generated/types';
 import { StarIcon, XIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
 import getTokenImage from '@lib/getTokenImage';
@@ -41,7 +38,7 @@ const SuperFollow: FC = () => {
   const [selectedCurrency, setSelectedCurrency] = useState(DEFAULT_COLLECT_TOKEN);
   const [selectedCurrencySymobol, setSelectedCurrencySymobol] = useState('WMATIC');
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
-  const { data: currencyData, loading } = useQuery(EnabledCurrencyModulesWithProfileDocument, {
+  const { data: currencyData, loading } = useEnabledCurrencyModulesWithProfileQuery({
     variables: { request: { profileId: currentProfile?.id } },
     skip: !currentProfile?.id
   });
@@ -71,9 +68,8 @@ const SuperFollow: FC = () => {
   });
 
   const { broadcast, data: broadcastData, loading: broadcastLoading } = useBroadcast({ onCompleted });
-  const [createSetFollowModuleTypedData, { loading: typedDataLoading }] = useMutation<Mutation>(
-    CreateSetFollowModuleTypedDataDocument,
-    {
+  const [createSetFollowModuleTypedData, { loading: typedDataLoading }] =
+    useCreateSetFollowModuleTypedDataMutation({
       onCompleted: async ({ createSetFollowModuleTypedData }) => {
         try {
           const { id, typedData } = createSetFollowModuleTypedData;
@@ -103,8 +99,7 @@ const SuperFollow: FC = () => {
         } catch {}
       },
       onError
-    }
-  );
+    });
 
   const setSuperFollow = (amount: string | null, recipient: string | null) => {
     if (!currentProfile) {
