@@ -1,6 +1,5 @@
 import { LensHubProxy } from '@abis/LensHubProxy';
 import { UpdateOwnableFeeCollectModule } from '@abis/UpdateOwnableFeeCollectModule';
-import { useMutation, useQuery } from '@apollo/client';
 import AllowanceButton from '@components/Settings/Allowance/Button';
 import CollectWarning from '@components/Shared/CollectWarning';
 import IndexStatus from '@components/Shared/IndexStatus';
@@ -16,14 +15,14 @@ import { Tooltip } from '@components/UI/Tooltip';
 import { WarningMessage } from '@components/UI/WarningMessage';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
 import type { LensterPublication } from '@generated/lenstertypes';
-import type { ElectedMirror, Mutation } from '@generated/types';
+import type { ElectedMirror } from '@generated/types';
 import {
-  ApprovedModuleAllowanceAmountDocument,
-  CollectModuleDocument,
   CollectModules,
-  CreateCollectTypedDataDocument,
-  ProxyActionDocument,
-  PublicationRevenueDocument
+  useApprovedModuleAllowanceAmountQuery,
+  useCollectModuleQuery,
+  useCreateCollectTypedDataMutation,
+  useProxyActionMutation,
+  usePublicationRevenueQuery
 } from '@generated/types';
 import {
   CashIcon,
@@ -76,7 +75,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
   const isMirror = electedMirror ? false : publication.__typename === 'Mirror';
 
-  const { data, loading } = useQuery(CollectModuleDocument, {
+  const { data, loading } = useCollectModuleQuery({
     variables: { request: { publicationId: publication?.id } }
   });
 
@@ -113,7 +112,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
 
   const percentageCollected = (count / parseInt(collectModule?.collectLimit)) * 100;
 
-  const { data: allowanceData, loading: allowanceLoading } = useQuery(ApprovedModuleAllowanceAmountDocument, {
+  const { data: allowanceData, loading: allowanceLoading } = useApprovedModuleAllowanceAmountQuery({
     variables: {
       request: {
         currencies: collectModule?.amount?.asset?.address,
@@ -128,7 +127,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
     }
   });
 
-  const { data: revenueData, loading: revenueLoading } = useQuery(PublicationRevenueDocument, {
+  const { data: revenueData, loading: revenueLoading } = usePublicationRevenueQuery({
     variables: {
       request: {
         publicationId: publication.__typename === 'Mirror' ? publication?.mirrorOf?.id : publication?.id
@@ -163,46 +162,43 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
   }
 
   const { broadcast, data: broadcastData, loading: broadcastLoading } = useBroadcast({ onCompleted });
-  const [createCollectTypedData, { loading: typedDataLoading }] = useMutation<Mutation>(
-    CreateCollectTypedDataDocument,
-    {
-      onCompleted: async ({ createCollectTypedData }) => {
-        try {
-          const { id, typedData } = createCollectTypedData;
-          const { profileId, pubId, data: collectData, deadline } = typedData.value;
-          const signature = await signTypedDataAsync(getSignature(typedData));
-          const { v, r, s } = splitSignature(signature);
-          const sig = { v, r, s, deadline };
-          const inputStruct = {
-            collector: address,
-            profileId,
-            pubId,
-            data: collectData,
-            sig
-          };
+  const [createCollectTypedData, { loading: typedDataLoading }] = useCreateCollectTypedDataMutation({
+    onCompleted: async ({ createCollectTypedData }) => {
+      try {
+        const { id, typedData } = createCollectTypedData;
+        const { profileId, pubId, data: collectData, deadline } = typedData.value;
+        const signature = await signTypedDataAsync(getSignature(typedData));
+        const { v, r, s } = splitSignature(signature);
+        const sig = { v, r, s, deadline };
+        const inputStruct = {
+          collector: address,
+          profileId,
+          pubId,
+          data: collectData,
+          sig
+        };
 
-          setUserSigNonce(userSigNonce + 1);
-          if (!RELAY_ON) {
-            return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
-          }
+        setUserSigNonce(userSigNonce + 1);
+        if (!RELAY_ON) {
+          return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
+        }
 
-          const {
-            data: { broadcast: result }
-          } = await broadcast({ request: { id, signature } });
+        const {
+          data: { broadcast: result }
+        } = await broadcast({ request: { id, signature } });
 
-          if ('reason' in result) {
-            write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
-          }
-        } catch {}
-      },
-      onError
-    }
-  );
+        if ('reason' in result) {
+          write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
+        }
+      } catch {}
+    },
+    onError
+  });
 
-  const [createCollectProxyAction, { loading: proxyActionLoading }] = useMutation<Mutation>(
-    ProxyActionDocument,
-    { onCompleted, onError }
-  );
+  const [createCollectProxyAction, { loading: proxyActionLoading }] = useProxyActionMutation({
+    onCompleted,
+    onError
+  });
 
   const createViaProxyAction = async (variables: any) => {
     const { data } = await createCollectProxyAction({ variables });

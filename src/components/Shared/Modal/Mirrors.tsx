@@ -1,10 +1,9 @@
-import { useQuery } from '@apollo/client';
 import UserProfile from '@components/Shared/UserProfile';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import InfiniteLoader from '@components/UI/InfiniteLoader';
 import type { Profile } from '@generated/types';
-import { MirrorsDocument } from '@generated/types';
+import { useMirrorsQuery } from '@generated/types';
 import { SwitchHorizontalIcon } from '@heroicons/react/outline';
 import type { FC } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -20,7 +19,7 @@ const Mirrors: FC<Props> = ({ publicationId }) => {
   // Variables
   const request = { whoMirroredPublicationId: publicationId, limit: 10 };
 
-  const { data, loading, error, fetchMore } = useQuery(MirrorsDocument, {
+  const { data, loading, error, fetchMore } = useMirrorsQuery({
     variables: { request },
     skip: !publicationId
   });

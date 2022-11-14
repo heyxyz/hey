@@ -1,11 +1,9 @@
 import { LensHubProxy } from '@abis/LensHubProxy';
-import { useMutation } from '@apollo/client';
 import IndexStatus from '@components/Shared/IndexStatus';
 import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
-import type { Mutation } from '@generated/types';
-import { CreateSetDispatcherTypedDataDocument } from '@generated/types';
+import { useCreateSetDispatcherTypedDataMutation } from '@generated/types';
 import { CheckCircleIcon, XIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
 import { Leafwatch } from '@lib/leafwatch';
@@ -50,9 +48,8 @@ const ToggleDispatcher: FC<Props> = ({ buttonSize = 'md' }) => {
   });
 
   const { broadcast, data: broadcastData, loading: broadcastLoading } = useBroadcast({ onCompleted });
-  const [createSetProfileMetadataTypedData, { loading: typedDataLoading }] = useMutation<Mutation>(
-    CreateSetDispatcherTypedDataDocument,
-    {
+  const [createSetProfileMetadataTypedData, { loading: typedDataLoading }] =
+    useCreateSetDispatcherTypedDataMutation({
       onCompleted: async ({ createSetDispatcherTypedData }) => {
         try {
           const { id, typedData } = createSetDispatcherTypedData;
@@ -81,8 +78,7 @@ const ToggleDispatcher: FC<Props> = ({ buttonSize = 'md' }) => {
         } catch {}
       },
       onError
-    }
-  );
+    });
 
   const isLoading = signLoading || writeLoading || broadcastLoading || typedDataLoading;
 

@@ -25,9 +25,7 @@ interface Props {
 
 const Pending: FC<Props> = ({ txHash, indexing, indexed, type, urlPrefix }) => {
   const { data, loading } = useQuery(HAS_PUBLICATION_INDEXED_QUERY, {
-    variables: {
-      request: { txHash }
-    },
+    variables: { request: { txHash } },
     pollInterval: 1000
   });
 

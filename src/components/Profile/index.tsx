@@ -1,7 +1,6 @@
-import { useQuery } from '@apollo/client';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import MetaTags from '@components/utils/MetaTags';
-import { ProfileDocument } from '@generated/types';
+import { useProfileQuery } from '@generated/types';
 import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
@@ -30,7 +29,7 @@ const ViewProfile: NextPage = () => {
       : 'FEED'
   );
 
-  const { data, loading, error } = useQuery(ProfileDocument, {
+  const { data, loading, error } = useProfileQuery({
     variables: { request: { handle: username }, who: currentProfile?.id ?? null },
     skip: !username
   });

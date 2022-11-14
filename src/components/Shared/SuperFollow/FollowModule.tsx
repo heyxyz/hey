@@ -1,17 +1,16 @@
 import { LensHubProxy } from '@abis/LensHubProxy';
-import { useMutation, useQuery } from '@apollo/client';
 import AllowanceButton from '@components/Settings/Allowance/Button';
 import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
 import { WarningMessage } from '@components/UI/WarningMessage';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
 import type { LensterFollowModule } from '@generated/lenstertypes';
-import type { Mutation, Profile } from '@generated/types';
+import type { Profile } from '@generated/types';
 import {
-  ApprovedModuleAllowanceAmountDocument,
-  CreateFollowTypedDataDocument,
   FollowModules,
-  SuperFollowDocument
+  useApprovedModuleAllowanceAmountQuery,
+  useCreateFollowTypedDataMutation,
+  useSuperFollowQuery
 } from '@generated/types';
 import { StarIcon, UserIcon } from '@heroicons/react/outline';
 import formatAddress from '@lib/formatAddress';
@@ -63,14 +62,14 @@ const FollowModule: FC<Props> = ({ profile, setFollowing, setShowFollowModal, ag
     onError
   });
 
-  const { data, loading } = useQuery(SuperFollowDocument, {
+  const { data, loading } = useSuperFollowQuery({
     variables: { request: { profileId: profile?.id } },
     skip: !profile?.id
   });
 
   const followModule: any = data?.profile?.followModule;
 
-  const { data: allowanceData, loading: allowanceLoading } = useQuery(ApprovedModuleAllowanceAmountDocument, {
+  const { data: allowanceData, loading: allowanceLoading } = useApprovedModuleAllowanceAmountQuery({
     variables: {
       request: {
         currencies: followModule?.amount?.asset?.address,
@@ -100,40 +99,37 @@ const FollowModule: FC<Props> = ({ profile, setFollowing, setShowFollowModal, ag
   }
 
   const { broadcast, loading: broadcastLoading } = useBroadcast({ onCompleted });
-  const [createFollowTypedData, { loading: typedDataLoading }] = useMutation<Mutation>(
-    CreateFollowTypedDataDocument,
-    {
-      onCompleted: async ({ createFollowTypedData }) => {
-        try {
-          const { id, typedData } = createFollowTypedData;
-          const { profileIds, datas: followData, deadline } = typedData.value;
-          const signature = await signTypedDataAsync(getSignature(typedData));
-          const { v, r, s } = splitSignature(signature);
-          const sig = { v, r, s, deadline };
-          const inputStruct = {
-            follower: address,
-            profileIds,
-            datas: followData,
-            sig
-          };
+  const [createFollowTypedData, { loading: typedDataLoading }] = useCreateFollowTypedDataMutation({
+    onCompleted: async ({ createFollowTypedData }) => {
+      try {
+        const { id, typedData } = createFollowTypedData;
+        const { profileIds, datas: followData, deadline } = typedData.value;
+        const signature = await signTypedDataAsync(getSignature(typedData));
+        const { v, r, s } = splitSignature(signature);
+        const sig = { v, r, s, deadline };
+        const inputStruct = {
+          follower: address,
+          profileIds,
+          datas: followData,
+          sig
+        };
 
-          setUserSigNonce(userSigNonce + 1);
-          if (!RELAY_ON) {
-            return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
-          }
+        setUserSigNonce(userSigNonce + 1);
+        if (!RELAY_ON) {
+          return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
+        }
 
-          const {
-            data: { broadcast: result }
-          } = await broadcast({ request: { id, signature } });
+        const {
+          data: { broadcast: result }
+        } = await broadcast({ request: { id, signature } });
 
-          if ('reason' in result) {
-            write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
-          }
-        } catch {}
-      },
-      onError
-    }
-  );
+        if ('reason' in result) {
+          write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
+        }
+      } catch {}
+    },
+    onError
+  });
 
   const createFollow = () => {
     if (!currentProfile) {
@@ -144,17 +140,19 @@ const FollowModule: FC<Props> = ({ profile, setFollowing, setShowFollowModal, ag
       variables: {
         options: { overrideSigNonce: userSigNonce },
         request: {
-          follow: {
-            profile: profile?.id,
-            followModule: {
-              feeFollowModule: {
-                amount: {
-                  currency: followModule?.amount?.asset?.address,
-                  value: followModule?.amount?.value
+          follow: [
+            {
+              profile: profile?.id,
+              followModule: {
+                feeFollowModule: {
+                  amount: {
+                    currency: followModule?.amount?.asset?.address,
+                    value: followModule?.amount?.value
+                  }
                 }
               }
             }
-          }
+          ]
         }
       }
     });
