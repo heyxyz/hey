@@ -41,7 +41,12 @@ const Action: FC<ActionProps> = ({ icon, text, onClick }) => (
   </Tooltip>
 );
 
-const NewPost: FC = () => {
+interface NewPostProps {
+  placeholder?: string;
+  defaultContent?: string;
+}
+
+const NewPost: FC<NewPostProps> = ({ defaultContent, placeholder }) => {
   const { query, isReady } = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const showNewPostModal = usePublicationStore((state) => state.showNewPostModal);
@@ -94,7 +99,7 @@ const NewPost: FC = () => {
           onClick={() => openModal('update')}
         >
           <PencilAltIcon className="h-5 w-5" />
-          <span>What's happening?</span>
+          <span>{placeholder}</span>
         </button>
         {isFeatureEnabled('composer-v2', currentProfile?.id) && (
           <div className="flex items-center space-x-5">
@@ -126,11 +131,18 @@ const NewPost: FC = () => {
           show={showNewPostModal}
           onClose={() => setShowNewPostModal(false)}
         >
-          {selectedAction === 'update' && <NewUpdate />}
+          {selectedAction === 'update' && (
+            <NewUpdate defaultContent={defaultContent} placeholder={placeholder} />
+          )}
         </Modal>
       </div>
     </Card>
   );
+};
+
+NewPost.defaultProps = {
+  placeholder: '',
+  defaultContent: ''
 };
 
 export default withLexicalContext(NewPost);

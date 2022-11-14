@@ -1,3 +1,4 @@
+import NewPost from '@components/Composer/Post/New';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import MetaTags from '@components/utils/MetaTags';
 import { useProfileQuery } from '@generated/types';
@@ -76,6 +77,12 @@ const ViewProfile: NextPage = () => {
           <Details profile={profile as any} />
         </GridItemFour>
         <GridItemEight className="space-y-5">
+          {currentProfile && profile && currentProfile.id !== profile.id && (
+            <NewPost
+              defaultContent={`@${profile?.handle} `}
+              placeholder={`Write a message to @${profile?.handle}`}
+            />
+          )}
           <FeedType stats={profile?.stats as any} setFeedType={setFeedType} feedType={feedType} />
           {(feedType === 'FEED' || feedType === 'REPLIES' || feedType === 'MEDIA') && (
             <Feed profile={profile as any} type={feedType} />

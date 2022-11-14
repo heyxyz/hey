@@ -65,7 +65,12 @@ const AccessSettings = dynamic(() => import('@components/Composer/Actions/Access
   loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
 });
 
-const NewUpdate: FC = () => {
+interface NewUpdateProps {
+  placeholder?: string;
+  defaultContent?: string;
+}
+
+const NewUpdate: FC<NewUpdateProps> = ({ defaultContent, placeholder }) => {
   // App store
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
@@ -353,7 +358,7 @@ const NewUpdate: FC = () => {
   return (
     <div className="pb-3">
       {error && <ErrorMessage className="mb-3" title="Transaction failed!" error={error} />}
-      <Editor />
+      <Editor defaultContent={defaultContent} placeholder={placeholder} />
       {postContentError && (
         <div className="px-5 pb-3 mt-1 text-sm font-bold text-red-500">{postContentError}</div>
       )}
@@ -380,6 +385,11 @@ const NewUpdate: FC = () => {
       </div>
     </div>
   );
+};
+
+NewUpdate.defaultProps = {
+  placeholder: '',
+  defaultContent: ''
 };
 
 export default NewUpdate;

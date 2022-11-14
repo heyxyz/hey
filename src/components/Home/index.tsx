@@ -38,7 +38,7 @@ const Home: NextPage = () => {
         <GridItemEight className="space-y-5">
           {currentProfile ? (
             <>
-              <NewPost />
+              <NewPost placeholder="What's happpening" />
               <FeedType feedType={feedType} setFeedType={setFeedType} />
               {feedType === 'TIMELINE' ? <Timeline /> : <Highlights />}
             </>
