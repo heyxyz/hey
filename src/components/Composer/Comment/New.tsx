@@ -2,6 +2,7 @@ import { LensHubProxy } from '@abis/LensHubProxy';
 import { useMutation } from '@apollo/client';
 import Attachments from '@components/Shared/Attachments';
 import { AudioPublicationSchema } from '@components/Shared/Audio';
+import withLexicalContext from '@components/Shared/Lexical/withLexicalContext';
 import { Button } from '@components/UI/Button';
 import { Card } from '@components/UI/Card';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
@@ -52,7 +53,6 @@ import { v4 as uuid } from 'uuid';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
 import Editor from '../Editor';
-import withEditorContext from '../Editor/withEditorContext';
 
 const Attachment = dynamic(() => import('@components/Composer/Actions/Attachment'), {
   loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
@@ -408,4 +408,4 @@ const NewComment: FC<Props> = ({ publication }) => {
   );
 };
 
-export default withEditorContext(NewComment);
+export default withLexicalContext(NewComment);
