@@ -12,10 +12,10 @@ import { Toggle } from '@components/UI/Toggle';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
 import type { CreatePublicSetProfileMetadataUriRequest, MediaSet } from '@generated/types';
 import {
+  Profile,
   useCreateSetProfileMetadataTypedDataMutation,
   useCreateSetProfileMetadataViaDispatcherMutation
 } from '@generated/types';
-import { Profile } from '@generated/types';
 import { PencilIcon } from '@heroicons/react/outline';
 import getAttribute from '@lib/getAttribute';
 import getIPFSLink from '@lib/getIPFSLink';

@@ -5,7 +5,6 @@ import { Leafwatch } from '@lib/leafwatch';
 import { useTheme } from 'next-themes';
 import type { FC, ReactNode } from 'react';
 import { useEffect } from 'react';
-import { Fragment } from 'react';
 import { APP_NAME, STATIC_ASSETS } from 'src/constants';
 import { PAGEVIEW } from 'src/tracking';
 

@@ -4,8 +4,7 @@ import type { Profile } from '@generated/types';
 import { ChevronLeftIcon } from '@heroicons/react/outline';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
-import { useEffect } from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import Follow from '../Shared/Follow';
 
