@@ -1,5 +1,4 @@
 import { LensHubProxy } from '@abis/LensHubProxy';
-import { useMutation } from '@apollo/client';
 import IndexStatus from '@components/Shared/IndexStatus';
 import UserProfile from '@components/Shared/UserProfile';
 import { Button } from '@components/UI/Button';
@@ -7,8 +6,8 @@ import { Card } from '@components/UI/Card';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
-import type { Mutation, Profile } from '@generated/types';
-import { CreateSetDefaultProfileTypedDataDocument } from '@generated/types';
+import type { Profile } from '@generated/types';
+import { useCreateSetDefaultProfileTypedDataMutation } from '@generated/types';
 import { ExclamationIcon, PencilIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
 import { Leafwatch } from '@lib/leafwatch';
@@ -62,9 +61,8 @@ const SetProfile: FC = () => {
   }, []);
 
   const { broadcast, data: broadcastData, loading: broadcastLoading } = useBroadcast({ onCompleted });
-  const [createSetDefaultProfileTypedData, { loading: typedDataLoading }] = useMutation<Mutation>(
-    CreateSetDefaultProfileTypedDataDocument,
-    {
+  const [createSetDefaultProfileTypedData, { loading: typedDataLoading }] =
+    useCreateSetDefaultProfileTypedDataMutation({
       onCompleted: async ({ createSetDefaultProfileTypedData }) => {
         try {
           const { id, typedData } = createSetDefaultProfileTypedData;
@@ -94,8 +92,7 @@ const SetProfile: FC = () => {
         } catch {}
       },
       onError
-    }
-  );
+    });
 
   const setDefaultProfile = () => {
     if (!currentProfile) {

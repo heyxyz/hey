@@ -51,7 +51,7 @@
     "react-hot-toast": "^2.4.0",
     "react-infinite-scroll-component": "^6.1.0",
     "uuid": "^9.0.0",
-    "wagmi": "^0.8.1",
+    "wagmi": "^0.8.3",
     "zod": "^3.19.1",
     "zustand": "^4.1.4"
   },
@@ -61,6 +61,7 @@
     "@graphql-codegen/typed-document-node": "^2.3.5",
     "@graphql-codegen/typescript": "^2.8.1",
     "@graphql-codegen/typescript-operations": "^2.5.5",
+    "@graphql-codegen/typescript-react-apollo": "^3.3.6",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/forms": "^0.5.3",
     "@tailwindcss/line-clamp": "^0.4.2",

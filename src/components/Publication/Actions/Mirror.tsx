@@ -1,12 +1,11 @@
 import { LensHubProxy } from '@abis/LensHubProxy';
 import type { ApolloCache } from '@apollo/client';
-import { useMutation } from '@apollo/client';
 import { Spinner } from '@components/UI/Spinner';
 import { Tooltip } from '@components/UI/Tooltip';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
 import type { LensterPublication } from '@generated/lenstertypes';
-import type { CreateMirrorRequest, Mutation } from '@generated/types';
-import { CreateMirrorTypedDataDocument, CreateMirrorViaDispatcherDocument } from '@generated/types';
+import type { CreateMirrorRequest } from '@generated/types';
+import { useCreateMirrorTypedDataMutation, useCreateMirrorViaDispatcherMutation } from '@generated/types';
 import { SwitchHorizontalIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
 import humanize from '@lib/humanize';
@@ -72,56 +71,54 @@ const Mirror: FC<Props> = ({ publication, isFullPublication }) => {
   });
 
   const { broadcast, loading: broadcastLoading } = useBroadcast({ onCompleted, update: updateCache });
-  const [createMirrorTypedData, { loading: typedDataLoading }] = useMutation<Mutation>(
-    CreateMirrorTypedDataDocument,
-    {
-      onCompleted: async ({ createMirrorTypedData }) => {
-        try {
-          const { id, typedData } = createMirrorTypedData;
-          const {
-            profileId,
-            profileIdPointed,
-            pubIdPointed,
-            referenceModule,
-            referenceModuleData,
-            referenceModuleInitData,
-            deadline
-          } = typedData.value;
-          const signature = await signTypedDataAsync(getSignature(typedData));
-          const { v, r, s } = splitSignature(signature);
-          const sig = { v, r, s, deadline };
-          const inputStruct = {
-            profileId,
-            profileIdPointed,
-            pubIdPointed,
-            referenceModule,
-            referenceModuleData,
-            referenceModuleInitData,
-            sig
-          };
+  const [createMirrorTypedData, { loading: typedDataLoading }] = useCreateMirrorTypedDataMutation({
+    onCompleted: async ({ createMirrorTypedData }) => {
+      try {
+        const { id, typedData } = createMirrorTypedData;
+        const {
+          profileId,
+          profileIdPointed,
+          pubIdPointed,
+          referenceModule,
+          referenceModuleData,
+          referenceModuleInitData,
+          deadline
+        } = typedData.value;
+        const signature = await signTypedDataAsync(getSignature(typedData));
+        const { v, r, s } = splitSignature(signature);
+        const sig = { v, r, s, deadline };
+        const inputStruct = {
+          profileId,
+          profileIdPointed,
+          pubIdPointed,
+          referenceModule,
+          referenceModuleData,
+          referenceModuleInitData,
+          sig
+        };
 
-          setUserSigNonce(userSigNonce + 1);
-          if (!RELAY_ON) {
-            return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
-          }
+        setUserSigNonce(userSigNonce + 1);
+        if (!RELAY_ON) {
+          return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
+        }
 
-          const {
-            data: { broadcast: result }
-          } = await broadcast({ request: { id, signature } });
+        const {
+          data: { broadcast: result }
+        } = await broadcast({ request: { id, signature } });
 
-          if ('reason' in result) {
-            write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
-          }
-        } catch {}
-      },
-      onError
-    }
-  );
+        if ('reason' in result) {
+          write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
+        }
+      } catch {}
+    },
+    onError
+  });
 
-  const [createMirrorViaDispatcher, { loading: dispatcherLoading }] = useMutation(
-    CreateMirrorViaDispatcherDocument,
-    { onCompleted, onError, update: updateCache }
-  );
+  const [createMirrorViaDispatcher, { loading: dispatcherLoading }] = useCreateMirrorViaDispatcherMutation({
+    onCompleted,
+    onError,
+    update: updateCache
+  });
 
   const createViaDispatcher = async (request: CreateMirrorRequest) => {
     const { data } = await createMirrorViaDispatcher({

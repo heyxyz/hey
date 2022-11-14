@@ -4,7 +4,7 @@ import { AutoLinkNode, LinkNode } from '@lexical/link';
 import { LexicalComposer } from '@lexical/react/LexicalComposer';
 import type { FC } from 'react';
 
-import { MentionNode } from '../../Shared/Lexical/Nodes/MentionsNode';
+import { MentionNode } from './Nodes/MentionsNode';
 
 const initialConfig = {
   namespace: 'composer',
@@ -24,15 +24,15 @@ const initialConfig = {
   }
 };
 
-const withEditorContext = (Component: FC<any>) => {
-  const EditorContext = (props: any) => (
-    <LexicalComposer initialConfig={initialConfig}>
+const withLexicalContext = (Component: FC<any>, editable = true) => {
+  const LexicalContext = (props: any) => (
+    <LexicalComposer initialConfig={{ ...initialConfig, editable }}>
       <Component {...props} />
     </LexicalComposer>
   );
 
-  EditorContext.displayName = 'EditorContext';
-  return EditorContext;
+  LexicalContext.displayName = 'EditorContext';
+  return LexicalContext;
 };
 
-export default withEditorContext;
+export default withLexicalContext;

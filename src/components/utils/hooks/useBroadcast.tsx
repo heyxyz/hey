@@ -1,6 +1,5 @@
 import type { ApolloCache } from '@apollo/client';
-import { useMutation } from '@apollo/client';
-import { BroadcastDocument } from '@generated/types';
+import { useBroadcastMutation } from '@generated/types';
 import toast from 'react-hot-toast';
 import { ERRORS } from 'src/constants';
 
@@ -10,7 +9,7 @@ interface Props {
 }
 
 const useBroadcast = ({ onCompleted, update }: Props): { broadcast: any; data: any; loading: boolean } => {
-  const [broadcast, { data, loading }] = useMutation(BroadcastDocument, {
+  const [broadcast, { data, loading }] = useBroadcastMutation({
     onCompleted,
     update,
     onError: (error) => {

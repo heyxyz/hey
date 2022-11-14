@@ -1,7 +1,5 @@
-import { useMutation } from '@apollo/client';
 import type { LensterPublication } from '@generated/lenstertypes';
-import type { Mutation } from '@generated/types';
-import { HidePublicationDocument } from '@generated/types';
+import { useHidePublicationMutation } from '@generated/types';
 import { Menu } from '@headlessui/react';
 import { TrashIcon } from '@heroicons/react/outline';
 import { Leafwatch } from '@lib/leafwatch';
@@ -16,7 +14,7 @@ interface Props {
 
 const Delete: FC<Props> = ({ publication }) => {
   const { pathname, push } = useRouter();
-  const [hidePost] = useMutation<Mutation>(HidePublicationDocument, {
+  const [hidePost] = useHidePublicationMutation({
     onCompleted: () => {
       Leafwatch.track(PUBLICATION.DELETE);
       pathname === '/posts/[id]' ? push('/') : location.reload();
