@@ -80,7 +80,7 @@ export const PUBLICATION = {
 };
 
 export const POST = {
-  NEW: 'New Post'
+  NEW: 'New post'
 };
 
 export const COMMENT = {
