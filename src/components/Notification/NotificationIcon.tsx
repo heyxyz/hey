@@ -1,5 +1,4 @@
-import { useQuery } from '@apollo/client';
-import { CustomFiltersTypes, NotificationCountDocument } from '@generated/types';
+import { CustomFiltersTypes, useNotificationCountQuery } from '@generated/types';
 import { LightningBoltIcon } from '@heroicons/react/outline';
 import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
@@ -13,7 +12,7 @@ const NotificationIcon: FC = () => {
   const notificationCount = useAppPersistStore((state) => state.notificationCount);
   const setNotificationCount = useAppPersistStore((state) => state.setNotificationCount);
   const [showBadge, setShowBadge] = useState(false);
-  const { data } = useQuery(NotificationCountDocument, {
+  const { data } = useNotificationCountQuery({
     variables: { request: { profileId: currentProfile?.id, customFilters: [CustomFiltersTypes.Gardeners] } },
     skip: !currentProfile?.id,
     fetchPolicy: 'no-cache' // without no-cache the totalcount is NaN and returns the same.

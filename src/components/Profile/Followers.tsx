@@ -1,4 +1,3 @@
-import { useQuery } from '@apollo/client';
 import Loader from '@components/Shared/Loader';
 import UserProfile from '@components/Shared/UserProfile';
 import WalletProfile from '@components/Shared/WalletProfile';
@@ -6,7 +5,7 @@ import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import InfiniteLoader from '@components/UI/InfiniteLoader';
 import type { Profile, Wallet } from '@generated/types';
-import { FollowersDocument } from '@generated/types';
+import { useFollowersQuery } from '@generated/types';
 import { UsersIcon } from '@heroicons/react/outline';
 import type { FC } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -20,7 +19,7 @@ const Followers: FC<Props> = ({ profile }) => {
   // Variables
   const request = { profileId: profile?.id, limit: 10 };
 
-  const { data, loading, error, fetchMore } = useQuery(FollowersDocument, {
+  const { data, loading, error, fetchMore } = useFollowersQuery({
     variables: { request },
     skip: !profile?.id
   });

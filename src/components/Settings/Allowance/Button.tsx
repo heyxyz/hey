@@ -1,9 +1,8 @@
-import { useLazyQuery } from '@apollo/client';
 import { Button } from '@components/UI/Button';
 import { Modal } from '@components/UI/Modal';
 import { Spinner } from '@components/UI/Spinner';
 import { WarningMessage } from '@components/UI/WarningMessage';
-import { GenerateModuleCurrencyApprovalDataDocument } from '@generated/types';
+import { useGenerateModuleCurrencyApprovalDataLazyQuery } from '@generated/types';
 import { ExclamationIcon, MinusIcon, PlusIcon } from '@heroicons/react/outline';
 import { getModule } from '@lib/getModule';
 import { Leafwatch } from '@lib/leafwatch';
@@ -22,9 +21,8 @@ interface Props {
 
 const AllowanceButton: FC<Props> = ({ title = 'Allow', module, allowed, setAllowed }) => {
   const [showWarningModal, setShowWarninModal] = useState(false);
-  const [generateAllowanceQuery, { loading: queryLoading }] = useLazyQuery(
-    GenerateModuleCurrencyApprovalDataDocument
-  );
+  const [generateAllowanceQuery, { loading: queryLoading }] =
+    useGenerateModuleCurrencyApprovalDataLazyQuery();
 
   const {
     data: txData,

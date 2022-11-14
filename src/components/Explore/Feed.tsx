@@ -1,4 +1,3 @@
-import { useQuery } from '@apollo/client';
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
 import { Card } from '@components/UI/Card';
@@ -6,7 +5,7 @@ import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import InfiniteLoader from '@components/UI/InfiniteLoader';
 import type { LensterPublication } from '@generated/lenstertypes';
-import { CustomFiltersTypes, ExploreFeedDocument, PublicationSortCriteria } from '@generated/types';
+import { CustomFiltersTypes, PublicationSortCriteria, useExploreFeedQuery } from '@generated/types';
 import { CollectionIcon } from '@heroicons/react/outline';
 import type { FC } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -32,7 +31,7 @@ const Feed: FC<Props> = ({ focus, feedType = PublicationSortCriteria.CuratedProf
   const reactionRequest = currentProfile ? { profileId: currentProfile?.id } : null;
   const profileId = currentProfile?.id ?? null;
 
-  const { data, loading, error, fetchMore } = useQuery(ExploreFeedDocument, {
+  const { data, loading, error, fetchMore } = useExploreFeedQuery({
     variables: { request, reactionRequest, profileId }
   });
 

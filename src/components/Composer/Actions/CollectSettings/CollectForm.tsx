@@ -1,11 +1,10 @@
-import { useQuery } from '@apollo/client';
 import { Button } from '@components/UI/Button';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
 import { Toggle } from '@components/UI/Toggle';
 import type { Erc20 } from '@generated/types';
-import { CollectModules, EnabledModulesDocument } from '@generated/types';
+import { CollectModules, useEnabledModulesQuery } from '@generated/types';
 import {
   ClockIcon,
   CollectionIcon,
@@ -109,7 +108,7 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [amount, collectLimit, hasTimeLimit]);
 
-  const { error, data, loading } = useQuery(EnabledModulesDocument);
+  const { error, data, loading } = useEnabledModulesQuery();
 
   if (loading) {
     return (
