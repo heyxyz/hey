@@ -1,6 +1,5 @@
 import type { MediaSet, NftImage, Profile } from '@generated/types';
-import { useSearchProfilesLazyQuery } from '@generated/types';
-import { SearchRequestTypes } from '@generated/types';
+import { SearchRequestTypes, useSearchProfilesLazyQuery } from '@generated/types';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import type { QueryMatch } from '@lexical/react/LexicalTypeaheadMenuPlugin';
 import {

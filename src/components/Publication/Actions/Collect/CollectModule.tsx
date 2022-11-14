@@ -16,12 +16,14 @@ import { WarningMessage } from '@components/UI/WarningMessage';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
 import type { LensterPublication } from '@generated/lenstertypes';
 import type { ElectedMirror } from '@generated/types';
-import { useProxyActionMutation } from '@generated/types';
-import { useCreateCollectTypedDataMutation } from '@generated/types';
-import { usePublicationRevenueQuery } from '@generated/types';
-import { useApprovedModuleAllowanceAmountQuery } from '@generated/types';
-import { useCollectModuleQuery } from '@generated/types';
-import { CollectModules } from '@generated/types';
+import {
+  CollectModules,
+  useApprovedModuleAllowanceAmountQuery,
+  useCollectModuleQuery,
+  useCreateCollectTypedDataMutation,
+  useProxyActionMutation,
+  usePublicationRevenueQuery
+} from '@generated/types';
 import {
   CashIcon,
   ClockIcon,

@@ -10,9 +10,7 @@ import type {
   NewMirrorNotification,
   NewReactionNotification
 } from '@generated/types';
-import { useNotificationsQuery } from '@generated/types';
-import { NotificationTypes } from '@generated/types';
-import { CustomFiltersTypes } from '@generated/types';
+import { CustomFiltersTypes, NotificationTypes, useNotificationsQuery } from '@generated/types';
 import { LightningBoltIcon } from '@heroicons/react/outline';
 import type { FC } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';

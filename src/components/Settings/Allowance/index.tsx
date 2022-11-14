@@ -4,8 +4,12 @@ import { PageLoading } from '@components/UI/PageLoading';
 import { Spinner } from '@components/UI/Spinner';
 import MetaTags from '@components/utils/MetaTags';
 import type { Erc20 } from '@generated/types';
-import { useApprovedModuleAllowanceAmountQuery } from '@generated/types';
-import { CollectModules, FollowModules, ReferenceModules } from '@generated/types';
+import {
+  CollectModules,
+  FollowModules,
+  ReferenceModules,
+  useApprovedModuleAllowanceAmountQuery
+} from '@generated/types';
 import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
 import { useEffect, useState } from 'react';

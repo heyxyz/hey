@@ -4,8 +4,7 @@ import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
 import { Toggle } from '@components/UI/Toggle';
 import type { Erc20 } from '@generated/types';
-import { useEnabledModulesQuery } from '@generated/types';
-import { CollectModules } from '@generated/types';
+import { CollectModules, useEnabledModulesQuery } from '@generated/types';
 import {
   ClockIcon,
   CollectionIcon,

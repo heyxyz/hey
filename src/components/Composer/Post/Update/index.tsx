@@ -8,9 +8,12 @@ import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
 import type { LensterAttachment } from '@generated/lenstertypes';
 import type { CreatePublicPostRequest } from '@generated/types';
-import { useCreatePostViaDispatcherMutation } from '@generated/types';
-import { useCreatePostTypedDataMutation } from '@generated/types';
-import { PublicationMainFocus, ReferenceModules } from '@generated/types';
+import {
+  PublicationMainFocus,
+  ReferenceModules,
+  useCreatePostTypedDataMutation,
+  useCreatePostViaDispatcherMutation
+} from '@generated/types';
 import type { IGif } from '@giphy/js-types';
 import { PencilAltIcon } from '@heroicons/react/outline';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';

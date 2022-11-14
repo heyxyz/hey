@@ -6,8 +6,10 @@ import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
 import type { MediaSet, NftImage, Profile, UpdateProfileImageRequest } from '@generated/types';
-import { useCreateSetProfileImageUriViaDispatcherMutation } from '@generated/types';
-import { useCreateSetProfileImageUriTypedDataMutation } from '@generated/types';
+import {
+  useCreateSetProfileImageUriTypedDataMutation,
+  useCreateSetProfileImageUriViaDispatcherMutation
+} from '@generated/types';
 import { PencilIcon } from '@heroicons/react/outline';
 import getIPFSLink from '@lib/getIPFSLink';
 import getSignature from '@lib/getSignature';

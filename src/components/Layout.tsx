@@ -1,6 +1,5 @@
 import type { Profile } from '@generated/types';
-import { useUserProfilesQuery } from '@generated/types';
-import { ReferenceModules } from '@generated/types';
+import { ReferenceModules, useUserProfilesQuery } from '@generated/types';
 import getIsAuthTokensAvailable from '@lib/getIsAuthTokensAvailable';
 import getToastOptions from '@lib/getToastOptions';
 import resetAuthData from '@lib/resetAuthData';

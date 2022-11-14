@@ -11,8 +11,10 @@ import { TextArea } from '@components/UI/TextArea';
 import { Toggle } from '@components/UI/Toggle';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
 import type { CreatePublicSetProfileMetadataUriRequest, MediaSet } from '@generated/types';
-import { useCreateSetProfileMetadataTypedDataMutation } from '@generated/types';
-import { useCreateSetProfileMetadataViaDispatcherMutation } from '@generated/types';
+import {
+  useCreateSetProfileMetadataTypedDataMutation,
+  useCreateSetProfileMetadataViaDispatcherMutation
+} from '@generated/types';
 import { Profile } from '@generated/types';
 import { PencilIcon } from '@heroicons/react/outline';
 import getAttribute from '@lib/getAttribute';

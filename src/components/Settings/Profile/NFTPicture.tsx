@@ -7,9 +7,11 @@ import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
 import type { NftImage, Profile, UpdateProfileImageRequest } from '@generated/types';
-import { useCreateSetProfileImageUriViaDispatcherMutation } from '@generated/types';
-import { useCreateSetProfileImageUriTypedDataMutation } from '@generated/types';
-import { useNftChallengeLazyQuery } from '@generated/types';
+import {
+  useCreateSetProfileImageUriTypedDataMutation,
+  useCreateSetProfileImageUriViaDispatcherMutation,
+  useNftChallengeLazyQuery
+} from '@generated/types';
 import { PencilIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
 import { Leafwatch } from '@lib/leafwatch';

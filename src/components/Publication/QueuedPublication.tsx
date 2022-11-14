@@ -5,9 +5,12 @@ import Markup from '@components/Shared/Markup';
 import UserProfile from '@components/Shared/UserProfile';
 import { Tooltip } from '@components/UI/Tooltip';
 import type { Profile } from '@generated/types';
-import { usePublicationLazyQuery } from '@generated/types';
-import { useHasTxHashBeenIndexedQuery } from '@generated/types';
-import { PublicationDocument, PublicationMetadataStatusType } from '@generated/types';
+import {
+  PublicationDocument,
+  PublicationMetadataStatusType,
+  useHasTxHashBeenIndexedQuery,
+  usePublicationLazyQuery
+} from '@generated/types';
 import getURLs from '@lib/getURLs';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';

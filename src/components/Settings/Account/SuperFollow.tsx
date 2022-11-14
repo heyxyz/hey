@@ -7,8 +7,10 @@ import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
 import type { Erc20 } from '@generated/types';
-import { useCreateSetFollowModuleTypedDataMutation } from '@generated/types';
-import { useEnabledCurrencyModulesWithProfileQuery } from '@generated/types';
+import {
+  useCreateSetFollowModuleTypedDataMutation,
+  useEnabledCurrencyModulesWithProfileQuery
+} from '@generated/types';
 import { StarIcon, XIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
 import getTokenImage from '@lib/getTokenImage';

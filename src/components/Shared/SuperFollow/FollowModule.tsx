@@ -6,10 +6,12 @@ import { WarningMessage } from '@components/UI/WarningMessage';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
 import type { LensterFollowModule } from '@generated/lenstertypes';
 import type { Profile } from '@generated/types';
-import { useCreateFollowTypedDataMutation } from '@generated/types';
-import { useApprovedModuleAllowanceAmountQuery } from '@generated/types';
-import { useSuperFollowQuery } from '@generated/types';
-import { FollowModules } from '@generated/types';
+import {
+  FollowModules,
+  useApprovedModuleAllowanceAmountQuery,
+  useCreateFollowTypedDataMutation,
+  useSuperFollowQuery
+} from '@generated/types';
 import { StarIcon, UserIcon } from '@heroicons/react/outline';
 import formatAddress from '@lib/formatAddress';
 import getSignature from '@lib/getSignature';

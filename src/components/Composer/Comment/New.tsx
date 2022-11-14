@@ -9,10 +9,12 @@ import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
 import type { LensterAttachment, LensterPublication } from '@generated/lenstertypes';
 import type { CreatePublicCommentRequest } from '@generated/types';
-import { useCreateCommentViaDispatcherMutation } from '@generated/types';
-import { useCreateCommentTypedDataMutation } from '@generated/types';
-import { PublicationMainFocus } from '@generated/types';
-import { ReferenceModules } from '@generated/types';
+import {
+  PublicationMainFocus,
+  ReferenceModules,
+  useCreateCommentTypedDataMutation,
+  useCreateCommentViaDispatcherMutation
+} from '@generated/types';
 import type { IGif } from '@giphy/js-types';
 import { ChatAlt2Icon } from '@heroicons/react/outline';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
