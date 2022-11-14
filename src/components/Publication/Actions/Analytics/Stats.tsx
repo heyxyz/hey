@@ -5,8 +5,7 @@ import type { LensterPublication } from '@generated/lenstertypes';
 import humanize from '@lib/humanize';
 import axios from 'axios';
 import type { FC } from 'react';
-import { useState } from 'react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { ERROR_MESSAGE } from 'src/constants';
 
 const Stat: FC<{ title: string; helper: string; stat: number }> = ({ title, helper, stat }) => (

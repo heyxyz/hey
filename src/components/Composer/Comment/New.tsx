@@ -30,8 +30,7 @@ import uploadToArweave from '@lib/uploadToArweave';
 import { $getRoot } from 'lexical';
 import dynamic from 'next/dynamic';
 import type { FC } from 'react';
-import { useEffect } from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import {
   ALLOWED_AUDIO_TYPES,
