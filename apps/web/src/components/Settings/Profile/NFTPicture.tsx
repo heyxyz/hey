@@ -132,12 +132,13 @@ const NFTPicture: FC<Props> = ({ profile }) => {
       variables: {
         request: {
           ethereumAddress: currentProfile?.ownedBy,
-          nfts: {
-            // @ts-ignore
-            contractAddress,
-            tokenId,
-            chainId
-          }
+          nfts: [
+            {
+              contractAddress,
+              tokenId,
+              chainId
+            }
+          ]
         }
       }
     });
