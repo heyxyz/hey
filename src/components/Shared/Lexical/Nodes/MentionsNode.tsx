@@ -23,7 +23,7 @@ export class MentionNode extends TextNode {
   }
 
   static clone(node: MentionNode): MentionNode {
-    return new MentionNode(node.__mention, node.__text, node.__key);
+    return new MentionNode(node.__mention, node.__isReadOnly, node.__text, node.__key);
   }
   static importJSON(serializedNode: SerializedMentionNode): MentionNode {
     // eslint-disable-next-line no-use-before-define
@@ -37,9 +37,10 @@ export class MentionNode extends TextNode {
     return node;
   }
 
-  constructor(mentionName: string, text?: string, key?: NodeKey) {
+  constructor(mentionName: string, isReadOnly: boolean, text?: string, key?: NodeKey) {
     super(text ?? `@${mentionName}`, key);
     this.__mention = `@${mentionName}`;
+    this.__isReadOnly = isReadOnly;
   }
 
   exportJSON(): SerializedMentionNode {
@@ -52,6 +53,15 @@ export class MentionNode extends TextNode {
   }
 
   createDOM(config: EditorConfig): HTMLElement {
+    if (this.__isReadOnly) {
+      const element = document.createElement('a');
+      element.href = `/u/${this.__mention.split('@')[1]}`;
+      element.target = 'blank';
+      element.rel = 'noreferrer';
+      element.className = 'mention';
+      return element;
+    }
+
     const dom = super.createDOM(config);
     dom.style.cssText = '';
     dom.className = 'mention';
@@ -87,8 +97,14 @@ export class MentionNode extends TextNode {
   }
 }
 
+export const $createReadOnlyMentionNode = (mentionName: string): MentionNode => {
+  const mentionNode = new MentionNode(mentionName, true);
+  mentionNode.setMode('segmented').toggleDirectionless();
+
+  return mentionNode;
+};
 export const $createMentionNode = (mentionName: string): MentionNode => {
-  const mentionNode = new MentionNode(mentionName);
+  const mentionNode = new MentionNode(mentionName, false);
   mentionNode.setMode('segmented').toggleDirectionless();
 
   return mentionNode;

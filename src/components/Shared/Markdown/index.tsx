@@ -13,7 +13,7 @@ import type { FC } from 'react';
 import { ERROR_MESSAGE } from 'src/constants';
 
 import MentionsPlugin, { AtSignMentionsRegex } from '../../Shared/Lexical/Plugins/AtMentionsPlugin';
-import { $createMentionNode, MentionNode } from '../Lexical/Nodes/MentionsNode';
+import { $createReadOnlyMentionNode, MentionNode } from '../Lexical/Nodes/MentionsNode';
 
 const TRANSFORMERS = [
   ...TEXT_FORMAT_TRANSFORMERS,
@@ -25,7 +25,7 @@ const TRANSFORMERS = [
     regExp: AtSignMentionsRegex,
     replace: (parentNode: ElementNode, children: Array<LexicalNode>, match: Array<String>) => {
       // we have to check if the match is a valid mention and then convert it to mentionNode
-      const node = $createMentionNode(match[0].split('@')[1]);
+      const node = $createReadOnlyMentionNode(match[0].split('@')[1]);
       parentNode.replace(node);
       node.select(0, 0);
       return;
