@@ -11,6 +11,16 @@ const GET_PROFILE_QUERY = gql`
   }
 `;
 
+const htmlWrapper = (html: string) => `
+  <!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="utf-8" />
+      ${html}
+    </head>
+  </html>
+`;
+
 const getProfileMeta = async (req: NextApiRequest, res: NextApiResponse, handle: string) => {
   const { data } = await serverlessClient.query({
     query: GET_PROFILE_QUERY,
@@ -19,10 +29,12 @@ const getProfileMeta = async (req: NextApiRequest, res: NextApiResponse, handle:
   const { profile } = data;
 
   res.setHeader('Content-Type', 'text/html');
-  return res.status(200).send(`
-    <title>${profile.handle}</title>
-    <div>${profile.name}</div>
-  `);
+  return res.status(200).send(
+    htmlWrapper(`
+      <title>${profile.handle}</title>
+      <div>${profile.name}</div>
+    `)
+  );
 };
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
