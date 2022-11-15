@@ -2,6 +2,7 @@ import { aaveMembers } from './aave-members';
 import { lensterMembers } from './lenster-members';
 
 export const mainnetVerified = [
+  '0x018a1c', // route2fiofficial.lens
   '0x7810', // lensport.lens
   '0x326c', // grams.lens
   '0x06d4', // joonathan.lens
