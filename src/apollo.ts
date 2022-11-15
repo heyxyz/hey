@@ -143,4 +143,9 @@ const client = new ApolloClient({
   cache
 });
 
+export const serverlessClient = new ApolloClient({
+  link: from([httpLink]),
+  cache
+});
+
 export default client;
