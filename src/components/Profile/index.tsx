@@ -77,7 +77,7 @@ const ViewProfile: NextPage = () => {
           <Details profile={profile as any} />
         </GridItemFour>
         <GridItemEight className="space-y-5">
-          {currentProfile && profile && currentProfile.id !== profile.id && (
+          {currentProfile?.id !== profile?.id && (
             <NewPost
               defaultContent={`@${profile?.handle} `}
               placeholder={`Write a message to @${profile?.handle}`}
