@@ -1,3 +1,4 @@
+import { $createMentionNode } from '@components/Shared/Lexical/Nodes/MentionsNode';
 import LexicalAutoLinkPlugin from '@components/Shared/Lexical/Plugins/AutoLinkPlugin';
 import ToolbarPlugin from '@components/Shared/Lexical/Plugins/ToolbarPlugin';
 import { $convertToMarkdownString, TEXT_FORMAT_TRANSFORMERS } from '@lexical/markdown';
@@ -41,19 +42,53 @@ const Editor: FC<EditorProps> = ({ defaultContent, placeholder }) => {
         // Get the RootNode from the EditorState
         const root = $getRoot();
 
-        // Create a new ParagraphNode
-        const paragraphNode = $createParagraphNode();
-        const textNode = $createTextNode(defaultContent);
-        paragraphNode.append(textNode);
-
         // Remove empty paragraph which is present if user edits content
         root.clear();
-        root.append(paragraphNode);
 
-        // Move cursor to end of defaultContent
-        const newSelection = $createRangeSelection();
-        newSelection.setTextNodeRange(textNode, defaultContent.length, textNode, defaultContent.length);
-        $setSelection(newSelection);
+        // Create a new ParagraphNode
+        const paragraphNode = $createParagraphNode();
+
+        /**
+         * If there is a @mention, create a MentionNode for it
+         */
+        const tagRegex = /(.*)(@[\d.a-z]*\.lens)(.*)/i;
+        if (defaultContent.match(tagRegex)) {
+          const [, strPrefix, strMention, strSuffix] = defaultContent.match(tagRegex) as string[];
+
+          if (strPrefix) {
+            const textNodePrefix = $createTextNode(strPrefix);
+            paragraphNode.append(textNodePrefix);
+          }
+
+          const mentionNode = $createMentionNode(strMention.replace('@', ''));
+          paragraphNode.append(mentionNode);
+
+          // Move cursor to end of mention string
+          const newSelection = $createRangeSelection();
+          newSelection.setTextNodeRange(mentionNode, strMention.length, mentionNode, strMention.length);
+          $setSelection(newSelection);
+
+          if (strSuffix) {
+            const textNodeSuffix = $createTextNode(strSuffix);
+            paragraphNode.append(textNodeSuffix);
+
+            // Move cursor to end of suffix string
+            const newSelection = $createRangeSelection();
+            newSelection.setTextNodeRange(textNodeSuffix, strSuffix.length, textNodeSuffix, strSuffix.length);
+            $setSelection(newSelection);
+          }
+
+          root.append(paragraphNode);
+        } else {
+          const textNode = $createTextNode(defaultContent);
+          paragraphNode.append(textNode);
+
+          root.append(paragraphNode);
+          // Move cursor to end of defaultContent
+          const newSelection = $createRangeSelection();
+          newSelection.setTextNodeRange(textNode, defaultContent.length, textNode, defaultContent.length);
+          $setSelection(newSelection);
+        }
       }
     });
   }, [editor, defaultContent]);
