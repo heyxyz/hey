@@ -5,7 +5,7 @@ import { Leafwatch } from '@lib/leafwatch';
 import { useTheme } from 'next-themes';
 import type { FC, ReactNode } from 'react';
 import { useEffect } from 'react';
-import { APP_NAME, STATIC_ASSETS } from 'src/constants';
+import { APP_NAME, STATIC_IMAGES_URL } from 'src/constants';
 import { PAGEVIEW } from 'src/tracking';
 
 interface Props {
@@ -24,7 +24,7 @@ const Brand: FC<Props> = ({ name, logo, url, size, children }) => {
       <img
         className="mx-auto"
         style={{ height: size }}
-        src={`${STATIC_ASSETS}/thanks/${logo}-${resolvedTheme === 'dark' ? 'dark' : 'light'}.svg`}
+        src={`${STATIC_IMAGES_URL}/thanks/${logo}-${resolvedTheme === 'dark' ? 'dark' : 'light'}.svg`}
         alt={`${name}'s Logo`}
       />
       <div className="pt-2 mx-auto sm:w-2/3">{children}</div>

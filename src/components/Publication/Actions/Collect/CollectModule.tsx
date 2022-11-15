@@ -247,15 +247,6 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
     }
   };
 
-  const shopCollects = () => {
-    const pubId = publication.mirrorOf?.id ?? publication.id;
-    const decimalProfileId = parseInt(pubId.split('-')[0], 16);
-    const decimalPubId = parseInt(pubId.split('-')[1], 16);
-    const marketplacePublicationId = decimalProfileId + '_' + decimalPubId;
-    const marketplaceUrl = 'http://lensport.io/p/' + marketplacePublicationId;
-    window.open(marketplaceUrl);
-  };
-
   if (loading || revenueLoading) {
     return <Loader message="Loading collect" />;
   }
@@ -459,7 +450,6 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
               />
             )
           ) : null}
-          <Button onClick={shopCollects}>Shop collects</Button>
         </div>
         {publication?.hasCollectedByMe && (
           <div className="mt-3 font-bold text-green-500 flex items-center space-x-1.5">
