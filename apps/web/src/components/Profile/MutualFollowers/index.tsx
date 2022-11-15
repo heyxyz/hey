@@ -43,6 +43,7 @@ const MutualFollowers: FC<Props> = ({ setShowMutualFollowersModal, profile, vari
       })}
       onClick={showMutualFollowersModal}
       onKeyDown={showMutualFollowersModal}
+      tabIndex={0}
       role="button"
     >
       <div className="contents -space-x-2">

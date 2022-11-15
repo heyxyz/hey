@@ -101,6 +101,7 @@ const Attachments: FC<Props> = ({
               onKeyDown={(event) => {
                 event.stopPropagation();
               }}
+              tabIndex={0}
               role="button"
             >
               {type === 'image/svg+xml' ? (
@@ -117,17 +118,21 @@ const Attachments: FC<Props> = ({
               ) : ALLOWED_AUDIO_TYPES.includes(type) ? (
                 <Audio src={url} isNew={isNew} publication={publication} txn={txn} />
               ) : (
-                <img
-                  className="object-cover bg-gray-100 rounded-lg border cursor-pointer dark:bg-gray-800 dark:border-gray-700/80"
-                  loading="lazy"
-                  height={1000}
-                  width={1000}
+                <div
                   onClick={() => expandImage(url)}
                   onKeyDown={() => expandImage(url)}
-                  src={imageProxy(url, ATTACHMENT)}
-                  alt={imageProxy(url, ATTACHMENT)}
                   role="button"
-                />
+                  tabIndex={0}
+                >
+                  <img
+                    className="object-cover bg-gray-100 rounded-lg border cursor-pointer dark:bg-gray-800 dark:border-gray-700/80"
+                    loading="lazy"
+                    height={1000}
+                    width={1000}
+                    src={imageProxy(url, ATTACHMENT)}
+                    alt={imageProxy(url, ATTACHMENT)}
+                  />
+                </div>
               )}
               {isNew && !hideDelete && (
                 <div

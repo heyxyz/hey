@@ -65,6 +65,7 @@ const Report: FC<Props> = ({ publication }) => {
       onClick={(event) => event.stopPropagation()}
       onKeyDown={(event) => event.stopPropagation()}
       role="button"
+      tabIndex={-1}
     >
       {submitData?.reportPublication === null ? (
         <EmptyState

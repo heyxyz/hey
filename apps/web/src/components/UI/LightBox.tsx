@@ -34,17 +34,11 @@ export const LightBox: FC<Props> = ({ show, url, onClose }) => {
             leave="ease-in duration-100"
             leaveFrom="opacity-100 translate-y-0 sm:scale-100"
             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+            onClick={onClose}
+            onKeyDown={onClose}
+            role="button"
           >
-            <img
-              className="max-h-screen"
-              height={1000}
-              width={1000}
-              src={url ?? ''}
-              alt={url ?? ''}
-              onClick={onClose}
-              onKeyDown={onClose}
-              role="button"
-            />
+            <img className="max-h-screen" height={1000} width={1000} src={url ?? ''} alt={url ?? ''} />
             {url ? (
               <div className="mt-1">
                 <a

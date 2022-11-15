@@ -34,6 +34,7 @@ const ThreadBody: FC<Props> = ({ publication }) => {
         <span
           onClick={(event) => event.stopPropagation()}
           onKeyDown={(event) => event.stopPropagation()}
+          tabIndex={-1}
           role="button"
         >
           <UserProfile profile={profile ?? publication?.collectedBy?.defaultProfile} />
@@ -46,6 +47,7 @@ const ThreadBody: FC<Props> = ({ publication }) => {
           className="pt-4 pb-5 !w-[85%] sm:w-full"
           onClick={openPublication}
           onKeyDown={openPublication}
+          tabIndex={0}
           role="button"
         >
           {publication?.hidden ? (
