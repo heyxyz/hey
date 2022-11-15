@@ -68,28 +68,38 @@ const SeeThroughLens = () => {
       >
         <Menu.Items
           static
-          className="absolute w-64 right-0 p-2 z-[5] mt-1 bg-white rounded-xl border shadow-sm dark:bg-gray-900 focus:outline-none dark:border-gray-700/80"
+          className="absolute w-64 right-0 z-[5] mt-1 bg-white rounded-xl border shadow-sm dark:bg-gray-900 focus:outline-none dark:border-gray-700/80"
         >
-          <div className="text-xs px-1 mb-2">👀 See the feed through someone else</div>
-          <Input
-            type="text"
-            className="py-2 px-3 text-sm"
-            placeholder="Search"
-            value={searchText}
-            autoFocus
-            autoComplete="off"
-            iconRight={
-              <XIcon
-                className={clsx('cursor-pointer', searchText ? 'visible' : 'invisible')}
-                onClick={() => {
-                  setSearchText('');
-                  Leafwatch.track(SEARCH.CLEAR);
-                }}
-              />
-            }
-            onChange={handleSearch}
-          />
-          <div className="my-2">
+          <div className="text-xs pt-2 px-3">👀 See the feed through...</div>
+          <div className="p-2">
+            <Input
+              type="text"
+              className="py-2 px-3 text-sm"
+              placeholder="Search"
+              value={searchText}
+              autoFocus
+              autoComplete="off"
+              iconRight={
+                <XIcon
+                  className={clsx('cursor-pointer', searchText ? 'visible' : 'invisible')}
+                  onClick={() => {
+                    setSearchText('');
+                    Leafwatch.track(SEARCH.CLEAR);
+                  }}
+                />
+              }
+              onChange={handleSearch}
+            />
+          </div>
+          {seeThroughProfile && (
+            <button
+              className="py-2 px-3 mb-2 text-left outline-none w-full mt-1 bg-gray-200 text-sm dark:bg-gray-700"
+              onClick={() => setSeeThroughProfile(null)}
+            >
+              Reset filter to your own feed
+            </button>
+          )}
+          <div className="mx-2 mb-2">
             {searchUsersLoading ? (
               <div className="py-2 px-4 space-y-2 text-sm font-bold text-center">
                 <Spinner size="sm" className="mx-auto" />
