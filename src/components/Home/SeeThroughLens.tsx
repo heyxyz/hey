@@ -2,7 +2,12 @@ import UserProfile from '@components/Shared/UserProfile';
 import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
 import type { Profile } from '@generated/types';
-import { CustomFiltersTypes, SearchRequestTypes, useSearchProfilesLazyQuery } from '@generated/types';
+import {
+  CustomFiltersTypes,
+  SearchRequestTypes,
+  useRecommendedProfilesQuery,
+  useSearchProfilesLazyQuery
+} from '@generated/types';
 import { Menu, Transition } from '@headlessui/react';
 import { XIcon } from '@heroicons/react/outline';
 import { ChevronDownIcon } from '@heroicons/react/solid';
@@ -40,8 +45,14 @@ const SeeThroughLens = () => {
     });
   };
 
+  const { data, loading } = useRecommendedProfilesQuery({
+    variables: { options: { shuffle: false } }
+  });
   // @ts-ignore
-  const profiles = searchUsersData?.search?.items ?? [];
+  const searchResults = searchUsersData?.search?.items ?? [];
+  const recommendedProfiles = data?.recommendedProfiles ?? [];
+
+  const profiles = searchResults.length ? searchResults : recommendedProfiles.slice(0, 5);
 
   return (
     <Menu as="div" className="relative">
@@ -100,7 +111,7 @@ const SeeThroughLens = () => {
             </button>
           )}
           <div className="mx-2 mb-2">
-            {searchUsersLoading ? (
+            {searchUsersLoading || loading ? (
               <div className="py-2 px-4 space-y-2 text-sm font-bold text-center">
                 <Spinner size="sm" className="mx-auto" />
                 <div>Searching users</div>
