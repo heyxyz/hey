@@ -12,16 +12,18 @@ import type { FC } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { SCROLL_THRESHOLD } from 'src/constants';
 import { useAppStore } from 'src/store/app';
+import { useTimelineStore } from 'src/store/timeline';
 import { useTransactionPersistStore } from 'src/store/transaction';
 
 const Highlights: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const txnQueue = useTransactionPersistStore((state) => state.txnQueue);
+  const seeThroughProfile = useTimelineStore((state) => state.seeThroughProfile);
 
   // Variables
-  const request = { profileId: currentProfile?.id, limit: 10 };
-  const reactionRequest = currentProfile ? { profileId: currentProfile?.id } : null;
-  const profileId = currentProfile?.id ?? null;
+  const profileId = seeThroughProfile?.id ?? currentProfile?.id ?? null;
+  const request = { profileId: profileId, limit: 10 };
+  const reactionRequest = currentProfile ? { profileId: profileId } : null;
 
   const { data, loading, error, fetchMore } = useFeedHighlightsQuery({
     variables: { request, reactionRequest, profileId }

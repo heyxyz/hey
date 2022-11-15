@@ -19,9 +19,16 @@ type Props = {
   children: React.ReactNode;
   isBig?: boolean;
   followStatusLoading?: boolean;
+  showUserPreview?: boolean;
 };
 
-const UserPreview: FC<Props> = ({ profile, isBig, followStatusLoading, children }) => {
+const UserPreview: FC<Props> = ({
+  profile,
+  isBig,
+  followStatusLoading,
+  children,
+  showUserPreview = true
+}) => {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const [showPreview, setShowPreview] = useState(false);
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -110,7 +117,7 @@ const UserPreview: FC<Props> = ({ profile, isBig, followStatusLoading, children 
     };
   }, [wrapperRef]);
 
-  return (
+  return showUserPreview ? (
     <div onMouseOver={onPreviewStart} ref={wrapperRef}>
       {showPreview ? (
         <Tippy
@@ -129,6 +136,8 @@ const UserPreview: FC<Props> = ({ profile, isBig, followStatusLoading, children 
         <span>{children}</span>
       )}
     </div>
+  ) : (
+    <span>{children}</span>
   );
 };
 
