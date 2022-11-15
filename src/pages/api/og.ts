@@ -32,6 +32,14 @@ const getProfileMeta = async (req: NextApiRequest, res: NextApiResponse, handle:
   return res.status(200).send(
     htmlWrapper(`
       <title>${profile.handle}</title>
+      <meta name="description" content="${profile.handle}" />
+      <meta property="og:url" content="https://lenster.xyz" />
+      <meta property="og:site_name" content="Lenster" />
+      <meta property="og:title" content="${profile.name}" />
+      <meta property="og:description" content="${profile.handle}" />
+      <meta property="og:image" content="https://assets.lenster.xyz/images/og/logo.jpeg" />
+      <meta property="og:image:width" content="400" />
+      <meta property="og:image:height" content="400" />
       <div>${profile.name}</div>
     `)
   );
