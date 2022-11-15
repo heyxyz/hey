@@ -91,7 +91,7 @@ const Editor: FC<EditorProps> = ({ defaultContent, placeholder }) => {
 
 Editor.defaultProps = {
   placeholder: '',
-  defaultContent: 'Hello world'
+  defaultContent: ''
 };
 
 export default Editor;
