@@ -37,6 +37,7 @@ const Preview: FC<Props> = ({ profile, message, conversationKey, isSelected }) =
       )}
       onClick={() => onConversationSelected(profile.id)}
       onKeyDown={() => onConversationSelected(profile.id)}
+      role="button"
     >
       <div className="flex justify-between space-x-3 px-5">
         <img

@@ -67,7 +67,7 @@ const SinglePublication: FC<Props> = ({
         </span>
         <span className="text-xs text-gray-500">{dayjs(new Date(timestamp)).fromNow()}</span>
       </div>
-      <div className="ml-[53px]" onClick={openPublication} onKeyDown={openPublication}>
+      <div className="ml-[53px]" onClick={openPublication} onKeyDown={openPublication} role="button">
         {publication?.hidden ? (
           <HiddenPublication type={publication.__typename} />
         ) : (

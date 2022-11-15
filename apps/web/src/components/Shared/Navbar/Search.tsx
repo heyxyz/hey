@@ -110,6 +110,7 @@ const Search: FC<Props> = ({
                     className="py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer"
                     onClick={() => selectProfile(profile)}
                     onKeyDown={() => selectProfile(profile)}
+                    role="button"
                   >
                     <UserProfile linkToProfile={!onProfileSelected} profile={profile} />
                   </div>

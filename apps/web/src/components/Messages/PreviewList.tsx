@@ -92,6 +92,7 @@ const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
               'flex flex-1 justify-center font-bold items-center p-2 m-2 ml-4 rounded text-brand-500 tab-bg cursor-pointer',
               selectedTab === 'Following' ? 'bg-brand-100' : ''
             )}
+            role="button"
           >
             <UsersIcon className="mr-2 h-4 w-4" />
             Following
@@ -103,6 +104,7 @@ const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
               'flex flex-1 justify-center font-bold items-center p-2 m-2 mr-4 rounded text-brand-500 tab-bg cursor-pointer',
               selectedTab === 'Requested' ? 'bg-brand-100' : ''
             )}
+            role="button"
           >
             Requested
             {requestedCount > 0 && (

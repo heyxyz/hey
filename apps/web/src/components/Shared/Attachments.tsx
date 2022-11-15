@@ -101,6 +101,7 @@ const Attachments: FC<Props> = ({
               onKeyDown={(event) => {
                 event.stopPropagation();
               }}
+              role="button"
             >
               {type === 'image/svg+xml' ? (
                 <Button
@@ -125,6 +126,7 @@ const Attachments: FC<Props> = ({
                   onKeyDown={() => expandImage(url)}
                   src={imageProxy(url, ATTACHMENT)}
                   alt={imageProxy(url, ATTACHMENT)}
+                  role="button"
                 />
               )}
               {isNew && !hideDelete && (
