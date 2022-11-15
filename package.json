@@ -56,7 +56,7 @@
     "zustand": "^4.1.4"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^2.13.10",
+    "@graphql-codegen/cli": "^2.13.12",
     "@graphql-codegen/fragment-matcher": "^3.3.1",
     "@graphql-codegen/typed-document-node": "^2.3.5",
     "@graphql-codegen/typescript": "^2.8.1",
@@ -67,10 +67,10 @@
     "@tailwindcss/line-clamp": "^0.4.2",
     "@types/react": "^18.0.23",
     "@types/react-copy-to-clipboard": "^5.0.4",
-    "@types/react-dom": "^18.0.7",
+    "@types/react-dom": "^18.0.9",
     "@types/ua-parser-js": "^0.7.36",
     "@types/uuid": "^8.3.4",
-    "@typescript-eslint/eslint-plugin": "^5.42.1",
+    "@typescript-eslint/eslint-plugin": "^5.43.0",
     "autoprefixer": "^10.4.13",
     "eslint": "^8.26.0",
     "eslint-config-next": "^13.0.2",
