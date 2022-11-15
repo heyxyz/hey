@@ -49,6 +49,11 @@ const SinglePublication: FC<Props> = ({
     ? publication?.mirrorOf?.createdAt
     : publication?.createdAt;
 
+  const openPublication = () => {
+    Leafwatch.track(PUBLICATION.OPEN);
+    push(`/posts/${rootPublication?.id}`);
+  };
+
   return (
     <article className="hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer first:rounded-t-xl last:rounded-b-xl p-5">
       {feedItem ? (
@@ -62,13 +67,7 @@ const SinglePublication: FC<Props> = ({
         </span>
         <span className="text-xs text-gray-500">{dayjs(new Date(timestamp)).fromNow()}</span>
       </div>
-      <div
-        className="ml-[53px]"
-        onClick={() => {
-          Leafwatch.track(PUBLICATION.OPEN);
-          push(`/posts/${rootPublication?.id}`);
-        }}
-      >
+      <div className="ml-[53px]" onClick={openPublication} onKeyDown={openPublication}>
         {publication?.hidden ? (
           <HiddenPublication type={publication.__typename} />
         ) : (

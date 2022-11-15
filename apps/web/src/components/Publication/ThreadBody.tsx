@@ -23,23 +23,22 @@ const ThreadBody: FC<Props> = ({ publication }) => {
   const profile = isMirror ? publication?.mirrorOf?.profile : publication?.profile;
   const timestamp = isMirror ? publication?.mirrorOf?.createdAt : publication?.createdAt;
 
+  const openPublication = () => {
+    Leafwatch.track(PUBLICATION.OPEN);
+    push(`/posts/${publication?.id}`);
+  };
+
   return (
     <article>
       <div className="flex justify-between space-x-1.5">
-        <span onClick={(event) => event.stopPropagation()}>
+        <span onClick={(event) => event.stopPropagation()} onKeyDown={(event) => event.stopPropagation()}>
           <UserProfile profile={profile ?? publication?.collectedBy?.defaultProfile} />
         </span>
         <span className="text-xs text-gray-500">{dayjs(new Date(timestamp)).fromNow()}</span>
       </div>
       <div className="flex">
         <div className="mr-8 ml-5 bg-gray-300 border-gray-300 dark:bg-gray-700 dark:border-gray-700 border-[0.8px] -my-[3px]" />
-        <div
-          className="pt-4 pb-5 !w-[85%] sm:w-full"
-          onClick={() => {
-            Leafwatch.track(PUBLICATION.OPEN);
-            push(`/posts/${publication?.id}`);
-          }}
-        >
+        <div className="pt-4 pb-5 !w-[85%] sm:w-full" onClick={openPublication} onKeyDown={openPublication}>
           {publication?.hidden ? (
             <HiddenPublication type={publication.__typename} />
           ) : (

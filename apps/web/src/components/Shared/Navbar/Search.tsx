@@ -62,6 +62,13 @@ const Search: FC<Props> = ({
     setSearchText('');
   };
 
+  const selectProfile = (profile: Profile) => {
+    if (onProfileSelected) {
+      onProfileSelected(profile);
+    }
+    setSearchText('');
+  };
+
   // @ts-ignore
   const profiles = searchUsersData?.search?.items ?? [];
 
@@ -101,12 +108,8 @@ const Search: FC<Props> = ({
                   <div
                     key={profile?.handle}
                     className="py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer"
-                    onClick={() => {
-                      if (onProfileSelected) {
-                        onProfileSelected(profile);
-                      }
-                      setSearchText('');
-                    }}
+                    onClick={() => selectProfile(profile)}
+                    onKeyDown={() => selectProfile(profile)}
                   >
                     <UserProfile linkToProfile={!onProfileSelected} profile={profile} />
                   </div>

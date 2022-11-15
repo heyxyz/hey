@@ -87,6 +87,7 @@ const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
         <div className="flex">
           <div
             onClick={() => setSelectedTab('Following')}
+            onKeyDown={() => setSelectedTab('Following')}
             className={clsx(
               'flex flex-1 justify-center font-bold items-center p-2 m-2 ml-4 rounded text-brand-500 tab-bg cursor-pointer',
               selectedTab === 'Following' ? 'bg-brand-100' : ''
@@ -97,6 +98,7 @@ const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
           </div>
           <div
             onClick={() => setSelectedTab('Requested')}
+            onKeyDown={() => setSelectedTab('Requested')}
             className={clsx(
               'flex flex-1 justify-center font-bold items-center p-2 m-2 mr-4 rounded text-brand-500 tab-bg cursor-pointer',
               selectedTab === 'Requested' ? 'bg-brand-100' : ''

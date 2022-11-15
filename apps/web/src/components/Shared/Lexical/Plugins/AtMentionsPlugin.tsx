@@ -131,6 +131,7 @@ const MentionsTypeaheadMenuItem: FC<Props> = ({ isSelected, onClick, onMouseEnte
       aria-selected={isSelected}
       onMouseEnter={onMouseEnter}
       onClick={onClick}
+      onKeyDown={onClick}
     >
       <div className="hover:bg-gray-100 flex items-center space-x-2 m-1.5 px-3 py-1 rounded-xl">
         <img

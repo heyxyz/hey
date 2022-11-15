@@ -31,6 +31,9 @@ const PublicationActions: FC<Props> = ({ publication, electedMirror, isFullPubli
       onClick={(event) => {
         event.stopPropagation();
       }}
+      onKeyDown={(event) => {
+        event.stopPropagation();
+      }}
     >
       <Comment publication={publication} isFullPublication={isFullPublication} />
       {canMirror && <Mirror publication={publication} isFullPublication={isFullPublication} />}

@@ -27,6 +27,11 @@ const MutualFollowers: FC<Props> = ({ setShowMutualFollowersModal, profile, vari
     skip: !profile?.id || !currentProfile?.id
   });
 
+  const showMutualFollowersModal = () => {
+    setShowMutualFollowersModal?.(true);
+    Leafwatch.track(PROFILE.OPEN_MUTUAL_FOLLOWERS);
+  };
+
   const profiles = data?.mutualFollowersProfiles?.items ?? [];
   const totalCount = data?.mutualFollowersProfiles?.pageInfo?.totalCount ?? 0;
 
@@ -36,10 +41,8 @@ const MutualFollowers: FC<Props> = ({ setShowMutualFollowersModal, profile, vari
         'text-sm': variant === 'sm',
         'text-xs': variant === 'xs'
       })}
-      onClick={() => {
-        setShowMutualFollowersModal?.(true);
-        Leafwatch.track(PROFILE.OPEN_MUTUAL_FOLLOWERS);
-      }}
+      onClick={showMutualFollowersModal}
+      onKeyDown={showMutualFollowersModal}
     >
       <div className="contents -space-x-2">
         {profiles?.map((profile) => (

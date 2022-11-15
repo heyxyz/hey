@@ -61,7 +61,7 @@ const Report: FC<Props> = ({ publication }) => {
   };
 
   return (
-    <div onClick={(event) => event.stopPropagation()}>
+    <div onClick={(event) => event.stopPropagation()} onKeyDown={(event) => event.stopPropagation()}>
       {submitData?.reportPublication === null ? (
         <EmptyState
           message={<span>Publication reported successfully!</span>}

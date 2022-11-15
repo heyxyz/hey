@@ -55,7 +55,7 @@ const UserPreview: FC<Props> = ({ profile, isBig, followStatusLoading, children 
     <>
       <div className="flex justify-between items-center">
         <UserAvatar />
-        <div onClick={(e) => e.preventDefault()}>
+        <div onClick={(e) => e.preventDefault()} onKeyDown={(e) => e.preventDefault()}>
           {!profile.isFollowedByMe &&
             (followStatusLoading ? (
               <div className="w-10 h-8 rounded-lg shimmer" />

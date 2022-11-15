@@ -42,6 +42,7 @@ export const LightBox: FC<Props> = ({ show, url, onClose }) => {
               src={url ?? ''}
               alt={url ?? ''}
               onClick={onClose}
+              onKeyDown={onClose}
             />
             {url ? (
               <div className="mt-1">

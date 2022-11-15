@@ -36,6 +36,7 @@ const Preview: FC<Props> = ({ profile, message, conversationKey, isSelected }) =
         isSelected && 'bg-gray-50 dark:bg-gray-800'
       )}
       onClick={() => onConversationSelected(profile.id)}
+      onKeyDown={() => onConversationSelected(profile.id)}
     >
       <div className="flex justify-between space-x-3 px-5">
         <img

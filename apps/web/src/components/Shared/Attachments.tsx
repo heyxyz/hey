@@ -62,6 +62,11 @@ const Attachments: FC<Props> = ({
     );
   };
 
+  const expandImage = (url: string) => {
+    setExpandedImage(url);
+    Leafwatch.track(PUBLICATION.ATTACHEMENT.IMAGE.OPEN);
+  };
+
   const slicedAttachments = isNew
     ? attachments?.slice(0, 4)
     : attachments?.some((e: any) => ALLOWED_VIDEO_TYPES.includes(e.original.mimeType))
@@ -93,6 +98,9 @@ const Attachments: FC<Props> = ({
               onClick={(event) => {
                 event.stopPropagation();
               }}
+              onKeyDown={(event) => {
+                event.stopPropagation();
+              }}
             >
               {type === 'image/svg+xml' ? (
                 <Button
@@ -113,10 +121,8 @@ const Attachments: FC<Props> = ({
                   loading="lazy"
                   height={1000}
                   width={1000}
-                  onClick={() => {
-                    setExpandedImage(url);
-                    Leafwatch.track(PUBLICATION.ATTACHEMENT.IMAGE.OPEN);
-                  }}
+                  onClick={() => expandImage(url)}
+                  onKeyDown={() => expandImage(url)}
                   src={imageProxy(url, ATTACHMENT)}
                   alt={imageProxy(url, ATTACHMENT)}
                 />
