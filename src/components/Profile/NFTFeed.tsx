@@ -28,7 +28,10 @@ const NFTFeed: FC<Props> = ({ profile }) => {
     skip: !profile?.ownedBy
   });
 
-  const nfts = data?.nfts?.items;
+  // Remove Lens Protocol follow NFTs
+  const nfts = data?.nfts?.items.filter(
+    (i) => !i.collectionName.includes('.lens-Follower') && !i.collectionName.includes('lensprotocol-Follower')
+  );
   const pageInfo = data?.nfts?.pageInfo;
   const hasMore = pageInfo?.next && nfts?.length !== pageInfo.totalCount;
 
