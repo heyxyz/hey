@@ -1,4 +1,4 @@
-import { useApolloClient, useLazyQuery, useQuery } from '@apollo/client';
+import { useApolloClient } from '@apollo/client';
 import Attachments from '@components/Shared/Attachments';
 import IFramely from '@components/Shared/IFramely';
 import Markup from '@components/Shared/Markup';
@@ -6,9 +6,10 @@ import UserProfile from '@components/Shared/UserProfile';
 import { Tooltip } from '@components/UI/Tooltip';
 import type { Profile } from '@generated/types';
 import {
-  HasTxHashBeenIndexedDocument,
   PublicationDocument,
-  PublicationMetadataStatusType
+  PublicationMetadataStatusType,
+  useHasTxHashBeenIndexedQuery,
+  usePublicationLazyQuery
 } from '@generated/types';
 import getURLs from '@lib/getURLs';
 import dayjs from 'dayjs';
@@ -39,7 +40,7 @@ const QueuedPublication: FC<Props> = ({ txn }) => {
     }
   };
 
-  const [getPublication] = useLazyQuery(PublicationDocument, {
+  const [getPublication] = usePublicationLazyQuery({
     onCompleted: (data) => {
       if (data?.publication) {
         cache.modify({
@@ -57,7 +58,7 @@ const QueuedPublication: FC<Props> = ({ txn }) => {
     }
   });
 
-  useQuery(HasTxHashBeenIndexedDocument, {
+  useHasTxHashBeenIndexedQuery({
     variables: { request: { txHash, txId } },
     pollInterval: 1000,
     onCompleted: (data) => {

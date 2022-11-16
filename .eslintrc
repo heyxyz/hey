@@ -14,6 +14,7 @@
     "no-unused-vars": "off",
     "prettier/prettier": "error",
     "react/prop-types": "off",
+    "import/no-duplicates": ["error", { "considerQueryString": true }],
     "react/no-unescaped-entities": "off",
     "react/no-unknown-property": "off",
     "react/jsx-no-useless-fragment": "error",

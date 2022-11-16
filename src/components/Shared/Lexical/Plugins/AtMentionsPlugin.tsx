@@ -1,6 +1,5 @@
-import { useLazyQuery } from '@apollo/client';
 import type { MediaSet, NftImage, Profile } from '@generated/types';
-import { SearchProfilesDocument, SearchRequestTypes } from '@generated/types';
+import { SearchRequestTypes, useSearchProfilesLazyQuery } from '@generated/types';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import type { QueryMatch } from '@lexical/react/LexicalTypeaheadMenuPlugin';
 import {
@@ -17,7 +16,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import * as ReactDOM from 'react-dom';
 import { AVATAR } from 'src/constants';
 
-import { $createMentionNode } from './MentionsNode';
+import { $createMentionNode } from '../Nodes/MentionsNode';
 
 const PUNCTUATION = '\\.,\\+\\*\\?\\$\\@\\|#{}\\(\\)\\^\\-\\[\\]\\\\/!%\'"~=<>_:;';
 const NAME = '\\b[A-Z][^\\s' + PUNCTUATION + ']';
@@ -154,7 +153,7 @@ const NewMentionsPlugin: FC = () => {
   const [queryString, setQueryString] = useState<string | null>(null);
   const [results, setResults] = useState<Array<Record<string, string>>>([]);
   const [editor] = useLexicalComposerContext();
-  const [searchUsers] = useLazyQuery(SearchProfilesDocument);
+  const [searchUsers] = useSearchProfilesLazyQuery();
 
   useEffect(() => {
     searchUsers({

@@ -1,19 +1,19 @@
 import { LensHubProxy } from '@abis/LensHubProxy';
-import { useMutation } from '@apollo/client';
 import Attachments from '@components/Shared/Attachments';
 import { AudioPublicationSchema } from '@components/Shared/Audio';
+import withLexicalContext from '@components/Shared/Lexical/withLexicalContext';
 import { Button } from '@components/UI/Button';
 import { Card } from '@components/UI/Card';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
 import type { LensterAttachment, LensterPublication } from '@generated/lenstertypes';
-import type { CreatePublicCommentRequest, Mutation } from '@generated/types';
-import { PublicationMainFocus } from '@generated/types';
+import type { CreatePublicCommentRequest } from '@generated/types';
 import {
-  CreateCommentTypedDataDocument,
-  CreateCommentViaDispatcherDocument,
-  ReferenceModules
+  PublicationMainFocus,
+  ReferenceModules,
+  useCreateCommentTypedDataMutation,
+  useCreateCommentViaDispatcherMutation
 } from '@generated/types';
 import type { IGif } from '@giphy/js-types';
 import { ChatAlt2Icon } from '@heroicons/react/outline';
@@ -30,8 +30,7 @@ import uploadToArweave from '@lib/uploadToArweave';
 import { $getRoot } from 'lexical';
 import dynamic from 'next/dynamic';
 import type { FC } from 'react';
-import { useEffect } from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import {
   ALLOWED_AUDIO_TYPES,
@@ -52,7 +51,6 @@ import { v4 as uuid } from 'uuid';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
 import Editor from '../Editor';
-import withEditorContext from '../Editor/withEditorContext';
 
 const Attachment = dynamic(() => import('@components/Composer/Actions/Attachment'), {
   loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
@@ -159,73 +157,64 @@ const NewComment: FC<Props> = ({ publication }) => {
       setTxnQueue([generateOptimisticComment({ txId: data?.broadcast?.txId }), ...txnQueue]);
     }
   });
-  const [createCommentTypedData, { loading: typedDataLoading }] = useMutation<Mutation>(
-    CreateCommentTypedDataDocument,
-    {
-      onCompleted: async ({ createCommentTypedData }) => {
-        try {
-          const { id, typedData } = createCommentTypedData;
-          const {
-            profileId,
-            profileIdPointed,
-            pubIdPointed,
-            contentURI,
-            collectModule,
-            collectModuleInitData,
-            referenceModule,
-            referenceModuleData,
-            referenceModuleInitData,
-            deadline
-          } = typedData.value;
-          const signature = await signTypedDataAsync(getSignature(typedData));
-          const { v, r, s } = splitSignature(signature);
-          const sig = { v, r, s, deadline };
-          const inputStruct = {
-            profileId,
-            profileIdPointed,
-            pubIdPointed,
-            contentURI,
-            collectModule,
-            collectModuleInitData,
-            referenceModule,
-            referenceModuleData,
-            referenceModuleInitData,
-            sig
-          };
+  const [createCommentTypedData, { loading: typedDataLoading }] = useCreateCommentTypedDataMutation({
+    onCompleted: async ({ createCommentTypedData }) => {
+      try {
+        const { id, typedData } = createCommentTypedData;
+        const {
+          profileId,
+          profileIdPointed,
+          pubIdPointed,
+          contentURI,
+          collectModule,
+          collectModuleInitData,
+          referenceModule,
+          referenceModuleData,
+          referenceModuleInitData,
+          deadline
+        } = typedData.value;
+        const signature = await signTypedDataAsync(getSignature(typedData));
+        const { v, r, s } = splitSignature(signature);
+        const sig = { v, r, s, deadline };
+        const inputStruct = {
+          profileId,
+          profileIdPointed,
+          pubIdPointed,
+          contentURI,
+          collectModule,
+          collectModuleInitData,
+          referenceModule,
+          referenceModuleData,
+          referenceModuleInitData,
+          sig
+        };
 
-          setUserSigNonce(userSigNonce + 1);
-          if (!RELAY_ON) {
-            return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
-          }
-
-          const {
-            data: { broadcast: result }
-          } = await broadcast({ request: { id, signature } });
-
-          if ('reason' in result) {
-            write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
-          }
-        } catch {}
-      },
-      onError
-    }
-  );
-
-  const [createCommentViaDispatcher, { loading: dispatcherLoading }] = useMutation(
-    CreateCommentViaDispatcherDocument,
-    {
-      onCompleted: (data) => {
-        onCompleted();
-        if (data.createCommentViaDispatcher.__typename === 'RelayerResult') {
-          setTxnQueue([
-            generateOptimisticComment({ txId: data.createCommentViaDispatcher.txId }),
-            ...txnQueue
-          ]);
+        setUserSigNonce(userSigNonce + 1);
+        if (!RELAY_ON) {
+          return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
         }
-      },
-      onError
-    }
-  );
+
+        const {
+          data: { broadcast: result }
+        } = await broadcast({ request: { id, signature } });
+
+        if ('reason' in result) {
+          write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
+        }
+      } catch {}
+    },
+    onError
+  });
+
+  const [createCommentViaDispatcher, { loading: dispatcherLoading }] = useCreateCommentViaDispatcherMutation({
+    onCompleted: (data) => {
+      onCompleted();
+      if (data.createCommentViaDispatcher.__typename === 'RelayerResult') {
+        setTxnQueue([generateOptimisticComment({ txId: data.createCommentViaDispatcher.txId }), ...txnQueue]);
+      }
+    },
+    onError
+  });
 
   const createViaDispatcher = async (request: CreatePublicCommentRequest) => {
     const { data } = await createCommentViaDispatcher({
@@ -408,4 +397,4 @@ const NewComment: FC<Props> = ({ publication }) => {
   );
 };
 
-export default withEditorContext(NewComment);
+export default withLexicalContext(NewComment);

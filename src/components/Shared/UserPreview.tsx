@@ -6,9 +6,7 @@ import isVerified from '@lib/isVerified';
 import Tippy from '@tippyjs/react';
 import clsx from 'clsx';
 import type { FC } from 'react';
-import { useEffect } from 'react';
-import { useState } from 'react';
-import React, { Fragment, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useAppStore } from 'src/store/app';
 
 import Follow from './Follow';

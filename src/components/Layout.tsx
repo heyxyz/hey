@@ -1,6 +1,5 @@
-import { useQuery } from '@apollo/client';
 import type { Profile } from '@generated/types';
-import { ReferenceModules, UserProfilesDocument } from '@generated/types';
+import { ReferenceModules, useUserProfilesQuery } from '@generated/types';
 import getIsAuthTokensAvailable from '@lib/getIsAuthTokensAvailable';
 import getToastOptions from '@lib/getToastOptions';
 import resetAuthData from '@lib/resetAuthData';
@@ -49,7 +48,7 @@ const Layout: FC<Props> = ({ children }) => {
   };
 
   // Fetch current profiles and sig nonce owned by the wallet address
-  const { loading } = useQuery(UserProfilesDocument, {
+  const { loading } = useUserProfilesQuery({
     variables: { ownedBy: address },
     skip: !profileId,
     onCompleted: (data) => {
