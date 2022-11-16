@@ -51,7 +51,15 @@ const Timeline: FC = () => {
     variables: { request, reactionRequest, profileId },
     onCompleted: (data) => {
       const feedItems = data?.feed?.items;
-      const profiles = feedItems.map((feedItem) => feedItem.root?.profile) as Profile[];
+      let uniqueProfileIds: string[] = [];
+      let profiles: Profile[] = [];
+      for (const feedItem of feedItems) {
+        const profileId = feedItem.root?.profile?.id;
+        if (!uniqueProfileIds.includes(profileId)) {
+          profiles.push(feedItem.root?.profile as Profile);
+          uniqueProfileIds.push(profileId);
+        }
+      }
       setRecommendedProfilesToSeeThrough(profiles?.slice(0, 5));
     }
   });
