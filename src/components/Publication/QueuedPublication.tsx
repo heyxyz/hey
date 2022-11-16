@@ -12,7 +12,6 @@ import {
   usePublicationLazyQuery
 } from '@generated/types';
 import getURLs from '@lib/getURLs';
-import clsx from 'clsx';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import type { FC } from 'react';
@@ -23,10 +22,9 @@ dayjs.extend(relativeTime);
 
 interface Props {
   txn: any;
-  index?: number;
 }
 
-const QueuedPublication: FC<Props> = ({ txn, index }) => {
+const QueuedPublication: FC<Props> = ({ txn }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const txnQueue = useTransactionPersistStore((state) => state.txnQueue);
   const setTxnQueue = useTransactionPersistStore((state) => state.setTxnQueue);
@@ -92,12 +90,7 @@ const QueuedPublication: FC<Props> = ({ txn, index }) => {
   });
 
   return (
-    <article
-      className={clsx(
-        { 'rounded-t-xl': index === 0 },
-        'hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer p-5'
-      )}
-    >
+    <article className="p-5">
       <div className="pb-4 flex items-start justify-between">
         <UserProfile profile={currentProfile as Profile} />
         <Tooltip content="Indexing" placement="top">
