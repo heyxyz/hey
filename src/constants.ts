@@ -59,7 +59,7 @@ export const STATIC_IMAGES_URL = `${STATIC_ASSETS_URL}/images`;
 export const POLYGONSCAN_URL = IS_MAINNET ? 'https://polygonscan.com' : 'https://mumbai.polygonscan.com';
 export const RARIBLE_URL = IS_MAINNET ? 'https://rarible.com' : 'https://rinkeby.rarible.com';
 export const ARWEAVE_GATEWAY = 'https://arweave.net';
-export const IMGPROXY_URL = 'https://img.lenster.io';
+export const IMGPROXY_URL = 'https://media.lenster.xyz';
 export const IPFS_GATEWAY = 'https://lens.infura-ipfs.io/ipfs/';
 export const EVER_API = 'https://endpoint.4everland.co';
 
