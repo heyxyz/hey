@@ -108,7 +108,7 @@ const Reason: FC<Props> = ({ setType, setSubReason, type, subReason }) => {
                     value={PublicationReportingSensitiveSubreason.Nsfw}
                     selected={subReason === PublicationReportingSensitiveSubreason.Nsfw}
                   >
-                    NSWF
+                    NSFW
                   </option>
                   <option
                     value={PublicationReportingSensitiveSubreason.Offensive}
