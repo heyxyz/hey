@@ -1,11 +1,10 @@
-import { useMutation } from '@apollo/client';
 import ChooseFile from '@components/Shared/ChooseFile';
 import { Button } from '@components/UI/Button';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Form, useZodForm } from '@components/UI/Form';
 import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
-import { CreateProfileDocument } from '@generated/types';
+import { useCreateProfileMutation } from '@generated/types';
 import { PlusIcon } from '@heroicons/react/outline';
 import getStampFyiURL from '@lib/getStampFyiURL';
 import uploadToIPFS from '@lib/uploadToIPFS';
@@ -34,7 +33,7 @@ const NewProfile: FC<Props> = ({ isModal = false }) => {
   const [avatar, setAvatar] = useState('');
   const [uploading, setUploading] = useState(false);
   const { address } = useAccount();
-  const [createProfile, { data, loading }] = useMutation(CreateProfileDocument);
+  const [createProfile, { data, loading }] = useCreateProfileMutation();
 
   const form = useZodForm({
     schema: newUserSchema

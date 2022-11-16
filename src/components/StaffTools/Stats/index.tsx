@@ -1,9 +1,8 @@
-import { useQuery } from '@apollo/client';
 import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import useStaffMode from '@components/utils/hooks/useStaffMode';
 import MetaTags from '@components/utils/MetaTags';
-import { LensterStatsDocument } from '@generated/types';
+import { useLensterStatsQuery } from '@generated/types';
 import {
   ChatAlt2Icon,
   CollectionIcon,
@@ -47,9 +46,7 @@ const Stats: NextPage = () => {
     Leafwatch.track('Pageview', { path: PAGEVIEW.STAFFTOOLS.STATS });
   }, []);
 
-  const { data, loading, error } = useQuery(LensterStatsDocument, {
-    pollInterval: 1000
-  });
+  const { data, loading, error } = useLensterStatsQuery({ pollInterval: 1000 });
 
   if (!allowed) {
     return <Custom404 />;

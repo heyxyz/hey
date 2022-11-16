@@ -1,11 +1,10 @@
 import { LensHubProxy } from '@abis/LensHubProxy';
 import type { ApolloCache } from '@apollo/client';
-import { useMutation } from '@apollo/client';
 import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
-import type { Mutation, Profile } from '@generated/types';
-import { CreateFollowTypedDataDocument, ProxyActionDocument } from '@generated/types';
+import type { Profile } from '@generated/types';
+import { useCreateFollowTypedDataMutation, useProxyActionMutation } from '@generated/types';
 import { UserAddIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
 import { Leafwatch } from '@lib/leafwatch';
@@ -57,45 +56,42 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
   });
 
   const { broadcast, loading: broadcastLoading } = useBroadcast({ onCompleted });
-  const [createFollowTypedData, { loading: typedDataLoading }] = useMutation<Mutation>(
-    CreateFollowTypedDataDocument,
-    {
-      onCompleted: async ({ createFollowTypedData }) => {
-        const { id, typedData } = createFollowTypedData;
-        const { deadline } = typedData.value;
+  const [createFollowTypedData, { loading: typedDataLoading }] = useCreateFollowTypedDataMutation({
+    onCompleted: async ({ createFollowTypedData }) => {
+      const { id, typedData } = createFollowTypedData;
+      const { deadline } = typedData.value;
 
-        try {
-          // TODO: Replace deep clone with right helper
-          const signature = await signTypedDataAsync(getSignature(JSON.parse(JSON.stringify(typedData))));
-          setUserSigNonce(userSigNonce + 1);
-          const { profileIds, datas: followData } = typedData.value;
-          const { v, r, s } = splitSignature(signature);
-          const sig = { v, r, s, deadline };
-          const inputStruct = {
-            follower: address,
-            profileIds,
-            datas: followData,
-            sig
-          };
-          if (!RELAY_ON) {
-            return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
-          }
+      try {
+        // TODO: Replace deep clone with right helper
+        const signature = await signTypedDataAsync(getSignature(JSON.parse(JSON.stringify(typedData))));
+        setUserSigNonce(userSigNonce + 1);
+        const { profileIds, datas: followData } = typedData.value;
+        const { v, r, s } = splitSignature(signature);
+        const sig = { v, r, s, deadline };
+        const inputStruct = {
+          follower: address,
+          profileIds,
+          datas: followData,
+          sig
+        };
+        if (!RELAY_ON) {
+          return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
+        }
 
-          const {
-            data: { broadcast: result }
-          } = await broadcast({ request: { id, signature } });
+        const {
+          data: { broadcast: result }
+        } = await broadcast({ request: { id, signature } });
 
-          if ('reason' in result) {
-            write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
-          }
-        } catch {}
-      },
-      onError,
-      update: updateCache
-    }
-  );
+        if ('reason' in result) {
+          write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
+        }
+      } catch {}
+    },
+    onError,
+    update: updateCache
+  });
 
-  const [createFollowProxyAction, { loading: proxyActionLoading }] = useMutation(ProxyActionDocument, {
+  const [createFollowProxyAction, { loading: proxyActionLoading }] = useProxyActionMutation({
     onCompleted,
     onError,
     update: updateCache
@@ -108,7 +104,7 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
     if (!data?.proxyAction) {
       createFollowTypedData({
         variables: {
-          request: { follow: { profile: profile?.id } },
+          request: { follow: [{ profile: profile?.id }] },
           options: { overrideSigNonce: userSigNonce }
         }
       });
@@ -125,13 +121,15 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
         variables: {
           options: { overrideSigNonce: userSigNonce },
           request: {
-            follow: {
-              profile: profile?.id,
-              followModule:
-                profile?.followModule?.__typename === 'ProfileFollowModuleSettings'
-                  ? { profileFollowModule: { profileId: currentProfile?.id } }
-                  : null
-            }
+            follow: [
+              {
+                profile: profile?.id,
+                followModule:
+                  profile?.followModule?.__typename === 'ProfileFollowModuleSettings'
+                    ? { profileFollowModule: { profileId: currentProfile?.id } }
+                    : null
+              }
+            ]
           }
         }
       });

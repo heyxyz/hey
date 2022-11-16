@@ -1,9 +1,7 @@
 import type { ApolloCache } from '@apollo/client';
-import { useMutation } from '@apollo/client';
 import { Tooltip } from '@components/UI/Tooltip';
 import type { LensterPublication } from '@generated/lenstertypes';
-import type { Mutation } from '@generated/types';
-import { AddReactionDocument, ReactionTypes, RemoveReactionDocument } from '@generated/types';
+import { ReactionTypes, useAddReactionMutation, useRemoveReactionMutation } from '@generated/types';
 import { HeartIcon } from '@heroicons/react/outline';
 import { HeartIcon as HeartIconSolid } from '@heroicons/react/solid';
 import { publicationKeyFields } from '@lib/keyFields';
@@ -49,7 +47,7 @@ const Like: FC<Props> = ({ publication, isFullPublication }) => {
     }
   };
 
-  const [addReaction] = useMutation<Mutation>(AddReactionDocument, {
+  const [addReaction] = useAddReactionMutation({
     onCompleted: () => {
       Leafwatch.track(PUBLICATION.LIKE);
     },
@@ -61,7 +59,7 @@ const Like: FC<Props> = ({ publication, isFullPublication }) => {
     update: (cache) => updateCache(cache, ReactionTypes.Upvote)
   });
 
-  const [removeReaction] = useMutation<Mutation>(RemoveReactionDocument, {
+  const [removeReaction] = useRemoveReactionMutation({
     onCompleted: () => {
       Leafwatch.track(PUBLICATION.DISLIKE);
     },
@@ -82,7 +80,7 @@ const Like: FC<Props> = ({ publication, isFullPublication }) => {
       variables: {
         request: {
           profileId: currentProfile?.id,
-          reaction: 'UPVOTE',
+          reaction: ReactionTypes.Upvote,
           publicationId: publication.__typename === 'Mirror' ? publication?.mirrorOf?.id : publication?.id
         }
       }

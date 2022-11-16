@@ -1,10 +1,9 @@
 import { FollowNFT } from '@abis/FollowNFT';
-import { useMutation } from '@apollo/client';
 import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
-import type { CreateBurnEip712TypedData, Mutation, Profile } from '@generated/types';
-import { CreateUnfollowTypedDataDocument } from '@generated/types';
+import type { CreateBurnEip712TypedData, Profile } from '@generated/types';
+import { useCreateUnfollowTypedDataMutation } from '@generated/types';
 import { UserRemoveIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
 import { Leafwatch } from '@lib/leafwatch';
@@ -51,35 +50,32 @@ const Unfollow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
     }
   });
 
-  const [createUnfollowTypedData, { loading: typedDataLoading }] = useMutation<Mutation>(
-    CreateUnfollowTypedDataDocument,
-    {
-      onCompleted: async ({ createUnfollowTypedData }) => {
-        try {
-          const { typedData, id } = createUnfollowTypedData;
-          const signature = await signTypedDataAsync(getSignature(typedData));
+  const [createUnfollowTypedData, { loading: typedDataLoading }] = useCreateUnfollowTypedDataMutation({
+    onCompleted: async ({ createUnfollowTypedData }) => {
+      try {
+        const { typedData, id } = createUnfollowTypedData;
+        const signature = await signTypedDataAsync(getSignature(typedData));
 
-          setWriteLoading(true);
-          try {
-            if (!RELAY_ON) {
-              return await burnWithSig(signature, typedData);
-            }
-            const { data } = await broadcast({ request: { id, signature } });
-            if (data?.broadcast?.reason) {
-              await burnWithSig(signature, typedData);
-            }
-            toast.success('Unfollowed successfully!');
-            Leafwatch.track(PROFILE.UNFOLLOW);
-          } catch {
-            toast.error('User rejected request');
-          } finally {
-            setWriteLoading(false);
+        setWriteLoading(true);
+        try {
+          if (!RELAY_ON) {
+            return await burnWithSig(signature, typedData);
           }
-        } catch {}
-      },
-      onError
-    }
-  );
+          const { data } = await broadcast({ request: { id, signature } });
+          if (data?.broadcast?.reason) {
+            await burnWithSig(signature, typedData);
+          }
+          toast.success('Unfollowed successfully!');
+          Leafwatch.track(PROFILE.UNFOLLOW);
+        } catch {
+          toast.error('User rejected request');
+        } finally {
+          setWriteLoading(false);
+        }
+      } catch {}
+    },
+    onError
+  });
 
   const createUnfollow = () => {
     if (!currentProfile) {

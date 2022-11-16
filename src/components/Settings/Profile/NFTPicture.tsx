@@ -1,5 +1,4 @@
 import { LensHubProxy } from '@abis/LensHubProxy';
-import { useLazyQuery, useMutation } from '@apollo/client';
 import IndexStatus from '@components/Shared/IndexStatus';
 import { Button } from '@components/UI/Button';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
@@ -7,11 +6,11 @@ import { Form, useZodForm } from '@components/UI/Form';
 import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
-import type { Mutation, NftImage, Profile, UpdateProfileImageRequest } from '@generated/types';
+import type { NftImage, Profile, UpdateProfileImageRequest } from '@generated/types';
 import {
-  CreateSetProfileImageUriTypedDataDocument,
-  CreateSetProfileImageUriViaDispatcherDocument,
-  NftChallengeDocument
+  useCreateSetProfileImageUriTypedDataMutation,
+  useCreateSetProfileImageUriViaDispatcherMutation,
+  useNftChallengeLazyQuery
 } from '@generated/types';
 import { PencilIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
@@ -73,11 +72,10 @@ const NFTPicture: FC<Props> = ({ profile }) => {
     onError
   });
 
-  const [loadChallenge, { loading: challengeLoading }] = useLazyQuery(NftChallengeDocument);
+  const [loadChallenge, { loading: challengeLoading }] = useNftChallengeLazyQuery();
   const { broadcast, data: broadcastData, loading: broadcastLoading } = useBroadcast({ onCompleted });
-  const [createSetProfileImageURITypedData, { loading: typedDataLoading }] = useMutation<Mutation>(
-    CreateSetProfileImageUriTypedDataDocument,
-    {
+  const [createSetProfileImageURITypedData, { loading: typedDataLoading }] =
+    useCreateSetProfileImageUriTypedDataMutation({
       onCompleted: async ({ createSetProfileImageURITypedData }) => {
         try {
           const { id, typedData } = createSetProfileImageURITypedData;
@@ -106,11 +104,10 @@ const NFTPicture: FC<Props> = ({ profile }) => {
         } catch {}
       },
       onError
-    }
-  );
+    });
 
   const [createSetProfileImageURIViaDispatcher, { data: dispatcherData, loading: dispatcherLoading }] =
-    useMutation(CreateSetProfileImageUriViaDispatcherDocument, { onCompleted, onError });
+    useCreateSetProfileImageUriViaDispatcherMutation({ onCompleted, onError });
 
   const createViaDispatcher = async (request: UpdateProfileImageRequest) => {
     const { data } = await createSetProfileImageURIViaDispatcher({

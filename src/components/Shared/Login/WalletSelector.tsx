@@ -1,9 +1,8 @@
-import { useLazyQuery, useMutation } from '@apollo/client';
 import SwitchNetwork from '@components/Shared/SwitchNetwork';
 import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
 import useIsMounted from '@components/utils/hooks/useIsMounted';
-import { AuthenticateDocument, ChallengeDocument, UserProfilesDocument } from '@generated/types';
+import { useAuthenticateMutation, useChallengeLazyQuery, useUserProfilesLazyQuery } from '@generated/types';
 import { XCircleIcon } from '@heroicons/react/solid';
 import getWalletLogo from '@lib/getWalletLogo';
 import { Leafwatch } from '@lib/leafwatch';
@@ -34,11 +33,11 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
   const { connectors, error, connectAsync } = useConnect();
   const { address, connector: activeConnector } = useAccount();
   const { signMessageAsync } = useSignMessage({ onError });
-  const [loadChallenge, { error: errorChallenge }] = useLazyQuery(ChallengeDocument, {
+  const [loadChallenge, { error: errorChallenge }] = useChallengeLazyQuery({
     fetchPolicy: 'no-cache'
   });
-  const [authenticate, { error: errorAuthenticate }] = useMutation(AuthenticateDocument);
-  const [getProfiles, { error: errorProfiles }] = useLazyQuery(UserProfilesDocument);
+  const [authenticate, { error: errorAuthenticate }] = useAuthenticateMutation();
+  const [getProfiles, { error: errorProfiles }] = useUserProfilesLazyQuery();
 
   const onConnect = async (connector: Connector) => {
     try {

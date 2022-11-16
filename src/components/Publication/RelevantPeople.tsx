@@ -1,11 +1,10 @@
-import { useQuery } from '@apollo/client';
 import UserProfileShimmer from '@components/Shared/Shimmer/UserProfileShimmer';
 import UserProfile from '@components/Shared/UserProfile';
 import { Card } from '@components/UI/Card';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import type { LensterPublication } from '@generated/lenstertypes';
 import type { Profile } from '@generated/types';
-import { RelevantPeopleDocument } from '@generated/types';
+import { useRelevantPeopleQuery } from '@generated/types';
 import type { FC } from 'react';
 import { ALL_HANDLES_REGEX, HANDLE_SANITIZE_REGEX } from 'src/constants';
 
@@ -32,7 +31,7 @@ const RelevantPeople: FC<Props> = ({ publication }) => {
 
   const cleanedMentions = [...new Set(processedMentions)];
 
-  const { data, loading, error } = useQuery(RelevantPeopleDocument, {
+  const { data, loading, error } = useRelevantPeopleQuery({
     variables: { request: { handles: cleanedMentions.slice(0, 5) } }
   });
 
