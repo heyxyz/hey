@@ -16,7 +16,7 @@ const Slug: FC<Props> = ({ slug, prefix, className = '' }) => {
       )}
     >
       {prefix}
-      {slug}
+      {slug.replace('.lens', '')}
     </span>
   );
 };
