@@ -10,6 +10,7 @@ import { useFeedHighlightsQuery } from '@generated/types';
 import { CollectionIcon } from '@heroicons/react/outline';
 import type { FC } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import { Virtuoso } from 'react-virtuoso';
 import { SCROLL_THRESHOLD } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { useTransactionPersistStore } from 'src/store/transaction';
@@ -62,7 +63,7 @@ const Highlights: FC = () => {
       next={loadMore}
       loader={<InfiniteLoader />}
     >
-      <Card className="divide-y-[1px] dark:divide-gray-700/80">
+      <Card>
         {txnQueue.map(
           (txn) =>
             txn?.type === 'NEW_POST' && (
@@ -71,12 +72,22 @@ const Highlights: FC = () => {
               </div>
             )
         )}
-        {publications?.map((publication, index: number) => (
-          <SinglePublication
-            key={`${publication?.id}_${index}`}
-            publication={publication as LensterPublication}
-          />
-        ))}
+        <Virtuoso
+          useWindowScroll
+          className="virtual-list"
+          totalCount={publications?.length}
+          components={{ Footer: () => <PublicationsShimmer inVirtualList /> }}
+          itemContent={(index) => {
+            const publication = publications?.[index] as LensterPublication;
+            return (
+              <SinglePublication
+                key={`${publication?.id}_${index}`}
+                index={index}
+                publication={publication as LensterPublication}
+              />
+            );
+          }}
+        />
       </Card>
     </InfiniteScroll>
   );

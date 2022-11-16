@@ -9,6 +9,7 @@ import { CustomFiltersTypes, SearchRequestTypes, useSearchPublicationsQuery } fr
 import { CollectionIcon } from '@heroicons/react/outline';
 import type { FC } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import { Virtuoso } from 'react-virtuoso';
 import { SCROLL_THRESHOLD } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 
@@ -29,7 +30,7 @@ const Publications: FC<Props> = ({ query }) => {
   const reactionRequest = currentProfile ? { profileId: currentProfile?.id } : null;
   const profileId = currentProfile?.id ?? null;
 
-  const { data, loading, error, fetchMore } = useSearchPublicationsQuery({
+  const { data, error, fetchMore } = useSearchPublicationsQuery({
     variables: { request, reactionRequest, profileId }
   });
 
@@ -44,10 +45,6 @@ const Publications: FC<Props> = ({ query }) => {
       variables: { request: { ...request, cursor: pageInfo?.next }, reactionRequest, profileId }
     });
   };
-
-  if (loading) {
-    return <PublicationsShimmer />;
-  }
 
   if (publications?.length === 0) {
     return (
@@ -74,10 +71,23 @@ const Publications: FC<Props> = ({ query }) => {
       next={loadMore}
       loader={<InfiniteLoader />}
     >
-      <Card className="divide-y-[1px] dark:divide-gray-700/80">
-        {publications?.map((post: LensterPublication, index: number) => (
-          <SinglePublication key={`${post?.id}_${index}`} publication={post} />
-        ))}
+      <Card>
+        <Virtuoso
+          useWindowScroll
+          className="virtual-list"
+          totalCount={publications?.length}
+          components={{ Footer: () => <PublicationsShimmer inVirtualList /> }}
+          itemContent={(index) => {
+            const publication = publications?.[index] as LensterPublication;
+            return (
+              <SinglePublication
+                key={`${publication?.id}_${index}`}
+                index={index}
+                publication={publication}
+              />
+            );
+          }}
+        />
       </Card>
     </InfiniteScroll>
   );
