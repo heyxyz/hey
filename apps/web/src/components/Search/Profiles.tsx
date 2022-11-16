@@ -71,7 +71,7 @@ const Profiles: FC<Props> = ({ query }) => {
       loader={<InfiniteLoader />}
     >
       <div className="space-y-3">
-        {profiles?.map((profile: Profile) => (
+        {profiles.map((profile: Profile) => (
           <Card key={profile?.id} className="p-5">
             <UserProfile profile={profile} showBio isBig />
           </Card>
