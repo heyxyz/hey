@@ -144,6 +144,11 @@ const SuperFollow: FC = () => {
 
   const followType = currencyData?.profile?.followModule?.__typename;
 
+  const symbolToUrl = (symbol: string) => {
+    const currency = currencyData?.enabledModuleCurrencies.find((c) => c.symbol === symbol);
+    return currency?.symbol ? getTokenImage(currency.symbol) : '';
+  };
+
   return (
     <Card>
       <Form
@@ -186,7 +191,7 @@ const SuperFollow: FC = () => {
               className="w-6 h-6"
               height={24}
               width={24}
-              src={getTokenImage(selectedCurrencySymbol)}
+              src={symbolToUrl(selectedCurrencySymbol)}
               alt={selectedCurrencySymbol}
             />
           }
