@@ -33,7 +33,7 @@ const ProfileSettings: NextPage = () => {
     skip: !currentProfile?.id,
     onCompleted: (data) => {
       const picture = data?.profile?.picture;
-      setSettingsType(picture && picture.hasOwnProperty('uri') ? 'NFT' : 'AVATAR');
+      setSettingsType(picture?.hasOwnProperty('uri') ? 'NFT' : 'AVATAR');
     }
   });
 
