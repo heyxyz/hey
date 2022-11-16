@@ -4,13 +4,13 @@ import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer'
 import { Card } from '@components/UI/Card';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
-import InfiniteLoader from '@components/UI/InfiniteLoader';
 import type { LensterPublication } from '@generated/lenstertypes';
 import type { FeedItem } from '@generated/types';
 import { FeedEventItemType, useTimelineQuery } from '@generated/types';
 import { CollectionIcon } from '@heroicons/react/outline';
 import type { FC } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import { Virtuoso } from 'react-virtuoso';
 import { SCROLL_THRESHOLD } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { useTimelinePersistStore } from 'src/store/timeline';
@@ -43,7 +43,7 @@ const Timeline: FC = () => {
   const reactionRequest = currentProfile ? { profileId: currentProfile?.id } : null;
   const profileId = currentProfile?.id ?? null;
 
-  const { data, loading, error, fetchMore } = useTimelineQuery({
+  const { data, error, fetchMore } = useTimelineQuery({
     variables: { request, reactionRequest, profileId }
   });
 
@@ -56,10 +56,6 @@ const Timeline: FC = () => {
       variables: { request: { ...request, cursor: pageInfo?.next }, reactionRequest, profileId }
     });
   };
-
-  if (loading) {
-    return <PublicationsShimmer />;
-  }
 
   if (publications?.length === 0) {
     return (
@@ -80,24 +76,34 @@ const Timeline: FC = () => {
       scrollThreshold={SCROLL_THRESHOLD}
       hasMore={hasMore}
       next={loadMore}
-      loader={<InfiniteLoader />}
+      loader={<div />}
     >
-      <Card className="divide-y-[1px] dark:divide-gray-700/80">
+      <Card>
         {txnQueue.map(
-          (txn) =>
+          (txn, index) =>
             txn?.type === 'NEW_POST' && (
               <div key={txn.id}>
-                <QueuedPublication txn={txn} />
+                <QueuedPublication txn={txn} index={index} />
               </div>
             )
         )}
-        {publications?.map((publication, index: number) => (
-          <SinglePublication
-            key={`${publication?.root.id}_${index}`}
-            feedItem={publication as FeedItem}
-            publication={publication.root as LensterPublication}
-          />
-        ))}
+        <Virtuoso
+          useWindowScroll
+          className="virtual-list"
+          totalCount={publications?.length}
+          components={{ Footer: () => <PublicationsShimmer inVirtualList /> }}
+          itemContent={(index) => {
+            const publication = publications?.[index] as FeedItem;
+            return (
+              <SinglePublication
+                key={`${publication?.root.id}_${index}`}
+                index={txnQueue.length > 0 ? -1 : index}
+                feedItem={publication}
+                publication={publication.root as LensterPublication}
+              />
+            );
+          }}
+        />
       </Card>
     </InfiniteScroll>
   );

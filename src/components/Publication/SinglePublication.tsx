@@ -3,6 +3,7 @@ import UserProfile from '@components/Shared/UserProfile';
 import type { LensterPublication } from '@generated/lenstertypes';
 import type { ElectedMirror, FeedItem } from '@generated/types';
 import { Leafwatch } from '@lib/leafwatch';
+import clsx from 'clsx';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { useRouter } from 'next/router';
@@ -19,6 +20,7 @@ dayjs.extend(relativeTime);
 
 interface Props {
   publication: LensterPublication;
+  index?: number;
   feedItem?: FeedItem;
   showType?: boolean;
   showActions?: boolean;
@@ -28,6 +30,7 @@ interface Props {
 
 const SinglePublication: FC<Props> = ({
   publication,
+  index,
   feedItem,
   showType = true,
   showActions = true,
@@ -50,7 +53,12 @@ const SinglePublication: FC<Props> = ({
     : publication?.createdAt;
 
   return (
-    <article className="hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer first:rounded-t-xl last:rounded-b-xl p-5">
+    <article
+      className={clsx(
+        { 'rounded-t-xl': index === 0 },
+        'hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer p-5'
+      )}
+    >
       {feedItem ? (
         <EventType feedItem={feedItem} showType={showType} showThread={showThread} />
       ) : (

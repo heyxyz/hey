@@ -4,12 +4,12 @@ import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer'
 import { Card } from '@components/UI/Card';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
-import InfiniteLoader from '@components/UI/InfiniteLoader';
 import type { LensterPublication } from '@generated/lenstertypes';
 import { CustomFiltersTypes, useCommentFeedQuery } from '@generated/types';
 import { CollectionIcon } from '@heroicons/react/outline';
 import type { FC } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import { Virtuoso } from 'react-virtuoso';
 import { SCROLL_THRESHOLD } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { useTransactionPersistStore } from 'src/store/transaction';
@@ -50,24 +50,30 @@ const Feed: FC<Props> = ({ publication }) => {
     });
   };
 
+  if (loading) {
+    return <PublicationsShimmer />;
+  }
+
+  if (totalComments === 0) {
+    return (
+      <EmptyState
+        message={<span>Be the first one to comment!</span>}
+        icon={<CollectionIcon className="w-8 h-8 text-brand" />}
+      />
+    );
+  }
+
   return (
     <>
       {currentProfile ? canComment ? <NewComment publication={publication} /> : <CommentWarning /> : null}
-      {loading && <PublicationsShimmer />}
-      {!loading && totalComments === 0 && (
-        <EmptyState
-          message={<span>Be the first one to comment!</span>}
-          icon={<CollectionIcon className="w-8 h-8 text-brand" />}
-        />
-      )}
       <ErrorMessage title="Failed to load comment feed" error={error} />
-      {!error && !loading && totalComments !== 0 && (
+      {!error && totalComments !== 0 && (
         <InfiniteScroll
           dataLength={totalComments}
           scrollThreshold={SCROLL_THRESHOLD}
           hasMore={hasMore}
           next={loadMore}
-          loader={<InfiniteLoader />}
+          loader={<div />}
         >
           <Card className="divide-y-[1px] dark:divide-gray-700/80">
             {txnQueue.map(
@@ -79,13 +85,23 @@ const Feed: FC<Props> = ({ publication }) => {
                   </div>
                 )
             )}
-            {comments?.map((comment, index: number) => (
-              <SinglePublication
-                key={`${publicationId}_${index}`}
-                publication={comment as LensterPublication}
-                showType={false}
-              />
-            ))}
+            <Virtuoso
+              useWindowScroll
+              className="virtual-list"
+              totalCount={comments?.length}
+              components={{ Footer: () => <PublicationsShimmer inVirtualList /> }}
+              itemContent={(index) => {
+                const comment = comments?.[index] as LensterPublication;
+                return (
+                  <SinglePublication
+                    key={`${publicationId}_${index}`}
+                    index={index}
+                    publication={comment}
+                    showType={false}
+                  />
+                );
+              }}
+            />
           </Card>
         </InfiniteScroll>
       )}
