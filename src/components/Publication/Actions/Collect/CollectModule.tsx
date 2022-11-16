@@ -256,7 +256,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
     const decimalProfileId = parseInt(pubId.split('-')[0], 16);
     const decimalPubId = parseInt(pubId.split('-')[1], 16);
     const marketplacePublicationId = decimalProfileId + '_' + decimalPubId;
-    const marketplaceUrl = 'http://lensport.io/p/' + marketplacePublicationId;
+    const marketplaceUrl = 'https://lensport.io/p/' + marketplacePublicationId;
     window.open(marketplaceUrl);
   };
 
@@ -463,7 +463,10 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
               />
             )
           ) : null}
-          <Button onClick={shopCollects}>Shop collects</Button>
+          {parseInt(collectModule?.collectLimit) - count === 0 ||
+          Date.parse(collectModule?.endTimestamp) / 1000 < Math.floor(Date.now() / 1000) + 86400 ? (
+            <Button onClick={shopCollects}>Shop collects</Button>
+          ) : null}
         </div>
         {publication?.hasCollectedByMe && (
           <div className="mt-3 font-bold text-green-500 flex items-center space-x-1.5">
