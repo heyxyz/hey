@@ -2,12 +2,7 @@ import UserProfile from '@components/Shared/UserProfile';
 import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
 import type { Profile } from '@generated/types';
-import {
-  CustomFiltersTypes,
-  SearchRequestTypes,
-  useRecommendedProfilesQuery,
-  useSearchProfilesLazyQuery
-} from '@generated/types';
+import { CustomFiltersTypes, SearchRequestTypes, useSearchProfilesLazyQuery } from '@generated/types';
 import { Menu, Transition } from '@headlessui/react';
 import { XIcon } from '@heroicons/react/outline';
 import { ChevronDownIcon } from '@heroicons/react/solid';
@@ -22,9 +17,10 @@ import { SEARCH } from 'src/tracking';
 
 const SeeThroughLens = () => {
   const [searchText, setSearchText] = useState('');
+  const currentProfile = useAppStore((state) => state.currentProfile);
   const seeThroughProfile = useTimelineStore((state) => state.seeThroughProfile);
   const setSeeThroughProfile = useTimelineStore((state) => state.setSeeThroughProfile);
-  const currentProfile = useAppStore((state) => state.currentProfile);
+  const recommendProfilesToSeeThrough = useTimelineStore((state) => state.recommendProfilesToSeeThrough);
 
   const profile = seeThroughProfile ?? currentProfile;
 
@@ -45,12 +41,9 @@ const SeeThroughLens = () => {
     });
   };
 
-  const { data, loading } = useRecommendedProfilesQuery({
-    variables: { options: { shuffle: false } }
-  });
   // @ts-ignore
   const searchResults = searchUsersData?.search?.items ?? [];
-  const recommendedProfiles = data?.recommendedProfiles ?? [];
+  const recommendedProfiles = recommendProfilesToSeeThrough ?? [];
 
   const profiles =
     searchResults.length && searchText.length ? searchResults : recommendedProfiles.slice(0, 5);
@@ -112,7 +105,7 @@ const SeeThroughLens = () => {
             </button>
           )}
           <div className="mx-2 mb-2">
-            {searchUsersLoading || loading ? (
+            {searchUsersLoading ? (
               <div className="py-2 px-4 space-y-2 text-sm font-bold text-center">
                 <Spinner size="sm" className="mx-auto" />
                 <div>Searching users</div>

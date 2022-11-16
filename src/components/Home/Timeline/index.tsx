@@ -6,7 +6,7 @@ import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import InfiniteLoader from '@components/UI/InfiniteLoader';
 import type { LensterPublication } from '@generated/lenstertypes';
-import type { FeedItem } from '@generated/types';
+import type { FeedItem, Profile } from '@generated/types';
 import { FeedEventItemType, useTimelineQuery } from '@generated/types';
 import { CollectionIcon } from '@heroicons/react/outline';
 import type { FC } from 'react';
@@ -21,6 +21,9 @@ const Timeline: FC = () => {
   const txnQueue = useTransactionPersistStore((state) => state.txnQueue);
   const feedEventFilters = useTimelinePersistStore((state) => state.feedEventFilters);
   const seeThroughProfile = useTimelineStore((state) => state.seeThroughProfile);
+  const setRecommendProfilesToSeeThrough = useTimelineStore(
+    (state) => state.setRecommendProfilesToSeeThrough
+  );
 
   const getFeedEventItems = () => {
     const filters: FeedEventItemType[] = [];
@@ -45,7 +48,12 @@ const Timeline: FC = () => {
   const reactionRequest = currentProfile ? { profileId: profileId } : null;
 
   const { data, loading, error, fetchMore } = useTimelineQuery({
-    variables: { request, reactionRequest, profileId }
+    variables: { request, reactionRequest, profileId },
+    onCompleted: (data) => {
+      const feedItems = data?.feed?.items;
+      const profiles = feedItems.map((feedItem) => feedItem.root?.profile) as Profile[];
+      setRecommendProfilesToSeeThrough(profiles?.slice(0, 5));
+    }
   });
 
   const publications = data?.feed?.items;
