@@ -38,7 +38,7 @@ const SuperFollow: FC = () => {
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [selectedCurrency, setSelectedCurrency] = useState(DEFAULT_COLLECT_TOKEN);
-  const [selectedCurrencySymobol, setSelectedCurrencySymobol] = useState('WMATIC');
+  const [selectedCurrencySymbol, setSelectedCurrencySymbol] = useState('WMATIC');
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
   const { data: currencyData, loading } = useEnabledCurrencyModulesWithProfileQuery({
     variables: { request: { profileId: currentProfile?.id } },
@@ -165,7 +165,7 @@ const SuperFollow: FC = () => {
             onChange={(e) => {
               const currency = e.target.value.split('-');
               setSelectedCurrency(currency[0]);
-              setSelectedCurrencySymobol(currency[1]);
+              setSelectedCurrencySymbol(currency[1]);
             }}
           >
             {currencyData?.enabledModuleCurrencies?.map((currency: Erc20) => (
@@ -186,8 +186,8 @@ const SuperFollow: FC = () => {
               className="w-6 h-6"
               height={24}
               width={24}
-              src={getTokenImage(selectedCurrencySymobol)}
-              alt={selectedCurrencySymobol}
+              src={getTokenImage(selectedCurrencySymbol)}
+              alt={selectedCurrencySymbol}
             />
           }
           placeholder="5"
