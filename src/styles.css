@@ -175,3 +175,11 @@ i.code {
 div[data-lexical-editor='true'] {
   @apply outline-none;
 }
+
+.virtual-list {
+  @apply overflow-y-hidden;
+}
+
+.virtual-list > div > div {
+  @apply divide-y-[1px] dark:divide-gray-700/80;
+}
