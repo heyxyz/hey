@@ -10,8 +10,8 @@ interface TimelinePersistState {
 
 interface TimelineState {
   seeThroughProfile: Profile | null;
-  recommendProfilesToSeeThrough: Profile[];
-  setRecommendProfilesToSeeThrough: (profiles: Profile[]) => void;
+  recommendedProfilesToSeeThrough: Profile[];
+  setRecommendedProfilesToSeeThrough: (profiles: Profile[]) => void;
   setSeeThroughProfile: (profile: Profile | null) => void;
 }
 
@@ -26,9 +26,9 @@ export const useTimelinePersistStore = create(
 );
 
 export const useTimelineStore = create<TimelineState>((set) => ({
-  recommendProfilesToSeeThrough: [],
+  recommendedProfilesToSeeThrough: [],
   seeThroughProfile: null,
-  setRecommendProfilesToSeeThrough: (recommendProfilesToSeeThrough) =>
-    set(() => ({ recommendProfilesToSeeThrough })),
+  setRecommendedProfilesToSeeThrough: (recommendedProfilesToSeeThrough) =>
+    set(() => ({ recommendedProfilesToSeeThrough })),
   setSeeThroughProfile: (seeThroughProfile) => set(() => ({ seeThroughProfile }))
 }));

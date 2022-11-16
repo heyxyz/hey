@@ -21,8 +21,8 @@ const Timeline: FC = () => {
   const txnQueue = useTransactionPersistStore((state) => state.txnQueue);
   const feedEventFilters = useTimelinePersistStore((state) => state.feedEventFilters);
   const seeThroughProfile = useTimelineStore((state) => state.seeThroughProfile);
-  const setRecommendProfilesToSeeThrough = useTimelineStore(
-    (state) => state.setRecommendProfilesToSeeThrough
+  const setRecommendedProfilesToSeeThrough = useTimelineStore(
+    (state) => state.setRecommendedProfilesToSeeThrough
   );
 
   const getFeedEventItems = () => {
@@ -52,7 +52,7 @@ const Timeline: FC = () => {
     onCompleted: (data) => {
       const feedItems = data?.feed?.items;
       const profiles = feedItems.map((feedItem) => feedItem.root?.profile) as Profile[];
-      setRecommendProfilesToSeeThrough(profiles?.slice(0, 5));
+      setRecommendedProfilesToSeeThrough(profiles?.slice(0, 5));
     }
   });
 

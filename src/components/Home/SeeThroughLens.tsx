@@ -20,7 +20,7 @@ const SeeThroughLens = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const seeThroughProfile = useTimelineStore((state) => state.seeThroughProfile);
   const setSeeThroughProfile = useTimelineStore((state) => state.setSeeThroughProfile);
-  const recommendProfilesToSeeThrough = useTimelineStore((state) => state.recommendProfilesToSeeThrough);
+  const recommendedProfilesToSeeThrough = useTimelineStore((state) => state.recommendedProfilesToSeeThrough);
 
   const profile = seeThroughProfile ?? currentProfile;
 
@@ -43,7 +43,7 @@ const SeeThroughLens = () => {
 
   // @ts-ignore
   const searchResults = searchUsersData?.search?.items ?? [];
-  const recommendedProfiles = recommendProfilesToSeeThrough ?? [];
+  const recommendedProfiles = recommendedProfilesToSeeThrough ?? [];
 
   const profiles =
     searchResults.length && searchText.length ? searchResults : recommendedProfiles.slice(0, 5);
