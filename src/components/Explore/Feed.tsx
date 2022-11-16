@@ -76,11 +76,7 @@ const Feed: FC<Props> = ({ focus, feedType = PublicationSortCriteria.CuratedProf
           itemContent={(index) => {
             const publication = publications?.[index] as LensterPublication;
             return (
-              <SinglePublication
-                key={`${publication.id}_${index}`}
-                index={index}
-                publication={publication as LensterPublication}
-              />
+              <SinglePublication key={`${publication.id}_${index}`} index={index} publication={publication} />
             );
           }}
         />

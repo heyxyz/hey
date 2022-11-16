@@ -73,7 +73,7 @@ const Feed: FC = () => {
               <SinglePublication
                 key={`${publication.id}_${index}`}
                 index={index}
-                publication={publication as LensterPublication}
+                publication={publication}
                 showThread={false}
                 showActions={false}
                 showModActions

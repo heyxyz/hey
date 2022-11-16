@@ -116,7 +116,7 @@ const Feed: FC<Props> = ({ profile, type }) => {
               <SinglePublication
                 key={`${publication.id}_${index}`}
                 index={index}
-                publication={publication as LensterPublication}
+                publication={publication}
                 showThread={type !== 'MEDIA'}
               />
             );

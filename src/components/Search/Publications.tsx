@@ -4,7 +4,6 @@ import { Card } from '@components/UI/Card';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import InfiniteLoader from '@components/UI/InfiniteLoader';
-import type { LensterPublication } from '@generated/lenstertypes';
 import { CustomFiltersTypes, SearchRequestTypes, useSearchPublicationsQuery } from '@generated/types';
 import { CollectionIcon } from '@heroicons/react/outline';
 import type { FC } from 'react';
@@ -78,7 +77,7 @@ const Publications: FC<Props> = ({ query }) => {
           totalCount={publications?.length}
           components={{ Footer: () => <PublicationsShimmer inVirtualList /> }}
           itemContent={(index) => {
-            const publication = publications?.[index] as LensterPublication;
+            const publication = publications?.[index];
             return (
               <SinglePublication
                 key={`${publication?.id}_${index}`}

@@ -99,7 +99,7 @@ const Timeline: FC = () => {
               <SinglePublication
                 key={`${publication?.root.id}_${index}`}
                 index={index}
-                feedItem={publication as FeedItem}
+                feedItem={publication}
                 publication={publication.root as LensterPublication}
               />
             );

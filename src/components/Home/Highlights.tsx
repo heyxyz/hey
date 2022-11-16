@@ -83,7 +83,7 @@ const Highlights: FC = () => {
               <SinglePublication
                 key={`${publication?.id}_${index}`}
                 index={index}
-                publication={publication as LensterPublication}
+                publication={publication}
               />
             );
           }}
