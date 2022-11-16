@@ -3,12 +3,12 @@ import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer'
 import { Card } from '@components/UI/Card';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
+import InfiniteLoader from '@components/UI/InfiniteLoader';
 import type { LensterPublication } from '@generated/lenstertypes';
 import { CustomFiltersTypes, PublicationSortCriteria, useExploreFeedQuery } from '@generated/types';
 import { CollectionIcon } from '@heroicons/react/outline';
 import type { FC } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { Virtuoso } from 'react-virtuoso';
 import { SCROLL_THRESHOLD } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 
@@ -31,7 +31,7 @@ const Feed: FC<Props> = ({ focus, feedType = PublicationSortCriteria.CuratedProf
   const reactionRequest = currentProfile ? { profileId: currentProfile?.id } : null;
   const profileId = currentProfile?.id ?? null;
 
-  const { data, error, fetchMore } = useExploreFeedQuery({
+  const { data, loading, error, fetchMore } = useExploreFeedQuery({
     variables: { request, reactionRequest, profileId }
   });
 
@@ -44,6 +44,10 @@ const Feed: FC<Props> = ({ focus, feedType = PublicationSortCriteria.CuratedProf
       variables: { request: { ...request, cursor: pageInfo?.next }, reactionRequest, profileId }
     });
   };
+
+  if (loading) {
+    return <PublicationsShimmer />;
+  }
 
   if (publications?.length === 0) {
     return (
@@ -64,21 +68,15 @@ const Feed: FC<Props> = ({ focus, feedType = PublicationSortCriteria.CuratedProf
       scrollThreshold={SCROLL_THRESHOLD}
       hasMore={hasMore}
       next={loadMore}
-      loader={<div />}
+      loader={<InfiniteLoader />}
     >
-      <Card>
-        <Virtuoso
-          useWindowScroll
-          className="virtual-list"
-          totalCount={publications?.length}
-          components={{ Footer: () => <PublicationsShimmer inVirtualList /> }}
-          itemContent={(index) => {
-            const publication = publications?.[index] as LensterPublication;
-            return (
-              <SinglePublication key={`${publication.id}_${index}`} index={index} publication={publication} />
-            );
-          }}
-        />
+      <Card className="divide-y-[1px] dark:divide-gray-700/80">
+        {publications?.map((publication, index: number) => (
+          <SinglePublication
+            key={`${publication.id}_${index}`}
+            publication={publication as LensterPublication}
+          />
+        ))}
       </Card>
     </InfiniteScroll>
   );
