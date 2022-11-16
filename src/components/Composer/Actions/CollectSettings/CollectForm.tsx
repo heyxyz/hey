@@ -193,7 +193,7 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
                   </div>
                   <div className="text-sm pt-2 flex space-x-2">
                     <Input
-                      label="Referal fee"
+                      label="Referral fee"
                       type="number"
                       placeholder="5"
                       iconRight="%"
@@ -219,7 +219,7 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
                 <div className="flex items-center space-x-2">
                   <Toggle on={!!collectLimit} setOn={() => setCollectLimit(collectLimit ? null : '1')} />
                   <div className="text-gray-500 dark:text-gray-400 text-sm font-bold">
-                    Make the collects exlusive
+                    Make the collects exclusive
                   </div>
                 </div>
                 {collectLimit ? (

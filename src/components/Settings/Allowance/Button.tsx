@@ -20,7 +20,7 @@ interface Props {
 }
 
 const AllowanceButton: FC<Props> = ({ title = 'Allow', module, allowed, setAllowed }) => {
-  const [showWarningModal, setShowWarninModal] = useState(false);
+  const [showWarningModal, setShowWarningModal] = useState(false);
   const [generateAllowanceQuery, { loading: queryLoading }] =
     useGenerateModuleCurrencyApprovalDataLazyQuery();
 
@@ -38,7 +38,7 @@ const AllowanceButton: FC<Props> = ({ title = 'Allow', module, allowed, setAllow
     hash: txData?.hash,
     onSuccess: () => {
       toast.success(`Module ${allowed ? 'disabled' : 'enabled'} successfully!`);
-      setShowWarninModal(false);
+      setShowWarningModal(false);
       setAllowed(!allowed);
       Leafwatch.track(`Module ${allowed ? 'disabled' : 'enabled'}`);
     },
@@ -85,7 +85,7 @@ const AllowanceButton: FC<Props> = ({ title = 'Allow', module, allowed, setAllow
       <Button
         variant="success"
         icon={<PlusIcon className="w-4 h-4" />}
-        onClick={() => setShowWarninModal(!showWarningModal)}
+        onClick={() => setShowWarningModal(!showWarningModal)}
       >
         {title}
       </Button>
@@ -93,7 +93,7 @@ const AllowanceButton: FC<Props> = ({ title = 'Allow', module, allowed, setAllow
         title="Warning"
         icon={<ExclamationIcon className="w-5 h-5 text-yellow-500" />}
         show={showWarningModal}
-        onClose={() => setShowWarninModal(false)}
+        onClose={() => setShowWarningModal(false)}
       >
         <div className="p-5 space-y-3">
           <WarningMessage

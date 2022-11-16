@@ -74,12 +74,20 @@ const Feed: FC<Props> = ({ profile, type }) => {
   }
 
   if (publications?.length === 0) {
+    const emptyMessage =
+      type === 'FEED'
+        ? 'has nothing in their feed yet!'
+        : type === 'MEDIA'
+        ? 'has no media yet!'
+        : type === 'REPLIES'
+        ? "hasn't replied yet!"
+        : '';
     return (
       <EmptyState
         message={
           <div>
             <span className="mr-1 font-bold">@{profile?.handle}</span>
-            <span>hasn’t {type.toLowerCase()}ed yet!</span>
+            <span>{emptyMessage}</span>
           </div>
         }
         icon={<CollectionIcon className="w-8 h-8 text-brand" />}
