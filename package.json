@@ -50,7 +50,6 @@
     "react-hook-form": "^7.39.3",
     "react-hot-toast": "^2.4.0",
     "react-infinite-scroll-component": "^6.1.0",
-    "react-virtuoso": "^3.1.4",
     "uuid": "^9.0.0",
     "wagmi": "^0.8.3",
     "zod": "^3.19.1",
