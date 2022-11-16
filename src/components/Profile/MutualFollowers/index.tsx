@@ -24,7 +24,7 @@ const MutualFollowers: FC<Props> = ({ setShowMutualFollowersModal, profile, vari
         limit: 3
       }
     },
-    skip: !profile?.id
+    skip: !profile?.id || !currentProfile?.id
   });
 
   const profiles = data?.mutualFollowersProfiles?.items ?? [];
