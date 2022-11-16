@@ -52,7 +52,8 @@ const SeeThroughLens = () => {
   const searchResults = searchUsersData?.search?.items ?? [];
   const recommendedProfiles = data?.recommendedProfiles ?? [];
 
-  const profiles = searchResults.length ? searchResults : recommendedProfiles.slice(0, 5);
+  const profiles =
+    searchResults.length && searchText.length ? searchResults : recommendedProfiles.slice(0, 5);
 
   return (
     <Menu as="div" className="relative">
