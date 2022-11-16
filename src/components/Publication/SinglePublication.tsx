@@ -55,7 +55,7 @@ const SinglePublication: FC<Props> = ({
   return (
     <article
       className={clsx(
-        { 'first:rounded-t-xl': index === 0 },
+        { 'rounded-t-xl': index === 0 },
         'hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer p-5'
       )}
     >

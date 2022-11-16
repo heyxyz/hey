@@ -4,7 +4,6 @@ import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer'
 import { Card } from '@components/UI/Card';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
-import InfiniteLoader from '@components/UI/InfiniteLoader';
 import type { LensterPublication } from '@generated/lenstertypes';
 import { useFeedHighlightsQuery } from '@generated/types';
 import { CollectionIcon } from '@heroicons/react/outline';
@@ -61,7 +60,7 @@ const Highlights: FC = () => {
       scrollThreshold={SCROLL_THRESHOLD}
       hasMore={hasMore}
       next={loadMore}
-      loader={<InfiniteLoader />}
+      loader={<div />}
     >
       <Card>
         {txnQueue.map(

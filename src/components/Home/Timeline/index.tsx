@@ -4,7 +4,6 @@ import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer'
 import { Card } from '@components/UI/Card';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
-import InfiniteLoader from '@components/UI/InfiniteLoader';
 import type { LensterPublication } from '@generated/lenstertypes';
 import type { FeedItem } from '@generated/types';
 import { FeedEventItemType, useTimelineQuery } from '@generated/types';
@@ -77,14 +76,14 @@ const Timeline: FC = () => {
       scrollThreshold={SCROLL_THRESHOLD}
       hasMore={hasMore}
       next={loadMore}
-      loader={<InfiniteLoader />}
+      loader={<div />}
     >
       <Card>
         {txnQueue.map(
-          (txn) =>
+          (txn, index) =>
             txn?.type === 'NEW_POST' && (
               <div key={txn.id}>
-                <QueuedPublication txn={txn} />
+                <QueuedPublication txn={txn} index={index} />
               </div>
             )
         )}
@@ -98,7 +97,7 @@ const Timeline: FC = () => {
             return (
               <SinglePublication
                 key={`${publication?.root.id}_${index}`}
-                index={index}
+                index={txnQueue.length > 0 ? -1 : index}
                 feedItem={publication}
                 publication={publication.root as LensterPublication}
               />

@@ -3,7 +3,6 @@ import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer'
 import { Card } from '@components/UI/Card';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
-import InfiniteLoader from '@components/UI/InfiniteLoader';
 import type { LensterPublication } from '@generated/lenstertypes';
 import type { Profile } from '@generated/types';
 import { PublicationMainFocus, PublicationTypes, useProfileFeedQuery } from '@generated/types';
@@ -102,7 +101,7 @@ const Feed: FC<Props> = ({ profile, type }) => {
       scrollThreshold={SCROLL_THRESHOLD}
       hasMore={hasMore}
       next={loadMore}
-      loader={<InfiniteLoader />}
+      loader={<div />}
     >
       <Card>
         <Virtuoso
