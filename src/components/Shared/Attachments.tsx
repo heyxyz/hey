@@ -51,7 +51,7 @@ const Attachments: FC<Props> = ({
   publication,
   txn
 }) => {
-  const [expanedImage, setExpandedImage] = useState<string | null>(null);
+  const [expandedImage, setExpandedImage] = useState<string | null>(null);
 
   const removeAttachment = (attachment: any) => {
     const arr = attachments;
@@ -138,7 +138,7 @@ const Attachments: FC<Props> = ({
           );
         })}
       </div>
-      <LightBox show={!!expanedImage} url={expanedImage} onClose={() => setExpandedImage(null)} />
+      <LightBox show={!!expandedImage} url={expandedImage} onClose={() => setExpandedImage(null)} />
     </>
   ) : null;
 };
