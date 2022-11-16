@@ -1,7 +1,7 @@
 import WalletSelector from '@components/Shared/Login/WalletSelector';
 import type { FC } from 'react';
 import { useState } from 'react';
-import { APP_NAME, IS_MAINNET, STATIC_ASSETS } from 'src/constants';
+import { APP_NAME, IS_MAINNET, STATIC_IMAGES_URL } from 'src/constants';
 
 import NewProfile from './New';
 
@@ -36,7 +36,7 @@ const Login: FC = () => {
             className="w-16 h-16 rounded-full"
             height={64}
             width={64}
-            src={`${STATIC_ASSETS}/brands/lens.png`}
+            src={`${STATIC_IMAGES_URL}/brands/lens.png`}
             alt="Logo"
           />
           <div className="text-xl font-bold">Claim your Lens profile 🌿</div>

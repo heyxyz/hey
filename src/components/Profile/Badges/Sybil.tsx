@@ -2,7 +2,7 @@ import { Tooltip } from '@components/UI/Tooltip';
 import type { Profile } from '@generated/types';
 import { CheckCircleIcon } from '@heroicons/react/solid';
 import type { FC } from 'react';
-import { STATIC_ASSETS } from 'src/constants';
+import { STATIC_IMAGES_URL } from 'src/constants';
 
 interface Props {
   profile: Profile;
@@ -32,7 +32,7 @@ const Sybil: FC<Props> = ({ profile }) => {
         className="drop-shadow-xl"
         height={75}
         width={75}
-        src={`${STATIC_ASSETS}/badges/sybil.png`}
+        src={`${STATIC_IMAGES_URL}/badges/sybil.png`}
         alt="Sybil Badge"
       />
     </Tooltip>

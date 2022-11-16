@@ -1,10 +1,10 @@
-import { STATIC_ASSETS } from 'src/constants';
+import { STATIC_IMAGES_URL } from 'src/constants';
 
 /**
  *
  * @param symbol - Token symbol
  * @returns token image url
  */
-const getTokenImage = (symbol: string): string => `${STATIC_ASSETS}/tokens/${symbol?.toLowerCase()}.svg`;
+const getTokenImage = (symbol: string): string => `${STATIC_IMAGES_URL}/tokens/${symbol?.toLowerCase()}.svg`;
 
 export default getTokenImage;

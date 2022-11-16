@@ -2,7 +2,7 @@ import { Card } from '@components/UI/Card';
 import type { Nft } from '@generated/types';
 import getIPFSLink from '@lib/getIPFSLink';
 import type { FC } from 'react';
-import { CHAIN_ID, RARIBLE_URL, STATIC_ASSETS } from 'src/constants';
+import { CHAIN_ID, RARIBLE_URL, STATIC_IMAGES_URL } from 'src/constants';
 
 interface Props {
   nft: Nft;
@@ -22,7 +22,7 @@ const SingleNFT: FC<Props> = ({ nft }) => {
               <div
                 className="h-52 border-b sm:h-80 sm:rounded-t-[10px]"
                 style={{
-                  backgroundImage: `url(${`${STATIC_ASSETS}/placeholder.webp`})`,
+                  backgroundImage: `url(${`${STATIC_IMAGES_URL}/placeholder.webp`})`,
                   backgroundSize: 'contain',
                   backgroundPosition: 'center center',
                   backgroundRepeat: 'no-repeat'
@@ -46,7 +46,7 @@ const SingleNFT: FC<Props> = ({ nft }) => {
               backgroundImage: `url(${
                 nft.originalContent.uri
                   ? getIPFSLink(nft.originalContent.uri)
-                  : `${STATIC_ASSETS}/placeholder.webp`
+                  : `${STATIC_IMAGES_URL}/placeholder.webp`
               })`,
               backgroundSize: 'contain',
               backgroundPosition: 'center center',
