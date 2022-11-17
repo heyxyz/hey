@@ -8,7 +8,7 @@ import Embed from './Embed';
 import Player from './Player';
 
 interface Props {
-  url: string;
+  url?: string;
 }
 
 const IFramely: FC<Props> = ({ url }) => {
