@@ -22,7 +22,7 @@ const Highlights: FC = () => {
 
   // Variables
   const profileId = seeThroughProfile?.id ?? currentProfile?.id ?? null;
-  const request = { profileId: profileId, limit: 10 };
+  const request = { profileId, limit: 10 };
   const reactionRequest = currentProfile ? { profileId: profileId } : null;
 
   const { data, loading, error, fetchMore } = useFeedHighlightsQuery({
