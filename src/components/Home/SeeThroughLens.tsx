@@ -16,11 +16,11 @@ import { useTimelineStore } from 'src/store/timeline';
 import { SEARCH } from 'src/tracking';
 
 const SeeThroughLens = () => {
-  const [searchText, setSearchText] = useState('');
   const currentProfile = useAppStore((state) => state.currentProfile);
   const seeThroughProfile = useTimelineStore((state) => state.seeThroughProfile);
   const setSeeThroughProfile = useTimelineStore((state) => state.setSeeThroughProfile);
   const recommendedProfilesToSeeThrough = useTimelineStore((state) => state.recommendedProfilesToSeeThrough);
+  const [searchText, setSearchText] = useState('');
 
   const profile = seeThroughProfile ?? currentProfile;
 
