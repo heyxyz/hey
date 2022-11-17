@@ -47,20 +47,24 @@ const Timeline: FC = () => {
   const request = { profileId: profileId, limit: 50, feedEventItemTypes: getFeedEventItems() };
   const reactionRequest = currentProfile ? { profileId: profileId } : null;
 
+  const setRecommendedProfiles = (feedItems: FeedItem[]) => {
+    let uniqueProfileIds: string[] = [];
+    let profiles: Profile[] = [];
+    for (const feedItem of feedItems) {
+      const profileId = feedItem.root?.profile?.id;
+      if (!uniqueProfileIds.includes(profileId) && profileId !== seeThroughProfile?.id) {
+        profiles.push(feedItem.root?.profile as Profile);
+        uniqueProfileIds.push(profileId);
+      }
+    }
+    setRecommendedProfilesToSeeThrough(profiles?.slice(0, 5));
+  };
+
   const { data, loading, error, fetchMore } = useTimelineQuery({
     variables: { request, reactionRequest, profileId },
     onCompleted: (data) => {
-      const feedItems = data?.feed?.items;
-      let uniqueProfileIds: string[] = [];
-      let profiles: Profile[] = [];
-      for (const feedItem of feedItems) {
-        const profileId = feedItem.root?.profile?.id;
-        if (!uniqueProfileIds.includes(profileId)) {
-          profiles.push(feedItem.root?.profile as Profile);
-          uniqueProfileIds.push(profileId);
-        }
-      }
-      setRecommendedProfilesToSeeThrough(profiles?.slice(0, 5));
+      const feedItems = data?.feed?.items as FeedItem[];
+      setRecommendedProfiles(feedItems);
     }
   });
 
