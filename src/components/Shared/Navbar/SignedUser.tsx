@@ -5,6 +5,7 @@ import { Menu, Transition } from '@headlessui/react';
 import {
   CheckCircleIcon,
   CogIcon,
+  EmojiHappyIcon,
   LogoutIcon,
   MoonIcon,
   ShieldCheckIcon,
@@ -24,6 +25,7 @@ import { useTheme } from 'next-themes';
 import type { FC } from 'react';
 import { Fragment } from 'react';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
+import { useGlobalModalStateStore } from 'src/store/modals';
 import { PROFILE, STAFFTOOLS, SYSTEM } from 'src/tracking';
 import { useDisconnect } from 'wagmi';
 
@@ -38,6 +40,7 @@ const SignedUser: FC = () => {
   const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
   const setStaffMode = useAppPersistStore((state) => state.setStaffMode);
+  const setShowStatusModal = useGlobalModalStateStore((state) => state.setShowStatusModal);
   const { allowed: staffMode } = useStaffMode();
   const { theme, setTheme } = useTheme();
   const { disconnect } = useDisconnect();
@@ -92,6 +95,19 @@ const SignedUser: FC = () => {
                 <div>Logged in as</div>
                 <div className="truncate">
                   <Slug className="font-bold" slug={currentProfile?.handle} prefix="@" />
+                </div>
+              </Menu.Item>
+              <div className="divider" />
+              <Menu.Item
+                as="a"
+                onClick={() => setShowStatusModal(true)}
+                className={({ active }: { active: boolean }) =>
+                  clsx({ 'dropdown-active': active }, 'menu-item')
+                }
+              >
+                <div className="flex items-center space-x-1.5">
+                  <EmojiHappyIcon className="w-4 h-4" />
+                  <div>Set status</div>
                 </div>
               </Menu.Item>
               <div className="divider" />
