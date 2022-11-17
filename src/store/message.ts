@@ -35,10 +35,10 @@ export const useMessageStore = create<MessageState>((set) => ({
   setClient: (client) => set(() => ({ client })),
   conversations: new Map(),
   setConversations: (conversations) => set(() => ({ conversations })),
-  addConversation: (key: string, newConverstaion: Conversation) => {
+  addConversation: (key: string, newConversation: Conversation) => {
     set((state) => {
       const conversations = new Map(state.conversations);
-      conversations.set(key, newConverstaion);
+      conversations.set(key, newConversation);
       return { conversations };
     });
   },

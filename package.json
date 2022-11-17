@@ -16,8 +16,8 @@
   },
   "dependencies": {
     "@apollo/client": "^3.7.1",
-    "@aws-sdk/client-s3": "^3.208.0",
-    "@aws-sdk/client-sts": "^3.208.0",
+    "@aws-sdk/client-s3": "^3.211.0",
+    "@aws-sdk/client-sts": "^3.212.0",
     "@bundlr-network/client": "^0.9.0",
     "@giphy/js-fetch-api": "^4.3.1",
     "@giphy/react-components": "^6.2.0",
@@ -36,7 +36,7 @@
     "dayjs": "^1.11.5",
     "dotenv": "^16.0.3",
     "ethers": "5.6.0",
-    "framer-motion": "^7.6.4",
+    "framer-motion": "^7.6.7",
     "graphql": "^16.6.0",
     "interweave": "^13.0.0",
     "jwt-decode": "^3.1.2",
@@ -51,16 +51,16 @@
     "react-hot-toast": "^2.4.0",
     "react-infinite-scroll-component": "^6.1.0",
     "uuid": "^9.0.0",
-    "wagmi": "^0.8.3",
+    "wagmi": "^0.8.4",
     "zod": "^3.19.1",
     "zustand": "^4.1.4"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^2.13.12",
     "@graphql-codegen/fragment-matcher": "^3.3.1",
-    "@graphql-codegen/typed-document-node": "^2.3.5",
-    "@graphql-codegen/typescript": "^2.8.1",
-    "@graphql-codegen/typescript-operations": "^2.5.5",
+    "@graphql-codegen/typed-document-node": "^2.3.7",
+    "@graphql-codegen/typescript": "^2.8.2",
+    "@graphql-codegen/typescript-operations": "^2.5.7",
     "@graphql-codegen/typescript-react-apollo": "^3.3.6",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/forms": "^0.5.3",
@@ -85,7 +85,7 @@
     "tailwindcss": "^3.2.1",
     "ts-node": "^10.9.1",
     "tsconfig-paths": "^4.1.0",
-    "typescript": "^4.8.4"
+    "typescript": "^4.9.3"
   },
   "lint-staged": {
     "*.{js,ts,tsx}": [
