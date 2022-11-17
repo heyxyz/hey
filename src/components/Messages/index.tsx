@@ -1,11 +1,13 @@
 import { Card } from '@components/UI/Card';
 import { GridItemEight, GridLayout } from '@components/UI/GridLayout';
 import MetaTags from '@components/utils/MetaTags';
-import isFeatureEnabled from '@lib/isFeatureEnabled';
+import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
+import { useEffect } from 'react';
 import { APP_NAME } from 'src/constants';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
+import { MESSAGES } from 'src/tracking';
 
 import PreviewList from './PreviewList';
 
@@ -26,7 +28,11 @@ const NoConversationSelected = () => {
 const Messages: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
-  if (!currentProfile || !isFeatureEnabled('messages', currentProfile?.id)) {
+  useEffect(() => {
+    Leafwatch.track('Pageview', { path: MESSAGES.OPEN });
+  }, []);
+
+  if (!currentProfile) {
     return <Custom404 />;
   }
 

@@ -1,5 +1,4 @@
 import { LensHubProxy } from '@abis/LensHubProxy';
-import { useLazyQuery, useMutation } from '@apollo/client';
 import IndexStatus from '@components/Shared/IndexStatus';
 import { Button } from '@components/UI/Button';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
@@ -7,14 +6,15 @@ import { Form, useZodForm } from '@components/UI/Form';
 import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
-import type { Mutation, NftImage, Profile, UpdateProfileImageRequest } from '@generated/types';
+import type { NftImage, Profile, UpdateProfileImageRequest } from '@generated/types';
 import {
-  CreateSetProfileImageUriTypedDataDocument,
-  CreateSetProfileImageUriViaDispatcherDocument,
-  NftChallengeDocument
+  useCreateSetProfileImageUriTypedDataMutation,
+  useCreateSetProfileImageUriViaDispatcherMutation,
+  useNftChallengeLazyQuery
 } from '@generated/types';
 import { PencilIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
+import { Leafwatch } from '@lib/leafwatch';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import type { FC } from 'react';
@@ -22,6 +22,7 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { ADDRESS_REGEX, IS_MAINNET, LENSHUB_PROXY, RELAY_ON, SIGN_WALLET } from 'src/constants';
 import { useAppStore } from 'src/store/app';
+import { SETTINGS } from 'src/tracking';
 import { chain, useContractWrite, useSignMessage, useSignTypedData } from 'wagmi';
 import { object, string } from 'zod';
 
@@ -40,12 +41,13 @@ const NFTPicture: FC<Props> = ({ profile }) => {
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const [chainId, setChainId] = useState(IS_MAINNET ? chain.mainnet.id : chain.kovan.id);
+  const [chainId, setChainId] = useState(chain.mainnet.id);
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
   const { signMessageAsync } = useSignMessage();
 
   const onCompleted = () => {
     toast.success('Avatar updated successfully!');
+    Leafwatch.track(SETTINGS.PROFILE.SET_NFT_PICTURE, { type: 'NFT' });
   };
 
   const form = useZodForm({
@@ -70,11 +72,10 @@ const NFTPicture: FC<Props> = ({ profile }) => {
     onError
   });
 
-  const [loadChallenge, { loading: challengeLoading }] = useLazyQuery(NftChallengeDocument);
+  const [loadChallenge, { loading: challengeLoading }] = useNftChallengeLazyQuery();
   const { broadcast, data: broadcastData, loading: broadcastLoading } = useBroadcast({ onCompleted });
-  const [createSetProfileImageURITypedData, { loading: typedDataLoading }] = useMutation<Mutation>(
-    CreateSetProfileImageUriTypedDataDocument,
-    {
+  const [createSetProfileImageURITypedData, { loading: typedDataLoading }] =
+    useCreateSetProfileImageUriTypedDataMutation({
       onCompleted: async ({ createSetProfileImageURITypedData }) => {
         try {
           const { id, typedData } = createSetProfileImageURITypedData;
@@ -103,11 +104,10 @@ const NFTPicture: FC<Props> = ({ profile }) => {
         } catch {}
       },
       onError
-    }
-  );
+    });
 
   const [createSetProfileImageURIViaDispatcher, { data: dispatcherData, loading: dispatcherLoading }] =
-    useMutation(CreateSetProfileImageUriViaDispatcherDocument, { onCompleted, onError });
+    useCreateSetProfileImageUriViaDispatcherMutation({ onCompleted, onError });
 
   const createViaDispatcher = async (request: UpdateProfileImageRequest) => {
     const { data } = await createSetProfileImageURIViaDispatcher({
@@ -196,9 +196,7 @@ const NFTPicture: FC<Props> = ({ profile }) => {
             onChange={(e) => setChainId(parseInt(e.target.value))}
             value={chainId}
           >
-            <option value={IS_MAINNET ? chain.mainnet.id : chain.kovan.id}>
-              {IS_MAINNET ? 'Ethereum' : 'Kovan'}
-            </option>
+            {IS_MAINNET && <option value={chain.mainnet.id}>Ethereum</option>}
             <option value={IS_MAINNET ? chain.polygon.id : chain.polygonMumbai.id}>
               {IS_MAINNET ? 'Polygon' : 'Mumbai'}
             </option>

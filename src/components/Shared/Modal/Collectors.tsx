@@ -1,11 +1,10 @@
-import { useQuery } from '@apollo/client';
 import UserProfile from '@components/Shared/UserProfile';
 import WalletProfile from '@components/Shared/WalletProfile';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import InfiniteLoader from '@components/UI/InfiniteLoader';
 import type { Profile, Wallet } from '@generated/types';
-import { CollectorsDocument } from '@generated/types';
+import { useCollectorsQuery } from '@generated/types';
 import { CollectionIcon } from '@heroicons/react/outline';
 import type { FC } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -21,7 +20,7 @@ const Collectors: FC<Props> = ({ publicationId }) => {
   // Variables
   const request = { publicationId: publicationId, limit: 10 };
 
-  const { data, loading, error, fetchMore } = useQuery(CollectorsDocument, {
+  const { data, loading, error, fetchMore } = useCollectorsQuery({
     variables: { request },
     skip: !publicationId
   });

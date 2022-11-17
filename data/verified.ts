@@ -2,6 +2,20 @@ import { aaveMembers } from './aave-members';
 import { lensterMembers } from './lenster-members';
 
 export const mainnetVerified = [
+  '0x018c69', // astrace.lens
+  '0x7e08', // marenaltman.lens
+  '0x933b', // nikoemme.lens
+  '0x4b', // ctrlaltf.lens
+  '0x02ed', // phaver.lens
+  '0x7810', // lensport.lens
+  '0x326c', // grams.lens
+  '0x06d4', // joonathan.lens
+  '0x21ac', // crypto_texan.lens
+  '0x011f55', // chriscomrie.lens
+  '0x1b49', // visualswithsam.lens
+  '0xe239', // okytomo.lens
+  '0x017597', // gitcoin.lens
+  '0x8396', // alphaplease.lens
   '0xeca7', // ethdaily.lens
   '0x016ea6', // afriedman.lens
   '0x016b2d', // mikeshinoda.lens

@@ -1,11 +1,10 @@
-import { useQuery } from '@apollo/client';
 import Loader from '@components/Shared/Loader';
 import UserProfile from '@components/Shared/UserProfile';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import InfiniteLoader from '@components/UI/InfiniteLoader';
 import type { Profile } from '@generated/types';
-import { FollowingDocument } from '@generated/types';
+import { useFollowingQuery } from '@generated/types';
 import { UsersIcon } from '@heroicons/react/outline';
 import type { FC } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -20,7 +19,7 @@ const Following: FC<Props> = ({ profile, onProfileSelected }) => {
   // Variables
   const request = { address: profile?.ownedBy, limit: 10 };
 
-  const { data, loading, error, fetchMore } = useQuery(FollowingDocument, {
+  const { data, loading, error, fetchMore } = useFollowingQuery({
     variables: { request },
     skip: !profile?.id
   });
@@ -70,7 +69,9 @@ const Following: FC<Props> = ({ profile, onProfileSelected }) => {
         <div className="divide-y dark:divide-gray-700">
           {followings?.map((following) => (
             <div
-              className={`p-5 ${onProfileSelected && 'hover:bg-gray-100 cursor-pointer'}`}
+              className={`p-5 ${
+                onProfileSelected && 'hover:bg-gray-100 dark:hover:bg-gray-900 cursor-pointer'
+              }`}
               key={following?.profile?.id}
               onClick={
                 onProfileSelected && following.profile

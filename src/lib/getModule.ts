@@ -15,6 +15,12 @@ export const getModule = (
 } => {
   switch (name) {
     // Collect Modules
+    case CollectModules.UnknownCollectModule:
+      return {
+        name: 'Unknown Collect',
+        field: 'collectModule',
+        helper: 'The Unknown Collect Module is unknown and not type supported in the API.'
+      };
     case CollectModules.FeeCollectModule:
       return {
         name: 'Fee Collect',
@@ -55,7 +61,7 @@ export const getModule = (
         name: 'Revert Collect',
         field: 'collectModule',
         helper:
-          'The Revert Collect Module causes all collect actions on a given publication to fail, thus making the publication uncollectible.'
+          'The Revert Collect Module causes all collect actions on a given publication to fail, thus making the publication uncollectable.'
       };
 
     // Follow modules

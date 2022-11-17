@@ -9,6 +9,12 @@ git checkout testnet
 git merge main
 git push origin testnet
 git checkout main
+echo "Syncing staging branch with main branch 🔄"
+git pull origin main
+git checkout staging
+git merge main
+git push origin staging
+git checkout main
 echo "Syncing sandbox branch with main branch 🔄"
 git pull origin main >> /dev/null
 git checkout sandbox

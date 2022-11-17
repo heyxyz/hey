@@ -1,20 +1,20 @@
 import { LensHubProxy } from '@abis/LensHubProxy';
-import { useMutation } from '@apollo/client';
 import ChooseFile from '@components/Shared/ChooseFile';
 import IndexStatus from '@components/Shared/IndexStatus';
 import { Button } from '@components/UI/Button';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
-import type { MediaSet, Mutation, NftImage, Profile, UpdateProfileImageRequest } from '@generated/types';
+import type { MediaSet, NftImage, Profile, UpdateProfileImageRequest } from '@generated/types';
 import {
-  CreateSetProfileImageUriTypedDataDocument,
-  CreateSetProfileImageUriViaDispatcherDocument
+  useCreateSetProfileImageUriTypedDataMutation,
+  useCreateSetProfileImageUriViaDispatcherMutation
 } from '@generated/types';
 import { PencilIcon } from '@heroicons/react/outline';
 import getIPFSLink from '@lib/getIPFSLink';
 import getSignature from '@lib/getSignature';
 import imageProxy from '@lib/imageProxy';
+import { Leafwatch } from '@lib/leafwatch';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import uploadToIPFS from '@lib/uploadToIPFS';
@@ -23,6 +23,7 @@ import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { AVATAR, LENSHUB_PROXY, RELAY_ON, SIGN_WALLET } from 'src/constants';
 import { useAppStore } from 'src/store/app';
+import { SETTINGS } from 'src/tracking';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
 interface Props {
@@ -39,6 +40,7 @@ const Picture: FC<Props> = ({ profile }) => {
 
   const onCompleted = () => {
     toast.success('Avatar updated successfully!');
+    Leafwatch.track(SETTINGS.PROFILE.SET_PICTURE, { type: 'IPFS' });
   };
 
   const {
@@ -63,9 +65,8 @@ const Picture: FC<Props> = ({ profile }) => {
   }, []);
 
   const { broadcast, data: broadcastData, loading: broadcastLoading } = useBroadcast({ onCompleted });
-  const [createSetProfileImageURITypedData, { loading: typedDataLoading }] = useMutation<Mutation>(
-    CreateSetProfileImageUriTypedDataDocument,
-    {
+  const [createSetProfileImageURITypedData, { loading: typedDataLoading }] =
+    useCreateSetProfileImageUriTypedDataMutation({
       onCompleted: async ({ createSetProfileImageURITypedData }) => {
         try {
           const { id, typedData } = createSetProfileImageURITypedData;
@@ -94,11 +95,10 @@ const Picture: FC<Props> = ({ profile }) => {
         } catch {}
       },
       onError
-    }
-  );
+    });
 
   const [createSetProfileImageURIViaDispatcher, { data: dispatcherData, loading: dispatcherLoading }] =
-    useMutation(CreateSetProfileImageUriViaDispatcherDocument, { onCompleted, onError });
+    useCreateSetProfileImageUriViaDispatcherMutation({ onCompleted, onError });
 
   const createViaDispatcher = async (request: UpdateProfileImageRequest) => {
     const { data } = await createSetProfileImageURIViaDispatcher({

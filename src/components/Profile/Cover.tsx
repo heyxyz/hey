@@ -1,7 +1,7 @@
 import getIPFSLink from '@lib/getIPFSLink';
 import imageProxy from '@lib/imageProxy';
 import type { FC } from 'react';
-import { COVER, STATIC_ASSETS } from 'src/constants';
+import { COVER, STATIC_IMAGES_URL } from 'src/constants';
 
 interface Props {
   cover: string;
@@ -13,7 +13,7 @@ const Cover: FC<Props> = ({ cover }) => {
       className="h-52 sm:h-80"
       style={{
         backgroundImage: `url(${
-          cover ? imageProxy(getIPFSLink(cover), COVER) : `${STATIC_ASSETS}/patterns/2.svg`
+          cover ? imageProxy(getIPFSLink(cover), COVER) : `${STATIC_IMAGES_URL}/patterns/2.svg`
         })`,
         backgroundColor: '#8b5cf6',
         backgroundSize: cover ? 'cover' : '30%',

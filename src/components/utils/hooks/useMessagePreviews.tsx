@@ -1,11 +1,10 @@
-import { useQuery } from '@apollo/client';
 import useXmtpClient from '@components/utils/hooks/useXmtpClient';
 import type { Profile } from '@generated/types';
-import { ProfilesDocument } from '@generated/types';
+import { useProfilesLazyQuery } from '@generated/types';
 import buildConversationId from '@lib/buildConversationId';
+import chunkArray from '@lib/chunkArray';
 import { buildConversationKey, parseConversationKey } from '@lib/conversationKey';
 import conversationMatchesProfile from '@lib/conversationMatchesProfile';
-import isFeatureEnabled from '@lib/isFeatureEnabled';
 import type { Conversation, Stream } from '@xmtp/xmtp-js';
 import { SortDirection } from '@xmtp/xmtp-js';
 import type { DecodedMessage } from '@xmtp/xmtp-js/dist/types/src/Message';
@@ -13,6 +12,8 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
+
+const MAX_PROFILES_PER_REQUEST = 50;
 
 const useMessagePreviews = () => {
   const router = useRouter();
@@ -30,7 +31,12 @@ const useMessagePreviews = () => {
   const { client, loading: creatingXmtpClient } = useXmtpClient();
   const [profileIds, setProfileIds] = useState<Set<string>>(new Set<string>());
   const [messagesLoading, setMessagesLoading] = useState<boolean>(true);
-  const isMessagesEnabled = isFeatureEnabled('messages', currentProfile?.id);
+  const [profilesLoading, setProfilesLoading] = useState<boolean>(false);
+  const [profilesError, setProfilesError] = useState<Error | undefined>();
+  const [loadProfiles] = useProfilesLazyQuery();
+  const selectedTab = useMessageStore((state) => state.selectedTab);
+  const [profilesToShow, setProfilesToShow] = useState<Map<string, Profile>>(new Map());
+  const [requestedCount, setRequestedCount] = useState(0);
 
   const getProfileFromKey = (key: string): string | null => {
     const parsed = parseConversationKey(key);
@@ -42,29 +48,54 @@ const useMessagePreviews = () => {
     return parsed.members.find((member) => member !== userProfileId) ?? null;
   };
 
-  const request = { profileIds: Array.from(profileIds.values()) };
-  const { loading: profilesLoading, error: profilesError } = useQuery(ProfilesDocument, {
-    variables: {
-      request: request
-    },
-    skip: profileIds.size === 0 || currentProfile?.id !== selectedProfileId,
-    onCompleted: (data) => {
-      if (!data?.profiles?.items.length) {
-        return;
-      }
-      const profiles = data.profiles.items as Profile[];
-      const newMessageProfiles = new Map(messageProfiles);
-      for (const profile of profiles) {
-        const peerAddress = profile.ownedBy as string;
-        const key = buildConversationKey(peerAddress, buildConversationId(currentProfile?.id, profile.id));
-        newMessageProfiles.set(key, profile);
-      }
-      setMessageProfiles(newMessageProfiles);
+  useEffect(() => {
+    if (profilesLoading) {
+      return;
     }
-  });
+    const toQuery = new Set(profileIds);
+    // Don't both querying for already seen profiles
+    for (const profile of messageProfiles.values()) {
+      toQuery.delete(profile.id);
+    }
+
+    if (!toQuery.size) {
+      return;
+    }
+
+    const loadLatest = async () => {
+      setProfilesLoading(true);
+      const newMessageProfiles = new Map(messageProfiles);
+      const chunks = chunkArray(Array.from(toQuery), MAX_PROFILES_PER_REQUEST);
+      try {
+        for (const chunk of chunks) {
+          const result = await loadProfiles({ variables: { request: { profileIds: chunk } } });
+          if (!result.data?.profiles.items.length) {
+            continue;
+          }
+
+          const profiles = result.data.profiles.items as Profile[];
+          for (const profile of profiles) {
+            const peerAddress = profile.ownedBy as string;
+            const key = buildConversationKey(
+              peerAddress,
+              buildConversationId(currentProfile?.id, profile.id)
+            );
+            newMessageProfiles.set(key, profile);
+          }
+        }
+      } catch (error: unknown) {
+        setProfilesError(error as Error);
+      }
+
+      setMessageProfiles(newMessageProfiles);
+      setProfilesLoading(false);
+    };
+    loadLatest();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [profileIds]);
 
   useEffect(() => {
-    if (!isMessagesEnabled || !client || !currentProfile) {
+    if (!client || !currentProfile) {
       return;
     }
     const matcherRegex = conversationMatchesProfile(currentProfile.id);
@@ -189,11 +220,32 @@ const useMessagePreviews = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentProfile]);
 
+  useEffect(() => {
+    const partitionedProfiles = Array.from(messageProfiles).reduce(
+      (result, [key, profile]) => {
+        const message = previewMessages.get(key);
+        if (message) {
+          if (profile.isFollowedByMe) {
+            result[0].set(key, profile);
+          } else {
+            result[1].set(key, profile);
+          }
+        }
+        return result;
+      },
+      [new Map<string, Profile>(), new Map<string, Profile>()]
+    );
+    setProfilesToShow(selectedTab === 'Following' ? partitionedProfiles[0] : partitionedProfiles[1]);
+    setRequestedCount(partitionedProfiles[1].size);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [previewMessages, messageProfiles, selectedTab]);
+
   return {
     authenticating: creatingXmtpClient,
     loading: messagesLoading || profilesLoading,
     messages: previewMessages,
-    profiles: messageProfiles,
+    profilesToShow,
+    requestedCount,
     profilesError: profilesError
   };
 };

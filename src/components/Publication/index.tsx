@@ -1,4 +1,3 @@
-import { useQuery } from '@apollo/client';
 import Feed from '@components/Comment/Feed';
 import Footer from '@components/Shared/Footer';
 import UserProfile from '@components/Shared/UserProfile';
@@ -7,13 +6,16 @@ import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import useStaffMode from '@components/utils/hooks/useStaffMode';
 import MetaTags from '@components/utils/MetaTags';
-import { PublicationDocument } from '@generated/types';
+import { usePublicationQuery } from '@generated/types';
+import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 import { APP_NAME } from 'src/constants';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
 import { useAppStore } from 'src/store/app';
+import { PAGEVIEW } from 'src/tracking';
 
 import FullPublication from './FullPublication';
 import OnchainMeta from './OnchainMeta';
@@ -28,7 +30,7 @@ const ViewPublication: NextPage = () => {
     query: { id }
   } = useRouter();
 
-  const { data, loading, error } = useQuery(PublicationDocument, {
+  const { data, loading, error } = usePublicationQuery({
     variables: {
       request: { publicationId: id },
       reactionRequest: currentProfile ? { profileId: currentProfile?.id } : null,
@@ -36,6 +38,15 @@ const ViewPublication: NextPage = () => {
     },
     skip: !id
   });
+
+  useEffect(() => {
+    if (data?.publication?.id) {
+      Leafwatch.track('Pageview', {
+        path: PAGEVIEW.PUBLICATION,
+        id: data.publication.id
+      });
+    }
+  }, [data]);
 
   if (error) {
     return <Custom500 />;

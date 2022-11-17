@@ -1,6 +1,7 @@
 import { HashtagMatcher } from '@components/utils/matchers/HashtagMatcher';
 import { MDBoldMatcher } from '@components/utils/matchers/markdown/MDBoldMatcher';
 import { MDCodeMatcher } from '@components/utils/matchers/markdown/MDCodeMatcher';
+import { MDItalicMatcher } from '@components/utils/matchers/markdown/MDItalicMatcher';
 import { MDLinkMatcher } from '@components/utils/matchers/markdown/MDLinkMatcher';
 import { MDQuoteMatcher } from '@components/utils/matchers/markdown/MDQuoteMatcher';
 import { MDStrikeMatcher } from '@components/utils/matchers/markdown/MDStrikeMatcher';
@@ -19,15 +20,16 @@ interface Props {
 
 const Markup: FC<Props> = ({ children, className = '', matchOnlyUrl }) => {
   const defaultMatchers = [
+    new MDLinkMatcher('mdLink'),
+    new UrlMatcher('url'),
     new HashtagMatcher('hashtag'),
     new MentionMatcher('mention'),
     new MDBoldMatcher('mdBold'),
-    new MDLinkMatcher('mdLink'),
+    new MDItalicMatcher('mdItalic'),
     new MDStrikeMatcher('mdStrike'),
     new MDQuoteMatcher('mdQuote'),
     new MDCodeMatcher('mdCode'),
-    new SpoilerMatcher('spoiler'),
-    new UrlMatcher('url')
+    new SpoilerMatcher('spoiler')
   ];
 
   return (

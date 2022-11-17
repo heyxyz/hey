@@ -1,9 +1,8 @@
-import { useQuery } from '@apollo/client';
 import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import useStaffMode from '@components/utils/hooks/useStaffMode';
 import MetaTags from '@components/utils/MetaTags';
-import { LensterStatsDocument } from '@generated/types';
+import { useLensterStatsQuery } from '@generated/types';
 import {
   ChatAlt2Icon,
   CollectionIcon,
@@ -14,10 +13,13 @@ import {
 } from '@heroicons/react/outline';
 import { PencilAltIcon } from '@heroicons/react/solid';
 import humanize from '@lib/humanize';
+import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
 import type { FC, ReactNode } from 'react';
+import { useEffect } from 'react';
 import { APP_NAME, ERROR_MESSAGE } from 'src/constants';
 import Custom404 from 'src/pages/404';
+import { PAGEVIEW } from 'src/tracking';
 
 import Sidebar from '../Sidebar';
 
@@ -40,9 +42,11 @@ const StatBox: FC<StatBoxProps> = ({ icon, value, title }) => (
 const Stats: NextPage = () => {
   const { allowed } = useStaffMode();
 
-  const { data, loading, error } = useQuery(LensterStatsDocument, {
-    pollInterval: 1000
-  });
+  useEffect(() => {
+    Leafwatch.track('Pageview', { path: PAGEVIEW.STAFFTOOLS.STATS });
+  }, []);
+
+  const { data, loading, error } = useLensterStatsQuery({ pollInterval: 1000 });
 
   if (!allowed) {
     return <Custom404 />;

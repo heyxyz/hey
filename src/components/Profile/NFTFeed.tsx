@@ -1,15 +1,14 @@
-import { useQuery } from '@apollo/client';
 import SingleNFT from '@components/NFT/SingleNFT';
 import NFTSShimmer from '@components/Shared/Shimmer/NFTSShimmer';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import InfiniteLoader from '@components/UI/InfiniteLoader';
 import type { Nft, Profile } from '@generated/types';
-import { NftFeedDocument } from '@generated/types';
+import { useNftFeedQuery } from '@generated/types';
 import { CollectionIcon } from '@heroicons/react/outline';
 import type { FC } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { CHAIN_ID, IS_MAINNET, SCROLL_THRESHOLD } from 'src/constants';
+import { CHAIN_ID, SCROLL_THRESHOLD } from 'src/constants';
 import { chain } from 'wagmi';
 
 interface Props {
@@ -19,12 +18,12 @@ interface Props {
 const NFTFeed: FC<Props> = ({ profile }) => {
   // Variables
   const request = {
-    chainIds: [CHAIN_ID, IS_MAINNET ? chain.mainnet.id : chain.kovan.id],
+    chainIds: [CHAIN_ID, chain.mainnet.id],
     ownerAddress: profile?.ownedBy,
     limit: 10
   };
 
-  const { data, loading, error, fetchMore } = useQuery(NftFeedDocument, {
+  const { data, loading, error, fetchMore } = useNftFeedQuery({
     variables: { request },
     skip: !profile?.ownedBy
   });

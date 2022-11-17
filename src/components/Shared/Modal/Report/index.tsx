@@ -1,4 +1,3 @@
-import { useMutation } from '@apollo/client';
 import { Button } from '@components/UI/Button';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
@@ -6,12 +5,14 @@ import { Form, useZodForm } from '@components/UI/Form';
 import { Spinner } from '@components/UI/Spinner';
 import { TextArea } from '@components/UI/TextArea';
 import type { LensterPublication } from '@generated/lenstertypes';
-import { ReportPublicationDocument } from '@generated/types';
+import { useReportPublicationMutation } from '@generated/types';
 import { PencilAltIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
+import { Leafwatch } from '@lib/leafwatch';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useGlobalModalStateStore } from 'src/store/modals';
+import { PUBLICATION } from 'src/tracking';
 import { object, string } from 'zod';
 
 import Reason from './Reason';
@@ -32,7 +33,11 @@ const Report: FC<Props> = ({ publication }) => {
   const [subReason, setSubReason] = useState(reportConfig?.subReason ?? '');
 
   const [createReport, { data: submitData, loading: submitLoading, error: submitError }] =
-    useMutation(ReportPublicationDocument);
+    useReportPublicationMutation({
+      onCompleted: () => {
+        Leafwatch.track(PUBLICATION.REPORT);
+      }
+    });
 
   const form = useZodForm({
     schema: newReportSchema

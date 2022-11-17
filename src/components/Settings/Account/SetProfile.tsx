@@ -1,5 +1,4 @@
 import { LensHubProxy } from '@abis/LensHubProxy';
-import { useMutation } from '@apollo/client';
 import IndexStatus from '@components/Shared/IndexStatus';
 import UserProfile from '@components/Shared/UserProfile';
 import { Button } from '@components/UI/Button';
@@ -7,10 +6,11 @@ import { Card } from '@components/UI/Card';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
-import type { Mutation, Profile } from '@generated/types';
-import { CreateSetDefaultProfileTypedDataDocument } from '@generated/types';
+import type { Profile } from '@generated/types';
+import { useCreateSetDefaultProfileTypedDataMutation } from '@generated/types';
 import { ExclamationIcon, PencilIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
+import { Leafwatch } from '@lib/leafwatch';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import type { FC } from 'react';
@@ -19,6 +19,7 @@ import toast from 'react-hot-toast';
 import { APP_NAME, LENSHUB_PROXY, RELAY_ON, SIGN_WALLET } from 'src/constants';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
+import { SETTINGS } from 'src/tracking';
 import { useAccount, useContractWrite, useSignTypedData } from 'wagmi';
 
 const SetProfile: FC = () => {
@@ -32,6 +33,7 @@ const SetProfile: FC = () => {
 
   const onCompleted = () => {
     toast.success('Default profile updated successfully!');
+    Leafwatch.track(SETTINGS.ACCOUNT.SET_DEFAULT_PROFILE);
   };
 
   const {
@@ -59,9 +61,8 @@ const SetProfile: FC = () => {
   }, []);
 
   const { broadcast, data: broadcastData, loading: broadcastLoading } = useBroadcast({ onCompleted });
-  const [createSetDefaultProfileTypedData, { loading: typedDataLoading }] = useMutation<Mutation>(
-    CreateSetDefaultProfileTypedDataDocument,
-    {
+  const [createSetDefaultProfileTypedData, { loading: typedDataLoading }] =
+    useCreateSetDefaultProfileTypedDataMutation({
       onCompleted: async ({ createSetDefaultProfileTypedData }) => {
         try {
           const { id, typedData } = createSetDefaultProfileTypedData;
@@ -91,8 +92,7 @@ const SetProfile: FC = () => {
         } catch {}
       },
       onError
-    }
-  );
+    });
 
   const setDefaultProfile = () => {
     if (!currentProfile) {

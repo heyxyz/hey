@@ -1,15 +1,16 @@
-import { useLazyQuery } from '@apollo/client';
 import { Card } from '@components/UI/Card';
 import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
 import useOnClickOutside from '@components/utils/hooks/useOnClickOutside';
 import type { Profile } from '@generated/types';
-import { CustomFiltersTypes, SearchProfilesDocument, SearchRequestTypes } from '@generated/types';
+import { CustomFiltersTypes, SearchRequestTypes, useSearchProfilesLazyQuery } from '@generated/types';
 import { SearchIcon, XIcon } from '@heroicons/react/outline';
+import { Leafwatch } from '@lib/leafwatch';
 import clsx from 'clsx';
 import { useRouter } from 'next/router';
 import type { ChangeEvent, FC } from 'react';
 import { useRef, useState } from 'react';
+import { SEARCH } from 'src/tracking';
 
 import UserProfile from '../UserProfile';
 
@@ -32,8 +33,7 @@ const Search: FC<Props> = ({
 
   useOnClickOutside(dropdownRef, () => setSearchText(''));
 
-  const [searchUsers, { data: searchUsersData, loading: searchUsersLoading }] =
-    useLazyQuery(SearchProfilesDocument);
+  const [searchUsers, { data: searchUsersData, loading: searchUsersLoading }] = useSearchProfilesLazyQuery();
 
   const handleSearch = (evt: ChangeEvent<HTMLInputElement>) => {
     const keyword = evt.target.value;
@@ -73,11 +73,15 @@ const Search: FC<Props> = ({
           className="py-2 px-3 text-sm"
           placeholder={placeholder}
           value={searchText}
+          onFocus={() => Leafwatch.track(SEARCH.FOCUS)}
           iconLeft={<SearchIcon />}
           iconRight={
             <XIcon
               className={clsx('cursor-pointer', searchText ? 'visible' : 'invisible')}
-              onClick={() => setSearchText('')}
+              onClick={() => {
+                setSearchText('');
+                Leafwatch.track(SEARCH.CLEAR);
+              }}
             />
           }
           onChange={handleSearch}

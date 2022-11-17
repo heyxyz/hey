@@ -1,4 +1,3 @@
-import { useQuery } from '@apollo/client';
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
 import { Card } from '@components/UI/Card';
@@ -7,12 +6,13 @@ import { ErrorMessage } from '@components/UI/ErrorMessage';
 import InfiniteLoader from '@components/UI/InfiniteLoader';
 import type { LensterPublication } from '@generated/lenstertypes';
 import type { Profile } from '@generated/types';
-import { ProfileFeedDocument, PublicationMainFocus, PublicationTypes } from '@generated/types';
+import { PublicationMainFocus, PublicationTypes, useProfileFeedQuery } from '@generated/types';
 import { CollectionIcon } from '@heroicons/react/outline';
 import type { FC } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { SCROLL_THRESHOLD } from 'src/constants';
 import { useAppStore } from 'src/store/app';
+import { useProfileFeedStore } from 'src/store/profile-feed';
 
 interface Props {
   profile: Profile;
@@ -21,6 +21,21 @@ interface Props {
 
 const Feed: FC<Props> = ({ profile, type }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const mediaFeedFilters = useProfileFeedStore((state) => state.mediaFeedFilters);
+
+  const getMediaFilters = () => {
+    let filters: PublicationMainFocus[] = [];
+    if (mediaFeedFilters.images) {
+      filters.push(PublicationMainFocus.Image);
+    }
+    if (mediaFeedFilters.video) {
+      filters.push(PublicationMainFocus.Video);
+    }
+    if (mediaFeedFilters.audio) {
+      filters.push(PublicationMainFocus.Audio);
+    }
+    return filters;
+  };
 
   // Variables
   const publicationTypes =
@@ -32,18 +47,14 @@ const Feed: FC<Props> = ({ profile, type }) => {
   const metadata =
     type === 'MEDIA'
       ? {
-          mainContentFocus: [
-            PublicationMainFocus.Video,
-            PublicationMainFocus.Image,
-            PublicationMainFocus.Audio
-          ]
+          mainContentFocus: getMediaFilters()
         }
       : null;
   const request = { publicationTypes, metadata, profileId: profile?.id, limit: 10 };
   const reactionRequest = currentProfile ? { profileId: currentProfile?.id } : null;
   const profileId = currentProfile?.id ?? null;
 
-  const { data, loading, error, fetchMore } = useQuery(ProfileFeedDocument, {
+  const { data, loading, error, fetchMore } = useProfileFeedQuery({
     variables: { request, reactionRequest, profileId },
     skip: !profile?.id
   });
@@ -63,12 +74,20 @@ const Feed: FC<Props> = ({ profile, type }) => {
   }
 
   if (publications?.length === 0) {
+    const emptyMessage =
+      type === 'FEED'
+        ? 'has nothing in their feed yet!'
+        : type === 'MEDIA'
+        ? 'has no media yet!'
+        : type === 'REPLIES'
+        ? "hasn't replied yet!"
+        : '';
     return (
       <EmptyState
         message={
           <div>
             <span className="mr-1 font-bold">@{profile?.handle}</span>
-            <span>hasn’t {type.toLowerCase()}ed yet!</span>
+            <span>{emptyMessage}</span>
           </div>
         }
         icon={<CollectionIcon className="w-8 h-8 text-brand" />}

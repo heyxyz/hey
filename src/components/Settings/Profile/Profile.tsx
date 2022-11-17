@@ -1,5 +1,4 @@
 import { LensPeriphery } from '@abis/LensPeriphery';
-import { useMutation } from '@apollo/client';
 import ChooseFile from '@components/Shared/ChooseFile';
 import IndexStatus from '@components/Shared/IndexStatus';
 import { Button } from '@components/UI/Button';
@@ -11,11 +10,11 @@ import { Spinner } from '@components/UI/Spinner';
 import { TextArea } from '@components/UI/TextArea';
 import { Toggle } from '@components/UI/Toggle';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
-import type { CreatePublicSetProfileMetadataUriRequest, MediaSet, Mutation } from '@generated/types';
+import type { CreatePublicSetProfileMetadataUriRequest, MediaSet } from '@generated/types';
 import {
-  CreateSetProfileMetadataTypedDataDocument,
-  CreateSetProfileMetadataViaDispatcherDocument,
-  Profile
+  Profile,
+  useCreateSetProfileMetadataTypedDataMutation,
+  useCreateSetProfileMetadataViaDispatcherMutation
 } from '@generated/types';
 import { PencilIcon } from '@heroicons/react/outline';
 import getAttribute from '@lib/getAttribute';
@@ -23,6 +22,7 @@ import getIPFSLink from '@lib/getIPFSLink';
 import getSignature from '@lib/getSignature';
 import hasPrideLogo from '@lib/hasPrideLogo';
 import imageProxy from '@lib/imageProxy';
+import { Leafwatch } from '@lib/leafwatch';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import uploadToArweave from '@lib/uploadToArweave';
@@ -32,20 +32,17 @@ import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { APP_NAME, COVER, LENS_PERIPHERY, RELAY_ON, SIGN_WALLET, URL_REGEX } from 'src/constants';
 import { useAppStore } from 'src/store/app';
+import { SETTINGS } from 'src/tracking';
 import { v4 as uuid } from 'uuid';
 import { useContractWrite, useSignTypedData } from 'wagmi';
-import { object, optional, string } from 'zod';
+import { object, string, union } from 'zod';
 
 const editProfileSchema = object({
   name: string().max(100, { message: 'Name should not exceed 100 characters' }),
   location: string().max(100, {
     message: 'Location should not exceed 100 characters'
   }),
-  website: optional(
-    string()
-      .regex(URL_REGEX, { message: 'Invalid website' })
-      .max(100, { message: 'Website should not exceed 100 characters' })
-  ),
+  website: union([string().regex(URL_REGEX, { message: 'Invalid website' }), string().max(0)]),
   twitter: string().max(100, {
     message: 'Twitter should not exceed 100 characters'
   }),
@@ -67,6 +64,7 @@ const Profile: FC<Props> = ({ profile }) => {
 
   const onCompleted = () => {
     toast.success('Profile updated successfully!');
+    Leafwatch.track(SETTINGS.PROFILE.UPDATE);
   };
 
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
@@ -86,9 +84,8 @@ const Profile: FC<Props> = ({ profile }) => {
   });
 
   const { broadcast, data: broadcastData, loading: broadcastLoading } = useBroadcast({ onCompleted });
-  const [createSetProfileMetadataTypedData, { loading: typedDataLoading }] = useMutation<Mutation>(
-    CreateSetProfileMetadataTypedDataDocument,
-    {
+  const [createSetProfileMetadataTypedData, { loading: typedDataLoading }] =
+    useCreateSetProfileMetadataTypedDataMutation({
       onCompleted: async ({ createSetProfileMetadataTypedData }) => {
         try {
           const { id, typedData } = createSetProfileMetadataTypedData;
@@ -118,14 +115,10 @@ const Profile: FC<Props> = ({ profile }) => {
         } catch {}
       },
       onError
-    }
-  );
+    });
 
   const [createSetProfileMetadataViaDispatcher, { data: dispatcherData, loading: dispatcherLoading }] =
-    useMutation(CreateSetProfileMetadataViaDispatcherDocument, {
-      onCompleted,
-      onError
-    });
+    useCreateSetProfileMetadataViaDispatcherMutation({ onCompleted, onError });
 
   const createViaDispatcher = async (request: CreatePublicSetProfileMetadataUriRequest) => {
     const { data } = await createSetProfileMetadataViaDispatcher({

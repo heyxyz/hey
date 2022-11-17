@@ -1,10 +1,9 @@
-import { useQuery } from '@apollo/client';
 import UserProfile from '@components/Shared/UserProfile';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import InfiniteLoader from '@components/UI/InfiniteLoader';
 import type { Profile } from '@generated/types';
-import { LikesDocument } from '@generated/types';
+import { useLikesQuery } from '@generated/types';
 import { HeartIcon } from '@heroicons/react/outline';
 import type { FC } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -20,7 +19,7 @@ const Likes: FC<Props> = ({ publicationId }) => {
   // Variables
   const request = { publicationId: publicationId, limit: 10 };
 
-  const { data, loading, error, fetchMore } = useQuery(LikesDocument, {
+  const { data, loading, error, fetchMore } = useLikesQuery({
     variables: { request },
     skip: !publicationId
   });

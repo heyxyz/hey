@@ -1,10 +1,9 @@
-import { useQuery } from '@apollo/client';
 import type { Profile } from '@generated/types';
-import { ReferenceModules, UserProfilesDocument } from '@generated/types';
+import { ReferenceModules, useUserProfilesQuery } from '@generated/types';
 import getIsAuthTokensAvailable from '@lib/getIsAuthTokensAvailable';
 import getToastOptions from '@lib/getToastOptions';
 import resetAuthData from '@lib/resetAuthData';
-import { setUser } from '@sentry/nextjs';
+import storeIp from '@lib/storeIp';
 import Head from 'next/head';
 import { useTheme } from 'next-themes';
 import type { FC, ReactNode } from 'react';
@@ -12,7 +11,7 @@ import { useEffect } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { CHAIN_ID } from 'src/constants';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
-import { useReferenceModuleStore } from 'src/store/referencemodule';
+import { useReferenceModuleStore } from 'src/store/reference-module';
 import { useAccount, useDisconnect, useNetwork } from 'wagmi';
 
 import Loading from './Loading';
@@ -20,6 +19,8 @@ import GlobalModals from './Shared/GlobalModals';
 import Navbar from './Shared/Navbar';
 import useIsMounted from './utils/hooks/useIsMounted';
 import { useDisconnectXmtp } from './utils/hooks/useXmtpClient';
+
+storeIp();
 
 interface Props {
   children: ReactNode;
@@ -33,8 +34,6 @@ const Layout: FC<Props> = ({ children }) => {
   const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
   const profileId = useAppPersistStore((state) => state.profileId);
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
-  const handle = useAppPersistStore((state) => state.handle);
-  const setHandle = useAppPersistStore((state) => state.setHandle);
   const setSelectedReferenceModule = useReferenceModuleStore((state) => state.setSelectedReferenceModule);
 
   const { mounted } = useIsMounted();
@@ -45,12 +44,11 @@ const Layout: FC<Props> = ({ children }) => {
 
   const resetAuthState = () => {
     setProfileId(null);
-    setHandle(null);
     setCurrentProfile(null);
   };
 
   // Fetch current profiles and sig nonce owned by the wallet address
-  const { loading } = useQuery(UserProfilesDocument, {
+  const { loading } = useUserProfilesQuery({
     variables: { ownedBy: address },
     skip: !profileId,
     onCompleted: (data) => {
@@ -73,7 +71,6 @@ const Layout: FC<Props> = ({ children }) => {
       setProfiles(profiles as Profile[]);
       setCurrentProfile(selectedUser as Profile);
       setProfileId(selectedUser?.id);
-      setHandle(selectedUser?.handle);
       setUserSigNonce(data?.userSigNonces?.lensHubOnChainSigNonce);
     }
   });
@@ -98,16 +95,6 @@ const Layout: FC<Props> = ({ children }) => {
     validateAuthentication();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isDisconnected, address, chain, disconnect, profileId]);
-
-  // Set Sentry user
-  useEffect(() => {
-    if (profileId && handle) {
-      setUser({ id: profileId, username: handle });
-    } else {
-      setUser(null);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [profileId]);
 
   if (loading || !mounted) {
     return <Loading />;

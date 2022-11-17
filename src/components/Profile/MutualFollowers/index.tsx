@@ -1,19 +1,22 @@
-import { useQuery } from '@apollo/client';
 import type { Profile } from '@generated/types';
-import { MutualFollowersDocument } from '@generated/types';
+import { useMutualFollowersQuery } from '@generated/types';
 import getAvatar from '@lib/getAvatar';
+import { Leafwatch } from '@lib/leafwatch';
+import clsx from 'clsx';
 import type { Dispatch, FC, ReactNode } from 'react';
 import { useAppStore } from 'src/store/app';
+import { PROFILE } from 'src/tracking';
 
 interface Props {
-  setShowMutualFollowersModal: Dispatch<boolean>;
+  setShowMutualFollowersModal?: Dispatch<boolean>;
   profile: Profile;
+  variant?: 'xs' | 'sm';
 }
 
-const MutualFollowers: FC<Props> = ({ setShowMutualFollowersModal, profile }) => {
+const MutualFollowers: FC<Props> = ({ setShowMutualFollowersModal, profile, variant = 'sm' }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
-  const { data, loading, error } = useQuery(MutualFollowersDocument, {
+  const { data, loading, error } = useMutualFollowersQuery({
     variables: {
       request: {
         viewingProfileId: profile?.id,
@@ -21,7 +24,7 @@ const MutualFollowers: FC<Props> = ({ setShowMutualFollowersModal, profile }) =>
         limit: 3
       }
     },
-    skip: !profile?.id
+    skip: !profile?.id || !currentProfile?.id
   });
 
   const profiles = data?.mutualFollowersProfiles?.items ?? [];
@@ -29,8 +32,14 @@ const MutualFollowers: FC<Props> = ({ setShowMutualFollowersModal, profile }) =>
 
   const Wrapper = ({ children }: { children: ReactNode }) => (
     <div
-      className="mr-0 sm:mr-10 text-sm text-gray-500 flex items-center space-x-2.5 cursor-pointer"
-      onClick={() => setShowMutualFollowersModal(true)}
+      className={clsx('text-gray-500 flex items-center space-x-2.5 cursor-pointer', {
+        'text-sm': variant === 'sm',
+        'text-xs': variant === 'xs'
+      })}
+      onClick={() => {
+        setShowMutualFollowersModal?.(true);
+        Leafwatch.track(PROFILE.OPEN_MUTUAL_FOLLOWERS);
+      }}
     >
       <div className="contents -space-x-2">
         {profiles?.map((profile) => (

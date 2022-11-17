@@ -17,7 +17,6 @@ import { buildConversationKey } from '@lib/conversationKey';
 import formatAddress from '@lib/formatAddress';
 import getAttribute from '@lib/getAttribute';
 import getAvatar from '@lib/getAvatar';
-import isFeatureEnabled from '@lib/isFeatureEnabled';
 import isStaff from '@lib/isStaff';
 import isVerified from '@lib/isVerified';
 import Link from 'next/link';
@@ -25,7 +24,7 @@ import { useRouter } from 'next/router';
 import { useTheme } from 'next-themes';
 import type { FC, ReactElement } from 'react';
 import { useState } from 'react';
-import { STATIC_ASSETS } from 'src/constants';
+import { STATIC_IMAGES_URL } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
 
@@ -45,8 +44,7 @@ const Details: FC<Props> = ({ profile }) => {
   const { allowed: staffMode } = useStaffMode();
   const { resolvedTheme } = useTheme();
   const router = useRouter();
-  const messageProfiles = useMessageStore((state) => state.messageProfiles);
-  const setMessageProfiles = useMessageStore((state) => state.setMessageProfiles);
+  const addProfileAndSelectTab = useMessageStore((state) => state.addProfileAndSelectTab);
 
   const onMessageClick = () => {
     if (!currentProfile) {
@@ -54,8 +52,7 @@ const Details: FC<Props> = ({ profile }) => {
     }
     const conversationId = buildConversationId(currentProfile.id, profile.id);
     const conversationKey = buildConversationKey(profile.ownedBy, conversationId);
-    messageProfiles.set(conversationKey, profile);
-    setMessageProfiles(new Map(messageProfiles));
+    addProfileAndSelectTab(conversationKey, profile);
     router.push(`/messages/${conversationKey}`);
   };
 
@@ -115,17 +112,17 @@ const Details: FC<Props> = ({ profile }) => {
                 {followType === 'FeeFollowModuleSettings' && (
                   <SuperFollow profile={profile} setFollowing={setFollowing} again />
                 )}
-                {isFeatureEnabled('messages', currentProfile?.id) && <Message onClick={onMessageClick} />}
+                {currentProfile && <Message onClick={onMessageClick} />}
               </div>
             ) : followType === 'FeeFollowModuleSettings' ? (
               <div className="flex space-x-2">
                 <SuperFollow profile={profile} setFollowing={setFollowing} showText />
-                {isFeatureEnabled('messages', currentProfile?.id) && <Message onClick={onMessageClick} />}
+                {currentProfile && <Message onClick={onMessageClick} />}
               </div>
             ) : (
               <div className="flex space-x-2">
                 <Follow profile={profile} setFollowing={setFollowing} showText />
-                {isFeatureEnabled('messages', currentProfile?.id) && <Message onClick={onMessageClick} />}
+                {currentProfile && <Message onClick={onMessageClick} />}
               </div>
             )
           ) : null}
@@ -162,7 +159,7 @@ const Details: FC<Props> = ({ profile }) => {
             <MetaDetails
               icon={
                 <img
-                  src={`${STATIC_ASSETS}/brands/ens.svg`}
+                  src={`${STATIC_IMAGES_URL}/brands/ens.svg`}
                   className="w-4 h-4"
                   height={16}
                   width={16}
@@ -206,7 +203,7 @@ const Details: FC<Props> = ({ profile }) => {
               icon={
                 resolvedTheme === 'dark' ? (
                   <img
-                    src={`${STATIC_ASSETS}/brands/twitter-light.svg`}
+                    src={`${STATIC_IMAGES_URL}/brands/twitter-light.svg`}
                     className="w-4 h-4"
                     height={16}
                     width={16}
@@ -214,7 +211,7 @@ const Details: FC<Props> = ({ profile }) => {
                   />
                 ) : (
                   <img
-                    src={`${STATIC_ASSETS}/brands/twitter-dark.svg`}
+                    src={`${STATIC_IMAGES_URL}/brands/twitter-dark.svg`}
                     className="w-4 h-4"
                     height={16}
                     width={16}

@@ -1,34 +1,35 @@
 import { LensHubProxy } from '@abis/LensHubProxy';
-import { useMutation } from '@apollo/client';
+import Editor from '@components/Composer/Editor';
 import Attachments from '@components/Shared/Attachments';
 import { AudioPublicationSchema } from '@components/Shared/Audio';
-import Markup from '@components/Shared/Markup';
 import { Button } from '@components/UI/Button';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
-import { MentionTextArea } from '@components/UI/MentionTextArea';
 import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
 import type { LensterAttachment } from '@generated/lenstertypes';
-import type { CreatePublicPostRequest, Mutation } from '@generated/types';
+import type { CreatePublicPostRequest } from '@generated/types';
 import {
-  CreatePostTypedDataDocument,
-  CreatePostViaDispatcherDocument,
   PublicationMainFocus,
-  ReferenceModules
+  ReferenceModules,
+  useCreatePostTypedDataMutation,
+  useCreatePostViaDispatcherMutation
 } from '@generated/types';
 import type { IGif } from '@giphy/js-types';
 import { PencilAltIcon } from '@heroicons/react/outline';
+import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import getSignature from '@lib/getSignature';
 import getTags from '@lib/getTags';
+import getTextNftUrl from '@lib/getTextNftUrl';
 import getUserLocale from '@lib/getUserLocale';
+import { Leafwatch } from '@lib/leafwatch';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import trimify from '@lib/trimify';
 import uploadToArweave from '@lib/uploadToArweave';
+import { $getRoot } from 'lexical';
 import dynamic from 'next/dynamic';
 import type { FC } from 'react';
-import { useEffect } from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import {
   ALLOWED_AUDIO_TYPES,
@@ -40,26 +41,27 @@ import {
   SIGN_WALLET
 } from 'src/constants';
 import { useAppStore } from 'src/store/app';
-import { useCollectModuleStore } from 'src/store/collectmodule';
+import { useCollectModuleStore } from 'src/store/collect-module';
 import { usePublicationStore } from 'src/store/publication';
-import { useReferenceModuleStore } from 'src/store/referencemodule';
+import { useReferenceModuleStore } from 'src/store/reference-module';
 import { useTransactionPersistStore } from 'src/store/transaction';
+import { POST } from 'src/tracking';
 import { v4 as uuid } from 'uuid';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
-const Attachment = dynamic(() => import('@components/Shared/Attachment'), {
+const Attachment = dynamic(() => import('@components/Composer/Actions/Attachment'), {
   loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
 });
-const Giphy = dynamic(() => import('@components/Shared/Giphy'), {
+const Giphy = dynamic(() => import('@components/Composer/Actions/Giphy'), {
   loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
 });
-const CollectSettings = dynamic(() => import('@components/Shared/CollectSettings'), {
+const CollectSettings = dynamic(() => import('@components/Composer/Actions/CollectSettings'), {
   loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
 });
-const ReferenceSettings = dynamic(() => import('@components/Shared/ReferenceSettings'), {
+const ReferenceSettings = dynamic(() => import('@components/Composer/Actions/ReferenceSettings'), {
   loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
 });
-const Preview = dynamic(() => import('@components/Shared/Preview'), {
+const AccessSettings = dynamic(() => import('@components/Composer/Actions/AccessSettings'), {
   loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
 });
 
@@ -72,9 +74,7 @@ const NewUpdate: FC = () => {
   // Publication store
   const publicationContent = usePublicationStore((state) => state.publicationContent);
   const setPublicationContent = usePublicationStore((state) => state.setPublicationContent);
-  const previewPublication = usePublicationStore((state) => state.previewPublication);
   const audioPublication = usePublicationStore((state) => state.audioPublication);
-  const setPreviewPublication = usePublicationStore((state) => state.setPreviewPublication);
   const setShowNewPostModal = usePublicationStore((state) => state.setShowNewPostModal);
 
   // Transaction persist store
@@ -95,15 +95,19 @@ const NewUpdate: FC = () => {
   const [isUploading, setIsUploading] = useState(false);
   const [attachments, setAttachments] = useState<LensterAttachment[]>([]);
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
+  const [editor] = useLexicalComposerContext();
 
   const isAudioPost = ALLOWED_AUDIO_TYPES.includes(attachments[0]?.type);
 
   const onCompleted = () => {
-    setPreviewPublication(false);
+    editor.update(() => {
+      $getRoot().clear();
+    });
     setShowNewPostModal(false);
     setPublicationContent('');
     setAttachments([]);
     resetCollectSettings();
+    Leafwatch.track(POST.NEW);
   };
 
   useEffect(() => {
@@ -146,64 +150,58 @@ const NewUpdate: FC = () => {
       setTxnQueue([generateOptimisticPost({ txId: data?.broadcast?.txId }), ...txnQueue]);
     }
   });
-  const [createPostTypedData, { loading: typedDataLoading }] = useMutation<Mutation>(
-    CreatePostTypedDataDocument,
-    {
-      onCompleted: async ({ createPostTypedData }) => {
-        try {
-          const { id, typedData } = createPostTypedData;
-          const {
-            profileId,
-            contentURI,
-            collectModule,
-            collectModuleInitData,
-            referenceModule,
-            referenceModuleInitData,
-            deadline
-          } = typedData.value;
-          const signature = await signTypedDataAsync(getSignature(typedData));
-          const { v, r, s } = splitSignature(signature);
-          const sig = { v, r, s, deadline };
-          const inputStruct = {
-            profileId,
-            contentURI,
-            collectModule,
-            collectModuleInitData,
-            referenceModule,
-            referenceModuleInitData,
-            sig
-          };
+  const [createPostTypedData, { loading: typedDataLoading }] = useCreatePostTypedDataMutation({
+    onCompleted: async ({ createPostTypedData }) => {
+      try {
+        const { id, typedData } = createPostTypedData;
+        const {
+          profileId,
+          contentURI,
+          collectModule,
+          collectModuleInitData,
+          referenceModule,
+          referenceModuleInitData,
+          deadline
+        } = typedData.value;
+        const signature = await signTypedDataAsync(getSignature(typedData));
+        const { v, r, s } = splitSignature(signature);
+        const sig = { v, r, s, deadline };
+        const inputStruct = {
+          profileId,
+          contentURI,
+          collectModule,
+          collectModuleInitData,
+          referenceModule,
+          referenceModuleInitData,
+          sig
+        };
 
-          setUserSigNonce(userSigNonce + 1);
-          if (!RELAY_ON) {
-            return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
-          }
-
-          const {
-            data: { broadcast: result }
-          } = await broadcast({ request: { id, signature } });
-
-          if ('reason' in result) {
-            write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
-          }
-        } catch {}
-      },
-      onError
-    }
-  );
-
-  const [createPostViaDispatcher, { loading: dispatcherLoading }] = useMutation(
-    CreatePostViaDispatcherDocument,
-    {
-      onCompleted: (data) => {
-        onCompleted();
-        if (data.createPostViaDispatcher.__typename === 'RelayerResult') {
-          setTxnQueue([generateOptimisticPost({ txId: data.createPostViaDispatcher.txId }), ...txnQueue]);
+        setUserSigNonce(userSigNonce + 1);
+        if (!RELAY_ON) {
+          return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
         }
-      },
-      onError
-    }
-  );
+
+        const {
+          data: { broadcast: result }
+        } = await broadcast({ request: { id, signature } });
+
+        if ('reason' in result) {
+          write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
+        }
+      } catch {}
+    },
+    onError
+  });
+
+  const [createPostViaDispatcher, { loading: dispatcherLoading }] = useCreatePostViaDispatcherMutation({
+    onCompleted: (data) => {
+      onCompleted();
+      if (data.createPostViaDispatcher.__typename === 'RelayerResult') {
+        setTxnQueue([generateOptimisticPost({ txId: data.createPostViaDispatcher.txId }), ...txnQueue]);
+      }
+    },
+    onError
+  });
 
   const getMainContentFocus = () => {
     if (attachments.length > 0) {
@@ -240,6 +238,14 @@ const NewUpdate: FC = () => {
     }
   };
 
+  const getAttachmentImage = () => {
+    return isAudioPost ? audioPublication.cover : attachments[0]?.item;
+  };
+
+  const getAttachmentImageMimeType = () => {
+    return isAudioPost ? audioPublication.coverMimeType : attachments[0]?.type;
+  };
+
   const createPost = async () => {
     if (!currentProfile) {
       return toast.error(SIGN_WALLET);
@@ -259,7 +265,17 @@ const NewUpdate: FC = () => {
     }
 
     setPostContentError('');
+
     setIsUploading(true);
+    let textNftImageUrl = null;
+    if (!attachments.length) {
+      textNftImageUrl = await getTextNftUrl(
+        publicationContent,
+        currentProfile.handle,
+        new Date().toLocaleString()
+      );
+    }
+
     const attributes = [
       {
         traitType: 'type',
@@ -280,9 +296,8 @@ const NewUpdate: FC = () => {
       description: trimify(publicationContent),
       content: trimify(publicationContent),
       external_url: `https://lenster.xyz/u/${currentProfile?.handle}`,
-      image: attachments.length > 0 ? (isAudioPost ? audioPublication.cover : attachments[0]?.item) : null,
-      imageMimeType:
-        attachments.length > 0 ? (isAudioPost ? audioPublication.coverMimeType : attachments[0]?.type) : null,
+      image: attachments.length > 0 ? getAttachmentImage() : textNftImageUrl,
+      imageMimeType: attachments.length > 0 ? getAttachmentImageMimeType() : 'image/svg+xml',
       name: isAudioPost ? audioPublication.title : `Post by @${currentProfile?.handle}`,
       tags: getTags(publicationContent),
       animation_url: getAnimationUrl(),
@@ -336,20 +351,11 @@ const NewUpdate: FC = () => {
     isUploading || typedDataLoading || dispatcherLoading || signLoading || writeLoading || broadcastLoading;
 
   return (
-    <div className="py-3">
+    <div className="pb-3">
       {error && <ErrorMessage className="mb-3" title="Transaction failed!" error={error} />}
-      {previewPublication ? (
-        <div className="pb-3 mb-2 border-b linkify dark:border-b-gray-700/80 break-words px-5">
-          <Markup>{publicationContent}</Markup>
-        </div>
-      ) : (
-        <MentionTextArea
-          error={postContentError}
-          setError={setPostContentError}
-          placeholder="What's happening?"
-          hideBorder
-          autoFocus
-        />
+      <Editor />
+      {postContentError && (
+        <div className="px-5 pb-3 mt-1 text-sm font-bold text-red-500">{postContentError}</div>
       )}
       <div className="block items-center sm:flex px-5">
         <div className="flex items-center space-x-4">
@@ -357,7 +363,7 @@ const NewUpdate: FC = () => {
           <Giphy setGifAttachment={(gif: IGif) => setGifAttachment(gif)} />
           <CollectSettings />
           <ReferenceSettings />
-          {publicationContent && <Preview />}
+          <AccessSettings />
         </div>
         <div className="ml-auto pt-2 sm:pt-0">
           <Button

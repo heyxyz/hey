@@ -9,11 +9,13 @@ import { CollectionIcon } from '@heroicons/react/outline';
 import { CollectionIcon as CollectionIconSolid } from '@heroicons/react/solid';
 import { getModule } from '@lib/getModule';
 import humanize from '@lib/humanize';
+import { Leafwatch } from '@lib/leafwatch';
 import nFormatter from '@lib/nFormatter';
 import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
+import { PUBLICATION } from 'src/tracking';
 
 const CollectModule = dynamic(() => import('./CollectModule'), {
   loading: () => <Loader message="Loading collect" />
@@ -29,6 +31,7 @@ const Collect: FC<Props> = ({ publication, isFullPublication, electedMirror }) =
   const [count, setCount] = useState(0);
   const [showCollectModal, setShowCollectModal] = useState(false);
   const isFreeCollect = publication?.collectModule.__typename === 'FreeCollectModuleSettings';
+  const isUnknownCollect = publication?.collectModule.__typename === 'UnknownCollectModuleSettings';
   const isMirror = publication.__typename === 'Mirror';
   const hasCollected = isMirror ? publication?.mirrorOf?.hasCollectedByMe : publication?.hasCollectedByMe;
 
@@ -46,8 +49,15 @@ const Collect: FC<Props> = ({ publication, isFullPublication, electedMirror }) =
 
   return (
     <>
-      <motion.button whileTap={{ scale: 0.9 }} onClick={() => setShowCollectModal(true)} aria-label="Collect">
-        <span className="flex items-center space-x-1 text-red-500 hover:red-brand-400">
+      <motion.button
+        whileTap={{ scale: 0.9 }}
+        onClick={() => {
+          setShowCollectModal(true);
+          Leafwatch.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECT);
+        }}
+        aria-label="Collect"
+      >
+        <span className="flex items-center space-x-1 text-red-500">
           <span className="p-1.5 rounded-full hover:bg-red-300 hover:bg-opacity-20">
             <Tooltip
               placement="top"
@@ -67,7 +77,13 @@ const Collect: FC<Props> = ({ publication, isFullPublication, electedMirror }) =
         </span>
       </motion.button>
       <Modal
-        title={isFreeCollect ? 'Free Collect' : getModule(publication?.collectModule?.type).name}
+        title={
+          isFreeCollect
+            ? 'Free Collect'
+            : isUnknownCollect
+            ? 'Unknown Collect'
+            : getModule(publication?.collectModule?.type).name
+        }
         icon={
           <div className="text-brand">
             <GetModuleIcon

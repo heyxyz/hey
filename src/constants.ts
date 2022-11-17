@@ -1,6 +1,8 @@
 import getEnvConfig from '@lib/getEnvConfig';
 import { chain } from 'wagmi';
 
+import packageJson from '../package.json';
+
 // Environments
 export const IS_PRODUCTION = process.env.NODE_ENV === 'production';
 
@@ -8,6 +10,7 @@ export const IS_PRODUCTION = process.env.NODE_ENV === 'production';
 export const LENS_NETWORK = process.env.NEXT_PUBLIC_LENS_NETWORK ?? 'mainnet';
 export const MAINNET_API_URL = 'https://api.lens.dev';
 export const TESTNET_API_URL = 'https://api-mumbai.lens.dev';
+export const STAGING_API_URL = 'https://staging-api-social-mumbai.lens.crtlkey.com';
 export const SANDBOX_API_URL = 'https://api-sandbox-mumbai.lens.dev';
 
 export const API_URL = getEnvConfig().apiEndpoint;
@@ -24,6 +27,7 @@ export const XMTP_PREFIX = 'lens.dev/dm';
 
 // Application
 export const APP_NAME = 'Lenster';
+export const APP_VERSION = packageJson.version;
 export const DESCRIPTION =
   'Lenster is a composable, decentralized, and permissionless social media web app built with Lens Protocol 🌿';
 export const DEFAULT_OG = 'https://assets.lenster.xyz/images/og/logo.jpeg';
@@ -36,6 +40,11 @@ export const CONTACT_EMAIL = 'support@lenster.xyz';
 export const RELAY_ON = process.env.NEXT_PUBLIC_RELAY_ON === 'true';
 export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
 
+// Leafwatch
+export const DATADOG_TOKEN = process.env.NEXT_PUBLIC_DATADOG_API_KEY ?? '';
+export const DATADOG_APPLICATION_KEY = process.env.NEXT_PUBLIC_DATADOG_APPLICATION_KEY ?? '';
+export const LEAFWATCH_HOST = 'https://logs.browser-intake-datadoghq.eu/api/v2/logs';
+
 // Messages
 export const ERROR_MESSAGE = 'Something went wrong!';
 export const SIGN_WALLET = 'Please sign in your wallet.';
@@ -45,19 +54,17 @@ export const WRONG_NETWORK = IS_MAINNET
 export const SIGN_ERROR = 'Failed to sign data';
 
 // URLs
-export const STATIC_ASSETS = 'https://assets.lenster.xyz/images';
+export const STATIC_ASSETS_URL = 'https://assets.lenster.xyz';
+export const STATIC_IMAGES_URL = `${STATIC_ASSETS_URL}/images`;
 export const POLYGONSCAN_URL = IS_MAINNET ? 'https://polygonscan.com' : 'https://mumbai.polygonscan.com';
 export const RARIBLE_URL = IS_MAINNET ? 'https://rarible.com' : 'https://rinkeby.rarible.com';
 export const ARWEAVE_GATEWAY = 'https://arweave.net';
-export const IMGPROXY_URL = 'https://img.lenster.io';
+export const IMGPROXY_URL = 'https://media.lenster.xyz';
 export const IPFS_GATEWAY = 'https://lens.infura-ipfs.io/ipfs/';
 export const EVER_API = 'https://endpoint.4everland.co';
 
 // Web3
-export const ALCHEMY_KEY = process.env.NEXT_PUBLIC_ALCHEMY_KEY;
-export const ALCHEMY_RPC = IS_MAINNET
-  ? `https://polygon-mainnet.g.alchemy.com/v2/${ALCHEMY_KEY}`
-  : `https://polygon-mumbai.g.alchemy.com/v2/${ALCHEMY_KEY}`;
+export const RPC_URL = IS_MAINNET ? 'https://rpc.ankr.com/polygon' : 'https://rpc.ankr.com/polygon_mumbai';
 
 export const POLYGON_MAINNET = {
   ...chain.polygon,

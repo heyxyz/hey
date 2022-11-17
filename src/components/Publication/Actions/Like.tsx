@@ -1,12 +1,11 @@
 import type { ApolloCache } from '@apollo/client';
-import { useMutation } from '@apollo/client';
 import { Tooltip } from '@components/UI/Tooltip';
 import type { LensterPublication } from '@generated/lenstertypes';
-import type { Mutation } from '@generated/types';
-import { AddReactionDocument, ReactionTypes, RemoveReactionDocument } from '@generated/types';
+import { ReactionTypes, useAddReactionMutation, useRemoveReactionMutation } from '@generated/types';
 import { HeartIcon } from '@heroicons/react/outline';
 import { HeartIcon as HeartIconSolid } from '@heroicons/react/solid';
 import { publicationKeyFields } from '@lib/keyFields';
+import { Leafwatch } from '@lib/leafwatch';
 import nFormatter from '@lib/nFormatter';
 import onError from '@lib/onError';
 import { motion } from 'framer-motion';
@@ -16,6 +15,7 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { SIGN_WALLET } from 'src/constants';
 import { useAppStore } from 'src/store/app';
+import { PUBLICATION } from 'src/tracking';
 
 interface Props {
   publication: LensterPublication;
@@ -47,7 +47,10 @@ const Like: FC<Props> = ({ publication, isFullPublication }) => {
     }
   };
 
-  const [addReaction] = useMutation<Mutation>(AddReactionDocument, {
+  const [addReaction] = useAddReactionMutation({
+    onCompleted: () => {
+      Leafwatch.track(PUBLICATION.LIKE);
+    },
     onError: (error) => {
       setLiked(!liked);
       setCount(count - 1);
@@ -56,7 +59,10 @@ const Like: FC<Props> = ({ publication, isFullPublication }) => {
     update: (cache) => updateCache(cache, ReactionTypes.Upvote)
   });
 
-  const [removeReaction] = useMutation<Mutation>(RemoveReactionDocument, {
+  const [removeReaction] = useRemoveReactionMutation({
+    onCompleted: () => {
+      Leafwatch.track(PUBLICATION.DISLIKE);
+    },
     onError: (error) => {
       setLiked(!liked);
       setCount(count + 1);
@@ -74,7 +80,7 @@ const Like: FC<Props> = ({ publication, isFullPublication }) => {
       variables: {
         request: {
           profileId: currentProfile?.id,
-          reaction: 'UPVOTE',
+          reaction: ReactionTypes.Upvote,
           publicationId: publication.__typename === 'Mirror' ? publication?.mirrorOf?.id : publication?.id
         }
       }
