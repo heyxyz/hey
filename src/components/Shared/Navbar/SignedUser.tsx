@@ -5,6 +5,7 @@ import { Menu, Transition } from '@headlessui/react';
 import {
   CheckCircleIcon,
   CogIcon,
+  EmojiHappyIcon,
   LogoutIcon,
   MoonIcon,
   ShieldCheckIcon,
@@ -13,6 +14,7 @@ import {
   SwitchHorizontalIcon,
   UserIcon
 } from '@heroicons/react/outline';
+import getAttribute from '@lib/getAttribute';
 import getAvatar from '@lib/getAvatar';
 import isGardener from '@lib/isGardener';
 import isStaff from '@lib/isStaff';
@@ -24,6 +26,7 @@ import { useTheme } from 'next-themes';
 import type { FC } from 'react';
 import { Fragment } from 'react';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
+import { useGlobalModalStateStore } from 'src/store/modals';
 import { PROFILE, STAFFTOOLS, SYSTEM } from 'src/tracking';
 import { useDisconnect } from 'wagmi';
 
@@ -38,10 +41,15 @@ const SignedUser: FC = () => {
   const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
   const setStaffMode = useAppPersistStore((state) => state.setStaffMode);
+  const setShowStatusModal = useGlobalModalStateStore((state) => state.setShowStatusModal);
   const { allowed: staffMode } = useStaffMode();
   const { theme, setTheme } = useTheme();
   const { disconnect } = useDisconnect();
   const disconnectXmtp = useDisconnectXmtp();
+
+  const statusEmoji = getAttribute(currentProfile?.attributes, 'statusEmoji');
+  const statusMessage = getAttribute(currentProfile?.attributes, 'statusMessage');
+  const hasStatus = statusEmoji && statusMessage;
 
   const toggleStaffMode = () => {
     setStaffMode(!staffMode);
@@ -94,6 +102,32 @@ const SignedUser: FC = () => {
                   <Slug className="font-bold" slug={currentProfile?.handle} prefix="@" />
                 </div>
               </Menu.Item>
+              {staffMode ? (
+                <>
+                  <div className="divider" />
+                  <Menu.Item
+                    as="a"
+                    onClick={() => setShowStatusModal(true)}
+                    className={({ active }: { active: boolean }) =>
+                      clsx({ 'dropdown-active': active }, 'menu-item border dark:border-gray-700/80')
+                    }
+                  >
+                    <div className="flex items-center space-x-2">
+                      {hasStatus ? (
+                        <>
+                          <span>{statusEmoji}</span>
+                          <span className="truncate">{statusMessage}</span>
+                        </>
+                      ) : (
+                        <>
+                          <EmojiHappyIcon className="w-4 h-4" />
+                          <span>Set status</span>
+                        </>
+                      )}
+                    </div>
+                  </Menu.Item>
+                </>
+              ) : null}
               <div className="divider" />
               <Menu.Item
                 as={NextLink}
