@@ -107,13 +107,13 @@ const SignedUser: FC = () => {
                 as="a"
                 onClick={() => setShowStatusModal(true)}
                 className={({ active }: { active: boolean }) =>
-                  clsx({ 'dropdown-active': active }, 'menu-item')
+                  clsx({ 'dropdown-active': active }, 'menu-item border dark:border-gray-700/80')
                 }
               >
                 <div className="flex items-center space-x-2">
                   {hasStatus ? (
                     <>
-                      <span className="text-base">{statusEmoji}</span>
+                      <span>{statusEmoji}</span>
                       <span className="truncate">{statusMessage}</span>
                     </>
                   ) : (
