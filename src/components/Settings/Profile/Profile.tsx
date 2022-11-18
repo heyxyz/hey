@@ -202,6 +202,12 @@ const Profile: FC<Props> = ({ profile }) => {
           key: 'hasPrideLogo',
           value: pride
         },
+        { traitType: 'string', key: 'statusEmoji', value: getAttribute(profile?.attributes, 'statusEmoji') },
+        {
+          traitType: 'string',
+          key: 'statusMessage',
+          value: getAttribute(profile?.attributes, 'statusMessage')
+        },
         {
           traitType: 'string',
           key: 'app',

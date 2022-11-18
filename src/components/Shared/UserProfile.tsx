@@ -1,5 +1,6 @@
 import type { Profile } from '@generated/types';
 import { BadgeCheckIcon } from '@heroicons/react/solid';
+import getAttribute from '@lib/getAttribute';
 import getAvatar from '@lib/getAvatar';
 import isVerified from '@lib/isVerified';
 import clsx from 'clsx';
@@ -34,6 +35,10 @@ const UserProfile: FC<Props> = ({
 }) => {
   const [following, setFollowing] = useState(isFollowing);
 
+  const statusEmoji = getAttribute(profile?.attributes, 'statusEmoji');
+  const statusMessage = getAttribute(profile?.attributes, 'statusMessage');
+  const hasStatus = statusEmoji && statusMessage;
+
   const UserAvatar = () => (
     <img
       src={getAvatar(profile)}
@@ -50,9 +55,18 @@ const UserProfile: FC<Props> = ({
 
   const UserName = () => (
     <>
-      <div className="flex gap-1 items-center max-w-sm truncate">
+      <div className="flex items-center max-w-sm truncate">
         <div className={clsx(isBig ? 'font-bold' : 'text-md')}>{profile?.name ?? profile?.handle}</div>
-        {isVerified(profile?.id) && <BadgeCheckIcon className="w-4 h-4 text-brand" />}
+        {isVerified(profile?.id) && <BadgeCheckIcon className="w-4 h-4 text-brand ml-1" />}
+        {hasStatus ? (
+          <div className="flex items-center text-gray-500">
+            <span className="mx-1.5">·</span>
+            <span className="text-xs flex items-center space-x-1 max-w-[10rem]">
+              <span>{statusEmoji}</span>
+              <span className="truncate">{statusMessage}</span>
+            </span>
+          </div>
+        ) : null}
       </div>
       <Slug className="text-sm" slug={profile?.handle} prefix="@" />
     </>
