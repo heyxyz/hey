@@ -1,6 +1,7 @@
 import { LensPeriphery } from '@abis/LensPeriphery';
 import { Button } from '@components/UI/Button';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
+import { Form, useZodForm } from '@components/UI/Form';
 import { Input } from '@components/UI/Input';
 import { PageLoading } from '@components/UI/PageLoading';
 import { Spinner } from '@components/UI/Spinner';
@@ -24,25 +25,35 @@ import { APP_NAME, LENS_PERIPHERY, RELAY_ON, SIGN_WALLET } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { v4 as uuid } from 'uuid';
 import { useContractWrite, useSignTypedData } from 'wagmi';
+import { object, string } from 'zod';
 
 import EmojiPicker from './EmojiPicker';
 import IndexStatus from './IndexStatus';
+
+const editStatusSchema = object({
+  status: string()
+    .min(1, { message: 'Status should atleast have 1 character' })
+    .max(100, { message: 'Status should not exceed 100 characters' })
+});
 
 const Status: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const [isUploading, setIsUploading] = useState(false);
-  const [emoji, setEmoji] = useState<string | null>(null);
-  const [status, setStatus] = useState<string | null>(null);
+  const [emoji, setEmoji] = useState<string>('');
+
+  const form = useZodForm({
+    schema: editStatusSchema
+  });
 
   const { data, loading, error } = useProfileSettingsQuery({
     variables: { request: { profileId: currentProfile?.id } },
     skip: !currentProfile?.id,
     onCompleted: (data) => {
       const profile = data?.profile;
+      form.setValue('status', getAttribute(profile?.attributes, 'statusMessage'));
       setEmoji(getAttribute(profile?.attributes, 'statusEmoji'));
-      setStatus(getAttribute(profile?.attributes, 'statusMessage'));
     }
   });
 
@@ -118,7 +129,7 @@ const Status: FC = () => {
 
   const profile = data?.profile;
 
-  const editStatus = async () => {
+  const editStatus = async (emoji: string, status: string) => {
     if (!currentProfile) {
       return toast.error(SIGN_WALLET);
     }
@@ -129,16 +140,8 @@ const Status: FC = () => {
       cover_picture:
         profile?.coverPicture?.__typename === 'MediaSet' ? profile?.coverPicture?.original?.url ?? '' : '',
       attributes: [
-        {
-          traitType: 'string',
-          key: 'location',
-          value: getAttribute(profile?.attributes, 'location')
-        },
-        {
-          traitType: 'string',
-          key: 'website',
-          value: getAttribute(profile?.attributes, 'website')
-        },
+        { traitType: 'string', key: 'location', value: getAttribute(profile?.attributes, 'location') },
+        { traitType: 'string', key: 'website', value: getAttribute(profile?.attributes, 'website') },
         {
           traitType: 'string',
           key: 'twitter',
@@ -151,11 +154,7 @@ const Status: FC = () => {
         },
         { traitType: 'string', key: 'statusEmoji', value: emoji },
         { traitType: 'string', key: 'statusMessage', value: status },
-        {
-          traitType: 'string',
-          key: 'app',
-          value: APP_NAME
-        }
+        { traitType: 'string', key: 'app', value: APP_NAME }
       ],
       version: '1.0.0',
       metadata_id: uuid(),
@@ -202,23 +201,46 @@ const Status: FC = () => {
 
   return (
     <div className="p-5 space-y-5">
-      <Input
-        prefix={<EmojiPicker emoji={emoji} setEmoji={setEmoji} />}
-        placeholder="What's happening?"
-        value={status ?? ''}
-        onChange={(event) => setStatus(event.target.value)}
-      />
-      <div className="flex flex-col space-y-2">
-        <Button
-          className="ml-auto"
-          disabled={isLoading}
-          icon={isLoading ? <Spinner size="xs" /> : <PencilIcon className="w-4 h-4" />}
-          onClick={editStatus}
-        >
-          Save
-        </Button>
-        {txHash ? <IndexStatus txHash={txHash} reload /> : null}
-      </div>
+      <Form
+        form={form}
+        className="space-y-4"
+        onSubmit={({ status }) => {
+          editStatus(emoji, status);
+        }}
+      >
+        <Input
+          prefix={<EmojiPicker emoji={emoji} setEmoji={setEmoji} />}
+          placeholder="What's happening?"
+          {...form.register('status')}
+        />
+        <div className="flex flex-col space-y-2">
+          <div className="flex items-center space-x-2">
+            <Button
+              className="ml-auto"
+              type="submit"
+              variant="danger"
+              disabled={isLoading}
+              outline
+              onClick={() => {
+                setEmoji('');
+                form.setValue('status', '');
+                editStatus('', '');
+              }}
+            >
+              Clear status
+            </Button>
+            <Button
+              className="ml-auto"
+              type="submit"
+              disabled={isLoading}
+              icon={isLoading ? <Spinner size="xs" /> : <PencilIcon className="w-4 h-4" />}
+            >
+              Save
+            </Button>
+          </div>
+          {txHash ? <IndexStatus txHash={txHash} reload /> : null}
+        </div>
+      </Form>
     </div>
   );
 };

@@ -182,37 +182,17 @@ const Profile: FC<Props> = ({ profile }) => {
       bio,
       cover_picture: cover ? cover : null,
       attributes: [
-        {
-          traitType: 'string',
-          key: 'location',
-          value: location
-        },
-        {
-          traitType: 'string',
-          key: 'website',
-          value: website
-        },
-        {
-          traitType: 'string',
-          key: 'twitter',
-          value: twitter
-        },
-        {
-          traitType: 'boolean',
-          key: 'hasPrideLogo',
-          value: pride
-        },
+        { traitType: 'string', key: 'location', value: location },
+        { traitType: 'string', key: 'website', value: website },
+        { traitType: 'string', key: 'twitter', value: twitter },
+        { traitType: 'boolean', key: 'hasPrideLogo', value: pride },
         { traitType: 'string', key: 'statusEmoji', value: getAttribute(profile?.attributes, 'statusEmoji') },
         {
           traitType: 'string',
           key: 'statusMessage',
           value: getAttribute(profile?.attributes, 'statusMessage')
         },
-        {
-          traitType: 'string',
-          key: 'app',
-          value: APP_NAME
-        }
+        { traitType: 'string', key: 'app', value: APP_NAME }
       ],
       version: '1.0.0',
       metadata_id: uuid(),

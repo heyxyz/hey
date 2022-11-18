@@ -102,32 +102,28 @@ const SignedUser: FC = () => {
                   <Slug className="font-bold" slug={currentProfile?.handle} prefix="@" />
                 </div>
               </Menu.Item>
-              {staffMode ? (
-                <>
-                  <div className="divider" />
-                  <Menu.Item
-                    as="a"
-                    onClick={() => setShowStatusModal(true)}
-                    className={({ active }: { active: boolean }) =>
-                      clsx({ 'dropdown-active': active }, 'menu-item border dark:border-gray-700/80')
-                    }
-                  >
-                    <div className="flex items-center space-x-2">
-                      {hasStatus ? (
-                        <>
-                          <span>{statusEmoji}</span>
-                          <span className="truncate">{statusMessage}</span>
-                        </>
-                      ) : (
-                        <>
-                          <EmojiHappyIcon className="w-4 h-4" />
-                          <span>Set status</span>
-                        </>
-                      )}
-                    </div>
-                  </Menu.Item>
-                </>
-              ) : null}
+              <div className="divider" />
+              <Menu.Item
+                as="a"
+                onClick={() => setShowStatusModal(true)}
+                className={({ active }: { active: boolean }) =>
+                  clsx({ 'dropdown-active': active }, 'menu-item border dark:border-gray-700/80')
+                }
+              >
+                <div className="flex items-center space-x-2">
+                  {hasStatus ? (
+                    <>
+                      <span>{statusEmoji}</span>
+                      <span className="truncate">{statusMessage}</span>
+                    </>
+                  ) : (
+                    <>
+                      <EmojiHappyIcon className="w-4 h-4" />
+                      <span>Set status</span>
+                    </>
+                  )}
+                </div>
+              </Menu.Item>
               <div className="divider" />
               <Menu.Item
                 as={NextLink}

@@ -7,7 +7,7 @@ import List from './List';
 
 interface Props {
   emoji: string | null;
-  setEmoji: (emoji: string | null) => void;
+  setEmoji: (emoji: string) => void;
 }
 
 const EmojiPicker: FC<Props> = ({ emoji, setEmoji }) => {
