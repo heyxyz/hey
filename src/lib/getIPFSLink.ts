@@ -6,6 +6,9 @@ import { IPFS_GATEWAY } from 'src/constants';
  * @returns IPFS link
  */
 const getIPFSLink = (hash: string): string => {
+  if (!hash) {
+    return '';
+  }
   const gateway = IPFS_GATEWAY;
 
   return hash

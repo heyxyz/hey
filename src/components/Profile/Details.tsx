@@ -24,7 +24,7 @@ import { useRouter } from 'next/router';
 import { useTheme } from 'next-themes';
 import type { FC, ReactElement } from 'react';
 import { useState } from 'react';
-import { STATIC_ASSETS } from 'src/constants';
+import { STATIC_IMAGES_URL } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
 
@@ -159,7 +159,7 @@ const Details: FC<Props> = ({ profile }) => {
             <MetaDetails
               icon={
                 <img
-                  src={`${STATIC_ASSETS}/brands/ens.svg`}
+                  src={`${STATIC_IMAGES_URL}/brands/ens.svg`}
                   className="w-4 h-4"
                   height={16}
                   width={16}
@@ -203,7 +203,7 @@ const Details: FC<Props> = ({ profile }) => {
               icon={
                 resolvedTheme === 'dark' ? (
                   <img
-                    src={`${STATIC_ASSETS}/brands/twitter-light.svg`}
+                    src={`${STATIC_IMAGES_URL}/brands/twitter-light.svg`}
                     className="w-4 h-4"
                     height={16}
                     width={16}
@@ -211,7 +211,7 @@ const Details: FC<Props> = ({ profile }) => {
                   />
                 ) : (
                   <img
-                    src={`${STATIC_ASSETS}/brands/twitter-dark.svg`}
+                    src={`${STATIC_IMAGES_URL}/brands/twitter-dark.svg`}
                     className="w-4 h-4"
                     height={16}
                     width={16}
