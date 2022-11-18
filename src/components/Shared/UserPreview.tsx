@@ -115,7 +115,7 @@ const UserPreview: FC<Props> = ({ profile, isBig, followStatusLoading, children 
       {showPreview ? (
         <Tippy
           placement="bottom-start"
-          delay={500}
+          delay={[800, 0]}
           hideOnClick={false}
           content={<Preview />}
           arrow={false}
