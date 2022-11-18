@@ -14,6 +14,7 @@ import {
   SwitchHorizontalIcon,
   UserIcon
 } from '@heroicons/react/outline';
+import getAttribute from '@lib/getAttribute';
 import getAvatar from '@lib/getAvatar';
 import isGardener from '@lib/isGardener';
 import isStaff from '@lib/isStaff';
@@ -45,6 +46,10 @@ const SignedUser: FC = () => {
   const { theme, setTheme } = useTheme();
   const { disconnect } = useDisconnect();
   const disconnectXmtp = useDisconnectXmtp();
+
+  const statusEmoji = getAttribute(currentProfile?.attributes, 'statusEmoji');
+  const statusMessage = getAttribute(currentProfile?.attributes, 'statusMessage');
+  const hasStatus = statusEmoji && statusMessage;
 
   const toggleStaffMode = () => {
     setStaffMode(!staffMode);
@@ -105,9 +110,18 @@ const SignedUser: FC = () => {
                   clsx({ 'dropdown-active': active }, 'menu-item')
                 }
               >
-                <div className="flex items-center space-x-1.5">
-                  <EmojiHappyIcon className="w-4 h-4" />
-                  <div>Set status</div>
+                <div className="flex items-center space-x-2">
+                  {hasStatus ? (
+                    <>
+                      <span className="text-base">{statusEmoji}</span>
+                      <span className="truncate">{statusMessage}</span>
+                    </>
+                  ) : (
+                    <>
+                      <EmojiHappyIcon className="w-4 h-4" />
+                      <span>Set status</span>
+                    </>
+                  )}
                 </div>
               </Menu.Item>
               <div className="divider" />
