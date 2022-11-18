@@ -1,7 +1,6 @@
-import { useLazyQuery } from '@apollo/client';
 import useXmtpClient from '@components/utils/hooks/useXmtpClient';
 import type { Profile } from '@generated/types';
-import { ProfilesDocument } from '@generated/types';
+import { useProfilesLazyQuery } from '@generated/types';
 import buildConversationId from '@lib/buildConversationId';
 import chunkArray from '@lib/chunkArray';
 import { buildConversationKey, parseConversationKey } from '@lib/conversationKey';
@@ -34,7 +33,7 @@ const useMessagePreviews = () => {
   const [messagesLoading, setMessagesLoading] = useState<boolean>(true);
   const [profilesLoading, setProfilesLoading] = useState<boolean>(false);
   const [profilesError, setProfilesError] = useState<Error | undefined>();
-  const [loadProfiles] = useLazyQuery(ProfilesDocument);
+  const [loadProfiles] = useProfilesLazyQuery();
   const selectedTab = useMessageStore((state) => state.selectedTab);
   const [profilesToShow, setProfilesToShow] = useState<Map<string, Profile>>(new Map());
   const [requestedCount, setRequestedCount] = useState(0);
@@ -68,13 +67,8 @@ const useMessagePreviews = () => {
       const newMessageProfiles = new Map(messageProfiles);
       const chunks = chunkArray(Array.from(toQuery), MAX_PROFILES_PER_REQUEST);
       try {
-        const results = await Promise.all(
-          chunks.map((profileIdChunk) =>
-            loadProfiles({ variables: { request: { profileIds: profileIdChunk } } })
-          )
-        );
-
-        for (const result of results) {
+        for (const chunk of chunks) {
+          const result = await loadProfiles({ variables: { request: { profileIds: chunk } } });
           if (!result.data?.profiles.items.length) {
             continue;
           }

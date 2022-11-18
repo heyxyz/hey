@@ -1,9 +1,8 @@
-import { useLazyQuery } from '@apollo/client';
 import { Button } from '@components/UI/Button';
 import { Modal } from '@components/UI/Modal';
 import { Spinner } from '@components/UI/Spinner';
 import { WarningMessage } from '@components/UI/WarningMessage';
-import { GenerateModuleCurrencyApprovalDataDocument } from '@generated/types';
+import { useGenerateModuleCurrencyApprovalDataLazyQuery } from '@generated/types';
 import { ExclamationIcon, MinusIcon, PlusIcon } from '@heroicons/react/outline';
 import { getModule } from '@lib/getModule';
 import { Leafwatch } from '@lib/leafwatch';
@@ -21,10 +20,9 @@ interface Props {
 }
 
 const AllowanceButton: FC<Props> = ({ title = 'Allow', module, allowed, setAllowed }) => {
-  const [showWarningModal, setShowWarninModal] = useState(false);
-  const [generateAllowanceQuery, { loading: queryLoading }] = useLazyQuery(
-    GenerateModuleCurrencyApprovalDataDocument
-  );
+  const [showWarningModal, setShowWarningModal] = useState(false);
+  const [generateAllowanceQuery, { loading: queryLoading }] =
+    useGenerateModuleCurrencyApprovalDataLazyQuery();
 
   const {
     data: txData,
@@ -40,7 +38,7 @@ const AllowanceButton: FC<Props> = ({ title = 'Allow', module, allowed, setAllow
     hash: txData?.hash,
     onSuccess: () => {
       toast.success(`Module ${allowed ? 'disabled' : 'enabled'} successfully!`);
-      setShowWarninModal(false);
+      setShowWarningModal(false);
       setAllowed(!allowed);
       Leafwatch.track(`Module ${allowed ? 'disabled' : 'enabled'}`);
     },
@@ -87,7 +85,7 @@ const AllowanceButton: FC<Props> = ({ title = 'Allow', module, allowed, setAllow
       <Button
         variant="success"
         icon={<PlusIcon className="w-4 h-4" />}
-        onClick={() => setShowWarninModal(!showWarningModal)}
+        onClick={() => setShowWarningModal(!showWarningModal)}
       >
         {title}
       </Button>
@@ -95,7 +93,7 @@ const AllowanceButton: FC<Props> = ({ title = 'Allow', module, allowed, setAllow
         title="Warning"
         icon={<ExclamationIcon className="w-5 h-5 text-yellow-500" />}
         show={showWarningModal}
-        onClose={() => setShowWarninModal(false)}
+        onClose={() => setShowWarningModal(false)}
       >
         <div className="p-5 space-y-3">
           <WarningMessage

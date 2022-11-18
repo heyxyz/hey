@@ -19,7 +19,7 @@ const Url = ({ children, url }: UrlProps) => {
 
   return (
     // eslint-disable-next-line react/jsx-no-target-blank
-    <a href={href} target="_blank" onClick={(event) => event.stopPropagation()}>
+    <a href={href} target="_blank" onClick={(event) => event.stopPropagation()} rel="noopener">
       {children}
     </a>
   );
@@ -37,14 +37,14 @@ export class UrlMatcher extends Matcher<UrlProps> {
   }
 
   match(string: string): MatchResponse<UrlMatch> | null {
-    const response = this.doMatch(string, URL_PATTERN, this.handleMatches);
+    const response = this.doMatch(string, URL_PATTERN, this.handleMatches, true);
 
     if (response?.valid) {
       const { host } = response;
       const tld = host.slice(host.lastIndexOf('.') + 1).toLowerCase();
 
       if (BLOCKED_TLDS.includes(tld)) {
-        return null;
+        response.valid = false;
       }
     }
 

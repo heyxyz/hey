@@ -8,9 +8,7 @@ import { Leafwatch } from '@lib/leafwatch';
 import uploadToIPFS from '@lib/uploadToIPFS';
 import clsx from 'clsx';
 import type { ChangeEvent, Dispatch, FC } from 'react';
-import { useRef } from 'react';
-import { Fragment } from 'react';
-import { useId, useState } from 'react';
+import { Fragment, useId, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 import {
   ALLOWED_AUDIO_TYPES,

@@ -1,6 +1,5 @@
-import { useQuery } from '@apollo/client';
 import type { Profile } from '@generated/types';
-import { MutualFollowersDocument } from '@generated/types';
+import { useMutualFollowersQuery } from '@generated/types';
 import getAvatar from '@lib/getAvatar';
 import { Leafwatch } from '@lib/leafwatch';
 import clsx from 'clsx';
@@ -17,7 +16,7 @@ interface Props {
 const MutualFollowers: FC<Props> = ({ setShowMutualFollowersModal, profile, variant = 'sm' }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
-  const { data, loading, error } = useQuery(MutualFollowersDocument, {
+  const { data, loading, error } = useMutualFollowersQuery({
     variables: {
       request: {
         viewingProfileId: profile?.id,
@@ -25,7 +24,7 @@ const MutualFollowers: FC<Props> = ({ setShowMutualFollowersModal, profile, vari
         limit: 3
       }
     },
-    skip: !profile?.id
+    skip: !profile?.id || !currentProfile?.id
   });
 
   const profiles = data?.mutualFollowersProfiles?.items ?? [];

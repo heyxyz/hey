@@ -1,11 +1,10 @@
-import { useMutation } from '@apollo/client';
 import ChooseFile from '@components/Shared/ChooseFile';
 import { Button } from '@components/UI/Button';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Form, useZodForm } from '@components/UI/Form';
 import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
-import { CreateProfileDocument } from '@generated/types';
+import { useCreateProfileMutation } from '@generated/types';
 import { PlusIcon } from '@heroicons/react/outline';
 import getStampFyiURL from '@lib/getStampFyiURL';
 import uploadToIPFS from '@lib/uploadToIPFS';
@@ -19,7 +18,7 @@ import Pending from './Pending';
 
 const newUserSchema = object({
   handle: string()
-    .min(2, { message: 'Handle should be atleast 2 characters' })
+    .min(2, { message: 'Handle should be at least 2 characters' })
     .max(31, { message: 'Handle should be less than 32 characters' })
     .regex(HANDLE_REGEX, {
       message: 'Handle should only contain alphanumeric characters'
@@ -34,7 +33,7 @@ const NewProfile: FC<Props> = ({ isModal = false }) => {
   const [avatar, setAvatar] = useState('');
   const [uploading, setUploading] = useState(false);
   const { address } = useAccount();
-  const [createProfile, { data, loading }] = useMutation(CreateProfileDocument);
+  const [createProfile, { data, loading }] = useCreateProfileMutation();
 
   const form = useZodForm({
     schema: newUserSchema
@@ -84,7 +83,7 @@ const NewProfile: FC<Props> = ({ isModal = false }) => {
       {isModal && (
         <div className="mb-2 space-y-4">
           <img className="w-10 h-10" height={40} width={40} src="/logo.svg" alt="Logo" />
-          <div className="text-xl font-bold">Signup to {APP_NAME}</div>
+          <div className="text-xl font-bold">Sign up to {APP_NAME}</div>
         </div>
       )}
       <Input label="Handle" type="text" placeholder="gavin" {...form.register('handle')} />
@@ -110,7 +109,7 @@ const NewProfile: FC<Props> = ({ isModal = false }) => {
         disabled={loading}
         icon={loading ? <Spinner size="xs" /> : <PlusIcon className="w-4 h-4" />}
       >
-        Signup
+        Sign up
       </Button>
     </Form>
   );

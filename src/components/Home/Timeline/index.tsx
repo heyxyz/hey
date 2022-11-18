@@ -1,4 +1,3 @@
-import { useQuery } from '@apollo/client';
 import QueuedPublication from '@components/Publication/QueuedPublication';
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
@@ -8,8 +7,7 @@ import { ErrorMessage } from '@components/UI/ErrorMessage';
 import InfiniteLoader from '@components/UI/InfiniteLoader';
 import type { LensterPublication } from '@generated/lenstertypes';
 import type { FeedItem } from '@generated/types';
-import { FeedEventItemType } from '@generated/types';
-import { TimelineDocument } from '@generated/types';
+import { FeedEventItemType, useTimelineQuery } from '@generated/types';
 import { CollectionIcon } from '@heroicons/react/outline';
 import type { FC } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -45,7 +43,7 @@ const Timeline: FC = () => {
   const reactionRequest = currentProfile ? { profileId: currentProfile?.id } : null;
   const profileId = currentProfile?.id ?? null;
 
-  const { data, loading, error, fetchMore } = useQuery(TimelineDocument, {
+  const { data, loading, error, fetchMore } = useTimelineQuery({
     variables: { request, reactionRequest, profileId }
   });
 

@@ -1,5 +1,4 @@
 import { LensHubProxy } from '@abis/LensHubProxy';
-import { useMutation } from '@apollo/client';
 import UserProfile from '@components/Shared/UserProfile';
 import { Button } from '@components/UI/Button';
 import { Card } from '@components/UI/Card';
@@ -9,8 +8,7 @@ import { Spinner } from '@components/UI/Spinner';
 import { WarningMessage } from '@components/UI/WarningMessage';
 import { useDisconnectXmtp } from '@components/utils/hooks/useXmtpClient';
 import MetaTags from '@components/utils/MetaTags';
-import type { Mutation } from '@generated/types';
-import { CreateBurnProfileTypedDataDocument } from '@generated/types';
+import { useCreateBurnProfileTypedDataMutation } from '@generated/types';
 import { ExclamationIcon, TrashIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
 import { Leafwatch } from '@lib/leafwatch';
@@ -18,8 +16,7 @@ import onError from '@lib/onError';
 import resetAuthData from '@lib/resetAuthData';
 import splitSignature from '@lib/splitSignature';
 import type { FC } from 'react';
-import { useEffect } from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { APP_NAME, LENSHUB_PROXY, SIGN_WALLET } from 'src/constants';
 import Custom404 from 'src/pages/404';
@@ -62,24 +59,21 @@ const DeleteSettings: FC = () => {
     onError
   });
 
-  const [createBurnProfileTypedData, { loading: typedDataLoading }] = useMutation<Mutation>(
-    CreateBurnProfileTypedDataDocument,
-    {
-      onCompleted: async ({ createBurnProfileTypedData }) => {
-        try {
-          const { typedData } = createBurnProfileTypedData;
-          const { tokenId, deadline } = typedData.value;
-          const signature = await signTypedDataAsync(getSignature(typedData));
-          const { v, r, s } = splitSignature(signature);
-          const sig = { v, r, s, deadline };
+  const [createBurnProfileTypedData, { loading: typedDataLoading }] = useCreateBurnProfileTypedDataMutation({
+    onCompleted: async ({ createBurnProfileTypedData }) => {
+      try {
+        const { typedData } = createBurnProfileTypedData;
+        const { tokenId, deadline } = typedData.value;
+        const signature = await signTypedDataAsync(getSignature(typedData));
+        const { v, r, s } = splitSignature(signature);
+        const sig = { v, r, s, deadline };
 
-          setUserSigNonce(userSigNonce + 1);
-          write?.({ recklesslySetUnpreparedArgs: [tokenId, sig] });
-        } catch {}
-      },
-      onError
-    }
-  );
+        setUserSigNonce(userSigNonce + 1);
+        write?.({ recklesslySetUnpreparedArgs: [tokenId, sig] });
+      } catch {}
+    },
+    onError
+  });
 
   const handleDelete = () => {
     if (!currentProfile) {

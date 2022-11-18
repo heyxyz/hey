@@ -1,11 +1,10 @@
-import { useQuery } from '@apollo/client';
 import { Button } from '@components/UI/Button';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
 import { Toggle } from '@components/UI/Toggle';
 import type { Erc20 } from '@generated/types';
-import { CollectModules, EnabledModulesDocument } from '@generated/types';
+import { CollectModules, useEnabledModulesQuery } from '@generated/types';
 import {
   ClockIcon,
   CollectionIcon,
@@ -16,7 +15,7 @@ import {
 import type { Dispatch, FC } from 'react';
 import { useEffect } from 'react';
 import { useAppStore } from 'src/store/app';
-import { useCollectModuleStore } from 'src/store/collectmodule';
+import { useCollectModuleStore } from 'src/store/collect-module';
 
 interface Props {
   setShowModal: Dispatch<boolean>;
@@ -109,7 +108,7 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [amount, collectLimit, hasTimeLimit]);
 
-  const { error, data, loading } = useQuery(EnabledModulesDocument);
+  const { error, data, loading } = useEnabledModulesQuery();
 
   if (loading) {
     return (
@@ -194,7 +193,7 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
                   </div>
                   <div className="text-sm pt-2 flex space-x-2">
                     <Input
-                      label="Referal fee"
+                      label="Referral fee"
                       type="number"
                       placeholder="5"
                       iconRight="%"
@@ -220,7 +219,7 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
                 <div className="flex items-center space-x-2">
                   <Toggle on={!!collectLimit} setOn={() => setCollectLimit(collectLimit ? null : '1')} />
                   <div className="text-gray-500 dark:text-gray-400 text-sm font-bold">
-                    Make the collects exlusive
+                    Make the collects exclusive
                   </div>
                 </div>
                 {collectLimit ? (

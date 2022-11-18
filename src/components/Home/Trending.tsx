@@ -1,9 +1,8 @@
-import { useQuery } from '@apollo/client';
 import TrendingTagShimmer from '@components/Shared/Shimmer/TrendingTagShimmer';
 import { Card } from '@components/UI/Card';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import type { TagResult } from '@generated/types';
-import { TagSortCriteria, TrendingDocument } from '@generated/types';
+import { TagSortCriteria, useTrendingQuery } from '@generated/types';
 import { TrendingUpIcon } from '@heroicons/react/solid';
 import { Leafwatch } from '@lib/leafwatch';
 import nFormatter from '@lib/nFormatter';
@@ -21,7 +20,7 @@ const Title = () => {
 };
 
 const Trending: FC = () => {
-  const { data, loading, error } = useQuery(TrendingDocument, {
+  const { data, loading, error } = useTrendingQuery({
     variables: { request: { limit: 7, sort: TagSortCriteria.MostPopular } }
   });
 

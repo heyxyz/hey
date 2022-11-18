@@ -1,15 +1,14 @@
-import { useQuery } from '@apollo/client';
 import Loader from '@components/Shared/Loader';
 import UserProfile from '@components/Shared/UserProfile';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import type { Profile } from '@generated/types';
-import { RecommendedProfilesDocument } from '@generated/types';
+import { useRecommendedProfilesQuery } from '@generated/types';
 import { UsersIcon } from '@heroicons/react/outline';
 import type { FC } from 'react';
 
 const Suggested: FC = () => {
-  const { data, loading, error } = useQuery(RecommendedProfilesDocument);
+  const { data, loading, error } = useRecommendedProfilesQuery();
 
   if (loading) {
     return <Loader message="Loading suggested" />;
