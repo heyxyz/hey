@@ -6,7 +6,7 @@ import { ERROR_MESSAGE, STATIC_ASSETS_URL } from 'src/constants';
 import Loader from '../Loader';
 
 interface Props {
-  setEmoji: (emoji: string | null) => void;
+  setEmoji: (emoji: string) => void;
 }
 
 const List: FC<Props> = ({ setEmoji }) => {
@@ -52,6 +52,7 @@ const List: FC<Props> = ({ setEmoji }) => {
         <button
           className="hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg py-1"
           key={index}
+          type="button"
           onClick={() => setEmoji(emoji.emoji)}
         >
           {emoji.emoji}
