@@ -429,10 +429,10 @@
     fast-xml-parser "4.0.11"
     tslib "^2.3.1"
 
-"@aws-sdk/client-sts@^3.212.0":
-  version "3.212.0"
-  resolved "https://registry.yarnpkg.com/@aws-sdk/client-sts/-/client-sts-3.212.0.tgz#6c18ae5b555443be753504218476a05b0c74d045"
-  integrity sha512-Zl8665HT1Do/yfiFEtqEjLkHSkAo5Isg2QU65Kbknj2W2DFj92a1cRvMlHanDLxlpuoryGP9/u1efYZeWeIdlg==
+"@aws-sdk/client-sts@^3.213.0":
+  version "3.213.0"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/client-sts/-/client-sts-3.213.0.tgz#cfc097ad1c4a02eec5623010a06f16a408014267"
+  integrity sha512-MCjtLaYVQJLIMeLubDc4yRjSyVVTOebKxhY4ix4cfpSA6X4jMc4gRY2eu4eja3qoISfHq/Ikrkxx9DD1+n1azg==
   dependencies:
     "@aws-crypto/sha256-browser" "2.0.0"
     "@aws-crypto/sha256-js" "2.0.0"
