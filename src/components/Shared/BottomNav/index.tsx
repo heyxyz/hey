@@ -73,7 +73,7 @@ const BottomNav: FC = () => {
           </div>
         </div>
       ) : (
-        <div />
+        null
       )}
     </Disclosure>
   );
