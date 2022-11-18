@@ -7,7 +7,7 @@ import List from './List';
 
 interface Props {
   emoji: string | null;
-  setEmoji: (emoji: string | null) => void;
+  setEmoji: (emoji: string) => void;
 }
 
 const EmojiPicker: FC<Props> = ({ emoji, setEmoji }) => {
@@ -25,7 +25,7 @@ const EmojiPicker: FC<Props> = ({ emoji, setEmoji }) => {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <div className="absolute z-[5] mt-1 bg-white rounded-xl border shadow-sm dark:bg-gray-900 focus:outline-none dark:border-gray-700/80 w-2/4">
+        <div className="fixed z-[5] mt-1 bg-white rounded-xl border shadow-sm dark:bg-gray-900 focus:outline-none dark:border-gray-700/80 w-2/4">
           <List setEmoji={setEmoji} />
         </div>
       </Transition>

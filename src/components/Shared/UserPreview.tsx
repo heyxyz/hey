@@ -3,10 +3,11 @@ import type { Profile } from '@generated/types';
 import { BadgeCheckIcon } from '@heroicons/react/solid';
 import getAvatar from '@lib/getAvatar';
 import isVerified from '@lib/isVerified';
+import nFormatter from '@lib/nFormatter';
 import Tippy from '@tippyjs/react';
 import clsx from 'clsx';
 import type { FC } from 'react';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { useAppStore } from 'src/store/app';
 
 import Follow from './Follow';
@@ -22,7 +23,6 @@ type Props = {
 };
 
 const UserPreview: FC<Props> = ({ profile, isBig, followStatusLoading, children }) => {
-  const wrapperRef = useRef<HTMLDivElement>(null);
   const [showPreview, setShowPreview] = useState(false);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [following, setFollowing] = useState(profile?.isFollowedByMe);
@@ -77,11 +77,11 @@ const UserPreview: FC<Props> = ({ profile, isBig, followStatusLoading, children 
         </div>
         <div className="flex space-x-3 items-center">
           <div className="flex items-center space-x-1">
-            <div className="text-base">{profile?.stats?.totalFollowing}</div>
+            <div className="text-base">{nFormatter(profile?.stats?.totalFollowing)}</div>
             <div className="text-gray-500 text-sm">Following</div>
           </div>
           <div className="flex items-center space-x-1 text-md">
-            <div className="text-base">{profile?.stats?.totalFollowers}</div>
+            <div className="text-base">{nFormatter(profile?.stats?.totalFollowers)}</div>
             <div className="text-gray-500 text-sm">Followers</div>
           </div>
         </div>
@@ -98,30 +98,18 @@ const UserPreview: FC<Props> = ({ profile, isBig, followStatusLoading, children 
     setShowPreview(true);
   };
 
-  useEffect(() => {
-    const handleHoverOutside = (event: any) => {
-      if (wrapperRef.current && !wrapperRef.current?.contains(event.target)) {
-        onPreviewEnd();
-      }
-    };
-    document.addEventListener('mouseleave', handleHoverOutside);
-    return () => {
-      document.removeEventListener('mouseleave', handleHoverOutside);
-    };
-  }, [wrapperRef]);
-
   return (
-    <div onMouseOver={onPreviewStart} ref={wrapperRef}>
+    <div onMouseOver={onPreviewStart} onMouseLeave={onPreviewEnd}>
       {showPreview ? (
         <Tippy
           placement="bottom-start"
-          delay={500}
+          delay={[800, 0]}
           hideOnClick={false}
           content={<Preview />}
           arrow={false}
           interactive
           zIndex={1000}
-          className="!bg-white hidden md:block !-my-2 !text-black !px-1.5 !py-3 dark:!text-white !w-64 dark:!bg-black !border dark:!border-gray-700 !rounded-xl"
+          className="!bg-white hidden md:block !px-1.5 !py-3 !text-black dark:!text-white w-64 dark:!bg-black border dark:border-gray-700 !rounded-xl"
         >
           <span>{children}</span>
         </Tippy>
