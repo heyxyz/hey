@@ -175,3 +175,7 @@ i.code {
 div[data-lexical-editor='true'] {
   @apply outline-none;
 }
+
+.hexagon {
+  clip-path: url(#hexagon-clip-config);
+}

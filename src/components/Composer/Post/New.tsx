@@ -1,4 +1,5 @@
 import withLexicalContext from '@components/Shared/Lexical/withLexicalContext';
+import Avatar from '@components/UI/Avatar';
 import { Card } from '@components/UI/Card';
 import { Modal } from '@components/UI/Modal';
 import { Tooltip } from '@components/UI/Tooltip';
@@ -11,7 +12,6 @@ import {
 } from '@heroicons/react/outline';
 import { $convertFromMarkdownString } from '@lexical/markdown';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
-import getAvatar from '@lib/getAvatar';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { useRouter } from 'next/router';
 import type { FC, ReactNode } from 'react';
@@ -83,10 +83,9 @@ const NewPost: FC = () => {
   return (
     <Card className="p-5 space-y-3">
       <div className="flex items-center space-x-3">
-        <img
-          src={getAvatar(currentProfile)}
+        <Avatar
+          profile={currentProfile}
           className="h-9 w-9 bg-gray-200 rounded-full border dark:border-gray-700/80"
-          alt={currentProfile?.handle}
         />
         <button
           className="w-full flex items-center space-x-2 bg-gray-100 dark:bg-gray-900 px-4 py-2 rounded-xl border border-gray-200 dark:border-gray-700"

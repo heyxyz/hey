@@ -1,6 +1,6 @@
+import Avatar from '@components/UI/Avatar';
 import type { Profile } from '@generated/types';
 import { BadgeCheckIcon } from '@heroicons/react/solid';
-import getAvatar from '@lib/getAvatar';
 import isVerified from '@lib/isVerified';
 import Link from 'next/link';
 import type { FC } from 'react';
@@ -12,12 +12,11 @@ interface Props {
 export const NotificationProfileAvatar: FC<Props> = ({ profile }) => {
   return (
     <Link href={`/u/${profile?.handle}`}>
-      <img
-        src={getAvatar(profile)}
+      <Avatar
+        profile={profile}
         className="w-8 h-8 bg-gray-200 rounded-full border dark:border-gray-700/80"
         height={32}
         width={32}
-        alt={profile?.handle}
       />
     </Link>
   );

@@ -1,7 +1,7 @@
 import MutualFollowers from '@components/Profile/MutualFollowers';
+import Avatar from '@components/UI/Avatar';
 import type { Profile } from '@generated/types';
 import { BadgeCheckIcon } from '@heroicons/react/solid';
-import getAvatar from '@lib/getAvatar';
 import isVerified from '@lib/isVerified';
 import Tippy from '@tippyjs/react';
 import clsx from 'clsx';
@@ -28,16 +28,14 @@ const UserPreview: FC<Props> = ({ profile, isBig, followStatusLoading, children 
   const [following, setFollowing] = useState(profile?.isFollowedByMe);
 
   const UserAvatar = () => (
-    <img
-      src={getAvatar(profile)}
-      loading="lazy"
+    <Avatar
+      profile={profile}
       className={clsx(
         isBig ? 'w-14 h-14' : 'w-10 h-10',
         'bg-gray-200 rounded-full border dark:border-gray-700/80'
       )}
       height={isBig ? 56 : 40}
       width={isBig ? 56 : 40}
-      alt={profile?.handle}
     />
   );
 
@@ -123,10 +121,10 @@ const UserPreview: FC<Props> = ({ profile, isBig, followStatusLoading, children 
           zIndex={1000}
           className="!bg-white hidden md:block !-my-2 !text-black !px-1.5 !py-3 dark:!text-white !w-64 dark:!bg-black !border dark:!border-gray-700 !rounded-xl"
         >
-          <span>{children}</span>
+          <div>{children}</div>
         </Tippy>
       ) : (
-        <span>{children}</span>
+        <div>{children}</div>
       )}
     </div>
   );

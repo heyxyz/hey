@@ -1,3 +1,4 @@
+import Avatar from '@components/UI/Avatar';
 import useStaffMode from '@components/utils/hooks/useStaffMode';
 import { useDisconnectXmtp } from '@components/utils/hooks/useXmtpClient';
 import type { Profile } from '@generated/types';
@@ -13,7 +14,6 @@ import {
   SwitchHorizontalIcon,
   UserIcon
 } from '@heroicons/react/outline';
-import getAvatar from '@lib/getAvatar';
 import isGardener from '@lib/isGardener';
 import isStaff from '@lib/isStaff';
 import { Leafwatch } from '@lib/leafwatch';
@@ -63,10 +63,9 @@ const SignedUser: FC = () => {
       {({ open }) => (
         <>
           <Menu.Button
-            as="img"
-            src={getAvatar(currentProfile as Profile)}
+            as={Avatar}
+            profile={currentProfile}
             className="w-8 h-8 rounded-full border cursor-pointer dark:border-gray-700/80"
-            alt={currentProfile?.handle}
           />
           <Transition
             show={open}
@@ -169,12 +168,11 @@ const SignedUser: FC = () => {
                           {currentProfile?.id === profile?.id && (
                             <CheckCircleIcon className="w-4 h-4 text-green-500" />
                           )}
-                          <img
+                          <Avatar
+                            profile={profile}
                             className="w-5 h-5 rounded-full border dark:border-gray-700/80"
                             height={20}
                             width={20}
-                            src={getAvatar(profile)}
-                            alt={profile?.handle}
                           />
                           <div className="truncate">{profile?.handle}</div>
                         </button>
