@@ -61,6 +61,7 @@
     "@types/ua-parser-js": "^0.7.36",
     "@types/uuid": "^8.3.4",
     "autoprefixer": "^10.4.13",
+    "data": "*",
     "eslint-config-weblint": "*",
     "lens": "*",
     "postcss": "^8.4.19",

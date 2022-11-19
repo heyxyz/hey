@@ -4,7 +4,6 @@ documents:
 
 hooks:
   afterAllFileWrite:
-    - eslint --fix
     - prettier --write
 
 generates:
