@@ -4,9 +4,8 @@ import axios from 'axios';
 import { EVER_API, SERVERLESS_URL } from 'src/constants';
 import { v4 as uuid } from 'uuid';
 
-const bucketName = process.env.NEXT_PUBLIC_EVER_BUCKET_NAME as string;
 const params = {
-  Bucket: bucketName,
+  Bucket: 'lenster-media',
   Key: uuid()
 };
 
