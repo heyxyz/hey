@@ -15,15 +15,6 @@ import { Tooltip } from '@components/UI/Tooltip';
 import { WarningMessage } from '@components/UI/WarningMessage';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
 import type { LensterPublication } from '@generated/lenstertypes';
-import type { ElectedMirror } from '@generated/types';
-import {
-  CollectModules,
-  useApprovedModuleAllowanceAmountQuery,
-  useCollectModuleQuery,
-  useCreateCollectTypedDataMutation,
-  useProxyActionMutation,
-  usePublicationRevenueQuery
-} from '@generated/types';
 import {
   CashIcon,
   ClockIcon,
@@ -47,6 +38,15 @@ import splitSignature from '@lib/splitSignature';
 import dayjs from 'dayjs';
 import type { BigNumber } from 'ethers';
 import { defaultAbiCoder } from 'ethers/lib/utils';
+import type { ElectedMirror } from 'lens';
+import {
+  CollectModules,
+  useApprovedModuleAllowanceAmountQuery,
+  useCollectModuleQuery,
+  useCreateCollectTypedDataMutation,
+  useProxyActionMutation,
+  usePublicationRevenueQuery
+} from 'lens';
 import type { Dispatch, FC } from 'react';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';

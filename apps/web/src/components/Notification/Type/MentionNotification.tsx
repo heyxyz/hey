@@ -1,9 +1,9 @@
 import Markup from '@components/Shared/Markup';
 import UserPreview from '@components/Shared/UserPreview';
-import type { NewMentionNotification } from '@generated/types';
 import { AtSymbolIcon } from '@heroicons/react/solid';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import type { NewMentionNotification } from 'lens';
 import Link from 'next/link';
 import type { FC } from 'react';
 

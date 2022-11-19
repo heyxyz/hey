@@ -1,5 +1,5 @@
-import type { CollectedEvent } from '@generated/types';
 import { CollectionIcon } from '@heroicons/react/outline';
+import type { CollectedEvent } from 'lens';
 import type { FC } from 'react';
 
 import ProfileCircles from './ProfileCircles';

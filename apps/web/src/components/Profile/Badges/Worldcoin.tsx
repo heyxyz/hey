@@ -1,6 +1,6 @@
 import { Tooltip } from '@components/UI/Tooltip';
-import type { Profile } from '@generated/types';
 import { CheckCircleIcon } from '@heroicons/react/solid';
+import type { Profile } from 'lens';
 import type { FC } from 'react';
 import { STATIC_IMAGES_URL } from 'src/constants';
 

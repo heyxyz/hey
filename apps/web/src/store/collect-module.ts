@@ -1,4 +1,4 @@
-import { CollectModules } from '@generated/types';
+import { CollectModules } from 'lens';
 import { DEFAULT_COLLECT_TOKEN } from 'src/constants';
 import create from 'zustand';
 

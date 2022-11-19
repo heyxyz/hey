@@ -1,7 +1,7 @@
 import Unfollow from '@components/Shared/Unfollow';
 import UserProfile from '@components/Shared/UserProfile';
-import type { Profile } from '@generated/types';
 import { ChevronLeftIcon } from '@heroicons/react/outline';
+import type { Profile } from 'lens';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';

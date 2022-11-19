@@ -11,7 +11,7 @@ import type {
   RevertCollectModuleSettings,
   RevertFollowModuleSettings,
   TimedFeeCollectModuleSettings
-} from './types';
+} from 'lens';
 
 export type LensterPublication = Post & Mirror & Comment;
 export type Community = Post;

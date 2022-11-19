@@ -1,6 +1,6 @@
 import { Card } from '@components/UI/Card';
-import type { Nft } from '@generated/types';
 import getIPFSLink from '@lib/getIPFSLink';
+import type { Nft } from 'lens';
 import type { FC } from 'react';
 import { CHAIN_ID, RARIBLE_URL, STATIC_IMAGES_URL } from 'src/constants';
 

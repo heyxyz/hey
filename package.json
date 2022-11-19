@@ -11,13 +11,12 @@
     "dev": "turbo run dev --parallel",
     "lint": "turbo run lint",
     "typecheck": "turbo run typecheck",
-    "prettier": "prettier --check \"apps/**/*.{ts,tsx}\"",
+    "prettier": "prettier --check \"**/*.{ts,tsx,md}\"",
     "prettier:fix": "prettier --write \"**/*.{ts,tsx,md}\"",
     "prepare": "husky install"
   },
   "devDependencies": {
     "husky": "^8.0.2",
-    "lint-staged": "^13.0.3",
     "prettier": "latest",
     "turbo": "latest"
   },

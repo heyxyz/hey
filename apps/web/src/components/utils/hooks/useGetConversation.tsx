@@ -1,6 +1,6 @@
-import type { Profile } from '@generated/types';
 import { parseConversationKey } from '@lib/conversationKey';
 import { Client } from '@xmtp/xmtp-js';
+import type { Profile } from 'lens';
 import { useEffect, useState } from 'react';
 import { XMTP_ENV } from 'src/constants';
 import { useAppStore } from 'src/store/app';

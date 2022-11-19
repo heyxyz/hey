@@ -1,5 +1,5 @@
-import type { ApprovedAllowanceAmount } from '@generated/types';
-import { CollectModules } from '@generated/types';
+import type { ApprovedAllowanceAmount } from 'lens';
+import { CollectModules } from 'lens';
 import type { FC } from 'react';
 
 import Module from './Module';

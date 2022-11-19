@@ -3,7 +3,7 @@ import {
   PublicationReportingIllegalSubreason,
   PublicationReportingSensitiveSubreason,
   PublicationReportingSpamSubreason
-} from '@generated/types';
+} from 'lens';
 import type { Dispatch, FC } from 'react';
 
 interface Props {

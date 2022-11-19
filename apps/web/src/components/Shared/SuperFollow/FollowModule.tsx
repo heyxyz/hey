@@ -5,13 +5,6 @@ import { Spinner } from '@components/UI/Spinner';
 import { WarningMessage } from '@components/UI/WarningMessage';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
 import type { LensterFollowModule } from '@generated/lenstertypes';
-import type { Profile } from '@generated/types';
-import {
-  FollowModules,
-  useApprovedModuleAllowanceAmountQuery,
-  useCreateFollowTypedDataMutation,
-  useSuperFollowQuery
-} from '@generated/types';
 import { StarIcon, UserIcon } from '@heroicons/react/outline';
 import formatAddress from '@lib/formatAddress';
 import getSignature from '@lib/getSignature';
@@ -19,6 +12,13 @@ import getTokenImage from '@lib/getTokenImage';
 import { Leafwatch } from '@lib/leafwatch';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
+import type { Profile } from 'lens';
+import {
+  FollowModules,
+  useApprovedModuleAllowanceAmountQuery,
+  useCreateFollowTypedDataMutation,
+  useSuperFollowQuery
+} from 'lens';
 import type { Dispatch, FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';

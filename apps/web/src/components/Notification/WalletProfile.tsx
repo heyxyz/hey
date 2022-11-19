@@ -1,7 +1,7 @@
-import type { Wallet } from '@generated/types';
 import formatAddress from '@lib/formatAddress';
 import getStampFyiURL from '@lib/getStampFyiURL';
 import imageProxy from '@lib/imageProxy';
+import type { Wallet } from 'lens';
 import type { FC } from 'react';
 import { AVATAR, POLYGONSCAN_URL } from 'src/constants';
 

@@ -1,6 +1,4 @@
 import useXmtpClient from '@components/utils/hooks/useXmtpClient';
-import type { Profile } from '@generated/types';
-import { useProfilesLazyQuery } from '@generated/types';
 import buildConversationId from '@lib/buildConversationId';
 import chunkArray from '@lib/chunkArray';
 import { buildConversationKey, parseConversationKey } from '@lib/conversationKey';
@@ -8,6 +6,8 @@ import conversationMatchesProfile from '@lib/conversationMatchesProfile';
 import type { Conversation, Stream } from '@xmtp/xmtp-js';
 import { SortDirection } from '@xmtp/xmtp-js';
 import type { DecodedMessage } from '@xmtp/xmtp-js/dist/types/src/Message';
+import type { Profile } from 'lens';
+import { useProfilesLazyQuery } from 'lens';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useAppStore } from 'src/store/app';

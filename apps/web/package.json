@@ -6,10 +6,8 @@
     "dev": "next dev --port 4783",
     "build": "next build",
     "start": "next start",
-    "export": "next export",
     "typecheck": "tsc --noEmit",
-    "lint": "eslint . --ext .js,.ts,.tsx",
-    "codegen": "graphql-codegen"
+    "lint": "eslint . --ext .js,.ts,.tsx"
   },
   "dependencies": {
     "@apollo/client": "^3.7.1",
@@ -40,6 +38,7 @@
     "lexical": "0.6.0",
     "next": "^13.0.2",
     "next-themes": "^0.2.1",
+    "next-transpile-modules": "^10.0.0",
     "plyr-react": "^5.1.0",
     "react": "^18.2.0",
     "react-copy-to-clipboard": "^5.1.0",
@@ -53,12 +52,6 @@
     "zustand": "^4.1.4"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^2.13.12",
-    "@graphql-codegen/fragment-matcher": "^3.3.1",
-    "@graphql-codegen/typed-document-node": "^2.3.7",
-    "@graphql-codegen/typescript": "^2.8.2",
-    "@graphql-codegen/typescript-operations": "^2.5.7",
-    "@graphql-codegen/typescript-react-apollo": "^3.3.6",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/forms": "^0.5.3",
     "@tailwindcss/line-clamp": "^0.4.2",
@@ -69,18 +62,10 @@
     "@types/uuid": "^8.3.4",
     "autoprefixer": "^10.4.13",
     "eslint-config-weblint": "*",
+    "lens": "*",
     "postcss": "^8.4.19",
     "tailwindcss": "^3.2.1",
     "tsconfig": "*",
     "typescript": "^4.9.3"
-  },
-  "lint-staged": {
-    "*.{js,ts,tsx}": [
-      "prettier --write",
-      "eslint --cache --fix"
-    ],
-    "*.json": [
-      "prettier --write"
-    ]
   }
 }
