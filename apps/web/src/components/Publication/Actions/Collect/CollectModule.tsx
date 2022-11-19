@@ -1,5 +1,3 @@
-import { LensHubProxy } from '@abis/LensHubProxy';
-import { UpdateOwnableFeeCollectModule } from '@abis/UpdateOwnableFeeCollectModule';
 import AllowanceButton from '@components/Settings/Allowance/Button';
 import CollectWarning from '@components/Shared/CollectWarning';
 import IndexStatus from '@components/Shared/IndexStatus';
@@ -35,6 +33,7 @@ import humanize from '@lib/humanize';
 import { Leafwatch } from '@lib/leafwatch';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
+import { LensHubProxy, UpdateOwnableFeeCollectModule } from 'abis';
 import dayjs from 'dayjs';
 import type { BigNumber } from 'ethers';
 import { defaultAbiCoder } from 'ethers/lib/utils';

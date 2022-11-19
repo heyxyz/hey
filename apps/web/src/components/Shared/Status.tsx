@@ -1,4 +1,3 @@
-import { LensPeriphery } from '@abis/LensPeriphery';
 import { Button } from '@components/UI/Button';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Form, useZodForm } from '@components/UI/Form';
@@ -12,6 +11,7 @@ import getSignature from '@lib/getSignature';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import uploadToArweave from '@lib/uploadToArweave';
+import { LensPeriphery } from 'abis';
 import type { CreatePublicSetProfileMetadataUriRequest } from 'lens';
 import {
   useCreateSetProfileMetadataTypedDataMutation,

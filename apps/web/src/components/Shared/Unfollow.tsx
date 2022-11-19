@@ -1,4 +1,3 @@
-import { FollowNFT } from '@abis/FollowNFT';
 import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
@@ -7,6 +6,7 @@ import getSignature from '@lib/getSignature';
 import { Leafwatch } from '@lib/leafwatch';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
+import { FollowNFT } from 'abis';
 import type { Signer } from 'ethers';
 import { Contract } from 'ethers';
 import type { CreateBurnEip712TypedData, Profile } from 'lens';

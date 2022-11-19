@@ -1,4 +1,3 @@
-import { LensHubProxy } from '@abis/LensHubProxy';
 import AllowanceButton from '@components/Settings/Allowance/Button';
 import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
@@ -12,6 +11,7 @@ import getTokenImage from '@lib/getTokenImage';
 import { Leafwatch } from '@lib/leafwatch';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
+import { LensHubProxy } from 'abis';
 import type { Profile } from 'lens';
 import {
   FollowModules,

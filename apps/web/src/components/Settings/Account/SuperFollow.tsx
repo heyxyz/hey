@@ -1,4 +1,3 @@
-import { LensHubProxy } from '@abis/LensHubProxy';
 import IndexStatus from '@components/Shared/IndexStatus';
 import { Button } from '@components/UI/Button';
 import { Card } from '@components/UI/Card';
@@ -12,6 +11,7 @@ import getTokenImage from '@lib/getTokenImage';
 import { Leafwatch } from '@lib/leafwatch';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
+import { LensHubProxy } from 'abis';
 import type { Erc20 } from 'lens';
 import { useCreateSetFollowModuleTypedDataMutation, useEnabledCurrencyModulesWithProfileQuery } from 'lens';
 import type { FC } from 'react';
