@@ -18,10 +18,7 @@ export const Leafwatch = {
     if (isBrowser && enabled && ip) {
       axios(LEAFWATCH_HOST, {
         method: 'POST',
-        params: {
-          'dd-api-key': DATADOG_TOKEN,
-          'dd-request-id': uuid()
-        },
+        params: { 'dd-api-key': DATADOG_TOKEN, 'dd-request-id': uuid() },
         data: {
           ddsource: 'browser',
           event: name,

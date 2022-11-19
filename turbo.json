@@ -7,6 +7,8 @@
     },
     "lint": { "outputs": [] },
     "typecheck": { "outputs": [] },
+    "codegen": { "outputs": [] },
+    "export": { "outputs": [] },
     "dev": { "cache": false }
   }
 }

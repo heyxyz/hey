@@ -1,4 +1,3 @@
-import { LensHubProxy } from '@abis/LensHubProxy';
 import Attachments from '@components/Shared/Attachments';
 import { AudioPublicationSchema } from '@components/Shared/Audio';
 import withLexicalContext from '@components/Shared/Lexical/withLexicalContext';
@@ -8,13 +7,6 @@ import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
 import type { LensterAttachment, LensterPublication } from '@generated/lenstertypes';
-import type { CreatePublicCommentRequest } from '@generated/types';
-import {
-  PublicationMainFocus,
-  ReferenceModules,
-  useCreateCommentTypedDataMutation,
-  useCreateCommentViaDispatcherMutation
-} from '@generated/types';
 import type { IGif } from '@giphy/js-types';
 import { ChatAlt2Icon } from '@heroicons/react/outline';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
@@ -27,6 +19,14 @@ import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import trimify from '@lib/trimify';
 import uploadToArweave from '@lib/uploadToArweave';
+import { LensHubProxy } from 'abis';
+import type { CreatePublicCommentRequest } from 'lens';
+import {
+  PublicationMainFocus,
+  ReferenceModules,
+  useCreateCommentTypedDataMutation,
+  useCreateCommentViaDispatcherMutation
+} from 'lens';
 import { $getRoot } from 'lexical';
 import dynamic from 'next/dynamic';
 import type { FC } from 'react';

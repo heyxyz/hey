@@ -1,7 +1,7 @@
 import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
-import { useHasTxHashBeenIndexedQuery } from '@generated/types';
 import { ArrowRightIcon } from '@heroicons/react/outline';
+import { useHasTxHashBeenIndexedQuery } from 'lens';
 import type { FC } from 'react';
 import { IS_MAINNET } from 'src/constants';
 

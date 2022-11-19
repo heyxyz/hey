@@ -1,7 +1,7 @@
 import TabButton from '@components/UI/TabButton';
-import type { ProfileStats } from '@generated/types';
 import { ChatAlt2Icon, FilmIcon, PencilAltIcon, PhotographIcon } from '@heroicons/react/outline';
 import { Leafwatch } from '@lib/leafwatch';
+import type { ProfileStats } from 'lens';
 import type { Dispatch, FC } from 'react';
 import { PROFILE } from 'src/tracking';
 

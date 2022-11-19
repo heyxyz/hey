@@ -1,4 +1,4 @@
-import type { Maybe } from '@generated/types';
+import type { Maybe } from 'lens';
 
 interface Attribute {
   key: string;

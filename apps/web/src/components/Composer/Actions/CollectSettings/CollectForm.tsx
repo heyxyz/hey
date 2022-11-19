@@ -3,8 +3,6 @@ import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
 import { Toggle } from '@components/UI/Toggle';
-import type { Erc20 } from '@generated/types';
-import { CollectModules, useEnabledModulesQuery } from '@generated/types';
 import {
   ClockIcon,
   CollectionIcon,
@@ -12,6 +10,8 @@ import {
   SwitchHorizontalIcon,
   UserGroupIcon
 } from '@heroicons/react/outline';
+import type { Erc20 } from 'lens';
+import { CollectModules, useEnabledModulesQuery } from 'lens';
 import type { Dispatch, FC } from 'react';
 import { useEffect } from 'react';
 import { useAppStore } from 'src/store/app';

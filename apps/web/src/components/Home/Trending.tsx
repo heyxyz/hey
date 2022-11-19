@@ -1,11 +1,11 @@
 import TrendingTagShimmer from '@components/Shared/Shimmer/TrendingTagShimmer';
 import { Card } from '@components/UI/Card';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
-import type { TagResult } from '@generated/types';
-import { TagSortCriteria, useTrendingQuery } from '@generated/types';
 import { TrendingUpIcon } from '@heroicons/react/solid';
 import { Leafwatch } from '@lib/leafwatch';
 import nFormatter from '@lib/nFormatter';
+import type { TagResult } from 'lens';
+import { TagSortCriteria, useTrendingQuery } from 'lens';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { MISCELLANEOUS } from 'src/tracking';

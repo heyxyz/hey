@@ -1,10 +1,10 @@
-import { ReferenceModules } from '@generated/types';
 import { Menu, Transition } from '@headlessui/react';
 import { GlobeAltIcon, UserAddIcon, UserGroupIcon, UsersIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
 import { Leafwatch } from '@lib/leafwatch';
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
+import { ReferenceModules } from 'lens';
 import type { FC, ReactNode } from 'react';
 import { Fragment } from 'react';
 import { useReferenceModuleStore } from 'src/store/reference-module';

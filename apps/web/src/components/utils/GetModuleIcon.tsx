@@ -1,4 +1,3 @@
-import { CollectModules, FollowModules, ReferenceModules } from '@generated/types';
 import {
   CashIcon,
   ClockIcon,
@@ -8,6 +7,7 @@ import {
   ShareIcon,
   StarIcon
 } from '@heroicons/react/outline';
+import { CollectModules, FollowModules, ReferenceModules } from 'lens';
 import type { FC } from 'react';
 
 interface Props {

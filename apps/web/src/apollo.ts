@@ -8,11 +8,11 @@ import {
   toPromise
 } from '@apollo/client';
 import { RetryLink } from '@apollo/client/link/retry';
-import result from '@generated/types';
 import { cursorBasedPagination } from '@lib/cursorBasedPagination';
 import { publicationKeyFields } from '@lib/keyFields';
 import parseJwt from '@lib/parseJwt';
 import axios from 'axios';
+import result from 'lens';
 
 import { API_URL, LS_KEYS } from './constants';
 

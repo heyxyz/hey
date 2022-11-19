@@ -1,10 +1,10 @@
 import EventType from '@components/Home/Timeline/EventType';
 import UserProfile from '@components/Shared/UserProfile';
 import type { LensterPublication } from '@generated/lenstertypes';
-import type { ElectedMirror, FeedItem } from '@generated/types';
 import { Leafwatch } from '@lib/leafwatch';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import type { ElectedMirror, FeedItem } from 'lens';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { PUBLICATION } from 'src/tracking';

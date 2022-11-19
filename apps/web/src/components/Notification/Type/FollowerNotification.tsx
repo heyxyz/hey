@@ -1,8 +1,8 @@
 import UserPreview from '@components/Shared/UserPreview';
-import type { NewFollowerNotification } from '@generated/types';
 import { UserAddIcon } from '@heroicons/react/solid';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import type { NewFollowerNotification } from 'lens';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 

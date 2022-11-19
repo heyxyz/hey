@@ -3,14 +3,9 @@ import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayo
 import { PageLoading } from '@components/UI/PageLoading';
 import { Spinner } from '@components/UI/Spinner';
 import MetaTags from '@components/utils/MetaTags';
-import type { Erc20 } from '@generated/types';
-import {
-  CollectModules,
-  FollowModules,
-  ReferenceModules,
-  useApprovedModuleAllowanceAmountQuery
-} from '@generated/types';
 import { Leafwatch } from '@lib/leafwatch';
+import type { Erc20 } from 'lens';
+import { CollectModules, FollowModules, ReferenceModules, useApprovedModuleAllowanceAmountQuery } from 'lens';
 import type { NextPage } from 'next';
 import { useEffect, useState } from 'react';
 import { APP_NAME, DEFAULT_COLLECT_TOKEN } from 'src/constants';

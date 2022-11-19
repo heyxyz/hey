@@ -1,7 +1,7 @@
 import { Spinner } from '@components/UI/Spinner';
-import { useHasTxHashBeenIndexedQuery } from '@generated/types';
 import { CheckCircleIcon } from '@heroicons/react/solid';
 import clsx from 'clsx';
+import { useHasTxHashBeenIndexedQuery } from 'lens';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { POLYGONSCAN_URL } from 'src/constants';

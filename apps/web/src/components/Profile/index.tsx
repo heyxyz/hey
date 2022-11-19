@@ -1,7 +1,7 @@
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import MetaTags from '@components/utils/MetaTags';
-import { useProfileQuery } from '@generated/types';
 import { Leafwatch } from '@lib/leafwatch';
+import { useProfileQuery } from 'lens';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';

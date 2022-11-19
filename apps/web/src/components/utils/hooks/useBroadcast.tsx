@@ -1,5 +1,5 @@
 import type { ApolloCache } from '@apollo/client';
-import { useBroadcastMutation } from '@generated/types';
+import { useBroadcastMutation } from 'lens';
 import toast from 'react-hot-toast';
 import { ERRORS } from 'src/constants';
 

@@ -2,12 +2,12 @@ import { readFileSync } from 'node:fs';
 import path from 'node:path';
 
 import { gql } from '@apollo/client';
-import type { MediaSet, NftImage, Profile } from '@generated/types';
 import generateMeta from '@lib/generateMeta';
 import { Resvg } from '@resvg/resvg-js';
+import type { MediaSet, NftImage, Profile } from 'lens';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import satori from 'satori';
-import { serverlessClient } from 'src/apollo';
+import client from 'src/apollo';
 
 import { markUp } from './getMarkup';
 const PROFILE_QUERY = gql`
@@ -36,7 +36,7 @@ const PROFILE_QUERY = gql`
 
 const getProfileMeta = async (req: NextApiRequest, res: NextApiResponse, handle: string) => {
   try {
-    const { data } = await serverlessClient.query({
+    const { data } = await client.query({
       query: PROFILE_QUERY,
       variables: { request: { handle } }
     });
