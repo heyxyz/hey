@@ -1,0 +1,16 @@
+{
+  "extends": "tsconfig/nextjs.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "noEmit": true,
+    "paths": {
+      "@components*": ["src/components*"],
+      "@abis*": ["src/abis*"],
+      "@utils*": ["src/utils*"],
+      "@lib*": ["src/lib*"],
+      "@gql*": ["src/graphql*"],
+      "@generated*": ["src/generated*"]
+    }
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/styles/index.css"]
+}

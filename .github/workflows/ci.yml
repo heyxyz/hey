@@ -23,7 +23,7 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: GraphQL Codegen 🕸
-        run: yarn codegen
+        run: cd apps/web; yarn codegen
 
       - name: Typecheck 🔡
         run: yarn typecheck
@@ -32,4 +32,4 @@ jobs:
         run: yarn lint
 
       - name: Prettier ✨
-        run: yarn prettier:check
+        run: yarn prettier

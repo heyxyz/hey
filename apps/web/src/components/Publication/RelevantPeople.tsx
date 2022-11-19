@@ -29,6 +29,7 @@ const RelevantPeople: FC<Props> = ({ publication }) => {
       })
     : [];
 
+  // @ts-ignore
   const cleanedMentions = [...new Set(processedMentions)];
 
   const { data, loading, error } = useRelevantPeopleQuery({

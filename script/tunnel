@@ -1,6 +1,0 @@
-#!/bin/bash
-
-#/ Usage: script/tunnel
-#/ Starts the ngrok vpn tunnel of the current instance.
-
-ngrok http 4783
