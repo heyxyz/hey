@@ -1,5 +1,5 @@
 import ThreadBody from '@components/Publication/ThreadBody';
-import type { LensterPublication } from '@generated/lenstertypes';
+import type { LensterPublication } from '@generated/types';
 import type { Comment, FeedItem } from 'lens';
 import type { FC } from 'react';
 

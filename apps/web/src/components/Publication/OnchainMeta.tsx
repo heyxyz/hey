@@ -1,5 +1,5 @@
 import { Card } from '@components/UI/Card';
-import type { LensterPublication } from '@generated/lenstertypes';
+import type { LensterPublication } from '@generated/types';
 import { ExternalLinkIcon } from '@heroicons/react/outline';
 import type { FC } from 'react';
 import { IPFS_GATEWAY, POLYGONSCAN_URL } from 'src/constants';

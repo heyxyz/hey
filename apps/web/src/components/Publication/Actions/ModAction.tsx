@@ -1,5 +1,5 @@
 import { Button } from '@components/UI/Button';
-import type { LensterPublication } from '@generated/lenstertypes';
+import type { LensterPublication } from '@generated/types';
 import { ExclamationCircleIcon, ExternalLinkIcon, ShieldCheckIcon } from '@heroicons/react/outline';
 import { Leafwatch } from '@lib/leafwatch';
 import type { FC } from 'react';

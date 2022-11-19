@@ -1,4 +1,4 @@
-import type { LensterPublication } from '@generated/lenstertypes';
+import type { LensterPublication } from '@generated/types';
 import { Menu, Transition } from '@headlessui/react';
 import { DotsHorizontalIcon } from '@heroicons/react/outline';
 import { Leafwatch } from '@lib/leafwatch';

@@ -1,4 +1,4 @@
-import type { OG } from '@generated/lenstertypes';
+import type { OG } from '@generated/types';
 import type { FC } from 'react';
 
 interface Props {
