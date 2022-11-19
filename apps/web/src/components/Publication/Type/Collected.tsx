@@ -1,7 +1,7 @@
 import Slug from '@components/Shared/Slug';
-import type { Comment, Post } from '@generated/types';
 import { CollectionIcon } from '@heroicons/react/outline';
 import formatAddress from '@lib/formatAddress';
+import type { Comment, Post } from 'lens';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { POLYGONSCAN_URL } from 'src/constants';

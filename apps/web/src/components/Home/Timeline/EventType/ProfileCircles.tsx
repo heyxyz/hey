@@ -1,5 +1,5 @@
-import type { Profile } from '@generated/types';
 import getAvatar from '@lib/getAvatar';
+import type { Profile } from 'lens';
 import Link from 'next/link';
 import type { FC, ReactNode } from 'react';
 

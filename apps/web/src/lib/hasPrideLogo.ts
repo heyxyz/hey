@@ -1,4 +1,4 @@
-import type { Profile } from '@generated/types';
+import type { Profile } from 'lens';
 
 import getAttribute from './getAttribute';
 

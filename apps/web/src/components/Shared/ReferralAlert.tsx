@@ -1,6 +1,6 @@
 import Slug from '@components/Shared/Slug';
-import type { ElectedMirror, Mirror } from '@generated/types';
 import { HeartIcon } from '@heroicons/react/solid';
+import type { ElectedMirror, Mirror } from 'lens';
 import type { FC } from 'react';
 
 interface Props {

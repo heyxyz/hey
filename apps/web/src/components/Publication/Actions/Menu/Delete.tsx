@@ -1,9 +1,9 @@
 import type { LensterPublication } from '@generated/lenstertypes';
-import { useHidePublicationMutation } from '@generated/types';
 import { Menu } from '@headlessui/react';
 import { TrashIcon } from '@heroicons/react/outline';
 import { Leafwatch } from '@lib/leafwatch';
 import clsx from 'clsx';
+import { useHidePublicationMutation } from 'lens';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { PUBLICATION } from 'src/tracking';

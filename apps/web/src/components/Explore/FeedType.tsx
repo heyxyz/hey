@@ -1,6 +1,6 @@
-import { PublicationMainFocus } from '@generated/types';
 import { Leafwatch } from '@lib/leafwatch';
 import clsx from 'clsx';
+import { PublicationMainFocus } from 'lens';
 import type { Dispatch, FC } from 'react';
 
 interface Props {

@@ -1,8 +1,8 @@
-import type { Profile } from '@generated/types';
-import { useMutualFollowersQuery } from '@generated/types';
 import getAvatar from '@lib/getAvatar';
 import { Leafwatch } from '@lib/leafwatch';
 import clsx from 'clsx';
+import type { Profile } from 'lens';
+import { useMutualFollowersQuery } from 'lens';
 import type { Dispatch, FC, ReactNode } from 'react';
 import { useAppStore } from 'src/store/app';
 import { PROFILE } from 'src/tracking';

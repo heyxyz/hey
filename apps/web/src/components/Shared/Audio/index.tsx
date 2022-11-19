@@ -1,9 +1,9 @@
 import type { LensterPublication } from '@generated/lenstertypes';
-import type { Attribute } from '@generated/types';
 import { PauseIcon, PlayIcon } from '@heroicons/react/solid';
 import getAttributeFromTrait from '@lib/getAttributeFromTrait';
 import getThumbnailUrl from '@lib/getThumbnailUrl';
 import { Leafwatch } from '@lib/leafwatch';
+import type { Attribute } from 'lens';
 import type { APITypes } from 'plyr-react';
 import type { ChangeEvent, FC } from 'react';
 import React, { useRef, useState } from 'react';

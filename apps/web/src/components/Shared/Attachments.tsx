@@ -1,12 +1,12 @@
 import { Button } from '@components/UI/Button';
 import { LightBox } from '@components/UI/LightBox';
 import type { LensterAttachment, LensterPublication } from '@generated/lenstertypes';
-import type { MediaSet } from '@generated/types';
 import { ExternalLinkIcon, XIcon } from '@heroicons/react/outline';
 import getIPFSLink from '@lib/getIPFSLink';
 import imageProxy from '@lib/imageProxy';
 import { Leafwatch } from '@lib/leafwatch';
 import clsx from 'clsx';
+import type { MediaSet } from 'lens';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { ALLOWED_AUDIO_TYPES, ALLOWED_VIDEO_TYPES, ATTACHMENT } from 'src/constants';

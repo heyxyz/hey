@@ -1,5 +1,4 @@
 import UserProfile from '@components/Shared/UserProfile';
-import type { Profile } from '@generated/types';
 import {
   ChipIcon,
   ExclamationIcon,
@@ -9,6 +8,7 @@ import {
   UserIcon
 } from '@heroicons/react/outline';
 import clsx from 'clsx';
+import type { Profile } from 'lens';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { FC, ReactNode } from 'react';

@@ -1,5 +1,5 @@
-import type { ReactionEvent } from '@generated/types';
 import { HeartIcon } from '@heroicons/react/outline';
+import type { ReactionEvent } from 'lens';
 import type { FC } from 'react';
 
 import ProfileCircles from './ProfileCircles';
