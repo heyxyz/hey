@@ -58,7 +58,6 @@
     "@types/react": "^18.0.23",
     "@types/react-copy-to-clipboard": "^5.0.4",
     "@types/react-dom": "^18.0.9",
-    "@types/ua-parser-js": "^0.7.36",
     "@types/uuid": "^8.3.4",
     "abis": "*",
     "autoprefixer": "^10.4.13",
