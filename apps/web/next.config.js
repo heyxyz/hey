@@ -1,12 +1,10 @@
 /** @type {import('next').NextConfig} */
 const withTM = require('next-transpile-modules')(['lens', 'data', 'abis']);
 const headers = [{ key: 'Cache-Control', value: 'public, max-age=3600' }];
-const isProd = process.env.VERCEL_ENV === 'production';
 
 module.exports = withTM({
   reactStrictMode: false,
   trailingSlash: false,
-  assetPrefix: isProd ? 'https://petals.lenster.xyz' : '',
   experimental: {
     scrollRestoration: true,
     newNextLinkBehavior: true
