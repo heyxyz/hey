@@ -5,7 +5,7 @@ import { Button } from '@components/UI/Button';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
-import type { LensterAttachment } from '@generated/lenstertypes';
+import type { LensterAttachment } from '@generated/types';
 import type { IGif } from '@giphy/js-types';
 import { PencilAltIcon } from '@heroicons/react/outline';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';

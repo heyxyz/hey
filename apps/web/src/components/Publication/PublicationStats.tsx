@@ -2,7 +2,7 @@ import Collectors from '@components/Shared/Modal/Collectors';
 import Likes from '@components/Shared/Modal/Likes';
 import Mirrors from '@components/Shared/Modal/Mirrors';
 import { Modal } from '@components/UI/Modal';
-import type { LensterPublication } from '@generated/lenstertypes';
+import type { LensterPublication } from '@generated/types';
 import { CollectionIcon, HeartIcon, SwitchHorizontalIcon } from '@heroicons/react/outline';
 import { Leafwatch } from '@lib/leafwatch';
 import nFormatter from '@lib/nFormatter';

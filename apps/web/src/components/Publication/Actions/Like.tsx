@@ -1,6 +1,6 @@
 import type { ApolloCache } from '@apollo/client';
 import { Tooltip } from '@components/UI/Tooltip';
-import type { LensterPublication } from '@generated/lenstertypes';
+import type { LensterPublication } from '@generated/types';
 import { HeartIcon } from '@heroicons/react/outline';
 import { HeartIcon as HeartIconSolid } from '@heroicons/react/solid';
 import { publicationKeyFields } from '@lib/keyFields';

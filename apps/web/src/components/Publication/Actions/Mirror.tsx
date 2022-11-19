@@ -2,7 +2,7 @@ import type { ApolloCache } from '@apollo/client';
 import { Spinner } from '@components/UI/Spinner';
 import { Tooltip } from '@components/UI/Tooltip';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
-import type { LensterPublication } from '@generated/lenstertypes';
+import type { LensterPublication } from '@generated/types';
 import { SwitchHorizontalIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
 import humanize from '@lib/humanize';

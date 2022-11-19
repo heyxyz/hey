@@ -1,4 +1,4 @@
-import type { LensterCollectModule, LensterFollowModule } from '@generated/lenstertypes';
+import type { LensterCollectModule, LensterFollowModule } from '@generated/types';
 import getUniswapURL from '@lib/getUniswapURL';
 import { Leafwatch } from '@lib/leafwatch';
 import type { FC } from 'react';

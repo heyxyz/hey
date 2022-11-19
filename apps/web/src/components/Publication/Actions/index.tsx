@@ -1,4 +1,4 @@
-import type { LensterPublication } from '@generated/lenstertypes';
+import type { LensterPublication } from '@generated/types';
 import clsx from 'clsx';
 import type { ElectedMirror } from 'lens';
 import type { FC } from 'react';

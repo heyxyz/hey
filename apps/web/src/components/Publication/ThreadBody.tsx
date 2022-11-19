@@ -1,5 +1,5 @@
 import UserProfile from '@components/Shared/UserProfile';
-import type { LensterPublication } from '@generated/lenstertypes';
+import type { LensterPublication } from '@generated/types';
 import { Leafwatch } from '@lib/leafwatch';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';

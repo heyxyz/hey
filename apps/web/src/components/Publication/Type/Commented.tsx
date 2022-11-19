@@ -1,4 +1,4 @@
-import type { LensterPublication } from '@generated/lenstertypes';
+import type { LensterPublication } from '@generated/types';
 import type { FC } from 'react';
 
 import ThreadBody from '../ThreadBody';

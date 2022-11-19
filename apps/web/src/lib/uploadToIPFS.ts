@@ -1,5 +1,5 @@
 import { S3 } from '@aws-sdk/client-s3';
-import type { LensterAttachment } from '@generated/lenstertypes';
+import type { LensterAttachment } from '@generated/types';
 import axios from 'axios';
 import { EVER_API, SERVERLESS_URL } from 'src/constants';
 import { v4 as uuid } from 'uuid';

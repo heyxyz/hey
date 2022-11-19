@@ -1,4 +1,4 @@
-import type { LensterPublication } from '@generated/lenstertypes';
+import type { LensterPublication } from '@generated/types';
 import { PauseIcon, PlayIcon } from '@heroicons/react/solid';
 import getAttributeFromTrait from '@lib/getAttributeFromTrait';
 import getThumbnailUrl from '@lib/getThumbnailUrl';

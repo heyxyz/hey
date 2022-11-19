@@ -1,6 +1,6 @@
 import { Button } from '@components/UI/Button';
 import { LightBox } from '@components/UI/LightBox';
-import type { LensterAttachment, LensterPublication } from '@generated/lenstertypes';
+import type { LensterAttachment, LensterPublication } from '@generated/types';
 import { ExternalLinkIcon, XIcon } from '@heroicons/react/outline';
 import getIPFSLink from '@lib/getIPFSLink';
 import imageProxy from '@lib/imageProxy';

@@ -1,7 +1,7 @@
 import Loader from '@components/Shared/Loader';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import HelpTooltip from '@components/UI/HelpTooltip';
-import type { LensterPublication } from '@generated/lenstertypes';
+import type { LensterPublication } from '@generated/types';
 import humanize from '@lib/humanize';
 import axios from 'axios';
 import type { FC } from 'react';
