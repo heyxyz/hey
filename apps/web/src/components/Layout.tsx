@@ -1,6 +1,7 @@
 import getIsAuthTokensAvailable from '@lib/getIsAuthTokensAvailable';
 import getToastOptions from '@lib/getToastOptions';
 import resetAuthData from '@lib/resetAuthData';
+import storeIp from '@lib/storeIp';
 import type { Profile } from 'lens';
 import { ReferenceModules, useUserProfilesQuery } from 'lens';
 import Head from 'next/head';
@@ -18,6 +19,8 @@ import GlobalModals from './Shared/GlobalModals';
 import Navbar from './Shared/Navbar';
 import useIsMounted from './utils/hooks/useIsMounted';
 import { useDisconnectXmtp } from './utils/hooks/useXmtpClient';
+
+storeIp();
 
 interface Props {
   children: ReactNode;
