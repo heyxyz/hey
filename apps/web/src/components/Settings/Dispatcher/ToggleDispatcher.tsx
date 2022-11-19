@@ -1,4 +1,3 @@
-import { LensHubProxy } from '@abis/LensHubProxy';
 import IndexStatus from '@components/Shared/IndexStatus';
 import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
@@ -8,6 +7,7 @@ import getSignature from '@lib/getSignature';
 import { Leafwatch } from '@lib/leafwatch';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
+import { LensHubProxy } from 'abis';
 import clsx from 'clsx';
 import { useCreateSetDispatcherTypedDataMutation } from 'lens';
 import type { FC } from 'react';

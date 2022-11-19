@@ -1,4 +1,3 @@
-import { LensHubProxy } from '@abis/LensHubProxy';
 import UserProfile from '@components/Shared/UserProfile';
 import { Button } from '@components/UI/Button';
 import { Card } from '@components/UI/Card';
@@ -14,6 +13,7 @@ import { Leafwatch } from '@lib/leafwatch';
 import onError from '@lib/onError';
 import resetAuthData from '@lib/resetAuthData';
 import splitSignature from '@lib/splitSignature';
+import { LensHubProxy } from 'abis';
 import { useCreateBurnProfileTypedDataMutation } from 'lens';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';

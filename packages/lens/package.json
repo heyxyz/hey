@@ -1,10 +1,10 @@
 {
   "name": "lens",
   "version": "0.0.0",
-  "main": "./generated.ts",
+  "main": "generated.ts",
   "scripts": {
     "codegen": "graphql-codegen",
-    "lint": "eslint . --ext .js,.ts,.tsx"
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@apollo/client": "^3.7.1",
@@ -16,6 +16,7 @@
     "@graphql-codegen/typescript": "^2.8.2",
     "@graphql-codegen/typescript-operations": "^2.5.7",
     "@graphql-codegen/typescript-react-apollo": "^3.3.6",
-    "eslint-config-weblint": "*"
+    "eslint-config-weblint": "*",
+    "tsconfig": "*"
   }
 }
