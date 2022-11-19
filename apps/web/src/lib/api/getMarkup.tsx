@@ -1,5 +1,8 @@
+// @ts-nocheck
+// too much noise for tw so no check
 import type { MediaSet, NftImage, Profile } from '@generated/types';
 import getIPFSLink from '@lib/getIPFSLink';
+import nFormatter from '@lib/nFormatter';
 
 export const markUp = (profile: Profile & { picture: MediaSet & NftImage }) => {
   const name = profile?.name;
@@ -15,157 +18,35 @@ export const markUp = (profile: Profile & { picture: MediaSet & NftImage }) => {
 
   const { totalFollowing, totalFollowers } = profile.stats;
   return (
-    <div
-      style={{
-        height: '600px',
-        width: '1200px',
-        backgroundColor: 'white',
-        display: 'flex',
-        flexDirection: 'column'
-      }}
-    >
-      <div style={{ height: '579px', width: '1200px', display: 'flex' }}>
-        <div
-          style={{
-            display: 'flex',
-            width: '925px',
-            paddingLeft: '84px',
-            flexDirection: 'column'
-          }}
-        >
-          <div
-            style={{
-              paddingTop: '85px',
-              display: 'flex',
-              fontSize: '72px',
-              fontWeight: 'bold',
-              fontFamily: 'CircularXX Bold'
-            }}
-          >
-            {name}
-          </div>
-          <div
-            style={{
-              color: '#8B5CF6',
-              fontWeight: 'bold',
-              display: 'flex',
-              fontSize: '28px',
-              marginTop: '11px',
-              fontFamily: 'CircularXX Medium'
-            }}
-          >
+    <div tw="flex h-[600px] w-[1200px] bg-white flex-col">
+      <div tw="h-[579px] w-[1200px] flex">
+        <div tw="flex w-[925px] pl-[84px] flex-col">
+          <div tw="pt-[85px] flex text-[102px] font-bold font-[CircularXX Bold]">{name}</div>
+          <div tw="text-[#8B5CF6] font-bold flex mt-[11px] text-[51px] font-[CircularXX Medium]">
             {handle}
           </div>
 
-          <div
-            style={{
-              marginTop: '37px',
-              fontSize: '24px',
-              display: 'flex',
-              fontWeight: '500',
-              height: '150px'
-            }}
-          >
-            {description}
-          </div>
-          <div style={{ display: 'flex' }}>
-            <div
-              style={{
-                width: '130px',
-                height: '60px',
-                display: 'flex',
-                flexDirection: 'column'
-              }}
-            >
-              <div
-                style={{
-                  fontWeight: 'bold',
-                  fontSize: '22px',
-                  display: 'flex',
-                  fontFamily: 'CircularXX Medium'
-                }}
-              >
-                Following
-              </div>
-              <div style={{ fontSize: '22px', display: 'flex' }}>{totalFollowing}</div>
+          <div tw="mt-[37px] text-[30px] flex h-[150px]">{description}</div>
+          <div tw="flex" style={{ display: 'flex' }}>
+            <div tw="flex flex-col w-[170px] h-[60px]">
+              <div tw="font-bold text-[30px] flex font-[CircularXX Medium]">Following</div>
+              <div tw="text-[28px] flex">{nFormatter(totalFollowing)}</div>
             </div>
-            <div
-              style={{
-                width: '130px',
-                height: '60px',
-                display: 'flex',
-                flexDirection: 'column'
-              }}
-            >
-              <div
-                style={{
-                  fontWeight: 'bold',
-                  fontSize: '22px',
-                  display: 'flex',
-                  fontFamily: 'CircularXX Medium'
-                }}
-              >
-                Followers
-              </div>
-              <div style={{ fontSize: '22px', display: 'flex' }}>{totalFollowers}</div>
-            </div>
-            <div
-              style={{
-                width: '130px',
-                height: '60px',
-                display: 'flex',
-                flexDirection: 'column'
-              }}
-            >
-              {/* <div
-              style={{
-                fontWeight: 'bold',
-                fontSize: '22px',
-                display: 'flex',
-                fontFamily: 'CircularXX Medium'
-              }}
-            >
-              Posts
-            </div>
-            <div style={{ fontSize: '22px', display: 'flex' }}>{1}</div> */}
+            <div tw="flex flex-col w-[170px] h-[60px]">
+              <div tw="font-bold text-[30px] flex font-[CircularXX Medium]">Followers</div>
+              <div tw="text-[28px] flex">{nFormatter(totalFollowers)}</div>
             </div>
           </div>
         </div>
 
-        <div
-          style={{
-            display: 'flex',
-            width: '275px',
-            height: '579px',
-            flexDirection: 'column'
-          }}
-        >
-          <div
-            style={{
-              height: '225px',
-              width: '225px',
-              display: 'flex',
-              marginTop: '71px',
-              backgroundColor: '#C3B0EE',
-              borderRadius: '10px',
-              justifyContent: 'center',
-              alignItems: 'center'
-            }}
-          >
-            <img src={image} style={{ height: '200px', width: '200px', borderRadius: '10px' }} />
+        <div tw="flex flex-col w-[275px] h-[579px]">
+          <div tw="flex items-center justify-center rounded-[10px] bg-[#C3B0EE] mt-[71px] h-[225px] w-[225px]">
+            <img tw="h-[200px] w-[200px] rounded-[10px]" src={image} />
           </div>
-          <img
-            src="https://lenster.xyz/logo.svg"
-            style={{
-              height: '100px',
-              width: '100px',
-              marginTop: '120px',
-              marginLeft: '130px'
-            }}
-          />
+          <img tw="h-[100px] w-[100px] mt-[120px] ml-[130px]" src="https://lenster.xyz/logo.svg" />
         </div>
       </div>
-      <div style={{ height: '21px', backgroundColor: '#8B5CF6', width: '1200px', display: 'flex' }} />
+      <div tw="h-[21px] bg-[#8B5CF6] w-[1200px] flex" />
     </div>
   );
 };
