@@ -47,6 +47,8 @@
     "react-hook-form": "^7.39.3",
     "react-hot-toast": "^2.4.0",
     "react-infinite-scroll-component": "^6.1.0",
+    "satori": "^0.0.44",
+    "@resvg/resvg-js": "^2.2.0",
     "uuid": "^9.0.0",
     "wagmi": "^0.8.4",
     "zod": "^3.19.1",
