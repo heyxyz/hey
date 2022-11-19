@@ -1,4 +1,3 @@
-import { LensHubProxy } from '@abis/LensHubProxy';
 import Editor from '@components/Composer/Editor';
 import Attachments from '@components/Shared/Attachments';
 import { AudioPublicationSchema } from '@components/Shared/Audio';
@@ -19,6 +18,7 @@ import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import trimify from '@lib/trimify';
 import uploadToArweave from '@lib/uploadToArweave';
+import { LensHubProxy } from 'abis';
 import type { CreatePublicPostRequest } from 'lens';
 import {
   PublicationMainFocus,

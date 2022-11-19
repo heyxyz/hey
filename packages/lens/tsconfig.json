@@ -3,6 +3,5 @@
   "compilerOptions": {
     "baseUrl": ".",
     "noEmit": true
-  },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/styles/index.css"]
+  }
 }
