@@ -42,7 +42,6 @@ export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
 
 // Leafwatch
 export const DATADOG_TOKEN = process.env.NEXT_PUBLIC_DATADOG_API_KEY ?? '';
-export const DATADOG_APPLICATION_KEY = process.env.NEXT_PUBLIC_DATADOG_APPLICATION_KEY ?? '';
 export const LEAFWATCH_HOST = 'https://logs.browser-intake-datadoghq.eu/api/v2/logs';
 
 // Messages
@@ -54,6 +53,7 @@ export const WRONG_NETWORK = IS_MAINNET
 export const SIGN_ERROR = 'Failed to sign data';
 
 // URLs
+export const SERVERLESS_URL = process.env.NEXT_PUBLIC_SERVERLESS_URL ?? 'https://api.lenster.xyz';
 export const STATIC_ASSETS_URL = 'https://assets.lenster.xyz';
 export const STATIC_IMAGES_URL = `${STATIC_ASSETS_URL}/images`;
 export const POLYGONSCAN_URL = IS_MAINNET ? 'https://polygonscan.com' : 'https://mumbai.polygonscan.com';
