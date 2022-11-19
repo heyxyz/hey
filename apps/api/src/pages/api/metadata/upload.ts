@@ -23,6 +23,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const uploader = bundlr.uploader.chunkedUploader;
     const { data } = await uploader.uploadData(Buffer.from(payload), { tags });
 
+    res.setHeader('Access-Control-Allow-Origin', '*');
     return res.status(200).json({ success: true, id: data.id });
   } catch {
     return res.status(500).json({ success: false, message: ERROR_MESSAGE });

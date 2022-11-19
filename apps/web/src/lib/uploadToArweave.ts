@@ -11,6 +11,9 @@ const uploadToArweave = async (data: any): Promise<string> => {
   try {
     const upload = await axios(`${SERVERLESS_URL}/api/metadata/upload`, {
       method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
       data
     });
 
