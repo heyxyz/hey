@@ -6,7 +6,6 @@
     "dev": "next dev --port 4783",
     "build": "next build",
     "start": "next start",
-    "export": "next export",
     "typecheck": "tsc --noEmit",
     "lint": "eslint . --ext .js,.ts,.tsx"
   },
