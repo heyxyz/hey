@@ -1,4 +1,3 @@
-import type { Profile } from '@generated/types';
 import { BadgeCheckIcon } from '@heroicons/react/solid';
 import getAvatar from '@lib/getAvatar';
 import isVerified from '@lib/isVerified';
@@ -6,6 +5,7 @@ import type { DecodedMessage } from '@xmtp/xmtp-js';
 import clsx from 'clsx';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import type { Profile } from 'lens';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import React from 'react';

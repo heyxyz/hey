@@ -1,11 +1,11 @@
 import MutualFollowers from '@components/Profile/MutualFollowers';
-import type { Profile } from '@generated/types';
 import { BadgeCheckIcon } from '@heroicons/react/solid';
 import getAvatar from '@lib/getAvatar';
 import isVerified from '@lib/isVerified';
 import nFormatter from '@lib/nFormatter';
 import Tippy from '@tippyjs/react';
 import clsx from 'clsx';
+import type { Profile } from 'lens';
 import type { FC } from 'react';
 import React, { useState } from 'react';
 import { useAppStore } from 'src/store/app';

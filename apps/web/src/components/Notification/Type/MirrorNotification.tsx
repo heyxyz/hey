@@ -1,9 +1,9 @@
 import Markup from '@components/Shared/Markup';
 import UserPreview from '@components/Shared/UserPreview';
-import type { NewMirrorNotification } from '@generated/types';
 import { SwitchHorizontalIcon } from '@heroicons/react/solid';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import type { NewMirrorNotification } from 'lens';
 import Link from 'next/link';
 import type { FC } from 'react';
 

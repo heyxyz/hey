@@ -1,18 +1,14 @@
 schema: https://api-mumbai.lens.dev
 documents:
-  [
-    './src/graphql/queries/*.graphql',
-    './src/graphql/mutations/*.graphql',
-    './src/graphql/fragments/*.graphql'
-  ]
+  ['./documents/queries/*.graphql', './documents/mutations/*.graphql', './documents/fragments/*.graphql']
 
 hooks:
-  afterOneFileWrite:
+  afterAllFileWrite:
     - eslint --fix
     - prettier --write
 
 generates:
-  src/generated/types.ts:
+  generated.ts:
     plugins:
       - typescript
       - typescript-operations

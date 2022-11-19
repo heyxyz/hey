@@ -2,6 +2,7 @@ import { Card } from '@components/UI/Card';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import InfiniteLoader from '@components/UI/InfiniteLoader';
+import { LightningBoltIcon } from '@heroicons/react/outline';
 import type {
   NewCollectNotification,
   NewCommentNotification,
@@ -9,9 +10,8 @@ import type {
   NewMentionNotification,
   NewMirrorNotification,
   NewReactionNotification
-} from '@generated/types';
-import { CustomFiltersTypes, NotificationTypes, useNotificationsQuery } from '@generated/types';
-import { LightningBoltIcon } from '@heroicons/react/outline';
+} from 'lens';
+import { CustomFiltersTypes, NotificationTypes, useNotificationsQuery } from 'lens';
 import type { FC } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { SCROLL_THRESHOLD } from 'src/constants';

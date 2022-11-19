@@ -1,4 +1,4 @@
-import { ReferenceModules } from '@generated/types';
+import { ReferenceModules } from 'lens';
 import create from 'zustand';
 
 interface ReferenceModuleState {

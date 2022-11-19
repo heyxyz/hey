@@ -6,17 +6,14 @@ import { Form, useZodForm } from '@components/UI/Form';
 import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
-import type { Erc20 } from '@generated/types';
-import {
-  useCreateSetFollowModuleTypedDataMutation,
-  useEnabledCurrencyModulesWithProfileQuery
-} from '@generated/types';
 import { StarIcon, XIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
 import getTokenImage from '@lib/getTokenImage';
 import { Leafwatch } from '@lib/leafwatch';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
+import type { Erc20 } from 'lens';
+import { useCreateSetFollowModuleTypedDataMutation, useEnabledCurrencyModulesWithProfileQuery } from 'lens';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';

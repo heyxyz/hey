@@ -7,13 +7,6 @@ import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
 import type { LensterAttachment } from '@generated/lenstertypes';
-import type { CreatePublicPostRequest } from '@generated/types';
-import {
-  PublicationMainFocus,
-  ReferenceModules,
-  useCreatePostTypedDataMutation,
-  useCreatePostViaDispatcherMutation
-} from '@generated/types';
 import type { IGif } from '@giphy/js-types';
 import { PencilAltIcon } from '@heroicons/react/outline';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
@@ -26,6 +19,13 @@ import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import trimify from '@lib/trimify';
 import uploadToArweave from '@lib/uploadToArweave';
+import type { CreatePublicPostRequest } from 'lens';
+import {
+  PublicationMainFocus,
+  ReferenceModules,
+  useCreatePostTypedDataMutation,
+  useCreatePostViaDispatcherMutation
+} from 'lens';
 import { $getRoot } from 'lexical';
 import dynamic from 'next/dynamic';
 import type { FC } from 'react';

@@ -1,5 +1,3 @@
-import type { MediaSet, NftImage, Profile } from '@generated/types';
-import { SearchRequestTypes, useSearchProfilesLazyQuery } from '@generated/types';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import type { QueryMatch } from '@lexical/react/LexicalTypeaheadMenuPlugin';
 import {
@@ -10,6 +8,8 @@ import {
 import getIPFSLink from '@lib/getIPFSLink';
 import getStampFyiURL from '@lib/getStampFyiURL';
 import imageProxy from '@lib/imageProxy';
+import type { MediaSet, NftImage, Profile } from 'lens';
+import { SearchRequestTypes, useSearchProfilesLazyQuery } from 'lens';
 import type { TextNode } from 'lexical';
 import type { FC } from 'react';
 import { useCallback, useEffect, useMemo, useState } from 'react';

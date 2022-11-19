@@ -1,11 +1,11 @@
 import MessageIcon from '@components/Messages/MessageIcon';
 import NotificationIcon from '@components/Notification/NotificationIcon';
 import useStaffMode from '@components/utils/hooks/useStaffMode';
-import type { Profile } from '@generated/types';
 import { Disclosure } from '@headlessui/react';
 import { MenuIcon, XIcon } from '@heroicons/react/outline';
 import hasPrideLogo from '@lib/hasPrideLogo';
 import clsx from 'clsx';
+import type { Profile } from 'lens';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';

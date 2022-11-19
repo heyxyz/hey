@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
-import type { MediaSet, NftImage, Profile } from '@generated/types';
 import generateMeta from '@lib/generateMeta';
 import getIPFSLink from '@lib/getIPFSLink';
+import type { MediaSet, NftImage, Profile } from 'lens';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { serverlessClient } from 'src/apollo';
 

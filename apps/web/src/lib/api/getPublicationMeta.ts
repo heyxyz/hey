@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
-import type { Publication } from '@generated/types';
 import generateMeta from '@lib/generateMeta';
 import getIPFSLink from '@lib/getIPFSLink';
+import type { Publication } from 'lens';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { serverlessClient } from 'src/apollo';
 

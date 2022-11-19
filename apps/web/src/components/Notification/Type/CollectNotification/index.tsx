@@ -4,10 +4,10 @@ import {
   NotificationWalletProfileName
 } from '@components/Notification/WalletProfile';
 import UserPreview from '@components/Shared/UserPreview';
-import type { NewCollectNotification } from '@generated/types';
 import { CollectionIcon } from '@heroicons/react/solid';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import type { NewCollectNotification } from 'lens';
 import Link from 'next/link';
 import type { FC } from 'react';
 

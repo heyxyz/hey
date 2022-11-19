@@ -1,5 +1,5 @@
-import type { MirrorEvent } from '@generated/types';
 import { SwitchHorizontalIcon } from '@heroicons/react/outline';
+import type { MirrorEvent } from 'lens';
 import type { FC } from 'react';
 
 import ProfileCircles from './ProfileCircles';

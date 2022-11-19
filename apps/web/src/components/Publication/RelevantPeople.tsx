@@ -3,8 +3,8 @@ import UserProfile from '@components/Shared/UserProfile';
 import { Card } from '@components/UI/Card';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import type { LensterPublication } from '@generated/lenstertypes';
-import type { Profile } from '@generated/types';
-import { useRelevantPeopleQuery } from '@generated/types';
+import type { Profile } from 'lens';
+import { useRelevantPeopleQuery } from 'lens';
 import type { FC } from 'react';
 import { ALL_HANDLES_REGEX, HANDLE_SANITIZE_REGEX } from 'src/constants';
 
