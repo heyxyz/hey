@@ -5,6 +5,9 @@
 </div>
 <br>
 <div align="center">
+    <a href="https://lenster.xyz/u/yoginth.lens">
+        <img src="https://lens-badge.vercel.app/api/badge/yoginth.lens" alt="Lens">
+    </a>
     <a href="https://vercel.com/lenster?utm_source=Lenster&utm_campaign=oss">
         <img src="https://therealsujitk-vercel-badge.vercel.app/?app=lenster" alt="Vercel">
     </a>
