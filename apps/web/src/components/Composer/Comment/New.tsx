@@ -6,7 +6,7 @@ import { Card } from '@components/UI/Card';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
-import type { LensterAttachment, LensterPublication } from '@generated/lenstertypes';
+import type { LensterAttachment, LensterPublication } from '@generated/types';
 import type { IGif } from '@giphy/js-types';
 import { ChatAlt2Icon } from '@heroicons/react/outline';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';

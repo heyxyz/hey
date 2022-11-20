@@ -1,5 +1,5 @@
 import { Card } from '@components/UI/Card';
-import type { OG } from '@generated/lenstertypes';
+import type { OG } from '@generated/types';
 import { Leafwatch } from '@lib/leafwatch';
 import type { FC } from 'react';
 import { PUBLICATION } from 'src/tracking';

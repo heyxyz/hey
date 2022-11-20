@@ -1,6 +1,6 @@
 import Report from '@components/Shared/Modal/Report';
 import { Modal } from '@components/UI/Modal';
-import type { LensterPublication } from '@generated/lenstertypes';
+import type { LensterPublication } from '@generated/types';
 import { EmojiHappyIcon, ShieldCheckIcon } from '@heroicons/react/outline';
 import type { FC } from 'react';
 import { useGlobalModalStateStore } from 'src/store/modals';

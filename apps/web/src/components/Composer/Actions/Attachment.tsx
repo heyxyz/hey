@@ -1,7 +1,7 @@
 import { Spinner } from '@components/UI/Spinner';
 import { Tooltip } from '@components/UI/Tooltip';
 import useOnClickOutside from '@components/utils/hooks/useOnClickOutside';
-import type { LensterAttachment } from '@generated/lenstertypes';
+import type { LensterAttachment } from '@generated/types';
 import { Menu, Transition } from '@headlessui/react';
 import { MusicNoteIcon, PhotographIcon, VideoCameraIcon } from '@heroicons/react/outline';
 import { Leafwatch } from '@lib/leafwatch';

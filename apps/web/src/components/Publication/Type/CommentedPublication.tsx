@@ -1,5 +1,5 @@
 import Slug from '@components/Shared/Slug';
-import type { LensterPublication } from '@generated/lenstertypes';
+import type { LensterPublication } from '@generated/types';
 import { ChatAlt2Icon } from '@heroicons/react/outline';
 import Link from 'next/link';
 import type { FC } from 'react';
