@@ -28,7 +28,7 @@ const Stats: FC<Props> = ({ publication }) => {
 
   const getStats = async () => {
     try {
-      const response = await axios(`${SERVERLESS_URL}/api/analytics/publication`, {
+      const response = await axios(`${SERVERLESS_URL}/analytics/publication`, {
         method: 'GET',
         params: { id: publication.id }
       });
