@@ -1,11 +1,11 @@
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import MetaTags from '@components/utils/MetaTags';
 import { Leafwatch } from '@lib/leafwatch';
+import { APP_NAME, STATIC_IMAGES_URL } from 'data/constants';
 import { useProfileQuery } from 'lens';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { APP_NAME, STATIC_IMAGES_URL } from 'src/constants';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
 import { useAppStore } from 'src/store/app';

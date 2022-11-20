@@ -1,5 +1,5 @@
+import { FREE_COLLECT_MODULE } from 'data/constants';
 import { CollectModules, FollowModules, ReferenceModules } from 'lens';
-import { FREE_COLLECT_MODULE } from 'src/constants';
 
 /**
  *

@@ -6,10 +6,10 @@ import getIPFSLink from '@lib/getIPFSLink';
 import imageProxy from '@lib/imageProxy';
 import { Leafwatch } from '@lib/leafwatch';
 import clsx from 'clsx';
+import { ALLOWED_AUDIO_TYPES, ALLOWED_VIDEO_TYPES, ATTACHMENT } from 'data/constants';
 import type { MediaSet } from 'lens';
 import type { FC } from 'react';
 import { useState } from 'react';
-import { ALLOWED_AUDIO_TYPES, ALLOWED_VIDEO_TYPES, ATTACHMENT } from 'src/constants';
 import { PUBLICATION } from 'src/tracking';
 
 import Audio from './Audio';

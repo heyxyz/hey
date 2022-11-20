@@ -7,10 +7,10 @@ import { Tab } from '@headlessui/react';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { Leafwatch } from '@lib/leafwatch';
 import clsx from 'clsx';
+import { APP_NAME, STATIC_IMAGES_URL } from 'data/constants';
 import { PublicationSortCriteria } from 'lens';
 import type { NextPage } from 'next';
 import { useEffect, useState } from 'react';
-import { APP_NAME, STATIC_IMAGES_URL } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { PAGEVIEW } from 'src/tracking';
 

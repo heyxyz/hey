@@ -1,7 +1,7 @@
 import { ErrorMessage } from '@components/UI/ErrorMessage';
+import { ERROR_MESSAGE, STATIC_ASSETS_URL } from 'data/constants';
 import type { FC } from 'react';
 import React, { useEffect, useState } from 'react';
-import { ERROR_MESSAGE, STATIC_ASSETS_URL } from 'src/constants';
 
 import Loader from '../Loader';
 

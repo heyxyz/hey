@@ -1,7 +1,8 @@
 import { ApolloProvider } from '@apollo/client';
+import { IS_MAINNET, RPC_URL } from 'data/constants';
 import { ThemeProvider } from 'next-themes';
 import type { ReactNode } from 'react';
-import { CHAIN_ID, IS_MAINNET, RPC_URL } from 'src/constants';
+import { CHAIN_ID } from 'src/constants';
 import { chain, configureChains, createClient, WagmiConfig } from 'wagmi';
 import { InjectedConnector } from 'wagmi/connectors/injected';
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';

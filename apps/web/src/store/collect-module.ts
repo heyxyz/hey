@@ -1,5 +1,5 @@
+import { DEFAULT_COLLECT_TOKEN } from 'data/constants';
 import { CollectModules } from 'lens';
-import { DEFAULT_COLLECT_TOKEN } from 'src/constants';
 import create from 'zustand';
 
 interface CollectModuleState {

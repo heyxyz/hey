@@ -1,8 +1,8 @@
 import getUniqueMessages from '@lib/getUniqueMessages';
 import type { Client, Conversation, DecodedMessage } from '@xmtp/xmtp-js';
 import { toNanoString } from '@xmtp/xmtp-js';
+import { LS_KEYS } from 'data/constants';
 import type { Profile } from 'lens';
-import { LS_KEYS } from 'src/constants';
 import create from 'zustand';
 import { persist } from 'zustand/middleware';
 

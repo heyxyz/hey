@@ -1,7 +1,7 @@
 import type { ApolloCache } from '@apollo/client';
+import { ERRORS } from 'data/constants';
 import { useBroadcastMutation } from 'lens';
 import toast from 'react-hot-toast';
-import { ERRORS } from 'src/constants';
 
 interface Props {
   onCompleted?: (data: any) => void;

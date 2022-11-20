@@ -1,8 +1,8 @@
 import { parseConversationKey } from '@lib/conversationKey';
 import { Client } from '@xmtp/xmtp-js';
+import { XMTP_ENV } from 'data/constants';
 import type { Profile } from 'lens';
 import { useEffect, useState } from 'react';
-import { XMTP_ENV } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
 

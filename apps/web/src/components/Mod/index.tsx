@@ -4,9 +4,9 @@ import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayo
 import MetaTags from '@components/utils/MetaTags';
 import isGardener from '@lib/isGardener';
 import { Leafwatch } from '@lib/leafwatch';
+import { APP_NAME } from 'data/constants';
 import type { NextPage } from 'next';
 import { useEffect } from 'react';
-import { APP_NAME } from 'src/constants';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
 import { PAGEVIEW } from 'src/tracking';

@@ -1,4 +1,4 @@
-import { APP_NAME, DEFAULT_OG, DESCRIPTION } from 'src/constants';
+import { APP_NAME, DEFAULT_OG, DESCRIPTION } from 'data/constants';
 
 const generateMeta = (title = APP_NAME, description = DESCRIPTION, image = DEFAULT_OG): string => {
   return `<!DOCTYPE html>

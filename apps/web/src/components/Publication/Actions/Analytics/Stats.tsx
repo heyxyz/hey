@@ -4,9 +4,9 @@ import HelpTooltip from '@components/UI/HelpTooltip';
 import type { LensterPublication } from '@generated/types';
 import humanize from '@lib/humanize';
 import axios from 'axios';
+import { ERROR_MESSAGE, SERVERLESS_URL } from 'data/constants';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
-import { ERROR_MESSAGE, SERVERLESS_URL } from 'src/constants';
 
 const Stat: FC<{ title: string; helper: string; stat: number }> = ({ title, helper, stat }) => (
   <div className="">

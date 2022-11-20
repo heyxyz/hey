@@ -1,4 +1,4 @@
-import { IPFS_GATEWAY } from 'src/constants';
+import { IPFS_GATEWAY } from 'data/constants';
 
 /**
  *

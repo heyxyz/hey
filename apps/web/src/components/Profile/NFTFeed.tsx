@@ -4,11 +4,12 @@ import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import InfiniteLoader from '@components/UI/InfiniteLoader';
 import { CollectionIcon } from '@heroicons/react/outline';
+import { SCROLL_THRESHOLD } from 'data/constants';
 import type { Nft, Profile } from 'lens';
 import { useNftFeedQuery } from 'lens';
 import type { FC } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { CHAIN_ID, SCROLL_THRESHOLD } from 'src/constants';
+import { CHAIN_ID } from 'src/constants';
 import { chain } from 'wagmi';
 
 interface Props {
