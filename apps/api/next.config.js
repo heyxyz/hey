@@ -8,10 +8,7 @@ module.exports = withTM({
     return [
       {
         source: '/api/:path*',
-        headers: [
-          { key: 'Access-Control-Allow-Origin', value: '*' },
-          { key: 'Access-Control-Allow-Headers', value: 'Content-Type' }
-        ]
+        headers: [{ key: 'Access-Control-Allow-Headers', value: 'Content-Type' }]
       }
     ];
   }
