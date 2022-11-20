@@ -1,0 +1,13 @@
+{
+  "name": "utils",
+  "version": "0.0.0",
+  "main": "index.ts",
+  "private": true,
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "typescript": "4.9.3"
+  }
+}

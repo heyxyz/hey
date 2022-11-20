@@ -1,5 +1,5 @@
 /** @type {import('next').NextConfig} */
-const withTM = require('next-transpile-modules')(['lens', 'data', 'abis']);
+const withTM = require('next-transpile-modules')(['lens', 'data', 'abis', 'utils']);
 const headers = [{ key: 'Cache-Control', value: 'public, max-age=3600' }];
 
 module.exports = withTM({

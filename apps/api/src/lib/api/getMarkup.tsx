@@ -2,7 +2,7 @@
 // too much noise for tw so no check
 import type { MediaSet, NftImage, Profile } from '@generated/types';
 import getIPFSLink from '@lib/getIPFSLink';
-import nFormatter from '@lib/nFormatter';
+import { nFormatter } from 'utils';
 
 export const markUp = (profile: Profile & { picture: MediaSet & NftImage }) => {
   const name = profile?.name;

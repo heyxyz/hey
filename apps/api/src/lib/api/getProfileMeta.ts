@@ -44,9 +44,9 @@ const getProfileMeta = async (req: NextApiRequest, res: NextApiResponse, handle:
     if (data?.profile) {
       const profile: Profile & { picture: MediaSet & NftImage } = data?.profile;
 
-      const fontNormalPath = path.resolve('./public', 'assets/CircularXXSub-Book.woff');
-      const fontMediumPath = path.resolve('./public', 'assets/CircularXXSub-Medium.woff');
-      const fontBoldPath = path.resolve('./public', 'assets/CircularXXSub-Bold.woff');
+      const fontNormalPath = path.resolve('./fonts', 'CircularXXSub-Book.woff');
+      const fontMediumPath = path.resolve('./fonts', 'CircularXXSub-Medium.woff');
+      const fontBoldPath = path.resolve('./fonts', 'CircularXXSub-Bold.woff');
 
       const svg = await satori(markUp(profile), {
         width: 1200,
@@ -80,9 +80,9 @@ const getProfileMeta = async (req: NextApiRequest, res: NextApiResponse, handle:
         },
         font: {
           fontFiles: [
-            path.resolve('./public', 'assets/CircularXXSub-Book.woff'),
-            path.resolve('./public', 'assets/CircularXXSub-Bold.woff'),
-            path.resolve('./public', 'assets/CircularXXSub-Medium.woff')
+            path.resolve('./fonts', 'CircularXXSub-Book.woff'),
+            path.resolve('./fonts', 'CircularXXSub-Bold.woff'),
+            path.resolve('./fonts', 'CircularXXSub-Medium.woff')
           ],
           loadSystemFonts: false,
           defaultFontFamily: 'CircularXX Normal'
@@ -97,7 +97,7 @@ const getProfileMeta = async (req: NextApiRequest, res: NextApiResponse, handle:
         .send(pngBuffer);
     }
   } catch (error) {
-    console.log('Error: cannot generate og image', error);
+    console.error('Error: cannot generate og image', error);
     return res
       .setHeader('Content-Type', 'text/html')
       .setHeader('Cache-Control', 's-maxage=86400')
