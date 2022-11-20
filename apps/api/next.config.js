@@ -3,7 +3,6 @@ const withTM = require('next-transpile-modules')(['lens', 'data', 'abis']);
 
 module.exports = withTM({
   reactStrictMode: false,
-  trailingSlash: false,
   async headers() {
     return [
       {
