@@ -3,10 +3,6 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { APP_NAME, BUNDLR_CURRENCY, BUNDLR_NODE_URL, ERROR_MESSAGE } from 'src/constants';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  if (req.method === 'OPTIONS') {
-    return res.status(200).end();
-  }
-
   if (req.method !== 'POST') {
     return res.status(405).json({ success: false, message: 'Invalid method!' });
   }
