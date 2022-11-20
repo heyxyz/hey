@@ -59,6 +59,7 @@ We encourage you to contribute to Lenster! Please check out the [Contributing gu
 ### Using Local Environment
 
 ```sh
+cd apps/web
 cp .env.example .env
 yarn install
 yarn dev
