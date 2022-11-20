@@ -11,14 +11,14 @@ const generateMeta = (title = APP_NAME, description = DESCRIPTION, image = DEFAU
         <meta property="og:site_name" content="Lenster" />
         <meta property="og:title" content="${title}" />
         <meta property="og:description" content="${description}" />
-        <meta property="og:image" content="https://api-git-add-og-image-lenster.vercel.app/api/og/image/profile?=${data}" />
+        <meta property="og:image" content="/og/image/profile?data=${data}" />
         <meta property="og:image:width" content="400" />
         <meta property="og:image:height" content="400" />
         <meta property="twitter:card" content="summary" />
         <meta property="twitter:site" content="Lenster" />
         <meta property="twitter:title" content="${title}" />
         <meta property="twitter:description" content="${description}" />
-        <meta property="twitter:image:src" content="https://api-git-add-og-image-lenster.vercel.app/api/og/image/profile?=${data}" />
+        <meta property="twitter:image:src" content="/og/image/profile?data=${data}" />
         <meta property="twitter:image:width" content="400" />
         <meta property="twitter:image:height" content="400" />
         <meta property="twitter:creator" content="lensterxyz" />
