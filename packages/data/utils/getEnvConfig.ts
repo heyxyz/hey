@@ -13,13 +13,14 @@ import {
   TESTNET_LENSHUB_PROXY,
   TESTNET_UPDATE_OWNABLE_FEE_COLLECT_MODULE_ADDRESS
 } from 'data/contracts';
+
 import {
   LENS_NETWORK,
   MAINNET_API_URL,
   SANDBOX_API_URL,
   STAGING_API_URL,
   TESTNET_API_URL
-} from 'src/constants';
+} from '../constants';
 
 const getEnvConfig = () => {
   switch (LENS_NETWORK) {

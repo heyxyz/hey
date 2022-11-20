@@ -1,6 +1,6 @@
 import axios from 'axios';
+import { ERROR_MESSAGE, SERVERLESS_URL } from 'data/constants';
 import toast from 'react-hot-toast';
-import { ERROR_MESSAGE, SERVERLESS_URL } from 'src/constants';
 
 /**
  *

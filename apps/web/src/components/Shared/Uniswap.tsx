@@ -1,8 +1,8 @@
 import type { LensterCollectModule, LensterFollowModule } from '@generated/types';
 import getUniswapURL from '@lib/getUniswapURL';
 import { Leafwatch } from '@lib/leafwatch';
+import { STATIC_IMAGES_URL } from 'data/constants';
 import type { FC } from 'react';
-import { STATIC_IMAGES_URL } from 'src/constants';
 import { PUBLICATION } from 'src/tracking';
 
 interface Props {

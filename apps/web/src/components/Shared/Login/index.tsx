@@ -1,7 +1,7 @@
 import WalletSelector from '@components/Shared/Login/WalletSelector';
+import { APP_NAME, IS_MAINNET, STATIC_IMAGES_URL } from 'data/constants';
 import type { FC } from 'react';
 import { useState } from 'react';
-import { APP_NAME, IS_MAINNET, STATIC_IMAGES_URL } from 'src/constants';
 
 import NewProfile from './New';
 

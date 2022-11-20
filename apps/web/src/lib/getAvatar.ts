@@ -1,4 +1,4 @@
-import { AVATAR, ZERO_ADDRESS } from 'src/constants';
+import { AVATAR, ZERO_ADDRESS } from 'data/constants';
 
 import getIPFSLink from './getIPFSLink';
 import getStampFyiURL from './getStampFyiURL';

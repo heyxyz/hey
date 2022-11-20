@@ -3,11 +3,11 @@ import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import InfiniteLoader from '@components/UI/InfiniteLoader';
 import { HeartIcon } from '@heroicons/react/outline';
+import { SCROLL_THRESHOLD } from 'data/constants';
 import type { Profile } from 'lens';
 import { useLikesQuery } from 'lens';
 import type { FC } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { SCROLL_THRESHOLD } from 'src/constants';
 
 import Loader from '../Loader';
 

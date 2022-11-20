@@ -1,6 +1,6 @@
+import { APP_NAME, DEFAULT_OG, DESCRIPTION } from 'data/constants';
 import Head from 'next/head';
 import type { FC } from 'react';
-import { APP_NAME, DEFAULT_OG, DESCRIPTION } from 'src/constants';
 
 interface Props {
   title?: string;

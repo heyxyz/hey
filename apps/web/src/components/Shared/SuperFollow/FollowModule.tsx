@@ -12,6 +12,7 @@ import { Leafwatch } from '@lib/leafwatch';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import { LensHubProxy } from 'abis';
+import { LENSHUB_PROXY, POLYGONSCAN_URL, RELAY_ON, SIGN_WALLET } from 'data/constants';
 import type { Profile } from 'lens';
 import {
   FollowModules,
@@ -22,7 +23,6 @@ import {
 import type { Dispatch, FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import { LENSHUB_PROXY, POLYGONSCAN_URL, RELAY_ON, SIGN_WALLET } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { PROFILE } from 'src/tracking';
 import { useAccount, useBalance, useContractWrite, useSignTypedData } from 'wagmi';

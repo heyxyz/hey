@@ -1,6 +1,5 @@
 import { ApolloClient, from, HttpLink, InMemoryCache } from '@apollo/client';
-
-import { API_URL } from './constants';
+import { API_URL } from 'data/constants';
 
 const httpLink = new HttpLink({
   uri: API_URL,

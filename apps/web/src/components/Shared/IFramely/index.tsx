@@ -1,8 +1,8 @@
 import imageProxy from '@lib/imageProxy';
 import axios from 'axios';
+import { ATTACHMENT } from 'data/constants';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
-import { ATTACHMENT } from 'src/constants';
 
 import Embed from './Embed';
 import Player from './Player';

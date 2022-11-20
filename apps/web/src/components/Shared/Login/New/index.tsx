@@ -7,10 +7,10 @@ import { Spinner } from '@components/UI/Spinner';
 import { PlusIcon } from '@heroicons/react/outline';
 import getStampFyiURL from '@lib/getStampFyiURL';
 import uploadToIPFS from '@lib/uploadToIPFS';
+import { APP_NAME, HANDLE_REGEX, ZERO_ADDRESS } from 'data/constants';
 import { useCreateProfileMutation } from 'lens';
 import type { ChangeEvent, FC } from 'react';
 import { useState } from 'react';
-import { APP_NAME, HANDLE_REGEX, ZERO_ADDRESS } from 'src/constants';
 import { useAccount } from 'wagmi';
 import { object, string } from 'zod';
 

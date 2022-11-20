@@ -5,11 +5,11 @@ import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import InfiniteLoader from '@components/UI/InfiniteLoader';
 import { UsersIcon } from '@heroicons/react/outline';
+import { SCROLL_THRESHOLD } from 'data/constants';
 import type { Profile, Wallet } from 'lens';
 import { useFollowersQuery } from 'lens';
 import type { FC } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { SCROLL_THRESHOLD } from 'src/constants';
 
 interface Props {
   profile: Profile;

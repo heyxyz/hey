@@ -1,6 +1,7 @@
 import Bundlr from '@bundlr-network/client';
+import { APP_NAME, ERROR_MESSAGE } from 'data/constants';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { APP_NAME, BUNDLR_CURRENCY, BUNDLR_NODE_URL, ERROR_MESSAGE } from 'src/constants';
+import { BUNDLR_CURRENCY, BUNDLR_NODE_URL } from 'src/constants';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'OPTIONS') {

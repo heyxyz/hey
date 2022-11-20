@@ -1,5 +1,5 @@
+import { IS_MAINNET } from 'data/constants';
 import { mainnetGardeners, testnetGardeners } from 'data/gardeners';
-import { IS_MAINNET } from 'src/constants';
 
 /**
  *

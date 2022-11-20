@@ -1,4 +1,4 @@
-import { IMGPROXY_URL } from 'src/constants';
+import { IMGPROXY_URL } from 'data/constants';
 
 /**
  *
