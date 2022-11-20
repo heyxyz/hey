@@ -1,7 +1,12 @@
 // @ts-nocheck
 // too much noise for tw so no check
-import type { MediaSet, NftImage, Profile } from '@generated/types';
+import { readFileSync } from 'node:fs';
+import path from 'node:path';
+
 import getIPFSLink from '@lib/getIPFSLink';
+import { Resvg } from '@resvg/resvg-js';
+import type { MediaSet, NftImage, Profile } from 'lens';
+import satori from 'satori';
 import { nFormatter } from 'utils';
 
 export const markUp = (profile: Profile & { picture: MediaSet & NftImage }) => {
@@ -49,4 +54,55 @@ export const markUp = (profile: Profile & { picture: MediaSet & NftImage }) => {
       <div tw="h-[21px] bg-[#8B5CF6] w-[1200px] flex" />
     </div>
   );
+};
+
+export const getOGImage = async (profile: Profile & { picture: MediaSet & NftImage }) => {
+  const fontNormalPath = path.resolve('./fonts', 'CircularXXSub-Book.woff');
+  const fontMediumPath = path.resolve('./fonts', 'CircularXXSub-Medium.woff');
+  const fontBoldPath = path.resolve('./fonts', 'CircularXXSub-Bold.woff');
+
+  const svg = await satori(markUp(profile), {
+    width: 1200,
+    height: 600,
+    fonts: [
+      {
+        name: 'CircularXX Normal',
+        data: readFileSync(fontNormalPath),
+        weight: 400,
+        style: 'normal'
+      },
+      {
+        name: 'CircularXX Bold',
+        data: readFileSync(fontBoldPath),
+        weight: 400,
+        style: 'normal'
+      },
+      {
+        name: 'CircularXX Medium',
+        data: readFileSync(fontMediumPath),
+        weight: 400,
+        style: 'normal'
+      }
+    ]
+  });
+  const resvg = new Resvg(svg, {
+    background: 'rgba(238, 235, 230, .9)',
+    fitTo: {
+      mode: 'width',
+      value: 1200
+    },
+    font: {
+      fontFiles: [
+        path.resolve('./fonts', 'CircularXXSub-Book.woff'),
+        path.resolve('./fonts', 'CircularXXSub-Bold.woff'),
+        path.resolve('./fonts', 'CircularXXSub-Medium.woff')
+      ],
+      loadSystemFonts: false,
+      defaultFontFamily: 'CircularXX Normal'
+    }
+  });
+  const pngData = resvg.render();
+  const pngBuffer = pngData.asPng();
+
+  return pngBuffer;
 };
