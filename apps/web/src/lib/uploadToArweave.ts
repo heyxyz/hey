@@ -9,7 +9,7 @@ import { ERROR_MESSAGE, SERVERLESS_URL } from 'src/constants';
  */
 const uploadToArweave = async (data: any): Promise<string> => {
   try {
-    const upload = await axios(`${SERVERLESS_URL}/api/metadata/upload`, {
+    const upload = await axios(`${SERVERLESS_URL}/metadata/upload`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
