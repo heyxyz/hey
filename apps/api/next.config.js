@@ -1,5 +1,5 @@
 /** @type {import('next').NextConfig} */
-const withTM = require('next-transpile-modules')(['lens', 'data', 'abis']);
+const withTM = require('next-transpile-modules')(['data']);
 
 module.exports = withTM({
   reactStrictMode: false,
@@ -10,7 +10,7 @@ module.exports = withTM({
         source: '/api/:path*',
         headers: [
           { key: 'Access-Control-Allow-Origin', value: '*' },
-          { key: 'Access-Control-Allow-Headers', value: '1728000' },
+          { key: 'Access-Control-Max-Age', value: '1728000' },
           { key: 'Access-Control-Allow-Headers', value: 'Content-Type' }
         ]
       }
