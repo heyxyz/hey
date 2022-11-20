@@ -1,10 +1,10 @@
 import Slug from '@components/Shared/Slug';
 import { CollectionIcon } from '@heroicons/react/outline';
 import formatAddress from '@lib/formatAddress';
+import { POLYGONSCAN_URL } from 'data/constants';
 import type { Comment, Post } from 'lens';
 import Link from 'next/link';
 import type { FC } from 'react';
-import { POLYGONSCAN_URL } from 'src/constants';
 
 interface Props {
   publication: Post | Comment;

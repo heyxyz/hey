@@ -1,9 +1,9 @@
 import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
 import { ArrowRightIcon } from '@heroicons/react/outline';
+import { IS_MAINNET } from 'data/constants';
 import { useHasTxHashBeenIndexedQuery } from 'lens';
 import type { FC } from 'react';
-import { IS_MAINNET } from 'src/constants';
 
 interface Props {
   handle: string;

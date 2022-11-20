@@ -18,13 +18,13 @@ import getAttribute from '@lib/getAttribute';
 import getAvatar from '@lib/getAvatar';
 import isStaff from '@lib/isStaff';
 import isVerified from '@lib/isVerified';
+import { STATIC_IMAGES_URL } from 'data/constants';
 import type { Profile } from 'lens';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useTheme } from 'next-themes';
 import type { FC, ReactElement } from 'react';
 import { useState } from 'react';
-import { STATIC_IMAGES_URL } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
 

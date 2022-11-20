@@ -1,8 +1,8 @@
 import ToggleDispatcher from '@components/Settings/Dispatcher/ToggleDispatcher';
 import { Card } from '@components/UI/Card';
 import { HandIcon } from '@heroicons/react/outline';
+import { APP_NAME } from 'data/constants';
 import type { FC } from 'react';
-import { APP_NAME } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 
 const EnableDispatcher: FC = () => {

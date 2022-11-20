@@ -1,7 +1,7 @@
 import { S3 } from '@aws-sdk/client-s3';
 import type { LensterAttachment } from '@generated/types';
 import axios from 'axios';
-import { EVER_API, SERVERLESS_URL } from 'src/constants';
+import { EVER_API, SERVERLESS_URL } from 'data/constants';
 import { v4 as uuid } from 'uuid';
 
 const params = {
@@ -10,7 +10,7 @@ const params = {
 };
 
 const getS3Client = async () => {
-  const token = await axios.get(`${SERVERLESS_URL}/api/sts/token`);
+  const token = await axios.get(`${SERVERLESS_URL}/sts/token`);
   const client = new S3({
     endpoint: EVER_API,
     credentials: {

@@ -3,9 +3,9 @@ import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import { useDisconnectXmtp } from '@components/utils/hooks/useXmtpClient';
 import MetaTags from '@components/utils/MetaTags';
+import { APP_NAME, LS_KEYS } from 'data/constants';
 import type { NextPage } from 'next';
 import toast from 'react-hot-toast';
-import { APP_NAME, LS_KEYS } from 'src/constants';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
 

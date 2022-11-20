@@ -1,9 +1,9 @@
 import { Leafwatch } from '@lib/leafwatch';
+import { STATIC_IMAGES_URL } from 'data/constants';
 import { hashflags } from 'data/hashflags';
 import { Matcher } from 'interweave';
 import Link from 'next/link';
 import { createElement } from 'react';
-import { STATIC_IMAGES_URL } from 'src/constants';
 import { PUBLICATION } from 'src/tracking';
 
 export function Hashtag({ ...props }: any) {

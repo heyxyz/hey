@@ -3,9 +3,9 @@ import { Card } from '@components/UI/Card';
 import { CheckCircleIcon, ExternalLinkIcon } from '@heroicons/react/outline';
 import { Leafwatch } from '@lib/leafwatch';
 import axios from 'axios';
+import { APP_NAME } from 'data/constants';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
-import { APP_NAME } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { SETTINGS } from 'src/tracking';
 

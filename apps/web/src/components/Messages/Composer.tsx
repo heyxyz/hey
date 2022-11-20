@@ -4,10 +4,10 @@ import { Spinner } from '@components/UI/Spinner';
 import useWindowSize from '@components/utils/hooks/useWindowSize';
 import { ArrowRightIcon } from '@heroicons/react/outline';
 import { Leafwatch } from '@lib/leafwatch';
+import { MIN_WIDTH_DESKTOP } from 'data/constants';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import { MIN_WIDTH_DESKTOP } from 'src/constants';
 import { MESSAGES } from 'src/tracking';
 
 interface Props {

@@ -7,8 +7,8 @@ import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
 import { MarkdownShortcutPlugin } from '@lexical/react/LexicalMarkdownShortcutPlugin';
 import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
 import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
+import { ERROR_MESSAGE } from 'data/constants';
 import type { FC } from 'react';
-import { ERROR_MESSAGE } from 'src/constants';
 import { usePublicationStore } from 'src/store/publication';
 
 import MentionsPlugin from '../../Shared/Lexical/Plugins/AtMentionsPlugin';

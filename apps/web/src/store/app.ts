@@ -1,5 +1,5 @@
+import { LS_KEYS } from 'data/constants';
 import type { Profile } from 'lens';
-import { LS_KEYS } from 'src/constants';
 import create from 'zustand';
 import { persist } from 'zustand/middleware';
 

@@ -1,4 +1,4 @@
-import { XMTP_PREFIX } from 'src/constants';
+import { XMTP_PREFIX } from 'data/constants';
 
 const buildConversationId = (profileA: string, profileB: string) => {
   const numberA = parseInt(profileA.substring(2), 16);
