@@ -6,7 +6,7 @@ exclude_patterns = [
   ".github",
   ".husky",
   ".vscode",
-  "src/generated/types.ts",
+  "apps/web/src/generated/types.ts",
   "yarn.lock"
 ]
 
