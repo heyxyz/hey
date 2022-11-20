@@ -1,5 +1,5 @@
 /** @type {import('next').NextConfig} */
-const withTM = require('next-transpile-modules')(['lens', 'data', 'abis']);
+const withTM = require('next-transpile-modules')(['data']);
 
 module.exports = withTM({
   reactStrictMode: false,
