@@ -1,5 +1,5 @@
+import { IS_MAINNET } from 'data/constants';
 import { mainnetVerified, testnetVerified } from 'data/verified';
-import { IS_MAINNET } from 'src/constants';
 
 /**
  *

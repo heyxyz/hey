@@ -1,7 +1,7 @@
 import { Tooltip } from '@components/UI/Tooltip';
+import { STATIC_IMAGES_URL } from 'data/constants';
 import type { Profile } from 'lens';
 import type { FC } from 'react';
-import { STATIC_IMAGES_URL } from 'src/constants';
 
 interface Props {
   profile: Profile;

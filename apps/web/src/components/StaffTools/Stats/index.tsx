@@ -13,11 +13,11 @@ import {
 import { PencilAltIcon } from '@heroicons/react/solid';
 import humanize from '@lib/humanize';
 import { Leafwatch } from '@lib/leafwatch';
+import { APP_NAME, ERROR_MESSAGE } from 'data/constants';
 import { useLensterStatsQuery } from 'lens';
 import type { NextPage } from 'next';
 import type { FC, ReactNode } from 'react';
 import { useEffect } from 'react';
-import { APP_NAME, ERROR_MESSAGE } from 'src/constants';
 import Custom404 from 'src/pages/404';
 import { PAGEVIEW } from 'src/tracking';
 

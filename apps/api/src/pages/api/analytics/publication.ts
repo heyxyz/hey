@@ -1,6 +1,7 @@
 import axios from 'axios';
+import { ERROR_MESSAGE } from 'data/constants';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { DATADOG_APPLICATION_KEY, DATADOG_TOKEN, ERROR_MESSAGE } from 'src/constants';
+import { DATADOG_APPLICATION_KEY, DATADOG_TOKEN } from 'src/constants';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method !== 'GET') {

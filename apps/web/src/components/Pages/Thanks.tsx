@@ -2,10 +2,10 @@ import Footer from '@components/Shared/Footer';
 import MetaTags from '@components/utils/MetaTags';
 import { HeartIcon } from '@heroicons/react/outline';
 import { Leafwatch } from '@lib/leafwatch';
+import { APP_NAME, STATIC_IMAGES_URL } from 'data/constants';
 import { useTheme } from 'next-themes';
 import type { FC, ReactNode } from 'react';
 import { useEffect } from 'react';
-import { APP_NAME, STATIC_IMAGES_URL } from 'src/constants';
 import { PAGEVIEW } from 'src/tracking';
 
 interface Props {

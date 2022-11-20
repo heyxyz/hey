@@ -1,4 +1,4 @@
-import { LS_KEYS } from 'src/constants';
+import { LS_KEYS } from 'data/constants';
 
 const resetAuthData = () => {
   localStorage.removeItem('accessToken');

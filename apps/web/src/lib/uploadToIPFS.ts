@@ -1,7 +1,7 @@
 import { S3 } from '@aws-sdk/client-s3';
 import type { LensterAttachment } from '@generated/types';
 import axios from 'axios';
-import { EVER_API, SERVERLESS_URL } from 'src/constants';
+import { EVER_API, SERVERLESS_URL } from 'data/constants';
 import { v4 as uuid } from 'uuid';
 
 const params = {

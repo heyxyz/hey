@@ -1,4 +1,4 @@
-import { IS_MAINNET } from 'src/constants';
+import { IS_MAINNET } from 'data/constants';
 
 /**
  *

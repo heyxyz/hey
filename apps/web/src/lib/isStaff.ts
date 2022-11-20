@@ -1,5 +1,5 @@
+import { IS_MAINNET } from 'data/constants';
 import { mainnetStaffs, testnetStaffs } from 'data/staffs';
-import { IS_MAINNET } from 'src/constants';
 
 /**
  *

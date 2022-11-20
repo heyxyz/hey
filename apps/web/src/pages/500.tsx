@@ -2,9 +2,9 @@ import { Button } from '@components/UI/Button';
 import MetaTags from '@components/utils/MetaTags';
 import { HomeIcon } from '@heroicons/react/outline';
 import { Leafwatch } from '@lib/leafwatch';
+import { APP_NAME } from 'data/constants';
 import Link from 'next/link';
 import { useEffect } from 'react';
-import { APP_NAME } from 'src/constants';
 import { PAGEVIEW } from 'src/tracking';
 
 export default function Custom500() {

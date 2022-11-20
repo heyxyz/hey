@@ -1,4 +1,4 @@
-import { STATIC_IMAGES_URL } from 'src/constants';
+import { STATIC_IMAGES_URL } from 'data/constants';
 
 /**
  *

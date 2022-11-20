@@ -3,10 +3,10 @@ import { Card } from '@components/UI/Card';
 import { MailIcon, MailOpenIcon } from '@heroicons/react/solid';
 import { Client } from '@xmtp/xmtp-js';
 import clsx from 'clsx';
+import { XMTP_ENV } from 'data/constants';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
-import { XMTP_ENV } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 
 const EnableMessages: FC = () => {

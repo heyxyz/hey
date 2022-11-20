@@ -7,11 +7,11 @@ import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayo
 import useStaffMode from '@components/utils/hooks/useStaffMode';
 import MetaTags from '@components/utils/MetaTags';
 import { Leafwatch } from '@lib/leafwatch';
+import { APP_NAME } from 'data/constants';
 import { usePublicationQuery } from 'lens';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-import { APP_NAME } from 'src/constants';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
 import { useAppStore } from 'src/store/app';

@@ -1,4 +1,4 @@
-import { ADDRESS_REGEX } from 'src/constants';
+import { ADDRESS_REGEX } from 'data/constants';
 
 /**
  *

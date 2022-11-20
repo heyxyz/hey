@@ -1,9 +1,9 @@
 import Footer from '@components/Shared/Footer';
 import MetaTags from '@components/utils/MetaTags';
 import { Leafwatch } from '@lib/leafwatch';
+import { APP_NAME } from 'data/constants';
 import type { FC } from 'react';
 import { useEffect } from 'react';
-import { APP_NAME } from 'src/constants';
 import { PAGEVIEW } from 'src/tracking';
 
 const Privacy: FC = () => {

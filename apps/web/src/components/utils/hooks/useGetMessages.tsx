@@ -1,7 +1,7 @@
 import type { Conversation } from '@xmtp/xmtp-js';
 import { SortDirection } from '@xmtp/xmtp-js';
+import { MESSAGE_PAGE_LIMIT } from 'data/constants';
 import { useEffect, useState } from 'react';
-import { MESSAGE_PAGE_LIMIT } from 'src/constants';
 import { useMessageStore } from 'src/store/message';
 
 const useGetMessages = (conversationKey: string, conversation?: Conversation, endTime?: Date) => {
