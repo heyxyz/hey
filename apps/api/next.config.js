@@ -8,7 +8,10 @@ module.exports = withTM({
     return [
       {
         source: '/api/:path*',
-        headers: [{ key: 'Access-Control-Allow-Headers', value: 'Content-Type' }]
+        headers: [
+          { key: 'Access-Control-Allow-Origin', value: 'https://lenster.xyz' },
+          { key: 'Access-Control-Allow-Headers', value: 'Content-Type' }
+        ]
       }
     ];
   }
