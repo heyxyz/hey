@@ -1,22 +1,26 @@
 import { getOGImage } from '@lib/api/getOGImage';
-import type { NextApiRequest, NextApiResponse } from 'next';
+import type { NextApiResponse } from 'next';
+import type { NextRequest } from 'next/server';
+import { NextResponse } from 'next/server';
+export const config = {
+  runtime: 'experimental-edge'
+};
 
-const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+const handler = async (req: NextRequest, res: NextApiResponse) => {
   if (req.method !== 'GET') {
     return res.status(405).json({ success: false, message: 'Invalid method!' });
   }
-
-  const data = JSON.parse(unescape(atob(req.query.data as string)));
   try {
-    return res
-      .setHeader('Content-Type', 'image/png')
-      .setHeader('Cache-Control', 's-maxage=86400')
-      .send(await getOGImage(data));
+    const url = req.url as string;
+    const data = url.split('?data=')[1];
+    const base64ProfileData = Buffer.from(unescape(data) as string, 'base64').toString();
+    const profileData = JSON.parse(base64ProfileData);
+    return await getOGImage(profileData);
   } catch (error) {
-    return res
-      .setHeader('Content-Type', 'image/png')
-      .setHeader('Cache-Control', 's-maxage=86400')
-      .send(getOGImage(data));
+    console.error('Couldnt generate og image', error);
+    return NextResponse.json({
+      response: `Sorry ser the URL you are looking for is not available`
+    });
   }
 };
 

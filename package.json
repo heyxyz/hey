@@ -17,6 +17,8 @@
     "prepare": "husky install"
   },
   "devDependencies": {
+    "@vercel/og": "^0.0.20",
+    "api": "^0.0.0",
     "husky": "^8.0.2",
     "prettier": "latest",
     "turbo": "latest"

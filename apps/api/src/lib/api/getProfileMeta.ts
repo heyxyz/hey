@@ -49,11 +49,13 @@ const getProfileMeta = async (req: NextApiRequest, res: NextApiResponse, handle:
               `https://avatar.tobi.sh/${profile?.ownedBy}_${profile?.handle}.png`
           )}`
         : 'https://assets.lenster.xyz/images/og/logo.jpeg';
-      const profileData = Buffer.from(encodeURI(JSON.stringify(profile))).toString('base64');
+      console.log(JSON.stringify(profile));
+
+      const profileData = Buffer.from(JSON.stringify(profile)).toString('base64');
       return res
         .setHeader('Content-Type', 'text/html')
         .setHeader('Cache-Control', 's-maxage=86400')
-        .send(generateMeta(title, description, image, profileData));
+        .send(generateMeta({ title, description, profileData }));
     }
   } catch (error) {
     console.error('Error: cannot generate og image', error);

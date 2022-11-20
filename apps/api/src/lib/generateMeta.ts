@@ -1,6 +1,14 @@
-import { APP_NAME, DEFAULT_OG, DESCRIPTION } from 'data/constants';
+import { APP_NAME, DESCRIPTION } from 'data/constants';
 
-const generateMeta = (title = APP_NAME, description = DESCRIPTION, image = DEFAULT_OG, data = ''): string => {
+const generateMeta = ({
+  title = APP_NAME,
+  description = DESCRIPTION,
+  profileData = ''
+}: {
+  title?: string;
+  description?: string;
+  profileData?: string;
+}): string => {
   return `<!DOCTYPE html>
     <html lang="en">
       <head>
@@ -11,12 +19,12 @@ const generateMeta = (title = APP_NAME, description = DESCRIPTION, image = DEFAU
         <meta property="og:site_name" content="Lenster" />
         <meta property="og:title" content="${title}" />
         <meta property="og:description" content="${description}" />
-        <meta property="og:image" content="/og/image/profile?data=${data}" />
+        <meta property="og:image" content="/og/image/profile?data=${profileData}" />
         <meta property="twitter:card" content="summary_large_image" />
         <meta property="twitter:site" content="Lenster" />
         <meta property="twitter:title" content="${title}" />
         <meta property="twitter:description" content="${description}" />
-        <meta property="twitter:image" content="/og/image/profile?data=${data}" />
+        <meta property="twitter:image" content="/og/image/profile?data=${profileData}" />
         <meta property="twitter:creator" content="lensterxyz" />
       </head>
       <body>

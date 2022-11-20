@@ -1,12 +1,6 @@
-// @ts-nocheck
-// too much noise for tw so no check
-import { readFileSync } from 'node:fs';
-import path from 'node:path';
-
 import getIPFSLink from '@lib/getIPFSLink';
-import { Resvg } from '@resvg/resvg-js';
+import { ImageResponse } from '@vercel/og';
 import type { MediaSet, NftImage, Profile } from 'lens';
-import satori from 'satori';
 import { nFormatter } from 'utils';
 
 export const markUp = (profile: Profile & { picture: MediaSet & NftImage }) => {
@@ -26,19 +20,28 @@ export const markUp = (profile: Profile & { picture: MediaSet & NftImage }) => {
     <div tw="flex h-[600px] w-[1200px] bg-white flex-col">
       <div tw="h-[579px] w-[1200px] flex">
         <div tw="flex w-[925px] pl-[84px] flex-col">
-          <div tw="pt-[85px] flex text-[102px] font-bold font-[CircularXX Bold]">{name}</div>
-          <div tw="text-[#8B5CF6] font-bold flex mt-[11px] text-[51px] font-[CircularXX Medium]">
+          <div tw="pt-[85px] flex text-[102px] font-bold font-[CircularXX_Bold]">{name}</div>
+          <div tw="text-[#8B5CF6] font-bold flex mt-[11px] text-[51px] font-[CircularXX_Medium]">
             {handle}
           </div>
 
-          <div tw="mt-[37px] text-[30px] flex h-[150px]">{description}</div>
+          <div
+            tw="mt-[37px] text-[30px] flex h-[150px] truncate"
+            style={{
+              maxWidth: '700px',
+              wordBreak: 'break-word',
+              maxHeight: '150px'
+            }}
+          >
+            {description}
+          </div>
           <div tw="flex" style={{ display: 'flex' }}>
             <div tw="flex flex-col w-[170px] h-[60px]">
-              <div tw="font-bold text-[30px] flex font-[CircularXX Medium]">Following</div>
+              <div tw="font-bold text-[30px] flex font-[CircularXX_Medium]">Following</div>
               <div tw="text-[28px] flex">{nFormatter(totalFollowing)}</div>
             </div>
             <div tw="flex flex-col w-[170px] h-[60px]">
-              <div tw="font-bold text-[30px] flex font-[CircularXX Medium]">Followers</div>
+              <div tw="font-[600] text-[30px] flex font-[CircularXX_Medium]">Followers</div>
               <div tw="text-[28px] flex">{nFormatter(totalFollowers)}</div>
             </div>
           </div>
@@ -57,52 +60,39 @@ export const markUp = (profile: Profile & { picture: MediaSet & NftImage }) => {
 };
 
 export const getOGImage = async (profile: Profile & { picture: MediaSet & NftImage }) => {
-  const fontNormalPath = path.resolve('./fonts', 'CircularXXSub-Book.woff');
-  const fontMediumPath = path.resolve('./fonts', 'CircularXXSub-Medium.woff');
-  const fontBoldPath = path.resolve('./fonts', 'CircularXXSub-Bold.woff');
+  const CircularXXSubBook = fetch(new URL('../../../fonts/CircularXXSub-Book.woff', import.meta.url)).then(
+    (res) => res.arrayBuffer()
+  );
+  const CircularXXSubBold = fetch(new URL('../../../fonts/CircularXXSub-Bold.woff', import.meta.url)).then(
+    (res) => res.arrayBuffer()
+  );
+  const CircularXXSubMedium = fetch(
+    new URL('../../../fonts/CircularXXSub-Medium.woff', import.meta.url)
+  ).then((res) => res.arrayBuffer());
 
-  const svg = await satori(markUp(profile), {
+  return new ImageResponse(markUp(profile), {
     width: 1200,
     height: 600,
+    emoji: 'twemoji',
     fonts: [
       {
-        name: 'CircularXX Normal',
-        data: readFileSync(fontNormalPath),
+        name: 'Medium',
+        data: await CircularXXSubMedium,
         weight: 400,
         style: 'normal'
       },
       {
-        name: 'CircularXX Bold',
-        data: readFileSync(fontBoldPath),
-        weight: 400,
+        name: 'bold',
+        data: await CircularXXSubBold,
+        weight: 600,
         style: 'normal'
       },
       {
-        name: 'CircularXX Medium',
-        data: readFileSync(fontMediumPath),
+        name: 'Normal',
+        data: await CircularXXSubBook,
         weight: 400,
         style: 'normal'
       }
     ]
   });
-  const resvg = new Resvg(svg, {
-    background: 'rgba(238, 235, 230, .9)',
-    fitTo: {
-      mode: 'width',
-      value: 1200
-    },
-    font: {
-      fontFiles: [
-        path.resolve('./fonts', 'CircularXXSub-Book.woff'),
-        path.resolve('./fonts', 'CircularXXSub-Bold.woff'),
-        path.resolve('./fonts', 'CircularXXSub-Medium.woff')
-      ],
-      loadSystemFonts: false,
-      defaultFontFamily: 'CircularXX Normal'
-    }
-  });
-  const pngData = resvg.render();
-  const pngBuffer = pngData.asPng();
-
-  return pngBuffer;
 };
