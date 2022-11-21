@@ -9,7 +9,7 @@ import clsx from 'clsx';
 import { ALLOWED_AUDIO_TYPES, ALLOWED_VIDEO_TYPES, ATTACHMENT } from 'data/constants';
 import type { MediaSet } from 'lens';
 import type { FC } from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { PUBLICATION } from 'src/tracking';
 
 import Audio from './Audio';

@@ -17,7 +17,7 @@ import { ERROR_MESSAGE } from 'data/constants';
 import type { Profile } from 'lens';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useMessagePersistStore, useMessageStore } from 'src/store/message';
 import { MESSAGES } from 'src/tracking';

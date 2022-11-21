@@ -10,7 +10,7 @@ import { CheckCircleIcon } from '@heroicons/react/solid';
 import { Leafwatch } from '@lib/leafwatch';
 import { useReportPublicationMutation } from 'lens';
 import type { FC } from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useGlobalModalStateStore } from 'src/store/modals';
 import { PUBLICATION } from 'src/tracking';
 import { object, string } from 'zod';

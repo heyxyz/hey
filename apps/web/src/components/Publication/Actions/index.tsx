@@ -2,6 +2,7 @@ import type { LensterPublication } from '@generated/types';
 import clsx from 'clsx';
 import type { ElectedMirror } from 'lens';
 import type { FC } from 'react';
+import React from 'react';
 import { useAppStore } from 'src/store/app';
 
 import Analytics from './Analytics';

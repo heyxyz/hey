@@ -9,7 +9,7 @@ import type { Profile } from 'lens';
 import { CustomFiltersTypes, SearchRequestTypes, useSearchProfilesLazyQuery } from 'lens';
 import { useRouter } from 'next/router';
 import type { ChangeEvent, FC } from 'react';
-import { useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { SEARCH } from 'src/tracking';
 
 import UserProfile from '../UserProfile';

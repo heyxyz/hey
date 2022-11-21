@@ -5,6 +5,7 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
+import React from 'react';
 import { PUBLICATION } from 'src/tracking';
 
 import PublicationActions from './Actions';

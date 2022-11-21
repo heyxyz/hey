@@ -13,7 +13,7 @@ import type { MediaSet, NftImage, Profile } from 'lens';
 import { SearchRequestTypes, useSearchProfilesLazyQuery } from 'lens';
 import type { TextNode } from 'lexical';
 import type { FC } from 'react';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import * as ReactDOM from 'react-dom';
 
 import { $createMentionNode } from '../Nodes/MentionsNode';

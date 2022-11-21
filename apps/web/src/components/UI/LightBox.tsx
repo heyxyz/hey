@@ -1,6 +1,6 @@
 import { Dialog, Transition } from '@headlessui/react';
 import type { FC } from 'react';
-import { Fragment } from 'react';
+import React, { Fragment } from 'react';
 
 interface Props {
   show: boolean;
