@@ -98,7 +98,6 @@ const NewComment: FC<Props> = ({ publication }) => {
 
   // States
   const [commentContentError, setCommentContentError] = useState('');
-  const [isUploading, setIsUploading] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [attachments, setAttachments] = useState<LensterAttachment[]>([]);
   const [editor] = useLexicalComposerContext();
@@ -134,13 +133,9 @@ const NewComment: FC<Props> = ({ publication }) => {
     };
   };
 
-  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
+  const { signTypedDataAsync } = useSignTypedData({ onError });
 
-  const {
-    error,
-    isLoading: writeLoading,
-    write
-  } = useContractWrite({
+  const { error, write } = useContractWrite({
     address: LENSHUB_PROXY,
     abi: LensHubProxy,
     functionName: 'commentWithSig',
@@ -152,62 +147,60 @@ const NewComment: FC<Props> = ({ publication }) => {
     onError
   });
 
-  const { broadcast, loading: broadcastLoading } = useBroadcast({
+  const { broadcast } = useBroadcast({
     onCompleted: (data) => {
       onCompleted();
       setTxnQueue([generateOptimisticComment({ txId: data?.broadcast?.txId }), ...txnQueue]);
     }
   });
-  const [createCommentTypedData, { loading: typedDataLoading }] = useCreateCommentTypedDataMutation({
+  const [createCommentTypedData] = useCreateCommentTypedDataMutation({
     onCompleted: async ({ createCommentTypedData }) => {
-      try {
-        const { id, typedData } = createCommentTypedData;
-        const {
-          profileId,
-          profileIdPointed,
-          pubIdPointed,
-          contentURI,
-          collectModule,
-          collectModuleInitData,
-          referenceModule,
-          referenceModuleData,
-          referenceModuleInitData,
-          deadline
-        } = typedData.value;
-        const signature = await signTypedDataAsync(getSignature(typedData));
-        const { v, r, s } = splitSignature(signature);
-        const sig = { v, r, s, deadline };
-        const inputStruct = {
-          profileId,
-          profileIdPointed,
-          pubIdPointed,
-          contentURI,
-          collectModule,
-          collectModuleInitData,
-          referenceModule,
-          referenceModuleData,
-          referenceModuleInitData,
-          sig
-        };
+      const { id, typedData } = createCommentTypedData;
+      const {
+        profileId,
+        profileIdPointed,
+        pubIdPointed,
+        contentURI,
+        collectModule,
+        collectModuleInitData,
+        referenceModule,
+        referenceModuleData,
+        referenceModuleInitData,
+        deadline
+      } = typedData.value;
+      const signature = await signTypedDataAsync(getSignature(typedData));
+      const { v, r, s } = splitSignature(signature);
+      const sig = { v, r, s, deadline };
+      const inputStruct = {
+        profileId,
+        profileIdPointed,
+        pubIdPointed,
+        contentURI,
+        collectModule,
+        collectModuleInitData,
+        referenceModule,
+        referenceModuleData,
+        referenceModuleInitData,
+        sig
+      };
 
-        setUserSigNonce(userSigNonce + 1);
-        if (!RELAY_ON) {
-          return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
-        }
+      setUserSigNonce(userSigNonce + 1);
+      if (!RELAY_ON) {
+        return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
+      }
 
-        const {
-          data: { broadcast: result }
-        } = await broadcast({ request: { id, signature } });
+      const {
+        data: { broadcast: result }
+      } = await broadcast({ request: { id, signature } });
 
-        if ('reason' in result) {
-          write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
-        }
-      } catch {}
+      if ('reason' in result) {
+        write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
+      }
     },
     onError
   });
 
-  const [createCommentViaDispatcher, { loading: dispatcherLoading }] = useCreateCommentViaDispatcherMutation({
+  const [createCommentViaDispatcher] = useCreateCommentViaDispatcherMutation({
     onCompleted: (data) => {
       onCompleted();
       if (data.createCommentViaDispatcher.__typename === 'RelayerResult') {
@@ -265,92 +258,96 @@ const NewComment: FC<Props> = ({ publication }) => {
       return toast.error(SIGN_WALLET);
     }
 
-    if (isAudioComment) {
-      setCommentContentError('');
-      const parsedData = AudioPublicationSchema.safeParse(audioPublication);
-      if (!parsedData.success) {
-        const issue = parsedData.error.issues[0];
-        return setCommentContentError(issue.message);
-      }
-    }
-
-    if (publicationContent.length === 0 && attachments.length === 0) {
-      return setCommentContentError('Comment should not be empty!');
-    }
-
-    setCommentContentError('');
-    setIsUploading(true);
-
-    let textNftImageUrl = null;
-    if (!attachments.length) {
-      textNftImageUrl = await getTextNftUrl(
-        publicationContent,
-        currentProfile.handle,
-        new Date().toLocaleString()
-      );
-    }
-
-    const attributes = [
-      {
-        traitType: 'type',
-        displayType: 'string',
-        value: getMainContentFocus()?.toLowerCase()
-      }
-    ];
-    if (isAudioComment) {
-      attributes.push({
-        traitType: 'author',
-        displayType: 'string',
-        value: audioPublication.author
-      });
-    }
-
-    const id = await uploadToArweave({
-      version: '2.0.0',
-      metadata_id: uuid(),
-      description: trimify(publicationContent),
-      content: trimify(publicationContent),
-      external_url: `https://lenster.xyz/u/${currentProfile?.handle}`,
-      image: attachments.length > 0 ? getAttachmentImage() : textNftImageUrl,
-      imageMimeType: attachments.length > 0 ? getAttachmentImageMimeType() : 'image/svg+xml',
-      name: isAudioComment ? audioPublication.title : `Comment by @${currentProfile?.handle}`,
-      tags: getTags(publicationContent),
-      animation_url: getAnimationUrl(),
-      mainContentFocus: getMainContentFocus(),
-      contentWarning: null,
-      attributes,
-      media: attachments,
-      locale: getUserLocale(),
-      createdOn: new Date(),
-      appId: APP_NAME
-    }).finally(() => setIsUploading(false));
-
-    const request = {
-      profileId: currentProfile?.id,
-      publicationId: publication.__typename === 'Mirror' ? publication?.mirrorOf?.id : publication?.id,
-      contentURI: `https://arweave.net/${id}`,
-      collectModule: payload,
-      referenceModule:
-        selectedReferenceModule === ReferenceModules.FollowerOnlyReferenceModule
-          ? { followerOnlyReferenceModule: onlyFollowers ? true : false }
-          : {
-              degreesOfSeparationReferenceModule: {
-                commentsRestricted: true,
-                mirrorsRestricted: true,
-                degreesOfSeparation
-              }
-            }
-    };
-
-    if (currentProfile?.dispatcher?.canUseRelay) {
-      createViaDispatcher(request);
-    } else {
-      createCommentTypedData({
-        variables: {
-          options: { overrideSigNonce: userSigNonce },
-          request
+    try {
+      setIsSubmitting(true);
+      if (isAudioComment) {
+        setCommentContentError('');
+        const parsedData = AudioPublicationSchema.safeParse(audioPublication);
+        if (!parsedData.success) {
+          const issue = parsedData.error.issues[0];
+          return setCommentContentError(issue.message);
         }
+      }
+
+      if (publicationContent.length === 0 && attachments.length === 0) {
+        return setCommentContentError('Comment should not be empty!');
+      }
+
+      setCommentContentError('');
+      let textNftImageUrl = null;
+      if (!attachments.length) {
+        textNftImageUrl = await getTextNftUrl(
+          publicationContent,
+          currentProfile.handle,
+          new Date().toLocaleString()
+        );
+      }
+
+      const attributes = [
+        {
+          traitType: 'type',
+          displayType: 'string',
+          value: getMainContentFocus()?.toLowerCase()
+        }
+      ];
+      if (isAudioComment) {
+        attributes.push({
+          traitType: 'author',
+          displayType: 'string',
+          value: audioPublication.author
+        });
+      }
+
+      const id = await uploadToArweave({
+        version: '2.0.0',
+        metadata_id: uuid(),
+        description: trimify(publicationContent),
+        content: trimify(publicationContent),
+        external_url: `https://lenster.xyz/u/${currentProfile?.handle}`,
+        image: attachments.length > 0 ? getAttachmentImage() : textNftImageUrl,
+        imageMimeType: attachments.length > 0 ? getAttachmentImageMimeType() : 'image/svg+xml',
+        name: isAudioComment ? audioPublication.title : `Comment by @${currentProfile?.handle}`,
+        tags: getTags(publicationContent),
+        animation_url: getAnimationUrl(),
+        mainContentFocus: getMainContentFocus(),
+        contentWarning: null,
+        attributes,
+        media: attachments,
+        locale: getUserLocale(),
+        createdOn: new Date(),
+        appId: APP_NAME
       });
+
+      const request = {
+        profileId: currentProfile?.id,
+        publicationId: publication.__typename === 'Mirror' ? publication?.mirrorOf?.id : publication?.id,
+        contentURI: `https://arweave.net/${id}`,
+        collectModule: payload,
+        referenceModule:
+          selectedReferenceModule === ReferenceModules.FollowerOnlyReferenceModule
+            ? { followerOnlyReferenceModule: onlyFollowers ? true : false }
+            : {
+                degreesOfSeparationReferenceModule: {
+                  commentsRestricted: true,
+                  mirrorsRestricted: true,
+                  degreesOfSeparation
+                }
+              }
+      };
+
+      if (currentProfile?.dispatcher?.canUseRelay) {
+        await createViaDispatcher(request);
+      } else {
+        await createCommentTypedData({
+          variables: {
+            options: { overrideSigNonce: userSigNonce },
+            request
+          }
+        });
+      }
+    } catch {
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -362,9 +359,6 @@ const NewComment: FC<Props> = ({ publication }) => {
     };
     setAttachments([...attachments, attachment]);
   };
-
-  const isLoading =
-    isUploading || typedDataLoading || dispatcherLoading || signLoading || writeLoading || broadcastLoading;
 
   return (
     <Card className="pb-3">
@@ -383,8 +377,8 @@ const NewComment: FC<Props> = ({ publication }) => {
         </div>
         <div className="ml-auto pt-2 sm:pt-0">
           <Button
-            disabled={isLoading}
-            icon={isLoading ? <Spinner size="xs" /> : <ChatAlt2Icon className="w-4 h-4" />}
+            disabled={isSubmitting}
+            icon={isSubmitting ? <Spinner size="xs" /> : <ChatAlt2Icon className="w-4 h-4" />}
             onClick={createComment}
           >
             Comment
