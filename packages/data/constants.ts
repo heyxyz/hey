@@ -7,12 +7,14 @@ export const IS_PRODUCTION = process.env.NODE_ENV === 'production';
 export const LENS_NETWORK = process.env.NEXT_PUBLIC_LENS_NETWORK ?? 'mainnet';
 export const MAINNET_API_URL = 'https://api.lens.dev';
 export const TESTNET_API_URL = 'https://api-mumbai.lens.dev';
-export const STAGING_API_URL = 'https://staging-api-social-mumbai.lens.crtlkey.com';
 export const SANDBOX_API_URL = 'https://api-sandbox-mumbai.lens.dev';
+export const STAGING_API_URL = 'https://staging-api-social-mumbai.lens.crtlkey.com';
+export const STAGING_SANDBOX_API_URL = 'https://staging-api-social-mumbai.sandbox.crtlkey.com';
 
 export const SERVERLESS_MAINNET_API_URL = 'https://api.lenster.xyz';
 export const SERVERLESS_TESTNET_API_URL = 'https://api-testnet.lenster.xyz';
 export const SERVERLESS_STAGING_API_URL = 'https://api-staging.lenster.xyz';
+export const SERVERLESS_STAGING_SANDBOX_API_URL = 'https://api-staging-sandbox.lenster.xyz';
 export const SERVERLESS_SANDBOX_API_URL = 'https://api-sandbox.lenster.xyz';
 export const SERVERLESS_DEVELOPMENT_API_URL = 'http://localhost:6969';
 

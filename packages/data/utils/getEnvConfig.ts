@@ -22,8 +22,10 @@ import {
   SERVERLESS_MAINNET_API_URL,
   SERVERLESS_SANDBOX_API_URL,
   SERVERLESS_STAGING_API_URL,
+  SERVERLESS_STAGING_SANDBOX_API_URL,
   SERVERLESS_TESTNET_API_URL,
   STAGING_API_URL,
+  STAGING_SANDBOX_API_URL,
   TESTNET_API_URL
 } from '../constants';
 
@@ -63,6 +65,16 @@ const getEnvConfig = () => {
       return {
         apiEndpoint: SANDBOX_API_URL,
         serverlessEndpoint: SERVERLESS_SANDBOX_API_URL,
+        lensHubProxyAddress: SANDBOX_LENSHUB_PROXY,
+        lensPeripheryAddress: SANDBOX_LENS_PERIPHERY,
+        freeCollectModuleAddress: SANDBOX_FREE_COLLECT_MODULE,
+        defaultCollectToken: TESTNET_DEFAULT_TOKEN,
+        UpdateOwnableFeeCollectModuleAddress: TESTNET_UPDATE_OWNABLE_FEE_COLLECT_MODULE_ADDRESS
+      };
+    case 'staging-sandbox':
+      return {
+        apiEndpoint: STAGING_SANDBOX_API_URL,
+        serverlessEndpoint: SERVERLESS_STAGING_SANDBOX_API_URL,
         lensHubProxyAddress: SANDBOX_LENSHUB_PROXY,
         lensPeripheryAddress: SANDBOX_LENS_PERIPHERY,
         freeCollectModuleAddress: SANDBOX_FREE_COLLECT_MODULE,
