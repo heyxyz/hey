@@ -5,9 +5,10 @@ import { ErrorMessage } from '@components/UI/ErrorMessage';
 import InfiniteLoader from '@components/UI/InfiniteLoader';
 import { UsersIcon } from '@heroicons/react/outline';
 import { SCROLL_THRESHOLD } from 'data/constants';
-import type { Profile } from 'lens';
-import { Following, useFollowingQuery } from 'lens';
+import type { Following as FollowingProfile, Profile } from 'lens';
+import { useFollowingQuery } from 'lens';
 import type { FC } from 'react';
+import React from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 interface Props {
@@ -55,12 +56,10 @@ const Following: FC<Props> = ({ profile, onProfileSelected }) => {
     );
   }
 
-  const selectProfile = (following: Following | undefined) => {
-    onProfileSelected && following?.profile
-      ? () => {
-          onProfileSelected(following.profile as Profile);
-        }
-      : undefined;
+  const selectProfile = (following: FollowingProfile | undefined) => {
+    if (onProfileSelected && following?.profile) {
+      onProfileSelected(following.profile as Profile);
+    }
   };
 
   return (
@@ -81,8 +80,8 @@ const Following: FC<Props> = ({ profile, onProfileSelected }) => {
                 onProfileSelected && 'hover:bg-gray-100 dark:hover:bg-gray-900 cursor-pointer'
               }`}
               key={following?.profile?.id}
-              onClick={() => selectProfile(following as Following)}
-              onKeyDown={() => selectProfile(following as Following)}
+              onClick={() => selectProfile(following as FollowingProfile)}
+              onKeyDown={() => selectProfile(following as FollowingProfile)}
               tabIndex={0}
               role="button"
             >

@@ -7,6 +7,7 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import type { ElectedMirror, FeedItem } from 'lens';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
+import React from 'react';
 import { PUBLICATION } from 'src/tracking';
 
 import PublicationActions from './Actions';
