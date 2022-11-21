@@ -6,10 +6,8 @@ import {
   CogIcon,
   EmojiHappyIcon,
   LogoutIcon,
-  MoonIcon,
   ShieldCheckIcon,
   ShieldExclamationIcon,
-  SunIcon,
   SwitchHorizontalIcon,
   UserIcon
 } from '@heroicons/react/outline';
@@ -27,7 +25,7 @@ import type { FC } from 'react';
 import { Fragment } from 'react';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { useGlobalModalStateStore } from 'src/store/modals';
-import { PROFILE, STAFFTOOLS, SYSTEM } from 'src/tracking';
+import { PROFILE, STAFFTOOLS } from 'src/tracking';
 import { useDisconnect } from 'wagmi';
 
 import pkg from '../../../../package.json';
@@ -213,29 +211,6 @@ const SignedUser: FC = () => {
                   </div>
                 </>
               )}
-              <div className="divider" />
-              <Menu.Item
-                as="a"
-                onClick={() => {
-                  setTheme(theme === 'light' ? 'dark' : 'light');
-                  Leafwatch.track(theme === 'light' ? SYSTEM.SWITCH_DARK_THEME : SYSTEM.SWITCH_LIGHT_THEME);
-                }}
-                className={({ active }) => clsx({ 'dropdown-active': active }, 'menu-item')}
-              >
-                <div className="flex items-center space-x-1.5">
-                  {theme === 'light' ? (
-                    <>
-                      <MoonIcon className="w-4 h-4" />
-                      <div>Dark mode</div>
-                    </>
-                  ) : (
-                    <>
-                      <SunIcon className="w-4 h-4" />
-                      <div>Light mode</div>
-                    </>
-                  )}
-                </div>
-              </Menu.Item>
               {currentProfile && (
                 <>
                   <div className="divider" />

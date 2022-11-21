@@ -35,6 +35,7 @@ const NotificationIcon: FC = () => {
         setShowBadge(false);
         Leafwatch.track(NOTIFICATION.OPEN);
       }}
+      title="Notifications"
     >
       <LightningBoltIcon className="w-5 h-5 sm:w-6 sm:h-6" />
       {showBadge && <span className="w-2 h-2 bg-red-500 rounded-full" />}

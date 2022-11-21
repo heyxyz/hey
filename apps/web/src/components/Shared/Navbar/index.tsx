@@ -2,14 +2,17 @@ import MessageIcon from '@components/Messages/MessageIcon';
 import NotificationIcon from '@components/Notification/NotificationIcon';
 import useStaffMode from '@components/utils/hooks/useStaffMode';
 import { Disclosure } from '@headlessui/react';
-import { MenuIcon, XIcon } from '@heroicons/react/outline';
+import { MenuIcon, MoonIcon, SunIcon, XIcon } from '@heroicons/react/outline';
 import hasPrideLogo from '@lib/hasPrideLogo';
+import { Leafwatch } from '@lib/leafwatch';
 import clsx from 'clsx';
 import type { Profile } from 'lens';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useTheme } from 'next-themes';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
+import { SYSTEM } from 'src/tracking';
 
 import MenuItems from './MenuItems';
 import MoreNavItems from './MoreNavItems';
@@ -20,6 +23,7 @@ const Navbar: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const { allowed: staffMode } = useStaffMode();
   const router = useRouter();
+  const { theme, setTheme } = useTheme();
 
   const onProfileSelected = (profile: Profile) => {
     router.push(`/u/${profile?.handle}`);
@@ -100,6 +104,23 @@ const Navbar: FC = () => {
                 </div>
               </div>
               <div className="flex gap-4 items-center">
+                <button
+                  onClick={() => {
+                    setTheme(theme === 'light' ? 'dark' : 'light');
+                    Leafwatch.track(theme === 'light' ? SYSTEM.SWITCH_DARK_THEME : SYSTEM.SWITCH_LIGHT_THEME);
+                  }}
+                >
+                  <div
+                    className="flex items-center space-x-1.5 justify-center rounded-md hover:bg-gray-300 p-1 hover:bg-opacity-20 min-w-[40px]"
+                    title={theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode'}
+                  >
+                    {theme === 'light' ? (
+                      <MoonIcon className="w-5 h-5 sm:w-6 sm:h-6" />
+                    ) : (
+                      <SunIcon className="w-5 h-5 sm:w-6 sm:h-6" />
+                    )}
+                  </div>
+                </button>
                 {currentProfile ? (
                   <>
                     <MessageIcon />
