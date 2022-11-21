@@ -18,6 +18,11 @@ import {
   LENS_NETWORK,
   MAINNET_API_URL,
   SANDBOX_API_URL,
+  SERVERLESS_DEVELOPMENT_API_URL,
+  SERVERLESS_MAINNET_API_URL,
+  SERVERLESS_SANDBOX_API_URL,
+  SERVERLESS_STAGING_API_URL,
+  SERVERLESS_TESTNET_API_URL,
   STAGING_API_URL,
   TESTNET_API_URL
 } from '../constants';
@@ -27,6 +32,7 @@ const getEnvConfig = () => {
     case 'mainnet':
       return {
         apiEndpoint: MAINNET_API_URL,
+        serverlessEndpoint: SERVERLESS_MAINNET_API_URL,
         lensHubProxyAddress: MAINNET_LENSHUB_PROXY,
         lensPeripheryAddress: MAINNET_LENS_PERIPHERY,
         freeCollectModuleAddress: MAINNET_FREE_COLLECT_MODULE,
@@ -36,6 +42,7 @@ const getEnvConfig = () => {
     case 'testnet':
       return {
         apiEndpoint: TESTNET_API_URL,
+        serverlessEndpoint: SERVERLESS_TESTNET_API_URL,
         lensHubProxyAddress: TESTNET_LENSHUB_PROXY,
         lensPeripheryAddress: TESTNET_LENS_PERIPHERY,
         freeCollectModuleAddress: TESTNET_FREE_COLLECT_MODULE,
@@ -45,6 +52,7 @@ const getEnvConfig = () => {
     case 'staging':
       return {
         apiEndpoint: STAGING_API_URL,
+        serverlessEndpoint: SERVERLESS_STAGING_API_URL,
         lensHubProxyAddress: TESTNET_LENSHUB_PROXY,
         lensPeripheryAddress: TESTNET_LENS_PERIPHERY,
         freeCollectModuleAddress: TESTNET_FREE_COLLECT_MODULE,
@@ -54,6 +62,7 @@ const getEnvConfig = () => {
     case 'sandbox':
       return {
         apiEndpoint: SANDBOX_API_URL,
+        serverlessEndpoint: SERVERLESS_SANDBOX_API_URL,
         lensHubProxyAddress: SANDBOX_LENSHUB_PROXY,
         lensPeripheryAddress: SANDBOX_LENS_PERIPHERY,
         freeCollectModuleAddress: SANDBOX_FREE_COLLECT_MODULE,
@@ -63,6 +72,7 @@ const getEnvConfig = () => {
     default:
       return {
         apiEndpoint: MAINNET_API_URL,
+        serverlessEndpoint: SERVERLESS_DEVELOPMENT_API_URL,
         lensHubProxyAddress: MAINNET_LENSHUB_PROXY,
         lensPeripheryAddress: MAINNET_LENS_PERIPHERY,
         freeCollectModuleAddress: MAINNET_FREE_COLLECT_MODULE,
