@@ -7,9 +7,18 @@ export const IS_PRODUCTION = process.env.NODE_ENV === 'production';
 export const LENS_NETWORK = process.env.NEXT_PUBLIC_LENS_NETWORK ?? 'mainnet';
 export const MAINNET_API_URL = 'https://api.lens.dev';
 export const TESTNET_API_URL = 'https://api-mumbai.lens.dev';
-export const STAGING_API_URL = 'https://staging-api-social-mumbai.lens.crtlkey.com';
 export const SANDBOX_API_URL = 'https://api-sandbox-mumbai.lens.dev';
+export const STAGING_API_URL = 'https://staging-api-social-mumbai.lens.crtlkey.com';
+export const STAGING_SANDBOX_API_URL = 'https://staging-api-social-mumbai.sandbox.crtlkey.com';
 
+export const SERVERLESS_MAINNET_API_URL = 'https://api.lenster.xyz';
+export const SERVERLESS_TESTNET_API_URL = 'https://api-testnet.lenster.xyz';
+export const SERVERLESS_STAGING_API_URL = 'https://api-staging.lenster.xyz';
+export const SERVERLESS_STAGING_SANDBOX_API_URL = 'https://api-staging-sandbox.lenster.xyz';
+export const SERVERLESS_SANDBOX_API_URL = 'https://api-sandbox.lenster.xyz';
+export const SERVERLESS_DEVELOPMENT_API_URL = 'http://localhost:6969';
+
+export const SERVERLESS_URL = getEnvConfig().serverlessEndpoint;
 export const API_URL = getEnvConfig().apiEndpoint;
 export const LENSHUB_PROXY = getEnvConfig().lensHubProxyAddress;
 export const LENS_PERIPHERY = getEnvConfig().lensPeripheryAddress;
@@ -49,7 +58,6 @@ export const WRONG_NETWORK = IS_MAINNET
 export const SIGN_ERROR = 'Failed to sign data';
 
 // URLs
-export const SERVERLESS_URL = process.env.NEXT_PUBLIC_SERVERLESS_URL ?? 'https://api.lenster.xyz';
 export const STATIC_ASSETS_URL = 'https://assets.lenster.xyz';
 export const STATIC_IMAGES_URL = `${STATIC_ASSETS_URL}/images`;
 export const POLYGONSCAN_URL = IS_MAINNET ? 'https://polygonscan.com' : 'https://mumbai.polygonscan.com';
