@@ -12,7 +12,7 @@ import type { Profile } from 'lens';
  *  - ENS "vitalik.eth.somebodyelse.eth" returns `false` (trying to impersonate)
  */
 function isEnsVerified(profile: Profile): boolean {
-  const ensName = (profile?.onChainIdentity?.ens?.name || '') as string;
+  const ensName = (profile.onChainIdentity?.ens?.name || '') as string;
 
   const ensPrimaryDomain = ensName.split('.').slice(-2)[0];
   const lensHandle = profile.handle.replace(/\.lens$/, '');
