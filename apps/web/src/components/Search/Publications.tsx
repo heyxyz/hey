@@ -10,6 +10,7 @@ import { SCROLL_THRESHOLD } from 'data/constants';
 import type { PublicationSearchResult } from 'lens';
 import { CustomFiltersTypes, SearchRequestTypes, useSearchPublicationsQuery } from 'lens';
 import type { FC } from 'react';
+import React from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useAppStore } from 'src/store/app';
 
