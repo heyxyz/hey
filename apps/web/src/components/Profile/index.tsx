@@ -47,7 +47,7 @@ const ViewProfile: NextPage = () => {
     return <Custom500 />;
   }
 
-  if (loading || !data) {
+  if (loading) {
     return <ProfilePageShimmer />;
   }
 

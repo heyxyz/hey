@@ -99,6 +99,7 @@ const NewComment: FC<Props> = ({ publication }) => {
   // States
   const [commentContentError, setCommentContentError] = useState('');
   const [isUploading, setIsUploading] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [attachments, setAttachments] = useState<LensterAttachment[]>([]);
   const [editor] = useLexicalComposerContext();
 
