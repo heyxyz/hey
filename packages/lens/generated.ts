@@ -16764,6 +16764,11 @@ export type TimelineQuery = {
               isFollowedByMe: boolean;
               stats: { __typename?: 'ProfileStats'; totalFollowers: number; totalFollowing: number };
               attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
+              onChainIdentity: {
+                ens: {
+                  name: string;
+                };
+              };
               picture?:
                 | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
                 | { __typename?: 'NftImage'; uri: any }
@@ -19619,6 +19624,11 @@ export const ProfileFieldsFragmentDoc = gql`
     attributes {
       key
       value
+    }
+    onChainIdentity {
+      ens {
+        name
+      }
     }
     picture {
       ... on MediaSet {
