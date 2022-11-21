@@ -1,6 +1,7 @@
 import { BadgeCheckIcon } from '@heroicons/react/solid';
 import getAttribute from '@lib/getAttribute';
 import getAvatar from '@lib/getAvatar';
+import isEnsVerified from '@lib/isEnsVerified';
 import isVerified from '@lib/isVerified';
 import clsx from 'clsx';
 import type { Profile } from 'lens';
@@ -8,6 +9,7 @@ import Link from 'next/link';
 import type { FC } from 'react';
 import { useState } from 'react';
 
+import EnsCheckIcon from './EnsCheckIcon';
 import Follow from './Follow';
 import Markup from './Markup';
 import Slug from './Slug';
@@ -60,6 +62,12 @@ const UserProfile: FC<Props> = ({
       <div className="flex items-center max-w-sm truncate">
         <div className={clsx(isBig ? 'font-bold' : 'text-md')}>{profile?.name ?? profile?.handle}</div>
         {isVerified(profile?.id) && <BadgeCheckIcon className="w-4 h-4 text-brand ml-1" />}
+        {isEnsVerified(profile) && (
+          <EnsCheckIcon
+            className="w-4 h-4 text-brand ml-1"
+            alt={`ENS: ${profile?.onChainIdentity?.ens?.name}`}
+          />
+        )}
         {showStatus && hasStatus ? (
           <div className="flex items-center text-gray-500">
             <span className="mx-1.5">·</span>

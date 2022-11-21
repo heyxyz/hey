@@ -1,4 +1,5 @@
 import Message from '@components/Profile/Message';
+import EnsCheckIcon from '@components/Shared/EnsCheckIcon';
 import Follow from '@components/Shared/Follow';
 import Markup from '@components/Shared/Markup';
 import Slug from '@components/Shared/Slug';
@@ -16,6 +17,7 @@ import { buildConversationKey } from '@lib/conversationKey';
 import formatAddress from '@lib/formatAddress';
 import getAttribute from '@lib/getAttribute';
 import getAvatar from '@lib/getAvatar';
+import isEnsVerified from '@lib/isEnsVerified';
 import isStaff from '@lib/isStaff';
 import isVerified from '@lib/isVerified';
 import { STATIC_IMAGES_URL } from 'data/constants';
@@ -82,6 +84,11 @@ const Details: FC<Props> = ({ profile }) => {
           {isVerified(profile?.id) && (
             <Tooltip content="Verified">
               <BadgeCheckIcon className="w-6 h-6 text-brand" />
+            </Tooltip>
+          )}
+          {isEnsVerified(profile) && (
+            <Tooltip content={`ENS: ${profile?.onChainIdentity?.ens?.name}`}>
+              <EnsCheckIcon className="w-6 h-6" alt={`ENS: ${profile?.onChainIdentity?.ens?.name}`} />
             </Tooltip>
           )}
         </div>
