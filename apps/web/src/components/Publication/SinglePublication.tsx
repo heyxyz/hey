@@ -62,7 +62,12 @@ const SinglePublication: FC<Props> = ({
         <PublicationType publication={publication} showType={showType} showThread={showThread} />
       )}
       <div className="flex justify-between pb-4 space-x-1.5">
-        <span onClick={(event) => event.stopPropagation()}>
+        <span
+          onClick={(event) => event.stopPropagation()}
+          onKeyDown={(event) => event.stopPropagation()}
+          tabIndex={-1}
+          role="button"
+        >
           <UserProfile profile={profile ?? publication?.collectedBy?.defaultProfile} showStatus />
         </span>
         <span className="text-xs text-gray-500">{dayjs(new Date(timestamp)).fromNow()}</span>

@@ -6,7 +6,7 @@ import InfiniteLoader from '@components/UI/InfiniteLoader';
 import { UsersIcon } from '@heroicons/react/outline';
 import { SCROLL_THRESHOLD } from 'data/constants';
 import type { Profile } from 'lens';
-import { useFollowingQuery } from 'lens';
+import { Following, useFollowingQuery } from 'lens';
 import type { FC } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
@@ -55,6 +55,14 @@ const Following: FC<Props> = ({ profile, onProfileSelected }) => {
     );
   }
 
+  const selectProfile = (following: Following | undefined) => {
+    onProfileSelected && following?.profile
+      ? () => {
+          onProfileSelected(following.profile as Profile);
+        }
+      : undefined;
+  };
+
   return (
     <div className="overflow-y-auto max-h-[80vh]" id="scrollableDiv">
       <ErrorMessage className="m-5" title="Failed to load following" error={error} />
@@ -73,13 +81,10 @@ const Following: FC<Props> = ({ profile, onProfileSelected }) => {
                 onProfileSelected && 'hover:bg-gray-100 dark:hover:bg-gray-900 cursor-pointer'
               }`}
               key={following?.profile?.id}
-              onClick={
-                onProfileSelected && following.profile
-                  ? () => {
-                      onProfileSelected(following.profile as Profile);
-                    }
-                  : undefined
-              }
+              onClick={() => selectProfile(following as Following)}
+              onKeyDown={() => selectProfile(following as Following)}
+              tabIndex={0}
+              role="button"
             >
               <UserProfile
                 profile={following?.profile as Profile}
