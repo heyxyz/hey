@@ -20,6 +20,7 @@ interface Props {
 
 const Markup: FC<Props> = ({ children, className = '', matchOnlyUrl }) => {
   const defaultMatchers = [
+    new MDCodeMatcher('mdCode'),
     new MDLinkMatcher('mdLink'),
     new UrlMatcher('url'),
     new HashtagMatcher('hashtag'),
@@ -28,7 +29,6 @@ const Markup: FC<Props> = ({ children, className = '', matchOnlyUrl }) => {
     new MDItalicMatcher('mdItalic'),
     new MDStrikeMatcher('mdStrike'),
     new MDQuoteMatcher('mdQuote'),
-    new MDCodeMatcher('mdCode'),
     new SpoilerMatcher('spoiler')
   ];
 
