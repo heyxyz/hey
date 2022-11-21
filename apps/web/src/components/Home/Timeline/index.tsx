@@ -43,7 +43,7 @@ const Timeline: FC = () => {
   };
 
   // Variables
-  const profileId = seeThroughProfile?.id ?? currentProfile?.id ?? null;
+  const profileId = seeThroughProfile?.id ?? currentProfile?.id;
   const request = { profileId, limit: 50, feedEventItemTypes: getFeedEventItems() };
   const reactionRequest = currentProfile ? { profileId } : null;
 
