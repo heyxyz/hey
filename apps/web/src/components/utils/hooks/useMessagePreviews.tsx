@@ -54,8 +54,8 @@ const useMessagePreviews = () => {
     }
     const toQuery = new Set(profileIds);
     // Don't both querying for already seen profiles
-    // @ts-ignore
-    for (const profile of messageProfiles.values()) {
+    const messageProfilesArray = Array.from(messageProfiles.values());
+    for (const profile of messageProfilesArray) {
       toQuery.delete(profile.id);
     }
 

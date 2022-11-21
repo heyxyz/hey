@@ -29,8 +29,12 @@ const RelevantPeople: FC<Props> = ({ publication }) => {
       })
     : [];
 
-  // @ts-ignore
-  const cleanedMentions = [...new Set(processedMentions)];
+  const cleanedMentions = processedMentions.reduce((acc: string[], cur: string) => {
+    if (!acc.includes(cur)) {
+      acc.push(cur);
+    }
+    return acc;
+  }, []);
 
   const { data, loading, error } = useRelevantPeopleQuery({
     variables: { request: { handles: cleanedMentions.slice(0, 5) } }
