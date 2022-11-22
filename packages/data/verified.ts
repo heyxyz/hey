@@ -2,6 +2,30 @@ import { aaveMembers } from './aave-members';
 import { lensterMembers } from './lenster-members';
 
 export const mainnetVerified = [
+  '0x01873a', // curtisroach.lens
+  '0xc1bd', // dragaan.lens
+  '0x014c1f', // mexicotte.lens
+  '0xf71a', // internetfase.lens
+  '0x018ccc', // zospours.lens
+  '0x5805', // memester.lens
+  '0xf6b0', // andresbriceno.lens
+  '0x01637c', // ou_lou.lens
+  '0x0132', // luduvigo.lens
+  '0x013e57', // andriy.lens
+  '0x018cf8', // zachchin.lens
+  '0x73a4', // pedromonte.lens
+  '0x713e', // jessicaelawson.lens
+  '0x010356', // j3r3m.lens
+  '0x01859a', // smurf_augustin.lens
+  '0x010323', // arthurison.lens
+  '0x010350', // chrismenard.lens
+  '0xb175', // frederic.lens
+  '0xe804', // jroma.lens
+  '0x018cba', // thehuman_ret.lens
+  '0x018cbd', // hairyguy_wea.lens
+  '0x018cb8', // isucceed_spy.lens
+  '0x018ebd', // mintstarsreal.lens
+  '0xe506', // diaoul.lens
   '0x018d18', // chainlink.lens
   '0x4dc9', // jasper.lens
   '0xf5b6', // henri.lens

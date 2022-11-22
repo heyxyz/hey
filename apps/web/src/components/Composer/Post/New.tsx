@@ -1,25 +1,15 @@
-import withLexicalContext from '@components/Shared/Lexical/withLexicalContext';
 import { Card } from '@components/UI/Card';
 import { Modal } from '@components/UI/Modal';
 import { Tooltip } from '@components/UI/Tooltip';
-import {
-  DocumentTextIcon,
-  MusicNoteIcon,
-  PencilAltIcon,
-  PhotographIcon,
-  VideoCameraIcon
-} from '@heroicons/react/outline';
-import { $convertFromMarkdownString } from '@lexical/markdown';
-import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
+import { PencilAltIcon } from '@heroicons/react/outline';
 import getAvatar from '@lib/getAvatar';
-import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { useRouter } from 'next/router';
 import type { FC, ReactNode } from 'react';
 import { useEffect, useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { usePublicationStore } from 'src/store/publication';
 
-import NewUpdate from './Update';
+import NewPublication from '../NewPublication';
 
 type Action = 'update' | 'image' | 'video' | 'audio' | 'article';
 
@@ -48,7 +38,6 @@ const NewPost: FC = () => {
   const setShowNewPostModal = usePublicationStore((state) => state.setShowNewPostModal);
   const setPublicationContent = usePublicationStore((state) => state.setPublicationContent);
   const [selectedAction, setSelectedAction] = useState<Action>('update');
-  const [editor] = useLexicalComposerContext();
 
   const openModal = (action: Action) => {
     setSelectedAction(action);
@@ -73,9 +62,6 @@ const NewPost: FC = () => {
 
       setShowNewPostModal(true);
       setPublicationContent(content);
-      editor.update(() => {
-        $convertFromMarkdownString(content);
-      });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -96,41 +82,17 @@ const NewPost: FC = () => {
           <PencilAltIcon className="h-5 w-5" />
           <span>What's happening?</span>
         </button>
-        {isFeatureEnabled('composer-v2', currentProfile?.id) && (
-          <div className="flex items-center space-x-5">
-            <Action
-              icon={<PhotographIcon className="h-5 w-5" />}
-              text="Image"
-              onClick={() => openModal('image')}
-            />
-            <Action
-              icon={<VideoCameraIcon className="h-5 w-5" />}
-              text="Video"
-              onClick={() => openModal('video')}
-            />
-            <Action
-              icon={<MusicNoteIcon className="h-5 w-5" />}
-              text="Audio"
-              onClick={() => openModal('audio')}
-            />
-            <Action
-              icon={<DocumentTextIcon className="h-5 w-5" />}
-              text="Article"
-              onClick={() => openModal('article')}
-            />
-          </div>
-        )}
         <Modal
           title="Create post"
           size="md"
           show={showNewPostModal}
           onClose={() => setShowNewPostModal(false)}
         >
-          {selectedAction === 'update' && <NewUpdate />}
+          {selectedAction === 'update' && <NewPublication />}
         </Modal>
       </div>
     </Card>
   );
 };
 
-export default withLexicalContext(NewPost);
+export default NewPost;
