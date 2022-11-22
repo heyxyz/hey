@@ -63,7 +63,7 @@ body {
       theme('colors.white') 50%,
       theme('colors.transparent')
     ),
-    url(https://media.lenster.xyz/hero.webp);
+    url(https://assets.lenster.xyz/images/hero.webp);
   background-size: cover;
 }
 .dark .bg-hero {
@@ -73,7 +73,7 @@ body {
       theme('colors.black') 50%,
       theme('colors.transparent')
     ),
-    url(https://media.lenster.xyz/hero.webp);
+    url(https://assets.lenster.xyz/images/hero.webp);
   background-size: cover;
 }
 
