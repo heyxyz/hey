@@ -8,6 +8,7 @@ import useBroadcast from '@components/utils/hooks/useBroadcast';
 import { PencilIcon } from '@heroicons/react/outline';
 import getAttribute from '@lib/getAttribute';
 import getSignature from '@lib/getSignature';
+import { Leafwatch } from '@lib/leafwatch';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import uploadToArweave from '@lib/uploadToArweave';
@@ -23,6 +24,7 @@ import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
+import { SETTINGS } from 'src/tracking';
 import { v4 as uuid } from 'uuid';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 import { object, string } from 'zod';
@@ -197,6 +199,7 @@ const Status: FC = () => {
         className="space-y-4"
         onSubmit={({ status }) => {
           editStatus(emoji, status);
+          Leafwatch.track(SETTINGS.PROFILE.SET_PICTURE);
         }}
       >
         <Input
@@ -216,6 +219,7 @@ const Status: FC = () => {
                 setEmoji('');
                 form.setValue('status', '');
                 editStatus('', '');
+                Leafwatch.track(SETTINGS.PROFILE.CLEAR_STATUS);
               }}
             >
               Clear status
