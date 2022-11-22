@@ -8,18 +8,22 @@ import InfiniteLoader from '@components/UI/InfiniteLoader';
 import type { LensterPublication } from '@generated/types';
 import { CollectionIcon } from '@heroicons/react/outline';
 import { SCROLL_THRESHOLD } from 'data/constants';
-import type { FeedItem } from 'lens';
+import type { FeedItem, Profile } from 'lens';
 import { FeedEventItemType, useTimelineQuery } from 'lens';
 import type { FC } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useAppStore } from 'src/store/app';
-import { useTimelinePersistStore } from 'src/store/timeline';
+import { useTimelinePersistStore, useTimelineStore } from 'src/store/timeline';
 import { useTransactionPersistStore } from 'src/store/transaction';
 
 const Timeline: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const txnQueue = useTransactionPersistStore((state) => state.txnQueue);
   const feedEventFilters = useTimelinePersistStore((state) => state.feedEventFilters);
+  const seeThroughProfile = useTimelineStore((state) => state.seeThroughProfile);
+  const setRecommendedProfilesToSeeThrough = useTimelineStore(
+    (state) => state.setRecommendedProfilesToSeeThrough
+  );
 
   const getFeedEventItems = () => {
     const filters: FeedEventItemType[] = [];
@@ -39,12 +43,29 @@ const Timeline: FC = () => {
   };
 
   // Variables
-  const request = { profileId: currentProfile?.id, limit: 50, feedEventItemTypes: getFeedEventItems() };
-  const reactionRequest = currentProfile ? { profileId: currentProfile?.id } : null;
-  const profileId = currentProfile?.id ?? null;
+  const profileId = seeThroughProfile?.id ?? currentProfile?.id;
+  const request = { profileId, limit: 50, feedEventItemTypes: getFeedEventItems() };
+  const reactionRequest = currentProfile ? { profileId } : null;
+
+  const setRecommendedProfiles = (feedItems: FeedItem[]) => {
+    let uniqueProfileIds: string[] = [];
+    let profiles: Profile[] = [];
+    for (const feedItem of feedItems) {
+      const profileId = feedItem.root?.profile?.id;
+      if (!uniqueProfileIds.includes(profileId) && profileId !== seeThroughProfile?.id) {
+        profiles.push(feedItem.root?.profile as Profile);
+        uniqueProfileIds.push(profileId);
+      }
+    }
+    setRecommendedProfilesToSeeThrough(profiles?.slice(0, 5));
+  };
 
   const { data, loading, error, fetchMore } = useTimelineQuery({
-    variables: { request, reactionRequest, profileId }
+    variables: { request, reactionRequest, profileId },
+    onCompleted: (data) => {
+      const feedItems = data?.feed?.items as FeedItem[];
+      setRecommendedProfiles(feedItems);
+    }
   });
 
   const publications = data?.feed?.items;
