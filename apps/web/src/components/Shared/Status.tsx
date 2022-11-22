@@ -38,8 +38,6 @@ const editStatusSchema = object({
 
 const Status: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const userSigNonce = useAppStore((state) => state.userSigNonce);
-  const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const [isUploading, setIsUploading] = useState(false);
   const [emoji, setEmoji] = useState<string>('');
 
@@ -93,7 +91,6 @@ const Status: FC = () => {
             sig
           };
 
-          setUserSigNonce(userSigNonce + 1);
           if (!RELAY_ON) {
             return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
           }
@@ -119,10 +116,7 @@ const Status: FC = () => {
     });
     if (data?.createSetProfileMetadataViaDispatcher?.__typename === 'RelayError') {
       createSetProfileMetadataTypedData({
-        variables: {
-          options: { overrideSigNonce: userSigNonce },
-          request
-        }
+        variables: { request }
       });
     }
   };
@@ -171,10 +165,7 @@ const Status: FC = () => {
       createViaDispatcher(request);
     } else {
       createSetProfileMetadataTypedData({
-        variables: {
-          options: { overrideSigNonce: userSigNonce },
-          request
-        }
+        variables: { request }
       });
     }
   };
