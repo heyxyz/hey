@@ -26,10 +26,6 @@ const DocumentMentionsRegex = {
   PUNCTUATION
 };
 
-const CapitalizedNameMentionsRegex = new RegExp(
-  '(^|[^#])((?:' + DocumentMentionsRegex.NAME + '{' + 1 + ',})$)'
-);
-
 const PUNC = DocumentMentionsRegex.PUNCTUATION;
 const TRIGGERS = ['@'].join('');
 const VALID_CHARS = '[^' + TRIGGERS + PUNC + '\\s]';
@@ -56,22 +52,6 @@ const AtSignMentionsRegexAliasRegex = new RegExp(
   '(^|\\s|\\()(' + '[' + TRIGGERS + ']' + '((?:' + VALID_CHARS + '){0,' + ALIAS_LENGTH_LIMIT + '})' + ')$'
 );
 
-const checkForCapitalizedNameMentions = (text: string, minMatchLength: number): QueryMatch | null => {
-  const match = CapitalizedNameMentionsRegex.exec(text);
-  if (match !== null) {
-    const maybeLeadingWhitespace = match[1];
-    const matchingString = match[2];
-    if (matchingString != null && matchingString.length >= minMatchLength) {
-      return {
-        leadOffset: match.index + maybeLeadingWhitespace.length,
-        matchingString,
-        replaceableString: matchingString
-      };
-    }
-  }
-  return null;
-};
-
 const checkForAtSignMentions = (text: string, minMatchLength: number): QueryMatch | null => {
   let match = AtSignMentionsRegex.exec(text);
 
@@ -96,7 +76,7 @@ const checkForAtSignMentions = (text: string, minMatchLength: number): QueryMatc
 
 const getPossibleQueryMatch = (text: string): QueryMatch | null => {
   const match = checkForAtSignMentions(text, 1);
-  return match === null ? checkForCapitalizedNameMentions(text, 3) : match;
+  return match;
 };
 
 class MentionTypeaheadOption extends TypeaheadOption {
@@ -156,18 +136,20 @@ const NewMentionsPlugin: FC = () => {
   const [searchUsers] = useSearchProfilesLazyQuery();
 
   useEffect(() => {
-    searchUsers({
-      variables: { request: { type: SearchRequestTypes.Profile, query: queryString, limit: 5 } }
-    }).then(({ data }) => {
-      // @ts-ignore
-      let profiles = data?.search?.items ?? [];
-      profiles = profiles.map((user: Profile & { picture: MediaSet & NftImage }) => ({
-        name: user?.name,
-        handle: user?.handle,
-        picture: user?.picture?.original?.url ?? user?.picture?.uri ?? getStampFyiURL(user?.ownedBy)
-      }));
-      setResults(profiles);
-    });
+    if (queryString) {
+      searchUsers({
+        variables: { request: { type: SearchRequestTypes.Profile, query: queryString, limit: 5 } }
+      }).then(({ data }) => {
+        // @ts-ignore
+        let profiles = data?.search?.items ?? [];
+        profiles = profiles.map((user: Profile & { picture: MediaSet & NftImage }) => ({
+          name: user?.name,
+          handle: user?.handle,
+          picture: user?.picture?.original?.url ?? user?.picture?.uri ?? getStampFyiURL(user?.ownedBy)
+        }));
+        setResults(profiles);
+      });
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [queryString]);
 
