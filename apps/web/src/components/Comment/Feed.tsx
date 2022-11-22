@@ -14,15 +14,15 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import { useAppStore } from 'src/store/app';
 import { useTransactionPersistStore } from 'src/store/transaction';
 
-import NewComment from '../Composer/Comment/New';
+import NewPublication from '../Composer/NewPublication';
 import CommentWarning from '../Shared/CommentWarning';
 
 interface Props {
-  publication: LensterPublication;
+  publication?: LensterPublication;
 }
 
 const Feed: FC<Props> = ({ publication }) => {
-  const publicationId = publication.__typename === 'Mirror' ? publication?.mirrorOf?.id : publication?.id;
+  const publicationId = publication?.__typename === 'Mirror' ? publication?.mirrorOf?.id : publication?.id;
   const currentProfile = useAppStore((state) => state.currentProfile);
   const txnQueue = useTransactionPersistStore((state) => state.txnQueue);
 
@@ -52,7 +52,7 @@ const Feed: FC<Props> = ({ publication }) => {
 
   return (
     <>
-      {currentProfile ? canComment ? <NewComment publication={publication} /> : <CommentWarning /> : null}
+      {currentProfile ? canComment ? <NewPublication publication={publication} /> : <CommentWarning /> : null}
       {loading && <PublicationsShimmer />}
       {!loading && totalComments === 0 && (
         <EmptyState
