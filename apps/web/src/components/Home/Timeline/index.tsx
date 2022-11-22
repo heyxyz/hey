@@ -52,7 +52,11 @@ const Timeline: FC = () => {
     let profiles: Profile[] = [];
     for (const feedItem of feedItems) {
       const profileId = feedItem.root?.profile?.id;
-      if (!uniqueProfileIds.includes(profileId) && profileId !== seeThroughProfile?.id) {
+      if (
+        !uniqueProfileIds.includes(profileId) &&
+        profileId !== seeThroughProfile?.id &&
+        profileId !== currentProfile?.id
+      ) {
         profiles.push(feedItem.root?.profile as Profile);
         uniqueProfileIds.push(profileId);
       }
