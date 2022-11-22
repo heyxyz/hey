@@ -99,7 +99,7 @@ const UserPreview: FC<Props> = ({ profile, isBig, followStatusLoading, children 
   };
 
   return (
-    <div onMouseOver={onPreviewStart} onMouseLeave={onPreviewEnd}>
+    <span onMouseOver={onPreviewStart} onMouseLeave={onPreviewEnd}>
       {showPreview ? (
         <Tippy
           placement="bottom-start"
@@ -116,7 +116,7 @@ const UserPreview: FC<Props> = ({ profile, isBig, followStatusLoading, children 
       ) : (
         <span>{children}</span>
       )}
-    </div>
+    </span>
   );
 };
 
