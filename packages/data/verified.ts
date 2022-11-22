@@ -6,7 +6,7 @@ export const mainnetVerified = [
   '0xc1bd', // dragaan.lens
   '0x014c1f', // mexicotte.lens
   '0xf71a', // internetfase.lens
-  '0x018ccc' // zospours.lens
+  '0x018ccc', // zospours.lens
   '0x5805', // memester.lens
   '0xf6b0', // andresbriceno.lens
   '0x01637c', // ou_lou.lens
