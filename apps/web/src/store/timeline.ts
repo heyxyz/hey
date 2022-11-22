@@ -26,9 +26,9 @@ export const useTimelinePersistStore = create(
 );
 
 export const useTimelineStore = create<TimelineState>((set) => ({
-  recommendedProfilesToSeeThrough: [],
   seeThroughProfile: null,
+  setSeeThroughProfile: (seeThroughProfile) => set(() => ({ seeThroughProfile })),
+  recommendedProfilesToSeeThrough: [],
   setRecommendedProfilesToSeeThrough: (recommendedProfilesToSeeThrough) =>
-    set(() => ({ recommendedProfilesToSeeThrough })),
-  setSeeThroughProfile: (seeThroughProfile) => set(() => ({ seeThroughProfile }))
+    set(() => ({ recommendedProfilesToSeeThrough }))
 }));
