@@ -118,10 +118,7 @@ const SeeThroughLens: FC = () => {
                   <Menu.Item
                     as="div"
                     className={({ active }) =>
-                      clsx(
-                        { 'dropdown-active': active },
-                        'rounded-lg overflow-hidden space-x-1 cursor-pointer p-1'
-                      )
+                      clsx({ 'dropdown-active': active }, 'rounded-lg overflow-hidden cursor-pointer p-1')
                     }
                     key={profile?.handle}
                     onClick={() => {
