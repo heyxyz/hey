@@ -10,9 +10,9 @@ interface TimelinePersistState {
 
 interface TimelineState {
   seeThroughProfile: Profile | null;
+  setSeeThroughProfile: (profile: Profile | null) => void;
   recommendedProfilesToSeeThrough: Profile[];
   setRecommendedProfilesToSeeThrough: (profiles: Profile[]) => void;
-  setSeeThroughProfile: (profile: Profile | null) => void;
 }
 
 export const useTimelinePersistStore = create(
