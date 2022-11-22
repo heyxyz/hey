@@ -120,7 +120,7 @@ const SeeThroughLens: FC = () => {
                     className={({ active }) =>
                       clsx(
                         { 'dropdown-active': active },
-                        'rounded-lg overflow-hidden gap-1 space-x-1 cursor-pointer p-1'
+                        'rounded-lg overflow-hidden space-x-1 cursor-pointer p-1'
                       )
                     }
                     key={profile?.handle}
