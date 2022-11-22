@@ -1,5 +1,5 @@
+import { IS_MAINNET } from 'data/constants';
 import { featureFlags } from 'data/feature-flags';
-import { IS_MAINNET } from 'src/constants';
 
 const isFeatureEnabled = (featureKey: string, profileId: string): boolean => {
   const feature = featureFlags.find((feature) => feature.key === featureKey);

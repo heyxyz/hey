@@ -1,4 +1,4 @@
-import { XMTP_PREFIX } from 'src/constants';
+import { XMTP_PREFIX } from 'data/constants';
 
 const conversationMatchesProfile = (profileId: string) => new RegExp(`${XMTP_PREFIX}/.*${profileId}`);
 

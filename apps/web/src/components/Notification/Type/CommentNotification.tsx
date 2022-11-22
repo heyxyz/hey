@@ -1,9 +1,9 @@
 import Markup from '@components/Shared/Markup';
 import UserPreview from '@components/Shared/UserPreview';
-import type { NewCommentNotification } from '@generated/types';
 import { ChatAlt2Icon } from '@heroicons/react/solid';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import type { NewCommentNotification } from 'lens';
 import Link from 'next/link';
 import type { FC } from 'react';
 

@@ -23,7 +23,7 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: GraphQL Codegen 🕸
-        run: cd apps/web; yarn codegen
+        run: yarn codegen
 
       - name: Typecheck 🔡
         run: yarn typecheck

@@ -2,7 +2,7 @@ import Loader from '@components/Shared/Loader';
 import { Modal } from '@components/UI/Modal';
 import { Tooltip } from '@components/UI/Tooltip';
 import useStaffMode from '@components/utils/hooks/useStaffMode';
-import type { LensterPublication } from '@generated/lenstertypes';
+import type { LensterPublication } from '@generated/types';
 import { ChartBarIcon } from '@heroicons/react/outline';
 import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';

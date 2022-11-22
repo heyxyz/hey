@@ -1,5 +1,4 @@
 import { Card } from '@components/UI/Card';
-import type { Profile } from '@generated/types';
 import {
   AtSymbolIcon,
   CashIcon,
@@ -14,8 +13,9 @@ import formatAddress from '@lib/formatAddress';
 import getAttribute from '@lib/getAttribute';
 import { getFollowModule } from '@lib/getFollowModule';
 import hasPrideLogo from '@lib/hasPrideLogo';
+import { APP_NAME } from 'data/constants';
+import type { Profile } from 'lens';
 import type { FC } from 'react';
-import { APP_NAME } from 'src/constants';
 
 import MetaDetails from './MetaDetails';
 

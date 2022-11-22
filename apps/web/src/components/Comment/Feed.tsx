@@ -5,24 +5,24 @@ import { Card } from '@components/UI/Card';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import InfiniteLoader from '@components/UI/InfiniteLoader';
-import type { LensterPublication } from '@generated/lenstertypes';
-import { CustomFiltersTypes, useCommentFeedQuery } from '@generated/types';
+import type { LensterPublication } from '@generated/types';
 import { CollectionIcon } from '@heroicons/react/outline';
+import { SCROLL_THRESHOLD } from 'data/constants';
+import { CustomFiltersTypes, useCommentFeedQuery } from 'lens';
 import type { FC } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { SCROLL_THRESHOLD } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { useTransactionPersistStore } from 'src/store/transaction';
 
-import NewComment from '../Composer/Comment/New';
+import NewPublication from '../Composer/NewPublication';
 import CommentWarning from '../Shared/CommentWarning';
 
 interface Props {
-  publication: LensterPublication;
+  publication?: LensterPublication;
 }
 
 const Feed: FC<Props> = ({ publication }) => {
-  const publicationId = publication.__typename === 'Mirror' ? publication?.mirrorOf?.id : publication?.id;
+  const publicationId = publication?.__typename === 'Mirror' ? publication?.mirrorOf?.id : publication?.id;
   const currentProfile = useAppStore((state) => state.currentProfile);
   const txnQueue = useTransactionPersistStore((state) => state.txnQueue);
 
@@ -52,7 +52,7 @@ const Feed: FC<Props> = ({ publication }) => {
 
   return (
     <>
-      {currentProfile ? canComment ? <NewComment publication={publication} /> : <CommentWarning /> : null}
+      {currentProfile ? canComment ? <NewPublication publication={publication} /> : <CommentWarning /> : null}
       {loading && <PublicationsShimmer />}
       {!loading && totalComments === 0 && (
         <EmptyState

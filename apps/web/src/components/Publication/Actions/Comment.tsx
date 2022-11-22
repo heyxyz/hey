@@ -1,5 +1,5 @@
 import { Tooltip } from '@components/UI/Tooltip';
-import type { LensterPublication } from '@generated/lenstertypes';
+import type { LensterPublication } from '@generated/types';
 import { ChatAlt2Icon } from '@heroicons/react/outline';
 import humanize from '@lib/humanize';
 import nFormatter from '@lib/nFormatter';

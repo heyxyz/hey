@@ -1,4 +1,4 @@
-import type { Attribute } from '@generated/types';
+import type { Attribute } from 'lens';
 
 /**
  *

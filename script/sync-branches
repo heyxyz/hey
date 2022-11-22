@@ -21,4 +21,10 @@ git checkout sandbox
 git merge main
 git push origin sandbox
 git checkout main
+echo "Syncing staging-sandbox branch with main branch 🔄"
+git pull origin main >> /dev/null
+git checkout staging-sandbox
+git merge main
+git push origin staging-sandbox
+git checkout main
 echo "Branches synced 🎉"

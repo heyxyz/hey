@@ -1,17 +1,16 @@
 import { S3 } from '@aws-sdk/client-s3';
-import type { LensterAttachment } from '@generated/lenstertypes';
+import type { LensterAttachment } from '@generated/types';
 import axios from 'axios';
-import { EVER_API } from 'src/constants';
+import { EVER_API, SERVERLESS_URL } from 'data/constants';
 import { v4 as uuid } from 'uuid';
 
-const bucketName = process.env.NEXT_PUBLIC_EVER_BUCKET_NAME as string;
 const params = {
-  Bucket: bucketName,
+  Bucket: 'lenster-media',
   Key: uuid()
 };
 
 const getS3Client = async () => {
-  const token = await axios.get('/api/sts/token');
+  const token = await axios.get(`${SERVERLESS_URL}/sts/token`);
   const client = new S3({
     endpoint: EVER_API,
     credentials: {

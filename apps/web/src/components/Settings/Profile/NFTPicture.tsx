@@ -1,4 +1,3 @@
-import { LensHubProxy } from '@abis/LensHubProxy';
 import IndexStatus from '@components/Shared/IndexStatus';
 import { Button } from '@components/UI/Button';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
@@ -6,21 +5,22 @@ import { Form, useZodForm } from '@components/UI/Form';
 import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
-import type { NftImage, Profile, UpdateProfileImageRequest } from '@generated/types';
-import {
-  useCreateSetProfileImageUriTypedDataMutation,
-  useCreateSetProfileImageUriViaDispatcherMutation,
-  useNftChallengeLazyQuery
-} from '@generated/types';
 import { PencilIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
 import { Leafwatch } from '@lib/leafwatch';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
+import { LensHubProxy } from 'abis';
+import { ADDRESS_REGEX, IS_MAINNET, LENSHUB_PROXY, RELAY_ON, SIGN_WALLET } from 'data/constants';
+import type { NftImage, Profile, UpdateProfileImageRequest } from 'lens';
+import {
+  useCreateSetProfileImageUriTypedDataMutation,
+  useCreateSetProfileImageUriViaDispatcherMutation,
+  useNftChallengeLazyQuery
+} from 'lens';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import { ADDRESS_REGEX, IS_MAINNET, LENSHUB_PROXY, RELAY_ON, SIGN_WALLET } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { SETTINGS } from 'src/tracking';
 import { chain, useContractWrite, useSignMessage, useSignTypedData } from 'wagmi';

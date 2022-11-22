@@ -1,17 +1,9 @@
-import { LensHubProxy } from '@abis/LensHubProxy';
 import AllowanceButton from '@components/Settings/Allowance/Button';
 import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
 import { WarningMessage } from '@components/UI/WarningMessage';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
-import type { LensterFollowModule } from '@generated/lenstertypes';
-import type { Profile } from '@generated/types';
-import {
-  FollowModules,
-  useApprovedModuleAllowanceAmountQuery,
-  useCreateFollowTypedDataMutation,
-  useSuperFollowQuery
-} from '@generated/types';
+import type { LensterFollowModule } from '@generated/types';
 import { StarIcon, UserIcon } from '@heroicons/react/outline';
 import formatAddress from '@lib/formatAddress';
 import getSignature from '@lib/getSignature';
@@ -19,10 +11,18 @@ import getTokenImage from '@lib/getTokenImage';
 import { Leafwatch } from '@lib/leafwatch';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
+import { LensHubProxy } from 'abis';
+import { LENSHUB_PROXY, POLYGONSCAN_URL, RELAY_ON, SIGN_WALLET } from 'data/constants';
+import type { Profile } from 'lens';
+import {
+  FollowModules,
+  useApprovedModuleAllowanceAmountQuery,
+  useCreateFollowTypedDataMutation,
+  useSuperFollowQuery
+} from 'lens';
 import type { Dispatch, FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import { LENSHUB_PROXY, POLYGONSCAN_URL, RELAY_ON, SIGN_WALLET } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { PROFILE } from 'src/tracking';
 import { useAccount, useBalance, useContractWrite, useSignTypedData } from 'wagmi';

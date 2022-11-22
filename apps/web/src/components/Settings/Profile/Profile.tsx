@@ -1,4 +1,3 @@
-import { LensPeriphery } from '@abis/LensPeriphery';
 import ChooseFile from '@components/Shared/ChooseFile';
 import IndexStatus from '@components/Shared/IndexStatus';
 import { Button } from '@components/UI/Button';
@@ -10,12 +9,6 @@ import { Spinner } from '@components/UI/Spinner';
 import { TextArea } from '@components/UI/TextArea';
 import { Toggle } from '@components/UI/Toggle';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
-import type { CreatePublicSetProfileMetadataUriRequest, MediaSet } from '@generated/types';
-import {
-  Profile,
-  useCreateSetProfileMetadataTypedDataMutation,
-  useCreateSetProfileMetadataViaDispatcherMutation
-} from '@generated/types';
 import { PencilIcon } from '@heroicons/react/outline';
 import getAttribute from '@lib/getAttribute';
 import getIPFSLink from '@lib/getIPFSLink';
@@ -27,10 +20,17 @@ import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import uploadToArweave from '@lib/uploadToArweave';
 import uploadToIPFS from '@lib/uploadToIPFS';
+import { LensPeriphery } from 'abis';
+import { APP_NAME, COVER, LENS_PERIPHERY, RELAY_ON, SIGN_WALLET, URL_REGEX } from 'data/constants';
+import type { CreatePublicSetProfileMetadataUriRequest, MediaSet } from 'lens';
+import {
+  Profile,
+  useCreateSetProfileMetadataTypedDataMutation,
+  useCreateSetProfileMetadataViaDispatcherMutation
+} from 'lens';
 import type { ChangeEvent, FC } from 'react';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import { APP_NAME, COVER, LENS_PERIPHERY, RELAY_ON, SIGN_WALLET, URL_REGEX } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { SETTINGS } from 'src/tracking';
 import { v4 as uuid } from 'uuid';
@@ -54,8 +54,6 @@ interface Props {
 }
 
 const Profile: FC<Props> = ({ profile }) => {
-  const userSigNonce = useAppStore((state) => state.userSigNonce);
-  const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [pride, setPride] = useState(hasPrideLogo(profile));
   const [cover, setCover] = useState('');
@@ -100,7 +98,6 @@ const Profile: FC<Props> = ({ profile }) => {
             sig
           };
 
-          setUserSigNonce(userSigNonce + 1);
           if (!RELAY_ON) {
             return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
           }
@@ -126,10 +123,7 @@ const Profile: FC<Props> = ({ profile }) => {
     });
     if (data?.createSetProfileMetadataViaDispatcher?.__typename === 'RelayError') {
       createSetProfileMetadataTypedData({
-        variables: {
-          options: { overrideSigNonce: userSigNonce },
-          request
-        }
+        variables: { request }
       });
     }
   };
@@ -209,10 +203,7 @@ const Profile: FC<Props> = ({ profile }) => {
       createViaDispatcher(request);
     } else {
       createSetProfileMetadataTypedData({
-        variables: {
-          options: { overrideSigNonce: userSigNonce },
-          request
-        }
+        variables: { request }
       });
     }
   };

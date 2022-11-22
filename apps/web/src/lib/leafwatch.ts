@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { DATADOG_TOKEN, IS_PRODUCTION, LEAFWATCH_HOST } from 'src/constants';
+import { DATADOG_TOKEN, IS_PRODUCTION, LEAFWATCH_HOST } from 'data/constants';
 import { v4 as uuid } from 'uuid';
 
 const enabled = DATADOG_TOKEN && IS_PRODUCTION;
@@ -18,10 +18,7 @@ export const Leafwatch = {
     if (isBrowser && enabled && ip) {
       axios(LEAFWATCH_HOST, {
         method: 'POST',
-        params: {
-          'dd-api-key': DATADOG_TOKEN,
-          'dd-request-id': uuid()
-        },
+        params: { 'dd-api-key': DATADOG_TOKEN, 'dd-request-id': uuid() },
         data: {
           ddsource: 'browser',
           event: name,

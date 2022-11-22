@@ -1,5 +1,5 @@
 import { Card } from '@components/UI/Card';
-import type { LensterPublication } from '@generated/lenstertypes';
+import type { LensterPublication } from '@generated/types';
 import { CollectionIcon, GlobeAltIcon, HashtagIcon, LinkIcon } from '@heroicons/react/outline';
 import { ShieldCheckIcon } from '@heroicons/react/solid';
 import getIPFSLink from '@lib/getIPFSLink';

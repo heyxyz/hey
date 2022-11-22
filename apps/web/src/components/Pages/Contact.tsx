@@ -10,10 +10,10 @@ import MetaTags from '@components/utils/MetaTags';
 import { PencilAltIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
 import { Leafwatch } from '@lib/leafwatch';
+import { APP_NAME, CONTACT_EMAIL } from 'data/constants';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useEffect } from 'react';
-import { APP_NAME, CONTACT_EMAIL } from 'src/constants';
 import { PAGEVIEW } from 'src/tracking';
 import { object, string } from 'zod';
 

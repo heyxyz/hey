@@ -1,4 +1,3 @@
-import { LensHubProxy } from '@abis/LensHubProxy';
 import IndexStatus from '@components/Shared/IndexStatus';
 import { Button } from '@components/UI/Button';
 import { Card } from '@components/UI/Card';
@@ -6,21 +5,19 @@ import { Form, useZodForm } from '@components/UI/Form';
 import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
-import type { Erc20 } from '@generated/types';
-import {
-  useCreateSetFollowModuleTypedDataMutation,
-  useEnabledCurrencyModulesWithProfileQuery
-} from '@generated/types';
 import { StarIcon, XIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
 import getTokenImage from '@lib/getTokenImage';
 import { Leafwatch } from '@lib/leafwatch';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
+import { LensHubProxy } from 'abis';
+import { ADDRESS_REGEX, DEFAULT_COLLECT_TOKEN, LENSHUB_PROXY, RELAY_ON, SIGN_WALLET } from 'data/constants';
+import type { Erc20 } from 'lens';
+import { useCreateSetFollowModuleTypedDataMutation, useEnabledCurrencyModulesWithProfileQuery } from 'lens';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import { ADDRESS_REGEX, DEFAULT_COLLECT_TOKEN, LENSHUB_PROXY, RELAY_ON, SIGN_WALLET } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { SETTINGS } from 'src/tracking';
 import { useContractWrite, useSignTypedData } from 'wagmi';

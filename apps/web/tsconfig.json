@@ -5,7 +5,6 @@
     "noEmit": true,
     "paths": {
       "@components*": ["src/components*"],
-      "@abis*": ["src/abis*"],
       "@utils*": ["src/utils*"],
       "@lib*": ["src/lib*"],
       "@gql*": ["src/graphql*"],

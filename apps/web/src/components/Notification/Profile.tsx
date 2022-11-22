@@ -1,7 +1,7 @@
-import type { Profile } from '@generated/types';
 import { BadgeCheckIcon } from '@heroicons/react/solid';
 import getAvatar from '@lib/getAvatar';
 import isVerified from '@lib/isVerified';
+import type { Profile } from 'lens';
 import Link from 'next/link';
 import type { FC } from 'react';
 

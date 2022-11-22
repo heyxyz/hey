@@ -4,12 +4,12 @@ import { Card } from '@components/UI/Card';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import InfiniteLoader from '@components/UI/InfiniteLoader';
-import type { LensterPublication } from '@generated/lenstertypes';
-import { PublicationSortCriteria, PublicationTypes, useExploreFeedQuery } from '@generated/types';
+import type { LensterPublication } from '@generated/types';
 import { CollectionIcon } from '@heroicons/react/outline';
+import { SCROLL_THRESHOLD } from 'data/constants';
+import { PublicationSortCriteria, PublicationTypes, useExploreFeedQuery } from 'lens';
 import type { FC } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { SCROLL_THRESHOLD } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 
 const Feed: FC = () => {

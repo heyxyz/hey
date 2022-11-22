@@ -1,6 +1,6 @@
-import { CustomFiltersTypes, useNotificationCountQuery } from '@generated/types';
 import { LightningBoltIcon } from '@heroicons/react/outline';
 import { Leafwatch } from '@lib/leafwatch';
+import { CustomFiltersTypes, useNotificationCountQuery } from 'lens';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';

@@ -1,5 +1,5 @@
-import { CollectModules, FollowModules, ReferenceModules } from '@generated/types';
-import { FREE_COLLECT_MODULE } from 'src/constants';
+import { FREE_COLLECT_MODULE } from 'data/constants';
+import { CollectModules, FollowModules, ReferenceModules } from 'lens';
 
 /**
  *

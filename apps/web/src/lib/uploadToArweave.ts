@@ -1,6 +1,6 @@
 import axios from 'axios';
+import { ERROR_MESSAGE, SERVERLESS_URL } from 'data/constants';
 import toast from 'react-hot-toast';
-import { ERROR_MESSAGE } from 'src/constants';
 
 /**
  *
@@ -9,8 +9,11 @@ import { ERROR_MESSAGE } from 'src/constants';
  */
 const uploadToArweave = async (data: any): Promise<string> => {
   try {
-    const upload = await axios('/api/metadata/upload', {
+    const upload = await axios(`${SERVERLESS_URL}/metadata/upload`, {
       method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
       data
     });
 

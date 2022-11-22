@@ -3,12 +3,12 @@ import WalletProfile from '@components/Shared/WalletProfile';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import InfiniteLoader from '@components/UI/InfiniteLoader';
-import type { Profile, Wallet } from '@generated/types';
-import { useCollectorsQuery } from '@generated/types';
 import { CollectionIcon } from '@heroicons/react/outline';
+import { SCROLL_THRESHOLD } from 'data/constants';
+import type { Profile, Wallet } from 'lens';
+import { useCollectorsQuery } from 'lens';
 import type { FC } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { SCROLL_THRESHOLD } from 'src/constants';
 
 import Loader from '../Loader';
 

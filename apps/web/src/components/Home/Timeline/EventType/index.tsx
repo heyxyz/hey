@@ -1,4 +1,4 @@
-import type { FeedItem } from '@generated/types';
+import type { FeedItem } from 'lens';
 import type { FC } from 'react';
 
 import Collected from './Collected';

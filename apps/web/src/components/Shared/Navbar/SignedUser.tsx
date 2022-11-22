@@ -1,6 +1,5 @@
 import useStaffMode from '@components/utils/hooks/useStaffMode';
 import { useDisconnectXmtp } from '@components/utils/hooks/useXmtpClient';
-import type { Profile } from '@generated/types';
 import { Menu, Transition } from '@headlessui/react';
 import {
   CheckCircleIcon,
@@ -21,6 +20,7 @@ import isStaff from '@lib/isStaff';
 import { Leafwatch } from '@lib/leafwatch';
 import resetAuthData from '@lib/resetAuthData';
 import clsx from 'clsx';
+import type { Profile } from 'lens';
 import { useRouter } from 'next/router';
 import { useTheme } from 'next-themes';
 import type { FC } from 'react';

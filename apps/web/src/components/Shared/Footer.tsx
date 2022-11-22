@@ -1,8 +1,8 @@
 import useStaffMode from '@components/utils/hooks/useStaffMode';
 import { Leafwatch } from '@lib/leafwatch';
+import { APP_NAME } from 'data/constants';
 import Link from 'next/link';
 import type { FC } from 'react';
-import { APP_NAME } from 'src/constants';
 import { FOOTER } from 'src/tracking';
 
 const Footer: FC = () => {

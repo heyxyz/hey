@@ -1,12 +1,12 @@
 import Loader from '@components/Shared/Loader';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import HelpTooltip from '@components/UI/HelpTooltip';
-import type { LensterPublication } from '@generated/lenstertypes';
+import type { LensterPublication } from '@generated/types';
 import humanize from '@lib/humanize';
 import axios from 'axios';
+import { ERROR_MESSAGE, SERVERLESS_URL } from 'data/constants';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
-import { ERROR_MESSAGE } from 'src/constants';
 
 const Stat: FC<{ title: string; helper: string; stat: number }> = ({ title, helper, stat }) => (
   <div className="">
@@ -28,7 +28,7 @@ const Stats: FC<Props> = ({ publication }) => {
 
   const getStats = async () => {
     try {
-      const response = await axios('/api/analytics/publication', {
+      const response = await axios(`${SERVERLESS_URL}/analytics/publication`, {
         method: 'GET',
         params: { id: publication.id }
       });

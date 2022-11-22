@@ -1,7 +1,7 @@
 import Attachments from '@components/Shared/Attachments';
 import IFramely from '@components/Shared/IFramely';
 import Markup from '@components/Shared/Markup';
-import type { LensterPublication } from '@generated/lenstertypes';
+import type { LensterPublication } from '@generated/types';
 import { EyeIcon } from '@heroicons/react/outline';
 import getURLs from '@lib/getURLs';
 import clsx from 'clsx';

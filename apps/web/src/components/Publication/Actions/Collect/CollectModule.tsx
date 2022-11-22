@@ -1,5 +1,3 @@
-import { LensHubProxy } from '@abis/LensHubProxy';
-import { UpdateOwnableFeeCollectModule } from '@abis/UpdateOwnableFeeCollectModule';
 import AllowanceButton from '@components/Settings/Allowance/Button';
 import CollectWarning from '@components/Shared/CollectWarning';
 import IndexStatus from '@components/Shared/IndexStatus';
@@ -14,16 +12,7 @@ import { Spinner } from '@components/UI/Spinner';
 import { Tooltip } from '@components/UI/Tooltip';
 import { WarningMessage } from '@components/UI/WarningMessage';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
-import type { LensterPublication } from '@generated/lenstertypes';
-import type { ElectedMirror } from '@generated/types';
-import {
-  CollectModules,
-  useApprovedModuleAllowanceAmountQuery,
-  useCollectModuleQuery,
-  useCreateCollectTypedDataMutation,
-  useProxyActionMutation,
-  usePublicationRevenueQuery
-} from '@generated/types';
+import type { LensterPublication } from '@generated/types';
 import {
   CashIcon,
   ClockIcon,
@@ -37,20 +26,30 @@ import { CheckCircleIcon } from '@heroicons/react/solid';
 import formatAddress from '@lib/formatAddress';
 import getAssetAddress from '@lib/getAssetAddress';
 import getCoingeckoPrice from '@lib/getCoingeckoPrice';
-import getEnvConfig from '@lib/getEnvConfig';
 import getSignature from '@lib/getSignature';
 import getTokenImage from '@lib/getTokenImage';
 import humanize from '@lib/humanize';
 import { Leafwatch } from '@lib/leafwatch';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
+import { LensHubProxy, UpdateOwnableFeeCollectModule } from 'abis';
+import { LENSHUB_PROXY, POLYGONSCAN_URL, RELAY_ON, SIGN_WALLET } from 'data/constants';
+import getEnvConfig from 'data/utils/getEnvConfig';
 import dayjs from 'dayjs';
 import type { BigNumber } from 'ethers';
 import { defaultAbiCoder } from 'ethers/lib/utils';
+import type { ElectedMirror } from 'lens';
+import {
+  CollectModules,
+  useApprovedModuleAllowanceAmountQuery,
+  useCollectModuleQuery,
+  useCreateCollectTypedDataMutation,
+  useProxyActionMutation,
+  usePublicationRevenueQuery
+} from 'lens';
 import type { Dispatch, FC } from 'react';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import { LENSHUB_PROXY, POLYGONSCAN_URL, RELAY_ON, SIGN_WALLET } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { PUBLICATION } from 'src/tracking';
 import { useAccount, useBalance, useContractRead, useContractWrite, useSignTypedData } from 'wagmi';

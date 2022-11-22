@@ -1,8 +1,8 @@
 import { Button } from '@components/UI/Button';
 import { Modal } from '@components/UI/Modal';
-import type { Profile } from '@generated/types';
 import { StarIcon } from '@heroicons/react/outline';
 import { Leafwatch } from '@lib/leafwatch';
+import type { Profile } from 'lens';
 import dynamic from 'next/dynamic';
 import type { Dispatch, FC } from 'react';
 import { useState } from 'react';

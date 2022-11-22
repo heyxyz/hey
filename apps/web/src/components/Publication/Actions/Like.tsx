@@ -1,19 +1,19 @@
 import type { ApolloCache } from '@apollo/client';
 import { Tooltip } from '@components/UI/Tooltip';
-import type { LensterPublication } from '@generated/lenstertypes';
-import { ReactionTypes, useAddReactionMutation, useRemoveReactionMutation } from '@generated/types';
+import type { LensterPublication } from '@generated/types';
 import { HeartIcon } from '@heroicons/react/outline';
 import { HeartIcon as HeartIconSolid } from '@heroicons/react/solid';
 import { publicationKeyFields } from '@lib/keyFields';
 import { Leafwatch } from '@lib/leafwatch';
 import nFormatter from '@lib/nFormatter';
 import onError from '@lib/onError';
+import { SIGN_WALLET } from 'data/constants';
 import { motion } from 'framer-motion';
+import { ReactionTypes, useAddReactionMutation, useRemoveReactionMutation } from 'lens';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import { SIGN_WALLET } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { PUBLICATION } from 'src/tracking';
 

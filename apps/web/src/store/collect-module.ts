@@ -1,5 +1,5 @@
-import { CollectModules } from '@generated/types';
-import { DEFAULT_COLLECT_TOKEN } from 'src/constants';
+import { DEFAULT_COLLECT_TOKEN } from 'data/constants';
+import { CollectModules } from 'lens';
 import create from 'zustand';
 
 interface CollectModuleState {

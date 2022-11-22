@@ -1,8 +1,8 @@
 import { Modal } from '@components/UI/Modal';
-import type { Profile } from '@generated/types';
 import { UsersIcon } from '@heroicons/react/outline';
 import humanize from '@lib/humanize';
 import { Leafwatch } from '@lib/leafwatch';
+import type { Profile } from 'lens';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { PROFILE } from 'src/tracking';

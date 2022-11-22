@@ -1,4 +1,3 @@
-import { LensPeriphery } from '@abis/LensPeriphery';
 import { Button } from '@components/UI/Button';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Form, useZodForm } from '@components/UI/Form';
@@ -6,23 +5,26 @@ import { Input } from '@components/UI/Input';
 import { PageLoading } from '@components/UI/PageLoading';
 import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
-import type { CreatePublicSetProfileMetadataUriRequest } from '@generated/types';
+import { PencilIcon } from '@heroicons/react/outline';
+import getAttribute from '@lib/getAttribute';
+import getSignature from '@lib/getSignature';
+import { Leafwatch } from '@lib/leafwatch';
+import onError from '@lib/onError';
+import splitSignature from '@lib/splitSignature';
+import uploadToArweave from '@lib/uploadToArweave';
+import { LensPeriphery } from 'abis';
+import { APP_NAME, LENS_PERIPHERY, RELAY_ON, SIGN_WALLET } from 'data/constants';
+import type { CreatePublicSetProfileMetadataUriRequest } from 'lens';
 import {
   useCreateSetProfileMetadataTypedDataMutation,
   useCreateSetProfileMetadataViaDispatcherMutation,
   useProfileSettingsQuery
-} from '@generated/types';
-import { PencilIcon } from '@heroicons/react/outline';
-import getAttribute from '@lib/getAttribute';
-import getSignature from '@lib/getSignature';
-import onError from '@lib/onError';
-import splitSignature from '@lib/splitSignature';
-import uploadToArweave from '@lib/uploadToArweave';
+} from 'lens';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import { APP_NAME, LENS_PERIPHERY, RELAY_ON, SIGN_WALLET } from 'src/constants';
 import { useAppStore } from 'src/store/app';
+import { SETTINGS } from 'src/tracking';
 import { v4 as uuid } from 'uuid';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 import { object, string } from 'zod';
@@ -38,8 +40,6 @@ const editStatusSchema = object({
 
 const Status: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const userSigNonce = useAppStore((state) => state.userSigNonce);
-  const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const [isUploading, setIsUploading] = useState(false);
   const [emoji, setEmoji] = useState<string>('');
 
@@ -93,7 +93,6 @@ const Status: FC = () => {
             sig
           };
 
-          setUserSigNonce(userSigNonce + 1);
           if (!RELAY_ON) {
             return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
           }
@@ -119,10 +118,7 @@ const Status: FC = () => {
     });
     if (data?.createSetProfileMetadataViaDispatcher?.__typename === 'RelayError') {
       createSetProfileMetadataTypedData({
-        variables: {
-          options: { overrideSigNonce: userSigNonce },
-          request
-        }
+        variables: { request }
       });
     }
   };
@@ -171,10 +167,7 @@ const Status: FC = () => {
       createViaDispatcher(request);
     } else {
       createSetProfileMetadataTypedData({
-        variables: {
-          options: { overrideSigNonce: userSigNonce },
-          request
-        }
+        variables: { request }
       });
     }
   };
@@ -206,6 +199,7 @@ const Status: FC = () => {
         className="space-y-4"
         onSubmit={({ status }) => {
           editStatus(emoji, status);
+          Leafwatch.track(SETTINGS.PROFILE.SET_PICTURE);
         }}
       >
         <Input
@@ -225,6 +219,7 @@ const Status: FC = () => {
                 setEmoji('');
                 form.setValue('status', '');
                 editStatus('', '');
+                Leafwatch.track(SETTINGS.PROFILE.CLEAR_STATUS);
               }}
             >
               Clear status
