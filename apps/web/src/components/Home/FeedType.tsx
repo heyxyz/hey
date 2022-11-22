@@ -5,7 +5,6 @@ import type { Dispatch, FC } from 'react';
 import { MISCELLANEOUS } from 'src/tracking';
 
 import FeedEventFilters from './FeedEventFilters';
-import SeeThroughLens from './SeeThroughLens';
 
 interface Props {
   setFeedType: Dispatch<'TIMELINE' | 'HIGHLIGHTS'>;
@@ -37,10 +36,7 @@ const FeedType: FC<Props> = ({ setFeedType, feedType }) => {
           }}
         />
       </div>
-      <div className="flex items-center space-x-4">
-        <SeeThroughLens />
-        {feedType === 'TIMELINE' && <FeedEventFilters />}
-      </div>
+      {feedType === 'TIMELINE' && <FeedEventFilters />}
     </div>
   );
 };
