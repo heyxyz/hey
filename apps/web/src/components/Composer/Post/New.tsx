@@ -19,7 +19,7 @@ import { useEffect, useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { usePublicationStore } from 'src/store/publication';
 
-import NewUpdate from './Update';
+import NewPublication from '../NewPublication';
 
 type Action = 'update' | 'image' | 'video' | 'audio' | 'article';
 
@@ -126,7 +126,7 @@ const NewPost: FC = () => {
           show={showNewPostModal}
           onClose={() => setShowNewPostModal(false)}
         >
-          {selectedAction === 'update' && <NewUpdate />}
+          {selectedAction === 'update' && <NewPublication />}
         </Modal>
       </div>
     </Card>

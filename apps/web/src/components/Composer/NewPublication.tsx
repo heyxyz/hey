@@ -8,7 +8,7 @@ import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
 import type { LensterAttachment, LensterPublication } from '@generated/types';
 import type { IGif } from '@giphy/js-types';
-import { ChatAlt2Icon } from '@heroicons/react/outline';
+import { ChatAlt2Icon, PencilAltIcon } from '@heroicons/react/outline';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import getSignature from '@lib/getSignature';
 import getTags from '@lib/getTags';
@@ -20,6 +20,7 @@ import splitSignature from '@lib/splitSignature';
 import trimify from '@lib/trimify';
 import uploadToArweave from '@lib/uploadToArweave';
 import { LensHubProxy } from 'abis';
+import clsx from 'clsx';
 import {
   ALLOWED_AUDIO_TYPES,
   ALLOWED_IMAGE_TYPES,
@@ -34,7 +35,9 @@ import {
   PublicationMainFocus,
   ReferenceModules,
   useCreateCommentTypedDataMutation,
-  useCreateCommentViaDispatcherMutation
+  useCreateCommentViaDispatcherMutation,
+  useCreatePostTypedDataMutation,
+  useCreatePostViaDispatcherMutation
 } from 'lens';
 import { $getRoot } from 'lexical';
 import dynamic from 'next/dynamic';
@@ -46,11 +49,11 @@ import { useCollectModuleStore } from 'src/store/collect-module';
 import { usePublicationStore } from 'src/store/publication';
 import { useReferenceModuleStore } from 'src/store/reference-module';
 import { useTransactionPersistStore } from 'src/store/transaction';
-import { COMMENT } from 'src/tracking';
+import { COMMENT, POST } from 'src/tracking';
 import { v4 as uuid } from 'uuid';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
-import Editor from '../Editor';
+import Editor from './Editor';
 
 const Attachment = dynamic(() => import('@components/Composer/Actions/Attachment'), {
   loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
@@ -72,7 +75,7 @@ interface Props {
   publication: LensterPublication;
 }
 
-const NewComment: FC<Props> = ({ publication }) => {
+const NewPublication: FC<Props> = ({ publication }) => {
   // App store
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
@@ -97,12 +100,13 @@ const NewComment: FC<Props> = ({ publication }) => {
   const degreesOfSeparation = useReferenceModuleStore((state) => state.degreesOfSeparation);
 
   // States
-  const [commentContentError, setCommentContentError] = useState('');
-  const [isUploading, setIsUploading] = useState(false);
+  const [publicationContentError, setPublicationContentError] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [attachments, setAttachments] = useState<LensterAttachment[]>([]);
   const [editor] = useLexicalComposerContext();
 
-  const isAudioComment = ALLOWED_AUDIO_TYPES.includes(attachments[0]?.type);
+  const isComment = Boolean(publication);
+  const isAudioPublication = ALLOWED_AUDIO_TYPES.includes(attachments[0]?.type);
 
   const onCompleted = () => {
     editor.update(() => {
@@ -111,18 +115,18 @@ const NewComment: FC<Props> = ({ publication }) => {
     setPublicationContent('');
     setAttachments([]);
     resetCollectSettings();
-    Leafwatch.track(COMMENT.NEW);
+    Leafwatch.track(isComment ? COMMENT.NEW : POST.NEW);
   };
 
   useEffect(() => {
-    setCommentContentError('');
+    setPublicationContentError('');
   }, [audioPublication]);
 
-  const generateOptimisticComment = ({ txHash, txId }: { txHash?: string; txId?: string }) => {
+  const generateOptimisticPublication = ({ txHash, txId }: { txHash?: string; txId?: string }) => {
     return {
       id: uuid(),
-      parent: publication.id,
-      type: 'NEW_COMMENT',
+      ...(isComment && { parent: publication.id }),
+      type: isComment ? 'NEW_COMMENT' : 'NEW_POST',
       txHash,
       txId,
       content: publicationContent,
@@ -133,31 +137,28 @@ const NewComment: FC<Props> = ({ publication }) => {
     };
   };
 
-  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
+  const { signTypedDataAsync } = useSignTypedData({ onError });
 
-  const {
-    error,
-    isLoading: writeLoading,
-    write
-  } = useContractWrite({
+  const { error, write } = useContractWrite({
     address: LENSHUB_PROXY,
     abi: LensHubProxy,
-    functionName: 'commentWithSig',
+    functionName: isComment ? 'commentWithSig' : 'postWithSig',
     mode: 'recklesslyUnprepared',
     onSuccess: ({ hash }) => {
       onCompleted();
-      setTxnQueue([generateOptimisticComment({ txHash: hash }), ...txnQueue]);
+      setTxnQueue([generateOptimisticPublication({ txHash: hash }), ...txnQueue]);
     },
     onError
   });
 
-  const { broadcast, loading: broadcastLoading } = useBroadcast({
+  const { broadcast } = useBroadcast({
     onCompleted: (data) => {
       onCompleted();
-      setTxnQueue([generateOptimisticComment({ txId: data?.broadcast?.txId }), ...txnQueue]);
+      setTxnQueue([generateOptimisticPublication({ txId: data?.broadcast?.txId }), ...txnQueue]);
     }
   });
-  const [createCommentTypedData, { loading: typedDataLoading }] = useCreateCommentTypedDataMutation({
+
+  const [createCommentTypedData] = useCreateCommentTypedDataMutation({
     onCompleted: async ({ createCommentTypedData }) => {
       try {
         const { id, typedData } = createCommentTypedData;
@@ -206,33 +207,97 @@ const NewComment: FC<Props> = ({ publication }) => {
     onError
   });
 
-  const [createCommentViaDispatcher, { loading: dispatcherLoading }] = useCreateCommentViaDispatcherMutation({
+  const [createPostTypedData] = useCreatePostTypedDataMutation({
+    onCompleted: async ({ createPostTypedData }) => {
+      try {
+        const { id, typedData } = createPostTypedData;
+        const {
+          profileId,
+          contentURI,
+          collectModule,
+          collectModuleInitData,
+          referenceModule,
+          referenceModuleInitData,
+          deadline
+        } = typedData.value;
+        const signature = await signTypedDataAsync(getSignature(typedData));
+        const { v, r, s } = splitSignature(signature);
+        const sig = { v, r, s, deadline };
+        const inputStruct = {
+          profileId,
+          contentURI,
+          collectModule,
+          collectModuleInitData,
+          referenceModule,
+          referenceModuleInitData,
+          sig
+        };
+
+        setUserSigNonce(userSigNonce + 1);
+        if (!RELAY_ON) {
+          return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
+        }
+
+        const {
+          data: { broadcast: result }
+        } = await broadcast({ request: { id, signature } });
+
+        if ('reason' in result) {
+          write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
+        }
+      } catch {}
+    },
+    onError
+  });
+
+  const [createCommentViaDispatcher] = useCreateCommentViaDispatcherMutation({
     onCompleted: (data) => {
       onCompleted();
       if (data.createCommentViaDispatcher.__typename === 'RelayerResult') {
-        setTxnQueue([generateOptimisticComment({ txId: data.createCommentViaDispatcher.txId }), ...txnQueue]);
+        setTxnQueue([
+          generateOptimisticPublication({ txId: data.createCommentViaDispatcher.txId }),
+          ...txnQueue
+        ]);
       }
     },
     onError
   });
 
-  const createViaDispatcher = async (request: CreatePublicCommentRequest) => {
-    const { data } = await createCommentViaDispatcher({
-      variables: { request }
-    });
-    if (data?.createCommentViaDispatcher?.__typename === 'RelayError') {
-      createCommentTypedData({
-        variables: {
-          options: { overrideSigNonce: userSigNonce },
-          request
-        }
-      });
+  const [createPostViaDispatcher] = useCreatePostViaDispatcherMutation({
+    onCompleted: (data) => {
+      onCompleted();
+      if (data.createPostViaDispatcher.__typename === 'RelayerResult') {
+        setTxnQueue([
+          generateOptimisticPublication({ txId: data.createPostViaDispatcher.txId }),
+          ...txnQueue
+        ]);
+      }
+    },
+    onError
+  });
+
+  const createViaDispatcher = async (request: any) => {
+    const variables = {
+      options: { overrideSigNonce: userSigNonce },
+      request
+    };
+
+    if (isComment) {
+      const { data } = await createCommentViaDispatcher({ variables: { request } });
+      if (data?.createCommentViaDispatcher?.__typename === 'RelayError') {
+        createCommentTypedData({ variables });
+      }
+    } else {
+      const { data } = await createPostViaDispatcher({ variables: { request } });
+      if (data?.createPostViaDispatcher?.__typename === 'RelayError') {
+        createPostTypedData({ variables });
+      }
     }
   };
 
   const getMainContentFocus = () => {
     if (attachments.length > 0) {
-      if (isAudioComment) {
+      if (isAudioPublication) {
         return PublicationMainFocus.Audio;
       } else if (ALLOWED_IMAGE_TYPES.includes(attachments[0]?.type)) {
         return PublicationMainFocus.Image;
@@ -245,111 +310,128 @@ const NewComment: FC<Props> = ({ publication }) => {
   };
 
   const getAnimationUrl = () => {
-    if (attachments.length > 0 && (isAudioComment || ALLOWED_VIDEO_TYPES.includes(attachments[0]?.type))) {
+    if (
+      attachments.length > 0 &&
+      (isAudioPublication || ALLOWED_VIDEO_TYPES.includes(attachments[0]?.type))
+    ) {
       return attachments[0]?.item;
     }
     return null;
   };
 
   const getAttachmentImage = () => {
-    return isAudioComment ? audioPublication.cover : attachments[0]?.item;
+    return isAudioPublication ? audioPublication.cover : attachments[0]?.item;
   };
 
   const getAttachmentImageMimeType = () => {
-    return isAudioComment ? audioPublication.coverMimeType : attachments[0]?.type;
+    return isAudioPublication ? audioPublication.coverMimeType : attachments[0]?.type;
   };
 
-  const createComment = async () => {
+  const createPublication = async () => {
     if (!currentProfile) {
       return toast.error(SIGN_WALLET);
     }
 
-    if (isAudioComment) {
-      setCommentContentError('');
-      const parsedData = AudioPublicationSchema.safeParse(audioPublication);
-      if (!parsedData.success) {
-        const issue = parsedData.error.issues[0];
-        return setCommentContentError(issue.message);
-      }
-    }
+    try {
+      setIsSubmitting(true);
 
-    if (publicationContent.length === 0 && attachments.length === 0) {
-      return setCommentContentError('Comment should not be empty!');
-    }
-
-    setCommentContentError('');
-    setIsUploading(true);
-
-    let textNftImageUrl = null;
-    if (!attachments.length) {
-      textNftImageUrl = await getTextNftUrl(
-        publicationContent,
-        currentProfile.handle,
-        new Date().toLocaleString()
-      );
-    }
-
-    const attributes = [
-      {
-        traitType: 'type',
-        displayType: 'string',
-        value: getMainContentFocus()?.toLowerCase()
-      }
-    ];
-    if (isAudioComment) {
-      attributes.push({
-        traitType: 'author',
-        displayType: 'string',
-        value: audioPublication.author
-      });
-    }
-
-    const id = await uploadToArweave({
-      version: '2.0.0',
-      metadata_id: uuid(),
-      description: trimify(publicationContent),
-      content: trimify(publicationContent),
-      external_url: `https://lenster.xyz/u/${currentProfile?.handle}`,
-      image: attachments.length > 0 ? getAttachmentImage() : textNftImageUrl,
-      imageMimeType: attachments.length > 0 ? getAttachmentImageMimeType() : 'image/svg+xml',
-      name: isAudioComment ? audioPublication.title : `Comment by @${currentProfile?.handle}`,
-      tags: getTags(publicationContent),
-      animation_url: getAnimationUrl(),
-      mainContentFocus: getMainContentFocus(),
-      contentWarning: null,
-      attributes,
-      media: attachments,
-      locale: getUserLocale(),
-      createdOn: new Date(),
-      appId: APP_NAME
-    }).finally(() => setIsUploading(false));
-
-    const request = {
-      profileId: currentProfile?.id,
-      publicationId: publication.__typename === 'Mirror' ? publication?.mirrorOf?.id : publication?.id,
-      contentURI: `https://arweave.net/${id}`,
-      collectModule: payload,
-      referenceModule:
-        selectedReferenceModule === ReferenceModules.FollowerOnlyReferenceModule
-          ? { followerOnlyReferenceModule: onlyFollowers ? true : false }
-          : {
-              degreesOfSeparationReferenceModule: {
-                commentsRestricted: true,
-                mirrorsRestricted: true,
-                degreesOfSeparation
-              }
-            }
-    };
-
-    if (currentProfile?.dispatcher?.canUseRelay) {
-      createViaDispatcher(request);
-    } else {
-      createCommentTypedData({
-        variables: {
-          options: { overrideSigNonce: userSigNonce },
-          request
+      if (isAudioPublication) {
+        setPublicationContentError('');
+        const parsedData = AudioPublicationSchema.safeParse(audioPublication);
+        if (!parsedData.success) {
+          const issue = parsedData.error.issues[0];
+          return setPublicationContentError(issue.message);
         }
+      }
+
+      if (publicationContent.length === 0 && attachments.length === 0) {
+        return setPublicationContentError(`${isComment ? 'Comment' : 'Post'} should not be empty!`);
+      }
+
+      setPublicationContentError('');
+      let textNftImageUrl = null;
+      if (!attachments.length) {
+        textNftImageUrl = await getTextNftUrl(
+          publicationContent,
+          currentProfile.handle,
+          new Date().toLocaleString()
+        );
+      }
+
+      const attributes = [
+        {
+          traitType: 'type',
+          displayType: 'string',
+          value: getMainContentFocus()?.toLowerCase()
+        }
+      ];
+
+      if (isAudioPublication) {
+        attributes.push({
+          traitType: 'author',
+          displayType: 'string',
+          value: audioPublication.author
+        });
+      }
+
+      const id = await uploadToArweave({
+        version: '2.0.0',
+        metadata_id: uuid(),
+        description: trimify(publicationContent),
+        content: trimify(publicationContent),
+        external_url: `https://lenster.xyz/u/${currentProfile?.handle}`,
+        image: attachments.length > 0 ? getAttachmentImage() : textNftImageUrl,
+        imageMimeType: attachments.length > 0 ? getAttachmentImageMimeType() : 'image/svg+xml',
+        name: isAudioPublication ? audioPublication.title : `Comment by @${currentProfile?.handle}`,
+        tags: getTags(publicationContent),
+        animation_url: getAnimationUrl(),
+        mainContentFocus: getMainContentFocus(),
+        contentWarning: null,
+        attributes,
+        media: attachments,
+        locale: getUserLocale(),
+        createdOn: new Date(),
+        appId: APP_NAME
       });
+
+      const request = {
+        profileId: currentProfile?.id,
+        contentURI: `https://arweave.net/${id}`,
+        ...(isComment && {
+          publicationId: publication.__typename === 'Mirror' ? publication?.mirrorOf?.id : publication?.id
+        }),
+        collectModule: payload,
+        referenceModule:
+          selectedReferenceModule === ReferenceModules.FollowerOnlyReferenceModule
+            ? { followerOnlyReferenceModule: onlyFollowers ? true : false }
+            : {
+                degreesOfSeparationReferenceModule: {
+                  commentsRestricted: true,
+                  mirrorsRestricted: true,
+                  degreesOfSeparation
+                }
+              }
+      };
+
+      if (currentProfile?.dispatcher?.canUseRelay) {
+        await createViaDispatcher(request);
+      } else {
+        if (isComment) {
+          await createCommentTypedData({
+            variables: {
+              options: { overrideSigNonce: userSigNonce },
+              request: request as CreatePublicCommentRequest
+            }
+          });
+        } else {
+          await createPostTypedData({
+            variables: { options: { overrideSigNonce: userSigNonce }, request }
+          });
+        }
+      }
+    } catch {
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -362,15 +444,12 @@ const NewComment: FC<Props> = ({ publication }) => {
     setAttachments([...attachments, attachment]);
   };
 
-  const isLoading =
-    isUploading || typedDataLoading || dispatcherLoading || signLoading || writeLoading || broadcastLoading;
-
   return (
-    <Card className="pb-3">
+    <Card className={clsx({ 'border-none rounded-none': !isComment }, 'pb-3')}>
       {error && <ErrorMessage className="mb-3" title="Transaction failed!" error={error} />}
       <Editor />
-      {commentContentError && (
-        <div className="px-5 pb-3 mt-1 text-sm font-bold text-red-500">{commentContentError}</div>
+      {publicationContentError && (
+        <div className="px-5 pb-3 mt-1 text-sm font-bold text-red-500">{publicationContentError}</div>
       )}
       <div className="block items-center sm:flex px-5">
         <div className="flex items-center space-x-4">
@@ -382,11 +461,19 @@ const NewComment: FC<Props> = ({ publication }) => {
         </div>
         <div className="ml-auto pt-2 sm:pt-0">
           <Button
-            disabled={isLoading}
-            icon={isLoading ? <Spinner size="xs" /> : <ChatAlt2Icon className="w-4 h-4" />}
-            onClick={createComment}
+            disabled={isSubmitting}
+            icon={
+              isSubmitting ? (
+                <Spinner size="xs" />
+              ) : isComment ? (
+                <ChatAlt2Icon className="w-4 h-4" />
+              ) : (
+                <PencilAltIcon className="w-4 h-4" />
+              )
+            }
+            onClick={createPublication}
           >
-            Comment
+            {isComment ? 'Comment' : 'Post'}
           </Button>
         </div>
       </div>
@@ -397,4 +484,4 @@ const NewComment: FC<Props> = ({ publication }) => {
   );
 };
 
-export default withLexicalContext(NewComment);
+export default withLexicalContext(NewPublication);
