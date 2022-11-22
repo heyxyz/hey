@@ -24,7 +24,6 @@ export const mainnetVerified = [
   '0x018cba', // thehuman_ret.lens
   '0x018cbd', // hairyguy_wea.lens
   '0x018cb8', // isucceed_spy.lens
-  '0x018cb8', // isucceed_spy.lens
   '0x018ebd', // mintstarsreal.lens
   '0xe506’, // diaoul.lens
   '0x018d18', // chainlink.lens
