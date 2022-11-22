@@ -20,9 +20,16 @@ type Props = {
   children: React.ReactNode;
   isBig?: boolean;
   followStatusLoading?: boolean;
+  showUserPreview?: boolean;
 };
 
-const UserPreview: FC<Props> = ({ profile, isBig, followStatusLoading, children }) => {
+const UserPreview: FC<Props> = ({
+  profile,
+  isBig,
+  followStatusLoading,
+  children,
+  showUserPreview = true
+}) => {
   const [showPreview, setShowPreview] = useState(false);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [following, setFollowing] = useState(profile?.isFollowedByMe);
@@ -98,7 +105,7 @@ const UserPreview: FC<Props> = ({ profile, isBig, followStatusLoading, children 
     setShowPreview(true);
   };
 
-  return (
+  return showUserPreview ? (
     <div onMouseOver={onPreviewStart} onMouseLeave={onPreviewEnd}>
       {showPreview ? (
         <Tippy
@@ -117,6 +124,8 @@ const UserPreview: FC<Props> = ({ profile, isBig, followStatusLoading, children 
         <span>{children}</span>
       )}
     </div>
+  ) : (
+    <span>{children}</span>
   );
 };
 
