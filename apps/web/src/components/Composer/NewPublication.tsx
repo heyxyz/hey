@@ -213,12 +213,12 @@ const NewPublication: FC<Props> = ({ publication }) => {
   };
 
   const [createCommentTypedData] = useCreateCommentTypedDataMutation({
-    onCompleted: async ({ createCommentTypedData }) => typedDataGenerator(createCommentTypedData),
+    onCompleted: ({ createCommentTypedData }) => typedDataGenerator(createCommentTypedData),
     onError
   });
 
   const [createPostTypedData] = useCreatePostTypedDataMutation({
-    onCompleted: async ({ createPostTypedData }) => typedDataGenerator(createPostTypedData),
+    onCompleted: ({ createPostTypedData }) => typedDataGenerator(createPostTypedData),
     onError
   });
 
