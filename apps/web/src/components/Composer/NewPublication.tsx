@@ -85,6 +85,7 @@ const NewPublication: FC<Props> = ({ publication }) => {
   const publicationContent = usePublicationStore((state) => state.publicationContent);
   const setPublicationContent = usePublicationStore((state) => state.setPublicationContent);
   const audioPublication = usePublicationStore((state) => state.audioPublication);
+  const setShowNewPostModal = usePublicationStore((state) => state.setShowNewPostModal);
 
   // Transaction persist store
   const txnQueue = useTransactionPersistStore((state) => state.txnQueue);
@@ -115,6 +116,9 @@ const NewPublication: FC<Props> = ({ publication }) => {
     setPublicationContent('');
     setAttachments([]);
     resetCollectSettings();
+    if (!isComment) {
+      setShowNewPostModal(false);
+    }
     Leafwatch.track(isComment ? COMMENT.NEW : POST.NEW);
   };
 
