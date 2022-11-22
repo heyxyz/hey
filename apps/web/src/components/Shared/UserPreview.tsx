@@ -91,7 +91,7 @@ const UserPreview: FC<Props> = ({ profile, isBig, followStatusLoading, children 
   );
 
   const onPreviewEnd = () => {
-    setShowPreview(false);
+    // setShowPreview(false);
   };
 
   const onPreviewStart = () => {
@@ -107,9 +107,10 @@ const UserPreview: FC<Props> = ({ profile, isBig, followStatusLoading, children 
           hideOnClick={false}
           content={<Preview />}
           arrow={false}
-          interactive
+          interactive={true}
           zIndex={1000}
           className="!bg-white hidden md:block !px-1.5 !py-3 !text-black dark:!text-white w-64 dark:!bg-black border dark:border-gray-700 !rounded-xl"
+          appendTo={() => document.body}
         >
           <span>{children}</span>
         </Tippy>
