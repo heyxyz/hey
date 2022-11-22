@@ -9,6 +9,7 @@ import useBroadcast from '@components/utils/hooks/useBroadcast';
 import type { LensterAttachment, LensterPublication } from '@generated/types';
 import type { IGif } from '@giphy/js-types';
 import { ChatAlt2Icon, PencilAltIcon } from '@heroicons/react/outline';
+import { $convertFromMarkdownString } from '@lexical/markdown';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import getSignature from '@lib/getSignature';
 import getTags from '@lib/getTags';
@@ -125,6 +126,13 @@ const NewPublication: FC<Props> = ({ publication }) => {
   useEffect(() => {
     setPublicationContentError('');
   }, [audioPublication]);
+
+  useEffect(() => {
+    editor.update(() => {
+      $convertFromMarkdownString(publicationContent);
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const generateOptimisticPublication = ({ txHash, txId }: { txHash?: string; txId?: string }) => {
     return {
