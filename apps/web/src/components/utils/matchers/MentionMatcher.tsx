@@ -3,16 +3,22 @@ import UserPreview from '@components/Shared/UserPreview';
 import { Leafwatch } from '@lib/leafwatch';
 import { Matcher } from 'interweave';
 import type { Profile } from 'lens';
-import { useProfileQuery } from 'lens';
+// import { useProfileQuery } from 'lens';
 import Link from 'next/link';
 import { createElement } from 'react';
 import { PUBLICATION } from 'src/tracking';
 
 export const Mention = ({ ...props }: any) => {
-  const { data } = useProfileQuery({
-    variables: { request: { handle: props?.display.slice(1) } }
-  });
-  const profile = data?.profile;
+  // const { data } = useProfileQuery({
+  //   variables: { request: { handle: props?.display.slice(1) } }
+  // });
+  // const profile = data?.profile;
+  const profile = {
+    __typename: 'Profile',
+    handle: props?.display.slice(1),
+    name: '',
+    id: ''
+  };
 
   return (
     <Link
@@ -22,7 +28,7 @@ export const Mention = ({ ...props }: any) => {
         Leafwatch.track(PUBLICATION.MENTION_CLICK, { username: props.display });
       }}
     >
-      {profile?.name ? (
+      {profile?.handle ? (
         <UserPreview
           isBig={props?.isBig}
           profile={profile as Profile}
