@@ -28,9 +28,6 @@ const SeeThroughLens: FC = () => {
   const [recommendedProfilesToSeeThrough, setRecommendedProfilesToSeeThrough] = useState<Profile[]>([]);
   const [searchText, setSearchText] = useState('');
 
-  const profile = seeThroughProfile ?? currentProfile;
-  const request = { profileId: profile?.id, limit: 50 };
-
   const setRecommendedProfiles = (feedItems: FeedItem[]) => {
     let uniqueProfileIds: string[] = [];
     let profiles: Profile[] = [];
@@ -47,6 +44,9 @@ const SeeThroughLens: FC = () => {
     }
     setRecommendedProfilesToSeeThrough(profiles?.slice(0, 5));
   };
+
+  const profile = seeThroughProfile ?? currentProfile;
+  const request = { profileId: profile?.id, limit: 50 };
 
   const [searchUsers, { data: searchUsersData, loading: searchUsersLoading }] = useSearchProfilesLazyQuery();
 
