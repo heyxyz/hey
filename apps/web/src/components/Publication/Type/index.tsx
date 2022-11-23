@@ -14,7 +14,7 @@ interface Props {
 
 const PublicationType: FC<Props> = ({ publication, showType, showThread = false }) => {
   const type = publication.__typename;
-  const isCollected = !!publication?.collectedBy;
+  const isCollected = Boolean(publication?.collectedBy);
 
   if (!showType) {
     return null;
