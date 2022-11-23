@@ -4,10 +4,11 @@ import { HomeIcon } from '@heroicons/react/outline';
 import { Leafwatch } from '@lib/leafwatch';
 import { APP_NAME, STATIC_IMAGES_URL } from 'data/constants';
 import Link from 'next/link';
+import type { FC } from 'react';
 import { useEffect } from 'react';
 import { PAGEVIEW } from 'src/tracking';
 
-export default function Custom404() {
+const Custom404: FC = () => {
   useEffect(() => {
     Leafwatch.track('Pageview', { path: PAGEVIEW.ERROR_404 });
   }, []);
@@ -27,4 +28,6 @@ export default function Custom404() {
       </div>
     </div>
   );
-}
+};
+
+export default Custom404;

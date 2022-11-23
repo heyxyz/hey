@@ -1,4 +1,5 @@
 import LexicalAutoLinkPlugin from '@components/Shared/Lexical/Plugins/AutoLinkPlugin';
+import EmojisPlugin from '@components/Shared/Lexical/Plugins/EmojisPlugin';
 import ToolbarPlugin from '@components/Shared/Lexical/Plugins/ToolbarPlugin';
 import { $convertToMarkdownString, TEXT_FORMAT_TRANSFORMERS } from '@lexical/markdown';
 import { ContentEditable } from '@lexical/react/LexicalContentEditable';
@@ -38,6 +39,7 @@ const Editor: FC = () => {
           });
         }}
       />
+      <EmojisPlugin />
       <LexicalAutoLinkPlugin />
       <HistoryPlugin />
       <HashtagPlugin />
