@@ -6,6 +6,7 @@ import { XCircleIcon } from '@heroicons/react/solid';
 import getWalletLogo from '@lib/getWalletLogo';
 import { Leafwatch } from '@lib/leafwatch';
 import onError from '@lib/onError';
+import toSnakeCase from '@lib/toSnakeCase';
 import clsx from 'clsx';
 import { ERROR_MESSAGE } from 'data/constants';
 import { useAuthenticateMutation, useChallengeLazyQuery, useUserProfilesLazyQuery } from 'lens';
@@ -46,7 +47,7 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
       if (account) {
         setHasConnected(true);
       }
-      Leafwatch.track(`connect_with_${connector.name.toLowerCase()}`);
+      Leafwatch.track(`connect_with_${toSnakeCase(connector.name.toLowerCase())}`);
     } catch (error) {
       console.error(error);
     }
