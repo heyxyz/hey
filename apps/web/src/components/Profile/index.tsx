@@ -1,15 +1,13 @@
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import MetaTags from '@components/utils/MetaTags';
-import { Leafwatch } from '@lib/leafwatch';
 import { APP_NAME, STATIC_IMAGES_URL } from 'data/constants';
 import { useProfileQuery } from 'lens';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
 import { useAppStore } from 'src/store/app';
-import { PAGEVIEW } from 'src/tracking';
 
 import Cover from './Cover';
 import Details from './Details';
@@ -33,15 +31,6 @@ const ViewProfile: NextPage = () => {
     variables: { request: { handle: username }, who: currentProfile?.id ?? null },
     skip: !username
   });
-
-  useEffect(() => {
-    if (data?.profile?.id) {
-      Leafwatch.track('Pageview', {
-        path: PAGEVIEW.PROFILE,
-        id: data.profile.id
-      });
-    }
-  }, [data]);
 
   if (error) {
     return <Custom500 />;

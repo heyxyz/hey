@@ -10,9 +10,8 @@ import clsx from 'clsx';
 import { APP_NAME, STATIC_IMAGES_URL } from 'data/constants';
 import { PublicationSortCriteria } from 'lens';
 import type { NextPage } from 'next';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
-import { PAGEVIEW } from 'src/tracking';
 
 import Feed from './Feed';
 import FeedType from './FeedType';
@@ -20,10 +19,6 @@ import FeedType from './FeedType';
 const Explore: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [focus, setFocus] = useState<any>();
-
-  useEffect(() => {
-    Leafwatch.track('Pageview', { path: PAGEVIEW.EXPLORE });
-  }, []);
 
   const tabs = [
     { name: 'For you', emoji: 'leaf-fluttering-in-wind.png', type: PublicationSortCriteria.CuratedProfiles },

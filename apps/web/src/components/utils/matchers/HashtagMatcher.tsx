@@ -17,7 +17,7 @@ export const Hashtag = ({ ...props }: any) => {
           href={`/search?q=${props.display.slice(1)}&type=pubs&src=link_click`}
           onClick={(event) => {
             event.stopPropagation();
-            Leafwatch.track(PUBLICATION.HASHTAG_CLICK, { hashtag: props.display });
+            Leafwatch.track(PUBLICATION.HASHTAG_CLICK);
           }}
         >
           {props.display}

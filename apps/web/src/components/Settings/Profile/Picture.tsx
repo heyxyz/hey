@@ -40,7 +40,7 @@ const Picture: FC<Props> = ({ profile }) => {
 
   const onCompleted = () => {
     toast.success('Avatar updated successfully!');
-    Leafwatch.track(SETTINGS.PROFILE.SET_PICTURE, { type: 'IPFS' });
+    Leafwatch.track(SETTINGS.PROFILE.SET_PICTURE);
   };
 
   const {
