@@ -7,8 +7,13 @@ import { ChevronDownIcon } from '@heroicons/react/solid';
 import getAvatar from '@lib/getAvatar';
 import { Leafwatch } from '@lib/leafwatch';
 import clsx from 'clsx';
-import type { Profile } from 'lens';
-import { CustomFiltersTypes, SearchRequestTypes, useSearchProfilesLazyQuery } from 'lens';
+import type { FeedItem, Profile } from 'lens';
+import {
+  CustomFiltersTypes,
+  SearchRequestTypes,
+  useSearchProfilesLazyQuery,
+  useTimelineLazyQuery
+} from 'lens';
 import type { ChangeEvent, FC } from 'react';
 import React, { Fragment, useState } from 'react';
 import { useAppStore } from 'src/store/app';
@@ -19,12 +24,39 @@ const SeeThroughLens: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const seeThroughProfile = useTimelineStore((state) => state.seeThroughProfile);
   const setSeeThroughProfile = useTimelineStore((state) => state.setSeeThroughProfile);
-  const recommendedProfilesToSeeThrough = useTimelineStore((state) => state.recommendedProfilesToSeeThrough);
+
+  const [recommendedProfilesToSeeThrough, setRecommendedProfilesToSeeThrough] = useState<Profile[]>([]);
   const [searchText, setSearchText] = useState('');
 
   const profile = seeThroughProfile ?? currentProfile;
+  const request = { profileId: profile?.id, limit: 50 };
+
+  const setRecommendedProfiles = (feedItems: FeedItem[]) => {
+    let uniqueProfileIds: string[] = [];
+    let profiles: Profile[] = [];
+    for (const feedItem of feedItems) {
+      const profileId = feedItem.root?.profile?.id;
+      if (
+        !uniqueProfileIds.includes(profileId) &&
+        profileId !== seeThroughProfile?.id &&
+        profileId !== currentProfile?.id
+      ) {
+        profiles.push(feedItem.root?.profile as Profile);
+        uniqueProfileIds.push(profileId);
+      }
+    }
+    setRecommendedProfilesToSeeThrough(profiles?.slice(0, 5));
+  };
 
   const [searchUsers, { data: searchUsersData, loading: searchUsersLoading }] = useSearchProfilesLazyQuery();
+
+  const [fetchRecommendedProfiles, { loading, error }] = useTimelineLazyQuery({
+    variables: { request, profileId: profile?.id },
+    onCompleted: (data) => {
+      const feedItems = data?.feed?.items as FeedItem[];
+      setRecommendedProfiles(feedItems);
+    }
+  });
 
   const handleSearch = (evt: ChangeEvent<HTMLInputElement>) => {
     const keyword = evt.target.value;
@@ -50,7 +82,10 @@ const SeeThroughLens: FC = () => {
 
   return (
     <Menu as="div" className="relative">
-      <Menu.Button className="rounded-md hover:bg-gray-300 p-1 hover:bg-opacity-20">
+      <Menu.Button
+        onClick={() => fetchRecommendedProfiles()}
+        className="rounded-md hover:bg-gray-300 p-1 hover:bg-opacity-20"
+      >
         <span className="flex space-x-1 items-center text-sm pl-1">
           <img
             src={getAvatar(profile)}
@@ -107,7 +142,7 @@ const SeeThroughLens: FC = () => {
             </button>
           )}
           <div className="mx-2 mb-2">
-            {searchUsersLoading ? (
+            {searchUsersLoading || loading ? (
               <div className="py-2 px-4 space-y-2 text-sm font-bold text-center">
                 <Spinner size="sm" className="mx-auto" />
                 <div>Searching users</div>
@@ -129,7 +164,9 @@ const SeeThroughLens: FC = () => {
                     <UserProfile showUserPreview={false} linkToProfile={false} profile={profile} />
                   </Menu.Item>
                 ))}
-                {profiles.length === 0 && <div className="py-4 text-center">No matching users</div>}
+                {(profiles.length === 0 || error) && (
+                  <div className="py-4 text-center">No matching users</div>
+                )}
               </>
             )}
           </div>
