@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.7.1",
+    "@aws-sdk/client-s3": "^3.211.0",
     "@giphy/js-fetch-api": "^4.3.1",
     "@giphy/react-components": "^6.2.0",
     "@headlessui/react": "^1.7.4",
@@ -49,6 +50,7 @@
     "zustand": "^4.1.4"
   },
   "devDependencies": {
+    "@giphy/js-types": "^4.2.1",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/forms": "^0.5.3",
     "@tailwindcss/line-clamp": "^0.4.2",
@@ -56,14 +58,14 @@
     "@types/react-copy-to-clipboard": "^5.0.4",
     "@types/react-dom": "^18.0.9",
     "@types/uuid": "^8.3.4",
-    "abis": "*",
+    "abis": "workspace:*",
     "autoprefixer": "^10.4.13",
-    "data": "*",
-    "eslint-config-weblint": "*",
-    "lens": "*",
+    "data": "workspace:*",
+    "eslint-config-weblint": "workspace:*",
+    "lens": "workspace:*",
     "postcss": "^8.4.19",
     "tailwindcss": "^3.2.1",
-    "tsconfig": "*",
+    "tsconfig": "workspace:*",
     "typescript": "^4.9.3"
   }
 }
