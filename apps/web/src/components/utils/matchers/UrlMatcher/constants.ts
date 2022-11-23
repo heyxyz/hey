@@ -22,7 +22,7 @@ const combinePatterns = (patterns: RegExp[], options: CombinePatternsOptions = {
   return new RegExp(regex, options.flags ?? '');
 };
 
-const VALID_PATH_CHARS = /[\w!$%&'()*+,./;=[\\\]~\u0400-\u04FF\-]*/;
+const VALID_PATH_CHARS = /[\w!$%&'()*+,./;=[\\\]~\u0400-\u04FF\-]*/u;
 const URL_SCHEME = combinePatterns([/(https?:\/\/)?/], { capture: true });
 
 const URL_HOST = combinePatterns(
