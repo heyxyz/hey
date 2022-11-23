@@ -7,16 +7,22 @@ import { $createEmojiNode, EmojiNode } from '../Nodes/EmojiNode';
 
 const emojis: Map<string, [string, string]> = new Map([
   [':)', ['emoji happysmile', '🙂']],
-  [':D', ['emoji veryhappysmile', '😀']],
-  [':(', ['emoji unhappysmile', '🙁']],
-  ['<3', ['emoji heart', '❤']],
-  ['🙂', ['emoji happysmile', '🙂']],
-  ['😀', ['emoji veryhappysmile', '😀']],
-  ['🙁', ['emoji unhappysmile', '🙁']],
-  ['❤', ['emoji heart', '❤']]
+  [':(', ['emoji sadsmile', '🙁']],
+  [';)', ['emoji winksmile', '😉']],
+  [':D', ['emoji bigsmile', '😃']],
+  [':P', ['emoji tongue', '😛']],
+  [':O', ['emoji shock', '😮']],
+  [':|', ['emoji neutral', '😐']],
+  [':/', ['emoji confused', '😕']],
+  [':*', ['emoji kiss', '😘']],
+  [':$', ['emoji blush', '😳']],
+  [':@', ['emoji angry', '😠']],
+  [':s', ['emoji smirk', '😏']],
+  [':l', ['emoji sealed', '🌸']],
+  ['<3', ['emoji heart', '💜']]
 ]);
 
-function findAndTransformEmoji(node: TextNode): null | TextNode {
+const findAndTransformEmoji = (node: TextNode): null | TextNode => {
   const text = node.getTextContent();
 
   for (let i = 0; i < text.length; i++) {
@@ -34,14 +40,15 @@ function findAndTransformEmoji(node: TextNode): null | TextNode {
 
       const emojiNode = $createEmojiNode(emojiStyle, emojiText);
       targetNode.replace(emojiNode);
+
       return emojiNode;
     }
   }
 
   return null;
-}
+};
 
-function textNodeTransform(node: TextNode): void {
+const textNodeTransform = (node: TextNode): void => {
   let targetNode: TextNode | null = node;
 
   while (targetNode !== null) {
@@ -51,9 +58,9 @@ function textNodeTransform(node: TextNode): void {
 
     targetNode = findAndTransformEmoji(targetNode);
   }
-}
+};
 
-function useEmojis(editor: LexicalEditor): void {
+const useEmojis = (editor: LexicalEditor): void => {
   useEffect(() => {
     if (!editor.hasNodes([EmojiNode])) {
       throw new Error('EmojisPlugin: EmojiNode not registered on editor');
@@ -61,10 +68,13 @@ function useEmojis(editor: LexicalEditor): void {
 
     return editor.registerNodeTransform(TextNode, textNodeTransform);
   }, [editor]);
-}
+};
 
-export default function EmojisPlugin(): JSX.Element | null {
+export const EmojisPlugin = (): JSX.Element | null => {
   const [editor] = useLexicalComposerContext();
   useEmojis(editor);
+
   return null;
-}
+};
+
+export default EmojisPlugin;

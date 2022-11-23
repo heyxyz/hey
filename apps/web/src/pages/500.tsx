@@ -4,10 +4,11 @@ import { HomeIcon } from '@heroicons/react/outline';
 import { Leafwatch } from '@lib/leafwatch';
 import { APP_NAME } from 'data/constants';
 import Link from 'next/link';
+import type { FC } from 'react';
 import { useEffect } from 'react';
 import { PAGEVIEW } from 'src/tracking';
 
-export default function Custom500() {
+const Custom500: FC = () => {
   useEffect(() => {
     Leafwatch.track('Pageview', { path: PAGEVIEW.ERROR_500 });
   }, []);
@@ -29,4 +30,6 @@ export default function Custom500() {
       </div>
     </div>
   );
-}
+};
+
+export default Custom500;

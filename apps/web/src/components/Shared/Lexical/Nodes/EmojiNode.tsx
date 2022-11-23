@@ -1,13 +1,7 @@
 import type { EditorConfig, LexicalNode, NodeKey, SerializedTextNode, Spread } from 'lexical';
 import { TextNode } from 'lexical';
 
-export type SerializedEmojiNode = Spread<
-  {
-    className: string;
-    type: 'emoji';
-  },
-  SerializedTextNode
->;
+export type SerializedEmojiNode = Spread<{ className: string; type: 'emoji' }, SerializedTextNode>;
 
 export class EmojiNode extends TextNode {
   __className: string;
@@ -31,6 +25,7 @@ export class EmojiNode extends TextNode {
     dom.className = this.__className;
     inner.className = 'emoji-inner';
     dom.appendChild(inner);
+
     return dom;
   }
 
@@ -40,6 +35,7 @@ export class EmojiNode extends TextNode {
       return true;
     }
     super.updateDOM(prevNode, inner as HTMLElement, config);
+
     return false;
   }
 
@@ -50,6 +46,7 @@ export class EmojiNode extends TextNode {
     node.setDetail(serializedNode.detail);
     node.setMode(serializedNode.mode);
     node.setStyle(serializedNode.style);
+
     return node;
   }
 
@@ -67,10 +64,10 @@ export class EmojiNode extends TextNode {
   }
 }
 
-export function $isEmojiNode(node: LexicalNode | null | undefined): node is EmojiNode {
+export const $isEmojiNode = (node: LexicalNode | null | undefined): node is EmojiNode => {
   return node instanceof EmojiNode;
-}
+};
 
-export function $createEmojiNode(className: string, emojiText: string): EmojiNode {
+export const $createEmojiNode = (className: string, emojiText: string): EmojiNode => {
   return new EmojiNode(className, emojiText).setMode('token');
-}
+};
