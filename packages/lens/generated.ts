@@ -236,19 +236,19 @@ export type ClaimableHandles = {
 
 /** Condition that signifies if address or profile has collected a publication */
 export type CollectConditionInput = {
-  /** The collected publication id */
-  publicationId: Scalars['PublicationId'];
-  /** The collected publication id */
-  publisherId: Scalars['ProfileId'];
+  /** The publication id that has to be collected to unlock content */
+  publicationId?: InputMaybe<Scalars['ProfileId']>;
+  /** True if the content will be unlocked for this specific publication */
+  thisPublication?: InputMaybe<Scalars['Boolean']>;
 };
 
 /** Condition that signifies if address or profile has collected a publication */
 export type CollectConditionOutput = {
   __typename?: 'CollectConditionOutput';
-  /** The collected publication id */
-  publicationId: Scalars['PublicationId'];
-  /** The collected publication id */
-  publisherId: Scalars['ProfileId'];
+  /** The publication id that has to be collected to unlock content */
+  publicationId?: Maybe<Scalars['ProfileId']>;
+  /** True if the content will be unlocked for this specific publication */
+  thisPublication?: Maybe<Scalars['Boolean']>;
 };
 
 export type CollectModule =
@@ -945,6 +945,7 @@ export enum DecryptFailReason {
   DoesNotOwnProfile = 'DOES_NOT_OWN_PROFILE',
   FollowNotFinalisedOnChain = 'FOLLOW_NOT_FINALISED_ON_CHAIN',
   HasNotCollectedPublication = 'HAS_NOT_COLLECTED_PUBLICATION',
+  MissingEncryptionParams = 'MISSING_ENCRYPTION_PARAMS',
   ProfileDoesNotExist = 'PROFILE_DOES_NOT_EXIST',
   UnauthorizedAddress = 'UNAUTHORIZED_ADDRESS',
   UnauthorizedBalance = 'UNAUTHORIZED_BALANCE'
@@ -1134,16 +1135,12 @@ export type EnsOnChainIdentity = {
 export type EoaOwnershipInput = {
   /** The address that will have access to the content */
   address: Scalars['EthereumAddress'];
-  /** The chain ID of the address */
-  chainID: Scalars['ChainId'];
 };
 
 export type EoaOwnershipOutput = {
   __typename?: 'EoaOwnershipOutput';
   /** The address that will have access to the content */
   address: Scalars['EthereumAddress'];
-  /** The chain ID of the address */
-  chainID: Scalars['ChainId'];
 };
 
 /** The erc20 type */
@@ -16706,6 +16703,189 @@ export type SearchPublicationsQuery = {
       };
 };
 
+export type SeeThroughProfilesQueryVariables = Exact<{
+  request: FeedRequest;
+}>;
+
+export type SeeThroughProfilesQuery = {
+  __typename?: 'Query';
+  feed: {
+    __typename?: 'PaginatedFeedResult';
+    items: Array<{
+      __typename?: 'FeedItem';
+      root:
+        | {
+            __typename?: 'Comment';
+            profile: {
+              __typename?: 'Profile';
+              id: any;
+              name?: string | null;
+              handle: any;
+              bio?: string | null;
+              ownedBy: any;
+              isFollowedByMe: boolean;
+              stats: { __typename?: 'ProfileStats'; totalFollowers: number; totalFollowing: number };
+              attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
+              picture?:
+                | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
+                | { __typename?: 'NftImage'; uri: any }
+                | null;
+              followModule?:
+                | { __typename: 'FeeFollowModuleSettings' }
+                | { __typename: 'ProfileFollowModuleSettings' }
+                | { __typename: 'RevertFollowModuleSettings' }
+                | { __typename: 'UnknownFollowModuleSettings' }
+                | null;
+            };
+          }
+        | {
+            __typename?: 'Post';
+            profile: {
+              __typename?: 'Profile';
+              id: any;
+              name?: string | null;
+              handle: any;
+              bio?: string | null;
+              ownedBy: any;
+              isFollowedByMe: boolean;
+              stats: { __typename?: 'ProfileStats'; totalFollowers: number; totalFollowing: number };
+              attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
+              picture?:
+                | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
+                | { __typename?: 'NftImage'; uri: any }
+                | null;
+              followModule?:
+                | { __typename: 'FeeFollowModuleSettings' }
+                | { __typename: 'ProfileFollowModuleSettings' }
+                | { __typename: 'RevertFollowModuleSettings' }
+                | { __typename: 'UnknownFollowModuleSettings' }
+                | null;
+            };
+          };
+      electedMirror?: {
+        __typename?: 'ElectedMirror';
+        profile: {
+          __typename?: 'Profile';
+          id: any;
+          name?: string | null;
+          handle: any;
+          bio?: string | null;
+          ownedBy: any;
+          isFollowedByMe: boolean;
+          stats: { __typename?: 'ProfileStats'; totalFollowers: number; totalFollowing: number };
+          attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
+          picture?:
+            | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
+            | { __typename?: 'NftImage'; uri: any }
+            | null;
+          followModule?:
+            | { __typename: 'FeeFollowModuleSettings' }
+            | { __typename: 'ProfileFollowModuleSettings' }
+            | { __typename: 'RevertFollowModuleSettings' }
+            | { __typename: 'UnknownFollowModuleSettings' }
+            | null;
+        };
+      } | null;
+      mirrors: Array<{
+        __typename?: 'MirrorEvent';
+        profile: {
+          __typename?: 'Profile';
+          id: any;
+          name?: string | null;
+          handle: any;
+          bio?: string | null;
+          ownedBy: any;
+          isFollowedByMe: boolean;
+          stats: { __typename?: 'ProfileStats'; totalFollowers: number; totalFollowing: number };
+          attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
+          picture?:
+            | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
+            | { __typename?: 'NftImage'; uri: any }
+            | null;
+          followModule?:
+            | { __typename: 'FeeFollowModuleSettings' }
+            | { __typename: 'ProfileFollowModuleSettings' }
+            | { __typename: 'RevertFollowModuleSettings' }
+            | { __typename: 'UnknownFollowModuleSettings' }
+            | null;
+        };
+      }>;
+      collects: Array<{
+        __typename?: 'CollectedEvent';
+        profile: {
+          __typename?: 'Profile';
+          id: any;
+          name?: string | null;
+          handle: any;
+          bio?: string | null;
+          ownedBy: any;
+          isFollowedByMe: boolean;
+          stats: { __typename?: 'ProfileStats'; totalFollowers: number; totalFollowing: number };
+          attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
+          picture?:
+            | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
+            | { __typename?: 'NftImage'; uri: any }
+            | null;
+          followModule?:
+            | { __typename: 'FeeFollowModuleSettings' }
+            | { __typename: 'ProfileFollowModuleSettings' }
+            | { __typename: 'RevertFollowModuleSettings' }
+            | { __typename: 'UnknownFollowModuleSettings' }
+            | null;
+        };
+      }>;
+      reactions: Array<{
+        __typename?: 'ReactionEvent';
+        profile: {
+          __typename?: 'Profile';
+          id: any;
+          name?: string | null;
+          handle: any;
+          bio?: string | null;
+          ownedBy: any;
+          isFollowedByMe: boolean;
+          stats: { __typename?: 'ProfileStats'; totalFollowers: number; totalFollowing: number };
+          attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
+          picture?:
+            | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
+            | { __typename?: 'NftImage'; uri: any }
+            | null;
+          followModule?:
+            | { __typename: 'FeeFollowModuleSettings' }
+            | { __typename: 'ProfileFollowModuleSettings' }
+            | { __typename: 'RevertFollowModuleSettings' }
+            | { __typename: 'UnknownFollowModuleSettings' }
+            | null;
+        };
+      }>;
+      comments?: Array<{
+        __typename?: 'Comment';
+        profile: {
+          __typename?: 'Profile';
+          id: any;
+          name?: string | null;
+          handle: any;
+          bio?: string | null;
+          ownedBy: any;
+          isFollowedByMe: boolean;
+          stats: { __typename?: 'ProfileStats'; totalFollowers: number; totalFollowing: number };
+          attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
+          picture?:
+            | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
+            | { __typename?: 'NftImage'; uri: any }
+            | null;
+          followModule?:
+            | { __typename: 'FeeFollowModuleSettings' }
+            | { __typename: 'ProfileFollowModuleSettings' }
+            | { __typename: 'RevertFollowModuleSettings' }
+            | { __typename: 'UnknownFollowModuleSettings' }
+            | null;
+        };
+      }> | null;
+    }>;
+  };
+};
+
 export type SuperFollowQueryVariables = Exact<{
   request: SingleProfileQueryRequest;
 }>;
@@ -23418,6 +23598,93 @@ export type SearchPublicationsLazyQueryHookResult = ReturnType<typeof useSearchP
 export type SearchPublicationsQueryResult = Apollo.QueryResult<
   SearchPublicationsQuery,
   SearchPublicationsQueryVariables
+>;
+export const SeeThroughProfilesDocument = gql`
+  query SeeThroughProfiles($request: FeedRequest!) {
+    feed(request: $request) {
+      items {
+        root {
+          ... on Post {
+            profile {
+              ...ProfileFields
+            }
+          }
+          ... on Comment {
+            profile {
+              ...ProfileFields
+            }
+          }
+        }
+        electedMirror {
+          profile {
+            ...ProfileFields
+          }
+        }
+        mirrors {
+          profile {
+            ...ProfileFields
+          }
+        }
+        collects {
+          profile {
+            ...ProfileFields
+          }
+        }
+        reactions {
+          profile {
+            ...ProfileFields
+          }
+        }
+        comments {
+          profile {
+            ...ProfileFields
+          }
+        }
+      }
+    }
+  }
+  ${ProfileFieldsFragmentDoc}
+`;
+
+/**
+ * __useSeeThroughProfilesQuery__
+ *
+ * To run a query within a React component, call `useSeeThroughProfilesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSeeThroughProfilesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSeeThroughProfilesQuery({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useSeeThroughProfilesQuery(
+  baseOptions: Apollo.QueryHookOptions<SeeThroughProfilesQuery, SeeThroughProfilesQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<SeeThroughProfilesQuery, SeeThroughProfilesQueryVariables>(
+    SeeThroughProfilesDocument,
+    options
+  );
+}
+export function useSeeThroughProfilesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<SeeThroughProfilesQuery, SeeThroughProfilesQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<SeeThroughProfilesQuery, SeeThroughProfilesQueryVariables>(
+    SeeThroughProfilesDocument,
+    options
+  );
+}
+export type SeeThroughProfilesQueryHookResult = ReturnType<typeof useSeeThroughProfilesQuery>;
+export type SeeThroughProfilesLazyQueryHookResult = ReturnType<typeof useSeeThroughProfilesLazyQuery>;
+export type SeeThroughProfilesQueryResult = Apollo.QueryResult<
+  SeeThroughProfilesQuery,
+  SeeThroughProfilesQueryVariables
 >;
 export const SuperFollowDocument = gql`
   query SuperFollow($request: SingleProfileQueryRequest!) {
