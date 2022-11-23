@@ -72,9 +72,7 @@ const BottomNav: FC = () => {
             <NotificationIcon />
           </div>
         </div>
-      ) : (
-        null
-      )}
+      ) : null}
     </Disclosure>
   );
 };
