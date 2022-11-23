@@ -40,7 +40,7 @@ const AllowanceButton: FC<Props> = ({ title = 'Allow', module, allowed, setAllow
       toast.success(`Module ${allowed ? 'disabled' : 'enabled'} successfully!`);
       setShowWarningModal(false);
       setAllowed(!allowed);
-      Leafwatch.track(`Module ${allowed ? 'disabled' : 'enabled'}`);
+      Leafwatch.track(`module_${allowed ? 'disabled' : 'enabled'}`);
     },
     onError
   });
