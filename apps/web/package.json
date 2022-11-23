@@ -19,7 +19,7 @@
     "@hookform/resolvers": "^2.9.10",
     "@lexical/code": "0.6.0",
     "@lexical/hashtag": "0.6.0",
-    "@lexical/link": "0.6.0",
+    "@lexical/link": "0.6.2",
     "@lexical/markdown": "0.6.0",
     "@lexical/react": "0.6.0",
     "@tippyjs/react": "^4.2.6",
