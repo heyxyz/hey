@@ -1,4 +1,5 @@
 import MutualFollowers from '@components/Profile/MutualFollowers';
+import Loader from '@components/Shared/Loader';
 import { BadgeCheckIcon } from '@heroicons/react/solid';
 import getAvatar from '@lib/getAvatar';
 import isVerified from '@lib/isVerified';
@@ -25,6 +26,7 @@ type Props = {
 
 const UserPreview: FC<Props> = ({ profile, isBig, followStatusLoading, children }) => {
   const [profileData, setProfileData] = useState(profile);
+  const [loading, setLoading] = useState(false);
   const [showPreview, setShowPreview] = useState(false);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [following, setFollowing] = useState(profileData?.isFollowedByMe);
@@ -63,37 +65,47 @@ const UserPreview: FC<Props> = ({ profile, isBig, followStatusLoading, children 
     <>
       <div className="flex justify-between items-center">
         <UserAvatar />
-        <div onClick={(e) => e.preventDefault()}>
-          {!profileData.isFollowedByMe &&
-            (followStatusLoading ? (
-              <div className="w-10 h-8 rounded-lg shimmer" />
-            ) : following ? null : profileData?.followModule?.__typename === 'FeeFollowModuleSettings' ? (
-              <SuperFollow profile={profileData} setFollowing={setFollowing} />
-            ) : (
-              <Follow profile={profileData} setFollowing={setFollowing} />
-            ))}
-        </div>
+        {!loading && (
+          <div onClick={(e) => e.preventDefault()}>
+            {!profileData.isFollowedByMe &&
+              (followStatusLoading ? (
+                <div className="w-10 h-8 rounded-lg shimmer" />
+              ) : following ? null : profileData?.followModule?.__typename === 'FeeFollowModuleSettings' ? (
+                <SuperFollow profile={profileData} setFollowing={setFollowing} />
+              ) : (
+                <Follow profile={profileData} setFollowing={setFollowing} />
+              ))}
+          </div>
+        )}
       </div>
       <div className="p-1 space-y-3">
         <UserName />
-        <div>
-          {profileData?.bio && (
-            <div className={clsx(isBig ? 'text-base' : 'text-sm', 'mt-2', 'linkify break-words leading-6')}>
-              <Markup>{profileData?.bio}</Markup>
+        {!loading ? (
+          <>
+            <div>
+              {profileData?.bio && (
+                <div
+                  className={clsx(isBig ? 'text-base' : 'text-sm', 'mt-2', 'linkify break-words leading-6')}
+                >
+                  <Markup>{profileData?.bio}</Markup>
+                </div>
+              )}
             </div>
-          )}
-        </div>
-        <div className="flex space-x-3 items-center">
-          <div className="flex items-center space-x-1">
-            <div className="text-base">{nFormatter(profileData?.stats?.totalFollowing)}</div>
-            <div className="text-gray-500 text-sm">Following</div>
-          </div>
-          <div className="flex items-center space-x-1 text-md">
-            <div className="text-base">{nFormatter(profileData?.stats?.totalFollowers)}</div>
-            <div className="text-gray-500 text-sm">Followers</div>
-          </div>
-        </div>
-        {currentProfile && <MutualFollowers profile={profileData} variant="xs" />}
+            <div className="flex space-x-3 items-center">
+              <div className="flex items-center space-x-1">
+                <div className="text-base">{nFormatter(profileData?.stats?.totalFollowing)}</div>
+                <div className="text-gray-500 text-sm">Following</div>
+              </div>
+              <div className="flex items-center space-x-1 text-md">
+                <div className="text-base">{nFormatter(profileData?.stats?.totalFollowers)}</div>
+                <div className="text-gray-500 text-sm">Followers</div>
+              </div>
+            </div>
+            {currentProfile && <MutualFollowers profile={profileData} variant="xs" />}
+          </>
+        ) : (
+          <Loader message="Loading" />
+        )}
       </div>
     </>
   );
@@ -103,17 +115,17 @@ const UserPreview: FC<Props> = ({ profile, isBig, followStatusLoading, children 
   };
 
   const onPreviewStart = async () => {
+    setShowPreview(true);
     if (profileData.id == '') {
+      setLoading(true);
       const { data } = await loadProfile({
         variables: { request: { handle: profileData?.handle } }
       });
+      setLoading(false);
       const lazyProfile = data?.profile;
       if (lazyProfile) {
         setProfileData(lazyProfile as Profile);
-        setShowPreview(true);
       }
-    } else {
-      setShowPreview(true);
     }
   };
 
