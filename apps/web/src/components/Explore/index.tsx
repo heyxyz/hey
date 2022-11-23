@@ -41,7 +41,7 @@ const Explore: NextPage = () => {
                 key={index}
                 defaultChecked={index === 1}
                 onClick={() => {
-                  Leafwatch.track(`Switch to ${tab.type?.toLowerCase()} tab in explore`);
+                  Leafwatch.track(`switch_to_${tab.type?.toLowerCase()}_tab_in_explore`);
                 }}
                 className={({ selected }) =>
                   clsx(
