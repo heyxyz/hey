@@ -50,7 +50,7 @@ const SetProfile: FC = () => {
     onError
   });
 
-  const hasDefaultProfile = !!profiles.find((o) => o.isDefault);
+  const hasDefaultProfile = Boolean(profiles.find((o) => o.isDefault));
   const sortedProfiles: Profile[] = profiles?.sort((a, b) =>
     a.isDefault === b.isDefault ? 0 : a.isDefault ? -1 : 1
   );
