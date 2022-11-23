@@ -18,7 +18,7 @@ const App = ({ Component, pageProps }: AppProps) => {
       </Providers>
       {IS_PRODUCTION && (
         <>
-          <Script src="https://scripts.simpleanalyticscdn.com/latest.js" />
+          <Script data-collect-dnt="true" src="https://scripts.simpleanalyticscdn.com/latest.js" />
           <noscript>
             <img
               src="https://queue.simpleanalyticscdn.com/noscript.gif"
