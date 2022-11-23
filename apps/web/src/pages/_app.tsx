@@ -20,14 +20,10 @@ const App = ({ Component, pageProps }: AppProps) => {
       <Script strategy="lazyOnload" id="sa-script">
         {`window.sa_event=window.sa_event||function(){var a=[].slice.call(arguments);window.sa_event.q?window.sa_event.q.push(a):window.sa_event.q=[a]};`}
       </Script>
-      <Script
-        strategy="lazyOnload"
-        data-collect-dnt="true"
-        src="https://scripts.simpleanalyticscdn.com/latest.js"
-      />
+      <Script strategy="lazyOnload" data-collect-dnt="true" src="https://leafwatch.lenster.xyz/latest.js" />
       <noscript>
         <img
-          src="https://queue.simpleanalyticscdn.com/noscript.gif"
+          src="https://leafwatch.lenster.xyz/noscript.gif"
           alt=""
           referrerPolicy="no-referrer-when-downgrade"
         />
