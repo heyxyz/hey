@@ -1,10 +1,16 @@
 import { LS_KEYS } from 'data/constants';
+import type { Profile } from 'lens';
 import create from 'zustand';
 import { persist } from 'zustand/middleware';
 
 interface TimelinePersistState {
   feedEventFilters: Record<string, boolean>;
   setFeedEventFilters: (feedEventFilters: Record<string, boolean>) => void;
+}
+
+interface TimelineState {
+  seeThroughProfile: Profile | null;
+  setSeeThroughProfile: (profile: Profile | null) => void;
 }
 
 export const useTimelinePersistStore = create(
@@ -16,3 +22,8 @@ export const useTimelinePersistStore = create(
     { name: LS_KEYS.TIMELINE_STORE }
   )
 );
+
+export const useTimelineStore = create<TimelineState>((set) => ({
+  seeThroughProfile: null,
+  setSeeThroughProfile: (seeThroughProfile) => set(() => ({ seeThroughProfile }))
+}));

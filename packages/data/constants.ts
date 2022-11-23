@@ -42,7 +42,7 @@ export const GIT_COMMIT_SHA = process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA?.sli
 
 // Misc
 export const CONTACT_EMAIL = 'support@lenster.xyz';
-export const RELAY_ON = process.env.NEXT_PUBLIC_RELAY_ON === 'true';
+export const RELAY_ON = true;
 export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
 
 // Messages
@@ -58,10 +58,11 @@ export const STATIC_ASSETS_URL = 'https://assets.lenster.xyz';
 export const STATIC_IMAGES_URL = `${STATIC_ASSETS_URL}/images`;
 export const POLYGONSCAN_URL = IS_MAINNET ? 'https://polygonscan.com' : 'https://mumbai.polygonscan.com';
 export const RARIBLE_URL = IS_MAINNET ? 'https://rarible.com' : 'https://rinkeby.rarible.com';
-export const ARWEAVE_GATEWAY = 'https://arweave.net';
 export const IMGPROXY_URL = 'https://media.lenster.xyz';
+export const ARWEAVE_GATEWAY = 'https://arweave.net';
 export const IPFS_GATEWAY = 'https://lens.infura-ipfs.io/ipfs/';
 export const EVER_API = 'https://endpoint.4everland.co';
+export const SIMPLEANALYTICS_API = 'https://simpleanalytics.com/lenster.xyz.json';
 
 // Web3
 export const RPC_URL = IS_MAINNET ? 'https://rpc.ankr.com/polygon' : 'https://rpc.ankr.com/polygon_mumbai';

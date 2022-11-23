@@ -13,7 +13,6 @@ const emojis: Map<string, [string, string]> = new Map([
   [':P', ['emoji tongue', '😛']],
   [':O', ['emoji shock', '😮']],
   [':|', ['emoji neutral', '😐']],
-  [':/', ['emoji confused', '😕']],
   [':*', ['emoji kiss', '😘']],
   [':$', ['emoji blush', '😳']],
   [':@', ['emoji angry', '😠']],

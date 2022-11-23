@@ -13,13 +13,14 @@ import { FeedEventItemType, useTimelineQuery } from 'lens';
 import type { FC } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useAppStore } from 'src/store/app';
-import { useTimelinePersistStore } from 'src/store/timeline';
+import { useTimelinePersistStore, useTimelineStore } from 'src/store/timeline';
 import { useTransactionPersistStore } from 'src/store/transaction';
 
 const Timeline: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const txnQueue = useTransactionPersistStore((state) => state.txnQueue);
   const feedEventFilters = useTimelinePersistStore((state) => state.feedEventFilters);
+  const seeThroughProfile = useTimelineStore((state) => state.seeThroughProfile);
 
   const getFeedEventItems = () => {
     const filters: FeedEventItemType[] = [];
@@ -39,9 +40,9 @@ const Timeline: FC = () => {
   };
 
   // Variables
-  const request = { profileId: currentProfile?.id, limit: 50, feedEventItemTypes: getFeedEventItems() };
-  const reactionRequest = currentProfile ? { profileId: currentProfile?.id } : null;
-  const profileId = currentProfile?.id ?? null;
+  const profileId = seeThroughProfile?.id ?? currentProfile?.id;
+  const request = { profileId, limit: 50, feedEventItemTypes: getFeedEventItems() };
+  const reactionRequest = currentProfile ? { profileId } : null;
 
   const { data, loading, error, fetchMore } = useTimelineQuery({
     variables: { request, reactionRequest, profileId }
