@@ -12,14 +12,11 @@ import {
 } from '@heroicons/react/outline';
 import { PencilAltIcon } from '@heroicons/react/solid';
 import humanize from '@lib/humanize';
-import { Leafwatch } from '@lib/leafwatch';
 import { APP_NAME, ERROR_MESSAGE } from 'data/constants';
 import { useLensterStatsQuery } from 'lens';
 import type { NextPage } from 'next';
 import type { FC, ReactNode } from 'react';
-import { useEffect } from 'react';
 import Custom404 from 'src/pages/404';
-import { PAGEVIEW } from 'src/tracking';
 
 import Sidebar from '../Sidebar';
 
@@ -41,10 +38,6 @@ const StatBox: FC<StatBoxProps> = ({ icon, value, title }) => (
 
 const Stats: NextPage = () => {
   const { allowed } = useStaffMode();
-
-  useEffect(() => {
-    Leafwatch.track('Pageview', { path: PAGEVIEW.STAFFTOOLS.STATS });
-  }, []);
 
   const { data, loading, error } = useLensterStatsQuery({ pollInterval: 1000 });
 

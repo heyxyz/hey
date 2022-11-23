@@ -3,16 +3,14 @@ import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayo
 import { PageLoading } from '@components/UI/PageLoading';
 import { Spinner } from '@components/UI/Spinner';
 import MetaTags from '@components/utils/MetaTags';
-import { Leafwatch } from '@lib/leafwatch';
 import { APP_NAME, DEFAULT_COLLECT_TOKEN } from 'data/constants';
 import type { Erc20 } from 'lens';
 import { CollectModules, FollowModules, ReferenceModules, useApprovedModuleAllowanceAmountQuery } from 'lens';
 import type { NextPage } from 'next';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
 import { useAppStore } from 'src/store/app';
-import { PAGEVIEW } from 'src/tracking';
 
 import Sidebar from '../Sidebar';
 import Allowance from './Allowance';
@@ -42,10 +40,6 @@ const AllowanceSettings: NextPage = () => {
     },
     skip: !currentProfile?.id
   });
-
-  useEffect(() => {
-    Leafwatch.track('Pageview', { path: PAGEVIEW.SETTINGS.ALLOWANCE });
-  }, []);
 
   if (error) {
     return <Custom500 />;
