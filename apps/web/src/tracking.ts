@@ -95,8 +95,6 @@ export const NOTIFICATION = {
 };
 
 export const MESSAGES = {
-  OPEN: 'open_messages',
-  OPEN_CONVERSATION: 'open_conversation',
   SEND: 'send_message',
   OPEN_NEW_CONVERSATION: 'open_new_conversation_modal'
 };
