@@ -50,7 +50,7 @@ const CrossPost: FC = () => {
             href={REFLECT_URL}
             className="flex items-center space-x-1.5"
             onClick={() => {
-              Leafwatch.track(SETTINGS.ACCOUNT.OPEN_REFLECT, { purpose: 'disable' });
+              Leafwatch.track(SETTINGS.ACCOUNT.OPEN_REFLECT_DISABLE);
             }}
             target="_blank"
             rel="noreferrer noopener"
@@ -64,7 +64,7 @@ const CrossPost: FC = () => {
           href={REFLECT_URL}
           className="flex items-center space-x-1.5"
           onClick={() => {
-            Leafwatch.track(SETTINGS.ACCOUNT.OPEN_REFLECT, { purpose: 'enable' });
+            Leafwatch.track(SETTINGS.ACCOUNT.OPEN_REFLECT_ENABLE);
           }}
           target="_blank"
           rel="noreferrer noopener"

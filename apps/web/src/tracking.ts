@@ -1,187 +1,159 @@
 // Strings used for leafwatch tracking
 
 export const USER = {
-  LOGIN: 'User login',
-  LOGOUT: 'User logout',
-  SIWL: 'Sign in with Lens'
+  LOGIN: 'user_login',
+  LOGOUT: 'user_logout',
+  SIWL: 'sign_in_with_lens'
 };
 
 export const PROFILE = {
-  FOLLOW: 'Follow profile',
-  SUPER_FOLLOW: 'Super follow profile',
-  UNFOLLOW: 'Unfollow profile',
-  OPEN_SUPER_FOLLOW: 'Open super follow modal',
-  OPEN_FOLLOWING: 'Open following list',
-  OPEN_FOLLOWERS: 'Open followers list',
-  OPEN_MUTUAL_FOLLOWERS: 'Open mutual followers list',
-  SWITCH_FEED: 'Switch to feed tab in profile',
-  SWITCH_REPLIES: 'Switch to replies tab in profile',
-  SWITCH_MEDIA: 'Switch to media tab in profile',
-  SWITCH_NFTS: 'Switch to nft tab in profile',
-  SWITCH_PROFILE: 'Switch profile',
-  LOGOUT: 'Profile logout'
+  FOLLOW: 'follow_profile',
+  SUPER_FOLLOW: 'super_follow_profile',
+  UNFOLLOW: 'unfollow_profile',
+  OPEN_SUPER_FOLLOW: 'open_super_follow_modal',
+  OPEN_FOLLOWING: 'open_following_list',
+  OPEN_FOLLOWERS: 'open_followers_list',
+  OPEN_MUTUAL_FOLLOWERS: 'open_mutual_followers_list',
+  SWITCH_FEED: 'switch_to_feed_tab_in_profile',
+  SWITCH_REPLIES: 'switch_to_replies_tab_in_profile',
+  SWITCH_MEDIA: 'switch_to_media_tab_in_profile',
+  SWITCH_NFTS: 'switch_to_nft_tab_in_profile',
+  SWITCH_PROFILE: 'switch_profile',
+  LOGOUT: 'profile_logout'
 };
 
 export const PUBLICATION = {
-  OPEN: 'Open publication',
-  LIKE: 'Like publication',
-  DISLIKE: 'Dislike publication',
-  MIRROR: 'Mirror publication',
-  EMBED: 'Embed publication',
-  PERMALINK: 'Permalink publication',
-  MORE: 'More publication options',
-  DELETE: 'Delete publication',
-  REPORT: 'Report publication',
-  OEMBED_CLICK: 'Click publication oemebed',
-  MENTION_CLICK: 'Click publication mention',
-  HASHTAG_CLICK: 'Click publication hashtag',
+  OPEN: 'open_publication',
+  LIKE: 'like_publication',
+  DISLIKE: 'dislike_publication',
+  MIRROR: 'mirror_publication',
+  EMBED: 'embed_publication',
+  PERMALINK: 'permalink_publication',
+  MORE: 'more_publication_options',
+  DELETE: 'delete_publication',
+  REPORT: 'report_publication',
+  OEMBED_CLICK: 'click_publication_oemebed',
+  MENTION_CLICK: 'click_publication_mention',
+  HASHTAG_CLICK: 'click_publication_hashtag',
   STATS: {
-    MIRRORED_BY: 'Open mirrored by list',
-    LIKED_BY: 'Open liked by list',
-    COLLECTED_BY: 'Open collected by list'
+    MIRRORED_BY: 'open_mirrored_by_list',
+    LIKED_BY: 'open_liked_by_list',
+    COLLECTED_BY: 'open_collected_by_list'
   },
   ATTACHEMENT: {
     IMAGE: {
-      OPEN: 'Open image attachment'
+      OPEN: 'open_image_attachment'
     },
     AUDIO: {
-      PLAY: 'Play audio',
-      PAUSE: 'Pause audio'
+      PLAY: 'play_audio',
+      PAUSE: 'pause_audio'
     }
   },
   COLLECT_MODULE: {
-    COLLECT: 'Collect publication',
-    OPEN_COLLECT: 'Open collect modal',
-    OPEN_COLLECTORS: 'Open collectors list',
-    OPEN_UNISWAP: 'Open Uniswap'
+    COLLECT: 'collect_publication',
+    OPEN_COLLECT: 'open_collect_modal',
+    OPEN_COLLECTORS: 'open_collectors_list',
+    OPEN_UNISWAP: 'open_uniswap'
   },
   NEW: {
-    MARKDOWN_PREVIEW: 'Preview markdown',
-    OPEN_GIF: 'Open GIF modal',
+    MARKDOWN_PREVIEW: 'preview_markdown',
+    OPEN_GIF: 'open_gif_modal',
     ATTACHMENT: {
-      UPLOAD_IMAGES: 'Select upload images',
-      UPLOAD_VIDEO: 'Select upload video',
-      UPLOAD_AUDIO: 'Select upload audio'
+      UPLOAD_IMAGES: 'select_upload_images',
+      UPLOAD_VIDEO: 'select_upload_video',
+      UPLOAD_AUDIO: 'select_upload_audio'
     },
     COLLECT_MODULE: {
-      OPEN_COLLECT_SETTINGS: 'Open collect module settings'
+      OPEN_COLLECT_SETTINGS: 'open_collect_module_settings'
     },
     REFERENCE_MODULE: {
-      OPEN_REFERENCE_SETTINGS: 'Open reference module settings',
-      EVERYONE: 'Select everyone reference',
-      MY_FOLLOWERS: 'Select my followers reference',
-      MY_FOLLOWS: 'Select my follows reference',
-      FRIENDS_OF_FRIENDS: 'Select friends of friends reference'
+      OPEN_REFERENCE_SETTINGS: 'open_reference_module_settings',
+      EVERYONE: 'select_everyone_reference',
+      MY_FOLLOWERS: 'select_my_followers_reference',
+      MY_FOLLOWS: 'select_my_follows_reference',
+      FRIENDS_OF_FRIENDS: 'select_friends_of_friends_reference'
     },
     ACCESS: {
-      OPEN_ACCESS_SETTINGS: 'Open access settings'
+      OPEN_ACCESS_SETTINGS: 'open_access_settings'
     }
   }
 };
 
 export const POST = {
-  NEW: 'New post'
+  NEW: 'new_post'
 };
 
 export const COMMENT = {
-  NEW: 'New comment'
+  NEW: 'new_comment'
 };
 
 export const NOTIFICATION = {
-  OPEN: 'Open notifications',
-  SWITCH_ALL: 'Switch to all notifications',
-  SWITCH_MENTIONS: 'Switch to mentions notifications',
-  SWITCH_COMMENTS: 'Switch to comments notifications'
+  OPEN: 'open_notifications',
+  SWITCH_ALL: 'switch_to_all_notifications',
+  SWITCH_MENTIONS: 'switch_to_mentions_notifications',
+  SWITCH_COMMENTS: 'switch_to_comments_notifications'
 };
 
 export const MESSAGES = {
-  OPEN: 'Open messages',
-  OPEN_CONVERSATION: 'Open conversation',
-  SEND: 'Send message',
-  OPEN_NEW_CONVERSATION: 'Open new conversation modal'
+  SEND: 'send_message',
+  OPEN_NEW_CONVERSATION: 'open_new_conversation_modal'
 };
 
 export const SETTINGS = {
   ACCOUNT: {
-    OPEN_REFLECT: 'Open reflect',
-    OPEN_VERIFICATION: 'Open account verification',
-    SET_DEFAULT_PROFILE: 'Set default profile',
-    SET_SUPER_FOLLOW: 'Set super follow'
+    OPEN_REFLECT_ENABLE: 'open_reflect_enable',
+    OPEN_REFLECT_DISABLE: 'open_reflect_disable',
+    OPEN_VERIFICATION: 'open_account_verification',
+    SET_DEFAULT_PROFILE: 'set_default_profile',
+    SET_SUPER_FOLLOW: 'set_super_follow'
   },
   PROFILE: {
-    UPDATE: 'Update profile',
-    SET_NFT_PICTURE: 'Set NFT profile picture',
-    SET_PICTURE: 'Set profile picture',
-    SET_STATUS: 'Set profile status',
-    CLEAR_STATUS: 'Clear profile status'
+    UPDATE: 'update_profile',
+    SET_NFT_PICTURE: 'set_nft_profile_picture',
+    SET_PICTURE: 'set_profile_picture',
+    SET_STATUS: 'set_profile_status',
+    CLEAR_STATUS: 'clear_profile_status'
   },
   DISPATCHER: {
-    TOGGLE: 'Toggle dispatcher'
+    TOGGLE: 'toggle_dispatcher'
   },
-  DELETE: 'Delete profile'
+  DELETE: 'delete_profile'
 };
 
 export const MOD = {
-  SPAM: 'Mod spam report',
-  OTHER: 'Mod report'
+  SPAM: 'mod_spam_report',
+  OTHER: 'mod_report'
 };
 
 export const STAFFTOOLS = {
-  TOGGLE_MODE: 'Toggle staff mode'
+  TOGGLE_MODE: 'toggle_staff_mode'
 };
 
 export const SEARCH = {
-  FOCUS: 'Focus search input',
-  CLEAR: 'Clear search text'
+  FOCUS: 'focus_search_input',
+  CLEAR: 'clear_search_text'
 };
 
 export const SYSTEM = {
-  SWITCH_LIGHT_THEME: 'Switch light theme',
-  SWITCH_DARK_THEME: 'Switch dark theme',
-  SWITCH_NETWORK: 'Switch network'
-};
-
-export const PAGEVIEW = {
-  HOME: 'Home page',
-  PROFILE: 'Profile page',
-  PUBLICATION: 'Publication page',
-  EXPLORE: 'Explore page',
-  NOTIFICATION: 'Notification page',
-  SEARCH: 'Search page',
-  THANKS: 'Thanks page',
-  PRIVACY: 'Privacy page',
-  CONTACT: 'Contact page',
-  CREATE_PROFILE: 'Create profile page',
-  MOD: 'Mod page',
-  ERROR_500: 'Error 500 page',
-  ERROR_404: 'Error 404 page',
-  SETTINGS: {
-    ACCOUNT: 'Account settings page',
-    PROFILE: 'Profile settings page',
-    DISPATCHER: 'Dispatcher settings page',
-    ALLOWANCE: 'Allowance settings page',
-    DATA: 'Data settings page',
-    DELETE: 'Delete settings page'
-  },
-  STAFFTOOLS: {
-    STATS: 'Staff stats page'
-  }
+  SWITCH_LIGHT_THEME: 'switch_light_theme',
+  SWITCH_DARK_THEME: 'switch_dark_theme',
+  SWITCH_NETWORK: 'switch_network'
 };
 
 export const MISCELLANEOUS = {
-  NAVIGATE_UPDATE_PROFILE: 'Navigate to update profile from onboarding',
-  OPEN_RECOMMENDED_PROFILES: 'Open recommended profiles modal',
-  OPEN_TRENDING_TAG: 'Open trending tag',
-  SWITCH_TIMELINE: 'Switch to timeline',
-  SWITCH_HIGHLIGHTS: 'Switch to highlights'
+  NAVIGATE_UPDATE_PROFILE: 'navigate_to_update_profile_from_onboarding',
+  OPEN_RECOMMENDED_PROFILES: 'open_recommended_profiles_modal',
+  OPEN_TRENDING_TAG: 'open_trending_tag',
+  SWITCH_TIMELINE: 'switch_to_timeline',
+  SWITCH_HIGHLIGHTS: 'switch_to_highlights'
 };
 
 export const FOOTER = {
-  DISCORD: 'Open discord',
-  DONATE: 'Open donate',
-  STATUS: 'Open status',
-  VOTE: 'Open vote',
-  FEEDBACK: 'Open feedback',
-  GITHUB: 'Open GitHub',
-  VERCEL: 'Open Vercel'
+  DISCORD: 'open_discord',
+  DONATE: 'open_donate',
+  STATUS: 'open_status',
+  VOTE: 'open_vote',
+  FEEDBACK: 'open_feedback',
+  GITHUB: 'open_github',
+  VERCEL: 'open_vercel'
 };

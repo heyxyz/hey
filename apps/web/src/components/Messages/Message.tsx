@@ -8,16 +8,14 @@ import useSendMessage from '@components/utils/hooks/useSendMessage';
 import useStreamMessages from '@components/utils/hooks/useStreamMessages';
 import MetaTags from '@components/utils/MetaTags';
 import { parseConversationKey } from '@lib/conversationKey';
-import { Leafwatch } from '@lib/leafwatch';
 import { APP_NAME } from 'data/constants';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
-import { MESSAGES } from 'src/tracking';
 
 import Composer from './Composer';
 import MessagesList from './MessagesList';
@@ -100,13 +98,6 @@ const MessagePage: NextPage = () => {
   const {
     query: { conversationKey }
   } = useRouter();
-
-  useEffect(() => {
-    const id = conversationKey?.[3];
-    if (id) {
-      Leafwatch.track('Pageview', { path: MESSAGES.OPEN_CONVERSATION, id });
-    }
-  }, [conversationKey]);
 
   // Need to have a login page for when there is no currentProfileId
   if (!conversationKey || !currentProfileId || !Array.isArray(conversationKey)) {
