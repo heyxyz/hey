@@ -13,23 +13,28 @@ jobs:
       - name: Checkout 🚪
         uses: actions/checkout@v3
 
+      - name: Setup pnpm 🚀
+        uses: pnpm/action-setup@v2
+        with:
+          version: 7.17.0
+
       - name: Setup node 🍀
         uses: actions/setup-node@v3
         with:
           node-version-file: '.nvmrc'
-          cache: 'yarn'
+          cache: 'pnpm'
 
       - name: Install 📦
-        run: yarn install --frozen-lockfile
+        run: pnpm install --frozen-lockfile
 
       - name: GraphQL Codegen 🕸
-        run: yarn codegen
+        run: pnpm run codegen
 
       - name: Typecheck 🔡
-        run: yarn typecheck
+        run: pnpm run typecheck
 
       - name: Lint 🪩
-        run: yarn lint
+        run: pnpm run lint
 
       - name: Prettier ✨
-        run: yarn prettier
+        run: pnpm run prettier
