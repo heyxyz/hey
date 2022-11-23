@@ -1,0 +1,43 @@
+query SeeThroughProfiles($request: FeedRequest!) {
+  feed(request: $request) {
+    items {
+      root {
+        ... on Post {
+          profile {
+            ...ProfileFields
+          }
+        }
+        ... on Comment {
+          profile {
+            ...ProfileFields
+          }
+        }
+      }
+      electedMirror {
+        profile {
+          ...ProfileFields
+        }
+      }
+      mirrors {
+        profile {
+          ...ProfileFields
+        }
+      }
+      collects {
+        profile {
+          ...ProfileFields
+        }
+      }
+      reactions {
+        profile {
+          ...ProfileFields
+        }
+      }
+      comments {
+        profile {
+          ...ProfileFields
+        }
+      }
+    }
+  }
+}
