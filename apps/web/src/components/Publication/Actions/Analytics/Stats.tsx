@@ -4,18 +4,18 @@ import HelpTooltip from '@components/UI/HelpTooltip';
 import type { LensterPublication } from '@generated/types';
 import humanize from '@lib/humanize';
 import axios from 'axios';
-import { ERROR_MESSAGE, SERVERLESS_URL } from 'data/constants';
+import { ERROR_MESSAGE, SIMPLEANALYTICS_API } from 'data/constants';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 
 const Stat: FC<{ title: string; helper: string; stat: number }> = ({ title, helper, stat }) => (
-  <div className="">
+  <>
     <span className="text-sm text-gray-500 font-bold flex items-center space-x-1">
       <span>{title}</span>
       <HelpTooltip content={helper} />
     </span>
     <span className="text-2xl font-bold">{humanize(stat ?? 0)}</span>
-  </div>
+  </>
 );
 
 interface Props {
@@ -28,9 +28,9 @@ const Stats: FC<Props> = ({ publication }) => {
 
   const getStats = async () => {
     try {
-      const response = await axios(`${SERVERLESS_URL}/analytics/publication`, {
+      const response = await axios(SIMPLEANALYTICS_API, {
         method: 'GET',
-        params: { id: publication.id }
+        params: { version: 5, fields: 'pageviews', info: false, page: `/posts/${publication.id}` }
       });
 
       setStatsData(response.data);
@@ -63,7 +63,7 @@ const Stats: FC<Props> = ({ publication }) => {
       <Stat
         title="Views"
         helper="Times people viewed the details about this publication"
-        stat={statsData?.response?.views}
+        stat={statsData?.pageviews}
       />
     </div>
   );
