@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { createElement } from 'react';
 import { PUBLICATION } from 'src/tracking';
 
-export function Hashtag({ ...props }: any) {
+export const Hashtag = ({ ...props }: any) => {
   const hashflag = props.display.slice(1).toLowerCase();
   const hasHashflag = hashflags.hasOwnProperty(hashflag);
 
@@ -34,7 +34,7 @@ export function Hashtag({ ...props }: any) {
       )}
     </span>
   );
-}
+};
 
 export class HashtagMatcher extends Matcher {
   replaceWith(match: string, props: any) {

@@ -8,7 +8,7 @@ import Link from 'next/link';
 import { createElement } from 'react';
 import { PUBLICATION } from 'src/tracking';
 
-export function Mention({ ...props }: any) {
+export const Mention = ({ ...props }: any) => {
   const { data } = useProfileQuery({
     variables: { request: { handle: props?.display.slice(1) } }
   });
@@ -35,7 +35,7 @@ export function Mention({ ...props }: any) {
       )}
     </Link>
   );
-}
+};
 
 export class MentionMatcher extends Matcher {
   replaceWith(match: string, props: any) {
