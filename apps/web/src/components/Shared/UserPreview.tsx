@@ -1,4 +1,5 @@
 import MutualFollowers from '@components/Profile/MutualFollowers';
+import Loader from '@components/Shared/Loader';
 import { BadgeCheckIcon } from '@heroicons/react/solid';
 import getAvatar from '@lib/getAvatar';
 import isVerified from '@lib/isVerified';
@@ -6,6 +7,7 @@ import nFormatter from '@lib/nFormatter';
 import Tippy from '@tippyjs/react';
 import clsx from 'clsx';
 import type { Profile } from 'lens';
+import { useProfileLazyQuery } from 'lens';
 import type { FC } from 'react';
 import React, { useState } from 'react';
 import { useAppStore } from 'src/store/app';
@@ -30,13 +32,19 @@ const UserPreview: FC<Props> = ({
   children,
   showUserPreview = true
 }) => {
+  const [profileData, setProfileData] = useState(profile);
+  const [loading, setLoading] = useState(false);
   const [showPreview, setShowPreview] = useState(false);
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const [following, setFollowing] = useState(profile?.isFollowedByMe);
+  const [following, setFollowing] = useState(profileData?.isFollowedByMe);
+
+  const [loadProfile] = useProfileLazyQuery({
+    fetchPolicy: 'cache-first'
+  });
 
   const UserAvatar = () => (
     <img
-      src={getAvatar(profile)}
+      src={getAvatar(profileData)}
       loading="lazy"
       className={clsx(
         isBig ? 'w-14 h-14' : 'w-10 h-10',
@@ -44,17 +52,19 @@ const UserPreview: FC<Props> = ({
       )}
       height={isBig ? 56 : 40}
       width={isBig ? 56 : 40}
-      alt={profile?.handle}
+      alt={profileData?.handle}
     />
   );
 
   const UserName = () => (
     <>
       <div className="flex gap-1 items-center max-w-sm truncate">
-        <div className={clsx(isBig ? 'font-bold' : 'text-md')}>{profile?.name ?? profile?.handle}</div>
-        {isVerified(profile?.id) && <BadgeCheckIcon className="w-4 h-4 text-brand" />}
+        <div className={clsx(isBig ? 'font-bold' : 'text-md')}>
+          {profileData?.name ?? profileData?.handle}
+        </div>
+        {isVerified(profileData?.id) && <BadgeCheckIcon className="w-4 h-4 text-brand" />}
       </div>
-      <Slug className="text-sm" slug={profile?.handle} prefix="@" />
+      <Slug className="text-sm" slug={profileData?.handle} prefix="@" />
     </>
   );
 
@@ -62,51 +72,72 @@ const UserPreview: FC<Props> = ({
     <>
       <div className="flex justify-between items-center">
         <UserAvatar />
-        <div onClick={(e) => e.preventDefault()}>
-          {!profile.isFollowedByMe &&
-            (followStatusLoading ? (
-              <div className="w-10 h-8 rounded-lg shimmer" />
-            ) : following ? null : profile?.followModule?.__typename === 'FeeFollowModuleSettings' ? (
-              <SuperFollow profile={profile} setFollowing={setFollowing} />
-            ) : (
-              <Follow profile={profile} setFollowing={setFollowing} />
-            ))}
-        </div>
+        {!loading && (
+          <div onClick={(e) => e.preventDefault()}>
+            {!profileData.isFollowedByMe &&
+              (followStatusLoading ? (
+                <div className="w-10 h-8 rounded-lg shimmer" />
+              ) : following ? null : profileData?.followModule?.__typename === 'FeeFollowModuleSettings' ? (
+                <SuperFollow profile={profileData} setFollowing={setFollowing} />
+              ) : (
+                <Follow profile={profileData} setFollowing={setFollowing} />
+              ))}
+          </div>
+        )}
       </div>
       <div className="p-1 space-y-3">
         <UserName />
-        <div>
-          {profile?.bio && (
-            <div className={clsx(isBig ? 'text-base' : 'text-sm', 'mt-2', 'linkify break-words leading-6')}>
-              <Markup>{profile?.bio}</Markup>
+        {!loading ? (
+          <>
+            <div>
+              {profileData?.bio && (
+                <div
+                  className={clsx(isBig ? 'text-base' : 'text-sm', 'mt-2', 'linkify break-words leading-6')}
+                >
+                  <Markup>{profileData?.bio}</Markup>
+                </div>
+              )}
             </div>
-          )}
-        </div>
-        <div className="flex space-x-3 items-center">
-          <div className="flex items-center space-x-1">
-            <div className="text-base">{nFormatter(profile?.stats?.totalFollowing)}</div>
-            <div className="text-gray-500 text-sm">Following</div>
-          </div>
-          <div className="flex items-center space-x-1 text-md">
-            <div className="text-base">{nFormatter(profile?.stats?.totalFollowers)}</div>
-            <div className="text-gray-500 text-sm">Followers</div>
-          </div>
-        </div>
-        {currentProfile && <MutualFollowers profile={profile} variant="xs" />}
+            <div className="flex space-x-3 items-center">
+              <div className="flex items-center space-x-1">
+                <div className="text-base">{nFormatter(profileData?.stats?.totalFollowing)}</div>
+                <div className="text-gray-500 text-sm">Following</div>
+              </div>
+              <div className="flex items-center space-x-1 text-md">
+                <div className="text-base">{nFormatter(profileData?.stats?.totalFollowers)}</div>
+                <div className="text-gray-500 text-sm">Followers</div>
+              </div>
+            </div>
+            {currentProfile && <MutualFollowers profile={profileData} variant="xs" />}
+          </>
+        ) : (
+          <Loader message="Loading" />
+        )}
       </div>
     </>
   );
 
   const onPreviewEnd = () => {
-    setShowPreview(false);
+    // setShowPreview(false);
   };
 
-  const onPreviewStart = () => {
+  const onPreviewStart = async () => {
     setShowPreview(true);
+    if (profileData.id == '') {
+      setLoading(true);
+      const { data } = await loadProfile({
+        variables: { request: { handle: profileData?.handle } }
+      });
+      setLoading(false);
+      const lazyProfile = data?.profile;
+      if (lazyProfile) {
+        setProfileData(lazyProfile as Profile);
+      }
+    }
   };
 
   return showUserPreview ? (
-    <div onMouseOver={onPreviewStart} onMouseLeave={onPreviewEnd}>
+    <span onMouseOver={onPreviewStart} onMouseLeave={onPreviewEnd}>
       {showPreview ? (
         <Tippy
           placement="bottom-start"
@@ -114,16 +145,17 @@ const UserPreview: FC<Props> = ({
           hideOnClick={false}
           content={<Preview />}
           arrow={false}
-          interactive
+          interactive={true}
           zIndex={1000}
           className="!bg-white hidden md:block !px-1.5 !py-3 !text-black dark:!text-white w-64 dark:!bg-black border dark:border-gray-700 !rounded-xl"
+          appendTo={() => document.body}
         >
           <span>{children}</span>
         </Tippy>
       ) : (
         <span>{children}</span>
       )}
-    </div>
+    </span>
   ) : (
     <span>{children}</span>
   );
