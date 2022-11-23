@@ -217,7 +217,10 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
                   <span>Limited edition</span>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <Toggle on={Boolean(collectLimit)} setOn={() => setCollectLimit(collectLimit ? null : '1')} />
+                  <Toggle
+                    on={Boolean(collectLimit)}
+                    setOn={() => setCollectLimit(collectLimit ? null : '1')}
+                  />
                   <div className="text-gray-500 dark:text-gray-400 text-sm font-bold">
                     Make the collects exclusive
                   </div>
