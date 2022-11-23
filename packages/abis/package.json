@@ -1,0 +1,16 @@
+{
+  "name": "abis",
+  "version": "0.0.0",
+  "main": "index.ts",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint . --ext .ts"
+  },
+  "dependencies": {
+    "typescript": "4.9.3"
+  },
+  "devDependencies": {
+    "eslint-config-weblint": "*",
+    "tsconfig": "*"
+  }
+}
