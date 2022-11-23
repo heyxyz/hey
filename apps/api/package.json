@@ -26,8 +26,10 @@
     "@types/react": "^18.0.23",
     "@types/react-dom": "^18.0.9",
     "@types/uuid": "^8.3.4",
-    "data": "*",
-    "tsconfig": "*",
+    "data": "workspace:*",
+    "eslint-config-weblint": "workspace:*",
+    "lens": "workspace:*",
+    "tsconfig": "workspace:*",
     "typescript": "^4.9.3"
   }
 }
