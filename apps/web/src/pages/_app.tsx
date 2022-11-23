@@ -1,7 +1,6 @@
 import '../styles.css';
 
 import Loading from '@components/Loading';
-import { IS_PRODUCTION } from 'data/constants';
 import type { AppProps } from 'next/app';
 import Script from 'next/script';
 import { lazy, Suspense } from 'react';
@@ -16,18 +15,24 @@ const App = ({ Component, pageProps }: AppProps) => {
           <Component {...pageProps} />
         </Layout>
       </Providers>
-      {IS_PRODUCTION && (
-        <>
-          <Script src="https://scripts.simpleanalyticscdn.com/latest.js" />
-          <noscript>
-            <img
-              src="https://queue.simpleanalyticscdn.com/noscript.gif"
-              alt=""
-              referrerPolicy="no-referrer-when-downgrade"
-            />
-          </noscript>
-        </>
-      )}
+
+      {/* Begin Simple Analytics */}
+      <Script strategy="lazyOnload" id="sa-script">
+        {`window.sa_event=window.sa_event||function(){var a=[].slice.call(arguments);window.sa_event.q?window.sa_event.q.push(a):window.sa_event.q=[a]};`}
+      </Script>
+      <Script
+        strategy="lazyOnload"
+        data-collect-dnt="true"
+        src="https://scripts.simpleanalyticscdn.com/latest.js"
+      />
+      <noscript>
+        <img
+          src="https://queue.simpleanalyticscdn.com/noscript.gif"
+          alt=""
+          referrerPolicy="no-referrer-when-downgrade"
+        />
+      </noscript>
+      {/* End Simple Analytics */}
     </Suspense>
   );
 };
