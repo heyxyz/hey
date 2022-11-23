@@ -62,6 +62,7 @@ export const ARWEAVE_GATEWAY = 'https://arweave.net';
 export const IMGPROXY_URL = 'https://media.lenster.xyz';
 export const IPFS_GATEWAY = 'https://lens.infura-ipfs.io/ipfs/';
 export const EVER_API = 'https://endpoint.4everland.co';
+export const SIMPLEANALYTICS_API = 'https://simpleanalytics.com/lenster.xyz.json';
 
 // Web3
 export const RPC_URL = IS_MAINNET ? 'https://rpc.ankr.com/polygon' : 'https://rpc.ankr.com/polygon_mumbai';
