@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { createElement } from 'react';
 import { PUBLICATION } from 'src/tracking';
 
-export function Mention({ ...props }: any) {
+export const Mention = ({ ...props }: any) => {
   return (
     <Link
       href={`/u/${props.display.slice(1)}`}
@@ -17,7 +17,7 @@ export function Mention({ ...props }: any) {
       <Slug slug={props.display} />
     </Link>
   );
-}
+};
 
 export class MentionMatcher extends Matcher {
   replaceWith(match: string, props: any) {
