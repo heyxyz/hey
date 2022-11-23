@@ -1,4 +1,4 @@
-Contact: https://github.com/lensterxyz/lenster/security/advisories
+Contact: https://github.com/lensterxyz/lenster/security/advisories/new
 Expires: 2022-12-31T18:29:00.000Z
 Acknowledgments: https://github.com/lensterxyz/lenster/security/advisories?state=published
 Preferred-Languages: en

@@ -138,7 +138,7 @@ const Attachments: FC<Props> = ({
           );
         })}
       </div>
-      <LightBox show={!!expandedImage} url={expandedImage} onClose={() => setExpandedImage(null)} />
+      <LightBox show={Boolean(expandedImage)} url={expandedImage} onClose={() => setExpandedImage(null)} />
     </>
   ) : null;
 };
