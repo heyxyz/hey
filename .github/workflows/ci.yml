@@ -13,6 +13,11 @@ jobs:
       - name: Checkout 🚪
         uses: actions/checkout@v3
 
+      - name: Setup pnpm 🚀
+        uses: pnpm/action-setup@v2
+        with:
+          version: 7.17.0
+
       - name: Setup node 🍀
         uses: actions/setup-node@v3
         with:
