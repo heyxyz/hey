@@ -27,8 +27,8 @@ const InterestsSettings: NextPage = () => {
           <div className="space-y-5">
             <div className="text-lg font-bold">Select Profile Interests</div>
             <p>
-              If you stuck with some issues, you can try to clean up the localstorage. This will remove all
-              the data stored in your browser.
+              Interests you select are used to personalize your experience across Lenster. You can adjust your
+              interests if something doesn't look right.
             </p>
           </div>
           <div className="divider my-5" />
