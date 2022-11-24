@@ -17,16 +17,12 @@ const App = ({ Component, pageProps }: AppProps) => {
       </Providers>
 
       {/* Begin Simple Analytics */}
-      <Script strategy="lazyOnload" id="sa-script">
+      <Script strategy="lazyOnload" id="sa-events">
         {`window.sa_event=window.sa_event||function(){var a=[].slice.call(arguments);window.sa_event.q?window.sa_event.q.push(a):window.sa_event.q=[a]};`}
       </Script>
-      <Script strategy="lazyOnload" data-collect-dnt="true" src="https://leafwatch.lenster.xyz/latest.js" />
+      <Script strategy="lazyOnload" data-collect-dnt="true" src="https://sa.lenster.xyz/latest.js" />
       <noscript>
-        <img
-          src="https://leafwatch.lenster.xyz/noscript.gif"
-          alt=""
-          referrerPolicy="no-referrer-when-downgrade"
-        />
+        <img src="https://sa.lenster.xyz/noscript.gif" alt="" referrerPolicy="no-referrer-when-downgrade" />
       </noscript>
       {/* End Simple Analytics */}
     </Suspense>
