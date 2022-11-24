@@ -2,6 +2,10 @@ import { aaveMembers } from './aave-members';
 import { lensterMembers } from './lenster-members';
 
 export const mainnetVerified = [
+  '0xb1c8', // memester-xyz.lens
+  '0x8ba4', // devanon.lens
+  '0xa518', // apedev.lens
+  '0xf2a3', // papadari.lens
   '0x01873a', // curtisroach.lens
   '0xc1bd', // dragaan.lens
   '0x014c1f', // mexicotte.lens
