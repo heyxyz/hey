@@ -5447,6 +5447,12 @@ export type StatsFieldsFragment = {
   totalAmountOfComments: number;
 };
 
+export type AddProfileInterestMutationVariables = Exact<{
+  request: AddProfileInterestsRequest;
+}>;
+
+export type AddProfileInterestMutation = { __typename?: 'Mutation'; addProfileInterests?: any | null };
+
 export type AddReactionMutationVariables = Exact<{
   request: ReactionRequest;
 }>;
@@ -5978,6 +5984,12 @@ export type ProxyActionMutationVariables = Exact<{
 }>;
 
 export type ProxyActionMutation = { __typename?: 'Mutation'; proxyAction: any };
+
+export type RemoveProfileInterestMutationVariables = Exact<{
+  request: RemoveProfileInterestsRequest;
+}>;
+
+export type RemoveProfileInterestMutation = { __typename?: 'Mutation'; removeProfileInterests?: any | null };
 
 export type RemoveReactionMutationVariables = Exact<{
   request: ReactionRequest;
@@ -13358,6 +13370,10 @@ export type ProfileFeedQuery = {
   };
 };
 
+export type ProfileInterestsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type ProfileInterestsQuery = { __typename?: 'Query'; profileInterests: Array<any> };
+
 export type ProfileSettingsQueryVariables = Exact<{
   request: SingleProfileQueryRequest;
 }>;
@@ -19708,6 +19724,7 @@ export type UserProfilesQuery = {
     __typename?: 'PaginatedProfileResult';
     items: Array<{
       __typename?: 'Profile';
+      interests?: Array<any> | null;
       isDefault: boolean;
       id: any;
       name?: string | null;
@@ -20109,6 +20126,48 @@ export const RelayerResultFieldsFragmentDoc = gql`
     }
   }
 `;
+export const AddProfileInterestDocument = gql`
+  mutation AddProfileInterest($request: AddProfileInterestsRequest!) {
+    addProfileInterests(request: $request)
+  }
+`;
+export type AddProfileInterestMutationFn = Apollo.MutationFunction<
+  AddProfileInterestMutation,
+  AddProfileInterestMutationVariables
+>;
+
+/**
+ * __useAddProfileInterestMutation__
+ *
+ * To run a mutation, you first call `useAddProfileInterestMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddProfileInterestMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addProfileInterestMutation, { data, loading, error }] = useAddProfileInterestMutation({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useAddProfileInterestMutation(
+  baseOptions?: Apollo.MutationHookOptions<AddProfileInterestMutation, AddProfileInterestMutationVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<AddProfileInterestMutation, AddProfileInterestMutationVariables>(
+    AddProfileInterestDocument,
+    options
+  );
+}
+export type AddProfileInterestMutationHookResult = ReturnType<typeof useAddProfileInterestMutation>;
+export type AddProfileInterestMutationResult = Apollo.MutationResult<AddProfileInterestMutation>;
+export type AddProfileInterestMutationOptions = Apollo.BaseMutationOptions<
+  AddProfileInterestMutation,
+  AddProfileInterestMutationVariables
+>;
 export const AddReactionDocument = gql`
   mutation AddReaction($request: ReactionRequest!) {
     addReaction(request: $request)
@@ -21483,6 +21542,51 @@ export type ProxyActionMutationResult = Apollo.MutationResult<ProxyActionMutatio
 export type ProxyActionMutationOptions = Apollo.BaseMutationOptions<
   ProxyActionMutation,
   ProxyActionMutationVariables
+>;
+export const RemoveProfileInterestDocument = gql`
+  mutation RemoveProfileInterest($request: RemoveProfileInterestsRequest!) {
+    removeProfileInterests(request: $request)
+  }
+`;
+export type RemoveProfileInterestMutationFn = Apollo.MutationFunction<
+  RemoveProfileInterestMutation,
+  RemoveProfileInterestMutationVariables
+>;
+
+/**
+ * __useRemoveProfileInterestMutation__
+ *
+ * To run a mutation, you first call `useRemoveProfileInterestMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRemoveProfileInterestMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [removeProfileInterestMutation, { data, loading, error }] = useRemoveProfileInterestMutation({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useRemoveProfileInterestMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    RemoveProfileInterestMutation,
+    RemoveProfileInterestMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<RemoveProfileInterestMutation, RemoveProfileInterestMutationVariables>(
+    RemoveProfileInterestDocument,
+    options
+  );
+}
+export type RemoveProfileInterestMutationHookResult = ReturnType<typeof useRemoveProfileInterestMutation>;
+export type RemoveProfileInterestMutationResult = Apollo.MutationResult<RemoveProfileInterestMutation>;
+export type RemoveProfileInterestMutationOptions = Apollo.BaseMutationOptions<
+  RemoveProfileInterestMutation,
+  RemoveProfileInterestMutationVariables
 >;
 export const RemoveReactionDocument = gql`
   mutation RemoveReaction($request: ReactionRequest!) {
@@ -23130,6 +23234,51 @@ export function useProfileFeedLazyQuery(
 export type ProfileFeedQueryHookResult = ReturnType<typeof useProfileFeedQuery>;
 export type ProfileFeedLazyQueryHookResult = ReturnType<typeof useProfileFeedLazyQuery>;
 export type ProfileFeedQueryResult = Apollo.QueryResult<ProfileFeedQuery, ProfileFeedQueryVariables>;
+export const ProfileInterestsDocument = gql`
+  query ProfileInterests {
+    profileInterests
+  }
+`;
+
+/**
+ * __useProfileInterestsQuery__
+ *
+ * To run a query within a React component, call `useProfileInterestsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useProfileInterestsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useProfileInterestsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useProfileInterestsQuery(
+  baseOptions?: Apollo.QueryHookOptions<ProfileInterestsQuery, ProfileInterestsQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<ProfileInterestsQuery, ProfileInterestsQueryVariables>(
+    ProfileInterestsDocument,
+    options
+  );
+}
+export function useProfileInterestsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<ProfileInterestsQuery, ProfileInterestsQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<ProfileInterestsQuery, ProfileInterestsQueryVariables>(
+    ProfileInterestsDocument,
+    options
+  );
+}
+export type ProfileInterestsQueryHookResult = ReturnType<typeof useProfileInterestsQuery>;
+export type ProfileInterestsLazyQueryHookResult = ReturnType<typeof useProfileInterestsLazyQuery>;
+export type ProfileInterestsQueryResult = Apollo.QueryResult<
+  ProfileInterestsQuery,
+  ProfileInterestsQueryVariables
+>;
 export const ProfileSettingsDocument = gql`
   query ProfileSettings($request: SingleProfileQueryRequest!) {
     profile(request: $request) {
@@ -23876,6 +24025,7 @@ export const UserProfilesDocument = gql`
     profiles(request: { ownedBy: $ownedBy }) {
       items {
         ...ProfileFields
+        interests
         stats {
           totalFollowing
         }

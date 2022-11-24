@@ -69,6 +69,9 @@ const Layout: FC<Props> = ({ children }) => {
       setCurrentProfile(selectedUser as Profile);
       setProfileId(selectedUser?.id);
       setUserSigNonce(data?.userSigNonces?.lensHubOnChainSigNonce);
+    },
+    onError: () => {
+      setProfileId(null);
     }
   });
 
