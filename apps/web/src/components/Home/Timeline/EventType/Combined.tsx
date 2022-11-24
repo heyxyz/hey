@@ -8,9 +8,7 @@ interface Props {
 }
 
 const Combined: FC<Props> = ({ feedItem }) => {
-  const mirrors = feedItem.mirrors;
-  const collects = feedItem.collects;
-  const reactions = feedItem.reactions;
+  const { mirrors, collects, reactions } = feedItem;
   const comments = feedItem.comments ?? [];
 
   const mirrorsLength = mirrors.length;
