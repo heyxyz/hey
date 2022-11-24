@@ -48,7 +48,7 @@ const ViewPublication: NextPage = () => {
     return <Custom404 />;
   }
 
-  const publication: any = data.publication;
+  const { publication } = data as any;
 
   return (
     <GridLayout>
