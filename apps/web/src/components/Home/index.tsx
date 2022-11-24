@@ -4,7 +4,6 @@ import BetaWarning from '@components/Home/BetaWarning';
 import Footer from '@components/Shared/Footer';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import MetaTags from '@components/utils/MetaTags';
-import isFeatureEnabled from '@lib/isFeatureEnabled';
 import type { NextPage } from 'next';
 import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
@@ -18,7 +17,6 @@ import RecommendedProfiles from './RecommendedProfiles';
 import SetDefaultProfile from './SetDefaultProfile';
 import SetProfile from './SetProfile';
 import Timeline from './Timeline';
-import Trending from './Trending';
 
 const Home: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -48,7 +46,6 @@ const Home: NextPage = () => {
             </>
           ) : null}
           <BetaWarning />
-          {isFeatureEnabled('trending-widget', currentProfile?.id) && <Trending />}
           {currentProfile ? (
             <>
               <SetDefaultProfile />
