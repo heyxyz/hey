@@ -117,6 +117,10 @@ export const SETTINGS = {
   DISPATCHER: {
     TOGGLE: 'toggle_dispatcher'
   },
+  INTERESTS: {
+    ADD: 'add_profile_interest',
+    REMOVE: 'remove_profile_interest'
+  },
   DELETE: 'delete_profile'
 };
 

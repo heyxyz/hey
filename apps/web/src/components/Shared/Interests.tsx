@@ -1,6 +1,8 @@
 import { Button } from '@components/UI/Button';
 import { PlusCircleIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
+import { Leafwatch } from '@lib/leafwatch';
+import onError from '@lib/onError';
 import sanitizeProfileInterests from '@lib/sanitizeProfileInterests';
 import {
   useAddProfileInterestMutation,
@@ -10,6 +12,7 @@ import {
 import type { FC } from 'react';
 import React, { useState } from 'react';
 import { useAppStore } from 'src/store/app';
+import { SETTINGS } from 'src/tracking';
 
 import Loader from './Loader';
 
@@ -20,8 +23,18 @@ const Interests: FC = () => {
   const [selectedTopics, setSelectedTopics] = useState<string[]>(currentProfile?.interests ?? []);
 
   const { data, loading } = useProfileInterestsQuery();
-  const [addProfileInterests] = useAddProfileInterestMutation();
-  const [removeProfileInterests] = useRemoveProfileInterestMutation();
+  const [addProfileInterests] = useAddProfileInterestMutation({
+    onCompleted: () => {
+      Leafwatch.track(SETTINGS.INTERESTS.ADD);
+    },
+    onError
+  });
+  const [removeProfileInterests] = useRemoveProfileInterestMutation({
+    onCompleted: () => {
+      Leafwatch.track(SETTINGS.INTERESTS.REMOVE);
+    },
+    onError
+  });
 
   const interestsData = data?.profileInterests || [];
 
