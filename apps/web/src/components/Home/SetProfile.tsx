@@ -1,3 +1,4 @@
+import New from '@components/Shared/Badges/New';
 import { Card } from '@components/UI/Card';
 import { MinusCircleIcon, PencilAltIcon, PhotographIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
@@ -54,10 +55,12 @@ const SetProfile: FC = () => {
         <Status finished={Boolean(currentProfile?.picture)} title="Set your avatar" />
         <div>
           <Link
+            className="flex items-center space-x-2"
             onClick={() => Leafwatch.track(MISCELLANEOUS.NAVIGATE_UPDATE_PROFILE_INTERESTS)}
             href="/settings/interests"
           >
             <Status finished={Boolean(currentProfile?.interests?.length)} title="Select profile interests" />
+            <New />
           </Link>
         </div>
       </div>

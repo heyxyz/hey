@@ -1,4 +1,6 @@
 import Interests from '@components/Settings/Interests/Interests';
+import Beta from '@components/Shared/Badges/Beta';
+import New from '@components/Shared/Badges/New';
 import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import MetaTags from '@components/utils/MetaTags';
@@ -25,7 +27,11 @@ const InterestsSettings: NextPage = () => {
       <GridItemEight>
         <Card className="p-5">
           <div className="space-y-5">
-            <div className="text-lg font-bold">Select Profile Interests</div>
+            <div className="flex items-center space-x-2">
+              <div className="text-lg font-bold">Select profile interests</div>
+              <Beta />
+              <New />
+            </div>
             <p>
               Interests you select are used to personalize your experience across Lenster. You can adjust your
               interests if something doesn't look right.

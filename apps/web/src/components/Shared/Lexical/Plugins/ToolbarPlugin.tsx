@@ -1,4 +1,4 @@
-import Beta from '@components/Shared/Beta';
+import Beta from '@components/Shared/Badges/Beta';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import {
   $getSelection,
