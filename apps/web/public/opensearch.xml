@@ -2,7 +2,7 @@
     <ShortName>Lenster</ShortName>
     <Description>Lenster Search</Description>
     <Url type="text/html" method="get" template="https://lenster.xyz/search?q={searchTerms}&#38;type=profiles"/>
-    <Image width="64" height="64">https://lenster.xyz/favicon.ico</Image>
+    <Image width="32" height="32">https://lenster.xyz/favicon-32x32.png</Image>
     <InputEncoding>UTF-8</InputEncoding>
     <moz:SearchForm>https://lenster.xyz</moz:SearchForm>
 </OpenSearchDescription>
