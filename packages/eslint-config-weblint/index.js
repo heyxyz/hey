@@ -22,6 +22,7 @@ module.exports = {
     'unused-imports/no-unused-imports': 'error',
     '@next/next/no-html-link-for-pages': 'off',
     '@next/next/no-img-element': 'off',
+    'prefer-destructuring': ['error', { VariableDeclarator: { object: true } }],
     '@typescript-eslint/no-unused-vars': 'warn',
     '@typescript-eslint/ban-ts-comment': 'off', // turn warn
     '@typescript-eslint/explicit-module-boundary-types': 'off',
