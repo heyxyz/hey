@@ -2,6 +2,7 @@ query UserProfiles($ownedBy: [EthereumAddress!]) {
   profiles(request: { ownedBy: $ownedBy }) {
     items {
       ...ProfileFields
+      interests
       stats {
         totalFollowing
       }

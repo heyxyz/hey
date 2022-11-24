@@ -46,3 +46,8 @@ export interface OG {
   isSquare: boolean;
   html: string;
 }
+
+export interface ProfileInterest {
+  category: { label: string; id: string };
+  subCategories: Array<{ label: string; id: string }>;
+}

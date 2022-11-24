@@ -14,6 +14,7 @@ import EnableMessages from './EnableMessages';
 import FeedType from './FeedType';
 import Hero from './Hero';
 import Highlights from './Highlights';
+import ProfileInterests from './ProfileInterests';
 import RecommendedProfiles from './RecommendedProfiles';
 import SetDefaultProfile from './SetDefaultProfile';
 import SetProfile from './SetProfile';
@@ -54,6 +55,7 @@ const Home: NextPage = () => {
               <SetDefaultProfile />
               <SetProfile />
               <RecommendedProfiles />
+              <ProfileInterests />
             </>
           ) : null}
           <Footer />
