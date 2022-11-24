@@ -40,12 +40,14 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
   const setPayload = useCollectModuleStore((state) => state.setPayload);
   const reset = useCollectModuleStore((state) => state.reset);
 
-  const RevertCollectModule = CollectModules.RevertCollectModule;
-  const FreeCollectModule = CollectModules.FreeCollectModule;
-  const FeeCollectModule = CollectModules.FeeCollectModule;
-  const LimitedFeeCollectModule = CollectModules.LimitedFeeCollectModule;
-  const LimitedTimedFeeCollectModule = CollectModules.LimitedTimedFeeCollectModule;
-  const TimedFeeCollectModule = CollectModules.TimedFeeCollectModule;
+  const {
+    RevertCollectModule,
+    FreeCollectModule,
+    FeeCollectModule,
+    LimitedFeeCollectModule,
+    LimitedTimedFeeCollectModule,
+    TimedFeeCollectModule
+  } = CollectModules;
 
   useEffect(() => {
     const baseFeeData = {
