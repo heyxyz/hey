@@ -20,6 +20,7 @@ import isStaff from '@lib/isStaff';
 import { Leafwatch } from '@lib/leafwatch';
 import resetAuthData from '@lib/resetAuthData';
 import clsx from 'clsx';
+import { APP_VERSION } from 'data/constants';
 import type { Profile } from 'lens';
 import { useRouter } from 'next/router';
 import { useTheme } from 'next-themes';
@@ -30,7 +31,6 @@ import { useGlobalModalStateStore } from 'src/store/modals';
 import { PROFILE, STAFFTOOLS, SYSTEM } from 'src/tracking';
 import { useDisconnect } from 'wagmi';
 
-import pkg from '../../../../package.json';
 import Slug from '../Slug';
 import { NextLink } from './MenuItems';
 
@@ -241,12 +241,12 @@ const SignedUser: FC = () => {
                   <div className="divider" />
                   <div className="py-3 px-6 text-xs">
                     <a
-                      href={`https://github.com/lensterxyz/lenster/releases/tag/v${pkg.version}`}
+                      href={`https://github.com/lensterxyz/lenster/releases/tag/v${APP_VERSION}`}
                       className="font-mono"
                       target="_blank"
                       rel="noreferrer noopener"
                     >
-                      v{pkg.version}
+                      v{APP_VERSION}
                     </a>
                   </div>
                 </>
