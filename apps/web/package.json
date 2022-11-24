@@ -33,7 +33,7 @@
     "graphql": "^16.6.0",
     "interweave": "^13.0.0",
     "jwt-decode": "^3.1.2",
-    "lexical": "0.6.0",
+    "lexical": "0.6.3",
     "next": "^13.0.2",
     "next-themes": "^0.2.1",
     "next-transpile-modules": "^10.0.0",
