@@ -6,6 +6,7 @@ class LensterDocument extends Document {
       <Html lang="en">
         <Head>
           <meta charSet="utf-8" />
+          <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
 
           {/* Prefetch and Preconnect */}
           <link rel="preconnect" href="https://media.lenster.xyz" />
@@ -14,7 +15,6 @@ class LensterDocument extends Document {
           <link rel="dns-prefetch" href="https://assets.lenster.xyz" />
 
           {/* Mobile settings */}
-          <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
           <meta name="apple-mobile-web-app-capable" content="yes" />
 
           {/* Icons */}
