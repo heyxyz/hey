@@ -1,3 +1,4 @@
+import { useApolloClient } from '@apollo/client';
 import { Button } from '@components/UI/Button';
 import { PlusCircleIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
@@ -10,7 +11,7 @@ import {
   useRemoveProfileInterestMutation
 } from 'lens';
 import type { FC } from 'react';
-import React, { useState } from 'react';
+import React from 'react';
 import { useAppStore } from 'src/store/app';
 import { SETTINGS } from 'src/tracking';
 
@@ -20,35 +21,39 @@ const MAX_TOPICS_ALLOWED = 12;
 
 const Interests: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const [selectedTopics, setSelectedTopics] = useState<string[]>(currentProfile?.interests ?? []);
+  const { cache } = useApolloClient();
+
+  const updateCache = (interests: string[]) => {
+    cache.modify({
+      id: `Profile:${currentProfile?.id}`,
+      fields: { interests: () => interests }
+    });
+  };
 
   const { data, loading } = useProfileInterestsQuery();
   const [addProfileInterests] = useAddProfileInterestMutation({
-    onCompleted: () => {
-      Leafwatch.track(SETTINGS.INTERESTS.ADD);
-    },
+    onCompleted: () => Leafwatch.track(SETTINGS.INTERESTS.ADD),
     onError
   });
   const [removeProfileInterests] = useRemoveProfileInterestMutation({
-    onCompleted: () => {
-      Leafwatch.track(SETTINGS.INTERESTS.REMOVE);
-    },
+    onCompleted: () => Leafwatch.track(SETTINGS.INTERESTS.REMOVE),
     onError
   });
 
-  const interestsData = data?.profileInterests || [];
+  const interestsData = data?.profileInterests ?? [];
+  const selectedTopics = currentProfile?.interests ?? [];
 
   const onSelectTopic = (topic: string) => {
     const variables = { request: { profileId: currentProfile?.id, interests: [topic] } };
     if (!selectedTopics.includes(topic)) {
       const interests = [...selectedTopics, topic];
-      setSelectedTopics(interests);
+      updateCache(interests);
       return addProfileInterests({ variables });
     }
     const topics = [...selectedTopics];
     topics.splice(topics.indexOf(topic), 1);
-    setSelectedTopics(topics);
-    removeProfileInterests({ variables });
+    updateCache(topics);
+    return removeProfileInterests({ variables });
   };
 
   if (loading) {
