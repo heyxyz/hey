@@ -1,4 +1,4 @@
-import Interests from '@components/Shared/Interests';
+import Interests from '@components/Settings/Interests/Interests';
 import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import MetaTags from '@components/utils/MetaTags';

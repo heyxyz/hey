@@ -14,7 +14,7 @@ import React, { useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { SETTINGS } from 'src/tracking';
 
-import Loader from './Loader';
+import Loader from '../../Shared/Loader';
 
 const MAX_TOPICS_ALLOWED = 12;
 

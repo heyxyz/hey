@@ -146,6 +146,7 @@ export const SYSTEM = {
 
 export const MISCELLANEOUS = {
   NAVIGATE_UPDATE_PROFILE: 'navigate_to_update_profile_from_onboarding',
+  NAVIGATE_UPDATE_PROFILE_INTERESTS: 'navigate_to_update_profile_interests_from_onboarding',
   OPEN_RECOMMENDED_PROFILES: 'open_recommended_profiles_modal',
   OPEN_TRENDING_TAG: 'open_trending_tag',
   SWITCH_TIMELINE: 'switch_to_timeline',
