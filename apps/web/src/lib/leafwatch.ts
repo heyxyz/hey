@@ -8,7 +8,7 @@ export const Leafwatch = {
     if (isBrowser) {
       try {
         // @ts-ignore
-        window?.umami?.(name);
+        window?.sa_event?.(name);
       } catch {
         console.error('Error while sending analytics event to Leafwatch');
       }
