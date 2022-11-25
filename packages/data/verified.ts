@@ -2,6 +2,7 @@ import { aaveMembers } from './aave-members';
 import { lensterMembers } from './lenster-members';
 
 export const mainnetVerified = [
+  '0x0126ab', // nft4every1.lens
   '0x7a85', // nicogallardo.lens
   '0x12ea', // stevekenny.lens
   '0x0196de', // danfinlay.lens
