@@ -7,7 +7,7 @@ exclude_patterns = [
   ".husky",
   ".vscode",
   "apps/web/src/generated/types.ts",
-  "pnpm-lock.yaml"
+  "yarn.lock"
 ]
 
 [[analyzers]]
