@@ -10,7 +10,7 @@
     "typescript": "4.9.3"
   },
   "devDependencies": {
-    "eslint-config-weblint": "workspace:*",
-    "tsconfig": "workspace:*"
+    "eslint-config-weblint": "*",
+    "tsconfig": "*"
   }
 }
