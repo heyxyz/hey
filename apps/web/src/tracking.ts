@@ -150,7 +150,8 @@ export const MISCELLANEOUS = {
   OPEN_RECOMMENDED_PROFILES: 'open_recommended_profiles_modal',
   OPEN_TRENDING_TAG: 'open_trending_tag',
   SWITCH_TIMELINE: 'switch_to_timeline',
-  SWITCH_HIGHLIGHTS: 'switch_to_highlights'
+  SWITCH_HIGHLIGHTS: 'switch_to_highlights',
+  SELECT_USER_FEED: 'select_user_feed'
 };
 
 export const FOOTER = {
