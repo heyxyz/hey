@@ -18,7 +18,7 @@ import type { ChangeEvent, FC } from 'react';
 import React, { Fragment, useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useTimelineStore } from 'src/store/timeline';
-import { SEARCH } from 'src/tracking';
+import { MISCELLANEOUS, SEARCH } from 'src/tracking';
 
 const SeeThroughLens: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -159,6 +159,7 @@ const SeeThroughLens: FC = () => {
                     onClick={() => {
                       setSeeThroughProfile(profile);
                       setSearchText('');
+                      Leafwatch.track(MISCELLANEOUS.SELECT_USER_FEED);
                     }}
                   >
                     <UserProfile showUserPreview={false} linkToProfile={false} profile={profile} />
