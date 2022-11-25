@@ -96,6 +96,11 @@ const Details: FC<Props> = ({ profile }) => {
           )}
         </div>
       </div>
+      {profile?.bio && (
+        <div className="mr-0 sm:mr-10 leading-md linkify text-md">
+          <Markup>{profile?.bio}</Markup>
+        </div>
+      )}
       <div className="space-y-5">
         <Followerings profile={profile} />
         <div>
@@ -127,11 +132,6 @@ const Details: FC<Props> = ({ profile }) => {
             )
           ) : null}
         </div>
-        {profile?.bio && (
-          <div className="mr-0 sm:mr-10 leading-md linkify text-md">
-            <Markup>{profile?.bio}</Markup>
-          </div>
-        )}
         {currentProfile?.id !== profile?.id && (
           <>
             <MutualFollowers setShowMutualFollowersModal={setShowMutualFollowersModal} profile={profile} />
