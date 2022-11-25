@@ -16,7 +16,7 @@
     "@graphql-codegen/typescript": "^2.8.2",
     "@graphql-codegen/typescript-operations": "^2.5.7",
     "@graphql-codegen/typescript-react-apollo": "^3.3.6",
-    "eslint-config-weblint": "workspace:*",
-    "tsconfig": "workspace:*"
+    "eslint-config-weblint": "*",
+    "tsconfig": "*"
   }
 }
