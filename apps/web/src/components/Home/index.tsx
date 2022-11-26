@@ -1,9 +1,9 @@
+import MetaTags from '@components/Common/MetaTags';
 import NewPost from '@components/Composer/Post/New';
 import ExploreFeed from '@components/Explore/Feed';
 import BetaWarning from '@components/Home/BetaWarning';
 import Footer from '@components/Shared/Footer';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
-import MetaTags from '@components/utils/MetaTags';
 import type { NextPage } from 'next';
 import { useState } from 'react';
 import { useAppStore } from 'src/store/app';

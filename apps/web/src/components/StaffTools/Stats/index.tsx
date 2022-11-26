@@ -1,7 +1,7 @@
+import MetaTags from '@components/Common/MetaTags';
 import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import useStaffMode from '@components/utils/hooks/useStaffMode';
-import MetaTags from '@components/utils/MetaTags';
 import {
   ChatAlt2Icon,
   CollectionIcon,

@@ -1,7 +1,7 @@
+import MetaTags from '@components/Common/MetaTags';
 import Footer from '@components/Shared/Footer';
 import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
-import MetaTags from '@components/utils/MetaTags';
 import isGardener from '@lib/isGardener';
 import { APP_NAME } from 'data/constants';
 import type { NextPage } from 'next';
