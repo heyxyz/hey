@@ -3,16 +3,14 @@ import '../styles.css';
 import Loading from '@components/Loading';
 import type { AppProps } from 'next/app';
 import { lazy, Suspense } from 'react';
-const Providers = lazy(() => import('@components/Providers'));
-const Layout = lazy(() => import('@components/Layout'));
+
+const Providers = lazy(() => import('@components/Common/Providers'));
 
 const App = ({ Component, pageProps }: AppProps) => {
   return (
     <Suspense fallback={<Loading />}>
       <Providers>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
+        <Component {...pageProps} />
       </Providers>
     </Suspense>
   );
