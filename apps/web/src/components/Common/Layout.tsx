@@ -13,11 +13,11 @@ import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { useReferenceModuleStore } from 'src/store/reference-module';
 import { useAccount, useDisconnect, useNetwork } from 'wagmi';
 
-import Loading from './Loading';
-import GlobalModals from './Shared/GlobalModals';
-import Navbar from './Shared/Navbar';
-import useIsMounted from './utils/hooks/useIsMounted';
-import { useDisconnectXmtp } from './utils/hooks/useXmtpClient';
+import Loading from '../Loading';
+import GlobalModals from '../Shared/GlobalModals';
+import Navbar from '../Shared/Navbar';
+import useIsMounted from '../utils/hooks/useIsMounted';
+import { useDisconnectXmtp } from '../utils/hooks/useXmtpClient';
 
 interface Props {
   children: ReactNode;
