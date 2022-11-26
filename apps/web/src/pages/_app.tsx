@@ -1,6 +1,6 @@
 import '../styles.css';
 
-import Loading from '@components/Loading';
+import Loading from '@components/Shared/Loading';
 import type { AppProps } from 'next/app';
 import { lazy, Suspense } from 'react';
 
