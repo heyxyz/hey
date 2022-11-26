@@ -1,5 +1,5 @@
+import MetaTags from '@components/Common/MetaTags';
 import { Button } from '@components/UI/Button';
-import MetaTags from '@components/utils/MetaTags';
 import { HomeIcon } from '@heroicons/react/outline';
 import { APP_NAME } from 'data/constants';
 import Link from 'next/link';

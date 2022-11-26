@@ -1,3 +1,4 @@
+import MetaTags from '@components/Common/MetaTags';
 import UserProfile from '@components/Shared/UserProfile';
 import { Button } from '@components/UI/Button';
 import { Card } from '@components/UI/Card';
@@ -6,7 +7,6 @@ import { Modal } from '@components/UI/Modal';
 import { Spinner } from '@components/UI/Spinner';
 import { WarningMessage } from '@components/UI/WarningMessage';
 import { useDisconnectXmtp } from '@components/utils/hooks/useXmtpClient';
-import MetaTags from '@components/utils/MetaTags';
 import { ExclamationIcon, TrashIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
 import onError from '@lib/onError';

@@ -1,5 +1,5 @@
+import MetaTags from '@components/Common/MetaTags';
 import TabButton from '@components/UI/TabButton';
-import MetaTags from '@components/utils/MetaTags';
 import { AtSymbolIcon, ChatAlt2Icon, LightningBoltIcon } from '@heroicons/react/outline';
 import { Leafwatch } from '@lib/leafwatch';
 import { APP_NAME } from 'data/constants';
