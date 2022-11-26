@@ -1,12 +1,12 @@
 import Preview from '@components/Messages/Preview';
 import Following from '@components/Profile/Following';
+import Loader from '@components/Shared/Loader';
 import Search from '@components/Shared/Navbar/Search';
 import { Card } from '@components/UI/Card';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { GridItemFour } from '@components/UI/GridLayout';
 import { Modal } from '@components/UI/Modal';
-import { PageLoading } from '@components/UI/PageLoading';
 import useMessagePreviews from '@components/utils/hooks/useMessagePreviews';
 import { MailIcon, PlusCircleIcon, UsersIcon } from '@heroicons/react/outline';
 import buildConversationId from '@lib/buildConversationId';
@@ -117,9 +117,13 @@ const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
         ) : null}
         <div className="h-full overflow-y-auto overflow-x-hidden">
           {showAuthenticating ? (
-            <PageLoading message="Awaiting signature to enable DMs" />
+            <div className="flex h-full flex-grow justify-center items-center">
+              <Loader message="Awaiting signature to enable DMs" />
+            </div>
           ) : showLoading ? (
-            <PageLoading message="Loading conversations" />
+            <div className="flex h-full flex-grow justify-center items-center">
+              <Loader message="Loading conversations" />
+            </div>
           ) : profilesError ? (
             <ErrorMessage
               className="m-5"

@@ -1,8 +1,8 @@
 import MetaTags from '@components/Common/MetaTags';
 import MessageHeader from '@components/Messages/MessageHeader';
+import Loader from '@components/Shared/Loader';
 import { Card } from '@components/UI/Card';
 import { GridItemEight, GridLayout } from '@components/UI/GridLayout';
-import { PageLoading } from '@components/UI/PageLoading';
 import useGetConversation from '@components/utils/hooks/useGetConversation';
 import useGetMessages from '@components/utils/hooks/useGetMessages';
 import useSendMessage from '@components/utils/hooks/useSendMessage';
@@ -68,7 +68,9 @@ const Message: FC<MessageProps> = ({ conversationKey }) => {
       <GridItemEight className="xs:h-[85vh] sm:h-[76vh] md:h-[80vh] xl:h-[84vh] mb-0 md:col-span-8 sm:mx-2 xs:mx-2">
         <Card className="h-full flex justify-between flex-col">
           {showLoading ? (
-            <PageLoading message="Loading messages" />
+            <div className="flex h-full flex-grow justify-center items-center">
+              <Loader message="Loading messages" />
+            </div>
           ) : (
             <>
               <MessageHeader profile={profile} />
