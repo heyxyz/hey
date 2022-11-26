@@ -1,3 +1,4 @@
+import MetaTags from '@components/Common/MetaTags';
 import MessageHeader from '@components/Messages/MessageHeader';
 import { Card } from '@components/UI/Card';
 import { GridItemEight, GridLayout } from '@components/UI/GridLayout';
@@ -6,7 +7,6 @@ import useGetConversation from '@components/utils/hooks/useGetConversation';
 import useGetMessages from '@components/utils/hooks/useGetMessages';
 import useSendMessage from '@components/utils/hooks/useSendMessage';
 import useStreamMessages from '@components/utils/hooks/useStreamMessages';
-import MetaTags from '@components/utils/MetaTags';
 import { parseConversationKey } from '@lib/conversationKey';
 import { APP_NAME } from 'data/constants';
 import type { NextPage } from 'next';

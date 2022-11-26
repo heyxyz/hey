@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 
-import MetaTags from './utils/MetaTags';
+import MetaTags from './Common/MetaTags';
 
 const Loading: FC = () => {
   return (

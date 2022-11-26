@@ -1,6 +1,6 @@
+import MetaTags from '@components/Common/MetaTags';
 import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
-import MetaTags from '@components/utils/MetaTags';
 import { APP_NAME } from 'data/constants';
 import type { FC } from 'react';
 import Custom404 from 'src/pages/404';

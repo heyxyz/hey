@@ -1,7 +1,7 @@
+import MetaTags from '@components/Common/MetaTags';
 import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import { PageLoading } from '@components/UI/PageLoading';
-import MetaTags from '@components/utils/MetaTags';
 import { PhotographIcon } from '@heroicons/react/outline';
 import clsx from 'clsx';
 import { APP_NAME } from 'data/constants';

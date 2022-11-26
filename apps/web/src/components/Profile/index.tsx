@@ -1,5 +1,5 @@
+import MetaTags from '@components/Common/MetaTags';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
-import MetaTags from '@components/utils/MetaTags';
 import { APP_NAME, STATIC_IMAGES_URL } from 'data/constants';
 import { useProfileQuery } from 'lens';
 import type { NextPage } from 'next';
