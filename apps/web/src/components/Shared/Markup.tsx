@@ -6,7 +6,6 @@ import { MDLinkMatcher } from '@components/utils/matchers/markdown/MDLinkMatcher
 import { MDQuoteMatcher } from '@components/utils/matchers/markdown/MDQuoteMatcher';
 import { MDStrikeMatcher } from '@components/utils/matchers/markdown/MDStrikeMatcher';
 import { MentionMatcher } from '@components/utils/matchers/MentionMatcher';
-import { SpoilerMatcher } from '@components/utils/matchers/SpoilerMatcher';
 import { UrlMatcher } from '@components/utils/matchers/UrlMatcher';
 import trimify from '@lib/trimify';
 import { Interweave } from 'interweave';
@@ -28,8 +27,7 @@ const Markup: FC<Props> = ({ children, className = '', matchOnlyUrl }) => {
     new MDBoldMatcher('mdBold'),
     new MDItalicMatcher('mdItalic'),
     new MDStrikeMatcher('mdStrike'),
-    new MDQuoteMatcher('mdQuote'),
-    new SpoilerMatcher('spoiler')
+    new MDQuoteMatcher('mdQuote')
   ];
 
   return (
