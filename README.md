@@ -49,6 +49,16 @@
 
 Lenster is a decentralized and permissionless social media app built with [Lens Protocol](http://lens.xyz) 🌿
 
+## 📦 Environments
+
+| Name            | Link                                |
+|-----------------|-------------------------------------|
+| Mainnet         | https://lenster.xyz                 |
+| Testnet         | https://testnet.lenster.xyz         |
+| Staging         | https://staging.lenster.xyz         |
+| Sandbox         | https://sandbox.lenster.xyz         |
+| Staging Sandbox | https://staging-sandbox.lenster.xyz |
+
 ## ✅ Community
 
 For a place to have open discussions on features, voice your ideas, or get help with general questions please visit our community at [Discord](https://lenster.xyz/discord).
