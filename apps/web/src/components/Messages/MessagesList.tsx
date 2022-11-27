@@ -143,7 +143,7 @@ const MessagesList: FC<MessageListProps> = ({
             loader={<LoadingMore />}
             scrollableTarget="scrollableDiv"
           >
-            {messages?.map((msg: DecodedMessage, index: number) => {
+            {messages?.map((msg: DecodedMessage, index) => {
               const dateHasChanged = lastMessageDate ? !isOnSameDay(lastMessageDate, msg.sent) : false;
               const messageDiv = (
                 <div key={`${msg.id}_${index}`}>

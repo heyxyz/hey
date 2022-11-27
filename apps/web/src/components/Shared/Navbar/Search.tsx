@@ -5,7 +5,7 @@ import useOnClickOutside from '@components/utils/hooks/useOnClickOutside';
 import { SearchIcon, XIcon } from '@heroicons/react/outline';
 import { Leafwatch } from '@lib/leafwatch';
 import clsx from 'clsx';
-import type { Profile } from 'lens';
+import type { Profile, ProfileSearchResult } from 'lens';
 import { CustomFiltersTypes, SearchRequestTypes, useSearchProfilesLazyQuery } from 'lens';
 import { useRouter } from 'next/router';
 import type { ChangeEvent, FC } from 'react';
@@ -62,8 +62,9 @@ const Search: FC<Props> = ({
     setSearchText('');
   };
 
-  // @ts-ignore
-  const profiles = searchUsersData?.search?.items ?? [];
+  const searchResult = searchUsersData?.search as ProfileSearchResult;
+  const isProfileSearchResult = searchResult && searchResult.hasOwnProperty('items');
+  const profiles = isProfileSearchResult ? searchResult.items : [];
 
   return (
     <div aria-hidden="true" className="w-full">
