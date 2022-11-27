@@ -105,7 +105,7 @@ const List: FC<Props> = ({ feedType }) => {
       loader={<InfiniteLoader />}
     >
       <Card className="divide-y dark:divide-gray-700">
-        {notifications?.map((notification, index: number) => (
+        {notifications?.map((notification, index) => (
           <div key={`${notification?.notificationId}_${index}`} className="p-5">
             {notification.__typename === 'NewFollowerNotification' && (
               <FollowerNotification notification={notification as NewFollowerNotification} />

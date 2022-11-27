@@ -7,7 +7,7 @@ import { ChevronDownIcon } from '@heroicons/react/solid';
 import getAvatar from '@lib/getAvatar';
 import { Leafwatch } from '@lib/leafwatch';
 import clsx from 'clsx';
-import type { FeedItem, Profile } from 'lens';
+import type { FeedItem, Profile, ProfileSearchResult } from 'lens';
 import {
   CustomFiltersTypes,
   SearchRequestTypes,
@@ -73,12 +73,12 @@ const SeeThroughLens: FC = () => {
     });
   };
 
-  // @ts-ignore
-  const searchResults = searchUsersData?.search?.items ?? [];
+  const search = searchUsersData?.search as ProfileSearchResult;
+  const searchProfiles = search?.items ?? [];
   const recommendedProfiles = recommendedProfilesToSeeThrough ?? [];
 
   const profiles =
-    searchResults.length && searchText.length ? searchResults : recommendedProfiles.slice(0, 5);
+    searchProfiles.length && searchText.length ? searchProfiles : recommendedProfiles.slice(0, 5);
 
   return (
     <Menu as="div" className="relative">

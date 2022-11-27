@@ -92,7 +92,7 @@ const Timeline: FC = () => {
               </div>
             )
         )}
-        {publications?.map((publication, index: number) => (
+        {publications?.map((publication, index) => (
           <SinglePublication
             key={`${publication?.root.id}_${index}`}
             feedItem={publication as FeedItem}
