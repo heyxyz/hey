@@ -26,8 +26,8 @@ const ProfileSettings: NextPage = () => {
     variables: { request: { profileId: currentProfile?.id } },
     skip: !currentProfile?.id,
     onCompleted: (data) => {
-      // @ts-ignore
-      setSettingsType(data?.profile?.picture?.uri ? 'NFT' : 'AVATAR');
+      const picture = data?.profile?.picture;
+      setSettingsType(picture?.hasOwnProperty('uri') ? 'NFT' : 'AVATAR');
     }
   });
 

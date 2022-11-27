@@ -181,7 +181,7 @@ const SignedUser: FC = () => {
                       <SwitchHorizontalIcon className="w-4 h-4" />
                       <div>Switch to</div>
                     </div>
-                    {profiles.map((profile: Profile, index: number) => (
+                    {profiles.map((profile: Profile, index) => (
                       <div
                         key={profile?.id}
                         className="block text-sm text-gray-700 rounded-lg cursor-pointer dark:text-gray-200"

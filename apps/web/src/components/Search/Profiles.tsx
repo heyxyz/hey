@@ -6,7 +6,7 @@ import { ErrorMessage } from '@components/UI/ErrorMessage';
 import InfiniteLoader from '@components/UI/InfiniteLoader';
 import { UsersIcon } from '@heroicons/react/outline';
 import { SCROLL_THRESHOLD } from 'data/constants';
-import type { Profile } from 'lens';
+import type { Profile, ProfileSearchResult } from 'lens';
 import { CustomFiltersTypes, SearchRequestTypes, useSearchProfilesQuery } from 'lens';
 import type { FC } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -29,10 +29,9 @@ const Profiles: FC<Props> = ({ query }) => {
     skip: !query
   });
 
-  // @ts-ignore
-  const profiles = data?.search?.items;
-  // @ts-ignore
-  const pageInfo = data?.search?.pageInfo;
+  const search = data?.search as ProfileSearchResult;
+  const profiles = search?.items;
+  const pageInfo = search?.pageInfo;
   const hasMore = pageInfo?.next && profiles?.length !== pageInfo.totalCount;
 
   const loadMore = async () => {

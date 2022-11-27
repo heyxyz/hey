@@ -9,7 +9,7 @@ import getIPFSLink from '@lib/getIPFSLink';
 import getStampFyiURL from '@lib/getStampFyiURL';
 import imageProxy from '@lib/imageProxy';
 import { AVATAR } from 'data/constants';
-import type { MediaSet, NftImage, Profile } from 'lens';
+import type { MediaSet, NftImage, Profile, ProfileSearchResult } from 'lens';
 import { SearchRequestTypes, useSearchProfilesLazyQuery } from 'lens';
 import type { TextNode } from 'lexical';
 import type { FC } from 'react';
@@ -135,19 +135,39 @@ const NewMentionsPlugin: FC = () => {
   const [editor] = useLexicalComposerContext();
   const [searchUsers] = useSearchProfilesLazyQuery();
 
+  const getUserPicture = (user: Profile | undefined) => {
+    const picture = user?.picture;
+    if (picture && picture.hasOwnProperty('original')) {
+      const mediaSet = user.picture as MediaSet;
+      return mediaSet.original?.url;
+    }
+
+    if (picture && picture.hasOwnProperty('uri')) {
+      const nftImage = user.picture as NftImage;
+      return nftImage?.uri;
+    }
+
+    return getStampFyiURL(user?.ownedBy);
+  };
+
   useEffect(() => {
     if (queryString) {
       searchUsers({
         variables: { request: { type: SearchRequestTypes.Profile, query: queryString, limit: 5 } }
       }).then(({ data }) => {
-        // @ts-ignore
-        let profiles = data?.search?.items ?? [];
-        profiles = profiles.map((user: Profile & { picture: MediaSet & NftImage }) => ({
-          name: user?.name,
-          handle: user?.handle,
-          picture: user?.picture?.original?.url ?? user?.picture?.uri ?? getStampFyiURL(user?.ownedBy)
-        }));
-        setResults(profiles);
+        const search = data?.search;
+        const profileSearchResult = search as ProfileSearchResult;
+        const profiles: Profile[] =
+          search && search.hasOwnProperty('items') ? profileSearchResult?.items : [];
+        const profilesResults = profiles.map(
+          (user: Profile) =>
+            ({
+              name: user?.name,
+              handle: user?.handle,
+              picture: getUserPicture(user)
+            } as Record<string, string>)
+        );
+        setResults(profilesResults);
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
