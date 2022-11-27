@@ -52,7 +52,7 @@ Lenster is a decentralized and permissionless social media app built with [Lens 
 ## 📦 Environments
 
 | Name            | Link                                |
-|-----------------|-------------------------------------|
+| --------------- | ----------------------------------- |
 | Mainnet         | https://lenster.xyz                 |
 | Testnet         | https://testnet.lenster.xyz         |
 | Staging         | https://staging.lenster.xyz         |
