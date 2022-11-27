@@ -112,7 +112,7 @@ const MentionsTypeaheadMenuItem: FC<Props> = ({ isSelected, onClick, onMouseEnte
       onMouseEnter={onMouseEnter}
       onClick={onClick}
     >
-      <div className="hover:bg-gray-100 flex items-center space-x-2 m-1.5 px-3 py-1 rounded-xl">
+      <div className="hover:bg-gray-800 text-white flex items-center space-x-2 m-1.5 px-3 py-1 rounded-xl">
         <img
           className="rounded-full w-7 h-7"
           height="32"
