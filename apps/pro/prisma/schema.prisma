@@ -12,5 +12,6 @@ generator client {
 model User {
   id           String    @id @default(uuid())
   userId       String    @unique
+  txHash       String?
   proExpiresAt DateTime?
 }
