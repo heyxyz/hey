@@ -17,7 +17,7 @@ export const SERVERLESS_TESTNET_API_URL = 'https://api-testnet.lenster.xyz';
 export const SERVERLESS_STAGING_API_URL = 'https://api-staging.lenster.xyz';
 export const SERVERLESS_STAGING_SANDBOX_API_URL = 'https://api-staging-sandbox.lenster.xyz';
 export const SERVERLESS_SANDBOX_API_URL = 'https://api-sandbox.lenster.xyz';
-export const SERVERLESS_DEVELOPMENT_API_URL = 'http://localhost:6969';
+export const SERVERLESS_DEVELOPMENT_API_URL = 'http://localhost:4784';
 
 export const SERVERLESS_URL = getEnvConfig().serverlessEndpoint;
 export const API_URL = getEnvConfig().apiEndpoint;
