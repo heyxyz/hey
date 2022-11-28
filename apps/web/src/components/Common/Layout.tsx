@@ -2,6 +2,7 @@ import getIsAuthTokensAvailable from '@lib/getIsAuthTokensAvailable';
 import getToastOptions from '@lib/getToastOptions';
 import resetAuthData from '@lib/resetAuthData';
 import axios from 'axios';
+import { PRO_STATUS_API_URL } from 'data/constants';
 import type { Profile } from 'lens';
 import { ReferenceModules, useUserProfilesQuery } from 'lens';
 import Head from 'next/head';
@@ -101,7 +102,7 @@ const Layout: FC<Props> = ({ children }) => {
   // set pro status
   useEffect(() => {
     if (currentProfile?.id && currentProfile?.id === '0x0d') {
-      axios(`https://pro.lenster.xyz/user/${currentProfile?.id}`)
+      axios(`${PRO_STATUS_API_URL}/user/${currentProfile?.id}`)
         .then(({ data }) => setIsPro(data.isPro))
         .catch(() => setIsPro(false));
     }
