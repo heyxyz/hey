@@ -1,23 +1,17 @@
 {
-  "name": "api",
+  "name": "pro",
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --port 4784",
+    "dev": "next dev --port 4785",
     "build": "next build",
     "start": "next start",
     "typecheck": "tsc --noEmit",
     "lint": "eslint . --ext .js,.ts,.tsx"
   },
   "dependencies": {
-    "@apollo/client": "^3.7.1",
-    "@aws-sdk/client-s3": "^3.211.0",
-    "@aws-sdk/client-sts": "^3.212.0",
-    "@bundlr-network/client": "^0.9.0",
-    "axios": "^1.1.3",
     "dotenv": "^16.0.3",
     "next": "^13.0.2",
-    "next-transpile-modules": "^10.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "uuid": "^9.0.0"
@@ -26,9 +20,7 @@
     "@types/react": "^18.0.23",
     "@types/react-dom": "^18.0.9",
     "@types/uuid": "^8.3.4",
-    "data": "*",
     "eslint-config-weblint": "*",
-    "lens": "*",
     "tsconfig": "*",
     "typescript": "^4.9.3"
   }
