@@ -7,19 +7,27 @@
     "build": "next build",
     "start": "next start",
     "typecheck": "tsc --noEmit",
-    "lint": "eslint . --ext .js,.ts,.tsx"
+    "lint": "eslint . --ext .js,.ts,.tsx",
+    "db:migrate": "npx prisma migrate dev --schema=./src/schema.prisma --skip-seed",
+    "db:reset": "npx prisma migrate reset --schema=./src/schema.prisma --skip-seed",
+    "db:push": "npx prisma db push --schema=./src/schema.prisma",
+    "db:seed": "npx prisma db seed",
+    "db:studio": "npx prisma studio --schema=./src/schema.prisma",
+    "db:format": "npx prisma format --schema=./src/schema.prisma"
+  },
+  "prisma": {
+    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} src/seed.ts"
   },
   "dependencies": {
+    "@prisma/client": "^4.6.1",
     "dotenv": "^16.0.3",
     "next": "^13.0.2",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "uuid": "^9.0.0"
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@types/react": "^18.0.23",
     "@types/react-dom": "^18.0.9",
-    "@types/uuid": "^8.3.4",
     "eslint-config-weblint": "*",
     "tsconfig": "*",
     "typescript": "^4.9.3"
