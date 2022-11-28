@@ -32,7 +32,6 @@ const Layout: FC<Props> = ({ children }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
   const setIsPro = useAppStore((state) => state.setIsPro);
-  const isPro = useAppStore((state) => state.isPro);
   const profileId = useAppPersistStore((state) => state.profileId);
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
   const setSelectedReferenceModule = useReferenceModuleStore((state) => state.setSelectedReferenceModule);
