@@ -12,6 +12,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           where: { userId: id as string }
         });
 
+        // Set cache for 1 day
+        res.setHeader('Cache-Control', 's-maxage=86400');
+
         if (data?.proExpiresAt) {
           return res.status(200).json({ isPro: data?.proExpiresAt > new Date() });
         }
