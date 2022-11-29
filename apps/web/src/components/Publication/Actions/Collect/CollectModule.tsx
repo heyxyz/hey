@@ -25,6 +25,7 @@ import {
 import { CheckCircleIcon } from '@heroicons/react/solid';
 import formatAddress from '@lib/formatAddress';
 import formatHandle from '@lib/formatHandle';
+import formatTime from '@lib/formatTime';
 import getAssetAddress from '@lib/getAssetAddress';
 import getCoingeckoPrice from '@lib/getCoingeckoPrice';
 import getSignature from '@lib/getSignature';
@@ -398,7 +399,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
               <ClockIcon className="w-4 h-4 text-gray-500" />
               <div className="space-x-1.5">
                 <span>Sale Ends:</span>
-                <span className="font-bold text-gray-600">
+                <span className="font-bold text-gray-600" title={formatTime(collectModule.endTimestamp)}>
                   {dayjs(collectModule.endTimestamp).format('MMMM DD, YYYY')} at{' '}
                   {dayjs(collectModule.endTimestamp).format('hh:mm a')}
                 </span>
