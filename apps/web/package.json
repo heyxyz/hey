@@ -35,6 +35,7 @@
     "jwt-decode": "^3.1.2",
     "lexical": "0.6.0",
     "next": "^13.0.2",
+    "next-pwa": "^5.6.0",
     "next-themes": "^0.2.1",
     "next-transpile-modules": "^10.0.0",
     "plyr-react": "^5.1.0",
