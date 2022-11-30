@@ -6,7 +6,7 @@
   "display": "fullscreen",
   "orientation": "portrait",
   "scope": "/",
-  "start_url": "/?utm_source=homescreen&utm_medium=shortcut",
+  "start_url": "/?utm_source=pwa",
   "icons": [
     {
       "src": "https://assets.lenster.xyz/images/icons/192x192.png",
