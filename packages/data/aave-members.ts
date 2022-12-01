@@ -37,5 +37,5 @@ export const aaveMembers = [
   '0x35', // superproduct.lens
   '0x6b46', // 0xgraham.lens
   '0x0636', // jenny.lens
-  '0x8a58', // fabri.lens
+  '0x8a58' // fabri.lens
 ];
