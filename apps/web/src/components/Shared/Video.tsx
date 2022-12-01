@@ -14,6 +14,7 @@ const Video: FC<Props> = ({ src }) => {
         source={{
           type: 'video',
           sources: [{ src, provider: 'html5' }],
+          // TODO: get placeholder image
           poster: src
         }}
         options={{
