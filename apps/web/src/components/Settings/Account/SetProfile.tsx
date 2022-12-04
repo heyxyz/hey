@@ -6,6 +6,7 @@ import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
 import { ExclamationIcon, PencilIcon } from '@heroicons/react/outline';
+import formatHandle from '@lib/formatHandle';
 import getSignature from '@lib/getSignature';
 import { Leafwatch } from '@lib/leafwatch';
 import onError from '@lib/onError';
@@ -148,7 +149,7 @@ const SetProfile: FC = () => {
         >
           {sortedProfiles?.map((profile: Profile) => (
             <option key={profile?.id} value={profile?.id}>
-              @{profile?.handle}
+              @{formatHandle(profile?.handle)}
             </option>
           ))}
         </select>

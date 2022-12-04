@@ -3,6 +3,7 @@ import UserProfile from '@components/Shared/UserProfile';
 import { Card } from '@components/UI/Card';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import type { LensterPublication } from '@generated/types';
+import formatHandle from '@lib/formatHandle';
 import { ALL_HANDLES_REGEX, HANDLE_SANITIZE_REGEX } from 'data/constants';
 import type { Profile } from 'lens';
 import { useRelevantPeopleQuery } from 'lens';
@@ -25,7 +26,7 @@ const RelevantPeople: FC<Props> = ({ publication }) => {
           return mention.trim().replace("'s", '').replace(HANDLE_SANITIZE_REGEX, '');
         }
 
-        return publication?.profile?.handle;
+        return formatHandle(publication?.profile?.handle);
       })
     : [];
 

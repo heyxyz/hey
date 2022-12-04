@@ -1,6 +1,7 @@
 import Markup from '@components/Shared/Markup';
 import { Card } from '@components/UI/Card';
 import { EmojiSadIcon } from '@heroicons/react/outline';
+import formatHandle from '@lib/formatHandle';
 import getAvatar from '@lib/getAvatar';
 import type { DecodedMessage } from '@xmtp/xmtp-js';
 import clsx from 'clsx';
@@ -39,7 +40,7 @@ const MessageTile: FC<MessageTileProps> = ({ message, profile, currentProfile })
           <img
             src={getAvatar(profile)}
             className="h-10 w-10 bg-gray-200 rounded-full border dark:border-gray-700/80 mr-2"
-            alt={profile?.handle}
+            alt={formatHandle(profile?.handle)}
           />
         )}
         <div
