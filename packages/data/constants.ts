@@ -116,3 +116,8 @@ export const LS_KEYS = {
   TIMELINE_STORE: 'timeline.store',
   MESSAGE_STORE: 'message.store'
 };
+
+// S3 bucket
+export const S3_BUCKET = {
+  LENSTER_MEDIA: 'lenster-media'
+};
