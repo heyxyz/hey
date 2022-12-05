@@ -18,7 +18,7 @@ import { ERROR_MESSAGE } from 'data/constants';
 import type { Profile } from 'lens';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useMessagePersistStore, useMessageStore } from 'src/store/message';
 import { MESSAGES } from 'src/tracking';
@@ -35,10 +35,35 @@ const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
   const selectedTab = useMessageStore((state) => state.selectedTab);
   const setSelectedTab = useMessageStore((state) => state.setSelectedTab);
   const [showSearchModal, setShowSearchModal] = useState(false);
-  const { authenticating, conversationsLoading, profilesToShow, requestedCount } = useListConversations();
-  const { messages, profilesError, previewLoading } = useMessagePreviews();
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const { authenticating, conversationsLoading } = useListConversations();
+  const { messages, profilesError, previewLoading, profilesToShow, requestedCount, hasMore } =
+    useMessagePreviews(currentIndex);
+
+  const observer = useRef<IntersectionObserver | null>(null);
 
   const clearMessagesBadge = useMessagePersistStore((state) => state.clearMessagesBadge);
+
+  const lastElementRef = useCallback(
+    // @ts-expect-error custom infinite scroll
+    (node) => {
+      if (previewLoading) {
+        return;
+      }
+      if (observer.current) {
+        observer.current.disconnect();
+      }
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && hasMore) {
+          setCurrentIndex(currentIndex + 20);
+        }
+      });
+      if (node) {
+        observer.current.observe(node);
+      }
+    },
+    [currentIndex, hasMore, previewLoading]
+  );
 
   const sortedProfiles = Array.from(profilesToShow).sort(([keyA], [keyB]) => {
     const messageA = messages.get(keyA);
@@ -142,20 +167,23 @@ const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
               />
             </button>
           ) : (
-            sortedProfiles?.map(([key, profile]) => {
+            sortedProfiles?.map(([key, profile], index) => {
               const message = messages.get(key);
               if (!message) {
                 return null;
               }
-
+              const isLastElement = sortedProfiles.length === index + 1;
               return (
-                <Preview
-                  isSelected={key === selectedConversationKey}
-                  key={key}
-                  profile={profile}
-                  conversationKey={key}
-                  message={message}
-                />
+                <>
+                  <Preview
+                    isSelected={key === selectedConversationKey}
+                    key={key}
+                    profile={profile}
+                    conversationKey={key}
+                    message={message}
+                  />
+                  {isLastElement && <div ref={lastElementRef} />}
+                </>
               );
             })
           )}

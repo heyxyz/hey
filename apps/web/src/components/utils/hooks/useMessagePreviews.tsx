@@ -14,7 +14,7 @@ import { useMessageStore } from 'src/store/message';
 
 const MAX_PROFILES_PER_REQUEST = 50;
 
-const useMessagePreviews = () => {
+const useMessagePreviews = (currentIndex: number) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const conversations = useMessageStore((state) => state.conversations);
   const messageProfiles = useMessageStore((state) => state.messageProfiles);
@@ -30,6 +30,10 @@ const useMessagePreviews = () => {
   const [profilesError, setProfilesError] = useState<Error | undefined>();
   const [loadProfiles] = useProfilesLazyQuery();
   const addMessages = useMessageStore((state) => state.addMessages);
+  const selectedTab = useMessageStore((state) => state.selectedTab);
+  const [profilesToShow, setProfilesToShow] = useState<Map<string, Profile>>(new Map());
+  const [requestedCount, setRequestedCount] = useState(0);
+  const [hasMore, setHasMore] = useState<boolean>(true);
 
   const getProfileFromKey = (key: string): string | null => {
     const parsed = parseConversationKey(key);
@@ -125,10 +129,10 @@ const useMessagePreviews = () => {
     const loadPreviewMessages = async () => {
       setMessagesLoading(true);
       const newPreviewMessages = new Map(previewMessages);
-      const newConversations = Array.from(conversations.values());
+      const convos = Array.from(conversations.values()).slice(currentIndex, currentIndex + 20);
       const newProfileIds = new Set(profileIds);
 
-      const previews = await Promise.all(newConversations.map(fetchMostRecentMessage));
+      const previews = await Promise.all(convos.map(fetchMostRecentMessage));
 
       for (const preview of previews) {
         const profileId = getProfileFromKey(preview.key);
@@ -143,6 +147,9 @@ const useMessagePreviews = () => {
       setMessagesLoading(false);
       if (newProfileIds.size > profileIds.size) {
         setProfileIds(newProfileIds);
+      }
+      if (previewMessages.size >= conversations.size) {
+        setHasMore(false);
       }
     };
 
@@ -161,10 +168,33 @@ const useMessagePreviews = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [client, currentProfile?.id, selectedProfileId, conversations]);
 
+  useEffect(() => {
+    const partitionedProfiles = Array.from(messageProfiles).reduce(
+      (result, [key, profile]) => {
+        const message = previewMessages.get(key);
+        if (message) {
+          if (profile.isFollowedByMe) {
+            result[0].set(key, profile);
+          } else {
+            result[1].set(key, profile);
+          }
+        }
+        return result;
+      },
+      [new Map<string, Profile>(), new Map<string, Profile>()]
+    );
+    setProfilesToShow(selectedTab === 'Following' ? partitionedProfiles[0] : partitionedProfiles[1]);
+    setRequestedCount(partitionedProfiles[1].size);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [messageProfiles, selectedTab]);
+
   return {
     previewLoading: messagesLoading || profilesLoading,
     messages: previewMessages,
-    profilesError: profilesError
+    profilesError: profilesError,
+    profilesToShow,
+    requestedCount,
+    hasMore
   };
 };
 
