@@ -110,7 +110,7 @@ const SeeThroughLens: FC = () => {
       >
         <Menu.Items
           static
-          className="absolute w-64 right-0 z-[5] mt-1 bg-white rounded-xl border shadow-sm dark:bg-gray-900 focus:outline-none dark:border-gray-700/80"
+          className="absolute w-64 right-0 max-[412px]:left-0 z-[5] mt-1 bg-white rounded-xl border shadow-sm dark:bg-gray-900 focus:outline-none dark:border-gray-700/80"
         >
           <div className="text-xs pt-2 px-3">👀 See the feed through...</div>
           <div className="p-2">
