@@ -70,7 +70,7 @@ const Attachments: FC<Props> = ({
 
   return slicedAttachments?.length !== 0 ? (
     <>
-      <div className={clsx(getClass(slicedAttachments?.length)?.row, 'grid grid-flow-col gap-2 pt-3')}>
+      <div className={clsx(getClass(slicedAttachments?.length)?.row, 'grid gap-2 pt-3')}>
         {slicedAttachments?.map((attachment: LensterAttachment & MediaSet) => {
           const type = isNew ? attachment.type : attachment.original.mimeType;
           const url = isNew ? getIPFSLink(attachment.item) : getIPFSLink(attachment.original.url);
