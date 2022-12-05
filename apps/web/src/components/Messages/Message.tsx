@@ -6,7 +6,7 @@ import { GridItemEight, GridLayout } from '@components/UI/GridLayout';
 import useGetConversation from '@components/utils/hooks/useGetConversation';
 import useGetMessages from '@components/utils/hooks/useGetMessages';
 import useSendMessage from '@components/utils/hooks/useSendMessage';
-import useStreamMessages from '@components/utils/hooks/useStreamMessages';
+import useStreamConversations from '@components/utils/hooks/useStreamConversations';
 import { parseConversationKey } from '@lib/conversationKey';
 import { APP_NAME } from 'data/constants';
 import type { NextPage } from 'next';
@@ -35,7 +35,7 @@ const Message: FC<MessageProps> = ({ conversationKey }) => {
     selectedConversation,
     endTime.get(conversationKey)
   );
-  useStreamMessages(conversationKey, selectedConversation);
+  useStreamConversations();
   const { sendMessage } = useSendMessage(selectedConversation);
 
   const fetchNextMessages = useCallback(() => {

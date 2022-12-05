@@ -7,6 +7,7 @@ import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { GridItemFour } from '@components/UI/GridLayout';
 import { Modal } from '@components/UI/Modal';
+import useListConversations from '@components/utils/hooks/useListConversations';
 import useMessagePreviews from '@components/utils/hooks/useMessagePreviews';
 import { MailIcon, PlusCircleIcon, UsersIcon } from '@heroicons/react/outline';
 import buildConversationId from '@lib/buildConversationId';
@@ -34,8 +35,9 @@ const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
   const selectedTab = useMessageStore((state) => state.selectedTab);
   const setSelectedTab = useMessageStore((state) => state.setSelectedTab);
   const [showSearchModal, setShowSearchModal] = useState(false);
-  const { authenticating, loading, messages, profilesToShow, requestedCount, profilesError } =
-    useMessagePreviews();
+  const { authenticating, conversationsLoading, profilesToShow, requestedCount } = useListConversations();
+  const { messages, profilesError, previewLoading } = useMessagePreviews();
+
   const clearMessagesBadge = useMessagePersistStore((state) => state.clearMessagesBadge);
 
   const sortedProfiles = Array.from(profilesToShow).sort(([keyA], [keyB]) => {
@@ -53,7 +55,8 @@ const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
   }, [currentProfile]);
 
   const showAuthenticating = currentProfile && authenticating;
-  const showLoading = loading && (messages.size === 0 || profilesToShow.size === 0);
+  const showLoading =
+    conversationsLoading || (previewLoading && (messages.size === 0 || profilesToShow.size === 0));
 
   const newMessageClick = () => {
     setShowSearchModal(true);
