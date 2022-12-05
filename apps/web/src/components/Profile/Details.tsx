@@ -192,7 +192,7 @@ const Details: FC<Props> = ({ profile }) => {
                   ?.replace('https://', '')
                   .replace('http://', '')}`}
                 target="_blank"
-                rel="noreferrer noopener"
+                rel="noreferrer noopener me"
               >
                 {getAttribute(profile?.attributes, 'website')?.replace('https://', '').replace('http://', '')}
               </a>
