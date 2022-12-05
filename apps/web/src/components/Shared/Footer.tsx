@@ -68,14 +68,6 @@ const Footer: FC = () => {
         GitHub
       </a>
       <a
-        href="https://simpleanalytics.com/lenster.xyz?"
-        target="_blank"
-        rel="noreferrer noopener"
-        onClick={() => Leafwatch.track(FOOTER.ANALYTICS)}
-      >
-        Analytics
-      </a>
-      <a
         className="pr-3 hover:font-bold"
         href={`https://vercel.com/?utm_source=${APP_NAME}&utm_campaign=oss`}
         target="_blank"
