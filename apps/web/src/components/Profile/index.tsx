@@ -30,7 +30,7 @@ const ViewProfile: NextPage = () => {
 
   const handle = formatHandle(username as string);
   const { data, loading, error } = useProfileQuery({
-    variables: { request: { handle: handle }, who: currentProfile?.id ?? null },
+    variables: { request: { handle }, who: currentProfile?.id ?? null },
     skip: !handle
   });
 
