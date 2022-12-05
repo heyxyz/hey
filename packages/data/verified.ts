@@ -2,6 +2,11 @@ import { aaveMembers } from './aave-members';
 import { lensterMembers } from './lenster-members';
 
 export const mainnetVerified = [
+  '0x018df3', // cryptobec.lens
+  '0xe922', // zkfruitrollup.lens
+  '0x018ab6', // mattwilson.lens
+  '0x1087', // cristinaspinei.lens
+  '0x018a8d', // thesmurfssociety.lens
   '0x0126ab', // nft4every1.lens
   '0x7a85', // nicogallardo.lens
   '0x12ea', // stevekenny.lens
@@ -17,7 +22,7 @@ export const mainnetVerified = [
   '0x018ccc', // zospours.lens
   '0x5805', // memester.lens
   '0xf6b0', // andresbriceno.lens
-  '0x01637c', // ou_lou.lens
+  '0x01637c', // lou_lou.lens
   '0x0132', // luduvigo.lens
   '0x013e57', // andriy.lens
   '0x018cf8', // zachchin.lens

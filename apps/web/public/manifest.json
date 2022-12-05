@@ -1,12 +1,14 @@
 {
   "name": "Lenster",
+  "description": "Lenster is a decentralized, and permissionless social media app built with Lens Protocol 🌿",
   "short_name": "Lenster",
   "theme_color": "#ffffff",
   "background_color": "#004740",
   "display": "fullscreen",
   "orientation": "portrait",
   "scope": "/",
-  "start_url": "/?utm_source=pwa",
+  "start_url": "/?utm_medium=pwa",
+  "iconPath": "https://assets.lenster.xyz/images/icons/512x512.png",
   "icons": [
     {
       "src": "https://assets.lenster.xyz/images/icons/192x192.png",
