@@ -7,6 +7,7 @@
   "orientation": "portrait",
   "scope": "/",
   "start_url": "/?utm_medium=pwa",
+  "iconPath": "https://assets.lenster.xyz/images/icons/512x512.png",
   "icons": [
     {
       "src": "https://assets.lenster.xyz/images/icons/192x192.png",
