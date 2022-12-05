@@ -1,13 +1,8 @@
 import { S3 } from '@aws-sdk/client-s3';
 import type { LensterAttachment } from '@generated/types';
 import axios from 'axios';
-import { EVER_API, SERVERLESS_URL } from 'data/constants';
+import { EVER_API, S3_BUCKET, SERVERLESS_URL } from 'data/constants';
 import { v4 as uuid } from 'uuid';
-
-const params = {
-  Bucket: 'lenster-media',
-  Key: uuid()
-};
 
 const getS3Client = async () => {
   const token = await axios.get(`${SERVERLESS_URL}/sts/token`);
@@ -37,6 +32,10 @@ const uploadToIPFS = async (data: any): Promise<LensterAttachment[]> => {
     const attachments = await Promise.all(
       files.map(async (_: any, i: number) => {
         const file = data.item(i);
+        const params = {
+          Bucket: S3_BUCKET.LENSTER_MEDIA,
+          Key: uuid()
+        };
         await client.putObject({ ...params, Body: file, ContentType: file.type });
         const result = await client.headObject(params);
         const metadata = result.Metadata;
@@ -63,6 +62,10 @@ const uploadToIPFS = async (data: any): Promise<LensterAttachment[]> => {
 export const uploadFileToIPFS = async (file: File): Promise<LensterAttachment | null> => {
   try {
     const client = await getS3Client();
+    const params = {
+      Bucket: S3_BUCKET.LENSTER_MEDIA,
+      Key: uuid()
+    };
     await client.putObject({ ...params, Body: file, ContentType: file.type });
     const result = await client.headObject(params);
     const metadata = result.Metadata;
