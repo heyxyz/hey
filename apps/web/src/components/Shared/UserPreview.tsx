@@ -1,5 +1,6 @@
 import MutualFollowers from '@components/Profile/MutualFollowers';
 import { BadgeCheckIcon } from '@heroicons/react/solid';
+import formatHandle from '@lib/formatHandle';
 import getAvatar from '@lib/getAvatar';
 import isVerified from '@lib/isVerified';
 import nFormatter from '@lib/nFormatter';
@@ -44,17 +45,19 @@ const UserPreview: FC<Props> = ({
       )}
       height={isBig ? 56 : 40}
       width={isBig ? 56 : 40}
-      alt={profile?.handle}
+      alt={formatHandle(profile?.handle)}
     />
   );
 
   const UserName = () => (
     <>
       <div className="flex gap-1 items-center max-w-sm truncate">
-        <div className={clsx(isBig ? 'font-bold' : 'text-md')}>{profile?.name ?? profile?.handle}</div>
+        <div className={clsx(isBig ? 'font-bold' : 'text-md')}>
+          {profile?.name ?? formatHandle(profile?.handle)}
+        </div>
         {isVerified(profile?.id) && <BadgeCheckIcon className="w-4 h-4 text-brand" />}
       </div>
-      <Slug className="text-sm" slug={profile?.handle} prefix="@" />
+      <Slug className="text-sm" slug={formatHandle(profile?.handle)} prefix="@" />
     </>
   );
 

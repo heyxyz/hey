@@ -1,6 +1,7 @@
 import Slug from '@components/Shared/Slug';
 import type { LensterPublication } from '@generated/types';
 import { ChatAlt2Icon } from '@heroicons/react/outline';
+import formatHandle from '@lib/formatHandle';
 import Link from 'next/link';
 import type { FC } from 'react';
 
@@ -10,7 +11,7 @@ interface Props {
 
 const CommentedPublication: FC<Props> = ({ publication }) => {
   const sourceId = publication?.commentOn?.id;
-  const sourceProfileHandle = publication?.commentOn?.profile?.handle;
+  const sourceProfileHandle = formatHandle(publication?.commentOn?.profile?.handle);
 
   return (
     <div className="flex items-center pb-4 space-x-1 text-gray-500 text-[13px]">

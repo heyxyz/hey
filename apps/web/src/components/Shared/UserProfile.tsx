@@ -1,4 +1,5 @@
 import { BadgeCheckIcon } from '@heroicons/react/solid';
+import formatHandle from '@lib/formatHandle';
 import getAttribute from '@lib/getAttribute';
 import getAvatar from '@lib/getAvatar';
 import isVerified from '@lib/isVerified';
@@ -53,14 +54,16 @@ const UserProfile: FC<Props> = ({
       )}
       height={isBig ? 56 : 40}
       width={isBig ? 56 : 40}
-      alt={profile?.handle}
+      alt={formatHandle(profile?.handle)}
     />
   );
 
   const UserName = () => (
     <>
       <div className="flex items-center max-w-sm truncate">
-        <div className={clsx(isBig ? 'font-bold' : 'text-md')}>{profile?.name ?? profile?.handle}</div>
+        <div className={clsx(isBig ? 'font-bold' : 'text-md')}>
+          {profile?.name ?? formatHandle(profile?.handle)}
+        </div>
         {isVerified(profile?.id) && <BadgeCheckIcon className="w-4 h-4 text-brand ml-1" />}
         {showStatus && hasStatus ? (
           <div className="flex items-center text-gray-500">
@@ -72,7 +75,7 @@ const UserProfile: FC<Props> = ({
           </div>
         ) : null}
       </div>
-      <Slug className="text-sm" slug={profile?.handle} prefix="@" />
+      <Slug className="text-sm" slug={formatHandle(profile?.handle)} prefix="@" />
     </>
   );
 
@@ -102,7 +105,7 @@ const UserProfile: FC<Props> = ({
   return (
     <div className="flex justify-between items-center">
       {linkToProfile ? (
-        <Link href={`/u/${profile?.handle}`}>
+        <Link href={`/u/${formatHandle(profile?.handle)}`}>
           <UserInfo />
         </Link>
       ) : (
