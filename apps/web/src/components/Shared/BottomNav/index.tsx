@@ -59,7 +59,7 @@ const BottomNav: FC = () => {
   };
 
   return (
-    //shows when users login and hidden above lg width
+    //only show at mobile
     <Disclosure
       as="div"
       className="lg:hidden sticky bottom-0 z-10 w-full bg-white border-b dark:bg-gray-900 dark:border-b-gray-700/80"
