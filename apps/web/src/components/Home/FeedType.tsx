@@ -14,7 +14,7 @@ interface Props {
 
 const FeedType: FC<Props> = ({ setFeedType, feedType }) => {
   return (
-    <div className="flex flex-wrap items-center md:px-0 px-1 justify-between">
+    <div className="flex flex-wrap items-center md:px-0 px-1 justify-between gap-2 sm:gap-0">
       <div className="flex overflow-x-auto gap-3 sm:px-0">
         <TabButton
           name="Timeline"
