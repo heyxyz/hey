@@ -104,7 +104,7 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
         setSelectedCollectModule(collectLimit ? LimitedFeeCollectModule : FeeCollectModule);
       } else {
         setCollectLimit(null);
-        setSelectedCollectModule(collectLimit ? LimitedFeeCollectModule : FreeCollectModule);
+        setSelectedCollectModule(collectLimit ? LimitedFeeCollectModule : RevertCollectModule);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
