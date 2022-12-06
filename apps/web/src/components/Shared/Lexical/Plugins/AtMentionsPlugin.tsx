@@ -5,6 +5,7 @@ import {
   TypeaheadOption,
   useBasicTypeaheadTriggerMatch
 } from '@lexical/react/LexicalTypeaheadMenuPlugin';
+import formatHandle from '@lib/formatHandle';
 import getIPFSLink from '@lib/getIPFSLink';
 import getStampFyiURL from '@lib/getStampFyiURL';
 import imageProxy from '@lib/imageProxy';
@@ -122,7 +123,7 @@ const MentionsTypeaheadMenuItem: FC<Props> = ({ isSelected, onClick, onMouseEnte
         />
         <div className="flex flex-col truncate">
           <div className="text-sm truncate">{option.name}</div>
-          <span className="text-xs">{option.handle}</span>
+          <span className="text-xs">{formatHandle(option.handle)}</span>
         </div>
       </div>
     </li>

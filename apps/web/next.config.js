@@ -28,6 +28,8 @@ module.exports = withTM(
     },
     async redirects() {
       return [
+        { source: '/u/:handle(.+).lens', destination: '/u/:handle', permanent: true },
+        { source: '/u/:handle(.+).test', destination: '/u/:handle', permanent: true },
         {
           source: '/discord',
           destination: 'https://discord.com/invite/B8eKhSSUwX',
