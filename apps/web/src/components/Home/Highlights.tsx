@@ -71,7 +71,7 @@ const Highlights: FC = () => {
               </div>
             )
         )}
-        {publications?.map((publication, index: number) => (
+        {publications?.map((publication, index) => (
           <SinglePublication
             key={`${publication?.id}_${index}`}
             publication={publication as LensterPublication}

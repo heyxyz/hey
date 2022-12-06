@@ -1,7 +1,6 @@
 import { Client } from '@xmtp/xmtp-js';
-import { APP_NAME, LS_KEYS, XMTP_ENV } from 'data/constants';
+import { APP_NAME, APP_VERSION, LS_KEYS, XMTP_ENV } from 'data/constants';
 import { useCallback, useEffect, useState } from 'react';
-import { APP_VERSION } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
 import { useSigner } from 'wagmi';

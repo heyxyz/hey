@@ -2,7 +2,6 @@ import { Button } from '@components/UI/Button';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Form, useZodForm } from '@components/UI/Form';
 import { Input } from '@components/UI/Input';
-import { PageLoading } from '@components/UI/PageLoading';
 import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
 import { PencilIcon } from '@heroicons/react/outline';
@@ -31,6 +30,7 @@ import { object, string } from 'zod';
 
 import EmojiPicker from './EmojiPicker';
 import IndexStatus from './IndexStatus';
+import Loader from './Loader';
 
 const editStatusSchema = object({
   status: string()
@@ -175,7 +175,7 @@ const Status: FC = () => {
   if (loading) {
     return (
       <div className="p-5">
-        <PageLoading message="Loading status settings" />
+        <Loader message="Loading status settings" />
       </div>
     );
   }

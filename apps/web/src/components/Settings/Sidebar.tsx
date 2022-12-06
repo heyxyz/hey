@@ -1,5 +1,6 @@
 import UserProfile from '@components/Shared/UserProfile';
 import {
+  BookmarkIcon,
   ChipIcon,
   ExclamationIcon,
   FingerPrintIcon,
@@ -48,6 +49,10 @@ const Sidebar: FC = () => {
       <Menu current={pathname == '/settings/account'} url="/settings/account">
         <ChipIcon className="w-4 h-4" />
         <div>Account</div>
+      </Menu>
+      <Menu current={pathname == '/settings/interests'} url="/settings/interests">
+        <BookmarkIcon className="w-4 h-4" />
+        <div>Interests</div>
       </Menu>
       <Menu current={pathname == '/settings/dispatcher'} url="/settings/dispatcher">
         <FingerPrintIcon className="w-4 h-4" />

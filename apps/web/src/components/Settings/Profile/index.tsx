@@ -1,19 +1,17 @@
+import MetaTags from '@components/Common/MetaTags';
 import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import { PageLoading } from '@components/UI/PageLoading';
-import MetaTags from '@components/utils/MetaTags';
 import { PhotographIcon } from '@heroicons/react/outline';
-import { Leafwatch } from '@lib/leafwatch';
 import clsx from 'clsx';
 import { APP_NAME } from 'data/constants';
 import { useProfileSettingsQuery } from 'lens';
 import type { NextPage } from 'next';
 import type { FC, ReactNode } from 'react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
 import { useAppStore } from 'src/store/app';
-import { PAGEVIEW } from 'src/tracking';
 
 import Sidebar from '../Sidebar';
 import NFTPicture from './NFTPicture';
@@ -24,16 +22,12 @@ const ProfileSettings: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [settingsType, setSettingsType] = useState<'NFT' | 'AVATAR'>('AVATAR');
 
-  useEffect(() => {
-    Leafwatch.track('Pageview', { path: PAGEVIEW.SETTINGS.PROFILE });
-  }, []);
-
   const { data, loading, error } = useProfileSettingsQuery({
     variables: { request: { profileId: currentProfile?.id } },
     skip: !currentProfile?.id,
     onCompleted: (data) => {
-      // @ts-ignore
-      setSettingsType(data?.profile?.picture?.uri ? 'NFT' : 'AVATAR');
+      const picture = data?.profile?.picture;
+      setSettingsType(picture?.hasOwnProperty('uri') ? 'NFT' : 'AVATAR');
     }
   });
 

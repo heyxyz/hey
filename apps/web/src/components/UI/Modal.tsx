@@ -10,13 +10,13 @@ interface Props {
   size?: 'sm' | 'md' | 'lg';
   show: boolean;
   children: ReactNode[] | ReactNode;
-  onClose: () => void;
+  onClose?: () => void;
 }
 
 export const Modal: FC<Props> = ({ icon, title, size = 'sm', show, children, onClose }) => {
   return (
     <Transition.Root show={show} as={Fragment}>
-      <Dialog as="div" className="overflow-y-auto fixed inset-0 z-10" onClose={onClose}>
+      <Dialog as="div" className="overflow-y-auto fixed inset-0 z-10" onClose={() => onClose?.()}>
         <div className="flex justify-center items-center p-4 min-h-screen text-center sm:block sm:p-0">
           <Transition.Child
             as={Fragment}
@@ -52,13 +52,15 @@ export const Modal: FC<Props> = ({ icon, title, size = 'sm', show, children, onC
                   {icon}
                   <div>{title}</div>
                 </div>
-                <button
-                  type="button"
-                  className="p-1 text-gray-800 rounded-full dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-gray-700"
-                  onClick={onClose}
-                >
-                  <XIcon className="w-5 h-5" />
-                </button>
+                {onClose ? (
+                  <button
+                    type="button"
+                    className="p-1 text-gray-800 rounded-full dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-gray-700"
+                    onClick={onClose}
+                  >
+                    <XIcon className="w-5 h-5" />
+                  </button>
+                ) : null}
               </div>
               {children}
             </div>

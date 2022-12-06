@@ -11,7 +11,7 @@ export const Mention = ({ ...props }: any) => {
       href={`/u/${props.display.slice(1)}`}
       onClick={(event) => {
         event.stopPropagation();
-        Leafwatch.track(PUBLICATION.MENTION_CLICK, { username: props.display });
+        Leafwatch.track(PUBLICATION.MENTION_CLICK);
       }}
     >
       <Slug slug={props.display} />

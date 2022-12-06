@@ -2,6 +2,25 @@ import { aaveMembers } from './aave-members';
 import { lensterMembers } from './lenster-members';
 
 export const mainnetVerified = [
+  '0x8d68', // avadi.lens
+  '0xadb2', // jameslondon.lens
+  '0x1044', // south.lens
+  '0xd6', // figue_me.lens
+  '0x5b8b', // matte.lens
+  '0x016b0f', // prashantbagga.lens
+  '0x018df3', // cryptobec.lens
+  '0xe922', // zkfruitrollup.lens
+  '0x018ab6', // mattwilson.lens
+  '0x1087', // cristinaspinei.lens
+  '0x018a8d', // thesmurfssociety.lens
+  '0x0126ab', // nft4every1.lens
+  '0x7a85', // nicogallardo.lens
+  '0x12ea', // stevekenny.lens
+  '0x0196de', // danfinlay.lens
+  '0xb1c8', // memester-xyz.lens
+  '0x8ba4', // devanon.lens
+  '0xa518', // apedev.lens
+  '0xf2a3', // papadari.lens
   '0x01873a', // curtisroach.lens
   '0xc1bd', // dragaan.lens
   '0x014c1f', // mexicotte.lens
@@ -9,7 +28,7 @@ export const mainnetVerified = [
   '0x018ccc', // zospours.lens
   '0x5805', // memester.lens
   '0xf6b0', // andresbriceno.lens
-  '0x01637c', // ou_lou.lens
+  '0x01637c', // lou_lou.lens
   '0x0132', // luduvigo.lens
   '0x013e57', // andriy.lens
   '0x018cf8', // zachchin.lens

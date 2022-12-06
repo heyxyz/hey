@@ -71,7 +71,7 @@ const Feed: FC<Props> = ({ focus, feedType = PublicationSortCriteria.CuratedProf
       loader={<InfiniteLoader />}
     >
       <Card className="divide-y-[1px] dark:divide-gray-700/80">
-        {publications?.map((publication, index: number) => (
+        {publications?.map((publication, index) => (
           <SinglePublication
             key={`${publication.id}_${index}`}
             publication={publication as LensterPublication}

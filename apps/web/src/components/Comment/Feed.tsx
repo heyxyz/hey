@@ -79,7 +79,7 @@ const Feed: FC<Props> = ({ publication }) => {
                   </div>
                 )
             )}
-            {comments?.map((comment, index: number) => (
+            {comments?.map((comment, index) => (
               <SinglePublication
                 key={`${publicationId}_${index}`}
                 publication={comment as LensterPublication}

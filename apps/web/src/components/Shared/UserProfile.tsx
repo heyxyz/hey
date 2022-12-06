@@ -23,6 +23,7 @@ interface Props {
   isBig?: boolean;
   linkToProfile?: boolean;
   showStatus?: boolean;
+  showUserPreview?: boolean;
 }
 
 const UserProfile: FC<Props> = ({
@@ -33,7 +34,8 @@ const UserProfile: FC<Props> = ({
   isFollowing = false,
   isBig = false,
   linkToProfile = true,
-  showStatus = false
+  showStatus = false,
+  showUserPreview = true
 }) => {
   const [following, setFollowing] = useState(isFollowing);
 
@@ -76,7 +78,12 @@ const UserProfile: FC<Props> = ({
 
   const UserInfo: FC = () => {
     return (
-      <UserPreview isBig={isBig} profile={profile} followStatusLoading={followStatusLoading}>
+      <UserPreview
+        isBig={isBig}
+        profile={profile}
+        followStatusLoading={followStatusLoading}
+        showUserPreview={showUserPreview}
+      >
         <div className="flex items-center space-x-3">
           <UserAvatar />
           <div>

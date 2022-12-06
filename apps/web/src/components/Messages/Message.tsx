@@ -1,23 +1,21 @@
+import MetaTags from '@components/Common/MetaTags';
 import MessageHeader from '@components/Messages/MessageHeader';
+import Loader from '@components/Shared/Loader';
 import { Card } from '@components/UI/Card';
 import { GridItemEight, GridLayout } from '@components/UI/GridLayout';
-import { PageLoading } from '@components/UI/PageLoading';
 import useGetConversation from '@components/utils/hooks/useGetConversation';
 import useGetMessages from '@components/utils/hooks/useGetMessages';
 import useSendMessage from '@components/utils/hooks/useSendMessage';
 import useStreamMessages from '@components/utils/hooks/useStreamMessages';
-import MetaTags from '@components/utils/MetaTags';
 import { parseConversationKey } from '@lib/conversationKey';
-import { Leafwatch } from '@lib/leafwatch';
 import { APP_NAME } from 'data/constants';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
-import { MESSAGES } from 'src/tracking';
 
 import Composer from './Composer';
 import MessagesList from './MessagesList';
@@ -70,7 +68,9 @@ const Message: FC<MessageProps> = ({ conversationKey }) => {
       <GridItemEight className="xs:h-[85vh] sm:h-[76vh] md:h-[80vh] xl:h-[84vh] mb-0 md:col-span-8 sm:mx-2 xs:mx-2">
         <Card className="h-full flex justify-between flex-col">
           {showLoading ? (
-            <PageLoading message="Loading messages" />
+            <div className="flex h-full flex-grow justify-center items-center">
+              <Loader message="Loading messages" />
+            </div>
           ) : (
             <>
               <MessageHeader profile={profile} />
@@ -100,13 +100,6 @@ const MessagePage: NextPage = () => {
   const {
     query: { conversationKey }
   } = useRouter();
-
-  useEffect(() => {
-    const id = conversationKey?.[3];
-    if (id) {
-      Leafwatch.track('Pageview', { path: MESSAGES.OPEN_CONVERSATION, id });
-    }
-  }, [conversationKey]);
 
   // Need to have a login page for when there is no currentProfileId
   if (!conversationKey || !currentProfileId || !Array.isArray(conversationKey)) {
