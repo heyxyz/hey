@@ -35,9 +35,19 @@ const MessageIcon: FC = () => {
       return;
     }
 
+    // For v1 badging, only badge when not already viewing messages. Once we have
+    // badging per-conversation, we can remove this.
+    const showBadgeValidator = (profileId: string): boolean => {
+      return !window.location.pathname.startsWith('/messages') && currentProfile.id === profileId;
+    };
+
     const matcherRegex = conversationMatchesProfile(currentProfile.id);
 
     const fetchShowBadge = async () => {
+      if (!showBadgeValidator(currentProfile.id)) {
+        return;
+      }
+
       const convos = await cachedClient.conversations.list();
       const matchingConvos = convos.filter(
         (convo) => convo.context?.conversationId && matcherRegex.test(convo.context.conversationId)
@@ -66,17 +76,11 @@ const MessageIcon: FC = () => {
       }
     };
 
-    // For v1 badging, only badge when not already viewing messages. Once we have
-    // badging per-conversation, we can remove this.
-    const newMessageValidator = (profileId: string): boolean => {
-      return !window.location.pathname.startsWith('/messages') && currentProfile.id === profileId;
-    };
-
-    const streamAllMessages = async (messageValidator: (profileId: string) => boolean) => {
+    const streamAllMessages = async (showBadge: (profileId: string) => boolean) => {
       messageStream = await cachedClient.conversations.streamAllMessages();
 
       for await (const message of messageStream) {
-        if (messageValidator(currentProfile.id)) {
+        if (showBadge(currentProfile.id)) {
           const conversationId = message.conversation.context?.conversationId;
           const isFromPeer = currentProfile.ownedBy !== message.senderAddress;
           if (isFromPeer && conversationId && matcherRegex.test(conversationId)) {
@@ -88,8 +92,11 @@ const MessageIcon: FC = () => {
       }
     };
 
-    fetchShowBadge();
-    streamAllMessages(newMessageValidator);
+    const setupBadge = async () => {
+      await fetchShowBadge();
+      await streamAllMessages(showBadgeValidator);
+    };
+    setupBadge();
 
     return () => {
       closeMessageStream();

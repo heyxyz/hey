@@ -198,9 +198,13 @@ const useMessagePreviews = () => {
       }
     };
 
-    listConversations();
-    streamConversations();
-    streamAllMessages();
+    const setupConversationsList = async () => {
+      await listConversations();
+      await streamConversations();
+      await streamAllMessages();
+    };
+
+    setupConversationsList();
 
     return () => {
       closeConversationStream();
