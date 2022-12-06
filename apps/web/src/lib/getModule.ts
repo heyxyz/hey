@@ -1,4 +1,3 @@
-import { FREE_COLLECT_MODULE } from 'data/constants';
 import { CollectModules, FollowModules, ReferenceModules } from 'lens';
 
 /**
@@ -84,28 +83,4 @@ export const getModule = (
     default:
       return { name: name, field: 'collectModule', helper: 'Others' };
   }
-};
-
-export interface FEE_DATA_TYPE {
-  amount: { currency: string; value: string };
-  collectLimit: string | null;
-  recipient: string;
-  referralFee: number;
-  followerOnly: boolean;
-}
-
-export const defaultModuleData = {
-  moduleName: 'FreeCollectModule',
-  contractAddress: FREE_COLLECT_MODULE,
-  inputParams: [],
-  redeemParams: [],
-  returnDataParms: []
-};
-
-export const defaultFeeData = {
-  amount: { currency: '', value: '' },
-  collectLimit: '',
-  recipient: '',
-  referralFee: 0,
-  followerOnly: false
 };
