@@ -195,7 +195,7 @@ const NewMentionsPlugin: FC = () => {
   const onSelectOption = useCallback(
     (selectedOption: MentionTypeaheadOption, nodeToReplace: TextNode | null, closeMenu: () => void) => {
       editor.update(() => {
-        const mentionNode = $createMentionNode(formatHandle(selectedOption.handle));
+        const mentionNode = $createMentionNode(selectedOption.handle);
         if (nodeToReplace) {
           nodeToReplace.replace(mentionNode);
         }

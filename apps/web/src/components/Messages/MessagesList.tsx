@@ -1,7 +1,5 @@
 import Markup from '@components/Shared/Markup';
 import { Card } from '@components/UI/Card';
-import { MentionMatcher } from '@components/utils/matchers/MentionMatcher';
-import { UrlMatcher } from '@components/utils/matchers/UrlMatcher';
 import { EmojiSadIcon } from '@heroicons/react/outline';
 import formatHandle from '@lib/formatHandle';
 import getAvatar from '@lib/getAvatar';
@@ -59,11 +57,7 @@ const MessageTile: FC<MessageTileProps> = ({ message, profile, currentProfile })
           >
             {message.error
               ? `Error: ${message.error?.message}`
-              : (
-                  <Markup customMatchers={[new MentionMatcher('mention'), new UrlMatcher('url')]}>
-                    {message.content}
-                  </Markup>
-                ) ?? ''}
+              : <Markup matchOnlyUrl>{message.content}</Markup> ?? ''}
           </span>
         </div>
       </div>
