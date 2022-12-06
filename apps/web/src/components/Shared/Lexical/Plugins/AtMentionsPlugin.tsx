@@ -119,7 +119,7 @@ const MentionsTypeaheadMenuItem: FC<Props> = ({ isSelected, onClick, onMouseEnte
           height="32"
           width="32"
           src={option.picture}
-          alt={formatHandle(option.handle)}
+          alt={option.handle}
         />
         <div className="flex flex-col truncate">
           <div className="text-sm truncate">{option.name}</div>
@@ -182,11 +182,7 @@ const NewMentionsPlugin: FC = () => {
     () =>
       results
         .map(({ name, picture, handle }) => {
-          return new MentionTypeaheadOption(
-            name ?? formatHandle(handle),
-            imageProxy(getIPFSLink(picture), AVATAR),
-            handle
-          );
+          return new MentionTypeaheadOption(name ?? handle, imageProxy(getIPFSLink(picture), AVATAR), handle);
         })
         .slice(0, SUGGESTION_LIST_LENGTH_LIMIT),
     [results]
