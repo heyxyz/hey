@@ -136,6 +136,13 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
 
   return (
     <div className="p-5 space-y-3">
+      sm: {selectedCollectModule}
+      <br />
+      htl: {JSON.stringify(hasTimeLimit)}
+      <br />
+      cl: {collectLimit}
+      <br />
+      amount: {amount}
       <div className="flex items-center space-x-2">
         <Toggle on={selectedCollectModule !== RevertCollectModule} setOn={toggleCollect} />
         <div className="text-gray-500 dark:text-gray-400 text-sm font-bold">This post can be collected</div>
