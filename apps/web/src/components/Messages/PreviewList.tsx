@@ -9,6 +9,7 @@ import { GridItemFour } from '@components/UI/GridLayout';
 import { Modal } from '@components/UI/Modal';
 import useListConversations from '@components/utils/hooks/useListConversations';
 import useMessagePreviews from '@components/utils/hooks/useMessagePreviews';
+import useStreamAllMessages from '@components/utils/hooks/useStreamAllMessages';
 import { MailIcon, PlusCircleIcon, UsersIcon } from '@heroicons/react/outline';
 import buildConversationId from '@lib/buildConversationId';
 import { buildConversationKey } from '@lib/conversationKey';
@@ -18,7 +19,8 @@ import { ERROR_MESSAGE } from 'data/constants';
 import type { Profile } from 'lens';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import InfiniteScroll from 'react-infinite-scroll-component';
 import { useAppStore } from 'src/store/app';
 import { useMessagePersistStore, useMessageStore } from 'src/store/message';
 import { MESSAGES } from 'src/tracking';
@@ -27,6 +29,10 @@ interface Props {
   className?: string;
   selectedConversationKey?: string;
 }
+
+const LoadingMore: FC = () => (
+  <div className="p-1 mt-1 text-center text-gray-300 font-bold text-sm">Loading...</div>
+);
 
 const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
   const router = useRouter();
@@ -37,33 +43,17 @@ const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
   const [showSearchModal, setShowSearchModal] = useState(false);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const { authenticating, conversationsLoading } = useListConversations();
+  useStreamAllMessages();
   const { messages, profilesError, previewLoading, profilesToShow, requestedCount, hasMore } =
     useMessagePreviews(currentIndex);
 
-  const observer = useRef<IntersectionObserver | null>(null);
-
   const clearMessagesBadge = useMessagePersistStore((state) => state.clearMessagesBadge);
 
-  const lastElementRef = useCallback(
-    // @ts-expect-error custom infinite scroll
-    (node) => {
-      if (previewLoading) {
-        return;
-      }
-      if (observer.current) {
-        observer.current.disconnect();
-      }
-      observer.current = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting && hasMore) {
-          setCurrentIndex(currentIndex + 20);
-        }
-      });
-      if (node) {
-        observer.current.observe(node);
-      }
-    },
-    [currentIndex, hasMore, previewLoading]
-  );
+  const fetchNextMessages = useCallback(() => {
+    if (hasMore && messages.size > 0) {
+      setCurrentIndex(currentIndex + 10);
+    }
+  }, [currentIndex, hasMore, messages]);
 
   const sortedProfiles = Array.from(profilesToShow).sort(([keyA], [keyB]) => {
     const messageA = messages.get(keyA);
@@ -143,7 +133,7 @@ const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
             These conversations are from Lens profiles that you don't currently follow.
           </div>
         ) : null}
-        <div className="h-full overflow-y-auto overflow-x-hidden">
+        <div className="h-full">
           {showAuthenticating ? (
             <div className="flex h-full flex-grow justify-center items-center">
               <Loader message="Awaiting signature to enable DMs" />
@@ -167,14 +157,20 @@ const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
               />
             </button>
           ) : (
-            sortedProfiles?.map(([key, profile], index) => {
-              const message = messages.get(key);
-              if (!message) {
-                return null;
-              }
-              const isLastElement = sortedProfiles.length === index + 1;
-              return (
-                <>
+            <InfiniteScroll
+              dataLength={Array.from(messages.keys()).length}
+              next={fetchNextMessages}
+              className="flex flex-col overflow-y-auto overflow-x-hidden"
+              hasMore={hasMore}
+              loader={<LoadingMore />}
+              height={650}
+            >
+              {sortedProfiles?.map(([key, profile]) => {
+                const message = messages.get(key);
+                if (!message) {
+                  return null;
+                }
+                return (
                   <Preview
                     isSelected={key === selectedConversationKey}
                     key={key}
@@ -182,10 +178,9 @@ const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
                     conversationKey={key}
                     message={message}
                   />
-                  {isLastElement && <div ref={lastElementRef} />}
-                </>
-              );
-            })
+                );
+              })}
+            </InfiniteScroll>
           )}
         </div>
       </Card>

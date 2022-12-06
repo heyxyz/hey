@@ -2,7 +2,6 @@ import useXmtpClient from '@components/utils/hooks/useXmtpClient';
 import buildConversationId from '@lib/buildConversationId';
 import chunkArray from '@lib/chunkArray';
 import { buildConversationKey, parseConversationKey } from '@lib/conversationKey';
-import conversationMatchesProfile from '@lib/conversationMatchesProfile';
 import type { Conversation } from '@xmtp/xmtp-js';
 import { SortDirection } from '@xmtp/xmtp-js';
 import type { DecodedMessage } from '@xmtp/xmtp-js/dist/types/src/Message';
@@ -15,6 +14,7 @@ import { useMessageStore } from 'src/store/message';
 const MAX_PROFILES_PER_REQUEST = 50;
 
 const useMessagePreviews = (currentIndex: number) => {
+  console.log({ currentIndex });
   const currentProfile = useAppStore((state) => state.currentProfile);
   const conversations = useMessageStore((state) => state.conversations);
   const messageProfiles = useMessageStore((state) => state.messageProfiles);
@@ -22,14 +22,12 @@ const useMessagePreviews = (currentIndex: number) => {
   const previewMessages = useMessageStore((state) => state.previewMessages);
   const setPreviewMessages = useMessageStore((state) => state.setPreviewMessages);
   const selectedProfileId = useMessageStore((state) => state.selectedProfileId);
-  const setPreviewMessage = useMessageStore((state) => state.setPreviewMessage);
   const { client } = useXmtpClient();
   const [profileIds, setProfileIds] = useState<Set<string>>(new Set<string>());
   const [messagesLoading, setMessagesLoading] = useState<boolean>(true);
   const [profilesLoading, setProfilesLoading] = useState<boolean>(false);
   const [profilesError, setProfilesError] = useState<Error | undefined>();
   const [loadProfiles] = useProfilesLazyQuery();
-  const addMessages = useMessageStore((state) => state.addMessages);
   const selectedTab = useMessageStore((state) => state.selectedTab);
   const [profilesToShow, setProfilesToShow] = useState<Map<string, Profile>>(new Map());
   const [requestedCount, setRequestedCount] = useState(0);
@@ -43,6 +41,21 @@ const useMessagePreviews = (currentIndex: number) => {
     }
 
     return parsed.members.find((member) => member !== userProfileId) ?? null;
+  };
+
+  const fetchMostRecentMessage = async (
+    convo: Conversation
+  ): Promise<{ key: string; message?: DecodedMessage }> => {
+    const key = buildConversationKey(convo.peerAddress, convo.context?.conversationId as string);
+
+    const newMessages = await convo.messages({
+      limit: 1,
+      direction: SortDirection.SORT_DIRECTION_DESCENDING
+    });
+    if (newMessages.length <= 0) {
+      return { key };
+    }
+    return { key, message: newMessages[0] };
   };
 
   useEffect(() => {
@@ -95,41 +108,12 @@ const useMessagePreviews = (currentIndex: number) => {
     if (!client || !currentProfile) {
       return;
     }
-    const matcherRegex = conversationMatchesProfile(currentProfile.id);
-    let messageStream: AsyncGenerator<DecodedMessage>;
-
-    const streamAllMessages = async () => {
-      messageStream = await client.conversations.streamAllMessages();
-
-      for await (const message of messageStream) {
-        const conversationId = message.conversation.context?.conversationId;
-        if (conversationId && matcherRegex.test(conversationId)) {
-          const key = buildConversationKey(message.conversation.peerAddress, conversationId);
-          setPreviewMessage(key, message);
-          addMessages(key, [message]);
-        }
-      }
-    };
-
-    const fetchMostRecentMessage = async (
-      convo: Conversation
-    ): Promise<{ key: string; message?: DecodedMessage }> => {
-      const key = buildConversationKey(convo.peerAddress, convo.context?.conversationId as string);
-
-      const newMessages = await convo.messages({
-        limit: 1,
-        direction: SortDirection.SORT_DIRECTION_DESCENDING
-      });
-      if (newMessages.length <= 0) {
-        return { key };
-      }
-      return { key, message: newMessages[0] };
-    };
 
     const loadPreviewMessages = async () => {
+      debugger;
       setMessagesLoading(true);
       const newPreviewMessages = new Map(previewMessages);
-      const convos = Array.from(conversations.values()).slice(currentIndex, currentIndex + 20);
+      const convos = Array.from(conversations.values()).slice(currentIndex, currentIndex + 10);
       const newProfileIds = new Set(profileIds);
 
       const previews = await Promise.all(convos.map(fetchMostRecentMessage));
@@ -143,37 +127,29 @@ const useMessagePreviews = (currentIndex: number) => {
           newPreviewMessages.set(preview.key, preview.message);
         }
       }
-      setPreviewMessages(newPreviewMessages);
+      setPreviewMessages(new Map(newPreviewMessages));
       setMessagesLoading(false);
       if (newProfileIds.size > profileIds.size) {
         setProfileIds(newProfileIds);
       }
-      if (previewMessages.size >= conversations.size) {
+      if (previews.length < 10 && previews.length !== 0) {
         setHasMore(false);
       }
     };
 
-    const closeMessageStream = async () => {
-      if (messageStream) {
-        await messageStream.return(undefined); // eslint-disable-line unicorn/no-useless-undefined
-      }
-    };
-
     loadPreviewMessages();
-    streamAllMessages();
 
-    return () => {
-      closeMessageStream();
-    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [client, currentProfile?.id, selectedProfileId, conversations]);
+  }, [client, currentProfile, selectedProfileId, conversations, currentIndex]);
 
   useEffect(() => {
-    const partitionedProfiles = Array.from(messageProfiles).reduce(
-      (result, [key, profile]) => {
+    const partitionedProfiles = Array.from(previewMessages).reduce(
+      (result, [key]) => {
         const message = previewMessages.get(key);
         if (message) {
-          if (profile.isFollowedByMe) {
+          const profile = messageProfiles.get(key) as Profile;
+          const { isFollowedByMe } = profile;
+          if (isFollowedByMe) {
             result[0].set(key, profile);
           } else {
             result[1].set(key, profile);
