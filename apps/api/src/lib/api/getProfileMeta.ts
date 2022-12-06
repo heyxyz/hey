@@ -32,8 +32,13 @@ const PROFILE_QUERY = gql`
 
 const getProfileMeta = async (req: NextApiRequest, res: NextApiResponse, handle: string) => {
   try {
-    const processedHandle =
-      handle === 'lensprotocol' ? handle : handle.concat(IS_MAINNET ? '.lens' : '.test');
+    const suffix = IS_MAINNET ? '.lens' : '.test';
+    let processedHandle;
+    if (handle.includes(suffix)) {
+      processedHandle = handle;
+    } else {
+      processedHandle = handle === 'lensprotocol' ? handle : handle.concat(suffix);
+    }
 
     const { data } = await client.query({
       query: PROFILE_QUERY,
