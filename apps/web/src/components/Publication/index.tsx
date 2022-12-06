@@ -6,6 +6,7 @@ import PublicationStaffTool from '@components/StaffTools/Panels/Publication';
 import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import useStaffMode from '@components/utils/hooks/useStaffMode';
+import formatHandle from '@lib/formatHandle';
 import { APP_NAME } from 'data/constants';
 import { usePublicationQuery } from 'lens';
 import type { NextPage } from 'next';
@@ -55,7 +56,7 @@ const ViewPublication: NextPage = () => {
       <MetaTags
         title={
           publication.__typename && publication?.profile?.handle
-            ? `${publication.__typename} by @${publication.profile.handle} • ${APP_NAME}`
+            ? `${publication.__typename} by @${formatHandle(publication.profile.handle)} • ${APP_NAME}`
             : APP_NAME
         }
       />

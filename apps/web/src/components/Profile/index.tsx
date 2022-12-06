@@ -1,5 +1,6 @@
 import MetaTags from '@components/Common/MetaTags';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
+import formatHandle from '@lib/formatHandle';
 import { APP_NAME, STATIC_IMAGES_URL } from 'data/constants';
 import { useProfileQuery } from 'lens';
 import type { NextPage } from 'next';
@@ -27,9 +28,10 @@ const ViewProfile: NextPage = () => {
       : 'FEED'
   );
 
+  const handle = formatHandle(username as string);
   const { data, loading, error } = useProfileQuery({
-    variables: { request: { handle: username }, who: currentProfile?.id ?? null },
-    skip: !username
+    variables: { request: { handle }, who: currentProfile?.id ?? null },
+    skip: !handle
   });
 
   if (error) {
@@ -49,9 +51,9 @@ const ViewProfile: NextPage = () => {
   return (
     <>
       {profile?.name ? (
-        <MetaTags title={`${profile?.name} (@${profile?.handle}) • ${APP_NAME}`} />
+        <MetaTags title={`${profile?.name} (@${formatHandle(profile?.handle)}) • ${APP_NAME}`} />
       ) : (
-        <MetaTags title={`@${profile?.handle} • ${APP_NAME}`} />
+        <MetaTags title={`@${formatHandle(profile?.handle)} • ${APP_NAME}`} />
       )}
       <Cover
         cover={

@@ -8,6 +8,7 @@ import useGetMessages from '@components/utils/hooks/useGetMessages';
 import useSendMessage from '@components/utils/hooks/useSendMessage';
 import useStreamMessages from '@components/utils/hooks/useStreamMessages';
 import { parseConversationKey } from '@lib/conversationKey';
+import formatHandle from '@lib/formatHandle';
 import { APP_NAME } from 'data/constants';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
@@ -55,7 +56,7 @@ const Message: FC<MessageProps> = ({ conversationKey }) => {
 
   const showLoading = !missingXmtpAuth && (!profile || !currentProfile || !selectedConversation);
 
-  const userNameForTitle = profile?.name ?? profile?.handle;
+  const userNameForTitle = profile?.name ?? formatHandle(profile?.handle);
   const title = userNameForTitle ? `${userNameForTitle} • ${APP_NAME}` : APP_NAME;
 
   return (

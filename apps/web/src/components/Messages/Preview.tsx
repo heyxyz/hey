@@ -1,4 +1,5 @@
 import { BadgeCheckIcon } from '@heroicons/react/solid';
+import formatHandle from '@lib/formatHandle';
 import getAvatar from '@lib/getAvatar';
 import isVerified from '@lib/isVerified';
 import type { DecodedMessage } from '@xmtp/xmtp-js';
@@ -44,12 +45,12 @@ const Preview: FC<Props> = ({ profile, message, conversationKey, isSelected }) =
           className="w-10 h-10 bg-gray-200 rounded-full border dark:border-gray-700/80"
           height={40}
           width={40}
-          alt={profile?.handle}
+          alt={formatHandle(profile?.handle)}
         />
         <div className="w-full">
           <div className="flex w-full justify-between space-x-1">
             <div className="flex gap-1 items-center max-w-sm">
-              <div className="line-clamp-1 text-md">{profile?.name ?? profile.handle}</div>
+              <div className="line-clamp-1 text-md">{profile?.name ?? formatHandle(profile.handle)}</div>
               {isVerified(profile?.id) && <BadgeCheckIcon className="min-w-fit w-4 h-4 text-brand" />}
             </div>
             {message.sent && (
