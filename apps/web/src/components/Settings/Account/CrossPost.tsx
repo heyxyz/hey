@@ -1,4 +1,4 @@
-import Beta from '@components/Shared/Beta';
+import Beta from '@components/Shared/Badges/Beta';
 import { Card } from '@components/UI/Card';
 import { CheckCircleIcon, ExternalLinkIcon } from '@heroicons/react/outline';
 import { Leafwatch } from '@lib/leafwatch';

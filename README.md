@@ -26,6 +26,9 @@
     <a href="https://status.lenster.xyz">
         <img src="https://betteruptime.com/status-badges/v1/monitor/dfaw.svg" alt="Better Uptime">
     </a>
+    <a href="https://github.com/lensterxyz/lenster/stargazers">
+        <img src="https://img.shields.io/github/stars/lensterxyz/lenster" alt="Stargazers">
+    </a>
     <a href="https://github.com/lensterxyz/lenster/blob/main/LICENSE">
         <img src="https://badgen.net/github/license/lensterxyz/lenster" alt="License">
     </a>
@@ -49,23 +52,29 @@
 
 Lenster is a decentralized and permissionless social media app built with [Lens Protocol](http://lens.xyz) 🌿
 
+## 📦 Environments
+
+| Name            | Link                                |
+| --------------- | ----------------------------------- |
+| Mainnet         | https://lenster.xyz                 |
+| Testnet         | https://testnet.lenster.xyz         |
+| Staging         | https://staging.lenster.xyz         |
+| Sandbox         | https://sandbox.lenster.xyz         |
+| Staging Sandbox | https://staging-sandbox.lenster.xyz |
+
 ## ✅ Community
 
 For a place to have open discussions on features, voice your ideas, or get help with general questions please visit our community at [Discord](https://lenster.xyz/discord).
 
-## 🤝 Contributing
-
-We encourage you to contribute to Lenster! Please check out the [Contributing guide](CONTRIBUTING.md) for guidelines about how to proceed.
-
-## ⚙️ Setup
+## 🛠️ Setup
 
 ### Using Local Environment
 
 ```sh
 cd apps/web
 cp .env.example .env
-pnpm install
-pnpm run dev
+yarn install
+yarn dev
 ```
 
 and visit http://localhost:4783

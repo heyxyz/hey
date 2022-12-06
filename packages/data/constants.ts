@@ -1,3 +1,4 @@
+import packageJson from '../../package.json';
 import getEnvConfig from './utils/getEnvConfig';
 
 // Environments
@@ -16,13 +17,14 @@ export const SERVERLESS_TESTNET_API_URL = 'https://api-testnet.lenster.xyz';
 export const SERVERLESS_STAGING_API_URL = 'https://api-staging.lenster.xyz';
 export const SERVERLESS_STAGING_SANDBOX_API_URL = 'https://api-staging-sandbox.lenster.xyz';
 export const SERVERLESS_SANDBOX_API_URL = 'https://api-sandbox.lenster.xyz';
-export const SERVERLESS_DEVELOPMENT_API_URL = 'http://localhost:6969';
+export const SERVERLESS_DEVELOPMENT_API_URL = 'http://localhost:4784';
+
+export const PRO_STATUS_API_URL = 'https://pro.lenster.xyz';
 
 export const SERVERLESS_URL = getEnvConfig().serverlessEndpoint;
 export const API_URL = getEnvConfig().apiEndpoint;
 export const LENSHUB_PROXY = getEnvConfig().lensHubProxyAddress;
 export const LENS_PERIPHERY = getEnvConfig().lensPeripheryAddress;
-export const FREE_COLLECT_MODULE = getEnvConfig().freeCollectModuleAddress;
 export const DEFAULT_COLLECT_TOKEN = getEnvConfig().defaultCollectToken;
 
 export const IS_MAINNET = API_URL === MAINNET_API_URL;
@@ -36,6 +38,7 @@ export const APP_NAME = 'Lenster';
 export const DESCRIPTION =
   'Lenster is a composable, decentralized, and permissionless social media web app built with Lens Protocol 🌿';
 export const DEFAULT_OG = 'https://assets.lenster.xyz/images/og/logo.jpeg';
+export const APP_VERSION = packageJson.version;
 
 // Git
 export const GIT_COMMIT_SHA = process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA?.slice(0, 7);
@@ -111,4 +114,9 @@ export const LS_KEYS = {
   TRANSACTION_STORE: 'transaction.store',
   TIMELINE_STORE: 'timeline.store',
   MESSAGE_STORE: 'message.store'
+};
+
+// S3 bucket
+export const S3_BUCKET = {
+  LENSTER_MEDIA: 'lenster-media'
 };

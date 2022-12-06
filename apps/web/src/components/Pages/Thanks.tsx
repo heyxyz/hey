@@ -1,5 +1,5 @@
+import MetaTags from '@components/Common/MetaTags';
 import Footer from '@components/Shared/Footer';
-import MetaTags from '@components/utils/MetaTags';
 import { HeartIcon } from '@heroicons/react/outline';
 import { APP_NAME, STATIC_IMAGES_URL } from 'data/constants';
 import { useTheme } from 'next-themes';

@@ -1,7 +1,7 @@
+import MetaTags from '@components/Common/MetaTags';
 import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import { PageLoading } from '@components/UI/PageLoading';
-import MetaTags from '@components/utils/MetaTags';
 import { PhotographIcon } from '@heroicons/react/outline';
 import clsx from 'clsx';
 import { APP_NAME } from 'data/constants';
@@ -26,8 +26,8 @@ const ProfileSettings: NextPage = () => {
     variables: { request: { profileId: currentProfile?.id } },
     skip: !currentProfile?.id,
     onCompleted: (data) => {
-      // @ts-ignore
-      setSettingsType(data?.profile?.picture?.uri ? 'NFT' : 'AVATAR');
+      const picture = data?.profile?.picture;
+      setSettingsType(picture?.hasOwnProperty('uri') ? 'NFT' : 'AVATAR');
     }
   });
 

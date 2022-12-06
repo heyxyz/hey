@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --port 6969",
+    "dev": "next dev --port 4784",
     "build": "next build",
     "start": "next start",
     "typecheck": "tsc --noEmit",
@@ -25,11 +25,11 @@
   "devDependencies": {
     "@types/react": "^18.0.23",
     "@types/react-dom": "^18.0.9",
-    "@types/uuid": "^8.3.4",
-    "data": "workspace:*",
-    "eslint-config-weblint": "workspace:*",
-    "lens": "workspace:*",
-    "tsconfig": "workspace:*",
+    "@types/uuid": "^9.0.0",
+    "data": "*",
+    "eslint-config-weblint": "*",
+    "lens": "*",
+    "tsconfig": "*",
     "typescript": "^4.9.3"
   }
 }

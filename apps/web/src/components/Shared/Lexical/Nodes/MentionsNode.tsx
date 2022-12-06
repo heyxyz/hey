@@ -95,7 +95,7 @@ export const $createMentionNode = (mentionName: string): MentionNode => {
 };
 
 const convertMentionElement = (domNode: HTMLElement): DOMConversionOutput | null => {
-  const textContent = domNode.textContent;
+  const { textContent } = domNode;
 
   if (textContent !== null) {
     const node = $createMentionNode(textContent);

@@ -117,6 +117,10 @@ export const SETTINGS = {
   DISPATCHER: {
     TOGGLE: 'toggle_dispatcher'
   },
+  INTERESTS: {
+    ADD: 'add_profile_interest',
+    REMOVE: 'remove_profile_interest'
+  },
   DELETE: 'delete_profile'
 };
 
@@ -142,10 +146,12 @@ export const SYSTEM = {
 
 export const MISCELLANEOUS = {
   NAVIGATE_UPDATE_PROFILE: 'navigate_to_update_profile_from_onboarding',
+  NAVIGATE_UPDATE_PROFILE_INTERESTS: 'navigate_to_update_profile_interests_from_onboarding',
   OPEN_RECOMMENDED_PROFILES: 'open_recommended_profiles_modal',
   OPEN_TRENDING_TAG: 'open_trending_tag',
   SWITCH_TIMELINE: 'switch_to_timeline',
-  SWITCH_HIGHLIGHTS: 'switch_to_highlights'
+  SWITCH_HIGHLIGHTS: 'switch_to_highlights',
+  SELECT_USER_FEED: 'select_user_feed'
 };
 
 export const FOOTER = {

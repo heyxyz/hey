@@ -1,8 +1,8 @@
+import MetaTags from '@components/Common/MetaTags';
 import Signup from '@components/Shared/Login/New';
 import SettingsHelper from '@components/Shared/SettingsHelper';
 import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
-import MetaTags from '@components/utils/MetaTags';
 import { APP_NAME } from 'data/constants';
 import type { NextPage } from 'next';
 import Custom404 from 'src/pages/404';

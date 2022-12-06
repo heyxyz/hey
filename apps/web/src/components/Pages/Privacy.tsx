@@ -1,5 +1,5 @@
+import MetaTags from '@components/Common/MetaTags';
 import Footer from '@components/Shared/Footer';
-import MetaTags from '@components/utils/MetaTags';
 import { APP_NAME } from 'data/constants';
 import type { FC } from 'react';
 

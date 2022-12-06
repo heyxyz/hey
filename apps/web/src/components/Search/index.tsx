@@ -1,5 +1,5 @@
+import MetaTags from '@components/Common/MetaTags';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
-import MetaTags from '@components/utils/MetaTags';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import Custom404 from 'src/pages/404';

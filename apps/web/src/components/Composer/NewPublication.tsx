@@ -33,6 +33,7 @@ import {
 } from 'data/constants';
 import type { CreatePublicCommentRequest } from 'lens';
 import {
+  CollectModules,
   PublicationMainFocus,
   ReferenceModules,
   useCreateCommentTypedDataMutation,
@@ -93,6 +94,7 @@ const NewPublication: FC<Props> = ({ publication }) => {
   const setTxnQueue = useTransactionPersistStore((state) => state.setTxnQueue);
 
   // Collect module store
+  const selectedCollectModule = useCollectModuleStore((state) => state.selectedCollectModule);
   const payload = useCollectModuleStore((state) => state.payload);
   const resetCollectSettings = useCollectModuleStore((state) => state.reset);
 
@@ -322,7 +324,7 @@ const NewPublication: FC<Props> = ({ publication }) => {
 
       setPublicationContentError('');
       let textNftImageUrl = null;
-      if (!attachments.length) {
+      if (!attachments.length && selectedCollectModule !== CollectModules.RevertCollectModule) {
         textNftImageUrl = await getTextNftUrl(
           publicationContent,
           currentProfile.handle,

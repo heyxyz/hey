@@ -11,7 +11,7 @@
   },
   "devDependencies": {
     "@types/node": "^18.11.9",
-    "eslint-config-weblint": "workspace:*",
-    "tsconfig": "workspace:*"
+    "eslint-config-weblint": "*",
+    "tsconfig": "*"
   }
 }
