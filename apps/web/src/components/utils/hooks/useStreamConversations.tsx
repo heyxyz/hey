@@ -5,13 +5,11 @@ import { useEffect } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
 
-import useXmtpClient from './useXmtpClient';
-
 const useStreamConversations = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const conversations = useMessageStore((state) => state.conversations);
   const setConversations = useMessageStore((state) => state.setConversations);
-  const { client } = useXmtpClient();
+  const client = useMessageStore((state) => state.client);
 
   useEffect(() => {
     if (!client || !currentProfile) {

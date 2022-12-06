@@ -15,7 +15,7 @@ import buildConversationId from '@lib/buildConversationId';
 import { buildConversationKey } from '@lib/conversationKey';
 import { Leafwatch } from '@lib/leafwatch';
 import clsx from 'clsx';
-import { ERROR_MESSAGE } from 'data/constants';
+import { CONVO_PAGE_LIMIT, ERROR_MESSAGE } from 'data/constants';
 import type { Profile } from 'lens';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
@@ -51,7 +51,7 @@ const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
 
   const fetchNextMessages = useCallback(() => {
     if (hasMore && messages.size > 0) {
-      setCurrentIndex(currentIndex + 10);
+      setCurrentIndex(currentIndex + CONVO_PAGE_LIMIT);
     }
   }, [currentIndex, hasMore, messages]);
 

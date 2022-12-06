@@ -1,10 +1,10 @@
-import useXmtpClient from '@components/utils/hooks/useXmtpClient';
 import buildConversationId from '@lib/buildConversationId';
 import chunkArray from '@lib/chunkArray';
 import { buildConversationKey, parseConversationKey } from '@lib/conversationKey';
 import type { Conversation } from '@xmtp/xmtp-js';
 import { SortDirection } from '@xmtp/xmtp-js';
 import type { DecodedMessage } from '@xmtp/xmtp-js/dist/types/src/Message';
+import { CONVO_PAGE_LIMIT } from 'data/constants';
 import type { Profile } from 'lens';
 import { useProfilesLazyQuery } from 'lens';
 import { useEffect, useState } from 'react';
@@ -14,7 +14,6 @@ import { useMessageStore } from 'src/store/message';
 const MAX_PROFILES_PER_REQUEST = 50;
 
 const useMessagePreviews = (currentIndex: number) => {
-  console.log({ currentIndex });
   const currentProfile = useAppStore((state) => state.currentProfile);
   const conversations = useMessageStore((state) => state.conversations);
   const messageProfiles = useMessageStore((state) => state.messageProfiles);
@@ -22,7 +21,7 @@ const useMessagePreviews = (currentIndex: number) => {
   const previewMessages = useMessageStore((state) => state.previewMessages);
   const setPreviewMessages = useMessageStore((state) => state.setPreviewMessages);
   const selectedProfileId = useMessageStore((state) => state.selectedProfileId);
-  const { client } = useXmtpClient();
+  const client = useMessageStore((state) => state.client);
   const [profileIds, setProfileIds] = useState<Set<string>>(new Set<string>());
   const [messagesLoading, setMessagesLoading] = useState<boolean>(true);
   const [profilesLoading, setProfilesLoading] = useState<boolean>(false);
@@ -110,10 +109,9 @@ const useMessagePreviews = (currentIndex: number) => {
     }
 
     const loadPreviewMessages = async () => {
-      debugger;
       setMessagesLoading(true);
       const newPreviewMessages = new Map(previewMessages);
-      const convos = Array.from(conversations.values()).slice(currentIndex, currentIndex + 10);
+      const convos = Array.from(conversations.values()).slice(currentIndex, currentIndex + CONVO_PAGE_LIMIT);
       const newProfileIds = new Set(profileIds);
 
       const previews = await Promise.all(convos.map(fetchMostRecentMessage));
@@ -132,7 +130,7 @@ const useMessagePreviews = (currentIndex: number) => {
       if (newProfileIds.size > profileIds.size) {
         setProfileIds(newProfileIds);
       }
-      if (previews.length < 10 && previews.length !== 0) {
+      if (previews.length < CONVO_PAGE_LIMIT && previews.length !== 0) {
         setHasMore(false);
       }
     };
