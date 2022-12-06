@@ -1,6 +1,7 @@
 import { gql } from '@apollo/client';
 import generateMeta from '@lib/generateMeta';
 import getIPFSLink from '@lib/getIPFSLink';
+import { IS_MAINNET } from 'data/constants';
 import type { MediaSet, NftImage, Profile } from 'lens';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import client from 'src/apollo';
@@ -31,9 +32,17 @@ const PROFILE_QUERY = gql`
 
 const getProfileMeta = async (req: NextApiRequest, res: NextApiResponse, handle: string) => {
   try {
+    const suffix = IS_MAINNET ? '.lens' : '.test';
+    let processedHandle;
+    if (handle.includes(suffix)) {
+      processedHandle = handle;
+    } else {
+      processedHandle = handle === 'lensprotocol' ? handle : handle.concat(suffix);
+    }
+
     const { data } = await client.query({
       query: PROFILE_QUERY,
-      variables: { request: { handle } }
+      variables: { request: { handle: processedHandle } }
     });
 
     if (data?.profile) {

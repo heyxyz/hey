@@ -3,6 +3,7 @@ import NotificationIcon from '@components/Notification/NotificationIcon';
 import useStaffMode from '@components/utils/hooks/useStaffMode';
 import { Disclosure } from '@headlessui/react';
 import { MenuIcon, XIcon } from '@heroicons/react/outline';
+import formatHandle from '@lib/formatHandle';
 import hasPrideLogo from '@lib/hasPrideLogo';
 import clsx from 'clsx';
 import type { Profile } from 'lens';
@@ -22,7 +23,7 @@ const Navbar: FC = () => {
   const router = useRouter();
 
   const onProfileSelected = (profile: Profile) => {
-    router.push(`/u/${profile?.handle}`);
+    router.push(`/u/${formatHandle(profile?.handle)}`);
   };
 
   interface NavItemProps {
