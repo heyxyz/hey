@@ -1,5 +1,7 @@
 import Markup from '@components/Shared/Markup';
 import { Card } from '@components/UI/Card';
+import { MentionMatcher } from '@components/utils/matchers/MentionMatcher';
+import { UrlMatcher } from '@components/utils/matchers/UrlMatcher';
 import { EmojiSadIcon } from '@heroicons/react/outline';
 import formatHandle from '@lib/formatHandle';
 import getAvatar from '@lib/getAvatar';
@@ -8,7 +10,7 @@ import clsx from 'clsx';
 import dayjs from 'dayjs';
 import type { Profile } from 'lens';
 import type { FC, ReactNode } from 'react';
-import React, { memo } from 'react';
+import { memo } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 const formatTime = (d: Date | undefined): string => (d ? dayjs(d).format('hh:mm a - MM/DD/YY') : '');
@@ -57,7 +59,11 @@ const MessageTile: FC<MessageTileProps> = ({ message, profile, currentProfile })
           >
             {message.error
               ? `Error: ${message.error?.message}`
-              : <Markup matchOnlyUrl>{message.content}</Markup> ?? ''}
+              : (
+                  <Markup customMatchers={[new MentionMatcher('mention'), new UrlMatcher('url')]}>
+                    {message.content}
+                  </Markup>
+                ) ?? ''}
           </span>
         </div>
       </div>

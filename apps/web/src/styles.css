@@ -38,6 +38,10 @@ body {
   @apply underline;
 }
 
+.linkify-message a:has(span) {
+  @apply no-underline;
+}
+
 .tab-bg {
   @apply hover:bg-brand-200;
 }

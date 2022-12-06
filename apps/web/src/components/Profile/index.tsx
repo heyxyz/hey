@@ -28,7 +28,7 @@ const ViewProfile: NextPage = () => {
       : 'FEED'
   );
 
-  const handle = formatHandle(username as string);
+  const handle = formatHandle(username as string, true);
   const { data, loading, error } = useProfileQuery({
     variables: { request: { handle }, who: currentProfile?.id ?? null },
     skip: !handle

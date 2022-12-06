@@ -7,20 +7,20 @@ const type = IS_MAINNET ? '.lens' : '.test';
  * @param handle - Complete handle
  * @returns formatted handle without .lens
  */
-const formatHandle = (handle: string | null): string => {
+const formatHandle = (handle: string | null, isOriginal?: boolean): string => {
   if (handle === 'lensprotocol') {
     return handle;
   }
-
   if (!handle) {
     return '';
   }
-
   if (handle.endsWith(type)) {
     return handle.replace(type, '');
   }
-
-  return handle + type;
+  if (isOriginal) {
+    return handle + type;
+  }
+  return handle;
 };
 
 export default formatHandle;

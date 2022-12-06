@@ -8,22 +8,23 @@ import { MDStrikeMatcher } from '@components/utils/matchers/markdown/MDStrikeMat
 import { MentionMatcher } from '@components/utils/matchers/MentionMatcher';
 import { UrlMatcher } from '@components/utils/matchers/UrlMatcher';
 import trimify from '@lib/trimify';
+import type { MatcherInterface } from 'interweave';
 import { Interweave } from 'interweave';
 import type { FC, MouseEvent } from 'react';
 
 interface Props {
   children: string;
   className?: string;
-  matchOnlyUrl?: boolean;
+  customMatchers?: MatcherInterface<any>[];
 }
 
-const Markup: FC<Props> = ({ children, className = '', matchOnlyUrl }) => {
+const Markup: FC<Props> = ({ children, className = '', customMatchers }) => {
   const defaultMatchers = [
     new MDCodeMatcher('mdCode'),
+    new MentionMatcher('mention'),
     new MDLinkMatcher('mdLink'),
     new UrlMatcher('url'),
     new HashtagMatcher('hashtag'),
-    new MentionMatcher('mention'),
     new MDBoldMatcher('mdBold'),
     new MDItalicMatcher('mdItalic'),
     new MDStrikeMatcher('mdStrike'),
@@ -36,7 +37,7 @@ const Markup: FC<Props> = ({ children, className = '', matchOnlyUrl }) => {
       content={trimify(children)}
       escapeHtml
       allowList={['b', 'i', 'a', 'br', 'code', 'span']}
-      matchers={matchOnlyUrl ? [new UrlMatcher('url')] : defaultMatchers}
+      matchers={customMatchers?.length ? customMatchers : defaultMatchers}
       onClick={(event: MouseEvent<HTMLDivElement>) => event.stopPropagation()}
     />
   );
