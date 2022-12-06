@@ -71,7 +71,7 @@ const Attachments: FC<Props> = ({
   return slicedAttachments?.length !== 0 ? (
     <>
       <div className={clsx(getClass(slicedAttachments?.length)?.row, 'grid gap-2 pt-3')}>
-        {slicedAttachments?.map((attachment: LensterAttachment & MediaSet) => {
+        {slicedAttachments?.map((attachment: LensterAttachment & MediaSet, index: number) => {
           const type = isNew ? attachment.type : attachment.original.mimeType;
           const url = isNew ? getIPFSLink(attachment.item) : getIPFSLink(attachment.original.url);
 
@@ -80,7 +80,9 @@ const Attachments: FC<Props> = ({
               className={clsx(
                 ALLOWED_VIDEO_TYPES.includes(type) || ALLOWED_AUDIO_TYPES.includes(type)
                   ? ''
-                  : getClass(slicedAttachments?.length, isNew)?.aspect,
+                  : `${getClass(slicedAttachments?.length, isNew)?.aspect} ${
+                      slicedAttachments?.length === 3 && index === 0 ? 'row-span-2' : ''
+                    }`,
                 {
                   'w-full': ALLOWED_AUDIO_TYPES.includes(type),
                   'w-2/3':
