@@ -20,7 +20,7 @@ const formatHandle = (handle: string | null): string => {
     return handle.replace(type, '');
   }
 
-  return handle;
+  return handle + type;
 };
 
 export default formatHandle;
