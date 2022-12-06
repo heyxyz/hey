@@ -8,12 +8,19 @@ const type = IS_MAINNET ? '.lens' : '.test';
  * @returns formatted handle without .lens
  */
 const formatHandle = (handle: string | null): string => {
+  console.log(handle);
+  if (handle === 'lensprotocol') {
+    return handle;
+  }
+
   if (!handle) {
     return '';
   }
+
   if (handle.endsWith(type)) {
     return handle.replace(type, '');
   }
+
   return handle + type;
 };
 
