@@ -97,6 +97,7 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
       if (amount) {
         setSelectedCollectModule(collectLimit ? LimitedTimedFeeCollectModule : TimedFeeCollectModule);
       } else {
+        setHasTimeLimit(false);
         setSelectedCollectModule(collectLimit ? LimitedTimedFeeCollectModule : FreeCollectModule);
       }
     } else {
