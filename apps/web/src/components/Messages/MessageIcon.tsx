@@ -92,11 +92,9 @@ const MessageIcon: FC = () => {
       }
     };
 
-    const setupBadge = async () => {
-      await fetchShowBadge();
-      await streamAllMessages(showBadgeValidator);
-    };
-    setupBadge();
+    fetchShowBadge();
+    // TODO(elise): why is this so slow?
+    // streamAllMessages(showBadgeValidator);
 
     return () => {
       closeMessageStream();

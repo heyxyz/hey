@@ -30,7 +30,7 @@ const useMessagePreviews = () => {
   const reset = useMessageStore((state) => state.reset);
   const { client, loading: creatingXmtpClient } = useXmtpClient();
   const [profileIds, setProfileIds] = useState<Set<string>>(new Set<string>());
-  const [messagesLoading, setMessagesLoading] = useState<boolean>(true);
+  const [messagesLoading, setMessagesLoading] = useState<boolean>(false); // TODO(elise): Ensure empty doesn't show with a different boolean.
   const [profilesLoading, setProfilesLoading] = useState<boolean>(false);
   const [profilesError, setProfilesError] = useState<Error | undefined>();
   const [loadProfiles] = useProfilesLazyQuery();
@@ -130,11 +130,21 @@ const useMessagePreviews = () => {
     };
 
     const listConversations = async () => {
+      if (messagesLoading) {
+        return;
+      }
       setMessagesLoading(true);
       const newPreviewMessages = new Map(previewMessages);
       const newConversations = new Map(conversations);
       const newProfileIds = new Set(profileIds);
+
+      const beforeList = Date.now();
+      console.log('starting conversations.list(): ' + beforeList);
       const convos = await client.conversations.list();
+      const afterList = Date.now();
+      console.log('ending conversations.list(): ' + afterList);
+      console.log(afterList - beforeList + ' total ms for conversations.list()');
+
       const matchingConvos = convos.filter(
         (convo) => convo.context?.conversationId && matcherRegex.test(convo.context.conversationId)
       );
@@ -198,13 +208,9 @@ const useMessagePreviews = () => {
       }
     };
 
-    const setupConversationsList = async () => {
-      await listConversations();
-      await streamConversations();
-      await streamAllMessages();
-    };
-
-    setupConversationsList();
+    listConversations();
+    streamConversations();
+    // streamAllMessages(); //TODO(elise): why is this so slow????
 
     return () => {
       closeConversationStream();
