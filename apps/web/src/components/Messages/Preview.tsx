@@ -1,5 +1,6 @@
 import { BadgeCheckIcon } from '@heroicons/react/solid';
 import formatHandle from '@lib/formatHandle';
+import formatTime from '@lib/formatTime';
 import getAvatar from '@lib/getAvatar';
 import isVerified from '@lib/isVerified';
 import type { DecodedMessage } from '@xmtp/xmtp-js';
@@ -54,7 +55,7 @@ const Preview: FC<Props> = ({ profile, message, conversationKey, isSelected }) =
               {isVerified(profile?.id) && <BadgeCheckIcon className="min-w-fit w-4 h-4 text-brand" />}
             </div>
             {message.sent && (
-              <span className="min-w-fit pt-0.5 text-xs text-gray-500">
+              <span className="min-w-fit pt-0.5 text-xs text-gray-500" title={formatTime(message.sent)}>
                 {dayjs(new Date(message.sent)).fromNow()}
               </span>
             )}

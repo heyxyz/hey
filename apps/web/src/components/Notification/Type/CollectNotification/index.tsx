@@ -5,6 +5,7 @@ import {
 } from '@components/Notification/WalletProfile';
 import UserPreview from '@components/Shared/UserPreview';
 import { CollectionIcon } from '@heroicons/react/solid';
+import formatTime from '@lib/formatTime';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import type { NewCollectNotification } from 'lens';
@@ -48,7 +49,9 @@ const CollectNotification: FC<Props> = ({ notification }) => {
           <CollectedAmount notification={notification} />
         </div>
       </div>
-      <div className="text-gray-400 text-[12px]">{dayjs(new Date(notification?.createdAt)).fromNow()}</div>
+      <div className="text-gray-400 text-[12px]" title={formatTime(notification?.createdAt)}>
+        {dayjs(new Date(notification?.createdAt)).fromNow()}
+      </div>
     </div>
   );
 };
