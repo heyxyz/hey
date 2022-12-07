@@ -1,5 +1,6 @@
 import UserProfile from '@components/Shared/UserProfile';
 import type { LensterPublication } from '@generated/types';
+import formatTime from '@lib/formatTime';
 import { Leafwatch } from '@lib/leafwatch';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
@@ -29,7 +30,9 @@ const ThreadBody: FC<Props> = ({ publication }) => {
         <span onClick={(event) => event.stopPropagation()}>
           <UserProfile profile={profile ?? publication?.collectedBy?.defaultProfile} />
         </span>
-        <span className="text-xs text-gray-500">{dayjs(new Date(timestamp)).fromNow()}</span>
+        <span className="text-xs text-gray-500" title={formatTime(timestamp)}>
+          {dayjs(new Date(timestamp)).fromNow()}
+        </span>
       </div>
       <div className="flex">
         <div className="mr-8 ml-5 bg-gray-300 border-gray-300 dark:bg-gray-700 dark:border-gray-700 border-[0.8px] -my-[3px]" />
