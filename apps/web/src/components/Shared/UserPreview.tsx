@@ -127,7 +127,7 @@ const UserPreview: FC<Props> = ({
     if (profileData.id == '') {
       setLoading(true);
       const { data } = await loadProfile({
-        variables: { request: { handle: profileData?.handle } }
+        variables: { request: { handle: formatHandle(profileData?.handle) } }
       });
       setLoading(false);
       const lazyProfile = data?.profile;
