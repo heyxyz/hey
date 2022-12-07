@@ -48,6 +48,7 @@ export const CONTACT_EMAIL = 'support@lenster.xyz';
 export const RELAY_ON = true;
 export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
 export const LENSPROTOCOL_HANDLE = 'lensprotocol';
+export const HANDLE_SUFFIX = IS_MAINNET ? '.lens' : '.test';
 
 // Messages
 export const ERROR_MESSAGE = 'Something went wrong!';
