@@ -4,6 +4,7 @@ import conversationMatchesProfile from '@lib/conversationMatchesProfile';
 import type { DecodedMessage } from '@xmtp/xmtp-js';
 import { fromNanoString, SortDirection } from '@xmtp/xmtp-js';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useEffect } from 'react';
 import { useAppStore } from 'src/store/app';
@@ -16,6 +17,7 @@ const MessageIcon: FC = () => {
   const showMessagesBadge = useMessagePersistStore((state) => state.showMessagesBadge);
   const setShowMessagesBadge = useMessagePersistStore((state) => state.setShowMessagesBadge);
   const { client: cachedClient } = useXmtpClient(true);
+  const { route } = useRouter();
 
   const shouldShowBadge = (viewedAt: string | undefined, messageSentAt: Date | undefined): boolean => {
     if (!messageSentAt) {
@@ -31,23 +33,13 @@ const MessageIcon: FC = () => {
   };
 
   useEffect(() => {
-    if (!cachedClient || !currentProfile) {
+    if (!cachedClient || !currentProfile || route.startsWith('/messages')) {
       return;
     }
-
-    // For v1 badging, only badge when not already viewing messages. Once we have
-    // badging per-conversation, we can remove this.
-    const showBadgeValidator = (profileId: string): boolean => {
-      return !window.location.pathname.startsWith('/messages') && currentProfile.id === profileId;
-    };
 
     const matcherRegex = conversationMatchesProfile(currentProfile.id);
 
     const fetchShowBadge = async () => {
-      if (!showBadgeValidator(currentProfile.id)) {
-        return;
-      }
-
       const convos = await cachedClient.conversations.list();
       const matchingConvos = convos.filter(
         (convo) => convo.context?.conversationId && matcherRegex.test(convo.context.conversationId)
@@ -92,16 +84,21 @@ const MessageIcon: FC = () => {
       }
     };
 
+    // For v1 badging, only badge when not already viewing messages. Once we have
+    // badging per-conversation, we can remove this.
+    const showBadgeValidator = (profileId: string): boolean => {
+      return !window.location.pathname.startsWith('/messages') && currentProfile.id === profileId;
+    };
+
     fetchShowBadge();
-    // TODO(elise): why is this so slow?
-    // streamAllMessages(showBadgeValidator);
+    streamAllMessages(showBadgeValidator);
 
     return () => {
       closeMessageStream();
     };
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [cachedClient, currentProfile?.id]);
+  }, [cachedClient, currentProfile?.id, route]);
 
   return (
     <Link

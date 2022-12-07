@@ -30,7 +30,8 @@ const useMessagePreviews = () => {
   const reset = useMessageStore((state) => state.reset);
   const { client, loading: creatingXmtpClient } = useXmtpClient();
   const [profileIds, setProfileIds] = useState<Set<string>>(new Set<string>());
-  const [messagesLoading, setMessagesLoading] = useState<boolean>(false); // TODO(elise): Ensure empty doesn't show with a different boolean.
+  const [isFirstLoad, setIsFirstLoad] = useState<boolean>(true);
+  const [messagesLoading, setMessagesLoading] = useState<boolean>(false);
   const [profilesLoading, setProfilesLoading] = useState<boolean>(false);
   const [profilesError, setProfilesError] = useState<Error | undefined>();
   const [loadProfiles] = useProfilesLazyQuery();
@@ -168,6 +169,7 @@ const useMessagePreviews = () => {
       setPreviewMessages(newPreviewMessages);
       setConversations(newConversations);
       setMessagesLoading(false);
+      setIsFirstLoad(false);
       if (newProfileIds.size > profileIds.size) {
         setProfileIds(newProfileIds);
       }
@@ -181,9 +183,10 @@ const useMessagePreviews = () => {
     };
 
     const closeMessageStream = async () => {
-      if (messageStream) {
-        await messageStream.return(undefined); // eslint-disable-line unicorn/no-useless-undefined
+      if (!messageStream) {
+        return;
       }
+      await messageStream.return(undefined); // eslint-disable-line unicorn/no-useless-undefined
     };
 
     const streamConversations = async () => {
@@ -210,7 +213,7 @@ const useMessagePreviews = () => {
 
     listConversations();
     streamConversations();
-    // streamAllMessages(); //TODO(elise): why is this so slow????
+    streamAllMessages();
 
     return () => {
       closeConversationStream();
@@ -252,7 +255,7 @@ const useMessagePreviews = () => {
 
   return {
     authenticating: creatingXmtpClient,
-    loading: messagesLoading || profilesLoading,
+    loading: isFirstLoad || messagesLoading || profilesLoading,
     messages: previewMessages,
     profilesToShow,
     requestedCount,
