@@ -59,7 +59,9 @@ const Feed: FC<Props> = ({ profile, type }) => {
     skip: !profile?.id
   });
 
-  const publications = data?.publications?.items;
+  const publications = [
+    ...new Map(data?.publications?.items?.map((publication) => [publication['id'], publication])).values()
+  ];
   const pageInfo = data?.publications?.pageInfo;
   const hasMore = pageInfo?.next && publications?.length !== pageInfo.totalCount;
 
