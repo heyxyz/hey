@@ -1,6 +1,7 @@
 import EventType from '@components/Home/Timeline/EventType';
 import UserProfile from '@components/Shared/UserProfile';
 import type { LensterPublication } from '@generated/types';
+import formatTime from '@lib/formatTime';
 import { Leafwatch } from '@lib/leafwatch';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
@@ -60,7 +61,9 @@ const SinglePublication: FC<Props> = ({
         <span onClick={(event) => event.stopPropagation()}>
           <UserProfile profile={profile ?? publication?.collectedBy?.defaultProfile} showStatus />
         </span>
-        <span className="text-xs text-gray-500">{dayjs(new Date(timestamp)).fromNow()}</span>
+        <span className="text-xs text-gray-500" title={formatTime(timestamp)}>
+          {dayjs(new Date(timestamp)).fromNow()}
+        </span>
       </div>
       <div
         className="ml-[53px]"

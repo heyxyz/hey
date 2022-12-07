@@ -1,5 +1,6 @@
 import UserProfile from '@components/Shared/UserProfile';
 import type { LensterPublication } from '@generated/types';
+import formatTime from '@lib/formatTime';
 import getAppName from '@lib/getAppName';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
@@ -48,7 +49,9 @@ const FullPublication: FC<Props> = ({ publication }) => {
             <>
               <PublicationBody publication={publication} />
               <div className="text-sm text-gray-500 my-3">
-                <span>{dayjs(new Date(timestamp)).format('hh:mm A · MMM D, YYYY')}</span>
+                <span title={formatTime(timestamp)}>
+                  {dayjs(new Date(timestamp)).format('hh:mm A · MMM D, YYYY')}
+                </span>
                 {publication?.appId ? <span> · Posted via {getAppName(publication?.appId)}</span> : null}
               </div>
               {showStats && (
