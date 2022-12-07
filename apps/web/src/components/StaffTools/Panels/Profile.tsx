@@ -10,6 +10,7 @@ import {
 } from '@heroicons/react/outline';
 import { ShieldCheckIcon } from '@heroicons/react/solid';
 import formatAddress from '@lib/formatAddress';
+import formatHandle from '@lib/formatHandle';
 import getAttribute from '@lib/getAttribute';
 import { getFollowModule } from '@lib/getFollowModule';
 import hasPrideLogo from '@lib/hasPrideLogo';
@@ -42,7 +43,7 @@ const ProfileStaffTool: FC<Props> = ({ profile }) => {
                 alt="Logo"
               />
             }
-            value={profile?.handle}
+            value={formatHandle(profile?.handle)}
           >
             {APP_NAME} account
           </MetaDetails>
@@ -79,14 +80,14 @@ const ProfileStaffTool: FC<Props> = ({ profile }) => {
         ) : null}
         <MetaDetails
           icon={<AtSymbolIcon className="w-4 h-4 text-gray-500" />}
-          value={profile?.handle}
+          value={formatHandle(profile?.handle)}
           title="Handle"
         >
-          {profile?.handle}
+          {formatHandle(profile?.handle)}
         </MetaDetails>
         <MetaDetails
           icon={<IdentificationIcon className="w-4 h-4 text-gray-500" />}
-          value={profile?.handle}
+          value={formatHandle(profile?.handle)}
           title="Follow module"
         >
           {getFollowModule(profile?.followModule?.__typename).description}

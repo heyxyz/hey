@@ -6,6 +6,7 @@ import useBroadcast from '@components/utils/hooks/useBroadcast';
 import type { LensterFollowModule } from '@generated/types';
 import { StarIcon, UserIcon } from '@heroicons/react/outline';
 import formatAddress from '@lib/formatAddress';
+import formatHandle from '@lib/formatHandle';
 import getSignature from '@lib/getSignature';
 import getTokenImage from '@lib/getTokenImage';
 import { Leafwatch } from '@lib/leafwatch';
@@ -166,7 +167,7 @@ const FollowModule: FC<Props> = ({ profile, setFollowing, setShowFollowModal, ag
     <div className="p-5">
       <div className="pb-2 space-y-1.5">
         <div className="text-lg font-bold">
-          Super follow <Slug slug={profile?.handle} prefix="@" /> {again ? 'again' : ''}
+          Super follow <Slug slug={formatHandle(profile?.handle)} prefix="@" /> {again ? 'again' : ''}
         </div>
         <div className="text-gray-500">Follow {again ? 'again' : ''} and get some awesome perks!</div>
       </div>
@@ -203,15 +204,15 @@ const FollowModule: FC<Props> = ({ profile, setFollowing, setShowFollowModal, ag
         <ul className="space-y-1 text-sm text-gray-500">
           <li className="flex space-x-2 tracking-normal leading-6">
             <div>•</div>
-            <div>You can comment on @{profile?.handle}&rsquo;s publications</div>
+            <div>You can comment on @{formatHandle(profile?.handle)}&rsquo;s publications</div>
           </li>
           <li className="flex space-x-2 tracking-normal leading-6">
             <div>•</div>
-            <div>You can collect @{profile?.handle}&rsquo;s publications</div>
+            <div>You can collect @{formatHandle(profile?.handle)}&rsquo;s publications</div>
           </li>
           <li className="flex space-x-2 tracking-normal leading-6">
             <div>•</div>
-            <div>You will get super follow badge in @{profile?.handle}&rsquo;s profile</div>
+            <div>You will get super follow badge in @{formatHandle(profile?.handle)}&rsquo;s profile</div>
           </li>
           <li className="flex space-x-2 tracking-normal leading-6">
             <div>•</div>

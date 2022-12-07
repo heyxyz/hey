@@ -14,6 +14,7 @@ import { BadgeCheckIcon } from '@heroicons/react/solid';
 import buildConversationId from '@lib/buildConversationId';
 import { buildConversationKey } from '@lib/conversationKey';
 import formatAddress from '@lib/formatAddress';
+import formatHandle from '@lib/formatHandle';
 import getAttribute from '@lib/getAttribute';
 import getAvatar from '@lib/getAvatar';
 import isStaff from '@lib/isStaff';
@@ -73,12 +74,12 @@ const Details: FC<Props> = ({ profile }) => {
           className="w-32 h-32 bg-gray-200 rounded-xl ring-8 ring-gray-50 sm:w-52 sm:h-52 dark:bg-gray-700 dark:ring-black"
           height={128}
           width={128}
-          alt={profile?.handle}
+          alt={formatHandle(profile?.handle)}
         />
       </div>
       <div className="py-2 space-y-1">
         <div className="flex gap-1.5 items-center text-2xl font-bold">
-          <div className="truncate">{profile?.name ?? profile?.handle}</div>
+          <div className="truncate">{profile?.name ?? formatHandle(profile?.handle)}</div>
           {isVerified(profile?.id) && (
             <Tooltip content="Verified">
               <BadgeCheckIcon className="w-6 h-6 text-brand" />
@@ -87,7 +88,7 @@ const Details: FC<Props> = ({ profile }) => {
         </div>
         <div className="flex items-center space-x-3">
           {profile?.name ? (
-            <Slug className="text-sm sm:text-base" slug={profile?.handle} prefix="@" />
+            <Slug className="text-sm sm:text-base" slug={formatHandle(profile?.handle)} prefix="@" />
           ) : (
             <Slug className="text-sm sm:text-base" slug={formatAddress(profile?.ownedBy)} />
           )}

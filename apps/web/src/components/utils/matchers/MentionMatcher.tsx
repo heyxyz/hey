@@ -1,5 +1,6 @@
 import Slug from '@components/Shared/Slug';
 import UserPreview from '@components/Shared/UserPreview';
+import formatHandle from '@lib/formatHandle';
 import { Leafwatch } from '@lib/leafwatch';
 import { Matcher } from 'interweave';
 import type { Profile } from 'lens';
@@ -55,7 +56,7 @@ export class MentionMatcher extends Matcher {
   match(value: string) {
     return this.doMatch(value, /@[\w.-]+/, (matches) => {
       return {
-        display: matches[0]
+        display: formatHandle(matches[0])
       };
     });
   }
