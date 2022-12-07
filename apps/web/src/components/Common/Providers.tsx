@@ -9,6 +9,7 @@ import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
 
 import client from '../../apollo';
+import ErrorBoundary from './ErrorBoundary';
 import Layout from './Layout';
 
 const { chains, provider } = configureChains(
@@ -37,13 +38,15 @@ const wagmiClient = createClient({
 
 const Providers = ({ children }: { children: ReactNode }) => {
   return (
-    <WagmiConfig client={wagmiClient}>
-      <ApolloProvider client={client}>
-        <ThemeProvider defaultTheme="light" attribute="class">
-          <Layout>{children}</Layout>
-        </ThemeProvider>
-      </ApolloProvider>
-    </WagmiConfig>
+    <ErrorBoundary>
+      <WagmiConfig client={wagmiClient}>
+        <ApolloProvider client={client}>
+          <ThemeProvider defaultTheme="light" attribute="class">
+            <Layout>{children}</Layout>
+          </ThemeProvider>
+        </ApolloProvider>
+      </WagmiConfig>
+    </ErrorBoundary>
   );
 };
 
