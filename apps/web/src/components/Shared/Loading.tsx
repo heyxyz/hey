@@ -6,7 +6,7 @@ const Loading: FC = () => {
   return (
     <div className="grid h-screen place-items-center">
       <MetaTags />
-      <img className="w-28 h-28" height={112} width={112} src="/logo.svg" alt="Logo" />
+      <object className="h-36 w-36" height={122} width={122} type="image/svg+xml" data="/logo-loader.svg" />
     </div>
   );
 };
