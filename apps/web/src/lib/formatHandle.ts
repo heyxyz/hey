@@ -1,4 +1,4 @@
-import { IS_MAINNET } from 'data/constants';
+import { IS_MAINNET, LENSPROTOCOL_HANDLE } from 'data/constants';
 
 const type = IS_MAINNET ? '.lens' : '.test';
 
@@ -8,7 +8,7 @@ const type = IS_MAINNET ? '.lens' : '.test';
  * @returns formatted handle without .lens
  */
 const formatHandle = (handle: string | null): string => {
-  if (handle === 'lensprotocol') {
+  if (handle === LENSPROTOCOL_HANDLE) {
     return handle;
   }
 
