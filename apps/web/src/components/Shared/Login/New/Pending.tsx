@@ -1,7 +1,7 @@
 import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
 import { ArrowRightIcon } from '@heroicons/react/outline';
-import { IS_MAINNET } from 'data/constants';
+import { HANDLE_SUFFIX } from 'data/constants';
 import { useHasTxHashBeenIndexedQuery } from 'lens';
 import type { FC } from 'react';
 
@@ -30,7 +30,7 @@ const Pending: FC<Props> = ({ handle, txHash }) => {
           <div className="text-[40px]">🌿</div>
           <div>Account created successfully</div>
           <div className="pt-3">
-            <a href={`/u/${handle}${IS_MAINNET ? '.lens' : '.test'}`}>
+            <a href={`/u/${handle}${HANDLE_SUFFIX}`}>
               <Button className="mx-auto" icon={<ArrowRightIcon className="mr-1 w-4 h-4" />}>
                 Go to profile
               </Button>

@@ -1,26 +1,25 @@
-import { IS_MAINNET, LENSPROTOCOL_HANDLE } from 'data/constants';
-
-const type = IS_MAINNET ? '.lens' : '.test';
+import { HANDLE_SUFFIX, LENSPROTOCOL_HANDLE } from 'data/constants';
 
 /**
  *
  * @param handle - Complete handle
- * @returns formatted handle without .lens
+ * @param keepSuffix - Keep .lens or .test suffix
+ * @returns formatted handle without .lens or .test suffix
  */
-const formatHandle = (handle: string | null): string => {
-  if (handle === LENSPROTOCOL_HANDLE) {
-    return handle;
-  }
-
+const formatHandle = (handle: string | null, keepSuffix = false): string => {
   if (!handle) {
     return '';
   }
 
-  if (handle.endsWith(type)) {
-    return handle.replace(type, '');
+  if (handle === LENSPROTOCOL_HANDLE) {
+    return handle;
   }
 
-  return handle + type;
+  if (keepSuffix) {
+    return handle + HANDLE_SUFFIX;
+  }
+
+  return handle.replace(HANDLE_SUFFIX, '');
 };
 
 export default formatHandle;
