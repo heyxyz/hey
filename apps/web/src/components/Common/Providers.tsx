@@ -3,7 +3,8 @@ import { IS_MAINNET, RPC_URL } from 'data/constants';
 import { ThemeProvider } from 'next-themes';
 import type { ReactNode } from 'react';
 import { CHAIN_ID } from 'src/constants';
-import { chain, configureChains, createClient, WagmiConfig } from 'wagmi';
+import { configureChains, createClient, WagmiConfig } from 'wagmi';
+import { polygon, polygonMumbai } from 'wagmi/chains';
 import { InjectedConnector } from 'wagmi/connectors/injected';
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
@@ -13,7 +14,7 @@ import ErrorBoundary from './ErrorBoundary';
 import Layout from './Layout';
 
 const { chains, provider } = configureChains(
-  [IS_MAINNET ? chain.polygon : chain.polygonMumbai],
+  [IS_MAINNET ? polygon : polygonMumbai],
   [jsonRpcProvider({ rpc: () => ({ http: RPC_URL }) })]
 );
 

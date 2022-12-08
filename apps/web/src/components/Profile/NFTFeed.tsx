@@ -11,7 +11,7 @@ import { useNftFeedQuery } from 'lens';
 import type { FC } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { CHAIN_ID } from 'src/constants';
-import { chain } from 'wagmi';
+import { mainnet } from 'wagmi/chains';
 
 interface Props {
   profile: Profile;
@@ -20,7 +20,7 @@ interface Props {
 const NFTFeed: FC<Props> = ({ profile }) => {
   // Variables
   const request = {
-    chainIds: [CHAIN_ID, chain.mainnet.id],
+    chainIds: [CHAIN_ID, mainnet.id],
     ownerAddress: profile?.ownedBy,
     limit: 10
   };
