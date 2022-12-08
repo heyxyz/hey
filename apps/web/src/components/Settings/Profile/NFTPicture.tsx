@@ -23,7 +23,8 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { SETTINGS } from 'src/tracking';
-import { chain, useContractWrite, useSignMessage, useSignTypedData } from 'wagmi';
+import { useContractWrite, useSignMessage, useSignTypedData } from 'wagmi';
+import { mainnet, polygon, polygonMumbai } from 'wagmi/chains';
 import { object, string } from 'zod';
 
 const editNftPictureSchema = object({
@@ -41,7 +42,7 @@ const NFTPicture: FC<Props> = ({ profile }) => {
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const [chainId, setChainId] = useState(chain.mainnet.id);
+  const [chainId, setChainId] = useState(mainnet.id);
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
   const { signMessageAsync } = useSignMessage();
 
@@ -197,8 +198,8 @@ const NFTPicture: FC<Props> = ({ profile }) => {
             onChange={(e) => setChainId(parseInt(e.target.value))}
             value={chainId}
           >
-            {IS_MAINNET && <option value={chain.mainnet.id}>Ethereum</option>}
-            <option value={IS_MAINNET ? chain.polygon.id : chain.polygonMumbai.id}>
+            {IS_MAINNET && <option value={mainnet.id}>Ethereum</option>}
+            <option value={IS_MAINNET ? polygon.id : polygonMumbai.id}>
               {IS_MAINNET ? 'Polygon' : 'Mumbai'}
             </option>
           </select>
