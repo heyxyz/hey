@@ -98,16 +98,6 @@ const Layout: FC<Props> = ({ children }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [address, chain, disconnect, profileId]);
 
-  // Remove service worker
-  // TODO: remove after a month
-  useEffect(() => {
-    navigator.serviceWorker.getRegistrations().then(function (registrations) {
-      for (let registration of registrations) {
-        registration.unregister();
-      }
-    });
-  }, []);
-
   // set pro status
   useEffect(() => {
     if (currentProfile?.id && currentProfile?.id === '0x0d') {
