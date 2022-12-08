@@ -1,8 +1,6 @@
 import getIsAuthTokensAvailable from '@lib/getIsAuthTokensAvailable';
 import getToastOptions from '@lib/getToastOptions';
 import resetAuthData from '@lib/resetAuthData';
-import axios from 'axios';
-import { IS_MAINNET, PRO_STATUS_API_URL } from 'data/constants';
 import type { Profile } from 'lens';
 import { ReferenceModules, useUserProfilesQuery } from 'lens';
 import Head from 'next/head';
@@ -31,7 +29,6 @@ const Layout: FC<Props> = ({ children }) => {
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
-  const setIsPro = useAppStore((state) => state.setIsPro);
   const profileId = useAppPersistStore((state) => state.profileId);
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
   const setSelectedReferenceModule = useReferenceModuleStore((state) => state.setSelectedReferenceModule);
@@ -108,20 +105,6 @@ const Layout: FC<Props> = ({ children }) => {
       }
     });
   }, []);
-
-  // set pro status
-  useEffect(() => {
-    if (currentProfile?.id && currentProfile?.id === '0x0d') {
-      if (IS_MAINNET) {
-        axios(`${PRO_STATUS_API_URL}/user/${currentProfile?.id}`)
-          .then(({ data }) => setIsPro(data.isPro))
-          .catch(() => setIsPro(false));
-      } else {
-        setIsPro(true);
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentProfile?.id]);
 
   if (loading || !mounted) {
     return <Loading />;
