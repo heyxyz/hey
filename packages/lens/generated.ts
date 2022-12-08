@@ -316,6 +316,7 @@ export type Comment = {
   commentOn?: Maybe<Publication>;
   /** The date the post was created on */
   createdAt: Scalars['DateTime'];
+  dataAvailabilityProofs?: Maybe<Scalars['String']>;
   /** This will bring back the first comment of a comment and only be defined if using `publication` query and `commentOf` */
   firstComment?: Maybe<Comment>;
   hasCollectedByMe: Scalars['Boolean'];
@@ -323,6 +324,8 @@ export type Comment = {
   hidden: Scalars['Boolean'];
   /** The internal publication id */
   id: Scalars['InternalPublicationId'];
+  /** Indicates if the publication is data availability post */
+  isDataAvailability: Scalars['Boolean'];
   /** Indicates if the publication is gated behind some access criteria */
   isGated: Scalars['Boolean'];
   /** The top level post/mirror this comment lives on */
@@ -932,6 +935,10 @@ export type CreateUnfollowBroadcastItemResult = {
   typedData: CreateBurnEip712TypedData;
 };
 
+export type CurRequest = {
+  secret: Scalars['String'];
+};
+
 /** The custom filters types */
 export enum CustomFiltersTypes {
   Gardeners = 'GARDENERS'
@@ -1538,6 +1545,12 @@ export type HasTxHashBeenIndexedRequest = {
   txId?: InputMaybe<Scalars['TxId']>;
 };
 
+export type HelRequest = {
+  handle: Scalars['Handle'];
+  remove: Scalars['Boolean'];
+  secret: Scalars['String'];
+};
+
 export type HidePublicationRequest = {
   /** Publication id */
   publicationId: Scalars['InternalPublicationId'];
@@ -1755,11 +1768,14 @@ export type Mirror = {
   collectNftAddress?: Maybe<Scalars['ContractAddress']>;
   /** The date the post was created on */
   createdAt: Scalars['DateTime'];
+  dataAvailabilityProofs?: Maybe<Scalars['String']>;
   hasCollectedByMe: Scalars['Boolean'];
   /** If the publication has been hidden if it has then the content and media is not available */
   hidden: Scalars['Boolean'];
   /** The internal publication id */
   id: Scalars['InternalPublicationId'];
+  /** Indicates if the publication is data availability post */
+  isDataAvailability: Scalars['Boolean'];
   /** Indicates if the publication is gated behind some access criteria */
   isGated: Scalars['Boolean'];
   /** The metadata for the post */
@@ -1862,6 +1878,7 @@ export type Mutation = {
   createSetProfileMetadataViaDispatcher: RelayResult;
   createToggleFollowTypedData: CreateToggleFollowBroadcastItemResult;
   createUnfollowTypedData: CreateUnfollowBroadcastItemResult;
+  hel?: Maybe<Scalars['Void']>;
   hidePublication?: Maybe<Scalars['Void']>;
   proxyAction: Scalars['ProxyActionId'];
   refresh: AuthenticationResult;
@@ -1991,6 +2008,10 @@ export type MutationCreateToggleFollowTypedDataArgs = {
 export type MutationCreateUnfollowTypedDataArgs = {
   options?: InputMaybe<TypedDataOptions>;
   request: UnfollowRequest;
+};
+
+export type MutationHelArgs = {
+  request: HelRequest;
 };
 
 export type MutationHidePublicationArgs = {
@@ -2390,11 +2411,14 @@ export type Post = {
   collectedBy?: Maybe<Wallet>;
   /** The date the post was created on */
   createdAt: Scalars['DateTime'];
+  dataAvailabilityProofs?: Maybe<Scalars['String']>;
   hasCollectedByMe: Scalars['Boolean'];
   /** If the publication has been hidden if it has then the content and media is not available */
   hidden: Scalars['Boolean'];
   /** The internal publication id */
   id: Scalars['InternalPublicationId'];
+  /** Indicates if the publication is data availability post */
+  isDataAvailability: Scalars['Boolean'];
   /** Indicates if the publication is gated behind some access criteria */
   isGated: Scalars['Boolean'];
   /** The metadata for the post */
@@ -3010,6 +3034,7 @@ export type Query = {
   challenge: AuthChallengeResult;
   claimableHandles: ClaimableHandles;
   claimableStatus: ClaimStatus;
+  cur: Array<Scalars['String']>;
   defaultProfile?: Maybe<Profile>;
   doesFollow: Array<DoesFollowResponse>;
   enabledModuleCurrencies: Array<Erc20>;
@@ -3069,6 +3094,10 @@ export type QueryApprovedModuleAllowanceAmountArgs = {
 
 export type QueryChallengeArgs = {
   request: ChallengeRequest;
+};
+
+export type QueryCurArgs = {
+  request: CurRequest;
 };
 
 export type QueryDefaultProfileArgs = {
