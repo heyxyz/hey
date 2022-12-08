@@ -139,13 +139,7 @@ const useMessagePreviews = () => {
       const newConversations = new Map(conversations);
       const newProfileIds = new Set(profileIds);
 
-      const beforeList = Date.now();
-      console.log('starting conversations.list(): ' + beforeList);
       const convos = await client.conversations.list();
-      const afterList = Date.now();
-      console.log('ending conversations.list(): ' + afterList);
-      console.log(afterList - beforeList + ' total ms for conversations.list()');
-
       const matchingConvos = convos.filter(
         (convo) => convo.context?.conversationId && matcherRegex.test(convo.context.conversationId)
       );
