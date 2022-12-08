@@ -9,8 +9,6 @@ const BasicSettings: FC = () => {
   const setRestricted = useAccessSettingsStore((state) => state.setRestricted);
   const collectToView = useAccessSettingsStore((state) => state.collectToView);
   const setCollectToView = useAccessSettingsStore((state) => state.setCollectToView);
-  const followToView = useAccessSettingsStore((state) => state.followToView);
-  const setFollowToView = useAccessSettingsStore((state) => state.setFollowToView);
 
   return (
     <div className="p-5">
