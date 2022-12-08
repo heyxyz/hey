@@ -73,7 +73,7 @@ const ProfileSettings: NextPage = () => {
       <GridItemFour>
         <Sidebar />
       </GridItemFour>
-      <GridItemEight className="space-y-5">
+      <GridItemEight className="space-y-5 dark:text-white">
         <Profile profile={profile as any} />
         <Card className="space-y-5 p-5">
           <div className="flex items-center space-x-2">

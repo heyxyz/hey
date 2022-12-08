@@ -240,7 +240,7 @@ const SignedUser: FC = () => {
               {currentProfile && (
                 <>
                   <div className="divider" />
-                  <div className="py-3 px-6 text-xs">
+                  <div className="py-3 px-6 text-xs dark:text-white">
                     <a
                       href={`https://github.com/lensterxyz/lenster/releases/tag/v${APP_VERSION}`}
                       className="font-mono"

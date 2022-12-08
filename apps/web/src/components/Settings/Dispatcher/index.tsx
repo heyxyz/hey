@@ -23,13 +23,13 @@ const DispatcherSettings: FC = () => {
         <Sidebar />
       </GridItemFour>
       <GridItemEight>
-        <Card className="space-y-2 linkify p-5">
+        <Card className="space-y-2 linkify p-5 dark:text-white">
           <div className="flex items-center space-x-2">
             <div className="text-lg font-bold">
               {currentProfile?.dispatcher?.canUseRelay ? 'Disable' : 'Enable'} dispatcher
             </div>
           </div>
-          <div className="pb-2">
+          <div className="pb-2 ">
             We suggest you to enable dispatcher so you don't need to sign all your transactions in {APP_NAME}.
           </div>
           <ToggleDispatcher />

@@ -59,7 +59,7 @@ const AllowanceSettings: NextPage = () => {
       <GridItemFour>
         <Sidebar />
       </GridItemFour>
-      <GridItemEight>
+      <GridItemEight className="dark:text-white">
         <Card>
           <div className="mx-5 mt-5">
             <div className="space-y-5">

@@ -77,7 +77,7 @@ const Details: FC<Props> = ({ profile }) => {
           alt={formatHandle(profile?.handle)}
         />
       </div>
-      <div className="py-2 space-y-1">
+      <div className="py-2 space-y-1 dark:text-gray-200">
         <div className="flex gap-1.5 items-center text-2xl font-bold">
           <div className="truncate">{profile?.name ?? formatHandle(profile?.handle)}</div>
           {isVerified(profile?.id) && (
@@ -98,11 +98,11 @@ const Details: FC<Props> = ({ profile }) => {
         </div>
       </div>
       {profile?.bio && (
-        <div className="mr-0 sm:mr-10 leading-md linkify text-md">
+        <div className="mr-0 sm:mr-10 leading-md linkify text-md dark:text-gray-300">
           <Markup>{profile?.bio}</Markup>
         </div>
       )}
-      <div className="space-y-5">
+      <div className="space-y-5 dark:text-gray-300">
         <Followerings profile={profile} />
         <div>
           {currentProfile?.id === profile?.id ? (

@@ -220,7 +220,7 @@ const Profile: FC<Props> = ({ profile }) => {
     <Card className="p-5">
       <Form
         form={form}
-        className="space-y-4"
+        className="space-y-4 dark:text-white"
         onSubmit={({ name, location, website, twitter, bio }) => {
           editProfile(name, location, website, twitter, bio);
         }}

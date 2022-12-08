@@ -24,7 +24,7 @@ const AccountSettings: NextPage = () => {
       <GridItemFour>
         <Sidebar />
       </GridItemFour>
-      <GridItemEight className="space-y-5">
+      <GridItemEight className="space-y-5 dark:text-white">
         <SetProfile />
         <SuperFollow />
         <Verification />

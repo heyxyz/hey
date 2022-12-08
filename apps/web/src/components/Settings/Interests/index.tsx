@@ -25,7 +25,7 @@ const InterestsSettings: NextPage = () => {
         <Sidebar />
       </GridItemFour>
       <GridItemEight>
-        <Card className="p-5">
+        <Card className="p-5 dark:text-white">
           <div className="space-y-5">
             <div className="flex items-center space-x-2">
               <div className="text-lg font-bold">Select profile interests</div>

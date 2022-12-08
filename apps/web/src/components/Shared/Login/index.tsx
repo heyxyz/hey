@@ -22,7 +22,7 @@ const Login: FC = () => {
             </div>
           ) : (
             <div className="space-y-1">
-              <div className="text-xl font-bold">Connect your wallet.</div>
+              <div className="text-xl font-bold dark:text-white">Connect your wallet.</div>
               <div className="text-sm text-gray-500">
                 Connect with one of our available wallet providers or create a new one.
               </div>
@@ -39,9 +39,9 @@ const Login: FC = () => {
             src={`${STATIC_IMAGES_URL}/brands/lens.png`}
             alt="Logo"
           />
-          <div className="text-xl font-bold">Claim your Lens profile 🌿</div>
+          <div className="text-xl font-bold dark:text-white">Claim your Lens profile 🌿</div>
           <div className="space-y-1">
-            <div className="linkify">
+            <div className="linkify dark:text-gray-300">
               Visit{' '}
               <a
                 className="font-bold"

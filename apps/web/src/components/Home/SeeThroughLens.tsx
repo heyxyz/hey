@@ -87,7 +87,7 @@ const SeeThroughLens: FC = () => {
         onClick={() => fetchRecommendedProfiles()}
         className="rounded-md hover:bg-gray-300 p-1 hover:bg-opacity-20"
       >
-        <span className="flex space-x-1 items-center text-sm pl-1">
+        <span className="flex space-x-1 items-center text-sm pl-1 dark:text-gray-300">
           <img
             src={getAvatar(profile)}
             loading="lazy"

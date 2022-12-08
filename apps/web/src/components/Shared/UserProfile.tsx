@@ -60,7 +60,7 @@ const UserProfile: FC<Props> = ({
 
   const UserName = () => (
     <>
-      <div className="flex items-center max-w-sm truncate">
+      <div className="flex items-center max-w-sm truncate dark:text-white">
         <div className={clsx(isBig ? 'font-bold' : 'text-md')}>
           {profile?.name ?? formatHandle(profile?.handle)}
         </div>

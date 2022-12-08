@@ -38,7 +38,7 @@ const Sidebar: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   return (
-    <div className="px-3 mb-4 space-y-1.5 sm:px-0">
+    <div className="px-3 mb-4 space-y-1.5 sm:px-0 dark:text-white">
       <div className="pb-3">
         <UserProfile profile={currentProfile as Profile} />
       </div>
