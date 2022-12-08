@@ -356,7 +356,9 @@ const NewPublication: FC<Props> = ({ publication }) => {
         external_url: `https://lenster.xyz/u/${currentProfile?.handle}`,
         image: attachments.length > 0 ? getAttachmentImage() : textNftImageUrl,
         imageMimeType: attachments.length > 0 ? getAttachmentImageMimeType() : 'image/svg+xml',
-        name: isAudioPublication ? audioPublication.title : `Comment by @${currentProfile?.handle}`,
+        name: isAudioPublication
+          ? audioPublication.title
+          : `${isComment ? 'Comment' : 'Post'} by @${currentProfile?.handle}`,
         tags: getTags(publicationContent),
         animation_url: getAnimationUrl(),
         mainContentFocus: getMainContentFocus(),
