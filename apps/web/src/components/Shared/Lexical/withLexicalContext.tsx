@@ -6,6 +6,7 @@ import type { FC } from 'react';
 
 import { EmojiNode } from './Nodes/EmojiNode';
 import { MentionNode } from './Nodes/MentionsNode';
+import { PreviewMentionNode } from './Nodes/PreviewMentionsNode';
 
 const initialConfig = {
   namespace: 'composer',
@@ -18,7 +19,7 @@ const initialConfig = {
     link: 'text-brand',
     hashtag: 'text-brand'
   },
-  nodes: [CodeNode, MentionNode, HashtagNode, AutoLinkNode, LinkNode, EmojiNode],
+  nodes: [CodeNode, MentionNode, HashtagNode, AutoLinkNode, LinkNode, EmojiNode, PreviewMentionNode],
   editorState: null,
   onError: (error: any) => {
     console.error(error);
