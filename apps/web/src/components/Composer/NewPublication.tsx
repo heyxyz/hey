@@ -9,6 +9,9 @@ import useBroadcast from '@components/utils/hooks/useBroadcast';
 import type { LensterAttachment, LensterPublication } from '@generated/types';
 import type { IGif } from '@giphy/js-types';
 import { ChatAlt2Icon, PencilAltIcon } from '@heroicons/react/outline';
+import type { EncryptedMetadata } from '@lens-protocol/sdk-gated';
+import { LensEnvironment, LensGatedSDK } from '@lens-protocol/sdk-gated';
+import type { CollectConditionOutput } from '@lens-protocol/sdk-gated/dist/graphql/types';
 import { $convertFromMarkdownString } from '@lexical/markdown';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import getSignature from '@lib/getSignature';
@@ -31,10 +34,11 @@ import {
   RELAY_ON,
   SIGN_WALLET
 } from 'data/constants';
-import type { CreatePublicCommentRequest } from 'lens';
+import type { CreatePublicCommentRequest, MetadataAttributeInput, PublicationMetadataV2Input } from 'lens';
 import {
   CollectModules,
   PublicationMainFocus,
+  PublicationMetadataDisplayTypes,
   ReferenceModules,
   useCreateCommentTypedDataMutation,
   useCreateCommentViaDispatcherMutation,
@@ -53,7 +57,7 @@ import { useReferenceModuleStore } from 'src/store/reference-module';
 import { useTransactionPersistStore } from 'src/store/transaction';
 import { COMMENT, POST } from 'src/tracking';
 import { v4 as uuid } from 'uuid';
-import { useContractWrite, useSignTypedData } from 'wagmi';
+import { useContractWrite, useProvider, useSigner, useSignTypedData } from 'wagmi';
 
 import Editor from './Editor';
 
@@ -108,6 +112,8 @@ const NewPublication: FC<Props> = ({ publication }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [attachments, setAttachments] = useState<LensterAttachment[]>([]);
   const [editor] = useLexicalComposerContext();
+  const provider = useProvider();
+  const { data: signer } = useSigner();
 
   const isComment = Boolean(publication);
   const isAudioPublication = ALLOWED_AUDIO_TYPES.includes(attachments[0]?.type);
@@ -277,6 +283,8 @@ const NewPublication: FC<Props> = ({ publication }) => {
         return PublicationMainFocus.Image;
       } else if (ALLOWED_VIDEO_TYPES.includes(attachments[0]?.type)) {
         return PublicationMainFocus.Video;
+      } else {
+        return PublicationMainFocus.TextOnly;
       }
     } else {
       return PublicationMainFocus.TextOnly;
@@ -306,6 +314,10 @@ const NewPublication: FC<Props> = ({ publication }) => {
       return toast.error(SIGN_WALLET);
     }
 
+    if (!signer) {
+      return toast.error(SIGN_WALLET);
+    }
+
     try {
       setIsSubmitting(true);
 
@@ -332,10 +344,10 @@ const NewPublication: FC<Props> = ({ publication }) => {
         );
       }
 
-      const attributes = [
+      const attributes: MetadataAttributeInput[] = [
         {
           traitType: 'type',
-          displayType: 'string',
+          displayType: PublicationMetadataDisplayTypes.String,
           value: getMainContentFocus()?.toLowerCase()
         }
       ];
@@ -343,12 +355,12 @@ const NewPublication: FC<Props> = ({ publication }) => {
       if (isAudioPublication) {
         attributes.push({
           traitType: 'author',
-          displayType: 'string',
+          displayType: PublicationMetadataDisplayTypes.String,
           value: audioPublication.author
         });
       }
 
-      const id = await uploadToArweave({
+      const metadata: PublicationMetadataV2Input = {
         version: '2.0.0',
         metadata_id: uuid(),
         description: trimify(publicationContent),
@@ -366,13 +378,32 @@ const NewPublication: FC<Props> = ({ publication }) => {
         attributes,
         media: attachments,
         locale: getUserLocale(),
-        createdOn: new Date(),
         appId: APP_NAME
+      };
+
+      const tokenGatedSdk = await LensGatedSDK.create({ provider, signer, env: LensEnvironment.Mumbai });
+
+      await tokenGatedSdk.connect({
+        address: currentProfile.ownedBy,
+        env: LensEnvironment.Mumbai
       });
+
+      const uploadMetadataHandler = async (data: EncryptedMetadata): Promise<string> => {
+        return await uploadToArweave(data);
+      };
+
+      const collectAccessCondition: CollectConditionOutput = { thisPublication: true };
+
+      const { contentURI } = await tokenGatedSdk.gated.encryptMetadata(
+        metadata,
+        currentProfile.id,
+        { collect: collectAccessCondition },
+        uploadMetadataHandler
+      );
 
       const request = {
         profileId: currentProfile?.id,
-        contentURI: `https://arweave.net/${id}`,
+        contentURI: `https://arweave.net/${contentURI}`,
         ...(isComment && {
           publicationId: publication.__typename === 'Mirror' ? publication?.mirrorOf?.id : publication?.id
         }),
