@@ -60,7 +60,7 @@ const ViewPublication: NextPage = () => {
             : APP_NAME
         }
       />
-      <GridItemEight className="space-y-5">
+      <GridItemEight className="space-y-5 dark:text-white">
         <Card>
           <FullPublication publication={publication} />
         </Card>

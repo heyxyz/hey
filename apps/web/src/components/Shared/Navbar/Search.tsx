@@ -67,7 +67,7 @@ const Search: FC<Props> = ({
   const profiles = isProfileSearchResult ? searchResult.items : [];
 
   return (
-    <div aria-hidden="true" className="w-full">
+    <div aria-hidden="true" className="w-full dark:text-white">
       <form onSubmit={handleKeyDown}>
         <Input
           type="text"

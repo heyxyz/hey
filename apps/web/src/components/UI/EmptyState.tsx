@@ -11,7 +11,7 @@ interface Props {
 export const EmptyState: FC<Props> = ({ message, icon, hideCard = false }) => {
   return (
     <Card className={hideCard ? 'border-0 !shadow-none !bg-transparent' : ''}>
-      <div className="grid justify-items-center p-5 space-y-2">
+      <div className="grid justify-items-center p-5 space-y-2 dark:text-white">
         <div>{icon}</div>
         <div>{message}</div>
       </div>

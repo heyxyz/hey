@@ -87,7 +87,7 @@ const UserProfile: FC<Props> = ({
         followStatusLoading={followStatusLoading}
         showUserPreview={showUserPreview}
       >
-        <div className="flex items-center space-x-3">
+        <div className="flex items-center space-x-3 dark:text-white">
           <UserAvatar />
           <div>
             <UserName />

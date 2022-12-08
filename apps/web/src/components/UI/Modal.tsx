@@ -17,7 +17,7 @@ export const Modal: FC<Props> = ({ icon, title, size = 'sm', show, children, onC
   return (
     <Transition.Root show={show} as={Fragment}>
       <Dialog as="div" className="overflow-y-auto fixed inset-0 z-10" onClose={() => onClose?.()}>
-        <div className="flex justify-center items-center p-4 min-h-screen text-center sm:block sm:p-0">
+        <div className="flex justify-center items-center p-4 min-h-screen text-center sm:block sm:p-0 dark:text-white">
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-100"
