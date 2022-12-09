@@ -49,6 +49,7 @@ import dynamic from 'next/dynamic';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
+import { useAccessSettingsStore } from 'src/store/access-settings';
 import { useAppStore } from 'src/store/app';
 import { useCollectModuleStore } from 'src/store/collect-module';
 import { usePublicationStore } from 'src/store/publication';
@@ -105,6 +106,9 @@ const NewPublication: FC<Props> = ({ publication }) => {
   const selectedReferenceModule = useReferenceModuleStore((state) => state.selectedReferenceModule);
   const onlyFollowers = useReferenceModuleStore((state) => state.onlyFollowers);
   const degreesOfSeparation = useReferenceModuleStore((state) => state.degreesOfSeparation);
+
+  // Access module store
+  const restricted = useAccessSettingsStore((state) => state.restricted);
 
   // States
   const [publicationContentError, setPublicationContentError] = useState('');
@@ -308,12 +312,40 @@ const NewPublication: FC<Props> = ({ publication }) => {
     return isAudioPublication ? audioPublication.coverMimeType : attachments[0]?.type;
   };
 
-  const createPublication = async () => {
+  const createTokenGatedMetadata = async (metadata: PublicationMetadataV2Input) => {
     if (!currentProfile) {
       return toast.error(SIGN_WALLET);
     }
 
     if (!signer) {
+      return toast.error(SIGN_WALLET);
+    }
+
+    const tokenGatedSdk = await LensGatedSDK.create({ provider, signer, env: LensEnvironment.Mumbai });
+    await tokenGatedSdk.connect({
+      address: currentProfile.ownedBy,
+      env: LensEnvironment.Mumbai
+    });
+    const uploadMetadataHandler = async (data: EncryptedMetadata): Promise<string> => {
+      return await uploadToArweave(data);
+    };
+    const followAccessCondition: FollowCondition = { profileId: '0x15' };
+    const { contentURI } = await tokenGatedSdk.gated.encryptMetadata(
+      metadata,
+      currentProfile.id,
+      { follow: followAccessCondition },
+      uploadMetadataHandler
+    );
+
+    return contentURI;
+  };
+
+  const createMetadata = async (metadata: PublicationMetadataV2Input) => {
+    return await uploadToArweave(metadata);
+  };
+
+  const createPublication = async () => {
+    if (!currentProfile) {
       return toast.error(SIGN_WALLET);
     }
 
@@ -380,25 +412,16 @@ const NewPublication: FC<Props> = ({ publication }) => {
         appId: APP_NAME
       };
 
-      const tokenGatedSdk = await LensGatedSDK.create({ provider, signer, env: LensEnvironment.Mumbai });
-      await tokenGatedSdk.connect({
-        address: currentProfile.ownedBy,
-        env: LensEnvironment.Mumbai
-      });
-      const uploadMetadataHandler = async (data: EncryptedMetadata): Promise<string> => {
-        return await uploadToArweave(data);
-      };
-      const followAccessCondition: FollowCondition = { profileId: '0x15' };
-      const { contentURI } = await tokenGatedSdk.gated.encryptMetadata(
-        metadata,
-        currentProfile.id,
-        { follow: followAccessCondition },
-        uploadMetadataHandler
-      );
+      let arweaveId = null;
+      if (restricted) {
+        arweaveId = await createTokenGatedMetadata(metadata);
+      } else {
+        arweaveId = await createMetadata(metadata);
+      }
 
       const request = {
         profileId: currentProfile?.id,
-        contentURI: `https://arweave.net/${contentURI}`,
+        contentURI: `https://arweave.net/${arweaveId}`,
         ...(isComment && {
           publicationId: publication.__typename === 'Mirror' ? publication?.mirrorOf?.id : publication?.id
         }),

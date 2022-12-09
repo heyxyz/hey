@@ -14,7 +14,9 @@ const BasicSettings: FC = () => {
     <div className="p-5">
       <ToggleWithHelper
         on={restricted}
-        setOn={() => setRestricted(!restricted)}
+        setOn={() => {
+          setRestricted(!restricted);
+        }}
         label="Add restrictions on who can view this post"
       />
       {restricted && (
