@@ -329,7 +329,7 @@ const NewPublication: FC<Props> = ({ publication }) => {
     });
 
     // Condition for gating the content
-    const followAccessCondition: FollowCondition = { profileId: '0x15' };
+    const followAccessCondition: FollowCondition = { profileId: currentProfile.id };
     const accessCondition: AccessConditionOutput = { follow: followAccessCondition };
 
     // Generate the encrypted metadata and upload it to Arweave
