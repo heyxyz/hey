@@ -11,7 +11,7 @@ const formatHandle = (handle: string | null, keepSuffix = false): string => {
     return '';
   }
 
-  if (handle === LENSPROTOCOL_HANDLE) {
+  if (handle?.toLowerCase() === LENSPROTOCOL_HANDLE) {
     return handle;
   }
 
