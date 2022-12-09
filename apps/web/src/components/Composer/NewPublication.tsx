@@ -132,7 +132,13 @@ const NewPublication: FC<Props> = ({ publication }) => {
     if (!isComment) {
       setShowNewPostModal(false);
     }
-    Leafwatch.track(isComment ? COMMENT.NEW : POST.NEW);
+
+    // Track in simple analytics
+    if (restricted) {
+      Leafwatch.track(isComment ? COMMENT.TOKEN_GATED : POST.TOKEN_GATED);
+    } else {
+      Leafwatch.track(isComment ? COMMENT.NEW : POST.NEW);
+    }
   };
 
   useEffect(() => {
