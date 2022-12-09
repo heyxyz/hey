@@ -35,10 +35,10 @@ export const Mention = ({ ...props }: any) => {
           profile={profile as Profile}
           followStatusLoading={props?.followStatusLoading}
         >
-          <Slug slug=formatHandle({props.display}) />
+          <Slug slug={formatHandle(props.display)} />
         </UserPreview>
       ) : (
-        <Slug slug=formatHandle({props.display}) />
+        <Slug slug={formatHandle(props.display)} />
       )}
     </Link>
   );
