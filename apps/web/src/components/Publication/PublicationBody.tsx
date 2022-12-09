@@ -16,23 +16,6 @@ interface Props {
 const PublicationBody: FC<Props> = ({ publication }) => {
   const { pathname } = useRouter();
   const showMore = publication?.metadata?.content?.length > 450 && pathname !== '/posts/[id]';
-  // const [decryptedData, setDecryptedData] = useState<any>(null);
-  // const provider = useProvider();
-  // const { data: signer } = useSigner();
-
-  // const getDecryptedData = async () => {
-  //   if (!signer) {
-  //     return;
-  //   }
-
-  //   const sdk = await LensGatedSDK.create({ provider, signer, env: LensEnvironment.Mumbai });
-  //   const { error, decrypted } = await sdk.gated.decryptMetadata({} as any);
-  //   setDecryptedData(decrypted);
-  // };
-
-  // useEffect(() => {
-  //   getDecryptedData();
-  // }, []);
 
   return (
     <div className="break-words">
