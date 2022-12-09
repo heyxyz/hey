@@ -9,9 +9,8 @@ import useBroadcast from '@components/utils/hooks/useBroadcast';
 import type { LensterAttachment, LensterPublication } from '@generated/types';
 import type { IGif } from '@giphy/js-types';
 import { ChatAlt2Icon, PencilAltIcon } from '@heroicons/react/outline';
-import type { EncryptedMetadata } from '@lens-protocol/sdk-gated';
+import type { EncryptedMetadata, FollowCondition } from '@lens-protocol/sdk-gated';
 import { LensEnvironment, LensGatedSDK } from '@lens-protocol/sdk-gated';
-import type { CollectConditionOutput } from '@lens-protocol/sdk-gated/dist/graphql/types';
 import { $convertFromMarkdownString } from '@lexical/markdown';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import getSignature from '@lib/getSignature';
@@ -382,22 +381,18 @@ const NewPublication: FC<Props> = ({ publication }) => {
       };
 
       const tokenGatedSdk = await LensGatedSDK.create({ provider, signer, env: LensEnvironment.Mumbai });
-
       await tokenGatedSdk.connect({
         address: currentProfile.ownedBy,
         env: LensEnvironment.Mumbai
       });
-
       const uploadMetadataHandler = async (data: EncryptedMetadata): Promise<string> => {
         return await uploadToArweave(data);
       };
-
-      const collectAccessCondition: CollectConditionOutput = { thisPublication: true };
-
+      const followAccessCondition: FollowCondition = { profileId: '0x15' };
       const { contentURI } = await tokenGatedSdk.gated.encryptMetadata(
         metadata,
         currentProfile.id,
-        { collect: collectAccessCondition },
+        { follow: followAccessCondition },
         uploadMetadataHandler
       );
 
