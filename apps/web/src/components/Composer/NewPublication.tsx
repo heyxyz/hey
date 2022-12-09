@@ -11,6 +11,7 @@ import type { IGif } from '@giphy/js-types';
 import { ChatAlt2Icon, PencilAltIcon } from '@heroicons/react/outline';
 import type { EncryptedMetadata, FollowCondition } from '@lens-protocol/sdk-gated';
 import { LensEnvironment, LensGatedSDK } from '@lens-protocol/sdk-gated';
+import type { AccessConditionOutput } from '@lens-protocol/sdk-gated/dist/graphql/types';
 import { $convertFromMarkdownString } from '@lexical/markdown';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import getSignature from '@lib/getSignature';
@@ -326,15 +327,19 @@ const NewPublication: FC<Props> = ({ publication }) => {
       address: currentProfile.ownedBy,
       env: LensEnvironment.Mumbai
     });
-    const uploadMetadataHandler = async (data: EncryptedMetadata): Promise<string> => {
-      return await uploadToArweave(data);
-    };
+
+    // Condition for gating the content
     const followAccessCondition: FollowCondition = { profileId: '0x15' };
+    const accessCondition: AccessConditionOutput = { follow: followAccessCondition };
+
+    // Generate the encrypted metadata and upload it to Arweave
     const { contentURI } = await tokenGatedSdk.gated.encryptMetadata(
       metadata,
       currentProfile.id,
-      { follow: followAccessCondition },
-      uploadMetadataHandler
+      accessCondition,
+      async (data: EncryptedMetadata) => {
+        return await uploadToArweave(data);
+      }
     );
 
     return contentURI;
