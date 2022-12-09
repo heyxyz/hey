@@ -4,6 +4,7 @@ import { Tooltip } from '@components/UI/Tooltip';
 import { LockClosedIcon } from '@heroicons/react/outline';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { Leafwatch } from '@lib/leafwatch';
+import clsx from 'clsx';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';
 import { useState } from 'react';
@@ -15,6 +16,7 @@ import BasicSettings from './BasicSettings';
 
 const AccessSettings: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const restricted = useAccessSettingsStore((state) => state.restricted);
   const hasConditions = useAccessSettingsStore((state) => state.hasConditions);
   const reset = useAccessSettingsStore((state) => state.reset);
   const [showModal, setShowModal] = useState(false);
@@ -35,7 +37,7 @@ const AccessSettings: FC = () => {
           }}
           aria-label="Access"
         >
-          <LockClosedIcon className="h-5 w-5 text-brand" />
+          <LockClosedIcon className={clsx(restricted ? 'text-green-500' : 'text-brand', 'h-5 w-5')} />
         </motion.button>
       </Tooltip>
       <Modal
