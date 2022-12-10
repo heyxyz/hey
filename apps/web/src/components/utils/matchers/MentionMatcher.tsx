@@ -12,8 +12,8 @@ export const Mention = ({ ...props }: any) => {
   const profile = {
     __typename: 'Profile',
     handle: props?.display.slice(1),
-    name: '',
-    id: ''
+    name: null,
+    id: null
   };
 
   return (
