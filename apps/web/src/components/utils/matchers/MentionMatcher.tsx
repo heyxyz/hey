@@ -4,16 +4,11 @@ import formatHandle from '@lib/formatHandle';
 import { Leafwatch } from '@lib/leafwatch';
 import { Matcher } from 'interweave';
 import type { Profile } from 'lens';
-// import { useProfileQuery } from 'lens';
 import Link from 'next/link';
 import { createElement } from 'react';
 import { PUBLICATION } from 'src/tracking';
 
 export const Mention = ({ ...props }: any) => {
-  // const { data } = useProfileQuery({
-  //   variables: { request: { handle: props?.display.slice(1) } }
-  // });
-  // const profile = data?.profile;
   const profile = {
     __typename: 'Profile',
     handle: props?.display.slice(1),
