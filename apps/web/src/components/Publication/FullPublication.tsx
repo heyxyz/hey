@@ -49,7 +49,7 @@ const FullPublication: FC<Props> = ({ publication }) => {
           ) : (
             <>
               {publication?.metadata?.encryptionParams ? (
-                <DecryptedPublicationBody publication={publication} />
+                <DecryptedPublicationBody encryptedPublication={publication} />
               ) : (
                 <PublicationBody publication={publication} />
               )}
