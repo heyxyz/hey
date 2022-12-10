@@ -18,4 +18,15 @@ fragment MetadataFields on MetadataOutput {
       mimeType
     }
   }
+  encryptionParams {
+    accessCondition {
+      follow {
+        profileId
+      }
+      collect {
+        publicationId
+        thisPublication
+      }
+    }
+  }
 }

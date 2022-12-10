@@ -3965,6 +3965,18 @@ export type CommentFieldsFragment = {
       __typename?: 'MediaSet';
       original: { __typename?: 'Media'; url: any; mimeType?: any | null };
     }>;
+    encryptionParams?: {
+      __typename?: 'EncryptionParamsOutput';
+      accessCondition: {
+        __typename?: 'AccessConditionOutput';
+        follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+        collect?: {
+          __typename?: 'CollectConditionOutput';
+          publicationId?: any | null;
+          thisPublication?: boolean | null;
+        } | null;
+      };
+    } | null;
   };
   commentOn?:
     | {
@@ -4082,6 +4094,18 @@ export type CommentFieldsFragment = {
             __typename?: 'MediaSet';
             original: { __typename?: 'Media'; url: any; mimeType?: any | null };
           }>;
+          encryptionParams?: {
+            __typename?: 'EncryptionParamsOutput';
+            accessCondition: {
+              __typename?: 'AccessConditionOutput';
+              follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+              collect?: {
+                __typename?: 'CollectConditionOutput';
+                publicationId?: any | null;
+                thisPublication?: boolean | null;
+              } | null;
+            };
+          } | null;
         };
         stats: {
           __typename?: 'PublicationStats';
@@ -4206,6 +4230,18 @@ export type CommentFieldsFragment = {
                   __typename?: 'MediaSet';
                   original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                 }>;
+                encryptionParams?: {
+                  __typename?: 'EncryptionParamsOutput';
+                  accessCondition: {
+                    __typename?: 'AccessConditionOutput';
+                    follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+                    collect?: {
+                      __typename?: 'CollectConditionOutput';
+                      publicationId?: any | null;
+                      thisPublication?: boolean | null;
+                    } | null;
+                  };
+                } | null;
               };
               mirrorOf:
                 | {
@@ -4397,6 +4433,18 @@ export type CommentFieldsFragment = {
                         __typename?: 'MediaSet';
                         original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                       }>;
+                      encryptionParams?: {
+                        __typename?: 'EncryptionParamsOutput';
+                        accessCondition: {
+                          __typename?: 'AccessConditionOutput';
+                          follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+                          collect?: {
+                            __typename?: 'CollectConditionOutput';
+                            publicationId?: any | null;
+                            thisPublication?: boolean | null;
+                          } | null;
+                        };
+                      } | null;
                     };
                   };
             }
@@ -4543,6 +4591,18 @@ export type CommentFieldsFragment = {
                   __typename?: 'MediaSet';
                   original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                 }>;
+                encryptionParams?: {
+                  __typename?: 'EncryptionParamsOutput';
+                  accessCondition: {
+                    __typename?: 'AccessConditionOutput';
+                    follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+                    collect?: {
+                      __typename?: 'CollectConditionOutput';
+                      publicationId?: any | null;
+                      thisPublication?: boolean | null;
+                    } | null;
+                  };
+                } | null;
               };
             };
       }
@@ -4661,6 +4721,18 @@ export type CommentFieldsFragment = {
             __typename?: 'MediaSet';
             original: { __typename?: 'Media'; url: any; mimeType?: any | null };
           }>;
+          encryptionParams?: {
+            __typename?: 'EncryptionParamsOutput';
+            accessCondition: {
+              __typename?: 'AccessConditionOutput';
+              follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+              collect?: {
+                __typename?: 'CollectConditionOutput';
+                publicationId?: any | null;
+                thisPublication?: boolean | null;
+              } | null;
+            };
+          } | null;
         };
         mirrorOf:
           | {
@@ -4845,6 +4917,18 @@ export type CommentFieldsFragment = {
                   __typename?: 'MediaSet';
                   original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                 }>;
+                encryptionParams?: {
+                  __typename?: 'EncryptionParamsOutput';
+                  accessCondition: {
+                    __typename?: 'AccessConditionOutput';
+                    follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+                    collect?: {
+                      __typename?: 'CollectConditionOutput';
+                      publicationId?: any | null;
+                      thisPublication?: boolean | null;
+                    } | null;
+                  };
+                } | null;
               };
             };
       }
@@ -4991,6 +5075,18 @@ export type CommentFieldsFragment = {
             __typename?: 'MediaSet';
             original: { __typename?: 'Media'; url: any; mimeType?: any | null };
           }>;
+          encryptionParams?: {
+            __typename?: 'EncryptionParamsOutput';
+            accessCondition: {
+              __typename?: 'AccessConditionOutput';
+              follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+              collect?: {
+                __typename?: 'CollectConditionOutput';
+                publicationId?: any | null;
+                thisPublication?: boolean | null;
+              } | null;
+            };
+          } | null;
         };
       }
     | null;
@@ -5012,6 +5108,18 @@ export type MetadataFieldsFragment = {
     __typename?: 'MediaSet';
     original: { __typename?: 'Media'; url: any; mimeType?: any | null };
   }>;
+  encryptionParams?: {
+    __typename?: 'EncryptionParamsOutput';
+    accessCondition: {
+      __typename?: 'AccessConditionOutput';
+      follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+      collect?: {
+        __typename?: 'CollectConditionOutput';
+        publicationId?: any | null;
+        thisPublication?: boolean | null;
+      } | null;
+    };
+  } | null;
 };
 
 export type MirrorFieldsFragment = {
@@ -5129,6 +5237,18 @@ export type MirrorFieldsFragment = {
       __typename?: 'MediaSet';
       original: { __typename?: 'Media'; url: any; mimeType?: any | null };
     }>;
+    encryptionParams?: {
+      __typename?: 'EncryptionParamsOutput';
+      accessCondition: {
+        __typename?: 'AccessConditionOutput';
+        follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+        collect?: {
+          __typename?: 'CollectConditionOutput';
+          publicationId?: any | null;
+          thisPublication?: boolean | null;
+        } | null;
+      };
+    } | null;
   };
   mirrorOf:
     | {
@@ -5313,6 +5433,18 @@ export type MirrorFieldsFragment = {
             __typename?: 'MediaSet';
             original: { __typename?: 'Media'; url: any; mimeType?: any | null };
           }>;
+          encryptionParams?: {
+            __typename?: 'EncryptionParamsOutput';
+            accessCondition: {
+              __typename?: 'AccessConditionOutput';
+              follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+              collect?: {
+                __typename?: 'CollectConditionOutput';
+                publicationId?: any | null;
+                thisPublication?: boolean | null;
+              } | null;
+            };
+          } | null;
         };
       };
 };
@@ -5460,6 +5592,18 @@ export type PostFieldsFragment = {
       __typename?: 'MediaSet';
       original: { __typename?: 'Media'; url: any; mimeType?: any | null };
     }>;
+    encryptionParams?: {
+      __typename?: 'EncryptionParamsOutput';
+      accessCondition: {
+        __typename?: 'AccessConditionOutput';
+        follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+        collect?: {
+          __typename?: 'CollectConditionOutput';
+          publicationId?: any | null;
+          thisPublication?: boolean | null;
+        } | null;
+      };
+    } | null;
   };
 };
 
@@ -6484,6 +6628,18 @@ export type CommentFeedQuery = {
               __typename?: 'MediaSet';
               original: { __typename?: 'Media'; url: any; mimeType?: any | null };
             }>;
+            encryptionParams?: {
+              __typename?: 'EncryptionParamsOutput';
+              accessCondition: {
+                __typename?: 'AccessConditionOutput';
+                follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+                collect?: {
+                  __typename?: 'CollectConditionOutput';
+                  publicationId?: any | null;
+                  thisPublication?: boolean | null;
+                } | null;
+              };
+            } | null;
           };
           commentOn?:
             | {
@@ -6601,6 +6757,18 @@ export type CommentFeedQuery = {
                     __typename?: 'MediaSet';
                     original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                   }>;
+                  encryptionParams?: {
+                    __typename?: 'EncryptionParamsOutput';
+                    accessCondition: {
+                      __typename?: 'AccessConditionOutput';
+                      follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+                      collect?: {
+                        __typename?: 'CollectConditionOutput';
+                        publicationId?: any | null;
+                        thisPublication?: boolean | null;
+                      } | null;
+                    };
+                  } | null;
                 };
                 stats: {
                   __typename?: 'PublicationStats';
@@ -6732,6 +6900,18 @@ export type CommentFeedQuery = {
                           __typename?: 'MediaSet';
                           original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                         }>;
+                        encryptionParams?: {
+                          __typename?: 'EncryptionParamsOutput';
+                          accessCondition: {
+                            __typename?: 'AccessConditionOutput';
+                            follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+                            collect?: {
+                              __typename?: 'CollectConditionOutput';
+                              publicationId?: any | null;
+                              thisPublication?: boolean | null;
+                            } | null;
+                          };
+                        } | null;
                       };
                       mirrorOf:
                         | {
@@ -6963,6 +7143,18 @@ export type CommentFeedQuery = {
                                 __typename?: 'MediaSet';
                                 original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                               }>;
+                              encryptionParams?: {
+                                __typename?: 'EncryptionParamsOutput';
+                                accessCondition: {
+                                  __typename?: 'AccessConditionOutput';
+                                  follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+                                  collect?: {
+                                    __typename?: 'CollectConditionOutput';
+                                    publicationId?: any | null;
+                                    thisPublication?: boolean | null;
+                                  } | null;
+                                };
+                              } | null;
                             };
                           };
                     }
@@ -7120,6 +7312,18 @@ export type CommentFeedQuery = {
                           __typename?: 'MediaSet';
                           original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                         }>;
+                        encryptionParams?: {
+                          __typename?: 'EncryptionParamsOutput';
+                          accessCondition: {
+                            __typename?: 'AccessConditionOutput';
+                            follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+                            collect?: {
+                              __typename?: 'CollectConditionOutput';
+                              publicationId?: any | null;
+                              thisPublication?: boolean | null;
+                            } | null;
+                          };
+                        } | null;
                       };
                     };
               }
@@ -7238,6 +7442,18 @@ export type CommentFeedQuery = {
                     __typename?: 'MediaSet';
                     original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                   }>;
+                  encryptionParams?: {
+                    __typename?: 'EncryptionParamsOutput';
+                    accessCondition: {
+                      __typename?: 'AccessConditionOutput';
+                      follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+                      collect?: {
+                        __typename?: 'CollectConditionOutput';
+                        publicationId?: any | null;
+                        thisPublication?: boolean | null;
+                      } | null;
+                    };
+                  } | null;
                 };
                 mirrorOf:
                   | {
@@ -7437,6 +7653,18 @@ export type CommentFeedQuery = {
                           __typename?: 'MediaSet';
                           original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                         }>;
+                        encryptionParams?: {
+                          __typename?: 'EncryptionParamsOutput';
+                          accessCondition: {
+                            __typename?: 'AccessConditionOutput';
+                            follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+                            collect?: {
+                              __typename?: 'CollectConditionOutput';
+                              publicationId?: any | null;
+                              thisPublication?: boolean | null;
+                            } | null;
+                          };
+                        } | null;
                       };
                     };
               }
@@ -7583,6 +7811,18 @@ export type CommentFeedQuery = {
                     __typename?: 'MediaSet';
                     original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                   }>;
+                  encryptionParams?: {
+                    __typename?: 'EncryptionParamsOutput';
+                    accessCondition: {
+                      __typename?: 'AccessConditionOutput';
+                      follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+                      collect?: {
+                        __typename?: 'CollectConditionOutput';
+                        publicationId?: any | null;
+                        thisPublication?: boolean | null;
+                      } | null;
+                    };
+                  } | null;
                 };
               }
             | null;
@@ -7802,6 +8042,18 @@ export type ExploreFeedQuery = {
               __typename?: 'MediaSet';
               original: { __typename?: 'Media'; url: any; mimeType?: any | null };
             }>;
+            encryptionParams?: {
+              __typename?: 'EncryptionParamsOutput';
+              accessCondition: {
+                __typename?: 'AccessConditionOutput';
+                follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+                collect?: {
+                  __typename?: 'CollectConditionOutput';
+                  publicationId?: any | null;
+                  thisPublication?: boolean | null;
+                } | null;
+              };
+            } | null;
           };
           commentOn?:
             | {
@@ -7919,6 +8171,18 @@ export type ExploreFeedQuery = {
                     __typename?: 'MediaSet';
                     original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                   }>;
+                  encryptionParams?: {
+                    __typename?: 'EncryptionParamsOutput';
+                    accessCondition: {
+                      __typename?: 'AccessConditionOutput';
+                      follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+                      collect?: {
+                        __typename?: 'CollectConditionOutput';
+                        publicationId?: any | null;
+                        thisPublication?: boolean | null;
+                      } | null;
+                    };
+                  } | null;
                 };
                 stats: {
                   __typename?: 'PublicationStats';
@@ -8050,6 +8314,18 @@ export type ExploreFeedQuery = {
                           __typename?: 'MediaSet';
                           original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                         }>;
+                        encryptionParams?: {
+                          __typename?: 'EncryptionParamsOutput';
+                          accessCondition: {
+                            __typename?: 'AccessConditionOutput';
+                            follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+                            collect?: {
+                              __typename?: 'CollectConditionOutput';
+                              publicationId?: any | null;
+                              thisPublication?: boolean | null;
+                            } | null;
+                          };
+                        } | null;
                       };
                       mirrorOf:
                         | {
@@ -8281,6 +8557,18 @@ export type ExploreFeedQuery = {
                                 __typename?: 'MediaSet';
                                 original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                               }>;
+                              encryptionParams?: {
+                                __typename?: 'EncryptionParamsOutput';
+                                accessCondition: {
+                                  __typename?: 'AccessConditionOutput';
+                                  follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+                                  collect?: {
+                                    __typename?: 'CollectConditionOutput';
+                                    publicationId?: any | null;
+                                    thisPublication?: boolean | null;
+                                  } | null;
+                                };
+                              } | null;
                             };
                           };
                     }
@@ -8438,6 +8726,18 @@ export type ExploreFeedQuery = {
                           __typename?: 'MediaSet';
                           original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                         }>;
+                        encryptionParams?: {
+                          __typename?: 'EncryptionParamsOutput';
+                          accessCondition: {
+                            __typename?: 'AccessConditionOutput';
+                            follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+                            collect?: {
+                              __typename?: 'CollectConditionOutput';
+                              publicationId?: any | null;
+                              thisPublication?: boolean | null;
+                            } | null;
+                          };
+                        } | null;
                       };
                     };
               }
@@ -8556,6 +8856,18 @@ export type ExploreFeedQuery = {
                     __typename?: 'MediaSet';
                     original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                   }>;
+                  encryptionParams?: {
+                    __typename?: 'EncryptionParamsOutput';
+                    accessCondition: {
+                      __typename?: 'AccessConditionOutput';
+                      follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+                      collect?: {
+                        __typename?: 'CollectConditionOutput';
+                        publicationId?: any | null;
+                        thisPublication?: boolean | null;
+                      } | null;
+                    };
+                  } | null;
                 };
                 mirrorOf:
                   | {
@@ -8755,6 +9067,18 @@ export type ExploreFeedQuery = {
                           __typename?: 'MediaSet';
                           original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                         }>;
+                        encryptionParams?: {
+                          __typename?: 'EncryptionParamsOutput';
+                          accessCondition: {
+                            __typename?: 'AccessConditionOutput';
+                            follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+                            collect?: {
+                              __typename?: 'CollectConditionOutput';
+                              publicationId?: any | null;
+                              thisPublication?: boolean | null;
+                            } | null;
+                          };
+                        } | null;
                       };
                     };
               }
@@ -8901,6 +9225,18 @@ export type ExploreFeedQuery = {
                     __typename?: 'MediaSet';
                     original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                   }>;
+                  encryptionParams?: {
+                    __typename?: 'EncryptionParamsOutput';
+                    accessCondition: {
+                      __typename?: 'AccessConditionOutput';
+                      follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+                      collect?: {
+                        __typename?: 'CollectConditionOutput';
+                        publicationId?: any | null;
+                        thisPublication?: boolean | null;
+                      } | null;
+                    };
+                  } | null;
                 };
               }
             | null;
@@ -9020,6 +9356,18 @@ export type ExploreFeedQuery = {
               __typename?: 'MediaSet';
               original: { __typename?: 'Media'; url: any; mimeType?: any | null };
             }>;
+            encryptionParams?: {
+              __typename?: 'EncryptionParamsOutput';
+              accessCondition: {
+                __typename?: 'AccessConditionOutput';
+                follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+                collect?: {
+                  __typename?: 'CollectConditionOutput';
+                  publicationId?: any | null;
+                  thisPublication?: boolean | null;
+                } | null;
+              };
+            } | null;
           };
           mirrorOf:
             | {
@@ -9204,6 +9552,18 @@ export type ExploreFeedQuery = {
                     __typename?: 'MediaSet';
                     original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                   }>;
+                  encryptionParams?: {
+                    __typename?: 'EncryptionParamsOutput';
+                    accessCondition: {
+                      __typename?: 'AccessConditionOutput';
+                      follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+                      collect?: {
+                        __typename?: 'CollectConditionOutput';
+                        publicationId?: any | null;
+                        thisPublication?: boolean | null;
+                      } | null;
+                    };
+                  } | null;
                 };
               };
         }
@@ -9350,6 +9710,18 @@ export type ExploreFeedQuery = {
               __typename?: 'MediaSet';
               original: { __typename?: 'Media'; url: any; mimeType?: any | null };
             }>;
+            encryptionParams?: {
+              __typename?: 'EncryptionParamsOutput';
+              accessCondition: {
+                __typename?: 'AccessConditionOutput';
+                follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+                collect?: {
+                  __typename?: 'CollectConditionOutput';
+                  publicationId?: any | null;
+                  thisPublication?: boolean | null;
+                } | null;
+              };
+            } | null;
           };
         }
     >;
@@ -9511,6 +9883,18 @@ export type FeedHighlightsQuery = {
               __typename?: 'MediaSet';
               original: { __typename?: 'Media'; url: any; mimeType?: any | null };
             }>;
+            encryptionParams?: {
+              __typename?: 'EncryptionParamsOutput';
+              accessCondition: {
+                __typename?: 'AccessConditionOutput';
+                follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+                collect?: {
+                  __typename?: 'CollectConditionOutput';
+                  publicationId?: any | null;
+                  thisPublication?: boolean | null;
+                } | null;
+              };
+            } | null;
           };
           commentOn?:
             | {
@@ -9628,6 +10012,18 @@ export type FeedHighlightsQuery = {
                     __typename?: 'MediaSet';
                     original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                   }>;
+                  encryptionParams?: {
+                    __typename?: 'EncryptionParamsOutput';
+                    accessCondition: {
+                      __typename?: 'AccessConditionOutput';
+                      follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+                      collect?: {
+                        __typename?: 'CollectConditionOutput';
+                        publicationId?: any | null;
+                        thisPublication?: boolean | null;
+                      } | null;
+                    };
+                  } | null;
                 };
                 stats: {
                   __typename?: 'PublicationStats';
@@ -9759,6 +10155,18 @@ export type FeedHighlightsQuery = {
                           __typename?: 'MediaSet';
                           original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                         }>;
+                        encryptionParams?: {
+                          __typename?: 'EncryptionParamsOutput';
+                          accessCondition: {
+                            __typename?: 'AccessConditionOutput';
+                            follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+                            collect?: {
+                              __typename?: 'CollectConditionOutput';
+                              publicationId?: any | null;
+                              thisPublication?: boolean | null;
+                            } | null;
+                          };
+                        } | null;
                       };
                       mirrorOf:
                         | {
@@ -9990,6 +10398,18 @@ export type FeedHighlightsQuery = {
                                 __typename?: 'MediaSet';
                                 original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                               }>;
+                              encryptionParams?: {
+                                __typename?: 'EncryptionParamsOutput';
+                                accessCondition: {
+                                  __typename?: 'AccessConditionOutput';
+                                  follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+                                  collect?: {
+                                    __typename?: 'CollectConditionOutput';
+                                    publicationId?: any | null;
+                                    thisPublication?: boolean | null;
+                                  } | null;
+                                };
+                              } | null;
                             };
                           };
                     }
@@ -10147,6 +10567,18 @@ export type FeedHighlightsQuery = {
                           __typename?: 'MediaSet';
                           original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                         }>;
+                        encryptionParams?: {
+                          __typename?: 'EncryptionParamsOutput';
+                          accessCondition: {
+                            __typename?: 'AccessConditionOutput';
+                            follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+                            collect?: {
+                              __typename?: 'CollectConditionOutput';
+                              publicationId?: any | null;
+                              thisPublication?: boolean | null;
+                            } | null;
+                          };
+                        } | null;
                       };
                     };
               }
@@ -10265,6 +10697,18 @@ export type FeedHighlightsQuery = {
                     __typename?: 'MediaSet';
                     original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                   }>;
+                  encryptionParams?: {
+                    __typename?: 'EncryptionParamsOutput';
+                    accessCondition: {
+                      __typename?: 'AccessConditionOutput';
+                      follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+                      collect?: {
+                        __typename?: 'CollectConditionOutput';
+                        publicationId?: any | null;
+                        thisPublication?: boolean | null;
+                      } | null;
+                    };
+                  } | null;
                 };
                 mirrorOf:
                   | {
@@ -10464,6 +10908,18 @@ export type FeedHighlightsQuery = {
                           __typename?: 'MediaSet';
                           original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                         }>;
+                        encryptionParams?: {
+                          __typename?: 'EncryptionParamsOutput';
+                          accessCondition: {
+                            __typename?: 'AccessConditionOutput';
+                            follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+                            collect?: {
+                              __typename?: 'CollectConditionOutput';
+                              publicationId?: any | null;
+                              thisPublication?: boolean | null;
+                            } | null;
+                          };
+                        } | null;
                       };
                     };
               }
@@ -10610,6 +11066,18 @@ export type FeedHighlightsQuery = {
                     __typename?: 'MediaSet';
                     original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                   }>;
+                  encryptionParams?: {
+                    __typename?: 'EncryptionParamsOutput';
+                    accessCondition: {
+                      __typename?: 'AccessConditionOutput';
+                      follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+                      collect?: {
+                        __typename?: 'CollectConditionOutput';
+                        publicationId?: any | null;
+                        thisPublication?: boolean | null;
+                      } | null;
+                    };
+                  } | null;
                 };
               }
             | null;
@@ -10729,6 +11197,18 @@ export type FeedHighlightsQuery = {
               __typename?: 'MediaSet';
               original: { __typename?: 'Media'; url: any; mimeType?: any | null };
             }>;
+            encryptionParams?: {
+              __typename?: 'EncryptionParamsOutput';
+              accessCondition: {
+                __typename?: 'AccessConditionOutput';
+                follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+                collect?: {
+                  __typename?: 'CollectConditionOutput';
+                  publicationId?: any | null;
+                  thisPublication?: boolean | null;
+                } | null;
+              };
+            } | null;
           };
           mirrorOf:
             | {
@@ -10913,6 +11393,18 @@ export type FeedHighlightsQuery = {
                     __typename?: 'MediaSet';
                     original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                   }>;
+                  encryptionParams?: {
+                    __typename?: 'EncryptionParamsOutput';
+                    accessCondition: {
+                      __typename?: 'AccessConditionOutput';
+                      follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+                      collect?: {
+                        __typename?: 'CollectConditionOutput';
+                        publicationId?: any | null;
+                        thisPublication?: boolean | null;
+                      } | null;
+                    };
+                  } | null;
                 };
               };
         }
@@ -11059,6 +11551,18 @@ export type FeedHighlightsQuery = {
               __typename?: 'MediaSet';
               original: { __typename?: 'Media'; url: any; mimeType?: any | null };
             }>;
+            encryptionParams?: {
+              __typename?: 'EncryptionParamsOutput';
+              accessCondition: {
+                __typename?: 'AccessConditionOutput';
+                follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+                collect?: {
+                  __typename?: 'CollectConditionOutput';
+                  publicationId?: any | null;
+                  thisPublication?: boolean | null;
+                } | null;
+              };
+            } | null;
           };
         }
     >;
@@ -11962,6 +12466,18 @@ export type ProfileFeedQuery = {
               __typename?: 'MediaSet';
               original: { __typename?: 'Media'; url: any; mimeType?: any | null };
             }>;
+            encryptionParams?: {
+              __typename?: 'EncryptionParamsOutput';
+              accessCondition: {
+                __typename?: 'AccessConditionOutput';
+                follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+                collect?: {
+                  __typename?: 'CollectConditionOutput';
+                  publicationId?: any | null;
+                  thisPublication?: boolean | null;
+                } | null;
+              };
+            } | null;
           };
           commentOn?:
             | {
@@ -12079,6 +12595,18 @@ export type ProfileFeedQuery = {
                     __typename?: 'MediaSet';
                     original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                   }>;
+                  encryptionParams?: {
+                    __typename?: 'EncryptionParamsOutput';
+                    accessCondition: {
+                      __typename?: 'AccessConditionOutput';
+                      follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+                      collect?: {
+                        __typename?: 'CollectConditionOutput';
+                        publicationId?: any | null;
+                        thisPublication?: boolean | null;
+                      } | null;
+                    };
+                  } | null;
                 };
                 stats: {
                   __typename?: 'PublicationStats';
@@ -12210,6 +12738,18 @@ export type ProfileFeedQuery = {
                           __typename?: 'MediaSet';
                           original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                         }>;
+                        encryptionParams?: {
+                          __typename?: 'EncryptionParamsOutput';
+                          accessCondition: {
+                            __typename?: 'AccessConditionOutput';
+                            follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+                            collect?: {
+                              __typename?: 'CollectConditionOutput';
+                              publicationId?: any | null;
+                              thisPublication?: boolean | null;
+                            } | null;
+                          };
+                        } | null;
                       };
                       mirrorOf:
                         | {
@@ -12441,6 +12981,18 @@ export type ProfileFeedQuery = {
                                 __typename?: 'MediaSet';
                                 original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                               }>;
+                              encryptionParams?: {
+                                __typename?: 'EncryptionParamsOutput';
+                                accessCondition: {
+                                  __typename?: 'AccessConditionOutput';
+                                  follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+                                  collect?: {
+                                    __typename?: 'CollectConditionOutput';
+                                    publicationId?: any | null;
+                                    thisPublication?: boolean | null;
+                                  } | null;
+                                };
+                              } | null;
                             };
                           };
                     }
@@ -12598,6 +13150,18 @@ export type ProfileFeedQuery = {
                           __typename?: 'MediaSet';
                           original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                         }>;
+                        encryptionParams?: {
+                          __typename?: 'EncryptionParamsOutput';
+                          accessCondition: {
+                            __typename?: 'AccessConditionOutput';
+                            follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+                            collect?: {
+                              __typename?: 'CollectConditionOutput';
+                              publicationId?: any | null;
+                              thisPublication?: boolean | null;
+                            } | null;
+                          };
+                        } | null;
                       };
                     };
               }
@@ -12716,6 +13280,18 @@ export type ProfileFeedQuery = {
                     __typename?: 'MediaSet';
                     original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                   }>;
+                  encryptionParams?: {
+                    __typename?: 'EncryptionParamsOutput';
+                    accessCondition: {
+                      __typename?: 'AccessConditionOutput';
+                      follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+                      collect?: {
+                        __typename?: 'CollectConditionOutput';
+                        publicationId?: any | null;
+                        thisPublication?: boolean | null;
+                      } | null;
+                    };
+                  } | null;
                 };
                 mirrorOf:
                   | {
@@ -12915,6 +13491,18 @@ export type ProfileFeedQuery = {
                           __typename?: 'MediaSet';
                           original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                         }>;
+                        encryptionParams?: {
+                          __typename?: 'EncryptionParamsOutput';
+                          accessCondition: {
+                            __typename?: 'AccessConditionOutput';
+                            follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+                            collect?: {
+                              __typename?: 'CollectConditionOutput';
+                              publicationId?: any | null;
+                              thisPublication?: boolean | null;
+                            } | null;
+                          };
+                        } | null;
                       };
                     };
               }
@@ -13061,6 +13649,18 @@ export type ProfileFeedQuery = {
                     __typename?: 'MediaSet';
                     original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                   }>;
+                  encryptionParams?: {
+                    __typename?: 'EncryptionParamsOutput';
+                    accessCondition: {
+                      __typename?: 'AccessConditionOutput';
+                      follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+                      collect?: {
+                        __typename?: 'CollectConditionOutput';
+                        publicationId?: any | null;
+                        thisPublication?: boolean | null;
+                      } | null;
+                    };
+                  } | null;
                 };
               }
             | null;
@@ -13180,6 +13780,18 @@ export type ProfileFeedQuery = {
               __typename?: 'MediaSet';
               original: { __typename?: 'Media'; url: any; mimeType?: any | null };
             }>;
+            encryptionParams?: {
+              __typename?: 'EncryptionParamsOutput';
+              accessCondition: {
+                __typename?: 'AccessConditionOutput';
+                follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+                collect?: {
+                  __typename?: 'CollectConditionOutput';
+                  publicationId?: any | null;
+                  thisPublication?: boolean | null;
+                } | null;
+              };
+            } | null;
           };
           mirrorOf:
             | {
@@ -13364,6 +13976,18 @@ export type ProfileFeedQuery = {
                     __typename?: 'MediaSet';
                     original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                   }>;
+                  encryptionParams?: {
+                    __typename?: 'EncryptionParamsOutput';
+                    accessCondition: {
+                      __typename?: 'AccessConditionOutput';
+                      follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+                      collect?: {
+                        __typename?: 'CollectConditionOutput';
+                        publicationId?: any | null;
+                        thisPublication?: boolean | null;
+                      } | null;
+                    };
+                  } | null;
                 };
               };
         }
@@ -13510,6 +14134,18 @@ export type ProfileFeedQuery = {
               __typename?: 'MediaSet';
               original: { __typename?: 'Media'; url: any; mimeType?: any | null };
             }>;
+            encryptionParams?: {
+              __typename?: 'EncryptionParamsOutput';
+              accessCondition: {
+                __typename?: 'AccessConditionOutput';
+                follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+                collect?: {
+                  __typename?: 'CollectConditionOutput';
+                  publicationId?: any | null;
+                  thisPublication?: boolean | null;
+                } | null;
+              };
+            } | null;
           };
         }
     >;
@@ -13736,6 +14372,18 @@ export type PublicationQuery = {
             __typename?: 'MediaSet';
             original: { __typename?: 'Media'; url: any; mimeType?: any | null };
           }>;
+          encryptionParams?: {
+            __typename?: 'EncryptionParamsOutput';
+            accessCondition: {
+              __typename?: 'AccessConditionOutput';
+              follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+              collect?: {
+                __typename?: 'CollectConditionOutput';
+                publicationId?: any | null;
+                thisPublication?: boolean | null;
+              } | null;
+            };
+          } | null;
         };
         commentOn?:
           | {
@@ -13853,6 +14501,18 @@ export type PublicationQuery = {
                   __typename?: 'MediaSet';
                   original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                 }>;
+                encryptionParams?: {
+                  __typename?: 'EncryptionParamsOutput';
+                  accessCondition: {
+                    __typename?: 'AccessConditionOutput';
+                    follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+                    collect?: {
+                      __typename?: 'CollectConditionOutput';
+                      publicationId?: any | null;
+                      thisPublication?: boolean | null;
+                    } | null;
+                  };
+                } | null;
               };
               stats: {
                 __typename?: 'PublicationStats';
@@ -13980,6 +14640,18 @@ export type PublicationQuery = {
                         __typename?: 'MediaSet';
                         original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                       }>;
+                      encryptionParams?: {
+                        __typename?: 'EncryptionParamsOutput';
+                        accessCondition: {
+                          __typename?: 'AccessConditionOutput';
+                          follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+                          collect?: {
+                            __typename?: 'CollectConditionOutput';
+                            publicationId?: any | null;
+                            thisPublication?: boolean | null;
+                          } | null;
+                        };
+                      } | null;
                     };
                     mirrorOf:
                       | {
@@ -14211,6 +14883,18 @@ export type PublicationQuery = {
                               __typename?: 'MediaSet';
                               original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                             }>;
+                            encryptionParams?: {
+                              __typename?: 'EncryptionParamsOutput';
+                              accessCondition: {
+                                __typename?: 'AccessConditionOutput';
+                                follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+                                collect?: {
+                                  __typename?: 'CollectConditionOutput';
+                                  publicationId?: any | null;
+                                  thisPublication?: boolean | null;
+                                } | null;
+                              };
+                            } | null;
                           };
                         };
                   }
@@ -14364,6 +15048,18 @@ export type PublicationQuery = {
                         __typename?: 'MediaSet';
                         original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                       }>;
+                      encryptionParams?: {
+                        __typename?: 'EncryptionParamsOutput';
+                        accessCondition: {
+                          __typename?: 'AccessConditionOutput';
+                          follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+                          collect?: {
+                            __typename?: 'CollectConditionOutput';
+                            publicationId?: any | null;
+                            thisPublication?: boolean | null;
+                          } | null;
+                        };
+                      } | null;
                     };
                   };
             }
@@ -14482,6 +15178,18 @@ export type PublicationQuery = {
                   __typename?: 'MediaSet';
                   original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                 }>;
+                encryptionParams?: {
+                  __typename?: 'EncryptionParamsOutput';
+                  accessCondition: {
+                    __typename?: 'AccessConditionOutput';
+                    follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+                    collect?: {
+                      __typename?: 'CollectConditionOutput';
+                      publicationId?: any | null;
+                      thisPublication?: boolean | null;
+                    } | null;
+                  };
+                } | null;
               };
               mirrorOf:
                 | {
@@ -14673,6 +15381,18 @@ export type PublicationQuery = {
                         __typename?: 'MediaSet';
                         original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                       }>;
+                      encryptionParams?: {
+                        __typename?: 'EncryptionParamsOutput';
+                        accessCondition: {
+                          __typename?: 'AccessConditionOutput';
+                          follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+                          collect?: {
+                            __typename?: 'CollectConditionOutput';
+                            publicationId?: any | null;
+                            thisPublication?: boolean | null;
+                          } | null;
+                        };
+                      } | null;
                     };
                   };
             }
@@ -14819,6 +15539,18 @@ export type PublicationQuery = {
                   __typename?: 'MediaSet';
                   original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                 }>;
+                encryptionParams?: {
+                  __typename?: 'EncryptionParamsOutput';
+                  accessCondition: {
+                    __typename?: 'AccessConditionOutput';
+                    follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+                    collect?: {
+                      __typename?: 'CollectConditionOutput';
+                      publicationId?: any | null;
+                      thisPublication?: boolean | null;
+                    } | null;
+                  };
+                } | null;
               };
             }
           | null;
@@ -14944,6 +15676,18 @@ export type PublicationQuery = {
             __typename?: 'MediaSet';
             original: { __typename?: 'Media'; url: any; mimeType?: any | null };
           }>;
+          encryptionParams?: {
+            __typename?: 'EncryptionParamsOutput';
+            accessCondition: {
+              __typename?: 'AccessConditionOutput';
+              follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+              collect?: {
+                __typename?: 'CollectConditionOutput';
+                publicationId?: any | null;
+                thisPublication?: boolean | null;
+              } | null;
+            };
+          } | null;
         };
         mirrorOf:
           | {
@@ -15128,6 +15872,18 @@ export type PublicationQuery = {
                   __typename?: 'MediaSet';
                   original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                 }>;
+                encryptionParams?: {
+                  __typename?: 'EncryptionParamsOutput';
+                  accessCondition: {
+                    __typename?: 'AccessConditionOutput';
+                    follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+                    collect?: {
+                      __typename?: 'CollectConditionOutput';
+                      publicationId?: any | null;
+                      thisPublication?: boolean | null;
+                    } | null;
+                  };
+                } | null;
               };
             };
       }
@@ -15280,6 +16036,18 @@ export type PublicationQuery = {
             __typename?: 'MediaSet';
             original: { __typename?: 'Media'; url: any; mimeType?: any | null };
           }>;
+          encryptionParams?: {
+            __typename?: 'EncryptionParamsOutput';
+            accessCondition: {
+              __typename?: 'AccessConditionOutput';
+              follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+              collect?: {
+                __typename?: 'CollectConditionOutput';
+                publicationId?: any | null;
+                thisPublication?: boolean | null;
+              } | null;
+            };
+          } | null;
         };
       }
     | null;
@@ -15549,6 +16317,18 @@ export type SearchPublicationsQuery = {
                   __typename?: 'MediaSet';
                   original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                 }>;
+                encryptionParams?: {
+                  __typename?: 'EncryptionParamsOutput';
+                  accessCondition: {
+                    __typename?: 'AccessConditionOutput';
+                    follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+                    collect?: {
+                      __typename?: 'CollectConditionOutput';
+                      publicationId?: any | null;
+                      thisPublication?: boolean | null;
+                    } | null;
+                  };
+                } | null;
               };
               commentOn?:
                 | {
@@ -15669,6 +16449,18 @@ export type SearchPublicationsQuery = {
                         __typename?: 'MediaSet';
                         original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                       }>;
+                      encryptionParams?: {
+                        __typename?: 'EncryptionParamsOutput';
+                        accessCondition: {
+                          __typename?: 'AccessConditionOutput';
+                          follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+                          collect?: {
+                            __typename?: 'CollectConditionOutput';
+                            publicationId?: any | null;
+                            thisPublication?: boolean | null;
+                          } | null;
+                        };
+                      } | null;
                     };
                     stats: {
                       __typename?: 'PublicationStats';
@@ -15824,6 +16616,18 @@ export type SearchPublicationsQuery = {
                               __typename?: 'MediaSet';
                               original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                             }>;
+                            encryptionParams?: {
+                              __typename?: 'EncryptionParamsOutput';
+                              accessCondition: {
+                                __typename?: 'AccessConditionOutput';
+                                follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+                                collect?: {
+                                  __typename?: 'CollectConditionOutput';
+                                  publicationId?: any | null;
+                                  thisPublication?: boolean | null;
+                                } | null;
+                              };
+                            } | null;
                           };
                           mirrorOf:
                             | {
@@ -16064,6 +16868,21 @@ export type SearchPublicationsQuery = {
                                     __typename?: 'MediaSet';
                                     original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                                   }>;
+                                  encryptionParams?: {
+                                    __typename?: 'EncryptionParamsOutput';
+                                    accessCondition: {
+                                      __typename?: 'AccessConditionOutput';
+                                      follow?: {
+                                        __typename?: 'FollowConditionOutput';
+                                        profileId: any;
+                                      } | null;
+                                      collect?: {
+                                        __typename?: 'CollectConditionOutput';
+                                        publicationId?: any | null;
+                                        thisPublication?: boolean | null;
+                                      } | null;
+                                    };
+                                  } | null;
                                 };
                               };
                         }
@@ -16249,6 +17068,18 @@ export type SearchPublicationsQuery = {
                               __typename?: 'MediaSet';
                               original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                             }>;
+                            encryptionParams?: {
+                              __typename?: 'EncryptionParamsOutput';
+                              accessCondition: {
+                                __typename?: 'AccessConditionOutput';
+                                follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+                                collect?: {
+                                  __typename?: 'CollectConditionOutput';
+                                  publicationId?: any | null;
+                                  thisPublication?: boolean | null;
+                                } | null;
+                              };
+                            } | null;
                           };
                         };
                   }
@@ -16370,6 +17201,18 @@ export type SearchPublicationsQuery = {
                         __typename?: 'MediaSet';
                         original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                       }>;
+                      encryptionParams?: {
+                        __typename?: 'EncryptionParamsOutput';
+                        accessCondition: {
+                          __typename?: 'AccessConditionOutput';
+                          follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+                          collect?: {
+                            __typename?: 'CollectConditionOutput';
+                            publicationId?: any | null;
+                            thisPublication?: boolean | null;
+                          } | null;
+                        };
+                      } | null;
                     };
                     mirrorOf:
                       | {
@@ -16601,6 +17444,18 @@ export type SearchPublicationsQuery = {
                               __typename?: 'MediaSet';
                               original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                             }>;
+                            encryptionParams?: {
+                              __typename?: 'EncryptionParamsOutput';
+                              accessCondition: {
+                                __typename?: 'AccessConditionOutput';
+                                follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+                                collect?: {
+                                  __typename?: 'CollectConditionOutput';
+                                  publicationId?: any | null;
+                                  thisPublication?: boolean | null;
+                                } | null;
+                              };
+                            } | null;
                           };
                         };
                   }
@@ -16754,6 +17609,18 @@ export type SearchPublicationsQuery = {
                         __typename?: 'MediaSet';
                         original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                       }>;
+                      encryptionParams?: {
+                        __typename?: 'EncryptionParamsOutput';
+                        accessCondition: {
+                          __typename?: 'AccessConditionOutput';
+                          follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+                          collect?: {
+                            __typename?: 'CollectConditionOutput';
+                            publicationId?: any | null;
+                            thisPublication?: boolean | null;
+                          } | null;
+                        };
+                      } | null;
                     };
                   }
                 | null;
@@ -16901,6 +17768,18 @@ export type SearchPublicationsQuery = {
                   __typename?: 'MediaSet';
                   original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                 }>;
+                encryptionParams?: {
+                  __typename?: 'EncryptionParamsOutput';
+                  accessCondition: {
+                    __typename?: 'AccessConditionOutput';
+                    follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+                    collect?: {
+                      __typename?: 'CollectConditionOutput';
+                      publicationId?: any | null;
+                      thisPublication?: boolean | null;
+                    } | null;
+                  };
+                } | null;
               };
             }
         >;
@@ -17273,6 +18152,18 @@ export type TimelineQuery = {
                 __typename?: 'MediaSet';
                 original: { __typename?: 'Media'; url: any; mimeType?: any | null };
               }>;
+              encryptionParams?: {
+                __typename?: 'EncryptionParamsOutput';
+                accessCondition: {
+                  __typename?: 'AccessConditionOutput';
+                  follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+                  collect?: {
+                    __typename?: 'CollectConditionOutput';
+                    publicationId?: any | null;
+                    thisPublication?: boolean | null;
+                  } | null;
+                };
+              } | null;
             };
             commentOn?:
               | {
@@ -17390,6 +18281,18 @@ export type TimelineQuery = {
                       __typename?: 'MediaSet';
                       original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                     }>;
+                    encryptionParams?: {
+                      __typename?: 'EncryptionParamsOutput';
+                      accessCondition: {
+                        __typename?: 'AccessConditionOutput';
+                        follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+                        collect?: {
+                          __typename?: 'CollectConditionOutput';
+                          publicationId?: any | null;
+                          thisPublication?: boolean | null;
+                        } | null;
+                      };
+                    } | null;
                   };
                   stats: {
                     __typename?: 'PublicationStats';
@@ -17541,6 +18444,18 @@ export type TimelineQuery = {
                             __typename?: 'MediaSet';
                             original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                           }>;
+                          encryptionParams?: {
+                            __typename?: 'EncryptionParamsOutput';
+                            accessCondition: {
+                              __typename?: 'AccessConditionOutput';
+                              follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+                              collect?: {
+                                __typename?: 'CollectConditionOutput';
+                                publicationId?: any | null;
+                                thisPublication?: boolean | null;
+                              } | null;
+                            };
+                          } | null;
                         };
                         mirrorOf:
                           | {
@@ -17775,6 +18690,18 @@ export type TimelineQuery = {
                                   __typename?: 'MediaSet';
                                   original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                                 }>;
+                                encryptionParams?: {
+                                  __typename?: 'EncryptionParamsOutput';
+                                  accessCondition: {
+                                    __typename?: 'AccessConditionOutput';
+                                    follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+                                    collect?: {
+                                      __typename?: 'CollectConditionOutput';
+                                      publicationId?: any | null;
+                                      thisPublication?: boolean | null;
+                                    } | null;
+                                  };
+                                } | null;
                               };
                             };
                       }
@@ -17956,6 +18883,18 @@ export type TimelineQuery = {
                             __typename?: 'MediaSet';
                             original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                           }>;
+                          encryptionParams?: {
+                            __typename?: 'EncryptionParamsOutput';
+                            accessCondition: {
+                              __typename?: 'AccessConditionOutput';
+                              follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+                              collect?: {
+                                __typename?: 'CollectConditionOutput';
+                                publicationId?: any | null;
+                                thisPublication?: boolean | null;
+                              } | null;
+                            };
+                          } | null;
                         };
                       };
                 }
@@ -18074,6 +19013,18 @@ export type TimelineQuery = {
                       __typename?: 'MediaSet';
                       original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                     }>;
+                    encryptionParams?: {
+                      __typename?: 'EncryptionParamsOutput';
+                      accessCondition: {
+                        __typename?: 'AccessConditionOutput';
+                        follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+                        collect?: {
+                          __typename?: 'CollectConditionOutput';
+                          publicationId?: any | null;
+                          thisPublication?: boolean | null;
+                        } | null;
+                      };
+                    } | null;
                   };
                   mirrorOf:
                     | {
@@ -18297,6 +19248,18 @@ export type TimelineQuery = {
                             __typename?: 'MediaSet';
                             original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                           }>;
+                          encryptionParams?: {
+                            __typename?: 'EncryptionParamsOutput';
+                            accessCondition: {
+                              __typename?: 'AccessConditionOutput';
+                              follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+                              collect?: {
+                                __typename?: 'CollectConditionOutput';
+                                publicationId?: any | null;
+                                thisPublication?: boolean | null;
+                              } | null;
+                            };
+                          } | null;
                         };
                       };
                 }
@@ -18443,6 +19406,18 @@ export type TimelineQuery = {
                       __typename?: 'MediaSet';
                       original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                     }>;
+                    encryptionParams?: {
+                      __typename?: 'EncryptionParamsOutput';
+                      accessCondition: {
+                        __typename?: 'AccessConditionOutput';
+                        follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+                        collect?: {
+                          __typename?: 'CollectConditionOutput';
+                          publicationId?: any | null;
+                          thisPublication?: boolean | null;
+                        } | null;
+                      };
+                    } | null;
                   };
                 }
               | null;
@@ -18590,6 +19565,18 @@ export type TimelineQuery = {
                 __typename?: 'MediaSet';
                 original: { __typename?: 'Media'; url: any; mimeType?: any | null };
               }>;
+              encryptionParams?: {
+                __typename?: 'EncryptionParamsOutput';
+                accessCondition: {
+                  __typename?: 'AccessConditionOutput';
+                  follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+                  collect?: {
+                    __typename?: 'CollectConditionOutput';
+                    publicationId?: any | null;
+                    thisPublication?: boolean | null;
+                  } | null;
+                };
+              } | null;
             };
           };
       electedMirror?: {
@@ -18837,6 +19824,18 @@ export type TimelineQuery = {
             __typename?: 'MediaSet';
             original: { __typename?: 'Media'; url: any; mimeType?: any | null };
           }>;
+          encryptionParams?: {
+            __typename?: 'EncryptionParamsOutput';
+            accessCondition: {
+              __typename?: 'AccessConditionOutput';
+              follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+              collect?: {
+                __typename?: 'CollectConditionOutput';
+                publicationId?: any | null;
+                thisPublication?: boolean | null;
+              } | null;
+            };
+          } | null;
         };
         commentOn?:
           | {
@@ -18954,6 +19953,18 @@ export type TimelineQuery = {
                   __typename?: 'MediaSet';
                   original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                 }>;
+                encryptionParams?: {
+                  __typename?: 'EncryptionParamsOutput';
+                  accessCondition: {
+                    __typename?: 'AccessConditionOutput';
+                    follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+                    collect?: {
+                      __typename?: 'CollectConditionOutput';
+                      publicationId?: any | null;
+                      thisPublication?: boolean | null;
+                    } | null;
+                  };
+                } | null;
               };
               stats: {
                 __typename?: 'PublicationStats';
@@ -19081,6 +20092,18 @@ export type TimelineQuery = {
                         __typename?: 'MediaSet';
                         original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                       }>;
+                      encryptionParams?: {
+                        __typename?: 'EncryptionParamsOutput';
+                        accessCondition: {
+                          __typename?: 'AccessConditionOutput';
+                          follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+                          collect?: {
+                            __typename?: 'CollectConditionOutput';
+                            publicationId?: any | null;
+                            thisPublication?: boolean | null;
+                          } | null;
+                        };
+                      } | null;
                     };
                     mirrorOf:
                       | {
@@ -19312,6 +20335,18 @@ export type TimelineQuery = {
                               __typename?: 'MediaSet';
                               original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                             }>;
+                            encryptionParams?: {
+                              __typename?: 'EncryptionParamsOutput';
+                              accessCondition: {
+                                __typename?: 'AccessConditionOutput';
+                                follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+                                collect?: {
+                                  __typename?: 'CollectConditionOutput';
+                                  publicationId?: any | null;
+                                  thisPublication?: boolean | null;
+                                } | null;
+                              };
+                            } | null;
                           };
                         };
                   }
@@ -19465,6 +20500,18 @@ export type TimelineQuery = {
                         __typename?: 'MediaSet';
                         original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                       }>;
+                      encryptionParams?: {
+                        __typename?: 'EncryptionParamsOutput';
+                        accessCondition: {
+                          __typename?: 'AccessConditionOutput';
+                          follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+                          collect?: {
+                            __typename?: 'CollectConditionOutput';
+                            publicationId?: any | null;
+                            thisPublication?: boolean | null;
+                          } | null;
+                        };
+                      } | null;
                     };
                   };
             }
@@ -19583,6 +20630,18 @@ export type TimelineQuery = {
                   __typename?: 'MediaSet';
                   original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                 }>;
+                encryptionParams?: {
+                  __typename?: 'EncryptionParamsOutput';
+                  accessCondition: {
+                    __typename?: 'AccessConditionOutput';
+                    follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+                    collect?: {
+                      __typename?: 'CollectConditionOutput';
+                      publicationId?: any | null;
+                      thisPublication?: boolean | null;
+                    } | null;
+                  };
+                } | null;
               };
               mirrorOf:
                 | {
@@ -19774,6 +20833,18 @@ export type TimelineQuery = {
                         __typename?: 'MediaSet';
                         original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                       }>;
+                      encryptionParams?: {
+                        __typename?: 'EncryptionParamsOutput';
+                        accessCondition: {
+                          __typename?: 'AccessConditionOutput';
+                          follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+                          collect?: {
+                            __typename?: 'CollectConditionOutput';
+                            publicationId?: any | null;
+                            thisPublication?: boolean | null;
+                          } | null;
+                        };
+                      } | null;
                     };
                   };
             }
@@ -19920,6 +20991,18 @@ export type TimelineQuery = {
                   __typename?: 'MediaSet';
                   original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                 }>;
+                encryptionParams?: {
+                  __typename?: 'EncryptionParamsOutput';
+                  accessCondition: {
+                    __typename?: 'AccessConditionOutput';
+                    follow?: { __typename?: 'FollowConditionOutput'; profileId: any } | null;
+                    collect?: {
+                      __typename?: 'CollectConditionOutput';
+                      publicationId?: any | null;
+                      thisPublication?: boolean | null;
+                    } | null;
+                  };
+                } | null;
               };
             }
           | null;
@@ -20155,6 +21238,17 @@ export const MetadataFieldsFragmentDoc = gql`
       original {
         url
         mimeType
+      }
+    }
+    encryptionParams {
+      accessCondition {
+        follow {
+          profileId
+        }
+        collect {
+          publicationId
+          thisPublication
+        }
       }
     }
   }
