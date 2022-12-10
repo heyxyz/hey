@@ -66,12 +66,12 @@ const Attachment: FC<Props> = ({ attachments, setAttachments }) => {
 
   const isImageType = (files: any) => {
     for (const file of files) {
-      if (ALLOWED_IMAGE_TYPES.includes(file.type)) {
-        return true;
+      if (!ALLOWED_IMAGE_TYPES.includes(file.type)) {
+        return false;
       }
     }
 
-    return false;
+    return true;
   };
 
   const handleAttachment = async (evt: ChangeEvent<HTMLInputElement>) => {
