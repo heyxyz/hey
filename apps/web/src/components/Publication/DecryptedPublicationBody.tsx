@@ -4,11 +4,12 @@ import { Card } from '@components/UI/Card';
 import type { LensterPublication } from '@generated/types';
 import { CollectionIcon, EyeIcon, UserAddIcon } from '@heroicons/react/outline';
 import { LockClosedIcon } from '@heroicons/react/solid';
-import { LensEnvironment, LensGatedSDK } from '@lens-protocol/sdk-gated';
+import { LensGatedSDK } from '@lens-protocol/sdk-gated';
 import formatHandle from '@lib/formatHandle';
 import getURLs from '@lib/getURLs';
 import axios from 'axios';
 import clsx from 'clsx';
+import { LIT_PROTOCOL_ENVIRONMENT } from 'data/constants';
 import type { PublicationMetadataV2Input } from 'lens';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -36,7 +37,7 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
 
     const contentUri = encryptedPublication?.onChainContentURI;
     const { data } = await axios.get(contentUri);
-    const sdk = await LensGatedSDK.create({ provider, signer, env: LensEnvironment.Mumbai });
+    const sdk = await LensGatedSDK.create({ provider, signer, env: LIT_PROTOCOL_ENVIRONMENT as any });
     const { decrypted } = await sdk.gated.decryptMetadata(data);
     setDecryptedData(decrypted);
   };

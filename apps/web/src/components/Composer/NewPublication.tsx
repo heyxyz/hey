@@ -10,7 +10,7 @@ import type { LensterAttachment, LensterPublication } from '@generated/types';
 import type { IGif } from '@giphy/js-types';
 import { ChatAlt2Icon, PencilAltIcon } from '@heroicons/react/outline';
 import type { EncryptedMetadata, FollowCondition } from '@lens-protocol/sdk-gated';
-import { LensEnvironment, LensGatedSDK } from '@lens-protocol/sdk-gated';
+import { LensGatedSDK } from '@lens-protocol/sdk-gated';
 import type { AccessConditionOutput } from '@lens-protocol/sdk-gated/dist/graphql/types';
 import { $convertFromMarkdownString } from '@lexical/markdown';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
@@ -31,6 +31,7 @@ import {
   ALLOWED_VIDEO_TYPES,
   APP_NAME,
   LENSHUB_PROXY,
+  LIT_PROTOCOL_ENVIRONMENT,
   RELAY_ON,
   SIGN_WALLET
 } from 'data/constants';
@@ -328,10 +329,14 @@ const NewPublication: FC<Props> = ({ publication }) => {
       return toast.error(SIGN_WALLET);
     }
 
-    const tokenGatedSdk = await LensGatedSDK.create({ provider, signer, env: LensEnvironment.Mumbai });
+    const tokenGatedSdk = await LensGatedSDK.create({
+      provider,
+      signer,
+      env: LIT_PROTOCOL_ENVIRONMENT as any
+    });
     await tokenGatedSdk.connect({
       address: currentProfile.ownedBy,
-      env: LensEnvironment.Mumbai
+      env: LIT_PROTOCOL_ENVIRONMENT as any
     });
 
     // Condition for gating the content

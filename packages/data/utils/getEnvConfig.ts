@@ -34,7 +34,8 @@ const getEnvConfig = () => {
         lensHubProxyAddress: MAINNET_LENSHUB_PROXY,
         lensPeripheryAddress: MAINNET_LENS_PERIPHERY,
         defaultCollectToken: MAINNET_DEFAULT_TOKEN,
-        UpdateOwnableFeeCollectModuleAddress: MAINNET_UPDATE_OWNABLE_FEE_COLLECT_MODULE_ADDRESS
+        UpdateOwnableFeeCollectModuleAddress: MAINNET_UPDATE_OWNABLE_FEE_COLLECT_MODULE_ADDRESS,
+        litProtocolEnvironment: 'polygon'
       };
     case 'testnet':
       return {
@@ -43,7 +44,8 @@ const getEnvConfig = () => {
         lensHubProxyAddress: TESTNET_LENSHUB_PROXY,
         lensPeripheryAddress: TESTNET_LENS_PERIPHERY,
         defaultCollectToken: TESTNET_DEFAULT_TOKEN,
-        UpdateOwnableFeeCollectModuleAddress: TESTNET_UPDATE_OWNABLE_FEE_COLLECT_MODULE_ADDRESS
+        UpdateOwnableFeeCollectModuleAddress: TESTNET_UPDATE_OWNABLE_FEE_COLLECT_MODULE_ADDRESS,
+        litProtocolEnvironment: 'mumbai'
       };
     case 'staging':
       return {
@@ -52,7 +54,8 @@ const getEnvConfig = () => {
         lensHubProxyAddress: TESTNET_LENSHUB_PROXY,
         lensPeripheryAddress: TESTNET_LENS_PERIPHERY,
         defaultCollectToken: TESTNET_DEFAULT_TOKEN,
-        UpdateOwnableFeeCollectModuleAddress: TESTNET_UPDATE_OWNABLE_FEE_COLLECT_MODULE_ADDRESS
+        UpdateOwnableFeeCollectModuleAddress: TESTNET_UPDATE_OWNABLE_FEE_COLLECT_MODULE_ADDRESS,
+        litProtocolEnvironment: 'mumbai'
       };
     case 'sandbox':
       return {
@@ -61,7 +64,8 @@ const getEnvConfig = () => {
         lensHubProxyAddress: SANDBOX_LENSHUB_PROXY,
         lensPeripheryAddress: SANDBOX_LENS_PERIPHERY,
         defaultCollectToken: TESTNET_DEFAULT_TOKEN,
-        UpdateOwnableFeeCollectModuleAddress: TESTNET_UPDATE_OWNABLE_FEE_COLLECT_MODULE_ADDRESS
+        UpdateOwnableFeeCollectModuleAddress: TESTNET_UPDATE_OWNABLE_FEE_COLLECT_MODULE_ADDRESS,
+        litProtocolEnvironment: 'mumbai-sandbox'
       };
     case 'staging-sandbox':
       return {
@@ -70,7 +74,8 @@ const getEnvConfig = () => {
         lensHubProxyAddress: SANDBOX_LENSHUB_PROXY,
         lensPeripheryAddress: SANDBOX_LENS_PERIPHERY,
         defaultCollectToken: TESTNET_DEFAULT_TOKEN,
-        UpdateOwnableFeeCollectModuleAddress: TESTNET_UPDATE_OWNABLE_FEE_COLLECT_MODULE_ADDRESS
+        UpdateOwnableFeeCollectModuleAddress: TESTNET_UPDATE_OWNABLE_FEE_COLLECT_MODULE_ADDRESS,
+        litProtocolEnvironment: 'mumbai-sandbox'
       };
     default:
       return {
@@ -79,7 +84,8 @@ const getEnvConfig = () => {
         lensHubProxyAddress: MAINNET_LENSHUB_PROXY,
         lensPeripheryAddress: MAINNET_LENS_PERIPHERY,
         defaultCollectToken: MAINNET_DEFAULT_TOKEN,
-        UpdateOwnableFeeCollectModuleAddress: MAINNET_UPDATE_OWNABLE_FEE_COLLECT_MODULE_ADDRESS
+        UpdateOwnableFeeCollectModuleAddress: MAINNET_UPDATE_OWNABLE_FEE_COLLECT_MODULE_ADDRESS,
+        litProtocolEnvironment: 'polygon'
       };
   }
 };
