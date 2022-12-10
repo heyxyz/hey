@@ -34,6 +34,7 @@ fragment MirrorFields on Mirror {
       }
       reaction(request: $reactionRequest)
       mirrors(by: $profileId)
+      onChainContentURI
       canComment(profileId: $profileId) {
         result
       }
