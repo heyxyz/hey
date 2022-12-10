@@ -31,7 +31,6 @@ const DecryptedPublicationBody: FC<Props> = ({ publication }) => {
       return;
     }
 
-    console.log(publication);
     const contentUri = publication?.onChainContentURI;
     const { data } = await axios.get(contentUri);
     const sdk = await LensGatedSDK.create({ provider, signer, env: LensEnvironment.Mumbai });
