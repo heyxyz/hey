@@ -2,6 +2,7 @@ import { Card } from '@components/UI/Card';
 import { Modal } from '@components/UI/Modal';
 import { Tooltip } from '@components/UI/Tooltip';
 import { PencilAltIcon } from '@heroicons/react/outline';
+import formatHandle from '@lib/formatHandle';
 import getAvatar from '@lib/getAvatar';
 import { useRouter } from 'next/router';
 import type { FC, ReactNode } from 'react';
@@ -72,7 +73,7 @@ const NewPost: FC = () => {
         <img
           src={getAvatar(currentProfile)}
           className="h-9 w-9 bg-gray-200 rounded-full border dark:border-gray-700/80"
-          alt={currentProfile?.handle}
+          alt={formatHandle(currentProfile?.handle)}
         />
         <button
           className="w-full flex items-center space-x-2 bg-gray-100 dark:bg-gray-900 px-4 py-2 rounded-xl border border-gray-200 dark:border-gray-700"

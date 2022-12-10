@@ -1,3 +1,4 @@
+import formatHandle from '@lib/formatHandle';
 import getAvatar from '@lib/getAvatar';
 import { Leafwatch } from '@lib/leafwatch';
 import clsx from 'clsx';
@@ -47,7 +48,7 @@ const MutualFollowers: FC<Props> = ({ setShowMutualFollowersModal, profile, vari
             key={profile.handle}
             className="w-5 h-5 rounded-full border dark:border-gray-700/80"
             src={getAvatar(profile)}
-            alt={profile?.handle}
+            alt={formatHandle(profile?.handle)}
           />
         ))}
       </div>
@@ -69,7 +70,7 @@ const MutualFollowers: FC<Props> = ({ setShowMutualFollowersModal, profile, vari
   if (profiles?.length === 1) {
     return (
       <Wrapper>
-        <span>{profileOne?.name ?? profileOne?.handle}</span>
+        <span>{profileOne?.name ?? formatHandle(profileOne?.handle)}</span>
       </Wrapper>
     );
   }
@@ -77,8 +78,8 @@ const MutualFollowers: FC<Props> = ({ setShowMutualFollowersModal, profile, vari
   if (profiles?.length === 2) {
     return (
       <Wrapper>
-        <span>{profileOne?.name ?? profileOne?.handle} and </span>
-        <span>{profileTwo?.name ?? profileTwo?.handle}</span>
+        <span>{profileOne?.name ?? formatHandle(profileOne?.handle)} and </span>
+        <span>{profileTwo?.name ?? formatHandle(profileTwo?.handle)}</span>
       </Wrapper>
     );
   }
@@ -89,12 +90,12 @@ const MutualFollowers: FC<Props> = ({ setShowMutualFollowersModal, profile, vari
 
     return (
       <Wrapper>
-        <span>{profileOne?.name ?? profileOne?.handle}, </span>
+        <span>{profileOne?.name ?? formatHandle(profileOne?.handle)}, </span>
         <span>
-          {profileTwo?.name ?? profileTwo?.handle}
+          {profileTwo?.name ?? formatHandle(profileTwo?.handle)}
           {isZero ? ' and ' : ', '}
         </span>
-        <span>{profileThree?.name ?? profileThree?.handle} </span>
+        <span>{profileThree?.name ?? formatHandle(profileThree?.handle)} </span>
         {!isZero && (
           <span>
             and {calculatedCount} {calculatedCount === 1 ? 'other' : 'others'}

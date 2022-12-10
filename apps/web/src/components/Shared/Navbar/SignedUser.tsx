@@ -13,6 +13,7 @@ import {
   SwitchHorizontalIcon,
   UserIcon
 } from '@heroicons/react/outline';
+import formatHandle from '@lib/formatHandle';
 import getAttribute from '@lib/getAttribute';
 import getAvatar from '@lib/getAvatar';
 import isGardener from '@lib/isGardener';
@@ -74,7 +75,7 @@ const SignedUser: FC = () => {
             as="img"
             src={getAvatar(currentProfile as Profile)}
             className="w-8 h-8 rounded-full border cursor-pointer dark:border-gray-700/80"
-            alt={currentProfile?.handle}
+            alt={formatHandle(currentProfile?.handle)}
           />
           <Transition
             show={open}
@@ -92,14 +93,14 @@ const SignedUser: FC = () => {
             >
               <Menu.Item
                 as={NextLink}
-                href={`/u/${currentProfile?.handle}`}
+                href={`/u/${formatHandle(currentProfile?.handle)}`}
                 className={({ active }: { active: boolean }) =>
                   clsx({ 'dropdown-active': active }, 'menu-item')
                 }
               >
                 <div>Logged in as</div>
                 <div className="truncate">
-                  <Slug className="font-bold" slug={currentProfile?.handle} prefix="@" />
+                  <Slug className="font-bold" slug={formatHandle(currentProfile?.handle)} prefix="@" />
                 </div>
               </Menu.Item>
               <div className="divider" />
@@ -127,7 +128,7 @@ const SignedUser: FC = () => {
               <div className="divider" />
               <Menu.Item
                 as={NextLink}
-                href={`/u/${currentProfile?.handle}`}
+                href={`/u/${formatHandle(currentProfile?.handle)}`}
                 className={({ active }: { active: boolean }) =>
                   clsx({ 'dropdown-active': active }, 'menu-item')
                 }
@@ -204,9 +205,9 @@ const SignedUser: FC = () => {
                             height={20}
                             width={20}
                             src={getAvatar(profile)}
-                            alt={profile?.handle}
+                            alt={formatHandle(profile?.handle)}
                           />
-                          <div className="truncate">{profile?.handle}</div>
+                          <div className="truncate">{formatHandle(profile?.handle)}</div>
                         </button>
                       </div>
                     ))}

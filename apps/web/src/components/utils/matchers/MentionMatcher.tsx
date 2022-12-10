@@ -1,4 +1,5 @@
 import Slug from '@components/Shared/Slug';
+import formatHandle from '@lib/formatHandle';
 import { Leafwatch } from '@lib/leafwatch';
 import { Matcher } from 'interweave';
 import Link from 'next/link';
@@ -8,13 +9,13 @@ import { PUBLICATION } from 'src/tracking';
 export const Mention = ({ ...props }: any) => {
   return (
     <Link
-      href={`/u/${props.display.slice(1)}`}
+      href={`/u/${formatHandle(props.display.slice(1))}`}
       onClick={(event) => {
         event.stopPropagation();
         Leafwatch.track(PUBLICATION.MENTION_CLICK);
       }}
     >
-      <Slug slug={props.display} />
+      <Slug slug={formatHandle(props.display)} />
     </Link>
   );
 };
@@ -30,9 +31,7 @@ export class MentionMatcher extends Matcher {
 
   match(value: string) {
     return this.doMatch(value, /@[\w.-]+/, (matches) => {
-      return {
-        display: matches[0]
-      };
+      return { display: matches[0] };
     });
   }
 }

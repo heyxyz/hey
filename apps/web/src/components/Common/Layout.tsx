@@ -38,7 +38,7 @@ const Layout: FC<Props> = ({ children }) => {
   const setSelectedReferenceModule = useReferenceModuleStore((state) => state.setSelectedReferenceModule);
 
   const { mounted } = useIsMounted();
-  const { address, isDisconnected } = useAccount();
+  const { address } = useAccount();
   const { chain } = useNetwork();
   const { disconnect } = useDisconnect();
   const disconnectXmtp = useDisconnectXmtp();
@@ -83,8 +83,7 @@ const Layout: FC<Props> = ({ children }) => {
     const currentProfileAddress = currentProfile?.ownedBy;
     const isSwitchedAccount = currentProfileAddress !== undefined && currentProfileAddress !== address;
     const isWrongNetworkChain = chain?.id !== CHAIN_ID;
-    const shouldLogout =
-      !getIsAuthTokensAvailable() || isWrongNetworkChain || isDisconnected || isSwitchedAccount;
+    const shouldLogout = !getIsAuthTokensAvailable() || isWrongNetworkChain || isSwitchedAccount;
 
     // If there are no auth data, clear and logout
     if (shouldLogout && profileId) {
@@ -98,7 +97,7 @@ const Layout: FC<Props> = ({ children }) => {
   useEffect(() => {
     validateAuthentication();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isDisconnected, address, chain, disconnect, profileId]);
+  }, [address, chain, disconnect, profileId]);
 
   // set pro status
   useEffect(() => {

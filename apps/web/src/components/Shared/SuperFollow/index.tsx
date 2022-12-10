@@ -1,6 +1,7 @@
 import { Button } from '@components/UI/Button';
 import { Modal } from '@components/UI/Modal';
 import { StarIcon } from '@heroicons/react/outline';
+import formatHandle from '@lib/formatHandle';
 import { Leafwatch } from '@lib/leafwatch';
 import type { Profile } from 'lens';
 import dynamic from 'next/dynamic';
@@ -43,7 +44,7 @@ const SuperFollow: FC<Props> = ({ profile, setFollowing, showText = false, again
       <Modal
         title={
           <span>
-            Super follow <Slug slug={profile?.handle} prefix="@" /> {again ? 'again' : ''}
+            Super follow <Slug slug={formatHandle(profile?.handle)} prefix="@" /> {again ? 'again' : ''}
           </span>
         }
         icon={<StarIcon className="w-5 h-5 text-pink-500" />}

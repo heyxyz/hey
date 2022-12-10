@@ -1,16 +1,16 @@
 import Markup from '@components/Shared/Markup';
 import { Card } from '@components/UI/Card';
 import { EmojiSadIcon } from '@heroicons/react/outline';
+import formatHandle from '@lib/formatHandle';
+import formatTime from '@lib/formatTime';
 import getAvatar from '@lib/getAvatar';
 import type { DecodedMessage } from '@xmtp/xmtp-js';
 import clsx from 'clsx';
 import dayjs from 'dayjs';
 import type { Profile } from 'lens';
 import type { FC, ReactNode } from 'react';
-import React, { memo } from 'react';
+import { memo } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
-
-const formatTime = (d: Date | undefined): string => (d ? dayjs(d).format('hh:mm a - MM/DD/YY') : '');
 
 const isOnSameDay = (d1?: Date, d2?: Date): boolean => {
   return dayjs(d1).format('YYYYMMDD') === dayjs(d2).format('YYYYMMDD');
@@ -39,7 +39,7 @@ const MessageTile: FC<MessageTileProps> = ({ message, profile, currentProfile })
           <img
             src={getAvatar(profile)}
             className="h-10 w-10 bg-gray-200 rounded-full border dark:border-gray-700/80 mr-2"
-            alt={profile?.handle}
+            alt={formatHandle(profile?.handle)}
           />
         )}
         <div
