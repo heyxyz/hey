@@ -77,7 +77,7 @@ const SinglePublication: FC<Props> = ({
           <HiddenPublication type={publication.__typename} />
         ) : (
           <>
-            {publication?.canDecrypt?.result ? (
+            {publication?.metadata?.encryptionParams ? (
               <DecryptedPublicationBody publication={rootPublication as LensterPublication} />
             ) : (
               <PublicationBody publication={rootPublication as LensterPublication} />

@@ -48,7 +48,7 @@ const FullPublication: FC<Props> = ({ publication }) => {
             <HiddenPublication type={publication.__typename} />
           ) : (
             <>
-              {publication?.canDecrypt?.result ? (
+              {publication?.metadata?.encryptionParams ? (
                 <DecryptedPublicationBody publication={publication} />
               ) : (
                 <PublicationBody publication={publication} />
